@@ -724,7 +724,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	/obj/item/clothing/shoes/chameleon/noslip, /obj/item/card/id/syndicate,\
 	/obj/item/clothing/mask/chameleon, /obj/item/clothing/glasses/thermal,\
 	/obj/item/chameleon, /obj/item/card/emag,\
-	/obj/item/storage/toolbox/syndicate, /obj/item/aiModule,\
+	/obj/item/storage/toolbox/syndicate, /obj/item/ai_module,\
 	/obj/item/radio/headset/syndicate,	/obj/item/grenade/plastic/c4,\
 	/obj/item/powersink, /obj/item/storage/box/syndie_kit,\
 	/obj/item/toy/syndicateballoon, /obj/item/gun/energy/laser/captain,\
@@ -764,7 +764,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
 	. = ..()
 	target = T
-	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","O bidai nabora se'sma!","EI NATH!!","Kchck-Chkck? Kchchck!")
+	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","О бидай набора се'сма!","EI NATH!!","Kchck-Chkck? Kchchck!")
 	var/radio_messages = list("Ксеноморфы!","Синга вышла!","Телекомы упали!","Они взвели нюку!","Они убили Иана!","П-помогите!","[pick("Культисты", "Маг", "Генка", "Нюкеры", "Ревенант", "Труп", "Драка", "Я слышал флешку", "Нужна помощь")] в [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Где [target.name]?","[target.name] мёртв!","Вызывайте шаттл!","ИИ взломан!")
 
 	var/list/mob/living/carbon/people = list()
@@ -781,7 +781,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 	if(person) //Basic talk
 		var/image/speech_overlay = image('icons/mob/talk.dmi', person, "h0", layer = ABOVE_MOB_LAYER)
 		SET_PLANE_EXPLICIT(speech_overlay, ABOVE_GAME_PLANE, src)
-		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person)
+		target.hear_say(message_to_multilingual(pick(speak_messages), safepick(person.languages)), speaker = person, is_whisper = TRUE)
 		if(target.client)
 			target.client.images |= speech_overlay
 			sleep(30)

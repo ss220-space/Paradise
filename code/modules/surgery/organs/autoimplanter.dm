@@ -8,6 +8,7 @@
 	usesound = 'sound/weapons/circsawhit.ogg'
 	var/obj/item/organ/internal/cyberimp/storedorgan
 
+
 /obj/item/autoimplanter/old
 	icon_state = "autoimplanter"
 
@@ -22,15 +23,19 @@
 /obj/item/autoimplanter/proc/autoimplant(mob/living/carbon/human/user)
 	if(!ishuman(user))
 		return FALSE
+
 	if(!storedorgan)
 		to_chat(user, span_warning("Киберимплант не обнаружен."))
 		return FALSE
+
 	if(!user.bodyparts_by_name[check_zone(storedorgan.parent_organ_zone)])
 		to_chat(user, span_warning("Отсутствует требуемая часть тела!"))
 		return FALSE
-	if(HAS_TRAIT(user, TRAIT_NO_CYBERIMPLANTS))
-		to_chat(user, span_warning("Ваш вид неспособен принять этот киберимплант!"))
+
+	if(!storedorgan.can_insert(target = user) || HAS_TRAIT(user, TRAIT_NO_CYBERIMPLANTS)) //make it silent
+		to_chat(user, span_warning("Ваш вид не подходит для установки этого киберимпланта!"))
 		return FALSE
+
 	storedorgan.insert(user)//insert stored organ into the user
 	user.visible_message(
 		span_notice("[user] активиру[pluralize_ru(user.gender,"ет","ют")] автоимплантер и вы слышите недолгий механический шум."),
@@ -38,32 +43,39 @@
 	)
 	playsound(get_turf(user), usesound, 50, TRUE)
 	storedorgan = null
+
 	return TRUE
 
 
 /obj/item/autoimplanter/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/organ/internal/cyberimp))
-		add_fingerprint(user)
-		if(storedorgan)
-			to_chat(user, span_warning("В устройстве уже установлен другой киберимплант."))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		storedorgan = I
-		to_chat(user, span_notice("Вы установили [I.name] в автоимплантер."))
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!istype(I, /obj/item/organ/internal/cyberimp))
+		return ..()
 
-	return ..()
+	add_fingerprint(user)
+
+	if(storedorgan)
+		balloon_alert(user, "слот для киберимпланта занят!")
+		return ATTACK_CHAIN_PROCEED
+
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
+
+	storedorgan = I
+	balloon_alert(user, "киберимплант установлен")
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/item/autoimplanter/screwdriver_act(mob/living/user, obj/item/I)
 	. = TRUE
+
 	if(!storedorgan)
 		add_fingerprint(user)
 		to_chat(user, span_notice("Устройство не содержит киберимплантов."))
 		return .
+
 	if(!I.use_tool(src, user, volume = I.tool_volume))
 		return .
+
 	storedorgan.forceMove(drop_location())
 	storedorgan.add_fingerprint(user)
 	storedorgan = null
@@ -78,6 +90,7 @@
 	. = ..()
 	if(!.)
 		return .
+
 	visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	user.temporarily_remove_item_from_inventory(src, force = TRUE)
@@ -87,8 +100,10 @@
 /obj/item/autoimplanter/oneuse/screwdriver_act(mob/living/user, obj/item/I)
 	var/self_destruct = !isnull(storedorgan)
 	. = ..()
+
 	if(!self_destruct)
 		return .
+
 	visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	user.temporarily_remove_item_from_inventory(src, force = TRUE)
@@ -124,9 +139,11 @@
 	. = ..()
 	if(!.)
 		return .
+
 	uses--
 	if(uses > 0)
 		return .
+
 	visible_message(span_warning("Автоимплантер зловеще пищит и через мгновение вспыхивает, оставляя только пепел."))
 	new /obj/effect/decal/cleanable/ash(get_turf(src))
 	user.temporarily_remove_item_from_inventory(src, force = TRUE)
@@ -135,5 +152,6 @@
 
 /obj/item/autoimplanter/traitor/examine(mob/user)
 	. = ..()
+
 	if(uses)
 		. += span_notice("Осталось использований: [uses].")

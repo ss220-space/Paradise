@@ -61,6 +61,8 @@
 ////////REAGENT STUFF////////
 // How many units of reagent are consumed per tick, by default.
 #define  REAGENTS_METABOLISM 0.4
+#define REAGENTS_EFFECT_MULTIPLIER (REAGENTS_METABOLISM / 0.4) // By defining the effect multiplier this way, it'll exactly adjust all effects according to how they originally were with the 0.4 metabolism
+#define REM REAGENTS_EFFECT_MULTIPLIER //! Shorthand for the above define for ease of use in equations and the like
 
 // Factor of how fast mob nutrition decreases
 #define	HUNGER_FACTOR 0.1
@@ -124,6 +126,12 @@
 #define SLIME_FRIENDSHIP_STOPCHASE_NOANGRY	6 //Min friendship to order it to stop chasing someone (their target) without it losing friendship
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
+
+//Spiders ai states
+#define SPINNING_WEB 1
+#define LAYING_EGGS 2
+#define MOVING_TO_TARGET 3
+#define SPINNING_COCOON 4
 
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
@@ -209,6 +217,7 @@
 #define isunathi(A) (is_species(A, /datum/species/unathi))
 #define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 #define isashwalkershaman(A) (is_species(A, /datum/species/unathi/ashwalker/shaman))
+#define isdraconid(A) (is_species(A, /datum/species/unathi/draconid))
 #define istajaran(A) (is_species(A, /datum/species/tajaran))
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))
@@ -318,6 +327,9 @@
 #define isAIEye(A)		(istype((A), /mob/camera/aiEye))
 #define isovermind(A)	(istype((A), /mob/camera/blob))
 
+#define isminion(A)		(istype((A), /mob/living/simple_animal/hostile/blob_minion))
+#define isblobbernaut(M) istype((M), /mob/living/simple_animal/hostile/blob_minion/blobbernaut)
+
 #define isSpirit(A)		(istype((A), /mob/spirit))
 #define ismask(A)		(istype((A), /mob/spirit/mask))
 
@@ -330,6 +342,8 @@
 #define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
+
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
@@ -441,6 +455,7 @@
 /// Makes the weaken into a knockdown
 #define SHOCK_KNOCKDOWN (1<<7)
 
+
 /// Vomit defines
 #define VOMIT_NUTRITION_LOSS	10
 #define VOMIT_STUN_TIME			(8 SECONDS)
@@ -455,3 +470,38 @@
 
 /// For babylon fever disease.
 #define DISEASE_MOB_LANGUAGE_PROCESSED (1<<0)
+
+/// Eyes examine time mod
+#define EXAMINE_INSTANT	0 // 0 seconds
+
+//Incapacitated ignore flags for [/proc/incapacitated()].
+// They also used at interaction_flags_c var.
+/// If the incapacitated will ignore a mob in restraints
+#define INC_IGNORE_RESTRAINED (1<<0)
+/// If the incapacitated will ignore a mob being agressively grabbed
+#define INC_IGNORE_GRABBED (1<<1)
+
+/// If reading is required to perform action (can't read a book if you are illiterate)
+#define NEED_LITERACY (1<<0)
+/// If incapacitated doesn't needed to be checked.
+#define BYPASS_INCAPACITATED (1<<1)
+/// If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+#define NEED_DEXTERITY (1<<2)
+/// If hands are required to perform action (can't use objects that require hands if you are a cyborg)
+#define NEED_HANDS (1<<3)
+/// If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+#define FORBID_TELEKINESIS_REACH (1<<4)
+/// If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+#define ALLOW_SILICON_REACH (1<<5)
+/// If resting on the floor is allowed to perform action (pAIs can play music while resting)
+#define ALLOW_RESTING (1<<6)
+/// If this is accessible to creatures with ventcrawl capabilities
+#define NEED_VENTCRAWL (1<<7)
+/// Skips adjacency checks
+#define BYPASS_ADJACENCY (1<<8)
+/// Skips recursive loc checks
+#define NOT_INSIDE_TARGET (1<<9)
+/// Checks for base adjacency, but silences the error
+#define SILENT_ADJACENCY (1<<10)
+/// Allows pAIs to perform an action
+#define ALLOW_PAI (1<<11)

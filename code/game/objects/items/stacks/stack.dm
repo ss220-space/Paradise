@@ -289,22 +289,20 @@
 	list_recipes(user)
 
 
-/obj/item/stack/AltClick(mob/living/user)
-	if(!ishuman(user) || amount < 1 || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!</span>"))
-		return
+/obj/item/stack/click_alt(mob/living/user)
+	if(!ishuman(user) || amount < 1)
+		return NONE
 	//get amount from user
 	var/max = get_amount()
 	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack? (Max: [max])", "Stack Split", max_value = max)
 	if(isnull(stackmaterial) || stackmaterial <= 0 || stackmaterial > get_amount())
-		return
+		return CLICK_ACTION_BLOCKING
 	if(amount < 1 || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+		return CLICK_ACTION_BLOCKING
 	split_stack(user, stackmaterial)
 	do_pickup_animation(user)
 	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/stack/attack_tk(mob/user)

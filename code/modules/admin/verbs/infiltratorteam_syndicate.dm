@@ -4,14 +4,14 @@
 GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /client/proc/syndicate_infiltration_team()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Отправить Диверсионный Отряд Синдиката"
 	set desc = "Спавнит Диверсионный Отряд Синдиката в их месте постоянной дислокации на СЦК."
 	if(!check_rights(R_ADMIN))
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
-		tgui_alert(src, "Игра еще не началась!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 	if(tgui_alert(src, "Вы хотите отправить Диверсионный Отряд Синдиката?", "Подтверждение", list("Да","Нет")) != "Да")
 		return
@@ -25,14 +25,14 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		return
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
 	var/tcamount = tgui_input_number(src, "Как много ТК вы хотите дать каждому члену команды? Рекомендовано: 100-150. Они не могут продавать ТК.","Количество ТК", 100, 5000)
 
 	if(GLOB.sent_syndicate_infiltration_team == 1)
-		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать еще один?","Подтверждение", list("Да","Нет")) != "Да")
+		if(tgui_alert(src, "Диверсионный Отряд Синдиката уже был отправлен. Нужно ли посылать ещё один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
 
 	var/syndicate_leader_selected = 0
@@ -76,7 +76,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		else
 			to_chat(new_syndicate_infiltrator, span_danger("Лидер отряда: [team_leader]. Он отвечает за миссию!"))
 		teamsize--
-		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится еще больше полезной информации."))
+		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится ещё больше полезной информации."))
 		new_syndicate_infiltrator.mind.store_memory("<B>Миссия:</B> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Лидер:</B> [team_leader] ")
 		new_syndicate_infiltrator.mind.store_memory("<B>Стартовое снаряжение:</B> <BR>- Наушник синдиката ((:t для вашего канала))<BR>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<BR> - ID карта агента ((Может изменять должность и другие данные))<BR> - Имплант аплинка ((в левом верхнем углу экрана)) <BR> - Имплант распыления ((превращает тело при смерти в пыль)) <BR> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <BR> - Все, что куплено с помощью вашего импланта аплинка")
@@ -107,7 +107,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 	new_syndicate_infiltrator.mind.assigned_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.special_role = "Syndicate Infiltrator"
 	new_syndicate_infiltrator.mind.offstation_role = TRUE //they can flee to z2 so make them inelligible as antag targets
-	SSticker.mode.traitors |= new_syndicate_infiltrator.mind //Adds them to extra antag list
+	SSticker.mode.sit |= new_syndicate_infiltrator.mind //Adds them to extra antag list
 	new_syndicate_infiltrator.change_voice()
 	new_syndicate_infiltrator.equip_syndicate_infiltrator(syndicate_leader_selected, uplink_tc, is_mgmt)
 	return new_syndicate_infiltrator

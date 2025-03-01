@@ -11,7 +11,7 @@
 	throw_speed = 2
 	throw_range = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	var/created_name = "Cleanbot"
+	var/created_name = "Чистобот"
 	var/robot_arm = /obj/item/robot_parts/l_arm
 
 

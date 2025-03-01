@@ -511,8 +511,8 @@ Returns 1 if the chain up to the area contains the given typepath
 
 ///Step-towards method of determining whether one atom can see another. Similar to viewers()
 ///note: this is a line of sight algorithm, view() does not do any sort of raycasting and cannot be emulated by it accurately
-/proc/can_see(atom/source, atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
-	var/turf/current_turf = get_turf(source)
+/atom/proc/can_see(atom/target, length = 5) // I couldnt be arsed to do actual raycasting :I This is horribly inaccurate.
+	var/turf/current_turf = get_turf(src)
 	var/turf/target_turf = get_turf(target)
 	if(!current_turf || !target_turf)	// nullspace
 		return FALSE
@@ -531,45 +531,58 @@ Returns 1 if the chain up to the area contains the given typepath
 		steps++
 	return TRUE
 
-
-//Returns: all the areas in the world
-/proc/return_areas()
-	var/list/area/areas = list()
-	for(var/area/A in world)
-		areas += A
-	return areas
-
-//Returns: all the areas in the world, sorted.
-/proc/return_sorted_areas()
-	return sortAtom(return_areas())
-
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all areas of that type in the world.
-/proc/get_areas(var/areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
+/proc/get_areas(areatype, subtypes=TRUE)
+	if(!areatype)
+		return null
+	if(istext(areatype))
+		areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/areas = new/list()
-	for(var/area/N in world)
-		if(istype(N, areatype)) areas += N
+	var/list/areas = list()
+	if(subtypes)
+		var/list/cache = typecacheof(areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(cache[area_to_check.type])
+				areas += area_to_check
+	else
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(area_to_check.type == areatype)
+				areas += area_to_check
 	return areas
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
 //Returns: A list of all turfs in areas of that type of that type in the world.
-/proc/get_area_turfs(var/areatype)
-	if(!areatype) return null
-	if(istext(areatype)) areatype = text2path(areatype)
+/proc/get_area_turfs(areatype, subtypes=TRUE)
+	if(!areatype)
+		return null
+	if(istext(areatype))
+		areatype = text2path(areatype)
 	if(isarea(areatype))
 		var/area/areatemp = areatype
 		areatype = areatemp.type
 
-	var/list/turfs = new/list()
-	for(var/area/N in world)
-		if(N.type == areatype)
-			for(var/turf/T in N) turfs += T
+	// Pull out the areas
+	var/list/areas_to_pull = list()
+	if(subtypes)
+		var/list/cache = typecacheof(areatype)
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(!cache[area_to_check.type])
+				continue
+			areas_to_pull += area_to_check
+	else
+		for(var/area/area_to_check as anything in GLOB.areas)
+			if(area_to_check.type != areatype)
+				continue
+			areas_to_pull += area_to_check
+
+	// Now their turfs
+	var/list/turfs = list()
+	for(var/area/pull_from as anything in areas_to_pull)
+		turfs += pull_from.get_contained_turfs()
 	return turfs
 
 //Takes: Area type as text string or as typepath OR an instance of the area.
@@ -582,7 +595,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		areatype = areatemp.type
 
 	var/list/atoms = new/list()
-	for(var/area/N in world)
+	for(var/area/N as anything in GLOB.areas)
 		if(istype(N, areatype))
 			for(var/atom/A in N)
 				atoms += A
@@ -592,145 +605,6 @@ Returns 1 if the chain up to the area contains the given typepath
 	var/x_pos = null
 	var/y_pos = null
 	var/z_pos = null
-
-/area/proc/move_contents_to(var/area/A, var/turftoleave=null, var/direction = null)
-	//Takes: Area. Optional: turf type to leave behind.
-	//Returns: Nothing.
-	//Notes: Attempts to move the contents of one area to another area.
-	//       Movement based on lower left corner. Tiles that do not fit
-	//		 into the new area will not be moved.
-
-	if(!A || !src) return 0
-
-	var/list/turfs_src = get_area_turfs(src.type)
-	var/list/turfs_trg = get_area_turfs(A.type)
-
-	var/src_min_x = 0
-	var/src_min_y = 0
-	for(var/turf/T in turfs_src)
-		if(T.x < src_min_x || !src_min_x) src_min_x	= T.x
-		if(T.y < src_min_y || !src_min_y) src_min_y	= T.y
-
-	var/trg_min_x = 0
-	var/trg_min_y = 0
-	for(var/turf/T in turfs_trg)
-		if(T.x < trg_min_x || !trg_min_x) trg_min_x	= T.x
-		if(T.y < trg_min_y || !trg_min_y) trg_min_y	= T.y
-
-	var/list/refined_src = new/list()
-	for(var/turf/T in turfs_src)
-		refined_src += T
-		refined_src[T] = new/datum/coords
-		var/datum/coords/C = refined_src[T]
-		C.x_pos = (T.x - src_min_x)
-		C.y_pos = (T.y - src_min_y)
-
-	var/list/refined_trg = new/list()
-	for(var/turf/T in turfs_trg)
-		refined_trg += T
-		refined_trg[T] = new/datum/coords
-		var/datum/coords/C = refined_trg[T]
-		C.x_pos = (T.x - trg_min_x)
-		C.y_pos = (T.y - trg_min_y)
-
-	var/list/fromupdate = new/list()
-	var/list/toupdate = new/list()
-
-	moving:
-		for(var/turf/T in refined_src)
-			var/datum/coords/C_src = refined_src[T]
-			for(var/turf/B in refined_trg)
-				var/datum/coords/C_trg = refined_trg[B]
-				if(C_src.x_pos == C_trg.x_pos && C_src.y_pos == C_trg.y_pos)
-
-					var/old_dir1 = T.dir
-					var/old_icon_state1 = T.icon_state
-					var/old_icon1 = T.icon
-
-					var/turf/X = B.ChangeTurf(T.type)
-					X.dir = old_dir1
-					X.icon_state = old_icon_state1
-					X.icon = old_icon1 //Shuttle floors are in shuttle.dmi while the defaults are floors.dmi
-
-					// Give the new turf our air, if simulated
-					if(issimulatedturf(X) && issimulatedturf(T))
-						var/turf/simulated/sim = X
-						sim.copy_air_with_tile(T)
-
-
-					/* Quick visual fix for some weird shuttle corner artefacts when on transit space tiles */
-					if(direction && findtext(X.icon_state, "swall_s"))
-
-						// Spawn a new shuttle corner object
-						var/obj/corner = new()
-						corner.loc = X
-						corner.set_density(TRUE)
-						corner.set_anchored(TRUE)
-						corner.icon = X.icon
-						corner.icon_state = replacetext(X.icon_state, "_s", "_f")
-						corner.tag = "delete me"
-						corner.name = "wall"
-
-						// Find a new turf to take on the property of
-						var/turf/nextturf = get_step(corner, direction)
-						if(!nextturf || !isspaceturf(nextturf))
-							nextturf = get_step(corner, turn(direction, 180))
-
-
-						// Take on the icon of a neighboring scrolling space icon
-						X.icon = nextturf.icon
-						X.icon_state = nextturf.icon_state
-
-
-					for(var/obj/O in T)
-
-						// Reset the shuttle corners
-						if(O.tag == "delete me")
-							X.icon = 'icons/turf/shuttle/shuttle.dmi'
-							X.icon_state = replacetext(O.icon_state, "_f", "_s") // revert the turf to the old icon_state
-							X.name = "wall"
-							qdel(O) // prevents multiple shuttle corners from stacking
-							continue
-						if(!isobj(O)) continue
-						O.loc.Exited(O)
-						O.setLoc(X, TRUE)
-						O.loc.Entered(O)
-					for(var/mob/M in T)
-						if(!M.move_on_shuttle)
-							continue
-						M.loc = X
-
-//					var/area/AR = X.loc
-
-//					if(AR.lighting_use_dynamic)							//TODO: rewrite this code so it's not messed by lighting ~Carn
-//						X.opacity = !X.opacity
-//						X.set_opacity(!X.opacity)
-
-					toupdate += X
-
-					if(turftoleave)
-						fromupdate += T.ChangeTurf(turftoleave)
-					else
-						T.ChangeTurf(T.baseturf)
-
-					refined_src -= T
-					refined_trg -= B
-					continue moving
-
-	if(toupdate.len)
-		for(var/turf/simulated/T1 in toupdate)
-			SSair.remove_from_active(T1)
-			T1.CalculateAdjacentTurfs()
-			SSair.add_to_active(T1,1)
-
-	if(fromupdate.len)
-		for(var/turf/simulated/T2 in fromupdate)
-			SSair.remove_from_active(T2)
-			T2.CalculateAdjacentTurfs()
-			SSair.add_to_active(T2,1)
-
-
-
 
 /proc/DuplicateObject(obj/original, perfectcopy = FALSE , sameloc = FALSE, atom/newloc = null)
 	if(!original)
@@ -759,6 +633,7 @@ Returns 1 if the chain up to the area contains the given typepath
 		O.update_icon()
 	return O
 
+// Я хочу чтобы этот прок умер
 /area/proc/copy_contents_to(area/A , platingRequired = FALSE, perfect_copy = TRUE)
 	//Takes: Area. Optional: If it should copy to areas that don't have plating
 	//Returns: Nothing.
@@ -889,35 +764,35 @@ Returns 1 if the chain up to the area contains the given typepath
 /proc/parse_zone(zone)
 	switch(zone)
 		if(BODY_ZONE_HEAD)
-			return "head"
+			return "голова"
 		if(BODY_ZONE_CHEST)
-			return "chest"
+			return "грудь"
 		if(BODY_ZONE_L_ARM)
-			return "left arm"
+			return "левая рука"
 		if(BODY_ZONE_R_ARM)
-			return "right arm"
+			return "правая рука"
 		if(BODY_ZONE_L_LEG)
-			return "left leg"
+			return "левая нога"
 		if(BODY_ZONE_R_LEG)
-			return "right leg"
+			return "правая нога"
 		if(BODY_ZONE_TAIL)
-			return "tail"
+			return "хвост"
 		if(BODY_ZONE_WING)
-			return "wings"
+			return "крылья"
 		if(BODY_ZONE_PRECISE_EYES)
-			return "eyes"
+			return "глаза"
 		if(BODY_ZONE_PRECISE_MOUTH)
-			return "mouth"
+			return "рот"
 		if(BODY_ZONE_PRECISE_GROIN)
-			return "groin"
+			return "живот"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			return "left hand"
+			return "левая ладонь"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			return "right hand"
+			return "правая ладонь"
 		if(BODY_ZONE_PRECISE_L_FOOT)
-			return "left foot"
+			return "левая ступня"
 		if(BODY_ZONE_PRECISE_R_FOOT)
-			return "right foot"
+			return "правая ступня"
 		else
 			stack_trace("Wrong zone input.")
 
@@ -1004,55 +879,6 @@ GLOBAL_LIST_INIT(can_embed_types, typecacheof(list(
 
 	if(is_type_in_typecache(W, GLOB.can_embed_types))
 		return 1
-
-/proc/is_hot(obj/item/W)
-	if(W.tool_behaviour == TOOL_WELDER)
-		if(W.tool_enabled)
-			return 2500
-		else
-			return 0
-	if(istype(W, /obj/item/lighter))
-		var/obj/item/lighter/O = W
-		if(O.lit)
-			return 1500
-		else
-			return 0
-	if(istype(W, /obj/item/match))
-		var/obj/item/match/O = W
-		if(O.lit == 1)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/clothing/mask/cigarette))
-		var/obj/item/clothing/mask/cigarette/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/candle))
-		var/obj/item/candle/O = W
-		if(O.lit)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/flashlight/flare))
-		var/obj/item/flashlight/flare/O = W
-		if(O.on)
-			return 1000
-		else
-			return 0
-	if(istype(W, /obj/item/gun/energy/plasmacutter))
-		return 3800
-	if(istype(W, /obj/item/melee/energy))
-		var/obj/item/melee/energy/O = W
-		if(O.active)
-			return 3500
-		else
-			return 0
-	if(isigniter(W))
-		return 20000
-	else
-		return 0
 
 //Whether or not the given item counts as sharp in terms of dealing damage
 /proc/is_sharp(obj/O)
@@ -1416,6 +1242,8 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		stop_orbit()
 
 	orbiting = A
+	LAZYOR(A.orbiters, src)
+	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_BEGIN, src)
 	if(ismob(A))
 		var/mob/M = A
 		M.ghost_orbiting += 1
@@ -1453,18 +1281,17 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		sleep(0.6)
 
 	if(orbiting == A) //make sure we haven't started orbiting something else.
-		if(ismob(orbiting))
-			var/mob/M = orbiting
-			M.ghost_orbiting -= 1
-		orbiting = null
-		transform = cached_transform
-		SpinAnimation(0, 0, parallel = FALSE)
+		stop_orbit()
 
 
 /atom/movable/proc/stop_orbit()
 	if(ismob(orbiting))
 		var/mob/M = orbiting
 		M.ghost_orbiting -= 1
+
+	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_STOP, src)
+
+	LAZYREMOVE(orbiting.orbiters, src)
 	orbiting = null
 	transform = cached_transform
 	SpinAnimation(0, 0, parallel = FALSE)
@@ -1581,6 +1408,29 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		if(areas)
 			. |= T.loc
 
+/proc/urange_multiz(dist=0, atom/center=usr, orange=0, areas=0)
+	if(!dist)
+		if(!orange)
+			return list(center)
+		else
+			return list()
+	var/list/stations_z = levels_by_trait(STATION_LEVEL)
+	var/min_z = max(center.z - dist, stations_z[1])
+	var/max_z = min(center.z + dist, stations_z[length(stations_z)])
+	var/list/turfs = RANGE_TURFS_MULTIZ(dist, center, min_z, max_z)
+	if(orange)
+		turfs -= get_turf(center)
+	. = list()
+	for(var/V in turfs)
+		var/turf/T = V
+		. += T
+		. += T.contents
+		if(areas)
+			. |= T.loc
+
+/proc/is_there_multiz()
+	return SSmapping?.map_datum?.traits?.len > 1
+
 
 /proc/screen_loc2turf(scr_loc, turf/origin)
 	var/tX = splittext(scr_loc, ",")
@@ -1611,7 +1461,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 
 /proc/pick_closest_path(value, list/matches = get_fancy_list_of_atom_types())
 	if(value == FALSE) //nothing should be calling us with a number, so this is safe
-		value = input("Enter type to find (blank for all, cancel to cancel)", "Search for type") as null|text
+		value = tgui_input_text(usr, "Enter type to find (blank for all, cancel to cancel)", "Search for type", encode = FALSE)
 		if(isnull(value))
 			return
 	value = trim(value)
@@ -1625,7 +1475,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	if(matches.len == 1)
 		chosen = matches[1]
 	else
-		chosen = input("Select a type", "Pick Type", matches[1]) as null|anything in matches
+		chosen = tgui_input_list(usr, "Select a type", "Pick Type", matches,  matches[1])
 		if(!chosen)
 			return
 	chosen = matches[chosen]
@@ -2005,31 +1855,31 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/get_channel_name(channel)
 	switch(channel)
 		if(CHANNEL_GENERAL)
-			return "General Sounds"
+			return "Основные звуки"
 		if(CHANNEL_LOBBYMUSIC)
-			return "Lobby Music"
+			return "Музыка в лобби"
 		if(CHANNEL_ADMIN)
-			return "Admin MIDIs"
+			return "Админские MIDI"
 		if(CHANNEL_VOX)
-			return "AI Announcements"
+			return "Оповещения ИИ"
 		if(CHANNEL_JUKEBOX)
-			return "Dance Machines"
+			return "Танцевальные машины"
 		if(CHANNEL_HEARTBEAT)
-			return "Heartbeat"
+			return "Сердцебиение"
 		if(CHANNEL_BUZZ)
-			return "White Noise"
+			return "Белый шум"
 		if(CHANNEL_AMBIENCE)
-			return "Ambience"
+			return "Эмбиент"
 		if(CHANNEL_TTS_LOCAL)
-			return "TTS Local"
+			return "TTS рядом"
 		if(CHANNEL_TTS_RADIO)
-			return "TTS Radio"
+			return "TTS в радиосвязи"
 		if(CHANNEL_RADIO_NOISE)
-			return "Radio Noise"
+			return "Звуки радиосвязи"
 		if(CHANNEL_INTERACTION_SOUNDS)
-			return "Item Interaction Sounds"
+			return "Звуки взаимодействия с предметами"
 		if(CHANNEL_BOSS_MUSIC)
-			return "Boss Music"
+			return "Музыка боссов"
 
 /proc/get_compass_dir(atom/start, atom/end) //get_dir() only considers an object to be north/south/east/west if there is zero deviation. This uses rounding instead. // Ported from CM-SS13
 	if(!start || !end)

@@ -478,7 +478,7 @@
 		var/mob/living/l_target = target
 		l_target.ExtinguishMob()
 		l_target.adjust_fire_stacks(-20) //Douse ourselves with water to avoid fire more easily
-		to_chat(l_target, span_warning("You've been drenched in water!"))
+		to_chat(l_target, span_warning("Вы насквозь промокли!"))
 
 	target.clean_blood()
 
@@ -528,7 +528,7 @@
 	icon_state = "rubberducky"
 	item_state = "rubberducky"
 	honk_sounds = list('sound/items/squeaktoy.ogg' = 1)
-	attack_verb = list("quacked", "squeaked")
+	attack_verb = list("квакнул", "пискнул")
 
 /obj/item/bikehorn/rubberducky/captain
 	name = "уточка-капитан"
@@ -569,12 +569,11 @@
 	if(busy)
 		to_chat(user, "<span class='notice'>Someone's already washing here.</span>")
 		return
-	var/selected_area = parse_zone(user.zone_selected)
-	var/washing_face = 0
-	if(selected_area in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_MOUTH, BODY_ZONE_PRECISE_EYES))
-		washing_face = 1
-	user.visible_message("<span class='notice'>[user] starts washing [user.p_their()] [washing_face ? "face" : "hands"]...</span>", \
-						"<span class='notice'>You start washing your [washing_face ? "face" : "hands"]...</span>")
+	var/washing_face = FALSE
+	if(user.zone_selected in list(BODY_ZONE_HEAD, BODY_ZONE_PRECISE_EYES, BODY_ZONE_PRECISE_MOUTH))
+		washing_face = TRUE
+	user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] мыть [washing_face ? "своё лицо" : "свои руки"]..."), \
+						span_notice("Вы начинаете мыть [washing_face ? "своё лицо" : "свои руки"]..."))
 	busy = 1
 
 	if(!do_after(user, 4 SECONDS, src))
@@ -585,8 +584,12 @@
 
 	busy = 0
 
-	user.visible_message("<span class='notice'>[user] washes [user.p_their()] [washing_face ? "face" : "hands"] using [src].</span>", \
-						"<span class='notice'>You wash your [washing_face ? "face" : "hands"] using [src].</span>")
+	user.visible_message(span_notice("[user] помыл[genderize_ru(user.gender, "", "а", "о", "и")] [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."), \
+						span_notice("Вы помыли [washing_face ? "своё лицо" : "свои руки"], используя [declent_ru(ACCUSATIVE)]."))
+
+	if(SEND_SIGNAL(user, COMSIG_SINK_ACT) & COMSIG_SINK_ACT_SUCCESS) // special sink acts
+		return
+
 	if(washing_face)
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
@@ -702,6 +705,14 @@
 	can_rotate = 0
 	resistance_flags = UNACIDABLE
 
+/obj/structure/sink/puddle/Initialize(mapload)
+	. = ..()
+
+	var/static/list/loc_connections = list(
+		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
+	)
+	AddElement(/datum/element/connect_loc, loc_connections)
+
 
 /obj/structure/sink/puddle/attack_hand(mob/user)
 	flick("puddle-splash", src)
@@ -731,6 +742,22 @@
 
 	return ..()
 
+/obj/structure/sink/puddle/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
+	SIGNAL_HANDLER
+	wash(arrived)
+
+/obj/structure/sink/puddle/proc/wash(atom/target)
+	if(isitem(target))
+		var/obj/item/item = target
+		item.extinguish()
+
+	if(isliving(target))
+		var/mob/living/l_target = target
+		l_target.ExtinguishMob()
+		l_target.adjust_fire_stacks(-20)
+		to_chat(l_target, span_warning("Вы насквозь промокли!"))
+
+	target.clean_blood()
 
 //////////////////////////////////
 //		Bathroom Fixture Items	//

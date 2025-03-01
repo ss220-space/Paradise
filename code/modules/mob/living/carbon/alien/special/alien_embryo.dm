@@ -91,11 +91,8 @@
 		spawn(6)
 			var/mob/living/carbon/alien/larva/new_xeno = new(owner.drop_location())
 			new_xeno.key = C.key
-			if(SSticker && SSticker.mode)
-				SSticker.mode.xenos += new_xeno.mind
 			new_xeno.mind.name = new_xeno.name
-			new_xeno.mind.assigned_role = SPECIAL_ROLE_XENOMORPH
-			new_xeno.mind.special_role = SPECIAL_ROLE_XENOMORPH
+			new_xeno.update_datum()
 			new_xeno << sound('sound/voice/hiss5.ogg',0,0,0,100)//To get the player's attention
 			log_game("[new_xeno.key] has become Alien Larva from [owner](ckey: [owner.key ? owner.key : "None"]) body.")
 

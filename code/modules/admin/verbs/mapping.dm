@@ -45,7 +45,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	return FALSE
 
 /client/proc/camera_view()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Camera Range Display"
 
 	if(!check_rights(R_DEBUG))
@@ -65,7 +65,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Range Display") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/sec_camera_report()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Camera Report"
 
 	if(!check_rights(R_DEBUG))
@@ -104,7 +104,7 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Camera Report") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/intercom_view()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Intercom Range Display"
 
 	if(!check_rights(R_DEBUG))
@@ -127,19 +127,19 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Intercom Range Display") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/count_objects_on_z_level()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Count Objects On Level"
 
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/level = clean_input("Which z-level?","Level?")
+	var/level = tgui_input_text(usr, "Which z-level?", "Level?")
 	if(!level) return
 	var/num_level = text2num(level)
 	if(!num_level) return
 	if(!isnum(num_level)) return
 
-	var/type_text = clean_input("Which type path?","Path?")
+	var/type_text = tgui_input_text(usr, "Which type path?","Path?")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return
@@ -165,13 +165,13 @@ GLOBAL_VAR_INIT(intercom_range_display_status, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Count Objects (On Level)") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/count_objects_all()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Count Objects All"
 
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/type_text = clean_input("Which type path?","")
+	var/type_text = tgui_input_text(usr, "Which type path?", "")
 	if(!type_text) return
 	var/type_path = text2path(type_text)
 	if(!type_path) return

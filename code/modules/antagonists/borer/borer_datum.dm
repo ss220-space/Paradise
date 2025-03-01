@@ -3,16 +3,21 @@
 	show_in_roundend = FALSE
 	job_rank = ROLE_BORER
 	special_role = SPECIAL_ROLE_BORER
-	var/mob/living/simple_animal/borer/user // our borer
-	var/mob/living/carbon/human/host // our host
-	var/mob/living/carbon/human/previous_host // previous host, used to del transferable effects from previous host.
-
+	antag_menu_name = "Борер"
+	var/mob/living/simple_animal/borer/user
+	var/mob/living/carbon/human/host
+	/// previous host, used to del transferable effects from previous host.
+	var/mob/living/carbon/human/previous_host
+	/// Rank of our borer
 	var/datum/borer_rank/borer_rank
-	var/list/learned_focuses = list() // what focuses learned borer
-	var/datum/borer_misc/change_host_and_scale/scaling = new // chemical scaling, gained when acquired unique host
-
-	var/reproductions = 0 // used to upgrade rank
-	var/evo_points = 0 // used for borer shopping, gained by reproductions
+	/// Which focuses we have
+	var/list/learned_focuses = list()
+	/// chemical scaling, gained when acquired unique host
+	var/datum/borer_misc/change_host_and_scale/scaling = new
+	/// used to upgrade rank
+	var/reproductions = 0
+	/// used for borer shopping, gained by reproductions
+	var/evo_points = 0
 
 	var/tick_interval = 1 SECONDS
 
@@ -22,7 +27,7 @@
 	sync()
 	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
 	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
-	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death)) 
+	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
 	RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
 
 	if(tick_interval != -1)
@@ -68,13 +73,6 @@
 	reproductions++
 	evo_points++
 
-	if(!borer_rank?.required_reproductions)
-		return
-		
-	if(reproductions < borer_rank.required_reproductions)
-		return
-
-	reproductions -= borer_rank.required_reproductions
 	update_rank()
 
 	return
@@ -90,13 +88,14 @@
 	if(evo_points >= focus.cost)
 		evo_points -= focus.cost
 		learned_focuses += new focus(user)
-		
+
 		pre_grant_movable_effect()
 		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
 		return
 
-	to_chat(user, span_notice("Вам требуется еще [focus.cost - evo_points] очков эволюции для получения [focus.bodypartname]."))
-	return 
+	var/need_points = focus.cost - evo_points
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.bodypartname]."))
+	return
 
 /datum/antagonist/borer/proc/entered_host()
 	SIGNAL_HANDLER
@@ -117,7 +116,7 @@
 /datum/antagonist/borer/proc/pre_grant_movable_effect()
 	if(QDELETED(user) || QDELETED(host))
 		return
-		
+
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		if(focus.movable_granted)
 			continue
@@ -129,7 +128,7 @@
 		focus.grant_movable_effect()
 
 	scaling?.grant_movable_effect()
-	
+
 	return
 
 /datum/antagonist/borer/proc/pre_remove_movable_effect()
@@ -168,7 +167,7 @@
 
 /datum/antagonist/borer/proc/on_mob_death()
 	SIGNAL_HANDLER
-	
+
 	STOP_PROCESSING(SSprocessing, src)
 
 /datum/antagonist/borer/proc/on_mob_revive()
@@ -195,15 +194,16 @@
 			return
 
 /datum/antagonist/borer/proc/update_rank()
-	switch(borer_rank.type)
-		if(BORER_RANK_YOUNG)
-			borer_rank = new BORER_RANK_MATURE(user)
-		if(BORER_RANK_MATURE)
-			borer_rank = new BORER_RANK_ADULT(user)
-		if(BORER_RANK_ADULT)
-			borer_rank = new BORER_RANK_ELDER(user)
+	if(!borer_rank?.required_reproductions || !borer_rank.next_rank_type)
+		return FALSE
 
+	if(reproductions < borer_rank.required_reproductions)
+		return FALSE
+
+	reproductions -= borer_rank.required_reproductions
+	borer_rank = new borer_rank.next_rank_type(user)
 	to_chat(user.controlling ? host : user, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
+
 	return TRUE
 
 /datum/borer_misc // category for small datums.

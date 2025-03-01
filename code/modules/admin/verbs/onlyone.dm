@@ -1,6 +1,6 @@
 /client/proc/only_one()
 	if(!SSticker)
-		alert("The game hasn't started yet!")
+		tgui_alert(usr, "The game hasn't started yet!")
 		return
 
 	var/list/incompatible_species = list(/datum/species/plasmaman, /datum/species/vox)
@@ -36,7 +36,7 @@
 		H.equip_to_slot_or_del(new /obj/item/clothing/under/kilt(H), ITEM_SLOT_CLOTH_INNER)
 		H.equip_to_slot_or_del(new /obj/item/radio/headset/heads/captain(H), ITEM_SLOT_EAR_LEFT)
 		H.equip_to_slot_or_del(new /obj/item/clothing/head/beret(H), ITEM_SLOT_HEAD)
-		H.equip_to_slot_or_del(new /obj/item/claymore/highlander(H), ITEM_SLOT_HAND_RIGHT)
+		H.equip_to_slot_or_del(new /obj/item/melee/claymore/highlander(H), ITEM_SLOT_HAND_RIGHT)
 		H.equip_to_slot_or_del(new /obj/item/clothing/shoes/combat(H), ITEM_SLOT_FEET)
 		H.equip_to_slot_or_del(new /obj/item/pinpointer(H.loc), ITEM_SLOT_POCKET_LEFT)
 
@@ -68,7 +68,7 @@
 
 /client/proc/only_me()
 	if(!SSticker)
-		alert("The game hasn't started yet!")
+		tgui_alert(usr, "The game hasn't started yet!")
 		return
 
 	for(var/mob/living/carbon/human/H in GLOB.player_list)

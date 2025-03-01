@@ -1,7 +1,3 @@
-/mob/living/simple_animal/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/simple_animal(src)
-
 /datum/hud/simple_animal/New(mob/user)
 	..()
 
@@ -14,10 +10,6 @@
 	static_inventory += using
 	action_intent = using
 
-//Ians
-/mob/living/simple_animal/pet/dog/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/corgi(src)
 
 /datum/hud/corgi/New(mob/user)
 	..()
@@ -31,18 +23,6 @@
 	mymob.pullin.screen_loc = ui_construct_pull
 	static_inventory += mymob.pullin
 
-//spiders
-/mob/living/simple_animal/hostile/poison/giant_spider/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/simple_animal/spider(src)
-
-/mob/living/simple_animal/hostile/poison/terror_spider/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/simple_animal/spider(src)
-
-/mob/living/simple_animal/hostile/retaliate/araneus/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/simple_animal/spider(src)
 
 /datum/hud/simple_animal/spider/New(mob/user)
 	..()

@@ -134,7 +134,9 @@
 
 			if(prob(5)) //Spawns foam!
 				visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] издаёт громкие булькающие звуки, прежде чем выпустить шлейф пены!"))
-				new /obj/effect/particle_effect/foam(loc)
+				var/datum/effect_system/fluid_spread/foam/s = new()
+				s.set_up(range = 3, location = loc)
+				s.start()
 
 	else if(prob(5))
 		custom_emote(EMOTE_VISIBLE, "бипает и бупает!")
@@ -293,9 +295,7 @@
 			ejectpai()
 
 
-/mob/living/simple_animal/bot/cleanbot/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
+/mob/living/simple_animal/bot/cleanbot/OnUnarmedAttack(atom/A)
 	if(istype(A,/obj/effect/decal/cleanable))
 		start_clean(A)
 	else

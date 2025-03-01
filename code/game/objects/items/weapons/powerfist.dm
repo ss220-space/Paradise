@@ -4,7 +4,7 @@
 	icon_state = "powerfist"
 	item_state = "powerfist"
 	flags = CONDUCT
-	attack_verb = list("whacked", "fisted", "power-punched")
+	attack_verb = list("огрел", "ударил", "с силой ударил")
 	force = 12
 	throwforce = 10
 	throw_range = 7

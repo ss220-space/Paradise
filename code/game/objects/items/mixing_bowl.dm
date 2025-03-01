@@ -37,7 +37,7 @@
 		update_dialog(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]))
+	if(is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_MICROWAVE]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_GRILL]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_OVEN]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_CANDY]) || is_type_in_list(I, GLOB.cooking_ingredients[RECIPE_TRIBAL_OVEN]))
 		add_fingerprint(user)
 		if(dirty)
 			to_chat(user, span_warning("You should clean [src] before you use it for food prep."))
@@ -77,7 +77,7 @@
 			to_chat(user, span_warning("The [I.name] is empty!"))
 			return ATTACK_CHAIN_PROCEED
 		for(var/datum/reagent/reagent as anything in I.reagents.reagent_list)
-			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]))
+			if(!(reagent.id in GLOB.cooking_reagents[RECIPE_MICROWAVE]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_GRILL]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_OVEN]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_CANDY]) && !(reagent.id in GLOB.cooking_reagents[RECIPE_TRIBAL_OVEN]))
 				to_chat(user, span_warning("Your [I.name] contains components unsuitable for cookery."))
 				return ATTACK_CHAIN_PROCEED
 		var/obj/item/reagent_containers/container = I

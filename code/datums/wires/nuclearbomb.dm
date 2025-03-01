@@ -53,6 +53,7 @@
 			N.timing = FALSE
 			N.update_icon()
 			GLOB.bomb_set = FALSE
+			SSshuttle?.remove_hostile_environment(N)
 
 		if(WIRE_BOMB_LIGHT)
 			N.lighthack = !N.lighthack

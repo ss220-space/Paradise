@@ -16,7 +16,6 @@
 	var/det_time = 5 SECONDS
 	var/display_timer = TRUE
 
-
 /obj/item/grenade/deconstruct(disassembled = TRUE)
 	if(!disassembled)
 		prime()
@@ -71,6 +70,7 @@
 
 
 /obj/item/grenade/proc/prime(mob/user)
+	SEND_SIGNAL(src, COMSIG_GRENADE_DETONATE, user)
 	return
 
 
@@ -102,3 +102,6 @@
 	SSmove_manager.stop_looping(src)
 	. = ..()
 
+
+/obj/item/grenade/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	obj_destruction(MELEE)

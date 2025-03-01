@@ -246,16 +246,17 @@
 	target_amount = 6
 	/// Which abductor team number does this belong to.
 	var/abductor_team_number
+	antag_menu_name = "Провести эксперимент"
 
 /datum/objective/stay_hidden
 
 /datum/objective/stay_hidden/New()
-	explanation_text = "Limit contact with your targets outside of conducting your experiments and abduction."
+	explanation_text = "Ограничьте контакты со своими целями, за исключением проведения экспериментов и похищений."
 	completed = TRUE
 //No check completion, it defaults to being completed unless an admin sets it to failed.
 
 /datum/objective/experiment/New()
-	explanation_text = "Experiment on [target_amount] humans."
+	explanation_text = "Проведите эксперимент на [target_amount] гуманоид[declension_ru(target_amount, "е", "ах", "ах")]."
 
 
 /datum/objective/experiment/check_completion()

@@ -137,6 +137,7 @@
 	var/datum/objective/rev_obj = new
 	rev_obj.needs_target = FALSE
 	rev_obj.owner = rev_mind
+	rev_obj.antag_menu_name = "Революция"
 	rev_obj.explanation_text = "Вы или ваши сподвижники должны занять командные должности, отправив в отставку занимающий их экипаж"
 	rev_mind.objectives += rev_obj
 

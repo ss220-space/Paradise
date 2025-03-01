@@ -25,7 +25,7 @@
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
+		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), TCMB)
 		lowertemp.react()
 		assume_air(lowertemp)
 		qdel(hotspot)
@@ -57,14 +57,14 @@
 		var/datum/component/wet_floor/new_wet_floor_component = copy_to_turf.AddComponent(/datum/component/wet_floor)
 		new_wet_floor_component.InheritComponent(slip)
 
-/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, ignore_air = FALSE, copy_existing_baseturf = TRUE)
+/turf/simulated/ChangeTurf(path, defer_change = FALSE, keep_icon = TRUE, after_flags = NONE, copy_existing_baseturf = TRUE)
 	. = ..()
 	queue_smooth_neighbors(src)
 
-/turf/simulated/AfterChange(ignore_air = FALSE, keep_cabling = FALSE, oldType)
+/turf/simulated/AfterChange(flags, oldType)
 	..()
 	RemoveLattice()
-	if(!ignore_air)
+	if(!(flags & CHANGETURF_IGNORE_AIR))
 		assimilate_air()
 
 //////Assimilate Air//////

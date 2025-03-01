@@ -346,6 +346,13 @@
 	},
 /turf/simulated/floor/lava/lava_land_surface,
 /area/ruin/unpowered/misc_lavaruin)
+"QC" = (
+/obj/effect/mapping_helpers/no_lava,
+/obj/structure/fluff/ash_statue{
+	special_name = "мировая кузня"
+	},
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/misc_lavaruin)
 "Tw" = (
 /obj/structure/stone_tile/slab,
 /obj/structure/world_anvil,
@@ -521,7 +528,7 @@ Nd
 GD
 jC
 wO
-Dp
+QC
 FE
 Wc
 "}

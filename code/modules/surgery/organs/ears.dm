@@ -1,7 +1,16 @@
 /obj/item/organ/internal/ears
 	name = "ears"
-	icon_state = "ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали человеку."
+	ru_names = list(
+		NOMINATIVE = "уши человека",
+		GENITIVE = "ушей человека",
+		DATIVE = "ушам человека",
+		ACCUSATIVE = "уши человека",
+		INSTRUMENTAL = "ушами человека",
+		PREPOSITIONAL = "ушах человека"
+	)
 	gender = PLURAL
+	icon_state = "ears"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_EARS
 
@@ -44,8 +53,16 @@
 
 /obj/item/organ/internal/ears/cybernetic
 	name = "cybernetic ears"
-	icon_state = "ears-c"
-	desc = "a basic cybernetic designed to mimic the operation of ears."
+	desc = "Электронное устройство, имитирующее работу органических ушей. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетические уши",
+		GENITIVE = "кибернетических ушей",
+		DATIVE = "кибернетическим ушам",
+		ACCUSATIVE = "кибернетические уши",
+		INSTRUMENTAL = "кибернетическими ушами",
+		PREPOSITIONAL = "кибернетических ушах"
+	)
+	icon_state = "eyes-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
@@ -54,9 +71,17 @@
 /obj/item/organ/internal/ears/cybernetic/emp_act(severity)
 	if(emp_proof)
 		return
+
 	..()
 	internal_receive_damage(30)
+
 	if(!iscarbon(owner))
 		return
+
 	var/mob/living/carbon/C = owner
-	C.AdjustDeaf(120 SECONDS)
+	var/losstime = 120 SECONDS
+
+	if(HAS_TRAIT(C, TRAIT_ADVANCED_CYBERIMPLANTS))
+		losstime /= 3
+
+	C.AdjustDeaf(losstime)

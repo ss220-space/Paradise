@@ -390,26 +390,31 @@
 	name = "medical satchel"
 	desc = "A sterile satchel used in medical departments."
 	icon_state = "satchel-med"
+	item_state = "satchel-med"
 
 /obj/item/storage/backpack/satchel_vir
 	name = "virologist satchel"
 	desc = "A sterile satchel with virologist colours."
 	icon_state = "satchel-vir"
+	item_state = "satchel-vir"
 
 /obj/item/storage/backpack/satchel_chem
 	name = "chemist satchel"
 	desc = "A sterile satchel with chemist colours."
 	icon_state = "satchel-chem"
+	item_state = "satchel-chem"
 
 /obj/item/storage/backpack/satchel_gen
 	name = "geneticist satchel"
 	desc = "A sterile satchel with geneticist colours."
 	icon_state = "satchel-gen"
+	item_state = "satchel-gen"
 
 /obj/item/storage/backpack/satchel_tox
 	name = "scientist satchel"
 	desc = "Useful for holding research materials."
 	icon_state = "satchel-tox"
+	item_state = "satchel-tox"
 	resistance_flags = FIRE_PROOF
 
 /obj/item/storage/backpack/satchel_sec
@@ -750,8 +755,8 @@
 /obj/item/storage/backpack/duffel/security/riot/populate_contents()
 	new /obj/item/clothing/head/helmet/riot (src)
 	new /obj/item/clothing/suit/armor/riot (src)
-	new /obj/item/clothing/gloves/combat (src)
-	new /obj/item/clothing/shoes/combat/swat (src)
+	new /obj/item/clothing/gloves/combat/riot (src)
+	new /obj/item/clothing/shoes/combat/riot (src)
 	new /obj/item/melee/baton (src)
 	new /obj/item/shield/riot/tele (src)
 	new /obj/item/gun/energy/gun/pdw9 (src)
@@ -759,6 +764,24 @@
 	new /obj/item/grenade/flashbang (src)
 	new /obj/item/storage/box/zipties (src)
 	new /obj/item/storage/box/bola (src)
+
+/obj/item/storage/backpack/duffel/security/riot_armory
+	name = "Riot Armor Kit"
+
+/obj/item/storage/backpack/duffel/security/riot_armory/populate_contents()
+	new /obj/item/clothing/head/helmet/riot (src)
+	new /obj/item/clothing/suit/armor/riot (src)
+	new /obj/item/clothing/gloves/combat/riot (src)
+	new /obj/item/clothing/shoes/combat/riot (src)
+
+/obj/item/storage/backpack/duffel/security/bulletproof_armory
+	name = "Bulletproof Armor Kit"
+
+/obj/item/storage/backpack/duffel/security/bulletproof_armory/populate_contents()
+	new /obj/item/clothing/head/helmet/alt (src)
+	new /obj/item/clothing/suit/armor/bulletproof (src)
+	new /obj/item/clothing/gloves/color/black/ballistic (src)
+	new /obj/item/clothing/shoes/jackboots/armored (src)
 
 /obj/item/storage/backpack/duffel/security/war
 	name = "Wartime Emergency Kit"

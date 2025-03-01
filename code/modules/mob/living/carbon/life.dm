@@ -147,7 +147,7 @@
 		oxygen_used = breath.oxygen
 		clear_alert(ALERT_NOT_ENOUGH_OXYGEN)
 
-	breath.oxygen -= oxygen_used
+	breath.oxygen = max(breath.oxygen - oxygen_used, 0)
 	breath.carbon_dioxide += oxygen_used
 
 	//CARBON DIOXIDE
@@ -283,6 +283,8 @@
 	if(healths)
 		if(stat != DEAD)
 			. = TRUE
+			if(SEND_SIGNAL(src, COMSIG_CARBON_UPDATING_HEALTH_HUD, shown_health_amount) & COMPONENT_OVERRIDE_HEALTH_HUD)
+				return
 			if(shown_health_amount == null)
 				shown_health_amount = health
 			if(shown_health_amount >= maxHealth)

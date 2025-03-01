@@ -108,7 +108,7 @@
 
 /client/proc/reload_admins()
 	set name = "Reload Admins"
-	set category = "Server"
+	set category = "Admin.Admin"
 
 	if(!check_rights(R_SERVER))
 		return
@@ -143,7 +143,7 @@
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/filter = clean_input("Contains what?","Filter")
+	var/filter = tgui_input_text(usr, "Contains what?", "Filter")
 	if(!filter)
 		return
 
@@ -158,13 +158,13 @@
 /client/proc/vv_by_ref()
 	set name = "VV by Ref"
 	set desc = "Give this a ref string, and you will see its corresponding VV panel if it exists"
-	set category = "Debug"
+	set category = "Admin.Debug"
 
 	// It's gated by "Debug Verbs", so might as well gate it to the debug permission
 	if(!check_rights(R_DEBUG))
 		return
 
-	var/refstring = clean_input("Which reference?","Ref")
+	var/refstring = tgui_input_text(usr, "Which reference?", "Ref")
 	if(!refstring)
 		return
 

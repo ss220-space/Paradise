@@ -48,7 +48,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/plasmaman,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/plasmaman,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/plasmaman,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/plasmaman,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman
@@ -140,14 +140,26 @@
 		if(JOB_TITLE_HOS)
 			O = new /datum/outfit/plasmaman/hos
 
-		if(JOB_TITLE_CARGOTECH, JOB_TITLE_QUARTERMASTER)
+		if(JOB_TITLE_CARGOTECH)
 			O = new /datum/outfit/plasmaman/cargo
+
+		if(JOB_TITLE_QUARTERMASTER)
+			O = new /datum/outfit/plasmaman/qm
 
 		if(JOB_TITLE_MINER)
 			O = new /datum/outfit/plasmaman/mining
 
-		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_BRIGDOC, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
+		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
 			O = new /datum/outfit/plasmaman/medical
+
+		if(JOB_TITLE_BRIGDOC)
+			O = new /datum/outfit/plasmaman/brigdoc
+
+		if(JOB_TITLE_PARAMEDIC)
+			O = new /datum/outfit/plasmaman/paramedic
+
+		if(JOB_TITLE_CORONER)
+			O = new /datum/outfit/plasmaman/coroner
 
 		if(JOB_TITLE_CMO)
 			O = new /datum/outfit/plasmaman/cmo

@@ -16,7 +16,7 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
-	GLOB.mob_list += src
+	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/proc/privacy_consent()
@@ -137,6 +137,17 @@
 
 	if(href_list["sound_options"])
 		client.volume_mixer()
+
+	if(href_list["poll_panel"])
+		handle_player_polling()
+
+	if(href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
+		poll_player(poll)
+
+	if(href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
+		vote_on_poll_handler(poll, href_list)
 
 	if(href_list["refresh"])
 		src << browse(null, "window=playersetup") //closes the player setup window
@@ -339,7 +350,7 @@
 	if(src != usr)
 		return FALSE
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>Раунд либо еще не готов, либо уже завершился...</span>")
+		to_chat(usr, "<span class='warning'>Раунд либо ещё не готов, либо уже завершился...</span>")
 		return FALSE
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
@@ -511,9 +522,9 @@
 	dat += "Продолжительность раунда: [round(hours)]h [round(mins)]m<br>"
 	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
 		dat += "<font color='red'><b>Станция была эвакуирована.</b></font><br>"
-	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
+	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
 		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
 
 	if(length(SSjobs.prioritized_jobs))
@@ -599,7 +610,7 @@
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /mob/new_player/proc/create_character()
-	spawning = 1
+	spawning = TRUE
 	close_spawn_windows()
 
 	check_prefs_are_sane()
@@ -616,19 +627,22 @@
 
 
 	if(mind)
-		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == JOB_TITLE_CLOWN)				//give them a clownname if they are a clown
-			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+		mind.active = FALSE					// we wish to transfer the key manually
+
+		if(mind.assigned_role == JOB_TITLE_CLOWN)				// give them a clownname if they are a clown
+			new_character.real_name = pick(GLOB.clown_names)	// I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self(JOB_TITLE_CLOWN)
+
 		else if(mind.assigned_role == JOB_TITLE_MIME)
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self(JOB_TITLE_MIME)
+
 		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+		mind.transfer_to(new_character)					// won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
 
 
-	new_character.key = key		//Manually transfer the key to log them in
+	new_character.set_key(key)		// Manually transfer the key to log them in
 
 	return new_character
 

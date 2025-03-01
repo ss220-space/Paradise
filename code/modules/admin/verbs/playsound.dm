@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(sounds_cache)
 
 /client/proc/stop_global_admin_sounds()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Stop Global Admin Sounds"
 	if(!check_rights(R_SOUNDS))
 		return
@@ -13,7 +13,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		M << awful_sound
 
 /client/proc/play_sound(S as sound)
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Global Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -39,7 +39,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 
 /client/proc/play_local_sound(S as sound)
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Local Sound"
 	if(!check_rights(R_SOUNDS))	return
 
@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 
 
 /client/proc/play_web_sound()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Internet Sound"
 	if(!check_rights(R_SOUNDS))
 		return
@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 		to_chat(src, span_boldwarning("yt-dlp was not configured, action unavailable"), confidential=TRUE) //Check config.txt for the INVOKE_YOUTUBEDL value
 		return
 
-	var/web_sound_input = input("Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp") as text|null
+	var/web_sound_input = tgui_input_text(usr, "Enter content URL (supported sites only, leave blank to stop playing)", "Play Internet Sound via yt-dlp", encode = FALSE)
 	if(istext(web_sound_input))
 		var/web_sound_path = ""
 		var/web_sound_url = ""
@@ -155,38 +155,38 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Internet Sound")
 
 /client/proc/play_server_sound()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Server Sound"
 	if(!check_rights(R_SOUNDS))	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	play_sound(melody)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Play Server Sound") //If you are copy-pasting this, ensure the 2nd paramter is unique to the new proc!
 
 /client/proc/play_intercomm_sound()
-	set category = "Event"
+	set category = "Admin.Sounds"
 	set name = "Play Sound via Intercomms"
 	set desc = "Plays a sound at every intercomm on the station z level. Works best with small sounds."
 	if(!check_rights(R_SOUNDS))	return
 
-	var/A = alert("This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
+	var/A = alert(usr, "This will play a sound at every intercomm, are you sure you want to continue? This works best with short sounds, beware.","Warning","Yep","Nope")
 	if(A != "Yep")	return
 
 	var/list/sounds = file2list("sound/serversound_list.txt")
 	sounds += GLOB.sounds_cache
 
-	var/melody = input("Select a sound from the server to play", "Server sound list") as null|anything in sounds
+	var/melody = input(usr, "Select a sound from the server to play", "Server sound list") as null|anything in sounds
 	if(!melody)	return
 
 	var/cvol = 35
-	var/inputvol = input("How loud would you like this to be? (1-70)", "Volume", "35") as num | null
+	var/inputvol = tgui_input_number(usr, "How loud would you like this to be? (1-70)", "Volume", cvol, min_value = 1, max_value = 70)
 	if(!inputvol)	return
-	if(inputvol && inputvol >= 1 && inputvol <= 70)
+	if(inputvol)
 		cvol = inputvol
 
 	//Allows for override to utilize intercomms on all z-levels
@@ -209,51 +209,16 @@ GLOBAL_LIST_EMPTY(sounds_cache)
 			continue
 		playsound(I, melody, cvol)
 
-/*
-/client/proc/cuban_pete()
-	set category = "Event"
-	set name = "Cuban Pete Time"
+/client/proc/play_direct_mob_sound(S as sound, mob/M)
+	set category = "Admin.Sounds"
+	set name = "Play Direct Mob Sound"
+	if(!check_rights(R_SOUNDS))
+		return
 
-	message_admins("[key_name_admin(usr)] has declared Cuban Pete Time!", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'cubanpetetime.ogg'
+	if(!M)
+		M = tgui_input_list(usr, "Choose a mob to play the sound to. Only they will hear it.", "Play Mob Sound", sort_names(GLOB.player_list))
+	if(!M || QDELETED(M))
+		return
 
-	for(var/mob/living/carbon/human/CP in world)
-		if(CP.real_name=="Cuban Pete" && CP.key!="Rosham")
-			C << "Your body can't contain the rhumba beat"
-			CP.gib()
-
-
-/client/proc/bananaphone()
-	set category = "Event"
-	set name = "Banana Phone"
-
-	message_admins("[key_name_admin(usr)] has activated Banana Phone!", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'bananaphone.ogg'
-
-
-client/proc/space_asshole()
-	set category = "Event"
-	set name = "Space Asshole"
-
-	message_admins("[key_name_admin(usr)] has played the Space Asshole Hymn.", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'sound/music/space_asshole.ogg'
-
-
-client/proc/honk_theme()
-	set category = "Event"
-	set name = "Honk"
-
-	message_admins("[key_name_admin(usr)] has creeped everyone out with Blackest Honks.", 1)
-	for(var/mob/M in world)
-		if(M.client)
-			if(M.client.midis)
-				M << 'honk_theme.ogg'*/
+	log_and_message_admins("played a direct mob sound [S] to [M].")
+	SEND_SOUND(M, S)

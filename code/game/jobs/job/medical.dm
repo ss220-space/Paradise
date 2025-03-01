@@ -19,6 +19,7 @@
 	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_MEDICAL
+	disabilities_allowed = 0
 	outfit = /datum/outfit/job/cmo
 	insurance_type = INSURANCE_TYPE_DELUXE
 

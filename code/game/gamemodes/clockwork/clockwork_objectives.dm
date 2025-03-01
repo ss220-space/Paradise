@@ -12,9 +12,12 @@
 	clock_status = RATVAR_DEMANDS_POWER
 	//power_goal in gamemode/clockwork_threshold_check
 	beacon_goal = 3 + round(length(GLOB.player_list)*0.1) // 3 + all crew* 0.1
+	obj_summon.owner = SSticker.mode
+	obj_demand.owner = SSticker.mode
 	clocker_goal = round(CLOCK_CREW_REVEAL_HIGH * (length(GLOB.player_list) - SSticker.mode.get_clockers()),1)
 	if(obj_demand.check_completion())
 		ratvar_is_ready()
+
 
 /**
   * Called by cultists/cult constructs checking their objectives
@@ -111,16 +114,21 @@
 //Objectives
 
 /datum/objective/serveclock //Given to clockers on conversion/roundstart
-	explanation_text = "Assist your fellow clockwork associates and Power Ratvar to Tear the Veil! (Use the Study Veil action to check your progress.)"
+	explanation_text = "Помогите своим коллегам-культистам и Могучему Ратвару разорвать завесу! (Используйте действие «Изучение вуали», чтобы проверить свой прогресс.)"
 	completed = TRUE
 	needs_target = FALSE
+	antag_menu_name = "Помогать культу Ратвара"
 
 /datum/objective/demand_power
 	var/power_get = FALSE
 	var/beacon_get = FALSE
 	var/clockers_get = FALSE
 	needs_target = FALSE
-	explanation_text = "The Ratvar demands power in order to prepare the summoning."
+	explanation_text = "Ратвару требуется сила, чтобы подготовить призыв"
+	antag_menu_name = "Набрать силу"
+
+/datum/objective/demand_power/check_anatag_menu_ability()
+	return SSticker?.mode.clocker_objs.clock_status != RATVAR_IS_ASLEEP
 
 /datum/objective/demand_power/check_completion()
 	return (power_get && beacon_get && clockers_get) || completed
@@ -128,6 +136,7 @@
 
 /datum/objective/clockgod
 	needs_target = FALSE
+	antag_menu_name = "Призвать Ратвара"
 	var/summoned = FALSE
 	var/killed = FALSE
 	var/list/ritual_spots = list()
@@ -136,12 +145,15 @@
 	..()
 	find_summon_locations()
 
+/datum/objective/clockgod/check_anatag_menu_ability()
+	return SSticker.mode.clocker_objs.clock_status != RATVAR_IS_ASLEEP
+
 /datum/objective/clockgod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)
 		ritual_spots = new()
 	var/sanity = 0
 	while(length(ritual_spots) < RATVAR_SUMMON_POSSIBILITIES && sanity < 100)
-		var/area/summon = pick(return_sorted_areas() - ritual_spots)
+		var/area/summon = pick(get_sorted_areas() - ritual_spots)
 		var/valid_spot = FALSE
 		if(summon && is_station_level(summon.z) && summon.valid_territory) // Check if there's a turf that you can walk on, if not it's not valid
 			for(var/turf/T as anything in get_area_turfs(summon))
@@ -157,8 +169,8 @@
 		if(valid_spot)
 			ritual_spots += summon
 		sanity++
-	explanation_text = "Summon Ratvar by setting up the credence and power it.\
-	\nThe summoning can only be accomplished in [english_list(ritual_spots)] - where the veil is weak enough for the ritual to begin."
+	explanation_text = "Призовите Ратвара установив свою веру и укрепив ее.\
+	\nПризыв может быть осуществлен только в [english_list(ritual_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
 
 /datum/objective/clockgod/check_completion()
 	if(killed)

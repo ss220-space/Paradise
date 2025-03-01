@@ -7,7 +7,7 @@
 	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
 	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
+	var/datum/effect_system/fluid_spread/smoke/smoke_system = new //not an action, but trigged by one
 	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
@@ -117,10 +117,14 @@
 	button_icon_state = "mech_defense_mode_[chassis.defence_mode ? "on" : "off"]"
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
-		chassis.occupant_message(span_notice("You enable [chassis] defence mode."))
+		chassis.occupant_message(span_notice("[chassis] defence mode enabled."))
+		chassis.set_anchored(TRUE)
+		RegisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(Activate))
 	else
+		UnregisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED)
 		chassis.deflect_chance = initial(chassis.deflect_chance)
-		chassis.occupant_message(span_danger("You disable [chassis] defence mode."))
+		chassis.occupant_message(span_danger("[chassis] defence mode disabled."))
+		chassis.set_anchored(FALSE)
 	chassis.log_message("Toggled defence mode.")
 	UpdateButtonIcon()
 
@@ -272,10 +276,11 @@
 		return
 	chassis.toggle_strafe()
 
-/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
+/obj/mecha/click_alt(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
 	if(!occupant || occupant != user)
 		return
 	toggle_strafe()
+	return CLICK_ACTION_SUCCESS
 
 /**
  * Proc that toggles strafe mode of the mecha ON/OFF

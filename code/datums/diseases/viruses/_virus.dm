@@ -100,4 +100,4 @@
 		spread += "Контактный"
 	if(spread_flags & AIRBORNE)
 		spread += "Воздушно-капельный"
-	return english_list(spread, "Неизвестен", " и ")
+	return russian_list(spread, "Неизвестен", " и ")

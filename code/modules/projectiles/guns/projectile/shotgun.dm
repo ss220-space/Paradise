@@ -87,6 +87,21 @@
 	sawn_desc = "Come with me if you want to live."
 	sawn_state = SAWN_INTACT
 	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
+	can_flashlight = TRUE
+	gun_light_overlay = "riotshotgun_light"
+
+/obj/item/gun/projectile/shotgun/riot/update_overlays()
+	. = ..()
+	if(gun_light && gun_light_overlay)
+		var/iconF = gun_light_overlay
+		if(gun_light.on)
+			iconF = "[gun_light_overlay]_on"
+		. += image(icon = icon, icon_state = iconF, pixel_x = flight_x_offset, pixel_y = flight_y_offset)
+
+/obj/item/gun/projectile/shotgun/riot/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
+		toggle_gunlight()
+		return TRUE
 
 
 /obj/item/gun/projectile/shotgun/riot/attackby(obj/item/I, mob/user, params)
@@ -372,10 +387,8 @@
 		balloon_alert(user, "переключено на второй ствол")
 	playsound(user, 'sound/weapons/gun_interactions/selector.ogg', 100, 1)
 
-/obj/item/gun/projectile/shotgun/automatic/dual_tube/AltClick(mob/living/user)
-	. = ..()
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user) || !istype(user))
-		return
+/obj/item/gun/projectile/shotgun/automatic/dual_tube/click_alt(mob/living/user)
 	pump()
+	return CLICK_ACTION_SUCCESS
 
 // DOUBLE BARRELED SHOTGUN, IMPROVISED SHOTGUN, and CANE SHOTGUN are in revolver.dm

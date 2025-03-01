@@ -223,18 +223,18 @@ INITIALIZE_IMMEDIATE(/obj/effect/statclick)
 /client/proc/SDQL2_query()
 	set name = "SDQL2 Query"
 	set desc = "Run a SDQL2 query."
-	set category = "Debug"
+	set category = "Admin.Debug"
 
 	if(!check_rights(R_PROCCALL))  //Shouldn't happen... but just to be safe.
 		message_admins("<span class='danger'>ERROR: Non-admin [key_name_admin(usr)] attempted to execute a SDQL query!</span>")
 		log_admin("Non-admin [key_name(usr)] attempted to execute a SDQL query!")
 		return FALSE
 
-	var/prompt = alert(usr, "Run SDQL2 Query?", "SDQL2", "Yes", "Cancel")
+	var/prompt = tgui_alert(usr, "Run SDQL2 Query?", "SDQL2", list("Yes", "Cancel"))
 	if (prompt != "Yes")
 		return
 
-	var/query_text = input("SDQL2 query") as message
+	var/query_text = tgui_input_text(usr, "SDQL2 query", multiline = TRUE, encode = FALSE)
 
 	if(!query_text || length(query_text) < 1)
 		return

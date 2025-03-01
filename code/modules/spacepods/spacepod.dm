@@ -103,7 +103,9 @@
 		if("Windows")
 			part_type = WINDOW
 		else
-	var/coloradd = input(user, "Choose a color", "Color") as color
+	var/coloradd = tgui_input_color(user, "Choose a color", "Color")
+	if(isnull(coloradd))
+		return
 	colors[part_type] = coloradd
 	if(!has_paint)
 		has_paint = 1
@@ -291,7 +293,7 @@
 
 	update_icons()
 
-/obj/spacepod/proc/repair_damage(var/repair_amount)
+/obj/spacepod/repair_damage(repair_amount)
 	if(health)
 		health = min(initial(health), health + repair_amount)
 		update_icons()
@@ -1202,7 +1204,8 @@
 
 	if(direction & (UP|DOWN))
 		COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
-		var/turf/above = GET_TURF_ABOVE(loc)
+		var/turf/T = get_turf(loc)
+		var/turf/above = GET_TURF_ABOVE(T)
 		if((direction & UP) && can_z_move(DOWN, above, z_move_flags = ZMOVE_FALL_FLAGS)) // going up and can fall down is bad.
 			return FALSE
 		. = zMove(direction)

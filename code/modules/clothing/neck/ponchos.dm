@@ -29,10 +29,11 @@
 	icon_state = "[item_color]poncho[flipped ? "_flip" : ""]"
 
 
-/obj/item/clothing/neck/poncho/AltClick(mob/living/carbon/human/user)
+/obj/item/clothing/neck/poncho/click_alt(mob/living/carbon/human/user)
 	if(!(src in user))
-		return ..()
+		return NONE
 	flip(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/clothing/neck/poncho/verb/flip_poncho()

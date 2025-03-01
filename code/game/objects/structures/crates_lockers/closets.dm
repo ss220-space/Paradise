@@ -3,6 +3,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet
 	name = "closet"
 	desc = "It's a basic storage unit."
+	gender = MALE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
 	density = TRUE
@@ -12,6 +13,7 @@ GLOBAL_LIST_EMPTY(closets)
 	armor = list("melee" = 20, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 60)
 	pass_flags_self = PASSSTRUCTURE|LETPASSCLICKS
 	pull_push_slowdown = 1.3 // Same as a prone mob
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
 	/// Special marker for the closet to use default icon_closed/icon_opened states, skipping everything else.
 	var/no_overlays = FALSE
@@ -32,6 +34,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/locked = FALSE
 	var/large = TRUE
 	var/can_be_emaged = FALSE
+	var/can_weld_shut = TRUE
 	var/wall_mounted = FALSE //never solid (You can always pass over it)
 	var/lastbang
 	var/open_sound = 'sound/machines/closet_open.ogg'
@@ -78,10 +81,36 @@ GLOBAL_LIST_EMPTY(closets)
 			break
 
 // Fix for #383 - C4 deleting fridges with corpses
-/obj/structure/closet/Destroy()
+/obj/structure/closet/Destroy(force)
 	GLOB.closets -= src
+	if(force)
+		for(var/atom/movable/thing in contents)
+			qdel(thing, force)
+
+		return ..()
+
 	dump_contents()
 	return ..()
+
+/obj/structure/closet/vv_edit_var(vname, vval)
+	if(vname == NAMEOF(src, opened))
+		if(vval == opened)
+			return FALSE
+		if(vval && !opened && open())
+			datum_flags |= DF_VAR_EDITED
+			return TRUE
+		else if(!vval && opened && close())
+			datum_flags |= DF_VAR_EDITED
+			return TRUE
+		return FALSE
+	. = ..()
+	if(vname == NAMEOF(src, welded) && welded && !can_weld_shut)
+		can_weld_shut = TRUE
+	else if(vname == NAMEOF(src, can_weld_shut) && !can_weld_shut && welded)
+		welded = FALSE
+		update_appearance()
+	if(vname in list(NAMEOF(src, locked), NAMEOF(src, welded)))
+		update_appearance()
 
 
 /obj/structure/closet/CanAllowThrough(atom/movable/mover, border_dir)
@@ -132,6 +161,9 @@ GLOBAL_LIST_EMPTY(closets)
 	after_open()
 	return TRUE
 
+/obj/structure/closet/setOpened()
+	open()
+
 ///Proc to override for effects after opening a door
 /obj/structure/closet/proc/after_open(mob/living/user, force = FALSE)
 	return
@@ -181,6 +213,9 @@ GLOBAL_LIST_EMPTY(closets)
 		playsound(loc, 'sound/machines/click.ogg', close_sound_volume, TRUE, -3)
 	set_density(ignore_density_closed ? FALSE : TRUE)
 	return TRUE
+
+/obj/structure/closet/setClosed()
+	close()
 
 /obj/structure/closet/proc/toggle(mob/user)
 	. = TRUE
@@ -263,6 +298,8 @@ GLOBAL_LIST_EMPTY(closets)
 			deconstruct(TRUE)
 			return
 	else
+		if(!can_weld_shut)
+			return
 		var/adjective = welded ? "open" : "shut"
 		user.visible_message("<span class='notice'>[user] begins welding [src] [adjective]...</span>", "<span class='notice'>You begin welding [src] [adjective]...</span>", "<span class='warning'>You hear welding.</span>")
 		if(I.use_tool(src, user, 15, volume = I.tool_volume))
@@ -447,10 +484,13 @@ GLOBAL_LIST_EMPTY(closets)
 		user.overlay_fullscreen("remote_view", /atom/movable/screen/fullscreen/impaired, 1)
 
 /obj/structure/closet/ex_act(severity)
+	contents_explosion()
+	..()
+
+/obj/structure/closet/proc/contents_explosion(severity)
 	for(var/atom/A in contents)
 		A.ex_act(severity)
 		CHECK_TICK
-	..()
 
 /obj/structure/closet/singularity_act()
 	dump_contents()
@@ -464,11 +504,12 @@ GLOBAL_LIST_EMPTY(closets)
 	return
 
 
-/obj/structure/closet/AltClick(mob/living/simple_animal/hostile/gorilla/gorilla)
-	if(istype(gorilla) && !gorilla.incapacitated() && !HAS_TRAIT(gorilla, TRAIT_HANDS_BLOCKED) && Adjacent(gorilla))
+/obj/structure/closet/click_alt(mob/living/simple_animal/hostile/gorilla/gorilla)
+	if(istype(gorilla))
 		gorilla.face_atom(src)
 		toggle()
 		gorilla.oogaooga()
+		return CLICK_ACTION_SUCCESS
 	return ..()
 
 /obj/structure/closet/shove_impact(mob/living/target, mob/living/attacker)

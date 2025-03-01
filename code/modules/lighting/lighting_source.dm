@@ -273,8 +273,6 @@
 
 	if(source_turf)
 		var/uses_multiz = !!GET_LOWEST_STACK_OFFSET(source_turf.z)
-		var/oldlum = source_turf.luminosity
-		source_turf.luminosity = CEILING(light_range, 1)
 		if(uses_multiz)
 			for(var/turf/T in view(CEILING(light_range, 1), source_turf))
 				if(IS_OPAQUE_TURF(T))
@@ -310,8 +308,6 @@
 					continue
 				INSERT_CORNERS(corners, T)
 				SSdemo.mark_turf(T)
-
-		source_turf.luminosity = oldlum
 
 	SETUP_CORNERS_CACHE(src)
 

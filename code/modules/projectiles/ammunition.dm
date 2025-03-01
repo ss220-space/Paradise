@@ -200,7 +200,10 @@
 		stored_ammo += new_casing
 		if(new_casing.loc != src)
 			new_casing.forceMove(src)
-		playsound(loc, insert_sound, 50, TRUE)
+		var/chosen_sound = insert_sound
+		if(islist(insert_sound) && length(insert_sound))
+			chosen_sound = pick(insert_sound)
+		playsound(loc, chosen_sound, 50, TRUE)
 		update_mat_value()
 		return TRUE
 
@@ -221,7 +224,10 @@
 				stored_ammo += new_casing
 				if(new_casing.loc != src)
 					new_casing.forceMove(src)
-				playsound(loc, replacing_sound, 50, TRUE)
+				var/chosen_sound = replacing_sound
+				if(islist(replacing_sound) && length(replacing_sound))
+					chosen_sound = pick(replacing_sound)
+				playsound(loc, chosen_sound, 50, TRUE)
 				update_mat_value()
 				return TRUE
 
@@ -268,7 +274,10 @@
 		return .
 	if(!silent && user)
 		balloon_alert(user, "[declension_ru(., "заряжен [.] патрон", "заряжено [.] патрона", "заряжено [.] патронов")]")
-	playsound(loc, load_sound, 50, TRUE)
+	var/chosen_sound = load_sound
+	if(islist(load_sound) && length(load_sound))
+		chosen_sound = pick(load_sound)
+	playsound(loc, chosen_sound, 50, TRUE)
 	I.update_appearance()
 	I.update_equipped_item()
 	update_appearance()
@@ -287,7 +296,10 @@
 	var/obj/item/ammo_casing/casing = get_round()
 	if(casing)
 		casing.forceMove(drop_location())
-		playsound(loc, remove_sound, 50, TRUE)
+		var/chosen_sound = remove_sound
+		if(islist(remove_sound) && length(remove_sound))
+			chosen_sound = pick(remove_sound)
+		playsound(loc, chosen_sound, 50, TRUE)
 		to_chat(user, span_notice("You have removed a round from [src]!"))
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
 		user.put_in_hands(casing)

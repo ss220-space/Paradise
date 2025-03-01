@@ -87,7 +87,6 @@ GLOBAL_LIST_INIT_TYPED(fullbright_overlays, /mutable_appearance, list(create_ful
 	add_overlay(lighting_effects[1])
 	var/list/z_offsets = SSmapping.z_level_to_plane_offset
 	for(var/turf/T in src)
-		T.luminosity = 1
 		// This outside loop is EXTREMELY hot because it's run by space tiles. Don't want no part in that
 		// We will only add overlays to turfs not on the first z layer, because that's a significantly lesser portion
 		// And we need to do them separate, or lighting will go fuckey
