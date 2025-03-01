@@ -8,7 +8,7 @@
 	icon = 'icons/turf/snow.dmi'
 	icon_state = "snow"
 	max_integrity = 15
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/cooldown = 0 // very cool down
 
 /obj/structure/snow/has_prints()

@@ -114,7 +114,6 @@
 
 /obj/item/organ/internal/brain/skrell
 	species_type = /datum/species/skrell
-	icon = 'icons/obj/species_organs/skrell.dmi'
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал скреллу."
 	ru_names = list(
 		NOMINATIVE = "мозг скрелла",
@@ -124,6 +123,7 @@
 		INSTRUMENTAL = "мозгом скрелла",
 		PREPOSITIONAL = "мозге скрелла"
 	)
+	icon = 'icons/obj/species_organs/skrell.dmi'
 	icon_state = "brain2"
 	item_state = "skrell_brain"
 	mmi_icon = 'icons/obj/species_organs/skrell.dmi'

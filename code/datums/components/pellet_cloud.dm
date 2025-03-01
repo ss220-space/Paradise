@@ -116,7 +116,7 @@
 				spread = round((i / num_pellets - 0.5) * distro)
 
 		RegisterSignal(shell.BB, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
-		RegisterSignals(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
+		RegisterSignal(shell.BB, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 		shell.BB.damage = original_damage
 		pellets += shell.BB
 		var/turf/current_loc = get_turf(fired_from)
@@ -243,7 +243,7 @@
 
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
 /datum/component/pellet_cloud/proc/pew(atom/target, landmine_victim)
-	
+
 	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
 
 	//Shooting Code:
@@ -254,7 +254,7 @@
 	P.suppressed = TRUE// set the projectiles to make no message so we can do our own aggregate message
 	P.preparePixelProjectile(target, target, parent)
 	RegisterSignal(P, COMSIG_PROJECTILE_SELF_ON_HIT, PROC_REF(pellet_hit))
-	RegisterSignals(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
+	RegisterSignal(P, list(COMSIG_PROJECTILE_RANGE_OUT, COMSIG_QDELETING), PROC_REF(pellet_range))
 	pellets += P
 	P.fire()
 
