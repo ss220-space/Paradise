@@ -60,8 +60,8 @@
 	faction = list("alien")
 	use_pathfinding = TRUE
 	can_strip = FALSE
-	var/jumpdistance = 6
-	var/jumpspeed = 1
+	var/jumpdistance = 7
+	var/jumpspeed = 1.5
 	var/host_species = ""
 	var/impregnated = FALSE
 	var/impregnated_death = FALSE
@@ -78,6 +78,7 @@
 	. = ..()
 	add_language(LANGUAGE_HIVE_XENOS)
 	add_language(LANGUAGE_XENOS)
+	ranged_distance = jumpdistance - 1
 	default_language = GLOB.all_languages[LANGUAGE_HIVE_XENOS]
 
 /mob/living/simple_animal/hostile/facehugger/Destroy()
@@ -129,6 +130,24 @@
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
 	ranged_cooldown = world.time + ranged_cooldown_time
 
+/mob/living/simple_animal/hostile/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
+	. = ..()
+	add_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+
+
+/mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
+	. = ..()
+	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+	ranged_cooldown = world.time + ranged_cooldown_time
+	if(iscarbon(hit_atom))
+		try_hug(hit_atom)
+		return .
+	for(var/mob/living/carbon/target in hit_atom)
+		if(CanHug(target))
+			try_hug(target)
+			return .
+	try_hug(hit_atom)
+
 /mob/living/simple_animal/hostile/facehugger/death(gibbed)
 	. = ..()
 	hugger_holder?.Die()
@@ -143,17 +162,6 @@
 		return pick("xltrails_1", "xltrails_2")
 	else
 		return pick("xttrails_1", "xttrails_2")
-
-/mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	. = ..()
-	if(iscarbon(hit_atom))
-		try_hug(hit_atom)
-		return .
-	for(var/mob/living/carbon/target in hit_atom)
-		if(CanHug(target))
-			try_hug(target)
-			return .
-	try_hug(hit_atom)
 
 /mob/living/simple_animal/hostile/facehugger/attack_hand(mob/living/carbon/human/M)
 	var/turf/current_loc = loc
@@ -281,7 +289,7 @@
 
 	if(!istype(grabber))
 		return
-	
+
 	if(!isnull(hugger_holder))
 		QDEL_NULL(hugger_holder)
 

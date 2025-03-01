@@ -6,6 +6,7 @@
 	AI_delay_max = 1.5 SECONDS
 	var/atom/target
 	var/ranged = FALSE
+	var/ranged_distance = INFINITY
 	var/rapid = 0 //How many shots per volley.
 	var/rapid_fire_delay = 2 //Time between rapid fire shots
 
@@ -204,7 +205,7 @@
 		current_turf = get_step_towards(current_turf, target_turf)
 		steps++
 	return TRUE
-	
+
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets)//Step 2, filter down possible targets to things we actually care about
 	if(QDELETED(src))
@@ -405,14 +406,15 @@
 	if(!target || !CanAttack(target))
 		LoseTarget()
 		return FALSE
+
+	var/target_distance = get_dist(targets_from,target)
 	if(target in possible_targets)
 		var/turf/T = get_turf(src)
 		if(target.z != T.z)
 			LoseTarget()
 			return FALSE
-		var/target_distance = get_dist(targets_from,target)
 		if(ranged) //We ranged? Shoot at em
-			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
+			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time && target_distance <= ranged_distance) //But make sure they're not in range for a melee attack and our range attack is off cooldown
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
 			SSmove_manager.stop_looping(src)
@@ -436,7 +438,7 @@
 		return FALSE
 	if(environment_smash)
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
+			if(ranged_ignores_vision && ranged_cooldown <= world.time && target_distance <= ranged_distance) //we can't see our target... but we can fire at them!
 				OpenFire(target)
 			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
