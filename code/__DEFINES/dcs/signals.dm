@@ -18,6 +18,8 @@
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"
 /// global living say plug - use sparingly: (mob/speaker , message)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"
+/// a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
+#define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"
 /// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
 #define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
@@ -486,6 +488,8 @@
 	#define SPEECH_FORCED 7 */
 ////from mob/living/adjust_fire_stacks()
 #define COMSIG_MOB_ADJUST_FIRE "mob_adjust_fire"
+/// from base of /mob/living/attack_alien(): (user)
+#define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"
 
 ////from mob/living/adjust_wet_stacks()
 #define COMSIG_MOB_ADJUST_WET "mob_adjust_wet"

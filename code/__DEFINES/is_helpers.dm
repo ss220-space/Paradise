@@ -21,6 +21,9 @@
 
 #define isbrain(A) (istype(A, /mob/living/carbon/brain))
 
+// basic mobs
+#define isbasicmob(A) (istype(A, /mob/living/basic))
+
 // Carbon mobs
 #define iscarbon(A) (istype(A, /mob/living/carbon))
 
