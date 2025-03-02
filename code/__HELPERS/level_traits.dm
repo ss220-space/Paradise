@@ -1,5 +1,5 @@
 /proc/is_level_reachable(z)
- 	return check_level_trait(z, REACHABLE)
+	return check_level_trait(z, REACHABLE)
 
 /proc/is_station_level(z)
 	return check_level_trait(z, STATION_LEVEL)
@@ -12,6 +12,9 @@
 
 /proc/is_admin_level(z)
 	return check_level_trait(z, ADMIN_LEVEL)
+
+/proc/is_reserved_level(z)
+	return check_level_trait(z, RESERVED_LEVEL)
 
 /proc/is_away_level(z)
 	return check_level_trait(z, AWAY_LEVEL)
@@ -83,3 +86,11 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 		if(SL.linkage == CROSSLINKED && !is_taipan(SL.zpos))
 			znums |= SL.zpos
 	return znums
+
+/// Checks if both atoms are in same z or in connected z-levels.
+/proc/are_zs_connected(atom/A, atom/B)
+	A = get_turf(A)
+	B = get_turf(B)
+	if(A.z == B.z)
+		return TRUE
+	return (B.z in SSmapping.get_connected_levels(A))

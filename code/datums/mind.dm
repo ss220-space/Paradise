@@ -62,7 +62,6 @@
 	var/antag_hud_icon_state = null //this mind's ANTAG_HUD should have this icon_state
 	var/datum/atom_hud/antag/antag_hud = null //this mind's antag HUD
 	var/datum/mindslaves/som //stands for slave or master...hush..
-	var/datum/devilinfo/devilinfo //Information about the devil, if any.
 	var/damnation_type = 0
 	var/datum/mind/soulOwner //who owns the soul.  Under normal circumstances, this will point to src
 	var/hasSoul = TRUE
@@ -149,26 +148,25 @@
 
 
 /datum/mind/proc/transfer_to(mob/living/new_character)
-
 	if(!istype(new_character))
 		stack_trace("transfer_to(): Some idiot has tried to transfer_to() a non mob/living mob.")
 
-	var/datum/atom_hud/antag/hud_to_transfer = antag_hud //we need this because leave_hud() will clear this list
+	var/datum/atom_hud/antag/hud_to_transfer = antag_hud // we need this because leave_hud() will clear this list
 	var/mob/living/old_current = current
 
-	if(current)					//remove ourself from our old body's mind variable
+	if(current)					// remove ourself from our old body's mind variable
 		current.mind = null
-		leave_all_huds() //leave all the huds in the old body, so it won't get huds if somebody else enters it
+		leave_all_huds() // leave all the huds in the old body, so it won't get huds if somebody else enters it
 
 		SStgui.on_transfer(current, new_character)
 
-	if(new_character.mind)		//remove any mind currently in our new body's mind variable
+	if(new_character.mind)		// remove any mind currently in our new body's mind variable
 		new_character.mind.current = null
 
-	current = new_character		//link ourself to our new body
-	new_character.mind = src	//and link our new body to ourself
+	current = new_character		// link ourself to our new body
+	new_character.mind = src	// and link our new body to ourself
 
-	transfer_antag_huds(hud_to_transfer)				//inherit the antag HUD
+	transfer_antag_huds(hud_to_transfer)				// inherit the antag HUD
 	transfer_actions(new_character, old_current)
 
 	if(martial_art)
@@ -179,11 +177,11 @@
 			if(!MA.temporary)
 				MA.teach(current)
 
-	for(var/datum/antagonist/antag in antag_datums)	//Makes sure all antag datums effects are applied in the new body
+	for(var/datum/antagonist/antag in antag_datums)	// Makes sure all antag datums effects are applied in the new body
 		antag.on_body_transfer(old_current, current)
 
 	if(active)
-		new_character.key = key		//now transfer the key to link the client to our new body
+		new_character.set_key(key)		// now transfer the key to link the client to our new body
 
 	// essential mob updates
 	new_character.update_blind_effects()
@@ -504,16 +502,15 @@
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
 	if(src in SSticker.mode.devils)
+		var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
 		if(!devilinfo)
 			. += "<b>No devilinfo found! Yell at a coder!</b>"
-		else if(!devilinfo.ascendable)
-			. += "<b>DEVIL</b>|<a href='byond://?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 		else
-			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|<b>ASCENDABLE DEVIL</b>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else if(src in SSticker.mode.sintouched)
-		. += "devil|Ascendable Devil|<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "devil|<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=ascendable_devil'>Ascendable Devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
@@ -542,12 +539,34 @@
 		. += "|<a href='byond://?src=[UID()];blob=burst'>burst blob</a>"
 	else if(isblobovermind(src))
 		var/mob/camera/blob/blob_overmind = current
-		. += "|<b><font color='red'>BLOB Overmind</font></b>|"
-		. += "<br/><b>Total points: <a href='byond://?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+		if(istype(blob_overmind))
+			. += "|<b><font color='red'>BLOB Overmind</font></b>|"
+			. += "<br/><b>Total points: <a href='byond://?src=[UID()];blob=set_points'>[blob_overmind.blob_points]</a>/[blob_overmind.max_blob_points]</b>"
+			. += "<br/><b>Infinity points: <a href='byond://?src=[UID()];blob=inf_points'>[(blob_overmind.is_infinity)? "ON" : "OFF"]</a></b>"
+			. += "<br/><b>Blob strain: <a href='byond://?src=[UID()];blob=select_strain'>[blob_overmind.blobstrain? "<font color=\"[blob_overmind.blobstrain.color]\">[blob_overmind?.blobstrain?.name]</font>" : "None"]</a></b>"
+	else if(isblobminion(src))
+		. += "|<b><font color='red'>BLOB Minion</font></b>|"
 	else if(current.can_be_blob())
 		. += "<a href='byond://?src=[UID()];blob=blob'>blobize</a>|<b>NO</b>"
 	. += _memory_edit_role_enabled(ROLE_BLOB)
 
+/datum/mind/proc/memory_edit_terrors()
+	. = _memory_edit_header("terror spiders")
+	var/datum/antagonist/terror_spider/spider_datum = has_antag_datum(/datum/antagonist/terror_spider/)
+	if(spider_datum)
+		. += "|<b><font color='red'>[spider_datum.spider_category]</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];terror=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_TERROR_SPIDER)
+
+/datum/mind/proc/memory_edit_xenomorphs()
+	. = _memory_edit_header("xenomorphs")
+	var/datum/antagonist/xenomorph/xeno_datum = has_antag_datum(/datum/antagonist/xenomorph)
+	if(xeno_datum)
+		. += "|<b><font color='red'>[xeno_datum.antag_menu_name]</font></b>"
+	else
+		. += "<a href='byond://?src=[UID()];xenomorph=datumise'>datumise</a>|<b>NO</b>"
+	. += _memory_edit_role_enabled(ROLE_ALIEN)
 
 /datum/mind/proc/memory_edit_traitor()
 	. = _memory_edit_header("traitor", list("traitorchan", "traitorvamp", "traitorthief"))
@@ -689,10 +708,10 @@
 
 /datum/mind/proc/edit_memory()
 	if(!SSticker || !SSticker.mode)
-		alert("Not before round-start!", "Alert")
+		tgui_alert(usr, "Not before round-start!", "Alert")
 		return
 
-	var/list/out = list("<html><meta charset='UTF-8'><head><title>[name]</title></head><body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
+	var/list/out = list("<body><b>[name]</b>[(current && (current.real_name != name))?" (as [current.real_name])" : ""]")
 	out.Add("Mind currently owned by key: [key] [active ? "(synced)" : "(not synced)"]")
 	out.Add("Assigned role: [assigned_role]. <a href='byond://?src=[UID()];role_edit=1'>Edit</a>")
 	out.Add("Special role: [special_role].") //better to change this through /datum/antagonist/, some code uses this var and can break if something goes wrong
@@ -753,7 +772,10 @@
 
 	if((isliving(current) && current.can_be_blob()) || isblobovermind(src))
 		sections["blob"] = memory_edit_blob(current)
-
+	if(isterrorspider(current))
+		sections["terror_spiders"] = memory_edit_terrors(current)
+	if(isalien(current))
+		sections["xenomorphs"] = memory_edit_xenomorphs()
 	if(!issilicon(current))
 		/** CULT ***/
 		sections["cult"] = memory_edit_cult(H)
@@ -841,7 +863,12 @@
 	out.Add("<a href='byond://?src=[UID()];obj_add=1'>Add objective</a><br>")
 	out.Add("<a href='byond://?src=[UID()];obj_announce=1'>Announce objectives</a><br>")
 	out.Add("</body></html>")
-	usr << browse(out.Join("<br>"), "window=edit_memory[src];size=500x500")
+
+	var/datum/browser/popup = new(usr, "edit_memory[src]", "<div align='center'>[name]</div>", 500, 500)
+	popup.set_content(out.Join("<br>"))
+	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
+	popup.open()
+	onclose(usr, "edit_memory[src]")
 
 /datum/mind/Topic(href, href_list)
 	//проверяем на амбиции, после чего прерываем выполнение, иначе он залезет в админский антаг-панель
@@ -861,13 +888,12 @@
 		message_admins("[key_name_admin(usr)] has changed [key_name_admin(current)]'s assigned role to [assigned_role]")
 
 	else if(href_list["memory_edit"])
-		var/messageinput = input("Write new memory", "Memory", memory) as null|message
+		var/messageinput = tgui_input_text(usr, "Write new memory", "Memory", memory, multiline = TRUE, encode = FALSE)
 		if(isnull(messageinput))
 			return
-		var/new_memo = copytext(messageinput, 1,MAX_MESSAGE_LEN)
-		var/confirmed = alert(usr, "Are you sure you want to edit their memory? It will wipe out their original memory!", "Edit Memory", "Yes", "No")
+		var/confirmed = tgui_alert(usr, "Are you sure you want to edit their memory? It will wipe out their original memory!", "Edit Memory", list("Yes", "No"))
 		if(confirmed == "Yes") // Because it is too easy to accidentally wipe someone's memory
-			memory = new_memo
+			memory = messageinput
 			log_admin("[key_name(usr)] has edited [key_name(current)]'s memory")
 			message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s memory")
 
@@ -971,9 +997,9 @@
 
 				var/new_target
 				if(length(possible_targets))
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "Yes")
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "Yes")
 						possible_targets += "Free objective"
-						new_target = input("Select target:", "Objective target", def_target) as null|anything in possible_targets
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets, def_target)
 					else
 						if(!length(possible_targets_random))
 							to_chat(usr, span_warning("No random target found. Pick one manually."))
@@ -1058,11 +1084,11 @@
 				new_objective.owner = src
 
 			if("find and scan")
-				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/find_and_scan
 					var/datum/objective/find_and_scan/scan_objective = new_objective
 					var/list/roles = scan_objective.available_roles.Copy()
-					if(alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", "Yes", "No") == "Yes")
+					if(tgui_alert(usr, "Do you want to pick roles yourself? No will randomise it", "Pick roles", list("Yes", "No")) == "Yes")
 						for(var/i in 1 to 3)
 							var/role = tgui_input_list(usr, "Select role:", "Objective role", roles)
 							if(role)
@@ -1075,36 +1101,36 @@
 					scan_objective.owner = src
 
 			if("research corrupt")
-				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/research_corrupt
 					new_objective.owner = src
 
 			if("ai corrupt")
-				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/ai_corrupt
 					new_objective.owner = src
 
 			if("cyborg hijack")
-				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/cyborg_hijack
 					new_objective.owner = src
 
 			if("plant explosive")
-				if(alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", "Да", "Нет") == "Да")
+				if(tgui_alert(usr, "Предупреждение! Эту цель способен выполнить только ниндзя!", "Продолжить?", list("Да", "Нет")) == "Да")
 					new_objective = new /datum/objective/plant_explosive
 					var/datum/objective/plant_explosive/bomb_objective = new_objective
 					var/area/random_detonation_area = null
 					var/area/detonation_area = null
-					if(alert(usr, "Do you want to pick detonation area yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
+					if(tgui_alert(usr, "Do you want to pick detonation area yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "No")
 						for(var/sanity in 1 to 100) // 100 checks at most.
-							var/area/selected_area = pick(return_sorted_areas())
+							var/area/selected_area = pick(get_sorted_areas())
 							if(selected_area && is_station_level(selected_area.z) && selected_area.valid_territory) //Целью должна быть зона на станции!
 								if(selected_area in bomb_objective.area_blacklist)
 									continue
 								random_detonation_area = selected_area
 								break
 					else
-						detonation_area = input("Select area:", "Objective area") as null|anything in return_sorted_areas()
+						detonation_area = tgui_input_list(usr, "Select area:", "Objective area", get_sorted_areas())
 
 					bomb_objective.detonation_location = detonation_area ? detonation_area : random_detonation_area
 					bomb_objective.explanation_text = "Взорвите выданную вам бомбу в [bomb_objective.detonation_location]. Учтите, что бомбу нельзя активировать на не предназначенной для подрыва территории!"
@@ -1130,10 +1156,10 @@
 				var/new_target = null
 				var/target_pick = null
 				if(length(possible_targets))
-					if(alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", "Yes", "No") == "No")
+					if(tgui_alert(usr, "Do you want to pick the objective yourself? No will randomise it", "Pick objective", list("Yes", "No")) == "No")
 						target_pick = pick(possible_targets)
 					else
-						new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+						new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 					new_objective.target = new_target ? new_target : target_pick
 					new_objective.explanation_text = "Любым способом подставьте [new_objective.target.current.real_name], [new_objective.target.assigned_role], чтобы его лишили свободы. Но не убили!"
 
@@ -1212,13 +1238,11 @@
 				var/datum/objective/get_money/money_objective = new_objective
 				var/input_sum = null
 				var/accounts_procent = 60
-				if(alert(usr, "Хотите сами подобрать сумму? Если нет, то будет выбрана сумма от процентажа со всех аккаунтов.", "Введите сумму", "Yes", "No") == "Yes")
-					input_sum = input("Введите необходимую денежную сумму:", "Денежная Сумма") as num|null
+				if(tgui_alert(usr, "Хотите сами подобрать сумму? Если нет, то будет выбрана сумма от процентажа со всех аккаунтов.", "Введите сумму", list("Yes", "No")) == "Yes")
+					input_sum = tgui_input_number(usr, "Введите необходимую денежную сумму:", "Денежная Сумма", max_value = INFINITY)
 				else
-					accounts_procent = input("Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж") as num|null
-					if(accounts_procent)
-						accounts_procent = clamp(accounts_procent, 1, 100)
-					else
+					accounts_procent = tgui_input_number(usr, "Введите необходимый процентаж суммы со всех аккаунтов (1-100), иначе будет 60%:", "Процентаж", min_value = 1, max_value = 100)
+					if(!accounts_procent)
 						accounts_procent = initial(accounts_procent)
 				money_objective.owner = src
 				money_objective.new_cash(input_sum, accounts_procent)
@@ -1228,7 +1252,7 @@
 				if(objective&&objective.type==text2path("/datum/objective/[new_obj_type]"))
 					def_num = objective.target_amount
 
-				var/target_number = input("Input target number:", "Objective", def_num) as num|null
+				var/target_number = tgui_input_number(usr, "Input target number:", "Objective", def_num)
 				if(isnull(target_number))//Ordinarily, you wouldn't need isnull. In this case, the value may already exist.
 					return
 
@@ -1256,7 +1280,7 @@
 				possible_targets = sortAtom(possible_targets)
 				possible_targets += "Free objective"
 
-				var/new_target = input("Select target:", "Objective target") as null|anything in possible_targets
+				var/new_target = tgui_input_list(usr, "Select target:", "Objective target", possible_targets)
 				if(!new_target)
 					return
 
@@ -1273,7 +1297,7 @@
 				new_objective = identity_objective
 
 			if("custom")
-				var/expl = sanitize(copytext_char(input("Custom objective:", "Objective", objective ? objective.explanation_text : "") as text|null,1,MAX_MESSAGE_LEN))
+				var/expl = sanitize(tgui_input_text(usr, "Custom objective:", "Objective", objective ? objective.explanation_text : ""))
 				if(!expl)
 					return
 				new_objective = new /datum/objective
@@ -1631,7 +1655,7 @@
 				if(!isvampire(src))
 					return
 
-				var/new_usable = input(usr, "Select a new value:", "Modify usable blood") as null|num
+				var/new_usable = tgui_input_number(usr, "Select a new value:", "Modify usable blood")
 				if(isnull(new_usable) || new_usable < 0)
 					return
 
@@ -1645,13 +1669,13 @@
 				if(!isvampire(src))
 					return
 
-				var/new_total = input(usr, "Select a new value:", "Modify total blood") as null|num
+				var/new_total = tgui_input_number(usr, "Select a new value:", "Modify total blood")
 				if(isnull(new_total) || new_total < 0)
 					return
 
 				var/datum/antagonist/vampire/vamp = has_antag_datum(/datum/antagonist/vampire)
 				if(new_total < vamp.bloodtotal)
-					if(alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", "Yes", "No") == "No")
+					if(tgui_alert(usr, "Note that reducing the vampire's total blood may remove some active powers. Continue?", "Confirm New Total", list("Yes", "No")) == "No")
 						return
 					vamp.remove_all_powers()
 
@@ -1670,7 +1694,7 @@
 					subclass_selection[capitalize(initial(subclass.name))] = subtype
 				subclass_selection["Let them choose (remove current subclass)"] = NONE
 
-				var/new_subclass_name = input(usr, "Choose a new subclass:", "Change Vampire Subclass") as null|anything in subclass_selection
+				var/new_subclass_name = tgui_input_list(usr, "Choose a new subclass:", "Change Vampire Subclass", subclass_selection)
 				if(!new_subclass_name)
 					return
 
@@ -1710,7 +1734,7 @@
 				if(!vamp || QDELETED(vamp.subclass))
 					return
 
-				var/new_total = input(usr, "Adjust a new value:", "Modify hearts trophies") as null|num
+				var/new_total = tgui_input_number(usr, "Adjust a new value:", "Modify hearts trophies")
 				if(isnull(new_total))
 					return
 
@@ -1723,7 +1747,7 @@
 				if(!vamp || QDELETED(vamp.subclass))
 					return
 
-				var/new_total = input(usr, "Adjust a new value:", "Modify lungs trophies") as null|num
+				var/new_total = tgui_input_number(usr, "Adjust a new value:", "Modify lungs trophies")
 				if(isnull(new_total))
 					return
 
@@ -1736,7 +1760,7 @@
 				if(!vamp || QDELETED(vamp.subclass))
 					return
 
-				var/new_total = input(usr, "Adjust a new value:", "Modify livers trophies") as null|num
+				var/new_total = tgui_input_number(usr, "Adjust a new value:", "Modify livers trophies")
 				if(isnull(new_total))
 					return
 
@@ -1749,7 +1773,7 @@
 				if(!vamp || QDELETED(vamp.subclass))
 					return
 
-				var/new_total = input(usr, "Adjust a new value:", "Modify kidneys trophies") as null|num
+				var/new_total = tgui_input_number(usr, "Adjust a new value:", "Modify kidneys trophies")
 				if(isnull(new_total))
 					return
 
@@ -1762,7 +1786,7 @@
 				if(!vamp || QDELETED(vamp.subclass))
 					return
 
-				var/new_total = input(usr, "Adjust a new value:", "Modify eyes trophies") as null|num
+				var/new_total = tgui_input_number(usr, "Adjust a new value:", "Modify eyes trophies")
 				if(isnull(new_total))
 					return
 
@@ -1775,7 +1799,7 @@
 				if(!vamp || QDELETED(vamp.subclass))
 					return
 
-				var/new_total = input(usr, "Adjust a new value:", "Modify ears trophies") as null|num
+				var/new_total = tgui_input_number(usr, "Adjust a new value:", "Modify ears trophies")
 				if(isnull(new_total))
 					return
 
@@ -1901,47 +1925,24 @@
 			if("clear")
 				if(src in SSticker.mode.devils)
 					log_admin("[key_name(usr)] has de-devil'ed [current].")
+
 				else if(src in SSticker.mode.sintouched)
 					message_admins("[key_name_admin(usr)] has de-sintouch'ed [current].")
 					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
+
 				remove_devil_role()
 			if("devil")
-				if(devilinfo)
-					devilinfo.ascendable = FALSE
-					message_admins("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
-					log_admin("[key_name_admin(usr)] has made [current] unable to ascend as a devil.")
+				if(has_antag_datum(/datum/antagonist/devil))
 					return
-				if(!ishuman(current) && !isrobot(current))
-					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
-					return
-				SSticker.mode.devils += src
-				special_role = "devil"
-				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, FALSE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
+
+				add_antag_datum(/datum/antagonist/devil)
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")
-			if("ascendable_devil")
-				if(devilinfo)
-					devilinfo.ascendable = TRUE
-					message_admins("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
-					log_admin("[key_name_admin(usr)] has made [current] able to ascend as a devil.")
-					return
-				if(!ishuman(current) && !isrobot(current))
-					to_chat(usr, "<span class='warning'>This only works on humans and cyborgs!</span>")
-					return
-				SSticker.mode.devils += src
-				special_role = "devil"
-				SSticker.mode.update_devil_icons_added(src)
-				SSticker.mode.finalize_devil(src, TRUE)
-				SSticker.mode.forge_devil_objectives(src, 2)
-				SSticker.mode.greet_devil(src)
-				message_admins("[key_name_admin(usr)] has devil'ed [current].  The devil has been marked as ascendable.")
-				log_admin("[key_name(usr)] has devil'ed [current]. The devil has been marked as ascendable.")
 			if("sintouched")
-				var/mob/living/carbon/human/H = current
-				H.influenceSin()
+				if(has_antag_datum(/datum/antagonist/sintouched))
+					return
+
+				add_antag_datum(/datum/antagonist/sintouched)
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 				log_admin("[key_name(usr)] has sintouch'ed [current].")
 
@@ -2040,7 +2041,7 @@
 						continue
 					possible_targets[possible_target.name] = possible_target
 
-				var/choice = input(usr, "Select the contract target:", "Add Contract") as null|anything in possible_targets
+				var/choice = tgui_input_list(usr, "Select the contract target:", "Add Contract", possible_targets)
 				var/datum/mind/target = possible_targets[choice]
 				if(!target || !target.current || !target.key)
 					return
@@ -2054,7 +2055,7 @@
 			if("tc")
 				if(!C)
 					return
-				var/new_tc = input(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available) as num|null
+				var/new_tc = tgui_input_number(usr, "Enter the new amount of TC:", "Set Claimable TC", H.reward_tc_available)
 				new_tc = text2num(new_tc)
 				if(isnull(new_tc) || new_tc < 0)
 					return
@@ -2066,7 +2067,7 @@
 			if("rep")
 				if(!C)
 					return
-				var/new_rep = input(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep) as num|null
+				var/new_rep = tgui_input_number(usr, "Enter the new amount of Rep:", "Set Available Rep", H.rep)
 				new_rep = text2num(new_rep)
 				if(isnull(new_rep) || new_rep < 0)
 					return
@@ -2090,7 +2091,7 @@
 						continue
 					possible_targets[possible_target.name] = possible_target
 
-				var/choice = input(usr, "Select the new contract target:", "Set Contract Target") as null|anything in possible_targets
+				var/choice = tgui_input_list(usr, "Select the new contract target:", "Set Contract Target", possible_targets)
 				var/datum/mind/target = possible_targets[choice]
 				if(!target || !target.current || !target.key)
 					return
@@ -2121,23 +2122,22 @@
 					var/area/A = CO.contract.candidate_zones[diff]
 					difficulty_choices["[A.name] ([CO.reward_tc[diff]] TC)"] = diff
 
-				var/choice_diff = input(usr, "Select the location to change:", "Set Contract Location") as null|anything in difficulty_choices
+				var/choice_diff = tgui_input_list(usr, "Select the location to change:", "Set Contract Location", difficulty_choices)
 				var/difficulty = difficulty_choices[choice_diff]
 				if(!difficulty)
 					return
 
 				var/list/area_choices = list()
-				for(var/a in return_sorted_areas())
-					var/area/A = a
+				for(var/area/A in get_sorted_areas())
 					if(A.outdoors || !is_station_level(A.z))
 						continue
 					area_choices += A
 
-				var/new_area = input(usr, "Select the new location:", "Set Contract Location", CO.contract.candidate_zones[difficulty]) in area_choices
+				var/new_area = tgui_input_list(usr, "Select the new location:", "Set Contract Location", area_choices, CO.contract.candidate_zones[difficulty])
 				if(!new_area)
 					return
 
-				var/new_reward = input(usr, "Enter the new amount of rewarded TC:", "Set Contract Location", CO.reward_tc[difficulty]) as num|null
+				var/new_reward = tgui_input_number(usr, "Enter the new amount of rewarded TC:", "Set Contract Location", CO.reward_tc[difficulty])
 				new_reward = text2num(new_reward)
 				if(isnull(new_reward) || new_reward < 0)
 					return
@@ -2154,27 +2154,27 @@
 				if(!istype(CO))
 					return
 
-				var/choice = input(usr, "Select an action to take:", "Other Contract Actions") in list("Edit Fluff Message", "Edit Prison Time", "Edit Credits Reward", "Delete Contract", "Cancel")
+				var/choice = tgui_input_list(usr, "Select an action to take:", "Other Contract Actions", list("Edit Fluff Message", "Edit Prison Time", "Edit Credits Reward", "Delete Contract", "Cancel"))
 				if(!choice)
 					return
 
 				switch(choice)
 					if("Edit Fluff Message")
-						var/new_message = input(usr, "Enter the new fluff message:", "Edit Fluff Message", CO.fluff_message) as message|null
+						var/new_message = tgui_input_text(usr, "Enter the new fluff message:", "Edit Fluff Message", CO.fluff_message, multiline = TRUE, encode = FALSE)
 						if(!new_message)
 							return
 						CO.fluff_message = new_message
 						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract fluff message")
 						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract fluff message")
 					if("Edit Prison Time")
-						var/new_time = input(usr, "Enter the new prison time in seconds:", "Edit Prison Time", CO.prison_time / 10) as num|null
+						var/new_time = tgui_input_number(usr, "Enter the new prison time in seconds:", "Edit Prison Time", CO.prison_time / 10)
 						if(!new_time || new_time < 0)
 							return
 						CO.prison_time = new_time SECONDS
 						log_admin("[key_name(usr)] has edited [key_name(current)]'s contract prison time to [new_time] seconds")
 						message_admins("[key_name_admin(usr)] has edited [key_name_admin(current)]'s contract prison time to [new_time] seconds")
 					if("Edit Credits Reward")
-						var/new_creds = input(usr, "Enter the new credits reward:", "Edit Credits Reward", CO.reward_credits) as num|null
+						var/new_creds = tgui_input_number(usr, "Enter the new credits reward:", "Edit Credits Reward", CO.reward_credits)
 						if(!new_creds || new_creds < 0)
 							return
 						CO.reward_credits = new_creds
@@ -2209,7 +2209,7 @@
 				var/datum/syndicate_contract/CO = locateUID(href_list["cuid"])
 				if(!istype(CO) || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
-				var/fail_reason = sanitize(input(usr, "Enter the fail reason:", "Fail Contract") as text|null)
+				var/fail_reason = sanitize(tgui_input_text(usr, "Enter the fail reason:", "Fail Contract", encode = FALSE))
 				if(!fail_reason || CO.status != CONTRACT_STATUS_ACTIVE)
 					return
 				CO.fail(fail_reason)
@@ -2324,7 +2324,7 @@
 					return
 
 				var/mob/living/carbon/human/H = current
-				var/gear = alert("Agent or Scientist Gear", "Gear", "Agent", "Scientist")
+				var/gear = tgui_alert(usr, "Agent or Scientist Gear", "Gear", list("Agent", "Scientist"))
 				if(gear)
 					if(gear=="Agent")
 						H.equipOutfit(/datum/outfit/abductor/agent)
@@ -2380,15 +2380,15 @@
 					to_chat(usr,span_warning("Ниндзя - зависим от костюма. Рандомная выдача целей, до выдачи костюма ведёт к ошибкам!"))
 					return
 				var/list/objective_types = list(NINJA_TYPE_GENERIC, NINJA_TYPE_PROTECTOR, NINJA_TYPE_HACKER, NINJA_TYPE_KILLER)
-				var/objective_type = input("Select type of objectives to generate", "Objective type selection") as null|anything in objective_types
+				var/objective_type = tgui_input_list(usr, "Select type of objectives to generate", "Objective type selection", objective_types)
 				if(objective_type != NINJA_TYPE_GENERIC)
-					if(alert(usr, "Данный вид целей генерирует дополнительных антагонистов в раунд. Продолжить?","ВАЖНО!","Да","Нет") == "Нет")
+					if(tgui_alert(usr, "Данный вид целей генерирует дополнительных антагонистов в раунд. Продолжить?", "ВАЖНО!", list("Да", "Нет")) == "Нет")
 						return
 					if(ninja_datum.antags_done)
 						to_chat(usr, span_warning("Антагонисты уже были сгенерированы!"))
 						return
 				if(!objective_type)
-					if(alert(usr, "Рандомный выбор типа целей имеет ВЫСОКИЙ шанс сгенерировать дополнительных антагонистов в раунд. Начать генерацию?","ВАЖНО!","Да","Нет") == "Нет")
+					if(tgui_alert(usr, "Рандомный выбор типа целей имеет ВЫСОКИЙ шанс сгенерировать дополнительных антагонистов в раунд. Начать генерацию?", "ВАЖНО!", list("Да", "Нет")) == "Нет")
 						return
 					if(ninja_datum.antags_done)
 						to_chat(usr, span_warning("Антагонисты уже были сгенерированы, случайная генерация более невозможна!"))
@@ -2436,9 +2436,9 @@
 				add_conversion_logs(current, "De-blobed")
 
 			if("blob")
-				var/burst_time = input(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT) as num|null
-				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Нет"
-				var/start_process = alert(usr,"Начинать отсчет до момента вылупления?", "", "Да", "Нет") == "Да"
+				var/burst_time = tgui_input_number(usr, "Введите время до вылупления","Time:", TIME_TO_BURST_ADDED_HIGHT)
+				var/need_new_blob = tgui_alert(usr, "Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", list("Да", "Нет")) == "Нет"
+				var/start_process = tgui_alert(usr,"Начинать отсчет до момента вылупления?", "", list("Да", "Нет")) == "Да"
 				if(isnull(burst_time) || QDELETED(current) || current.stat == DEAD)
 					return
 				var/datum_type = get_blob_infected_type()
@@ -2452,9 +2452,9 @@
 				message_admins("[key_name_admin(usr)] has made [key_name_admin(current)] into a \"Blob\"")
 
 			if("burst")
-				var/warn_blob = alert(usr,"Предупреждать блоба при попытке вылупления за пределами станции?", "", "Да", "Нет") != "Да"
-				var/need_new_blob = alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", "Да", "Нет") == "Да"
-				if(alert(usr,"Вы действительно хотите лопнуть блоба? Это уничтожит персонажа игрока и превратит его в блоба.", "", "Да", "Нет") == "Да")
+				var/warn_blob = tgui_alert(usr,"Предупреждать блоба при попытке вылупления за пределами станции?", "", list("Да", "Нет")) != "Да"
+				var/need_new_blob = tgui_alert(usr,"Нужно ли выбирать блоба из экипажа в случае попытки вылупления за пределами станции?", "", list("Да", "Нет")) == "Да"
+				if(tgui_alert(usr,"Вы действительно хотите лопнуть блоба? Это уничтожит персонажа игрока и превратит его в блоба.", "", list("Да", "Нет")) == "Да")
 					var/datum/antagonist/blob_infected/blob = has_antag_datum(/datum/antagonist/blob_infected)
 					if(!blob)
 						return
@@ -2468,13 +2468,52 @@
 				if(!isblobovermind(src))
 					return
 				var/mob/camera/blob/blob_overmind = current
-				var/blob_points = input(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]","Count:", blob_overmind.blob_points) as num|null
+				var/blob_points = tgui_input_number(usr, "Введите новое число очков в диапазоне от 0 до [blob_overmind.max_blob_points]", "Count:", blob_overmind.blob_points, blob_overmind.max_blob_points, 0)
 				if(isnull(blob_points) || QDELETED(current) || current.stat == DEAD)
 					return
 				blob_overmind.blob_points = clamp(blob_points, 0, blob_overmind.max_blob_points)
 				log_admin("[key_name(usr)] set blob points to [key_name(current)] as [blob_overmind.blob_points]")
 				message_admins("[key_name_admin(usr)] set blob points to [key_name_admin(current)] as [blob_overmind.blob_points]")
 
+			if("inf_points")
+				if(!isblobovermind(src))
+					return
+				var/mob/camera/blob/blob_overmind = current
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				blob_overmind.is_infinity = !blob_overmind.is_infinity
+				log_admin("[key_name(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name(current)]")
+				message_admins("[key_name_admin(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name_admin(current)]")
+			
+			if("select_strain")
+				if(!isblobovermind(src))
+					return
+				var/mob/camera/blob/blob_overmind = current
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				var/strain = tgui_input_list(usr, "Выберите штамм", "Выбор штамма", GLOB.valid_blobstrains, null)
+				if(ispath(strain))
+					blob_overmind.set_strain(strain)
+					log_admin("[key_name(usr)] changed the strain to [strain] for [key_name(current)]")
+					message_admins("[key_name_admin(usr)] changed the strain to [strain] for [key_name_admin(current)]")
+	
+	else if(href_list["terror"])
+		switch(href_list["terror"])
+			if("datumise")
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				var/mob/living/simple_animal/hostile/poison/terror_spider/spider = current
+				spider.add_datum_if_not_exist()
+				log_and_message_admins("has made [key_name(current)] into a \"Terror Spider\"")
+	
+	else if(href_list["xenomorph"])
+		switch(href_list["xenomorph"])
+			if("datumise")
+				if(QDELETED(current) || current.stat == DEAD)
+					return
+				var/mob/living/carbon/alien/alien = current
+				alien.update_datum()
+				log_and_message_admins("has made [key_name(current)] into a \"Xenomorph\"")
 
 	else if(href_list["common"])
 		switch(href_list["common"])
@@ -2503,7 +2542,7 @@
 					var/crystals
 					if(suplink)
 						crystals = suplink.uses
-					crystals = input("Amount of telecrystals for [key]","Syndicate uplink", crystals) as null|num
+					crystals = tgui_input_number(usr, "Amount of telecrystals for [key]", "Syndicate uplink", crystals)
 					if(!isnull(crystals))
 						if(suplink)
 							suplink.uses = crystals
@@ -2583,8 +2622,11 @@
  */
 /datum/mind/proc/remove_antag_datum(datum_type)
 	var/datum/antagonist/antag = has_antag_datum(datum_type)
-	if(antag)
-		qdel(antag)
+
+	if(!antag)
+		return
+
+	qdel(antag)
 
 
 /**
@@ -2675,27 +2717,10 @@
 
 /datum/mind/proc/remove_devil_role()
 	if(src in SSticker.mode.devils)
-		if(istype(current,/mob/living/carbon/true_devil/))
-		else
-			SSticker.mode.devils -= src
-			SSticker.mode.update_devil_icons_removed(src)
-			special_role = null
-			RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
-			RemoveSpell(/obj/effect/proc_holder/spell/fireball/hellish)
-			RemoveSpell(/obj/effect/proc_holder/spell/summon_contract)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended)
-			RemoveSpell(/obj/effect/proc_holder/spell/conjure_item/violin)
-			RemoveSpell(/obj/effect/proc_holder/spell/summon_dancefloor)
-			RemoveSpell(/obj/effect/proc_holder/spell/sintouch)
-			RemoveSpell(/obj/effect/proc_holder/spell/sintouch/ascended)
-			if(issilicon(current))
-				var/mob/living/silicon/S = current
-				S.laws.clear_sixsixsix_laws()
-			devilinfo = null
+		remove_antag_datum(/datum/antagonist/devil)
+
 	else if(src in SSticker.mode.sintouched)
-		SSticker.mode.sintouched -= src
+		remove_antag_datum(/datum/antagonist/sintouched)
 
 
 /datum/mind/proc/remove_contractor_role()
@@ -2915,9 +2940,9 @@
 		add_antag_datum(/datum/antagonist/thief)
 
 /datum/mind/proc/make_Abductor()
-	var/role = alert("Abductor Role?", "Role", "Agent", "Scientist")
-	var/team = input("Abductor Team?", "Team?") in list(1,2,3,4)
-	var/teleport = alert("Teleport to ship?", "Teleport", "Yes", "No")
+	var/role = tgui_alert(usr, "Abductor Role?", "Role", list("Agent", "Scientist"))
+	var/team = tgui_input_list(usr, "Abductor Team?", "Team?", list(1,2,3,4))
+	var/teleport = tgui_alert(usr, "Teleport to ship?", "Teleport", list("Yes", "No"))
 
 	if(!role || !team || !teleport)
 		return
@@ -3095,6 +3120,7 @@
 	if(!mind.name)
 		mind.name = real_name
 	mind.current = src
+	SEND_SIGNAL(src, COMSIG_MOB_MIND_INITIALIZED, mind)
 
 //HUMAN
 /mob/living/carbon/human/mind_initialize()

@@ -14,7 +14,7 @@
 	force = 10
 	container_type = AMOUNT_VISIBLE
 	materials = list(MAT_METAL=90)
-	attack_verb = list("slammed", "whacked", "bashed", "thunked", "battered", "bludgeoned", "thrashed")
+	attack_verb = list("огрел", "ударил", "стукнул")
 	dog_fashion = /datum/dog_fashion/back
 	resistance_flags = FIRE_PROOF
 	/// The max amount of water this extinguisher can hold.

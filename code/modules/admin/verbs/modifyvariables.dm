@@ -2,12 +2,15 @@ GLOBAL_LIST_INIT(VVlocked, list("vars", "var_edited", "client", "firemut", "ishu
 GLOBAL_LIST_INIT(VVicon_edit_lock, list("icon", "icon_state", "overlays", "underlays", "resize")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVckey_edit, list("key", "ckey")) // R_EVENT | R_DEBUG
 GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_height", "bound_width", "bound_x", "bound_y")) // R_DEBUG + warning
-/client/proc/vv_get_class(var/var_value)
+/client/proc/vv_get_class(var_name, var_value)
 	if(isnull(var_value))
 		. = VV_NULL
 
 	else if(isnum(var_value))
-		. = VV_NUM
+		if(var_name in GLOB.bitfields)
+			. = VV_BITFIELD
+		else
+			. = VV_NUM
 
 	else if(istext(var_value))
 		if(findtext(var_value, "\n"))
@@ -51,7 +54,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else
 		. = VV_NULL
 
-/client/proc/vv_get_value(class, default_class, current_value, list/restricted_classes, list/extra_classes, list/classes)
+/client/proc/vv_get_value(class, default_class, current_value, list/restricted_classes, list/extra_classes, list/classes, var_name)
 	. = list("class" = class, "value" = null)
 	if(!class)
 		if(!classes)
@@ -86,30 +89,35 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		if(extra_classes)
 			classes += extra_classes
 
-		.["class"] = input(src, "What kind of data?", "Variable Type", default_class) as null|anything in classes
+		.["class"] = tgui_input_list(src, "Какой тип данных?", "Тип переменной", classes, default_class)
 		if(holder && holder.marked_datum && .["class"] == "[VV_MARKED_DATUM] ([holder.marked_datum.type])")
 			.["class"] = VV_MARKED_DATUM
 
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = input("Enter new text:", "Text", current_value) as null|text
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = INFINITY, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = input("Enter new text:", "Text", current_value) as null|message
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = INFINITY, multiline = TRUE, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_NUM)
-			.["value"] = input("Enter new number:", "Num", current_value) as null|num
+			.["value"] = tgui_input_number(src, "Введите число:", "Число", current_value, max_value = INFINITY, min_value = -INFINITY, round_value = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
+		if(VV_BITFIELD)
+			.["value"] = input_bitfield(usr, var_name, current_value)
+			if(.["value"] == null)
+				.["class"] = null
+				return
 
 		if(VV_ATOM_TYPE)
 			.["value"] = pick_closest_path(FALSE)
@@ -127,11 +135,11 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			var/type = current_value
 			var/error = ""
 			do
-				type = input("Enter type:[error]", "Type", type) as null|text
+				type = tgui_input_text(src, "Введите тип:[error]", "Тип", type, encode = FALSE)
 				if(!type)
 					break
 				type = text2path(type)
-				error = "\nType not found, Please try again"
+				error = "\nТип не найден, Попробуйте снова"
 			while(!type)
 			if(!type)
 				.["class"] = null
@@ -139,13 +147,13 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			.["value"] = type
 
 		if(VV_MATRIX)
-			.["value"] = text2matrix(input("Enter a, b, c, d, e, and f, seperated by a space.", "Matrix", "1 0 0 0 1 0") as null|text)
+			.["value"] = text2matrix(tgui_input_text(src, "Введите a, b, c, d, e, и f, разделённые пробелами.", "Матрица", "1 0 0 0 1 0", encode = FALSE))
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 		if(VV_REGEX)
-			var/reg = input("Enter regex", "Regex", "") as null|text
+			var/reg = tgui_input_text(src, "Введите regex", "Regex", "", encode = FALSE)
 			if(!reg)
 				return
 			.["value"] = regex(reg)
@@ -160,7 +168,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = tgui_input_list(src, "Выберите ссылку:", "Ссылка", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -173,7 +181,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = tgui_input_list(src, "Выберите ссылку:", "Ссылка", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -186,7 +194,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			var/list/things = vv_reference_list(type, subtypes)
-			var/value = input("Select reference:", "Reference", current_value) as null|anything in things
+			var/value = tgui_input_list(src, "Выберите ссылку:", "Ссылка", things, current_value)
 			if(!value)
 				.["class"] = null
 				return
@@ -195,21 +203,21 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 
 		if(VV_CLIENT)
-			.["value"] = input("Select reference:", "Reference", current_value) as null|anything in GLOB.clients
+			.["value"] =  tgui_input_list(src, "Выберите клитент:", "Клиент", GLOB.clients, current_value)
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_FILE)
-			.["value"] = input("Pick file:", "File") as null|file
+			.["value"] = input(src, "Выберите файл:", "Файл") as null|file
 			if(.["value"] == null)
 				.["class"] = null
 				return
 
 
 		if(VV_ICON)
-			.["value"] = input("Pick icon:", "Icon") as null|icon
+			.["value"] = input(src, "Выберите иконку:", "Иконка") as null|icon
 			if(.["value"] == null)
 				.["class"] = null
 				return
@@ -227,7 +235,16 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			.["type"] = type
-			.["value"] = new type()
+			var/list/arguments
+
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+
+			if(!arguments?.len)
+				.["value"] = new type()
+			else
+				.["value"] = new type(arglist(arguments))
+
 
 		if(VV_NEW_DATUM)
 			var/type = pick_closest_path(FALSE, get_fancy_list_of_datum_types())
@@ -235,23 +252,36 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 				.["class"] = null
 				return
 			.["type"] = type
-			.["value"] = new type()
+			var/list/arguments
+
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый датум", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+
+			if(!arguments?.len)
+				.["value"] = new type()
+			else
+				.["value"] = new type(arglist(arguments))
 
 		if(VV_NEW_TYPE)
 			var/type = current_value
 			var/error = ""
-			do
-				type = input("Enter type:[error]", "Type", type) as null|text
-				if(!type)
-					break
-				type = text2path(type)
-				error = "\nType not found, Please try again"
-			while(!type)
+			type = tgui_input_text(src, "Введите тип:[error]", "Тип", type, encode = FALSE)
 			if(!type)
+				type = text2path(type)
+				error = "\nТип не найден."
 				.["class"] = null
 				return
+
 			.["type"] = type
-			.["value"] = new type()
+			var/list/arguments
+
+			if(tgui_alert(usr, "Вы хотите добавить аргументы?", "Новый атом", list("Да", "Нет")) == "Да")
+				arguments = get_callproc_args(FALSE)
+
+			if(!arguments?.len)
+				.["value"] = new type()
+			else
+				.["value"] = new type(arglist(arguments))
 
 
 		if(VV_NEW_LIST)
@@ -260,7 +290,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 /client/proc/vv_parse_text(O, new_var)
 	if(O && findtext(new_var, "\["))
-		var/process_vars = alert(usr, "\[] detected in string, process as variables?", "Process Variables?", "Yes", "No")
+		var/process_vars = tgui_alert(usr, "\[] detected in string, process as variables?", "Process Variables?", list("Yes", "No"))
 		if(process_vars == "Yes")
 			. = string2listofvars(new_var, O)
 
@@ -275,7 +305,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!subtypes || !subtypes.len)
 		return FALSE
 	if(subtypes && subtypes.len)
-		switch(alert("Strict object type detection?", "Type detection", "Strictly this type","This type and subtypes", "Cancel"))
+		switch(tgui_alert(usr, "Strict object type detection?", "Type detection", list("Strictly this type", "This type and subtypes", "Cancel")))
 			if("Strictly this type")
 				return FALSE
 			if("This type and subtypes")
@@ -346,7 +376,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	L += var_value
 
-	switch(alert("Would you like to associate a value with the list entry?",,"Yes","No"))
+	switch(tgui_alert(usr, "Would you like to associate a value with the list entry?",, list("Yes", "No")))
 		if("Yes")
 			L[var_value] = mod_list_add_ass(O) //hehe
 	if(O)
@@ -365,7 +395,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 		return
 
 	if(L.len > 1000)
-		var/confirm = alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", "Continue", "Abort")
+		var/confirm = tgui_alert(src, "The list you're trying to edit is very long, continuing may crash the server.", "Warning", list("Continue", "Abort"))
 		if(confirm != "Continue")
 			return
 
@@ -381,7 +411,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			value = "null"
 		names["#[i] [key] = [value]"] = i
 	if(!index)
-		var/variable = input("Which var?","Var") as null|anything in names + "(ADD VAR)" + "(CLEAR NULLS)" + "(CLEAR DUPES)" + "(SHUFFLE)"
+		var/variable = tgui_input_list(usr, "Which var?", "Var", names + "(ADD VAR)" + "(CLEAR NULLS)" + "(CLEAR DUPES)" + "(SHUFFLE)")
 
 		if(variable == null)
 			return
@@ -428,7 +458,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(index == null)
 		return
 	var/assoc = 0
-	var/prompt = alert(src, "Do you want to edit the key or it's assigned value?", "Associated List", "Key", "Assigned Value", "Cancel")
+	var/prompt = tgui_alert(src, "Do you want to edit the key or it's assigned value?", "Associated List", list("Key", "Assigned Value", "Cancel"))
 	if(prompt == "Cancel")
 		return
 	if(prompt == "Assigned Value")
@@ -441,7 +471,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	else
 		variable = L[index]
 
-	default = vv_get_class(variable)
+	default = vv_get_class(objectvar, variable)
 
 	to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
@@ -529,7 +559,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(param_var_name in GLOB.VVpixelmovement)
 		if(!check_rights(R_DEBUG))
 			return FALSE
-		var/prompt = alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
+		var/prompt = tgui_alert(usr, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", list("ABORT ", "Continue", " ABORT"))
 		if(prompt != "Continue")
 			return FALSE
 	return TRUE
@@ -567,14 +597,14 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	var_value = O.vars[variable]
 
-	var/default = vv_get_class(var_value)
+	var/default = vv_get_class(variable, var_value)
 
 	if(isnull(default))
 		to_chat(src, "Unable to determine variable type.")
 	else
 		to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
-	to_chat(src, "Variable contains: [var_value]")
+	to_chat(src, "Variable contains: [translate_bitfield(default, variable, var_value)]")
 
 	if(default == VV_NUM)
 		var/dir_text = ""
@@ -596,7 +626,7 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 			default = VV_MESSAGE
 		class = default
 
-	var/list/value = vv_get_value(class, default, var_value, extra_classes = list(VV_LIST))
+	var/list/value = vv_get_value(class, default, var_value, extra_classes = list(VV_LIST), var_name = variable)
 	class = value["class"]
 
 	if(!class)
@@ -627,8 +657,10 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 	if(!O.vv_edit_var(variable, var_new))
 		to_chat(src, "Your edit was rejected by the object.")
 		return
+	vv_update_display(O, "varedited", VV_MSG_EDITED)
 	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_VAR_EDIT, args)
 	log_world("### VarEdit by [src]: [O.type] [variable]=[html_encode("[var_new]")]")
 	log_admin("[key_name(src)] modified [original_name]'s [variable] to [var_new]")
-	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [var_new]"
+	var/msg = "[key_name_admin(src)] modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, var_new))] (Type: [class])"
 	message_admins(msg)
+	return TRUE

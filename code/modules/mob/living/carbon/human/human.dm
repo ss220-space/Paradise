@@ -31,6 +31,7 @@
 	QDEL_LIST(bodyparts)
 	SSmobs.cubemonkeys -= src
 	GLOB.human_list -= src
+	SEND_SIGNAL(src, COMSIG_HUMAN_DESTROYED)
 	return ..()
 
 
@@ -335,7 +336,7 @@
 	if(stat == DEAD)
 		return
 	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
-	show_message("<span class='userdanger'>The blob attacks you!</span>")
+	show_message(span_userdanger("The blob attacks you!"))
 	var/dam_zone = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,
@@ -350,8 +351,7 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 	var/obj/item/organ/external/affecting = get_organ(ran_zone(dam_zone))
-	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, "melee"))
-
+	apply_damage(5, BRUTE, affecting, run_armor_check(affecting, MELEE))
 
 // Get rank from ID from hands, wear_id, pda, and then from uniform
 /mob/living/carbon/human/proc/get_authentification_rank(var/if_no_id = "No id", var/if_no_job = "No job")
@@ -1454,11 +1454,17 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
 	apply_effect(current_size * 3, IRRADIATE)
 
-/mob/living/carbon/human/narsie_act(obj/singularity/narsie/narsie)
+/mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
 	if(iswizard(src) && iscultist(src)) //Wizard cultists are immune to narsie because it would prematurely end the wiz round that's about to end by the automated shuttle call anyway
 		return
-	narsie.soul_devoured += 1
+	if(narsie)
+		narsie.soul_devoured++
 	..()
+
+/mob/living/carbon/human/ratvar_act(weak, obj/singularity/god/ratvar/ratvar)
+	if(ratvar)
+		ratvar.soul_devoured++
+	. = ..()
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
@@ -1550,26 +1556,26 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
-		to_chat(src, "Where do you intend to put [toEat]? You don't have a mouth!")
+		balloon_alert(src, "у вас нет рта!") //but I must scream
 		return FALSE
 	return ..()
 
 /mob/living/carbon/human/forceFed(obj/item/reagent_containers/food/toEat, mob/user, fullness)
 	if(!istype(toEat, /obj/item/reagent_containers/food/pill/patch) && !check_has_mouth())
 		if(!((istype(toEat, /obj/item/reagent_containers/food/drinks) && (ismachineperson(src)))))
-			to_chat(user, "Where do you intend to put [toEat]? [src] doesn't have a mouth!")
+			balloon_alert(user, "у цели нет рта!")
 			return FALSE
 	return ..()
 
 /mob/living/carbon/human/selfDrink(obj/item/reagent_containers/food/drinks/toDrink)
 	if(!check_has_mouth())
 		if(!ismachineperson(src))
-			to_chat(src, "Where do you intend to put \the [src]? You don't have a mouth!")
+			balloon_alert(src, "у вас нет рта!")
 			return FALSE
 		else
-			to_chat(src, "<span class='notice'>You pour a bit of liquid from [toDrink] into your connection port.</span>")
+			to_chat(src, span_notice("Вы заливете часть содержимого [toDrink.declent_ru(GENITIVE)] в свой отсек для жидкостей."))
 	else
-		to_chat(src, "<span class='notice'>You swallow a gulp of [toDrink].</span>")
+		to_chat(src, span_notice("Вы делаете глоток из [toDrink.declent_ru(GENITIVE)]."))
 	return TRUE
 
 /mob/living/carbon/human/can_track(mob/living/user)
@@ -1590,8 +1596,10 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 	return ..()
 
-/mob/living/carbon/human/proc/get_age_pitch(var/tolerance = 5)
-	return 1.0 + 0.5*(30 - age)/80 + (0.01*rand(-tolerance,tolerance))
+
+/mob/living/carbon/human/proc/get_age_pitch(tolerance = 5)
+	return dna?.species.get_emote_pitch(src, tolerance) || 1.0 + 0.5 * (30 - age) / 80 + (0.01 * rand(-tolerance, tolerance))
+
 
 /mob/living/carbon/human/get_access_locations()
 	. = ..()
@@ -1605,7 +1613,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	. = ..()
 
 	if(check_gun.trigger_guard == TRIGGER_GUARD_NORMAL && HAS_TRAIT(src, TRAIT_NO_GUNS))
-		balloon_alert(src, span_warning("слишком толстые пальцы"))
+		balloon_alert(src, span_warning("слишком толстые пальцы!"))
 		return FALSE
 
 	if(mind && mind.martial_art && mind.martial_art.no_guns) //great dishonor to famiry
@@ -1766,46 +1774,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		makeCluwne()
 	if(LAZYIN(mind.curses, "high_rp")) // Probably need to make a new proc to handle curses in case if there will be new ones
 		curse_high_rp()
-
-/mob/living/carbon/human/proc/influenceSin()
-	if(!mind)
-		return
-
-	var/datum/objective/sintouched/sin_objective
-
-	switch(rand(1,7))//traditional seven deadly sins... except lust.
-		if(1) // acedia
-			add_game_logs("[src] was influenced by the sin of Acedia.", src)
-			sin_objective = new /datum/objective/sintouched/acedia
-		if(2) // Gluttony
-			add_game_logs("[src] was influenced by the sin of gluttony.", src)
-			sin_objective = new /datum/objective/sintouched/gluttony
-		if(3) // Greed
-			add_game_logs("[src] was influenced by the sin of greed.", src)
-			sin_objective = new /datum/objective/sintouched/greed
-		if(4) // sloth
-			add_game_logs("[src] was influenced by the sin of sloth.", src)
-			sin_objective = new /datum/objective/sintouched/sloth
-		if(5) // Wrath
-			add_game_logs("[src] was influenced by the sin of wrath.", src)
-			sin_objective = new /datum/objective/sintouched/wrath
-		if(6) // Envy
-			add_game_logs("[src] was influenced by the sin of envy.", src)
-			sin_objective = new /datum/objective/sintouched/envy
-		if(7) // Pride
-			add_game_logs("[src] was influenced by the sin of pride.", src)
-			sin_objective = new /datum/objective/sintouched/pride
-
-	sin_objective.init_sin(src)
-	LAZYADD(SSticker.mode.sintouched, mind)
-	LAZYADD(mind.objectives, sin_objective)
-
-	var/obj_count = 1
-	to_chat(src, span_notice("Your current objectives:"))
-
-	for(var/datum/objective/objective in mind.objectives)
-		to_chat(src, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
-		obj_count++
 
 /mob/living/carbon/human/is_literate()
 	return getBrainLoss() < 100
@@ -1973,3 +1941,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 
 	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile
+
+/mob/living/carbon/human/monkeybrain
+	ai_controller = /datum/ai_controller/monkey

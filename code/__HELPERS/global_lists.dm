@@ -25,6 +25,7 @@
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
+	init_subtypes(/datum/preference_info, GLOB.preferences_info)
 	// Different bodies
 	__init_body_accessory(/datum/body_accessory/body)
 	// Different tails
@@ -78,35 +79,48 @@
 		GLOB.pai_software_by_key[P.id] = P
 
 	// Setup loadout gear
-	for(var/geartype in subtypesof(/datum/gear))
-		var/datum/gear/G = geartype
+	for(var/datum/gear/gear as anything in subtypesof(/datum/gear))
 
-		var/use_name = initial(G.display_name)
-		var/use_category = initial(G.sort_category)
-
-		if(G == initial(G.subtype_path))
+		if(gear == gear.path)
 			continue
 
-		if(!use_name)
-			error("Loadout - Missing display name: [G]")
-			continue
-		if(!initial(G.cost))
-			error("Loadout - Missing cost: [G]")
-			continue
-		if(!initial(G.path))
-			error("Loadout - Missing path definition: [G]")
+		if(gear == gear.subtype_path)
 			continue
 
-		if(!GLOB.loadout_categories[use_category])
-			GLOB.loadout_categories[use_category] = new /datum/loadout_category(use_category)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[use_category]
-		GLOB.gear_datums[use_name] = new geartype
-		LC.gear[use_name] = GLOB.gear_datums[use_name]
+		if(!gear.index_name)
+			stack_trace("Loadout - Missing index name: [gear]")
+			continue
+		if(!gear.cost)
+			stack_trace("Loadout - Missing cost: [gear]")
+			continue
+		if(!gear.path)
+			stack_trace("Loadout - Missing path definition: [gear]")
+			continue
+		gear = new gear
+		var/obj/gear_item = gear.path
+		var/list/tweaks = list()
+		for(var/datum/gear_tweak/tweak as anything in gear.gear_tweaks)
+			tweaks[tweak.type] += list(list(
+				"name" = tweak.display_type,
+				"icon" = tweak.fa_icon,
+				"tooltip" = tweak.info,
+			))
 
-	GLOB.loadout_categories = sortAssoc(GLOB.loadout_categories)
-	for(var/loadout_category in GLOB.loadout_categories)
-		var/datum/loadout_category/LC = GLOB.loadout_categories[loadout_category]
-		LC.gear = sortAssoc(LC.gear)
+		GLOB.gear_tgui_info[gear.sort_category] += list(
+			"[gear]" = list(
+				"name" = gear.get_display_name() ,
+				"index_name" = gear.index_name,
+				"desc" = gear.description,
+				"icon" = gear_item.icon,
+				"icon_state" = gear_item.icon_state,
+				"cost" = gear.cost,
+				"gear_tier" = gear.donator_tier,
+				"allowed_roles" = gear.allowed_roles,
+				"tweaks" = tweaks,
+			)
+		)
+
+		GLOB.gear_datums[gear.index_name] = gear
 
 
 	// Setup a list of robolimbs
@@ -313,6 +327,7 @@
 	prize_list["Miscellaneous"] = list(
 		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	500),
 		EQUIPMENT("Alien Toy", 						/obj/item/clothing/mask/facehugger/toy, 							300),
+		EQUIPMENT("Richard & Co cigarettes",		/obj/item/storage/fancy/cigarettes/cigpack_richard,					400),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					300),
 		EQUIPMENT("GAR Meson Scanners", 			/obj/item/clothing/glasses/meson/gar, 								800),
 		EQUIPMENT("GPS upgrade", 					/obj/item/gpsupgrade, 												1500),
@@ -342,6 +357,7 @@
 		EQUIPMENT("Absinthe", 						/obj/item/reagent_containers/food/drinks/bottle/absinthe/premium, 	250),
 		EQUIPMENT("Cigarettes", 					/obj/item/storage/fancy/cigarettes, 		 						100),
 		EQUIPMENT("Medical Marijuana", 				/obj/item/storage/fancy/cigarettes/cigpack_med,						250),
+		EQUIPMENT("Richard & Co cigarettes",		/obj/item/storage/fancy/cigarettes/cigpack_richard,					400),
 		EQUIPMENT("Cigar", 							/obj/item/clothing/mask/cigarette/cigar/havana, 					150),
 		EQUIPMENT("Box of matches", 				/obj/item/storage/box/matches, 										50),
 		EQUIPMENT("Cheeseburger", 					/obj/item/reagent_containers/food/snacks/cheeseburger, 				150),

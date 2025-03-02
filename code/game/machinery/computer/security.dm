@@ -6,7 +6,7 @@
 
 /obj/machinery/computer/secure_data
 	name = "security records"
-	desc = "Used to view and edit personnel's security records."
+	desc = "Используется для просмотра и редактирования записей службы безопасности о персонале."
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
@@ -364,12 +364,19 @@
 						return
 
 					if(field == "age")
-						var/new_age = text2num(answer)
-						if(new_age < AGE_MIN || new_age > AGE_MAX)
-							set_temp("Invalid age. It must be between [AGE_MIN] and [AGE_MAX].", "danger")
+						if(!record_general)
 							return
+
+						var/datum/species/species = record_general.fields["species"]
+						var/new_age = text2num(answer)
+						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
+							set_temp("Invalid age. It must be between [age_limits[SPECIES_AGE_MIN]] and [age_limits[SPECIES_AGE_MAX]].", "danger")
+							return
+
 						answer = new_age
-					else if(field == "criminal")
+
+					if(field == "criminal")
 						var/text = "Please enter a reason for the status change to [answer]:"
 						if(answer == SEC_RECORD_STATUS_EXECUTE)
 							text = "Please explain why they are being executed. Include a list of their crimes, and victims."
@@ -511,7 +518,7 @@
 
 /obj/machinery/computer/secure_data/laptop
 	name = "security laptop"
-	desc = "Nanotrasen Security laptop. Bringing modern compact computing to this century!"
+	desc = "Ноутбук службы безопасности Nanotrasen. Привносим современные компактные компьютеры в наше столетие!"
 	icon_state = "laptop"
 	icon_keyboard = "seclaptop_key"
 	icon_screen = "seclaptop"

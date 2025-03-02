@@ -47,6 +47,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	sight = SEE_TURFS | SEE_MOBS | SEE_OBJS
 	nightvision = 8
 	can_buckle_to = FALSE
+	hud_type = /datum/hud/ai
 	var/list/network = list("SS13","Telecomms","Research Outpost","Mining Outpost")
 	var/obj/machinery/camera/current = null
 	var/list/connected_robots = list()
@@ -128,7 +129,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	announcement.title = "Оповещение ИИ"
 	announcement.announcement_type = "Оповещение ИИ"
 	announcement.announcer = name
-	announcement.newscast = 0
+	announcement.newscast = FALSE
 
 	var/list/possibleNames = GLOB.ai_names
 
@@ -216,6 +217,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/Initialize(mapload)
 	. = ..()
 	add_traits(list(TRAIT_PULL_BLOCKED, TRAIT_HANDS_BLOCKED), ROUNDSTART_TRAIT)
+	AddElement(/datum/element/high_value_item)
 
 
 /mob/living/silicon/ai/proc/on_mob_init()
@@ -659,9 +661,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 /mob/living/silicon/ai/blob_act(obj/structure/blob/B)
 	if(stat != DEAD)
 		adjustBruteLoss(60)
-		return 1
-	return 0
-
+		return TRUE
+	return TRUE
 
 /mob/living/silicon/ai/emp_act(severity)
 	..()
@@ -1335,12 +1336,18 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		on_the_card = TRUE
 		aiRestorePowerRoutine = 0//So the AI initially has power.
 		update_blind_effects()
+		update_sight()
 		control_disabled = TRUE//Can't control things remotely if you're stuck in a card!
 		aiRadio.disabledAi = TRUE 	//No talking on the built-in radio for you either!
 		forceMove(card) //Throw AI into the card.
 		to_chat(src, "You have been downloaded to a mobile storage device. Remote device connection severed.")
 		to_chat(user, "<span class='boldnotice'>Transfer successful</span>: [name] ([rand(1000,9999)].exe) removed from host terminal and stored within local memory.")
 
+/mob/living/silicon/ai/can_perform_action(atom/target, action_bitflags)
+	if(control_disabled)
+		to_chat(src, span_warning("You can't do that right now!"))
+		return FALSE
+	return can_see(target) && ..() //stop AIs from leaving windows open and using then after they lose vision
 
 /mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
 	if(!C.can_use() || !is_in_chassis())
@@ -1351,7 +1358,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return TRUE
 
 
-/mob/living/silicon/ai/proc/can_see(atom/A)
+/mob/living/silicon/ai/can_see(atom/A)
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
@@ -1520,3 +1527,11 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
+
+
+/mob/living/silicon/ai/ghostize(can_reenter_corpse)
+	var/old_turf = get_turf(eyeobj)
+	. = ..()
+	if(isobserver(.))
+		var/mob/dead/observer/ghost = .
+		ghost.forceMove(old_turf)

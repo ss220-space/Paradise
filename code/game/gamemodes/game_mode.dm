@@ -1,7 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -47,8 +43,17 @@
 	/// Upper bound on time before intercept arrives.
 	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/datum/mind/traders = list()
+	var/list/datum/mind/morphs = list()
+	var/list/datum/mind/swarmers = list()
+	var/list/datum/mind/guardians = list()
+	var/list/datum/mind/revenants = list()
+	var/list/datum/mind/headslugs = list()
+	var/list/datum/mind/deathsquad = list()
+	var/list/datum/mind/honksquad = list()
+	var/list/datum/mind/sst = list()
+	var/list/datum/mind/sit = list()
 	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
 	/// A list of all station goals for this game mode
 	var/list/datum/station_goal/station_goals = list()
@@ -176,7 +181,7 @@
  * Check to be called by ticker
  */
 /datum/game_mode/proc/check_finished()
-	if((SSshuttle.emergency && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME) || station_was_nuked)
+	if((SSshuttle.emergency && SSshuttle.emergency.mode == SHUTTLE_ENDGAME) || station_was_nuked)
 		return TRUE
 
 	return FALSE
@@ -204,7 +209,7 @@
 
 	var/list/area/escape_locations = list(/area/shuttle/escape, /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom)
 
-	if(SSshuttle.emergency.mode < SHUTTLE_ENDGAME) //shuttle didn't get to centcom
+	if(SSshuttle.emergency.mode != SHUTTLE_ENDGAME) //shuttle didn't get to centcom
 		escape_locations -= /area/shuttle/escape
 
 	for(var/mob/player in GLOB.player_list)
@@ -225,7 +230,7 @@
 				if(player_area?.type in escape_locations)
 					escaped_total++
 
-				if(player_area?.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode >= SHUTTLE_ENDGAME)
+				if(player_area?.type == SSshuttle.emergency.areaInstance.type && SSshuttle.emergency.mode == SHUTTLE_ENDGAME)
 					escaped_on_shuttle++
 
 				if(player_area?.type == /area/shuttle/escape_pod1/centcom)
@@ -585,7 +590,7 @@
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
-				nuke_status = NUKE_INTACT
+				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
 
@@ -718,32 +723,65 @@
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
 
+/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
+	if(istype(god, /obj/singularity/god/narsie))
+		return SSticker.cultdat.apocalypse_cinema
+
+	if(istype(god, /obj/singularity/god/ratvar))
+		return /datum/cinematic/cult_arm_ratvar
+
+	return FALSE
+
 /datum/game_mode/proc/apocalypse()
 	set_security_level(SEC_LEVEL_DELTA)
-	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Самостоятельное решение задачи маловероятно. Моделирование пути решения начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Обнаружена угроза класса 'Разрушитель миров'. Моделирование пути противостояния угрозе начато, ожидайте.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 	sleep(50 SECONDS)
-	GLOB.priority_announcement.Announce("Моделирование завершено. Меры будут приняты в ближайшем времени. Всему живому персоналу: не допустите усиления угрозы любой ценой.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
+	GLOB.priority_announcement.Announce("Моделирование завершено. Всему живому персоналу: не допустите усиления угрозы любой ценой. Меры будут приняты в ближайшее время.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 	sleep(30 SECONDS)
-	var/obj/singularity/narsie/N = locate(/obj/singularity/narsie) in GLOB.poi_list
-	var/obj/singularity/ratvar/R = locate(/obj/singularity/ratvar) in GLOB.poi_list
-	if(!N && !R)
-		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Нам требуется срочный отчет о вашей ситуации. Но, мгм, пока что мы санкционировали вам экстренную эвакуацию.", 'sound/AI/commandreport.ogg')
+
+	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
+
+	if(!god)
+		GLOB.priority_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.", "Отдел Центрального Командования по делам высших измерений", 'sound/AI/commandreport.ogg')
 		SSshuttle.emergency.request(null, 0.3)
 		SSshuttle.emergency.canRecall = FALSE
 		return
-	if(SSticker.cultdat.name == "Cult of Nar'Sie")
-		if(N.soul_devoured > 20)
-			play_cinematic(/datum/cinematic/cult_arm, world)
-			sleep(15 SECONDS)
-			SSticker.force_ending = TRUE
+
+	var/datum/cinematic/cinema = apocalypse_cinema(god, FALSE)
+
+	if(!cinema)
+		var/obj/machinery/nuclearbomb/bomb
+		for(var/obj/machinery/nuclearbomb/bomb_to_find in GLOB.poi_list)
+			if(is_station_level(bomb_to_find.z) && bomb_to_find.core)
+				bomb = bomb_to_find
+				break
+
+		if(bomb)
+			bomb.safety = FALSE
+			bomb.explode()
+			qdel(god)
 			return
-	play_cinematic(/datum/cinematic/nuke/self_destruct, world)
-	sleep(8 SECONDS)
+
+		cinema = apocalypse_cinema(god, TRUE)
+
+	play_cinematic(cinema, world)
+	sleep(15 SECONDS)
 	SSticker.force_ending = TRUE
-	qdel(R)
-	qdel(N)
+	return
 
-
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING
+/datum/game_mode/proc/special_directive(custom_text = null, custom_name = null)
+	var/intercepttext = custom_text ? custom_text : ""
+	var/interceptname = custom_name ? custom_name : ""
+	if(!custom_name)
+		interceptname = "Директива 7-10"
+	if(!custom_text)
+		intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Особая директива.</FONT><HR>"
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<BR>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<BR>"
+		intercepttext += " 1. Не покидать карантинную зону.<BR>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<BR>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<BR>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<BR>"
+		intercepttext += "<BR>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<BR>"
+		intercepttext += "Конец сообщения."
+	print_command_report(intercepttext, interceptname, FALSE)

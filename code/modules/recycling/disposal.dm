@@ -50,6 +50,7 @@
 /obj/machinery/disposal/Initialize(mapload, obj/structure/disposalconstruct/made_from)
 	// this will get a copy of the air turf and take a SEND PRESSURE amount of air from it
 	. = ..()
+	air_contents = new
 	if(made_from)
 		setDir(made_from.dir)
 	return INITIALIZE_HINT_LATELOAD
@@ -60,7 +61,6 @@
 	var/datum/gas_mixture/env = new
 	env.copy_from(loc.return_air())
 	var/datum/gas_mixture/removed = env.remove(SEND_PRESSURE + 1)
-	air_contents = new
 	air_contents.merge(removed)
 	trunk_check()
 	update()
@@ -398,21 +398,20 @@
 	update()
 
 
-/obj/machinery/disposal/AltClick(mob/user)
-	if(!Adjacent(user) || !ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return ..()
+/obj/machinery/disposal/click_alt(mob/user)
 	user.visible_message(
-		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
-		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
+		span_notice("[user] tries to eject the contents of [src] manually."),
+		span_notice("You operate the manual ejection lever on [src].")
 	)
 	if(!do_after(user, 5 SECONDS, src))
-		return ..()
+		return CLICK_ACTION_BLOCKING
 
 	user.visible_message(
-		"<span class='notice'>[user] ejects the contents of [src].</span>",
-		"<span class='notice'>You eject the contents of [src].</span>",
+		span_notice("[user] ejects the contents of [src]."),
+		span_notice("You eject the contents of [src]."),
 	)
 	eject()
+	return CLICK_ACTION_SUCCESS
 
 
 // update the icon & overlays to reflect mode & status

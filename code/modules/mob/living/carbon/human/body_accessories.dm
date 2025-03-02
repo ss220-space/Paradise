@@ -120,9 +120,24 @@ GLOBAL_LIST_INIT(body_accessory_by_species, list())
 	allowed_species = list(SPECIES_VULPKANIN)
 
 //Wryn
-/datum/body_accessory/tail/wryn
+/datum/body_accessory/tail/bee
 	name = "Bee Tail"
-	icon_state = "wryntail"
+	icon_state = "beetail"
+	allowed_species = list(SPECIES_WRYN)
+
+/datum/body_accessory/tail/roach
+	name = "Cockroach Tail"
+	icon_state = "roachtail"
+	allowed_species = list(SPECIES_WRYN)
+
+/datum/body_accessory/tail/wasp
+	name = "Wasp Tail"
+	icon_state = "wasptail"
+	allowed_species = list(SPECIES_WRYN)
+
+/datum/body_accessory/tail/wasper
+	name = "Wasper Tail"
+	icon_state = "waspertail"
 	allowed_species = list(SPECIES_WRYN)
 
 //Nian

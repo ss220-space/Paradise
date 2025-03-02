@@ -11,7 +11,7 @@
 	throw_speed = 1
 	layer = 4
 	pressure_resistance = 2
-	attack_verb = list("bapped")
+	attack_verb = list("стукнул")
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 	var/list/papers
@@ -40,7 +40,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_hot(I))
+	if(I.get_heat())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper bundles
 			return ATTACK_CHAIN_BLOCKED_ALL
 

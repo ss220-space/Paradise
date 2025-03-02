@@ -144,4 +144,4 @@
 				animate(src, transform = matrix() * 3, alpha = 0, time = 0.5 SECONDS)
 				QDEL_IN(src, 0.3 SECONDS)
 				sleep(0.3 SECONDS)
-				new /obj/singularity/ratvar(get_turf(src))
+				new /obj/singularity/god/ratvar(get_turf(src))

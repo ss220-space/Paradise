@@ -257,3 +257,50 @@
 
 /obj/effect/decal/cleanable/glass/plasma
 	icon_state = "plasmatiny"
+
+/obj/effect/decal/cleanable/ashrune
+	name = "Ash rune"
+	desc = "A rune drawn in ash."
+	icon = 'icons/effects/ashwalker_rune.dmi'
+	icon_state = "AshRuneSmall"
+	anchored = TRUE
+	mergeable_decal = FALSE
+	mouse_opacity = MOUSE_OPACITY_ICON
+
+/obj/effect/decal/cleanable/ashrune/Initialize(mapload)
+	. = ..()
+
+	update_icon(UPDATE_ICON_STATE)
+
+	pixel_x = -32
+	pixel_y = -32
+
+/obj/effect/decal/cleanable/ashrune/update_icon_state()
+	icon_state = "AshRuneFilled"
+
+/obj/effect/decal/cleanable/ashrune/ComponentInitialize()
+	AddComponent( \
+		/datum/component/ritual_object, \
+		/datum/ritual/ashwalker, \
+	)
+
+/obj/effect/decal/cleanable/ashrune/is_cleanable()
+	return FALSE
+
+/obj/effect/decal/cleanable/devil
+	name = "Sinister rune"
+	desc = "Безобразно выглядящая руна, писанная кровью."
+
+	icon = 'icons/effects/crayondecal.dmi'
+	icon_state = "rune6"
+	color = "#661b1b"
+
+	anchored = TRUE
+	mergeable_decal = FALSE
+	mouse_opacity = MOUSE_OPACITY_ICON
+
+	var/datum/antagonist/devil/devil
+
+/obj/effect/decal/cleanable/devil/update_desc()
+	. = ..()
+	desc = "[initial(desc)][devil ? " На руне видна подпись: <b>[devil.info?.truename]</b>." : null]"

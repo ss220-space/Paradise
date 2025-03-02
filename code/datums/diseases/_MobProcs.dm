@@ -132,3 +132,7 @@
 	if(istype(Clothing) && prob(100 * (1 - Clothing.permeability_coefficient)))
 		return TRUE
 	return FALSE
+
+
+/mob/proc/check_smart_brain()
+	return FALSE

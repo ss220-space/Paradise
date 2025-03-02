@@ -115,8 +115,8 @@
 
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
+	create_reagents(100)
 	if(scoop_reagents)
-		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
 
 

@@ -14,6 +14,8 @@
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand
 
+	mech_type = MECH_TYPE_DURAND
+
 /obj/mecha/combat/durand/GrantActions(mob/living/user, human_occupant = 0)
 	..()
 	defense_action.Grant(user, src)
@@ -44,6 +46,8 @@
 	maint_access = FALSE
 	force = 40
 	wreckage = /obj/structure/mecha_wreckage/durand/old
+
+	mech_type = MECH_TYPE_OLD_DURAND
 
 /obj/mecha/combat/durand/rover
 	desc = "Combat exosuit, developed by syndicate from the Durand Mk. II by scraping unnecessary things, and adding some of their tech. Much more protected from any Nanotrasen hazards."

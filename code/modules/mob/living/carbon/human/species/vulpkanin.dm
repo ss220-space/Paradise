@@ -39,7 +39,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vulpkanin,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vulpkanin,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/vulpkanin,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/vulpkanin
@@ -70,6 +70,13 @@
 
 	disliked_food = VEGETABLES | FRUIT | GRAIN
 	liked_food = MEAT | RAW | DAIRY | GROSS | EGG
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 18,
+		SPECIES_AGE_MAX = 80,
+		JOB_MIN_AGE_HIGH_ED = 30,
+		JOB_MIN_AGE_COMMAND = 30,
+	)
 
 /datum/species/vulpkanin/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()

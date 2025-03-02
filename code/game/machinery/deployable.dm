@@ -95,9 +95,11 @@
 		if(wood.get_amount() < 5)
 			to_chat(user, span_warning("You need at least five wooden planks to make a wall!"))
 			return ATTACK_CHAIN_PROCEED
+
 		to_chat(user, span_notice("You start adding [I] to [src]..."))
-		if(do_after(user, 5 SECONDS, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
+		if(!do_after(user, 5 SECONDS, src) || QDELETED(wood) || !wood.use(5) || !isturf(loc))
 			return ATTACK_CHAIN_PROCEED
+
 		var/turf/our_turf = loc
 		our_turf.ChangeTurf(/turf/simulated/wall/mineral/wood/nonmetal)
 		qdel(src)
@@ -174,10 +176,9 @@
 	. = ..()
 	. += span_notice("Alt-click to toggle modes.")
 
-/obj/item/grenade/barrier/AltClick(mob/living/carbon/user)
-	if(!istype(user) || !user.Adjacent(src) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/item/grenade/barrier/click_alt(mob/living/carbon/user)
 	toggle_mode(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/grenade/barrier/proc/toggle_mode(mob/user)
 	switch(mode)

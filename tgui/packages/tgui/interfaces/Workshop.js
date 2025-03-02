@@ -4,6 +4,7 @@ import {
   Box,
   Button,
   Collapsible,
+  DmIcon,
   Dropdown,
   Input,
   LabeledList,
@@ -205,8 +206,9 @@ const WorkshopItemsCategory = (properties, context) => {
     <Collapsible open title={title} {...rest}>
       {items.map((item) => (
         <Box key={item.name}>
-          <img
-            src={`data:image/jpeg;base64,${item.image}`}
+          <DmIcon
+            icon={item.icon}
+            icon_state={item.icon_state}
             style={{
               'vertical-align': 'middle',
               width: '32px',

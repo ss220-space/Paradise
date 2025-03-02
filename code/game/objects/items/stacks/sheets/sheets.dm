@@ -7,7 +7,7 @@
 	max_amount = 50
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "smashed")
+	attack_verb = list("ударил")
 	var/perunit = MINERAL_MATERIAL_AMOUNT
 	var/sheettype = null //this is used for girders in the creation of walls/false walls
 	var/point_value = 0 //turn-in value for the gulag stacker - loosely relative to its rarity.
@@ -17,3 +17,6 @@
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 	var/wall_allowed = TRUE	//determines if sheet can be used in wall construction or not.
+
+	lefthand_file = 'icons/mob/inhands/sheet_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/sheet_righthand.dmi'

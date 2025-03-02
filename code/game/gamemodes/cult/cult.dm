@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
 
-	else if(cult_players >= ascend_number)
+	if(cult_players >= ascend_number)
 		cult_ascendant = TRUE
 		for(var/datum/mind/M in cult)
 			if(!M.current || !ishuman(M.current))

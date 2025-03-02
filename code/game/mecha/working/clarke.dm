@@ -18,6 +18,8 @@
 	stepsound = 'sound/mecha/mechmove04.ogg'
 	turnsound = 'sound/mecha/mechmove04.ogg'
 
+	mech_type = MECH_TYPE_CLARKE
+
 /obj/mecha/working/clarke/GrantActions(mob/living/user, human_occupant = 0)
 	. = ..()
 	thrusters_action.Grant(user, src)

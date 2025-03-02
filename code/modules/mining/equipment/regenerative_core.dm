@@ -1,11 +1,35 @@
 /*********************Hivelord stabilizer****************/
 /obj/item/hivelordstabilizer
 	name = "hivelord stabilizer"
+	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
+	gender = MALE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "bottle19"
-	desc = "Inject a hivelord core with this stabilizer to preserve its healing powers indefinitely."
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "biotech=3"
+
+/obj/item/hivelordstabilizer/molten_mass
+	name = "gooey molten mass"
+	desc = "Странноватые сгустки, снятые с головы магмового рыбы-молота. Являются природным аналогом стабилизатора регенеративных ядер."
+	ru_names = list(
+		NOMINATIVE = "сплавленный сгусток",
+		GENITIVE = "сплавленного сгустка",
+		DATIVE = "сплавленному сгустку",
+		ACCUSATIVE = "сплавленный сгусток",
+		INSTRUMENTAL = "сплавленным сгустком",
+		PREPOSITIONAL = "сплавленном сгустке"
+	)
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "gooey_molten_mass"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "acid_bladder"
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=5"
+	light_range = 2
+	light_power = 3
+	light_color = "#FFBF00"
+	light_system = MOVABLE_LIGHT
 
 /obj/item/hivelordstabilizer/afterattack(obj/item/organ/internal/M, mob/user, proximity, params)
 	. = ..()
@@ -117,6 +141,9 @@
 /obj/item/organ/internal/regenerative_core/legion
 	desc = "A strange rock that crackles with power. It can be used to heal completely, but it will rapidly decay into uselessness."
 	icon_state = "legion_soul"
+
+/obj/item/organ/internal/regenerative_core/legion/pre_preserved
+	preserved = TRUE
 
 /obj/item/organ/internal/regenerative_core/legion/Initialize(mapload)
 	. = ..()

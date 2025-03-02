@@ -34,14 +34,6 @@
 	name = "\improper Wild West Vault"
 	icon_state = "away3"
 
-/area/awaymission/wwvaultdoors
-	name = "\improper Wild West Vault Doors"  // this is to keep the vault area being entirely lit because of requires_power
-	icon_state = "away2"
-	requires_power = FALSE
-	static_lighting = FALSE
-	base_lighting_alpha = 255
-	base_lighting_color = COLOR_WHITE
-
 /*
  * Wish Granter
  */

@@ -103,6 +103,7 @@ Class Procs:
 	layer = BELOW_OBJ_LAYER
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	pull_push_slowdown = 1.3
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -541,7 +542,8 @@ Class Procs:
 				. +=  span_notice("It appears heavily damaged.")
 			if(0 to 25)
 				. +=  span_warning("It's falling apart!")
-	if(user.research_scanner && component_parts)
+
+	if((user.research_scanner || user.check_smart_brain()) && component_parts)
 		. += display_parts(user)
 
 /obj/machinery/proc/on_assess_perp(mob/living/carbon/human/perp)

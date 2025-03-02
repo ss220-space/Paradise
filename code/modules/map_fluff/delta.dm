@@ -12,5 +12,5 @@ Remapped by ThaumicNik, TrashDoxx, J4.BA, BeepBoop, mr_g, IceGreen, AlexRavenidz
 	dock_name     = "NAV Trurl"
 	company_name  = "Nanotrasen"
 	company_short = "NT"
-	starsys_name  = "Epsilon Eridani "
+	starsys_name  = "Epsilon Lucusta "
 	webmap_url = "https://webmap.affectedarc07.co.uk/maps/ss1984/deltastation/"

@@ -1,6 +1,6 @@
 /obj/machinery/computer/robotics
 	name = "robotics control console"
-	desc = "Used to remotely lockdown or detonate linked Cyborgs."
+	desc = "Используется для дистанционной блокировки или подрыва привязанных киборгов."
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "tech_key"
 	icon_screen = "robot"
@@ -50,7 +50,7 @@
 		return FALSE
 	if(R.scrambledcodes)
 		return FALSE
-	if(!atoms_share_level(get_turf(src), get_turf(R)))
+	if(!are_zs_connected(src, R))
 		return FALSE
 	return TRUE
 

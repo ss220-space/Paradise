@@ -153,7 +153,7 @@
 	icon_state = "10mmbox"
 	origin_tech = "combat=2"
 	ammo_type = /obj/item/ammo_casing/c10mm
-	max_ammo = 20
+	max_ammo = 30
 
 /obj/item/ammo_box/fortynr
 	name = "ammo box 40N&R"

@@ -68,9 +68,18 @@
 	ammo_x_offset = 1
 	can_charge = FALSE
 	selfcharge = TRUE
+	var/emagged = FALSE
 
 /obj/item/gun/energy/floragun/emag_act(mob/user)
 	. = ..()
+
+	if(emagged)
+		return
+
+	if(user)
+		balloon_alert(user, "протоколы защиты сняты!")
+
+	emagged = TRUE
 	ammo_type = list(/obj/item/ammo_casing/energy/flora/alpha/emag, /obj/item/ammo_casing/energy/flora/beta, /obj/item/ammo_casing/energy/flora/gamma)
 	update_ammo_types()
 
@@ -178,7 +187,7 @@
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1
 	can_charge = FALSE
@@ -189,6 +198,8 @@
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
@@ -577,7 +588,7 @@
 		if(amount > 0)
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
-			target_temperature = max(0, target_temperature+amount)
+			target_temperature = max(TCMB, target_temperature+amount)
 	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)
@@ -821,7 +832,7 @@
 	icon_state = "plasmagun"
 	item_state = "plasmagun"
 	w_class = WEIGHT_CLASS_NORMAL
-	origin_tech = "combat=4;magnets=4;powerstorage=3"
+	origin_tech = "combat=6;magnets=5;powerstorage=3"
 	ammo_type = list(/obj/item/ammo_casing/energy/weak_plasma, /obj/item/ammo_casing/energy/charged_plasma)
 	shaded_charge = 1
 	can_holster = TRUE

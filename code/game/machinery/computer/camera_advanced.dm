@@ -1,6 +1,6 @@
 /obj/machinery/computer/camera_advanced
 	name = "advanced camera console"
-	desc = "Used to access the various cameras on the station."
+	desc = "Используется для доступа к различным камерам, установленным на станции."
 	icon_screen = "cameras"
 	icon_keyboard = "security_key"
 	var/mob/camera/aiEye/remote/eyeobj
@@ -89,7 +89,7 @@
 		for(var/obj/machinery/camera/C in GLOB.cameranet.cameras)
 			if(!C.can_use())
 				continue
-			if(C.network&networks)
+			if(length(networks & C.network))
 				camera_location = get_turf(C)
 				break
 		if(camera_location)

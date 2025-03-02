@@ -150,6 +150,15 @@ jobs:
             git commit -m "Automatic changelog generation"
           fi
 
+          # Generate TGUI bundle
+          ./tgui/bin/tgui
+          CHANGES=$(git diff --name-only --cached | wc -l)
+          if [ "$CHANGES" -gt 0 ] ; then
+            git config --local user.email "action@github.com"
+            git config --local user.name "TGUI bundle Generation"
+            git commit -m "Testmerge TGUI bundle build generation"
+          fi
+          
           git push -f origin ${{ env.TESTMERGE_BRANCH }}
 
           # Output the list of merged PRs

@@ -10,7 +10,15 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen
 	name = "Queen of Terror spider"
-	desc = "An enormous, terrifying spider. Its egg sac is almost as big as its body, and teeming with spider eggs!"
+	desc = "Огромный, ужасающий паук. Её яйцевой мешок почти такого же размера, как и её тело, и изобилует паучьими яйцами!"
+	ru_names = list(
+		NOMINATIVE = "Королева Ужаса",
+		GENITIVE = "Королевы Ужаса",
+		DATIVE = "Королеве Ужаса",
+		ACCUSATIVE = "Королеву Ужаса",
+		INSTRUMENTAL = "Королевой Ужаса",
+		PREPOSITIONAL = "Королеве Ужаса",
+	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_queen"
 	icon_living = "terror_queen"
@@ -19,7 +27,7 @@
 	health = 340
 	damage_coeff = list(BRUTE = 0.7, BURN = 1.1, TOX = 1, CLONE = 0, STAMINA = 0, OXY = 0.2)
 	regeneration = 3
-	deathmessage = "Emits a  piercing screech that echoes through the hallways, chilling the hearts of those around, as the spider lifelessly falls to the ground."
+	deathmessage = "Издаёт пронзительный визг, эхом разносящийся по коридорам и леденящий сердца окружающих, в то время как паук безжизненно падает на землю."
 	death_sound = 'sound/creatures/terrorspiders/queen_death.ogg'
 	melee_damage_lower = 25
 	melee_damage_upper = 30
@@ -44,7 +52,8 @@
 	delay_web = 15
 	special_abillity = list(/obj/effect/proc_holder/spell/aoe/terror_shriek_queen)
 	can_wrap = FALSE
-	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать поражение, ведь все пауки погибнут."
+	spider_intro_text = "Будучи Королевой Ужаса, ваша цель - управление выводком и откладывание яиц. Вы крайне сильны, и со временем будете откладывать всё больше яиц, однако, ваша смерть будет означать неминуюемую гибель гнезда, ведь все пауки погибнут."
+	datum_type = /datum/antagonist/terror_spider/main_spider/queen
 	var/spider_spawnfrequency = 1600 // 160 seconds. Default for player queens and NPC queens on station. Awaymission queens have this changed in New()
 	var/spider_spawnfrequency_stable = 3600 // 360 seconds. Spawnfrequency is set to this on awaymission spiders once nest setup is complete.
 	var/spider_lastspawn = 0
@@ -93,10 +102,10 @@
 	spider_lastspawn = world.time
 	canlay += getSpiderLevel()
 	if(canlay == 1)
-		to_chat(src, "<span class='notice'>You have an egg available to lay.</span>")
+		to_chat(src, span_notice("У вас есть яйцо, которое можно отложить."))
 		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 	else if(canlay > 1)
-		to_chat(src, "<span class='notice'>You have [canlay] eggs available to lay.</span>")
+		to_chat(src, span_notice("У вас есть [canlay] [declension_ru(canlay, "яйцо", "яйца", "яиц")], которые можно отложить."))
 		SEND_SOUND(src, sound('sound/effects/ping.ogg'))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/getSpiderLevel()
@@ -122,8 +131,8 @@
 			if(T.spider_myqueen != src)
 				continue
 			if(T.spider_tier < spider_tier)
-				T.visible_message("<span class='danger'>[T] writhes in pain!</span>")
-				to_chat(T, "<span class='userdanger'>\The psychic backlash from the death of [src] overwhelms you! You feel the life start to drain out of you...</span>")
+				T.visible_message(span_danger("[capitalize(T.declent_ru(NOMINATIVE))] корчится от боли!"))
+				to_chat(T, span_userdanger("Психическая реакция от смерти [declent_ru(GENITIVE)] ошеломляет вас! Вы чувствуете, как жизнь начинает утекать из вас..."))
 				T.degenerate = TRUE
 		for(var/thing in GLOB.ts_spiderling_list)
 			var/obj/structure/spider/spiderling/terror_spiderling/T = thing
@@ -177,10 +186,10 @@
 				if(ok_to_nest && entry_vent)
 					nest_vent = entry_vent
 					neststep = 1
-					visible_message("<span class='danger'>\The [src] settles down, starting to build a nest.</span>")
+					visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] приживается, начиная строить гнездо."))
 				else if(entry_vent)
 					if(!path_to_vent)
-						visible_message("<span class='danger'>\The [src] looks around warily - then seeks a better nesting ground.</span>")
+						visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] настороженно оглядывается – затем ищет лучшее место для строительста гнезда."))
 						path_to_vent = 1
 				else
 					neststep = -1
@@ -190,7 +199,8 @@
 				if(world.time > (lastnestsetup + nestfrequency))
 					lastnestsetup = world.time
 					neststep = 2
-					NestMode()
+					if(!hasnested)
+						NestMode()
 			if(2)
 				// Create initial T2 spiders.
 				if(world.time > (lastnestsetup + nestfrequency))
@@ -237,8 +247,8 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/NestPrompt()
-	var/confirm = tgui_alert(src, "Are you sure you want to nest? You will be able to lay eggs, and smash walls, but not ventcrawl.", "Nest?", list("Yes","No"))
-	if(confirm == "Yes")
+	var/confirm = tgui_alert(src, "Вы уверены, что хотите строить гнездо? Вы сможете откладывать яйца и разбивать стены, но не ползать по вентиляции.", "Гнездо?", list("Да","Нет"))
+	if(confirm == "Да")
 		NestMode()
 
 
@@ -254,14 +264,14 @@
 	ai_ventcrawls = FALSE
 	environment_smash = ENVIRONMENT_SMASH_RWALLS
 	DoQueenScreech(8, 100, 8, 100)
-	to_chat(src, "<span class='notice'>You have matured to your egglaying stage. You can now smash through walls, and lay eggs, but can no longer ventcrawl.</span>")
+	to_chat(src, span_notice("Вы достигли стадии кладки яиц. Теперь вы можете пробивать стены и откладывать яйца, но больше не можете ползать по вентиляции."))
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/LayQueenEggs()
 	if(stat == DEAD)
 		return
 	if(!hasnested)
-		to_chat(src, "<span class='danger'>You must nest before doing this.</span>")
+		to_chat(src, span_danger("Прежде чем делать это, вы должны начать строить гнездо."))
 		return
 	if(canlay < 1)
 		show_egg_timer()
@@ -269,31 +279,31 @@
 	var/list/eggtypes = ListAvailableEggTypes()
 	var/list/eggtypes_uncapped = list(TS_DESC_KNIGHT, TS_DESC_LURKER, TS_DESC_HEALER, TS_DESC_REAPER, TS_DESC_BUILDER)
 
-	var/eggtype = input("What kind of eggs?") as null|anything in eggtypes
+	var/eggtype = tgui_input_list(usr, "Какой тип яиц?", "", eggtypes)
 	if(canlay < 1)
 		// this was checked before input() but we have to check again to prevent them spam-clicking the popup.
-		to_chat(src, "<span class='danger'>Too soon to lay another egg.</span>")
+		to_chat(src, span_danger("Слишком рано откладывать еще одно яйцо."))
 		return
 	if(!(eggtype in eggtypes))
-		to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
-		return 0
+		to_chat(src, span_danger("Неизвестный тип яйца."))
+		return FALSE
 
 	// Multiple of eggtypes_uncapped can be laid at once. Other types must be laid one at a time (to prevent exploits)
 	var/numlings = 1
 	if(eggtype in eggtypes_uncapped)
 		if(canlay >= 5)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3, 4, 5)
+			numlings = tgui_input_list(usr, "Сколько яиц в кладке?", "", list(1, 2, 3, 4, 5))
 		else if(canlay >= 3)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2, 3)
+			numlings = tgui_input_list(usr, "Сколько яиц в кладке?", "", list(1, 2, 3))
 		else if(canlay == 2)
-			numlings = input("How many in the batch?") as null|anything in list(1, 2)
+			numlings = tgui_input_list(usr, "Сколько яиц в кладке?", "", list(1, 2))
 	if(eggtype == null || numlings == null)
-		to_chat(src, "<span class='danger'>Cancelled.</span>")
+		to_chat(src, span_danger("Отменено."))
 		return
 	// Actually lay the eggs.
 	if(canlay < numlings)
 		// We have to check this again after the popups, to account for people spam-clicking the button, then doing all the popups at once.
-		to_chat(src, "<span class='warning'>Too soon to do this again!</span>")
+		to_chat(src, span_warning("Слишком рано делать это снова!"))
 		return
 	canlay -= numlings
 	eggslaid += numlings
@@ -321,14 +331,14 @@
 		if(TS_DESC_PRINCESS)
 			DoLayTerrorEggs(/mob/living/simple_animal/hostile/poison/terror_spider/queen/princess, numlings)
 		else
-			to_chat(src, "<span class='danger'>Unrecognized egg type.</span>")
+			to_chat(src, span_danger("Неизвестный тип яйца."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/show_egg_timer()
 	var/remainingtime = round(((spider_lastspawn + spider_spawnfrequency) - world.time) / 10, 1)
 	if(remainingtime > 0)
-		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait another [num2text(remainingtime)] seconds.</span>")
+		to_chat(src, span_danger("Слишком рано пытаться повторить это. Подождите еще [num2text(remainingtime)] секунд."))
 	else
-		to_chat(src, "<span class='danger'>Too soon to attempt that again. Wait just a few more seconds...</span>")
+		to_chat(src, span_danger("Слишком рано пытаться повторить это. Подождите еще несколько секунд..."))
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/ListAvailableEggTypes()
 	if(MinutesAlive() >= 25)
@@ -348,7 +358,7 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/queen/proc/DoQueenScreech(light_range, light_chance, camera_range, camera_chance)
-	visible_message("<span class='userdanger'>[src] emits a bone-chilling shriek!</span>")
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] издает пронзительный визг!"))
 	playsound(src.loc, 'sound/creatures/terrorspiders/queen_shriek.ogg', 100, 1)
 	for(var/obj/machinery/light/L in orange(light_range, src))
 		if(L.on && prob(light_chance))
@@ -364,8 +374,8 @@
 		return
 	if(!isobserver(user) && !isterrorspider(user))
 		return
-	. += "<span class='notice'>[p_they(TRUE)] has laid [eggslaid] egg[eggslaid != 1 ? "s" : ""].</span>"
-	. += "<span class='notice'>[p_they(TRUE)] has lived for [MinutesAlive()] minutes.</span>"
+	. += span_notice("Она отложила [eggslaid] [eggslaid != 1 ? "яиц" : "яйцо"].")
+	. += span_notice("Она прожила [MinutesAlive()] минут.")
 
 
 /obj/item/projectile/terrorspider/queen
@@ -377,7 +387,15 @@
 
 /obj/structure/spider/terrorweb/queen
 	name = "airtight web"
-	desc = "This multi-layered web seems to be able to resist air pressure."
+	desc = "Эта многослойная паутина, кажется, способна противостоять давлению воздуха."
+	ru_names = list(
+		NOMINATIVE = "воздухонепроницаемая паутина",
+		GENITIVE = "воздухонепроницаемой паутины",
+		DATIVE = "воздухонепроницаемой паутине",
+		ACCUSATIVE = "воздухонепроницаемую паутину",
+		INSTRUMENTAL = "воздухонепроницаемой паутиной",
+		PREPOSITIONAL = "воздухонепроницаемой паутине",
+	)
 	max_integrity = 30
 
 

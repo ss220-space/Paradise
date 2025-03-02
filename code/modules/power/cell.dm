@@ -23,6 +23,9 @@
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
 
+/obj/item/stock_parts/cell/laser/gatling
+	maxcharge = 9000
+
 /obj/item/stock_parts/cell/get_cell()
 	return src
 
@@ -413,3 +416,8 @@
 	name = "emitter gun power cell"
 	maxcharge = 2200
 	chargerate = 100
+
+/obj/item/stock_parts/cell/degraded
+	name = "degraded power cell"
+	maxcharge = 750
+	chargerate = 25

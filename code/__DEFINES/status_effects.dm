@@ -30,6 +30,16 @@
 
 #define STATUS_EFFECT_REGENERATIVE_CORE /datum/status_effect/regenerative_core
 
+#define STATUS_EFFECT_LAVALAND_NO_PAIN /datum/status_effect/lavaland_no_pain
+
+#define STATUS_EFFECT_LAVALAND_ETERNAL_BLEEDING_FIX /datum/status_effect/lavaland_eternal_bleeding_fix
+
+#define STATUS_EFFECT_LAVALAND_NIGHT_VISION /datum/status_effect/lavaland_night_vision
+
+#define STATUS_EFFECT_LAVALAND_BLOOD_REGEN /datum/status_effect/lavaland_blood_regen
+
+#define STATUS_EFFECT_DRASK_COMA /datum/status_effect/drask_coma
+
 #define STATUS_EFFECT_TERROR_REGEN /datum/status_effect/terror/regeneration   //over time healing, 125 HP within 25~ seconds
 
 #define STATUS_EFFECT_TERROR_FOOD_REGEN /datum/status_effect/terror/food_regen   //over time healing for mobs to gain full HP within 25~ seconds
@@ -93,6 +103,8 @@
 #define STATUS_EFFECT_DELAYED /datum/status_effect/delayed //delayed status effect: gets /datum/callback to call on expire, signal if we want to prevent and duration
 
 #define STATUS_EFFECT_CRUSHERMARK /datum/status_effect/crusher_mark //if struck with a proto-kinetic crusher, takes a ton of damage
+
+#define STATUS_EFFECT_FANG_EXHAUSTION /datum/status_effect/fang_exhaust // called by poison fang (crusher trophy)
 
 #define STATUS_EFFECT_SAWBLEED /datum/status_effect/saw_bleed //if the bleed builds up enough, takes a ton of damage
 
@@ -186,3 +198,11 @@
 #define STATUS_EFFECT_STARING /datum/status_effect/staring //Used in ../human/examine() proc
 
 #define STATUS_EFFECT_RECENTLY_SUCCUMBED /datum/status_effect/recently_succumbed
+
+#define STATUS_EFFECT_FORCED_RUMBLE /datum/status_effect/forced_rumble
+
+#define STATUS_EFFECT_FORCED_SNEEZE /datum/status_effect/forced_sneeze
+
+#define STATUS_EFFECT_LAVALAND_VISION /datum/status_effect/lavaland_vision
+
+#define STATUS_EFFECT_TEMPERATURE_STABILIZE /datum/status_effect/temperature_stabilize

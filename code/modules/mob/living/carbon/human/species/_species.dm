@@ -261,12 +261,38 @@
 	var/list/autohiss_extra_map = null
 	var/list/autohiss_exempt = null
 
+	/// Contains info for all age related preferences.
+	var/list/age_sheet
+
+
 /datum/species/New()
 	unarmed = new unarmed_type()
 
 /datum/species/proc/get_random_name(gender)
 	var/datum/language/species_language = GLOB.all_languages[language]
 	return species_language.get_random_name(gender)
+
+/datum/species/proc/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
+	return TRUE
+
+/proc/get_age_limits(datum/species/species, list/tags)
+	if(!islist(tags))
+		tags = list(tags)
+
+	var/list/result = list()
+	for(var/tag in tags)
+		if(species)
+			result[tag] = LAZYACCESS(species.age_sheet, tag)
+
+		if(!isnum(result[tag]))
+			result[tag] = AGE_SHEET[tag]
+
+	return length(result) > 1 ? result : result[tags[1]]
+
+
+/proc/get_rand_age(datum/species/species)
+	var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+	return rand(age_limits[SPECIES_AGE_MIN], age_limits[SPECIES_AGE_MAX])
 
 
 /**
@@ -755,14 +781,14 @@
 	animation_type = ATTACK_EFFECT_CLAW
 
 /datum/unarmed_attack/bite
-	attack_verb = list("грызет", "кусает", "вгрызается", "трепает")
+	attack_verb = list("укусил")
 	attack_sound = 'sound/weapons/bite.ogg'
 	sharp = TRUE
 	animation_type = ATTACK_EFFECT_BITE
 	is_bite = TRUE
 
 /datum/unarmed_attack/claws/armalis
-	attack_verb = list("хлестает", "хлестанул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
+	attack_verb = list("хлестнул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
 	damage = 6
 
 
@@ -1188,3 +1214,6 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 		var/obj/item/organ/external/head/HD = H.get_organ(BODY_ZONE_HEAD)
 		return HD.hair_colour
 
+/datum/species/proc/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	var/age_limits = get_age_limits(src, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
+	return 1 + 0.5 * (age_limits[SPECIES_AGE_MIN] + 10 - H.age) / age_limits[SPECIES_AGE_MAX] + (0.01 * rand(-tolerance, tolerance))

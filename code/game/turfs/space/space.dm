@@ -59,8 +59,12 @@
 
 	if(opacity)
 		directional_opacity = ALL_CARDINALS
-
+	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
+
+/turf/space/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 4)
 
 /turf/space/BeforeChange()
 	..()
@@ -69,7 +73,7 @@
 	if(light_sources) // Turn off starlight, if present
 		set_light_on(FALSE)
 
-/turf/space/AfterChange(ignore_air, keep_cabling = FALSE, oldType)
+/turf/space/AfterChange(flags = NONE, oldType)
 	..()
 	var/datum/space_level/S = GLOB.space_manager.get_zlev(z)
 	S.add_to_transit(src)
@@ -165,6 +169,8 @@
 		while(current_pull)
 			var/turf/target_turf = get_step(current_pull.pulledby.loc, REVERSE_DIR(current_pull.pulledby.dir)) || current_pull.pulledby.loc
 			current_pull.zMove(null, target_turf, ZMOVE_ALLOW_BUCKLED)
+			if(current_pull.pulling == arrived) // pulling each other doesn't help but makes a loop
+				break
 			current_pull = current_pull.pulling
 
 

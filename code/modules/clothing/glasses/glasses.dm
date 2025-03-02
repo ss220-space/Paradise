@@ -113,6 +113,12 @@
 	flash_protect = FLASH_PROTECTION_FLASH
 	tint = 1
 
+/obj/item/clothing/glasses/meson/heart
+	name = "\improper Heart Meson Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_meson"
+	item_state = "heart_meson"
+
 /obj/item/clothing/glasses/meson/night
 	name = "Night Vision Optical Meson Scanner"
 	desc = "An Optical Meson Scanner fitted with an amplified visible light spectrum overlay, providing greater visual clarity in darkness."
@@ -134,7 +140,7 @@
 	force = 10
 	throwforce = 10
 	throw_speed = 4
-	attack_verb = list("sliced")
+	attack_verb = list("полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = TRUE
 
@@ -151,6 +157,19 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 
+/obj/item/clothing/glasses/meson/visor
+	name = "Meson Optical Visor"
+	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
+	ru_names = list(
+		NOMINATIVE = "мезонный оптический визор",
+		GENITIVE = "мезонного оптического визора",
+		DATIVE = "мезонному оптическому визору",
+		ACCUSATIVE = "мезонный оптический визор",
+		INSTRUMENTAL = "мезонным оптическим визором",
+		PREPOSITIONAL = "мезонном оптическом визоре"
+	)
+	icon_state = "mesonvisor"
+	item_state = "mesonvisor"
 
 /obj/item/clothing/glasses/science
 	name = "science goggles"
@@ -185,6 +204,26 @@
 	item_state = "purple"
 	see_in_dark = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE //don't render darkness while wearing these
+
+/obj/item/clothing/glasses/science/heart
+	name = "\improper Heart Science Glasses"
+	desc = "Модные очки в форме сердечек с встроенным ИЛС под рабочие нужды."
+	icon_state = "heart_science"
+	item_state = "heart_science"
+
+/obj/item/clothing/glasses/science/visor
+	name = "Science Optical Visor"
+	desc = "Технологичный визор для глаз. Корпус выполнен из прочного титана, а на лицевой части устройства расположены датчики, камеры и сенсоры, способные получать, обрабатывать и передавать на сетчатку носителя данные об окружающем пространстве."
+	ru_names = list(
+		NOMINATIVE = "научный оптический визор",
+		GENITIVE = "научного оптического визора",
+		DATIVE = "научному оптическому визору",
+		ACCUSATIVE = "научный оптический визор",
+		INSTRUMENTAL = "научным оптическим визором",
+		PREPOSITIONAL = "научном оптическом визоре"
+	)
+	icon_state = "sciencevisor"
+	item_state = "sciencevisor"
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"

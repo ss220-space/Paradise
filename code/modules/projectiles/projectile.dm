@@ -216,8 +216,9 @@
 			if(hitsound)
 				var/volume = vol_by_damage()
 				playsound(loc, hitsound, volume, 1, -1)
-			L.visible_message("<span class='danger'>[L] is hit by \a [src][organ_hit_text]!</span>", \
-								"<span class='userdanger'>[L] is hit by \a [src][organ_hit_text]!</span>")	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
+			L.visible_message(span_danger("[L] is hit by \a [src][organ_hit_text]!"), \
+								span_userdanger("[L] is hit by \a [src][organ_hit_text]!"),
+								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
 		if(L.mind && firer?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())
@@ -287,6 +288,10 @@
 			return FALSE
 
 	prehit(bumped_atom)
+	if(HAS_TRAIT(src, TRAIT_SHRAPNEL))
+		bumped_atom.hitby(src, TRUE)
+		qdel(src)
+
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
 		if(forcedodge > 0)
@@ -393,6 +398,8 @@
 		Angle = round(get_angle(src, current))
 	if(spread)
 		Angle += (rand() - 0.5) * spread
+	if(firer && ismob(firer))
+		hit_crawling_mobs_chance = firer.a_intent == INTENT_HELP ? 0 : 100
 	// Turn right away
 	var/matrix/M = new
 	M.Turn(Angle)
@@ -422,6 +429,7 @@
 	current = curloc
 	yo = new_y - curloc.y
 	xo = new_x - curloc.x
+	hit_crawling_mobs_chance = 100
 	set_angle(get_angle(curloc, original))
 
 
@@ -456,8 +464,12 @@
 
 
 /obj/item/projectile/proc/check_ricochet_flag(atom/A)
-	if(A.flags & CHECK_RICOCHET)
+	if((flag in list(ENERGY, LASER)) && (A.flags_ricochet & RICOCHET_SHINY))
 		return TRUE
+
+	if((flag in list(BOMB, BULLET)) && (A.flags_ricochet & RICOCHET_HARD))
+		return TRUE
+
 	return FALSE
 
 

@@ -34,8 +34,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 	/// Used to prevent pulling spam by same persons
 	var/last_time_pulled
 
-
-/obj/machinery/firealarm/New(location, direction, building)
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
 
 	GLOB.firealarms += src
@@ -46,6 +45,9 @@ GLOBAL_LIST_EMPTY(firealarms)
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
+	if(istype(get_area(src), /area))
+		LAZYADD(GLOB.station_fire_alarms["[z]"], src)
+
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
 	update_fire_light()
@@ -54,6 +56,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 /obj/machinery/firealarm/Destroy()
 	GLOB.firealarms -= src
+	LAZYREMOVE(GLOB.station_fire_alarms["[z]"], src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 

@@ -121,17 +121,23 @@
 
 
 /mob/proc/say_quote(message, datum/language/speaking = null)
-	var/verb = "says"
-	var/ending = copytext(message, length(message))
-
+	var/ending = copytext_char(message, -1)
 	if(speaking)
-		verb = genderize_decode(src, speaking.get_spoken_verb(ending))
-	else
-		if(ending == "!")
-			verb = pick("exclaims", "shouts", "yells")
-		else if(ending == "?")
-			verb = "asks"
-	return verb
+		return genderize_decode(src, speaking.get_spoken_verb(ending))
+	else if(ending == "!")
+		return get_verb(verb_exclaim)
+	else if(ending == "?")
+		return get_verb(verb_ask)
+	else if(copytext_char(message, -2) == "!!")
+		return get_verb(verb_yell)
+	return get_verb(verb_say)
+
+/mob/proc/get_verb(list/verbs)
+	if(!verbs)
+		return ""
+	if(!istype(verbs))
+		return verbs
+	return pick(verbs)
 
 /// Transforms the speech emphasis mods from [/atom/movable/proc/say_emphasis] into the appropriate HTML tags
 #define ENCODE_HTML_EMPHASIS(input, char, html, varname) \

@@ -69,7 +69,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vox,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vox,	// Default darksight of 2.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/vox,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/vox
@@ -102,6 +102,13 @@
 	disliked_food = NONE //According to lore voxes does not care about food. Food is food.
 	liked_food = NONE
 	special_diet = MATERIAL_CLASS_TECH
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 1,
+		SPECIES_AGE_MAX = 70,
+		JOB_MIN_AGE_HIGH_ED = 10,
+		JOB_MIN_AGE_COMMAND = 10,
+	)
 
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -181,6 +188,11 @@
 		return FALSE //Handling reagent removal on our own.
 
 	return ..()
+
+
+/datum/species/vox/get_emote_pitch(mob/living/carbon/human/H, tolerance)
+	return 1 + (0.01*rand(-tolerance,tolerance))
+
 
 /datum/species/vox/armalis
 	name = SPECIES_VOX_ARMALIS

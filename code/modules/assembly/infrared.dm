@@ -186,10 +186,9 @@
 		attack_self(usr)
 
 
-/obj/item/assembly/infra/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/item/assembly/infra/click_alt(mob/user)
 	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/assembly/infra/verb/rotate_verb()

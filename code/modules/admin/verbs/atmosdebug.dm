@@ -1,12 +1,12 @@
 /client/proc/atmosscan()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Check Piping"
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")
 		return
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Check Piping") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
-	if(alert("WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", "No", "Yes") == "No")
+	if(tgui_alert(usr, "WARNING: This command should not be run on a live server. Do you want to continue?", "Check Piping", list("No", "Yes")) == "No")
 		return
 
 	//all plumbing - yes, some things might get stated twice, doesn't matter.
@@ -45,7 +45,7 @@
 	to_chat(usr, "Done")
 
 /client/proc/powerdebug()
-	set category = "Mapping"
+	set category = "Debug.Mapping"
 	set name = "Check Power"
 	if(!src.holder)
 		to_chat(src, "Only administrators may use this command.")

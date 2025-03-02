@@ -132,7 +132,7 @@
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, span_danger("Your chameleon projector deactivates."))
 	..()
 	master.disrupt()
 

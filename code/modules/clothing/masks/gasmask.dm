@@ -26,7 +26,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
 // **** Welding gas mask ****
@@ -79,7 +80,8 @@
 		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/mask.dmi',
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/mask.dmi',
-		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi'
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/mask.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
 
@@ -187,7 +189,8 @@
 	icon_state = "rainbow"
 	item_state = "rainbow"
 	sprite_sheets = list(
-		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi'
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/mask.dmi'
 	)
 
 /obj/item/clothing/mask/gas/clownwiz
@@ -371,6 +374,23 @@
 	. = ..()
 	force_adjust_mask()
 
+/obj/item/clothing/mask/gas/sechailer/tactical
+	name = "\improper Security gas mask FCO-26"
+	desc = "Тактический противогаз чёрного цвета с красными обзорными стёклами. Разработан компанией N&R специально для сотрудников станционной службы безопасности Nanotrasen. Обеспечивает защиту лица, глаз и органов дыхания от неблагоприятных условий внешей среды."
+	ru_names = list(
+		NOMINATIVE = "тактический противогаз СБ",
+		GENITIVE = "тактического противогаза СБ",
+		DATIVE = "тактическому противогазу СБ",
+		ACCUSATIVE = "тактический противогаз СБ",
+		INSTRUMENTAL = "тактическим противогазом СБ",
+		PREPOSITIONAL = "тактическом противогазе СБ"
+	)
+	icon_state = "tactical_mask"
+	armor = list("melee" = 10, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 50, "rad" = 0, "fire" = 10, "acid" = 30)
+	aggressiveness = 3
+	phrase = 12
+	can_toggle = FALSE
+	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
 
 /obj/item/clothing/mask/gas/sechailer/hos
 	name = "\improper HOS SWAT mask"
@@ -391,7 +411,6 @@
 	phrase = 12
 	can_toggle = FALSE
 	actions_types = list(/datum/action/item_action/halt, /datum/action/item_action/selectphrase)
-
 
 /obj/item/clothing/mask/gas/sechailer/swat
 	name = "\improper SWAT mask"
@@ -504,8 +523,8 @@
 	to_chat(user, span_warning("You have cut off the voice modulator, the mask is broken now."))
 
 
-/obj/item/clothing/mask/gas/sechailer/attack_self()
-	halt()
+/obj/item/clothing/mask/gas/sechailer/attack_self(mob/user)
+	adjustmask(user)
 
 /obj/item/clothing/mask/gas/sechailer/emag_act(mob/user)
 	if(safety)
@@ -533,3 +552,53 @@
 
 
 // ********************************************************************
+
+/obj/item/clothing/mask/gas/ghostface
+	name = "Ghostface mask"
+	desc = "Вытянутая белая маска, рот которой открыт в немом крике. Но вот в чём вопрос - ужаса, или ярости?"
+	ru_names = list(
+		NOMINATIVE = "кричащая маска",
+		GENITIVE = "кричащей маски",
+		DATIVE = "кричащей маске",
+		ACCUSATIVE = "кричащую маску",
+		INSTRUMENTAL = "кричащей маской",
+		PREPOSITIONAL = "кричащей маске"
+	)
+	icon_state = "ghostface_mask"
+	item_state = "mime"
+	flags_inv = HIDEGLASSES
+	flags_cover = HIDENAME|MASKCOVERSMOUTH|MASKCOVERSEYES
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_DIONA, SPECIES_NUCLEATION)
+
+/obj/item/clothing/mask/gas/ghostface/equipped(mob/user, slot, initial)
+	if(ishuman(user))
+		if(slot == ITEM_SLOT_MASK)
+			var/mob/living/carbon/human/H = user
+			H.name_override = "Ghostface"
+	. = ..()
+
+/obj/item/clothing/mask/gas/ghostface/dropped(mob/user, slot, silent = FALSE)
+	if(ishuman(user))
+		if(slot == ITEM_SLOT_MASK)
+			var/mob/living/carbon/human/H = user
+			if(H.name_override == "Ghostface")
+				H.name_override = FALSE
+	. = ..()
+
+/obj/item/clothing/mask/gas/ghostface/true
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	var/obj/item/voice_changer/ghostface/voice_changer
+
+/obj/item/clothing/mask/gas/ghostface/true/devil
+	icon_state = "devil_ghostface_mask"
+
+/obj/item/clothing/mask/gas/ghostface/true/Initialize(mapload)
+	. = ..()
+	voice_changer = new(src)
+
+/obj/item/clothing/mask/gas/ghostface/true/Destroy()
+	QDEL_NULL(voice_changer)
+	return ..()
+
+/obj/item/clothing/mask/gas/ghostface/devil
+	icon_state = "devil_ghostface_mask"

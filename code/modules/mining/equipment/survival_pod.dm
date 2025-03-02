@@ -51,7 +51,7 @@
 	if(used)
 		return FALSE
 	var/turf/UT = get_turf(user)
-	if((check_level_trait(UT.z, STATION_LEVEL)) && !emagged)
+	if((is_station_level(UT.z)) && !emagged)
 		to_chat(user, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
@@ -65,7 +65,7 @@
 	if(QDELETED(src))
 		return
 	var/turf/deploy_location = get_turf(src)
-	if((check_level_trait(deploy_location.z, STATION_LEVEL)) && !emagged)
+	if((is_station_level(deploy_location.z)) && !emagged)
 		to_chat(triggerer, span_notice("Error. Expanding was attempted on the station sector. Expanding aborted."))
 		playsound(triggerer, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
@@ -84,7 +84,7 @@
 	template.load(deploy_location, centered = TRUE)
 	trigger_admin_alert(triggerer, deploy_location)
 	playsound(src, 'sound/effects/phasein.ogg', 100, TRUE)
-	new /obj/effect/particle_effect/smoke(get_turf(src))
+	new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 	qdel(src)
 
 /// Throws any mobs near the deployed location away from the item / shelter
@@ -311,6 +311,9 @@
 
 	if(empty)
 		return
+
+	var/obj/item/pickaxe/emergency/pickaxe = new(src)
+	load(pickaxe)
 
 	for(var/i in 1 to 5)
 		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)

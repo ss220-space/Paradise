@@ -7,6 +7,9 @@
 	pressure_resistance = 2
 	resistance_flags = FLAMMABLE
 
+	lefthand_file = 'icons/mob/inhands/folder_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/folder_righthand.dmi'
+
 /obj/item/folder/emp_act(severity)
 	..()
 	for(var/i in contents)

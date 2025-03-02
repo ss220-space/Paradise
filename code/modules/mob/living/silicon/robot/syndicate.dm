@@ -26,8 +26,8 @@
 							Your cyborg LMG will slowly produce ammunition from your power supply, and your operative pinpointer will find and locate fellow nuclear operatives. \
 							<i>Help the operatives secure the disk at all costs!</i></b>"
 
-/mob/living/silicon/robot/syndicate/New(loc)
-	..()
+/mob/living/silicon/robot/syndicate/Initialize(mapload)
+	. = ..()
 	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
 	mmi.icon_state = "sofia"
 
@@ -39,14 +39,14 @@
 
 	if(is_taipan(z))
 		radio = new /obj/item/radio/borg/syndicate/taipan(src)
+
 	else
 		radio = new /obj/item/radio/borg/syndicate(src)
 
 	radio.recalculateChannels()
 
-	spawn(5)
-		if(playstyle_string)
-			to_chat(src, playstyle_string)
+	if(playstyle_string)
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, src, playstyle_string), 5 DECISECONDS)
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
@@ -128,14 +128,18 @@
 	set name = "Toggle Chameleon Projector"
 	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
 	set category = "Saboteur"
+
 	if(!cham_proj)
 		for(var/obj/item/borg_chameleon/C in contents)
 			cham_proj = C
+
 		for(var/obj/item/borg_chameleon/C in module.contents)
 			cham_proj = C
+
 		if(!cham_proj)
 			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
 			return
+
 	cham_proj.attack_self(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
@@ -149,13 +153,13 @@
 		mail_destination = 0
 		return
 
-	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
+	to_chat(src, span_notice("You configure your internal beacon, tagging yourself for delivery to '[tag]'."))
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
-		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
+		to_chat(src, span_notice("\The [D] acknowledges your signal."))
 		D.flush_count = D.flush_every_ticks
 
 	return
@@ -169,20 +173,24 @@
 /mob/living/silicon/robot/syndicate/saboteur/attack_hand()
 	if(cham_proj)
 		cham_proj.disrupt(src)
+
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()
 	if(cham_proj)
 		cham_proj.disrupt(src)
+		
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()
 	..()
+
 	if(cham_proj)
 		cham_proj.disrupt(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/bullet_act()
 	if(cham_proj)
 		cham_proj.disrupt(src)
+
 	..()
 

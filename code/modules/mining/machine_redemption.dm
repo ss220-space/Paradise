@@ -2,6 +2,7 @@
 #define BASE_SHEET_MULT 0.5
 #define POINT_MULT_ADD_PER_RATING 0.35
 #define SHEET_MULT_ADD_PER_RATING 0.2
+#define MESSAGES_WAIT_TIME 1 MINUTES
 
 /**
   * # Ore Redemption Machine
@@ -28,15 +29,16 @@
 	/// List of supply console department names that can receive a notification about ore dumps.
 	/// A list may be provided as entry value to only notify when specific ore is dumped.
 	var/list/supply_consoles = list(
-		"Science",
-		"Robotics",
-		"Research Director's Desk",
-		"Mechanic",
-		"Engineering" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
-		"Chief Engineer's Desk" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
-		"Atmospherics" = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
-		"Bar" = list(MAT_URANIUM, MAT_PLASMA),
-		"Virology" = list(MAT_PLASMA, MAT_URANIUM, MAT_GOLD)
+		RC_SCIENCE,
+		RC_RESEARCH,
+		RC_ROBOTICS,
+		RC_RESEARCH_DIRECTOR_DESK,
+		RC_MECHANIC,
+		RC_ENGINEERING = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
+		RC_CHIEF_ENGINEER_DESK = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
+		RC_ATMOSPHERICS = list(MAT_METAL, MAT_GLASS, MAT_PLASMA),
+		RC_BAR = list(MAT_URANIUM, MAT_PLASMA),
+		RC_VIROLOGY = list(MAT_PLASMA, MAT_URANIUM, MAT_GOLD)
 	)
 	// Variables
 	/// The currently inserted ID.
@@ -55,6 +57,7 @@
 	var/datum/research/files
 	/// The currently inserted design disk.
 	var/obj/item/disk/design_disk/inserted_disk
+	COOLDOWN_DECLARE(messages_cooldown)
 
 /obj/machinery/mineral/ore_redemption/New()
 	..()
@@ -186,9 +189,13 @@
 	// Process it
 	if(length(ore_buffer))
 		message_sent = FALSE
+		if(!COOLDOWN_STARTED(src, messages_cooldown))
+			COOLDOWN_START(src, messages_cooldown, MESSAGES_WAIT_TIME)
 		process_ores(ore_buffer)
-	else if(!message_sent)
+
+	if(COOLDOWN_FINISHED(src, messages_cooldown) && !message_sent)
 		SStgui.update_uis(src)
+		COOLDOWN_RESET(src, messages_cooldown)
 		send_console_message()
 		message_sent = TRUE
 
@@ -484,7 +491,7 @@
 		if(!(C.department in supply_consoles))
 			continue
 		if(!supply_consoles[C.department] || length(supply_consoles[C.department] - mats_in_stock))
-			C.createMessage("Плавильная печь", "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
+			C.createMessage(ORE_REDEMPTION, "Новые ресурсы доступны!", msg, 1) // RQ_NORMALPRIORITY
 
 /**
   * Tries to insert the ID card held by the given user into the machine.

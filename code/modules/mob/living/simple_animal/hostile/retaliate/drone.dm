@@ -234,7 +234,7 @@
 /mob/living/simple_animal/bot/ed209/combat_drone/setup_access()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
+/mob/living/simple_animal/bot/ed209/combat_drone/set_weapon()
 	projectile = /obj/item/projectile/beam/immolator/weak
 
 /mob/living/simple_animal/bot/ed209/combat_drone/turn_on()
@@ -261,9 +261,9 @@
 	desc = "Большой дрон. Кажется, неактивен."
 	w_class = WEIGHT_CLASS_GIGANTIC
 	item_flags = NOPICKUP
-	icon_state = "unactive_drone"
+	icon_state = "inactive_drone"
 
-/obj/item/unactive_drone/attackby(obj/item/I, mob/user, params)
+/obj/item/inactive_drone/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/drone_modules/drone_BCM))
 		to_chat(user, span_notice("Вы установили модуль в слот."))
 		new /mob/living/simple_animal/bot/ed209/combat_drone(get_turf(src))

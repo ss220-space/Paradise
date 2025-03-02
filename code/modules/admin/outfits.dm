@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 
 /client/proc/outfit_manager()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Outfit Manager"
 
 	if(!check_rights(R_EVENT))
@@ -32,7 +32,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	outfit_manager(admin)
 
 /datum/admins/proc/load_outfit(mob/admin)
-	var/outfit_file = input("Pick outfit json file:", "File") as null|file
+	var/outfit_file = input(usr, "Pick outfit json file:", "File") as null|file
 	if(!outfit_file)
 		return
 	var/filedata = wrap_file2text(outfit_file)

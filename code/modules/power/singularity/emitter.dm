@@ -72,9 +72,9 @@
 	return TRUE
 
 
-/obj/machinery/power/emitter/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/machinery/power/emitter/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/power/emitter/Destroy()

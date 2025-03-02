@@ -37,7 +37,7 @@
 	GLOB.player_list |= src
 	GLOB.new_player_mobs |= src
 
-	if(ckey in GLOB.deadmins)
+	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
 		add_verb(src, /client/proc/readmin)
 	. = TRUE
 

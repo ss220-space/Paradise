@@ -11,7 +11,7 @@
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Admin PM Name"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -35,7 +35,7 @@
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_by_key_panel()
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Admin PM Key"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -89,7 +89,7 @@
 	//get message text, limit it's length.and clean/escape html
 	if(!msg)
 		set_typing(C, TRUE)
-		msg = clean_input("Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", , src)
+		msg = tgui_input_text(src, "Message:", "Private message to [holder ? key_name(C, FALSE) : key_name_hidden(C, FALSE)]", multiline = TRUE, encode = FALSE)
 		msg = handleDiscordEmojis(msg)
 		set_typing(C, FALSE)
 
@@ -150,7 +150,7 @@
 			spawn(0)	//so we don't hold the caller proc up
 				var/sender = src
 				var/sendername = key
-				var/reply = clean_input(msg,"[recieve_pm_type] [type] from-[sendername]", "", C)		//show message and await a reply
+				var/reply = tgui_input_text(C, msg,"[recieve_pm_type] [type] from-[sendername]", multiline = TRUE, encode = FALSE)		//show message and await a reply
 				if(C && reply)
 					if(sender)
 						C.cmd_admin_pm(sender,reply)										//sender is still about, let's reply to them
@@ -226,7 +226,7 @@
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
 	last_discord_pm_time = world.time + 10 SECONDS
 
-	var/msg = clean_input("Message:", "Private message to admins on Discord / 400 character limit", , src)
+	var/msg = tgui_input_text(src, "Message:", "Private message to admins on Discord / 400 character limit", multiline = TRUE, encode = FALSE)
 
 	if(!msg)
 		return
@@ -251,7 +251,7 @@
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
-	set category = "OOC"
+	set category = "Admin.Admin Tickets"
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

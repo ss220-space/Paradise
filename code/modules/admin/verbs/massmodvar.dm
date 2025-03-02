@@ -1,5 +1,5 @@
 /client/proc/cmd_mass_modify_object_variables(atom/A, var/var_name)
-	set category = "Debug"
+	set category = "Admin.Debug"
 	set name = "Mass Edit Variables"
 	set desc="(target) Edit all instances of a target item's variables"
 
@@ -9,7 +9,7 @@
 
 	if(A && A.type)
 		if(typesof(A.type))
-			switch(input("Strict object type detection?") as null|anything in list("Strictly this type","This type and subtypes", "Cancel"))
+			switch(tgui_input_list(usr, "Strict object type detection?", items = list("Strictly this type","This type and subtypes", "Cancel")))
 				if("Strictly this type")
 					method = 0
 				if("This type and subtypes")
@@ -36,7 +36,7 @@
 
 		names = sortList(names)
 
-		variable = input("Which var?", "Var") as null|anything in names
+		variable = tgui_input_list(usr, "Which var?", "Var", names)
 	else
 		variable = var_name
 
@@ -57,18 +57,18 @@
 	if(variable in GLOB.VVpixelmovement)
 		if(!check_rights(R_DEBUG))
 			return
-		var/prompt = alert(src, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", "ABORT ", "Continue", " ABORT")
+		var/prompt = tgui_alert(src, "Editing this var may irreparably break tile gliding for the rest of the round. THIS CAN'T BE UNDONE", "DANGER", list("ABORT ", "Continue", " ABORT"))
 		if(prompt != "Continue")
 			return
 
-	default = vv_get_class(var_value)
+	default = vv_get_class(variable, var_value)
 
 	if(isnull(default))
 		to_chat(src, "Unable to determine variable type.")
 	else
 		to_chat(src, "Variable appears to be <b>[uppertext(default)]</b>.")
 
-	to_chat(src, "Variable contains: [var_value]")
+	to_chat(src, "Variable contains: [translate_bitfield(default, variable, var_value)]")
 
 	if(default == VV_NUM)
 		var/dir_text = ""
@@ -85,7 +85,7 @@
 		if(dir_text)
 			to_chat(src, "If a direction, direction is: [dir_text]")
 
-	var/value = vv_get_value(default_class = default)
+	var/value = vv_get_value(class = (default == VV_BITFIELD ? VV_BITFIELD : null), default_class = default, var_name = variable)
 	var/new_value = value["value"]
 	var/class = value["class"]
 
@@ -123,7 +123,7 @@
 			var/pre_processing = new_value
 			var/unique
 			if(varsvars && varsvars.len)
-				unique = alert(usr, "Process vars unique to each instance, or same for all?", "Variable Association", "Unique", "Same")
+				unique = tgui_alert(usr, "Process vars unique to each instance, or same for all?", "Variable Association", list("Unique", "Same"))
 				if(unique == "Unique")
 					unique = TRUE
 				else
@@ -150,7 +150,7 @@
 				CHECK_TICK
 
 		if(VV_NEW_TYPE)
-			var/many = alert(src, "Create only one [value["type"]] and assign each or a new one for each thing", "How Many", "One", "Many", "Cancel")
+			var/many = tgui_alert(src, "Create only one [value["type"]] and assign each or a new one for each thing", "How Many", list("One", "Many", "Cancel"))
 			if(many == "Cancel")
 				return
 			if(many == "Many")
@@ -203,7 +203,7 @@
 
 	log_world("### MassVarEdit by [src]: [O.type] (A/R [accepted]/[rejected]) [variable]=[html_encode("[O.vars[variable]]")]([list2params(value)])")
 	log_admin("[key_name(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
-	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [O.vars[variable]] ([accepted] objects modified)")
+	message_admins("[key_name_admin(src)] mass modified [original_name]'s [variable] to [html_encode(translate_bitfield(default, variable, O.vars[variable]))] (Type: [class]) ([accepted] objects modified)")
 
 /proc/get_all_of_type(var/T, subtypes = TRUE)
 	var/list/typecache = list()

@@ -108,7 +108,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		var/mob/mob = M
 		if(is_station_level(mob.z))
 			check_station_player(mob)
-		else if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && istype(get_area(mob), SSshuttle.emergency.areaInstance))
+		else if(EMERGENCY_ESCAPED_OR_ENDGAMED && istype(get_area(mob), SSshuttle.emergency.areaInstance))
 			check_shuttle_player(mob)
 
 	check_apc_power()
@@ -367,7 +367,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		if(damaged_health)
 			dat += "<b>Самый потрёпанный из эвакуировавшихся:</b> [damaged_name], [damaged_job]: [damaged_health] урона ([damaged_key])<br>"
 	else
-		if(SSshuttle.emergency.mode <= SHUTTLE_STRANDED)
+		if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
 			dat += "Станция не была эвакуирована!<br>"
 		else
 			dat += "Никто не выжил!<br>"

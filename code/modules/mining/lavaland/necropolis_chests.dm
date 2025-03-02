@@ -276,7 +276,7 @@
 	icon_state = "eflower"
 	var/next_summon = 0
 	var/list/summons = list()
-	attack_verb = list("thumped", "brushed", "bumped")
+	attack_verb = list("ударил", "шлифанул", "стукнул")
 
 /obj/item/eflowers/attack_self(mob/user)
 	var/turf/T = get_turf(user)
@@ -339,7 +339,7 @@
 	damtype = BRUTE
 	sharp = TRUE
 	hitsound = 'sound/weapons/rs_slash.ogg'
-	attack_verb = list("slashed","pk'd","atk'd")
+	attack_verb = list("плс'л","атк'л","руб'л")
 
 /obj/item/organ/internal/cyberimp/arm/katana
 	name = "dark shard"
@@ -419,7 +419,7 @@
 	block_type = MELEE_ATTACKS
 	sharp = TRUE
 	w_class = WEIGHT_CLASS_HUGE
-	attack_verb = list("attack", "slash", "stab", "slice", "tear", "lacerate", "rip", "dice", "cut")
+	attack_verb = list("атаковал", "ударил", "порезал", "покромсал", "порвал", "поцарапал", "рубанул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	var/shattered = FALSE
 	var/drew_blood = FALSE

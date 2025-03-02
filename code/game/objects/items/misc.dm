@@ -86,4 +86,3 @@
 	used = TRUE
 	update_appearance(UPDATE_NAME|UPDATE_ICON_STATE)
 	return TRUE
-

@@ -12,6 +12,7 @@
 /obj/structure/bed
 	name = "bed"
 	desc = "This is used to lie in, sleep in or strap on."
+	gender = FEMALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
 	can_buckle = TRUE
@@ -52,6 +53,54 @@
 	desc = "This is a very old spring bed, it looks extremely UNCOMFORTABLE, you would not lie on it for anything in your life."
 	icon_state = "catwalkcouch1"
 	comfort = 0
+
+/obj/structure/bed/wicker
+	name = "wicker bed"
+	desc = "Большая кровать, сотканная из чего-то, напоминающего ткань. Выглядит достаточно удобно."
+	ru_names = list(
+		NOMINATIVE = "плетёная кровать",
+		GENITIVE = "плетёной кровати",
+		DATIVE = "плетёной кровати",
+		ACCUSATIVE = "плетёную кровать",
+		INSTRUMENTAL = "плетёной кроватью",
+		PREPOSITIONAL = "плетёной кровати"
+	)
+	icon_state = "wicker_bed"
+	comfort = 1.5
+	buildstacktype = /obj/item/stack/sheet/cloth
+	buildstackamount = 5
+
+/obj/structure/bed/leather
+	name = "leather bed"
+	desc = "Куски кожи, грубо сшитые друг с другом и прикреплённые к деревянной раме. Не самое удобное место для лежания."
+	ru_names = list(
+		NOMINATIVE = "кровать из кожи",
+		GENITIVE = "кровати из кожи",
+		DATIVE = "кровати из кожи",
+		ACCUSATIVE = "кровать из кожи",
+		INSTRUMENTAL = "кроватью из кожи",
+		PREPOSITIONAL = "кровати из кожи"
+	)
+	icon_state = "leather_bed"
+	comfort = 1.2
+	buildstacktype = /obj/item/stack/sheet/leather
+	buildstackamount = 2
+
+/obj/structure/bed/wooden
+	name = "wooden bed"
+	desc = "Кровать, сделанная из качественной древесины. Выглядит очень мило и уютно."
+	ru_names = list(
+		NOMINATIVE = "деревянная кровать",
+		GENITIVE = "деревянной кровати",
+		DATIVE = "деревянной кровати",
+		ACCUSATIVE = "деревянную кровать",
+		INSTRUMENTAL = "деревянной кроватью",
+		PREPOSITIONAL = "деревянной кровати"
+	)
+	icon_state = "wooden_bed"
+	comfort = 2.5
+	buildstacktype = /obj/item/stack/sheet/wood
+	buildstackamount = 5
 
 /obj/structure/bed/proc/handle_rotation()
 	return

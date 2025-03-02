@@ -20,7 +20,7 @@
 	resistance_flags = FLAMMABLE
 	max_integrity = 50
 	blocks_emissive = FALSE
-	attack_verb = list("bapped")
+	attack_verb = list("стукнул")
 	permeability_coefficient = 0.01
 	dog_fashion = /datum/dog_fashion/head
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
@@ -113,16 +113,13 @@
 	return data
 
 
-/obj/item/paper/AltClick(mob/living/carbon/human/user)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
-		return
+/obj/item/paper/click_alt(mob/living/carbon/human/user)
 	if(is_pen(user.get_active_hand()))
 		rename(user)
-		return
+		return CLICK_ACTION_SUCCESS
 	if(user.is_in_hands(src))
 		ProcFoldPlane(user, src)
-		return
-	return ..()
+		return CLICK_ACTION_SUCCESS
 
 
 /obj/item/paper/proc/rename(mob/user)
@@ -437,8 +434,8 @@
 		topic_href_write(usr, id, input_element)
 
 	if(href_list["write"] )
-		var/id = href_list["write"]
-		var/input_element = input("Enter what you want to write:", "Write") as message
+		var/id = href_list["write"]																			/* Becаuse HTML */
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
 
 		topic_href_write(usr, id, input_element)
 
@@ -447,7 +444,7 @@
 	if(resistance_flags & ON_FIRE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_hot(I))
+	if(I.get_heat())
 		if(!Adjacent(user)) //to prevent issues as a result of telepathically lighting a paper
 			return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -1570,7 +1567,7 @@
 			<td><center><font size=\"4\">Данные<BR>для<BR>доставки</font></center><td>\
 			<center><B><U><font size=\"4\">Получатель</font></U></B></center>\
 			<U>Наименование станции</U>: &#34;ННКСС <B>Тайпан</B>&#34;\
-			<BR><U>Наименование сектора</U>: Эпсилон Эридана\
+			<BR><U>Наименование сектора</U>: Эпсилон Лукусты\
 			</td></tr></table>\
 			</center><BR>В связи с отсутствием в стандартном перечени заказов прошу доставить следующее:\
 			<BR><ul><li><U><span class=\"paper_field\"></span></U></ul>\

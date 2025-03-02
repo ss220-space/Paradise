@@ -4,6 +4,7 @@
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "flashlight"
 	item_state = "flashlight"
+	gender = MALE
 	w_class = WEIGHT_CLASS_SMALL
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
@@ -132,6 +133,13 @@
 	light_range = 5 // A little better than the standard flashlight.
 	hitsound = 'sound/weapons/genhit1.ogg'
 
+/obj/item/flashlight/sectaclight
+	name = "security tactical flashlight"
+	desc = "Прочный тактический фонарь, оборудованный для комфортного ношения на голове. Используется представителями службы безопасности."
+	icon_state = "sectaclight"
+	item_state = ""
+	slot_flags = ITEM_SLOT_EARS
+
 /obj/item/flashlight/drone
 	name = "low-power flashlight"
 	desc = "A miniature lamp, that might be used by small robots."
@@ -219,6 +227,8 @@
 		turn_off()
 		STOP_PROCESSING(SSobj, src)
 
+/obj/item/flashlight/flare/get_heat()
+	return on * 1000
 
 /obj/item/flashlight/flare/proc/turn_off()
 	on = FALSE
@@ -339,9 +349,17 @@
 
 /obj/item/flashlight/flare/torch
 	name = "torch"
-	desc = "A torch fashioned from some leaves and a log."
+	desc = "Простейший факел, сделанный из листьев, намотанных на древесину."
+	ru_names = list(
+		NOMINATIVE = "факел",
+		GENITIVE = "факела",
+		DATIVE = "факелу",
+		ACCUSATIVE = "факел",
+		INSTRUMENTAL = "факелом",
+		PREPOSITIONAL = "факеле",
+	)
 	w_class = WEIGHT_CLASS_BULKY
-	light_range = 7
+	light_range = 6
 	icon_state = "torch"
 	item_state = "torch"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'

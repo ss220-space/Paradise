@@ -1,6 +1,14 @@
 /obj/machinery/computer/crew
 	name = "crew monitoring computer"
-	desc = "Used to monitor active health sensors built into most of the crew's uniforms."
+	desc = "Консоль, используемая для контроля активных датчиков состояния здоровья, встроенных в униформу большинства членов экипажа."
+	ru_names = list(
+		NOMINATIVE = "консоль наблюдения за экипажем",
+		GENITIVE = "консоли наблюдения за экипажем",
+		DATIVE = "консоли наблюдения за экипажем",
+		ACCUSATIVE = "консоль наблюдения за экипажем",
+		INSTRUMENTAL = "консолью наблюдения за экипажем",
+		PREPOSITIONAL = "консоли наблюдения за экипажем"
+	)
 	icon_keyboard = "med_key"
 	icon_screen = "crew"
 	use_power = IDLE_POWER_USE

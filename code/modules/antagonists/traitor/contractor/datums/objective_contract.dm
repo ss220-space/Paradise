@@ -4,6 +4,7 @@
   * Describes the target to kidnap and the extraction area of a [/datum/syndicate_contract].
   */
 /datum/objective/contract
+	antag_menu_name = "Контракт"
 	// Settings
 	/// Jobs that cannot be the kidnapping target.
 	var/static/list/forbidden_jobs = list(
@@ -192,8 +193,7 @@
 	if(!possible_zones)
 		// Compute the list of all zones by their name first
 		var/list/all_areas_by_name = list()
-		for(var/a in GLOB.all_areas)
-			var/area/A = a
+		for(var/area/A in GLOB.areas)
 			if(A.outdoors || !is_station_level(A.z))
 				continue
 			var/i = findtext(A.map_name, name_fixer)
@@ -260,7 +260,7 @@
   * Returns whether the extraction process can be started.
   *
   * Arguments:
-  * * caller - The person trying to call the extraction.
+  * * requester - The person trying to call the extraction.
   */
-/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/caller)
-	return get_area(caller) == extraction_zone && get_area(target.current) == extraction_zone
+/datum/objective/contract/proc/can_start_extraction_process(mob/living/carbon/human/requester)
+	return get_area(requester) == extraction_zone && get_area(target.current) == extraction_zone
