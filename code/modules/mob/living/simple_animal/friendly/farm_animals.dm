@@ -269,6 +269,7 @@
 	)
 	icon_state = "chick"
 	icon_living = "chick"
+	icon_resting = "chick_rest"
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	gender = FEMALE
@@ -290,6 +291,7 @@
 	maxHealth = 3
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	var/amount_grown = 0
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE | PASSMOB
 	mob_size = MOB_SIZE_TINY
 	can_hide = 1
@@ -320,7 +322,7 @@
 #define MAX_CHICKENS 50
 GLOBAL_VAR_INIT(chicken_count, 0)
 
-/mob/living/simple_animal/chicken // chichken
+/mob/living/simple_animal/chicken
 	name = "\improper chicken"
 	desc = "Надеюсь, в этом году яйца уродятся."
 	ru_names = list(
@@ -332,9 +334,10 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		PREPOSITIONAL = "курице"
 	)
 	gender = FEMALE
-	icon_state = "chicken_brown"
-	icon_living = "chicken_brown"
-	icon_dead = "chicken_brown_dead"
+	icon_state = "chicken_white"
+	icon_living = "chicken_white"
+	icon_resting = "chicken_white"
+	icon_dead = "chicken_white_dead"
 	speak = list("Кудах!", "КУДАХ-ДАХ-ТАХ!", "Ко-ко-ко.")
 	speak_emote = list("кудахчет","квохчет")
 	emote_hear = list("кудахчет")
@@ -356,6 +359,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	health = 15
 	maxHealth = 15
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	var/eggsleft = 0
 	var/eggsFertile = TRUE
 	var/body_color
@@ -365,7 +369,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	can_hide = 1
 	can_collar = 1
 	var/list/layMessage = EGG_LAYING_MESSAGES
-	var/list/validColors = list("brown","black","white")
+	var/list/validColors = list("red","black","white")
 	gold_core_spawnable = FRIENDLY_SPAWN
 	footstep_type = FOOTSTEP_MOB_CLAW
 	holder_type = /obj/item/holder/chicken
@@ -376,10 +380,10 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		body_color = pick(validColors)
 	icon_state = "[icon_prefix]_[body_color]"
 	icon_living = "[icon_prefix]_[body_color]"
+	icon_resting = "[icon_prefix]_[body_color]_rest"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
-	pixel_x = rand(-6, 6)
-	pixel_y = rand(0, 10)
 	GLOB.chicken_count += 1
+	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/chicken/death(gibbed)
 	// Only execute the below if we successfully died
@@ -451,6 +455,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	)
 	gender = MALE
 	icon_state = "cock"
+	icon_resting = "cock_rest"
 	icon_living = "cock"
 	icon_dead = "cock_dead"
 	speak = list("Кудах!", "КУ-КА-РЕ-КУ!", "Ко-ко-ко.", "КУДАХ-ДАХ-ТАХ!")
@@ -475,6 +480,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	health = 30
 	maxHealth = 30
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
+	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSMOB
 	mob_size = MOB_SIZE_SMALL
 	can_hide = 1
@@ -737,3 +743,18 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_resting = "goat_hump_rest"
 	icon_dead = "goat_dead"
 
+/mob/living/simple_animal/cock/cool
+	name = "cool cock"
+	desc = "Крутой петух в крутых очках и больших модных кедах. По всей видимости, он украл чью-то одежду."
+	ru_names = list(
+		NOMINATIVE = "крутой петух",
+		GENITIVE = "крутого петуха",
+		DATIVE = "крутому петуху",
+		ACCUSATIVE = "крутого петуха",
+		INSTRUMENTAL = "крутым петухом",
+		PREPOSITIONAL = "крутом петухе"
+	)
+	icon_state = "cool_cock"
+	icon_living = "cool_cock"
+	icon_resting = "cool_cock_rest"
+	icon_dead = "cool_cock_dead"

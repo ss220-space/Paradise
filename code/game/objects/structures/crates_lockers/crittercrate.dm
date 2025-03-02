@@ -108,11 +108,8 @@
 	content_mob = /mob/living/simple_animal/hostile/retaliate/goat
 
 /obj/structure/closet/critter/goat/populate_contents()
-	switch(rand(0,30))
-		if(0 to 15)
-			content_mob = /mob/living/simple_animal/hostile/retaliate/goat
-		if(16 to 30)
-			content_mob = /mob/living/simple_animal/hostile/retaliate/goat/hump
+	if(prob(30))
+		content_mob = /mob/living/simple_animal/hostile/retaliate/goat/hump
 
 /obj/structure/closet/critter/turkey
 	name = "turkey crate"
