@@ -390,8 +390,8 @@
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					usr.visible_message("<span class='notice'>[usr] вставил[genderize_ru(usr.gender, "", "а", "о", "и")] [P] в слот для фотографий [src.declent_ru(GENITIVE)]</span>",\
-										"<span class='notice'>Вы вставили [P] в слот для фотографий [src.declent_ru(GENITIVE)].</span>")
+					usr.visible_message("span_notice("[usr] вставил[genderize_ru(usr.gender, "", "а", "о", "и")] [P] в слот для фотографий [src.declent_ru(GENITIVE)]"),\
+										"span_notice("Вы вставили [P] в слот для фотографий [src.declent_ru(GENITIVE)]."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
@@ -402,7 +402,7 @@
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message("<span class='notice'>Слот для фотографий [src.declent_ru(GENITIVE)] тихо жужжит когда в нем печатается [P]</span>")
+				visible_message(span_notice("Слот для фотографий [src.declent_ru(GENITIVE)] тихо жужжит когда в нем печатается [P]"))
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
@@ -616,9 +616,9 @@
 	photo = null
 	P.forceMove(loc)
 	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
-		visible_message("<span class='notice'>[src] извлекает [P] из слота для фотографий в руку [user]")
+		visible_message(span_notice("[src] извлекает [P] из слота для фотографий в руку [user]"))
 	else
-		visible_message("<span class='notice'>[src] извлекает [P] из слота для фотографий.")
+		visible_message(span_notice("[src] извлекает [P] из слота для фотографий."))
 	playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 	SStgui.update_uis(src)
 
@@ -677,7 +677,7 @@
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message("<span class='notice'>[capitalize(src.declent_ru(NOMINATIVE))] жужжит, печатая газету.</span>")
+	visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] жужжит, печатая газету."))
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**
