@@ -1,6 +1,6 @@
 // Language keys.
-#define LANGUAGE_NONE				"None"
-#define LANGUAGE_NOISE				"Noise"
+#define LANGUAGE_NONE				"Нет"
+#define LANGUAGE_NOISE				"Шум"
 #define LANGUAGE_UNATHI				"Синта'Унати"
 #define LANGUAGE_TAJARAN			"Сик'таир"
 #define LANGUAGE_VULPKANIN			"Канилунц"

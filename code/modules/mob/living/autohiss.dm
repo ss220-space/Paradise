@@ -7,21 +7,21 @@
 	return dna.species.handle_autohiss(message, L, client.prefs.autohiss_mode)
 
 /client/verb/toggle_autohiss()
-	set name = "Toggle Auto-Accent"
-	set desc = "Toggle automatic accents for your species"
+	set name = "Переключить авто-акцент"
+	set desc = "Переключает автоматический акцент вашей расы при общении."
 	set category = "OOC"
 
 	prefs.autohiss_mode = (prefs.autohiss_mode + 1) % AUTOHISS_NUM
 	switch(prefs.autohiss_mode)
 		if(AUTOHISS_OFF)
-			to_chat(src, "Авто-шипение: Выключено.")
+			to_chat(src, "Авто-акцент: Выключен.")
 		if(AUTOHISS_BASIC)
-			to_chat(src, "Авто-шипение: Базовое.")
+			to_chat(src, "Авто-акцент: Базовый.")
 		if(AUTOHISS_FULL)
-			to_chat(src, "Авто-шипение: Полное.")
+			to_chat(src, "Авто-акцент: Полный.")
 		else
 			prefs.autohiss_mode = AUTOHISS_OFF
-			to_chat(src, "Авто-шипение: Выключено.")
+			to_chat(src, "Авто-акцент: Выключен.")
 
 /datum/species/unathi
 	autohiss_basic_map = list(

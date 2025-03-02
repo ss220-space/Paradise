@@ -137,7 +137,7 @@
 		span = translator.speech_span
 		for(var/datum/multilingual_say_piece/S in message_pieces)
 			S.message = "<span class='[span]'>[S.message]</span>"
-		verb = translator.speech_verb
+		verb = translator.speech_verbs
 		return list("verb" = verb)
 
 	if(HAS_TRAIT(src, TRAIT_COMIC) \

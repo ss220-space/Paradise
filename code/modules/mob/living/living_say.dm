@@ -430,7 +430,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return TRUE
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
-	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
+	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_whisper_verbs)
 
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
@@ -470,14 +470,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 	if(first_piece.speaking)
-		if(first_piece.speaking.whisper_verb)
-			verb = first_piece.speaking.whisper_verb
+		if(first_piece.speaking.whisper_verbs)
+			verb = first_piece.speaking.whisper_verbs
 			not_heard = "[verb] something"
 		else
 			var/adverb = pick("quietly", "softly")
 			adverb_added = TRUE
-			verb = "[first_piece.speaking.speech_verb] [adverb]"
-			not_heard = "[first_piece.speaking.speech_verb] something [adverb]"
+			verb = "[first_piece.speaking.speech_verbs] [adverb]"
+			not_heard = "[first_piece.speaking.speech_verbs] something [adverb]"
 	else
 		not_heard = "[verb] something"
 

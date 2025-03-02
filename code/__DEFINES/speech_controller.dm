@@ -1,7 +1,7 @@
 
 #define SPEECH_CONTROLLER_QUEUE_SAY_VERB "say_verb"
 
-#define SPEECH_CONTROLLER_QUEUE_WHISPER_VERB "whisper_verb"
+#define SPEECH_CONTROLLER_QUEUE_whisper_verbs "whisper_verbs"
 
 #define SPEECH_CONTROLLER_QUEUE_EMOTE_VERB "emote_verb"
 

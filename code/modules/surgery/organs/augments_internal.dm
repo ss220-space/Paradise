@@ -247,7 +247,7 @@
 	actions_types = list(/datum/action/item_action/organ_action/toggle)
 	var/active = TRUE
 	var/speech_span = ""
-	var/speech_verb = "states"
+	var/speech_verbs = "states"
 
 /obj/item/organ/internal/cyberimp/brain/speech_translator/clown
 	name = "Comical speech translator implant"

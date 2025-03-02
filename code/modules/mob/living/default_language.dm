@@ -2,7 +2,7 @@
 	var/datum/language/default_language
 
 /mob/living/verb/set_default_language(language as null|anything in languages)
-	set name = "Set Default Language"
+	set name = "Выбрать язык по умолчанию"
 	set category = "IC"
 
 	if(language)
@@ -16,7 +16,7 @@
 	..()
 
 /mob/living/verb/check_default_language()
-	set name = "Check Default Language"
+	set name = "Узнать язык по умолчанию"
 	set category = "IC"
 
 	if(default_language)

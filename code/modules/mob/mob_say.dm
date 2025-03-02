@@ -121,16 +121,16 @@
 
 
 /mob/proc/say_quote(message, datum/language/speaking = null)
-	var/verb = "says"
+	var/verb = "говор%(ит,ят)%"
 	var/ending = copytext(message, length(message))
 
 	if(speaking)
 		verb = genderize_decode(src, speaking.get_spoken_verb(ending))
 	else
 		if(ending == "!")
-			verb = pick("exclaims", "shouts", "yells")
+			verb = pick("восклица%(ет,ют)%")
 		else if(ending == "?")
-			verb = "asks"
+			verb = "спрашива%(ет,ют)%"
 	return verb
 
 /// Transforms the speech emphasis mods from [/atom/movable/proc/say_emphasis] into the appropriate HTML tags
