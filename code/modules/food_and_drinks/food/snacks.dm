@@ -47,8 +47,8 @@
 		user.visible_message(span_notice("[M] доел[genderize_ru(M.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]."))
 		user.drop_item_ground(src)	//so icons update :[
 		Post_Consume(M)
-		var/obj/item/trash_item = generate_trash(usr)
-		usr.put_in_hands(trash_item)
+		var/obj/item/trash_item = generate_trash(user)
+		user.put_in_hands(trash_item)
 		qdel(src)
 	return
 

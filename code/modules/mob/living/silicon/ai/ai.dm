@@ -1358,7 +1358,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return TRUE
 
 
-/mob/living/silicon/ai/can_see(atom/A)
+/mob/living/silicon/ai/can_see(atom/A, length)
 	if(isturf(loc)) //AI in core, check if on cameras
 		//get_turf_pixel() is because APCs in maint aren't actually in view of the inner camera
 		//apc_override is needed here because AIs use their own APC when depowered
