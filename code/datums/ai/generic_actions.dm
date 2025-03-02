@@ -49,11 +49,11 @@
 					span_warning("Вы чувствуете как ваши силы покидают вас, когда [big_guy] обнимает вас!"))
 
 	if(iscarbon(batman))
-		var/mob/living/carbon/carbon_batman = batman
-		for(var/obj/item/bodypart/bodypart_to_break in carbon_batman.bodyparts)
-			if(bodypart_to_break.body_zone == BODY_ZONE_HEAD)
+		var/mob/living/carbon/human/carbon_batman = batman
+		for(var/obj/item/organ/external/bodypart_to_break as anything in carbon_batman.bodyparts)
+			if(istype(bodypart_to_break, /obj/item/organ/external/head))
 				continue
-			bodypart_to_break.receive_damage(brute = 15)
+			bodypart_to_break.external_receive_damage(brute = 15)
 	else
 		batman.adjustBruteLoss(150)
 
@@ -94,7 +94,7 @@
 	var/obj/item/held_item = pawn.get_item_by_slot(pawn.get_active_hand())
 	var/atom/target = controller.blackboard[BB_MONKEY_CURRENT_PRESS_TARGET]
 
-	if(!target || !pawn.CanReach(target))
+	if(!target || !pawn.Adjacent(target))
 		finish_action(controller, FALSE)
 		return
 
@@ -122,7 +122,7 @@
 	var/obj/item/held_item = pawn.get_item_by_slot(pawn.get_active_hand())
 	var/atom/target = controller.blackboard[target_key]
 
-	if(!target || !pawn.CanReach(target) || !isliving(target))
+	if(!target || !pawn.Adjacent(target) || !isliving(target))
 		finish_action(controller, FALSE)
 		return
 
@@ -132,13 +132,13 @@
 		span_notice("[pawn] пытается дать [held_item.declent_ru(ACCUSATIVE)] [living_target]!"),
 		span_warning("[pawn] пытается дать вам [held_item.declent_ru(ACCUSATIVE)]!")
 	)
-	if(!do_mob(pawn, living_target, 1 SECONDS))
+	if(!do_after(pawn, 1 SECONDS, living_target))
 		return
 	if(QDELETED(held_item) || QDELETED(living_target))
 		finish_action(controller, FALSE)
 		return
-	var/pocket_choice = prob(50) ? ITEM_SLOT_RPOCKET : ITEM_SLOT_LPOCKET
-	if(prob(50) && living_target.can_put_in_hand(held_item))
+	var/pocket_choice = prob(50) ? ITEM_SLOT_POCKET_LEFT : ITEM_SLOT_POCKET_RIGHT
+	if(prob(50) && living_target.put_in_hand_check(held_item))
 		living_target.put_in_hand(held_item)
 	else if(held_item.mob_can_equip(living_target, pawn, pocket_choice, TRUE))
 		living_target.equip_to_slot(held_item, pocket_choice)
@@ -158,7 +158,7 @@
 	. = ..()
 	var/mob/living/pawn = controller.pawn
 
-	if(!(target in pawn.held_items))
+	if(!(target in list(pawn.get_active_hand(), pawn.get_inactive_hand())))
 		if(!pawn.put_in_hand_check(target))
 			finish_action(controller, FALSE)
 			return
@@ -209,7 +209,7 @@
 
 	var/datum/weakref/attack_ref = controller.blackboard[BB_ATTACK_TARGET]
 	var/atom/movable/attack_target = attack_ref?.resolve()
-	if(!attack_target || !can_see(living_pawn, attack_target, length=controller.blackboard[BB_VISION_RANGE]))
+	if(!attack_target || !living_pawn.can_see(attack_target, length = controller.blackboard[BB_VISION_RANGE]))
 		finish_action(controller, FALSE)
 		return
 
@@ -277,6 +277,6 @@
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn))
 		return
-	living_pawn.say(speech, forced = "AI Controller")
+	living_pawn.say(speech)
 	finish_action(controller, TRUE)
 

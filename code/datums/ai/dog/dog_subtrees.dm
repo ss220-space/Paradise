@@ -31,7 +31,7 @@
 	// if we're carrying something and we have a destination to deliver it, do that
 	if(controller.blackboard[BB_SIMPLE_CARRY_ITEM] && controller.blackboard[BB_FETCH_DELIVER_TO])
 		var/atom/return_target = controller.blackboard[BB_FETCH_DELIVER_TO]
-		if(!can_see(controller.pawn, return_target, length=AI_DOG_VISION_RANGE))
+		if(!living_pawn.can_see(return_target, length = AI_DOG_VISION_RANGE))
 			// if the return target isn't in sight, we'll just forget about it and carry the thing around
 			controller.blackboard[BB_FETCH_DELIVER_TO] = null
 			return

@@ -11,7 +11,7 @@
 	var/obj/item/fetch_thing = controller.blackboard[BB_FETCH_TARGET]
 
 	//either we can't pick it up, or we'd rather eat it, so stop trying.
-	if(fetch_thing.anchored || !isturf(fetch_thing.loc) || istype(fetch_thing, /obj/item/reagent_containers/food) || !living_pawn.CanReach(fetch_thing))
+	if(fetch_thing.anchored || !isturf(fetch_thing.loc) || istype(fetch_thing, /obj/item/reagent_containers/food) || !living_pawn.Adjacent(fetch_thing))
 		finish_action(controller, FALSE)
 		return
 
@@ -117,7 +117,7 @@
 
 	if(isturf(snack.loc))
 		snack.attack_animal(living_pawn) // snack attack!
-	else if(iscarbon(snack.loc) && DT_PROB(10, delta_time))
+	else if(iscarbon(snack.loc) && SPT_PROB(10, delta_time))
 		living_pawn.manual_emote("смотрит на [snack.name] в руках у [snack.loc] с крайне грустным видом.")
 
 	if(QDELETED(snack)) // we ate it!
@@ -142,7 +142,7 @@
 			simple_pawn.transform = simple_pawn.transform.Turn(180)
 		simple_pawn.density = FALSE
 
-	if(DT_PROB(10, delta_time))
+	if(SPT_PROB(10, delta_time))
 		finish_action(controller, TRUE)
 
 /datum/ai_behavior/play_dead/finish_action(datum/ai_controller/controller, succeeded)
@@ -170,7 +170,7 @@
 
 	var/datum/weakref/harass_ref = controller.blackboard[BB_DOG_HARASS_TARGET]
 	var/atom/movable/harass_target = harass_ref.resolve()
-	if(!harass_target || !can_see(living_pawn, harass_target, length=AI_DOG_VISION_RANGE))
+	if(!harass_target || !living_pawn.can_see(harass_target, length = AI_DOG_VISION_RANGE))
 		finish_action(controller, FALSE)
 		return
 
@@ -187,7 +187,7 @@
 	// subtypes of this behavior can change behavior for how eager/averse the pawn is to attack the target as opposed to falling back/making noise/getting help
 	if(in_range(living_pawn, living_target))
 		attack(controller, living_target)
-	else if(DT_PROB(50, delta_time))
+	else if(SPT_PROB(50, delta_time))
 		living_pawn.manual_emote("[pick("угрожающе рычит", "агрессивно гафкает","злобно смотрит")] на [harass_target]!")
 
 /datum/ai_behavior/harass/finish_action(datum/ai_controller/controller, succeeded)

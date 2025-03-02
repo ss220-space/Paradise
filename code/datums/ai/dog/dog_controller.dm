@@ -26,7 +26,7 @@
 	RegisterSignal(new_pawn, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 	RegisterSignal(new_pawn, COMSIG_PARENT_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(new_pawn, COMSIG_CLICK_ALT, PROC_REF(check_altclicked))
-	RegisterSignal(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_PARENT_QDELETING), PROC_REF(on_death))
+	RegisterSignal(new_pawn, list(COMSIG_MOB_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
 	RegisterSignal(SSdcs, COMSIG_GLOB_CARBON_THROW_THING, PROC_REF(listened_throw))
 	return ..() //Run parent at end
 
@@ -36,7 +36,7 @@
 		pawn.visible_message(span_warning("[pawn] выплевывает [carried_item]."))
 		carried_item.forceMove(pawn.drop_location())
 		blackboard[BB_SIMPLE_CARRY_ITEM] = null
-	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_PARENT_QDELETING))
+	UnregisterSignal(pawn, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_PARENT_EXAMINE, COMSIG_CLICK_ALT, COMSIG_MOB_DEATH, COMSIG_GLOB_CARBON_THROW_THING, COMSIG_QDELETING))
 	return ..() //Run parent at end
 
 /datum/ai_controller/dog/able_to_run()
@@ -50,8 +50,9 @@
 	var/mob/living/simple_animal/simple_pawn = pawn
 	if(!istype(simple_pawn))
 		return
-
-	return simple_pawn.access_card
+	if(simple_pawn.pcollar)
+		var/obj/item/clothing/accessory/petcollar/collar = simple_pawn.pcollar
+		return collar.GetAccess()
 
 /datum/ai_controller/dog/PerformIdleBehavior(delta_time)
 	var/mob/living/living_pawn = pawn
@@ -63,14 +64,14 @@
 		return
 
 	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
-	if(blackboard[BB_SIMPLE_CARRY_ITEM] && DT_PROB(5, delta_time))
+	if(blackboard[BB_SIMPLE_CARRY_ITEM] && SPT_PROB(5, delta_time))
 		var/obj/item/carry_item = blackboard[BB_SIMPLE_CARRY_ITEM]
 		living_pawn.visible_message(span_notice("[living_pawn] мягко впивается зубами в [carry_item.declent_ru(ACCUSATIVE)]в [genderize_ru(living_pawn.gender, "его", "её", "его", "их")] пасти."))
 
-		if(DT_PROB(5, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE))
+		if(SPT_PROB(5, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE))
 			var/move_dir = pick(GLOB.alldirs)
 			living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
-		else if(DT_PROB(10, delta_time))
+		else if(SPT_PROB(10, delta_time))
 			living_pawn.manual_emote(pick("гоняется за своим хвостом!", "ходит кругами."))
 			living_pawn.AddComponent(/datum/component/spinny)
 
@@ -81,9 +82,9 @@
 		return
 	if(!COOLDOWN_FINISHED(src, heel_cooldown))
 		return
-	if(!can_see(pawn, carbon_thrower, length=AI_DOG_VISION_RANGE))
+	if(!pawn.can_see(carbon_thrower, length = AI_DOG_VISION_RANGE))
 		return
-	var/obj/item/thrown_thing = carbon_thrower.get_active_held_item()
+	var/obj/item/thrown_thing = carbon_thrower.get_active_hand()
 	if(!isitem(thrown_thing))
 		return
 	if(blackboard[BB_FETCH_IGNORE_LIST][WEAKREF(thrown_thing)])
@@ -95,8 +96,8 @@
 /datum/ai_controller/dog/proc/listen_throw_land(obj/item/thrown_thing, datum/thrownthing/throwing_datum)
 	SIGNAL_HANDLER
 
-	UnregisterSignal(thrown_thing, list(COMSIG_PARENT_QDELETING, COMSIG_MOVABLE_THROW_LANDED))
-	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !can_see(pawn, thrown_thing, length=AI_DOG_VISION_RANGE))
+	UnregisterSignal(thrown_thing, list(COMSIG_QDELETING, COMSIG_MOVABLE_THROW_LANDED))
+	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !pawn.can_see(thrown_thing, length = AI_DOG_VISION_RANGE))
 		return
 
 	current_movement_target = thrown_thing
@@ -182,12 +183,12 @@
 /datum/ai_controller/dog/proc/command_radial(mob/living/clicker)
 	var/list/commands = list(
 		COMMAND_HEEL = image(icon = 'icons/testing/turf_analysis.dmi', icon_state = "red_arrow"),
-		COMMAND_FETCH = image(icon = 'icons/mob/actions/actions_spells.dmi', icon_state = "summons"),
+		COMMAND_FETCH = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "summons_old"),
 		COMMAND_ATTACK = image(icon = 'icons/effects/effects.dmi', icon_state = "bite"),
 		COMMAND_DIE = image(icon = 'icons/mob/pets.dmi', icon_state = "puppy_dead")
 		)
 
-	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, PROC_REF(check_menu), clicker), tooltips = TRUE)
+	var/choice = show_radial_menu(clicker, pawn, commands, custom_check = CALLBACK(src, PROC_REF(check_menu), clicker))
 	if(!choice || !check_menu(clicker))
 		return
 	set_command_mode(clicker, choice)
@@ -195,7 +196,7 @@
 /datum/ai_controller/dog/proc/check_menu(mob/user)
 	if(!istype(user))
 		CRASH("A non-mob is trying to issue an order to [pawn].")
-	if(user.incapacitated() || !can_see(user, pawn))
+	if(user.incapacitated() || !user.can_see(pawn, length = AI_DOG_VISION_RANGE))
 		return FALSE
 	return TRUE
 
@@ -226,7 +227,7 @@
 	else
 		return
 
-	if(!can_see(pawn, speaker, length=AI_DOG_VISION_RANGE))
+	if(!pawn.can_see(speaker, length = AI_DOG_VISION_RANGE))
 		return
 	set_command_mode(speaker, command)
 
@@ -266,7 +267,7 @@
 		return
 	if(pointed_movable == pawn || blackboard[BB_FETCH_TARGET] || !istype(pointed_movable) || blackboard[BB_DOG_ORDER_MODE] == DOG_COMMAND_NONE) // busy or no command
 		return
-	if(!can_see(pawn, pointing_friend, length=AI_DOG_VISION_RANGE) || !can_see(pawn, pointed_movable, length=AI_DOG_VISION_RANGE))
+	if(!pawn.can_see(pointing_friend, length = AI_DOG_VISION_RANGE) || !pawn.can_see(pointed_movable, length = AI_DOG_VISION_RANGE))
 		return
 
 	COOLDOWN_START(src, command_cooldown, AI_DOG_COMMAND_COOLDOWN)

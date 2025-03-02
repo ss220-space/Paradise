@@ -13,7 +13,7 @@
 
 		item_blacklist[target] = TRUE
 		if(istype(controller, /datum/ai_controller/monkey)) //What the fuck
-			controller.RegisterSignal(target, COMSIG_PARENT_QDELETING, /datum/ai_controller/monkey/proc/target_del)
+			controller.RegisterSignal(target, COMSIG_QDELETING, /datum/ai_controller/monkey/proc/target_del)
 
 	controller.blackboard[BB_MONKEY_PICKUPTARGET] = null
 
@@ -94,7 +94,7 @@
 
 	var/success = FALSE
 
-	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.CanReach(victim))
+	if(do_after(living_pawn, MONKEY_ITEM_SNATCH_DELAY, victim) && target && living_pawn.Adjacent(victim))
 		for(var/obj/item/I in list(victim.get_active_hand(), victim.get_inactive_hand()))
 			if(I == target)
 				victim.visible_message(span_danger("[living_pawn] ворует [target.declent_ru(ACCUSATIVE)] у [victim]!"),
@@ -196,7 +196,7 @@
 		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE
 
 	// attack with weapon if we have one
-	if(living_pawn.CanReach(target, weapon))
+	if(living_pawn.Adjacent(target, weapon))
 		if(weapon)
 			weapon.melee_attack_chain(living_pawn, target)
 		else
@@ -212,7 +212,7 @@
 		if(prob(40)) // Artificial miss
 			real_target = pick(oview(2, target))
 
-		var/obj/item/gun/gun = locate() in living_pawn.held_items
+		var/obj/item/gun/gun = locate() in list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand())
 		var/can_shoot = gun?.can_shoot() || FALSE
 		if(gun && controller.blackboard[BB_MONKEY_GUN_WORKED] && prob(95))
 			// We attempt to attack even if we can't shoot so we get the effects of pulling the trigger

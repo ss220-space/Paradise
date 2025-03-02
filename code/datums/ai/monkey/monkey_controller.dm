@@ -63,11 +63,11 @@ have ways of interacting with a specific mob and control it.
 // Stops sentient monkeys from being knocked over like weak dunces.
 /datum/ai_controller/monkey/on_sentience_gained()
 	. = ..()
-	UnregisterSignal(pawn, COMSIG_MOVABLE_CROSSED)
+	UnregisterSignal(pawn, COMSIG_MOVABLE_CROSS)
 
 /datum/ai_controller/monkey/on_sentience_lost()
 	. = ..()
-	RegisterSignal(pawn, COMSIG_MOVABLE_CROSSED)
+	RegisterSignal(pawn, COMSIG_MOVABLE_CROSS)
 
 /datum/ai_controller/monkey/able_to_run()
 	. = ..()
@@ -83,7 +83,7 @@ have ways of interacting with a specific mob and control it.
 	if(!locate(/obj/item) in list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand()))
 		blackboard[BB_MONKEY_BEST_FORCE_FOUND] = 0
 
-	if(blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED] && (locate(/obj/item/gun) in living_pawn.held_items))
+	if(blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED] && (locate(/obj/item/gun) in list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand())))
 		// We have a gun, what could we possibly want?
 		return FALSE
 
@@ -92,17 +92,17 @@ have ways of interacting with a specific mob and control it.
 	for(var/obj/item/item in oview(2, living_pawn))
 		nearby_items += item
 
-	weapon = GetBestWeapon(nearby_items, living_pawn.held_items)
+	weapon = GetBestWeapon(nearby_items, list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand()))
 
 	var/pickpocket = FALSE
 	for(var/mob/living/carbon/human/human in oview(5, living_pawn))
-		var/obj/item/held_weapon = GetBestWeapon(human.held_items + weapon, living_pawn.held_items)
+		var/obj/item/held_weapon = GetBestWeapon(list(human.get_active_hand(), human.get_inactive_hand()) + weapon, list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand()))
 		if(held_weapon == weapon) // It's just the same one, not a held one
 			continue
 		pickpocket = TRUE
 		weapon = held_weapon
 
-	if(!weapon || (weapon in living_pawn.held_items))
+	if(!weapon || (weapon in list(living_pawn.get_active_hand(), living_pawn.get_inactive_hand())))
 		return FALSE
 
 	blackboard[BB_MONKEY_PICKUPTARGET] = weapon
@@ -211,7 +211,7 @@ have ways of interacting with a specific mob and control it.
 	if(istype(AM, /obj/item))
 		var/mob/living/living_pawn = pawn
 		var/obj/item/I = AM
-		var/mob/thrown_by = I.thrownby?.resolve()
+		var/mob/thrown_by = locateUID(I.thrownby)
 		if(I.throwforce < living_pawn.health && ishuman(thrown_by))
 			var/mob/living/carbon/human/H = thrown_by
 			retaliate(H)
