@@ -261,37 +261,6 @@
 	slot = INTERNAL_ORGAN_BRAIN_CLOWNVOICE
 	origin_tech = "materials=2;biotech=2"
 
-/obj/item/organ/internal/cyberimp/brain/speech_translator //actual translating done in human/handle_speech_problems
-	name = "Speech translator implant"
-	desc = "While known as a translator, this implant actually generates speech based on the user's thoughts when activated, completely bypassing the need to speak."
-	implant_color = "#C0C0C0"
-	slot = INTERNAL_ORGAN_BRAIN_SPEECHTRANSLATOR
-	w_class = WEIGHT_CLASS_TINY
-	origin_tech = "materials=4;biotech=6"
-	actions_types = list(/datum/action/item_action/organ_action/toggle)
-	var/active = TRUE
-	var/speech_span = ""
-	var/speech_verbs = "утвержда%(ет,ют)%"
-
-/obj/item/organ/internal/cyberimp/brain/speech_translator/clown
-	name = "Comical speech translator implant"
-	implant_color = "#DEDE00"
-	speech_span = "sans"
-
-/obj/item/organ/internal/cyberimp/brain/speech_translator/emp_act(severity)
-	if(emp_proof)
-		return
-	if(owner && active)
-		to_chat(owner, span_notice("Your translator's safeties trigger, it is now turned off."))
-		active = FALSE
-
-/obj/item/organ/internal/cyberimp/brain/speech_translator/ui_action_click(mob/user, datum/action/action, leftclick)
-	if(owner && !active)
-		to_chat(owner, span_notice("You turn on your translator implant."))
-		active = TRUE
-	else if(owner && active)
-		to_chat(owner, span_notice("You turn off your translator implant."))
-		active = FALSE
 
 //[[[[MOUTH]]]]
 /obj/item/organ/internal/cyberimp/mouth

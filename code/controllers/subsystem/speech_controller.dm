@@ -47,7 +47,7 @@ SUBSYSTEM_DEF(speech_controller)
 		if(SPEECH_CONTROLLER_QUEUE_SAY_VERB)
 			mob_to_speak.say(message)
 
-		if(SPEECH_CONTROLLER_QUEUE_whisper_verbs)
+		if(SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
 			mob_to_speak.whisper_say(message)
 
 		if(SPEECH_CONTROLLER_QUEUE_EMOTE_VERB)

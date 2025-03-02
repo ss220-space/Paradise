@@ -199,13 +199,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/say(message, verb = "говор[pluralize_ru(gender, "ит", "ят")]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
-			
+
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
 	if(sigreturn & COMPONENT_CANNOT_SPEAK)
 		return FALSE
@@ -453,7 +453,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return TRUE
 	// Log it here since it skips the default way say handles it
 	create_log(SAY_LOG, "(whisper) '[message]'")
-	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_whisper_verbs)
+	SSspeech_controller.queue_say_for_mob(src, message_pieces, SPEECH_CONTROLLER_QUEUE_WHISPER_VERB)
 
 
 // for weird circumstances where you're inside an atom that is also you, like pai's
@@ -574,7 +574,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)	
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

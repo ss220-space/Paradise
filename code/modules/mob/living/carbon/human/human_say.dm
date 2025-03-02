@@ -141,13 +141,12 @@
 	var/check_mute = TRUE
 	var/check_wingdings = TRUE
 
-	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate() in internal_organs
-	if(translator?.active && !HAS_TRAIT(src, TRAIT_MUTE))
-		span = translator.speech_span
-		for(var/datum/multilingual_say_piece/S in message_pieces)
-			S.message = "<span class='[span]'>[S.message]</span>"
-		verb = translator.speech_verbs
-		return list("verb" = verb)
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(translator?.active) // Yes, we can speak even muted, unless being EMPed
+		check_mute = FALSE
+
+		if(translator.can_wingdings) // Active wingdings chip allowed us to speak normally
+			check_wingdings = FALSE
 
 	if(HAS_TRAIT(src, TRAIT_COMIC) \
 		|| (locate(/obj/item/organ/internal/cyberimp/brain/clown_voice) in internal_organs) \
