@@ -178,10 +178,14 @@
 	..()
 	if(!body_color)
 		body_color = pick(validColors)
-	icon_state = "[icon_prefix]_[body_color]"
 	icon_living = "[icon_prefix]_[body_color]"
 	icon_resting = "[icon_prefix]_[body_color]_rest"
 	icon_dead = "[icon_prefix]_[body_color]_dead"
+	update_icon(UPDATE_ICON_STATE)
+
+/mob/living/simple_animal/cow/update_icon_state()
+	..()
+	icon_state = "[icon_prefix]_[body_color]"
 
 /mob/living/simple_animal/cow/Initialize()
 	udder = new()
@@ -268,7 +272,7 @@
 	icon_dead = "chick_dead"
 	icon_gib = "chick_gib"
 	gender = FEMALE
-	speak = list("Чик.","Чирик?","Чик-чирик.","Чик-чик-чириик!")
+	speak = list("Чик.", "Чирик?", "Чик-чирик.", "Чик-чик-чириик!")
 	speak_emote = list("чирикает")
 	emote_hear = list("чирикает")
 	emote_see = list("клюёт землю","хлопает крылышками")
@@ -331,7 +335,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "chicken_brown"
 	icon_living = "chicken_brown"
 	icon_dead = "chicken_brown_dead"
-	speak = list("Кудах!","КУДАХ-ДАХ-ТАХ!","Ко-ко-ко.")
+	speak = list("Кудах!", "КУДАХ-ДАХ-ТАХ!", "Ко-ко-ко.")
 	speak_emote = list("кудахчет","квохчет")
 	emote_hear = list("кудахчет")
 	emote_see = list("клюёт землю", "резко встряхивает крыльями")
@@ -449,7 +453,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_state = "cock"
 	icon_living = "cock"
 	icon_dead = "cock_dead"
-	speak = list("Кудах!","КУ-КА-РЕ-КУ!","Ко-ко-ко.", "КУДАХ-ДАХ-ТАХ!")
+	speak = list("Кудах!", "КУ-КА-РЕ-КУ!", "Ко-ко-ко.", "КУДАХ-ДАХ-ТАХ!")
 	speak_emote = list("кудахчет","квохчет")
 	emote_hear = list("кудахчет")
 	emote_see = list("клюёт землю", "резко встряхивает крыльями")
@@ -494,7 +498,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_living = "pig"
 	icon_resting = "pig_rest"
 	icon_dead = "pig_dead"
-	speak = list("Хрю?","Хрю","ХРЮ!")
+	speak = list("Хрю?", "Хрю", "ХРЮ!")
 	speak_emote = list("хрюкает")
 	tts_seed = "Anubarak"
 //	emote_hear = list("brays")
@@ -532,7 +536,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 	icon_living = "turkey"
 	icon_dead = "turkey_dead"
 	icon_resting = "turkey_rest"
-	speak = list("Кудлл?", "Вабблу.","КУДЛЛУ!")
+	speak = list("Кудлл?", "Вабблу.", "КУДЛЛУ!")
 	speak_emote = list("кулдычет")
 	emote_see = list("важно расхаживает")
 	speak_chance = 1
