@@ -104,13 +104,12 @@
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
-	var/hot_temp = is_hot(I)
-	if(hot_temp <= 300)	//If the temperature of the object is over 300, then ignite
+	if(I.get_heat() <= 300)	//If the temperature of the object is over 300, then ignite
 		return .
 	. |= ATTACK_CHAIN_BLOCKED_ALL
 	add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 	investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-	ignite(hot_temp)
+	ignite(I.get_heat())
 
 
 
@@ -235,7 +234,7 @@
 	icon_state = "shuttle-0"
 	base_icon_state = "shuttle"
 	explosion_block = 3
-	flags = CHECK_RICOCHET
+	flags_ricochet = RICOCHET_SHINY | RICOCHET_HARD
 	sheet_type = /obj/item/stack/sheet/mineral/titanium
 	smooth = SMOOTH_BITMASK | SMOOTH_DIAGONAL_CORNERS
 	canSmoothWith = SMOOTH_GROUP_TITANIUM_WALLS + SMOOTH_GROUP_WINDOW_FULLTILE_SHUTTLE + SMOOTH_GROUP_AIRLOCK

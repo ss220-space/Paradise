@@ -250,6 +250,13 @@
 	cost = 5
 	job = list(JOB_TITLE_CLOWN)
 
+/datum/uplink_item/jobspecific/bipki
+	name = "Bipki case"
+	desc = "Suck me and I'll tell you what's inside."
+	item = /obj/item/case_with_bipki
+	cost = 30
+	job = list(JOB_TITLE_CLOWN)
+
 //Mime
 /datum/uplink_item/jobspecific/caneshotgun
 	name = "Cane Shotgun and Assassination Shells"
@@ -447,7 +454,7 @@
 	job = list(JOB_TITLE_CIVILIAN, JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
-/datum/uplink_item/jobspecific/lockermech
+/datum/uplink_item/jobspecific/combat_drone
 	name = "Combat Drone Manual"
 	desc = "Manual that will allow you to construct combat drones and control plates for them."
 	item = /obj/item/drone_manual
@@ -468,14 +475,6 @@
 	item = /obj/item/storage/belt/bandolier/booze
 	cost = 15
 	job = list(JOB_TITLE_BARTENDER)
-
-//Barber
-/datum/uplink_item/jobspecific/safety_scissors //Hue
-	name = "Safety Scissors"
-	desc = "A pair of scissors that are anything but what their name implies; can easily cut right into someone's throat."
-	item = /obj/item/scissors/safety
-	cost = 6
-	job = list(JOB_TITLE_BARBER)
 
 //Botanist
 /datum/uplink_item/jobspecific/bee_briefcase
@@ -520,9 +519,9 @@
 //Roboticist
 /datum/uplink_item/jobspecific/syndiemmi
 	name = "Syndicate MMI"
-	desc = "A syndicate developed man-machine-interface which will make any cyborg it is inserted into follow the standard syndicate lawset."
+	desc = "Разработанный синдикатом Нейро-Компьютерный Интерфейс, который сохраняет оригинальное сознание пользователя внутри бездушной машины."
 	item = /obj/item/mmi/syndie
-	cost = 6
+	cost = 15
 	job = list(JOB_TITLE_ROBOTICIST)
 	surplus = 0
 
@@ -676,6 +675,20 @@
 	desc = "A holo-cigar imported from the Sol system. The full effects of looking so badass aren't understood yet, but users show an increase in precision while dual-wielding firearms."
 	item = /obj/item/clothing/mask/holo_cigar
 	cost = 10
+	race = list(SPECIES_HUMAN)
+
+/datum/uplink_item/racial/ghostface_kit
+	name = "Ghostface kit"
+	desc = "Всё, что нужно, дабы повторить всем известное призрачное лицо! Включает в себя бронированный чёрный балахон, бронированную маску с функцией сокрытия голоса и сверх-острый аутентичный нож."
+	item = /obj/item/storage/box/syndie_kit/ghostface_kit
+	cost = 50
+	race = list(SPECIES_HUMAN)
+
+/datum/uplink_item/racial/devilghostface_kit
+	name = "Devil Ghostface kit"
+	desc = "Всё, что нужно, дабы повторить всем известное призрачное лицо! Включает в себя бронированный чёрный балахон, бронированную маску с функцией сокрытия голоса и сверх-острый аутентичный нож."
+	item = /obj/item/storage/box/syndie_kit/devil_ghostface_kit
+	cost = 50
 	race = list(SPECIES_HUMAN)
 
 //Grey
@@ -1618,7 +1631,7 @@
 	name = "Access Tuner"
 	desc = "The access tuner is a small device that can interface with airlocks from range. It takes a few seconds to connect and can change the bolt state, open the door, or toggle emergency access."
 	item = /obj/item/door_remote/omni/access_tuner
-	cost = 30
+	cost = 15
 
 /datum/uplink_item/device_tools/toolbox
 	name = "Fully Loaded Toolbox"
@@ -1822,7 +1835,7 @@
 /datum/uplink_item/device_tools/hacked_module
 	name = "Hacked AI Upload Module"
 	desc = "When used with an upload console, this module allows you to upload priority laws to an artificial intelligence. Be careful with their wording, as artificial intelligences may look for loopholes to exploit."
-	item = /obj/item/aiModule/syndicate
+	item = /obj/item/ai_module/syndicate
 	cost = 38
 
 /datum/uplink_item/device_tools/magboots
@@ -2331,9 +2344,9 @@
 
 /datum/uplink_item/contractor/zippo
 	name = "Contractor Zippo Lighter"
-	desc = "A kit with your personal assistant. It comes with an increased amount of memory and special programs."
-	item = /obj/item/storage/box/contractor/spai_kit
-	cost = 120
+	desc = "An unique black and gold zippo lighter with no purpose other than showing off."
+	item = /obj/item/lighter/zippo/contractor
+	cost = 1
 
 /datum/uplink_item/contractor/loadout_box
 	name = "Contractor standard loadout box"

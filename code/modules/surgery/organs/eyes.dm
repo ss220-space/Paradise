@@ -1,7 +1,17 @@
+
 /obj/item/organ/internal/eyes
 	name = "eyeballs"
-	icon_state = "eyes"
+	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали человеку."
+	ru_names = list(
+		NOMINATIVE = "глаза человека",
+		GENITIVE = "глаз человека",
+		DATIVE = "глазам человека",
+		ACCUSATIVE = "глаза человека",
+		INSTRUMENTAL = "глазами человека",
+		PREPOSITIONAL = "глазах человека"
+	)
 	gender = PLURAL
+	icon_state = "eyes"
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_EYES
 	var/eye_colour = "#000000" // Should never be null
@@ -16,6 +26,8 @@
 	var/see_in_dark = 2
 	var/see_invisible = SEE_INVISIBLE_LIVING
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_VISIBLE
+	/// Modifies examine time for living mobs. Uses in /mob/living/run_examinate(atom/target)
+	var/examine_mod = 1
 
 /obj/item/organ/internal/eyes/proc/update_colour()
 	dna.write_eyes_attributes(src)
@@ -89,8 +101,16 @@
 
 /obj/item/organ/internal/eyes/cybernetic
 	name = "cybernetic eyes"
+	desc = "Электронное устройство, имитирующее работу органических глаз. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетические глаза",
+		GENITIVE = "кибернетических глаз",
+		DATIVE = "кибернетическим глазам",
+		ACCUSATIVE = "кибернетические глаза",
+		INSTRUMENTAL = "кибернетическими глазами",
+		PREPOSITIONAL = "кибернетических глазах"
+	)
 	icon_state = "eyes-c"
-	desc = "An electronic device designed to mimic the functions of a pair of human eyes. It has no benefits over organic eyes, but is easy to produce."
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'

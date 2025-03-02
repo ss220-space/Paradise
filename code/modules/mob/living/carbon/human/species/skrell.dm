@@ -53,7 +53,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/skrell,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,	//Default darksight of 5.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/skrell,
 		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket,
 	)
 
@@ -79,6 +79,13 @@
 	female_snore_sound = list('sound/voice/skrell/snore1.ogg', 'sound/voice/skrell/snore2.ogg', 'sound/voice/skrell/snore3.ogg')
 	male_snore_sound = list('sound/voice/skrell/snore1.ogg', 'sound/voice/skrell/snore2.ogg', 'sound/voice/skrell/snore3.ogg')
 	whistle_sound = list('sound/voice/skrell/whistling1.ogg', 'sound/voice/skrell/whistling2.ogg')
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 18,
+		SPECIES_AGE_MAX = 400,
+		JOB_MIN_AGE_HIGH_ED = 25,
+		JOB_MIN_AGE_COMMAND = 25,
+	)
 
 /datum/species/skrell/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

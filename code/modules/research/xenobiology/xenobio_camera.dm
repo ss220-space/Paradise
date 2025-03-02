@@ -36,7 +36,7 @@
 
 /obj/machinery/computer/camera_advanced/xenobio
 	name = "slime management console"
-	desc = "A computer used for remotely handling slimes."
+	desc = "Компьютер, используемый для удаленного взаимодействия со слаймами."
 	networks = list("SS13")
 	circuit = /obj/item/circuitboard/xenobiology
 	icon_screen = "slime_comp"
@@ -396,8 +396,9 @@
 	..()
 
 //Feeds a potion to slime
-/mob/living/simple_animal/slime/AltClick(mob/user)
+/mob/living/simple_animal/slime/click_alt(mob/user)
 	SEND_SIGNAL(user, COMSIG_XENO_SLIME_CLICK_ALT, src)
+	return CLICK_ACTION_SUCCESS
 
 //Picks up slime
 /mob/living/simple_animal/slime/ShiftClick(mob/user)

@@ -35,7 +35,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/kidan,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/kidan,
 		INTERNAL_ORGAN_LANTERN = /obj/item/organ/internal/lantern,
 	)
 
@@ -94,6 +94,13 @@
 
 	disliked_food = FRIED | DAIRY
 	liked_food = SUGAR | ALCOHOL | GROSS | FRUIT
+
+	age_sheet = list(
+		SPECIES_AGE_MIN = 12,
+		SPECIES_AGE_MAX = 45,
+		JOB_MIN_AGE_HIGH_ED = 20,
+		JOB_MIN_AGE_COMMAND = 20,
+	)
 
 /datum/species/kidan/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)

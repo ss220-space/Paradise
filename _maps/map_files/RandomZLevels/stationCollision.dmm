@@ -1007,7 +1007,7 @@
 	},
 /area/awaymission/research)
 "dm" = (
-/obj/singularity/narsie/sc_Narsie,
+/obj/singularity/god/narsie/sc_Narsie,
 /turf/space,
 /area/awaymission/research)
 "dn" = (

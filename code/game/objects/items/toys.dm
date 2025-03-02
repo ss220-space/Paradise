@@ -187,7 +187,7 @@
 	item_state = "sword0"
 	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("attacked", "struck", "hit")
+	attack_verb = list("атаковал", "ударил")
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !active
@@ -247,7 +247,7 @@
 	force_unwielded = 0
 	force_wielded = 0
 	origin_tech = null
-	attack_verb = list("attacked", "struck", "hit")
+	attack_verb = list("атаковал", "ударил")
 	light_range = 0
 	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
@@ -269,7 +269,7 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/toy/katana/suicide_act(mob/user)
@@ -599,7 +599,7 @@
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
-	attack_verb = list("bitten", "eaten", "fin slapped")
+	attack_verb = list("укусил", "пожрал", "шлёпнул")
 	var/bitesound = 'sound/weapons/bite.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
@@ -669,7 +669,7 @@
 	desc = "An adorable, soft, and cuddly plushie."
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
-	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+	attack_verb = list("тыкнул", "ударил", "шлёпнул")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
@@ -697,7 +697,7 @@
 	icon_state = "redfox"
 
 /obj/random/plushie/item_to_spawn()
-	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff)) //exclude the base type.
+	return pick(subtypesof(/obj/item/toy/plushie) - typesof(/obj/item/toy/plushie/fluff) - subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart)) //exclude the base type and 11 random plasma plushies
 
 /obj/item/toy/plushie/corgi
 	name = "corgi plushie"
@@ -846,30 +846,41 @@
 	var/tired = 0
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/plushie/rdplushie/attack_self(mob/user)
-	. = ..()
-
-	if(. || !COOLDOWN_FINISHED(src, cooldown))
-		return .
+/obj/item/toy/plushie/rdplushie/proc/interaction()
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
 
 	var/message
 	if(tired < 100)
 		tired++
-		playsound(user, 'sound/items/greetings-emote.ogg', 30, TRUE)
+		playsound(loc, 'sound/items/greetings-emote.ogg', 30, TRUE)
 		message = pick("Слава науке!", "Сделаем пару роботов?!",
 		"Я будто на слаймовой батарейке! Ха!","Обожааааю слаймов! Блеп!",
 		"Я запрограммировала роботов звать меня мамой!", "Знаешь анекдот про ядро ИИ, смазку и гуся?")
 
 	else
 		update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
-		playsound(user, 'sound/items/shyness-emote.ogg', 30, TRUE)
+		playsound(loc, 'sound/items/shyness-emote.ogg', 30, TRUE)
 		message = pick("Твой мозг стоило бы поместить в машину...", "Чёрт, дела хуже некуда...",
 		"Толпятся перед стойкой, будто насекомые...", "Мне нужно добавить лишь один закон, чтобы все закончилось..",
-		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг еще до того, как ты о нем подумаешь.",
+		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
-	user.visible_message(span_notice(message))
+	visible_message(span_notice(message))
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
+/obj/item/toy/plushie/rdplushie/attack_self(mob/user)
+	. = ..()
+
+	interaction()
+
+/obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+	. = ..()
+
+	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	interaction()
 
 /obj/item/toy/plushie/rdplushie/update_icon_state()
 	. = ..()
@@ -890,6 +901,41 @@
 		return
 
 	desc = "Это уставшая кукла РД."
+
+/obj/item/toy/plushie/gsbplushie
+	name = "GSBussy doll"
+	desc = "Глуповатого вида кукла, что держит в руках книгу Космического закона и имитацию револьвера Unica-6. \
+			На задней части имеется следующая надпись: \
+			«Кукла-аниматроник GSBussy, лимитированная серия. Произведено ######» - часть текста невозможно разобрать."
+	icon_state = "GSBussy_doll"
+	item_state = "GSBussy_doll"
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/gsbplushie/proc/interaction()
+	if(!COOLDOWN_FINISHED(src, cooldown))
+		return FALSE
+
+	var/message = pick("Я просто стояла рядом с автолатом и Уника исчезла...", ".ы ПОО-МММ-ОО-Г-Г-ГИТ-Е-Е-ее-Ее А-а-А-Р-р-Ан-Н-Еу-С-С!",
+	"ОТВЕЧАЙ, ГДЕ ТЫ ПОТЕРЯЛ СВОЙ ЧЁРТОВ ГОЛОВНОЙ УБОР?! КАЗНИТЬ ЕГО!", "Какой-то Д двадц...",
+	"Обыскивайте всех подряд! Летальте всех, кого считаете слишком опасным для нелетала!", "Мим теслу запускает! ЗАДЕРЖАТЬ!!!",
+	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
+
+	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
+	visible_message(span_notice(message))
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
+/obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
+	. = ..()
+
+	interaction()
+
+/obj/item/toy/plushie/gsbplushie/afterattack(atom/target, mob/user, proximity, flag, params)
+	. = ..()
+
+	if(!proximity || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	interaction()
 
 /obj/item/toy/plushie/greyplushie
 	name = "Плюшевый грей"
@@ -965,7 +1011,7 @@
 	desc = "A plushie shard of supermatter crystal. Safety 100%."
 	icon_state = "plushie_shard"
 	item_state = "plushie_shard"
-	attack_verb = list("annihilates", "scratched")
+	attack_verb = list("аннигилировал", "поцарапал")
 	var/shardbite = 'sound/effects/supermatter.ogg'
 	var/cooldown = FALSE
 
@@ -997,7 +1043,7 @@
 	name = "ash walker plushie"
 	desc = "Wild looking ash walker plush toy."
 	icon_state = "plushie_ashwalker1"
-	attack_verb = list("slashes", "tail whipped", "strikes")
+	attack_verb = list("порезал", "шлёпнул", "протаранил")
 	var/cooldown = FALSE
 	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
 
@@ -1128,14 +1174,14 @@
 	desc = "A cute toy that resembles an even cuter bee."
 	icon_state = "plushie_h"
 	item_state = "plushie_h"
-	attack_verb = list("stung", "buzzed", "pollinated")
+	attack_verb = list("ужалил", "жужанул", "опылил")
 	gender = FEMALE
 
 /obj/item/toy/plushie/realgoat
 	name = "goat plushie"
 	desc = "Despite its cuddly appearance and plush nature, it will beat you up all the same, or at least it would if it wasn't a normal plushie."
 	icon_state = "realgoat"
-	attack_verb = list("chomped", "punched", "poked")
+	attack_verb = list("жеванул", "ударил", "ткнул")
 	var/goatbite = 'sound/items/goatsound.ogg'
 	var/cooldown = FALSE
 
@@ -1167,7 +1213,7 @@
 	gender = MALE
 	icon_state = "blahaj"
 	item_state = "blahaj"
-	attack_verb = list("chomped", "gnawed", "bit")
+	attack_verb = list("жеванул", "обглодал", "укусил")
 	var/fishbite = 'sound/weapons/bite.ogg'
 	var/cooldown = FALSE
 
@@ -1213,7 +1259,7 @@
 	desc = "An adorable stuffed toy that resembles an axolotl. Not to be mistaken for the real thing."
 	icon_state = "plushie_axolotl"
 	item_state = "axolotl"
-	attack_verb = list("nibbles", "splats")
+	attack_verb = list("ущипнул", "чмокнул")
 	var/axolotlbite = 'sound/items/axolotl.ogg'
 	var/cooldown = FALSE
 
@@ -1236,11 +1282,60 @@
 /obj/item/toy/plushie/plasmamanplushie
 	name = "plasmaman plushie"
 	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
-	icon_state = "plushie_pman"
-	attack_verb = list("burns", "space beasts", "fwooshes")
+	icon_state = "plasmaman_plushie_civillian"
 	var/pmanlbite = 'sound/effects/extinguish.ogg'
 	var/cooldown = FALSE
 
+/obj/item/toy/plushie/plasmamanplushie/random/Initialize(mapload)
+	. = ..()
+	var/choice = pick(subtypesof(/obj/item/toy/plushie/plasmamanplushie/standart))
+	new choice(loc)
+	return INITIALIZE_HINT_QDEL
+
+
+/obj/item/toy/plushie/plasmamanplushie/standart/sindie
+	name = "syndicate plasmaman plushie"
+	icon_state = "plasmaman_plushie_syndicomm"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/doctor
+	name = "medical doctor plasmaman plushie"
+	icon_state = "plasmaman_plushie_doctor"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/brigmed
+	name = "brig physician plasmaman plushie"
+	icon_state = "plasmaman_plushie_brigphysician"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/chemist
+	name = "chemist plasmaman plushie"
+	icon_state = "plasmaman_plushie_chemist"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/scientist
+	name = "scientist plasmaman plushie"
+	icon_state = "plasmaman_plushie_scientist"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/engineer
+	name = "station engineer plasmaman plushie"
+	icon_state = "plasmaman_plushie_engineer"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/atmostech
+	name = "atmospheric technician plasmaman plushie"
+	icon_state = "plasmaman_plushie_atmostech"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/officer
+	name = "security officer plasmaman plushie"
+	icon_state = "plasmaman_plushie_officer"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/captain
+	name = "captain plasmaman plushie"
+	icon_state = "plasmaman_plushie_captain"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/ntr
+	name = "nanotrasen representative plasmaman plushie"
+	icon_state = "plasmaman_plushie_ntr"
+
+/obj/item/toy/plushie/plasmamanplushie/standart/miner
+	name = "shaft miner plasmaman plushie"
+	icon_state = "plasmaman_plushie_shaftminer"
 
 /obj/item/toy/plushie/plasmamanplushie/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -1253,7 +1348,7 @@
 		return ..()
 
 	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
-	visible_message("<span class='danger'>Plasmaflood!</span>")
+	visible_message("<span class='danger'>Plasssma iss Eternal!</span>")
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1261,7 +1356,7 @@
 	name = "runner plushie"
 	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
 	icon_state = "rouny"
-	attack_verb = list("slashes", "bites", "charges")
+	attack_verb = list("порезал", "укусил", "протаранил")
 	var/rounibite = 'sound/items/Help.ogg'
 	var/cooldown = FALSE
 
@@ -1285,7 +1380,6 @@
 	name = "plush Officer Sweepsky"
 	desc = "A plushie of a popular industrious cleaning robot! If it could feel emotions, it would love you."
 	icon_state = "beepskyplushie"
-	attack_verb = list("Ping!")
 
 /obj/item/toy/plushie/banbanana
 	name = "BANana"
@@ -1365,7 +1459,7 @@
 	desc = "In what passes for a heirarchy among slaughter demon plushies, this one is king."
 	icon_state = "plushie_bubblegum"
 	item_state = "plushie_bubblegum"
-	attack_verb = list("attacks", "strikes")
+	attack_verb = list("атаковал", "протаранил")
 	var/cooldown = FALSE
 	var/bubblestep = 'sound/effects/meteorimpact.ogg'
 	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
@@ -1467,7 +1561,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
 	item_state = "arm_blade"
-	attack_verb = list("pricked", "absorbed", "gored")
+	attack_verb = list("уколол", "поглотил", "пронзил")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 
@@ -1543,29 +1637,34 @@
 	icon = 'icons/obj/library.dmi'
 	icon_state = "demonomicon"
 	w_class = WEIGHT_CLASS_SMALL
-	var/cooldown = FALSE
+	COOLDOWN_DECLARE(cooldown)
 
 /obj/item/toy/codex_gigas/attack_self(mob/user)
-	if(!cooldown)
-		user.visible_message(
-			"<span class='notice'>[user] presses the button on \the [src].</span>",
-			"<span class='notice'>You press the button on \the [src].</span>",
-			"<span class='notice'>You hear a soft click.</span>")
-		var/list/messages = list()
-		var/datum/devilinfo/devil = randomDevilInfo()
-		messages += "Some fun facts about: [devil.truename]"
-		messages += "[GLOB.lawlorify[LORE][devil.bane]]"
-		messages += "[GLOB.lawlorify[LORE][devil.obligation]]"
-		messages += "[GLOB.lawlorify[LORE][devil.ban]]"
-		messages += "[GLOB.lawlorify[LORE][devil.banish]]"
-		playsound(loc, 'sound/machines/click.ogg', 20, 1)
-		cooldown = TRUE
-		for(var/message in messages)
-			user.loc.visible_message("<span class='danger'>[bicon(src)] [message]</span>")
-			sleep(10)
-		spawn(20)
-			cooldown = FALSE
+	if(!COOLDOWN_FINISHED(src, cooldown))
 		return
+
+	user.visible_message(
+		span_notice("[user] presses the button on \the [src]."), \
+		span_notice("You press the button on \the [src]."), \
+		span_sinister("You hear a soft click."))
+
+	var/list/messages = list()
+	var/datum/devilinfo/devil = new
+
+	LAZYADD(messages, "Some fun facts about: [devil.truename]")
+	LAZYADD(messages, devil.bane.law)
+	LAZYADD(messages, devil.ban.law)
+	LAZYADD(messages, devil.obligation.law)
+	LAZYADD(messages, devil.banish.law)
+
+	playsound(loc, 'sound/machines/click.ogg', 20, 1)
+	COOLDOWN_START(src, cooldown, 2 SECONDS)
+
+	for(var/message in messages)
+		user.loc.visible_message(span_danger("[bicon(src)] [message]"))
+		sleep(1 SECONDS)
+
+	return
 
 /obj/item/toy/owl
 	name = "owl action figure"
@@ -1664,7 +1763,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 5
 	throwforce = 5
-	attack_verb = list("attacked", "bashed", "smashed", "stoned")
+	attack_verb = list("атаковал", "ударил", "окаменил")
 	hitsound = "swing_hit"
 
 /obj/item/toy/pet_rock/fred
@@ -1691,7 +1790,7 @@
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
-	attack_verb = list("grinded", "gibbed")
+	attack_verb = list("перемолол", "гибнул")
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/obj/stored_minature = null
@@ -1786,7 +1885,7 @@
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
-	attack_verb = list("struck", "hit", "bashed")
+	attack_verb = list("ударил")
 	var/bullets_left = 0
 	var/max_shots = 6
 
@@ -1881,7 +1980,7 @@
 	throw_speed = 4
 	throw_range = 20
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 
 /obj/item/twohanded/toy/chainsaw/update_icon_state()
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -2230,9 +2329,9 @@
 	return TRUE
 
 
-/obj/item/toy/desk/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/toy/desk/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"
@@ -2287,5 +2386,5 @@
 	force = 10
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("robusted")
+	attack_verb = list("заробастил")
 	hitsound = 'sound/items/squeaktoy.ogg'

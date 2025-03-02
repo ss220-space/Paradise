@@ -208,12 +208,6 @@
 /obj/item/organ/internal/cyberimp/arm/gun/laser/l
 	parent_organ_zone = BODY_ZONE_L_ARM
 
-/obj/item/organ/internal/cyberimp/arm/gun/laser/Initialize(mapload)
-	. = ..()
-	var/obj/item/organ/internal/cyberimp/arm/gun/laser/laserphasergun = locate(/obj/item/gun/energy/laser/mounted) in contents
-	laserphasergun.icon = icon //No invisible laser guns kthx
-	laserphasergun.icon_state = icon_state
-
 /obj/item/organ/internal/cyberimp/arm/gun/taser
 	name = "arm-mounted taser implant"
 	desc = "A variant of the arm cannon implant that fires electrodes and disabler shots. The cannon emerges from the subject's arm and remains inside when not in use."

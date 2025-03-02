@@ -6,6 +6,7 @@
 	special_role = SPECIAL_ROLE_VAMPIRE
 	wiki_page_name = "Vampire"
 	russian_wiki_name = "Вампир"
+	antag_menu_name = "Вампир"
 	/// Total blood drained by vampire over round.
 	var/bloodtotal = 0
 	/// Current amount of blood.
@@ -59,9 +60,9 @@
 /datum/antagonist/vampire/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, sound('sound/ambience/antag/vampalert.ogg'))
-	messages.Add("<span class='danger'>Вы — вампир!</span><br>")
-	messages.Add("Чтобы укусить кого-то, нацельтесь в голову, выберите намерение вреда (4) и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
-		Вы уязвимы перед святостью, огнем и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
+	messages.Add(span_danger("Вы — вампир!<br>"))
+	messages.Add("Чтобы укусить кого-то, нацельтесь на голову, выберите намерение <b>вреда (4)</b> и ударьте пустой рукой. Пейте кровь, чтобы получать новые силы. \
+		Вы уязвимы перед святостью, огнём и звёздным светом. Не выходите в космос, избегайте священника, церкви и, особенно, святой воды.")
 	return messages
 
 
@@ -113,6 +114,17 @@
 			//slaved.leave_serv_hud(mob_override.mind)
 			//.mind.som = null
 
+	user.AddElement( \
+		/datum/element/pref_viewer, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
+	)
+
+/datum/antagonist/vampire/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	old_body.RemoveElement(/datum/element/pref_viewer)
+
+/datum/antagonist/vampire/handle_last_instance_removal()
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/vampire/remove_innate_effects(mob/living/mob_override, transformation = FALSE)
 	var/mob/living/user = ..()
@@ -130,8 +142,10 @@
 		user.dna?.species?.hunger_type = initial(user.dna.species.hunger_type)
 		user.dna?.species?.hunger_icon = initial(user.dna.species.hunger_icon)
 
-	animate(user, alpha = 255)
 	REMOVE_TRAITS_IN(user, VAMPIRE_TRAIT)
+
+/datum/antagonist/vampire/get_antag_menu_name()
+	return "[antag_menu_name][subclass? "([subclass.antag_menu_addition])" :""]"
 
 
 /**
@@ -198,12 +212,13 @@
 
 /datum/antagonist/vampire/proc/handle_bloodsucking(mob/living/carbon/human/target, suck_rate_override)
 	draining = target
+	var/mob/living/carbon/human/cur = owner.current
 	var/unique_suck_id = target.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	var/cycle_counter = 0
 	var/time_per_action
-	var/vampire_dir = get_dir(owner.current, target)
+	var/vampire_dir = get_dir(cur, target)
 
 	var/old_bloodusable = 0 //used to see if we increased our blood usable
 
@@ -213,20 +228,20 @@
 	else
 		suck_rate_final = suck_rate
 
-	if(owner.current.is_muzzled())
-		to_chat(owner.current, span_warning("[owner.current.wear_mask] мешает вам укусить [target]!"))
+	if(cur.is_muzzled())
+		to_chat(cur, span_warning("[cur.wear_mask] мешает вам укусить [target]!"))
 		draining = null
 		return
 
-	add_attack_logs(owner.current, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
+	add_attack_logs(cur, target, "vampirebit & is draining their blood.", ATKLOG_ALMOSTALL)
 
-	if(!iscarbon(owner.current))
+	if(!iscarbon(cur))
 		target.LAssailant = null
 	else
-		target.LAssailant = owner.current
+		target.LAssailant = cur
 
 	var/is_target_grabbed = FALSE
-	if(target.pulledby == owner.current && owner.current.grab_state > GRAB_PASSIVE)
+	if(target.pulledby == cur && cur.grab_state > GRAB_PASSIVE)
 		is_target_grabbed = TRUE
 
 	if(!is_target_grabbed || vampire_dir == NORTHEAST || vampire_dir == NORTHWEST || \
@@ -238,25 +253,27 @@
 		cycle_counter = STATE_GRABBING
 		time_per_action = suck_rate_final*BITE_TIME_MOD
 
-	while(do_after(owner.current, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
+	while(do_after(cur, time_per_action, target, NONE, interaction_key = DOAFTER_SOURCE_VAMPIRE_SUCKING, max_interact_count = 1))
 		cycle_counter++
-		owner.current.face_atom(target)
+		cur.face_atom(target)
 		old_bloodusable = bloodusable
 		switch(cycle_counter)
 			if(STATE_CLOSING_IN)
-				owner.current.visible_message(span_danger("[owner.current] приближается к [target]"), \
+				cur.visible_message(span_danger("[cur] приближается к [target]"), \
 					span_danger("Вы приближаетесь к [target]"))
 				getting_closer_animation(target, STATE_CLOSING_IN, vampire_dir)
 				time_per_action = suck_rate_final*GRABBING_TIME_MOD
 				continue
+
 			if(STATE_GRABBING)
-				owner.current.visible_message(span_danger("[owner.current] грубо хватает шею [target]"), \
+				cur.visible_message(span_danger("[cur] грубо хватает шею [target]"), \
 					span_danger("Вы грубо хватает шею [target]"))
 				getting_closer_animation(target, STATE_GRABBING, vampire_dir)
 				time_per_action = suck_rate_final*BITE_TIME_MOD
 				continue
+
 			if(STATE_BITE)
-				owner.current.visible_message(span_danger("[owner.current] вонзает [genderize_ru(owner.current.gender, "его", "её", "его", "их")] клыки!"), \
+				cur.visible_message(span_danger("[cur] вонзает [genderize_ru(cur.gender, "его", "её", "его", "их")] клыки!"), \
 					span_danger("Вы вонзаете клыки в шею [target] и начинаете высасывать [genderize_ru(target.gender, "его", "её", "его", "их")] кровь."), \
 					span_italics("Вы слышите тихий звук прокола и влажные хлюпающие звуки."))
 				bite_animation(target, vampire_dir)
@@ -265,9 +282,9 @@
 
 		if(unique_suck_id in drained_humans)
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-				to_chat(owner.current, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
-				target.blood_volume = max(target.blood_volume - 25, 0)
-				owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
+				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
+				target.AdjustBlood(-25)
+				cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 				continue
 
 
@@ -275,29 +292,47 @@
 			if(target.ckey || target.player_ghosted) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, target.blood_volume)
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
-				to_chat(owner.current, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+				cur.adjustBruteLoss(-3)
+				cur.adjustFireLoss(-3)
+				cur.adjustOxyLoss(-10)
+				cur.adjustToxLoss(-2)
+				cur.adjustBrainLoss(-1)
+				for(var/obj/item/organ/external/bodypart as anything in cur.bodyparts)
+					if(bodypart.has_fracture() && prob(5))
+						to_chat(cur, span_notice("Вы чувствуете жжение, когда [bodypart.name] непроизвольно выпрямляется!"))
+						bodypart.mend_fracture()
 
-		target.blood_volume = max(target.blood_volume - 25, 0)
+					if(bodypart.has_internal_bleeding() && prob(5))
+						to_chat(cur, span_notice("Вы чувствуете жжение в [bodypart.name], когда ваши вены начинают восстанавливаться!"))
+						bodypart.stop_internal_bleeding()
+
+				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
+					subclass?.on_blood_sucking(owner)
+
+				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
+
+		target.AdjustBlood(-25)
 
 		//Blood level warnings (Code 'borrowed' from Fulp)
 		if(target.blood_volume)
 			if(target.blood_volume <= BLOOD_VOLUME_BAD && blood_volume_warning > BLOOD_VOLUME_BAD)
-				to_chat(owner.current, span_danger("У вашей жертвы остаётся опасно мало крови!"))
+				to_chat(cur, span_danger("У вашей жертвы остаётся опасно мало крови!"))
 
 			else if(target.blood_volume <= BLOOD_VOLUME_OKAY && blood_volume_warning > BLOOD_VOLUME_OKAY)
-				to_chat(owner.current, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
+				to_chat(cur, span_warning("У вашей жертвы остаётся тревожно мало крови!"))
+
 			blood_volume_warning = target.blood_volume //Set to blood volume, so that you only get the message once
 
 		else
-			to_chat(owner.current, span_warning("Вы выпили свою жертву досуха!"))
+			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
 			break
 
 		if(!target.ckey && !target.player_ghosted)//Only runs if there is no ckey and the body has not being ghosted while alive
-			to_chat(owner.current, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
-			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + 5))
+			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
+			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 
 		else
-			owner.current.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, owner.current.nutrition + (blood / 2)))
+			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + (blood / 2)))
 
 	stop_sucking()
 
@@ -556,7 +591,9 @@
 /datum/antagonist/vampire/proc/handle_vampire_cloak()
 	if(!ishuman(owner.current))
 		animate(owner.current, time = 5, alpha = 255)
+		owner.current.alpha_set(1, ALPHA_SOURCE_VAMPIRE)
 		return
+
 	var/turf/simulated/owner_turf = get_turf(owner.current)
 	var/light_available = ((iscloaking)?owner_turf.get_lumcount():owner_turf.get_lumcount(0.5)) * 10
 
@@ -565,16 +602,21 @@
 
 	if(!iscloaking && !is_goon_cloak || owner.current.on_fire)
 		animate(owner.current, time = 5, alpha = 255)
+		owner.current.alpha_set(1, ALPHA_SOURCE_VAMPIRE)
 		owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 		return
 
 	if(light_available <= 2)
 		animate(owner.current, time = 5, alpha = 38)
+		owner.current.alpha_set(standartize_alpha(38), ALPHA_SOURCE_VAMPIRE)
 		if(iscloaking)
 			owner.current.add_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
+
 		return
+
 	owner.current.remove_movespeed_modifier(/datum/movespeed_modifier/vampire_cloak)
 	animate(owner.current, time = 5, alpha = 204) // 255 * 0.80
+	owner.current.alpha_set(0.8, ALPHA_SOURCE_VAMPIRE)
 
 
 /datum/antagonist/vampire/vv_edit_var(var_name, var_value)
@@ -653,6 +695,7 @@
 	antag_hud_type = ANTAG_HUD_VAMPIRE
 	antag_hud_name = "vampthrall"
 	master_hud_icon = "vampire"
+	antag_menu_name = "Раб вампира"
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"

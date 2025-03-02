@@ -1,5 +1,5 @@
 /datum/reagent
-	var/name = "Reagent"
+	var/name = "Реагент"
 	var/id = "reagent"
 	var/description = ""
 	var/datum/reagents/holder = null
@@ -13,6 +13,8 @@
 	var/heart_rate_decrease = 0
 	var/heart_rate_stop = 0
 	var/penetrates_skin = FALSE //Whether or not a reagent penetrates the skin
+	/// Shows how the reagent penetrates the protection from clothing in TOUCH reactions. Should be [0-1]. 0 by default, 1 - full penetration.
+	var/clothing_penetration = 0
 	//Processing flags, defines the type of mobs the reagent will affect
 	//By default, all reagents will ONLY affect organics, not synthetics. Re-define in the reagent's definition if the reagent is meant to affect synths
 	var/process_flags = ORGANIC
@@ -28,10 +30,10 @@
 	var/overdosed = FALSE // You fucked up and this is now triggering it's overdose effects, purge that shit quick.
 	var/current_cycle = 1
 	var/drink_icon = null
-	var/drink_name = "Glass of ..what?"
-	var/drink_desc = "You can't really tell what this is."
+	var/drink_name = "стакан... чего?"
+	var/drink_desc = "Вы понятия не имеете, чем это может быть."
 	var/taste_mult = 1 //how easy it is to taste - the more the easier
-	var/taste_description = "metaphorical salt"
+	var/taste_description = "метафорической соли"
 	var/addict_supertype = /datum/reagent
 
 /datum/reagent/New()
@@ -47,8 +49,8 @@
 /datum/reagent/proc/reaction_temperature(exposed_temperature, exposed_volume) //By default we do nothing.
 	return
 
-/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) //Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
-	if(holder)  //for catching rare runtimes
+/datum/reagent/proc/reaction_mob(mob/living/M, method = REAGENT_TOUCH, volume, show_message = TRUE) // Some reagents transfer on touch, others don't; dependent on if they penetrate the skin or not.
+	if(holder)  // for catching rare runtimes
 		if(method == REAGENT_TOUCH && penetrates_skin && M.reagents && volume >= 1)
 			M.reagents.add_reagent(id, volume)
 
@@ -56,7 +58,8 @@
 			var/can_become_addicted = M.reagents.reaction_check(M, src)
 			if(can_become_addicted)
 				if(count_by_type(M.reagents.addiction_list, addict_supertype) > 0)
-					to_chat(M, "<span class='notice'>You feel slightly better, but for how long?</span>") //sate_addiction handles this now, but kept this for the feed back.
+					to_chat(M, span_notice("Вы чувствуете себя немногим лучше, но надолго ли?")) // sate_addiction handles this now, but kept this for the feed back.
+
 		return TRUE
 
 /datum/reagent/proc/reaction_obj(obj/O, volume)
@@ -66,6 +69,8 @@
 	return
 
 /datum/reagent/proc/on_mob_life(mob/living/M)
+	if(current_cycle == 1)
+		on_mob_start_metabolize(M)
 	current_cycle++
 	var/total_depletion_rate = metabolization_rate * M.metabolism_efficiency * M.digestion_ratio // Cache it
 
@@ -73,7 +78,15 @@
 	sate_addiction(M)
 
 	holder.remove_reagent(id, total_depletion_rate) //By default it slowly disappears.
+	if(volume <= 0)
+		on_mob_end_metabolize(M)
 	return STATUS_UPDATE_NONE
+
+/datum/reagent/proc/on_mob_start_metabolize(mob/living/metabolizer)
+	return
+
+/datum/reagent/proc/on_mob_end_metabolize(mob/living/metabolizer)
+	return
 
 /datum/reagent/proc/handle_addiction(mob/living/M, consumption_rate)
 	if(addiction_chance && count_by_type(M.reagents.addiction_list, addict_supertype) < 1)
@@ -82,7 +95,7 @@
 		var/current_threshold_accumulated = M.reagents.addiction_threshold_accumulated[new_reagent.id]
 
 		if(addiction_threshold < current_threshold_accumulated && prob(addiction_chance) && prob(addiction_chance_additional))
-			to_chat(M, "<span class='danger'>You suddenly feel invigorated and guilty...</span>")
+			to_chat(M, span_danger("Вы чувствуете сильную эйфорию с лёгким оттенком вины..."))
 			new_reagent.last_addiction_dose = world.timeofday
 			M.reagents.addiction_list.Add(new_reagent)
 

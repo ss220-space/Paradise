@@ -2,7 +2,8 @@
 	gender = PLURAL
 	layer = PROJECTILE_HIT_THRESHHOLD_LAYER //sporangiums up don't shoot
 	icon = 'icons/obj/lavaland/ash_flora.dmi'
-	icon_state = "l_mushroom"
+	icon_state = "l_mushroom1"
+	base_icon_state = "l_mushroom"
 	name = "large mushrooms"
 	desc = "A number of large mushrooms, covered in a faint layer of ash and what can only be spores."
 	anchored = TRUE
@@ -24,7 +25,7 @@
 
 /obj/structure/flora/ash/Initialize(mapload)
 	. = ..()
-	base_icon = "[icon_state][rand(1, 4)]"
+	base_icon = "[base_icon_state][rand(1, 4)]"
 	icon_state = base_icon
 
 /obj/structure/flora/ash/proc/harvest(user)
@@ -91,9 +92,10 @@
 	regrowth_time_low = 4200
 
 /obj/structure/flora/ash/leaf_shroom
-	icon_state = "s_mushroom"
 	name = "leafy mushrooms"
 	desc = "A number of mushrooms, each of which surrounds a greenish sporangium with a number of leaf-like structures."
+	icon_state = "s_mushroom1"
+	base_icon_state = "s_mushroom"
 	harvested_name = "leafless mushrooms"
 	harvested_desc = "A bunch of formerly-leafed mushrooms, with their sporangiums exposed. Scandalous?"
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_leaf
@@ -107,9 +109,10 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cap_shroom
-	icon_state = "r_mushroom"
 	name = "tall mushrooms"
 	desc = "Several mushrooms, the larger of which have a ring of conks at the midpoint of their stems."
+	icon_state = "r_mushroom1"
+	base_icon_state = "r_mushroom"
 	harvested_name = "small mushrooms"
 	harvested_desc = "Several small mushrooms near the stumps of what likely were larger mushrooms."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
@@ -122,9 +125,11 @@
 	regrowth_time_high = 5400
 
 /obj/structure/flora/ash/stem_shroom
-	icon_state = "t_mushroom"
+
 	name = "numerous mushrooms"
 	desc = "A large number of mushrooms, some of which have long, fleshy stems. They're radiating light!"
+	icon_state = "t_mushroom1"
+	base_icon_state = "t_mushroom"
 	light_range = 1.5
 	light_power = 2.1
 	harvested_name = "tiny mushrooms"
@@ -139,9 +144,10 @@
 	regrowth_time_high = 6000
 
 /obj/structure/flora/ash/cacti
-	icon_state = "cactus"
 	name = "fruiting cacti"
 	desc = "Several prickly cacti, brimming with ripe fruit and covered in a thin layer of ash."
+	icon_state = "cactus1"
+	base_icon_state = "cactus"
 	harvested_name = "cacti"
 	harvested_desc = "A bunch of prickly cacti. You can see fruits slowly growing beneath the covering of ash."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/cactus_fruit
@@ -160,9 +166,10 @@
 	AddComponent(/datum/component/caltrop, 3, 6, 70)
 
 /obj/structure/flora/ash/fireblossom
-	icon_state = "fireblossom"
 	name = "fire blossom"
 	desc = "An odd flower that grows commonly near bodies of lava."
+	icon_state = "fireblossom"
+	base_icon_state = "fireblossom"
 	harvested_name = "fire blossom stems"
 	harvested_desc = "A few fire blossom stems, missing their flowers."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/fireblossom
@@ -177,6 +184,31 @@
 	harvest_message_high = "You pluck quite a lot of suitable flowers."
 	regrowth_time_low = 2500
 	regrowth_time_high = 4000
+
+/obj/structure/flora/ash/coaltree
+	icon_state = "coaltree1"
+	base_icon_state = "coaltree"
+	name = "coaltree"
+	desc = "Небольшое мрачное дерево, растущее на просторах такой же мрачной планеты."
+	ru_names = list(
+		NOMINATIVE = "угледрево",
+		GENITIVE = "угледрева",
+		DATIVE = "угледреву",
+		ACCUSATIVE = "угледрево",
+		INSTRUMENTAL = "угледревом",
+		PREPOSITIONAL = "угледреве"
+	)
+	gender = NEUTER
+	harvested_name = "coaltree stump"
+	harvested_desc = "Голый ствол дерева, оставшийся без своей уродливой кроны."
+	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
+	harvest_amount_high = 5
+	harvest_time = 40
+	harvest_message_low = "Вы обрезаете небольшое дерево."
+	harvest_message_med = "Вы обрезаете дерево среднего размера."
+	harvest_message_high = "Вы обрезаете большое дерево."
+	regrowth_time_low = 4000
+	regrowth_time_high = 6000
 
 /obj/item/reagent_containers/food/snacks/grown/ash_flora
 	name = "mushroom shavings"
@@ -231,6 +263,44 @@
 	slot_flags = ITEM_SLOT_HEAD
 	seed = /obj/item/seeds/lavaland/fireblossom
 	wine_power = 0.4
+
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
+	name = "coaltree log"
+	desc = "Бревно угледрева, на ощупь мягкое."
+	ru_names = list(
+		NOMINATIVE = "бревно угледрева",
+		GENITIVE = "бревна угледрева",
+		DATIVE = "бревну угледрева",
+		ACCUSATIVE = "бревно угледрева",
+		INSTRUMENTAL = "бревном угледрева",
+		PREPOSITIONAL = "бревне угледрева"
+	)
+	gender = NEUTER
+	icon_state = "coaltree_log"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	item_state = "coaltree_log"
+	seed = /obj/item/seeds/lavaland/coaltree
+	wine_power = 0.5
+	item_flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+
+/obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log/attackby(obj/item/I, mob/user, params)
+	if(is_sharp(I))
+		if(!isturf(loc))
+			add_fingerprint(user)
+			to_chat(user, span_warning("Вы не можете рубить [declent_ru(ACCUSATIVE)] [ismob(loc) ? "в инвентаре" : "в [loc.declent_ru(PREPOSITIONAL)]"]."))
+			return ATTACK_CHAIN_PROCEED
+
+		to_chat(user, span_notice("Вы порубили [declent_ru(ACCUSATIVE)] на доски."))
+		var/seed_modifier = 0
+		if(seed)
+			seed_modifier = round(seed.potency / 25)
+		var/obj/item/stack/planks = new /obj/item/stack/sheet/wood(loc, 1 + seed_modifier)
+		transfer_fingerprints_to(planks)
+		planks.add_fingerprint(user)
+		qdel(src)
+		return ATTACK_CHAIN_BLOCKED_ALL
 
 //SEEDS
 
@@ -316,6 +386,27 @@
 	genes = list(/datum/plant_gene/trait/fire_resistance, /datum/plant_gene/trait/glow/yellow)
 	reagents_add = list("tinlux" = 0.04, "nutriment" = 0.03, "carbon" = 0.05)
 
+/obj/item/seeds/lavaland/coaltree
+	name = "pack of coaltree seeds"
+	desc = "Эти семена вырастут в угледрево."
+	ru_names = list(
+		NOMINATIVE = "пачка семян угледрева",
+		GENITIVE = "пачки семян угледрева",
+		DATIVE = "пачке семян угледрева",
+		ACCUSATIVE = "пачку семян угледрева",
+		INSTRUMENTAL = "пачкой семян угледрева",
+		PREPOSITIONAL = "пачке семян угледрева"
+	)
+	gender = FEMALE
+	icon_state = "seed-coaltree"
+	species = "coaltree"
+	plantname = "Coaltree"
+	growthstages = 3
+	growing_icon = 'icons/obj/hydroponics/growing.dmi'
+	product = /obj/item/reagent_containers/food/snacks/grown/ash_flora/coaltree_log
+	genes = list(/datum/plant_gene/trait/fire_resistance)
+	reagents_add = list("nutriment" = 0.04, "coaltree_extract" = 0.1)
+
 //CRAFTING
 
 //what you can craft with these things
@@ -325,6 +416,7 @@
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora/shavings = 5)
 	time = 30
 	category = CAT_PRIMAL
+	subcategory = CAT_MISC2
 
 /obj/item/reagent_containers/food/drinks/mushroom_bowl
 	name = "mushroom bowl"
@@ -333,6 +425,26 @@
 	icon_state = "mushroom_bowl"
 	w_class = WEIGHT_CLASS_SMALL
 
+/obj/item/reagent_containers/food/drinks/mushroom_bowl/attackby(obj/item/I, mob/user, params)
+	if(!istype(I, /obj/item/lavaland_dye))
+		return ..()
+
+	var/obj/item/lavaland_dye/dye = I
+	to_chat(user, span_notice("Вы начали толочь селезёнку в ступке."))
+	if(!do_after(user, 5 SECONDS, src, max_interact_count = 1, cancel_on_max = TRUE))
+		return ..()
+
+	var/obj/item/lavaland_mortar/new_item = new(loc)
+	new_item.picked_dye = dye.picked_dye
+	new_item.totem_dye = dye.totem_dye
+	new_item.fluff_name = dye.fluff_name
+	new_item.update_icon(UPDATE_ICON_STATE)
+
+	user.put_in_hands(new_item)
+
+	qdel(dye)
+	qdel(src)
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /*********
  * Rocks *

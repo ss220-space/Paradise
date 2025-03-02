@@ -16,6 +16,26 @@
 	pickup_sound = 'sound/items/handling/boots_pickup.ogg'
 	drop_sound = 'sound/items/handling/boots_drop.ogg'
 
+/obj/item/clothing/shoes/combat/riot
+	name = "riot boots"
+	desc = "High speed, low drag riot boots."
+	can_cut_open = FALSE
+	icon_state = "riotboots"
+	item_state = "riotboots"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi'
+	)
+
 /obj/item/clothing/shoes/combat/swat //overpowered boots for death squads
 	name = "\improper SWAT shoes"
 	desc = "High speed, no drag combat boots."
@@ -155,7 +175,7 @@
 	icon_state = "armored_shoes"
 	item_color = "armored_shoes"
 	item_state = "armored_shoes"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
+	armor = list("melee" = 5, "bullet" = 25, "laser" = 10, "energy" = 5, "bomb" = 5, "bio" = 0, "rad" = 0, "fire" = 75, "acid" = 75)
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
@@ -399,51 +419,27 @@
 		/obj/item/clothing/shoes/cowboy/lizardmasterwork = 1)
 
 /obj/item/clothing/shoes/footwraps
- 	name = "cloth footwraps"
- 	desc = "A roll of treated canvas used for wrapping claws or paws."
- 	icon_state = "clothwrap"
- 	item_state = "clothwrap"
- 	force = 0
- 	silence_steps = TRUE
- 	w_class = WEIGHT_CLASS_SMALL
+	name = "cloth footwraps"
+	desc = "A roll of treated canvas used for wrapping claws or paws."
+	icon_state = "clothwrap"
+	item_state = "clothwrap"
+	force = 0
+	silence_steps = TRUE
+	w_class = WEIGHT_CLASS_SMALL
+	var/paintable = TRUE
 
-/obj/item/clothing/shoes/footwraps/yellow
- 	name = "yellow cloth footwraps"
- 	icon_state = "yellow_wrap"
- 	item_state = "yellow_wrap"
-
-/obj/item/clothing/shoes/footwraps/silver
- 	name = "silver cloth footwraps"
- 	icon_state = "silver_wrap"
- 	item_state = "silver_wrap"
-
-/obj/item/clothing/shoes/footwraps/red
- 	name = "red cloth footwraps"
- 	icon_state = "red_wrap"
- 	item_state = "red_wrap"
-
-/obj/item/clothing/shoes/footwraps/blue
- 	name = "blue cloth footwraps"
- 	icon_state = "blue_wrap"
- 	item_state = "blue_wrap"
-
-/obj/item/clothing/shoes/footwraps/black
- 	name = "black cloth footwraps"
- 	icon_state = "black_wrap"
- 	item_state = "black_wrap"
-
-/obj/item/clothing/shoes/footwraps/brown
- 	name = "brown cloth footwraps"
- 	icon_state = "brown_wrap"
- 	item_state = "brown_wrap"
+/obj/item/clothing/shoes/footwraps/ComponentInitialize()
+	if(paintable)
+		AddComponent(/datum/component/spraycan_paintable)
 
 /obj/item/clothing/shoes/footwraps/goliath
 	name = "goliath hide footwraps"
 	desc = "These wraps, made from goliath hide, make your feet feel snug and secure, while still being breathable and light."
 	icon_state = "footwraps_goliath"
 	item_state = "footwraps_goliath"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 5, "bomb" = 10, "bio" = 0, "rad" = 0, "fire" = 10, "acid" = 0)
 	resistance_flags = FIRE_PROOF
+	paintable = FALSE
 
 /obj/item/clothing/shoes/footwraps/dragon
 	name = "ash drake hide footwraps"
@@ -452,6 +448,7 @@
 	item_state = "footwraps_dragon"
 	armor = list("melee" = 10, "bullet" = 10, "laser" = 15, "energy" = 10, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 15, "acid" = 0)
 	resistance_flags = FIRE_PROOF | ACID_PROOF
+	paintable = FALSE
 
 /obj/item/clothing/shoes/bhop
 	name = "jump boots"

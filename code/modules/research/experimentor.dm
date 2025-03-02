@@ -56,7 +56,7 @@
 /* //uncomment to enable forced reactions.
 /obj/machinery/r_n_d/experimentor/verb/forceReaction()
 	set name = "Force Experimentor Reaction"
-	set category = "Debug"
+	set category = "Admin.Debug"
 	set src in oview(1)
 	var/reaction = input(usr,"What reaction?") in list(SCANTYPE_POKE,SCANTYPE_IRRADIATE,SCANTYPE_GAS,SCANTYPE_HEAT,SCANTYPE_COLD,SCANTYPE_OBLITERATE)
 	var/oldReaction = item_reactions["[loaded_item.type]"]
@@ -285,8 +285,8 @@
 		loaded_item = null
 
 /obj/machinery/r_n_d/experimentor/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 1, location = where)
 	smoke.start()
 
 /obj/machinery/r_n_d/experimentor/proc/pickWeighted(list/from)
@@ -347,18 +347,21 @@
 			cloneCount = badThingCoeff
 			investigate_log("Experimentor has made a clone of [exp_on]", INVESTIGATE_EXPERIMENTOR)
 			ejectItem()
+
 		if(prob(EFFECT_PROB_VERYLOW-badThingCoeff))
 			visible_message("<span class='danger'>[src] malfunctions, melting [exp_on] and leaking radiation!</span>")
 			for(var/mob/living/m in oview(1, src))
 				m.apply_effect(25,IRRADIATE)
 				investigate_log("Experimentor has irradiated [key_name_log(m)]", INVESTIGATE_EXPERIMENTOR) //One entry per person so we know what was irradiated.
 			ejectItem(TRUE)
+
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, spewing toxic waste!</span>")
 			for(var/turf/T in oview(1, src))
 				if(!T.density)
 					if(prob(EFFECT_PROB_VERYHIGH))
 						new /obj/effect/decal/cleanable/greenglow(T)
+
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			var/savedName = "[exp_on]"
 			ejectItem(TRUE)
@@ -369,19 +372,14 @@
 			if(istype(loaded_item,/obj/item/grenade/chem_grenade))
 				var/obj/item/grenade/chem_grenade/CG = loaded_item
 				CG.prime()
+
 			ejectItem()
+
 	else if(prob(EFFECT_PROB_VERYLOW))
 		visible_message("<span class='warning'>The [exp_on] has activated an unknown subroutine!</span>")
 		clone_next = TRUE
 		ejectItem()
 		qdel(exp_on)
-
-		var/T = rand(1, linked_console.files.known_tech.len)
-		var/datum/tech/KT = linked_console.files.known_tech[linked_console.files.known_tech[T]]
-		var/new_level = linked_console.files.UpdateTech(linked_console.files.known_tech[T], KT.level + 1)
-		var/tech_log = "[T] [new_level], "
-		if(tech_log)
-			investigate_log("[usr] increased tech experimentoring [loaded_item]: [tech_log]. ", INVESTIGATE_RESEARCH)
 	else
 		exp = FAIL
 
@@ -399,8 +397,8 @@
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent(chosenchem , 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -411,8 +409,8 @@
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent(chosenchem , 375)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -521,8 +519,8 @@
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -543,8 +541,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(1,0, src.loc, 0)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 1, location = src.loc)
 			smoke.start()
 			ejectItem()
 	else if(prob(EFFECT_PROB_LOW))
@@ -811,12 +809,12 @@
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && is_teleport_allowed(userturf.z))
 			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(5, get_turf(user))
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 5, location = get_turf(user))
 			smoke.start()
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
 			smoke = new
-			smoke.set_up(5, get_turf(user))
+			smoke.set_up(amount = 5, location = get_turf(user))
 			smoke.start()
 
 /obj/item/relict_production/pet_spray

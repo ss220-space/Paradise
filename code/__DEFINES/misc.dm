@@ -98,41 +98,6 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
-#define in_range(source, user)		(get_dist(source, user) <= 1)
-
-#define RANGE_TURFS(RADIUS, CENTER) \
-	RECT_TURFS(RADIUS, RADIUS, CENTER)
-
-#define RECT_TURFS(H_RADIUS, V_RADIUS, CENTER) \
-	block( \
-	max(CENTER.x - (H_RADIUS), 1),          max(CENTER.y - (V_RADIUS), 1),          CENTER.z, \
-	min(CENTER.x + (H_RADIUS), world.maxx), min(CENTER.y + (V_RADIUS), world.maxy), CENTER.z \
-	)
-
-/// Returns the turfs on the edge of a square with CENTER in the middle and with the given RADIUS. If used near the edge of the map, will still work fine.
-// order of the additions: top edge + bottom edge + left edge + right edge
-#define RANGE_EDGE_TURFS(RADIUS, CENTER)\
-	(CENTER.y + RADIUS < world.maxy ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS, world.maxy), CENTER.z) : list()) +\
-	(CENTER.y - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS, 1), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS, 1), CENTER.z) : list()) +\
-	(CENTER.x - RADIUS > 1 ? block(max(CENTER.x - RADIUS, 1), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, max(CENTER.x - RADIUS, 1), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list()) +\
-	(CENTER.x + RADIUS < world.maxx ? block(min(CENTER.x + RADIUS, world.maxx), min(CENTER.y + RADIUS - 1, world.maxy), CENTER.z, min(CENTER.x + RADIUS, world.maxx), max(CENTER.y - RADIUS + 1, 1), CENTER.z) : list())
-
-/// Returns a list of turfs in the rectangle specified by BOTTOM LEFT corner and height/width, checks for being outside the world border for you
-#define CORNER_BLOCK(corner, width, height) CORNER_BLOCK_OFFSET(corner, width, height, 0, 0)
-
-/// Returns a list of turfs similar to CORNER_BLOCK but with offsets
-#define CORNER_BLOCK_OFFSET(corner, width, height, offset_x, offset_y) ((block(locate(corner.x + offset_x, corner.y + offset_y, corner.z), locate(min(corner.x + (width - 1) + offset_x, world.maxx), min(corner.y + (height - 1) + offset_y, world.maxy), corner.z))))
-
-/// Returns an outline (neighboring turfs) of the given block
-#define CORNER_OUTLINE(corner, width, height) ( \
-	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, -1) + \
-	CORNER_BLOCK_OFFSET(corner, width + 2, 1, -1, height) + \
-	CORNER_BLOCK_OFFSET(corner, 1, height, -1, 0) + \
-	CORNER_BLOCK_OFFSET(corner, 1, height, width, 0))
-
-/// Returns a list of around us
-#define TURF_NEIGHBORS(turf) (CORNER_BLOCK_OFFSET(turf, 3, 3, -1, -1) - turf)
-
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
 	GLOB.dview_mob.set_invis_see(invis_flags); \
@@ -396,7 +361,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 33
+#define SQL_VERSION 34
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -523,3 +488,32 @@
 /// Disposal: How frequently disposals can make sounds, to prevent huge sound stacking
 #define DISPOSAL_SOUND_COOLDOWN (0.1 SECONDS)
 
+/// Mech Subtypes
+#define MECH_TYPE_NONE			(1<<0)
+#define MECH_TYPE_RIPLEY		(1<<1)
+#define MECH_TYPE_CLARKE		(1<<2)
+#define MECH_TYPE_ODYSSEUS		(1<<3)
+#define MECH_TYPE_GYGAX			(1<<4)
+#define MECH_TYPE_DURAND		(1<<5)
+#define MECH_TYPE_PHAZON		(1<<6)
+#define MECH_TYPE_HONKER		(1<<7)
+#define MECH_TYPE_RETICENCE		(1<<8)
+#define MECH_TYPE_LOCKER		(1<<9)
+#define MECH_TYPE_MARAUDER		(1<<10)
+#define MECH_TYPE_SIDEWINTER	(1<<11)
+#define MECH_TYPE_OLD_DURAND	(1<<12)
+#define MECH_TYPE_DARK_GYGAX	(1<<13)
+
+/// Lavaland types
+#define LAVALAND_TYPE_LAVA	(1<<0)
+#define	LAVALAND_TYPE_PLASMA	(1<<1)
+#define	LAVALAND_TYPE_CHASM	(1<<2)
+
+// Deadchat control defines
+
+/// Will execute a single command after the cooldown based on player votes.
+#define DEADCHAT_DEMOCRACY_MODE (1<<0)
+/// Allows each player to do a single command every cooldown.
+#define DEADCHAT_ANARCHY_MODE (1<<1)
+/// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
+#define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)

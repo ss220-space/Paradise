@@ -8,7 +8,7 @@ type InputButtonsData = {
 };
 
 type InputButtonsProps = {
-  input: string | number | string[];
+  input: string | number | string[] | Object;
   message?: string;
   disabled?: boolean;
 };
@@ -20,7 +20,7 @@ export const InputButtons = (props: InputButtonsProps, context) => {
   const submitButton = (
     <Button
       color="good"
-      content="Submit"
+      content="Принять"
       bold={!!large_buttons}
       fluid={!!large_buttons}
       onClick={() => act('submit', { entry: input })}
@@ -33,7 +33,7 @@ export const InputButtons = (props: InputButtonsProps, context) => {
   const cancelButton = (
     <Button
       color="bad"
-      content="Cancel"
+      content="Отменить"
       bold={!!large_buttons}
       fluid={!!large_buttons}
       onClick={() => act('cancel')}

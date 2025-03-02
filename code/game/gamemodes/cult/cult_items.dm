@@ -30,7 +30,7 @@
 	throwforce = 10
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
 
@@ -334,7 +334,7 @@
 	if(curselimit > 1)
 		to_chat(user, "<span class='notice'>We have exhausted our ability to curse the shuttle.</span>")
 		return
-	if(locate(/obj/singularity/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
+	if(locate(/obj/singularity/god/narsie) in GLOB.poi_list || locate(/mob/living/simple_animal/demon/slaughter/cult) in GLOB.mob_list)
 		to_chat(user, "<span class='danger'>Nar'Sie or her avatars are already on this plane, there is no delaying the end of all things.</span>")
 		return
 
@@ -504,7 +504,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("bumped", "prodded")
+	attack_verb = list("стукнул", "толкнул")
 	hitsound = 'sound/weapons/smash.ogg'
 	/// Chance that energy projectiles will be reflected
 	var/reflect_chance = 70
@@ -631,7 +631,7 @@
 	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
-	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
+	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -678,7 +678,7 @@
 		final_block_chance *= 2
 	if(prob(final_block_chance))
 		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"), projectile_message = TRUE)
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
 			return TRUE
 		else

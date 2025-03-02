@@ -93,7 +93,7 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/AltClickOn(atom/A)
-	A.AltClick(src)
+	base_click_alt(A)
 	return
 
 /mob/living/silicon/robot/cogscarab/CtrlShiftClickOn(atom/A)

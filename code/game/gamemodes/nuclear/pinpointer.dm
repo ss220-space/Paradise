@@ -220,19 +220,10 @@
 			pinpoint_at(target)
 
 
-/obj/item/pinpointer/advpinpointer/AltClick(mob/user)
+/obj/item/pinpointer/advpinpointer/click_alt(mob/user)
 	if(Adjacent(user))
 		toggle_mode(user)
-		return
-	..()
-
-
-/obj/item/pinpointer/advpinpointer/verb/toggle_mode_verb()
-	set category = "Object"
-	set name = "Toggle Pinpointer Mode"
-	set src in usr
-
-	toggle_mode(usr)
+		return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pinpointer/advpinpointer/proc/toggle_mode(mob/user)
@@ -497,19 +488,9 @@
 	..()
 
 
-/obj/item/pinpointer/crew/AltClick(mob/user)
-	if(Adjacent(user))
-		choose_signal(user)
-		return
-	..()
-
-
-/obj/item/pinpointer/crew/verb/choose_signal_verb()
-	set category = "Object"
-	set name = "Track Signals"
-	set src in usr
-
-	choose_signal(usr)
+/obj/item/pinpointer/crew/click_alt(mob/user)
+	choose_signal(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pinpointer/crew/proc/choose_signal(mob/living/carbon/user)
@@ -611,19 +592,9 @@
 			to_chat(user, span_notice("Режим пинпоинтера не определен."))
 
 
-/obj/item/pinpointer/thief/AltClick(mob/user)
-	if(Adjacent(user))
-		toggle_mode(user)
-		return
-	..()
-
-
-/obj/item/pinpointer/thief/verb/toggle_mode_verb()
-	set category = "Object"
-	set name = "Переключить Режим Пинпоинтера"
-	set src in usr
-
-	toggle_mode(usr)
+/obj/item/pinpointer/thief/click_alt(mob/user)
+	toggle_mode(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pinpointer/thief/proc/toggle_mode(mob/user)

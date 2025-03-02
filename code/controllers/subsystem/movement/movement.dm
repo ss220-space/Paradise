@@ -113,6 +113,7 @@ SUBSYSTEM_DEF(movement)
 		BINARY_INSERT_DEFINE(new_bucket, sorted_buckets, SORT_VAR_NO_TYPE, compare_item, SORT_FIRST_INDEX, COMPARE_KEY)
 
 	our_bucket += loop
+	uniqueList_inplace(buckets["[loop.queued_time]"]) //ensure there are no copies of themselves
 
 
 /datum/controller/subsystem/movement/proc/dequeue_loop(datum/move_loop/loop)

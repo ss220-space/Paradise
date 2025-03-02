@@ -44,6 +44,8 @@
 
 	var/barometer_predictable = FALSE
 	var/next_hit_time = 0 //For barometers to know when the next storm will hit
+	/// Has special firing
+	var/self_fire = FALSE
 
 /datum/weather/New(z_levels)
 	..()
@@ -55,8 +57,7 @@
 		affectareas += V
 	for(var/V in protected_areas)
 		affectareas -= get_areas(V)
-	for(var/V in affectareas)
-		var/area/A = V
+	for(var/area/A in affectareas)
 		if(A.z in impacted_z_levels)
 			impacted_areas |= A
 		CHECK_TICK
@@ -140,6 +141,8 @@
 
 	return TRUE
 
+/datum/weather/proc/fire()
+	return
 
 /datum/weather/proc/weather_act(mob/living/target) //What effect does this weather have on the hapless mob?
 	return

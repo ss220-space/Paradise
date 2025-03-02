@@ -7,7 +7,7 @@
 		S = GLOB.all_species[species]
 	var/datum/robolimb/robohead
 
-	if(S.bodyflags & ALL_RPARTS)
+	if(S?.bodyflags & ALL_RPARTS)
 		var/head_model = "[!rlimb_data["head"] ? "Morpheus Cyberkinetics" : rlimb_data["head"]]"
 		robohead = GLOB.all_robolimbs[head_model]
 	if(gender_override)
@@ -19,31 +19,31 @@
 	socks = random_socks(gender, species)
 	if(length(GLOB.body_accessory_by_species[species]))
 		body_accessory = random_body_accessory(species, S.optional_body_accessory)
-	if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
+	if(S?.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 		s_tone = random_skin_tone(species)
-	h_style = random_hair_style(gender, species, robohead)
+	h_style = random_hair_style(gender, S, robohead)
 	f_style = random_facial_hair_style(gender, species, robohead)
 	if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 		randomize_hair_color("hair")
 		randomize_hair_color("facial")
-	if(S.bodyflags & HAS_HEAD_ACCESSORY)
+	if(S?.bodyflags & HAS_HEAD_ACCESSORY)
 		ha_style = random_head_accessory(species)
 		hacc_colour = randomize_skin_color(1)
-	if(S.bodyflags & HAS_HEAD_MARKINGS)
+	if(S?.bodyflags & HAS_HEAD_MARKINGS)
 		m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 		m_colours["head"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_BODY_MARKINGS)
+	if(S?.bodyflags & HAS_BODY_MARKINGS)
 		m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 		m_colours["body"] = randomize_skin_color(1)
-	if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
+	if(S?.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 		m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
 		m_colours["tail"] = randomize_skin_color(1)
-	if(!(S.bodyflags & ALL_RPARTS))
+	if(!(S?.bodyflags & ALL_RPARTS))
 		randomize_eyes_color()
-	if(S.bodyflags & HAS_SKIN_COLOR && !(S.bodyflags & HAS_ICON_SKIN_TONE))
+	if(S?.bodyflags & HAS_SKIN_COLOR && !(S?.bodyflags & HAS_ICON_SKIN_TONE))
 		randomize_skin_color()
 	backbag = 2
-	age = rand(AGE_MIN, AGE_MAX)
+	age = get_rand_age(S)
 
 
 /datum/preferences/proc/randomize_hair_color(var/target = "hair")
@@ -211,14 +211,12 @@
 	if(Y)\
 		I.Shift(NORTH, Y);\
 
-/datum/preferences/proc/update_preview_icon(var/for_observer=0)		//seriously. This is horrendous.
+/datum/preferences/proc/update_preview_icon(for_observer = FALSE)	// seriously. This is horrendous.
 	qdel(preview_icon_front)
 	qdel(preview_icon_side)
 	qdel(preview_icon)
 
-	var/g = "m"
-	if(gender == FEMALE)	g = "f"
-
+	var/gender_suffix = gender == FEMALE ? "f" : "m"
 	var/icon/icobase
 	var/datum/species/current_species = GLOB.all_species[species]
 
@@ -227,9 +225,14 @@
 	if(current_species)
 		if(current_species.bodyflags & HAS_ICON_SKIN_TONE) //Handling species-specific icon-based skin tones by flagged race.
 			var/mob/living/carbon/human/H = new
+
+			if(!H.dna)
+				H.dna = new
+
 			H.dna.species = current_species
 			H.s_tone = s_tone
 			H.dna.species.updatespeciescolor(H, 0) //The mob's species wasn't set, so it's almost certainly different than the character's species at the moment. Thus, we need to be owner-insensitive.
+
 			var/obj/item/organ/external/chest/C = H.get_organ(BODY_ZONE_CHEST)
 			icobase = C.icobase ? C.icobase : C.dna.species.icobase
 			if(H.dna.species.bodyflags & HAS_TAIL)
@@ -241,14 +244,14 @@
 	else
 		icobase = 'icons/mob/human_races/r_human.dmi'
 
-	preview_icon = new /icon(icobase, "torso_[g]")
-	preview_icon.Blend(new /icon(icobase, "groin_[g]"), ICON_OVERLAY)
+	preview_icon = new /icon(icobase, "torso_[gender_suffix]")
+	preview_icon.Blend(new /icon(icobase, "groin_[gender_suffix]"), ICON_OVERLAY)
 	var/head = "head"
 	if(alt_head && current_species.bodyflags & HAS_ALT_HEADS)
 		var/datum/sprite_accessory/alt_heads/H = GLOB.alt_heads_list[alt_head]
 		if(H.icon_state)
 			head = H.icon_state
-	preview_icon.Blend(new /icon(icobase, "[head]_[g]"), ICON_OVERLAY)
+	preview_icon.Blend(new /icon(icobase, "[head]_[gender_suffix]"), ICON_OVERLAY)
 	var/list/check_list = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_PRECISE_GROIN,

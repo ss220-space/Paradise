@@ -1,6 +1,6 @@
 /obj/item/clothing/under/plasmaman/cargo
 	name = "cargo plasma envirosuit"
-	desc = "An envirosuit used by plasmaman quartermasters and cargo techs alike, due to the logistical problems of differentiating the two by the length of their pant legs."
+	desc = "An envirosuit used by plasmaman cargo techs, due to the logistical problems of differentiating the two by the length of their pant legs."
 	icon_state = "cargo_envirosuit"
 	item_state = "cargo_envirosuit"
 	item_color = "cargo_envirosuit"
@@ -12,6 +12,12 @@
 	item_state = "explorer_envirosuit"
 	item_color = "explorer_envirosuit"
 
+/obj/item/clothing/under/plasmaman/qm
+	name = "quartermaster plasma envirosuit"
+	desc = "An envirosuit used by plasmaman quartermasters, due to the logistical problems of differentiating the two by the length of their pant legs."
+	icon_state = "qm_envirosuit"
+	item_state = "qm_envirosuit"
+	item_color = "qm_envirosuit"
 
 /obj/item/clothing/under/plasmaman/chef
 	name = "chef's plasma envirosuit"
@@ -90,7 +96,9 @@
 			extinguishes_left--
 			H.visible_message("<span class='warning'>[H]'s suit spews out a tonne of space lube!</span>", "<span class='warning'>Your suit spews out a tonne of space lube!</span>")
 			H.ExtinguishMob()
-			new /obj/effect/particle_effect/foam(loc) //Truely terrifying.
+			var/datum/effect_system/fluid_spread/foam/s = new()
+			s.set_up(range = 3, location = loc) //Truely terrifying.
+			s.start()
 	return FALSE
 
 /obj/item/clothing/under/plasmaman/hop

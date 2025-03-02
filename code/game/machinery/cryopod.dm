@@ -15,7 +15,7 @@
 
 /obj/machinery/computer/cryopod
 	name = "cryogenic oversight console"
-	desc = "An interface between crew and the cryogenic storage oversight systems."
+	desc = "Интерфейс управления системой контроля за криогенным хранилищем."
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "cellconsole"
 	circuit = /obj/item/circuitboard/cryopodcontrol
@@ -207,7 +207,7 @@
 	obj_flags = NODECONSTRUCT
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
-	var/on_store_message = "помещен в криохранилище."
+	var/on_store_message = "помещён в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
@@ -703,7 +703,7 @@
 
 /obj/machinery/computer/cryopod/robot
 	name = "robotic storage console"
-	desc = "An interface between crew and the robotic storage systems"
+	desc = "Интерфейс управления системой контроля за робо-хранилищем."
 	icon = 'icons/obj/machines/robot_storage.dmi'
 	icon_state = "console"
 	circuit = /obj/item/circuitboard/robotstoragecontrol
@@ -719,7 +719,7 @@
 	icon_state = "pod_0"
 	base_icon_state = "pod_0"
 	occupied_icon_state = "pod_1"
-	on_store_message = "помещен в робохранилище."
+	on_store_message = "помещён в робохранилище."
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)

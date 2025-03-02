@@ -488,7 +488,7 @@
 	integrity_bite = 20, \
 	nutritional_value = 10, \
 	)
-	
+
 /obj/item/clothing/suit/cardborg/add_eatable_component()
 	AddComponent( \
 	/datum/component/eatable, \
@@ -624,3 +624,13 @@
 	nutritional_value = 10, \
 	)
 
+// SHOES
+
+/obj/item/clothing/shoes/footwraps/add_eatable_component()
+	AddComponent( \
+	/datum/component/eatable, \
+	material_type = MATERIAL_CLASS_CLOTH, \
+	max_bites = 4, \
+	integrity_bite = 20, \
+	nutritional_value = 10, \
+	)

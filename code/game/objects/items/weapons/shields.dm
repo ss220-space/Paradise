@@ -38,7 +38,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_GLASS=7500, MAT_METAL=1000)
 	origin_tech = "materials=3;combat=4"
-	attack_verb = list("shoved", "bashed")
+	attack_verb = list("долбанул", "ударил")
 	/// Shield bash cooldown
 	COOLDOWN_DECLARE(cooldown)
 
@@ -89,7 +89,7 @@
 	item_state = "goliath_shield"
 	materials = list()
 	origin_tech = "materials=1;combat=3;biotech=2"
-	block_chance = 30
+	block_chance = 45
 	obj_integrity = 380
 	max_integrity = 380
 
@@ -103,7 +103,7 @@
 	throw_range = 5
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=4;magnets=5;syndicate=6"
-	attack_verb = list("shoved", "bashed")
+	attack_verb = list("долбанул", "ударил")
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)

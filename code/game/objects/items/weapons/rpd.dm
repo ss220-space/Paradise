@@ -14,6 +14,8 @@
 	desc = "This device can rapidly dispense atmospherics and disposals piping, manipulate loose piping, and recycle any detached pipes it is applied to."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "rpd"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	flags = CONDUCT
 	force = 10
 	throwforce = 10
@@ -186,13 +188,9 @@
 		get_asset_datum(/datum/asset/spritesheet/rpd)
 	)
 
-/obj/item/rpd/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/rpd/click_alt(mob/living/user)
 	radial_menu(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/rpd/ui_data(mob/user)
 	var/list/data = list()

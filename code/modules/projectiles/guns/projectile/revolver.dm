@@ -334,7 +334,7 @@
 
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
+	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"), projectile_message = TRUE)
 
 /obj/item/gun/projectile/revolver/russian/soul
 	name = "cursed Russian revolver"
@@ -622,7 +622,7 @@
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
 	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
-	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+	attack_verb = list("огрел", "проучил")
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....

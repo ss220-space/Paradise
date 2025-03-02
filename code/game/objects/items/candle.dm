@@ -47,9 +47,11 @@
 		return FALSE
 	return TRUE
 
+/obj/item/candle/get_heat()
+	return lit * 1000
 
 /obj/item/candle/attackby(obj/item/I, mob/user, params)
-	if(is_hot(I) && light(span_notice("[user] lights [src] with [I].")))
+	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

@@ -315,8 +315,9 @@
 		if(!Adj|| !istype(target, /turf))
 			return
 		if(metal_synthesis_cooldown < 5)
-			var/obj/effect/particle_effect/foam/F = new /obj/effect/particle_effect/foam(get_turf(target), 1)
-			F.amount = 0
+			var/datum/effect_system/fluid_spread/foam/metal/s = new()
+			s.set_up(amount = 0, location = get_turf(target))
+			s.start()
 			metal_synthesis_cooldown++
 			spawn(100)
 				if(src)
@@ -334,9 +335,9 @@
 	pass_flags = PASSTABLE
 
 /obj/effect/nanofrost_container/proc/Smoke()
-	var/datum/effect_system/smoke_spread/freezing/S = new
-	S.set_up(6, 0, loc, null, 1)
-	S.start()
+	var/datum/effect_system/fluid_spread/smoke/freezing/smoke = new
+	smoke.set_up(amount = 6, location = loc, blast_radius = 2)
+	smoke.start()
 	var/obj/effect/decal/cleanable/flour/F = new /obj/effect/decal/cleanable/flour(src.loc)
 	F.color = "#B2FFFF"
 	F.name = "nanofrost residue"

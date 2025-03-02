@@ -12,6 +12,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
+	lefthand_file = 'icons/mob/inhands/pda_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/pda_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
@@ -27,8 +29,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 	//Main variables
 	var/owner = null
 	var/default_cartridge = null // Access level defined by cartridge
+	/// Default request console cartridge
+	var/default_request_console_cartridge = null
 	var/special_pen = null //special variable for nonstandart pens in new PDAs
 	var/obj/item/cartridge/cartridge = null //current cartridge
+	/// Current request console cartridge
+	var/obj/item/cartridge/request_console/request_cartridge = null
 	var/datum/data/pda/app/current_app = null
 	var/datum/data/pda/app/lastapp = null
 
@@ -75,8 +81,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/pda/chameleon_skin
 	/// Custom job name used in chameleon PDA.
 	var/fakejob
-	/// Our icon saved in the text format for TGUI usage
-	var/base64icon
 	/// Custom PDA name used in update_name()
 	var/custom_name
 	/// Current PDA case
@@ -101,12 +105,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
 
-	base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
-
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
 		cartridge.update_programs(src)
+	if(default_request_console_cartridge)
+		request_cartridge = new default_request_console_cartridge(src)
+		request_cartridge.update_programs(src)
 	if(special_pen)
 		new special_pen(src)
 	else
@@ -125,6 +130,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	scanmode = null
 	QDEL_LIST(programs)
 	QDEL_NULL(cartridge)
+	QDEL_NULL(request_cartridge)
 	QDEL_NULL(current_case)
 	current_painting?.Cut()
 	return ..()
@@ -168,7 +174,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 	ui_interact(user)
 
 /obj/item/pda/proc/start_program(datum/data/pda/P)
-	if(P && ((P in programs) || (cartridge && (P in cartridge.programs))))
+	if(P && ((P in programs) || (cartridge && (P in cartridge.programs)) || (request_cartridge && (P in request_cartridge.programs))))
 		return P.start()
 	return 0
 
@@ -211,14 +217,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/pda/AltClick(mob/living/user)
-	if(!iscarbon(user))
-		return
+/obj/item/pda/click_alt(mob/living/user)
 	if(can_use(user))
 		if(id)
 			remove_id(user)
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+			to_chat(user, span_warning("This PDA does not have an ID in it!"))
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pda/CtrlClick(mob/user)
@@ -240,6 +245,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
 		SStgui.update_uis(src)
 	id = null
+	cartridge?.on_id_updated()
+	request_cartridge?.on_id_updated()
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -294,6 +301,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 		var/obj/item/I = user.get_active_hand()
 		if(istype(I, /obj/item/card/id) && user.drop_transfer_item_to_loc(I, src))
 			id = I
+			cartridge?.on_id_updated()
+			request_cartridge?.on_id_updated()
 			update_icon(UPDATE_OVERLAYS)
 			return TRUE
 		return FALSE
@@ -303,6 +312,8 @@ GLOBAL_LIST_EMPTY(PDAs)
 			id.forceMove_turf()
 			user.put_in_hands(id)
 		id = I
+		cartridge?.on_id_updated()
+		request_cartridge?.on_id_updated()
 		update_icon(UPDATE_OVERLAYS)
 		return TRUE
 	return FALSE
@@ -340,16 +351,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/update_icon_state()
 	if(chameleon_skin)
 		icon_state = initial(chameleon_skin.icon_state)
-		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 	else if(current_case?.new_icon_state)
 		icon_state = current_case.new_icon_state
-		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 	else if(current_painting)
 		icon_state = current_painting["icon"]
-		base64icon = current_painting["base64"]
 	else
 		icon_state = initial(icon_state)
-		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 
 	if(chameleon_skin)
 		item_state = initial(chameleon_skin.item_state)
@@ -399,8 +406,25 @@ GLOBAL_LIST_EMPTY(PDAs)
 		to_chat(user, span_notice("You have put [I] onto the PDA."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
+	if(istype(I, /obj/item/cartridge/request_console))
+		add_fingerprint(user)
+		if(request_cartridge)
+			to_chat(user, span_warning("The PDA is already holding another request cartridge."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		request_cartridge = I
+		request_cartridge.update_programs(src)
+		update_shortcuts()
+		to_chat(user, span_notice("You have inserted [I] into the PDA."))
+		SStgui.update_uis(src)
+		if(request_cartridge.radio)
+			request_cartridge.radio.hostpda = src
+		return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/cartridge))
 		add_fingerprint(user)
+
 		if(cartridge)
 			to_chat(user, span_warning("The PDA is already holding another cartridge."))
 			return ATTACK_CHAIN_PROCEED
@@ -459,6 +483,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 			return ..()
 		to_chat(user, span_notice("You have slided [I] into the PDA.<br>You can remove it with <b>Ctrl-click</b>."))
 		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stamp))
+		var/result = cartridge?.stamp_act(I)
+		result |= request_cartridge?.stamp_act(I)
+		if(result)
+			return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_PROCEED
 
 	return ..()
 

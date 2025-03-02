@@ -2,7 +2,7 @@
 	var/obj/item/item_in_hand = get_active_hand()
 
 	if(SEND_SIGNAL(src, COMSIG_MOB_SWAPPING_HANDS, item_in_hand) & COMPONENT_BLOCK_SWAP)
-		to_chat(src, span_warning("Ваши руки заняты удержанием [item_in_hand]."))
+		balloon_alert(src, "ваши руки заняты!")
 		return FALSE
 
 	hand = !hand
@@ -99,22 +99,22 @@
 	if(cuff_break)
 		breakouttime = 5 SECONDS	// very fast!
 		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся сломать [I.name]!"),
-			span_notice("Вы пытаетесь сломать [I.name]... (Процесс займёт 5 секунд и Вам нельзя двигаться.)"),
+			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся сломать [I.declent_ru(ACCUSATIVE)]!"),
+			span_notice("Вы пытаетесь сломать [I.declent_ru(ACCUSATIVE)]. Это займёт примерно 5 секунд."),
 		)
 		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
-			to_chat(src, span_warning("Вам не удалось сломать [I.name]!"))
+			to_chat(src, span_warning("Вам не удалось сломать [I.declent_ru(ACCUSATIVE)]!"))
 	else
 		visible_message(
-			span_warning("[name] пыта[pluralize_ru(gender,"ет","ют")]ся снять [I.name]!"),
-			span_notice("Вы пытаетесь снять [I.name]... (Процесс займёт [breakouttime / 10] секунд и Вам нельзя двигаться.)"),
+			span_warning("[name] пыта[pluralize_ru(gender, "ет", "ют")]ся снять [I.declent_ru(ACCUSATIVE)]!"),
+			span_notice("Вы пытаетесь снять [I.declent_ru(ACCUSATIVE)]. Это займёт примерно [breakouttime / 10] секунд[declension_ru(breakouttime / 10, "у", "ы", "")]."),
 		)
 		if(do_after(src, breakouttime, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 			. = clear_cuffs(I, cuff_break)
 		else
-			to_chat(src, span_warning("Вам не удалось снять [I.name]!"))
+			to_chat(src, span_warning("Вам не удалось снять [I.declent_ru(ACCUSATIVE)]!"))
 
 
 /mob/living/carbon/proc/clear_cuffs(obj/item/I, cuff_break)
@@ -123,8 +123,8 @@
 	if(I != handcuffed && I != legcuffed && I != wear_suit)
 		return FALSE
 	visible_message(
-		span_danger("[name] удалось [cuff_break ? "сломать" : "снять"] [I.name]!"),
-		span_notice("Вы успешно [cuff_break ? "сломали" : "сняли"] [I.name]."),
+		span_danger("[name] [cuff_break ? "лома" : "снима"][pluralize_ru(gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)]!"),
+		span_notice("Вы [cuff_break ? "лома" : "снима"]ете [I.declent_ru(ACCUSATIVE)]."),
 	)
 	if(cuff_break)
 		qdel(I)
@@ -146,20 +146,20 @@
 	var/obj/item/clothing/mask/muzzle/I = wear_mask
 	var/time = I.resist_time
 	if(!time)	//if it's 0, you can't get out of it
-		to_chat(src, "[capitalize(I.name)] слишком хорошо зафиксирован!")
+		balloon_alert(src, "слишком крепко сидит!")
 		return
 
 	visible_message(
-		span_warning("[name] грыз[pluralize_ru(gender,"ёт","ут")] [I.name], пытаясь освободиться!"),
-		span_notice("Вы пытаетесь избавиться от [I.name]... (Это займет [time / 10] секунд и вам нельзя двигаться.)"),
+		span_warning("[name] грыз[pluralize_ru(gender, "ёт", "ут")] [I.declent_ru(GENITIVE)], пытаясь освободиться!"),
+		span_notice("Вы пытаетесь избавиться от [I.declent_ru(GENITIVE)]. Это займёт примерно [time / 10] секунд[declension_ru(time / 10, "у", "ы", "")]."),
 	)
 
 	if(!do_after(src, time, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM) || QDELETED(I) || I != wear_mask)
 		return
 
 	visible_message(
-		span_danger("[name] избавил[genderize_ru(gender,"ся","ась","ось","ись")] от [I.name]!"),
-		span_notice("Вы успешно избавились от [I.name]."),
+		span_danger("[name] избавля[pluralize_ru(gender, "ет", "ут")]ся от [I.declent_ru(GENITIVE)]!"),
+		span_notice("Вы избавляетесь от [I.declent_ru(GENITIVE)]."),
 	)
 	if(I.security_lock)
 		I.do_break()

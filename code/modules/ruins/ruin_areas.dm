@@ -4,10 +4,14 @@
 	name = "\improper Unexplored Location"
 	icon_state = "away"
 	has_gravity = STANDARD_GRAVITY
-	there_can_be_many = TRUE
+	area_flags = UNIQUE_AREA
 	static_lighting = TRUE
 	ambientsounds = RUINS_SOUNDS
 	sound_environment = SOUND_ENVIRONMENT_STONEROOM
+	holomap_should_draw = FALSE
+
+/area/ruin/space
+	area_flags = NONE
 
 /area/ruin/unpowered
 	always_unpowered = FALSE
@@ -31,6 +35,7 @@
 
 /area/ruin/powered/space_bar
 	name = "Space Bar"
+	area_flags = NONE
 
 /area/ruin/powered/shuttle
 	name = "Shuttle"
@@ -56,3 +61,4 @@
 /area/ruin/spaceprison
 	name = "Space Prison"
 	icon_state = "spaceprison"
+	area_flags = NONE

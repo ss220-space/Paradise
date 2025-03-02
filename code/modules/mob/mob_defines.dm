@@ -93,10 +93,13 @@
 	var/list/datum/language/languages
 	/// For reagents that grant language knowlege.
 	var/list/temporary_languages
-	var/list/speak_emote = list("says")   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
+	var/list/speak_emote = list()   // Verbs used when speaking. Defaults to 'say' if speak_emote is null.
+	var/verb_say = "says"
+	var/verb_ask = "asks"
+	var/verb_exclaim = list("exclaims", "shouts")
+	var/verb_yell = "yells"
 	/// Define emote default type, EMOTE_VISIBLE for seen emotes, EMOTE_AUDIBLE for heard emotes.
 	var/emote_type = EMOTE_VISIBLE
-	var/name_archive //For admin things like possession
 	var/gunshot_residue
 
 	var/timeofdeath = 0 //Living
@@ -123,6 +126,8 @@
 	var/obj/item/clothing/mask/wear_mask = null //Carbon
 
 	var/datum/hud/hud_used = null
+	/// Mob hud type
+	var/hud_type = /datum/hud
 
 	hud_possible = list(SPECIALROLE_HUD)
 
@@ -192,8 +197,6 @@
 
 	var/atom/movable/remote_control //Calls relaymove() to whatever it is
 
-	var/obj/control_object //Used by admins to possess objects. All mobs should have this var
-
 	//Whether or not mobs can understand other mobtypes. These stay in /mob so that ghosts can hear everything.
 	var/universal_speak = 0 // Set to 1 to enable the mob to speak to everyone -- TLE
 	var/universal_understand = 0 // Set to 1 to enable the mob to understand everyone, not necessarily speak
@@ -220,8 +223,6 @@
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0
-
-	var/turf/listed_turf = null  //the current turf being examined in the stat panel
 
 	var/list/active_genes
 

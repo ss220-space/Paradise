@@ -16,8 +16,8 @@
 	end_message = span_boldannounceic("The snowfall dies down, it should be safe to go outside again.")
 	end_overlay = "light_snow"
 
-	area_type = /area/vision_change_area/awaymission/evil_santa_storm
-	target_trait = AWAY_LEVEL
+	area_type = /area/ruin/unpowered/coldcolony_outside
+	target_trait = STATION_LEVEL
 
 	immunity_type = TRAIT_SNOWSTORM_IMMUNE
 
@@ -31,7 +31,7 @@
 /datum/weather/snow_storm/proc/update_eligible_areas()
 	var/list/eligible_areas = list()
 	for(var/z in impacted_z_levels)
-		eligible_areas += GLOB.space_manager.areas_in_z["[z]"]
+		eligible_areas += SSmapping.areas_in_z["[z]"]
 
 	for(var/i in 1 to eligible_areas.len)
 		var/area/place = eligible_areas[i]
@@ -82,22 +82,15 @@
 
 /datum/weather/snow_storm/weather_act(mob/living/target)
 	var/temp_drop = -rand(10, 25)
-	var/freeze_chance = 35
 
 	if(ishuman(target))
 		var/mob/living/carbon/human/human_target = target
 		var/cold_protection = 2 - human_target.get_cold_protection()
 		temp_drop *= cold_protection
-		freeze_chance *= cold_protection
 
 	else if(istype(target, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = target
 		var/cold_protection = 2 - borer.host?.get_cold_protection()
 		temp_drop *= cold_protection
-		freeze_chance *= cold_protection
 
 	target.adjust_bodytemperature(temp_drop)
-
-	if(target.bodytemperature <= TCMB && prob(freeze_chance))
-		target.apply_status_effect(/datum/status_effect/freon)
-

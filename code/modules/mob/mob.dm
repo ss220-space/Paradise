@@ -1,7 +1,7 @@
 /mob/Destroy()//This makes sure that mobs with clients/keys are not just deleted from the game.
-	GLOB.mob_list -= src
-	GLOB.dead_mob_list -= src
-	GLOB.alive_mob_list -= src
+	remove_from_mob_list()
+	remove_from_alive_mob_list()
+	remove_from_dead_mob_list()
 	focus = null
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
@@ -25,11 +25,11 @@
 	return ..()
 
 /mob/Initialize(mapload)
-	GLOB.mob_list += src
+	add_to_mob_list()
 	if(stat == DEAD)
-		GLOB.dead_mob_list += src
+		add_to_dead_mob_list()
 	else
-		GLOB.alive_mob_list += src
+		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
 	. = ..()
@@ -38,6 +38,8 @@
 	initialize_actionspeed()
 	if(can_strip())
 		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
+
+	AddComponent(/datum/component/pref_holder)
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -89,7 +91,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin"
+	set category = "Admin.Debug"
 	set hidden = 1
 
 	if(!loc) return 0
@@ -140,11 +142,13 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
-		for(var/mob/mob as anything in (get_mobs_in_view(3, src, include_radio = FALSE) - ignored_mobs))
+		for(var/mob/mob as anything in viewers(3, src) - ignored_mobs)
 			if(mob.see_invisible < invisibility)
 				continue //can't view the invisible
+			if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+				continue
 			var/msg = message
 			if(self_message && mob == src)
 				msg = self_message
@@ -155,9 +159,13 @@
 			mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type)
 		return
 
-	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
+	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
+
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
+
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
@@ -168,8 +176,10 @@
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs)
-	for(var/mob/mob as anything in (get_mobs_in_view(7, src, include_radio = FALSE) - ignored_mobs))
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
+	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
 		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
@@ -184,7 +194,7 @@
 	if(hearing_distance)
 		range = hearing_distance
 	var/msg = message
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in viewers(range, src))
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
@@ -211,7 +221,7 @@
 	var/range = 7
 	if(hearing_distance)
 		range = hearing_distance
-	for(var/mob/M in get_mobs_in_view(range, src))
+	for(var/mob/M as anything in viewers(range, src))
 		M.show_message(message, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 
@@ -344,8 +354,10 @@
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
-/mob/proc/run_examinate(atom/A)
-	var/list/result = A.examine(src)
+/mob/proc/run_examinate(atom/target)
+	var/list/result = target.examine(src)
+	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
+
 	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
@@ -558,6 +570,35 @@
 		return FALSE
 	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
 
+/**
+ * Checks whether a mob can perform an action to interact with an object
+ *
+ * The default behavior checks if the mob is:
+ * * Directly adjacent (1-tile radius)
+ * * Standing up (not resting)
+ * * Allows telekinesis to be used to skip adjacent checks (if they have DNA mutation)
+ * *
+ * action_bitflags: (see code/__DEFINES/mobs.dm)
+ * * NEED_GRAVITY - If gravity must be present to perform action (can't use pens without gravity)
+ * * NEED_LITERACY - If reading is required to perform action (can't read a book if you are illiterate)
+ * * NEED_LIGHT - If lighting must be present to perform action (can't heal someone in the dark)
+ * * NEED_DEXTERITY - If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+ * * NEED_HANDS - If hands are required to perform action (can't pickup items if you are a cyborg)
+ * * FORBID_TELEKINESIS_REACH - If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+ * * ALLOW_SILICON_REACH - If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+ * * ALLOW_RESTING - If resting on the floor is allowed to perform action ()
+ * * ALLOW_VENTCRAWL - Mobs with ventcrawl traits can alt-click this to vent
+ * * BYPASS_ADJACENCY - The target does not have to be adjacent
+ * * SILENT_ADJACENCY - Adjacency is required but errors are not printed
+ * * NOT_INSIDE_TARGET - The target maybe adjacent but the mob should not be inside the target
+ * * ALLOW_PAI - Allows pAIs to perform an action
+ *
+ * silence_adjacency: Sometimes we want to use this proc to check interaction without allowing it to throw errors for base case adjacency
+ * Alt click uses this, as otherwise you can detect what is interactable from a distance via the error message
+**/
+/mob/proc/can_perform_action(atom/target, action_bitflags)
+	return
+
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
 
@@ -591,8 +632,9 @@
 
 /mob/proc/get_status_tab_items()
 	SHOULD_CALL_PARENT(TRUE)
-	var/list/status_tab_data = list()
-	return status_tab_data
+	. = list()
+	SEND_SIGNAL(src, COMSIG_MOB_GET_STATUS_TAB_ITEMS, .)
+	return .
 
 // facing verbs
 /mob/proc/canface()
@@ -638,7 +680,7 @@
 	return FALSE
 
 /mob/proc/can_use_machinery(obj/machinery/mach)
-	return IsAdvancedToolUser() 
+	return IsAdvancedToolUser()
 
 /mob/proc/swap_hand()
 	return
@@ -673,7 +715,7 @@
 	var/mob/living/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
 	if(!picked)
 		return
-		
+
 	if(picked == "Mouse")
 		become_mouse()
 		return
@@ -684,7 +726,7 @@
 	if(QDELETED(picked_mob) || picked_mob.key || picked_mob.stat == DEAD)
 		to_chat(usr, span_warning("[capitalize(picked_mob)] is no longer available to respawn!"))
 		return
-	
+
 	if(istype(picked_mob, /mob/living/simple_animal/borer))
 		var/mob/living/simple_animal/borer/borer = picked_mob
 		borer.transfer_personality(usr.client)
@@ -693,7 +735,7 @@
 	to_chat(usr, span_notify(message))
 	GLOB.respawnable_list -= usr
 	picked_mob.key = key
-		
+
 
 /mob/proc/become_mouse()
 	var/timedifference = world.time - client.time_joined_as_mouse
@@ -818,17 +860,20 @@
 
 //Can the mob see reagents inside of containers?
 /mob/proc/can_see_reagents()
-	return 0
+	return FALSE
 
 /mob/proc/can_see_food()
 	return FALSE
 
 //Can this mob leave its location without breaking things terrifically?
 /mob/proc/can_safely_leave_loc()
-	return 1 // Yes, you can
+	return TRUE // Yes, you can
 
 /mob/proc/IsVocal()
-	return 1
+	return TRUE
+
+/mob/proc/cannot_speak_loudly()
+	return FALSE
 
 /mob/proc/get_access_locations()
 	return list()
@@ -997,6 +1042,17 @@
 	SEND_SIGNAL(src, COMSIG_MOB_UPDATE_SIGHT)
 	sync_lighting_plane_alpha()
 
+///Update the mouse pointer of the attached client in this mob
+/mob/proc/update_mouse_pointer()
+	if(!client)
+		return
+
+	if(client.mouse_pointer_icon != initial(client.mouse_pointer_icon))//only send changes to the client if theyre needed
+		client.mouse_pointer_icon = initial(client.mouse_pointer_icon)
+
+	if(client.mouse_override_icon)
+		client.mouse_pointer_icon = client.mouse_override_icon
+
 /mob/proc/set_vision_override(datum/vision_override/O)
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
@@ -1161,3 +1217,44 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	if(update)
 		update_actionspeed()
 
+/mob/proc/update_z(new_z) // 1+ to register, null to unregister
+	if(registered_z == new_z)
+		return
+	if(registered_z)
+		SSmobs.clients_by_zlevel[registered_z] -= src
+	if(isnull(client))
+		registered_z = null
+		return
+	if(!new_z)
+		registered_z = new_z
+		return
+	//Figure out how many clients were here before
+	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
+	SSmobs.clients_by_zlevel[new_z] += src
+	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
+		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
+		if(animal)
+			if(!oldlen)
+				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
+				animal.toggle_ai(AI_IDLE)
+			//If they are also within a close distance ask the AI if it wants to wake up
+			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
+				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
+		//They should clean up in destroy, but often don't so we get them here
+		else
+			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
+	registered_z = new_z
+
+/mob/proc/track_z()
+	if(client || registered_z) // This is a temporary error tracker to make sure we've caught everything
+		var/turf/T = get_turf(src)
+		if(client && registered_z != T.z)
+			message_admins("[src] [ADMIN_FLW(src, "FLW")] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z]. If you could ask them how that happened and notify the coders, it would be appreciated.")
+			add_misc_logs(src, "Z-TRACKING: [src] has somehow ended up in Z-level [T.z] despite being registered in Z-level [registered_z].")
+			update_z(T.z)
+		else if(!client && registered_z)
+			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
+			update_z(null)
+
+/mob/proc/set_key(key)
+	src.key = key

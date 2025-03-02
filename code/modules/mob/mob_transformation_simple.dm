@@ -47,7 +47,9 @@
 		mind.transfer_to(M)
 	else
 		M.key = key
-
+		
+	SEND_SIGNAL(src, COMSIG_MOB_CHANGED_TYPE, M)
+	
 	if(delete_old_mob)
 		spawn(1)
 			qdel(src)

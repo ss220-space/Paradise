@@ -40,12 +40,14 @@
 	return TRUE
 
 /mob/living/proc/can_die()
-	return !(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE))
+	return !(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_DEATH))
 
 // Returns true if mob transitioned from live to dead
 // Do a check with `can_die` beforehand if you need to do any
 // handling before `stat` is set
 /mob/living/death(gibbed)
+	SEND_SIGNAL(src, COMSIG_LIVING_EARLY_DEATH, gibbed)
+	
 	if(stat == DEAD || !can_die())
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
@@ -54,7 +56,11 @@
 	..()
 	INVOKE_ASYNC(src, PROC_REF(burst_blob_on_die))
 	timeofdeath = world.time
-	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]")
+	var/gib_pref = ""
+	if(client)
+		gib_pref = " Разрешение на гиб без цели в" + (client.prefs.toggles2 & PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE ? "" : "ы") + "ключено."
+
+	add_attack_logs(src, src, "died[gibbed ? " (Gibbed)": ""]" + gib_pref)
 
 	if(!gibbed && deathgasp_on_death)
 		INVOKE_ASYNC(src, PROC_REF(emote), "deathgasp")
@@ -99,10 +105,6 @@
 		SSticker.mode.check_win()
 
 	clear_alert("succumb")
-
-	if(mind && mind.devilinfo) // Expand this into a general-purpose death-response system when appropriate
-		mind.devilinfo.beginResurrectionCheck(src)
-
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
 	// u no we dead
 	return TRUE

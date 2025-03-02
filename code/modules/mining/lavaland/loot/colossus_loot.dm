@@ -36,7 +36,7 @@
 	var/activation_sound = 'sound/effects/break_stone.ogg'
 
 /obj/machinery/anomalous_crystal/New()
-	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech") // "heat" removed due to lack of is_hot()
+	activation_method = pick("touch","laser","bullet","energy","bomb","mob_bump","weapon","speech")
 	..()
 
 /obj/machinery/anomalous_crystal/hear_talk(mob/speaker, list/message_pieces)
@@ -322,7 +322,7 @@
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
 										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
-										   /obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator)
+										   /obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader)
 
 /obj/machinery/anomalous_crystal/refresher/New()
 	..()

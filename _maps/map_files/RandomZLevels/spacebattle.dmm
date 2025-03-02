@@ -1432,7 +1432,7 @@
 	id = "GATE";
 	req_access = list(150)
 	},
-/obj/machinery/door/poddoor{
+/obj/machinery/door/poddoor/impassable{
 	id_tag = "GATE";
 	layer = 2.8
 	},
@@ -6895,7 +6895,7 @@
 /area/awaymission/spacebattle/hallway9)
 "tC" = (
 /obj/structure/table/reinforced,
-/obj/machinery/door_control{
+/obj/machinery/door_control/secure{
 	id = "GATE";
 	name = "Nuke Vault Door Controller"
 	},

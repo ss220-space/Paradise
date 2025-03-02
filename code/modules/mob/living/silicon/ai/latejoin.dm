@@ -26,6 +26,8 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 		mind.objectives.Cut()
 		mind.special_role = null
 
+	view_core()
+
 	// Ghost the current player and allow or disallow them to respawn, depends on time
 	if(TOO_EARLY_TO_GHOST)
 		ghostize(FALSE)

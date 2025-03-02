@@ -42,7 +42,7 @@
 	throw_speed = 2
 	throw_range = 3
 	origin_tech = "materials=1"
-	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
+	attack_verb = list("ударил", "огрел")
 	var/plank_type = /obj/item/stack/sheet/wood
 	var/plank_name = "wooden planks"
 	var/static/list/accepted = typecacheof(list(
@@ -222,7 +222,7 @@
 		update_icon(UPDATE_OVERLAYS)	// update underlays some day
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(is_hot(I) && StartBurning())
+	if(I.get_heat() && StartBurning())
 		add_fingerprint(user)
 		lighter = user.ckey
 		add_misc_logs(user, "lit a bonfire", src)

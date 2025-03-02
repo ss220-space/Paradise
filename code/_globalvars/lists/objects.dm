@@ -18,12 +18,11 @@ GLOBAL_LIST_INIT(celltimers_list, list()) // list of all cell timers
 GLOBAL_LIST_INIT(cell_logs, list())
 GLOBAL_LIST_INIT(navigation_computers, list())
 
-GLOBAL_LIST_INIT(all_areas, list())
-GLOBAL_LIST_INIT(all_unique_areas, list()) // List of all unique areas. AKA areas with there_can_be_many = FALSE
 GLOBAL_LIST_INIT(machines, list())
 GLOBAL_LIST_INIT(syndiepads, list()) //list of all syndiepads
 GLOBAL_LIST_INIT(syndie_cargo_consoles, list()) //list of all syndie cargo consoles
 GLOBAL_LIST_INIT(rcd_list, list()) //list of Rapid Construction Devices.
+GLOBAL_LIST_EMPTY(supplypod_loading_bays)
 
 GLOBAL_LIST_INIT(apcs, list())
 GLOBAL_LIST_INIT(air_alarms, list())
@@ -49,7 +48,7 @@ GLOBAL_LIST_INIT(poi_list, list())					//list of points of interest for observe/
 GLOBAL_LIST_INIT(active_jammers, list())             // List of active radio jammers
 GLOBAL_LIST_EMPTY(ladders)
 GLOBAL_LIST_EMPTY(mirrors) //list of all mirrors and mirror shields.
-GLOBAL_LIST_EMPTY(anvils)  //for use in founding world anvil
+GLOBAL_LIST_EMPTY(lavaland_points_of_interest)  //for use in founding world anvil and other stuff
 
 GLOBAL_LIST_INIT(active_diseases, list()) 			//List of Active disease in all mobs; purely for quick referencing.
 
@@ -66,3 +65,4 @@ GLOBAL_LIST_EMPTY(wire_color_directory) // This is an associative list with the 
 GLOBAL_LIST_EMPTY(wire_name_directory)
 
 GLOBAL_LIST_EMPTY(visual_portals)
+GLOBAL_LIST_EMPTY(pod_styles_by_type)

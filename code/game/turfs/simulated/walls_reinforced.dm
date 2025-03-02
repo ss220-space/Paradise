@@ -21,6 +21,11 @@
 	var/d_state = RWALL_INTACT
 	var/can_be_reinforced = 1
 
+/turf/simulated/wall/r_wall/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 3)
+
+
 /turf/simulated/wall/r_wall/examine(mob/user)
 	. = ..()
 	switch(d_state)

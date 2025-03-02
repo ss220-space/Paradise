@@ -1,7 +1,7 @@
 
 /obj/machinery/computer/station_alert
 	name = "station alert console"
-	desc = "Used to access the station's automated alert system."
+	desc = "Используется для доступа к автоматизированной системе тревог станции."
 	icon_keyboard = "tech_key"
 	icon_screen = "alert:0"
 	light_color = LIGHT_COLOR_CYAN
@@ -51,7 +51,7 @@
 		for(var/area in SSalarm.alarms[class])
 			for(var/thing in SSalarm.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
-				if(atoms_share_level(A, src))
+				if(are_zs_connected(A, src))
 					data["alarms"][class] += area
 
 	return data

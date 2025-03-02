@@ -1,14 +1,23 @@
 /obj/item/organ/internal/brain
 	name = "brain"
-	max_damage = 120
+	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал человеку."
+	ru_names = list(
+		NOMINATIVE = "мозг человека",
+		GENITIVE = "мозга человека",
+		DATIVE = "мозгу человека",
+		ACCUSATIVE = "мозг человека",
+		INSTRUMENTAL = "мозгом человека",
+		PREPOSITIONAL = "мозге человека"
+	)
 	icon_state = "brain2"
+	max_damage = 120
 	force = 1.0
 	w_class = WEIGHT_CLASS_SMALL
 	throwforce = 1.0
 	throw_speed = 3
 	throw_range = 5
 	origin_tech = "biotech=5"
-	attack_verb = list("attacked", "slapped", "whacked")
+	attack_verb = list("атаковал", "шлёпнул", "огрел")
 	var/mob/living/carbon/brain/brainmob = null
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_BRAIN
@@ -18,14 +27,8 @@
 	var/mmi_icon_state = "mmi_full"
 	/// If it's a fake brain without a mob assigned that should still be treated like a real brain.
 	var/decoy_brain = FALSE
-
-/obj/item/organ/internal/brain/xeno
-	name = "xenomorph brain"
-	desc = "We barely understand the brains of terrestial animals. Who knows what we may find in the brain of such an advanced species?"
-	icon_state = "brain-x"
-	origin_tech = "biotech=6"
-	mmi_icon = 'icons/mob/alien.dmi'
-	mmi_icon_state = "AlienMMI"
+	/// TRUE giving to a user sci hud and active research scanner
+	var/smart_mind = FALSE
 
 /obj/item/organ/internal/brain/Destroy()
 	QDEL_NULL(brainmob)
@@ -37,6 +40,9 @@
 		log_runtime(EXCEPTION("[src] at [loc] did not contain a dna datum at time of removal."), src)
 		dna = H.dna.Clone()
 	name = "\the [dna.real_name]'s [initial(src.name)]"
+	if(ru_names)
+		for(var/i = 1; i <=6; i++)
+			ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 	brainmob.dna = dna.Clone() // Silly baycode, what you do
 //	brainmob.dna = H.dna.Clone() Putting in and taking out a brain doesn't make it a carbon copy of the original brain of the body you put it in
 	brainmob.name = dna.real_name
@@ -45,12 +51,12 @@
 	if(H.mind)
 		H.mind.transfer_to(brainmob)
 
-	to_chat(brainmob, "<span class='notice'>You feel slightly disoriented. That's normal when you're just a [initial(src.name)].</span>")
+	to_chat(brainmob, span_notice("Вы чувствуете себя немного дезориентированным. Это нормально, когда вы просто мозг."))
 
 /obj/item/organ/internal/brain/examine(mob/user) // -- TLE
 	. = ..()
 	if(brainmob && brainmob.client)//if there be a brain inside... the brain.
-		. += "You can feel a bright spark of life in this one!"
+		. += "В нём ощущается мощная нейронная активность."
 		return
 	if(brainmob?.mind)
 		var/foundghost = FALSE
@@ -59,14 +65,17 @@
 				foundghost = G.can_reenter_corpse
 				break
 		if(foundghost)
-			. += "You can feel the small spark of life still left in this one."
+			. += "В нём ощущается слабая нейронная активность."
 			return
 
-	. += "This one seems particularly lifeless. Perhaps it will regain some of its luster later.."
+	. += "Выглядит абсолютно безжизненным и неактивным."
 
 /obj/item/organ/internal/brain/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(dna)
 		name = "[dna.real_name]'s [initial(name)]"
+		if(ru_names)
+			for(var/i = 1; i <=6; i++)
+				ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 
 	if(!owner)
 		return ..() // Probably a redundant removal; just bail
@@ -135,17 +144,17 @@
 /obj/item/organ/internal/brain/prepare_eat()
 	return // Too important to eat.
 
-/obj/item/organ/internal/brain/slime
-	species_type = /datum/species/slime
-	name = "slime core"
-	desc = "A complex, organic knot of jelly and crystalline particles."
-	icon = 'icons/mob/slimes.dmi'
-	icon_state = "green slime extract"
-	mmi_icon_state = "slime_mmi"
-
 /obj/item/organ/internal/brain/golem
-	name = "Runic mind"
-	desc = "A tightly furled roll of paper, covered with indecipherable runes."
+	name = "runic mind"
+	desc = "Туго свёрнутый свиток, испещрённый неразборчивыми рунами."
+	ru_names = list(
+		NOMINATIVE = "рунический разум",
+		GENITIVE = "рунического разума",
+		DATIVE = "руническому разуму",
+		ACCUSATIVE = "рунический разум",
+		INSTRUMENTAL = "руническим разумом",
+		PREPOSITIONAL = "руническом разуме"
+	)
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "scroll"
 

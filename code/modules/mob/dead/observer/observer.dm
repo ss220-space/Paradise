@@ -21,6 +21,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	light_system = NO_LIGHT_SUPPORT
 	invisibility = INVISIBILITY_OBSERVER
 	pass_flags = PASSEVERYTHING
+	hud_type = /datum/hud/ghost
 	var/can_reenter_corpse
 	var/bootime = FALSE
 	var/started_as_observer //This variable is set to 1 when you enter the game as an observer.
@@ -174,19 +175,37 @@ Works together with spawning an observer, noted above.
 	if(key)
 		if(GLOB.non_respawnable_keys[ckey])
 			flags &= ~GHOST_CAN_REENTER
+
 		var/mob/dead/observer/ghost = new(src, flags)	//Transfer safety to observer spawning proc.
 		if(client)
 			client.mouse_pointer_icon = initial(client.mouse_pointer_icon) //Возвращает курсор в изначальное положение (после меха, нинзи, спелла и т.п)
+
 		ghost.timeofdeath = src.timeofdeath //BS12 EDIT
 		GLOB.respawnable_list -= src
+
 		if(ghost.can_reenter_corpse)
 			GLOB.respawnable_list += ghost
 		else
 			GLOB.non_respawnable_keys[ckey] = 1
+
 		ghost.key = key
 		ghost.client?.init_verbs()
 		SEND_SIGNAL(src, COMSIG_MOB_GHOSTIZE, ghost)
 		return ghost
+
+/mob/proc/ManualFollow(atom/movable/target)
+	if(!target)
+		return FALSE
+
+	if(!isobserver(src)) // parent calls
+		var/mob/dead/observer/observer = ghostize()
+
+		if(!observer)
+			return FALSE
+
+		observer.ManualFollow(target)
+
+	return TRUE
 
 /*
 This is the proc mobs get to turn into a ghost. Forked from ghostize due to compatibility issues.
@@ -198,6 +217,11 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	var/warningmsg = null
 	var/obj/machinery/cryopod/P = istype(loc, /obj/machinery/cryopod) && loc
+
+	if(frozen)
+		to_chat(src, span_warning("Вы не можете сделать этого, пока находитесь под действием админфриза."))
+		message_admins("[key_name_admin(src)] tried to ghost while admin frozen")
+		return
 
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
@@ -373,7 +397,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, "<span class='warning'>У вас нету тела.</span>")
 		return
 	if(mind.current.stat != DEAD)
-		to_chat(src, "<span class='warning'>Твое тело все еще живо!</span>")
+		to_chat(src, "<span class='warning'>Твое тело все ещё живо!</span>")
 		return
 
 	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) == "Да")
@@ -421,9 +445,19 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	orbit_menu.ui_interact(src)
 
+// TODO: Remove this verb when "True-Observing" be merged.
+/mob/dead/observer/verb/toggle_sight_view()
+	set category = "Ghost"
+	set name = "Toggle Sight"
+	set desc = "Переключает вашу возможность видеть сквозь стены."
+
+	TOGGLEBIT(sight, SEE_TURFS | SEE_MOBS | SEE_OBJS)
+
 // This is the ghost's follow verb with an argument
-/mob/dead/observer/proc/ManualFollow(atom/movable/target)
-	if(!target || !isobserver(usr))
+/mob/dead/observer/ManualFollow(atom/movable/target)
+	. = ..()
+
+	if(!.)
 		return
 
 	if(!get_turf(target))
@@ -456,7 +490,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 			else //Circular
 				rot_seg = 36 //360/10 bby, smooth enough aproximation of a circle
 
-		to_chat(src, "<span class='notice'>Now following [target]</span>")
+		to_chat(src, span_notice("Now following [target]"))
 		orbit(target, orbitsize, FALSE, 20, rot_seg, forceMove = TRUE)
 
 /mob/dead/observer/orbit(atom/A, radius, clockwise, rotation_speed, rotation_segments, pre_rotation, lockinorbit, forceMove)
@@ -714,6 +748,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		new_char.key = key
 
 	return new_char
+
+/mob/dead/observer/can_perform_action(atom/movable/target, action_bitflags)
+	return can_advanced_admin_interact()
 
 /mob/dead/observer/is_literate()
 	return TRUE

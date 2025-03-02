@@ -24,19 +24,19 @@ export const Smartfridge = (props, context) => {
         <Stack fill vertical>
           {!!secure && (
             <NoticeBox>
-              Secure Access: Please have your identification ready.
+              Требуется авторизация. Пожалуйста, предъявите свою ID-карту.
             </NoticeBox>
           )}
           <Section
             fill
             scrollable
-            title={can_dry ? 'Drying rack' : 'Contents'}
+            title={can_dry ? 'Сушильная стойка' : 'Содержимое'}
             buttons={
               !!can_dry && (
                 <Button
                   width={4}
                   icon={drying ? 'power-off' : 'times'}
-                  content={drying ? 'On' : 'Off'}
+                  content={drying ? 'Начать сушку' : 'Закончить сушку'}
                   selected={drying}
                   onClick={() => act('drying')}
                 />
@@ -57,7 +57,7 @@ export const Smartfridge = (props, context) => {
                     <Icon name="slash" size={5} color="red" />
                   </Icon.Stack>
                   <br />
-                  No products loaded.
+                  Хранилище пусто.
                 </Stack.Item>
               </Stack>
             )}
@@ -70,13 +70,13 @@ export const Smartfridge = (props, context) => {
                     <Stack key={item}>
                       <Stack.Item width="55%">{item.display_name}</Stack.Item>
                       <Stack.Item width="25%">
-                        ({item.quantity} in stock)
+                        ({item.quantity} в наличии)
                       </Stack.Item>
                       <Stack.Item width={13}>
                         <Button
                           width={3}
                           icon="arrow-down"
-                          tooltip="Dispense one."
+                          tooltip="Взять одну штуку."
                           content="1"
                           onClick={() =>
                             act('vend', { index: item.vend, amount: 1 })
@@ -96,8 +96,8 @@ export const Smartfridge = (props, context) => {
                         <Button
                           width={4}
                           icon="arrow-down"
-                          content="All"
-                          tooltip="Dispense all."
+                          content="Всё"
+                          tooltip="Взять всё."
                           tooltipPosition="bottom-start"
                           onClick={() =>
                             act('vend', {

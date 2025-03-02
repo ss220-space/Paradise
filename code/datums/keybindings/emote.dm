@@ -448,10 +448,6 @@
 	linked_emote = /datum/emote/living/carbon/human/hem
 	name = "Хмыкнуть"
 
-/datum/keybinding/emote/carbon/human/fart
-	linked_emote = /datum/emote/living/carbon/human/fart
-	name = "Пёрнуть"
-
 /datum/keybinding/emote/carbon/human/scratch
 	linked_emote = /datum/emote/living/carbon/human/scratch
 	name = "Почесаться"
@@ -607,10 +603,6 @@
 /datum/keybinding/emote/carbon/human/unathi/threat
 	linked_emote = /datum/emote/living/carbon/human/unathi/threat
 	name = "Угрожать (унати)"
-
-/datum/keybinding/emote/carbon/human/unathi/rumble
-	linked_emote = /datum/emote/living/carbon/human/unathi/rumble
-	name = "Урчать (унати)"
 
 /datum/keybinding/emote/carbon/human/unathi/roar
 	linked_emote = /datum/emote/living/carbon/human/unathi/roar

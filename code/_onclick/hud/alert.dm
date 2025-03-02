@@ -563,6 +563,43 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "Maintenance protocols are currently in effect, most actions disabled."
 	icon_state = "locked"
 
+/atom/movable/screen/alert/empty_alert
+	name = ""
+	desc = ""
+
+// MECH MODULES
+
+// cage module
+/atom/movable/screen/alert/mech_cage
+	name = "Ты не должен это видеть"
+	desc = "Ну и это тоже"
+	icon = 'icons/obj/mecha/mecha_cage.dmi'
+	var/stage_define
+
+/atom/movable/screen/alert/mech_cage/zero
+	name = "Нулевой этап"
+	desc = "Модуль не работает."
+	icon_state = "stage_0"
+	stage_define = CAGE_STAGE_ZERO
+
+/atom/movable/screen/alert/mech_cage/one
+	name = "Первый этап"
+	desc = "Модуль работает в режиме удержания."
+	icon_state = "stage_1"
+	stage_define = CAGE_STAGE_ONE
+
+/atom/movable/screen/alert/mech_cage/two
+	name = "Второй этап"
+	desc = "Модуль работает в режиме удержания цели в наручниках."
+	icon_state = "stage_2"
+	stage_define = CAGE_STAGE_TWO
+
+/atom/movable/screen/alert/mech_cage/three
+	name = "Третий этап"
+	desc = "Модуль работает в режиме заключения."
+	icon_state = "stage_3"
+	stage_define = CAGE_STAGE_THREE
+
 //GUARDIANS
 /atom/movable/screen/alert/cancharge
 	name = "Charge Ready"
@@ -835,13 +872,17 @@ so as to remain in compliance with the most up-to-date laws."
 
 /atom/movable/screen/alert/Click(location, control, params)
 	if(!usr || !usr.client)
-		return
+		return FALSE
+
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
-		return
+		return FALSE
+		
 	if(master)
 		return usr.client.Click(master, location, control, params)
+
+	return TRUE
 
 /atom/movable/screen/alert/Destroy()
 	severity = 0
@@ -862,3 +903,16 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!istype(usr))
 		return
 	living_owner.do_succumb(TRUE)
+
+/atom/movable/screen/alert/unpossess_object
+	name = "Unpossess"
+	desc = "Этот объект под вашим контролем. Нажмите сюда для прекращения контроля."
+	icon_state = "buckled"
+
+/atom/movable/screen/alert/unpossess_object/Click(location, control, params)
+	. = ..()
+
+	if(!.)
+		return
+
+	qdel(usr.GetComponent(/datum/component/object_possession))

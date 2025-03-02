@@ -10,8 +10,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/head/ipc/New()
-	..()
+/obj/item/organ/external/head/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/chest/ipc
@@ -22,8 +23,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/chest/ipc/New()
-	..()
+/obj/item/organ/external/chest/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/groin/ipc
@@ -34,8 +36,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/groin/ipc/New()
-	..()
+/obj/item/organ/external/groin/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/ipc
@@ -46,8 +49,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/arm/ipc/New()
-	..()
+/obj/item/organ/external/arm/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/arm/right/ipc
@@ -56,8 +60,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/arm/right/ipc/New()
-	..()
+/obj/item/organ/external/arm/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/ipc
@@ -68,8 +73,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/leg/ipc/New()
-	..()
+/obj/item/organ/external/leg/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/leg/right/ipc
@@ -78,8 +84,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/leg/right/ipc/New()
-	..()
+/obj/item/organ/external/leg/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/ipc
@@ -90,8 +97,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/foot/ipc/New()
-	..()
+/obj/item/organ/external/foot/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/foot/right/ipc
@@ -100,8 +108,9 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/foot/right/ipc/New()
-	..()
+/obj/item/organ/external/foot/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/ipc
@@ -112,8 +121,9 @@
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
-/obj/item/organ/external/hand/ipc/New()
-	..()
+/obj/item/organ/external/hand/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/external/hand/right/ipc
@@ -122,14 +132,24 @@
 	status = ORGAN_ROBOT
 	emp_resistant = TRUE
 
-/obj/item/organ/external/hand/right/ipc/New()
-	..()
+/obj/item/organ/external/hand/right/ipc/Initialize(mapload, special = ORGAN_MANIPULATION_NOEFFECT)
+	. = ..()
+
 	robotize(company = "Morpheus Cyberkinetics")
 
 /obj/item/organ/internal/cell
 	species_type = /datum/species/machine
 	name = "microbattery"
-	desc = "A small, powerful cell for use in fully prosthetic bodies."
+	desc = "Маленькая, но мощная батарея, используемая для питания роботизированных систем. Такие устанавливаются в КПБ."
+	ru_names = list(
+		NOMINATIVE = "микробатарея",
+		GENITIVE = "микробатареи",
+		DATIVE = "микробатарее",
+		ACCUSATIVE = "микробатарею",
+		INSTRUMENTAL = "микробатареей",
+		PREPOSITIONAL = "микробатарее"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "scell"
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -142,6 +162,16 @@
 /obj/item/organ/internal/eyes/optical_sensor
 	species_type = /datum/species/machine
 	name = "optical sensor"
+	desc = "Сенсор, оснащённый светочувствительной матрицей, выполняет зрительную функцию. Такие устанавливаются в КПБ."
+	ru_names = list(
+		NOMINATIVE = "оптический сенсор",
+		GENITIVE = "оптического сенсора",
+		DATIVE = "оптическому сенсору",
+		ACCUSATIVE = "оптический сенсор",
+		INSTRUMENTAL = "оптическим сенсором",
+		PREPOSITIONAL = "оптическом сенсоре"
+	)
+	gender = MALE
 	icon = 'icons/obj/robot_component.dmi'
 	icon_state = "camera"
 	status = ORGAN_ROBOT
@@ -152,13 +182,22 @@
 
 /obj/item/organ/internal/eyes/optical_sensor/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
-		to_chat(owner, "Error 404:Optical Sensors not found.")
+		to_chat(owner, span_userdanger("Ошибка #404: ОПТИЧЕСКИЙ СЕНСОР - не обнаружено."))
 
 	. = ..()
 
 /obj/item/organ/internal/brain/mmi_holder/posibrain
 	species_type = /datum/species/machine
 	name = "positronic brain"
+	desc = "Компьютер, обладающий огромной вычислительной мощностью, содержит внутри себя синтетический разум. Именно здесь и находится сознание КПБ."
+	ru_names = list(
+		NOMINATIVE = "позитронный мозг",
+		GENITIVE = "позитронного мозга",
+		DATIVE = "позитронному мозгу",
+		ACCUSATIVE = "позитронный мозг",
+		INSTRUMENTAL = "позитронным мозгом",
+		PREPOSITIONAL = "позитронном мозге"
+	)
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
@@ -172,6 +211,9 @@
 /obj/item/organ/internal/brain/mmi_holder/posibrain/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(stored_mmi && dna)
 		stored_mmi.name = "[initial(name)] ([dna.real_name])"
+		if(stored_mmi.ru_names)
+			for(var/i = 1; i <=6; i++)
+				stored_mmi.ru_names[i] = initial(ru_names[i]) + " [dna.real_name]"
 		stored_mmi.brainmob.real_name = dna.real_name
 		stored_mmi.brainmob.name = stored_mmi.brainmob.real_name
 		stored_mmi.icon_state = "posibrain-occupied"
@@ -182,6 +224,15 @@
 /obj/item/organ/internal/ears/microphone
 	species_type = /datum/species/machine
 	name = "microphone"
+	desc = "Пара микрофонов. Используются для получения аудиальной информации об окружающей среде. Такие устанавливаются в КПБ."
+	ru_names = list(
+		NOMINATIVE = "парные микрофоны",
+		GENITIVE = "парных микрофонов",
+		DATIVE = "парным микрофонам",
+		ACCUSATIVE = "парные микрофоны",
+		INSTRUMENTAL = "парными микрофонами",
+		PREPOSITIONAL = "парных микрофонах"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "taperecorder_idle"
 	status = ORGAN_ROBOT
@@ -191,5 +242,5 @@
 
 /obj/item/organ/internal/ears/microphone/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!special)
-		to_chat(owner, span_userdanger("BZZZZZZZZZZZZZZT! Microphone error!"))
+		to_chat(owner, span_userdanger("Ошибка #406: МИКРОФОН - не обнаружено."))
 	. = ..()

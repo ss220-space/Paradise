@@ -84,7 +84,7 @@
 		if(R == src)
 			continue
 		// We dont care about ones on other zlevels
-		if(!atoms_share_level(R, src))
+		if(!are_zs_connected(R, src))
 			continue
 		// If another relay is active, return FALSE
 		if(R.active)

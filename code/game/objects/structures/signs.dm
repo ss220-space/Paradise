@@ -222,6 +222,11 @@
 	desc = "A dead and stuffed Diona nymph, mounted on a board."
 	icon_state = "kidanplaque"
 
+/obj/structure/sign/tajarplaque
+	name = "Tajaran wall plaque"
+	desc = "A nice tajaran photo, mounted on a board."
+	icon_state = "tajarplaque"
+
 /obj/structure/sign/mech
 	name = "\improper mech painting"
 	desc = "A painting of a mech"
@@ -260,6 +265,11 @@
 	icon_state = "chinese"
 	does_emissive = TRUE
 	blocks_emissive = FALSE
+
+/obj/structure/sign/bathhouse
+	name = "\improper bathhouse sign"
+	desc = "Старая но рабочая табличка. Здесь изображён банный инвентарь."
+	icon_state = "banya"
 
 /obj/structure/sign/science
 	name = "\improper SCIENCE!"

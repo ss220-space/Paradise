@@ -104,6 +104,12 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	uniform = /obj/item/clothing/under/plasmaman/cargo
 
+/datum/outfit/plasmaman/qm
+	name = "Quartermaster Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/qm
+	uniform = /obj/item/clothing/under/plasmaman/qm
+
 /datum/outfit/plasmaman/mining
 	name = "Mining Plasmaman"
 
@@ -115,6 +121,24 @@
 
 	head = /obj/item/clothing/head/helmet/space/plasmaman/medical
 	uniform = /obj/item/clothing/under/plasmaman/medical
+
+/datum/outfit/plasmaman/brigdoc
+	name = "Brigmed Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/medical/brigphysician
+	uniform = /obj/item/clothing/under/plasmaman/brigphysician
+
+/datum/outfit/plasmaman/paramedic
+	name = "Paramedic Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/medical/paramedic
+	uniform = /obj/item/clothing/under/plasmaman/paramedic
+
+/datum/outfit/plasmaman/coroner
+	name = "Coroner Plasmaman"
+
+	head = /obj/item/clothing/head/helmet/space/plasmaman/medical/coroner
+	uniform = /obj/item/clothing/under/plasmaman/coroner
 
 /datum/outfit/plasmaman/cmo
 	name = "Chief Medical Officer Plasmaman"
@@ -173,7 +197,7 @@
 /datum/outfit/plasmaman/engineering/mecha
 	name = "Mechanic Plasmaman"
 	head = /obj/item/clothing/head/helmet/space/plasmaman/engineering/mecha
-	uniform = /obj/item/clothing/under/plasmaman/engineering
+	uniform = /obj/item/clothing/under/plasmaman/mechanic
 
 /datum/outfit/plasmaman/ce
 	name = "Chief Engineer Plasmaman"

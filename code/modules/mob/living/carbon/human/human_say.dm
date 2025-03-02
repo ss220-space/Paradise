@@ -85,22 +85,29 @@
 
 
 /mob/living/carbon/human/IsVocal()
-	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate() in internal_organs
-	if(translator?.active)
-		return TRUE
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(translator?.active && !mind?.miming)
+		return TRUE // Cyberimps don't care if you need to breathe at all, but make some respect to mimes
+
 	if(HAS_TRAIT(src, TRAIT_MUTE))
 		return FALSE
+
+	if(TRAIT_NO_VOCAL_CORDS in dna?.species.inherent_traits)
+		return FALSE
+
 	// how do species that don't breathe talk? magic, that's what.
 	var/breathes = !HAS_TRAIT(src, TRAIT_NO_BREATH)
 	var/obj/item/organ/internal/lungs = get_organ_slot(INTERNAL_ORGAN_LUNGS)
 	if((breathes && !lungs) || (breathes && lungs && lungs.is_dead()))
 		return FALSE
-	if(getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS)
-		emote("gasp")
-		return FALSE
+
 	if(mind)
 		return !mind.miming
+
 	return TRUE
+
+/mob/living/carbon/human/cannot_speak_loudly()
+	return getOxyLoss() > 10 || AmountLoseBreath() >= 8 SECONDS
 
 
 /mob/living/carbon/human/proc/SetSpecialVoice(new_voice)
@@ -131,6 +138,8 @@
 
 /mob/living/carbon/human/handle_speech_problems(list/message_pieces, verb)
 	var/span = ""
+	var/check_mute = TRUE
+	var/check_wingdings = TRUE
 
 	var/obj/item/organ/internal/cyberimp/brain/speech_translator/translator = locate() in internal_organs
 	if(translator?.active && !HAS_TRAIT(src, TRAIT_MUTE))
@@ -145,7 +154,7 @@
 		|| HAS_TRAIT(src, TRAIT_JESTER))
 		span = "sans"
 
-	if(HAS_TRAIT(src, TRAIT_WINGDINGS))
+	if(check_wingdings && HAS_TRAIT(src, TRAIT_WINGDINGS))
 		span = "wingdings"
 
 	var/list/parent = ..()
@@ -155,8 +164,9 @@
 		if(S.speaking?.flags & NO_STUTTER)
 			continue
 
-		if(HAS_TRAIT(src, TRAIT_MUTE))
+		if(check_mute && (HAS_TRAIT(src, TRAIT_MUTE)))
 			S.message = ""
+			continue
 
 		if(istype(wear_mask, /obj/item/clothing/mask/horsehead))
 			var/obj/item/clothing/mask/horsehead/hoers = wear_mask
@@ -166,13 +176,21 @@
 		if(dna)
 			for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
 				if(gene.is_active(src))
+					if(!check_wingdings && istype(gene, /datum/dna/gene/disability/wingdings))
+						continue
+
 					S.message = gene.OnSay(src, S.message)
+
+			if(check_mute && (TRAIT_NO_VOCAL_CORDS in dna.species.inherent_traits)) // Species neither have vocal cords nor translator
+				S.message = ""
+				continue
 
 		var/braindam = getBrainLoss()
 		if(braindam >= 60)
 			if(prob(braindam / 4))
 				S.message = stutter(S.message)
 				verb = "gibbers"
+
 			if(prob(braindam))
 				S.message = uppertext(S.message)
 				verb = "yells loudly"

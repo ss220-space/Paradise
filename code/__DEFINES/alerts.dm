@@ -26,7 +26,14 @@
 #define ALERT_EMBEDDED "embedded"
 #define ALERT_NUTRITION "nutrition"
 #define ALERT_DIRECTION_LOCK "direction_lock"
+#define ALERT_UNPOSSESS_OBJECT "unpossess_object"
 
 /** Silicon related */
 #define ALERT_LOCKED "locked"
 
+/** Mech related */
+// SCS-3 Cage
+#define CAGE_STAGE_ZERO "stage_zero"
+#define CAGE_STAGE_ONE "stage_one"
+#define CAGE_STAGE_TWO "stage_two"
+#define CAGE_STAGE_THREE "stage_three"

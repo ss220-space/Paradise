@@ -3,6 +3,7 @@
 	roundend_category = "space dragons"
 	job_rank = ROLE_SPACE_DRAGON
 	special_role = SPECIAL_ROLE_SPACE_DRAGON
+	antag_menu_name = "Космический дракон"
 	/// All space carps created by this antagonist space dragon
 	var/list/datum/mind/carp = list()
 	/// The innate ability to summon rifts
@@ -102,7 +103,7 @@
  *
  */
 /datum/antagonist/space_dragon/proc/rift_checks()
-	if((rifts_charged == 3 || (SSshuttle.emergency.mode == SHUTTLE_DOCKED && rifts_charged > 0)) && !objective_complete)
+	if((rifts_charged == 3 || (EMERGENCY_AT_LEAST_DOCKED && rifts_charged > 0)) && !objective_complete)
 		victory()
 		return
 	if(riftTimer == -1)
@@ -161,8 +162,9 @@
 		rift.carp_stored = 999999
 		rift.time_charged = rift.max_charge
 	SSshuttle.emergency.canRecall = FALSE
-	SSshuttle.emergencyNoEscape = FALSE
-	if(SSshuttle.emergency.mode >= SHUTTLE_DOCKED)
+	SSshuttle.stop_lockdown()
+	SSshuttle.clear_hostile_environment()
+	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 	SSshuttle.emergency.request(coefficient = 0.5)
 
@@ -207,6 +209,7 @@
 
 /datum/objective/summon_carp
 	needs_target = FALSE
+	antag_menu_name = "Открывать и защищать разломы"
 	explanation_text = "Открывайте и защищайте разрывы, чтобы наводнить станцию карпами."
 
 

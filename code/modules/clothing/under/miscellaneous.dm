@@ -251,6 +251,14 @@
 
 /obj/item/clothing/under/acj
 	name = "administrative cybernetic jumpsuit"
+	ru_names = list(
+		NOMINATIVE = "административный кибернетический комбинезон",
+		GENITIVE = "административного кибернетического комбинезона",
+		DATIVE = "административному кибернетическому комбинезону",
+		ACCUSATIVE = "административный кибернетический комбинезон",
+		INSTRUMENTAL = "административным кибернетическим комбинезоном",
+		PREPOSITIONAL = "административном кибернетическом комбинезоне",
+	)
 	icon_state = "syndicate"
 	item_state = "bl_suit"
 	item_color = "syndicate"
@@ -795,6 +803,30 @@
 	item_color = "pennywise"
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO
 
+/obj/item/clothing/under/sweettooth
+	name = "Sweet Tooth Costume"
+	desc = "Брутально выглядящий костюм, отдалённо смахивающий на клоунский. Такой отлично подошёл бы какому-нибудь серийному убийце."
+	icon_state = "sweettooth_uniform"
+	item_color = "sweettooth_uniform"
+	ru_names = list(
+		NOMINATIVE = "Костюм Сладкоежки",
+		GENITIVE = "Костюма Сладкоежки",
+		DATIVE = "Костюму Сладкоежки",
+		ACCUSATIVE = "Костюм Сладкоежки",
+		INSTRUMENTAL = "Костюмом Сладкоежки",
+		PREPOSITIONAL = "Костюме Сладкоежки"
+	)
+	body_parts_covered = UPPER_TORSO | LOWER_TORSO
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/uniform.dmi',
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi'
+	)
+
 /obj/item/clothing/under/rockso
 	name = "Rockso Costume"
 	desc = "I DO COCAINE!"
@@ -1193,3 +1225,30 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
+/obj/item/clothing/under/satan
+	name = "satanic clothes"
+	desc = "Костюм, который обычно носят сатанисты."
+	ru_names = list(
+		NOMINATIVE = "сатанинские одеяния",
+		GENITIVE = "сатанинских одеяний",
+		DATIVE = "сатанинским одеяниям",
+		ACCUSATIVE = "сатанинские одеяния",
+		INSTRUMENTAL = "сатанинскими одеяниями",
+		PREPOSITIONAL = "сатанинских одеяниях"
+	)
+	over_shoes = TRUE
+	can_adjust = TRUE
+	icon_state = "satan"
+	item_state = "satan"
+	item_color = "satan"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/uniform.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/uniform.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/uniform.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/uniform.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
+		)

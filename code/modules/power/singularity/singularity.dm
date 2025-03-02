@@ -300,7 +300,7 @@
 		name = "supermatter-charged [initial(name)]"
 		consumedSupermatter = 1
 		set_light(10)
-	if(istype(A, /obj/singularity/narsie))
+	if(istype(A, /obj/singularity/god/narsie))
 		if(current_size == STAGE_SIX)
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] is consumed by [src]!</span>")
 			investigate_log("consumed Nar'Sie!", INVESTIGATE_ENGINE)
@@ -309,7 +309,8 @@
 			visible_message("<span class='userdanger'>[SSticker.cultdat?.entity_name] strikes down [src]!</span>")
 			investigate_log("has been destroyed by Nar'Sie", INVESTIGATE_ENGINE)
 			qdel(src)
-	if(istype(A, /obj/singularity/ratvar))
+
+	if(istype(A, /obj/singularity/god/ratvar))
 		if(current_size == STAGE_SIX)
 			visible_message("<span class='userdanger'>Rat'var is consumed by [src]!</span>")
 			qdel(A)
@@ -520,3 +521,20 @@
 	projectile.damage += 10 / distance
 	projectile.set_angle(projectile_angle)
 
+
+/obj/singularity/proc/end_deadchat_plays()
+	move_self = TRUE
+
+
+/obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	move_self = FALSE
+
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)
