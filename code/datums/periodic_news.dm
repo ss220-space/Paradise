@@ -5,7 +5,7 @@
 
 	var/round_time // time of the round at which this should be announced, in seconds
 	var/message // body of the message
-	var/author = "Nanotrasen Editor"
+	var/author = "Редактор НаноТрейзен"
 	var/channel_name = NEWS_CHANNEL_NYX
 	var/can_be_redacted = FALSE
 	var/message_type = "Story"

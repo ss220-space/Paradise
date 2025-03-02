@@ -16,6 +16,7 @@
   */
 /obj/machinery/newscaster
 	name = "newscaster"
+	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах."
 	ru_names = list(
 			NOMINATIVE = "новостник",
 			GENITIVE = "новостника",
@@ -24,7 +25,6 @@
 			INSTRUMENTAL = "новостником",
 			PREPOSITIONAL = "новостнике"
 	)
-	desc = "Стандартный обработчик новостных лент, лицензированный НаноТрейзен, для использования на коммерческих космических станциях. Все новости, которые вам абсолютно не нужны, в одном месте!"
 	icon = 'icons/obj/machines/terminals.dmi'
 	icon_state = "newscaster"
 	max_integrity = 200
@@ -42,7 +42,7 @@
 	/// The newcaster's index among all newscasters (GLOB.allNewscasters).
 	var/unit_number = 0
 	/// The name of the mob currently using the newscaster.
-	var/scanned_user = "Unknown"
+	var/scanned_user = "Неизвестный"
 	/// The currently attached photo.
 	var/obj/item/photo/photo = null
 	/// The currently viewed channel.
@@ -60,13 +60,15 @@
 
 /obj/machinery/newscaster/security_unit
 	name = "security newscaster"
+	desc = "Устройство, позволяющее получить доступ к самым свежим новостям со всей Галактики. Лицензировано НаноТрейзен для использования на коммерческих объектах. \
+			Эта модель оснащена расширенным функционалом, специально для службы безопасности."
 	ru_names = list(
-			NOMINATIVE = "новостник охраны",
-			GENITIVE = "новостника охраны",
-			DATIVE = "новостнику охраны",
-			ACCUSATIVE = "новостник охраны",
-			INSTRUMENTAL = "новостником охраны",
-			PREPOSITIONAL = "новостнике охраны"
+			NOMINATIVE = "новостник службы безопасности",
+			GENITIVE = "новостника службы безопасности",
+			DATIVE = "новостнику службы безопасности",
+			ACCUSATIVE = "новостник службы безопасности",
+			INSTRUMENTAL = "новостником службы безопасности",
+			PREPOSITIONAL = "новостнике службы безопасности"
 	)
 	is_security = TRUE
 
@@ -152,17 +154,17 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, span_notice("Вы [anchored ? "от" : "за"]кручиваете [name]."))
+	to_chat(user, span_notice("Вы [anchored ? "от" : "за"]крепляете [declent_ru(ACCUSATIVE)]."))
 	if(!I.use_tool(src, user, 60, volume = I.tool_volume))
 		return
 	playsound(loc, 'sound/items/deconstruct.ogg', 50, TRUE)
 	if(stat & BROKEN)
-		to_chat(user, span_warning("Разбитые части [src.declent_ru(GENITIVE)] падают на пол."))
+		to_chat(user, span_warning("Разбитые части [declent_ru(GENITIVE)] падают на пол."))
 		new /obj/item/stack/sheet/metal(loc, 5)
 		new /obj/item/shard(loc)
 		new /obj/item/shard(loc)
 	else
-		to_chat(user, span_notice("Вы [anchored ? "от" : "за"]кручиваете [name]."))
+		to_chat(user, span_notice("Вы [anchored ? "от" : "за"]крепляете [declent_ru(ACCUSATIVE)]."))
 		var/obj/item/mounted/frame/newscaster_frame/frame = new(loc)
 		transfer_fingerprints_to(frame)
 	qdel(src)
@@ -209,7 +211,7 @@
 		scanned_user = get_scanned_user(user)["name"]
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Newscaster", name)
+		ui = new(user, src, "Newscaster", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 		ui.set_autoupdate(FALSE)
 
@@ -390,8 +392,8 @@
 				var/obj/item/photo/P = usr.get_active_hand()
 				if(istype(P) && usr.drop_transfer_item_to_loc(P, src))
 					photo = P
-					usr.visible_message("span_notice("[usr] вставил[genderize_ru(usr.gender, "", "а", "о", "и")] [P] в слот для фотографий [src.declent_ru(GENITIVE)]"),\
-										"span_notice("Вы вставили [P] в слот для фотографий [src.declent_ru(GENITIVE)]."))
+					usr.visible_message(span_notice("[usr] вставля[pluralize_ru(usr.gender, "ет", "ют")] [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."), \
+					span_notice("Вы вставляете [P.declent_ru(ACCUSATIVE)] в слот [declent_ru(GENITIVE)] для фотографий."))
 					playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 			else if(issilicon(usr))
 				var/mob/living/silicon/M = usr
@@ -402,7 +404,7 @@
 				P.construct(selection)
 				P.forceMove(src)
 				photo = P
-				visible_message(span_notice("Слот для фотографий [src.declent_ru(GENITIVE)] тихо жужжит когда в нем печатается [P]"))
+				visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо жужжит, после чего из слота для фотографий выпадает [P.declent_ru(NOMINATIVE)]."))
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 		if("eject_photo")
 			eject_photo(usr)
@@ -415,7 +417,7 @@
 			if(!istype(FC))
 				return
 			if(FC.admin_locked && !usr.can_admin_interact())
-				set_temp("Этот канал был заблокирован Центральным Командованием и, следовательно, не может быть разблокирован.", "danger")
+				set_temp("Этот канал был заблокирован Центральным Командованием и не может быть разблокирован.", "danger")
 				return
 			FC.censored = !FC.censored
 		if("censor_author", "censor_story")
@@ -426,7 +428,7 @@
 			if(!istype(FM))
 				return
 			if(FM.admin_locked && !usr.can_admin_interact())
-				set_temp("Эта статья была заблокирована Центральным Командованием и, следовательно, не может быть разблокирована.", "danger")
+				set_temp("Эта статья была заблокирована Центральным Командованием и не может быть разблокирована.", "danger")
 				return
 			if(action == "censor_author")
 				FM.censor_flags = (FM.censor_flags & CENSOR_AUTHOR) ? (FM.censor_flags & ~CENSOR_AUTHOR) : (FM.censor_flags|CENSOR_AUTHOR)
@@ -442,7 +444,7 @@
 			if(!WN)
 				return
 			if(WN.admin_locked && !usr.can_admin_interact())
-				set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и, следовательно, не может быть изменено.", "danger")
+				set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и не может быть изменено.", "danger")
 				return
 			GLOB.news_network.wanted_issue = null
 			set_temp("Уведомление о розыске снято.", update_now = TRUE)
@@ -455,7 +457,7 @@
 			if(is_printing)
 				return
 			if(paper_remaining <= 0)
-				set_temp("Больше нет доступной бумаги.", "danger")
+				set_temp("Доступная для печати бумага отсутствует.", "danger")
 				return
 			print_newspaper()
 		else
@@ -534,7 +536,7 @@
 					FC.author = usr.can_admin_interact() ? author : scanned_user
 					FC.is_public = public
 					FC.admin_locked = usr.can_admin_interact() && admin_locked
-					set_temp("Канал [FC.channel_name] создан.", "good")
+					set_temp("Канал \"[FC.channel_name]\" создан.", "good")
 				if("create_story")
 					var/author = trim(arguments["author"])
 					var/channel = trim(arguments["channel"])
@@ -568,7 +570,7 @@
 					screen = NEWSCASTER_CHANNEL
 					viewing_channel = FC
 					eject_photo(usr)
-					set_temp("Статья была опубликована в канале [FC.channel_name].", "good")
+					set_temp("Статья была опубликована в канале \"[FC.channel_name]\".", "good")
 				if("wanted_notice")
 					if(id == "wanted_notice" && !(is_security || usr.can_admin_interact()))
 						return
@@ -581,7 +583,7 @@
 					var/datum/feed_message/WN = GLOB.news_network.wanted_issue
 					if(WN)
 						if(WN.admin_locked && !usr.can_admin_interact())
-							set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и, следовательно, не может быть изменено.", "danger")
+							set_temp("Это уведомление о розыске было заблокировано Центральным Командованием и не может быть изменено.", "danger")
 							return
 					else
 						WN = new
@@ -616,9 +618,9 @@
 	photo = null
 	P.forceMove(loc)
 	if(ishuman(user) && user.put_in_active_hand(P, ignore_anim = FALSE))
-		visible_message(span_notice("[src] извлекает [P] из слота для фотографий в руку [user]"))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий прямо в руку [user]."))
 	else
-		visible_message(span_notice("[src] извлекает [P] из слота для фотографий."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] выплёвывает [P.declent_ru(ACCUSATIVE)] из слота для фотографий."))
 	playsound(loc, 'sound/machines/terminal_insert_disc.ogg', 30, TRUE)
 	SStgui.update_uis(src)
 
@@ -641,7 +643,7 @@
   * * user - The user
   */
 /obj/machinery/newscaster/proc/get_scanned_user(mob/user)
-	. = list(name = "Unknown", security = user.can_admin_interact())
+	. = list(name = "Неизвестный", security = user.can_admin_interact())
 	if(ishuman(user))
 		var/mob/living/carbon/human/M = user
 		// No ID, no luck
@@ -677,7 +679,7 @@
 	// Print it
 	is_printing = TRUE
 	playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
-	visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] жужжит, печатая газету."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] тихо жужжит, печатая газету."))
 	addtimer(CALLBACK(src, PROC_REF(print_newspaper_finish)), 5 SECONDS)
 
 /**

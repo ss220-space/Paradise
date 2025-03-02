@@ -9,6 +9,7 @@
   */
 /obj/item/newspaper
 	name = "newspaper"
+	desc = "Выпуск газеты \"Грифон\", распространяемой на объектах НаноТрейзен."
 	ru_names = list(
         NOMINATIVE = "газета",
         GENITIVE = "газеты",
@@ -17,7 +18,7 @@
         INSTRUMENTAL = "газетой",
         PREPOSITIONAL = "газете"
 	)
-	desc = "Выпуск \"Грифона\" — газеты, распространяемой на космических станциях НаноТрейзен."
+	gender = FEMALE
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "newspaper"
 	item_state = "newspaper"
@@ -58,7 +59,7 @@
 			else
 				. += span_notice("Вам нужно подойти поближе, если вы хотите это прочитать.")
 		else
-			. += span_notice("Вы не умеете читать.")
+			. += span_warning("Вы не умеете читать!")
 
 /obj/item/newspaper/attack_self(mob/user)
 	if(rolled)
@@ -91,14 +92,14 @@
 		switch(screen)
 			if(SCREEN_COVER) // Cover
 				dat += "<div class='newspaper-title'>Грифон</div>"
-				dat += "<div class='newspaper-subtitle'>Газета, предназначенная для использования на космических объектах НаноТрейзен</div><hr>"
+				dat += "<div class='newspaper-subtitle'>Газета, предназначенная для использования на объектах НаноТрейзен</div><hr>"
 				if(!length(news_content))
 					if(important_message)
 						dat += "<ul class='content-list'>"
 						dat += "<li><b>**Срочное сообщение от службы безопасности**</b> <span class='page-number'>\[Страница [pages+2]\]</span></li>"
 						dat += "</ul>"
 					else
-						dat += "<i>Кроме заголовка, остальная часть газеты, ничего не распечатано...</i>"
+						dat += "<i>Кроме заголовка, остальная часть газеты не распечатана...</i>"
 				else
 					dat += "<b>Содержание:</b><br>"
 					dat += "<ul class='content-list'>"
@@ -123,10 +124,10 @@
 				dat += "<div class='entry-title'>[C.channel_name]</div>"
 				dat += "<div class='entry-text'>Автор: <font color='maroon'>[C.author]</font></div><br>"
 				if(C.censored)
-					dat += "<div class='censored'>Этот канал был признан опасным для общего благополучия станции, поэтому был перенесён в категорию <b>Б</b>. Его содержимое не было передано в газету на момент печати.</div>"
+					dat += "<div class='censored'>Этот канал был признан опасным для общего благополучия станции, поэтому был перенесён в категорию <b>B</b>. Его содержимое не было передано в газету на момент печати.</div>"
 				else
 					if(!length(C.messages))
-						dat += "<div class='entry-text'>Никакие записи не связаны с этим каналом...</div>"
+						dat += "<div class='entry-text'>Этот канал ещё ничего не публиковал...</div>"
 					else
 						var/i = 0
 						for(var/datum/feed_message/MESSAGE in C.messages)
@@ -212,14 +213,14 @@
 			to_chat(user, span_notice("На этой странице уже есть пометка... Вы же не хотите сделать всё слишком запутанным, правда?"))
 			balloon_alert(user, "нет места!")
 			return ATTACK_CHAIN_PROCEED
-		var/new_scribble = tgui_input_text(user, "Напишите что-то", "Newspaper")
+		var/new_scribble = tgui_input_text(user, "Напишите что-то", "Газета")
 		if(!new_scribble || !Adjacent(user))
 			return ATTACK_CHAIN_PROCEED
 		scribble_page = curr_page
 		scribble = new_scribble
 		user.visible_message(
-			span_notice("[user] делает пометку в газете."),
-			span_notice("Вы сделали пометку на [curr_page] станице."),
+			span_notice("[user] дела[pluralize_ru(user.gender, "ет", "ют")] пометку в газете."),
+			span_notice("Вы делаете пометку на [curr_page] станице [declent_ru(GENITIVE)]."),
 		)
 		attack_self(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -231,10 +232,11 @@
 	rolled = !rolled
 	icon_state = "newspaper[rolled ? "_rolled" : ""]"
 	update_icon()
-	var/verbtext = "[rolled ? "" : "un"]roll"
-	user.visible_message(span_notice("[user] [verbtext]s [src]."),\
-							span_notice("You [verbtext] [src]."))
+	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),\
+							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
+	for(var/i = 1; i <= 6; i++)
+		ru_names[i] = "[rolled ? "свёрнутая" : ""] [initial(ru_names[i])]"
 	return CLICK_ACTION_SUCCESS
 
 #undef SCREEN_COVER

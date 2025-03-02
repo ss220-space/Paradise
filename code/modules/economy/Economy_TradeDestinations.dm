@@ -28,7 +28,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/anansi
 	name = "ИСН \"Ананси\""
-	description = "Медицинская станция, управляемая Вторым Красным Крестом (но принадлежащая НаноТрейзен), предназначенная для обработки экстренных случаев с ближайших колоний."
+	description = "Медицинская станция, принадлежащая НаноТрейзен и управляемая Вторым Красным Крестом. Предназначена для обработки экстренных случаев с ближайших колоний."
 	distance = 1.7
 	willing_to_buy = list()
 	willing_to_sell = list()
@@ -43,7 +43,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/icarus
 	name = "ИКН \"Икар\""
-	description = "Корвет, назначенный для патрулирования локального пространства станции.."
+	description = "Корвет, назначенный для патрулирования космического пространства в секторе станции."
 	distance = 0.1
 	willing_to_buy = list()
 	willing_to_sell = list()
@@ -93,7 +93,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/luthien
 	name = "\"Лютиен\""
-	description = "ебольшая колония, основанная на диком, необузданном мире (в основном джунгли). Дикари и дикие звери регулярно атакуют аванпост, хотя НаноТрейзен сохраняет жёсткий военный контроль."
+	description = "Небольшая колония, основанная на диком, необузданном мире (в основном джунгли). Дикари и дикие звери регулярно атакуют аванпост, хотя НаноТрейзен сохраняет жёсткий военный контроль."
 	distance = 8.9
 	willing_to_buy = list()
 	willing_to_sell = list()
@@ -102,7 +102,7 @@ GLOBAL_LIST_EMPTY(weighted_mundaneevent_locations)
 
 /datum/trade_destination/reade
 	name = "\"Рид\""
-	description = "олодный мир с дефицитом металлов. НаноТрейзен поддерживает обширные добывающие комплексы на доступных территориях, пытаясь извлечь хоть что-то из этой бесприбыльной колонии."
+	description = "Холодный мир с дефицитом металлов. НаноТрейзен поддерживает обширные добывающие комплексы на доступных территориях, пытаясь извлечь хоть что-то из этой бесприбыльной колонии."
 	distance = 7.5
 	willing_to_buy = list()
 	willing_to_sell = list()

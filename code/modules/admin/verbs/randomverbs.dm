@@ -25,9 +25,9 @@
 		if(istype(M, /mob/living/silicon/ai))
 			tgui_alert(usr, "The AI can't be sent to prison you jerk!")
 			return
-			
+
 		var/turf/prison_cell = pick(GLOB.prisonwarp)
-		
+
 		if(!prison_cell)
 			return
 
@@ -623,7 +623,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального Командования" = "Обновление Нанотрейзен",
+	var/list/MsgType = list("Сообщение Центрального Командования" = "Обновление НаноТрейзен",
 		"Официальное сообщение Синдиката" = "Сообщение Синдиката",
 		"Сообщение Федерации Космических Волшебников" = "Заколдованное сообщение",
 		"Официальное сообщение Клана Паука" = "Сообщение Клана Паука",
@@ -1205,7 +1205,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!D)
 		return
 
-	var/add_or_remove = tgui_input_list(usr, "Remove/Add?", "Trait Remove/Add", list("Add", "Remove")) 
+	var/add_or_remove = tgui_input_list(usr, "Remove/Add?", "Trait Remove/Add", list("Add", "Remove"))
 	if(!add_or_remove)
 		return
 	var/list/availible_traits = list()
