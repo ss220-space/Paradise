@@ -522,7 +522,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
-		owner.visible_message(span_danger("[owner] блокиру[pluralize_ru(owner.gender, "ет", "ют")] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
+		owner.visible_message(span_danger("[owner] блокиру[pluralize_ru(owner.gender, "ет", "ют")] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
 		return signal_result
 	return FALSE
 

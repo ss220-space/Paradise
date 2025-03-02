@@ -108,6 +108,9 @@
 	var/tts_seed = "Arthas"
 	var/tts_atom_say_effect = SOUND_EFFECT_RADIO
 
+	///AI controller that controls this atom. type on init, then turned into an instance during runtime
+	var/datum/ai_controller/ai_controller
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -158,6 +161,7 @@
 	SETUP_SMOOTHING()
 
 	ComponentInitialize()
+	InitializeAIController()
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -223,7 +227,7 @@
 		overlays.Cut()
 
 	LAZYNULL(managed_overlays)
-
+	QDEL_NULL(ai_controller)
 	QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
@@ -749,6 +753,7 @@
 
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
@@ -1765,3 +1770,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 ///returns how much the object blocks an explosion. Used by subtypes.
 /atom/proc/get_explosion_block()
 	CRASH("Unimplemented get_explosion_block()")
+
+/**
+* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
+*
+* This will work fine without manually passing arguments.
++*/
+/atom/proc/InitializeAIController()
+	if(ai_controller)
+		ai_controller = new ai_controller(src)

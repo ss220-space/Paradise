@@ -762,3 +762,11 @@
 		return r_hand
 	return null
 
+/**
+ * Returns a list of all dropped held items.
+ * If none were dropped, returns an empty list.
+ */
+/mob/proc/drop_all_held_items()
+	. = list()
+	for(var/obj/item/I in (get_item_by_slot(ITEM_SLOT_HAND_LEFT) || get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
+		. |= drop_item_ground(I)

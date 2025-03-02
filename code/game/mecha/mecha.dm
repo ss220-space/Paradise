@@ -680,13 +680,14 @@
 		return FALSE
 	var/booster_deflection_modifier = 1
 	var/booster_damage_modifier = 1
-	if(damage_flag == "bullet" || damage_flag == "laser" || damage_flag == "energy")
+	var/projectile_check = damage_flag == BULLET || damage_flag == LASER || damage_flag == ENERGY
+	if(projectile_check)
 		for(var/obj/item/mecha_parts/mecha_equipment/antiproj_armor_booster/B in equipment)
 			if(B.projectile_react())
 				booster_deflection_modifier = B.deflect_coeff
 				booster_damage_modifier = B.damage_coeff
 				break
-	else if(damage_flag == "melee")
+	else if(damage_flag == MELEE)
 		for(var/obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster/B in equipment)
 			if(B.attack_react())
 				booster_deflection_modifier *= B.deflect_coeff
@@ -698,7 +699,7 @@
 		booster_damage_modifier /= facing_modifier
 		booster_deflection_modifier *= facing_modifier
 	if(prob(deflect_chance * booster_deflection_modifier))
-		visible_message(span_danger("[src]'s armour deflects the attack!"))
+		visible_message(span_danger("[src]'s armour deflects the attack!"), projectile_message = projectile_check)
 		log_message("Armor saved.")
 		return FALSE
 	if(.)

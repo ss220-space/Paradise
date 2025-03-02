@@ -675,6 +675,9 @@
 /// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_SET_BLOOD			"living_set_blood"
 
+///From post-can inject check of syringe after attack (mob/user)
+#define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"
+
 /// From /mob/add_language() (language_name)
 #define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
 /// From /mob/remove_language() (language_name)
@@ -755,6 +758,9 @@
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
 #define COMSIG_SIMPLE_ANIMAL_ATTACKEDBY "simple_animal_attackedby"
 	#define COMPONENT_SIMPLE_ANIMAL_NO_ATTACK (1<<0)
+
+///Called when someone attempts to cuff a carbon
+#define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"

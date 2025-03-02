@@ -619,8 +619,9 @@
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>", \
-			"<span class='userdanger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>")
+			H.visible_message(span_danger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
+			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
+			projectile_message = TRUE)
 			return FALSE
 	return TRUE
 
@@ -663,8 +664,9 @@
 /datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable(REFLECTABILITY_ENERGY))
-			H.visible_message("<span class='danger'>[P.name] отражается от стеклянной кожи [H]!</span>", \
-			"<span class='userdanger'>[P.name] отражается от стеклянной кожи [H]!</span>")
+			H.visible_message(span_danger("[P.name] отражается от стеклянной кожи [H]!"), \
+			span_userdanger("[P.name] отражается от стеклянной кожи [H]!"), \
+			projectile_message = TRUE)
 
 			P.reflect_back(H)
 

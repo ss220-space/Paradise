@@ -188,14 +188,14 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message(span_danger("[user] fires [src] point blank at [target]!"), span_danger("You fire [src] point blank at [target]!"), span_italics("You hear \a [fire_sound_text]!"), projectile_message = TRUE)
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)

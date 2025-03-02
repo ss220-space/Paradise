@@ -54,6 +54,9 @@
 	if(!iscarbon(user))
 		return
 
+	if(SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_HAND, user) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		. = TRUE
+
 	for(var/datum/disease/virus/V in diseases)
 		if(V.spread_flags & CONTACT)
 			V.Contract(user, act_type = CONTACT, need_protection_check = TRUE, zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
