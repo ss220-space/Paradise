@@ -691,11 +691,6 @@
 	// Create the newspaper
 	var/obj/item/newspaper/NP = new
 	NP.forceMove(loc)
-	// Populate the newspaper
-	NP.important_message = GLOB.news_network.wanted_issue
-	for(var/fc in GLOB.news_network.channels)
-		var/datum/feed_channel/FC = fc
-		NP.news_content += FC
 
 /**
   * Makes the newscaster say a message and change its icon state for a while.
