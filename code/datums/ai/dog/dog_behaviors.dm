@@ -118,7 +118,7 @@
 	if(isturf(snack.loc))
 		snack.attack_animal(living_pawn) // snack attack!
 	else if(iscarbon(snack.loc) && SPT_PROB(10, delta_time))
-		living_pawn.manual_emote("смотрит на [snack.name] в руках у [snack.loc] с крайне грустным видом.")
+		living_pawn.manual_emote("[living_pawn] смотрит на [snack.name] в руках у [snack.loc] с крайне грустным видом.")
 
 	if(QDELETED(snack)) // we ate it!
 		finish_action(controller, TRUE)
@@ -187,8 +187,12 @@
 	// subtypes of this behavior can change behavior for how eager/averse the pawn is to attack the target as opposed to falling back/making noise/getting help
 	if(in_range(living_pawn, living_target))
 		attack(controller, living_target)
-	else if(SPT_PROB(50, delta_time))
-		living_pawn.manual_emote("[pick("угрожающе рычит", "агрессивно гафкает","злобно смотрит")] на [harass_target]!")
+		if(SPT_PROB(15, delta_time))
+			finish_action(controller, TRUE)
+	else if(SPT_PROB(20, delta_time))
+		living_pawn.manual_emote("[living_pawn] [pick("угрожающе рычит", "агрессивно гафкает","злобно смотрит")] на [harass_target]!")
+		if(SPT_PROB(10, delta_time))
+			finish_action(controller, TRUE)
 
 /datum/ai_behavior/harass/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()

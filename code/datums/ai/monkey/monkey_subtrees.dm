@@ -48,7 +48,7 @@
 					controller.queue_behavior(/datum/ai_behavior/disposal_mob, BB_MONKEY_CURRENT_ATTACK_TARGET, BB_MONKEY_TARGET_DISPOSAL)
 					return SUBTREE_RETURN_FINISH_PLANNING
 
-	if(prob(5))
+	if(prob(20))
 		controller.queue_behavior(/datum/ai_behavior/use_in_hand)
 
 	if(selected_enemy || !SPT_PROB(MONKEY_SHENANIGAN_PROB, delta_time))

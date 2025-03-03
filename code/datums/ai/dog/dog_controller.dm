@@ -72,7 +72,7 @@
 			var/move_dir = pick(GLOB.alldirs)
 			living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
 		else if(SPT_PROB(10, delta_time))
-			living_pawn.manual_emote(pick("гоняется за своим хвостом!", "ходит кругами."))
+			living_pawn.manual_emote("[living_pawn] [pick("гоняется за своим хвостом!", "ходит кругами.")]")
 			living_pawn.AddComponent(/datum/component/spinny)
 
 /// Someone has thrown something, see if it's someone we care about and start listening to the thrown item so we can see if we want to fetch it when it lands
@@ -201,7 +201,7 @@
 	return TRUE
 
 /// One of our friends said something, see if it's a valid command, and if so, take action
-/datum/ai_controller/dog/proc/check_verbal_command(mob/speaker, speech_args)
+/datum/ai_controller/dog/proc/check_verbal_command(mob/speaker, message)
 	SIGNAL_HANDLER
 
 	if(!blackboard[BB_DOG_FRIENDS][WEAKREF(speaker)])
@@ -214,7 +214,7 @@
 	if(IS_DEAD_OR_INCAP(living_pawn))
 		return
 
-	var/spoken_text = speech_args[SPEECH_MESSAGE] // probably should check for full words
+	var/spoken_text = message // probably should check for full words
 	var/command
 	if(findtext(spoken_text, "сид") || findtext(spoken_text, "стоп"))
 		command = COMMAND_HEEL
@@ -222,7 +222,7 @@
 		command = COMMAND_FETCH
 	else if(findtext(spoken_text, "атак") || findtext(spoken_text, "бой") || findtext(spoken_text, "фас"))
 		command = COMMAND_ATTACK
-	else if(findtext(spoken_text, "мертв") || findtext(spoken_text, "умр"))
+	else if(findtext(spoken_text, "мертв") || findtext(spoken_text, "умр") || findtext(spoken_text, "умир"))
 		command = COMMAND_DIE
 	else
 		return
