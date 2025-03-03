@@ -1,6 +1,6 @@
 /mob/living/simple_animal/hostile/killertomato
 	name = "Killer Tomato"
-	desc = "Это чудовищно огромный мясной помидор, да еще и с дополнительным запасом мякоти!"
+	desc = "Это чудовищно огромный мясной помидор, да ещё и с дополнительным запасом мякоти!"
 	ru_names = list(
 		NOMINATIVE = "Помидор-убийца",
 		GENITIVE = "Помидора-убийцу",

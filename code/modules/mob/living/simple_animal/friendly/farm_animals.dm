@@ -59,7 +59,7 @@
 	if(enemies.len && prob(10))
 		enemies = list()
 		LoseTarget()
-		visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] успокаивается."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] успокаивается."))
 
 	eat_plants()
 	if(!pulledby)
@@ -77,7 +77,7 @@
 
 /mob/living/simple_animal/hostile/retaliate/goat/Retaliate()
 	..()
-	visible_message(span_danger("Глаза [src.declent_ru(GENITIVE)] наливаются красным!"))
+	visible_message(span_danger("Глаза [declent_ru(GENITIVE)] наливаются красным!"))
 
 /mob/living/simple_animal/hostile/retaliate/goat/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	. = ..()
@@ -121,8 +121,8 @@
 	if(. && isdiona(target))
 		var/mob/living/carbon/human/H = target
 		var/obj/item/organ/external/NB = pick(H.bodyparts)
-		H.visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] отрывает большой кусок от [H]!"), \
-				span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] отрывает от вас большой кусок [NB.declent_ru(GENITIVE)]!"))
+		H.visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] отрывает большой кусок от [H]!"), \
+				span_userdanger("[capitalize(declent_ru(NOMINATIVE))] отрывает от вас большой кусок [NB.declent_ru(GENITIVE)]!"))
 		NB.droplimb()
 
 //cow
@@ -137,6 +137,7 @@
 		INSTRUMENTAL = "коровой",
 		PREPOSITIONAL = "корове"
 	)
+	gender = FEMALE
 	icon_state = "cow_black"
 	icon_living = "cow_black"
 	icon_resting = "cow_black_rest"
@@ -241,8 +242,8 @@
 
 /mob/living/simple_animal/cow/attack_hand(mob/living/carbon/M)
 	if(!stat && M.a_intent == INTENT_DISARM && icon_state != icon_dead)
-		M.visible_message(span_warning("[M] опрокидыва[pluralize_ru(M.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)]!"), \
-								span_notice("Вы опрокидываете [src.declent_ru(ACCUSATIVE)]."))
+		M.visible_message(span_warning("[M] опрокидыва[pluralize_ru(M.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]!"), \
+								span_notice("Вы опрокидываете [declent_ru(ACCUSATIVE)]."))
 		Weaken(60 SECONDS)
 		icon_state = icon_dead
 		spawn(rand(20,50))
@@ -252,7 +253,7 @@
 											" смотрит на вас удручённо.",
 											" смотрит на вас с покорностью в глазах.",
 											", кажется, смирилась со своей участью.")
-				to_chat(M, span_notice("[capitalize(src.declent_ru(NOMINATIVE))][pick(responses)]"))
+				to_chat(M, span_notice("[capitalize(declent_ru(NOMINATIVE))][pick(responses)]"))
 	else
 		..()
 
@@ -500,6 +501,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		INSTRUMENTAL = "свиньёй",
 		PREPOSITIONAL = "свинье"
 	)
+	gender = FEMALE
 	icon_state = "pig"
 	icon_living = "pig"
 	icon_resting = "pig_rest"
@@ -538,6 +540,7 @@ GLOBAL_VAR_INIT(chicken_count, 0)
 		INSTRUMENTAL = "индейкой",
 		PREPOSITIONAL = "индейке"
 	)
+	gender = FEMALE
 	icon_state = "turkey"
 	icon_living = "turkey"
 	icon_dead = "turkey_dead"

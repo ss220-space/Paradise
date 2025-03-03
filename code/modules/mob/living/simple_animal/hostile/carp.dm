@@ -33,7 +33,7 @@
 	melee_damage_upper = 15
 	attacktext = "кусает"
 	attack_sound = 'sound/weapons/bite.ogg'
-	speak_emote = list("gnashes")
+	speak_emote = list("гаркает")
 	tts_seed = "Peon"
 
 	//Space carp aren't affected by atmos.
@@ -150,7 +150,6 @@
 	)
 
 /mob/living/simple_animal/hostile/carp/megacarp
-	icon = 'icons/mob/alienqueen.dmi'
 	name = "Mega Space Carp"
 	desc = "Свирепое, клыкастое существо, напоминающее акулу. Похоже, оно особенно озлоблено."
 	ru_names = list(
@@ -161,6 +160,7 @@
 		INSTRUMENTAL = "мегакосмокарпом",
 		PREPOSITIONAL = "мегакосмокарпе"
 	)
+	icon = 'icons/mob/alienqueen.dmi'
 	icon_state = "megacarp"
 	icon_living = "megacarp"
 	icon_dead = "megacarp_dead"
@@ -203,7 +203,7 @@
 
 /mob/living/simple_animal/hostile/carp/sea
 	name = "sea carp"
-	desc = "Большая рыба, схожая с некой космической угрозой."
+	desc = "Большая рыба, имеющая сходства с дальними космическими родственниками."
 	ru_names = list(
 		NOMINATIVE = "морской карп",
 		GENITIVE = "морского карпа",
@@ -253,14 +253,14 @@
 
 /mob/living/simple_animal/hostile/carp/koi
 	name = "space koi"
-	desc = "Дружелюбный кой, бороздящий просторы космоса."
+	desc = "Дружелюбный кои, бороздящий просторы космоса."
 	ru_names = list(
-		NOMINATIVE = "космический кой",
-		GENITIVE = "космического коя",
-		DATIVE = "космическому кою",
-		ACCUSATIVE = "космического коя",
-		INSTRUMENTAL = "космическим коем",
-		PREPOSITIONAL = "космическом кое"
+		NOMINATIVE = "космический кои",
+		GENITIVE = "космического кои",
+		DATIVE = "космическому кои",
+		ACCUSATIVE = "космического кои",
+		INSTRUMENTAL = "космическим кои",
+		PREPOSITIONAL = "космическом кои"
 	)
 	icon = 'icons/obj/fish_items.dmi'
 	icon_state = "koi1"
@@ -273,7 +273,7 @@
 	obj_damage = 5
 	maxHealth = 25
 	health = 25
-	speak_emote = list("blurps")
+	speak_emote = list("бурчит")
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/salmonmeat = 1)
 
 	var/randomize_icon = TRUE
