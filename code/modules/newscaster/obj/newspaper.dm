@@ -27,8 +27,6 @@
 	drop_sound = 'sound/items/handling/paper_drop.ogg'
 	pickup_sound =  'sound/items/handling/paper_pickup.ogg'
 
-	///List of news feeed channels the newspaper can see.
-	var/list/datum/feed_channel/news_content = list()
 	///The page in the newspaper currently being read. 0 is the title screen while the last is the security screen.
 	var/current_page = 1
 	///Stored information of the wanted criminal's name, if one existed at the time of creation.
@@ -66,14 +64,13 @@
 	advertisements = pick(adsList)
 
 	///Enter all current news into a list
-	var/list/message_list = GLOB.news_network.stories
-	for(var/i in 1 to min(9999, length(message_list)))
+	for(var/datum/feed_message/feed_messages as anything in GLOB.news_network.stories)
 		stories += list(list(
-			uid = message_list[i].UID(),
-			author = message_list[i].author,
-			title = message_list[i].title,
-			body = message_list[i].body,
-			photo = !isnull(message_list[i].img),
+			uid = feed_messages.UID(),
+			author = feed_messages.author,
+			title = feed_messages.title,
+			body = feed_messages.body,
+			photo = !isnull(feed_messages.img),
 	))
 
 	if(!GLOB.news_network.wanted_issue)
