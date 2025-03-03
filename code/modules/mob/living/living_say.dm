@@ -507,7 +507,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/list/hsp = handle_speech_problems(message_pieces, verb)
 	verb = hsp["verb"]
-	if(verb == "громко крич%(ит,ят)%")
+	if(verb == "громко крич%(ит,ат)%")
 		verb = "громко бормоч%(ет,ут)%"
 	else if(!adverb_added)
 		var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
