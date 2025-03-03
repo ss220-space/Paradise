@@ -7,21 +7,21 @@
 	return dna.species.handle_autohiss(message, L, client.prefs.autohiss_mode)
 
 /client/verb/toggle_autohiss()
-	set name = "Переключить авто-акцент"
-	set desc = "Переключает автоматический акцент вашей расы при общении."
+	set name = "Toggle Auto-Accent"
+	set desc = "Toggle automatic accents for your species"
 	set category = "OOC"
 
 	prefs.autohiss_mode = (prefs.autohiss_mode + 1) % AUTOHISS_NUM
 	switch(prefs.autohiss_mode)
 		if(AUTOHISS_OFF)
-			to_chat(src, "Авто-акцент: Выключен.")
+			to_chat(src, "Auto-hiss is now OFF.")
 		if(AUTOHISS_BASIC)
-			to_chat(src, "Авто-акцент: Базовый.")
+			to_chat(src, "Auto-hiss is now BASIC.")
 		if(AUTOHISS_FULL)
-			to_chat(src, "Авто-акцент: Полный.")
+			to_chat(src, "Auto-hiss is now FULL.")
 		else
 			prefs.autohiss_mode = AUTOHISS_OFF
-			to_chat(src, "Авто-акцент: Выключен.")
+			to_chat(src, "Auto-hiss is now OFF.")
 
 /datum/species/unathi
 	autohiss_basic_map = list(
@@ -33,21 +33,21 @@
 			"ш" = list("шш", "шшш", "шшшш"),
 			"ч" = list("щ", "щщ", "щщщ")
 		)
-	autohiss_exempt = list("Синт'Унати")
+	autohiss_exempt = list("Sinta'unathi")
 
 /datum/species/tajaran
 	autohiss_basic_map = list(
 			"r" = list("rr", "rrr", "rrrr"),
 			"р" = list("рр", "ррр", "рррр")
 		)
-	autohiss_exempt = list("Сик'таир")
+	autohiss_exempt = list("Siik'tajr")
 
 /datum/species/vulpkanin
 	autohiss_basic_map = list(
 			"r" = list("r", "rr", "rrr"),
 			"р" = list("р", "рр", "ррр")
 		)
-	autohiss_exempt = list("Канилунц")
+	autohiss_exempt = list("Canilunzt")
 
 /datum/species/vox
 	autohiss_basic_map = list(
@@ -56,7 +56,7 @@
 			"ч" = list("ч", "чч", "чич"),
 			"к" = list("к", "кк", "кик")
 		)
-	autohiss_exempt = list("Вокс-пиджин")
+	autohiss_exempt = list("Vox-pidgin")
 
 /datum/species/plasmaman
 	autohiss_basic_map = list(
@@ -75,7 +75,7 @@
 			"s" = list("z", "zs", "zzz", "zzsz"),
 			"с" = list("з", "зс", "ззз", "ззсз")
 		)
-	autohiss_exempt = list("Хитин")
+	autohiss_exempt = list("Chittin")
 
 /datum/species/drask
 	autohiss_basic_map = list(
@@ -88,7 +88,7 @@
 			"m" = list ("mm", "mmm"),
 			"м" = list ("мм", "ммм")
 		)
-	autohiss_exempt = list("Орлуум")
+	autohiss_exempt = list("Orluum")
 
 
 /datum/species/proc/handle_autohiss(message, datum/language/lang, mode)
