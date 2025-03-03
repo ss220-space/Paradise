@@ -72,11 +72,11 @@
 /datum/ai_behavior/use_in_hand/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/pawn = controller.pawn
-	var/obj/item/held = pawn.get_item_by_slot(pawn.get_active_hand())
+	var/obj/item/held = locate() in list(pawn.get_active_hand(), pawn.get_inactive_hand())
 	if(!held)
 		finish_action(controller, FALSE)
 		return
-	pawn.activate_hand(pawn.get_active_hand())
+	held.attack_self(pawn)
 	finish_action(controller, TRUE)
 
 /// Use the currently held item, or unarmed, on an object in the world
