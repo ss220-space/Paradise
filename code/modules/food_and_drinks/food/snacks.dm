@@ -41,7 +41,7 @@
 /obj/item/reagent_containers/food/snacks/proc/On_Consume(mob/M, mob/user)
 	if(!user)
 		return
-	if(!reagents.total_volume)
+	if(reagents && !reagents.total_volume)
 		if(M == user)
 			to_chat(user, span_notice("Вы доели [declent_ru(ACCUSATIVE)]."))
 		user.visible_message(span_notice("[M] доел[genderize_ru(M.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]."))

@@ -280,7 +280,7 @@
 
 	controller.blackboard[BB_MONKEY_DISPOSING] = TRUE
 
-	if(target && disposal?.put_in(target, living_pawn))
+	if(target && disposal?.monkey_stuff_mob(target, living_pawn))
 		disposal.flush()
 	finish_action(controller, TRUE, attack_target_key, disposal_target_key)
 

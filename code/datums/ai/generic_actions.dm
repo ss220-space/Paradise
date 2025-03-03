@@ -119,10 +119,10 @@
 /datum/ai_behavior/give/perform(delta_time, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/pawn = controller.pawn
-	var/obj/item/held_item = pawn.get_item_by_slot(pawn.get_active_hand())
+	var/obj/item/held_item = pawn.get_active_hand()
 	var/atom/target = controller.blackboard[target_key]
 
-	if(!target || !pawn.Adjacent(target) || !isliving(target))
+	if(!target || !pawn.Adjacent(target) || !isliving(target) || !held_item)
 		finish_action(controller, FALSE)
 		return
 

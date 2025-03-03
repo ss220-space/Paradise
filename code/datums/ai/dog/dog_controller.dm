@@ -135,13 +135,13 @@
 			span_notice("[pawn] дружелюбно облизывает вас!"))
 		friends[friend_ref] = TRUE
 		RegisterSignal(new_friend, COMSIG_MOB_POINTED, PROC_REF(check_point))
-		RegisterSignal(new_friend, COMSIG_MOB_SAY, PROC_REF(check_verbal_command))
+		RegisterSignal(new_friend, COMSIG_MOB_TRY_SPEECH, PROC_REF(check_verbal_command))
 
 /// Someone is being mean to us, take them off our friends (add actual enemies behavior later)
 /datum/ai_controller/dog/proc/unfriend(mob/living/ex_friend)
 	var/list/friends = blackboard[BB_DOG_FRIENDS]
 	friends -= WEAKREF(ex_friend)
-	UnregisterSignal(ex_friend, list(COMSIG_MOB_POINTED, COMSIG_MOB_SAY))
+	UnregisterSignal(ex_friend, list(COMSIG_MOB_POINTED, COMSIG_MOB_TRY_SPEECH))
 
 /// Someone is looking at us, if we're currently carrying something then show what it is, and include a message if they're our friend
 /datum/ai_controller/dog/proc/on_examined(datum/source, mob/user, list/examine_text)
@@ -216,13 +216,13 @@
 
 	var/spoken_text = speech_args[SPEECH_MESSAGE] // probably should check for full words
 	var/command
-	if(findtext(spoken_text, "сиди") || findtext(spoken_text, "сидеть") || findtext(spoken_text, "стоп"))
+	if(findtext(spoken_text, "сид") || findtext(spoken_text, "стоп"))
 		command = COMMAND_HEEL
-	else if(findtext(spoken_text, "принеси") || findtext(spoken_text, "апорт"))
+	else if(findtext(spoken_text, "принес") || findtext(spoken_text, "апорт"))
 		command = COMMAND_FETCH
-	else if(findtext(spoken_text, "атака") || findtext(spoken_text, "атакуй") || findtext(spoken_text, "в бой") || findtext(spoken_text, "фас"))
+	else if(findtext(spoken_text, "атак") || findtext(spoken_text, "бой") || findtext(spoken_text, "фас"))
 		command = COMMAND_ATTACK
-	else if(findtext(spoken_text, "притворись мертвым") || findtext(spoken_text, "умри"))
+	else if(findtext(spoken_text, "мертв") || findtext(spoken_text, "умр"))
 		command = COMMAND_DIE
 	else
 		return

@@ -60,6 +60,9 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
+/mob/living/simple_animal/pet/dog/click_alt(mob/user)
+	. = ..()
+	return CLICK_ACTION_SUCCESS
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
