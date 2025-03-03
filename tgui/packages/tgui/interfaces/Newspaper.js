@@ -1,5 +1,5 @@
 import { useBackend, useLocalState } from '../backend';
-import { Box, Section, Image, Button, Flex } from '../components';
+import { Box, Section, Image, Icon, Button, Flex } from '../components';
 import { Window } from '../layouts';
 
 export const Newspaper = (props, context) => {
@@ -59,7 +59,13 @@ export const Newspaper = (props, context) => {
           </Flex.Item>
         </Flex>
 
-        <Box textAlign="center" fontSize="48px" bold mb={1}>
+        <Box
+          textAlign="center"
+          fontSize="48px"
+          bold
+          mb={1}
+          fontFamily="Times New Roman"
+        >
           ГРИФОН
         </Box>
         <Box textAlign="center" fontSize="12px" color="#666" m={2} mt={0}>
@@ -70,7 +76,7 @@ export const Newspaper = (props, context) => {
 
         <Box height="2px" backgroundColor="#000" mb={2} />
 
-        {wanted && (
+        {wanted && current_page === 1 && (
           <WantedBlock
             id={wanted[0].uid}
             title={wanted[0].title}
@@ -86,7 +92,10 @@ export const Newspaper = (props, context) => {
                 .filter((_, index) => index % 2 === 0)
                 .map((article, index) => (
                   <Box key={index} mb={2}>
-                    <Section title={article.title}>
+                    <Section
+                      title={article.title}
+                      style={{ 'box-shadow': '0px 4px rgba(17, 17, 17, 0.35)' }}
+                    >
                       {article.photo ? (
                         <Flex wrap="wrap" justify="space-between">
                           <Flex.Item width="40%">
@@ -117,7 +126,10 @@ export const Newspaper = (props, context) => {
                 .filter((_, index) => index % 2 !== 0)
                 .map((article, index) => (
                   <Box key={index} mb={2}>
-                    <Section title={article.title}>
+                    <Section
+                      title={article.title}
+                      style={{ 'box-shadow': '0px 4px rgba(17, 17, 17, 0.35)' }}
+                    >
                       {article.photo ? (
                         <Flex wrap="wrap" justify="space-between">
                           <Flex.Item width="40%">
@@ -154,7 +166,7 @@ export const Newspaper = (props, context) => {
             <Box textAlign="center" fontSize="20px" bold mb={1}>
               Реклама
             </Box>
-            <Section>
+            <Section style={{ 'box-shadow': '0px 4px rgba(17, 17, 17, 0.35)' }}>
               <Flex>
                 <Flex.Item
                   key="1"
@@ -187,7 +199,9 @@ export const Newspaper = (props, context) => {
               Там написано:
             </i>
             <br />
-            <Box fontSize="16px">{currentScribble.text}</Box>
+            <Box fontSize="12px" bold>
+              {currentScribble.text}
+            </Box>
           </Box>
         )}
 
@@ -237,7 +251,14 @@ const WantedBlock = (properties, contex) => {
   const { id, title, body, photo } = properties;
 
   return (
-    <Section title="Внимание! Розыск!" mb={2}>
+    <Section
+      title="Внимание! Розыск!"
+      mb={2}
+      style={{
+        'background-color': 'rgba(197, 22, 22, 0.71)',
+        'box-shadow': '0px 4px rgba(197, 22, 22, 0.9)',
+      }}
+    >
       <Flex>
         {photo && (
           <Flex.Item width="30%">

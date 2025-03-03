@@ -65,6 +65,7 @@
 
 	advertisements = pick(adsList)
 
+	///Enter all current news into a list
 	var/list/message_list = GLOB.news_network.stories
 	for(var/i in 1 to min(9999, length(message_list)))
 		stories += list(list(
@@ -72,7 +73,6 @@
 			author = message_list[i].author,
 			title = message_list[i].title,
 			body = message_list[i].body,
-			publish_time = message_list[i].publish_time,
 			photo = !isnull(message_list[i].img),
 	))
 
@@ -166,7 +166,7 @@
 		))
 		user.visible_message(
 			span_notice("[user] дела[pluralize_ru(user.gender, "ет", "ют")] пометку в газете."),
-			span_notice("Вы делаете пометку на [current_page] станице [declent_ru(GENITIVE)]."),
+			span_notice("Вы делаете пометку на [current_page] странице [declent_ru(GENITIVE)]."),
 		)
 		attack_self(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
