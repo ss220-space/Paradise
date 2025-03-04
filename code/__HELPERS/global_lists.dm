@@ -155,8 +155,11 @@
 	// Preference toggles
 	for(var/path in subtypesof(/datum/preference_toggle))
 		var/datum/preference_toggle/pref_toggle = path
-		if(initial(pref_toggle.name))
-			GLOB.preference_toggles += new path()
+
+		if(!initial(pref_toggle.name))
+			continue
+
+		GLOB.preference_toggles[path] = new path()
 
 	// Init chemical reagents
 	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")

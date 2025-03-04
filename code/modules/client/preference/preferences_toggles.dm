@@ -592,7 +592,7 @@
     disable_message = "You will see minuature TGUI strip menu."
     blackbox_message = "Toggle TGUI strip menu size"
 
-/datum/preference_toggle/toggle_item_descritpion_tips
+/datum/preference_toggle/toggle_item_description_tips
     name = "Toggle item description tips"
     description = "Toggles item description tips on hover."
     preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
