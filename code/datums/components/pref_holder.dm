@@ -31,6 +31,9 @@
 
 	if(!mob.client)
 		return
+
+	for(var/datum/preference_info/pref as anything in preferences) // deactivate current
+		pref.deactivate(parent)
         
 	var/list/prefs
 
