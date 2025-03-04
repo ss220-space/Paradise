@@ -1133,12 +1133,13 @@
 	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
-	if(prob(50))
-		M.Drowsy(6 SECONDS)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
+	if(current_cycle > 20)
+		if(prob(50))
+			M.Drowsy(6 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/ether

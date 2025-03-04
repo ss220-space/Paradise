@@ -2,6 +2,8 @@
 	icon = 'icons/mob/monkey.dmi'	// for mappers
 	var/master_commander = null
 	var/sentience_type = SENTIENCE_ORGANIC
+	ai_controller = /datum/ai_controller/monkey
+	faction = list("neutral", "monkey")
 
 /mob/living/carbon/human/lesser/setup_dna(datum/species/new_species, monkeybasic = TRUE)
 	. = ..()
@@ -14,6 +16,12 @@
 /mob/living/carbon/human/lesser/monkey/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
 	tts_seed = "Sniper"
+
+/mob/living/carbon/human/lesser/monkey/agressive
+
+/mob/living/carbon/human/lesser/monkey/agressive/Initialize(mapload)
+	. = ..(mapload, /datum/species/monkey)
+	ai_controller.blackboard[BB_MONKEY_AGRESSIVE] = TRUE
 
 /mob/living/carbon/human/lesser/farwa
 	icon_state = "tajkey1"

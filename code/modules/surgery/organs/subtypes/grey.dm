@@ -109,7 +109,7 @@
 		NOMINATIVE = "почки серого",
 		GENITIVE = "почек серого",
 		DATIVE = "почкам серого",
-		ACCUSATIVE = "почки",
+		ACCUSATIVE = "почки серого",
 		INSTRUMENTAL = "почками серого",
 		PREPOSITIONAL = "почках серого"
 	)

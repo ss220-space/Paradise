@@ -279,8 +279,8 @@
 
 /obj/item/camera/digital/examine(mob/user)
 	. = ..()
-	. += span_notice("Ctrl-Click to print picture.")
-	. += span_notice("Ctrl-Shift-Click to delete picture.")
+	. += span_notice("<b>Ctrl+ЛКМ</b> to print picture.")
+	. += span_notice("<b>Ctrl+Shift+ЛКМ</b> to delete picture.")
 
 /obj/item/camera/digital/afterattack(atom/target, mob/user)
 	if(!on || !pictures_left || ismob(target.loc)) return

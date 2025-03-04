@@ -152,6 +152,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			give_power(new power_type, user)
 
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(on_click_sting))
+	//COMSIG_MOB_MIDDLECLICKON not yet implemented, please remove all MiddleClick fuckery after adding here.
 
 	var/mob/living/carbon/carbon_user = user
 	if(!istype(carbon_user))
@@ -261,6 +263,27 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
+
+/**
+ * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
+ * Allows the changeling to sting people with a click.
+ */
+/datum/antagonist/changeling/proc/on_click_sting(mob/living/ling, atom/clicked)
+	SIGNAL_HANDLER
+
+	// nothing to handle
+	if(!chosen_sting)
+		return
+	if(!isliving(ling) || clicked == ling || ling.stat != CONSCIOUS)
+		return
+	// actual ling stings do pathfinding to determine whether the target's "in range".
+	// however, this is "close enough" preliminary checks to not block click
+	if(!isliving(clicked) || !in_range(ling, clicked))
+		return
+
+	INVOKE_ASYNC(chosen_sting, TYPE_PROC_REF(/datum/action/changeling, try_to_sting), ling, clicked)
+
+	return COMSIG_MOB_CANCEL_CLICKON
 
 
 /**

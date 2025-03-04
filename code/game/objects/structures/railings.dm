@@ -10,7 +10,7 @@
 	obj_flags = BLOCKS_CONSTRUCTION_DIR
 	climbable = TRUE
 	layer = ABOVE_MOB_LAYER
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/currently_climbed = FALSE
 	var/buildstacktype = /obj/item/stack/rods
 	var/buildstackamount = 3

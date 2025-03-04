@@ -101,7 +101,7 @@
 /datum/event/economic_event/announce()
 	//copy-pasted from the admin verbs to submit new newscaster messages
 	var/datum/feed_message/newMsg = new /datum/feed_message
-	newMsg.author = "Nyx Daily"
+	newMsg.author = NEWS_CHANNEL_NYX
 	newMsg.admin_locked = TRUE
 
 	//see if our location has custom event info for this event
@@ -138,10 +138,10 @@
 			if(FESTIVAL)
 				newMsg.body = "A [pick("festival","week long celebration","day of revelry","planet-wide holiday")] has been declared on [affected_dest.name] by [pick("Governor","Commissioner","General","Commandant","Administrator")] [random_name(pick(MALE,FEMALE))] to celebrate [pick("the birth of their [pick("son","daughter")]","coming of age of their [pick("son","daughter")]","the pacification of rogue military cell","the apprehension of a violent criminal who had been terrorising the planet")]. Massive stocks of food and meat have been bought driving up prices across the planet."
 
-	GLOB.news_network.get_channel_by_name("Nyx Daily")?.add_message(newMsg)
+	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_NYX)?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)
 		var/obj/machinery/newscaster/NC = nc
-		NC.alert_news("Nyx Daily")
+		NC.alert_news(NEWS_CHANNEL_NYX)
 
 /datum/event/economic_event/end()
 	for(var/good_type in dearer_goods)

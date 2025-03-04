@@ -627,7 +627,7 @@
 	if(..())
 		if(locate(src) in M.equipment)
 			return FALSE
-		if(istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/marauder))
+		if(istype(M, /obj/mecha/combat/gygax) || istype(M, /obj/mecha/combat/durand) || istype(M, /obj/mecha/combat/lockersyndie) || istype(M, /obj/mecha/combat/marauder))
 			return TRUE
 		else if(M.emagged == TRUE)
 			return TRUE
