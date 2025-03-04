@@ -179,7 +179,7 @@ const CrewMonitorTable = ({ crewData, context }) => {
                     }
                   />
                 ) : (
-                  cm.area + ' (' + cm.x + ', ' + cm.y + ')'
+                  cm.area + ' (' + cm.x + ', ' + cm.y + ', ' + cm.z + ')'
                 )
               ) : (
                 'Недоступно'

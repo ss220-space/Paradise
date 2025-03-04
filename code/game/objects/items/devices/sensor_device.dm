@@ -99,8 +99,8 @@
 	)
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
-	item_state = "mining_monitor"
 	icon_state = "shaft_scanner"
+	item_state = "mining_scanner"
 
 /obj/item/sensor_device/advanced/mining/Initialize(mapload)
 	. = ..()
