@@ -7,9 +7,7 @@
     return ..()
 
 /datum/component/pref_holder/Initialize(list/preferences)
-	var/mob/target = parent
-
-	if(!istype(target))
+	if(!ismob(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.preferences = preferences || forge_preferences()
@@ -19,6 +17,9 @@
 
 /datum/component/pref_holder/UnregisterFromParent()
     UnregisterSignal(parent, COMSIG_MOB_LOGIN)
+
+	for(var/datum/preference_info/pref as anything in preferences)
+		pref.deactivate(parent)
 
 /datum/component/pref_holder/proc/handle_transfer(mob/source)
     SIGNAL_HANDLER
@@ -42,6 +43,9 @@
 		if(!HASBIT(mob.client.prefs.toggles, toggle.preftoggle_bitflag) \
         && !HASBIT(mob.client.prefs.toggles2, toggle.preftoggle_bitflag)
         )   
+			continue
+
+		if(!pref.activate(parent))
 			continue
 
 		LAZYADD(prefs, new pref.type)

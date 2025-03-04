@@ -9,6 +9,12 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/proc/get_examine_text()
     return
 
+/datum/preference_info/proc/activate(mob/target)
+    return TRUE
+
+/datum/preference_info/proc/deactivate(mob/target)
+    return
+
 /datum/preference_info/ghost_ears
     name = "Hearing All Speech as a Ghost"
 
@@ -128,6 +134,9 @@ GLOBAL_LIST_INIT(preferences_info, list())
 
 /datum/preference_info/take_out_of_the_round_without_obj
     name = "Take out from round without objective"
+
+/datum/preference_info/auto_dnr
+    name = "Do Not Revive status after death"
 
 /datum/preference_info/deadchat_visibility/get_preference_toggle()
     return new /datum/preference_toggle/toggle_deadchat_visibility
@@ -251,3 +260,17 @@ GLOBAL_LIST_INIT(preferences_info, list())
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_examine_text()
     return "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
+
+/datum/preference_info/auto_dnr/activate(mob/target)
+    RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(set_dnr_status))
+
+    return TRUE
+
+/datum/preference_info/auto_dnr/deactivate(mob/target)
+    UnregisterSignal(target, COMSIG_MOB_DEATH)
+
+/datum/preference_info/auto_dnr/proc/set_dnr_status(mob/source, gibbed)
+    SIGNAL_HANDLER
+
+    var/mob/dead/observer/ghost = source.ghostize(NONE)
+    ghost.apply_dnr(TRUE) // we prevented re-entering earlier, but we need to update hud and send signal

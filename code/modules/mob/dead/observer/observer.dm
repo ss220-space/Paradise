@@ -390,22 +390,32 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!isobserver(src)) // Somehow
 		return
+
 	if(!can_reenter_corpse)
-		to_chat(src, "<span class='warning'>У вас уже стоит DNR!</span>")
+		to_chat(src, span_warning("У вас уже стоит DNR!"))
 		return
+
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, "<span class='warning'>У вас нету тела.</span>")
+		to_chat(src, span_warning("У вас нету тела."))
 		return
+
 	if(mind.current.stat != DEAD)
-		to_chat(src, "<span class='warning'>Твое тело все ещё живо!</span>")
+		to_chat(src, span_warning("Твое тело все ещё живо!"))
 		return
 
 	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) == "Да")
-		to_chat(src, "<span class='boldnotice'>Do Not Revive статус включён.</span>")
-		can_reenter_corpse = FALSE
-		if(!QDELETED(mind.current)) // Could change while they're choosing
-			mind.current.med_hud_set_status()
-		SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
+		apply_dnr()
+
+/mob/dead/observer/proc/apply_dnr(silent = FALSE)
+	if(!silent)
+		to_chat(src, span_boldnotice("Do Not Revive статус включён."))
+
+	can_reenter_corpse = FALSE
+
+	if(!QDELETED(mind.current)) // Could change while they're choosing
+		mind.current.med_hud_set_status()
+		
+	SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
 /mob/dead/observer/proc/dead_tele()
 	set category = "Ghost"
@@ -748,9 +758,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		new_char.key = key
 
 	return new_char
-
-/mob/dead/observer/can_perform_action(atom/movable/target, action_bitflags)
-	return can_advanced_admin_interact()
 
 /mob/dead/observer/is_literate()
 	return TRUE
