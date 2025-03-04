@@ -298,7 +298,16 @@
 
 /obj/item/drone_manual
 	name = "Strange looking Manual"
-	desc = "Довольно толстая книжка, на обложке которой вы можете увидеть дрона."
+	desc = "На обложке этой книги вы можете увидеть изображение боевого дрона. Это руководство по его эксплуатации."
+	ru_names = list(
+		NOMINATIVE = "странное руководство",
+		GENITIVE = "странного руководства",
+		DATIVE = "странному руководству",
+		ACCUSATIVE = "странное руководство",
+		INSTRUMENTAL = "странным руководством",
+		PREPOSITIONAL = "странном руководстве"
+	)
+	gender = MALE
 	icon_state = "drone_manual"
 
 /obj/item/drone_manual/attack_self(mob/user)

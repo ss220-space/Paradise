@@ -104,6 +104,16 @@
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
+	desc = "Опасный и прочный."
+	ru_names = list(
+		NOMINATIVE = "подозрительный ящик для инструментов",
+		GENITIVE = "подозрительного ящика для инструментов",
+		DATIVE = "подозрительному ящику для инструментов",
+		ACCUSATIVE = "подозрительный ящик для инструментов",
+		INSTRUMENTAL = "подозрительным ящиком для инструментов",
+		PREPOSITIONAL = "подозрительном ящике для инструментов"
+	)
+	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
@@ -123,7 +133,16 @@
 
 /obj/item/storage/toolbox/syndisuper
 	name = "exteremely suspicious looking toolbox"
-	desc = "Danger. Robust - his second name."
+	desc = "Чрезвычайно опасный и очень прочный."
+	ru_names = list(
+		NOMINATIVE = "очень подозрительный ящик для инструментов",
+		GENITIVE = "очень подозрительного ящика для инструментов",
+		DATIVE = "очень подозрительному ящику для инструментов",
+		ACCUSATIVE = "очень подозрительный ящик для инструментов",
+		INSTRUMENTAL = "очень подозрительным ящиком для инструментов",
+		PREPOSITIONAL = "очень подозрительном ящике для инструментов"
+	)
+	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=5;syndicate=1;engineering=5"

@@ -3,6 +3,14 @@
 
 /obj/structure/holosign
 	name = "holo sign"
+	ru_names = list(
+		NOMINATIVE = "голографическая табличка",
+		GENITIVE = "голографической таблички",
+		DATIVE = "голографической табличке",
+		ACCUSATIVE = "голографическую табличку",
+		INSTRUMENTAL = "голографической табличкой",
+		PREPOSITIONAL = "голографической табличке"
+	)
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	max_integrity = 1
@@ -51,7 +59,15 @@
 
 /obj/structure/holosign/wetsign
 	name = "wet floor sign"
-	desc = "The words flicker as if they mean nothing."
+	desc = "Слова пролетают мимо, как будто они ничего не значат."
+	ru_names = list(
+		NOMINATIVE = "знак мокрого пола",
+		GENITIVE = "знака мокрого пола",
+		DATIVE = "знаку мокрого пола",
+		ACCUSATIVE = "знак мокрого пола",
+		INSTRUMENTAL = "знаком мокрого пола",
+		PREPOSITIONAL = "знаке мокрого пола"
+	)
 	icon_state = "holosign"
 
 /obj/structure/holosign/wetsign/proc/wet_timer_start(obj/item/holosign_creator/HS_C)
@@ -63,7 +79,7 @@
 
 
 /obj/structure/holosign/wetsign/mine
-	desc = "The words flicker as if they mean something."
+	desc = "Слова пролетают мимо, как будто они что-то точно значат."
 
 
 /obj/structure/holosign/wetsign/mine/Initialize(mapload, source_projector)
@@ -82,7 +98,7 @@
 
 
 /obj/structure/holosign/wetsign/mine/proc/triggermine(mob/living/victim)
-	empulse(src, 1, 1, TRUE, "[victim] triggered holosign")
+	empulse(src, 1, 1, TRUE, "[victim] активировал[genderize_ru(victim.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)]")
 	if(ishuman(victim))
 		victim.apply_damage(100, STAMINA)
 	qdel(src)
@@ -90,7 +106,15 @@
 
 /obj/structure/holosign/barrier
 	name = "holo barrier"
-	desc = "A short holographic barrier which can only be passed by walking."
+	desc = "Небольшое голографическое препятствие, преодолеть которое можно только пешком."
+	ru_names = list(
+		NOMINATIVE = "голографический барьер",
+		GENITIVE = "голографического барьера",
+		DATIVE = "голографическому барьеру",
+		ACCUSATIVE = "голографический барьер",
+		INSTRUMENTAL = "голографическим барьером",
+		PREPOSITIONAL = "голографическом барьере"
+	)
 	icon_state = "holosign_sec"
 	pass_flags_self = PASSTABLE|PASSGRILLE|PASSGLASS|LETPASSTHROW
 	density = TRUE
@@ -117,7 +141,15 @@
 
 /obj/structure/holosign/barrier/atmos
 	name = "holo firelock"
-	desc = "A holographic barrier resembling a firelock. Though it does not prevent solid objects from passing through, gas is kept out."
+	desc = "Голографический барьер, похожий на пожарный шлюз. Он не препятствует прохождению твёрдых предметов, но не позволяет газу проникать внутрь."
+	ru_names = list(
+		NOMINATIVE = "голографический пожарный шлюз",
+		GENITIVE = "голографического пожарного шлюза",
+		DATIVE = "голографическому пожарному шлюзу",
+		ACCUSATIVE = "голографический пожарный шлюз",
+		INSTRUMENTAL = "голографическим пожарным шлюзом",
+		PREPOSITIONAL = "голографическом пожарном шлюзе"
+	)
 	icon_state = "holo_firelock"
 	density = FALSE
 	layer = ABOVE_MOB_LAYER
@@ -139,7 +171,15 @@
 
 /obj/structure/holosign/barrier/cyborg
 	name = "Energy Field"
-	desc = "A fragile energy field that blocks movement. Excels at blocking lethal projectiles."
+	desc = "Хрупкое энергетическое поле, которое блокирует движение. Отлично защищает от смертоносных снарядов."
+	ru_names = list(
+		NOMINATIVE = "энергетический барьер",
+		GENITIVE = "энергетического барьера",
+		DATIVE = "энергетическому барьеру",
+		ACCUSATIVE = "энергетический барьер",
+		INSTRUMENTAL = "энергетическим барьером",
+		PREPOSITIONAL = "энергетическом барьере"
+	)
 	density = TRUE
 	max_integrity = 10
 	allow_walk = FALSE
@@ -153,7 +193,15 @@
 
 /obj/structure/holosign/barrier/cyborg/hacked
 	name = "Charged Energy Field"
-	desc = "A powerful energy field that blocks movement. Energy arcs off it."
+	desc = "Мощный энергетический барьер, который блокирует движение. От него исходит энергия."
+	ru_names = list(
+		NOMINATIVE = "заряженный энергетический барьер",
+		GENITIVE = "заряженного энергетического барьера",
+		DATIVE = "заряженному энергетическому барьеру",
+		ACCUSATIVE = "заряженный энергетический барьер",
+		INSTRUMENTAL = "заряженным энергетическим барьером",
+		PREPOSITIONAL = "заряженном энергетическом барьере"
+	)
 	max_integrity = 20
 	COOLDOWN_DECLARE(shock_cooldown)
 

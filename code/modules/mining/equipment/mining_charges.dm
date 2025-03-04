@@ -1,7 +1,15 @@
 /****************Mining Charges****************/
 /obj/item/grenade/plastic/miningcharge
 	name = "industrial mining charge"
-	desc = "Used to make big holes in rocks. Only works on rocks!"
+	desc = "Применяется для создания больших отверстий в породе. Эффективно только при работе с камнем!"
+	ru_names = list(
+		NOMINATIVE = "промышленный шахтерский заряд",
+		GENITIVE = "промышленного шахтерского заряда",
+		DATIVE = "промышленному шахтерскому заряду",
+		ACCUSATIVE = "промышленный шахтерский заряд",
+		INSTRUMENTAL = "промышленным шахтерским зарядом",
+		PREPOSITIONAL = "промышленном шахтерском заряде"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "mining-charge-2"
 	item_state = "charge_indust"
@@ -48,7 +56,7 @@
 				src.target = AM
 				loc = null
 				if(hacked)
-					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)]")
+					message_admins("[ADMIN_LOOKUPFLW(user)] planted [src] on [target.name] at [ADMIN_COORDJMP(target)]")
 					add_game_logs("planted [name] on [target.name] at [COORD(target)]", user)
 				installed = TRUE
 				target.add_overlay(image_overlay)
@@ -164,7 +172,7 @@
 //MINING CHARGE HACKER
 /obj/item/t_scanner/adv_mining_scanner/syndicate
 	var/charges = 6
-	description_antag = "This scanner has an extra port for overriding mining charge safeties."
+	description_antag = "Это устройство имеет дополнительный порт, который позволяет обойти меры безопасности шахтёрских зарядов."
 
 /obj/item/t_scanner/adv_mining_scanner/syndicate/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(istype(target,/obj/item/grenade/plastic/miningcharge))
@@ -176,11 +184,11 @@
 			balloon_alert(user, "заряды закончились!")
 			return
 		charge.override_safety()
-		visible_message(span_warning("Sparks fly out of [src]!"), span_notice("You override [src], disabling its safeties."))
+		visible_message(span_warning("Из [declent_ru(GENITIVE)] летят искры!"), span_notice("Вы перегружаете [declent_ru(ACCUSATIVE)], отключая его защиту."))
 		playsound(src, "sparks", 50, 1)
 		charges--
 		if(charges <= 0)
-			to_chat(user ,span_warning("[src]'s internal battery for overriding mining charges has run dry!"))
+			to_chat(user , span_warning("Внутренняя батарея [declent_ru(GENITIVE)], предназначенная для перегрузки шахтёрских зарядов, разрядилась!"))
 
 // MINING CHARGES DETONATOR
 

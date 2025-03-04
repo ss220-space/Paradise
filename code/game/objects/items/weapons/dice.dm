@@ -56,8 +56,17 @@
 	return (OXYLOSS)
 
 /obj/item/dice //depreciated d6, use /obj/item/dice/d6 if you actually want a d6
-	name = "Игральная кость"
+	name = "dice"
 	desc = "Кость с шестью гранями. Непримечательна и проста в обращении."
+	ru_names = list(
+		NOMINATIVE = "игральная кость",
+		GENITIVE = "игральной кости",
+		DATIVE = "игральной кости",
+		ACCUSATIVE = "игральную кость",
+		INSTRUMENTAL = "игральной костью",
+		PREPOSITIONAL = "игральной кости"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/dice.dmi'
 	icon_state = "d6"
 	w_class = WEIGHT_CLASS_TINY

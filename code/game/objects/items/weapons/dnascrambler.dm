@@ -1,6 +1,15 @@
 /obj/item/dnascrambler
 	name = "dna scrambler"
 	desc = "An illegal genetic serum designed to randomize the user's identity."
+	ru_names = list(
+		NOMINATIVE = "шифратор ДНК",
+		GENITIVE = "шифратора ДНК",
+		DATIVE = "шифратору ДНК",
+		ACCUSATIVE = "шифратор ДНК",
+		INSTRUMENTAL = "шифратором ДНК",
+		PREPOSITIONAL = "шифраторе ДНК"
+	)
+	gender = MALE
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "syringe_0"
 	icon_state = "lepopen"
