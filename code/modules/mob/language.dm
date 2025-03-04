@@ -489,10 +489,10 @@
 	desc = "Универсальный язык, разработанный людьми для упрощения общения с другими гуманоидными расами."
 	speech_verbs = list("говор%(ит,ят)%")
 	exclaim_verbs = list("восклица%(ет,ют)%", "выкрикива%(ет,ют)%")
-	whisper_verbs = list("шепч%(ет,ут)%")
+	whisper_verbs = list("шепч%(ет,ут)%", "тихо произнос%(ит,ят)%")
 	key = "9"
 	flags = RESTRICTED
-	syllables = list("бла","бле","ме","не","на","ва","блю","вак","ке","бэ","вэ","гэ")
+	syllables = list("блах","блях","блах","блех","мех","нех","нах","вах")
 	english_names = TRUE
 
 /datum/language/human
@@ -500,7 +500,7 @@
 	desc = "Искуственный язык, созданный на основе английского, китайского и эсперанто. Является основным для Людей."
 	speech_verbs = list("говор%(ит,ят)%")
 	exclaim_verbs = list("восклица%(ет,ют)%", "выкрикива%(ет,ют)%")
-	whisper_verbs = list("шепч%(ет,ут)%")
+	whisper_verbs = list("шепч%(ет,ут)%", "тихо произнос%(ит,ят)%")
 	colour = "solcom"
 	runechat_span = "solcom"
 	key = "1"
@@ -882,7 +882,7 @@
 
 
 /mob/verb/check_languages()
-	set name = "Открыть меню языков"
+	set name = "Меню языков"
 	set category = "IC"
 	set src = usr
 
