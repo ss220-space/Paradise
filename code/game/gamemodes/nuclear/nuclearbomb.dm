@@ -501,6 +501,7 @@ GLOBAL_VAR(bomb_set)
 				if(!is_syndicate)
 					set_security_level(previous_level)
 				GLOB.bomb_set = FALSE
+				SSshuttle?.remove_hostile_environment(src)
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
