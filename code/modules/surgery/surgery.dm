@@ -525,7 +525,7 @@
  * * user - The user who's manipulating the organ.
  * * tool - The tool the user is using to mess with the organ.
  */
-/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool)
+/datum/surgery_step/proc/spread_germs_to_organ(obj/item/organ/target_organ, mob/living/carbon/human/user, obj/item/tool)
 	if(!istype(user) || !istype(target_organ) || target_organ.is_robotic() || target_organ.sterile)
 		return
 
@@ -544,7 +544,7 @@
  * * E - An external organ being operated on.
  * * tool - The tool performing the operation.
  */
-/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
+/datum/surgery_step/proc/spread_germs_by_incision(obj/item/organ/external/E, obj/item/tool)
 	if(!isexternalorgan(E))
 		return
 
