@@ -622,7 +622,7 @@
     disable_message = "Теперь вы будете видить сообщения, появляющиеся при стрельбе."
     blackbox_message = "Переключение комбат логов от выстрелов"
 
-/datum/preference_toggle/auto_dnr
+/datum/preference_toggle/toggle_auto_dnr
     name = "DNR при смерти"
     description = "При смерти автоматически включается статус DNR."
     preftoggle_bitflag = PREFTOGGLE_DNR_AFTER_DEATH

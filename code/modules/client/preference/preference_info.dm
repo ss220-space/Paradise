@@ -259,7 +259,7 @@ GLOBAL_LIST_INIT(preferences_info, list())
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_take_out_of_the_round_without_obj]
 
 /datum/preference_info/auto_dnr/get_preference_toggle()
-    return GLOB.preference_toggles[/datum/preference_toggle/auto_dnr]
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_auto_dnr]
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_examine_text()
     return "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"

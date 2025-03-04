@@ -718,7 +718,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/datum/preference_toggle/toggle = GLOB.preference_toggles[path]
 					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
 
-
 			for(var/category in GLOB.preference_toggle_groups)
 				dat += "<tr><td colspan=4><hr></td></tr>"
 				dat += "<tr><td colspan=3><h2>[category]</h2></td></tr>"
