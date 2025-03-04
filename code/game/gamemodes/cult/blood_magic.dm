@@ -60,6 +60,7 @@
 		return
 	var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 	if(!new_spell.can_blood_cast())
+		balloon_alert(user, "лимит крови достигнут!")
 		qdel(new_spell)
 		return
 
