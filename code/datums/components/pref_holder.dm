@@ -16,7 +16,7 @@
     RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(handle_transfer))
 
 /datum/component/pref_holder/UnregisterFromParent()
-    UnregisterSignal(parent, COMSIG_MOB_LOGIN)
+	UnregisterSignal(parent, COMSIG_MOB_LOGIN)
 
 	for(var/datum/preference_info/pref as anything in preferences)
 		pref.deactivate(parent)

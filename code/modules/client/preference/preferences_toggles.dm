@@ -625,8 +625,8 @@
 /datum/preference_toggle/auto_dnr
     name = "DNR при смерти"
     description = "При смерти автоматически включается статус DNR."
-    preftoggle_bitflag = PREFTOGGLE_2_DNR_AFTER_DEATH
-    preftoggle_toggle = PREFTOGGLE_TOGGLE2
+    preftoggle_bitflag = PREFTOGGLE_DNR_AFTER_DEATH
+    preftoggle_toggle = PREFTOGGLE_TOGGLE1
     preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
     enable_message = "Смерть вашего персонажа теперь перманентная."
     disable_message = "Смерть персонажа более не перманентная."
