@@ -244,7 +244,7 @@
 		if(nextbomb == /obj/item/grenade/plastic/miningcharge)
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
-		nextbomb.attack(target, user, params, def_zone, skip_attack_anim = FALSE)
+		nextbomb.afterattack(target, user, params, def_zone, skip_attack_anim = FALSE)
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
@@ -256,6 +256,8 @@
 
 /obj/item/storage/bag/kaboom/cyborg/upgraded // borg with storage increase version
 	storage_slots = 15
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "bomb_satchell_adv"
 
 
 // -----------------------------
