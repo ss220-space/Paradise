@@ -58,10 +58,13 @@
 	BS = possible_spells[entered_spell_name]
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
-
-	if(can_blood_cast == FALSE)
-		owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
+	var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
+	if(!new_spell.can_blood_cast())
+		qdel(new_spell)
 		return
+
+	//И также перед каждым return удаление спелла. Мы его возвели потому что нам надо был прок проверки.
+	//Ничего страшного не будет от создания, пока мы не Грант юзеру.
 	if(!channeling)
 		channeling = TRUE
 		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
@@ -76,7 +79,7 @@
 				human_owner.cult_self_harm(3 - rune * 2)
 			else
 				human_owner.bleed(20 - rune * 12)
-		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
+
 		spells += new_spell
 		new_spell.Grant(owner, src)
 		to_chat(owner, "<span class='cult'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
