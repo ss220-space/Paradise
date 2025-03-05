@@ -882,7 +882,7 @@
 
 
 /mob/verb/check_languages()
-	set name = "Открыть меню языков"
+	set name = "Меню языков"
 	set category = "IC"
 	set src = usr
 

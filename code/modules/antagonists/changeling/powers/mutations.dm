@@ -182,7 +182,7 @@
 		parent_action.UnregisterSignal(parent_action.owner, COMSIG_MOB_WEAPON_APPEARS)
 		parent_action = null
 	return ..()
-	
+
 
 /obj/item/melee/arm_blade/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity)
@@ -398,7 +398,7 @@
 
 /obj/item/projectile/tentacle/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY)
 		intent = firer.a_intent
 		if(intent == INTENT_DISARM)
 			armour_penetration = 100   //ignore block_chance

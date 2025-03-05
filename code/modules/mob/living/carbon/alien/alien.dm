@@ -14,12 +14,12 @@
 
 	var/nightvision_enabled = FALSE
 	nightvision = 4
-	
+
 	verb_say = "hisses"
 	verb_ask = "hisses curiously"
 	verb_exclaim = "roars"
 	verb_yell = "roars"
-	
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
@@ -115,9 +115,9 @@
 
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/ending = copytext(message, length(message))
-	
-	if(speaking && (speaking.name != "Galactic Common")) //this is so adminbooze xenos speaking common have their custom verbs,
-		return speaking.get_spoken_verb(ending)          //and use normal verbs for their own languages and non-common languages
+
+	if(speaking && (speaking.name != "Galactic Common")) 						//this is so adminbooze xenos speaking common have their custom verbs,
+		return genderize_decode(src, speaking.get_spoken_verb(ending))          //and use normal verbs for their own languages and non-common languages
 	else
 		return ..()
 

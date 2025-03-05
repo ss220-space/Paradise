@@ -36,6 +36,7 @@
 #include "code\__DEFINES\antagonists.dm"
 #include "code\__DEFINES\asset_defines.dm"
 #include "code\__DEFINES\atmospherics.dm"
+#include "code\__DEFINES\beam.dm"
 #include "code\__DEFINES\blend_modes.dm"
 #include "code\__DEFINES\blob.dm"
 #include "code\__DEFINES\borer.dm"
