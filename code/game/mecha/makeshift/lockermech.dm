@@ -1,6 +1,14 @@
 /obj/mecha/makeshift
-	desc = "A locker with stolen wires, struts, electronics and airlock servos crudley assemebled into something that resembles the fuctions of a mech."
+	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха."
 	name = "Locker Mech"
+	ru_names = list(
+		NOMINATIVE = "Шкафомех",
+		GENITIVE = "Шкафомеха",
+		DATIVE = "Шкафомеху",
+		ACCUSATIVE = "Шкафомеха",
+		INSTRUMENTAL = "Шкафомехом",
+		PREPOSITIONAL = "Шкафомехе"
+	)
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "lockermech"
 	initial_icon = "lockermech"
@@ -23,8 +31,17 @@
 	return ..()
 
 /obj/mecha/combat/lockersyndie
-	desc = "A locker with stolen wires, struts, electronics and airlock servos crudley assemebled into something that resembles the fuctions of a mech. Dark-red painted."
+	desc = "Шкафчик с украденными проводами, распорками, электроникой и сервоприводами шлюза, грубо собранными во что-то, напоминающее меха. Окрашен в темно-красный цвет."
 	name = "Syndie Locker Mech"
+	ru_names = list(
+		NOMINATIVE = "Синди-Шкафомех",
+		GENITIVE = "Синди-Шкафомеха",
+		DATIVE = "Синди-Шкафомеху",
+		ACCUSATIVE = "Синди-Шкафомеха",
+		INSTRUMENTAL = "Синди-Шкафомехом",
+		PREPOSITIONAL = "Синди-Шкафомехе"
+	)
+	gender = MALE
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "syndielockermech"
 	initial_icon = "syndielockermech"
@@ -65,7 +82,15 @@
 
 /obj/item/mecha_drop
 	name = "mechadrop tool"
-	desc = "Simple looking tool with only one button"
+	desc = "Простой инструмент, всего с одной кнопкой."
+	ru_names = list(
+		NOMINATIVE = "инструмент для доставки меха",
+		GENITIVE = "инструмента для доставки меха",
+		DATIVE = "инструменту для доставки меха",
+		ACCUSATIVE = "инструмент для доставки меха",
+		INSTRUMENTAL = "инструментом для доставки меха",
+		PREPOSITIONAL = "инструменте для доставки меха"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "pointer"
 	item_state = "pen"
@@ -85,11 +110,11 @@
 	if(isfloorturf(target))
 		for(var/turf/T in (RANGE_TURFS(1, target) + target))
 			if(!isfloorturf(T))
-				to_chat(user, "You need free 3x3 area for mecha summon.")
+				balloon_alert(user, "требуется зона 3x3!")
 				return
 			for(var/obj/O in T)
 				if(O.density && O.anchored)
-					to_chat(user, "You need free 3x3 area for mecha summon.")
+					balloon_alert(user, "требуется зона 3x3!")
 					return
 		used = TRUE
 		var/obj/effect/particle_effect/mecha_drop/mecha_effect = new(target)
@@ -97,7 +122,7 @@
 		if(do_after(user, 2 SECONDS, user))
 			if(do_after(user, 5 SECONDS, user))
 				summon_mecha.forceMove(target)
-				new /obj/effect/particle_effect/smoke(target)
+				new /obj/effect/particle_effect/fluid/smoke(target)
 				playsound(target, 'sound/magic/disintegrate2.ogg', 200, 1)
 				for(var/mob/M in range(6, target))
 					shake_camera(M, 2 SECONDS, 2)
@@ -109,5 +134,5 @@
 			used = FALSE
 		qdel(mecha_effect)
 	else
-		to_chat(user, "You can use it only on floor.")
+		balloon_alert(user, "для использования нужно стоять на полу!")
 

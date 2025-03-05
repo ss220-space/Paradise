@@ -1,7 +1,7 @@
 //basic touch ability that heals basic damage types accessed by the ashwalker shaman
 /obj/effect/proc_holder/spell/touch/healtouch
-	name = "healing touch"
-	desc = "This spell charges your hand with the vile energy of the Necropolis, permitting you to undo some external injuries from a target."
+	name = "Прикосновение шамана"
+	desc = "Это заклинание заряжает вашу руку энергией Некрополя, позволяя вам лечить некоторые повреждения и взаимодействовать с некоторыми предметами."
 	hand_path = /obj/item/melee/touch_attack/healtouch
 
 	school = "evocation"
@@ -12,8 +12,16 @@
 
 /obj/item/melee/touch_attack/healtouch
 	name = "\improper healing touch"
-	desc = "A blaze of life-granting energy from the hand. Heals minor to moderate injuries."
-	catchphrase = "BE REPLENISHED!!"
+	desc = "Целительная аура, вырывающаяся из вашей руки. При прикосновении к гуманоиду заживляет его раны."
+	ru_names = list(
+        NOMINATIVE = "целебное касание",
+        GENITIVE = "целебного касания",
+        DATIVE = "целебному касанию",
+        ACCUSATIVE = "целебное касание",
+        INSTRUMENTAL = "целебным касанием",
+        PREPOSITIONAL = "целебном касании"
+  	)
+	catchphrase = "ИСЦЕЛЕНИЕ!"
 	on_use_sound = 'sound/magic/staff_healing.ogg'
 	icon_state = "disintegrate" //ironic huh
 	item_state = "disintegrate"

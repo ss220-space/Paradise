@@ -16,7 +16,10 @@
 							CAT_AMMO),
 						CAT_NONE, //Robot subcategories
 						CAT_NONE, //Misc subcategories
-						CAT_NONE, //Tribal subcategories
+						list(	//Tribal subcategories
+							CAT_ARMOR,
+							CAT_WEAPONS,
+							CAT_MISC2),
 						list(	//Food subcategories
 							CAT_CAKE,
 							CAT_SUSHI,

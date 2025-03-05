@@ -325,7 +325,7 @@
 /obj/structure/decorative_structures/corpse/Destroy()
 	playsound(src, 'sound/goonstation/effects/gib.ogg', 30, 0)
 	var/turf/T = get_turf(src)
-	new /obj/effect/particle_effect/smoke/vomiting(T)
+	new /obj/effect/particle_effect/fluid/smoke/vomiting(T)
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
 	new /obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping(T)
@@ -368,29 +368,6 @@
 	T = get_offset_target_turf(src.loc, rand(2)-rand(2), rand(2)-rand(2))
 	src.throw_at(T, 2, 1)
 	..()
-
-///// vomit cause gas
-/obj/effect/particle_effect/smoke/vomiting
-	color = "#752424"
-	lifetime = 3
-
-/obj/effect/particle_effect/smoke/vomiting/process()
-	if(..())
-		for(var/mob/living/carbon/M in range(2,src))
-			smoke_mob(M)
-
-
-/obj/effect/particle_effect/smoke/vomiting/smoke_mob(mob/living/carbon/victim)
-	. = ..()
-	if(!.)
-		return .
-	victim.drop_from_active_hand()
-	victim.vomit()
-	INVOKE_ASYNC(victim, TYPE_PROC_REF(/mob, emote), "cough")
-
-
-/datum/effect_system/smoke_spread/vomiting
-	effect_type = /obj/effect/particle_effect/smoke/vomiting
 
 ////// Bouquets
 
@@ -458,7 +435,8 @@
 		/obj/item/spellbook/oneuse/forcewall,
 		/obj/item/soulstone/anybody,
 	))
-	new /obj/effect/particle_effect/smoke/vomiting(T)
+
+	new /obj/effect/particle_effect/fluid/smoke/vomiting(T)
 	new /obj/effect/decal/cleanable/blood/gibs(T)
 	new /obj/effect/decal/cleanable/blood(T)
 	..()

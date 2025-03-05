@@ -84,7 +84,7 @@
 	template.load(deploy_location, centered = TRUE)
 	trigger_admin_alert(triggerer, deploy_location)
 	playsound(src, 'sound/effects/phasein.ogg', 100, TRUE)
-	new /obj/effect/particle_effect/smoke(get_turf(src))
+	new /obj/effect/particle_effect/fluid/smoke(get_turf(src))
 	qdel(src)
 
 /// Throws any mobs near the deployed location away from the item / shelter
@@ -311,6 +311,9 @@
 
 	if(empty)
 		return
+
+	var/obj/item/pickaxe/emergency/pickaxe = new(src)
+	load(pickaxe)
 
 	for(var/i in 1 to 5)
 		var/obj/item/reagent_containers/food/snacks/warmdonkpocket_weak/W = new(src)

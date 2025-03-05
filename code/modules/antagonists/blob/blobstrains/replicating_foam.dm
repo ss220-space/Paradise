@@ -31,7 +31,7 @@
 /datum/reagent/blob/replicating_foam
 	name = "Репликационная пена"
 	id = "blob_replicating_foam"
-	taste_description = "дублирование"
+	taste_description = "дублирования"
 	color = "#7B5A57"
 
 /datum/reagent/blob/replicating_foam/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

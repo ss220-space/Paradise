@@ -45,51 +45,59 @@
 			if("1")
 				log_admin("[key_name(usr)] has spawned a traitor.")
 				if(!makeTraitors())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("2")
 				log_admin("[key_name(usr)] has spawned a changeling.")
 				if(!makeChangelings())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("3")
 				log_admin("[key_name(usr)] has spawned revolutionaries.")
 				if(!makeRevs())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("4")
 				log_admin("[key_name(usr)] has spawned a cultists.")
 				if(!makeCult())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("5")
 				log_admin("[key_name(usr)] has spawned a clockers.")
 				if(!makeClockwork())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("6")
 				log_admin("[key_name(usr)] has spawned a wizard.")
 				if(!makeWizard())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("7")
 				log_admin("[key_name(usr)] has spawned vampires.")
 				if(!makeVampires())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("8")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!makeVoxRaiders())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("9")
 				log_admin("[key_name(usr)] has spawned an abductor team.")
 				if(!makeAbductorTeam())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("10")
 				log_admin("[key_name(usr)] has spawned a space ninja.")
 				if(!makeSpaceNinja())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("11")
 				log_admin("[key_name(usr)] has spawned a thief.")
 				if(!makeThieves())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("12")
 				log_admin("[key_name(usr)] has spawned a blob.")
 				if(!makeBlobs())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
+			if("13")
+				log_admin("[key_name(usr)] has spawned a terror spiders.")
+				if(!makeTerrorSpiders())
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
+			if("14")
+				log_admin("[key_name(usr)] has spawned a xemonorphs.")
+				if(!makeAliens())
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -121,8 +129,8 @@
 		var/banip = href_list["dbbanaddip"]
 		var/bancid = href_list["dbbanaddcid"]
 		var/duration = text2num(href_list["dbbadddurationdays"]) BAN_DAYS
-		duration += text2num(href_list["dbbadddurationdays"]) BAN_HOURS
-		duration += text2num(href_list["dbbadddurationdays"])
+		duration += text2num(href_list["dbbadddurationhours"]) BAN_HOURS
+		duration += text2num(href_list["dbbadddurationminutes"])
 		var/banduration = duration
 		var/banjob = href_list["dbbanaddjob"]
 		var/banround = href_list["dbbanaddround"]
@@ -412,6 +420,17 @@
 
 		SSshuttle?.lockdown_escape()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] lockdowned the Emergency Shuttle"))
+		href_list["secrets"] = "check_antagonist"
+
+	else if(href_list["reload_shuttle"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!you_realy_want_do_this())
+			return
+
+		if(SSshuttle?.reload_shuttle(TRUE))
+			log_and_message_admins(span_adminnotice("[key_name_admin(usr)] reloaded the Emergency Shuttle"))
 		href_list["secrets"] = "check_antagonist"
 
 	else if(href_list["full_lockdown"])
@@ -2046,6 +2065,7 @@
 		log_admin("[key_name(usr)] has [mode.delay_blob_end? "stopped" : "returned"] stopped delayed blob win")
 		message_admins("[key_name_admin(usr)] has [mode.delay_blob_end? "stopped" : "returned"] delayed blob win")
 
+
 	else if(href_list["toggle_blob_infinity_points"])
 		if(!check_rights(R_ADMIN))
 			return
@@ -2140,6 +2160,8 @@
 				var/datum/objective/objective = locateUID(href_list["objective"])
 				if(objective)
 					team.admin_remove_objective(usr, objective)
+			else
+				team.Topic(href, href_list)
 
 		check_teams()
 
@@ -3141,9 +3163,14 @@
 						while(iswallturf(turf))
 							turf = get_random_station_turf()
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
+
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
+
+			if("mass_mindswap")
+				mass_mindswap()
+
 			if("set_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
 					return
@@ -3937,6 +3964,9 @@
 
 	else if(href_list["showrelatedacc"])
 		var/client/C = locate(href_list["client"]) in GLOB.clients
+		if(!C)
+			to_chat(usr, "No client inside!")
+			return
 		var/thing_to_check
 		if(href_list["showrelatedacc"] == "cid")
 			thing_to_check = jointext(C.related_accounts_cid, "<br>")
@@ -4058,8 +4088,9 @@
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
 
-/proc/you_realy_want_do_this()
-	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
+/proc/you_realy_want_do_this(mob/user)
+	user = user || usr
+	var/sure = tgui_alert(user, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
 
 
@@ -4078,3 +4109,21 @@
 	playsound(loc, "sparks", rand(80, 100), 1)
 	for (var/i in 1 to numtospawn)
 		new mobtype(loc)
+
+/datum/admins/proc/mass_mindswap()
+	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
+		return
+
+	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
+		if(!human.mind)
+			continue
+
+		var/mob/living/target = safepick(GLOB.human_list - human)
+
+		if(!target \
+		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+			continue
+
+		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
+
+	log_and_message_admins("Initiated mass mindswap")

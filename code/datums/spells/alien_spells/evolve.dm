@@ -57,6 +57,7 @@
 
 	var/mob/living/carbon/alien/new_xeno = new evolution_path(get_turf(user))
 	user.mind.transfer_to(new_xeno)
+	SEND_SIGNAL(new_xeno.mind, COMSIG_ALIEN_EVOLVE, user.type, evolution_path)
 	new_xeno.mind.name = new_xeno.name
 
 	if(HAS_TRAIT(user, TRAIT_MOVE_VENTCRAWLING))
@@ -127,6 +128,11 @@
 	if(user.queen_count >= user.queen_maximum)
 		if(show_message)
 			to_chat(user, span_warning("We already have a queen."))
+		return FALSE
+	var/datum/team/xenomorph/team = locate(/datum/team/xenomorph) in GLOB.antagonist_teams
+	if(team?.current_queen?.current && team.current_queen.current.stat != DEAD)
+		if(show_message)
+			to_chat(user, span_warning("Королева всё ещё жива."))
 		return FALSE
 
 	return TRUE

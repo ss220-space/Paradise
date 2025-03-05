@@ -151,9 +151,9 @@
 	else
 		return ..()
 
-/obj/item/pipe/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/pipe/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"

@@ -285,8 +285,8 @@
 		loaded_item = null
 
 /obj/machinery/r_n_d/experimentor/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 1, location = where)
 	smoke.start()
 
 /obj/machinery/r_n_d/experimentor/proc/pickWeighted(list/from)
@@ -397,8 +397,8 @@
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent(chosenchem , 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -409,8 +409,8 @@
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent(chosenchem , 375)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -519,8 +519,8 @@
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -541,8 +541,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(1,0, src.loc, 0)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 1, location = src.loc)
 			smoke.start()
 			ejectItem()
 	else if(prob(EFFECT_PROB_LOW))
@@ -809,12 +809,12 @@
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && is_teleport_allowed(userturf.z))
 			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(5, get_turf(user))
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 5, location = get_turf(user))
 			smoke.start()
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
 			smoke = new
-			smoke.set_up(5, get_turf(user))
+			smoke.set_up(amount = 5, location = get_turf(user))
 			smoke.start()
 
 /obj/item/relict_production/pet_spray

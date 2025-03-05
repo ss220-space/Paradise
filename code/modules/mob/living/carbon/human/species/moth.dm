@@ -49,7 +49,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/nian,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/nian,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/nian,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/nian,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/nian

@@ -2,36 +2,38 @@
   * # Rep Purchase - Contractor Baton and upgrades
   */
 /datum/rep_purchase/item/baton
-	name = "Replacement Contractor Baton"
-	description = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets. Never know when you will get disarmed."
+	name = "Дубинка Контрактника"
+	description = "Компактная специализированная дубинка, которую выдают контрактникам Синдиката. \
+			Это оружие применяется для поражения цели слабым электрическим током, что позволяет быстро обездвижить её."
 	cost = 2
 	stock = 2
 	item_type = /obj/item/melee/baton/telescopic/contractor
 
 /datum/rep_purchase/item/baton_cuffup
-	name = "Baton Cuff Upgrade"
-	description = "Using technology reverse-engineered from some alien batons we had lying around, you can now cuff people using your baton. Due to technical limitations, only cable cuffs work, and they need to be loaded into the baton manually."
+	name = "Улучшение для дубинки — \"Стяжки\""
+	description = "Позволяет заряжать стяжки, которые будут автоматически надеваться на цель во время оглушения."
 	cost = 2
 	stock = 1
 	item_type = /obj/item/baton_upgrade/cuff
 
 /datum/rep_purchase/item/baton_muteup
-	name = "Baton Mute Upgrade"
-	description = "A relatively new advancement in completely proprietary baton technology, this baton upgrade will mute anyone hit for about five seconds."
+	name = "Улучшение для дубинки — \"Безмолвие\""
+	description = "Удар дубинкой на 5 секунд лишает цель возможности говорить."
 	cost = 2
 	stock = 1
 	item_type = /obj/item/baton_upgrade/mute
 
 /datum/rep_purchase/item/baton_focusup
-	name = "Baton Focus Upgrade"
-	description = "When applied to a baton, it will exhaust the target even more, should they be the target of your current contract."
+	name = "Улучшение для дубинки — \"Фокусировка\""
+	description = "Теперь, когда вы используете дубинку на цели, указанной в вашем контракте, она станет еще более эффективной."
 	cost = 2
 	stock = 1
 	item_type = /obj/item/baton_upgrade/focus
 
 /datum/rep_purchase/item/baton_antidropup
-	name = "Baton Antidrop Upgrade"
-	description = "An experimental and extremely undertested technology that activates a system of spikes that burrow into the skin when user extends baton, preventing the user to drop it. That will hurt.."
+	name = "Улучшение для дубинки — \"Защита от выпадения\""
+	description = "Экспериментальная технология, представляющая собой систему шипов. \
+			Когда вы держите дубинку, шипы впиваются в вашу кожу, обеспечивая надёжную фиксацию и предотвращая её выпадение."
 	cost = 2
 	stock = 1
 	item_type = /obj/item/baton_upgrade/antidrop

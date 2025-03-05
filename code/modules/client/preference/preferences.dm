@@ -1896,7 +1896,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								continue
 							if(M.marking_location != "body")
 								continue
-
+							if(!M.pickable)
+								continue
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)

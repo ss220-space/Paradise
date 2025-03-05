@@ -612,3 +612,13 @@
     disable_message = "Другие игроки больше не имеют права выводить вас из раунда без цели."
     blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
+/datum/preference_toggle/toggle_off_projectile_messages
+    name = "Выключить комбат логи выстрелов"
+    description = "Выключает большую часть сообщений, появляющихся при стрельбе."
+    preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
+    preftoggle_toggle = PREFTOGGLE_TOGGLE2
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь вы не будете видить сообщения, появляющиеся при стрельбе."
+    disable_message = "Теперь вы будете видить сообщения, появляющиеся при стрельбе."
+    blackbox_message = "Переключение комбат логов от выстрелов"
+

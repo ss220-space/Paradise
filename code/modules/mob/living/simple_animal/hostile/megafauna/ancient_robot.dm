@@ -325,7 +325,7 @@ Difficulty: Very Hard
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
-	visible_message("<span class='danger'>[src]'s shield deflects [P] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+	visible_message(span_danger("[src]'s shield deflects [P] in a shower of sparks!"), span_userdanger("You deflect the projectile!"), projectile_message = TRUE)
 	if(P.damage)
 		disable_shield()
 

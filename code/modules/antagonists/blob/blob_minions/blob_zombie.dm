@@ -115,6 +115,7 @@
 	AddComponent(\
 		/datum/component/ghost_direct_control,\
 		ban_type = ROLE_BLOB,\
+		ban_syndicate = TRUE,\
 		poll_candidates = TRUE,\
 	)
 

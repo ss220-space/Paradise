@@ -25,7 +25,7 @@
 /datum/reagent/blob/electromagnetic_web
 	name = "Электромагнитная паутина"
 	id = "blob_electromagnetic_web"
-	taste_description = "поп-рок"
+	taste_description = "поп-рока"
 	color = "#83ECEC"
 
 /datum/reagent/blob/electromagnetic_web/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

@@ -1773,6 +1773,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		notify_ai(ROBOT_NOTIFY_AI_CONNECTED)
 		sync()
 
+/mob/living/silicon/robot/can_perform_action(atom/target, action_bitflags)
+	if(lockcharge || low_power_mode)
+		to_chat(src, span_warning("You can't do that right now!"))
+		return FALSE
+	return ..()
 
 /mob/living/silicon/robot/adjustOxyLoss(
 	amount = 0,
@@ -1859,7 +1864,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
-		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"))
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
 		P.reflect_back(src)
 		return -1
 
@@ -1974,7 +1979,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/destroyer/bullet_act(obj/item/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))
-		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"))
+		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
 		P.reflect_back(src)
 		return -1
 

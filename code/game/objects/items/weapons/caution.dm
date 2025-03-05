@@ -1,6 +1,14 @@
 /obj/item/caution
-	desc = "Caution! Wet Floor!"
+	desc = "Осторожно! Мокрый пол!"
 	name = "wet floor sign"
+	ru_names = list(
+		NOMINATIVE = "знак мокрого пола",
+		GENITIVE = "знака мокрого пола",
+		DATIVE = "знаку мокрого пола",
+		ACCUSATIVE = "знак мокрого пола",
+		INSTRUMENTAL = "знаком мокрого пола",
+		PREPOSITIONAL = "знаке мокрого пола"
+	)
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "caution"
 	force = 1.0
@@ -26,7 +34,7 @@
 			return
 		if(armed)
 			armed = 0
-			to_chat(user, "<span class='notice'>You disarm \the [src].</span>")
+			balloon_alert(user, "обезврежено")
 			return
 		timing = !timing
 		if(timing)
@@ -34,7 +42,7 @@
 		else
 			armed = 0
 			timepassed = 0
-		to_chat(H, "<span class='notice'>You [timing ? "activate \the [src]'s timer, you have 15 seconds." : "de-activate \the [src]'s timer."]</span>")
+		to_chat(H, span_notice("Вы [timing ? "активируете таймер [declent_ru(GENITIVE)], у вас есть 15 секунд." : "деактивируете таймер [declent_ru(GENITIVE)]."]"))
 
 /obj/item/caution/proximity_sign/process()
 	if(!timing)
@@ -49,8 +57,8 @@
 		if(iscarbon(AM) && !isbrain(AM))
 			var/mob/living/carbon/C = AM
 			if(C.m_intent != MOVE_INTENT_WALK)
-				src.visible_message("The [src.name] beeps, \"Running on wet floors is hazardous to your health.\"")
-				explosion(src.loc,-1,0,2, cause = src)
+				visible_message("[capitalize(declent_ru(NOMINATIVE))] сообщает, \"Бег по мокрому полу может быть опасен для вашего здоровья!\"")
+				explosion(loc,-1,0,2, cause = src)
 				if(ishuman(C))
 					dead_legs(C)
 				if(src)

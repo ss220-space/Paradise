@@ -6,8 +6,6 @@
 	var/robotic
 	/// If it should penetrate space suits
 	var/ignore_hardsuits
-	/// If ignore_hardsuits is true, this determines whether or not it should always cause a heart attack.
-	var/heart_attack_chance
 	/// Whether the safeties are enabled or not
 	var/safety
 	/// If the defib is actively performing a defib cycle
@@ -33,13 +31,12 @@
  * * cooldown - Minimum time possible between shocks.
  * * speed_multiplier - Speed multiplier for defib do-afters.
  * * ignore_hardsuits - If true, the defib can zap through hardsuits.
- * * heart_attack_chance - If safeties are off, the % chance for this to cause a heart attack on harm intent.
  * * safe_by_default - If true, safety will be enabled by default.
  * * emp_proof - If true, safety won't be switched by emp. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * emag_proof - If true, safety won't be switched by emag. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * actual_unit - Unit which the component's parent is based from, such as a large defib unit or a borg. The actual_unit will make the sounds and be the "origin" of visible messages, among other things.
  */
-/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, heart_attack_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
+/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -47,7 +44,6 @@
 	src.speed_multiplier = speed_multiplier
 	src.cooldown = cooldown
 	src.ignore_hardsuits = ignore_hardsuits
-	src.heart_attack_chance = heart_attack_chance
 	safety = safe_by_default
 	src.emp_proof = emp_proof
 	src.emag_proof = emag_proof
@@ -292,7 +288,7 @@
 	busy = FALSE
 
 /**
- * Inflict stamina loss (and possibly inflict cardiac arrest) on someone.
+ * Inflict stamina loss and stun/knockdown on someone.
  *
  * Arguments:
  * * user - wielder of the defib
@@ -306,13 +302,14 @@
 		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] лопастями боевого дефибриллятора!"),
 		span_userdanger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] вас лопастями боевого дефибриллятора!"),
 	)
-	target.apply_damage(50, STAMINA)
-	target.Weaken(4 SECONDS)
+	if(ignore_hardsuits)
+		target.apply_damage(70, STAMINA)
+		target.Weaken(4 SECONDS)
+	else
+		target.apply_damage(40, STAMINA)
+		target.Knockdown(3 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
-	if(prob(heart_attack_chance))
-		add_attack_logs(user, target, "Gave a heart attack with [parent]")
-		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
 	target.shock_internal_organs(100)

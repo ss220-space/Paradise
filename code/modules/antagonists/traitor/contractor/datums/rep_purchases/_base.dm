@@ -28,13 +28,13 @@
 /datum/rep_purchase/proc/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	. = FALSE
 	if(hub.owner.current != user)
-		to_chat(user, "<span class='warning'>You were not recognized as this hub's original user.</span>")
+		to_chat(user, span_warning("Вы не были идентифицированы как первоначальный владелец этого устройства."))
 		return
 	if(hub.rep < cost)
-		to_chat(user, "<span class='warning'>You do not have enough Rep.</span>")
+		to_chat(user, span_warning("У вас недостаточно очков репутации."))
 		return
 	if(stock == 0)
-		to_chat(user, "<span class='warning'>This item is out of stock.</span>")
+		to_chat(user, span_warning("Этого товара нет в наличии."))
 		return
 	else if(stock > 0)
 		stock--
@@ -90,10 +90,10 @@
 	if(!istype(item) || item.type != path || !item.check_uplink_validity())
 		return
 	if(hub.owner.current != user)
-		to_chat(user, span_warning("You were not recognized as this hub's original user."))
+		to_chat(user, span_warning("Вы не были идентифицированы как первоначальный владелец этого устройства."))
 		return
 	if(initial(stock) <= stock)
-		to_chat(user, span_warning("There are too many things of this type in the hub. Don't overload the market!"))
+		to_chat(user, span_warning("В магазине слишком много подобных товаров. Не перегружайте рынок!"))
 		return
 	else if(stock > -1)
 		stock++
@@ -110,5 +110,5 @@
   * * user - The user who made the refund.
   */
 /datum/rep_purchase/item/proc/on_refund(datum/contractor_hub/hub, obj/item/item, mob/living/carbon/human/user)
-	to_chat(user, span_notice("[item] refunded."))
+	to_chat(user, span_notice("Вы вернули [item.declent_ru(ACCUSATIVE)]."))
 	qdel(item)

@@ -412,6 +412,15 @@
 /obj/item/storage/belt/rocketman
 	name = "rocket belt"
 	desc = "A belt for holding rockets."
+	ru_names = list(
+		NOMINATIVE = "пояс с ракетами",
+		GENITIVE = "пояса с ракетами",
+		DATIVE = "поясу с ракетами",
+		ACCUSATIVE = "пояс с ракетами",
+		INSTRUMENTAL = "поясом с ракетами",
+		PREPOSITIONAL = "поясе с ракетами"
+	)
+	gender = MALE
 	icon_state = "assaultbelt"
 	item_state = "assault"
 	storage_slots = 7
@@ -554,7 +563,16 @@
 
 /obj/item/storage/belt/bandolier
 	name = "bandolier"
-	desc = "A bandolier for holding shotgun ammunition."
+	desc = "Патронташ для хранения патронов к дробовику."
+	ru_names = list(
+		NOMINATIVE = "патронташ",
+		GENITIVE = "патронташа",
+		DATIVE = "патронташу",
+		ACCUSATIVE = "патронташ",
+		INSTRUMENTAL = "патронташем",
+		PREPOSITIONAL = "патронташе"
+	)
+	gender = MALE
 	icon_state = "bandolier"
 	item_state = "bandolier"
 	storage_slots = 16
@@ -572,7 +590,9 @@
 	update_icon()
 
 /obj/item/storage/belt/bandolier/booze
-	description_antag = "Этот бандольер содержит 16 усыпляющих алкопатрон для превращения противника или жертву в беспомощное нечто. Учтите, патроны супер эффективны против цели с алкоголем внутри, на трезвых работают не так здорово!"
+	description_antag = "Этот патронташ содержит 16 опьяняющих патронов, способных превратить противника или жертву в беззащитное существо. \
+						Обратите внимание, что эти патроны особенно эффективны против людей, находящихся в состоянии алкогольного опьянения. \
+						На трезвых они действуют не так сильно!"
 
 /obj/item/storage/belt/bandolier/booze/populate_contents()
 	for(var/I in 1 to 16)
@@ -592,7 +612,7 @@
 
 /obj/item/storage/belt/holster
 	name = "shoulder holster"
-	desc = "A holster to conceal a carried handgun. WARNING: Badasses only."
+	desc = "Кобура, предназначенная для хранения пистолета."
 	icon_state = "holster"
 	item_state = "holster"
 	storage_slots = 1
@@ -969,7 +989,23 @@
 		/obj/item/organ/internal/regenerative_core,
 		/obj/item/stack/ore,
 		/obj/item/reagent_containers/food/snacks/grown,
-		/obj/item/reagent_containers/applicator)
+		/obj/item/reagent_containers/applicator,
+		/obj/item/reagent_containers/food/snacks/bait,
+		/obj/item/reagent_containers/food/snacks/charred_krill,
+		/obj/item/whetstone,
+		/obj/item/reagent_containers/food/snacks/lavaland,
+		/obj/item/lavaland_dye,
+		/obj/item/conductive_organ,
+		/obj/item/stack/sheet/cartilage_plate,
+		/obj/item/stack/sheet/razor_sharp_teeth,
+		/obj/item/hivelordstabilizer,
+		/obj/item/circular_saw_blade,
+		/obj/item/t_scanner/adv_mining_scanner/bleary_eye,
+		/obj/item/acid_bladder,
+		/obj/item/shovel/spade/wooden,
+		/obj/item/hatchet/wooden,
+		/obj/item/cultivator/wooden,
+		)
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"

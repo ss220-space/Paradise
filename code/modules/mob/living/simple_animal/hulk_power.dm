@@ -34,8 +34,8 @@
 	else
 		Monster = new /mob/living/simple_animal/hulk/human(get_turf(user))
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(10, 0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 10, location = user.loc)
 	smoke.start()
 	playsound(user, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
 	Monster.original_body = user
@@ -394,8 +394,8 @@
 	clown_hulk.AdjustWeakened(-2 SECONDS)
 	clown_hulk.AdjustStunned(-2 SECONDS)
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(10,0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 10, location = user.loc)
 	smoke.start()
 	playsound(user,pick('sound/spookoween/scary_clown_appear.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_horn3.ogg'),CHANNEL_BUZZ, 100)
 

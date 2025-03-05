@@ -43,9 +43,10 @@
 	return
 
 
-/obj/item/paper/check/AltClick(mob/living/carbon/human/user)
+/obj/item/paper/check/click_alt(mob/living/carbon/human/user)
 	if(ishuman(user) && user.is_in_hands(src))
 		to_chat(user, span_warning("Paper is too small! You fail to fold [src] into the shape of a plane!"))
+		return CLICK_ACTION_BLOCKING
 
 
 /obj/item/eftpos/Initialize(mapload)

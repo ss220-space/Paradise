@@ -440,6 +440,42 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
+/obj/item/melee/nutcracker
+	name = "nutcracker"
+	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."
+	ru_names = list(
+		NOMINATIVE = "колотушка",
+		GENITIVE = "колотушки",
+		DATIVE = "колотушке",
+		ACCUSATIVE = "колотушку",
+		INSTRUMENTAL = "колотушкой",
+		PREPOSITIONAL = "колотушке"
+	)
+	icon_state = "nutcracker"
+	item_state = "nutcracker"
+	gender = FEMALE
+	hitsound = 'sound/weapons/kolotushka_smash.ogg'
+	slot_flags = ITEM_SLOT_BELT
+	force = 3
+	throwforce = 3
+	w_class = WEIGHT_CLASS_NORMAL
+	var/stamina_damage = 22
+
+/obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
+	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	var/mob/living/victim = target
+	if(isrobot(victim))
+		if(prob(30))
+			victim.flash_eyes(3 SECONDS)
+			victim.Stun(3 SECONDS)
+
+	if(ishuman(victim))
+		victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
+		if(prob(30))
+			victim.Knockdown(3 SECONDS)
+
 /obj/item/melee/ghostface_knife
 	name = "Knife"
 	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."

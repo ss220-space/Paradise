@@ -211,6 +211,7 @@
 	icon_state = "gib2"
 	random_icon_states = list("gib1", "gib2", "gib3", "gib4", "gib5", "gib6")
 	no_clear = TRUE
+	scoop_reagents = list("liquidgibs" = 5)
 	mergeable_decal = FALSE
 	var/image/giblets
 	var/fleshcolor = "#FFFFFF"
@@ -267,7 +268,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs/core
 	random_icon_states = list("gibmid1", "gibmid2", "gibmid3")
-	scoop_reagents = list("liquidgibs" = 5)
+	scoop_reagents = list("liquidgibs" = 15)
 
 
 /obj/effect/decal/cleanable/blood/gibs/cleangibs //most ironic name ever...

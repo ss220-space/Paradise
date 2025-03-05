@@ -678,7 +678,7 @@
 		final_block_chance *= 2
 	if(prob(final_block_chance))
 		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"), projectile_message = TRUE)
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
 			return TRUE
 		else

@@ -114,14 +114,15 @@
 					pages++
 				if(important_message!=null)
 					dat += "<div style='float:center;'><font size=4><b>Wanted Issue:</b></font size></div><br><br>"
-					dat += "<b>Criminal name</b>: <font color='maroon'>[important_message.author]</font><br>"
+					dat += "<font color='maroon'>[important_message.title]</font><br>"
 					dat += "<b>Description</b>: [important_message.body]<br>"
 					dat += "<b>Photo:</b>: "
 					if(important_message.img)
 						user << browse_rsc(important_message.img, "tmp_photow.png")
-						dat += "<br><img src='tmp_photow.png' width = '180'>"
+						dat += "<br><img src='tmp_photow.png' width = '180'><br>"
 					else
-						dat += "None"
+						dat += "None<br>"
+					dat += "<font size=1>\[Wanted issue by <font color='maroon'>[important_message.author]</font>\]</font><br><br>"
 				else
 					dat += "<i>Apart from some uninteresting Classified ads, there's nothing on this page...</i>"
 				if(scribble_page==curr_page)
@@ -188,15 +189,15 @@
 	return ..()
 
 
-/obj/item/newspaper/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		rolled = !rolled
-		icon_state = "newspaper[rolled ? "_rolled" : ""]"
-		update_icon()
-		var/verbtext = "[rolled ? "" : "un"]roll"
-		user.visible_message("<span class='notice'>[user] [verbtext]s [src].</span>",\
-								"<span class='notice'>You [verbtext] [src].</span>")
-		name = "[rolled ? "rolled" : ""] [initial(name)]"
+/obj/item/newspaper/click_alt(mob/user)
+	rolled = !rolled
+	icon_state = "newspaper[rolled ? "_rolled" : ""]"
+	update_icon()
+	var/verbtext = "[rolled ? "" : "un"]roll"
+	user.visible_message(span_notice("[user] [verbtext]s [src]."),\
+							span_notice("You [verbtext] [src]."))
+	name = "[rolled ? "rolled" : ""] [initial(name)]"
+	return CLICK_ACTION_SUCCESS
 
 #undef SCREEN_COVER
 #undef SCREEN_PAGE_INNER

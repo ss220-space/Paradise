@@ -355,7 +355,7 @@
 
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
-		msg += "You can see a strange glint on [p_their()] tail.\n"
+		msg += "Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [genderize_ru(gender, "его", "её", "его", "их")] хвосте.\n"
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
