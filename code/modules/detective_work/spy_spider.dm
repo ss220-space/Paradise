@@ -25,7 +25,7 @@
 /obj/item/encryptionkey/spy_spider
 	name = "Spy Encryption Key"
 	icon_state = "spy_cypherkey"
-	channels = list("Spy Spider" = TRUE)
+	channels = list("Жучок" = TRUE)
 
 /obj/item/storage/lockbox/spy_kit
 	name = "набор жучков"

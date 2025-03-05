@@ -25,7 +25,7 @@ export const TcommsCore = (props) => {
       case 2:
         return <FilteringPage />;
       default:
-        return 'SOMETHING WENT VERY WRONG PLEASE AHELP';
+        return 'ЧТО-ТО СЛОМАЛОСЬ, НАПИШИТЕ В #баг-репорты-v2';
     }
   };
 
@@ -40,7 +40,7 @@ export const TcommsCore = (props) => {
             onClick={() => setTabIndex(0)}
           >
             <Icon name="wrench" />
-            Configuration
+            Конфигурация
           </Tabs.Tab>
           <Tabs.Tab
             key="LinkagePage"
@@ -48,7 +48,7 @@ export const TcommsCore = (props) => {
             onClick={() => setTabIndex(1)}
           >
             <Icon name="link" />
-            Device Linkage
+            Привязанные устройства
           </Tabs.Tab>
           <Tabs.Tab
             key="FilterPage"
@@ -56,7 +56,7 @@ export const TcommsCore = (props) => {
             onClick={() => setTabIndex(2)}
           >
             <Icon name="user-times" />
-            User Filtering
+            Чёрный список пользователей
           </Tabs.Tab>
         </Tabs>
         {PickTab(tabIndex)}
@@ -71,8 +71,8 @@ const IonBanner = () => {
   // the 80 char line limit
   return (
     <NoticeBox>
-      ERROR: An Ionospheric overload has occured. Please wait for the machine to
-      reboot. This cannot be manually done.
+      ОШИБКА: Зафиксирована ионосферная перегрузка. Пожалуйста, подождите до
+      автоматической перезагрузки. Это действие нельзя сделать вручную.
     </NoticeBox>
   );
 };
@@ -92,51 +92,51 @@ const ConfigPage = (_properties) => {
   } = data;
   return (
     <>
-      <Section title="Status">
+      <Section title="Состояние">
         <LabeledList>
-          <LabeledList.Item label="Machine Power">
+          <LabeledList.Item label="Питание">
             <Button
-              content={active ? 'On' : 'Off'}
+              content={active ? 'Включено' : 'Выключено'}
               selected={active}
               icon="power-off"
               onClick={() => act('toggle_active')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Sector Coverage">
+          <LabeledList.Item label="Доступные сектора">
             {sectors_available}
           </LabeledList.Item>
         </LabeledList>
       </Section>
 
-      <Section title="Radio Configuration">
+      <Section title="Конфигурация радиосвязи">
         <LabeledList>
-          <LabeledList.Item label="Job Announcements">
+          <LabeledList.Item label="Отображение должностей">
             <Button
-              content={nttc_toggle_jobs ? 'On' : 'Off'}
+              content={nttc_toggle_jobs ? 'Включено' : 'Выключено'}
               selected={nttc_toggle_jobs}
               icon="user-tag"
               onClick={() => act('nttc_toggle_jobs')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Job Departmentalisation">
+          <LabeledList.Item label="Выделение должностей по отделам">
             <Button
-              content={nttc_toggle_job_color ? 'On' : 'Off'}
+              content={nttc_toggle_job_color ? 'Включено' : 'Выключено'}
               selected={nttc_toggle_job_color}
               icon="clipboard-list"
               onClick={() => act('nttc_toggle_job_color')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Name Departmentalisation">
+          <LabeledList.Item label="Выделение имён по отделам">
             <Button
-              content={nttc_toggle_name_color ? 'On' : 'Off'}
+              content={nttc_toggle_name_color ? 'Включено' : 'Выключено'}
               selected={nttc_toggle_name_color}
               icon="user-tag"
               onClick={() => act('nttc_toggle_name_color')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Command Amplification">
+          <LabeledList.Item label="Выделение должностей командования">
             <Button
-              content={nttc_toggle_command_bold ? 'On' : 'Off'}
+              content={nttc_toggle_command_bold ? 'Включено' : 'Выключено'}
               selected={nttc_toggle_command_bold}
               icon="volume-up"
               onClick={() => act('nttc_toggle_command_bold')}
@@ -145,29 +145,31 @@ const ConfigPage = (_properties) => {
         </LabeledList>
       </Section>
 
-      <Section title="Advanced">
+      <Section title="Расширенные настройки">
         <LabeledList>
-          <LabeledList.Item label="Job Announcement Format">
+          <LabeledList.Item label="Формат отображения должностей">
             <Button
               content={
-                nttc_job_indicator_type ? nttc_job_indicator_type : 'Unset'
+                nttc_job_indicator_type ? nttc_job_indicator_type : 'Не задано'
               }
               selected={nttc_job_indicator_type}
               icon="pencil-alt"
               onClick={() => act('nttc_job_indicator_type')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Language Conversion">
+          <LabeledList.Item label="Перевод сообщений">
             <Button
-              content={nttc_setting_language ? nttc_setting_language : 'Unset'}
+              content={
+                nttc_setting_language ? nttc_setting_language : 'Не задано'
+              }
               selected={nttc_setting_language}
               icon="globe"
               onClick={() => act('nttc_setting_language')}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Network ID">
+          <LabeledList.Item label="Сетевой идентификатор">
             <Button
-              content={network_id ? network_id : 'Unset'}
+              content={network_id ? network_id : 'Не задано'}
               selected={network_id}
               icon="server"
               onClick={() => act('network_id')}
@@ -176,14 +178,14 @@ const ConfigPage = (_properties) => {
         </LabeledList>
       </Section>
 
-      <Section title="Maintenance">
+      <Section title="Техническое обслуживание">
         <Button
-          content="Import Configuration"
+          content="Загрузить конфигурацию"
           icon="file-import"
           onClick={() => act('import')}
         />
         <Button
-          content="Export Configuration"
+          content="Выгрузить конфигурацию"
           icon="file-export"
           onClick={() => act('export')}
         />
@@ -196,11 +198,11 @@ const LinkagePage = (_properties) => {
   const { act, data } = useBackend();
   const { link_password, relay_entries } = data;
   return (
-    <Section title="Device Linkage">
+    <Section title="Привязка устройств">
       <LabeledList>
-        <LabeledList.Item label="Linkage Password">
+        <LabeledList.Item label="Пароль для привязки">
           <Button
-            content={link_password ? link_password : 'Unset'}
+            content={link_password ? link_password : 'Не задано'}
             selected={link_password}
             icon="lock"
             onClick={() => act('change_password')}
@@ -210,11 +212,11 @@ const LinkagePage = (_properties) => {
 
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell>Network Address</Table.Cell>
-          <Table.Cell>Network ID</Table.Cell>
-          <Table.Cell>Sector</Table.Cell>
-          <Table.Cell>Status</Table.Cell>
-          <Table.Cell>Unlink</Table.Cell>
+          <Table.Cell>Сетевой адрес</Table.Cell>
+          <Table.Cell>Сетевой идентификатор</Table.Cell>
+          <Table.Cell>Сектор</Table.Cell>
+          <Table.Cell>Состояние</Table.Cell>
+          <Table.Cell>Отвязать</Table.Cell>
         </Table.Row>
         {relay_entries.map((r) => (
           <Table.Row key={r.addr}>
@@ -223,14 +225,14 @@ const LinkagePage = (_properties) => {
             <Table.Cell>{r.sector}</Table.Cell>
             <Table.Cell>
               {r.status === 1 ? (
-                <Box color="green">Online</Box>
+                <Box color="green">В сети</Box>
               ) : (
-                <Box color="red">Offline</Box>
+                <Box color="red">Не в сети</Box>
               )}
             </Table.Cell>
             <Table.Cell>
               <Button
-                content="Unlink"
+                content="Отвязать"
                 icon="unlink"
                 onClick={() =>
                   act('unlink', {
@@ -251,10 +253,10 @@ const FilteringPage = (_properties) => {
   const { filtered_users } = data;
   return (
     <Section
-      title="User Filtering"
+      title="Чёрный список пользователей"
       buttons={
         <Button
-          content="Add User"
+          content="Добавить пользователя"
           icon="user-plus"
           onClick={() => act('add_filter')}
         />
@@ -262,15 +264,15 @@ const FilteringPage = (_properties) => {
     >
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell style={{ width: '90%' }}>User</Table.Cell>
-          <Table.Cell style={{ width: '10%' }}>Actions</Table.Cell>
+          <Table.Cell style={{ width: '90%' }}>Пользователь</Table.Cell>
+          <Table.Cell style={{ width: '10%' }}>Действия</Table.Cell>
         </Table.Row>
         {filtered_users.map((u) => (
           <Table.Row key={u}>
             <Table.Cell>{u}</Table.Cell>
             <Table.Cell>
               <Button
-                content="Remove"
+                content="Удалить"
                 icon="user-times"
                 onClick={() =>
                   act('remove_filter', {

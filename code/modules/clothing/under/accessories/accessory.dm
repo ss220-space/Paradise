@@ -983,19 +983,19 @@
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
-	var/announce_channel = "Common"			// Channel toggler for mobs, who dies in specific locations.
+	var/announce_channel = "Общий"			// Channel toggler for mobs, who dies in specific locations.
 	var/area/t = get_area(M)
 	var/obj/item/radio/headset/all_channels/a = new /obj/item/radio/headset/all_channels(src)
 	if(M.z == level_name_to_num(RAMSS_TAIPAN))
-		announce_channel = "SyndTaipan"		// Taipan channel for Руж.
+		announce_channel = "СиндиТайпан"		// Taipan channel for Руж.
 	else if(istype(t, /area/centcom))
-		announce_channel = "Response Team"	// For animals who dare to infiltrate CC.
+		announce_channel = "ОБР"	// For animals who dare to infiltrate CC.
 	else if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) || istype(t, /area/shuttle/syndicate_sit))
-		announce_channel = "SyndTeam"		// Just to be sure ...
+		announce_channel = "СиндиДОС"		// Just to be sure ...
 	else if(istype(t, /area/ninja))
-		announce_channel = "Spider Clan"	// Even ninja may have a little pet.
+		announce_channel = "Клан Паука"	// Even ninja may have a little pet.
 	else if(istype(t, /area/ussp_centcom))
-		announce_channel = "Soviet"			// MISHA, FU!
+		announce_channel = "СССП"			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		qdel(a)

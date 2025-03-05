@@ -7,10 +7,10 @@
 	All this code was written by Tigercat2000. I take no credit -aa07
 */
 
-#define JOB_STYLE_1 "Name (Job)"
-#define JOB_STYLE_2 "Name - Job"
-#define JOB_STYLE_3 "\[Job\] Name"
-#define JOB_STYLE_4 "(Job) Name"
+#define JOB_STYLE_1 "Имя (Должность)"
+#define JOB_STYLE_2 "Имя - Должность"
+#define JOB_STYLE_3 "\[Должность\] Имя"
+#define JOB_STYLE_4 "(Должность) Имя"
 
 /datum/nttc_configuration
 	var/regex/word_blacklist = new("(<iframe|<embed|<script|<svg|<canvas|<video|<audio|onload)", "i") // Blacklist of naughties
@@ -138,7 +138,7 @@
 	var/list/filtering = list()
 
 	// Used to determine what languages are allowable for conversion. Generated during runtime.
-	var/list/valid_languages = list("--DISABLE--")
+	var/list/valid_languages = list("--ВЫКЛЮЧЕНО--")
 
 /datum/nttc_configuration/proc/reset()
 	toggle_jobs = initial(toggle_jobs)
@@ -226,23 +226,23 @@
 			switch(job_indicator_type)
 				// These must have trailing spaces. No exceptions.
 				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span> "
+					new_name = "[tcm.sender_name] <span class=\"[job_class]\">([job])</span>"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span> "
+					new_name = "[tcm.sender_name] - <span class=\"[job_class]\">[job]</span>"
 				if(JOB_STYLE_3)
-					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name] "
+					new_name = "<span class=\"[job_class]\"><small>\[[job]\]</small></span> [tcm.sender_name]"
 				if(JOB_STYLE_4)
-					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name] "
+					new_name = "<span class=[job_class]>([job])</span> [tcm.sender_name]"
 		else
 			switch(job_indicator_type)
 				if(JOB_STYLE_1)
-					new_name = "[tcm.sender_name] ([job]) "
+					new_name = "[tcm.sender_name] ([job])"
 				if(JOB_STYLE_2)
-					new_name = "[tcm.sender_name] - [job] "
+					new_name = "[tcm.sender_name] - [job]"
 				if(JOB_STYLE_3)
-					new_name = "<small>\[[job]\]</small> [tcm.sender_name] "
+					new_name = "<small>\[[job]\]</small> [tcm.sender_name]"
 				if(JOB_STYLE_4)
-					new_name = "([job]) [tcm.sender_name] "
+					new_name = "([job]) [tcm.sender_name]"
 
 		// Only change the name if they have a job tag set, otherwise everyone becomes unknown, and thats bad
 		if(new_name != "")
@@ -265,7 +265,7 @@
 
 	// Language Conversion
 	if(setting_language && valid_languages[setting_language])
-		if(setting_language == "--DISABLE--")
+		if(setting_language == "--ВЫКЛЮЧЕНО--")
 			setting_language = LANGUAGE_NONE
 		else
 			for(var/datum/multilingual_say_piece/S in message_pieces)

@@ -139,7 +139,7 @@ export class TguiSay extends Component<{}, State> {
       !this.channelIterator.isCurrentChannelBlacklisted()
     ) {
       this.currentPrefix = null;
-      this.channelIterator.set('Say');
+      this.channelIterator.set('Сказать');
       this.setState({ buttonContent: this.channelIterator.current() });
     }
 
@@ -233,7 +233,7 @@ export class TguiSay extends Component<{}, State> {
 
     // Early check for standard radio channel key
     if (typed && typed.slice(0, 2) === '; ') {
-      this.channelIterator.set('Radio');
+      this.channelIterator.set('Радио');
       this.currentPrefix = null;
       this.setValue(typed.slice(2));
       this.setState({ buttonContent: this.channelIterator.current() });
@@ -262,7 +262,7 @@ export class TguiSay extends Component<{}, State> {
       Byond.sendMessage('thinking', { visible: false });
     }
 
-    this.channelIterator.set('Say');
+    this.channelIterator.set('Сказать');
     this.currentPrefix = prefix;
     this.setState({ buttonContent: RADIO_PREFIXES[prefix] });
     this.setValue(typed.slice(3));

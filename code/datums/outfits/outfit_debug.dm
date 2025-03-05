@@ -65,7 +65,7 @@
 		INSTRUMENTAL = "ключом шифрования AVD-CNED",
 		PREPOSITIONAL = "ключе шифрования AVD-CNED",
 	)
-	channels = list("Response Team" = TRUE, "Special Ops" = TRUE, "Science" = TRUE, "Command" = TRUE, "Medical" = TRUE, "Engineering" = TRUE, "Security" = TRUE, "Supply" = TRUE, "Service" = TRUE, "Procedure" = TRUE) // just in case
+	channels = list("ОБР" = TRUE, "Спецназ" = TRUE, "Наука" = TRUE, "Командование" = TRUE, "Медицина" = TRUE, "Инженерия" = TRUE, "Безопасность" = TRUE, "Снабжение" = TRUE, "Обслуживание" = TRUE, "Юриспруденция" = TRUE) // just in case
 	syndie = TRUE
 	change_voice = FALSE
 

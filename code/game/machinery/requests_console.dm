@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
 	Radio.listening = TRUE
-	Radio.config(list("Engineering", "Medical", "Supply", "Command", "Science", "Service", "Security", "AI Private" = FALSE))
+	Radio.config(list("Инженерия", "Медицина", "Снабжение", "Командование", "Наука", "Обслуживание", "Безопаность", "ИИ" = FALSE))
 	Radio.follow_target = src
 	. = ..()
 
@@ -203,21 +203,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = "Engineering"
+					radiochannel = "Инженерия"
 				else if(recipient in SEC_ROLES)
-					radiochannel = "Security"
+					radiochannel = "Безопаность"
 				else if(recipient in MISC_ROLES)
-					radiochannel = "Service"
+					radiochannel = "Обслуживание"
 				else if(recipient in MED_ROLES)
-					radiochannel = "Medical"
+					radiochannel = "Медицина"
 				else if(recipient in COM_ROLES)
-					radiochannel = "Command"
+					radiochannel = "Командование"
 				else if(recipient in SCI_ROLES)
-					radiochannel = "Science"
+					radiochannel = "Наука"
 				else if(recipient == RC_AI)
-					radiochannel = "AI Private"
+					radiochannel = "ИИ"
 				else if(recipient == RC_CARGO_BAY)
-					radiochannel = "Supply"
+					radiochannel = "Снабжение"
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
