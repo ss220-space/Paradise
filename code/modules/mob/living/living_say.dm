@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return src
 
 
-/mob/living/whisper_say(list/message_pieces, verb = "whispers")
+/mob/living/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
 	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return
@@ -498,20 +498,20 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			verb = first_piece.speaking.whisper_verb
 			not_heard = "[verb] something"
 		else
-			var/adverb = pick("quietly", "softly")
+			var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
 			adverb_added = TRUE
 			verb = "[first_piece.speaking.speech_verb] [adverb]"
 			not_heard = "[first_piece.speaking.speech_verb] something [adverb]"
 	else
-		not_heard = "[verb] something"
+		not_heard = "[genderize_decode(src, verb)] что-то"
 
 	var/list/hsp = handle_speech_problems(message_pieces, verb)
 	verb = hsp["verb"]
-	if(verb == "yells loudly")
-		verb = "slurs emphatically"
+	if(verb == "громко крич%(ит,ат)%")
+		verb = "громко бормоч%(ет,ут)%"
 	else if(!adverb_added)
-		var/adverb = pick("quietly", "softly")
-		verb = "[verb] [adverb]"
+		var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
+		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
 	var/list/listening = hear(message_range, whisper_loc)
