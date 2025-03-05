@@ -87,11 +87,6 @@
 		to_chat(owner, "<span class='cult'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
 	channeling = FALSE
 
-/datum/action/innate/cult/blood_spell/manipulation/can_blood_cast()
-    if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
-        return FALSE
-    return ..()
-
 /datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Pick a spell to remove.")
 	var/nullify_spell = tgui_input_list(owner, message, "Current Spells", spells)
 	if(nullify_spell)
@@ -153,7 +148,12 @@
 			hand_magic = null
 
 /datum/action/innate/cult/blood_spell/proc/can_blood_cast()
-    return TRUE
+	return TRUE
+
+/datum/action/innate/cult/blood_spell/manipulation/can_blood_cast()
+	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.spells)
+		return FALSE
+	return ..()
 //the spell list
 
 /datum/action/innate/cult/blood_spell/stun
