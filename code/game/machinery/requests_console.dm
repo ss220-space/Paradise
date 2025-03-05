@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
 	Radio.listening = TRUE
-	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, "Безопаность", AI_FREQ_NAME = 0))
+	Radio.config(list("Инженерия", "Медицина", "Снабжение", "Командование", "Наука", "Обслуживание", "Безопаность", "ИИ" = FALSE))
 	Radio.follow_target = src
 	. = ..()
 
@@ -70,7 +70,6 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
-	QDEL_NULL(connected_apps)
 	var/lastDeptRC = TRUE
 	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 		if(Console.department == department)
@@ -203,21 +202,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = ENG_FREQ
+					radiochannel = "Инженерия"
 				else if(recipient in SEC_ROLES)
-					radiochannel = SEC_FREQ
+					radiochannel = "Безопаность"
 				else if(recipient in MISC_ROLES)
-					radiochannel = SRV_FREQ
+					radiochannel = "Обслуживание"
 				else if(recipient in MED_ROLES)
-					radiochannel = MED_FREQ
+					radiochannel = "Медицина"
 				else if(recipient in COM_ROLES)
-					radiochannel = COMM_FREQ
+					radiochannel = "Командование"
 				else if(recipient in SCI_ROLES)
-					radiochannel = SCI_FREQ
+					radiochannel = "Наука"
 				else if(recipient == RC_AI)
-					radiochannel = AI_FREQ
+					radiochannel = "ИИ"
 				else if(recipient == RC_CARGO_BAY)
-					radiochannel = SUP_FREQ
+					radiochannel = "Снабжение"
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
