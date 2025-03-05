@@ -177,16 +177,16 @@
 	runechat_span = "soghun"
 	key = "o"
 	flags = RESTRICTED
-	syllables = list("за","аз","зе","ез","зи","из","зо","оз","зу","уз","зс","сз","ха","ах","хе","ех","хи","их", \
-	"хо","ох","ху","ух","хс","сх","ла","ал","ле","ел","ли","ил","ло","ол","лу","ул","лс","сл", \
-	"ка","ак","ке","ек","ки","ик","ко","ок","ку","ук","кс","ск","са","ас","се","ес","си","ис", \
-	"со","ос","су","ус","сс","сс","ра","ар","ре","ер","ри","ир","ро","ор","ру","ур","рс","ср", \
-	"а","а","е","е","и","и","о","о","у","у","с","с")
+	syllables = list("za","az","ze","ez","zi","iz","zo","oz","zu","uz","zs","sz","ha","ah","he","eh","hi","ih", \
+	"ho","oh","hu","uh","hs","sh","la","al","le","el","li","il","lo","ol","lu","ul","ls","sl","ka","ak","ke","ek", \
+	"ki","ik","ko","ok","ku","uk","ks","sk","sa","as","se","es","si","is","so","os","su","us","ss","ss","ra","ar", \
+	"re","er","ri","ir","ro","or","ru","ur","rs","sr","a","a","e","e","i","i","o","o","u","u","s","s" )
+
 /datum/language/unathi/get_random_name()
 
 	var/new_name = ..()
-	while(findtextEx(new_name,"ссс",1,null))
-		new_name = replacetext(new_name, "ссс", "сс")
+	while(findtextEx(new_name,"sss",1,null))
+		new_name = replacetext(new_name, "sss", "ss")
 	return capitalize(new_name)
 
 /datum/language/tajaran
@@ -199,10 +199,10 @@
 	runechat_span = "tajaran"
 	key = "j"
 	flags = RESTRICTED
-	syllables = list("рр","рр","тайр","кир","радж","кии","мир","кра","ахк","нал","вах","хаз","джри","ран","дарр", \
-	"ми","джри","динх","манк","рхе","зар","ррхаз","кал","чур","иич","тхаа","дра","джурл","мах","сану","дра","иир", \
-	"ка","ааси","фар","ва","бак","ара","кара","зир","сам","мак","храр","нджа","рир","хан","джун","дар","рик","ках", \
-	"хал","кет","джурл","мах","тул","креш","азу","рагх")
+	syllables = list("rr","rr","tajr","kir","raj","kii","mir","kra","ahk","nal","vah","khaz","jri","ran","darr", \
+	"mi","jri","dynh","manq","rhe","zar","rrhaz","kal","chur","eech","thaa","dra","jurl","mah","sanu","dra","ii'r", \
+	"ka","aasi","far","wa","baq","ara","qara","zir","sam","mak","hrar","nja","rir","khan","jun","dar","rik","kah", \
+	"hal","ket","jurl","mah","tul","cresh","azu","ragh")
 
 /datum/language/tajaran/get_random_name(gender) //code by @valtor0
 	var/static/list/tajaran_female_endings_list = list("и","а","о","е","й","ь") // Customise this with ru_name_syllables changes.
@@ -240,10 +240,10 @@
 	runechat_span = "vulpkanin"
 	key = "7"
 	flags = RESTRICTED
-	syllables = list("рур","я","цен","равр","бар","кук","тек","кат","ук","ву","вух","тах","тч","щз","аух", \
-	"ист","айн","ентч","цвихс","тут","мир","во","бис","эс","фор","ниц","гро","ллл","енем","цандт","цч","нох", \
-	"хель","ишт","фар","ва","барам","иренг","тех","лах","сам","мак","лих","ген","ор","аг","экк","гек","штаг","онн", \
-	"бин","кет","ярл","вульф","айнех","крестц","ацунайн","гхзтх")
+	syllables = list("rur","ya","cen","rawr","bar","kuk","tek","qat","uk","wu","vuh","tah","tch","schz","auch", \
+	"ist","ein","entch","zwichs","tut","mir","wo","bis","es","vor","nic","gro","lll","enem","zandt","tzch","noch", \
+	"hel","ischt","far","wa","baram","iereng","tech","lach","sam","mak","lich","gen","or","ag","eck","gec","stag","onn", \
+	"bin","ket","jarl","vulf","einech","cresthz","azunein","ghzth")
 
 /datum/language/skrell
 	name = "Скреллианский"
@@ -255,7 +255,7 @@
 	runechat_span = "skrell"
 	key = "k"
 	flags = RESTRICTED
-	syllables = list("кр","крр","зук","кил","куум","зукм","воль","зрим","заоо","ку-уу","кикс","коо","зикс","*","!")
+	syllables = list("qr","qrr","xuq","qil","quum","xuqm","vol","xrim","zaoo","qu-uu","qix","qoo","zix","*","!")
 
 
 #define SKRELL_ADDITIONAL_SYLLABLES 2 // Maximum of additional syllables for first and second names
@@ -325,8 +325,8 @@
 	runechat_span = "vox"
 	key = "v"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("ти","ти","ти","хи","хи","ки","ки","ки","ки","я","та","ха","ка","я","йи","чи","ча","ках", \
-	"СКРИИИ", "АААХ", "ЭЭЭХ", "РАААК", "КРАА", "ААА", "ИИИ", "КИИ", "ИИИ", "КРИИ", "КАА")
+	syllables = list("ti","ti","ti","hi","hi","ki","ki","ki","ki","ya","ta","ha","ka","ya","yi","chi","cha","kah", \
+	"SKRE","AHK","EHK","RAWK","KRA","AAA","EEE","KI","II","KRI","KA")
 
 /datum/language/vox/get_random_name()
 	var/sounds = rand(2, 8)
@@ -348,7 +348,7 @@
 	runechat_span = "diona"
 	key = "q"
 	flags = RESTRICTED
-	syllables = list("хс","ят","кр","ст","сш")
+	syllables = list("hs","zt","kr","st","sh")
 
 /datum/language/diona/get_random_name()
 	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of"))]"
@@ -385,7 +385,7 @@
 	runechat_span = "kidan"
 	key = "4"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("клик","клак")
+	syllables = list("click","clack")
 
 /datum/language/kidan/get_random_name()
 	var/new_name = "[pick(list("Вракс","Крек","Вриз","Зрик","Зарак","Клик","Зерк","Дракс","Звен","Дрэкс"))]"
@@ -406,7 +406,7 @@
 	runechat_span = "slime"
 	key = "f"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("блоб","плоп","поп","боп","буп","хлюп")
+	syllables = list("blob","plop","pop","bop","boop")
 
 /datum/language/grey
 	name = "Псисвязь"
@@ -454,7 +454,7 @@
 	runechat_span = "drask"
 	key = "%"
 	flags = RESTRICTED | WHITELISTED
-	syllables = list("хуурб", "врруумм", "оорм", "уррум", "уум", "ии", "ффм", "ххх", "мн", "онг", "оо", "о", "уу", "ууу", "мм", "ммм", "груумм")
+	syllables = list("hoorb","vrrm","ooorm","urrrum","ooum","ee","ffm","hhh","mn","ongg")
 
 /datum/language/drask/get_random_name()
 	var/new_name = "[pick(list("Хоорм","Вииск","Саар","Мнуу","Оумн","Фмонг","Гнии","Вррм","Оорм","Дромнн","Ссуумн","Овв","Хоорб","Ваар","Гаар","Гуум","Руум","Румум"))]"
@@ -473,10 +473,11 @@
 	key = "#"
 	flags = RESTRICTED | WHITELISTED
 	join_override = "-"
-	syllables = list("ор","и","гор","сек","мо","фф","ок","гй","ё","го","ла","ле","лит",
-	"игг","ван","дор","нё","мёт","идд","хво","я","по","хан","со","он","дет","атт","но",
-	"гё","бра","ин","тыц","ом","нер","тво","мо","даг","шя","вии","вуо","ейл","тун","кяйт",
-	"тех","вя","хей","хуо","суо","яя","тен","я","хеу","сту","ур","кён","ве","хён")
+	syllables = list("år", "i", "går", "sek", "mo", "ff", "ok", "gj", "ø", "gå", "la", "le",
+					 "lit", "ygg", "van", "dår", "nø", "møt", "idd", "hvo", "ja", "på", "han",
+					 "så", "ån", "det", "att", "nå", "gö", "bra", "int", "tyc", "om", "när", "två",
+					 "må", "dag", "sjä", "vii", "vuo", "eil", "tun", "käyt", "teh", "vä", "hei",
+					 "huo", "suo", "ää", "ten", "ja", "heu", "stu", "uhr", "kön", "we", "hön")
 
 /datum/language/moth/get_random_name()
 	var/new_name = "[pick(list("Abbot","Archer","Arkwright","Baker","Bard","Biologist","Broker","Caller","Chamberlain","Clerk","Cooper","Culinarian","Dean","Director","Duke","Energizer","Excavator","Explorer","Fletcher","Gatekeeper","Guardian","Guide","Healer","Horner","Keeper","Knight","Laidler","Mapper","Marshall","Mechanic","Miller","Navigator","Pilot","Prior","Seeker","Seer","Smith","Stargazer","Teacher","Tech Whisperer","Tender","Thatcher","Voidcrafter","Voidhunter","Voidwalker","Ward","Watcher","Weaver","Webster","Wright"))]"
@@ -492,7 +493,7 @@
 	whisper_verbs = list("шепч%(ет,ут)%")
 	key = "9"
 	flags = RESTRICTED
-	syllables = list("бла","бле","ме","не","на","ва","блю","вак","ке","бэ","вэ","гэ")
+	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")
 	english_names = TRUE
 
 /datum/language/human
@@ -505,7 +506,7 @@
 	runechat_span = "solcom"
 	key = "1"
 	flags = RESTRICTED
-	syllables = list("тао","ши","тцу","йи","ком","бэ","ис","и","оп","ви","ед","лек","мо","кле","те","дис","е", "ин", "ла", "то", "эн", "тон", "ис", "ас", "ос")
+	syllables = list("tao","shi","tzu","yi","com","be","is","i","op","vi","ed","lec","mo","cle","te","dis","e")
 	english_names = TRUE
 
 // Galactic common languages (systemwide accepted standards).
@@ -516,13 +517,14 @@
 	colour = "say_quote"
 	key = "2"
 	space_chance = 100
-	syllables = list("кредита","активов","сделка","контракт","премиум","лицензию","импорт","экспорт",
-	"квоту","тарифу","логисты","транзит","валюта","акций","бонус","претензия","арбитраж",
-	"оферта","депозит","лизинг","фрахт","аудит","тендер","лимит","резервов","прибыли","уступка",
-	"гаранта","форвард","фьючерсы","опциона","клиринг","депорта","аккредитив","инвойс","консалт",
-	"маркет","брокеры","дивидендов","кэшфло","хеджинг","риски","преференция","комиссия","ликвидацию",
-	"нотис","овердрафт","репа","спот","своп","трейд","факторы","холдинг","эмиссии","юнита",
-	"метнулся","вопросик","обкашлять","цифры","подскок","пошуршать","база","закупаем","фиксируем")
+	syllables = list("lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit",
+					 "sed", "do", "eiusmod", "tempor", "incididunt", "ut", "labore", "et", "dolore",
+					 "magna", "aliqua", "ut", "enim", "ad", "minim", "veniam", "quis", "nostrud",
+					 "exercitation", "ullamco", "laboris", "nisi", "ut", "aliquip", "ex", "ea", "commodo",
+					 "consequat", "duis", "aute", "irure", "dolor", "in", "reprehenderit", "in",
+					 "voluptate", "velit", "esse", "cillum", "dolore", "eu", "fugiat", "nulla",
+					 "pariatur", "excepteur", "sint", "occaecat", "cupidatat", "non", "proident", "sunt",
+					 "in", "culpa", "qui", "officia", "deserunt", "mollit", "anim", "id", "est", "laborum")
 
 /datum/language/gutter
 	name = "Гангстерский"
@@ -532,11 +534,7 @@
 	exclaim_verbs = list("агрессивно говор%(ит,ят)%")
 	colour = "gutter"
 	key = "3"
-	syllables = list ("грит","шанк","дроч","балк","крип","фанк","зум","варг","треш","клоп",
-	"хакс","мут","глох","вирт","брут","крен","шмук","флек","дрюк","клоак","твист","жрэк",
-	"блякс","фрот","сквиз","грух","чунк","дрип","шлюх","крут", "ёп", "ёб", "сыш", "ну",
-	"хы", "ха", "кха", "хуй", "бля", "сук", "мусор", "пацны", "брат", "браза", "эт",
-	"самое", "мдэ", "лох", "фарт", "общак", "стопэ", "лавэ", "бабло", "фраер", "шмон")
+	syllables = list ("gra","ba","ba","breh","bra","rah","dur","ra","ro","gro","go","ber","bar","geh","heh","gra")
 
 /datum/language/clown
 	name = "Клоунский"
@@ -547,7 +545,7 @@
 	colour = "clown"
 	runechat_span = "clown"
 	key = "0"
-	syllables = list ("хонк","скуик","боньк","тут","нафф","сюз","вии","вуб","нофф", "шмык", "хоп", "ха", "ху", "хи")
+	syllables = list ("honk","squeak","bonk","toot","narf","zub","wee","wub","norf")
 
 /datum/language/com_srus
 	name = "Нео-русский"
@@ -560,16 +558,15 @@
 	key = "?"
 	space_chance = 65
 	english_names = TRUE
-	syllables = list("веда","бар","бота","век","тво","слов","слав","сен","дуп","вах","лаз","глоз","ет",
-	"нет","да","ски","глав","глаз","нец","думат","зат","моч","боз",
-	"комы","врад","враде","тай","бли","ай","нов","ливн","толв","глаз","глиз",
-	"оуй","раб","евт","дат","ботат","нев","новы","его","нов","шо","обш",
-	"бяк","боба","овский","ская","биба","студен","вар","бул","вян",
-	"елбан","вая","мяк","гино","воло","олам","мити","нино","менов","перов",
-	"одаски","тров","ники","ивано","достов","сокол","оупа","первом","щел",
-	"тизан","чка","таган","добры","нюни","бода","вета","иди","цык","блыт","на",
-	"уди","лички","каса","огуз","толи","анатов","ихний","веч","вуч","той","ка","вод",
-	"нус", "ов", "ну", "и", "или", "но", "без", "оч", "под", "над", "не")
+	syllables = list("dyen","bar","bota","vyek","tvo","slov","slav","syen","doup","vah","laz","gloz","yet",
+					 "nyet","da","sky","glav","glaz","netz","doomat","zat","moch","boz",
+					 "comy","vrad","vrade","tay","bli","ay","nov","livn","tolv","glaz","gliz",
+					 "ouy","zet","yevt","dat","botat","nev","novy","vzy","nov","sho","obsh","dasky",
+					 "key","skey","ovsky","skaya","bib","kiev","studen","var","bul","vyan",
+					 "tzion","vaya","myak","gino","volo","olam","miti","nino","menov","perov",
+					 "odasky","trov","niki","ivano","dostov","sokol","oupa","pervom","schel",
+					 "tizan","chka","tagan","dobry","okt","boda","veta","idi","cyk","blyt","hui","na",
+					 "udi","litchki","casa","linka","toly","anatov","vich","vech","vuch","toi","ka","vod")
 
 /datum/language/wryn
 	name = "Разум улья Вринов"
@@ -600,7 +597,7 @@
 	exclaim_verbs = list("рыч%(ит,ят)%")
 	key = "6"
 	flags = RESTRICTED
-	syllables = list("шшш","шШш","ШШШ", "щщщ", "щЩщ", "ЩЩЩ")
+	syllables = list("sss","sSs","SSS")
 
 /datum/language/xenos
 	name = "Разум улья Ксеноморфов"
@@ -795,7 +792,7 @@
 	key = "db"
 	flags = RESTRICTED
 	follow = TRUE
-	syllables = list ("бип", "буп")
+	syllables = list ("beep", "boop")
 
 /datum/language/swarmer
 	name = "Связь Роевиков"
