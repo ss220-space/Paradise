@@ -151,7 +151,7 @@
 	return TRUE
 
 /datum/action/innate/cult/blood_spell/manipulation/can_blood_cast()
-	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.spells)
+	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
 		return FALSE
 	return ..()
 //the spell list
