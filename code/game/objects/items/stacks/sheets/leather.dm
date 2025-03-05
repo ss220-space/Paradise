@@ -189,6 +189,8 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/pathfinder,
 			/obj/item/clothing/head/hooded/pathfinder,
+			/obj/item/clothing/suit/hooded/explorer/mining,
+			/obj/item/clothing/head/hooded/explorer/mining,
 	))
 	var/static/list/goliath_platable_armor_with_icon_typecache = typecacheof(list(
 			/obj/item/clothing/suit/space/hardsuit/mining,
