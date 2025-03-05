@@ -89,7 +89,7 @@
 	/// Which channels can the bot listen to.
 	var/list/radio_config = null
 	/// The bot's default radio channel.
-	var/radio_channel = PUB_FREQ_NAME
+	var/radio_channel = "Общий"
 	/// Set to `TRUE` make bot automatically patrol.
 	var/auto_patrol = FALSE
 	/// This is turf to navigate to (location of beacon).
@@ -158,7 +158,7 @@
 	var/mob/living/simple_animal/bot/B = loc
 	if(istype(B))
 		if(!B.radio_config)
-			B.radio_config = list(AI_FREQ_NAME = 1)
+			B.radio_config = list("ИИ" = 1)
 			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1
@@ -522,7 +522,7 @@
 	)
 
 
-/mob/living/simple_animal/bot/bullet_act(obj/projectile/Proj)
+/mob/living/simple_animal/bot/bullet_act(obj/item/projectile/Proj)
 	if(Proj && (Proj.damage_type == BRUTE || Proj.damage_type == BURN))
 		if(prob(75) && Proj.damage > 0)
 			do_sparks(5, 1, src)
@@ -1174,10 +1174,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
-		hack += "[emagged == 2 ? "Программное обеспечение взломано! Устройство может вести себя опасно или нестабильно." : "Устройство работает в нормальном режиме. Отключить протоколы безопасности?"]<br>"
-		hack += "Протоколы безопасности: <a href='byond://?src=[UID()];operation=hack'>[emagged ? span_bad("Отключены") : "Включены"]</a><br>"
+		hack += "[emagged == 2 ? "Программное обеспечение взломано! Устройство может вести себя опасно или нестабильно." : "Устройство работает в нормальном режиме. Отключить протоколы безопасности?"]<BR>"
+		hack += "Протоколы безопасности: <a href='byond://?src=[UID()];operation=hack'>[emagged ? span_bad("Отключены") : "Включены"]</A><BR>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</a><br>"
+		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</A><BR>"
 	return hack
 
 
@@ -1188,15 +1188,15 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			eject += "Состояние ПИИ: "
 			if(paicard)
 				if(client)
-					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Активирован</a>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Активирован</A>"
 				else
-					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Отключён</a>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Отключён</A>"
 			else if(!allow_pai || key)
 				eject += "Нет доступа"
 			else
 				eject += "Отсутствует"
-			eject += "<br>"
-		eject += "<br>"
+			eject += "<BR>"
+		eject += "<BR>"
 	return eject
 
 
