@@ -59,6 +59,7 @@
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 	var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
+
 	if(!new_spell.can_blood_cast())
 		owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
 		qdel(new_spell)
