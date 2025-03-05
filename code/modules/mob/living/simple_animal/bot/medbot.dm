@@ -18,7 +18,7 @@
 	maxHealth = 20
 	pass_flags = PASSMOB|PASSFLAPS
 
-	radio_channel = "Medical"
+	radio_channel = "Медицина"
 
 	bot_type = MED_BOT
 	bot_filter = RADIO_MEDBOT
@@ -128,8 +128,8 @@
 	syndicate_aligned = TRUE
 	bot_core_type = /obj/machinery/bot_core/medbot/syndicate
 	control_freq = BOT_FREQ + 1000 // make it not show up on lists
-	radio_channel = "Syndicate"
-	radio_config = list("Common" = 1, "Medical" = 1, "Syndicate" = 1)
+	radio_channel = "Синдикат"
+	radio_config = list("Общий" = 1, "Медицина" = 1, "Синдикат" = 1)
 
 /mob/living/simple_animal/bot/medbot/syndicate/Initialize(mapload, new_skin)
 	. = ..()

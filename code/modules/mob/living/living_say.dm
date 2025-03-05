@@ -24,95 +24,95 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				and must not contain prohibited characters!
 */
 	// English text lowercase
-	  ":r" = "right ear",		"#r" = "right ear",		"№r" = "right ear",		".r" = "right ear",
-	  ":l" = "left ear",		"#l" = "left ear",		"№l" = "left ear",		".l" = "left ear",
-	  ":i" = "intercom",		"#i" = "intercom",		"№i" = "intercom",		".i" = "intercom",
-	  ":h" = "department",		"#h" = "department",	"№h" = "department",	".h" = "department",
-	  ":c" = "Command",			"#c" = "Command",		"№c" = "Command",		".c" = "Command",
-	  ":n" = "Science",			"#n" = "Science",		"№n" = "Science",		".n" = "Science",
-	  ":m" = "Medical",			"#m" = "Medical",		"№m" = "Medical",		".m" = "Medical",
-	  ":x" = "Procedure",		"#x" = "Procedure",		"№x" = "Procedure",		".x" = "Procedure",
-	  ":e" = "Engineering", 	"#e" = "Engineering",	"№e" = "Engineering",	".e" = "Engineering",
-	  ":s" = "Security",		"#s" = "Security",		"№s" = "Security",		".s" = "Security",
-	  ":w" = "whisper",			"#w" = "whisper",		"№w" = "whisper",		".w" = "whisper",
-	  ":t" = "Syndicate",		"#t" = "Syndicate",		"№t" = "Syndicate",		".t" = "Syndicate",
-	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
-	  ":u" = "Supply",			"#u" = "Supply",		"№u" = "Supply",		".u" = "Supply",
-	  ":z" = "Service",			"#z" = "Service",		"№z" = "Service",		".z" = "Service",
-	  ":p" = "AI Private",		"#p" = "AI Private",	"№p" = "AI Private",	".p" = "AI Private",
+	  ":r" = "правое ухо",		"#r" = "правое ухо",	"№r" = "правое ухо",	".r" = "правое ухо",
+	  ":l" = "левое ухо",		"#l" = "левое ухо",		"№l" = "левое ухо",		".l" = "левое ухо",
+	  ":i" = "интерком",		"#i" = "интерком",		"№i" = "интерком",		".i" = "интерком",
+	  ":h" = "отдел",			"#h" = "отдел",			"№h" = "отдел",			".h" = "отдел",
+	  ":c" = "Командование",	"#c" = "Командование",	"№c" = "Командование",	".c" = "Командование",
+	  ":n" = "Наука",			"#n" = "Наука",			"№n" = "Наука",			".n" = "Наука",
+	  ":m" = "Медицина",		"#m" = "Медицина",		"№m" = "Медицина",		".m" = "Медицина",
+	  ":x" = "Юриспруденция",	"#x" = "Юриспруденция",	"№x" = "Юриспруденция",	".x" = "Юриспруденция",
+	  ":e" = "Инженерия", 		"#e" = "Инженерия",		"№e" = "Инженерия",		".e" = "Инженерия",
+	  ":s" = "Безопасность",	"#s" = "Безопасность",	"№s" = "Безопасность",	".s" = "Безопасность",
+	  ":w" = "шёпот",			"#w" = "шёпот",			"№w" = "шёпот",			".w" = "шёпот",
+	  ":t" = "Синдикат",		"#t" = "Синдикат",		"№t" = "Синдикат",		".t" = "Синдикат",
+	  ":'" = "СССП",			"#'" = "СССП",			"№'" = "СССП",			".'" = "СССП",
+	  ":u" = "Снабжение",		"#u" = "Снабжение",		"№u" = "Снабжение",		".u" = "Снабжение",
+	  ":z" = "Обслуживание",	"#z" = "Обслуживание",	"№z" = "Обслуживание",	".z" = "Обслуживание",
+	  ":p" = "ИИ",				"#p" = "ИИ",			"№p" = "ИИ",			".p" = "ИИ",
 
 	// English text uppercase
-	  ":R" = "right ear",		"#R" = "right ear",		"№R" = "right ear",		".R" = "right ear",
-	  ":L" = "left ear",		"#L" = "left ear",		"№L" = "left ear",		".L" = "left ear",
-	  ":I" = "intercom",		"#I" = "intercom",		"№I" = "intercom",		".I" = "intercom",
-	  ":H" = "department",		"#H" = "department",	"№H" = "department",	".H" = "department",
-	  ":C" = "Command",			"#C" = "Command",		"№C" = "Command",		".C" = "Command",
-	  ":N" = "Science",			"#N" = "Science",		"№N" = "Science",		".N" = "Science",
-	  ":M" = "Medical",			"#M" = "Medical",		"№M" = "Medical",		".M" = "Medical",
-	  ":X" = "Procedure",		"#X" = "Procedure",		"№X" = "Procedure",		".X" = "Procedure",
-	  ":E" = "Engineering",		"#E" = "Engineering",	"№E" = "Engineering",	".E" = "Engineering",
-	  ":S" = "Security",		"#S" = "Security",		"№S" = "Security",		".S" = "Security",
-	  ":W" = "whisper",			"#W" = "whisper",		"№W" = "whisper",		".W" = "whisper",
-	  ":T" = "Syndicate",		"#T" = "Syndicate",		"№T" = "Syndicate",		".T" = "Syndicate",
-	  ":'" = "Soviet",			"#'" = "Soviet",		"№'" = "Soviet",		".'" = "Soviet",
-	  ":U" = "Supply",			"#U" = "Supply",		"№U" = "Supply",		".U" = "Supply",
-	  ":Z" = "Service",			"#Z" = "Service",		"№Z" = "Service",		".Z" = "Service",
-	  ":P" = "AI Private",		"#P" = "AI Private",	"№P" = "AI Private",	".P" = "AI Private",
+	  ":R" = "правое ухо",		"#R" = "правое ухо",	"№R" = "правое ухо",	".R" = "правое ухо",
+	  ":L" = "левое ухо",		"#L" = "левое ухо",		"№L" = "левое ухо",		".L" = "левое ухо",
+	  ":I" = "интерком",		"#I" = "интерком",		"№I" = "интерком",		".I" = "интерком",
+	  ":H" = "отдел",			"#H" = "отдел",			"№H" = "отдел",			".H" = "отдел",
+	  ":C" = "Командование",	"#C" = "Командование",	"№C" = "Командование",	".C" = "Командование",
+	  ":N" = "Наука",			"#N" = "Наука",			"№N" = "Наука",			".N" = "Наука",
+	  ":M" = "Медицина",		"#M" = "Медицина",		"№M" = "Медицина",		".M" = "Медицина",
+	  ":X" = "Юриспруденция",	"#X" = "Юриспруденция",	"№X" = "Юриспруденция",	".X" = "Юриспруденция",
+	  ":E" = "Инженерия",		"#E" = "Инженерия",		"№E" = "Инженерия",		".E" = "Инженерия",
+	  ":S" = "Безопасность",	"#S" = "Безопасность",	"№S" = "Безопасность",	".S" = "Безопасность",
+	  ":W" = "шёпот",			"#W" = "шёпот",			"№W" = "шёпот",			".W" = "шёпот",
+	  ":T" = "Синдикат",		"#T" = "Синдикат",		"№T" = "Синдикат",		".T" = "Синдикат",
+	  ":'" = "СССП",			"#'" = "СССП",			"№'" = "СССП",			".'" = "СССП",
+	  ":U" = "Снабжение",		"#U" = "Снабжение",		"№U" = "Снабжение",		".U" = "Снабжение",
+	  ":Z" = "Обслуживание",	"#Z" = "Обслуживание",	"№Z" = "Обслуживание",	".Z" = "Обслуживание",
+	  ":P" = "ИИ",				"#P" = "ИИ",			"№P" = "ИИ",			".P" = "ИИ",
 
 	// Russian text lowercase
-	  ":к" = "right ear",		"#к" = "right ear",		"№к" = "right ear",		".к" = "right ear",
-	  ":д" = "left ear",		"#д" = "left ear",		"№д" = "left ear",		".д" = "left ear",
-	  ":ш" = "intercom",		"#ш" = "intercom",		"№ш" = "intercom",		".ш" = "intercom",
-	  ":р" = "department",		"#р" = "department",	"№р" = "department",	".р" = "department",
-	  ":с" = "Command",			"#с" = "Command",		"№с" = "Command",		".с" = "Command",
-	  ":т" = "Science",			"#т" = "Science",		"№т" = "Science",		".т" = "Science",
-	  ":ь" = "Medical",			"#ь" = "Medical",		"№ь" = "Medical",		".ь" = "Medical",
-	  ":ч" = "Procedure",		"#ч" = "Procedure",		"№ч" = "Procedure",		".ч" = "Procedure",
-	  ":у" = "Engineering", 	"#у" = "Engineering",	"№у" = "Engineering",	".у" = "Engineering",
-	  ":ы" = "Security",		"#ы" = "Security",		"№ы" = "Security",		".ы" = "Security",
-	  ":ц" = "whisper",			"#ц" = "whisper",		"№ц" = "whisper",		".ц" = "whisper",
-	  ":е" = "Syndicate",		"#е" = "Syndicate",		"№е" = "Syndicate",		".е" = "Syndicate",
-	  ":э" = "Soviet",			"#э" = "Soviet",		"№э" = "Soviet",		".э" = "Soviet",
-	  ":б" = "SyndTaipan",		"#б" = "SyndTaipan",	"№б" = "SyndTaipan",	".б" = "SyndTaipan",
-	  ":г" = "Supply",			"#г" = "Supply",		"№г" = "Supply",		".г" = "Supply",
-	  ":я" = "Service",			"#я" = "Service",		"№я" = "Service",		".я" = "Service",
-	  ":з" = "AI Private",		"#з" = "AI Private",	"№з" = "AI Private",	".з" = "AI Private",
-	  ":ё" = "cords",			"#ё" = "cords",			"№ё" = "cords",			".ё" = "cords",
+	  ":к" = "правое ухо",		"#к" = "правое ухо",	"№к" = "правое ухо",	".к" = "правое ухо",
+	  ":д" = "левое ухо",		"#д" = "левое ухо",		"№д" = "левое ухо",		".д" = "левое ухо",
+	  ":ш" = "интерком",		"#ш" = "интерком",		"№ш" = "интерком",		".ш" = "интерком",
+	  ":р" = "отдел",			"#р" = "отдел",			"№р" = "отдел",			".р" = "отдел",
+	  ":с" = "Командование",	"#с" = "Командование",	"№с" = "Командование",	".с" = "Командование",
+	  ":т" = "Наука",			"#т" = "Наука",			"№т" = "Наука",			".т" = "Наука",
+	  ":ь" = "Медицина",		"#ь" = "Медицина",		"№ь" = "Медицина",		".ь" = "Медицина",
+	  ":ч" = "Юриспруденция",	"#ч" = "Юриспруденция",	"№ч" = "Юриспруденция",	".ч" = "Юриспруденция",
+	  ":у" = "Инженерия", 		"#у" = "Инженерия",		"№у" = "Инженерия",		".у" = "Инженерия",
+	  ":ы" = "Безопасность",	"#ы" = "Безопасность",	"№ы" = "Безопасность",	".ы" = "Безопасность",
+	  ":ц" = "шёпот",			"#ц" = "шёпот",			"№ц" = "шёпот",			".ц" = "шёпот",
+	  ":е" = "Синдикат",		"#е" = "Синдикат",		"№е" = "Синдикат",		".е" = "Синдикат",
+	  ":э" = "СССП",			"#э" = "СССП",			"№э" = "СССП",			".э" = "СССП",
+	  ":б" = "СиндиТайпан",		"#б" = "СиндиТайпан",	"№б" = "СиндиТайпан",	".б" = "СиндиТайпан",
+	  ":г" = "Снабжение",		"#г" = "Снабжение",		"№г" = "Снабжение",		".г" = "Снабжение",
+	  ":я" = "Обслуживание",	"#я" = "Обслуживание",	"№я" = "Обслуживание",	".я" = "Обслуживание",
+	  ":з" = "ИИ",				"#з" = "ИИ",			"№з" = "ИИ",			".з" = "ИИ",
+	  ":ё" = "связки",			"#ё" = "связки",		"№ё" = "связки",		".ё" = "связки",
 
 	// Russian text uppercase
-	  ":К" = "right ear",		"#К" = "right ear",		"№К" = "right ear",		".К" = "right ear",
-	  ":Д" = "left ear",		"#Д" = "left ear",		"№Д" = "left ear",		".Д" = "left ear",
-	  ":Ш" = "intercom",		"#Ш" = "intercom",		"№Ш" = "intercom",		".Ш" = "intercom",
-	  ":Р" = "department",		"#Р" = "department",	"№Р" = "department",	".Р" = "department",
-	  ":С" = "Command",			"#С" = "Command",		"№С" = "Command",		".С" = "Command",
-	  ":Т" = "Science",			"#Т" = "Science",		"№Т" = "Science",		".Т" = "Science",
-	  ":Ь" = "Medical",			"#Ь" = "Medical",		"№Ь" = "Medical",		".Ь" = "Medical",
-	  ":У" = "Engineering",		"#У" = "Engineering",	"№У" = "Engineering",	".У" = "Engineering",
-	  ":Ы" = "Security",		"#Ы" = "Security",		"№Ы" = "Security",		".Ы" = "Security",
-	  ":Ц" = "whisper",			"#Ц" = "whisper",		"№Ц" = "whisper",		".Ц" = "whisper",
-	  ":Е" = "Syndicate",		"#Е" = "Syndicate",		"№Е" = "Syndicate",		".Е" = "Syndicate",
-	  ":Э" = "Soviet",			"#Э" = "Soviet",		"№Э" = "Soviet",		".Э" = "Soviet",
-	  ":Б" = "SyndTaipan",		"#Б" = "SyndTaipan",	"№Б" = "SyndTaipan",	".Б" = "SyndTaipan",
-	  ":Г" = "Supply",			"#Г" = "Supply",		"№Г" = "Supply",		".Г" = "Supply",
-	  ":Я" = "Service",			"#Я" = "Service",		"№Я" = "Service",		".Я" = "Service",
-	  ":З" = "AI Private",		"#З" = "AI Private",	"№З" = "AI Private",	".З" = "AI Private",
-	  ":Ё" = "cords",			"#Ё" = "cords",			"№Ё" = "cords",			".Ё" = "cords",
+	  ":К" = "правое ухо",		"#К" = "правое ухо",	"№К" = "правое ухо",	".К" = "правое ухо",
+	  ":Д" = "левое ухо",		"#Д" = "левое ухо",		"№Д" = "левое ухо",		".Д" = "левое ухо",
+	  ":Ш" = "интерком",		"#Ш" = "интерком",		"№Ш" = "интерком",		".Ш" = "интерком",
+	  ":Р" = "отдел",			"#Р" = "отдел",			"№Р" = "отдел",			".Р" = "отдел",
+	  ":С" = "Командование",	"#С" = "Командование",	"№С" = "Командование",	".С" = "Командование",
+	  ":Т" = "Наука",			"#Т" = "Наука",			"№Т" = "Наука",			".Т" = "Наука",
+	  ":Ь" = "Медицина",		"#Ь" = "Медицина",		"№Ь" = "Медицина",		".Ь" = "Медицина",
+	  ":У" = "Инженерия",		"#У" = "Инженерия",		"№У" = "Инженерия",		".У" = "Инженерия",
+	  ":Ы" = "Безопасность",	"#Ы" = "Безопасность",	"№Ы" = "Безопасность",	".Ы" = "Безопасность",
+	  ":Ц" = "шёпот",			"#Ц" = "шёпот",			"№Ц" = "шёпот",			".Ц" = "шёпот",
+	  ":Е" = "Синдикат",		"#Е" = "Синдикат",		"№Е" = "Синдикат",		".Е" = "Синдикат",
+	  ":Э" = "СССП",			"#Э" = "СССП",			"№Э" = "СССП",			".Э" = "СССП",
+	  ":Б" = "СиндиТайпан",		"#Б" = "СиндиТайпан",	"№Б" = "СиндиТайпан",	".Б" = "СиндиТайпан",
+	  ":Г" = "Снабжение",		"#Г" = "Снабжение",		"№Г" = "Снабжение",		".Г" = "Снабжение",
+	  ":Я" = "Обслуживание",	"#Я" = "Обслуживание",	"№Я" = "Обслуживание",	".Я" = "Обслуживание",
+	  ":З" = "ИИ",				"#З" = "ИИ",			"№З" = "ИИ",			".З" = "ИИ",
+	  ":Ё" = "связки",			"#Ё" = "связки",		"№Ё" = "связки",		".Ё" = "связки",
 
 	// English symbols no case
-	  ":~" = "cords",			"#~" = "cords",			"№~" = "cords",			".~" = "cords",
-	  ":," = "SyndTaipan",		"#," = "SyndTaipan",	"№," = "SyndTaipan",	".," = "SyndTaipan",
-	  ":1" = "Alpha wave",		"#1" = "Alpha wave",	"№1" = "Alpha wave",	".1" = "Alpha wave",
-	  ":2" = "Beta wave",		"#2" = "Beta wave",		"№2" = "Beta wave",		".2" = "Beta wave",
-	  ":3" = "Gamma wave",		"#3" = "Gamma wave",	"№3" = "Gamma wave",	".3" = "Gamma wave",
+	  ":~" = "связки",			"#~" = "связки",		"№~" = "связки",		".~" = "связки",
+	  ":," = "СиндиТайпан",		"#," = "СиндиТайпан",	"№," = "СиндиТайпан",	".," = "СиндиТайпан",
+	  ":1" = "Альфа частота",	"#1" = "Альфа частота",	"№1" = "Альфа частота",	".1" = "Альфа частота",
+	  ":2" = "Бета частота",	"#2" = "Бета частота",	"№2" = "Бета частота",	".2" = "Бета частота",
+	  ":3" = "Гамма частота",	"#3" = "Гамма частота",	"№3" = "Гамма частота",	".3" = "Гамма частота",
 	// Russian symbols no case
 		// None yet.
 
 	// Special symbols only (that means that they don't have/use an english/russian analogue)
- 	  ":*" = "Spider Clan",		"#*" = "Spider Clan",	"№*" = "Spider Clan",	".*" = "Spider Clan",
-	  ":$" = "Response Team",	"#$" = "Response Team", "№$" = "Response Team",	".$" = "Response Team",
-  	  ":_" = "SyndTeam",		"#_" = "SyndTeam",		"№_" = "SyndTeam",		"._" = "SyndTeam",
-	  ":-" = "Special Ops",		"#-" = "Special Ops",	"№-" = "Special Ops",	".-" = "Special Ops",
-	  ":+" = "special",			"#+" = "special",		"№+" = "special",		".+" = "special" //activate radio-specific special functions
+ 	  ":*" = "Клан Паука",		"#*" = "Клан Паука",	"№*" = "Клан Паука",	".*" = "Клан Паука",
+	  ":$" = "ОБР",				"#$" = "ОБР", 			"№$" = "ОБР",			".$" = "ОБР",
+  	  ":_" = "СиндиДОС",		"#_" = "СиндиДОС",		"№_" = "СиндиДОС",		"._" = "СиндиДОС",
+	  ":-" = "Спецназ",			"#-" = "Спецназ",		"№-" = "Спецназ",		".-" = "Спецназ",
+	  ":+" = "специальный",		"#+" = "специальный",	"№+" = "специальный",	".+" = "специальный" //activate radio-specific special functions
 ))
 
 
@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/proc/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
-		if("whisper") //all mobs can whisper by default
+		if("шёпот") //all mobs can whisper by default
 			whisper_say(message_pieces)
 			return TRUE
 	return FALSE
@@ -269,7 +269,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	first_piece.message = trim_left(first_piece.message)
 	verb = say_quote(message, first_piece.speaking)
 
-	if(message_mode == "cords")
+	if(message_mode == "связки")
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
 			var/obj/item/organ/internal/vocal_cords/V = C.get_int_organ(/obj/item/organ/internal/vocal_cords)
@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/msg
 		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && client)
 			msg = span_notice("[src] talks into [used_radios[1]]")
-			var/static/list/special_radio_channels = list("Syndicate", "SyndTeam", "Security", "Procedure", "Command", "Response Team", "Special Ops", "Spider Clan", "SyndTaipan", "Soviet")
+			var/static/list/special_radio_channels = list("Синдикат", "СиндиДОС", "Безопасность", "Юриспруденция", "Командование", "ОБР", "Спецназ", "Клан Паука", "СиндиТайпан", "СССП")
 			if(message_mode in special_radio_channels)
 				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
 			else

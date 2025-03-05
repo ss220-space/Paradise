@@ -180,7 +180,7 @@
 	name = "Generalist"
 	module_type = "Standard"
 	subsystems = list(/mob/living/silicon/proc/subsystem_power_monitor, /mob/living/silicon/proc/subsystem_crew_monitor)
-	channels = list("Engineering" = 1, "Medical" = 1, "Security" = 1, "Service" = 1, "Supply" = 1)
+	channels = list("Инженерия" = 1, "Медицина" = 1, "Безопасность" = 1, "Обслуживание" = 1, "Снабжение" = 1)
 	default_skin = "Robot-STD"
 	borg_skins = list(
 		"Basic" = "Robot-STD",
@@ -235,7 +235,7 @@
 	name = "Medical"
 	module_type = "Medical"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
-	channels = list("Medical" = 1)
+	channels = list("Медицина" = 1)
 	default_skin = "Robot-MED"
 	borg_skins = list(
 		"Standard" = "Standard-Medi",
@@ -325,7 +325,7 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/meson,
 	)
-	channels = list("Engineering" = 1)
+	channels = list("Инженерия" = 1)
 	default_skin = "Robot-ENG"
 	borg_skins = list(
 		"Basic" = "Robot-ENG",
@@ -388,7 +388,7 @@
 	name = "Security"
 	module_type = "Security"
 	subsystems = list(/mob/living/silicon/proc/subsystem_crew_monitor)
-	channels = list("Security" = 1)
+	channels = list("Безопасность" = 1)
 	default_skin = "Robot-SEC"
 	borg_skins = list(
 		"Basic" = "Robot-SEC",
@@ -441,7 +441,7 @@
 /obj/item/robot_module/janitor
 	name = "Janitor"
 	module_type = "Janitor"
-	channels = list("Service" = 1)
+	channels = list("Обслуживание" = 1)
 	default_skin = "Robot-JAN"
 	borg_skins = list(
 		"Basic" = "Robot-JAN",
@@ -473,7 +473,7 @@
 /obj/item/robot_module/butler
 	name = "Service"
 	module_type = "Service"
-	channels = list("Service" = 1)
+	channels = list("Обслуживание" = 1)
 	default_skin = "Robot-MAN"
 	borg_skins = list(
 		"Waitress" = "Robot-LDY",
@@ -584,7 +584,7 @@
 		/datum/action/innate/robot_sight/meson,
 	)
 	custom_removals = list("KA modkits")
-	channels = list("Supply" = 1)
+	channels = list("Снабжение" = 1)
 	default_skin = "Robot-MNR"
 	borg_skins = list(
 		"Basic" = "Robot-MNR",
@@ -814,7 +814,7 @@
 	module_actions = list(
 		/datum/action/innate/robot_sight/thermal,
 	)
-	channels = list("Security" = 1)
+	channels = list("Безопасность" = 1)
 	default_skin = "droidcombat"
 	borg_skins = list("Destroyer" = "droidcombat")
 	has_transform_animation = TRUE
