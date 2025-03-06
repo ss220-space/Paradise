@@ -17,7 +17,7 @@ SUBSYSTEM_DEF(radio)
 	"СиндиТайпан" 			= SYND_TAIPAN_FREQ,
 	"СиндиДОС" 				= SYNDTEAM_FREQ,
 	"СССП"					= SOV_FREQ,
-	"Снабжение" 				= SUP_FREQ,
+	"Снабжение" 			= SUP_FREQ,
 	"Обслуживание" 			= SRV_FREQ,
 	"ИИ"					= AI_FREQ,
 	"Медицина (ИТК)"		= MED_I_FREQ,
