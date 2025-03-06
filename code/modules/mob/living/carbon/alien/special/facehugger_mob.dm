@@ -80,9 +80,11 @@
 	add_language(LANGUAGE_XENOS)
 	ranged_distance = jumpdistance - 1
 	default_language = GLOB.all_languages[LANGUAGE_HIVE_XENOS]
+	GLOB.aliens_list |= src
 
 /mob/living/simple_animal/hostile/facehugger/Destroy()
 	hugger_holder = null
+	GLOB.aliens_list -= src
 	. = ..()
 
 /mob/living/simple_animal/hostile/facehugger/Life(seconds, times_fired)
@@ -142,10 +144,11 @@
 	if(iscarbon(hit_atom))
 		try_hug(hit_atom)
 		return .
-	for(var/mob/living/carbon/target in hit_atom)
-		if(CanHug(target))
-			try_hug(target)
-			return .
+	if(isturf(hit_atom))
+		for(var/mob/living/carbon/target in hit_atom)
+			if(CanHug(target))
+				try_hug(target)
+				return .
 	try_hug(hit_atom)
 
 /mob/living/simple_animal/hostile/facehugger/death(gibbed)
