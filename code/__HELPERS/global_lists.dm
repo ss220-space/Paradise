@@ -153,9 +153,7 @@
 	init_keybindings()
 
 	// Preference toggles
-	for(var/path in subtypesof(/datum/preference_toggle))
-		var/datum/preference_toggle/pref_toggle = path
-
+	for(var/datum/preference_toggle/pref_toggle as anything in subtypesof(/datum/preference_toggle))
 		if(!pref_toggle.name)
 			continue
 
