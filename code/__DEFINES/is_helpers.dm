@@ -82,7 +82,7 @@
 
 #define isvehicle(A) (istype(A, /obj/vehicle))
 
-#define isprojectile(A) (istype(A, /obj/item/projectile))
+#define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
 

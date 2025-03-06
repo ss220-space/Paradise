@@ -359,7 +359,7 @@
 			if (temp_pod.effectShrapnel == TRUE) //If already doing custom damage, set back to default (no shrapnel)
 				temp_pod.effectShrapnel = FALSE
 				return
-			var/shrapnelInput = tgui_input_list(usr, "Пожалуйста, введите тип облака снарядов, которое вы хотите создать при приземлении (может быть любой снаряд!)", "Тип снаряда", sort_list(subtypesof(/obj/item/projectile), GLOBAL_PROC_REF(cmp_typepaths_asc)), null)
+			var/shrapnelInput = tgui_input_list(usr, "Пожалуйста, введите тип облака снарядов, которое вы хотите создать при приземлении (может быть любой снаряд!)", "Тип снаряда", sort_list(subtypesof(/obj/projectile), GLOBAL_PROC_REF(cmp_typepaths_asc)), null)
 			if (isnull(shrapnelInput))
 				return
 			var/shrapnelMagnitude = tgui_input_number(usr, "Введите размер облака снарядов. Обычно это значение от 1 до 5. Обратите внимание: Если вы выберите слишком большой размер, вы можете вызвать сбой сервера.", "Размер облака", 0)

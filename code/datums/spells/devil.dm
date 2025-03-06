@@ -112,7 +112,7 @@
 	invocation = "Your very soul will catch fire!"
 	invocation_type = "shout"
 
-	fireball_type = /obj/item/projectile/magic/fireball/infernal
+	fireball_type = /obj/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
 
 
@@ -178,7 +178,7 @@
 
 /mob/living/proc/infernalphaseout(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	dust_animation()
-	
+
 	visible_message(span_warning("[src] disappears in a flashfire!"))
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
 
@@ -188,7 +188,7 @@
 	forceMove(s_holder)
 
 	holder = s_holder
-	
+
 	REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(spell))
 	fakefireextinguish()
 
@@ -235,7 +235,7 @@
 
 /obj/effect/proc_holder/spell/sintouch/create_new_targeting()
 	var/datum/spell_targeting/targeted/targeting = new()
-	
+
 	targeting.selection_type = SPELL_SELECTION_RANGE
 	targeting.random_target = TRUE
 	targeting.target_priority = SPELL_TARGET_RANDOM
@@ -298,7 +298,7 @@
 
 		dancefloor_turfs.len = funky_turfs.len
 		dancefloor_turfs_types.len = funky_turfs.len
-		
+
 		for(var/t in funky_turfs)
 			var/turf/T = t
 			dancefloor_turfs[i] = T
@@ -313,7 +313,7 @@
 
 	base_cooldown = 60 SECONDS
 	aoe_range = 10
-	
+
 	clothes_req = FALSE
 	human_req = FALSE
 
@@ -325,7 +325,7 @@
 
 	targeting.range = aoe_range
 	targeting.allowed_type = /atom
-	
+
 	return targeting
 
 /obj/effect/proc_holder/spell/aoe/devil_fire/cast(list/targets, mob/user = usr)
@@ -341,7 +341,7 @@
 
 		new /obj/effect/hotspot(turf)
 		turf.hotspot_expose(2000, 50, 1)
-	
+
 	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
 
 /obj/effect/proc_holder/spell/dark_conversion

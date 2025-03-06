@@ -206,7 +206,7 @@
 
 /turf/simulated/openspace/rcd_construct_act(mob/user, obj/item/rcd/our_rcd, rcd_mode)
 	. = ..()
-	
+
 	if(rcd_mode != RCD_MODE_TURF)
 		return RCD_NO_ACT
 
@@ -221,7 +221,7 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 	return RCD_ACT_FAILED
 
-/turf/simulated/openspace/bullet_act(obj/item/projectile/P, def_zone)
+/turf/simulated/openspace/bullet_act(obj/projectile/P, def_zone)
 	return -1
 
 // Every new proc that should be edited or added here. Also needs to be copied into /turf/space/openspace. I'm not sorry.

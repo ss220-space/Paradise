@@ -33,7 +33,7 @@ Difficulty: Medium
 	tts_seed = "Chen"
 	speed = 3
 	move_to_delay = 3
-	projectiletype = /obj/item/projectile/kinetic/miner
+	projectiletype = /obj/projectile/kinetic/miner
 	projectilesound = 'sound/weapons/kenetic_accel.ogg'
 	ranged = TRUE
 	ranged_cooldown_time = 16
@@ -205,13 +205,13 @@ Difficulty: Medium
 	return ..()
 
 
-/obj/item/projectile/kinetic/miner
+/obj/projectile/kinetic/miner
 	damage = 20
 	speed = 0.9
 	icon_state = "ka_tracer"
 	range = MINER_DASH_RANGE
 
-/obj/item/projectile/kinetic/miner/enraged
+/obj/projectile/kinetic/miner/enraged
 	damage = 35
 
 
@@ -294,7 +294,7 @@ Difficulty: Medium
 	miner_saw = new /obj/item/melee/energy/cleaving_saw(src) //Real saw for real men.
 	dash_cooldown_to_use = 0.5 SECONDS //Becomes a teleporting shit.
 	ranged_cooldown_time = 5 //They got some cooldown mods.
-	projectiletype = /obj/item/projectile/kinetic/miner/enraged
+	projectiletype = /obj/projectile/kinetic/miner/enraged
 	maxHealth = 1800
 	health = 1800 //Bit more of a challenge.
 

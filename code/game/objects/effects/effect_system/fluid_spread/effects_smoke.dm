@@ -223,8 +223,8 @@
  */
 /obj/effect/particle_effect/fluid/smoke/bad/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(istype(arrived, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/beam = arrived
+	if(istype(arrived, /obj/projectile/beam))
+		var/obj/projectile/beam/beam = arrived
 		beam.damage = (beam.damage / beam_resistance)
 
 /// A factory which produces smoke that makes you cough.

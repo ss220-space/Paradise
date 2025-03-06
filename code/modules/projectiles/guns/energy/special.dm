@@ -303,7 +303,7 @@
 		orange?.target = null
 
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/projectile)
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
 
 	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), null, src)
 
@@ -970,7 +970,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
+	var/obj/projectile/energy/charged_plasma/O = new /obj/projectile/energy/charged_plasma(T)
 	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y
