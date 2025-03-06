@@ -170,7 +170,7 @@
 	var/contained = injected.name
 	var/trans = our_reagents.trans_to(target, amount_per_transfer_from_this)
 	add_attack_logs(user, target, "Injected with [name] containing [contained], transfered [trans] units", injected.harmless ? ATKLOG_ALMOSTALL : null)
-	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В хранилище осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества."))
+	to_chat(user, span_notice("Вы вкалываете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")]. В хранилище осталось ещё <b>[our_reagents.total_volume]</b> единиц[declension_ru(our_reagents.total_volume, "а", "ы", "")] вещества."))
 
 
 /obj/item/reagent_containers/borghypo/attack_self(mob/user)

@@ -95,7 +95,7 @@
 			return message
 	return "[verb]: \"[message]\""
 
-/mob/proc/hear_say(list/message_pieces, verb = "says", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
+/mob/proc/hear_say(list/message_pieces, verb = "говор%(ит,ят)%", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(!client)
 		return 0
 
@@ -159,11 +159,11 @@
 		// INNATE is the flag for audible-emote-language, so we don't want to show an "x talks but you cannot hear them" message if it's set
 		// if(!language || !(language.flags & INNATE))
 		if(speaker == src)
-			to_chat(src, "<span class='warning'>You cannot hear yourself speak!</span>")
+			to_chat(src, span_warning("Вы не слышите собственной речи!"))
 		else
-			to_chat(src, "<span class='name'>[speaker.name]</span> talks but you cannot hear [speaker.p_them()].")
+			to_chat(src, "[span_name(speaker.name)] что-то говор[pluralize_ru(speaker.gender, "ит", "ят")], но вы ничего не слышите!")
 	else
-		to_chat(src, "<span class='game say'><span class='name'>[speaker_name]</span>[speaker.GetAltName()] [track][verb_message(message_pieces, message, verb)]</span>")
+		to_chat(src, span_gamesay("[span_name(speaker_name)][speaker.GetAltName()] [track][verb_message(message_pieces, message, genderize_decode(speaker, verb))]"))
 
 		// Create map text message
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT) // can_hear is checked up there on L99
@@ -206,7 +206,7 @@
 	else
 		return "<font color=[speaker.chat_color]>[speaker_name]</font>"
 
-/mob/proc/hear_radio(list/message_pieces, verb = "says", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
+/mob/proc/hear_radio(list/message_pieces, verb = "говор%(ит,ят)%", part_a, part_b, mob/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target)
 	if(!client)
 		return
 
@@ -220,7 +220,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_pieces, message_clean, verb)
+	var/message = verb_message(message_pieces, message_clean, genderize_decode(speaker, genderize_decode(speaker, verb)))
 	var/message_tts = combine_message_tts(message_pieces, speaker, always_stars = hard_to_hear)
 
 	var/track = null
@@ -229,11 +229,11 @@
 
 	var/speaker_name = handle_speaker_name(speaker, vname, hard_to_hear)
 	speaker_name = colorize_name(speaker, speaker_name)
-	track = handle_track(message, verb, speaker, speaker_name, follow_target, hard_to_hear)
+	track = handle_track(message, genderize_decode(speaker, verb), speaker, speaker_name, follow_target, hard_to_hear)
 
 	if(!can_hear())
 		if(prob(20))
-			to_chat(src, "<span class='warning'>You feel your headset vibrate but can hear nothing from it!</span>")
+			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
 		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
@@ -245,7 +245,7 @@
 			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, src, message_tts, speaker.tts_seed, FALSE, effect, null, null, 'sound/effects/radio_chatter.ogg')
 
 /mob/proc/handle_speaker_name(mob/speaker = null, vname, hard_to_hear)
-	var/speaker_name = "unknown"
+	var/speaker_name = "неизвестный"
 	if(speaker)
 		speaker_name = speaker.name
 
@@ -253,11 +253,11 @@
 		speaker_name = vname
 
 	if(hard_to_hear)
-		speaker_name = "unknown"
+		speaker_name = "неизвестный"
 
 	return speaker_name
 
-/mob/proc/handle_track(message, verb = "says", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
+/mob/proc/handle_track(message, verb = "говор%(ит,ят)%", mob/speaker = null, speaker_name, atom/follow_target, hard_to_hear)
 	return
 
 /mob/proc/hear_sleep(message)
@@ -273,15 +273,15 @@
 				heardword = copytext(heardword,2)
 			if(copytext(heardword,-1) in punctuation)
 				heardword = copytext(heardword,1,length(heardword))
-			heard = "<span class='game say'>...<i>You hear something about<i>... '[heardword]'...</span>"
+			heard = span_gamesay("...<i>Вы слышите что-то про<i>... \"[heardword]\"...")
 		else
-			heard = "<span class='game say'>...<i>You almost hear something...</i>...</span>"
+			heard = span_gamesay("...<i>Вы почти что смогли расслышать что-то</i>...")
 	else
-		heard = "<span class='game say'>...<i>You almost hear someone talking</i>...</span>"
+		heard = span_gamesay("...<i>Вы едва слышите, как кто-то говорит</i>...")
 
 	to_chat(src, heard)
 
-/mob/proc/hear_holopad_talk(list/message_pieces, verb = "says", mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
+/mob/proc/hear_holopad_talk(list/message_pieces, verb = "говор%(ит,ят)%", mob/speaker = null, obj/effect/overlay/holo_pad_hologram/H)
 	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
 		return
@@ -295,7 +295,7 @@
 	if(message_clean == "")
 		return
 
-	var/message = verb_message(message_pieces, message_clean, verb)
+	var/message = verb_message(message_pieces, message_clean, genderize_decode(speaker, verb))
 	var/message_tts = combine_message_tts(message_pieces, speaker)
 
 	var/name = speaker.name
@@ -310,7 +310,7 @@
 		effect = SOUND_EFFECT_RADIO_ROBOT
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, H, src, message_tts, speaker.tts_seed, TRUE, effect)
 
-	var/rendered = "<span class='game say'><span class='name'>[name]</span> [message]</span>"
+	var/rendered = span_gamesay("[span_name(name)] + [message]")
 	to_chat(src, rendered)
 
 
@@ -322,4 +322,3 @@
 			continue
 		if(piece.speaking?.runechat_span)
 			return piece.speaking
-
