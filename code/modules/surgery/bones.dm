@@ -137,7 +137,7 @@
 
 //surgery steps
 /datum/surgery_step/glue_bone
-	name = "сращивание костей"
+	name = "Сращивание костей"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -151,7 +151,7 @@
 	time = 2.4 SECONDS
 
 /datum/surgery_step/glue_bone/plasma
-	name = "сращивание костей (Плазмолюд)"
+	name = "Сращивание костей (Плазмолюд)"
 
 	allowed_tools = list(
 	/obj/item/stack/sheet/mineral/plasma = 100
@@ -164,8 +164,8 @@
 /datum/surgery_step/glue_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
-		"Вы начинаете сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете сращивать повреждённые кости в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Вы чувствуете острую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -202,7 +202,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone
-	name = "закрепление кости"
+	name = "Закрепление костей"
 	begin_sound = 'sound/surgery/bonesetter.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -216,8 +216,8 @@
 /datum/surgery_step/set_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
-		"Вы начинаете закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.custom_pain("Вы чувствуете невыносимую боль в [affected.declent_ru(PREPOSITIONAL)]!")
@@ -243,12 +243,12 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone/mend_skull
-	name = "закрепление костей черепа"
+	name = "Закрепление костей черепа"
 
 /datum/surgery_step/set_bone/mend_skull/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] закреплять кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)].",
-		"Вы начинаете закреплять кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] закреплять кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете закреплять кости черепа [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
@@ -274,7 +274,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/finish_bone
-	name = "заживление костей"
+	name = "Заживление костей"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -290,8 +290,8 @@
 /datum/surgery_step/finish_bone/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] заживлять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
-		"Вы начинаете заживлять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] заживлять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете заживлять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 	return ..()
 

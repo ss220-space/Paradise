@@ -24,7 +24,7 @@
 
 
 /datum/surgery/cavity_implant/soft
-	name = "Полостная хирургия"
+	name = "Полостная хирургия (Без костей)"
 	desc = "Имплантация объекта в полость, не защищённую костями."
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
@@ -181,11 +181,11 @@
 /datum/surgery_step/cavity/proc/get_cavity(obj/item/organ/external/affected)
 	switch(affected.limb_zone)
 		if(BODY_ZONE_HEAD)
-			return "cranial"
+			return "черепную"
 		if(BODY_ZONE_CHEST)
-			return "thoracic"
+			return "грудную"
 		if(BODY_ZONE_PRECISE_GROIN)
-			return "abdominal"
+			return "брюшную"
 	return ""
 
 /datum/surgery_step/cavity/proc/get_item_inside(obj/item/organ/external/affected)
@@ -210,7 +210,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/cavity/make_space
-	name = "создать полость"
+	name = "Создание полости"
 	begin_sound = 'sound/surgery/surgicaldrill.ogg'
 	allowed_tools = list(
 		TOOL_DRILL = 100,
@@ -224,23 +224,23 @@
 /datum/surgery_step/cavity/make_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] создавать полость внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
-		"Вы начинаете создавать полость внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете создавать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
-	target.custom_pain("The pain in your chest is living hell!")
+	target.custom_pain("Вы чувствуете острую боль в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/cavity/make_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] созда[pluralize_ru(user.gender, "ёт", "ют")] полость внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы создаёте полость внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)].")
+		span_notice("[user] созда[pluralize_ru(user.gender, "ёт", "ют")] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы создаёте [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/cavity/close_space
-	name = "закрыть полость"
+	name = "Закрытие полости"
 	begin_sound = 'sound/surgery/cautery2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
@@ -256,33 +256,34 @@
 /datum/surgery_step/cavity/close_space/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] прижигать края полости внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)].",
-		"Вы начинаете прижигать края полости внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)]."
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете закрывать [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
-	target.custom_pain("Вы чувствуете адскую боль в [affected.declent_ru(PREPOSITIONAL)]!")
+	target.custom_pain("Вы чувствуете жгучую боль в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/cavity/close_space/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] прижига[pluralize_ru(user.gender, "ет", "ют")] края полости внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы прижигаете края полости внтури [get_cavity(affected)] [target], используя [tool.declent_ru(ACCUSATIVE)].")
+		span_notice("[user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы закрываете [get_cavity(affected)] полость в теле [target], используя [tool.declent_ru(ACCUSATIVE)].")
 	)
 
 	return SURGERY_STEP_CONTINUE
 
 
 /datum/surgery_step/cavity/remove_item
-	name = "извлечь объект"
+	name = "Извлечение объекта"
 	begin_sound = 'sound/surgery/organ2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_hand = TRUE
 
 /datum/surgery_step/cavity/remove_item/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	// Check even if there isn't anything inside
 	user.visible_message(
-		span_notice("[user] проверя[pluralize_ru(user.gender, "ет", "ют")] полость в [target_zone] [target] на наличие чужеродных объектов."),
-		span_notice("Вы проверяете полость в [target_zone] [target] на наличие чужеродных объектов.")
+		span_notice("[user] проверя[pluralize_ru(user.gender, "ет", "ют")] полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов."),
+		span_notice("Вы проверяете полость в [affected.declent_ru(GENITIVE)] [target] на наличие чужеродных объектов.")
 	)
 	return ..()
 
@@ -299,11 +300,11 @@
 		extracting = affected.hidden
 
 	if(!extracting)
-		to_chat(user, span_warning("Вы ничего не находите в [target_zone] [target]."))
+		to_chat(user, span_warning("Вы ничего не находите в [affected.declent_ru(GENITIVE)] [target]."))
 		return SURGERY_STEP_CONTINUE
 	user.visible_message(
-		span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [extracting.declent_ru(ACCUSATIVE)] из [target_zone] [target]!"),
-		span_notice("Вы достаёте [extracting.declent_ru(ACCUSATIVE)] из [target_zone] [target]!")
+		span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!"),
+		span_notice("Вы достаёте [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target]!")
 	)
 	user.put_in_hands(extracting, ignore_anim = FALSE)
 	affected.hidden = null
@@ -312,15 +313,15 @@
 /datum/surgery_step/cavity/remove_item/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] по ошибке хвата[pluralize_ru(user.gender, "ет", "ют")]ся рукой за что-то внутри [get_cavity(affected)] [target], нанося серьёзные повреждения!"),
-		span_warning("Вы по ошибке хватаетесь рукой за что-то внутри [get_cavity(affected)] [target], нанося серьёзные повреждения!")
+		span_warning("[user] по ошибке хвата[pluralize_ru(user.gender, "ет", "ют")]ся рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!"),
+		span_warning("Вы по ошибке хватаетесь рукой за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], нанося серьёзные повреждения!")
 	)
 	target.apply_damage(rand(3,7), def_zone = affected)
 
 	return SURGERY_STEP_INCOMPLETE
 
 /datum/surgery_step/cavity/place_item
-	name = "имплантировать объект"
+	name = "Имплантация объекта"
 	begin_sound = 'sound/surgery/organ1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_any_item = TRUE
@@ -362,10 +363,10 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
-		"[user] начина[pluralize_ru(user.gender, "ет", "ют")] помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]." ,
-		"Вы начинаете помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target]."),
+		span_notice("Вы начинаете помещать [tool.declent_ru(ACCUSATIVE)] в [get_cavity(affected)] полость [target].")
 	)
-	target.custom_pain("Вы чувствуете адскую боль в [target_zone]!")
+	target.custom_pain("Вы чувствуете сильную боль в [affected.declent_ru(GENITIVE)]!")
 	return ..()
 
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
