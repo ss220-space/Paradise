@@ -203,21 +203,21 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 			if(pass)
 				screen = RCS_SENTPASS
 				if(recipient in ENGI_ROLES)
-					radiochannel = "Инженерия"
+					radiochannel = ENG_FREQ
 				else if(recipient in SEC_ROLES)
-					radiochannel = "Безопаность"
+					radiochannel = SEC_FREQ
 				else if(recipient in MISC_ROLES)
-					radiochannel = "Обслуживание"
+					radiochannel = SRV_FREQ
 				else if(recipient in MED_ROLES)
-					radiochannel = "Медицина"
+					radiochannel = MED_FREQ
 				else if(recipient in COM_ROLES)
-					radiochannel = "Командование"
+					radiochannel = COMM_FREQ
 				else if(recipient in SCI_ROLES)
-					radiochannel = "Наука"
+					radiochannel = SCI_FREQ
 				else if(recipient == RC_AI)
-					radiochannel = "ИИ"
+					radiochannel = AI_FREQ
 				else if(recipient == RC_CARGO_BAY)
-					radiochannel = "Снабжение"
+					radiochannel = SUP_FREQ
 				write_to_message_log("Message sent to [recipient] at [station_time_timestamp()] - [message]")
 				Radio.autosay("Alert; a new requests console message received for [recipient] from [department]", null, "[radiochannel]")
 			else
