@@ -157,7 +157,7 @@
 		if(!pref_toggle.name)
 			continue
 
-		GLOB.preference_toggles[path] = new path()
+		GLOB.preference_toggles[pref_toggle] = new pref_toggle()
 
 	// Init chemical reagents
 	init_datum_subtypes(/datum/reagent, GLOB.chemical_reagents_list, null, "id")
