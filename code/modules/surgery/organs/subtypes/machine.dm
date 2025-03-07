@@ -140,7 +140,6 @@
 /obj/item/organ/internal/cell
 	species_type = /datum/species/machine
 	name = "microbattery"
-	desc = "A small, powerful cell for use in fully prosthetic bodies."
 	desc = "Маленькая, но мощная батарея, используемая для питания роботизированных систем. Такие устанавливаются в КПБ."
 	ru_names = list(
 		NOMINATIVE = "микробатарея",

@@ -630,15 +630,17 @@
 	emote("me", message = "[pick(emote_hear)]")
 	return TRUE
 
-/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/living/simple_animal/demon/pulse_demon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	// overriden because pulse demon is quite often in non-turf locs, and /mob/visible_message acts differently there
-	for(var/mob/M in get_mobs_in_view(7, src))
-		if(M.see_invisible < invisibility)
+	for(var/mob/mob in get_mobs_in_view(7, src))
+		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
 		var/msg = message
-		if(self_message && M == src)
+		if(self_message && mob == src)
 			msg = self_message
-		M.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
+		mob.show_message(msg, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE, chat_message_type = MESSAGE_TYPE_LOCALCHAT)
 
 /mob/living/simple_animal/demon/pulse_demon/proc/try_hijack_apc(obj/machinery/power/apc/A, remote = FALSE)
 	// one APC per pulse demon, one pulse demon per APC, no duplicate APCs
@@ -827,7 +829,7 @@
 /mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
 	if(istype(proj, /obj/item/projectile/ion))
 		return ..()
-	visible_message(span_warning("[proj] goes right through [src]!"))
+	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
 
 /mob/living/simple_animal/demon/pulse_demon/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE

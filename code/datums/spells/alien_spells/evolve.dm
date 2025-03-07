@@ -129,6 +129,11 @@
 		if(show_message)
 			to_chat(user, span_warning("We already have a queen."))
 		return FALSE
+	var/datum/team/xenomorph/team = locate(/datum/team/xenomorph) in GLOB.antagonist_teams
+	if(team?.current_queen?.current && team.current_queen.current.stat != DEAD)
+		if(show_message)
+			to_chat(user, span_warning("Королева всё ещё жива."))
+		return FALSE
 
 	return TRUE
 

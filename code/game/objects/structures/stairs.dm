@@ -136,7 +136,7 @@
 	icon_state = "stairs_frame"
 	density = FALSE
 	anchored = FALSE
-	interaction_flags_click = NEED_HANDS
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	/// What type of stack will this drop on deconstruction?
 	var/frame_stack = /obj/item/stack/rods
 	/// How much of frame_stack should this drop on deconstruction?

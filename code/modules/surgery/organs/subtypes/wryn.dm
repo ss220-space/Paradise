@@ -146,7 +146,6 @@
 	host.toggle_producing()
 
 /obj/item/organ/internal/brain/wryn
-	name = "wryn brain"
 	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал врину."
 	ru_names = list(
 		NOMINATIVE = "мозг врина",

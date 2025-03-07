@@ -252,10 +252,10 @@
 	if(isprojectile(hitby))
 		var/obj/item/projectile/P = hitby
 		if(P.reflectability == REFLECTABILITY_NEVER) //only 1 magic spell does this, but hey, needed
-			owner.visible_message("<span class='danger'>[owner] blocks [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] blocks [attack_text] with [src]!"), projectile_message = TRUE)
 			playsound(src, 'sound/weapons/effects/ric3.ogg', 100, TRUE)
 			return TRUE
-		owner.visible_message("<span class='danger'>[owner] parries [attack_text] with [src]!</span>")
+		owner.visible_message(span_danger("[owner] parries [attack_text] with [src]!"), projectile_message = TRUE)
 		add_attack_logs(P.firer, src, "hit by [P.type] but got parried by [src]")
 		return -1
 	return TRUE

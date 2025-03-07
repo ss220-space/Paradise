@@ -6,7 +6,7 @@
 	var/round_time // time of the round at which this should be announced, in seconds
 	var/message // body of the message
 	var/author = "Nanotrasen Editor"
-	var/channel_name = "Nyx Daily"
+	var/channel_name = NEWS_CHANNEL_NYX
 	var/can_be_redacted = FALSE
 	var/message_type = "Story"
 
@@ -47,20 +47,20 @@
 
 /datum/news_announcement/random_junk/cheesy_honkers
 	author = "Assistant Editor Carl Ritz"
-	channel_name = "The Gibson Gazette"
+	channel_name = NEWS_CHANNEL_GIB
 	message = {"Do cheesy honkers increase risk of having a miscarriage? Several health administrations
 				say so!"}
 	round_time = 60 * 15
 
 /datum/news_announcement/random_junk/net_block
 	author = "Assistant Editor Carl Ritz"
-	channel_name = "The Gibson Gazette"
+	channel_name = NEWS_CHANNEL_GIB
 	message = {"Several corporations banding together to block access to 'wetskrell.nt', site administrators
 	claiming violation of net laws."}
 	round_time = 60 * 50
 
 /datum/news_announcement/random_junk/found_ssd
-	channel_name = "Nyx Daily"
+	channel_name = NEWS_CHANNEL_NYX
 	author = "Doctor Eric Hanfield"
 
 	message = {"Several people have been found unconscious at their terminals. It is thought that it was due
@@ -70,7 +70,7 @@
 	round_time = 60 * 90
 
 /datum/news_announcement/lotus_tree/explosions
-	channel_name = "Nyx Daily"
+	channel_name = NEWS_CHANNEL_NYX
 	author = "Reporter Leland H. Howards"
 
 	message = {"The newly-christened civillian transport Lotus Tree suffered two very large explosions near the
@@ -82,7 +82,7 @@
 	round_time = 60 * 30
 
 /datum/news_announcement/food_riots/breaking_news
-	channel_name = "Nyx Daily"
+	channel_name = NEWS_CHANNEL_NYX
 	author = "Reporter Ro'kii Ar-Raqis"
 
 	message = {"Breaking news: Food riots have broken out throughout the Refuge asteroid colony in the Tenebrae
@@ -93,7 +93,7 @@
 	round_time = 60 * 10
 
 /datum/news_announcement/food_riots/more
-	channel_name = "Nyx Daily"
+	channel_name = NEWS_CHANNEL_NYX
 	author = "Reporter Ro'kii Ar-Raqis"
 
 	message = {"More on the Refuge food riots: The Refuge Council has condemned Nanotrasen's withdrawal from

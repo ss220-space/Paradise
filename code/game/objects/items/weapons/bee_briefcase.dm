@@ -2,6 +2,15 @@
 /obj/item/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
+	ru_names = list(
+		NOMINATIVE = "портфель",
+		GENITIVE = "портфеля",
+		DATIVE = "портфелю",
+		ACCUSATIVE = "портфель",
+		INSTRUMENTAL = "портфелем",
+		PREPOSITIONAL = "портфеле"
+	)
+	gender = MALE
 	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"

@@ -325,7 +325,7 @@ Difficulty: Very Hard
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
-	visible_message("<span class='danger'>[src]'s shield deflects [P] in a shower of sparks!</span>", "<span class='userdanger'>You deflect the projectile!</span>")
+	visible_message(span_danger("[src]'s shield deflects [P] in a shower of sparks!"), span_userdanger("You deflect the projectile!"), projectile_message = TRUE)
 	if(P.damage)
 		disable_shield()
 
@@ -643,7 +643,6 @@ Difficulty: Very Hard
 	var/fake_hp_regen = 2
 	var/transfer_rate = 0.75
 	var/who_am_i = null
-	var/datum/beam/leg_part
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/Initialize(mapload, mob/living/ancient, who)
 	. = ..()
@@ -665,10 +664,6 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/death(gibbed)
 	return //It shouldn't get gibbed by shuttle.
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/Destroy()
-	QDEL_NULL(leg_part)
-	return ..()
-
 /mob/living/simple_animal/hostile/ancient_robot_leg/Life(seconds, times_fired)
 	..()
 	health_and_snap_check(TRUE)
@@ -684,12 +679,10 @@ Difficulty: Very Hard
 	return // stops the legs from trying to move on their own
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/proc/beam_setup()
-	leg_part = Beam(core.beam, "leg_connection", 'icons/effects/effects.dmi', time=INFINITY, maxdistance=INFINITY, beam_type=/obj/effect/ebeam)
+	Beam(core, "leg_connection", 'icons/effects/effects.dmi', time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/vetus_leg)
 
 /mob/living/simple_animal/hostile/ancient_robot_leg/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
-	if(leg_part)
-		QDEL_NULL(leg_part)
 	addtimer(CALLBACK(src, PROC_REF(beam_setup)), 1 SECONDS)
 
 

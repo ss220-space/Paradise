@@ -44,7 +44,7 @@ export const Uplink = (props, context) => {
   const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
 
   return (
-    <Window width={900} height={600} theme="syndicate">
+    <Window width={900} height={700} theme="syndicate">
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
@@ -59,7 +59,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="store"
               >
-                View Market
+                Магазин
               </Tabs.Tab>
               <Tabs.Tab
                 key="Cart"
@@ -70,8 +70,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="shopping-cart"
               >
-                View Shopping Cart{' '}
-                {cart && cart.length ? '(' + cart.length + ')' : ''}
+                Корзина {cart && cart.length ? '(' + cart.length + ')' : ''}
               </Tabs.Tab>
               <Tabs.Tab
                 key="ExploitableInfo"
@@ -82,7 +81,7 @@ export const Uplink = (props, context) => {
                 }}
                 icon="user"
               >
-                Exploitable Information
+                Информация
               </Tabs.Tab>
               {!!data.contractor && (
                 <Tabs.Tab
@@ -95,19 +94,19 @@ export const Uplink = (props, context) => {
                   onClick={() => modalOpen(context, 'become_contractor')}
                   icon="suitcase"
                 >
-                  Contracting Opportunity
+                  Заключение контракта
                   {!data.contractor.is_admin_forced &&
                   !data.contractor.accepted ? (
                     data.contractor.available_offers > 0 ? (
-                      <i>[Left:{data.contractor.available_offers}]</i>
+                      <i>[Осталось:{data.contractor.available_offers}]</i>
                     ) : (
-                      <i>[Offers over]</i>
+                      <i>[Предложения закончились]</i>
                     )
                   ) : (
                     ''
                   )}
                   {data.contractor.accepted ? (
-                    <i>&nbsp;(Accepted)</i>
+                    <i>&nbsp;(Заключён)</i>
                   ) : !data.contractor.is_admin_forced &&
                     data.contractor.available_offers <= 0 ? (
                     ''
@@ -126,7 +125,7 @@ export const Uplink = (props, context) => {
                 onClick={() => act('lock')}
                 icon="lock"
               >
-                Lock Uplink
+                Заблокировать
               </Tabs.Tab>
             </Tabs>
           </Stack.Item>
@@ -176,21 +175,21 @@ const ItemsPage = (_properties, context) => {
       <Stack vertical>
         <Stack.Item>
           <Section
-            title={'Current Balance: ' + crystals + 'TC'}
+            title={'Текущий баланс: ' + crystals + ' ' + 'ТК'}
             buttons={
               <>
                 <Button.Checkbox
-                  content="Show Descriptions"
+                  content="Показывать описание"
                   checked={showDesc}
                   onClick={() => setShowDesc(!showDesc)}
                 />
                 <Button
-                  content="Random Item"
+                  content="Случайный предмет"
                   icon="question"
                   onClick={() => act('buyRandom')}
                 />
                 <Button
-                  content="Refund Currently Held Item"
+                  content="Сделать возврат"
                   icon="undo"
                   onClick={() => act('refund')}
                 />
@@ -199,7 +198,7 @@ const ItemsPage = (_properties, context) => {
           >
             <Input
               fluid
-              placeholder="Search Equipment"
+              placeholder="Поиск..."
               onInput={(e, value) => {
                 handleSearch(value);
               }}
@@ -209,7 +208,7 @@ const ItemsPage = (_properties, context) => {
         </Stack.Item>
       </Stack>
       <Stack fill mt={0.3}>
-        <Stack.Item width="30%">
+        <Stack.Item width="26%">
           <Section fill scrollable>
             <Tabs vertical>
               {cats.map((c) => (
@@ -220,6 +219,9 @@ const ItemsPage = (_properties, context) => {
                     setUplinkItems(c.items);
                     setSearchText('');
                   }}
+                  backgroundColor={'rgba(255, 0, 0, 0.1)'}
+                  mb={0.5}
+                  ml={0.5}
                 >
                   {c.cat}
                 </Tabs.Tab>
@@ -263,22 +265,22 @@ const CartPage = (_properties, context) => {
         <Section
           fill
           scrollable
-          title={'Current Balance: ' + crystals + 'TC'}
+          title={'Текущий баланс: ' + crystals + ' ' + 'ТК'}
           buttons={
             <>
               <Button.Checkbox
-                content="Show Descriptions"
+                content="Показывать описание"
                 checked={showDesc}
                 onClick={() => setShowDesc(!showDesc)}
               />
               <Button
-                content="Empty Cart"
+                content="Очистить корзину"
                 icon="trash"
                 onClick={() => act('empty_cart')}
                 disabled={!cart}
               />
               <Button
-                content={'Purchase Cart (' + cart_price + 'TC)'}
+                content={'Купить корзину (' + cart_price + 'TC)'}
                 icon="shopping-cart"
                 onClick={() => act('purchase_cart')}
                 disabled={!cart || cart_price > crystals}
@@ -303,7 +305,7 @@ const CartPage = (_properties, context) => {
                 </Stack.Item>
               ))
             ) : (
-              <Box italic>Your Shopping Cart is empty!</Box>
+              <Box italic>Ваша корзина пуста!</Box>
             )}
           </Stack>
         </Section>
@@ -315,17 +317,18 @@ const CartPage = (_properties, context) => {
 const Advert = (_properties, context) => {
   const { act, data } = useBackend(context);
   const { cats, lucky_numbers } = data;
+  const [showDesc, setShowDesc] = useLocalState(context, 'showDesc', 0);
 
   return (
     <Stack.Item grow>
       <Section
         fill
         scrollable
-        title="Suggested Purchases"
+        title="Рекомендуемые товары"
         buttons={
           <Button
             icon="dice"
-            content="See more suggestions"
+            content="Новые рекомендации"
             onClick={() => act('shuffle_lucky_numbers')}
           />
         }
@@ -343,7 +346,7 @@ const Advert = (_properties, context) => {
                 width={34}
                 backgroundColor={'rgba(255, 0, 0, 0.15)'}
               >
-                <UplinkItem grow i={item} />
+                <UplinkItem grow i={item} showDecription={showDesc} />
               </Stack.Item>
             ))}
         </Stack>
@@ -360,12 +363,9 @@ const UplinkItem = (props, context) => {
   } = props;
 
   return (
-    <Section
-      title={decodeHtmlEntities(i.name)}
-      showBottom={showDecription}
-      buttons={buttons}
-    >
+    <Section title={decodeHtmlEntities(i.name)} showBottom={showDecription}>
       {showDecription ? <Box italic>{decodeHtmlEntities(i.desc)}</Box> : null}
+      <Box mt={2}>{buttons}</Box>
     </Section>
   );
 };
@@ -380,7 +380,7 @@ const UplinkItemButtons = (props, context) => {
       <Button
         icon="shopping-cart"
         color={i.hijack_only === 1 && 'red'}
-        tooltip="Add to cart."
+        tooltip="Добавить в корзину"
         tooltipPosition="left"
         onClick={() =>
           act('add_to_cart', {
@@ -391,11 +391,18 @@ const UplinkItemButtons = (props, context) => {
       />
       <Button
         content={
-          'Buy (' + i.cost + 'TC)' + (i.refundable ? ' [Refundable]' : '')
+          'Купить (' +
+          i.cost +
+          ' ' +
+          'ТК)' +
+          (i.refundable ? ' [Возвращаемый]' : '')
         }
         color={i.hijack_only === 1 && 'red'}
         // Yes I care this much about both of these being able to render at the same time
-        tooltip={i.hijack_only === 1 && 'Hijack Agents Only!'}
+        tooltip={
+          i.hijack_only === 1 &&
+          'Только для агентов, имеющих цель — угон эвакуационного шаттла!'
+        }
         tooltipPosition="left"
         onClick={() =>
           act('buyItem', {
@@ -417,8 +424,8 @@ const CartButtons = (props, context) => {
     <Stack>
       <Button
         icon="times"
-        content={'(' + i.cost * i.amount + 'TC)'}
-        tooltip="Remove from cart."
+        content={'(' + i.cost * i.amount + ' ' + 'ТК)'}
+        tooltip="Удалить из корзины"
         tooltipPosition="left"
         onClick={() =>
           act('remove_from_cart', {
@@ -428,7 +435,7 @@ const CartButtons = (props, context) => {
       />
       <Button
         icon="minus"
-        tooltip={i.limit === 0 && 'Discount already redeemed!'}
+        tooltip={i.limit === 0 && 'Скидка уже активирована!'}
         ml="5px"
         onClick={() =>
           act('set_cart_item_quantity', {
@@ -442,7 +449,7 @@ const CartButtons = (props, context) => {
         content={i.amount}
         width="45px"
         tooltipPosition="bottom-end"
-        tooltip={i.limit === 0 && 'Discount already redeemed!'}
+        tooltip={i.limit === 0 && 'Скидка уже активирована!'}
         onCommit={(e, value) =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
@@ -455,7 +462,7 @@ const CartButtons = (props, context) => {
         mb={0.3}
         icon="plus"
         tooltipPosition="bottom-start"
-        tooltip={i.limit === 0 && 'Discount already redeemed!'}
+        tooltip={i.limit === 0 && 'Скидка уже активирована!'}
         onClick={() =>
           act('set_cart_item_quantity', {
             item: i.obj_path,
@@ -496,14 +503,14 @@ const ExploitableInfoPage = (_properties, context) => {
   const crew = SelectMembers(exploitable, searchText);
 
   return (
-    <Section fill title="Exploitable Records">
+    <Section fill title="Записи об экипаже">
       <Stack fill>
         <Stack.Item width="30%" fill>
           <Section fill scrollable>
             <Input
               fluid
               mb={1}
-              placeholder="Search Crew"
+              placeholder="Поиск..."
               onInput={(e, value) => setSearchText(value)}
             />
             <Tabs vertical>
@@ -523,22 +530,22 @@ const ExploitableInfoPage = (_properties, context) => {
         <Stack.Item grow>
           <Section fill title={selectedRecord.name} scrollable>
             <LabeledList>
-              <LabeledList.Item label="Age">
+              <LabeledList.Item label="Возраст">
                 {selectedRecord.age}
               </LabeledList.Item>
-              <LabeledList.Item label="Fingerprint">
+              <LabeledList.Item label="Отпечаток пальцев">
                 {selectedRecord.fingerprint}
               </LabeledList.Item>
-              <LabeledList.Item label="Rank">
+              <LabeledList.Item label="Должность">
                 {selectedRecord.rank}
               </LabeledList.Item>
-              <LabeledList.Item label="Sex">
+              <LabeledList.Item label="Пол">
                 {selectedRecord.sex}
               </LabeledList.Item>
-              <LabeledList.Item label="Species">
+              <LabeledList.Item label="Раса">
                 {selectedRecord.species}
               </LabeledList.Item>
-              <LabeledList.Item label="Records">
+              <LabeledList.Item label="Записи">
                 {selectedRecord.exploit_record}
               </LabeledList.Item>
             </LabeledList>
@@ -566,36 +573,35 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
       title={
         <>
           <Icon name="suitcase" />
-          &nbsp; Contracting Opportunity
+          &nbsp; Заключение контракта
         </>
       }
     >
-      <Box mx="0.5rem" mb="0.5rem">
+      <Box mx="0.8rem" mb="1rem">
         <b>
-          Your achievements for the Syndicate have not gone unnoticed, agent. We
-          have decided to give you the rare opportunity of becoming a
-          Contractor.
+          Ваши достижения в службе Синдикату были отмечены, агент! Мы рады
+          предложить вам уникальную возможность стать контрактником.
         </b>
         <br />
         <br />
-        For the small price of 20 telecrystals, we will upgrade your rank to
-        that of a Contractor, allowing you to undertake kidnapping contracts for
-        TC and credits.
+        Мы предлагаем вам повышение до уровня контрактника всего за 100
+        телекристаллов. Это позволит вам заключать контракты на похищение людей,
+        получая за свою работу телекристаллы и кредиты.
         <br />
-        In addition, you will be supplied with a Contractor Kit which contains a
-        Contractor Uplink, standard issue contractor gear and three random low
-        cost items.
+        Кроме того, вам будет выдан стандартный набор контрактника, специальный
+        аплинк контрактника, руководство и три случайных недорогих предмета.
         <br />
         <br />
-        More detailed instructions can be found within your kit, should you
-        accept this offer.
+        Более подробные инструкции вы сможете найти в руководстве, которое
+        прилагается к комплекту, если решите воспользоваться нашим предложением.
         {!isAdminForced ? (
           <Box>
-            Hurry up. You are not the only one who received this offer. Their
-            number is limited. If other traitors accept all offers before you,
-            you will not be able to accept one of them.
+            Не упустите возможность! Вы не единственный, кто получил это
+            предложение. Количество доступных предложений ограничено, и если
+            другие агенты примут их раньше вас, то у вас не останется
+            возможности принять участие.
             <br />
-            <b>Available offers: {available_offers}</b>
+            <b>Доступные предложения: {available_offers}</b>
           </Box>
         ) : (
           ''
@@ -609,10 +615,10 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
         color="good"
         content={
           isAccepted ? (
-            'Accepted'
+            'Заключён'
           ) : isAvailable ? (
             [
-              'Accept Offer',
+              'Принять предложение',
               <Countdown
                 key="countdown"
                 timeLeft={time_left}
@@ -620,15 +626,15 @@ modalRegisterBodyOverride('become_contractor', (modal, context) => {
               />,
             ]
           ) : !isAffordable ? (
-            'Insufficient TC'
+            'Недостаточно ТК'
           ) : !data.contractor.is_admin_forced ? (
             data.contractor.available_offers > 0 ? (
-              <i>[Left:{data.contractor.available_offers}]</i>
+              <i>[Осталось:{data.contractor.available_offers}]</i>
             ) : (
-              <i>[Offers are over]</i>
+              <i>[Предложения закончились]</i>
             )
           ) : (
-            'Offer expired'
+            'Срок действия предложения истек'
           )
         }
         position="absolute"

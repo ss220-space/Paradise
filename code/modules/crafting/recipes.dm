@@ -1771,7 +1771,7 @@
 	time = 1 SECONDS
 
 /datum/crafting_recipe/drone_circ_adv
-	name = "Combar drone Advanced IFF Module"
+	name = "Combat drone Advanced IFF Module"
 	result = list(/obj/item/drone_modules/drone_IFF)
 	reqs = list(
 		/obj/item/stack/sheet/plasteel = 2,
@@ -1786,7 +1786,7 @@
 	time = 1 SECONDS
 
 /datum/crafting_recipe/drone_circ_ai
-	name = "Combar drone AI Control Module"
+	name = "Combat drone AI Control Module"
 	result = list(/obj/item/drone_modules/drone_AI)
 	reqs = list(
 			/obj/item/stack/sheet/plasteel = 2,
@@ -1817,3 +1817,12 @@
 				/obj/item/stack/sheet/animalhide/weaver_chitin = 2)
 	category = CAT_PRIMAL
 	subcategory = CAT_WEAPONS
+
+/datum/crafting_recipe/fishing_pouch
+	name = "Fishing pouch"
+	result = /obj/item/storage/bag/medpouch/fishing
+	time = 4 SECONDS
+	reqs = list(/obj/item/stack/sheet/cloth = 3,
+				/obj/item/stack/sheet/sinew = 1)
+	category = CAT_PRIMAL
+	subcategory = CAT_MISC2

@@ -1,46 +1,46 @@
 GLOBAL_DATUM_INIT(minor_announcement, /datum/announcement/minor, new())
-GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = 0))
-GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = 0, do_newscast = 0))
-GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = 0, do_newscast = 0))
+GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = FALSE))
+GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = FALSE, do_newscast = TRUE))
+GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = FALSE, do_newscast = FALSE))
 
 /datum/announcement
 	var/title = "Внимание"
 	var/announcer = ""
-	var/log = 0
+	var/log = FALSE
 	var/sound
-	var/newscast = 0
-	var/channel_name = "Station Announcements"
+	var/newscast = FALSE
+	var/channel_name = NEWS_CHANNEL_STATION
 	var/announcement_type = "Оповещение"
 	var/admin_announcement = 0 // Admin announcements are received regardless of being in range of a radio, unless you're in the lobby to prevent metagaming
 	var/language = LANGUAGE_GALACTIC_COMMON
 	var/beannounced = TRUE
 
-/datum/announcement/New(var/do_log = 0, var/new_sound = null, var/do_newscast = 0)
+/datum/announcement/New(var/do_log = FALSE, var/new_sound = null, var/do_newscast = FALSE)
 	sound = new_sound
 	log = do_log
 	newscast = do_newscast
 
-/datum/announcement/minor/New(var/do_log = 0, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
+/datum/announcement/minor/New(var/do_log = FALSE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
 	..(do_log, new_sound, do_newscast)
 	title = "Внимание"
 	announcement_type = "Незначительное оповещение"
 
-/datum/announcement/priority/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
 	..(do_log, new_sound, do_newscast)
 	title = "Приоритетное оповещение"
 	announcement_type = "Приоритетное оповещение"
 
-/datum/announcement/priority/command/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/command/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
 	title = "[command_name()] обновление"
 	announcement_type = "[command_name()] обновление"
 
-/datum/announcement/priority/command/event/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/command/event/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 0
 
-/datum/announcement/priority/security/New(var/do_log = 1, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = 0)
+/datum/announcement/priority/security/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
 	..(do_log, new_sound, do_newscast)
 	title = "Оповещение о безопасности"
 	announcement_type = "Оповещение о безопасности"

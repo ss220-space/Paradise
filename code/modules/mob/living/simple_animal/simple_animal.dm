@@ -3,7 +3,7 @@
 	icon = 'icons/mob/animal.dmi'
 	health = 20
 	maxHealth = 20
-	gender = PLURAL //placeholder
+	gender = MALE //placeholder
 
 	universal_understand = 1
 	universal_speak = 0

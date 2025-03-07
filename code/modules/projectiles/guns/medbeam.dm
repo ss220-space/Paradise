@@ -1,20 +1,17 @@
 /obj/item/gun/medbeam
 	name = "Medical Beamgun"
-	ru_names = list(
-		NOMINATIVE = "Медицинская Лучпушка",
-		GENITIVE = "Медицинской Лучпушки",
-		DATIVE = "Медицинской Лучпушке",
-		ACCUSATIVE = "Медицинскую Лучпушку",
-		INSTRUMENTAL = "Медицинской Лучпушкой",
-		PREPOSITIONAL = "Медицинской Лучпушку"
-	)
-
 	desc = "Передает целебные наниты своим сфокусированным лучом. Не скрещивайте лучи!"
-
+	ru_names = list(
+		NOMINATIVE = "Медицинская лучевая пушка",
+		GENITIVE = "Медицинской лучевой пушки",
+		DATIVE = "Медицинской лучевой пушке",
+		ACCUSATIVE = "Медицинскую лучевую пушку",
+		INSTRUMENTAL = "Медицинской лучевой пушкой",
+		PREPOSITIONAL = "Медицинской лучевой пушке"
+	)
 	icon = 'icons/obj/chronos.dmi'
 	icon_state = "chronogun"
 	item_state = "chronogun"
-
 	w_class = WEIGHT_CLASS_NORMAL
 	weapon_weight = WEAPON_MEDIUM
 

@@ -340,7 +340,7 @@
  */
 /obj/item/borg/upgrade/modkit
 	name = "kinetic accelerator modification kit"
-	desc = "An upgrade for kinetic accelerators."
+	desc = "Улучшение для кинетических акселераторов."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
 	origin_tech = "programming=2;materials=2;magnets=4"
@@ -363,7 +363,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += span_notice("Occupies <b>[cost]%</b> of mod capacity.")
+		. += span_notice("Занято <b>[cost]%</b> от общей ёмкости модулей.")
 
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/I, mob/user, params)
@@ -715,7 +715,15 @@
 // Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
-	desc = "A syndicate modification kit that increases the damage a kinetic accelerator does in high pressure environments."
+	desc = "Специальный модкит, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
+	ru_names = list(
+		NOMINATIVE = "уменьшение штрафа от давления",
+		GENITIVE = "уменьшения штрафа от давления",
+		DATIVE = "уменьшению штрафа от давления",
+		ACCUSATIVE = "уменьшение штрафа от давления",
+		INSTRUMENTAL = "уменьшением штрафа от давления",
+		PREPOSITIONAL = "уменьшении штрафа от давления"
+	)
 	modifier = 2
 	denied_type = /obj/item/borg/upgrade/modkit/indoors
 	maximum_of_type = 2

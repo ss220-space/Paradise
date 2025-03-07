@@ -72,6 +72,8 @@
 		if(!L.can_inject(user, TRUE))
 			return
 
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
+
 	switch(mode)
 		if(SYRINGE_DRAW)
 

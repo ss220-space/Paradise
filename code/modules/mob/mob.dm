@@ -142,11 +142,13 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/mob as anything in viewers(3, src) - ignored_mobs)
 			if(mob.see_invisible < invisibility)
 				continue //can't view the invisible
+			if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+				continue
 			var/msg = message
 			if(self_message && mob == src)
 				msg = self_message
@@ -160,6 +162,10 @@
 	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
+
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
+
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
@@ -170,8 +176,10 @@
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
 		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
