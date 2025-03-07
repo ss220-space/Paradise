@@ -163,6 +163,7 @@
 #define span_shadowling(str) ("<span class='shadowling'>" + str + "</span>")
 #define span_motd(str) ("<span class='motd'>" + str + "</span>")
 #define span_emojienabled(str) ("<span class='emoji_enabled'>" + str + "</span>")
+#define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

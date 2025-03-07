@@ -2323,10 +2323,10 @@
 
 		for(var/datum/mind/H in SSticker.mode.clockwork_cult)
 			if(H.current)
-				to_chat(H.current, "[span_clock("Ratvar murmurs,")] \"[span_clocklarge(input)]\""))
+				to_chat(H.current, "[span_clock("Ratvar murmurs,")] \"[span_clocklarge(input)]\"")
 
 		for(var/mob/dead/observer/O in GLOB.player_list)
-			to_chat(O, "[span_clock("Ratvar murmurs,")] \"[span_clocklarge(input)]\""))
+			to_chat(O, "[span_clock("Ratvar murmurs,")] \"[span_clocklarge(input)]\"")
 
 		message_admins("Admin [key_name_admin(usr)] has talked with the Voice of Ratvar.")
 		log_admin("[key_name(usr)] Voice of Ratvar: [input]")
@@ -2617,7 +2617,7 @@
 			GLOB.ert_request_answered = TRUE
 			to_chat(src.owner, "You sent [input] to [H] via a secure channel.", confidential=TRUE)
 			log_admin("[src.owner] denied [key_name(H)]'s ERT request with the message [input].")
-			to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Your ERT request has been denied for the following reasons: [input].")]"))
+			to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Your ERT request has been denied for the following reasons: [input].")]")
 		else
 			src.owner.response_team()
 
@@ -3216,7 +3216,7 @@
 					return
 				var/new_name = new_station_name()
 				change_station_name(new_name)
-				log_and_message_admins("reset the station name."))
+				log_and_message_admins("reset the station name.")
 				GLOB.event_announcement.Announce("Решением [command_name()] станция переименована в \"[new_name]\".")
 
 			if("gravity")

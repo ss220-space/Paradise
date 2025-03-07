@@ -769,8 +769,10 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-			user.visible_message(span_warning("As [user] picks [src] up, it flickers off their arms!"),
-								span_warning("The robe flicker off your arms, leaving only nausea!"))
+			user.visible_message(
+				span_warning("As [user] picks [src] up, it flickers off their arms!"),
+				span_warning("The robe flicker off your arms, leaving only nausea!")
+			)
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()

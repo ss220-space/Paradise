@@ -318,11 +318,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 
 		if(length(materials))
-			msg += span_notice("Extractable materials:<br>"
+			msg += span_notice("Extractable materials:<br>")
 			for(var/mat in materials)
 				msg += "[CallMaterialName(mat)]<br>" //Capitize first word, remove the "$"
 		else
-			msg += span_danger("No extractable materials detected.<br>"))
+			msg += span_danger("No extractable materials detected.<br>")
 		msg += "*--------*"
 		. += msg
 

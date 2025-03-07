@@ -34,10 +34,10 @@
 			to_chat(M, span_cult("The Veil is weak! We can summon [SSticker.cultdat ? SSticker.cultdat.entity_title3 : "The Dark One"]!"))
 			to_chat(M, span_cult("Current goal: [obj_summon.explanation_text]"))
 		if(NARSIE_HAS_RISEN)
-			to_chat(M, span_cultdanger("\"I am here.\""))
+			to_chat(M, span_cultlarge("\"I am here.\""))
 			to_chat(M, "[span_cult("Current goal:")] [span_cultlarge("\"Feed me.\"")]")
 		if(NARSIE_HAS_FALLEN)
-			to_chat(M, span_cultdanger("[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!"))
+			to_chat(M, span_cultlarge("[SSticker.cultdat ? SSticker.cultdat.entity_name : "The Dark One"] has been banished!"))
 			to_chat(M, span_cult("Current goal: Slaughter the unbelievers!"))
 		else
 			to_chat(M, span_danger("Error: Cult objective status currently unknown. Something went wrong. Oof."))
@@ -54,7 +54,7 @@
 				overview += " | Conversions until Rise: [rise]"
 			else if(ascend > 0)
 				overview += " | Conversions until Ascension: [ascend]"
-		to_chat(M, "[overview]</b>"))
+		to_chat(M, "[overview]</b>")
 
 		if(cult[2]) // If there are any constructs, separate them out
 			to_chat(M, span_cultitalic("<b>Cultists:</b> [cult[1]]"))
