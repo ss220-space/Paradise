@@ -6,12 +6,39 @@
 
 /obj/item/deck/cards
 	name = "deck of cards"
-	desc = "A simple deck of playing cards."
+	ru_names = list(
+		NOMINATIVE = "колода карт",
+		GENITIVE = "колоды карт",
+		DATIVE = "колоде карт",
+		ACCUSATIVE = "колоду карт",
+		INSTRUMENTAL = "колодой карт",
+		PREPOSITIONAL = "колоде карт"
+	)
+	desc = "Простая колода игральных карт."
 	icon_state = "deck_nanotrasen_full"
 	card_style = "nanotrasen"
 
 
 /obj/item/deck/cards/build_deck()
+	var/list/ru_name = list(
+		"Spades" = "Пики",
+		"Clubs" = "Трефы",
+		"Diamonds" = "Бубны",
+		"Hearts" = "Червы",
+		"Ace" = "Туз",
+		"Jack" = "Валет",
+		"Queen" = "Дама",
+		"King" = "Король",
+		"2" = "2",
+		"3" = "3",
+		"4" = "4",
+		"5" = "5",
+		"6" = "6",
+		"7" = "7",
+		"8" = "8",
+		"9" = "9",
+		"10" = "10",
+	)
 	for(var/suit in list("Spades","Clubs","Diamonds","Hearts"))
 		var/card_appearance
 		var/colour
@@ -30,10 +57,10 @@
 				card_appearance = "sc_[colour]_[rank]_[card_style]"
 			else
 				card_appearance = "sc_[number] of [suit]_[card_style]"
-			cards += new /datum/playingcard("[number] of [suit]", card_appearance, "singlecard_down_[card_style]")
+			cards += new /datum/playingcard("[ru_name[number]] ([ru_name[suit]])", card_appearance, "singlecard_down_[card_style]")
 
 	for(var/jokers in 1 to 2)
-		cards += new /datum/playingcard("Joker", "sc_Joker_[card_style]", "singlecard_down_[card_style]")
+		cards += new /datum/playingcard("Джокер", "sc_Joker_[card_style]", "singlecard_down_[card_style]")
 
 
 /obj/item/deck/cards/update_icon_state()
@@ -51,16 +78,32 @@
 
 
 /obj/item/deck/cards/doublecards
-		name = "double deck of cards"
-		icon_state = "deck_double_nanotrasen_full"
-		desc = "A simple deck of playing cards. Multiplied by two. Does not necessarily come with twice the fun."
-		deck_size = 2
-		deck_style = "double"
+	name = "double deck of cards"
+	ru_names = list(
+		NOMINATIVE = "двойная колода карт",
+		GENITIVE = "двойной колоды карт",
+		DATIVE = "двойной колоде карт",
+		ACCUSATIVE = "двойную колоду карт",
+		INSTRUMENTAL = "двойной колодой карт",
+		PREPOSITIONAL = "двойной колоде карт"
+	)
+	icon_state = "deck_double_nanotrasen_full"
+	desc = "Простая колода игральных карт. Удвоенная. Не факт, что удовольствие тоже удвоится."
+	deck_size = 2
+	deck_style = "double"
 
 
 /obj/item/deck/cards/syndicate
 	name = "suspicious looking deck of cards"
-	desc = "A deck of space-grade playing cards. They seem unusually rigid."
+	ru_names = list(
+		NOMINATIVE = "подозрительная колода карт",
+		GENITIVE = "подозрительной колоды карт",
+		DATIVE = "подозрительной колоде карт",
+		ACCUSATIVE = "подозрительную колоду карт",
+		INSTRUMENTAL = "подозрительной колодой карт",
+		PREPOSITIONAL = "подозрительной колоде карт"
+	)
+	desc = "Колода космических игральных карт. Они кажутся необычно жёсткими."
 	icon_state = "deck_syndicate_full"
 	card_style = "syndicate"
 	card_hitsound = 'sound/weapons/bladeslice.ogg'
@@ -81,7 +124,15 @@
 
 /obj/item/deck/cards/tiny
 	name = "deck of tiny cards"
-	desc = "A simple deck of tiny playing cards."
+	ru_names = list(
+		NOMINATIVE = "колода миниатюрных карт",
+		GENITIVE = "колоды миниатюрных карт",
+		DATIVE = "колоде миниатюрных карт",
+		ACCUSATIVE = "колоду миниатюрных карт",
+		INSTRUMENTAL = "колодой миниатюрных карт",
+		PREPOSITIONAL = "колоде миниатюрных карт"
+	)
+	desc = "Простая колода миниатюрных игральных карт."
 	icon_state = "deck"
 	card_style = "simple"
 	simple_deck = TRUE
@@ -93,7 +144,15 @@
 
 /obj/item/deck/cards/tiny/doublecards
 	name = "double deck of tiny cards"
-	desc = "A simple deck of tiny playing cards. Multiplied by two. Does not necessarily come with twice the fun."
+	ru_names = list(
+		NOMINATIVE = "двойная колода миниатюрных карт",
+		GENITIVE = "двойной колоды миниатюрных карт",
+		DATIVE = "двойной колоде миниатюрных карт",
+		ACCUSATIVE = "двойную колоду миниатюрных карт",
+		INSTRUMENTAL = "двойной колодой миниатюрных карт",
+		PREPOSITIONAL = "двойной колоде миниатюрных карт"
+	)
+	desc = "Простая колода миниатюрных игральных карт. Удвоенная. Не факт, что удовольствие тоже удвоится."
 	icon_state = "doubledeck"
 	deck_size = 2
 
