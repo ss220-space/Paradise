@@ -69,7 +69,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	. = ..()
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
-	Radio.config(list("Командование" = 0))
+	Radio.config(list(COMM_FREQ_NAME = 0))
 	Radio.follow_target = src
 
 /obj/machinery/computer/card/Destroy()
