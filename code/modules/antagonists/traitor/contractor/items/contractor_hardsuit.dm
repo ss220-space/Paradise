@@ -168,7 +168,7 @@
 
 /obj/item/projectile/contractor_hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 
 /obj/item/projectile/contractor_hook/on_hit(atom/target, blocked = 0)

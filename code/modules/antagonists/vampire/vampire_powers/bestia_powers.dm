@@ -671,7 +671,7 @@
 
 /obj/item/projectile/skull_projectile/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "sendbeam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "sendbeam", time = INFINITY, maxdistance = INFINITY)
 
 		var/obj/item/gun/magic/skull_gun/skull_gun = locate() in firer
 		if(skull_gun)
