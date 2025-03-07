@@ -94,7 +94,7 @@
 		switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,list("Yes","No")))
 			if("Yes")
 				if(Adjacent(human_to_ask))
-					get_scooped(human_to_ask)
+					pick_up_mob(human_to_ask)
 				else
 					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
 			if("No")

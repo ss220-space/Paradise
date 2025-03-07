@@ -288,7 +288,7 @@
 
 /mob/living/simple_animal/hostile/facehugger/pick_up_mob(mob/living/carbon/human_to_ask)
 	var/obj/item/hugger = get_scooped(human_to_ask)
-	human_to_ask.put_in_hands(hugger)
+	hugger.attack_hand(human_to_ask)
 
 
 /mob/living/simple_animal/hostile/facehugger/get_scooped(mob/living/carbon/grabber)
