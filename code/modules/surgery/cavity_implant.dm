@@ -210,7 +210,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/cavity/make_space
-	name = "Создание полости"
+	name = "создание полости"
 	begin_sound = 'sound/surgery/surgicaldrill.ogg'
 	allowed_tools = list(
 		TOOL_DRILL = 100,
@@ -240,7 +240,7 @@
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/cavity/close_space
-	name = "Закрытие полости"
+	name = "закрытие полости"
 	begin_sound = 'sound/surgery/cautery2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
@@ -273,7 +273,7 @@
 
 
 /datum/surgery_step/cavity/remove_item
-	name = "Извлечение объекта"
+	name = "извлечение объекта"
 	begin_sound = 'sound/surgery/organ2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_hand = TRUE
@@ -321,7 +321,7 @@
 	return SURGERY_STEP_INCOMPLETE
 
 /datum/surgery_step/cavity/place_item
-	name = "Имплантация объекта"
+	name = "имплантация объекта"
 	begin_sound = 'sound/surgery/organ1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	accept_any_item = TRUE

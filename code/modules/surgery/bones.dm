@@ -137,7 +137,7 @@
 
 //surgery steps
 /datum/surgery_step/glue_bone
-	name = "Сращивание костей"
+	name = "сращивание костей"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -151,7 +151,7 @@
 	time = 2.4 SECONDS
 
 /datum/surgery_step/glue_bone/plasma
-	name = "Сращивание костей (Плазмолюд)"
+	name = "сращивание костей (Плазмолюд)"
 
 	allowed_tools = list(
 	/obj/item/stack/sheet/mineral/plasma = 100
@@ -202,7 +202,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone
-	name = "Закрепление костей"
+	name = "закрепление костей"
 	begin_sound = 'sound/surgery/bonesetter.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -243,7 +243,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/set_bone/mend_skull
-	name = "Закрепление костей черепа"
+	name = "закрепление костей черепа"
 
 /datum/surgery_step/set_bone/mend_skull/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
 	user.visible_message(
@@ -274,7 +274,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/finish_bone
-	name = "Заживление костей"
+	name = "заживление костей"
 	begin_sound = 'sound/surgery/bonegel.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
