@@ -93,7 +93,7 @@
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
 		if(SP.speaking == GLOB.all_languages[LANGUAGE_NOISE]) // Message contains only emoutes, no need to add verb
 			return message
-	return "[verb], \"[message]\""
+	return "[verb]: \"[message]\""
 
 /mob/proc/hear_say(list/message_pieces, verb = "says", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(!client)

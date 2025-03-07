@@ -199,13 +199,13 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/say(message, verb = "говор[pluralize_ru(gender, "ит", "ят")]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
-			
+
 	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
 	if(sigreturn & COMPONENT_CANNOT_SPEAK)
 		return FALSE
@@ -461,7 +461,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return src
 
 
-/mob/living/whisper_say(list/message_pieces, verb = "whispers")
+/mob/living/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
 	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return
@@ -494,24 +494,24 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 	if(first_piece.speaking)
-		if(first_piece.speaking.whisper_verb)
-			verb = first_piece.speaking.whisper_verb
-			not_heard = "[verb] something"
+		if(first_piece.speaking.whisper_verbs)
+			verb = pick(first_piece.speaking.whisper_verbs)
+			not_heard = "[verb] что-то"
 		else
-			var/adverb = pick("quietly", "softly")
+			var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
 			adverb_added = TRUE
-			verb = "[first_piece.speaking.speech_verb] [adverb]"
-			not_heard = "[first_piece.speaking.speech_verb] something [adverb]"
+			verb = "[adverb] [genderize_decode(src, pick(first_piece.speaking.speech_verbs))]"
+			not_heard = "[adverb] [genderize_decode(src, pick(first_piece.speaking.speech_verbs))] что-то"
 	else
-		not_heard = "[verb] something"
+		not_heard = "[genderize_decode(src, verb)] что-то"
 
 	var/list/hsp = handle_speech_problems(message_pieces, verb)
 	verb = hsp["verb"]
-	if(verb == "yells loudly")
-		verb = "slurs emphatically"
+	if(verb == "громко крич%(ит,ат)%")
+		verb = "громко бормоч%(ет,ут)%"
 	else if(!adverb_added)
-		var/adverb = pick("quietly", "softly")
-		verb = "[verb] [adverb]"
+		var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
+		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
 	var/list/listening = hear(message_range, whisper_loc)
@@ -574,7 +574,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)	
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

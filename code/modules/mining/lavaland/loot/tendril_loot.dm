@@ -127,14 +127,14 @@
 
 /obj/item/book_of_babel
 	name = "Book of Babel"
-	desc = "Древнейший фолиант, написанный в бесчисленном множестве языков."
+	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков."
 	ru_names = list(
-		NOMINATIVE = "книга Вавилона",
-		GENITIVE = "книги Вавилона",
-		DATIVE = "книге Вавилона",
-		ACCUSATIVE = "книгу Вавилона",
-		INSTRUMENTAL = "книгой Вавилона",
-		PREPOSITIONAL = "книге Вавилона"
+		NOMINATIVE = "Вавилонская книга",
+		GENITIVE = "Вавилонской книги",
+		DATIVE = "Вавилонской книге",
+		ACCUSATIVE = "Вавилонскую книгу",
+		INSTRUMENTAL = "Вавилонской книгой",
+		PREPOSITIONAL = "Вавилонской книге"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
@@ -458,7 +458,7 @@
 
 /obj/item/projectile/hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 	//TODO: root the firer until the chain returns
 

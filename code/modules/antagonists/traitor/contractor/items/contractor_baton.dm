@@ -7,6 +7,14 @@
 /obj/item/melee/baton/telescopic/contractor
 	name = "contractor baton"
 	desc = "A compact, specialised baton issued to Syndicate contractors. Applies light electrical shocks to targets."
+	ru_names = list(
+		NOMINATIVE = "дубинка контрактника",
+		GENITIVE = "дубинки контрактника",
+		DATIVE = "дубинке контрактника",
+		ACCUSATIVE = "дубинку контрактника",
+		INSTRUMENTAL = "дубинкой контрактника",
+		PREPOSITIONAL = "дубинке контрактника"
+	)
 	icon_state = "contractor_baton"
 	affect_cyborgs = TRUE
 	affect_bots = TRUE
@@ -29,9 +37,9 @@
 /obj/item/melee/baton/telescopic/contractor/examine(mob/user)
 	. = ..()
 	if(has_upgrade(UPGRADE_CUFFS))
-		. += span_info("It has <b>[cuffs_amount]</b> cabble restraints remaining.")
+		. += span_info("В нём остал[declension_ru(cuffs_amount, "а", "о", "о")]сь <b>[cuffs_amount]</b> стяж[declension_ru(cuffs_amount, "ка", "ки", "ек")].")
 	for(var/obj/item/baton_upgrade/upgrade as anything in upgrades)
-		. += span_notice("It has <b>[upgrade.name]</b> installed, which [upgrade.upgrade_examine].")
+		. += span_notice("В нём установлен <b>[upgrade.declent_ru(NOMINATIVE)]</b>, который [upgrade.upgrade_examine].")
 
 
 /obj/item/melee/baton/telescopic/contractor/attackby(obj/item/I, mob/user, params)
@@ -62,7 +70,7 @@
 
 
 /obj/item/melee/baton/telescopic/contractor/get_wait_description()
-	return span_danger("The baton is still charging!")
+	return span_danger("Дубинка ещё перезаряжается!")
 
 
 /obj/item/melee/baton/telescopic/contractor/additional_effects_non_cyborg(mob/living/carbon/human/target, mob/living/user)
@@ -115,20 +123,18 @@
 
 /obj/item/melee/baton/telescopic/contractor/proc/CuffAttack(mob/living/carbon/target, mob/living/user)
 	if(target.handcuffed)
-		to_chat(user, span_warning("[target] is already handcuffed!"))
+		balloon_alert(user, "цель уже связана!")
 		return
 
 	playsound(loc, 'sound/weapons/cablecuff.ogg', 30, TRUE, -2)
-	target.visible_message(
-		span_danger("[user] begins restraining [target] with contractor baton!"),
-		span_userdanger("[user] is trying to put handcuffs on you!"),
-	)
+	target.visible_message(span_danger("[user] начина[pluralize_ru(user.gender, "ет", "ют")] связывать [target] [declent_ru(INSTRUMENTAL)]!"),
+							span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся связать вас!"))
 	if(!do_after(user, 1 SECONDS, target, NONE) || target.handcuffed || !cuffs_amount)
-		to_chat(user, span_warning("You fail to shackle [target]."))
+		to_chat(user, span_warning("Вам не удается связать [target]."))
 		return
 
 	target.apply_restraints(new /obj/item/restraints/handcuffs/cable(null), ITEM_SLOT_HANDCUFFED, TRUE)
-	to_chat(user, span_notice("You shackle [target]."))
+	to_chat(user, span_notice("Вы связываете [target]."))
 	add_attack_logs(user, target, "shackled")
 	cuffs_amount--
 
@@ -139,44 +145,76 @@
 		return .
 
 	if(active)
-		to_chat(user, span_notice("The baton spikes burrows into your arm, preventing accidential dropping."))
+		to_chat(user, span_notice("Шипы дубинки впиваются в руку, предотвращая случайное падение."))
 		ADD_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
 	else
-		to_chat(user, span_notice("The baton spikes fold back, allowing you to move your hand freely."))
+		to_chat(user, span_notice("Шипы дубинки складываются, позволяя свободно двигать рукой."))
 		REMOVE_TRAIT(src, TRAIT_NODROP, CONTRACTOR_BATON_TRAIT)
 
 
 //upgrades
 /obj/item/baton_upgrade
 	var/upgrade_examine
-
+	gender = FEMALE
 
 /obj/item/baton_upgrade/cuff
 	name = "handcuff upgrade"
-	desc = "Allows the user to apply cabble restraints to a target via baton, requires to be loaded with up to three prior."
+	desc = "Позволяет заряжать стяжки, которые будут автоматически надеваться на цель после удара дубинкой."
+	ru_names = list(
+		NOMINATIVE = "модуль \"Стяжки\"",
+		GENITIVE = "модуля \"Стяжки\"",
+		DATIVE = "модулю \"Стяжки\"",
+		ACCUSATIVE = "модуль \"Стяжки\"",
+		INSTRUMENTAL = "модулем \"Стяжки\"",
+		PREPOSITIONAL = "модуле \"Стяжки\""
+	)
 	icon_state = "cuff_upgrade"
-	upgrade_examine = "allows you to cabble cuff your target if your target is exhausted. Required to be loaded first"
+	upgrade_examine = "автоматически связывает цель, если она истощена. Сначала необходимо зарядить стяжками"
 
 
 /obj/item/baton_upgrade/mute
 	name = "mute upgrade"
-	desc = "Use of the baton on a target will mute them for a short period."
+	desc = "Удар дубинкой по цели заставит ее замолчать на короткое время."
+	ru_names = list(
+		NOMINATIVE = "модуль \"Безмолвие\"",
+		GENITIVE = "модуля \"Безмолвие\"",
+		DATIVE = "модулю \"Безмолвие\"",
+		ACCUSATIVE = "модуль \"Безмолвие\"",
+		INSTRUMENTAL = "модулем \"Безмолвие\"",
+		PREPOSITIONAL = "модуле \"Безмолвие\""
+	)
 	icon_state = "mute_upgrade"
-	upgrade_examine = "deprives the victim of the ability to speak for a small time"
+	upgrade_examine = "лишает жертву способности говорить на некоторое время"
 
 
 /obj/item/baton_upgrade/focus
 	name = "focus upgrade"
-	desc = "Use of the baton on a target, should they be the subject of your contract, will be extra exhausted."
+	desc = "Удар дубинкой по цели, если она является объектом вашего контракта, приведёт к дополнительному истощению."
+	ru_names = list(
+		NOMINATIVE = "модуль \"Фокусировка\"",
+		GENITIVE = "модуля \"Фокусировка\"",
+		DATIVE = "модулю \"Фокусировка\"",
+		ACCUSATIVE = "модуль \"Фокусировка\"",
+		INSTRUMENTAL = "модулем \"Фокусировка\"",
+		PREPOSITIONAL = "модуле \"Фокусировка\""
+	)
 	icon_state = "focus_upgrade"
-	upgrade_examine = "allows you to cause additional damage to the target of your current contract"
+	upgrade_examine = "позволяет нанести дополнительный ущерб цели вашего текущего контракта"
 
 
 /obj/item/baton_upgrade/antidrop
 	name = "antidrop upgrade"
-	desc = "This module grips the hand, not allowing the user to drop extended baton under any circumstances."
+	desc = "Этот модуль фиксирует дубинку, не позволяя выронить её из рук ни при каких обстоятельствах."
+	ru_names = list(
+		NOMINATIVE = "модуль \"Защита от выпадения\"",
+		GENITIVE = "модуля \"Защита от выпадения\"",
+		DATIVE = "модулю \"Защита от выпадения\"",
+		ACCUSATIVE = "модуль \"Защита от выпадения\"",
+		INSTRUMENTAL = "модулем \"Защита от выпадения\"",
+		PREPOSITIONAL = "модуле \"Защита от выпадения\""
+	)
 	icon_state = "antidrop_upgrade"
-	upgrade_examine = "allows you to keep your extended baton in hands no matter what happens with you"
+	upgrade_examine = "позволяет держать в руках дубинку, невзирая на происходящее с вами"
 
 
 #undef UPGRADE_MUTE

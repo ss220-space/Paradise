@@ -15,33 +15,35 @@ import { Countdown } from '../components/Countdown';
 import { Window } from '../layouts';
 
 const contractStatuses = {
-  1: ['ACTIVE', 'good'],
-  2: ['COMPLETED', 'good'],
-  3: ['FAILED', 'bad'],
+  1: ['АКТИВЕН', 'good'],
+  2: ['ЗАВЕРШЁН', 'good'],
+  3: ['ПРОВАЛЕН', 'bad'],
 };
 
 // Lifted from /tg/station
 const terminalMessages = [
-  'Recording biometric data...',
-  'Analyzing embedded syndicate info...',
-  'STATUS CONFIRMED',
-  'Contacting Syndicate database...',
-  'Awaiting response...',
-  'Awaiting response...',
-  'Awaiting response...',
-  'Awaiting response...',
-  'Awaiting response...',
-  'Awaiting response...',
-  'Response received, ack 4851234...',
-  'CONFIRM ACC ' + Math.round(Math.random() * 20000),
-  'Setting up private accounts...',
-  'CONTRACTOR ACCOUNT CREATED',
-  'Searching for available contracts...',
-  'Searching for available contracts...',
-  'Searching for available contracts...',
-  'Searching for available contracts...',
-  'CONTRACTS FOUND',
-  'WELCOME, AGENT',
+  'Запись биометрических данных...',
+  'Анализ встроенной информации о Синдикате...',
+  'СТАТУС ПОДТВЕРЖДЁН',
+  'Обращение к базе данных Синдиката...',
+  'Ожидание ответа...',
+  'Ожидание ответа...',
+  'Ожидание ответа...',
+  'Ожидание ответа...',
+  'Ожидание ответа...',
+  'Ожидание ответа...',
+  'Получен ответ, код подтверждения ' +
+    Math.round(Math.random() * 25500) +
+    '...',
+  'АККАУНТ ПОДТВЕРЖДЁН ' + Math.round(Math.random() * 20000),
+  'Создание личной учётной записи...',
+  'СОЗДАНА УЧЕТНАЯ ЗАПИСЬ КОНТРАКТНИКА',
+  'Поиск доступных контрактов...',
+  'Поиск доступных контрактов...',
+  'Поиск доступных контрактов...',
+  'Поиск доступных контрактов...',
+  'КОНТРАКТЫ НАЙДЕНЫ',
+  'ДОБРО ПОЖАЛОВАТЬ, АГЕНТ',
 ];
 
 export const Contractor = (properties, context) => {
@@ -52,7 +54,7 @@ export const Contractor = (properties, context) => {
       <Flex.Item grow="1" backgroundColor="rgba(0, 0, 0, 0.8)">
         <FakeTerminal
           height="100%"
-          allMessages={['ERROR: UNAUTHORIZED USER']}
+          allMessages={['ОШИБКА: НЕАВТОРИЗОВАННЫЙ ПОЛЬЗОВАТЕЛЬ']}
           finishedTimeout={100}
           onFinished={() => {}}
         />
@@ -94,7 +96,7 @@ export const Contractor = (properties, context) => {
     ''
   );
   return (
-    <Window width={500} height={600} theme="syndicate">
+    <Window width={600} height={800} theme="syndicate">
       {viewingPhoto && <PhotoZoom />}
       <Window.Content className="Contractor">
         <Flex direction="column" height="100%">
@@ -110,10 +112,10 @@ const Summary = (properties, context) => {
   const { tc_available, tc_paid_out, completed_contracts, rep } = data;
   return (
     <Section
-      title="Summary"
+      title="Сводка"
       buttons={
         <Box verticalAlign="middle" mt="0.25rem">
-          {rep} Rep
+          Очки репутации: {rep}
         </Box>
       }
       {...properties}
@@ -121,12 +123,12 @@ const Summary = (properties, context) => {
       <Flex>
         <Box flexBasis="50%">
           <LabeledList>
-            <LabeledList.Item label="TC Available" verticalAlign="middle">
-              <Flex align="center">
-                <Flex.Item grow="1">{tc_available} TC</Flex.Item>
+            <LabeledList.Item label="Доступные ТК">
+              <Flex align="center" height="5px">
+                <Flex.Item grow="1">{tc_available} ТК</Flex.Item>
                 <Button
                   disabled={tc_available <= 0}
-                  content="Claim"
+                  content="Забрать"
                   mx="0.75rem"
                   mb="0"
                   flexBasis="content"
@@ -134,23 +136,26 @@ const Summary = (properties, context) => {
                 />
               </Flex>
             </LabeledList.Item>
-            <LabeledList.Item label="TC Earned">
-              {tc_paid_out} TC
+            <LabeledList.Item label="Заработано ТК" verticalAlign="middle">
+              {tc_paid_out} ТК
             </LabeledList.Item>
           </LabeledList>
         </Box>
         <Box flexBasis="50%">
           <LabeledList>
             <LabeledList.Item
-              label="Contracts Completed"
+              label="Завершённые контракты"
               verticalAlign="middle"
             >
-              <Box height="20px" lineHeight="20px" display="inline-block">
+              <Box height="5px" lineHeight="20px" display="inline-block">
                 {completed_contracts}
               </Box>
             </LabeledList.Item>
-            <LabeledList.Item label="Contractor Status" verticalAlign="middle">
-              ACTIVE
+            <LabeledList.Item
+              label="Статус Контрактника"
+              verticalAlign="middle"
+            >
+              АКТИВЕН
             </LabeledList.Item>
           </LabeledList>
         </Box>
@@ -173,7 +178,7 @@ const Navigation = (properties, context) => {
         }
       >
         <Icon name="suitcase" />
-        Contracts
+        Контракты
       </Tabs.Tab>
       <Tabs.Tab
         selected={page === 2}
@@ -184,7 +189,7 @@ const Navigation = (properties, context) => {
         }
       >
         <Icon name="shopping-cart" />
-        Hub
+        Магазин
       </Tabs.Tab>
     </Tabs>
   );
@@ -203,14 +208,14 @@ const Contracts = (properties, context) => {
   );
   return (
     <Section
-      title="Available Contracts"
+      title="Доступные контракты"
       overflow="auto"
       buttons={
         <Button
           disabled={!can_extract || extractionCooldown}
           icon="parachute-box"
           content={[
-            'Call Extraction',
+            'Начать эвакуацию',
             extractionCooldown && (
               <Countdown
                 timeLeft={activeContract.time_left}
@@ -274,7 +279,7 @@ const Contracts = (properties, context) => {
                   <Button.Confirm
                     icon="ban"
                     color="bad"
-                    content="Abort"
+                    content="Отказаться"
                     ml="0.5rem"
                     onClick={() => act('abort')}
                   />
@@ -289,27 +294,27 @@ const Contracts = (properties, context) => {
                   <Box color="good">
                     <br />
                     <Icon name="check" mr="0.5rem" />
-                    Contract completed at {contract.completed_time}
+                    Контракт, выполнен в {contract.completed_time}
                   </Box>
                 )}
                 {!!contract.dead_extraction && (
                   <Box color="bad" mt="0.5rem" bold>
                     <Icon name="exclamation-triangle" mr="0.5rem" />
-                    Telecrystals reward reduced drastically as the target was
-                    dead during extraction.
+                    Награда в виде телекристаллов существенно уменьшилась, так
+                    как цель была мертва в момент эвакуации.
                   </Box>
                 )}
                 {!!contract.fail_reason && (
                   <Box color="bad">
                     <br />
                     <Icon name="times" mr="0.5rem" />
-                    Contract failed: {contract.fail_reason}
+                    Контракт не выполнен: {contract.fail_reason}
                   </Box>
                 )}
               </Flex.Item>
               <Flex.Item flexBasis="100%">
                 <Flex mb="0.5rem" color="label">
-                  Extraction Zone:&nbsp;
+                  Зона эвакуации:&nbsp;
                   {areaArrow(contract)}
                 </Flex>
                 {contract.difficulties?.map((difficulty, key) => (
@@ -317,7 +322,7 @@ const Contracts = (properties, context) => {
                     key={key}
                     disabled={!!contract_active}
                     content={
-                      difficulty.name + ' (' + difficulty.reward + ' TC)'
+                      difficulty.name + ' (' + difficulty.reward + ' ТК)'
                     }
                     onClick={() =>
                       act('activate', {
@@ -330,8 +335,8 @@ const Contracts = (properties, context) => {
                 {!!contract.objective && (
                   <Box color="white" bold>
                     {contract.objective.extraction_name}
-                    <br />({(contract.objective.rewards.tc || 0) + ' TC'},&nbsp;
-                    {(contract.objective.rewards.credits || 0) + ' Credits'})
+                    <br />({(contract.objective.rewards.tc || 0) + ' ТК'},&nbsp;
+                    {(contract.objective.rewards.credits || 0) + ' Кредитов'})
                   </Box>
                 )}
               </Flex.Item>
@@ -378,7 +383,7 @@ const Hub = (properties, context) => {
   const { act, data } = useBackend(context);
   const { rep, buyables } = data;
   return (
-    <Section title="Available Purchases" overflow="auto" {...properties}>
+    <Section title="Доступные товары" overflow="auto" {...properties}>
       {buyables.map((buyable) => (
         <Section
           key={buyable.uid}
@@ -386,7 +391,7 @@ const Hub = (properties, context) => {
           buttons={
             buyable.refundable && (
               <Button.Confirm
-                content={'Refund (' + buyable.cost + ' Rep)'}
+                content={'Возврат (' + buyable.cost + ' репутации)'}
                 onClick={() =>
                   act('refund', {
                     uid: buyable.uid,
@@ -401,7 +406,7 @@ const Hub = (properties, context) => {
           <Button.Confirm
             disabled={rep < buyable.cost || buyable.stock === 0}
             icon="shopping-cart"
-            content={'Buy (' + buyable.cost + ' Rep)'}
+            content={'Купить (' + buyable.cost + ' репутации)'}
             mt="0.5rem"
             onClick={() =>
               act('purchase', {
@@ -415,7 +420,7 @@ const Hub = (properties, context) => {
               color={buyable.stock === 0 ? 'bad' : 'good'}
               ml="0.5rem"
             >
-              {buyable.stock} in stock
+              {buyable.stock} в наличии
             </Box>
           )}
         </Section>
@@ -485,7 +490,7 @@ const PhotoZoom = (properties, context) => {
       <Box as="img" src={viewingPhoto} />
       <Button
         icon="times"
-        content="Close"
+        content="Закрыть"
         color="grey"
         mt="1rem"
         onClick={() => setViewingPhoto('')}

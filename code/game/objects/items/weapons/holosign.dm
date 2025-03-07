@@ -1,6 +1,6 @@
 /obj/item/holosign_creator
 	name = "holographic sign projector"
-	desc = "This shouldnt exist, if it does, tell a coder"
+	desc = "Этого не должно быть, сообщите в баг-репорт."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "signmaker"
 	item_state = "signmaker"
@@ -28,12 +28,12 @@
 		var/turf/T = get_turf(target)
 		var/obj/structure/holosign/H = locate(holosign_type) in T
 		if(H)
-			to_chat(user, "<span class='notice'>You use [src] to deactivate [H].</span>")
+			to_chat(user, span_notice("Вы используете [declent_ru(ACCUSATIVE)] для деактивации [H.declent_ru(GENITIVE)]."))
 			qdel(H)
 		else
 			if(!T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
 				if(holocreator_busy)
-					to_chat(user, "<span class='notice'>[src] is busy creating a hologram.</span>")
+					balloon_alert(user, "уже в работе!")
 					return
 				if(signs.len < max_signs)
 					playsound(src.loc, 'sound/machines/click.ogg', 20, 1)
@@ -48,10 +48,10 @@
 						if(T.is_blocked_turf(exclude_mobs = TRUE)) //don't try to sneak dense stuff on our tile during the wait.
 							return
 					H = new holosign_type(get_turf(target), src)
-					to_chat(user, "<span class='notice'>You create [H] with [src].</span>")
+					to_chat(user, span_notice("Вы создаёте [H.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]."))
 					return H
 				else
-					to_chat(user, "<span class='notice'>[src] is projecting at max capacity!</span>")
+					to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] работает на максимальной мощности!"))
 
 
 /obj/item/holosign_creator/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -62,14 +62,22 @@
 	if(signs.len)
 		for(var/H in signs)
 			qdel(H)
-		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+		balloon_alert(user, "голограммы удалены")
 
 /obj/item/holosign_creator/handle_openspace_click(turf/target, mob/user, proximity_flag, click_parameters)
 	afterattack(target, user, proximity_flag, click_parameters)
 
 /obj/item/holosign_creator/janitor
 	name = "Janitorial Holosign projector"
-	desc = "A handy-dandy holographic projector that displays a janitorial sign."
+	desc = "Удобный голографический проектор, отображающий знак уборщика."
+	ru_names = list(
+		NOMINATIVE = "голо-проектор уборщика",
+		GENITIVE = "голо-проектора уборщика",
+		DATIVE = "голо-проектору уборщика",
+		ACCUSATIVE = "голо-проектор уборщика",
+		INSTRUMENTAL = "голо-проектором уборщика",
+		PREPOSITIONAL = "голо-проекторе уборщика"
+	)
 	belt_icon = "sign_projector"
 	holosign_type = /obj/structure/holosign/wetsign
 	var/wet_enabled = TRUE
@@ -78,14 +86,13 @@
 	wet_enabled = !wet_enabled
 	playsound(loc, 'sound/weapons/empty.ogg', 20)
 	if(wet_enabled)
-		to_chat(user, span_notice("You enable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will clear after the likely time it takes for a mopped tile to dry."))
+		to_chat(user, span_notice("Вы активируете таймер влажного испарения.\nНовые голо-знаки исчезнут, когда вымытая плитка полностью высохнет."))
 	else
-		to_chat(user, span_notice("You disable the W.E.T. (wet evaporation timer)\nAny newly placed holographic signs will now stay indefinitely."))
-	return CLICK_ACTION_SUCCESS
+		to_chat(user, span_notice("Вы деактивируете таймер влажного испарения.\nНовые голо-знаки будут оставаться на месте без ограничений по времени."))
 
 /obj/item/holosign_creator/janitor/examine(mob/user)
 	. = ..()
-	. += "<span class='info'>Alt-Click to [wet_enabled ? "deactivate" : "activate"] its built-in wet evaporation timer.</span>"
+	. += span_info("Используйте <b>Alt+ЛКМ</b>, чтобы [wet_enabled ? "деактивировать" : "активировать"] таймер влажного испарения.")
 
 /obj/item/holosign_creator/janitor/afterattack(atom/target, mob/user, flag, params)
 	var/obj/structure/holosign/wetsign/WS = ..()
@@ -100,7 +107,15 @@
 
 /obj/item/holosign_creator/security
 	name = "security holobarrier projector"
-	desc = "A holographic projector that creates holographic security barriers."
+	desc = "Голографический проектор, который создаёт голографические барьеры службы безопасности."
+	ru_names = list(
+		NOMINATIVE = "голо-проектор службы безопасности",
+		GENITIVE = "голо-проектора службы безопасности",
+		DATIVE = "голо-проектору службы безопасности",
+		ACCUSATIVE = "голо-проектор службы безопасности",
+		INSTRUMENTAL = "голо-проектором службы безопасности",
+		PREPOSITIONAL = "голо-проекторе службы безопасности"
+	)
 	icon_state = "signmaker_sec"
 	item_state = "signmaker_sec"
 	belt_icon = "security_sign_projector"
@@ -110,7 +125,15 @@
 
 /obj/item/holosign_creator/engineering
 	name = "engineering holobarrier projector"
-	desc = "A holographic projector that creates holographic engineering barriers."
+	desc = "Голографический проектор, который создаёт инженерные голографические барьеры."
+	ru_names = list(
+		NOMINATIVE = "инженерный голо-проектор",
+		GENITIVE = "инженерного голо-проектора",
+		DATIVE = "инженерному голо-проектору",
+		ACCUSATIVE = "инженерный голо-проектор",
+		INSTRUMENTAL = "инженерным голо-проектором",
+		PREPOSITIONAL = "инженерном голо-проекторе"
+	)
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/engineering
@@ -119,7 +142,15 @@
 
 /obj/item/holosign_creator/atmos
 	name = "ATMOS holofan projector"
-	desc = "A holographic projector that creates holographic barriers that prevent changes in atmosphere conditions."
+	desc = "Голографический проектор, создающий голографические барьеры, препятствующие изменению атмосферы."
+	ru_names = list(
+		NOMINATIVE = "атмосферный голо-проектор",
+		GENITIVE = "атмосферного голо-проектора",
+		DATIVE = "атмосферному голо-проектору",
+		ACCUSATIVE = "атмосферный голо-проектор",
+		INSTRUMENTAL = "атмосферным голо-проектором",
+		PREPOSITIONAL = "атмосферном голо-проекторе"
+	)
 	icon_state = "signmaker_engi"
 	item_state = "signmaker_engi"
 	holosign_type = /obj/structure/holosign/barrier/atmos
@@ -128,7 +159,15 @@
 
 /obj/item/holosign_creator/cyborg
 	name = "Energy Barrier Projector"
-	desc = "A holographic projector that creates fragile energy fields."
+	desc = "Голографический проектор, создающий хрупкие энергетические поля."
+	ru_names = list(
+		NOMINATIVE = "проектор энерго-барьера",
+		GENITIVE = "проектора энерго-барьера",
+		DATIVE = "проектору энерго-барьера",
+		ACCUSATIVE = "проектор энерго-барьера",
+		INSTRUMENTAL = "проектором энерго-барьера",
+		PREPOSITIONAL = "проекторе энерго-барьера"
+	)
 	creation_time = 15
 	max_signs = 9
 	holosign_type = /obj/structure/holosign/barrier/cyborg
@@ -139,7 +178,7 @@
 		var/mob/living/silicon/robot/R = user
 
 		if(shock)
-			to_chat(user, "<span class='notice'>You clear all active holograms, and reset your projector to normal.</span>")
+			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg
 			creation_time = 5
 			if(signs.len)
@@ -148,7 +187,7 @@
 			shock = 0
 			return
 		else if(R.emagged && !shock)
-			to_chat(user, "<span class='warning'>You clear all active holograms, and overload your energy projector!</span>")
+			balloon_alert(user, "голограммы удалены")
 			holosign_type = /obj/structure/holosign/barrier/cyborg/hacked
 			creation_time = 30
 			if(signs.len)
@@ -160,8 +199,8 @@
 			if(signs.len)
 				for(var/H in signs)
 					qdel(H)
-				to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+				balloon_alert(user, "голограммы удалены")
 	if(signs.len)
 		for(var/H in signs)
 			qdel(H)
-		to_chat(user, "<span class='notice'>You clear all active holograms.</span>")
+		balloon_alert(user, "голограммы удалены")

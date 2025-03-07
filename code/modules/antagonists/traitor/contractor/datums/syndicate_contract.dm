@@ -167,7 +167,7 @@
 	if(status != CONTRACT_STATUS_INACTIVE || !ISINDEXSAFE(reward_tc, difficulty))
 		return
 	else if(owning_hub.current_contract)
-		to_chat(M, "<span class='warning'>You already have an ongoing contract!</span>")
+		to_chat(M, span_warning("У вас уже есть действующий контракт!"))
 		return
 
 	if(!contract.choose_difficulty(difficulty, src))
@@ -176,7 +176,7 @@
 	status = CONTRACT_STATUS_ACTIVE
 	chosen_difficulty = difficulty
 	owning_hub.current_contract = src
-	owning_hub.contractor_uplink?.message_holder("Request for this contract confirmed. Good luck, agent.", 'sound/machines/terminal_prompt.ogg')
+	owning_hub.contractor_uplink?.message_holder("Запрос на этот контракт подтверждён. Удачи, агент!", 'sound/machines/terminal_prompt.ogg')
 
 	return TRUE
 
@@ -214,18 +214,18 @@
 	var/pre_text
 	if(src == owning_hub.current_contract)
 		owning_hub.current_contract = null
-		pre_text = "Agent, it appears the target you were tasked to kidnap can no longer be reached."
+		pre_text = "Агент, цель вашего похищения более недоступна."
 	else
-		pre_text = "Agent, a still inactive contract can no longer be done as the target has gone off our sensors."
+		pre_text = "Агент, неактивный контракт более не может быть выполнен, так как цель исчезла с наших сенсоров."
 
 	var/outcome_text
 	if(generate())
 		status = CONTRACT_STATUS_INACTIVE
-		outcome_text = "Luckily, there is another target on station we can interrogate. A new contract can be found in your uplink."
+		outcome_text = "К счастью, на станции есть ещё одна цель, которую мы можем похитить. Новый контракт можно получить в аплинке."
 	else
 		// Too bad.
 		status = CONTRACT_STATUS_INVALID
-		outcome_text = "Unfortunately, we could not find another target to interrogate and thus we cannot give you another contract."
+		outcome_text = "К сожалению, мы не смогли найти другую цель для похищения и поэтому не можем предоставить вам ещё один контракт."
 
 	if(owning_hub.contractor_uplink)
 		owning_hub.contractor_uplink.message_holder("[pre_text] [outcome_text]", 'sound/machines/terminal_prompt_deny.ogg')
@@ -247,7 +247,7 @@
 	fail_reason = reason
 	// Notify
 	clean_up()
-	owning_hub.contractor_uplink?.message_holder("You failed to kidnap the target, agent. Do not disappoint us again.", 'sound/machines/terminal_prompt_deny.ogg')
+	owning_hub.contractor_uplink?.message_holder("Вам не удалось похитить цель, агент. Впредь постарайтесь так не разочаровывать нас!", 'sound/machines/terminal_prompt_deny.ogg')
 
 /**
   * Initiates the extraction process if conditions are met.
@@ -257,29 +257,30 @@
   */
 /datum/syndicate_contract/proc/start_extraction_process(obj/item/contractor_uplink/U, mob/living/carbon/human/M)
 	if(!U?.Adjacent(M))
-		return "Where in space is your uplink?!"
+		return "Где ваш чёртов аплинк?!"
 	else if(status != CONTRACT_STATUS_ACTIVE)
-		return "This contract is not active."
+		return "Данный контракт не активен."
 	else if(extraction_deadline > world.time)
-		return "Another extraction attempt cannot be made yet."
+		return "Новая попытка похищения пока не может быть предпринята."
 
 	var/mob/target = contract.target.current
 	if(!target)
 		invalidate()
-		return "The target is no longer on our sensors. Your contract will be invalidated and replaced with another one."
+		return "Цель более не фиксируется нашими датчиками. Ваш контракт будет аннулирован и заменён на другой."
 	else if(!contract.can_start_extraction_process(M, target))
-		return "You and the target must be standing in the extraction area to start the extraction process."
+		return "Чтобы начать процесс похищения, вы и цель должны находиться в нужной локации."
 
-	M.visible_message("<span class='notice'>[M] starts entering a cryptic series of characters on [U].</span>",\
-					  "<span class='notice'>You start entering an extraction signal to your handlers on [U]...</span>")
+	M.visible_message(span_notice("[M] начина[pluralize_ru(M.gender, "ет", "ют")] вводить загадочную серию символов в [U.declent_ru(ACCUSATIVE)]..."),\
+					  span_notice("Вы начинаете подавать сигнал для эвакуации своим кураторам через [U.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(M, EXTRACTION_PHASE_PREPARE, M))
 		if(!U.Adjacent(M) || extraction_deadline > world.time)
 			return
 		var/obj/effect/contractor_flare/F = new(get_turf(M))
 		extraction_flare = F
 		extraction_deadline = world.time + extraction_cooldown
-		M.visible_message("<span class='notice'>[M] enters a mysterious code on [U] and pulls a black and gold flare from [M.p_their()] belongings before lighting it.</span>",\
-						  "<span class='notice'>You finish entering the signal on [U] and light an extraction flare, initiating the extraction process.</span>")
+		M.visible_message(span_notice("[M] ввод[pluralize_ru(M.gender, "ит", "ят")] таинственный код в [U.declent_ru(ACCUSATIVE)] и доста[pluralize_ru(M.gender, "ёт", "ют")] \
+							чёрно-золотую сигнальную ракету, после чего зажига[pluralize_ru(M.gender, "ет", "ют")] её."),\
+						  span_notice("Вы завершаете ввод сигнала в [U.declent_ru(ACCUSATIVE)] и зажигаете сигнальную ракету, начиная процесс эвакуации."))
 		addtimer(CALLBACK(src, PROC_REF(open_extraction_portal), U, M, F), EXTRACTION_PHASE_PORTAL)
 		extraction_timer_handle = addtimer(CALLBACK(src, PROC_REF(deadline_reached)), portal_duration, TIMER_STOPPABLE)
 
@@ -296,13 +297,13 @@
 		invalidate()
 		return
 	else if(!F)
-		U.message_holder("Extraction flare could not be located, agent. Ensure the extraction zone is clear before signaling us.", 'sound/machines/terminal_prompt_deny.ogg')
+		U.message_holder("Агент, нам не удалось обнаружить [F.declent_ru(ACCUSATIVE)]. Убедитесь, что зона эвакуации свободна, прежде чем посылать нам сигнал.", 'sound/machines/terminal_prompt_deny.ogg')
 		return
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Extraction signal received, agent. [SSmapping.map_datum.station_name]'s bluespace transport jamming systems have been sabotaged. "\
-			 	   + "We have opened a temporary portal at your flare location - proceed to the target's extraction by inserting them into the portal.", 'sound/effects/confirmdropoff.ogg')
+	U.message_holder("Агент, мы получили сигнал эвакуации. Системы помех блюспейс транспорту на борту НСС [SSmapping.map_datum.station_name], были саботированы. "\
+			 	   + "Мы открыли временный портал на месте вашей сигнальной ракеты. Поместите цель в портал, чтобы завершить процесс эвакуации.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)
 	P.contract = src
@@ -334,9 +335,9 @@
 /datum/syndicate_contract/proc/notify_completion(tc, creds, target_dead)
 	var/penalty_text = ""
 	if(target_dead)
-		penalty_text = " (penalty applied as the target was extracted dead)"
-	owning_hub.contractor_uplink?.message_holder("Well done, agent. The package has been received and will be processed shortly before being returned. "\
-									 + "As agreed, you have been credited with [tc] telecrystals[penalty_text] and [creds] credits.", 'sound/machines/terminal_prompt_confirm.ogg')
+		penalty_text = " (штраф применяется, если цель была эвакуирована мёртвой)"
+	owning_hub.contractor_uplink?.message_holder("Отличная работа, агент! Цель доставлена и в ближайшее время её обработают, после чего отправят обратно. "\
+									 + "Как и было оговорено, вам начислено [tc] ТК[penalty_text] и [creds] кредит[declension_ru(creds, "", "а", "ов")].", 'sound/machines/terminal_prompt_confirm.ogg')
 
 /**
   * Handles the target's experience from extraction.
@@ -442,12 +443,30 @@
 	// Supply them with some chow. How generous is the Syndicate?
 	var/obj/item/reagent_containers/food/snacks/breadslice/food = new(get_turf(M))
 	food.name = "stale bread"
-	food.desc = "Looks like your captors care for their prisoners as much as their bread."
+	food.desc = "Похоже, ваши похитители позаботились о вашем питании."
+	food.ru_names = list(
+		NOMINATIVE = "чёрствый хлеб",
+		GENITIVE = "чёрствого хлеба",
+		DATIVE = "чёрствому хлебу",
+		ACCUSATIVE = "чёрствый хлеб",
+		INSTRUMENTAL = "чёрствым хлебом",
+		PREPOSITIONAL = "чёрством хлебе"
+	)
+	food.gender = MALE
 	food.trash = null
 	food.reagents.add_reagent("nutriment", 5) // It may be stale, but it still has to be nutritive enough for the whole duration!
 	if(prob(10))
 		// Mold adds a bit of spice to it
 		food.name = "moldy bread"
+		food.ru_names = list(
+			NOMINATIVE = "заплесневелый хлеб",
+			GENITIVE = "заплесневелого хлеба",
+			DATIVE = "заплесневелому хлебу",
+			ACCUSATIVE = "заплесневелый хлеб",
+			INSTRUMENTAL = "заплесневелым хлебом",
+			PREPOSITIONAL = "заплесневелом хлебе"
+		)
+		food.gender = MALE
 		food.reagents.add_reagent("fungus", 1)
 
 	var/obj/item/reagent_containers/food/drinks/drinkingglass/drink = new(get_turf(M))
@@ -460,27 +479,28 @@
 		// Heal them up - gets them out of crit/soft crit.
 		M.reagents.add_reagent("omnizine", 20)
 
-		to_chat(M, "<span class='warning'>You feel strange...</span>")
+		to_chat(M, span_warning("Вы чувствуете себя странно..."))
 		M.Paralyse(30 SECONDS)
 		M.EyeBlind(35 SECONDS)
 		M.EyeBlurry(35 SECONDS)
 		M.AdjustConfused(35 SECONDS)
 
 		sleep(6 SECONDS)
-		to_chat(M, "<span class='warning'>That portal did something to you...</span>")
+		to_chat(M, span_warning("Этот портал повлиял на вас..."))
 
 		sleep(6.5 SECONDS)
-		to_chat(M, "<span class='warning'>Your head pounds... It feels like it's going to burst out your skull!</span>")
+		to_chat(M, span_warning("Голова болит так сильно... что, кажется, сейчас лопнет!"))
 
 		sleep(3 SECONDS)
-		to_chat(M, "<span class='warning'>Your head pounds...</span>")
+		to_chat(M, span_warning("Голова раскалывается..."))
 
 		sleep(10 SECONDS)
-		to_chat(M, "<span class='specialnotice'>A million voices echo in your head... <i>\"Your mind held many valuable secrets - \
-					we thank you for providing them. Your value is expended, and you will be ransomed back to your station. We always get paid, \
-					so it's only a matter of time before we send you back...\"</i></span>")
+		to_chat(M, span_specialnotice("Миллионы голосов эхом отдаются в вашей голове... <i>\"В вашем сознании хранилось много ценных секретов — \
+					мы благодарим вас за то, что вы их предоставили. Ваша ценность возросла, и вы будете выкуплены обратно на свою станцию. \
+					Нам всегда платят, так что отправка вас обратно — лишь вопрос времени...\"</i>"))
 
-		to_chat(M, "<span class='danger'><font size=3>You have been kidnapped and interrogated for valuable information! You will be sent back to the station in a few minutes...</font></span>")
+		to_chat(M, span_danger("<font size=3>Вас похитили и допросили, чтобы получить ценную информацию! \
+					Через несколько минут вас отправят обратно на станцию...</font>"))
 
 /**
   * Handles the target's return to station.
@@ -517,13 +537,13 @@
 
 	// Chance for souvenir or bruises
 	if(prob(RETURN_SOUVENIR_CHANCE))
-		to_chat(M, "<span class='notice'>Your captors left you a souvenir for your troubles!</span>")
+		to_chat(M, span_notice("Ваши похитители оставили вам сувенир за доставленные вам хлопоты!"))
 		var/obj/item/souvenir = pick(souvenirs)
 		new souvenir(closet)
 	else if(prob(RETURN_BRUISE_CHANCE) && M.health >= 50)
 		var/mob/living/carbon/human/H = M
 		if(istype(H))
-			to_chat(M,"<span class='warning'>Your kidnappers beat you badly before sending you back!</span>")
+			to_chat(M, span_warning("Похитители сильно избили вас, прежде чем отправить обратно!"))
 			var/parts_to_fuck_up = pick(BODY_ZONE_CHEST, BODY_ZONE_L_ARM, BODY_ZONE_R_ARM, BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_HEAD)
 			var/obj/item/organ/external/BP = H.bodyparts_by_name[parts_to_fuck_up]
 			if(!BP)
@@ -534,7 +554,7 @@
 			M.take_overall_damage(RETURN_BRUISE_DAMAGE)
 
 	// Return them a bit confused.
-	M.visible_message("<span class='notice'>[M] vanishes...</span>")
+	M.visible_message(span_notice("[M] исчеза[pluralize_ru(M.gender, "ет", "ют")]..."))
 	M.forceMove(closet)
 	M.Paralyse(3 SECONDS)
 	M.EyeBlurry(5 SECONDS)
@@ -578,7 +598,7 @@
   */
 /datum/syndicate_contract/proc/deadline_reached()
 	clean_up()
-	owning_hub.contractor_uplink?.message_holder("The window for extraction has closed and so did the portal, agent. You will need to call for another extraction so we can open a new portal.")
+	owning_hub.contractor_uplink?.message_holder("Окно эвакуации закрылось, как и портал, агент. Вам придется начать процесс эвакуации ещё раз, чтобы мы могли открыть новый портал.")
 	SStgui.update_uis(owning_hub)
 
 /**
