@@ -91,7 +91,7 @@
 	if(human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
 	if(usr == src)
-		switch(alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,list("Yes","No")))
 			if("Yes")
 				if(Adjacent(human_to_ask))
 					get_scooped(human_to_ask)
@@ -101,6 +101,9 @@
 				to_chat(src, "<span class='warning'>[human_to_ask] decided not to pick you up.</span>")
 	else
 		return ..()
+
+/mob/living/simple_animal/proc/pick_up_mob(mob/living/carbon/human_to_ask)
+	get_scooped(human_to_ask)
 
 /mob/living/proc/get_scooped(mob/living/carbon/grabber)
 	if(!holder_type)

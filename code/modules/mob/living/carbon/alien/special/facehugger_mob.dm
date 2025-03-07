@@ -286,6 +286,11 @@
 	var/obj/item/clothing/mask/facehugger/hugger = get_scooped(M)
 	hugger.attack_alien(M)
 
+/mob/living/simple_animal/hostile/facehugger/pick_up_mob(mob/living/carbon/human_to_ask)
+	var/obj/item/hugger = get_scooped(human_to_ask)
+	human_to_ask.put_in_hands(hugger)
+
+
 /mob/living/simple_animal/hostile/facehugger/get_scooped(mob/living/carbon/grabber)
 	if(!holder_type)
 		return
