@@ -111,6 +111,12 @@
 	if(stat == CONSCIOUS && !(resting || body_position == LYING_DOWN) && IsStunned())
 		icon_state = "[initial(icon_state)]_knock"
 
+/mob/living/simple_animal/hostile/facehugger/set_resting(new_resting, silent, instant)
+	if(hugger_holder)
+		return
+	. = ..()
+	
+
 /mob/living/simple_animal/hostile/facehugger/OpenFire(atom/A)
 	if(impregnated)
 		return
@@ -188,6 +194,10 @@
 /mob/living/simple_animal/hostile/facehugger/proc/try_hug(atom/hit_atom)
 	var/turf/current_loc = loc
 	var/obj/item/clothing/mask/facehugger/hugger = get_scooped(hit_atom)
+	if(!hugger)
+		Stun(2 SECONDS, ignore_canstun = TRUE)
+		update_icons()
+		return FALSE
 	if(hugger && !hugger.Attach(hit_atom))
 		forceMove(current_loc)
 		hugger.holdered_mob = null
@@ -200,10 +210,6 @@
 		if(CanHug(target))
 			LoseTarget()
 		return TRUE
-	else
-		Stun(2 SECONDS, ignore_canstun = TRUE)
-		update_icons()
-		return FALSE
 
 /mob/living/simple_animal/hostile/facehugger/Stun(amount, ignore_canstun)
 	var/stuncheck = isnull(IsStunned())
