@@ -131,26 +131,26 @@
 	name = "EMT labcoat"
 	desc = "Удобный халат, окрашенный в тёмные цвета. Создан специально для парамедиков."
 	ru_names = list(
-		NOMINATIVE = "лабораторный халат бригады СМП",
-		GENITIVE = "лабораторного халата бригады СМП",
-		DATIVE = "лабораторному халату бригады СМП",
-		ACCUSATIVE = "лабораторный халат бригады СМП",
-		INSTRUMENTAL = "лабораторным халатом бригады СМП",
-		PREPOSITIONAL = "лабораторном халате бригады СМП"
+		NOMINATIVE = "лабораторный халат парамедика",
+		GENITIVE = "лабораторного халата парамедика",
+		DATIVE = "лабораторному халату парамедика",
+		ACCUSATIVE = "лабораторный халат парамедика",
+		INSTRUMENTAL = "лабораторным халатом парамедика",
+		PREPOSITIONAL = "лабораторном халате парамедика"
 	)
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"
 
 /obj/item/clothing/suit/storage/labcoat/mining_medic
-	name = "mining labcoat"
+	name = "mining medic's labcoat"
 	desc = "Стерильный белый халат с коричневыми нашивками на плечиках. На нём видны следы пепла."
 	ru_names = list(
-		NOMINATIVE = "шахтерский лабораторный халат",
-		GENITIVE = "шахтерского лабораторного халата",
-		DATIVE = "шахтерскому лабораторному халату",
-		ACCUSATIVE = "шахтерский лабораторный халат",
-		INSTRUMENTAL = "шахтерским лабораторным халатом",
-		PREPOSITIONAL = "шахтерском лабораторном халате"
+		NOMINATIVE = "лабораторный халат шахтерского врача",
+		GENITIVE = "лабораторного халата шахтерского врача",
+		DATIVE = "лабораторному халату шахтерского врача",
+		ACCUSATIVE = "лабораторный халат шахтерского врача",
+		INSTRUMENTAL = "лабораторным халатом шахтерского врача",
+		PREPOSITIONAL = "лабораторном халате шахтерского врача"
 	)
 	icon_state = "mining_labcoat_open"
 	item_state = "mining_labcoat_open"

@@ -1,6 +1,14 @@
 /obj/item/clothing/under/plasmaman
 	name = "plasma envirosuit"
-	desc = "A special containment suit that allows plasma-based lifeforms to exist safely in an oxygenated environment, and automatically extinguishes them in a crisis. Despite being airtight, it's not spaceworthy."
+	desc = "Специализированный костюм, позволяющий плазменным формам жизни существовать в обогащённой кислородом среде. Внутри установлен экстренный автоматичесуий огнетушитель на случай проблем. Не подходит для космоса."
+	ru_names = list(
+		NOMINATIVE = "защитный костюм плазмолюда",
+		GENITIVE = "защитного костюма плазмолюда",
+		DATIVE = "защитному костюму плазмолюда",
+		ACCUSATIVE = "защитный костюм плазмолюда",
+		INSTRUMENTAL = "защитным костюмом плазмолюда",
+		PREPOSITIONAL = "защитном костюме плазмолюда"
+	)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 0, "fire" = 95, "acid" = 95)
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS
 	strip_delay = 200
