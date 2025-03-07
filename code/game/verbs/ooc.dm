@@ -34,12 +34,12 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_OOC))
-		to_chat(src, "<span class='danger'>You have OOC muted.</span>")
+		to_chat(src, span_danger("You have OOC muted."))
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
 		if(!CONFIG_GET(flag/ooc_allowed))
-			to_chat(src, "<span class='danger'>OOC is globally muted.</span>")
+			to_chat(src, span_danger("OOC is globally muted."))
 			return
 		if(handle_spam_prevention(msg, MUTE_OOC, OOC_COOLDOWN))
 			return
@@ -97,9 +97,8 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 						display_name = holder.fakekey
 
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
-				msg = "<span class='emoji_enabled'>[msg]</span>"
-
-			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+				msg = span_emojienabled("[msg]")
+			to_chat(C, span_ooc("<font color='[display_colour]'>[span_prefix("OOC: ")]<EM>[display_name]:</EM> [span_message(msg)]</font>"))
 
 /proc/toggle_ooc()
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
@@ -146,7 +145,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		return
 
 	if(!(prefs.toggles & PREFTOGGLE_CHAT_LOOC))
-		to_chat(src, "<span class='danger'>You have LOOC muted.</span>")
+		to_chat(src, span_danger("You have LOOC muted."))
 		return
 
 	if(!check_rights(R_ADMIN|R_MOD,0))
@@ -206,7 +205,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
+				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<EM>[display_name][admin_stuff]:</EM> [span_message(msg)]")))
 
 /mob/proc/get_looc_source()
 	return src

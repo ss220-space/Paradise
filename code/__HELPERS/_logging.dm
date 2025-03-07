@@ -210,14 +210,14 @@ GLOBAL_PROTECT(log_end)
  * Standardized method for tracking startup times.
  */
 /proc/log_startup_progress_global(prefix, message)
-	to_chat(world, "<span class='danger'><small>\[[prefix]]</small> [message]</span>")
+	to_chat(world, span_danger("<small>\[[prefix]]</small> [message]"))
 	log_world("\[[prefix]] [message]")
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(var/message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
-		to_chat(world, "<span class='danger'>[message]</span>")
+		to_chat(world, span_danger("[message]"))
 		log_world(message)
 
 /* For logging round startup. */

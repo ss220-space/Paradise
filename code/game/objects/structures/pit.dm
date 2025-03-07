@@ -152,23 +152,23 @@
 		return
 
 	escapee.changeNext_click(CLICK_CD_CLICK_ABILITY)
-	to_chat(escapee, "<span class='warning'>You start digging your way out of \the [src] (this will take about [breakout_time] minute\s)</span>")
-	visible_message("<span class='danger'>Something is scratching its way out of \the [src]!</span>")
+	to_chat(escapee, span_warning("You start digging your way out of \the [src] (this will take about [breakout_time] minute\s)"))
+	visible_message(span_danger("Something is scratching its way out of \the [src]!"))
 
 	for(var/i in 1 to (6*breakout_time * 2)) //minutes * 6 * 5seconds * 2
 		playsound(src.loc, 'sound/effects/squelch1.ogg', 100, 1)
 
 		if(!do_after(escapee, 5 SECONDS))
-			to_chat(escapee, "<span class='warning'>You have stopped digging.</span>")
+			to_chat(escapee, span_warning("You have stopped digging."))
 			return
 		if(open)
 			return
 
 		if(i == 6*breakout_time)
-			to_chat(escapee, "<span class='warning'>Halfway there...</span>")
+			to_chat(escapee, span_warning("Halfway there..."))
 
-	to_chat(escapee, "<span class='warning'>You successfuly dig yourself out!</span>")
-	visible_message("<span class='danger'>\the [escapee] emerges from \the [src]!</span>")
+	to_chat(escapee, span_warning("You successfuly dig yourself out!"))
+	visible_message(span_danger("\the [escapee] emerges from \the [src]!"))
 	playsound(src.loc, 'sound/effects/squelch1.ogg', 100, 1)
 	open()
 

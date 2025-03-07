@@ -45,7 +45,7 @@
 	grant_mimicking()
 
 /mob/living/carbon/human/proc/makeAntiCluwne()
-	to_chat(src, "<span class='danger'>You don't feel very funny.</span>")
+	to_chat(src, span_danger("You don't feel very funny."))
 	adjustBrainLoss(-120)
 	set_nutrition(NUTRITION_LEVEL_STARVING)
 	overeatduration = 0
