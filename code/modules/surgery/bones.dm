@@ -220,7 +220,7 @@
 		span_notice("Вы начинаете закреплять кость в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("Вы чувствуете невыносимую боль в [affected.declent_ru(PREPOSITIONAL)]!")
+	target.custom_pain("Вы едва не теряете сознание от невыносимой боли в [affected.declent_ru(PREPOSITIONAL)]!")
 	return ..()
 
 /datum/surgery_step/set_bone/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
