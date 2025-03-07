@@ -89,7 +89,7 @@ export const CrewMonitor = (props, context) => {
                 selected={2 === tabIndex}
                 onClick={() => setTabIndex(2)}
               >
-                <Icon name="table" /> Данные о Шахтерах
+                <Icon name="table" /> Данные о шахтёрах
               </Tabs.Tab>
             ) : null}
             <Tabs.Tab

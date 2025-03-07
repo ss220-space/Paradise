@@ -6,12 +6,12 @@ Almost every mining medic related stuff
 	name = "mining camera"
 	desc = "Небольшая нагрудная видеокамера, обладающая массивным датчиком, позволяющим считывать датчики костюма с основной станции."
 	ru_names = list(
-		NOMINATIVE = "шахтерская видеокамера",
-		GENITIVE = "шахтерской видеокамеры",
-		DATIVE = "шахтерской видеокамере",
-		ACCUSATIVE = "шахтерскую видеокамеру",
-		INSTRUMENTAL = "шахтерской видеокамерой",
-		PREPOSITIONAL = "шахтерской видеокамере"
+		NOMINATIVE = "шахтёрская видеокамера",
+		GENITIVE = "шахтёрской видеокамеры",
+		DATIVE = "шахтёрской видеокамере",
+		ACCUSATIVE = "шахтёрскую видеокамеру",
+		INSTRUMENTAL = "шахтёрской видеокамерой",
+		PREPOSITIONAL = "шахтёрской видеокамере"
 	)
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
@@ -35,7 +35,7 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/mining_camera/examine(mob/user)
 	. = ..()
-	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтерского медика, так и в развлекательную сеть станции. На текущий момент камера [on ? "в" : "вы"]ключена.")
+	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтёрского медика, так и в развлекательную сеть станции. На текущий момент камера [on ? "в" : "вы"]ключена.")
 	. += span_notice("Используйте <b>Alt+ЛКМ</b> чтобы переключить режим трансляции камеры в развлекательную сеть. На текущий момент ретрансляция на станцию [news_feed ? "в" : "вы"]ключена.")
 
 /obj/item/clothing/accessory/mining_camera/attack_self(mob/user)
@@ -98,14 +98,14 @@ Almost every mining medic related stuff
 
 /obj/item/camera_bug/mining
 	name = "mining camera monitor"
-	desc = "Небольшое устройство, считывающее данные с шахтерских видеокамер. Позволяет следить за шахтерами"
+	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за шахтёрами"
 	ru_names = list(
-		NOMINATIVE = "шахтерский монитор видеокамер",
-		GENITIVE = "шахтерского монитора видеокамер",
-		DATIVE = "шахтерскму монитору видеокамер",
-		ACCUSATIVE = "шахтерский монитор видеокамер",
-		INSTRUMENTAL = "шахтерским монитором видеокамер",
-		PREPOSITIONAL = "шахтерском мониторе видеокамер"
+		NOMINATIVE = "шахтёрский монитор видеокамер",
+		GENITIVE = "шахтёрского монитора видеокамер",
+		DATIVE = "шахтёрскму монитору видеокамер",
+		ACCUSATIVE = "шахтёрский монитор видеокамер",
+		INSTRUMENTAL = "шахтёрским монитором видеокамер",
+		PREPOSITIONAL = "шахтёрском мониторе видеокамер"
 	)
 	icon_state = "mining_monitor"
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'

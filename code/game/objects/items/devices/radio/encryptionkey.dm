@@ -437,12 +437,12 @@
 /obj/item/encryptionkey/headset_mining_medic
 	name = "Medical Mining Encryption Key"
 	ru_names = list(
-		NOMINATIVE = "ключ-шифратор шахтерского врача",
-		GENITIVE = "ключа-шифратора шахтерского врача",
-		DATIVE = "ключу-шифратору шахтерского врача",
-		ACCUSATIVE = "ключ-шифратор шахтерского врача",
-		INSTRUMENTAL = "ключом-шифратором шахтерского врача",
-		PREPOSITIONAL = "ключе-шифраторе шахтерского врача"
+		NOMINATIVE = "ключ-шифратор шахтёрского врача",
+		GENITIVE = "ключа-шифратора шахтёрского врача",
+		DATIVE = "ключу-шифратору шахтёрского врача",
+		ACCUSATIVE = "ключ-шифратор шахтёрского врача",
+		INSTRUMENTAL = "ключом-шифратором шахтёрского врача",
+		PREPOSITIONAL = "ключе-шифраторе шахтёрского врача"
 	)
 	channels = list("Medical" = 1, "Supply" = 1)
 	icon_state = "minmed_cypherkey"

@@ -88,14 +88,14 @@
 
 /obj/item/sensor_device/advanced/mining
 	name = "mining crew monitor"
-	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции. Эта модель настроена на шахтерский персонал станции."
+	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции. Эта модель настроена на шахтёрский персонал станции."
 	ru_names = list(
-		NOMINATIVE = "шахтерский монитор экипажа",
-		GENITIVE = "шахтерского монитора экипажа",
-		DATIVE = "шахтерскому монитору экипажа",
-		ACCUSATIVE = "шахтерский монитор экипажа",
-		INSTRUMENTAL = "шахтерским монитором экипажа",
-		PREPOSITIONAL = "шахтерском мониторе экипажа"
+		NOMINATIVE = "шахтёрский монитор экипажа",
+		GENITIVE = "шахтёрского монитора экипажа",
+		DATIVE = "шахтёрскому монитору экипажа",
+		ACCUSATIVE = "шахтёрский монитор экипажа",
+		INSTRUMENTAL = "шахтёрским монитором экипажа",
+		PREPOSITIONAL = "шахтёрском мониторе экипажа"
 	)
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'

@@ -751,14 +751,14 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/mining_medic
 	name = "mining medic envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для шахтерских врачей."
+	desc = "Шлем защитного костюма плазмолюда, созданный специально для шахтёрских врачей."
 	ru_names = list(
-		NOMINATIVE = "защитный шлем шахтерского врача",
-		GENITIVE = "защитного шлема шахтерского врача",
-		DATIVE = "защитному шлему шахтерского врача",
-		ACCUSATIVE = "защитный шлем шахтерского врача",
-		INSTRUMENTAL = "защитным шлемом шахтерского врача",
-		PREPOSITIONAL = "защитном шлеме шахтерского врача"
+		NOMINATIVE = "защитный шлем шахтёрского врача",
+		GENITIVE = "защитного шлема шахтёрского врача",
+		DATIVE = "защитному шлему шахтёрского врача",
+		ACCUSATIVE = "защитный шлем шахтёрского врача",
+		INSTRUMENTAL = "защитным шлемом шахтёрского врача",
+		PREPOSITIONAL = "защитном шлеме шахтёрского врача"
 	)
 	icon_state = "mining_medic_envirohelm"
 	item_state = "mining_medic_envirohelm"

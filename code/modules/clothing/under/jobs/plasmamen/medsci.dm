@@ -165,14 +165,14 @@
 
 /obj/item/clothing/under/plasmaman/mining_medic
 	name = "mining medic plasma envirosuit"
-	desc = "Защитный костюм плазмолюда, созданный специально для шахтерских врачей."
+	desc = "Защитный костюм плазмолюда, созданный специально для шахтёрских врачей."
 	ru_names = list(
-		NOMINATIVE = "защитный костюм шахтерского врача",
-		GENITIVE = "защитного костюма шахтерского врача",
-		DATIVE = "защитному костюму шахтерского врача",
-		ACCUSATIVE = "защитный костюм шахтерского врача",
-		INSTRUMENTAL = "защитным костюмом шахтерского врача",
-		PREPOSITIONAL = "защитном костюме шахтерского врача"
+		NOMINATIVE = "защитный костюм шахтёрского врача",
+		GENITIVE = "защитного костюма шахтёрского врача",
+		DATIVE = "защитному костюму шахтёрского врача",
+		ACCUSATIVE = "защитный костюм шахтёрского врача",
+		INSTRUMENTAL = "защитным костюмом шахтёрского врача",
+		PREPOSITIONAL = "защитном костюме шахтёрского врача"
 	)
 	icon_state = "mining_medic_envirosuit"
 	item_state = "mining_medic_envirosuit"
