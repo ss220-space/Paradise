@@ -27,7 +27,8 @@
 	icon_state = "box_of_doom"
 
 /obj/item/storage/box/syndie_kit/mantisblade
-	name = "Horlex Mantis blade set"
+	name = "mantis blade kit"
+	desc = "Коробка, содержащая 2 клинка богомола."
 	ru_names = list(
 		NOMINATIVE = "набор клинков богомола",
 		GENITIVE = "набора клинков богомола",
@@ -145,14 +146,32 @@
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
 /obj/item/storage/box/syndie_kit/sarin
-	name = "Sarin Gas Grenades"
+	name = "sarin gas grenades"
+	desc = "Коробка, содержащая гранаты с зарином."
+	ru_names = list(
+		NOMINATIVE = "набор зариновых гранат",
+		GENITIVE = "набора зариновых гранат",
+		DATIVE = "набору зариновых гранат",
+		ACCUSATIVE = "набор зариновых гранат",
+		INSTRUMENTAL = "набором зариновых гранат",
+		PREPOSITIONAL = "наборе зариновых гранат"
+	)
 
 /obj/item/storage/box/syndie_kit/sarin/populate_contents()
 	for(var/I in 1 to 4)
 		new /obj/item/grenade/chem_grenade/saringas(src)
 
 /obj/item/storage/box/syndie_kit/bioterror
-	name = "bioterror syringe box"
+	name = "bioterror syringe kit"
+	desc = "Коробка, содержащая семь шприцов \"Биотеррор\"."
+	ru_names = list(
+		NOMINATIVE = "набор шприцов \"Биотеррор\"",
+		GENITIVE = "набора шприцов \"Биотеррор\"",
+		DATIVE = "набору шприцов \"Биотеррор\"",
+		ACCUSATIVE = "набор шприцов \"Биотеррор\"",
+		INSTRUMENTAL = "набором шприцов \"Биотеррор\"",
+		PREPOSITIONAL = "наборе шприцов \"Биотеррор\""
+	)
 
 /obj/item/storage/box/syndie_kit/bioterror/populate_contents()
 	for(var/I in 1 to 7)
@@ -160,6 +179,7 @@
 
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"
+	desc = "Коробка, содержащая дробовик-трость и патроны к нему."
 	ru_names = list(
 		NOMINATIVE = "набор дробовика-трости",
 		GENITIVE = "набора дробовика-трости",
@@ -176,6 +196,7 @@
 
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
+	desc = "Коробка с револьвером для розыгрышей."
 	ru_names = list(
 		NOMINATIVE = "набор револьвера для розыгрышей",
 		GENITIVE = "набора револьвера для розыгрышей",
@@ -190,6 +211,7 @@
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
+	desc = "Коробка, содержащая 2 книги по продвинутыми пантомимами."
 	ru_names = list(
 		NOMINATIVE = "набор продвинутых пантомим",
 		GENITIVE = "набора продвинутых пантомим",
@@ -204,7 +226,16 @@
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
-	name = "Atmos N2O Grenades"
+	name = "atmos N2O grenades kit"
+	desc = "Коробка, содержащая 2 кластерные гранаты наполненные газом N2O."
+	ru_names = list(
+		NOMINATIVE = "набор усыпляющих газовых кластерных гранат",
+		GENITIVE = "набора усыпляющих газовых кластерных гранат",
+		DATIVE = "набору усыпляющих газовых кластерных гранат",
+		ACCUSATIVE = "набор усыпляющих газовых кластерных гранат",
+		INSTRUMENTAL = "набором усыпляющих газовых кластерных гранат",
+		PREPOSITIONAL = "наборе усыпляющих газовых кластерных гранат"
+	)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades/populate_contents()
 	new /obj/item/grenade/clusterbuster/n2o(src)
@@ -212,7 +243,16 @@
 
 
 /obj/item/storage/box/syndie_kit/atmosfiregrenades
-	name = "Plasma Fire Grenades"
+	name = "plasma fire grenades kit"
+	desc = "Коробка, содержащая 2 кластерные гранаты наполненные газообразной плазмой."
+	ru_names = list(
+		NOMINATIVE = "набор плазменных газовых кластерных гранат",
+		GENITIVE = "набора плазменных газовых кластерных гранат",
+		DATIVE = "набору плазменных газовых кластерных гранат",
+		ACCUSATIVE = "набор плазменных газовых кластерных гранат",
+		INSTRUMENTAL = "набором плазменных газовых кластерных гранат",
+		PREPOSITIONAL = "наборе плазменных газовых кластерных гранат"
+	)
 
 /obj/item/storage/box/syndie_kit/atmosfiregrenades/populate_contents()
 	new /obj/item/grenade/clusterbuster/plasma(src)
@@ -562,14 +602,14 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit
 	name = "bowman headset conversion kit"
-	desc = "В комплект входят наушники, которые обеспечивают защиту от громких звуков, а также ключ-шифратор Синдиката."
+	desc = "В комплект входят гарнитура, которая обеспечивает защиту от громких звуков, а также ключ-шифратор Синдиката."
 	ru_names = list(
-		NOMINATIVE = "набор наушников с ключом-шифратором Синдиката",
-		GENITIVE = "набора наушников с ключом-шифратором Синдиката",
-		DATIVE = "набору наушников с ключом-шифратором Синдиката",
-		ACCUSATIVE = "набор наушников с ключом-шифратором Синдиката",
-		INSTRUMENTAL = "набором наушников с ключом-шифратором Синдиката",
-		PREPOSITIONAL = "наборе наушников с ключом-шифратором Синдиката"
+		NOMINATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
+		GENITIVE = "набора гарнитуры с ключом-шифратором Синдиката",
+		DATIVE = "набору гарнитуры с ключом-шифратором Синдиката",
+		ACCUSATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
+		INSTRUMENTAL = "набором гарнитуры с ключом-шифратором Синдиката",
+		PREPOSITIONAL = "наборе гарнитуры с ключом-шифратором Синдиката"
 	)
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
