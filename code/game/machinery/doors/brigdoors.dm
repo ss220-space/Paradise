@@ -47,7 +47,7 @@
 
 	Radio = new /obj/item/radio(src)
 	Radio.listening = 0
-	Radio.config(list("Безопасность" = 0))
+	Radio.config(list(SEC_FREQ_NAME = 0))
 	Radio.follow_target = src
 
 	addtimer(CALLBACK(src, PROC_REF(delayed_update)), 2 SECONDS, TIMER_DELETE_ME)
@@ -124,7 +124,7 @@
 	var/timetext = seconds_to_time(timetoset / 10)
 	var/announcetext = "Detainee [occupant] ([prisoner_drank]) has been incarcerated for [timetext] for the crime of: '[crimes]'. \
 	Arresting Officer: [usr.name].[R ? "" : " Detainee record not found, manual record update required."]"
-	Radio.autosay(announcetext, name, SEC_FREQ)
+	Radio.autosay(announcetext, name, SEC_FREQ_NAME)
 
 	// Notify the actual criminal being brigged. This is a QOL thing to ensure they always know the charges against them.
 	// Announcing it on radio isn't enough, as they're unlikely to have sec radio.
