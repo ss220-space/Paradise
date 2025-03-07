@@ -24,95 +24,95 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				and must not contain prohibited characters!
 */
 	// English text lowercase
-	  ":r" = "правое ухо",		"#r" = "правое ухо",	"№r" = "правое ухо",	".r" = "правое ухо",
-	  ":l" = "левое ухо",		"#l" = "левое ухо",		"№l" = "левое ухо",		".l" = "левое ухо",
-	  ":i" = "интерком",		"#i" = "интерком",		"№i" = "интерком",		".i" = "интерком",
-	  ":h" = "отдел",			"#h" = "отдел",			"№h" = "отдел",			".h" = "отдел",
-	  ":c" = "Командование",	"#c" = "Командование",	"№c" = "Командование",	".c" = "Командование",
-	  ":n" = "Наука",			"#n" = "Наука",			"№n" = "Наука",			".n" = "Наука",
-	  ":m" = "Медицина",		"#m" = "Медицина",		"№m" = "Медицина",		".m" = "Медицина",
-	  ":x" = "Юриспруденция",	"#x" = "Юриспруденция",	"№x" = "Юриспруденция",	".x" = "Юриспруденция",
-	  ":e" = "Инженерия", 		"#e" = "Инженерия",		"№e" = "Инженерия",		".e" = "Инженерия",
-	  ":s" = "Безопасность",	"#s" = "Безопасность",	"№s" = "Безопасность",	".s" = "Безопасность",
-	  ":w" = "шёпот",			"#w" = "шёпот",			"№w" = "шёпот",			".w" = "шёпот",
-	  ":t" = "Синдикат",		"#t" = "Синдикат",		"№t" = "Синдикат",		".t" = "Синдикат",
-	  ":'" = "СССП",			"#'" = "СССП",			"№'" = "СССП",			".'" = "СССП",
-	  ":u" = "Снабжение",		"#u" = "Снабжение",		"№u" = "Снабжение",		".u" = "Снабжение",
-	  ":z" = "Обслуживание",	"#z" = "Обслуживание",	"№z" = "Обслуживание",	".z" = "Обслуживание",
-	  ":p" = "ИИ",				"#p" = "ИИ",			"№p" = "ИИ",			".p" = "ИИ",
+	  ":r" = "правое ухо",				"#r" = "правое ухо",			"№r" = "правое ухо",			".r" = "правое ухо",
+	  ":l" = "левое ухо",				"#l" = "левое ухо",				"№l" = "левое ухо",				".l" = "левое ухо",
+	  ":i" = "интерком",				"#i" = "интерком",				"№i" = "интерком",				".i" = "интерком",
+	  ":h" = "отдел",					"#h" = "отдел",					"№h" = "отдел",					".h" = "отдел",
+	  ":c" = COMM_FREQ_NAME,			"#c" = COMM_FREQ_NAME,			"№c" = COMM_FREQ_NAME,			".c" = COMM_FREQ_NAME,
+	  ":n" = SCI_FREQ_NAME,				"#n" = SCI_FREQ_NAME,			"№n" = SCI_FREQ_NAME,			".n" = SCI_FREQ_NAME,
+	  ":m" = MED_FREQ_NAME,				"#m" = MED_FREQ_NAME,			"№m" = MED_FREQ_NAME,			".m" = MED_FREQ_NAME,
+	  ":x" = PROC_FREQ_NAME,			"#x" = PROC_FREQ_NAME,			"№x" = PROC_FREQ_NAME,			".x" = PROC_FREQ_NAME,
+	  ":e" = ENG_FREQ_NAME, 			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
+	  ":s" = SEC_FREQ_NAME,				"#s" = SEC_FREQ_NAME,			"№s" = SEC_FREQ_NAME,			".s" = SEC_FREQ_NAME,
+	  ":w" = "шёпот",					"#w" = "шёпот",					"№w" = "шёпот",					".w" = "шёпот",
+	  ":t" = SYND_FREQ_NAME,			"#t" = SYND_FREQ_NAME,			"№t" = SYND_FREQ_NAME,			".t" = SYND_FREQ_NAME,
+	  ":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
+	  ":u" = SUP_FREQ_NAME,				"#u" = SUP_FREQ_NAME,			"№u" = SUP_FREQ_NAME,			".u" = SUP_FREQ_NAME,
+	  ":z" = SRV_FREQ_NAME,				"#z" = SRV_FREQ_NAME,			"№z" = SRV_FREQ_NAME,			".z" = SRV_FREQ_NAME,
+	  ":p" = AI_FREQ_NAME,				"#p" = AI_FREQ_NAME,			"№p" = AI_FREQ_NAME,			".p" = AI_FREQ_NAME,
 
 	// English text uppercase
-	  ":R" = "правое ухо",		"#R" = "правое ухо",	"№R" = "правое ухо",	".R" = "правое ухо",
-	  ":L" = "левое ухо",		"#L" = "левое ухо",		"№L" = "левое ухо",		".L" = "левое ухо",
-	  ":I" = "интерком",		"#I" = "интерком",		"№I" = "интерком",		".I" = "интерком",
-	  ":H" = "отдел",			"#H" = "отдел",			"№H" = "отдел",			".H" = "отдел",
-	  ":C" = "Командование",	"#C" = "Командование",	"№C" = "Командование",	".C" = "Командование",
-	  ":N" = "Наука",			"#N" = "Наука",			"№N" = "Наука",			".N" = "Наука",
-	  ":M" = "Медицина",		"#M" = "Медицина",		"№M" = "Медицина",		".M" = "Медицина",
-	  ":X" = "Юриспруденция",	"#X" = "Юриспруденция",	"№X" = "Юриспруденция",	".X" = "Юриспруденция",
-	  ":E" = "Инженерия",		"#E" = "Инженерия",		"№E" = "Инженерия",		".E" = "Инженерия",
-	  ":S" = "Безопасность",	"#S" = "Безопасность",	"№S" = "Безопасность",	".S" = "Безопасность",
-	  ":W" = "шёпот",			"#W" = "шёпот",			"№W" = "шёпот",			".W" = "шёпот",
-	  ":T" = "Синдикат",		"#T" = "Синдикат",		"№T" = "Синдикат",		".T" = "Синдикат",
-	  ":'" = "СССП",			"#'" = "СССП",			"№'" = "СССП",			".'" = "СССП",
-	  ":U" = "Снабжение",		"#U" = "Снабжение",		"№U" = "Снабжение",		".U" = "Снабжение",
-	  ":Z" = "Обслуживание",	"#Z" = "Обслуживание",	"№Z" = "Обслуживание",	".Z" = "Обслуживание",
-	  ":P" = "ИИ",				"#P" = "ИИ",			"№P" = "ИИ",			".P" = "ИИ",
+	  ":R" = "правое ухо",				"#R" = "правое ухо",			"№R" = "правое ухо",			".R" = "правое ухо",
+	  ":L" = "левое ухо",				"#L" = "левое ухо",				"№L" = "левое ухо",				".L" = "левое ухо",
+	  ":I" = "интерком",				"#I" = "интерком",				"№I" = "интерком",				".I" = "интерком",
+	  ":H" = "отдел",					"#H" = "отдел",					"№H" = "отдел",					".H" = "отдел",
+	  ":C" = COMM_FREQ_NAME,			"#C" = COMM_FREQ_NAME,			"№C" = COMM_FREQ_NAME,			".C" = COMM_FREQ_NAME,
+	  ":N" = SCI_FREQ_NAME,				"#N" = SCI_FREQ_NAME,			"№N" = SCI_FREQ_NAME,			".N" = SCI_FREQ_NAME,
+	  ":M" = MED_FREQ_NAME,				"#M" = MED_FREQ_NAME,			"№M" = MED_FREQ_NAME,			".M" = MED_FREQ_NAME,
+	  ":X" = PROC_FREQ_NAME,			"#X" = PROC_FREQ_NAME,			"№X" = PROC_FREQ_NAME,			".X" = PROC_FREQ_NAME,
+	  ":E" = ENG_FREQ_NAME,				"#E" = ENG_FREQ_NAME,			"№E" = ENG_FREQ_NAME,			".E" = ENG_FREQ_NAME,
+	  ":S" = SEC_FREQ_NAME,				"#S" = SEC_FREQ_NAME,			"№S" = SEC_FREQ_NAME,			".S" = SEC_FREQ_NAME,
+	  ":W" = "шёпот",					"#W" = "шёпот",					"№W" = "шёпот",					".W" = "шёпот",
+	  ":T" = SYND_FREQ_NAME,			"#T" = SYND_FREQ_NAME,			"№T" = SYND_FREQ_NAME,			".T" = SYND_FREQ_NAME,
+	  ":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
+	  ":U" = SUP_FREQ_NAME,				"#U" = SUP_FREQ_NAME,			"№U" = SUP_FREQ_NAME,			".U" = SUP_FREQ_NAME,
+	  ":Z" = SRV_FREQ_NAME,				"#Z" = SRV_FREQ_NAME,			"№Z" = SRV_FREQ_NAME,			".Z" = SRV_FREQ_NAME,
+	  ":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
 
 	// Russian text lowercase
-	  ":к" = "правое ухо",		"#к" = "правое ухо",	"№к" = "правое ухо",	".к" = "правое ухо",
-	  ":д" = "левое ухо",		"#д" = "левое ухо",		"№д" = "левое ухо",		".д" = "левое ухо",
-	  ":ш" = "интерком",		"#ш" = "интерком",		"№ш" = "интерком",		".ш" = "интерком",
-	  ":р" = "отдел",			"#р" = "отдел",			"№р" = "отдел",			".р" = "отдел",
-	  ":с" = "Командование",	"#с" = "Командование",	"№с" = "Командование",	".с" = "Командование",
-	  ":т" = "Наука",			"#т" = "Наука",			"№т" = "Наука",			".т" = "Наука",
-	  ":ь" = "Медицина",		"#ь" = "Медицина",		"№ь" = "Медицина",		".ь" = "Медицина",
-	  ":ч" = "Юриспруденция",	"#ч" = "Юриспруденция",	"№ч" = "Юриспруденция",	".ч" = "Юриспруденция",
-	  ":у" = "Инженерия", 		"#у" = "Инженерия",		"№у" = "Инженерия",		".у" = "Инженерия",
-	  ":ы" = "Безопасность",	"#ы" = "Безопасность",	"№ы" = "Безопасность",	".ы" = "Безопасность",
-	  ":ц" = "шёпот",			"#ц" = "шёпот",			"№ц" = "шёпот",			".ц" = "шёпот",
-	  ":е" = "Синдикат",		"#е" = "Синдикат",		"№е" = "Синдикат",		".е" = "Синдикат",
-	  ":э" = "СССП",			"#э" = "СССП",			"№э" = "СССП",			".э" = "СССП",
-	  ":б" = "СиндиТайпан",		"#б" = "СиндиТайпан",	"№б" = "СиндиТайпан",	".б" = "СиндиТайпан",
-	  ":г" = "Снабжение",		"#г" = "Снабжение",		"№г" = "Снабжение",		".г" = "Снабжение",
-	  ":я" = "Обслуживание",	"#я" = "Обслуживание",	"№я" = "Обслуживание",	".я" = "Обслуживание",
-	  ":з" = "ИИ",				"#з" = "ИИ",			"№з" = "ИИ",			".з" = "ИИ",
-	  ":ё" = "связки",			"#ё" = "связки",		"№ё" = "связки",		".ё" = "связки",
+	  ":к" = "правое ухо",				"#к" = "правое ухо",			"№к" = "правое ухо",			".к" = "правое ухо",
+	  ":д" = "левое ухо",				"#д" = "левое ухо",				"№д" = "левое ухо",				".д" = "левое ухо",
+	  ":ш" = "интерком",				"#ш" = "интерком",				"№ш" = "интерком",				".ш" = "интерком",
+	  ":р" = "отдел",					"#р" = "отдел",					"№р" = "отдел",					".р" = "отдел",
+	  ":с" = COMM_FREQ_NAME,			"#с" = COMM_FREQ_NAME,			"№с" = COMM_FREQ_NAME,			".с" = COMM_FREQ_NAME,
+	  ":т" = SCI_FREQ_NAME,				"#т" = SCI_FREQ_NAME,			"№т" = SCI_FREQ_NAME,			".т" = SCI_FREQ_NAME,
+	  ":ь" = MED_FREQ_NAME,				"#ь" = MED_FREQ_NAME,			"№ь" = MED_FREQ_NAME,			".ь" = MED_FREQ_NAME,
+	  ":ч" = PROC_FREQ_NAME,			"#ч" = PROC_FREQ_NAME,			"№ч" = PROC_FREQ_NAME,			".ч" = PROC_FREQ_NAME,
+	  ":у" = ENG_FREQ_NAME, 			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
+	  ":ы" = SEC_FREQ_NAME,				"#ы" = SEC_FREQ_NAME,			"№ы" = SEC_FREQ_NAME,			".ы" = SEC_FREQ_NAME,
+	  ":ц" = "шёпот",					"#ц" = "шёпот",					"№ц" = "шёпот",					".ц" = "шёпот",
+	  ":е" = SYND_FREQ_NAME,			"#е" = SYND_FREQ_NAME,			"№е" = SYND_FREQ_NAME,			".е" = SYND_FREQ_NAME,
+	  ":э" = SOV_FREQ_NAME,				"#э" = SOV_FREQ_NAME,			"№э" = SOV_FREQ_NAME,			".э" = SOV_FREQ_NAME,
+	  ":б" = SYND_TAIPAN_FREQ_NAME,		"#б" = SYND_TAIPAN_FREQ_NAME,	"№б" = SYND_TAIPAN_FREQ_NAME,	".б" = SYND_TAIPAN_FREQ_NAME,
+	  ":г" = SUP_FREQ_NAME,				"#г" = SUP_FREQ_NAME,			"№г" = SUP_FREQ_NAME,			".г" = SUP_FREQ_NAME,
+	  ":я" = SRV_FREQ_NAME,				"#я" = SRV_FREQ_NAME,			"№я" = SRV_FREQ_NAME,			".я" = SRV_FREQ_NAME,
+	  ":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
+	  ":ё" = "связки",					"#ё" = "связки",				"№ё" = "связки",				".ё" = "связки",
 
 	// Russian text uppercase
-	  ":К" = "правое ухо",		"#К" = "правое ухо",	"№К" = "правое ухо",	".К" = "правое ухо",
-	  ":Д" = "левое ухо",		"#Д" = "левое ухо",		"№Д" = "левое ухо",		".Д" = "левое ухо",
-	  ":Ш" = "интерком",		"#Ш" = "интерком",		"№Ш" = "интерком",		".Ш" = "интерком",
-	  ":Р" = "отдел",			"#Р" = "отдел",			"№Р" = "отдел",			".Р" = "отдел",
-	  ":С" = "Командование",	"#С" = "Командование",	"№С" = "Командование",	".С" = "Командование",
-	  ":Т" = "Наука",			"#Т" = "Наука",			"№Т" = "Наука",			".Т" = "Наука",
-	  ":Ь" = "Медицина",		"#Ь" = "Медицина",		"№Ь" = "Медицина",		".Ь" = "Медицина",
-	  ":У" = "Инженерия",		"#У" = "Инженерия",		"№У" = "Инженерия",		".У" = "Инженерия",
-	  ":Ы" = "Безопасность",	"#Ы" = "Безопасность",	"№Ы" = "Безопасность",	".Ы" = "Безопасность",
-	  ":Ц" = "шёпот",			"#Ц" = "шёпот",			"№Ц" = "шёпот",			".Ц" = "шёпот",
-	  ":Е" = "Синдикат",		"#Е" = "Синдикат",		"№Е" = "Синдикат",		".Е" = "Синдикат",
-	  ":Э" = "СССП",			"#Э" = "СССП",			"№Э" = "СССП",			".Э" = "СССП",
-	  ":Б" = "СиндиТайпан",		"#Б" = "СиндиТайпан",	"№Б" = "СиндиТайпан",	".Б" = "СиндиТайпан",
-	  ":Г" = "Снабжение",		"#Г" = "Снабжение",		"№Г" = "Снабжение",		".Г" = "Снабжение",
-	  ":Я" = "Обслуживание",	"#Я" = "Обслуживание",	"№Я" = "Обслуживание",	".Я" = "Обслуживание",
-	  ":З" = "ИИ",				"#З" = "ИИ",			"№З" = "ИИ",			".З" = "ИИ",
-	  ":Ё" = "связки",			"#Ё" = "связки",		"№Ё" = "связки",		".Ё" = "связки",
+	  ":К" = "правое ухо",				"#К" = "правое ухо",			"№К" = "правое ухо",			".К" = "правое ухо",
+	  ":Д" = "левое ухо",				"#Д" = "левое ухо",				"№Д" = "левое ухо",				".Д" = "левое ухо",
+	  ":Ш" = "интерком",				"#Ш" = "интерком",				"№Ш" = "интерком",				".Ш" = "интерком",
+	  ":Р" = "отдел",					"#Р" = "отдел",					"№Р" = "отдел",					".Р" = "отдел",
+	  ":С" = COMM_FREQ_NAME,			"#С" = COMM_FREQ_NAME,			"№С" = COMM_FREQ_NAME,			".С" = COMM_FREQ_NAME,
+	  ":Т" = SCI_FREQ_NAME,				"#Т" = SCI_FREQ_NAME,			"№Т" = SCI_FREQ_NAME,			".Т" = SCI_FREQ_NAME,
+	  ":Ь" = MED_FREQ_NAME,				"#Ь" = MED_FREQ_NAME,			"№Ь" = MED_FREQ_NAME,			".Ь" = MED_FREQ_NAME,
+	  ":У" = ENG_FREQ_NAME,				"#У" = ENG_FREQ_NAME,			"№У" = ENG_FREQ_NAME,			".У" = ENG_FREQ_NAME,
+	  ":Ы" = SEC_FREQ_NAME,				"#Ы" = SEC_FREQ_NAME,			"№Ы" = SEC_FREQ_NAME,			".Ы" = SEC_FREQ_NAME,
+	  ":Ц" = "шёпот",					"#Ц" = "шёпот",					"№Ц" = "шёпот",					".Ц" = "шёпот",
+	  ":Е" = SYND_FREQ_NAME,			"#Е" = SYND_FREQ_NAME,			"№Е" = SYND_FREQ_NAME,			".Е" = SYND_FREQ_NAME,
+	  ":Э" = SOV_FREQ_NAME,				"#Э" = SOV_FREQ_NAME,			"№Э" = SOV_FREQ_NAME,			".Э" = SOV_FREQ_NAME,
+	  ":Б" = SYND_TAIPAN_FREQ_NAME,		"#Б" = SYND_TAIPAN_FREQ_NAME,	"№Б" = SYND_TAIPAN_FREQ_NAME,	".Б" = SYND_TAIPAN_FREQ_NAME,
+	  ":Г" = SUP_FREQ_NAME,				"#Г" = SUP_FREQ_NAME,			"№Г" = SUP_FREQ_NAME,			".Г" = SUP_FREQ_NAME,
+	  ":Я" = SRV_FREQ_NAME,				"#Я" = SRV_FREQ_NAME,			"№Я" = SRV_FREQ_NAME,			".Я" = SRV_FREQ_NAME,
+	  ":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
+	  ":Ё" = "связки",					"#Ё" = "связки",				"№Ё" = "связки",				".Ё" = "связки",
 
 	// English symbols no case
-	  ":~" = "связки",			"#~" = "связки",		"№~" = "связки",		".~" = "связки",
-	  ":," = "СиндиТайпан",		"#," = "СиндиТайпан",	"№," = "СиндиТайпан",	".," = "СиндиТайпан",
-	  ":1" = "Альфа частота",	"#1" = "Альфа частота",	"№1" = "Альфа частота",	".1" = "Альфа частота",
-	  ":2" = "Бета частота",	"#2" = "Бета частота",	"№2" = "Бета частота",	".2" = "Бета частота",
-	  ":3" = "Гамма частота",	"#3" = "Гамма частота",	"№3" = "Гамма частота",	".3" = "Гамма частота",
+	  ":~" = "связки",					"#~" = "связки",				"№~" = "связки",				".~" = "связки",
+	  ":," = SYND_TAIPAN_FREQ_NAME,		"#," = SYND_TAIPAN_FREQ_NAME,	"№," = SYND_TAIPAN_FREQ_NAME,	".," = SYND_TAIPAN_FREQ_NAME,
+	  ":1" = EVENT_ALPHA_FREQ_NAME,		"#1" = EVENT_ALPHA_FREQ_NAME,	"№1" = EVENT_ALPHA_FREQ_NAME,	".1" = EVENT_ALPHA_FREQ_NAME,
+	  ":2" = EVENT_BETA_FREQ_NAME,		"#2" = EVENT_BETA_FREQ_NAME,	"№2" = EVENT_BETA_FREQ_NAME,	".2" = EVENT_BETA_FREQ_NAME,
+	  ":3" = EVENT_GAMMA_FRE_NAME,		"#3" = EVENT_GAMMA_FRE_NAME,	"№3" = EVENT_GAMMA_FRE_NAME,	".3" = EVENT_GAMMA_FRE_NAME,
 	// Russian symbols no case
 		// None yet.
 
 	// Special symbols only (that means that they don't have/use an english/russian analogue)
- 	  ":*" = "Клан Паука",		"#*" = "Клан Паука",	"№*" = "Клан Паука",	".*" = "Клан Паука",
-	  ":$" = "ОБР",				"#$" = "ОБР", 			"№$" = "ОБР",			".$" = "ОБР",
-  	  ":_" = "СиндиДОС",		"#_" = "СиндиДОС",		"№_" = "СиндиДОС",		"._" = "СиндиДОС",
-	  ":-" = "Спецназ",			"#-" = "Спецназ",		"№-" = "Спецназ",		".-" = "Спецназ",
-	  ":+" = "специальный",		"#+" = "специальный",	"№+" = "специальный",	".+" = "специальный" //activate radio-specific special functions
+ 	  ":*" = NINJA_FREQ_NAME,			"#*" = NINJA_FREQ_NAME,			"№*" = NINJA_FREQ_NAME,			".*" = NINJA_FREQ_NAME,
+	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME, 			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
+  	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
+	  ":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
+	  ":+" = "специальный",				"#+" = "специальный",			"№+" = "специальный",			".+" = "специальный" //activate radio-specific special functions
 ))
 
 
@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(AmountSluring())
 			if(robot)
-				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
+				S.message = slur(S.message, list("@", "!", 		"#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
 			verb = "slurs"
@@ -222,8 +222,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
-		message += "."
+	if(!(ending in list("!", "?", ",", 		".")) && length(message) != 0)
+		message += 		"."
 
 	//parse the language code and consume it
 	var/list/message_pieces = list()
@@ -339,7 +339,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		var/msg
 		if((!first_piece.speaking || !(first_piece.speaking.flags & NO_TALK_MSG)) && client)
 			msg = span_notice("[src] talks into [used_radios[1]]")
-			var/static/list/special_radio_channels = list("Синдикат", "СиндиДОС", "Безопасность", "Юриспруденция", "Командование", "ОБР", "Спецназ", "Клан Паука", "СиндиТайпан", "СССП")
+			var/static/list/special_radio_channels = list(SYND_FREQ_NAME, SYNDTEAM_FREQ_NAME, SEC_FREQ_NAME, PROC_FREQ_NAME, COMM_FREQ_NAME, ERT_FREQ_NAME, DTH_FREQ_NAME, NINJA_FREQ_NAME, SYND_TAIPAN_FREQ_NAME, SOV_FREQ_NAME)
 			if(message_mode in special_radio_channels)
 				SEND_SOUND(src, sound('sound/items/radio_security.ogg', volume = rand(4, 16) * 5 * client.prefs.get_channel_volume(CHANNEL_RADIO_NOISE), channel = CHANNEL_RADIO_NOISE))
 			else
@@ -442,8 +442,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", ".")))
-		message += "."
+	if(!(ending in list("!", "?", ",", 		".")))
+		message += 		"."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)

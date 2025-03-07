@@ -89,7 +89,7 @@
 	/// Which channels can the bot listen to.
 	var/list/radio_config = null
 	/// The bot's default radio channel.
-	var/radio_channel = "Общий"
+	var/radio_channel = PUB_FREQ_NAME
 	/// Set to `TRUE` make bot automatically patrol.
 	var/auto_patrol = FALSE
 	/// This is turf to navigate to (location of beacon).
@@ -158,7 +158,7 @@
 	var/mob/living/simple_animal/bot/B = loc
 	if(istype(B))
 		if(!B.radio_config)
-			B.radio_config = list("ИИ" = 1)
+			B.radio_config = list(AI_FREQ_NAME = 1)
 			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1

@@ -18,7 +18,7 @@
 /obj/machinery/mineral/labor_claim_console/Initialize()
 	. = ..()
 	announcer = new /obj/item/radio/intercom(null)
-	announcer.config(list("Безопасность" = 0))
+	announcer.config(list(SEC_FREQ_NAME = 0))
 
 	if(!sheet_values)
 		for(var/sheet_type in subtypesof(/obj/item/stack/sheet))
