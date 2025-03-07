@@ -47,7 +47,7 @@
 		NOMINATIVE = "сварочная маска",
 		GENITIVE = "сварочной маски",
 		DATIVE = "сварочной маске",
-		ACCUSATIVE = "сварочную маску,
+		ACCUSATIVE = "сварочную маску",
 		INSTRUMENTAL = "сварочной маской",
 		PREPOSITIONAL = "сварочной маске"
 	)
