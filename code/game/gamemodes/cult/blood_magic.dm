@@ -35,10 +35,10 @@
 		break
 	if(length(spells) >= limit)
 		if(rune)
-			to_chat(owner, "<span class='cultitalic'>Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b></span>")
+			to_chat(owner, span_cultitalic("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b>"))
 			remove_spell("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s, выберите заклинание для удаления.")
 		else
-			to_chat(owner, "<span class='cultitalic'>Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления! <b>Pick a spell to remove.</b></span>")
+			to_chat(owner, span_cultitalic("Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления! <b>Pick a spell to remove.</b>"))
 			remove_spell("Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления, выберите заклинание для удаления.")
 		return
 	var/entered_spell_name
@@ -51,7 +51,7 @@
 		possible_spells[cult_name] = J
 	if(length(spells))
 		possible_spells += "(REMOVE SPELL)"
-	entered_spell_name = tgui_input_list(owner, "Pick a blood spell to prepare...", "Spell Choices", possible_spells)
+	entered_spell_name = tgui_input_list(owner, "Выберите заклинание...", "Выбор заклинаний", possible_spells)
 	if(entered_spell_name == "(REMOVE SPELL)")
 		remove_spell()
 		return
@@ -61,9 +61,9 @@
 
 	if(!channeling)
 		channeling = TRUE
-		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
+		to_chat(owner, span_cultitalic("вы начали чертить странные символы на своей плоти!"))
 	else
-		to_chat(owner, "<span class='warning'>You are already invoking blood magic!</span>")
+		to_chat(owner, span_warning("Вы уже готовите магию крови!"))
 		return
 
 	if(do_after(owner, rune ? 4 SECONDS : 10 SECONDS, owner))
@@ -76,32 +76,33 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
-		to_chat(owner, "<span class='cult'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
+		to_chat(owner, span_cult("Ваши раны наполнены энергией, вы приготовили заклинание [new_spell.name]!"))
 	channeling = FALSE
 
-/datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Pick a spell to remove.")
-	var/nullify_spell = tgui_input_list(owner, message, "Current Spells", spells)
+/datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Выберите заклинание для удаления.")
+	var/nullify_spell = tgui_input_list(owner, message, "Текущие заклинания", spells)
 	if(nullify_spell)
 		qdel(nullify_spell)
 
 /datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
-	name = "Blood Magic"
+	name = "Магия Крови"
+	name_accusative = "Магию Крови"
 	button_icon_state = "telerune"
-	desc = "Fear the Old Blood."
+	desc = "Бойся Древних Богов."
 	var/charges = 1
 	var/magic_path = null
 	var/obj/item/melee/blood_magic/hand_magic
 	var/datum/action/innate/cult/blood_magic/all_magic
 	var/base_desc //To allow for updating tooltips
-	var/invocation = "Hoi there something's wrong!"
+	var/invocation = "Ой что-то не так!"
 	var/health_cost = 0
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
-		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
+		desc += "<br>Наносит <u>[health_cost] единиц[declension_ru(ceil_cooldown,"у", "ы", "")] физического урона</u> руке за использование."
 
 	base_desc = desc
-	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	desc += "<br><b><u>Осталось еще [charges] заряд[declension_ru(ceil_cooldown,"", "а", "ов")] </u></b>."
 	all_magic = BM
 	button.ordered = FALSE
 
@@ -131,9 +132,9 @@
 			if(!owner.put_in_hands(hand_magic))
 				qdel(hand_magic)
 				hand_magic = null
-				to_chat(owner, "<span class='warning'>You have no empty hand for invoking blood magic!</span>")
+				to_chat(owner, span_warning("Вам нужны свободные руки чтобы использовать магию кровим!"))
 				return
-			to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
+			to_chat(owner, span_cult("Ваши раны светятся, когда вы пробуждаете [name_accusative]."))
 
 		else // If the spell is active, and you clicked on the button for it
 			qdel(hand_magic)
@@ -142,25 +143,27 @@
 //the spell list
 
 /datum/action/innate/cult/blood_spell/stun
-	name = "Stun"
-	desc = "Empowers your hand to stun and mute a victim on contact."
+	name = "Оглушение"
+	name_accusative = "оглушение"
+	desc = "Усиливает вашу руку, позволяя касанием ослабить вашу цель и заставить её молчать."
 	button_icon_state = "stun"
 	magic_path = /obj/item/melee/blood_magic/stun
 	health_cost = 10
 
 /datum/action/innate/cult/blood_spell/teleport
-	name = "Teleport"
-	desc = "Empowers your hand to teleport yourself or another cultist to a teleport rune on contact."
+	name = "Телепортация"
+	name_accusative = "телепортацию"
+	desc = "Усиливает вашу руку, позволяя телепортировать вас или другого культиста на руну телепорта."
 	button_icon_state = "teleport"
 	magic_path = /obj/item/melee/blood_magic/teleport
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
-	name = "Electromagnetic Pulse"
-	desc = "Channel an electromagnetic pulse inside your body, then release it, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
+	name = "Электромагнитный Импульс"
+	desc = "Проводит электромагнитный импульс по вашему телу и выпускает его, задевая некультистов рядом. <b>Вы также подвержены импульсу.</b>"
 	button_icon_state = "emp"
 	health_cost = 10
-	invocation = "Ta'gh fara'qha fel d'amar det!"
+	invocation = "Та'гх фара'кха фел д'амар дет!"
 
 /datum/action/innate/cult/blood_spell/emp/Grant(mob/living/owner)
 	if(ishuman(owner))
@@ -176,12 +179,12 @@
 					oof = TRUE
 					break
 		if(oof)
-			to_chat(owner, "<span class='userdanger'>You get the feeling this is a bad idea.</span>")
+			to_chat(owner, span_userdanger("Вам кажется что это плохая идея."))
 	..()
 
 /datum/action/innate/cult/blood_spell/emp/Activate()
-	owner.visible_message("<span class='warning'>[owner]'s body flashes a bright blue!</span>", \
-						 "<span class='cultitalic'>You speak the cursed words, channeling an electromagnetic pulse from your body.</span>")
+	owner.visible_message(span_warning("[owner] ярко вспыхивает синим светом!"))
+	owner.visible_message(span_cultitalic("Вы произносите проклятые слова, выпуская электромагнитный импульс из вашего тела."))
 	owner.emp_act(2)
 	add_attack_logs(owner, owner, "activated EMP spell")
 	empulse(owner, 2, 5, cause = "cult")
