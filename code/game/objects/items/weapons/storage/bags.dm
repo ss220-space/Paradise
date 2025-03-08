@@ -201,7 +201,7 @@
 // -----------------------------
 
 /obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
-	name = "bomb satchell"
+	name = "bomb satchel"
 	ru_names = list(
 		NOMINATIVE = "сумка для взрывчатки",
 		GENITIVE = "сумки для взрывчатки",
@@ -224,7 +224,7 @@
 	var/obj/item/grenade/plastic/nextbomb = null
 	var/obj/item/grenade/plastic/miningcharge/nextbombbutmining = null
 
-/obj/item/storage/bag/kaboom/AltClick(mob/user)
+/obj/item/storage/bag/kaboom/proc/bombradialmenu(mob/user)
 	if(LAZYLEN(contents))
 		var/list/bombs = list()
 		var/list/bombs_inside = list()
@@ -237,14 +237,22 @@
 	else
 		balloon_alert(user, "Сумка пустая!")
 
-/obj/item/storage/bag/kaboom/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
-	if(nextbomb == null)
+/obj/item/storage/bag/kaboom/attack_self(mob/user)
+	bombradialmenu(user)
+
+/obj/item/storage/bag/kaboom/AltClick(mob/user)
+	bombradialmenu(user)
+
+/obj/item/storage/bag/kaboom/attack(obj/object, mob/living/user, params)
+	. = ..()
+	if(contents == null)
 		balloon_alert(user, "Сумка пустая!")
 	else
-		if(nextbomb == /obj/item/grenade/plastic/miningcharge)
-			nextbombbutmining = nextbomb
-			nextbombbutmining.override_safety()
-		nextbomb.afterattack(target, user, params, def_zone, skip_attack_anim = FALSE)
+		if(do_after(user, 5 SECONDS, object))
+			if(nextbomb == /obj/item/grenade/plastic/miningcharge)
+				nextbombbutmining = nextbomb
+				nextbombbutmining.override_safety()
+			nextbomb.attack(object, user)
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
