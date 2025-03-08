@@ -38,7 +38,7 @@
 	origin_tech = "syndicate=1;engineering=3;bluespace=2"
 	syndie = TRUE //Signifies that it de-crypts Syndicate transmissions
 	change_voice = TRUE
-	var/fake_name = "Agent ALERT_A_CODER"
+	var/fake_name = "Агент ЗОВИТЕ КОДЕРА"
 	var/static/list/fakename_list
 
 /obj/item/encryptionkey/syndicate/Initialize()
@@ -46,7 +46,7 @@
 		fakename_list = GLOB.html_colors.Copy()
 	. = ..()
 	if(change_voice)
-		fake_name = "Agent [pick_n_take(fakename_list)]"
+		fake_name = "Агент [pick_n_take(fakename_list)]"
 
 /obj/item/encryptionkey/syndicate/nukeops
 	change_voice = FALSE
@@ -83,7 +83,6 @@
 
 /obj/item/encryptionkey/soviet
 	name = "\improper Soviet encryption key"
-	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Для доступа в военный канал СССП, используйте \":'\" ."
 	ru_names = list(
 		NOMINATIVE = "ключ-шифратор СССП",
 		GENITIVE = "ключа-шифратора СССП",
@@ -97,7 +96,7 @@
 
 /obj/item/encryptionkey/binary
 	name = "binary translator key"
-	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Для доступа в бинарный канал, используйте \":+\" ."
+	desc = "Ключ шифрования, устанавливаемый в гарнитуру. Содержит в себе все необходимые протоколы для декодирования бинарных сигналов, используемых синтетиками для коммуникации."
 	ru_names = list(
 		NOMINATIVE = "ключ-переводчик бинарного канала",
 		GENITIVE = "ключа-переводчика бинарного канала",
@@ -373,12 +372,12 @@
 /obj/item/encryptionkey/headset_service
 	name = "Service Radio Encryption Key"
 	ru_names = list(
-		NOMINATIVE = "ключ-шифратор канала сервиса",
-		GENITIVE = "ключа-шифратора канала сервиса",
-		DATIVE = "ключу-шифратору канала сервиса",
-		ACCUSATIVE = "ключ-шифратор канала сервиса",
-		INSTRUMENTAL = "ключом-шифратором канала сервиса",
-		PREPOSITIONAL = "ключе-шифраторе канала сервиса"
+		NOMINATIVE = "ключ-шифратор канала обслуживания",
+		GENITIVE = "ключа-шифратора канала обслуживания",
+		DATIVE = "ключу-шифратору канала обслуживания",
+		ACCUSATIVE = "ключ-шифратор канала обслуживания",
+		INSTRUMENTAL = "ключом-шифратором канала обслуживания",
+		PREPOSITIONAL = "ключе-шифраторе канала обслуживания"
 	)
 	icon_state = "srv_cypherkey"
 	channels = list("Service" = 1)

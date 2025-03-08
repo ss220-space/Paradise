@@ -2,12 +2,12 @@
 	name = "cargo plasma envirosuit"
 	desc = "Защитный костюм плазмолюда, разработанный специально для карготехников."
 	ru_names = list(
-		NOMINATIVE = "защитный костюм карготехника",
-		GENITIVE = "защитного костюма карготехника",
-		DATIVE = "защитному костюму карготехника",
-		ACCUSATIVE = "защитный костюм карготехника",
-		INSTRUMENTAL = "защитным костюмом карготехника",
-		PREPOSITIONAL = "защитном костюме карготехника"
+		NOMINATIVE = "защитный костюм грузчика",
+		GENITIVE = "защитного костюма грузчика",
+		DATIVE = "защитному костюму грузчика",
+		ACCUSATIVE = "защитный костюм грузчика",
+		INSTRUMENTAL = "защитным костюмом грузчика",
+		PREPOSITIONAL = "защитном костюме грузчика"
 	)
 	icon_state = "cargo_envirosuit"
 	item_state = "cargo_envirosuit"
@@ -167,7 +167,7 @@
 
 /obj/item/clothing/under/plasmaman/clown
 	name = "clown envirosuit"
-	desc = "Защитный костюм плазмолюда, разработанный специально для клоуна. <i>'Хонк!'</i>"
+	desc = "Защитный костюм плазмолюда, разработанный специально для клоуна. <i>\"Хонк!\"</i>"
 	ru_names = list(
 		NOMINATIVE = "защитный костюм клоуна",
 		GENITIVE = "защитного костюма клоуна",
@@ -176,7 +176,6 @@
 		INSTRUMENTAL = "защитным костюмом клоуна",
 		PREPOSITIONAL = "защитном костюме клоуна"
 	)
-
 	icon_state = "clown_envirosuit"
 	item_state = "clown_envirosuit"
 	item_color = "clown_envirosuit"
@@ -231,7 +230,7 @@
 
 /obj/item/clothing/under/plasmaman/blueshield
 	name = "blueshield envirosuit"
-	desc = "Защитный костюм плазмолюда, разработанный специально для капитана офицера \"Синий Щит\"."
+	desc = "Защитный костюм плазмолюда, разработанный специально для офицера \"Синий Щит\"."
 	ru_names = list(
 		NOMINATIVE = "защитный костюм офицера \"Синий Щит\"",
 		GENITIVE = "защитного костюма офицера \"Синий Щит\"",

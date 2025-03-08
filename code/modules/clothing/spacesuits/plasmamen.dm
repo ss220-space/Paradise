@@ -67,7 +67,7 @@
 		return .
 	toggle_light()
 	if(user)
-		to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
+		balloon_alert(user, "сварочный визор блокирует свет!")
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/update_icon_state()
@@ -91,7 +91,7 @@
 /obj/item/clothing/head/helmet/space/plasmaman/proc/toggle_light(mob/user)
 	if(!on && !up)
 		if(user)
-			to_chat(user, span_notice("Your helmet's torch can't pass through your welding visor!"))
+			balloon_alert(user, "сварочный визор блокирует свет!")
 		return FALSE
 
 	on = !on
@@ -251,7 +251,6 @@
 		INSTRUMENTAL = "защитным шлемом главного врача",
 		PREPOSITIONAL = "защитном шлеме главного врача"
 	)
-
 	icon_state = "cmo_envirohelm"
 	item_state = "cmo_envirohelm"
 	gas_transfer_coefficient = 0.01
@@ -352,7 +351,6 @@
 		INSTRUMENTAL = "защитным шлемом научного руководителя",
 		PREPOSITIONAL = "защитном шлеме научного руководителя"
 	)
-
 	icon_state = "rd_envirohelm"
 	item_state = "rd_envirohelm"
 	gas_transfer_coefficient = 0.01
@@ -447,14 +445,14 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/cargo
 	name = "cargo plasma envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для карготехников."
+	desc = "Шлем защитного костюма плазмолюда, созданный специально для грузчиков."
 	ru_names = list(
-		NOMINATIVE = "защитный шлем карготехника",
-		GENITIVE = "защитного шлема карготехника",
-		DATIVE = "защитному шлему карготехника",
-		ACCUSATIVE = "защитный шлем карготехника",
-		INSTRUMENTAL = "защитным шлемом карготехника",
-		PREPOSITIONAL = "защитном шлеме карготехника"
+		NOMINATIVE = "защитный шлем грузчика",
+		GENITIVE = "защитного шлема грузчика",
+		DATIVE = "защитному шлему грузчика",
+		ACCUSATIVE = "защитный шлем грузчика",
+		INSTRUMENTAL = "защитным шлемом грузчика",
+		PREPOSITIONAL = "защитном шлеме грузчика"
 	)
 	icon_state = "cargo_envirohelm"
 	item_state = "cargo_envirohelm"
@@ -571,7 +569,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/librarian
 	name = "librarian's plasma envirosuit helmet"
-	desc = "Прототип защитного костюма плазмолюда, созданный в качестве первой попытки решить логистические проблемы с наёмом плазмолюдов. Такие шлема ценятся коллекционерами."
+	desc = "Прототип защитного костюма плазмолюда, созданный в качестве первой попытки решить логистические проблемы с наймом плазмолюдов. Такие шлема ценятся коллекционерами."
 	ru_names = list(
 		NOMINATIVE = "защитный шлем библиотекаря",
 		GENITIVE = "защитного шлема библиотекаря",
@@ -618,7 +616,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/mime
 	name = "mime envirosuit helmet"
-	desc = "Краска нанесена поверх шлема, это чудо, что она еще не сошла. Цвета были выбраны не самые яркие."
+	desc = "Краска нанесена поверх шлема, это чудо, что она ещё не сошла. Цвета были выбраны не самые яркие."
 	ru_names = list(
 		NOMINATIVE = "защитный шлем мима",
 		GENITIVE = "защитного шлема мима",
@@ -633,7 +631,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/clown
 	name = "clown envirosuit helmet"
-	desc = "Краска нанесена поверх шлема, это чудо, что она еще не сошла. <i>'ХОНК!'</i>"
+	desc = "Краска нанесена поверх шлема, это чудо, что она ещё не сошла. <i>'ХОНК!'</i>"
 	ru_names = list(
 		NOMINATIVE = "защитный шлем клоуна",
 		GENITIVE = "защитного шлема клоуна",
@@ -648,7 +646,7 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/hop
 	name = "head of personnel envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для бюрократов."
+	desc = "Шлем защитного костюма плазмолюда, созданный специально для главы персонала."
 	ru_names = list(
 		NOMINATIVE = "защитный шлем главы персонала",
 		GENITIVE = "защитного шлема главы персонала",
@@ -682,14 +680,14 @@
 
 /obj/item/clothing/head/helmet/space/plasmaman/blueshield
 	name = "blueshield envirosuit helmet"
-	desc = "Шлем защитного костюма плазмолюда, созданный специально для офицера \" Синий Щит \"."
+	desc = "Шлем защитного костюма плазмолюда, созданный специально для офицера \"Синий Щит\"."
 	ru_names = list(
-		NOMINATIVE = "защитный шлем офицера \" Синий Щит \"",
-		GENITIVE = "защитного шлема офицера \" Синий Щит \"",
-		DATIVE = "защитному шлему офицера \" Синий Щит \"",
-		ACCUSATIVE = "защитный шлем офицера \" Синий Щит \"",
-		INSTRUMENTAL = "защитным шлемом офицера \" Синий Щит \"",
-		PREPOSITIONAL = "защитном шлеме офицера \" Синий Щит \""
+		NOMINATIVE = "защитный шлем офицера \"Синий Щит\"",
+		GENITIVE = "защитного шлема офицера \"Синий Щит\"",
+		DATIVE = "защитному шлему офицера \"Синий Щит\"",
+		ACCUSATIVE = "защитный шлем офицера \"Синий Щит\"",
+		INSTRUMENTAL = "защитным шлемом офицера \"Синий Щит\"",
+		PREPOSITIONAL = "защитном шлеме офицера \"Синий Щит\""
 	)
 	icon_state = "bs_envirohelm"
 	item_state = "bs_envirohelm"

@@ -29,6 +29,7 @@
 		INSTRUMENTAL = "капитанской шляпой",
 		PREPOSITIONAL = "капитанской шляпе"
 	)
+	gender = FEMALE
 	icon_state = "captain"
 	item_state = "caphat"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
@@ -92,6 +93,7 @@
 		INSTRUMENTAL = "капитанским беретом",
 		PREPOSITIONAL = "капитанском берете"
 	)
+	gender = MALE
 	icon_state = "cap_beret"
 	item_state = "cap_beret"
 
@@ -107,6 +109,7 @@
 		INSTRUMENTAL = "фуражкой главы персонала",
 		PREPOSITIONAL = "фуражке главы персонала"
 	)
+	gender = FEMALE
 	icon_state = "hopcap"
 	armor = list("melee" = 25, "bullet" = 15, "laser" = 25, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
 	dog_fashion = /datum/dog_fashion/head/hop
@@ -123,6 +126,7 @@
 		INSTRUMENTAL = "фуражкой представителя НаноТрейзен",
 		PREPOSITIONAL = "фуражке представителя НаноТрейзен"
 	)
+	gender = FEMALE
 	icon_state = "ntrep"
 
 //Research Director
@@ -142,7 +146,7 @@
 
 /obj/item/clothing/head/beret/purple/rd
 	name = "research director's beret"
-	desc = "Фиолетовый берет с небольшим золотым полумесяцем, прикрепленным к нему. От берета исходит запах форона."
+	desc = "Фиолетовый берет с небольшим золотым полумесяцем, прикреплённым к нему. От берета исходит запах плазмы."
 	ru_names = list(
 		NOMINATIVE = "берет научного руководителя",
 		GENITIVE = "берета научного руководителя",
@@ -200,7 +204,7 @@
 //Chaplain
 /obj/item/clothing/head/hooded/monk_hood
 	name = "monk hood"
-	desc = "Капюшон, покрывающий голову. Деревянная доска покупается отдельно."
+	desc = "Капюшон, покрывающий голову. Деревянный посох покупается отдельно."
 	ru_names = list(
 		NOMINATIVE = "капюшон монаха",
 		GENITIVE = "капюшона монаха",
@@ -223,6 +227,7 @@
 		INSTRUMENTAL = "шляпой охотника на ведьм",
 		PREPOSITIONAL = "шляпе охотника на ведьм"
 	)
+	gender = FEMALE
 	icon_state = "witchhunterhat"
 	item_state = "witchhunterhat"
 	flags_cover = HEADCOVERSEYES
@@ -238,6 +243,7 @@
 		INSTRUMENTAL = "минтрой эпископа",
 		PREPOSITIONAL = "минтре эпископа"
 	)
+	gender = FEMALE
 	icon_state = "bishopmitre"
 	item_state = "bishopmitre"
 
@@ -252,6 +258,7 @@
 		INSTRUMENTAL = "чёрной минтрой эпископа",
 		PREPOSITIONAL = "чёрной минтре эпископа"
 	)
+	gender = FEMALE
 	icon_state = "blackbishopmitre"
 	item_state = "blackbishopmitre"
 
@@ -266,6 +273,7 @@
 		INSTRUMENTAL = "шляпой детектива",
 		PREPOSITIONAL = "шляпа детектива"
 	)
+	gender = FEMALE
 	icon_state = "detective"
 	allowed = list(/obj/item/reagent_containers/food/snacks/candy/candy_corn, /obj/item/pen)
 	armor = list("melee" = 25, "bullet" = 5, "laser" = 25, "energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 50)
@@ -332,6 +340,7 @@
 		INSTRUMENTAL = "фуражкой главы службы безопасности",
 		PREPOSITIONAL = "фуражке главы службы безопасности"
 	)
+	gender = FEMALE
 	icon_state = "hoscap"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 10, "rad" = 0, "fire" = 50, "acid" = 60)
 	strip_delay = 80
@@ -347,12 +356,13 @@
 		INSTRUMENTAL = "беретом главы службы безопасности",
 		PREPOSITIONAL = "берете главы службы безопасности"
 	)
+	gender = MALE
 	icon_state = "beret_hos_black"
 	snake_fashion = /datum/snake_fashion/head/beret_hos_black
 
 /obj/item/clothing/head/warden
 	name = "warden's police hat"
-	desc = "Специализированная, укрепленная фуражкая, выдаваемая смотрителю службы безопасности. Защищает голову от ударов."
+	desc = "Специализированная, укреплённая фуражкая, выдаваемая смотрителю службы безопасности. Защищает голову от ударов."
 	ru_names = list(
 		NOMINATIVE = "полицейская фуражка смотрителя",
 		GENITIVE = "полицейской фуражки смотрителя",
@@ -361,6 +371,7 @@
 		INSTRUMENTAL = "полицейской фуражкой смотрителя",
 		PREPOSITIONAL = "полицейской фуражке смотрителя"
 	)
+	gender = FEMALE
 	icon_state = "policehelm"
 	armor = list("melee" = 40, "bullet" = 30, "laser" = 30, "energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 30, "acid" = 60)
 	strip_delay = 60
@@ -377,6 +388,7 @@
 		INSTRUMENTAL = "офицерской кепкой",
 		PREPOSITIONAL = "офицерской кепке"
 	)
+	gender = FEMALE
 	icon_state = "customshelm"
 	item_state = "customshelm"
 	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 20, "acid" = 50)
@@ -428,6 +440,7 @@
 
 /obj/item/clothing/head/beret/brigphys
 	name = "brigphys's beret"
+	desc = "Берет, принадлежащий медику службы безопасности. Не обладает какой либо защитой."
 	ru_names = list(
 		NOMINATIVE = "берет бригмедика",
 		GENITIVE = "берета бригмедика",
@@ -436,7 +449,6 @@
 		INSTRUMENTAL = "беретом бригмедика",
 		PREPOSITIONAL = "берете бригмедика"
 	)
-	desc = "Берет, принадлежащий медику службы безопасности. Не обладает какой либо защитой."
 	icon_state = "brigphysberet"
 
 /obj/item/clothing/head/beret/eng
@@ -467,7 +479,7 @@
 
 /obj/item/clothing/head/beret/ce
 	name = "chief engineer beret"
-	desc = "Белый берет с вышитым на нём инженерным значком. Его владелец является профессионалом своего дела. Наверное.."
+	desc = "Белый берет с вышитым на нём инженерным значком. Его владелец является профессионалом своего дела. Наверное..."
 	ru_names = list(
 		NOMINATIVE = "берет старшего инженера",
 		GENITIVE = "берета старшего инженера",
@@ -508,7 +520,7 @@
 //CMO
 /obj/item/clothing/head/beret/elo
 	name = "chief medical officer beret"
-	desc = "Стильный берет выдаваемый главному врачу. От него исходит легкий запах антисептика."
+	desc = "Стильный берет, выдаваемый главному врачу. От него исходит легкий запах антисептика."
 	ru_names = list(
 		NOMINATIVE = "берет главного врача",
 		GENITIVE = "берета главного врача",
@@ -531,6 +543,7 @@
 		INSTRUMENTAL = "хирургической шапочкой",
 		PREPOSITIONAL = "хирургической шапочке"
 	)
+	gender = FEMALE
 	icon_state = "surgcap_blue"
 	flags_inv = HIDEHEADHAIR
 	sprite_sheets = list(
@@ -666,7 +679,7 @@
 	)
 	icon_state = "surgcap_brown"
 
-
+//Mining medic
 /obj/item/clothing/head/beret/minmed
 	name = "mining medic's beret"
 	desc = "Коричневый берет с вышитым на нём белым крестом. Такой обычно носит шахтёрский врач."

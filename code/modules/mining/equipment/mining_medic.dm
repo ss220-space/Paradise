@@ -13,6 +13,7 @@ Almost every mining medic related stuff
 		INSTRUMENTAL = "шахтёрской видеокамерой",
 		PREPOSITIONAL = "шахтёрской видеокамере"
 	)
+	gender = FEMALE
 	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
 	icon_state = "mining_camera"
@@ -35,8 +36,8 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/mining_camera/examine(mob/user)
 	. = ..()
-	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтёрского медика, так и в развлекательную сеть станции. На текущий момент камера [on ? "в" : "вы"]ключена.")
-	. += span_notice("Используйте <b>Alt+ЛКМ</b> чтобы переключить режим трансляции камеры в развлекательную сеть. На текущий момент ретрансляция на станцию [news_feed ? "в" : "вы"]ключена.")
+	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтёрского медика, так и в развлекательную сеть станции. На текущий момент камера <b>[on ? "в" : "вы"]ключена</b>.")
+	. += span_notice("Используйте <b>Alt+ЛКМ</b> чтобы переключить режим трансляции камеры в развлекательную сеть. На текущий момент ретрансляция на станцию <b>[news_feed ? "в" : "вы"]ключена</b>.")
 
 /obj/item/clothing/accessory/mining_camera/attack_self(mob/user)
 	. = ..()
@@ -89,7 +90,7 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/mining_camera/click_alt(mob/user)
 	if(on)
-		balloon_alert(user, "сначала выключи камеру!")
+		balloon_alert(user, "сначала выключите камеру!")
 		return CLICK_ACTION_BLOCKING
 	else
 		news_feed = !news_feed
@@ -98,7 +99,7 @@ Almost every mining medic related stuff
 
 /obj/item/camera_bug/mining
 	name = "mining camera monitor"
-	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за шахтёрами"
+	desc = "Небольшое устройство, считывающее данные с шахтёрских видеокамер. Позволяет следить за тем, как шахтёры борятся за жизнь на просторах Лаваленда."
 	ru_names = list(
 		NOMINATIVE = "шахтёрский монитор видеокамер",
 		GENITIVE = "шахтёрского монитора видеокамер",

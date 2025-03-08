@@ -394,6 +394,7 @@
 		INSTRUMENTAL = "голубой медицинской одеждой",
 		PREPOSITIONAL = "голубой медицинской одежде"
 	)
+	gender = FEMALE
 	icon_state = "scrubsblue"
 	item_state = "scrubsblue"
 	item_color = "scrubsblue"
@@ -409,6 +410,7 @@
 		INSTRUMENTAL = "тёмно-зелёной медицинской одеждой",
 		PREPOSITIONAL = "тёмно-зелёной медицинской одежде"
 	)
+	gender = FEMALE
 	icon_state = "scrubsdarkgreen"
 	item_state = "scrubsdarkgreen"
 	item_color = "scrubsdarkgreen"
@@ -424,6 +426,7 @@
 		INSTRUMENTAL = "зелёной медицинской одеждой",
 		PREPOSITIONAL = "зелёной медицинской одежде"
 	)
+	gender = FEMALE
 	icon_state = "scrubsgreen"
 	item_state = "scrubsgreen"
 	item_color = "scrubsgreen"
@@ -439,6 +442,7 @@
 		INSTRUMENTAL = "фиолетовой медицинской одеждой",
 		PREPOSITIONAL = "фиолетовой медицинской одежде"
 	)
+	gender = FEMALE
 	icon_state = "scrubspurple"
 	item_state = "scrubspurple"
 	item_color = "scrubspurple"
@@ -454,6 +458,7 @@
 		INSTRUMENTAL = "одеждой патологоанатома",
 		PREPOSITIONAL = "одежде патологоанатома"
 	)
+	gender = FEMALE
 	icon_state = "scrubsblack"
 	item_state = "scrubsblack"
 	item_color = "scrubsblack"
@@ -532,6 +537,7 @@
 		INSTRUMENTAL = "водолазкой психиатра",
 		PREPOSITIONAL = "водолазке психиатра"
 	)
+	gender = FEMALE
 	icon_state = "psychturtle"
 	item_state = "psychturtle"
 	item_color = "psychturtle"
