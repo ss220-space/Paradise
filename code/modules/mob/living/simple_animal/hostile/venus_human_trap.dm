@@ -9,7 +9,8 @@
 	opacity = FALSE
 	canSmoothWith = null
 	smooth = NONE
-	var/growth_time = 1200
+	var/growth_time = 120 SECONDS
+	var/list/vines = list()
 
 /obj/structure/alien/resin/flower_bud_enemy/New()
 	..()
@@ -20,13 +21,17 @@
 	anchors += locate(x+2,y-2,z)
 
 	for(var/turf/T in anchors)
-		Beam(T, "vine", time=INFINITY, maxdistance=5, beam_type=/obj/effect/ebeam/reacting/vine)
+		vines += Beam(T, "vine", maxdistance = 5, beam_type = /obj/effect/ebeam/reacting/vine)
 	addtimer(CALLBACK(src, PROC_REF(bear_fruit)), growth_time)
 
 /obj/structure/alien/resin/flower_bud_enemy/proc/bear_fruit()
 	visible_message("<span class='danger'>the plant has borne fruit!</span>")
 	new /mob/living/simple_animal/hostile/venus_human_trap(get_turf(src))
 	qdel(src)
+
+/obj/structure/alien/resin/flower_bud_enemy/Destroy()
+	QDEL_LIST(vines)
+	return ..()
 
 
 /mob/living/simple_animal/hostile/venus_human_trap
