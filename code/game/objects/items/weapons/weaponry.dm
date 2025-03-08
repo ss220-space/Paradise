@@ -474,7 +474,7 @@
 	if(ishuman(victim))
 		var/mob/living/carbon/human/human_victim = target
 
-		if(human_victim.check_shields(src, damage))
+		if(human_victim.check_shields(src, 25))
 			return
 
 		if(check_martial_counter(human_victim, user))
