@@ -412,9 +412,7 @@
 			return FALSE
 		var/target_distance = get_dist(targets_from,target)
 		if(ranged) //We ranged? Shoot at em
-			if(!COOLDOWN_FINISHED(src, ranged_cooldown))
-				return
-			if(!target.Adjacent(targets_from)) //But make sure they're not in range for a melee attack
+			if(COOLDOWN_FINISHED(src, ranged_cooldown) && !target.Adjacent(targets_from)) //But make sure they're not in range for a melee attack
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
 			SSmove_manager.stop_looping(src)
