@@ -1,4 +1,5 @@
 GLOBAL_LIST_EMPTY(closets)
+#define CLICK_CD_BREAKOUT 100
 
 /obj/structure/closet
 	name = "closet"
@@ -33,6 +34,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/welded = FALSE
 	var/locked = FALSE
 	var/large = TRUE
+	var/breakout_time = 1200
 	var/can_be_emaged = FALSE
 	var/can_weld_shut = TRUE
 	var/wall_mounted = FALSE //never solid (You can always pass over it)
@@ -50,6 +52,12 @@ GLOBAL_LIST_EMPTY(closets)
 	var/storage_capacity = 30 //This is so that someone can't pack hundreds of items in a locker/crate then open it in a populated area to crash clients.
 	var/material_drop = /obj/item/stack/sheet/metal
 	var/material_drop_amount = 2
+
+	/// How many pixels the closet can shift on the x axis when shaking
+	var/x_shake_pixel_shift = 2
+	/// how many pixels the closet can shift on the y axes when shaking
+	var/y_shake_pixel_shift = 1
+
 
 // Please dont override this unless you absolutely have to
 /obj/structure/closet/Initialize(mapload)
@@ -224,6 +232,7 @@ GLOBAL_LIST_EMPTY(closets)
 		to_chat(user, span_notice("It won't budge!"))
 
 /obj/structure/closet/proc/bust_open()
+	SIGNAL_HANDLER
 	welded = FALSE //applies to all lockers
 	locked = FALSE //applies to critter crates and secure lockers only
 	broken = TRUE //applies to secure lockers only
@@ -429,50 +438,63 @@ GLOBAL_LIST_EMPTY(closets)
 		return FALSE
 	return TRUE
 
-/obj/structure/closet/container_resist(var/mob/living/L)
-	var/breakout_time = 2 //2 minutes by default
+/obj/structure/closet/container_resist(mob/living/user, loc_required = TRUE)
+	if(isstructure(loc))
+		relay_container_resist(user, loc)
 	if(opened)
-		if(L.loc == src)
-			L.forceMove(get_turf(src)) // Let's just be safe here
-		return //Door's open... wait, why are you in it's contents then?
-	if(!welded)
-		if(isobj(loc))
-			var/obj/loc_as_obj = loc
-			loc_as_obj.container_resist(L)
-			return
-		open() //for cardboard boxes
-		return //closed but not welded...
-	//	else Meh, lets just keep it at 2 minutes for now
-	//		breakout_time++ //Harder to get out of welded lockers than locked lockers
+		return
+	if(ismovable(loc))
+		user.changeNext_move(CLICK_CD_BREAKOUT)
+		user.last_special = world.time + CLICK_CD_BREAKOUT
+		var/atom/movable/AM = loc
+		AM.relay_container_resist(user, src)
+		return
+	if(!welded && !locked)
+		open()
+		return
 
+	if(DOING_INTERACTION_WITH_TARGET(user, src))
+		return
 	//okay, so the closet is either welded or locked... resist!!!
-	to_chat(L, "<span class='warning'>You lean on the back of \the [src] and start pushing the door open. (this will take about [breakout_time] minutes)</span>")
-	for(var/mob/O in viewers(usr.loc))
-		O.show_message("<span class='danger'>The [src] begins to shake violently!</span>", 1)
+	user.changeNext_move(CLICK_CD_BREAKOUT)
+	user.last_special = world.time + CLICK_CD_BREAKOUT
+	user.visible_message(span_warning("[src] begins to shake violently!"), \
+		span_notice("You lean on the back of [src] and start pushing the door open... (this will take about [DisplayTimeText(breakout_time)].)"), \
+		span_hear("You hear banging from [src]."))
 
+	addtimer(CALLBACK(src, PROC_REF(check_if_shake)), 1 SECONDS)
 
-	spawn(0)
-		if(do_after(L, breakout_time * 6 MINUTES, src))
-			if(!src || !L || L.stat != CONSCIOUS || L.loc != src || opened) //closet/user destroyed OR user dead/unconcious OR user no longer in closet OR closet opened
-				return
+	if(do_after(user,(breakout_time), target = src))
+		if(!user || user.stat != CONSCIOUS || (loc_required && (user.loc != src)) || opened || (!locked && !welded) )
+			return
+		//we check after a while whether there is a point of resisting anymore and whether the user is capable of resisting
+		user.visible_message(span_danger("[user] successfully broke out of [src]!"),
+							span_notice("You successfully break out of [src]!"))
+		bust_open()
+	else
+		if(user.loc == src) //so we don't get the message if we resisted multiple times and succeeded.
+			to_chat(user, span_warning("You fail to break out of [src]!"))
 
-			//Perform the same set of checks as above for weld and lock status to determine if there is even still a point in 'resisting'...
-			if(!welded)
-				return
+/obj/structure/closet/relay_container_resist(mob/living/user, obj/container)
+	container.container_resist(user)
 
-			//Well then break it!
-			welded = FALSE
-			update_icon()
-			to_chat(usr, "<span class='warning'>You successfully break out!</span>")
-			for(var/mob/O in viewers(L.loc))
-				O.show_message("<span class='danger'>\the [usr] successfully broke out of \the [src]!</span>", 1)
-			if(istype(loc, /obj/structure/bigDelivery)) //nullspace ect.. read the comment above
-				var/obj/structure/bigDelivery/BD = loc
-				BD.attack_hand(usr)
-			if(isobj(loc))
-				var/obj/loc_as_obj = loc
-				loc_as_obj.container_resist(L)
-			open()
+/// Check if someone is still resisting inside, and choose to either keep shaking or stop shaking the closet
+/obj/structure/closet/proc/check_if_shake()
+	// Assuming we decide to shake again, how long until we check to shake again
+	var/next_check_time = 1 SECONDS
+
+	// How long we shake between different calls of Shake(), so that it starts shaking and stops, instead of a steady shake
+	var/shake_duration =  0.3 SECONDS
+
+	for(var/mob/living/mob in contents)
+		if(DOING_INTERACTION_WITH_TARGET(mob, src))
+			// Shake and queue another check_if_shake
+			Shake(x_shake_pixel_shift, y_shake_pixel_shift, shake_duration, shake_interval = 0.1 SECONDS)
+			addtimer(CALLBACK(src, PROC_REF(check_if_shake)), next_check_time)
+			return TRUE
+
+	// If we reach here, nobody is resisting, so don't shake
+	return FALSE
 
 /obj/structure/closet/tesla_act(var/power)
 	..()

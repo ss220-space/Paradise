@@ -1464,3 +1464,6 @@
 	else
 		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
 
+///called when a mob resists while inside a container that is itself inside something.
+/atom/movable/proc/relay_container_resist(mob/living/user, obj/container)
+	return

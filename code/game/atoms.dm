@@ -1779,3 +1779,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+///Called when something resists while this atom is its loc
+/atom/proc/container_resist(mob/living/user)
+	return
+
