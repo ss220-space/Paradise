@@ -147,6 +147,7 @@
 /mob/living/simple_animal/hostile/facehugger/proc/remove_throw_traits()
 	if(!throwing)
 		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+		update_icons()
 
 /mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
@@ -328,7 +329,7 @@
 
 	if(isfacehugger_mask(attack_target.wear_mask))
 		return FALSE
-		
+
 	if(attack_target.get_int_organ(/obj/item/organ/internal/xenos/hivenode) && !impregnated)
 		return FALSE
 
