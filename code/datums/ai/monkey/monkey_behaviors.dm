@@ -144,6 +144,10 @@
 /datum/ai_behavior/monkey_attack_mob
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM //performs to increase frustration
 
+/datum/ai_behavior/monkey_attack_mob/setup(datum/ai_controller/controller, target_key)
+	. = ..()
+	controller.current_movement_target = controller.blackboard[target_key]
+
 /datum/ai_behavior/monkey_attack_mob/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 
