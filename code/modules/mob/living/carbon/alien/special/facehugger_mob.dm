@@ -175,6 +175,8 @@
 
 /mob/living/simple_animal/hostile/facehugger/attack_hand(mob/living/carbon/human/M)
 	var/turf/current_loc = loc
+	if(impregnated)
+		return ..()
 	var/obj/item/clothing/mask/facehugger/hugger = get_scooped(M)
 	var/result = hugger.attack_hand(M)
 	if(!result)
