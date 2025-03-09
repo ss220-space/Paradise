@@ -31,6 +31,7 @@
 	ranged_message = "прыгает"
 	ranged_cooldown_time = 3 SECONDS
 	can_hide = TRUE
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	AI_delay_max = 0.5 SECONDS
 	mob_size = MOB_SIZE_SMALL
 	pass_flags = PASSTABLE | PASSMOB | PASSFENCE | PASSVEHICLE
@@ -141,11 +142,15 @@
 /mob/living/simple_animal/hostile/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	. = ..()
 	add_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+	addtimer(CALLBACK(src, PROC_REF(remove_throw_traits)), 3 SECONDS)
 
+/mob/living/simple_animal/hostile/facehugger/proc/remove_throw_traits()
+	if(!throwing)
+		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
 
 /mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
-	. = ..()
 	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+	. = ..()
 	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 	if(iscarbon(hit_atom))
 		try_hug(hit_atom)
@@ -318,14 +323,22 @@
 /mob/living/simple_animal/hostile/facehugger/CanAttack(atom/the_target)
 	if(!iscarbon(the_target) || isalien(the_target))
 		return FALSE
+
 	var/mob/living/carbon/attack_target = the_target
+
 	if(isfacehugger_mask(attack_target.wear_mask))
-		return
+		return FALSE
+		
 	if(attack_target.get_int_organ(/obj/item/organ/internal/xenos/hivenode) && !impregnated)
 		return FALSE
 
 	if(attack_target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo) && !impregnated)
 		return FALSE
+
+	if(ishuman(the_target))
+		var/mob/living/carbon/human/H = the_target
+		if(!H.check_has_mouth())
+			return FALSE
 
 	return ..()
 

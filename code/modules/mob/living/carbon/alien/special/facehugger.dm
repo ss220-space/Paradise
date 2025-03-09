@@ -187,6 +187,11 @@
 	if(!impregnate_check(attached_mob))
 		return FALSE
 
+	if(ishuman(attached_mob))
+		var/mob/living/carbon/human/H = attached_mob
+		if(!H.check_has_mouth())
+			return FALSE
+
 	if(loc == attached_mob)
 		return FALSE
 
@@ -259,6 +264,11 @@
 /obj/item/clothing/mask/facehugger/proc/pre_impregnate(mob/living/attached_mob)
 	if(!impregnate_check(attached_mob))
 		return
+
+	if(ishuman(attached_mob))
+		var/mob/living/carbon/human/H = attached_mob
+		if(!H.check_has_mouth())
+			return
 
 	GoActive()
 
@@ -360,6 +370,9 @@
 		return FALSE
 
 	if(ishuman(hugged_mob))
+		var/mob/living/carbon/human/H = hugged_mob
+		if(!H.check_has_mouth())
+			return FALSE
 		return TRUE
 
 	return FALSE
