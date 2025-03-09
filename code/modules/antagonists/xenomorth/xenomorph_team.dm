@@ -204,8 +204,6 @@
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		text += "<br/><FONT size = 2><B>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
 		for(var/datum/mind/alien in facehuggers)
-			if(alien in facehuggers)
-				continue
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		to_chat(world, text)
 	return TRUE
