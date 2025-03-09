@@ -176,6 +176,7 @@
 	update_icon()
 	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),\
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
+	name = "[rolled ? "rolled" : ""] [initial(name)]"
 	ru_names = list(
         NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
         GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
