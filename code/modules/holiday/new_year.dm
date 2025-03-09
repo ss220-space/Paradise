@@ -103,9 +103,9 @@
 			new /obj/effect/snow(T)
 
 /obj/item/ammo_casing/magic/frost
-	projectile_type = /obj/item/projectile/magic/frost
+	projectile_type = /obj/projectile/magic/frost
 
-/obj/item/projectile/magic/frost
+/obj/projectile/magic/frost
 	name = "bolt of frost"
 	icon_state = "ice_2"
 	hitsound = 'sound/effects/hit_on_shattered_glass.ogg'
@@ -113,13 +113,13 @@
 	armour_penetration = 100
 	flag = "magic"
 
-/obj/item/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/frost/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/victim = target
 		freeze(victim)
 
-/obj/item/projectile/magic/frost/proc/freeze(mob/living/target)
+/obj/projectile/magic/frost/proc/freeze(mob/living/target)
 	target.apply_status_effect(/datum/status_effect/freon/frost)
 
 /datum/status_effect/freon/frost

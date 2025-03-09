@@ -56,7 +56,7 @@
 	var/obj/effect/supplypod_rubble/rubble
 	var/obj/effect/engineglow/glow_effect
 	var/effectShrapnel = FALSE
-	var/shrapnel_type = /obj/item/projectile/shrapnel
+	var/shrapnel_type = /obj/projectile/shrapnel
 	var/shrapnel_magnitude = 3
 	var/list/reverse_option_list = list(MOB_OPTION=FALSE, UNANCHORED_OPTION=FALSE, ANCHORED_OPTION=FALSE, MECHA_OPTION=FALSE)
 

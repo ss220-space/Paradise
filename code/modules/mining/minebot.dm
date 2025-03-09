@@ -156,13 +156,13 @@
 /mob/living/simple_animal/hostile/mining_drone/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 
-	if(istype(mover, /obj/item/projectile/kinetic))
-		var/obj/item/projectile/kinetic/projectile = mover
+	if(istype(mover, /obj/projectile/kinetic))
+		var/obj/projectile/kinetic/projectile = mover
 		if(projectile.kinetic_gun)
 			for(var/obj/item/borg/upgrade/modkit/minebot_passthrough/MK in projectile.kinetic_gun.get_modkits())
 				return TRUE
 
-	if(istype(mover, /obj/item/projectile/destabilizer))
+	if(istype(mover, /obj/projectile/destabilizer))
 		return TRUE
 
 

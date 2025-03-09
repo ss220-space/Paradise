@@ -192,7 +192,7 @@
  * Arguments:
  * * P - The projectile trying to cross.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P)
+/obj/structure/table/proc/check_cover(obj/projectile/P)
 	. = TRUE
 
 	if(!flipped)

@@ -321,7 +321,7 @@ Difficulty: Very Hard
 	addtimer(CALLBACK(src, PROC_REF(body_shield)), BODY_SHIELD_COOLDOWN_TIME)
 
 
-/mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/megafauna/ancient_robot/bullet_act(obj/projectile/P)
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
@@ -403,7 +403,7 @@ Difficulty: Very Hard
 				var/turf/S = get_turf(src)
 				if(!S || !T)
 					return
-				var/obj/item/projectile/energy/shock_revolver/ancient/O = new /obj/item/projectile/energy/shock_revolver/ancient(S)
+				var/obj/projectile/energy/shock_revolver/ancient/O = new /obj/projectile/energy/shock_revolver/ancient(S)
 				O.current = S
 				O.firer = src
 				O.yo = T.y - S.y
@@ -450,7 +450,7 @@ Difficulty: Very Hard
 	var/turf/T = get_turf(target)
 	if(!spot || !T)
 		return
-	var/obj/item/projectile/bullet/rock/O = new /obj/item/projectile/bullet/rock(spot)
+	var/obj/projectile/bullet/rock/O = new /obj/projectile/bullet/rock(spot)
 	O.current = spot
 	O.firer = src
 	O.yo = T.y - spot.y
@@ -620,7 +620,7 @@ Difficulty: Very Hard
 	check_friendly_fire = 1
 	ranged = TRUE
 	projectilesound = 'sound/weapons/gunshots/1autorifle.ogg'
-	projectiletype = /obj/item/projectile/bullet/ancient_robot_bullet
+	projectiletype = /obj/projectile/bullet/ancient_robot_bullet
 	attacktext = "stomps on"
 	armour_penetration = 20
 	melee_damage_lower = 15
@@ -668,7 +668,7 @@ Difficulty: Very Hard
 	..()
 	health_and_snap_check(TRUE)
 
-/mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/ancient_robot_leg/bullet_act(obj/projectile/P)
 	if(core.stat == CONSCIOUS && !core.target && core.AIStatus != AI_OFF && !core.client)
 		if(P.firer && get_dist(core, P.firer) <= core.aggro_vision_range)
 			core.FindTarget(list(P.firer))
@@ -772,11 +772,11 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/ancient_robot_leg/electrocute_act(shock_damage, source, siemens_coeff = 1, flags = NONE, jitter_time = 10 SECONDS, stutter_time = 6 SECONDS, stun_duration = 4 SECONDS)
 	return FALSE
 
-/obj/item/projectile/bullet/ancient_robot_bullet
+/obj/projectile/bullet/ancient_robot_bullet
 	damage = 8
 	damage_type = BRUTE
 
-/obj/item/projectile/bullet/rock
+/obj/projectile/bullet/rock
 	name = "thrown rock"
 	damage = 25
 	damage_type = BRUTE
@@ -790,11 +790,11 @@ Difficulty: Very Hard
 	icon_state = "small1"
 	duration = 20
 
-/obj/item/projectile/energy/shock_revolver/ancient
+/obj/projectile/energy/shock_revolver/ancient
 	damage = 5
 
 
-/obj/item/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
+/obj/projectile/energy/shock_revolver/ancient/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	if(istype(mover, /mob/living/simple_animal/hostile/ancient_robot_leg))
 		return TRUE

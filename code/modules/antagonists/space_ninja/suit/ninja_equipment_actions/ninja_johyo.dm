@@ -78,12 +78,12 @@
 /obj/item/ammo_casing/magic/johyo
 	name = "Jōhyō"
 	desc = "In other words - Kunai on a rope."
-	projectile_type = /obj/item/projectile/johyo
+	projectile_type = /obj/projectile/johyo
 	muzzle_flash_effect = null
 	caliber = "kunai"
 	icon_state = "kunai"
 
-/obj/item/projectile/johyo
+/obj/projectile/johyo
 	name = "Jōhyō"
 	icon_state = "kunai"
 	icon = 'icons/obj/ninjaobjects.dmi'
@@ -94,13 +94,13 @@
 	hitsound = 'sound/weapons/whip.ogg'
 	weaken = 2 SECONDS
 
-/obj/item/projectile/johyo/fire(setAngle)
+/obj/projectile/johyo/fire(setAngle)
 	if(firer)
 		firer.say(pick("Get over here!", "Come here!"))
 		chain = firer.Beam(src, icon_state = "chain_dark", time = INFINITY, maxdistance = INFINITY)
 	. = ..()
 
-/obj/item/projectile/johyo/on_hit(atom/target)
+/obj/projectile/johyo/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/target_living = target
@@ -111,6 +111,6 @@
 			target_living.forceMove(firer_turf)
 			REMOVE_TRAIT(target_living, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/projectile/johyo/Destroy()
+/obj/projectile/johyo/Destroy()
 	QDEL_NULL(chain)
 	return ..()

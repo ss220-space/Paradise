@@ -149,12 +149,12 @@
 /obj/item/ammo_casing/magic/contractor_hook
 	name = "Hardlight hook"
 	desc = "a hardlight hook."
-	projectile_type = /obj/item/projectile/contractor_hook
+	projectile_type = /obj/projectile/contractor_hook
 	caliber = "hardlight_hook"
 	icon_state = "hard_hook"
 	muzzle_flash_effect = null
 
-/obj/item/projectile/contractor_hook
+/obj/projectile/contractor_hook
 	name = "Hardlight hook"
 	icon_state = "hard_hook"
 	icon = 'icons/obj/weapons/projectiles.dmi'
@@ -166,12 +166,12 @@
 	ricochet_chance = 0
 	range = 7
 
-/obj/item/projectile/contractor_hook/fire(setAngle)
+/obj/projectile/contractor_hook/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 
-/obj/item/projectile/contractor_hook/on_hit(atom/target, blocked = 0)
+/obj/projectile/contractor_hook/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(blocked >= 100)
 		return 0
@@ -187,7 +187,7 @@
 
 
 
-/obj/item/projectile/contractor_hook/Destroy()
+/obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 /*

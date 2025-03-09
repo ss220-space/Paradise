@@ -440,12 +440,12 @@
 		INSTRUMENTAL = "крюком",
 		PREPOSITIONAL = "крюке"
 	)
-	projectile_type = /obj/item/projectile/hook
+	projectile_type = /obj/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
 	muzzle_flash_effect = null
 
-/obj/item/projectile/hook
+/obj/projectile/hook
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -456,13 +456,13 @@
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
 
-/obj/item/projectile/hook/fire(setAngle)
+/obj/projectile/hook/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 	//TODO: root the firer until the chain returns
 
-/obj/item/projectile/hook/on_hit(atom/target)
+/obj/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/turf/firer_turf = get_turf(firer)
@@ -473,7 +473,7 @@
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/projectile/hook/Destroy()
+/obj/projectile/hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 

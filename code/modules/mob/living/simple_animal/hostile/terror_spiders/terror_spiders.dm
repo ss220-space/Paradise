@@ -435,7 +435,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 
 /mob/living/simple_animal/hostile/poison/terror_spider/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(istype(mover, /obj/item/projectile/terrorspider))
+	if(istype(mover, /obj/projectile/terrorspider))
 		return TRUE
 
 
@@ -443,7 +443,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	if(!HAS_TRAIT(src, TRAIT_NEGATES_GRAVITY))
 		return ..()
 
-/obj/item/projectile/terrorspider
+/obj/projectile/terrorspider
 	name = "basic"
 	damage = 0
 	icon_state = "toxin"

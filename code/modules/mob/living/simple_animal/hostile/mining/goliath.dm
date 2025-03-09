@@ -45,8 +45,8 @@
 	COOLDOWN_DECLARE(post_charge_delay)
 
 
-/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
-	if(prob(reflect_chance) && !istype(P, /obj/item/projectile/destabilizer))
+/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/projectile/P)
+	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
 		visible_message(span_danger("The [P.name] gets reflected by [src]'s rocky hide!"), \
 							span_userdanger("The [P.name] gets reflected by [src]'s rocky hide!"), \
 							projectile_message = TRUE)
