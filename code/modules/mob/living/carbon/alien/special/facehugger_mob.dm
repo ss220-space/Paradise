@@ -136,7 +136,7 @@
 					return
 	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A]!"))
 	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
-	ranged_cooldown = world.time + ranged_cooldown_time
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	. = ..()
@@ -146,7 +146,7 @@
 /mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	. = ..()
 	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
-	ranged_cooldown = world.time + ranged_cooldown_time
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 	if(iscarbon(hit_atom))
 		try_hug(hit_atom)
 		return .
