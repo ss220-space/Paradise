@@ -14,6 +14,7 @@
 	drop_sound = 'sound/items/handling/generic_drop5.ogg'
 	pickup_sound = 'sound/items/handling/generic_pickup3.ogg'
 	clothing_traits = null
+	holder_flags = ALIEN_HOLDER | HUMAN_HOLDER
 
 /obj/item/clothing/mask/facehugger/toy/Initialize(mapload)
 	. = ..()
