@@ -23,108 +23,101 @@
 
 		switch(event_type)
 			if(RESEARCH_BREAKTHROUGH)
-				newMsg.body = "A major breakthough in the field of [pick("plasma research","super-compressed materials","nano-augmentation","bluespace research","volatile power manipulation")] \
-				was announced [pick("yesterday","a few days ago","last week","earlier this month")] by a private firm on [affected_dest.name]. \
-				Nanotrasen declined to comment as to whether this could impinge on profits."
+				newMsg.body = "Крупный прорыв в области [pick("исследования плазмы","сверхсжатых материалов","наноаугментаций","исследования блюспейса", "управления нестабильной энергией")] был объявлен, [pick("вчера","несколько дней назад","на прошлой неделе","ранее в этом месяце")], частной фирмой на [affected_dest.name]. НаноТрейзен отказалась комментировать, может ли это повлиять на её прибыль."
 
 			if(ELECTION)
-				newMsg.body = "The pre-selection of an additional candidates was announced for the upcoming [pick("supervisors council","advisory board","governership","board of inquisitors")] \
-				election on [affected_dest.name] was announced earlier today, \
-				[pick("media mogul","web celebrity", "industry titan", "superstar", "famed chef", "popular gardener", "ex-army officer", "multi-billionaire")] \
-				[random_name(pick(MALE,FEMALE))]. In a statement to the media they said '[pick("My only goal is to help the [pick("sick","poor","children")]",\
-				"I will maintain Nanotrasen's record profits","I believe in our future","We must return to our moral core","Just like... chill out dudes")]'."
+				newMsg.body = "Сегодня было объявлено о предварительном отборе дополнительных кандидатов на предстоящие выборы в [pick("совет надзирателей","консультативный совет","парламент","коллегию инквизиторов")] на [affected_dest.name]. Среди них — [pick("медиамагнат","веб-знаменитость","титан индустрии","суперзвезда","знаменитый шеф-повар","популярный садовод","бывший армейский офицер","мультимиллиардер")] "
+				var/locvar = pick("MALE", "FEMALE")
+				if (locvar == "MALE")
+					newMsg.body += "[random_name(MALE)]. В заявлении для прессы он сказал: "
+				else
+					newMsg.body += "[random_name(FEMALE)]. В заявлении для прессы она сказала: "
+				newMsg.body += "[pick("Моя единственная цель — помочь [pick("больным","бедным","детям")]","Я буду поддерживать рекордные прибыли НаноТрейзен","Я верю в наше будущее","Мы должны вернуться к нашей моральной основе","Просто... расслабьтесь, ребята")]!"
 
 			if(RESIGNATION)
-				newMsg.body = "Nanotrasen regretfully announces the resignation of [pick("Sector Admiral","Division Admiral","Ship Admiral","Vice Admiral")] [random_name(pick(MALE,FEMALE))]."
+				var/locvar = pick("MALE", "FEMALE")
+				newMsg.body = "НаноТрейзен с сожалением объявляет об отставке [random_name(locvar)] – [pick("секторного адмирала","дивизионного адмирала","корабельного адмирала","вице-адмирала")]."
 				if(prob(25))
-					var/locstring = pick("Segunda","Salusa","Cepheus","Andromeda","Gruis","Corona","Aquila","Asellus") + " " + pick("I","II","III","IV","V","VI","VII","VIII")
-					newMsg.body += " In a ceremony on [affected_dest.name] this afternoon, they will be awarded the \
-					[pick("Red Star of Sacrifice","Purple Heart of Heroism","Blue Eagle of Loyalty","Green Lion of Ingenuity")] for "
+					var/locstring = pick("Сегунда","Салyса","Цефей","Андромеда","Груис","Корона","Акyила","Аселлyс") + " " + pick("I","II","III","IV","V","VI","VII","VIII")
+					newMsg.body += " Сегодня днём на [affected_dest.name] состоится церемония, на которой [locvar == "MALE" ? "ему" : "ей"] будет вручена награда – [pick("Красная Звезда Жертвенности","Пурпурное Сердце Героизма","Синий Орёл Верности","Зелёный Лев Изобретательности")] за "
 					if(prob(33))
-						newMsg.body += "their actions at the Battle of [pick(locstring,"REDACTED")]."
+						newMsg.body += "действия в Битве при [pick(locstring,"██████████")]."
 					else if(prob(50))
-						newMsg.body += "their contribution to the colony of [locstring]."
+						newMsg.body += "вклад в развитие колонии [locstring]."
 					else
-						newMsg.body += "their loyal service over the years."
+						newMsg.body += "многолетнюю верную службу."
 				else if(prob(33))
-					newMsg.body += " They are expected to settle down in [affected_dest.name], where they have been granted a handsome pension."
+					newMsg.body += " Ожидается, что он[locvar == "MALE" ? "" : "а"] поселится на [affected_dest.name], где [locvar == "MALE" ? "ему" : "ей"] будет назначена щедрая пенсия."
 				else if(prob(50))
-					newMsg.body += " The news was broken on [affected_dest.name] earlier today, where they cited reasons of '[pick("health","family","REDACTED")]'"
+					newMsg.body += " Новость была обнародована на [affected_dest.name] сегодня ранее, где он[locvar == "MALE" ? "" : "а"] назвал[locvar == "MALE" ? "" : "а"] причины своего ухода: '[pick("здоровье","семья","██████████")]'."
 				else
-					newMsg.body += " Administration Aerospace wishes them the best of luck in their retirement ceremony on [affected_dest.name]."
+					newMsg.body += " Аэрокосмическое управление желает удачи на церемонии выхода на пенсию, которая состоится на [affected_dest.name]."
 
 			if(CELEBRITY_DEATH)
-				newMsg.body = "It is with regret today that we announce the sudden passing of the "
+				newMsg.body = "С сожалением, мы объявляем о внезапной кончине "
 				if(prob(33))
-					newMsg.body += "[pick("distinguished","decorated","veteran","highly respected")] \
-					[pick("Ship's Captain","Vice Admiral","Colonel","Lieutenant Colonel")] "
+					newMsg.body += "[pick("выдающегося","награждённого","ветерана","высокоуважаемого")] [pick("капитана корабля","вице-адмирала","полковника","подполковника")] "
 				else if(prob(50))
-					newMsg.body += "[pick("award-winning","popular","highly respected","trend-setting")] \
-					[pick("comedian","singer/songwright","artist","playwright","TV personality","model")] "
+					newMsg.body += "[pick("награждённого","популярного","высокоуважаемого","задающего тренды")] [pick("комика","художника","драматурга","телеведущего")] "
 				else
-					newMsg.body += "[pick("successful","highly respected","ingenious","esteemed")] \
-					[pick("academic","Professor","Doctor","Scientist")] "
+					newMsg.body += "[pick("успешного","высокоуважаемого","гениального","уважаемого")] [pick("учёного","профессора","доктора","исследователя")] "
 
-				newMsg.body += "[random_name(pick(MALE,FEMALE))] on [affected_dest.name] [pick("last week","yesterday","this morning","two days ago","three days ago")]\
-				[pick(". Assassination is suspected, but the perpetrators have not yet been brought to justice",\
-				" due to Syndicate infiltrators (since captured)",\
-				" during an industrial accident",\
-				" due to [pick("heart failure","kidney failure","liver failure","brain hemorrhage")]")]"
+				newMsg.body += "[random_name(MALE,FEMALE)] на [affected_dest.name], [pick("на прошлой неделе","вчера","сегодня утром","два дня назад","три дня назад")],[pick(". Подозревается убийство, но виновные ещё не найдены"," из-за действий агентов Синдиката (с тех пор задержанных)", " во время промышленной аварии", " из-за [pick("сердечной недостаточности","почечной недостаточности","печёночной недостаточности","кровоизлияния в мозг")]")]."
 
 			if(BARGAINS)
-				newMsg.body += "BARGAINS! BARGAINS! BARGAINS! Commerce Control on [affected_dest.name] wants you to know that everything must go! Across all retail centres, \
-				all goods are being slashed, and all retailors are onboard - so come on over for the \[shopping\] time of your life."
+				newMsg.body += "РАСПРОДАЖА! РАСПРОДАЖА! РАСПРОДАЖА! Коммерческий контроль [affected_dest.name] сообщает, что всё должно быть распродано! Во всех торговых центрах, цены на все товары снижены — так что приходите и проведите лучший шопинг в своей жизни!"
 
 			if(SONG_DEBUT)
-				newMsg.body += "[pick("Singer","Singer/songwriter","Saxophonist","Pianist","Guitarist","TV personality","Star")] [random_name(pick(MALE,FEMALE))] \
-				announced the debut of their new [pick("single","album","EP","label")] '[pick("Everyone's","Look at the","Baby don't eye those","All of those","Dirty nasty")] \
-				[pick("roses","three stars","starships","nanobots","cyborgs","Skrell","Sren'darr")] \
-				[pick("on Venus","on Reade","on Moghes","in my hand","slip through my fingers","die for you","sing your heart out","fly away")]' \
-				with [pick("pre-puchases available","a release tour","cover signings","a launch concert")] on [affected_dest.name]."
+				var/locvar = pick("MALE", "FEMALE")
+				if (locvar == "MALE")
+					newMsg.body = "[pick("Певец","Певец/автор песен","Саксофонист","Пианист","Гитарист","Телеведущий","Звезда")] [random_name(MALE)] объявил"
+				else
+					newMsg.body = "[pick("Певица","Певица/автор песен","Саксофонистка","Пианистка","Гитаристка","Телеведущая","Звезда")] [random_name(FEMALE)] объявила"
+				newMsg.body += " о дебюте своего нового [pick("сингла","альбома","мини-альбома","лейбла")] под названием \"[pick("Все эти","Посмотри на","Детка, не смотри на","Все эти","Грязные мерзкие")] [pick("розы","три звезды","звёздные корабли","нанороботы","киборги","Скреллы","Срен'дарр")] [pick("на Венере","на Риде","на Могесе","в моей руке","скользят сквозь пальцы","умрут за тебя","спой от души","улетают прочь")]\" [pick("предзаказы уже доступны","с туром в поддержку релиза","с автограф-сессиями","с концертом-презентацией")] на [affected_dest.name]."
 
 			if(MOVIE_RELEASE)
-				newMsg.body += "From the [pick("desk","home town","homeworld","mind")] of [pick("acclaimed","award-winning","popular","stellar")] \
-				[pick("playwright","author","director","actor","TV star")] [random_name(pick(MALE,FEMALE))] comes the latest sensation: '\
-				[pick("Deadly","The last","Lost","Dead")] [pick("Starships","Warriors","outcasts","Tajarans","Unathi","Skrell")] \
-				[pick("of","from","raid","go hunting on","visit","ravage","pillage","destroy")] \
-				[pick("Moghes","Earth","Biesel","Ahdomai","S'randarr","the Void","the Edge of Space")]'.\
-				. Own it on webcast today, or visit the galactic premier on [affected_dest.name]!"
+				newMsg.body += "Из [pick("кабинета","родного города","родного мира","ума")] [pick("признанного","награждённого","популярного","звёздного")] [pick("драматурга","автора","режиссёра","актёра","телезвезды")] [random_name(MALE,FEMALE)] выходит новая сенсация: \"[pick("Смертельные","Последние","Потерянные","Мёртвые")] [pick("звёздные корабли","воины","изгои","Таяры","Унатхи","Скреллы")] [pick("посещают","опустошают","грабят","уничтожают")] [pick("Могес","Землю","Бизель","Адомай","С'рандарра","Пустоты","Края Космоса")]\". Приобретите веб-трансляцию уже сегодня или посетите галактическую премьеру на [affected_dest.name]!"
 
 			if(BIG_GAME_HUNTERS)
-				newMsg.body += "Game hunters on [affected_dest.name] "
+				newMsg.body += "Охотники [affected_dest.name] "
 				if(prob(33))
-					newMsg.body += "were surprised when an unusual species experts have since identified as \
-					[pick("a subclass of mammal","a divergent abhuman species","an intelligent species of lemur","organic/cyborg hybrids")] turned up. Believed to have been brought in by \
-					[pick("alien smugglers","early colonists","Syndicate raiders","unwitting tourists")], this is the first such specimen discovered in the wild."
+					newMsg.body += "были удивлены, когда обнаружили необычный вид, который эксперты позже идентифицировали как [pick("подкласс млекопитающих","отклоняющийся вид аблюдей","разумный вид лемуров","органическо-кибернетические гибриды")]. Предполагается, что они были завезены [pick("инопланетными контрабандистами","ранними колонистами","рейдерами Синдиката","туристами")], это первый подобный экземпляр, обнаруженный в дикой природе."
 				else if(prob(50))
-					newMsg.body += "were attacked by a vicious [pick("nas'r","diyaab","samak","predator which has not yet been identified")]\
-					. Officials urge caution, and locals are advised to stock up on armaments."
+					newMsg.body += "были атакованы свирепым [pick("нас'ром","дияабом","самаком","хищником, который ещё не идентифицирован")]. Власти призывают к осторожности, а местным жителям рекомендуется запастись оружием."
 				else
-					newMsg.body += "brought in an unusually [pick("valuable","rare","large","vicious","intelligent")] [pick("mammal","predator","farwa","samak")] for inspection \
-					[pick("today","yesterday","last week")]. Speculators suggest they may be tipped to break several records."
+					newMsg.body += "привезли необычно [pick("ценного","редкого","крупного","свирепого","разумного")] [pick("млекопитающего","хищника","фарву","самака")] для осмотра [pick("сегодня","вчера","на прошлой неделе")]. Спекулянты предполагают, что это может побить несколько рекордов."
 
 			if(GOSSIP)
-				newMsg.body += "[pick("TV host","Webcast personality","Superstar","Model","Actor","Singer")] [random_name(pick(MALE,FEMALE))] "
+				var/locvar = pick("MALE", "FEMALE")
+				if (locvar == "MALE")
+					newMsg.body += "[pick("Телеведущий","Веб-знаменитость","Суперзвезда","Модель","Актёр","Певец")] [random_name(MALE)] и его супруга"
+				else
+					newMsg.body += "[pick("Телеведущая","Веб-знаменитость","Суперзвезда","Модель","Актриса","Певица")] [random_name(FEMALE)] и её супруг"
 				if(prob(33))
-					newMsg.body += "and their partner announced the birth of their [pick("first","second","third")] child on [affected_dest.name] early this morning. \
-					Doctors say the child is well, and the parents are considering "
+					newMsg.body += " объявили о рождении их [pick("первого","второго","третьего")] ребёнка на [affected_dest.name] сегодня рано утром. Врачи сообщают, что ребёнок здоров, а родители рассматривают имя "
 					if(prob(50))
 						newMsg.body += capitalize(pick(GLOB.first_names_female))
 					else
 						newMsg.body += capitalize(pick(GLOB.first_names_male))
-					newMsg.body += " for the name."
+					newMsg.body += "."
 				else if(prob(50))
-					newMsg.body += "announced their [pick("split","break up","marriage","engagement")] with [pick("TV host","webcast personality","superstar","model","actor","singer")] \
-					[random_name(pick(MALE,FEMALE))] at [pick("a society ball","a new opening","a launch","a club")] on [affected_dest.name] yesterday, pundits are shocked."
+					if (locvar == "MALE")
+						newMsg.body += " объявил о своём [pick("расставании","разрыве","браке")] с [pick("телеведущей","веб-знаменитостью","суперзвездой","моделью","актрисой","певицей")] [random_name(FEMALE)] "
+					else
+						newMsg.body += " объявила о своём [pick("расставании","разрыве","браке")] с [pick("телеведущим","веб-знаменитостью","суперзвездой","моделью","актёром","певцом")] [random_name(MALE)] "
+					newMsg.body += "[pick("на светском балу","на новом открытии","в клубе")] на [affected_dest.name] вчера. Эксперты шокированы."
 				else
-					newMsg.body += "is recovering from plastic surgery in a clinic on [affected_dest.name] for the [pick("second","third","fourth")] time, reportedly having made the decision in response to "
-					newMsg.body += "[pick("unkind comments by an ex","rumours started by jealous friends",\
-					"the decision to be dropped by a major sponsor","a disasterous interview on Nyx Tonight")]."
-			if(TOURISM)
-				newMsg.body += "Tourists are flocking to [affected_dest.name] after the surprise announcement of [pick("major shopping bargains by a wily retailer",\
-				"a huge new ARG by a popular entertainment company","a secret tour by popular artiste [random_name(pick(MALE,FEMALE))]")]. \
-				Nyx Daily is offering discount tickets for two to see [random_name(pick(MALE,FEMALE))] live in return for eyewitness reports and up to the minute coverage."
+					newMsg.body += " восстанавливается после пластической операции в клинике на [affected_dest.name] уже [pick("во второй","в третий","в четвертый")] раз. По сообщениям, это решение было принято в ответ на "
+					newMsg.body += "[pick("недобрые комментарии","слухи, распущенные завистливыми друзьями","решение крупного спонсора прекратить сотрудничество","катастрофическое интервью на \"Вечерний Никс\"")]."
 
+			if(TOURISM)
+				var/locvar = pick("MALE", "FEMALE")
+				var/locstring = ""
+				if (locvar == "MALE")
+					locstring = "туре популярного артиста"
+				else
+					locstring = "туре популярной артистки"
+				newMsg.body += "Туристы стекаются на [affected_dest.name], после неожиданного объявления о [pick("распродажах от крупного ритейлера","новой масштабной AR-игре от популярной развлекательной компании","[locstring]")]. \"Никс Дейли\" предлагает скидочные билеты для двоих на концерт, который проведёт популярный артист [random_name(pick(MALE,FEMALE))], в обмен на репортажи очевидцев и оперативное освещение событий."
 
 	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_NYX)?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)

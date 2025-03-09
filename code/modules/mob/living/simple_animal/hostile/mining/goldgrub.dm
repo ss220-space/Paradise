@@ -76,7 +76,7 @@
 		visible_message("<span class='danger'>\The [name] buries into the ground, vanishing from sight!</span>")
 		qdel(src)
 
-/mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/projectile/P)
 	visible_message(span_danger("[P.name] was repelled by \the [name]'s blubberous girth!"), projectile_message = TRUE)
 
 

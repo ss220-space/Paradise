@@ -140,14 +140,14 @@
 	update_state()
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj, /obj/item/projectile/energy/floragamma))
+	if(istype(Proj, /obj/projectile/energy/floragamma))
 		make_grow()
-	else if(istype(Proj, /obj/item/projectile/energy/florabeta))
+	else if(istype(Proj, /obj/projectile/energy/florabeta))
 		myseed.on_floragun_beta_act()
-	else if(istype(Proj, /obj/item/projectile/energy/floraalpha) && !lid_closed)
+	else if(istype(Proj, /obj/projectile/energy/floraalpha) && !lid_closed)
 		plantdies()
 	else
 		return ..()

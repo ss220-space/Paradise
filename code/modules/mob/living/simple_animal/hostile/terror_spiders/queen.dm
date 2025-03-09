@@ -44,7 +44,7 @@
 	retreat_distance = 5
 	minimum_distance = 5
 	projectilesound = 'sound/creatures/terrorspiders/spit2.ogg'
-	projectiletype = /obj/item/projectile/terrorspider/queen
+	projectiletype = /obj/projectile/terrorspider/queen
 	ranged_cooldown_time = 20
 	spider_tier = TS_TIER_4
 	spider_opens_doors = 2
@@ -378,7 +378,7 @@
 	. += span_notice("Она прожила [MinutesAlive()] минут.")
 
 
-/obj/item/projectile/terrorspider/queen
+/obj/projectile/terrorspider/queen
 	name = "queen venom"
 	icon_state = "toxin3"
 	damage = 40

@@ -823,11 +823,11 @@
 	. = ..()
 	if(checkpass(mover))
 		return TRUE
-	if(istype(mover, /obj/item/projectile/ion))
+	if(istype(mover, /obj/projectile/ion))
 		return FALSE
 
-/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/item/projectile/proj)
-	if(istype(proj, /obj/item/projectile/ion))
+/mob/living/simple_animal/demon/pulse_demon/bullet_act(obj/projectile/proj)
+	if(istype(proj, /obj/projectile/ion))
 		return ..()
 	visible_message(span_warning("[proj] goes right through [src]!"), projectile_message = TRUE)
 

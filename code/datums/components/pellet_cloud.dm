@@ -54,7 +54,7 @@
 	var/mob/living/shooter
 
 
-/datum/component/pellet_cloud/Initialize(projectile_type=/obj/item/projectile/shrapnel, magnitude=5)
+/datum/component/pellet_cloud/Initialize(projectile_type=/obj/projectile/shrapnel, magnitude=5)
 	if(!isammocasing(parent) && !isgrenade(parent) && !issupplypod(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -211,7 +211,7 @@
 			break
 
 ///One of our pellets hit something, record what it was and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_hit(obj/item/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
+/datum/component/pellet_cloud/proc/pellet_hit(obj/projectile/P, atom/movable/firer, atom/target, Angle, hit_zone)
 	SIGNAL_HANDLER
 
 	pellets -= P
@@ -233,7 +233,7 @@
 		finalize()
 
 ///One of our pellets disappeared due to hitting their max range (or just somehow got qdel'd), remove it from our list and check if we're done (terminated == num_pellets)
-/datum/component/pellet_cloud/proc/pellet_range(obj/item/projectile/P)
+/datum/component/pellet_cloud/proc/pellet_range(obj/projectile/P)
 	SIGNAL_HANDLER
 	pellets -= P
 	terminated++
@@ -244,7 +244,7 @@
 /// Minor convenience function for creating each shrapnel piece with circle explosions, mostly stolen from the MIRV component
 /datum/component/pellet_cloud/proc/pew(atom/target, landmine_victim)
 
-	var/obj/item/projectile/P = new projectile_type(get_turf(parent))
+	var/obj/projectile/P = new projectile_type(get_turf(parent))
 
 	//Shooting Code:
 	P.spread = 0

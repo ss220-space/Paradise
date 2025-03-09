@@ -55,7 +55,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
@@ -235,7 +235,7 @@
 		ranged_block_chance = 0
 		icon_state = "syndicate_pistol"
 		icon_living = "syndicate_pistol"
-		projectiletype = /obj/item/projectile/beam/laser
+		projectiletype = /obj/projectile/beam/laser
 		projectilesound = 'sound/weapons/laser.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
@@ -269,7 +269,7 @@
 		ranged_block_chance = 0
 		icon_state = "syndicate_stormtrooper_shotgun"
 		icon_living = "syndicate_stormtrooper_shotgun"
-		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
+		projectiletype = /obj/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	return INITIALIZE_HINT_LATELOAD
 

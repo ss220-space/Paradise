@@ -38,7 +38,7 @@
 	ranged_cooldown_time = 30
 	speed = 1
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
-	projectiletype = /obj/item/projectile/terrorspider/builder
+	projectiletype = /obj/projectile/terrorspider/builder
 	web_type = /obj/structure/spider/terrorweb/queen/builder
 	can_wrap = FALSE
 	tts_seed = "F_darkelf"
@@ -89,13 +89,13 @@
 		PREPOSITIONAL = "паутине Дрона Ужаса",
 	)
 
-/obj/item/projectile/terrorspider/builder
+/obj/projectile/terrorspider/builder
 	name = "drone venom"
 	icon_state = "toxin2"
 	damage = 15
 	stamina = 15
 
-/obj/item/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/terrorspider/drone/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.Slowed(2 SECONDS)

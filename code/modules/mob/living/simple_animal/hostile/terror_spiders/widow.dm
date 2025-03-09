@@ -30,7 +30,7 @@
 	ranged = 1
 	rapid = 2
 	projectilesound = 'sound/creatures/terrorspiders/spit3.ogg'
-	projectiletype = /obj/item/projectile/terrorspider/widow
+	projectiletype = /obj/projectile/terrorspider/widow
 	ranged_cooldown_time = 25
 	melee_damage_lower = 10
 	melee_damage_upper = 15
@@ -81,7 +81,7 @@
 				to_chat(C, span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в тебя!"))
 				C.reagents.add_reagent("terror_black_toxin", 45)
 
-/obj/item/projectile/terrorspider/widow
+/obj/projectile/terrorspider/widow
 	name = "widow venom"
 	icon_state = "toxin5"
 	damage = 15

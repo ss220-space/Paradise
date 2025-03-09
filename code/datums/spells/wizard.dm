@@ -365,7 +365,7 @@
 	selection_activated_message		= "<span class='notice'>Your prepare to cast your fireball spell! <B>Left-click to cast at a target!</B></span>"
 	selection_deactivated_message	= "<span class='notice'>You extinguish your fireball...for now.</span>"
 
-	var/fireball_type = /obj/item/projectile/magic/fireball
+	var/fireball_type = /obj/projectile/magic/fireball
 	action_icon_state = "fireball0"
 	sound = 'sound/magic/fireball.ogg'
 
@@ -390,7 +390,7 @@
 	if(!isturf(U) || !isturf(T))
 		return FALSE
 
-	var/obj/item/projectile/magic/fireball/FB = new fireball_type(user.loc)
+	var/obj/projectile/magic/fireball/FB = new fireball_type(user.loc)
 	FB.current = get_turf(user)
 	FB.original = target
 	FB.firer = user

@@ -183,14 +183,14 @@
 	selection_activated_message = span_notice("You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message = span_notice("You re-absorb the energy...for now.")
 	base_cooldown = 10 SECONDS
-	fireball_type = /obj/item/projectile/magic/shadow_hand
+	fireball_type = /obj/projectile/magic/shadow_hand
 
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
 
-/obj/item/projectile/magic/shadow_hand
+/obj/projectile/magic/shadow_hand
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
@@ -198,13 +198,13 @@
 	var/hit = FALSE
 
 
-/obj/item/projectile/magic/shadow_hand/fire(setAngle)
+/obj/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
 		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
 	return ..()
 
 
-/obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
 		return
 	hit = TRUE // to prevent double hits from the pull

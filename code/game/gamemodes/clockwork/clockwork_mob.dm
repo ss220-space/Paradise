@@ -70,7 +70,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/projectile/P)
 	if(deflect_projectile(P))
 		return
 	return ..()
@@ -78,9 +78,9 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/ratvar_act()
 	return
 
-/mob/living/simple_animal/hostile/clockwork/marauder/proc/deflect_projectile(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/clockwork/marauder/proc/deflect_projectile(obj/projectile/P)
 	var/final_deflection_chance = deflect_chance
-	var/energy_projectile = istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam)
+	var/energy_projectile = istype(P, /obj/projectile/energy) || istype(P, /obj/projectile/beam)
 	if(GetOppositeDir(dir) != P.dir) //if projectile hits into his eyes, nor behind or side.
 		return FALSE
 	if(P.nodamage || P.damage_type == STAMINA)
