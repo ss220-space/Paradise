@@ -1,5 +1,5 @@
 /datum/event/money_lotto
-	var/winner_name = "John Smith"
+	var/winner_name = "Джон Смит"
 	var/winner_sum = 0
 	var/deposit_success = 0
 
@@ -9,17 +9,17 @@
 		var/datum/money_account/D = pick(GLOB.all_money_accounts)
 		winner_name = D.owner_name
 
-		D.credit(winner_sum, "Winner!", "Biesel TCD Terminal #[rand(111,333)]", "Nyx Daily Grand Slam -Stellar- Lottery")
+		D.credit(winner_sum, "Winner!", "Терминал \"Бизель\" #[rand(111,333)]", "Звёздная Лотерея Никс Дейли – Гранд Слэм")
 		deposit_success = 1
 
 /datum/event/money_lotto/announce()
 	var/datum/feed_message/newMsg = new /datum/feed_message
-	newMsg.author = "Nanotrasen Editor"
+	newMsg.author = EDITOR_NYX
 	newMsg.admin_locked = TRUE
 
-	newMsg.body = "Nyx Daily wishes to congratulate [winner_name] for recieving the Nyx Stellar Slam Lottery, and receiving the out of this world sum of [winner_sum] credits!"
+	newMsg.body = "Никс Дейли поздравляет [winner_name] с выигрышем в лотерее \"Никс – Звёздный Слэм\" и получением невероятной суммы в размере [winner_sum] кредитов!"
 	if(!deposit_success)
-		newMsg.body += "Unfortunately, we were unable to verify the account details provided, so we were unable to transfer the money. Send a cheque containing the sum of $500 to ND 'Stellar Slam' office on the Nyx gateway containing updated details, and your winnings'll be re-sent within the month."
+		newMsg.body += "К сожалению, нам не удалось подтвердить предоставленные данные счёта, поэтому мы не смогли перевести деньги. Отправьте чек на сумму $500 в офис НД 'Звёздный Слэм' с обновлёнными данными, и ваш выигрыш будет переведён в течение месяца."
 
 	GLOB.news_network.get_channel_by_name(NEWS_CHANNEL_NYX)?.add_message(newMsg)
 	for(var/nc in GLOB.allNewscasters)
