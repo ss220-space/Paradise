@@ -556,7 +556,7 @@
 		/datum/component/ghost_direct_control,\
 		ban_type = ROLE_ALIEN,\
 		poll_candidates = FALSE,\
-		after_assumed_control = CALLBACK(src, PROC_REF(add_datum_if_not_exist)),\
+		after_assumed_control = CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/facehugger, add_datum_if_not_exist)),\
 	)
 	if(kill)
 		child.death()
