@@ -478,11 +478,11 @@
 	update_icon(UPDATE_ICON_STATE)
 	switch(status)
 		if(GROWING)
-			var/mob/living/simple_animal/hostile/facehugger/player_controlled/hugger = new(src)
+			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
 			hugger.LoseTarget()
 			addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 		if(GROWN)
-			var/mob/living/simple_animal/hostile/facehugger/player_controlled/hugger = new(src)
+			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
 			hugger.LoseTarget()
 			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 		if(BURST)
@@ -552,6 +552,12 @@
 		return
 
 	child.forceMove(get_turf(src))
+	child.AddComponent(\
+		/datum/component/ghost_direct_control,\
+		ban_type = ROLE_ALIEN,\
+		poll_candidates = FALSE,\
+		after_assumed_control = CALLBACK(src, PROC_REF(add_datum_if_not_exist)),\
+	)
 	if(kill)
 		child.death()
 		return

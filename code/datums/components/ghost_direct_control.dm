@@ -78,6 +78,15 @@
 		GLOB.mob_spawners -= format_text("[initial(mob_parent.name)]")
 	return ..()
 
+/datum/component/ghost_direct_control/proc/on_death(datum/source, mob/user, list/examine_text)
+	SIGNAL_HANDLER
+	if(!isobserver(user))
+		return
+	var/mob/living/our_mob = parent
+	if(our_mob.stat == DEAD || our_mob.key || awaiting_ghosts)
+		return
+	examine_text += span_boldnotice("Вы можете взять под контроль это существо, нажав на него.")
+
 /// Inform ghosts that they can possess this
 /datum/component/ghost_direct_control/proc/on_examined(datum/source, mob/user, list/examine_text)
 	SIGNAL_HANDLER
