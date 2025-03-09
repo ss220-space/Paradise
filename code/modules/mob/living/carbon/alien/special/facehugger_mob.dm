@@ -309,8 +309,8 @@
 		QDEL_NULL(hugger_holder)
 
 	hugger_holder = new holder_type(loc, src)
-	if(stat = DEAD)
-		hugger_holder.stat= DEAD
+	if(stat == DEAD)
+		hugger_holder.Die()
 	return hugger_holder
 
 /mob/living/simple_animal/hostile/facehugger/CanAttack(atom/the_target)
