@@ -162,6 +162,7 @@
 	hugger_holder?.Die()
 	if(impregnated_death)
 		var/obj/item/clothing/mask/facehugger/hugger = !QDELETED(hugger_holder)? hugger_holder : new holder_type(loc)
+		hugger.stat = DEAD
 		hugger.icon_state = "[initial(hugger.icon_state)]_impregnated"
 		hugger.layer = layer
 		qdel(src)
@@ -308,7 +309,8 @@
 		QDEL_NULL(hugger_holder)
 
 	hugger_holder = new holder_type(loc, src)
-
+	if(stat = DEAD)
+		hugger_holder.stat= DEAD
 	return hugger_holder
 
 /mob/living/simple_animal/hostile/facehugger/CanAttack(atom/the_target)
