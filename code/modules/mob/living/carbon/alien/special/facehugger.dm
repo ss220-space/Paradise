@@ -152,6 +152,8 @@
 	var/mob/living/carbon/mob = thrower
 	if(!isturf(mob.loc))
 		return .
+	if(!holdered_mob)
+		return .
 	holdered_mob.forceMove(loc)
 	if(holdered_mob)
 		holdered_mob.throw_at(target, range, speed, thrower, spin, diagonals_first, callback, force, dodgeable)
@@ -205,7 +207,7 @@
 								span_userdanger("[text_name] бьется о [head.declent_ru(ACCUSATIVE)] [target.declent_ru(GENITIVE)][real? ", оставляя немного кислоты, которая повреждает [head.declent_ru(ACCUSATIVE)]" : ""]!"))
 			if(real)
 				head.take_damage(HELMET_BASE_DAMAGE, BRUTE, ACID)
-				holdered_mob.adjustBruteLoss(HELMET_HUGGER_DAMAGE)
+				holdered_mob?.adjustBruteLoss(HELMET_HUGGER_DAMAGE)
 			return FALSE
 
 		var/obj/item/clothing/mask = target.wear_mask
@@ -286,7 +288,7 @@
 								span_userdanger("[text_name] отпускает лицо [target.declent_ru(GENITIVE)] после долгого контакта!"))
 
 		try_drop_hugger(target)
-		holdered_mob.on_impregnated()
+		holdered_mob?.on_impregnated()
 
 		if(!target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			new /obj/item/organ/internal/body_egg/alien_embryo(target)
@@ -335,7 +337,7 @@
 	icon_state = "[initial(icon_state)]_dead"
 	item_state = "facehugger_inactive"
 	stat = DEAD
-	if(holdered_mob.stat != DEAD)
+	if(holdered_mob && holdered_mob.stat != DEAD)
 		holdered_mob?.death()
 	if(iscarbon(loc))
 		remove_clothing_traits(loc)
