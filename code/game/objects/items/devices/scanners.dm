@@ -357,6 +357,28 @@ REAGENT SCANNER
 	P.header += "Температура тела: [scan_data["bodyTemperatureC"]] &deg;C ([scan_data["bodyTemperatureF"]] &deg;F)<br>"
 	P.header += "Пульс: <font color='[scan_data["pulse"] == PULSE_THREADY || scan_data["pulse"] == PULSE_NONE ? "red" : "#0080ff"]'>[scan_data["pulse"]] уд/мин.</font><br>"
 
+	if(scan_data["genes"])
+		if(scan_data["genes"] < 40)
+			P.header += "<font color='red'><b>Критическая генная нестабильность!</b></font><br>"
+		else if(scan_data["genes"] < 70)
+			P.header += "<font color='red'><b>Тяжёлая генная нестабильность.</b></font><br>"
+		else if(scan_data["genes"] < 85)
+			P.header += "<font color='red'>Незначительная генная нестабильность.</font><br>"
+		else
+			P.header += "Гены стабильны.<br>"
+
+	if(scan_data["bloodData"])
+		var/blood_percent = scan_data["bloodData"]["blood_percent"]
+		var/blood_volume = scan_data["bloodData"]["blood_volume"]
+		var/blood_type = scan_data["bloodData"]["blood_type"]
+		var/blood_species = scan_data["bloodData"]["blood_species"]
+		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
+			P.header += "Уровень крови: <font color='red'>НИЗКИЙ - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [blood_species].<br>"
+		else if(blood_volume <= BLOOD_VOLUME_OKAY)
+			P.header += "Уровень крови: <font color='red'><b>КРИТИЧЕСКИЙ - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [blood_species].<br>"
+		else
+			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [blood_species]."
+
 	if(scan_data["timeofdeath"])
 		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
 		if(scan_data["timetodefibText"])
@@ -367,7 +389,7 @@ REAGENT SCANNER
 
 	if(scan_data["damageLocalization"])
 		P.header += "<hr>"
-		P.header += "Локализация повреждений, <font color='red'>Терм.</font>/<font color='red'>Мех.</font>:<br>"
+		P.header += "Локализация повреждений, <font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font>:<br>"
 		for(var/damage in scan_data["damageLocalization"])
 			P.header += "&emsp;<span class='info'>[capitalize(damage["name"])]</span>: <font color='#FF8000'>[damage["burn"]]</font> - <font color='red'>[damage["brute"]]</font><br>"
 
@@ -442,29 +464,6 @@ REAGENT SCANNER
 		P.header += "Обнаружены кибернетические модификации:<br>"
 		for(var/implant in scan_data["implantDetect"])
 			P.header += "&emsp;[implant]<br>"
-
-	if(scan_data["genes"])
-		if(scan_data["genes"] < 40)
-			P.header += "<font color='red'><b>Критическая генная нестабильность!</b></font><br>"
-		else if(scan_data["genes"] < 70)
-			P.header += "<font color='red'><b>Тяжёлая генная нестабильность.</b></font><br>"
-		else if(scan_data["genes"] < 85)
-			P.header += "<font color='red'>Незначительная генная нестабильность.</font><br>"
-		else
-			P.header += "Гены стабильны.<br>"
-
-
-	if(scan_data["bloodData"])
-		var/blood_percent = scan_data["bloodData"]["blood_percent"]
-		var/blood_volume = scan_data["bloodData"]["blood_volume"]
-		var/blood_type = scan_data["bloodData"]["blood_type"]
-		var/blood_species = scan_data["bloodData"]["blood_species"]
-		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: <font color='red'>НИЗКИЙ - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], кровь расы: [blood_species].<br>"
-		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: <font color='red'><b>КРИТИЧЕСКИЙ - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], кровь расы: [blood_species].<br>"
-		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], кровь расы: [blood_species]."
 
 	P.header += "<hr>"
 	P.header += "Тип страховки - [scan_data["insuranceType"]].<br>"
@@ -601,7 +600,7 @@ REAGENT SCANNER
 	else
 		data["status"] = H.stat
 	data["health"] = H.health
-	data["pulse"] = "[H.get_pulse(GETPULSE_TOOL)]"
+	data["pulse"] = H.get_pulse(GETPULSE_TOOL)
 
 	if(H.timeofdeath)
 		data["timeofdeath"] = "[station_time_timestamp("hh:mm:ss", H.timeofdeath)]"
@@ -878,7 +877,7 @@ REAGENT SCANNER
 		if(!e)
 			continue
 		if(e.has_fracture())
-			scan_data += "<span class='warning'>Обнаружены переломы. Локализация повреждений невозможна.</span>"
+			scan_data += "<span class='warning'>Обнаружены переломы. Локализация невозможна.</span>"
 			break
 	for(var/obj/item/organ/external/e as anything in H.bodyparts)
 		if(e.has_internal_bleeding())
