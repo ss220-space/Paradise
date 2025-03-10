@@ -301,10 +301,10 @@ export const Healthanalyzer = (props, context) => {
                 )}
 
                 {!!data['localize'] &&
-                  (!!scan_data.damageLocalization ||
-                    !!scan_data.fractureList[0] ||
-                    scan_data.infectedList[0] ||
-                    !!scan_data.extraFacture) ? (
+                (!!scan_data.damageLocalization ||
+                  !!scan_data.fractureList[0] ||
+                  scan_data.infectedList[0] ||
+                  !!scan_data.extraFacture) ? (
                   <Section title="Локализация повреждений">
                     {!!scan_data.damageLocalization && (
                       <Box>
@@ -348,7 +348,7 @@ export const Healthanalyzer = (props, context) => {
                     )}
                     {!!scan_data.extraFacture && (
                       <Box color="#c51e1e" mt={1}>
-                        Обнаружены переломы. Требуется глубокое сканирование.
+                        Обнаружены переломы. Локализация невозможна.
                       </Box>
                     )}
                     {!!scan_data.extraBleeding && (
@@ -385,7 +385,7 @@ export const Healthanalyzer = (props, context) => {
                       )}
                       {!!scan_data.extraFacture && (
                         <Box color="#c51e1e" mt={1}>
-                          Обнаружены переломы. Требуется глубокое сканирование.
+                          Обнаружены переломы. Требуется подробное сканирование.
                         </Box>
                       )}
                       {!!scan_data.extraBleeding && (
