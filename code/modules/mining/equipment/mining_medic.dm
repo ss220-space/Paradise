@@ -36,7 +36,7 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/mining_camera/examine(mob/user)
 	. = ..()
-	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтёрского медика, так и в развлекательную сеть станции. На текущий момент камера <b>[on ? "в" : "вы"]ключена</b>.")
+	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтёрского врача, так и в развлекательную сеть станции. На текущий момент камера <b>[on ? "в" : "вы"]ключена</b>.")
 	. += span_notice("Используйте <b>Alt+ЛКМ</b> чтобы переключить режим трансляции камеры в развлекательную сеть. На текущий момент ретрансляция на станцию <b>[news_feed ? "в" : "вы"]ключена</b>.")
 
 /obj/item/clothing/accessory/mining_camera/attack_self(mob/user)
@@ -96,6 +96,28 @@ Almost every mining medic related stuff
 		news_feed = !news_feed
 		balloon_alert(user, "ретрансляция [news_feed ? "в" : "вы"]ключена!")
 		return CLICK_ACTION_SUCCESS
+
+/obj/storage/box/mining_cameras
+	name = "mining camera box"
+	desc = "Небольшая коробка, предназначенная для хранения шахтёрских видеокамер."
+	ru_names = list(
+		NOMINATIVE = "коробка с шахтёрскими видеокамерами",
+		GENITIVE = "коробки с шахтёрскими видеокамерами",
+		DATIVE = "коробке с шахтёрскими видеокамерами",
+		ACCUSATIVE = "коробку с шахтёрскими видеокамерами",
+		INSTRUMENTAL = "коробкой с шахтёрскими видеокамерами",
+		PREPOSITIONAL = "коробке с шахтёрскими видеокамерами"
+	)
+	icon_state = "mining_camera_box"
+	storage_slots =  12
+	max_combined_w_class = INFINITY
+	can_hold = list(
+		/obj/item/clothing/accessory/mining_camera
+	)
+
+/obj/storage/box/mining_cameras/populate_contents()
+	for(var/i in 1 to 12)
+		new /obj/item/clothing/accessory/mining_camera(src)
 
 /obj/item/camera_bug/mining
 	name = "mining camera monitor"

@@ -680,7 +680,7 @@
 	icon_state = "surgcap_brown"
 
 //Mining medic
-/obj/item/clothing/head/beret/minmed
+/obj/item/clothing/head/beret/mining_medic
 	name = "mining medic's beret"
 	desc = "Коричневый берет с вышитым на нём белым крестом. Такой обычно носит шахтёрский врач."
 	ru_names = list(
