@@ -123,7 +123,7 @@ Almost every mining medic related stuff
 		/obj/item/clothing/accessory/mining_camera
 	)
 
-/obj/storage/box/mining_cameras/populate_contents()
+/obj/item/storage/box/mining_cameras/populate_contents()
 	for(var/i in 1 to 12)
 		new /obj/item/clothing/accessory/mining_camera(src)
 
