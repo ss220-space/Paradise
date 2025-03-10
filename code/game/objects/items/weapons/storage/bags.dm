@@ -243,16 +243,22 @@
 /obj/item/storage/bag/kaboom/AltClick(mob/user)
 	bombradialmenu(user)
 
-/obj/item/storage/bag/kaboom/attack(obj/object, mob/living/user, params)
+/obj/item/storage/bag/kaboom/attack(atom/a, mob/living/user, params, def_zone, skip_attack_anim)
 	. = ..()
-	if(contents == null)
-		balloon_alert(user, "Сумка пустая!")
+	var/turf/simulated/wall/W
+	if(isturf(a))
+		W = a
+	if(nextbomb == null)
+		balloon_alert(user, "Заряд не выбран!")
 	else
-		if(do_after(user, 5 SECONDS, object))
-			if(nextbomb == /obj/item/grenade/plastic/miningcharge)
+		if(do_after(user, 5 SECONDS, a))
+			if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
 				nextbombbutmining = nextbomb
 				nextbombbutmining.override_safety()
-			nextbomb.attack(object, user)
+			if(W != null)
+				nextbomb.attack(W, user, params, def_zone, skip_attack_anim)
+			else
+				nextbomb.attack(a, user, params, def_zone, skip_attack_anim)
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
