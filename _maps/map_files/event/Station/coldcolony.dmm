@@ -30985,6 +30985,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
+"lNG" = (
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plating/asteroid,
+/area/ruin/unpowered)
 "lNT" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -71221,7 +71225,7 @@ vPw
 vPw
 aXY
 tNe
-tNe
+lNG
 siG
 aKh
 tNe
