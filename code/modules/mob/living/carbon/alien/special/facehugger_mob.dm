@@ -142,7 +142,7 @@
 /mob/living/simple_animal/hostile/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	. = ..()
 	add_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
-	addtimer(CALLBACK(src, PROC_REF(remove_throw_traits)), 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(remove_throw_traits)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /mob/living/simple_animal/hostile/facehugger/proc/remove_throw_traits()
 	if(!throwing)

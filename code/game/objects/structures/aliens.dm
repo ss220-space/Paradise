@@ -176,7 +176,7 @@
 		return ..()
 
 	return try_switch_state(M)
-		
+
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
 	if(!isalien(user))
@@ -547,7 +547,7 @@
 	status = BURST
 	update_icon(UPDATE_ICON_STATE)
 	var/mob/living/simple_animal/hostile/facehugger/child = GetFacehugger()
-	
+
 	if(!child)
 		return
 
@@ -556,7 +556,7 @@
 		/datum/component/ghost_direct_control,\
 		ban_type = ROLE_ALIEN,\
 		poll_candidates = FALSE,\
-		after_assumed_control = CALLBACK(src, TYPE_PROC_REF(/mob/living/simple_animal/hostile/facehugger, add_datum_if_not_exist)),\
+		after_assumed_control = CALLBACK(child, TYPE_PROC_REF(/mob/living/simple_animal/hostile/facehugger, add_datum_if_not_exist)),\
 	)
 	if(kill)
 		child.death()
