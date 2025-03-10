@@ -158,6 +158,8 @@
 	alt_titles = list("Mining Medical Support", "Lavaland Health Officer")
 	outfit = /datum/outfit/job/mining_medic
 	insurance_type = INSURANCE_TYPE_EXTENDED
+	exp_requirements = 600 //10 hours
+	exp_type = EXP_TYPE_MEDICAL
 
 	salary = 150
 	min_start_money = 250
