@@ -1392,7 +1392,7 @@
 /turf/simulated/floor/plasteel,
 /area/mine/production)
 "dt" = (
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "darkblue"
@@ -1488,7 +1488,7 @@
 /obj/structure/fishingrodcabinet{
 	pixel_x = -32
 	},
-/obj/structure/closet/secure_closet/medical4,
+/obj/structure/closet/secure_closet/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"

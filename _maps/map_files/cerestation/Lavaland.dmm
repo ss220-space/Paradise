@@ -626,7 +626,7 @@
 	dir = 8;
 	id = "inf"
 	},
-/obj/structure/closet/secure_closet/medical4,
+/obj/structure/closet/secure_closet/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkblue"
@@ -6669,7 +6669,7 @@
 	dir = 8;
 	id = "inf"
 	},
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkyellow"

@@ -3018,7 +3018,7 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "uF" = (
-/obj/structure/closet/secure_closet/medical4,
+/obj/structure/closet/secure_closet/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkyellow"
@@ -3773,7 +3773,7 @@
 /obj/machinery/alarm{
 	pixel_y = 22
 	},
-/obj/machinery/suit_storage_unit/lavaland,
+/obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkblue"
