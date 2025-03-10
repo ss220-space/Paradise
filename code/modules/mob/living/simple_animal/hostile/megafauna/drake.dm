@@ -415,7 +415,7 @@ Difficulty: Medium
 		return STATUS_UPDATE_NONE
 	return ..()
 
-/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/living/simple_animal/hostile/megafauna/dragon/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	if(swooping & SWOOP_INVULNERABLE) //to suppress attack messages without overriding every single proc that could send a message saying we got hit
 		return
 	return ..()

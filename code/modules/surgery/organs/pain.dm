@@ -38,11 +38,11 @@
 	var/msg
 	switch(amount)
 		if(1 to 10)
-			msg = span_userdanger("<b>Your [partname] hurts.</b>")
+			msg = span_userdanger("<b>Вы чувствуете боль в [partname].</b>")
 		if(11 to 90)
-			msg = span_userdanger("<b><font size=2>Your [partname] hurts badly.</font></b>")
+			msg = span_userdanger("<b><font size=2>Вы чувствуете сильную боль в [partname]!</font></b>")
 		if(91 to INFINITY)
-			msg = span_userdanger("<b><font size=3>OH GOD! Your [partname] is hurting terribly!</font></b>")
+			msg = span_userdanger("<b><font size=3>Ох чёрт! Вы чувствуете невыносимую боль в [partname]!</font></b>")
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		to_chat(src, msg)
@@ -80,7 +80,7 @@
 			damaged_organ = bodypart
 			maxdam = dam
 		if(damaged_organ)
-			pain(damaged_organ.name, maxdam)
+			pain(damaged_organ.declent_ru(PREPOSITIONAL), maxdam)
 
 	// Damage to internal organs hurts a lot.
 	for(var/obj/item/organ/internal/organ as anything in internal_organs)
@@ -88,6 +88,6 @@
 			continue
 		if(organ.damage > 2 && prob(2))
 			var/obj/item/organ/external/parent = get_organ(organ.parent_organ_zone)
-			custom_pain("You feel a sharp pain in your [parent.name]")
+			custom_pain("Вы чувствуете острую боль в [parent.declent_ru(PREPOSITIONAL)].")
 
 #undef MIN_SHOCK_REDUCTION

@@ -472,9 +472,17 @@
 			victim.Stun(3 SECONDS)
 
 	if(ishuman(victim))
-		victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
+		var/mob/living/carbon/human/human_victim = target
+
+		if(human_victim.check_shields(src, 25))
+			return
+
+		if(check_martial_counter(human_victim, user))
+			return
+
+		human_victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
 		if(prob(30))
-			victim.Knockdown(3 SECONDS)
+			human_victim.Knockdown(3 SECONDS)
 
 /obj/item/melee/ghostface_knife
 	name = "Knife"

@@ -126,6 +126,7 @@
 					<a href='byond://?src=[UID()];secretsfun=prisonwarp'>Warp all Players to Prison</A><BR>
 					<a href='byond://?src=[UID()];secretsfun=stupify'>Make all players stupid</A><BR>
 					<A href='byond://?src=[UID()];secretsfun=customportal'>Spawn a custom portal storm</A><BR>
+					<A href='byond://?src=[UID()];secretsfun=mass_mindswap'>Mass mindswap</A><BR>
 					<b>Misc</b><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</A>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</A><BR>

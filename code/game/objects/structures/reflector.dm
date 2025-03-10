@@ -9,16 +9,16 @@
 	var/finished = FALSE
 
 
-/obj/structure/reflector/bullet_act(obj/item/projectile/P)
+/obj/structure/reflector/bullet_act(obj/projectile/P)
 	var/turf/reflector_turf = get_turf(src)
 	var/turf/reflect_turf
-	if(!istype(P, /obj/item/projectile/beam))
+	if(!istype(P, /obj/projectile/beam))
 		return ..()
 	var/new_dir = get_reflection(dir, P.dir)
 	if(new_dir)
 		reflect_turf = get_step(reflect_turf, new_dir)
 	else
-		visible_message("<span class='notice'>[src] is hit by [P]!</span>")
+		visible_message(span_notice("[src] is hit by [P]!"), projectile_message = TRUE)
 		new_dir = 0
 		return ..() //Hits as normal, explodes or emps or whatever
 
@@ -137,10 +137,9 @@
 	return TRUE
 
 
-/obj/structure/reflector/AltClick(mob/user)
-	if(!Adjacent(user))
-		return
+/obj/structure/reflector/click_alt(mob/user)
 	rotate()
+	return CLICK_ACTION_SUCCESS
 
 
 //TYPES OF REFLECTORS, SINGLE, DOUBLE, BOX

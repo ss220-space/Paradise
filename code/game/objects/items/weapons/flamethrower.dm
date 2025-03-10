@@ -157,18 +157,15 @@
 /obj/item/flamethrower/attack_self(mob/user)
 	toggle_igniter(user)
 
-/obj/item/flamethrower/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
-	if(ptank)
-		ptank.forceMove_turf()
-		user.put_in_hands(ptank, ignore_anim = FALSE)
-		ptank = null
-		to_chat(user, "<span class='notice'>You remove the plasma tank from [src]!</span>")
-		update_icon()
+/obj/item/flamethrower/click_alt(mob/living/user)
+	if(!ptank)
+		return NONE
+	ptank.forceMove_turf()
+	user.put_in_hands(ptank, ignore_anim = FALSE)
+	ptank = null
+	to_chat(user, span_notice("You remove the plasma tank from [src]!"))
+	update_icon()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/flamethrower/examine(mob/user)
 	. = ..()
@@ -262,7 +259,7 @@
 
 
 /obj/item/flamethrower/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	var/obj/item/projectile/P = hitby
+	var/obj/projectile/P = hitby
 	if(ptank && damage && attack_type == PROJECTILE_ATTACK && P.damage_type != STAMINA && prob(15))
 		owner.visible_message("<span class='danger'>[attack_text] hits the fueltank on [owner]'s [src], rupturing it! What a shot!</span>")
 		var/turf/target_turf = get_turf(owner)

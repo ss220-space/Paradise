@@ -389,11 +389,10 @@ Pipelines + Other Objects -> Pipe network
 #undef VENT_SOUND_DELAY
 
 
-/obj/machinery/atmospherics/AltClick(mob/living/user)
+/obj/machinery/atmospherics/click_alt(mob/living/user)
 	if((vent_movement & VENTCRAWL_ALLOWED) && istype(user))
 		user.handle_ventcrawl(src)
-		return
-	return ..()
+		return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/atmospherics/proc/change_color(new_color)

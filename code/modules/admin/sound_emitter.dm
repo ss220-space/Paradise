@@ -58,10 +58,11 @@
 		return
 	edit_emitter(user)
 
-/obj/effect/sound_emitter/AltClick(mob/user)
+/obj/effect/sound_emitter/click_alt(mob/user)
 	if(check_rights_for(user.client, R_SOUNDS))
 		activate(user)
 		to_chat(user, span_notice("Звуковой излучатель активирован."))
+		return CLICK_ACTION_SUCCESS
 
 /obj/effect/sound_emitter/proc/edit_emitter(mob/user)
 	var/dat = ""

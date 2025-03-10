@@ -215,7 +215,7 @@
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
-/mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(var/obj/projectile/Proj)
 
 	Proj.on_hit(src,2)
 

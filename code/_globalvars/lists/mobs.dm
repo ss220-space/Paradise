@@ -58,3 +58,8 @@ GLOBAL_LIST_EMPTY(mining_vendor_items)
 
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 
+GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
+	/turf/simulated/floor/lava,
+	/turf/simulated/floor/chasm,
+	/turf/space,
+	/turf/space/openspace)))

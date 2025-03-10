@@ -25,6 +25,9 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
+	/// Flags to check for in can_perform_action. Used in alt-click checks
+	var/interaction_flags_click = 0
+
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
 
@@ -105,6 +108,9 @@
 	var/tts_seed = "Arthas"
 	var/tts_atom_say_effect = SOUND_EFFECT_RADIO
 
+	///AI controller that controls this atom. type on init, then turned into an instance during runtime
+	var/datum/ai_controller/ai_controller
+
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
 	if(GLOB.use_preloader && (src.type == GLOB._preloader.target_path))//in case the instanciated atom is creating other atoms in New()
@@ -155,6 +161,7 @@
 	SETUP_SMOOTHING()
 
 	ComponentInitialize()
+	InitializeAIController()
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -220,7 +227,7 @@
 		overlays.Cut()
 
 	LAZYNULL(managed_overlays)
-
+	QDEL_NULL(ai_controller)
 	QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
@@ -366,7 +373,7 @@
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	return TRUE
 
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+/atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
@@ -619,13 +626,13 @@
 	if(.)
 		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, "<div class='examine'><span class='info'>[get_description_info()]</span></div>")
+		to_chat(usr, span_info("<div class='examine'>[get_description_info()]</div>"))
 		return TRUE
 	if(href_list["description_antag"])
-		to_chat(usr, "<div class='examine'><span class='syndradio'>[get_description_antag()]</span></div>")
+		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
 		return TRUE
 	if(href_list["description_fluff"])
-		to_chat(usr, "<div class='examine'><span class='notice'>[get_description_fluff()]</span></div>")
+		to_chat(usr,  span_notice("<div class='examine'>[get_description_fluff()]</div>"))
 		return TRUE
 
 /atom/proc/relaymove()
@@ -679,7 +686,7 @@
 //Check if the multitool has an item in its data buffer
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
-		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
+		balloon_alert(user, "буфер данных отсутствует!")
 	return FALSE
 
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
@@ -746,6 +753,7 @@
 
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
@@ -1220,7 +1228,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		M.show_message(span_gamesay(span_name("[src]") + " [atom_say_verb], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1250,7 +1258,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		tts_seeds = SStts.get_available_seeds(src)
 
-	var/new_tts_seed = tgui_input_list(user || src, "Choose your preferred voice:", "Character Preference", tts_seeds, tts_seed)
+	var/new_tts_seed = tgui_input_list(user || src, "Выберите предпочитаемый голос:", "Выбор голоса", tts_seeds, tts_seed)
 	if(!new_tts_seed)
 		new_tts_seed = tts_seed
 	if(!silent_target && ismob(src) && src != user)
@@ -1276,7 +1284,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/atom_emote(emote)
 	if(!emote)
 		return
-	visible_message(span_game_emote("<span class='name'>[src]</span> [emote]"), span_game_emote("Вы слышите, как что-то [emote]."))
+	visible_message(span_game_emote(span_name("[src]") + "[emote]"), span_game_emote("Вы слышите, как что-то [emote]."))
 
 	runechat_emote(src, emote)
 
@@ -1571,7 +1579,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
-/atom/proc/handle_ricochet(obj/item/projectile/ricocheting_projectile)
+/atom/proc/handle_ricochet(obj/projectile/ricocheting_projectile)
 	var/turf/p_turf = get_turf(ricocheting_projectile)
 	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
 	var/face_angle = dir2angle(face_direction)
@@ -1724,8 +1732,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!usr?.client)
 		return
 
-	if(loc != usr.listed_turf)
-		return
 
 	if(href_list["statpanel_item_click"])
 		var/client/usr_client = usr.client
@@ -1764,3 +1770,12 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 ///returns how much the object blocks an explosion. Used by subtypes.
 /atom/proc/get_explosion_block()
 	CRASH("Unimplemented get_explosion_block()")
+
+/**
+* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
+*
+* This will work fine without manually passing arguments.
++*/
+/atom/proc/InitializeAIController()
+	if(ai_controller)
+		ai_controller = new ai_controller(src)

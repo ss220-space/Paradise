@@ -68,8 +68,11 @@
 	if(cooldown_on)
 		to_chat(user, span_warning("[src] is still recharging!"))
 		return
-
-	new /obj/effect/particle_effect/foam(loc)
+	
+	var/datum/effect_system/fluid_spread/foam/s = new()
+	s.set_up(range = 3, location = loc)
+	s.start()
+	
 	uses--
 	cooldown_on = TRUE
 	update_icon(UPDATE_ICON_STATE)

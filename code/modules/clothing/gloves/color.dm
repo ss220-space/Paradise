@@ -2,8 +2,17 @@
 	dying_key = DYE_REGISTRY_GLOVES
 
 /obj/item/clothing/gloves/color/yellow
-	desc = "These gloves will protect the wearer from electric shock."
 	name = "insulated gloves"
+	desc = "These gloves will protect the wearer from electric shock."
+	ru_names = list(
+		NOMINATIVE = "изоляционные перчатки",
+		GENITIVE = "изоляционных перчаток",
+		DATIVE = "изоляционным перчаткам",
+		ACCUSATIVE = "изоляционные перчатки",
+		INSTRUMENTAL = "изоляционными перчатками",
+		PREPOSITIONAL = "изоляционных перчатках"
+	)
+	gender = PLURAL
 	icon_state = "yellow"
 	item_state = "ygloves"
 	belt_icon = "ygloves"

@@ -149,12 +149,12 @@
 /obj/item/ammo_casing/magic/contractor_hook
 	name = "Hardlight hook"
 	desc = "a hardlight hook."
-	projectile_type = /obj/item/projectile/contractor_hook
+	projectile_type = /obj/projectile/contractor_hook
 	caliber = "hardlight_hook"
 	icon_state = "hard_hook"
 	muzzle_flash_effect = null
 
-/obj/item/projectile/contractor_hook
+/obj/projectile/contractor_hook
 	name = "Hardlight hook"
 	icon_state = "hard_hook"
 	icon = 'icons/obj/weapons/projectiles.dmi'
@@ -166,12 +166,12 @@
 	ricochet_chance = 0
 	range = 7
 
-/obj/item/projectile/contractor_hook/fire(setAngle)
+/obj/projectile/contractor_hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "hard_chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 
-/obj/item/projectile/contractor_hook/on_hit(atom/target, blocked = 0)
+/obj/projectile/contractor_hook/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(blocked >= 100)
 		return 0
@@ -187,7 +187,7 @@
 
 
 
-/obj/item/projectile/contractor_hook/Destroy()
+/obj/projectile/contractor_hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 /*
@@ -220,7 +220,7 @@
 	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
 	switch(selected_chameleon)
 		if("EVA")
-			src.name = "EVA suit"
+			src = "EVA suit"
 			src.icon_state = "spacenew"
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 			helmet.name = "EVA helmet"
@@ -228,7 +228,7 @@
 			helmet.icon_state = "spacenew"
 			helmet.item_color = "medical"
 		if("Mining Hardsuit")
-			src.name = "mining hardsuit"
+			src = "mining hardsuit"
 			src.icon_state = "hardsuit-mining"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
 			helmet.name = "mining hardsuit helmet"
@@ -236,7 +236,7 @@
 			helmet.icon_state = "hardsuit0-mining"
 			helmet.item_color = "mining"
 		if("Medical Hardsuit")
-			src.name = "medical hardsuit"
+			src = "medical hardsuit"
 			src.icon_state = "hardsuit-medical"
 			src.desc = "A special suit designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
 			helmet.name = "medical hardsuit helmet"
@@ -244,7 +244,7 @@
 			helmet.icon_state = "hardsuit0-medical"
 			helmet.item_color = "medical"
 		if("Security Hardsuit")
-			src.name = "security hardsuit"
+			src = "security hardsuit"
 			src.icon_state = "hardsuit-sec"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 			helmet.name = "security hardsuit helmet"
@@ -252,7 +252,7 @@
 			helmet.icon_state = "hardsuit0-sec"
 			helmet.item_color = "sec"
 		if("Engineering Hardsuit")
-			src.name = "engineering hardsuit"
+			src = "engineering hardsuit"
 			src.icon_state = "hardsuit-engineering"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
 			helmet.name = "engineering hardsuit helmet"
@@ -270,7 +270,7 @@
 
 
 /obj/item/clothing/suit/space/hardsuit/contractor/proc/disable_chameleon()
-	src.name = initial(src.name)
+	src = initial(src)
 	src.icon_state = initial(src.icon_state)
 	src.desc = initial(src.desc)
 	helmet.name = initial(helmet.name)

@@ -162,10 +162,9 @@
 	armed = TRUE
 
 
-/obj/item/assembly/mousetrap/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/item/assembly/mousetrap/click_alt(mob/user)
 	hide_under(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/assembly/mousetrap/verb/hide_under_verb()

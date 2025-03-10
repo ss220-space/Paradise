@@ -738,6 +738,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		ptypes += "Crew Traitor"
 		ptypes += "Floor Cluwne"
 		ptypes += "Shamebrero"
+		ptypes += "Fat"
+		ptypes += "Fakebwoink"
 		ptypes += "Nugget"
 		ptypes += "Rod"
 		ptypes += "Dust"
@@ -857,6 +859,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 			H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 			logmsg = "shamebrero"
+
+		if("Fat")
+			H.set_nutrition(NUTRITION_LEVEL_FAT * 2)
+
+		if("Fakebwoink")
+			SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
 
 		if("Nugget")
 			H.Weaken(12 SECONDS, TRUE)

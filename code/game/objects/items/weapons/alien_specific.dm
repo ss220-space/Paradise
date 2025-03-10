@@ -31,8 +31,8 @@
 	icon_state = "borg-spray-smoke"
 
 /obj/item/reagent_containers/spray/alien/smoke/afterattack(atom/A, mob/user, proximity, params)
-	var/datum/effect_system/smoke_spread/bad/smoke = new
-	smoke.set_up(5, 0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
+	smoke.set_up(amount = 5, location = user.loc)
 	smoke.start()
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 2)
 	user.changeNext_move(delay)
@@ -56,11 +56,10 @@
 /obj/item/reagent_containers/spray/alien/stun/afterattack(atom/A, mob/user, proximity, params)
 	var/datum/reagents/reagents_list = new (250)
 	reagents_list.add_reagent("blob_cryogenic_poison", 250) // new blow reagent because old was deleted
-
-	var/datum/effect_system/smoke_spread/chem/smoke = new
-	smoke.set_up(reagents_list, user.loc)
-	smoke.start(3)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
 	playsound(user.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
+	smoke.start(TRUE)
 	user.changeNext_move(delay)
 
 	var/mob/living/silicon/robot/Robot = user

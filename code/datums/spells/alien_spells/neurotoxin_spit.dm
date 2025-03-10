@@ -5,7 +5,7 @@
 	plasma_cost = 50
 	selection_activated_message		= span_noticealien("<B>Your prepare some neurotoxin!</B>")
 	selection_deactivated_message	= span_noticealien("<B>You swallow your prepared neurotoxin.</B>")
-	var/neurotoxin_type = /obj/item/projectile/bullet/neurotoxin
+	var/neurotoxin_type = /obj/projectile/bullet/neurotoxin
 	action_icon_state = "alien_neurotoxin_0"
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 
@@ -39,7 +39,7 @@
 	if(!istype(U) || !istype(T))
 		return FALSE
 
-	var/obj/item/projectile/bullet/neurotoxin/neurotoxin = new neurotoxin_type(user.loc)
+	var/obj/projectile/bullet/neurotoxin/neurotoxin = new neurotoxin_type(user.loc)
 	neurotoxin.current = get_turf(user)
 	neurotoxin.original = target
 	neurotoxin.firer = user

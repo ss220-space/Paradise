@@ -108,12 +108,12 @@
 	open_bag(user)
 
 
-/obj/item/shared_storage/AltClick(mob/user)
+/obj/item/shared_storage/click_alt(mob/user)
 	if(!bag || !iscarbon(user) || loc != user)
-		return ..()
+		return NONE
 
 	open_bag(user)
-
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/shared_storage/attack_hand(mob/living/carbon/user)
@@ -127,14 +127,14 @@
 
 /obj/item/book_of_babel
 	name = "Book of Babel"
-	desc = "Древнейший фолиант, написанный в бесчисленном множестве языков."
+	desc = "Древнейший фолиант, написанный на бесчисленном множестве языков."
 	ru_names = list(
-		NOMINATIVE = "книга Вавилона",
-		GENITIVE = "книги Вавилона",
-		DATIVE = "книге Вавилона",
-		ACCUSATIVE = "книгу Вавилона",
-		INSTRUMENTAL = "книгой Вавилона",
-		PREPOSITIONAL = "книге Вавилона"
+		NOMINATIVE = "Вавилонская книга",
+		GENITIVE = "Вавилонской книги",
+		DATIVE = "Вавилонской книге",
+		ACCUSATIVE = "Вавилонскую книгу",
+		INSTRUMENTAL = "Вавилонской книгой",
+		PREPOSITIONAL = "Вавилонской книге"
 	)
 	icon = 'icons/obj/library.dmi'
 	icon_state = "book1"
@@ -374,15 +374,15 @@
 		balloon_alert(user, "куб искрится и шипит.")
 		return
 	if(do_after(user, 1.5 SECONDS, user))
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(1, 0, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 1, location = user.loc)
 		smoke.start()
 
 		user.forceMove(get_turf(linked))
 		SSblackbox.record_feedback("tally", "warp_cube", 1, type)
 
-		var/datum/effect_system/smoke_spread/smoke2 = new
-		smoke2.set_up(1, 0, user.loc)
+		var/datum/effect_system/fluid_spread/smoke/smoke2 = new
+		smoke2.set_up(amount = 1, location = user.loc)
 		smoke2.start()
 	else
 		balloon_alert(user, "прервано из-за движения")
@@ -440,12 +440,12 @@
 		INSTRUMENTAL = "крюком",
 		PREPOSITIONAL = "крюке"
 	)
-	projectile_type = /obj/item/projectile/hook
+	projectile_type = /obj/projectile/hook
 	caliber = "hook"
 	icon_state = "hook"
 	muzzle_flash_effect = null
 
-/obj/item/projectile/hook
+/obj/projectile/hook
 	name = "hook"
 	icon_state = "hook"
 	icon = 'icons/obj/lavaland/artefacts.dmi'
@@ -456,13 +456,13 @@
 	hitsound = 'sound/effects/splat.ogg'
 	weaken = 2 SECONDS
 
-/obj/item/projectile/hook/fire(setAngle)
+/obj/projectile/hook/fire(setAngle)
 	if(firer)
-		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1)
+		chain = firer.Beam(src, icon_state = "chain", time = INFINITY, maxdistance = INFINITY)
 	..()
 	//TODO: root the firer until the chain returns
 
-/obj/item/projectile/hook/on_hit(atom/target)
+/obj/projectile/hook/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/turf/firer_turf = get_turf(firer)
@@ -473,7 +473,7 @@
 			L.forceMove(firer_turf)
 			REMOVE_TRAIT(L, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 
-/obj/item/projectile/hook/Destroy()
+/obj/projectile/hook/Destroy()
 	QDEL_NULL(chain)
 	return ..()
 

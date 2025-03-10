@@ -836,7 +836,15 @@
 
 /obj/item/reagent_containers/food/snacks/croissant
 	name = "croissant"
-	desc = "Once a pastry reserved for the bourgeois, this flaky goodness is now on your table."
+	desc = "Когда-то эта изысканная слоёная выпечка была доступна только состоятельным людям, но теперь она стала частью вашего повседневного меню."
+	ru_names = list(
+		NOMINATIVE = "круассан",
+		GENITIVE = "круассана",
+		DATIVE = "круассану",
+		ACCUSATIVE = "круассан",
+		INSTRUMENTAL = "круассаном",
+		PREPOSITIONAL = "круассане"
+	)
 	icon_state = "croissant"
 	bitesize = 4
 	filling_color = "#ecb54f"

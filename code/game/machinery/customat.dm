@@ -190,7 +190,7 @@
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
-/obj/machinery/customat/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/customat/bullet_act(obj/projectile/P, def_zone)
 	. = ..(P, def_zone)
 
 	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))
@@ -753,17 +753,18 @@
 	stat |= BROKEN
 	update_icon(UPDATE_OVERLAYS)
 
-/obj/machinery/customat/AltClick(atom/movable/A)
+/obj/machinery/customat/click_alt(atom/movable/A)
 	if(!panel_open)
 		balloon_alert(A, "панель закрыта")
-		return
+		return CLICK_ACTION_BLOCKING
 
 	if(isLocked())
 		balloon_alert(A, "автомат заблокирован")
-		return
+		return CLICK_ACTION_BLOCKING
 
 	balloon_alert(A, "быстрый режим " + (fast_insert ? "отключен" : "включен"))
 	fast_insert = !fast_insert
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/customat/emp_act(severity)
 	switch(severity)

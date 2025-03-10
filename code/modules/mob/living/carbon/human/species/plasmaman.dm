@@ -48,7 +48,7 @@
 		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/plasmaman,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/plasmaman,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/plasmaman,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/plasmaman,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/plasmaman

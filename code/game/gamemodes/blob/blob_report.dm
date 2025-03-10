@@ -64,10 +64,10 @@
 				for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)
 					if(aiPlayer.client)
 						aiPlayer.laws.clear_zeroth_laws()
-						SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "блоб уничтожен, нулевой закон удален")
+						SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "организм уничтожен, нулевой закон удален")
 						to_chat(aiPlayer, span_warning("Законы обновлены"))
 
-	print_command_report(intercepttext, interceptname, FALSE)
+	special_directive(intercepttext, interceptname)
 	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
 
 /datum/station_state

@@ -134,6 +134,8 @@
 			continue
 		if(!(species in S.species_allowed))	// If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
 			continue
+		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
+			continue
 		if(location == "tail")
 			if(!body_accessory)
 				if(S.tails_allowed)

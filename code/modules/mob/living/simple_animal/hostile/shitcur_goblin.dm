@@ -14,7 +14,7 @@
 	ranged = TRUE
 	ranged_message = "thorws a warn"
 	ranged_cooldown_time = 3 SECONDS
-	projectiletype = /obj/item/projectile/energy/electrode
+	projectiletype = /obj/projectile/energy/electrode
 	projectilesound = 'sound/weapons/taser.ogg'
 	AI_delay_max = 0 SECONDS
 

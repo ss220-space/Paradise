@@ -849,7 +849,7 @@
 	build_path = /obj/item/storage/pill_bottle/bluespace
 	category = list("Medical")
 
-/datum/design/adv_reagent_scanner
+/datum/design/inugami_medical_gloves
 	name = "Inugami medical gloves"
 	id = "medical_gloves_inugami"
 	req_tech = list("materials" = 7, "biotech" = 7, "magnets" = 8, "programming" = 7)

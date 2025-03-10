@@ -500,9 +500,9 @@
 	playsound(user, 'sound/effects/bamf.ogg', 50, TRUE)
 	var/datum/reagents/reagents_list = new (1000)
 	reagents_list.add_reagent("blindness_smoke", 810)
-	var/datum/effect_system/smoke_spread/chem/chem_smoke = new
-	chem_smoke.set_up(reagents_list, user.loc, TRUE)
-	chem_smoke.start(4)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
+	smoke.start()
 
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls

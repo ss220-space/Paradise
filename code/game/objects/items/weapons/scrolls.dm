@@ -63,8 +63,8 @@
 		to_chat(user, "<span class='warning'>A mysterious force disrupts your arcane spell matrix, and you remain where you are.</span>")
 		return
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = user.loc)
 	smoke.attach(user)
 	smoke.start()
 	var/list/L = list()

@@ -117,8 +117,9 @@
 /obj/machinery/microscope/proc/is_complete_print(print)
 	return stringpercent(print) <= fingerprint_complete
 
-/obj/machinery/microscope/AltClick(mob/user)
+/obj/machinery/microscope/click_alt(mob/user)
 	remove_sample(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/machinery/microscope/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
 	if(usr == over_object)
