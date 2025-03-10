@@ -451,7 +451,7 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
-/obj/item/storage/firstaid/mining_medic
+/obj/item/storage/firstaid/doctor/mining_medic
 	name = "mining first-aid kit"
 	desc = "Это аптечка для экстренной первой помощи, используемая шахтёрским врачом."
 	ru_names = list(
