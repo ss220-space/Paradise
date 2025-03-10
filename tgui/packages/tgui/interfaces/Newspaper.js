@@ -55,7 +55,9 @@ export const Newspaper = (props, context) => {
               date.getDate() +
               ' ' +
               monthNames[date.getMonth()] +
-              ', 2568 год'}
+              ', ' +
+              (date.getFullYear() + 544) +
+              ' год'}
           </Flex.Item>
         </Flex>
 
