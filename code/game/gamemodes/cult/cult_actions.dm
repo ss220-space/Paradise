@@ -13,7 +13,7 @@
 //Comms
 /datum/action/innate/cult/comm
 	name = "Молитва"
-	desc = "Прошептать слова которые смогут услышать все культисты. <br><b>Осторожно!</b> Стоящие рядом не-культисты могут услышать шепот!"
+	desc = "Прошептать слова, которые смогут услышать все культисты. <br><b>Осторожно!</b> Стоящие рядом не культисты могут услышать шепот!"
 	button_icon_state = "cult_comms"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
@@ -28,11 +28,11 @@
 	if(!user || !message)
 		return
 	if(!user.can_speak())
-		to_chat(user, "<span class='warning'>Вы не можете говорить!</span>")
+		to_chat(user, span_warning("Вы не можете говорить!"))
 		return
 
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] что-то шепч[genderize_ru(user.gender, "ет", "ет", "ут", "ат")] себе под нос.</span>",
+		user.visible_message(span_notice("[user] что-то шепч[genderize_ru(user.gender, "ет", "ет", "ут", "ат")] себе под нос."),
 		"<span class='notice'>Вы начинаете шептать про себя.</span>") //Make them do *something* abnormal.
 		sleep(10)
 	else
@@ -42,9 +42,9 @@
 
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = "<span class='cultlarge'><b>Предвестник Резни:</b> [message]</span>"
+		my_message = span_cultlarge("<b>Предвестник Резни:</b> [message]")
 	else
-		my_message = "<span class='cultspeech'><b>[(isconstruct(user) ? "Конструкт" : isshade(user) ? "" : "Аколит")] [user.real_name]:</b> [message]</span>"
+		my_message = span_cultspeech("<b>[(isconstruct(user) ? "Конструкт" : isshade(user) ? "" : "Аколит")] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
@@ -95,7 +95,7 @@
 	if(SSticker && SSticker.mode)
 		SSticker.mode.cult_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='cultitalic'>Вы не смогли изучить печать. (Такого не должно случиться, сообщите в админхелп и/или обматерите кодеров)</span>")
+		to_chat(usr, span_cultitalic("Вы не смогли изучить печать. (Такого не должно случиться, сообщите в админхелп и/или обматерите кодеров)"))
 
 
 //Draw rune
@@ -132,4 +132,4 @@
 		owner.put_in_hands(dagger)
 		dagger.attack_self(owner)
 	else
-		to_chat(usr, "<span class='cultitalic'>Кажется у вас нет ритуального клинка чтобы нарисовать руну. Если вам нужен новый, используйте заклинание Подготовки клинка.</span>")
+		to_chat(usr, span_cultitalic("Кажется у вас нет ритуального клинка чтобы нарисовать руну. Если вам нужен новый, используйте заклинание Призыв Клинка."))

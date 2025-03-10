@@ -36,10 +36,10 @@
 	if(length(spells) >= limit)
 		if(rune)
 			to_chat(owner, span_cultitalic("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b>"))
-			remove_spell("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s, выберите заклинание для удаления.")
+			remove_spell("Вы не можете хранить больше [MAX_BLOODCHARGE] заклинани[declension_ru(MAX_BLOODCHARGE,"я", "ий", "ий")]\s, выберите заклинание для удаления.")
 		else
 			to_chat(owner, span_cultitalic("Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления! <b>Pick a spell to remove.</b>"))
-			remove_spell("Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления, выберите заклинание для удаления.")
+			remove_spell("Вы не можете хранить больше [RUNELESS_MAX_BLOODCHARGE] заклинани[declension_ru(RUNELESS_MAX_BLOODCHARGE,"я", "ий", "ий")]\s без руны усиления, выберите заклинание для удаления.")
 		return
 	var/entered_spell_name
 	var/datum/action/innate/cult/blood_spell/BS
@@ -86,7 +86,7 @@
 
 /datum/action/innate/cult/blood_spell //The next generation of talismans, handles storage/creation of blood magic
 	name = "Магия Крови"
-	name_accusative = "Магию Крови"
+	var/name_accusative = "Магию Крови"
 	button_icon_state = "telerune"
 	desc = "Бойся Древних Богов."
 	var/charges = 1
@@ -99,10 +99,10 @@
 
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
-		desc += "<br>Наносит <u>[health_cost] единиц[declension_ru(ceil_cooldown,"у", "ы", "")] физического урона</u> руке за использование."
+		desc += "<br>Наносит <u>[health_cost] единиц[declension_ru(health_cost,"у", "ы", "")] физического урона</u> руке за использование."
 
 	base_desc = desc
-	desc += "<br><b><u>Осталось еще [charges] заряд[declension_ru(ceil_cooldown,"", "а", "ов")] </u></b>."
+	desc += "<br><b><u>Осталось еще [charges] заряд[declension_ru(health_cost,"", "а", "ов")] </u></b>."
 	all_magic = BM
 	button.ordered = FALSE
 
