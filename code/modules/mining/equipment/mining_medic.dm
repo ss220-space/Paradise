@@ -97,7 +97,7 @@ Almost every mining medic related stuff
 		balloon_alert(user, "ретрансляция [news_feed ? "в" : "вы"]ключена!")
 		return CLICK_ACTION_SUCCESS
 
-/obj/storage/box/mining_cameras
+/obj/item/storage/box/mining_cameras
 	name = "mining camera box"
 	desc = "Небольшая коробка, предназначенная для хранения шахтёрских видеокамер."
 	ru_names = list(
