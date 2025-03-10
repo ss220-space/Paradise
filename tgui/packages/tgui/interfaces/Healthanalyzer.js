@@ -234,9 +234,7 @@ export const Healthanalyzer = (props, context) => {
                     )}
 
                     <LabeledList.Item label="Пульс">
-                      <span
-                        style={{ color: '#0080ff' }}
-                      >
+                      <span style={scan_data.pulse === 0 && { color: 'red' }}>
                         {scan_data.pulse} уд/мин
                       </span>
                     </LabeledList.Item>
