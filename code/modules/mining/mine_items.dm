@@ -72,7 +72,7 @@
 	new /obj/item/storage/belt/medical(src)
 	new /obj/item/camera_bug/mining(src)
 	new /obj/item/flashlight/lantern(src)
-	new /obj/storage/box/mining_cameras(src)
+	new /obj/item/storage/box/mining_cameras(src)
 	new /obj/item/radio/headset/headset_mining_medic(src)
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
