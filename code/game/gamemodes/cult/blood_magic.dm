@@ -61,7 +61,7 @@
 
 	if(!channeling)
 		channeling = TRUE
-		to_chat(owner, span_cultitalic("вы начали чертить странные символы на своей плоти!"))
+		to_chat(owner, span_cultitalic("Вы начали чертить странные символы на своей плоти!"))
 	else
 		to_chat(owner, span_warning("Вы уже готовите магию крови!"))
 		return
@@ -76,7 +76,7 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
-		to_chat(owner, span_cult("Ваши раны наполнены энергией, вы приготовили заклинание [new_spell.name]!"))
+		to_chat(owner, span_cult("Ваши раны наполнились энергией, вы приготовили заклинание [new_spell.name_accusative]!"))
 	channeling = FALSE
 
 /datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Выберите заклинание для удаления.")
@@ -102,7 +102,7 @@
 		desc += "<br>Наносит <u>[health_cost] единиц[declension_ru(health_cost,"у", "ы", "")] физического урона</u> руке за использование."
 
 	base_desc = desc
-	desc += "<br><b><u>Осталось еще [charges] заряд[declension_ru(health_cost,"", "а", "ов")] </u></b>."
+	desc += "<br><b><u>Остал[declension_ru(charges, "ся", "ось", "ось")] еще [charges] заряд[declension_ru(charges, "", "а", "ов")] </u></b>."
 	all_magic = BM
 	button.ordered = FALSE
 
@@ -134,7 +134,7 @@
 				hand_magic = null
 				to_chat(owner, span_warning("Вам нужны свободные руки чтобы использовать магию кровим!"))
 				return
-			to_chat(owner, span_cult("Ваши раны светятся, когда вы пробуждаете [name_accusative]."))
+			to_chat(owner, span_cult("Ваши раны светятся, вы пробуждаете [name_accusative]."))
 
 		else // If the spell is active, and you clicked on the button for it
 			qdel(hand_magic)
@@ -160,7 +160,7 @@
 
 /datum/action/innate/cult/blood_spell/emp
 	name = "Электромагнитный Импульс"
-	desc = "Проводит электромагнитный импульс по вашему телу и выпускает его, задевая некультистов рядом. <b>Вы также подвержены импульсу.</b>"
+	desc = "Проводит электромагнитный импульс по вашему телу и выпускает его, задевая не культистов рядом. <b>Вы также подвержены импульсу.</b>"
 	button_icon_state = "emp"
 	health_cost = 10
 	invocation = "Та'гх фара'кха фел д'амар дет!"
