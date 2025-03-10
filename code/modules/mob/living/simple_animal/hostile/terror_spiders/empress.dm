@@ -27,7 +27,7 @@
 	ai_playercontrol_allowtype = 0
 	canlay = 1000
 	spider_tier = TS_TIER_5
-	projectiletype = /obj/item/projectile/terrorspider/empress
+	projectiletype = /obj/projectile/terrorspider/empress
 	icon = 'icons/mob/terrorspider64.dmi'
 	pixel_x = -16
 	move_resist = MOVE_FORCE_STRONG // no more pushing a several hundred if not thousand pound spider
@@ -134,7 +134,7 @@
 	to_chat(src, span_userdanger("Все пауки ужаса, кроме вас, вскоре вымрут."))
 
 
-/obj/item/projectile/terrorspider/empress
+/obj/projectile/terrorspider/empress
 	name = "empress venom"
 	icon_state = "toxin5"
 	damage = 90

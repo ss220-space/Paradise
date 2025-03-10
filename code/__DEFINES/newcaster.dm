@@ -14,14 +14,14 @@ GLOBAL_LIST_EMPTY(allNewscasters)
 
 // Channels and main editors names
 /// Station Announcements - every big text like "nuke ops incoming"
-#define NEWS_CHANNEL_STATION "Public Station Announcements"
-	#define EDITOR_STATION "Automated Announcement Listing"
+#define NEWS_CHANNEL_STATION "Публичные станционные оповещения"
+	#define EDITOR_STATION "Автоматический листинг оповещений"
 /// Nyx Daily - everyday-ish news about NT
-#define NEWS_CHANNEL_NYX "Nyx Daily"
-	#define EDITOR_NYX "CentComm Minister of Information"
+#define NEWS_CHANNEL_NYX "Никс Дейли"
+	#define EDITOR_NYX "Министерство Информации Центрального Командования"
 /// Gibson Gazette - everyhour-ish news about clickbait-worthy topics
-#define NEWS_CHANNEL_GIB "The Gibson Gazette"
-	#define EDITOR_GIB "Editor Mike Hammers"
+#define NEWS_CHANNEL_GIB "Газета Гибсона"
+	#define EDITOR_GIB "Редактор Майк Хаммерс"
 
 // Censor flags
 /// Censor author name.

@@ -127,7 +127,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/herald/proc/shoot_projectile(turf/marker, set_angle, is_teleshot, is_trishot)
 	var/turf/startloc = get_turf(src)
 	if(!is_teleshot)
-		var/obj/item/projectile/herald/H = new(startloc)
+		var/obj/projectile/herald/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
@@ -138,7 +138,7 @@
 			shoot_projectile(marker, set_angle + 15, FALSE, FALSE)
 			shoot_projectile(marker, set_angle - 15, FALSE, FALSE)
 	else
-		var/obj/item/projectile/herald/teleshot/H = new(startloc)
+		var/obj/projectile/herald/teleshot/H = new(startloc)
 		H.preparePixelProjectile(marker, marker, src)
 		H.firer = src
 		H.damage = H.damage * dif_mult_dmg
@@ -224,19 +224,19 @@
 	my_master = null
 	. = ..()
 
-/obj/item/projectile/herald
+/obj/projectile/herald
 	name = "death bolt"
 	icon_state = "chronobolt"
 	damage = 15
 	armour_penetration = 35
 	speed = 2
 
-/obj/item/projectile/herald/teleshot
+/obj/projectile/herald/teleshot
 	name = "golden bolt"
 	damage = 25
 	color = rgb(255,255,102)
 
-/obj/item/projectile/herald/prehit(atom/target)
+/obj/projectile/herald/prehit(atom/target)
 	if(ismob(target) && ismob(firer))
 		var/mob/living/mob_target = target
 		if(mob_target.faction_check_mob(firer))
@@ -246,13 +246,13 @@
 		if(mob_target.buckled && mob_target.stat == DEAD)
 			mob_target.dust() //no body cheese
 
-/obj/item/projectile/herald/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(ismineralturf(target))
 		var/turf/simulated/mineral/M = target
 		M.attempt_drill()
 
-/obj/item/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/herald/teleshot/on_hit(atom/target, blocked = FALSE)
 	. = ..()
 	if(!istype(target, /mob/living/simple_animal/hostile/asteroid/elite/herald))
 		firer.forceMove(get_turf(src))

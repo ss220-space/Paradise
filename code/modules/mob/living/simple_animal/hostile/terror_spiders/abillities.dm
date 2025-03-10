@@ -88,19 +88,19 @@
 	need_active_overlay = TRUE
 	human_req = FALSE
 	base_cooldown = 25 SECONDS
-	fireball_type = /obj/item/projectile/terrorspider/widow/venom
+	fireball_type = /obj/projectile/terrorspider/widow/venom
 
 
 /obj/effect/proc_holder/spell/fireball/venom_spit/update_icon_state()
 	return
 
 
-/obj/item/projectile/terrorspider/widow/venom
+/obj/projectile/terrorspider/widow/venom
 	name = "venom acid"
 	damage = 5
 
 
-/obj/item/projectile/terrorspider/widow/venom/on_hit(target)
+/obj/projectile/terrorspider/widow/venom/on_hit(target)
 	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	var/turf/T = get_turf(target)
@@ -129,19 +129,19 @@
 	need_active_overlay = TRUE
 	human_req = FALSE
 	base_cooldown = 10 SECONDS
-	fireball_type = /obj/item/projectile/terrorspider/widow/smoke
+	fireball_type = /obj/projectile/terrorspider/widow/smoke
 
 
 /obj/effect/proc_holder/spell/fireball/smoke_spit/update_icon_state()
 	return
 
 
-/obj/item/projectile/terrorspider/widow/smoke
+/obj/projectile/terrorspider/widow/smoke
 	name = "smoke acid"
 	damage = 5
 
 
-/obj/item/projectile/terrorspider/widow/smoke/on_hit(target)
+/obj/projectile/terrorspider/widow/smoke/on_hit(target)
 	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	var/turf/T = get_turf(target)

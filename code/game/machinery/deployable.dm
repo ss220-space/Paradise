@@ -54,7 +54,7 @@
 	if(isprojectile(mover) && !checkpass(mover))
 		if(!anchored)
 			return TRUE
-		var/obj/item/projectile/proj = mover
+		var/obj/projectile/proj = mover
 		if(proj.firer && Adjacent(proj.firer))
 			return TRUE
 		if(prob(proj_pass_rate))

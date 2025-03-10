@@ -128,7 +128,7 @@
 	switch(guntype)
 		if(/obj/item/gun/energy/laser/practice)
 			iconholder = 1
-			eprojectile = /obj/item/projectile/beam
+			eprojectile = /obj/projectile/beam
 
 		if(/obj/item/gun/energy/laser/retro)
 			iconholder = 1
@@ -140,26 +140,26 @@
 			iconholder = 1
 
 		if(/obj/item/gun/energy/taser)
-			eprojectile = /obj/item/projectile/beam
+			eprojectile = /obj/projectile/beam
 			eshot_sound = 'sound/weapons/laser.ogg'
 
 		if(/obj/item/gun/energy/gun)
-			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
+			eprojectile = /obj/projectile/beam	//If it has, going to kill mode
 			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/nuclear)
-			eprojectile = /obj/item/projectile/beam	//If it has, going to kill mode
+			eprojectile = /obj/projectile/beam	//If it has, going to kill mode
 			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/gun/turret)
-			eprojectile = /obj/item/projectile/beam	//If it has, going to copypaste mode
+			eprojectile = /obj/projectile/beam	//If it has, going to copypaste mode
 			eshot_sound = 'sound/weapons/laser.ogg'
 			egun = 1
 
 		if(/obj/item/gun/energy/pulse/turret)
-			eprojectile = /obj/item/projectile/beam/pulse
+			eprojectile = /obj/projectile/beam/pulse
 			eshot_sound = 'sound/weapons/pulse.ogg'
 
 
@@ -447,7 +447,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(health <= 0)
 		die()	//the death process :(
 
-/obj/machinery/porta_turret/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/porta_turret/bullet_act(obj/projectile/Proj)
 	if(Proj.damage_type == STAMINA)
 		return
 
@@ -721,7 +721,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		return
 
 	update_icon(UPDATE_ICON_STATE)
-	var/obj/item/projectile/A
+	var/obj/projectile/A
 	if(emagged || lethal)
 		if(eprojectile)
 			A = new eprojectile(loc)
@@ -1017,8 +1017,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 // Syndicate turrets
 /obj/machinery/porta_turret/syndicate
-	projectile = /obj/item/projectile/bullet
-	eprojectile = /obj/item/projectile/bullet
+	projectile = /obj/projectile/bullet
+	eprojectile = /obj/projectile/bullet
 	// Syndicate turrets *always* operate in lethal mode.
 	// So, nothing, not even emagging them, makes them switch bullet type.
 	// So, its best to always have their projectile and eprojectile settings be the same. That way, you know what they will shoot.
@@ -1061,7 +1061,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	if(istype(depotarea))
 		depotarea.turret_died()
 
-	density = FALSE	
+	density = FALSE
 
 /obj/machinery/porta_turret/syndicate/shootAt(mob/living/target)
 	if(istype(depotarea))
@@ -1085,20 +1085,20 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 /obj/machinery/porta_turret/syndicate/pod
 	health = 40
-	projectile = /obj/item/projectile/bullet/weakbullet3
-	eprojectile = /obj/item/projectile/bullet/weakbullet3
+	projectile = /obj/projectile/bullet/weakbullet3
+	eprojectile = /obj/projectile/bullet/weakbullet3
 
 /obj/machinery/porta_turret/syndicate/interior
 	name = "machine gun turret (.45)"
 	desc = "Syndicate interior defense turret chambered for .45 rounds. Designed to down intruders without damaging the hull."
-	projectile = /obj/item/projectile/bullet/midbullet
-	eprojectile = /obj/item/projectile/bullet/midbullet
+	projectile = /obj/projectile/bullet/midbullet
+	eprojectile = /obj/projectile/bullet/midbullet
 
 /obj/machinery/porta_turret/syndicate/exterior
 	name = "machine gun turret (7.62)"
 	desc = "Syndicate exterior defense turret chambered for 7.62 rounds. Designed to down intruders with heavy calliber bullets."
-	projectile = /obj/item/projectile/bullet
-	eprojectile = /obj/item/projectile/bullet
+	projectile = /obj/projectile/bullet
+	eprojectile = /obj/projectile/bullet
 
 /obj/machinery/porta_turret/syndicate/grenade
 	name = "mounted grenade launcher (40mm)"
@@ -1107,15 +1107,15 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	icon_state_initial = "syndieturret01"
 	icon_state_active = "syndieturret01"
 	icon_state_destroyed = "syndieturret2"
-	projectile = /obj/item/projectile/bullet/a40mm
-	eprojectile = /obj/item/projectile/bullet/a40mm
+	projectile = /obj/projectile/bullet/a40mm
+	eprojectile = /obj/projectile/bullet/a40mm
 
 /obj/machinery/porta_turret/syndicate/assault_pod
 	name = "machine gun turret (4.6x30mm)"
 	desc = "Syndicate exterior defense turret chambered for 4.6x30mm rounds. Designed to be fitted to assault pods, it uses low calliber bullets to save space."
 	health = 100
-	projectile = /obj/item/projectile/bullet/weakbullet3
-	eprojectile = /obj/item/projectile/bullet/weakbullet3
+	projectile = /obj/projectile/bullet/weakbullet3
+	eprojectile = /obj/projectile/bullet/weakbullet3
 
 
 #undef TURRET_BUILD_LOOSEN

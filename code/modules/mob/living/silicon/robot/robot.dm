@@ -718,7 +718,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				apply_damage(30)
 
 
-/mob/living/silicon/robot/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/robot/bullet_act(var/obj/projectile/Proj)
 	..(Proj)
 
 	if(prob(75) && Proj.damage > 0)
@@ -1862,7 +1862,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-/mob/living/silicon/robot/deathsquad/bullet_act(obj/item/projectile/P)
+/mob/living/silicon/robot/deathsquad/bullet_act(obj/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting)
 		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
 		P.reflect_back(src)
@@ -1977,7 +1977,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	radio.recalculateChannels()
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
-/mob/living/silicon/robot/destroyer/bullet_act(obj/item/projectile/P)
+/mob/living/silicon/robot/destroyer/bullet_act(obj/projectile/P)
 	if(istype(P) && P.is_reflectable(REFLECTABILITY_ENERGY) && P.starting && !(istype(module_active, /obj/item/borg/destroyer/mobility)))
 		visible_message(span_danger("The [P.name] gets reflected by [src]!"), span_userdanger("The [P.name] gets reflected by [src]!"), projectile_message = TRUE)
 		P.reflect_back(src)

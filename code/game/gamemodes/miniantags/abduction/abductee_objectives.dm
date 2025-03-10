@@ -86,7 +86,7 @@
 
 /datum/objective/abductee/pristine
 	antag_menu_name = "Идеалист"
-	explanation_text = "Генеральный директор Нанотрейзен вот-вот приедет! Убедитесь что станция находится в идеальном состоянии."
+	explanation_text = "Генеральный директор НаноТрейзен вот-вот приедет! Убедитесь что станция находится в идеальном состоянии."
 
 /datum/objective/abductee/nowalls
 	antag_menu_name = "Стены это лишнее"
@@ -119,7 +119,7 @@
 
 /datum/objective/abductee/social_experiment
 	antag_menu_name = "Социальный эксперимент"
-	explanation_text = "Это секретный социальный эксперемент, проводимый Нанотрейзен. Убедите команду, что это правда."
+	explanation_text = "Это секретный социальный эксперемент, проводимый НаноТрейзен. Убедите команду, что это правда."
 
 /datum/objective/abductee/vr
 	antag_menu_name = "Виртуальная реальность"
@@ -127,7 +127,7 @@
 
 /datum/objective/abductee/pets
 	antag_menu_name = "Спасти животных"
-	explanation_text = "Нанотрейзен издевается над животными! Спасите как можно больше!"
+	explanation_text = "НаноТрейзен издевается над животными! Спасите как можно больше!"
 
 /datum/objective/abductee/defect
 	antag_menu_name = "Дизертировать со станции"

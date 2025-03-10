@@ -11,8 +11,8 @@
 	. = ..()
 	if(.)
 		var/damage_type = BRUTE
-		if(istype(hitby, /obj/item/projectile))
-			var/obj/item/projectile/P = hitby
+		if(istype(hitby, /obj/projectile))
+			var/obj/projectile/P = hitby
 			if(P.shield_buster)
 				take_damage(180, damage_type, sound_effect = FALSE) //2 shots for tele, 3 for riot
 		if(isobj(hitby))
@@ -107,8 +107,8 @@
 	var/active = 0
 
 /obj/item/shield/energy/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
-	if(istype(hitby, /obj/item/projectile))
-		var/obj/item/projectile/P = hitby
+	if(istype(hitby, /obj/projectile))
+		var/obj/projectile/P = hitby
 		if(P.shield_buster && active)
 			toggle(owner, TRUE)
 			to_chat(owner, "<span class='warning'>[hitby] overloaded your [src]!</span>")

@@ -110,48 +110,48 @@
 /obj/item/ammo_casing/grenade/improvised/exp_shell
 	name = "Improvised explosive shell"
 	desc = "Explodes upon impact or after some time."
-	projectile_type = /obj/item/projectile/grenade/improvised/exp_shot
+	projectile_type = /obj/projectile/grenade/improvised/exp_shot
 	icon_state = "exp_shell"
 	item_state = "exp_shell"
 
 /obj/item/ammo_casing/grenade/improvised/flame_shell
 	name = "Improvised flame shell"
 	desc = "Explodes with flames upon impact or after some time"
-	projectile_type = /obj/item/projectile/grenade/improvised/flame_shot
+	projectile_type = /obj/projectile/grenade/improvised/flame_shot
 	icon_state = "flame_shell"
 	item_state = "flame_shell"
 
 /obj/item/ammo_casing/grenade/improvised/smoke_shell
 	name = "Improvised smoke shell"
 	desc = "Explodes with smoke upon impact or after some time"
-	projectile_type = /obj/item/projectile/grenade/improvised/smoke_shot
+	projectile_type = /obj/projectile/grenade/improvised/smoke_shot
 	icon_state = "smoke_shell"
 	item_state = "smoke_shell"
 
-/obj/item/projectile/grenade/improvised
+/obj/projectile/grenade/improvised
 	icon = 'icons/obj/weapons/bombarda.dmi'
 	hitsound = "bullet"
 	hitsound_wall = "ricochet"
 
-/obj/item/projectile/grenade/improvised/exp_shot
+/obj/projectile/grenade/improvised/exp_shot
 	icon_state = "exp_shot"
 
-/obj/item/projectile/grenade/improvised/exp_shot/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/improvised/exp_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	explosion(loc, -1, -1, 2, flame_range = 3, cause = src)
 
-/obj/item/projectile/grenade/improvised/flame_shot
+/obj/projectile/grenade/improvised/flame_shot
 	icon_state = "flame_shot"
 
-/obj/item/projectile/grenade/improvised/flame_shot/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/improvised/flame_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	explosion(loc, 0, 0, 0, flame_range = 8, cause = src)
 	fireflash(loc, 2, 682)
 
-/obj/item/projectile/grenade/improvised/smoke_shot
+/obj/projectile/grenade/improvised/smoke_shot
 	icon_state = "smoke_shot"
 
-/obj/item/projectile/grenade/improvised/smoke_shot/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/grenade/improvised/smoke_shot/on_hit(atom/target, blocked, hit_zone)
 	. = ..()
 	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
 	smoke.set_up(amount = 18, location = loc)
