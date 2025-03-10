@@ -28,6 +28,10 @@ Almost every mining medic related stuff
 	var/obj/machinery/camera/portable/camera
 	/// Can we see camera from intertainment network?
 	var/news_feed = FALSE
+	/// Fluff examine variable
+	var/where_to = "планшет шахтёрского врача"
+	/// Main feed network
+	var/feed = "mining"
 
 /obj/item/clothing/accessory/mining_camera/Destroy()
 	if(on)
@@ -36,8 +40,12 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/mining_camera/examine(mob/user)
 	. = ..()
-	. += span_notice("Данный тип камер позволяет вести трансляцию как на планшет шахтёрского врача, так и в развлекательную сеть станции. На текущий момент камера <b>[on ? "в" : "вы"]ключена</b>.")
+	. += span_notice("Данный тип камер позволяет вести трансляцию как на [where_to], так и в развлекательную сеть станции. На текущий момент камера <b>[on ? "в" : "вы"]ключена</b>.")
 	. += span_notice("Используйте <b>Alt+ЛКМ</b> чтобы переключить режим трансляции камеры в развлекательную сеть. На текущий момент ретрансляция на станцию <b>[news_feed ? "в" : "вы"]ключена</b>.")
+
+/obj/item/clothing/accessory/mining_camera/add_eatable_component()
+	return
+
 
 /obj/item/clothing/accessory/mining_camera/attack_self(mob/user)
 	. = ..()
@@ -73,10 +81,10 @@ Almost every mining medic related stuff
 		QDEL_NULL(camera)
 	else
 		if(news_feed)
-			camera = new(src, list("mining", "news"), user.name)
+			camera = new(src, list(feed, "news"), user.name)
 			GLOB.active_video_cameras |= src
 		else
-			camera = new(src, list("mining"), user.name)
+			camera = new(src, list(feed), user.name)
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
 	to_chat(user, span_notice("Вы [on ? "в" : "вы"]ключили камеру. Ретрансляция на станцию [news_feed ? "в" : "вы"]ключена."))
