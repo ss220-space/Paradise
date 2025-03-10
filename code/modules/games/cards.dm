@@ -241,7 +241,7 @@
 		return
 	to_chat(user, span_notice("Вы решили раздать <b>[dcard]</b> [declension_ru(length(cards), "карту", "карты", "карт")]."))
 
-	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать <b>[dcard]</b> [declension_ru(length(cards), "карту", "карты", "карт")]?", "Раздать карты", players)
+	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] [declension_ru(length(cards), "карту", "карты", "карт")]?", "Раздать карты", players)
 	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -401,42 +401,42 @@
 		turn_hand(user)
 		return
 	user.set_machine(src)
-	interact(user)
+	ui_interact(user)
 
 
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message(span_notice("[user] [concealed ? "скрывает" : "показывает"] свою руку."))
+	user.visible_message(span_notice("[user] [concealed ? "скрывает" : "показывает"] свою руку с картами."))
 
+/obj/item/cardhand/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PlayingCard")
+		ui.open()
 
-// Окно с рукой
-/obj/item/cardhand/interact(mob/user)
-	var/dat = "У вас есть:<br>"
-	for(var/card in cards)
-		dat += "<a href='byond://?src=[UID()];pick=[card]'>[card]</a><br>"
-	dat += "Какую карту вы хотите взять?<br>"
-	dat += "<a href='byond://?src=[UID()];pick=Turn'>Перевернуть карты</a>"
-	var/datum/browser/popup = new(user, "cardhand", "Карты в руке", 400, 240)
-	popup.set_content(dat)
-	popup.open()
-
-
-/obj/item/cardhand/Topic(href, href_list)
+/obj/item/cardhand/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(usr.stat || !ishuman(usr))
 		return
-	var/mob/living/carbon/human/cardUser = usr
-	if(href_list["pick"])
-		if(href_list["pick"] == "Turn")
-			turn_hand(usr)
-		else
-			if(cardUser.is_in_hands(src))
-				pickedcard = href_list["pick"]
-				Removecard()
-		cardUser << browse(null, "window=cardhand")
 
+	switch(action)
+		if("turn")
+			turn_hand(usr)
+		if("pick")
+			if(ishuman(usr) && usr.is_in_hands(src))
+				pickedcard = params["card"]
+				Removecard()
+
+	SStgui.update_uis(src)
+	return TRUE
+
+/obj/item/cardhand/ui_data(mob/user)
+	var/list/data = list()
+	data["cards"] = cards
+
+	return data
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
@@ -617,7 +617,7 @@
 		desc = "Какие-то игральные карты."
 	else
 		if(concealed)
-			desc = "Игральная карта. Видна только ее рубашка"
+			desc = "Игральная карта. Видна только её рубашка."
 		else
 			var/datum/playingcard/card = cards[1]
 			desc = "\A [card.name]."

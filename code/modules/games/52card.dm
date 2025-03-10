@@ -57,7 +57,7 @@
 				card_appearance = "sc_[colour]_[rank]_[card_style]"
 			else
 				card_appearance = "sc_[number] of [suit]_[card_style]"
-			cards += new /datum/playingcard("[ru_name[number]] ([ru_name[suit]])", card_appearance, "singlecard_down_[card_style]")
+			cards += new /datum/playingcard("[ru_name[number]] [ru_name[suit]]", card_appearance, "singlecard_down_[card_style]")
 
 	for(var/jokers in 1 to 2)
 		cards += new /datum/playingcard("Джокер", "sc_Joker_[card_style]", "singlecard_down_[card_style]")

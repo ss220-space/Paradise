@@ -1,23 +1,37 @@
 /// A deck of unum cards. Classic.
 /obj/item/deck/unum
 	name = "\improper UNUM! deck"
-	desc = "A deck of UNUM! cards. House rules to argue over not included."
+	ru_names = list(
+		NOMINATIVE = "колода карт UNUM",
+		GENITIVE = "колоды карт UNUM",
+		DATIVE = "колоде карт UNUM",
+		ACCUSATIVE = "колоду карт UNUM",
+		INSTRUMENTAL = "колодой карт UNUM",
+		PREPOSITIONAL = "колоде карт UNUM"
+	)
+	desc = "Колода карт UNUM! Домашние правила для споров не входят в комплект."
 	icon_state = "deck_unum_full"
 	card_style = "unum"
 
 
 /obj/item/deck/unum/build_deck()
+	var/list/ru_color = list(
+		"Red" = "Красная",
+		"Yellow" = "Желтая",
+		"Green" = "Зелёная",
+		"Blue" = "Синяя"
+	)
 	for(var/color in list("Red", "Yellow", "Green", "Blue"))
-		cards += new /datum/playingcard("[color] 0", "sc_[color] 0_[card_style]", "singlecard_down_[card_style]")
+		cards += new /datum/playingcard("[ru_color[color]] 0", "sc_[color] 0_[card_style]", "singlecard_down_[card_style]")
 		for(var/k in 0 to 1)
-			cards += new /datum/playingcard("[color] skip", "sc_[color] skip_[card_style]", "singlecard_down_[card_style]")
-			cards += new /datum/playingcard("[color] reverse", "sc_[color] reverse_[card_style]", "singlecard_down_[card_style]")
-			cards += new /datum/playingcard("[color] draw 2", "sc_[color] draw 2_[card_style]", "singlecard_down_[card_style]")
+			cards += new /datum/playingcard("[ru_color[color]] Пропуск", "sc_[color] skip_[card_style]", "singlecard_down_[card_style]")
+			cards += new /datum/playingcard("[ru_color[color]] Реверс", "sc_[color] reverse_[card_style]", "singlecard_down_[card_style]")
+			cards += new /datum/playingcard("[ru_color[color]] +2", "sc_[color] draw 2_[card_style]", "singlecard_down_[card_style]")
 			for(var/i in 1 to 9)
-				cards += new /datum/playingcard("[color] [i]", "sc_[color] [i]_[card_style]", "singlecard_down_[card_style]")
+				cards += new /datum/playingcard("[ru_color[color]] [i]", "sc_[color] [i]_[card_style]", "singlecard_down_[card_style]")
 	for(var/k in 0 to 3)
-		cards += new /datum/playingcard("Wildcard", "sc_Wildcard_[card_style]", "singlecard_down_[card_style]")
-		cards += new /datum/playingcard("Draw 4", "sc_Draw 4_[card_style]", "singlecard_down_[card_style]")
+		cards += new /datum/playingcard("Дикая карта", "sc_Wildcard_[card_style]", "singlecard_down_[card_style]")
+		cards += new /datum/playingcard("Дикая +4", "sc_Draw 4_[card_style]", "singlecard_down_[card_style]")
 
 
 /obj/item/deck/unum/update_icon_state()
