@@ -116,7 +116,7 @@
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mining
 	uniform = /obj/item/clothing/under/plasmaman/mining
 
-/datum/outfit/plasmaman/mining
+/datum/outfit/plasmaman/mining_medic
 	name = "Mining Medic Plasmaman"
 	head = /obj/item/clothing/head/helmet/space/plasmaman/mining_medic
 	uniform = /obj/item/clothing/under/plasmaman/mining_medic
