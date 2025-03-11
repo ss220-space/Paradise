@@ -82,7 +82,7 @@
 			return TRUE
 	if(!(isalien(user) && (holder_flags & ALIEN_HOLDER) || \
 		ishuman(user) && (holder_flags & HUMAN_HOLDER)))
-		return
+		return FALSE
 	. = ..()
 
 
@@ -119,7 +119,7 @@
 	if(stat == DEAD)
 		return
 	. = ..()
-	
+
 
 /obj/item/clothing/mask/facehugger/dropped(mob/living/user, slot, silent, mob/living/carbon/alien/alien)
 	. = ..()
@@ -197,9 +197,9 @@
 
 	var/text_name = capitalize(declent_ru(NOMINATIVE))
 
-	if(!sterile) 
+	if(!sterile)
 		attached_mob.apply_damage(strength, BRUTE, BODY_ZONE_HEAD, forced = TRUE, silent = TRUE)
-	
+
 	attached_mob.visible_message(span_danger("[text_name] прыгает на лицо [attached_mob.declent_ru(GENITIVE)]!"), \
 						span_userdanger("[text_name] прыгает на лицо [attached_mob.declent_ru(GENITIVE)]!"))
 
@@ -228,11 +228,11 @@
 
 			if(istype(mask, /obj/item/clothing/mask/muzzle) && real)
 				var/obj/item/clothing/mask/muzzle/muzzle = mask
-				
+
 				if(muzzle.do_break())
 					target.visible_message(span_danger("[text_name] плюёт кислотой на [muzzle.declent_ru(ACCUSATIVE)], расплавляя крепеж!"), \
 									span_userdanger("[text_name] плюёт кислотой на [muzzle.declent_ru(ACCUSATIVE)], расплавляя крепеж!"))
-			
+
 			if(HAS_TRAIT(mask, TRAIT_NODROP))
 				return FALSE
 
@@ -258,7 +258,7 @@
 
 	if(stat != CONSCIOUS)
 		return FALSE
-	
+
 	return TRUE
 
 /obj/item/clothing/mask/facehugger/proc/pre_impregnate(mob/living/attached_mob)
@@ -293,7 +293,7 @@
 
 	var/text_name = capitalize(declent_ru(NOMINATIVE))
 	if(!sterile)
-		
+
 		target.visible_message(span_danger("[text_name] отпускает лицо [target.declent_ru(GENITIVE)] после долгого контакта!"), \
 								span_userdanger("[text_name] отпускает лицо [target.declent_ru(GENITIVE)] после долгого контакта!"))
 
@@ -321,7 +321,7 @@
 	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
 		forceMove(get_turf(src))
-		
+
 /obj/item/clothing/mask/facehugger/proc/GoActive()
 	if(stat == DEAD || stat == CONSCIOUS)
 		return

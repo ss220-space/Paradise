@@ -45,7 +45,7 @@
 	a_intent = INTENT_HARM
 	intent = INTENT_HARM
 	blood_volume = 20
-	blood_color = COLOR_LIME
+	blood_color = "#05EE05"
 	attacktext = "прыгает на лицо"
 	attack_sound = 'sound/creatures/facehugger_attack.ogg'
 	attacked_sound = 'sound/creatures/facehugger_attacked.ogg'
@@ -61,6 +61,7 @@
 	faction = list("alien")
 	use_pathfinding = TRUE
 	can_strip = FALSE
+	butcher_results = list()
 	var/jumpdistance = 7
 	var/jumpspeed = 1.5
 	var/host_species = ""
@@ -189,7 +190,7 @@
 		forceMove(current_loc)
 		hugger.holdered_mob = null
 		QDEL_NULL(hugger_holder)
-		return ..()
+		return (M.a_intent == INTENT_GRAB)? FALSE : ..()
 	return result
 
 
