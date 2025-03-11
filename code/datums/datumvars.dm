@@ -585,7 +585,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob", confidential=TRUE)
 			return
 
-		var/new_name = reject_bad_name(sanitize(copytext_char(input(usr, "What would you like to name this mob?", "Input a name", M.real_name) as text|null, 1, MAX_NAME_LEN)), allow_numbers = TRUE)
+		var/new_name = reject_bad_name(sanitize(tgui_input_text(usr, "What would you like to name this mob?", "Input a name", M.real_name, encode = FALSE, max_length = MAX_NAME_LEN)), allow_numbers = TRUE)
 		if( !new_name || !M )
 			return
 
@@ -798,7 +798,7 @@
 			to_chat(usr, "This can only be used on instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		var/confirm = alert("Are you sure you want to turn this mob into a skeleton?","Confirm Skeleton Transformation","Yes","No")
+		var/confirm = tgui_alert(usr, "Are you sure you want to turn this mob into a skeleton?", "Confirm Skeleton Transformation", list("Yes", "No"))
 		if(confirm != "Yes")
 			return
 
@@ -833,14 +833,14 @@
 			to_chat(usr, "This can only be used on instances of type /obj", confidential=TRUE)
 			return
 
-		var/action_type = alert("Strict type ([O.type]) or type and all subtypes?",,"Strict type","Type and subtypes","Cancel")
+		var/action_type = tgui_alert(usr, "Strict type ([O.type]) or type and all subtypes?",, list("Strict type", "Type and subtypes", "Cancel"))
 		if(action_type == "Cancel" || !action_type)
 			return
 
-		if(alert("Are you really sure you want to delete all objects of type [O.type]?",,"Yes","No") != "Yes")
+		if(tgui_alert(usr, "Are you really sure you want to delete all objects of type [O.type]?",, list("Yes", "No")) != "Yes")
 			return
 
-		if(alert("Second confirmation required. Delete?",,"Yes","No") != "Yes")
+		if(tgui_alert(usr, "Second confirmation required. Delete?",, list("Yes", "No")) != "Yes")
 			return
 
 		var/O_type = O.type
@@ -903,12 +903,12 @@
 			displaylist = list()
 			for(var/key in armorlist)
 				displaylist += "[key] = [armorlist[key]]"
-			result = input(usr, "Select an armor type to modify..", "Modify armor") as null|anything in displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)"
+			result = tgui_input_list(usr, "Select an armor type to modify..", "Modify armor", displaylist + "(ADD ALL)" + "(SET ALL)" + "(DONE)")
 
 			if(result == "(DONE)")
 				break
 			else if(result == "(ADD ALL)" || result == "(SET ALL)")
-				var/new_amount = input(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types") as num|null
+				var/new_amount = tgui_input_number(usr, result == "(ADD ALL)" ? "Enter armor to add to all types:" : "Enter new armor value for all types:", "Modify all types")
 				if(isnull(new_amount))
 					continue
 				var/proper_amount = text2num(new_amount)
@@ -923,7 +923,7 @@
 				var/type = fields[1]
 				if(isnull(armorlist[type]))
 					continue
-				var/new_amount = input(usr, "Enter new armor value for [type]:", "Modify [type]") as num|null
+				var/new_amount = tgui_input_number(usr, "Enter new armor value for [type]:", "Modify [type]")
 				if(isnull(new_amount))
 					continue
 				var/proper_amount = text2num(new_amount)
@@ -1060,7 +1060,7 @@
 			var/method = vv_subtype_prompt(target.type)
 			targets_to_remove_from = get_all_of_type(target.type, method)
 
-			if(alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", "Yes", "No") == "No")
+			if(tgui_alert(usr, "Are you sure you want to mass-delete [path] on [target.type]?", "Mass Remove Confirmation", list("Yes", "No")) == "No")
 				return
 
 		for(var/datum/target_to_remove_from as anything in targets_to_remove_from)
@@ -1112,7 +1112,9 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
+		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
+			return
+
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1126,7 +1128,9 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
+		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
+			return
+
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1140,7 +1144,8 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
+		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
+			return
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1154,7 +1159,8 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
+		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
+			return
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1168,7 +1174,9 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
+		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
+			return
+
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1182,7 +1190,8 @@
 			to_chat(usr, "This can only be done to instances of type /mob/living/carbon/human", confidential=TRUE)
 			return
 
-		if(alert("Confirm mob type change?",,"Transform","Cancel") != "Transform")	return
+		if(tgui_alert(usr, "Confirm mob type change?",, list("Transform", "Cancel")) != "Transform")
+			return
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1316,7 +1325,7 @@
 		possibleverbs -= H.verbs
 		possibleverbs += "Cancel" 								// ...And one for the bottom
 
-		var/verb = input("Select a verb!", "Verbs",null) as anything in possibleverbs
+		var/verb = tgui_input_list(usr, "Select a verb!", "Verbs", possibleverbs, null)
 		if(!H)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
 			return
@@ -1406,7 +1415,7 @@
 
 		var/Text = href_list["adjustDamage"]
 
-		var/amount =	input("Deal how much damage to mob? (Negative values here heal)","Adjust [Text]loss",0) as num
+		var/amount = tgui_input_number(usr, "Deal how much damage to mob? (Negative values here heal)", "Adjust [Text]loss", 0)
 
 		if(!L)
 			to_chat(usr, "Mob doesn't exist anymore", confidential=TRUE)
@@ -1590,7 +1599,7 @@
 			return
 
 		var/variable = L[index]
-		var/prompt = alert("Do you want to remove item number [index] from list?", "Confirm", "Yes", "No")
+		var/prompt = tgui_alert(usr, "Do you want to remove item number [index] from list?", "Confirm", list("Yes", "No"))
 		if(prompt != "Yes")
 			return
 		L.Cut(index, index+1)

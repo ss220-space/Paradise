@@ -133,14 +133,15 @@
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/item/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
 			if((P.damage_type == BRUTE || P.damage_type == BURN))
 				adjustBruteLoss(P.damage * 0.5)
-			visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s shell!</span>", \
-							"<span class='userdanger'>The [P.name] gets reflected by [src]'s shell!</span>")
+			visible_message(span_danger("The [P.name] gets reflected by [src]'s shell!"), \
+							span_userdanger("The [P.name] gets reflected by [src]'s shell!"),
+							projectile_message = TRUE)
 
 			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 

@@ -1,85 +1,62 @@
-Tree stuck in tajaran; firefighters baffled.
-Armadillos want aardvarks removed from dictionary claims 'here first'.
-Angel found dancing on pinhead ordered to stop; cited for public nuisance.
-Letters claim they are better than numbers; 'Always have been'.
-Pens proclaim pencils obsolete, 'lead is dead'.
-Rock and paper sues scissors for discrimination.
-Steak tell-all book reveals he never liked sitting by potato.
-Woodchuck stops counting how many times he’s chucked 'Never again'.
-{{AFFECTED}} clerk first person able to pronounce '@*$%!'.
-{{AFFECTED}} delis serving boiled paperback dictionaries, 'Adjectives chewy' customers declare.
-{{AFFECTED}} weather deemed 'boring'; meteors and rad storms to be imported.
-Most {{AFFECTED}} security officers prefer cream over sugar.
-Palindrome speakers conference in {{AFFECTED}}; 'Wow!' says Otto.
-Question mark worshipped as deity by ancient {{AFFECTED}} dwellers.
-Spilled milk causes whole {{AFFECTED}} populace to cry.
-World largest carp patty at display on {{AFFECTED}}.
-'Here kitty kitty' no longer preferred tajaran retrieval technique.
-Man travels 7000 light years to retrieve lost hankie, 'It was my favourite'.
-New bowling lane that shoots mini-meteors at bowlers very popular.
-Guy gets tattoo of Tau Ceti on chest 'Asteroid tickles most'.
-Guy gets tattoo of Tau Ceti on chest 'Starship tickles most'.
-Guy gets tattoo of Tau Ceti on chest 'Star tickles most'.
-Guy gets tattoo of Tau Ceti on chest 'CentComm tickles most'.
-Skrell marries computer; wedding attended by 100 modems.
-Chef reports successfully using harmonica as cheese grater.
-Nanotrasen invents handkerchief that says 'Bless you' after sneeze.
-Clone accused of posing for other clones’s school photo.
-Clone accused of stealing other clones’s employee of the month award.
-Woman robs station with hair dryer; crewmen love new style.
-This space for rent.
-{{AFFECTED}} Baker Wins Pickled Crumpet Toss Three Years Running
-Skrell Scientist Discovers Abacus Can Be Used To Dry Towels
-Survey: 'Cheese Louise' Voted Best Pizza Restaurant In Tau Ceti
-I Was Framed, jokes {{AFFECTED}} artist
-Mysterious Loud Rumbling Noises In {{AFFECTED}} Found To Be Mysterious Loud Rumblings
-Alien ambassador becomes lost on {{AFFECTED}}, refuses to ask for directions
-Swamp Gas Verified To Be Exhalations Of Stars--Movie Stars--Long Passed
-Tainted Broccoli Weapon Of Choice For Syndicate Assassins
-Chefs Find Broccoli Effective Tool For Cutting Cheese
-Broccoli Found To Cause Grumpiness In Monkeys
-Survey: 80% Of People on {{AFFECTED}} Love Clog-Dancing
-Giant Hairball Has Perfect Grammar But Rolls rr's Too Much, Linguists Say
-{{AFFECTED}} Phonebooks Print All Wrong Numbers; Results In 15 New Marriages
-Tajaran Burglar Spotted on {{AFFECTED}}, Mistaken For Dalmatian
-Gibson Gazette Updates Frequently Absurd, Poll Indicates
-Esoteric Verbosity Culminates In Communicative Ennui, {{AFFECTED}} Academics Note
-Taj Demand Longer Breaks, Cleaner Litter, Slower Mice
-Survey: 3 Out Of 5 Skrell Loathe Modern Art
-Skrell Scientist Discovers Gravity While Falling Down Stairs
-Boy Saves Tajaran From Tree on {{AFFECTED}}, Thousands Cheer
-Shipment Of Apples Overturns, {{AFFECTED}} Diner Offers Applesauce Special
-Spotted Owl Spotted on {{AFFECTED}}
-Humans Everywhere Agree: Purring Tajarans Are Happy Tajarans
-From The Desk Of Wise Guy Sammy: One Word In This Gazette Is Sdrawkcab
-From The Desk Of Wise Guy Sammy: It's Hard To Have Too Much Shelf Space
-From The Desk Of Wise Guy Sammy: Wine And Friendships Get Better With Age
-From The Desk Of Wise Guy Sammy: The Insides Of Golf Balls Are Mostly Rubber Bands
-From The Desk Of Wise Guy Sammy: You Don't Have To Fool All The People, Just The Right Ones
-From The Desk Of Wise Guy Sammy: If You Made The Mess, You Clean It Up
-From The Desk Of Wise Guy Sammy: It Is Easier To Get Forgiveness Than Permission
-From The Desk Of Wise Guy Sammy: Check Your Facts Before Making A Fool Of Yourself
-From The Desk Of Wise Guy Sammy: You Can't Outwait A Bureaucracy
-From The Desk Of Wise Guy Sammy: It's Better To Yield Right Of Way Than To Demand It
-From The Desk Of Wise Guy Sammy: A Person Who Likes Cats Can't Be All Bad
-From The Desk Of Wise Guy Sammy: Help Is The Sunny Side Of Control
-From The Desk Of Wise Guy Sammy: Two Points Determine A Straight Line
-From The Desk Of Wise Guy Sammy: Reading Improves The Mind And Lifts The Spirit
-From The Desk Of Wise Guy Sammy: Better To Aim High And Miss Then To Aim Low And Hit
-From The Desk Of Wise Guy Sammy: Meteors Often Strike The Same Place More Than Once
-Tommy B. Saif Sez: Look Both Ways Before Boarding The Shuttle
-Tommy B. Saif Sez: Hold On; Sudden Stops Sometimes Necessary
-Tommy B. Saif Sez: Keep Fingers Away From Moving Panels
-Tommy B. Saif Sez: No Left Turn, Except Shuttles
-Tommy B. Saif Sez: Return Seats And Trays To Their Proper Upright Position
-Tommy B. Saif Sez: Eating And Drinking In Docking Bays Is Prohibited
-Tommy B. Saif Sez: Accept No Substitutes, And Don't Be Fooled By Imitations
-Tommy B. Saif Sez: Do Not Remove This Tag Under Penalty Of Law
-Tommy B. Saif Sez: Always Mix Thoroughly When So Instructed
-Tommy B. Saif Sez: Try To Keep Six Month's Expenses In Reserve
-Tommy B. Saif Sez: Change Not Given Without Purchase
-Tommy B. Saif Sez: If You Break It, You Buy It
-Tommy B. Saif Sez: Reservations Must Be Cancelled 48 Hours Prior To Event To Obtain Refund
-Doughnuts: Is There Anything They Can't Do
-If Tin Whistles Are Made Of Tin, What Do They Make Foghorns Out Of?
-Broccoli discovered to be colonies of tiny aliens with murder on their minds
+Дерево застряло в таяре; пожарные в недоумении.
+Буквы заявляют, что они лучше цифр: "Так было всегда".
+Ручки объявляют карандаши устаревшими: "Грифель мёртв".
+Камень и бумага подают в суд на ножницы за дискриминацию.
+Стейк в своей книге признаётся, что никогда не любил сидеть рядом с картошкой.
+Клерк {{AFFECTED}} стал первым, кто смог произнести '@*$%!'.
+Погода на {{AFFECTED}} признана "скучной"; планируется импорт метеоров и радиационных бурь.
+Большинство офицеров службы безопасности {{AFFECTED}} предпочитают сливки сахару.
+Конференция любителей палиндромов на {{AFFECTED}}; Отто восклицает: "Ого!".
+Вопросительный знак почитается как Божество древними жителями {{AFFECTED}}.
+Пролитое молоко заставило всё население {{AFFECTED}} плакать.
+Самая большая в мире котлета из карпа выставлена на {{AFFECTED}}.
+"Кис-кис" больше не является предпочтительным методом звать таяр.
+Мужчина преодолел 7000 световых лет, чтобы вернуть потерянный платок: "Это был мой любимый".
+Новая дорожка для боулинга, стреляющая мини-метеорами, стала очень популярной.
+Скрелл женился на компьютере; на свадьбе присутствовали 100 модемов.
+Шеф-повар сообщает об успешном использовании губной гармошки в качестве тёрки для сыра.
+НаноТрейзен изобрела платок, который говорит "Будь здоров" после чихания.
+Клона обвиняют в краже награды "Сотрудник месяца" другого клона.
+Женщина ограбила станцию феном; экипаж в восторге от нового стиля.
+Это место сдаётся в аренду.
+Опрос: "Сыр Луиза" признан лучшим рестораном пиццы в Тау Кита.
+"Меня подставили", шутит художник {{AFFECTED}}.
+Таинственные громкие грохочущие звуки на {{AFFECTED}} оказались таинственными громкими грохотами.
+Инопланетный посол потерялся на {{AFFECTED}} и отказывается спрашивать дорогу.
+Гигантский комок шерсти обладает идеальной грамматикой, но слишком сильно раскатывает букву "р", говорят лингвисты.
+Телефонные книги {{AFFECTED}} печатают неправильные номера; это привело к 15 новым свадьбам.
+Таяр-грабитель замечен на {{AFFECTED}}; его приняли за далматинца.
+Опрос: Газета Гибсона часто публикует абсурдные новости.
+Эзотерическая многословность приводит к коммуникативной апатии, отмечают учёные {{AFFECTED}}.
+Опрос: 3 из 5 скреллов ненавидят современное искусство.
+Учёный-скрелл открыл гравитацию, упав с лестницы.
+Мальчик спас таяру с дерева на {{AFFECTED}}; тысячи ликуют.
+Груз яблок перевернулся; закусочная {{AFFECTED}} предлагает специальное меню из яблочного пюре.
+Люди повсюду согласны: мурлыкающие таяры — счастливые таяры.
+Продаётся гараж.
+Здесь могла бы быть ваша реклама.
+Из кабинета мудреца Сэмми: Одно слово в этой газете написано задом наперёд.
+Из кабинета мудреца Сэмми: Вино и дружба становятся лучше с возрастом.
+Из кабинета мудреца Сэмми: Если ты устроил беспорядок, ты его и убирай.
+Из кабинета мудреца Сэмми: Проще получить прощение, чем разрешение.
+Из кабинета мудреца Сэмми: Проверяй факты, прежде чем выставить себя дураком.
+Из кабинета мудреца Сэмми: Лучше уступить дорогу, чем требовать её.
+Из кабинета мудреца Сэмми: Человек, который любит кошек, не может быть плохим.
+Из кабинета мудреца Сэмми: Помощь — это светлая сторона контроля.
+Из кабинета мудреца Сэмми: Две точки определяют прямую линию.
+Из кабинета мудреца Сэмми: Чтение улучшает разум и поднимает дух.
+Из кабинета мудреца Сэмми: Лучше целиться высоко и промахнуться, чем целиться низко и попасть.
+Из кабинета мудреца Сэмми: Метеоры часто ударяют в одно и то же место несколько раз.
+Из кабинета мудреца Сэмми: Не пей из туалета.
+Томми Б. Саиф говорит: Смотри в обе стороны перед посадкой на шаттл.
+Томми Б. Саиф говорит: Держись; внезапные остановки иногда необходимы.
+Томми Б. Саиф говорит: Держи пальцы подальше от движущихся панелей.
+Томми Б. Саиф говорит: Верни сиденья и подносы в их правильное положение.
+Томми Б. Саиф говорит: Еда и напитки в док-станциях запрещены.
+Томми Б. Саиф говорит: Всегда тщательно перемешивай, если это указано.
+Томми Б. Саиф говорит: Постарайся иметь запас на шесть месяцев.
+Томми Б. Саиф говорит: Сдача не выдаётся без покупки.
+Томми Б. Саиф говорит: Если ты сломал это, ты это купил.
+Томми Б. Саиф говорит: Бронирование должно быть отменено за 48 часов до события для получения возврата.
+Пончики: Есть ли что-то, что они не могут?
+Брокколи оказалась колониями крошечных инопланетян с мыслями об убийстве.

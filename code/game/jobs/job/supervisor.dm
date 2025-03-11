@@ -1,4 +1,4 @@
-GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = 0)) // Why the hell are captain announcements minor
+GLOBAL_DATUM_INIT(captain_announcement, /datum/announcement/minor, new(do_newscast = FALSE)) // Why the hell are captain announcements minor
 /datum/job/captain
 	title = JOB_TITLE_CAPTAIN
 	flag = JOB_FLAG_CAPTAIN

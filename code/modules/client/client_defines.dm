@@ -212,8 +212,8 @@
 	/// The ID of the last asset job that was properly finished
 	var/last_completed_asset_job = 0
 
-	/// Our object window datum. It stores info about and handles behavior for the object tab
-	var/datum/object_window_info/obj_window
+	/// Loot panel for the client
+	var/datum/lootpanel/loot_panel
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

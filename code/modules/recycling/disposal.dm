@@ -398,21 +398,20 @@
 	update()
 
 
-/obj/machinery/disposal/AltClick(mob/user)
-	if(!Adjacent(user) || !ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return ..()
+/obj/machinery/disposal/click_alt(mob/user)
 	user.visible_message(
-		"<span class='notice'>[user] tries to eject the contents of [src] manually.</span>",
-		"<span class='notice'>You operate the manual ejection lever on [src].</span>"
+		span_notice("[user] tries to eject the contents of [src] manually."),
+		span_notice("You operate the manual ejection lever on [src].")
 	)
 	if(!do_after(user, 5 SECONDS, src))
-		return ..()
+		return CLICK_ACTION_BLOCKING
 
 	user.visible_message(
-		"<span class='notice'>[user] ejects the contents of [src].</span>",
-		"<span class='notice'>You eject the contents of [src].</span>",
+		span_notice("[user] ejects the contents of [src]."),
+		span_notice("You eject the contents of [src]."),
 	)
 	eject()
+	return CLICK_ACTION_SUCCESS
 
 
 // update the icon & overlays to reflect mode & status

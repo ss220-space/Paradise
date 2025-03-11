@@ -132,7 +132,7 @@
 	reagent_amount
 	)
 	if(!HAS_TRAIT(target, TRAIT_INCAPACITATED))
-		source.visible_message(span_danger("[src] pierces armour and buries its long fangs deep into the [target_zone] of [target]!"))
+		source.visible_message(span_danger("[source] pierces armour and buries its long fangs deep into the [target_zone] of [target]!"))
 		return ..()
 
 	reagent_amount = 33
@@ -140,5 +140,5 @@
 	if(!..())
 		return FALSE
 
-	source.visible_message(span_danger("[src] buries its long fangs deep into the [target_zone] of [target]!"))
+	source.visible_message(span_danger("[source] buries its long fangs deep into the [target_zone] of [target]!"))
 	return TRUE

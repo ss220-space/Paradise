@@ -119,7 +119,6 @@
 	jobtype = /datum/job/engineer/trainee
 
 	uniform = /obj/item/clothing/under/rank/engineer/trainee
-	l_pocket = /obj/item/paper/deltainfo
 	id = /obj/item/card/id/engineering/trainee
 	gloves = /obj/item/clothing/gloves/color/orange
 

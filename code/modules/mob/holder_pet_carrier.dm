@@ -64,9 +64,10 @@
 		M.ex_act(intensity)
 
 
-/obj/item/pet_carrier/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		try_free_content(null, user)
+/obj/item/pet_carrier/click_alt(mob/user)
+	if(try_free_content(null, user))
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 
 /obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)
@@ -98,6 +99,7 @@
 			to_chat(user, span_warning("Ваша переноска закрыта! Содержимое невозможно выгрузить!"))
 		return FALSE
 	free_content(new_location)
+	return TRUE
 
 
 /obj/item/pet_carrier/proc/free_content(atom/new_location)

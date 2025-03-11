@@ -511,11 +511,19 @@
 
 
 /obj/item/clothing/shoes/bhop/clown
-	desc = "The prankster's standard-issue clowning shoes. Damn they're huge! Ctrl-click to toggle the waddle dampeners!"
 	name = "clown shoes"
+	desc = "Стандартные клоунские башмаки. Чёрт возьми, они такие огромные! Чтобы включить амортизаторы для ходьбы вразвалочку, используйте <b>Ctrl</b>!"
+	ru_names = list(
+		NOMINATIVE = "клоунские башмаки",
+		GENITIVE = "клоунских башмаков",
+		DATIVE = "клоунским башмакам",
+		ACCUSATIVE = "клоунские башмаки",
+		INSTRUMENTAL = "клоунскими башмаками",
+		PREPOSITIONAL = "клоунских башмаках"
+	)
 	icon_state = "clown"
 	item_state = "clown_shoes"
-	description_antag = "These boots are power-up with a special jumping mechanism that works on the honk-space, allowing you to do excellent acrobatic tricks!"
+	description_antag = "Эти ботинки снабжены специальным механизмом для прыжков, работающим на основе технологии \"хонк-спейс\", позволяя выполнять захватывающие акробатические трюки!"
 	slowdown = SHOES_SLOWDOWN+1
 	item_color = "clown"
 	actions_types = list(/datum/action/item_action/bhop/clown)
@@ -543,18 +551,18 @@
 	if(!isliving(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 	if(user.get_active_hand() != src)
-		to_chat(user, "You must hold [src] in your hand to do this.")
+		balloon_alert(user, "нужно держать в руках!")
 		return
 	if(!enabled_waddle)
-		to_chat(user, "<span class='notice'>You switch off the waddle dampeners!</span>")
+		balloon_alert(user, "развалочка включена")
 		enabled_waddle = TRUE
 	else
-		to_chat(user, "<span class='notice'>You switch on the waddle dampeners!</span>")
+		balloon_alert(user, "развалочка выключена")
 		enabled_waddle = FALSE
 
 /obj/item/clothing/shoes/ducky
 	name = "rubber ducky shoes"
-	desc = "These shoes are made for quacking, and thats just what they'll do."
+	desc = "Эти тапочки сделаны, чтобы крякать, и они реально крякают!"
 	icon_state = "ducky"
 	item_state = "ducky"
 

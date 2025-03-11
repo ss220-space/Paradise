@@ -40,11 +40,11 @@
 	var/turf/T1 = get_turf(user)
 	for(var/i in 1 to tp_range)
 		T1 = get_step(T1, crossdir)
-	var/datum/effect_system/smoke_spread/s1 = new
-	var/datum/effect_system/smoke_spread/s2 = new
-	s1.set_up(5, FALSE, user)
-	s2.set_up(5, FALSE, user)
-	TP.start(user, T1, FALSE, TRUE, s1, s2, 'sound/effects/phasein.ogg', )
+	var/datum/effect_system/fluid_spread/smoke/smoke1 = new
+	var/datum/effect_system/fluid_spread/smoke/smoke2 = new
+	smoke1.set_up(amount = 5, location = user)
+	smoke2.set_up(amount = 5, location = user)
+	TP.start(user, T1, FALSE, TRUE, smoke1, smoke2, 'sound/effects/phasein.ogg', )
 	TP.doTeleport()
 
 /obj/item/tuned_anomalous_teleporter/emp_act(severity)

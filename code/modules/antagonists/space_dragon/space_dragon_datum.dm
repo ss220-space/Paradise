@@ -162,7 +162,8 @@
 		rift.carp_stored = 999999
 		rift.time_charged = rift.max_charge
 	SSshuttle.emergency.canRecall = FALSE
-	SSshuttle.emergencyNoEscape = FALSE
+	SSshuttle.stop_lockdown()
+	SSshuttle.clear_hostile_environment()
 	if(EMERGENCY_AT_LEAST_DOCKED)
 		return
 	SSshuttle.emergency.request(coefficient = 0.5)

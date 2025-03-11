@@ -869,7 +869,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/engineering
-	required_tech = list("toxins" = 6, "plasma" = 4)
+	required_tech = list("toxins" = 6, "plasmatech" = 4)
 	containername = "Engineering Hardsuit Crate"
 	access = ACCESS_ATMOSPHERICS
 

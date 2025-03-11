@@ -70,6 +70,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
+	QDEL_NULL(connected_apps)
 	var/lastDeptRC = TRUE
 	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 		if(Console.department == department)

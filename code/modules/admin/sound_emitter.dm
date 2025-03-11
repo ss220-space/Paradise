@@ -33,11 +33,12 @@
 	var/started = FALSE
 
 /obj/effect/sound_emitter/Destroy(force)
-	if(!force)
-		return QDEL_HINT_LETMELIVE
 	. = ..()
 
 /obj/effect/sound_emitter/singularity_act()
+	return
+
+/obj/effect/sound_emitter/ex_act()
 	return
 
 /obj/effect/sound_emitter/examine(mob/user)
@@ -57,10 +58,11 @@
 		return
 	edit_emitter(user)
 
-/obj/effect/sound_emitter/AltClick(mob/user)
+/obj/effect/sound_emitter/click_alt(mob/user)
 	if(check_rights_for(user.client, R_SOUNDS))
 		activate(user)
 		to_chat(user, span_notice("Звуковой излучатель активирован."))
+		return CLICK_ACTION_SUCCESS
 
 /obj/effect/sound_emitter/proc/edit_emitter(mob/user)
 	var/dat = ""

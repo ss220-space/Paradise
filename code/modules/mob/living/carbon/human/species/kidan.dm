@@ -35,7 +35,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/kidan,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/kidan, //Default darksight of 2.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/kidan,
 		INTERNAL_ORGAN_LANTERN = /obj/item/organ/internal/lantern,
 	)
 

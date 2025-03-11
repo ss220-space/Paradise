@@ -74,7 +74,7 @@ Limb Rejection
 			to_chat(H, span_alert("You still need [organ]!"))
 			return FALSE
 
-	var/obj/item/projectile/limb/limb_projectile = new(user.loc, limb)
+	var/obj/projectile/limb/limb_projectile = new(user.loc, limb)
 	limb_projectile.current = get_turf(user)
 	var/turf/target_turf = get_turf(target)
 	limb_projectile.preparePixelProjectile(target, target_turf, user)

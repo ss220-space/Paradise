@@ -106,7 +106,7 @@
 	SIGNAL_HANDLER
 	if(isnull(z_turf))
 		return
-	if(!is_valid_z_level(get_turf(src), z_turf))
+	if(!are_zs_connected(src, z_turf))
 		death()
 
 /// Mark the turf we need to track from our factory

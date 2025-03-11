@@ -43,7 +43,7 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/bullet_act(var/obj/projectile/P, var/def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	if(!P.nodamage)
@@ -52,7 +52,7 @@
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, def_zone)
 
-/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
 
 
@@ -74,13 +74,13 @@
 		apply_damage(shock_damage, BURN, spread_damage = TRUE)
 		if(shock_damage > 200)
 			playsound(loc, 'sound/effects/eleczap.ogg', 50, 1, -1)
-			explosion(loc, -1, 0, 2, 2, cause = "[source] over electrocuted [name]")
+			explosion(loc, -1, 0, 2, 2, cause = "[name] over electrocuted by [source]")
 	else
 		apply_damage(shock_damage, STAMINA)
 	if(!(flags & SHOCK_SUPPRESS_MESSAGE))
 		visible_message(
 			span_danger("[name] получа[pluralize_ru(gender,"ет","ют")] удар током от [source]!"),
-			span_userdanger("Вы чувствуете как через Ваше тело проходит электрический разряд!"),
+			span_userdanger("Вы чувствуете как через ваше тело проходит электрический разряд!"),
 			span_hear("Вы слышите громкий электрический треск."),
 		)
 	return shock_damage

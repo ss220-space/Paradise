@@ -53,7 +53,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/skrell,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/skrell,	//Default darksight of 5.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/skrell,
 		INTERNAL_ORGAN_HEADPOCKET = /obj/item/organ/internal/headpocket,
 	)
 

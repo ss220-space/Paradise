@@ -8,7 +8,7 @@
 		return
 
 	if(!target_ckey)
-		var/new_ckey = ckey(clean_input("Who would you like to add a note for?","Enter a ckey",null))
+		var/new_ckey = ckey(tgui_input_text(usr, "Who would you like to add a note for?", "Enter a ckey", null))
 		if(!new_ckey)
 			return
 		target_ckey = ckey(new_ckey)
@@ -42,7 +42,7 @@
 		crew_number = play_records[EXP_TYPE_CREW]
 
 	if(!notetext)
-		notetext = input(usr,"Write your note","Add Note") as message|null
+		notetext = tgui_input_text(usr, "Write your note", "Add Note", multiline = TRUE, encode = FALSE)
 		if(!notetext)
 			return
 
@@ -134,7 +134,7 @@
 		target_ckey = query_find_note_edit.item[1]
 		var/old_note = query_find_note_edit.item[2]
 		var/adminckey = query_find_note_edit.item[3]
-		var/new_note = input("Input new note", "New Note", "[old_note]") as message|null
+		var/new_note = tgui_input_text(usr, "Input new note", "New Note", "[old_note]", multiline = TRUE, encode = FALSE)
 		if(!new_note)
 			return
 		var/server

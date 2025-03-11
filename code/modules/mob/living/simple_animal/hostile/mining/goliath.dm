@@ -45,10 +45,11 @@
 	COOLDOWN_DECLARE(post_charge_delay)
 
 
-/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/item/projectile/P)
-	if(prob(reflect_chance) && !istype(P, /obj/item/projectile/destabilizer))
-		visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s rocky hide!</span>", \
-							"<span class='userdanger'>The [P.name] gets reflected by [src]'s rocky hide!</span>")
+/mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/projectile/P)
+	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
+		visible_message(span_danger("The [P.name] gets reflected by [src]'s rocky hide!"), \
+							span_userdanger("The [P.name] gets reflected by [src]'s rocky hide!"), \
+							projectile_message = TRUE)
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
 		return -1 // complete projectile permutation
@@ -245,8 +246,7 @@
 	pre_attack_icon = "Goliath_preattack"
 	throw_message = "does nothing to the rocky hide of the"
 	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
-	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide) //A throwback to the asteroid days
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/bone = 2)
+	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30
 	wander = FALSE
 	var/list/cached_tentacle_turfs
@@ -337,4 +337,4 @@
 /obj/effect/temp_visual/goliath_tentacle/proc/retract()
 	icon_state = "Goliath_tentacle_retract"
 	deltimer(timerid)
-	timerid = QDEL_IN(src, 7)
+	timerid = QDEL_IN_STOPPABLE(src, 7)

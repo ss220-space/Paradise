@@ -126,10 +126,9 @@
 	return connected
 
 
-/obj/machinery/hydroponics/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
+/obj/machinery/hydroponics/click_alt(mob/living/user)
 	toggle_lid(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/hydroponics/proc/toggle_lid(mob/living/user)
@@ -141,14 +140,14 @@
 	update_state()
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj, /obj/item/projectile/energy/floragamma))
+	if(istype(Proj, /obj/projectile/energy/floragamma))
 		make_grow()
-	else if(istype(Proj, /obj/item/projectile/energy/florabeta))
+	else if(istype(Proj, /obj/projectile/energy/florabeta))
 		myseed.on_floragun_beta_act()
-	else if(istype(Proj, /obj/item/projectile/energy/floraalpha) && !lid_closed)
+	else if(istype(Proj, /obj/projectile/energy/floraalpha) && !lid_closed)
 		plantdies()
 	else
 		return ..()
@@ -951,6 +950,24 @@
 	if(is_pen(I) && myseed)
 		add_fingerprint(user)
 		myseed.variant_prompt(user, src)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+
+	if(istype(I, /obj/item/conductive_organ))
+		add_fingerprint(user)
+		if(!myseed)
+			balloon_alert(user, "внутри нет семян!")
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(I, src))
+			return ..()
+		user.visible_message(
+			span_notice("[user] аккуратно втира[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы аккуратно втираете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."),
+		)
+		yieldmod = 1.7
+		waterlevel = maxwater
+		nutrilevel = maxnutri
+		plant_hud_set_nutrient()
+		plant_hud_set_water()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

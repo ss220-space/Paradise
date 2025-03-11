@@ -593,7 +593,7 @@
 /obj/item/bombcore/sdg17/defuse()
 	var/obj/item/bombcore/sdg17/C = loc
 	new /obj/effect/decal/cleanable/ash(get_turf(loc))
-	new /obj/effect/particle_effect/smoke(get_turf(loc))
+	new /obj/effect/particle_effect/fluid/smoke(get_turf(loc))
 	playsound(src, 'sound/effects/empulse.ogg', 80)
 	qdel(C)
 

@@ -146,23 +146,18 @@
 	qdel(src)
 
 
-/obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		balloon_alert(user, "невозможно!")
-		return
+/obj/machinery/defibrillator_mount/click_alt(mob/living/carbon/human/user)
 	if(!defib)
 		balloon_alert(user, "дефибриллятор отсутствует!")
-		return
+		return CLICK_ACTION_BLOCKING
 	var/obj/item/organ/external/hand_right = user.get_organ(BODY_ZONE_PRECISE_R_HAND)
 	var/obj/item/organ/external/hand_left = user.get_organ(BODY_ZONE_PRECISE_L_HAND)
 	if((!hand_right || !hand_right.is_usable()) && (!hand_left || !hand_left.is_usable()))
 		balloon_alert(user, "невозможно!")
-		return
+		return CLICK_ACTION_BLOCKING
 	if(clamps_locked)
 		balloon_alert(user, "заблокировано!")
-		return
+		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
 	visible_message(span_notice("[user] вынима[pluralize_ru(user.gender, "ет", "ют")] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
@@ -170,6 +165,7 @@
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null
 	update_icon(UPDATE_OVERLAYS)
+	return CLICK_ACTION_SUCCESS
 
 
 //wallframe, for attaching the mounts easily

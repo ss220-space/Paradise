@@ -66,7 +66,7 @@
 	return !my_suit.ninjacost(cost*burst_size)
 
 /obj/item/ammo_casing/energy/shuriken
-	projectile_type = /obj/item/projectile/beam/shuriken
+	projectile_type = /obj/projectile/beam/shuriken
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "shuriken"
 	e_cost = 0
@@ -75,7 +75,7 @@
 	harmful = FALSE
 	delay = 3
 
-/obj/item/projectile/beam/shuriken
+/obj/projectile/beam/shuriken
 	name = "energy shuriken"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "shuriken_projectile"

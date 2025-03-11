@@ -1166,6 +1166,8 @@ GLOBAL_LIST_EMPTY(bicon_cache)
  * * moving - whether or not to use a moving state for the given icon
  * * sourceonly - if TRUE, only generate the asset and send back the asset url, instead of tags that display the icon to players
  * * extra_classes - string of extra css classes to use when returning the icon string
+ *
+ * You may also call is icon2html
  */
 /proc/icon2asset(atom/thing, client/target, icon_state, dir = SOUTH, frame = 1, moving = FALSE, sourceonly = FALSE, extra_classes = null)
 	if(!thing)

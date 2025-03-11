@@ -63,9 +63,9 @@
 /datum/effect_system/explosion/smoke
 
 /datum/effect_system/explosion/smoke/proc/create_smoke()
-	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(5,0,location,null)
-	S.start()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = location)
+	smoke.start()
 
 /datum/effect_system/explosion/smoke/start()
 	..()

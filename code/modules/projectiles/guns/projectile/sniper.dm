@@ -72,12 +72,12 @@
 /obj/item/ammo_casing/point50
 	desc = "A .50 bullet casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper
+	projectile_type = /obj/projectile/bullet/sniper
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper
+/obj/projectile/bullet/sniper
 	//speed = 0.75
 	//range = 100
 	damage = 70
@@ -87,7 +87,7 @@
 	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
 		target.ex_act(rand(1,2))
 
@@ -106,18 +106,18 @@
 /obj/item/ammo_casing/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	projectile_type = /obj/projectile/bullet/sniper/soporific
 	icon_state = ".50sop"
 	harmful = FALSE
 
-/obj/item/projectile/bullet/sniper/soporific
+/obj/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = TRUE
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 
-/obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
 		L.SetSleeping(40 SECONDS)
@@ -135,10 +135,10 @@
 /obj/item/ammo_casing/explosive
 	desc = "A .50 bullet casing, specialised in destruction"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/explosive
+	projectile_type = /obj/projectile/bullet/sniper/explosive
 	icon_state = ".50exp"
 
-/obj/item/projectile/bullet/sniper/explosive
+/obj/projectile/bullet/sniper/explosive
 	armour_penetration = 50
 	damage = 85
 	stun = 6 SECONDS
@@ -146,7 +146,7 @@
 	weaken = 6 SECONDS
 	breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
 		explosion(target, -1, 1, 3, 5, cause = "[type] fired by [key_name(firer)]")
 
@@ -163,17 +163,17 @@
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
+	projectile_type = /obj/projectile/bullet/sniper/haemorrhage
 	icon_state = ".50exp"
 
-/obj/item/projectile/bullet/sniper/haemorrhage
+/obj/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
 	damage = 15
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
 
-/obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
 		C.bleed(100)
@@ -192,10 +192,10 @@
 /obj/item/ammo_casing/penetrator
 	desc = "A .50 caliber penetrator round casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
 
-/obj/item/projectile/bullet/sniper/penetrator
+/obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
@@ -215,12 +215,12 @@
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
 	caliber = ".50L"
-	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	projectile_type = /obj/projectile/bullet/sniper/compact
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+/obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	damage = 70
 	stun = 4 SECONDS
 	weaken = 4 SECONDS
@@ -238,7 +238,7 @@
 
 /obj/item/ammo_casing/compact/penetrator
 	desc = "A .50 caliber penetrator round casing."
-	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
 
 /obj/item/ammo_box/magazine/sniper_rounds/compact/soporific
@@ -251,7 +251,7 @@
 
 /obj/item/ammo_casing/compact/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
-	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	projectile_type = /obj/projectile/bullet/sniper/soporific
 	icon_state = ".50sop"
 	harmful = FALSE
 

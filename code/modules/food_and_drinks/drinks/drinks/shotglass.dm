@@ -1,6 +1,15 @@
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass
 	name = "shot glass"
-	desc = "No glasses were shot in the making of this glass."
+	desc = "Небольшая рюмка, из которой обычно пьют алкоголь малыми объёмами."
+	ru_names = list(
+        NOMINATIVE = "рюмка",
+        GENITIVE = "рюмки",
+        DATIVE = "рюмке",
+        ACCUSATIVE = "рюмку",
+        INSTRUMENTAL = "рюмкой",
+        PREPOSITIONAL = "рюмке"
+	)
+	gender = FEMALE
 	icon_state = "shotglass"
 	custom_fire_overlay = "shotglass_fire"
 	amount_per_transfer_from_this = 15
@@ -20,10 +29,33 @@
 	. = ..()
 	if(reagents.total_volume)
 		name = "shot glass of " + reagents.get_master_reagent_name() //No matter what, the glass will tell you the reagent's name. Might be too abusable in the future.
+		ru_names = list(
+			NOMINATIVE = "рюмка - " + reagents.get_master_reagent_name(),
+			GENITIVE = "рюмки - " + reagents.get_master_reagent_name(),
+			DATIVE = "рюмке - " + reagents.get_master_reagent_name(),
+			ACCUSATIVE = "рюмку - " + reagents.get_master_reagent_name(),
+			INSTRUMENTAL = "рюмкой - " + reagents.get_master_reagent_name(),
+			PREPOSITIONAL = "рюмке - " +reagents.get_master_reagent_name()
+		)
 		if(resistance_flags & ON_FIRE)
 			name = "flaming [name]"
+			if(ru_names)
+				ru_names[1] = "горящая " + ru_names[1]
+				ru_names[2] = "горящей " + ru_names[2]
+				ru_names[3] = "горящей " + ru_names[3]
+				ru_names[4] = "горящую " + ru_names[4]
+				ru_names[5] = "горящей " + ru_names[5]
+				ru_names[6] = "горящей " + ru_names[6]
 	else
 		name = "shot glass"
+		ru_names = list(
+			NOMINATIVE = "рюмка",
+			GENITIVE = "рюмки",
+			DATIVE = "рюмке",
+			ACCUSATIVE = "рюмку",
+			INSTRUMENTAL = "рюмкой",
+			PREPOSITIONAL = "рюмке"
+		)
 
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/update_overlays()
@@ -47,9 +79,9 @@
 	if(!(resistance_flags & ON_FIRE))
 		return ATTACK_CHAIN_PROCEED
 	user.visible_message(
-		span_warning("[user] pours [src] all over [user.p_them()]self!"),
-		span_danger("You pour [src] all over yourself!"),
-		span_italics("You hear a 'whoompf' and a sizzle."),
+		span_warning("[user] пролива[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)] на себя!"),
+		span_danger("Вы проливаете содержимое [declent_ru(GENITIVE)] на себя!"),
+		span_italics("Вы слышите \"Ух!\" и последующее шипение."),
 	)
 	extinguish(TRUE)
 	reagents.reaction(user, REAGENT_TOUCH)
@@ -71,14 +103,14 @@
 	..()
 	set_light_range_power_color(light_intensity, 1, light_color)
 	set_light_on(TRUE)
-	visible_message("<span class = 'notice'>[src] begins to burn with a blue hue!</span>")
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] начинает гореть синим пламенем!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/extinguish(silent = FALSE)
 	..()
 	set_light_on(FALSE)
 	if(!silent)
-		visible_message("<span class = 'notice'>The dancing flame on [src] dies out.</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] перестаёт гореть!"))
 	update_appearance(UPDATE_NAME|UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/food/drinks/drinkingglass/shotglass/burn() //Let's override fire deleting the reagents inside the shot
@@ -108,7 +140,8 @@
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		clumsilyDrink(user)
 	else
-		user.visible_message("<span class = 'notice'>[user] places [user.p_their()] hand over [src] to put it out!</span>", "<span class = 'notice'>You use your hand to extinguish [src]!</span>")
+		user.visible_message(span_notice("[user] накрыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"),
+								span_notice("Вы накрываете [declent_ru(ACCUSATIVE)] рукой, чтобы потушить огонь!"))
 		extinguish()
 
 

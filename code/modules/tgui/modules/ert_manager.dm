@@ -79,6 +79,9 @@
 				if("Red")
 					D = new /datum/response_team/red
 				if("Gamma")
+					if(!check_rights(R_EVENT, TRUE, ui.user))
+						to_chat(ui.user, span_warning("Вы не можете отправить ОБР кода Гамма."))
+						return
 					D = new /datum/response_team/gamma
 				else
 					to_chat(usr, span_userdanger("Неверный тип ОБР."))
