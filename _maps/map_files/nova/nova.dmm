@@ -45272,9 +45272,6 @@
 /area/crew_quarters/chief)
 "gxr" = (
 /obj/effect/decal/warning_stripes/northwest,
-/obj/structure/closet/sechammercabinet{
-	pixel_x = -30
-	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
 	icon_state = "darkred"
@@ -122205,7 +122202,6 @@
 	color = "red"
 	},
 /obj/structure/closet/l3closet/security,
-/obj/item/restraints/handcuffs/pinkcuffs,
 /obj/effect/decal/warning_stripes/red,
 /obj/machinery/door/window{
 	color = "red";
@@ -158963,6 +158959,18 @@
 	icon_state = "blue"
 	},
 /area/bridge/checkpoint/south)
+"xmg" = (
+/obj/machinery/light{
+	dir = 1;
+	in_use = 1
+	},
+/obj/structure/closet/sechammercabinet{
+	pixel_y = 30
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkredfull"
+	},
+/area/security/securearmory)
 "xmn" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
@@ -246367,7 +246375,7 @@ uJG
 xoL
 ajW
 xoL
-fVS
+xmg
 fsx
 fsx
 nKM

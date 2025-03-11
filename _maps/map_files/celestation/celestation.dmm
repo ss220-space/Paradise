@@ -15977,6 +15977,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/closet/sechammercabinet{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -19141,15 +19144,6 @@
 	icon_state = "brownfull"
 	},
 /area/teleporter/quantum/engi)
-"czI" = (
-/obj/structure/closet/sechammercabinet{
-	pixel_x = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/security/armory)
 "czK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -285678,7 +285672,7 @@ rmd
 puS
 pus
 nxd
-czI
+iWY
 gRJ
 pNG
 aeM
