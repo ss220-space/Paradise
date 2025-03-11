@@ -114,7 +114,6 @@
 			hash = md5(A.icon)
 			hash = md5(hash + A.icon_state)
 			usr << browse_rsc(sprite, "vv[hash].png")
-
 	title = "[D]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 
