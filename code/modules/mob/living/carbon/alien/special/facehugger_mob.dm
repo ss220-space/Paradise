@@ -116,7 +116,7 @@
 	if(hugger_holder)
 		return
 	. = ..()
-	
+
 
 /mob/living/simple_animal/hostile/facehugger/OpenFire(atom/A)
 	if(impregnated)
@@ -136,7 +136,7 @@
 				if(faction_check_mob(L) && !attack_same)
 					return
 	visible_message(span_danger("<b>[capitalize(declent_ru(NOMINATIVE))]</b> [ranged_message] на [A]!"))
-	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE)
+	throw_at(A, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, dodgeable = FALSE)
 	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
