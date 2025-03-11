@@ -45,8 +45,9 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/examine(mob/user)
 	. = ..()
-	. += span_notice("Данный тип камер позволяет вести трансляцию как на [where_to], так и в развлекательную сеть станции. На текущий момент камера <b>[on ? "в" : "вы"]ключена</b>.")
-	. += span_notice("Используйте <b>Alt+ЛКМ</b> чтобы переключить режим трансляции камеры в развлекательную сеть. На текущий момент ретрансляция на станцию <b>[news_feed ? "в" : "вы"]ключена</b>.")
+	. += span_notice("Камера <b>[on ? "в" : "вы"]ключена</b>.")
+	. += span_notice("Данный тип камер позволяет вести трансляцию как на [where_to], так и в развлекательную сеть станции.")
+	. += span_notice("Ретрансляция на станцию <b>[news_feed ? "в" : "вы"]ключена</b>. Используйте <b>Alt+ЛКМ</b>, чтобы переключить режим трансляции камеры в развлекательную сеть.")
 
 /obj/item/clothing/accessory/camera/add_eatable_component()
 	return
@@ -92,7 +93,7 @@ Almost every mining medic related stuff
 	on = !on
 	update_icon(UPDATE_ICON_STATE)
 	if(!force)
-		to_chat(user, span_notice("Вы [on ? "в" : "вы"]ключили камеру. Ретрансляция на станцию [news_feed ? "в" : "вы"]ключена."))
+		balloon_alert(user, "камера [on ? "в" : "вы"]ключена")
 
 	for(var/obj/machinery/computer/security/telescreen/entertainment/TV in GLOB.machines)
 		TV.update_icon(UPDATE_OVERLAYS)
@@ -106,7 +107,7 @@ Almost every mining medic related stuff
 		balloon_alert(user, "сначала выключите камеру!")
 		return CLICK_ACTION_BLOCKING
 	news_feed = !news_feed
-	balloon_alert(user, "ретрансляция [news_feed ? "в" : "вы"]ключена!")
+	balloon_alert(user, "ретрансляция [news_feed ? "в" : "вы"]ключена")
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/accessory/camera/emp_act(severity)
@@ -194,7 +195,7 @@ Almost every mining medic related stuff
 
 /obj/item/camera_bug/secutiry
 	name = "security camera monitor"
-	desc = "Небольшой планшет, считывающий данные с нагрудных камер службы безопасности. Позволяет вам наблюдать в прямом эфире, как ваших офицеров разрывают на части по одному."
+	desc = "Небольшой планшет, считывающий данные с нагрудных камер службы безопасности. Позволяет вам наблюдать в прямом эфире, как ваши офицеры поддерживают закон и порядок на станции."
 	ru_names = list(
 		NOMINATIVE = "офицерский монитор видеокамер",
 		GENITIVE = "офицерского монитора видеокамер",

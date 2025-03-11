@@ -266,6 +266,7 @@
 		INSTRUMENTAL = "платьем медсестры",
 		PREPOSITIONAL = "платье медсестры"
 	)
+	gender = NEUTER
 	icon_state = "nurse"
 	item_state = "nurse"
 	item_color = "nurse"
@@ -283,6 +284,7 @@
 		INSTRUMENTAL = "униформе санитара",
 		PREPOSITIONAL = "униформе санитара"
 	)
+	gender = FEMALE
 	icon_state = "orderly"
 	item_state = "orderly"
 	item_color = "orderly"
@@ -657,6 +659,7 @@
 		INSTRUMENTAL = "коричневой медицинской одеждой",
 		PREPOSITIONAL = "коричневой медицинской одежде"
 	)
+	gender = FEMALE
 	species_restricted = list("exclude", "lesser form")
 	icon_state = "scrubs_brown"
 	item_state = "scrubs_brown"

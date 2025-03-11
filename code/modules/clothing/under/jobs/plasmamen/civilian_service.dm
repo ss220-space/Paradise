@@ -190,7 +190,10 @@
 				return
 			next_extinguish = world.time + extinguish_cooldown
 			extinguishes_left--
-			H.visible_message("<span class='warning'>[H]'s suit spews out a tonne of space lube!</span>", "<span class='warning'>Your suit spews out a tonne of space lube!</span>")
+			H.visible_message(
+				span_warning("Защитный костюм [H] обливает [genderize_ru(H.gender, "его", "её", "его", "их")] космической смазкой!"),
+				span_warning("Ваш костюм обливает вас космической смазкой!")
+			)
 			H.ExtinguishMob()
 			var/datum/effect_system/fluid_spread/foam/s = new()
 			s.set_up(range = 3, location = loc) //Truely terrifying.
