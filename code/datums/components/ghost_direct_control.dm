@@ -81,7 +81,7 @@
 /datum/component/ghost_direct_control/proc/remove_spawner()
 	var/mob/living/our_mob = parent
 	var/text = format_text("[initial(our_mob.name)]")
-	var/list/spawners = GLOB.mob_spawners[format_text("[initial(our_mob.name)]")]
+	var/list/spawners = GLOB.mob_spawners[text]
 	LAZYREMOVE(spawners, our_mob)
 	if(!LAZYLEN(spawners))
 		GLOB.mob_spawners -= text
