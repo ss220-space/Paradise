@@ -240,7 +240,7 @@
 /obj/item/storage/bag/kaboom/attack_self(mob/user)
 	bombradialmenu(user)
 
-/obj/item/storage/bag/kaboom/AltClick(mob/user)
+/obj/item/storage/bag/kaboom/click_alt(mob/user)
 	bombradialmenu(user)
 
 /obj/item/storage/bag/kaboom/attack(atom/a, mob/living/user, params, def_zone, skip_attack_anim)
