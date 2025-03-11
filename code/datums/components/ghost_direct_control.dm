@@ -62,9 +62,10 @@
 	RegisterSignal(parent, COMSIG_LIVING_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(on_login))
 	RegisterSignal(parent, COMSIG_IS_GHOST_CONTROLABLE, PROC_REF(on_ghost_controlable_check))
+	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 /datum/component/ghost_direct_control/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_GHOST, COMSIG_LIVING_EXAMINE, COMSIG_MOB_LOGIN))
+	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_GHOST, COMSIG_LIVING_EXAMINE, COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
 	return ..()
 
 /datum/component/ghost_direct_control/Destroy(force)
@@ -86,6 +87,7 @@
 	if(our_mob.stat == DEAD || our_mob.key || awaiting_ghosts)
 		return
 	examine_text += span_boldnotice("Вы можете взять под контроль это существо, нажав на него.")
+	LAZYREMOVE(GLOB.mob_spawners[format_text("[initial(our_mob.name)]")], our_mob)
 
 /// Inform ghosts that they can possess this
 /datum/component/ghost_direct_control/proc/on_examined(datum/source, mob/user, list/examine_text)
