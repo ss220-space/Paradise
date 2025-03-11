@@ -79,14 +79,9 @@
 		GLOB.mob_spawners -= format_text("[initial(mob_parent.name)]")
 	return ..()
 
-/datum/component/ghost_direct_control/proc/on_death(datum/source, mob/user, list/examine_text)
+/datum/component/ghost_direct_control/proc/on_death(datum/source)
 	SIGNAL_HANDLER
-	if(!isobserver(user))
-		return
 	var/mob/living/our_mob = parent
-	if(our_mob.stat == DEAD || our_mob.key || awaiting_ghosts)
-		return
-	examine_text += span_boldnotice("Вы можете взять под контроль это существо, нажав на него.")
 	LAZYREMOVE(GLOB.mob_spawners[format_text("[initial(our_mob.name)]")], our_mob)
 
 /// Inform ghosts that they can possess this
