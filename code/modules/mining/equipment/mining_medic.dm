@@ -4,7 +4,8 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera
 	name = "mining camera"
-	desc = "Небольшая нагрудная видеокамера, обладающая массивным датчиком, позволяющим считывать датчики костюма с основной станции."
+	desc = "Небольшая нагрудная видеокамера, обладающая массивным датчиком, позволяющим считывать датчики костюма с основной станции. \
+			Данный тип камер позволяет вести трансляцию как на планшет шахтёрского врача, так и в развлекательную сеть станции."
 	ru_names = list(
 		NOMINATIVE = "шахтёрская видеокамера",
 		GENITIVE = "шахтёрской видеокамеры",
@@ -28,8 +29,6 @@ Almost every mining medic related stuff
 	var/obj/machinery/camera/portable/camera
 	/// Can we see camera from intertainment network?
 	var/news_feed = FALSE
-	/// Fluff examine variable
-	var/where_to = "планшет шахтёрского врача"
 	/// Main feed network
 	var/feed = "mining"
 	/// Can detect multiz sensors
@@ -46,7 +45,6 @@ Almost every mining medic related stuff
 /obj/item/clothing/accessory/camera/examine(mob/user)
 	. = ..()
 	. += span_notice("Камера <b>[on ? "в" : "вы"]ключена</b>.")
-	. += span_notice("Данный тип камер позволяет вести трансляцию как на [where_to], так и в развлекательную сеть станции.")
 	. += span_notice("Ретрансляция на станцию <b>[news_feed ? "в" : "вы"]ключена</b>. Используйте <b>Alt+ЛКМ</b>, чтобы переключить режим трансляции камеры в развлекательную сеть.")
 
 /obj/item/clothing/accessory/camera/add_eatable_component()
@@ -117,7 +115,8 @@ Almost every mining medic related stuff
 
 /obj/item/clothing/accessory/camera/security
 	name = "security camera"
-	desc = "Небольшая нагрудная камера с логотипом НаноТрейзен. Окрашена в чёрные цвета. Позволяет демонстрировать ваше пренебрежение законом в прямом эфире."
+	desc = "Небольшая нагрудная камера с логотипом НаноТрейзен. Окрашена в чёрные цвета. Позволяет демонстрировать ваше пренебрежение законом в прямом эфире. \
+			Данный тип камер позволяет вести трансляцию как на планшет службы безопасности, так и в развлекательную сеть станции."
 	ru_names = list(
 		NOMINATIVE = "нагрудная видеокамера",
 		GENITIVE = "нагрудной видеокамеры",
@@ -129,7 +128,6 @@ Almost every mining medic related stuff
 	icon_state = "sec_camera"
 	item_state = "sec_camera"
 	slot = ACCESSORY_SLOT_DECOR //No one will remove their holster for a camera
-	where_to = "планшет службы безопасности"
 	feed = "secfeed"
 	multiz = TRUE //maybe change that, for now true
 
