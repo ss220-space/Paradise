@@ -80,6 +80,8 @@
 	queen.add_antag_datum(datum, type)
 	if(announce)
 		SSshuttle?.add_hostile_environment(current_queen.current)
+	grant_action = FALSE
+	check_queen_power()
 
 /datum/team/xenomorph/proc/check_queen_power()
 	var/mob/queen_mob = current_queen?.current
