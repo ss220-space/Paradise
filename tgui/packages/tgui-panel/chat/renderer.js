@@ -67,7 +67,9 @@ const createReconnectedNode = () => {
 const handleImageError = (e) => {
   /** @type {HTMLImageElement} */
   const node = e.target;
-
+  if (!node) {
+    return;
+  }
   const reloadImage = () => {
     const attempts = parseInt(node.getAttribute('data-reload-n'), 10) || 0;
 
