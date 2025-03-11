@@ -71,18 +71,20 @@
 /datum/component/ghost_direct_control/Destroy(force)
 	extra_control_checks = null
 	after_assumed_control = null
-
-	var/mob/mob_parent = parent
-	var/list/spawners = GLOB.mob_spawners[format_text("[initial(mob_parent.name)]")]
-	LAZYREMOVE(spawners, mob_parent)
-	if(!LAZYLEN(spawners))
-		GLOB.mob_spawners -= format_text("[initial(mob_parent.name)]")
+	remove_spawner()
 	return ..()
 
 /datum/component/ghost_direct_control/proc/on_death(datum/source)
 	SIGNAL_HANDLER
+	remove_spawner()
+
+/datum/component/ghost_direct_control/proc/remove_spawner()
 	var/mob/living/our_mob = parent
-	LAZYREMOVE(GLOB.mob_spawners[format_text("[initial(our_mob.name)]")], our_mob)
+	var/text = format_text("[initial(our_mob.name)]")
+	var/list/spawners = GLOB.mob_spawners[format_text("[initial(our_mob.name)]")]
+	LAZYREMOVE(spawners, our_mob)
+	if(!LAZYLEN(spawners))
+		GLOB.mob_spawners -= text
 
 /// Inform ghosts that they can possess this
 /datum/component/ghost_direct_control/proc/on_examined(datum/source, mob/user, list/examine_text)
