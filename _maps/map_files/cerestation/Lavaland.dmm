@@ -284,7 +284,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aR" = (
 /turf/simulated/wall/r_wall,
@@ -674,7 +675,8 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cp" = (
 /obj/machinery/shower{
@@ -798,7 +800,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cW" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -1046,7 +1049,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ef" = (
 /obj/structure/table,
@@ -4053,7 +4057,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wD" = (
 /obj/item/flashlight/lantern{
@@ -4344,7 +4349,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ze" = (
 /obj/structure/railing{
@@ -4357,7 +4363,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zi" = (
 /obj/structure/stone_tile/slab,
@@ -4409,7 +4416,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zt" = (
 /obj/structure/table,
@@ -4658,7 +4666,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Bm" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf{
@@ -6110,6 +6119,20 @@
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"MT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk/mapping,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ne" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6945,7 +6968,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vw" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -6973,7 +6996,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VE" = (
 /obj/structure/stone_tile/center,
@@ -67362,7 +67386,7 @@ bV
 ol
 bS
 Zf
-aF
+MT
 aj
 aj
 aj
@@ -67619,7 +67643,7 @@ bV
 bV
 aK
 Zf
-aF
+MT
 aj
 aj
 aj
@@ -67876,7 +67900,7 @@ JS
 Lc
 Km
 Zf
-aF
+MT
 aj
 aj
 aj
