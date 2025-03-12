@@ -299,7 +299,7 @@
 		return
 	busy = TRUE
 	target.visible_message(
-		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] элекитродами боевого дефибриллятора!"),
+		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] электродами боевого дефибриллятора!"),
 		span_userdanger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] вас электродами боевого дефибриллятора!"),
 	)
 	if(ignore_hardsuits)
