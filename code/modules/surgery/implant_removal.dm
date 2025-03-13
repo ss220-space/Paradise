@@ -3,7 +3,7 @@
 //////////////////////////////////////////////////////////////////
 
 /datum/surgery/implant_removal
-	name = "Implant Removal"
+	name = "Извлечение импланта"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -17,7 +17,7 @@
 	restricted_speciestypes = list(/datum/species/kidan, /datum/species/wryn, /datum/species/plasmaman)
 
 /datum/surgery/implant_removal/plasmamans
-	name = "Implant Removal"
+	name = "Извлечение импланта (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -31,7 +31,7 @@
 
 
 /datum/surgery/implant_removal/insect
-	name = "Insectoid Implant Removal"
+	name = "Извлечение импланта (Инсектоид)"
 	steps = list(
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/generic/retract_skin,
@@ -49,7 +49,7 @@
 	restricted_speciestypes = null
 
 /datum/surgery/implant_removal/synth
-	name = "Implant Removal"
+	name = "Извлечение импланта (Синтетик)"
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
@@ -60,7 +60,7 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/extract_implant
-	name = "extract implant"
+	name = "извлечь имплант"
 	begin_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(TOOL_HEMOSTAT = 100, TOOL_CROWBAR = 65)
@@ -78,19 +78,19 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(times_repeated >= max_times_to_check)
 		user.visible_message(
-				span_notice("[user] seems to have had enough and stops checking inside [target]."),
-				span_notice("There doesn't seem to be anything inside, you've checked enough times."),
+				span_notice("[user] переста[pluralize_ru(user.gender, "ёт", "ют")] искать инородные тела в теле [target]."),
+				span_notice("Вы перестаёте искать инородные тела в теле [target], там совершенно точно ничего нет."),
 				chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 		return SURGERY_BEGINSTEP_SKIP
 
 	I = locate(/obj/item/implant) in target
 	user.visible_message(
-		"[user] starts poking around inside [target]'s [affected.name] with \the [tool].",
-		"You start poking around inside [target]'s [affected.name] with \the [tool].",
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] искать инородные тела в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете искать инородные тела в [affected.declent_ru(PREPOSITIONAL)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	target.custom_pain("The pain in your [affected.name] is living hell!")
+	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто адская!")
 	return ..()
 
 /datum/surgery_step/extract_implant/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
@@ -98,8 +98,8 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] grips onto [target]'s [affected.name] by mistake, tearing it!"),
-		span_warning("You think you've found something, but you've grabbed onto [target]'s [affected.name] instead, damaging it!"),
+		span_warning("[user] ошибочно хвата[pluralize_ru(user.gender, "ет", "ют")]ся [tool.declent_ru(INSTRUMENTAL)] за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], повреждая внутренние ткани!"),
+		span_warning("Вы ошибочно хватаетесь [tool.declent_ru(INSTRUMENTAL)] за что-то в [affected.declent_ru(PREPOSITIONAL)] [target], повреждая внутренние ткани!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(20, def_zone = affected)
@@ -110,8 +110,8 @@
 	I = locate(/obj/item/implant) in target
 	if(I && prob(80)) //implant removal only works on the chest.
 		user.visible_message(
-			span_notice("[user] takes something out of [target]'s [affected.name] with \the [tool]."),
-			span_notice("You take \an [I] out of [target]'s [affected.name]s with \the [tool]."),
+			span_notice("[user] вынима[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы вынимаете [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 
@@ -130,13 +130,16 @@
 			case.imp = I
 			I.forceMove(case)
 			case.update_icon()
-			user.visible_message("[user] places [I] into [case]!", span_notice("You place [I] into [case]."))
+			user.visible_message(
+				span_notice("[user] помеща[pluralize_ru(user.gender, "ет", "ют")] [I.declent_ru(ACCUSATIVE)] в [case.declent_ru(ACCUSATIVE)]."),
+				span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [case.declent_ru(ACCUSATIVE)].")
+			)
 		else
 			qdel(I)
 	else
 		user.visible_message(
-			span_notice("[user] could not find anything inside [target]'s [affected.name], and pulls \the [tool] out."),
-			span_notice("You could not find anything inside [target]'s [affected.name]."),
+			span_notice("[user] ничего не наход[pluralize_ru(user.gender, "ит", "ят")] в [affected.declent_ru(PREPOSITIONAL)] [target] и доста[pluralize_ru(user.gender, "ёт", "ют")] [tool.declent_ru(ACCUSATIVE)] оттуда."),
+			span_notice("Вы ничего не находите в [affected.declent_ru(PREPOSITIONAL)] [target] и достаёте [tool.declent_ru(ACCUSATIVE)] оттуда."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	return SURGERY_STEP_CONTINUE
