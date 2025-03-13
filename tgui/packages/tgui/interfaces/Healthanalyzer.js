@@ -13,7 +13,7 @@ export const Healthanalyzer = (props, context) => {
     ['left arm', 'Левая рука'],
     ['right arm', 'Правая рука'],
     ['left leg', 'Левая нога'],
-    ['right leg', 'Правоя нога'],
+    ['right leg', 'Правая нога'],
     ['left foot', 'Левая ступня'],
     ['right foot', 'Правая ступня'],
     ['left hand', 'Левая кисть'],
@@ -139,7 +139,7 @@ export const Healthanalyzer = (props, context) => {
                             style={{ color: '#0080ff', 'font-weight': 'bold' }}
                           >
                             {scan_data.damageLevels.oxy}
-                          </span> // bold
+                          </span>
                         ) : (
                           <span style={{ color: '#0080ff' }}>
                             {scan_data.damageLevels.oxy}
@@ -151,7 +151,7 @@ export const Healthanalyzer = (props, context) => {
                             style={{ color: 'green', 'font-weight': 'bold' }}
                           >
                             {scan_data.damageLevels.tox}
-                          </span> // bold
+                          </span>
                         ) : (
                           <span style={{ color: 'green' }}>
                             {scan_data.damageLevels.tox}
@@ -163,7 +163,7 @@ export const Healthanalyzer = (props, context) => {
                             style={{ color: '#FF8000', 'font-weight': 'bold' }}
                           >
                             {scan_data.damageLevels.burn}
-                          </span> // bold
+                          </span>
                         ) : (
                           <span style={{ color: '#FF8000' }}>
                             {scan_data.damageLevels.burn}
@@ -173,7 +173,7 @@ export const Healthanalyzer = (props, context) => {
                         {scan_data.damageLevels.brute > 0 ? (
                           <span style={{ color: 'red', 'font-weight': 'bold' }}>
                             {scan_data.damageLevels.brute}
-                          </span> // bold
+                          </span>
                         ) : (
                           <span style={{ color: 'red' }}>
                             {scan_data.damageLevels.brute}

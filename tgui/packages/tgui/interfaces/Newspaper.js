@@ -122,7 +122,6 @@ export const Newspaper = (props, context) => {
                 ))}
             </Flex.Item>
 
-            {/* Правая колонка */}
             <Flex.Item width="50%" ml={1}>
               {currentStories
                 .filter((_, index) => index % 2 !== 0)
