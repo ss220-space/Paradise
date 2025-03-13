@@ -12,8 +12,8 @@ SUBSYSTEM_DEF(ai_controllers)
 	///List of all ai controllers currently running
 	var/list/active_ai_controllers = list()
 
-/datum/controller/subsystem/processing/ai_controllers/Initialize(timeofday)
-	SetupAIBehaviors()
+/datum/controller/subsystem/ai_controllers/Initialize(timeofday)
+	setup_subtrees()
 	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/ai_controllers/proc/setup_subtrees()

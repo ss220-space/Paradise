@@ -12,7 +12,7 @@ PROCESSING_SUBSYSTEM_DEF(ai_movement)
 
 /datum/controller/subsystem/processing/ai_movement/Initialize(timeofday)
 	SetupAIMovementInstances()
-	return ..()
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/processing/ai_movement/proc/SetupAIMovementInstances()
 	movement_types = list()
