@@ -142,16 +142,19 @@
 
 /mob/living/simple_animal/hostile/facehugger/throw_at(atom/target, range, speed, mob/thrower, spin, diagonals_first, datum/callback/callback, force, dodgeable)
 	. = ..()
+	pass_flags &= ~PASSMOB
 	add_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
 	addtimer(CALLBACK(src, PROC_REF(remove_throw_traits)), 3 SECONDS, TIMER_UNIQUE | TIMER_OVERRIDE)
 
 /mob/living/simple_animal/hostile/facehugger/proc/remove_throw_traits()
 	if(!throwing)
 		remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+		pass_flags |= PASSMOB
 		update_icons()
 
 /mob/living/simple_animal/hostile/facehugger/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_INCAPACITATED), THROWED_TRAIT)
+	pass_flags |= PASSMOB
 	. = ..()
 	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 	if(iscarbon(hit_atom))
