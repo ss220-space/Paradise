@@ -52,8 +52,8 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, ломая [affected.encased] [target] [tool.declent_ru(INSTRUMENTAL)]!"),
-		span_warning("Вы дёргаете рукой, ломая [affected.encased] [target] [tool.declent_ru(INSTRUMENTAL)]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, ломая [tool.declent_ru(INSTRUMENTAL)] [affected.encased] [target]!"),
+		span_warning("Вы дёргаете рукой, ломая [tool.declent_ru(INSTRUMENTAL)] [affected.encased] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
