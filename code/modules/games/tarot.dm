@@ -43,5 +43,5 @@
 		newcards += card
 	cards = newcards
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
-	user.visible_message(span_notice("[user] тасует  [src.declent_ru(ACCUSATIVE)]."), span_notice("Вы тасуете [src.declent_ru(ACCUSATIVE)]."))
+	user.visible_message(span_notice("[user] тасует  [declent_ru(ACCUSATIVE)]."), span_notice("Вы тасуете [declent_ru(ACCUSATIVE)]."))
 

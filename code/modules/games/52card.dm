@@ -64,10 +64,10 @@
 
 
 /obj/item/deck/cards/update_icon_state()
-	if(!length(cards))
+	if(!LAZYLEN(cards))
 		icon_state = "deck_[card_style]_empty"
 		return
-	var/percent = round((length(cards) / deck_total) * 100) // Rounding due to switch freaking out
+	var/percent = round((LAZYLEN(cards) / deck_total) * 100) // Rounding due to switch freaking out
 	switch(percent)
 		if(0 to 20)
 			icon_state = "deck_[deck_style ? "[deck_style]_" : ""][card_style]_low"

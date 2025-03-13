@@ -157,7 +157,7 @@ export const Healthanalyzer = (props, context) => {
                             {scan_data.damageLevels.tox}
                           </span>
                         )}{' '}
-                        –{' '}
+                        -{' '}
                         {scan_data.damageLevels.burn > 0 ? (
                           <span
                             style={{ color: '#FF8000', 'font-weight': 'bold' }}
@@ -169,7 +169,7 @@ export const Healthanalyzer = (props, context) => {
                             {scan_data.damageLevels.burn}
                           </span>
                         )}{' '}
-                        –{' '}
+                        -{' '}
                         {scan_data.damageLevels.brute > 0 ? (
                           <span style={{ color: 'red', 'font-weight': 'bold' }}>
                             {scan_data.damageLevels.brute}
@@ -316,7 +316,7 @@ export const Healthanalyzer = (props, context) => {
                                 <span style={{ color: '#FF8000' }}>
                                   {local.burn}
                                 </span>{' '}
-                                –{' '}
+                                -{' '}
                                 <span style={{ color: 'red' }}>
                                   {local.brute}
                                 </span>
@@ -589,7 +589,7 @@ const ReagentList = (props, context) => {
               {reagent.volume} ед.{' '}
               {reagent.overdosed === 1 && (
                 <Box as="span" color="red" bold>
-                  – ПЕРЕДОЗИРОВКА!
+                  - ПЕРЕДОЗИРОВКА!
                 </Box>
               )}
             </Box>
