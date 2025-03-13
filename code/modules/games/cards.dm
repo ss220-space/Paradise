@@ -82,7 +82,7 @@
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != src)
-			to_chat(user, span_warning("Вы не можете смешивать карты из разных колод."))
+			balloon_alert(user, "карты из разных колод!")
 			return ATTACK_CHAIN_PROCEED
 		if(LAZYLEN(cardhand.cards) > 1)
 			var/confirm = tgui_alert(user, "Вы уверены, что хотите вернуть [LAZYLEN(cardhand.cards)] [LAZYLEN(cardhand.cards) < 5 ? "карты" : "карт"] в колоду?", "Вернуть руку?", list("Да", "Нет"))
@@ -100,7 +100,7 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. += span_notice("В ней [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карта", "карты", "карт")].")
+	. += span_notice("В колоде [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карта", "карты", "карт")].")
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
@@ -124,7 +124,7 @@
 
 /datum/action/item_action/deal_card
 	name = "Раздать карту"
-	desc = "Раздать одну карту человеку рядом с вами."
+	desc = "Раздать одну карту игроку рядом с вами."
 	button_icon_state = "deal_card"
 	use_itemicon = FALSE
 
@@ -138,7 +138,7 @@
 
 /datum/action/item_action/deal_card_multi
 	name = "Раздать несколько карт"
-	desc = "Раздать несколько карт человеку рядом с вами."
+	desc = "Раздать несколько карт игроку рядом с вами."
 	button_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
@@ -170,12 +170,12 @@
 		return
 
 	if(!LAZYLEN(cards))
-		to_chat(user, span_notice("В колоде нет карт."))
+		balloon_alert(user, "в колоде нет карт!")
 		return
 
 	var/obj/item/cardhand/cardhand = user.is_type_in_hands(/obj/item/cardhand)
 	if(cardhand && (cardhand.parentdeck != src))
-		to_chat(user, span_warning("Вы не можете смешивать карты из разных колод!"))
+		balloon_alert(user, "карты из разных колод!")
 		return
 
 	if(!cardhand)
@@ -189,8 +189,10 @@
 	cardhand.parentdeck = src
 	cardhand.update_values()
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message(span_notice("[user] тянет карту."), span_notice("Вы тянете карту."))
-	to_chat(user, span_notice("Это [play_card]."))
+	user.visible_message(
+		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ут")] карту из колоды."),
+		span_notice("Вы тянете карту из колоды. Это <b>[play_card]</b>.")
+	)
 
 
 /obj/item/deck/proc/deal_card(mob/user)
@@ -198,7 +200,7 @@
 		return
 
 	if(!LAZYLEN(cards))
-		to_chat(user, span_warning("В колоде нет карт!"))
+		balloon_alert(user, "в колоде нет карт!")
 		return
 
 	var/list/players = list()
@@ -207,7 +209,7 @@
 			players += player
 
 	if(!LAZYLEN(players))
-		to_chat(user, span_warning("Рядом нет игроков!"))
+		balloon_alert(user, "рядом нет игроков!")
 		return
 
 	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать карту?", "Раздать карту", players)
@@ -215,7 +217,7 @@
 		return
 
 	if(!LAZYLEN(cards))
-		to_chat(user, span_warning("Колода пуста!"))
+		balloon_alert(user, "колода пуста!")
 		return
 
 	deal_at(user, target, 1)
@@ -226,10 +228,10 @@
 		return
 
 	if(!LAZYLEN(cards))
-		to_chat(user, span_warning("В колоде нет карт!"))
+		balloon_alert(user, "в колоде нет карт!")
 		return
 
-	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карты", "карт", "карт")].", "Раздать карты", 1, LAZYLEN(cards), 1)
+	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карты", "карт", "карт")]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
 	if(isnull(dcard) || !LAZYLEN(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -241,16 +243,16 @@
 			players += player
 
 	if(!LAZYLEN(players))
-		to_chat(user, span_warning("Вы решили раздать <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")], но вокруг нет игроков!"))
+		to_chat(user, span_warning("Вы хотите раздать <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")], но вокруг нет игроков!"))
 		return
-	to_chat(user, span_notice("Вы решили раздать <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."))
+	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."))
 
 	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]?", "Раздать карты", players)
 	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(LAZYLEN(cards) < dcard)
-		to_chat(user, span_warning("В колоде больше нет достаточного количества карт!"))
+		balloon_alert(user, "в колоде недостаточно карт!")
 		return
 
 	deal_at(user, target, dcard)
@@ -267,9 +269,15 @@
 		cardhand.concealed = TRUE
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message(span_notice("[user] раздает себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."))
+		user.visible_message(
+			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."),
+			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")].")
+		)
 	else
-		user.visible_message(span_notice("[user] раздает <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")] [target]."))
+		user.visible_message(
+			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] [target] <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."),
+			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")].")
+		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
 
@@ -288,7 +296,10 @@
 
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	cards = shuffle(cards)
-	user.visible_message(span_notice("[user] тасует [declent_ru(ACCUSATIVE)]."))
+	user.visible_message(
+		span_notice("[user] тасу[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)]."),
+	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 
@@ -303,7 +314,10 @@
 
 	if(user.put_in_hands(src, ignore_anim = FALSE))
 		add_fingerprint(user)
-		user.visible_message(span_notice("[user] поднимает [src.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(
+			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
+		)
 		return TRUE
 
 	return FALSE
@@ -335,6 +349,7 @@
 
 /obj/item/cardhand
 	name = "hand of cards"
+	desc = "Несколько игральных карт."
 	ru_names = list(
 		NOMINATIVE = "игральные карты",
 		GENITIVE = "игральных карт",
@@ -343,7 +358,7 @@
 		INSTRUMENTAL = "игральными картами",
 		PREPOSITIONAL = "игральных картах"
 	)
-	desc = "Несколько игральных карт."
+	gender = PLURAL
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
@@ -380,11 +395,11 @@
 /obj/item/cardhand/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
 		if(LAZYLEN(cards) > 1)
-			to_chat(user, span_warning("Вы можете писать только на одной карте за раз."))
+			balloon_alert(user, "одна карта за раз!")
 			return ATTACK_CHAIN_PROCEED
 		var/datum/playingcard/card = cards[1]
 		if(card.name != "Blank Card")
-			to_chat(user, span_notice("Вы не можете писать на этой карте."))
+			balloon_alert(user, "нельзя писать на этой карте!")
 			return ATTACK_CHAIN_PROCEED
 		var/rename = rename_interactive(user, card, use_prefix = FALSE, actually_rename = FALSE)
 		if(rename && card.name == "Blank Card")
@@ -397,7 +412,7 @@
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != parentdeck)
-			to_chat(user, span_notice("Вы не можете смешивать карты из других колод!"))
+			balloon_alert(user, "карты из разных колод!")
 			return ATTACK_CHAIN_PROCEED
 		cardhand.concealed = concealed
 		cards += cardhand.cards
@@ -419,7 +434,10 @@
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message(span_notice("[user] [concealed ? "скрывает" : "показывает"] свою руку с картами."))
+	user.visible_message(
+		span_notice("[user] [concealed ? "скрыва" : "показыва"][pluralize_ru(user.gender, "ет", "ют")] свою руку с картами."),
+		span_notice("Вы [concealed ? "скрыва" : "показыва"]ете свою руку с картами.")
+	)
 
 /obj/item/cardhand/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
@@ -522,8 +540,8 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] тянет карту из своей руки."),
-		span_notice("Вы берёте [pickedcard] из своей руки."),
+		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ют")] карту из своей руки."),
+		span_notice("Вы тянете [pickedcard] из своей руки."),
 	)
 	pickedcard = null
 
@@ -548,7 +566,7 @@
 		return
 
 	var/maxcards = min(LAZYLEN(cards), 5)
-	var/discards = tgui_input_number(usr, "Сколько карт вы хотите сбросить? Вы можете сбросить до [maxcards] карт[maxcards == 1 ? "ы" : ""].", "Сбросить карты", max_value = maxcards)
+	var/discards = tgui_input_number(usr, "Сколько карт вы хотите сбросить? Вы можете сбросить до <b>[maxcards]</b> карт[maxcards == 1 ? "ы" : ""].", "Сбросить карты", max_value = maxcards)
 	if(discards > maxcards || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -582,7 +600,7 @@
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 		if(LAZYLEN(cardhand.cards))
 			user.visible_message(
-				span_notice("[user] кладёт [discarding]."),,
+				span_notice("[user] клад[pluralize_ru(user.gender, "ёт", "ют")] [discarding]."),,
 				span_notice("Вы кладёте [discarding]."),
 			)
 		cardhand.loc = get_step(user, user.dir)

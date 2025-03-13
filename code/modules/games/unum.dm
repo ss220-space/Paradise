@@ -1,6 +1,7 @@
 /// A deck of unum cards. Classic.
 /obj/item/deck/unum
 	name = "\improper UNUM! deck"
+	desc = "Колода карт UNUM! Правила для домашних ссор не входят в комплект."
 	ru_names = list(
 		NOMINATIVE = "колода карт UNUM",
 		GENITIVE = "колоды карт UNUM",
@@ -9,7 +10,6 @@
 		INSTRUMENTAL = "колодой карт UNUM",
 		PREPOSITIONAL = "колоде карт UNUM"
 	)
-	desc = "Колода карт UNUM! Домашние правила для споров не входят в комплект."
 	icon_state = "deck_unum_full"
 	card_style = "unum"
 
@@ -17,7 +17,7 @@
 /obj/item/deck/unum/build_deck()
 	var/list/ru_color = list(
 		"Red" = "Красная",
-		"Yellow" = "Желтая",
+		"Yellow" = "Жёлтая",
 		"Green" = "Зелёная",
 		"Blue" = "Синяя"
 	)

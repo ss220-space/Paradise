@@ -55,7 +55,7 @@ export const Healthanalyzer = (props, context) => {
       width={500}
       height={450}
       theme={data.theme ? data.theme : ''}
-      title={data.scan_title ? data.scan_title : 'Анализатор Здоровья'}
+      title={data.scan_title ? data.scan_title : 'Анализатор здоровья'}
       resizable={false}
     >
       <Window.Content scrollable>
@@ -77,10 +77,10 @@ export const Healthanalyzer = (props, context) => {
                         <span style={{ color: '#0080ff' }}>Удушье</span> /{' '}
                         <span style={{ color: 'green' }}>Отравление</span> /{' '}
                         <span style={{ color: '#FF8000' }}>Терм.</span> /{' '}
-                        <span style={{ color: 'red' }}>Мех</span>
+                        <span style={{ color: 'red' }}>Мех.</span>
                       </Box>
                     </LabeledList.Item>
-                    <LabeledList.Item label="Уровень повреждений">
+                    <LabeledList.Item label="Степень повреждений">
                       <Box>
                         <span style={{ color: '#0080ff' }}>?</span> -{' '}
                         <span style={{ color: 'green' }}>?</span> -{' '}
@@ -90,9 +90,9 @@ export const Healthanalyzer = (props, context) => {
                     </LabeledList.Item>
                   </LabeledList>
                 </Section>
-                <Section title="Состояние">
+                <Section title="Общее состояние">
                   <LabeledList>
-                    <LabeledList.Item label="Статус">
+                    <LabeledList.Item label="Оценка здоровья">
                       <Box color="#c51e1e" bold>
                         ОШИБКА
                       </Box>
@@ -111,7 +111,7 @@ export const Healthanalyzer = (props, context) => {
                     </LabeledList.Item>
 
                     <LabeledList.Item label="Гены">
-                      Гены не обнаружены
+                      Генная структура не обнаружена
                     </LabeledList.Item>
                   </LabeledList>
                 </Section>
@@ -129,10 +129,10 @@ export const Healthanalyzer = (props, context) => {
                         <span style={{ color: '#0080ff' }}>Удушье</span> /{' '}
                         <span style={{ color: 'green' }}>Отравление</span> /{' '}
                         <span style={{ color: '#FF8000' }}>Терм.</span> /{' '}
-                        <span style={{ color: 'red' }}>Мех</span>
+                        <span style={{ color: 'red' }}>Мех.</span>
                       </Box>
                     </LabeledList.Item>
-                    <LabeledList.Item label="Уровень повреждений">
+                    <LabeledList.Item label="Степень повреждений">
                       <Box>
                         {scan_data.damageLevels.oxy > 0 ? (
                           <span
@@ -253,7 +253,7 @@ export const Healthanalyzer = (props, context) => {
                           Незначительная генная нестабильность.
                         </Box>
                       ) : (
-                        scan_data.genes > 40 && <Box>Гены стабильны.</Box>
+                        scan_data.genes > 40 && <Box>Генная структура стабильна.</Box>
                       )}
                     </LabeledList.Item>
                   </LabeledList>
@@ -492,7 +492,7 @@ const StatusInfo = (props, context) => {
         </Box>
       ) : brainDamage > 60 ? (
         <Box color="#c51e1e" mt={1} bold>
-          Обнаружено серьёзное повреждение мозга
+          Обнаружено серьёзное повреждение мозга.
         </Box>
       ) : brainDamage > 10 ? (
         <Box color="#c51e1e" mt={1}>
@@ -513,18 +513,18 @@ const StatusInfo = (props, context) => {
 
       {!!staminaStatus && (
         <Box color="#0080ff" mt={1} bold>
-          Обнаружено переутомление.
+          Обнаружено истощение.
         </Box>
       )}
 
       {cloneStatus > 30 ? (
         <Box color="#c51e1e" mt={1} bold>
-          Обнаружено серьёзное клеточное повреждение.
+          Обнаружено серьёзное клеточное повреждение!
         </Box>
       ) : (
         cloneStatus > 0 && (
           <Box color="#c51e1e" mt={1}>
-            Обнаружено незначительное клеточное повреждение!
+            Обнаружено незначительное клеточное повреждение.
           </Box>
         )
       )}
@@ -581,7 +581,7 @@ const ReagentList = (props, context) => {
   const { reagentList } = data.scan_data;
 
   return (
-    <Section title="Обнаружены химикаты">
+    <Section title="Обнаружены вещества">
       <LabeledList>
         {reagentList.map((reagent, index) => (
           <LabeledList.Item label={reagent.name} key={index}>
