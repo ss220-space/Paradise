@@ -2199,7 +2199,7 @@
 		if(LAZYLEN(found_pdas))
 			for(var/obj/item/pda/PDA in found_pdas)
 				if(PDA.owner == old_name)
-					PDA.owner = new_name
+					PDA.update_owner_name(new_name)
 					PDA.name = "PDA-[new_name] ([PDA.ownjob])"
 		//update the datacore records! This is goig to be a bit costly.
 		for(var/list/L in list(GLOB.data_core.general, GLOB.data_core.medical, GLOB.data_core.security, GLOB.data_core.locked))

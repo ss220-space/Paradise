@@ -142,7 +142,7 @@
 		'sound/weapons/bows/arrow_remove2.ogg'
 	) //all these sounds are too good to be true
 
-/obj/item/projectile/bullet/reusable/arrow //only for wooden bow!
+/obj/projectile/bullet/reusable/arrow //only for wooden bow!
 	name = "arrow"
 	icon_state = "arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow
@@ -153,7 +153,7 @@
 	var/nemesis_factions = list("mining", "boss")
 	var/nemesis_faction = FALSE
 
-/obj/item/projectile/bullet/reusable/arrow/prehit(atom/target)
+/obj/projectile/bullet/reusable/arrow/prehit(atom/target)
 	var/mob/living/H = target
 
 	if(!ismob(H) || !LAZYLEN(nemesis_factions))
@@ -167,7 +167,7 @@
 
 	. = ..()
 
-/obj/item/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
+/obj/projectile/bullet/reusable/arrow/bone //A fully upgraded normal arrow; it's got the stats to show. Still *less* damage than a slug, slower, and with negative AP. Only for bone bow!
 	name = "bone-tipped arrow"
 	icon_state = "bone_arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/bone_tipped
@@ -176,7 +176,7 @@
 	armour_penetration = -10
 	faction_bonus_damage = 23
 
-/obj/item/projectile/bullet/reusable/arrow/jagged //alternative arrow, made from fishing
+/obj/projectile/bullet/reusable/arrow/jagged //alternative arrow, made from fishing
 	name = "jagged-tipped arrow"
 	icon_state = "jagged_arrow"
 	ammo_type = /obj/item/ammo_casing/caseless/arrow/jagged
@@ -202,7 +202,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 10
-	projectile_type = /obj/item/projectile/bullet/reusable/arrow
+	projectile_type = /obj/projectile/bullet/reusable/arrow
 	muzzle_flash_effect = null
 	caliber = "arrow"
 
@@ -222,7 +222,7 @@
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	force = 12
-	projectile_type = /obj/item/projectile/bullet/reusable/arrow/bone
+	projectile_type = /obj/projectile/bullet/reusable/arrow/bone
 	caliber = "arrow"
 
 /obj/item/ammo_casing/caseless/arrow/jagged
@@ -238,7 +238,7 @@
 	)
 	icon_state = "jagged_arrow"
 	force = 16
-	projectile_type = /obj/item/projectile/bullet/reusable/arrow/jagged
+	projectile_type = /obj/projectile/bullet/reusable/arrow/jagged
 	caliber = "arrow"
 
 //quiver

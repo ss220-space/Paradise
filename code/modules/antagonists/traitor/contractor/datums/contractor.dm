@@ -15,7 +15,7 @@
 	special_role = SPECIAL_ROLE_TRAITOR
 	antag_hud_type = ANTAG_HUD_TRAITOR
 	show_in_orbit = FALSE
-	antag_menu_name = "Контрактор"
+	antag_menu_name = "Контрактник"
 	/// How many telecrystals a traitor must forfeit to become a contractor.
 	var/tc_cost = 100
 	/// How long a traitor's chance to become a contractor lasts before going away. In deciseconds.
@@ -69,14 +69,14 @@
 /datum/antagonist/contractor/greet()
 	// Greet them with the unique message
 	var/list/messages = list()
-	var/greet_text = "Contractors forfeit [tc_cost] telecrystals for the privilege of taking on kidnapping contracts for credit and TC payouts that can add up to more than the normal starting amount of TC.<br>"\
-	 + "If you are interested, simply access your hidden uplink and select the \"Contracting Opportunity\" tab for more information.<br>"
-	messages.Add("<b><font size=4 color=red>You have been offered a chance to become a Contractor.</font></b><br>")
+	var/greet_text = "Контрактники отдают [tc_cost] телекристалл[declension_ru(tc_cost, "", "а", "ов")] за возможность выполнять контракты на похищение, получая за это выплаты в виде ТК и кредитов. Это позволяет заработать гораздо больше, чем они имели раньше.<br>" \
+					+ "Если вы заинтересованы, просто зайдите в аплинк и выберите вкладку \"Заключение контракта\" для получения дополнительной информации.<br>"
+	messages.Add("<b><font size=4 color=red>Вам предложили стать Контрактником.</font></b><br>")
 	messages.Add("<font color=red>[greet_text]</font>")
 	if(!is_admin_forced)
-		messages.Add("<b><i><font color=red>Hurry up. You are not the only one who received this offer. Their number is limited. \
-        			If other traitors accept all offers before you, you will not be able to accept one of them.</font></i></b>")
-	messages.Add("<b><i><font color=red>This offer will expire in 10 minutes starting now (expiry time: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
+		messages.Add("<b><i><font color=red>Не упустите возможность! Вы не единственный, кто получил это предложение. \
+					Количество доступных предложений ограничено, и если другие агенты примут их раньше вас, то у вас не останется возможности принять участие.</font></i></b>")
+	messages.Add("<b><i><font color=red>Срок действия этого предложения истекает через 10 минут, начиная с этого момента (время истечения: <u>[station_time_timestamp(time = offer_deadline)]</u>).</font></i></b>")
 	return messages
 
 /datum/antagonist/contractor/on_gain()
@@ -106,11 +106,11 @@
 	var/offers_availability_check = !(SSticker?.mode?.contractor_accepted < CONTRACTOR_MAX_ACCEPTED || is_admin_forced)
 	if(uplink.uses < tc_cost || world.time >= offer_deadline || offers_availability_check)
 		var/reason = (uplink.uses < tc_cost) ? \
-			"you have insufficient telecrystals ([tc_cost] needed in total)" : \
+			"у вас недостаточно телекристаллов (всего требуется [tc_cost])" : \
 			(offers_availability_check) ? \
-			"all offers have already been accepted by other traitors": \
-			"the deadline has passed"
-		to_chat(user, span_warning("You can no longer become a contractor as [reason]."))
+			"все предложения уже приняты другими агентами": \
+			"срок предложения истёк"
+		to_chat(user, span_warning("Вы больше не можете стать Контрактником, потому что [reason]."))
 		return
 
 	// Give the kit

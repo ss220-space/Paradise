@@ -60,9 +60,9 @@
 
 
 
-/obj/machinery/anomalous_crystal/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/anomalous_crystal/bullet_act(obj/projectile/P, def_zone)
 	..()
-	if(istype(P, /obj/item/projectile/magic))
+	if(istype(P, /obj/projectile/magic))
 		ActivationReaction(P.firer, "magic", P.damage_type)
 		return
 	ActivationReaction(P.firer, P.flag, P.damage_type)
@@ -186,16 +186,16 @@
 /obj/machinery/anomalous_crystal/emitter //Generates a projectile when interacted with
 	activation_method = "touch"
 	cooldown_add = 50
-	var/generated_projectile = /obj/item/projectile/beam/emitter
+	var/generated_projectile = /obj/projectile/beam/emitter
 
 /obj/machinery/anomalous_crystal/emitter/New()
 	..()
-	generated_projectile = pick(/obj/item/projectile/magic/fireball/infernal,/obj/item/projectile/magic/spellblade,
-								 /obj/item/projectile/bullet/meteorshot, /obj/item/projectile/beam/xray, /obj/item/projectile/colossus)
+	generated_projectile = pick(/obj/projectile/magic/fireball/infernal,/obj/projectile/magic/spellblade,
+								 /obj/projectile/bullet/meteorshot, /obj/projectile/beam/xray, /obj/projectile/colossus)
 
 /obj/machinery/anomalous_crystal/emitter/ActivationReaction(mob/user, method)
 	if(..())
-		var/obj/item/projectile/P = new generated_projectile(get_turf(src))
+		var/obj/projectile/P = new generated_projectile(get_turf(src))
 		P.dir = dir
 		switch(dir)
 			if(NORTH)
@@ -321,7 +321,7 @@
 	cooldown_add = 50
 	activation_sound = 'sound/magic/timeparadox2.ogg'
 	var/list/banned_items_typecache = list(/obj/item/storage, /obj/item/implant, /obj/item/implanter, /obj/item/disk/nuclear,
-										   /obj/item/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
+										   /obj/projectile, /obj/item/spellbook, /obj/item/clothing/mask/facehugger, /obj/item/contractor_uplink,
 										   /obj/item/dice/d20/fate, /obj/item/gem, /obj/item/guardiancreator, /obj/item/dna_upgrader)
 
 /obj/machinery/anomalous_crystal/refresher/New()

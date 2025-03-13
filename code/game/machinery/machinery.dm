@@ -97,6 +97,7 @@ Class Procs:
 
 /obj/machinery
 	name = "machinery"
+	gender = MALE
 	icon = 'icons/obj/stationobjs.dmi'
 	pressure_resistance = 15
 	max_integrity = 200

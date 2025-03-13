@@ -37,7 +37,7 @@
 	light_on = FALSE
 	var/adaptive_damage_bonus = 0
 	var/upgraded = FALSE //whether is our crusher is magmite-upgraded
-	var/obj/item/projectile/destabilizer/destab = /obj/item/projectile/destabilizer
+	var/obj/projectile/destabilizer/destab = /obj/projectile/destabilizer
 
 /obj/item/twohanded/kinetic_crusher/Destroy()
 	QDEL_LIST(trophies)
@@ -121,7 +121,7 @@
 		var/turf/proj_turf = user.loc
 		if(!isturf(proj_turf))
 			return
-		var/obj/item/projectile/destabilizer/D = new destab(proj_turf)
+		var/obj/projectile/destabilizer/D = new destab(proj_turf)
 		for(var/t in trophies)
 			var/obj/item/crusher_trophy/T = t
 			T.on_projectile_fire(D, user)
@@ -195,7 +195,7 @@
 
 
 //destablizing force
-/obj/item/projectile/destabilizer
+/obj/projectile/destabilizer
 	name = "destabilizing force"
 	icon_state = "pulse1"
 	nodamage = TRUE
@@ -206,11 +206,11 @@
 	log_override = TRUE
 	var/obj/item/twohanded/kinetic_crusher/hammer_synced
 
-/obj/item/projectile/destabilizer/Destroy()
+/obj/projectile/destabilizer/Destroy()
 	hammer_synced = null
 	return ..()
 
-/obj/item/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/destabilizer/on_hit(atom/target, blocked = FALSE)
 	if(isliving(target))
 		var/mob/living/L = target
 		var/had_effect = (L.has_status_effect(STATUS_EFFECT_CRUSHERMARK)) //used as a boolean
@@ -276,7 +276,7 @@
 
 /obj/item/crusher_trophy/proc/on_melee_hit(mob/living/target, mob/living/user) //the target and the user
 
-/obj/item/crusher_trophy/proc/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
+/obj/item/crusher_trophy/proc/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user) //the projectile fired and the user
 
 /obj/item/crusher_trophy/proc/on_mark_application(mob/living/target, datum/status_effect/crusher_mark/mark, had_mark) //the target, the mark applied, and if the target had a mark before
 
@@ -357,7 +357,7 @@
 /obj/item/crusher_trophy/blaster_tubes/magma_wing/effect_desc()
 	return "детонация метки дестабилизатора позволяет следующему выстрелу дестабилизатора нанести <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
 
-/obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user)
+/obj/item/crusher_trophy/blaster_tubes/magma_wing/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
 		marker.name = "heated [marker.name]"
 		marker.icon_state = "lava"
@@ -613,7 +613,7 @@
 /obj/item/crusher_trophy/blaster_tubes/effect_desc()
 	return "следующий выстрел дестабилизатора после детонации метки дестабилизатора будет лететь медленнее, но нанесёт <b>[bonus_value]</b> единиц[declension_ru(bonus_value, "у", "ы", "")] урона"
 
-/obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/item/projectile/destabilizer/marker, mob/living/user)
+/obj/item/crusher_trophy/blaster_tubes/on_projectile_fire(obj/projectile/destabilizer/marker, mob/living/user)
 	if(deadly_shot)
 		marker.name = "deadly [marker.name]"
 		marker.icon_state = "chronobolt"
@@ -720,14 +720,14 @@
             INSTRUMENTAL = "магмитовым прото-кинетическим крушителем",
             PREPOSITIONAL = "магмитовом прото-кинетическом крушителе"
 	)
-	destab = /obj/item/projectile/destabilizer/mega
+	destab = /obj/projectile/destabilizer/mega
 	upgraded = TRUE
 
-/obj/item/projectile/destabilizer/mega
+/obj/projectile/destabilizer/mega
 	icon_state = "pulse0"
 	range = 4 //you know....
 
-/obj/item/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
+/obj/projectile/destabilizer/mega/on_hit(atom/target, blocked = FALSE)
 	var/target_turf = get_turf(target)
 	if(ismineralturf(target_turf))
 		if(isancientturf(target_turf))

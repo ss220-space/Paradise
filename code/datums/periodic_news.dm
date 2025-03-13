@@ -5,103 +5,96 @@
 
 	var/round_time // time of the round at which this should be announced, in seconds
 	var/message // body of the message
-	var/author = "Nanotrasen Editor"
+	var/author = "Редактор НаноТрейзен"
 	var/channel_name = NEWS_CHANNEL_NYX
 	var/can_be_redacted = FALSE
 	var/message_type = "Story"
 
 /datum/news_announcement/revolution_inciting_event/paycuts_suspicion
 	round_time = 60*10
-	message = {"Reports have leaked that Nanotrasen Inc. is planning to put paycuts into
-				effect on many of its Research Stations in Tau Ceti. Apparently these research
-				stations haven't been able to yield the expected revenue, and thus adjustments
-				have to be made."}
-	author = "Unauthorized"
+	message = {"Утекли сообщения о том, что НаноТрейзен планирует ввести сокращение зарплат
+				на многих своих исследовательских станциях в системе Тау Кита. По всей видимости, эти станции
+				не смогли принести ожидаемой прибыли, и поэтому необходимы корректировки."}
+	author = "Неавторизованный"
 
 /datum/news_announcement/revolution_inciting_event/paycuts_confirmation
 	round_time = 60*40
-	message = {"Earlier rumours about paycuts on Research Stations in the Tau Ceti system have
-				been confirmed. Shockingly, however, the cuts will only affect lower tier
-				personnel. Heads of Staff will, according to our sources, not be affected."}
-	author = "Unauthorized"
+	message = {"Ранее ходившие слухи о сокращении зарплат на исследовательских станциях
+				в системе Тау Кита подтвердились. Однако, что шокирует, сокращения затронут только
+				персонал низшего звена. По данным наших источников, руководство станций не пострадает."}
+	author = "Неавторизованный"
 
 /datum/news_announcement/revolution_inciting_event/human_experiments
 	round_time = 60*90
-	message = {"Unbelievable reports about human experimentation have reached our ears. According
-			 	to a refugee from one of the Tau Ceti Research Stations, their station, in order
-			 	to increase revenue, has refactored several of their facilities to perform experiments
-			 	on live humans, including virology research, genetic manipulation, and \"feeding them
-			 	to the slimes to see what happens\". Allegedly, these test subjects were neither
-			 	humanified monkeys nor volunteers, but rather unqualified staff that were forced into
-				the experiments, and reported to have died in a \"work accident\" by Nanotrasen Inc."}
-	author = "Unauthorized"
+	message = {"Поступили шокирующие сообщения о проведении экспериментов над людьми.
+				Согласно беженцу с одной из исследовательских станций в системе Тау Кита, их станция,
+				чтобы увеличить доходы, переоборудовала несколько своих лабораторий для проведения экспериментов
+				над живыми людьми. Среди них — исследования в вирусологии, генетические манипуляции и \"кормление слаймами,
+				чтобы посмотреть, что произойдёт\". По утверждениям, подопытными были не очеловеченные обезьяны и не добровольцы,
+				а неквалифицированный персонал, насильно вовлечённый в эксперименты. О их гибели НаноТрейзен сообщала
+				как о \"несчастных случаях на производстве\"."}
+	author = "Неавторизованный"
 
 /datum/news_announcement/bluespace_research/announcement
 	round_time = 60*20
-	message = {"The new field of research trying to explain several interesting spacetime oddities,
-				also known as \"Bluespace Research\", has reached new heights. Of the several
-				hundred space stations now orbiting in Tau Ceti, fifteen are now specially equipped
-				to experiment with and research Bluespace effects. Rumours have it some of these
-				stations even sport functional \"travel gates\" that can instantly move a whole research
-				team to an alternate reality."}
+	message = {"Новая область исследований, пытающаяся объяснить несколько интересных аномалий пространства-времени,
+				известная как \"Исследование Блюспейса\", достигла новых высот. Из нескольких сотен космических станций, находящихся
+				на орбите в системе Тау Кита, пятнадцать теперь специально оборудованы для экспериментов и изучения эффектов Блюспейса.
+				Ходят слухи, что на некоторых из этих станций даже есть рабочие \"врата перемещения\", способные мгновенно переносить
+				целые исследовательские команды в альтернативные реальности."}
 
 /datum/news_announcement/random_junk/cheesy_honkers
-	author = "Assistant Editor Carl Ritz"
+	author = "Помощник редактора Карл Ритц"
 	channel_name = NEWS_CHANNEL_GIB
-	message = {"Do cheesy honkers increase risk of having a miscarriage? Several health administrations
-				say so!"}
+	message = {"Увеличивают ли сырные хонкеры риск выкидыша? Несколько органов здравоохранения утверждают, что да!"}
 	round_time = 60 * 15
 
 /datum/news_announcement/random_junk/net_block
-	author = "Assistant Editor Carl Ritz"
+	author = "Помощник редактора Карл Ритц"
 	channel_name = NEWS_CHANNEL_GIB
-	message = {"Several corporations banding together to block access to 'wetskrell.nt', site administrators
-	claiming violation of net laws."}
+	message = {"Несколько корпораций объединились, чтобы заблокировать доступ к сайту \"wetskrell.nt\".
+				Администраторы сайта заявляют о нарушении сетевых законов."}
 	round_time = 60 * 50
 
 /datum/news_announcement/random_junk/found_ssd
 	channel_name = NEWS_CHANNEL_NYX
-	author = "Doctor Eric Hanfield"
+	author = "Доктор Эрик Ханфилд"
 
-	message = {"Several people have been found unconscious at their terminals. It is thought that it was due
-				to a lack of sleep or of simply migraines from staring at the screen too long. Camera footage
-				reveals that many of them were playing games instead of working and their pay has been docked
-				accordingly."}
+	message = {"Несколько человек были обнаружены без сознания за своими терминалами. Предполагается,
+				что это связано с недосыпом или мигренями из-за долгого взгляда на экран. Записи с камер показывают,
+				что многие из них играли в игры вместо работы, и их зарплата была сокращена соответствующим образом."}
 	round_time = 60 * 90
 
 /datum/news_announcement/lotus_tree/explosions
 	channel_name = NEWS_CHANNEL_NYX
-	author = "Reporter Leland H. Howards"
+	author = "Репортер Леланд Г. Ховардс"
 
-	message = {"The newly-christened civillian transport Lotus Tree suffered two very large explosions near the
-				bridge today, and there are unconfirmed reports that the death toll has passed 50. The cause of
-				the explosions remain unknown, but there is speculation that it might have something to do with
-				the recent change of regulation in the Moore-Lee Corporation, a major funder of the ship, when M-L
-				announced that they were officially acknowledging inter-species marriage and providing couples
-				with marriage tax-benefits."}
+	message = {"Недавно запущенный гражданский транспорт \"Лотосовое Дерево\" сегодня пережил два мощных взрыва
+				в районе мостика. По неподтверждённым данным, число погибших превысило 50 человек. Причина взрывов
+				остаётся неизвестной, но есть предположения, что это может быть связано с недавним изменением политики
+				корпорации Мур-Ли, основного спонсора судна. Корпорация, так-же, объявила о признании межвидовых браков и предоставлении
+				налоговых льгот для таких пар."}
 	round_time = 60 * 30
 
 /datum/news_announcement/food_riots/breaking_news
 	channel_name = NEWS_CHANNEL_NYX
-	author = "Reporter Ro'kii Ar-Raqis"
+	author = "Репортер Ро'Кии Ар-Ракис"
 
-	message = {"Breaking news: Food riots have broken out throughout the Refuge asteroid colony in the Tenebrae
-				Lupus system. This comes only hours after Nanotrasen officials announced they will no longer trade with the
-				colony, citing the increased presence of \"hostile factions\" on the colony has made trade too dangerous to
-				continue. Nanotrasen officials have not given any details about said factions. More on that at the top of
-				the hour."}
+	message = {"Экстренные новости: В колонии на астероиде \"Убежище\" в системе \"Тенебру Люпус\" вспыхнули продовольственные бунты.
+				Это произошло всего через несколько часов после того, как представители НаноТрейзен объявили о прекращении торговли
+				с колонией, сославшись на возросшее присутствие \"враждебных фракций\", что сделало торговлю слишком опасной.
+				Представители НаноТрейзен не предоставили подробностей об этих фракциях. Подробнее об этом в начале часа."}
 	round_time = 60 * 10
 
 /datum/news_announcement/food_riots/more
 	channel_name = NEWS_CHANNEL_NYX
-	author = "Reporter Ro'kii Ar-Raqis"
+	author = "Репортер Ро'Кии Ар-Ракис"
 
-	message = {"More on the Refuge food riots: The Refuge Council has condemned Nanotrasen's withdrawal from
-	the colony, claiming \"there has been no increase in anti-Nanotrasen activity\", and \"\[the only] reason
-	Nanotrasen withdrew was because the \[Tenebrae Lupus] system's Plasma deposits have been completely mined out.
-	We have little to trade with them now\". Nanotrasen officials have denied these allegations, calling them
-	\"further proof\" of the colony's anti-Nanotrasen stance. Meanwhile, Refuge Security has been unable to quell
-	the riots. More on this at 6."}
+	message = {"Подробнее о продовольственных бунтах в колонии \"Убежище\": Совет Убежища осудил уход НаноТрейзен
+				из колонии, заявив, что \"не было никакого увеличения активности против НаноТрейзен\", и что \"единственная причина ухода
+				НаноТрейзен — это полное истощение залежей плазмы в системе \"Тенебру Люпус\". Теперь нам почти нечего им предложить\".
+				Представители НаноТрейзен опровергли эти обвинения, назвав их \"ещё одним свидетельством\" негативного настроя против НаноТрейзен в колонии.
+				Тем временем служба безопасности Убежища не смогла подавить беспорядки. Подробнее об этом в 6 часов."}
 	round_time = 60 * 60
 GLOBAL_LIST_INIT(newscaster_standard_feeds, list(/datum/news_announcement/bluespace_research, /datum/news_announcement/lotus_tree, /datum/news_announcement/random_junk,  /datum/news_announcement/food_riots))
 

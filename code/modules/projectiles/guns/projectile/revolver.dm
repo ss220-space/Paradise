@@ -608,7 +608,16 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane
 	name = "cane"
-	desc = "A cane used by a true gentleman. Or a clown."
+	desc = "Трость — верный спутник настоящего джентльмена. Или клоуна."
+	ru_names = list(
+		NOMINATIVE = "трость",
+		GENITIVE = "трости",
+		DATIVE = "трости",
+		ACCUSATIVE = "трость",
+		INSTRUMENTAL = "тростью",
+		PREPOSITIONAL = "трости"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -621,7 +630,7 @@
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
-	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
+	sawn_desc = "Прошу прощения, но зачем вы распилили свою трость?"
 	attack_verb = list("огрел", "проучил")
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = TRUE

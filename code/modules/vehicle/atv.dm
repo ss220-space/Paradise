@@ -98,8 +98,8 @@
 
 
 /obj/machinery/porta_turret/syndicate/vehicle_turret/fast
-	projectile = /obj/item/projectile/bullet/weakbullet4/c9mmte
-	eprojectile = /obj/item/projectile/bullet/weakbullet4/c9mmte
+	projectile = /obj/projectile/bullet/weakbullet4/c9mmte
+	eprojectile = /obj/projectile/bullet/weakbullet4/c9mmte
 	shot_delay = 0.2 SECONDS
 
 

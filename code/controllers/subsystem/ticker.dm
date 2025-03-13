@@ -601,7 +601,7 @@ SUBSYSTEM_DEF(ticker)
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]
 		team.declare_completion()
-		
+
 	mode.declare_completion()//To declare normal completion.
 
 	//calls auto_declare_completion_* for all modes
@@ -650,23 +650,23 @@ SUBSYSTEM_DEF(ticker)
 /datum/controller/subsystem/ticker/proc/setup_news_feeds()
 	var/datum/feed_channel/newChannel = new /datum/feed_channel
 	newChannel.channel_name = NEWS_CHANNEL_STATION
-	newChannel.author = "Automated Announcement Listing"
+	newChannel.author = EDITOR_STATION
 	newChannel.icon = "bullhorn"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "Nyx Daily"
-	newChannel.author = "CentComm Minister of Information"
+	newChannel.channel_name = NEWS_CHANNEL_NYX
+	newChannel.author = EDITOR_NYX
 	newChannel.icon = "meteor"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
 	GLOB.news_network.channels += newChannel
 
 	newChannel = new /datum/feed_channel
-	newChannel.channel_name = "The Gibson Gazette"
-	newChannel.author = "Editor Mike Hammers"
+	newChannel.channel_name = NEWS_CHANNEL_GIB
+	newChannel.author = EDITOR_GIB
 	newChannel.icon = "star"
 	newChannel.frozen = TRUE
 	newChannel.admin_locked = TRUE
