@@ -21,15 +21,34 @@
   background-color: colors.$lightMode;
 }
 
-/** Window sizes */
-.window-30 {
-  height: 24px;
+// Remove conditionals with 516
+@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+  /** Window sizes */
+  .window-30 {
+    height: 24px;
+  }
+
+  .window-50 {
+    height: 40px;
+  }
+
+  .window-70 {
+    height: 56px;
+  }
 }
 
-.window-50 {
-  height: 40px;
-}
+// Remove with 516
+@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+  /** Window sizes */
+  .window-30 {
+    height: 30px;
+  }
 
-.window-70 {
-  height: 56px;
+  .window-50 {
+    height: 50px;
+  }
+
+  .window-70 {
+    height: 70px;
+  }
 }

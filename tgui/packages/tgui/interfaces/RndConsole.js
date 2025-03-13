@@ -37,7 +37,7 @@ export const RndConsole = (properties, context) => {
 
   return (
     <Window width={800} height={550} theme={data.ui_theme}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Box className="RndConsole">
           <RndNavbar />
           <RndRoute menu={MENU.MAIN} render={() => <MainMenu />} />
