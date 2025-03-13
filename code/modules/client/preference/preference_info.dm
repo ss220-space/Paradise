@@ -276,4 +276,4 @@ GLOBAL_LIST_INIT(preferences_info, list())
     SIGNAL_HANDLER
 
     var/mob/dead/observer/ghost = source.ghostize(NONE)
-    ghost.apply_dnr(TRUE) // we prevented re-entering earlier, but we need to update hud and send signal
+    ghost.apply_dnr() // we prevented re-entering earlier, but we need to update hud and send signal
