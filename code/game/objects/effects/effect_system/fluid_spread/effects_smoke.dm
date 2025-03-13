@@ -398,7 +398,7 @@
 	color = "#752424"
 	lifetime = 3 SMOKE_TICK_TO_SECONDS
 
-/obj/effect/particle_effect/fluid/smoke/smoke_mob(mob/living/carbon/victim)
+/obj/effect/particle_effect/fluid/smoke/vomiting/smoke_mob(mob/living/carbon/victim)
 	. = ..()
 	if(!.)
 		return .

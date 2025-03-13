@@ -2,7 +2,7 @@
 	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
-	has_unlimited_silicon_privilege = 1
+	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps

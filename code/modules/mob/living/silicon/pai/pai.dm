@@ -154,7 +154,7 @@
 	/// PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
-	pda.owner = "[src]"
+	pda.update_owner_name("[src]")
 	pda.name = "[pda.owner] ([pda.ownjob])"
 
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)

@@ -199,6 +199,7 @@
 	if(lethal_is_configurable)
 		lethal = !lethal
 		updateTurrets()
+	return CLICK_ACTION_SUCCESS
 
 // AIRLOCKS
 
@@ -219,13 +220,14 @@
 
 /obj/machinery/door/airlock/ai_click_alt(mob/living/silicon/ai/user) // Electrifies doors.
 	if(!ai_control_check(user))
-		return
+		return CLICK_ACTION_BLOCKING
 	if(wires.is_cut(WIRE_ELECTRIFY))
-		to_chat(user, "<span class='warning'>The electrification wire is cut - Cannot electrify the door.</span>")
+		to_chat(user, span_warning("The electrification wire is cut - Cannot electrify the door."))
 	if(isElectrified())
 		electrify(0, user, TRUE) // un-shock
 	else
 		electrify(-1, user, TRUE) // permanent shock
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/door/airlock/AIMiddleClick(mob/living/user) // Toggles door bolt lights.
@@ -240,3 +242,4 @@
 
 /obj/machinery/ai_slipper/ai_click_alt(mob/living/silicon/ai/user) //Dispenses liquid if on
 	Activate()
+	return CLICK_ACTION_SUCCESS

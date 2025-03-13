@@ -88,7 +88,7 @@
 		return
 
 	if(!defib.paddles_on_defib)
-		balloon_alert(user, "лопасти уже кем-то взяты!")
+		balloon_alert(user, "электроды уже кем-то взяты!")
 		return
 
 	defib.dispence_paddles(user)

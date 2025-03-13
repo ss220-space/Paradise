@@ -6,6 +6,19 @@
 /// Global list of all PDAs in the world
 GLOBAL_LIST_EMPTY(PDAs)
 
+//authorization log
+GLOBAL_LIST_EMPTY(name_to_PDAs)
+
+//Helpers
+/obj/item/pda/proc/inject_to_authorization_log()
+	if(GLOB.name_to_PDAs?[owner])
+		GLOB.name_to_PDAs?[owner] += src
+	else
+		GLOB.name_to_PDAs?[owner] = list(src)
+
+/obj/item/pda/proc/remove_from_authorization_log()
+	if(GLOB.name_to_PDAs?[owner])
+		LAZYREMOVE(GLOB.name_to_PDAs[owner], src)
 
 /obj/item/pda
 	name = "PDA"
@@ -121,6 +134,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
+	remove_from_authorization_log()
 	var/T = get_turf(loc)
 	if(id)
 		id.forceMove(T)
@@ -318,6 +332,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return TRUE
 	return FALSE
 
+/obj/item/pda/proc/update_owner_name(new_name)
+	remove_from_authorization_log()
+	owner = new_name
+	inject_to_authorization_log()
 
 /obj/item/pda/update_name(updates = ALL)
 	. = ..()
@@ -329,7 +347,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		name = "PDA-[owner] ([ownjob])"
 	else
 		name = initial(name)
-
 
 /obj/item/pda/update_desc(updates = ALL)
 	. = ..()
@@ -446,7 +463,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			to_chat(user, span_warning("The PDA rejects empty ID card."))
 			return ATTACK_CHAIN_PROCEED
 		if(!owner)
-			owner = id_card.registered_name
+			update_owner_name(id_card.registered_name)
 			ownjob = id_card.assignment
 			ownrank = id_card.rank
 			update_appearance(UPDATE_NAME)

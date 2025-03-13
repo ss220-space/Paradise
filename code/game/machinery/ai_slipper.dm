@@ -7,6 +7,7 @@
 	anchored = TRUE
 	max_integrity = 200
 	armor = list(melee = 50, bullet = 20, laser = 20, energy = 20, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 30)
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/uses = 20
 	var/disabled = TRUE
 	var/locked = TRUE
@@ -68,11 +69,11 @@
 	if(cooldown_on)
 		to_chat(user, span_warning("[src] is still recharging!"))
 		return
-	
+
 	var/datum/effect_system/fluid_spread/foam/s = new()
 	s.set_up(range = 3, location = loc)
 	s.start()
-	
+
 	uses--
 	cooldown_on = TRUE
 	update_icon(UPDATE_ICON_STATE)

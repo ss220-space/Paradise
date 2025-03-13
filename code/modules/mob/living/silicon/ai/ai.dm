@@ -1347,6 +1347,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(control_disabled)
 		to_chat(src, span_warning("You can't do that right now!"))
 		return FALSE
+	action_bitflags &= ~NEED_HANDS
 	return can_see(target) && ..() //stop AIs from leaving windows open and using then after they lose vision
 
 /mob/living/silicon/ai/switch_to_camera(obj/machinery/camera/C)
