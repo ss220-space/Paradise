@@ -91,7 +91,7 @@ GLOBAL_LIST_INIT(default_map_traits, MAP_TRANSITION_CONFIG)
 /proc/are_zs_connected(atom/A, atom/B)
 	A = get_turf(A)
 	B = get_turf(B)
-	if(isnull(A) || isnull(B)) // One of you is a liar.
+	if(isnull(A) || isnull(B))
 		return FALSE
 	if(A.z == B.z)
 		return TRUE
