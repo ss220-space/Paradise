@@ -107,6 +107,10 @@
 	name = "goat crate"
 	content_mob = /mob/living/simple_animal/hostile/retaliate/goat
 
+/obj/structure/closet/critter/goat/populate_contents()
+	if(prob(30))
+		content_mob = /mob/living/simple_animal/hostile/retaliate/goat/hump
+
 /obj/structure/closet/critter/turkey
 	name = "turkey crate"
 	content_mob = /mob/living/simple_animal/turkey

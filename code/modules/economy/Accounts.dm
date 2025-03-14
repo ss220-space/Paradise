@@ -154,16 +154,12 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	insurance += amount
 
 /datum/money_account/proc/notify_pda_owner(var/text, var/noti = FALSE)
-	for(var/obj/item/pda/send_pda in GLOB.PDAs)
-		if(owner_name == send_pda.owner)
-			var/datum/data/pda/app/messenger/PM = send_pda.find_program(/datum/data/pda/app/messenger)
-
-			if(PM && PM.can_receive())
-				PM.notify(text, noti)
-				return TRUE
-
-			return FALSE
-
+	for(var/obj/item/pda/send_pda in GLOB.name_to_PDAs?[owner_name])
+		var/datum/data/pda/app/messenger/PM = send_pda.find_program(/datum/data/pda/app/messenger)
+		if(PM && PM.can_receive())
+			PM.notify(text, noti)
+			return TRUE
+		return FALSE
 	return FALSE
 
 /datum/transaction

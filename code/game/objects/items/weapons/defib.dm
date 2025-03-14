@@ -76,7 +76,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять лопасти.")
+	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
 
 
 /obj/item/defibrillator/proc/update_power()
@@ -181,7 +181,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/verb/toggle_paddles_verb()
-	set name = "Взять лопасти"
+	set name = "Взять электроды"
 	set category = "Object"
 	set src in oview(1)
 
@@ -193,7 +193,7 @@
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
-		balloon_alert(user, "лопасти отсутствуют!")
+		balloon_alert(user, "электроды отсутствуют!")
 		return
 
 	if(paddles_on_defib)
@@ -351,14 +351,14 @@
 
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
-	desc = "Пара лопастей с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
+	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
 	ru_names = list(
-		NOMINATIVE = "лопасти дефибриллятора",
-		GENITIVE = "лопастей дефибриллятора",
-		DATIVE = "лопастям дефибриллятора",
-		ACCUSATIVE = "лопасти дефибриллятора",
-		INSTRUMENTAL = "лопастями дефибриллятора",
-		PREPOSITIONAL = "лопастях дефибриллятора"
+		NOMINATIVE = "электроды дефибриллятора",
+		GENITIVE = "электродов дефибриллятора",
+		DATIVE = "электродам дефибриллятора",
+		ACCUSATIVE = "электроды дефибриллятора",
+		INSTRUMENTAL = "электродами дефибриллятора",
+		PREPOSITIONAL = "электродах дефибриллятора"
 	)
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
@@ -377,14 +377,14 @@
 
 /obj/item/twohanded/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
-	desc = "Пара высокотехнологичных лопастей с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
+	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
 	ru_names = list(
-		NOMINATIVE = "лопасти продвинутого дефибриллятора",
-		GENITIVE = "лопастей продвинутого дефибриллятора",
-		DATIVE = "лопастям продвинутого дефибриллятора",
-		ACCUSATIVE = "лопасти продвинутого дефибриллятора",
-		INSTRUMENTAL = "лопастями продвинутого дефибриллятора",
-		PREPOSITIONAL = "лопастях продвинутого дефибриллятора"
+		NOMINATIVE = "электроды продвинутого дефибриллятора",
+		GENITIVE = "электродов продвинутого дефибриллятора",
+		DATIVE = "электродам продвинутого дефибриллятора",
+		ACCUSATIVE = "электроды продвинутого дефибриллятора",
+		INSTRUMENTAL = "электродами продвинутого дефибриллятора",
+		PREPOSITIONAL = "электродах продвинутого дефибриллятора"
 	)
 	icon_state = "ntpaddles"
 	item_state = "ntpaddles"
@@ -392,14 +392,14 @@
 /obj/item/twohanded/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
-	desc = "Пара высокотехнологичных лопастей с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
+	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
 	ru_names = list(
-		NOMINATIVE = "лопасти боевого дефибриллятора",
-		GENITIVE = "лопастей боевого дефибриллятора",
-		DATIVE = "лопастям боевого дефибриллятора",
-		ACCUSATIVE = "лопасти боевого дефибриллятора",
-		INSTRUMENTAL = "лопастями боевого дефибриллятора",
-		PREPOSITIONAL = "лопастях боевого дефибриллятора"
+		NOMINATIVE = "электроды боевого дефибриллятора",
+		GENITIVE = "электродов боевого дефибриллятора",
+		DATIVE = "электродам боевого дефибриллятора",
+		ACCUSATIVE = "электроды боевого дефибриллятора",
+		INSTRUMENTAL = "электродами боевого дефибриллятора",
+		PREPOSITIONAL = "электродах боевого дефибриллятора"
 	)
 	icon_state = "syndiepaddles"
 	item_state = "syndiepaddles"
@@ -461,7 +461,7 @@
 
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] поднос[pluralize_ru(user.gender, "ит", "ят")] включенные лопасти к своей груди! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] поднос[pluralize_ru(user.gender, "ит", "ят")] включенные электроды к своей груди! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
@@ -472,7 +472,7 @@
 	if(defib)
 		defib.toggle_paddles(user)
 		if(!silent)
-			balloon_alert(user, "лопасти возвращены на место")
+			balloon_alert(user, "электроды возвращены на место")
 	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/shockpaddles/equip_to_best_slot(mob/user, force = FALSE)
@@ -495,7 +495,7 @@
 	return TRUE
 
 /obj/item/twohanded/shockpaddles/borg
-	desc = "Пара встроенных лопастей с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
+	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	var/safety = TRUE
