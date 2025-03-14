@@ -194,8 +194,8 @@
 ////////////////
 
 /atom/movable/screen/alert/status_effect
-	name = "Curse of Mundanity"
-	desc = "You don't feel any different..."
+	name = "Проклятие Обыденности"
+	desc = "Вы не чувствуете никаких изменений..."
 	var/datum/status_effect/attached_effect
 
 /atom/movable/screen/alert/status_effect/Destroy()

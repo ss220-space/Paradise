@@ -91,7 +91,7 @@
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
 /obj/effect/mob_spawn/human/ash_walker
-	name = "ash walker egg"
+	name = "Ash walker egg"
 	ru_names = list(
 		NOMINATIVE = "яйцо пеплоходца",
 		GENITIVE = "яйца пеплоходца",
@@ -134,7 +134,7 @@
 
 //Ash walker shaman eggs: Spawns in ash walker dens in lavaland. Only one can exist at a time, they are squishier than regular ashwalkers, and have the sole purpose of keeping other ashwalkers alive.
 /obj/effect/mob_spawn/human/ash_walker/shaman
-	name = "ash walker shaman egg"
+	name = "Ash walker shaman egg"
 	ru_names = list(
 		NOMINATIVE = "яйцо шамана пеплоходцев",
 		GENITIVE = "яйца шамана пеплоходцев",
