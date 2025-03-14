@@ -846,44 +846,44 @@
 	var/dat = ""
 	switch(category)
 		if("Offensive")
-			dat += "Spells geared towards debilitating and destroying.<BR><BR>"
-			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
-			dat += "You can reduce this number by spending more points on the spell.<BR>"
+			dat += "Spells geared towards debilitating and destroying.<br><br>"
+			dat += "For spells: the number after the spell name is the cooldown time.<br>"
+			dat += "You can reduce this number by spending more points on the spell.<br>"
 		if("Defensive")
-			dat += "Spells geared towards improving your survivabilty or reducing foes ability to attack.<BR><BR>"
-			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
-			dat += "You can reduce this number by spending more points on the spell.<BR>"
+			dat += "Spells geared towards improving your survivabilty or reducing foes ability to attack.<br><br>"
+			dat += "For spells: the number after the spell name is the cooldown time.<br>"
+			dat += "You can reduce this number by spending more points on the spell.<br>"
 		if("Mobility")
-			dat += "Spells geared towards improving your ability to move. It is a good idea to take at least one.<BR><BR>"
-			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
-			dat += "You can reduce this number by spending more points on the spell.<BR>"
+			dat += "Spells geared towards improving your ability to move. It is a good idea to take at least one.<br><br>"
+			dat += "For spells: the number after the spell name is the cooldown time.<br>"
+			dat += "You can reduce this number by spending more points on the spell.<br>"
 		if("Assistance")
-			dat += "Spells geared towards improving your other items and abilities.<BR><BR>"
-			dat += "For spells: the number after the spell name is the cooldown time.<BR>"
-			dat += "You can reduce this number by spending more points on the spell.<BR>"
+			dat += "Spells geared towards improving your other items and abilities.<br><br>"
+			dat += "For spells: the number after the spell name is the cooldown time.<br>"
+			dat += "You can reduce this number by spending more points on the spell.<br>"
 		if("Rituals")
-			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<BR>"
+			dat += "These powerful spells are capable of changing the very fabric of reality. Not always in your favour.<br>"
 		if("Weapons and Armors")
-			dat += "Various weapons and armors to crush your enemies and protect you from harm.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Various weapons and armors to crush your enemies and protect you from harm.<br><br>"
+			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
 		if("Staves")
-			dat += "Various staves granting you their power, which they slowly recharge over time.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Various staves granting you their power, which they slowly recharge over time.<br><br>"
+			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
 		if("Artefacts")
-			dat += "Various magical artefacts to aid you.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Various magical artefacts to aid you.<br><br>"
+			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
 		if("Spell books")
-			dat += "Spell books to train your companions.<BR><BR>"
-			dat += "Various sets of spell books that will help you and your partner in creating chaos.<BR>"
+			dat += "Spell books to train your companions.<br><br>"
+			dat += "Various sets of spell books that will help you and your partner in creating chaos.<br>"
 		if("Summons")
-			dat += "Magical items geared towards bringing in outside forces to aid you.<BR><BR>"
-			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<BR>"
+			dat += "Magical items geared towards bringing in outside forces to aid you.<br><br>"
+			dat += "Items are not bound to you and can be stolen. Additionaly they cannot typically be returned once purchased.<br>"
 		if("Standard")
-			dat += "These battle-tested spell sets are easy to use and provide good balance between offense and defense.<BR><BR>"
-			dat += "They all cost, and are worth, 10 spell points. You are able to refund any of the spells included as long as you stay in the wizard den.<BR>"
+			dat += "These battle-tested spell sets are easy to use and provide good balance between offense and defense.<br><br>"
+			dat += "They all cost, and are worth, 10 spell points. You are able to refund any of the spells included as long as you stay in the wizard den.<br>"
 		if("Unique")
-			dat += "These esoteric loadouts usually contain spells or items that cannot be bought elsewhere in this spellbook.<BR><BR>"
-			dat += "Recommended for experienced wizards looking for something new. No refunds once purchased!<BR>"
+			dat += "These esoteric loadouts usually contain spells or items that cannot be bought elsewhere in this spellbook.<br><br>"
+			dat += "Recommended for experienced wizards looking for something new. No refunds once purchased!<br>"
 	return dat
 
 /obj/item/spellbook/proc/wrap(content)
@@ -954,11 +954,11 @@
 		E = entries[i]
 		spell_info += E.GetInfo()
 		if(E.CanBuy(user,src))
-			spell_info+= "<a href='byond://?src=[UID()];buy=[i]'>[E.buy_word]</A><br>"
+			spell_info+= "<a href='byond://?src=[UID()];buy=[i]'>[E.buy_word]</a><br>"
 		else
 			spell_info+= "<span>Can't [E.buy_word]</span><br>"
 		if(E.CanRefund(user,src))
-			spell_info+= "<a href='byond://?src=[UID()];refund=[i]'>Refund</A><br>"
+			spell_info+= "<a href='byond://?src=[UID()];refund=[i]'>Refund</a><br>"
 		spell_info += "<hr>"
 		if(cat_dat[E.category])
 			cat_dat[E.category] += spell_info
@@ -969,7 +969,9 @@
 		dat += cat_dat[category]
 		dat += "</div>"
 
-	user << browse(wrap(dat), "window=spellbook;size=800x600")
+	var/datum/browser/popup = new(user, "spellbook", "Выбор школы", 800, 600)
+	popup.set_content(wrap(dat))
+	popup.open(TRUE)
 	onclose(user, "spellbook")
 	return
 
@@ -1176,7 +1178,7 @@
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
-		to_chat(user, "<font size='15' color='red'><b>HOR-SIE HAS RISEN</b></font>")
+		to_chat(user, "<span style='font-size: 15; color: red'><b>HOR-SIE HAS RISEN</b></span>")
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!

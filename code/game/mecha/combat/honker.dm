@@ -35,7 +35,7 @@
 	var/tank_pressure = internal_tank ? round(internal_tank.return_pressure(),0.01) : "None"
 	var/tank_temperature = internal_tank ? internal_tank.return_temperature() : "Unknown"
 	var/cabin_pressure = round(return_pressure(),0.01)
-	var/output = {"<meta charset="UTF-8">[report_internal_damage()]
+	var/output = {"[report_internal_damage()]
 						[integrity<30?"<font color='red'><b>DAMAGE LEVEL CRITICAL</b></font><br>":null]
 						[internal_damage&MECHA_INT_TEMP_CONTROL?"<font color='red'><b>CLOWN SUPPORT SYSTEM MALFUNCTION</b></font><br>":null]
 						[internal_damage&MECHA_INT_TANK_BREACH?"<font color='red'><b>GAS TANK HONK</b></font><br>":null]
@@ -53,46 +53,7 @@
 	return output
 
 /obj/mecha/combat/honker/get_stats_html()
-	var/output = {"<html>
-						<meta charset="UTF-8">
-						<head><title>[name] data</title>
-						<style>
-						body {color: #00ff00; background: #32CD32; font-family:"Courier",monospace; font-size: 12px;}
-						hr {border: 1px solid #0f0; color: #fff; background-color: #000;}
-						a {padding:2px 5px;;color:#0f0;}
-						.wr {margin-bottom: 5px;}
-						.header {cursor:pointer;}
-						.open, .closed {background: #32CD32; color:#000; padding:1px 2px;}
-						.links a {margin-bottom: 2px;padding-top:3px;}
-						.visible {display: block;}
-						.hidden {display: none;}
-						</style>
-						<script language='javascript' type='text/javascript'>
-						[JS_BYJAX]
-						[JS_DROPDOWNS]
-						function ticker() {
-						    setInterval(function(){
-						        window.location='byond://?src=[UID()]&update_content=1';
-						        document.body.style.color = get_rand_color_string();
-						      document.body.style.background = get_rand_color_string();
-						    }, 1000);
-						}
-
-						function get_rand_color_string() {
-						    var color = new Array;
-						    for(var i=0;i<3;i++){
-						        color.push(Math.floor(Math.random()*255));
-						    }
-						    return "rgb("+color.toString()+")";
-						}
-
-						window.onload = function() {
-							dropdowns();
-							ticker();
-						}
-						</script>
-						</head>
-						<body>
+	var/output = {"
 						<div id='content'>
 						[get_stats_part()]
 						</div>
@@ -103,10 +64,12 @@
 						<div id='commands'>
 						[get_commands()]
 						</div>
-						</body>
-						</html>
 					 "}
 	return output
+
+/obj/mecha/combat/honker/config_dropdown(datum/browser/popup)
+	popup.add_script("mech_stat_honker", 'html/js/mech_stat_honker.js')
+	popup.add_stylesheet("mech_stat_style_honker", 'html/css/mech_stat_honker.css')
 
 /obj/mecha/combat/honker/get_commands()
 	var/output = {"<div class='wr'>

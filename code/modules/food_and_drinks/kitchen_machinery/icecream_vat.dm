@@ -193,16 +193,16 @@
 /obj/machinery/icemachine/proc/show_toppings()
 	var/dat = ""
 	if(reagents.total_volume <= 500)
-		dat += "<HR>"
-		dat += "<strong>Add fillings:</strong><BR>"
-		dat += "<a href='byond://?src=[UID()];synthcond=1;type=2'>Soda</A><BR>"
-		dat += "<a href='byond://?src=[UID()];synthcond=1;type=3'>Alcohol</A><BR>"
-		dat += "<strong>Finish With:</strong><BR>"
-		dat += "<a href='byond://?src=[UID()];synthcond=1;type=4'>Cream</A><BR>"
-		dat += "<a href='byond://?src=[UID()];synthcond=1;type=5'>Water</A><BR>"
-		dat += "<strong>Dispense in:</strong><BR>"
-		dat += "<a href='byond://?src=[UID()];createcup=1'>Chocolate Cone</A><BR>"
-		dat += "<a href='byond://?src=[UID()];createcone=1'>Cone</A><BR>"
+		dat += "<hr>"
+		dat += "<strong>Add fillings:</strong><br>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=2'>Soda</a><br>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=3'>Alcohol</a><br>"
+		dat += "<strong>Finish With:</strong><br>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=4'>Cream</a><br>"
+		dat += "<a href='byond://?src=[UID()];synthcond=1;type=5'>Water</a><br>"
+		dat += "<strong>Dispense in:</strong><br>"
+		dat += "<a href='byond://?src=[UID()];createcup=1'>Chocolate Cone</a><br>"
+		dat += "<a href='byond://?src=[UID()];createcone=1'>Cone</a><br>"
 	dat += "</center>"
 	return dat
 
@@ -213,44 +213,44 @@
 	if(container == 1)
 		var/obj/item/reagent_containers/glass/A = beaker
 		var/datum/reagents/R = A.reagents
-		dat += "The container has:<BR>"
+		dat += "The container has:<br>"
 		for(var/datum/reagent/G in R.reagent_list)
 			dat += "[G.volume] unit(s) of [G.name] | "
-			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=5'>(5)</A> "
-			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=10'>(10)</A> "
-			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=15'>(15)</A> "
-			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</A>"
-			dat += "<BR>"
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=5'>(5)</a> "
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=10'>(10)</a> "
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=15'>(15)</a> "
+			dat += "<a href='byond://?src=[UID()];add=[G.id];amount=[G.volume]'>(All)</a>"
+			dat += "<br>"
 	else if(container == 2)
-		dat += "<BR>The Cream-Master has:<BR>"
+		dat += "<br>The Cream-Master has:<br>"
 		if(reagents.total_volume)
 			for(var/datum/reagent/N in reagents.reagent_list)
 				dat += "[N.volume] unit(s) of [N.name] | "
-				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=5'>(5)</A> "
-				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=10'>(10)</A> "
-				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=15'>(15)</A> "
-				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</A>"
-				dat += "<BR>"
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=5'>(5)</a> "
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=10'>(10)</a> "
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=15'>(15)</a> "
+				dat += "<a href='byond://?src=[UID()];remove=[N.id];amount=[N.volume]'>(All)</a>"
+				dat += "<br>"
 	else
-		dat += "<BR>SOMEONE ENTERED AN INVALID REAGENT CONTAINER; QUICK, BUG REPORT!<BR>"
+		dat += "<br>SOMEONE ENTERED AN INVALID REAGENT CONTAINER; QUICK, BUG REPORT!<br>"
 	return dat
 
 
 /obj/machinery/icemachine/attack_hand(mob/user)
 	if(..()) return
 	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	if(!beaker)
-		dat += "No container is loaded into the machine, external transfer offline.<BR>"
+		dat += "No container is loaded into the machine, external transfer offline.<br>"
 		dat += show_reagents(2)
 		dat += show_toppings()
-		dat += "<a href='byond://?src=[UID()];close=1'>Close</A>"
+		dat += "<a href='byond://?src=[UID()];close=1'>Close</a>"
 	else
 		var/obj/item/reagent_containers/glass/A = beaker
 		var/datum/reagents/R = A.reagents
-		dat += "<a href='byond://?src=[UID()];eject=1'>Eject container and end transfer.</A><BR>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Eject container and end transfer.</a><br>"
 		if(!R.total_volume)
-			dat += "Container is empty.<BR><HR>"
+			dat += "Container is empty.<br><hr>"
 		else
 			dat += show_reagents(1)
 		dat += show_reagents(2)

@@ -47,7 +47,7 @@ AI MODULES
 /obj/item/ai_module/proc/add_additional_laws(mob/living/silicon/ai/target, mob/sender, registered_name)
 
 /obj/item/ai_module/proc/log_law_changes(mob/living/silicon/ai/target, mob/sender)
-	GLOB.lawchanges.Add("[time2text(world.realtime,"hh:mm:ss")] <B>:</B> [sender.name]([sender.key]) used [name] on [target.name]([target.key])")
+	GLOB.lawchanges.Add("[time2text(world.realtime,"hh:mm:ss")] <b>:</b> [sender.name]([sender.key]) used [name] on [target.name]([target.key])")
 	log_and_message_admins("used [name] on [target.name]([target.key])")
 
 /******************** Safeguard ********************/

@@ -132,7 +132,7 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
+		to_chat(src, "<i>…Вам почти удаётся расслышать чьи-то слова…</i>", MESSAGE_TYPE_LOCALCHAT)
 	else
 		to_chat(src, msg, chat_message_type)
 
@@ -198,7 +198,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<B>[src]</B> ", "")
+	var/omsg = replacetext(message, "<b>[src]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -412,7 +412,7 @@
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
 	msg = sanitize_censored_patterns(msg)
 
 	var/combined = length(memory + msg)
@@ -433,7 +433,7 @@
 	if(length(memory) == 0)
 		memory += msg
 	else
-		memory += "<BR>[msg]"
+		memory += "<br>[msg]"
 
 	if(popup)
 		memory()
@@ -548,13 +548,17 @@
 		src << browse(null, t1)
 
 	if(href_list["flavor_more"])
-		usr << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
-		onclose(usr, "[name]")
+		var/datum/browser/popup = new(usr, name, name, 500, 200)
+		popup.set_content("<tt>[replacetext(flavor_text, "\n", "<br>")]</tt>")
+		popup.open(TRUE)
+		onclose(usr, name)
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
 	if(href_list["scoreboard"])
-		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
+		var/datum/browser/popup = new(usr, "roundstats", "Round Stats", 700, 900)
+		popup.set_content(GLOB.scoreboard)
+		popup.open(FALSE)
 
 
 /mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)

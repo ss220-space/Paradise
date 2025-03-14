@@ -839,7 +839,7 @@
 
 	var/fukkendisk = user.GetTypeInAllContents(/obj/item/disk/nuclear)
 	if(fukkendisk)
-		to_chat(user, span_danger("<B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b>"))
+		to_chat(user, span_danger("<b>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b>"))
 		return FALSE
 
 	if(user.has_buckled_mobs()) //mob attached to us

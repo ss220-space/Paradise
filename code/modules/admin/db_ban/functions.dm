@@ -316,7 +316,7 @@
 					to_chat(usr, "Cancelled", confidential=TRUE)
 					return
 
-			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><BR>"
+			var/edit_reason = "- [eckey] changed ban reason from <cite><b>\\\"[reason]\\\"</b></cite> to <cite><b>\\\"[value]\\\"</b></cite><br>"
 			var/datum/db_query/update_query = SSdbcore.NewQuery("UPDATE [CONFIG_GET(string/utility_database)].[format_table_name("ban")] SET reason=:value, edits = CONCAT(IFNULL(edits,''), :edittext) WHERE id=:banid", list(
 				"edittext" = edit_reason,
 				"banid" = banid,

@@ -201,7 +201,7 @@
 	fakefire()
 	forceMove(get_turf(src))
 
-	visible_message(span_warning("<B>[src] appears in a firey blaze!</B>"))
+	visible_message(span_warning("<b>[src] appears in a firey blaze!</b>"))
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)

@@ -15,18 +15,18 @@
 	if(interact_check(user))
 		return
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	switch(screenstate)
 		if(0)
 
 			dat += {"<h2>Search Settings</h2><br />
-				<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</A><br />
-				<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</A><br />
-				<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</A><br />
-				<a href='byond://?src=[UID()];search=1'>\[Start Search\]</A><br />"}
+				<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</a><br />
+				<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</a><br />
+				<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</a><br />
+				<a href='byond://?src=[UID()];search=1'>\[Start Search\]</a><br />"}
 		if(1)
 			if(!SSdbcore.IsConnected())
-				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font><br />"
+				dat += "<span style='color: red;'><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span><br />"
 			else if(num_results == 0)
 				dat += "<em>No results found.</em>"
 			else
@@ -52,11 +52,11 @@
 						<td>[CB.title]</td>
 						<td>[CB.category]</td>
 						<td>[CB.id]</td>
-						<td><A href="?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A></td>
+						<td><A href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a></td>
 					</tr>"}
 
 				dat += "</table><br />[pagelist]"
-			dat += "<a href='byond://?src=[UID()];back=1'>\[Go Back\]</A><br />"
+			dat += "<a href='byond://?src=[UID()];back=1'>\[Go Back\]</a><br />"
 	var/datum/browser/B = new /datum/browser(user, "library", "Library Visitor")
 	B.set_content(dat)
 	B.open()

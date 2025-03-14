@@ -101,7 +101,7 @@
 	if(!SSdbcore.IsConnected())
 		to_chat(usr, span_danger("Not connected to database. Cannot retrieve data."))
 		return
-	var/output = {"<meta charset="UTF-8"><div align='center'><B>Player Poll Results</B><hr>[poll.question]<hr>"}
+	var/output = {"<div align='center'><b>Player Poll Results</b><hr>[poll.question]<hr>"}
 	//Each poll type is different
 	switch (poll.poll_type)
 		//Show the options that were clicked
@@ -168,4 +168,6 @@
 			qdel(query_get_poll_results)
 	output += "</table>"
 	if(!QDELETED(usr))
-		usr << browse(output, "window=playerpolllist;size=500x300")
+		var/datum/browser/popup = new(usr, "playerpolllist", "Player Poll List", 500, 300)
+		popup.set_content(output)
+		popup.open(FALSE)

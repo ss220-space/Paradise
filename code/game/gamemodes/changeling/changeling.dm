@@ -22,8 +22,8 @@
 
 
 /datum/game_mode/changeling/announce()
-	to_chat(world, "<B>The current game mode is - Changeling!</B>")
-	to_chat(world, "<B>There are alien changelings on the station. Do not let the changelings succeed!</B>")
+	to_chat(world, "<b>The current game mode is - Changeling!</b>")
+	to_chat(world, "<b>There are alien changelings on the station. Do not let the changelings succeed!</b>")
 
 
 /datum/game_mode/changeling/pre_setup()
@@ -61,7 +61,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))
-		var/text = "<FONT size = 3><B>The changelings were:</B></FONT>"
+		var/text = "<span style='font-size: 3;'><b>The changelings were:</b></span>"
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
@@ -89,14 +89,14 @@
 				var/count = 1
 				for(var/datum/objective/objective in all_objectives)
 					if(objective.check_completion())
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/steal_objective = objective
 							SSblackbox.record_feedback("nested tally", "changeling_steal_objective", 1, list("Steal [steal_objective.steal_target]", "SUCCESS"))
 						else
 							SSblackbox.record_feedback("nested tally", "changeling_objective", 1, list("[objective.type]", "SUCCESS"))
 					else
-						text += "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>"
+						text += "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>"
 						if(istype(objective, /datum/objective/steal))
 							var/datum/objective/steal/steal_objective = objective
 							SSblackbox.record_feedback("nested tally", "changeling_steal_objective", 1, list("Steal [steal_objective.steal_target]", "FAIL"))
@@ -106,10 +106,10 @@
 					count++
 
 			if(changelingwin)
-				text += "<br><font color='green'><B>The changeling was successful!</B></font>"
+				text += "<br><font color='green'><b>The changeling was successful!</b></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "SUCCESS")
 			else
-				text += "<br><font color='red'><B>The changeling has failed.</B></font>"
+				text += "<br><font color='red'><b>The changeling has failed.</b></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
 
 		to_chat(world, text)
