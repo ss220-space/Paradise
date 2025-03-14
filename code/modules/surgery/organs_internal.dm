@@ -6,7 +6,7 @@
 
 
 /datum/surgery/organ_manipulation
-	name = "Organ Manipulation"
+	name = "Манипуляция с внутренними органами"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -41,7 +41,7 @@
 	)
 
 /datum/surgery/organ_manipulation_boneless
-	name = "Organ Manipulation"
+	name = "Манипуляция с внутренними органами"
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -64,7 +64,7 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/plasmaman
-	name = "Plasmaman Organ Manipulation"
+	name = "Манипуляция с внутренними органами (Плазмолюд)"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -101,7 +101,7 @@
 	)
 
 /datum/surgery/organ_manipulation/insect
-	name = "Insectoid Organ Manipulation"
+	name = "Манипуляция с внутренними органами (Инсектоид)"
 	steps = list(
 		/datum/surgery_step/open_encased/saw,
 		/datum/surgery_step/generic/retract_skin,
@@ -141,7 +141,7 @@
 	requires_organic_bodypart = TRUE
 
 /datum/surgery/organ_manipulation/alien
-	name = "Alien Organ Manipulation"
+	name = "Манипуляция с внутренними органами (Ксеноморф)"
 	possible_locs = list(
 		BODY_ZONE_CHEST,
 		BODY_ZONE_HEAD,
@@ -180,7 +180,7 @@
 		return FALSE
 
 /datum/surgery/translator_manipulations
-	name = "Translator Manipulations"
+	name = "Манипуляция с переводчиком"
 	possible_locs = list(BODY_ZONE_PRECISE_MOUTH)
 	restricted_speciestypes = null
 
@@ -206,29 +206,33 @@
 
 
 /datum/surgery_step/screwdriver_use
-	name = "screw/unscrew translator"
+	name = "открутить/закрутить переводчик"
 	allowed_tools = list(TOOL_SCREWDRIVER = 100)
 	time = 1 SECONDS
 
 /datum/surgery_step/screwdriver_use/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
-	user.visible_message(span_notice("[user] starts [translator.open ? "screwing" : "unscrewing"] the locking mechanism on the speech translator casing."),\
-						span_notice("You start [translator.open ? "screwing" : "unscrewing"] the locking mechanism on the speech translator casing."))
+	user.visible_message(
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] [translator.open ? "за" : "от"]кручиать механизм блокировки на корпусе переводчика [target]."),
+		span_notice("Вы начинаете [translator.open ? "за" : "от"]кручиать механизм блокировки на корпусе переводчика [target]."),
+	)
 	tool.play_tool_sound(target, 30)
 
 	return ..()
 
 /datum/surgery_step/screwdriver_use/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = target.get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
-	user.visible_message(span_notice("[user] [translator.open ? "screwed" : "unscrewed"] the locking mechanism on the speech translator casing."),\
-						span_notice("You [translator.open ? "screwed" : "unscrewed"] the locking mechanism on the speech translator casing."))
+	user.visible_message(
+		span_notice("[user] [translator.open ? "за" : "от"]кручива[pluralize_ru(user.gender, "ет", "ют")] механизм блокировки на корпусе переводчика [target]."),
+		span_notice("Вы [translator.open ? "за" : "от"]кручиваете механизм блокировки на корпусе переводчика [target]."),
+	)
 	translator.open = !translator.open
 
 	return SURGERY_STEP_CONTINUE
 
 
 /datum/surgery_step/proxy/manipulate_translator
-	name = "Manipulate translator (proxy)"
+	name = "Манипуляция с переводчиком - прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate_translator/install,
 		/datum/surgery/intermediate/manipulate_translator/uninstall,
