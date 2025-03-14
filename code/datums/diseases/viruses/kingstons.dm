@@ -57,7 +57,7 @@
 
 
 /datum/disease/virus/kingstons_advanced
-	name = "Продвинутый Синдром Кингстона"
+	name = "Улучшенный Синдром Кингстона"
 	agent = "Бактерии AMB45DR"
 	desc = "Если не лечить, заражённый мутирует в другой вид."
 	max_stages = 4

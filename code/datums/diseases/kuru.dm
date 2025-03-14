@@ -1,5 +1,5 @@
 /datum/disease/kuru
-	name = "Космический Куру"
+	name = "Космический куру"
 	agent = "Прионы"
 	desc = "Неконтролируемый смех."
 	max_stages = 4
