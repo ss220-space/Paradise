@@ -7,7 +7,7 @@
 	can_infect = TRUE
 
 /datum/surgery_step/generic/cut_open
-	name = "надрез"
+	name = "сделать надрез"
 	begin_sound = 'sound/surgery/scalpel1.ogg'
 	end_sound = 'sound/surgery/scalpel2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
