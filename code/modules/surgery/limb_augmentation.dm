@@ -1,5 +1,5 @@
 /datum/surgery/limb_augmentation
-	name = "Протезирование части тела"
+	name = "Аугментация части тела"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/clamp_bleeders,
@@ -29,7 +29,7 @@
 		return FALSE
 
 /datum/surgery_step/augment
-	name = "установка протеза"
+	name = "установка синтетической части тела"
 	begin_sound = 'sound/surgery/organ1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(/obj/item/robot_parts = 100)
@@ -44,8 +44,8 @@
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] протезировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
-		span_notice("Вы начинаете протезировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
+		span_notice("Вы начинаете аугментировать [affected.declent_ru(ACCUSATIVE)] [target] с помощью [tool.declent_ru(GENITIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
@@ -54,8 +54,8 @@
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] заверша[pluralize_ru(user.gender, "ет", "ют")] протезирование [affected.declent_ru(ACCUSATIVE)] [target]."),
-		span_notice("Вы завершаете протезирование [affected.declent_ru(ACCUSATIVE)] [target]."),
+		span_notice("[user] заверша[pluralize_ru(user.gender, "ет", "ют")] аугментацию [affected.declent_ru(ACCUSATIVE)] [target]."),
+		span_notice("Вы завершаете аугментацию [affected.declent_ru(ACCUSATIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
