@@ -1,10 +1,10 @@
 //meme copy of GBS
 /datum/disease/virus/rhumba_beat
-	name = "The Rhumba Beat"
-	agent = "Unknown"
+	name = "Румба-бит"
+	agent = "Неизвестно"
 	max_stages = 5
 	spread_flags = CONTACT
-	cure_text = "Chick Chicky Boom!"
+	cure_text = "Чики-чики БУМ!"
 	cures = list("plasma")
 	severity = BIOHAZARD
 
@@ -21,21 +21,21 @@
 			if(prob(45))
 				affected_mob.adjustToxLoss(5)
 			if(prob(1))
-				to_chat(affected_mob, span_danger("You feel strange..."))
+				to_chat(affected_mob, span_danger("Вы чувствуете себя странно..."))
 		if(3)
 			if(prob(5))
-				to_chat(affected_mob, span_danger("You feel the urge to dance..."))
+				to_chat(affected_mob, span_danger("Вы чувствуете непреодолимое желание танцевать..."))
 			else if(prob(5))
 				affected_mob.emote("gasp")
 			else if(prob(10))
-				to_chat(affected_mob, span_danger("You feel the need to chick chicky boom..."))
+				to_chat(affected_mob, span_danger("Вам хочется чик-чики-бум..."))
 		if(4)
 			if(prob(10))
 				affected_mob.emote("gasp")
-				to_chat(affected_mob, span_danger("You feel a burning beat inside..."))
+				to_chat(affected_mob, span_danger("Вы чувствуете горячий ритм внутри..."))
 			if(prob(20))
 				affected_mob.adjustToxLoss(5)
 		if(5)
-			to_chat(affected_mob, span_userdanger("Your body is unable to contain the Rhumba Beat..."))
+			to_chat(affected_mob, span_userdanger("Ваше тело не может сдержать ритм румбы..."))
 			if(prob(50))
 				affected_mob.gib()

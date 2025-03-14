@@ -150,7 +150,7 @@
 
 /datum/status_effect/high_five/dap
 	id = "dap"
-	critical_success = "ЭПИЧНО побратались"
+	critical_success = "ЭПИЧНО побратались!"
 	success = "побратались!"
 	request = "ищ%(ет,ут)% с кем бы побрататься..."
 	sound_effect = 'sound/effects/snap.ogg'

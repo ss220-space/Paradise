@@ -1,14 +1,14 @@
 #define STAGE_TIME 60
 
 /datum/disease/virus/loyalty
-	name = "Loyalty Syndrome"
-	agent = "Halomonas minomae"
-	desc = "A disease that causes acute mass insanity for a certain person, as well as various obsessions"
+	name = "Синдром лояльности"
+	agent = "Халомонас миномай"
+	desc = "Болезнь, вызывающая острую массовую одержимость определённым человеком, а также различные навязчивые идеи."
 	max_stages = 5
 	spread_flags = CONTACT
 	permeability_mod = 0.8
 	can_immunity = FALSE
-	cure_text = "Anti-Psychotics"
+	cure_text = "Галоперидол"
 	cures = list("haloperidol")
 	cure_prob = 8
 	visibility_flags = HIDDEN_HUD

@@ -1,11 +1,11 @@
 /datum/disease/virus/cold
-	name = "The Cold"
-	agent = "XY-rhinovirus"
-	desc = "If left untreated the subject will contract the flu."
+	name = "Простуда"
+	agent = "XY-риновирус"
+	desc = "Если не лечить, заражённый заболеет гриппом."
 	max_stages = 3
 	spread_flags = AIRBORNE
 	visibility_flags = HIDDEN_HUD
-	cure_text = "Rest & Spaceacillin"
+	cure_text = "Отдых и Спейсацилин"
 	cures = list("spaceacillin")
 	cure_prob = 30
 	permeability_mod = 0.5
@@ -22,9 +22,9 @@
 			if(prob(stage))
 				affected_mob.emote("cough")
 			if(prob(stage))
-				to_chat(affected_mob, span_danger("Your throat feels sore."))
+				to_chat(affected_mob, span_danger("Ваше горло болит."))
 			if(prob(stage))
-				to_chat(affected_mob, span_danger("Mucous runs down the back of your throat."))
+				to_chat(affected_mob, span_danger("Слизь стекает по задней стенке горла."))
 		if(3)
 			if(prob(1) && prob(50))
 				if(!LAZYIN(affected_mob.resistances, /datum/disease/virus/flu))

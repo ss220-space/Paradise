@@ -17,7 +17,7 @@ BONUS
 
 /datum/symptom/youth
 
-	name = "Eternal Youth"
+	name = "Вечная юность"
 	id = "youth"
 	stealth = 3
 	resistance = 4
@@ -35,22 +35,22 @@ BONUS
 				if(1)
 					if(H.age > 41)
 						H.age = 41
-						to_chat(H, span_notice("You haven't had this much energy in years!"))
+						to_chat(H, span_notice("У вас столько энергии, сколько не было уже много лет!"))
 				if(2)
 					if(H.age > 36)
 						H.age = 36
-						to_chat(H, span_notice("You're suddenly in a good mood."))
+						to_chat(H, span_notice("Вы внезапно чувствуете себя в отличном настроении."))
 				if(3)
 					if(H.age > 31)
 						H.age = 31
-						to_chat(H, span_notice("You begin to feel more lithe."))
+						to_chat(H, span_notice("Вы начинаете чувствовать себя более гибким."))
 				if(4)
 					if(H.age > 26)
 						H.age = 26
-						to_chat(H, span_notice("You feel reinvigorated."))
+						to_chat(H, span_notice("Вы чувствуете себя обновлённым."))
 				if(5)
 					if(H.age > 21)
 						H.age = 21
-						to_chat(H, span_notice("You feel like you can take on the world!"))
+						to_chat(H, span_notice("Вы чувствуете, что можете покорить весь мир!"))
 
 	return
