@@ -103,19 +103,15 @@
 
 
 /mob/living/silicon/robot/proc/observer_screen_update(obj/item/I, add = TRUE)
-	if(orbiters && orbiters.len)
-		for(var/M in orbiters)
-			var/mob/dead/observe = M
-			if(observe.client && observe.client.eye == src)
-				if(add)
-					observe.client.screen += I
-				else
-					observe.client.screen -= I
+	for(var/mob/dead/observe as anything in orbiters)
+		if(observe.client && observe.client.eye == src)
+			if(add)
+				observe.client.screen += I
 			else
-				orbiters -= observe
-				if(!orbiters.len)
-					orbiters = null
-					break
+				observe.client.screen -= I
+		else
+			LAZYREMOVE(orbiters)
+
 
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)
 	for(var/X in I.actions)

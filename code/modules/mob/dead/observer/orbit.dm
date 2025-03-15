@@ -43,12 +43,12 @@
 			. = TRUE
 		if ("toggle_observe")
 			auto_observe = !auto_observe
-			if(owner.orbiting)
-				owner.stop_orbit()
-				if (auto_observe)
-					owner.do_observe(owner.orbiting)
-				else
-					owner.reset_perspective(null)
+
+			if(!owner.orbiting)
+				return
+			owner.stop_orbit()
+			if (auto_observe)
+				owner.do_observe(owner.orbiting)
 			else
 				owner.reset_perspective(null)
 

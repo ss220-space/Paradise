@@ -316,11 +316,11 @@
 	I.screen_loc = null
 	if(client)
 		client.screen -= I
-	if(orbiters && orbiters.len)
-		for(var/M in orbiters)
-			var/mob/dead/observe = M
-			if(observe.client)
-				observe.client.screen -= I
+
+	for(var/mob/dead/observe as anything in orbiters)
+		if(observe.client)
+			observe.client.screen -= I
+
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)
