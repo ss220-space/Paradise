@@ -1105,7 +1105,7 @@
 
 /// Clears the client's screen, aside from ones that opt out
 /client/proc/clear_screen()
-	for (var/object in screen)
+	for(var/object in screen)
 		if (istype(object, /atom/movable/screen))
 			var/atom/movable/screen/screen_object = object
 			if (!screen_object.clear_with_screen)
