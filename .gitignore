@@ -70,4 +70,3 @@ stddef.dm
 /sound/tts_scrambled/**/*
 .vscode/launch.json
 .gitignore
-tgui/public/tgui.bundle.js
