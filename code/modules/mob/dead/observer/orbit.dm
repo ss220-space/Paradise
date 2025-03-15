@@ -1,5 +1,6 @@
 /datum/orbit_menu
 	var/mob/dead/observer/owner
+	var/auto_observe = FALSE
 
 /datum/orbit_menu/New(mob/dead/observer/new_owner)
 	if(!istype(new_owner))
@@ -28,14 +29,32 @@
 			if(poi == null)
 				. = TRUE
 				return
-			owner.ManualFollow(poi)
-			. = TRUE
+
+			var/mob/dead/observer/user = usr
+			user.ManualFollow(poi)
+			user.reset_perspective(null)
+			if (auto_observe)
+				user.do_observe(poi)
+			return TRUE
+
+
 		if("refresh")
 			update_static_data(owner, ui)
 			. = TRUE
+		if ("toggle_observe")
+			auto_observe = !auto_observe
+			if(owner.orbiting)
+				owner.stop_orbit()
+				if (auto_observe)
+					owner.do_observe(owner.orbiting)
+				else
+					owner.reset_perspective(null)
+			else
+				owner.reset_perspective(null)
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
+	data["auto_observe"] = auto_observe
 	return data
 
 /datum/orbit_menu/ui_static_data(mob/user)
@@ -50,7 +69,7 @@
 	var/list/npcs = list()
 	var/length_of_ghosts = length(get_observers())
 
-	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
+	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = TRUE)
 	for(var/name in pois)
 		var/mob/M = pois[name]
 		if(name == null)

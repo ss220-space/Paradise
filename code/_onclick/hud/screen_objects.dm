@@ -30,6 +30,8 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+	/// If FALSE, this will not be cleared when calling /client/clear_screen()
+	var/clear_with_screen = TRUE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
@@ -112,6 +114,9 @@
 
 
 /atom/movable/screen/mov_intent/update_icon_state()
+	if(isobserver(usr))
+		return
+
 	if(hud?.mymob)
 		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
 	else
@@ -452,6 +457,9 @@
 	screen_loc = ui_crafting
 
 /atom/movable/screen/craft/Click()
+	if(isobserver(usr))
+		return
+
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
 

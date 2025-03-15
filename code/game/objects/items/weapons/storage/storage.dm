@@ -431,6 +431,13 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
+
+		if(usr.orbiters && usr.orbiters.len)
+			for(var/M in usr.orbiters)
+				var/mob/dead/observe = M
+				if(observe.client && observe.s_active != src)
+					observe.client.screen -= W
+
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
