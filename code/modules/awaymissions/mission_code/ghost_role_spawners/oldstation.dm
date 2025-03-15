@@ -1,7 +1,7 @@
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 
 /obj/effect/mob_spawn/human/oldstation
-	name = "old cryogenics pod"
+	name = "Old cryogenics pod"
 	ru_names = list(
 		NOMINATIVE = "старая криогенная капсула",
 		GENITIVE = "старой криогенной капсулы",
