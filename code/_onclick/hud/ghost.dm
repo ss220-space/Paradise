@@ -137,8 +137,7 @@
 		plane_masters_update()
 		return FALSE
 
-	. = ..()
-	if(!.)
+	if(!..())
 		return
 	var/mob/screenmob = viewmob || mymob
 
