@@ -301,7 +301,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 
 /proc/create_terror_spiders(type, count)
-	var/spider_type = get_spider_type(type)
+	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_type = get_spider_type(type)
 	if(!spider_type)
 		to_chat(usr, "Некорректный тип паука Ужаса.")
 		return FALSE
@@ -311,9 +311,16 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		return FALSE
 	var/successSpawn = FALSE
 	while(count && length(candidates))
-		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(pick(GLOB.xeno_spawn))
 		var/mob/ghost = pick_n_take(candidates)
-		spider.key = ghost.key
+		var/mob/living/simple_animal/hostile/poison/terror_spider/spider
+		if(spider_type.ventcrawler_trait)
+			var/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
+			spider = new spider_type(vent)
+			spider.key = ghost.key
+			spider.move_into_vent(vent, FALSE)
+		else
+			spider = new spider_type(pick(GLOB.xeno_spawn))
+			spider.key = ghost.key
 		spider.add_datum_if_not_exist()
 		count--
 		successSpawn = TRUE

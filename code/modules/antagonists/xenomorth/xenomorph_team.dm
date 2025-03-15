@@ -225,7 +225,7 @@
 
 /proc/spawn_aliens(spawn_count)
 	var/spawn_vectors = tgui_alert(usr, "Какой тип ксеноморфа заспавнить?", "Тип ксеноморфов", list("Вектор", "Грудолом")) == "Вектор"
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/list/vents = get_valid_vent_spawns(exclude_visible_by_mobs = TRUE)
 	if(spawn_vectors)
 		spawn_vectors(vents, spawn_count)
 	else
@@ -242,7 +242,7 @@
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
-
+			new_xeno.move_into_vent(vent, FALSE)
 			if(first_spawn)
 				new_xeno.queen_maximum++
 				first_spawn = FALSE
@@ -262,8 +262,8 @@
 		if(C)
 			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
+			new_xeno.move_into_vent(vent, FALSE)
 			new_xeno.key = C.key
-
 			if(first_spawn)
 				new_xeno.queen_maximum++
 				first_spawn = FALSE
