@@ -1,6 +1,16 @@
 import { createSearch } from 'common/string';
+import { multiline } from 'common/string';
+import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Divider, Flex, Icon, Input, Section } from '../components';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Icon,
+  Input,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
@@ -149,6 +159,15 @@ export const Orbit = (props, context) => {
               <Divider vertical />
             </Flex.Item>
             <Flex.Item>
+              <Button
+                inline
+                color="transparent"
+                tooltip={multiline`Доп.возможности наблюдения. Когда активно, Вам будет виден интерфейс / полный инвентарь наблюдаемого. Удобно!`}
+                tooltipPosition="bottom-start"
+                selected={auto_observe}
+                icon={auto_observe ? 'toggle-on' : 'toggle-off'}
+                onClick={() => act('toggle_observe')}
+              />
               <Button
                 inline
                 color="transparent"
