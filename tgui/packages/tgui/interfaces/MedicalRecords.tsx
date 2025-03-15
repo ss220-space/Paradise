@@ -26,11 +26,11 @@ import { TemporaryNotice } from './common/TemporaryNotice';
 import { GeneralRecord } from './common/SimpleRecords';
 
 const severities = {
-  'Minor': 'lightgray',
-  'Medium': 'good',
-  'Harmful': 'average',
-  'Dangerous!': 'bad',
-  'BIOHAZARD THREAT!': 'darkred',
+  'Незначительная': 'lightgray',
+  'Средняя': 'good',
+  'Опасная': 'average',
+  'Очень опасная!': 'bad',
+  'БИОЛОГИЧЕСКАЯ УГРОЗА!': 'darkred',
 };
 
 const medStatusStyles = {

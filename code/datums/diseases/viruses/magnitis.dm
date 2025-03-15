@@ -35,7 +35,7 @@
 			if(prob(5))
 				to_chat(affected_mob, span_danger("Вы чувствуете мощный разряд, проходящий через ваше тело."))
 			if(prob(5))
-				to_chat(affected_mob, span_danger("Вы размышляете о природе чудес."))
+				to_chat(affected_mob, span_danger("Вы размышляете о чудесах природы."))
 			if(prob(8))
 				move_obj(6, rand(1, 3))
 				move_mobs(6, rand(1, 3))

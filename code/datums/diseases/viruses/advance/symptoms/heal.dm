@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/heal
 
-	name = "Toxic Filter"
+	name = "Фильтрация токсинов"
 	id = "heal"
 	stealth = 1
 	resistance = -4
@@ -58,7 +58,7 @@ Bonus
 
 /datum/symptom/heal/metabolism
 
-	name = "Anti-Bodies Metabolism"
+	name = "Метаболизм антител"
 	id = "metabolism"
 	stealth = -1
 	resistance = -1
@@ -78,7 +78,7 @@ Bonus
 			cured_diseases += D.GetDiseaseID()
 			D.cure()
 	if(cured)
-		to_chat(M, span_notice("You feel much better."))
+		to_chat(M, span_notice("Вы чувствуете себя намного лучше."))
 
 /datum/symptom/heal/metabolism/End(datum/disease/virus/advance/A)
 	// Remove all the diseases we cured.
@@ -88,7 +88,7 @@ Bonus
 			for(var/res in M.resistances)
 				if(res in cured_diseases)
 					M.resistances -= res
-		to_chat(M, span_warning("You feel weaker."))
+		to_chat(M, span_warning("Вы чувствуете себя слабее."))
 
 /*
 //////////////////////////////////////
@@ -109,7 +109,7 @@ Bonus
 
 /datum/symptom/heal/longevity
 
-	name = "Longevity"
+	name = "Долговечность"
 	id = "longevity"
 	stealth = 3
 	resistance = 4

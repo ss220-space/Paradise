@@ -26,10 +26,10 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 
 /datum/disease/virus/advance
 
-	name = "Unknown" // We will always let our Virologist name our disease.
+	name = "Неизвестно" // We will always let our Virologist name our disease.
 	desc = "Спроектированная болезнь, может содержать сразу несколько симптомов."
 	form = "Продвинутая болезнь" // Will let med-scanners know that this disease was engineered.
-	agent = "advance microbes"
+	agent = "Продвинутые микробы"
 	max_stages = 5
 
 	// NEW VARS
@@ -158,7 +158,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		name = A.name
 	else
 		if(reset_name)
-			name = "Unknown"
+			name = "Неизвестно"
 		AddToArchive()
 
 /datum/disease/virus/advance/proc/AddToArchive()
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 	return
 
 // Name the disease.
-/datum/disease/virus/advance/proc/AssignName(name = "Unknown")
+/datum/disease/virus/advance/proc/AssignName(name = "Неизвестно")
 	src.name = name
 	return
 

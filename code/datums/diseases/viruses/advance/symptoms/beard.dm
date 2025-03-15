@@ -16,7 +16,7 @@ BONUS
 
 /datum/symptom/beard
 
-	name = "Facial Hypertrichosis"
+	name = "Лицевой гипертрихоз"
 	id = "beard"
 	stealth = -3
 	resistance = -1
@@ -34,17 +34,17 @@ BONUS
 			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 			switch(A.stage)
 				if(1, 2)
-					to_chat(H, span_warning("Your chin itches."))
+					to_chat(H, span_warning("У вас чешется подбородок."))
 					if(head_organ.f_style == "Shaved")
 						head_organ.f_style = "Jensen Beard"
 						H.update_fhair()
 				if(3, 4)
-					to_chat(H, span_warning("You feel tough."))
+					to_chat(H, span_warning("Вы чувствуете себя крепким."))
 					if(!(head_organ.f_style == "Dwarf Beard") && !(head_organ.f_style == "Very Long Beard") && !(head_organ.f_style == "Full Beard"))
 						head_organ.f_style = "Full Beard"
 						H.update_fhair()
 				else
-					to_chat(H, span_warning("You feel manly!"))
+					to_chat(H, span_warning("Вы чувствуете себя мужественно!"))
 					if(!(head_organ.f_style == "Dwarf Beard") && !(head_organ.f_style == "Very Long Beard"))
 						head_organ.f_style = pick("Dwarf Beard", "Very Long Beard")
 						H.update_fhair()

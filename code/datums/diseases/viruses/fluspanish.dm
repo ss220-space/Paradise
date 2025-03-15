@@ -1,5 +1,5 @@
 /datum/disease/virus/fluspanish
-	name = "Испанский инквизиционный грипп"
+	name = "Грипп испанской инквизиции"
 	agent = "Вирион гриппа uHKBu3uLIu9I"
 	desc = "Если не лечить, заражённый сгорит заживо за ересь."
 	max_stages = 3

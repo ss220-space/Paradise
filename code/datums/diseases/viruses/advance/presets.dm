@@ -37,7 +37,7 @@
 
 // Toxic Filter + Toxic Compensation + Viral Evolutionary Acceleration
 /datum/disease/virus/advance/preset/advanced_regeneration
-	name = "Продвинутая Неогенезия"
+	name = "Продвинутый Неогенез"
 	symptoms = list(new/datum/symptom/heal, new/datum/symptom/damage_converter, new/datum/symptom/viralevolution)
 
 // Necrotizing Fasciitis + Viral Self-Adaptation + Eternal Youth + Dizziness

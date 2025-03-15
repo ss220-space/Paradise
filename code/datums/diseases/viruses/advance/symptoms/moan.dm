@@ -8,7 +8,7 @@ Groaning Syndrome
 
 /datum/symptom/moan
 
-	name = "Groaning Syndrome"
+	name = "Синдром стонов"
 	id = "moan"
 	stealth = -4
 	resistance = -3
@@ -23,7 +23,7 @@ Groaning Syndrome
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
-				to_chat(M, span_notice("Your muscles spasm, making you want to moan"))
+				to_chat(M, span_notice("Ваши мышцы сводит судорогой, и вам хочется застонать."))
 			else
 				if(prob(50))
 					M.emote("moan")
