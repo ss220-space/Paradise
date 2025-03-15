@@ -122,7 +122,7 @@
 		if(tool && tool.GetComponent(/datum/component/surgery_initiator))
 			return FALSE
 		if(tool && HAS_TRAIT(tool, TRAIT_SURGICAL))
-			to_chat(user, span_warning("This step requires a different tool!"))
+			user.balloon_alert(user, "неподходящий инструмент!")
 			return TRUE
 	return FALSE
 
