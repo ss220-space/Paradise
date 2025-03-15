@@ -285,21 +285,21 @@
 /datum/hud/robot/persistent_inventory_update(mob/viewer)
 	if(!mymob)
 		return
-	var/mob/living/silicon/robot/R = mymob
+	var/mob/living/silicon/robot/cyborg = mymob
 
-	var/mob/screenmob = viewer || R
+	var/mob/screenmob = viewer || cyborg
 
 	if(screenmob.hud_used.hud_shown)
-		if(R.module_state_1)
-			screenmob.client.screen += R.module_state_1
-		if(R.module_state_2)
-			screenmob.client.screen += R.module_state_2
-		if(R.module_state_3)
-			screenmob.client.screen += R.module_state_3
+		if(cyborg.module_state_1)
+			screenmob.client.screen += cyborg.module_state_1
+		if(cyborg.module_state_2)
+			screenmob.client.screen += cyborg.module_state_2
+		if(cyborg.module_state_3)
+			screenmob.client.screen += cyborg.module_state_3
 	else
-		if(R.module_state_1)
-			screenmob.client.screen -= R.module_state_1
-		if(R.module_state_2)
-			screenmob.client.screen -= R.module_state_2
-		if(R.module_state_3)
-			screenmob.client.screen -= R.module_state_3
+		if(cyborg.module_state_1)
+			screenmob.client.screen -= cyborg.module_state_1
+		if(cyborg.module_state_2)
+			screenmob.client.screen -= cyborg.module_state_2
+		if(cyborg.module_state_3)
+			screenmob.client.screen -= cyborg.module_state_3
