@@ -431,7 +431,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!QDELETED(mind.current)) // Could change while they're choosing
 		mind.current.med_hud_set_status()
-		
+
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
 /mob/dead/observer/proc/dead_tele()

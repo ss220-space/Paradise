@@ -114,6 +114,9 @@
 
 
 /atom/movable/screen/mov_intent/update_icon_state()
+	if(isobserver(usr))
+		return
+
 	if(hud?.mymob)
 		icon_state = (hud.mymob.m_intent == MOVE_INTENT_RUN) ? "running" : "walking"
 	else

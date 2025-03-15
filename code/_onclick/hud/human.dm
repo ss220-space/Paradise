@@ -468,24 +468,16 @@
 			H.head.screen_loc = ui_head
 			screenmob.client.screen += H.head
 	else
-		if(H.shoes)
-			screenmob.client.screen -= H.shoes
-		if(H.gloves)
-			screenmob.client.screen -= H.gloves
-		if(H.l_ear)
-			screenmob.client.screen -= H.l_ear
-		if(H.r_ear)
-			screenmob.client.screen -= H.r_ear
-		if(H.glasses)
-			screenmob.client.screen -= H.glasses
-		if(H.w_uniform)
-			screenmob.client.screen -= H.w_uniform
-		if(H.wear_suit)
-			screenmob.client.screen -= H.wear_suit
-		if(H.wear_mask)
-			screenmob.client.screen -= H.wear_mask
-		if(H.head)
-			screenmob.client.screen -= H.head
+		H.shoes?.screen_loc = null
+		H.gloves?.screen_loc = null
+		H.l_ear?.screen_loc = null
+		H.r_ear?.screen_loc = null
+		H.glasses?.screen_loc = null
+		H.w_uniform?.screen_loc = null
+		H.wear_suit?.screen_loc = null
+		H.wear_mask?.screen_loc = null
+		H.neck?.screen_loc = null
+		H.head?.screen_loc = null
 
 /datum/hud/human/persistent_inventory_update(mob/viewer)
 	if(!mymob)
