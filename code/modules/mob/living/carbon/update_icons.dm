@@ -111,16 +111,11 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
-			if(orbiters && orbiters.len)
-				for(var/M in orbiters)
-					var/mob/dead/observe = M
-					if(observe.client && observe.client.eye == src)
-						observe.client.screen += r_hand
-					else
-						orbiters -= observe
-						if(!orbiters.len)
-							orbiters = null
-							break
+			for(var/mob/dead/observe as anything in orbiters)
+				if(observe.client && observe.client.eye == src)
+					observe.client.screen += r_hand
+				else
+					LAZYREMOVE(orbiters, observe)
 
 		var/t_state = r_hand.item_state ? r_hand.item_state : r_hand.icon_state
 
@@ -174,18 +169,17 @@
 	client.screen += worn_item
 	worn_item.screen_loc = ui_screen_loc
 
-	update_observer_view(worn_item, 1)
+	update_observer_view(worn_item, togleable_inventory)
 
-/mob/living/carbon/proc/update_observer_view(var/obj/item/I, var/inventory)
-	if(!orbiters && !orbiters.len)
+/mob/living/carbon/proc/update_observer_view(var/obj/item/worn_item, var/inventory)
+	if(!orbiters && !orbiters?.len)
 		return
 
 	for(var/mob/dead/observe as anything in orbiters)
-		if(observe.client && observe.client.eye == src)
-			if(observe.hud_used)
-				if(inventory && !observe.hud_used.inventory_shown)
-					continue
-				observe.client.screen += I
+		if(observe.client && observe.client.eye == src && observe.hud_used)
+			if(inventory && !observe.hud_used.inventory_shown)
+				continue
+			observe.client.screen += worn_item
 		else
 			LAZYREMOVE(orbiters, observe)
 

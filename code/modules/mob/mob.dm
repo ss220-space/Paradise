@@ -4,8 +4,7 @@
 	remove_from_dead_mob_list()
 	focus = null
 	if(orbiters && orbiters.len)
-		for(var/M in orbiters)
-			var/mob/dead/observe = M
+		for(var/mob/dead/observe as anything in orbiters)
 			observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
