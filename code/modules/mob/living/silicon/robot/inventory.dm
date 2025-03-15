@@ -102,15 +102,15 @@
 	check_module_damage(FALSE)
 
 
-/mob/living/silicon/robot/proc/observer_screen_update(obj/item/I, add = TRUE)
+/mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_to_update, add = TRUE)
 	for(var/mob/dead/observe as anything in orbiters)
 		if(observe.client && observe.client.eye == src)
 			if(add)
-				observe.client.screen += I
+				observe.client.screen += item_to_update
 			else
-				observe.client.screen -= I
+				observe.client.screen -= item_to_update
 		else
-			LAZYREMOVE(orbiters)
+			LAZYREMOVE(orbiters, observe)
 
 
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)

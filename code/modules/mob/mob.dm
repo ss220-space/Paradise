@@ -3,8 +3,9 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
-	for(var/mob/dead/observe as anything in orbiters)
-		observe.reset_perspective(null)
+	if(orbiters && orbiters.len)
+		for(var/mob/dead/observe as anything in orbiters)
+			observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -347,10 +348,13 @@
 			var/mob/target = client.eye
 			if(target.orbiters)
 				target.orbiters -= src
-				UNSETEMPTY(target.orbiters)
-	if(..() && hud_used)
-		client.screen = list()
-		hud_used.show_hud(hud_used.hud_version)
+				var/list/L = target.orbiters
+				if(!L.len)
+					target.orbiters = null
+	if(..())
+		if(hud_used)
+			client.screen = list()
+			hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())

@@ -136,16 +136,15 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	if(ismob(client.eye) && (client.eye != src))
 		cleanup_observe()
 
-	if(..())
-		if(hud_used)
-			client.clear_screen()
-			hud_used.show_hud(hud_used.hud_version)
+	if(..() && hud_used)
+		client.clear_screen()
+		hud_used.show_hud(hud_used.hud_version)
 
 /mob/dead/observer/proc/cleanup_observe()
 	if(isnull(orbiting))
 		return
-	orbiting = null
 	client?.perspective = initial(client.perspective)
+	stop_orbit()
 	set_sight(initial(sight))
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
@@ -671,16 +670,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	//Istype so we filter out points of interest that are not mobs
-	if(!client && !mob_eye && !istype(mob_eye))
+	if(!client || !mob_eye || !istype(mob_eye))
 		return
 
-	ManualFollow(mob_eye)
 	client.set_eye(mob_eye)
 	client.perspective = EYE_PERSPECTIVE
 
 	if(is_admin_level(mob_eye.z) && !client?.holder)
 		set_sight(null) //we dont want ghosts to see through walls in secret areas
-	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(cleanup_observe), TRUE)
 
 	if(!mob_eye.hud_used)
 		return
