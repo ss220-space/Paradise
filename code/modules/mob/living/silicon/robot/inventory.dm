@@ -31,6 +31,7 @@
 
 	if(client)
 		client.screen -= O
+		observer_screen_update(O, FALSE)
 	contents -= O
 	if(module)
 		O.loc = module	//Return item to module so it appears in its contents, so it can be taken out again.
@@ -75,6 +76,7 @@
 		O.layer = ABOVE_HUD_LAYER
 		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv1.screen_loc
+		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
 	else if(!module_state_2)
@@ -83,6 +85,7 @@
 		O.layer = ABOVE_HUD_LAYER
 		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv2.screen_loc
+		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
 	else if(!module_state_3)
@@ -91,11 +94,28 @@
 		O.layer = ABOVE_HUD_LAYER
 		SET_PLANE_EXPLICIT(O, ABOVE_HUD_PLANE, src)
 		O.screen_loc = inv3.screen_loc
+		observer_screen_update(O, TRUE)
 		contents += O
 		set_actions(O)
 	else
 		to_chat(src, "You need to disable a module first!")
 	check_module_damage(FALSE)
+
+
+/mob/living/silicon/robot/proc/observer_screen_update(obj/item/I, add = TRUE)
+	if(orbiters && orbiters.len)
+		for(var/M in orbiters)
+			var/mob/dead/observe = M
+			if(observe.client && observe.client.eye == src)
+				if(add)
+					observe.client.screen += I
+				else
+					observe.client.screen -= I
+			else
+				orbiters -= observe
+				if(!orbiters.len)
+					orbiters = null
+					break
 
 /mob/living/silicon/robot/proc/set_actions(obj/item/I)
 	for(var/X in I.actions)
