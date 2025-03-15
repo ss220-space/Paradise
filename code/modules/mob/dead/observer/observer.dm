@@ -130,9 +130,12 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_sight()
 
 /mob/dead/observer/reset_perspective(atom/A)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			cleanup_observe()
+	if(!client)
+		return
+
+	if(ismob(client.eye) && (client.eye != src))
+		cleanup_observe()
+
 	if(..())
 		if(hud_used)
 			client.clear_screen()
@@ -658,23 +661,27 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	//Istype so we filter out points of interest that are not mobs
-	if(client && mob_eye && istype(mob_eye))
-		ManualFollow(mob_eye)
-		client.set_eye(mob_eye)
-		client.perspective = EYE_PERSPECTIVE
+	if(!client && !mob_eye && !istype(mob_eye))
+		return
 
-		if(is_admin_level(mob_eye.z) && !client?.holder)
-			set_sight(null) //we dont want ghosts to see through walls in secret areas
-		RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(cleanup_observe), TRUE)
+	ManualFollow(mob_eye)
+	client.set_eye(mob_eye)
+	client.perspective = EYE_PERSPECTIVE
 
-		if(mob_eye.hud_used)
-			client.clear_screen()
-			LAZYOR(mob_eye.orbiters, src)
-			mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
+	if(is_admin_level(mob_eye.z) && !client?.holder)
+		set_sight(null) //we dont want ghosts to see through walls in secret areas
+	RegisterSignal(src, COMSIG_ATOM_ORBIT_STOP, PROC_REF(cleanup_observe), TRUE)
 
-			//An ingenious way to block access to the button. Yes, it's on the screen, but you can't press it.
-			for(var/atom/movable/screen/movable/action_button/AB in client.screen)
-				client.screen -= AB
+	if(!mob_eye.hud_used)
+		return
+
+	client.clear_screen()
+	LAZYOR(mob_eye.orbiters, src)
+	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
+
+	//An ingenious way to block access to the button. Yes, it's on the screen, but you can't press it.
+	for(var/atom/movable/screen/movable/action_button/button in client.screen)
+		client.screen -= button
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

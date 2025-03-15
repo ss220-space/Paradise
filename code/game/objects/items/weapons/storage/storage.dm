@@ -433,8 +433,7 @@
 			usr.client.screen -= W
 
 		if(usr.orbiters && usr.orbiters.len)
-			for(var/M in usr.orbiters)
-				var/mob/dead/observe = M
+			for(var/mob/dead/observe as anything in orbiters)
 				if(observe.client && observe.s_active != src)
 					observe.client.screen -= W
 

@@ -11,8 +11,8 @@
 
 	if(isobserver(usr))
 		if(ishuman(usr.client.eye) && (usr.client.eye != usr))
-			var/mob/M = usr.client.eye
-			targetmob = M
+			var/mob/my_eye = usr.client.eye
+			targetmob = my_eye
 
 	if(usr.hud_used.inventory_shown && targetmob.hud_used)
 		usr.hud_used.inventory_shown = FALSE
