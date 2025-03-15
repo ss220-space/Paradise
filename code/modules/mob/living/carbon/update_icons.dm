@@ -111,11 +111,16 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
-			for(var/mob/dead/observe as anything in orbiters)
-				if(observe.client && observe.client.eye == src)
-					observe.client.screen += r_hand
-				else
-					LAZYREMOVE(orbiters, observe)
+			if(orbiters && orbiters.len)
+				for(var/M in orbiters)
+					var/mob/dead/observe = M
+					if(observe.client && observe.client.eye == src)
+						observe.client.screen += r_hand
+					else
+						orbiters -= observe
+						if(!orbiters.len)
+							orbiters = null
+							break
 
 		var/t_state = r_hand.item_state ? r_hand.item_state : r_hand.icon_state
 
@@ -169,17 +174,20 @@
 	client.screen += worn_item
 	worn_item.screen_loc = ui_screen_loc
 
-	update_observer_view(worn_item, togleable_inventory)
+	update_observer_view(worn_item, 1)
 
-/mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
+/mob/living/carbon/proc/update_observer_view(var/obj/item/I, var/inventory)
+	if(!orbiters && !orbiters.len)
+		return
+
 	for(var/mob/dead/observe as anything in orbiters)
-		if(!(observe.client && observe.client.eye == src && observe.hud_used))
+		if(observe.client && observe.client.eye == src)
+			if(observe.hud_used)
+				if(inventory && !observe.hud_used.inventory_shown)
+					continue
+				observe.client.screen += I
+		else
 			LAZYREMOVE(orbiters, observe)
-			continue
-		if(inventory && !observe.hud_used.inventory_shown)
-			continue
-		observe.client.screen += worn_item
-
 
 /mob/living/carbon/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()

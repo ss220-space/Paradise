@@ -23,43 +23,34 @@
 
 	switch(action)
 		if("orbit")
-			handle_orbit_action(params)
+			var/ref = params["ref"]
+
+			var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
+			if(poi == null)
+				. = TRUE
+				return
+
+			var/mob/dead/observer/user = usr
+			user.ManualFollow(poi)
+			user.reset_perspective(null)
+			if (auto_observe)
+				user.do_observe(poi)
 			return TRUE
+
 
 		if("refresh")
 			update_static_data(owner, ui)
-			return TRUE
+			. = TRUE
+		if ("toggle_observe")
+			auto_observe = !auto_observe
 
-		if("toggle_observe")
-			toggle_auto_observe()
-			return TRUE
-	return FALSE
-
-/datum/orbit_menu/proc/handle_orbit_action(list/params)
-	var/ref = params["ref"]
-	var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
-	if(!poi)
-		return
-
-	var/mob/dead/observer/user = usr
-	user.ManualFollow(poi)
-	user.client.perspective = EYE_PERSPECTIVE
-	if(auto_observe)
-		user.do_observe(poi)
-
-/datum/orbit_menu/proc/toggle_auto_observe()
-	auto_observe = !auto_observe
-
-	if(!owner.orbiting)
-		owner.reset_perspective(null)
-		return
-
-	owner.cleanup_observe()
-	if(auto_observe)
-		owner.do_observe(owner.orbiting)
-		owner.ManualFollow(owner.orbiting)
-	else
-		owner.reset_perspective(null)
+			if(!owner.orbiting)
+				return
+			owner.stop_orbit()
+			if (auto_observe)
+				owner.do_observe(owner.orbiting)
+			else
+				owner.reset_perspective(null)
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
