@@ -294,6 +294,7 @@
 #include "code\_onclick\hud\cogscarab.dm"
 #include "code\_onclick\hud\constructs.dm"
 #include "code\_onclick\hud\devil.dm"
+#include "code\_onclick\hud\facehugger.dm"
 #include "code\_onclick\hud\fullscreen.dm"
 #include "code\_onclick\hud\ghost.dm"
 #include "code\_onclick\hud\guardian.dm"
