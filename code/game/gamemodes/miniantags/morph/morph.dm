@@ -4,8 +4,16 @@
 
 /mob/living/simple_animal/hostile/morph
 	name = "morph"
+	ru_names = list(
+		NOMINATIVE = "морф",
+		GENITIVE = "морфа",
+		DATIVE = "морфу",
+		ACCUSATIVE = "морфа",
+		INSTRUMENTAL = "морфом",
+		PREPOSITIONAL = "морфе"
+	)
 	real_name = "morph"
-	desc = "A revolting, pulsating pile of flesh."
+	desc = "Отвратительная пульсирующая масса плоти."
 	speak_emote = list("gurgles")
 	emote_hear = list("gurgles")
 	icon = 'icons/mob/animal.dmi'
@@ -37,12 +45,13 @@
 	attack_sound = 'sound/effects/blobattack.ogg'
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
-	var/playstyle_string = "<b><font size=3 color='red'>You are a morph.</font><br> As an abomination created primarily with changeling cells, \
-							you may take the form of anything nearby by shift-clicking it. This process will alert any nearby \
-							observers, and can only be performed once every five seconds.<br> While morphed, you move faster, but do \
-							less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you. \
-							You can restore yourself to your original form while morphed by shift-clicking yourself.<br> \
-							Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health.</b>"
+	var/playstyle_string = "<b><font size=3 color='red'>Вы — морф.</font><br>Как мерзость, созданная в основном из клеток генокрада, \
+								вы можете принимать форму любого объекта поблизости, Shift-кликнув по нему. Этот процесс предупредит всех \
+								наблюдателей поблизости и может выполняться только раз в пять секунд.<br> В изменённой форме вы двигаетесь \
+								быстрее, но наносите меньше урона. Кроме того, любой, кто находится в радиусе трёх тайлов, заметит \
+								нечто странное, если осмотрит вас. Вы можете вернуться в свою изначальную форму, Shift-кликнув по себе.<br> \
+								Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — существа восстановят \
+								1/3 вашего максимального здоровья.</b>"
 
 	/// If the morph can reproduce or not
 	var/can_reproduce = FALSE
@@ -107,12 +116,20 @@
 /mob/living/simple_animal/hostile/morph/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Food Stored:", "[gathered_food]")
+	status_tab_data[++status_tab_data.len] = list("Запас пищи:", "[gathered_food]")
 
 /mob/living/simple_animal/hostile/morph/wizard
 	name = "magical morph"
+	ru_names = list(
+		NOMINATIVE = "магический морф",
+		GENITIVE = "магического морфа",
+		DATIVE = "магическому морфу",
+		ACCUSATIVE = "магического морфа",
+		INSTRUMENTAL = "магическим морфом",
+		PREPOSITIONAL = "магическом морфе"
+	)
 	real_name = "magical morph"
-	desc = "A revolting, pulsating pile of flesh. This one looks somewhat.. magical."
+	desc = "Отвратительная пульсирующая масса плоти. Этот выглядит несколько... магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
@@ -127,23 +144,23 @@
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
 	if(food_value + gathered_food < 0)
-		to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+		to_chat(src, span_warning("Вы не можете заставить себя съесть что-то более отвратительное. Сначала съешьте что-то живое."))
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = "<span class='warning'>You start eating [item]... disgusting....</span>"
+		eat_self_message = span_warning("Вы начинаете есть [item]... отвратительно...")
 	else
-		eat_self_message = "<span class='notice'>You start eating [item].</span>"
-	visible_message("<span class='warning'>[src] starts eating [target]!</span>", eat_self_message, "You hear loud crunching!")
+		eat_self_message = span_notice("Вы начинаете есть [item].")
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает есть [target]!"), eat_self_message, "Вы слышите громкий хруст!")
 	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
-			to_chat(src, "<span class='warning'>You can't force yourself to eat more disgusting items. Eat some living things first.</span>")
+			to_chat(src, span_warning("Вы не можете заставить себя съесть что-то более отвратительное. Сначала съешьте что-то живое."))
 			return
 		eat(item)
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/item)
 	if(item && item.loc != src)
-		visible_message("<span class='warning'>[src] swallows [item] whole!</span>")
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] проглатывает [item] целиком!"))
 
 		item.extinguish_light()
 		item.forceMove(src)
@@ -199,7 +216,7 @@
 	melee_damage_upper = initial(melee_damage_upper)
 	set_varspeed(initial(speed))
 	if(ambush_prepared)
-		to_chat(src, "<span class='warning'>The ambush potential has faded as you take your true form.</span>")
+		to_chat(src, span_warning("Потенциал засады исчез, когда вы принимаете свою истинную форму."))
 	failed_ambush()
 	pass_airlock_spell.updateButtonIcon()
 	move_resist = MOVE_FORCE_STRONG // Return to their fatness
@@ -207,7 +224,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
-	to_chat(src, "<span class='sinister'>You are ready to ambush any unsuspected target. Your next attack will hurt a lot more and weaken the target! Moving will break your focus. Standing still will perfect your disguise.</span>")
+	to_chat(src, span_sinister("Вы готовы устроить засаду на ничего не подозревающую цель. Ваша следующая атака нанесёт больше урона и ослабит цель! Движение нарушит вашу концентрацию. Стояние на месте улучшит вашу маскировку."))
 	apply_status_effect(/datum/status_effect/morph_ambush)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
@@ -220,12 +237,12 @@
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
-	to_chat(src, "<span class='sinister'>You've perfected your disguise. Making you indistinguishable from the real form!</span>")
+	to_chat(src, span_sinister("Вы идеально замаскировались. Теперь вас не отличить от настоящей формы!"))
 
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
 	failed_ambush()
-	to_chat(src, "<span class='warning'>You moved out of your ambush spot!</span>")
+	to_chat(src, span_warning("Вы покинули место засады!"))
 
 
 /mob/living/simple_animal/hostile/morph/death(gibbed)
@@ -242,11 +259,11 @@
 
 /mob/living/simple_animal/hostile/morph/attack_hand(mob/living/carbon/human/attacker)
 	if(ambush_prepared)
-		to_chat(attacker, "<span class='warning'>[src] feels a bit different from normal... it feels more.. </span><span class='userdanger'>SLIMEY?!</span>")
+		to_chat(attacker, span_warning("[capitalize(declent_ru(NOMINATIVE))] кажется немного другим, чем обычно... он кажется более... ") + span_userdanger("СЛИЗИСТЫМ?!"))
 		ambush_attack(attacker, TRUE)
 		return TRUE
 	else if (!morphed)
-		to_chat(attacker, "<span class='warning'>Touching [src] with your hands hurts you!</span>")
+		to_chat(attacker, span_warning("Прикосновение к [declent_ru(GENITIVE)] руками причиняет вам боль!"))
 		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
 
@@ -264,14 +281,14 @@
 		return ..()
 
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, span_warning("You try to use [item] on [src]... it seems different than no-"))
+		to_chat(user, span_warning("Вы пытаетесь использовать [item] на [capitalize(declent_ru(NOMINATIVE))]... он кажется другим, чем раньше..."))
 		ambush_attack(user, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!morphed && isrobot(user))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0)
-			to_chat(user, span_warning("Attacking [src] damaging your systems!"))
+			to_chat(user, span_warning("Атака [declent_ru(GENITIVE)] повреждает ваши системы!"))
 			user.apply_damage(70)
 			add_food(-5)
 		return ..()
@@ -279,7 +296,7 @@
 	if(!morphed && prob(50))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0 && !(item.item_flags & ABSTRACT) && user.drop_item_ground(item))
-			to_chat(user, span_warning("[src] just ate your [item]!"))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] только что съел ваш [item]!"))
 			eat(item)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
@@ -290,7 +307,7 @@
 
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/animal)
 	if(animal.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(animal, "<span class='notice'>You nuzzle [src].</span><span class='danger'> And [src] nuzzles back!</span>")
+		to_chat(animal, span_notice("Вы трётесь о [declent_ru(GENITIVE)].") + span_danger(" И [declent_ru(NOMINATIVE)] трётся в ответ!"))
 		ambush_attack(animal, TRUE)
 		return TRUE
 	restore_form()
@@ -320,7 +337,7 @@
 	dumbass.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
-	visible_message("<span class='danger'>[src] suddenly leaps towards [dumbass]!</span>", "<span class='warning'>You strike [dumbass] when [dumbass.p_they()] least expected it!</span>", "You hear a horrible crunch!")
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass]!"), span_warning("Вы атакуете [dumbass], когда [genderize_ru(dumbass.gender,"он","она","оно","они")] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
 
 	restore_form()
 
@@ -369,27 +386,27 @@
 	SSticker.mode.morphs |= mind
 
 	var/list/messages = list()
-	messages.Add("<b><font size=3 color='red'>You are a morph.</font><br></b>")
-	messages.Add("<span class='sinister'>You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities.</span>")
-	messages.Add("<span class='specialnotice'>As an abomination created primarily with changeling cells you may take the form of anything nearby by using your <span class='specialnoticebold'>Mimic ability.</span></span>")
-	messages.Add("<span class='specialnotice'>The transformation will not go unnoticed for bystanding observers.</span>")
-	messages.Add("<span class='specialnoticebold'>While morphed</span><span class='specialnotice'>, you move slower and do less damage. In addition, anyone within three tiles will note an uncanny wrongness if examining you.</span>")
-	messages.Add("<span class='specialnotice'>From this form you can however <span class='specialnoticebold'>Prepare an Ambush</span> using your ability.</span>")
-	messages.Add("<span class='specialnotice'>This will allow you to deal a lot of damage the first hit. And if they touch you then even more.</span>")
-	messages.Add("<span class='specialnotice'>Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food.</span>")
+	messages.Add("<b><font size=3 color='red'>Вы — морф.</font><br></b>")
+	messages.Add(span_sinister("Вы жаждете съесть живых существ и желаете размножаться. Достигните этой цели, устраивая засады на ничего не подозревающую добычу, используя свои способности."))
+	messages.Add(span_specialnotice("Будучи мерзостью, созданным в основном из клеток генокрада, вы можете принимать форму любого объекта поблизости, используя свою <span class='specialnoticebold'>способность Мимикрия.</span>"))
+	messages.Add(span_specialnotice("Преобразование не останется незамеченным для наблюдателей."))
+	messages.Add(span_specialnoticebold("В изменённой форме<span class='specialnotice'>, вы двигаетесь медленнее и наносите меньше урона. Кроме того, любой, кто находится в радиусе трёх тайлов, заметит нечто странное, если осмотрит вас.</span>"))
+	messages.Add(span_specialnotice("В этой форме вы можете <span class='specialnoticebold'>Подготовить Засаду</span>, используя свою способность.</span>"))
+	messages.Add(span_specialnotice("Это позволит вам нанести огромный урон при первом ударе. А если они коснутся вас, то ещё больше.</span>"))
+	messages.Add(span_specialnotice("Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — существа восстановят 1/3 вашего максимального здоровья и добавят к вашему запасу пищи, а поедание предметов уменьшит ваш запас пищи.</span>"))
 	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a></span>")
 
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)
 		var/datum/objective/eat = new /datum/objective
 		eat.owner = mind
-		eat.explanation_text = "Eat as many living beings as possible to still the hunger within you."
+		eat.explanation_text = "Съешьте как можно больше живых существ, чтобы утолить голод внутри вас."
 		eat.completed = TRUE
 		eat.needs_target = FALSE
 		mind.objectives += eat
 		var/datum/objective/procreate = new /datum/objective
 		procreate.owner = mind
-		procreate.explanation_text = "Split yourself in as many other [name]'s as possible!"
+		procreate.explanation_text = "Породите как можно больше себе подобных!"
 		procreate.completed = TRUE
 		procreate.needs_target = FALSE
 		mind.objectives += procreate

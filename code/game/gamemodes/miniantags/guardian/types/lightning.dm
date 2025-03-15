@@ -93,9 +93,9 @@
 					continue
 				if(successfulshocks > 4)
 					L.visible_message(
-						"<span class='danger'>[L] was shocked by the lightning chain!</span>", \
-						"<span class='userdanger'>You are shocked by the lightning chain!</span>", \
-						"<span class='italics'>You hear a heavy electrical crack.</span>" \
+						span_danger("[L] был поражён цепью молний!"), \
+						span_userdanger("Вас ударила цепь молний!"), \
+						span_italics("Вы слышите громкий электрический треск.") \
 					)
 				L.adjustFireLoss(3)
 				. = 1

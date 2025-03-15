@@ -1,11 +1,11 @@
 // TODO refactor when spell code is component based instead of OO based
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock
-	name = "Pass Airlock"
-	desc = "Reform yourself so you can fit through a non bolted airlock. Takes a while to do and can only be used in a non disguised form."
+	name = "Пройти через Шлюз"
+	desc = "Изменяйте свою форму, чтобы пройти через незаблокированный шлюз. Это занимает некоторое время и может быть использовано только в вашей истинной форме."
 	action_background_icon_state = "bg_morph"
 	action_icon_state = "morph_airlock"
 	base_cooldown = 10 SECONDS
-	selection_activated_message = "<span class='sinister'>Click on an airlock to try pass it.</span>"
+	selection_activated_message = span_sinister("Кликните на шлюз, чтобы попытаться пройти через него.")
 	need_active_overlay = TRUE
 
 
@@ -24,28 +24,28 @@
 
 	if(user.morphed)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only pass through airlocks in your true form!</span>")
+			to_chat(user, span_warning("Вы можете проходить через шлюзы только в своей истинной форме!"))
 		return FALSE
 
 
 /obj/effect/proc_holder/spell/morph_spell/pass_airlock/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
 	var/obj/machinery/door/airlock/airlock = targets[1]
 	if(airlock.locked)
-		to_chat(user, "<span class='warning'>[airlock] is bolted shut! You're unable to create a crack to pass through!</span>")
+		to_chat(user, span_warning("[airlock] заблокирован! Вы не можете создать щель, чтобы пройти!"))
 		revert_cast(user)
 		return
-	user.visible_message("<span class='warning'>[user] starts pushing itself against [airlock]!</span>", "<span class='sinister'>You try to pry [airlock] open enough to get through.</span>")
+	user.visible_message(span_warning("[user] начинает протискиваться в [airlock]!"), span_sinister("Вы пытаетесь приоткрыть [airlock], чтобы пролезть."))
 	if(!do_after(user, 6 SECONDS, user, timed_action_flags = DEFAULT_DOAFTER_IGNORE|DA_IGNORE_INCAPACITATED|DA_IGNORE_HELD_ITEM|DA_IGNORE_EMPTY_GRIPPER, extra_checks = CALLBACK(src, PROC_REF(pass_check), user, airlock)))
 		if(user.morphed)
-			to_chat(user, "<span class='warning'>You need to stay in your true form to pass through [airlock]!</span>")
+			to_chat(user, span_warning("Вам нужно оставаться в своей истинной форме, чтобы пройти через [airlock]!"))
 		else if(airlock.locked)
-			to_chat(user, "<span class='warning'>[airlock] is bolted shut! You're unable to create a crack to pass through!</span>")
+			to_chat(user, span_warning("[airlock] заблокирован! Вы не можете создать щель, чтобы пройти!"))
 		else
-			to_chat(user, "<span class='warning'>You need to stay still to pass through [airlock]!</span>")
+			to_chat(user, span_warning("Вам нужно стоять на месте, чтобы пройти через [airlock]!"))
 		revert_cast(user)
 		return
 
-	user.visible_message("<span class='warning'>[user] briefly opens [airlock] slightly and passes through!</span>", "<span class='sinister'>You slide through the open crack in [airlock].</span>")
+	user.visible_message(span_warning("[user] ненадолго приоткрывает [airlock] и проходит через него!"), span_sinister("Вы проскальзываете через щель в [airlock]."))
 	user.forceMove(airlock.loc) // Move into the turf of the airlock
 
 

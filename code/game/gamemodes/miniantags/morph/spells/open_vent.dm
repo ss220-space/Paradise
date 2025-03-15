@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/morph_spell/open_vent
-	name = "Open Vents"
-	desc = "Spit out acidic puke on nearby vents or scrubbers. Will take a little while for the acid to take effect. Not usable from inside a vent."
+	name = "Открыть Вентиляцию"
+	desc = "Выплюньте кислотную рвоту на ближайшие вентиляционные решётки или скрубберы. Кислоте потребуется некоторое время, чтобы подействовать. Нельзя использовать изнутри вентиляции."
 	action_icon_state = "acid_vent"
 	base_cooldown = 10 SECONDS
 	hunger_cost = 10
@@ -25,12 +25,12 @@
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/cast(list/targets, mob/user)
 	if(!length(targets))
-		to_chat(user, "<span class='warning'>No nearby welded vents found!</span>")
+		to_chat(user, span_warning("Поблизости нет заваренных вентиляционных решёток!"))
 		revert_cast(user)
 		return
-	to_chat(user, "<span class='sinister'>You begin regurgitating up some acidic puke!</span>")
+	to_chat(user, span_sinister("Вы начинаете изрыгать кислотную рвоту!"))
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		to_chat(user, "<span class='warning'>You swallow the acid again.</span>")
+		to_chat(user, span_warning("Вы проглатываете кислоту."))
 		revert_cast(user)
 		return
 	for(var/thing in targets)
