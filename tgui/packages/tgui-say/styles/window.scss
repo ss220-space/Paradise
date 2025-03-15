@@ -23,17 +23,18 @@
 
 // Remove conditionals with 516
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+  #react-root {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    height: 100%;
+    width: 100%;
+  }
+
   /** Window sizes */
-  .window-30 {
-    height: 24px;
-  }
-
-  .window-50 {
-    height: 40px;
-  }
-
-  .window-70 {
-    height: 56px;
+  .window {
+    flex: 1;
+    min-height: 0;
   }
 }
 

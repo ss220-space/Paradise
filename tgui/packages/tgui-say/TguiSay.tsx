@@ -339,7 +339,7 @@ export class TguiSay extends Component<{}, State> {
 
     return (
       <div
-        className={`window window-${theme} window-${this.state.size}`}
+        className={`window window-${theme} window-${this.state.size}`} // Remove window-${this.state.size} with 516
         $HasKeyedChildren
       >
         <Dragzone position="top" theme={theme} />
