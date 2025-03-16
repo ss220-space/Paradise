@@ -348,10 +348,9 @@
 			if(target.orbiters)
 				target.orbiters -= src
 				UNSETEMPTY(target.orbiters)
-	if(..())
-		if(hud_used)
-			client.screen = list()
-			hud_used.show_hud(hud_used.hud_version)
+	if(..() && hud_used)
+		client.screen = list()
+		hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
