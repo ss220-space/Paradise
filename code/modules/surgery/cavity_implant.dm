@@ -24,7 +24,7 @@
 
 
 /datum/surgery/cavity_implant/soft
-	name = "Полостная хирургия (Без костей)"
+	name = "Полостная хирургия"
 	desc = "Имплантация объекта в полость, не защищённую костями."
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
