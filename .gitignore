@@ -69,3 +69,4 @@ stddef.dm
 /sound/tts_cache/**/*
 /sound/tts_scrambled/**/*
 .vscode/launch.json
+.gitignore
