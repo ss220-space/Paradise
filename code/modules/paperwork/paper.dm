@@ -113,7 +113,7 @@
 	return data
 
 
-/obj/item/paper/AltClick(mob/living/carbon/human/user)
+/obj/item/paper/click_alt(mob/living/carbon/human/user)
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 	if(is_pen(user.get_active_hand()))
