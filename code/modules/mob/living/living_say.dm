@@ -358,8 +358,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	if(T)
 		//make sure the air can transmit speech - speaker's side
-		var/datum/gas_mixture/environment = T.return_air()
-		var/pressure = environment ? environment.return_pressure() : 0
+		//var/datum/gas_mixture/environment = T.return_air()
+		//var/pressure = environment ? environment.return_pressure() : 0
 		/* TUTORIAL EDIT
 		if(!ignore_atmospherics)
 			if(pressure < SOUND_MINIMUM_PRESSURE)
