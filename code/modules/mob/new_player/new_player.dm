@@ -86,33 +86,33 @@
 		to_chat(usr, "<span class='warning'>Начинать обучение можно только после его полной инициализации!</span>")
 		return FALSE
 
-		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>Вы долнжны согласится с политикой конфидициальноти перед игрой!</span>")
+	if(!client.tos_consent)
+		to_chat(usr, "<span class='warning'>Вы долнжны согласится с политикой конфидициальноти перед игрой!</span>")
+		return FALSE
+	if(client.version_blocked)
+		client.show_update_notice()
+		return FALSE
+	if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
+		if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
+			client.prefs.load_preferences(client)
+			to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
+			to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
 			return FALSE
-		if(client.version_blocked)
-			client.show_update_notice()
+	if(!is_used_species_available(client.prefs.species))
+		to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+		return FALSE
+	if(CONFIG_GET(flag/tts_enabled))
+		if(!client.prefs.tts_seed)
+			to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+			client.prefs.ShowChoices(src)
 			return FALSE
-		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
-			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
-				client.prefs.load_preferences(client)
-				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
-				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
-				return FALSE
-		if(!is_used_species_available(client.prefs.species))
-			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+		var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
+		if(client.donator_level < seed.donator_level)
+			to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+			client.prefs.ShowChoices(src)
 			return FALSE
-		if(CONFIG_GET(flag/tts_enabled))
-			if(!client.prefs.tts_seed)
-				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
-				client.prefs.ShowChoices(src)
-				return FALSE
-			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
-			if(client.donator_level < seed.donator_level)
-				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
-				client.prefs.ShowChoices(src)
-				return FALSE
-		ready = !ready
-		client << output(ready, "title_browser:ready")
+	ready = !ready
+	client << output(ready, "title_browser:ready")
 
 	if(href_list["skip_antag"])
 		client.prefs?.skip_antag = !client.prefs?.skip_antag
@@ -398,6 +398,7 @@
 	qdel(src)
 	return
 
+/*
 	character = SSjobs.AssignRank(character, rank, 1)					//equips the human
 
 	// AIs don't need a spawnpoint, they must spawn at an empty core
@@ -465,7 +466,7 @@
 	if(!thisjob.is_position_available() && (thisjob in SSjobs.prioritized_jobs))
 		SSjobs.prioritized_jobs -= thisjob
 	qdel(src)
-
+*/
 
 /mob/new_player/proc/AnnounceArrival(mob/living/carbon/human/character, rank, join_message)
 	if(SSticker.current_state == GAME_STATE_PLAYING)

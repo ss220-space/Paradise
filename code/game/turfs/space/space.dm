@@ -23,7 +23,7 @@
 	barefootstep = null
 	clawfootstep = null
 	heavyfootstep = null
-	force_no_gravity = TRUE
+	force_no_gravity = FALSE
 
 	transparent_floor = TURF_FULLTRANSPARENT
 

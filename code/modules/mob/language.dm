@@ -488,9 +488,9 @@
 /datum/language/training
 	name = "Training Lang"
 	desc = "Training Lang"
-	speech_verb = "says"
+	speech_verbs = list("says")
 	exclaim_verbs = list("exclaims", "shouts", "yells")
-	whisper_verb = "whispers"
+	whisper_verbs = list("whispers")
 	colour = "training"
 	key = "tr"
 	syllables = list("blah","blah","blah","bleh","meh","neh","nah","wah")

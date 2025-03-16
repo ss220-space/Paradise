@@ -62,7 +62,7 @@
 
 	var/old_force_no_grav = force_no_gravity
 	if(istype(new_area, /area/space))
-		force_no_gravity = TRUE
+		force_no_gravity = FALSE
 	else
 		force_no_gravity = FALSE
 

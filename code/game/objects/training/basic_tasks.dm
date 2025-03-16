@@ -97,7 +97,7 @@
 		"Возьмите :tr ПДА :gc в вашу руку нажатием на него :tr ЛКМ")
 
 /datum/training_task/basic_3_2/init_task()
-	user.equip_to_slot_if_possible(new /obj/item/pda, SLOT_HUD_WEAR_PDA, drop_on_fail = TRUE)
+	user.equip_to_slot_if_possible(new /obj/item/pda, ITEM_SLOT_PDA, drop_on_fail = TRUE)
 	..()
 
 /datum/training_task/basic_3_2/check_func()
@@ -134,7 +134,7 @@
 		"Возьмите ID карту в руку так, чтобы в активной руке лежала ваша ID карта, а в неактивной - ПДА")
 
 /datum/training_task/basic_3_4/init_task()
-	user.equip_to_slot_if_possible(new /obj/item/card/id/captains_spare, SLOT_HUD_WEAR_ID, drop_on_fail = TRUE)
+	user.equip_to_slot_if_possible(new /obj/item/card/id/captains_spare, ITEM_SLOT_ID, drop_on_fail = TRUE)
 	..()
 
 /datum/training_task/basic_3_4/check_func()
@@ -165,7 +165,7 @@
 		"Для продолжения карта и ПДА должны лежать в соответствующих слотах")
 
 /datum/training_task/basic_3_6/check_func()
-	if (istype(user.get_item_by_slot(SLOT_HUD_WEAR_ID), /obj/item/card/id) && istype(user.get_item_by_slot(SLOT_HUD_WEAR_PDA), /obj/item/pda))
+	if (istype(user.get_item_by_slot(ITEM_SLOT_ID), /obj/item/card/id) && istype(user.get_item_by_slot(ITEM_SLOT_PDA), /obj/item/pda))
 		on_task_success()
 		master.task_completed()
 	else
@@ -189,8 +189,8 @@
 	mask = new()
 	oxygen = new()
 	backpack = new()
-	backpack.block_unequip = TRUE
-	user.equip_to_slot_if_possible(backpack, SLOT_HUD_BACK, drop_on_fail = TRUE)
+	ADD_TRAIT(backpack, TRAIT_NODROP, "training_nodrop")
+	user.equip_to_slot_if_possible(backpack, ITEM_SLOT_BACK, drop_on_fail = TRUE)
 	backpack.contents.Add(mask)
 	backpack.contents.Add(oxygen)
 	. = ..()
@@ -210,7 +210,7 @@
 		"Так или иначе, наденьте маску на лицо")
 
 /datum/training_task/basic_4_2/check_func()
-	if (istype(user.get_item_by_slot(SLOT_HUD_WEAR_MASK), /obj/item/clothing/mask/breath))
+	if (istype(user.get_item_by_slot(ITEM_SLOT_MASK), /obj/item/clothing/mask/breath))
 		on_task_success()
 		master.task_completed()
 	else
@@ -225,7 +225,7 @@
 	var/obj/item/tank/internals/emergency_oxygen/engi/oxygen
 
 /datum/training_task/basic_4_3/init_task()
-	backpack = user.get_item_by_slot(SLOT_HUD_BACK)
+	backpack = user.get_item_by_slot(ITEM_SLOT_BACK)
 	oxygen = user.find_item(/obj/item/tank/internals/emergency_oxygen/engi)
 	..()
 
@@ -235,7 +235,7 @@
 	&& !user.get_inactive_hand() \
 	&& !backpack.contents.len \
 	&& user.find_item(/obj/item/tank/internals/emergency_oxygen/engi) \
-	&& istype(user.get_item_by_slot(SLOT_HUD_WEAR_MASK), /obj/item/clothing/mask/breath))
+	&& istype(user.get_item_by_slot(ITEM_SLOT_MASK), /obj/item/clothing/mask/breath))
 		on_task_success()
 		master.task_completed()
 	else
@@ -273,9 +273,9 @@
 	var/datum/training_coords/center = get_center()
 	var/datum/training_coords/max_coordinate = get_max_coordinate()
 	spawn_window(center.x, master.y + 1)
-	new /turf/simulated/floor/plating/lava/smooth(locate(center.x, master.y + 2, master.z))
-	new /turf/simulated/floor/plating/lava/smooth(locate(center.x, master.y + 3, master.z))
-	new /turf/simulated/floor/plating/lava/smooth(locate(center.x, master.y + 4, master.z))
+	new /turf/simulated/floor/lava(locate(center.x, master.y + 2, master.z))
+	new /turf/simulated/floor/lava(locate(center.x, master.y + 3, master.z))
+	new /turf/simulated/floor/lava(locate(center.x, master.y + 4, master.z))
 	spawn_window(center.x, master.y + 5)
 
 	final_turf = get_turf(locate(max_coordinate.x - 2, center.y, master.z))
@@ -414,12 +414,12 @@
 	var/obj/item/clothing/under/suit
 
 /datum/training_task/basic_9_1/init_task()
-	suit = user.get_item_by_slot(SLOT_HUD_JUMPSUIT)
+	suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
 	suit.sensor_mode = SENSOR_OFF
 	..()
 
 /datum/training_task/basic_9_1/check_func()
-	suit = user.get_item_by_slot(SLOT_HUD_JUMPSUIT)
+	suit = user.get_item_by_slot(ITEM_SLOT_CLOTH_INNER)
 	if (suit?.sensor_mode == SENSOR_COORDS)
 		on_task_success("Отлично, теперь вы будете видны медикам и ИИ на их панелях и они будут знать где вы. Вы же этого и хотели, верно?")
 		master.task_completed()
@@ -513,8 +513,8 @@
 	oxygen = new(vulpkanin.loc)
 
 	vulpkanin.delete_equipment()
-	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/shoes/orange, SLOT_HUD_SHOES, drop_on_fail = TRUE)
-	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, SLOT_HUD_JUMPSUIT, drop_on_fail = TRUE)
+	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/shoes/orange, ITEM_SLOT_FEET, drop_on_fail = TRUE)
+	vulpkanin.equip_to_slot_if_possible(new /obj/item/clothing/under/color/orange, ITEM_SLOT_CLOTH_INNER, drop_on_fail = TRUE)
 
 	vulpkanin.equip_to_appropriate_slot(eva_helmet)
 	vulpkanin.equip_to_appropriate_slot(eva_suit)

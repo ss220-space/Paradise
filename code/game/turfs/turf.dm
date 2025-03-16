@@ -124,7 +124,7 @@
 		directional_opacity = ALL_CARDINALS
 
 	if(istype(loc, /area/space))
-		force_no_gravity = TRUE
+		force_no_gravity = FALSE
 
 	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL

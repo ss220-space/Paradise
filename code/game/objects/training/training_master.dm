@@ -48,7 +48,7 @@
 	var/datum/training_coords/center = get_center()
 	trainer = new /mob/living/silicon/ai_room_trainer(locate(center.x, startY, src.z))
 	trainer.anchored = TRUE
-	trainer.status_flags |= GODMODE
+	trainer.add_traits(list(TRAIT_GODMODE), "trainer_godmode")
 	trainer.add_language("Galactic Common", 1)
 	trainer.add_language("Sol Common", 1)
 	trainer.add_language("Training Lang", 1)
