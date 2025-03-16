@@ -7,7 +7,7 @@
 	can_infect = TRUE
 
 /datum/surgery_step/generic/cut_open
-	name = "сделать надрез"
+	name = "осуществление надреза"
 	begin_sound = 'sound/surgery/scalpel1.ogg'
 	end_sound = 'sound/surgery/scalpel2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -55,7 +55,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/clamp_bleeders
-	name = "пережать сосуды"
+	name = "пережатие сосудов"
 	begin_sound = 'sound/surgery/hemostat1.ogg'
 	end_sound = 'sound/surgery/hemostat2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -100,7 +100,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/retract_skin
-	name = "раздвинуть края раны"
+	name = "расширение краёв раны"
 	begin_sound = 'sound/surgery/retractor1.ogg'
 	end_sound = 'sound/surgery/retractor2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -157,7 +157,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/cauterize
-	name = "прижечь рану"
+	name = "прижигание раны"
 	begin_sound = 'sound/surgery/cautery1.ogg'
 	end_sound = 'sound/surgery/cautery2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -204,7 +204,7 @@
 	return SURGERY_STEP_RETRY
 
 /datum/surgery_step/generic/cauterize/premature
-	name = "прижечь рану (прервать операцию)"
+	name = "прижигание раны (прерывание операции)"
 
 /datum/surgery_step/generic/cauterize/premature/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -220,7 +220,7 @@
 
 //drill bone
 /datum/surgery_step/generic/drill
-	name = "просверлить кость"
+	name = "сверление кости"
 	begin_sound = 'sound/surgery/surgicaldrill.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(
@@ -262,7 +262,7 @@
 
 
 /datum/surgery_step/generic/amputate
-	name = "ампутировать конечность"
+	name = "ампутация конечности"
 	begin_sound = list(
 		TOOL_SAW = 'sound/surgery/saw1.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
