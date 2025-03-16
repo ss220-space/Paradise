@@ -52,6 +52,8 @@ SUBSYSTEM_DEF(shuttle)
 
 /datum/controller/subsystem/shuttle/Initialize()
 	flags |= SS_NO_FIRE
+	return SS_INIT_SUCCESS
+	/*
 	return
 	ordernum = rand(1,9000)
 
@@ -75,6 +77,7 @@ SUBSYSTEM_DEF(shuttle)
 
 	centcom_message = "<center>---[station_time_timestamp()]---</center><br>Remember to stamp and send back the supply manifests.<hr>"
 	return SS_INIT_SUCCESS
+	*/
 
 
 /datum/controller/subsystem/shuttle/get_stat_details()

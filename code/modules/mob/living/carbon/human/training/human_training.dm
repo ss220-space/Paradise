@@ -5,7 +5,7 @@
 
 /mob/living/carbon/human/human_training/Initialize(mapload, datum/species/new_species)
 	training_master = new(find_place_for_room(), src)
-	status_flags |= GODMODE
+	ADD_TRAIT(src, TRAIT_GODMODE, "human_training")
 	add_language("Training Lang", 1)
 	. = ..()
 
@@ -33,8 +33,8 @@
 /mob/living/carbon/human/human_training/proc/reset_inventory()
 	delete_equipment()
 	var/obj/item/clothing/shoes/orange/shoes = new()
-	shoes.block_unequip = TRUE
+	ADD_TRAIT(shoes, TRAIT_NODROP, "training_nodrop")
 	var/obj/item/clothing/under/color/orange/uniform = new()
-	uniform.block_unequip = TRUE
-	equip_to_slot_if_possible(shoes, SLOT_HUD_SHOES)
-	equip_to_slot_if_possible(uniform, SLOT_HUD_JUMPSUIT)
+	ADD_TRAIT(uniform, TRAIT_NODROP, "training_nodrop")
+	equip_to_slot_if_possible(shoes, ITEM_SLOT_FEET)
+	equip_to_slot_if_possible(uniform, ITEM_SLOT_CLOTH_INNER)
