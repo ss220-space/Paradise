@@ -43,20 +43,21 @@
 
 	var/mob/dead/observer/user = usr
 	user.ManualFollow(poi)
-	user.reset_perspective(null)
+	user.client.perspective = EYE_PERSPECTIVE
 	if(auto_observe)
 		user.do_observe(poi)
-		user.ManualFollow(poi)
 
 /datum/orbit_menu/proc/toggle_auto_observe()
 	auto_observe = !auto_observe
-	if(owner.orbiting)
-		owner.cleanup_observe()
-		if(auto_observe)
-			owner.do_observe(owner.orbiting)
-			owner.ManualFollow(owner.orbiting)
-		else
-			owner.reset_perspective(null)
+
+	if(!owner.orbiting)
+		owner.reset_perspective(null)
+		return
+
+	owner.cleanup_observe()
+	if(auto_observe)
+		owner.do_observe(owner.orbiting)
+		owner.ManualFollow(owner.orbiting)
 	else
 		owner.reset_perspective(null)
 

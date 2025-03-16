@@ -6,7 +6,6 @@
 	icon_state = "toggle"
 
 /atom/movable/screen/human/toggle/Click()
-
 	var/mob/targetmob = usr
 
 	if(isobserver(usr))
