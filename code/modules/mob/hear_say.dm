@@ -114,10 +114,12 @@
 		var/pressure = environment ? environment.return_pressure() : 0
 		if(pressure < SOUND_MINIMUM_PRESSURE && get_dist(speaker, src) > 1)
 			return FALSE
-
-		if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
-			italics = TRUE
-			sound_vol *= 0.5
+			
+		//Tutorial edit
+		//if(pressure < ONE_ATMOSPHERE * 0.4) //sound distortion pressure, to help clue people in that the air is thin, even if it isn't a vacuum yet
+		//	italics = TRUE
+		//	sound_vol *= 0.5
+		//Tutorial edit
 
 	if(stat == UNCONSCIOUS)
 		hear_sleep(multilingual_to_message(message_pieces))
