@@ -171,17 +171,15 @@
 
 	update_observer_view(worn_item, togleable_inventory)
 
-/mob/living/carbon/proc/update_observer_view(var/obj/item/worn_item, var/inventory)
-	if(!orbiters && !orbiters?.len)
-		return
-
+/mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
 	for(var/mob/dead/observe as anything in orbiters)
-		if(observe.client && observe.client.eye == src && observe.hud_used)
-			if(inventory && !observe.hud_used.inventory_shown)
-				continue
-			observe.client.screen += worn_item
-		else
+		if(!(observe.client && observe.client.eye == src && observe.hud_used))
 			LAZYREMOVE(orbiters, observe)
+			continue
+		if(inventory && !observe.hud_used.inventory_shown)
+			continue
+		observe.client.screen += worn_item
+
 
 /mob/living/carbon/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()

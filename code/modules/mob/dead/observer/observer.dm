@@ -667,7 +667,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	client.perspective = EYE_PERSPECTIVE
 
 	if(is_admin_level(mob_eye.z) && !client?.holder)
-		set_sight(null) //we dont want ghosts to see through walls in secret areas
+		set_sight(NONE) //we dont want ghosts to see through walls in secret areas
 
 	if(!mob_eye.hud_used)
 		return

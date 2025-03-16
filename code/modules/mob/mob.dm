@@ -3,9 +3,8 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
-	if(orbiters && orbiters.len)
-		for(var/mob/dead/observe as anything in orbiters)
-			observe.reset_perspective(null)
+	for(var/mob/dead/observe as anything in orbiters)
+		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -348,9 +347,7 @@
 			var/mob/target = client.eye
 			if(target.orbiters)
 				target.orbiters -= src
-				var/list/L = target.orbiters
-				if(!L.len)
-					target.orbiters = null
+				UNSETEMPTY(target.orbiters)
 	if(..())
 		if(hud_used)
 			client.screen = list()

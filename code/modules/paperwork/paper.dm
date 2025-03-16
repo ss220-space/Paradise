@@ -118,7 +118,7 @@
 		return
 	if(is_pen(user.get_active_hand()))
 		rename(user)
-		return
+		return CLICK_ACTION_SUCCESS
 	if(user.is_in_hands(src))
 		ProcFoldPlane(user, src)
 		return
@@ -438,7 +438,7 @@
 
 	if(href_list["write"] )
 		var/id = href_list["write"]																			/* Becаuse HTML */
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE) //as message
+		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = TRUE)
 
 		topic_href_write(usr, id, input_element)
 
@@ -830,7 +830,7 @@
 	<BR>\n\t\t<font size = \"1\">~~~ <B>Твой Куратор:</B> Персональный Управляемый Помощник Согласования ~~~</span>"
 
 /obj/item/paper/dog_detective_explain
-	name = "Форма NT-PET-05 - Уведомление агента внутренних дел Нанотрейзен о питомце \"Гав Гавыч\""
+	name = "Форма NT-PET-05 - Уведомление агента внутренних дел НаноТрейзен о питомце \"Гав Гавыч\""
 	header ="<p><img style='display: block; margin-left: auto; margin-right: auto;' src='ntlogo.png' alt='' width='220' height='135' /></p><hr /><h3 style='text-align: center;font-family: Verdana;'><b> Отдел внутренних дел Нанотрейзен по надзору за животными.</h3><p style='text-align: center;font-family:Verdana;'>Официальное Уведомление</p></b><hr />"
 	info = "<font face=\"Verdana\" color=black>ᅠᅠАгенство внутренних дел по надзору за домашними животными находящимися на станции сообщает, приставленный к вам питомец \"Гав Гавыч\" почил. Он верно служил ремеслу дознавателей, сыщиков и детективов. Мы будем помнить о его вкладе и сохраним о нём память в анналах истории о домашних питомцах Нанотрейзен.<BR><HR>"
 	footer = "<center><font size=\"4\"><B>Штампы и данные:</B></font></center><BR>Время принятия отчета: <span class=\"paper_field\"></span><BR><HR><font size = \"1\">*Данный документ подлежит ксерокопированию, для сохранения в архиве уполномоченных лиц, и выдаче агенту.<BR>*Данный документ может содержать личную информацию. </font></font>"
