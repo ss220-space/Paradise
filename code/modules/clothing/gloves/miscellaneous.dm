@@ -15,10 +15,47 @@
 
 /obj/item/clothing/gloves/fingerless/weaver
 	name = "weaver chitin gloves"
-	desc = "Grey gloves without fingertips made from the hide of a dead arachnid found on lavaland. Makes wearer stronger in disarming ability."
+	desc = "Серые беспалые перчатки, сделанные из шкуры мёртвого паукообразного, найденного на Лаваленде. Лёгкие и удобные, они позволяют владельцу драться эффективнее в рукопашном бою."
+	ru_names = list(
+		NOMINATIVE = "перчатки из хитина ткача",
+		GENITIVE = "перчаток из хитина ткача",
+		DATIVE = "перчаткам из хитина ткача",
+		ACCUSATIVE = "перчатки из хитина ткача",
+		INSTRUMENTAL = "перчатками из хитина ткача",
+		PREPOSITIONAL = "перчатках из хитина ткача"
+	)
 	icon_state = "weaver_chitin"
 	item_state = "weaver_chitin"
-	extra_knock_chance = 5
+	extra_knock_chance = 20
+	var/stamdamage_low = 10
+	var/stamdamage_high = 15
+
+/obj/item/clothing/gloves/fingerless/weaver/Touch(atom/A, proximity)
+	. = FALSE
+	if(!ishuman(loc))
+		return FALSE
+
+	var/mob/living/carbon/human/user = loc
+	if(!user.mind || user.mind.martial_art)
+		return FALSE
+
+	if(user.a_intent != INTENT_HARM || !proximity || isturf(A))
+		return FALSE
+
+	var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high)
+	var/stamindamage = rand(stamdamage_low, stamdamage_high)
+	if(ishuman(A))
+		user.do_attack_animation(A, "kick")
+		playsound(get_turf(user), 'sound/effects/hit_punch.ogg', 50, 1, -1)
+		var/mob/living/carbon/human/target = A
+		var/obj/item/organ/external/affecting = target.get_organ(ran_zone(user.zone_selected))
+		add_attack_logs(user, target, "Melee attacked with weaver gloves")
+
+		target.visible_message(span_danger("[user] сокруша[pluralize_ru(user.gender, "ет", "ют")] [target] [declent_ru(INSTRUMENTAL)]!"))
+
+		target.apply_damage(damage, BRUTE, affecting)
+		target.apply_damage(stamindamage, STAMINA, affecting)
+		return TRUE
 
 /obj/item/clothing/gloves/cyborg
 	desc = "beep boop borp"
@@ -113,7 +150,16 @@
 
 /obj/item/clothing/gloves/color/yellow/stun
 	name = "stun gloves"
-	desc = "Horrendous and awful. It smells like cancer. The fact it has wires attached to it is incidental."
+	desc = "Эти перчатки не защитят ваших врагов от электрического удара."
+	ru_names = list(
+		NOMINATIVE = "оглушающие перчатки",
+		GENITIVE = "оглушающих перчаток",
+		DATIVE = "оглушающим перчаткам",
+		ACCUSATIVE = "оглушающие перчатки",
+		INSTRUMENTAL = "оглушающими перчатками",
+		PREPOSITIONAL = "оглушающих перчатках"
+	)
+	gender = PLURAL
 	var/obj/item/stock_parts/cell/cell = null
 	var/stun_strength = 2 SECONDS
 	var/stun_cost = 1500
@@ -144,13 +190,13 @@
 				do_sparks(5, 0, loc)
 				playsound(loc, 'sound/weapons/egloves.ogg', 50, TRUE, -1)
 				H.do_attack_animation(C)
-				visible_message("<span class='danger'>[C] has been touched with [src] by [H]!</span>")
+				visible_message(span_danger("[H] дотрагива[pluralize_ru(H.gender, "ет", "ют")]ся [declent_ru(INSTRUMENTAL)] до [C]!"))
 				add_attack_logs(H, C, "Touched with stun gloves")
 				C.Weaken(stun_strength)
 				C.Stuttering(stun_strength)
 				C.apply_damage(20, STAMINA)
 			else
-				to_chat(H, "<span class='notice'>Not enough charge!</span>")
+				balloon_alert(H, "недостаточно заряда!")
 			return TRUE
 	return FALSE
 
@@ -166,11 +212,11 @@
 	if(istype(I, /obj/item/stock_parts/cell))
 		add_fingerprint(user)
 		if(cell)
-			to_chat(user, span_warning("The [name] already has a cell."))
+			balloon_alert(user, "батарея уже установлена!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You attach [I] to [src]."))
+		balloon_alert(user, "присоединено")
 		cell = I
 		update_icon(UPDATE_OVERLAYS)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -183,7 +229,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(cell)
-		to_chat(user, "<span class='notice'>You cut [cell] away from [src].</span>")
+		balloon_alert(user, "отсоединено")
 		cell.forceMove(get_turf(loc))
 		cell = null
 		update_icon(UPDATE_OVERLAYS)

@@ -1,11 +1,12 @@
 /mob/living/simple_animal/hostile
-	faction = list("hostile")
+	faction = list("hostile",)
 	stop_automated_movement_when_pulled = 0
 	obj_damage = 40
 	environment_smash = ENVIRONMENT_SMASH_STRUCTURES //Bitflags. Set to ENVIRONMENT_SMASH_STRUCTURES to break closets,tables,racks, etc; ENVIRONMENT_SMASH_WALLS for walls; ENVIRONMENT_SMASH_RWALLS for rwalls
 	AI_delay_max = 1.5 SECONDS
 	var/atom/target
 	var/ranged = FALSE
+	var/ranged_distance = INFINITY
 	var/rapid = 0 //How many shots per volley.
 	var/rapid_fire_delay = 2 //Time between rapid fire shots
 
@@ -32,8 +33,9 @@
 	var/melee_queue_distance = 4 //If target is close enough start preparing to hit them if we have rapid_melee enabled
 
 	var/ranged_message = "fires" //Fluff text for ranged mobs
-	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
-	var/ranged_cooldown_time = 30 //How long, in deciseconds, the cooldown of ranged attacks is
+	///Cooldown for firing
+	COOLDOWN_DECLARE(ranged_cooldown)
+	var/ranged_cooldown_time = 3 SECONDS //How long, in seconds, the cooldown of ranged attacks is
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
@@ -42,6 +44,7 @@
 
 //These vars are related to how mobs locate and target
 	var/robust_searching = 0 //By default, mobs have a simple searching method, set this to 1 for the more scrutinous searching (stat_attack, stat_exclusive, etc), should be disabled on most mobs
+	var/use_pathfinding = FALSE
 	var/vision_range = 9 //How big of an area to search for targets in, a vision of 9 attempts to find targets as soon as they walk into screen view
 	var/aggro_vision_range = 9 //If a mob is aggro, we search in this radius. Defaults to 9 to keep in line with original simple mob aggro radius
 	var/search_objects = 0 //If we want to consider objects when searching around, set this to 1. If you want to search for objects while also ignoring mobs until hurt, set it to 2. To completely ignore mobs, even when attacked, set it to 3
@@ -155,7 +158,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer))
@@ -203,7 +206,7 @@
 		current_turf = get_step_towards(current_turf, target_turf)
 		steps++
 	return TRUE
-	
+
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets)//Step 2, filter down possible targets to things we actually care about
 	if(QDELETED(src))
@@ -404,14 +407,15 @@
 	if(!target || !CanAttack(target))
 		LoseTarget()
 		return FALSE
+
+	var/target_distance = get_dist(targets_from,target)
 	if(target in possible_targets)
 		var/turf/T = get_turf(src)
 		if(target.z != T.z)
 			LoseTarget()
 			return FALSE
-		var/target_distance = get_dist(targets_from,target)
 		if(ranged) //We ranged? Shoot at em
-			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
+			if(COOLDOWN_FINISHED(src, ranged_cooldown) && !target.Adjacent(targets_from)&& target_distance <= ranged_distance) //But make sure they're not in range for a melee attack
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
 			SSmove_manager.stop_looping(src)
@@ -435,7 +439,7 @@
 		return FALSE
 	if(environment_smash)
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
+			if((COOLDOWN_FINISHED(src, ranged_cooldown)) && ranged_ignores_vision && target_distance <= ranged_distance)
 				OpenFire(target)
 			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
@@ -454,6 +458,8 @@
 	else
 		approaching_target = FALSE
 	var/glide_flag = delay > END_GLIDE_SPEED ? MOVEMENT_LOOP_IGNORE_GLIDE : NONE
+	if(use_pathfinding)
+		return SSmove_manager.move_to_pathfind(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 	return SSmove_manager.move_to(src, target, minimum_distance, delay, timeout, flags = glide_flag)
 
 
@@ -486,10 +492,12 @@
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
-	var/result = target.attack_animal(src)
+	var/result = attack_proc()
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
 	return result
 
+/mob/living/simple_animal/hostile/proc/attack_proc()
+	return target.attack_animal(src)
 
 /mob/living/simple_animal/hostile/proc/Aggro()
 	vision_range = aggro_vision_range
@@ -556,7 +564,8 @@
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
 		Shoot(A)
-	ranged_cooldown = world.time + ranged_cooldown_time
+
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
@@ -567,7 +576,7 @@
 		playsound(src, projectilesound, 100, 1)
 		casing.fire(targeted_atom, src, zone_override = ran_zone())
 	else if(projectiletype)
-		var/obj/item/projectile/P = new projectiletype(startloc)
+		var/obj/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.current = startloc
 		P.starting = startloc
@@ -673,7 +682,7 @@
 /mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM))
 		return
-	if(ranged && ranged_cooldown <= world.time)
+	if(ranged && COOLDOWN_FINISHED(src, ranged_cooldown))
 		target = A
 		OpenFire(A)
 		return

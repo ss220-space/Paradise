@@ -64,7 +64,7 @@
 	return TRUE
 
 /obj/item/ammo_casing/energy/shuriken/borg
-	projectile_type = /obj/item/projectile/beam/shuriken
+	projectile_type = /obj/projectile/beam/shuriken
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "shuriken"
 	e_cost = 50

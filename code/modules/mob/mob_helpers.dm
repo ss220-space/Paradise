@@ -104,7 +104,8 @@
 		minhours = tgui_input_number(usr, "Минимальное количество часов, необходимое для игры на [offer_mob]?", "Установите число часов", 10)
 	else
 		minhours = hours
-		
+	if(isnull(minhours))
+		return
 	log_and_message_admins("has offered control of ([key_name_admin(offer_mob)]) to ghosts with [minhours] hrs playtime")
 	var/question = "Вы хотите войти в раунд как [offer_mob.real_name ? offer_mob.real_name : offer_mob][offer_mob.job ? " ([offer_mob.job])" : ""]"
 	if(isnull(hide_role))
@@ -573,7 +574,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 			else if( search_pda && is_pda(A) )
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
-					PDA.owner = newname
+					PDA.update_owner_name(newname)
 					PDA.name = "PDA-[newname] ([PDA.ownjob])"
 					if(!search_id)	break
 					search_pda = 0

@@ -509,9 +509,9 @@ GLOBAL_LIST_EMPTY(conveyors_by_id)
 	. += span_info("Use a <b>crowbar</b> to dislodge.")
 
 
-/obj/machinery/conveyor_switch/AltClick(mob/user)
-	if(Adjacent(user))
-		on_user_activation(user, CONVEYOR_BACKWARDS)
+/obj/machinery/conveyor_switch/click_alt(mob/user)
+	on_user_activation(user, CONVEYOR_BACKWARDS)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/conveyor_switch/attack_robot(mob/user)

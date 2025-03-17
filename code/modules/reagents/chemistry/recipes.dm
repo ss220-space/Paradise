@@ -30,21 +30,19 @@
 	var/turf/T = get_turf(holder.my_atom)
 	if(!T)
 		return
-	
-	var/color = mix_color_from_reagents(holder.reagent_list)
 
 	T.visible_message(span_warning("The solution generates a strong vapor!"))
-	new /obj/effect/particle_effect/chem_smoke/small(T, color)
-	playsound(T, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 
-	for(var/mob/living/carbon/carbon in view(radius, T))
-		if(!carbon.can_breathe_gas())
-			continue
-		carbon.emote("gasp")
-		if(amount >= 60)
-			carbon.AdjustLoseBreath(2 SECONDS)
-		for(var/local_reagent in reagents)
-			carbon.reagents.add_reagent(local_reagent, REAGENT_EVAPORATION(amount))
+	var/datum/reagents/reagents_list = new (amount * reagents.len)
+	for(var/reagent in reagents)
+		reagents_list.add_reagent(reagent, amount)
+
+	var/datum/effect_system/fluid_spread/smoke/chem/quick/vapor/smoke = new
+	smoke.attach(T)
+	smoke.set_up(range = radius, location = T, carry = reagents_list, silent = TRUE)
+	smoke.start()
+
+	playsound(T, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 
 /datum/chemical_reaction/proc/chemical_mob_spawn(datum/reagents/holder, amount_to_spawn, reaction_name, mob_class = HOSTILE_SPAWN, mob_faction = "chemicalsummon", random = TRUE, gold_core_spawn = FALSE)
 	if(holder && holder.my_atom)

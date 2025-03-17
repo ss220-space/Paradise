@@ -229,6 +229,12 @@
 		return r_hand
 	return null
 
+/**
+ * Returns `TRUE` if mob's hands free
+ */
+/mob/proc/is_hands_free()
+	return !l_hand && !r_hand
+
 
 /**
  * Returns `TRUE` if item is in mob's active hand
@@ -579,7 +585,7 @@
 				I.move_to_null_space()
 			else
 				I.forceMove(newloc)
-		I.dropped(src, slot, silent)
+		I.dropped(src, slot, silent, newloc)
 
 	SEND_SIGNAL(I, COMSIG_ITEM_POST_UNEQUIP, force, newloc, no_move, invdrop, silent)
 	if(!not_handled)
@@ -634,6 +640,16 @@
 /mob/proc/is_general_slot(slot)
 	return (slot & (ITEM_SLOT_HANDS|ITEM_SLOT_POCKETS|ITEM_SLOT_BACKPACK|ITEM_SLOT_HANDCUFFED|ITEM_SLOT_LEGCUFFED|ITEM_SLOT_ACCESSORY))
 
+//GetAllContents that is reasonable and not stupid
+/mob/living/proc/get_all_gear(recursive = TRUE)
+	var/list/processing_list = get_equipped_items(TRUE, TRUE)
+	listclearnulls(processing_list) // handles empty hands
+	var/i = 0
+	while(i < length(processing_list))
+		var/obj/item/storage/A = processing_list[++i]
+		if(istype(A) && recursive)
+			processing_list += A.return_inv()
+	return processing_list
 
 /// Collects all items in possibly equipped slots.
 /mob/proc/get_equipped_items(include_pockets = FALSE, include_hands = FALSE)
@@ -746,3 +762,11 @@
 		return r_hand
 	return null
 
+/**
+ * Returns a list of all dropped held items.
+ * If none were dropped, returns an empty list.
+ */
+/mob/proc/drop_all_held_items()
+	. = list()
+	for(var/obj/item/I in (get_item_by_slot(ITEM_SLOT_HAND_LEFT) || get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
+		. |= drop_item_ground(I)

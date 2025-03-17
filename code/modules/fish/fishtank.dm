@@ -85,10 +85,9 @@
 //		VERBS & PROCS		//
 //////////////////////////////
 
-/obj/machinery/fishtank/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/machinery/fishtank/click_alt(mob/user)
 	toggle_lid(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/fishtank/AltShiftClick(mob/user)

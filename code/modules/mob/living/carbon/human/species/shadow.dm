@@ -105,7 +105,7 @@
 				empower_handler(human, empowering = TRUE)
 	return TRUE // yes, we will heal in nullspace..
 
-/datum/species/shadow/bullet_act(obj/item/projectile/P, mob/living/carbon/human/human)
+/datum/species/shadow/bullet_act(obj/projectile/P, mob/living/carbon/human/human)
 	if(human.stat == DEAD)
 		return TRUE
 	if(human.has_status_effect(STATUS_EFFECT_SHADOW_EMPOWER) && prob(50))

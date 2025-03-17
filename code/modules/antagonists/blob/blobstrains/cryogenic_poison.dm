@@ -7,7 +7,7 @@
 	complementary_color = "#7D6EB4"
 	blobbernaut_message = "injects"
 	message = "Блоб ранит вас"
-	message_living = ", и вы чувствуете, что ваши внутренности твердеют"
+	message_living = ", и вы чувствуете, как ваши внутренности затвердевают"
 	reagent = /datum/reagent/blob/cryogenic_poison
 
 /datum/reagent/blob/cryogenic_poison
@@ -15,7 +15,7 @@
 	id = "blob_cryogenic_poison"
 	description = "впрыскивает в цель замораживающий яд, который со временем наносит большой урон."
 	color = "#8BA6E9"
-	taste_description = "заморозка мозга"
+	taste_description = "леденящего холода"
 
 /datum/reagent/blob/cryogenic_poison/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	. = ..()

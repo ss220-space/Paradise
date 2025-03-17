@@ -48,8 +48,16 @@
 	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \
 	Probably best to stay clear."
 	suffix = "lavaland_surface_ash_walker1.dmm"
-	always_place = TRUE
 	allow_duplicates = FALSE
+	unpickable = TRUE
+
+/datum/map_template/ruin/lavaland/ash_walker_updated
+	name = "Ash Walker Village"
+	id = "ash-walker_updated"
+	description = "A race of unbreathing lizards live here, that run faster than a human can, worship a broken dead city, and are capable of reproducing by something involving tentacles? \
+	Probably best to stay clear."
+	suffix = "lavaland_surface_ash_walker_new.dmm"
+	unpickable = TRUE
 
 /datum/map_template/ruin/lavaland/syndicate_base
 	name = "Syndicate Lava Base"
@@ -310,3 +318,16 @@
 	cost = 10
 	allow_duplicates = FALSE
 */
+
+/datum/map_template/ruin/lavaland/lavalake
+	name = "Lavaland Lava Lake"
+	id = "lavalake"
+	description = "Огромное лавовое озеро, которое не подвержено стандартным изменениям лаваленда."
+	suffix = "lavaland_surface_lavalake.dmm"
+	allow_duplicates = FALSE
+
+/datum/map_template/ruin/lavaland/lavalake/check_specials()
+	if(SSmapping.lavaland_theme.lavaland_type != LAVALAND_TYPE_LAVA)
+		always_place = TRUE
+	else
+		unpickable = TRUE

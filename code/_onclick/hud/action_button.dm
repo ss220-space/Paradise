@@ -52,7 +52,7 @@
 		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
 		return TRUE
 	if(modifiers["alt"])
-		AltClick(usr)
+		usr.base_click_alt(src)
 		return TRUE
 	if(modifiers["middle"])
 		linked_action.Trigger(left_click = FALSE)
@@ -83,9 +83,10 @@
 		to_chat(user, span_info("Your active keybinding on [src] has been cleared."))
 
 
-/atom/movable/screen/movable/action_button/AltClick(mob/user)
-	. = linked_action.AltTrigger()
+/atom/movable/screen/movable/action_button/click_alt(mob/user)
+	linked_action.AltTrigger()
 	linked_action.UpdateButtonIcon()
+	return CLICK_ACTION_SUCCESS
 
 /atom/movable/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
 	if(linked_keybind)
@@ -121,7 +122,7 @@
 	usr.changeNext_click(1)
 	var/list/modifiers = params2list(params)
 	if(modifiers["alt"])
-		AltClick(usr)
+		usr.base_click_alt(src)
 		return TRUE
 
 	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
@@ -135,7 +136,7 @@
 	usr.update_action_buttons()
 
 
-/atom/movable/screen/movable/action_button/hide_toggle/AltClick(mob/user)
+/atom/movable/screen/movable/action_button/hide_toggle/click_alt(mob/user)
 	for(var/datum/action/action as anything in user.actions)
 		var/atom/movable/screen/movable/action_button/our_button = action.button
 		our_button.moved = FALSE
@@ -143,6 +144,7 @@
 		moved = FALSE
 	user.update_action_buttons(reload_screen = TRUE)
 	to_chat(user, span_notice("Action button positions have been reset."))
+	return CLICK_ACTION_SUCCESS
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
@@ -155,7 +157,7 @@
 		if(user.client) // Apply the client's UI style
 			icon = ui_style2icon(user.client.prefs?.UI_style)
 			icon_state = "template"
-			
+
 	if(user.client)
 		alpha = user.client.prefs?.UI_style_alpha
 		color = user.client.prefs?.UI_style_color

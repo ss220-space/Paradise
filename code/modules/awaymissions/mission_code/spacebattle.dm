@@ -432,9 +432,9 @@
 	health = 50
 	maxHealth = 50
 	faction = list("syndicate")
-	projectiletype = /obj/item/projectile/beam/laser/syndrone
+	projectiletype = /obj/projectile/beam/laser/syndrone
 
-/obj/item/projectile/beam/laser/syndrone
+/obj/projectile/beam/laser/syndrone
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"
@@ -512,8 +512,6 @@
 		icon_state = "wisewill-Combat-roll"
 	else if(health / maxHealth < 0.5)
 		icon_state = "wisewill-Combat"
-
-/mob/living/simple_animal_hostile/mimic/spacebattleshiz // ящики, при прикосновении заменяются на мимиков из него дропается ящик с лутом
 
 // Corpse and loot
 

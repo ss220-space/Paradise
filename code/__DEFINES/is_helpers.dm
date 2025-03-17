@@ -1,3 +1,9 @@
+// simple is_type and similar inline helpers
+#define in_range(source, user) (get_dist(source, user) <= 1 && (get_step(source, 0)?:z) == (get_step(user, 0)?:z))
+
+/// Within given range, but not counting z-levels
+#define IN_GIVEN_RANGE(source, other, given_range) (get_dist(source, other) <= given_range && (get_step(source, 0)?:z) == (get_step(other, 0)?:z))
+
 // Atoms
 #define isatom(A) (isloc(A))
 
@@ -33,6 +39,8 @@
 #define isaliensentinel(A) (istype(A, /mob/living/carbon/alien/humanoid/sentinel))
 
 #define isalienqueen(A) (istype(A, /mob/living/carbon/alien/humanoid/queen))
+#define isfacehugger(A) (istype(A, /mob/living/simple_animal/hostile/facehugger))
+#define isfacehugger_mask(A) (istype(A, /obj/item/clothing/mask/facehugger) && !istype(A, /obj/item/clothing/mask/facehugger/toy))
 
 // Simple animals
 // #define issimple_animal(A) (istype(A, /mob/living/simple_animal)) use isanimal(A) instead
@@ -76,7 +84,7 @@
 
 #define isvehicle(A) (istype(A, /obj/vehicle))
 
-#define isprojectile(A) (istype(A, /obj/item/projectile))
+#define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
@@ -85,6 +93,8 @@
 #define is_pda(W) (istype(W, /obj/item/pda))
 
 #define isradio(A) istype(A, /obj/item/radio)
+
+#define isflower(A) istype(A, /obj/item/twohanded/required/kirbyplants)
 
 #define isclothing(A) (istype(A, /obj/item/clothing))
 
@@ -143,8 +153,11 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ischasm(A) (istype(A, /turf/simulated/floor/chasm))
 
+#define issingularity(atom) (istype(atom, /obj/singularity))
+
 //Structures
 #define isstructure(A) (istype(A, /obj/structure))
+#define istable(A) (istype(A, /obj/structure/table))
 
 // Misc
 #define isclient(A) istype(A, /client)

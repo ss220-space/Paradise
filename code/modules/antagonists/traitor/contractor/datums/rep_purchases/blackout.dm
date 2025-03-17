@@ -2,8 +2,8 @@
   * # Rep Purchase - Blackout and Comms Outage
   */
 /datum/rep_purchase/blackout
-	name = "Blackout"
-	description = "Overloads the station's power net, shorting random APCs."
+	name = "Блэкаут"
+	description = "Перегружает силовую сеть станции, закорачивая случайные ЛКП."
 	cost = 1
 	// Settings
 	/// How long a contractor must wait before calling another blackout, in deciseconds.
@@ -15,7 +15,7 @@
 /datum/rep_purchase/blackout/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	if(next_blackout > world.time)
 		var/timeleft = (next_blackout - world.time) / 10
-		to_chat(user, "<span class='warning'>Another blackout may not be requested for [seconds_to_clock(timeleft)].</span>")
+		to_chat(user, span_warning("Повторный блэкаут не может быть запрошен в течение [seconds_to_clock(timeleft)]."))
 		return FALSE
 	return ..()
 
@@ -25,8 +25,8 @@
 	power_failure()
 
 /datum/rep_purchase/comms_blackout
-	name = "Comms Outage"
-	description = "Request Syndicate Command to disable station Telecommunications. Disables telecommunications across the station for a medium duration."
+	name = "Отключение связи"
+	description = "Запрос командования Синдиката на отключение телекоммуникаций станции. Отключает телекоммуникации на станции на определённое время."
 	cost = 2
 	var/static/cooldown = 10 MINUTES
 	var/static/next_commsout = -1
@@ -34,7 +34,7 @@
 /datum/rep_purchase/comms_blackout/buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	if(next_commsout > world.time)
 		var/timeleft = (next_commsout - world.time) / 10
-		to_chat(user, "<span class='warning'>Another comms outage may not be requested for [seconds_to_clock(timeleft)].</span>")
+		to_chat(user, span_warning("Повторное отключение связи не может быть запрошено в течение [seconds_to_clock(timeleft)]."))
 		return FALSE
 	return ..()
 

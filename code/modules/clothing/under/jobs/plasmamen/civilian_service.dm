@@ -96,7 +96,9 @@
 			extinguishes_left--
 			H.visible_message("<span class='warning'>[H]'s suit spews out a tonne of space lube!</span>", "<span class='warning'>Your suit spews out a tonne of space lube!</span>")
 			H.ExtinguishMob()
-			new /obj/effect/particle_effect/foam(loc) //Truely terrifying.
+			var/datum/effect_system/fluid_spread/foam/s = new()
+			s.set_up(range = 3, location = loc) //Truely terrifying.
+			s.start()
 	return FALSE
 
 /obj/item/clothing/under/plasmaman/hop

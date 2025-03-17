@@ -62,7 +62,7 @@
 
 		if(INTENT_GRAB)
 			if(holder_type)
-				get_scooped(M)
+				pick_up_mob(M)
 			else
 				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
@@ -125,7 +125,7 @@
 		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
 	apply_damage(Proj.damage, Proj.damage_type)

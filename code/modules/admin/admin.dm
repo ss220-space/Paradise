@@ -66,9 +66,23 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ///////////////////////////////////////////////////////////////////////////////////////////////Panels
 
-/datum/admins/proc/show_player_panel(var/mob/M in GLOB.mob_list)
+/datum/admins/proc/show_player_panel(mob/M in GLOB.mob_list)
 	set name = "\[Admin\] Show Player Panel"
 	set desc="Edit player (respawn, ban, heal, etc)"
+
+	if(!M)
+		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
+		return
+
+	if(!check_rights(R_ADMIN|R_MOD))
+		return
+
+	if(!check_rights(NONE))
+		return
+
+	usr.client.holder.vuap_open_context(M)
+
+/datum/admins/proc/show_old_player_panel(mob/M)
 
 	if(!M)
 		to_chat(usr, "You seem to be selecting a mob that doesn't exist anymore.", confidential=TRUE)
@@ -86,7 +100,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			body += "\[[M.client.holder ? M.client.holder.rank : "Player"]\] "
 		body += "\[<a href='byond://?_src_=holder;getplaytimewindow=[M.UID()]'>" + M.client.get_exp_type(EXP_TYPE_CREW) + " as [EXP_TYPE_CREW]</a>\]"
 		body += "<br>BYOND account registration date: [M.client.byondacc_date || "ERROR"] [M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "<b>" : ""]([M.client.byondacc_age] days old)[M.client.byondacc_age <= CONFIG_GET(number/byond_account_age_threshold) ? "</b>" : ""]"
-		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccbdb=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
+		body += "<br>Global Ban DB Lookup: [CONFIG_GET(string/centcom_ban_db_url) ? "<a href='byond://?_src_=holder;open_ccDB=[M.client.ckey]'>Lookup</a>" : "<i>Disabled</i>"]"
 
 		body += "<br>"
 
@@ -245,7 +259,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					var/gene_name = GLOB.assigned_blocks[block]
 					if(gene_name)
 						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block]' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=old;' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
 					else
 						body += "[block]"
 					body += "</td>"
@@ -331,7 +345,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set name = "VPN Ckey Whitelist"
 	if(!check_rights(R_BAN))
 		return
-	var/key = stripped_input(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length=32)
+	var/key = tgui_input_text(usr, "Enter ckey to add/remove, or leave blank to cancel:", "VPN Whitelist add/remove", max_length = 32)
 	if(key)
 		vpn_whitelist_panel(key)
 
@@ -347,7 +361,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		dat += text("<tr><td>[t] (<a href='byond://?src=[UID()];removejobban=[r]'>unban</A>)</td></tr>")
 	dat += "</table>"
 	usr << browse(dat, "window=ban;size=400x400")
-	
+
 
 /datum/admins/proc/Game()
 	if(!check_rights(R_ADMIN))
@@ -370,7 +384,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(marked_datum && istype(marked_datum, /atom))
 		dat += "<A href='byond://?src=[cached_UID];dupe_marked_datum=1'>Duplicate Marked Datum</A><br>"
 
-	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 210, 280)
+	var/datum/browser/popup = new(usr, "game_panel", "<div align='center'>Game Panel</div>", 220, 300)
 	popup.set_content(dat.Join(""))
 	popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
 	popup.open()
@@ -401,7 +415,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/result = input(usr, "Select reboot method", "World Reboot", options[1]) as null|anything in options
 
 	if(is_live_server)
-		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART","This server is live","Restart","Cancel") != "Restart")
+		if(alert(usr, "WARNING: THIS IS A LIVE SERVER, NOT A LOCAL TEST SERVER. DO YOU STILL WANT TO RESTART", "This server is live", "Restart", "Cancel") != "Restart")
 			return FALSE
 
 	if(result)
@@ -410,7 +424,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		switch(result)
 
 			if("Regular Restart")
-				var/delay = input("What delay should the restart have (in seconds)?", "Restart Delay", 5) as num|null
+				var/delay = tgui_input_number(usr, "What delay should the restart have (in seconds)?", "Restart Delay", 5)
 				if(!delay)
 					return FALSE
 
@@ -437,11 +451,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_SERVER) || SSticker.force_ending)
 		return
 
-	var/response = alert(usr, "Are you sure you want to end the round?", "End Round", "Yes", "No")
+	var/response = tgui_alert(usr, "Are you sure you want to end the round?", "End Round", list("Yes", "No"))
 	if(response != "Yes" || SSticker.force_ending)
 		return
 
-	var/announcement = sanitize(copytext(input(usr, "What text should players see announcing the round end? You can skip this entirely.", "Specify Announcement Text", "Shift Has Ended!") as null|text, 1, MAX_MESSAGE_LEN))
+	var/announcement = sanitize(tgui_input_text(usr, "What text should players see announcing the round end? You can skip this entirely.", "Specify Announcement Text", "Shift Has Ended!", encode = FALSE))
 	if(SSticker.force_ending)
 		return
 
@@ -461,7 +475,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/message = input("Global message to send:", "Admin Announce", null, null) as message|null
+	var/message = tgui_input_text(usr, "Global message to send:", "Admin Announce", null, multiline = TRUE, encode = FALSE)
 	if(message)
 		if(!check_rights(R_SERVER,0))
 			message = adminscrub(message,500)
@@ -554,11 +568,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	if(!SSticker)
-		alert("Unable to start the game as it is not set up.")
+		tgui_alert(usr, "Unable to start the game as it is not set up.")
 		return
 
 	if(CONFIG_GET(flag/start_now_confirmation))
-		if(alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", "Yes", "No") != "Yes")
+		if(tgui_alert(usr, "This is a live server. Are you sure you want to start now?", "Start game", list("Yes", "No")) != "Yes")
 			return
 
 	if(SSticker.current_state == GAME_STATE_PREGAME || SSticker.current_state == GAME_STATE_STARTUP)
@@ -774,10 +788,20 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/spawn_atom(object as text)
-	set category = "Admin.Event Spawn"
-	set desc = "(путь атома) Создайте атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
+	set category = "Admin.Event"
+	set desc = "(путь атома) Создать атом. Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
 	set name = "Spawn"
 
+	return usr.client.spawn_atom_impl(object, FALSE)
+
+/datum/admins/proc/spawn_atom_adv(object as text)
+	set category = "Admin.Event"
+	set desc = "(путь атома) Создать атом c aргументами в New(). Добавьте точку к тексту, чтобы исключить подтипы пути, соответствующего входным данным."
+	set name = "Advanced Spawn"
+
+	return usr.client.spawn_atom_impl(object, TRUE)
+
+/client/proc/spawn_atom_impl(object, params)
 	if(!check_rights(R_SPAWN))
 		return
 
@@ -785,6 +809,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	var/list/matches = new()
 
 	var/include_subtypes = TRUE
+
 	if(copytext(object, -1) == ".")
 		include_subtypes = FALSE
 		object = copytext(object, 1, -1)
@@ -810,14 +835,23 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		if(isnull(chosen))
 			return
 
+	var/list/arguments
 	if(ispath(chosen,/turf))
 		var/turf/T = get_turf(usr.loc)
 		T.ChangeTurf(chosen)
 	else
-		var/atom/A = new chosen(usr.loc)
+		if(params)
+			arguments = usr.client.get_callproc_args(TRUE)
+
+		if(!usr)
+			return
+
+		arguments = list(usr.loc) + arguments
+
+		var/atom/A = new chosen(arglist(arguments))
 		A.flags |= ADMIN_SPAWNED
 
-	log_and_message_admins("spawned [chosen] at [COORD(usr)]")
+	log_and_message_admins("spawned [chosen] at [COORD(usr)][LAZYLEN(arguments) > 1 ? " with parameters [print_single_line(arguments)]": ""]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Spawn Atom") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 

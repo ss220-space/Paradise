@@ -26,6 +26,13 @@
 /// cable was placed or joined somewhere : (turf)
 #define COMSIG_GLOB_CABLE_UPDATED "!cable_updated"
 
+#define COMSIG_GLOB_WEB_STORM_ENDED "!web_storm_ended"
+#define COMSIG_GLOB_EMPRESS_EGG_DESTROYED "!empress_egg_destroyed"
+#define COMSIG_GLOB_EMPRESS_EGG_BURST "!empress_egg_burst"
+#define COMSIG_GLOB_IFECTION_CREATED "!infection_created"
+#define COMSIG_GLOB_IFECTION_REMOVED "!infection_removed"
+#define COMSIG_GLOB_XENO_STORM_ENDED "!xeno_storm_ended"
+
 /// signals from globally accessible objects
 
 ///from SSsun when the sun changes position : (azimuth)
@@ -213,6 +220,8 @@
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
 #define COMSIG_ATOM_UPDATE_SHARPNESS "atom_update_sharpness"
+/// generally called before temporary non-parallel animate()s on the atom (animation_duration)
+#define COMSIG_ATOM_TEMPORARY_ANIMATION_START "atom_temp_animate_start"
 
 // Attack signals. These should share the returned flags, to standardize the attack chain.
 // The chain currently works like:
@@ -262,7 +271,7 @@
 	#define COMPONENT_ALLOW_EXAMINATE (1<<0) 							//Allows the user to examinate regardless of client.eye.
 ///from base of atom/CtrlClickOn(): (/mob)
 #define COMSIG_CLICK_CTRL "ctrl_click"
-///from base of atom/AltClick(): (/mob)
+///from base of atom/base_click_alt(): (/mob)
 #define COMSIG_CLICK_ALT "alt_click"
 ///from base of atom/CtrlShiftClick(/mob)
 #define COMSIG_CLICK_CTRL_SHIFT "ctrl_shift_click"
@@ -432,6 +441,8 @@
 ///from base of /obj/item/attack(): (mob/M, mob/user)
 #define COMSIG_MOB_ITEM_ATTACK "mob_item_attack"
 	#define COMPONENT_ITEM_NO_ATTACK (1<<0)
+
+#define COMSIG_GLOVES_DOUBLE_HANDS_TOUCH "gloves_double_hands_touch"
 
 ///from base of /mob/living/proc/get_incoming_damage_modifier(): (list/damage_mods, damage, damagetype, def_zone, sharp, used_weapon)
 #define COMSIG_MOB_APPLY_DAMAGE_MODIFIERS "mob_apply_damage_modifiers"
@@ -664,6 +675,9 @@
 /// Source: /mob/living/setBlood(amount)
 #define COMSIG_LIVING_SET_BLOOD			"living_set_blood"
 
+///From post-can inject check of syringe after attack (mob/user)
+#define COMSIG_LIVING_TRY_SYRINGE "living_try_syringe"
+
 /// From /mob/add_language() (language_name)
 #define COMSIG_MOB_LANGUAGE_ADD		"mob_language_add"
 /// From /mob/remove_language() (language_name)
@@ -684,6 +698,11 @@
 /// From base of /client/Move(): (direction, old_dir)
 #define COMSIG_MOB_CLIENT_MOVED "mob_client_moved"
 
+/// From base of /client/Move(), invoked when a non-living mob is attempting to move: (list/move_args)
+#define COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE "mob_client_pre_non_living_move"
+	/// Cancels the move attempt
+	#define COMSIG_MOB_CLIENT_BLOCK_PRE_NON_LIVING_MOVE COMPONENT_MOVABLE_BLOCK_PRE_MOVE
+
 /// From base of /client/Move(): (list/move_args)
 #define COMSIG_MOB_CLIENT_PRE_LIVING_MOVE "mob_client_pre_living_move"
 	/// Should we stop the current living movement attempt
@@ -691,6 +710,9 @@
 
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
+
+/// from base of /datum/status_effect/Destroy() : (effect_type)
+#define COMSIG_MOB_STATUS_EFFECT_ENDED "mob_status_effect_ended"
 
 /// Source: /mob/living/UnarmedAttack (atom/atom, proximity_flag)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
@@ -739,6 +761,9 @@
 ///from /mob/living/attack_animal():	(mob/living/simple_animal/M)
 #define COMSIG_SIMPLE_ANIMAL_ATTACKEDBY "simple_animal_attackedby"
 	#define COMPONENT_SIMPLE_ANIMAL_NO_ATTACK (1<<0)
+
+///Called when someone attempts to cuff a carbon
+#define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
 
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
@@ -1285,3 +1310,22 @@
 
 /// Source: /proc/random_hair_style (mob/living/carbon/human/human, valid_hairstyles, robohead)
 #define COMSIG_RANDOM_HAIR_STYLE	"random_hair_style"
+// Terror Spiders Signals
+/// Defilers ore queen sybtypes now can lay empress egg
+#define COMSIG_SPIDER_CAN_LAY "spider_can_lay"
+
+/// Human eaten by prince
+#define COMSIG_HUMAN_EATEN "human_eaten"
+
+/// Terror spider died
+#define COMSIG_TERROR_SPIDER_DIED "terror_spider_died"
+
+#define COMSIG_EMPRESS_EGG_LAYED "empress_egg_layed"
+
+#define COMSIG_ALIEN_EVOLVE "alien_evolve"
+
+/// Source: /datum/component/ritual_object/proc/pre_ritual_check (status_bitflag, mob/living/carbon/human, list/invokers, list/used_things)
+#define COMSIG_RITUAL_ENDED "ritual_ended"
+
+/// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
+#define COMSIG_POSSESSED_MOVEMENT "possessed_movement"

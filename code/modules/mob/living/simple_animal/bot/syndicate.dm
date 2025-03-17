@@ -94,11 +94,11 @@
 	var/turf/current_turf = get_turf(src)
 	if(saved_turf && current_turf != saved_turf)
 		playsound(loc, stepsound, 40, TRUE)
-	if(spawn_turf && !atoms_share_level(src, spawn_turf))
+	if(spawn_turf && !are_zs_connected(src, spawn_turf))
 		raise_alert("[capitalize(declent_ru(NOMINATIVE))] потерялся в пространстве.")
 		raised_alert = FALSE
 		raise_alert("[capitalize(declent_ru(NOMINATIVE))] активировал протокол само-уничтожения.")
-		qdel(src)
+		explode()
 	saved_turf = current_turf
 	switch(mode)
 		if(BOT_IDLE)
@@ -175,7 +175,7 @@
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
-	var/obj/item/projectile/P = new projectile(loc)
+	var/obj/projectile/P = new projectile(loc)
 	playsound(loc, shoot_sound, 100, 1)
 	P.current = loc
 	P.starting = loc
@@ -202,7 +202,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
-	projectile = /obj/item/projectile/bullet/a40mm
+	projectile = /obj/projectile/bullet/a40mm
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)

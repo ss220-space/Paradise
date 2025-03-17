@@ -1,6 +1,14 @@
 /obj/item/storage/toolbox/green
 	name = "artistic toolbox"
-	desc = "A metal container designed to hold various tools. This variety holds art supplies."
+	desc = "Металлический контейнер, созданный для хранения различных инструментов, в том числе художественных принадлежностей."
+	ru_names = list(
+		NOMINATIVE = "артистический ящик для инструментов",
+		GENITIVE = "артистического ящика для инструментов",
+		DATIVE = "артистическому ящику для инструментов",
+		ACCUSATIVE = "артистический ящик для инструментов",
+		INSTRUMENTAL = "артистическим ящиком для инструментов",
+		PREPOSITIONAL = "артистическом ящике для инструментов"
+	)
 	icon_state = "green"
 	item_state = "toolbox_green"
 	icon = 'icons/goonstation/objects/objects.dmi'
@@ -9,7 +17,15 @@
 
 /obj/item/storage/toolbox/green/memetic
 	name = "artistic toolbox"
-	desc = "His Grace."
+	desc = "Его Светлость."
+	ru_names = list(
+		NOMINATIVE = "артистический ящик для инструментов",
+		GENITIVE = "артистического ящика для инструментов",
+		DATIVE = "артистическому ящику для инструментов",
+		ACCUSATIVE = "артистический ящик для инструментов",
+		INSTRUMENTAL = "артистическим ящиком для инструментов",
+		PREPOSITIONAL = "артистическом ящике для инструментов"
+	)
 	force = 5
 	throwforce = 10
 	origin_tech = "combat=4;engineering=4;syndicate=2"
@@ -30,12 +46,12 @@
 				REMOVE_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
 			else
 				ADD_TRAIT(src, TRAIT_NODROP, HIS_GRACE_TRAIT)
-			to_chat(user, "<span class='warning'>His Grace [prev_has ? "releases from" : "binds to"] your hand!</span>")
+			to_chat(user, span_warning("Его Светлость [prev_has ? "освобождает вашу руку" : "привязывается к вашей руке"]!"))
 	else if(!activated && loc == user)
 		if(link_user(user))
-			to_chat(user, "<span class='notice'>Call to His Grace again if you wish it bound to your hand!</span>")
+			to_chat(user, span_notice("Призовите Его Светлость ещё раз, если хотите, чтобы он привязался к вашей руке!"))
 	else
-		to_chat(user, "<span class='warning'>You can't seem to understand what this does.</span>")
+		to_chat(user, span_warning("Вы не совсем понимаете, что с этим делать."))
 
 
 /obj/item/storage/toolbox/green/memetic/attack_hand(mob/living/carbon/user)
@@ -68,8 +84,8 @@
 			else
 				asize++
 			acount++
-		to_chat(user, "<span class='warning'>[up_and_down]</span>")
-		to_chat(user, "<i><b><font face = Tempus Sans ITC>His Grace accepts thee, spread His will! All who look close to the Enlightened may share His gifts.</font></b></i>")
+		to_chat(user, span_warning("[up_and_down]"))
+		to_chat(user, "<i><b><font face = Tempus Sans ITC>Его Светлость благосклонно принимает тебя! Непрестанно распространяйте Его волю! Все, кто близок к Просветлённому, могут разделить Его дары.</font></b></i>")
 		original_owner = user
 		return TRUE
 	return FALSE
@@ -82,17 +98,17 @@
 		if(!activated || !victim)
 			return ..()
 		if(!user.HasDisease(/datum/disease/memetic_madness))
-			to_chat(user, span_warning("You can't seem to find the latch to open this."))
+			to_chat(user, span_warning("Вы не можете найти защёлку, чтобы открыть это."))
 			return ATTACK_CHAIN_PROCEED
 		if(!victim.stat)
-			to_chat(user, span_warning("They're moving too much to feed to His Grace!"))
+			to_chat(user, span_warning("Цель слишком сильно дёргается, чтобы накормить Его Светлость!"))
 			return ATTACK_CHAIN_PROCEED
-		user.visible_message(span_userdanger("[user] is trying to feed [victim] to [src]!"))
+		user.visible_message(span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся засунуть [victim] в [declent_ru(ACCUSATIVE)]!"))
 		if(!do_after(user, 3 SECONDS, I, NONE) || !user.HasDisease(/datum/disease/memetic_madness) || !victim.stat || victim.loc != I)
 			return ATTACK_CHAIN_PROCEED
 		qdel(I)
-		user.visible_message(span_userdanger("[user] has fed [victim] to [src]!"))
-		to_chat(user, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
+		user.visible_message(span_userdanger("[user] скармлива[pluralize_ru(user.gender, "ет", "ют")] [victim] [declent_ru(DATIVE)]!"))
+		to_chat(user, "<i><b><font face = Tempus Sans ITC>Вы хорошо поработали...</font></b></i>")
 		consume(victim)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -105,20 +121,20 @@
 		return .
 	var/mob/living/victim = grabbed_thing
 	if(!grabber.HasDisease(/datum/disease/memetic_madness))
-		to_chat(grabber, span_warning("You can't seem to find the latch to open this."))
+		to_chat(grabber, span_warning("Вы не можете найти защёлку, чтобы открыть это."))
 		return .
 	if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
-		to_chat(grabber, span_warning("They're moving too much to feed to His Grace!"))
+		to_chat(grabber, span_warning("Цель слишком сильно дёргается, чтобы накормить Его Светлость!"))
 		return .
-	grabber.visible_message(span_userdanger("[grabber] is trying to feed [victim] to [src]!"))
+	grabber.visible_message(span_userdanger("[grabber] пыта[pluralize_ru(grabber.gender, "ет", "ют")]ся засунуть [victim] в [declent_ru(ACCUSATIVE)]!"))
 	if(!do_after(grabber, 3 SECONDS, victim, NONE))
 		return .
 	if(!grabber.HasDisease(/datum/disease/memetic_madness) || !grabber || !victim || grabber.pulling != victim)
 		return .
 	if(!victim.stat && !HAS_TRAIT(victim, TRAIT_RESTRAINED) && !HAS_TRAIT(victim, TRAIT_INCAPACITATED))
 		return .
-	grabber.visible_message(span_userdanger("[grabber] has fed [victim] to [src]!"))
-	to_chat(grabber, "<i><b><font face = Tempus Sans ITC>You have done well...</font></b></i>")
+	grabber.visible_message(span_userdanger("[grabber] скармлива[pluralize_ru(grabber.gender, "ет", "ют")] [victim] [declent_ru(DATIVE)]!"))
+	to_chat(grabber, "<i><b><font face = Tempus Sans ITC>Вы хорошо поработали...</font></b></i>")
 	consume(victim)
 
 
@@ -151,7 +167,7 @@
 		L.temporarily_remove_item_from_inventory(src, force = TRUE)
 		qdel(L)
 		var/obj/item/storage/toolbox/green/fake_toolbox = new(get_turf(src))
-		fake_toolbox.desc = "It looks a lot duller than it used to."
+		fake_toolbox.desc = "Выглядит намного скучнее, чем раньше."
 		qdel(src)
 	else
 		force += 5
@@ -166,7 +182,7 @@
 	servantlinks.Cut()
 	servantlinks = null
 	original_owner = null
-	visible_message("<span class='userdanger'>[src] screams!</span>")
+	visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] кричит!"))
 	playsound(loc, 'sound/goonstation/effects/screech.ogg', 100, 1)
 	return ..()
 
@@ -181,10 +197,10 @@
 
 
 /datum/disease/memetic_madness
-	name = "Memetic Kill Agent"
+	name = "Меметический убивающий агент"
 	max_stages = 4
 	stage_prob = 8
-	cure_text = "Unknown"
+	cure_text = "Неизвестно"
 	severity = BIOHAZARD
 	curable = FALSE
 	can_immunity = FALSE
@@ -226,24 +242,24 @@
 				source = name,
 				effect_type = list(STUN, WEAKEN, STAMCRIT, KNOCKDOWN, PARALYZE),
 				priority = 3,
-				self_message = span_boldwarning("His Grace protects you!"),
+				self_message = span_boldwarning("Его Светлость защищает вас!"),
 			)
 		stage = 1
 		switch(progenitor.hunger)
 			if(10 to 60)
 				if(progenitor.set_hunger_level(new_hunger_level = 1))
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Feed Me the unclean ones...They will be purified...</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Накорми Меня нечестивыми... Они очистятся...</font></b></i>")
 			if(61 to 120)
 				if(progenitor.set_hunger_level(new_hunger_level = 2))
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>I hunger for the flesh of the impure...</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Я жажду плоти нечестивых...</font></b></i>")
 			if(121 to 210)
 				if(progenitor.set_hunger_level(new_hunger_level = 3))
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>The hunger of your Master grows with every passing moment.  Feed Me at once.</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Голод твоего Хозяина растёт с каждым мгновением. Накорми Меня немедленно.</font></b></i>")
 			if(211 to 399)
 				if(progenitor.set_hunger_level(new_hunger_level = 4))
-					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>His Grace starves in your hands.  Feed Me the unclean or suffer.</font></b></i>")
+					to_chat(affected_mob, "<i><b><font face = Tempus Sans ITC>Его Светлость умирает от голода в твоих руках. Накорми Меня нечистым или страдай.</font></b></i>")
 			if(400 to INFINITY)
-				affected_mob.visible_message("<span class='userdanger'>[progenitor] consumes [affected_mob] whole!</span>")
+				affected_mob.visible_message(span_userdanger("[progenitor] поглощает [affected_mob] целиком!"))
 				progenitor.consume(affected_mob)
 				return
 
@@ -259,10 +275,10 @@
 			stage = 1
 			return
 		if(prob(4))
-			to_chat(affected_mob, "<span class='danger'>You are too far from His Grace...</span>")
+			to_chat(affected_mob, span_danger("Вы слишком далеко от Его светлости..."))
 			affected_mob.adjustToxLoss(5)
 		else if(prob(6))
-			to_chat(affected_mob, "<span class='danger'>You feel weak.</span>")
+			to_chat(affected_mob, span_danger("Вы чувствуете слабость."))
 			affected_mob.adjustBruteLoss(5)
 
 		if(ismob(progenitor.loc))

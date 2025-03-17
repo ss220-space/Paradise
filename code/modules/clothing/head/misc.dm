@@ -596,6 +596,61 @@
 	icon_state = "shamskull"
 	species_restricted = list(SPECIES_UNATHI, SPECIES_ASHWALKER_BASIC, SPECIES_ASHWALKER_SHAMAN, SPECIES_DRACONOID)
 
+/obj/item/clothing/head/scorched_skull
+	name = "scorched skull"
+	desc = "Голова мёртвого всадника, очищенная от чешуи, крови и внутренних органов во время разделки. Вселяет страх в ваших врагов."
+	ru_names = list(
+		NOMINATIVE = "обожжённый череп",
+		GENITIVE = "обожжённого черепа",
+		DATIVE = "обожжённому черепу",
+		ACCUSATIVE = "обожжённый череп",
+		INSTRUMENTAL = "обожжённым черепом",
+		PREPOSITIONAL = "обожжённом черепе"
+	)
+	icon_state = "scorched_skull"
+	item_state = "scorched_skull"
+	armor = list(MELEE = 50, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 10, BIO = 0, RAD = 0, FIRE = 60, ACID = 60)
+	w_class = WEIGHT_CLASS_TINY
+	flags_cover = HEADCOVERSEYES
+	flags_inv = HIDENAME|HIDEHAIR
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/helmet.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi'
+		)
+
+/obj/item/clothing/head/roach
+	name = "roach"
+	desc = "Символ шамана племени, визуально отличающий его от соплеменников. Ценится как трофей среди шахтёров."
+	ru_names = list(
+		NOMINATIVE = "роуч",
+		GENITIVE = "роуча",
+		DATIVE = "роучу",
+		ACCUSATIVE = "роуч",
+		INSTRUMENTAL = "роучем",
+		PREPOSITIONAL = "роуче"
+	)
+	icon_state = "roach"
+	item_state = "roach"
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
+	sprite_sheets = list(
+		SPECIES_WRYN = 'icons/mob/clothing/species/wryn/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_KIDAN = 'icons/mob/clothing/species/kidan/head.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+	)
+
 /obj/item/clothing/head/mr_chang_band
 	name = "Tight headband"
 	desc = "It is a safety tool, designed to prevent all marketing and selling techniques from escaping the wearers skull. Handle with care."

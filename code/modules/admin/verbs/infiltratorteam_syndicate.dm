@@ -4,7 +4,7 @@
 GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 
 /client/proc/syndicate_infiltration_team()
-	set category = "Admin.Event Spawn"
+	set category = "Admin.Event"
 	set name = "Отправить Диверсионный Отряд Синдиката"
 	set desc = "Спавнит Диверсионный Отряд Синдиката в их месте постоянной дислокации на СЦК."
 	if(!check_rights(R_ADMIN))
@@ -25,7 +25,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		return
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Диверсионный Отряд Синдиката.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			tgui_alert(src, "Миссия не указана. Отмена.")
 			return

@@ -657,7 +657,7 @@
 /obj/item/slimepotion/clothing/fireproof/cancel_effect(obj/item/clothing/C)
 	C.max_heat_protection_temperature = initial(C.max_heat_protection_temperature)
 	C.heat_protection = initial(C.heat_protection)
-	C.resistance_flags = initial(C.resistance_flags)
+	C.resistance_flags &= ~FIRE_PROOF
 
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
@@ -675,6 +675,14 @@
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return C.armor.acid < 100
+
+/obj/item/slimepotion/clothing/acidproof/apply_effect(obj/item/clothing/C)
+	. = ..()
+	C.resistance_flags |= ACID_PROOF
+
+/obj/item/slimepotion/clothing/acidproof/cancel_effect(obj/item/clothing/C)
+	. = ..()
+	C.resistance_flags &= ~ACID_PROOF
 
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
@@ -826,7 +834,7 @@
 					H.LoseTarget()
 				stopped_atoms |= M
 			else if(isprojectile(A))
-				var/obj/item/projectile/P = A
+				var/obj/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
 
@@ -840,7 +848,7 @@
 	for(var/mob/living/M in stopped_atoms)
 		unfreeze_mob(M)
 
-	for(var/obj/item/projectile/P in stopped_atoms)
+	for(var/obj/projectile/P in stopped_atoms)
 		P.paused = FALSE
 	qdel(src)
 	return

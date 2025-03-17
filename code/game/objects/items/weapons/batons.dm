@@ -1,6 +1,7 @@
 /obj/item/melee/baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
+	gender = FEMALE
 	icon_state = "baton"
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT

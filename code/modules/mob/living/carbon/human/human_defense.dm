@@ -9,7 +9,7 @@ emp_act
 */
 
 
-/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
@@ -21,12 +21,13 @@ emp_act
 			if(1) // proper reflection
 				reflected = TRUE
 			if(2) //If target is holding a toy sword
-				var/static/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+				var/static/list/safe_list = list(/obj/projectile/beam/lasertag, /obj/projectile/beam/practice)
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
 			visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] отражает [P.declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(declent_ru(NOMINATIVE))] отражает [P.declent_ru(ACCUSATIVE)]!"))
+							span_userdanger("[capitalize(declent_ru(NOMINATIVE))] отражает [P.declent_ru(ACCUSATIVE)]!"),\
+							projectile_message = TRUE)
 			add_attack_logs(P.firer, src, "hit by [P.type] but got reflected")
 			P.reflect_back(src)
 			return -1
@@ -145,7 +146,7 @@ emp_act
 		add_attack_logs(user, src, "set on fire with [I]")
 
 
-/mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
@@ -590,11 +591,11 @@ emp_act
 
 	if(!I.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]."),
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [message_hit_area] [I.declent_ru(INSTRUMENTAL)]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_warning("Вы аккуратно тыкнули [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]."))
+		to_chat(user, span_warning("Вы аккуратно тыкнули [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."))
 		return
 
 	var/message_verb = "атаковал"
@@ -602,11 +603,11 @@ emp_act
 		message_verb = "[pick(I.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]!"),
-		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [message_hit_area] [I.declent_ru(INSTRUMENTAL)]!"),
+		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
+		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("Вы [message_verb]и [src] [message_hit_area] [I.declent_ru(INSTRUMENTAL)]!"))
+	to_chat(user, span_danger("Вы [message_verb]и [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"))
 
 
 /**

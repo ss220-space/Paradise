@@ -53,10 +53,9 @@
 	update_icon(UPDATE_ICON_STATE)
 
 
-/obj/item/implantpad/AltClick(mob/living/user)
-	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
-		return
+/obj/item/implantpad/click_alt(mob/living/user)
 	eject_case(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/implantpad/ui_interact(mob/user, datum/tgui/ui = null)

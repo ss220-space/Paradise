@@ -5,7 +5,7 @@
 	if(!check_rights(R_ADMIN, FALSE))
 		return
 
-	var/msg = tgui_input_text(src, "Какое сообщение вы хотите, чтобы пинг показывал?", "Пингануть всех админов")
+	var/msg = tgui_input_text(src, "Какое сообщение вы хотите, чтобы пинг показывал?", "Пингануть всех админов", encode = FALSE)
 	msg = sanitize(copytext(msg, 1, MAX_MESSAGE_LEN))
 
 	if(!msg)

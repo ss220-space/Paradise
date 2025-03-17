@@ -419,6 +419,76 @@
 	return TRUE
 
 
+/mob/living/can_perform_action(atom/target, action_bitflags)
+	if(!istype(target))
+		CRASH("Missing target arg for can_perform_action")
+
+	if(stat != CONSCIOUS)
+		to_chat(src, span_warning("You are not conscious enough for this action!"))
+		return FALSE
+
+	if(!(action_bitflags & BYPASS_INCAPACITATED)) // should be interaction_flags_atom, but we haven't implemented yet and won't
+		var/ignore_flags = NONE
+		if(action_bitflags & INC_IGNORE_RESTRAINED)
+			ignore_flags |= INC_IGNORE_RESTRAINED
+		if(!(action_bitflags & INC_IGNORE_GRABBED))
+			ignore_flags |= INC_IGNORE_GRABBED
+
+		if(incapacitated(ignore_flags))
+			to_chat(src, span_warning("You are incapacitated at the moment!"))
+			return FALSE
+
+	// If the MOBILITY_UI bitflag is not set it indicates the mob's hands are cutoff, blocked, or handcuffed
+	// Note - AI's and borgs have the MOBILITY_UI bitflag set even though they don't have hands
+	// Also if it is not set, the mob could be incapcitated, knocked out, unconscious, asleep, EMP'd, etc.
+	if(!(mobility_flags & MOBILITY_UI) && !(action_bitflags & ALLOW_RESTING))
+		to_chat(src, span_warning("You don't have the mobility for this!"))
+		return FALSE
+
+	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
+	if((action_bitflags & NEED_HANDS))
+		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+			to_chat(src, span_warning("You hands are blocked for this action!"))
+			return FALSE
+		if(!usable_hands) // almost redundant if it weren't for mobs
+			to_chat(src, span_warning("You don't have the hands for this action!"))
+			return FALSE
+
+	if(!(action_bitflags & ALLOW_PAI) && ispAI(src))
+		to_chat(src, span_warning("Your holochasis does not allow you to do this!"))
+		return FALSE
+
+	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !Adjacent(target)))
+		if(has_unlimited_silicon_privilege && !ispAI(src))
+			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+		else // just a normal carbon mob
+			if((action_bitflags & FORBID_TELEKINESIS_REACH))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+			if(!HAS_TRAIT(src, TRAIT_TELEKINESIS))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+	if((action_bitflags & NEED_VENTCRAWL) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS))
+		to_chat(src, span_warning("You wouldn't fit!"))
+		return FALSE
+
+	if((action_bitflags & NEED_DEXTERITY) && !IsAdvancedToolUser(src))
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_LITERACY) && !is_literate())
+		to_chat(src, span_warning("You can't comprehend any of this!"))
+		return FALSE
+
+	return TRUE
+
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	// all this repeated spaghetti code is used to properly register projectiles
@@ -445,7 +515,7 @@
 
 
 /// Special projectiles handling for living mobs
-/mob/living/proc/projectile_allow_through(obj/item/projectile/projectile, border_dir)
+/mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
 	// default behavior for generic mobs
 	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
 		return !density
@@ -826,7 +896,7 @@
 		to_chat(usr, "OOC Metadata is not supported by this server!")
 
 
-/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)	
 	if(lying_angle != 0 && !buckled)
 		lying_angle_on_movement(direct)
 
@@ -1401,7 +1471,7 @@
 	. = TRUE
 	to_chat(user, span_notice("You begin to butcher [src]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, 4 SECONDS * mob_size, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
 	harvest(user)
 
@@ -2298,3 +2368,14 @@
 		numba = rand(1, 1000)
 	name = "[name] ([numba])"
 	real_name = name
+
+// used by secbot and monkeys Crossed
+/mob/living/proc/knockOver(mob/living/carbon/target)
+	if(target.key) //save us from monkey hordes
+		target.visible_message(span_warning("[pick( \
+						  "[target] спотыка[pluralize_ru(target.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+						  "[target] опрокидыва[pluralize_ru(target.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+						  "[target] отлета[pluralize_ru(target.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]"))

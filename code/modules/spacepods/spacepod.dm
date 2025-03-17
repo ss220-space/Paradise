@@ -214,7 +214,7 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/obj/spacepod/bullet_act(var/obj/item/projectile/P)
+/obj/spacepod/bullet_act(var/obj/projectile/P)
 	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)

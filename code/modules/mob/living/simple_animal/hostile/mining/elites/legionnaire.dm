@@ -314,7 +314,7 @@
 		fire_walker.IgniteMob()
 
 
-/obj/item/projectile/legionnaire
+/obj/projectile/legionnaire
 	name = "bone"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bone"
@@ -324,7 +324,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/legionnaire/P = new(startloc)
+	var/obj/projectile/legionnaire/P = new(startloc)
 	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
 	P.damage = P.damage * dif_mult_dmg
