@@ -23,7 +23,7 @@ pub fn add_solar(solar: ByondValue) -> eyre::Result<ByondValue> {
 
 #[byondapi::bind]
 pub fn remove_solar(solar: ByondValue) -> eyre::Result<ByondValue> {
-    Sun::remove_solar(solar)
+    Sun::remove_solar(&solar)
 }
 
 #[byondapi::bind]

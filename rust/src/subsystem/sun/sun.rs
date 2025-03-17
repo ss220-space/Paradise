@@ -71,8 +71,8 @@ impl Sun {
         Ok(ByondValue::from(true))
     }
 
-    pub fn remove_solar(solar: ByondValue) -> eyre::Result<ByondValue> {
-        SOLARS.write().retain(|element| element != &solar);
+    pub fn remove_solar(solar: &ByondValue) -> eyre::Result<ByondValue> {
+        SOLARS.write().retain(|element| element != solar);
         Ok(ByondValue::from(true))
     }
 
