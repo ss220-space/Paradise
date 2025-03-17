@@ -158,11 +158,11 @@
 
 /datum/team/xenomorph/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
-		to_chat(world, "<br><<span style='font-size: 3;'><b>Частичная победа Ксеноморфов!</b></span>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Частичная победа Ксеноморфов!</b></span>")
 		to_chat(world, "<b>Станция была уничтожена!</b>")
 		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>")
 	else if(protect_cocon?.check_completion(src))
-		to_chat(world, "<br><<span style='font-size: 3;'><b>Полная победа Ксеноморфов!</b></span>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа Ксеноморфов!</b></span>")
 		to_chat(world, "<b>Ксеноморфы захватили станцию!</b>")
 		to_chat(world, "<b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!current_queen?.current || current_queen.current.stat == DEAD)
@@ -203,7 +203,7 @@
 		for(var/datum/mind/alien in members)
 			if(alien in facehuggers)
 				continue
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		text += "<br/><span style='font-size: 2;'><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
 		for(var/datum/mind/alien in facehuggers)
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
