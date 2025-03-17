@@ -524,10 +524,25 @@
 	if(!.)
 		return
 	var/atom/old_loc = moving.loc
-	var/turf/next = get_step_to(moving, target)
-	moving.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
+	var/turf/next = get_next_step()
+	if(isliving(moving))
+		var/mob/living/moving_mob = moving
+		if(!(moving_mob.mobility_flags & MOBILITY_MOVE))
+			return MOVELOOP_FAILURE
+	moving?.Move(next, get_dir(moving, next), FALSE, !(flags & MOVEMENT_LOOP_NO_DIR_UPDATE))
 	return old_loc != moving?.loc ? MOVELOOP_SUCCESS : MOVELOOP_FAILURE
 
+/datum/move_loop/has_target/dist_bound/move_to/proc/get_next_step()
+	return get_step_to(moving, target)
+
+/datum/controller/subsystem/move_manager/proc/move_to_pathfind(moving, chasing, min_dist, delay, timeout, subsystem, priority, flags, datum/extra_info)
+	return add_to_loop(moving, subsystem, /datum/move_loop/has_target/dist_bound/move_to/pathfind, priority, flags, extra_info, delay, timeout, chasing, min_dist)
+
+/datum/move_loop/has_target/dist_bound/move_to/pathfind
+
+/datum/move_loop/has_target/dist_bound/move_to/pathfind/get_next_step()
+	var/list/points = get_path_to(moving, target, skip_first = TRUE)
+	return (points.len)? points[1] : null
 
 /**
  * Wrapper around walk_away()

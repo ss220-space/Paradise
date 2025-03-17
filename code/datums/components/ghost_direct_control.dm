@@ -8,6 +8,10 @@
 	var/ban_type
 	/// Check Syndicate ban
 	var/ban_syndicate
+	/// Check ghost respawnability
+	var/respawnable_check = TRUE
+	/// Check antaghud use
+	var/check_antaghud = TRUE
 	/// Any extra checks which need to run before we take over
 	var/datum/callback/extra_control_checks
 	/// Callback run after someone successfully takes over the body
@@ -25,6 +29,7 @@
 	poll_candidates = TRUE,
 	antag_age_check = TRUE,
 	check_antaghud = TRUE,
+	respawnable_check = TRUE,
 	poll_length = 10 SECONDS,
 	ban_syndicate = FALSE,
 	assumed_control_message = null,
@@ -43,6 +48,8 @@
 	src.extra_control_checks = extra_control_checks
 	src.after_assumed_control = after_assumed_control
 	src.question_text = question_text
+	src.respawnable_check = respawnable_check
+	src.check_antaghud = check_antaghud
 
 	LAZYADD(GLOB.mob_spawners[format_text("[initial(mob_parent.name)]")], mob_parent)
 
@@ -55,21 +62,29 @@
 	RegisterSignal(parent, COMSIG_LIVING_EXAMINE, PROC_REF(on_examined))
 	RegisterSignal(parent, COMSIG_MOB_LOGIN, PROC_REF(on_login))
 	RegisterSignal(parent, COMSIG_IS_GHOST_CONTROLABLE, PROC_REF(on_ghost_controlable_check))
+	RegisterSignal(parent, COMSIG_MOB_DEATH, PROC_REF(on_death))
 
 /datum/component/ghost_direct_control/UnregisterFromParent()
-	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_GHOST, COMSIG_LIVING_EXAMINE, COMSIG_MOB_LOGIN))
+	UnregisterSignal(parent, list(COMSIG_ATOM_ATTACK_GHOST, COMSIG_LIVING_EXAMINE, COMSIG_MOB_LOGIN, COMSIG_MOB_DEATH))
 	return ..()
 
 /datum/component/ghost_direct_control/Destroy(force)
 	extra_control_checks = null
 	after_assumed_control = null
-
-	var/mob/mob_parent = parent
-	var/list/spawners = GLOB.mob_spawners[format_text("[initial(mob_parent.name)]")]
-	LAZYREMOVE(spawners, mob_parent)
-	if(!LAZYLEN(spawners))
-		GLOB.mob_spawners -= format_text("[initial(mob_parent.name)]")
+	remove_spawner()
 	return ..()
+
+/datum/component/ghost_direct_control/proc/on_death(datum/source)
+	SIGNAL_HANDLER
+	remove_spawner()
+
+/datum/component/ghost_direct_control/proc/remove_spawner()
+	var/mob/living/our_mob = parent
+	var/text = format_text("[initial(our_mob.name)]")
+	var/list/spawners = GLOB.mob_spawners[text]
+	LAZYREMOVE(spawners, our_mob)
+	if(!LAZYLEN(spawners))
+		GLOB.mob_spawners -= text
 
 /// Inform ghosts that they can possess this
 /datum/component/ghost_direct_control/proc/on_examined(datum/source, mob/user, list/examine_text)
@@ -135,13 +150,18 @@
 	if(new_body.stat == DEAD)
 		to_chat(harbinger, span_warning("Это тело умерло, оно бесполезно!"))
 		return
+	if(respawnable_check && !(harbinger in GLOB.respawnable_list))
+		to_chat(harbinger, "Вы не можете повторно присоединиться к раунду.")
+		return
+	if(respawnable_check && cannotPossess(harbinger))
+		to_chat(harbinger, "Вы не можете повторно присоединиться к раунду, активировав антаг худ.")
+		return
 	if(new_body.key)
 		to_chat(harbinger, span_warning("[capitalize(new_body.declent_ru(NOMINATIVE))] уже является разумным!"))
 		qdel(src)
 		return
 	if(extra_control_checks && !extra_control_checks.Invoke(harbinger))
 		return
-
 	add_game_logs("took control of [new_body].", harbinger)
 	// doesn't transfer mind because that transfers antag datum as well
 	new_body.key = harbinger.key
