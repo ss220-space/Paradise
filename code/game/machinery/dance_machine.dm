@@ -472,8 +472,7 @@
 		var/sound/song_played = sound(selection.song_path)
 
 		for(var/mob/mob in range(10, src))
-			if(!HASBIT(mob.client?.prefs.sound, SOUND_DISCO) \
-			|| mob in rangers)
+			if(LAZYIN(rangers, mob) || !HASBIT(mob.client?.prefs.sound, SOUND_DISCO))
 				continue
 
 			rangers[mob] = TRUE
