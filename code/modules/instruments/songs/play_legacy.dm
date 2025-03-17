@@ -93,7 +93,7 @@
 	var/sound/music_played = sound(soundfile)
 
 	for(var/mob/mob as anything in hearing_mobs)
-		if(!(mob.client?.prefs?.sound & SOUND_INSTRUMENTS))
+		if(!HASBIT(mob.client?.prefs?.sound, SOUND_INSTRUMENTS))
 			continue
 
 		mob.playsound_local(source, null, volume * using_instrument.volume_multiplier, sound = music_played)
