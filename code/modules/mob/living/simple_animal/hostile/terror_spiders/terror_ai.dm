@@ -81,7 +81,7 @@
 		return targets2
 	return targets3
 
-/mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
+/mob/living/simple_animal/hostile/poison/terror_spider/lose_target()
 	if(target && isliving(target))
 		var/mob/living/T = target
 		if(T.stat > 0)

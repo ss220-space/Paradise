@@ -255,7 +255,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(isconstruct(L) && L.health >= L.maxHealth) //is this target an unhurt construct? stop trying to heal it
-			LoseTarget()
+			lose_target()
 			return 0
 		if(L.health <= melee_damage_lower+melee_damage_upper) //ey bucko you're hurt as fuck let's go hit you
 			retreat_distance = null

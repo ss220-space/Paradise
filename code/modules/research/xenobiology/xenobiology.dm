@@ -831,7 +831,7 @@
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
-					H.LoseTarget()
+					H.lose_target()
 				stopped_atoms |= M
 			else if(isprojectile(A))
 				var/obj/projectile/P = A

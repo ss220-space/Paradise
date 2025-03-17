@@ -101,7 +101,7 @@
 		if(passive_mode)
 			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
 			if(target)
-				LoseTarget()
+				lose_target()
 		else
 			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
 		update_icons()

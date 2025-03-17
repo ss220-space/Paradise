@@ -537,7 +537,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	LoseTarget()
+	lose_target()
 	qdel(src)
 
 /mob/living/simple_animal/hostile/carp/lostsoul/add_carp_overlay()
