@@ -657,7 +657,7 @@
 /obj/item/slimepotion/clothing/fireproof/cancel_effect(obj/item/clothing/C)
 	C.max_heat_protection_temperature = initial(C.max_heat_protection_temperature)
 	C.heat_protection = initial(C.heat_protection)
-	C.resistance_flags = initial(C.resistance_flags)
+	C.resistance_flags &= ~FIRE_PROOF
 
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
@@ -675,6 +675,14 @@
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return C.armor.acid < 100
+
+/obj/item/slimepotion/clothing/acidproof/apply_effect(obj/item/clothing/C)
+	. = ..()
+	C.resistance_flags |= ACID_PROOF
+
+/obj/item/slimepotion/clothing/acidproof/cancel_effect(obj/item/clothing/C)
+	. = ..()
+	C.resistance_flags &= ~ACID_PROOF
 
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"

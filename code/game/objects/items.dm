@@ -24,6 +24,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/slot_flags_2 = NONE
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv = NONE
+	var/holder_flags = NONE
 	/// These flags will be added/removed (^=) to/from flags_inv in [/proc/check_obscured_slots()]
 	/// if check_transparent argument is set to `TRUE`. Used in carbon's update icons shenanigans.
 	/// Example: you can see someone's mask through their transparent visor, but you cannot reach it

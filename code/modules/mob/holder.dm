@@ -7,6 +7,7 @@
 	righthand_file = 'icons/mob/inhands/mobs_righthand.dmi'
 	slot_flags = ITEM_SLOT_HEAD
 	origin_tech = "biotech=2"
+	holder_flags = HUMAN_HOLDER
 
 
 /obj/item/holder/New()
@@ -49,15 +50,15 @@
 	for(var/mob/living/M in contents)
 		M.show_message(message, m_type, chat_message_type)
 
-/obj/item/holder/emp_act(var/intensity)
+/obj/item/holder/emp_act(intensity)
 	for(var/mob/living/M in contents)
 		M.emp_act(intensity)
 
-/obj/item/holder/ex_act(var/intensity)
+/obj/item/holder/ex_act(intensity)
 	for(var/mob/living/M in contents)
 		M.ex_act(intensity)
 
-/obj/item/holder/container_resist(var/mob/living/L)
+/obj/item/holder/container_resist(mob/living/L)
 	var/mob/M = src.loc                      //Get our mob holder (if any).
 
 	if(istype(M))
@@ -80,16 +81,20 @@
 	var/holder_type = null
 
 /mob/living/simple_animal/MouseDrop(atom/over_object)
-	var/mob/living/carbon/human/human_to_ask = over_object //changed to human to avoid stupid issues like xenos holding animals.
-	if(!istype(human_to_ask))
-		return ..()
+	var/mob/living/carbon/human_to_ask = over_object
+	if(holder_type)
+		var/obj/item/holder = holder_type
+		var/holder_flags = holder.holder_flags
+		if(!(holder_flags & ALIEN_HOLDER && isalien(human_to_ask)) && \
+		!(holder_flags & HUMAN_HOLDER && ishuman(human_to_ask)))
+			return ..()
 	if(human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
 	if(usr == src)
-		switch(alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,"Yes","No"))
+		switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,list("Yes","No")))
 			if("Yes")
 				if(Adjacent(human_to_ask))
-					get_scooped(human_to_ask)
+					pick_up_mob(human_to_ask)
 				else
 					to_chat(src, "<span class='warning'>You need to stay in reaching distance to be picked up.</span>")
 			if("No")
@@ -97,7 +102,10 @@
 	else
 		return ..()
 
-/mob/living/proc/get_scooped(var/mob/living/carbon/grabber)
+/mob/living/simple_animal/proc/pick_up_mob(mob/living/carbon/human_to_ask)
+	get_scooped(human_to_ask)
+
+/mob/living/proc/get_scooped(mob/living/carbon/grabber)
 	if(!holder_type)
 		return
 
@@ -109,7 +117,6 @@
 	if(desc)
 		H.desc = desc
 	H.attack_hand(grabber)
-
 	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
 	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
 	grabber.status_flags |= PASSEMOTES
