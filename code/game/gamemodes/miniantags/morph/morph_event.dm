@@ -22,7 +22,7 @@
 		if(!vent)
 			kill()
 			return
-		var/mob/living/simple_animal/hostile/morph/morph = new (pick(GLOB.xeno_spawn))
+		var/mob/living/simple_animal/hostile/morph/morph = new(vent.loc)
 		player_mind.transfer_to(morph)
 		morph.make_morph_antag()
 		morph.move_into_vent(vent, FALSE)
