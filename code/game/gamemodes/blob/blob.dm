@@ -182,7 +182,7 @@
 			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
 			blob.move_into_vent(vent, FALSE)
 			var/mob/ghost = pick_n_take(candidates)
-			blob.key = ghost.key
+			blob.set_key(ghost.key)
 			var/datum_type = blob.mind.get_blob_infected_type()
 			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
@@ -191,6 +191,7 @@
 			to_chat(blob, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
 			log_game("[blob.key] has become blob infested mouse.")
 			notify_ghosts("Заражённая мышь появилась в [get_area(blob)].", source = blob, action = NOTIFY_FOLLOW)
+
 	return TRUE
 
 
