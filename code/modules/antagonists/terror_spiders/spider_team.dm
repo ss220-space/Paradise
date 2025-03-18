@@ -312,10 +312,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	var/successSpawn = FALSE
 	while(count && length(candidates))
 		var/mob/ghost = pick_n_take(candidates)
-		var/mob/living/simple_animal/hostile/poison/terror_spider/spider
-		if(spider_type.ventcrawler_trait)
-			var/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
-			spider = new spider_type(vent)
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
 		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(spider_type.ventcrawler_trait ? vent.loc : pick(GLOB.xeno_spawn))
 		
@@ -326,10 +322,10 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 		spider.add_datum_if_not_exist()
 
-		spider.add_datum_if_not_exist()
 		count--
 		successSpawn = TRUE
 		log_game("[spider.key] has become [spider].")
+		
 	return successSpawn
 
 
