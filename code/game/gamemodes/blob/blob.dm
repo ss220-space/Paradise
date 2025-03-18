@@ -181,8 +181,7 @@
 			var/obj/vent = pick(vents)
 			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
 			blob.move_into_vent(vent, FALSE)
-			var/mob/ghost = pick(candidates)
-			candidates.Remove(ghost)
+			var/mob/ghost = pick_n_take(candidates)
 			blob.key = ghost.key
 			var/datum_type = blob.mind.get_blob_infected_type()
 			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
