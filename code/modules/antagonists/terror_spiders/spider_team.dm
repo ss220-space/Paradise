@@ -316,11 +316,16 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		if(spider_type.ventcrawler_trait)
 			var/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
 			spider = new spider_type(vent)
-			spider.key = ghost.key
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
+		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(spider_type.ventcrawler_trait ? vent.loc : pick(GLOB.xeno_spawn))
+		
+		spider.set_key(ghost.key)
+
+		if(spider_type.ventcrawler_trait)
 			spider.move_into_vent(vent, FALSE)
-		else
-			spider = new spider_type(pick(GLOB.xeno_spawn))
-			spider.key = ghost.key
+
+		spider.add_datum_if_not_exist()
+
 		spider.add_datum_if_not_exist()
 		count--
 		successSpawn = TRUE
