@@ -23,7 +23,7 @@ impl Sun {
     }
 
     pub fn update_position() -> eyre::Result<ByondValue> {
-        let new_angle = Self::calculate_new_angle();
+        let new_angle = Self::update_angle();
 
         let (sin, cos) = new_angle.to_radians().sin_cos();
         let max_abs = sin.abs().max(cos.abs());
@@ -36,7 +36,7 @@ impl Sun {
         Ok(ByondValue::from(true))
     }
 
-    fn calculate_new_angle() -> f32 {
+    fn update_angle() -> f32 {
         let updated_angle =
             (360.0 + ANGLE.load(Ordering::Relaxed) + RATE.load(Ordering::Relaxed) * 6.0) % 360.0;
 
