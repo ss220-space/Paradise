@@ -479,11 +479,11 @@
 	switch(status)
 		if(GROWING)
 			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
-			hugger.LoseTarget()
+			hugger.lose_target()
 			addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 		if(GROWN)
 			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
-			hugger.LoseTarget()
+			hugger.lose_target()
 			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 		if(BURST)
 			obj_integrity = integrity_failure

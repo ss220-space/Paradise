@@ -56,7 +56,7 @@
 	if(!ckey && (!(target in enemies) || L.reagents.has_reagent("terror_black_toxin", 60)))
 		step_away(src, L)
 		step_away(src, L)
-		LoseTarget()
+		lose_target()
 		step_away(src, L)
 		visible_message(span_notice("[src] jumps away from [L]!"))
 

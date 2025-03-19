@@ -168,6 +168,8 @@
 	if(isanimal(new_body))
 		var/mob/living/simple_animal/animal_body = new_body
 		animal_body.toggle_ai(AI_OFF)
+		animal_body.lose_target()
+
 	// Already qdels due to below proc but just in case
 	qdel(src)
 

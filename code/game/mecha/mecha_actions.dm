@@ -101,7 +101,13 @@
 /datum/action/innate/mecha/mech_view_stats/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
-	chassis.occupant << browse(chassis.get_stats_html(), "window=exosuit")
+	var/datum/browser/popup = new(chassis.occupant, "exosuit", "[chassis.name]")
+	popup.include_default_stylesheet = FALSE
+	popup.set_content(chassis.get_stats_html())
+	popup.add_script("byjax", 'html/js/byjax.js')
+	popup.add_script("dropdown", 'html/js/dropdowns.js')
+	chassis.config_dropdown(popup)
+	popup.open(FALSE)
 
 /datum/action/innate/mecha/mech_defence_mode
 	name = "Toggle Defence Mode"

@@ -13,14 +13,14 @@
 	var/time_till_chaos = 18000 // Half-hour in
 
 /datum/game_mode/wizard/raginmages/announce()
-	to_chat(world, "<B>The current game mode is - Ragin' Mages!</B>")
-	to_chat(world, "<B>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</B>")
+	to_chat(world, "<b>The current game mode is - Ragin' Mages!</b>")
+	to_chat(world, "<b>The <font color='red'>Space Wizard Federation</font> is pissed, crew must help defeat all the Space Wizards invading the station!</b>")
 
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	var/list/messages = list()
 	if(you_are)
 		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
-	messages.Add("<B>The Space Wizards Federation has given you the following tasks:</B>")
+	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
 	to_chat(wizard.current, chat_box_red(messages.Join("<br>")))
@@ -157,5 +157,5 @@
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
 		SSticker.mode_result = "raging wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><FONT size = 3><B> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</B></FONT></span>")
+		to_chat(world, "<span class='warning'><span style='font-size: 3;'><b> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b></span></span>")
 	..(1)

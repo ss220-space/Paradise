@@ -87,19 +87,19 @@
 	if(second < 10) second = "0[second]"
 	if(set_second < 10) set_second = "0[set_second]"
 
-	var/dat = {"<meta charset="UTF-8">
-	<TT>
+	var/dat = {"
+	<tt>
 		<center><h2>Timing Unit</h2>
 		[minute]:[second] <a href='byond://?src=[UID()];time=1'>[timing?"Stop":"Start"]</a> <a href='byond://?src=[UID()];reset=1'>Reset</a><br>
 		Repeat: <a href='byond://?src=[UID()];repeat=1'>[repeat?"On":"Off"]</a><br>
 		Timer set for
-		<a href='byond://?src=[UID()];tp=-30'>-</A> <a href='byond://?src=[UID()];tp=-1'>-</A> [set_minute]:[set_second] <a href='byond://?src=[UID()];tp=1'>+</A> <a href='byond://?src=[UID()];tp=30'>+</A>
+		<a href='byond://?src=[UID()];tp=-30'>-</a> <a href='byond://?src=[UID()];tp=-1'>-</a> [set_minute]:[set_second] <a href='byond://?src=[UID()];tp=1'>+</a> <a href='byond://?src=[UID()];tp=30'>+</a>
 		</center>
-	</TT>
-	<BR><BR>
-	<a href='byond://?src=[UID()];refresh=1'>Refresh</A>
-	<BR><BR>
-	<a href='byond://?src=[UID()];close=1'>Close</A>"}
+	</tt>
+	<br><br>
+	<a href='byond://?src=[UID()];refresh=1'>Refresh</a>
+	<br><br>
+	<a href='byond://?src=[UID()];close=1'>Close</a>"}
 	var/datum/browser/popup = new(user, "timer", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()

@@ -1,0 +1,81 @@
+* {
+	font-family: sans-serif;
+	font-size: small;
+	color: #ddd;
+}
+
+html {
+	background: #222;
+	color: #ddd;
+}
+
+table {
+	background: #2a2a2a;
+	border: 1px solid #1e1e1e;
+	border-spacing: 0;
+}
+
+caption {
+	text-align: left;
+	color: #bbb;
+}
+
+.button {
+	color: #ddd;
+	text-decoration: none;
+	font-weight: bold;
+	text-align: center;
+	width: 75px;
+	padding: 10px 15px;
+	background: #444;
+	border: 1px solid #666;
+	display: inline-block;
+}
+
+.button:hover {
+	color: #fff;
+	background: #555;
+}
+
+a {
+	color: #bbb;
+	text-decoration: none;
+	font-weight: bold;
+}
+
+a:hover {
+	color: #fff;
+}
+
+p {
+	margin: 0;
+}
+
+tr.dark {
+	background: #252525;
+}
+
+tr.light {
+	background: #333;
+}
+
+td, th {
+	padding: 12px;
+	border-bottom: 1px solid #1e1e1e;
+}
+
+th.cost {
+	padding: 5px;
+	border-left: 1px solid #1e1e1e;
+	text-align: center;
+}
+
+th.cost.affordable {
+	background: green;
+	color: white;
+}
+
+th.cost.toomuch {
+	background: maroon;
+	color: white;
+}

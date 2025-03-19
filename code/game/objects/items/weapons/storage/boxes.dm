@@ -239,7 +239,7 @@
 
 /obj/item/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
+	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/flashbangs/populate_contents()
@@ -248,7 +248,7 @@
 
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
-	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
+	desc = "<b>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/flashes/populate_contents()
@@ -257,7 +257,7 @@
 
 /obj/item/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
+	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/teargas/populate_contents()
@@ -266,7 +266,7 @@
 
 /obj/item/storage/box/barrier
 	name = "box of barrier grenades"
-	desc = "Instant cover.</B>"
+	desc = "Instant cover.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/barrier/populate_contents()
@@ -394,7 +394,7 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Инструкция:</B> <I>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</I>"
+	desc = "<b>Инструкция:</b> <i>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</i>"
 	ru_names = list(
 		NOMINATIVE = "коробка с Донк-покетами",
 		GENITIVE = "коробки с Донк-покетами",
@@ -637,7 +637,7 @@
 
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
-	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
+	desc = "<b><span style='color: red;'>WARNING:</span></b> <i>Keep out of reach of children</i>."
 	icon_state = "mousetraps"
 
 /obj/item/storage/box/mousetraps/populate_contents()

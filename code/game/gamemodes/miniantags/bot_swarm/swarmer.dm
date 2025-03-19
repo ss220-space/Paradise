@@ -762,4 +762,4 @@
 	if(message)
 		for(var/mob/M in GLOB.mob_list)
 			if(isswarmer(M) || (M in GLOB.dead_mob_list))
-				to_chat(M, "<B>Swarm communication - </b> [src] states: [message]")
+				to_chat(M, "<b>Swarm communication - </b> [src] states: [message]")

@@ -13,8 +13,8 @@
 
 
 /datum/game_mode/space_ninja/announce()
-	to_chat(world, "<B>>Текущий игровой режим — Космический Ниндзя!</B>")
-	to_chat(world, "<B>На станцию проник опасный наёмник из клана Паука. Более известный как Космический Ниндзя. Какие бы он не преследовал цели, станция в опасности!</B>")
+	to_chat(world, "<b>>Текущий игровой режим — Космический Ниндзя!</b>")
+	to_chat(world, "<b>На станцию проник опасный наёмник из клана Паука. Более известный как Космический Ниндзя. Какие бы он не преследовал цели, станция в опасности!</b>")
 
 
 /datum/game_mode/space_ninja/can_start()
@@ -71,7 +71,7 @@
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
-		to_chat(world, span_warning("<FONT size = 3><B> Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!</B></FONT>"))
+		to_chat(world, span_warning("<span style='font-size: 3;'><b> Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!</b></span>"))
 	..()
 	return TRUE
 
@@ -106,19 +106,19 @@
 		var/ninjawin = TRUE
 		for(var/datum/objective/objective in ninja.get_all_objectives())
 			if(objective.check_completion())
-				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
-				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "FAIL"))
 				ninjawin = FALSE
 			count++
 
 		if(ninja.current && ninja.current.stat != DEAD && ninjawin)
-			text += "<br><font color='green'><B>Ниндзя успешно выполнил свои задачи!</B></font>"
+			text += "<br><font color='green'><b>Ниндзя успешно выполнил свои задачи!</b></font>"
 			SSblackbox.record_feedback("tally", "ninja_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Ниндзя провалился!</B></font>"
+			text += "<br><font color='red'><b>Ниндзя провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "ninja_success", 1, "FAIL")
 		text += "<br>"
 

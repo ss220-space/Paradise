@@ -88,6 +88,7 @@
 		if(!(holder_flags & ALIEN_HOLDER && isalien(human_to_ask)) && \
 		!(holder_flags & HUMAN_HOLDER && ishuman(human_to_ask)))
 			return ..()
+
 	if(human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
 	if(usr == src)

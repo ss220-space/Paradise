@@ -100,7 +100,7 @@
 
 /datum/antagonist/ninja/greet()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ninja_greeting.ogg')
-	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><B>Космический Ниндзя!</B></font>")
+	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><b>Космический Ниндзя!</b></font>")
 	to_chat(owner.current, "Моё оружие внезапность. Моя броня Тень. Без них, я ничто.")
 
 

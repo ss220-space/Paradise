@@ -127,16 +127,16 @@
 			possible_modules += AM
 
 /datum/module_picker/proc/use(mob/user)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
-			<HR>
-			<B>Install Module:</B><BR>
-			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
+	var/dat = ""
+	dat += {"<b>Select use of processing time: (currently #[processing_time] left.)</b><br>
+			<hr>
+			<b>Install Module:</b><br>
+			<i>The number afterwards is the amount of processing time it consumes.</i><br>"}
 	for(var/datum/AI_Module/large/module in possible_modules)
-		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
+		dat += "<a href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</a><a href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</a> ([module.cost])<br>"
 	for(var/datum/AI_Module/small/module in possible_modules)
-		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
-	dat += "<HR>"
+		dat += "<a href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</a><a href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</a> ([module.cost])<br>"
+	dat += "<hr>"
 	if(temp)
 		dat += "[temp]"
 	var/datum/browser/popup = new(user, "modpicker", "Malf Module Menu", 400, 500)
@@ -315,7 +315,7 @@
 		M << 'sound/machines/alarm.ogg'
 	sleep(100)
 	SSticker.station_explosion_cinematic(null, "AI malfunction")
-	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
+	to_chat(world, "<b>The AI cleansed the station of life with the doomsday device!</b>")
 	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.

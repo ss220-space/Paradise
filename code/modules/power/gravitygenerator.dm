@@ -295,15 +295,15 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(stat & BROKEN)
 		return
 
-	var/dat = {"<meta charset="UTF-8">Gravity Generator Breaker: "}
+	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</A>"
+		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</a>"
 	else
-		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
+		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</a> <span class='linkOn'>OFF</span> "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != GRAV_POWER_IDLE)
-		dat += "<font class='bad'>WARNING</font> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
+		dat += "<span class='bad'>WARNING</span> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
 	else if(on)
 		dat += "Powered."
 	else
@@ -322,7 +322,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	if(href_list["gentoggle"])
 		breaker = !breaker
-		investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name_log(usr)].", INVESTIGATE_GRAVITY)
+		investigate_log("was toggled [breaker ? "<span style='color: green;'>ON</span>" : "<span style='color: red;'>OFF</span>"] by [key_name_log(usr)].", INVESTIGATE_GRAVITY)
 		set_power()
 		updateUsrDialog()
 

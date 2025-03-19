@@ -21,10 +21,9 @@
 
 /mob/new_player/proc/privacy_consent()
 	src << browse(null, "window=playersetup")
-	var/output = {"<!DOCTYPE html><meta charset="UTF-8">"} + GLOB.join_tos
-	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Я согласен</A>"
-	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>Я НЕ согласен</A>"
-	src << browse(output,"window=privacy_consent;size=500x300")
+	var/output = GLOB.join_tos
+	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Я согласен</a>"
+	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>Я НЕ согласен</a>"
 	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Политика Конфидициальности</div>", 500, 400)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
@@ -523,12 +522,12 @@
 	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		dat += "<font color='red'><b>Станция была эвакуирована.</b></font><br>"
+		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"
 	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
-		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
+		dat += "<span style='color: red;'>В настоящее время станция проходит процедуру эвакуации.</span><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>Станция отметила эти позиции как приоритетные: "
+		dat += "<span style='color: lime;'>Станция отметила эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -536,7 +535,7 @@
 			if(amt_count != amt)
 				dat += " [a.title], "
 			else
-				dat += " [a.title]. </font><br>"
+				dat += " [a.title]. </span><br>"
 
 
 	var/num_jobs_available = 0
@@ -592,16 +591,14 @@
 				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Random (free jobs)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</b></span></a><br>"
 				else
 					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 			dat += "</fieldset><br>"
 
 		dat += "</td></tr></table></center>"
 	else
-		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<BR>Wait a few minutes, then try again.<BR>Or, try observing the round.</center>"
-	// Removing the old window method but leaving it here for reference
-//		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
+		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<br>Wait a few minutes, then try again.<br>Or, try observing the round.</center>"
 	// Added the new browser window method
 	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')

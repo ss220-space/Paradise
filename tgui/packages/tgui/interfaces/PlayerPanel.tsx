@@ -56,7 +56,7 @@ export const PlayerPanel = (props, context) => {
 
   return (
     <Window title={`Options Panel - ${data.ckey}`} width={800} height={950}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Stack vertical>
           <Stack.Item>
             <Button

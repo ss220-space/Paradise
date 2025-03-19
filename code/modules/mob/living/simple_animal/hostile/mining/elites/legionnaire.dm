@@ -123,7 +123,7 @@
 		return
 	var/turf/T = get_turf(A)
 	if(T)
-		myhead.LoseTarget()
+		myhead.lose_target()
 		myhead.Goto(T, myhead.move_to_delay)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge(target)

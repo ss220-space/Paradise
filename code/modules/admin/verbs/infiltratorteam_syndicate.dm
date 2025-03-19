@@ -66,7 +66,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 				new_syndicate_infiltrator.internal = new_syndicate_infiltrator.s_store
 				new_syndicate_infiltrator.update_action_buttons_icon()
 			infiltrators -= theguy
-		to_chat(new_syndicate_infiltrator, span_danger("Вы [!syndicate_leader_selected?"Диверсант":"<B>Командир Диверсантов</B>"] в подчинении Синдиката. \nВаша миссия: <B>[input]</B>"))
+		to_chat(new_syndicate_infiltrator, span_danger("Вы [!syndicate_leader_selected?"Диверсант":"<b>Командир Диверсантов</b>"] в подчинении Синдиката. \nВаша миссия: <b>[input]</b>"))
 		to_chat(new_syndicate_infiltrator, span_notice("Вы оснащены имплантом аплинка, который поможет вам достичь ваших целей. ((активируйте его с помощью кнопки в левом верхнем углу экрана))"))
 		new_syndicate_infiltrator.faction += "syndicate"
 		GLOB.data_core.manifest_inject(new_syndicate_infiltrator)
@@ -77,9 +77,9 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 			to_chat(new_syndicate_infiltrator, span_danger("Лидер отряда: [team_leader]. Он отвечает за миссию!"))
 		teamsize--
 		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится ещё больше полезной информации."))
-		new_syndicate_infiltrator.mind.store_memory("<B>Миссия:</B> [input] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Лидер:</B> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<B>Стартовое снаряжение:</B> <BR>- Наушник синдиката ((:t для вашего канала))<BR>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<BR> - ID карта агента ((Может изменять должность и другие данные))<BR> - Имплант аплинка ((в левом верхнем углу экрана)) <BR> - Имплант распыления ((превращает тело при смерти в пыль)) <BR> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <BR> - Все, что куплено с помощью вашего импланта аплинка")
+		new_syndicate_infiltrator.mind.store_memory("<b>Миссия:</b> [input] ")
+		new_syndicate_infiltrator.mind.store_memory("<b>Лидер:</b> [team_leader] ")
+		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник синдиката ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")
