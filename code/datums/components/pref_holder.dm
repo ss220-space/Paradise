@@ -44,7 +44,8 @@
 			continue
 
 		if(!HASBIT(mob.client.prefs.toggles, toggle.preftoggle_bitflag) \
-        && !HASBIT(mob.client.prefs.toggles2, toggle.preftoggle_bitflag)
+        && !HASBIT(mob.client.prefs.toggles2, toggle.preftoggle_bitflag) \
+		&& !HASBIT(mob.client.prefs.toggles3, toggle.preftoggle_bitflag)
         )   
 			continue
 
