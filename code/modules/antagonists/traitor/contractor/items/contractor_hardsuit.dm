@@ -220,7 +220,7 @@
 	var/selected_chameleon = show_radial_menu(usr, loc, choices, require_near = TRUE)
 	switch(selected_chameleon)
 		if("EVA")
-			src = "EVA suit"
+			src.name = "EVA suit"
 			src.icon_state = "spacenew"
 			src.desc = "A lightweight space suit with the basic ability to protect the wearer from the vacuum of space during emergencies."
 			helmet.name = "EVA helmet"
@@ -228,7 +228,7 @@
 			helmet.icon_state = "spacenew"
 			helmet.item_color = "medical"
 		if("Mining Hardsuit")
-			src = "mining hardsuit"
+			src.name = "mining hardsuit"
 			src.icon_state = "hardsuit-mining"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has reinforced plating."
 			helmet.name = "mining hardsuit helmet"
@@ -236,7 +236,7 @@
 			helmet.icon_state = "hardsuit0-mining"
 			helmet.item_color = "mining"
 		if("Medical Hardsuit")
-			src = "medical hardsuit"
+			src.name = "medical hardsuit"
 			src.icon_state = "hardsuit-medical"
 			src.desc = "A special suit designed for work in a hazardous, low pressure environment. Built with lightweight materials for extra comfort."
 			helmet.name = "medical hardsuit helmet"
@@ -244,7 +244,7 @@
 			helmet.icon_state = "hardsuit0-medical"
 			helmet.item_color = "medical"
 		if("Security Hardsuit")
-			src = "security hardsuit"
+			src.name = "security hardsuit"
 			src.icon_state = "hardsuit-sec"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has an additional layer of armor."
 			helmet.name = "security hardsuit helmet"
@@ -252,7 +252,7 @@
 			helmet.icon_state = "hardsuit0-sec"
 			helmet.item_color = "sec"
 		if("Engineering Hardsuit")
-			src = "engineering hardsuit"
+			src.name = "engineering hardsuit"
 			src.icon_state = "hardsuit-engineering"
 			src.desc = "A special suit that protects against hazardous, low pressure environments. Has radiation shielding."
 			helmet.name = "engineering hardsuit helmet"
