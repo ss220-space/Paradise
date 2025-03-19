@@ -20,7 +20,7 @@ export const VolumeMixer = (properties, context) => {
                   <Stack.Item mr={0.5}>
                     <Button width="24px" color="transparent">
                       <Icon
-                        name="выкл. звук"
+                        name="volume-off"
                         size="1.5"
                         mt="0.1rem"
                         onClick={() =>
@@ -43,7 +43,7 @@ export const VolumeMixer = (properties, context) => {
                   <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
-                        name="вкл. звук"
+                        name="volume-up"
                         size="1.5"
                         mt="0.1rem"
                         onClick={() =>
