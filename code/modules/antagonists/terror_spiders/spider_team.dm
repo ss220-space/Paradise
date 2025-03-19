@@ -302,17 +302,22 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 /proc/create_terror_spiders(type, count)
 	var/mob/living/simple_animal/hostile/poison/terror_spider/spider_type = get_spider_type(type)
+
 	if(!spider_type)
 		to_chat(usr, "Некорректный тип паука Ужаса.")
 		return FALSE
+
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Паука Ужаса?", ROLE_TERROR_SPIDER, TRUE, 60 SECONDS, source = spider_type)
 	if(length(candidates) < count)
 		message_admins("Warning: not enough players volunteered to be terrors. Could only spawn [length(candidates)] out of [count]!")
 		return FALSE
+
 	var/successSpawn = FALSE
+	var/vent_spawns = get_valid_vent_spawns(exclude_visible_by_mobs = TRUE)
+
 	while(count && length(candidates))
 		var/mob/ghost = pick_n_take(candidates)
-		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(vent_spawns)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(spider_type.ventcrawler_trait ? vent.loc : pick(GLOB.xeno_spawn))
 		
 		spider.set_key(ghost.key)
