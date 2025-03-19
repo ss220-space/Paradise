@@ -53,7 +53,7 @@
 /datum/component/pref_holder/proc/is_active_toggle(datum/preference_toggle/toggle)
 	var/mob/mob = parent
 	
-	switch(toggle.preference_toggle)
+	switch(toggle.preftoggle_toggle)
 		if(PREFTOGGLE_TOGGLE1)
 			. = HASBIT(mob.client.prefs.toggles, toggle.preftoggle_bitflag)
 
