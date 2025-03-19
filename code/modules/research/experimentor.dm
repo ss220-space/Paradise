@@ -226,9 +226,9 @@
 
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><center>"}
+	var/dat = "<center>"
 	if(!linked_console)
-		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</A></b><br>"
+		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</a></b><br>"
 	if(loaded_item)
 		dat += "<b>Loaded Item:</b> [loaded_item]<br>"
 		dat += "<b>Technology</b>:<br>"
@@ -236,17 +236,17 @@
 		for(var/T in D)
 			dat += "[T]<br>"
 		dat += "<br><br>Available tests:"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
-		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</A>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</a></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</a>"
 	else
 		dat += "<b>Nothing loaded.</b>"
-	dat += "<br><a href='byond://?src=[UID()];function=refresh'>Refresh</A><br>"
-	dat += "<br><a href='byond://?src=[UID()];close=1'>Close</A><br></center>"
+	dat += "<br><a href='byond://?src=[UID()];function=refresh'>Refresh</a><br>"
+	dat += "<br><a href='byond://?src=[UID()];close=1'>Close</a><br></center>"
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
@@ -416,7 +416,7 @@
 			qdel(inner_reagent)
 			ejectItem(TRUE)
 			warn_admins(usr, "[chosenchem] smoke")
-			investigate_log("Experimentor has released <font color='red'>[chosenchem]</font> smoke!", INVESTIGATE_EXPERIMENTOR)
+			investigate_log("Experimentor has released <span style='color: red;''>[chosenchem]</span> smoke!", INVESTIGATE_EXPERIMENTOR)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("[src] malfunctions, spewing harmless gas.>")
 			throwSmoke(src.loc)
@@ -455,7 +455,7 @@
 			var/turf/MT = get_turf(M)
 			if(MT)
 				visible_message("<span class='danger'>[src] dangerously overheats, launching a flaming fuel orb!</span>")
-				investigate_log("Experimentor has launched a <font color='red'>fireball</font> at [key_name_log(M)]!", INVESTIGATE_EXPERIMENTOR)
+				investigate_log("Experimentor has launched a <span style:'color: red'>fireball</span> at [key_name_log(M)]!", INVESTIGATE_EXPERIMENTOR)
 				var/obj/projectile/magic/fireball/FB = new /obj/projectile/magic/fireball(start)
 				FB.original = MT
 				FB.current = start

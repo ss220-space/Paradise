@@ -411,7 +411,7 @@
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
 	header = "<font face=\"Verdana\" color=black><center>&ZeroWidthSpace;<img src = ussplogo.png></center>"
-	info = "<font face=\"Verdana\" color=black><BR><center><B>Доклад Центральному Комитету СССП</B></center><BR>Я <B><span class=\"paper_field\"></span></B>, в звании <B><span class=\"paper_field\"></span></B> и должности <B><span class=\"paper_field\"></span></B>, докладываю: <span class=\"paper_field\"></span> <BR><BR><BR><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><BR><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><BR><HR><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<BR>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
+	info = "<font face=\"Verdana\" color=black><br><center><b>Доклад Центральному Комитету СССП</b></center><br>Я <b><span class=\"paper_field\"></span></b>, в звании <b><span class=\"paper_field\"></span></b> и должности <b><span class=\"paper_field\"></span></b>, докладываю: <span class=\"paper_field\"></span> <br><br><br><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><br><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><br><hr><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<br>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
 
 /obj/item/paper/gorky17/report/Initialize(mapload)
 	. = ..()
@@ -422,7 +422,7 @@
 	info = "<font face=\"Verdana\" color=black>\
 			<table cellspacing=0 cellpadding=3  align=\"right\">\
 			<tr><td><img src= talisman.png></td></tr>\
-			<br><HR></font>"
+			<br><hr></font>"
 	desc = "Strange and stinky paper with blood rune."
 	icon_state = "paper_talisman"
 	var/poison_type = "amanitin"

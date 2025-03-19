@@ -1166,7 +1166,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		message_admins("[key_name_admin(usr)] select [next_map] as next map")
 		log_admin("[key_name(usr)] select [next_map] as next map")
 		SSmapping.next_map = new next_map
-		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+		to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"

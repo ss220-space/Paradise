@@ -158,35 +158,35 @@
 
 /datum/team/xenomorph/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
-		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Ксеноморфов!</B></FONT>")
-		to_chat(world, "<B>Станция была уничтожена!</B>")
-		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Частичная победа Ксеноморфов!</b></span>")
+		to_chat(world, "<b>Станция была уничтожена!</b>")
+		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>")
 	else if(protect_cocon?.check_completion(src))
-		to_chat(world, "<BR><FONT size = 3><B>Полная победа Ксеноморфов!</B></FONT>")
-		to_chat(world, "<B>Ксеноморфы захватили станцию!</B>")
-		to_chat(world, "<B>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа Ксеноморфов!</b></span>")
+		to_chat(world, "<b>Ксеноморфы захватили станцию!</b>")
+		to_chat(world, "<b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!current_queen?.current || current_queen.current.stat == DEAD)
-		to_chat(world, "<BR><FONT size = 3><B>Полная победа персонала станции!</B></FONT>")
-		to_chat(world, "<B>Экипаж защитил станцию от Ксеноморфов!</B>")
-		to_chat(world, "<B>Ксеноморфы были истреблены.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа персонала станции!</b></span>")
+		to_chat(world, "<b>Экипаж защитил станцию от Ксеноморфов!</b>")
+		to_chat(world, "<b>Ксеноморфы были истреблены.</b>")
 	else
-		to_chat(world, "<BR><FONT size = 3><B>Ничья!</B></FONT>")
-		to_chat(world, "<B>Экипаж эвакуирован!</B>")
-		to_chat(world, "<B>Ксеноморфы не были истреблены.</B>")
+		to_chat(world, "<br><FONT size = 3><b>Ничья!</b></FONT>")
+		to_chat(world, "<b>Экипаж эвакуирован!</b>")
+		to_chat(world, "<b>Ксеноморфы не были истреблены.</b>")
 
-	to_chat(world, "<B>Целями Ксеноморфов было:</B>")
+	to_chat(world, "<b>Целями Ксеноморфов было:</b>")
 
 	if(xeno_power_objective)
-		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[xeno_power_objective.type]", xeno_power_objective.completed? "SUCCESS" : "FAIL"))
 	if(create_queen)
-		to_chat(world, "<br/>Создание королевы: [create_queen.explanation_text] [create_queen.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Создание королевы: [create_queen.explanation_text] [create_queen.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[create_queen.type]", create_queen.completed? "SUCCESS" : "FAIL"))
 	if(protect_queen)
-		to_chat(world, "<br/>Защита королевы: [protect_queen.explanation_text] [protect_queen.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Защита королевы: [protect_queen.explanation_text] [protect_queen.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_queen.type]", protect_queen.completed? "SUCCESS" : "FAIL"))
 	if(protect_cocon)
-		to_chat(world, "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.completed? "SUCCESS" : "FAIL"))
 	return TRUE
 
@@ -196,15 +196,15 @@
 		declare_results()
 		var/text = ""
 		if(queens?.len)
-			text += "<br/><FONT size = 2><B>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</B></FONT>"
+			text += "<br/><span style='font-size: 2;'><b>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</b></span>"
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
-		text += "<br/><FONT size = 2><B>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+		text += "<br/><span style='font-size: 2;'><b>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
 		for(var/datum/mind/alien in members)
 			if(alien in facehuggers)
 				continue
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
-		text += "<br/><FONT size = 2><B>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+		text += "<br/><span style='font-size: 2;'><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
 		for(var/datum/mind/alien in facehuggers)
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		to_chat(world, text)

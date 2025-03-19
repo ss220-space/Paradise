@@ -217,7 +217,7 @@
 
 		var/signature
 		if(tgui_alert(user, "Вы хотите подписать этот документ?", "Подпись", list("Да","Нет")) == "Да")
-			signature = "<font face=\"[SIGNFONT]\"><i>[user ? user.real_name : "Неизвестный"]</i></font>"
+			signature = "<span style='font-face: \"[SIGNFONT]\";'><i>[user ? user.real_name : "Неизвестный"]</i></span>"
 		else
 			signature = "<span class=\"paper_field\"></span>"
 
@@ -226,17 +226,17 @@
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
-		P.info = "<U><font size=\"4\"><B><center> Выпуск вируса </B></center></font></U>"
-		P.info += "<HR>"
-		P.info += "<U>Название вируса:</U> [D.name] <BR>"
-		P.info += "<U>Симптомы:</U> [symtoms]<BR>"
-		P.info += "<U>Путь передачи:</U> [D.additional_info]<BR>"
-		P.info += "<U>Лекарство от вируса:</U> [D.cure_text]<BR>"
-		P.info += "<BR>"
-		P.info += "<U>Причина выпуска:</U> [reason]"
-		P.info += "<HR>"
-		P.info += "Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.<BR>"
-		P.info += "<U>Подпись вирусолога:</U> [signature]<BR>"
+		P.info = "<u><span style='font-size: 4;'><b><center> Выпуск вируса </b></center></span></u>"
+		P.info += "<hr>"
+		P.info += "<u>Название вируса:</u> [D.name] <br>"
+		P.info += "<u>Симптомы:</u> [symtoms]<br>"
+		P.info += "<u>Путь передачи:</u> [D.additional_info]<br>"
+		P.info += "<u>Лекарство от вируса:</u> [D.cure_text]<br>"
+		P.info += "<br>"
+		P.info += "<u>Причина выпуска:</u> [reason]"
+		P.info += "<hr>"
+		P.info += "Вирусолог, ответственный за любые биологические угрозы, возникшие вследствие выпуска вируса.<br>"
+		P.info += "<u>Подпись вирусолога:</u> [signature]<br>"
 		P.info += "Печать ответственного лица, разрешившего выпуск вируса:"
 		P.populatefields()
 		P.updateinfolinks()
@@ -248,12 +248,12 @@
 	if(..())
 		return
 	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	if(temp_html)
-		dat += "[temp_html]<BR><BR><a href='byond://?src=[UID()];clear=1'>Главное меню</A>"
+		dat += "[temp_html]<br><br><a href='byond://?src=[UID()];clear=1'>Главное меню</a>"
 	else if(!beaker)
-		dat += "Пожалуйста, вставьте ёмкость.<BR>"
-		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
+		dat += "Пожалуйста, вставьте ёмкость.<br>"
+		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</a>"
 	else
 		var/datum/reagents/R = beaker.reagents
 		var/datum/reagent/Blood = null
@@ -265,16 +265,16 @@
 					continue
 				break
 		if(!R.total_volume||!R.reagent_list.len)
-			dat += "Ёмкость пуста<BR>"
+			dat += "Ёмкость пуста<br>"
 		else if(!Blood)
 			dat += "В ёмкости отсутствует образец крови."
 		else if(!Blood.data)
 			dat += "В ёмкости отсутствует данные крови."
 		else
 			dat += "<h3>Данные образца крови:</h3>"
-			dat += "<b>ДНК крови:</b> [(Blood.data["blood_DNA"]||"нет")]<BR>"
-			dat += "<b>Группа крови:</b> [(Blood.data["blood_type"]||"нет")]<BR>"
-			dat += "<b>Тип расовой крови:</b> [(Blood.data["blood_species"]||"нет")]<BR>"
+			dat += "<b>ДНК крови:</b> [(Blood.data["blood_DNA"]||"нет")]<br>"
+			dat += "<b>Группа крови:</b> [(Blood.data["blood_type"]||"нет")]<br>"
+			dat += "<b>Тип расовой крови:</b> [(Blood.data["blood_species"]||"нет")]<br>"
 
 			dat += "<h3>Данные о заболеваниях:</h3>"
 			if(Blood.data["diseases"])
@@ -290,29 +290,29 @@
 							D = GLOB.archive_diseases[A.GetDiseaseID()]
 							if(D)
 								if(D.name == "Unknown")
-									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><BR>"
+									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><br>"
 								else
-									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><BR>"
+									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><br>"
 						else
-							dat += "[D.name]<BR>"
+							dat += "[D.name]<br>"
 
 						if(!D)
 							CRASH("We weren't able to get the advance disease from the archive.")
 
-						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</A>":"нет"]<BR>"
-						dat += "<b>Описание: </b> [(D.desc||"нет")]<BR>"
-						dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<BR>"
-						dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<BR>"
-						dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<BR>"
+						dat += "<b>Болезнетворный агент:</b> [D?"[D.agent] — <a href='byond://?src=[UID()];create_disease_culture=[i]'>Создать образец</a>":"нет"]<br>"
+						dat += "<b>Описание: </b> [(D.desc||"нет")]<br>"
+						dat += "<b>Путь передачи:</b> [(D.additional_info||"нет")]<br>"
+						dat += "<b>Возможное лекарство:</b> [(D.cure_text||"нет")]<br>"
+						dat += "<b>Возможность выработки антител:</b> [(D.can_immunity ? "Присутствует" : "Отсутствует")]<br>"
 
 						if(istype(D, /datum/disease/virus/advance))
 							var/datum/disease/virus/advance/A = D
-							dat += "<BR><b>Симптомы:</b> "
+							dat += "<br><b>Симптомы:</b> "
 							var/symptoms_list = list()
 							for(var/datum/symptom/S in A.symptoms)
 								symptoms_list += S.name
 							dat += russian_list(symptoms_list)
-						dat += "<BR>"
+						dat += "<br>"
 				if(i == 0)
 					dat += "В образце не обнаружен вирус."
 			else
@@ -321,7 +321,7 @@
 			if(Blood.data["resistances"])
 				var/list/res = Blood.data["resistances"]
 				if(res.len)
-					dat += "<BR><b>Содержит антитела к:</b><ul>"
+					dat += "<br><b>Содержит антитела к:</b><ul>"
 					var/i = 0
 					for(var/type in Blood.data["resistances"])
 						i++
@@ -335,14 +335,14 @@
 							var/datum/disease/D = new type()
 							disease_name = D.name
 
-						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылка с вакциной</A></li>"
-					dat += "</ul><BR>"
+						dat += "<li>[disease_name] - <a href='byond://?src=[UID()];create_vaccine=[i]'>Создать бутылка с вакциной</a></li>"
+					dat += "</ul><br>"
 				else
-					dat += "<BR><b>Не содержит антител</b><BR>"
+					dat += "<br><b>Не содержит антител</b><br>"
 			else
-				dat += "<BR><b>Не содержит антител</b><BR>"
-		dat += "<BR><a href='byond://?src=[UID()];eject=1'>Извлечь ёмкость</A>[((R.total_volume&&R.reagent_list.len) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь ёмкость</A>":"")]<BR>"
-		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</A>"
+				dat += "<br><b>Не содержит антител</b><br>"
+		dat += "<br><a href='byond://?src=[UID()];eject=1'>Извлечь ёмкость</a>[((R.total_volume&&R.reagent_list.len) ? "-- <a href='byond://?src=[UID()];empty_beaker=1'>Очистить и извлечь ёмкость</a>":"")]<br>"
+		dat += "<a href='byond://?src=[user.UID()];mach_close=pandemic'>Закрыть</a>"
 
 	var/datum/browser/popup = new(user, "pandemic", name, 575, 480)
 	popup.set_content(dat)

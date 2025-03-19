@@ -592,7 +592,7 @@
     disable_message = "You will see minuature TGUI strip menu."
     blackbox_message = "Toggle TGUI strip menu size"
 
-/datum/preference_toggle/toggle_item_descritpion_tips
+/datum/preference_toggle/toggle_item_description_tips
     name = "Toggle item description tips"
     description = "Toggles item description tips on hover."
     preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
@@ -622,3 +622,12 @@
     disable_message = "Теперь вы будете видить сообщения, появляющиеся при стрельбе."
     blackbox_message = "Переключение комбат логов от выстрелов"
 
+/datum/preference_toggle/toggle_auto_dnr
+    name = "DNR при смерти"
+    description = "При смерти автоматически включается статус DNR."
+    preftoggle_bitflag = PREFTOGGLE_DNR_AFTER_DEATH
+    preftoggle_toggle = PREFTOGGLE_TOGGLE1
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Смерть вашего персонажа теперь перманентная."
+    disable_message = "Смерть персонажа более не перманентная."
+    blackbox_message = "Переключение установки статуса DNR после смерти"

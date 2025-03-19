@@ -45,12 +45,14 @@
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
 		to_chat(usr, span_warning("Cannot use messenger!"))
-	var/HTML = {"<html><meta charset="UTF-8"><head><title>AI PDA Message Log</title></head><body>"}
+	var/HTML = ""
 	for(var/index in M.tnote)
 		var/obj/item/pda/target_pda = locateUID(index["target"])
 		HTML += "<i><b>[index["sent"] ? "&rarr; To" : "&larr; From"] <a href='byond://?src=[M.UID()];choice=Message;target=[index["target"]]'>[QDELETED(target_pda) ? "Error#1133: Unable to find UserName." : "[target_pda.owner] ([target_pda.ownjob])"]</a>:</b></i><br>[index["message"]]<br>"
-	HTML +="</body></html>"
-	usr << browse(HTML, "window=log;size=400x444;border=1;can_resize=1;can_close=1;can_minimize=0")
+	var/datum/browser/popup = new(usr, "log", "AI PDA Message Log", 400, 444)
+	popup.set_window_options("border=1;can_resize=1;can_close=1;can_minimize=0")
+	popup.set_content(HTML)
+	popup.open(FALSE)
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
 	set category = "AI IM"

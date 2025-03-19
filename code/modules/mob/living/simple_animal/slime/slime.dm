@@ -477,7 +477,7 @@
 			if (getBruteLoss() < 40)
 				. += "It has some punctures in its flesh!"
 			else
-				. += "<B>It has severe punctures and tears in its flesh!</B>"
+				. += "<b>It has severe punctures and tears in its flesh!</b>"
 			. += "</span>\n"
 
 		switch(powerlevel)
@@ -491,7 +491,7 @@
 				. += "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>"
 
 			if(10)
-				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
+				. += "<span class='warning'><b>It is radiating with massive levels of electrical activity!</b></span>"
 
 	. += "</span>"
 

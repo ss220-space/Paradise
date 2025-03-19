@@ -328,16 +328,16 @@
 
 	var/obj/item/paper/transcript = new /obj/item/paper(drop_location())
 
-	var/list/paper_info = list("<B>Transcript:</B><BR><BR>")
+	var/list/paper_info = list("<b>Transcript:</b><br><br>")
 	for(var/i = 1, length(mytape.storedinfo) >= i, i++)
 		var/datum/tape_piece/piece = mytape.storedinfo[i]
 		paper_info += "\[[time2text(piece.time * 10,"mm:ss")]\] "
 		if(piece.speaker_name)
 			paper_info += "[piece.speaker_name] "
 		if(piece.message_verb)
-			paper_info += "[piece.message_verb], \"[replace_characters(piece.message, list("+"))]\"<BR>"
+			paper_info += "[piece.message_verb], \"[replace_characters(piece.message, list("+"))]\"<br>"
 		else
-			paper_info += "[replace_characters(piece.message, list("+"))]<BR>"
+			paper_info += "[replace_characters(piece.message, list("+"))]<br>"
 
 	transcript.info = paper_info.Join("")
 	transcript.name = "paper- 'Transcript'"

@@ -60,7 +60,7 @@
 
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
+	to_chat(world, "<b>Notice</b>: [src] did not define announce()")
 
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
@@ -572,7 +572,7 @@
 	var/obj_count = 1
 	to_chat(player.current, span_notice("Your current objectives:"))
 	for(var/datum/objective/objective in player.get_all_objectives())
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		to_chat(player.current, "<b>Objective #[obj_count]</b>: [objective.explanation_text]")
 		obj_count++
 
 
@@ -775,13 +775,13 @@
 	if(!custom_name)
 		interceptname = "Директива 7-10"
 	if(!custom_text)
-		intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Особая директива.</FONT><HR>"
-		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<BR>"
-		intercepttext += "Приказы для всего персонала [station_name()] следующие:<BR>"
-		intercepttext += " 1. Не покидать карантинную зону.<BR>"
-		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<BR>"
-		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<BR>"
-		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<BR>"
-		intercepttext += "<BR>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<BR>"
+		intercepttext += "<span style='font-size: 3;'><b>Постановление Nanotrasen</b>: Особая директива.</span><hr>"
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
+		intercepttext += " 1. Не покидать карантинную зону.<br>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<br>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<br>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<br>"
+		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
 		intercepttext += "Конец сообщения."
 	print_command_report(intercepttext, interceptname, FALSE)

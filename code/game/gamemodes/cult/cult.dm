@@ -59,8 +59,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/const/max_cultist_to_start = 4
 
 /datum/game_mode/cult/announce()
-	to_chat(world, "<B>The current game mode is - Cult!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
+	to_chat(world, "<b>The current game mode is - Cult!</b>")
+	to_chat(world, "<b>Some crewmembers are attempting to start a cult!<br>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<br>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</b>")
 
 /datum/game_mode/cult/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
@@ -320,13 +320,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
-		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
+		to_chat(world, "<span class='danger'> <span style='font-size: 3;'>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</span></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
-		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
+		to_chat(world, "<span class='danger'> <span style='font-size: 3;'Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</span></span>")
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
-		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
+		to_chat(world, "<span class='warning'> <span style='font-size: 3;'>The staff managed to stop the cult!</span></span>")
 
 	var/endtext
 	endtext += "<br><b>The cultists' objectives were:</b>"
@@ -335,13 +335,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 		if(!obj.check_completion())
 			endtext += "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 	if(cult_objs.cult_status >= NARSIE_NEEDS_SUMMONING)
 		endtext += "<br>[cult_objs.obj_summon.explanation_text] - "
 		if(!cult_objs.obj_summon.check_completion())
 			endtext+= "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 
 	to_chat(world, endtext)
 	..()

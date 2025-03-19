@@ -306,32 +306,32 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..(user, "", "Это предмет [size] размера.")
 
 	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
-		var/msg = "*--------* <BR>"
+		var/msg = "*--------* <br>"
 
 		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><BR>"
+			msg += "<span class='notice'>Testing potentials:</span><br>"
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
+				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <br>"
 		else
-			msg += "<span class='danger'>No tech origins detected.</span><BR>"
+			msg += "<span class='danger'>No tech origins detected.</span><br>"
 
 
 		if(length(materials))
-			msg += "<span class='notice'>Extractable materials:<BR>"
+			msg += "<span class='notice'>Extractable materials:<br>"
 			for(var/mat in materials)
-				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
+				msg += "[CallMaterialName(mat)]<br>" //Capitize first word, remove the "$"
 		else
-			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
+			msg += "<span class='danger'>No extractable materials detected.</span><br>"
 		msg += "*--------*"
 		. += msg
 
 	if(isclocker(user) && enchant_type)
 		if(enchant_type == CASTING_SPELL)
-			. += "<span class='notice'>The last spell hasn't expired yet!</span><BR>"
+			. += "<span class='notice'>The last spell hasn't expired yet!</span><br>"
 		for(var/datum/spell_enchant/S in enchants)
 			if(S.enchantment == enchant_type)
-				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><br>"
 				break
 
 

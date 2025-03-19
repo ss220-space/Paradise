@@ -37,6 +37,7 @@
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		(1<<21)
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
 // #define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
+#define PREFTOGGLE_DNR_AFTER_DEATH          (1<<23) // 8388608
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 

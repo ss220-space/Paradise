@@ -132,47 +132,49 @@
 	if(..())
 		return
 
-	var/dat = {"<HTML><meta charset="UTF-8"><BODY><TT><B>[name]</B>(<a href='byond://?src=[UID()];rename=1'>rename</A>)"}
+	var/dat = {"<tt><b>[name]</b>(<a href='byond://?src=[UID()];rename=1'>rename</a>)"}
 	user.set_machine(src)
-	dat += "<BR><A href = '?src=[UID()];sync=1'>Reset Connections</A><BR>"
+	dat += "<br><a href = '?src=[UID()];sync=1'>Reset Connections</a><br>"
 	if(synced.len)
-		dat += "<BR><A href = '?src=[UID()];massfire=1'><B>Fire All Connected Drivers</B></A><BR>"
+		dat += "<br><a href = '?src=[UID()];massfire=1'><b>Fire All Connected Drivers</b></a><br>"
 	if(istype(src,/obj/machinery/computer/pod/deathsquad))
-		dat += "<BR><A href = '?src=[UID()];dstele=1'><B>Set Teleporter Destination Z-Level</B></A><BR>"
+		dat += "<br><a href = '?src=[UID()];dstele=1'><b>Set Teleporter Destination Z-Level</b></a><br>"
 	for(var/ident_tag in id_tags)
 		if(!(ident_tag in door_only_tags))
-			dat += "<BR><BR><B>[ident_tag]</B> <a href='byond://?src=[UID()];remove=1;driver=[ident_tag]'>remove</A>"
+			dat += "<br><br><b>[ident_tag]</b> <a href='byond://?src=[UID()];remove=1;driver=[ident_tag]'>remove</a>"
 		if(ident_tag in synced)
 			var/d2 = ""
 			if(timings[ident_tag])	//door controls do not need timers.
-				d2 = "<a href='byond://?src=[UID()];time=0;driver=[ident_tag]'>Stop Time Launch</A>"
+				d2 = "<a href='byond://?src=[UID()];time=0;driver=[ident_tag]'>Stop Time Launch</a>"
 			else
-				d2 = "<a href='byond://?src=[UID()];time=1;driver=[ident_tag]'>Initiate Time Launch</A>"
+				d2 = "<a href='byond://?src=[UID()];time=1;driver=[ident_tag]'>Initiate Time Launch</a>"
 			var/second = times[ident_tag] % 60
 			var/minute = (times[ident_tag] - second) / 60
 			var/maxsecond = maxtimes[ident_tag] % 60
 			var/maxminute = (maxtimes[ident_tag] - maxsecond) / 60
-			dat += "<HR>\nTimer System: [d2]\nTime Left: [minute ? "[minute]:" : null][second]/[maxminute ? "[maxminute]:" : null][maxsecond] <a href='byond://?src=[UID()];tp=-30;driver=[ident_tag]'>-</A> <a href='byond://?src=[UID()];tp=-1;driver=[ident_tag]'>-</A> <a href='byond://?src=[UID()];tp=1;driver=[ident_tag]'>+</A> <a href='byond://?src=[UID()];tp=30;driver=[ident_tag]'>+</A>"
-			dat += "<BR>Set timer to loop: [loopings[ident_tag] ? "<A href = '?src=[UID()];loop=0;driver=[ident_tag]'>Yes</A>" : "<A href = '?src=[UID()];loop=1;driver=[ident_tag]'>No</A>"]"
+			dat += "<hr>\nTimer System: [d2]\nTime Left: [minute ? "[minute]:" : null][second]/[maxminute ? "[maxminute]:" : null][maxsecond] <a href='byond://?src=[UID()];tp=-30;driver=[ident_tag]'>-</a> <a href='byond://?src=[UID()];tp=-1;driver=[ident_tag]'>-</a> <a href='byond://?src=[UID()];tp=1;driver=[ident_tag]'>+</a> <a href='byond://?src=[UID()];tp=30;driver=[ident_tag]'>+</a>"
+			dat += "<br>Set timer to loop: [loopings[ident_tag] ? "<a href = '?src=[UID()];loop=0;driver=[ident_tag]'>Yes</a>" : "<a href = '?src=[UID()];loop=1;driver=[ident_tag]'>No</a>"]"
 			var/temp = ""
 			var/list/L = list( 0.25, 0.5, 1, 2, 4, 8, 16 )
 			for(var/t in L)
 				if( powers[ident_tag] == t)
-					temp += "<B><A href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</A></B> "
+					temp += "<b><a href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a></b> "
 				else
-					temp += "<A href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</A> "
-			dat += "<HR>\nPower Level: [temp]<BR>\n<A href = '?src=[UID()];launch=1;driver=[ident_tag]'><B>Fire Drive!</B></A><BR>\n<A href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</A><BR>"
+					temp += "<a href = '?src=[UID()];power=[t];driver=[ident_tag]'>[t]</a> "
+			dat += "<hr>\nPower Level: [temp]<br>\n<a href = '?src=[UID()];launch=1;driver=[ident_tag]'><b>Fire Drive!</b></a><br>\n<a href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</a><br>"
 
 	for(var/ident_tag in door_only_tags)
-		dat += "<BR><BR><B>[ident_tag]</B> <a href='byond://?src=[UID()];remove=1;driver=[ident_tag]'>remove</A>"
-		dat += "<BR>\n<A href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</A><BR>"
+		dat += "<br><br><b>[ident_tag]</b> <a href='byond://?src=[UID()];remove=1;driver=[ident_tag]'>remove</a>"
+		dat += "<br>\n<a href = '?src=[UID()];door=1;driver=[ident_tag]'>Toggle Pod Doors</a><br>"
 
-	dat += "<BR><a href='byond://?src=[UID()];add=1'>add another id_tag</A>"
+	dat += "<br><a href='byond://?src=[UID()];add=1'>add another id_tag</a>"
 
-	dat += "<BR><BR><a href='byond://?src=[user.UID()];mach_close=computer'>Close</A></TT></BODY></HTML>"
-	user << browse(dat, "window=computer;size=400x500")
+	dat += "<br><br><a href='byond://?src=[user.UID()];mach_close=computer'>Close</a></tt>"
+	var/datum/browser/popup = new(user, "pod_computer", "Mass Driver", 400, 500)
+	popup.set_content(dat)
+	popup.open(TRUE)
 	add_fingerprint(usr)
-	onclose(user, "computer")
+	onclose(user, "pod_computer")
 	return
 
 /obj/machinery/computer/pod/process()
