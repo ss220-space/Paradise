@@ -56,7 +56,7 @@
 		keybindings = init_keybindings(raw = query.item[19])
 		viewrange = query.item[20]
 		ghost_darkness_level = query.item[21]
-		toggles3 = query.item[22]
+		toggles3 = text2num(query.item[22])
 
 	qdel(query)
 
