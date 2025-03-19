@@ -186,8 +186,8 @@
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		appears_dead = TRUE
 		if(suiciding)
-			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
-		msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
+			msg += span_warning("выглядят так, будто [genderize_ru(gender, "он", "она", "оно", "они")] покончил[genderize_ru(gender, "", "а", "о", "и")] с собой... надежды на восстановление нет.\n")
+		msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] [genderize_ru(gender, "безжизнен и не реагирует", "безжизненна и не реагирует", "безжизненно и не реагирует", "безжизненны и не реагируют")]; нет никаких признаков жизни.")
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
 				var/foundghost = FALSE
@@ -199,13 +199,13 @@
 								foundghost = FALSE
 							break
 				if(!foundghost)
-					msg += " and [p_their()] soul has departed"
-		msg += "...</span>\n"
+					msg += ", и [genderize_ru(gender, "его", "её", "его", "их")] душа покинула тело"
+		msg += "...\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		msg += "<span class='deadsay'>It appears that [p_their()] brain is missing...</span>\n"
+		msg += span_deadsay("Кажется, [genderize_ru(gender, "его", "её", "его", "их")] мозг отсутствует...\n")
 
-	msg += "<span class='warning'>"
+	msg += span_warning("")
 
 	var/list/wound_flavor_text = list()
 	for(var/limb_zone in dna.species.has_limbs)
@@ -215,26 +215,26 @@
 
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
 		if(!bodypart)
-			wound_flavor_text[limb_zone] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
+			wound_flavor_text[limb_zone] = "<B>У [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует [organ_descriptor]!</B>\n"
 		else
 			if(!ismachineperson(src) && !skipprostheses)
 				if(bodypart.is_robotic())
-					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a robotic [bodypart.name]!\n"
+					wound_flavor_text[limb_zone] = "У [genderize_ru(gender, "него", "неё", "него", "них")] роботизированная [bodypart.name].\n"
 
 				else if(bodypart.is_splinted())
-					wound_flavor_text[limb_zone] = "[p_they(TRUE)] [p_have()] a splint on [p_their()] [bodypart.name]!\n"
+					wound_flavor_text[limb_zone] = "У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [bodypart.name]!\n"
 
 				else if(!bodypart.properly_attached)
-					wound_flavor_text[limb_zone] = "[p_their(TRUE)] [bodypart.name] is barely attached!\n"
+					wound_flavor_text[limb_zone] = "[genderize_ru(gender, "Его", "Её", "Его", "Их")] [bodypart.name] едва держится!\n"
 
 			if(bodypart.open)
 				if(bodypart.is_robotic())
-					msg += "<b>The maintenance hatch on [p_their()] [ignore_limb_branding(limb_zone)] is open!</b>\n"
+					msg += "<b>Технический люк [ignore_limb_branding(limb_zone)] открыт.</b>\n"
 				else
-					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(limb_zone)] has an open incision!</b>\n"
+					msg += "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] открытый разрез на [ignore_limb_branding(limb_zone)].</b>\n"
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
-				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(embed)] [embed] embedded in [p_their()] [bodypart.name]!</B>\n"
+				msg += "<B>В [genderize_ru(gender, "его", "её", "его", "их")] [bodypart.name] застрял [bicon(embed)] [embed]!</B>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -264,69 +264,69 @@
 	var/damage = getBruteLoss() //no need to calculate each of these twice
 
 	if(damage)
-		var/brute_message = !ismachineperson(src) ? "bruising" : "denting"
+		var/brute_message = !ismachineperson(src) ? "синяки" : "вмятины"
 		if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
+			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] [brute_message].\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
+			msg += "<B>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзные [brute_message]!</B>\n"
 
 	damage = getFireLoss()
 	if(damage)
 		if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
+			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] ожоги.\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
+			msg += "<B>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзные ожоги!</B>\n"
 
 	damage = getCloneLoss()
 	if(damage)
 		if(damage < 60)
-			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
+			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительное" : "умеренное"] клеточное повреждение.\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
+			msg += "<B>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзное клеточное повреждение.</B>\n"
 
 
 	if(fire_stacks > 0)
-		msg += "[p_they(TRUE)] [p_are()] covered in something flammable.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] [genderize_ru(gender, "покрыт", "покрыта", "покрыто", "покрыты")] чем-то легковоспламеняющимся.\n"
 	if(fire_stacks < 0)
-		msg += "[p_they(TRUE)] looks a little soaked.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выглядит немного мокрым.\n"
 
 	switch(wetlevel)
 		if(1)
-			msg += "[p_they(TRUE)] looks a bit damp.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] слегка влажным.\n"
 		if(2)
-			msg += "[p_they(TRUE)] looks a little bit wet.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] чуть мокрым.\n"
 		if(3)
-			msg += "[p_they(TRUE)] looks wet.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] мокрым.\n"
 		if(4)
-			msg += "[p_they(TRUE)] looks very wet.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] очень мокрым.\n"
 		if(5)
-			msg += "[p_they(TRUE)] looks absolutely soaked.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] полностью промокшим.\n"
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-		msg += "[p_they(TRUE)] [p_are()] severely malnourished.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] сильно истощён[genderize_ru(gender, "", "а", "о", "ы")].\n"
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
-		msg += "[p_they(TRUE)] [p_are()] morbidly obese.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] страда[genderize_ru(gender, "ет", "ет", "ет", "ют")] болезненным ожирением.\n"
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-			msg += "[p_they(TRUE)] [p_are()] plump and delicious looking - Like a fat little piggy. A tasty piggy.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] пухлым и аппетитным — как маленький поросёнок. Вкусный поросёнок.\n"
 
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		msg += "[p_they(TRUE)] [p_are()] quite chubby.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] довольно полным.\n"
 
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
-		msg += "[p_they(TRUE)] [p_have()] pale skin.\n"
+		msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] бледная кожа.\n"
 
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
-		msg += "<B>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</B>"
+		msg += "<B>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] впил[genderize_ru(gender, "ся", "ась", "ось", "ись")] своими клыками в шею [vampire_datum.draining].\n</B>"
 
 	if(bleedsuppress)
-		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n"
 	else if(bleed_rate)
-		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
+		msg += "<B>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] кровоточ[genderize_ru(gender, "ит", "ит", "ит", "ат")]!</B>\n"
 
 	if(reagents.has_reagent("teslium"))
-		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] излуча[genderize_ru(gender, "ет", "ет", "ет", "ют")] мягкое голубое свечение!\n"
 
 	msg += "</span>"
 

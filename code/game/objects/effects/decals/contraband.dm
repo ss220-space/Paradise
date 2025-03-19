@@ -324,7 +324,7 @@
 
 /obj/structure/sign/poster/contraband/power
 	name = "Мощь"
-	desc = "Постер, на котором изображена сингулярность за пределами зоны содержания НаноТрейзен."
+	desc = "Плакат сообщает, что не только у НаноТразен есть сила."
 	icon_state = "poster16"
 
 /obj/structure/sign/poster/contraband/power_people
@@ -374,7 +374,7 @@
 
 /obj/structure/sign/poster/contraband/revolver
 	name = "Револьвер"
-	desc = "Потому что семь выстрелов - это всё, что вам нужно."
+	desc = "Семь выстрелов хватит на всех."
 	icon_state = "poster26"
 
 /obj/structure/sign/poster/contraband/d_day_promo
@@ -384,7 +384,7 @@
 
 /obj/structure/sign/poster/contraband/syndicate_pistol
 	name = "Пистолет Синдиката"
-	desc = "Постер, рекламирующий пистолеты Синдиката как \"чертовски стильные\". Он покрыт потускневшими граффити."
+	desc = "Этот постер рекламирует вам ахуенно-шикарные пистолеты синдиката."
 	icon_state = "poster28"
 
 /obj/structure/sign/poster/contraband/energy_swords
@@ -404,12 +404,12 @@
 
 /obj/structure/sign/poster/contraband/punch_shit
 	name = "Ломай всё"
-	desc = "Дерись без причины, как настоящий мужчина!"
+	desc = "Тебе не нужна причина, чтобы что-либо ударить, будь мужиком!"
 	icon_state = "poster32"
 
 /obj/structure/sign/poster/contraband/the_griffin
-	name = "Грифон"
-	desc = "Грифон приказывает вам быть худшим, насколько это возможно. Вы согласны?"
+	name = "Гриффин"
+	desc = "Гриффин приказывает тебе быть мудаком настолько, насколько это возможно. Ты подчинишься?"
 	icon_state = "poster33"
 
 /obj/structure/sign/poster/contraband/pinup_syn
@@ -548,8 +548,8 @@
 	icon_state = "poster14_legit"
 
 /obj/structure/sign/poster/official/get_your_legs
-	name = "Получи свои LEGS"
-	desc = "LEGS: Лидерство, Энергия, Гениальность, Сила."
+	name = "Получи свои НОГИ"
+	desc = "НОГИ: Наука, Опыт, Гениальность, Идеология."
 	icon_state = "poster15_legit"
 
 /obj/structure/sign/poster/official/do_not_question
@@ -767,7 +767,7 @@
 
 /obj/structure/sign/poster/secret/lizard
 	name = "Развратная ящерица"
-	desc = "Этот похабный постер изображает ящерицу, готовящуюся к спариванию."
+	desc = "Этот похабный постер изображает ящерицу, которая готовится к брачному периоду."
 	icon_state = "poster3_secret"
 
 #undef PLACE_SPEED
