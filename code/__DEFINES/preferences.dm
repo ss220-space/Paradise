@@ -109,7 +109,7 @@
 #define PREFTOGGLE_TOGGLE1		3
 /// Interacts with the toggles2 bitflag
 #define PREFTOGGLE_TOGGLE2		4
-/// Interacts with the toggles2 bitflag
+/// Interacts with the toggles3 bitflag
 #define PREFTOGGLE_TOGGLE3		5
 
 
