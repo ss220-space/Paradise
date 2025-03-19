@@ -13,6 +13,7 @@
 	var/grant_action = FALSE
 	var/stage = XENO_STAGE_START
 	var/delay_xeno_end = FALSE
+	var/list/facehuggers = list()
 
 /datum/team/xenomorph/New(list/starting_members)
 	. = ..()
@@ -24,8 +25,12 @@
 
 /datum/team/xenomorph/add_member(datum/mind/new_member, add_objectives)
 	var/is_queen = new_member?.current && isalienqueen(new_member.current)
+	var/is_facehuggger = new_member?.current && isfacehugger(new_member.current)
 	. = ..(new_member, !is_queen)
-	RegisterSignal(new_member, COMSIG_ALIEN_EVOLVE, PROC_REF(on_alien_evolve))
+	if(!is_facehuggger)
+		RegisterSignal(new_member, COMSIG_ALIEN_EVOLVE, PROC_REF(on_alien_evolve))
+	else
+		facehuggers |= new_member
 	if(is_queen && !current_queen)
 		add_queen(new_member)
 	check_queen_power()
@@ -75,6 +80,8 @@
 	queen.add_antag_datum(datum, type)
 	if(announce)
 		SSshuttle?.add_hostile_environment(current_queen.current)
+	grant_action = FALSE
+	check_queen_power()
 
 /datum/team/xenomorph/proc/check_queen_power()
 	var/mob/queen_mob = current_queen?.current
@@ -193,8 +200,13 @@
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
 		text += "<br/><FONT size = 2><B>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
-		for(var/datum/mind/spider in members)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		for(var/datum/mind/alien in members)
+			if(alien in facehuggers)
+				continue
+			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
+		text += "<br/><FONT size = 2><B>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
+		for(var/datum/mind/alien in facehuggers)
+			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		to_chat(world, text)
 	return TRUE
 

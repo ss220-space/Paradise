@@ -257,7 +257,7 @@
 		I.pixel_y = I.base_pixel_y
 		I.layer = initial(I.layer)
 		SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
-		I.dropped(src, NONE, silent)
+		I.dropped(src, NONE, silent, src)
 		return TRUE
 
 	// If the item is a stack and we're already holding a stack then merge
@@ -297,7 +297,7 @@
 	I.forceMove(drop_loc)
 	I.layer = initial(I.layer)
 	SET_PLANE_EXPLICIT(I, initial(I.plane), drop_loc)
-	I.dropped(src, NONE, silent)
+	I.dropped(src, NONE, silent, src)
 
 	return FALSE
 

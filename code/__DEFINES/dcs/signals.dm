@@ -711,6 +711,9 @@
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
 
+/// from base of /datum/status_effect/Destroy() : (effect_type)
+#define COMSIG_MOB_STATUS_EFFECT_ENDED "mob_status_effect_ended"
+
 /// Source: /mob/living/UnarmedAttack (atom/atom, proximity_flag)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
 

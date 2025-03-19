@@ -14,9 +14,6 @@
 	else if(degenerate || GLOB.global_degenerate)
 		to_chat(harbinger, "Умирающими Пауками нельзя управлять.")
 		return FALSE
-	else if(!(harbinger in GLOB.respawnable_list))
-		to_chat(harbinger, "Вы не можете повторно присоединиться к раунду.")
-		return FALSE
 	return TRUE
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/humanize_spider()
