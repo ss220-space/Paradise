@@ -84,7 +84,7 @@
 
 #define PREFTOGGLE_3_DNR_AFTER_DEATH          (1<<0) // 1
 
-#define TOGGLES_3_TOTAL								16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL                       1 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_3_DEFAULT NONE
 
