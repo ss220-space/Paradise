@@ -31,6 +31,8 @@
 	tgui_panel.initialize(force = TRUE)
 	// Force show the panel to see if there are any errors
 	winset(src, "legacy_output_selector", "left=output_legacy")
+	if(byond_version >= 516)
+		winset(src, null, "browser-options=byondstorage,find")
 
 /client/verb/refresh_tgui()
 	set name = "Refresh TGUI"

@@ -82,7 +82,7 @@
 	invocation_type = "none"
 	action_icon_state = "fake_death"
 	action_background_icon_state = "bg_terror"
-	selection_activated_message	= span_notice("Вы подготавливаете свой ядовитый плевок! <B>ЛКМ, чтобы плюнуть в цель</B>.")
+	selection_activated_message	= span_notice("Вы подготавливаете свой ядовитый плевок! <b>ЛКМ, чтобы плюнуть в цель</b>.")
 	selection_deactivated_message = span_notice("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 	need_active_overlay = TRUE
@@ -123,7 +123,7 @@
 	invocation_type = "none"
 	action_icon_state = "smoke"
 	action_background_icon_state = "bg_terror"
-	selection_activated_message	= span_notice("Вы подготавливаете дымный плевок! <B>ЛКМ, чтобы плюнуть в цель</B>")
+	selection_activated_message	= span_notice("Вы подготавливаете дымный плевок! <b>ЛКМ, чтобы плюнуть в цель</b>")
 	selection_deactivated_message = span_notice("Вы отменяете свой плевок.")
 	sound = 'sound/creatures/terrorspiders/spit2.ogg'
 	need_active_overlay = TRUE

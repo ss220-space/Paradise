@@ -32,10 +32,6 @@
 			add_fingerprint(user)
 			balance = user.mind.initial_account.money
 	var/dat = {"
-<html>
-	<meta charset="UTF-8">
-	<head>
-		<title>[command_name()] Merchandise</title>
 		<style type="text/css">
 * {
 	font-family:sans-serif;
@@ -86,8 +82,6 @@ th.cost.affordable {background:green;}
 th.cost.toomuch {background:maroon;}
 
 		</style>
-	</head>
-	<body>
 	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance: $[balance]</b></p>
 	<h1>[command_name()] Merchandise</h1>
 	<p>
@@ -130,10 +124,11 @@ th.cost.toomuch {background:maroon;}
 		"}
 	dat += {"
 		</tbody>
-	</table>
-	</body>
-</html>"}
-	user << browse(dat, "window=merch;size=440x600;can_resize=0")
+	</table>"}
+	var/datum/browser/popup = new(user, "merch", "[command_name()] Merchandise", 440, 600)
+	popup.set_content(dat)
+	popup.set_window_options("can_resize=0;")
+	popup.open(TRUE)
 	onclose(user, "merch")
 	return
 

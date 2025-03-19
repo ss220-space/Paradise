@@ -6,34 +6,34 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><font color=red> (PERMA) </b></font>" : ""][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>
-		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</A> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
+		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
 	if(!check_rights(R_ADMIN))
 		return
 	if(SSticker && SSticker.current_state >= GAME_STATE_PLAYING)
-		var/dat = {"<body><h1><B>Round Status</B></h1>"}
-		dat += "Current Game Mode: <B>[SSticker.mode.name]</B><BR>"
-		dat += "Round Duration: <B>[ROUND_TIME_TEXT()]</B><BR>"
-		dat += "<B>Emergency shuttle</B><BR>"
+		var/dat = {"<body><h1><b>Round Status</b></h1>"}
+		dat += "Current Game Mode: <b>[SSticker.mode.name]</b><br>"
+		dat += "Round Duration: <b>[ROUND_TIME_TEXT()]</b><br>"
+		dat += "<b>Emergency shuttle</b><br>"
 		if(SSshuttle.emergency.mode == SHUTTLE_IDLE)
 			dat += "<a href='byond://?src=[UID()];call_shuttle=1'>Call Shuttle</a><br>"
 		else
 			var/timeleft = SSshuttle.emergency.timeLeft()
 			if(SSshuttle.emergency.mode == SHUTTLE_CALL)
-				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><br>"
 				dat += "<a href='byond://?_src_=holder;call_shuttle=2'>Send Back</a><br>"
 			else
-				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><BR>"
+				dat += "ETA: <a href='byond://?_src_=holder;edit_shuttle_time=1'>[(timeleft / 60) % 60]:[add_zero(num2text(timeleft % 60), 2)]</a><br>"
 		if(!SSshuttle.emergencyNoEscape)
 			dat += "<a href='byond://?src=[UID()];lockdown_shuttle=1'>Lockdown Shuttle</a><br>"
 		else
-			dat += span_danger("<B>Emergency shuttle lockdowned</B>")
-			dat += "<BR><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
+			dat += span_danger("<b>Emergency shuttle lockdowned</b>")
+			dat += "<br><a href='byond://?src=[UID()];stop_lockdown=1'>Stop lockdown</a><br>"
 		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-			dat += span_danger("<B>Emergency shuttle stranded</B>")
-			dat += "<BR><a href='byond://?src=[UID()];reload_shuttle=1'>Reload Shuttle</a><br>"
+			dat += span_danger("<b>Emergency shuttle stranded</b>")
+			dat += "<br><a href='byond://?src=[UID()];reload_shuttle=1'>Reload Shuttle</a><br>"
 		dat += "<a href='byond://?src=[UID()];full_lockdown=1'>Full Lockdown</a>Now: [GLOB.full_lockdown? "ON" : "OFF"]<br>"
 		dat += "<a href='byond://?src=[UID()];delay_round_end=1'>[SSticker.delay_end ? "End Round Normally" : "Delay Round End"]</a><br>"
 		var/connected_players = GLOB.clients.len
@@ -61,25 +61,25 @@
 						observers_connected++
 				else
 					other_players++
-		dat += "<BR><b><font color='#9A67EA'>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</font></b>"
-		dat += "<BR><b><font color='green'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</font></b>"
-		dat += "<BR><b><font color='red'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</font></b>"
+		dat += "<br><b><span style='color: #9A67EA;'>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</span></b>"
+		dat += "<br><b><span style='color: green;'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</span></b>"
+		dat += "<br><b><span style='color: red;'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</span></b>"
 		if(other_players)
-			dat += "<BR><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
-		dat += "<BR>"
+			dat += "<br><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
+		dat += "<br>"
 		dat +="<br><b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
 		dat +="<br><b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
-			dat += "<br><table cellspacing=5><tr><td><B>Syndicates</B></td><td></td></tr>"
+			dat += "<br><table cellspacing=5><tr><td><b>Syndicates</b></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.syndicates)
 				var/mob/M = N.current
 				if(M)
 					dat += check_antagonists_line(M)
 				else
 					dat += "<tr><td><i>Nuclear Operative not found!</i></td></tr>"
-			dat += "</table><br><table><tr><td><B>Nuclear Disk(s)</B></td></tr>"
+			dat += "</table><br><table><tr><td><b>Nuclear Disk(s)</b></td></tr>"
 			for(var/obj/item/disk/nuclear/N in GLOB.poi_list)
 				dat += "<tr><td>[N.name], "
 				var/atom/disk_loc = N.loc
@@ -95,7 +95,7 @@
 			dat += "</table>"
 
 		if(SSticker.mode.head_revolutionaries.len || SSticker.mode.revolutionaries.len)
-			dat += "<br><table cellspacing=5><tr><td><B>Revolutionaries</B></td><td></td></tr>"
+			dat += "<br><table cellspacing=5><tr><td><b>Revolutionaries</b></td><td></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.head_revolutionaries)
 				var/mob/M = N.current
 				if(!M)
@@ -106,7 +106,7 @@
 				var/mob/M = N.current
 				if(M)
 					dat += check_antagonists_line(M)
-			dat += "</table><table cellspacing=5><tr><td><B>Target(s)</B></td><td></td><td><B>Location</B></td></tr>"
+			dat += "</table><table cellspacing=5><tr><td><b>Target(s)</b></td><td></td><td><b>Location</b></td></tr>"
 			for(var/datum/mind/N in SSticker.mode.get_living_heads())
 				var/mob/M = N.current
 				if(M)
@@ -119,7 +119,7 @@
 		var/list/blob_infected = SSticker?.mode?.blobs["infected"]
 		if(blob_infected && blob_infected.len)
 			var/datum/game_mode/mode = SSticker.mode
-			dat += "<br><table cellspacing=5><tr><td><B>Blob</B></td><td></td><td></td></tr>"
+			dat += "<br><table cellspacing=5><tr><td><b>Blob</b></td><td></td><td></td></tr>"
 			dat += "<tr><td><i>Progress: [mode.legit_blobs.len]/[mode.blob_win_count]</i></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];edit_blob_win_count=1'>Edit Win Count</a><br></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];send_warning=1'>Send warning to all living blobs</a><br></td></tr>"
@@ -130,32 +130,32 @@
 			dat += "<tr><td><a href='byond://?src=[UID()];toggle_auto_nuke_codes=1'>Toggle auto nuke codes</a> Now: [mode.off_auto_nuke_codes? "OFF" : "ON"]<br></td></tr>"
 			dat += "<tr><td><a href='byond://?src=[UID()];toggle_blob_infinity_points=1'>Toggle blob infinity points</a> Now: [mode.is_blob_infinity_points? "ON" : "OFF"]<br></td></tr>"
 			dat += "</table>"
-			dat += "<br><table cellspacing=5><tr><td><B>Blobs</B></td><td></td></tr>"
+			dat += "<br><table cellspacing=5><tr><td><b>Blobs</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs["infected"])
 				var/mob/M = blob.current
 				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</A></td>"
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
+					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Blob not found!</i></td></tr>"
 			dat += "</table>"
-			dat += "<br><table cellspacing=5><tr><td><B>Offsprings</B></td><td></td></tr>"
+			dat += "<br><table cellspacing=5><tr><td><b>Offsprings</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs["offsprings"])
 				var/mob/M = blob.current
 				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</A></td>"
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>"
+					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Offspring not found!</i></td></tr>"
 
 			dat += "</table>"
 
-			dat += "<br><table cellspacing=5><tr><td><B>Minions</B></td><td></td></tr>"
+			dat += "<br><table cellspacing=5><tr><td><b>Minions</b></td><td></td></tr>"
 			for(var/datum/mind/blob in mode.blobs["minions"])
 				var/mob/M = blob.current
 				if(M)
-					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><font color=red>(DEAD)</font></b>" : ""]</td>"
-					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</A></td>"
+					dat += "<tr><td>[ADMIN_PP(M,"[M.real_name]")][M.client ? "" : " <i>(ghost)</i>"][M.stat == 2 ? " <b><span style='color: red;'(DEAD)</span></b>" : ""]</td>"
+					dat += "<td><a href='byond://?priv_msg=[M.client?.ckey]'>PM</a></td>"
 				else
 					dat += "<tr><td><i>Minions not found!</i></td></tr>"
 
@@ -334,7 +334,7 @@
 	var/logout_status = human.client ? "" : " <i>(logged out)</i>"
 	var/list/coords = ATOM_COORDS(human)
 	var/job = issilicon(human) ? "Cyborg" : human.job // || need because maybe ert robots with null in job
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><font color=red>(Dead)</font></b>" : "<font color=green> [human.health]%</font>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</A> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><span style='color: red;'>(Dead)</span></b>" : "<span style='color: green;'> [human.health]%</span>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</a> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_security()
 	if(!check_rights(R_ADMIN))
@@ -342,7 +342,7 @@
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
 		return
 
-	var/dat = {"<body><h1><B>Round Status</B></h1>"}
+	var/dat = {"<body><h1><b>Round Status</b></h1>"}
 	var/list/sec_list = check_active_security_force()
 	dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
 	dat += "<tr><td>Total: </td><td>[sec_list[1]]</td>"
@@ -352,7 +352,7 @@
 	dat += "</table>"
 	dat += "</body>"
 
-	dat += "<br><table cellspacing=5><tr><td><B>Security</B></td><td></td></tr>"
+	dat += "<br><table cellspacing=5><tr><td><b>Security</b></td><td></td></tr>"
 	for(var/datum/mind/mind in SSticker.mode.get_all_sec())
 		if(mind.current)
 			dat += check_security_line(mind.current)

@@ -198,7 +198,7 @@
 	var/t = ""
 	if(!powernet)
 		t += "<span class='bad'>Unable to connect to the power network!</span>"
-		t += "<BR><a href='byond://?src=[UID()];check=1'>Retry</A>"
+		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
 		var/datum/gas_mixture/cold_circ_air2 = cold_circ.get_inlet_air()
@@ -209,22 +209,22 @@
 
 		t += "Output: [round(lastgen)] W"
 
-		t += "<BR>"
+		t += "<br>"
 
-		t += "<B><font color='blue'>Cold loop</font></B><BR>"
-		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<BR>"
+		t += "<b><font color='blue'>Cold loop</font></b><br>"
+		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<br>"
+		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<br>"
 
-		t += "<B><font color='red'>Hot loop</font></B><BR>"
-		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<BR>"
-		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<BR>"
+		t += "<b><font color='red'>Hot loop</font></b><br>"
+		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<br>"
+		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<br>"
 
 		t += "</div>"
 	else
 		t += "<span class='bad'>Unable to locate all parts!</span>"
-		t += "<BR><a href='byond://?src=[UID()];check=1'>Retry</A>"
+		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
 	if(include_link)
-		t += "<BR><a href='byond://?src=[UID()];close=1'>Close</A>"
+		t += "<br><a href='byond://?src=[UID()];close=1'>Close</a>"
 
 	return t
 

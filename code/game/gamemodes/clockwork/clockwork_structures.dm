@@ -47,15 +47,15 @@
 		return
 	switch(hidden_type) //used in case, where objects "examine" text aren't in their desc var (like in proc/examine()) or if you want do something funny
 		if("rack")
-			desc = "Different from the Middle Ages version. <BR>[span_notice("It's held together by a couple of <b>bolts</b>.")]"
+			desc = "Different from the Middle Ages version. <br>[span_notice("It's held together by a couple of <b>bolts</b>.")]"
 		if("table")
-			desc = "A square piece of metal standing on four metal legs. It can not move. <BR>[span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")]"
+			desc = "A square piece of metal standing on four metal legs. It can not move. <br>[span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")]"
 		if("wooden table")
-			desc = "Do not apply fire to this. Rumour says it burns easily. <BR>[span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")]"
+			desc = "Do not apply fire to this. Rumour says it burns easily. <br>[span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")]"
 		if("girder")
 			desc = "[span_notice("The bolts are <b>lodged</b> in place.")]"
 		if("broken grille")
-			desc = "A flimsy framework of metal rods. <BR>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
+			desc = "A flimsy framework of metal rods. <br>[span_notice("It's secured in place with <b>screws</b>. The rods look like they could be <b>cut</b> through.")]"
 		else
 			desc = choosable_items[hidden_type]::desc
 

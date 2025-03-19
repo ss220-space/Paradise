@@ -1,0 +1,19 @@
+body {
+	overflow:hidden;
+	margin:0;
+	text-align:center;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    -ms-interpolation-mode: nearest-neighbor; /* Remove after 516 */
+    image-rendering: pixelated;
+}
+
+.photo-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+	transform: translate(-50%, -50%);
+}

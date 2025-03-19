@@ -62,28 +62,6 @@
 	spy_spider_attached?.hear_talk(M, message_pieces)
 
 
-/obj/item/clothing/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/radio/spy_spider))
-		add_fingerprint(user)
-		var/obj/item/radio/spy_spider/spy_spider = I
-		if(!(slot_flags & (ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER)))
-			to_chat(user, span_warning("Вы не находите места для жучка."))
-			return ATTACK_CHAIN_PROCEED
-		if(spy_spider_attached)
-			to_chat(user, span_warning("Жучок уже установлен."))
-			return ATTACK_CHAIN_PROCEED
-		if(!spy_spider.broadcasting)
-			to_chat(user, span_warning("Жучок выключен."))
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(spy_spider, src))
-			return ATTACK_CHAIN_PROCEED
-		spy_spider_attached = spy_spider
-		to_chat(user, span_notice("Вы незаметно прикрепляете жучок к [declent_ru(DATIVE)]."))
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
-
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
 	set category = "Object"

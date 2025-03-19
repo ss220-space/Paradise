@@ -84,26 +84,26 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += "<TT><B>Панель управления ремонтным роботом v1.1</B></TT><BR><BR>"
-	dat += "Состояние: <a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</A><BR>"
-	dat += "Панель технического обслуживания [open ? "открыта" : "закрыта"]<BR>"
-	dat += "Плиток пола в запасе: [amount]<BR>"
-	dat += "Управление поведением [locked ? "заблокировано" : "разблокировано"]<BR>"
+	dat += "<tt><b>Панель управления ремонтным роботом v1.1</b></tt><br><br>"
+	dat += "Состояние: <a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</a><br>"
+	dat += "Панель технического обслуживания [open ? "открыта" : "закрыта"]<br>"
+	dat += "Плиток пола в запасе: [amount]<br>"
+	dat += "Управление поведением [locked ? "заблокировано" : "разблокировано"]<br>"
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "Устанавливать плитки пола на сегменты обшивки:<a href='byond://?src=[UID()];operation=autotile'>[autotile ? "Да" : "Нет"]</A><BR>"
-		dat += "Заменять плитки пола: <a href='byond://?src=[UID()];operation=replace'>[replacetiles ? "Да" : "Нет"]</A><BR>"
-		dat += "Загружать свободные плитки во внутреннее хранилище: <a href='byond://?src=[UID()];operation=tiles'>[eattiles ? "Да" : "Нет"]</A><BR>"
-		dat += "Перерабатывать металл в плитки пола, когда хранилище опустошено: <a href='byond://?src=[UID()];operation=make'>[maketiles ? "Да" : "Нет"]</A><BR>"
-		dat += "Уведомлять, когда хранилище опустошено: <a href='byond://?src=[UID()];operation=emptynag'>[nag_on_empty ? "Да" : "Нет"]</A><BR>"
-		dat += "Ремонтировать повреждения пола и обшивки: <a href='byond://?src=[UID()];operation=fix'>[fixfloors ? "Да" : "Нет"]</A><BR>"
-		dat += "Закрепиться на месте: <a href='byond://?src=[UID()];operation=anchor'>[anchored ? "Да" : "Нет"]</A><BR>"
-		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</A><BR>"
+		dat += "Устанавливать плитки пола на сегменты обшивки:<a href='byond://?src=[UID()];operation=autotile'>[autotile ? "Да" : "Нет"]</a><br>"
+		dat += "Заменять плитки пола: <a href='byond://?src=[UID()];operation=replace'>[replacetiles ? "Да" : "Нет"]</a><br>"
+		dat += "Загружать свободные плитки во внутреннее хранилище: <a href='byond://?src=[UID()];operation=tiles'>[eattiles ? "Да" : "Нет"]</a><br>"
+		dat += "Перерабатывать металл в плитки пола, когда хранилище опустошено: <a href='byond://?src=[UID()];operation=make'>[maketiles ? "Да" : "Нет"]</a><br>"
+		dat += "Уведомлять, когда хранилище опустошено: <a href='byond://?src=[UID()];operation=emptynag'>[nag_on_empty ? "Да" : "Нет"]</a><br>"
+		dat += "Ремонтировать повреждения пола и обшивки: <a href='byond://?src=[UID()];operation=fix'>[fixfloors ? "Да" : "Нет"]</a><br>"
+		dat += "Закрепиться на месте: <a href='byond://?src=[UID()];operation=anchor'>[anchored ? "Да" : "Нет"]</a><br>"
+		dat += "Режим патрулирования: <a href='byond://?src=[UID()];operation=patrol'>[auto_patrol ? "Да" : "Нет"]</a><br>"
 		var/bmode
 		if(targetdirection)
 			bmode = dir2text(targetdirection)
 		else
 			bmode = "Выключен"
-		dat += "Режим постройки моста: <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
+		dat += "Режим постройки моста: <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</a><br>"
 
 	return dat
 

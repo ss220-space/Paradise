@@ -25,21 +25,21 @@
 	if(interact_check(user))
 		return
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	switch(screenstate)
 		if(0)
 			// Main Menu
 
 			dat += {"<ol>
-				<li><a href='byond://?src=[UID()];switchscreen=1'>View General Inventory</A></li>
-				<li><a href='byond://?src=[UID()];switchscreen=2'>View Checked Out Inventory</A></li>
-				<li><a href='byond://?src=[UID()];switchscreen=3'>Check out a Book</A></li>
-				<li><a href='byond://?src=[UID()];switchscreen=4'>Connect to External Archive</A></li>
-				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</A></li>
-				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible</A></li>
-				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</A></li>"}
+				<li><a href='byond://?src=[UID()];switchscreen=1'>View General Inventory</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=2'>View Checked Out Inventory</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=3'>Check out a Book</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=4'>Connect to External Archive</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=5'>Upload New Title to Archive</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=6'>Print a Bible</a></li>
+				<li><a href='byond://?src=[UID()];switchscreen=7'>Print a Manual</a></li>"}
 			if(src.emagged)
-				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</A></li>"
+				dat += "<li><a href='byond://?src=[UID()];switchscreen=8'>Access the Forbidden Lore Vault</a></li>"
 			dat += "</ol>"
 
 			if(src.arcanecheckout)
@@ -51,11 +51,11 @@
 			// Inventory
 			dat += "<h3>Inventory</h3>"
 			for(var/obj/item/book/b in inventory)
-				dat += "[b.name] <a href='byond://?src=[UID()];delbook=\ref[b]'>(Delete)</A><BR>"
-			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += "[b.name] <a href='byond://?src=[UID()];delbook=\ref[b]'>(Delete)</a><br>"
+			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(2)
 			// Checked Out
-			dat += "<h3>Checked Out Books</h3><BR>"
+			dat += "<h3>Checked Out Books</h3><br>"
 			for(var/datum/borrowbook/b in checkouts)
 				var/timetaken = world.time - b.getdate
 				//timetaken *= 10
@@ -65,43 +65,43 @@
 				//timedue *= 10
 				timedue /= 600
 				if(timedue <= 0)
-					timedue = "<font color=red><b>(OVERDUE)</b> [timedue]</font>"
+					timedue = "<span style='color: red;'><b>(OVERDUE)</b> [timedue]</span>"
 				else
 					timedue = round(timedue)
 
-				dat += {"\"[b.bookname]\", Checked out to: [b.mobname]<BR>--- Taken: [timetaken] minutes ago, Due: in [timedue] minutes<BR>
-					<a href='byond://?src=[UID()];checkin=\ref[b]'>(Check In)</A><BR><BR>"}
-			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += {"\"[b.bookname]\", Checked out to: [b.mobname]<br>--- Taken: [timetaken] minutes ago, Due: in [timedue] minutes<br>
+					<a href='byond://?src=[UID()];checkin=\ref[b]'>(Check In)</a><br><br>"}
+			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(3)
 			// Check Out a Book
 
-			dat += {"<h3>Check Out a Book</h3><BR>
+			dat += {"<h3>Check Out a Book</h3><br>
 				Book: [src.buffer_book]
-				<a href='byond://?src=[UID()];editbook=1'>\[Edit\]</A><BR>
+				<a href='byond://?src=[UID()];editbook=1'>\[Edit\]</a><br>
 				Recipient: [src.buffer_mob]
-				<a href='byond://?src=[UID()];editmob=1'>\[Edit\]</A><BR>
-				Checkout Date : [world.time/600]<BR>
-				Due Date: [(world.time + checkoutperiod)/600]<BR>
-				(Checkout Period: [checkoutperiod] minutes) (<a href='byond://?src=[UID()];increasetime=1'>+</A>/<a href='byond://?src=[UID()];decreasetime=1'>-</A>)
-				<a href='byond://?src=[UID()];checkout=1'>(Commit Entry)</A><BR>
-				<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"}
+				<a href='byond://?src=[UID()];editmob=1'>\[Edit\]</a><br>
+				Checkout Date : [world.time/600]<br>
+				Due Date: [(world.time + checkoutperiod)/600]<br>
+				(Checkout Period: [checkoutperiod] minutes) (<a href='byond://?src=[UID()];increasetime=1'>+</a>/<a href='byond://?src=[UID()];decreasetime=1'>-</a>)
+				<a href='byond://?src=[UID()];checkout=1'>(Commit Entry)</a><br>
+				<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"}
 		if(4)
 			dat += "<h3>External Archive</h3>"
 			if(!SSdbcore.IsConnected())
-				dat += "<font color=red><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</font>"
+				dat += "<span style='color: red;'<b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span>"
 			else
 				num_results = src.get_num_results()
 				num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
 				dat += {"<ul>
-					<li><a href='byond://?src=[UID()];id=-1'>(Order book by SS<sup>13</sup>BN)</A></li>
+					<li><a href='byond://?src=[UID()];id=-1'>(Order book by SS<sup>13</sup>BN)</a></li>
 				</ul>"}
 				var/pagelist = get_pagelist()
 
 				dat += {"<h2>Search Settings</h2><br />
-					<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</A><br />
-					<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</A><br />
-					<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</A><br />
-					<a href='byond://?src=[UID()];search=1'>\[Start Search\]</A><br />"}
+					<a href='byond://?src=[UID()];settitle=1'>Filter by Title: [query.title]</a><br />
+					<a href='byond://?src=[UID()];setcategory=1'>Filter by Category: [query.category]</a><br />
+					<a href='byond://?src=[UID()];setauthor=1'>Filter by Author: [query.author]</a><br />
+					<a href='byond://?src=[UID()];search=1'>\[Start Search\]</a><br />"}
 				dat += pagelist
 
 				dat += {"<form name='pagenum' action='?src=[UID()]' method='get'>
@@ -120,11 +120,11 @@
 
 				for(var/datum/cachedbook/CB in get_page(page_num))
 					var/author = CB.author
-					var/controls =  "<a href='byond://?src=[UID()];id=[CB.id]'>\[Order\]</A>"
-					controls += {" <A href="?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</A>"}
+					var/controls =  "<a href='byond://?src=[UID()];id=[CB.id]'>\[Order\]</a>"
+					controls += {" <a href="byond://?src=[UID()];flag=[CB.id]">\[Flag[CB.flagged ? "ged" : ""]\]</a>"}
 					if(check_rights(R_ADMIN, 0, user = user))
-						controls +=  " <A style='color:red' href='byond://?src=[UID()];del=[CB.id]'>\[Delete\]</A>"
-						author += " (<A style='color:red' href='byond://?src=[UID()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</A>)"
+						controls +=  " <a style='color:red' href='byond://?src=[UID()];del=[CB.id]'>\[Delete\]</a>"
+						author += " (<a style='color:red' href='byond://?src=[UID()];delbyckey=[ckey(CB.ckey)]'>[ckey(CB.ckey)])</a>)"
 					dat += {"<tr>
 						<td>[author]</td>
 						<td>[CB.title]</td>
@@ -134,7 +134,7 @@
 
 				dat += "</table><br />[pagelist]"
 
-			dat += "<br /><a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
+			dat += "<br /><a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(5)
 			dat += "<h3>Upload a New Title</h3>"
 			if(!scanner)
@@ -142,22 +142,22 @@
 					scanner = S
 					break
 			if(!scanner)
-				dat += "<FONT color=red>No scanner found within wireless network range.</FONT><BR>"
+				dat += "<span style='color: red;'>No scanner found within wireless network range.</span><br>"
 			else if(!scanner.cache)
-				dat += "<FONT color=red>No data found in scanner memory.</FONT><BR>"
+				dat += "<span style='color: red;'>No data found in scanner memory.</span><br>"
 			else
 
-				dat += {"<TT>Data marked for upload...</TT><BR>
-					<TT>Title: </TT>[scanner.cache.name]<BR>"}
+				dat += {"<tt>Data marked for upload...</tt><br>
+					<tt>Title: </tt>[scanner.cache.name]<br>"}
 				if(!scanner.cache.author)
 					scanner.cache.author = "Anonymous"
 
-				dat += {"<TT>Author: </TT><a href='byond://?src=[UID()];uploadauthor=1'>[scanner.cache.author]</A><BR>
-					<TT>Category: </TT><a href='byond://?src=[UID()];uploadcategory=1'>[upload_category]</A><BR>
-					<a href='byond://?src=[UID()];upload=1'>\[Upload\]</A><BR>"}
-			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
+				dat += {"<tt>Author: </tt><a href='byond://?src=[UID()];uploadauthor=1'>[scanner.cache.author]</a><br>
+					<tt>Category: </tt><a href='byond://?src=[UID()];uploadcategory=1'>[upload_category]</a><br>
+					<a href='byond://?src=[UID()];upload=1'>\[Upload\]</a><br>"}
+			dat += "<a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 		if(7)
-			dat += "<H3>Print a Manual</H3>"
+			dat += "<h3>Print a Manual</h3>"
 			dat += "<table>"
 
 			var/list/forbidden = list(
@@ -173,18 +173,18 @@
 			for(var/manual_type in subtypesof(/obj/item/book/manual))
 				if(!(manual_type in forbidden))
 					M = new manual_type()
-					dat += "<tr><td><a href='byond://?src=[UID()];manual=[manualcount]'>[M.title]</A></td></tr>"
+					dat += "<tr><td><a href='byond://?src=[UID()];manual=[manualcount]'>[M.title]</a></td></tr>"
 					QDEL_NULL(M)
 				manualcount++
 			dat += "</table>"
-			dat += "<BR><a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</A><BR>"
+			dat += "<br><a href='byond://?src=[UID()];switchscreen=0'>(Return to main menu)</a><br>"
 
 		if(8)
 
 			dat += {"<h3>Accessing Forbidden Lore Vault v 1.3</h3>
 				Are you absolutely sure you want to proceed? EldritchArtifacts Inc. takes no responsibilities for loss of sanity resulting from this action.<p>
-				<a href='byond://?src=[UID()];arccheckout=1'>Yes.</A><BR>
-				<a href='byond://?src=[UID()];switchscreen=0'>No.</A><BR>"}
+				<a href='byond://?src=[UID()];arccheckout=1'>Yes.</a><br>
+				<a href='byond://?src=[UID()];switchscreen=0'>No.</a><br>"}
 
 	var/datum/browser/B = new /datum/browser(user, "library", "Book Inventory Management")
 	B.set_content(dat)

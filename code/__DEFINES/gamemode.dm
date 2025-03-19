@@ -68,6 +68,7 @@
 #define SPECIAL_ROLE_XENOMORPH_DRONE        "Xenomorph Drone"
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL     "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA        "Xenomorph Larva"
+#define SPECIAL_ROLE_FACEHUGGER				"Facehugger"
 #define SPECIAL_ROLE_TERROR_SPIDER 			"Terror Spider"
 #define SPECIAL_ROLE_TERROR_QUEEN 			"Terror Queen"
 #define SPECIAL_ROLE_TERROR_PRINCE 			"Terror Prince"

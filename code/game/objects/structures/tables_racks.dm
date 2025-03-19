@@ -22,6 +22,7 @@
 	anchored = TRUE
 	layer = TABLE_LAYER
 	pass_flags_self = PASSTABLE|LETPASSTHROW
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30

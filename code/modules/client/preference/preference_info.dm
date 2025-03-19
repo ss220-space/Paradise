@@ -9,6 +9,12 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/proc/get_examine_text()
     return
 
+/datum/preference_info/proc/activate(mob/target)
+    return TRUE
+
+/datum/preference_info/proc/deactivate(mob/target)
+    return
+
 /datum/preference_info/ghost_ears
     name = "Hearing All Speech as a Ghost"
 
@@ -129,125 +135,145 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/take_out_of_the_round_without_obj
     name = "Take out from round without objective"
 
+/datum/preference_info/auto_dnr
+    name = "Do Not Revive status after death"
+
 /datum/preference_info/deadchat_visibility/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_deadchat_visibility
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_deadchat_visibility]
 
 /datum/preference_info/ghost_ears/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ghost_ears
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_ears]
 
 /datum/preference_info/ghost_sight/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ghost_sight
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_sight]
 
 /datum/preference_info/ghost_radio/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ghost_radio
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_radio]
 
 /datum/preference_info/admin_radio/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_admin_radio
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_admin_radio]
 
 /datum/preference_info/ai_voice_announcements/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ai_voice_annoucements
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ai_voice_annoucements]
 
 /datum/preference_info/admin_pm_sound/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_admin_pm_sound
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_admin_pm_sound]
 
 /datum/preference_info/mentor_pm_sound/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_mentor_pm_sound
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_mentor_pm_sound]
 
 /datum/preference_info/end_of_round_scoreboard/get_preference_toggle()
-    return new /datum/preference_toggle/end_of_round_scoreboard
+    return GLOB.preference_toggles[/datum/preference_toggle/end_of_round_scoreboard]
 
 /datum/preference_info/title_music/get_preference_toggle()
-    return new /datum/preference_toggle/title_music
+    return GLOB.preference_toggles[/datum/preference_toggle/title_music]
 
 /datum/preference_info/admin_midis/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_admin_midis
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_admin_midis]
 
 /datum/preference_info/ooc/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ooc
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ooc]
 
 /datum/preference_info/looc/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_looc
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_looc]
 
 /datum/preference_info/ambience/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ambience
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ambience]
 
 /datum/preference_info/white_noise/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_white_noise
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_white_noise]
 
 /datum/preference_info/heartbeat_noise/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_heartbeat_noise
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_heartbeat_noise]
 
 /datum/preference_info/instruments/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_instruments
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_instruments]
 
 /datum/preference_info/disco/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_disco
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_disco]
 
 /datum/preference_info/ghost_pda/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ghost_pda
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_pda]
 
 /datum/preference_info/runechat/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_runechat
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_runechat]
 
 /datum/preference_info/ghost_death_notifs/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ghost_death_notifs
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ghost_death_notifs]
 
 /datum/preference_info/reverb/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_reverb
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_reverb]
 
 /datum/preference_info/simple_stat_panel/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_simple_stat_panel
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_simple_stat_panel]
 
 /datum/preference_info/anonmode/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_anonmode
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_anonmode]
 
 /datum/preference_info/typing_indicator/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_typing_indicator
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_typing_indicator]
 
 /datum/preference_info/admin_logs/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_admin_logs
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_admin_logs]
 
 /datum/preference_info/mhelp_notification/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_mhelp_notification
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_mhelp_notification]
 
 /datum/preference_info/ahelp_notification/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_ahelp_notification
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_ahelp_notification]
 
 /datum/preference_info/debug_logs/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_debug_logs
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_debug_logs]
 
 /datum/preference_info/mctabs/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_mctabs
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_mctabs]
 
 /datum/preference_info/attack_animations/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_attack_animations
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_attack_animations]
 
 /datum/preference_info/prayers/get_preference_toggle()
-    return new /datum/preference_toggle/toggleprayers
+    return GLOB.preference_toggles[/datum/preference_toggle/toggleprayers]
 
 /datum/preference_info/prayers_notify/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_prayers_notify
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_prayers_notify]
 
 /datum/preference_info/karma_reminder/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_karma_reminder
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_karma_reminder]
 
 /datum/preference_info/parallax_multiz/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_parallax_multiz
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_parallax_multiz]
 
 /datum/preference_info/vote_popup/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_vote_popup
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_vote_popup]
 
 /datum/preference_info/tgui_input/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_tgui_input
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_tgui_input]
 
 /datum/preference_info/strip_tgui_size/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_strip_tgui_size
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_strip_tgui_size]
 
-/datum/preference_info/item_descritpion_tips/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_item_descritpion_tips
+/datum/preference_info/item_description_tips/get_preference_toggle()
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_item_description_tips]
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_preference_toggle()
-    return new /datum/preference_toggle/toggle_take_out_of_the_round_without_obj
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_take_out_of_the_round_without_obj]
+
+/datum/preference_info/auto_dnr/get_preference_toggle()
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_auto_dnr]
 
 /datum/preference_info/take_out_of_the_round_without_obj/get_examine_text()
     return "\n<div class='examine'>[span_info("Вы можете вывести этого игрока из игры не имея соответствующей цели.")]</div>"
+
+/datum/preference_info/auto_dnr/activate(mob/target)
+    RegisterSignal(target, COMSIG_MOB_DEATH, PROC_REF(set_dnr_status))
+
+    return TRUE
+
+/datum/preference_info/auto_dnr/deactivate(mob/target)
+    UnregisterSignal(target, COMSIG_MOB_DEATH)
+
+/datum/preference_info/auto_dnr/proc/set_dnr_status(mob/source, gibbed)
+    SIGNAL_HANDLER
+
+    var/mob/dead/observer/ghost = source.ghostize(NONE)
+    ghost.apply_dnr() // we prevented re-entering earlier, but we need to update hud and send signal

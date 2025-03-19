@@ -345,7 +345,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	to_chat(owner.current, span_notice("Your current objectives:"))
 	var/objective_num = 1
 	for(var/datum/objective/objective in objectives)
-		to_chat(owner.current, "<span><B>Objective #[objective_num++]</B>: [objective.explanation_text]</span><br>")
+		to_chat(owner.current, "<span><b>Objective #[objective_num++]</b>: [objective.explanation_text]</span><br>")
 	return TRUE
 
 

@@ -105,7 +105,7 @@
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
 	language = LANGUAGE_SOL_COMMON
-	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
+	info = "<b>**WARNING**</b><br><br>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<br><br>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
 	name = "Damage Report"

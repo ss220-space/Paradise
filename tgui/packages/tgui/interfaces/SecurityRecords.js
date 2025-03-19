@@ -117,11 +117,13 @@ const SecurityRecordsPageList = (properties, context) => {
         <Section fill scrollable>
           <Table className="SecurityRecords__list">
             <Table.Row bold>
-              <SortButton id="name">Name</SortButton>
-              <SortButton id="id">ID</SortButton>
-              <SortButton id="rank">Assignment</SortButton>
-              <SortButton id="fingerprint">Fingerprint</SortButton>
-              <SortButton id="status">Criminal Status</SortButton>
+              <Stack>
+                <SortButton id="name">Name</SortButton>
+                <SortButton id="id">ID</SortButton>
+                <SortButton id="rank">Assignment</SortButton>
+                <SortButton id="fingerprint">Fingerprint</SortButton>
+                <SortButton id="status">Criminal Status</SortButton>
+              </Stack>
             </Table.Row>
             {records
               .filter(
