@@ -15,7 +15,6 @@
 		repath_delay = 2 SECONDS,
 		max_path_length = AI_MAX_PATH_LENGTH,
 		minimum_distance = controller.get_minimum_distance(),
-		id = controller.get_access(),
 		subsystem = SSai_movement,
 		extra_info = controller)
 
@@ -58,5 +57,4 @@
 	SIGNAL_HANDLER
 	var/datum/ai_controller/controller = source.extra_info
 
-	source.id = controller.get_access()
 	source.minimum_distance = controller.get_minimum_distance()

@@ -10,7 +10,7 @@
  */
 
 /datum/element/atmos_requirements
-	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH
+	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
 	id_arg_index = 2
 	var/list/atmos_requirements
 	var/unsuitable_atmos_damage
@@ -26,7 +26,7 @@
 	. = ..()
 	UnregisterSignal(target, COMSIG_LIVING_HANDLE_BREATHING)
 
-/datum/element/atmos_requirements/proc/on_non_stasis_life(mob/living/target, delta_time = SSMOBS_DT)
+/datum/element/atmos_requirements/proc/on_non_stasis_life(mob/living/target, delta_time)
 	SIGNAL_HANDLER
 	if(is_breathable_atmos(target))
 		target.clear_alert("not_enough_oxy")
@@ -38,10 +38,10 @@
 	if(target.pulledby && target.pulledby.grab_state >= GRAB_KILL && atmos_requirements["min_oxy"])
 		return FALSE
 
-	if(!isopenturf(target.loc))
+	if(!issimulatedturf(target.loc))
 		return TRUE
 
-	var/turf/open/ST = target.loc
+	var/turf/simulated/ST = target.loc
 	if(!ST.air && (atmos_requirements["min_oxy"] || atmos_requirements["min_tox"] || atmos_requirements["min_n2"] || atmos_requirements["min_co2"]))
 		return FALSE
 

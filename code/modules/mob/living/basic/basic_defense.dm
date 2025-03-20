@@ -23,39 +23,42 @@
 			if(!Move(get_step(src, shove_dir), shove_dir))
 				add_attack_logs(user, src, "толкнул")
 				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
-					span_userdanger("[user] [response_disarm_continuous] вас!") \
+					span_userdanger("[user] [response_disarm_continuous] вас!"), \
 					span_warning("Вы слышите звуки шарканья!"))
 				to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)]!"))
 			else
 				add_attack_logs(user, src, "толкнул")
 				visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)], отталкивая [genderize_ru(src.gender, "его", "её", "его", "их")]!"), \
-					span_userdanger("[user] оттолкнул вас!") \
+					span_userdanger("[user] оттолкнул вас!"), \
 					span_warning("Вы слышите звуки шарканья!"))
 				to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)], отталкивая [genderize_ru(src.gender, "его", "её", "его", "их")]!"))
 			return TRUE
 		if(INTENT_HARM)
-			if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
+			if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
 				to_chat(user, span_warning("Вы не хотите вредить [src.declent_ru(DATIVE)]."))
 				return
 			user.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message(span_danger("[user] [response_harm_continuous] [src.declent_ru(ACCUSATIVE)]!") \
+			visible_message(span_danger("[user] [response_harm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] [response_harm_continuous] вас!"))
 			to_chat(user, span_danger("Вы [response_harm_simple] [src.declent_ru(ACCUSATIVE)]!"))
-			attack_threshold_check(user.dna.species.punchdamage)
+			attack_threshold_check(user.dna.species.punchdamagehigh)
 			add_attack_logs(user, src, "атаковал")
 			updatehealth()
 			return TRUE
 
+/*
 /mob/living/basic/attack_hulk(mob/living/carbon/human/user)
 	. = ..()
 	if(!.)
 		return
 	playsound(loc, "punch", 25, TRUE, -1)
-	visible_message(span_danger("[user] крушит [src.declent_ru(ACCUSATIVE)]!") \
+	visible_message(span_danger("[user] крушит [src.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] сокрушает вас!"))
 	to_chat(user, span_danger("Вы бьёте [src.declent_ru(ACCUSATIVE)]!"))
 	adjustBruteLoss(30)
+*/
 
+/*
 /mob/living/basic/attack_paw(mob/living/carbon/human/user)
 	if(..()) //successful monkey bite.
 		if(stat != DEAD)
@@ -68,19 +71,20 @@
 				span_notice("[user.name] [response_help_continuous] вас."))
 			to_chat(user, span_notice("Вы [response_help_simple] [src.declent_ru(ACCUSATIVE)]."))
 			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, TRUE, -1)
+*/
 
 /mob/living/basic/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(..()) //if harm or disarm intent.
 		if(user.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
 			visible_message(span_danger("[user] [response_disarm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
-				span_userdanger("[user] [response_disarm_continuous] вас!") \
+				span_userdanger("[user] [response_disarm_continuous] вас!"), \
 				span_warning("Вы слышите звуки шарканья!"))
 			to_chat(user, span_danger("Вы [response_disarm_simple] [src.declent_ru(ACCUSATIVE)]!"))
 			add_attack_logs(user, src, "толкнул")
 		else
 			var/damage = rand(15, 30)
-			visible_message(span_danger("[user] терзает [src.declent_ru(ACCUSATIVE)]!") \
+			visible_message(span_danger("[user] терзает [src.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] терзает вас!"))
 			to_chat(user, span_danger("Вы бьёте [src.declent_ru(ACCUSATIVE)]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, TRUE, -1)
@@ -93,20 +97,18 @@
 	if(. && stat != DEAD) //successful larva bite
 		var/damage = rand(5, 10)
 		. = attack_threshold_check(damage)
-		if(.)
-			L.amount_grown = min(L.amount_grown + damage, L.max_grown)
 
 /mob/living/basic/attack_basic_mob(mob/living/basic/user)
 	. = ..()
 	if(.)
-		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-		return attack_threshold_check(damage)
+		// var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)
 
 /mob/living/basic/attack_animal(mob/living/simple_animal/user)
 	. = ..()
 	if(.)
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
-		return attack_threshold_check(damage)
+		return attack_threshold_check(damage, user.melee_damage_type)
 
 /mob/living/basic/attack_slime(mob/living/simple_animal/slime/M)
 	if(..()) //successful slime attack
@@ -130,7 +132,7 @@
 /mob/living/basic/bullet_act(obj/projectile/Proj, def_zone, piercing_hit = FALSE)
 	apply_damage(Proj.damage, Proj.damage_type)
 	Proj.on_hit(src, 0, piercing_hit)
-	return BULLET_ACT_HIT
+	return
 
 /mob/living/basic/ex_act(severity, target, origin)
 	if(origin && istype(origin, /datum/spacevine_mutation) && isvineimmune(src))
@@ -172,7 +174,7 @@
 	..()
 
 /mob/living/basic/update_stat()
-	if(status_flags & GODMODE)
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return
 	if(stat != DEAD)
 		if(health <= 0)

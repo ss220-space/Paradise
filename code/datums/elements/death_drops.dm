@@ -4,7 +4,7 @@
  * bespoke element that spawns loot when a mob is killed
  */
 /datum/element/death_drops
-	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH
+	element_flags = ELEMENT_BESPOKE|ELEMENT_DETACH_ON_HOST_DESTROY
 	id_arg_index = 2
 	///what items the target drops when killed
 	var/list/loot

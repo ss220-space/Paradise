@@ -9,23 +9,22 @@
 		INSTRUMENTAL = "мотыльком",
 		PREPOSITIONAL = "мотыльке"
 	)
+	icon = 'icons/mob/pets.dmi'
 	icon_state = "mothroach"
 	icon_living = "mothroach"
 	icon_dead = "mothroach_dead"
-	icon_resting = "mothroach_sleep"
 	holder_type = /obj/item/holder/mothroach
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
 	tts_seed = "Tychus"
 	density = TRUE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	gold_core_spawnable = FRIENDLY_SPAWN
-	footstep_type = FOOTSTEP_MOB_BAREFOOT
 	mob_size = MOB_SIZE_SMALL
 	health = 25
 	maxHealth = 25
 	speed = 1.25
 	faction = list("neutral")
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 
 	verb_say = "пищит"
 	verb_ask = "пищит с любопытством"
@@ -42,7 +41,7 @@
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/pet_bonus, "счастливо пищит!" emote_sound = 'sound/voice/moth/scream_moth.ogg')
+	AddElement(/datum/element/pet_bonus, "радостно пищит!")
 
 /mob/living/basic/mothroach/update_resting()
 	. = ..()

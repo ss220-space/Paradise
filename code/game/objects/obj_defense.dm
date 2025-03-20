@@ -133,8 +133,8 @@
 		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
 		return FALSE
 
-	if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [src]."))
+	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [src]."))
 		return FALSE
 
 	else

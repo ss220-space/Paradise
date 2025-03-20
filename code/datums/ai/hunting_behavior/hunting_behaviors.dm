@@ -23,7 +23,7 @@
 	hunt_targets = typecacheof(hunt_targets)
 
 /datum/ai_planning_subtree/find_and_hunt_target/SelectBehaviors(datum/ai_controller/controller, delta_time)
-	if(!DT_PROB(hunt_chance, delta_time))
+	if(!SPT_PROB(hunt_chance, delta_time))
 		return
 	if(controller.blackboard[BB_HUNTING_COOLDOWN] >= world.time)
 		return
@@ -77,7 +77,7 @@
 		if(living_target.stat == DEAD) //bitch is dead
 			return FALSE
 
-	return can_see(source, dinner, radius)
+	return source.can_see(dinner, radius)
 
 /// Hunts down a specific atom type.
 /datum/ai_behavior/hunt_target
@@ -113,7 +113,7 @@
 		hunter.manual_emote("[hunt_emote] [living_target]!")
 		living_target.death()
 
-	else if(IS_EDIBLE(hunted))
+	else if(istype(hunted, /obj/item/reagent_containers/food))
 		hunter.attack_animal(hunter)
 
 	else // We're hunting an object, and should delete it instead of killing it. Mostly useful for decal bugs like ants or spider webs.

@@ -19,7 +19,7 @@
 	speed = 1.25
 	gold_core_spawnable = FRIENDLY_SPAWN
 	pass_flags = PASSTABLE | PASSMOB
-	ventcrawler = VENTCRAWLER_ALWAYS
+	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	verb_say = "щебечет"
 	verb_ask = "щебечет с любопытством"
 	verb_exclaim = "громко щебечет"

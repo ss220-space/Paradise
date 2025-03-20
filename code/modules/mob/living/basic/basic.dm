@@ -41,7 +41,7 @@
 	var/list/damage_coeff = list(BRUTE = 1, BURN = 1, TOX = 1, CLONE = 1, STAMINA = 0, OXY = 1)
 
 	///Verbs used for speaking e.g. "Says" or "Chitters". This can be elementized
-	var/list/speak_emote = list()
+	speak_emote = list()
 
 	/// Minimum force required to deal any damage
 	var/force_threshold = 0
@@ -104,16 +104,11 @@
 	if(speak_emote)
 		speak_emote = string_list(speak_emote)
 
-/mob/living/basic/Life(delta_time = SSMOBS_DT, times_fired)
+/mob/living/basic/Life(delta_time, times_fired)
 	. = ..()
 	///Automatic stamina re-gain
 	if(staminaloss > 0)
 		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
-
-/mob/living/basic/say_mod(input, list/message_mods = list())
-	if(length(speak_emote))
-		verb_say = pick(speak_emote)
-	return ..()
 
 /mob/living/basic/death(gibbed)
 	if(!gibbed)
@@ -139,9 +134,6 @@
 		icon_state = icon_living
 		set_density(initial(density))
 		mobility_flags = MOBILITY_FLAGS_DEFAULT
-		update_mobility()
-		. = 1
-		setMovetype(initial(movement_type))
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
@@ -157,8 +149,6 @@
 
 /mob/living/basic/proc/update_basic_mob_varspeed()
 	if(speed == 0)
-		// remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
-		remove_movespeed_modifier(MOVESPEED_ID_BASIC_MOB_VARSPEED, TRUE)
-	// remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
-	add_movespeed_modifier(MOVESPEED_ID_BASIC_MOB_VARSPEED, TRUE, 100, multiplicative_slowdown = speed, override = TRUE)
+		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
+	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
