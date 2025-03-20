@@ -806,3 +806,6 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_brute = 25
 	heal_burn = 25
 	heal_oxy = 25
+
+
+/obj/item/death_book
