@@ -88,6 +88,8 @@
 		return TRUE
 
 /mob/living/proc/handle_breathing(times_fired)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, delta_time, times_fired)
+	//SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired)
 	return
 
 /mob/living/proc/handle_heartattack()

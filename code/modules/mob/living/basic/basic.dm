@@ -47,18 +47,18 @@
 	var/force_threshold = 0
 
 	///When someone interacts with the simple animal.
-	///Help-intent verb in present continuous tense.
+	/// Help-intent verb in present continuous tense. "кто-то [response_help_continuous] вас"
 	var/response_help_continuous = "осторожно тыкает"
-	///Help-intent verb in present simple tense.
-	var/response_help_simple = "осторожно ткнул"
-	///Disarm-intent verb in present continuous tense.
+	/// Help-intent verb in present simple tense. "Вы [response_help_simple] цель"
+	var/response_help_simple = "осторожно ткнули"
+	/// Disarm-intent verb in present continuous tense. "кто-то [response_disarm_continuous] вас"
 	var/response_disarm_continuous = "толкает"
-	///Disarm-intent verb in present simple tense.
-	var/response_disarm_simple = "толкнул"
-	///Harm-intent verb in present continuous tense.
+	/// Disarm-intent verb in present simple tense. "Вы [response_disarm_simple] цель"
+	var/response_disarm_simple = "толкнули"
+	/// Harm-intent verb in present continuous tense. "кто-то [response_harm_continuous] цель"
 	var/response_harm_continuous = "ударяет"
-	///Harm-intent verb in present simple tense.
-	var/response_harm_simple = "ударил"
+	/// Harm-intent verb in present simple tense. "Вы [response_harm_simple] цель"
+	var/response_harm_simple = "ударили"
 
 	///Basic mob's own attacks verbs,
 	///Attacking verb in present continuous tense.
