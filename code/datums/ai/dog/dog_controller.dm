@@ -9,6 +9,7 @@
 		BB_DOG_PLAYING_DEAD = FALSE,\
 		BB_DOG_HARASS_TARGET = null)
 	ai_movement = /datum/ai_movement/jps
+	idle_behavior = /datum/idle_behavior/idle_dog
 	planning_subtrees = list(/datum/ai_planning_subtree/dog)
 	COOLDOWN_DECLARE(heel_cooldown)
 	COOLDOWN_DECLARE(command_cooldown)
@@ -53,27 +54,6 @@
 	if(simple_pawn.pcollar)
 		var/obj/item/clothing/accessory/petcollar/collar = simple_pawn.pcollar
 		return collar.GetAccess()
-
-/datum/ai_controller/dog/PerformIdleBehavior(delta_time)
-	var/mob/living/living_pawn = pawn
-	if(!isturf(living_pawn.loc) || living_pawn.pulledby)
-		return
-
-	// if we were just ordered to heel, chill out for a bit
-	if(!COOLDOWN_FINISHED(src, heel_cooldown))
-		return
-
-	// if we're just ditzing around carrying something, occasionally print a message so people know we have something
-	if(blackboard[BB_SIMPLE_CARRY_ITEM] && SPT_PROB(5, delta_time))
-		var/obj/item/carry_item = blackboard[BB_SIMPLE_CARRY_ITEM]
-		living_pawn.visible_message(span_notice("[living_pawn] мягко впивается зубами в [carry_item.declent_ru(ACCUSATIVE)]в [genderize_ru(living_pawn.gender, "его", "её", "его", "их")] пасти."))
-
-		if(SPT_PROB(5, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE))
-			var/move_dir = pick(GLOB.alldirs)
-			living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
-		else if(SPT_PROB(10, delta_time))
-			living_pawn.manual_emote("[living_pawn] [pick("гоняется за своим хвостом!", "ходит кругами.")]")
-			living_pawn.AddComponent(/datum/component/spinny)
 
 /// Someone has thrown something, see if it's someone we care about and start listening to the thrown item so we can see if we want to fetch it when it lands
 /datum/ai_controller/dog/proc/listened_throw(datum/source, mob/living/carbon/carbon_thrower)

@@ -62,7 +62,7 @@
 	var/atom/pawn = controller.pawn
 	pawn.visible_message(span_notice("[pawn] выплевывает [carried_item.declent_ru(ACCUSATIVE)]."))
 	carried_item.forceMove(get_turf(pawn))
-	controller.blackboard[BB_SIMPLE_CARRY_ITEM] = null
+	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
 
 
