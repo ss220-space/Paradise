@@ -188,6 +188,7 @@
 
 	var/datum/browser/B = new /datum/browser(user, "library", "Book Inventory Management")
 	B.set_content(dat)
+	B.add_stylesheet("dark_inputs", "html/dark_inputs.css")
 	B.open()
 
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
