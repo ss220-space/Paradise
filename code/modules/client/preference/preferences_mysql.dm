@@ -112,7 +112,7 @@
 					keybindings=:keybindings,
 					viewrange=:viewrange,
 					ghost_darkness_level=:ghost_darkness_level,
-					toggles_3=:toggles3,
+					toggles_3=:toggles3
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
