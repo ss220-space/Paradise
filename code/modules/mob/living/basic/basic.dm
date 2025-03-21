@@ -154,3 +154,10 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed)
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/simplemob_varspeed, multiplicative_slowdown = speed)
 	SEND_SIGNAL(src, POST_BASIC_MOB_UPDATE_VARSPEED)
+
+//temp code
+/mob/living/basic/examine(mob/user)
+	. = ..()
+	if(stat == DEAD)
+		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		return
