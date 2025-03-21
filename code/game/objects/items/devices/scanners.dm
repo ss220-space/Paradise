@@ -668,7 +668,7 @@ REAGENT SCANNER
 					reagentList += list(list(
 						volume = "[R.volume]",
 						name = "[R.name]",
-						overdosed = [R.overdosed]
+						overdosed = R.overdosed
 					))
 				data["reagentList"] = reagentList
 			else
