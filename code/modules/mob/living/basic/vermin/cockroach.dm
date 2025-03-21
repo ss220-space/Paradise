@@ -80,16 +80,16 @@
 		INSTRUMENTAL = "тараканом с пушкой",
 		PREPOSITIONAL = "таракане с пушкой"
 	)
-	desc = "ЧЁРТ ВОЗЬМИ, КТО ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"
+	desc = "КТО, ЧЁРТ ВОЗЬМИ, ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"
 	icon_state = "glockroach"
 	obj_damage = 10
-	gold_core_spawnable = HOSTILE_SPAWN
+	//gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
 /mob/living/basic/cockroach/glockroach/Initialize()
 	. = ..()
-	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/glockroach)
+	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
 
 /datum/ai_controller/basic_controller/cockroach/glockroach
 	planning_subtrees = list(
@@ -121,7 +121,7 @@
 	attack_verb_simple = "тыкаете своим шлемом"
 	melee_damage = 5
 	obj_damage = 10
-	gold_core_spawnable = HOSTILE_SPAWN
+	//gold_core_spawnable = HOSTILE_SPAWN
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach

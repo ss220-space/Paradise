@@ -41,7 +41,8 @@
 
 /mob/living/basic/mothroach/Initialize(mapload)
 	. = ..()
-	AddElement(/datum/element/pet_bonus, "радостно пищит!")
+	AddComponent(/datum/component/animal_temperature)
+	AddElement(/datum/element/pet_bonus, emote_message = "радостно пищит!")
 
 /mob/living/basic/mothroach/update_resting()
 	. = ..()

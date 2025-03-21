@@ -18,7 +18,7 @@
     heat_damage,
     show_alert
 )
-	if(!isanimal(parent))
+	if(!isanimal(parent) || !isbasicmob(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	if(!isnull(minbodytemp))
@@ -37,7 +37,7 @@
 		src.show_alert = show_alert
 
 /datum/component/animal_temperature/InheritComponent(
-	datum/component/animal_temperature/new_comp, 
+	datum/component/animal_temperature/new_comp,
 	i_am_original,
 	minbodytemp,
     maxbodytemp,
@@ -73,7 +73,7 @@
 	SIGNAL_HANDLER
 
 	var/mob/living/simple_animal/animal = source
-	
+
 	INVOKE_ASYNC(src, PROC_REF(regulate_temperature), animal, environment)
 	INVOKE_ASYNC(src, PROC_REF(check_temperature), animal)
 
@@ -98,7 +98,7 @@
 
 	if(animal.bodytemperature > maxbodytemp)
 		animal.adjustHealth(heat_damage)
-		
+
 		if(show_alert)
 			animal.throw_alert("temp", /atom/movable/screen/alert/hot, get_severity(animal))
 
