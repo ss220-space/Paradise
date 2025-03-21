@@ -1,5 +1,6 @@
 /datum/orbit_menu
 	var/mob/dead/observer/owner
+	var/should_show_NPC = FALSE
 
 /datum/orbit_menu/New(mob/dead/observer/new_owner)
 	if(!istype(new_owner))
@@ -13,6 +14,7 @@
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
 		ui = new(user, src, "Orbit", "Orbit")
+		should_show_NPC = initial(should_show_NPC)
 		ui.open()
 
 /datum/orbit_menu/ui_act(action, list/params, datum/tgui/ui)
@@ -33,9 +35,14 @@
 		if("refresh")
 			update_static_data(owner, ui)
 			. = TRUE
+		if("toggle_show_npcs")
+			should_show_NPC = !should_show_NPC
+			update_static_data(owner, ui)
+			. = TRUE
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
+	data["should_show_NPC"] = should_show_NPC
 	return data
 
 /datum/orbit_menu/ui_static_data(mob/user)
@@ -50,7 +57,7 @@
 	var/list/npcs = list()
 	var/length_of_ghosts = length(get_observers())
 
-	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
+	var/list/pois = getpois(mobs_only = should_show_NPC, skip_mindless = FALSE)
 	for(var/name in pois)
 		var/mob/M = pois[name]
 		if(name == null)

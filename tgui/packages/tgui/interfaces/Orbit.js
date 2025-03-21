@@ -86,6 +86,7 @@ export const Orbit = (props, context) => {
     antagonists,
     highlights,
     auto_observe,
+    should_show_NPC,
     dead,
     ghosts,
     misc,
@@ -203,7 +204,16 @@ export const Orbit = (props, context) => {
 
         <BasicSection title="Dead" source={dead} searchText={searchText} />
 
-        <BasicSection title="NPCs" source={npcs} searchText={searchText} />
+        {should_show_NPC ? ( <BasicSection title="NPCs" source={npcs} searchText={searchText} />) : (
+          <Section
+            title="NPCs"
+            buttons={
+              !should_show_NPC && (
+                <Button content="Load NPCs" onClick={() => act('toggle_show_npcs')} />
+              )
+            }
+          />
+        )}
 
         <BasicSection title="Misc" source={misc} searchText={searchText} />
       </Window.Content>
