@@ -92,7 +92,7 @@ const PlayerInformation = (props, context) => {
   return (
     <Stack.Item>
       <Section title="Player Information">
-        <Table>
+        <Table cellpadding="1px">
           <Table.Row>
             <Table.Cell bold>Character:</Table.Cell>
             <Table.Cell>{data.characterName}</Table.Cell>
@@ -109,7 +109,7 @@ const PlayerInformation = (props, context) => {
             <Table.Cell bold>Account Registered:</Table.Cell>
             <Table.Cell>{data.accountRegistered}</Table.Cell>
             <Table.Cell bold>Playtime as Crew:</Table.Cell>
-            <Table.Cell>
+            <Table.Cell p="1px">
               <Button
                 content={data.playtime}
                 onClick={() => handleAction('playtime')}
@@ -118,14 +118,14 @@ const PlayerInformation = (props, context) => {
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>CID:</Table.Cell>
-            <Table.Cell>
+            <Table.Cell p="1px">
               <Button
                 content={!hideCID ? 'Hidden' : data.CID}
                 onClick={() => setCID(!hideCID)}
               />
             </Table.Cell>
             <Table.Cell bold>IP Address:</Table.Cell>
-            <Table.Cell>
+            <Table.Cell p="1px">
               <Button
                 content={!hideIP ? 'Hidden' : data.ipAddress}
                 onClick={() => setIP(!hideIP)}
