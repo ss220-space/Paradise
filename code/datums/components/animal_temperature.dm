@@ -65,9 +65,10 @@
 
 /datum/component/animal_temperature/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ANIMAL_HANDLE_ENVIRONMENT, PROC_REF(handle_environment))
+	RegisterSignal(parent, COMSIG_LIVING_LIFE, PROC_REF(check_temperature))
 
 /datum/component/animal_temperature/UnregisterFromParent()
-	UnregisterSignal(parent, COMSIG_ANIMAL_HANDLE_ENVIRONMENT)
+	UnregisterSignal(parent, list(COMSIG_ANIMAL_HANDLE_ENVIRONMENT, COMSIG_LIVING_LIFE))
 
 /datum/component/animal_temperature/proc/handle_environment(datum/source, datum/gas_mixture/environment)
 	SIGNAL_HANDLER
@@ -75,7 +76,6 @@
 	var/mob/living/simple_animal/animal = source
 
 	INVOKE_ASYNC(src, PROC_REF(regulate_temperature), animal, environment)
-	INVOKE_ASYNC(src, PROC_REF(check_temperature), animal)
 
 /datum/component/animal_temperature/proc/regulate_temperature(mob/living/simple_animal/animal, datum/gas_mixture/environment)
 	var/areatemp = animal.get_temperature(environment)
@@ -87,7 +87,9 @@
 
 	return
 
-/datum/component/animal_temperature/proc/check_temperature(mob/living/simple_animal/animal)
+/datum/component/animal_temperature/proc/check_temperature(mob/living/simple_animal/animal, deltatime, times_fired)
+	SIGNAL_HANDLER
+
 	if(animal.bodytemperature < minbodytemp)
 		animal.adjustHealth(cold_damage)
 
