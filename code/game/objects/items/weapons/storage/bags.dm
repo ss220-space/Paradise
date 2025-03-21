@@ -243,22 +243,30 @@
 /obj/item/storage/bag/kaboom/click_alt(mob/user)
 	bombradialmenu(user)
 
-/obj/item/storage/bag/kaboom/attack(atom/a, mob/living/user, params, def_zone, skip_attack_anim)
-	. = ..()
-	var/turf/simulated/wall/W
-	if(isturf(a))
-		W = a
+/obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
 	if(nextbomb == null)
 		balloon_alert(user, "Заряд не выбран!")
-	else
-		if(do_after(user, 5 SECONDS, a))
-			if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
-				nextbombbutmining = nextbomb
-				nextbombbutmining.override_safety()
-			if(W != null)
-				nextbomb.attack(W, user, params, def_zone, skip_attack_anim)
-			else
-				nextbomb.attack(a, user, params, def_zone, skip_attack_anim)
+		return
+	if(!LAZYLEN(contents))
+		balloon_alert(user, "Сумка пустая!")
+		return
+	if(!flag)
+		return
+	if(iscarbon(AM))
+		balloon_alert(user, "Нельзя прикрепить к человеку!")
+		return
+	if(isobserver(AM))
+		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
+		return
+	balloon_alert(user, "устанавливаем")
+	if(do_after(user, 5 SECONDS, AM))
+		nextbomb.skip_doafter = TRUE
+		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
+			nextbombbutmining = nextbomb
+			nextbombbutmining.override_safety()
+		nextbomb.attack(AM, user, params, user.zone_selected)
+		nextbomb = null
+		nextbombbutmining = null
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version

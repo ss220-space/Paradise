@@ -15,6 +15,7 @@
 	var/obj/item/assembly_holder/nadeassembly
 	var/assemblyattacher
 	var/notify_admins = TRUE
+	var/skip_doafter = FALSE
 
 
 /obj/item/grenade/plastic/Initialize(mapload)
@@ -110,7 +111,7 @@
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
 
-	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
+	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL) && !skip_doafter)
 		return
 
 	if(!user.drop_item_ground(src))
