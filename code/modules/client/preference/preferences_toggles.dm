@@ -31,12 +31,19 @@
 	switch(preftoggle_toggle)
 		if(PREFTOGGLE_SPECIAL)
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
+
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
@@ -625,8 +632,8 @@
 /datum/preference_toggle/toggle_auto_dnr
     name = "DNR при смерти"
     description = "При смерти автоматически включается статус DNR."
-    preftoggle_bitflag = PREFTOGGLE_DNR_AFTER_DEATH
-    preftoggle_toggle = PREFTOGGLE_TOGGLE1
+    preftoggle_bitflag = PREFTOGGLE_3_DNR_AFTER_DEATH
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
     preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
     enable_message = "Смерть вашего персонажа теперь перманентная."
     disable_message = "Смерть персонажа более не перманентная."

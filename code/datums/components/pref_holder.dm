@@ -33,24 +33,35 @@
 		return
 
 	for(var/datum/preference_info/pref as anything in preferences) // deactivate current
-		pref.deactivate(parent)
+		pref.deactivate(mob)
         
 	var/list/prefs
 
 	for(var/datum/preference_info/pref as anything in GLOB.preferences_info)
 		var/datum/preference_toggle/toggle = pref.get_preference_toggle()
 
-		if(!toggle)
+		if(!toggle || !is_active_toggle(toggle))
 			continue
 
-		if(!HASBIT(mob.client.prefs.toggles, toggle.preftoggle_bitflag) \
-        && !HASBIT(mob.client.prefs.toggles2, toggle.preftoggle_bitflag)
-        )   
-			continue
-
-		if(!pref.activate(parent))
+		if(!pref.activate(mob))
 			continue
 
 		LAZYADD(prefs, new pref.type)
 
 	return prefs
+
+/datum/component/pref_holder/proc/is_active_toggle(datum/preference_toggle/toggle)
+	var/mob/mob = parent
+	
+	switch(toggle.preftoggle_toggle)
+		if(PREFTOGGLE_TOGGLE1)
+			. = HASBIT(mob.client.prefs.toggles, toggle.preftoggle_bitflag)
+
+		if(PREFTOGGLE_TOGGLE2)
+			. = HASBIT(mob.client.prefs.toggles2, toggle.preftoggle_bitflag)
+
+		if(PREFTOGGLE_TOGGLE3)
+			. = HASBIT(mob.client.prefs.toggles3, toggle.preftoggle_bitflag)
+			
+		if(PREFTOGGLE_SOUND)
+			. = HASBIT(mob.client.prefs.sound, toggle.preftoggle_bitflag)

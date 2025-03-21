@@ -17,6 +17,7 @@ export const AtmosAlertConsole = (props, context) => {
             {priorityAlerts.map((alert) => (
               <li key={alert}>
                 <Button
+                  m="1px"
                   icon="times"
                   content={alert}
                   color="bad"
@@ -30,6 +31,7 @@ export const AtmosAlertConsole = (props, context) => {
             {minorAlerts.map((alert) => (
               <li key={alert}>
                 <Button
+                  m="1px"
                   icon="times"
                   content={alert}
                   color="average"

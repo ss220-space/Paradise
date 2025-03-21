@@ -37,7 +37,6 @@
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		(1<<21)
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
 // #define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
-#define PREFTOGGLE_DNR_AFTER_DEATH          (1<<23) // 8388608
 
 #define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
@@ -83,6 +82,16 @@
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
+#define PREFTOGGLE_3_DNR_AFTER_DEATH          (1<<0) // 1
+
+#define TOGGLES_3_TOTAL                       1 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+
+#define TOGGLES_3_DEFAULT NONE
+
+#if TOGGLES_3_TOTAL > 16777215
+#error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
+#endif
+
 // This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
 #define PREFTOGGLE_CATEGORY_GENERAL		1
 #define PREFTOGGLE_CATEGORY_LIVING		2
@@ -100,6 +109,8 @@
 #define PREFTOGGLE_TOGGLE1		3
 /// Interacts with the toggles2 bitflag
 #define PREFTOGGLE_TOGGLE2		4
+/// Interacts with the toggles3 bitflag
+#define PREFTOGGLE_TOGGLE3		5
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs
