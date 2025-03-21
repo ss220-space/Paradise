@@ -84,7 +84,7 @@
 	desc = "КТО, ЧЁРТ ВОЗЬМИ, ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"
 	icon_state = "glockroach"
 	obj_damage = 10
-	//gold_core_spawnable = HOSTILE_SPAWN
+	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
@@ -122,7 +122,7 @@
 	attack_verb_simple = "тыкаете своим шлемом"
 	melee_damage = 5
 	obj_damage = 10
-	//gold_core_spawnable = HOSTILE_SPAWN
+	gold_core_spawnable = HOSTILE_SPAWN
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/hauberoach
