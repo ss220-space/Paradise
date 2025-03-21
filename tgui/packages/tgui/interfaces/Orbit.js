@@ -204,12 +204,17 @@ export const Orbit = (props, context) => {
 
         <BasicSection title="Dead" source={dead} searchText={searchText} />
 
-        {should_show_NPC ? ( <BasicSection title="NPCs" source={npcs} searchText={searchText} />) : (
+        {should_show_NPC ? (
+          <BasicSection title="NPCs" source={npcs} searchText={searchText} />
+        ) : (
           <Section
             title="NPCs"
             buttons={
               !should_show_NPC && (
-                <Button content="Load NPCs" onClick={() => act('toggle_show_npcs')} />
+                <Button
+                  content="Load NPCs"
+                  onClick={() => act('toggle_show_npcs')}
+                />
               )
             }
           />
