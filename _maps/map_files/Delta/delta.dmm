@@ -108827,12 +108827,6 @@
 	icon_state = "darkblue"
 	},
 /area/maintenance/detectives_office)
-"tZO" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/hallway/secondary/entry/commercial)
 "tZR" = (
 /obj/machinery/pipedispenser,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -155202,7 +155196,7 @@ bjr
 uCN
 uCN
 uCN
-tZO
+uCN
 nEC
 bnk
 xzD
