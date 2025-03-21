@@ -57,7 +57,7 @@
 	var/list/npcs = list()
 	var/length_of_ghosts = length(get_observers())
 
-	var/list/pois = getpois(mobs_only = should_show_NPC, skip_mindless = FALSE)
+	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
 	for(var/name in pois)
 		var/mob/M = pois[name]
 		if(name == null)
@@ -87,7 +87,8 @@
 			if(isobserver(M))
 				ghosts += list(serialized)
 			else if(M.mind == null)
-				npcs += list(serialized)
+				if(should_show_NPC)
+					npcs += list(serialized)
 			else if(M.stat == DEAD)
 				dead += list(serialized)
 			else
