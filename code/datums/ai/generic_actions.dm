@@ -268,7 +268,7 @@
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn))
 		return
-	living_pawn.manual_emote(emote)
+	living_pawn.custom_emote(EMOTE_VISIBLE, emote)
 	finish_action(controller, TRUE)
 
 /datum/ai_behavior/perform_speech

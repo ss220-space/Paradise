@@ -34,6 +34,6 @@
 
 	new /obj/effect/temp_visual/heart(pet.loc)
 	if(emote_message && prob(33))
-		pet.manual_emote(emote_message)
+		pet.emote("me", EMOTE_VISIBLE, emote_message)
 		if(emote_sound)
 			playsound(get_turf(pet), emote_sound, 50, TRUE)

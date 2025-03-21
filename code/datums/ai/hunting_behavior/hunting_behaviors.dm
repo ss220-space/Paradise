@@ -110,14 +110,14 @@
 /datum/ai_behavior/hunt_target/proc/target_caught(mob/living/hunter, atom/hunted)
 	if(isliving(hunted)) // Are we hunting a living mob?
 		var/mob/living/living_target = hunted
-		hunter.manual_emote("[hunt_emote] [living_target]!")
+		hunter.custom_emote(EMOTE_VISIBLE, "[hunt_emote] [living_target]!")
 		living_target.death()
 
 	else if(istype(hunted, /obj/item/reagent_containers/food))
 		hunter.attack_animal(hunter)
 
 	else // We're hunting an object, and should delete it instead of killing it. Mostly useful for decal bugs like ants or spider webs.
-		hunter.manual_emote("[hunt_emote] [hunted]!")
+		hunter.custom_emote(EMOTE_VISIBLE, "[hunt_emote] [hunted]!")
 		qdel(hunted)
 
 /datum/ai_behavior/hunt_target/finish_action(datum/ai_controller/controller, succeeded, hunting_target_key, hunting_cooldown_key)

@@ -8,4 +8,4 @@
 
 /datum/ai_behavior/hunt_target/mothroach
 	hunt_cooldown = 25 SECONDS
-	hunt_emote = "nibbles"
+	hunt_emote = "поедает"

@@ -20,6 +20,8 @@
 	var/armour_penetration = 0
 	///Damage type of a simple mob's melee attack, should it do damage.
 	var/melee_damage_type = BRUTE
+
+
 	///How much wounding power it has
 	// var/wound_bonus = CANT_WOUND
 	///How much bare wounding power it has
@@ -51,20 +53,20 @@
 	var/response_help_continuous = "осторожно тыкает"
 	/// Help-intent verb in present simple tense. "Вы [response_help_simple] цель"
 	var/response_help_simple = "осторожно ткнули"
-	/// Disarm-intent verb in present continuous tense. "кто-то [response_disarm_continuous] вас"
+	/// Disarm-intent verb in present continuous tense. "Кто-то [response_disarm_continuous] вас"
 	var/response_disarm_continuous = "толкает"
 	/// Disarm-intent verb in present simple tense. "Вы [response_disarm_simple] цель"
 	var/response_disarm_simple = "толкнули"
-	/// Harm-intent verb in present continuous tense. "кто-то [response_harm_continuous] цель"
+	/// Harm-intent verb in present continuous tense. "Кто-то [response_harm_continuous] цель"
 	var/response_harm_continuous = "ударяет"
 	/// Harm-intent verb in present simple tense. "Вы [response_harm_simple] цель"
 	var/response_harm_simple = "ударили"
 
 	///Basic mob's own attacks verbs,
-	///Attacking verb in present continuous tense.
+	///Attacking verb in present continuous tense. "Кто-то [attack_verb_continuous] цель"
 	var/attack_verb_continuous = "атакует"
-	///Attacking verb in present simple tense.
-	var/attack_verb_simple = "атаковал"
+	///Attacking verb in present simple tense. "Вы [response_harm_simple] цель"
+	var/attack_verb_simple = "атаковали"
 	///Attacking, but without damage, verb in present continuous tense.
 	var/friendly_verb_continuous = "обнюхивает"
 	///Attacking, but without damage, verb in present simple tense.

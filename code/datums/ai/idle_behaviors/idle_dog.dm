@@ -18,5 +18,5 @@
 		var/move_dir = pick(GLOB.alldirs)
 		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
 	else if(SPT_PROB(10, delta_time))
-		living_pawn.manual_emote("[living_pawn] [pick("гоняется за своим хвостом!", "ходит кругами.")]")
+		living_pawn.custom_emote(EMOTE_VISIBLE, "[pick("гоняется за своим хвостом!", "ходит кругами.")]")
 		living_pawn.AddComponent(/datum/component/spinny)
