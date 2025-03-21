@@ -14,7 +14,7 @@ export const TankDispenser = (props, context) => {
   return (
     <Window width={275} height={100}>
       <Window.Content>
-        <Box>
+        <Box m="5px">
           <Button
             content={'Dispense Oxygen Tank (' + o_tanks + ')'}
             disabled={o_tanks === 0}
@@ -22,7 +22,7 @@ export const TankDispenser = (props, context) => {
             onClick={() => act('oxygen')}
           />
         </Box>
-        <Box>
+        <Box m="5px">
           <Button
             content={'Dispense Plasma Tank (' + p_tanks + ')'}
             disabled={p_tanks === 0}

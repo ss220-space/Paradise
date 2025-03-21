@@ -32,56 +32,6 @@
 			add_fingerprint(user)
 			balance = user.mind.initial_account.money
 	var/dat = {"
-		<style type="text/css">
-* {
-	font-family:sans-serif;
-	font-size:x-small;
-}
-html {
-	background:#333;
-	color:#999;
-}
-
-table {background:#303030;border:1px solid #262626;}
-
-caption {text-align:left;}
-
-.button {
-	color:#cfcfcf;
-	text-decoration:none;
-	font-weight:bold;
-	text-align:center;
-	width:75px;
-	padding:21px;
-	box-sizing:border-box;
-	background:none;
-	border:none;
-	display: inline-block;
-}
-.button:hover {color:#ffffff;}
-
-a {
-	color:#cfcfcf;
-	text-decoration:none;
-	font-weight:bold;
-}
-a:hover {color:#ffffff;}
-
-p {margin:0;}
-
-tr.dark {background:#303030;}
-
-tr.light {background:#3f3f3f;}
-
-td,th {padding:15px;border-bottom:1px solid #262626;}
-
-th.cost {padding:0px;border-left:1px solid #262626;}
-
-th.cost.affordable {background:green;}
-
-th.cost.toomuch {background:maroon;}
-
-		</style>
 	<p style="float:right"><a href='byond://?src=[UID()];refresh=1'>Refresh</a> | <b>Balance: $[balance]</b></p>
 	<h1>[command_name()] Merchandise</h1>
 	<p>
@@ -128,6 +78,7 @@ th.cost.toomuch {background:maroon;}
 	var/datum/browser/popup = new(user, "merch", "[command_name()] Merchandise", 440, 600)
 	popup.set_content(dat)
 	popup.set_window_options("can_resize=0;")
+	popup.add_stylesheet("merch_computer", 'html/css/merch_computer.css')
 	popup.open(TRUE)
 	onclose(user, "merch")
 	return

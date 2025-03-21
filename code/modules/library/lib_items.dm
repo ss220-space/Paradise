@@ -227,6 +227,7 @@
 			return
 	if(src.dat)
 		var/datum/browser/popup = new(user, "book", title)
+		popup.include_default_stylesheet = FALSE
 		popup.set_content("<tt><i>Penned by [author].</i></tt><br>" + "[dat]")
 		popup.open(TRUE)
 		if(!isobserver(user))
