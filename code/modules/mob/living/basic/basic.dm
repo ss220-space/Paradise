@@ -87,7 +87,25 @@
 	///Sentience type, for slime potions. SHOULD BE AN ELEMENT BUT I DONT CARE ABOUT IT FOR NOW
 	var/sentience_type = SENTIENCE_ORGANIC
 
-
+	var/list/atmos_requirements = list(
+		"min_oxy" = 5,
+		"max_oxy" = 0,
+		"min_plas" = 0,
+		"max_plas" = 1,
+		"min_co2" = 0,
+		"max_co2" = 5,
+		"min_n2" = 0,
+		"max_n2" = 0
+	)
+	/// This damage is taken when atmos doesn't fit all the requirements above.
+	/// Set to 0 to avoid adding the atmos_requirements element.
+	var/unsuitable_atmos_damage = 1
+	/// Set to FALSE to avoid getting damage from temparature
+	var/affects_by_temperature = TRUE
+	/// Minimal body temperature without receiving damage
+	var/minimum_survivable_temperature = 250
+	/// Maximal body temperature without receiving damage
+	var/maximum_survivable_temperature = 350
 
 /mob/living/basic/Initialize(mapload)
 	. = ..()
@@ -105,6 +123,22 @@
 
 	if(speak_emote)
 		speak_emote = string_list(speak_emote)
+
+	apply_atmos_requirements()
+	apply_temperature_requirements()
+
+/mob/living/basic/proc/apply_atmos_requirements()
+	if(unsuitable_atmos_damage == 0)
+		return
+
+	atmos_requirements = string_assoc_list(atmos_requirements)
+
+	AddElement(/datum/element/atmos_requirements, atmos_requirements, unsuitable_atmos_damage)
+
+/mob/living/basic/proc/apply_temperature_requirements()
+	if(!affects_by_temperature)
+		return
+	AddComponent(/datum/component/animal_temperature, minimum_survivable_temperature, maximum_survivable_temperature)
 
 /mob/living/basic/Life(delta_time, times_fired)
 	. = ..()

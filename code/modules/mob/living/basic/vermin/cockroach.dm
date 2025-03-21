@@ -29,17 +29,16 @@
 	response_harm_continuous = "давит"
 	response_harm_simple = "раздавливаете"
 	speak_emote = list("щебечет")
-	layer = BELOW_MOB_LAYER //when you stomp on it, it looks kinda bad
+	layer = BELOW_MOB_LAYER //when you stomp on it and he lives, it looks kinda bad
 	basic_mob_flags = DEL_ON_DEATH
 	faction = list("hostile")
+	affects_by_temperature = FALSE
 
 	ai_controller = /datum/ai_controller/basic_controller/cockroach
 
 /mob/living/basic/cockroach/Initialize()
 	. = ..()
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
-	AddElement(/datum/element/atmos_requirements)
-	AddComponent(/datum/component/animal_temperature)
 	AddComponent(/datum/component/squashable, squash_chance = 30, squash_damage = 1)
 
 /mob/living/basic/cockroach/death(gibbed)

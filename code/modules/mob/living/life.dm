@@ -88,8 +88,6 @@
 		return TRUE
 
 /mob/living/proc/handle_breathing(times_fired)
-	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, times_fired)
-	//SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, SSMOBS_DT, times_fired)
 	return
 
 /mob/living/proc/handle_heartattack()
@@ -107,6 +105,7 @@
 		D.stage_act()
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, environment)
 	return
 
 //this updates all special effects: mainly stamina
