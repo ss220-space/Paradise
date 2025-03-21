@@ -38,6 +38,7 @@
 /mob/living/basic/cockroach/Initialize()
 	. = ..()
 	AddElement(/datum/element/death_drops, list(/obj/effect/decal/cleanable/insectguts))
+	AddElement(/datum/element/atmos_requirements)
 	AddComponent(/datum/component/animal_temperature)
 	AddComponent(/datum/component/squashable, squash_chance = 30, squash_damage = 1)
 
