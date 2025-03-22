@@ -152,14 +152,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		body += "| <a href='byond://?_src_=holder;sendtoprison=[M.UID()]'>Prison</a> | "
 		body += "\ <a href='byond://?_src_=holder;sendbacktolobby=[M.UID()]'>Send back to Lobby</a> | "
 		body += {"<br><b>Mute: </b>
-			\[<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><span style='color: [check_mute(M.client.ckey, MUTE_IC) ? "red" : "#6685f5"];'>IC</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><span style='color: [check_mute(M.client.ckey, MUTE_OOC) ? "red" : "#6685f5"];'>OOC</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><span style='color: [check_mute(M.client.ckey, MUTE_PRAY) ? "red" : "#6685f5"];'>PRAY</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><span style='color: [check_mute(M.client.ckey, MUTE_ADMINHELP) ? "red" : "#6685f5"];'>ADMINHELP</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><span style='color: [check_mute(M.client.ckey, MUTE_DEADCHAT) ?" red" : "#6685f5"];'>DEADCHAT</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><span style='color: [check_mute(M.client.ckey, MUTE_TTS)?"red":"#6685f5"];'>TTS</span></a> |
-			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "red" : "#6685f5"];'>EMOTE</span></a>\]
-			(<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><span style='color: [check_mute(M.client.ckey, MUTE_ALL) ? "red" : "#6685f5"];'>toggle all</span></a>)
+			\[<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_IC]'><span style='color: [check_mute(M.client.ckey, MUTE_IC) ? "#ffaa00" : "#aabbff"];'>IC</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_OOC]'><span style='color: [check_mute(M.client.ckey, MUTE_OOC) ? "#ffaa00" : "#aabbff"];'>OOC</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_PRAY]'><span style='color: [check_mute(M.client.ckey, MUTE_PRAY) ? "#ffaa00" : "#aabbff"];'>PRAY</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ADMINHELP]'><span style='color: [check_mute(M.client.ckey, MUTE_ADMINHELP) ? "#ffaa00" : "#aabbff"];'>ADMINHELP</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_DEADCHAT]'><span style='color: [check_mute(M.client.ckey, MUTE_DEADCHAT) ?"#ffaa00" : "#aabbff"];'>DEADCHAT</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_TTS]'><span style='color: [check_mute(M.client.ckey, MUTE_TTS)?"#ffaa00":"#aabbff"];'>TTS</span></a> |
+			<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_EMOTE]'><span style='color: [check_mute(M.client.ckey, MUTE_EMOTE) ? "#ffaa00" : "#aabbff"];'>EMOTE</span></a>\]
+			(<a href='byond://?_src_=holder;mute=[M.UID()];mute_type=[MUTE_ALL]'><span style='color: [check_mute(M.client.ckey, MUTE_ALL) ? "#ffaa00" : "#aabbff"];'>toggle all</span></a>)
 		"}
 		body += {"<br><b>Mob Manipulation:</b>
 			<a href='byond://?_src_=holder;randomizename=[M.UID()]'>Randomize Name</a> |
@@ -258,7 +258,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 					body += "<td>"
 					var/gene_name = GLOB.assigned_blocks[block]
 					if(gene_name)
-						var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
+						var/text_color = "[M.dna.GetSEState(block) ? "#00cc66" : "#ffaa00"]"
 						body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=old;' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
 					else
 						body += "[block]"

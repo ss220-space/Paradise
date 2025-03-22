@@ -170,7 +170,7 @@
 		to_chat(world, "<b>Экипаж защитил станцию от Ксеноморфов!</b>")
 		to_chat(world, "<b>Ксеноморфы были истреблены.</b>")
 	else
-		to_chat(world, "<br><FONT size = 3><b>Ничья!</b></FONT>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Ничья!</b></span>")
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Ксеноморфы не были истреблены.</b>")
 
