@@ -97,11 +97,51 @@
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
+	var/katana_cooldown
+	var/mob/living/carbon/human/user = owner
+	var/mob/living/target
+	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 
 
 /obj/item/melee/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
+
+/obj/item/melee/katana/proc/reset_cooldown()
+	katana_cooldown = FALSE
+	if(owner)
+		owner.update_action_buttons()
+		to_chat(owner, span_notice("Вы готовы к новому рывку."))
+
+
+/obj/item/melee/katana/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(katana_cooldown)
+		to_chat(owner, span_warning("Вам нужна отдышка перед новым рывком!"))
+		return
+
+	charge()
+
+	implant_emp_downtime = TRUE
+	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 100 SECONDS) // 100 секунд для повторного рывка
+
+/obj/item/melee/katana/proc/charge()
+	owner.multiplicative_slowdown = -1
+	owner.Move(NewLoc,Dir=0,step_x=5,step_y=0)
+	owner.scream
+
+/obj/item/melee/katana/Bump(atom/bumped)
+	if(!charge())
+		return
+	if(isliving(bumped))
+		if(ismegafauna(bumped))
+			return
+		target = bumped
+			head.droplimb()
+			add_attack_logs(owner, target, "beheaded with [src]")
+			H.regenerate_icons()
+			kill_count++
+	if(!HAS_TRAIT(owner, TRAIT_FLOORED))
+		owner.Weaken(3 SECONDS)
 
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
