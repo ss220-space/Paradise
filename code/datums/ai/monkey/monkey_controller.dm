@@ -29,7 +29,7 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
-	blackboard[BB_MONKEY_AGRESSIVE] = TRUE //Angry cunt
+	blackboard[BB_MONKEY_AGGRESSIVE] = TRUE //Angry cunt
 
 /datum/ai_controller/monkey/TryPossessPawn(atom/new_pawn)
 	if(!isliving(new_pawn))
@@ -52,6 +52,7 @@ have ways of interacting with a specific mob and control it.
 	RegisterSignal(new_pawn, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
 	RegisterSignal(new_pawn, COMSIG_MOB_MOVESPEED_UPDATED, PROC_REF(update_movespeed))
 	RegisterSignal(new_pawn, COMSIG_FOOD_EATEN, PROC_REF(on_eat))
+	RegisterSignal(new_pawn, COMSIG_LIVING_RESTING, PROC_REF(on_resting))
 
 	movement_delay = living_pawn.cached_multiplicative_slowdown
 	return ..() //Run parent at end
@@ -247,3 +248,7 @@ have ways of interacting with a specific mob and control it.
 /datum/ai_controller/monkey/proc/on_eat(mob/living/pawn)
 	SIGNAL_HANDLER
 	blackboard[BB_MONKEY_NEXT_HUNGRY] = world.time + rand(120, 600) SECONDS
+
+/datum/ai_controller/monkey/proc/on_resting(new_resting)
+	SIGNAL_HANDLER
+	queue_behavior(/datum/ai_behavior/resist)

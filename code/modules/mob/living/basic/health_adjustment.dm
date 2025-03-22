@@ -12,6 +12,7 @@
 		bruteloss = round(clamp(bruteloss + amount, 0, maxHealth * 2), DAMAGE_PRECISION)
 		if(updating_health)
 			updatehealth()
+			med_hud_set_health()
 		. = amount
 	if(ckey || stat)
 		return

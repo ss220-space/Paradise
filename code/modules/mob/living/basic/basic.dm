@@ -99,7 +99,7 @@
 	)
 	/// This damage is taken when atmos doesn't fit all the requirements above.
 	/// Set to 0 to avoid adding the atmos_requirements element.
-	var/unsuitable_atmos_damage = 1
+	var/unsuitable_atmos_damage = 5
 	/// Set to FALSE to avoid getting damage from temparature
 	var/affects_by_temperature = TRUE
 	/// Minimal body temperature without receiving damage
