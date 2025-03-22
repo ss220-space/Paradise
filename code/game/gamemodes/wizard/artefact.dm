@@ -807,5 +807,9 @@ GLOBAL_LIST_EMPTY(multiverse)
 	heal_burn = 25
 	heal_oxy = 25
 
-
+phantom
 /obj/item/death_book
+	icon = 'icons/obj/death_book.dmi'
+	icon_state = "close_death_book"
+
+/obj/item/death_book/proc/radial_menu(mob/living/carbon/user)

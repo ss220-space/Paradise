@@ -615,11 +615,9 @@
 /datum/uplink_item/jobspecific/death_book
 	name = "Летопись вашей гибели"
 	desc = "Магический артефакт, адаптированный синдикатом для своих агентов. В данной книге описаны гибели множества миров, и теперь, прочитавший её может на время почувствовать себя одним из губителей, описанных в книге."
-	item = /obj/item/dice/d20/fate/one_use
-	cost = 100
+	item = /obj/item/death_book
+	cost = 80
 	job = list(JOB_TITLE_LIBRARIAN)
-	surplus = 0
-	can_discount = FALSE
 
 //Botanist
 

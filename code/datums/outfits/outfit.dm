@@ -34,6 +34,54 @@
 
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
+	var/calc_used_slots = FALSE
+	var/used_slots = 0
+
+/datum/outfit/Initialize(...)
+	. = ..()
+
+	if(!calc_used_slots)
+		return
+
+	if(back)
+		used_slots |= ITEM_SLOT_BACK
+	if(uniform)
+		used_slots |= ITEM_SLOT_CLOTH_INNER
+	if(suit)
+		used_slots |= ITEM_SLOT_CLOTH_OUTER
+	if(belt)
+		used_slots |= ITEM_SLOT_BELT
+	if(gloves)
+		used_slots |= ITEM_SLOT_GLOVES
+	if(shoes)
+		used_slots |= ITEM_SLOT_FEET
+	if(head)
+		used_slots |= ITEM_SLOT_HEAD
+	if(mask)
+		used_slots |= ITEM_SLOT_MASK
+	if(neck)
+		used_slots |= ITEM_SLOT_NECK
+	if(l_ear)
+		used_slots |= ITEM_SLOT_EAR_LEFT
+	if(r_ear)
+		used_slots |= ITEM_SLOT_EAR_RIGHT
+	if(glasses)
+		used_slots |= ITEM_SLOT_EYES
+	if(id)
+		used_slots |= ITEM_SLOT_ID
+	if(suit_store)
+		used_slots |= ITEM_SLOT_SUITSTORE
+	if(l_hand)
+		used_slots |= ITEM_SLOT_HAND_LEFT
+	if(r_hand)
+		used_slots |= ITEM_SLOT_HAND_RIGHT
+	if(pda)
+		used_slots |= ITEM_SLOT_PDA
+	if(l_pocket)
+			equip_item(H, l_pocket, ITEM_SLOT_POCKET_LEFT)
+	if(r_pocket)
+			equip_item(H, r_pocket, ITEM_SLOT_POCKET_RIGHT)
+
 /datum/outfit/naked
 	name = "Naked"
 
