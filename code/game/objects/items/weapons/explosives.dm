@@ -110,9 +110,9 @@
 		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
 		return
 	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
-
-	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL) && !skip_doafter)
-		return
+	if(!skip_doafter)
+		if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
+			return
 
 	if(!user.drop_item_ground(src))
 		return

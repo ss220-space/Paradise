@@ -244,8 +244,10 @@
 	bombradialmenu(user)
 
 /obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
+	if(istype(AM, /obj/item/grenade/plastic))
+		. = ..()
 	if(nextbomb == null)
-		balloon_alert(user, "Заряд не выбран!")
+		nextbomb = pick(contents)
 		return
 	if(!LAZYLEN(contents))
 		balloon_alert(user, "Сумка пустая!")
@@ -258,13 +260,13 @@
 	if(isobserver(AM))
 		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
 		return
-	balloon_alert(user, "устанавливаем")
+	balloon_alert(user, "Устанавливаем...")
 	if(do_after(user, 5 SECONDS, AM))
 		nextbomb.skip_doafter = TRUE
 		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
-		nextbomb.attack(AM, user, params, user.zone_selected)
+		nextbomb.afterattack(AM, user, flag, params)
 		nextbomb = null
 		nextbombbutmining = null
 
@@ -276,10 +278,10 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
-/obj/item/storage/bag/kaboom/cyborg/upgraded // borg with storage increase version
+/obj/item/storage/bag/kaboom/cyborg/upgraded
 	storage_slots = 15
 	icon = 'icons/obj/mining.dmi'
-	icon_state = "bomb_satchell_adv"
+
 
 
 // -----------------------------

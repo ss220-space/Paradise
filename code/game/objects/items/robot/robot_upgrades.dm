@@ -646,7 +646,12 @@
 /obj/item/borg/upgrade/storageincreaser/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
+	if(robot.module == /obj/item/robot_module/miner)
+		robot.module.emag.icon_state = "bomb_satchell_adv"
+		robot.module.emag.update_icon_state()
+		var/obj/item/storage/bag/huyna = robot.module.emag
+		huyna.storage_slots = 15
+		robot.module.emag = huyna
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy *= 3
 		energy_storage.recharge_rate *= 2
