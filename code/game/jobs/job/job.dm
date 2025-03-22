@@ -297,7 +297,7 @@
 	var/obj/item/pda/PDA = H.wear_pda
 	var/obj/item/card/id/C = H.wear_id
 	if(istype(PDA) && istype(C))
-		PDA.owner = H.real_name
+		PDA.update_owner_name(H.real_name)
 		PDA.ownjob = C.assignment
 		PDA.ownrank = C.rank
 		PDA.update_appearance(UPDATE_NAME)

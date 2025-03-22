@@ -11,9 +11,9 @@
 /obj/item/organ/internal/body_egg/alien_embryo/on_find(mob/living/finder)
 	..()
 	if(stage < 4)
-		to_chat(finder, "It's small and weak, barely the size of a fetus.")
+		to_chat(finder, "Оно маленькое и слабое, едва размером с плод.")
 	else
-		to_chat(finder, "It's grown quite large, and writhes slightly as you look at it.")
+		to_chat(finder, "Оно выросло довольно большим и слегка извивается, когда вы смотрите на него.")
 		if(prob(10))
 			AttemptGrow(FALSE)
 
@@ -30,22 +30,22 @@
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(2))
-				to_chat(owner, "<span class='danger'>Your throat feels sore.</span>")
+				to_chat(owner, span_danger("Ваше горло болит."))
 			if(prob(2))
-				to_chat(owner, "<span class='danger'>Mucous runs down the back of your throat.</span>")
+				to_chat(owner, span_danger("Слизь стекает по задней стенке вашего горла."))
 		if(4)
 			if(prob(2))
 				owner.emote("sneeze")
 			if(prob(2))
 				owner.emote("cough")
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your muscles ache.</span>")
+				to_chat(owner, span_danger("Ваши мышцы ноют."))
 				owner.take_organ_damage(1)
 			if(prob(4))
-				to_chat(owner, "<span class='danger'>Your stomach hurts.</span>")
+				to_chat(owner, span_danger("Ваш живот болит."))
 				owner.adjustToxLoss(1)
 		if(5)
-			to_chat(owner, "<span class='danger'>You feel something tearing its way out of your stomach...</span>")
+			to_chat(owner, span_danger("Вы чувствуете, как что-то прорывается из вашего живота..."))
 			owner.adjustToxLoss(10)
 
 /obj/item/organ/internal/body_egg/alien_embryo/egg_process()
@@ -68,7 +68,7 @@
 		return
 	polling = 1
 	spawn()
-		var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as an alien?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
+		var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыгрять за Чужого?", ROLE_ALIEN, FALSE, source = /mob/living/carbon/alien/larva)
 		var/mob/C = null
 
 		// To stop clientless larva, we will check that our host has a client
@@ -84,8 +84,8 @@
 			stage = 2 // Let's try again later.
 			polling = 0
 			return
-
-		var/overlay = image('icons/mob/alien.dmi', loc = owner, icon_state = "burst_lie")
+		var/stand_check = owner.body_position == STANDING_UP
+		var/overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "burst_stand" : "burst_lie")
 		owner.add_overlay(overlay)
 
 		spawn(6)
@@ -101,6 +101,9 @@
 			else
 				owner.adjustBruteLoss(40)
 				owner.cut_overlay(overlay)
+				stand_check = owner.body_position == STANDING_UP
+				overlay = mutable_appearance('icons/mob/alien.dmi', icon_state = stand_check? "bursted_stand" : "bursted_lie")
+				owner.add_overlay(overlay)
 			qdel(src)
 
 /*----------------------------------------
@@ -108,7 +111,7 @@ Proc: AddInfectionImages(C)
 Des: Adds the infection image to all aliens for this embryo
 ----------------------------------------*/
 /obj/item/organ/internal/body_egg/alien_embryo/AddInfectionImages()
-	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
+	for(var/mob/living/carbon/alien/alien as anything in GLOB.aliens_list)
 		if(alien.client)
 			var/I = image('icons/mob/alien.dmi', loc = owner, icon_state = "infected[stage]")
 			alien.client.images += I
@@ -118,7 +121,7 @@ Proc: RemoveInfectionImage(C)
 Des: Removes all images from the mob infected by this embryo
 ----------------------------------------*/
 /obj/item/organ/internal/body_egg/alien_embryo/RemoveInfectionImages()
-	for(var/mob/living/carbon/alien/alien in GLOB.player_list)
+	for(var/mob/living/carbon/alien/alien as anything in GLOB.aliens_list)
 		if(alien.client)
 			for(var/image/I in alien.client.images)
 				if(dd_hasprefix_case(I.icon_state, "infected") && I.loc == owner)

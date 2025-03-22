@@ -34,7 +34,7 @@ export const Smartfridge = (props, context) => {
             buttons={
               !!can_dry && (
                 <Button
-                  width={4}
+                  width={11}
                   icon={drying ? 'power-off' : 'times'}
                   content={drying ? 'Начать сушку' : 'Закончить сушку'}
                   selected={drying}

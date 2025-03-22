@@ -30,7 +30,7 @@
 
 /obj/item/grown/nettle //abstract type
 	name = "nettle"
-	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
+	desc = "It's probably <b>not</b> wise to touch it with bare hands..."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "nettle"
 	damtype = "fire"

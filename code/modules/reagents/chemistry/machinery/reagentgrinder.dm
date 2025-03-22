@@ -296,16 +296,16 @@
 
 		if(!operating)
 				for (var/obj/item/O in holdingitems)
-						processing_chamber += "\A [O.declent_ru(NOMINATIVE)]<BR>"
+						processing_chamber += "\A [O.declent_ru(NOMINATIVE)]<br>"
 
 				if (!processing_chamber)
 						is_chamber_empty = 1
 						processing_chamber = "Ничего."
 				if (!beaker)
-						beaker_contents = "<B>Ёмкость не установлена.</B><br>"
+						beaker_contents = "<b>Ёмкость не установлена.</b><br>"
 				else
 						is_beaker_ready = 1
-						beaker_contents = "<B>Содержимое ёмкости:</B><br>"
+						beaker_contents = "<b>Содержимое ёмкости:</b><br>"
 						var/anything = 0
 						for(var/datum/reagent/R in beaker.reagents.reagent_list)
 								anything = 1
@@ -320,12 +320,12 @@
 		[beaker_contents]<hr>
 		"}
 				if (is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><BR>"
-						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><BR><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=grind'>Измельчить</a><br>"
+						dat += "<a href='byond://?src=[src.UID()];action=juice'>Выжать</a><br><br>"
 				if(holdingitems && holdingitems.len > 0)
-						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=eject'>Вынуть содержимое камеры</a><br>"
 				if (beaker)
-						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><BR>"
+						dat += "<a href='byond://?src=[src.UID()];action=detach'>Извлечь ёмкость</a><br>"
 		else
 				dat += "Пожалуйста, подождите..."
 

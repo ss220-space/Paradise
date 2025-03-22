@@ -1334,7 +1334,7 @@ REAGENT SCANNER
 		found_disease = TRUE
 		break
 	if(found_disease)
-		dat += "<font color='red'>Disease detected in target.</font><BR>"
+		dat += "<font color='red'>Disease detected in target.</font><br>"
 
 	var/extra_font = null
 	extra_font = (target.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
@@ -1373,17 +1373,17 @@ REAGENT SCANNER
 	dat += "[extra_font]\tBlood Level %: [blood_percent] ([target.blood_volume] units)</font><br>"
 
 	if(target.reagents)
-		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<BR>"
-		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<BR>"
+		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<br>"
+		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<br>"
 
 		extra_font = (target.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
 		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
 
 		extra_font = (target.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<BR>"
+		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<br>"
 
 		extra_font = (target.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<BR>"
+		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<br>"
 
 	dat += "<hr><table border='1'>"
 	dat += "<tr>"
@@ -1460,10 +1460,10 @@ REAGENT SCANNER
 		dat += "</tr>"
 	dat += "</table>"
 	if(HAS_TRAIT(target, TRAIT_BLIND))
-		dat += "<font color='red'>Cataracts detected.</font><BR>"
+		dat += "<font color='red'>Cataracts detected.</font><br>"
 	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
-		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
+		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
 	if(HAS_TRAIT(target, TRAIT_NEARSIGHTED))
-		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
+		dat += "<font color='red'>Retinal misalignment detected.</font><br>"
 
 	return dat

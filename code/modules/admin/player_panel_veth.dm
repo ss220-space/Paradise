@@ -53,7 +53,7 @@
 		if("gamePanel")
 			usr.client.game_panel()
 		if("openAdditionalPanel")
-			usr.client.holder.vuap_open(params["selectedPlayerCkey"], null)
+			usr.client.holder.vuap_open(params["selectedPlayerCkey"], M)
 		if("createCommandReport")
 			usr.client.cmd_admin_create_centcom_report()
 		if("logs")

@@ -384,8 +384,10 @@
 	var/html = get_html_template(content)
 
 	usr << browse(null, "window=ViewBorer[UID()]Chems;size=585x400")
-	usr << browse(html, "window=ViewBorer[UID()]Chems;size=585x400")
-
+	var/datum/browser/popup = new(usr, "viewBorer[UID()]chems", "Borer Chems", 585, 400)
+	popup.set_content(html)
+	popup.open(FALSE)
+	
 	return
 
 /mob/living/simple_animal/borer/Topic(href, href_list, hsrc)

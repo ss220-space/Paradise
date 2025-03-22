@@ -12,7 +12,7 @@
 
 /datum/admins/proc/one_click_antag()
 
-	var/dat = {"<meta charset="UTF-8"><B>One-click Antagonist</B><br>
+	var/dat = {"<b>One-click Antagonist</b><br>
 		<a href='byond://?src=[UID()];makeAntag=1'>Make Traitors</a><br>
 		<a href='byond://?src=[UID()];makeAntag=2'>Make Changelings</a><br>
 		<a href='byond://?src=[UID()];makeAntag=3'>Make Revolutionaries</a><br>
@@ -28,7 +28,9 @@
 		<a href='byond://?src=[UID()];makeAntag=13'>Make Terror Spiders</a><br>
 		<a href='byond://?src=[UID()];makeAntag=14'>Make Aliens</a><br>
 		"}
-	usr << browse(dat, "window=oneclickantag;size=400x400")
+	var/datum/browser/popup = new(usr, "oneclickantag", "One-click Antagonist", 400, 400)
+	popup.set_content(dat)
+	popup.open(FALSE)
 	return
 
 /datum/admins/proc/CandCheck(var/role = null, var/mob/living/carbon/human/M, var/datum/game_mode/temp = null)

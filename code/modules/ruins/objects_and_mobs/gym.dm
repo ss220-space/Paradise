@@ -42,7 +42,7 @@
 		user.Stun(8 SECONDS)
 		user.forceMove(src.loc)
 		var/bragmessage = pick("pushing it to the limit","going into overdrive","burning with determination","rising up to the challenge", "getting strong now","getting ripped")
-		user.visible_message("<B>[user] is [bragmessage]!</B>")
+		user.visible_message("<b>[user] is [bragmessage]!</b>")
 		AnimateMachine(user)
 
 		playsound(user, 'sound/machines/click.ogg', 60, 1)

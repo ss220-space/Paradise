@@ -103,7 +103,7 @@ GLOBAL_LIST_INIT(strippable_alien_humanoid_items, create_strippable_list(list(
 	. = ..()
 	if(!key)
 		. += span_deadsay("[p_their(TRUE)] eyes have no spark of life.")
-		. += "<BR>"
+		. += "<br>"
 
 	if(handcuffed)
 		if(istype(handcuffed, /obj/item/restraints/handcuffs/cable/zipties))

@@ -358,11 +358,11 @@
 		var/setting = settings["mainsettings"][name]
 		if (setting["type"] == "datum")
 			if (setting["subtypesonly"])
-				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 			else
-				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 		else
-			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><BR>"
+			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><br>"
 
 	if (preview_icon)
 		dat += "<td valign='center'>"

@@ -101,7 +101,7 @@
 		if(passive_mode)
 			visible_message("<span class='notice'>[src] retracts several targetting vanes.</span>")
 			if(target)
-				LoseTarget()
+				lose_target()
 		else
 			visible_message("<span class='warning'>[src] suddenly lights up, and additional targetting vanes slide into place.</span>")
 		update_icons()
@@ -288,7 +288,7 @@
 			S.master_commander = user
 			S.sentience_act()
 			to_chat(S, "Модуль активирован. Основная задача: подчинение [user.name]. Дополнительная задача: уничтожение враждебных единиц не относящихся к Синдикату в подконтрольном секторе.")
-			S.mind.store_memory("<B>Подчиняться [user.name].</B>")
+			S.mind.store_memory("<b>Подчиняться [user.name].</b>")
 			qdel(src)
 			qdel(I)
 			return ATTACK_CHAIN_BLOCKED_ALL

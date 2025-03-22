@@ -327,7 +327,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
 				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
 
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	. += "It shows the alert level as: <b><u>[capitalize(get_security_level())]</u></b>."
 
 
 /obj/machinery/firealarm/proc/reset()

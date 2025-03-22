@@ -81,7 +81,7 @@
 		return targets2
 	return targets3
 
-/mob/living/simple_animal/hostile/poison/terror_spider/LoseTarget()
+/mob/living/simple_animal/hostile/poison/terror_spider/lose_target()
 	if(target && isliving(target))
 		var/mob/living/T = target
 		if(T.stat > 0)
@@ -314,7 +314,7 @@
 				entry_vent = null
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
-			visible_message("<B>[capitalize(declent_ru(NOMINATIVE))] залезает в вентиляционные каналы!</B>", span_notice("Слышно, как что-то сжимается в вентиляционных каналах."))
+			visible_message("<b>[capitalize(declent_ru(NOMINATIVE))] залезает в вентиляционные каналы!</b>", span_notice("Слышно, как что-то сжимается в вентиляционных каналах."))
 			spawn(rand(20,60))
 				var/original_location = loc
 				forceMove(exit_vent)

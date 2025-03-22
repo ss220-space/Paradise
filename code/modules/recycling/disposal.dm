@@ -292,6 +292,38 @@
 
 	update()
 
+/// Alternative tg proc, used in monkey AI
+/obj/machinery/disposal/proc/monkey_stuff_mob(mob/living/target, mob/living/user)
+	var/ventcrawler = HAS_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(user, TRAIT_VENTCRAWLER_NUDE)
+	var/target_loc = target.loc
+	if(!iscarbon(user) && !ventcrawler) //only carbon and ventcrawlers can climb into disposal by themselves.
+		return
+	if(!isturf(user.loc)) //No magically doing it from inside closets
+		return
+	if(QDELETED(src) || target_loc != target.loc)
+		return
+	if(target.buckled || target.has_buckled_mobs())
+		return
+	if(target.mob_size > MOB_SIZE_HUMAN)
+		to_chat(user, span_warning("[target] не помещается в [src]!"))
+		return
+	add_fingerprint(user)
+	if(user == target)
+		user.visible_message(span_warning("[user] начинает забираться в [src]."), span_notice("вы начинаете забираться в [src]..."))
+	else
+		target.visible_message(span_danger("[user] начинает запихивать [target] в [src]."), span_userdanger("[user] начинает запихивать вас в [src]!"))
+	if(do_after(user, 2 SECONDS, target))
+		if(!loc)
+			return
+		target.forceMove(src)
+	if(user == target)
+		user.visible_message(span_warning("[user] забирается в [src]."), span_notice("вы забираетесь [src]."))
+		. = TRUE
+	else
+		target.visible_message(span_danger("[user] запихивает [target] в [src]."), span_userdanger("[user] запихивает вас в [src]."))
+		add_attack_logs(user, target, "Disposal'ed")
+		. = TRUE
+	update()
 
 // attempt to move while inside
 /obj/machinery/disposal/relaymove(mob/user)

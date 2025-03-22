@@ -89,7 +89,7 @@
 		if(watching && watching != target)
 			// This one is closer.
 			if(get_dist(watching, src) > get_dist(target, src))
-				LoseTarget()
+				lose_target()
 				GiveTarget(watching)
 
 /mob/living/simple_animal/hostile/statue/AttackingTarget()

@@ -196,7 +196,7 @@
 
 /obj/machinery/computer/proc/decode(text)
 	// Adds line breaks
-	text = replacetext(text, "\n", "<BR>")
+	text = replacetext(text, "\n", "<br>")
 	return text
 
 /obj/machinery/computer/attack_ghost(mob/user)
