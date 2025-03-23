@@ -100,6 +100,7 @@
 	var/katana_cooldown
 	var/mob/living/user = null
 	var/mob/living/target
+	actions_types = list(/datum/action/item_action/katana)
 
 
 /obj/item/melee/katana/suicide_act(mob/user)
@@ -114,6 +115,10 @@
 
 
 /obj/item/melee/katana/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/katana))
+		jerk()
+
+/obj/item/melee/katana/proc/jerk()
 	if(katana_cooldown)
 		to_chat(user, span_warning("Вам нужна отдышка перед новым рывком!"))
 		return
@@ -124,7 +129,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 100 SECONDS) // 100 секунд для повторного рывка
 
 /obj/item/melee/katana/proc/charge(atom/newloc)
-	user.multiplicative_slowdown = -1
+	user.cached_multiplicative_slowdown = -1
 	user.Move(newloc,Dir=0,step_x=5,step_y=0)
 	user.emote("scream")
 

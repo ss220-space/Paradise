@@ -392,6 +392,11 @@
 /datum/action/item_action/activate/enchant/New(Target)
 	..()
 	UpdateButtonIcon()
+
+/datum/action/item_action/katana
+	name = "Рывок"
+	desc = "Сделайте рывок вперёд, чтобы отрубить голову вашего врага"
+
 /datum/action/item_action/halt
 	name = "HALT!"
 
