@@ -179,8 +179,9 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
+	var/DNR = !ghost_can_reenter()
 	if(stat == DEAD)
-		holder.icon_state = "huddead"
+		holder.icon_state = DNR ? "huddeaddnr" : "huddead"
 	else if(has_virus())
 		holder.icon_state = "hudill"
 	else
@@ -208,12 +209,13 @@
 	// To the right of health bar
 	if(stat == DEAD || HAS_TRAIT(src, TRAIT_FAKEDEATH))
 		var/revivable = timeofdeath && (round(world.time - timeofdeath) < DEFIB_TIME_LIMIT)
+		var/DNR = !ghost_can_reenter()
 		if(!ghost_can_reenter() || suiciding) // DNR or AntagHUD or Suicide
 			revivable = FALSE
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
-			holder.icon_state = "huddead"
+			holder.icon_state = DNR ? "huddeaddnr" : "huddead"
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
