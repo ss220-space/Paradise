@@ -98,9 +98,8 @@
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 	var/katana_cooldown
-	var/mob/living/carbon/human/user = owner
+	var/mob/living/user = null
 	var/mob/living/target
-	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 
 
 /obj/item/melee/katana/suicide_act(mob/user)
@@ -109,39 +108,39 @@
 
 /obj/item/melee/katana/proc/reset_cooldown()
 	katana_cooldown = FALSE
-	if(owner)
-		owner.update_action_buttons()
-		to_chat(owner, span_notice("Вы готовы к новому рывку."))
+	if(user)
+		user.update_action_buttons()
+		to_chat(user, span_notice("Вы готовы к новому рывку."))
 
 
 /obj/item/melee/katana/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(katana_cooldown)
-		to_chat(owner, span_warning("Вам нужна отдышка перед новым рывком!"))
+		to_chat(user, span_warning("Вам нужна отдышка перед новым рывком!"))
 		return
 
 	charge()
 
-	implant_emp_downtime = TRUE
+	katana_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), 100 SECONDS) // 100 секунд для повторного рывка
 
-/obj/item/melee/katana/proc/charge()
-	owner.multiplicative_slowdown = -1
-	owner.Move(NewLoc,Dir=0,step_x=5,step_y=0)
-	owner.scream
+/obj/item/melee/katana/proc/charge(atom/newloc)
+	user.multiplicative_slowdown = -1
+	user.Move(newloc,Dir=0,step_x=5,step_y=0)
+	user.emote("scream")
 
 /obj/item/melee/katana/Bump(atom/bumped)
+	var/obj/item/organ/external/head/head = target.get_organ(BODY_ZONE_HEAD)
 	if(!charge())
 		return
 	if(isliving(bumped))
 		if(ismegafauna(bumped))
 			return
 		target = bumped
-			head.droplimb()
-			add_attack_logs(owner, target, "beheaded with [src]")
-			H.regenerate_icons()
-			kill_count++
-	if(!HAS_TRAIT(owner, TRAIT_FLOORED))
-		owner.Weaken(3 SECONDS)
+		head.droplimb()
+		add_attack_logs(user, target, "beheaded with [src]")
+		target.regenerate_icons()
+	if(!HAS_TRAIT(user, TRAIT_FLOORED))
+		user.Weaken(3 SECONDS)
 
 /obj/item/melee/katana/basalt
 	name = "basalt katana"
