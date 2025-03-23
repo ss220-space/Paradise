@@ -12,7 +12,7 @@ body
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
 	body
 	{
-		font-size: 0.65em;
+		font-size: calc(14px / var(--dpr));
 	}
 }
 

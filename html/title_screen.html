@@ -6,6 +6,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" href="v4shim.css">
 		<link rel="stylesheet" type="text/css" href="font-awesome.css">
+		<script>
+			document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+			window.addEventListener('resize', () => {
+				document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+			});
+		</script>
 		<style type='text/css'>
 			@font-face {
 				font-family: Pixellari;
@@ -459,36 +465,37 @@
 			@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
 
 				body {
-					font-size: 13px;
+					font-size: calc(15px / var(--dpr));
+
 				}
 
 				.pixelated .character:first-of-type {
-					font-size: 1.3rem;
+					font-size: calc(1.5rem / var(--dpr));
 				}
 
 				.hide_button i {
-					font-size: 1.3rem;
+					font-size: calc(1.5rem / var(--dpr));
 				}
 
 				.link_button i {
-					font-size: 1.3rem;
+					font-size: calc(1.5rem / var(--dpr));
 				}
 
 				.menu_button {
-					font-size: 1.15rem;
+					font-size: calc(1.35rem / var(--dpr));
 				}
 
 				.character:first-of-type {
-					font-size: 1.1rem;
+					font-size: calc(1.2rem / var(--dpr));
 				}
 
 				.character {
-					font-size: 1rem;
+					font-size: calc(1.1rem / var(--dpr));
 				}
 
 				.menu_notice {
-					line-height: 1.55rem;
-					font-size: 1.55rem;
+					line-height: calc(1.75rem / var(--dpr));
+					font-size: calc(1.75rem / var(--dpr));
 				}
 			}
 
