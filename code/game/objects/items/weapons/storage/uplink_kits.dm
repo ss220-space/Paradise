@@ -14,11 +14,29 @@
 
 /obj/item/storage/box/syndie_kit
 	name = "Box"
-	desc = "A sleek, sturdy box"
+	desc = "Это обычная коробка."
+	ru_names = list(
+		NOMINATIVE = "коробка",
+		GENITIVE = "коробки",
+		DATIVE = "коробке",
+		ACCUSATIVE = "коробку",
+		INSTRUMENTAL = "коробкой",
+		PREPOSITIONAL = "коробке"
+	)
+	gender = MALE
 	icon_state = "box_of_doom"
 
 /obj/item/storage/box/syndie_kit/mantisblade
-	name = "Horlex Mantis blade set"
+	name = "mantis blade kit"
+	desc = "Коробка, содержащая 2 клинка богомола."
+	ru_names = list(
+		NOMINATIVE = "набор клинков богомола",
+		GENITIVE = "набора клинков богомола",
+		DATIVE = "набору клинков богомола",
+		ACCUSATIVE = "набор клинков богомола",
+		INSTRUMENTAL = "набором клинков богомола",
+		PREPOSITIONAL = "наборе клинков богомола"
+	)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/mantisblade/populate_contents()
@@ -27,7 +45,11 @@
 
 /obj/item/storage/box/syndie_kit/space
 	name = "Boxed Space Suit and Helmet"
-	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red, /obj/item/clothing/head/helmet/space/syndicate/black/red, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate, /obj/item/tank/jetpack/oxygen/harness)
+	can_hold = list(/obj/item/clothing/suit/space/syndicate/black/red,
+					/obj/item/clothing/head/helmet/space/syndicate/black/red,
+					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+					/obj/item/clothing/mask/gas/syndicate,
+					/obj/item/tank/jetpack/oxygen/harness)
 	max_w_class = WEIGHT_CLASS_NORMAL
 
 /obj/item/storage/box/syndie_kit/space/populate_contents()
@@ -53,9 +75,10 @@
 	description_antag = "Высокотехнологичная коробка, содержащая набор хардсьюта-хамелеона, искусно скрытая под аптечку первой оксигенной помощи. Можно разобрать на картон, на самом деле это просто качественная краска."
 	icon_state = "o2"
 	item_state = "firstaid-o2"
-	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent, /obj/item/tank/internals/emergency_oxygen/engi/syndi, /obj/item/clothing/mask/gas/syndicate)
+	can_hold = list(/obj/item/clothing/suit/space/hardsuit/contractor/agent,
+					/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+					/obj/item/clothing/mask/gas/syndicate)
 	max_w_class = WEIGHT_CLASS_NORMAL
-
 
 /obj/item/storage/box/syndie_kit/counterfeiter_bundle
 	name = "Counterfeiter Bundle"
@@ -110,7 +133,8 @@
 
 /obj/item/storage/box/syndie_kit/throwing_weapons
 	name = "boxed throwing kit"
-	can_hold = list(/obj/item/throwing_star, /obj/item/restraints/legcuffs/bola/tactical)
+	can_hold = list(/obj/item/throwing_star,
+					/obj/item/restraints/legcuffs/bola/tactical)
 	max_combined_w_class = 16
 	max_w_class = WEIGHT_CLASS_NORMAL
 
@@ -122,14 +146,32 @@
 	new /obj/item/restraints/legcuffs/bola/tactical(src)
 
 /obj/item/storage/box/syndie_kit/sarin
-	name = "Sarin Gas Grenades"
+	name = "sarin gas grenades"
+	desc = "Коробка, содержащая гранаты с зарином."
+	ru_names = list(
+		NOMINATIVE = "набор зариновых гранат",
+		GENITIVE = "набора зариновых гранат",
+		DATIVE = "набору зариновых гранат",
+		ACCUSATIVE = "набор зариновых гранат",
+		INSTRUMENTAL = "набором зариновых гранат",
+		PREPOSITIONAL = "наборе зариновых гранат"
+	)
 
 /obj/item/storage/box/syndie_kit/sarin/populate_contents()
 	for(var/I in 1 to 4)
 		new /obj/item/grenade/chem_grenade/saringas(src)
 
 /obj/item/storage/box/syndie_kit/bioterror
-	name = "bioterror syringe box"
+	name = "bioterror syringe kit"
+	desc = "Коробка, содержащая семь шприцов \"Биотеррор\"."
+	ru_names = list(
+		NOMINATIVE = "набор шприцов \"Биотеррор\"",
+		GENITIVE = "набора шприцов \"Биотеррор\"",
+		DATIVE = "набору шприцов \"Биотеррор\"",
+		ACCUSATIVE = "набор шприцов \"Биотеррор\"",
+		INSTRUMENTAL = "набором шприцов \"Биотеррор\"",
+		PREPOSITIONAL = "наборе шприцов \"Биотеррор\""
+	)
 
 /obj/item/storage/box/syndie_kit/bioterror/populate_contents()
 	for(var/I in 1 to 7)
@@ -137,7 +179,15 @@
 
 /obj/item/storage/box/syndie_kit/caneshotgun
 	name = "cane gun kit"
-
+	desc = "Коробка, содержащая дробовик-трость и патроны к нему."
+	ru_names = list(
+		NOMINATIVE = "набор дробовика-трости",
+		GENITIVE = "набора дробовика-трости",
+		DATIVE = "набору дробовика-трости",
+		ACCUSATIVE = "набор дробовика-трости",
+		INSTRUMENTAL = "набором дробовика-трости",
+		PREPOSITIONAL = "наборе дробовика-трости"
+	)
 
 /obj/item/storage/box/syndie_kit/caneshotgun/populate_contents()
 	for(var/I in 1 to 6)
@@ -146,20 +196,46 @@
 
 /obj/item/storage/box/syndie_kit/fake_revolver
 	name = "trick revolver kit"
+	desc = "Коробка с револьвером для розыгрышей."
+	ru_names = list(
+		NOMINATIVE = "набор револьвера для розыгрышей",
+		GENITIVE = "набора револьвера для розыгрышей",
+		DATIVE = "набору револьвера для розыгрышей",
+		ACCUSATIVE = "набор револьвера для розыгрышей",
+		INSTRUMENTAL = "набором револьвера для розыгрышей",
+		PREPOSITIONAL = "наборе револьвера для розыгрышей"
+	)
 
 /obj/item/storage/box/syndie_kit/fake_revolver/populate_contents()
 	new /obj/item/toy/russian_revolver/trick_revolver(src)
 
 /obj/item/storage/box/syndie_kit/mimery
 	name = "advanced mimery kit"
+	desc = "Коробка, содержащая 2 книги по продвинутыми пантомимами."
+	ru_names = list(
+		NOMINATIVE = "набор продвинутых пантомим",
+		GENITIVE = "набора продвинутых пантомим",
+		DATIVE = "набору продвинутых пантомим",
+		ACCUSATIVE = "набор продвинутых пантомим",
+		INSTRUMENTAL = "набором продвинутых пантомим",
+		PREPOSITIONAL = "наборе продвинутых пантомим"
+	)
 
 /obj/item/storage/box/syndie_kit/mimery/populate_contents()
 	new /obj/item/spellbook/oneuse/mime/greaterwall(src)
 	new	/obj/item/spellbook/oneuse/mime/fingergun(src)
 
-
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades
-	name = "Atmos N2O Grenades"
+	name = "atmos N2O grenades kit"
+	desc = "Коробка, содержащая 2 кластерные гранаты наполненные газом N2O."
+	ru_names = list(
+		NOMINATIVE = "набор усыпляющих газовых кластерных гранат",
+		GENITIVE = "набора усыпляющих газовых кластерных гранат",
+		DATIVE = "набору усыпляющих газовых кластерных гранат",
+		ACCUSATIVE = "набор усыпляющих газовых кластерных гранат",
+		INSTRUMENTAL = "набором усыпляющих газовых кластерных гранат",
+		PREPOSITIONAL = "наборе усыпляющих газовых кластерных гранат"
+	)
 
 /obj/item/storage/box/syndie_kit/atmosn2ogrenades/populate_contents()
 	new /obj/item/grenade/clusterbuster/n2o(src)
@@ -167,15 +243,32 @@
 
 
 /obj/item/storage/box/syndie_kit/atmosfiregrenades
-	name = "Plasma Fire Grenades"
+	name = "plasma fire grenades kit"
+	desc = "Коробка, содержащая 2 кластерные гранаты наполненные газообразной плазмой."
+	ru_names = list(
+		NOMINATIVE = "набор плазменных газовых кластерных гранат",
+		GENITIVE = "набора плазменных газовых кластерных гранат",
+		DATIVE = "набору плазменных газовых кластерных гранат",
+		ACCUSATIVE = "набор плазменных газовых кластерных гранат",
+		INSTRUMENTAL = "набором плазменных газовых кластерных гранат",
+		PREPOSITIONAL = "наборе плазменных газовых кластерных гранат"
+	)
 
 /obj/item/storage/box/syndie_kit/atmosfiregrenades/populate_contents()
 	new /obj/item/grenade/clusterbuster/plasma(src)
 	new /obj/item/grenade/clusterbuster/plasma(src)
 
-
 /obj/item/storage/box/syndie_kit/missionary_set
-	name = "Missionary Starter Kit"
+	name = "missionary starter kit"
+	desc = "Коробка, содержащая Библию, комплект одежды и посох."
+	ru_names = list(
+		NOMINATIVE = "стартовый набор миссионера",
+		GENITIVE = "стартового набора миссионера",
+		DATIVE = "стартовому набору миссионера",
+		ACCUSATIVE = "стартовый набор миссионера",
+		INSTRUMENTAL = "стартовым набором миссионера",
+		PREPOSITIONAL = "стартовом наборе миссионера"
+	)
 
 /obj/item/storage/box/syndie_kit/missionary_set/populate_contents()
 	new /obj/item/nullrod/missionary_staff(src)
@@ -188,7 +281,16 @@
 
 
 /obj/item/storage/box/syndie_kit/cutouts
-	name = "Fortified Artistic Box"
+	name = "adaptive cardboard figure kit"
+	desc = "Коробка, содерржащая адаптивные картонные фигуры и баллончик с краской."
+	ru_names = list(
+		NOMINATIVE = "набор адаптивных картонных фигур",
+		GENITIVE = "набора адаптивных картонных фигур",
+		DATIVE = "набору адаптивных картонных фигур",
+		ACCUSATIVE = "набор адаптивных картонных фигур",
+		INSTRUMENTAL = "набором адаптивных картонных фигур",
+		PREPOSITIONAL = "наборе адаптивных картонных фигур"
+	)
 
 /obj/item/storage/box/syndie_kit/cutouts/populate_contents()
 	for(var/i in 1 to 3)
@@ -197,12 +299,20 @@
 
 /obj/item/storage/box/syndie_kit/bonerepair
 	name = "emergency nanite kit"
-	desc = "A box containing one prototype nanite repair system."
+	desc = "Коробка, содержащая инъектор с нанокальцием и руководство по применению."
+	ru_names = list(
+		NOMINATIVE = "набор инъектора с нанокальцием",
+		GENITIVE = "набора инъектора с нанокальцием",
+		DATIVE = "набору инъектора с нанокальцием",
+		ACCUSATIVE = "набор инъектора с нанокальцием",
+		INSTRUMENTAL = "набором инъектора с нанокальцием",
+		PREPOSITIONAL = "наборе инъектора с нанокальцием"
+	)
 
 /obj/item/storage/box/syndie_kit/bonerepair/populate_contents()
 	new /obj/item/reagent_containers/hypospray/autoinjector/nanocalcium(src)
 	var/obj/item/paper/P = new /obj/item/paper(src)
-	P.name = "Prototype nanite repair guide"
+	P.name = "Prototype nanite repair guide" // The instructions need to be revised.
 	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
 	P.info = {"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
@@ -216,6 +326,15 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/chameleon
 	name = "chameleon kit"
+	desc = "Коробка, содержащая комплект одежды, оснащённый технологией \"Хамелеон\"."
+	ru_names = list(
+		NOMINATIVE = "набор одежды \"Хамелеон\"",
+		GENITIVE = "набора одежды \"Хамелеон\"",
+		DATIVE = "набору одежды \"Хамелеон\"",
+		ACCUSATIVE = "набор одежды \"Хамелеон\"",
+		INSTRUMENTAL = "набором одежды \"Хамелеон\"",
+		PREPOSITIONAL = "наборе одежды \"Хамелеон\""
+	)
 
 /obj/item/storage/box/syndie_kit/chameleon/populate_contents()
 	new /obj/item/clothing/under/chameleon(src)
@@ -227,12 +346,22 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/mask/chameleon(src)
 	new /obj/item/storage/backpack/chameleon(src)
 	new /obj/item/radio/headset/chameleon(src)
+	new /obj/item/clothing/neck/chameleon(src)
 	new /obj/item/stamp/chameleon(src)
 	new /obj/item/pda/chameleon(src)
 	new /obj/item/pen/fakesign(src)
 
 /obj/item/storage/box/syndie_kit/plasma_chameleon
 	name = "plasmaman chameleon kit"
+	desc = "Коробка, содержащая комплект одежды для плазмолюдов, оснащённый технологией \"Хамелеон\"."
+	ru_names = list(
+		NOMINATIVE = "набор одежды \"Хамелеон\" для плазмолюдов",
+		GENITIVE = "набора одежды \"Хамелеон\" для плазмолюдов",
+		DATIVE = "набору одежды \"Хамелеон\" для плазмолюдов",
+		ACCUSATIVE = "набор одежды \"Хамелеон\" для плазмолюдов",
+		INSTRUMENTAL = "набором одежды \"Хамелеон\" для плазмолюдов",
+		PREPOSITIONAL = "наборе одежды \"Хамелеон\" для плазмолюдов"
+	)
 
 /obj/item/storage/box/syndie_kit/plasma_chameleon/populate_contents()
 	new /obj/item/clothing/under/plasmaman/chameleon(src)
@@ -250,6 +379,15 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/dart_gun
 	name = "dart gun kit"
+	desc = "Коробка, содержащая миниатюрную версию обычного шприцемёта."
+	ru_names = list(
+		NOMINATIVE = "набор дротикового пистолета",
+		GENITIVE = "набора дротикового пистолета",
+		DATIVE = "набору дротикового пистолета",
+		ACCUSATIVE = "набор дротикового пистолета",
+		INSTRUMENTAL = "набором дротикового пистолета",
+		PREPOSITIONAL = "наборе дротикового пистолета"
+	)
 
 /obj/item/storage/box/syndie_kit/dart_gun/populate_contents()
 	new /obj/item/gun/syringe/syndicate(src)
@@ -258,8 +396,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/reagent_containers/syringe/pancuronium(src)
 
 /obj/item/storage/box/syndie_kit/nuke
-	name = "box"  //Bit of stealth, since you spawn with it
-	desc = "It's just an ordinary box."
+	name = "box"  // Stealth, because you will spawn with a box.
+	desc = "Это обычная коробка."
+	ru_names = list(
+		NOMINATIVE = "коробка",
+		GENITIVE = "коробки",
+		DATIVE = "коробке",
+		ACCUSATIVE = "коробку",
+		INSTRUMENTAL = "коробкой",
+		PREPOSITIONAL = "коробке"
+	)
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/nuke/populate_contents()
@@ -268,8 +414,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/paper/guides/antag/nuke_instructions(src)
 
 /obj/item/storage/box/syndie_kit/supermatter
-	name = "box"
-	desc = "It's just an ordinary box."
+	name = "box"  // Stealth, because you will spawn with a box.
+	desc = "Это обычная коробка."
+	ru_names = list(
+		NOMINATIVE = "коробка",
+		GENITIVE = "коробки",
+		DATIVE = "коробке",
+		ACCUSATIVE = "коробку",
+		INSTRUMENTAL = "коробкой",
+		PREPOSITIONAL = "коробке"
+	)
 	icon_state = "box"
 
 /obj/item/storage/box/syndie_kit/supermatter/populate_contents()
@@ -279,8 +433,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/paper/guides/antag/supermatter_sliver(src)
 
 /obj/item/storage/box/syndie_kit/genes
-	name = "Genetic superiority bundle"
-	desc = "Fun for the whole family"
+	name = "genetic superiority bundle"
+	desc = "Коробка, содержащая шприцы с сильными генетическими модификациями."
+	ru_names = list(
+		NOMINATIVE = "набор генетического превосходства",
+		GENITIVE = "набора генетического превосходства",
+		DATIVE = "набору генетического превосходства",
+		ACCUSATIVE = "набор генетического превосходства",
+		INSTRUMENTAL = "набором генетического превосходства",
+		PREPOSITIONAL = "наборе генетического превосходства"
+	)
 
 /obj/item/storage/box/syndie_kit/genes/populate_contents()
 	new /obj/item/dnainjector/hulkmut(src)
@@ -290,7 +452,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/dnainjector/insulation(src)
 
 /obj/item/storage/box/syndie_kit/stungloves
-	name = "Stungloves"
+	name = "stungloves kit"
+	desc = "Коробка, содержащая оглушающие перчатки и аккумулятор."
+	ru_names = list(
+		NOMINATIVE = "набор оглушающих перчаток",
+		GENITIVE = "набора оглушающих перчаток",
+		DATIVE = "набору оглушающих перчаток",
+		ACCUSATIVE = "набор оглушающих перчаток",
+		INSTRUMENTAL = "набором оглушающих перчаток",
+		PREPOSITIONAL = "наборе оглушающих перчаток"
+	)
 
 /obj/item/storage/box/syndie_kit/stungloves/populate_contents()
 	new /obj/item/clothing/gloves/color/yellow/stun(src)
@@ -301,7 +472,15 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 
 /obj/item/storage/box/syndie_kit/cyborg_maint
 	name = "cyborg repair kit"
-	desc = "For people who wants to repair their robots."
+	desc = "Коробка, содержащая всё необходимое для ремонта робота, а также подробную инструкцию по эксплуатации."
+	ru_names = list(
+		NOMINATIVE = "набор для починки роботов",
+		GENITIVE = "набора для починки роботов",
+		DATIVE = "набору для починки роботов",
+		ACCUSATIVE = "набор для починки роботов",
+		INSTRUMENTAL = "набором для починки роботов",
+		PREPOSITIONAL = "наборе для починки роботов"
+	)
 
 /obj/item/storage/box/syndie_kit/cyborg_maint/populate_contents()
 	new /obj/item/robot_parts/robot_component/armour(src)
@@ -316,25 +495,35 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/encryptionkey/syndicate(src)
 	new /obj/item/robotanalyzer(src)
 	var/obj/item/paper/P = new (src)
-	P.name = "Cyborg Repair Instruction"
+	P.name = "Cyborg Repair Instruction" // The instructions need to be revised.
 	P.info = {"
 <font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Краткая инструкция по пончинке роботов</B><HR></center><BR><BR>
 
-<font size = "4">1. Возьмите Cyborg Analyzer, проведите им по юниту.<BR>
+<font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<BR>
 2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<BR>
-3. Если юнит закрыт(будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<BR>
-4. Монтировкой откройте крышку юнита.<BR>
-5. Руками вытащите батарейку у юнита.<BR>
+3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<BR>
+4. Монтировкой откройте крышку робота.<BR>
+5. Руками вытащите батарейку у робота.<BR>
 6. Монтировкой снимите сломанные компоненты из пункта 2.<BR>
-7. Вставьте новые компоненты в юнита.<BR>
-8. Вставьте батарейку в юнита.<BR>
-9. Закройте крышку юнита монтировкой.<BR>
-10. Залейте нанопастой поврежденные части юнита.<BR>
-11. Готово. Юнит снова функционирует.<BR>
+7. Вставьте новые компоненты в робота.<BR>
+8. Вставьте батарейку в робота.<BR>
+9. Закройте крышку робота монтировкой.<BR>
+10. Залейте нанопастой поврежденные части робота.<BR>
+11. Готово. робот снова функционирует.<BR>
 <BR><BR><BR>
 	"}
+
 /obj/item/storage/box/syndie_kit/chameleon_counter
 	name = "chameleon counterfeiter kit"
+	desc = "Коробка, содержащая 3 фальсификатора \"Хамелеон\"."
+	ru_names = list(
+		NOMINATIVE = "набор фальсификаторов \"Хамелеон\"",
+		GENITIVE = "набора фальсификаторов \"Хамелеон\"",
+		DATIVE = "набору фальсификаторов \"Хамелеон\"",
+		ACCUSATIVE = "набор фальсификаторов \"Хамелеон\"",
+		INSTRUMENTAL = "набором фальсификаторов \"Хамелеон\"",
+		PREPOSITIONAL = "наборе фальсификаторов \"Хамелеон\""
+	)
 
 /obj/item/storage/box/syndie_kit/chameleon_counter/populate_contents()
 	new /obj/item/chameleon_counterfeiter(src)
@@ -342,22 +531,48 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/chameleon_counterfeiter(src)
 
 /obj/item/storage/box/syndie_kit/pistol_ammo
-	name = "additional 10mm ammunition kit"
+	name = "10mm ammunition kit"
+	desc = "Коробка, содержащая 2 магазина патронов калибра 10 мм."
+	ru_names = list(
+		NOMINATIVE = "набор патронов калибра 10 мм",
+		GENITIVE = "набора патронов калибра 10 мм",
+		DATIVE = "набору патронов калибра 10 мм",
+		ACCUSATIVE = "набор патронов калибра 10 мм",
+		INSTRUMENTAL = "набором патронов калибра 10 мм",
+		PREPOSITIONAL = "наборе патронов калибра 10 мм"
+	)
 
 /obj/item/storage/box/syndie_kit/pistol_ammo/populate_contents()
 	new /obj/item/ammo_box/magazine/m10mm(src)
 	new /obj/item/ammo_box/magazine/m10mm(src)
 
 /obj/item/storage/box/syndie_kit/revolver_ammo
-	name = "additional .357 ammunition kit"
+	name = ".357 ammunition kit"
+	desc = "Коробка, содержащая 2 сменных барабана патронов .357 калибра."
+	ru_names = list(
+		NOMINATIVE = "набор патронов .357 калибра",
+		GENITIVE = "набора патронов .357 калибра",
+		DATIVE = "набору патронов .357 калибра",
+		ACCUSATIVE = "набор патронов .357 калибра",
+		INSTRUMENTAL = "набором патронов .357 калибра",
+		PREPOSITIONAL = "наборе патронов .357 калибра"
+	)
 
 /obj/item/storage/box/syndie_kit/revolver_ammo/populate_contents()
 	new /obj/item/ammo_box/speedloader/a357(src)
 	new /obj/item/ammo_box/speedloader/a357(src)
 
 /obj/item/storage/box/syndie_kit/dangertray
-	name = "Danger Tray pack"
-	desc = "Normal size box with compartments for trays."
+	name = "danger tray pack"
+	desc = "Коробка, содержащая 3 острых металлических подноса."
+	ru_names = list(
+		NOMINATIVE = "набор особо острых подносов",
+		GENITIVE = "набора особо острых подносов",
+		DATIVE = "набору особо острых подносов",
+		ACCUSATIVE = "набор особо острых подносов",
+		INSTRUMENTAL = "набором особо острых подносов",
+		PREPOSITIONAL = "наборе особо острых подносов"
+	)
 	can_hold = list(/obj/item/storage/bag/dangertray)
 	max_combined_w_class = 3
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -367,8 +582,16 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 		new /obj/item/storage/bag/dangertray(src)
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique
-	name = "Mr. Chang's Aggressive Marketing Technique"
-	desc = "Special delivery package that contains a set of items dedicated to maximize the income. Sell me that pen."
+	name = "Mr. Chang's aggressive marketing technique"
+	desc = "Коробка с товарами, предназначенными для увеличения прибыли через агрессивный маркетинг. Предоставлена корпорацией Мистера Чанга."
+	ru_names = list(
+		NOMINATIVE = "набор агрессивной маркетинговой техники Мистера Чанга",
+		GENITIVE = "набора агрессивной маркетинговой техники Мистера Чанга",
+		DATIVE = "набору агрессивной маркетинговой техники Мистера Чанга",
+		ACCUSATIVE = "набор агрессивной маркетинговой техники Мистера Чанга",
+		INSTRUMENTAL = "набором агрессивной маркетинговой техники Мистера Чанга",
+		PREPOSITIONAL = "наборе агрессивной маркетинговой техники Мистера Чанга"
+	)
 	icon_state = "box_mr_chang"
 
 /obj/item/storage/box/syndie_kit/mr_chang_technique/populate_contents()
@@ -378,16 +601,32 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/head/mr_chang_band(src)
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit
-	name = "Bowman headset conversion kit"
-	desc = "Easy-to-apply device which enchances headset with loud noise protection."
+	name = "bowman headset conversion kit"
+	desc = "В комплект входят гарнитура, которая обеспечивает защиту от громких звуков, а также ключ-шифратор Синдиката."
+	ru_names = list(
+		NOMINATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
+		GENITIVE = "набора гарнитуры с ключом-шифратором Синдиката",
+		DATIVE = "набору гарнитуры с ключом-шифратором Синдиката",
+		ACCUSATIVE = "набор гарнитуры с ключом-шифратором Синдиката",
+		INSTRUMENTAL = "набором гарнитуры с ключом-шифратором Синдиката",
+		PREPOSITIONAL = "наборе гарнитуры с ключом-шифратором Синдиката"
+	)
 
 /obj/item/storage/box/syndie_kit/bowman_conversion_kit/populate_contents()
 	new /obj/item/encryptionkey/syndicate(src)
 	new /obj/item/bowman_conversion_tool(src)
 
 /obj/item/storage/box/syndie_kit/commando_kit
-	name = "Commandos knife operation kit"
-	desc = "A box that smells like a mix of gunpowder, napalm and cheap whiskey.  Contains everything you need to survive in such places."
+	name = "knife fight kit"
+	desc = "Коробка, наполненная ароматами пороха, напалма и дешёвого виски, хранит в себе всё необходимое для выживания в суровых условиях."
+	ru_names = list(
+		NOMINATIVE = "набор для ножевого боя",
+		GENITIVE = "набора для ножевого боя",
+		DATIVE = "набору для ножевого боя",
+		ACCUSATIVE = "набор для ножевого боя",
+		INSTRUMENTAL = "набором для ножевого боя",
+		PREPOSITIONAL = "наборе для ножевого боя"
+	)
 	icon_state = "commandos_kit"
 
 /obj/item/storage/box/syndie_kit/commando_kit/populate_contents()
@@ -402,14 +641,32 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/storage/box/syndie_kit/knives_kit(src)
 
 /obj/item/storage/box/syndie_kit/knives_kit
-	name = "Throwing knives kit"
+	name = "throwing knives kit"
+	desc = "Коробка, содержащая 7 метательных ножей."
+	ru_names = list(
+		NOMINATIVE = "набор метательных ножей",
+		GENITIVE = "набора метательных ножей",
+		DATIVE = "набору метательных ножей",
+		ACCUSATIVE = "набор метательных ножей",
+		INSTRUMENTAL = "набором метательных ножей",
+		PREPOSITIONAL = "наборе метательных ножей"
+	)
 
 /obj/item/storage/box/syndie_kit/knives_kit/populate_contents()
 	for(var/i in 1 to 7)
 		new /obj/item/kitchen/knife/combat/throwing(src)
 
 /obj/item/storage/box/syndie_kit/blackops_kit
-	name = "Black ops kit"
+	name = "black ops kit"
+	desc = "Коробка, содержащая одежду, предназначенную для проведения опасных секретных операций."
+	ru_names = list(
+		NOMINATIVE = "набор для секретных операций",
+		GENITIVE = "набора для секретных операций",
+		DATIVE = "набору для секретных операций",
+		ACCUSATIVE = "набор для секретных операций",
+		INSTRUMENTAL = "набором для секретных операций",
+		PREPOSITIONAL = "наборе для секретных операций"
+	)
 
 /obj/item/storage/box/syndie_kit/blackops_kit/populate_contents()
 	new /obj/item/clothing/under/syndicate/blackops(src)
@@ -422,10 +679,53 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	new /obj/item/clothing/mask/balaclava(src)
 
 /obj/item/storage/box/syndie_kit/combat_baking
-	name = "Combat Bakery Kit"
+	name = "combat bakery kit"
+	desc = "Коробка, содержащая оружие, изготовленное из выпечки!"
+	ru_names = list(
+		NOMINATIVE = "набор боевого пекаря",
+		GENITIVE = "набора боевого пекаря",
+		DATIVE = "набору боевого пекаря",
+		ACCUSATIVE = "набор боевого пекаря",
+		INSTRUMENTAL = "набором боевого пекаря",
+		PREPOSITIONAL = "наборе боевого пекаря"
+	)
 
 /obj/item/storage/box/syndie_kit/combat_baking/populate_contents()
 	new /obj/item/reagent_containers/food/snacks/baguette/combat(src)
 	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/reagent_containers/food/snacks/croissant/throwing(src)
 	new /obj/item/book/granter/crafting_recipe/combat_baking(src)
+
+/obj/item/storage/box/syndie_kit/ghostface_kit
+	name = "Ghostface kit"
+	desc = "Коробка, содержащая костюм и маску \"Гоустфейс\"."
+	ru_names = list(
+		NOMINATIVE = "набор \"Гоустфейс\"",
+		GENITIVE = "набора \"Гоустфейс\"",
+		DATIVE = "набору \"Гоустфейс\"",
+		ACCUSATIVE = "набор \"Гоустфейс\"",
+		INSTRUMENTAL = "набором \"Гоустфейс\"",
+		PREPOSITIONAL = "наборе \"Гоустфейс\""
+	)
+
+/obj/item/storage/box/syndie_kit/ghostface_kit/populate_contents()
+	new /obj/item/clothing/suit/hooded/ghostfacesuit/true(src)
+	new /obj/item/clothing/mask/gas/ghostface/true(src)
+	new /obj/item/melee/ghostface_knife(src)
+
+/obj/item/storage/box/syndie_kit/devil_ghostface_kit
+	name = "Devil Ghostface kit"
+	desc = "Коробка, содержащая костюм и маску \"Гоустфейс\"."
+	ru_names = list(
+		NOMINATIVE = "набор \"Дьявольский Гоустфейс\"",
+		GENITIVE = "набора \"Дьявольский Гоустфейс\"",
+		DATIVE = "набору \"Дьявольский Гоустфейс\"",
+		ACCUSATIVE = "набор \"Дьявольский Гоустфейс\"",
+		INSTRUMENTAL = "набором \"Дьявольский Гоустфейс\"",
+		PREPOSITIONAL = "наборе \"Дьявольский Гоустфейс\""
+	)
+
+/obj/item/storage/box/syndie_kit/devil_ghostface_kit/populate_contents()
+	new /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true(src)
+	new /obj/item/clothing/mask/gas/ghostface/true/devil(src)
+	new /obj/item/melee/ghostface_knife/devil(src)

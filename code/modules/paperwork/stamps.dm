@@ -11,7 +11,7 @@
 	materials = list(MAT_METAL=60)
 	item_color = "cargo" //Если у кого-то как у меня возникнет непонимание зачем вообще нужен этот параметр, то он нужен для окрашивания вещей в стиральной машине...
 	pressure_resistance = 2
-	attack_verb = list("stamped")
+	attack_verb = list("опечатал")
 	var/list/stamp_sounds = list('sound/effects/stamp1.ogg','sound/effects/stamp2.ogg','sound/effects/stamp3.ogg')
 
 

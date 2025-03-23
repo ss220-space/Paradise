@@ -31,10 +31,28 @@
 	anchored = TRUE
 	density = TRUE
 	var/use_old_mind = FALSE
+	/// An outfit for ghosts to spawn with
+	var/datum/outfit/selected_outfit
 
 /obj/structure/respawner/attack_ghost(mob/dead/observer/user)
-	var/response = tgui_alert(user, "Are you sure you want to spawn here?\n(If you do this, you won't be able to be cloned!)", "Respawn?", list("Yes", "No"))
-	if(response == "Yes")
+	if(check_rights(R_EVENT))
+		var/outfit_pick = tgui_alert(user, "Хочешь выбрать снаряжение или возродиться?", "Выбрать снаряжение?", list("Выбрать снаряжение", "Возродиться", "Отмена"))
+		if(outfit_pick == "Отмена")
+			return
+		if(outfit_pick == "Выбрать снаряжение")
+			var/new_outfit = user.client.robust_dress_shop()
+			if(!new_outfit)
+				return
+			log_admin("[key_name(user)] changed a respawner machine's outfit to [new_outfit].")
+			message_admins("[key_name(user)] changed a respawner machine's outfit to [new_outfit].")
+			if(new_outfit == "Naked")
+				selected_outfit = null
+				return
+			selected_outfit = new_outfit
+			return
+
+	var/response = tgui_alert(user, "Вы уверены, что хотите появиться здесь?\n(Если вы сделаете это, вас нельзя будет клонировать!)", "Возродиться?", list("Да", "Нет"))
+	if(response == "Да")
 		user.forceMove(get_turf(src))
 		log_admin("[key_name_log(user)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")

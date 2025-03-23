@@ -734,6 +734,7 @@
 	icon_state = "leathercoat"
 	item_state = "leathercoat"
 	resistance_flags = FIRE_PROOF
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/browncoat
 	name = "brown leather coat"
@@ -768,7 +769,6 @@
 	desc = "That shade of black just makes you look a bit more evil. Good for those mafia types."
 	icon_state = "bltrenchcoat"
 	item_state = "bltrenchcoat"
-
 	sprite_sheets = list(
 		SPECIES_PLASMAMAN = 'icons/mob/clothing/species/plasmaman/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi',
@@ -778,6 +778,8 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+	armor = list(melee = 5, bullet = 5, laser = 10, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 10, acid = 10)
+	
 /obj/item/clothing/suit/storage/leather_trenchcoat/runner
 	name = "leather trenchcoat"
 	desc = "Длинное кожаное пальто-тренч с натуральным мехом. Вы чувствуете себя одиноко, когда носите его..."
@@ -990,6 +992,7 @@
 	actions_types = null
 	adjust_flavour = null
 	resistance_flags = NONE
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/jacket/motojacket
 	name = "leather motorcycle jacket"
@@ -1011,6 +1014,7 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/suit.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
+	armor = list(melee = 10, bullet = 5, laser = 10, energy = 15, bomb = 15, bio = 0, rad = 0, fire = 15, acid = 15)
 
 /obj/item/clothing/suit/jacket/leather/overcoat
 	name = "leather overcoat"
@@ -1121,12 +1125,6 @@
 	siemens_coefficient = 0
 	var/on = 0
 
-
-/obj/item/clothing/suit/advanced_protective_suit/Initialize(mapload)
-	. = ..()
-	ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
-
-
 /obj/item/clothing/suit/advanced_protective_suit/Destroy()
 	if(on)
 		on = 0
@@ -1136,9 +1134,11 @@
 /obj/item/clothing/suit/advanced_protective_suit/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(on)
 		on = 0
+		REMOVE_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 		to_chat(usr, "You turn the suit's special processes off.")
 	else
 		on = 1
+		ADD_TRAIT(src, TRAIT_NODROP, INNATE_TRAIT)
 		to_chat(usr, "You turn the suit's special processes on.")
 		START_PROCESSING(SSobj, src)
 
@@ -1629,7 +1629,76 @@
 
 	icon_state = "[initial(icon_state)][slot == ITEM_SLOT_HEAD ? "_head" : null]"
 
-
 /obj/item/clothing/suit/towel/short/alt
 	icon_state = "towel_alt"
 	item_state = "towel_alt"
+
+/obj/item/clothing/suit/hooded/ghostfacesuit
+	name = "Ghostface suit"
+	ru_names = list(
+		NOMINATIVE = "чёрный балахон",
+		GENITIVE = "чёрного балахона",
+		DATIVE = "чёрному балахону",
+		ACCUSATIVE = "чёрный балахон",
+		INSTRUMENTAL = "чёрным балахоном",
+		PREPOSITIONAL = "чёрном балахоне"
+	)
+	desc = "Чёрный, просторный балахон, что может навеивать смутные напоминания о чём-то."
+	icon_state = "ghostface_suit"
+	item_state = "ghostface_suit"
+	body_parts_covered = UPPER_TORSO|ARMS|LOWER_TORSO|LEGS|FEET
+	flags_inv = HIDESHOES|HIDEJUMPSUIT|HIDETAIL
+	hoodtype = /obj/item/clothing/head/hooded/ghostface
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
+
+/obj/item/clothing/suit/hooded/update_icon_state()
+	return
+
+/obj/item/clothing/head/hooded/ghostface
+	name = "Ghostface hood"
+	ru_names = list(
+		NOMINATIVE = "чёрный капюшон",
+		GENITIVE = "чёрного капюшона",
+		DATIVE = "чёрному капюшону",
+		ACCUSATIVE = "чёрный капюшон",
+		INSTRUMENTAL = "чёрным капюшоном",
+		PREPOSITIONAL = "чёрном капюшоне"
+	)
+	desc = "Чёрный капюшон. Он вам что-то точно напоминает..."
+	icon_state = "ghostface_hood"
+	item_state = "ghostface"
+	flags_inv = HIDEHEADSETS|HIDEHAIR
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/suit.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/suit.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/suit.dmi'
+		)
+
+/obj/item/clothing/head/hooded/ghostface/true
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+
+/obj/item/clothing/suit/hooded/ghostfacesuit/devil
+	desc = "Чёрный с прожилками красного просторный балахон, что может навеивать смутные напоминания о чём-то."
+	ru_names = list(
+		NOMINATIVE = "кроваво-чёрный балахон",
+		GENITIVE = "кроваво-чёрного балахона",
+		DATIVE = "кроваво-чёрному балахону",
+		ACCUSATIVE = "кроваво-чёрный балахон",
+		INSTRUMENTAL = "кроваво-чёрным балахоном",
+		PREPOSITIONAL = "кроваво-чёрном балахоне"
+	)
+	icon_state = "devil_ghostface_suit"
+	item_state = "devil_ghostface_suit"
+
+
+/obj/item/clothing/suit/hooded/ghostfacesuit/true
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
+
+/obj/item/clothing/suit/hooded/ghostfacesuit/devil/true
+	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
+	hoodtype = /obj/item/clothing/head/hooded/ghostface/true

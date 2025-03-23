@@ -14,6 +14,7 @@
 /obj/item/card
 	name = "card"
 	desc = "A card."
+	gender = MALE
 	icon = 'icons/obj/card.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	pickup_sound = 'sound/items/handling/card_pickup.ogg'
@@ -73,8 +74,16 @@
 	A.emag_act(user)
 
 /obj/item/card/cmag
-	desc = "It's a card coated in a slurry of electromagnetic bananium."
+	desc = "Это карта, покрытая жидкостью из электромагнитного бананиума."
 	name = "jestographic sequencer"
+	ru_names = list(
+		NOMINATIVE = "шутографический считыватель",
+		GENITIVE = "шутографического считывателя",
+		DATIVE = "шутографическому считывателю",
+		ACCUSATIVE = "шутографический считыватель",
+		INSTRUMENTAL = "шутографическим считывателем",
+		PREPOSITIONAL = "шутографическом считывателе"
+	)
 	icon_state = "cmag"
 	item_state = "card-id"
 	origin_tech = "magnets=2;syndicate=2"
@@ -100,6 +109,8 @@
 	desc = "A card used to provide ID and determine access across the station."
 	icon_state = "id"
 	item_state = "card-id"
+	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/id_righthand.dmi'
 	/// For redeeming at mining equipment lockers
 	var/mining_points = 0
 	/// Total mining points for the Shift.
@@ -324,6 +335,7 @@
 	data["fprint_hash"] = fingerprint_hash
 	data["access"] = access
 	data["job"] = assignment
+	data["rank"] = rank
 	data["account"] = associated_account_number
 	data["owner"] = registered_name
 	data["mining"] = mining_points
@@ -338,6 +350,7 @@
 	fingerprint_hash = data["fprint_hash"]
 	access = data["access"] // No need for a copy, the list isn't getting touched
 	assignment = data["job"]
+	rank = data["rank"]
 	associated_account_number = data["account"]
 	registered_name = data["owner"]
 	mining_points = data["mining"]
@@ -351,13 +364,13 @@
 	name = "identification card"
 	desc = "A silver card which shows honour and dedication."
 	icon_state = "silver"
-	item_state = "silver_id"
+	item_state = "silver-id"
 
 /obj/item/card/id/gold
 	name = "identification card"
 	desc = "A golden card which shows power and might."
 	icon_state = "gold"
-	item_state = "gold_id"
+	item_state = "gold-id"
 
 /obj/item/card/id/syndicate
 	name = "agent card"
@@ -827,7 +840,7 @@
 	name = "captain's spare ID"
 	desc = "The spare ID of the captain."
 	icon_state = "gold"
-	item_state = "gold_id"
+	item_state = "gold-id"
 	registered_name = "Captain"
 	assignment = JOB_TITLE_CAPTAIN
 
@@ -835,11 +848,12 @@
 	var/datum/job/captain/J = new/datum/job/captain
 	access = J.get_access()
 	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/card/id/admin
 	name = "admin ID card"
 	icon_state = "admin"
-	item_state = "gold_id"
+	item_state = "gold-id"
 	registered_name = "Admin"
 	assignment = "Testing Shit"
 	untrackable = 1
@@ -1188,7 +1202,7 @@
 	desc = "Make your ID look like the Captain's or a self-centered HOP's. Applies to any ID."
 	decal_desc = "A golden card which shows power and might."
 	decal_icon_state = "gold"
-	decal_item_state = "gold_id"
+	decal_item_state = "gold-id"
 
 /obj/item/id_decal/silver
 	name = "silver ID card decal"
@@ -1196,7 +1210,7 @@
 	desc = "Make your ID look like HOP's because they wouldn't change it officially. Applies to any ID."
 	decal_desc = "A silver card which shows honour and dedication."
 	decal_icon_state = "silver"
-	decal_item_state = "silver_id"
+	decal_item_state = "silver-id"
 
 /obj/item/id_decal/prisoner
 	name = "prisoner ID card decal"

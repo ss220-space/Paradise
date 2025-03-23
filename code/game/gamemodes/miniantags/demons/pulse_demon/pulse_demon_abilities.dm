@@ -80,9 +80,9 @@
 	return FALSE
 
 // handles purchasing and upgrading abilities
-/obj/effect/proc_holder/spell/pulse_demon/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/click_alt(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
-		return
+		return NONE
 
 	if(locked)
 		if(user.charge >= unlock_cost)
@@ -115,6 +115,7 @@
 			update_info()
 		else
 			to_chat(user, span_warning("You cannot afford to upgrade this ability! It costs [format_si_suffix(upgrade_cost)]W to upgrade."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/effect/proc_holder/spell/pulse_demon/proc/do_upgrade(mob/living/simple_animal/demon/pulse_demon/user)
 	cooldown_handler.recharge_duration = round(base_cooldown / (1.5 ** spell_level))
@@ -275,19 +276,20 @@
 	user.do_drain = do_toggle(!user.do_drain, user)
 	return TRUE
 
-/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/toggle/do_drain/click_alt(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
-		return
+		return NONE
 
 	var/amount = text2num(input(user, "Input a value between 1 and [user.max_drain_rate]. 0 will reset it to the maximum.", "Drain Speed Setting"))
 	if(amount == null || amount < 0)
 		to_chat(user, span_warning("Invalid input. Drain speed has not been modified."))
-		return
+		return CLICK_ACTION_BLOCKING
 
 	if(amount == 0)
 		amount = user.max_drain_rate
 	user.power_drain_rate = amount
 	to_chat(user, span_notice("Drain speed has been set to [format_si_suffix(user.power_drain_rate)]W per second."))
+	return CLICK_ACTION_SUCCESS
 
 /obj/effect/proc_holder/spell/pulse_demon/toggle/can_exit_cable
 	name = "Toggle Self-Sustaining"
@@ -324,16 +326,17 @@
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/create_new_targeting()
 	return new /datum/spell_targeting/self
 
-/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/cycle_camera/click_alt(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
-		return
+		return NONE
 	current_camera = 0
 
 	if(!isapc(user.current_power))
-		return
+		return NONE
 	if(get_area(user.loc) != user.controlling_area)
-		return
+		return NONE
 	user.forceMove(user.current_power)
+	return CLICK_ACTION_SUCCESS
 
 /obj/effect/proc_holder/spell/pulse_demon/cycle_camera/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	if(!length(user.controlling_area.cameras))
@@ -426,14 +429,15 @@
 		upgrades["[upgrade] ([format_si_suffix(cost)]W)"] = upgrade_icons[upgrade]
 	return upgrades
 
-/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/AltClick(mob/living/simple_animal/demon/pulse_demon/user)
+/obj/effect/proc_holder/spell/pulse_demon/open_upgrades/click_alt(mob/living/simple_animal/demon/pulse_demon/user)
 	if(!istype(user))
-		return
+		return NONE
 
 	to_chat(user, "<b>Pulse Demon upgrades:</b>")
 	for(var/upgrade in upgrade_descs)
 		var/cost = calc_cost(user, upgrade)
 		to_chat(user, "<b>[upgrade]</b> ([cost == -1 ? "Fully Upgraded" : "[format_si_suffix(cost)]W"]) - [upgrade_descs[upgrade]]")
+	return CLICK_ACTION_SUCCESS
 
 /obj/effect/proc_holder/spell/pulse_demon/open_upgrades/try_cast_action(mob/living/simple_animal/demon/pulse_demon/user, atom/target)
 	var/upgrades = get_upgrades(user)

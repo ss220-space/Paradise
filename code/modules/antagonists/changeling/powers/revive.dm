@@ -7,6 +7,9 @@
 
 //Revive from regenerative stasis
 /datum/action/changeling/revive/sting_action(mob/living/carbon/user)
+	if(istype(user.loc, /obj/structure/blob/special/core))
+		to_chat(user, span_changeling("Окружающие вас щупальца блоба не дают вам регенерировать"))
+		return FALSE
 
 	to_chat(user, span_changeling("We have regenerated."))
 

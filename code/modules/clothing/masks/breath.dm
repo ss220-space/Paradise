@@ -34,13 +34,9 @@
 /obj/item/clothing/mask/breath/attack_self(mob/user)
 	adjustmask(user)
 
-/obj/item/clothing/mask/breath/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/item/clothing/mask/breath/click_alt(mob/living/user)
 	adjustmask(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/mask/breath/medical
 	desc = "A close-fitting sterile mask that can be connected to an air supply."
@@ -62,5 +58,5 @@
 /obj/item/clothing/mask/breath/vox/attack_self(mob/user)
 	return
 
-/obj/item/clothing/mask/breath/vox/AltClick(mob/user)
-	return
+/obj/item/clothing/mask/breath/vox/click_alt(mob/user)
+	return NONE

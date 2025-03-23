@@ -100,6 +100,10 @@
 	name = "oil slime extract"
 	icon_state = "oil slime extract"
 
+/obj/item/slime_extract/oil/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	obj_destruction(MELEE)
+
+
 /obj/item/slime_extract/adamantine
 	name = "adamantine slime extract"
 	icon_state = "adamantine slime extract"
@@ -822,7 +826,7 @@
 					H.LoseTarget()
 				stopped_atoms |= M
 			else if(isprojectile(A))
-				var/obj/item/projectile/P = A
+				var/obj/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
 
@@ -836,7 +840,7 @@
 	for(var/mob/living/M in stopped_atoms)
 		unfreeze_mob(M)
 
-	for(var/obj/item/projectile/P in stopped_atoms)
+	for(var/obj/projectile/P in stopped_atoms)
 		P.paused = FALSE
 	qdel(src)
 	return

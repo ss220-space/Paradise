@@ -37,7 +37,7 @@
 
 /datum/event/prison_break/announce(false_alarm)
 	if(length(areas) || false_alarm)
-		GLOB.event_announcement.Announce("[pick("Вирус `Gr3y.T1d3`","Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения":"безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.", "АВАРИЙНОЕ ОПОВЕЩЕНИЕ [eventDept].")
+		GLOB.event_announcement.Announce("[pick("Вирус `Gr3y.T1d3`","Вредоносный троян")] обнаружен в подсистеме [(eventDept == "Security")? "заключения":"безопасности"] на [station_name()]. Немедленно обеспечьте безопасность всех затронутых отсеков. Рекомендуется участие ИИ станции.", "АВАРИЙНОЕ Оповещение [eventDept].")
 
 /datum/event/prison_break/start()
 	for(var/area/A as anything in GLOB.areas)

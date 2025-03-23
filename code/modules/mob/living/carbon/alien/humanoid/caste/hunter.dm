@@ -6,6 +6,7 @@
 	devour_time = 2 SECONDS
 	icon_state = "alienh_s"
 	caste_movement_delay = -1
+	role_text = "Вы - Охотник. Ваша основная задача - добыча носителей для заражения их грудоломами."
 	var/invisibility_cost = 5
 
 

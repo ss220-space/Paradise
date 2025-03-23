@@ -195,6 +195,10 @@
 	name = "prisonwarp"
 	icon_state = "aroomwarp"
 
+/obj/effect/landmark/prisonsecuritywarp
+	name = "prisonsecuritywarp"
+	icon_state = "aroomwarp"
+
 /obj/effect/landmark/syndieprisonwarp
 	name = "syndieprisonwarp"
 	icon_state = "aroomwarp"
@@ -470,10 +474,6 @@
 /obj/effect/landmark/start/librarian
 	name = JOB_TITLE_LIBRARIAN
 	icon_state = "Librarian"
-
-/obj/effect/landmark/start/barber
-	name = JOB_TITLE_BARBER
-	icon_state = "Barber"
 
 /obj/effect/landmark/start/chaplain
 	name = JOB_TITLE_CHAPLAIN

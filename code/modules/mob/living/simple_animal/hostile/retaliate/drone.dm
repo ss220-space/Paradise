@@ -23,7 +23,7 @@
 	health = 200
 	maxHealth = 200
 	speed = 8
-	projectiletype = /obj/item/projectile/beam/immolator/weak
+	projectiletype = /obj/projectile/beam/immolator/weak
 	projectilesound = 'sound/weapons/laser3.ogg'
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list("malf_drone")
@@ -221,7 +221,7 @@
 	idcheck = TRUE
 	arrest_type = TRUE
 	auto_patrol = FALSE
-	projectile = /obj/item/projectile/beam/immolator/weak
+	projectile = /obj/projectile/beam/immolator/weak
 
 /mob/living/simple_animal/bot/ed209/combat_drone/Initialize(mapload)
 	. = ..()
@@ -234,8 +234,8 @@
 /mob/living/simple_animal/bot/ed209/combat_drone/setup_access()
 	return
 
-/mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
-	projectile = /obj/item/projectile/beam/immolator/weak
+/mob/living/simple_animal/bot/ed209/combat_drone/set_weapon()
+	projectile = /obj/projectile/beam/immolator/weak
 
 /mob/living/simple_animal/bot/ed209/combat_drone/turn_on()
 	. = ..()
@@ -298,7 +298,16 @@
 
 /obj/item/drone_manual
 	name = "Strange looking Manual"
-	desc = "Довольно толстая книжка, на обложке которой вы можете увидеть дрона."
+	desc = "На обложке этой книги вы можете увидеть изображение боевого дрона. Это руководство по его эксплуатации."
+	ru_names = list(
+		NOMINATIVE = "странное руководство",
+		GENITIVE = "странного руководства",
+		DATIVE = "странному руководству",
+		ACCUSATIVE = "странное руководство",
+		INSTRUMENTAL = "странным руководством",
+		PREPOSITIONAL = "странном руководстве"
+	)
+	gender = MALE
 	icon_state = "drone_manual"
 
 /obj/item/drone_manual/attack_self(mob/user)

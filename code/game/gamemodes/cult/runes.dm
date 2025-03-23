@@ -182,7 +182,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		if(!L)
 			return
 		if(invocation)
-			if(!L.IsVocal())
+			if(!L.IsVocal()  || L.cannot_speak_loudly())
 				L.custom_emote(EMOTE_VISIBLE, message = pick("рису%(ет,ют)% в воздухе тайные символы.","зловеще жестикулиру%(ет,ют)%.","молча произнос%(ит,ят)% слова призыва.","клад%(ёт,ут)% руки на руну, активируя ее."))
 			else
 				L.say(invocation)
@@ -411,7 +411,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 /obj/effect/rune/teleport
 	cultist_name = "Teleport"
 	cultist_desc = "warps everything above it to another chosen teleport rune."
-	invocation = "Sas'so c'arta forbici!"
+	invocation = "Сас'со к'арта форбичи!"
 	icon_state = "teleport"
 	req_keyword = TRUE
 	light_power = 4

@@ -275,9 +275,9 @@
 	deckshuffle(user)
 
 
-/obj/item/deck/AltClick(mob/user)
-	if(Adjacent(user))
-		deckshuffle(user)
+/obj/item/deck/click_alt(mob/user)
+	deckshuffle(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/deck/proc/deckshuffle(mob/user)

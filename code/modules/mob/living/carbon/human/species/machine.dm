@@ -102,17 +102,18 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
-/datum/species/machine/on_species_gain(mob/living/carbon/human/H)
+/datum/species/machine/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
-	var/datum/action/innate/change_monitor/monitor = locate() in H.actions
+	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
+
 	if(!monitor)
 		monitor = new
-		monitor.Grant(H)
-	monitor = new()
-	monitor.Grant(H)
+		monitor.Grant(human)
+
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.remove_from_hud(H)
-	add_verb(H, list(
+	medhud.remove_from_hud(human)
+
+	add_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
 		/mob/living/carbon/human/proc/emote_beep,
 		/mob/living/carbon/human/proc/emote_buzz,
@@ -120,20 +121,33 @@
 		/mob/living/carbon/human/proc/emote_yes,
 		/mob/living/carbon/human/proc/emote_no))
 
-
-/datum/species/machine/on_species_loss(mob/living/carbon/human/H)
+/datum/species/machine/on_species_loss(mob/living/carbon/human/human)
 	. = ..()
-	var/datum/action/innate/change_monitor/monitor = locate() in H.actions
-	monitor?.Remove(H)
+	var/datum/action/innate/change_monitor/monitor = locate() in human.actions
+	monitor?.Remove(human)
+
 	var/datum/atom_hud/data/human/medical/advanced/medhud = GLOB.huds[DATA_HUD_MEDICAL_ADVANCED]
-	medhud.add_to_hud(H)
-	remove_verb(H, list(
+	medhud.add_to_hud(human)
+
+	remove_verb(human, list(
 		/mob/living/carbon/human/proc/emote_ping,
 		/mob/living/carbon/human/proc/emote_beep,
 		/mob/living/carbon/human/proc/emote_buzz,
 		/mob/living/carbon/human/proc/emote_buzz2,
 		/mob/living/carbon/human/proc/emote_yes,
 		/mob/living/carbon/human/proc/emote_no))
+
+/datum/species/machine/is_allowed_hair_style(mob/living/carbon/human/human, datum/robolimb/robohead, datum/sprite_accessory/style)
+	. = ..()
+
+	if(!.)
+		return
+
+	if(!robohead.is_monitor || !(style.models_allowed && (robohead.company in style.models_allowed)) && style.models_allowed)
+		return FALSE
+
+	else if(robohead.is_monitor || !(SPECIES_HUMAN in style.species_allowed))
+		return FALSE
 
 // Allows IPC's to change their monitor display
 /datum/action/innate/change_monitor
@@ -153,11 +167,11 @@
 	if(!head_organ)
 		return
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
-		var/optic_colour = input(H, "Select optic colour", H.m_colours["head"]) as color|null
+		var/optic_colour = tgui_input_color(H, "Select optic colour", H.m_colours["head"])
 		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
 			to_chat(H, "<span class='warning'>Ваша попытка сменить отображаемый цвет была прервана.</span>")
 			return
-		if(optic_colour)
+		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
 
 	else if(robohead.is_monitor) //Means that the character's head is a monitor (has a screen). Time to customize.

@@ -18,7 +18,7 @@
 /datum/outfit/job/centcom/response_team/imprint_pda(mob/living/carbon/human/H)
 	var/obj/item/pda/PDA = H.wear_pda
 	if(istype(PDA))
-		PDA.owner = H.real_name
+		PDA.update_owner_name(H.real_name)
 		PDA.ownjob = rt_assignment
 		PDA.ownrank = rt_assignment
 		PDA.update_appearance(UPDATE_NAME)

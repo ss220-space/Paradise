@@ -103,7 +103,9 @@
 		if("Windows")
 			part_type = WINDOW
 		else
-	var/coloradd = input(user, "Choose a color", "Color") as color
+	var/coloradd = tgui_input_color(user, "Choose a color", "Color")
+	if(isnull(coloradd))
+		return
 	colors[part_type] = coloradd
 	if(!has_paint)
 		has_paint = 1
@@ -212,7 +214,7 @@
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
 
-/obj/spacepod/bullet_act(var/obj/item/projectile/P)
+/obj/spacepod/bullet_act(var/obj/projectile/P)
 	. = P.on_hit(src)
 	if(P.damage_type == BRUTE || P.damage_type == BURN)
 		deal_damage(P.damage)
@@ -291,7 +293,7 @@
 
 	update_icons()
 
-/obj/spacepod/proc/repair_damage(var/repair_amount)
+/obj/spacepod/repair_damage(repair_amount)
 	if(health)
 		health = min(initial(health), health + repair_amount)
 		update_icons()

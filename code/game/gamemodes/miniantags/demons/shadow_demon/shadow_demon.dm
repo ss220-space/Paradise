@@ -60,10 +60,7 @@
 	return lum_count
 
 
-/mob/living/simple_animal/demon/shadow/UnarmedAttack(atom/target)
-	if(!can_unarmed_attack())
-		return
-
+/mob/living/simple_animal/demon/shadow/OnUnarmedAttack(atom/target)
 	if(!ishuman(target))
 		if(isitem(target))
 			target.extinguish_light(TRUE)
@@ -136,15 +133,18 @@
 		time_since_last_hallucination = 0
 
 
-/obj/structure/shadowcocoon/AltClick(mob/user)
-	if(!isdemon(user) || user.incapacitated())
-		return ..()
+/obj/structure/shadowcocoon/click_alt(mob/user)
+	if(!isdemon(user))
+		return NONE
+	if(user.incapacitated())
+		return CLICK_ACTION_BLOCKING
 	if(silent)
 		to_chat(user, span_notice("You twist and change your trapped victim in [src] to lure in more prey."))
 		silent = FALSE
-		return
+		return CLICK_ACTION_BLOCKING
 	to_chat(user, span_notice("The tendrils from [src] snap back to their orignal form."))
 	silent = TRUE
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = NONE)
@@ -183,14 +183,14 @@
 	selection_activated_message = span_notice("You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message = span_notice("You re-absorb the energy...for now.")
 	base_cooldown = 10 SECONDS
-	fireball_type = /obj/item/projectile/magic/shadow_hand
+	fireball_type = /obj/projectile/magic/shadow_hand
 
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
 
-/obj/item/projectile/magic/shadow_hand
+/obj/projectile/magic/shadow_hand
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
@@ -198,13 +198,13 @@
 	var/hit = FALSE
 
 
-/obj/item/projectile/magic/shadow_hand/fire(setAngle)
+/obj/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor, beam_layer = BELOW_MOB_LAYER)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
 	return ..()
 
 
-/obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
 		return
 	hit = TRUE // to prevent double hits from the pull
@@ -271,13 +271,14 @@
 
 /datum/objective/wrap
 	name = "Wrap"
+	antag_menu_name = "Обернуть в кокон"
 	needs_target = FALSE
 	target_amount = 10
 
 
 /datum/objective/wrap/New(text, datum/team/team_to_join)
 	target_amount = rand(10,20)
-	explanation_text = "Ambush those who dare to challenge the shadows. Wrap at least [target_amount] mortals."
+	explanation_text = "Устройте засаду тем, кто осмелится бросить вызов теням. Оберните хотя бы [target_amount] смертных."
 	..()
 
 

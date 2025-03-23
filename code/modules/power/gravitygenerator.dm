@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 #define GRAV_NEEDS_PLASTEEL 2
 #define GRAV_NEEDS_WRENCH 3
 
+#define BLOB_HITS_NEED 4
+
 //
 // Abstract Generator
 //
@@ -27,6 +29,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
 	var/sprite_number = 0
+	/// Number of successful blob hits
+	var/blob_hits = 0
 
 
 /obj/machinery/gravity_generator/ex_act(severity)
@@ -35,7 +39,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 /obj/machinery/gravity_generator/blob_act(obj/structure/blob/B)
-	if(prob(20))
+	blob_hits++
+	if(blob_hits >= BLOB_HITS_NEED)
 		set_broken()
 
 
@@ -431,7 +436,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		var/turf/mob_turf = get_turf(shaked)
 		if(!istype(mob_turf))
 			continue
-		if(!is_valid_z_level(our_turf, mob_turf))
+		if(!are_zs_connected(our_turf, mob_turf))
 			continue
 		if(isliving(shaked))
 			var/mob/living/living_shaked = shaked
@@ -457,11 +462,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	var/list/z_list = list()
 	// Multi-Z, station gravity generator generates gravity on all STATION_LEVEL z-levels.
-	if(check_level_trait(our_turf.z, STATION_LEVEL))
-		for(var/z in levels_by_trait(STATION_LEVEL))
-			z_list += z
-	else
-		z_list += our_turf.z
+	for(var/z in SSmapping.get_connected_levels(our_turf))
+		z_list += z
 	for(var/z in z_list)
 		if(!GLOB.gravity_generators["[z]"])
 			GLOB.gravity_generators["[z]"] = list()

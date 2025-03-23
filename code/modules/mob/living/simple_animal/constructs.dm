@@ -127,19 +127,21 @@
 	force_threshold = 11
 	playstyle_string = "<b>You are a Juggernaut. Though slow, your shell can withstand extreme punishment, \
 						create shield walls, rip apart enemies and walls alike, and even deflect energy weapons.</b>"
+	hud_type = /datum/hud/construct/armoured
 
 /mob/living/simple_animal/hostile/construct/armoured/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
 	environment_smash = 1 //only token destruction, don't smash the cult wall NO STOP
 
-/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/item/projectile/P)
+/mob/living/simple_animal/hostile/construct/armoured/bullet_act(var/obj/projectile/P)
 	if(P.is_reflectable(REFLECTABILITY_ENERGY))
 		var/reflectchance = 80 - round(P.damage/3)
 		if(prob(reflectchance))
 			if((P.damage_type == BRUTE || P.damage_type == BURN))
 				adjustBruteLoss(P.damage * 0.5)
-			visible_message("<span class='danger'>The [P.name] gets reflected by [src]'s shell!</span>", \
-							"<span class='userdanger'>The [P.name] gets reflected by [src]'s shell!</span>")
+			visible_message(span_danger("The [P.name] gets reflected by [src]'s shell!"), \
+							span_userdanger("The [P.name] gets reflected by [src]'s shell!"),
+							projectile_message = TRUE)
 
 			P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
@@ -177,6 +179,7 @@
 	retreat_distance = 2 //AI wraiths will move in and out of combat
 	playstyle_string = "<b>You are a Wraith. Though relatively fragile, you are fast, deadly, and even able to phase through walls.</b>"
 	tts_seed = "Kelthuzad"
+	hud_type = /datum/hud/construct/wraith
 
 /mob/living/simple_animal/hostile/construct/wraith/hostile //actually hostile, will move around, hit things
 	AIStatus = AI_ON
@@ -228,6 +231,7 @@
 						use magic missile, repair allied constructs (by clicking on them), \
 						<i>and, most important of all,</i> create new constructs by producing soulstones to capture souls, \
 						and shells to place those soulstones into.</b>"
+	hud_type = /datum/hud/construct/builder
 
 
 /mob/living/simple_animal/hostile/construct/builder/Found(atom/A) //what have we found here?
@@ -309,6 +313,7 @@
 	attack_sound = 'sound/weapons/punch4.ogg'
 	force_threshold = 11
 	construct_type = "behemoth"
+	hud_type = /datum/hud/construct/armoured
 	var/energy = 0
 	var/max_energy = 1000
 
@@ -341,6 +346,7 @@
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
 	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
 						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
+	hud_type = /datum/hud/construct/harvester
 
 
 /mob/living/simple_animal/hostile/construct/harvester/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)

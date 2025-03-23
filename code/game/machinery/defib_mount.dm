@@ -3,7 +3,15 @@
 //Not being adjacent will cause the paddles to snap back
 /obj/machinery/defibrillator_mount
 	name = "defibrillator mount"
-	desc = "Holds and recharges defibrillators. You can grab the paddles if one is mounted."
+	desc = "Станция для хранения и зарядки дефибрилляторов. Вы можете использовать использовать дефибриллятор прямо отсюда, если оный имеется."
+	ru_names = list(
+		NOMINATIVE = "крепление для дефибриллятора",
+		GENITIVE = "крепления для дефибриллятора",
+		DATIVE = "креплению для дефибриллятора",
+		ACCUSATIVE = "крепление для дефибриллятора",
+		INSTRUMENTAL = "креплением для дефибриллятора",
+		PREPOSITIONAL = "креплении для дефибриллятора"
+	)
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
 	density = FALSE
@@ -46,13 +54,11 @@
 /obj/machinery/defibrillator_mount/examine(mob/user)
 	. = ..()
 	if(defib)
-		. += span_info("There is a defib unit hooked up. <b>Alt-Click</b> to remove it.")
+		. += span_info("Используйте <b>Alt + ЛКМ</b>, чтобы взять прикреплённый дефибриллятор.")
 		if(GLOB.security_level >= SEC_LEVEL_RED)
-			. += span_notice("Due to a security situation, its locking clamps can be toggled by swiping any ID.")
+			. += span_notice("Автоматическа система блокировки активирована. Используйте любую ID-карту для разблокировки.")
 		else
-			. += span_notice("Its locking clamps can be [clamps_locked ? "dis" : ""]engaged by swiping an ID with access.")
-	else
-		. += span_notice("There are a pair of <b>bolts</b> in the defib unit housing securing the [src] to the wall.")
+			. += span_notice("Вы можете активировать систему блокировки, использовав свою ID-карту.")
 
 /obj/machinery/defibrillator_mount/process()
 	if(defib && defib.cell && defib.cell.charge < defib.cell.maxcharge && is_operational())
@@ -78,11 +84,11 @@
 /obj/machinery/defibrillator_mount/attack_hand(mob/living/carbon/human/user = usr)
 
 	if(!defib)
-		to_chat(user, span_warning("There's no defibrillator unit loaded!"))
+		balloon_alert(user, "дефибриллятор отсутствует!")
 		return
 
 	if(!defib.paddles_on_defib)
-		to_chat(user, span_warning("[user.is_in_hands(defib.paddles) ? "You are already" : "Someone else is"] holding [defib]'s paddles!"))
+		balloon_alert(user, "электроды уже кем-то взяты!")
 		return
 
 	defib.dispence_paddles(user)
@@ -96,14 +102,12 @@
 	if(istype(I, /obj/item/defibrillator))
 		add_fingerprint(user)
 		if(defib)
-			to_chat(user, span_warning("There's already a defibrillator in [src]!"))
+			balloon_alert(user, "дефибриллятор уже установлен!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		user.visible_message(
-			span_notice("[user] hooks up [I] to [src]!"),
-			span_notice("You press [I] into the mount, and it clicks into place."),
-		)
+		visible_message(span_notice("[user] прикрепил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+		balloon_alert(user, "дефибриллятор установлен")
 		playsound(src, 'sound/machines/click.ogg', 50, TRUE)
 		defib = I
 		update_icon(UPDATE_OVERLAYS)
@@ -118,13 +122,13 @@
 		add_fingerprint(user)
 		if(check_access(I) || GLOB.security_level >= SEC_LEVEL_RED) //anyone can toggle the clamps in red alert!
 			if(!defib)
-				to_chat(user, span_warning("You can't engage the clamps on a defibrillator that isn't there."))
+				balloon_alert(user, "дефибриллятор отсутствует!")
 				return ATTACK_CHAIN_PROCEED
 			clamps_locked = !clamps_locked
-			to_chat(user, span_notice("Clamps [clamps_locked ? "" : "dis"]engaged."))
+			balloon_alert(user, "блокировка [clamps_locked ? "" : "де"]активирована")
 			update_icon(UPDATE_OVERLAYS)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
-		to_chat(user, span_warning("Insufficient access."))
+		balloon_alert(user, "отказано в доступе!")
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -133,7 +137,7 @@
 /obj/machinery/defibrillator_mount/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(defib)
-		to_chat(user, span_warning("The [defib] is blocking access to the bolts!"))
+		balloon_alert(user, "болты закрыты дефибриллятором!")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -142,36 +146,40 @@
 	qdel(src)
 
 
-/obj/machinery/defibrillator_mount/AltClick(mob/living/carbon/human/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
+/obj/machinery/defibrillator_mount/click_alt(mob/living/carbon/human/user)
 	if(!defib)
-		to_chat(user, span_warning("It'd be hard to remove a defib unit from a mount that has none."))
-		return
+		balloon_alert(user, "дефибриллятор отсутствует!")
+		return CLICK_ACTION_BLOCKING
 	var/obj/item/organ/external/hand_right = user.get_organ(BODY_ZONE_PRECISE_R_HAND)
 	var/obj/item/organ/external/hand_left = user.get_organ(BODY_ZONE_PRECISE_L_HAND)
 	if((!hand_right || !hand_right.is_usable()) && (!hand_left || !hand_left.is_usable()))
-		to_chat(user, span_warning("You can't use your hand to take out the defibrillator!"))
-		return
+		balloon_alert(user, "невозможно!")
+		return CLICK_ACTION_BLOCKING
 	if(clamps_locked)
-		to_chat(user, span_warning("You try to tug out [defib], but the mount's clamps are locked tight!"))
-		return
+		balloon_alert(user, "заблокировано!")
+		return CLICK_ACTION_BLOCKING
 	defib.forceMove_turf()
 	user.put_in_hands(defib, ignore_anim = FALSE)
-	user.visible_message(span_notice("[user] unhooks [defib] from [src]."), \
-	span_notice("You slide out [defib] from [src] and unhook the charging cables."))
+	visible_message(span_notice("[user] вынима[pluralize_ru(user.gender, "ет", "ют")] [defib.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
+	balloon_alert(user, "дефибриллятор извлечён")
 	playsound(src, 'sound/items/deconstruct.ogg', 50, TRUE)
 	defib = null
 	update_icon(UPDATE_OVERLAYS)
+	return CLICK_ACTION_SUCCESS
 
 
 //wallframe, for attaching the mounts easily
 /obj/item/mounted/frame/defib_mount
 	name = "unhooked defibrillator mount"
-	desc = "A frame for a defibrillator mount."
+	desc = "Крепление для дефибриллятора, которое предварительно нужно будет закрепить."
+	ru_names = list(
+		NOMINATIVE = "разобранное крепление для дефибриллятора",
+		GENITIVE = "разобранного крепления для дефибриллятора",
+		DATIVE = "разобранному креплению для дефибриллятора",
+		ACCUSATIVE = "разобранное крепление для дефибриллятора",
+		INSTRUMENTAL = "разобранным креплением для дефибриллятора",
+		PREPOSITIONAL = "разобранном креплении для дефибриллятора"
+	)
 	icon = 'icons/obj/machines/defib_mount.dmi'
 	icon_state = "defibrillator_mount"
 	sheets_refunded = 0

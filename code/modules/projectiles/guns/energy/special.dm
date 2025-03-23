@@ -187,7 +187,7 @@
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1
 	can_charge = FALSE
@@ -198,6 +198,8 @@
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
@@ -301,7 +303,7 @@
 		orange?.target = null
 
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/projectile)
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
 
 	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), null, src)
 
@@ -419,7 +421,7 @@
 
 /obj/item/gun/energy/bsg
 	name = "\improper Б.С.П"
-	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
+	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА НаноТрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
@@ -586,7 +588,7 @@
 		if(amount > 0)
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
-			target_temperature = max(0, target_temperature+amount)
+			target_temperature = max(TCMB, target_temperature+amount)
 	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)
@@ -968,7 +970,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
+	var/obj/projectile/energy/charged_plasma/O = new /obj/projectile/energy/charged_plasma(T)
 	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y

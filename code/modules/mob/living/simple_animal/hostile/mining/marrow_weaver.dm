@@ -116,6 +116,9 @@
 	icon_state = "chitin"
 	singular_name = "chitin chunk"
 
+/obj/item/stack/sheet/animalhide/weaver_chitin/five
+	amount = 5
+
 //better and dangerous subtype for regular lavaland. Slightly faster and NO MORE XRAY.
 
 /mob/living/simple_animal/hostile/asteroid/marrowweaver/dangerous

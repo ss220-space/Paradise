@@ -126,7 +126,12 @@
 	if(istype(loc, /area/space))
 		force_no_gravity = TRUE
 
+	ComponentInitialize()
 	return INITIALIZE_HINT_NORMAL
+
+/turf/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/blob_turf_consuming, 0)
 
 /turf/Destroy(force)
 	. = QDEL_HINT_IWILLGC
@@ -181,6 +186,9 @@
 /turf/ex_act(severity)
 	return FALSE
 
+/turf/proc/blob_consume()
+	return
+
 /turf/rpd_act(mob/user, obj/item/rpd/our_rpd) //This is the default turf behaviour for the RPD; override it as required
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		our_rpd.create_atmos_pipe(user, src)
@@ -197,14 +205,14 @@
 	else if(our_rpd.mode == RPD_DELETE_MODE)
 		our_rpd.delete_all_pipes(user, src)
 
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/beam/pulse))
+/turf/bullet_act(obj/projectile/Proj)
+	if(istype(Proj, /obj/projectile/beam/pulse))
 		src.ex_act(2)
 	..()
 	return FALSE
 
-/turf/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj, /obj/item/projectile/bullet/gyro))
+/turf/bullet_act(obj/projectile/Proj)
+	if(istype(Proj, /obj/projectile/bullet/gyro))
 		explosion(src, -1, 0, 2, cause = Proj)
 	..()
 	return FALSE
@@ -717,16 +725,16 @@
  * Returns adjacent turfs to this turf that are reachable, in all cardinal directions
  *
  * Arguments:
- * * caller: The movable, if one exists, being used for mobility checks to see what tiles it can reach
+ * * requester: The movable, if one exists, being used for mobility checks to see what tiles it can reach
  * * access: A list that decides if we can gain access to doors that would otherwise block a turf
  * * simulated_only: Do we only worry about turfs with simulated atmos, most notably things that aren't space?
  * * no_id: When true, doors with public access will count as impassible
 */
-/turf/proc/reachableAdjacentTurfs(atom/movable/caller, list/access, simulated_only, no_id = FALSE)
+/turf/proc/reachableAdjacentTurfs(atom/movable/requester, list/access, simulated_only, no_id = FALSE)
 	var/static/space_type_cache = typecacheof(/turf/space)
 	. = list()
 
-	var/datum/can_pass_info/pass_info = new(caller, access, no_id)
+	var/datum/can_pass_info/pass_info = new(requester, access, no_id)
 	for(var/iter_dir in GLOB.cardinal)
 		var/turf/turf_to_check = get_step(src, iter_dir)
 		if(!turf_to_check || (simulated_only && space_type_cache[turf_to_check.type]))

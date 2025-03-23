@@ -229,7 +229,7 @@ SUBSYSTEM_DEF(title)
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 
 	//hope that client won`t use custom theme
-	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer.prefs.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
+	html += {"<body class="[color2tguitheme[winget(viewer, "mainwindow", "background-color")]][viewer?.prefs?.toggles2 & PREFTOGGLE_2_PIXELATED_MENU ? " pixelated" : ""]" style="background-image: [screen_image_url ? "url([screen_image_url])" : "" ];">"}
 
 	html += {"<input type="checkbox" id="hide_menu">"}
 
@@ -278,6 +278,7 @@ SUBSYSTEM_DEF(title)
 		<a class="menu_button" href='byond://?src=[player.UID()];game_preferences=1'>Настройки игры</a>
 		<hr>
 		<a class="menu_button" href='byond://?src=[player.UID()];sound_options=1'>Настройки громкости</a>
+		<a class="menu_button" href='byond://?src=[player.UID()];poll_panel=1'>Открыть голосование</a>
 	"}
 	// html += "<a class="menu_button" href='byond://?src=[player.UID()];swap_server=1'>Сменить сервер</a>" // TODO: add this after regis merge
 	if(!viewer.prefs.discord_id || (viewer.prefs.discord_id && length(viewer.prefs.discord_id) == 32))

@@ -116,6 +116,26 @@
 
 		return "[output][and_text][input[index]]"
 
+/proc/russian_list(var/list/input, nothing_text = "ничего", and_text = " и ", comma_text = ", ", final_comma_text = "" )
+	var/total = input.len
+	if(!total)
+		return "[nothing_text]"
+	else if(total == 1)
+		return "[input[1]]"
+	else if(total == 2)
+		return "[input[1]][and_text][input[2]]"
+	else
+		var/output = ""
+		var/index = 1
+		while(index < total)
+			if(index == total - 1)
+				comma_text = final_comma_text
+
+			output += "[input[index]][comma_text]"
+			index++
+
+		return "[output][and_text][input[index]]"
+
 //Returns list element or null. Should prevent "index out of bounds" error.
 /proc/listgetindex(var/list/list,index)
 	if(istype(list) && list.len)
@@ -215,9 +235,7 @@
 
 //Removes any null entries from the list
 /proc/listclearnulls(list/list)
-	if(istype(list))
-		while(null in list)
-			list -= null
+	list?.RemoveAll(null)
 	return
 
 /*
@@ -880,6 +898,8 @@ proc/dd_sortedObjectList(list/incoming)
 ///Returns the list if it's actually a valid list, otherwise will initialize it
 #define SANITIZE_LIST(L) ( islist(L) ? L : list() )
 
+///Qdel every item in the list before setting the list to null
+#define QDEL_LAZYLIST(L) for(var/I in L) qdel(I); L = null;
 ///Adds to the item K the value V, if the list is null it will initialize it
 #define LAZYADDASSOC(L, K, V) if(!L) { L = list(); } L[K] += V;
 ///This is used to add onto lazy assoc list when the value you're adding is a /list/. This one has extra safety over lazyaddassoc because the value could be null (and thus cant be used to += objects)
@@ -1180,3 +1200,24 @@ proc/dd_sortedObjectList(list/incoming)
 		used_key_list[input_key] = 1
 	return input_key
 
+
+
+/**
+ * Checks to make sure that the lists have the exact same contents, ignores the order of the contents.
+ */
+/proc/lists_equal_unordered(list/list_one, list/list_two)
+	// This ensures that both lists contain the same elements by checking if the difference between them is empty in both directions.
+	return !length(list_one ^ list_two)
+
+
+/proc/print_single_line(list/L)
+	. = "list("
+	for(var/I in 1 to L.len)
+		var/key = L[I]
+		. += "[key]"
+		var/val = L[key]
+		if(!isnull(val))
+			. += " => [val]"
+		if(I < L.len)
+			. += ", "
+	. += ")"

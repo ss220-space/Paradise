@@ -56,6 +56,7 @@ GLOBAL_VAR(bomb_set)
 	core = new /obj/item/nuke_core/plutonium(src)
 	STOP_PROCESSING(SSobj, core)
 	ADD_TRAIT(core, TRAIT_BLOCK_RADIATION, src) //Let us not irradiate the vault by default.
+	AddElement(/datum/element/high_value_item)
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -493,12 +494,14 @@ GLOBAL_VAR(bomb_set)
 					if(!is_syndicate)
 						set_security_level("delta")
 					GLOB.bomb_set = TRUE // There can still be issues with this resetting when there are multiple bombs. Not a big deal though for Nuke
+					SSshuttle?.add_hostile_environment(src)
 				else
 					GLOB.bomb_set = TRUE
 			else
 				if(!is_syndicate)
 					set_security_level(previous_level)
 				GLOB.bomb_set = FALSE
+				SSshuttle?.remove_hostile_environment(src)
 
 
 /obj/machinery/nuclearbomb/blob_act(obj/structure/blob/B)
@@ -513,9 +516,9 @@ GLOBAL_VAR(bomb_set)
 		return
 	if(locate(/obj/structure/blob) in T)
 		return
-	var/obj/structure/blob/captured_nuke/N = new(T, src)
+	var/obj/structure/blob/special/captured_nuke/N = new(T, src)
 	N.overmind = B.overmind
-	N.adjustcolors(B.color)
+	N.update_blob()
 
 /obj/machinery/nuclearbomb/tesla_act(power, explosive)
 	..()
@@ -604,6 +607,10 @@ GLOBAL_VAR(bomb_set)
 	..()
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
+
+/obj/item/disk/nuclear/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/disk/nuclear/process()
 	if(!check_disk_loc())

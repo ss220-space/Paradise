@@ -108,10 +108,10 @@
 // Just a simple verb so admins can do manual lookups
 /client/proc/ccbdb_lookup_ckey()
 	set name = "Global Ban DB Lookup"
-	set category = "Admin"
+	set category = "Admin.Ban"
 
 	if(!check_rights(R_ADMIN))
 		return
 
-	var/input_ckey = input(usr, "Please enter a ckey to lookup", "Global Ban DB Lookup")
+	var/input_ckey = tgui_input_text(usr, "Please enter a ckey to lookup", "Global Ban DB Lookup", encode = FALSE)
 	holder.create_ccbdb_lookup(input_ckey)

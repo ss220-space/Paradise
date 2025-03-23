@@ -41,6 +41,7 @@
 	if(!force_update && (destination == get_turf(src)))
 		return //we are already here!
 	abstract_move(destination)
+	SEND_SIGNAL(src, COMSIG_AI_EYE_MOVED, destination)
 	if(use_static)
 		ai.camera_visibility(src)
 	if(ai.client)
@@ -176,7 +177,7 @@
 		to_chat(src, span_notice("You move down."))
 
 
-/mob/camera/aiEye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
+/mob/camera/aiEye/hear_say(list/message_pieces, verb = "says", italics = 0, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(relay_speech)
 		if(istype(ai))
 			ai.relay_speech(speaker, message_pieces, verb)

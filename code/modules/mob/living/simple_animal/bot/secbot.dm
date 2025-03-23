@@ -314,17 +314,15 @@
 		icon_state = "[base_icon][on]"
 
 
-/mob/living/simple_animal/bot/secbot/bullet_act(obj/item/projectile/Proj)
-	if(istype(Proj ,/obj/item/projectile/beam) || istype(Proj,/obj/item/projectile/bullet))
+/mob/living/simple_animal/bot/secbot/bullet_act(obj/projectile/Proj)
+	if(istype(Proj ,/obj/projectile/beam) || istype(Proj,/obj/projectile/bullet))
 		if((Proj.damage_type == BURN) || (Proj.damage_type == BRUTE))
 			if(!Proj.nodamage && Proj.damage < src.health)
 				retaliate(Proj.firer)
 	..()
 
 
-/mob/living/simple_animal/bot/secbot/UnarmedAttack(atom/A)
-	if(!on || !can_unarmed_attack())
-		return
+/mob/living/simple_animal/bot/secbot/OnUnarmedAttack(atom/A)
 	if(iscarbon(A))
 		var/mob/living/carbon/C = A
 		if((C.staminaloss < 110 || arrest_type) && !baton_delayed)

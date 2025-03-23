@@ -18,6 +18,7 @@
 		user.changeNext_move(CLICK_CD_RANGE)
 	user.newtonian_move(get_dir(target, user))
 	update_icon()
+	SEND_SIGNAL(src, COMSIG_FIRE_CASING, target, user, firer_source_atom, randomspread, spread, zone_override, params, distro)
 	return TRUE
 
 
@@ -71,14 +72,14 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
+/obj/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 
 	/*
 	 * If the user is holding a weapon in telekinesis grab,
 	 * use a starting location from the firer source
 	*/
-	var/fire_from_tk_grab = !isnull(firer_source_atom) && user.tkgrabbed_objects[firer_source_atom]
+	var/fire_from_tk_grab = !isnull(firer_source_atom) && ismob(user) && user.tkgrabbed_objects[firer_source_atom]
 	if (fire_from_tk_grab)
 		curloc = get_turf(firer_source_atom)
 

@@ -42,17 +42,18 @@
 
 	return ..()
 
-/obj/item/photo/AltClick(mob/user)
+/obj/item/photo/click_alt(mob/user)
 	if(user.incapacitated() || !isAI(usr) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+		return NONE
 
 	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
 	if(!n_name)
-		return
+		return CLICK_ACTION_BLOCKING
 	//loc.loc check is for making possible renaming photos in clipboards
 	if((loc == user || (loc.loc && loc.loc == user)) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		name = "[(n_name ? text("[n_name]") : "photo")]"
 		add_fingerprint(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
 	var/class = "<span class='warning'>"
@@ -97,27 +98,31 @@
 	onclose(usr, "Photo[UID()]")
 	return
 
-/obj/item/photo/proc/construct(datum/picture/P)
-	name = P.fields["name"]
-	icon = P.fields["icon"]
-	tiny = P.fields["tiny"]
-	img = P.fields["img"]
-	desc = P.fields["desc"]
-	pixel_x = P.fields["pixel_x"]
-	pixel_y = P.fields["pixel_y"]
-	photo_size = P.fields["size"]
-	log_text = P.fields["log"]
-	blueprints = P.fields["blueprints"]
+/obj/item/photo/proc/construct(datum/picture/photo)
+	name = photo.fields["name"]
+	icon = photo.fields["icon"]
+	tiny = photo.fields["tiny"]
+	img = photo.fields["img"]
+	desc = photo.fields["desc"]
+	pixel_x = photo.fields["pixel_x"]
+	pixel_y = photo.fields["pixel_y"]
+	photo_size = photo.fields["size"]
+	log_text = photo.fields["log"]
+	blueprints = photo.fields["blueprints"]
+	if(blueprints)
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/photo/proc/copy()
-	var/obj/item/photo/p = new/obj/item/photo()
+	var/obj/item/photo/new_photo = new/obj/item/photo()
 
-	p.icon = icon(icon, icon_state)
-	p.img = icon(img)
-	p.tiny = icon(tiny)
-	p.name = name
-	p.desc = desc
-	p.scribble = scribble
-	p.blueprints = blueprints
+	new_photo.icon = icon(icon, icon_state)
+	new_photo.img = icon(img)
+	new_photo.tiny = icon(tiny)
+	new_photo.name = name
+	new_photo.desc = desc
+	new_photo.scribble = scribble
+	new_photo.blueprints = blueprints
+	if(blueprints)
+		new_photo.AddElement(/datum/element/high_value_item)
 
-	return p
+	return new_photo

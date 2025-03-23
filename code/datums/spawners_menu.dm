@@ -47,7 +47,10 @@
 	if(!length(possible_spawners))
 		return
 	var/obj/effect/mob_spawn/MS = locate(pick(possible_spawners))
-	if(!MS || !istype(MS))
+	if(!MS)
+		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
+		return
+	if(!istype(MS) && !(SEND_SIGNAL(MS, COMSIG_IS_GHOST_CONTROLABLE, usr) & COMPONENT_GHOST_CONTROLABLE))
 		log_runtime(EXCEPTION("A ghost tried to interact with an invalid spawner, or the spawner didn't exist."))
 		return
 	switch(action)

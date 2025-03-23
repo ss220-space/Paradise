@@ -19,14 +19,12 @@
 	update_icon(UPDATE_OVERLAYS)
 
 
-/obj/item/clipboard/AltClick(mob/user)
-	if(Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		if(is_pen(user.get_active_hand()))
-			penPlacement(user, user.get_active_hand(), TRUE)
-		else
-			removePen(user)
-		return
-	. = ..()
+/obj/item/clipboard/click_alt(mob/user)
+	if(is_pen(user.get_active_hand()))
+		penPlacement(user, user.get_active_hand(), TRUE)
+	else
+		removePen(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/clipboard/verb/removePen()

@@ -28,3 +28,4 @@ GLOBAL_LIST(antag_paradise_weights)
 /// Weights for all special antags in ANTAG-PARADISE gamemode.
 GLOBAL_LIST(antag_paradise_special_weights)
 
+GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space

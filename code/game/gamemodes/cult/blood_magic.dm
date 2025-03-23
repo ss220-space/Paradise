@@ -99,10 +99,12 @@
 /datum/action/innate/cult/blood_spell/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
 	if(health_cost)
 		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
+
 	base_desc = desc
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
 	button.ordered = FALSE
+
 	..()
 
 /datum/action/innate/cult/blood_spell/override_location()
@@ -158,7 +160,7 @@
 	desc = "Channel an electromagnetic pulse inside your body, then release it, affecting nearby non-cultists. <b>The pulse will still affect you.</b>"
 	button_icon_state = "emp"
 	health_cost = 10
-	invocation = "Ta'gh fara'qha fel d'amar det!"
+	invocation = "Та'гх фара'кха фель де'амар дет!"
 
 /datum/action/innate/cult/blood_spell/emp/Grant(mob/living/owner)
 	if(ishuman(owner))
@@ -300,7 +302,7 @@
 /datum/action/innate/cult/blood_spell/veiling
 	name = "Conceal Presence"
 	desc = "Alternates between hiding and revealing nearby cult structures, cult airlocks and runes."
-	invocation = "Kla'atu barada nikt'o!"
+	invocation = "Кла'ату барада никт'o!"
 	button_icon_state = "veiling"
 	charges = 10
 	var/revealing = FALSE //if it reveals or not
@@ -339,7 +341,7 @@
 	name = "Blood Rites"
 	desc = "Empowers your hand to manipulate blood. Use on blood or a noncultist to absorb blood to be used later, use on yourself or another cultist to heal them using absorbed blood. \
 		\nUse the spell in-hand to cast advanced rites, such as summoning a magical blood spear, firing blood projectiles out of your hands, and more!"
-	invocation = "Fel'th Dol Ab'orod!"
+	invocation = "Фел'т Дол Аб'ород!"
 	button_icon_state = "manip"
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
@@ -421,7 +423,7 @@
 	name = "Stunning Aura"
 	desc = "Will stun and mute a victim on contact."
 	color = RUNE_COLOR_RED
-	invocation = "Fuu ma'jin!"
+	invocation = "Фуу ма'джин!"
 
 /obj/item/melee/blood_magic/stun/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	if(!isliving(target) || !proximity)
@@ -463,7 +465,7 @@
 	name = "Teleporting Aura"
 	color = RUNE_COLOR_TELEPORT
 	desc = "Will teleport a cultist to a teleport rune on contact."
-	invocation = "Sas'so c'arta forbici!"
+	invocation = "Сас'со к'арта форбичи!"
 
 /obj/item/melee/blood_magic/teleport/afterattack(atom/target, mob/living/carbon/user, proximity, params)
 	var/list/potential_runes = list()
@@ -520,7 +522,7 @@
 /obj/item/melee/blood_magic/shackles
 	name = "Shackling Aura"
 	desc = "Will start handcuffing a victim on contact, and mute them for a short duration if successful."
-	invocation = "In'totum Lig'abis!"
+	invocation = "Ин'тотум Лиг'абис!"
 	color = "#000000" // black
 
 /obj/item/melee/blood_magic/shackles/afterattack(atom/target, mob/living/carbon/user, proximity, params)
@@ -572,7 +574,7 @@
 /obj/item/melee/blood_magic/construction
 	name = "Twisting Aura"
 	desc = "Corrupts certain metalic objects on contact."
-	invocation = "Ethra p'ni dedol!"
+	invocation = "Этра п'ни дедоль!"
 	color = "#000000" // black
 	var/channeling = FALSE
 
@@ -656,7 +658,7 @@
 /obj/item/melee/blood_magic/empower
 	name = "Blood Recharge"
 	desc = "Can be used on some cult items, to restore them to their previous state."
-	invocation = "Ditans Gut'ura Inpulsa!"
+	invocation = "Дитанс Гут'ура Инпульса!"
 	color = "#9c0651"
 	has_source = FALSE //special, only availible for a blood cost.
 
@@ -723,7 +725,7 @@
 					if(H.blood_volume < BLOOD_VOLUME_SAFE)
 						var/restore_blood = BLOOD_VOLUME_SAFE - H.blood_volume
 						if(uses * 2 < restore_blood)
-							H.blood_volume += uses * 2
+							H.AdjustBlood(uses * 2)
 							to_chat(user, "<span class='danger'>You use the last of your charges to restore what blood you could, and the spell dissipates!</span>")
 							uses = 0
 							return ..()

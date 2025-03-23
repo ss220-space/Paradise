@@ -7,6 +7,8 @@
 	faction += "\ref[src]"
 	determine_move_and_pull_forces()
 	gravity_setup()
+	if(unique_name)
+		set_name()
 	if(ventcrawler_trait)
 		var/static/list/ventcrawler_sanity = list(
 			TRAIT_VENTCRAWLER_ALWAYS,
@@ -417,6 +419,76 @@
 	return TRUE
 
 
+/mob/living/can_perform_action(atom/target, action_bitflags)
+	if(!istype(target))
+		CRASH("Missing target arg for can_perform_action")
+
+	if(stat != CONSCIOUS)
+		to_chat(src, span_warning("You are not conscious enough for this action!"))
+		return FALSE
+
+	if(!(action_bitflags & BYPASS_INCAPACITATED)) // should be interaction_flags_atom, but we haven't implemented yet and won't
+		var/ignore_flags = NONE
+		if(action_bitflags & INC_IGNORE_RESTRAINED)
+			ignore_flags |= INC_IGNORE_RESTRAINED
+		if(!(action_bitflags & INC_IGNORE_GRABBED))
+			ignore_flags |= INC_IGNORE_GRABBED
+
+		if(incapacitated(ignore_flags))
+			to_chat(src, span_warning("You are incapacitated at the moment!"))
+			return FALSE
+
+	// If the MOBILITY_UI bitflag is not set it indicates the mob's hands are cutoff, blocked, or handcuffed
+	// Note - AI's and borgs have the MOBILITY_UI bitflag set even though they don't have hands
+	// Also if it is not set, the mob could be incapcitated, knocked out, unconscious, asleep, EMP'd, etc.
+	if(!(mobility_flags & MOBILITY_UI) && !(action_bitflags & ALLOW_RESTING))
+		to_chat(src, span_warning("You don't have the mobility for this!"))
+		return FALSE
+
+	// NEED_HANDS is already checked by MOBILITY_UI for humans so this is for silicons
+	if((action_bitflags & NEED_HANDS))
+		if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
+			to_chat(src, span_warning("You hands are blocked for this action!"))
+			return FALSE
+		if(!usable_hands) // almost redundant if it weren't for mobs
+			to_chat(src, span_warning("You don't have the hands for this action!"))
+			return FALSE
+
+	if(!(action_bitflags & ALLOW_PAI) && ispAI(src))
+		to_chat(src, span_warning("Your holochasis does not allow you to do this!"))
+		return FALSE
+
+	if(!(action_bitflags & BYPASS_ADJACENCY) && ((action_bitflags & NOT_INSIDE_TARGET) || !Adjacent(target)))
+		if(has_unlimited_silicon_privilege && !ispAI(src))
+			if(!(action_bitflags & ALLOW_SILICON_REACH)) // silicons can ignore range checks (except pAIs)
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+		else // just a normal carbon mob
+			if((action_bitflags & FORBID_TELEKINESIS_REACH))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+			if(!HAS_TRAIT(src, TRAIT_TELEKINESIS))
+				if(!(action_bitflags & SILENT_ADJACENCY))
+					to_chat(src, span_warning("You are too far away!"))
+				return FALSE
+
+	if((action_bitflags & NEED_VENTCRAWL) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_NUDE) && !HAS_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS))
+		to_chat(src, span_warning("You wouldn't fit!"))
+		return FALSE
+
+	if((action_bitflags & NEED_DEXTERITY) && !IsAdvancedToolUser(src))
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
+		return FALSE
+
+	if((action_bitflags & NEED_LITERACY) && !is_literate())
+		to_chat(src, span_warning("You can't comprehend any of this!"))
+		return FALSE
+
+	return TRUE
+
 /mob/living/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
 	// all this repeated spaghetti code is used to properly register projectiles
@@ -443,7 +515,7 @@
 
 
 /// Special projectiles handling for living mobs
-/mob/living/proc/projectile_allow_through(obj/item/projectile/projectile, border_dir)
+/mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
 	// default behavior for generic mobs
 	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
 		return !density
@@ -756,6 +828,7 @@
 	ExtinguishMob()
 	CureAllDiseases(FALSE)
 	fire_stacks = 0
+	fire_stacks = 0
 	on_fire = 0
 	suiciding = 0
 	if(buckled) //Unbuckle the mob and clear the alerts.
@@ -873,36 +946,49 @@
 /mob/living/proc/makeTrail(turf/T)
 	if(!has_gravity())
 		return
-	var/blood_exists = 0
 
-	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) //checks for blood splatter already on the floor
-		blood_exists = 1
+	var/blood_exists = FALSE
+
+	for(var/obj/effect/decal/cleanable/trail_holder/C in loc) // checks for blood splatter already on the floor
+		blood_exists = TRUE
+
 	if(isturf(loc))
 		var/trail_type = getTrail()
+
 		if(trail_type)
 			var/brute_ratio = round(getBruteLoss()/maxHealth, 0.1)
-			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0))//don't leave trail if blood volume below a threshold
-				blood_volume = max(blood_volume - max(1, brute_ratio * 2), 0) 					//that depends on our brute damage.
+
+			if(blood_volume && blood_volume > max(BLOOD_VOLUME_NORMAL*(1 - brute_ratio * 0.25), 0)) // don't leave trail if blood volume below a threshold
+				setBlood(max(blood_volume - max(1, brute_ratio * 2), 0)) // that depends on our brute damage.
 				var/newdir = get_dir(T, loc)
+
 				if(newdir != src.dir)
 					newdir = newdir | dir
+
 					if(newdir == 3) //N + S
 						newdir = NORTH
+
 					else if(newdir == 12) //E + W
 						newdir = EAST
+
 				if((newdir in GLOB.cardinal) && (prob(50)))
 					newdir = turn(get_dir(T, loc), 180)
+
 				if(!blood_exists)
 					new /obj/effect/decal/cleanable/trail_holder(loc)
+
 				for(var/obj/effect/decal/cleanable/trail_holder/TH in loc)
 					if((!(newdir in TH.existing_dirs) || trail_type == "trails_1" || trail_type == "trails_2") && TH.existing_dirs.len <= 16) //maximum amount of overlays is 16 (all light & heavy directions filled)
 						TH.existing_dirs += newdir
 						TH.overlays.Add(image('icons/effects/blood.dmi', trail_type, dir = newdir))
 						TH.transfer_mob_blood_dna(src)
+
 						if(ishuman(src))
 							var/mob/living/carbon/human/H = src
+
 							if(H.dna.species.blood_color)
 								TH.color = H.dna.species.blood_color
+
 						else
 							TH.color = "#A10808"
 
@@ -1250,6 +1336,10 @@
 /mob/living/proc/flash_eyes(intensity = 1, override_blindness_check, affect_silicon, visual, type = /atom/movable/screen/fullscreen/flash)
 	if(HAS_TRAIT(src, TRAIT_GODMODE))
 		return FALSE
+
+	if(SEND_SIGNAL(src, COMSIG_LIVING_EARLY_FLASH_EYES, intensity, override_blindness_check, affect_silicon, visual, type) & STOP_FLASHING_EYES)
+		return FALSE
+
 	if(check_eye_prot() < intensity && (override_blindness_check || !HAS_TRAIT(src, TRAIT_BLIND)))
 		overlay_fullscreen("flash", type)
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
@@ -1381,7 +1471,7 @@
 	. = TRUE
 	to_chat(user, span_notice("You begin to butcher [src]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
-	if(!do_after(user, 4 SECONDS * mob_size, src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
+	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
 	harvest(user)
 
@@ -1627,67 +1717,9 @@
 				target.devoured(grabber)
 
 
-/mob/living/proc/update_z(new_z) // 1+ to register, null to unregister
-	if(registered_z == new_z)
-		return
-	if(registered_z)
-		SSmobs.clients_by_zlevel[registered_z] -= src
-	if(isnull(client))
-		registered_z = null
-		return
-	if(!new_z)
-		registered_z = new_z
-		return
-	//Figure out how many clients were here before
-	var/oldlen = SSmobs.clients_by_zlevel[new_z].len
-	SSmobs.clients_by_zlevel[new_z] += src
-	for(var/index in length(SSidlenpcpool.idle_mobs_by_zlevel[new_z]) to 1 step -1) //Backwards loop because we're removing (guarantees optimal rather than worst-case performance), it's fine to use .len here but doesn't compile on 511
-		var/mob/living/simple_animal/animal = SSidlenpcpool.idle_mobs_by_zlevel[new_z][index]
-		if(animal)
-			if(!oldlen)
-				//Start AI idle if nobody else was on this z level before (mobs will switch off when this is the case)
-				animal.toggle_ai(AI_IDLE)
-			//If they are also within a close distance ask the AI if it wants to wake up
-			if(get_dist(get_turf(src), get_turf(animal)) < MAX_SIMPLEMOB_WAKEUP_RANGE)
-				animal.consider_wakeup() // Ask the mob if it wants to turn on it's AI
-		//They should clean up in destroy, but often don't so we get them here
-		else
-			SSidlenpcpool.idle_mobs_by_zlevel[new_z] -= animal
-	registered_z = new_z
-
-
 /mob/living/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = TRUE)
 	..()
 	update_z(new_turf?.z)
-
-/mob/living/proc/owns_soul()
-	if(mind)
-		return mind.soulOwner == mind
-	return 1
-
-/mob/living/proc/return_soul()
-	if(mind)
-		if(mind.soulOwner.devilinfo)//Not sure how this could happen, but whatever.
-			mind.soulOwner.devilinfo.remove_soul(mind)
-		mind.soulOwner = mind
-		mind.damnation_type = 0
-
-/mob/living/proc/has_bane(banetype)
-	if(mind)
-		if(mind.devilinfo)
-			return mind.devilinfo.bane == banetype
-	return 0
-
-/mob/living/proc/check_weakness(obj/item/weapon, mob/living/attacker)
-	if(mind && mind.devilinfo)
-		return check_devil_bane_multiplier(weapon, attacker)
-	return 1
-
-/mob/living/proc/check_acedia()
-	if(src.mind && src.mind.objectives)
-		for(var/datum/objective/sintouched/acedia/A in src.mind.objectives)
-			return 1
-	return 0
 
 /mob/living/proc/fakefireextinguish()
 	return
@@ -1799,6 +1831,11 @@
 		return
 
 	var/examine_time = target.get_examine_time()
+
+	var/obj/item/organ/internal/eyes/eyes = get_organ_slot(INTERNAL_ORGAN_EYES)
+	if(eyes)
+		examine_time *= eyes.examine_mod
+
 	if(examine_time && target != src)
 		var/visible_gender = target.get_visible_gender()
 		var/visible_species = "Unknown"
@@ -1838,6 +1875,9 @@
 		return TRUE
 	return FALSE
 
+/mob/living/examine(mob/user, infix, suffix)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_LIVING_EXAMINE, user, .)
 
 /**
   * Sets the mob's direction lock towards a given atom.
@@ -2165,8 +2205,8 @@
 			update_blind_effects()
 			update_blurry_effects()
 			update_unconscious_overlay()
-			GLOB.alive_mob_list += src
-			GLOB.dead_mob_list -= src
+			add_to_alive_mob_list()
+			remove_from_dead_mob_list()
 
 	switch(stat) //Current stat.
 		if(CONSCIOUS)
@@ -2179,8 +2219,8 @@
 			SetLoseBreath(0)
 			SetDisgust(0)
 			SetEyeBlurry(0)
-			GLOB.alive_mob_list -= src
-			GLOB.dead_mob_list += src
+			remove_from_alive_mob_list()
+			add_to_dead_mob_list()
 
 
 /// Updates hands HUD element.
@@ -2322,3 +2362,20 @@
 			. |= RECHARGE_SUCCESSFUL
 
 	to_chat(src, span_notice("You feel [(. & RECHARGE_SUCCESSFUL) ? "raw magical energy flowing through you, it feels good!" : "very strange for a moment, but then it passes."]"))
+
+/mob/living/proc/set_name()
+	if(numba == 0)
+		numba = rand(1, 1000)
+	name = "[name] ([numba])"
+	real_name = name
+
+// used by secbot and monkeys Crossed
+/mob/living/proc/knockOver(mob/living/carbon/target)
+	if(target.key) //save us from monkey hordes
+		target.visible_message(span_warning("[pick( \
+						  "[target] спотыка[pluralize_ru(target.gender, "ет", "ют")]ся об [declent_ru(GENITIVE)]!", \
+						  "[target] опрокидыва[pluralize_ru(target.gender, "ет", "ют")]ся на [declent_ru(GENITIVE)]!", \
+						  "[target] отлета[pluralize_ru(target.gender, "ет", "ют")] с пути [declent_ru(GENITIVE)]!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
+						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]"))

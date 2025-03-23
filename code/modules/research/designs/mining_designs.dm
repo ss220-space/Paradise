@@ -116,8 +116,8 @@
 	name = "Fishing Rod"
 	desc = "Hey! I caught a miner!"
 	id = "fishingrod"
-	req_tech = list("materials" = 5, "engineering" = 4, "plasmatech" = 6, "biotech" = 6)
+	req_tech = list("materials" = 5, "engineering" = 4, "plasmatech" = 5, "biotech" = 4)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL = 10000, MAT_TITANIUM = 15000, MAT_SILVER = 2500, MAT_DIAMOND = 2500)
-	build_path = /obj/item/twohanded/fishingrod
+	materials = list(MAT_METAL = 4000, MAT_TITANIUM = 6000)
+	build_path = /obj/item/twohanded/fishing_rod
 	category = list("Mining")

@@ -18,6 +18,10 @@
 	death_message = "с тошнотворным шипением выдыха%(ет,ют)% воздух и пада%(ет,ют)% на пол..."
 	death_sound = null
 
+	hud_type = /datum/hud/larva
+
+	role_text = "Как Грудолом, вы ещё очень слабы для того, чтобы оказывать помощь гнезду. Ваша задача: прятаться, есть и набираться сил."
+
 	var/datum/action/innate/hide/alien_larva/hide_action
 
 

@@ -261,7 +261,7 @@
 			wires.cut_random()
 
 
-/mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	if(..())
 		if(prob(50) && !isnull(load))
 			unload(0)
@@ -979,9 +979,7 @@
 		unload()
 
 
-/mob/living/simple_animal/bot/mulebot/UnarmedAttack(atom/A)
-	if(!can_unarmed_attack())
-		return
+/mob/living/simple_animal/bot/mulebot/OnUnarmedAttack(atom/A)
 	if(isturf(A) && isturf(loc) && loc.Adjacent(A) && load)
 		unload(get_dir(loc, A))
 	else

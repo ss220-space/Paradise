@@ -479,14 +479,19 @@
 
 /obj/item/storage/firstaid/aquatic_kit
 	name = "aquatic starter kit"
-	desc = "It's a starter kit box for an aquarium."
+	desc = "Коробка со всем необходимым для ухода за аквариумом и его жителями."
+	ru_names = list(
+        NOMINATIVE = "набор для ухода за аквариумом",
+        GENITIVE = "набора для ухода за аквариумом",
+        DATIVE = "набору для ухода за аквариумом",
+        ACCUSATIVE = "набор для ухода за аквариумом",
+        INSTRUMENTAL = "набором для ухода за аквариумом",
+        PREPOSITIONAL = "наборе для ухода за аквариумом"
+	)
 	icon_state = "AquaticKit"
 	throw_speed = 2
 	throw_range = 8
 	med_bot_skin = "fish"
-
-/obj/item/storage/firstaid/aquatic_kit/full
-	desc = "It's a starter kit for an aquarium; includes 1 tank brush, 1 egg scoop, 1 fish net, 1 container of fish food and 1 fish bag."
 
 /obj/item/storage/firstaid/aquatic_kit/full/populate_contents()
 	new /obj/item/egg_scoop(src)

@@ -4,6 +4,7 @@
 	icon_state = "mining"
 	has_gravity = STANDARD_GRAVITY
 	sound_environment = SOUND_AREA_STANDARD_STATION
+	area_flags = NONE
 
 /area/mine/explored
 	name = "Mine"
@@ -38,6 +39,7 @@
 	sound_environment = SOUND_AREA_ASTEROID
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
+	holomap_should_draw = FALSE
 
 /area/mine/unexplored/cere
 	sound_environment = SOUND_AREA_ASTEROID
@@ -145,6 +147,7 @@
 	min_ambience_cooldown = 70 SECONDS
 	max_ambience_cooldown = 220 SECONDS
 	area_flags = NONE
+	holomap_should_draw = FALSE
 
 /area/lavaland/underground
 	name = "Lavaland Caves"
@@ -162,7 +165,7 @@
 /area/lavaland/surface/outdoors
 	name = "Lavaland Wastes"
 	outdoors = TRUE
-	area_flags = FLORA_ALLOWED
+	area_flags = FLORA_ALLOWED | BLOBS_ALLOWED
 
 /area/lavaland/surface/outdoors/unexplored // ruins spawn here
 	icon_state = "unexplored"

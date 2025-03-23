@@ -18,9 +18,8 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
   if (!value || !value.length) {
     return String(minimum);
   }
-  let parsedValue = allowFloats
-    ? parseFloat(value.replace(/[^\-\d.]/g, ''))
-    : parseInt(value.replace(/[^\-\d]/g, ''), 10);
+  let parcedFloat = parseFloat(value.replace(/[^\-\d.]/g, ''));
+  let parsedValue = allowFloats ? parcedFloat : Math.round(parcedFloat);
   if (isNaN(parsedValue)) {
     return String(minimum);
   } else {

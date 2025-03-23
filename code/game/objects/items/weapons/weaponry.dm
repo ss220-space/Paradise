@@ -38,14 +38,14 @@
 	throwforce = 1
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/sord/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
 	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
 	return SHAME
 
-/obj/item/claymore
+/obj/item/melee/claymore
 	name = "claymore"
 	desc = "What are you standing around staring at this for? Get to killing!"
 	icon_state = "claymore"
@@ -61,22 +61,22 @@
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	embedded_ignore_throwspeed_threshold = TRUE
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/claymore/suicide_act(mob/user)
+/obj/item/melee/claymore/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
 	return BRUTELOSS
 
-/obj/item/claymore/ceremonial
+/obj/item/melee/claymore/ceremonial
 	name = "ceremonial claymore"
 	desc = "An engraved and fancy version of the claymore. It appears to be less sharp than it's more functional cousin."
 	force = 20
 
-/obj/item/katana
+/obj/item/melee/katana
 	name = "katana"
 	desc = "Woefully underpowered in D20"
 	icon_state = "katana"
@@ -92,19 +92,18 @@
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
 	max_integrity = 200
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
 	resistance_flags = FIRE_PROOF
-	needs_permit = TRUE
 
 
-/obj/item/katana/suicide_act(mob/user)
+/obj/item/melee/katana/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
 	return BRUTELOSS
 
-/obj/item/katana/basalt
+/obj/item/melee/katana/basalt
 	name = "basalt katana"
 	desc = "a katana made out of hardened basalt. Particularly damaging to lavaland fauna."
 	icon_state = "basalt_katana"
@@ -115,7 +114,7 @@
 	var/nemesis_factions = list("mining", "boss")
 
 
-/obj/item/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/melee/katana/basalt/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/faction in target.faction)
@@ -139,7 +138,7 @@
 	force = 20
 	throwforce = 15
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("jabbed","stabbed","ripped")
+	attack_verb = list("уколол", "тыкнул")
 
 /obj/item/wirerod
 	name = "Wired rod"
@@ -151,7 +150,7 @@
 	throwforce = 10
 	w_class = WEIGHT_CLASS_NORMAL
 	materials = list(MAT_METAL=1150, MAT_GLASS=75)
-	attack_verb = list("hit", "bludgeoned", "whacked", "bonked")
+	attack_verb = list("ударил", "огрел")
 
 
 /obj/item/wirerod/attackby(obj/item/I, mob/user, params)
@@ -206,15 +205,6 @@
 	materials = list(MAT_METAL=500, MAT_GLASS=500)
 	resistance_flags = FIRE_PROOF
 
-/obj/item/spear/kidan
-	icon_state = "kidanspear"
-	name = "Kidan spear"
-	desc = "A one-handed spear brought over from the Kidan homeworld."
-	icon_state = "kidanspear"
-	item_state = "kidanspear"
-	force = 10
-	throwforce = 15
-
 /obj/item/melee/baseball_bat
 	name = "baseball bat"
 	desc = "There ain't a skull in the league that can withstand a swatter."
@@ -225,7 +215,7 @@
 	var/lastdeflect
 	force = 10
 	throwforce = 12
-	attack_verb = list("beat", "smacked")
+	attack_verb = list("beat", "шлёпнул")
 	w_class = WEIGHT_CLASS_HUGE
 	pickup_sound = 'sound/items/handling/wooden_pickup.ogg'
 	drop_sound = 'sound/items/handling/wooden_drop.ogg'
@@ -382,9 +372,9 @@
 	/// Sound to play when concealing or extending
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
 	/// Attack verbs when concealed (created on Initialize)
-	attack_verb = list("hit", "poked")
+	attack_verb = list("ударил", "ткнул")
 	/// Attack verbs when extended (created on Initialize)
-	var/list/attack_verb_on = list("smacked", "struck", "cracked", "beaten")
+	var/list/attack_verb_on = list("шлёпнул", "ударил", "треснул", "поколотил")
 
 
 /obj/item/melee/baseball_bat/homerun/central_command/srt
@@ -438,7 +428,7 @@
 	toggle(user)
 
 
-/obj/item/claymore/bone
+/obj/item/melee/claymore/bone
 	name = "bone sword"
 	desc = "Jagged pieces of bone are tied to what looks like a goliath's femur."
 	icon_state = "bone_sword"
@@ -450,3 +440,84 @@
 	w_class = WEIGHT_CLASS_BULKY
 	block_chance = 30
 
+/obj/item/melee/nutcracker
+	name = "nutcracker"
+	desc = "Простейшая дубина из кости. Воплощение силы первобытного разума и природной мощи. Настоящая классика."
+	ru_names = list(
+		NOMINATIVE = "колотушка",
+		GENITIVE = "колотушки",
+		DATIVE = "колотушке",
+		ACCUSATIVE = "колотушку",
+		INSTRUMENTAL = "колотушкой",
+		PREPOSITIONAL = "колотушке"
+	)
+	icon_state = "nutcracker"
+	item_state = "nutcracker"
+	gender = FEMALE
+	hitsound = 'sound/weapons/kolotushka_smash.ogg'
+	slot_flags = ITEM_SLOT_BELT
+	force = 3
+	throwforce = 3
+	w_class = WEIGHT_CLASS_NORMAL
+	var/stamina_damage = 22
+
+/obj/item/melee/nutcracker/afterattack(atom/target, mob/user, proximity, params, status)
+	if(!isliving(target) || !proximity || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		return
+
+	var/mob/living/victim = target
+	if(isrobot(victim))
+		if(prob(30))
+			victim.flash_eyes(3 SECONDS)
+			victim.Stun(3 SECONDS)
+
+	if(ishuman(victim))
+		var/mob/living/carbon/human/human_victim = target
+
+		if(human_victim.check_shields(src, 25))
+			return
+
+		if(check_martial_counter(human_victim, user))
+			return
+
+		human_victim.apply_damage(stamina_damage, STAMINA, blocked = victim.getarmor(user.zone_selected, MELEE))
+		if(prob(30))
+			human_victim.Knockdown(3 SECONDS)
+
+/obj/item/melee/ghostface_knife
+	name = "Knife"
+	desc = "Очень острый нож. Судя по потёртостям и засохшей крови, он совсем не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый нож",
+		GENITIVE = "старого ножа",
+		DATIVE = "старому ножу",
+		ACCUSATIVE = "старый нож",
+		INSTRUMENTAL = "старым ножом",
+		PREPOSITIONAL = "старом ноже"
+	)
+	icon_state = "ghostface_knife"
+	force = 34
+	armour_penetration = 70
+	block_chance = 30
+	w_class = WEIGHT_CLASS_SMALL
+	throwforce = 34
+	hitsound = 'sound/weapons/bladeslice.ogg'
+	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
+	drop_sound = 'sound/items/handling/knife_drop.ogg'
+	throw_speed = 3
+	throw_range = 6
+	attack_verb = list("полоснул", "уколол", "поранил", "порезал", "рубанул")
+	sharp = TRUE
+
+/obj/item/melee/ghostface_knife/devil
+	name = "Old knife"
+	desc = "Странный нож с, тем не менее, крайне острым лезвием. Судя по характерным потёртостям и засохшей крови, он явно не валялся без дела."
+	ru_names = list(
+		NOMINATIVE = "старый ржавый нож",
+		GENITIVE = "старого ржавого ножа",
+		DATIVE = "старому ржавому ножу",
+		ACCUSATIVE = "старый ржавый нож",
+		INSTRUMENTAL = "старым ржавым ножом",
+		PREPOSITIONAL = "старом ржавом ноже"
+	)
+	icon_state = "devil_ghostface_knife"

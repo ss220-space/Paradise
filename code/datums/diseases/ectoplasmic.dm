@@ -47,7 +47,7 @@
 				create_effect = TRUE	
 		if(5)
 			if(prob(SYMPTOM_ACTIVATION_PROB * 10))
-				human.influenceSin()
+				human.mind?.add_antag_datum(/datum/antagonist/sintouched)
 				to_chat(human, span_revenbignotice("You suddenly feel your soul become corrupted."))
 			else
 				human.apply_damage(80, STAMINA)

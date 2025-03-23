@@ -424,7 +424,7 @@
 	force = 40
 	throwforce = 10
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	block_chance = 50
 
 /obj/item/holo/claymore/blue

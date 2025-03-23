@@ -29,8 +29,7 @@
 	if(!client)
 		return FALSE
 	canon_client = client
-	GLOB.player_list |= src
-	GLOB.keyloop_list |= src
+	add_to_player_list()
 	last_known_ckey = ckey
 	update_Login_details()
 	world.update_status()
@@ -71,7 +70,7 @@
 	reset_perspective(loc)
 
 
-	if(ckey in GLOB.deadmins)
+	if((ckey in GLOB.de_admins) || (ckey in GLOB.de_mentors))
 		add_verb(src, /client/proc/readmin)
 
 	//Clear ability list and update from mob.

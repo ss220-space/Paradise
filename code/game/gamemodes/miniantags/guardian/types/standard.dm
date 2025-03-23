@@ -23,7 +23,7 @@
 /mob/living/simple_animal/hostile/guardian/punch/AttackingTarget()
 	. = ..()
 	if(iscarbon(target) && target != summoner)
-		if(length(battlecry) > 8)//no more then 8 letters in a battle cry.
+		if(length_char(battlecry) > 8)//no more then 8 letters in a battle cry.
 			visible_message("<span class='danger'>[src] punches [target]!</span>")
 		else
 			say("[battlecry]", TRUE)

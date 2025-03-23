@@ -41,7 +41,10 @@
 	user.visible_message("<span class='suicide'>[user] is rubbing [src] against [user.p_them()]self! It looks like [user.p_theyre()] trying to commit suicide!</span>")
 	return TOXLOSS
 
-/obj/item/nuke_core/plutonium //The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+//The steal objective, so it doesnt mess with the SM sliver on pinpointers and objectives
+/obj/item/nuke_core/plutonium/Initialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 //nuke core box, for carrying the core
 /obj/item/nuke_core_container
@@ -149,7 +152,7 @@
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/paper/guides/antag/nuke_instructions
-	info = "Как вскрыть ядерную боеголовку Нанотрейзен и вытащить из нее плутониевое ядро:<br>\
+	info = "Как вскрыть ядерную боеголовку НаноТрейзен и вытащить из нее плутониевое ядро:<br>\
 	<ul>\
 	<li>Добудьте себе одежду, способную защитить от радиации в связи с высокой радиоактивностью ядра.</li>\
 	<li>Используйте предоставленную вам отвертку с очень тонким наконечником для того, чтобы открутить переднюю панель терминала боеголовки.</li>\
@@ -181,6 +184,10 @@
 	desc = "A tiny, highly volatile sliver of a supermatter crystal. Do not handle without protection!"
 	icon_state = "supermatter_sliver"
 	pulseicon = "supermatter_sliver_pulse"
+
+/obj/item/nuke_core/supermatter_sliver/Initialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 /obj/item/nuke_core/supermatter_sliver/attack_tk(mob/user) // no TK gibbing memes
 	return

@@ -42,11 +42,11 @@
 		var/obj/item/organ/internal/headpocket/pocket = H.get_int_organ(/obj/item/organ/internal/headpocket)
 		if(!pocket.pocket.master_item)
 			return
-		user.visible_message(span_danger("[user] is trying to remove something from [source]'s head!"),
-							span_danger("You start to dislodge whatever's inside [source]'s headpocket!"))
+		user.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся достать что-то из головного кармана [source]!"),
+							span_danger("Вы пытаетесь достать предмет из головного кармана [source]!"))
 		if(do_after(user, POCKET_STRIP_DELAY, source, max_interact_count = 1))
-			user.visible_message(span_danger("[user] has dislodged something from [source]'s head!"),
-								span_danger("You have dislodged everything from [source]'s headpocket!"))
+			user.visible_message(span_danger("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] что-то из головного кармана [source]!"),
+								span_danger("Вы достаёте предмет из головного кармана [source]!"))
 			pocket.empty_contents()
 			add_attack_logs(user, source, "Stripped of headpocket items", isLivingSSD(source) ? null : ATKLOG_ALL)
 		return
@@ -58,11 +58,11 @@
 	if(!istype(muzzle))
 		return
 	if(!ishuman(user))
-		to_chat(user, "You lack the ability to manipulate the lock.")
+		user.balloon_alert(user, "не получится!")
 		return
 
-	muzzle.visible_message(span_danger("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."), \
-					span_userdanger("[user] tries to [muzzle.locked ? "unlock" : "lock"] [source]'s [muzzle.name]."))
+	muzzle.visible_message(span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся [muzzle.locked ? "раз" : "за"]блокировать [muzzle.declent_ru(ACCUSATIVE)] [source]!"), \
+					span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся [muzzle.locked ? "раз" : "за"]блокировать [muzzle.declent_ru(ACCUSATIVE)] [source]!"))
 	if(!do_after(user, POCKET_STRIP_DELAY, source, max_interact_count = 1))
 		return
 
@@ -74,8 +74,8 @@
 
 	if(!success)
 		return
-	muzzle.visible_message(span_danger("[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name]."), \
-					span_userdanger("[user] [muzzle.locked ? "locks" : "unlocks"] [source]'s [muzzle.name]."))
+	muzzle.visible_message(span_danger("[user] [muzzle.locked ? "за" : "раз"]блокировал[genderize_ru(user.gender, "", "а", "о", "и")] [muzzle.declent_ru(ACCUSATIVE)] [source]!"), \
+					span_userdanger("[user] [muzzle.locked ? "за" : "раз"]блокировал[genderize_ru(user.gender, "", "а", "о", "и")] [muzzle.declent_ru(ACCUSATIVE)] [source]!"))
 
 
 /datum/strippable_item/mob_item_slot/handcuffs
@@ -134,7 +134,7 @@
 
 	var/mob/mob_source = source
 	if(!mob_source.put_in_hand_check(equipping, which_hand))
-		to_chat(user, span_warning("\The [equipping] doesn't fit in that place!"))
+		user.balloon_alert(user, "нет места!")
 		return FALSE
 
 	return TRUE

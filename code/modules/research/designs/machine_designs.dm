@@ -12,6 +12,16 @@
 	build_path = /obj/item/circuitboard/thermomachine
 	category = list ("Engineering Machinery")
 
+/datum/design/cell_charger
+	name = "Machine Board(Cell charger)"
+	desc = "The circuit board for a cell charger"
+	id = "cell_charger"
+	build_path = /obj/item/circuitboard/cell_charger
+	materials = list(MAT_GLASS = 1000)
+	build_type = IMPRINTER
+	req_tech = list("powerstorage" = 3, "materials" = 3)
+	category = list("Misc. Machinery")
+
 /datum/design/recharger
 	name = "Machine Board(Weapon Recharger)"
 	desc = "The circuit board for a weapon recharger"
@@ -570,6 +580,26 @@
 	build_type = IMPRINTER
 	materials = list(MAT_GLASS = 1000)
 	build_path = /obj/item/circuitboard/microscope
+	category = list ("Misc. Machinery")
+
+/datum/design/station_map
+	name = "Machine Design (Station Map)"
+	desc = "Station Map Board."
+	id = "station_map"
+	req_tech = list("programming" = 2, "engineering" = 2)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/station_map
+	category = list ("Misc. Machinery")
+
+/datum/design/station_map_engineer
+	name = "Machine Design (Engineering Station Map)"
+	desc = "Engineering Station Map Board."
+	id = "engineering_station_map"
+	req_tech = list("programming" = 5, "engineering" = 5)
+	build_type = IMPRINTER
+	materials = list(MAT_GLASS = 1000)
+	build_path = /obj/item/circuitboard/machine/station_map/engineering
 	category = list ("Misc. Machinery")
 
 /datum/design/brs_server

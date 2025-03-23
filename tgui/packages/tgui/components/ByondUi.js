@@ -25,6 +25,16 @@ const createByondUiElement = (elementId) => {
   // Return a control structure
   return {
     render: (params) => {
+      /**
+       * Note: We unmount and render because there is currently unfixable bug with
+       * how cameras are rendered on first occurence. That came with TGUI 4 and
+       * I have no idea how to fix this correctly.
+       */
+      logger.log(`unmounting '${id}'`);
+      byondUiStack[index] = null;
+      Byond.winset(id, {
+        parent: '',
+      });
       logger.log(`rendering '${id}'`);
       byondUiStack[index] = id;
       Byond.winset(id, params);
@@ -54,13 +64,17 @@ window.addEventListener('beforeunload', () => {
 });
 
 /**
- * Get the bounding box of the DOM element.
+ * Get the bounding box of the DOM element in display-pixels.
  */
 const getBoundingBox = (element) => {
+  const pixelRatio = window.devicePixelRatio ?? 1;
   const rect = element.getBoundingClientRect();
   return {
-    pos: [rect.left, rect.top],
-    size: [rect.right - rect.left, rect.bottom - rect.top],
+    pos: [rect.left * pixelRatio, rect.top * pixelRatio],
+    size: [
+      (rect.right - rect.left) * pixelRatio,
+      (rect.bottom - rect.top) * pixelRatio,
+    ],
   };
 };
 

@@ -59,6 +59,7 @@
 			addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /obj/item/grenade/iedcasing/prime() //Blowing that can up
+	. = ..()
 	update_mob()
 	explosion(loc, -1, -1, 2, flame_range = 4, cause = src)	// small explosion, plus a very large fireball.
 	qdel(src)
@@ -150,7 +151,7 @@
 	if(active)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(is_hot(I))
+	if(I.get_heat())
 		trigger(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

@@ -100,7 +100,7 @@
 	return
 
 
-/obj/singularity/bullet_act(obj/item/projectile/P)
+/obj/singularity/bullet_act(obj/projectile/P)
 	qdel(P)
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
@@ -498,7 +498,7 @@
 	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
 
 
-/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/item/projectile/projectile)
+/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/projectile/projectile)
 	. = ..()
 	if(!isprojectile(projectile))
 		return .
@@ -521,3 +521,20 @@
 	projectile.damage += 10 / distance
 	projectile.set_angle(projectile_angle)
 
+
+/obj/singularity/proc/end_deadchat_plays()
+	move_self = TRUE
+
+
+/obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	move_self = FALSE
+
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)

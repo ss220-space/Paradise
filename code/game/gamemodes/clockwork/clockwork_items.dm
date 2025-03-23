@@ -75,7 +75,7 @@
 		to_chat(user, "<span class='notice'>You disguise your tool as some little toy.</span>")
 		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		plushy = pick(plush_colors)
-		attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+		attack_verb = list("тыкнул", "ударил", "шлёпнул")
 		enchant_type = CASTING_SPELL
 		update_appearance(UPDATE_ICON_STATE|UPDATE_NAME|UPDATE_DESC)
 
@@ -233,7 +233,7 @@
 	sharp = TRUE
 	embed_chance = 70
 	embedded_ignore_throwspeed_threshold = TRUE
-	attack_verb = list("stabbed", "poked", "slashed")
+	attack_verb = list("уколол", "ткнул", "полоснул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	w_class = WEIGHT_CLASS_HUGE
 	needs_permit = TRUE
@@ -480,7 +480,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	armour_penetration = 10
 	sharp = TRUE
-	attack_verb = list("lunged at", "stabbed")
+	attack_verb = list("полоснул", "уколол")
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	var/swordsman = FALSE
 
@@ -557,7 +557,7 @@
 		if(bodypart.internal_bleeding())
 			to_chat(user, span_warning("You tear through [human]'s skin releasing the blood from [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
-			human.blood_volume = max(human.blood_volume - 100, 0)
+			human.setBlood(max(human.blood_volume - 100, 0))
 			var/splatter_dir = get_dir(user, human)
 			blood_color = human.dna.species.blood_color
 			new /obj/effect/temp_visual/dir_setting/bloodsplatter(human.drop_location(), splatter_dir, blood_color)
@@ -585,7 +585,7 @@
 	throwforce = 10
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("bumped", "prodded", "shoved", "bashed")
+	attack_verb = list("стукнул", "толкнул", "долбанул", "ударил")
 	hitsound = 'sound/weapons/smash.ogg'
 	block_chance = 30
 
@@ -716,7 +716,7 @@
 			animate(carbon, alpha = 20, time = 1 SECONDS)
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 			sleep(10)
-			carbon.alpha = 20
+			carbon.alpha_set(standartize_alpha(20), ALPHA_SOURCE_CLOCKROBE)
 			add_attack_logs(user, user, "cloaked [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, PROC_REF(uncloak), carbon), 10 SECONDS)
 		if(enchant_type == SPEED_SPELL)
@@ -729,11 +729,11 @@
 	else
 		ToggleHood()
 
-/obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/user)
+/obj/item/clothing/suit/hooded/clockrobe/proc/uncloak(mob/living/user)
 	animate(user, alpha = 255, time = 1 SECONDS)
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(INVIS_SPELL))
 	sleep(10)
-	user.alpha = 255
+	user.alpha_set(1, ALPHA_SOURCE_CLOCKROBE)
 	deplete_spell()
 
 /obj/item/clothing/suit/hooded/clockrobe/proc/unspeed(mob/living/carbon/carbon)

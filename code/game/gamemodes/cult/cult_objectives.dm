@@ -10,6 +10,7 @@
 		return FALSE
 	cult_status = NARSIE_DEMANDS_SACRIFICE
 	var/datum/objective/sacrifice/obj_sac = new
+	obj_summon.owner = SSticker.mode
 	if(obj_sac.find_target())
 		presummon_objs.Add(obj_sac)
 	else
@@ -118,14 +119,21 @@
 //Objectives
 
 /datum/objective/servecult //Given to cultists on conversion/roundstart
-	explanation_text = "Assist your fellow cultists and Tear the Veil! (Use the Study Veil action to check your progress.)"
+	explanation_text = "Помогите собратьям-культистам и разорвите завесу между мирами! (Используйте действие «Изучение вуали», чтобы проверить свой прогресс.)"
 	completed = TRUE
 	needs_target = FALSE
+	antag_menu_name = "Помогать культу"
 
 /datum/objective/sacrifice
 	var/sacced = FALSE
 	needs_target = FALSE
-	explanation_text = "Sacrifice a crewmember in order to prepare the summoning."
+	antag_menu_name = "Принести в жертву"
+	explanation_text = "Пожертвуйте членом экипажа, чтобы подготовить призыв бога."
+
+/datum/objective/sacrifice/New()
+	..()
+	owner = SSticker.mode
+
 
 /datum/objective/sacrifice/check_completion()
 	return sacced || completed
@@ -145,7 +153,7 @@
 				target_candidates += H.mind
 	if(length(target_candidates))
 		target = pick(target_candidates)
-		explanation_text = "Sacrifice [target], the [target.assigned_role] via invoking an Offer rune with [target.p_their()] body or brain on it and three acolytes around it."
+		explanation_text = "Принесите в жертву [target], [target.assigned_role] посредством вызова руны Предложения с помощью [genderize_ru(target.current.gender, "его", "её", "его", "их")] тела или мозга на ней и трёх культистов вокруг руны."
 		return TRUE
 	message_admins("Cult Sacrifice: Could not find unconvertible or convertible target. Nar'Sie summoning unlocked!")
 	return FALSE
@@ -160,6 +168,10 @@
 /datum/objective/eldergod/New()
 	..()
 	find_summon_locations()
+	antag_menu_name = "Призвать [SSticker.cultdat.entity_name]"
+
+/datum/objective/eldergod/check_anatag_menu_ability()
+	return SSticker.mode.cult_objs.cult_status != NARSIE_IS_ASLEEP
 
 /datum/objective/eldergod/proc/find_summon_locations(reroll = FALSE)
 	if(reroll)
@@ -182,8 +194,8 @@
 		if(valid_spot)
 			summon_spots += summon
 		sanity++
-	explanation_text = "Summon [SSticker.cultdat ? SSticker.cultdat.entity_name : "your god"] by invoking the rune 'Tear Veil' with 9 cultists, constructs, or summoned ghosts on it.\
-	\nThe summoning can only be accomplished in [english_list(summon_spots)] - where the veil is weak enough for the ritual to begin."
+	explanation_text = "Призовите [SSticker.cultdat ? SSticker.cultdat.entity_name : "вашего бога"], вызвав руну «Разорвать завесу» вместе с 9 культистами, конструкциями или вызванными призраками внутри неё.\
+	\nПризыв может быть осуществлён только в [english_list(summon_spots)] - где завеса достаточно слаба, чтобы начать ритуал."
 
 
 /datum/objective/eldergod/check_completion()

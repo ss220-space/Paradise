@@ -1,7 +1,7 @@
 /client/proc/jump_to()
 	set name = "Jump to..."
 	set desc = "Area, Mob, Key or Coordinate"
-	set category = "Admin"
+	set category = "Admin.Admin"
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
 
 	if(!check_rights(R_ADMIN))
@@ -26,13 +26,13 @@
 			if(jumping)
 				return jumptokey(jumping)
 		if("Coordinates")
-			var/x = input(src, "X Coordinate", "Jump to Coordinates") as null|num
+			var/x = tgui_input_number(src, "X Coordinate", "Jump to Coordinates")
 			if(!x)
 				return
-			var/y = input(src, "Y Coordinate", "Jump to Coordinates") as null|num
+			var/y = tgui_input_number(src, "Y Coordinate", "Jump to Coordinates")
 			if(!y)
 				return
-			var/z = input(src, "Z Coordinate", "Jump to Coordinates") as null|num
+			var/z = tgui_input_number(src, "Z Coordinate", "Jump to Coordinates")
 			if(!z)
 				return
 			return jumptocoord(x, y, z)
@@ -181,7 +181,7 @@
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/sendmob(mob/M in GLOB.mob_list)
-	set category = "Admin"
+	set category = "Admin.Admin"
 	set name = "Send Mob"
 
 	if(!check_rights(R_ADMIN))

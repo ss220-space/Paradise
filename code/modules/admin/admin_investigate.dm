@@ -8,7 +8,7 @@
 //ADMINVERBS
 /client/proc/investigate_show()
 	set name = "Investigate"
-	set category = "Admin"
+	set category = "Admin.Admin"
 	if(!check_rights(R_ADMIN))
 		return
 
@@ -43,7 +43,7 @@
 
 	var/list/combined = sortList(logs_present) + sortList(logs_missing)
 
-	var/selected = input("Investigate what?", "Investigate") as null|anything in combined
+	var/selected = tgui_input_list(usr, "Investigate what?", "Investigate", combined)
 
 	if(!(selected in combined) || selected == "---")
 		return

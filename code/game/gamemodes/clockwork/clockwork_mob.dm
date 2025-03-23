@@ -13,7 +13,7 @@
 	obj_damage = 40
 	speed = 0
 	friendly = "pokes"
-	attacktext = "slashes"
+	attacktext = "порезал"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	tts_seed = "Earth"
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -70,7 +70,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/clockwork/marauder/bullet_act(obj/projectile/P)
 	if(deflect_projectile(P))
 		return
 	return ..()
@@ -78,9 +78,9 @@
 /mob/living/simple_animal/hostile/clockwork/marauder/ratvar_act()
 	return
 
-/mob/living/simple_animal/hostile/clockwork/marauder/proc/deflect_projectile(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/clockwork/marauder/proc/deflect_projectile(obj/projectile/P)
 	var/final_deflection_chance = deflect_chance
-	var/energy_projectile = istype(P, /obj/item/projectile/energy) || istype(P, /obj/item/projectile/beam)
+	var/energy_projectile = istype(P, /obj/projectile/energy) || istype(P, /obj/projectile/beam)
 	if(GetOppositeDir(dir) != P.dir) //if projectile hits into his eyes, nor behind or side.
 		return FALSE
 	if(P.nodamage || P.damage_type == STAMINA)
@@ -88,8 +88,8 @@
 	else if(!energy_projectile) //Flat 30% chance against energy projectiles; ballistic projectiles are 30% - (damage of projectile)%, min. 10%
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
-		visible_message("<span class='danger'>[src] deflects [P] with their shield!</span>", \
-		"<span class='danger'>You block [P] with your shield!</span>")
+		visible_message(span_danger("[src] deflects [P] with their shield!"), \
+		span_danger("You block [P] with your shield!"), projectile_message = TRUE)
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else

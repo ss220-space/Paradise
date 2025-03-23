@@ -117,7 +117,7 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/obj/structure/statue/plasma/bullet_act(obj/item/projectile/P)
+/obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
@@ -131,11 +131,10 @@
 
 
 /obj/structure/statue/plasma/attackby(obj/item/I, mob/user, params)
-	var/is_hot = is_hot(I)
-	if(is_hot > 300)//If the temperature of the object is over 300, then ignite
+	if(I.get_heat() > 300)//If the temperature of the object is over 300, then ignite
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)
-		ignite(is_hot)
+		ignite(I.get_heat())
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -183,6 +182,14 @@
 /obj/structure/statue/gold/rd
 	name = "statue of the research director"
 	icon_state = "rd"
+
+/obj/structure/statue/gold/unathi
+	name = "statue of the unati"
+	icon_state = "unathi"
+
+/obj/structure/statue/gold/tajaran
+	name = "statue of the tajaran"
+	icon_state = "tajaran"
 
 /obj/structure/statue/silver
 	max_integrity = 300
@@ -286,17 +293,14 @@
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
 	icon_state = "mime"
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
-/obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/statue/tranquillite/mime/click_alt(mob/user)//has 4 dirs
 	if(anchored)
-		to_chat(user, "It is fastened to the floor!")
-		return
+		to_chat(user, span_warning("It is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/statue/tranquillite/mime/unique
 	name = "статуя гордости пантомимы"
@@ -353,14 +357,14 @@
 
 /obj/structure/statue/hooker
 	name = "Unknown Hero"
-	desc = "Возможно вы и не встречали подобного героя, ведь он всегда ходит в маске, и в белом техническом халате. Скорее всего, он все еще скрывается среди экипажа, но уже другой личностью. \n Надпись на табличке - Герой, который пожертвовав собою, уничтожил угрозу станции. Награжден посмертно."
+	desc = "Возможно вы и не встречали подобного героя, ведь он всегда ходит в маске, и в белом техническом халате. Скорее всего, он все ещё скрывается среди экипажа, но уже другой личностью. \n Надпись на табличке - Герой, который пожертвовав собою, уничтожил угрозу станции. Награжден посмертно."
 	icon_state = "hooker"
 	anchored = TRUE
 	oreAmount = 0
 
 /obj/structure/statue/artchair
 	name = "Unknown Hero"
-	desc = "Еще один герой корп. NanoTrasen. Вы замечаете интересную деталь, что спинка стула похожа на тюремное окошко. Так же на нем почему-то присутствует кровь, которая уже налегает слоями и хранится около года. По всей видимости этот стул символизирует какую то личность, которая внесла большой вклад в развитие и поддержание нашей галактической системы. \n Надпись на табличке - Спасибо тебе за все, мы всегда были и будем рады тебе."
+	desc = "ещё один герой корп. NanoTrasen. Вы замечаете интересную деталь, что спинка стула похожа на тюремное окошко. Так же на нем почему-то присутствует кровь, которая уже налегает слоями и хранится около года. По всей видимости этот стул символизирует какую то личность, которая внесла большой вклад в развитие и поддержание нашей галактической системы. \n Надпись на табличке - Спасибо тебе за все, мы всегда были и будем рады тебе."
 	icon_state = "artchair"
 	anchored = TRUE
 	oreAmount = 0
@@ -368,7 +372,7 @@
 /obj/structure/statue/furukai
 	name = "София Вайт"
 	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
-			Движимая местью за потерю родной сестры из-за коррупционных верхушек Нанотрейзен, она вступила в Синдикат,  \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек НаноТрейзен, она вступила в Синдикат,  \
 			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "furukai"
@@ -450,7 +454,7 @@
 
 
 /obj/structure/statue/unknown/attackby(obj/item/I, mob/user, params)
-	if(is_hot(I) && light(span_notice("[user] lights [src] with [I].")))
+	if(I.get_heat() && light(span_notice("[user] lights [src] with [I].")))
 		add_fingerprint(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()

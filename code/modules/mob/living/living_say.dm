@@ -199,12 +199,16 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return returns
 
 
-/mob/living/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/living/say(message, verb = "говор[pluralize_ru(gender, "ит", "ят")]", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	if(client)
 		client.check_say_flood(5)
 		if(check_mute(client.ckey, MUTE_IC))
 			to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 			return FALSE
+
+	var/sigreturn = SEND_SIGNAL(src, COMSIG_MOB_TRY_SPEECH, message)
+	if(sigreturn & COMPONENT_CANNOT_SPEAK)
+		return FALSE
 
 	if(sanitize)
 		message = trim_strip_html_properly(message, 512)
@@ -233,6 +237,17 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		CRASH("Message failed to generate pieces. [message] - [json_encode(message_pieces)]")
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
+
+	if(SEND_SIGNAL( \
+        src, \
+        COMSIG_LIVING_EARLY_SAY, \
+        message, \
+        verb, \
+        ignore_speech_problems, \
+        ignore_atmospherics, \
+        ignore_languages, \
+        first_piece) & COMPONENT_PREVENT_SPEAKING)
+		return FALSE
 
 	if(first_piece.speaking?.flags & HIVEMIND)
 		first_piece.speaking.broadcast(src, first_piece.message)
@@ -270,6 +285,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 			ignore_atmospherics = TRUE
 
 	if(is_muzzled())
+		var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+		if(translator) // we can whisper with translator and muzzle
+			whisper_say(message_pieces)
+			return TRUE
+
 		var/obj/item/clothing/mask/muzzle/G = wear_mask
 		if(G.mute == MUZZLE_MUTE_ALL) //if the mask is supposed to mute you completely or just muffle you
 			to_chat(src, span_danger("You're muzzled and cannot speak!"))
@@ -289,6 +309,9 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(!ignore_speech_problems)
 		var/list/hsp = handle_speech_problems(message_pieces, verb)
 		verb = hsp["verb"]
+
+	if(cannot_speak_loudly())
+		return whisper(message)
 
 	var/list/used_radios = list()
 	if(handle_message_mode(message_mode, message_pieces, verb, used_radios))
@@ -383,7 +406,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency)
+		M.hear_say(message_pieces, verb, italics, src, speech_sound, sound_vol, sound_frequency, FALSE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
@@ -438,7 +461,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	return src
 
 
-/mob/living/whisper_say(list/message_pieces, verb = "whispers")
+/mob/living/whisper_say(list/message_pieces, verb = "шепч%(ет,ут)%")
 	if(client && check_mute(client.ckey, MUTE_IC))
 		to_chat(src, span_danger("You cannot speak in IC (Muted)."))
 		return
@@ -446,7 +469,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(stat)
 		return
 
-	if(is_muzzled())
+	var/obj/item/organ/internal/cyberimp/mouth/translator/translator = get_organ_slot(INTERNAL_ORGAN_SPEECH_TRANSLATOR)
+	if(is_muzzled() && !translator?.active)
 		if(istype(wear_mask, /obj/item/clothing/mask/muzzle/tapegag)) //just for tape
 			to_chat(src, span_danger("Your mouth is taped and you cannot speak!"))
 		else
@@ -470,24 +494,24 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 	var/datum/multilingual_say_piece/first_piece = message_pieces[1]
 	if(first_piece.speaking)
-		if(first_piece.speaking.whisper_verb)
-			verb = first_piece.speaking.whisper_verb
-			not_heard = "[verb] something"
+		if(first_piece.speaking.whisper_verbs)
+			verb = pick(first_piece.speaking.whisper_verbs)
+			not_heard = "[verb] что-то"
 		else
-			var/adverb = pick("quietly", "softly")
+			var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
 			adverb_added = TRUE
-			verb = "[first_piece.speaking.speech_verb] [adverb]"
-			not_heard = "[first_piece.speaking.speech_verb] something [adverb]"
+			verb = "[adverb] [genderize_decode(src, pick(first_piece.speaking.speech_verbs))]"
+			not_heard = "[adverb] [genderize_decode(src, pick(first_piece.speaking.speech_verbs))] что-то"
 	else
-		not_heard = "[verb] something"
+		not_heard = "[genderize_decode(src, verb)] что-то"
 
 	var/list/hsp = handle_speech_problems(message_pieces, verb)
 	verb = hsp["verb"]
-	if(verb == "yells loudly")
-		verb = "slurs emphatically"
+	if(verb == "громко крич%(ит,ат)%")
+		verb = "громко бормоч%(ет,ут)%"
 	else if(!adverb_added)
-		var/adverb = pick("quietly", "softly")
-		verb = "[verb] [adverb]"
+		var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
+		verb = "[adverb] [genderize_decode(src, verb)]"
 
 	var/atom/whisper_loc = get_whisper_loc()
 	var/list/listening = hear(message_range, whisper_loc)
@@ -543,14 +567,14 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	var/speech_bubble_test = say_test(message)
 
 	for(var/mob/M in listening)
-		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+		M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 		if(M.client)
 			speech_bubble_recipients.Add(M.client)
 
 	if(eavesdropping.len)
 		stars_all(message_pieces)	//hopefully passing the message twice through stars() won't hurt... I guess if you already don't understand the language, when they speak it too quietly to hear normally you would be able to catch even less.
 		for(var/mob/M in eavesdropping)
-			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE)
+			M.hear_say(message_pieces, verb, italics, src, use_voice = FALSE, is_whisper = TRUE)
 			if(M.client)
 				speech_bubble_recipients.Add(M.client)
 

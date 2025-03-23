@@ -3,6 +3,8 @@
 	desc = "Danger. Very robust."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "red"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "toolbox_red"
 	flags = CONDUCT
 	force = 10.0
@@ -12,7 +14,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	materials = list(MAT_METAL = 500)
 	origin_tech = "combat=1;engineering=1"
-	attack_verb = list("robusted")
+	attack_verb = list("заробастил")
 	use_sound = 'sound/effects/toolbox.ogg'
 	hitsound = 'sound/weapons/smash.ogg'
 	drop_sound = 'sound/items/handling/toolbox_drop.ogg'
@@ -102,6 +104,16 @@
 
 /obj/item/storage/toolbox/syndicate
 	name = "suspicious looking toolbox"
+	desc = "Опасный и прочный."
+	ru_names = list(
+		NOMINATIVE = "подозрительный ящик для инструментов",
+		GENITIVE = "подозрительного ящика для инструментов",
+		DATIVE = "подозрительному ящику для инструментов",
+		ACCUSATIVE = "подозрительный ящик для инструментов",
+		INSTRUMENTAL = "подозрительным ящиком для инструментов",
+		PREPOSITIONAL = "подозрительном ящике для инструментов"
+	)
+	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=2;syndicate=1;engineering=2"
@@ -121,7 +133,16 @@
 
 /obj/item/storage/toolbox/syndisuper
 	name = "exteremely suspicious looking toolbox"
-	desc = "Danger. Robust - his second name."
+	desc = "Чрезвычайно опасный и очень прочный."
+	ru_names = list(
+		NOMINATIVE = "очень подозрительный ящик для инструментов",
+		GENITIVE = "очень подозрительного ящика для инструментов",
+		DATIVE = "очень подозрительному ящику для инструментов",
+		ACCUSATIVE = "очень подозрительный ящик для инструментов",
+		INSTRUMENTAL = "очень подозрительным ящиком для инструментов",
+		PREPOSITIONAL = "очень подозрительном ящике для инструментов"
+	)
+	gender = MALE
 	icon_state = "syndicate"
 	item_state = "toolbox_syndi"
 	origin_tech = "combat=5;syndicate=1;engineering=5"
@@ -170,7 +191,7 @@
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 28
 	storage_slots = 28
-	attack_verb = list("robusted", "crushed", "smashed")
+	attack_verb = list("заробастил", "сокрушил")
 
 /obj/item/storage/toolbox/brass/prefilled/populate_contents()
 	new /obj/item/screwdriver/brass(src)
@@ -258,4 +279,33 @@
 	new /obj/item/FixOVein/alien(src)
 
 /obj/item/storage/toolbox/surgery/alien/empty/populate_contents()
+	return
+
+/obj/item/storage/toolbox/surgery/ashwalker
+	name = "surgery bag"
+	desc = "Небольшой кожанный футляр, хранящий в себе различные хирургические предметы. От него исходит едва заметный запах... пепла?"
+	ru_names = list(
+		NOMINATIVE = "хирургический саквояж",
+		GENITIVE = "хирургического саквояжа",
+		DATIVE = "хирургическому саквояжу",
+		ACCUSATIVE = "хирургический саквояж",
+		INSTRUMENTAL = "хирургическим саквояжем",
+		PREPOSITIONAL = "хирургическом саквояже"
+	)
+	icon_state = "surgery_bag"
+	flags = NONE
+	force = 2
+	throwforce = 4
+
+/obj/item/storage/toolbox/surgery/ashwalker/populate_contents()
+	new /obj/item/scalpel/primitive_scalpel(src)
+	new /obj/item/hemostat/primitive_hemostat(src)
+	new /obj/item/retractor/primitive_retractor(src)
+	new /obj/item/primitive_saw(src)
+	new /obj/item/cautery/primitive_cautery(src)
+	new /obj/item/bonegel/primitive_bonegel(src)
+	new /obj/item/FixOVein/primitive_FixOVein(src)
+	new /obj/item/bonesetter/primitive_bonesetter(src)
+
+/obj/item/storage/toolbox/surgery/ashwalker/empty/populate_contents()
 	return

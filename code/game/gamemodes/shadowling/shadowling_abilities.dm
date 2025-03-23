@@ -134,12 +134,15 @@
 		return
 
 	playsound(user.loc, 'sound/effects/bamf.ogg', 50, 1)
+	// mech supress escape
+	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	user.visible_message("<span class='warning'>[user] vanishes in a puff of black mist!</span>", "<span class='shadowling'>You enter the space between worlds as a passageway.</span>")
 	user.SetStunned(0)
 	user.SetWeakened(0)
 	user.SetKnockdown(0)
 	user.incorporeal_move = INCORPOREAL_NORMAL
-	user.alpha = 0
+	user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	user.ExtinguishMob()
 	user.forceMove(get_turf(user)) //to properly move the mob out of a potential container
 	user.pulledby?.stop_pulling()
@@ -151,7 +154,7 @@
 
 	user.visible_message("<span class='warning'>[user] suddenly manifests!</span>", "<span class='shadowling'>The pressure becomes too much and you vacate the interdimensional darkness.</span>")
 	user.incorporeal_move = INCORPOREAL_NONE
-	user.alpha = 255
+	user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
 	user.forceMove(get_turf(user))
 
 
@@ -174,17 +177,17 @@
 	return new /datum/spell_targeting/self
 
 
-/obj/effect/proc_holder/spell/shadowling_guise/cast(list/targets, mob/user = usr)
+/obj/effect/proc_holder/spell/shadowling_guise/cast(list/targets, mob/living/user = usr)
 	user.visible_message("<span class='warning'>[user] suddenly fades away!</span>", "<span class='shadowling'>You veil yourself in darkness, making you harder to see.</span>")
-	user.alpha = 10
+	user.alpha_set(standartize_alpha(10), ALPHA_SOURCE_SHADOW_THRALL)
 	addtimer(CALLBACK(src, PROC_REF(reveal), user), conseal_time)
 
 
-/obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/user)
+/obj/effect/proc_holder/spell/shadowling_guise/proc/reveal(mob/living/user)
 	if(QDELETED(user))
 		return
 
-	user.alpha = initial(user.alpha)
+	user.alpha_set(1, ALPHA_SOURCE_SHADOW_THRALL)
 	user.visible_message("<span class='warning'>[user] appears from nowhere!</span>", "<span class='shadowling'>Your shadowy guise slips away.</span>")
 
 
@@ -497,15 +500,15 @@
 	playsound(user, 'sound/effects/bamf.ogg', 50, TRUE)
 	var/datum/reagents/reagents_list = new (1000)
 	reagents_list.add_reagent("blindness_smoke", 810)
-	var/datum/effect_system/smoke_spread/chem/chem_smoke = new
-	chem_smoke.set_up(reagents_list, user.loc, TRUE)
-	chem_smoke.start(4)
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+	smoke.set_up(range = 3, location = user.loc, carry = reagents_list, silent = TRUE)
+	smoke.start()
 
 
 /datum/reagent/shadowling_blindness_smoke //Blinds non-shadowlings, heals shadowlings/thralls
-	name = "odd black liquid"
+	name = "Странная чёрная жидкость"
 	id = "blindness_smoke"
-	description = "<::ERROR::> CANNOT ANALYZE REAGENT <::ERROR::>"
+	description = "ЗАПИСЬ В БАЗЕ ДАННЫХ ОТСУТСТВУЕТ"
 	color = "#000000" //Complete black (RGB: 0, 0, 0)
 	metabolization_rate = 250 * REAGENTS_METABOLISM //still lel
 
@@ -513,13 +516,13 @@
 /datum/reagent/shadowling_blindness_smoke/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(!is_shadow_or_thrall(M))
-		to_chat(M, "<span class='warning'><b>You breathe in the black smoke, and your eyes burn horribly!</b></span>")
+		to_chat(M, span_warning("Вы вдыхаете чёрный дым, и ваши глаза ужасно горят!"))
 		M.EyeBlind(10 SECONDS)
 		if(prob(25))
-			M.visible_message("<b>[M]</b> claws at [M.p_their()] eyes!")
+			M.visible_message(span_warning("[M] яростно тр[pluralize_ru(M.gender, "ёт", "ут")] свои глаза!"))
 			M.Stun(4 SECONDS)
 	else
-		to_chat(M, "<span class='notice'><b>You breathe in the black smoke, and you feel revitalized!</b></span>")
+		to_chat(M, span_notice("Вы вдыхаете чёрный дым и чувствуете лёгкость!"))
 		update_flags |= M.heal_organ_damage(10, 10, updating_health = FALSE)
 		update_flags |= M.adjustOxyLoss(-10, FALSE)
 		update_flags |= M.adjustToxLoss(-10, FALSE)
@@ -956,12 +959,12 @@
 		user.visible_message("<span class='danger'>[user] suddenly vanishes!</span>", \
 							"<span class='shadowling'>You begin phasing through planes of existence. Use the ability again to return.</span>")
 		user.incorporeal_move = INCORPOREAL_NORMAL
-		user.alpha = 0
+		user.alpha_set(0, ALPHA_SOURCE_SHADOWLING)
 	else
 		user.visible_message("<span class='danger'>[user] suddenly appears from nowhere!</span>", \
 							"<span class='shadowling'>You return from the space between worlds.</span>")
 		user.incorporeal_move = INCORPOREAL_NONE
-		user.alpha = 255
+		user.alpha_set(1, ALPHA_SOURCE_SHADOWLING)
 
 
 /obj/effect/proc_holder/spell/aoe/ascendant_storm

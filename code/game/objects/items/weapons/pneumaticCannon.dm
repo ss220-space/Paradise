@@ -8,7 +8,7 @@
 	desc = "A gas-powered cannon that can fire any object loaded into it."
 	w_class = WEIGHT_CLASS_BULKY
 	force = 8 //Very heavy
-	attack_verb = list("bludgeoned", "smashed", "beaten")
+	attack_verb = list("ударил", "огрел")
 	icon = 'icons/obj/weapons/pneumaticCannon.dmi'
 	icon_state = "pneumaticCannon"
 	item_state = "bulldog"
@@ -158,7 +158,7 @@
 			target = pick(possible_targets)
 		discharge = 1
 	if(!discharge)
-		user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"))
+		user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"), projectile_message = TRUE)
 	add_attack_logs(user, target, "Fired [src]")
 	playsound(src.loc, 'sound/weapons/sonic_jackhammer.ogg', 50, 1)
 	for(var/obj/item/ITD in loadedItems) //Item To Discharge

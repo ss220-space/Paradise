@@ -1,5 +1,14 @@
 /obj/item/chameleon
 	name = "chameleon projector"
+	ru_names = list(
+		NOMINATIVE = "\"Хамелеон\"-проектор",
+		GENITIVE = "\"Хамелеон\"-проектора",
+		DATIVE = "\"Хамелеон\"-проектору",
+		ACCUSATIVE = "\"Хамелеон\"-проектор",
+		INSTRUMENTAL = "\"Хамелеон\"-проектором",
+		PREPOSITIONAL = "\"Хамелеон\"-проекторе"
+	)
+	gender = MALE
 	icon = 'icons/obj/device.dmi'
 	icon_state = "shield0"
 	flags = CONDUCT
@@ -132,7 +141,7 @@
 
 /obj/effect/dummy/chameleon/bullet_act()
 	for(var/mob/M in src)
-		to_chat(M, "<span class='danger'>Your chameleon projector deactivates.</span>")
+		to_chat(M, span_danger("Your chameleon projector deactivates."))
 	..()
 	master.disrupt()
 

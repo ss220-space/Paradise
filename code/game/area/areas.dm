@@ -95,7 +95,12 @@
 	///This datum, if set, allows terrain generation behavior to be ran on Initialize() // This is unfinished, used in Lavaland
 	var/datum/map_generator/cave_generator/map_generator
 
-	var/area_flags = NONE
+	var/area_flags = BLOBS_ALLOWED
+
+	/// Color of this area on holomaps.
+	var/holomap_color = null
+	/// Whether the turfs in the area should be drawn onto the "base" holomap.
+	var/holomap_should_draw = TRUE
 
 /area/New(loc, ...)
 	// This interacts with the map loader, so it needs to be set immediately

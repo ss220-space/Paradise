@@ -1,7 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -47,8 +43,17 @@
 	/// Upper bound on time before intercept arrives.
 	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/datum/mind/traders = list()
+	var/list/datum/mind/morphs = list()
+	var/list/datum/mind/swarmers = list()
+	var/list/datum/mind/guardians = list()
+	var/list/datum/mind/revenants = list()
+	var/list/datum/mind/headslugs = list()
+	var/list/datum/mind/deathsquad = list()
+	var/list/datum/mind/honksquad = list()
+	var/list/datum/mind/sst = list()
+	var/list/datum/mind/sit = list()
 	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
 	/// A list of all station goals for this game mode
 	var/list/datum/station_goal/station_goals = list()
@@ -585,7 +590,7 @@
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
-				nuke_status = NUKE_INTACT
+				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
 
@@ -719,9 +724,6 @@
 	set_antag_hud(mob_mind.current, null)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
-	if(god.soul_devoured <= 17 && !inevitable)
-		return FALSE
-
 	if(istype(god, /obj/singularity/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema
 
@@ -767,6 +769,19 @@
 	SSticker.force_ending = TRUE
 	return
 
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING
+/datum/game_mode/proc/special_directive(custom_text = null, custom_name = null)
+	var/intercepttext = custom_text ? custom_text : ""
+	var/interceptname = custom_name ? custom_name : ""
+	if(!custom_name)
+		interceptname = "Директива 7-10"
+	if(!custom_text)
+		intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Особая директива.</FONT><HR>"
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<BR>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<BR>"
+		intercepttext += " 1. Не покидать карантинную зону.<BR>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<BR>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<BR>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<BR>"
+		intercepttext += "<BR>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<BR>"
+		intercepttext += "Конец сообщения."
+	print_command_report(intercepttext, interceptname, FALSE)

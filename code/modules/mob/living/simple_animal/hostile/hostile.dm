@@ -32,8 +32,9 @@
 	var/melee_queue_distance = 4 //If target is close enough start preparing to hit them if we have rapid_melee enabled
 
 	var/ranged_message = "fires" //Fluff text for ranged mobs
-	var/ranged_cooldown = 0 //What the current cooldown on ranged attacks is, generally world.time + ranged_cooldown_time
-	var/ranged_cooldown_time = 30 //How long, in deciseconds, the cooldown of ranged attacks is
+	///Cooldown for firing
+	COOLDOWN_DECLARE(ranged_cooldown)
+	var/ranged_cooldown_time = 3 SECONDS //How long, in seconds, the cooldown of ranged attacks is
 	var/ranged_ignores_vision = FALSE //if it'll fire ranged attacks even if it lacks vision on its target, only works with environment smash
 	var/check_friendly_fire = 0 // Should the ranged mob check for friendlies when shooting
 	var/retreat_distance = null //If our mob runs from players when they're too close, set in tile distance. By default, mobs do not retreat.
@@ -155,7 +156,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/hostile/bullet_act(obj/projectile/P)
 	if(stat == CONSCIOUS && !target && AIStatus != AI_OFF && !client)
 		if(P.firer && get_dist(src, P.firer) <= aggro_vision_range)
 			FindTarget(list(P.firer))
@@ -171,15 +172,38 @@
 	if(!search_objects)
 		. = hearers(vision_range, targets_from) - src //Remove self, so we don't suicide
 
-		var/static/hostile_machines = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod))
-
-		for(var/HM in typecache_filter_list(range(vision_range, targets_from), hostile_machines))
-			if(can_see(targets_from, HM, vision_range))
+		var/static/possible_targets = typecacheof(list(/obj/machinery/porta_turret, /obj/mecha, /obj/spacepod, /mob/living))
+		for(var/HM in typecache_filter_list(range(vision_range, targets_from), possible_targets))
+			if(targets_from.can_see(HM, vision_range))
 				. += HM
 	else
 		. = oview(vision_range, targets_from)
 	if(retaliate_only)
 		return . &= enemies // Remove all entries that aren't in enemies
+
+/mob/living/simple_animal/hostile/can_see(atom/target, length)
+	if(!target || target.invisibility > see_invisible)
+		return FALSE
+	var/turf/current_turf = get_turf(src)
+	var/turf/target_turf = get_turf(target)
+	if(!current_turf || !target_turf)	// nullspace
+		return FALSE
+	if(get_dist(current_turf, target_turf) > length)
+		return FALSE
+	if(current_turf == target_turf)//they are on the same turf, source can see the target
+		return TRUE
+	if(isliving(target) && (sight & SEE_MOBS))//if a mob sees mobs through walls, it always sees the target mob within line of sight
+		return TRUE
+	var/steps = 1
+	current_turf = get_step_towards(current_turf, target_turf)
+	while(current_turf != target_turf)
+		if(steps > length)
+			return FALSE
+		if(IS_OPAQUE_TURF(current_turf))
+			return FALSE
+		current_turf = get_step_towards(current_turf, target_turf)
+		steps++
+	return TRUE
 
 
 /mob/living/simple_animal/hostile/proc/FindTarget(list/possible_targets)//Step 2, filter down possible targets to things we actually care about
@@ -316,7 +340,7 @@
 				if(L in friends)
 					return FALSE
 			else
-				if((faction_check && !attack_same) || L.stat)
+				if((faction_check && !attack_same) || L.stat > stat_attack)
 					return FALSE
 			return TRUE
 
@@ -388,7 +412,7 @@
 			return FALSE
 		var/target_distance = get_dist(targets_from,target)
 		if(ranged) //We ranged? Shoot at em
-			if(!target.Adjacent(targets_from) && ranged_cooldown <= world.time) //But make sure they're not in range for a melee attack and our range attack is off cooldown
+			if(COOLDOWN_FINISHED(src, ranged_cooldown) && !target.Adjacent(targets_from)) //But make sure they're not in range for a melee attack
 				OpenFire(target)
 		if(!Process_Spacemove(NONE)) //Drifting
 			SSmove_manager.stop_looping(src)
@@ -412,7 +436,7 @@
 		return FALSE
 	if(environment_smash)
 		if(target.loc != null && get_dist(targets_from, target.loc) <= vision_range) //We can't see our target, but he's in our vision range still
-			if(ranged_ignores_vision && ranged_cooldown <= world.time) //we can't see our target... but we can fire at them!
+			if((COOLDOWN_FINISHED(src, ranged_cooldown)) && ranged_ignores_vision)
 				OpenFire(target)
 			if((environment_smash & ENVIRONMENT_SMASH_WALLS) || (environment_smash & ENVIRONMENT_SMASH_RWALLS)) //If we're capable of smashing through walls, forget about vision completely after finding our target
 				Goto(target,move_to_delay,minimum_distance)
@@ -463,7 +487,9 @@
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
-	return target.attack_animal(src)
+	var/result = target.attack_animal(src)
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
+	return result
 
 
 /mob/living/simple_animal/hostile/proc/Aggro()
@@ -531,7 +557,8 @@
 			addtimer(cb, (i - 1)*rapid_fire_delay)
 	else
 		Shoot(A)
-	ranged_cooldown = world.time + ranged_cooldown_time
+
+	COOLDOWN_START(src, ranged_cooldown, ranged_cooldown_time)
 
 /mob/living/simple_animal/hostile/proc/Shoot(atom/targeted_atom)
 	if( QDELETED(targeted_atom) || targeted_atom == targets_from.loc || targeted_atom == targets_from )
@@ -542,7 +569,7 @@
 		playsound(src, projectilesound, 100, 1)
 		casing.fire(targeted_atom, src, zone_override = ran_zone())
 	else if(projectiletype)
-		var/obj/item/projectile/P = new projectiletype(startloc)
+		var/obj/projectile/P = new projectiletype(startloc)
 		playsound(src, projectilesound, 100, 1)
 		P.current = startloc
 		P.starting = startloc
@@ -648,7 +675,7 @@
 /mob/living/simple_animal/hostile/RangedAttack(atom/A, params) //Player firing
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(src, TRAIT_PACIFISM))
 		return
-	if(ranged && ranged_cooldown <= world.time)
+	if(ranged && COOLDOWN_FINISHED(src, ranged_cooldown))
 		target = A
 		OpenFire(A)
 		return

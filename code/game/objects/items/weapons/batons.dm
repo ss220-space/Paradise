@@ -1,6 +1,7 @@
 /obj/item/melee/baton
 	name = "police baton"
 	desc = "A wooden truncheon for beating criminal scum."
+	gender = FEMALE
 	icon_state = "baton"
 	item_state = "classic_baton"
 	slot_flags = ITEM_SLOT_BELT
@@ -275,7 +276,7 @@
 	/// The sound effecte played when our baton is extended.
 	var/extend_sound = 'sound/weapons/batonextend.ogg'
 	/// The inhand iconstate used when our baton is extended.
-	var/extend_item_state = "nullrod"
+	var/extend_item_state = "telebaton"
 	/// The force on extension.
 	var/extend_force = 10
 
