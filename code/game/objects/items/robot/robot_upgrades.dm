@@ -646,9 +646,8 @@
 /obj/item/borg/upgrade/storageincreaser/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-	if(robot.module == /obj/item/robot_module/miner)
+	if(istype(robot.module, /obj/item/robot_module/miner))
 		robot.module.emag.icon_state = "bomb_satchell_adv"
-		robot.module.emag.update_icon_state()
 		var/obj/item/storage/bag/huyna = robot.module.emag
 		huyna.storage_slots = 15
 		robot.module.emag = huyna
@@ -662,7 +661,11 @@
 /obj/item/borg/upgrade/storageincreaser/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
-
+	if(istype(robot.module, /obj/item/robot_module/miner))
+		robot.module.emag.icon_state = "bomb_satchel"
+		var/obj/item/storage/bag/huyna = robot.module.emag
+		huyna.storage_slots = 5
+		robot.module.emag = huyna
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)
 		energy_storage.recharge_rate = initial(energy_storage.recharge_rate)

@@ -201,16 +201,16 @@
 // -----------------------------
 
 /obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
-	name = "bomb satchel"
+	name = "Charge Deployment System"
 	ru_names = list(
-		NOMINATIVE = "сумка для взрывчатки",
-		GENITIVE = "сумки для взрывчатки",
-		DATIVE = "сумке для взрывчатки",
-		ACCUSATIVE = "сумку для взрывчатки",
-		INSTRUMENTAL = "сумкой для взрывчатки",
-		PREPOSITIONAL = "сумке для взрывчатки"
+		NOMINATIVE = "Система Размещения Зарядов",
+		GENITIVE = "Системы Размещения Зарядов",
+		DATIVE = "Системе Размещения Зарядов",
+		ACCUSATIVE = "Систему Размещения Зарядов",
+		INSTRUMENTAL = "Системой Размещения Зарядов",
+		PREPOSITIONAL = "Системе Размещения Зарядов"
 	)
-	desc = "Сумка для хранения взрычатки. Способна автоматически устанавливать выбранную взрывчатку, однако это делает невозможным достать содержимое поштучно."
+	desc = "Система Размещения Зарядов. Способна автоматически устанавливать выбранную взрывчатку."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bomb_satchel"
 	origin_tech = "engineering=2"
@@ -243,9 +243,15 @@
 /obj/item/storage/bag/kaboom/click_alt(mob/user)
 	bombradialmenu(user)
 
+/obj/item/storage/bag/kaboom/examine(mob/user)
+	. = ..()
+	. += span_notice("Внутри [LAZYLEN(contents)] заряд[declension_ru(LAZYLEN(contents),"", "а", "ов")]")
+
 /obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
 	if(istype(AM, /obj/item/grenade/plastic))
-		. = ..()
+		if(!(. = ..()))
+			balloon_alert(user, "Сумка заполнена!")
+			return
 	if(nextbomb == null)
 		nextbomb = pick(contents)
 		return
@@ -272,16 +278,11 @@
 
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
-	name = "cyborg bomb satchel"
+	name = "cyborg Charge Deployment System"
 
 /obj/item/storage/bag/kaboom/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
-
-/obj/item/storage/bag/kaboom/cyborg/upgraded
-	storage_slots = 15
-	icon = 'icons/obj/mining.dmi'
-
 
 
 // -----------------------------
