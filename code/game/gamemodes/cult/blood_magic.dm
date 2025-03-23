@@ -76,7 +76,7 @@
 		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
-		to_chat(owner, span_cult("Ваши раны наполнились энергией, вы приготовили заклинание [new_spell.name_accusative]!"))
+		to_chat(owner, span_cult("Ваши раны наполнились энергией, вы приготовили [new_spell.name_accusative]!"))
 	channeling = FALSE
 
 /datum/action/innate/cult/blood_magic/proc/remove_spell(message = "Выберите заклинание для удаления.")
@@ -102,7 +102,7 @@
 		desc += "<br>Наносит <u>[health_cost] единиц[declension_ru(health_cost,"у", "ы", "")] физического урона</u> руке за использование."
 
 	base_desc = desc
-	desc += "<br><b><u>Остал[declension_ru(charges, "ся", "ось", "ось")] еще [charges] заряд[declension_ru(charges, "", "а", "ов")] </u></b>."
+	desc += "<br><b><u>Остал[declension_ru(charges, "ся", "ось", "ось")] еще [charges] заряд[declension_ru(charges, "", "а", "ов")]</u></b>."
 	all_magic = BM
 	button.ordered = FALSE
 
@@ -159,7 +159,8 @@
 	health_cost = 7
 
 /datum/action/innate/cult/blood_spell/emp
-	name = "Электромагнитный Импульс"
+	name = "Электромагнитный импульс"
+	name_accusative = "электромагнитный импульс"
 	desc = "Проводит электромагнитный импульс по вашему телу и выпускает его, задевая не культистов рядом. <b>Вы также подвержены импульсу.</b>"
 	button_icon_state = "emp"
 	health_cost = 10
@@ -194,22 +195,25 @@
 		qdel(src)
 
 /datum/action/innate/cult/blood_spell/shackles
-	name = "Shadow Shackles"
-	desc = "Empowers your hand to start handcuffing victim on contact, and mute them if successful."
+	name = "Теневые оковы"
+	name_accusative = "теневые оковы"
+	desc = "Усиливает вашу руку, позволяя касанием сковать жертву и заставить её молчать."
 	button_icon_state = "shackles"
 	charges = 4
 	magic_path = /obj/item/melee/blood_magic/shackles
 
 /datum/action/innate/cult/blood_spell/construction
-	name = "Twisted Construction"
-	desc = "Empowers your hand to corrupt certain metalic objects.<br><u>Converts:</u><br>Plasteel into runed metal<br>50 metal into a construct shell<br>Cyborg shells into construct shells<br>Airlocks into brittle runed airlocks after a delay (harm intent)"
+	name = "Проклятая трансмутация"
+	name_accusative = "проклятую трансмутацию"
+	desc = "Усиливает вашу руку, позволяя трансмутировать некоторые металлические объекты.<br><u>Трансмутирует:</u><br>Пласталь в рунный металл<br>50 листов металла в оболочку конструкта<br>Оболочку борга в оболочку конструкта<br>Шлюзы в хрупкие рунические шлюзы после задержки (намерение вреда)"
 	button_icon_state = "transmute"
 	magic_path = "/obj/item/melee/blood_magic/construction"
 	health_cost = 12
 
 /datum/action/innate/cult/blood_spell/dagger
-	name = "Summon Dagger"
-	desc = "Summon a ritual dagger, necessary to scribe runes."
+	name = "Призвать клинок"
+	name_accusative = "призыв клинка"
+	desc = "Призывает ритуальный клинок, необходимый чтобы чертить руны."
 	button_icon_state = "cult_dagger"
 
 /datum/action/innate/cult/blood_spell/dagger/New()
@@ -219,13 +223,13 @@
 
 /datum/action/innate/cult/blood_spell/dagger/Activate()
 	var/turf/T = get_turf(owner)
-	owner.visible_message("<span class='warning'>[owner]'s hand glows red for a moment.</span>", \
-						  "<span class='cultitalic'>Red light begins to shimmer and take form within your hand!</span>")
+	owner.visible_message(span_warning("рука [owner] светится красным светом."))
+	to_chat(owner, span_warning("Красный свет наполняет вашу руку!"))
 	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
-		to_chat(owner, "<span class='warning'>A [O.name] appears in your hand!</span>")
+		to_chat(owner, span_warning("[capitalize(O.declent_ru(ACCUSATIVE))] появился у вас в руке!"))
 	else
-		owner.visible_message("<span class='warning'>A [O.name] appears at [owner]'s feet!</span>", \
+		owner.visible_message(span_warning("A [O.declent_ru(ACCUSATIVE)] appears at [owner]'s feet!"), \
 							  "<span class='cultitalic'>A [O.name] materializes at your feet.</span>")
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--

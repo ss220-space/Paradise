@@ -3,7 +3,15 @@
 
 /obj/item/melee/cultblade/dagger
 	name = "ritual dagger"
-	desc = "A strange dagger said to be used by sinister groups for \"preparing\" a corpse before sacrificing it to their dark gods."
+	ru_names = list(
+		NOMINATIVE = "ритуальный клинок",
+		GENITIVE = "ритуального клинка",
+		DATIVE = "ритуальному клинку",
+		ACCUSATIVE = "ритуальный клинок",
+		INSTRUMENTAL = "ритуальным клинком",
+		PREPOSITIONAL = "ритуальном клинке"
+	)
+	desc = "Странный клинок, по слухам, используется фанатиками для \"подготовки\" трупов для подношения их темным богам."
 	icon_state = "blood_dagger"
 	item_state = "blood_dagger"
 	w_class = WEIGHT_CLASS_SMALL
