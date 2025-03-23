@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
 	smoothing_groups = SMOOTH_GROUP_AIRLOCK
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF

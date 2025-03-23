@@ -89,11 +89,11 @@
 
 /obj/item/camera/siliconcam/proc/camera_mode_off()
 	src.in_camera_mode = 0
-	to_chat(usr, "<B>Camera Mode deactivated</B>")
+	to_chat(usr, "<b>Camera Mode deactivated</b>")
 
 /obj/item/camera/siliconcam/proc/camera_mode_on()
 	src.in_camera_mode = 1
-	to_chat(usr, "<B>Camera Mode activated</B>")
+	to_chat(usr, "<b>Camera Mode activated</b>")
 
 /obj/item/camera/siliconcam/proc/toggle_camera_flash()
 	flashing_lights = !flashing_lights

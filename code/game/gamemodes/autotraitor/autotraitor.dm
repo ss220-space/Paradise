@@ -7,8 +7,8 @@
 
 
 /datum/game_mode/traitor/autotraitor/announce()
-	to_chat(world, "<B>The current game mode is - AutoTraitor!</B>")
-	to_chat(world, "Syndicate traitors will be added to the round automagically as needed.</B>")
+	to_chat(world, "<b>The current game mode is - AutoTraitor!</b>")
+	to_chat(world, "Syndicate traitors will be added to the round automagically as needed.</b>")
 
 
 /datum/game_mode/traitor/autotraitor/post_setup()

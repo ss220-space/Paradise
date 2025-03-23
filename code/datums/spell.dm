@@ -89,6 +89,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// What panel the proc holder needs to go on.
 	density = FALSE
 	opacity = FALSE
+	interaction_flags_click = BYPASS_ADJACENCY
 
 	/// Not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 	var/school = "evocation"

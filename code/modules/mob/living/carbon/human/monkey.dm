@@ -18,10 +18,10 @@
 	tts_seed = "Sniper"
 
 /mob/living/carbon/human/lesser/monkey/agressive
+	ai_controller = /datum/ai_controller/monkey/angry
 
 /mob/living/carbon/human/lesser/monkey/agressive/Initialize(mapload)
 	. = ..(mapload, /datum/species/monkey)
-	ai_controller.blackboard[BB_MONKEY_AGRESSIVE] = TRUE
 
 /mob/living/carbon/human/lesser/farwa
 	icon_state = "tajkey1"

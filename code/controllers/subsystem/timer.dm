@@ -616,7 +616,10 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=timerlog")
+	var/datum/browser/popup = new(usr, "timerlog", "Timer Log")
+	popup.set_content(text.Join())
+	popup.open(FALSE)
+
 
 
 /client/proc/debug_timers()
@@ -656,7 +659,9 @@ GLOBAL_LIST_EMPTY(timers_by_type)
 		text += "<li>[key] - [sorted2[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=timerdebug")
+	var/datum/browser/popup = new(usr, "timerdebug", "Timer Debug")
+	popup.set_content(text.Join())
+	popup.open(FALSE)
 
 
 /**

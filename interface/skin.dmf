@@ -328,7 +328,7 @@ window "rpane"
 		is-pane = true
 	elem "rpanewindow"
 		type = CHILD
-		pos = 0,27
+		pos = 0,37
 		size = 0x0
 		anchor1 = 0,0
 		anchor2 = 100,100
@@ -339,79 +339,49 @@ window "rpane"
 	elem "fullscreenb"
 		type = BUTTON
 		pos = 0,7
-		size = 79x16
+		size = 85x25
 		text = "Полный экран"
 		command = "fullscreen"
 	elem "textb"
 		type = BUTTON
-		pos = 85,7
-		size = 34x16
+		pos = 90,7
+		size = 85x25
 		saved-params = "is-checked"
-		text = "Текст"
+		text = "Свернуть"
 		command = ".winset \"rpanewindow.top=;\""
 		group = "rpanemode"
 		button-type = pushbox
 	elem "infob"
 		type = BUTTON
-		pos = 120,7
-		size = 69x16
+		pos = 180,7
+		size = 85x25
 		is-checked = true
 		saved-params = "is-checked"
-		text = "Информация"
+		text = "Развернуть"
 		command = ".winset \"rpanewindow.top=infowindow\""
 		group = "rpanemode"
 		button-type = pushbox
-	elem "wikib"
-		type = BUTTON
-		pos = 195,7
-		size = 49x16
-		text = "Вики"
-		command = "wiki"
-	elem "rulesb"
-		type = BUTTON
-		pos = 245,7
-		size = 49x16
-		text = "Правила"
-		command = "rules"
-	elem "githubb"
-		type = BUTTON
-		pos = 295,7
-		size = 49x16
-		text = "GitHub"
-		command = "github"
 	elem "webmap"
 		type = BUTTON
-		pos = 345,7
-		size = 49x16
+		pos = 270,7
+		size = 85x25
 		text = "Карта"
 		command = "webmap"
-	elem "changelog"
+	elem "wikib"
 		type = BUTTON
-		pos = 400,7
-		size = 119x16
-		font-style = "bold"
-		text-color = #000000
-		background-color = #ffffff
-		text = "Список изменений"
-		command = "Changelog"
+		pos = 360,7
+		size = 85x25
+		text = "Вики"
+		command = "wiki"
 	elem "discordb"
 		type = BUTTON
-		pos = 520,7
-		size = 49x16
+		pos = 450,7
+		size = 85x25
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
 		text = "Discord"
 		command = "discord"
-	elem "donate"
-		type = BUTTON
-		pos = 570,7
-		size = 90x16
-		font-style = "bold"
-		text-color = #ffffff
-		background-color = #008000
-		text = "Пожертвовать"
-		command = "Donate"
 
 
 window "infowindow"

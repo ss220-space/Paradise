@@ -10,8 +10,8 @@
 
 
 /datum/game_mode/traitor/thief/announce()
-	to_chat(world, "<B>The current game mode is - Traitor+Thief!</B>")
-	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и агентов Синдиката. Не дайте агентам Синдиката достичь успеха и не допустите кражу дорогостоящего оборудования!</B>")
+	to_chat(world, "<b>The current game mode is - Traitor+Thief!</b>")
+	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и агентов Синдиката. Не дайте агентам Синдиката достичь успеха и не допустите кражу дорогостоящего оборудования!</b>")
 
 
 /datum/game_mode/traitor/thief/pre_setup()

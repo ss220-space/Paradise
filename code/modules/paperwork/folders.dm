@@ -67,17 +67,19 @@
 
 
 /obj/item/folder/attack_self(mob/user as mob)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8"><title>[name]</title>"}
+	var/dat = ""
 
 	for(var/obj/item/paper/P in src)
-		dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</A> - <a href='byond://?src=[UID()];read=\ref[P]'>[P.name]</A><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=\ref[P]'>Remove</a> - <a href='byond://?src=[UID()];read=\ref[P]'>[P.name]</a><br>"
 	for(var/obj/item/photo/Ph in src)
-		dat += "<a href='byond://?src=[UID()];remove=\ref[Ph]'>Remove</A> - <a href='byond://?src=[UID()];look=\ref[Ph]'>[Ph.name]</A><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=\ref[Ph]'>Remove</a> - <a href='byond://?src=[UID()];look=\ref[Ph]'>[Ph.name]</a><br>"
 	for(var/obj/item/paper_bundle/Pa in src)
-		dat += "<a href='byond://?src=[UID()];remove=\ref[Pa]'>Remove</A> - <a href='byond://?src=[UID()];look=\ref[Pa]'>[Pa.name]</A><BR>"
+		dat += "<a href='byond://?src=[UID()];remove=\ref[Pa]'>Remove</a> - <a href='byond://?src=[UID()];look=\ref[Pa]'>[Pa.name]</a><br>"
 	for(var/obj/item/documents/doc in src)
-		dat += "<a href='byond://?src=[UID()];remove=\ref[doc]'>Remove</A> - <a href='byond://?src=[UID()];look=\ref[doc]'>[doc.name]</A><BR>"
-	user << browse(dat, "window=folder")
+		dat += "<a href='byond://?src=[UID()];remove=\ref[doc]'>Remove</a> - <a href='byond://?src=[UID()];look=\ref[doc]'>[doc.name]</a><br>"
+	var/datum/browser/popup = new(user, "folder", name)
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "folder")
 	add_fingerprint(user)
 	return

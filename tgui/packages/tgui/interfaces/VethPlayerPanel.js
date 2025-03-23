@@ -95,7 +95,7 @@ export const VethPlayerPanel = (props, context) => {
             />
           </Section>
 
-          <Section title={`Players`}>
+          <Section title={`Players`} scrollable>
             <Table>
               <Table.Row header>
                 <Table.Cell>Ckey</Table.Cell>

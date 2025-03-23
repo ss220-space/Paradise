@@ -58,7 +58,7 @@
 
 	if(enemies.len && prob(10))
 		enemies = list()
-		LoseTarget()
+		lose_target()
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] успокаивается."))
 
 	eat_plants()

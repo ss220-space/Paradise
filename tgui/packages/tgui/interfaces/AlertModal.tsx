@@ -1,5 +1,5 @@
 import { Loader } from './common/Loader';
-import { KEY } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
 import { useBackend, useLocalState } from '../backend';
 import { Autofocus, Box, Button, Section, Stack } from '../components';
@@ -64,6 +64,10 @@ export const AlertModal = (props, context) => {
         event.preventDefault();
         onKey(DIRECTION.Increment);
         return;
+      default:
+        if (isEscape(event.key)) {
+          act('cancel');
+        }
     }
   };
 

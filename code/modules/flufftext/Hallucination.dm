@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		"<span class='notice'>You hear a distant scream.</span>",
 		"<span class='notice'>You feel invincible, nothing can hurt you!</span>",
 		"<span class='warning'>You feel a tiny prick!</span>",
-		"<B>[target]</B> sneezes.",
+		"<b>[target]</b> sneezes.",
 		"<span class='warning'>You feel faint.</span>",
 		"<span class='noticealien'>You hear a strange, alien voice in your head...</span> [pick("Hiss","Ssss")]",
 		"<span class='notice'>You can see...everything!</span>")

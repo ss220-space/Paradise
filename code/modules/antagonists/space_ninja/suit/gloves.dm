@@ -57,7 +57,7 @@
 
 	if(isnum(.)) //Numerical values of drained handle their feedback here, Alpha values handle it themselves (Research hacking)
 		if(.)
-			to_chat(wearer, span_notice("Gained <B>[.]</B> of energy from [A]."))
+			to_chat(wearer, span_notice("Gained <b>[.]</b> of energy from [A]."))
 		else
 			to_chat(wearer, span_danger("The connection with [A] has been cancelled."))
 	else

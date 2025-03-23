@@ -134,10 +134,10 @@
 		else
 			message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
 			add_game_logs("increased PA Control Computer to [strength] in [COORD(src)]", usr)
-			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-			use_log += text("\[[time_stamp()]\] <font color='red'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</font>")
+			investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+			use_log += text("\[[time_stamp()]\] <span style='color: red;'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</span>")
 
-			investigate_log("increased to <font color='red'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+			investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 		strength_change()
 
 /obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
@@ -148,8 +148,8 @@
 		else
 			message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
 			add_game_logs("decreased PA Control Computer to [strength] in [COORD(src)]", usr)
-			investigate_log("decreased to <font color='green'>[strength]</font> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-			use_log += text("\[[time_stamp()]\] <font color='orange'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</font>")
+			investigate_log("decreased to <span style='color: green;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+			use_log += text("\[[time_stamp()]\] <span style='color: orange;'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</span>")
 
 		strength_change()
 
@@ -173,7 +173,7 @@
 	if(active)
 		//a part is missing!
 		if(length(connected_parts) < 6)
-			investigate_log("lost a connected part; It <font color='red'>powered down</font>.", INVESTIGATE_ENGINE)
+			investigate_log("lost a connected part; It <span style='color: red;>powered down</span>.", INVESTIGATE_ENGINE)
 			toggle_power()
 			return
 		//emit some particles
@@ -233,11 +233,11 @@
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
-	investigate_log("turned [active?"<font color='red'>ON</font>":"<font color='green'>OFF</font>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
+	investigate_log("turned [active?"<span style='color: red;'>ON</span>":"<span style='color: green;'>OFF</span>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
 	if(active)
 		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
 		add_game_logs("turned ON PA Control Computer in [COORD(src)]", usr)
-		use_log += text("\[[time_stamp()]\] <font color='red'>[key_name(usr)] has turned on the PA Control Computer.</font>")
+		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[key_name(usr)] has turned on the PA Control Computer.</pan>")
 	if(active)
 		use_power = ACTIVE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)
@@ -261,24 +261,23 @@
 			return
 	user.set_machine(src)
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += "<a href='byond://?src=[UID()];close=1'>Close</A><BR><BR>"
+	var/dat = ""
+	dat += "<a href='byond://?src=[UID()];close=1'>Close</a><br><br>"
 	dat += "<h3>Status</h3>"
 	if(!assembled)
-		dat += "Unable to detect all parts!<BR>"
-		dat += "<a href='byond://?src=[UID()];scan=1'>Run Scan</A><BR><BR>"
+		dat += "Unable to detect all parts!<br>"
+		dat += "<a href='byond://?src=[UID()];scan=1'>Run Scan</a><br><br>"
 	else
-		dat += "All parts in place.<BR><BR>"
+		dat += "All parts in place.<br><br>"
 		dat += "Power:"
 		if(active)
-			dat += "On<BR>"
+			dat += "On<br>"
 		else
-			dat += "Off <BR>"
-		dat += "<a href='byond://?src=[UID()];togglep=1'>Toggle Power</A><BR><BR>"
+			dat += "Off <br>"
+		dat += "<a href='byond://?src=[UID()];togglep=1'>Toggle Power</a><br><br>"
 		dat += "Particle Strength: [strength] "
-		dat += "<a href='byond://?src=[UID()];strengthdown=1'>--</A>|<a href='byond://?src=[UID()];strengthup=1'>++</A><BR><BR>"
+		dat += "<a href='byond://?src=[UID()];strengthdown=1'>--</a>|<a href='byond://?src=[UID()];strengthup=1'>++</a><br><br>"
 
-	//user << browse(dat, "window=pacontrol;size=420x500")
 	//onclose(user, "pacontrol")
 	var/datum/browser/popup = new(user, "pacontrol", name, 420, 500, src)
 	popup.set_content(dat)

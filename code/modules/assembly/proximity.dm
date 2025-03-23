@@ -116,10 +116,11 @@
 		return FALSE
 	var/second = time % 60
 	var/minute = (time - second) / 60
-	var/dat = text({"<meta charset="UTF-8"><TT><B>Proximity Sensor</B>\n[] []:[]\n<a href='byond://?src=[UID()];tp=-30'>-</A> <a href='byond://?src=[UID()];tp=-1'>-</A> <a href='byond://?src=[UID()];tp=1'>+</A> <a href='byond://?src=[UID()];tp=30'>+</A>\n</TT>"}, (timing ? "<a href='byond://?src=[UID()];time=0'>Arming</A>" : "<a href='byond://?src=[UID()];time=1'>Not Arming</A>"), minute, second)
-	dat += "<BR><a href='byond://?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</A> (Movement sensor active when armed!)"
-	dat += "<BR><BR><a href='byond://?src=[UID()];refresh=1'>Refresh</A>"
-	dat += "<BR><BR><a href='byond://?src=[UID()];close=1'>Close</A>"
+	var/dat = "<tt><b>Proximity Sensor</b>\n[(timing ? "<a href='byond://?src=[UID()];time=0'>Arming</a>" : "<a href='byond://?src=[UID()];time=1'>Not Arming</a>")] [minute]:[second]\n \
+	<a href='byond://?src=[UID()];tp=-30'>-</a> <a href='byond://?src=[UID()];tp=-1'>-</a> <a href='byond://?src=[UID()];tp=1'>+</a> <a href='byond://?src=[UID()];tp=30'>+</a>\n</tt>"
+	dat += "<br><a href='byond://?src=[UID()];scanning=1'>[scanning?"Armed":"Unarmed"]</a> (Movement sensor active when armed!)"
+	dat += "<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
+	dat += "<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"
 	var/datum/browser/popup = new(user, "prox", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()

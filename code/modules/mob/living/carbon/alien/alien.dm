@@ -70,11 +70,15 @@
 	if(caste_movement_delay)
 		update_alien_speed()
 
+/mob/living/carbon/alien/Initialize(mapload)
+	. = ..()
+	GLOB.aliens_list += src
 
 /mob/living/carbon/alien/Destroy()
 	if(night_vision_action)
 		night_vision_action.Remove(src)
 		night_vision_action = null
+	GLOB.aliens_list -= src
 	return ..()
 
 /mob/living/carbon/alien/proc/update_datum()

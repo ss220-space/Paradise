@@ -376,7 +376,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 /atom/movable/screen/parallax_layer/planet/proc/on_mob_logout(mob/source)
 	SIGNAL_HANDLER
 	var/client/boss = source.canon_client
-	update_status(boss.mob)
+	if(boss) // this is stupid. I don't know why, but in rare cases it runtimes. Perhaps client's deletes before we can check all procs on him
+		update_status(boss.mob)
 
 /atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
 	SIGNAL_HANDLER
@@ -386,7 +387,7 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 
 /atom/movable/screen/parallax_layer/planet/update_status(mob/M)
 	var/turf/T = get_turf(M)
-	if(is_station_level(T.z))
+	if(is_station_level(T?.z))
 		invisibility = 0
 	else
 		invisibility = INVISIBILITY_ABSTRACT

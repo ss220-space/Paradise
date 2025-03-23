@@ -108,7 +108,7 @@ export const Vending = (props, context) => {
   inventory = inventory.filter((item) => !!item);
   return (
     <Window
-      width={710}
+      width={470}
       height={100 + Math.min(product_records.length * 38, 500)}
     >
       <Window.Content>

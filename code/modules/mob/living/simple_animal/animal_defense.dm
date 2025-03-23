@@ -62,7 +62,7 @@
 
 		if(INTENT_GRAB)
 			if(holder_type)
-				get_scooped(M)
+				pick_up_mob(M)
 			else
 				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)

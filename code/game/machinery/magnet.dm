@@ -271,7 +271,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><B>Magnetic Control Console</B><BR><BR>"}
+	var/dat = {"<b>Magnetic Control Console</b><br><br>"}
 	if(!autolink)
 		dat += {"
 		Frequency: <a href='byond://?src=[UID()];operation=setfreq'>[frequency]</a><br>
@@ -293,7 +293,9 @@
 	dat += "Moving: <a href='byond://?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
 
 
-	user << browse(dat, "window=magnet;size=400x500")
+	var/datum/browser/popup = new(user, "magnet", "Magnetic Control Console", 400, 500)
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "magnet")
 
 
