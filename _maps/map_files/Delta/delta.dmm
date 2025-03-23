@@ -48562,10 +48562,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -84022,10 +84018,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -110904,10 +110896,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -117921,10 +117909,6 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
-	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
