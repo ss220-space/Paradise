@@ -179,9 +179,8 @@
 //called when a carbon changes stat, virus or XENO_HOST
 /mob/living/proc/med_hud_set_status()
 	var/image/holder = hud_list[STATUS_HUD]
-	var/DNR = !ghost_can_reenter()
 	if(stat == DEAD)
-		holder.icon_state = DNR ? "huddeaddnr" : "huddead"
+		holder.icon_state = "huddead"
 	else if(has_virus())
 		holder.icon_state = "hudill"
 	else
