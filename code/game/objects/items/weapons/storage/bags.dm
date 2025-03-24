@@ -261,25 +261,24 @@
 		nextchosen = pick(contents)
 		return FALSE
 
-
 /obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
 	if(istype(AM, /obj/item/grenade/plastic))
 		if(!(. = ..()))
 			return
 	if(!LAZYLEN(contents))
-		balloon_alert(user, "Сумка пустая!")
+		balloon_alert(user, "сумка пустая!")
 		return
 	if(isnull(nextbomb))
 		nextbomb = pick(contents)
 	if(!flag)
 		return
 	if(iscarbon(AM))
-		balloon_alert(user, "Нельзя прикрепить к человеку!")
+		balloon_alert(user, "нельзя прикрепить!")
 		return
 	if(isobserver(AM))
 		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
 		return
-	balloon_alert(user, "Устанавливаем...")
+	balloon_alert(user, "устанавливаем...")
 	if(do_after(user, 5 SECONDS, AM))
 		nextbomb.skip_doafter = TRUE
 		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
@@ -299,11 +298,18 @@
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
 	name = "cyborg Charge Deployment System"
+	var/upgraded = FALSE
 
 /obj/item/storage/bag/kaboom/cyborg/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
+/obj/item/storage/bag/kaboom/cyborg/update_icon_state()
+	. = ..()
+	if(upgraded)
+		icon_state = "bomb_satchell_adv"
+	else
+		icon_state = "bomb_satchel"
 
 // -----------------------------
 //          Plant bag

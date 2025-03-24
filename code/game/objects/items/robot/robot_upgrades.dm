@@ -647,10 +647,11 @@
 	if(!..())
 		return FALSE
 	if(istype(robot.module, /obj/item/robot_module/miner))
-		robot.module.emag.icon_state = "bomb_satchell_adv"
-		var/obj/item/storage/bag/huyna = robot.module.emag
-		huyna.storage_slots = 15
-		robot.module.emag = huyna
+		robot.module.emag.udgraded = TRUE
+		robot.module.emag.update_icon_state(UPDATE_ICON_STATE)
+		var/obj/item/storage/bag/satchel = robot.module.emag
+		satchel.storage_slots = 15
+		robot.module.emag = satchel
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy *= 3
 		energy_storage.recharge_rate *= 2
@@ -662,10 +663,11 @@
 	if(!..())
 		return FALSE
 	if(istype(robot.module, /obj/item/robot_module/miner))
-		robot.module.emag.icon_state = "bomb_satchel"
-		var/obj/item/storage/bag/huyna = robot.module.emag
-		huyna.storage_slots = 5
-		robot.module.emag = huyna
+		robot.module.emag.upgraded = FALSE
+		robot.module.emag.update_icon_state(UPDATE_ICON_STATE)
+		var/obj/item/storage/bag/satchel = robot.module.emag
+		satchel.storage_slots = 5
+		robot.module.emag = satchel
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)
 		energy_storage.recharge_rate = initial(energy_storage.recharge_rate)
