@@ -6,6 +6,12 @@
 		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<link rel="stylesheet" type="text/css" href="v4shim.css">
 		<link rel="stylesheet" type="text/css" href="font-awesome.css">
+		<script>
+			document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+			window.addEventListener('resize', () => {
+				document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+			});
+		</script>
 		<style type='text/css'>
 			@font-face {
 				font-family: Pixellari;
@@ -24,7 +30,6 @@
 			body,
 			html {
 				font-family: Verdana, Geneva, sans-serif;
-				font-size: 15px;
 				overflow: hidden;
 				text-align: center;
 				-ms-user-select: none;
@@ -92,8 +97,6 @@
 
 			.menu_notice {
 				margin: 0.75em 0.5em;
-				line-height: 1.75rem;
-				font-size: 1.75rem;
 				color: #bd2020;
 				font-family: Pixellari
 			}
@@ -154,7 +157,6 @@
 
 			.character {
 				font-weight: normal;
-				font-size: 1.1rem;
 				text-align: right;
 				margin: 0;
 				margin-top: 0.75rem;
@@ -165,7 +167,6 @@
 				width: 100%;
 				margin-top: 0.5em;
 				font-weight: bold;
-				font-size: 1.2rem;
 				text-align: left;
 				color: #5a5a5a;
 			}
@@ -207,7 +208,6 @@
 				cursor: pointer;
 				overflow: hidden;
 				position: relative;
-				font-size: 1.35rem;
 				text-decoration: none;
 				text-align: left;
 				box-sizing: border-box;
@@ -300,9 +300,6 @@
 				z-index: 2;
 			}
 
-			.link_button i {
-				font-size: 1.5rem;
-			}
 
 			.link_button:hover {
 				color: #d4dfec !important;
@@ -324,9 +321,6 @@
 				z-index: 2;
 			}
 
-			.hide_button i {
-				font-size: 1.5rem;
-			}
 
 			.hide_button:hover {
 				color: #d4dfec !important;
@@ -462,14 +456,84 @@
 				font-size: small;
 			}
 
-			.pixelated .character:first-of-type {
-				font-size: 1.5rem;
-			}
 
 			.pixelated .preview {
 				bottom: -2.25em;
 			}
 
+			/** Remove conditionals with 516*/
+			@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
+
+				body {
+					font-size: calc(15px / var(--dpr));
+
+				}
+
+				.pixelated .character:first-of-type {
+					font-size: calc(1.5rem / var(--dpr));
+				}
+
+				.hide_button i {
+					font-size: calc(1.5rem / var(--dpr));
+				}
+
+				.link_button i {
+					font-size: calc(1.5rem / var(--dpr));
+				}
+
+				.menu_button {
+					font-size: calc(1.35rem / var(--dpr));
+				}
+
+				.character:first-of-type {
+					font-size: calc(1.2rem / var(--dpr));
+				}
+
+				.character {
+					font-size: calc(1.1rem / var(--dpr));
+				}
+
+				.menu_notice {
+					line-height: calc(1.75rem / var(--dpr));
+					font-size: calc(1.75rem / var(--dpr));
+				}
+			}
+
+			/** Remove with 516 */
+			@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+				body {
+					font-size: 15px;
+				}
+
+				.pixelated .character:first-of-type {
+					font-size: 1.5rem;
+				}
+
+				.hide_button i {
+					font-size: 1.5rem;
+				}
+
+				.link_button i {
+					font-size: 1.5rem;
+				}
+
+				.menu_button {
+					font-size: 1.35rem;
+				}
+
+				.character:first-of-type {
+					font-size: 1.2rem;
+				}
+
+				.character {
+					font-size: 1.1rem;
+				}
+
+				.menu_notice {
+					line-height: 1.75rem;
+					font-size: 1.75rem;
+				}
+			}
 		</style>
 	</head>
 

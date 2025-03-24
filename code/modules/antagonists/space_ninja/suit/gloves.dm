@@ -12,10 +12,7 @@
 	desc = "These nano-enhanced gloves insulate from electricity and provide fire resistance."
 	name = "ninja gloves"
 	icon = 'icons/obj/ninjaobjects.dmi'
-	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
 	icon_state = "ninja_gloves"
-	item_state = "ninja_gloves" //Нужен спрайт
 	siemens_coefficient = 0
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT

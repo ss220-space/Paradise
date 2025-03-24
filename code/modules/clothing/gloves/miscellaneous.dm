@@ -2,7 +2,6 @@
 	name = "fingerless gloves"
 	desc = "Plain black gloves without fingertips for the hard working."
 	icon_state = "fingerless"
-	item_state = "fingerless"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	clothing_flags = NONE
@@ -25,7 +24,6 @@
 		PREPOSITIONAL = "перчатках из хитина ткача"
 	)
 	icon_state = "weaver_chitin"
-	item_state = "weaver_chitin"
 	extra_knock_chance = 20
 	var/stamdamage_low = 10
 	var/stamdamage_high = 15
@@ -75,7 +73,6 @@
 	name = "combat gloves"
 	desc = "These tactical gloves are both insulated and offer melee protection."
 	icon_state = "combat"
-	item_state = "swat_gl"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	strip_delay = 80
@@ -90,7 +87,6 @@
 	name = "riot gloves"
 	desc = "These riot gloves are both insulated and offer melee protection."
 	icon_state = "riotgloves"
-	item_state = "riotgloves"
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
 		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
@@ -105,7 +101,6 @@
 	name = "bone bracers"
 	desc = "For when you're expecting to get slapped on the wrist. Offers modest protection to your arms."
 	icon_state = "bracers"
-	item_state = "bracers"
 	item_color = null	//So they don't wash.
 	transfer_prints = TRUE
 	strip_delay = 40
@@ -120,7 +115,6 @@
 	desc = "These leather gloves protect against thorns, barbs, prickles, spikes and other harmful objects of floral origin."
 	name = "botanist's leather gloves"
 	icon_state = "leather"
-	item_state = "ggloves"
 	permeability_coefficient = 0.9
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
@@ -295,7 +289,6 @@
 	name = "Razor gloves"
 	desc = "These are razorgloves! You gotta show these tajarans who are the real deal on this station!"
 	icon_state = "razor"
-	item_state = "razorgloves"
 	can_be_cut = FALSE
 	resistance_flags = FLAMMABLE
 	sharp = TRUE
@@ -365,7 +358,6 @@
 	name = "knuckles"
 	desc = "The choice of the professional to beat the shit out of some jerk!"
 	icon_state = "knuckles"
-	item_state = "knuckles"
 	sharp = FALSE
 	extra_knock_chance = 15 //20% overall
 	var/knuckle_damage = 5 //additional fists damage
