@@ -214,7 +214,7 @@
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
-			holder.icon_state = DNR ? "huddeaddnr" : "huddead"
+			holder.icon_state = ghost_can_reenter() ? "huddead" : "huddeaddnr"
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
