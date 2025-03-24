@@ -62,7 +62,7 @@
 	)
 
 /obj/projectile/glockroachbullet
-	damage = 10 //same damage as a hivebot
+	damage = 8
 	damage_type = BRUTE
 
 /obj/item/ammo_casing/glockroach
@@ -82,14 +82,14 @@
 	)
 	desc = "КТО, ЧЁРТ ВОЗЬМИ, ДАЛ ТАРАКАНУ ПИСТОЛЕТ?"
 	icon_state = "glockroach"
-	obj_damage = 10
+	obj_damage = 5
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("hostile")
 	ai_controller = /datum/ai_controller/basic_controller/cockroach/glockroach
 
 /mob/living/basic/cockroach/glockroach/Initialize()
 	. = ..()
-	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
+	AddElement(/datum/element/ranged_attacks, projectiletype = /obj/projectile/glockroachbullet, projectilesound = 'sound/weapons/gunshots/gunshot3.ogg')
 
 /datum/ai_controller/basic_controller/cockroach/glockroach
 	planning_subtrees = list(
@@ -120,7 +120,7 @@
 	attack_verb_continuous = "тыкает своим шлемом"
 	attack_verb_simple = "тыкаете своим шлемом"
 	melee_damage = 5
-	obj_damage = 10
+	obj_damage = 8
 	gold_core_spawnable = HOSTILE_SPAWN
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	faction = list("hostile")
