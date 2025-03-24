@@ -191,9 +191,9 @@ Almost every mining medic related stuff
 	. = ..()
 	integrated_console.network = list("mining")
 
-/obj/item/camera_bug/secutiry
+/obj/item/camera_bug/security
 	name = "security camera monitor"
-	desc = "Небольшой планшет, считывающий данные с нагрудных камер службы безопасности. Позволяет вам наблюдать в прямом эфире, как ваши офицеры поддерживают закон и порядок на станции."
+	desc = "Небольшой планшет, считывающий данные с нагрудных камер службы безопасности. Позволяет вам наблюдать в прямом эфире, как ваши офицеры поддерживают закон и порядок на станции. Данная модель крайне уязвима к ионным бурям."
 	ru_names = list(
 		NOMINATIVE = "офицерский монитор видеокамер",
 		GENITIVE = "офицерского монитора видеокамер",
@@ -208,6 +208,7 @@ Almost every mining medic related stuff
 	item_state = "sec_monitor"
 	origin_tech = "engineering=3"
 
-/obj/item/camera_bug/secutiry/Initialize(mapload)
+/obj/item/camera_bug/security/Initialize(mapload)
 	. = ..()
 	integrated_console.network = list("secfeed")
+	integrated_console.affected_by_blackout = TRUE

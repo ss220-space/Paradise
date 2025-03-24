@@ -148,6 +148,7 @@
 	title = JOB_TITLE_MINING_MEDIC
 	flag = JOB_FLAG_MINING_MEDIC
 	department_flag = JOBCAT_SUPPORT
+	is_supply = 1
 	total_positions = 1
 	spawn_positions = 1
 	supervisors = "the chief medical officer and the quartermaster"
@@ -155,7 +156,7 @@
 	selection_color = "#cee6ef"
 	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS)
 	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
-	alt_titles = list("Mining Medical Support", "Lavaland Health Officer")
+	alt_titles = list("Lavaland Health Officer")
 	outfit = /datum/outfit/job/mining_medic
 	insurance_type = INSURANCE_TYPE_EXTENDED
 	exp_requirements = 600 //10 hours
