@@ -253,7 +253,9 @@ export const Healthanalyzer = (props, context) => {
                           Незначительная генная нестабильность.
                         </Box>
                       ) : (
-                        scan_data.genes > 40 && <Box>Генная структура стабильна.</Box>
+                        scan_data.genes > 40 && (
+                          <Box>Генная структура стабильна.</Box>
+                        )
                       )}
                     </LabeledList.Item>
                   </LabeledList>
