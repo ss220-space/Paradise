@@ -668,7 +668,7 @@ REAGENT SCANNER
 					reagentList += list(list(
 						volume = "[R.volume]",
 						name = "[R.name]",
-						overdosed = "[R.overdosed]"
+						overdosed = R.overdosed
 					))
 				data["reagentList"] = reagentList
 			else
@@ -822,6 +822,20 @@ REAGENT SCANNER
 		if(length(damaged) > 0)
 			for(var/obj/item/organ/external/org as anything in damaged)
 				scan_data += "&emsp;<span class='info'>[capitalize(org.name)]</span>: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
+	if(advanced)
+		if(H.reagents)
+			if(H.reagents.reagent_list.len)
+				scan_data += "Обнаружены реагенты:"
+				for(var/datum/reagent/R in H.reagents.reagent_list)
+					scan_data += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
+			else
+				scan_data += "Реагенты не обнаружены."
+			if(H.reagents.addiction_list.len)
+				scan_data += "<span class='danger'>Обнаружены зависимости от реагентов:</span>"
+				for(var/datum/reagent/R in H.reagents.addiction_list)
+					scan_data += "<span class='danger'>&emsp;[R.name] Стадия: [R.addiction_stage]/5</span>"
+			else
+				scan_data += "Зависимости от реагентов не обнаружены."
 	for(var/thing in H.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))

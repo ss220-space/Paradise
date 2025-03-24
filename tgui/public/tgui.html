@@ -561,6 +561,15 @@ window.replaceHtml = function (inline_html) {
       + "<!-- tgui:inline-html-end -->"
   );
 };
+
+var updateDpr = function () {
+  document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+}
+
+updateDpr();
+
+window.addEventListener('resize', updateDpr);
+
 </script>
 
 <style>

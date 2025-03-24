@@ -1004,7 +1004,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	name = "high-tech insulated gloves"
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gloves_agent"
-	item_state = "abductor_gloves_agent"
 	siemens_coefficient = 0
 	permeability_coefficient = 0.05
 	resistance_flags = NONE
@@ -1014,7 +1013,6 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	desc = "High-tech sterile gloves that are stronger than latex."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gloves_science"
-	item_state = "abductor_gloves_science"
 	siemens_coefficient = 0.30
 	permeability_coefficient = 0.01
 	resistance_flags = NONE

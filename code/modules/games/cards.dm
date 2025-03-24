@@ -3,7 +3,6 @@
 	var/card_icon = "card_back"
 	var/back_icon = "card_back"
 
-
 /datum/playingcard/New(newname, newcard_icon, newback_icon)
 	..()
 	if(newname)
@@ -55,7 +54,7 @@
 	. = ..()
 	for(var/deck in 1 to deck_size)
 		build_deck()
-	deck_total = length(cards)
+	deck_total = LAZYLEN(cards)
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -75,7 +74,7 @@
 		success = TRUE
 
 	if(success)
-		to_chat(user, span_notice("You place your cards on the bottom of [src]."))
+		to_chat(user, span_notice("Вы кладёте свои карты вниз [declent_ru(GENITIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 
 
@@ -83,16 +82,16 @@
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != src)
-			to_chat(user, span_warning("You cannot mix cards from different decks."))
+			balloon_alert(user, "карты из разных колод!")
 			return ATTACK_CHAIN_PROCEED
-		if(length(cardhand.cards) > 1)
-			var/confirm = tgui_alert(user, "Are you sure you want to put your [length(cardhand.cards)] cards back into the deck?", "Return Hand", list("Yes", "No"))
-			if(confirm != "Yes" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+		if(LAZYLEN(cardhand.cards) > 1)
+			var/confirm = tgui_alert(user, "Вы уверены, что хотите вернуть [LAZYLEN(cardhand.cards)] [LAZYLEN(cardhand.cards) < 5 ? "карты" : "карт"] в колоду?", "Вернуть руку?", list("Да", "Нет"))
+			if(confirm != "Да" || !Adjacent(user) || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 				return ATTACK_CHAIN_PROCEED
 		for(var/datum/playingcard/card in cardhand.cards)
 			cards += card
 		qdel(cardhand)
-		to_chat(user, span_notice("You place your cards on the bottom of [src]."))
+		to_chat(user, span_notice("Вы кладёте свои карты вниз [declent_ru(GENITIVE)]."))
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -101,8 +100,7 @@
 
 /obj/item/deck/examine(mob/user)
 	. = ..()
-	. += span_notice("It contains [length(cards) ? length(cards) : "no"] cards")
-
+	. += span_notice("В колоде [LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карта", "карты", "карт")].")
 
 /obj/item/deck/attack_hand(mob/user)
 	draw_card(user)
@@ -110,7 +108,8 @@
 
 // Datum actions
 /datum/action/item_action/draw_card
-	name = "Draw - Draw one card"
+	name = "Взять карту"
+	desc = "Взять одну карту."
 	button_icon_state = "draw"
 	use_itemicon = FALSE
 
@@ -124,7 +123,8 @@
 
 
 /datum/action/item_action/deal_card
-	name = "Deal - deal one card to a person next to you"
+	name = "Раздать карту"
+	desc = "Раздать одну карту игроку рядом с вами."
 	button_icon_state = "deal_card"
 	use_itemicon = FALSE
 
@@ -137,7 +137,8 @@
 
 
 /datum/action/item_action/deal_card_multi
-	name = "Deal multiple card - Deal multiple card to a person next to you"
+	name = "Раздать несколько карт"
+	desc = "Раздать несколько карт игроку рядом с вами."
 	button_icon_state = "deal_card_multi"
 	use_itemicon = FALSE
 
@@ -150,7 +151,8 @@
 
 
 /datum/action/item_action/shuffle
-	name = "Shuffle - shuffle the deck"
+	name = "Перетасовать"
+	desc = "Перетасовать колоду."
 	button_icon_state = "shuffle"
 	use_itemicon = FALSE
 
@@ -167,13 +169,13 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	if(!length(cards))
-		to_chat(user, span_notice("There are no cards in the deck."))
+	if(!LAZYLEN(cards))
+		balloon_alert(user, "в колоде нет карт!")
 		return
 
 	var/obj/item/cardhand/cardhand = user.is_type_in_hands(/obj/item/cardhand)
 	if(cardhand && (cardhand.parentdeck != src))
-		to_chat(user, span_warning("You can't mix cards from different decks!"))
+		balloon_alert(user, "карты из разных колод!")
 		return
 
 	if(!cardhand)
@@ -187,16 +189,18 @@
 	cardhand.parentdeck = src
 	cardhand.update_values()
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message(span_notice("[user] draws a card."), span_notice("You draw a card."))
-	to_chat(user, span_notice("It's the [play_card]."))
+	user.visible_message(
+		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ут")] карту из колоды."),
+		span_notice("Вы тянете карту из колоды. Это <b>[play_card]</b>.")
+	)
 
 
 /obj/item/deck/proc/deal_card(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	if(!length(cards))
-		to_chat(user, span_warning("There are no cards in the deck!"))
+	if(!LAZYLEN(cards))
+		balloon_alert(user, "в колоде нет карт!")
 		return
 
 	var/list/players = list()
@@ -204,16 +208,16 @@
 		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
 			players += player
 
-	if(!length(players))
-		to_chat(user, span_warning("There are no players around!"))
+	if(!LAZYLEN(players))
+		balloon_alert(user, "рядом нет игроков!")
 		return
 
-	var/mob/living/carbon/target = tgui_input_list(user, "Who do you wish to deal a card to?", "Deal Card", players)
+	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать карту?", "Раздать карту", players)
 	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(!length(cards))
-		to_chat(user, span_warning("Deck is empty!"))
+	if(!LAZYLEN(cards))
+		balloon_alert(user, "колода пуста!")
 		return
 
 	deal_at(user, target, 1)
@@ -223,32 +227,32 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !Adjacent(user))
 		return
 
-	if(!length(cards))
-		to_chat(user, span_warning("There are no cards in the deck!"))
+	if(!LAZYLEN(cards))
+		balloon_alert(user, "в колоде нет карт!")
 		return
 
-	var/dcard = tgui_input_number(usr, "How many card(s) do you wish to deal? You may deal up to [length(cards)] cards.", "Deal Cards", 1, length(cards), 1)
-	if(isnull(dcard) || !length(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
+	var/dcard = tgui_input_number(usr, "Сколько карт вы хотите раздать? Вы можете раздать до <b>[LAZYLEN(cards)] [declension_ru(LAZYLEN(cards), "карты", "карт", "карт")]</b>.", "Раздать карты", 1, LAZYLEN(cards), 1)
+	if(isnull(dcard) || !LAZYLEN(cards) || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	dcard = clamp(min(round(abs(dcard)), length(cards)), 1, 10)	// we absolutely trust our players
+	dcard = clamp(min(round(abs(dcard)), LAZYLEN(cards)), 1, 10)	// we absolutely trust our players
 
 	var/list/players = list()
 	for(var/mob/living/carbon/player in viewers(3, user))
 		if(!player.incapacitated() && !HAS_TRAIT(player, TRAIT_HANDS_BLOCKED))
 			players += player
 
-	if(!length(players))
-		to_chat(user, span_warning("You decide to deal <b>[dcard]</b> card\s, but there are no players around!"))
+	if(!LAZYLEN(players))
+		to_chat(user, span_warning("Вы хотите раздать <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")], но вокруг нет игроков!"))
 		return
-	to_chat(user, span_notice("You decide to deal <b>[dcard]</b> card\s."))
+	to_chat(user, span_notice("Вы раздаёте <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."))
 
-	var/mob/living/carbon/target = tgui_input_list(user, "Who do you wish to deal [dcard] card(s)?", "Deal Card", players)
+	var/mob/living/carbon/target = tgui_input_list(user, "Кому вы хотите раздать [dcard] [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]?", "Раздать карты", players)
 	if(!user || !src || !target || !Adjacent(user) || get_dist(user, target) > 3 || target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED))
 		return
 
-	if(length(cards) < dcard)
-		to_chat(user, span_warning("The deck has no sufficient amount of cards anymore!"))
+	if(LAZYLEN(cards) < dcard)
+		balloon_alert(user, "в колоде недостаточно карт!")
 		return
 
 	deal_at(user, target, dcard)
@@ -265,9 +269,15 @@
 		cardhand.concealed = TRUE
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
 	if(user == target)
-		user.visible_message(span_notice("[user] deals <b>[dcard]</b> card\s to [user.p_themselves()]."))
+		user.visible_message(
+			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."),
+			span_notice("Вы раздаёте себе <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")].")
+		)
 	else
-		user.visible_message(span_notice("[user] deals <b>[dcard]</b> card\s to [target]."))
+		user.visible_message(
+			span_notice("[user] разда[pluralize_ru(user.gender, "ёт", "ют")] [target] <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")]."),
+			span_notice("Вы раздаёте [target] <b>[dcard]</b> [declension_ru(LAZYLEN(cards), "карту", "карты", "карт")].")
+		)
 	INVOKE_ASYNC(cardhand, TYPE_PROC_REF(/atom/movable, throw_at), get_step(target, target.dir), 3, 1, user)
 
 
@@ -286,7 +296,10 @@
 
 	COOLDOWN_START(src, shuffle_cooldown, 1 SECONDS)
 	cards = shuffle(cards)
-	user.visible_message(span_notice("[user] shuffles [src]."))
+	user.visible_message(
+		span_notice("[user] тасу[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы тасуете [declent_ru(ACCUSATIVE)]."),
+	)
 	playsound(user, 'sound/items/cardshuffle.ogg', 50, TRUE)
 
 
@@ -301,7 +314,10 @@
 
 	if(user.put_in_hands(src, ignore_anim = FALSE))
 		add_fingerprint(user)
-		user.visible_message(span_notice("[user] picks up [src]."))
+		user.visible_message(
+			span_notice("[user] поднима[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)].")
+		)
 		return TRUE
 
 	return FALSE
@@ -333,7 +349,16 @@
 
 /obj/item/cardhand
 	name = "hand of cards"
-	desc = "Some playing cards."
+	desc = "Несколько игральных карт."
+	ru_names = list(
+		NOMINATIVE = "игральные карты",
+		GENITIVE = "игральных карт",
+		DATIVE = "игральным картам",
+		ACCUSATIVE = "игральные карты",
+		INSTRUMENTAL = "игральными картами",
+		PREPOSITIONAL = "игральных картах"
+	)
+	gender = PLURAL
 	icon = 'icons/obj/playing_cards.dmi'
 	icon_state = "empty"
 	w_class = WEIGHT_CLASS_TINY
@@ -369,12 +394,12 @@
 
 /obj/item/cardhand/attackby(obj/item/I, mob/user, params)
 	if(is_pen(I))
-		if(length(cards) > 1)
-			to_chat(user, span_warning("You can only write on a single card at once."))
+		if(LAZYLEN(cards) > 1)
+			balloon_alert(user, "одна карта за раз!")
 			return ATTACK_CHAIN_PROCEED
 		var/datum/playingcard/card = cards[1]
 		if(card.name != "Blank Card")
-			to_chat(user, span_notice("You cannot write on that card."))
+			balloon_alert(user, "нельзя писать на этой карте!")
 			return ATTACK_CHAIN_PROCEED
 		var/rename = rename_interactive(user, card, use_prefix = FALSE, actually_rename = FALSE)
 		if(rename && card.name == "Blank Card")
@@ -387,7 +412,7 @@
 	if(istype(I, /obj/item/cardhand))
 		var/obj/item/cardhand/cardhand = I
 		if(cardhand.parentdeck != parentdeck)
-			to_chat(user, span_notice("You cannot mix cards from other decks!"))
+			balloon_alert(user, "карты из разных колод!")
 			return ATTACK_CHAIN_PROCEED
 		cardhand.concealed = concealed
 		cards += cardhand.cards
@@ -399,65 +424,70 @@
 
 
 /obj/item/cardhand/attack_self(mob/user)
-	if(length(cards) == 1)
+	if(LAZYLEN(cards) == 1)
 		turn_hand(user)
 		return
 	user.set_machine(src)
-	interact(user)
+	ui_interact(user)
 
 
 /obj/item/cardhand/proc/turn_hand(mob/user)
 	concealed = !concealed
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	user.visible_message(span_notice("[user] [concealed ? "conceals" : "reveals"] their hand."))
+	user.visible_message(
+		span_notice("[user] [concealed ? "скрыва" : "показыва"][pluralize_ru(user.gender, "ет", "ют")] свою руку с картами."),
+		span_notice("Вы [concealed ? "скрыва" : "показыва"]ете свою руку с картами.")
+	)
 
+/obj/item/cardhand/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "PlayingCard")
+		ui.open()
 
-/obj/item/cardhand/interact(mob/user)
-	var/dat = "You have:<br>"
-	for(var/card in cards)
-		dat += "<a href='byond://?src=[UID()];pick=[card]'>The [card]</a><br>"
-	dat += "Which card will you remove next?<br>"
-	dat += "<a href='byond://?src=[UID()];pick=Turn'>Turn the hand over</a>"
-	var/datum/browser/popup = new(user, "cardhand", "Hand of Cards", 400, 240)
-	popup.set_content(dat)
-	popup.open()
-
-
-/obj/item/cardhand/Topic(href, href_list)
+/obj/item/cardhand/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
 	if(usr.stat || !ishuman(usr))
 		return
-	var/mob/living/carbon/human/cardUser = usr
-	if(href_list["pick"])
-		if(href_list["pick"] == "Turn")
-			turn_hand(usr)
-		else
-			if(cardUser.is_in_hands(src))
-				pickedcard = href_list["pick"]
-				Removecard()
-		cardUser << browse(null, "window=cardhand")
 
+	switch(action)
+		if("turn")
+			turn_hand(usr)
+		if("pick")
+			if(ishuman(usr) && usr.is_in_hands(src))
+				pickedcard = params["card"]
+				Removecard()
+
+	SStgui.update_uis(src)
+	return TRUE
+
+/obj/item/cardhand/ui_data(mob/user)
+	var/list/data = list()
+	data["cards"] = cards
+
+	return data
 
 /obj/item/cardhand/examine(mob/user)
 	. = ..()
-	if(!concealed && length(cards))
-		. += span_notice("It contains:")
+	if(!concealed && LAZYLEN(cards))
+		. += span_notice("Имеется:")
 		for(var/datum/playingcard/card in cards)
-			. += span_notice("the [card.name].")
+			. += span_notice("[card.name].")
 
 
 // Datum action here
 
 /datum/action/item_action/remove_card
-	name = "Remove a card - Remove a single card from the hand."
+	name = "Убрать карту"
+	desc = "Убрать одну карту из руки."
 	button_icon_state = "remove_card"
 	use_itemicon = FALSE
 
 
 /datum/action/item_action/remove_card/IsAvailable()
 	var/obj/item/cardhand/cardhand = target
-	if(length(cardhand.cards) <= 1)
+	if(LAZYLEN(cardhand.cards) <= 1)
 		return FALSE
 	return ..()
 
@@ -472,7 +502,8 @@
 
 
 /datum/action/item_action/discard
-	name = "Discard - Place (a) card(s) from your hand in front of you."
+	name = "Сбросить"
+	desc = "Положить карту(ы) из вашей руки перед собой."
 	button_icon_state = "discard"
 	use_itemicon = FALSE
 
@@ -497,7 +528,7 @@
 		pickablecards[card.name] = card
 
 	if(!pickedcard)
-		pickedcard = tgui_input_list(user, "Which card do you want to remove from the hand?", "Remove Card", pickablecards)
+		pickedcard = tgui_input_list(user, "Какую карту вы хотите убрать из руки?", "Убрать карту", pickablecards)
 		if(!pickedcard)
 			return
 
@@ -509,8 +540,8 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] draws a card from [user.p_their()] hand."),
-		span_notice("You take the [pickedcard] from your hand."),
+		span_notice("[user] тян[pluralize_ru(user.gender, "ет", "ют")] карту из своей руки."),
+		span_notice("Вы тянете [pickedcard] из своей руки."),
 	)
 	pickedcard = null
 
@@ -522,7 +553,7 @@
 	cardhand.update_values()
 	cardhand.concealed = concealed
 	cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-	if(!length(cards))
+	if(!LAZYLEN(cards))
 		qdel(src)
 		return
 	update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
@@ -534,8 +565,8 @@
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
-	var/maxcards = min(length(cards), 5)
-	var/discards = tgui_input_number(usr, "How many cards do you want to discard? You may discard up to [maxcards] card(s)", "Discard Cards", max_value = maxcards)
+	var/maxcards = min(LAZYLEN(cards), 5)
+	var/discards = tgui_input_number(usr, "Сколько карт вы хотите сбросить? Вы можете сбросить до <b>[maxcards]</b> карт[maxcards == 1 ? "ы" : ""].", "Сбросить карты", max_value = maxcards)
 	if(discards > maxcards || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
 
@@ -544,7 +575,7 @@
 		for(var/datum/playingcard/card in cards)
 			to_discard[card.name] = card
 
-		var/discarding = input("Which card do you wish to put down?") as null|anything in to_discard
+		var/discarding = input("Какую карту вы хотите положить?") as null|anything in to_discard
 		if(!discarding)
 			continue
 
@@ -565,23 +596,23 @@
 		cardhand.update_values()
 		cardhand.direction = user.dir
 		cardhand.update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-		if(length(cards))
+		if(LAZYLEN(cards))
 			update_appearance(UPDATE_NAME|UPDATE_DESC|UPDATE_OVERLAYS)
-		if(length(cardhand.cards))
+		if(LAZYLEN(cardhand.cards))
 			user.visible_message(
-				span_notice("[user] plays the [discarding]."),
-				span_notice("You play the [discarding]."),
+				span_notice("[user] клад[pluralize_ru(user.gender, "ёт", "ют")] [discarding]."),,
+				span_notice("Вы кладёте [discarding]."),
 			)
 		cardhand.loc = get_step(user, user.dir)
 
-	if(!length(cards))
+	if(!LAZYLEN(cards))
 		qdel(src)
 
 
 /obj/item/cardhand/update_appearance(updates = ALL)
-	if(!length(cards))
+	if(!LAZYLEN(cards))
 		return
-	if(length(cards) <= 2)
+	if(LAZYLEN(cards) <= 2)
 		for(var/datum/action/action as anything in actions)
 			action.UpdateButtonIcon()
 	..()
@@ -589,19 +620,36 @@
 
 /obj/item/cardhand/update_name(updates = ALL)
 	. = ..()
-	if(length(cards) > 1)
-		name = "hand of [length(cards)] cards"
+	if(LAZYLEN(cards) > 1)
+		name = "hand of [LAZYLEN(cards)] cards"
+		ru_names = list(
+			NOMINATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "а", "ы", "")]",
+			GENITIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ы", "", "")]",
+			DATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ам", "ам")]",
+			ACCUSATIVE = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "у", "ы", "")]",
+			INSTRUMENTAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "ой", "ами", "ами")]",
+			PREPOSITIONAL = "[LAZYLEN(cards)] карт[declension_ru(LAZYLEN(cards), "е", "ах", "ах")]"
+		)
 	else
 		name = "playing card"
+		ru_names = list(
+			NOMINATIVE = "игральная карта",
+			GENITIVE = "игральной карты",
+			DATIVE = "игральной карте",
+			ACCUSATIVE = "игральную карту",
+			INSTRUMENTAL = "игральной картой",
+			PREPOSITIONAL = "игральной карте"
+		)
+	. = ..()
 
 
 /obj/item/cardhand/update_desc(updates = ALL)
 	. = ..()
-	if(length(cards) > 1)
-		desc = "Some playing cards."
+	if(LAZYLEN(cards) > 1)
+		desc = "Какие-то игральные карты."
 	else
 		if(concealed)
-			desc = "A playing card. You can only see the back."
+			desc = "Игральная карта. Видна только её рубашка."
 		else
 			var/datum/playingcard/card = cards[1]
 			desc = "\A [card.name]."
@@ -627,7 +675,7 @@
 			M.Turn(90)
 			M.Translate(-2,  0)
 
-	if(length(cards) == 1)
+	if(LAZYLEN(cards) == 1)
 		var/datum/playingcard/card = cards[1]
 		var/image/image = new(icon, (concealed ? "[card.back_icon]" : "[card.card_icon]") )
 		image.transform = M
@@ -636,13 +684,13 @@
 		. += image
 		return
 
-	var/offset = FLOOR(20/length(cards) + 1, 1)
+	var/offset = FLOOR(20/LAZYLEN(cards) + 1, 1)
 	// var/i = 0
-	for(var/i in 1 to length(cards))
+	for(var/i in 1 to LAZYLEN(cards))
 		var/datum/playingcard/card = cards[i]
 		if(i >= 20)
 			// skip the rest and just draw the last one on top
-			. += render_card(cards[length(cards)], M, i, offset)
+			. += render_card(cards[LAZYLEN(cards)], M, i, offset)
 			break
 		. += render_card(card, M, i, offset)
 		i++
