@@ -3,7 +3,6 @@ body
 	padding: 0;
 	margin: 0;
 	background-color: #272727;
-	font-size: 12px;
 	color: #ffffff;
 	line-height: 170%;
 }
@@ -12,7 +11,7 @@ body
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
 	body
 	{
-		font-size: 0.65em;
+		font-size: calc(14px / var(--dpr));
 	}
 }
 

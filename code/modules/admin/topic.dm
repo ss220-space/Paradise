@@ -1252,9 +1252,9 @@
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]<a></td></tr>"}
-		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret<a><br>"}
-		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random<a><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
+		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret</a><br>"}
+		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random</a><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
 
 		var/datum/browser/popup = new(usr, "c_mode", "<div align='center'>Game Mode</div>")
@@ -1273,8 +1273,8 @@
 		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]<a></td></tr>"}
-		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)<a><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
+		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)</a><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		var/datum/browser/popup = new(usr, "f_secret", "<div align='center'>Secret Game Mode</div>")
 		popup.set_content(dat)
@@ -1325,18 +1325,18 @@
 			antags_list = antags_list.Copy()
 
 		for(var/antag in antags_list)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]<a></td></tr>"}
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</a></td></tr>"}
 
 		dat += {"</table><br><b>Edit the antag weights for special antag. Only one antag from below will be chosen for the mode. Rolling NOTHING means no special antag at all.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
 		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
 		for(var/antag in special_antags_list)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]<a></td></tr>"}
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</a></td></tr>"}
 
 		dat += {"</table><br><b>Edit the chance to roll double antag ([capitalize(ROLE_VAMPIRE)]/[capitalize(ROLE_CHANGELING)]) for [capitalize(ROLE_TRAITOR)].</b><hr>"}
-		dat += {"<table><tr><td>Chance = </td><td><a href='byond://?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]<a></td></tr></table>"}
+		dat += {"<table><tr><td>Chance = </td><td><a href='byond://?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</a></td></tr></table>"}
 
-		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.<a><br>"}
+		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.</a><br>"}
 
 		var/datum/browser/popup = new(usr, "change_weights", "<div align='center'>Antag Paradise Weights</div>", 900, 700)
 		popup.set_content(dat)
@@ -1970,11 +1970,11 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		var/block=text2num(href_list["block"])
+		var/block = text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
 		if(source == "old")
-			show_player_panel(H)
+			show_old_player_panel(H)
 		else
 			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
@@ -4024,7 +4024,7 @@
 			var/gene_name = GLOB.assigned_blocks[block]
 			if(gene_name)
 				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]<a><sub>[block]</sub>"
+				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
 			else
 				body += "[block]"
 			body += "</td>"

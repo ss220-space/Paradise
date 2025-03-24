@@ -340,6 +340,7 @@ BLIND     // can't see anything
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
+	item_state = "lgloves" //For gloves withoit their own item_state
 	belt_icon = "bgloves"
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
@@ -362,6 +363,9 @@ BLIND     // can't see anything
 	var/surgery_germ_chance = 100
 	strip_delay = 20
 	put_on_delay = 40
+
+	lefthand_file = 'icons/mob/inhands/gloves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/gloves_righthand.dmi'
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
