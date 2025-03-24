@@ -73,13 +73,16 @@
 /area/ruin/space/ancientstation/beta_surgery1)
 "ap" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 1
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "red"
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "ar" = (
 /turf/simulated/floor/engine,
@@ -169,8 +172,6 @@
 	layer = 2.9
 	},
 /obj/item/storage/box/flashbangs,
-/obj/item/ammo_box/speedloader/shotgun/beanbag,
-/obj/item/ammo_box/speedloader/shotgun/dart,
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -259,8 +260,8 @@
 	req_access = list(271)
 	},
 /obj/item/clothing/suit/space/nasavoid/syndi,
-/obj/item/clothing/mask/gas/explorer,
 /obj/item/clothing/head/helmet/space/nasavoid/syndi,
+/obj/item/clothing/mask/gas/explorer,
 /obj/item/tank/jetpack/void,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
@@ -582,6 +583,9 @@
 /obj/structure/closet,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/mask/gas,
+/obj/item/tank/jetpack/void,
+/obj/item/clothing/head/helmet/space/nasavoid/old,
+/obj/item/clothing/suit/space/nasavoid/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "bU" = (
@@ -786,17 +790,9 @@
 /area/ruin/space/ancientstation/charlie_dininghall)
 "cC" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
+	dir = 0;
+	icon_state = "red"
 	},
 /area/ruin/space/ancientstation/charlie_sec)
 "cE" = (
@@ -824,7 +820,7 @@
 /obj/structure/transit_tube/horizontal{
 	dir = 1
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "cJ" = (
@@ -1011,7 +1007,9 @@
 /obj/item/ammo_box/shotgun/beanbag,
 /obj/item/ammo_box/shotgun,
 /obj/item/ammo_box/shotgun/buck,
+/obj/item/ammo_box/speedloader/shotgun/dart,
 /obj/effect/decal/cleanable/cobweb,
+/obj/item/ammo_box/speedloader/shotgun/dart,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "dt" = (
@@ -1120,7 +1118,7 @@
 /obj/structure/transit_tube/horizontal,
 /obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/theta_corridor)
+/area/ruin/space/ancientstation/theta_experi)
 "dM" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/computer{
@@ -1472,6 +1470,8 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
 /obj/item/book/manual/experimentor,
+/obj/item/paper/human,
+/obj/item/paper/human,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -1528,6 +1528,14 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "fr" = (
 /turf/simulated/wall/rust,
+/area/ruin/space/ancientstation/charlie_corridor)
+"fs" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "fv" = (
 /obj/effect/decal/cleanable/dirt,
@@ -1957,9 +1965,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "gS" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/curtain/open,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/charlie_restroom)
+/area/ruin/space/ancientstation/charlie_punishmentcell)
 "gU" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
@@ -2360,7 +2372,7 @@
 	use_power = 0
 	},
 /obj/structure/transit_tube/horizontal,
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "iq" = (
@@ -2392,7 +2404,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "iy" = (
@@ -2584,7 +2596,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "jb" = (
@@ -3450,17 +3462,9 @@
 /area/ruin/space/ancientstation/beta_surgery1)
 "mb" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 8
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 8
-	},
-/obj/structure/cable{
-	icon_state = "1-2"
-	},
+/obj/structure/closet/l3closet/security,
 /turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_sec)
+/area/ruin/space/ancientstation/charlie_armory)
 "mc" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/airlock/medical{
@@ -3716,17 +3720,17 @@
 	use_power = 0
 	},
 /obj/structure/disposalpipe/segment,
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "mS" = (
-/obj/machinery/door/poddoor{
-	id_tag = "ancient";
-	use_power = 0
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/toilet{
+	dir = 8
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/structure/curtain/open,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/theta_corridor)
+/area/ruin/space/ancientstation/charlie_punishmentcell)
 "mV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -3745,6 +3749,10 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
+/obj/item/paper/human,
+/obj/item/paper/human,
+/obj/item/paper/human,
+/obj/item/paper/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
 "nb" = (
@@ -4358,7 +4366,6 @@
 	name = "plasma tank crate"
 	},
 /obj/item/pod_parts/core,
-/obj/item/circuitboard/mecha/pod,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "po" = (
@@ -4426,9 +4433,10 @@
 /obj/structure/closet,
 /obj/item/clothing/shoes/magboots,
 /obj/item/clothing/mask/gas,
+/obj/item/tank/jetpack/void,
 /obj/machinery/light/small,
-/obj/item/clothing/suit/space/nasavoid/old,
 /obj/item/clothing/head/helmet/space/nasavoid/old,
+/obj/item/clothing/suit/space/nasavoid/old,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_engi)
 "px" = (
@@ -4851,6 +4859,12 @@
 	},
 /turf/simulated/floor/plating/asteroid/airless,
 /area/template_noop)
+"qM" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
+/area/ruin/space/ancientstation/charlie_armory)
 "qN" = (
 /obj/structure/cable/orange{
 	icon_state = "1-4"
@@ -5246,18 +5260,6 @@
 /obj/machinery/door/airlock/command,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
-"sk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/reagent_containers/hypospray/autoinjector,
-/obj/item/reagent_containers/hypospray/autoinjector,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/ancientstation/beta_medstorage)
 "sl" = (
 /turf/simulated/wall/r_wall/rust,
 /area/ruin/space/ancientstation/theta_experi)
@@ -5451,7 +5453,6 @@
 /obj/item/clothing/suit/fire/firefighter,
 /obj/item/extinguisher,
 /obj/item/clothing/head/hardhat,
-/obj/item/reagent_containers/hypospray/autoinjector,
 /turf/simulated/floor/plasteel{
 	dir = 6;
 	icon_state = "blue"
@@ -5498,11 +5499,32 @@
 /obj/item/stack/sheet/mineral/diamond,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
+"th" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/reagent_containers/hypospray/autoinjector,
+/obj/item/reagent_containers/hypospray/autoinjector,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ancientstation/beta_medstorage)
 "ti" = (
 /obj/machinery/recharge_station,
 /obj/item/robot_parts/chest,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
+"tj" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
+	},
+/obj/structure/transit_tube/horizontal,
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/charlie_corridor)
 "tn" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/transit_tube/cap{
@@ -6357,18 +6379,6 @@
 /obj/effect/decal/ants,
 /turf/simulated/floor/plating/asteroid/ancient,
 /area/ruin/space/ancientstation/charlie_hydroroom)
-"wi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/stack/medical/splint,
-/obj/item/stack/medical/splint,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/ancientstation/beta_medstorage)
 "wj" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/blood/oil,
@@ -6733,9 +6743,6 @@
 "xh" = (
 /turf/simulated/mineral/iron,
 /area/template_noop)
-"xk" = (
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_sec)
 "xl" = (
 /mob/living/simple_animal/hostile/hivebot,
 /turf/simulated/floor/plating/airless,
@@ -6863,8 +6870,8 @@
 	desc = "Rare weapon, engraving reads: Command with style! To the best captain of NRS ABOTC."
 	},
 /obj/structure/window/reinforced,
-/obj/item/clothing/suit/space/nasavoid/captain,
 /obj/item/clothing/head/helmet/space/nasavoid/captain,
+/obj/item/clothing/suit/space/nasavoid/ntblue,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_comm)
 "xJ" = (
@@ -6993,7 +7000,7 @@
 /obj/machinery/door/airlock/security/glass{
 	name = "prisoner's cell"
 	},
-/turf/simulated/floor/plating/airless,
+/turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_prison)
 "xU" = (
 /obj/machinery/light/small{
@@ -7001,17 +7008,29 @@
 	},
 /turf/simulated/floor/grass,
 /area/ruin/space/ancientstation/charlie_hydroroom)
+"xW" = (
+/obj/effect/decal/cleanable/dirt,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "redcorner"
+	},
+/area/ruin/space/ancientstation/charlie_sec)
 "xY" = (
 /obj/structure/window/full/basic,
 /turf/simulated/floor/grass,
 /area/template_noop)
 "yc" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 0;
-	icon_state = "red"
+/obj/machinery/door/firedoor,
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
 	},
-/area/ruin/space/ancientstation/charlie_sec)
+/obj/machinery/door/airlock/security/glass{
+	name = "prisoner's cell"
+	},
+/turf/simulated/floor/plating/airless,
+/area/ruin/space/ancientstation/charlie_prison)
 "yf" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
@@ -7159,16 +7178,6 @@
 	dir = 1
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
-"yH" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/clothing/suit/fire/firefighter,
-/obj/item/clothing/head/hardhat,
-/obj/item/tank/internals/emergency_oxygen,
-/obj/item/extinguisher,
-/obj/structure/closet,
-/obj/item/reagent_containers/hypospray/autoinjector,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_corridor)
 "yI" = (
 /obj/effect/decal/remains/human,
 /obj/item/clothing/suit/space/nasavoid/yellow,
@@ -7631,6 +7640,18 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
+"Aw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/stack/medical/splint,
+/obj/item/stack/medical/splint,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ancientstation/beta_medstorage)
 "Ay" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet{
@@ -7720,6 +7741,10 @@
 	},
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
+"AH" = (
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/ruin/space/ancientstation/charlie_restroom)
 "AK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/unary/vent_pump{
@@ -7837,9 +7862,6 @@
 "Ba" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/stack/medical/bruise_pack/improvised{
-	amount = 3
-	},
 /obj/item/paper_bin/human,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_solar)
@@ -8804,9 +8826,6 @@
 /obj/structure/closet,
 /obj/item/pickaxe,
 /obj/machinery/light_construct/small,
-/obj/item/stack/medical/bruise_pack/improvised{
-	amount = 3
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/theta_mine)
 "Eq" = (
@@ -8868,6 +8887,7 @@
 /obj/structure/table/wood,
 /obj/item/chair/wood/wings,
 /obj/item/trash/snack_bowl,
+/obj/item/paper_bin/human,
 /turf/simulated/floor/wood,
 /area/ruin/space/ancientstation/charlie_dininghall)
 "EF" = (
@@ -9127,19 +9147,6 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
-"FC" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/old,
-/obj/item/bedsheet,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_restroom)
-"FD" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "redcorner"
-	},
-/area/ruin/space/ancientstation/charlie_sec)
 "FG" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 1
@@ -9161,13 +9168,14 @@
 /turf/simulated/floor/plasteel/airless,
 /area/template_noop)
 "FI" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/toilet{
-	dir = 8
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
 	},
-/obj/structure/curtain/open,
+/obj/structure/transit_tube/horizontal,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/charlie_punishmentcell)
+/area/ruin/space/ancientstation/theta_corridor)
 "FK" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/firealarm{
@@ -9258,13 +9266,13 @@
 	},
 /area/ruin/space/ancientstation/beta_surgery)
 "Gb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/curtain/open,
-/obj/machinery/light/small{
-	dir = 1
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
 	},
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/charlie_punishmentcell)
+/area/ruin/space/ancientstation/theta_corridor)
 "Gd" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/mineral/stacking_unit_console{
@@ -9304,13 +9312,6 @@
 	},
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
-"Gi" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/item/reagent_containers/food/pill/morphine,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/ancientstation/beta_medstorage)
 "Gj" = (
 /turf/simulated/wall/rust,
 /area/ruin/space/ancientstation/theta_mine)
@@ -9512,7 +9513,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_corridor)
 "GU" = (
@@ -9532,10 +9533,19 @@
 /area/template_noop)
 "Hd" = (
 /obj/effect/decal/cleanable/dirt,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "red"
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/cable{
+	icon_state = "1-8"
+	},
+/turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "Hf" = (
 /obj/effect/decal/cleanable/dirt,
@@ -9877,14 +9887,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_exit)
 "Ie" = (
+/obj/effect/spawner/window/reinforced,
 /obj/machinery/door/poddoor{
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/structure/transit_tube/horizontal,
-/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/theta_experi)
+/area/ruin/space/ancientstation/charlie_comm)
 "If" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -10060,7 +10069,7 @@
 /area/ruin/space/ancientstation/charlie_corridor)
 "IL" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/l3closet/security,
+/obj/structure/closet/bombclosetsecurity,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "IN" = (
@@ -10075,7 +10084,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "IT" = (
@@ -10107,19 +10116,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_corridor)
 "Jb" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_sec)
 "Jc" = (
@@ -10215,7 +10211,7 @@
 /turf/simulated/floor/plating/airless,
 /area/ruin/space/ancientstation/charlie_recycler)
 "Jn" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_hydroponics)
 "Jo" = (
@@ -10505,6 +10501,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/theta_docks)
+"Kx" = (
+/obj/machinery/door/poddoor{
+	id_tag = "ancient";
+	use_power = 0
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating/airless,
+/area/template_noop)
 "Kz" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/sign/poster/official/science{
@@ -10569,13 +10573,13 @@
 "KQ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/closet,
+/obj/item/tank/jetpack/void,
 /obj/machinery/door/window/westleft{
 	dir = 4
 	},
 /obj/item/clothing/mask/gas/explorer,
 /obj/item/clothing/suit/space/nasavoid/purple,
 /obj/item/clothing/head/helmet/space/nasavoid/purple,
-/obj/item/tank/jetpack/void,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -10709,7 +10713,9 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/turf/simulated/floor/plasteel,
+/turf/simulated/floor/plasteel{
+	icon_state = "floorgrime"
+	},
 /area/ruin/space/ancientstation/charlie_sec)
 "Lk" = (
 /obj/item/fish_eggs/babycarp{
@@ -10981,8 +10987,6 @@
 	dir = 8;
 	pixel_x = 26
 	},
-/obj/item/paper/human,
-/obj/item/paper/human,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "green"
@@ -11388,16 +11392,14 @@
 /area/ruin/space/ancientstation/charlie_cryo)
 "ND" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/door/firedoor,
-/obj/machinery/door/poddoor{
-	id_tag = "ancient";
-	use_power = 0
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 1
 	},
-/obj/machinery/door/airlock/security/glass{
-	name = "prisoner's cell"
+/turf/simulated/floor/plasteel{
+	dir = 0;
+	icon_state = "red"
 	},
-/turf/simulated/floor/plating,
-/area/ruin/space/ancientstation/charlie_prison)
+/area/ruin/space/ancientstation/charlie_sec)
 "NE" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/light/small{
@@ -11469,6 +11471,9 @@
 	},
 /obj/machinery/light/small,
 /obj/structure/filingcabinet/chestdrawer,
+/obj/item/paper/human,
+/obj/item/paper/human,
+/obj/item/paper/human,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -11774,7 +11779,7 @@
 	id_tag = "ancient";
 	use_power = 0
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "ON" = (
@@ -11955,19 +11960,29 @@
 /area/ruin/space/ancientstation/charlie_recycler)
 "Pv" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 8
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 8
 	},
 /obj/structure/cable{
-	icon_state = "4-8"
+	icon_state = "1-2"
 	},
+/turf/simulated/floor/plasteel,
+/area/ruin/space/ancientstation/charlie_sec)
+"Pw" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/rack,
+/obj/structure/window/reinforced{
+	dir = 8
+	},
+/obj/item/reagent_containers/hypospray/autoinjector/salbutamol,
+/obj/item/reagent_containers/hypospray/autoinjector/salbutamol,
 /turf/simulated/floor/plasteel{
-	icon_state = "floorgrime"
+	icon_state = "white"
 	},
-/area/ruin/space/ancientstation/charlie_armory)
+/area/ruin/space/ancientstation/beta_medstorage)
 "Px" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12199,18 +12214,6 @@
 	icon_state = "white"
 	},
 /area/ruin/space/ancientstation/beta_surgery1)
-"Qk" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/rack,
-/obj/structure/window/reinforced{
-	dir = 8
-	},
-/obj/item/reagent_containers/hypospray/autoinjector/salbutamol,
-/obj/item/reagent_containers/hypospray/autoinjector/salbutamol,
-/turf/simulated/floor/plasteel{
-	icon_state = "white"
-	},
-/area/ruin/space/ancientstation/beta_medstorage)
 "Qm" = (
 /obj/structure/grille/broken,
 /obj/item/shard{
@@ -12258,7 +12261,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window,
 /turf/simulated/floor/plating/airless,
 /area/template_noop)
 "Qx" = (
@@ -12291,10 +12294,11 @@
 /area/ruin/space/ancientstation/theta_corridor)
 "QE" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small,
-/obj/structure/bed/old,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_restroom)
+/turf/simulated/floor/plasteel{
+	dir = 5;
+	icon_state = "red"
+	},
+/area/ruin/space/ancientstation/charlie_sec)
 "QF" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
@@ -12406,11 +12410,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/beta_atmos)
-"QS" = (
-/obj/effect/decal/cleanable/dirt,
-/obj/structure/closet/bombclosetsecurity,
-/turf/simulated/floor/plasteel,
-/area/ruin/space/ancientstation/charlie_armory)
 "QV" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -13271,7 +13270,7 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/effect/spawner/window,
+/obj/effect/spawner/window/reinforced,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_sec)
 "Uz" = (
@@ -14084,6 +14083,13 @@
 /mob/living/simple_animal/hostile/hivebot/range,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_warden)
+"XI" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/food/pill/morphine,
+/turf/simulated/floor/plasteel{
+	icon_state = "white"
+	},
+/area/ruin/space/ancientstation/beta_medstorage)
 "XJ" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/door/firedoor,
@@ -14140,6 +14146,7 @@
 /area/ruin/space/ancientstation/charlie_comm)
 "XU" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/bedsheet,
 /obj/structure/bed/old,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_restroom)
@@ -14588,6 +14595,15 @@
 /area/ruin/space/ancientstation/theta_proto)
 "ZQ" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
 	},
@@ -15187,7 +15203,7 @@ WD
 WD
 WD
 WD
-Fn
+BD
 WD
 WD
 WD
@@ -15300,17 +15316,17 @@ WD
 WD
 WD
 wT
-Fn
-Fn
+BD
+BD
 Qv
 wT
-Fn
-Fn
-Fn
+BD
+BD
+BD
 wT
-Fn
+BD
 WD
-Fn
+BD
 wT
 WD
 WD
@@ -16386,7 +16402,7 @@ ul
 lt
 RW
 RW
-sk
+th
 ZM
 ry
 Ay
@@ -16508,7 +16524,7 @@ iC
 MQ
 ty
 Zh
-Qk
+Pw
 Vs
 mm
 cd
@@ -16630,7 +16646,7 @@ ul
 ul
 ul
 RW
-wi
+Aw
 Il
 ul
 ul
@@ -16873,7 +16889,7 @@ WD
 ul
 Fr
 rH
-Gi
+XI
 xQ
 hB
 RW
@@ -18824,9 +18840,9 @@ WD
 WD
 WD
 WD
-OM
-OM
-OM
+Kx
+Kx
+Kx
 wT
 WD
 lE
@@ -20409,9 +20425,9 @@ lE
 lE
 lE
 fr
-in
-GS
-GS
+tj
+fs
+fs
 fr
 zr
 SW
@@ -20637,7 +20653,7 @@ WD
 WD
 Lv
 KL
-Ne
+Ie
 KL
 KL
 KL
@@ -20813,7 +20829,7 @@ sA
 sA
 sA
 fJ
-yc
+cC
 Sa
 sv
 sv
@@ -20889,7 +20905,7 @@ WD
 WD
 WD
 WD
-GS
+fs
 Ag
 Ag
 RQ
@@ -20934,8 +20950,8 @@ Xy
 cy
 tp
 tp
-Li
-yc
+ap
+cC
 ca
 GW
 GW
@@ -21011,7 +21027,7 @@ WD
 WD
 WD
 WD
-GS
+fs
 RN
 hd
 fr
@@ -21046,17 +21062,17 @@ hd
 Ro
 Ag
 kl
-GS
+fs
 WD
 WD
 WD
 WD
 ja
-Hd
+QE
 yY
 JH
 qj
-Li
+ap
 Xq
 Ol
 WD
@@ -21065,7 +21081,7 @@ GW
 qb
 sv
 aW
-ZQ
+qM
 eu
 GW
 WD
@@ -21160,7 +21176,7 @@ jb
 jb
 Ib
 Ag
-yH
+Lh
 yU
 yU
 yU
@@ -21179,7 +21195,7 @@ To
 To
 GL
 qi
-yc
+cC
 Ol
 WD
 WD
@@ -21259,8 +21275,8 @@ ym
 XU
 Ue
 ym
-FC
-QE
+XU
+UL
 ym
 ym
 NL
@@ -21422,14 +21438,14 @@ Jv
 Yq
 To
 vj
-Li
-yc
+ap
+cC
 al
 Ol
 WD
 GW
-QS
 IL
+mb
 li
 XF
 LD
@@ -21499,7 +21515,7 @@ WD
 WD
 WD
 rp
-gS
+AH
 uC
 ym
 ym
@@ -21540,7 +21556,7 @@ WD
 WD
 WD
 To
-Gb
+gS
 Qq
 Ld
 GN
@@ -21662,12 +21678,12 @@ lE
 lE
 lE
 To
-FI
+mS
 Ve
 To
 qJ
 CZ
-ap
+ND
 Ol
 Ol
 WD
@@ -21676,7 +21692,7 @@ WD
 lE
 WD
 GW
-Pv
+ZQ
 GW
 lE
 lE
@@ -21904,13 +21920,13 @@ da
 yU
 lE
 lE
-WD
+lE
 ja
 rZ
 zA
 Jj
-FD
-Li
+xW
+ap
 HO
 Ol
 lE
@@ -21987,7 +22003,7 @@ WD
 WD
 WD
 rp
-gS
+AH
 uC
 ym
 ym
@@ -22006,7 +22022,7 @@ ME
 Mh
 zX
 jb
-Sf
+jb
 EG
 jb
 wp
@@ -22032,8 +22048,8 @@ MH
 hI
 ur
 hI
-Li
-yc
+ap
+cC
 Fb
 WD
 hG
@@ -22152,10 +22168,10 @@ WD
 ja
 qJ
 hI
-yc
-hI
 cC
-yc
+hI
+Li
+cC
 Fb
 WD
 hG
@@ -22249,7 +22265,7 @@ ls
 FY
 Mh
 zX
-Sf
+jb
 lm
 VP
 Sf
@@ -22276,8 +22292,8 @@ HK
 De
 aK
 qj
-Li
-yc
+ap
+cC
 Fb
 WD
 hG
@@ -22398,8 +22414,8 @@ Ol
 Ol
 Ol
 GA
-Jb
-yc
+Hd
+cC
 Fb
 WD
 hG
@@ -22521,7 +22537,7 @@ SD
 ON
 dC
 Ov
-yc
+cC
 Ol
 lE
 IW
@@ -22597,7 +22613,7 @@ WD
 WD
 WD
 WD
-GS
+fs
 Ag
 Ag
 RQ
@@ -22754,7 +22770,7 @@ wm
 Ag
 Ag
 kl
-GS
+fs
 WD
 WD
 WD
@@ -22764,13 +22780,13 @@ qJ
 Jq
 hI
 hI
-Li
-yc
+ap
+cC
 Ol
 Ol
 Ol
 Ol
-Li
+ap
 Fs
 Fs
 pD
@@ -22833,7 +22849,7 @@ WD
 WD
 Lv
 KL
-Ne
+Ie
 KL
 KL
 KL
@@ -22872,9 +22888,9 @@ fr
 WD
 WD
 fr
-GS
-GS
-GS
+fs
+fs
+fs
 fr
 fr
 lE
@@ -23005,11 +23021,11 @@ WD
 WD
 Ol
 cY
-xk
+Jb
 Ol
-xk
+Jb
 Os
-xk
+Jb
 pV
 hI
 hI
@@ -23093,9 +23109,9 @@ WD
 WD
 WD
 fr
-in
-GS
-GS
+tj
+fs
+fs
 fr
 cc
 OS
@@ -23109,8 +23125,8 @@ iB
 Gd
 gz
 zQ
-in
-GS
+tj
+fs
 DG
 fr
 WD
@@ -23129,10 +23145,10 @@ Ol
 jf
 aR
 KY
-mb
+Pv
 qy
 YS
-mb
+Pv
 YS
 YS
 zc
@@ -23252,13 +23268,13 @@ tB
 JI
 Ol
 iP
-xk
-xk
+Jb
+Jb
 fl
-xk
-xk
+Jb
+Jb
 fl
-xk
+Jb
 Fs
 hj
 gD
@@ -23374,13 +23390,13 @@ PR
 EP
 VI
 po
-ND
-VI
-xa
 xT
 VI
+xa
+yc
+VI
 po
-ND
+xT
 Fs
 bl
 Oc
@@ -23493,7 +23509,7 @@ lE
 lE
 Ol
 LE
-ap
+ND
 VI
 Pq
 pg
@@ -24313,7 +24329,7 @@ WD
 WD
 WD
 fC
-Ie
+dL
 gm
 sl
 ar
@@ -24451,8 +24467,8 @@ lE
 WD
 WD
 RO
-dL
-mS
+FI
+Gb
 KX
 RO
 RO
@@ -25634,7 +25650,7 @@ WD
 WD
 WD
 WD
-WD
+lE
 lE
 JC
 Gv
@@ -25756,7 +25772,7 @@ WD
 WD
 WD
 WD
-lE
+JC
 yV
 yV
 Br
@@ -25878,7 +25894,7 @@ WD
 WD
 WD
 WD
-JC
+lE
 lE
 Pc
 yV
@@ -26000,7 +26016,7 @@ WD
 WD
 WD
 lE
-lE
+WD
 WD
 JC
 Gv
@@ -27717,14 +27733,14 @@ WD
 WD
 WD
 WD
-yV
 WD
 WD
 WD
 WD
 WD
-lE
-lE
+WD
+WD
+WD
 lE
 lE
 lE
@@ -27839,14 +27855,14 @@ WD
 WD
 WD
 WD
+yV
 WD
 WD
 WD
 WD
 WD
-WD
-WD
-WD
+lE
+lE
 WD
 WD
 WD
