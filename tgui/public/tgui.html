@@ -562,13 +562,27 @@ window.replaceHtml = function (inline_html) {
   );
 };
 
-var updateDpr = function () {
-  document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+/** Remove conditionals with 516*/
+if ('devicePixelRatio' in window) {
+  // Проверка поддержки CSS-переменных
+  var supportsCssVariables = false;
+  try {
+    var testElement = document.createElement('div');
+    testElement.style.setProperty('--test', '1px');
+    supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
+  } catch (e) {
+    supportsCssVariables = false;
+  }
+
+  if (supportsCssVariables) {
+    var updateDpr = function () {
+      document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+    };
+
+    updateDpr();
+    window.addEventListener('resize', updateDpr);
+  }
 }
-
-updateDpr();
-
-window.addEventListener('resize', updateDpr);
 
 </script>
 
