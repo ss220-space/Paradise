@@ -162,3 +162,7 @@
 /obj/item/paper_bin/solgov
 	name = "solgov paper bin"
 	letterhead_type = /obj/item/paper/solgov
+
+/obj/item/paper_bin/solcom
+	name = "nanotrasen paper bin"
+	letterhead_type = /obj/item/paper/solcom
