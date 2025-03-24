@@ -223,6 +223,8 @@
 	can_hold = list(/obj/item/grenade/plastic)
 	var/obj/item/grenade/plastic/nextbomb = null
 	var/obj/item/grenade/plastic/miningcharge/nextbombbutmining = null
+	var/obj/item/grenade/plastic/nextchosen = null
+	var/bombs_left = 0
 
 /obj/item/storage/bag/kaboom/proc/bombradialmenu(mob/user)
 	if(LAZYLEN(contents))
@@ -245,19 +247,30 @@
 
 /obj/item/storage/bag/kaboom/examine(mob/user)
 	. = ..()
-	. += span_notice("Внутри [LAZYLEN(contents)] заряд[declension_ru(LAZYLEN(contents),"", "а", "ов")]")
+	. += span_notice("Внутри [LAZYLEN(contents)] заряд[declension_ru(LAZYLEN(contents),"", "а", "ов")].")
+
+/obj/item/storage/bag/kaboom/proc/set_next_bomb()
+	for(var/obj/item/grenade/plastic/I in contents)
+		if(istype(I, nextbomb.type))
+			if(isnull(nextchosen))
+				nextchosen = I
+			bombs_left += 1
+	if(!isnull(nextchosen))
+		return TRUE
+	else
+		nextchosen = pick(contents)
+		return FALSE
+
 
 /obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
 	if(istype(AM, /obj/item/grenade/plastic))
 		if(!(. = ..()))
-			balloon_alert(user, "Сумка заполнена!")
 			return
-	if(nextbomb == null)
-		nextbomb = pick(contents)
-		return
 	if(!LAZYLEN(contents))
 		balloon_alert(user, "Сумка пустая!")
 		return
+	if(isnull(nextbomb))
+		nextbomb = pick(contents)
 	if(!flag)
 		return
 	if(iscarbon(AM))
@@ -273,9 +286,16 @@
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
 		nextbomb.afterattack(AM, user, flag, params)
-		nextbomb = null
-		nextbombbutmining = null
-
+		if(LAZYLEN(contents))
+			if(set_next_bomb())
+				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки: [nextchosen], осталось взрывчатки этого типа: [bombs_left]."))
+			else
+				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
+		else
+			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], сумка пуста."))
+		bombs_left = 0
+		nextbomb = nextchosen
+		nextchosen = null
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
 	name = "cyborg Charge Deployment System"

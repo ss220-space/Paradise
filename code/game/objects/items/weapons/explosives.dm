@@ -109,7 +109,8 @@
 	if(isobserver(AM))
 		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
 		return
-	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
+	if(!skip_doafter)
+		to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
 	if(!skip_doafter)
 		if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 			return
@@ -126,7 +127,8 @@
 
 	target.add_persistent_overlay(image_overlay, BOMB_OVERLAY_ID)
 	if(!nadeassembly)
-		to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time/10].</span>")
+		if(!skip_doafter)
+			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time/10].</span>")
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 
