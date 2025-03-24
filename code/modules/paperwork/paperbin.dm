@@ -163,6 +163,6 @@
 	name = "solgov paper bin"
 	letterhead_type = /obj/item/paper/solgov
 
-/obj/item/paper_bin/solcom
+/obj/item/paper_bin/human
 	name = "nanotrasen paper bin"
 	letterhead_type = /obj/item/paper/solcom
