@@ -62,7 +62,7 @@ export const CrewMonitor = (props, context) => {
 
   return (
     <Window width={800} height={600}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Box fillPositionedParent>
           <Tabs>
             {data.isBS ? (

@@ -43,7 +43,7 @@
 /mob/living/proc/is_eyes_covered(check_glasses = TRUE, check_head = TRUE, check_mask = TRUE)
 	return FALSE
 
-/mob/living/bullet_act(var/obj/item/projectile/P, var/def_zone)
+/mob/living/bullet_act(var/obj/projectile/P, var/def_zone)
 	//Armor
 	var/armor = run_armor_check(def_zone, P.flag, armour_penetration = P.armour_penetration)
 	if(!P.nodamage)
@@ -52,7 +52,7 @@
 			check_projectile_dismemberment(P, def_zone)
 	return P.on_hit(src, armor, def_zone)
 
-/mob/living/proc/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/proc/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	return 0
 
 
@@ -519,6 +519,7 @@
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M.declent_ru(NOMINATIVE)] глад[pluralize_ru(M.gender,"ит","ят")] [src.declent_ru(ACCUSATIVE)] своей серповидной рукой.</span>")

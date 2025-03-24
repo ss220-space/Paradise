@@ -21,7 +21,7 @@
 	if(!speak_text)
 		return
 	else
-		to_chat(usr, "Вы говорите от лица ваших созданий, <B>[speak_text]</B>")
+		to_chat(usr, "Вы говорите от лица ваших созданий, <b>[speak_text]</b>")
 	for(var/mob/living/simple_animal/hostile/blob_minion in blob_mobs)
 		if(blob_minion.stat == CONSCIOUS)
 			add_say_logs(usr, speak_text, language = "BLOB Broadcast")

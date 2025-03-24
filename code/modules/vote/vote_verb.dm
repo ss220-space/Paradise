@@ -77,8 +77,8 @@
 
 	SSvote.active_vote.no_dead_vote = !SSvote.active_vote.no_dead_vote
 	if(SSvote.active_vote.no_dead_vote)
-		to_chat(world, "<B>Dead Vote has been disabled!</B>")
+		to_chat(world, "<b>Dead Vote has been disabled!</b>")
 	else
-		to_chat(world, "<B>Dead Vote has been enabled!</B>")
+		to_chat(world, "<b>Dead Vote has been enabled!</b>")
 	log_and_message_admins("toggled Dead Vote.")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Dead Vote") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

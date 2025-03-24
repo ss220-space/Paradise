@@ -152,13 +152,13 @@
 	if(!secured)
 		return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><TT><B>Infrared Laser</B>
-				<B>Status</B>: [on ? "<a href='byond://?src=[UID()];state=0'>On</A>" : "<a href='byond://?src=[UID()];state=1'>Off</A>"]<BR>
-				<B>Visibility</B>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</A>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</A>"]<BR>
-				<B>Current Direction</B>: <a href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</A><BR>
-				</TT>
-				<BR><BR><a href='byond://?src=[UID()];refresh=1'>Refresh</A>
-				<BR><BR><a href='byond://?src=[UID()];close=1'>Close</A>"}
+	var/dat = {"<tt><b>Infrared Laser</b>
+				<b>Status</b>: [on ? "<a href='byond://?src=[UID()];state=0'>On</a>" : "<a href='byond://?src=[UID()];state=1'>Off</a>"]<br>
+				<b>Visibility</b>: [visible ? "<a href='byond://?src=[UID()];visible=0'>Visible</a>" : "<a href='byond://?src=[UID()];visible=1'>Invisible</a>"]<br>
+				<b>Current Direction</b>: <a href='byond://?src=[UID()];rotate=1'>[capitalize(dir2text(dir))]</a><br>
+				</tt>
+				<br><br><a href='byond://?src=[UID()];refresh=1'>Refresh</a>
+				<br><br><a href='byond://?src=[UID()];close=1'>Close</a>"}
 	var/datum/browser/popup = new(user, "infra", name, 400, 400, src)
 	popup.set_content(dat)
 	popup.open()

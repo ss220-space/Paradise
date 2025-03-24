@@ -67,7 +67,7 @@
 	shaded_charge = FALSE
 	unique_reskin = FALSE
 	high_risk = FALSE
-	
+
 
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -104,17 +104,17 @@
 	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/item/projectile/beam/laser/accelerator
+	projectile_type = /obj/projectile/beam/laser/accelerator
 	select_name = "accelerator"
 	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 
-/obj/item/projectile/beam/laser/accelerator
+/obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "heavylaser"
 	range = 255
 	damage = 6
 
-/obj/item/projectile/beam/laser/accelerator/Range()
+/obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage = min(damage+7, 100)
 

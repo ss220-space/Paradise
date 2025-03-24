@@ -152,7 +152,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/proc/alarm_changes()
 	for(var/datum/mind/user in get_owners())
-		to_chat(user.current, span_userdanger("<BR>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
+		to_chat(user.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
 		SEND_SOUND(user.current, 'sound/ambience/alarm4.ogg')
 
 
@@ -540,7 +540,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(owner?.current)
 		SEND_SOUND(owner.current, sound('sound/ambience/alarm4.ogg'))
 		owner.remove_antag_datum(/datum/antagonist/mindslave)
-		to_chat(owner.current, "<BR>[span_userdanger("Вы замечаете, что ваш хозяин вошёл в криогенное хранилище и возвращаетесь к своему обычному состоянию.")]")
+		to_chat(owner.current, "<br>[span_userdanger("Вы замечаете, что ваш хозяин вошёл в криогенное хранилище и возвращаетесь к своему обычному состоянию.")]")
 		log_admin("[key_name(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.")
 		message_admins("[key_name_admin(owner.current)]'s mindslave master has cryo'd, and is no longer a mindslave.") //Since they were on antag hud earlier, this feels important to log
 		qdel(src)
@@ -1637,7 +1637,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	var/list/owners = get_owners()
 	for(var/datum/mind/user in owners)
-		to_chat(owner.current, span_userdanger("<BR>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
+		to_chat(owner.current, span_userdanger("<br>Вы чувствуете, что ваша цель больше не находится в пределах досягаемости. Время для плана [pick("A","B","C","D","X","Y","Z")]. Цели обновлены!"))
 		SEND_SOUND(owner.current, 'sound/ambience/alarm4.ogg')
 
 	if(!completed)

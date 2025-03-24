@@ -18,13 +18,14 @@
 
 		var/datum/mind/player_mind = new /datum/mind(key_of_morph)
 		player_mind.active = 1
-		if(!GLOB.xeno_spawn)
+		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(get_valid_vent_spawns(exclude_visible_by_mobs = TRUE))
+		if(!vent)
 			kill()
 			return
-
-		var/mob/living/simple_animal/hostile/morph/morph = new /mob/living/simple_animal/hostile/morph(pick(GLOB.xeno_spawn))
+		var/mob/living/simple_animal/hostile/morph/morph = new(vent.loc)
 		player_mind.transfer_to(morph)
 		morph.make_morph_antag()
+		morph.move_into_vent(vent, FALSE)
 		message_admins("[key_name_admin(morph)] has been made into morph by an event.")
 		add_game_logs("was spawned as a morph by an event.", morph)
 

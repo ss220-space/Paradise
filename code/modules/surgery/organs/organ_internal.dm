@@ -202,7 +202,7 @@
 	)
 	icon_state = "appendix"
 	icon = 'icons/obj/surgery.dmi'
-	list_reagents = list("nutriment" = 5, "toxin" = 5)
+	list_reagents = list("nutriment" = 5)
 
 
 /obj/item/organ/internal/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

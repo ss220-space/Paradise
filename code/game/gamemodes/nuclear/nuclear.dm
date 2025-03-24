@@ -16,9 +16,9 @@
 	var/total_tc = 0 //Total amount of telecrystals shared between nuke ops
 
 /datum/game_mode/nuclear/announce()
-	to_chat(world, "<B>The current game mode is - Nuclear Emergency!</B>")
-	to_chat(world, "<B>A [syndicate_name()] Strike Force is approaching [station_name()]!</B>")
-	to_chat(world, "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n<B>Syndicate</B>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<B>Personnel</B>: Hold the disk and <B>escape with the disk</B> on the shuttle!")
+	to_chat(world, "<b>The current game mode is - Nuclear Emergency!</b>")
+	to_chat(world, "<b>A [syndicate_name()] Strike Force is approaching [station_name()]!</b>")
+	to_chat(world, "A nuclear explosive was being transported by Nanotrasen to a military base. The transport ship mysteriously lost contact with Space Traffic Control (STC). About that time a strange disk was discovered around [station_name()]. It was identified by Nanotrasen as a nuclear authentication disk and now Syndicate Operatives have arrived to retake the disk and detonate SS13! There are most likely Syndicate starships are in the vicinity, so take care not to lose the disk!\n<b>Syndicate</b>: Reclaim the disk and detonate the nuclear bomb anywhere on SS13.\n<b>Personnel</b>: Hold the disk and <b>escape with the disk</b> on the shuttle!")
 
 /datum/game_mode/nuclear/can_start()
 	if(!..())
@@ -168,9 +168,9 @@
 /datum/game_mode/proc/prepare_syndicate_leader(var/datum/mind/synd_mind, var/nuke_code)
 	var/leader_title = pick("Czar", "Boss", "Commander", "Chief", "Kingpin", "Director", "Overlord")
 	synd_mind.current.real_name = "[syndicate_name()] Team [leader_title]"
-	to_chat(synd_mind.current, "<B>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</B>")
-	to_chat(synd_mind.current, "<B>If you feel you are not up to this task, give your ID to another operative.</B>")
-	to_chat(synd_mind.current, "<B>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</B>")
+	to_chat(synd_mind.current, "<b>You are the Syndicate leader for this mission. You are responsible for the distribution of telecrystals and your ID is the only one who can open the launch bay doors.</b>")
+	to_chat(synd_mind.current, "<b>If you feel you are not up to this task, give your ID to another operative.</b>")
+	to_chat(synd_mind.current, "<b>In your hand you will find a special item capable of triggering a greater challenge for your team. Examine it carefully and consult with your fellow operatives before activating it.</b>")
 
 	var/obj/item/nuclear_challenge/challenge = new /obj/item/nuclear_challenge
 	synd_mind.current.equip_to_slot_or_del(challenge, ITEM_SLOT_HAND_RIGHT)
@@ -178,8 +178,8 @@
 	update_syndicate_id(synd_mind, leader_title, TRUE)
 
 	if(nuke_code)
-		synd_mind.store_memory("<B>Syndicate Nuclear Bomb Code</B>: [nuke_code]", 0, 0)
-		to_chat(synd_mind.current, "The nuclear authorization code is: <B>[nuke_code]</B>")
+		synd_mind.store_memory("<b>Syndicate Nuclear Bomb Code</b>: [nuke_code]", 0, 0)
+		to_chat(synd_mind.current, "The nuclear authorization code is: <b>[nuke_code]</b>")
 		var/obj/item/paper/P = new
 		P.info = "The nuclear authorization code is: <b>[nuke_code]</b>"
 		P.name = "nuclear bomb code"
@@ -314,55 +314,55 @@
 
 	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
 		SSticker.mode_result = "nuclear win - syndicate nuke"
-		to_chat(world, "<FONT size = 3><B>Syndicate Major Victory!</B></FONT>")
-		to_chat(world, "<B>[syndicate_name()] operatives have destroyed [station_name()]!</B>")
+		to_chat(world, "<span style='font-size: 3;'><b>Syndicate Major Victory!</b></span>")
+		to_chat(world, "<b>[syndicate_name()] operatives have destroyed [station_name()]!</b>")
 
 	else if(!disk_rescued && station_was_nuked && syndies_didnt_escape)
 		SSticker.mode_result = "nuclear halfwin - syndicate nuke - did not evacuate in time"
-		to_chat(world, "<FONT size = 3><B>Total Annihilation</B></FONT>")
-		to_chat(world, "<B>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</B> Next time, don't lose the disk!")
+		to_chat(world, "<span style='font-size: 3;'><b>Total Annihilation</b></span>")
+		to_chat(world, "<b>[syndicate_name()] operatives destroyed [station_name()] but did not leave the area in time and got caught in the explosion.</b> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && !syndies_didnt_escape)
 		SSticker.mode_result = "nuclear halfwin - blew wrong station"
-		to_chat(world, "<FONT size = 3><B>Crew Minor Victory</B></FONT>")
-		to_chat(world, "<B>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</B> Next time, don't lose the disk!")
+		to_chat(world, "<span style='font-size: 3;'><b>Crew Minor Victory</b></span>")
+		to_chat(world, "<b>[syndicate_name()] operatives secured the authentication disk but blew up something that wasn't [station_name()].</b> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !station_was_nuked && nuke_off_station && syndies_didnt_escape)
 		SSticker.mode_result = "nuclear halfwin - blew wrong station - did not evacuate in time"
-		to_chat(world, "<FONT size = 3><B>[syndicate_name()] operatives have earned Darwin Award!</B></FONT>")
-		to_chat(world, "<B>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</B> Next time, don't lose the disk!")
+		to_chat(world, "<span style='font-size: 3;'><b>[syndicate_name()] operatives have earned Darwin Award!</b></span>")
+		to_chat(world, "<b>[syndicate_name()] operatives blew up something that wasn't [station_name()] and got caught in the explosion.</b> Next time, don't lose the disk!")
 
 	else if(disk_rescued && is_operatives_are_dead())
 		SSticker.mode_result = "nuclear loss - evacuation - disk secured - syndi team dead"
-		to_chat(world, "<FONT size = 3><B>Crew Major Victory!</B></FONT>")
-		to_chat(world, "<B>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</B>")
+		to_chat(world, "<span style='font-size: 3;'><b>Crew Major Victory!</b></span>")
+		to_chat(world, "<b>The Research Staff has saved the disc and killed the [syndicate_name()] Operatives</b>")
 
 	else if(disk_rescued)
 		SSticker.mode_result = "nuclear loss - evacuation - disk secured"
-		to_chat(world, "<FONT size = 3><B>Crew Major Victory</B></FONT>")
-		to_chat(world, "<B>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</B>")
+		to_chat(world, "<span style='font-size: 3;'><b>Crew Major Victory</b></span>")
+		to_chat(world, "<b>The Research Staff has saved the disc and stopped the [syndicate_name()] Operatives!</b>")
 
 	else if(!disk_rescued && is_operatives_are_dead())
 		SSticker.mode_result = "nuclear loss - evacuation - disk not secured"
-		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
-		to_chat(world, "<B>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</B>")
+		to_chat(world, "<span style='font-size: 3;'><b>Syndicate Minor Victory!</b></span>")
+		to_chat(world, "<b>The Research Staff failed to secure the authentication disk but did manage to kill most of the [syndicate_name()] Operatives!</b>")
 
 	else if(!disk_rescued && crew_evacuated)
 		SSticker.mode_result = "nuclear halfwin - detonation averted"
-		to_chat(world, "<FONT size = 3><B>Syndicate Minor Victory!</B></FONT>")
-		to_chat(world, "<B>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</B> Next time, don't lose the disk!")
+		to_chat(world, "<span style='font-size: 3;'><b>Syndicate Minor Victory!</b></span>")
+		to_chat(world, "<b>[syndicate_name()] operatives recovered the abandoned authentication disk but detonation of [station_name()] was averted.</b> Next time, don't lose the disk!")
 
 	else if(!disk_rescued && !crew_evacuated)
 		SSticker.mode_result = "nuclear halfwin - interrupted"
-		to_chat(world, "<FONT size = 3><B>Neutral Victory</B></FONT>")
-		to_chat(world, "<B>Round was mysteriously interrupted!</B>")
+		to_chat(world, "<span style='font-size: 3;'><b>Neutral Victory</b></span>")
+		to_chat(world, "<b>Round was mysteriously interrupted!</b>")
 	..()
 	return
 
 
 /datum/game_mode/proc/auto_declare_completion_nuclear()
 	if(syndicates.len || GAMEMODE_IS_NUCLEAR)
-		var/text = "<br><FONT size=3><B>The syndicate operatives were:</B></FONT>"
+		var/text = "<br><FONT size=3><b>The syndicate operatives were:</b></span>"
 
 		var/purchases = ""
 		var/TC_uses = 0

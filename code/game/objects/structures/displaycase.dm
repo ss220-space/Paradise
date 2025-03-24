@@ -286,6 +286,11 @@
 	start_showpiece_type = /obj/item/clothing/mask/facehugger/lamarr
 	req_access = list(ACCESS_RD)
 
+/obj/structure/displaycase/labcage/dump()
+	var/obj/item/clothing/mask/facehugger/hugger = showpiece
+	. = ..()
+	hugger?.check_mob_inside()
+
 /obj/structure/displaycase/stechkin
 	name = "officer's display case"
 	desc = "A display case containing a humble stechkin pistol. Never forget your roots."

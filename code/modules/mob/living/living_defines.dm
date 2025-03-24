@@ -148,3 +148,6 @@
 
 	/// List of alpha changelog from various sources
 	var/list/alphas = list(ALPHA_SOURCE_DEFAULT = 1)
+
+	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
+	var/melee_damage = 0

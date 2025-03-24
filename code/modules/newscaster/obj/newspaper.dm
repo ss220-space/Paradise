@@ -177,8 +177,14 @@
 	user.visible_message(span_notice("[user] [rolled ? "с" : "раз"]ворачива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."),\
 							span_notice("Вы [rolled ? "с" : "раз"]ворачиваете [declent_ru(ACCUSATIVE)]."))
 	name = "[rolled ? "rolled" : ""] [initial(name)]"
-	for(var/i = 1; i <= 6; i++)
-		ru_names[i] = "[rolled ? "свёрнутая" : ""] [initial(ru_names[i])]"
+	ru_names = list(
+        NOMINATIVE = "[rolled ? "свёрнутая " : ""]газета",
+        GENITIVE = "[rolled ? "свёрнутой " : ""]газеты",
+        DATIVE = "[rolled ? "свёрнутой " : ""]газете",
+        ACCUSATIVE = "[rolled ? "свёрнутую" : ""]газету",
+        INSTRUMENTAL = "[rolled ? "свёрнутой " : ""]газетой",
+        PREPOSITIONAL = "[rolled ? "свёрнутой " : ""]газете"
+	)
 	return CLICK_ACTION_SUCCESS
 
 #undef SCREEN_COVER

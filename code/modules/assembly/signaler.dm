@@ -60,31 +60,29 @@
 
 /obj/item/assembly/signaler/interact(mob/user, flag1)
 	var/t1 = "-------"
-	var/dat = {"<meta charset="UTF-8">
-		<TT>
-	"}
+	var/dat = "<tt>"
 	if(!flag1)
 		dat += {"
-			<A href='byond://?src=[UID()];send=1'>Send Signal</A><BR>
-			Receiver is <A href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</A><BR>
+			<a href='byond://?src=[UID()];send=1'>Send Signal</a><br>
+			Receiver is <a href='byond://?src=[UID()];receive=1'>[receiving?"on":"off"]</a><br>
 		"}
 	dat += {"
-		<B>Frequency/Code</B> for signaler:<BR>
+		<b>Frequency/Code</b> for signaler:<br>
 		Frequency:
-		<A href='byond://?src=[UID()];freq=-10'>-</A>
-		<A href='byond://?src=[UID()];freq=-2'>-</A>
+		<a href='byond://?src=[UID()];freq=-10'>-</a>
+		<a href='byond://?src=[UID()];freq=-2'>-</a>
 		[format_frequency(frequency)]
-		<A href='byond://?src=[UID()];freq=2'>+</A>
-		<A href='byond://?src=[UID()];freq=10'>+</A><BR>
+		<a href='byond://?src=[UID()];freq=2'>+</a>
+		<a href='byond://?src=[UID()];freq=10'>+</a><br>
 
 		Code:
-		<A href='byond://?src=[UID()];code=-5'>-</A>
-		<A href='byond://?src=[UID()];code=-1'>-</A>
+		<a href='byond://?src=[UID()];code=-5'>-</a>
+		<a href='byond://?src=[UID()];code=-1'>-</a>
 		[code]
-		<A href='byond://?src=[UID()];code=1'>+</A>
-		<A href='byond://?src=[UID()];code=5'>+</A><BR>
+		<a href='byond://?src=[UID()];code=1'>+</a>
+		<a href='byond://?src=[UID()];code=5'>+</a><br>
 		[t1]
-		</TT>
+		</tt>
 	"}
 	var/datum/browser/popup = new(user, "radio", name, 400, 400)
 	popup.set_content(dat)
@@ -136,7 +134,7 @@
 	var/time = time2text(world.realtime,"hh:mm:ss")
 	var/turf/T = get_turf(src)
 	if(usr)
-		GLOB.lastsignalers.Add("[time] <B>:</B> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <B>:</B> [format_frequency(frequency)]/[code]")
+		GLOB.lastsignalers.Add("[time] <b>:</b> [usr.key] used [src] @ location ([T.x],[T.y],[T.z]) <b>:</b> [format_frequency(frequency)]/[code]")
 
 
 /obj/item/assembly/signaler/receive_signal(datum/signal/signal)

@@ -119,11 +119,12 @@
 
 /mob/living/simple_animal/hostile/OnUnarmedAttack(atom/atom, proximity_flag)
 	GiveTarget(atom)
-	
+
 	if(target)
 		return AttackingTarget()
 
 /atom/proc/attack_animal(mob/user)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_ANIMAL, user)
 	return
 
 /mob/living/RestrainedClickOn(atom/A)

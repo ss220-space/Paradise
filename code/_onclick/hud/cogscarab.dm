@@ -7,4 +7,4 @@
 /atom/movable/screen/wind_up_timer/examine(mob/user, infix, suffix)
 	. = ..()
 	var/mob/living/silicon/robot/cogscarab/cog = user
-	. += "<span class='notice'>Windup time: [cog.wind_up_timer].</span><BR>"
+	. += "<span class='notice'>Windup time: [cog.wind_up_timer].</span><br>"

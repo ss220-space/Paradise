@@ -176,23 +176,25 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 		return
 	add_fingerprint(user)
 	usr.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Scanner Control Interface</TITLE></HEAD><BODY>\n"} // <META HTTP-EQUIV='Refresh' CONTENT='10'>
+	var/dat = ""
 	if(cache)
-		dat += "<FONT color=#005500>Data stored in memory.</FONT><BR>"
+		dat += "<span style='color: #005500;'>Data stored in memory.</span><br>"
 	else
-		dat += "No data stored in memory.<BR>"
-	dat += "<a href='byond://?src=[UID()];scan=1'>\[Scan\]</A>"
+		dat += "No data stored in memory.<br>"
+	dat += "<a href='byond://?src=[UID()];scan=1'>\[Scan\]</a>"
 	if(cache)
-		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Clear Memory\]</A><BR><BR><a href='byond://?src=[UID()];eject=1'>\[Remove Book\]</A>"
+		dat += "       <a href='byond://?src=[UID()];clear=1'>\[Clear Memory\]</a><br><br><a href='byond://?src=[UID()];eject=1'>\[Remove Book\]</a>"
 	else
-		dat += "<BR>"
-	user << browse(dat, "window=scanner")
-	onclose(user, "scanner")
+		dat += "<br>"
+	var/datum/browser/popup = new(usr, "libraryscanner", "Scanner Control Interface")
+	popup.set_content(dat)
+	popup.open(TRUE)
+	onclose(user, "libraryscanner")
 
 /obj/machinery/libraryscanner/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=scanner")
-		onclose(usr, "scanner")
+		usr << browse(null, "window=libraryscanner")
+		onclose(usr, "libraryscanner")
 		return
 
 	if(href_list["scan"])

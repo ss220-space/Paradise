@@ -138,7 +138,7 @@
 	var/mob/living/simple_animal/pet/dog/corgi/new_corgi = new /mob/living/simple_animal/pet/dog/corgi (loc)
 	new_corgi.key = key
 
-	to_chat(new_corgi, "<B>You are now a Corgi. Yap Yap!</B>")
+	to_chat(new_corgi, "<b>You are now a Corgi. Yap Yap!</b>")
 	qdel(src)
 
 /mob/living/carbon/human/Animalize()
@@ -203,7 +203,7 @@
 	pai.real_name = name
 	card.name = name
 
-	to_chat(pai, "<B>You have become a pAI! Your name is [pai.name].</B>")
+	to_chat(pai, "<b>You have become a pAI! Your name is [pai.name].</b>")
 	INVOKE_ASYNC(GLOBAL_PROC, /proc/qdel, src)
 
 /mob/proc/gorillize(gorilla_type = "Normal", message = TRUE)

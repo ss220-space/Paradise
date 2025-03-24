@@ -35,7 +35,7 @@
 
 	action_icon_state = "glare"
 
-	selection_activated_message		= "<span class='notice'>Your prepare to your eyes for a stunning glare! <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>Your prepare to your eyes for a stunning glare! <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message 	= "<span class='notice'>Your eyes relax... for now.</span>"
 	need_active_overlay = TRUE
 
@@ -274,7 +274,7 @@
 	base_cooldown = 0
 	clothes_req = FALSE
 	action_icon_state = "enthrall"
-	selection_activated_message		= "<span class='notice'>Your prepare your mind to entrall a mortal. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>Your prepare your mind to entrall a mortal. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
 	var/enthralling = FALSE
@@ -649,7 +649,7 @@
 	base_cooldown = 1 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "revive_thrall"
-	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You start focusing your powers on mending wounds of allies. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
 	/// Whether the EMPOWERED_THRALL_LIMIT limit is ignored or not
@@ -772,7 +772,7 @@
 	desc = "Extends the time of the emergency shuttle's arrival by ten minutes using a life force of our enemy. Shuttle will be unable to be recalled. This can only be used once."
 	clothes_req = FALSE
 	base_cooldown = 60 SECONDS
-	selection_activated_message		= "<span class='notice'>You start gathering destructive powers to delay the shuttle. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You start gathering destructive powers to delay the shuttle. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	action_icon_state = "extend_shuttle"
 	need_active_overlay = TRUE
@@ -847,7 +847,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "annihilate"
-	selection_activated_message		= "<span class='notice'>You start thinking about gibs. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You start thinking about gibs. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
 
@@ -902,7 +902,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 	action_icon_state = "enthrall"
-	selection_activated_message		= "<span class='notice'>You start preparing to mindwash over a mortal mind. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You start preparing to mindwash over a mortal mind. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>Your mind relaxes.</span>"
 	need_active_overlay = TRUE
 

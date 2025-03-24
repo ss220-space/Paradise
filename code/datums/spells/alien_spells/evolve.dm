@@ -86,9 +86,9 @@
 /obj/effect/proc_holder/spell/alien_spell/evolve/larva/cast(list/targets, mob/living/carbon/alien/larva/user)
 	to_chat(user, span_boldnotice("You are growing into a beautiful alien! It is time to choose a caste."))
 	to_chat(user, span_notice("There are three to choose from:"))
-	to_chat(user, span_notice("<B>Hunters</B> are strong and agile, able to hunt away from the hive and rapidly move through ventilation shafts. Hunters generate plasma slowly and have low reserves."))
-	to_chat(user, span_notice("<B>Sentinels</B> are tasked with protecting the hive and are deadly up close and at a range. They are not as physically imposing nor fast as the hunters."))
-	to_chat(user, span_notice("<B>Drones</B> are the working class, offering the largest plasma storage and generation. They are the only caste which may evolve again, turning into the dreaded alien queen."))
+	to_chat(user, span_notice("<b>Hunters</b> are strong and agile, able to hunt away from the hive and rapidly move through ventilation shafts. Hunters generate plasma slowly and have low reserves."))
+	to_chat(user, span_notice("<b>Sentinels</b> are tasked with protecting the hive and are deadly up close and at a range. They are not as physically imposing nor fast as the hunters."))
+	to_chat(user, span_notice("<b>Drones</b> are the working class, offering the largest plasma storage and generation. They are the only caste which may evolve again, turning into the dreaded alien queen."))
 	var/static/list/to_evolve = list("Hunter" = image(icon = 'icons/mob/alien.dmi', icon_state = "alienh_running"),
 								"Sentinel" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliens_running"),
 								"Drone" = image(icon = 'icons/mob/alien.dmi', icon_state = "aliend_running"))

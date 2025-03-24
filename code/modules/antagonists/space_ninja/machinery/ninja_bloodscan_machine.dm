@@ -202,13 +202,13 @@
 	var/obj/item/clothing/glasses/ninja/ninja_visor = ninja.glasses
 	var/obj/item/clothing/suit/space/space_ninja/ninja_suit = ninja.wear_suit
 	if(istype(ninja_visor))
-		to_chat(ninja, span_info("<B>На вашем визоре внезапно появляется новая инструкция... \
-		Кажется теперь защита от света так же защитит вас и от взгляда вампира!</B>"))
+		to_chat(ninja, span_info("<b>На вашем визоре внезапно появляется новая инструкция... \
+		Кажется теперь защита от света так же защитит вас и от взгляда вампира!</b>"))
 		ninja_visor.vamp_protection_active = TRUE
 	if(istype(ninja_suit))
-		to_chat(ninja, span_info("<B>В ваш костюм были загружены новые скрипты... \
+		to_chat(ninja, span_info("<b>В ваш костюм были загружены новые скрипты... \
 		Судя по их описанию они содержат инструкции благодаря которым костюм сможет \
-		частично защитить вас от некоторых способностей вампиров!</B>"))
+		частично защитить вас от некоторых способностей вампиров!</b>"))
 		ninja_suit.vamp_protection_active = TRUE
 	return
 

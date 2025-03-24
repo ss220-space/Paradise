@@ -190,7 +190,7 @@
 		COOLDOWN_START(src, alarm_cooldown, alarm_delay)
 		return ..()
 
-/obj/machinery/customat/bullet_act(obj/item/projectile/P, def_zone)
+/obj/machinery/customat/bullet_act(obj/projectile/P, def_zone)
 	. = ..(P, def_zone)
 
 	if(COOLDOWN_FINISHED(src, emp_cooldown) && COOLDOWN_FINISHED(src, alarm_cooldown))

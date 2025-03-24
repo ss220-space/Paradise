@@ -33,7 +33,7 @@
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
+	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 
 /// Proc for recovering atom_integrity. Returns the amount repaired by
@@ -101,7 +101,7 @@
 		if(3)
 			take_damage(rand(10, 90), BRUTE, "bomb", 0)
 
-/obj/bullet_act(obj/item/projectile/P)
+/obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
 	visible_message(span_danger("[src] is hit by \a [P]!"), projectile_message = TRUE)

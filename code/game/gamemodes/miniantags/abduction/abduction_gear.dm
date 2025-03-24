@@ -979,6 +979,7 @@ Congratulations! You are now trained for invasive xenobiology research!"}
 	advanced = TRUE
 	icon_state = "alien_hscanner"
 	item_state = "alien_hscanner"
+	theme = "abductor"
 
 /obj/item/storage/firstaid_abductor
 	name = "alien medkit"

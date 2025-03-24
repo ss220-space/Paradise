@@ -175,7 +175,7 @@
 	if(lastfired && world.time - lastfired < shot_delay)
 		return
 	lastfired = world.time
-	var/obj/item/projectile/P = new projectile(loc)
+	var/obj/projectile/P = new projectile(loc)
 	playsound(loc, shoot_sound, 100, 1)
 	P.current = loc
 	P.starting = loc
@@ -202,7 +202,7 @@
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/set_weapon()
-	projectile = /obj/item/projectile/bullet/a40mm
+	projectile = /obj/projectile/bullet/a40mm
 
 
 /mob/living/simple_animal/bot/ed209/syndicate/emp_act(severity)

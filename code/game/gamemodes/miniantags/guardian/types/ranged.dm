@@ -1,4 +1,4 @@
-/obj/item/projectile/guardian
+/obj/projectile/guardian
 	name = "crystal spray"
 	icon_state = "guardian"
 	damage = 20
@@ -10,7 +10,7 @@
 	melee_damage_lower = 10
 	melee_damage_upper = 10
 	damage_transfer = 1
-	projectiletype = /obj/item/projectile/guardian
+	projectiletype = /obj/projectile/guardian
 	ranged_cooldown_time = 5 //fast!
 	projectilesound = 'sound/effects/hit_on_shattered_glass.ogg'
 	ranged = 1

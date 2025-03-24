@@ -55,7 +55,7 @@
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
 	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
-		. += "<span class='info'><BR><B>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</B></span>"
+		. += "<span class='info'><br><b>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</b></span>"
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0

@@ -515,7 +515,7 @@
 
 
 /// Special projectiles handling for living mobs
-/mob/living/proc/projectile_allow_through(obj/item/projectile/projectile, border_dir)
+/mob/living/proc/projectile_allow_through(obj/projectile/projectile, border_dir)
 	// default behavior for generic mobs
 	if(!(mobility_flags & (MOBILITY_REST|MOBILITY_LIEDOWN)))
 		return !density
@@ -896,7 +896,7 @@
 		to_chat(usr, "OOC Metadata is not supported by this server!")
 
 
-/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
+/mob/living/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)	
 	if(lying_angle != 0 && !buckled)
 		lying_angle_on_movement(direct)
 
