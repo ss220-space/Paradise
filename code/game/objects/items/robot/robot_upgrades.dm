@@ -648,7 +648,7 @@
 		return FALSE
 	if(istype(robot.module, /obj/item/robot_module/miner))
 		robot.module.emag.udgraded = TRUE
-		robot.module.emag.update_icon_state(UPDATE_ICON_STATE)
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 		var/obj/item/storage/bag/satchel = robot.module.emag
 		satchel.storage_slots = 15
 		robot.module.emag = satchel
@@ -664,7 +664,7 @@
 		return FALSE
 	if(istype(robot.module, /obj/item/robot_module/miner))
 		robot.module.emag.upgraded = FALSE
-		robot.module.emag.update_icon_state(UPDATE_ICON_STATE)
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 		var/obj/item/storage/bag/satchel = robot.module.emag
 		satchel.storage_slots = 5
 		robot.module.emag = satchel
