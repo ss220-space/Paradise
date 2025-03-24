@@ -102,6 +102,16 @@
 	e_cost = 1000
 
 // Papers
+
+/obj/item/paper_bin/solcom
+	name = "nanotrasen paper bin"
+	letterhead_type = /obj/item/paper/solcom
+
+/obj/item/paper/solcom
+	name = "paper"
+	info =  ""
+	language = LANGUAGE_SOL_COMMON
+
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
 	language = LANGUAGE_SOL_COMMON
