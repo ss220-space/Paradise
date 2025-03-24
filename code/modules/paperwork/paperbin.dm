@@ -165,4 +165,4 @@
 
 /obj/item/paper_bin/human
 	name = "nanotrasen paper bin"
-	letterhead_type = /obj/item/paper/solcom
+	letterhead_type = /obj/item/paper/human
