@@ -104,10 +104,10 @@
 	if(!flag)
 		return
 	if(iscarbon(AM))
-		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
+		to_chat(user, span_warning("You can't get the [src] to stick to [AM]!"))
 		return
 	if(isobserver(AM))
-		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
+		to_chat(user, span_warning("Your hand just phases through [AM]!"))
 		return
 	if(!skip_doafter)
 		to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]"))
