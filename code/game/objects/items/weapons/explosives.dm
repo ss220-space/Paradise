@@ -127,14 +127,14 @@
 	target.add_persistent_overlay(image_overlay, BOMB_OVERLAY_ID)
 	if(!nadeassembly)
 		if(!skip_doafter)
-			to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time/10].</span>")
+			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time/10]."))
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
 	add_game_logs("suicided with [name] at [COORD(user)]", user)
-	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
+	user.visible_message(span_suicide("[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)
