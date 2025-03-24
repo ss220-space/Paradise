@@ -767,7 +767,7 @@
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='solgovlogo.png' width='220' height='135' /></p><hr />"
 	info = ""
 
-/obj/item/paper/solcom
+/obj/item/paper/human
 	name = "paper"
 	info =  ""
 	language = LANGUAGE_SOL_COMMON
