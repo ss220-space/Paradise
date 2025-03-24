@@ -1,0 +1,67 @@
+body {
+	margin-top:5px;
+	font-family:Verdana;
+	color:white;
+	font-size:13px;
+	background-image:url('uiBackground.png');
+	background-repeat:repeat-x;
+	background-color:#272727;
+	background-position:center top;
+}
+
+table {
+	font-size:13px;
+}
+
+table.desc {
+	border-collapse:collapse;
+	font-size:13px;
+	border: 1px solid #161616;
+	width:100%;
+}
+
+table.download {
+	border-collapse:collapse;
+	font-size:13px;
+	border: 1px solid #161616;
+	width:100%;
+}
+
+tr.d0 td, tr.d0 th {
+	background-color: #506070;
+	color: white;
+}
+
+tr.d1 td, tr.d1 th {
+	background-color: #708090;
+	color: white;
+}
+
+tr.d2 td {
+	background-color: #00FF00;
+	color: white;
+	text-align:center;
+}
+
+td.button {
+	border: 1px solid #161616;
+	background-color: #40628a;
+	text-align: center;
+}
+
+td.download {
+	border: 1px solid #161616;
+	background-color: #40628a;
+	text-align: center;
+}
+
+th {
+	text-align:left;
+	width:125px;
+	vertical-align:top;
+}
+
+a.button {
+	color:white;
+	text-decoration: none;
+}

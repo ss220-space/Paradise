@@ -567,7 +567,9 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 			if(length(select_text))
 				var/text = islist(select_text)? select_text.Join() : select_text
 				var/static/result_offset = 0
-				showmob << browse(text, "window=SDQL-result-[result_offset++]")
+				var/datum/browser/popup = new(showmob, "SDQL-result-[result_offset++]", "SDQL Result")
+				popup.set_content(text)
+				popup.open(FALSE)
 	show_next_to_key = null
 	if(qdel_on_finish)
 		qdel(src)
@@ -759,7 +761,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 /datum/sdql2_query/proc/SDQL_print(object, list/text_list, print_nulls = TRUE)
 	if(isdatum(object))
 		var/datum/O = object
-		text_list += "<a href='byond://?_src_=vars;Vars=[O.UID()]'>\ref[O]</A> : [object]"
+		text_list += "<a href='byond://?_src_=vars;Vars=[O.UID()]'>\ref[O]</a> : [object]"
 		if(istype(object, /atom))
 			var/atom/A = object
 			var/turf/T = A.loc
@@ -767,21 +769,21 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 			if(isturf(A))
 				a = A.loc
 				T = A //this should prevent the "inside" part
-				text_list += " <font color='gray'>at</font> [ADMIN_COORDJMP(A)]"
+				text_list += " <span style='color: gray;'>at</span> [ADMIN_COORDJMP(A)]"
 			else if(istype(T))
-				text_list += " <font color='gray'>at</font> [T] [ADMIN_COORDJMP(T)]"
+				text_list += " <span style='color: gray;'>at</span> [T] [ADMIN_COORDJMP(T)]"
 				a = T.loc
 			else
 				var/turf/final = get_turf(T) //Recursive, hopefully?
 				if(istype(final))
-					text_list += " <font color='gray'>at</font> [final] [ADMIN_COORDJMP(final)]"
+					text_list += " <span style='color: gray;'>at</span> [final] [ADMIN_COORDJMP(final)]"
 					a = final.loc
 				else
-					text_list += " <font color='gray'>at</font> nonexistent location"
+					text_list += " <span style='color: gray;'>at</span> nonexistent location"
 			if(a)
-				text_list += " <font color='gray'>in</font> area [a]"
+				text_list += " <span style='color: gray;'>in</span> area [a]"
 				if(T.loc != a)
-					text_list += " <font color='gray'>inside</font> [T]"
+					text_list += " <span style='color: gray;'>inside</span> [T]"
 		text_list += "<br>"
 	else if(islist(object))
 		var/list/L = object
@@ -1180,7 +1182,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 		else if(char == "'")
 			if(word != "")
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unexpected ' in query: \"<font color=gray>[query_text]</font>\" following \"<font color=gray>[word]</font>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unexpected ' in query: \"<span style='color: gray;'>[query_text]</span>\" following \"<span style='color: gray;'>[word]</span>\". Please check your syntax, and try again.", confidential=TRUE)
 				return null
 
 			word = "'"
@@ -1200,7 +1202,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 					word += char
 
 			if(i > len)
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unmatched ' in query: \"<font color=gray>[query_text]</font>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unmatched ' in query: \"<span style='color: gray;'>[query_text]</span>\". Please check your syntax, and try again.", confidential=TRUE)
 				return null
 
 			query_list += "[word]'"
@@ -1208,7 +1210,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 
 		else if(char == "\"")
 			if(word != "")
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unexpected \" in query: \"<font color=gray>[query_text]</font>\" following \"<font color=gray>[word]</font>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unexpected \" in query: \"<span style='color: gray;'>[query_text]</span>\" following \"<span style='color: gray;'>[word]</span>\". Please check your syntax, and try again.", confidential=TRUE)
 				return null
 
 			word = "\""
@@ -1228,7 +1230,7 @@ GLOBAL_DATUM_INIT(sdql2_vv_statobj, /obj/effect/statclick/sdql2_vv_all, new(null
 					word += char
 
 			if(i > len)
-				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unmatched \" in query: \"<font color=gray>[query_text]</font>\". Please check your syntax, and try again.", confidential=TRUE)
+				to_chat(usr, "\red SDQL2: You have an error in your SDQL syntax, unmatched \" in query: \"<span style='color: gray;'>[query_text]</span>\". Please check your syntax, and try again.", confidential=TRUE)
 				return null
 
 			query_list += "[word]\""

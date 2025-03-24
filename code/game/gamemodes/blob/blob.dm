@@ -80,8 +80,8 @@
 
 
 /datum/game_mode/blob/announce()
-	to_chat(world, "<B>Текущий режим игры - <font color='green'>Блоб</font>!</B>")
-	to_chat(world, "<B>Опасный инопланетный организм стремительно распространяется по всей станции!</B>")
+	to_chat(world, "<b>Текущий режим игры - <font color='green'>Блоб</font>!</b>")
+	to_chat(world, "<b>Опасный инопланетный организм стремительно распространяется по всей станции!</b>")
 	to_chat(world, "Вы должны уничтожить его, сведя к минимуму ущерб, нанесенный станции.")
 
 
@@ -179,18 +179,19 @@
 	for(var/i in 1 to count)
 		if (length(candidates))
 			var/obj/vent = pick(vents)
-			var/mob/living/simple_animal/mouse/B = new(vent.loc)
-			var/mob/M = pick(candidates)
-			candidates.Remove(M)
-			B.key = M.key
-			var/datum_type = B.mind.get_blob_infected_type()
+			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
+			blob.move_into_vent(vent, FALSE)
+			var/mob/ghost = pick_n_take(candidates)
+			blob.set_key(ghost.key)
+			var/datum_type = blob.mind.get_blob_infected_type()
 			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 			blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
-			B.mind.add_antag_datum(blob_datum)
-			to_chat(B, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
-			log_game("[B.key] has become blob infested mouse.")
-			notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
+			blob.mind.add_antag_datum(blob_datum)
+			to_chat(blob, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
+			log_game("[blob.key] has become blob infested mouse.")
+			notify_ghosts("Заражённая мышь появилась в [get_area(blob)].", source = blob, action = NOTIFY_FOLLOW)
+
 	return TRUE
 
 

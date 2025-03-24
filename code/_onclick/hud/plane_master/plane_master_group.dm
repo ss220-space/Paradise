@@ -30,6 +30,18 @@
 	QDEL_LIST_ASSOC_VAL(plane_masters)
 	return ..()
 
+/datum/plane_master_group/proc/set_hud(datum/hud/new_hud)
+	if(new_hud == our_hud)
+		return
+	if(our_hud)
+		our_hud.master_groups -= key
+		hide_hud()
+	our_hud = new_hud
+	if(new_hud)
+		our_hud.master_groups[key] = src
+		show_hud()
+		build_planes_offset(our_hud, active_offset)
+
 /// Display a plane master group to some viewer, so show all our planes to it
 /datum/plane_master_group/proc/attach_to(datum/hud/viewing_hud)
 	if(viewing_hud.master_groups[key])
@@ -40,14 +52,14 @@
 	#warn Fully change default relay_loc to "1,1", rather than changing it based on client version
 #endif
 
-	if(viewing_hud.mymob?.client?.byond_version > 515)
-		relay_loc = "1,1"
-		rebuild_plane_masters()
-
-	our_hud = viewing_hud
+	set_hud(viewing_hud)
 	our_hud.master_groups[key] = src
 	show_hud()
 	build_planes_offset(our_hud, active_offset)
+
+	if(viewing_hud.mymob?.client?.byond_version > 515)
+		relay_loc = "1,1"
+		rebuild_plane_masters()
 
 /// Hide the plane master from its current hud, fully clear it out
 /datum/plane_master_group/proc/orphan_hud()
@@ -66,6 +78,7 @@
 	hide_hud()
 	rebuild_plane_masters()
 	show_hud()
+	our_hud.update_parallax_pref()
 	build_planes_offset(our_hud, active_offset)
 
 /// Regenerate our plane masters, this is useful if we don't have a mob but still want to rebuild. Such in the case of changing the screen_loc of relays
@@ -185,6 +198,17 @@
 
 /datum/plane_master_group/popup/build_planes_offset(datum/hud/source, new_offset, use_scale = TRUE)
 	return ..(source, new_offset, FALSE)
+
+/// Note do not use return ..() because it will cause client crush when screen gets deleted
+/// TOOD: Remove this entirely when 516 is stable
+/datum/plane_master_group/popup/attach_to(datum/hud/viewing_hud)
+	if(viewing_hud.master_groups[key])
+		stack_trace("[key] is already in use by a plane master group on the passed in hud, belonging to [viewing_hud.mymob]!")
+		return
+	relay_loc = "1,1"
+	rebuild_plane_masters()
+	set_hud(viewing_hud)
+	show_hud()
 
 /// Holds the main plane master
 /datum/plane_master_group/main

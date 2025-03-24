@@ -20,21 +20,23 @@
 /obj/machinery/syndicate_beacon/attack_hand(var/mob/user as mob)
 	add_fingerprint(user)
 	usr.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><font color=#005500><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></font>"}
+	var/dat = {"<span style='color: #005500;'><i>Scanning [pick("retina pattern", "voice print", "fingerprints", "dna sequence")]...<br>Identity confirmed,<br></i></span>"}
 	if(ishuman(user) || istype(user, /mob/living/silicon/ai))
 		if(is_special_character(user))
-			dat += "<font color=#07700><i>Operative record found. Greetings, Agent [user.name].</i></font><br>"
+			dat += "<span style='color: #07700;'><i>Operative record found. Greetings, Agent [user.name].</i></span><br>"
 		else if(charges < 1)
-			dat += "<TT>Connection severed.</TT><BR>"
+			dat += "<tt>Connection severed.</tt><bb>"
 		else
 			var/honorific = "Mr."
 			if(user.gender == FEMALE)
 				honorific = "Ms."
-			dat += "<font color=red><i>Identity not found in operative database. What can the Syndicate do for you today, [honorific] [user.name]?</i></font><br>"
+			dat += "<span style='color: red;'><i>Identity not found in operative database. What can the Syndicate do for you today, [honorific] [user.name]?</i></span><br>"
 			if(!selfdestructing)
-				dat += "<br><br><a href='byond://?src=[UID()];betraitor=1;traitormob=\ref[user]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</A><BR>"
+				dat += "<br><br><a href='byond://?src=[UID()];betraitor=1;traitormob=\ref[user]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</a><br>"
 	dat += temptext
-	user << browse(dat, "window=syndbeacon")
+	var/datum/browser/popup = new(user, "syndbeacon", "Syndicate Beacon")
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "syndbeacon")
 
 /obj/machinery/syndicate_beacon/Topic(href, href_list)
@@ -51,7 +53,7 @@
 			return
 		charges -= 1
 		if(prob(50))
-			temptext = "<font color=red><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></font>"
+			temptext = "<span style='color: red;'><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
 			src.updateUsrDialog()
 			spawn(rand(50,200)) selfdestruct()
 			return
@@ -92,7 +94,7 @@
 			T.give_objectives = FALSE
 			N.mind.add_antag_datum(T)
 
-			to_chat(M, "<B>Вы вступили в ряды Синдиката и стали предателем!</B>")
+			to_chat(M, "<b>Вы вступили в ряды Синдиката и стали предателем!</b>")
 			message_admins("[key_name_admin(N)] has accepted a traitor objective from a syndicate beacon.")
 
 

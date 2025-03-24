@@ -255,7 +255,7 @@
 	if(isliving(target))
 		var/mob/living/L = target
 		if(isconstruct(L) && L.health >= L.maxHealth) //is this target an unhurt construct? stop trying to heal it
-			LoseTarget()
+			lose_target()
 			return 0
 		if(L.health <= melee_damage_lower+melee_damage_upper) //ey bucko you're hurt as fuck let's go hit you
 			retreat_distance = null
@@ -344,8 +344,8 @@
 							/obj/effect/proc_holder/spell/aoe/conjure/build/floor,
 							/obj/effect/proc_holder/spell/smoke/disable)
 	retreat_distance = 2 //AI harvesters will move in and out of combat, like wraiths, but shittier
-	playstyle_string = "<B>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
-						Bring those who still cling to this world of illusion back to the master so they may know Truth.</B>"
+	playstyle_string = "<b>You are a Harvester. You are not strong, but your powers of domination will assist you in your role: \
+						Bring those who still cling to this world of illusion back to the master so they may know Truth.</b>"
 	hud_type = /datum/hud/construct/harvester
 
 

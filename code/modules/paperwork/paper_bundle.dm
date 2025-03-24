@@ -180,33 +180,37 @@
 		. += "<span class='notice'>It is too far away.</span>"
 
 /obj/item/paper_bundle/proc/show_content(mob/user)
-	var/dat = {"<html><meta charset="UTF-8">"}
+	var/dat = ""
 	var/obj/item/W = papers[page]
 	switch(screen)
 		if(0)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
+			dat+= "<div style='float:left; text-align:left; width:33.33333%'></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
+			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(1)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</A></DIV><BR><HR>"
+			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
+			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
 		if(2)
-			dat+= "<DIV STYLE='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</A></DIV>"
-			dat+= "<DIV STYLE='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</A></DIV><BR><HR>"
-			dat+= "<DIV STYLE='float;left; text-align:right; with:33.33333%'></DIV>"
+			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div><br><hr>"
+			dat+= "<div style='float;left; text-align:right; with:33.33333%'></div>"
 	if(istype(papers[page], /obj/item/paper))
 		var/obj/item/paper/P = W
 		dat += P.show_content(usr, view = 0)
-		usr << browse(dat, "window=PaperBundle[UID()];size=[P.paper_width]x[P.paper_height]")
+		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", "", P.paper_width, P.paper_height)
+		popup.include_default_stylesheet = FALSE
+		popup.set_content(dat)
+		popup.open(FALSE)
 	else if(istype(papers[page], /obj/item/photo))
 		var/obj/item/photo/P = W
 		usr << browse_rsc(P.img, "tmp_photo.png")
-		usr << browse(dat + {"<html><meta charset="UTF-8"><head><title>[P.name]</title></head>"} \
-		+ "<body style='overflow:hidden'>" \
-		+ "<div> <img src='tmp_photo.png' width = '180'" \
-		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]"\
-		+ "</body></html>", "window=PaperBundle[UID()]")
+		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", P.name, P.photo_size, P.photo_size)
+		popup.include_default_stylesheet = FALSE
+		popup.set_content("<div> <img src='tmp_photo.png' width = '180'" \
+		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]")
+		popup.add_stylesheet("paper_bundle", 'html/css/paper_bundle.css')
+		popup.open(FALSE)
 
 /obj/item/paper_bundle/attack_self(mob/user)
 	show_content(user)

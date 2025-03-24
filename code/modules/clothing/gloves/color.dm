@@ -266,7 +266,6 @@
 	name = "nitrile gloves"
 	desc = "Pricy sterile gloves that are stronger than latex."
 	icon_state = "nitrile"
-	item_state = "nitrile"
 	transfer_prints = FALSE
 	item_color = "medical"
 	clothing_traits = list(TRAIT_QUICKER_CARRY)
@@ -275,7 +274,6 @@
 	name = "modified medical gloves"
 	desc = "They are very soft and light to the touch and do not hinder movement at all."
 	icon_state = "modified"
-	item_state = "modified"
 	item_color = "modified"
 	surgeryspeedmod = -0.3
 
@@ -291,7 +289,6 @@
 		PREPOSITIONAL = "медицинских перчатках Inugami",
 	)
 	icon_state = "inugami_gl"
-	item_state = "inugami_gl"
 	item_color = null
 	surgery_step_time = 0.5 SECONDS
 	surgery_germ_chance = 50

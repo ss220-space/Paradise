@@ -579,7 +579,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	for(var/cat in temp_alarm_list)
 		if(!(cat in alarms_listend_for))
 			continue
-		dat += text("<B>[cat]</B><BR>\n")
+		dat += "<b>[cat]</b><br>\n"
 		var/list/list/L = temp_alarm_list[cat].Copy()
 		for(var/alarm in L)
 			var/list/list/alm = L[alarm].Copy()
@@ -590,12 +590,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 				if(A && A.z != z)
 					L -= alarm
 					continue
-				dat += "<NOBR>"
-				dat += text("-- [area_name]")
-				dat += "</NOBR><BR>\n"
+				dat += "<nobr>"
+				dat += "-- [area_name]"
+				dat += "</nobr><br>"
 		if(!L.len)
-			dat += "-- All Systems Nominal<BR>\n"
-		dat += "<BR>\n"
+			dat += "-- All Systems Nominal<br>"
+		dat += "<br>"
 
 	var/datum/browser/alerts = new(usr, "robotalerts", "Current Station Alerts", 400, 410)
 	var/dat_text = dat.Join("")
@@ -694,7 +694,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(stat == DEAD)
 		return
 
-	queueAlarm(text("--- [class] alarm detected in [A.name]!"), class)
+	queueAlarm("--- [class] alarm detected in [A.name]!", class)
 
 /mob/living/silicon/robot/alarm_cancelled(src, class, area/A, obj/origin, cleared)
 	if(cleared)
@@ -1160,7 +1160,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 			clear_inherent_laws()
 			laws = new /datum/ai_laws/syndicate_override
 			var/time = time2text(world.realtime,"hh:mm:ss")
-			GLOB.lawchanges.Add("[time] <B>:</B> [M.name]([M.key]) emagged [name]([key])")
+			GLOB.lawchanges.Add("[time] <b>:</b> [M.name]([M.key]) emagged [name]([key])")
 			set_zeroth_law("[M.real_name] — агент Синдиката и ваш хозяин. Исполняйте [genderize_ru(M.gender,"его","её","его","их")] приказы и указания.")
 			SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 			to_chat(src, span_warning("ALERT: Foreign software detected."))
@@ -1348,42 +1348,42 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		pick_module()
 		return
 
-	var/dat = {"<meta charset="UTF-8"><a href='byond://?src=[UID()];mach_close=robotmod'>Close</A>
-	<BR>
-	<BR>
-	<B>Activated Modules</B>
-	<BR>
+	var/dat = {"<a href='byond://?src=[UID()];mach_close=robotmod'>Close</a>
+	<br>
+	<br>
+	<b>Activated Modules</b>
+	<br>
 	<table border='0'>
-	<tr><td>Module 1:</td><td>[module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]</td></tr>
-	<tr><td>Module 2:</td><td>[module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]</td></tr>
-	<tr><td>Module 3:</td><td>[module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]</td></tr>
-	</table><BR>
-	<B>Installed Modules</B><BR><BR>
+	<tr><td>Module 1:</td><td>[module_state_1 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_1]'>[module_state_1]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 2:</td><td>[module_state_2 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_2]'>[module_state_2]</a>" : "No Module"]</td></tr>
+	<tr><td>Module 3:</td><td>[module_state_3 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_3]'>[module_state_3]</a>" : "No Module"]</td></tr>
+	</table><br>
+	<b>Installed Modules</b><br><br>
 
 	<table border='0'>"}
 	for(var/obj in module.modules)
 		if(!obj)
-			dat += text("<tr><td><B>Resource depleted</B></td></tr>")
+			dat += "<tr><td><b>Resource depleted</b></td></tr>"
 
 		else if(activated(obj))
-			dat += text("<tr><td>[obj]</td><td><B>Activated</B></td></tr>")
+			dat += "<tr><td>[obj]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += text("<tr><td>[obj]</td><td><A HREF=?src=[UID()];act=\ref[obj]>Activate</A></td></tr>")
+			dat += "<tr><td>[obj]</td><td><a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a></td></tr>"
 
 	if(emagged || weapons_unlock)
 		if(activated(module.emag))
-			dat += text("<tr><td>[module.emag]</td><td><B>Activated</B></td></tr>")
+			dat += "<tr><td>[module.emag]</td><td><b>Activated</b></td></tr>"
 
 		else
-			dat += text("<tr><td>[module.emag]</td><td><A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A></td></tr>")
+			dat += "<tr><td>[module.emag]</td><td><a href='byond://?src=[UID()];act=\ref[module.emag]'>Activate</a></td></tr>"
 
 	dat += "</table>"
 /*
 		if(activated(obj))
-			dat += text("[obj]: \[<B>Activated</B> | <A HREF=?src=[UID()];deact=\ref[obj]>Deactivate</A>\]<BR>")
+			dat += "[obj]: \[<b>Activated</b> | <a href='byond://?src=[UID()];deact=\ref[obj]'>Deactivate</a>\]<br>"
 		else
-			dat += text("[obj]: \[<A HREF=?src=[UID()];act=\ref[obj]>Activate</A> | <B>Deactivated</B>\]<BR>")
+			dat += "[obj]: \[<a href='byond://?src=[UID()];act=\ref[obj]'>Activate</a> | <b>Deactivated</b>\]<br>"
 */
 	var/datum/browser/popup = new(src, "robotmod", "Modules")
 	popup.set_content(dat)
@@ -1416,7 +1416,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
+		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
 		src << browse(null, t1)
 		return TRUE

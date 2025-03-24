@@ -1990,7 +1990,7 @@
 			msgs += span_warning("У него много травм.")
 		else if(health > (maxHealth*0.25))
 			msgs += span_warning("Он весь в ранах!")
-		. += msgs.Join("<BR>")
+		. += msgs.Join("<br>")
 
 
 /mob/living/simple_animal/hostile/vampire/proc/add_spells()

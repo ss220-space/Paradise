@@ -215,7 +215,7 @@
 
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
 		if(!bodypart)
-			wound_flavor_text[limb_zone] = "<B>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</B>\n"
+			wound_flavor_text[limb_zone] = "<b>[p_they(TRUE)] [p_are()] missing [p_their()] [organ_descriptor].</b>\n"
 		else
 			if(!ismachineperson(src) && !skipprostheses)
 				if(bodypart.is_robotic())
@@ -234,7 +234,7 @@
 					msg += "<b>[p_their(TRUE)] [ignore_limb_branding(limb_zone)] has an open incision!</b>\n"
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
-				msg += "<B>[p_they(TRUE)] [p_have()] \a [bicon(embed)] [embed] embedded in [p_their()] [bodypart.name]!</B>\n"
+				msg += "<b>[p_they(TRUE)] [p_have()] \a [bicon(embed)] [embed] embedded in [p_their()] [bodypart.name]!</b>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -268,21 +268,21 @@
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] [brute_message].\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe [brute_message]!</B>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] severe [brute_message]!</b>\n"
 
 	damage = getFireLoss()
 	if(damage)
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] burns.\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe burns!</B>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] severe burns!</b>\n"
 
 	damage = getCloneLoss()
 	if(damage)
 		if(damage < 60)
 			msg += "[p_they(TRUE)] [p_have()] [damage < 30 ? "minor" : "moderate"] cellular damage.\n"
 		else
-			msg += "<B>[p_they(TRUE)] [p_have()] severe cellular damage.</B>\n"
+			msg += "<b>[p_they(TRUE)] [p_have()] severe cellular damage.</b>\n"
 
 
 	if(fire_stacks > 0)
@@ -318,12 +318,12 @@
 
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
-		msg += "<B>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</B>"
+		msg += "<b>[p_they(TRUE)] bit into [vampire_datum.draining]'s neck with his fangs.\n</b>"
 
 	if(bleedsuppress)
 		msg += "[p_they(TRUE)] [p_are()] bandaged with something.\n"
 	else if(bleed_rate)
-		msg += "<B>[p_they(TRUE)] [p_are()] bleeding!</B>\n"
+		msg += "<b>[p_they(TRUE)] [p_are()] bleeding!</b>\n"
 
 	if(reagents.has_reagent("teslium"))
 		msg += "[p_they(TRUE)] [p_are()] emitting a gentle blue glow!\n"

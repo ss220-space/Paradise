@@ -135,7 +135,7 @@
 			depotarea.list_remove(target, depotarea.dead_list)
 		if(!are_zs_connected(src, target) && prob(20))
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
-			LoseTarget()
+			lose_target()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
 	. = ..()

@@ -647,6 +647,8 @@
 	AIStatus = togglestatus
 	AI_delay_current = world.time
 
+/mob/living/simple_animal/proc/lose_target()
+	return
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)

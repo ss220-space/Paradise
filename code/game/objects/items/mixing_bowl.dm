@@ -95,9 +95,9 @@
 
 
 /obj/item/mixing_bowl/attack_self(mob/user)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	if(dirty)
-		dat = {"<code>This [src] is dirty!<BR>Please clean it before use!</code>"}
+		dat = {"<code>This [src] is dirty!<br>Please clean it before use!</code>"}
 	else
 		var/list/items_counts = new
 		var/list/items_measures = new
@@ -124,12 +124,12 @@
 		for(var/O in items_counts)
 			var/N = items_counts[O]
 			if(!(O in items_measures))
-				dat += {"<B>[capitalize(O)]:</B> [N] [lowertext(O)]\s<BR>"}
+				dat += {"<b>[capitalize(O)]:</b> [N] [lowertext(O)]\s<br>"}
 			else
 				if(N==1)
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures[O]]<BR>"}
+					dat += {"<b>[capitalize(O)]:</b> [N] [items_measures[O]]<br>"}
 				else
-					dat += {"<B>[capitalize(O)]:</B> [N] [items_measures_p[O]]<BR>"}
+					dat += {"<b>[capitalize(O)]:</b> [N] [items_measures_p[O]]<br>"}
 
 		for(var/datum/reagent/R in reagents.reagent_list)
 			var/display_name = R.name
@@ -137,13 +137,13 @@
 				display_name = "Hotsauce"
 			if(R.id == "frostoil")
 				display_name = "Coldsauce"
-			dat += {"<B>[display_name]:</B> [R.volume] unit\s<BR>"}
+			dat += {"<b>[display_name]:</b> [R.volume] unit\s<br>"}
 
 		if(items_counts.len==0 && reagents.reagent_list.len==0)
-			dat = {"<B>The [src] is empty</B><BR>"}
+			dat = {"<b>The [src] is empty</b><br>"}
 		else
 			dat = {"<b>Ingredients:</b><br>[dat]"}
-		dat += {"<HR><BR> <a href='byond://?src=[UID()];action=dispose'>Eject ingredients!</A><BR>"}
+		dat += {"<hr><br> <a href='byond://?src=[UID()];action=dispose'>Eject ingredients!</a><br>"}
 
 	var/datum/browser/popup = new(user, "[name][UID()]", "[name]", 400, 400, src)
 	popup.set_content(dat)

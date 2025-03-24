@@ -5,7 +5,7 @@
 	clothes_req = FALSE
 	action_icon_state = "infest"
 	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice("Вы приготовились заразить жертву. <B>Left-click чтобы применить способность!</B>")
+	selection_activated_message = span_notice("Вы приготовились заразить жертву. <b>Left-click чтобы применить способность!</b>")
 	selection_deactivated_message = span_notice("Вы прекратили свои попытки заразить жертву.")
 	need_active_overlay = TRUE
 	human_req = FALSE
@@ -67,7 +67,7 @@
 	clothes_req = FALSE
 	action_icon_state = "genetic_cryo"
 	action_background_icon_state = "bg_alien"
-	selection_activated_message = span_notice("Вы приготовились поразить жертву. <B>Left-click чтобы применить способность!</B>")
+	selection_activated_message = span_notice("Вы приготовились поразить жертву. <b>Left-click чтобы применить способность!</b>")
 	selection_deactivated_message = span_notice("Вы решили дать своей жертве шанс. Пока что.")
 	need_active_overlay = TRUE
 	human_req = FALSE

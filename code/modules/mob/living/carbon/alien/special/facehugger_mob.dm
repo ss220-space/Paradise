@@ -222,7 +222,7 @@
 			update_icons()
 		QDEL_NULL(hugger_holder)
 		if(CanHug(target))
-			LoseTarget()
+			lose_target()
 		return TRUE
 
 /mob/living/simple_animal/hostile/facehugger/Stun(amount, ignore_canstun)
@@ -265,7 +265,7 @@
 	impregnated = TRUE
 	hidden = TRUE
 	update_layer()
-	LoseTarget()
+	lose_target()
 	var/target
 	var/max_dist = 0
 
