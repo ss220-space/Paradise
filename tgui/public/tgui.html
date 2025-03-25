@@ -124,7 +124,7 @@
     // Send an HTTP request to DreamSeeker's HTTP server.
     // Allows sending much bigger payloads.
     var xhr = new XMLHttpRequest();
-    xhr.open('GET', url);
+    xhr.open('GET', 'http://' + window.location.host + url);
     xhr.send();
   };
 
