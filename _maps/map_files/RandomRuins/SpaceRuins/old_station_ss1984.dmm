@@ -4366,6 +4366,7 @@
 	name = "plasma tank crate"
 	},
 /obj/item/pod_parts/core,
+/obj/item/circuitboard/mecha/pod,
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/hivebot)
 "po" = (
