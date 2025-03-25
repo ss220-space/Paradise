@@ -102,7 +102,6 @@
 	e_cost = 1000
 
 // Papers
-
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
 	language = LANGUAGE_SOL_COMMON
