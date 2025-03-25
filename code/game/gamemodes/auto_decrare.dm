@@ -2,7 +2,7 @@
 	if(!length(morphs))
 		return
 
-	var/text = "<FONT size = 2><B>Морфами были:</B></FONT>"
+	var/text = "<span style='font-size: 2;'><b>Морфами были:</b></span>"
 	for(var/datum/mind/morph in morphs)
 		var/traitorwin = TRUE
 		text += "<br>[morph.get_display_key()] был [morph.name] ("
@@ -21,19 +21,19 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					SSblackbox.record_feedback("nested tally", "morph_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					SSblackbox.record_feedback("nested tally", "morph_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>Морф был успешен!</B></font>"
+			text += "<br><font color='green'><b>Морф был успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "morph_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Морф провалился!</B></font>"
+			text += "<br><font color='red'><b>Морф провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "morph_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
@@ -42,7 +42,7 @@
 	if(!length(revenants))
 		return
 
-	var/text = "<FONT size = 2><B>Ревенантами были:</B></FONT>"
+	var/text = "<span style='font-size: 2;'><b>Ревенантами были:</b></span>"
 	for(var/datum/mind/revenant in revenants)
 		var/traitorwin = TRUE
 		text += "<br>[revenant.get_display_key()] был [revenant.name] ("
@@ -61,19 +61,19 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					SSblackbox.record_feedback("nested tally", "revenant_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					SSblackbox.record_feedback("nested tally", "revenant_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>Ревенант был успешен!</B></font>"
+			text += "<br><font color='green'><b>Ревенант был успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "revenant_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Ревенант провалился!</B></font>"
+			text += "<br><font color='red'><b>Ревенант провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "revenant_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
@@ -82,7 +82,7 @@
 	if(!length(honksquad))
 		return
 
-	var/text = "<FONT size = 2><B>Членами Хонксквада были:</B></FONT>"
+	var/text = "<span style='font-size: 2;'><b>Членами Хонксквада были:</b></span>"
 	for(var/datum/mind/honker in honksquad)
 		var/traitorwin = TRUE
 		text += "<br>[honker.get_display_key()] был [honker.name] ("
@@ -103,19 +103,19 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					SSblackbox.record_feedback("nested tally", "honksquad_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					SSblackbox.record_feedback("nested tally", "honksquad_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>Член Хонксквада был успешен!</B></font>"
+			text += "<br><font color='green'><b>Член Хонксквада был успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "honksquad_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Член Хонксквада провалился!</B></font>"
+			text += "<br><font color='red'><b>Член Хонксквада провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "honksquad_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
@@ -124,7 +124,7 @@
 	if(!length(deathsquad))
 		return
 
-	var/text = "<FONT size = 2><B>Бойцами Отряда Смерти были:</B></FONT>"
+	var/text = "<span style='font-size: 2;'><b>Бойцами Отряда Смерти были:</b></span>"
 	for(var/datum/mind/commando in deathsquad)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -145,19 +145,19 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					SSblackbox.record_feedback("nested tally", "deathsquad_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					SSblackbox.record_feedback("nested tally", "deathsquad_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>Боец Отряда Смерти был успешен!</B></font>"
+			text += "<br><font color='green'><b>Боец Отряда Смерти был успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "deathsquad_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Боец Отряда Смерти провалился!</B></font>"
+			text += "<br><font color='red'><b>Боец Отряда Смерти провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "deathsquad_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
@@ -166,7 +166,7 @@
 	if(!length(sst))
 		return
 
-	var/text = "<FONT size = 2><B>Бойцами Ударного Отряда Синдиката были:</B></FONT>"
+	var/text = "<span style='font-size: 2;'><b>Бойцами Ударного Отряда Синдиката были:</b></span>"
 	for(var/datum/mind/commando in sst)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -187,19 +187,19 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					SSblackbox.record_feedback("nested tally", "sst_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					SSblackbox.record_feedback("nested tally", "sst_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>Боец Ударного Отряда Синдиката успешен!</B></font>"
+			text += "<br><font color='green'><b>Боец Ударного Отряда Синдиката успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "sst_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Боец Ударного Отряда Синдиката провалился!</B></font>"
+			text += "<br><font color='red'><b>Боец Ударного Отряда Синдиката провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "sst_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE
@@ -208,7 +208,7 @@
 	if(!length(sit))
 		return
 
-	var/text = "<FONT size = 2><B>Агентами Диверсионного Отряда Синдиката были:</B></FONT>"
+	var/text = "<span style='font-size: 2;'><b>Агентами Диверсионного Отряда Синдиката были:</b></span>"
 	for(var/datum/mind/commando in sit)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -229,19 +229,19 @@
 			var/count = 1
 			for(var/datum/objective/objective in all_objectives)
 				if(objective.check_completion())
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Успех!</B></font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
 					SSblackbox.record_feedback("nested tally", "sit_objective", 1, list("[objective.type]", "SUCCESS"))
 				else
-					text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провал.</font>"
+					text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
 					SSblackbox.record_feedback("nested tally", "sit_objective", 1, list("[objective.type]", "FAIL"))
 					traitorwin = FALSE
 				count++
 
 		if(traitorwin)
-			text += "<br><font color='green'><B>Агент Диверсионного Отряда Синдиката был успешен!</B></font>"
+			text += "<br><font color='green'><b>Агент Диверсионного Отряда Синдиката был успешен!</b></font>"
 			SSblackbox.record_feedback("tally", "sit_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Агент Диверсионного Отряда Синдиката провалился!</B></font>"
+			text += "<br><font color='red'><b>Агент Диверсионного Отряда Синдиката провалился!</b></font>"
 			SSblackbox.record_feedback("tally", "sit_success", 1, "FAIL")
 	to_chat(world, text)
 	return TRUE

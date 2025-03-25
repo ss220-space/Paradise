@@ -25,7 +25,7 @@
 	if(announceEvent == ION_SYNDICATE)
 		GLOB.event_announcement.Announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
 		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
-		message += (location_name ? "Signal traced to <B>[location_name]</B>.<br>" : "Signal untracable.<br>")
+		message += (location_name ? "Signal traced to <b>[location_name]</b>.<br>" : "Signal untracable.<br>")
 		print_command_report(message, "Classified [command_name()] Update", FALSE)
 
 	else if(false_alarm || announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))

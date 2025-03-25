@@ -59,16 +59,16 @@
 		var/count = 1
 		for(var/datum/job_objective/objective in employee.job_objectives)
 			if(objective.is_completed(1))
-				text += "<br>&nbsp;-&nbsp;<B>Задача №[count]</B>: [objective.get_description()] <font color='green'><B>Выполнена!</B></font>"
+				text += "<br>&nbsp;-&nbsp;<b>Задача №[count]</b>: [objective.get_description()] <font color='green'><b>Выполнена!</b></font>"
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "SUCCESS"))
 				tasks_completed++
 			else
-				text += "<br>&nbsp;-&nbsp;<B>Задача №[count]</B>: [objective.get_description()] <font color='red'><b>Провалена.</b></font>"
+				text += "<br>&nbsp;-&nbsp;<b>Задача №[count]</b>: [objective.get_description()] <font color='red'><b>Провалена.</b></font>"
 				SSblackbox.record_feedback("nested tally", "employee_objective", 1, list("[objective.type]", "FAIL"))
 			count++
 
 		if(tasks_completed >= 1)
-			text += "<br>&nbsp;<font color='green'><B>[employee.name] сделал свою чёртову работу!</B></font>"
+			text += "<br>&nbsp;<font color='green'><b>[employee.name] сделал свою чёртову работу!</b></font>"
 			SSblackbox.record_feedback("tally", "employee_success", 1, "SUCCESS")
 
 		else

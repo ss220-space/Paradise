@@ -15,7 +15,7 @@
 	if(completed)
 		return .
 
-	var/alife_count = xeno_team?.members.len
+	var/alife_count = xeno_team?.members.len - xeno_team?.facehuggers.len
 
 	if(alife_count >= targets_need)
 		completed = TRUE

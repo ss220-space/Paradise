@@ -60,7 +60,9 @@
 		if("hrefs")				//persistant logs and stuff
 			if(config && CONFIG_GET(flag/log_hrefs))
 				if(GLOB.world_href_log)
-					src << browse(wrap_file(GLOB.world_href_log), "window=investigate[selected];size=800x300")
+					var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
+					popup.set_content(wrap_file(GLOB.world_href_log))
+					popup.open(FALSE)
 				else
 					to_chat(src, "<font color='red'>Error: admin_investigate: No href logfile found.</font>")
 					return

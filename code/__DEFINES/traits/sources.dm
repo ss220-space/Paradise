@@ -75,6 +75,8 @@
 /// Traits applied to a silicon mob by their model.
 #define ROBOT_TRAIT "robot_trait"
 
+#define FACEHUGER_TRAIT "facehugger_trait"
+
 /// A trait gained from a mob's leap action, like the leaper
 #define LEAPING_TRAIT "leaping"
 
@@ -98,6 +100,8 @@
 #define SUIT_TRAIT "suit_trait"
 /// Trait associated to lying down (having a [lying_angle] of a different value than zero).
 #define LYING_DOWN_TRAIT "lying-down"
+
+#define THROWED_TRAIT "throwed_trait"
 
 #define NO_GRAVITY_TRAIT "no-gravity"
 #define NEGATIVE_GRAVITY_TRAIT "negative-gravity"

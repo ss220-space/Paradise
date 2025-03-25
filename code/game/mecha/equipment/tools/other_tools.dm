@@ -106,7 +106,7 @@
 	switch(mode)
 		if(1)
 			if(!locked)
-				if(!istype(target) || target.anchored)
+				if(!istype(target) || target.anchored || istype(target, /obj/mecha))
 					occupant_message("Unable to lock on [target]")
 					return FALSE
 				locked = target

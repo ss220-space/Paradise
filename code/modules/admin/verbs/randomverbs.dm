@@ -93,7 +93,10 @@
 		to_chat(src, "Some accounts did not have proper ages set in their clients.  This function requires database to be present", confidential=TRUE)
 
 	if(msg != "")
-		src << browse({"<meta charset="UTF-8">"}+msg, "window=Player_age_check")
+		var/datum/browser/popup = new(src, "player_age_check", "Player Age Check")
+		popup.set_content(msg)
+		popup.open(FALSE)
+		
 	else
 		to_chat(src, "No matches for that age range found.", confidential=TRUE)
 
@@ -111,7 +114,7 @@
 		return
 	msg = admin_pencode_to_html(msg)
 	to_chat(world, msg)
-	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<BR></span>")
+	log_and_message_admins("<span class='boldnotice'>Sent Global Narrate: [msg]<br></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Global Narrate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_local_narrate(var/atom/A)
@@ -128,7 +131,7 @@
 	msg = admin_pencode_to_html(msg)
 	for(var/mob/living/M in view(7,A))
 		to_chat(M, msg)
-	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<BR></span>")
+	log_and_message_admins("<span class='boldnotice'>local narrated at [AREACOORD(A)]: [msg]<br></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Local Narrate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/cmd_admin_direct_narrate(var/mob/M)	// Targetted narrate -- TLE
@@ -146,7 +149,7 @@
 		return
 	msg = admin_pencode_to_html(msg)
 	to_chat(M, msg)
-	log_and_message_admins("<span class='boldnotice'>directly narrated to [key_name_admin(M)]: [msg]<BR></span>")
+	log_and_message_admins("<span class='boldnotice'>directly narrated to [key_name_admin(M)]: [msg]<br></span>")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Direct Narrate") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 
@@ -214,10 +217,10 @@
 		if(!usr || !usr.client)
 			return
 		if(!check_rights(R_ADMIN|R_MOD))
-			to_chat(usr, "<font color='red'>Error: cmd_admin_mute: You don't have permission to do this.</font>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: You don't have permission to do this.</span>", confidential=TRUE)
 			return
 		if(!M.client)
-			to_chat(usr, "<font color='red'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</font>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Error: cmd_admin_mute: This mob doesn't have a client tied to it.</span>", confidential=TRUE)
 	if(!M.client)
 		return
 
@@ -365,7 +368,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			break
 
 	if(!G_found)//If a ghost was not found.
-		to_chat(usr, "<font color='red'>There is no active key like that in the game or the person is not currently a ghost.</font>", confidential=TRUE)
+		to_chat(usr, "<span style='color: red;'>There is no active key like that in the game or the person is not currently a ghost.</span>", confidential=TRUE)
 		return
 
 	if(G_found.mind && !G_found.mind.active)	//mind isn't currently in use by someone/something
@@ -521,7 +524,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		if(candidates.len)
 			ckey = tgui_input_list(usr, "Pick the player you want to respawn as a xeno.", "Suitable Candidates", candidates)
 		else
-			to_chat(usr, "<font color='red'>Error: create_xeno(): no suitable candidates.</font>", confidential=TRUE)
+			to_chat(usr, "<span style='color: red;'>Error: create_xeno(): no suitable candidates.</span>", confidential=TRUE)
 	if(!istext(ckey))	return 0
 
 	var/alien_caste = input(usr, "Please choose which caste to spawn.","Pick a caste",null) as null|anything in list("Queen","Hunter","Sentinel","Drone","Larva")
@@ -1052,9 +1055,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 	/* ======== SSD Section ========= */
-	var/msg = {"<html><meta charset="UTF-8"><head><title>SSD & AFK Report</title></head><body>"}
-	msg += "SSD Players:<BR><TABLE border='1'>"
-	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins SSD</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	var/msg = ""
+	msg += "SSD Players:<br><table border='1'>"
+	msg += "<tr><td><b>Key</b></td><td><b>Real Name</b></td><td><b>Job</b></td><td><b>Mins SSD</b></td><td><b>Special Role</b></td><td><b>Area</b></td><td><b>PPN</b></td><td><b>Cryo</b></td></tr>"
 	var/mins_ssd
 	var/job_string
 	var/key_string
@@ -1072,32 +1075,32 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			job_string = "-"
 		key_string = H.key
 		if(job_string in GLOB.command_positions)
-			job_string = "<U>" + job_string + "</U>"
+			job_string = "<u>" + job_string + "</u>"
 		role_string = "-"
 		obj_count = 0
 		obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
-				role_string = "<U>[H.mind.special_role]</U>"
+				role_string = "<u>[H.mind.special_role]</u>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
 			for(var/datum/objective/O in GLOB.all_objectives)
 				if(O.target == H.mind)
 					obj_count++
 			if(obj_count > 0)
-				obj_string = "<BR><U>Obj Target</U>"
-		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_ssd]</TD><TD>[role_string][obj_string]</TD>"
-		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+				obj_string = "<br><u>Obj Target</u>"
+		msg += "<tr><td>[key_string]</td><td>[H.real_name]</td><td>[job_string]</td><td>[mins_ssd]</td><td>[role_string][obj_string]</td>"
+		msg += "<td>[get_area(H)]</td><td>[ADMIN_PP(H,"PP")]</td>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD><a href='byond://?_src_=holder;cryossd=[H.UID()]'>De-Spawn</A></TD>"
+			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()]'>De-Spawn</a></td>"
 		else
-			msg += "<TD><a href='byond://?_src_=holder;cryossd=[H.UID()]'>Cryo</A></TD>"
-		msg += "</TR>"
-	msg += "</TABLE><br></BODY></HTML>"
+			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()]'>Cryo</a></td>"
+		msg += "</tr>"
+	msg += "</table><br>"
 
 	/* ======== AFK Section ========= */
-	msg += "AFK Players:<BR><TABLE border='1'>"
-	msg += "<TR><TD><B>Key</B></TD><TD><B>Real Name</B></TD><TD><B>Job</B></TD><TD><B>Mins AFK</B></TD><TD><B>Special Role</B></TD><TD><B>Area</B></TD><TD><B>PPN</B></TD><TD><B>Cryo</B></TD></TR>"
+	msg += "AFK Players:<br><table border='1'>"
+	msg += "<tr><td><b>Key</b></td><td><b>Real Name</b></td><td><b>Job</b></td><td><b>Mins AFK</b></td><td><b>Special Role</b></td><td><b>Area</b></td><td><b>PPN</b></td><td><b>Cryo</b></td></tr>"
 	var/mins_afk
 	for(var/thing in GLOB.human_list)
 		var/mob/living/carbon/human/H = thing
@@ -1112,29 +1115,32 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			job_string = "-"
 		key_string = H.key
 		if(job_string in GLOB.command_positions)
-			job_string = "<U>" + job_string + "</U>"
+			job_string = "<u>" + job_string + "</u>"
 		role_string = "-"
 		obj_count = 0
 		obj_string = ""
 		if(H.mind)
 			if(H.mind.special_role)
-				role_string = "<U>[H.mind.special_role]</U>"
+				role_string = "<u>[H.mind.special_role]</u>"
 			if(!H.key && H.mind.key)
 				key_string = H.mind.key
 			for(var/datum/objective/O in GLOB.all_objectives)
 				if(O.target == H.mind)
 					obj_count++
 			if(obj_count > 0)
-				obj_string = "<BR><U>Obj Target</U>"
-		msg += "<TR><TD>[key_string]</TD><TD>[H.real_name]</TD><TD>[job_string]</TD><TD>[mins_afk]</TD><TD>[role_string][obj_string]</TD>"
-		msg += "<TD>[get_area(H)]</TD><TD>[ADMIN_PP(H,"PP")]</TD>"
+				obj_string = "<br><u>Obj Target</u>"
+		msg += "<tr><td>[key_string]</td><td>[H.real_name]</td><td>[job_string]</td><td>[mins_afk]</td><td>[role_string][obj_string]</td>"
+		msg += "<td>[get_area(H)]</td><td>[ADMIN_PP(H,"PP")]</td>"
 		if(istype(H.loc, /obj/machinery/cryopod))
-			msg += "<TD><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</A></TD>"
+			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>De-Spawn</a></td>"
 		else
-			msg += "<TD><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</A></TD>"
-		msg += "</TR>"
-	msg += "</TABLE></BODY></HTML>"
-	src << browse(msg, "window=Player_ssd_afk_check;size=600x300")
+			msg += "<td><a href='byond://?_src_=holder;cryossd=[H.UID()];cryoafk=1'>Cryo</a></td>"
+		msg += "</tr>"
+	msg += "</table>"
+	var/datum/browser/popup = new(src, "player_ssd_afk_check", "SSD & AFK Report", 600, 300)
+	popup.set_content(msg)
+	popup.open(FALSE)
+	
 
 /client/proc/toggle_ert_calling()
 	set category = "Admin.Toggles"
@@ -1198,7 +1204,9 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	for(var/datum/station_goal/S in SSticker.mode.station_goals)
 		dat += "[S.name] - <a href='byond://?src=[S.UID()];announce=1'>Announce</a> | <a href='byond://?src=[S.UID()];remove=1'>Remove</a><br>"
 	dat += "<br><a href='byond://?src=[UID()];add_station_goal=1'>Add New Goal</a>"
-	usr << browse(dat, "window=goals;size=400x400")
+	var/datum/browser/popup = new(usr, "goals", "Modify Goals", 400, 400)
+	popup.set_content(dat)
+	popup.open(FALSE)
 
 /// Allow admin to add or remove traits of datum
 /datum/admins/proc/modify_traits(datum/D)

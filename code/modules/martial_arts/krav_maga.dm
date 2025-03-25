@@ -167,7 +167,6 @@
 	name = "krav maga gloves"
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
-	item_state = "fightgloves"
 
 /obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
 	. = ..()

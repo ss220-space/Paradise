@@ -9,7 +9,7 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	holder.outfit_manager(usr)
 
 /datum/admins/proc/outfit_manager(mob/admin)
-	var/list/dat = list("<!DOCTYPE html><ul>")
+	var/list/dat = list("<ul>")
 	for(var/datum/outfit/O in GLOB.custom_outfits)
 		var/vv = FALSE
 		var/datum/outfit/varedit/VO = O
@@ -19,7 +19,9 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	dat += "</ul>"
 	dat += "<a href='byond://?_src_=holder;create_outfit_menu=1'>Create</a><br>"
 	dat += "<a href='byond://?_src_=holder;load_outfit=1'>Load from file</a>"
-	admin << browse(dat.Join(),"window=outfitmanager")
+	var/datum/browser/popup = new(admin, "outfitmanager", "Outfit Manager")
+	popup.set_content(dat.Join())
+	popup.open(FALSE)
 
 /datum/admins/proc/save_outfit(mob/admin,datum/outfit/O)
 	O.save_to_file(admin)
@@ -108,7 +110,6 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	pda_select += "</select>"
 
 	var/dat = {"
-	<html><meta charset="UTF-8"><head><title>Create Outfit</title></head><body>
 	<form name="outfit" action="byond://?src=[UID()];" method="get">
 	<input type="hidden" name="src" value="[UID()]">
 	<input type="hidden" name="create_outfit_finalize" value="1">
@@ -230,9 +231,12 @@ GLOBAL_LIST_EMPTY(custom_outfits) //Admin created outfits
 	</table>
 	<br>
 	<input type="submit" value="Save">
-	</form></body></html>
+	</form>
 	"}
-	admin << browse(dat, "window=dressup;size=550x600")
+	var/datum/browser/popup = new(admin, "dressup", "Create Outfit", 700, 600)
+	popup.set_content(dat)
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open(FALSE)
 
 
 /datum/admins/proc/create_outfit_finalize(mob/admin, list/href_list)

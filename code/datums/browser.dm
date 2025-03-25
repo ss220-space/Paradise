@@ -95,6 +95,12 @@
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 		[head_content.Join("")]
+		<script>
+			document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+			window.addEventListener('resize', () => {
+				document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+			});
+		</script>
 	</head>
 	<body scroll=auto>
 		<div class='uiWrapper'>
@@ -358,11 +364,11 @@
 		var/setting = settings["mainsettings"][name]
 		if (setting["type"] == "datum")
 			if (setting["subtypesonly"])
-				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 			else
-				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 		else
-			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><BR>"
+			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><br>"
 
 	if (preview_icon)
 		dat += "<td valign='center'>"
