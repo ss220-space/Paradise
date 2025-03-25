@@ -352,7 +352,7 @@
 
 /datum/language/diona/get_random_name()
 	var/new_name = "[pick(list("To Sleep Beneath", "Wind Over", "Embrace Of", "Dreams Of", "Witnessing", "To Walk Beneath", "Approaching The", "Glimmer Of", "The Ripple Of", "Colors Of", "The Still Of", "Silence Of", "Gentle Breeze Of", "Glistening Waters Under", "Child Of", "Blessed Plant-Ling Of", "Grass-Walker Of", "Element Of", "Spawn Of"))]"
-	new_name += " [pick(list("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum"))]"
+	new_name += " [pick(list("The Void", "The Sky", "Encroaching Night", "Planetsong", "Starsong", "The Wandering Star", "The Empty Day", "Daybreak", "Nightfall", "The Rain", "The Stars", "The Waves", "Dusk", "Night", "The Wind", "The Summer Wind", "The Blazing Sun", "The Scorching Sun", "Eternal Fields", "The Soothing Plains", "The Undying Fiona", "Mother Nature's Bousum"))]"	
 	return new_name
 
 /datum/language/trinary
@@ -444,10 +444,15 @@
 		return TRUE
 	return FALSE
 
+/datum/language/grey/get_random_name()
+	var/new_name = "[pick(list("Адэ", "Дакараи" "Элиму", "Эрасто", "Отино", "Джумаан", "Дьюб", "То", "Узочи", "Асита", "Кэйод", "Мвенай", "Яв", "Джозес" "Готто", "Ат", "Анот", "Астигар", "Ерр", "Зеру", "Маттин", "Эдер", "Аюр","Аян", "Нацаг", "Шоно", "Эдир", "Кой", "Моук", "Оук", "Атоль", "Блаан", "Брадан", "Калбхак", "Катэйр", "Кахир", "Киар", "Конн", "Кэрбр", "Мерти", "Ниол", "Риан", "Риаган", "Сим", "Фаолан", "Ферчар", "Флоин", "Эуон", "Аларик", "Аларис", "Алерик", "Алерис", "Алрик", "Алрис", "Эерик", "Амон", "Атрей", "Зен", "Йос", "Пеон", "Терис", "Тэрон", "Отиа", "Иб", "Ол", "Мадс"))]"
+	new_name += " [pick(list("Финдола", "Виарро", "Ронва", "Утанн"))]"
+	return new_name
+
 /datum/language/drask
 	name = "Орлуум"
 	desc = "Монотонный, гудящий, вибрирующий язык Драсков. Звучит примерно как песня китов."
-	speech_verbs = list("гуд%(ит,ят)%", "напева%(ет,ют)%", "мыч%(ит,ат)%", "грохоч%(ет,ут)%")
+	speech_verbs = list("гуд%(ит,ят)%",y"напева%(ет,ют)%", "мыч%(ит,ат)%", "грохоч%(ет,ут)%")
 	ask_verbs = list("вопросительно гуд%(ит,ят)%", "вопросительно мыч%(ит,ат)%", "вопросительно грохоч%(ет,ут)%")
 	exclaim_verbs = list("громко гуд%(ит,ят)%", "громко грохоч%(ет,ут)%", "рев%(ёт,ут)%")
 	colour = "drask"
@@ -587,6 +592,11 @@
 		return TRUE
 
 	return FALSE
+
+/datum/language/wryn/get_random_name()
+	var/new_name = "[pick(list("до", "но", "мо", "ми", "ре", "бу", "за", "ля", "да", "ра", "па", "за", "ло", "зо", "до", "то", "по", "то", "ро", "зо", "хо"))]"
+	new_name += "[pick(list("го", "гир", "ро", "зо", "ром", "лот", "хор", "лом", "бол", "дон", "пок", "мон", "лом", "тов", "до", "но", "мо", "ми", "ре", "бу", "за", "ля", "да", "ра", "па", "за", "ло", "зо", "до", "то", "по", "то", "ро", "зо", "хо"))]"
+	return new_name
 
 /datum/language/xenocommon
 	name = "Ксеноморфский"
