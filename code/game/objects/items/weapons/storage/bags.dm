@@ -284,7 +284,7 @@
 		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
-		nextbomb.afterattack(AM, user, flag, params)
+		nextbomb.attach(AM, user, TRUE)
 		if(LAZYLEN(contents))
 			if(set_next_bomb())
 				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки: [nextchosen], осталось взрывчатки этого типа: [bombs_left]."))

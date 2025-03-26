@@ -647,9 +647,9 @@
 	if(!..())
 		return FALSE
 	if(istype(robot.module, /obj/item/robot_module/miner))
-		var/obj/item/storage/bag/satchel = robot.module.emag
+		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
 		satchel.storage_slots = 15
-		robot.module.emag.udgraded = TRUE
+		satchel.upgraded = TRUE
 		robot.module.emag = satchel
 		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
@@ -663,11 +663,11 @@
 	if(!..())
 		return FALSE
 	if(istype(robot.module, /obj/item/robot_module/miner))
-		robot.module.emag.upgraded = FALSE
-		robot.module.emag.update_icon(UPDATE_ICON_STATE)
-		var/obj/item/storage/bag/satchel = robot.module.emag
+		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
 		satchel.storage_slots = 5
+		satchel.upgraded = FALSE
 		robot.module.emag = satchel
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)
 		energy_storage.recharge_rate = initial(energy_storage.recharge_rate)

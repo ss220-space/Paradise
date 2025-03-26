@@ -109,14 +109,16 @@
 	if(isobserver(AM))
 		to_chat(user, span_warning("Your hand just phases through [AM]!"))
 		return
-	if(!skip_doafter)
-		to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]"))
-		if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
-			return
+
+	to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]"))
+	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
+		return
 
 	if(!user.drop_item_ground(src))
 		return
+	attach(AM, user)
 
+/obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	target = AM
 	do_pickup_animation(AM)
 	loc = null
@@ -126,10 +128,9 @@
 
 	target.add_persistent_overlay(image_overlay, BOMB_OVERLAY_ID)
 	if(!nadeassembly)
-		if(!skip_doafter)
+		if(!silent)
 			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time/10]."))
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
-
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
