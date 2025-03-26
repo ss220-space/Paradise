@@ -15,7 +15,6 @@
 	var/obj/item/assembly_holder/nadeassembly
 	var/assemblyattacher
 	var/notify_admins = TRUE
-	var/skip_doafter = FALSE
 
 
 /obj/item/grenade/plastic/Initialize(mapload)
@@ -103,17 +102,23 @@
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(!flag)
 		return
+
 	if(iscarbon(AM))
 		to_chat(user, span_warning("You can't get the [src] to stick to [AM]!"))
 		return
+
 	if(isobserver(AM))
 		to_chat(user, span_warning("Your hand just phases through [AM]!"))
 		return
 
-	to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]"))
+	to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time / 10]..." : ""]"))
+
 	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 		return
 
+	attach(AM, user)
+
+/obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	if(!user.drop_item_ground(src))
 		return
 	attach(AM, user)
@@ -122,14 +127,17 @@
 	target = AM
 	do_pickup_animation(AM)
 	loc = null
+
 	if(notify_admins)
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time/10] second fuse")
 		add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time/10] second fuse", user)
 
 	target.add_persistent_overlay(image_overlay, BOMB_OVERLAY_ID)
+
 	if(!nadeassembly)
 		if(!silent)
-			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time/10]."))
+			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time / 10]."))
+
 		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)

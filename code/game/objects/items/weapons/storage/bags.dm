@@ -263,24 +263,28 @@
 
 /obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
 	if(istype(AM, /obj/item/grenade/plastic))
-		if(!(. = ..()))
+		if(!..())
 			return
+
 	if(!LAZYLEN(contents))
 		balloon_alert(user, "сумка пустая!")
 		return
+
 	if(isnull(nextbomb))
 		nextbomb = pick(contents)
+
 	if(!flag)
 		return
+
 	if(iscarbon(AM))
 		balloon_alert(user, "нельзя прикрепить!")
 		return
+
 	if(isobserver(AM))
 		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
 		return
 	balloon_alert(user, "устанавливаем...")
 	if(do_after(user, 5 SECONDS, AM))
-		nextbomb.skip_doafter = TRUE
 		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
@@ -291,10 +295,13 @@
 			else
 				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
 		else
-			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], сумка пуста."))
-		bombs_left = 0
-		nextbomb = nextchosen
-		nextchosen = null
+			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
+	else
+		to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
+
+	bombs_left = 0
+	nextbomb = nextchosen
+	nextchosen = null
 
 /obj/item/storage/bag/kaboom/cyborg // borg version
 	name = "cyborg Charge Deployment System"
