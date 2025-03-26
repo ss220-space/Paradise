@@ -115,13 +115,10 @@
 
 	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 		return
-
-	attach(AM, user)
-
-/obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	if(!user.drop_item_ground(src))
 		return
 	attach(AM, user)
+
 
 /obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	target = AM
