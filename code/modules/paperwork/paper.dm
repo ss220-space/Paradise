@@ -208,7 +208,7 @@
 
 	doggo.visible_message(
 		span_warning("[doggo] starts chewing the corner of [src]!"),
-		span_notice("You start chewing the corner of [src].</span>"),
+		span_notice("You start chewing the corner of [src]."),
 		span_warning("You hear a quiet gnawing, and the sound of paper rustling.")
 	)
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
