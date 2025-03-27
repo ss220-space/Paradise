@@ -35,11 +35,9 @@ Almost every mining medic related stuff
 	var/multiz = TRUE
 
 /obj/item/clothing/accessory/camera/Destroy()
-	if(on)
-		if(news_feed)
-			GLOB.active_video_cameras -= src
-		camera.c_tag = null
-		QDEL_NULL(camera)
+	GLOB.active_video_cameras -= src
+	camera.c_tag = null
+	QDEL_NULL(camera)
 	return ..()
 
 /obj/item/clothing/accessory/camera/examine(mob/user)
