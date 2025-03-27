@@ -77,6 +77,8 @@
 	new /obj/item/defibrillator/loaded(src)
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/storage/box/bodybags/biohazard(src)
+	new /obj/item/sensor_device/advanced/mining(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 
 /**********************Shuttle Computer**************************/
