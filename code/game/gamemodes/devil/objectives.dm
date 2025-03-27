@@ -2,14 +2,14 @@
 
 /datum/objective/devil/sacrifice
 	var/list/target_minds = list()
-	needs_target = FALSE
-	antag_menu_name = "Завладеть душами"
-	check_cryo = FALSE
+	needs_target = TRUE
+	antag_menu_name = "Завладеть душой"
+	check_cryo = TRUE
 	target_amount = 12
-	explanation_text = ""
+	explanation_text = "Ошибка. Цель не сгенерирована"
 
 /datum/objective/devil/sacrifice/proc/forge()
-	if(!get_targets())
+	if(!target)
 		return FALSE
 
 	for(var/datum/mind/mind in target_minds)
@@ -17,7 +17,11 @@
 
 	return TRUE
 
-/datum/objective/devil/sacrifice/proc/get_targets()
+/datum/objective/devil/sacrifice/find_target(list/target_blacklist)
+
+	if(!needs_target)
+		return
+
 	var/list/command_minds = list()
 	var/list/security_minds = list()
 	var/list/other_minds = list()

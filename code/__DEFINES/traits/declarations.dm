@@ -260,6 +260,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RADIMMUNE "rad_immunity"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This mob is completely immune to viruses and diseases
+#define TRAIT_ABSOLUTE_VIRUSIMMUNE "absolute_virus_immunity"
 /// This human mob will not show its species on examine
 #define TRAIT_NO_SPECIES_EXAMINE "no_examine"
 /// This human mob will never become fat, does not affect genetic obesity
