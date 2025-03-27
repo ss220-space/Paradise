@@ -5,6 +5,7 @@
 
 /obj/mecha/proc/get_stats_html()
 	var/output = {"
+						<div id='uid_container' data-uid='[UID()]' style='display:none'></div>
 						<div id='content'>
 						[get_stats_part()]
 						</div>

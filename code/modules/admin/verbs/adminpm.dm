@@ -332,7 +332,7 @@
 		convo.read = TRUE
 		dat += "<h2>[check_rights(R_ADMIN, FALSE, user) ? fancy_title(current_title) : current_title]</h2>"
 		dat += "<h4>"
-		dat += "<div id='msgs' style='width:950px; border: 3px solid; overflow-y: scroll; height: 350px;'>"
+		dat += "<div id='msgs' style='width:100%; border: 3px solid; overflow-y: scroll; height: 350px;'>"
 		dat += "<table>"
 
 		for(var/message in convo.messages)

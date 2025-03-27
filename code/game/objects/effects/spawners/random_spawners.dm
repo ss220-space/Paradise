@@ -151,7 +151,7 @@
 
 
 /obj/effect/spawner/random_spawners/rodent
-	name = "50pc mouse 50pc rat"
+	name = "33pc mouse 33pc rat 33pc cockroach"
 	icon_state = "mouse"
 	result = list(
 		/mob/living/simple_animal/mouse = 1,
@@ -160,6 +160,7 @@
 		/mob/living/simple_animal/mouse/rat = 1,
 		/mob/living/simple_animal/mouse/rat/white = 1,
 		/mob/living/simple_animal/mouse/rat/irish = 1,
+		/mob/living/basic/cockroach = 3,
 	)
 
 

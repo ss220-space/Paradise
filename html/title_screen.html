@@ -7,10 +7,26 @@
 		<link rel="stylesheet" type="text/css" href="v4shim.css">
 		<link rel="stylesheet" type="text/css" href="font-awesome.css">
 		<script>
-			document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
-			window.addEventListener('resize', () => {
-				document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
-			});
+			/** Remove conditionals with 516*/
+			if ('devicePixelRatio' in window) {
+				var supportsCssVariables = false;
+				try {
+					var testElement = document.createElement('div');
+					testElement.style.setProperty('--test', '1px');
+					supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
+				} catch (e) {
+					supportsCssVariables = false;
+				}
+
+				if (supportsCssVariables) {
+					var updateDpr = function () {
+						document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+					};
+
+					updateDpr();
+					window.addEventListener('resize', updateDpr);
+				}
+			}
 		</script>
 		<style type='text/css'>
 			@font-face {
@@ -25,6 +41,10 @@
 
 			*::before {
 				-ms-transition: none !important;
+			}
+
+			html{
+				font-size: 15px;
 			}
 
 			body,
@@ -466,7 +486,6 @@
 
 				body {
 					font-size: calc(15px / var(--dpr));
-
 				}
 
 				.pixelated .character:first-of-type {
@@ -500,7 +519,7 @@
 			}
 
 			/** Remove with 516 */
-			@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
+			@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
 				body {
 					font-size: 15px;
 				}
