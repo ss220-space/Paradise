@@ -2472,7 +2472,8 @@
 	pixel_y = 26;
 	name = "surgical operating power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whiteblue";
@@ -2757,7 +2758,8 @@
 	pixel_y = 26;
 	name = "corridor power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -2856,7 +2858,8 @@
 	pixel_y = 26;
 	name = "cryogenic power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_cryo)
@@ -3106,7 +3109,8 @@
 	pixel_y = 26;
 	name = "botany power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -3952,7 +3956,8 @@
 	pixel_y = 26;
 	name = "botany power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -4407,15 +4412,14 @@
 /area/template_noop)
 "ps" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/cable{
+	icon_state = "0-8"
+	},
 /obj/machinery/power/apc{
 	name = "bridge power controller";
 	pixel_y = -25;
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
-	},
-/obj/structure/cable{
-	icon_state = "0-8"
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	dir = 0;
@@ -6932,8 +6936,7 @@
 	pixel_y = -26;
 	name = "kitchen power controller";
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/ancientstation/charlie_kitchen)
@@ -7154,7 +7157,8 @@
 	pixel_y = 26;
 	name = "surgical operating power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel/airless{
 	icon_state = "whiteblue";
@@ -8655,8 +8659,7 @@
 	pixel_y = -26;
 	name = "interrogation power controller";
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -9470,7 +9473,8 @@
 	pixel_y = 26;
 	name = "solitary confinement power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -9705,7 +9709,8 @@
 	pixel_y = 26;
 	name = "rest room power controller";
 	report_power_alarm = 0;
-	start_charge = 0
+	start_charge = 0;
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -9719,8 +9724,7 @@
 	pixel_y = -26;
 	name = "canteen power controller";
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_dininghall)
@@ -10808,15 +10812,14 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /obj/machinery/power/apc{
 	pixel_y = -26;
 	name = "armory power controller";
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 5
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "floorgrime"
@@ -13841,8 +13844,7 @@
 	pixel_y = -26;
 	name = "Prison warden's room power controller";
 	report_power_alarm = 0;
-	start_charge = 0;
-	dir = 1
+	start_charge = 0
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "red"
