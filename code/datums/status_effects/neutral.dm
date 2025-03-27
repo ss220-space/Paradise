@@ -375,7 +375,7 @@
 
 /atom/movable/screen/alert/status_effect/leaning/Click()
 	var/mob/living/L = usr
-	if(!istype(L) || L != owner)
+	if(!istype(L))
 		return
 	L.changeNext_move(CLICK_CD_RESIST)
 	if(L.last_special <= world.time)

@@ -37,11 +37,11 @@
 		return FALSE
 	var/mob/living/leaner = dropped
 	leaning_mob = leaner
-	if(!iscarbon(dropped) && !iscyborg(dropped)) //Are we not a cyborg or carbon?
+	if(!iscarbon(dropped) && !isrobot(dropped)) //Are we not a cyborg or carbon?
 		return FALSE
 	if(!(usr == leaner)) //Are we trying to lean someone else?
 		return FALSE
-	if(leaner.incapacitated(IGNORE_RESTRAINTS) || leaner.stat != CONSCIOUS || leaner.notransform || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
+	if(leaner.incapacitated(INC_IGNORE_RESTRAINED) || leaner.stat != CONSCIOUS || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
 	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
 		return FALSE
@@ -81,10 +81,10 @@
 	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
 	visible_message(
 		span_notice("[src] прислоня[pluralize_ru(gender, "ется", "ются")] к [lean_target.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы прислоняетесь к [lean_target.declent_ru(ACCUSATIVE)]]."),
+		span_notice("Вы прислоняетесь к [lean_target.declent_ru(ACCUSATIVE)]."),
 	)
 	leaned_object = lean_target
-	RegisterSignals(src, list(
+	RegisterSignal(src, list(
 		COMSIG_MOB_CLIENT_MOVED,
 		COMSIG_LIVING_START_PULL,
 		COMSIG_LIVING_GET_PULLED,

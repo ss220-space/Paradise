@@ -45,6 +45,9 @@
 	canSmoothWith = SMOOTH_GROUP_WALLS
 	smooth = SMOOTH_BITMASK
 
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
+
 /turf/simulated/wall/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 

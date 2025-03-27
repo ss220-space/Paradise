@@ -688,6 +688,7 @@
 				return TRUE
 
 	var/moved = target.Move(shove_to, shove_dir)
+	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
 		target.visible_message(span_warning("[user] slams [target]"), \
