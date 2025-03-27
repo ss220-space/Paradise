@@ -3888,7 +3888,7 @@
 "nB" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/item/stack/tile/plasteel,
-/turf/simulated/floor/plating,
+/turf/simulated/floor/plating/airless,
 /area/template_noop)
 "nD" = (
 /obj/effect/decal/cleanable/dirt,
