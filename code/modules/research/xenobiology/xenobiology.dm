@@ -534,7 +534,7 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 				return
-		I.item_flags |= IGNORE_SLOWDOWN
+		I.slowdown = I.slowdown - (I.slowdown / 2)
 		I.update_equipped_item()
 
 	if(isvehicle(O)) //simple solution
