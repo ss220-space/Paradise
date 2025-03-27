@@ -1,5 +1,5 @@
 /datum/borer_focus
-	var/bodypartname = "Focus"
+	var/name = "Focus"
 	var/cost = 0
 	var/datum/antagonist/borer/parent
 	var/movable_granted = FALSE
@@ -7,8 +7,12 @@
 
 /datum/borer_focus/New(mob/living/simple_animal/borer/borer)
 	parent = borer.antag_datum
+	apply()
 
 /datum/borer_focus/proc/tick(seconds_between_ticks)
+	return
+
+/datum/borer_focus/proc/apply()
 	return
 
 /datum/borer_focus/proc/grant_movable_effect()
@@ -19,24 +23,41 @@
 
 /datum/borer_focus/Destroy(force)
 	parent = null
+
 	return ..()
 
 /datum/borer_focus/head
-	bodypartname = "Head focus"
+	name = "Head focus"
 	cost = HEAD_FOCUS_COST
 	
 /datum/borer_focus/torso
-	bodypartname = "Body focus"
+	name = "Body focus"
 	cost = TORSO_FOCUS_COST
 	var/obj/item/organ/internal/heart/linked_organ
 	
 /datum/borer_focus/hands
-	bodypartname = "Hands focus"
+	name = "Hands focus"
 	cost = HANDS_FOCUS_COST
 	
 /datum/borer_focus/legs
-	bodypartname = "Legs focus"
+	name = "Legs focus"
 	cost = LEGS_FOCUS_COST
+
+/datum/borer_focus/sting
+	name = "Sting focus"
+	cost = STING_FOCUS_COST
+
+/datum/borer_focus/reproductive
+	name = "Reproductive focus"
+	cost = REPRODUCTION_FOCUS_COST
+
+/datum/borer_focus/abdomen
+	name = "Abdomen focus"
+	cost = ABDOMEN_FOCUS_COST
+
+/datum/borer_focus/secretion
+	name = "Secretion focus"
+	cost = SECRETION_FOCUS_COST
 	
 /datum/borer_focus/head/grant_movable_effect()
 	if(!is_catathonic)
@@ -125,3 +146,39 @@
 
 	parent.previous_host.remove_movespeed_modifier(/datum/movespeed_modifier/borer_leg_focus)
 	return TRUE
+
+/datum/borer_focus/sting/apply()
+	parent.user.dominate_spell.weaken_time += pick(5, 6) SECONDS
+	parent.user.torment_action.cost -= 15
+
+/datum/borer_focus/reproductive/apply()
+	RegisterSignal(parent.user, COMSIG_BORER_REPRODUCE, PROC_REF(on_reproduce))
+	parent.user.make_larvae_action.cost = parent.user.make_larvae_action.cost * 0.3
+
+/datum/borer_focus/reproductive/proc/on_reproduce(mob/living/simple_animal/borer/source, turf/turf)
+	SIGNAL_HANDLER
+
+	var/additional_borers = 0
+	var/chance = rand(1, 100)
+
+	switch(chance)
+		if(1 to 10)
+			additional_borers = 1
+
+		if(11 to 15)
+			additional_borers = 2
+
+	for(var/count in 1 to additional_borers)
+		turf.add_vomit_floor()
+		new /mob/living/simple_animal/borer(turf, source.generation + 1)
+
+/datum/borer_focus/reproductive/Destroy(force)
+	UnregisterSignal(parent.user, COMSIG_BORER_REPRODUCE)
+	return ..()
+
+/datum/borer_focus/abdomen/apply()
+	parent.user.update_transform(0.2)
+
+/datum/borer_focus/secretion/apply()
+	parent.user.chem_gain += 0.5
+	parent.user.infest_spell.cast_time = parent.user.infest_spell.cast_time * 0.5

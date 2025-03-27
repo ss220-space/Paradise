@@ -1306,6 +1306,8 @@
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
 #define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
+/// From /datum/action/innate/borer/make_larvae/Activate (turf/turf)
+#define COMSIG_BORER_REPRODUCE "borer_reproduced"
 
 ///from /datum/spawners_menu/ui_act(): (mob/user)
 #define COMSIG_IS_GHOST_CONTROLABLE "is_ghost_controllable"
