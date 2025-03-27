@@ -55,7 +55,7 @@
 #define JOB_FLAG_MIME				(1<<12)
 #define JOB_FLAG_CIVILIAN			(1<<13)
 #define JOB_FLAG_EXPLORER			(1<<14)
-#define JOB_FLAG_MINING_MEDIC 		(1<<15)
+#define JOB_FLAG_MINING_MEDIC			(1<<15)
 
 #define JOBCAT_KARMA				(1<<3)
 
