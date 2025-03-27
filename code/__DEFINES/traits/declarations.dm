@@ -301,3 +301,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BEING_OFFERED "offered"
 /// This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
 #define TRAIT_AI_BAGATTACK "bagattack"
+
+/// A trait gained by leaning against a wall
+#define TRAIT_LEANING "leaning"

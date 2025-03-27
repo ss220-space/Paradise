@@ -250,6 +250,8 @@
 /obj/machinery/disposal/MouseDrop_T(mob/living/target, mob/living/user, params)
 	if(!istype(target) || target.buckled || target.has_buckled_mobs() || !in_range(user, src) || !in_range(user, target) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || isAI(user))
 		return
+	if(user.has_status_effect(STATUS_EFFECT_LEANING) || target.has_status_effect(STATUS_EFFECT_LEANING))
+		return
 	if(isanimal(user) && target != user)
 		return //animals cannot put mobs other than themselves into disposal
 	if(target != user && target.anchored)
