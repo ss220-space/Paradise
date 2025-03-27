@@ -96,10 +96,26 @@
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 		[head_content.Join("")]
 		<script>
-			document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
-			window.addEventListener('resize', () => {
-				document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
-			});
+			/** Remove conditionals with 516*/
+			if ('devicePixelRatio' in window) {
+				var supportsCssVariables = false;
+				try {
+					var testElement = document.createElement('div');
+					testElement.style.setProperty('--test', '1px');
+					supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
+				} catch (e) {
+					supportsCssVariables = false;
+				}
+
+				if (supportsCssVariables) {
+					var updateDpr = function () {
+						document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+					};
+
+					updateDpr();
+					window.addEventListener('resize', updateDpr);
+				}
+			}
 		</script>
 	</head>
 	<body scroll=auto>

@@ -13,12 +13,80 @@ body
 	{
 		font-size: calc(14px / var(--dpr));
 	}
+
+	h1
+	{
+		font-size: calc(15px / var(--dpr));
+	}
+
+	h2
+	{
+		font-size: calc(15px / var(--dpr));
+	}
+
+	h3
+	{
+		font-size: calc(13px / var(--dpr));
+	}
+
+	h4
+	{
+		font-size: calc(12px / var(--dpr));
+	}
+
+	.uiTitle
+	{
+		font-size: calc(16px / var(--dpr));
+	}
+
+	.notice
+	{
+		font-size: calc(10px / var(--dpr));
+	}
+
+	.code {
+		font-size: calc(12px / var(--dpr));
+	}
 }
 
 /** Remove with 516 */
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
 	body
 	{
+		font-size: 12px;
+	}
+
+	h1
+	{
+		font-size: 15px;
+	}
+
+	h2
+	{
+		font-size: 14px;
+	}
+
+	h3
+	{
+		font-size: 13px;
+	}
+
+	h4
+	{
+		font-size: 12px;
+	}
+
+	.uiTitle
+	{
+		font-size: 16px;
+	}
+
+	.notice
+	{
+		font-size: 10px;
+	}
+
+	.code {
 		font-size: 12px;
 	}
 }
@@ -132,25 +200,6 @@ h1, h2, h3, h4, h5, h6
 	color: #517087;
 }
 
-h1
-{
-	font-size: 15px;
-}
-
-h2
-{
-	font-size: 14px;
-}
-
-h3
-{
-	font-size: 13px;
-}
-
-h4
-{
-	font-size: 12px;
-}
 
 .uiWrapper
 {
@@ -167,7 +216,6 @@ h4
 	border-bottom: 2px solid #161616;
 	background: #383838;
 	color: #98B0C3;
-	font-size: 16px;
 }
 
 .uiTitleWrapper
@@ -233,7 +281,6 @@ h4
 	position: relative;
 	background: #E9C183;
 	color: #15345A;
-	font-size: 10px;
 	font-style: italic;
 	padding: 2px 4px 0 4px;
 	margin: 4px;

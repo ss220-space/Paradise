@@ -12749,7 +12749,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "neutralfull"

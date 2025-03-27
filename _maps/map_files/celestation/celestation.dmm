@@ -11479,7 +11479,7 @@
 /obj/structure/chair/office/dark{
 	dir = 4
 	},
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /turf/simulated/floor/plasteel,
 /area/atmos/control)
 "bFb" = (
