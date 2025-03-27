@@ -47,7 +47,7 @@
 // handling before `stat` is set
 /mob/living/death(gibbed)
 	SEND_SIGNAL(src, COMSIG_LIVING_EARLY_DEATH, gibbed)
-	
+
 	if(stat == DEAD || !can_die())
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
@@ -103,6 +103,9 @@
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
+
+	if(xenobiology_spawned)
+		SSmobs.xenobiology_mobs--
 
 	clear_alert("succumb")
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)

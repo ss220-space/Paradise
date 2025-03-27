@@ -1,6 +1,7 @@
 /datum/species/shadow/ling
 	//Normal shadowpeople but with enhanced effects
 	name = SPECIES_SHADOWLING
+	unarmed_type = /datum/unarmed_attack/claws/shadowlings
 
 	icobase = 'icons/mob/human_races/r_shadowling.dmi'
 	deform = 'icons/mob/human_races/r_shadowling.dmi'
@@ -10,24 +11,56 @@
 	flesh_color = "#222222"
 
 	inherent_traits = list(
+		TRAIT_NO_PAIN,
 		TRAIT_NO_BLOOD,
 		TRAIT_NO_BREATH,
 		TRAIT_RADIMMUNE,
-		TRAIT_NO_GUNS,	// can't use guns due to muzzle flash	// yeah totally not a balance reason
 		TRAIT_VIRUSIMMUNE,
-		TRAIT_NO_SPECIES_EXAMINE,
 		TRAIT_NO_HUNGER,
+		TRAIT_NO_SPECIES_EXAMINE,
+		TRAIT_NO_GUNS,
+		TRAIT_EMBEDIMMUNE,
+		TRAIT_NO_SLIP_ALL,
 	)
 	burn_mod = 1.25
 	heatmod = 1.5
-
+	no_equip = list(ITEM_SLOT_HEAD, ITEM_SLOT_EYES, ITEM_SLOT_MASK, ITEM_SLOT_CLOTH_OUTER, ITEM_SLOT_GLOVES, ITEM_SLOT_FEET, ITEM_SLOT_CLOTH_INNER, ITEM_SLOT_SUITSTORE)
+	nojumpsuit = TRUE
 	silent_steps = 1
 	grant_vision_toggle = 0
 
+	warning_low_pressure = -INFINITY
+	hazard_low_pressure = -INFINITY
+	hazard_high_pressure = INFINITY
+	warning_high_pressure = INFINITY
+
+	cold_level_1 = -INFINITY
+	cold_level_2 = -INFINITY
+	cold_level_3 = -INFINITY
+
+	heat_level_1 = INFINITY
+	heat_level_2 = INFINITY
+	heat_level_3 = INFINITY
+
 	has_organ = list(
-		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes,
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/shadowling,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/shadowling,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/shadowling,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/shadowling,
+	)
+
+	has_limbs = list(
+		BODY_ZONE_CHEST =  list("path" = /obj/item/organ/external/chest/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_GROIN = list("path" = /obj/item/organ/external/groin/unbreakable/sturdy),
+		BODY_ZONE_HEAD = list("path" = /obj/item/organ/external/head/unbreakable/sturdy),
+		BODY_ZONE_L_ARM = list("path" = /obj/item/organ/external/arm/unbreakable/sturdy),
+		BODY_ZONE_R_ARM = list("path" = /obj/item/organ/external/arm/right/unbreakable/sturdy),
+		BODY_ZONE_L_LEG = list("path" = /obj/item/organ/external/leg/unbreakable/sturdy),
+		BODY_ZONE_R_LEG = list("path" = /obj/item/organ/external/leg/right/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_L_HAND = list("path" = /obj/item/organ/external/hand/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_R_HAND = list("path" = /obj/item/organ/external/hand/right/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_L_FOOT = list("path" = /obj/item/organ/external/foot/unbreakable/sturdy),
+		BODY_ZONE_PRECISE_R_FOOT = list("path" = /obj/item/organ/external/foot/right/unbreakable/sturdy),
 	)
 
 	disliked_food = NONE

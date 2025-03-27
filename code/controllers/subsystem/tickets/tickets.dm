@@ -401,7 +401,7 @@ UI STUFF
 	dat +="<a href='byond://?src=[UID()];refresh=1'>Refresh</a><br /><a href='byond://?src=[UID()];showopen=1'>Open Tickets</a><a href='byond://?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='byond://?src=[UID()];showclosed=1'>Closed Tickets</a>"
 	if(tab == TICKET_OPEN)
 		dat += "<h2>Open Tickets</h2>"
-	dat += "<table style='width:1300px; border: 3px solid;'>"
+	dat += "<table style='width:100%; border: 3px solid;'>"
 	dat +="<tr style='[trStyle]'><th style='[tdStyleleft]'>Control</th><th style='[tdStyle]'>Ticket</th></tr>"
 	if(tab == TICKET_OPEN)
 		for(var/T in allTickets)
