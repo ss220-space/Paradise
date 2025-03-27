@@ -90,11 +90,11 @@
 		learned_focuses += new focus(user)
 
 		pre_grant_movable_effect()
-		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
+		to_chat(user, span_notice("Вы успешно приобрели [focus.name]"))
 		return
 
 	var/need_points = focus.cost - evo_points
-	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.bodypartname]."))
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.name]."))
 	return
 
 /datum/antagonist/borer/proc/entered_host()

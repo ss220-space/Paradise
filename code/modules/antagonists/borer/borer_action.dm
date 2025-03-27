@@ -92,7 +92,7 @@
 		return
 
 	if(borer.chemicals < cost)
-		to_chat(borer.host, "Вам требуется [cost] химикатов для размножения!")
+		to_chat(borer.host, "Вам требуется [cost] химикат[declension_ru(cost, "о", "а", "ов")] для размножения!")
 		return
 
 	borer.chemicals -= cost
@@ -123,7 +123,7 @@
 	var/total_cost = cost - (borer.antag_datum.borer_rank.rank_ability_amplifier * 10)
 
 	if(borer.chemicals < total_cost)
-		to_chat(owner, "Вам требуется [total_cost] химикатов для вызова психической агонии!")
+		to_chat(owner, "Вам требуется [total_cost] химикат[declension_ru(total_cost, "о", "а", "ов")] для вызова психической агонии!")
 		return
 
 	borer.chemicals -= total_cost
