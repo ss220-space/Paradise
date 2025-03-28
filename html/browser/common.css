@@ -11,7 +11,7 @@ body
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
 	body
 	{
-		font-size: calc(14px / var(--dpr));
+		font-size: calc(12px / var(--dpr));
 	}
 
 	h1
