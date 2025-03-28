@@ -340,7 +340,7 @@ BLIND     // can't see anything
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
-	item_state = "lgloves" //For gloves withoit their own item_state
+	item_state = "bgloves" //For gloves withoit their own item_state
 	belt_icon = "bgloves"
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
