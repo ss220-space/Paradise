@@ -446,3 +446,13 @@
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
+
+/obj/effect/temp_visual/critical_hit
+	name = "critical hit!!!"
+	icon = 'icons/effects/effects.dmi'
+	icon_state = "critical_hit"
+	duration = 2.5 SECONDS
+
+/obj/effect/temp_visual/critical_hit/Initialize(mapload)
+	. = ..()
+	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
