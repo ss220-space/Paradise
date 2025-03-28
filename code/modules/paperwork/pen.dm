@@ -234,6 +234,7 @@
 		span_warning("[user] stabs [target] in the back!"),
 		span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"),
 	)
+	new /obj/effect/temp_visual/critical_hit(get_turf(target))
 
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
