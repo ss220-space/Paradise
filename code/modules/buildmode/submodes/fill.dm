@@ -7,9 +7,9 @@
 /datum/buildmode_mode/fill/show_help(mob/user)
 	to_chat(user, span_notice("***********************************************************"))
 	to_chat(user, span_notice("ЛКМ на turf/obj/mob      = Выбрать угол"))
-	to_chat(user, span_notice("ЛКМ + Alt на turf/obj/mob = Удалить регион"))
+	to_chat(user, span_notice("ЛКМ + Alt после выбора региона = Удалить регион"))
 	to_chat(user, span_notice("ПКМ по кнопке билдмода = Выбрать тип"))
-	to_chat(user, span_notice("ЛКМ + Alt на turf/obj = Копировать тип объекта"))
+	to_chat(user, span_notice("ЛКМ + Alt на turf/obj/mob = Копировать тип объекта"))
 	to_chat(user, span_notice("***********************************************************"))
 
 /datum/buildmode_mode/fill/change_settings(mob/user)
@@ -30,18 +30,15 @@
 	var/list/pa = params2list(params)
 	var/alt_click = pa.Find("alt")
 	var/left_click = pa.Find("left")
-	if(left_click && alt_click)
+	var/region_check = cornerA && cornerB
+	if(left_click && alt_click && !region_check)
 		if(isturf(object) || isobj(object) || ismob(object))
 			objholder = object.type
 			to_chat(user, span_notice("[capitalize(object.declent_ru(NOMINATIVE))] ([object.type]) выбран[genderize_ru(object.gender, "", "a", "о", "ы")]."))
 			return
 		else
 			to_chat(user, span_notice("[capitalize(object.declent_ru(NOMINATIVE))] не турф, объект, или существо! Пожалуйста, выберите еще раз."))
-	if(isnull(objholder))
-		to_chat(user, span_warning("Сначала выберите тип объекта."))
-		deselect_region()
-		return
-	..()
+	. = ..()
 
 /datum/buildmode_mode/fill/handle_selected_region(mob/user, params)
 	var/list/pa = params2list(params)
@@ -52,6 +49,10 @@
 		if(alt_click)
 			empty_region(block(cornerA,cornerB))
 		else
+			if(isnull(objholder))
+				to_chat(user, span_warning("Сначала выберите тип объекта."))
+				deselect_region()
+				return
 			for(var/turf/T in block(cornerA,cornerB))
 				if(ispath(objholder,/turf))
 					T.ChangeTurf(objholder)
