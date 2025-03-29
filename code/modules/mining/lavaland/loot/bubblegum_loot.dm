@@ -314,6 +314,7 @@
 
 /obj/item/soulscythe/proc/give_blood(amount)
 	soul.blood_level = min(MAX_BLOOD_LEVEL, soul.blood_level + amount)
+	repair_damage(amount)
 
 /obj/item/soulscythe/proc/on_resist(mob/living/user)
 	SIGNAL_HANDLER
