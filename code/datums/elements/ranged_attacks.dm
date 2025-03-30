@@ -4,7 +4,7 @@
 /datum/element/ranged_attacks
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY | ELEMENT_BESPOKE
 	id_arg_index = 2
-	var/casingtype = /obj/item/ammo_casing/glockroach
+	var/casingtype = /obj/item/ammo_casing/caseless/glockroach
 	var/projectilesound = 'sound/weapons/gunshots/gunshot3.ogg'
 	var/projectiletype
 

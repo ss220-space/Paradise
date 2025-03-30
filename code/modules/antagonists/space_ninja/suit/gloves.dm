@@ -13,6 +13,7 @@
 	name = "ninja gloves"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "ninja_gloves"
+	item_state = "ninja_gloves"
 	siemens_coefficient = 0
 	cold_protection = HANDS
 	min_cold_protection_temperature = GLOVES_MIN_TEMP_PROTECT
