@@ -127,16 +127,16 @@
 			possible_modules += AM
 
 /datum/module_picker/proc/use(mob/user)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += {"<B>Select use of processing time: (currently #[processing_time] left.)</B><BR>
-			<HR>
-			<B>Install Module:</B><BR>
-			<I>The number afterwards is the amount of processing time it consumes.</I><BR>"}
+	var/dat = ""
+	dat += {"<b>Select use of processing time: (currently #[processing_time] left.)</b><br>
+			<hr>
+			<b>Install Module:</b><br>
+			<i>The number afterwards is the amount of processing time it consumes.</i><br>"}
 	for(var/datum/AI_Module/large/module in possible_modules)
-		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
+		dat += "<a href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</a><a href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</a> ([module.cost])<br>"
 	for(var/datum/AI_Module/small/module in possible_modules)
-		dat += "<A href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</A><A href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</A> ([module.cost])<BR>"
-	dat += "<HR>"
+		dat += "<a href='byond://?src=[UID()];[module.mod_pick_name]=1'>[module.module_name]</a><a href='byond://?src=[UID()];showdesc=[module.mod_pick_name]'>\[?\]</a> ([module.cost])<br>"
+	dat += "<hr>"
 	if(temp)
 		dat += "[temp]"
 	var/datum/browser/popup = new(user, "modpicker", "Malf Module Menu", 400, 500)
@@ -276,18 +276,15 @@
 
 /obj/machinery/doomsday_device/Destroy()
 	STOP_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = FALSE
-	if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-		SSshuttle.emergency.mode = SHUTTLE_DOCKED
-		SSshuttle.emergency.timer = world.time + 3 MINUTES
-		GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
+
+	SSshuttle.remove_hostile_environment(src, 'sound/AI/shuttledock.ogg')
 	return ..()
 
 /obj/machinery/doomsday_device/proc/start()
 	detonation_timer = world.time + default_timer
 	timing = 1
 	START_PROCESSING(SSfastprocess, src)
-	SSshuttle.emergencyNoEscape = TRUE
+	SSshuttle.add_hostile_environment(src)
 
 /obj/machinery/doomsday_device/proc/seconds_remaining()
 	. = max(0, (round(detonation_timer - world.time) / 10))
@@ -296,11 +293,7 @@
 	var/turf/T = get_turf(src)
 	if(!T || !is_station_level(T.z))
 		GLOB.minor_announcement.Announce("УСТРОЙСТВО СУДНОГО ДНЯ ВНЕ ЗОНЫ ДЕЙСТВИЯ СТАНЦИИ, ОСТАНОВКА.", "ОШИБКА ОШИБКА $0ШБК$!А41.%%!!(%$^^__+ @#Ш0E4", 'sound/misc/notice1.ogg')
-		SSshuttle.emergencyNoEscape = FALSE
-		if(SSshuttle.emergency.mode == SHUTTLE_STRANDED)
-			SSshuttle.emergency.mode = SHUTTLE_DOCKED
-			SSshuttle.emergency.timer = world.time + 3 MINUTES
-			GLOB.priority_announcement.Announce("Вредоносное окружение устранено. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.", "Приоритетное оповещение.", 'sound/AI/shuttledock.ogg')
+		SSshuttle.remove_hostile_environment(src, 'sound/AI/shuttledock.ogg')
 		qdel(src)
 	if(!timing)
 		STOP_PROCESSING(SSfastprocess, src)
@@ -322,7 +315,7 @@
 		M << 'sound/machines/alarm.ogg'
 	sleep(100)
 	SSticker.station_explosion_cinematic(null, "AI malfunction")
-	to_chat(world, "<B>The AI cleansed the station of life with the doomsday device!</B>")
+	to_chat(world, "<b>The AI cleansed the station of life with the doomsday device!</b>")
 	SSticker.mode.station_was_nuked = TRUE
 
 //AI Turret Upgrade: Increases the health and damage of all turrets.
@@ -340,7 +333,7 @@
 		var/turf/T = get_turf(turret)
 		if(is_station_level(T.z))
 			turret.health += 30
-			turret.eprojectile = /obj/item/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
+			turret.eprojectile = /obj/projectile/beam/laser/heavylaser //Once you see it, you will know what it means to FEAR.
 			turret.eshot_sound = 'sound/weapons/lasercannonfire.ogg'
 
 //Hostile Station Lockdown: Locks, bolts, and electrifies every airlock on the station. After 90 seconds, the doors reset.

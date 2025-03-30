@@ -21,7 +21,15 @@
 
 /obj/item/storage/box
 	name = "box"
-	desc = "It's just an ordinary box."
+	desc = "Это обычная коробка."
+	ru_names = list(
+		NOMINATIVE = "коробка",
+		GENITIVE = "коробки",
+		DATIVE = "коробке",
+		ACCUSATIVE = "коробку",
+		INSTRUMENTAL = "коробкой",
+		PREPOSITIONAL = "коробке"
+	)
 	icon_state = "box"
 	item_state = "syringe_kit"
 	resistance_flags = FLAMMABLE
@@ -32,7 +40,15 @@
 
 /obj/item/storage/box/large
 	name = "large box"
-	desc = "You could build a fort with this."
+	desc = "Это крайне вместительная коробка."
+	ru_names = list(
+		NOMINATIVE = "большая коробка",
+		GENITIVE = "большой коробки",
+		DATIVE = "большой коробке",
+		ACCUSATIVE = "большую коробку",
+		INSTRUMENTAL = "большой коробкой",
+		PREPOSITIONAL = "большой коробке"
+	)
 	icon_state = "largebox"
 	w_class = 4 // Big, bulky.
 	foldable_amt = 4
@@ -223,7 +239,7 @@
 
 /obj/item/storage/box/flashbangs
 	name = "box of flashbangs (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</B>"
+	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness or deafness in repeated use.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/flashbangs/populate_contents()
@@ -232,7 +248,7 @@
 
 /obj/item/storage/box/flashes
 	name = "box of flashbulbs"
-	desc = "<B>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</B>"
+	desc = "<b>WARNING: Flashes can cause serious eye damage, protective eyewear is required.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/flashes/populate_contents()
@@ -241,7 +257,7 @@
 
 /obj/item/storage/box/teargas
 	name = "box of tear gas grenades (WARNING)"
-	desc = "<B>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</B>"
+	desc = "<b>WARNING: These devices are extremely dangerous and can cause blindness and skin irritation.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/teargas/populate_contents()
@@ -250,7 +266,7 @@
 
 /obj/item/storage/box/barrier
 	name = "box of barrier grenades"
-	desc = "Instant cover.</B>"
+	desc = "Instant cover.</b>"
 	icon_state = "flashbang"
 
 /obj/item/storage/box/barrier/populate_contents()
@@ -378,7 +394,15 @@
 
 /obj/item/storage/box/donkpockets
 	name = "box of donk-pockets"
-	desc = "<B>Instructions:</B> <I>Heat in microwave. Product will cool if not eaten within seven minutes.</I>"
+	desc = "<b>Инструкция:</b> <i>Разогрейте в микроволновой печи. Если продукт не употреблять в течение семи минут, он остынет.</i>"
+	ru_names = list(
+		NOMINATIVE = "коробка с Донк-покетами",
+		GENITIVE = "коробки с Донк-покетами",
+		DATIVE = "коробке с Донк-покетами",
+		ACCUSATIVE = "коробку с Донк-покетами",
+		INSTRUMENTAL = "коробкой с Донк-покетами",
+		PREPOSITIONAL = "коробке с Донк-покетами"
+	)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/donkpockets/populate_contents()
@@ -387,7 +411,15 @@
 
 /obj/item/storage/box/syndidonkpockets
 	name = "box of donk-pockets"
-	desc = "This box feels slightly warm"
+	desc = "Эта коробка кажется немного тёплой на ощупь."
+	ru_names = list(
+		NOMINATIVE = "коробка с Донк-покетами",
+		GENITIVE = "коробки с Донк-покетами",
+		DATIVE = "коробке с Донк-покетами",
+		ACCUSATIVE = "коробку с Донк-покетами",
+		INSTRUMENTAL = "коробкой с Донк-покетами",
+		PREPOSITIONAL = "коробке с Донк-покетами"
+	)
 	icon_state = "donk_kit"
 
 /obj/item/storage/box/syndidonkpockets/populate_contents()
@@ -605,7 +637,7 @@
 
 /obj/item/storage/box/mousetraps
 	name = "box of Pest-B-Gon mousetraps"
-	desc = "<B><FONT color='red'>WARNING:</FONT></B> <I>Keep out of reach of children</I>."
+	desc = "<b><span style='color: red;'>WARNING:</span></b> <i>Keep out of reach of children</i>."
 	icon_state = "mousetraps"
 
 /obj/item/storage/box/mousetraps/populate_contents()

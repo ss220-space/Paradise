@@ -78,7 +78,6 @@
 		new slime.coretype(slime.loc)
 
 		if(slime.cores <= 0)
-			slime.icon_state = "[slime.colour] baby slime dead-nocore"
 			return SURGERY_STEP_CONTINUE
 		else
 			return SURGERY_STEP_INCOMPLETE

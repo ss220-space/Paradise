@@ -36,8 +36,6 @@
 	var/safety = TRUE
 	/// If true, this can be used through hardsuits
 	var/ignore_hardsuits = FALSE
-	// If safety is false and combat is true, the chance that this will cause a heart attack.
-	var/heart_attack_probability = 30
 	/// If this is vulnerable to EMPs.
 	var/hardened = FALSE
 	/// If this can be emagged.
@@ -78,7 +76,7 @@
 
 /obj/item/defibrillator/examine(mob/user)
 	. = ..()
-	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять лопасти.")
+	. += span_info("Используйте <b>Ctrl + ЛКМ</b>, чтобы взять электроды.")
 
 
 /obj/item/defibrillator/proc/update_power()
@@ -183,7 +181,7 @@
 	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/defibrillator/verb/toggle_paddles_verb()
-	set name = "Взять лопасти"
+	set name = "Взять электроды"
 	set category = "Object"
 	set src in oview(1)
 
@@ -195,7 +193,7 @@
 
 /obj/item/defibrillator/proc/toggle_paddles(mob/living/carbon/human/user = usr)
 	if(!paddles)
-		balloon_alert(user, "лопасти отсутствуют!")
+		balloon_alert(user, "электроды отсутствуют!")
 		return
 
 	if(paddles_on_defib)
@@ -281,7 +279,6 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "biotech=5"
-	heart_attack_probability = 10
 
 /obj/item/defibrillator/compact/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot == ITEM_SLOT_BELT)
@@ -308,7 +305,6 @@
 	paddle_type = /obj/item/twohanded/shockpaddles/syndicate
 	ignore_hardsuits = TRUE
 	safety = FALSE
-	heart_attack_probability = 100
 
 /obj/item/defibrillator/compact/combat/loaded/Initialize(mapload)
 	. = ..()
@@ -332,7 +328,6 @@
 	ignore_hardsuits = TRUE
 	safety = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF //Objective item, better not have it destroyed.
-	heart_attack_probability = 100
 
 	var/next_emp_message //to prevent spam from the emagging message on the advanced defibrillator
 
@@ -356,14 +351,14 @@
 
 /obj/item/twohanded/shockpaddles
 	name = "defibrillator paddles"
-	desc = "Пара лопастей с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
+	desc = "Пара электродов с тонкими металлическими пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током."
 	ru_names = list(
-		NOMINATIVE = "лопасти дефибриллятора",
-		GENITIVE = "лопастей дефибриллятора",
-		DATIVE = "лопастям дефибриллятора",
-		ACCUSATIVE = "лопасти дефибриллятора",
-		INSTRUMENTAL = "лопастями дефибриллятора",
-		PREPOSITIONAL = "лопастях дефибриллятора"
+		NOMINATIVE = "электроды дефибриллятора",
+		GENITIVE = "электродов дефибриллятора",
+		DATIVE = "электродам дефибриллятора",
+		ACCUSATIVE = "электроды дефибриллятора",
+		INSTRUMENTAL = "электродами дефибриллятора",
+		PREPOSITIONAL = "электродах дефибриллятора"
 	)
 	icon_state = "defibpaddles"
 	item_state = "defibpaddles"
@@ -382,14 +377,14 @@
 
 /obj/item/twohanded/shockpaddles/advanced
 	name = "advanced defibrillator paddles"
-	desc = "Пара высокотехнологичных лопастей с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
+	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони."
 	ru_names = list(
-		NOMINATIVE = "лопасти продвинутого дефибриллятора",
-		GENITIVE = "лопастей продвинутого дефибриллятора",
-		DATIVE = "лопастям продвинутого дефибриллятора",
-		ACCUSATIVE = "лопасти продвинутого дефибриллятора",
-		INSTRUMENTAL = "лопастями продвинутого дефибриллятора",
-		PREPOSITIONAL = "лопастях продвинутого дефибриллятора"
+		NOMINATIVE = "электроды продвинутого дефибриллятора",
+		GENITIVE = "электродов продвинутого дефибриллятора",
+		DATIVE = "электродам продвинутого дефибриллятора",
+		ACCUSATIVE = "электроды продвинутого дефибриллятора",
+		INSTRUMENTAL = "электродами продвинутого дефибриллятора",
+		PREPOSITIONAL = "электродах продвинутого дефибриллятора"
 	)
 	icon_state = "ntpaddles"
 	item_state = "ntpaddles"
@@ -397,14 +392,14 @@
 /obj/item/twohanded/shockpaddles/syndicate
 	name = "combat defibrillator paddles"
 	desc = "A pair of high-tech paddles with flat plasteel surfaces to revive deceased operatives (unless they exploded). They possess both the ability to penetrate armor and to deliver powerful or disabling shocks offensively."
-	desc = "Пара высокотехнологичных лопастей с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
+	desc = "Пара высокотехнологичных электродов с тонкими пласталевыми пластинами, оснащённых пластиковыми ручками. Используются для подачи мощных ударов электрическим током, могут действовать сквозь слой брони. Одинаково хорошо подходят как для оживления мёртвых оперативников, так и для устранения противников."
 	ru_names = list(
-		NOMINATIVE = "лопасти боевого дефибриллятора",
-		GENITIVE = "лопастей боевого дефибриллятора",
-		DATIVE = "лопастям боевого дефибриллятора",
-		ACCUSATIVE = "лопасти боевого дефибриллятора",
-		INSTRUMENTAL = "лопастями боевого дефибриллятора",
-		PREPOSITIONAL = "лопастях боевого дефибриллятора"
+		NOMINATIVE = "электроды боевого дефибриллятора",
+		GENITIVE = "электродов боевого дефибриллятора",
+		DATIVE = "электродам боевого дефибриллятора",
+		ACCUSATIVE = "электроды боевого дефибриллятора",
+		INSTRUMENTAL = "электродами боевого дефибриллятора",
+		PREPOSITIONAL = "электродах боевого дефибриллятора"
 	)
 	icon_state = "syndiepaddles"
 	item_state = "syndiepaddles"
@@ -416,7 +411,7 @@
 /obj/item/twohanded/shockpaddles/proc/add_defib_component(mainunit)
 	if(check_defib_exists(mainunit))
 		update_icon(UPDATE_ICON_STATE)
-		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, heart_attack_chance = defib.heart_attack_probability, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
+		AddComponent(/datum/component/defib, actual_unit = defib, ignore_hardsuits = defib.ignore_hardsuits, safe_by_default = defib.safety, emp_proof = defib.hardened, emag_proof = defib.emag_proof)
 	else
 		AddComponent(/datum/component/defib)
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
@@ -466,7 +461,7 @@
 
 
 /obj/item/twohanded/shockpaddles/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] поднос[pluralize_ru(user.gender, "ит", "ят")] включенные лопасти к своей груди! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
+	user.visible_message(span_suicide("[user] поднос[pluralize_ru(user.gender, "ит", "ят")] включенные электроды к своей груди! Похоже, что [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender, "ет", "ют")]ся совершить самоубийство!"))
 	defib.deductcharge(revivecost)
 	playsound(get_turf(src), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	return OXYLOSS
@@ -477,7 +472,7 @@
 	if(defib)
 		defib.toggle_paddles(user)
 		if(!silent)
-			balloon_alert(user, "лопасти возвращены на место")
+			balloon_alert(user, "электроды возвращены на место")
 	UnregisterSignal(user, COMSIG_MOB_CLIENT_MOVED)
 
 /obj/item/twohanded/shockpaddles/equip_to_best_slot(mob/user, force = FALSE)
@@ -500,11 +495,10 @@
 	return TRUE
 
 /obj/item/twohanded/shockpaddles/borg
-	desc = "Пара встроенных лопастей с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
+	desc = "Пара встроенных электродов с тонкими металлическими пластинами. Используются для подачи мощных ударов электрическим током."
 	icon_state = "defibpaddles0"
 	item_state = "defibpaddles0"
 	var/safety = TRUE
-	var/heart_attack_probability = 10
 
 /obj/item/twohanded/shockpaddles/borg/dropped(mob/user, slot, silent = FALSE)
 	SHOULD_CALL_PARENT(FALSE)
@@ -517,7 +511,7 @@
 /obj/item/twohanded/shockpaddles/borg/add_defib_component(mainunit)
 	var/is_combat_borg = istype(loc, /obj/item/robot_module/syndicate_medical) || istype(loc, /obj/item/robot_module/ninja)
 
-	AddComponent(/datum/component/defib, robotic = TRUE, ignore_hardsuits = is_combat_borg, safe_by_default = safety, emp_proof = TRUE, heart_attack_chance = heart_attack_probability)
+	AddComponent(/datum/component/defib, robotic = TRUE, ignore_hardsuits = is_combat_borg, safe_by_default = safety, emp_proof = TRUE)
 
 	RegisterSignal(src, COMSIG_DEFIB_READY, PROC_REF(on_cooldown_expire))
 	RegisterSignal(src, COMSIG_DEFIB_SHOCK_APPLIED, PROC_REF(after_shock))

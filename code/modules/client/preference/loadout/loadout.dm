@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	icon = path::icon
 	if(!initial(description))
 		description = path::desc
-	if(!icon || !icon_state)
+	if(!icon || !icon_state || !color)
 		return
 	var/icon/new_icon = icon(icon, icon_state, SOUTH, 1, FALSE)
 	if(color)

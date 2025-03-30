@@ -54,7 +54,7 @@
 	)
 	if(selected_ckey == null || selected_ckey == "" || selected_ckey[1] == "@")
 		var/mob/player = selected_mob
-		player_data["characterName"] = player.name || "No Character"
+		player_data["characterName"] = player?.name || "No Character"
 		player_data["playtime"] = "No client"
 		player_data["mobType"] = "[initial(player.type)]" || "null"
 	else

@@ -7,7 +7,7 @@
 	var/datum/action/innate/mecha/mech_defence_mode/defense_action = new
 	var/datum/action/innate/mecha/mech_overload_mode/overload_action = new
 	var/datum/action/innate/mecha/mech_toggle_thrusters/thrusters_action = new
-	var/datum/effect_system/smoke_spread/smoke_system = new //not an action, but trigged by one
+	var/datum/effect_system/fluid_spread/smoke/smoke_system = new //not an action, but trigged by one
 	var/datum/action/innate/mecha/mech_smoke/smoke_action = new
 	var/datum/action/innate/mecha/mech_zoom/zoom_action = new
 	var/datum/action/innate/mecha/mech_toggle_phasing/phasing_action = new
@@ -101,7 +101,13 @@
 /datum/action/innate/mecha/mech_view_stats/Activate()
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
-	chassis.occupant << browse(chassis.get_stats_html(), "window=exosuit")
+	var/datum/browser/popup = new(chassis.occupant, "exosuit", "[chassis.name]")
+	popup.include_default_stylesheet = FALSE
+	popup.set_content(chassis.get_stats_html())
+	popup.add_script("byjax", 'html/js/byjax.js')
+	popup.add_script("dropdown", 'html/js/dropdowns.js')
+	chassis.config_dropdown(popup)
+	popup.open(FALSE)
 
 /datum/action/innate/mecha/mech_defence_mode
 	name = "Toggle Defence Mode"
@@ -276,10 +282,11 @@
 		return
 	chassis.toggle_strafe()
 
-/obj/mecha/AltClick(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
+/obj/mecha/click_alt(mob/living/user) //Strafing is toggled by interface button or by Alt-clicking on mecha
 	if(!occupant || occupant != user)
 		return
 	toggle_strafe()
+	return CLICK_ACTION_SUCCESS
 
 /**
  * Proc that toggles strafe mode of the mecha ON/OFF

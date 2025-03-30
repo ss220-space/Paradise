@@ -117,10 +117,12 @@
     }
 
     // Perform a standard call via location.href
-    if (url.length < 2048) {
+    // Remove condition with 516
+    if (url.length < 2048 || Byond.BLINK !== null) {
       location.href = 'byond://' + url;
       return;
     }
+      // Remove with 516
     // Send an HTTP request to DreamSeeker's HTTP server.
     // Allows sending much bigger payloads.
     var xhr = new XMLHttpRequest();
@@ -346,6 +348,20 @@
       if (!sync) {
         node.media = 'only x';
       }
+
+      var removeNodeAndRetry = function () {
+        node.parentNode.removeChild(node);
+        node = null;
+        retry();
+      }
+      // 516: Chromium won't call onload() if there is a 404 error
+      // Legacy IE doesn't use onerror, so we retain that
+      // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#stylesheet_load_events
+      node.onerror = function () {
+        node.onerror = null;
+        removeNodeAndRetry();
+      }
+
       node.onload = function () {
         node.onload = null;
         if (isStyleSheetLoaded(node, url)) {
@@ -354,9 +370,7 @@
           return;
         }
         // Try again
-        node.parentNode.removeChild(node);
-        node = null;
-        retry();
+        removeNodeAndRetry();
       };
       injectNode(node);
       return;
@@ -369,6 +383,37 @@
 
   Byond.loadCss = function (url, sync) {
     loadAsset({ url: url, sync: sync, type: 'css' });
+  };
+
+  Byond.saveBlob = function (blob, filename, ext) {
+    if (window.navigator.msSaveBlob) {
+      window.navigator.msSaveBlob(blob, filename);
+    } else if (window.showSaveFilePicker) {
+      var accept = {};
+      accept[blob.type] = [ext];
+
+      var opts = {
+        suggestedName: filename,
+        types: [
+          {
+            description: 'SS13 file',
+            accept: accept,
+          },
+        ],
+      };
+
+      window
+        .showSaveFilePicker(opts)
+        .then(function (file) {
+          return file.createWritable();
+        })
+        .then(function (file) {
+          return file.write(blob).then(function () {
+            return file.close();
+          });
+        })
+        .catch(function () {});
+    }
   };
 
   // Icon cache
@@ -518,6 +563,29 @@ window.replaceHtml = function (inline_html) {
       + "<!-- tgui:inline-html-end -->"
   );
 };
+
+/** Remove conditionals with 516*/
+if ('devicePixelRatio' in window) {
+  // Проверка поддержки CSS-переменных
+  var supportsCssVariables = false;
+  try {
+    var testElement = document.createElement('div');
+    testElement.style.setProperty('--test', '1px');
+    supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
+  } catch (e) {
+    supportsCssVariables = false;
+  }
+
+  if (supportsCssVariables) {
+    var updateDpr = function () {
+      document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+    };
+
+    updateDpr();
+    window.addEventListener('resize', updateDpr);
+  }
+}
+
 </script>
 
 <style>
@@ -645,7 +713,7 @@ blink {
   Произошла фатальная ошибка в секторе 002B:C562F1B7 TGUI. Текущее
   приложение будет завершено. Сохраняйте спокойствие. Доберитесь до
   ближайшей рабочей станции NTNet и сделайте отчёт по ошибке:
-  <a 
+  <a
     target="_blank"
     style="color: white"
     href="https://discord.gg/ss1984"

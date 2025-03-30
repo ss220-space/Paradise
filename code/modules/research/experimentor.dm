@@ -226,9 +226,9 @@
 
 	add_fingerprint(user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><center>"}
+	var/dat = "<center>"
 	if(!linked_console)
-		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</A></b><br>"
+		dat += "<b><a href='byond://?src=[UID()];function=search'>Scan for R&D Console</a></b><br>"
 	if(loaded_item)
 		dat += "<b>Loaded Item:</b> [loaded_item]<br>"
 		dat += "<b>Technology</b>:<br>"
@@ -236,17 +236,17 @@
 		for(var/T in D)
 			dat += "[T]<br>"
 		dat += "<br><br>Available tests:"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</A></b>"
-		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</A></b><br>"
-		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</A>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_POKE]'>Poke</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_IRRADIATE];'>Irradiate</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_GAS]'>Gas</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_HEAT]'>Burn</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_COLD]'>Freeze</a></b>"
+		dat += "<br><b><a href='byond://?src=[UID()];item=\ref[loaded_item];function=[SCANTYPE_OBLITERATE]'>Destroy</a></b><br>"
+		dat += "<br><b><a href='byond://?src=[UID()];function=eject'>Eject</a>"
 	else
 		dat += "<b>Nothing loaded.</b>"
-	dat += "<br><a href='byond://?src=[UID()];function=refresh'>Refresh</A><br>"
-	dat += "<br><a href='byond://?src=[UID()];close=1'>Close</A><br></center>"
+	dat += "<br><a href='byond://?src=[UID()];function=refresh'>Refresh</a><br>"
+	dat += "<br><a href='byond://?src=[UID()];close=1'>Close</a><br></center>"
 	var/datum/browser/popup = new(user, "experimentor","Experimentor", 700, 400, src)
 	popup.set_content(dat)
 	popup.open()
@@ -285,8 +285,8 @@
 		loaded_item = null
 
 /obj/machinery/r_n_d/experimentor/proc/throwSmoke(turf/where)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, where, 0)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 1, location = where)
 	smoke.start()
 
 /obj/machinery/r_n_d/experimentor/proc/pickWeighted(list/from)
@@ -397,8 +397,8 @@
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent(chosenchem , 375)
 			investigate_log("Experimentor has released [chosenchem] smoke.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -409,14 +409,14 @@
 			var/datum/reagents/inner_reagent = new/datum/reagents(400)
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent(chosenchem , 375)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
 			ejectItem(TRUE)
 			warn_admins(usr, "[chosenchem] smoke")
-			investigate_log("Experimentor has released <font color='red'>[chosenchem]</font> smoke!", INVESTIGATE_EXPERIMENTOR)
+			investigate_log("Experimentor has released <span style='color: red;''>[chosenchem]</span> smoke!", INVESTIGATE_EXPERIMENTOR)
 		if(prob(EFFECT_PROB_LOW-badThingCoeff))
 			visible_message("[src] malfunctions, spewing harmless gas.>")
 			throwSmoke(src.loc)
@@ -455,8 +455,8 @@
 			var/turf/MT = get_turf(M)
 			if(MT)
 				visible_message("<span class='danger'>[src] dangerously overheats, launching a flaming fuel orb!</span>")
-				investigate_log("Experimentor has launched a <font color='red'>fireball</font> at [key_name_log(M)]!", INVESTIGATE_EXPERIMENTOR)
-				var/obj/item/projectile/magic/fireball/FB = new /obj/item/projectile/magic/fireball(start)
+				investigate_log("Experimentor has launched a <span style:'color: red'>fireball</span> at [key_name_log(M)]!", INVESTIGATE_EXPERIMENTOR)
+				var/obj/projectile/magic/fireball/FB = new /obj/projectile/magic/fireball(start)
 				FB.original = MT
 				FB.current = start
 				FB.yo = MT.y - start.y
@@ -519,8 +519,8 @@
 			inner_reagent.my_atom = src
 			inner_reagent.add_reagent("frostoil" , 375)
 			investigate_log("Experimentor has released frostoil gas.", INVESTIGATE_EXPERIMENTOR)
-			var/datum/effect_system/smoke_spread/chem/smoke = new
-			smoke.set_up(inner_reagent, src, TRUE)
+			var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
+			smoke.set_up(range = 2, location = src, carry = inner_reagent, silent = TRUE)
 			playsound(src.loc, 'sound/effects/smoke.ogg', 50, 1, -3)
 			smoke.start()
 			qdel(inner_reagent)
@@ -541,8 +541,8 @@
 			ejectItem(TRUE)
 		if(prob(EFFECT_PROB_MEDIUM-badThingCoeff))
 			visible_message("<span class='warning'>[src] malfunctions, releasing a flurry of chilly air as [exp_on] pops out!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(1,0, src.loc, 0)
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 1, location = src.loc)
 			smoke.start()
 			ejectItem()
 	else if(prob(EFFECT_PROB_LOW))
@@ -809,12 +809,12 @@
 		var/turf/userturf = get_turf(user)
 		if(src.loc == user && is_teleport_allowed(userturf.z))
 			visible_message("<span class='notice'>The [src] twists and bends, relocating itself!</span>")
-			var/datum/effect_system/smoke_spread/smoke = new
-			smoke.set_up(5, get_turf(user))
+			var/datum/effect_system/fluid_spread/smoke/smoke = new
+			smoke.set_up(amount = 5, location = get_turf(user))
 			smoke.start()
 			do_teleport(user, userturf, 8, asoundin = 'sound/effects/phasein.ogg')
 			smoke = new
-			smoke.set_up(5, get_turf(user))
+			smoke.set_up(amount = 5, location = get_turf(user))
 			smoke.start()
 
 /obj/item/relict_production/pet_spray

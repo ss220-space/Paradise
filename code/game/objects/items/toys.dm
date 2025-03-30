@@ -271,6 +271,8 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/katana/suicide_act(mob/user)
 	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
@@ -1951,7 +1953,15 @@
 
 /obj/item/toy/russian_revolver/trick_revolver
 	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
+	ru_names = list(
+		NOMINATIVE = "револьвер .357 калибра",
+		GENITIVE = "револьвера .357 калибра",
+		DATIVE = "револьверу .357 калибра",
+		ACCUSATIVE = "револьвер .357 калибра",
+		INSTRUMENTAL = "револьвером .357 калибра",
+		PREPOSITIONAL = "револьвере .357 калибра"
+	)
 	icon_state = "revolver"
 	max_shots = 1
 	var/fake_bullets = 0
@@ -1962,11 +1972,11 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += "<span class='notice'>Has [fake_bullets] round\s remaining.</span>"
-	. += "<span class='notice'>[fake_bullets] of those are live rounds.</span>"
+	. += span_notice("В запасе ещё [fake_bullets] патрон[declension_ru(fake_bullets, "", "а", "ов")].")
+	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] действительно выглядел довольно сомнительно!"))
 	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
 /*
  * Rubber Chainsaw
@@ -2329,9 +2339,9 @@
 	return TRUE
 
 
-/obj/item/toy/desk/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/toy/desk/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"

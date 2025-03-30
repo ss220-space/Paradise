@@ -303,7 +303,7 @@
 		orange?.target = null
 
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/projectile)
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
 
 	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), null, src)
 
@@ -421,7 +421,7 @@
 
 /obj/item/gun/energy/bsg
 	name = "\improper Б.С.П"
-	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
+	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА НаноТрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
@@ -566,7 +566,9 @@
 /obj/item/gun/energy/temperature/attack_self(mob/living/user)
 	user.set_machine(src)
 	update_dat()
-	user << browse({"<meta charset="UTF-8"><TITLE>Temperature Gun Configuration</TITLE><HR>[dat]"}, "window=tempgun;size=510x120")
+	var/datum/browser/popup = new(user, "tempgun", "Temperature Gun Configuration", 510, 120)
+	popup.set_content("<hr>[dat]")
+	popup.open(TRUE)
 	onclose(user, "tempgun")
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
@@ -636,33 +638,35 @@
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
-				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
+				var/datum/browser/popup = new(M, "tempgun", "Temperature Gun Configuration", 510, 120)
+				popup.set_content("<hr>[dat]")
+				popup.open(FALSE)
 	return
 
 /obj/item/gun/energy/temperature/proc/update_dat()
 	dat = ""
 	dat += "Current output temperature: "
 	if(temperature > 500)
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-		dat += "<FONT color=red><B> SEARING!</B></FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += "<span style='color: red;'><b> SEARING!</b></span>"
 	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: black;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	dat += "<BR>"
+		dat += "<span style='color: blue;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+	dat += "<br>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<a href='byond://?src=[UID()];temp=-100'>-</A> "
-	dat += "<a href='byond://?src=[UID()];temp=-10'>-</A> "
-	dat += "<a href='byond://?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</a> "
 	dat += "[target_temperature] "
-	dat += "<a href='byond://?src=[UID()];temp=1'>+</A> "
-	dat += "<a href='byond://?src=[UID()];temp=10'>+</A> "
-	dat += "<a href='byond://?src=[UID()];temp=100'>+</A>"
-	dat += "<BR>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</a>"
+	dat += "<br>"
 	dat += "Power cost: "
-	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
+	dat += "<span style='color: [powercostcolor];'><b>[powercost]</b></span>"
 
 
 /obj/item/gun/energy/temperature/update_icon_state()
@@ -970,7 +974,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
+	var/obj/projectile/energy/charged_plasma/O = new /obj/projectile/energy/charged_plasma(T)
 	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y

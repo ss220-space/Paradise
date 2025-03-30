@@ -43,10 +43,8 @@
 	/// Upper bound on time before intercept arrives.
 	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
 	var/list/datum/mind/traders = list()
-	var/list/datum/mind/terror_spiders = list()
 	var/list/datum/mind/morphs = list()
 	var/list/datum/mind/swarmers = list()
 	var/list/datum/mind/guardians = list()
@@ -62,7 +60,7 @@
 
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
+	to_chat(world, "<b>Notice</b>: [src] did not define announce()")
 
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
@@ -574,7 +572,7 @@
 	var/obj_count = 1
 	to_chat(player.current, span_notice("Your current objectives:"))
 	for(var/datum/objective/objective in player.get_all_objectives())
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		to_chat(player.current, "<b>Objective #[obj_count]</b>: [objective.explanation_text]")
 		obj_count++
 
 
@@ -770,3 +768,20 @@
 	sleep(15 SECONDS)
 	SSticker.force_ending = TRUE
 	return
+
+/datum/game_mode/proc/special_directive(custom_text = null, custom_name = null)
+	var/intercepttext = custom_text ? custom_text : ""
+	var/interceptname = custom_name ? custom_name : ""
+	if(!custom_name)
+		interceptname = "Директива 7-10"
+	if(!custom_text)
+		intercepttext += "<span style='font-size: 3;'><b>Постановление Nanotrasen</b>: Особая директива.</span><hr>"
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
+		intercepttext += " 1. Не покидать карантинную зону.<br>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<br>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<br>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<br>"
+		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
+		intercepttext += "Конец сообщения."
+	print_command_report(intercepttext, interceptname, FALSE)

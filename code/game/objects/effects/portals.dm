@@ -4,6 +4,7 @@
 /obj/effect/portal
 	name = "portal"
 	desc = "Looks unstable. Best to test it with the clown."
+	gender = MALE
 	icon = 'icons/obj/stationobjs.dmi'
 	icon_state = "portal"
 	base_icon_state = "portal"

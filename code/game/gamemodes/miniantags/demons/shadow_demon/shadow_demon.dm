@@ -133,15 +133,18 @@
 		time_since_last_hallucination = 0
 
 
-/obj/structure/shadowcocoon/AltClick(mob/user)
-	if(!isdemon(user) || user.incapacitated())
-		return ..()
+/obj/structure/shadowcocoon/click_alt(mob/user)
+	if(!isdemon(user))
+		return NONE
+	if(user.incapacitated())
+		return CLICK_ACTION_BLOCKING
 	if(silent)
 		to_chat(user, span_notice("You twist and change your trapped victim in [src] to lure in more prey."))
 		silent = FALSE
-		return
+		return CLICK_ACTION_BLOCKING
 	to_chat(user, span_notice("The tendrils from [src] snap back to their orignal form."))
 	silent = TRUE
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/shadowcocoon/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = NONE)
@@ -180,14 +183,14 @@
 	selection_activated_message = span_notice("You raise your hand, full of demonic energy! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message = span_notice("You re-absorb the energy...for now.")
 	base_cooldown = 10 SECONDS
-	fireball_type = /obj/item/projectile/magic/shadow_hand
+	fireball_type = /obj/projectile/magic/shadow_hand
 
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple/update_icon_state()
 	return
 
 
-/obj/item/projectile/magic/shadow_hand
+/obj/projectile/magic/shadow_hand
 	name = "shadow hand"
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
@@ -195,13 +198,13 @@
 	var/hit = FALSE
 
 
-/obj/item/projectile/magic/shadow_hand/fire(setAngle)
+/obj/projectile/magic/shadow_hand/fire(setAngle)
 	if(firer)
-		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_sleep_time = 1, beam_type = /obj/effect/ebeam/floor, beam_layer = BELOW_MOB_LAYER)
+		firer.Beam(src, icon_state = "grabber_beam", time = INFINITY, maxdistance = INFINITY, beam_type = /obj/effect/ebeam/floor, layer = BELOW_MOB_LAYER)
 	return ..()
 
 
-/obj/item/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/magic/shadow_hand/on_hit(atom/target, blocked, hit_zone)
 	if(hit)
 		return
 	hit = TRUE // to prevent double hits from the pull
@@ -245,12 +248,12 @@
 
 	var/list/messages = list()
 	messages.Add("<b><font size=3 color='red'>You are a Shadow Demon.</font><br></b>")
-	messages.Add("<B>You are a terrible creature from another existence. You have only two desires to survive and to lurk and ambush careless preys.</B>")
-	messages.Add("<B>You may use the Shadow Crawl ability when near the dark spots, appearing and dissapearing from the station at will.</B>")
-	messages.Add("<B>Your Shadow Grapple ability allows you to pull living preys or to push yourself to the other objects. Also extinguishes all light sources at the area of impact.</B>")
-	messages.Add("<B>You can wrap dead humanoid bodies by attacking them, use Alt+Click on the shadow cocoon afterwards to lure more victims.</B>")
-	messages.Add("<B>You move quickly and regenerate fast in the shadows, but any light source will hurt you to the death. STAY AWAY FROM THE LIGHT! </B>")
-	messages.Add(span_notice("<B>You are not currently in the same plane of existence as the station. Use the shadow crawl action near any dark spot.</B>"))
+	messages.Add("<b>You are a terrible creature from another existence. You have only two desires to survive and to lurk and ambush careless preys.</b>")
+	messages.Add("<b>You may use the Shadow Crawl ability when near the dark spots, appearing and dissapearing from the station at will.</b>")
+	messages.Add("<b>Your Shadow Grapple ability allows you to pull living preys or to push yourself to the other objects. Also extinguishes all light sources at the area of impact.</b>")
+	messages.Add("<b>You can wrap dead humanoid bodies by attacking them, use Alt+Click on the shadow cocoon afterwards to lure more victims.</b>")
+	messages.Add("<b>You move quickly and regenerate fast in the shadows, but any light source will hurt you to the death. STAY AWAY FROM THE LIGHT! </b>")
+	messages.Add(span_notice("<b>You are not currently in the same plane of existence as the station. Use the shadow crawl action near any dark spot.</b>"))
 	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadow_Demon\">Теневой демон</a></span>")
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)

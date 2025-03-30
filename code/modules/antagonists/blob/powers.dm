@@ -331,7 +331,7 @@
 	for(var/mob/living/simple_animal/hostile/blob_mob as anything in blob_mobs)
 		if(!isturf(blob_mob.loc) || get_dist(blob_mob, tile) > 35 || blob_mob.key)
 			continue
-		blob_mob.LoseTarget()
+		blob_mob.lose_target()
 		blob_mob.Goto(pick(surrounding_turfs), blob_mob.move_to_delay)
 
 

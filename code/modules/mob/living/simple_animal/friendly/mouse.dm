@@ -7,6 +7,7 @@
 	name = "mouse"
 	real_name = "mouse"
 	desc = "It's a small, disease-ridden rodent."
+	gender = FEMALE
 	icon_state = "mouse_gray"
 	icon_living = "mouse_gray"
 	icon_dead = "mouse_gray_dead"

@@ -150,7 +150,9 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
 	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
-	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1)))
+	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
+	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1),
+	))
 
 /obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -171,6 +173,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 /obj/item/stack/sheet/sinew/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
 	recipes = GLOB.sinew_recipes
+
+/obj/item/stack/sheet/sinew/five
+	amount = 5
 
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
@@ -234,6 +239,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
+/obj/item/stack/sheet/animalhide/goliath_hide/five
+	amount = 5
+
 /obj/item/stack/sheet/armour_plate
 	name = "укрепленная броневая плита" // тут по причине того же механа что и шкура голиафа
 	desc = "Сделанный на коленке из плит брони для мехов, этот кусок металла можно налепить на сам мех, усиливая его защитные характеристики. К сожалению, выемки под такую броню есть только у мехов рабочего класса."
@@ -260,6 +268,28 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		else
 			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
 
+/obj/item/stack/sheet/cartilage_plate
+	name = "thick cartilage plate"
+	desc = "Хрящевая пластина, снятая с тела лавового панцирника. Судя по всему, пластина начала терять свой характерный кроваво-красный цвет, однако она остаётся такой же крепкой, как и до этого."
+
+	ru_names = list(
+		NOMINATIVE = "толстая хрящевая пластина",
+		GENITIVE = "толстой хрящевой пластины",
+		DATIVE = "толстой хрящевой пластине",
+		ACCUSATIVE = "толстую хрящевую пластину",
+		INSTRUMENTAL = "толстой хрящевой пластиной",
+		PREPOSITIONAL = "толстой хрящевой пластине"
+	)
+	gender = FEMALE
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "thick_cartilage_plate"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "thick_cartilage_plate"
+	singular_name = "cartilage plate"
+	item_flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"

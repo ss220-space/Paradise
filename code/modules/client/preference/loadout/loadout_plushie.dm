@@ -124,4 +124,9 @@
 	path = /obj/item/toy/plushie/hampter/ert_squad
 	cost = 1
 
+/datum/gear/plushie/blahaj
+	index_name = "Shark Plushie"
+	path = /obj/item/toy/plushie/blahaj
+	cost = 1
+
 

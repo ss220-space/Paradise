@@ -88,7 +88,7 @@
 		for(var/obj/item/O in contents)
 			if(!istype(O,i))
 				continue
-			processing_chamber+= "some <B>[O]</B><BR>"
+			processing_chamber+= "some <b>[O]</b><br>"
 			break
 	if(!processing_chamber)
 		is_chamber_empty = 1
@@ -110,9 +110,9 @@
 [beaker_contents]<hr>
 "}
 	if(is_beaker_ready && !is_chamber_empty && !(stat & (NOPOWER|BROKEN)))
-		dat += "<a href='byond://?src=[UID()];action=juice'>Turn on!<BR>"
+		dat += "<a href='byond://?src=[UID()];action=juice'>Turn on!<br>"
 	if(beaker)
-		dat += "<a href='byond://?src=[UID()];action=detach'>Detach a beaker!<BR>"
+		dat += "<a href='byond://?src=[UID()];action=detach'>Detach a beaker!<br>"
 	var/datum/browser/popup = new(user, "juicer", name, 400, 400)
 	popup.set_content(dat)
 	popup.open(0)

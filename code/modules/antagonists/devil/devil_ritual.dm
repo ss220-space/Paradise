@@ -13,13 +13,13 @@
         /obj/effect/decal/cleanable/vomit = 2
 	)
 
-/datum/ritual/devil/imp/del_things()
+/datum/ritual/devil/imp/del_things(list/used_things)
     for(var/obj/obj in used_things) // no type ignore for future.
         qdel(obj)
 
     return
 
-/datum/ritual/devil/imp/do_ritual(mob/living/carbon/human/invoker)
+/datum/ritual/devil/imp/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", SPECIAL_ROLE_DEVIL_PAWN, TRUE)
 
 	if(!LAZYLEN(candidates))
@@ -51,7 +51,7 @@
 		/mob/living/carbon/human = 1
 	)
 
-/datum/ritual/devil/sacrifice/check_contents(mob/living/carbon/human/invoker)
+/datum/ritual/devil/sacrifice/check_contents(mob/living/carbon/human/invoker, list/used_things)
     . = ..()
 
     if(!.)
@@ -76,7 +76,7 @@
 
     return TRUE
 
-/datum/ritual/devil/sacrifice/do_ritual(mob/living/carbon/human/invoker)
+/datum/ritual/devil/sacrifice/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
 	var/mob/living/carbon/human/human = locate() in used_things
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
     

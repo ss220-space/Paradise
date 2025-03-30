@@ -12,6 +12,7 @@
         INSTRUMENTAL = "бутылкой",
         PREPOSITIONAL = "бутылке"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "round_bottle"
 	item_state = "round_bottle"

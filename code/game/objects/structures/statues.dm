@@ -117,7 +117,7 @@
 	if(exposed_temperature > 300)
 		PlasmaBurn(exposed_temperature)
 
-/obj/structure/statue/plasma/bullet_act(obj/item/projectile/P)
+/obj/structure/statue/plasma/bullet_act(obj/projectile/P)
 	if(!QDELETED(src)) //wasn't deleted by the projectile's effects.
 		if(!P.nodamage && ((P.damage_type == BURN) || (P.damage_type == BRUTE)))
 			if(P.firer)
@@ -293,17 +293,14 @@
 /obj/structure/statue/tranquillite/mime
 	name = "statue of a mime"
 	icon_state = "mime"
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
-/obj/structure/statue/tranquillite/mime/AltClick(mob/user)//has 4 dirs
-	if(!Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
-		return
+/obj/structure/statue/tranquillite/mime/click_alt(mob/user)//has 4 dirs
 	if(anchored)
-		to_chat(user, "It is fastened to the floor!")
-		return
+		to_chat(user, span_warning("It is fastened to the floor!"))
+		return CLICK_ACTION_BLOCKING
 	setDir(turn(dir, 90))
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/statue/tranquillite/mime/unique
 	name = "статуя гордости пантомимы"
@@ -375,7 +372,7 @@
 /obj/structure/statue/furukai
 	name = "София Вайт"
 	desc = "Загадочная девушка, ныне одна из множества офицеров синдиката. Получившая столь высокую позицию не за связи, а за свои способности. \
-			Движимая местью за потерю родной сестры из-за коррупционных верхушек Нанотрейзен, она вступила в Синдикат,  \
+			Движимая местью за потерю родной сестры из-за коррупционных верхушек НаноТрейзен, она вступила в Синдикат,  \
 			где стала известна и как способный агент и как отличный инженер. Хоть ее позывной и отсылал на пушистых, в душе она их ненавидела..."
 	icon = 'icons/obj/statuelarge.dmi'
 	icon_state = "furukai"

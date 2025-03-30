@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
+	/client/proc/secrets,
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
@@ -738,6 +739,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		ptypes += "Crew Traitor"
 		ptypes += "Floor Cluwne"
 		ptypes += "Shamebrero"
+		ptypes += "Fat"
+		ptypes += "Fakebwoink"
 		ptypes += "Nugget"
 		ptypes += "Rod"
 		ptypes += "Dust"
@@ -857,6 +860,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			var/obj/item/clothing/head/sombrero/shamebrero/S = new(H.loc)
 			H.equip_to_slot_or_del(S, ITEM_SLOT_HEAD)
 			logmsg = "shamebrero"
+
+		if("Fat")
+			H.set_nutrition(NUTRITION_LEVEL_FAT * 2)
+
+		if("Fakebwoink")
+			SEND_SOUND(H, 'sound/effects/adminhelp.ogg')
 
 		if("Nugget")
 			H.Weaken(12 SECONDS, TRUE)
@@ -1158,7 +1167,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		message_admins("[key_name_admin(usr)] select [next_map] as next map")
 		log_admin("[key_name(usr)] select [next_map] as next map")
 		SSmapping.next_map = new next_map
-		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+		to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"

@@ -21,6 +21,7 @@ GLOBAL_LIST_EMPTY(mob_list)					//List of all mobs, including clientless
 GLOBAL_LIST_EMPTY(silicon_mob_list)			//List of all silicon mobs, including clientless
 GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
 GLOBAL_LIST_EMPTY(carbon_list)				//all instances of /mob/living/carbon and subtypes, notably does not contain simple animals
+GLOBAL_LIST_EMPTY(aliens_list)				//all instances of xenomorph mobs
 GLOBAL_LIST_EMPTY(human_list)				//all instances of /mob/living/carbon/human and subtypes
 GLOBAL_LIST_EMPTY(spirits)					//List of all the spirits, including Masks
 GLOBAL_LIST_EMPTY(alive_mob_list)			//List of all alive mobs, including clientless. Excludes /mob/new_player
@@ -58,3 +59,8 @@ GLOBAL_LIST_EMPTY(mining_vendor_items)
 
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 
+GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
+	/turf/simulated/floor/lava,
+	/turf/simulated/floor/chasm,
+	/turf/space,
+	/turf/space/openspace)))

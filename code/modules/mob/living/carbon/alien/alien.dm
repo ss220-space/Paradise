@@ -14,12 +14,12 @@
 
 	var/nightvision_enabled = FALSE
 	nightvision = 4
-	
+
 	verb_say = "hisses"
 	verb_ask = "hisses curiously"
 	verb_exclaim = "roars"
 	verb_yell = "roars"
-	
+
 	var/obj/item/card/id/wear_id = null // Fix for station bounced radios -- Skie
 	var/has_fine_manipulation = FALSE
 	var/move_delay_add = 0 // movement delay to add
@@ -39,6 +39,9 @@
 	var/heat_protection = 0.5
 	var/leaping = FALSE
 	dirslash_enabled = TRUE
+
+	var/antag_datum_type = /datum/antagonist/xenomorph
+	var/role_text = ""
 
 	var/can_evolve = FALSE
 	var/evolution_points = 0
@@ -67,12 +70,25 @@
 	if(caste_movement_delay)
 		update_alien_speed()
 
+/mob/living/carbon/alien/Initialize(mapload)
+	. = ..()
+	GLOB.aliens_list += src
 
 /mob/living/carbon/alien/Destroy()
 	if(night_vision_action)
 		night_vision_action.Remove(src)
 		night_vision_action = null
+	GLOB.aliens_list -= src
 	return ..()
+
+/mob/living/carbon/alien/proc/update_datum()
+	var/datum/old_datum = mind.has_antag_datum(/datum/antagonist/xenomorph)
+	if(old_datum)
+		if(old_datum.type != antag_datum_type)
+			mind.remove_antag_datum(old_datum)
+		else
+			return
+	mind.add_antag_datum(antag_datum_type, /datum/team/xenomorph)
 
 
 /**
@@ -103,9 +119,9 @@
 
 /mob/living/carbon/alien/say_quote(var/message, var/datum/language/speaking = null)
 	var/ending = copytext(message, length(message))
-	
-	if(speaking && (speaking.name != "Galactic Common")) //this is so adminbooze xenos speaking common have their custom verbs,
-		return speaking.get_spoken_verb(ending)          //and use normal verbs for their own languages and non-common languages
+
+	if(speaking && (speaking.name != "Galactic Common")) 						//this is so adminbooze xenos speaking common have their custom verbs,
+		return genderize_decode(src, speaking.get_spoken_verb(ending))          //and use normal verbs for their own languages and non-common languages
 	else
 		return ..()
 

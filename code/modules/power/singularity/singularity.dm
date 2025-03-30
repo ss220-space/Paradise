@@ -100,7 +100,7 @@
 	return
 
 
-/obj/singularity/bullet_act(obj/item/projectile/P)
+/obj/singularity/bullet_act(obj/projectile/P)
 	qdel(P)
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
@@ -498,7 +498,7 @@
 	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
 
 
-/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/item/projectile/projectile)
+/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/projectile/projectile)
 	. = ..()
 	if(!isprojectile(projectile))
 		return .

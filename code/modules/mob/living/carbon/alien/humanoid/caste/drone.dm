@@ -7,6 +7,7 @@
 	icon_state = "aliend_s"
 	time_to_open_doors = 0.2 SECONDS
 	can_evolve = TRUE
+	role_text = "Вы - Рабочий. Ваша основная задача - помощь Королеве в обустройстве гнезда. Если в улье её всё ещё нет, вам необходимо как можно быстрее в неё эволюционировать."
 	var/sterile = FALSE
 
 

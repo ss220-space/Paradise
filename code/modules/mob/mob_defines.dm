@@ -138,6 +138,8 @@
 
 	var/in_throw_mode = FALSE
 
+	var/can_strip = TRUE
+
 	// See /datum/emote
 
 	/// Cooldown on audio effects from emotes.
@@ -223,8 +225,6 @@
 
 	//Ghosted var, set only if a player has manually ghosted out of this mob.
 	var/player_ghosted = 0
-
-	var/turf/listed_turf = null  //the current turf being examined in the stat panel
 
 	var/list/active_genes
 

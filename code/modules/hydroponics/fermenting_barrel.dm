@@ -99,3 +99,4 @@
 	reqs = list(/obj/item/stack/sheet/wood = 30)
 	time = 50
 	category = CAT_PRIMAL
+	subcategory = CAT_MISC2

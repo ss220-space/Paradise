@@ -100,6 +100,7 @@
 	icon_state = "fireaxe0"
 	name = "fire axe"
 	desc = "Truly, the weapon of a madman. Who would think to fight fire with an axe?"
+	gender = MALE
 	force = 5
 	throwforce = 15
 	sharp = TRUE
@@ -137,9 +138,32 @@
 	force_wielded = 23
 	needs_permit = TRUE
 
-
 /obj/item/twohanded/fireaxe/boneaxe/update_icon_state()
 	icon_state = "bone_axe[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine
+	name = "guillotine"
+	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ."
+	ru_names = list(
+		NOMINATIVE = "гильотина",
+		GENITIVE = "гильотины",
+		DATIVE = "гильотине",
+		ACCUSATIVE = "гильотину",
+		INSTRUMENTAL = "гильотиной",
+		PREPOSITIONAL = "гильотине"
+	)
+	icon_state = "guillotine0"
+	hitsound = 'sound/weapons/circsawhit.ogg'
+	force_unwielded = 7
+	force_wielded = 25
+	throwforce = 20
+	armour_penetration = 30
+	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
+	has_speed_harvest = TRUE
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
+	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 
 /obj/item/twohanded/fireaxe/energized
@@ -411,6 +435,35 @@
 	throwforce = 26
 	icon_prefix = "chitin_spear"
 
+/obj/item/twohanded/spear/bonespear/her_biting_embrace
+	name = "her biting embrace"
+	desc = "Качественно созданное копьё, украшенное церемониальными узорами и использующее хвост донного угря в качестве наконечника. Настоящее произведение первобытного оружейного искусства."
+	ru_names = list(
+		NOMINATIVE = "копьё \"Её Обжигающие Объятия\"",
+		GENITIVE = "копья \"Её Обжигающие Объятия\"",
+		DATIVE = "копью \"Её Обжигающие Объятия\"",
+		ACCUSATIVE = "копьё \"Её Обжигающие Объятия\"",
+		INSTRUMENTAL = "копьём \"Её Обжигающие Объятия\"",
+		PREPOSITIONAL = "копьё \"Её Обжигающие Объятия\""
+	) //holy fuck
+	icon_state = "her_biting_embrace0"
+	icon_prefix = "her_biting_embrace"
+	lefthand_file = 'icons/mob/inhands/lavaland/lava_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/lava_items_righthand.dmi'
+	force = 16
+	force_unwielded = 16
+	force_wielded = 28 // I have no idea about balance too
+	throwforce = 45
+
+/obj/item/twohanded/spear/bonespear/her_biting_embrace/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim)
+	. = ..()
+	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return .
+	var/datum/status_effect/saw_bleed/bloodletting/A = target.has_status_effect(STATUS_EFFECT_BLOODLETTING)
+	if(!A)
+		target.apply_status_effect(STATUS_EFFECT_BLOODLETTING)
+	else
+		A.add_bleed(6)
 
 /obj/item/twohanded/spear/plasma
 	name = "plasma spear"
@@ -570,7 +623,7 @@
 
 /obj/item/twohanded/required/chainsaw/doomslayer/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(attack_type == PROJECTILE_ATTACK)
-		owner.visible_message("<span class='danger'>Ranged attacks just make [owner] angrier!</span>")
+		owner.visible_message(span_danger("Ranged attacks just make [owner] angrier!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg','sound/weapons/bulletflyby2.ogg','sound/weapons/bulletflyby3.ogg'), 75, 1)
 		return TRUE
 	return FALSE
@@ -892,7 +945,7 @@
 		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
 		W.devastate_wall(TRUE)
-		return 1
+		return TRUE
 	..()
 
 /obj/item/twohanded/bamboospear
@@ -970,9 +1023,9 @@
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
 	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
+	icon_state = "pyro"
 	item_state = "pyro"
 	item_color = "pyro"
-	icon_state = "pyro"
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE
@@ -1040,22 +1093,71 @@
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	atom_say("Internal plasma canisters recharged. Gloves sufficiently cooled")
 
-/obj/item/twohanded/fishingrod
-	name = "ol' reliable"
-	desc = "Hey! I caught a miner!"
-	icon_state = "fishing_rod0"
-	item_state = ""
-	w_class = WEIGHT_CLASS_SMALL
-	var/w_class_on = WEIGHT_CLASS_BULKY
 
-/obj/item/twohanded/fishingrod/wield()
-	w_class = w_class_on
-	item_state = "fishing_rod"
+/obj/item/twohanded/sechammer
+	name = "tactical sledgehammer"
+	desc = "Тяжёлая кувалда, используемая силовыми структурами НаноТрейзен. Удобная эргономичная рукоятка обеспечивает надёжный хват, а боёк кувалды увеличенной массы позволяет наносить мощные и точные удары, что делает её отличным инструментом для разрушения препятствий и создания брешей в стенах. Хотя конструкция и является слишком неудобной для эффективного использования в качестве оружия, силы удара достаточно, чтобы раздробить любую кость в теле гуманоида."
+	ru_names = list(
+		NOMINATIVE = "тактическая кувалда",
+		GENITIVE = "тактической кувалды",
+		DATIVE = "тактической кувалде",
+		ACCUSATIVE = "тактическую кувалду",
+		INSTRUMENTAL = "тактической кувалдой",
+		PREPOSITIONAL = "тактической кувалде"
+	)
+	gender = FEMALE
+	icon_state = "sechammer0"
+	throwforce = 20
+	throw_range = 2
+	w_class = WEIGHT_CLASS_BULKY
+	attack_speed = 16
+	force_unwielded = 15
+	force_wielded = 35
+	armour_penetration = 40
+	attack_verb = list("атаковал", "ударил", "шибанул", "долбанул", "припечатал")
+	max_integrity = 200
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 50)
+	resistance_flags = FIRE_PROOF
+	item_flags = SLOWS_WHILE_IN_HAND
 
-/obj/item/twohanded/fishingrod/unwield()
-	w_class = initial(w_class)
-	item_state = ""
+	var/wall_damage = 35
+	var/extra_girder_damage = 65
+	var/extra_door_damage = 25
 
-/obj/item/twohanded/fishingrod/update_icon_state()
-	icon_state = "fishing_rod[HAS_TRAIT(src, TRAIT_WIELDED)]"
+	var/stamina_drain = 8
+	var/max_stamina_damage = 40
 
+/obj/item/twohanded/sechammer/update_icon_state()
+	icon_state = "sechammer[HAS_TRAIT(src, TRAIT_WIELDED)]"
+
+/obj/item/twohanded/sechammer/wield(obj/item/source, mob/living/carbon/user)
+	slowdown = 0.5
+
+
+/obj/item/twohanded/sechammer/unwield(obj/item/source, mob/living/carbon/user)
+	slowdown = 0
+
+/obj/item/twohanded/sechammer/pre_attackby(atom/target, mob/living/user, params)
+	. = ..()
+	if(user.getStaminaLoss() >= max_stamina_damage)
+		balloon_alert(user, "вы слишком устали!")
+		return .|ATTACK_CHAIN_BLOCKED
+
+/obj/item/twohanded/sechammer/afterattack(atom/A, mob/living/user, proximity, params)
+	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
+		return
+	if(iswallturf(A))
+		var/turf/simulated/wall/W = A
+		user.changeNext_move(attack_speed)
+		user.do_attack_animation(src)
+		playsound(src, 'sound/weapons/smash.ogg', 50, 1)
+		W.take_damage(wall_damage)
+	if(user.getStaminaLoss() < max_stamina_damage)
+		if(istype(A, /obj/structure/girder))
+			var/obj/structure/G = A
+			G.take_damage(extra_girder_damage)
+		else if(istype(A, /obj/machinery/door))
+			var/obj/machinery/D = A
+			D.take_damage(extra_door_damage)
+	user.adjustStaminaLoss(stamina_drain)
+	..()

@@ -487,17 +487,21 @@
 	if(jobban_isbanned(target, "cultist"))
 		return
 	var/mob/living/simple_animal/hostile/construct/C = new c_type(get_turf(target))
+
 	if(istype(c_type, /mob/living/simple_animal/hostile/construct/harvester))
-		new /obj/effect/particle_effect/smoke/sleeping(target.loc)
+		var/datum/effect_system/fluid_spread/smoke/sleeping/smoke = new
+		smoke.set_up(amount = 5, location = target.loc)
+		smoke.start()
+
 	C.faction |= "\ref[user]"
 	C.key = target.key
 	if(user && iscultist(user) || cult_override)
 		SSticker.mode.add_cultist(C.mind)
 		SSticker.mode.update_cult_icons_added(C.mind)
 	if(user && iscultist(user))
-		to_chat(C, "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>")
+		to_chat(C, "<b>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</b>")
 	else
-		to_chat(C, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
+		to_chat(C, "<b>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</b>")
 	C.cancel_camera()
 
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)

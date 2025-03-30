@@ -210,9 +210,9 @@
 	return !locked
 
 
-/obj/structure/closet/crate/secure/AltClick(mob/living/user)
-	if(Adjacent(user))
-		togglelock(user)
+/obj/structure/closet/crate/secure/click_alt(mob/living/user)
+	togglelock(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/closet/crate/secure/proc/togglelock(mob/living/user)
@@ -559,6 +559,19 @@
 	desc = "A vault crate."
 	name = "vault crate"
 	icon_state = "vaultcrate"
+
+/obj/structure/closet/crate/wooden //i'm sure hope this won't be used as cheese strat to obtain cargo points
+	name = "wooden crate"
+	desc = "Ящик, сделанный из дерева."
+	ru_names = list(
+		NOMINATIVE = "деревянный ящик",
+		GENITIVE = "деревянного ящика",
+		DATIVE = "деревянному ящику",
+		ACCUSATIVE = "деревянный ящик",
+		INSTRUMENTAL = "деревянным ящиком",
+		PREPOSITIONAL = "деревянном ящике"
+	)
+	icon_state = "wooden_crate"
 
 /obj/structure/closet/crate/secure/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()

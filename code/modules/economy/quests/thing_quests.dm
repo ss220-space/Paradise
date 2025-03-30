@@ -126,37 +126,36 @@
 	linked_departament = "Medical"
 
 	normal_items = list(
-		/obj/item/organ/internal/eyes/tajaran = 105,
-		/obj/item/organ/internal/eyes/vulpkanin = 105,
-		/obj/item/organ/internal/headpocket = 155,
-		/obj/item/organ/internal/eyes/unathi = 170,
-		/obj/item/organ/internal/eyes/nian = 170,
-		/obj/item/organ/internal/liver/skrell = 170,
+		/obj/item/organ/internal/eyes/tajaran = 175,
+		/obj/item/organ/internal/eyes/vulpkanin = 175,
+		/obj/item/organ/internal/headpocket = 175,
+		/obj/item/organ/internal/eyes/unathi = 175,
+		/obj/item/organ/internal/eyes/nian = 175,
+		/obj/item/organ/internal/liver/skrell = 175
 	)
 	hard_items = list(
-		/obj/item/organ/internal/kidneys/grey = 175,
-		/obj/item/organ/internal/liver/kidan = 175,
-		/obj/item/organ/internal/lungs/slime = 185,
-		/obj/item/organ/internal/liver/grey = 200,
-		/obj/item/organ/internal/heart/slime = 210,
-		/obj/item/organ/internal/liver/diona = 300,
-		/obj/item/organ/internal/lungs/unathi/ash_walker = 325,
+		/obj/item/organ/internal/kidneys/grey = 350,
+		/obj/item/organ/internal/liver/kidan = 350,
+		/obj/item/organ/internal/lungs/slime = 350,
+		/obj/item/organ/internal/liver/grey = 350,
+		/obj/item/organ/internal/heart/slime = 350,
+		/obj/item/organ/internal/lungs/unathi/ash_walker = 350,
 		/obj/item/organ/internal/eyes/unathi/ash_walker = 350,
 		/obj/item/organ/internal/eyes/unathi/ash_walker_shaman = 350,
-		/obj/item/organ/internal/lantern = 400
+		/obj/item/organ/internal/lantern = 400,
+		/obj/item/organ/internal/wryn/glands = 700,
+		/obj/item/organ/internal/heart/plasmaman = 750
 	)
 	very_hard_items = list(
 		/obj/item/organ/internal/heart/cursed = 550,
 		/obj/item/organ/internal/xenos/plasmavessel/hunter = 550,
 		/obj/item/organ/internal/xenos/plasmavessel/drone = 550,
 		/obj/item/organ/internal/xenos/neurotoxin/sentinel = 650,
-		/obj/item/organ/internal/wryn/glands = 700,
 		/obj/item/organ/internal/xenos/hivenode = 700,
-		/obj/item/organ/internal/heart/plasmaman = 750,
 		/obj/item/organ/internal/xenos/acidgland/sentinel = 750,
 		/obj/item/organ/internal/xenos/acidgland/praetorian = 750,
 		/obj/item/organ/internal/xenos/resinspinner = 750,
-		/obj/item/organ/internal/xenos/neurotoxin = 850,
+		/obj/item/organ/internal/xenos/neurotoxin = 850
 	)
 	difficultly_flags = (QUEST_DIFFICULTY_NORMAL|QUEST_DIFFICULTY_HARD|QUEST_DIFFICULTY_VERY_HARD)
 
@@ -448,7 +447,7 @@
 	req_items = list(/obj/item/disk/plantgene)
 	bounty_jobs = list(JOB_TITLE_BOTANIST)
 	linked_departament = "Support"
-	
+
 	var/list/required_genes = list()
 	easy_items = list(
 		/datum/plant_gene/trait/plant_type/fungal_metabolism = 60,

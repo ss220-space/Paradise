@@ -15,6 +15,8 @@
 	var/filling_color = "#FFFFFF" //Used by sandwiches.
 	var/junkiness = 0  //for junk food. used to lower human satiety.
 	var/bitesize = 2
+	var/has_special_eating_effects = FALSE
+	var/eat_time = 0 SECONDS
 	var/consume_sound = 'sound/items/eatfood.ogg'
 	var/apply_type = REAGENT_INGEST
 	var/apply_method = "проглоти"
@@ -108,6 +110,8 @@
 	var/with_a_species = replacetext(with_plural_species, "$ASPECIES", "[species.a] [species.name]")
 	return replacetext(with_a_species, "$IS", plural)
 
+/obj/item/reagent_containers/food/proc/on_mob_eating_effect(mob/user)
+	return
 
 /obj/item/reagent_containers/food/proc/matched_food_type(var/matching_flags)
 	if(matching_flags & MEAT)

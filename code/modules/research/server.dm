@@ -361,7 +361,7 @@
 
 	switch(screen)
 		if(0) //Main Menu
-			dat += "Connected Servers:<BR><BR>"
+			dat += "Connected Servers:<br><br>"
 
 			for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
 				if(istype(S, /obj/machinery/r_n_d/server/centcom) && !badmin)
@@ -369,52 +369,52 @@
 				if(S.syndicate != syndicate) // Флаг в действии
 					continue
 				dat += "[S.name] || "
-				dat += "<a href='byond://?src=[UID()];access=[S.server_id]'>Access Rights</A> | "
-				dat += "<a href='byond://?src=[UID()];data=[S.server_id]'>Data Management</A> | "
-				dat += "<a href='byond://?src=[UID()];logs=[S.server_id]'>Logs</A>"
+				dat += "<a href='byond://?src=[UID()];access=[S.server_id]'>Access Rights</a> | "
+				dat += "<a href='byond://?src=[UID()];data=[S.server_id]'>Data Management</a> | "
+				dat += "<a href='byond://?src=[UID()];logs=[S.server_id]'>Logs</a>"
 				if(badmin)
-					dat += " | <a href='byond://?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</A>"
-				dat += "<BR>"
+					dat += " | <a href='byond://?src=[UID()];transfer=[S.server_id]'>Server-to-Server Transfer</a>"
+				dat += "<br>"
 
 		if(1) //Access rights menu
-			dat += "[temp_server.name] Access Rights<BR><BR>"
-			dat += "Consoles with Upload Access<BR>"
+			dat += "[temp_server.name] Access Rights<br><br>"
+			dat += "Consoles with Upload Access<br>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
 				if(C.syndicate != syndicate) // Флаг в действии 2
 					continue
 				var/turf/console_turf = get_turf(C)
 				dat += "* <a href='byond://?src=[UID()];upload_toggle=[C.id]'>[console_turf.loc]" //FYI, these are all numeric ids, eventually.
 				if(C.id in temp_server.id_with_upload)
-					dat += " (Remove)</A><BR>"
+					dat += " (Remove)</a><br>"
 				else
-					dat += " (Add)</A><BR>"
-			dat += "Consoles with Download Access<BR>"
+					dat += " (Add)</a><br>"
+			dat += "Consoles with Download Access<br>"
 			for(var/obj/machinery/computer/rdconsole/C in consoles)
 				if(C.syndicate != syndicate) // Флаг в действии 3
 					continue
 				var/turf/console_turf = get_turf(C)
 				dat += "* <a href='byond://?src=[UID()];download_toggle=[C.id]'>[console_turf.loc]"
 				if(C.id in temp_server.id_with_download)
-					dat += " (Remove)</A><BR>"
+					dat += " (Remove)</a><br>"
 				else
-					dat += " (Add)</A><BR>"
-			dat += "<HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
+					dat += " (Add)</a><br>"
+			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
 
 		if(2) //Data Management menu
-			dat += "[temp_server.name] Data Management<BR><BR>"
-			dat += "Known Technologies<BR>"
+			dat += "[temp_server.name] Data Management<br><br>"
+			dat += "Known Technologies<br>"
 			for(var/I in temp_server.files.known_tech)
 				var/datum/tech/T = temp_server.files.known_tech[I]
 				if(T.level <= 0)
 					continue
 				dat += "* [T.name] "
-				dat += "<a href='byond://?src=[UID()];reset_tech=[T.id]'>(Reset)</A><BR>" //FYI, these are all strings.
-			dat += "Known Designs<BR>"
+				dat += "<a href='byond://?src=[UID()];reset_tech=[T.id]'>(Reset)</a><br>" //FYI, these are all strings.
+			dat += "Known Designs<br>"
 			for(var/I in temp_server.files.known_designs)
 				var/datum/design/D = temp_server.files.known_designs[I]
 				dat += "* [D.name] "
-				dat += "<a href='byond://?src=[UID()];reset_design=[D.id]'>(Delete)</A><BR>"
-			dat += "<HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
+				dat += "<a href='byond://?src=[UID()];reset_design=[D.id]'>(Delete)</a><br>"
+			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
 
 		if(3) //Logs menu
 			dat += "[temp_server.name] Logs viewing<br><br>"
@@ -422,7 +422,7 @@
 				var/clear_time = who_cleared[1]
 				var/user_name = who_cleared[2]
 				var/user_job = who_cleared[3]
-				dat += "[clear_time]: [user_name] ([user_job]) cleared logs<BR>"
+				dat += "[clear_time]: [user_name] ([user_job]) cleared logs<br>"
 
 			for(var/use_log in temp_server.usage_logs)
 				var/log_time = use_log[1]
@@ -430,18 +430,20 @@
 				var/user_job = use_log[3]
 				var/blueprint_printed = use_log[4]
 				var/machine_name = use_log[5]
-				dat += "[log_time]: [user_name] ([user_job]) printed [blueprint_printed] using [machine_name]<BR>"
+				dat += "[log_time]: [user_name] ([user_job]) printed [blueprint_printed] using [machine_name]<br>"
 
-			dat += "<BR><HR><a href='byond://?src=[UID()];clear_logs=1'>Clear Logs</A>"
-			dat += "<BR><HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
+			dat += "<br><hr><a href='byond://?src=[UID()];clear_logs=1'>Clear Logs</a>"
+			dat += "<br><hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
 
 		if(4) //Server Data Transfer
-			dat += "[temp_server.name] Server to Server Transfer<BR><BR>"
-			dat += "Send Data to what server?<BR>"
+			dat += "[temp_server.name] Server to Server Transfer<br><br>"
+			dat += "Send Data to what server?<br>"
 			for(var/obj/machinery/r_n_d/server/S in servers)
-				dat += "[S.name] <a href='byond://?src=[UID()];send_to=[S.server_id]'> (Transfer)</A><BR>"
-			dat += "<HR><a href='byond://?src=[UID()];main=1'>Main Menu</A>"
-	user << browse({"<meta charset="UTF-8"><TITLE>R&D Server Control</TITLE><HR>[dat]"}, "window=server_control;size=575x400")
+				dat += "[S.name] <a href='byond://?src=[UID()];send_to=[S.server_id]'> (Transfer)</a><br>"
+			dat += "<hr><a href='byond://?src=[UID()];main=1'>Main Menu</a>"
+	var/datum/browser/popup = new(user, "server_control", "R&D Server Control", 575, 400)
+	popup.set_content("<hr>[dat]")
+	popup.open(TRUE)
 	onclose(user, "server_control")
 	return
 

@@ -381,7 +381,7 @@
 
 		update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
 		update |= owner.heal_damage_type(heal_amount, OXY, FALSE)
-		
+
 		if(update)
 			owner.updatehealth("fleshmend")
 
@@ -783,16 +783,93 @@
 	..()
 	owner.clear_fullscreen("payback")
 
+/atom/movable/screen/alert/status_effect/lavaland_freaky_leg
+	name = "freaky legs"
+	desc = "Поедание человеческих конечностей себя оправдало!"
+	icon_state = "freaky_legs"
+
+/datum/status_effect/lavaland_no_pain
+	id = "Freaky Legs"
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REPLACE
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_freaky_leg
+
+/datum/status_effect/lavaland_no_pain/on_apply()
+	owner.ignore_slowdown(TRAIT_STATUS_EFFECT(id))
+	return TRUE
+
+/datum/status_effect/lavaland_no_pain/on_remove()
+	owner.unignore_slowdown(TRAIT_STATUS_EFFECT(id))
+
+/atom/movable/screen/alert/status_effect/lavaland_eternal_bleeding_fix
+	name = "thick red paste"
+	desc = "Вы чувствуете, как вам становится слегка лучше."
+	icon_state = "thick_red_paste"
+
+/datum/status_effect/lavaland_eternal_bleeding_fix
+	id = "Lavaland Eternal Bleeding"
+	status_type = STATUS_EFFECT_REPLACE
+	duration = 30 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_eternal_bleeding_fix
+
+/datum/status_effect/lavaland_eternal_bleeding_fix/tick(seconds_between_ticks)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/hum = owner
+		for(var/obj/item/organ/external/bodypart as anything in hum.bodyparts)
+			if(bodypart.has_internal_bleeding() && prob(7))
+				to_chat(hum, span_notice("Вы чувствуете сильное жжение в [bodypart.declent_ru(PREPOSITIONAL)], а затем облегчение. Судя по всему, ваши повреждённые кровеносные сосуды восстанавливаются!"))
+				bodypart.stop_internal_bleeding()
+
+/atom/movable/screen/alert/status_effect/lavaland_night_vision
+	name = "xeno sticks"
+	desc = "Вы начинаете лучше видеть в темноте."
+	icon_state = "xeno_sticks"
+
+/datum/status_effect/lavaland_night_vision
+	id = "Lavaland Night Vision"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 450 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_night_vision
+
+/datum/status_effect/lavaland_night_vision/on_apply()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human = owner
+		human.set_vision_override(/datum/vision_override/nightvision)
+	return TRUE
+
+/datum/status_effect/lavaland_night_vision/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human = owner
+		human.set_vision_override(null)
+
+/atom/movable/screen/alert/status_effect/lavaland_blood_regen
+	name = "abu ghosh"
+	desc = "Вы чувствуете, что ваша кровь начала регенерировать быстрее."
+	icon_state = "abu_ghosh"
+
+/datum/status_effect/lavaland_blood_regen
+	id = "Lavaland Blood Regeneration"
+	status_type = STATUS_EFFECT_REFRESH
+	duration = 5 MINUTES
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_blood_regen
+
+
+/datum/status_effect/lavaland_blood_regen/tick(seconds_between_ticks)
+	if(ishuman(owner))
+		var/mob/living/carbon/human/H = owner
+		if(!HAS_TRAIT(H, TRAIT_NO_BLOOD) && !HAS_TRAIT(H, TRAIT_NO_BLOOD_RESTORE) && H.blood_volume < BLOOD_VOLUME_NORMAL)
+			H.blood_volume += 0.4
+
 /datum/status_effect/drask_coma
 	id = "drask_coma"
 	tick_interval = 2 SECONDS
-	
+
 	var/temp_step
 	var/cached_sleep_time
-	
+
 /datum/status_effect/drask_coma/on_creation(
-	mob/living/new_owner, 
-	duration = 300 SECONDS, 
+	mob/living/new_owner,
+	duration = 300 SECONDS,
 	temp_step = 10,
 	)
 	src.duration = duration

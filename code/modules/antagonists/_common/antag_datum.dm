@@ -24,6 +24,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/list/objectives
 	/// A list of strings which contain [targets][/datum/objective/var/target] of the antagonist's objectives. Used to prevent duplicate objectives.
 	var/list/assigned_targets
+	/// Current antagonist teams
+	var/datum/team/team
 	/// Antagonist datum specific information that appears in the player's notes. Information stored here will be removed when the datum is removed from the player.
 	var/antag_memory
 	/// The special role that will be applied to the owner's `special_role` var. i.e. `SPECIAL_ROLE_TRAITOR`, `SPECIAL_ROLE_VAMPIRE`.
@@ -343,7 +345,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	to_chat(owner.current, span_notice("Your current objectives:"))
 	var/objective_num = 1
 	for(var/datum/objective/objective in objectives)
-		to_chat(owner.current, "<span><B>Objective #[objective_num++]</B>: [objective.explanation_text]</span><br>")
+		to_chat(owner.current, "<span><b>Objective #[objective_num++]</b>: [objective.explanation_text]</span><br>")
 	return TRUE
 
 
@@ -410,6 +412,9 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Creates a new antagonist team.
  */
 /datum/antagonist/proc/create_team(datum/team/team)
+	if(!GLOB.antagonist_teams[team])
+		new team
+	src.team = GLOB.antagonist_teams[team]
 	return
 
 
@@ -417,7 +422,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
  * Returns the team the antagonist belongs to, if any.
  */
 /datum/antagonist/proc/get_team()
-	return
+	return team
 
 
 /**

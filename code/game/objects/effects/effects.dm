@@ -70,7 +70,7 @@
 /obj/effect/abstract/swarmer_act()
 	return
 
-/obj/effect/abstract/bullet_act(obj/item/projectile/P)
+/obj/effect/abstract/bullet_act(obj/projectile/P)
 	return
 
 /obj/effect/abstract/decompile_act(obj/item/matter_decompiler/C, mob/user)
@@ -115,8 +115,8 @@
 
 /obj/effect/decal/Initialize(mapload)
 	. = ..()
+	create_reagents(100)
 	if(scoop_reagents)
-		create_reagents(100)
 		reagents.add_reagent_list(scoop_reagents)
 
 

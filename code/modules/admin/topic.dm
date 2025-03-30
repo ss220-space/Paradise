@@ -19,8 +19,8 @@
 
 		C << 'sound/effects/adminhelp.ogg'
 
-		to_chat(C, "<font color='red' size='4'><b>- AdminHelp Rejected! -</b></font>", confidential=TRUE)
-		to_chat(C, "<font color='red'><b>Your admin help was rejected.</b></font>", confidential=TRUE)
+		to_chat(C, "<span style='color: red; font-size: 4;'><b>- AdminHelp Rejected! -</b></span>", confidential=TRUE)
+		to_chat(C, "<span style='color: red;'><b>Your admin help was rejected.</b></span>", confidential=TRUE)
 		to_chat(C, "Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.", confidential=TRUE)
 
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
@@ -45,51 +45,59 @@
 			if("1")
 				log_admin("[key_name(usr)] has spawned a traitor.")
 				if(!makeTraitors())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("2")
 				log_admin("[key_name(usr)] has spawned a changeling.")
 				if(!makeChangelings())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("3")
 				log_admin("[key_name(usr)] has spawned revolutionaries.")
 				if(!makeRevs())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("4")
 				log_admin("[key_name(usr)] has spawned a cultists.")
 				if(!makeCult())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("5")
 				log_admin("[key_name(usr)] has spawned a clockers.")
 				if(!makeClockwork())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("6")
 				log_admin("[key_name(usr)] has spawned a wizard.")
 				if(!makeWizard())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("7")
 				log_admin("[key_name(usr)] has spawned vampires.")
 				if(!makeVampires())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("8")
 				log_admin("[key_name(usr)] has spawned vox raiders.")
 				if(!makeVoxRaiders())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("9")
 				log_admin("[key_name(usr)] has spawned an abductor team.")
 				if(!makeAbductorTeam())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("10")
 				log_admin("[key_name(usr)] has spawned a space ninja.")
 				if(!makeSpaceNinja())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("11")
 				log_admin("[key_name(usr)] has spawned a thief.")
 				if(!makeThieves())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 			if("12")
 				log_admin("[key_name(usr)] has spawned a blob.")
 				if(!makeBlobs())
-					to_chat(usr, "<span class='warning'>Unfortunately there weren't enough candidates available.</span>", confidential=TRUE)
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
+			if("13")
+				log_admin("[key_name(usr)] has spawned a terror spiders.")
+				if(!makeTerrorSpiders())
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
+			if("14")
+				log_admin("[key_name(usr)] has spawned a xemonorphs.")
+				if(!makeAliens())
+					to_chat(usr, span_warning("К сожалению, желающих было слишком мало."), confidential=TRUE)
 
 	else if(href_list["dbsearchckey"] || href_list["dbsearchadmin"] || href_list["dbsearchip"] || href_list["dbsearchcid"] || href_list["dbsearchbantype"])
 		var/adminckey = href_list["dbsearchadmin"]
@@ -121,8 +129,8 @@
 		var/banip = href_list["dbbanaddip"]
 		var/bancid = href_list["dbbanaddcid"]
 		var/duration = text2num(href_list["dbbadddurationdays"]) BAN_DAYS
-		duration += text2num(href_list["dbbadddurationdays"]) BAN_HOURS
-		duration += text2num(href_list["dbbadddurationdays"])
+		duration += text2num(href_list["dbbadddurationhours"]) BAN_HOURS
+		duration += text2num(href_list["dbbadddurationminutes"])
 		var/banduration = duration
 		var/banjob = href_list["dbbanaddjob"]
 		var/banround = href_list["dbbanaddround"]
@@ -273,14 +281,14 @@
 			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
 			if(!new_ckey)	return
 			if(new_ckey in GLOB.admin_datums)
-				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</font>", confidential=TRUE)
+				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential=TRUE)
 				return
 			adm_ckey = new_ckey
 			task = "rank"
 		else if(task != "show")
 			adm_ckey = ckey(href_list["ckey"])
 			if(!adm_ckey)
-				to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный сикей</font>", confidential=TRUE)
+				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential=TRUE)
 				return
 
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
@@ -311,7 +319,7 @@
 				if("*Новый Ранг*")
 					new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
 					if(!new_rank)
-						to_chat(usr, "<font color='red'>Ошибка: Topic 'editrights': Неверный ранг</font>", confidential=TRUE)
+						to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential=TRUE)
 						return
 					if(new_rank in GLOB.admin_ranks)
 						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
@@ -379,7 +387,7 @@
 						message_admins("<span class='adminnotice'>[key_name_admin(usr)] called the Emergency Shuttle to the station</span>")
 
 
-		href_list["secrets"] = "check_antagonist"
+		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["edit_shuttle_time"])
 		if(!check_rights(R_SERVER))	return
@@ -390,7 +398,7 @@
 		log_admin("[key_name(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds")
 		GLOB.minor_announcement.Announce("Эвакуационный шаттл достигнет места назначения через [time_to_destination] [declension_ru(time_to_destination,"минуту","минуты","минут")].")
 		message_admins("<span class='adminnotice'>[key_name_admin(usr)] edited the Emergency Shuttle's timeleft to [timer] seconds</span>")
-		href_list["secrets"] = "check_antagonist"
+		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["stop_lockdown"])
 		if(!check_rights(R_ADMIN))
@@ -401,7 +409,7 @@
 		var message = (SSshuttle.emergency.mode == SHUTTLE_STRANDED)?"de-lockdowned and de-strandise the Emergency Shuttle":"de-lockdowned the Emergency Shuttle"
 		SSshuttle?.stop_lockdown()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] [message]"))
-		href_list["secrets"] = "check_antagonist"
+		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["lockdown_shuttle"])
 		if(!check_rights(R_ADMIN))
@@ -412,7 +420,18 @@
 
 		SSshuttle?.lockdown_escape()
 		log_and_message_admins(span_adminnotice("[key_name_admin(usr)] lockdowned the Emergency Shuttle"))
-		href_list["secrets"] = "check_antagonist"
+		href_list["check_antagonist"] = TRUE
+
+	else if(href_list["reload_shuttle"])
+		if(!check_rights(R_ADMIN))
+			return
+
+		if(!you_realy_want_do_this())
+			return
+
+		if(SSshuttle?.reload_shuttle(TRUE))
+			log_and_message_admins(span_adminnotice("[key_name_admin(usr)] reloaded the Emergency Shuttle"))
+		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["full_lockdown"])
 		if(!check_rights(R_ADMIN))
@@ -423,7 +442,7 @@
 
 		GLOB.full_lockdown = !GLOB.full_lockdown
 		log_and_message_admins("[GLOB.full_lockdown? "enabled" : "disabled"] Full Lockdown")
-		href_list["secrets"] =  "check_antagonist"
+		href_list["check_antagonist"] =  TRUE
 
 	else if(href_list["delay_round_end"])
 		if(!check_rights(R_SERVER))	return
@@ -432,7 +451,7 @@
 		log_and_message_admins("[SSticker.delay_end ? "delayed the round end" : "has made the round end normally"].")
 		if(SSticker.delay_end)
 			SSticker.real_reboot_time = 0 // If they set this at round end, show the "Reboot was cancelled by an admin" message instantly
-		href_list["secretsadmin"] = "check_antagonist"
+		href_list["check_antagonist"] = TRUE
 
 	else if(href_list["simplemake"])
 		if(!check_rights(R_SPAWN))	return
@@ -607,8 +626,6 @@
 			return
 
 		var/dat = ""
-		var/header = {"<meta charset="UTF-8"><head><title>Job-Ban Panel: [M.name]</title></head>"}
-		var/body
 		var/jobs = ""
 
 	/***********************************WARNING!************************************
@@ -627,7 +644,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -648,7 +665,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -669,7 +686,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -690,7 +707,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -711,7 +728,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -732,7 +749,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -753,7 +770,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -765,13 +782,13 @@
 
 		//Drone
 		if(jobban_isbanned(M, "Drone"))
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>Drone</font></a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>Drone</span></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=Drone;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>Drone</a></td>"
 
 		//pAI
 		if(jobban_isbanned(M, "pAI"))
-			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>pAI</font></a></td>"
+			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>pAI</span></a></td>"
 		else
 			jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=pAI;jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>pAI</a></td>"
 
@@ -785,7 +802,7 @@
 		counter = 0
 		for(var/role in GLOB.antag_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(role, " ", "&nbsp")]</span></a></td>"
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
@@ -802,7 +819,7 @@
 		counter = 0
 		for(var/role in GLOB.other_roles)
 			if(jobban_isbanned(M, role) || isbanned_dept)
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(role, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(role, " ", "&nbsp")]</span></a></td>"
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[role];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(role, " ", "&nbsp")]</a></td>"
 			counter++
@@ -822,7 +839,7 @@
 			if(!job) continue
 
 			if(jobban_isbanned(M, job.title))
-				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><font color=red>[replacetext(job.title, " ", "&nbsp")]</font></a></td>"
+				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'><span style='color: red;'>[replacetext(job.title, " ", "&nbsp")]</span></a></td>"
 				counter++
 			else
 				jobs += "<td width='20%'><a href='byond://?src=[UID()];jobban3=[job.title];jobban4=[M.UID()];dbbanaddckey=[M.ckey]'>[replacetext(job.title, " ", "&nbsp")]</a></td>"
@@ -833,9 +850,11 @@
 				counter = 0
 		jobs += "</tr></table>"
 
-		body = "<body>[jobs]</body>"
-		dat = "<!DOCTYPE html><tt>[header][body]</tt>"
-		usr << browse(dat, "window=jobban2;size=800x490")
+		dat = "<tt>[jobs]</tt>"
+
+		var/datum/browser/popup = new(usr, "jobban2", "Jobban", 1000, 550)
+		popup.set_content(dat)
+		popup.open(FALSE)
 		return
 
 	//JOBBAN'S INNARDS
@@ -1205,8 +1224,10 @@
 			qdel(query_watchedits)
 			return
 		if(query_watchedits.NextRow())
-			var/edit_log = {"<meta charset="UTF-8">"} + query_watchedits.item[1]
-			usr << browse("<!DOCTYPE html>[edit_log]","window=watchedits")
+			var/edit_log = query_watchedits.item[1]
+			var/datum/browser/popup = new(usr, "watchedits", "Watch List Edit")
+			popup.set_content(edit_log)
+			popup.open(FALSE)
 		qdel(query_watchedits)
 
 	else if(href_list["mute"])
@@ -1231,15 +1252,15 @@
 		var/dat = {"<b>What mode do you wish to play?</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
-		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret</A><br>"}
-		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random</A><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];c_mode2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
+		dat += {"</table><br><a href='byond://?src=[UID()];c_mode2=secret'>Secret</a><br>"}
+		dat += {"<a href='byond://?src=[UID()];c_mode2=random'>Random</a><br>"}
 		dat += {"Now: [GLOB.master_mode]"}
 
 		var/datum/browser/popup = new(usr, "c_mode", "<div align='center'>Game Mode</div>")
 		popup.set_content(dat)
 		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
-		popup.open()
+		popup.open(TRUE)
 		onclose(usr, "c_mode")
 
 	else if(href_list["f_secret"])
@@ -1252,8 +1273,8 @@
 		var/dat = {"<b>What game mode do you want to force secret to be? Use this if you want to change the game mode, but want the players to believe it's secret. This will only work if the current game mode is secret.</b><hr>"}
 		dat += {"<table><tr><td>Minplayers</td><td>Gamemode</td></tr>"}
 		for(var/mode in config.modes)
-			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</A></td></tr>"}
-		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)</A><br>"}
+			dat += {"<tr><td>\[[config.mode_required_players[mode]]\]</td><td><a href='byond://?src=[UID()];f_secret2=[mode]'>[config.mode_names[mode]]</a></td></tr>"}
+		dat += {"</table><br><a href='byond://?src=[UID()];f_secret2=secret'>Random (default)</a><br>"}
 		dat += {"Now: [GLOB.secret_force_mode]"}
 		var/datum/browser/popup = new(usr, "f_secret", "<div align='center'>Secret Game Mode</div>")
 		popup.set_content(dat)
@@ -1304,23 +1325,23 @@
 			antags_list = antags_list.Copy()
 
 		for(var/antag in antags_list)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</A></td></tr>"}
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_normal_[antag]'>\[[antags_list[antag]]\]</a></td></tr>"}
 
 		dat += {"</table><br><b>Edit the antag weights for special antag. Only one antag from below will be chosen for the mode. Rolling NOTHING means no special antag at all.</b><hr>"}
 		dat += {"<table><tr><td><b>Antag</b></td><td><b>Weight</b></td></tr>"}
 		var/list/special_antags_list = GLOB.antag_paradise_special_weights ? GLOB.antag_paradise_special_weights : config_to_roles(CONFIG_GET(keyed_list/antag_paradise_special_antags_weights))
 		for(var/antag in special_antags_list)
-			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</A></td></tr>"}
+			dat += {"<tr><td>[capitalize(antag)]</td><td><a href='byond://?src=[UID()];change_weights2=weights_special_[antag]'>\[[special_antags_list[antag]]\]</a></td></tr>"}
 
 		dat += {"</table><br><b>Edit the chance to roll double antag ([capitalize(ROLE_VAMPIRE)]/[capitalize(ROLE_CHANGELING)]) for [capitalize(ROLE_TRAITOR)].</b><hr>"}
-		dat += {"<table><tr><td>Chance = </td><td><a href='byond://?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</A></td></tr></table>"}
+		dat += {"<table><tr><td>Chance = </td><td><a href='byond://?src=[UID()];change_weights2=chance'>[isnull(GLOB.antag_paradise_double_antag_chance) ? "[CONFIG_GET(number/antag_paradise_double_antag_chance)]" : "[GLOB.antag_paradise_double_antag_chance]%"]</a></td></tr></table>"}
 
-		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.</A><br>"}
+		dat += {"<br><a href='byond://?src=[UID()];change_weights2=reset'>Reset everything to default.</a><br>"}
 
 		var/datum/browser/popup = new(usr, "change_weights", "<div align='center'>Antag Paradise Weights</div>", 900, 700)
 		popup.set_content(dat)
 		popup.set_window_options("can_close=1;can_minimize=0;can_maximize=0;can_resize=0;titlebar=1;")
-		popup.open()
+		popup.open(TRUE)
 		onclose(usr, "change_weights")
 
 	else if(href_list["change_weights2"])
@@ -1949,11 +1970,11 @@
 		if(!istype(H))
 			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 			return
-		var/block=text2num(href_list["block"])
+		var/block = text2num(href_list["block"])
 		//testing("togmutate([href_list["block"]] -> [block])")
 		usr.client.cmd_admin_toggle_block(H,block)
 		if(source == "old")
-			show_player_panel(H)
+			show_old_player_panel(H)
 		else
 			usr.client.holder.Topic(null, list("showdna" = H.UID()))
 
@@ -2045,6 +2066,7 @@
 
 		log_admin("[key_name(usr)] has [mode.delay_blob_end? "stopped" : "returned"] stopped delayed blob win")
 		message_admins("[key_name_admin(usr)] has [mode.delay_blob_end? "stopped" : "returned"] delayed blob win")
+
 
 	else if(href_list["toggle_blob_infinity_points"])
 		if(!check_rights(R_ADMIN))
@@ -2140,6 +2162,8 @@
 				var/datum/objective/objective = locateUID(href_list["objective"])
 				if(objective)
 					team.admin_remove_objective(usr, objective)
+			else
+				team.Topic(href, href_list)
 
 		check_teams()
 
@@ -2177,7 +2201,7 @@
 		if(LAZYLEN(found_pdas))
 			for(var/obj/item/pda/PDA in found_pdas)
 				if(PDA.owner == old_name)
-					PDA.owner = new_name
+					PDA.update_owner_name(new_name)
 					PDA.name = "PDA-[new_name] ([PDA.ownjob])"
 		//update the datacore records! This is goig to be a bit costly.
 		for(var/list/L in list(GLOB.data_core.general, GLOB.data_core.medical, GLOB.data_core.security, GLOB.data_core.locked))
@@ -2520,24 +2544,24 @@
 		P.name = "Центральное командование - paper"
 		var/stypes = list("Разберитесь с этим сами!","Неразборчивый факс","Факс не подписан","Не сейчас","Вы напрасно тратите наше время", "Продолжайте в том же духе", "Инструкции ОБР")
 		var/stype = tgui_input_list(src.owner, "Какой тип заготовленного письма вы хотите отправить [H]?", "Выберите этот документ", stypes)
-		var/tmsg = "<font face='Verdana' color='black'><center><img src = 'ntlogo.png'><BR><BR><BR><font size='4'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></font><BR><BR><BR><font size='4'>Отчет отдела коммуникаций АКН 'Трурль'</font></center><BR><BR>"
+		var/tmsg = "<span style='font-face: \"Verdana\"; color: black;'><center><img src = 'ntlogo.png'><br><br><br><span style='font-size: 4;'><b>Научная станция NanoTrasen [SSmapping.map_datum.station_short]</b></span><br><br><br><span style='font-size: 4;'>Отчет отдела коммуникаций АКН 'Трурль'</span></center><br><br>"
 		if(stype == "Разберитесь с этим сами!")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Пожалуйста, действуйте в соответствии со Стандартными Рабочими Процедурами и/или Космическим Законом. Вы полностью обучены справляться с данной ситуацией без вмешательства Центрального Командования.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Неразборчивый факс")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<BR><BR>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Грамматика, синтаксис и/или типография вашего факса находятся на низком уровне и не позволяют нам понять содержание сообщения.<br><br>Пожалуйста, обратитесь к ближайшему словарю и/или тезаурусу и повторите попытку.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Факс не подписан")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<BR><BR>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Ваш факс был неправильно подписан, и поэтому мы не можем подтвердить вашу личность.<br><br>Пожалуйста, подпишите свои факсы перед их отправкой, чтобы мы могли вас идентифицировать.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Не сейчас")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<BR><BR>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование АКН 'Трурль'.<BR><BR>Пожалуйста, повторите попытку позднее.<BR><BR><i><small>Это автоматическое сообщение.</small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Из-за неотложных проблем, связанных с вопросом, превышающим ваш текущий уровень оплаты, мы не можем оказать помощь по любому вопросу, на который ссылается ваш факс.<br><br>Это может быть связано с отключением электроэнергии, бюрократическим аудитом, распространением вредителей, 'Восхождением', быстрым ростом популяции корги или любой другой ситуацией, которая может повлиять на надлежащее функционирование АКН 'Трурль'.<br><br>Пожалуйста, повторите попытку позднее.<br><br><i><small>Это автоматическое сообщение.</small>"
 		else if(stype == "Вы напрасно тратите наше время")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<BR><BR>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>В интересах предотвращения дальнейшего нерационального использования ресурсов компании, пожалуйста, не тратьте наше время на такую мелкую чушь.<br><br>Пожалуйста, помните, что мы ожидаем, что наши сотрудники будут поддерживать, по крайней мере, полу-достойный уровень профессионализма. Не испытывайте наше терпение.<br><br><i><small>Это автоматическое сообщение.</i></small>"
 		else if(stype == "Продолжайте в том же духе")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов АКН 'Трурль'.<BR><BR>Мы в АКН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<BR><BR><i><small>Это точно не автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был успешно получено службой регистрации факсов АКН 'Трурль'.<br><br>Мы в АКН 'Трурль' искренне ценим хорошую работу, которую вы здесь проделали, и искренне рекомендуем вам продолжать демонстрировать такую преданность компании.<br><br><i><small>Это точно не автоматическое сообщение.</i></small>"
 		else if(stype == "Инструкции ОБР")
-			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><I>ОТКЛОНЁН</I></b> автоматически службой регистрации факсов АКН 'Трурль'.<BR><BR>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<BR><BR><i><small>Это автоматическое сообщение.</i></small>"
+			tmsg += "Приветствую вас, уважаемый член экипажа. Ваш факс был <b><i>ОТКЛОНЁН</i></b> автоматически службой регистрации факсов АКН 'Трурль'.<br><br>Пожалуйста, используйте карту, если вы хотите вызвать ОБР.<br><br><i><small>Это автоматическое сообщение.</i></small>"
 		else
 			return
-		tmsg += "</font>"
+		tmsg += "</span>"
 		P.info = tmsg
 		P.stamp(/obj/item/stamp/centcom)
 		fax.receivefax(P)
@@ -2610,7 +2634,10 @@
 				var/obj/pageobj = bundle.papers[page]
 				data += "<a href='byond://?src=[UID()];AdminFaxViewPage=[page];paper_bundle=\ref[bundle]'>Page [page] - [pageobj.name]</a><br>"
 
-			usr << browse(data, "window=PaperBundle[bundle.UID()]")
+			var/datum/browser/popup = new(usr, "PaperBundle[bundle.UID()]", "Fax View")
+			popup.include_default_stylesheet = FALSE
+			popup.set_content(data)
+			popup.open(FALSE)
 		else
 			to_chat(usr, "<span class='warning'>The faxed item is not viewable. This is probably a bug, and should be reported on the tracker: [fax.type]</span>", confidential=TRUE)
 
@@ -3029,8 +3056,11 @@
 			qdel(query_memoedits)
 			return
 		if(query_memoedits.NextRow())
-			var/edit_log = {"<meta charset="UTF-8">"} + query_memoedits.item[1]
-			usr << browse("<!DOCTYPE html>[edit_log]","window=memoeditlist")
+			var/edit_log = query_memoedits.item[1]
+			var/datum/browser/popup = new(usr, "memoeditlist", "Memo Edit")
+			popup.set_content(edit_log)
+			popup.open(FALSE)
+
 		qdel(query_memoedits)
 
 	else if(href_list["secretsfun"])
@@ -3141,9 +3171,14 @@
 						while(iswallturf(turf))
 							turf = get_random_station_turf()
 						addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(doPortalSpawn), turf, pathToSpawn, prefs["amount"]["value"], storm), i*prefs["delay"]["value"])
+
 			if("tripleAI")
 				usr.client.triple_ai()
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Triple AI")
+
+			if("mass_mindswap")
+				mass_mindswap()
+
 			if("set_station_name")
 				if(!check_rights(R_ADMIN | R_EVENT))
 					return
@@ -3668,47 +3703,58 @@
 		var/ok = 0
 		switch(href_list["secretsadmin"])
 			if("list_signalers")
-				var/dat = {"<meta charset="UTF-8"><b>Showing last [length(GLOB.lastsignalers)] signalers.</b><hr>"}
+				var/dat = {"<b>Showing last [length(GLOB.lastsignalers)] signalers.</b><hr>"}
 				for(var/sig in GLOB.lastsignalers)
-					dat += "[sig]<BR>"
-				usr << browse(dat, "window=lastsignalers;size=800x500")
+					dat += "[sig]<br>"
+				var/datum/browser/popup = new(usr, "lastsignalers", "Last Signalers", 800, 500)
+				popup.set_content(dat)
+				popup.open(FALSE)
 			if("list_lawchanges")
-				var/dat = {"<meta charset="UTF-8"><b>Showing last [length(GLOB.lawchanges)] law changes.</b><hr>"}
+				var/dat = {"<b>Showing last [length(GLOB.lawchanges)] law changes.</b><hr>"}
 				for(var/sig in GLOB.lawchanges)
-					dat += "[sig]<BR>"
-				usr << browse(dat, "window=lawchanges;size=800x500")
+					dat += "[sig]<br>"
+				var/datum/browser/popup = new(usr, "lawchanges", "Laws Changes", 800, 500)
+				popup.set_content(dat)
+				popup.open(FALSE)
 			if("list_job_debug")
-				var/dat = {"<meta charset="UTF-8"><b>Job Debug info.</b><hr>"}
+				var/dat = {"<b>Job Debug info.</b><hr>"}
 				if(SSjobs)
 					for(var/line in SSjobs.job_debug)
-						dat += "[line]<BR>"
-					dat+= "*******<BR><BR>"
+						dat += "[line]<br>"
+					dat+= "*******<br><br>"
 					for(var/datum/job/job in SSjobs.occupations)
 						if(!job)	continue
-						dat += "job: [job.title], current_positions: [job.current_positions], total_positions: [job.total_positions] <BR>"
-					usr << browse(dat, "window=jobdebug;size=600x500")
+						dat += "job: [job.title], current_positions: [job.current_positions], total_positions: [job.total_positions] <br>"
+					var/datum/browser/popup = new(usr, "jobdebug", "Job Debug info", 600, 500)
+					popup.set_content(dat)
+					popup.open(FALSE)
 			if("showailaws")
 				output_ai_laws()
 			if("manifest")
-				var/dat = {"<meta charset="UTF-8"><b>Showing Crew Manifest.</b><hr>"}
+				var/dat = {"<b>Showing Crew Manifest.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Position</th></tr>"
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					if(H.ckey)
 						dat += text("<tr><td>[]</td><td>[]</td></tr>", H.name, H.get_assignment())
 				dat += "</table>"
-				usr << browse(dat, "window=manifest;size=440x410")
+				var/datum/browser/popup = new(usr, "manifest", "Crew Manifest", 440, 410)
+				popup.set_content(dat)
+				popup.open(FALSE)
 			if("DNA")
-				var/dat = {"<meta charset="UTF-8"><b>Showing DNA from blood.</b><hr>"}
+				var/dat = {"<b>Showing DNA from blood.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>DNA</th><th>Blood Type</th><th>Race Blood Type</th></tr>"
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
 					if(H.dna && H.ckey)
 						dat += "<tr><td>[H]</td><td>[H.dna.unique_enzymes]</td><td>[H.dna.blood_type]</td><td>[H.dna.species.blood_species]</td></tr>"
 				dat += "</table>"
-				usr << browse(dat, "window=DNA;size=440x410")
+				var/datum/browser/popup = new(usr, "DNA", "Blood DNA", 440, 410)
+				popup.set_content(dat)
+				popup.open(FALSE)
+
 			if("fingerprints")
-				var/dat = {"<meta charset="UTF-8"><b>Showing Fingerprints.</b><hr>"}
+				var/dat = {"<b>Showing Fingerprints.</b><hr>"}
 				dat += "<table cellspacing=5><tr><th>Name</th><th>Fingerprints</th></tr>"
 				for(var/thing in GLOB.human_list)
 					var/mob/living/carbon/human/H = thing
@@ -3720,7 +3766,9 @@
 						else if(!H.dna)
 							dat += "<tr><td>[H]</td><td>H.dna = null</td></tr>"
 				dat += "</table>"
-				usr << browse(dat, "window=fingerprints;size=440x410")
+				var/datum/browser/popup = new(usr, "fingerprints", "Fingerprints", 440, 410)
+				popup.set_content(dat)
+				popup.open(FALSE)
 			if("night_shift_set")
 				var/val = tgui_alert(usr, "What do you want to set night shift to? This will override the automatic system until set to automatic again.", "Night Shift", list("On", "Off", "Automatic"))
 				switch(val)
@@ -3750,12 +3798,14 @@
 
 		switch(href_list["secretscoder"])
 			if("spawn_objects")
-				var/dat = {"<meta charset="UTF-8"><b>Admin Log<hr></b>"}
+				var/dat = "<b>Admin Log<hr></b>"
 				for(var/l in GLOB.admin_log)
 					dat += "<li>[l]</li>"
 				if(!GLOB.admin_log.len)
 					dat += "No-one has done anything this round!"
-				usr << browse(dat, "window=admin_log")
+				var/datum/browser/popup = new(usr, "admin_log", "Admin Log")
+				popup.set_content(dat)
+				popup.open(FALSE)
 			if("maint_ACCESS_BRIG")
 				if(!you_realy_want_do_this())
 					return
@@ -3822,8 +3872,9 @@
 		if(!check_rights(R_ADMIN))
 			return
 		var/text = html_decode(href_list["showdetails"])
-		usr << browse({"<HTML><meta charset="UTF-8"><HEAD><TITLE>Details</TITLE></HEAD><BODY><TT>[replacetext(text, "\n", "<BR>")]</TT></BODY></HTML>"},
-			"window=show_details;size=500x200")
+		var/datum/browser/popup = new(usr, "show_details", "Details", 500, 200)
+		popup.set_content("<tt>[replacetext(text, "\n", "<br>")]</tt>")
+		popup.open(FALSE)
 
 	// Library stuff
 	else if(href_list["library_book_id"])
@@ -3843,13 +3894,13 @@
 				content = query_view_book.item[1]
 				title = html_encode(query_view_book.item[2])
 
-			var/dat = {"<meta charset="UTF-8"><pre><code>"}
+			var/dat = {"<pre><code>"}
 			dat += "[html_encode(html_to_pencode(content))]"
 			dat += "</code></pre>"
 
 			var/datum/browser/popup = new(usr, "admin_view_book", "[title]", 700, 400)
 			popup.set_content(dat)
-			popup.open(0)
+			popup.open(FALSE)
 
 			qdel(query_view_book)
 			log_admin("[key_name(usr)] has viewed the book [isbn].")
@@ -3950,7 +4001,9 @@
 		var/list/dat = list("Related accounts by [uppertext(href_list["showrelatedacc"])]:")
 		dat += thing_to_check
 
-		usr << browse(dat.Join("<br>"), "window=related_[C];size=420x300")
+		var/datum/browser/popup = new(usr, "related_[C]", "Related dacc", 420, 300)
+		popup.set_content(dat.Join("<br>"))
+		popup.open(FALSE)
 
 	else if(href_list["showdna"])
 		if(!check_rights(R_ADMIN))
@@ -3971,7 +4024,7 @@
 			var/gene_name = GLOB.assigned_blocks[block]
 			if(gene_name)
 				var/text_color = "[M.dna.GetSEState(block) ? "#006600" : "#ff0000"]"
-				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</A><sub>[block]</sub>"
+				body += "<a href='byond://?_src_=holder;togmutate=[M.UID()];block=[block];version=new' style='color:[text_color];'>[gene_name]</a><sub>[block]</sub>"
 			else
 				body += "[block]"
 			body += "</td>"
@@ -4061,8 +4114,9 @@
 		if(O.mind && O.mind.current)
 			. += "|[ADMIN_FLW(O.mind.current,"BDY")]"
 
-/proc/you_realy_want_do_this()
-	var/sure = tgui_alert(usr, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
+/proc/you_realy_want_do_this(mob/user)
+	user = user || usr
+	var/sure = tgui_alert(user, "Вы действительно хотите сделать это?", "Подтверждение", list("Да", "Нет"))
 	return sure == "Да"
 
 
@@ -4081,3 +4135,21 @@
 	playsound(loc, "sparks", rand(80, 100), 1)
 	for (var/i in 1 to numtospawn)
 		new mobtype(loc)
+
+/datum/admins/proc/mass_mindswap()
+	if(!check_rights(R_EVENT) || !you_realy_want_do_this(owner.mob))
+		return
+
+	for(var/mob/living/carbon/human/human as anything in GLOB.human_list)
+		if(!human.mind)
+			continue
+
+		var/mob/living/target = safepick(GLOB.human_list - human)
+
+		if(!target \
+		|| !/obj/effect/proc_holder/spell/mind_transfer::valid_target(target, human))
+			continue
+
+		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
+
+	log_and_message_admins("Initiated mass mindswap")

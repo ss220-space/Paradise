@@ -346,17 +346,17 @@
 		user << browse(null, "window=turbine")
 		return
 
-	var/t = "<TT><B>Gas Turbine Generator</B><HR><PRE>"
+	var/t = "<tt><b>Gas Turbine Generator</b><hr><pre>"
 
-	t += "Generated power : [round(lastgen)] W<BR><BR>"
+	t += "Generated power : [round(lastgen)] W<br><br>"
 
-	t += "Turbine: [round(compressor.rpm)] RPM<BR>"
+	t += "Turbine: [round(compressor.rpm)] RPM<br>"
 
-	t += "Starter: [ compressor.starter ? "<a href='byond://?src=[UID()];str=1'>Off</A> <B>On</B>" : "<B>Off</B> <a href='byond://?src=[UID()];str=1'>On</A>"]"
+	t += "Starter: [ compressor.starter ? "<a href='byond://?src=[UID()];str=1'>Off</a> <b>On</b>" : "<b>Off</b> <a href='byond://?src=[UID()];str=1'>On</a>"]"
 
-	t += "</PRE><HR><a href='byond://?src=[UID()];close=1'>Close</A>"
+	t += "</pre><hr><a href='byond://?src=[UID()];close=1'>Close</a>"
 
-	t += "</TT>"
+	t += "</tt>"
 	var/datum/browser/popup = new(user, "turbine", name, 420, 240, src)
 	popup.set_content(t)
 	popup.open()
@@ -405,24 +405,24 @@
 
 /obj/machinery/computer/turbine_computer/interact(mob/user)
 
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	if(compressor && compressor.turbine)
-		dat += "<BR><B>Gas turbine remote control system</B><HR>"
+		dat += "<br><b>Gas turbine remote control system</b><hr>"
 		if(compressor.stat || compressor.turbine.stat)
-			dat += "[compressor.stat ? "<B>Compressor is inoperable</B><BR>" : "<B>Turbine is inoperable</B>"]"
+			dat += "[compressor.stat ? "<b>Compressor is inoperable</b><br>" : "<b>Turbine is inoperable</b>"]"
 		else
-			dat += {"Turbine status: [ src.compressor.starter ? "<a href='byond://?src=[UID()];str=1'>Off</A> <B>On</B>" : "<B>Off</B> <a href='byond://?src=[UID()];str=1'>On</A>"]
-			\n<BR>
-			\nTurbine speed: [src.compressor.rpm]rpm<BR>
-			\nPower currently being generated: [src.compressor.turbine.lastgen]W<BR>
-			\nInternal gas temperature: [src.compressor.gas_contained.temperature]K<BR>
-			\n</PRE><HR><a href='byond://?src=[UID()];close=1'>Close</A>
-			\n<BR>
-			\n"}
+			dat += {"Turbine status: [ src.compressor.starter ? "<a href='byond://?src=[UID()];str=1'>Off</a> <b>On</b>" : "<b>Off</b> <a href='byond://?src=[UID()];str=1'>On</a>"]
+			<br>
+			Turbine speed: [src.compressor.rpm]rpm<br>
+			Power currently being generated: [src.compressor.turbine.lastgen]W<br>
+			Internal gas temperature: [src.compressor.gas_contained.temperature]K<br>
+			</pre><hr><a href='byond://?src=[UID()];close=1'>Close</a>
+			<br>
+			"}
 	else
-		dat += "<B>There is [!compressor ? "no compressor" : " compressor[!compressor.turbine ? " but no turbine" : ""]"].</B><BR>"
+		dat += "<b>There is [!compressor ? "no compressor" : " compressor[!compressor.turbine ? " but no turbine" : ""]"].</b><br>"
 		if(!compressor)
-			dat += "<a href='byond://?src=[UID()];search=1'>Search for compressor</A>"
+			dat += "<a href='byond://?src=[UID()];search=1'>Search for compressor</a>"
 
 	var/datum/browser/popup = new(user, "turbinecomputer", name, 420, 240, src)
 	popup.set_content(dat)

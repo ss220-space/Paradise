@@ -2,6 +2,7 @@
 /obj/structure/spider
 	name = "web"
 	desc = "it's stringy and sticky"
+	gender = FEMALE
 	icon = 'icons/effects/effects.dmi'
 	anchored = TRUE
 	density = FALSE
@@ -62,6 +63,7 @@
 	desc = "They seem to pulse slightly with an inner life"
 	icon_state = "eggs"
 	var/amount_grown = 0
+	var/grown_tick_count = 100
 	var/player_spiders = 0
 	var/list/faction = list("spiders")
 
@@ -76,13 +78,13 @@
 		return
 
 	amount_grown += rand(0,2)
-	if(amount_grown >= 100)
+	if(amount_grown >= grown_tick_count)
 		var/num = rand(3, 12)
 		for(var/i in 1 to num)
 			var/obj/structure/spider/spiderling/S = new /obj/structure/spider/spiderling(loc)
 			S.faction = faction.Copy()
 			S.master_commander = master_commander
-			S.new_mind_memory = master_commander ? "<B>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</B>" : new_mind_memory
+			S.new_mind_memory = master_commander ? "<b>Мой хозяин [master_commander.name], выполню [genderize_ru(master_commander.gender, "его", "её", "этого", "их")] цели любой ценой!</b>" : new_mind_memory
 			if(player_spiders)
 				S.player_spiders = 1
 		qdel(src)
@@ -145,7 +147,7 @@
 				return
 			var/obj/machinery/atmospherics/unary/vent_pump/exit_vent = pick(vents)
 			if(prob(50))
-				visible_message("<B>[src] scrambles into the ventilation ducts!</B>", \
+				visible_message("<b>[src] scrambles into the ventilation ducts!</b>", \
 								"<span class='notice'>You hear something squeezing through the ventilation ducts.</span>")
 
 			spawn(rand(20,60))

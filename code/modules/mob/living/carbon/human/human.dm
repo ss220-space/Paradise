@@ -1734,14 +1734,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 /mob/living/carbon/human/vv_get_dropdown()
 	. = ..()
 	. += "---"
-	.["Set Species"] = "?_src_=vars;setspecies=[UID()]"
-	.["Copy Outfit"] = "?_src_=vars;copyoutfit=[UID()]"
-	.["Make AI"] = "?_src_=vars;makeai=[UID()]"
-	.["Make cyborg"] = "?_src_=vars;makerobot=[UID()]"
-	.["Make monkey"] = "?_src_=vars;makemonkey=[UID()]"
-	.["Make alien"] = "?_src_=vars;makealien=[UID()]"
-	.["Make slime"] = "?_src_=vars;makeslime=[UID()]"
-	.["Make superhero"] = "?_src_=vars;makesuper=[UID()]"
+	.["Set Species"] = "byond://?_src_=vars;setspecies=[UID()]"
+	.["Copy Outfit"] = "byond://?_src_=vars;copyoutfit=[UID()]"
+	.["Make AI"] = "byond://?_src_=vars;makeai=[UID()]"
+	.["Make cyborg"] = "byond://?_src_=vars;makerobot=[UID()]"
+	.["Make monkey"] = "byond://?_src_=vars;makemonkey=[UID()]"
+	.["Make alien"] = "byond://?_src_=vars;makealien=[UID()]"
+	.["Make slime"] = "byond://?_src_=vars;makeslime=[UID()]"
+	.["Make superhero"] = "byond://?_src_=vars;makesuper=[UID()]"
 	. += "---"
 
 
@@ -1941,3 +1941,6 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return
 
 	return buckle_mob(target, TRUE, FALSE, CARRIER_NEEDS_ARM) //checkloc is false because we usually grab people from nearest tile
+
+/mob/living/carbon/human/monkeybrain
+	ai_controller = /datum/ai_controller/monkey

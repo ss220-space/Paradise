@@ -154,7 +154,7 @@
 	/// PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
-	pda.owner = "[src]"
+	pda.update_owner_name("[src]")
 	pda.name = "[pda.owner] ([pda.ownjob])"
 
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
@@ -284,6 +284,11 @@
 		if(EXPLODE_LIGHT)
 			apply_damage(30)
 
+// See software.dm for Topic()
+/mob/living/silicon/pai/can_perform_action(atom/target, action_bitflags)
+	action_bitflags |= ALLOW_RESTING // Resting is just an aesthetic feature for them
+	action_bitflags &= ~ALLOW_SILICON_REACH // They don't get long reach like the rest of silicons
+	return ..(target, action_bitflags)
 
 // See software.dm for ui_act()
 
@@ -613,7 +618,7 @@
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)

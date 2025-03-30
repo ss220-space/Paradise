@@ -37,9 +37,9 @@
 	weldingvisortoggle(silent = TRUE)
 
 
-/obj/item/clothing/head/helmet/space/plasmaman/AltClick(mob/user)
-	if(Adjacent(user))
-		weldingvisortoggle(user)
+/obj/item/clothing/head/helmet/space/plasmaman/click_alt(mob/user)
+	weldingvisortoggle(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/clothing/head/helmet/space/plasmaman/ui_action_click(mob/user, datum/action/action, leftclick)

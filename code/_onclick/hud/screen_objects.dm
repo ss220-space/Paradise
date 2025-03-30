@@ -16,6 +16,7 @@
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
+	interaction_flags_click = BYPASS_ADJACENCY
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -293,25 +294,26 @@
 		return TRUE
 
 	if(PL["alt"])
-		AltClick(usr, choice)
+		click_alt(usr, choice)
 		return
 
 	return set_selected_zone(choice)
 
-/atom/movable/screen/zone_sel/AltClick(mob/user, choice)
+/atom/movable/screen/zone_sel/click_alt(mob/user, choice)
 
 	if(user.next_click > world.time || user.next_move > world.time)
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	user.changeNext_click(1)
 
 	var/obj/item/holding_item = user.get_active_hand()
 	var/old_selecting = selecting
 	if(!istype(holding_item))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	if(!set_selected_zone(choice, FALSE))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	holding_item.melee_attack_chain(user, user)
 	set_selected_zone(old_selecting, FALSE)
+	return CLICK_ACTION_SUCCESS
 
 
 /atom/movable/screen/zone_sel/MouseEntered(location, control, params)

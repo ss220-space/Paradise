@@ -6,7 +6,7 @@
 /// Can be applied to those only with a trait conditionally.
 /datum/component/aura_healing
 	/// The range of which to heal
-	var/range
+	var/range = 5
 
 	/// Whether or not you must be a visible object of the parent
 	var/requires_visibility = TRUE
@@ -66,7 +66,7 @@
 
 
 /datum/component/aura_healing/Initialize(
-	range,
+	range = 5,
 	requires_visibility = TRUE,
 	brute_heal = 0,
 	burn_heal = 0,
@@ -112,9 +112,9 @@
 
 /datum/component/aura_healing/Destroy(force)
 	STOP_PROCESSING(SSaura_healing, src)
-	var/alert_category = "aura_healing_[\ref(src)]"
+	var/alert_category = "aura_healing_[src.UID()]"
 
-	for(var/mob/living/alert_holder in current_alerts)
+	for(var/mob/living/alert_holder as anything in current_alerts)
 		alert_holder.clear_alert(alert_category)
 	current_alerts.Cut()
 	organ_healing = null
@@ -129,20 +129,26 @@
 	if(should_show_effect)
 		COOLDOWN_START(src, last_heal_effect_time, HEAL_EFFECT_COOLDOWN)
 
-	var/list/remove_alerts_from = current_alerts.Copy()
+	var/list/to_heal = list()
 
-	var/alert_category = "aura_healing_[\ref(src)]"
+	var/alert_category = "aura_healing_[src.UID()]"
 
-	for(var/mob/living/candidate in (requires_visibility ? view(range, parent) : range(range, parent)))
-		if(!isnull(limit_to_trait) && !HAS_TRAIT(candidate, limit_to_trait))
-			continue
+	if(requires_visibility)
+		for(var/mob/living/candidate in view(range, parent))
+			if(!isnull(limit_to_trait) && !HAS_TRAIT(candidate, limit_to_trait))
+				continue
+			to_heal[candidate] = TRUE
+	else
+		for(var/mob/living/candidate in range(range, parent))
+			if(!isnull(limit_to_trait) && !HAS_TRAIT(candidate, limit_to_trait))
+				continue
+			to_heal[candidate] = TRUE
 
-		remove_alerts_from -= candidate
-
-		if(!(candidate in current_alerts))
+	for(var/mob/living/candidate as anything in to_heal)
+		if(!current_alerts[candidate])
 			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			alert.desc = "You are being healed by [parent]."
-			current_alerts += candidate
+			current_alerts[candidate] = TRUE
 
 		var/old_health = candidate.health
 
@@ -234,7 +240,7 @@
 
 		candidate.updatehealth()
 
-	for(var/mob/remove_alert_from as anything in remove_alerts_from)
+	for(var/mob/living/remove_alert_from as anything in current_alerts - to_heal)
 		remove_alert_from.clear_alert(alert_category)
 		current_alerts -= remove_alert_from
 

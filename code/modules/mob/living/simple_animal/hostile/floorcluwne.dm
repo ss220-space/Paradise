@@ -145,7 +145,7 @@
 	return
 
 
-/mob/living/simple_animal/hostile/floor_cluwne/LoseTarget()
+/mob/living/simple_animal/hostile/floor_cluwne/lose_target()
 	return
 
 

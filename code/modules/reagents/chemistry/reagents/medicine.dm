@@ -1133,12 +1133,13 @@
 	M.AdjustDruggy(-10 SECONDS)
 	M.AdjustHallucinate(-5 SECONDS)
 	M.AdjustJitter(-10 SECONDS)
-	if(prob(50))
-		M.Drowsy(6 SECONDS)
 	if(prob(10))
 		M.emote("drool")
 	if(prob(20))
 		update_flags |= M.adjustBrainLoss(1, FALSE)
+	if(current_cycle > 20)
+		if(prob(50))
+			M.Drowsy(6 SECONDS)
 	return ..() | update_flags
 
 /datum/reagent/medicine/ether
@@ -1640,3 +1641,19 @@
 /datum/reagent/medicine/adv_lava_extract/on_mob_delete(mob/living/carbon/human/user)
 	. = ..()
 	user.clear_alert("penthrite")
+
+/datum/reagent/medicine/ashiezine
+	name = "Сироп Лаваленда"
+	id = "ashiezine"
+	description = "Странный реагент, найденный на Лазис Ардаксе. Судя по всему, он работает только на пеплоходцев."
+	reagent_state = LIQUID
+	color = "#f45555"
+	harmless = FALSE
+	taste_description = "потрохов"
+	can_synth = FALSE
+
+/datum/reagent/medicine/ashiezine/on_mob_life(mob/living/M)
+	if(isashwalker(M))
+		M.reagents.add_reagent("epinephrine", 0.2)
+		M.reagents.add_reagent("heparin", 0,4)
+	return ..()

@@ -237,7 +237,7 @@
 /client/New(TopicData)
 	// TODO: Remove with 516
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage")
+		winset(src, "", "browser-options=byondstorage,find")
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -388,6 +388,8 @@
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
 
+	loot_panel = new(src)
+
 	Master.UpdateTickRate()
 
 	// Check total playercount
@@ -437,13 +439,13 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 
-	if(obj_window)
-		QDEL_NULL(obj_window)
 
 	SSambience.remove_ambience_client(src)
 	SSping.currentrun -= src
 	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
+	QDEL_NULL(tooltips)
+	QDEL_NULL(loot_panel)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -577,7 +579,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
@@ -699,7 +701,7 @@
 		if(CONFIG_GET(flag/ipintel_whitelist))
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
-				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
+				var/blockmsg = "<b>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</b>"
 				if(CONFIG_GET(string/banappeals))
 					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [CONFIG_GET(string/banappeals)]"
 				to_chat(src, blockmsg, confidential=TRUE)
@@ -715,7 +717,7 @@
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
-	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>", confidential=TRUE)
+	to_chat(src, "<b>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></b>", confidential=TRUE)
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey=:ckey limit 1", list(
@@ -1351,13 +1353,15 @@
 		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	var/list/msg = list({"<meta charset="UTF-8">"})
+	var/list/msg = list()
 	msg += "<b>Ваша версия BYOND устарела:</b><br>"
 	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам.<br><br>"
 	msg += "Ваша версия: [byond_version].[byond_build]<br>"
 	msg += "Требуемая версия, чтобы убрать это окно: [SUGGESTED_CLIENT_VERSION].[SUGGESTED_CLIENT_BUILD] или выше<br>"
 	msg += "Посетите <a href=\"https://secure.byond.com/download\">сайт BYOND</a>, чтобы скачать последнюю версию.<br>"
-	src << browse(msg.Join(""), "window=warning_popup")
+	var/datum/browser/popup = new(src, "warning_popup", "Warning")
+	popup.set_content(msg.Join(""))
+	popup.open(FALSE)
 	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."), confidential=TRUE)
 
 
@@ -1465,12 +1469,6 @@
 		if("Set-Tab")
 			stat_tab = payload["tab"]
 			SSstatpanels.immediate_send_stat_data(src)
-		if("Listedturf-Scroll")
-			if(payload["min"] == payload["max"])
-				// Not properly loaded yet, send the default set.
-				SSstatpanels.refresh_client_obj_view(src)
-			else
-				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
 		// Uncomment to enable log_debug in stat panel code.
 		// Disabled normally due to HREF exploit concerns.
 		//if("Statpanel-Debug")

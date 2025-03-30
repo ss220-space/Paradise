@@ -55,11 +55,11 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/hostile/syndicate/melee/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
 	if(prob(ranged_block_chance))
-		visible_message(span_danger("[src] blocks [Proj] with its shield!"))
+		visible_message(span_danger("[src] blocks [Proj] with its shield!"), projectile_message = TRUE)
 		return FALSE
 	return ..()
 
@@ -135,7 +135,7 @@
 			depotarea.list_remove(target, depotarea.dead_list)
 		if(!are_zs_connected(src, target) && prob(20))
 			// This prevents someone from aggroing a depot mob, then hiding in a locker, perfectly safe, while the mob stands there getting killed by their friends.
-			LoseTarget()
+			lose_target()
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/handle_automated_action()
 	. = ..()
@@ -235,7 +235,7 @@
 		ranged_block_chance = 0
 		icon_state = "syndicate_pistol"
 		icon_living = "syndicate_pistol"
-		projectiletype = /obj/item/projectile/beam/laser
+		projectiletype = /obj/projectile/beam/laser
 		projectilesound = 'sound/weapons/laser.ogg'
 
 /mob/living/simple_animal/hostile/syndicate/melee/autogib/depot/armory
@@ -269,7 +269,7 @@
 		ranged_block_chance = 0
 		icon_state = "syndicate_stormtrooper_shotgun"
 		icon_living = "syndicate_stormtrooper_shotgun"
-		projectiletype = /obj/item/projectile/bullet/sniper/penetrator // Ignores cover.
+		projectiletype = /obj/projectile/bullet/sniper/penetrator // Ignores cover.
 		projectilesound = 'sound/weapons/gunshots/gunshot_sniper.ogg'
 	return INITIALIZE_HINT_LATELOAD
 

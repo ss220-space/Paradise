@@ -139,12 +139,12 @@
 	. = ..()
 	. += span_info("Щелкните <b>Alt + ЛКМ</b>, чтобы переключить иксрей.")
 
-/obj/item/clothing/glasses/hud/debug/AltClick(mob/user)
+/obj/item/clothing/glasses/hud/debug/click_alt(mob/user)
 	if(!ishuman(user))
-		return
+		return NONE
 	var/mob/living/carbon/human/human_user = user
 	if(human_user.glasses != src)
-		return
+		return CLICK_ACTION_BLOCKING
 	if(xray)
 		remove_xray(human_user)
 	else
@@ -152,6 +152,7 @@
 	xray = !xray
 	balloon_alert(user, "рентген-зрение [!xray ? "де" : ""]активировано") // ctodo test
 	human_user.update_sight()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/clothing/glasses/hud/debug/visor_toggling(mob/living/carbon/human/user)
 	return

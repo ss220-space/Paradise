@@ -132,7 +132,7 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
+		to_chat(src, "<i>…Вам почти удаётся расслышать чьи-то слова…</i>", MESSAGE_TYPE_LOCALCHAT)
 	else
 		to_chat(src, msg, chat_message_type)
 
@@ -142,11 +142,13 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/mob as anything in viewers(3, src) - ignored_mobs)
 			if(mob.see_invisible < invisibility)
 				continue //can't view the invisible
+			if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+				continue
 			var/msg = message
 			if(self_message && mob == src)
 				msg = self_message
@@ -160,6 +162,10 @@
 	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
+
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
+
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
@@ -170,8 +176,10 @@
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
 		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
@@ -190,7 +198,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<B>[src]</B> ", "")
+	var/omsg = replacetext(message, "<b>[src]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -404,7 +412,7 @@
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
 	msg = sanitize_censored_patterns(msg)
 
 	var/combined = length(memory + msg)
@@ -425,7 +433,7 @@
 	if(length(memory) == 0)
 		memory += msg
 	else
-		memory += "<BR>[msg]"
+		memory += "<br>[msg]"
 
 	if(popup)
 		memory()
@@ -540,20 +548,24 @@
 		src << browse(null, t1)
 
 	if(href_list["flavor_more"])
-		usr << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
-		onclose(usr, "[name]")
+		var/datum/browser/popup = new(usr, name, name, 500, 200)
+		popup.set_content("<tt>[replacetext(flavor_text, "\n", "<br>")]</tt>")
+		popup.open(TRUE)
+		onclose(usr, name)
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
 	if(href_list["scoreboard"])
-		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
+		var/datum/browser/popup = new(usr, "roundstats", "Round Stats", 700, 900)
+		popup.set_content(GLOB.scoreboard)
+		popup.open(FALSE)
 
 
 /mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE
-	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
+	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
 		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
@@ -561,6 +573,35 @@
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
 		return FALSE
 	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
+
+/**
+ * Checks whether a mob can perform an action to interact with an object
+ *
+ * The default behavior checks if the mob is:
+ * * Directly adjacent (1-tile radius)
+ * * Standing up (not resting)
+ * * Allows telekinesis to be used to skip adjacent checks (if they have DNA mutation)
+ * *
+ * action_bitflags: (see code/__DEFINES/mobs.dm)
+ * * NEED_GRAVITY - If gravity must be present to perform action (can't use pens without gravity)
+ * * NEED_LITERACY - If reading is required to perform action (can't read a book if you are illiterate)
+ * * NEED_LIGHT - If lighting must be present to perform action (can't heal someone in the dark)
+ * * NEED_DEXTERITY - If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+ * * NEED_HANDS - If hands are required to perform action (can't pickup items if you are a cyborg)
+ * * FORBID_TELEKINESIS_REACH - If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+ * * ALLOW_SILICON_REACH - If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+ * * ALLOW_RESTING - If resting on the floor is allowed to perform action ()
+ * * ALLOW_VENTCRAWL - Mobs with ventcrawl traits can alt-click this to vent
+ * * BYPASS_ADJACENCY - The target does not have to be adjacent
+ * * SILENT_ADJACENCY - Adjacency is required but errors are not printed
+ * * NOT_INSIDE_TARGET - The target maybe adjacent but the mob should not be inside the target
+ * * ALLOW_PAI - Allows pAIs to perform an action
+ *
+ * silence_adjacency: Sometimes we want to use this proc to check interaction without allowing it to throw errors for base case adjacency
+ * Alt click uses this, as otherwise you can detect what is interactable from a distance via the error message
+**/
+/mob/proc/can_perform_action(atom/target, action_bitflags)
+	return
 
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
@@ -918,33 +959,33 @@
 
 /mob/vv_get_dropdown()
 	. = ..()
-	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
 
-	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
+	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
+	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
+	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
 
-	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
 
-	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
 
-	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
+	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
+	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
+	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
 
-	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
 
-	.["Gib"] = "?_src_=vars;gib=[UID()]"
+	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()

@@ -1,9 +1,18 @@
 /obj/item/organ/internal/lungs
 	name = "lungs"
+	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали человеку."
+	ru_names = list(
+		NOMINATIVE = "лёгкие человека",
+		GENITIVE = "лёгких человека",
+		DATIVE = "лёгким человека",
+		ACCUSATIVE = "лёгкие человека",
+		INSTRUMENTAL = "лёгкими человека",
+		PREPOSITIONAL = "лёгких человека"
+	)
+	gender = PLURAL
 	icon_state = "lungs"
 	parent_organ_zone = BODY_ZONE_CHEST
 	slot = INTERNAL_ORGAN_LUNGS
-	gender = PLURAL
 	w_class = WEIGHT_CLASS_NORMAL
 
 	//Breath damage
@@ -33,7 +42,7 @@
 	var/tox_breath_dam_max = MAX_TOXIC_GAS_DAMAGE
 	var/tox_damage_type = TOX
 
-	var/cold_message = "your face freezing and an icicle forming"
+	var/cold_message = ", что ваши дыхательные пути замораживаются"
 	var/cold_level_1_threshold = 260
 	var/cold_level_2_threshold = 200
 	var/cold_level_3_threshold = 120
@@ -42,7 +51,6 @@
 	var/cold_level_3_damage = COLD_GAS_DAMAGE_LEVEL_3
 	var/cold_damage_types = list(BURN = 1)
 
-	var/hot_message = "your face burning and a searing heat"
 	var/heat_level_1_threshold = 360
 	var/heat_level_2_threshold = 400
 	var/heat_level_3_threshold = 1000
@@ -81,7 +89,7 @@
 
 	if(is_bruised())
 		if(prob(2))
-			owner.custom_emote(EMOTE_AUDIBLE, "откашлива%(ет,ют)% большое количество крови!")
+			owner.custom_emote(EMOTE_AUDIBLE, "отхаркива%(ет,ют)% кровь!")
 			owner.bleed(1)
 		if(prob(4))
 			owner.custom_emote(EMOTE_VISIBLE, "задыха%(ет,ют)%ся!")
@@ -286,7 +294,7 @@
 				H.apply_damage(TC * CM * cold_damage_types[D], D, spread_damage = TRUE, forced = TRUE)
 		if(breath_temperature < cold_level_1_threshold)
 			if(prob(20))
-				to_chat(H, span_warning("You feel [cold_message] in your [name]!"))
+				to_chat(H, span_warning("Вы чувствуете[cold_message]!"))
 
 	if(!HAS_TRAIT(H, TRAIT_RESIST_HEAT)) // HEAT DAMAGE
 		var/HM = abs(H.dna.species.heatmod * H.physiology.heat_mod)
@@ -302,7 +310,7 @@
 				H.apply_damage(TH * HM * heat_damage_types[D], D, spread_damage = TRUE, forced = TRUE)
 		if(breath_temperature > heat_level_1_threshold)
 			if(prob(20))
-				to_chat(H, span_warning("You feel [hot_message] in your [name]!"))
+				to_chat(H, span_warning("Вы чувствуете, что ваши дыхательные пути пылают!"))
 
 /obj/item/organ/internal/lungs/prepare_eat()
 	var/obj/S = ..()
@@ -311,48 +319,64 @@
 
 /obj/item/organ/internal/lungs/cybernetic
 	name = "cybernetic lungs"
-	desc = "A cybernetic version of the lungs found in traditional humanoid entities. It functions the same as an organic lung and is merely meant as a replacement."
+	desc = "Электронное устройство, имитирующее работу органических лёгких. Функционально не имеет никаких отличий от органического аналога, кроме производственных затрат."
+	ru_names = list(
+		NOMINATIVE = "кибернетические лёгкие",
+		GENITIVE = "кибернетических лёгких",
+		DATIVE = "кибернетическим лёгким",
+		ACCUSATIVE = "кибернетические лёгкие",
+		INSTRUMENTAL = "кибернетическими лёгкими",
+		PREPOSITIONAL = "кибернетических лёгких"
+	)
 	icon_state = "lungs-c"
 	origin_tech = "biotech=4"
 	status = ORGAN_ROBOT
-	var/species_state = "human"
+	var/species_state = "человек"
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
 	drop_sound = 'sound/items/handling/component_drop.ogg'
 
 /obj/item/organ/internal/lungs/cybernetic/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] is configured for [species_state] standards of atmosphere.")
+	. += span_notice("Конфигурация параметров дыхания: [species_state].")
 
 /obj/item/organ/internal/lungs/cybernetic/multitool_act(mob/user, obj/item/I)
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	switch(species_state)
-		if("human") // from human to vox
+		if("человек") // from human to vox
 			safe_oxygen_min = 0
 			safe_oxygen_max = safe_toxins_max
 			safe_nitro_min = 16
 			oxy_damage_type = TOX
-			to_chat(user, span_notice("You configure [src] to replace vox lungs."))
-			species_state = "vox"
-		if("vox") // from vox to plasmamen
+			to_chat(user, span_notice("Вы меняете конфигурацию [declent_ru(GENITIVE)]. Выбранный режим - \"вокс\"."))
+			species_state = "вокс"
+		if("вокс") // from vox to plasmamen
 			safe_oxygen_max = initial(safe_oxygen_max)
 			safe_toxins_min = 16
 			safe_toxins_max = 0
 			safe_nitro_min = initial(safe_nitro_min)
 			oxy_damage_type = OXY
-			to_chat(user, span_notice("You configure [src] to replace plasmamen lungs."))
-			species_state = "plasmamen"
-		if("plasmamen") // from plasmamen to human
+			to_chat(user, span_notice("Вы меняете конфигурацию [declent_ru(GENITIVE)]. Выбранный режим - \"плазмолюд\"."))
+			species_state = "плазмолюд"
+		if("плазмолюд") // from plasmamen to human
 			safe_oxygen_min = initial(safe_oxygen_min)
 			safe_toxins_min = initial(safe_toxins_min)
 			safe_toxins_max = initial(safe_toxins_max)
-			to_chat(user, span_notice("You configure [src] back to default settings."))
-			species_state = "human"
+			to_chat(user, span_notice("Вы меняете конфигурацию [declent_ru(GENITIVE)]. Выбранный режим - \"человек\"."))
+			species_state = "человек"
 
 /obj/item/organ/internal/lungs/cybernetic/upgraded
 	name = "upgraded cybernetic lungs"
-	desc = "A more advanced version of the stock cybernetic lungs. They are capable of filtering out lower levels of toxins and carbon dioxide."
+	desc = "Продвинутая версия кибернетического сердца. Оснащены системой фильтрации, удаляющей токсины и углекислый газ и поступаемого газа. Очень уязвимы к ЭМИ."
+	ru_names = list(
+		NOMINATIVE = "улучшенные кибернетические лёгкие",
+		GENITIVE = "улучшенных кибернетических лёгких",
+		DATIVE = "улучшенным кибернетическим лёгким",
+		ACCUSATIVE = "улучшенные кибернетические лёгкие",
+		INSTRUMENTAL = "улучшенными кибернетическими лёгкими",
+		PREPOSITIONAL = "улучшенных кибернетических лёгких"
+	)
 	icon_state = "lungs-c-u"
 	origin_tech = "biotech=5"
 

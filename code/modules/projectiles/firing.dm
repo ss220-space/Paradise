@@ -72,7 +72,7 @@
 	return locate(target.x + round(gaussian(0, distro) * (dy+2)/8, 1), target.y + round(gaussian(0, distro) * (dx+2)/8, 1), target.z)
 
 
-/obj/item/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
+/obj/projectile/proc/preparePixelProjectile(atom/target, turf/targloc, mob/living/user, params, spread)
 	var/turf/curloc = get_turf(user)
 
 	/*

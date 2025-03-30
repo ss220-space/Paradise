@@ -9,6 +9,7 @@
         INSTRUMENTAL = "авто-мендером",
         PREPOSITIONAL = "авто-мендере"
 	)
+	gender = MALE
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "mender"
 	item_state = "mender"

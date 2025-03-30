@@ -24,7 +24,7 @@
 	pass_open_check = TRUE
 	var/busy = FALSE
 	var/mode = SYRINGE_DRAW
-	var/projectile_type = /obj/item/projectile/bullet/dart/syringe
+	var/projectile_type = /obj/projectile/bullet/dart/syringe
 	materials = list(MAT_METAL=10, MAT_GLASS=20)
 	container_type = TRANSPARENT
 
@@ -71,6 +71,8 @@
 		L = target
 		if(!L.can_inject(user, TRUE))
 			return
+
+	SEND_SIGNAL(target, COMSIG_LIVING_TRY_SYRINGE, user)
 
 	switch(mode)
 		if(SYRINGE_DRAW)

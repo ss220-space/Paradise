@@ -318,7 +318,7 @@
 		for(var/obj/item/implant/I in occupant)
 			if(I.implanted && is_type_in_list(I, known_implants))
 				var/implantSubData[0]
-				implantSubData["name"] = sanitize(I.name)
+				implantSubData["name"] = sanitize(I.declent_ru(NOMINATIVE))
 				implantData.Add(list(implantSubData))
 		occupantData["implant"] = implantData
 		occupantData["implant_len"] = implantData.len
@@ -326,7 +326,7 @@
 		var/extOrganData[0]
 		for(var/obj/item/organ/external/E as anything in occupant.bodyparts)
 			var/organData[0]
-			organData["name"] = E.name
+			organData["name"] = E.declent_ru(NOMINATIVE)
 			organData["open"] = E.open
 			organData["germ_level"] = E.germ_level
 			organData["bruteLoss"] = E.brute_dam
@@ -339,7 +339,7 @@
 			var/shrapnelData[0]
 			for(var/obj/item/I in E.embedded_objects)
 				var/shrapnelSubData[0]
-				shrapnelSubData["name"] = I.name
+				shrapnelSubData["name"] = I.declent_ru(NOMINATIVE)
 
 				shrapnelData.Add(list(shrapnelSubData))
 
@@ -371,7 +371,7 @@
 		var/intOrganData[0]
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/organData[0]
-			organData["name"] = organ.name
+			organData["name"] = organ.declent_ru(NOMINATIVE)
 			organData["desc"] = organ.desc
 			organData["germ_level"] = organ.germ_level
 			organData["damage"] = organ.damage
@@ -419,7 +419,7 @@
 			sleep(3 SECONDS)
 			var/obj/item/paper/P = new /obj/item/paper(loc)
 			var/name = occupant ? occupant.name : "Неизвестный"
-			P.info = "<CENTER><B>Отчёт по сканированию пациента - [name]</B></CENTER><BR>"
+			P.info = "<center><b>Отчёт по сканированию пациента - [name]</b></center><br>"
 			P.info += "<b>Время сканирования</b> [station_time_timestamp()]<br><br>"
 			P.info += "[generate_printing_text()]"
 			P.info += "<br><br><b>Заметки:</b><br>"
@@ -455,7 +455,7 @@
 			found_disease = TRUE
 			break
 		if(found_disease)
-			dat += "<font color='red'>У пациента выявлено заболевание</font><BR>"
+			dat += "<font color='red'>У пациента выявлено заболевание</font><br>"
 
 		var/extra_font = null
 		extra_font = (occupant.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
@@ -494,17 +494,17 @@
 		dat += "[extra_font]\tУровень крови: [blood_percent] ([occupant.blood_volume] u)</font><br>"
 
 		if(occupant.reagents)
-			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("Epinephrine")] u<BR>"
-			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<BR>"
+			dat += "Эпинефрин: [occupant.reagents.get_reagent_amount("Epinephrine")] u<br>"
+			dat += "Эфир: [occupant.reagents.get_reagent_amount("ether")] u<br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
 			dat += "[extra_font]\tСульфадиазин серебра: [occupant.reagents.get_reagent_amount("silver_sulfadiazine")] u</font><br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount("styptic_powder")] u<BR>"
+			dat += "[extra_font]\tКровоостанавливающая пудра: [occupant.reagents.get_reagent_amount("styptic_powder")] u<br>"
 
 			extra_font = (occupant.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount("salbutamol")] u<BR>"
+			dat += "[extra_font]\tСальбутамол: [occupant.reagents.get_reagent_amount("salbutamol")] u<br>"
 
 		dat += "<hr><table border='1'>"
 		dat += "<tr>"
@@ -559,7 +559,7 @@
 				imp += "Обнаружено инородное тело"
 			if(!AN && !open && !infected && !imp && !internal_bleeding && !lung_ruptured)
 				AN = "Отсутствуют"
-			dat += "<td>[e.name]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
+			dat += "<td>[e.declent_ru(NOMINATIVE)]</td><td>[e.burn_dam]</td><td>[e.brute_dam]</td><td>[robot] [AN] [splint] [open] [infected] [imp] [internal_bleeding] [lung_ruptured] [dead]</td>"
 			dat += "</tr>"
 		for(var/obj/item/organ/internal/organ as anything in occupant.internal_organs)
 			var/robot = ""
@@ -587,15 +587,15 @@
 			if(!infection && !dead)
 				infection = "Отсутствуют"
 			dat += "<tr>"
-			dat += "<td>[organ.name]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
+			dat += "<td>[capitalize(organ.declent_ru(NOMINATIVE))]</td><td>Н/Д</td><td>[organ.damage]</td><td>[infection] [robot] [dead]</td>"
 			dat += "</tr>"
 		dat += "</table>"
 		if(HAS_TRAIT(occupant, TRAIT_BLIND))
-			dat += "<font color='red'>Обнаружена катаракта.</font><BR>"
+			dat += "<font color='red'>Обнаружена катаракта.</font><br>"
 		if(HAS_TRAIT(occupant, TRAIT_COLORBLIND))
-			dat += "<font color='red'>Обнаружены нарушения в работе фоторецепторов.</font><BR>"
+			dat += "<font color='red'>Обнаружены нарушения в работе фоторецепторов.</font><br>"
 		if(HAS_TRAIT(occupant, TRAIT_NEARSIGHTED))
-			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><BR>"
+			dat += "<font color='red'>Обнаружено смещение сетчатки.</font><br>"
 	else
 		dat += "[capitalize(declent_ru(NOMINATIVE))] пуст."
 

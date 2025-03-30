@@ -40,5 +40,5 @@
 		drain_total += drained
 		ninja_suit.spark_system.start()
 
-	to_chat(ninja, span_notice("Energy net lost <B>[drain_total]</B> amount of energy because of the overload caused by you."))
+	to_chat(ninja, span_notice("Energy net lost <b>[drain_total]</b> amount of energy because of the overload caused by you."))
 	return gained_total

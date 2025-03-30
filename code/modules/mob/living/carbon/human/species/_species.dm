@@ -791,6 +791,9 @@
 	attack_verb = list("хлестнул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
 	damage = 6
 
+/datum/unarmed_attack/claws/shadowlings
+	attack_verb = list("хлестнул", "искромсал", "разорвал")
+
 
 /datum/species/proc/can_equip(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)
 	if(slot in no_equip)
@@ -1150,7 +1153,7 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 	if(abs(temperature - M.bodytemperature) > 10) // If our water and mob temperature varies by more than 10K, cool or/ heat them appropriately.
 		M.adjust_bodytemperature((temperature - M.bodytemperature) * 0.5)	// Approximation for gradual heating or cooling.
 
-/datum/species/proc/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
+/datum/species/proc/bullet_act(obj/projectile/P, mob/living/carbon/human/H) //return TRUE if hit, FALSE if stopped/reflected/etc
 	return TRUE
 
 /datum/species/proc/spec_hitby(atom/movable/AM, mob/living/carbon/human/H)

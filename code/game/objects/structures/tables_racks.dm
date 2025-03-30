@@ -22,6 +22,7 @@
 	anchored = TRUE
 	layer = TABLE_LAYER
 	pass_flags_self = PASSTABLE|LETPASSTHROW
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
 	climbable = TRUE
 	max_integrity = 100
 	integrity_failure = 30
@@ -192,7 +193,7 @@
  * Arguments:
  * * P - The projectile trying to cross.
  */
-/obj/structure/table/proc/check_cover(obj/item/projectile/P)
+/obj/structure/table/proc/check_cover(obj/projectile/P)
 	. = TRUE
 
 	if(!flipped)
@@ -852,10 +853,12 @@
 	anchored = TRUE
 	pass_flags_self = LETPASSTHROW //You can throw objects over this, despite it's density.
 	max_integrity = 20
+	var/wooden_version = FALSE
 
 /obj/structure/rack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+	if(!wooden_version)
+		. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
 
 
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
@@ -902,6 +905,8 @@
 	deconstruct(TRUE)
 
 /obj/structure/rack/attack_hand(mob/living/user)
+	if(wooden_version)
+		return ..()
 	if(user.incapacitated())
 		return
 	add_fingerprint(user)

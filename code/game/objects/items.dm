@@ -5,6 +5,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	pass_flags_self = PASSITEM
 	pass_flags = PASSTABLE
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 
 	move_resist = null // Set in the Initialise depending on the item size. Unless it's overriden by a specific item
 
@@ -23,6 +24,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/slot_flags_2 = NONE
 	/// This flag is used to determine when items in someone's inventory cover others. IE helmets making it so you can't see glasses, etc.
 	var/flags_inv = NONE
+	var/holder_flags = NONE
 	/// These flags will be added/removed (^=) to/from flags_inv in [/proc/check_obscured_slots()]
 	/// if check_transparent argument is set to `TRUE`. Used in carbon's update icons shenanigans.
 	/// Example: you can see someone's mask through their transparent visor, but you cannot reach it
@@ -202,6 +204,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	///Datum used in item pixel shift TGUI
 	var/datum/ui_module/item_pixel_shift/item_pixel_shift
 
+	/// Used in butchering of animals, set to TRUE for near instant butchering
+	var/has_speed_harvest = FALSE
 
 /obj/item/Initialize(mapload)
 	. = ..()
@@ -215,7 +219,6 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 		if(damtype == "brute")
 			hitsound = "swing_hit"
-
 	for(var/path in actions_types)
 		if(action_icon && action_icon_state)
 			new path(src, action_icon[path], action_icon_state[path])
@@ -303,32 +306,32 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	. = ..(user, "", "Это предмет [size] размера.")
 
 	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
-		var/msg = "*--------* <BR>"
+		var/msg = "*--------* <br>"
 
 		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><BR>"
+			msg += "<span class='notice'>Testing potentials:</span><br>"
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
-				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <BR>"
+				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <br>"
 		else
-			msg += "<span class='danger'>No tech origins detected.</span><BR>"
+			msg += "<span class='danger'>No tech origins detected.</span><br>"
 
 
 		if(length(materials))
-			msg += "<span class='notice'>Extractable materials:<BR>"
+			msg += "<span class='notice'>Extractable materials:<br>"
 			for(var/mat in materials)
-				msg += "[CallMaterialName(mat)]<BR>" //Capitize first word, remove the "$"
+				msg += "[CallMaterialName(mat)]<br>" //Capitize first word, remove the "$"
 		else
-			msg += "<span class='danger'>No extractable materials detected.</span><BR>"
+			msg += "<span class='danger'>No extractable materials detected.</span><br>"
 		msg += "*--------*"
 		. += msg
 
 	if(isclocker(user) && enchant_type)
 		if(enchant_type == CASTING_SPELL)
-			. += "<span class='notice'>The last spell hasn't expired yet!</span><BR>"
+			. += "<span class='notice'>The last spell hasn't expired yet!</span><br>"
 		for(var/datum/spell_enchant/S in enchants)
 			if(S.enchantment == enchant_type)
-				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><BR>"
+				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><br>"
 				break
 
 
@@ -520,7 +523,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		final_block_chance = 0
 	var/signal_result = (SEND_SIGNAL(src, COMSIG_ITEM_HIT_REACT, owner, hitby, damage, attack_type) & COMPONENT_BLOCK_SUCCESSFUL) + prob(final_block_chance)
 	if(signal_result != 0)
-		owner.visible_message(span_danger("[owner] блокиру[pluralize_ru(owner.gender, "ет", "ют")] [attack_text] с помощью [declent_ru(GENITIVE)]!"))
+		owner.visible_message(span_danger("[owner] блокиру[pluralize_ru(owner.gender, "ет", "ют")] [attack_text] с помощью [declent_ru(GENITIVE)]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
 		return signal_result
 	return FALSE
 
@@ -1005,6 +1008,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return ..()
 	return FALSE
 
+/obj/item/attack_basic_mob(mob/living/basic/user)
+	if(obj_flags & IGNORE_HITS)
+		return ..()
+	return FALSE
+
 
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return FALSE
@@ -1302,6 +1310,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	alpha = 0
 	transform = animation_matrix
 
+	SEND_SIGNAL(src, COMSIG_ATOM_TEMPORARY_ANIMATION_START, 3)
 	// This is instant on byond's end, but to our clients this looks like a quick drop
 	animate(src, alpha = old_alpha, pixel_x = old_x, pixel_y = old_y, transform = old_transform, time = 3, easing = CUBIC_EASING)
 
