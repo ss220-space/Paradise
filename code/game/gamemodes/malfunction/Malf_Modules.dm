@@ -248,7 +248,7 @@
 
 /datum/action/innate/ai/nuke_station/proc/set_us_up_the_bomb()
 	to_chat(owner_AI, "<span class='notice'>Nuclear device armed.</span>")
-	GLOB.event_announcement.Announce("Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/aimalf.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/announcer/ai_nuke.ogg')
 	set_security_level("delta")
 	owner_AI.nuking = TRUE
 	var/obj/machinery/doomsday_device/DOOM = new /obj/machinery/doomsday_device(owner_AI)

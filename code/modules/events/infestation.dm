@@ -98,7 +98,7 @@
 
 
 /datum/event/infestation/announce(false_alarm)
-	var/vermin_chosen = vermstring || pick("пауков", "ящериц", "мышей", "крыс")
+	//var/vermin_chosen = vermstring || pick("пауков", "ящериц", "мышей", "крыс")
 	if(!spawn_area_type)
 		if(false_alarm)
 			spawn_area_type = pick(spawn_areas)
@@ -106,7 +106,7 @@
 			log_debug("Infestation Event didn't provide an area to announce(), something is likely broken.")
 			kill()
 
-	GLOB.event_announcement.Announce("Биосканеры фиксируют размножение [vermin_chosen] в [initial(spawn_area_type.name)]. Избавьтесь от них, прежде чем это начнет влиять на продуктивность станции.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.", 'sound/announcer/infestation.ogg')
 
 #undef VERM_MICE
 #undef VERM_LIZARDS

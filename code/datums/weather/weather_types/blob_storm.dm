@@ -42,8 +42,8 @@
 
 	..()
 	status_alarm(TRUE)
-	GLOB.event_announcement.Announce("Биологической угроза пятого уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
-									"ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.",
+									"ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/announcer/blob_storm.ogg')
 
 
 /datum/weather/blob_storm/can_weather_act(mob/living/mob_to_check)

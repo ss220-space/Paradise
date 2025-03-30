@@ -103,16 +103,16 @@
 	return FALSE
 
 /datum/team/xenomorph/proc/announce()
-	GLOB.event_announcement.Announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/announcer/xenomorph.ogg')
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
 	SSshuttle?.add_hostile_environment(current_queen.current)
 
 /datum/team/xenomorph/proc/evolve_announce(area/loc)
-	GLOB.event_announcement.Announce("Зафиксировано изменение организации улья, указывающее на начало трансформации в Императрицу Ксеноморфов. Обнаружено значительное скопление биоугрозы в [loc.name]. Уничтожте огранизм до окончания трансформации любой ценой.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника. Дополнение к сообщению: [loc.name].", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/announcer/xeno_evolve.ogg')
 
 /datum/team/xenomorph/proc/win_announce()
-	GLOB.event_announcement.Announce("Подтверждено наличие Императрицы Ксеноморфов на борту [station_name()]. Обнаружено загрязнение систем жизнеобеспечения. Станция переклассифицирована в гнездо биоугрозы 4-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.", "Отчёт об объекте [station_name()]")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Отчёт об объекте [station_name()]", 'sound/announcer/xenomorph_win.ogg')
 
 
 /datum/team/xenomorph/proc/evolve_start(area/loc)

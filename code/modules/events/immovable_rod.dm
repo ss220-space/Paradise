@@ -11,7 +11,7 @@ In my current plan for it, 'solid' will be defined as anything with density == 1
 	announceWhen = 5
 
 /datum/event/immovable_rod/announce()
-	GLOB.event_announcement.Announce("ТАМ БЛЯ, О БЛЯь. ТО БЛЯТЬ, О БЛЯ. ТО БЛЯ, ЭТО БЛЯ. УОООООООЭЭЭЭЭ", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.", new_sound = 'sound/misc/TAM_BLYA.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: ОБЩАЯ ТРЕВОГА.", new_sound = 'sound/announcer/rod.ogg')
 
 /datum/event/immovable_rod/start()
 	var/startside = pick(GLOB.cardinal)

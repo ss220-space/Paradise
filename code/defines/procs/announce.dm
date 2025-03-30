@@ -105,20 +105,14 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	return list(receivers, garbled_receivers)
 
 /datum/announcement/proc/Message(message, garbled_message, receivers, garbled_receivers, message_sound)
-	var/tts_seed = "Glados"
-	if(GLOB.ai_list.len)
-		var/mob/living/silicon/ai/AI = pick(GLOB.ai_list)
-		tts_seed = AI.tts_seed
-	var/message_tts = message
-	var/garbled_message_tts = garbled_message
 	message = replace_characters(message, list("+"))
 	garbled_message = replace_characters(garbled_message, list("+"))
 	for(var/mob/M in receivers)
 		to_chat(M, message)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+		//INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 	for(var/mob/M in garbled_receivers)
 		to_chat(M, garbled_message)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+		//INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message

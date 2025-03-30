@@ -19,7 +19,8 @@
 		to_chat(AI, "<span class='ВНИМАНИЕ'><br><b>[alert_text]</b><br></span>")
 
 	if(syndicate || false_alarm || prob(30))	//most of the time, we don't want an announcement, so as to allow AIs to fake blackouts.
-		GLOB.event_announcement.Announce(alert_text)
+		var/com_sound = pick('sound/announcer/blackout1.ogg', 'sound/announcer/blackout2.ogg', 'sound/announcer/blackout3.ogg')
+		GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Внимание", com_sound)
 
 
 /datum/event/communications_blackout/start()

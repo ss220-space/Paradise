@@ -16,18 +16,18 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 /datum/event/traders/fake_announce()
 	. = TRUE
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев отклонен.")
+		GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: Запрос на стыковку шаттла торговцев отклонен.", 'sound/announcer/trader_decline.ogg')
 		return
-	var/map_trader_port = 5
-	if(station_name() == "NSS Cyberiad")
-		map_trader_port = 4
-	GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев принят.")
+	//var/map_trader_port = 5
+	//if(station_name() == "NSS Cyberiad")
+	//	map_trader_port = 4
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: Запрос на стыковку шаттла торговцев принят.", 'sound/announcer/traders.ogg')
 
 /datum/event/traders/start()
 	if(!station) // If there are no unused stations, just no.
 		return
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED)
-		GLOB.event_announcement.Announce("Торговому шаттлу со станции Юпитер-6 было отказано в разрешении на стыковку из-за повышенной угрозы безопасности на борту [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев отклонен.")
+		GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: Запрос на стыковку шаттла торговцев отклонен.", 'sound/announcer/trader_decline.ogg')
 		// if the docking request was refused, fire another moderate event in 60 seconds
 		reroll_event_in_category(EVENT_LEVEL_MODERATE)
 		return
@@ -65,10 +65,10 @@ GLOBAL_LIST_INIT(unused_trade_stations, list("sol"))
 				SSticker.mode.traders |= M.mind
 				success_spawn = TRUE
 		if(success_spawn)
-			var/map_trader_port = 5
-			if(station_name() == "NSS Cyberiad")
-				map_trader_port = 4
-			GLOB.event_announcement.Announce("Торговый шаттл со станции Юпитер-6 получил разрешение на стыковку в порту прибытия [map_trader_port] [station_name()].", "Оповещение: Запрос на стыковку шаттла торговцев принят.")
+		//	var/map_trader_port = 5
+		//	if(station_name() == "NSS Cyberiad")
+		//		map_trader_port = 4
+			GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: Запрос на стыковку шаттла торговцев принят.", 'sound/announcer/traders.ogg')
 		else
 			GLOB.unused_trade_stations += station // Return the station to the list of usable stations.
 

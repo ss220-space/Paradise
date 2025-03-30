@@ -21,7 +21,7 @@
 		SEND_SOUND(M, S)
 
 /datum/event/apc_short/announce() // закороченные - выведенные из строя
-	GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "ВНИМАНИЕ: СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/AI/attention.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/announcer/apc_overload.ogg')
 
 /datum/event/apc_short/end()
 	return TRUE
@@ -34,7 +34,7 @@
 	))
 
 	if(announce)
-		GLOB.event_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "ВНИМАНИЕ: СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/AI/attention.ogg')
+		GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: СБОЙ СИСТЕМЫ ПИТАНИЯ.", new_sound = 'sound/announcer/apc_overload.ogg')
 
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0

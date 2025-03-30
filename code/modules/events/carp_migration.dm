@@ -11,12 +11,7 @@
 	endWhen = rand(600, 1200)
 
 /datum/event/carp_migration/announce()
-	var/announcement = ""
-	if(severity == EVENT_LEVEL_MAJOR)
-		announcement = "Массовая миграция неизвестных биологических объектов была зафиксирована вблизи станции [station_name()], будьте наготове."
-	else
-		announcement = "Неизвестные биологические объекты были зафиксированы вблизи станции [station_name()], будьте наготове."
-	GLOB.event_announcement.Announce(announcement, "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: НЕОПОЗНАННЫЕ ФОРМЫ ЖИЗНИ.", 'sound/announcer/carps.ogg')
 
 /datum/event/carp_migration/start()
 
