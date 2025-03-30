@@ -84,7 +84,7 @@
 			H.clear_alert("lightexposure")
 			var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 			if(istype(E))
-				E.internal_receive_damage(-5)
+				E.internal_receive_damage(-1)
 			var/update = NONE
 			if(is_species(H, /datum/species/shadow/ling/lesser))
 				update |= H.heal_overall_damage(2, 3, updating_health = FALSE)
