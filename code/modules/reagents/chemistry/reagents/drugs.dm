@@ -420,6 +420,9 @@
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 
+/datum/reagent/methamphetamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
+	if(method == REAGENT_INGEST)
+		M.SetParalysis(1)
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
