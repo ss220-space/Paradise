@@ -863,7 +863,7 @@
 	target.death()
 	if(SSshuttle.emergency.mode == SHUTTLE_CALL)
 		var/timer = SSshuttle.emergency.timeLeft(1) + 10 MINUTES
-		GLOB.event_announcement.Announce("Крупный системный сбой на борту эвакуационного шаттла. Это увеличит время прибытия примерно на 10 минут, шаттл не может быть отозван.", "Системный сбой.", 'sound/misc/notice1.ogg')
+		GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Системный сбой.", 'sound/announcer/shuttlebreak.ogg')
 		SSshuttle.emergency.setTimer(timer)
 		SSshuttle.emergency.canRecall = FALSE
 	user.mind.RemoveSpell(src)	//Can only be used once!

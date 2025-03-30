@@ -40,7 +40,7 @@
 	if(false_alarm && !target)
 		log_debug("Failed to find a valid area when trying to make a false alarm anomaly!")
 		return
-	GLOB.event_announcement.Announce("[prefix_message] Предполагаемая локация: [target.name]", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника. Дополнение к сообщению: [target.name]", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", pick('sound/announcer/anomaly1.ogg', 'sound/announcer/anomaly2.ogg'))
 
 /datum/event/anomaly/start()
 	var/newAnomaly = new anomaly_path(target_turf)

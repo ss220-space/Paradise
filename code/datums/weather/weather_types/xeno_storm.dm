@@ -25,7 +25,7 @@
 /datum/weather/xeno_storm/telegraph()
 	. = ..()
 	status_alarm(TRUE)
-	GLOB.event_announcement.Announce("Зафиксирована сигнатура Императрицы Ксеноморфов на борту станции [station_name()]. Запущено глубокое сканирование.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/effects/siren-spooky.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/announcer/xeno_storm.ogg')
 
 	if(!.)
 		return

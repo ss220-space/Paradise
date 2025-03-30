@@ -386,7 +386,8 @@
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+				var/com_sound = pick('sound/announcer/commandreport1.ogg', 'sound/announcer/commandreport2.ogg', 'sound/announcer/commandreport3.ogg')
+				GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Входящее засекреченное сообщение.", com_sound, from = "[command_name()] обновление")
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
@@ -435,7 +436,8 @@
 			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+	var/com_sound = pick('sound/announcer/commandreport1.ogg', 'sound/announcer/commandreport2.ogg', 'sound/announcer/commandreport3.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Входящее засекреченное сообщение.", com_sound, from = "[command_name()] обновление")
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)

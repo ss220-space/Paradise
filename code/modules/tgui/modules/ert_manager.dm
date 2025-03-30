@@ -107,7 +107,7 @@
 			var/slot_text = english_list(slots_list)
 			log_and_message_admins("dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!params["silent"])
-				GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
+				GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: Активирован протокол ОБР.", 'sound/announcer/ert.ogg')
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 		if("view_player_panel")
@@ -115,10 +115,7 @@
 
 		if("deny_ert")
 			GLOB.ert_request_answered = TRUE
-			var/message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования."
-			if(params["reason"])
-				message += " Ваш запрос ОБР был отклонен по следующим причинам:\n[params["reason"]]"
-			GLOB.event_announcement.Announce(message, "Оповещение: ОБР недоступен.")
+			GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: ОБР недоступен.", 'sound/announcer/ert_deny.ogg')
 		else
 			return FALSE
 

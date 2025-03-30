@@ -270,12 +270,12 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 	if(silent)
 		message_admins("A silent response team failed to spawn. Likely, no one signed up.")
 		return
-	GLOB.event_announcement.Announce("[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования.", "Оповещение: ОБР недоступен.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника", "Оповещение: ОБР недоступен.", 'sound/announcer/ert_no.ogg')
 
 /datum/response_team/proc/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем команду высококвалифицированных ассистентов для оказания помощи(?) вам. Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: ОБР в пути.", 'sound/announcer/ert_yes.ogg')
 
 // -- AMBER TEAM --
 
@@ -290,7 +290,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/amber/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ЭМБЕР». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: ОБР в пути.", 'sound/announcer/ert_yes.ogg')
 
 // -- RED TEAM --
 
@@ -306,7 +306,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/red/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «РЭД». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: ОБР в пути.", 'sound/announcer/ert_yes.ogg')
 
 // -- GAMMA TEAM --
 
@@ -322,7 +322,7 @@ GLOBAL_LIST_EMPTY(ert_request_messages)
 /datum/response_team/gamma/announce_team()
 	if(silent)
 		return
-	GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы направляем отряд быстрого реагирования кода «ГАММА». Ожидайте.", "Оповещение: ОБР в пути.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Оповещение: ОБР в пути.", 'sound/announcer/ert_yes.ogg')
 
 /datum/outfit/job/centcom/response_team
 	name = "Response team"

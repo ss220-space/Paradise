@@ -13,4 +13,5 @@
 	. = ..()
 
 	if(!.)
-		GLOB.event_announcement.Announce("Центральное Командование [S.id == "gamma_home" ? "отправило" : "отозвало"] оружейный шаттл уровня Гамма.", new_sound = 'sound/AI/commandreport.ogg')
+		if(S.id == "gamme_home")
+			GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", new_sound = 'sound/announcer/gamma.ogg')

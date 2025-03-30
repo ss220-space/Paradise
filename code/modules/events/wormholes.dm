@@ -30,7 +30,7 @@
 
 
 /datum/event/wormholes/announce()
-	GLOB.event_announcement.Announce("Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/spanomalies.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/announcer/wormholes.ogg')
 
 
 /datum/event/wormholes/tick()

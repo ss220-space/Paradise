@@ -8,7 +8,8 @@
 		swarmer_report += "<br><br>Our long-range sensors have detected an odd signal emanating from your station's gateway. We recommend immediate investigation of your gateway, as something may have come \
 		through."
 		print_command_report(swarmer_report, "Classified [command_name()] Update", FALSE)
-		GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg')
+		var/com_sound = pick('sound/announcer/commandreport1.ogg', 'sound/announcer/commandreport2.ogg', 'sound/announcer/commandreport3.ogg')
+		GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Входящее засекреченное сообщение.", com_sound)
 
 /datum/event/spawn_swarmer/start()
 	if(find_swarmer())

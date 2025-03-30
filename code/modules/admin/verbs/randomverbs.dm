@@ -96,7 +96,7 @@
 		var/datum/browser/popup = new(src, "player_age_check", "Player Age Check")
 		popup.set_content(msg)
 		popup.open(FALSE)
-		
+
 	else
 		to_chat(src, "No matches for that age range found.", confidential=TRUE)
 
@@ -657,7 +657,8 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(input, customname)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+			var/com_sound = pick('sound/announcer/commandreport1.ogg', 'sound/announcer/commandreport2.ogg', 'sound/announcer/commandreport3.ogg')
+			GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Входящее засекреченное сообщение.", com_sound, from = "[command_name()] обновление")
 			print_command_report(input, "Секретно: [customname]")
 		else
 			return
@@ -1140,7 +1141,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/datum/browser/popup = new(src, "player_ssd_afk_check", "SSD & AFK Report", 600, 300)
 	popup.set_content(msg)
 	popup.open(FALSE)
-	
+
 
 /client/proc/toggle_ert_calling()
 	set category = "Admin.Toggles"

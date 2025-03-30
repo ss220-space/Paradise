@@ -41,13 +41,8 @@
 /datum/rep_purchase/comms_blackout/on_buy(datum/contractor_hub/hub, mob/living/carbon/human/user)
 	..()
 	next_commsout = world.time + cooldown
-	var/alert = pick(	"Обнаружено враждебное вмешательство в работу телекоммуникаций. Неизбежен временный сбо*%fj 00)`5 vc-БЗЗЗ", \
-						"Обнаружено враждебное вмешательство в работу телекоммуни*3mga;b4;'1v?-БЗЗЗЗ", \
-						"Обнаружено враждебное вмешательс#MCi46:5.;@63-БЗЗЗЗЗ", \
-						"Обнаружено вражде'fZ\\kg5_0-БЗЗЗЗЗ", \
-						"Обнаруж:%? MCayj^j<.3-БЗЗЗЗЗ", \
-						"#4nd%;f4де,>?%-БЗЗЗЗЗЗЗ")
-	GLOB.event_announcement.Announce(alert)
+	var/alert = pick('sound/announcer/blackout1.ogg', 'sound/announcer/blackout2.ogg', 'sound/announcer/blackout3.ogg')
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "Внимание", alert)
 	for(var/obj/machinery/tcomms/core/T in GLOB.tcomms_machines)
 		T.start_ion()
 		addtimer(CALLBACK(T, TYPE_PROC_REF(/obj/machinery/tcomms, end_ion)), rand(1800, 3000))

@@ -3,7 +3,7 @@
 	var/lightsoutRange	= 25
 
 /datum/event/electrical_storm/announce()
-	GLOB.event_announcement.Announce("На борту станции зафиксирован электрический шторм. Пожалуйста, устраните потенциальные перегрузки электросетей.", "ВНИМАНИЕ: ЭЛЕКТРИЧЕСКИЙ ШТОРМ.")
+	GLOB.event_announcement.Announce("Ожидайте важное сообщение от нашего сотрудника.", "ВНИМАНИЕ: ЭЛЕКТРИЧЕСКИЙ ШТОРМ.", 'sound/announcer/electro_storm.ogg')
 
 /datum/event/electrical_storm/start()
 	var/list/epicentreList = list()
