@@ -422,7 +422,7 @@
 
 /datum/reagent/methamphetamine/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
 	if(method == REAGENT_INGEST)
-		M.SetParalysis(1)
+		M.Knockdown(1 SECONDS)
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
