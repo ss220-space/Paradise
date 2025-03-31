@@ -1,7 +1,7 @@
 /datum/action/innate/cult/blood_magic //Blood magic handles the creation of blood spells (formerly talismans)
 	name = "Подготовить Магию Крови"
 	button_icon_state = "carve"
-	desc = "Погдотовить магию крови рисуя руны на своем теле. Гораздо легче с  <b>руной усиления</b>."
+	desc = "Погдотовить магию крови, рисуя руны на своем теле. Гораздо легче с  <b>руной усиления</b>."
 	var/list/spells = list()
 	var/channeling = FALSE
 
@@ -35,7 +35,7 @@
 		break
 	if(length(spells) >= limit)
 		if(rune)
-			to_chat(owner, span_cultitalic("Вы не можете хранить больше чем [MAX_BLOODCHARGE] заклинания\s. <b>Уберите одно.</b>"))
+			to_chat(owner, span_cultitalic("Вы не можете хранить больше [MAX_BLOODCHARGE] заклинани[declension_ru(MAX_BLOODCHARGE,"я", "ий", "ий")]\s. <b>Уберите одно.</b>"))
 			remove_spell("Вы не можете хранить больше [MAX_BLOODCHARGE] заклинани[declension_ru(MAX_BLOODCHARGE,"я", "ий", "ий")]\s, выберите заклинание для удаления.")
 		else
 			to_chat(owner, span_cultitalic("Вы не можете хранить больше чем [RUNELESS_MAX_BLOODCHARGE] заклинание\s без руны усиления! <b>Pick a spell to remove.</b>"))
@@ -132,7 +132,7 @@
 			if(!owner.put_in_hands(hand_magic))
 				qdel(hand_magic)
 				hand_magic = null
-				to_chat(owner, span_warning("Вам нужны свободные руки чтобы использовать магию кровим!"))
+				to_chat(owner, span_warning("Вам нужны свободные руки чтобы использовать магию крови!"))
 				return
 			to_chat(owner, span_cult("Ваши раны светятся, вы пробуждаете [name_accusative]."))
 
@@ -227,26 +227,27 @@
 	to_chat(owner, span_warning("Красный свет наполняет вашу руку!"))
 	var/obj/item/melee/cultblade/dagger/O = new(T)
 	if(owner.put_in_hands(O))
-		to_chat(owner, span_warning("[capitalize(O.declent_ru(ACCUSATIVE))] появился у вас в руке!"))
+		to_chat(owner, span_warning("[capitalize(O.declent_ru(NOMINATIVE))] появился у вас в руке!"))
 	else
-		owner.visible_message(span_warning("A [O.declent_ru(ACCUSATIVE)] appears at [owner]'s feet!"), \
-							  "<span class='cultitalic'>A [O.name] materializes at your feet.</span>")
+		owner.visible_message(span_warning("[capitalize(O.declent_ru(NOMINATIVE))] появляется у ног [owner]!"),
+							  span_cultitalic("[capitalize(O.declent_ru(NOMINATIVE)] появляется у ваших ног.")))
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc
-	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	desc += "<br><b><u>Остал[declension_ru(charges, "ся", "ось", "ось")] [charges] заряд[declension_ru(charges, "", "а", "ов")]</u></b>."
 	if(charges <= 0)
 		qdel(src)
 
 /datum/action/innate/cult/blood_spell/equipment
-	name = "Summon Equipment"
-	desc = "Allows you to empower your hand to summon combat gear onto a cultist you touch, including cult armor, a cult bola, and a cult sword."
+	name = "Призвать Экипировку"
+	name_accusative = "призыв экипировки"
+	desc = "Усиливает вашу руку, позволяя при касании экипировать любого культиста в экипировку культа, такую как роба, бола и меч."
 	button_icon_state = "equip"
 	magic_path = /obj/item/melee/blood_magic/armor
 
 /datum/action/innate/cult/blood_spell/horror
-	name = "Hallucinations"
-	desc = "Gives hallucinations to a target at range. A silent and invisible spell."
+	name = "Галлюцинации"
+	desc = "Накладывает галлюцинации на цель. Тихое и незаметное заклинание."
 	button_icon_state = "horror"
 	var/obj/effect/proc_holder/horror/PH
 	charges = 4
@@ -279,9 +280,9 @@
 
 /obj/effect/proc_holder/horror/proc/toggle(mob/user)
 	if(active)
-		remove_ranged_ability(user, "<span class='cult'>You dispel the magic...</span>")
+		remove_ranged_ability(user, span_cult("Вы рассеиваете магию..."))
 	else
-		add_ranged_ability(user, "<span class='cult'>You prepare to horrify a target...</span>")
+		add_ranged_ability(user, span_cult("Вы готовитесь навести ужас на цель..."))
 
 /obj/effect/proc_holder/horror/InterceptClickOn(mob/living/user, params, atom/target)
 	if(..())
@@ -299,17 +300,18 @@
 		H.Hallucinate(120 SECONDS)
 		attached_action.charges--
 		attached_action.desc = attached_action.base_desc
-		attached_action.desc += "<br><b><u>Has [attached_action.charges] use\s remaining</u></b>."
+		attached_action.desc += "<br><b><u>Остал[declension_ru(attached_action.charges, "ся", "ось", "ось")] [attached_action.charges] заряд[declension_ru(attached_action.charges, "", "а", "ов")]</u></b>."
 		attached_action.UpdateButtonIcon()
-		user.ranged_ability.remove_ranged_ability(user, "<span class='cult'><b>[H] has been cursed with living nightmares!</b></span>")
+		user.ranged_ability.remove_ranged_ability(user, span_cult("<b>[H] has been cursed with living nightmares!</b>"))
 		if(attached_action.charges <= 0)
-			to_chat(ranged_ability_user, "<span class='cult'>You have exhausted the spell's power!</span>")
+			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
 			qdel(src)
 
 /datum/action/innate/cult/blood_spell/veiling
-	name = "Conceal Presence"
-	desc = "Alternates between hiding and revealing nearby cult structures, cult airlocks and runes."
-	invocation = "Kla'atu barada nikt'o!"
+	name = "Сокрыть Следы"
+	name_accusative = "сокрытие следов"
+	desc = "Способно скрывать и раскрывать ближайшие строения, шлюзы и руны культа."
+	invocation = "Кла'ату барада никт'о!"
 	button_icon_state = "veiling"
 	charges = 10
 	var/revealing = FALSE //if it reveals or not

@@ -36,7 +36,7 @@
 		"<span class='notice'>Вы начинаете шептать про себя.</span>") //Make them do *something* abnormal.
 		sleep(10)
 	else
-		user.whisper("O bidai nabora se[pick("'","`")]sma!") // Otherwise book club sayings.
+		user.whisper("О бидаи набора се[pick("'","`")]сма!") // Otherwise book club sayings.
 		sleep(10)
 		user.whisper(message) // And whisper the actual message
 
@@ -54,8 +54,8 @@
 	add_say_logs(user, message, language = "CULT")
 
 /datum/action/innate/cult/comm/spirit
-	name = "Spiritual Communion"
-	desc = "Conveys a message from the spirit realm that all cultists can hear."
+	name = "Спиритическое Общение"
+	desc = "Отправляет сообщение из мира духов, которое могут услышать все культисты."
 
 /datum/action/innate/cult/comm/spirit/IsAvailable()
 	return TRUE
@@ -64,7 +64,7 @@
 	var/my_message
 	if(!message)
 		return
-	my_message = "<span class='cultlarge'>The [user.name]: [message]</span>"
+	my_message = "<span class='cultlarge'>Дух [user.name]: [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
