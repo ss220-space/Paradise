@@ -1,31 +1,31 @@
+
 /obj/projectile/hivebotbullet
 	damage = 10
 	damage_type = BRUTE
 
 /mob/living/simple_animal/hostile/hivebot
-	name = "Hivebot"
-	desc = "A small robot."
+	name = "Basic Hivebot"
+	desc = "A medium sized robot made from cheap parts. It has a homemade weapon welded to it."
 	icon = 'icons/mob/hivebot.dmi'
 	icon_state = "basic"
 	icon_living = "basic"
-	icon_dead = "basic"
+	icon_dead = "basicDead"
 	health = 15
 	maxHealth = 15
-	melee_damage_lower = 2
-	melee_damage_upper = 3
+	melee_damage_lower = 5
+	melee_damage_upper = 8
 	attacktext = "рвёт"
-	attack_sound = 'sound/weapons/bladeslice.ogg'
-	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
+	attack_sound = 'sound/weapons/throwhard.ogg'
+	projectilesound = 'sound/weapons/gunshots/1sp_91.ogg'
 	projectiletype = /obj/projectile/hivebotbullet
 	faction = list("hivebot")
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	speak_emote = list("states")
-	gold_core_spawnable = HOSTILE_SPAWN
 	loot = list(/obj/effect/decal/cleanable/blood/gibs/robot)
+	butcher_results = list(/obj/item/robot_parts/r_arm, /obj/item/robot_parts/head)
 	deathmessage = "blows apart!"
 	bubble_icon = "machine"
-	del_on_death = 1
 	footstep_type = FOOTSTEP_MOB_CLAW
 	AI_delay_max = 0.5 SECONDS
 
@@ -36,24 +36,36 @@
 	)
 
 /mob/living/simple_animal/hostile/hivebot/range
-	name = "Hivebot"
-	desc = "A smallish robot, this one is armed!"
+	name = "Hivebot Sniper"
+	desc = "The robot is on a four-legged base, with a rifle welded to it."
+	butcher_results = list(/obj/item/robot_parts/l_arm, /obj/item/robot_parts/robot_suit)
+	health = 30
+	maxHealth = 30
 	ranged = 1
 	retreat_distance = 5
 	minimum_distance = 5
 
 /mob/living/simple_animal/hostile/hivebot/rapid
+	name = "Hivebot Gunner"
+	desc = "The robot is on a four-legged base, with an automatic pistol welded to it."
+	butcher_results = list(/obj/item/robot_parts/l_leg, /obj/item/robot_parts/robot_suit)
+	health = 15
+	maxHealth = 15
 	ranged = 1
-	rapid = 3
+	rapid = 5
 	retreat_distance = 5
 	minimum_distance = 5
 
 /mob/living/simple_animal/hostile/hivebot/strong
 	name = "Strong Hivebot"
-	desc = "A robot, this one is armed and looks tough!"
+	desc = "The robot is on a four-legged base, this one is armed and looks tough!"
+	butcher_results = list(/obj/item/robot_parts/robot_component/armour, /obj/item/robot_parts/robot_suit)
 	health = 80
 	maxHealth = 80
 	ranged = 1
+	rapid = 1
+	melee_damage_lower = 10
+	melee_damage_upper = 15
 
 /mob/living/simple_animal/hostile/hivebot/death(gibbed)
 	// Only execute the below if we successfully died
@@ -63,11 +75,13 @@
 	do_sparks(3, 1, src)
 
 /mob/living/simple_animal/hostile/hivebot/tele//this still needs work
-	name = "Beacon"
-	desc = "Some odd beacon thing"
+	name = "Production robot"
+	desc = "Looks like this robot has its own mini factory inside."
+	butcher_results = list(/obj/item/rcd, /obj/item/mecha_parts/mecha_equipment/anticcw_armor_booster)
 	icon = 'icons/mob/hivebot.dmi'
-	icon_state = "def_radar-off"
-	icon_living = "def_radar-off"
+	icon_state = "Ball"
+	icon_living = "Ball"
+	icon_dead = "BallDead"
 	health = 200
 	maxHealth = 200
 	status_flags = 0
@@ -88,7 +102,7 @@
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)
 
 /mob/living/simple_animal/hostile/hivebot/tele/proc/warpbots()
-	icon_state = "def_radar"
+	icon_state = "Ball"
 	visible_message("<span class='warning'>The [src] turns on!</span>")
 	while(bot_amt > 0)
 		bot_amt--
