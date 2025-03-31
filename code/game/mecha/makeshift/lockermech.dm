@@ -12,16 +12,16 @@
 	icon = 'icons/obj/mecha/lockermech.dmi'
 	icon_state = "lockermech"
 	initial_icon = "lockermech"
-	max_integrity = 100 //its made of scraps
+	max_integrity = 10000 //its made of scraps
 	lights_power = 5
 	step_in = 4 //Same speed as a ripley, for now.
-	armor = list(melee = 20, bullet = 10, laser = 10, energy = 0, bomb = 10, bio = 0, rad = 0, fire = 70, acid = 60) //Same armour as a locker
-	internal_damage_threshold = 30 //Its got shitty durability
-	max_equip = 2 //You only have two arms and the control system is shitty
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100) //Same armour as a locker
+	internal_damage_threshold = 50 //Its got shitty durability
+	max_equip = 10 //You only have two arms and the control system is shitty
 	wreckage = null
 	mech_enter_time = 20
 
-	cargo_capacity = 5 // you can fit a few things in this locker but not much.
+	cargo_capacity = 15 // you can fit a few things in this locker but not much.
 
 	mech_type = MECH_TYPE_LOCKER
 
@@ -47,13 +47,13 @@
 	initial_icon = "syndielockermech"
 	lights_power = 5
 	step_in = 4
-	max_integrity = 225 //its made of scraps
-	armor = list(melee = 20, bullet = 20, laser = 20, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 70, acid = 60)
-	internal_damage_threshold = 30
-	deflect_chance = 20
+	max_integrity = 1005 //its made of scraps
+	armor = list(melee = 100, bullet = 100, laser = 100, energy = 100, bomb = 100, bio = 100, rad = 100, fire = 100, acid = 100)
+	internal_damage_threshold = 50
+	deflect_chance = 1000
 	force = 20
 	mech_enter_time = 20
-	max_equip = 4
+	max_equip = 10
 	wreckage = null
 
 
