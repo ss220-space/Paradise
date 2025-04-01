@@ -7,6 +7,7 @@ import { dragStartHandler } from 'tgui/drag';
 import { windowOpen, windowClose, windowSet } from './helpers';
 import { BooleanLike } from 'common/react';
 import { isEscape, KEY } from 'common/keys';
+import { Autofocus } from 'tgui/components';
 
 type ByondOpen = {
   channel: Channel;
@@ -358,6 +359,7 @@ export class TguiSay extends Component<{}, State> {
             >
               {this.state.buttonContent}
             </button>
+            <Autofocus />
             <textarea
               autoCorrect="off"
               className={`textarea textarea-${theme}`}

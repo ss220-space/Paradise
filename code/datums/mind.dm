@@ -1348,14 +1348,14 @@
 				for(var/obj/item/implant/mindshield/ert/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><b>Your ert mindshield implant has been deactivated.</b></FONT></span>")
+				to_chat(H, "<span class='notice'><span style='font-size: 3;'><b>Your ert mindshield implant has been deactivated.</b></span></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s ert mindshield implant")
 			if("remove")
 				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, "<span class='notice'><Font size =3><b>Your mindshield implant has been deactivated.</b></FONT></span>")
+				to_chat(H, "<span class='notice'><span style='font-size: 3;'><b>Your mindshield implant has been deactivated.</b></span></span>")
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
@@ -1365,7 +1365,7 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield implant")
 
-				to_chat(H, "<span class='warning'><Font size =3><b>You somehow have become the recepient of a mindshield transplant, and it just activated!</b></FONT></span>")
+				to_chat(H, "<span class='warning'><span style='font-size: 3;'><b>You somehow have become the recepient of a mindshield transplant, and it just activated!</b></span></span>")
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.remove_revolutionary(src)
 			if("ertadd")
@@ -1375,7 +1375,7 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a ert mindshield implant")
 
-				to_chat(H, "<span class='warning'><Font size =3><b>You somehow have become the recepient of a ert mindshield transplant, and it just activated!</b></FONT></span>")
+				to_chat(H, "<span class='warning'><span style='font-size: 3;'><b>You somehow have become the recepient of a ert mindshield transplant, and it just activated!</b></span></span>")
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.remove_revolutionary(src)
 
@@ -2293,8 +2293,8 @@
 				SSticker.mode.shadows += src
 				special_role = SPECIAL_ROLE_SHADOWLING
 				SSticker.mode.recount_required_thralls()
-				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
-				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
+				to_chat(current, "<span class='shadowling'><b>Что-то всплывает в глубинах твоего разума. Твой взгляд заливает красным свечением и ты медленно вспоминаешь. Твоя маскировка под гуманойда послужила тебе прекрасно, но \
+				время отбросить её и вернутся к своей истинной форме. Ты замаскировался под гуманойда, но ты не один из них. Ты тенелинг и ты должен возвыситься любой ценой.\
 				</b></span>")
 				SSticker.mode.finalize_shadowling(src)
 				SSticker.mode.update_shadow_icons_added(src)
@@ -2486,7 +2486,7 @@
 				blob_overmind.is_infinity = !blob_overmind.is_infinity
 				log_admin("[key_name(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name(current)]")
 				message_admins("[key_name_admin(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name_admin(current)]")
-			
+
 			if("select_strain")
 				if(!isblobovermind(src))
 					return
@@ -2498,7 +2498,7 @@
 					blob_overmind.set_strain(strain)
 					log_admin("[key_name(usr)] changed the strain to [strain] for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] changed the strain to [strain] for [key_name_admin(current)]")
-	
+
 	else if(href_list["terror"])
 		switch(href_list["terror"])
 			if("datumise")
@@ -2507,7 +2507,7 @@
 				var/mob/living/simple_animal/hostile/poison/terror_spider/spider = current
 				spider.add_datum_if_not_exist()
 				log_and_message_admins("has made [key_name(current)] into a \"Terror Spider\"")
-	
+
 	else if(href_list["xenomorph"])
 		switch(href_list["xenomorph"])
 			if("datumise")

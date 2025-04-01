@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		return FALSE
 	if(issilicon(mind.current))
 		return FALSE //Can't be converted by platform. Have to use a clock slab as an emag.
+	if(isalien(mind.current))
+		return FALSE
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
 		if(!isclocker(G.summoner))

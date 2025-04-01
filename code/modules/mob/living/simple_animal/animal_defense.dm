@@ -168,3 +168,8 @@
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 	..()
+
+/mob/living/simple_animal/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	. = ..()
+	if(.)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)

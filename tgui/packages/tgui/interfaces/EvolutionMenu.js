@@ -5,7 +5,7 @@ import { Window } from '../layouts';
 export const EvolutionMenu = (props, context) => {
   return (
     <Window width={480} height={574} theme="changeling">
-      <Window.Content className="Layout__content--flexColumn">
+      <Window.Content className="Layout__content--flexColumn" scrollable>
         <EvolutionPoints />
         <Abilities />
       </Window.Content>

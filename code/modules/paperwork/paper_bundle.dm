@@ -207,7 +207,7 @@
 		usr << browse_rsc(P.img, "tmp_photo.png")
 		var/datum/browser/popup = new(usr, "PaperBundle[UID()]", P.name, P.photo_size, P.photo_size)
 		popup.include_default_stylesheet = FALSE
-		popup.set_content("<div> <img src='tmp_photo.png' width = '180'" \
+		popup.set_content(dat + "<div><img src='tmp_photo.png' width = '180'" \
 		+ "[P.scribble ? "<div><br> Written on the back:<br><i>[P.scribble]</i>" : ""]")
 		popup.add_stylesheet("paper_bundle", 'html/css/paper_bundle.css')
 		popup.open(FALSE)

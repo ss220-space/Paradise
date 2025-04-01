@@ -202,7 +202,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		to_chat(world, "<b>Экипаж защитил станцию от Пауков Ужаса!</b>")
 		to_chat(world, "<b>Пауки Ужаса были истреблены.</b>")
 	else
-		to_chat(world, "<br><FONT size = 3><b>Ничья!</b></FONT>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Ничья!</b></span>")
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Пауки Ужаса не были истреблены.</b>")
 	to_chat(world, "<b>Целями Пауков Ужаса было:</b>")

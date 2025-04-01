@@ -1333,3 +1333,13 @@
 
 /// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
 #define COMSIG_POSSESSED_MOVEMENT "possessed_movement"
+
+//from base of atom/attack_basic_mob(): (/mob/user)
+#define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
+
+///Basic mob signals
+///Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
+#define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
+
+/// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
+#define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"

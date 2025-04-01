@@ -62,7 +62,7 @@
 	var/atom/pawn = controller.pawn
 	pawn.visible_message(span_notice("[pawn] выплевывает [carried_item.declent_ru(ACCUSATIVE)]."))
 	carried_item.forceMove(get_turf(pawn))
-	controller.blackboard[BB_SIMPLE_CARRY_ITEM] = null
+	controller.blackboard -= BB_SIMPLE_CARRY_ITEM
 	return TRUE
 
 
@@ -118,7 +118,7 @@
 	if(isturf(snack.loc))
 		snack.attack_animal(living_pawn) // snack attack!
 	else if(iscarbon(snack.loc) && SPT_PROB(10, delta_time))
-		living_pawn.manual_emote("[living_pawn] смотрит на [snack.name] в руках у [snack.loc] с крайне грустным видом.")
+		living_pawn.custom_emote(EMOTE_VISIBLE, "смотрит на [snack.name] с грустным взглядом.")
 
 	if(QDELETED(snack)) // we ate it!
 		finish_action(controller, TRUE)
@@ -190,7 +190,7 @@
 		if(SPT_PROB(15, delta_time))
 			finish_action(controller, TRUE)
 	else if(SPT_PROB(20, delta_time))
-		living_pawn.manual_emote("[living_pawn] [pick("угрожающе рычит", "агрессивно гафкает","злобно смотрит")] на [harass_target]!")
+		living_pawn.custom_emote(EMOTE_VISIBLE, "[pick("угрожающе рычит", "агрессивно гафкает","злобно смотрит")] на [harass_target]!")
 		if(SPT_PROB(10, delta_time))
 			finish_action(controller, TRUE)
 
