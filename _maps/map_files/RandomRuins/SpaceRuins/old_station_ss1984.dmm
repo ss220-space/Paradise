@@ -4697,15 +4697,11 @@
 	color = "red";
 	dir = 4
 	},
-/obj/item/gun/projectile/shotgun{
-	name = "Remington 871M"
-	},
 /obj/structure/closet/secure_closet/guncabinet{
 	req_access = list(271)
 	},
-/obj/item/gun/projectile/shotgun{
-	name = "Remington 871M"
-	},
+/obj/item/gun/projectile/shotgun/old,
+/obj/item/gun/projectile/shotgun/old,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_armory)
 "qo" = (
@@ -6864,13 +6860,10 @@
 /obj/item/ammo_box/magazine/enforcer,
 /obj/item/ammo_box/magazine/enforcer,
 /obj/item/circuitboard/holopad,
-/obj/item/gun/projectile/automatic/pistol/enforcer{
-	name = "Glock 25";
-	desc = "Rare weapon, engraving reads: Command with style! To the best captain of NRS ABOTC."
-	},
 /obj/structure/window/reinforced,
 /obj/item/clothing/suit/space/nasavoid/captain,
 /obj/item/clothing/head/helmet/space/nasavoid/captain,
+/obj/item/gun/projectile/automatic/pistol/enforcer/old,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/ancientstation/charlie_comm)
 "xJ" = (
