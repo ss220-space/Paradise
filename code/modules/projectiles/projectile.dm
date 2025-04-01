@@ -145,6 +145,9 @@
 
 
 /obj/projectile/proc/prehit(atom/target)
+	if(SEND_SIGNAL(target, COMSIG_PROJECTILE_PREHIT, args, src) & PROJECTILE_INTERRUPT_HIT)
+		qdel(src)
+		return FALSE
 	return TRUE
 
 

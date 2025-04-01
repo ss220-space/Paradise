@@ -1,0 +1,79 @@
+///prototype for mining mobs
+/mob/living/basic/mining
+	name = "lavaland animal"
+	desc = "Стандартное животное, живущее на лаве. Вы не должны это видеть"
+	ru_names = list(
+		NOMINATIVE = "животное",
+		GENITIVE = "животного",
+		DATIVE = "животному",
+		ACCUSATIVE = "животное",
+		INSTRUMENTAL = "животным",
+		PREPOSITIONAL = "животном"
+	)
+	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
+	status_flags = NONE //don't inherit standard basicmob flags
+	mob_size = MOB_SIZE_LARGE
+	faction = list("mining", "ashwalker")
+	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
+	unsuitable_atmos_damage = 0
+	minimum_survivable_temperature = 0
+	maximum_survivable_temperature = INFINITY
+	nightvision = 4
+	butcher_results = /obj/item/card/emag //удалить блядь
+	/// Message to output if throwing damage is absorbed
+	var/throw_blocked_message = "отскакивает от"
+	/// What crusher trophy this mob drops, if any
+	var/crusher_loot
+	/// What is the chance the mob drops it if all their health was taken by crusher attacks
+	var/crusher_drop_chance = 25
+
+/mob/living/basic/mining/test_fucker
+	icon_state = "Goliath"
+	icon_dead = "Goliath_dead"
+	health = 400
+	maxHealth = 400
+
+/mob/living/basic/mining/test_fucker/drop_immed
+	basic_mob_flags = DEL_ON_DEATH
+	crusher_drop_chance = 50
+	throw_blocked_message = "дебаг - отлетает от"
+
+/mob/living/basic/mining/test_fucker/drop_on_butcher
+	crusher_loot = /obj/item/card/id/captains_spare
+	crusher_drop_chance = 50
+
+/mob/living/basic/mining/Initialize(mapload)
+	. = ..()
+	var/static/list/vulnerable_projectiles
+	if(!vulnerable_projectiles)
+		vulnerable_projectiles = string_list(MINING_MOB_PROJECTILE_VULNERABILITY)
+	add_ranged_armour(vulnerable_projectiles)
+	if(crusher_loot)
+		AddElement(\
+			/datum/element/crusher_loot,\
+			trophy_type = crusher_loot,\
+			drop_mod = crusher_drop_chance,\
+			drop_immediately = basic_mob_flags & DEL_ON_DEATH,\
+		)
+	RegisterSignal(src, COMSIG_ATOM_WAS_ATTACKED, PROC_REF(check_ashwalker_peace_violation))
+	// We add this to ensure that mobs will actually receive the above signal, as some will lack AI
+	// handling for retaliation and attack special cases
+	AddElement(/datum/element/relay_attackers)
+
+/mob/living/basic/mining/proc/add_ranged_armour(list/vulnerable_projectiles)
+	AddElement(\
+		/datum/element/ranged_armour,\
+		minimum_projectile_force = 30,\
+		below_projectile_multiplier = 0.3,\
+		vulnerable_projectile_types = vulnerable_projectiles,\
+		minimum_thrown_force = 20,\
+		throw_blocked_message = throw_blocked_message,\
+	)
+
+/mob/living/basic/mining/proc/check_ashwalker_peace_violation(datum/source, mob/living/carbon/human/possible_ashwalker)
+	SIGNAL_HANDLER
+
+	if(!isashwalker(possible_ashwalker) || !("ashwalker" in faction))
+		return
+
+	faction.Remove("ashwalker")

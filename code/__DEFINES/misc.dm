@@ -517,3 +517,10 @@
 #define DEADCHAT_ANARCHY_MODE (1<<1)
 /// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
 #define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+///The damage type of the weapon projectile is non-lethal stamina
+#define ATTACKER_STAMINA_ATTACK (1<<0)
+///the attacker is shoving the source
+#define ATTACKER_SHOVING (1<<1)
+/// The attack is a damaging-type attack
+#define ATTACKER_DAMAGING_ATTACK (1<<2)

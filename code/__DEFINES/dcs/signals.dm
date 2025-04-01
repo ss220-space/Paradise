@@ -1343,3 +1343,17 @@
 
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
+
+///from relay_attackers element: (atom/attacker, attack_flags)
+#define COMSIG_ATOM_WAS_ATTACKED "atom_was_attacked"
+
+///from base of atom/mech_melee_attack(): (obj/mecha/M)
+#define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
+
+///sent to targets during the process_hit proc of throwing atoms
+#define COMSIG_ATOM_PREHITBY "atom_pre_hitby"
+	#define COMSIG_HIT_PREVENTED (1<<0)
+
+///sent to targets during the process_hit proc of projectiles
+#define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"
+	#define PROJECTILE_INTERRUPT_HIT (1<<0)
