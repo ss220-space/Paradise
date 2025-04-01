@@ -65,17 +65,45 @@
 
 // Equipment
 
-/obj/item/clothing/head/helmet/old
-	name = "degrading helmet"
-	desc = "Standard issue security helmet. Due to degradation the helmet's visor obstructs the users ability to see long distances."
+obj/item/clothing/head/helmet/old
+	name = "BM1 helmet"
+	desc = "Steel helmet, the cheap plastic visor is clouded and yellowed, unfortunately it's welded on."
 	tint = 2
 
 /obj/item/clothing/suit/armor/vest/old
-	name = "degrading armor vest"
-	desc = "Older generation Type 1 armored vest. Due to degradation over time the vest is far less maneuverable to move in."
+	name = "BM1 armor vest"
+	desc = "It's body armor, its straps have worn out and now it keeps sliding off. You can't feel the shock absorber behind the plate, what is it? A book?"
 	icon_state = "armor"
 	item_state = "armor"
 	slowdown = 1
+
+/obj/item/gun/projectile/automatic/pistol/enforcer/old
+	name = "Glock 25"
+	desc = "A rare example of a 21st century pistol, a luxury item. The pistol is designed for 9 mm cartridge and is stamped ABOTCH CR 412."
+	icon_state = "enforcer_grey"
+	force = 10
+	mag_type = /obj/item/ammo_box/magazine/enforcer
+	fire_sound = 'sound/weapons/gunshots/1colt.ogg'
+	can_suppress = TRUE
+	unique_reskin = TRUE
+	can_flashlight = TRUE
+	gun_light_overlay = "enforcer-light"
+
+/obj/item/gun/projectile/shotgun/old
+	name = "Remington 871M"
+	desc = "Traditional shotgun with wooden hardware and a four-round magazine at the bottom. It is stamped ABOTCH-2231"
+	icon_state = "shotgun"
+	item_state = "shotgun"
+	w_class = WEIGHT_CLASS_BULKY
+	force = 10
+	flags = CONDUCT
+	can_holster = FALSE
+	slot_flags = ITEM_SLOT_BACK
+	origin_tech = "combat=4;materials=2"
+	mag_type = /obj/item/ammo_box/magazine/internal/shot
+	fire_sound = 'sound/weapons/gunshots/1shotgun_old.ogg'
+	weapon_weight = WEAPON_HEAVY
+	pb_knockback = 2
 
 /obj/item/gun/energy/laser/retro/old
 	name ="laser gun"
