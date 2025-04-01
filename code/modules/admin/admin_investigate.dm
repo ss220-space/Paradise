@@ -75,7 +75,5 @@
 			if(!fexists(F))
 				to_chat(src, "<class span='danger'>No [selected] logfile was found.</span>")
 				return
-			F = wrap_file2text(F)
-			var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)
-			popup.set_content(F)
-			popup.open(FALSE)
+			F = {"<meta charset="UTF-8">"} + wrap_file2text(F)
+			src << browse(F,"window=investigate[selected];size=800x300")
