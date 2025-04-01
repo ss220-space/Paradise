@@ -19,7 +19,7 @@
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire
 	name = "legionnaire"
 	desc = "A towering skeleton, embodying the terrifying power of Legion."
-	icon_state = "legionnaire" 
+	icon_state = "legionnaire"
 	icon_living = "legionnaire"
 	icon_aggro = "legionnaire"
 	icon_dead = "legionnaire_dead"
@@ -123,7 +123,7 @@
 		return
 	var/turf/T = get_turf(A)
 	if(T)
-		myhead.LoseTarget()
+		myhead.lose_target()
 		myhead.Goto(T, myhead.move_to_delay)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge(target)
@@ -314,7 +314,7 @@
 		fire_walker.IgniteMob()
 
 
-/obj/item/projectile/legionnaire
+/obj/projectile/legionnaire
 	name = "bone"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bone"
@@ -324,7 +324,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/shoot_projectile(turf/marker)
 	var/turf/startloc = get_turf(src)
-	var/obj/item/projectile/legionnaire/P = new(startloc)
+	var/obj/projectile/legionnaire/P = new(startloc)
 	P.preparePixelProjectile(marker, marker, src)
 	P.firer = src
 	P.damage = P.damage * dif_mult_dmg
@@ -384,7 +384,7 @@
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
 		LivingUser.visible_message(span_warning("[LivingUser] трясет <b>[src.declent_ru(NOMINATIVE)]</b>. Ничего не произошло..."))
-		balloon_alert("перезарядка")
+		balloon_alert(LivingUser, "перезарядка")
 		return
 	LivingUser.visible_message(span_warning("[LivingUser] трясет <b>[src.declent_ru(NOMINATIVE)]</b> и призывает череп легиона!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
