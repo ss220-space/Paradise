@@ -52,9 +52,9 @@
 
 	if(!owner.orbiting)
 		owner.reset_perspective(null)
+		owner.cleanup_observe()
 		return
 
-	owner.cleanup_observe()
 	if(auto_observe)
 		owner.do_observe(owner.orbiting)
 		owner.ManualFollow(owner.orbiting)
