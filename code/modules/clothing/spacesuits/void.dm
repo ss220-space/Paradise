@@ -55,6 +55,7 @@
 	desc = "Heavy duty industrial helmet for engineering work."
 	icon_state = "void-red"
 	item_state = "void-red-helmet"
+
 	flash_protect = FLASH_PROTECTION_FLASH
 	flash_protect = FLASH_PROTECTION_WELDER
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 90, FIRE = 100, ACID = 75)
@@ -68,7 +69,7 @@
 	icon_state = "void-red"
 	item_state = "void-red"
 	slowdown = 4
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
+	allowed = list(/obj/item/flashlight,/obj/item/storage/toolbox, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, /obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, /obj/item/radio, /obj/item/analyzer)
 	armor = list(MELEE = 30, BULLET = 30, LASER = 20, ENERGY = 25, BOMB = 75, BIO = 100, RAD = 90, "fire" = 100, ACID = 75)
 	item_state = "void-red"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -112,6 +113,7 @@
 	desc = "Semi-rigid spacesuit for VIPs, based on the design of SC TsAGI 5. It is a jumpsuit with steel inserts. Developed by a division of NASA."
 	icon_state = "void-ntblue"
 	w_class = WEIGHT_CLASS_NORMAL
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	item_state = "void-ntblue"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -133,6 +135,7 @@
 	name = "NASA RnD spacesuit"
 	desc = "A rigid spacesuit for research work, based on the SC TsAGI 5 design. It is a bomb suit with modification for space environment. Developed by a division of NASA."
 	icon_state = "void-purple"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/t_scanner, /obj/item/rcd, /obj/item/crowbar, /obj/item/screwdriver, /obj/item/weldingtool, /obj/item/wirecutters, /obj/item/wrench, /obj/item/multitool, /obj/item/radio, /obj/item/analyzer)
 	armor = list(MELEE = 50, BULLET = 20, LASER = 10, ENERGY = 25, BOMB = 95, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	slowdown = 4
 	item_state = "void-purple"
@@ -154,6 +157,7 @@
 	name = "NASA mining spacesuit."
 	desc = "Rigid spacesuit for mining operations, based on the SC TsAGI 5 design. Is a mechanical exoskeleton for working in the depths of rocky guts. Developed by a division of NASA."
 	icon_state = "void-yellow"
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/storage/bag/ore, /obj/item/pickaxe, /obj/item/resonator, /obj/item/mining_scanner, /obj/item/t_scanner/adv_mining_scanner, /obj/item/gun/energy/kinetic_accelerator, /obj/item/twohanded/kinetic_crusher, /obj/item/hierophant_club, /obj/item/twohanded/fireaxe/boneaxe)
 	armor = list(MELEE = 65, BULLET = 10, LASER = 10, ENERGY = 10, BOMB = 30, BIO = 100, RAD = 50, FIRE = 50, ACID = 75)
 	item_state = "void-yellow"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
@@ -174,6 +178,7 @@
 	name = "NASA medical spacesuit"
 	desc = "Semi-rigid paramedic spacesuit based on the SC TsAGI 5 design. Combination of an emergency spacesuit and a chemical defense suit, with some inserts against mechanical damage. Developed by a division of NASA."
 	icon_state = "void-light_blue"
+	allowed = list(/obj/item/flashlight,/obj/item/tank/internals,/obj/item/storage/firstaid,/obj/item/healthanalyzer,/obj/item/stack/medical,/obj/item/rad_laser)
 	w_class = WEIGHT_CLASS_NORMAL
 	armor = list(MELEE = 20, BULLET = 20, LASER = 20, ENERGY = 20, BOMB = 30, BIO = 100, RAD = 75, FIRE = 90, ACID = 100)
 	item_state = "void-light_blue"
@@ -194,6 +199,7 @@
 /obj/item/clothing/suit/space/nasavoid/captain
 	name = "NASA captain spacesuit"
 	icon_state = "void-captian"
+	allowed = list(/obj/item/gun, /obj/item/ammo_box, /obj/item/ammo_casing, /obj/item/melee/baton, /obj/item/melee/energy/sword/saber, /obj/item/restraints/handcuffs, /obj/item/tank/internals)
 	desc = "A repainted semi-hard suit for the VIPs, still the same SC TsAGI 5 style. It is a jumpsuit with steel inserts."
 	armor = list(MELEE = 40, BULLET = 30, LASER = 30, ENERGY = 25, BOMB = 40, BIO = 100, RAD = 75, FIRE = 75, ACID = 75)
 	item_state = "void-captian"
