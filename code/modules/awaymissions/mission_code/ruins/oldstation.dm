@@ -51,7 +51,7 @@
 
 /obj/item/storage/backpack/old
 	name = "Belt and shoulder system"
-	desc = "The belt-and-shoulder system developed for astronauts originally served as a safety harness to be worn on top of the spacesuit. "
+	desc = "The belt-and-shoulder system developed for astronauts originally served as a safety harness to be worn on top of the spacesuit."
 	icon_state = "oldnasa"
 	item_state = "oldnasa"
 	icon = 'icons/mob/clothing/back.dmi'
