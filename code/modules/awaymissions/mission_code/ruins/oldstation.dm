@@ -65,7 +65,7 @@
 
 // Equipment
 
-obj/item/clothing/head/helmet/old
+/obj/item/clothing/head/helmet/old
 	name = "BM1 helmet"
 	desc = "Steel helmet, the cheap plastic visor is clouded and yellowed, unfortunately it's welded on."
 	tint = 2
