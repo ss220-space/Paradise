@@ -319,7 +319,7 @@
 
 	ADD_TRAIT(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT)
 	addtimer(TRAIT_CALLBACK_REMOVE(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT), 20 SECONDS)
-	to_chat(user, span_notice("Вы сжимаете <b>[scr.declent_ru(NOMINATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
+	to_chat(user, span_notice("Вы сжимаете <b>[src.declent_ru(NOMINATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
 	use_time = world.time + 60 SECONDS
 
 
