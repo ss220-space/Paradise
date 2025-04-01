@@ -159,7 +159,7 @@
 		/mob/living/simple_animal/mouse/rat = 1,
 		/mob/living/simple_animal/mouse/rat/white = 1,
 		/mob/living/basic/cockroach = 3,
-		/mob/living/basic/cockroach/glockroach = 5,
+		/mob/living/basic/cockroach/glockroach = 3,
 		/mob/living/basic/cockroach/hauberoach = 5,
 	)
 

@@ -1571,7 +1571,7 @@
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
 	playsound(user, 'sound/aprilShit/WT.ogg', 50, FALSE)
-	COOLDOWN_START(src, cooldown, 15 SECONDS)
+	COOLDOWN_START(src, cooldown, 30 SECONDS)
 
 /*
  * Foam Armblade
