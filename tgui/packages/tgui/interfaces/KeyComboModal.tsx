@@ -19,7 +19,7 @@ const isStandardKey = (event): boolean => {
     event.key !== KEY.Alt &&
     event.key !== KEY.Control &&
     event.key !== KEY.Shift &&
-    !isEscape(event.key)
+    event.key !== KEY.Escape
   );
 };
 
@@ -35,7 +35,6 @@ const KEY_CODE_TO_BYOND: Record<string, string> = {
   RIGHT: 'East',
   SPACEBAR: 'Space',
   UP: 'North',
-  ' ': 'Space',
 };
 
 const DOM_KEY_LOCATION_NUMPAD = 3;
@@ -94,7 +93,7 @@ export const KeyComboModal = (props, context) => {
       setValue(formatKeyboardEvent(event));
       setBinding(false);
       return;
-    } else if (isEscape(event.key)) {
+    } else if (event.key === KEY.Escape) {
       setValue(init_value);
       setBinding(false);
       return;
