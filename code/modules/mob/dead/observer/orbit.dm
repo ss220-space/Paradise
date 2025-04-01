@@ -1,5 +1,6 @@
 /datum/orbit_menu
 	var/mob/dead/observer/owner
+	var/auto_observe = FALSE
 
 /datum/orbit_menu/New(mob/dead/observer/new_owner)
 	if(!istype(new_owner))
@@ -22,20 +23,47 @@
 
 	switch(action)
 		if("orbit")
-			var/ref = params["ref"]
+			handle_orbit_action(params)
+			return TRUE
 
-			var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
-			if(poi == null)
-				. = TRUE
-				return
-			owner.ManualFollow(poi)
-			. = TRUE
 		if("refresh")
 			update_static_data(owner, ui)
-			. = TRUE
+			return TRUE
+
+		if("toggle_observe")
+			toggle_auto_observe()
+			return TRUE
+	return FALSE
+
+/datum/orbit_menu/proc/handle_orbit_action(list/params)
+	var/ref = params["ref"]
+	var/atom/movable/poi = (locate(ref) in GLOB.mob_list) || (locate(ref) in GLOB.poi_list)
+	if(!poi)
+		return
+
+	var/mob/dead/observer/user = usr
+	user.ManualFollow(poi)
+	user.client.perspective = EYE_PERSPECTIVE
+	if(auto_observe)
+		user.do_observe(poi)
+
+/datum/orbit_menu/proc/toggle_auto_observe()
+	auto_observe = !auto_observe
+
+	if(!owner.orbiting)
+		owner.reset_perspective(null)
+		owner.cleanup_observe()
+		return
+
+	if(auto_observe)
+		owner.do_observe(owner.orbiting)
+		owner.ManualFollow(owner.orbiting)
+	else
+		owner.reset_perspective(null)
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
+	data["auto_observe"] = auto_observe
 	return data
 
 /datum/orbit_menu/ui_static_data(mob/user)
@@ -50,7 +78,7 @@
 	var/list/npcs = list()
 	var/length_of_ghosts = length(get_observers())
 
-	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = FALSE)
+	var/list/pois = getpois(mobs_only = FALSE, skip_mindless = TRUE)
 	for(var/name in pois)
 		var/mob/M = pois[name]
 		if(name == null)
