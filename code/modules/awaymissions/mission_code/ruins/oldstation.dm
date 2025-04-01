@@ -50,22 +50,20 @@
 	access = list(ACCESS_ROBOTICS)
 
 /obj/item/storage/backpack/old
-	max_combined_w_class = 12
+	name = "Belt and shoulder system"
+	desc = "The belt-and-shoulder system developed for astronauts originally served as a safety harness to be worn on top of the spacesuit. "
+	icon_state = "oldnasa"
+	item_state = "oldnasa"
+	icon = 'icons/mob/clothing/back.dmi'
+	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
+	storage_slots = 25
+	slot_flags = list(ITEM_SLOT_BELT, ITEM_SLOT_BACK)
+	max_combined_w_class = 25
+	display_contents_with_number = TRUE
+	max_w_class = WEIGHT_CLASS_SMALL
 
 // Equipment
-/obj/item/clothing/head/helmet/space/nasavoid/old
-	name = "Engineering Void Helmet"
-	desc = "A CentCom engineering dark red space suit helmet. While old and dusty, it still gets the job done."
-	icon_state = "void-red"
-	item_state = "void"
-
-/obj/item/clothing/suit/space/nasavoid/old
-	name = "Engineering Voidsuit"
-	icon_state = "void-red"
-	item_state = "void"
-	desc = "A CentCom engineering dark red space suit. Age has degraded the suit making is difficult to move around in."
-	slowdown = 4
-	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/multitool)
 
 /obj/item/clothing/head/helmet/old
 	name = "degrading helmet"
@@ -102,10 +100,20 @@
 	e_cost = 1000
 
 // Papers
+
+/obj/item/paper_bin/human
+	name = "nanotrasen paper bin"
+	letterhead_type = /obj/item/paper/solcom
+
+/obj/item/paper/human
+	name = "paper"
+	info =  ""
+	language = LANGUAGE_SOL_COMMON
+
 /obj/item/paper/fluff/ruins/oldstation
 	name = "Cryo Awakening Alert"
 	language = LANGUAGE_SOL_COMMON
-	info = "<b>**WARNING**</b><br><br>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<br><br>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
+	info = "<B>**WARNING**</B><BR><BR>Catastrophic damage sustained to station. Powernet exhausted to reawaken crew.<BR><BR>Immediate Objectives<br><br>1: Activate emergency power generator<br>2: Lift station lockdown on the bridge<br><br>Please locate the 'Damage Report' on the bridge for a detailed situation report."
 
 /obj/item/paper/fluff/ruins/oldstation/damagereport
 	name = "Damage Report"
