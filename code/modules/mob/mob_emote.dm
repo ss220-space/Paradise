@@ -166,7 +166,9 @@
 	user.SpinAnimation(5, 1)
 
 	if(ishuman(user) && (prob(5) || (iskidan(user) && !user.get_organ(BODY_ZONE_HEAD))))
-		message = "пыта%(ет,ют)%ся сделать кувырок и с грохотом пада%(ет,ют)% на пол!"
+		message = "пыта%(ет,ют)%ся сделать кувырок и с грохотом пада%(ет,ют)% на пол, ломая себе шею. О господи!!"
+		var/obj/item/organ/external/BP = user.get_organ(BODY_ZONE_HEAD)
+		BP.fracture()
 		addtimer(CALLBACK(user, TYPE_PROC_REF(/mob/living, Weaken), 4 SECONDS), 0.3 SECONDS, TIMER_UNIQUE)
 	return ..()
 
