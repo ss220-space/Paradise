@@ -75,8 +75,6 @@
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
 
-//Colors!!! - NO! Now there isn't. TSF ARMOR
-
 /obj/item/clothing/head/helmet/space/nasavoid/green
 	name = "SC TsAGI 9 Helmet"
 	desc = "Rigid combat spacesuit shem based on the design of SC TsAGI 5. It is an armored hood with shrapnel protection, inserted ballistic plates. Made in TSF."
