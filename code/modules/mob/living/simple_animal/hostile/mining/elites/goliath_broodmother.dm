@@ -314,7 +314,7 @@
 		balloon_alert(living_user, "перезарядка")
 		return
 	else if(HAS_TRAIT(living_user, TRAIT_LAVA_IMMUNE))
-		balloon_alert(living_user, "бесполезно")
+		balloon_alert(living_user, "мне это не нужно")
 		return
 
 	ADD_TRAIT(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT)
