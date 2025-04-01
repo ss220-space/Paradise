@@ -23,6 +23,12 @@
 	if(isnull(user.client))
 		return
 
+	// Client does NOT have tgui_input on: Returns regular input
+	if(user.client?.prefs?.toggles2 & PREFTOGGLE_2_DISABLE_TGUI_INPUT)
+		var/input_key = sanitize_russian_key_to_english(uppertext(input(user, message, title + " (Modifiers are TGUI only, sorry!)", default) as null|text))
+		return input_key[1]
+
+
 	var/datum/tgui_input_keycombo/key_input = new(user, message, title, default, timeout, ui_state)
 	key_input.ui_interact(user)
 	key_input.wait()
