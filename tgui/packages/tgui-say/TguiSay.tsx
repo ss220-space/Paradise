@@ -275,6 +275,10 @@ export class TguiSay extends Component<{}, State> {
         event.stopPropagation();
         break;
 
+      case KEY.Alt:
+        event.stopPropagation();
+        break;
+
       default:
         if (isEscape(event.key)) {
           this.handleClose();
