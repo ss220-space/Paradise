@@ -146,7 +146,7 @@
 		time = min(max(round(time), 0), 600)
 
 	if(href_list["close"])
-		close_window(usr, "prox"))
+		close_window(usr, "prox")
 		return
 
 	if(usr)
