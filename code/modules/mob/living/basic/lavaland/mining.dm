@@ -19,28 +19,13 @@
 	minimum_survivable_temperature = 0
 	maximum_survivable_temperature = INFINITY
 	nightvision = 4
-	butcher_results = /obj/item/card/emag //удалить блядь
+	butcher_results = list(/obj/item/card/emag = 1) //удалить блядь
 	/// Message to output if throwing damage is absorbed
 	var/throw_blocked_message = "отскакивает от"
 	/// What crusher trophy this mob drops, if any
 	var/crusher_loot
 	/// What is the chance the mob drops it if all their health was taken by crusher attacks
 	var/crusher_drop_chance = 25
-
-/mob/living/basic/mining/test_fucker
-	icon_state = "Goliath"
-	icon_dead = "Goliath_dead"
-	health = 400
-	maxHealth = 400
-
-/mob/living/basic/mining/test_fucker/drop_immed
-	basic_mob_flags = DEL_ON_DEATH
-	crusher_drop_chance = 50
-	throw_blocked_message = "дебаг - отлетает от"
-
-/mob/living/basic/mining/test_fucker/drop_on_butcher
-	crusher_loot = /obj/item/card/id/captains_spare
-	crusher_drop_chance = 50
 
 /mob/living/basic/mining/Initialize(mapload)
 	. = ..()

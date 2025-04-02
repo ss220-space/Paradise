@@ -966,8 +966,6 @@
 ///from the base of /obj/projectile/proc/fire(): ()
 #define COMSIG_PROJECTILE_FIRE "projectile_fire"
 ///sent to targets during the process_hit proc of projectiles
-#define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"
-///sent to targets during the process_hit proc of projectiles
 #define COMSIG_PROJECTILE_RANGE_OUT "projectile_range_out"
 ///sent when trying to force an embed (mainly for projectiles, only used in the embed element)
 #define COMSIG_EMBED_TRY_FORCE "item_try_embed"
@@ -1357,3 +1355,6 @@
 ///sent to targets during the process_hit proc of projectiles
 #define COMSIG_PROJECTILE_PREHIT "com_proj_prehit"
 	#define PROJECTILE_INTERRUPT_HIT (1<<0)
+
+/// From [/item/attack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, proximity_flag, click_parameters)
+#define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"

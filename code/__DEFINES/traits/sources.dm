@@ -170,3 +170,6 @@
 #define BLOB_ZOMBIE_TRAIT "blob_zombie_trait"
 
 #define ADMIN_OFFER_TRAIT "admin_offer"
+
+/// Trait given by simple/basic mob death
+#define BASIC_MOB_DEATH_TRAIT "basic_mob_death"

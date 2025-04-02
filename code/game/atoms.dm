@@ -289,7 +289,6 @@
 
 ///Handle melee attack by a mech
 /atom/proc/mech_melee_attack(obj/mecha/M)
-	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, M)
 	return
 
 /atom/proc/CheckParts(list/parts_list)

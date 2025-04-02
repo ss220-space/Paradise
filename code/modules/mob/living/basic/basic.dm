@@ -79,8 +79,6 @@
 	var/icon_dead = ""
 	///We only try to show a gibbing animation if this exists.
 	var/icon_gib = null
-	///Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
-	var/flip_on_death = FALSE
 
 	///If the mob can be spawned with a gold slime core. HOSTILE_SPAWN are spawned with plasma, FRIENDLY_SPAWN are spawned with blood.
 	var/gold_core_spawnable = NO_SPAWN
@@ -147,29 +145,49 @@
 		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
 
 /mob/living/basic/death(gibbed)
-	if(!gibbed)
-		if(!(basic_mob_flags & DEL_ON_DEATH))
-			INVOKE_ASYNC(src, TYPE_PROC_REF(/mob, emote), "deathgasp")
-
+	. = ..()
 	if(basic_mob_flags & DEL_ON_DEATH)
-		..()
+		ghostize(can_reenter_corpse = FALSE)
 		qdel(src)
-		return
 	else
 		health = 0
-		icon_state = icon_dead
-		if(flip_on_death)
-			transform = transform.Turn(180)
-		set_density(FALSE)
-		..()
+		look_dead()
 
-// copied from simplemobs
-/mob/living/basic/revive(full_heal = 0, admin_revive = 0)
-	if(..()) //successfully ressuscitated from death
-		icon = initial(icon)
-		icon_state = icon_living
-		set_density(initial(density))
-		mobility_flags = MOBILITY_FLAGS_DEFAULT
+/mob/living/basic/gib()
+	if(butcher_results)
+		var/list/butcher_loot = list()
+		butcher_loot += butcher_results
+		var/atom/loot_destination = drop_location()
+		for(var/path in butcher_loot)
+			for(var/i in 1 to butcher_loot[path])
+				new path(loot_destination)
+	return ..()
+
+/**
+ * Apply the appearance and properties this mob has when it dies
+ * This is called by the mob pretending to be dead too so don't put loot drops in here or something
+ */
+
+/mob/living/basic/proc/look_dead()
+	icon_state = icon_dead
+	if(basic_mob_flags & FLIP_ON_DEATH)
+		transform = transform.Turn(180)
+	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
+		ADD_TRAIT(src, TRAIT_UNDENSE, BASIC_MOB_DEATH_TRAIT)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_DEAD)
+
+/mob/living/basic/revive()
+	. = ..()
+	look_alive()
+
+/// Apply the appearance and properties this mob has when it is alive
+/mob/living/basic/proc/look_alive()
+	icon_state = icon_living
+	if(basic_mob_flags & FLIP_ON_DEATH)
+		transform = transform.Turn(180)
+	if(!(basic_mob_flags & REMAIN_DENSE_WHILE_DEAD))
+		REMOVE_TRAIT(src, TRAIT_UNDENSE, BASIC_MOB_DEATH_TRAIT)
+	SEND_SIGNAL(src, COMSIG_BASICMOB_LOOK_ALIVE)
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
@@ -192,6 +210,6 @@
 //temp code
 /mob/living/basic/examine(mob/user)
 	. = ..()
-	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+	if(stat != DEAD)
 		return
+	. += span_deadsay("После внимательно осмотра, стало ясно, что [genderize_ru(gender, "он", "она", "оно", "они")] погиб[genderize_ru(gender, "", "ла", "ло", "ли")]")

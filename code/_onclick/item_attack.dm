@@ -190,6 +190,7 @@
 		return .
 
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, params, def_zone)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, params)
 
 	if(!force)
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)

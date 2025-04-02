@@ -9,7 +9,7 @@
 	. = ..()
 	if(!HAS_TRAIT(target, TRAIT_RELAYING_ATTACKER)) // Little bit gross but we want to just apply this shit from a bunch of places
 		// Boy this sure is a lot of ways to tell us that someone tried to attack us
-		RegisterSignal(target, COMSIG_MOB_ITEM_ATTACK, PROC_REF(after_attackby))
+		RegisterSignal(target, COMSIG_ATOM_AFTER_ATTACKEDBY, PROC_REF(after_attackby))
 		RegisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_MOB_ATTACK_ALIEN),  PROC_REF(on_attack_generic))
 		RegisterSignal(target, list(COMSIG_ATOM_ATTACK_BASIC_MOB, COMSIG_ATOM_ATTACK_ANIMAL), PROC_REF(on_attack_npc))
 		RegisterSignal(target, COMSIG_PROJECTILE_PREHIT, PROC_REF(on_bullet_act))
@@ -64,7 +64,7 @@
 	SIGNAL_HANDLER
 	//if(!hit_projectile.is_hostile_projectile())
 		//return
-	if(!ismob(hit_projectile.firer_source_atom))
+	if(!ismob(hit_projectile.firer))
 		return
 
 	relay_attacker(target, hit_projectile.firer, hit_projectile.damage_type == STAMINA ? ATTACKER_STAMINA_ATTACK : ATTACKER_DAMAGING_ATTACK)
