@@ -782,12 +782,12 @@
 	toggle_hide_action.Remove(src)
 
 /mob/living/simple_animal/borer/proc/GrantBorerSpells()
-	mind?.AddSpell(infest_spell)
-	mind?.AddSpell(dominate_spell)
+	mind.AddSpell(infest_spell)
+	mind.AddSpell(dominate_spell)
 
 /mob/living/simple_animal/borer/proc/RemoveBorerSpells()
-	mind?.RemoveSpell(infest_spell)
-	mind?.RemoveSpell(dominate_spell)
+	mind.deactivate_spell(infest_spell)
+	mind.deactivate_spell(dominate_spell)
 
 /mob/living/simple_animal/borer/proc/GrantInfestActions()
 	mind?.AddSpell(new /obj/effect/proc_holder/spell/borer_force_say)
