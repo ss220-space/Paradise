@@ -193,7 +193,7 @@ GLOBAL_LIST_INIT(library_section_names, list("Any", "Fiction", "Non-Fiction", "A
 
 /obj/machinery/libraryscanner/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=libraryscanner")
+		close_window(usr, "libraryscanner")
 		onclose(usr, "libraryscanner")
 		return
 
