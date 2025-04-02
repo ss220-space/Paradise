@@ -3,6 +3,8 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	for(var/mob/dead/observe as anything in orbiters)
+		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -340,10 +342,13 @@
 
 
 /mob/dead/reset_perspective(atom/A)
-	. = ..()
-	if(.)
-		// Allows sharing HUDs with ghosts
-		if(hud_used)
+	if(client)
+		if(ismob(client.eye) && (client.eye != src))
+			var/mob/target = client.eye
+			if(target.orbiters)
+				target.orbiters -= src
+				UNSETEMPTY(target.orbiters)
+	if(..() && hud_used)
 			client.screen = list()
 			hud_used.show_hud(hud_used.hud_version)
 
