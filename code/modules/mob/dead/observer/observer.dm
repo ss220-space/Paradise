@@ -129,6 +129,23 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
 	update_sight()
 
+/mob/dead/observer/reset_perspective(atom/A)
+	if(!client)
+		return
+
+	if(ismob(client.eye) && (client.eye != src))
+		cleanup_observe()
+
+	if(..() && hud_used)
+		client.clear_screen()
+		hud_used.show_hud(hud_used.hud_version)
+
+/mob/dead/observer/proc/cleanup_observe()
+	if(isnull(orbiting))
+		return
+	client?.perspective = initial(client.perspective)
+	stop_orbit()
+	set_sight(initial(sight))
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -646,6 +663,32 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	..()
 //END TELEPORT HREF CODE
 
+/mob/dead/observer/proc/do_observe(mob/mob_eye)
+	if(isnewplayer(mob_eye))
+		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
+		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
+		return
+
+	//Istype so we filter out points of interest that are not mobs
+	if(!client || !mob_eye || !istype(mob_eye))
+		return
+
+	client.set_eye(mob_eye)
+	client.perspective = EYE_PERSPECTIVE
+
+	if(is_admin_level(mob_eye.z) && !client?.holder)
+		set_sight(NONE) //we dont want ghosts to see through walls in secret areas
+
+	if(!mob_eye.hud_used)
+		return
+
+	client.clear_screen()
+	LAZYOR(mob_eye.orbiters, src)
+	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
+
+	//An ingenious way to block access to the button. Yes, it's on the screen, but you can't press it.
+	for(var/atom/movable/screen/movable/action_button/button in client.screen)
+		client.screen -= button
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
