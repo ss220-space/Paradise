@@ -21,6 +21,7 @@
 		TRAIT_NO_GUNS,
 		TRAIT_EMBEDIMMUNE,
 		TRAIT_NO_SLIP_ALL,
+		TRAIT_PIERCEIMMUNE,
 	)
 	burn_mod = 1.25
 	heatmod = 1.5
@@ -95,7 +96,6 @@
 			H.AdjustEyeBlurry(-2 SECONDS)
 			H.CureNearsighted()
 			H.CureBlind()
-
 			H.SetWeakened(0)
 			H.SetStunned(0)
 			H.SetKnockdown(0)
@@ -110,24 +110,7 @@
 
 /datum/species/shadow/ling/lesser //Empowered thralls. Obvious, but powerful
 	name = SPECIES_LESSER_SHADOWLING
-
 	icobase = 'icons/mob/human_races/r_lshadowling.dmi'
 	deform = 'icons/mob/human_races/r_lshadowling.dmi'
-
-	blood_color = "#CCCCCC"
-	flesh_color = "#AAAAAA"
-
-	inherent_traits = list(
-		TRAIT_NO_BLOOD,
-		TRAIT_NO_BREATH,
-		TRAIT_RADIMMUNE,
-		TRAIT_NO_SPECIES_EXAMINE,
-		TRAIT_NO_HUNGER,
-	)
 	burn_mod = 1.1
 	heatmod = 1.1
-
-/datum/species/shadow/ling/lesser/handle_life(mob/living/carbon/human/H)
-	if(!H.weakeyes)
-		H.weakeyes = 1
-	handle_light(H)

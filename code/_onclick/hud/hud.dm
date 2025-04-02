@@ -9,7 +9,7 @@
 
 	var/hud_shown = TRUE			//Used for the HUD toggle (F12)
 	var/hud_version = 1				//Current displayed version of the HUD
-	var/inventory_shown = TRUE		//the inventory
+	var/inventory_shown = FALSE		//Equipped item inventory
 	var/hotkey_ui_hidden = FALSE	//This is to hide the buttons that can be used via hotkeys. (hotkeybuttons list of buttons)
 
 	var/atom/movable/screen/lingchemdisplay
@@ -229,14 +229,15 @@
 	update_sight()
 	SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
 
-/datum/hud/proc/show_hud(version = 0)
+/datum/hud/proc/show_hud(version = 0, mob/viewmob)
 	if(!ismob(mymob))
 		return FALSE
 
 	if(!mymob.client)
+		to_chat(viewmob, span_alert("Объект за которым Вы следите не имеет за собой игрока, показ инвентаря невозможен!"))
 		return FALSE
 
-	mymob.client.screen = list()
+	var/mob/screenmob = viewmob || mymob
 
 	var/display_hud_version = version
 	if(!display_hud_version)	//If 0 or blank, display the next hud version
@@ -248,15 +249,15 @@
 		if(HUD_STYLE_STANDARD)	//Default HUD
 			hud_shown = TRUE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen += static_inventory
-			if(toggleable_inventory.len && inventory_shown)
-				mymob.client.screen += toggleable_inventory
+				screenmob.client.screen += static_inventory
+			if(toggleable_inventory.len && screenmob.hud_used && screenmob.hud_used.inventory_shown)
+				screenmob.client.screen += toggleable_inventory
 			if(hotkeybuttons.len && !hotkey_ui_hidden)
-				mymob.client.screen += hotkeybuttons
+				screenmob.client.screen += hotkeybuttons
 			if(infodisplay.len)
-				mymob.client.screen += infodisplay
+				screenmob.client.screen += infodisplay
 
-			mymob.client.screen += hide_actions_toggle
+			screenmob.client.screen += hide_actions_toggle
 
 			if(action_intent)
 				action_intent.screen_loc = initial(action_intent.screen_loc) //Restore intent selection to the original position
@@ -265,37 +266,37 @@
 		if(HUD_STYLE_REDUCED)	//Reduced HUD
 			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen -= static_inventory
+				screenmob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
-				mymob.client.screen -= toggleable_inventory
+				screenmob.client.screen -= toggleable_inventory
 			if(hotkeybuttons.len)
-				mymob.client.screen -= hotkeybuttons
+				screenmob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
-				mymob.client.screen += infodisplay
+				screenmob.client.screen += infodisplay
 
 			//These ones are a part of 'static_inventory', 'toggleable_inventory' or 'hotkeybuttons' but we want them to stay
 			for(var/atom/movable/screen/inventory/hand/hand_box as anything in hand_slots)
-				mymob.client.screen += hand_box	//we want the hands to be visible
+				screenmob.client.screen += hand_box	//we want the hands to be visible
 			if(action_intent)
-				mymob.client.screen += action_intent		//we want the intent switcher visible
+				screenmob.client.screen += action_intent		//we want the intent switcher visible
 				action_intent.screen_loc = ui_acti_alt	//move this to the alternative position, where zone_select usually is.
 			. = FALSE
 
 		if(HUD_STYLE_NOHUD)	//No HUD
 			hud_shown = FALSE	//Governs behavior of other procs
 			if(static_inventory.len)
-				mymob.client.screen -= static_inventory
+				screenmob.client.screen -= static_inventory
 			if(toggleable_inventory.len)
-				mymob.client.screen -= toggleable_inventory
+				screenmob.client.screen -= toggleable_inventory
 			if(hotkeybuttons.len)
-				mymob.client.screen -= hotkeybuttons
+				screenmob.client.screen -= hotkeybuttons
 			if(infodisplay.len)
-				mymob.client.screen -= infodisplay
+				screenmob.client.screen -= infodisplay
 			. = FALSE
 
 	hud_version = display_hud_version
-	persistent_inventory_update()
-	mymob.update_action_buttons(1)
+	persistent_inventory_update(screenmob)
+	mymob.update_action_buttons(TRUE)
 	reorganize_alerts()
 	reload_fullscreen()
 	update_parallax_pref()
@@ -312,11 +313,11 @@
 		group.refresh_hud()
 
 
-/datum/hud/human/show_hud(version = 0)
+/datum/hud/human/show_hud(version = 0, mob/viewmob)
 	. = ..()
 	if(!.)
 		return
-	hidden_inventory_update()
+	hidden_inventory_update(viewmob)
 
 
 /datum/hud/robot/show_hud(version = 0)
@@ -330,7 +331,7 @@
 	return
 
 
-/datum/hud/proc/persistent_inventory_update()
+/datum/hud/proc/persistent_inventory_update(mob/viewer)
 	return
 
 

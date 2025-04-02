@@ -173,12 +173,9 @@
 	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user)
-	user.client.screen -= boxes
-	user.client.screen -= closer
-	user.client.screen -= contents
-	user.client.screen += boxes
-	user.client.screen += closer
-	user.client.screen += contents
+	user.client.screen |= boxes
+	user.client.screen |= closer
+	user.client.screen |= contents
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
@@ -201,8 +198,7 @@
 
 
 /obj/item/storage/proc/update_viewers()
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
+	for(var/mob/M as anything in mobs_viewing)
 		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
 			continue
 		hide_from(M)
@@ -431,6 +427,11 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
+
+		for(var/mob/dead/observe as anything in usr.orbiters)
+			if(observe.client && observe.s_active != src)
+				observe.client.screen -= W
+
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
@@ -457,8 +458,7 @@
 	if(!istype(W))
 		return FALSE
 
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
+	for(var/mob/M as anything in mobs_viewing)
 		if((M.s_active == src) && M.client)
 			M.client.screen -= W
 

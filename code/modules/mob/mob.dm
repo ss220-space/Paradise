@@ -3,6 +3,8 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	for(var/mob/dead/observe as anything in orbiters)
+		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -132,7 +134,7 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<i>…Вам почти удаётся расслышать чьи-то слова…</i>", MESSAGE_TYPE_LOCALCHAT)
+		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
 	else
 		to_chat(src, msg, chat_message_type)
 
@@ -198,7 +200,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<b>[src]</b> ", "")
+	var/omsg = replacetext(message, "<B>[src]</B> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -340,12 +342,15 @@
 
 
 /mob/dead/reset_perspective(atom/A)
-	. = ..()
-	if(.)
-		// Allows sharing HUDs with ghosts
-		if(hud_used)
-			client.screen = list()
-			hud_used.show_hud(hud_used.hud_version)
+	if(client)
+		if(ismob(client.eye) && (client.eye != src))
+			var/mob/target = client.eye
+			if(target.orbiters)
+				target.orbiters -= src
+				UNSETEMPTY(target.orbiters)
+	if(..() && hud_used)
+		client.screen = list()
+		hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -412,7 +417,7 @@
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
 	msg = sanitize_censored_patterns(msg)
 
 	var/combined = length(memory + msg)
@@ -433,7 +438,7 @@
 	if(length(memory) == 0)
 		memory += msg
 	else
-		memory += "<br>[msg]"
+		memory += "<BR>[msg]"
 
 	if(popup)
 		memory()
@@ -548,24 +553,20 @@
 		src << browse(null, t1)
 
 	if(href_list["flavor_more"])
-		var/datum/browser/popup = new(usr, name, name, 500, 200)
-		popup.set_content("<tt>[replacetext(flavor_text, "\n", "<br>")]</tt>")
-		popup.open(TRUE)
-		onclose(usr, name)
+		usr << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
+		onclose(usr, "[name]")
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
 	if(href_list["scoreboard"])
-		var/datum/browser/popup = new(usr, "roundstats", "Round Stats", 700, 900)
-		popup.set_content(GLOB.scoreboard)
-		popup.open(FALSE)
+		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
 
 
 /mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE
-	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
+	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
 		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
@@ -959,33 +960,33 @@
 
 /mob/vv_get_dropdown()
 	. = ..()
-	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
+	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
 
-	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
+	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
+	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
+	.["Give Taipan Hud"] = "?_src_=vars;give_taipan_hud=[UID()]"
+	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
 
-	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
+	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
 
-	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
+	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
 
-	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
+	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
+	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
+	.["Change Voice"] = "?_src_=vars;changevoice=[UID()]"
+	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
 
-	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
+	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
 
-	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
+	.["Gib"] = "?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()

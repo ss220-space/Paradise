@@ -918,6 +918,7 @@
 	desc = "Heavy, fire-resistant gauntlets with brass reinforcement."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_gauntlets"
+	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 	var/north_star = FALSE
@@ -928,6 +929,7 @@
 	desc = "Heavy, fire-resistant gauntlets with brass reinforcement. Even without magic an excellent gloves."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_gauntlets"
+	item_state = "clockwork_gauntlets"
 	resistance_flags = FIRE_PROOF | ACID_PROOF
 	armor = list("melee" = 40, "bullet" = 50, "laser" = 30, "energy" = 30, "bomb" = 40, "bio" = 30, "rad" = 30, "fire" = 100, "acid" = 100)
 

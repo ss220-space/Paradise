@@ -613,20 +613,6 @@
 /datum/chemical_reaction/moenkeylanguage/on_reaction(datum/reagents/holder)
 	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
 
-/datum/chemical_reaction/slimedamage
-	name = "Slime Damage Resistence Potion"
-	id = "m_slime_potion_DamageR"
-	result = null
-	required_reagents = list("water" = 1)
-	result_amount = 1
-	required_container = /obj/item/slime_extract/adamantine
-	required_other = 1
-
-/datum/chemical_reaction/slimedamage/on_reaction(datum/reagents/holder)
-	SSblackbox.record_feedback("tally", "slime_cores_used", 1, type)
-	var/obj/item/slimepotion/clothing/damage/D = new
-	D.forceMove(get_turf(holder.my_atom))
-
 //Bluespace
 /datum/chemical_reaction/slimefloor2
 	name = "Bluespace Floor"

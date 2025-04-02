@@ -65,7 +65,7 @@
 	damage = 8
 	damage_type = BRUTE
 
-/obj/item/ammo_casing/glockroach
+/obj/item/ammo_casing/caseless/glockroach
 	name = "0.9mm bullet casing"
 	desc = "A... 0.9mm bullet casing? What?"
 	projectile_type = /obj/projectile/glockroachbullet
@@ -89,14 +89,14 @@
 
 /mob/living/basic/cockroach/glockroach/Initialize()
 	. = ..()
-	AddElement(/datum/element/ranged_attacks, projectiletype = /obj/projectile/glockroachbullet, projectilesound = 'sound/weapons/gunshots/gunshot3.ogg')
+	AddElement(/datum/element/ranged_attacks, /obj/item/ammo_casing/caseless/glockroach, 'sound/weapons/gunshots/gunshot3.ogg')
 
 /datum/ai_controller/basic_controller/cockroach/glockroach
 	planning_subtrees = list(
 		/datum/ai_planning_subtree/random_speech/cockroach,
 		/datum/ai_planning_subtree/simple_find_target,
 		/datum/ai_planning_subtree/basic_ranged_attack_subtree/glockroach, //If we are attacking someone, this will prevent us from hunting
-		/datum/ai_planning_subtree/find_and_hunt_target
+		/datum/ai_planning_subtree/find_and_hunt_target/cockroach
 	)
 
 /datum/ai_planning_subtree/basic_ranged_attack_subtree/glockroach
