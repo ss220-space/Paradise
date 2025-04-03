@@ -3100,6 +3100,10 @@
 /datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
 	if(damnation_type)
 		return FALSE
+	if(!hasSoul)
+		return FALSE
+	if(!soulOwner != src)
+		return FALSE
 	return TRUE
 
 // returns a mob to message to produce something visible for the target mind

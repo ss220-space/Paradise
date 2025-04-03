@@ -187,6 +187,8 @@
 		appears_dead = TRUE
 		if(suiciding)
 			msg += "<span class='warning'>[p_they(TRUE)] appear[p_s()] to have committed suicide... there is no hope of recovery.</span>\n"
+		if(mind && !mind.hasSoul)
+			msg += span_boldwarning("<span style='font-size: large;'>[genderize_ru(gender, "его", "её", "его", "их")] душа - моя. Не тратьте свое время.</span>\n")
 		msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] limp and unresponsive; there are no signs of life"
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)

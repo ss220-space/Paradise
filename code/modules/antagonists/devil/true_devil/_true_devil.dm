@@ -1,3 +1,6 @@
+#define DEVIL_HANDS_LAYER 1
+#define DEVIL_HEAD_LAYER 2
+#define DEVIL_TOTAL_LAYERS 2
 // This is used primarily for having hands.
 /mob/living/carbon/true_devil
 	name = "True Devil"
@@ -8,24 +11,35 @@
 	health = 350
 	maxHealth = 350
 	mobility_flags = MOBILITY_FLAGS_DEFAULT
+	ventcrawler_trait = NONE
+	density = TRUE
+	pass_flags = NONE
 	sight = SEE_TURFS|SEE_OBJS
 	status_flags = CANPUSH
-	universal_understand = TRUE
-	universal_speak = TRUE //The devil speaks all languages meme
+	mob_size = MOB_SIZE_LARGE
 	var/mob/living/oldform
 	var/datum/antagonist/devil/devilinfo
+	var/ascended = FALSE
+	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 	hud_type = /datum/hud/devil
+
+/mob/living/carbon/true_devil/ascended
+	maxHealth = 500 // not an IMPOSSIBLE amount, but still near impossible.
+	ascended = TRUE
+	health = 500
+	icon_state = "arch_devil"
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()
 	else
 		dna = new
-
 	devilinfo = mind?.has_antag_datum(/datum/antagonist/devil)
+	grant_all_babel_languages()
 	new /obj/item/organ/internal/brain(src)
-	new /obj/item/organ/internal/ears(src)
-
+	new /obj/item/organ/internal/eyes(src)
+	new /obj/item/organ/internal/ears/invincible(src)
+	ADD_TRAIT(src,	TRAIT_SPACEWALK, INNATE_TRAIT)
 	. = ..()
 
 // Determines if mob has and can use his hands like a human
@@ -36,24 +50,24 @@
 	name = devilinfo.info.truename
 	real_name = name
 
+/*
 /mob/living/carbon/true_devil/Login()
 	..()
 	var/list/messages = list()
-	
+
 	LAZYADD(messages, devilinfo?.greet())
 	LAZYADD(messages, mind.prepare_announce_objectives())
 
-	to_chat(mind.current, chat_box_red(messages.Join("<br>")))
+	to_chat(mind.current, chat_box_red(messages.Join("<br>")))*/
 
 
 /mob/living/carbon/true_devil/death(gibbed)
 	. = ..(gibbed)
-	drop_l_hand()
-	drop_r_hand()
+	drop_all_held_items()
 
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = "This is [bicon(src)] <b>[src]</b>!\n"
+	var/msg = span_info("Это [bicon(src)] <b>[src]</b>!\n")
 
 	//Left hand items
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
@@ -148,6 +162,7 @@
 							visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
 
 /mob/living/carbon/true_devil/handle_breathing()
+	return
 	// devils do not need to breathe
 
 /mob/living/carbon/true_devil/is_literate()

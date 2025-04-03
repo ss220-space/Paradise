@@ -78,6 +78,8 @@
 /obj/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
+		if(target.mind && !target.mind.hasSoul)
+			return .
 		var/old_stat = target.stat
 		target.suiciding = 0
 		target.revive()

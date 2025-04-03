@@ -255,6 +255,9 @@
 	if(.)
 		return .
 
+	if(HAS_TRAIT(src, TRAIT_SPACEWALK))
+		return TRUE
+
 	if(buckled)
 		return TRUE
 
