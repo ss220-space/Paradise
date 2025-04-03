@@ -67,7 +67,7 @@
 
 /obj/item/stack/Destroy()
 	if(usr && usr.machine == src)
-		usr << browse(null, "window=stack")
+		close_window(usr, "stack")
 	return ..()
 
 
@@ -76,7 +76,7 @@
 		return
 
 	if(amount <= 0)
-		user << browse(null, "window=stack")
+		close_window(user, "stack")
 		return
 
 	user.set_machine(src) //for correct work of onclose

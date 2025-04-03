@@ -209,7 +209,7 @@
 		return
 	if(!I.tool_use_check(user, 0))
 		return
-	user << browse(null, "window=windoor_access")
+	close_window(user, "windoor_access")
 	user.visible_message("<span class='notice'>[user] pries [src] into the frame...</span>", "<span class='notice'>You start prying [src] into the frame...</span>")
 	if(!I.use_tool(src, user, 40, volume = I.tool_volume))
 		return

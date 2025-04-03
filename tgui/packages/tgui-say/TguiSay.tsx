@@ -271,6 +271,14 @@ export class TguiSay extends Component<{}, State> {
         this.handleIncrementChannel();
         break;
 
+      case KEY.Shift:
+        event.stopPropagation();
+        break;
+
+      case KEY.Alt:
+        event.stopPropagation();
+        break;
+
       default:
         if (isEscape(event.key)) {
           this.handleClose();

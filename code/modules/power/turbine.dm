@@ -343,7 +343,7 @@
 
 	if( !Adjacent(user)  || (stat & (NOPOWER|BROKEN)) && (!istype(user, /mob/living/silicon)) )
 		user.unset_machine(src)
-		user << browse(null, "window=turbine")
+		close_window(user, "turbine")
 		return
 
 	var/t = "<tt><b>Gas Turbine Generator</b><hr><pre>"
@@ -368,7 +368,7 @@
 		return
 
 	if( href_list["close"] )
-		usr << browse(null, "window=turbine")
+		close_window(usr, "turbine")
 		usr.unset_machine(src)
 		return
 
@@ -437,7 +437,7 @@
 		if(compressor && compressor.turbine)
 			compressor.starter = !compressor.starter
 	else if( href_list["close"] )
-		usr << browse(null, "window=turbinecomputer")
+		close_window(usr, "turbinecomputer")
 		usr.unset_machine(src)
 		return
 	else if(href_list["search"])

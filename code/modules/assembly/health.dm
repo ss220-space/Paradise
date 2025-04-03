@@ -95,7 +95,7 @@
 	var/mob/living/user = usr
 
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) || !in_range(loc, user))
-		user << browse(null, "window=hscan")
+		close_window(user, "hscan")
 		onclose(user, "hscan")
 		return
 
@@ -103,7 +103,7 @@
 		toggle_scan()
 
 	if(href_list["close"])
-		user << browse(null, "window=hscan")
+		close_window(user, "hscan")
 		return
 
 	attack_self(user)
