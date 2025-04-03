@@ -351,7 +351,7 @@
 		if(!in_range(src, usr))	return
 		add_req_access = FALSE
 		var/mob/user = afilter.getMob("user")
-		user << browse(null,"window=exosuit_add_access")
+		close_window(user, "exosuit_add_access")
 		return
 	if(href_list["dna_lock"])
 		if(usr != occupant)

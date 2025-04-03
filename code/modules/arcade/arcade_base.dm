@@ -105,7 +105,7 @@
 	for(var/mob/user in viewers(world.view, src))			// I don't know who you are.
 		if(user.client && user.machine == src)				// I will look for you,
 			user.unset_machine()							// I will find you,
-			user << browse(null, "window=[window_name]")	// And I will kill you.
+			close_window(user, window_name)			// And I will kill you.
 	return
 
 /obj/machinery/arcade/proc/win()

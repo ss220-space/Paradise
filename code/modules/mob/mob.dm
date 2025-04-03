@@ -547,7 +547,7 @@
 	if(href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
-		src << browse(null, t1)
+		close_window(src, t1)
 
 	if(href_list["flavor_more"])
 		var/datum/browser/popup = new(usr, name, name, 500, 200)

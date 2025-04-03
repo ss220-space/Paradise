@@ -187,7 +187,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				. = FALSE
 			if(hidden_uplink)
 				if(hidden_uplink.check_trigger(usr, frequency, traitor_frequency))
-					usr << browse(null, "window=radio")
+					close_window(usr, "radio")
 			if(.)
 				set_frequency(sanitize_frequency(tune, freerange))
 		if("ichannel") // change primary frequency to an internal channel authorized by access
