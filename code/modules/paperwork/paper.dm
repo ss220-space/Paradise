@@ -532,8 +532,8 @@
 		bundle.pixel_y = pixel_y
 		forceMove(bundle)
 
-	user << browse("", "window=[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
-	user << browse("", "window=Paper[UID()]")
+	close_window(user, "[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
+	close_window(user, "Paper[UID()]")
 	bundle.papers += src
 	bundle.papers += I
 	bundle.amount++

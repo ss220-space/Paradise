@@ -229,7 +229,7 @@
 	// Do not close the window to give user some time
 	// to read the error message.
 	if(!fatally_errored)
-		client << browse(null, "window=[id]")
+		close_window(client, id)
 
 /**
  * public

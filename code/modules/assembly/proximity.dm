@@ -129,7 +129,7 @@
 /obj/item/assembly/prox_sensor/Topic(href, href_list)
 	..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
-		usr << browse(null, "window=prox")
+		close_window(usr, "prox")
 		onclose(usr, "prox")
 		return
 
@@ -146,7 +146,7 @@
 		time = min(max(round(time), 0), 600)
 
 	if(href_list["close"])
-		usr << browse(null, "window=prox")
+		close_window(usr, "prox")
 		return
 
 	if(usr)
