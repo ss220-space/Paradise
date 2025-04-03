@@ -341,16 +341,13 @@
 		clear_fullscreen("remote_view", 0)
 
 
-/mob/dead/reset_perspective(atom/A)
-	if(client)
-		if(ismob(client.eye) && (client.eye != src))
-			var/mob/target = client.eye
-			if(target.orbiters)
-				target.orbiters -= src
-				UNSETEMPTY(target.orbiters)
-	if(..() && hud_used)
-		client.screen = list()
-		hud_used.show_hud(hud_used.hud_version)
+/mob/dead/reset_perspective(atom/new_eye)
+	. = ..()
+	if(.)
+		// Allows sharing HUDs with ghosts
+		if(hud_used)
+			client.clear_screen()
+			hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())

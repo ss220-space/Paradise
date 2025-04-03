@@ -218,6 +218,10 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+///called when an ORBITER starts orbiting another atom: (atom)
+#define COMSIG_ORBITER_ORBIT_BEGIN "orbiter_orbit_begin"
+///called when an ORBITER stops orbiting another atom: (atom)
+#define COMSIG_ORBITER_ORBIT_STOP "orbiter_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.

@@ -1290,6 +1290,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		M.ghost_orbiting -= 1
 
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_STOP, src)
+	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP, src)
 
 	LAZYREMOVE(orbiting.orbiters, src)
 	orbiting = null

@@ -41,11 +41,13 @@
 	if(!poi)
 		return
 
-	var/mob/dead/observer/user = usr
-	user.ManualFollow(poi)
-	user.client.perspective = EYE_PERSPECTIVE
+	owner.reset_perspective(null)
+
 	if(auto_observe)
-		user.do_observe(poi)
+		owner.client.set_eye(poi)
+		owner.do_observe(poi)
+
+	owner.ManualFollow(poi)
 
 /datum/orbit_menu/proc/toggle_auto_observe()
 	auto_observe = !auto_observe
@@ -57,9 +59,9 @@
 
 	if(auto_observe)
 		owner.do_observe(owner.orbiting)
-		owner.ManualFollow(owner.orbiting)
 	else
 		owner.reset_perspective(null)
+		owner.cleanup_observe()
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()
