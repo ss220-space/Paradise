@@ -104,7 +104,7 @@
 	return TRUE
 
 /datum/borer_focus/torso/tick()
-	if(parent.user.host?.stat == DEAD)
+	if(!parent.user.host || parent.user.host.stat == DEAD)
 		return
 
 	linked_organ = parent.user.host.get_int_organ(/obj/item/organ/internal/heart)

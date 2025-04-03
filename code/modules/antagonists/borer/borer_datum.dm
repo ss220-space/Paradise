@@ -44,7 +44,7 @@
 	reproductions++
 	evo_points++
 
-	INVOKE_ASYNC(src, PROC_REF(update_rank))
+	update_rank()
 
 	return
 
@@ -129,6 +129,8 @@
 	return ..()
 
 /datum/antagonist/borer/proc/process_life(mob/source, deltatime, times_fired)
+	SIGNAL_HANDLER
+	
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
 		focus.tick()
 
