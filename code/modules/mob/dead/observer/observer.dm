@@ -699,7 +699,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	reset_perspective(null)
 	cleanup_observe()
-	hud_used.reload_fullscreen()
 	UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
 
 /mob/dead/observer/verb/toggle_ghostsee()
