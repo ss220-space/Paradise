@@ -484,6 +484,8 @@
 			screenmob.client.screen -= H.wear_suit
 		if(H.wear_mask)
 			screenmob.client.screen -= H.wear_mask
+		if(H.neck)
+			screenmob.client.screen -= H.neck
 		if(H.head)
 			screenmob.client.screen -= H.head
 
