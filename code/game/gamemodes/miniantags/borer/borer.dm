@@ -333,8 +333,8 @@
 						to_chat(src, span_notice("Вы приходите в себя, когда сахар покидает кровь вашего носителя."))
 					docile = FALSE
 
-			if(chemicals < max_chems && !sneaking)
-				chemicals += chem_gain
+			if(!sneaking)
+				add_chemicals()
 
 			if(controlling)
 				if(docile)
@@ -347,6 +347,13 @@
 
 				if(prob(host.getBrainLoss()/20))
 					host.say("*[pick(list("blink","blink_r","choke","aflap","drool","twitch","twitch_s","gasp"))]")
+
+/mob/living/simple_animal/borer/proc/add_chemicals(amount)
+	if(chemicals >= max_chems)
+		return
+
+	var/to_add = amount || chem_gain
+	chemicals += to_add
 
 /mob/living/simple_animal/borer/handle_environment()
 	if(host)
@@ -530,6 +537,8 @@
 	if(!host)
 		return
 
+	SEND_SIGNAL(src, COMSIG_BORER_EARLY_LEFT_HOST)
+
 	if(controlling)
 		detach()
 
@@ -542,14 +551,13 @@
 	host.reset_perspective(null)
 	host.machine = null
 
-	var/mob/living/carbon/H = host
-	H.borer = null
+	var/mob/living/carbon/human = host
+	human.borer = null
 
 	talk_to_borer_action.Remove(host)
-	H.status_flags &= ~PASSEMOTES
+	human.status_flags &= ~PASSEMOTES
 	host = null
 
-	SEND_SIGNAL(src, COMSIG_BORER_LEFT_HOST)
 	return
 
 /mob/living/simple_animal/borer/proc/bond_brain()
