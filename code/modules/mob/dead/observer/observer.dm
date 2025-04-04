@@ -131,10 +131,8 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	update_sight()
 
 /mob/dead/observer/proc/cleanup_observe()
-	if(isnull(orbiting))
-		return
 	client?.perspective = initial(client.perspective)
-	set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -472,9 +470,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(sightchanged)
 		if(orbiting && ismob(orbiting))
 			var/mob/living/new_sight = orbiting
-			set_sight(new_sight.client? new_sight.sight : set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF))
+			set_sight(new_sight.client? new_sight.sight : set_sight(NONE))
 	else
-		TOGGLEBIT(sight, SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
+		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/ManualFollow(atom/movable/target)
@@ -666,7 +664,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	//Istype so we filter out points of interest that are not mobs
-	if(!client || !mob_eye || !istype(mob_eye))
+	if(!client || !mob_eye || !istype(mob_eye) || isobserver(mob_eye))
 		cleanup_observe()
 		return
 
@@ -678,7 +676,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, TYPE_PROC_REF(/mob/dead/observer, handle_when_autoobserve_move), TRUE)
 
-	client.perspective = EYE_PERSPECTIVE
+	client.set_eye(mob_eye)
 	set_sight(mob_eye.sight)
 
 	client.clear_screen()
@@ -686,9 +684,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 
 	for(var/datum/action/act in mob_eye.actions)
-		if(istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle))
+		if( istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || \
+			(act in src.actions) || \
+			istype(act, /datum/action/innate/cult) || \
+			istype(act, /datum/action/innate/clockwork))
 			continue
-		act.Grant(src)
+		client.screen += act.button
 
 	//An ingenious way to block access to the button. Yes, it's on the screen, but you can't press it.
 //	for(var/atom/movable/screen/movable/action_button/button in client.screen)

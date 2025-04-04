@@ -1981,8 +1981,6 @@
 		//H.regenerate_icons()
 
 	else if(href_list["observeinventory"])
-		if(!check_rights(R_ADMIN|R_MOD|R_MENTOR))
-			return
 		var/client/C = usr.client
 		var/mob/M = locateUID(href_list["observeinventory"])
 

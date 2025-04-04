@@ -2,8 +2,6 @@
 /atom/movable/screen/movable/action_button
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
-	/// Whether or not this should be shown to observers
-	var/shown_to_observers = FALSE
 	screen_loc = null
 	var/ordered = TRUE
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
@@ -135,8 +133,10 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/Click(location,control,params)
-	if(!observer_check(usr))
-		return
+	if(isobserver(usr))
+		var/mob/dead/observer/dead_mob = usr
+		if(dead_mob.orbiting)
+			return FALSE
 
 	if(usr.next_click > world.time)
 		return FALSE

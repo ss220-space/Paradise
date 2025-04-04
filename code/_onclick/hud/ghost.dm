@@ -132,13 +132,14 @@
 
 /datum/hud/ghost/show_hud(version = 0, mob/viewmob)
 	// don't show this HUD if observing; show the HUD of the observee
-	var/mob/dead/observer/observer = mymob
-	if(istype(observer) && observer.orbiting)
+	var/mob/dead/observer/observe = mymob
+	if(istype(observe) && observe.orbiting)
 		plane_masters_update()
 		return FALSE
 
-	if(!..())
-		return
 	var/mob/screenmob = viewmob || mymob
 
+	screenmob.client.screen = list()
 	screenmob.client.screen += static_inventory
+
+	..()

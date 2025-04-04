@@ -233,14 +233,12 @@
 	if(!ismob(mymob))
 		return FALSE
 
-	if(!mymob.client)
-		to_chat(viewmob, span_alert("Объект за которым Вы следите не имеет за собой игрока, показ инвентаря невозможен!"))
-		var/mob/dead/observer/ghost = viewmob
-		ghost.cleanup_observe()
-		ghost.reset_perspective(null)
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
 		return FALSE
 
-	var/mob/screenmob = viewmob || mymob
+	screenmob.client.clear_screen()
+	screenmob.client.apply_clickcatcher()
 
 	var/display_hud_version = version
 	if(!display_hud_version)	//If 0 or blank, display the next hud version

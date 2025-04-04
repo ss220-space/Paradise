@@ -1295,7 +1295,7 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 	transform = cached_transform
 	SpinAnimation(0, 0, parallel = FALSE)
 	// После, потому что сначало надо занулить orbiting дабы худ показался ЧИСТЫЙ
-	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP, src)
+	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP)
 
 
 //Centers an image.

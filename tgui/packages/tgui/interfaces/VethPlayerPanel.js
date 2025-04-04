@@ -178,6 +178,14 @@ export const VethPlayerPanel = (props, context) => {
                         act('tp', { selectedPlayerCkey: player.ckey })
                       }
                     />
+                    <Button
+                      content="OBS"
+                      onClick={() =>
+                        act('obs', {
+                          selectedPlayerCkey: player.ckey,
+                        })
+                      }
+                    />
                   </Table.Cell>
                 </Table.Row>
               ))}

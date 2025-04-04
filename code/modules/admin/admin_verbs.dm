@@ -1262,6 +1262,9 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	addtimer(CALLBACK(mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
 
 	if(look_into_inventory)
+		if(!target.client)
+			to_chat(src, span_warning("[target] не имеет за собой игрока(Disconnected)."))
+			return
 		addtimer(CALLBACK(mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H)
