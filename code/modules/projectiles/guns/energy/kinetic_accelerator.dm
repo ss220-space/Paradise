@@ -9,7 +9,16 @@
  */
 /obj/item/gun/energy/kinetic_accelerator
 	name = "proto-kinetic accelerator"
-	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. Capable of holding up to six slots worth of mod kits."
+	desc = "Самозарядное, дальнобойное шахтерское устройство, наносящее дополнительный урон при низком давлении. Оснащен стандартным хранилищем для модулей улучшения."
+	ru_names = list(
+        NOMINATIVE = "прото-кинетический акселератор",
+        GENITIVE = "прото-кинетического аскелератора",
+        DATIVE = "прото-кинетическому аскелератору",
+        ACCUSATIVE = "прото-кинетический аскелератор",
+        INSTRUMENTAL = "прото-кинетическим аскелератором",
+        PREPOSITIONAL = "прото-кинетическом аскелераторе"
+	)
+	gender = MALE
 	icon_state = "kineticgun"
 	item_state = "kineticgun"
 	ammo_type = list(/obj/item/ammo_casing/energy/kinetic)
@@ -46,9 +55,9 @@
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += span_notice("<b>[get_remaining_mod_capacity()]%</b> mod capacity remaining.")
+			. += span_notice("Осталось <b>[get_remaining_mod_capacity()]%</b> свободного хранилища для улучшений.")
 			for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
-				. += span_notice("There is a [MK.name] mod installed, using <b>[MK.cost]%</b> capacity.")
+				. += span_notice("Установлен модуль '<b>[MK.name]</b>', занимая <b>[MK.cost]%</b> хранилища.")
 
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
@@ -218,6 +227,15 @@
 /obj/item/gun/energy/kinetic_accelerator/experimental
 	name = "experimental kinetic accelerator"
 	desc = "A modified version of the proto-kinetic accelerator, with more modkit space of the standard version."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender =
 	icon_state = "kineticgun_h"
 	item_state = "kineticgun_h"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
@@ -230,6 +248,15 @@
 	item_state = "kineticgun_mega"
 	empty_state = "kineticgun_m_empty"
 	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. This one has been enhanced with plasma magmite."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender =
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
