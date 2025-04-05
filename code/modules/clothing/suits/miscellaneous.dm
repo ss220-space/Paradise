@@ -779,7 +779,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 	armor = list(melee = 5, bullet = 5, laser = 10, energy = 10, bomb = 15, bio = 0, rad = 0, fire = 10, acid = 10)
-	
+
 /obj/item/clothing/suit/storage/leather_trenchcoat/runner
 	name = "leather trenchcoat"
 	desc = "Длинное кожаное пальто-тренч с натуральным мехом. Вы чувствуете себя одиноко, когда носите его..."
@@ -1702,3 +1702,18 @@
 /obj/item/clothing/suit/hooded/ghostfacesuit/devil/true
 	armor = list(melee = 30, bullet = 10, laser = 5, energy = 5, bomb = 0, bio = 0, rad = 0, fire = 10, acid = 10)
 	hoodtype = /obj/item/clothing/head/hooded/ghostface/true
+
+/obj/item/clothing/suit/hooded/penguin_costume
+	name = "penguin suit"
+	desc = "Глупый и забавный полноразмерный костюм пингвина."
+	icon_state = "penguin"
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|ARMS|TAIL
+	flags_inv = TAIL
+	hoodtype = /obj/item/clothing/head/hooded/penguin_hood
+
+/obj/item/clothing/head/hooded/penguin_hood
+	name = "penguin hood"
+	desc = "Капюшон от костюма пингвина."
+	icon_state = "penguin"
+	body_parts_covered = HEAD
+	flags_inv = HIDEHEADSETS|HIDEHAIR
