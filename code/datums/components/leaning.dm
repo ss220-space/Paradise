@@ -92,6 +92,7 @@
 		COMSIG_LIVING_RESIST, // Pressing B!
 		COMSIG_LIVING_MINOR_SHOCK, //If we are hit by a stunbaton
 		COMSIG_LIVING_RESTING, //If we are downed
+		COMSIG_LIVING_SET_BUCKLED,
 	), PROC_REF(stop_leaning))
 
 	RegisterSignal(src, COMSIG_ATOM_TELEPORT_ACT, PROC_REF(teleport_away_while_leaning))
@@ -112,6 +113,7 @@
 		COMSIG_LIVING_RESIST,
 		COMSIG_LIVING_MINOR_SHOCK,
 		COMSIG_LIVING_RESTING,
+		COMSIG_LIVING_SET_BUCKLED,
 	))
 	UnregisterSignal(leaned_object, list(COMSIG_AIRLOCK_OPEN, COMSIG_VEHICLE_MOVE, COMSIG_MOVABLE_MOVED))
 	leaned_object = null
