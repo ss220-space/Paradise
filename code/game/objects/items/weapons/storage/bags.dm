@@ -227,7 +227,10 @@
 	var/bombs_left = 0
 
 /obj/item/storage/bag/kaboom/proc/bombradialmenu(mob/user)
-	if(LAZYLEN(contents))
+	if(!LAZYLEN(contents))
+		balloon_alert(user, "сумка пустая!")
+		return
+	else
 		var/list/bombs = list()
 		var/list/bombs_inside = list()
 		for(var/I in contents)
@@ -236,8 +239,7 @@
 			bombs_inside[explos.name] = explos
 		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
 		nextbomb = bombs_inside[nextbomb]
-	else
-		balloon_alert(user, "сумка пустая!")
+
 
 /obj/item/storage/bag/kaboom/attack_self(mob/user)
 	bombradialmenu(user)
@@ -289,13 +291,14 @@
 			nextbombbutmining = nextbomb
 			nextbombbutmining.override_safety()
 		nextbomb.attach(AM, user, TRUE)
-		if(LAZYLEN(contents))
+		if(!LAZYLEN(contents))
+			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
+		else
 			if(set_next_bomb())
 				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки: [nextchosen], осталось взрывчатки этого типа: [bombs_left]."))
 			else
 				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
-		else
-			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
+
 
 	bombs_left = 0
 	nextbomb = nextchosen
