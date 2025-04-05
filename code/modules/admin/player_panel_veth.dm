@@ -64,6 +64,8 @@
 			usr.client.debug_variables(M)
 		if("tp")
 			usr.client.holder.Topic(null, list("traitor" = M.UID()))
+		if("obs")
+			usr.client.holder.Topic(null, list("observeinventory" = M.UID()))
 		if("adminaiinteract")
 			usr.client.toggle_advanced_interaction()
 

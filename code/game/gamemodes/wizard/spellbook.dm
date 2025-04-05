@@ -886,31 +886,6 @@
 			dat += "Recommended for experienced wizards looking for something new. No refunds once purchased!<br>"
 	return dat
 
-/obj/item/spellbook/proc/wrap(content)
-	var/dat = ""
-	dat += {"<html><meta charset="UTF-8"><head><title>Spellbook</title></head>"}
-	dat += {"
-	<head>
-		<style type="text/css">
-      		body { font-size: 80%; font-family: 'Lucida Grande', Verdana, Arial, Sans-Serif; }
-      		ul#tabs { list-style-type: none; margin: 10px 0 0 0; padding: 0 0 0.6em 0; }
-      		ul#tabs li { display: inline; }
-      		ul#tabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; border-bottom: none; padding: 0.6em; text-decoration: none; }
-      		ul#tabs li a:hover { background-color: #f1f0ee; }
-      		ul#tabs li a.selected { color: #000; background-color: #f1f0ee; border-bottom: 1px solid #f1f0ee; font-weight: bold; padding: 0.6em 0.6em 0.6em 0.6em; }
-			ul#maintabs { list-style-type: none; margin: 30px 0 0 0; padding: 0 0 1em 0; font-size: 14px; }
-			ul#maintabs li { display: inline; }
-      		ul#maintabs li a { color: #42454a; background-color: #dedbde; border: 1px solid #c9c3ba; padding: 1em; text-decoration: none; }
-      		ul#maintabs li a:hover { background-color: #f1f0ee; }
-      		ul#maintabs li a.selected { color: #000; background-color: #f1f0ee; font-weight: bold; padding: 1.4em 1.2em 1em 1.2em; }
-      		div.tabContent { border: 1px solid #c9c3ba; padding: 0.5em; background-color: #f1f0ee; }
-      		div.tabContent.hide { display: none; }
-    	</style>
-  	</head>
-	"}
-	dat += {"[content]</body></html>"}
-	return dat
-
 /obj/item/spellbook/attack_self(mob/user as mob)
 	if(!owner)
 		to_chat(user, "<span class='notice'>You bind the spellbook to yourself.</span>")
@@ -969,8 +944,9 @@
 		dat += cat_dat[category]
 		dat += "</div>"
 
-	var/datum/browser/popup = new(user, "spellbook", "Выбор школы", 800, 600)
-	popup.set_content(wrap(dat))
+	var/datum/browser/popup = new(user, "spellbook", "Spellbook", 800, 600)
+	popup.set_content(dat)
+	popup.add_stylesheet("spellbook", 'html/css/spellbook.css')
 	popup.open(TRUE)
 	onclose(user, "spellbook")
 	return

@@ -291,7 +291,7 @@
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
@@ -505,3 +505,10 @@
 #define SILENT_ADJACENCY (1<<10)
 /// Allows pAIs to perform an action
 #define ALLOW_PAI (1<<11)
+
+///Squash flags. For squashable element
+
+///Whether or not the squashing requires the squashed mob to be lying down
+#define SQUASHED_SHOULD_BE_DOWN (1<<0)
+///Whether or not to gib when the squashed mob is moved over
+#define SQUASHED_SHOULD_BE_GIBBED (1<<0)

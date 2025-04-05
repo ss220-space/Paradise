@@ -3,6 +3,8 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	for(var/mob/dead/observe as anything in orbiters)
+		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -339,12 +341,12 @@
 		clear_fullscreen("remote_view", 0)
 
 
-/mob/dead/reset_perspective(atom/A)
+/mob/dead/reset_perspective(atom/new_eye)
 	. = ..()
 	if(.)
 		// Allows sharing HUDs with ghosts
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
@@ -545,7 +547,7 @@
 	if(href_list["mach_close"])
 		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
-		src << browse(null, t1)
+		close_window(src, t1)
 
 	if(href_list["flavor_more"])
 		var/datum/browser/popup = new(usr, name, name, 500, 200)

@@ -117,10 +117,12 @@
     }
 
     // Perform a standard call via location.href
-    if (url.length < 2048) {
+    // Remove condition with 516
+    if (url.length < 2048 || Byond.BLINK !== null) {
       location.href = 'byond://' + url;
       return;
     }
+      // Remove with 516
     // Send an HTTP request to DreamSeeker's HTTP server.
     // Allows sending much bigger payloads.
     var xhr = new XMLHttpRequest();
@@ -561,6 +563,29 @@ window.replaceHtml = function (inline_html) {
       + "<!-- tgui:inline-html-end -->"
   );
 };
+
+/** Remove conditionals with 516*/
+if ('devicePixelRatio' in window) {
+  // Проверка поддержки CSS-переменных
+  var supportsCssVariables = false;
+  try {
+    var testElement = document.createElement('div');
+    testElement.style.setProperty('--test', '1px');
+    supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
+  } catch (e) {
+    supportsCssVariables = false;
+  }
+
+  if (supportsCssVariables) {
+    var updateDpr = function () {
+      document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+    };
+
+    updateDpr();
+    window.addEventListener('resize', updateDpr);
+  }
+}
+
 </script>
 
 <style>

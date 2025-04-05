@@ -80,7 +80,7 @@
 		if(M.mind.assigned_role in list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE))
 			active_with_role["Engineer"]++
 
-		if(M.mind.assigned_role in list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN))
+		if(M.mind.assigned_role in list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN))
 			active_with_role["Medical"]++
 
 		if(M.mind.assigned_role in GLOB.security_positions)

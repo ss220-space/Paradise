@@ -158,7 +158,7 @@
 
 /obj/machinery/power/generator/attack_hand(mob/user)
 	if(..())
-		user << browse(null, "window=teg")
+		close_window(user, "teg")
 		return
 	interact(user)
 
@@ -240,7 +240,7 @@
 	if(..())
 		return 0
 	if( href_list["close"] )
-		usr << browse(null, "window=teg")
+		close_window(usr, "teg")
 		usr.unset_machine()
 		return 0
 	if( href_list["check"] )

@@ -56436,10 +56436,8 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "hRx" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/obj/effect/landmark/start/shaft_miner,
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -60489,6 +60487,14 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"iRP" = (
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purple"
+	},
+/area/quartermaster/miningdock)
 "iSa" = (
 /obj/machinery/atm{
 	pixel_y = 32
@@ -84829,9 +84835,7 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "oHJ" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -91852,6 +91856,7 @@
 "qjh" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/arrow,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -95781,7 +95786,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -108360,13 +108365,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
-"tVr" = (
-/obj/machinery/station_map/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/security/main)
 "tVu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -171405,7 +171403,7 @@ duw
 hzg
 dDb
 aZp
-kMn
+iRP
 mfh
 mfh
 djR
@@ -181196,7 +181194,7 @@ ePU
 wCH
 wCY
 lhS
-tVr
+vcX
 iHp
 uZU
 xFL

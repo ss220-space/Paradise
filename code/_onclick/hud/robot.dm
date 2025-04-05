@@ -209,14 +209,13 @@
 
 	return robot.shown_robot_modules
 
-/datum/hud/proc/update_robot_modules_display()
+/datum/hud/proc/update_robot_modules_display(mob/viewer)
 	if(!isrobot(mymob))
 		return
 
 	var/mob/living/silicon/robot/R = mymob
 
-	if(!R.client)
-		return
+	var/mob/screenmob = viewer || R
 
 	if(!R.module)
 		return
@@ -228,9 +227,9 @@
 	if(R.module_state_3)
 		R.client.screen += R.module_state_3
 
-	if(R.shown_robot_modules && hud_shown)
+	if(R.shown_robot_modules && screenmob.hud_used.hud_shown)
 		//Modules display is shown
-		R.client.screen += module_store_icon	//"store" icon
+		screenmob.client.screen += module_store_icon	//"store" icon
 
 		if(!R.module.modules)
 			to_chat(usr, "<span class='danger'>Selected module has no modules to select.</span>")
@@ -241,7 +240,7 @@
 
 		var/display_rows = CEILING(R.module.modules.len / 8, 1)
 		R.robot_modules_background.screen_loc = "CENTER-4:16,SOUTH+1:7 to CENTER+3:16,SOUTH+[display_rows]:7"
-		R.client.screen += R.robot_modules_background
+		screenmob.client.screen += R.robot_modules_background
 
 		var/x = -4	//Start at CENTER-4,SOUTH+1
 		var/y = 1
@@ -259,7 +258,7 @@
 		for(var/atom/movable/A in R.module.modules)
 			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
 				//Module is not currently active
-				R.client.screen += A
+				screenmob.client.screen += A
 				if(x < 0)
 					A.screen_loc = "CENTER[x]:16,SOUTH+[y]:7"
 				else
@@ -273,11 +272,34 @@
 
 	else
 		//Modules display is hidden
-		R.client.screen -= module_store_icon
+		screenmob.client.screen -= module_store_icon
 
 		for(var/atom/A in R.module.modules)
 			if( (A != R.module_state_1) && (A != R.module_state_2) && (A != R.module_state_3) )
 				//Module is not currently active
-				R.client.screen -= A
+				screenmob.client.screen -= A
 		R.shown_robot_modules = 0
-		R.client.screen -= R.robot_modules_background
+		screenmob.client.screen -= R.robot_modules_background
+
+
+/datum/hud/robot/persistent_inventory_update(mob/viewer)
+	if(!mymob)
+		return
+	var/mob/living/silicon/robot/cyborg = mymob
+
+	var/mob/screenmob = viewer || cyborg
+
+	if(screenmob.hud_used.hud_shown)
+		if(cyborg.module_state_1)
+			screenmob.client.screen += cyborg.module_state_1
+		if(cyborg.module_state_2)
+			screenmob.client.screen += cyborg.module_state_2
+		if(cyborg.module_state_3)
+			screenmob.client.screen += cyborg.module_state_3
+	else
+		if(cyborg.module_state_1)
+			screenmob.client.screen -= cyborg.module_state_1
+		if(cyborg.module_state_2)
+			screenmob.client.screen -= cyborg.module_state_2
+		if(cyborg.module_state_3)
+			screenmob.client.screen -= cyborg.module_state_3
