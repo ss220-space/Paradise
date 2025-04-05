@@ -379,7 +379,7 @@
 		. = islist(message_AI) ? pick(message_AI) : message_AI
 	else if(is_monkeybasic(user) && message_monkey)
 		. = islist(message_monkey) ? pick(message_monkey) : message_monkey
-	else if(isanimal(user) && message_simple)
+	else if((isanimal(user)  || isbasicmob(user)) && message_simple)
 		. = islist(message_simple) ? pick(message_simple) : message_simple
 	else if(isobserver(user) && message_observer)
 		. = islist(message_observer) ? pick(message_observer) : message_observer

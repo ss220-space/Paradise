@@ -21,6 +21,7 @@ have ways of interacting with a specific mob and control it.
 		BB_MONKEY_GUN_WORKED = TRUE,
 		BB_MONKEY_NEXT_HUNGRY = 0
 	)
+	idle_behavior = /datum/idle_behavior/idle_monkey
 
 /datum/ai_controller/monkey/angry
 
@@ -28,7 +29,7 @@ have ways of interacting with a specific mob and control it.
 	. = ..()
 	if(. & AI_CONTROLLER_INCOMPATIBLE)
 		return
-	blackboard[BB_MONKEY_AGRESSIVE] = TRUE //Angry cunt
+	blackboard[BB_MONKEY_AGGRESSIVE] = TRUE //Angry cunt
 
 /datum/ai_controller/monkey/TryPossessPawn(atom/new_pawn)
 	if(!isliving(new_pawn))
@@ -51,13 +52,14 @@ have ways of interacting with a specific mob and control it.
 	RegisterSignal(new_pawn, COMSIG_CARBON_CUFF_ATTEMPTED, PROC_REF(on_attempt_cuff))
 	RegisterSignal(new_pawn, COMSIG_MOB_MOVESPEED_UPDATED, PROC_REF(update_movespeed))
 	RegisterSignal(new_pawn, COMSIG_FOOD_EATEN, PROC_REF(on_eat))
+	RegisterSignal(new_pawn, COMSIG_LIVING_RESTING, PROC_REF(on_resting))
 
 	movement_delay = living_pawn.cached_multiplicative_slowdown
 	return ..() //Run parent at end
 
 /datum/ai_controller/monkey/UnpossessPawn(destroy)
 	UnregisterSignal(pawn, list(COMSIG_PARENT_ATTACKBY, COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_ATOM_BULLET_ACT, COMSIG_ATOM_HITBY, COMSIG_LIVING_START_PULL,\
-	COMSIG_LIVING_TRY_SYRINGE, COMSIG_ATOM_HULK_ATTACK, COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_MOB_MOVESPEED_UPDATED, COMSIG_ATOM_ATTACK_ANIMAL, COMSIG_MOB_ATTACK_ALIEN))
+	COMSIG_LIVING_TRY_SYRINGE, COMSIG_ATOM_HULK_ATTACK, COMSIG_CARBON_CUFF_ATTEMPTED, COMSIG_MOB_MOVESPEED_UPDATED, COMSIG_ATOM_ATTACK_ANIMAL, COMSIG_MOB_ATTACK_ALIEN, COMSIG_MOVABLE_CROSS))
 	return ..() //Run parent at end
 
 // Stops sentient monkeys from being knocked over like weak dunces.
@@ -154,18 +156,6 @@ have ways of interacting with a specific mob and control it.
 			return TRUE
 	return FALSE
 
-//When idle just kinda fuck around.
-/datum/ai_controller/monkey/PerformIdleBehavior(delta_time)
-	var/mob/living/living_pawn = pawn
-
-	if(SPT_PROB(25, delta_time) && (living_pawn.mobility_flags & MOBILITY_MOVE) && isturf(living_pawn.loc) && !living_pawn.pulledby)
-		var/move_dir = pick(GLOB.alldirs)
-		living_pawn.Move(get_step(living_pawn, move_dir), move_dir)
-	else if(SPT_PROB(5, delta_time))
-		INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick("screech"))
-	else if(SPT_PROB(1, delta_time))
-		INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick("scratch","jump","roll","tail"))
-
 ///Reactive events to being hit
 /datum/ai_controller/monkey/proc/retaliate(mob/living/L)
 	var/list/enemies = blackboard[BB_MONKEY_ENEMIES]
@@ -258,3 +248,7 @@ have ways of interacting with a specific mob and control it.
 /datum/ai_controller/monkey/proc/on_eat(mob/living/pawn)
 	SIGNAL_HANDLER
 	blackboard[BB_MONKEY_NEXT_HUNGRY] = world.time + rand(120, 600) SECONDS
+
+/datum/ai_controller/monkey/proc/on_resting(new_resting)
+	SIGNAL_HANDLER
+	queue_behavior(/datum/ai_behavior/resist)

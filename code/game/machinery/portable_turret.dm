@@ -338,6 +338,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
 			Gun.cell.charge = gun_charge
+			Gun.turret_deconstruct()
 			Gun.update_icon()
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -903,12 +904,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 
 		if(TURRET_BUILD_ARMOR_SECURED)
 			if(istype(I, /obj/item/gun/energy)) //the gun installation part
-				if(isrobot(user))
+				var/obj/item/gun/energy/new_gun = I
+				if(isrobot(user) || !new_gun.turret_check())
 					return ATTACK_CHAIN_PROCEED
 				add_fingerprint(user)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
-				var/obj/item/gun/energy/new_gun = I
 				installation = new_gun.type	//installation becomes new_gun.type
 				gun_charge = new_gun.cell.charge	//the gun's charge is stored in gun_charge
 				to_chat(user, span_notice("You add [I] to the turret."))
@@ -991,6 +992,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			build_step = TURRET_BUILD_ARMOR_SECURED
 			var/obj/item/gun/energy/removed_gun = new installation(loc)
 			removed_gun.cell.charge = gun_charge
+			removed_gun.turret_deconstruct()
 			removed_gun.update_icon()
 			to_chat(user, span_notice("You remove [removed_gun] from the turret frame."))
 			installation = null

@@ -63,7 +63,7 @@
 
 /obj/machinery/computer/library/public/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=publiclibrary")
+		close_window(usr, "publiclibrary")
 		onclose(usr, "publiclibrary")
 		return
 

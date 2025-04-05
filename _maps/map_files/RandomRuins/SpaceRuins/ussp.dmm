@@ -5181,7 +5181,7 @@
 	},
 /area/derelict/dining)
 "mZ" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -7631,7 +7631,7 @@
 /turf/simulated/floor/plasteel,
 /area/derelict/engineer_area)
 "wY" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/carpet,
 /area/derelict/crew_quarters)
 "xa" = (
@@ -8047,7 +8047,7 @@
 /area/derelict/dining)
 "BC" = (
 /obj/item/trash/spentcasing,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -8328,7 +8328,7 @@
 /turf/space,
 /area/space)
 "Ec" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -8552,7 +8552,7 @@
 /area/derelict/church)
 "Gt" = (
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -9008,7 +9008,7 @@
 /area/space)
 "Li" = (
 /obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -9062,7 +9062,7 @@
 /turf/simulated/wall/mineral/titanium,
 /area/derelict/rnd)
 "Me" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -9392,7 +9392,7 @@
 	},
 /area/derelict/bridge)
 "PB" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "wood"
 	},
@@ -9597,7 +9597,7 @@
 	},
 /obj/structure/curtain/open/shower,
 /obj/effect/decal/cleanable/dirt,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -9772,7 +9772,7 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dust,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/structure/spider/stickyweb,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"

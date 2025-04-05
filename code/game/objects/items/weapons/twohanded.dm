@@ -1023,8 +1023,9 @@
 /obj/item/clothing/gloves/color/black/pyro_claws
 	name = "Fusion gauntlets"
 	desc = "Cybersun Industries developed these gloves after a grifter fought one of their soldiers, who attached a pyro core to an energy sword, and found it mostly effective."
-	item_color = "pyro"
 	icon_state = "pyro"
+	item_state = "pyro"
+	item_color = "pyro"
 	can_be_cut = FALSE
 	actions_types = list(/datum/action/item_action/toggle)
 	var/on_cooldown = FALSE

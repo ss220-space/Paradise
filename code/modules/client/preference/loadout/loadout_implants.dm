@@ -10,6 +10,7 @@
 
 /datum/gear/implant/meson
 	index_name = "Meson Scanner Implant"
+	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/meson
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ATMOSTECH, JOB_TITLE_ENGINEER, JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER)
 
@@ -21,15 +22,18 @@
 
 /datum/gear/implant/medical
 	index_name = "Medical Hud Implant"
+	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/medical
 	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_CHEMIST, JOB_TITLE_DOCTOR, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC, JOB_TITLE_VIROLOGIST)
 
 /datum/gear/implant/diagnostic
 	index_name = "Diagnostical Hud Implant"
+	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/diagnostic
 	allowed_roles = list(JOB_TITLE_RD, JOB_TITLE_ROBOTICIST)
 
 /datum/gear/implant/science
 	index_name = "Science Hud Implant"
+	cost = 3
 	path = /obj/item/organ/internal/cyberimp/eyes/hud/science
 	allowed_roles = list(JOB_TITLE_CHEMIST, JOB_TITLE_SCIENTIST, JOB_TITLE_RD, JOB_TITLE_GENETICIST)

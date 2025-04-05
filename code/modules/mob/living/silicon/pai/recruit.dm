@@ -46,8 +46,8 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 			card.looking_for_personality = 0
 
 			pai_candidates -= candidate
-			usr << browse(null, "window=findPai")
-			usr << browse(null, "window=paicard")
+			close_window(usr, "findPai")
+			close_window(usr, "paicard")
 		return
 
 	if("signup" in href_list)
@@ -121,7 +121,7 @@ GLOBAL_DATUM_INIT(paiController, /datum/paiController, new) // Global handler fo
 					else
 						to_chat(usr, span_notice("Вы отменили заявку на становление пИИ."))
 
-				usr << browse(null, "window=paiRecruit")
+				close_window(usr, "paiRecruit")
 				return
 		recruitWindow(usr)
 

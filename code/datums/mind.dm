@@ -2293,8 +2293,8 @@
 				SSticker.mode.shadows += src
 				special_role = SPECIAL_ROLE_SHADOWLING
 				SSticker.mode.recount_required_thralls()
-				to_chat(current, "<span class='shadowling'><b>Something stirs deep in your mind. A red light floods your vision, and slowly you remember. Though your human disguise has served you well, the \
-				time is nigh to cast it off and enter your true form. You have disguised yourself amongst the humans, but you are not one of them. You are a shadowling, and you are to ascend at all costs.\
+				to_chat(current, "<span class='shadowling'><b>Что-то всплывает в глубинах твоего разума. Твой взгляд заливает красным свечением и ты медленно вспоминаешь. Твоя маскировка под гуманойда послужила тебе прекрасно, но \
+				время отбросить её и вернутся к своей истинной форме. Ты замаскировался под гуманойда, но ты не один из них. Ты тенелинг и ты должен возвыситься любой ценой.\
 				</b></span>")
 				SSticker.mode.finalize_shadowling(src)
 				SSticker.mode.update_shadow_icons_added(src)
@@ -2486,7 +2486,7 @@
 				blob_overmind.is_infinity = !blob_overmind.is_infinity
 				log_admin("[key_name(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name(current)]")
 				message_admins("[key_name_admin(usr)] make blob points [blob_overmind.is_infinity? "infinity" : "not infinity"] to [key_name_admin(current)]")
-			
+
 			if("select_strain")
 				if(!isblobovermind(src))
 					return
@@ -2498,7 +2498,7 @@
 					blob_overmind.set_strain(strain)
 					log_admin("[key_name(usr)] changed the strain to [strain] for [key_name(current)]")
 					message_admins("[key_name_admin(usr)] changed the strain to [strain] for [key_name_admin(current)]")
-	
+
 	else if(href_list["terror"])
 		switch(href_list["terror"])
 			if("datumise")
@@ -2507,7 +2507,7 @@
 				var/mob/living/simple_animal/hostile/poison/terror_spider/spider = current
 				spider.add_datum_if_not_exist()
 				log_and_message_admins("has made [key_name(current)] into a \"Terror Spider\"")
-	
+
 	else if(href_list["xenomorph"])
 		switch(href_list["xenomorph"])
 			if("datumise")
@@ -3014,6 +3014,21 @@
 		if(spell.type == instance_or_path)
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
+
+/datum/mind/proc/deactivate_spell(obj/effect/proc_holder/spell/instance_or_path)
+	if(!ispath(instance_or_path))
+		instance_or_path = instance_or_path.type
+
+	var/obj/effect/proc_holder/spell/spell = LAZYIN(spell_list, locate(instance_or_path))
+
+	if(!spell)
+		return FALSE
+	
+	LAZYREMOVE(spell_list, spell)
+
+	spell.action.Remove(current)
+
+	return TRUE
 
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)

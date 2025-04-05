@@ -1103,6 +1103,17 @@
 	set hidden = TRUE
 	client_reset_held_keys()
 
+/// Clears the client's screen, aside from ones that opt out
+/client/proc/clear_screen()
+	for(var/object in screen)
+		if(istype(object, /atom/movable/screen))
+			var/atom/movable/screen/screen_object = object
+			if(!screen_object.clear_with_screen)
+				continue
+		if(istype(object, /atom/movable/render_plane_relay) || istype(object, /atom/movable/screen/parallax_layer) || istype(object, /atom/movable/screen/plane_master/))
+			continue
+
+		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
