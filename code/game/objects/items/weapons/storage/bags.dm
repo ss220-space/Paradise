@@ -233,8 +233,7 @@
 	else
 		var/list/bombs = list()
 		var/list/bombs_inside = list()
-		for(var/I in contents)
-			var/atom/explos = I
+		for(var/atom/explos as anything in contents)
 			bombs[explos.name] = image(icon = explos.icon, icon_state = explos.icon_state)
 			bombs_inside[explos.name] = explos
 		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
