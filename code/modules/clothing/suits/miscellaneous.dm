@@ -1738,7 +1738,7 @@
 /obj/item/clothing/head/hooded/penguin_hood
 	name = "penguin hood"
 	desc = "Капюшон от костюма пингвина."
-ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "капюшон костюма пингвина",
 		GENITIVE = "капюшона костюма пингвина",
 		DATIVE = "капюшону костюма пингвина",
