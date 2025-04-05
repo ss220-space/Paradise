@@ -12,11 +12,11 @@
 	desc = "Самозарядное, дальнобойное шахтерское устройство, наносящее дополнительный урон при низком давлении. Оснащен стандартным хранилищем для модулей улучшения."
 	ru_names = list(
         NOMINATIVE = "прото-кинетический акселератор",
-        GENITIVE = "прото-кинетического аскелератора",
-        DATIVE = "прото-кинетическому аскелератору",
-        ACCUSATIVE = "прото-кинетический аскелератор",
-        INSTRUMENTAL = "прото-кинетическим аскелератором",
-        PREPOSITIONAL = "прото-кинетическом аскелераторе"
+        GENITIVE = "прото-кинетического акселератора",
+        DATIVE = "прото-кинетическому акселератору",
+        ACCUSATIVE = "прото-кинетический акселератор",
+        INSTRUMENTAL = "прото-кинетическим акселератором",
+        PREPOSITIONAL = "прото-кинетическом акселераторе"
 	)
 	gender = MALE
 	icon_state = "kineticgun"
@@ -57,7 +57,7 @@
 		if(max_mod_capacity)
 			. += span_notice("Осталось <b>[get_remaining_mod_capacity()]%</b> свободного хранилища для улучшений.")
 			for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
-				. += span_notice("Установлен модуль '<b>[MK.name]</b>', занимая <b>[MK.cost]%</b> хранилища.")
+				. += span_notice("Установлен модуль '<b>[MK.name]</b>', занимающий <b>[MK.cost]%</b> хранилища.")
 
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
@@ -226,14 +226,14 @@
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
 	name = "experimental kinetic accelerator"
-	desc = "A modified version of the proto-kinetic accelerator, with more modkit space of the standard version."
+	desc = "Модифицированная версия Кинетического Акселератора, оснащенная расширенным хранилищем для модулей и блестящим корпусом."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "экспериментальный кинетический акселератор",
+        GENITIVE = "экпериментального кинетического акселератора",
+        DATIVE = "экспериментальному кинетическому акселератору",
+        ACCUSATIVE = "экспериментальный кинетический акселератор",
+        INSTRUMENTAL = "экспериментальным кинетическим акселератором",
+        PREPOSITIONAL = "экспериментальном кинетическом акселераторее"
 	)
 	gender =
 	icon_state = "kineticgun_h"
