@@ -10,6 +10,7 @@
 	need_active_overlay = TRUE
 	human_req = FALSE
 	var/infesting = FALSE
+	var/cast_time = 5 SECONDS
 
 /obj/effect/proc_holder/spell/borer_infest/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
@@ -36,7 +37,7 @@
 	infesting = TRUE
 	to_chat(user, "Вы подползаете к [target] и начинаете искать [genderize_ru(target.gender,"его","её","его","их" )] слуховой проход...")
 
-	if(!do_after(user, 5 SECONDS, target, NONE))
+	if(!do_after(user, cast_time, target, NONE))
 		to_chat(user, "Как только [target] отходит, вы срываетесь и падаете на пол.")
 		infesting = FALSE
 		return
@@ -72,6 +73,8 @@
 	need_active_overlay = TRUE
 	human_req = FALSE
 
+	var/weaken_time = 6 SECONDS
+
 /obj/effect/proc_holder/spell/borer_dominate/create_new_targeting()
 	var/datum/spell_targeting/click/T = new()
 	T.range = 3
@@ -79,9 +82,9 @@
 	return T
 
 /obj/effect/proc_holder/spell/borer_dominate/can_cast(mob/living/user, charge_check = TRUE, show_message = FALSE)
-
 	if (is_ventcrawling(user) || !src || user.stat)
 		return FALSE
+
 	. = ..()
 
 /obj/effect/proc_holder/spell/borer_dominate/valid_target(mob/living/carbon/human/target, user)
@@ -96,7 +99,7 @@
 
 	to_chat(user, span_warning("Вы пронзили разум [target] пси-потоком, парализуя [genderize_ru(target.gender,"его","её","его","их" )] конечности волной первородного ужаса!"))
 	to_chat(target, span_warning("Вы чувствуете, как на вас наваливается жуткое чувство страха, леденящее конечности и заставляющее сердце бешено колотиться."))
-	target.Weaken(6 SECONDS)
+	target.Weaken(weaken_time)
 
 /obj/effect/proc_holder/spell/borer_force_say
 	name = "Speak as host"

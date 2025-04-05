@@ -41,11 +41,20 @@
 	if(!poi)
 		return
 
-	var/mob/dead/observer/user = usr
-	user.ManualFollow(poi)
-	user.client.perspective = EYE_PERSPECTIVE
+	var/atom/cached_target = owner.orbiting
+	owner.orbiting = null
+	owner.reset_perspective(null)
+	owner.orbiting = cached_target
+
 	if(auto_observe)
-		user.do_observe(poi)
+		var/mob/eye_mob = poi
+		if(istype(eye_mob) && eye_mob.client)
+			owner.do_observe(eye_mob)
+		else
+			owner.cleanup_observe()
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
+
+	owner.ManualFollow(poi)
 
 /datum/orbit_menu/proc/toggle_auto_observe()
 	auto_observe = !auto_observe
@@ -56,10 +65,18 @@
 		return
 
 	if(auto_observe)
-		owner.do_observe(owner.orbiting)
-		owner.ManualFollow(owner.orbiting)
-	else
-		owner.reset_perspective(null)
+		var/mob/eye_mob = owner.orbiting
+		if(istype(eye_mob) && eye_mob.client)
+			owner.do_observe(eye_mob)
+			return
+		else
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
+
+	var/mob/eye_mob = owner.orbiting
+	owner.orbiting = null
+	owner.reset_perspective(null)
+	owner.cleanup_observe()
+	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)
 	var/list/data = list()

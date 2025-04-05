@@ -149,6 +149,9 @@
 		if(JOB_TITLE_MINER)
 			O = new /datum/outfit/plasmaman/mining
 
+		if(JOB_TITLE_MINING_MEDIC)
+			O = new /datum/outfit/plasmaman/mining_medic
+
 		if(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
 			O = new /datum/outfit/plasmaman/medical
 

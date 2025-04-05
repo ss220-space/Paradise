@@ -233,11 +233,12 @@
 	if(!ismob(mymob))
 		return FALSE
 
-	if(!mymob.client)
-		to_chat(viewmob, span_alert("Объект за которым Вы следите не имеет за собой игрока, показ инвентаря невозможен!"))
+	var/mob/screenmob = viewmob || mymob
+	if(!screenmob.client)
 		return FALSE
 
-	var/mob/screenmob = viewmob || mymob
+	screenmob.client.clear_screen()
+	screenmob.client.apply_clickcatcher()
 
 	var/display_hud_version = version
 	if(!display_hud_version)	//If 0 or blank, display the next hud version
@@ -299,7 +300,10 @@
 	mymob.update_action_buttons(TRUE)
 	reorganize_alerts()
 	reload_fullscreen()
-	update_parallax_pref()
+	if(screenmob == mymob)
+		update_parallax_pref(screenmob)
+	else
+		viewmob.hud_used.update_parallax_pref()
 	plane_masters_update()
 
 	SEND_SIGNAL(mymob, COMSIG_MOB_HUD_REFRESHED, src)

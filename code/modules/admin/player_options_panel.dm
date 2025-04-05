@@ -193,6 +193,8 @@
 			usr.client.debug_variables(M)
 		if("tp")
 			usr.client.holder.Topic(null, list("traitor" = M.UID()))
+		if("obs")
+			usr.client.holder.Topic(null, list("observeinventory" = M.UID()))
 		if("logs")
 			usr.client.holder.Topic(null, list("open_logging_view" = M.UID()))
 		if("notes")

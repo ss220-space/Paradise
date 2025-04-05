@@ -173,7 +173,7 @@
 
 /datum/browser/proc/close()
 	if(!isnull(window_id))//null check because this can potentially nuke goonchat
-		user << browse(null, "window=[window_id]")
+		close_window(user, window_id)
 	else
 		WARNING("Browser [title] tried to close with a null ID")
 

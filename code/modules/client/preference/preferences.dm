@@ -945,7 +945,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Узнать о \"Выборе должности\"</a></center>"
 		html += "</tt>"
 
-	user << browse(null, "window=preferences")
+	close_window(user, "preferences")
 	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Предпочитаемые должности</div>", width, height)
 	popup.set_window_options("can_close=0")
 	var/html_string = html.Join()
@@ -1084,7 +1084,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/datum/job/job = SSjobs.GetJob(role)
 
 	if(!job)
-		user << browse(null, "window=mob_occupation")
+		close_window(user, "mob_occupation")
 		ShowChoices(user)
 		return
 
@@ -1215,7 +1215,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/SetJob(mob/user, role)
 	var/datum/job/job = SSjobs.GetJob(role)
 	if(!job)
-		user << browse(null, "window=mob_occupation")
+		close_window(user, "mob_occupation")
 		ShowChoices(user)
 		return
 
@@ -1417,7 +1417,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
-				user << browse(null, "window=mob_occupation")
+				close_window(user, "mob_occupation")
 				ShowChoices(user)
 			if("reset")
 				ResetJobs()
@@ -1455,7 +1455,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		switch(href_list["task"])
 			if("close")
-				user << browse(null, "window=disabil")
+				close_window(user, "disabil")
 				ShowChoices(user)
 			if("reset")
 				disabilities=0
@@ -1474,7 +1474,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			SetRecords(user)
 			return
 		else
-			user << browse(null, "window=records")
+			close_window(user, "records")
 		if(href_list["task"] == "med_record")
 			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 			if(isnull(medmsg))
@@ -2715,7 +2715,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									else
 										keybindings_overrides[KB.name] = key_overrides
 
-								user << browse(null, "window=capturekeypress")
+								close_window(user, "capturekeypress")
 							else
 								capture_keybinding(user, KB, href_list["old"])
 								return
@@ -2990,7 +2990,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	popup.open(0)
 
 /datum/preferences/proc/close_load_dialog(mob/user)
-	user << browse(null, "window=saves")
+	close_window(user, "saves")
 
 //Check if the user has ANY job selected.
 /datum/preferences/proc/check_any_job()
