@@ -646,6 +646,7 @@
 /obj/item/borg/upgrade/storageincreaser/action(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
+
 	if(istype(robot.module, /obj/item/robot_module/miner))
 		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
 		satchel.storage_slots = 15
