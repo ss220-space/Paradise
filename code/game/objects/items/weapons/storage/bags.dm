@@ -237,7 +237,7 @@
 		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
 		nextbomb = bombs_inside[nextbomb]
 	else
-		balloon_alert(user, "Сумка пустая!")
+		balloon_alert(user, "сумка пустая!")
 
 /obj/item/storage/bag/kaboom/attack_self(mob/user)
 	bombradialmenu(user)
