@@ -229,8 +229,8 @@
 	if(owner.put_in_hands(O))
 		to_chat(owner, span_warning("[capitalize(O.declent_ru(NOMINATIVE))] появился у вас в руке!"))
 	else
-		owner.visible_message(span_warning("[capitalize(O.declent_ru(NOMINATIVE))] появляется у ног [owner]!"),
-							  span_cultitalic("[capitalize(O.declent_ru(NOMINATIVE)] появляется у ваших ног.")))
+		owner.visible_message(span_warning("[capitalize(O.declent_ru(NOMINATIVE))] появляется у ног [owner]!"), \
+							span_cultitalic("[capitalize(O.declent_ru(NOMINATIVE)] появляется у ваших ног.")))
 	playsound(owner, 'sound/magic/cult_spell.ogg', 25, TRUE)
 	charges--
 	desc = base_desc
@@ -247,6 +247,7 @@
 
 /datum/action/innate/cult/blood_spell/horror
 	name = "Галлюцинации"
+	name_accusative = "галлюцинации"
 	desc = "Накладывает галлюцинации на цель. Тихое и незаметное заклинание."
 	button_icon_state = "horror"
 	var/obj/effect/proc_holder/horror/PH
@@ -302,9 +303,9 @@
 		attached_action.desc = attached_action.base_desc
 		attached_action.desc += "<br><b><u>Остал[declension_ru(attached_action.charges, "ся", "ось", "ось")] [attached_action.charges] заряд[declension_ru(attached_action.charges, "", "а", "ов")]</u></b>."
 		attached_action.UpdateButtonIcon()
-		user.ranged_ability.remove_ranged_ability(user, span_cult("<b>[H] has been cursed with living nightmares!</b>"))
+		user.ranged_ability.remove_ranged_ability(user, span_cult("<b>[H] был[genderize_ru(H.gender, "", "а", "о", "и")] проклят[genderize_ru(H.gender, "", "а", "о", "и")] ожившими кошмарами!</b>"))
 		if(attached_action.charges <= 0)
-			to_chat(ranged_ability_user, span_cult("You have exhausted the spell's power!"))
+			to_chat(ranged_ability_user, span_cult("Вы исчерпали силу заклинания!"))
 			qdel(src)
 
 /datum/action/innate/cult/blood_spell/veiling
@@ -318,7 +319,7 @@
 
 /datum/action/innate/cult/blood_spell/veiling/Activate()
 	if(!revealing) // Hiding stuff
-		owner.visible_message("<span class='warning'>Thin grey dust falls from [owner]'s hand!</span>", \
+		owner.visible_message(span_warning("Thin grey dust falls from [owner]'s hand!"), \
 		"<span class='cultitalic'>You invoke the veiling spell, hiding nearby runes and cult structures.</span>")
 		charges--
 		playsound(owner, 'sound/magic/smoke.ogg', 25, TRUE)
