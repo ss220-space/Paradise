@@ -167,14 +167,14 @@
 	switch(user.zone_selected)
 		if(BODY_ZONE_PRECISE_EYES)
 			user.visible_message(
-				span_warning("[user] is trying to show the paper to you."),
+				span_warning("[user] is trying to show the paper to [target]."),
 				span_notice("You hold up a paper and try to show it to [target]."),
 			)
 			if(!do_after(user, 0.7 SECONDS, target, NONE))
 				to_chat(user, span_warning("You fail to show the paper to [target]."))
 				return .
 			user.visible_message(
-				span_notice("[user] shows the paper to you."),
+				span_notice("[user] shows the paper to [target]."),
 				span_notice("You hold up a paper and show it to [target]."),
 			)
 			target.examinate(src)
@@ -203,18 +203,20 @@
 		return
 	doggo.changeNext_move(CLICK_CD_MELEE)
 	if(world.time < doggo.last_eaten + 30 SECONDS)
-		to_chat(doggo, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		to_chat(doggo, span_warning("You are too full to try eating [src] now."))
 		return
 
-	doggo.visible_message("<span class='warning'>[doggo] starts chewing the corner of [src]!</span>",
-		"<span class='notice'>You start chewing the corner of [src].</span>",
-		"<span class='warning'>You hear a quiet gnawing, and the sound of paper rustling.</span>")
+	doggo.visible_message(
+		span_warning("[doggo] starts chewing the corner of [src]!"),
+		span_notice("You start chewing the corner of [src]."),
+		span_warning("You hear a quiet gnawing, and the sound of paper rustling.")
+	)
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
 	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
-		to_chat(doggo, "<span class='warning'>You are too full to try eating [src] now.</span>")
+		to_chat(doggo, span_warning("You are too full to try eating [src] now."))
 		return
 	doggo.last_eaten = world.time
 
@@ -229,13 +231,18 @@
 		crumped.update_icon()
 		qdel(src)
 
-		doggo.visible_message("<span class='warning'>[doggo] finishes eating [src][message_ending]</span>",
-			"<span class='notice'>You finish eating [src][message_ending]</span>")
+		doggo.visible_message(
+			span_warning("[doggo] finishes eating [src][message_ending]"),
+			span_notice("You finish eating [src][message_ending]")
+		)
 		doggo.emote("bark")
 
 	// 10% chance of the paper just being eaten entirely.
 	else
-		doggo.visible_message("<span class='warning'>[doggo] swallows [src] whole!</span>", "<span class='notice'>You swallow [src] whole. Tasty!</span>")
+		doggo.visible_message(
+			span_warning("[doggo] swallows [src] whole!"),
+			span_notice("You swallow [src] whole. Tasty!")
+		)
 		playsound(doggo, 'sound/items/eatfood.ogg', 50, TRUE)
 		qdel(src)
 
@@ -529,14 +536,8 @@
 		bundle.pixel_y = pixel_y
 		forceMove(bundle)
 
-	var/datum/browser/popup = new(user, "[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
-	popup.include_default_stylesheet = FALSE
-	popup.set_content("")
-	popup.open(FALSE)
-	var/datum/browser/popup_paper = new(user, "Paper[UID()]")
-	popup_paper.include_default_stylesheet = FALSE
-	popup_paper.set_content("")
-	popup_paper.open(FALSE)
+	close_window(user, "[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
+	close_window(user, "Paper[UID()]")
 	bundle.papers += src
 	bundle.papers += I
 	bundle.amount++
@@ -766,6 +767,11 @@
 	name = "paper"
 	header = "<p><img style='display: block; margin-left: auto; margin-right: auto;' src='solgovlogo.png' width='220' height='135' /></p><hr />"
 	info = ""
+
+/obj/item/paper/human
+	name = "paper"
+	info =  ""
+	language = LANGUAGE_SOL_COMMON
 
 /obj/item/paper/central_command
 	name = "Директива Центрального Командования"

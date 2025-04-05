@@ -105,6 +105,7 @@
 		D.stage_act()
 
 /mob/living/proc/handle_environment(datum/gas_mixture/environment)
+	SEND_SIGNAL(src, COMSIG_LIVING_HANDLE_BREATHING, environment)
 	return
 
 //this updates all special effects: mainly stamina

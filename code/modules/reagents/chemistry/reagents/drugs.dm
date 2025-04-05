@@ -512,9 +512,9 @@
 		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
 		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
-		M.apply_effect(5, IRRADIATE, negate_armor = 1)
-		M.adjustToxLoss(5)
-		M.adjustBrainLoss(10)
+		M.apply_effect(volume, IRRADIATE, negate_armor = 1)
+		M.adjustToxLoss(volume)
+		M.adjustBrainLoss(volume * 2)
 	else
 		to_chat(M, span_notice("Вы чувствуете себя соленоватым."))
 

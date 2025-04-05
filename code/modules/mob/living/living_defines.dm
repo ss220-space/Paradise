@@ -151,3 +151,6 @@
 
 	//LETTING SIMPLE ANIMALS ATTACK? WHAT COULD GO WRONG. Defaults to zero so Ian can still be cuddly
 	var/melee_damage = 0
+
+	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
+	var/xenobiology_spawned = FALSE

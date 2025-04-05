@@ -31,6 +31,8 @@ multiple modular subtrees with behaviors
 	COOLDOWN_DECLARE(failed_planning_cooldown)
 	/// All subtrees this AI has available, will run them in order, so make sure they're in the order you want them to run. On initialization of this type, it will start as a typepath(s) and get converted to references of ai_subtrees found in SSai_controllers when init_subtrees() is called
 	var/list/planning_subtrees
+	///The idle behavior this AI preforms when it has no actions.
+	var/datum/idle_behavior/idle_behavior = null
 
 	// Movement related things here
 	/// Reference to the movement datum we use. Is a type on initialize but becomes a ref afterwards.
@@ -41,16 +43,15 @@ multiple modular subtrees with behaviors
 	var/movement_delay = 0.1 SECONDS
 
 	// The variables below are fucking stupid and should be put into the blackboard at some point.
-	/// A list for the path we're currently following, if we're using JPS pathing
-	var/list/movement_path
-	/// Cooldown for JPS movement, how often we're allowed to try making a new path
-	COOLDOWN_DECLARE(repath_cooldown)
 	/// AI paused time
 	var/paused_until = 0
 
 /datum/ai_controller/New(atom/new_pawn)
 	change_ai_movement_type(ai_movement)
 	init_subtrees()
+
+	if(idle_behavior)
+		idle_behavior = new idle_behavior()
 
 	PossessPawn(new_pawn)
 
@@ -111,6 +112,8 @@ multiple modular subtrees with behaviors
 /// Proc for deinitializing the pawn to the old controller
 /datum/ai_controller/proc/UnpossessPawn(destroy)
 	UnregisterSignal(pawn,  list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT))
+	if(ai_movement.moving_controllers[src])
+		ai_movement.stop_moving_towards(src)
 	pawn.ai_controller = null
 	pawn = null
 	if(destroy)
@@ -130,8 +133,8 @@ multiple modular subtrees with behaviors
 		SSmove_manager.stop_looping(pawn) //stop moving
 		return //this should remove them from processing in the future through event-based stuff.
 
-	if(!LAZYLEN(current_behaviors))
-		PerformIdleBehavior(delta_time) //Do some stupid shit while we have nothing to do
+	if(!LAZYLEN(current_behaviors) && idle_behavior)
+		idle_behavior.perform_idle_behavior(delta_time, src) //Do some stupid shit while we have nothing to do
 		return
 
 	if(current_movement_target && get_dist(pawn, current_movement_target) > max_target_distance) //The distance is out of range
@@ -174,9 +177,6 @@ multiple modular subtrees with behaviors
 			ProcessBehavior(action_delta_time, current_behavior)
 			return
 
-///Perform some dumb idle behavior.
-/datum/ai_controller/proc/PerformIdleBehavior(delta_time)
-	return
 
 ///This is where you decide what actions are taken by the AI.
 /datum/ai_controller/proc/SelectBehaviors(delta_time)
@@ -259,3 +259,14 @@ multiple modular subtrees with behaviors
 /// Use this proc to define how your controller defines what access the pawn has for the sake of pathfinding, likely pointing to whatever ID slot is relevant
 /datum/ai_controller/proc/get_access()
 	return
+
+///Returns the minimum required distance to preform one of our current behaviors. Honestly this should just be cached or something but fuck you
+/datum/ai_controller/proc/get_minimum_distance()
+	var/minimum_distance = max_target_distance
+	// right now I'm just taking the shortest minimum distance of our current behaviors, at some point in the future
+	// we should let whatever sets the current_movement_target also set the min distance and max path length
+	// (or at least cache it on the controller)
+	for(var/datum/ai_behavior/iter_behavior as anything in current_behaviors)
+		if(iter_behavior.required_distance < minimum_distance)
+			minimum_distance = iter_behavior.required_distance
+	return minimum_distance

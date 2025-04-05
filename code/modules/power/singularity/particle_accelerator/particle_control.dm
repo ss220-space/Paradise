@@ -98,7 +98,7 @@
 		return
 
 	if(href_list["close"])
-		usr << browse(null, "window=pacontrol")
+		close_window(usr, "pacontrol")
 		usr.unset_machine()
 		return
 	if(href_list["togglep"])
@@ -257,7 +257,7 @@
 	if(((get_dist(src, user) > 1) && !isobserver(user)) || (stat & (BROKEN|NOPOWER)))
 		if(!istype(user, /mob/living/silicon))
 			user.unset_machine()
-			user << browse(null, "window=pacontrol")
+			close_window(user, "pacontrol")
 			return
 	user.set_machine(src)
 
