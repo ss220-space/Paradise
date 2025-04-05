@@ -295,9 +295,7 @@
 			else
 				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
 		else
-			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
-	else
-		to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
+			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
 
 	bombs_left = 0
 	nextbomb = nextchosen
