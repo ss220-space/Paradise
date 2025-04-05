@@ -42,6 +42,7 @@
 #include "code\__DEFINES\blob.dm"
 #include "code\__DEFINES\borer.dm"
 #include "code\__DEFINES\bots.dm"
+#include "code\__DEFINES\browser.dm"
 #include "code\__DEFINES\byond_tracy.dm"
 #include "code\__DEFINES\callbacks.dm"
 #include "code\__DEFINES\cargo.dm"

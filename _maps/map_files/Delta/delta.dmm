@@ -84843,9 +84843,7 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "oHJ" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -108375,13 +108373,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
-"tVr" = (
-/obj/machinery/station_map/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/security/main)
 "tVu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -181219,7 +181210,7 @@ ePU
 wCH
 wCY
 lhS
-tVr
+vcX
 iHp
 uZU
 xFL

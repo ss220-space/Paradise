@@ -3015,6 +3015,21 @@
 			LAZYREMOVE(spell_list, spell)
 			qdel(spell)
 
+/datum/mind/proc/deactivate_spell(obj/effect/proc_holder/spell/instance_or_path)
+	if(!ispath(instance_or_path))
+		instance_or_path = instance_or_path.type
+
+	var/obj/effect/proc_holder/spell/spell = LAZYIN(spell_list, locate(instance_or_path))
+
+	if(!spell)
+		return FALSE
+	
+	LAZYREMOVE(spell_list, spell)
+
+	spell.action.Remove(current)
+
+	return TRUE
+
 
 /datum/mind/proc/transfer_actions(mob/living/new_character, mob/living/old_current)
 	if(old_current && old_current.actions)

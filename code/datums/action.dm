@@ -45,6 +45,9 @@
 
 	if(owner.client)
 		owner.client.screen += button
+		for(var/mob/dead/observer/observe in user.orbiters)
+			if(observe.client && istype(observe))
+				observe.client.screen += button
 		button.locked = TRUE
 	owner.update_action_buttons()
 
@@ -68,6 +71,9 @@
 
 	if(user.client)
 		user.client.screen -= button
+		for(var/mob/dead/observer/observe in user.orbiters)
+			if(observe.client && istype(observe))
+				observe.client.screen -= button
 		button.clean_up_keybinds(user)
 
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.

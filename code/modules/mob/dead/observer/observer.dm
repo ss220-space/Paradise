@@ -31,6 +31,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	var/image/ghostimage = null //this mobs ghost image, for deleting and stuff
 	var/ghostvision = TRUE //is the ghost able to see things humans can't?
 	var/seedarkness = TRUE
+	var/sightchanged = FALSE
 	/// Defines from __DEFINES/hud.dm go here based on which huds the ghost has activated.
 	var/list/data_hud_seen = list()
 	var/ghost_orbit = GHOST_ORBIT_CIRCLE
@@ -129,23 +130,9 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
 	update_sight()
 
-/mob/dead/observer/reset_perspective(atom/A)
-	if(!client)
-		return
-
-	if(ismob(client.eye) && (client.eye != src))
-		cleanup_observe()
-
-	if(..() && hud_used)
-		client.clear_screen()
-		hud_used.show_hud(hud_used.hud_version)
-
 /mob/dead/observer/proc/cleanup_observe()
-	if(isnull(orbiting))
-		return
 	client?.perspective = initial(client.perspective)
-	stop_orbit()
-	set_sight(initial(sight))
+	set_sight(SEE_TURFS | SEE_MOBS | SEE_OBJS | SEE_SELF)
 
 // This seems stupid, but it's the easiest way to avoid absolutely ridiculous shit from happening
 // Copying an appearance directly from a mob includes it's verb list, it's invisibility, it's alpha, and it's density
@@ -431,7 +418,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(!QDELETED(mind.current)) // Could change while they're choosing
 		mind.current.med_hud_set_status()
-		
+
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)
 
 /mob/dead/observer/proc/dead_tele()
@@ -478,7 +465,14 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set name = "Toggle Sight"
 	set desc = "Переключает вашу возможность видеть сквозь стены."
 
-	TOGGLEBIT(sight, SEE_TURFS | SEE_MOBS | SEE_OBJS)
+	sightchanged = !sightchanged
+
+	if(sightchanged)
+		if(orbiting && ismob(orbiting))
+			var/mob/living/new_sight = orbiting
+			set_sight(new_sight.client? new_sight.sight : set_sight(NONE))
+	else
+		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 
 // This is the ghost's follow verb with an argument
 /mob/dead/observer/ManualFollow(atom/movable/target)
@@ -670,11 +664,9 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	//Istype so we filter out points of interest that are not mobs
-	if(!client || !mob_eye || !istype(mob_eye))
+	if(!client || !mob_eye || !istype(mob_eye) || isobserver(mob_eye))
+		cleanup_observe()
 		return
-
-	client.set_eye(mob_eye)
-	client.perspective = EYE_PERSPECTIVE
 
 	if(is_admin_level(mob_eye.z) && !client?.holder)
 		set_sight(NONE) //we dont want ghosts to see through walls in secret areas
@@ -682,13 +674,33 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mob_eye.hud_used)
 		return
 
+	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, TYPE_PROC_REF(/mob/dead/observer, handle_when_autoobserve_move), TRUE)
+
+	client.set_eye(mob_eye)
+	set_sight(mob_eye.sight)
+
 	client.clear_screen()
 	LAZYOR(mob_eye.orbiters, src)
 	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 
+	for(var/datum/action/act in mob_eye.actions)
+		if( istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || \
+			(act in src.actions) || \
+			istype(act, /datum/action/innate/cult) || \
+			istype(act, /datum/action/innate/clockwork))
+			continue
+		client.screen += act.button
+
 	//An ingenious way to block access to the button. Yes, it's on the screen, but you can't press it.
-	for(var/atom/movable/screen/movable/action_button/button in client.screen)
-		client.screen -= button
+//	for(var/atom/movable/screen/movable/action_button/button in client.screen)
+//		button.mosue_opacity = 0
+
+/mob/dead/observer/proc/handle_when_autoobserve_move()
+	SIGNAL_HANDLER  // COMSIG_ORBITER_ORBIT_STOP
+
+	reset_perspective(null)
+	cleanup_observe()
+	UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

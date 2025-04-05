@@ -218,6 +218,10 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+///called when an ORBITER starts orbiting another atom: (atom)
+#define COMSIG_ORBITER_ORBIT_BEGIN "orbiter_orbit_begin"
+///called when an ORBITER stops orbiting another atom: (atom)
+#define COMSIG_ORBITER_ORBIT_STOP "orbiter_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
@@ -1305,7 +1309,9 @@
 
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
-#define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
+#define COMSIG_BORER_EARLY_LEFT_HOST "borer_early_leave"
+/// From /datum/action/innate/borer/make_larvae/Activate (turf/turf)
+#define COMSIG_BORER_REPRODUCE "borer_reproduced"
 
 ///from /datum/spawners_menu/ui_act(): (mob/user)
 #define COMSIG_IS_GHOST_CONTROLABLE "is_ghost_controllable"

@@ -317,8 +317,8 @@
 	if(client)
 		client.screen -= I
 
-	for(var/mob/dead/observe as anything in orbiters)
-		if(observe.client)
+	for(var/mob/dead/observer/observe in orbiters)
+		if(observe.client && istype(observe))
 			observe.client.screen -= I
 
 	I.forceMove(src)

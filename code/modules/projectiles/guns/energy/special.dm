@@ -515,6 +515,13 @@
 	has_bluespace_crystal = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/gun/energy/bsg/turret_check()
+	return has_bluespace_crystal && has_core
+
+/obj/item/gun/energy/bsg/turret_deconstruct()
+	has_bluespace_crystal = TRUE
+	has_bluespace_crystal = TRUE
+
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "bsg_finished"
 	has_bluespace_crystal = TRUE

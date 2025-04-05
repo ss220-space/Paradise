@@ -14,6 +14,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/ascend_number
 	/// Used for the CentComm announcement at ascension
 	var/ascend_percent
+	/// The number of ghost summons available to the cult.
+	var/ghost_summons = null
+
 
 /proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
@@ -58,7 +61,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/max_cultist_to_start = 4
+	var/static/max_cultist_to_start = 4
 
 /datum/game_mode/cult/announce()
 	to_chat(world, "<b>The current game mode is - Cult!</b>")
@@ -68,6 +71,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
+	max_cultist_to_start += floor((num_players() - required_players) / CULT_PLAYER_PER_CULTIST)
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 	for(var/cultists_number = 1 to max_cultist_to_start)
 		if(!length(cultists_possible))
@@ -77,6 +81,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
+
+		ghost_summons = floor(num_players() / GHOST_SUMMONS_PER_READY)
 	return (length(cult) > 0)
 
 /datum/game_mode/cult/post_setup()
@@ -184,6 +190,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
 		cult_objs.setup()
 		cult_threshold_check()
+
+	if(isnull(ghost_summons))
+		ghost_summons = floor(num_station_players() / GHOST_SUMMONS_PER_READY)
 
 	if(!(cult_mind in cult))
 		cult += cult_mind

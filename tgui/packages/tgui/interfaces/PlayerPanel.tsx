@@ -493,6 +493,12 @@ const InfoSection = (props, context) => {
               onClick={() => handleAction('ccdb')}
             />
           ) : null}
+          <Button
+            fluid
+            icon="eye"
+            content="OBS"
+            onClick={() => handleAction('obs')}
+          />
         </Grid.Column>
       </Grid>
     </Section>
