@@ -670,6 +670,7 @@
 		satchel.upgraded = FALSE
 		robot.module.emag = satchel
 		robot.module.emag.update_icon(UPDATE_ICON_STATE)
+
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)
 		energy_storage.recharge_rate = initial(energy_storage.recharge_rate)
