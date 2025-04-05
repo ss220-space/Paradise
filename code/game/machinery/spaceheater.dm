@@ -89,7 +89,7 @@
 		SCREWDRIVER_CLOSE_PANEL_MESSAGE
 	update_icon()
 	if(!open && user.machine == src)
-		user << browse(null, "window=spaceheater")
+		close_window(user, "spaceheater")
 		user.unset_machine()
 
 /obj/machinery/space_heater/attack_hand(mob/user as mob)
@@ -163,7 +163,7 @@
 
 		updateDialog()
 	else
-		usr << browse(null, "window=spaceheater")
+		close_window(usr, "spaceheater")
 		usr.unset_machine()
 	return
 

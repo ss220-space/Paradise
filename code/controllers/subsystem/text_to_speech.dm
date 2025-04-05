@@ -164,6 +164,8 @@ SUBSYSTEM_DEF(tts)
 		"chaplain" = "Священник",
 		"syndicate officer" = "Офицер синдиката",
 		"visitor" = "посетитель",
+		"mining medic" = "Шахтёрский врач",
+		"lavaland health officer" = "Медицинский работник Лаваленда",
 	)
 
 

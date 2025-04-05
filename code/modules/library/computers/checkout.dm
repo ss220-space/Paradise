@@ -219,7 +219,7 @@
 
 /obj/machinery/computer/library/checkout/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=library")
+		close_window(usr, "library")
 		onclose(usr, "library")
 		return 1
 

@@ -70,7 +70,7 @@
 		if(!user.is_literate())
 			to_chat(user, span_warning("You don't know how to write!"))
 			return ATTACK_CHAIN_PROCEED
-		user << browse("", "window=PaperBundle[UID()]") //Closes the dialog
+		close_window(user, "PaperBundle[UID()]") //Closes the dialog
 		paper.show_content(user, infolinks = TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -252,7 +252,7 @@
 				P.forceMove_turf()
 				usr.temporarily_remove_item_from_inventory(src, force = TRUE)
 				usr.put_in_hands(P, ignore_anim = FALSE)
-				usr << browse("", "window=PaperBundle[UID()]")
+				close_window(usr, "PaperBundle[UID()]")
 				qdel(src)
 			else if(page == amount)
 				screen = 2

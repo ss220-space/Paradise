@@ -305,7 +305,7 @@
 			Для полной компенсации штрафа необходимо использовать 2 таких модуля."
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 18 //you need two for full damage, so total of 8 for maximum damage
-	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
+	job = list(JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_QUARTERMASTER)
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
 	name = "Взломщик подрывных зарядов"
@@ -314,7 +314,7 @@
 			Уменьшает взрывную силу зарядов за счет модификации их внутренних компонентов."
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
 	cost = 20
-	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
+	job = list(JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_QUARTERMASTER)
 
 //Chef
 
@@ -426,7 +426,7 @@
 			Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
-	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
@@ -653,7 +653,7 @@
 	desc = "Синдикат отправит вам флакон с 40 единицами случайно выбранного яда. Этот яд может быть как совершенно неэффективным, так и крайне смертельным."
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
-	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/poison_pen

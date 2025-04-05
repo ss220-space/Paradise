@@ -54,6 +54,9 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/breaksound = "shatter"
 	var/hitsound = 'sound/effects/glasshit.ogg'
 
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
+
 
 /obj/structure/window/Initialize(mapload, direct)
 	. = ..()
@@ -101,6 +104,11 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
 
+/obj/structure/window/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/structure/window/Destroy()
 	set_density(FALSE)

@@ -167,7 +167,7 @@
 /obj/item/assembly/infra/Topic(href, href_list)
 	..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
-		usr << browse(null, "window=infra")
+		close_window(usr, "infra")
 		onclose(usr, "infra")
 		return
 	if(href_list["state"])
@@ -180,7 +180,7 @@
 	if(href_list["rotate"])
 		rotate(usr)
 	if(href_list["close"])
-		usr << browse(null, "window=infra")
+		close_window(usr, "infra")
 		return
 	if(usr)
 		attack_self(usr)

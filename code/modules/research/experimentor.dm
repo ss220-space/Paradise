@@ -692,7 +692,7 @@
 	var/obj/item/process = locate(href_list["item"]) in src
 
 	if(href_list["close"])
-		usr << browse(null, "window=experimentor")
+		close_window(usr, "experimentor")
 		return
 	else if(scantype == "search")
 		console_connect()

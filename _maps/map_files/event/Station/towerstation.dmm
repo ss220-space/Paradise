@@ -25732,6 +25732,10 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"qAT" = (
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "qBf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -336572,7 +336576,7 @@ jez
 vjB
 llI
 jxt
-llI
+qAT
 isi
 isi
 jxt

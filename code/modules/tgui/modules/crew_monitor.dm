@@ -63,4 +63,6 @@
 			data["isBS"] = 1
 		if(CREW_VISION_SECURITY)
 			data["isBP"] = 1
+		if(CREW_VISION_MINING)
+			data["isMM"] = TRUE
 	return data
