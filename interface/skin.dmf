@@ -2,16 +2,16 @@ macro "default"
 
 me
 menu "menu"
-	elem 
+	elem
 		name = "&Файл"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Быстрый скриншот"
 		command = ".screenshot auto"
 		category = "&Файл"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Сохранить скриншот как..."
 		command = ".screenshot"
 		category = "&Файл"
@@ -27,16 +27,16 @@ menu "menu"
 		category = "&Файл"
 		is-disabled = true
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Выйти"
 		command = ".quit"
 		category = "&Файл"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Экран"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Размер"
 		command = ""
 		category = "&Экран"
@@ -98,7 +98,7 @@ menu "menu"
 		can-check = true
 		group = "размер"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Масштабирование"
 		command = ""
 		category = "&Экран"
@@ -131,11 +131,11 @@ menu "menu"
 		category = "&Экран"
 		can-check = true
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Опции"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Открыть микшер громкости"
 		command = "Open-Volume-Mixer"
 		category = "&Опции"
@@ -147,31 +147,31 @@ menu "menu"
 		is-checked = true
 		can-check = true
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Игровые предпочтения"
 		command = "Game-Preferences"
 		category = "&Опции"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Помощь"
 		command = ""
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Помощь админа"
 		command = "adminhelp"
 		category = "&Помощь"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Подгонка области видимости"
 		command = "Fit-Viewport"
 		category = "&Помощь"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Обновить TGUI"
 		command = "Refresh-TGUI"
 		category = "&Помощь"
 		saved-params = "is-checked"
-	elem 
+	elem
 		name = "&Починить чат"
 		command = "Fix-Chat"
 		category = "&Помощь"
@@ -302,7 +302,7 @@ window "infobuttons"
 		inner-size = 640x30
 		inner-pos = 9,38
 		screen-size = 1920x1030
-		
+
 	elem "fullscreenb"
 		type = BUTTON
 		pos = 0,5
@@ -312,22 +312,24 @@ window "infobuttons"
 		saved-params = "is-checked"
 		text = "Полный экран"
 		command = "fullscreen"
+
 	elem "textb"
 		type = BUTTON
-		pos = 91,5
+		pos = 90,5
 		size = 85x35
 		anchor1 = 14,0
-		anchor2 = 28,100
+		anchor2 = 27,100
 		background-color = none
 		saved-params = "is-checked"
 		text = "Свернуть"
 		command = ".winset \"rpanewindow.top=;\""
 		group = "rpanemode"
 		button-type = pushbox
+
 	elem "infob"
 		type = BUTTON
 		pos = 180,5
-		size = 84x35
+		size = 85x35
 		anchor1 = 28,0
 		anchor2 = 41,100
 		background-color = none
@@ -337,6 +339,7 @@ window "infobuttons"
 		is-checked = true
 		group = "rpanemode"
 		button-type = pushbox
+
 	elem "webmap"
 		type = BUTTON
 		pos = 270,5
@@ -347,22 +350,24 @@ window "infobuttons"
 		saved-params = "is-checked"
 		text = "Карта"
 		command = "webmap"
+
 	elem "wikib"
 		type = BUTTON
 		pos = 360,5
 		size = 85x35
 		anchor1 = 56,0
-		anchor2 = 70,100
+		anchor2 = 69,100
 		background-color = none
 		saved-params = "is-checked"
 		text = "Вики"
 		command = "wiki"
+
 	elem "discordb"
 		type = BUTTON
 		pos = 450,5
 		size = 85x35
 		anchor1 = 70,0
-		anchor2 = 84,100
+		anchor2 = 83,100
 		font-style = "bold"
 		text-color = #ffffff
 		background-color = #7289da
@@ -462,6 +467,7 @@ window "inputwindow"
 		size = 520x25
 		anchor1 = -1,-1
 		anchor2 = -1,-1
+		background-color = none
 		saved-params = "pos;size;is-minimized;is-maximized"
 		is-pane = true
 	elem "input"

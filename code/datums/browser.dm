@@ -133,7 +133,7 @@
 	var/window_size = ""
 	if (width && height)
 		window_size = ""
-		if(width && height && (user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
+		if(width && height && user.client.window_scaling &&(user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
 			var/scaling = user.client.window_scaling
 			window_size = "size=[width * scaling]x[height * scaling];"
 		else
