@@ -536,14 +536,8 @@
 		bundle.pixel_y = pixel_y
 		forceMove(bundle)
 
-	var/datum/browser/popup = new(user, "[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
-	popup.include_default_stylesheet = FALSE
-	popup.set_content("")
-	popup.open(FALSE)
-	var/datum/browser/popup_paper = new(user, "Paper[UID()]")
-	popup_paper.include_default_stylesheet = FALSE
-	popup_paper.set_content("")
-	popup_paper.open(FALSE)
+	close_window(user, "[istype(I, /obj/item/paper) ? "Paper" : "Photo"][I.UID()]")
+	close_window(user, "Paper[UID()]")
 	bundle.papers += src
 	bundle.papers += I
 	bundle.amount++

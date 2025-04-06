@@ -656,7 +656,7 @@
 		DATIVE = "рыболовному мешочку",
 		ACCUSATIVE = "рыболовный мешочек",
 		INSTRUMENTAL = "рыболовным мешочком",
-		PREPOSITIONAL = "рыболовным мешочке"
+		PREPOSITIONAL = "рыболовном мешочке"
 	)
 	icon_state = "fishpouch_ash"
 	storage_slots = 40

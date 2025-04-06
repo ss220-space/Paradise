@@ -60,7 +60,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/max_clockers_to_start = 4
+	var/static/max_clockers_to_start = 4
 
 /datum/game_mode/clockwork/announce()
 	to_chat(world, "<b>The current game mode is - Clockwork Cult!</b>")
@@ -70,6 +70,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
+	max_clockers_to_start += floor((num_players() - required_players) / RATVAR_PLAYER_PER_CULTIST)
 	var/list/clockers_possible = get_players_for_role(ROLE_CLOCKER)
 	for(var/clockers_number in 1 to max_clockers_to_start)
 		if(!length(clockers_possible))

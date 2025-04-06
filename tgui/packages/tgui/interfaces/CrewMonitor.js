@@ -50,8 +50,10 @@ export const CrewMonitor = (props, context) => {
       case 1:
         return <SecCrewMonitorDataView />;
       case 2:
-        return <CrewMonitorDataView />;
+        return <MiningCrewMonitorDataView />;
       case 3:
+        return <CrewMonitorDataView />;
+      case 4:
         return <CrewMonitorMapView />;
       default:
         return 'ЧТО-ТО ТОЧНО НЕ ТАК!';
@@ -81,17 +83,26 @@ export const CrewMonitor = (props, context) => {
                 <Icon name="table" /> Данные о Службе Безопасности
               </Tabs.Tab>
             ) : null}
+            {data.isMM ? (
+              <Tabs.Tab
+                key="MiningDataView"
+                selected={2 === tabIndex}
+                onClick={() => setTabIndex(2)}
+              >
+                <Icon name="table" /> Данные о шахтёрах
+              </Tabs.Tab>
+            ) : null}
             <Tabs.Tab
               key="DataView"
-              selected={2 === tabIndex}
-              onClick={() => setTabIndex(2)}
+              selected={3 === tabIndex}
+              onClick={() => setTabIndex(3)}
             >
               <Icon name="table" /> Данные об Экипаже
             </Tabs.Tab>
             <Tabs.Tab
               key="MapView"
-              selected={3 === tabIndex}
-              onClick={() => setTabIndex(3)}
+              selected={4 === tabIndex}
+              onClick={() => setTabIndex(4)}
             >
               <Icon name="map-marked-alt" /> Просмотр Карты
             </Tabs.Tab>
@@ -168,7 +179,7 @@ const CrewMonitorTable = ({ crewData, context }) => {
                     }
                   />
                 ) : (
-                  cm.area + ' (' + cm.x + ', ' + cm.y + ')'
+                  cm.area + ' (' + cm.x + ', ' + cm.y + ', ' + cm.z + ')'
                 )
               ) : (
                 'Недоступно'
@@ -197,6 +208,12 @@ const SecCrewMonitorDataView = (_properties, context) => {
   const { act, data } = useBackend(context);
   const securityCrew = data.crewmembers.filter((cm) => cm.is_security) || [];
   return <CrewMonitorTable crewData={securityCrew} context={context} />;
+};
+
+const MiningCrewMonitorDataView = (_properties, context) => {
+  const { act, data } = useBackend(context);
+  const miningCrew = data.crewmembers.filter((cm) => cm.is_shaft_miner) || [];
+  return <CrewMonitorTable crewData={miningCrew} context={context} />;
 };
 
 const CrewMonitorMapView = (_properties, context) => {

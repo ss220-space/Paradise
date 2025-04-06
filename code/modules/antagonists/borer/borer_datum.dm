@@ -5,9 +5,6 @@
 	special_role = SPECIAL_ROLE_BORER
 	antag_menu_name = "Борер"
 	var/mob/living/simple_animal/borer/user
-	var/mob/living/carbon/human/host
-	/// previous host, used to del transferable effects from previous host.
-	var/mob/living/carbon/human/previous_host
 	/// Rank of our borer
 	var/datum/borer_rank/borer_rank
 	/// Which focuses we have
@@ -19,46 +16,18 @@
 	/// used for borer shopping, gained by reproductions
 	var/evo_points = 0
 
-	var/tick_interval = 1 SECONDS
-
 /datum/antagonist/borer/apply_innate_effects(mob/living/simple_animal/borer/borer)
 	. = ..()
 
-	sync()
+	user = owner.current
+	scaling.parent = src
+
 	RegisterSignal(user, COMSIG_BORER_ENTERED_HOST, PROC_REF(entered_host))
-	RegisterSignal(user, COMSIG_BORER_LEFT_HOST, PROC_REF(left_host))
-	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_mob_death))
-	RegisterSignal(user, COMSIG_LIVING_REVIVE, PROC_REF(on_mob_revive))
-
-	if(tick_interval != -1)
-		tick_interval = world.time + tick_interval
-
-	if(!(tick_interval > world.time))
-		return FALSE
-
-	if(user.stat != DEAD)
-		START_PROCESSING(SSprocessing, src)
+	RegisterSignal(user, COMSIG_BORER_EARLY_LEFT_HOST, PROC_REF(left_host))
+	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(process_life))
+	RegisterSignal(user, COMSIG_BORER_REPRODUCE, PROC_REF(post_reproduce))
 
 	return TRUE
-
-/datum/antagonist/borer/proc/sync()
-	user = owner.current
-	host = user.host
-	previous_host = host
-	parent_sync()
-	return
-
-/datum/antagonist/borer/proc/parent_sync()
-	scaling?.parent = src
-	borer_rank.parent = src
-
-	if(!LAZYLEN(learned_focuses))
-		return
-
-	for(var/datum/borer_focus/focus as anything in learned_focuses)
-		focus.parent = src
-
-	return
 
 /datum/antagonist/borer/greet()
 	var/list/messages = list()
@@ -69,7 +38,9 @@
 	messages.Add("Воспроизведение себе подобных увеличивает количество эволюционных очков и позволяет перейти на следующий ранг.")
 	return messages
 
-/datum/antagonist/borer/proc/post_reproduce()
+/datum/antagonist/borer/proc/post_reproduce(mob/source, turf/turf)
+	SIGNAL_HANDLER
+
 	reproductions++
 	evo_points++
 
@@ -78,7 +49,7 @@
 	return
 
 /datum/antagonist/borer/proc/process_focus_choice(datum/borer_focus/focus)
-	if(!user || !host || user.stat || user.docile)
+	if(!user || !user.host || user.stat || user.docile)
 		return
 
 	if(locate(focus) in learned_focuses)
@@ -90,31 +61,25 @@
 		learned_focuses += new focus(user)
 
 		pre_grant_movable_effect()
-		to_chat(user, span_notice("Вы успешно приобрели [focus.bodypartname]"))
+		to_chat(user, span_notice("Вы успешно приобрели [focus.name]"))
 		return
 
 	var/need_points = focus.cost - evo_points
-	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.bodypartname]."))
+	to_chat(user, span_notice("Вам требуется ещё [need_points] очк[declension_ru(need_points, "о", "а", "ов")] эволюции для получения [focus.name]."))
 	return
 
-/datum/antagonist/borer/proc/entered_host()
+/datum/antagonist/borer/proc/entered_host(mob/source)
 	SIGNAL_HANDLER
-
-	host = user.host
-	previous_host = user.host
 
 	pre_grant_movable_effect()
 
-/datum/antagonist/borer/proc/left_host()
+/datum/antagonist/borer/proc/left_host(mob/source)
 	SIGNAL_HANDLER
 
-	host = null
-
 	pre_remove_movable_effect()
-	previous_host = null
 
 /datum/antagonist/borer/proc/pre_grant_movable_effect()
-	if(QDELETED(user) || QDELETED(host))
+	if(QDELETED(user) || QDELETED(user.host))
 		return
 
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
@@ -122,7 +87,7 @@
 			continue
 
 		focus.movable_granted = TRUE
-		if(!host.ckey)
+		if(!user.host.ckey)
 			focus.is_catathonic = TRUE
 
 		focus.grant_movable_effect()
@@ -132,7 +97,7 @@
 	return
 
 /datum/antagonist/borer/proc/pre_remove_movable_effect()
-	if(QDELETED(user) || QDELETED(previous_host))
+	if(QDELETED(user))
 		return
 
 	for(var/datum/borer_focus/focus as anything in learned_focuses)
@@ -148,50 +113,28 @@
 /datum/antagonist/borer/Destroy(force)
 	UnregisterSignal(user, list(
 		COMSIG_BORER_ENTERED_HOST,
-		COMSIG_BORER_LEFT_HOST,
-		COMSIG_MOB_DEATH,
-		COMSIG_LIVING_REVIVE
+		COMSIG_BORER_EARLY_LEFT_HOST,
+		COMSIG_LIVING_LIFE,
+		COMSIG_BORER_REPRODUCE,
 	))
+
 	pre_remove_movable_effect()
-	STOP_PROCESSING(SSprocessing, src)
 
 	QDEL_NULL(borer_rank)
 	QDEL_NULL(learned_focuses)
 	QDEL_NULL(scaling)
 
 	user = null
-	host = null
-	previous_host = null
 
 	return ..()
 
-/datum/antagonist/borer/proc/on_mob_death()
+/datum/antagonist/borer/proc/process_life(mob/source, deltatime, times_fired)
 	SIGNAL_HANDLER
+	
+	for(var/datum/borer_focus/focus as anything in learned_focuses)
+		focus.tick()
 
-	STOP_PROCESSING(SSprocessing, src)
-
-/datum/antagonist/borer/proc/on_mob_revive()
-	SIGNAL_HANDLER
-
-	if(tick_interval > world.time)
-		START_PROCESSING(SSprocessing, src)
-
-/datum/antagonist/borer/process(seconds_per_tick)
-	if(QDELETED(user))
-		qdel(src)
-		return
-
-	if(tick_interval != -1 && tick_interval <= world.time)
-		var/tick_length = initial(tick_interval)
-
-		for(var/datum/borer_focus/focus as anything in learned_focuses)
-			focus.tick(tick_length / (1 SECONDS))
-
-		borer_rank.tick(tick_length / (1 SECONDS))
-		tick_interval = world.time + tick_length
-
-		if(QDELING(src))
-			return
+	borer_rank.tick()
 
 /datum/antagonist/borer/proc/update_rank()
 	if(!borer_rank?.required_reproductions || !borer_rank.next_rank_type)
@@ -202,7 +145,7 @@
 
 	reproductions -= borer_rank.required_reproductions
 	borer_rank = new borer_rank.next_rank_type(user)
-	to_chat(user.controlling ? host : user, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
+	to_chat(user.controlling ? user.host : user, span_notice("Вы эволюционировали. Ваш текущий ранг - [borer_rank.rankname]."))
 
 	return TRUE
 
@@ -223,11 +166,13 @@
 /datum/borer_misc/change_host_and_scale/grant_movable_effect()
 	if(parent.user.max_chems >= SCALING_MAX_CHEM)
 		qdel(src)
-		return
+		return FALSE
 
-	if(parent.host.ckey && !LAZYIN(parent.host.UID(), used_UIDs))
-		parent.user.max_chems += SCALING_CHEM_GAIN
-		used_UIDs += parent.host.UID()
+	if(!parent.user.host.ckey || LAZYIN(parent.user.host.UID(), used_UIDs))
+		return FALSE
+		
+	parent.user.max_chems += SCALING_CHEM_GAIN
+	used_UIDs += parent.user.host.UID()
 
 	return TRUE
 

@@ -344,7 +344,16 @@
 
 /obj/item/crusher_trophy/legionnaire_spine
 	name = "legionnaire spine"
-	desc = "The spine of a legionnaire. With some creativity, you could use it as a crusher trophy. Alternatively, shaking it might do something as well."
+	desc = "Позвоночник легионера. Может быть прикреплен на крушитель в качестве трофея. Или можете его потрясти, может что-то случится."
+	ru_names = list(
+            NOMINATIVE = "позвоночник легионера",
+            GENITIVE = "позвоночника легионера",
+            DATIVE = "позвоночнику легионера",
+            ACCUSATIVE = "позвоночник легионера",
+            INSTRUMENTAL = "позвоночником легионера",
+            PREPOSITIONAL = "позвоночнике легионера"
+	)
+	gender = MALE
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "legionnaire_spine"
 	denied_type = /obj/item/crusher_trophy/legionnaire_spine
@@ -359,7 +368,7 @@
 	melee_damage_upper = 15
 
 /obj/item/crusher_trophy/legionnaire_spine/effect_desc()
-	return "mark detonation to have a <b>[bonus_value]%</b> chance to summon a loyal legion skull"
+	return "Взрыв метки имеет <b>[bonus_value]%</b> шанс призвать союзный череп легиона"
 
 /obj/item/crusher_trophy/legionnaire_spine/on_mark_detonation(mob/living/target, mob/living/user)
 	if(!prob(bonus_value) || target.stat == DEAD)
@@ -374,10 +383,10 @@
 		return
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
-		LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src], but nothing happens...</span>")
-		to_chat(LivingUser, "<b>You need to wait longer to use this again.</b>")
+		LivingUser.visible_message(span_warning("[LivingUser] трясет <b>[src.declent_ru(NOMINATIVE)]</b>. Ничего не произошло..."))
+		balloon_alert(LivingUser, "перезарядка")
 		return
-	LivingUser.visible_message("<span class='warning'>[LivingUser] shakes the [src] and summons a legion skull!</span>")
+	LivingUser.visible_message(span_warning("[LivingUser] трясет <b>[src.declent_ru(NOMINATIVE)]</b> и призывает череп легиона!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()

@@ -4217,7 +4217,7 @@
 /area/quartermaster/miningdock)
 "aJG" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "aJH" = (
@@ -16346,6 +16346,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 9
 	},
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "cbR" = (
@@ -75944,6 +75945,7 @@
 	pixel_y = -24
 	},
 /obj/machinery/light,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},

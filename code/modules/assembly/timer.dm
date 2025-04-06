@@ -108,7 +108,7 @@
 /obj/item/assembly/timer/Topic(href, href_list)
 	..()
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
-		usr << browse(null, "window=timer")
+		close_window(usr, "timer")
 		onclose(usr, "timer")
 		return
 
@@ -133,7 +133,7 @@
 			time = set_time
 
 	if(href_list["close"])
-		usr << browse(null, "window=timer")
+		close_window(usr, "timer")
 		return
 
 	if(usr)

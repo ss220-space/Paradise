@@ -100,7 +100,6 @@ export const KeyComboModal = (props, context) => {
       return;
     }
   };
-
   const setValue = (value: string) => {
     if (value === input) {
       return;
