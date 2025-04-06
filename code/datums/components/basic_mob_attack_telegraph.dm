@@ -33,7 +33,7 @@
 	if(current_target)
 		forget_target(current_target)
 	QDEL_NULL(target_overlay)
-	REMOVE_TRAIT(parent, TRAIT_BASIC_ATTACK_FORECAST, REF(src))
+	REMOVE_TRAIT(parent, TRAIT_BASIC_ATTACK_FORECAST, src)
 	UnregisterSignal(parent, COMSIG_HOSTILE_PRE_ATTACKINGTARGET)
 	return ..()
 
@@ -42,7 +42,41 @@
 	SIGNAL_HANDLER
 	if(!isliving(target))
 		return
-	if(HAS_TRAIT_FROM(source, TRAIT_BASIC_ATTACK_FORECAST, REF(src)))
-		REMOVE_TRAIT(source, TRAIT_BASIC_ATTACK_FORECAST, REF(src))
+	if(HAS_TRAIT_FROM(source, TRAIT_BASIC_ATTACK_FORECAST, src))
+		REMOVE_TRAIT(source, TRAIT_BASIC_ATTACK_FORECAST, src)
 		return
+
 	if(!DOING_INTERACTION(source, INTERACTION_BASIC_ATTACK_FORCEAST))
+		INVOKE_ASYNC(src, PROC_REF(delayed_attack), source, target)
+	return COMPONENT_HOSTILE_NO_ATTACK
+
+/// Perform an attack after a delay
+/datum/component/basic_mob_attack_telegraph/proc/delayed_attack(mob/living/basic/source, mob/living/target)
+	current_target = target
+	target.add_overlay(target_overlay)
+	RegisterSignal(target, COMSIG_QDELETING, PROC_REF(forget_target))
+	RegisterSignal(target, COMSIG_MOVABLE_MOVED, PROC_REF(target_moved))
+
+	on_began_forecast?.Invoke(target)
+	if(!do_after(source, delay = telegraph_duration, target = source, interaction_key = INTERACTION_BASIC_ATTACK_FORCEAST))
+		forget_target(target)
+		return
+	if(!current_target) // They got out of the way :(
+		return
+	ADD_TRAIT(source, TRAIT_BASIC_ATTACK_FORECAST, src)
+	source.melee_attack(current_target)
+	forget_target(current_target)
+
+/// The guy we're trying to attack moved, is he still in range?
+/datum/component/basic_mob_attack_telegraph/proc/target_moved(mob/living/target)
+	SIGNAL_HANDLER
+	if(in_range(parent, target))
+		return
+	forget_target(target)
+
+/// The guy we're trying to attack isn't a valid target any more
+/datum/component/basic_mob_attack_telegraph/proc/forget_target(atom/target)
+	SIGNAL_HANDLER
+	current_target = null
+	target.cut_overlay(target_overlay)
+	UnregisterSignal(target, list(COMSIG_QDELETING, COMSIG_MOVABLE_MOVED))

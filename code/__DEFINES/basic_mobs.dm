@@ -19,3 +19,5 @@
 /// Temporary trait applied when an attack forecast animation has completed
 #define TRAIT_BASIC_ATTACK_FORECAST "trait_basic_attack_forecast"
 #define INTERACTION_BASIC_ATTACK_FORCEAST "interaction_basic_attack_forecast"
+
+#define DOING_INTERACTION(user, interaction_key) (LAZYACCESS(user.do_afters, interaction_key))
