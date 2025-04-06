@@ -55,6 +55,9 @@ export class Window extends Component {
     if (this.props.width && this.props.height) {
       options.size = [this.props.width, this.props.height];
     }
+    if (this.props.scale) {
+      options.scale = this.props.scale;
+    }
     if (config.window?.key) {
       setWindowKey(config.window.key);
     }
@@ -72,6 +75,7 @@ export class Window extends Component {
 
     const dispatch = globalStore.dispatch;
     const fancy = config.window?.fancy;
+    const { scale } = config.window;
     // Determine when to show dimmer
     const showDimmer =
       config.user &&
