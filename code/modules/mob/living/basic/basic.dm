@@ -67,10 +67,10 @@
 	var/attack_verb_continuous = "атакует"
 	///Attacking verb in present simple tense. "Вы [response_harm_simple] цель"
 	var/attack_verb_simple = "атаковали"
-	///Attacking, but without damage, verb in present continuous tense.
+	///Attacking, but without damage, verb in present continuous tense. "Кто-то [friendly_verb_continuous] цель"
 	var/friendly_verb_continuous = "обнюхивает"
-	///Attacking, but without damage, verb in present simple tense.
-	var/friendly_verb_simple = "нюхает"
+	///Attacking, but without damage, verb in present simple tense. "Вы [friendly_verb_simple] цель"
+	var/friendly_verb_simple = "обнюхиваете"
 
 	////////THIS SECTION COULD BE ITS OWN ELEMENT
 	///Icon to use
@@ -191,10 +191,10 @@
 
 /mob/living/basic/proc/melee_attack(atom/target)
 	src.face_atom(target)
-	// if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
-	// 	return FALSE //but more importantly return before attack_animal called
+	if(SEND_SIGNAL(src, COMSIG_HOSTILE_PRE_ATTACKINGTARGET, target) & COMPONENT_HOSTILE_NO_ATTACK)
+	 	return FALSE //but more importantly return before attack_animal called
 	var/result = target.attack_basic_mob(src)
-	// SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result) //Bee edit: We don't have pre_attackingtarget nor hostile simplemobs, so I'll just leave these here for anyone who stumbles upon this down the line
+	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
 	return result
 
 /mob/living/basic/proc/set_varspeed(var_value)

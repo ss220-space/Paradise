@@ -41,6 +41,7 @@
 			visible_message(span_danger("[user] [response_harm_continuous] [src.declent_ru(ACCUSATIVE)]!"), \
 				span_userdanger("[user] [response_harm_continuous] вас!"))
 			//to_chat(user, span_danger("Вы [response_harm_simple] [src.declent_ru(ACCUSATIVE)]!"))
+			var/damage = (basic_mob_flags & IMMUNE_TO_FISTS) ? 0 : rand(user.dna.species.punchdamagelow, user.dna.species.punchdamagehigh)
 			attack_threshold_check(user.dna.species.punchdamagehigh)
 			add_attack_logs(user, src, "атаковал")
 			updatehealth()

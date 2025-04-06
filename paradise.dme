@@ -2599,6 +2599,7 @@
 #include "code\modules\mob\living\basic\health_adjustment.dm"
 #include "code\modules\mob\living\basic\lavaland\mining.dm"
 #include "code\modules\mob\living\basic\lavaland\goliath\goliath.dm"
+#include "code\modules\mob\living\basic\lavaland\goliath\goliath_ai.dm"
 #include "code\modules\mob\living\basic\vermin\cockroach.dm"
 #include "code\modules\mob\living\basic\vermin\mothroach.dm"
 #include "code\modules\mob\living\carbon\_defines.dm"

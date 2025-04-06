@@ -311,4 +311,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_BYPASS_RANGED_ARMOR "bypass_ranged_armor"
 /// A trait gained by leaning against a wall
 #define TRAIT_LEANING "leaning"
-
+/// Cannot be grabbed by goliath tentacles
+#define TRAIT_TENTACLE_IMMUNE "tentacle_immune"
