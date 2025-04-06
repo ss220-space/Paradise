@@ -42,6 +42,8 @@
 /mob/living/proc/can_die()
 	return !(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_DEATH))
 
+/mob/living/proc/can_be_cremated()
+	return !(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_DEATH))
 // Returns true if mob transitioned from live to dead
 // Do a check with `can_die` beforehand if you need to do any
 // handling before `stat` is set

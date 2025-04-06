@@ -884,11 +884,23 @@
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
-	desc = "A red pitchfork, it looks like the work of the devil."
+	desc = "Красные вилы, похоже, это работа дьявола."
+	ru_names = list(  
+		NOMINATIVE = "демонические вилы",  
+		GENITIVE = "демонических вил",  
+		DATIVE = "демоническим вилам",  
+		ACCUSATIVE = "демонические вилы",  
+		INSTRUMENTAL = "демоническими вилами",  
+		PREPOSITIONAL = "демонических вилах"  
+	)  
 	force = 19
 	throwforce = 24
 	force_unwielded = 19
 	force_wielded = 25
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 6
+	light_color = COLOR_SOFT_RED
 
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24
@@ -906,7 +918,7 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide...</span>")
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронзает [genderize_ru(user.gender, 'свой', 'свою', 'своё', 'свои')] живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, 'он', 'она', 'оно', 'они')] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
@@ -914,13 +926,13 @@
 	if(isliving(user))
 		var/mob/living/U = user
 		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message(span_warning("As [U] picks [src] up, [U]'s arms briefly catch fire."), \
-				span_warning("\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\""))
+			U.visible_message(span_warning("Когда [U.declent_ru(NOMINATIVE)] поднимает [declent_ru(ACCUSATIVE)], [genderize_ru(U.gender, 'его', 'её', 'его', 'их')] руки на мгновение загораются."), \
+							span_warning("\"Когда ты поднимаешь [declent_ru(ACCUSATIVE)], твои руки воспламеняются, напоминая тебе обо всех твоих прошлых грехах.\""))
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+				H.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 			else
-				U.adjustFireLoss(rand(force/2,force))
+				U.adjustFireLoss(rand(force / 2, force))
 
 
 /obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -931,8 +943,8 @@
 	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
-	to_chat(user, span_warning("The [name] burns in your hands!"))
-	user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сгорает в твоих руках!"))
+	user.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 
 
@@ -940,12 +952,21 @@
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
+
 	if(iswallturf(target))
-		var/turf/simulated/wall/W = target
-		user.visible_message("<span class='danger'>[user] blasts \the [target] with \the [src]!</span>")
+		var/turf/simulated/wall/wall = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
-		W.devastate_wall(TRUE)
+		wall.devastate_wall(TRUE)
 		return TRUE
+
+	if(ismineralturf(target))
+		var/turf/simulated/mineral/mineral = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		mineral.gets_drilled(user)
+		return TRUE
+		
 	..()
 
 /obj/item/twohanded/bamboospear

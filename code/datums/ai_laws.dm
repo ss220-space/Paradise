@@ -88,6 +88,8 @@
 
 	if(full_sync || ion_laws.len)
 		S.laws.clear_ion_laws()
+	if(full_sync || devil_laws.len)
+		S.laws.clear_sixsixsix_laws()
 	if(full_sync || inherent_laws.len)
 		S.laws.clear_inherent_laws()
 	if(full_sync || supplied_laws.len)
@@ -95,6 +97,8 @@
 
 	for(var/datum/ai_law/law in ion_laws)
 		S.laws.add_ion_law(law.law)
+	for(var/datum/ai_law/law in devil_laws)
+		S.laws.set_sixsixsix_law(law.law)
 	for(var/datum/ai_law/law in inherent_laws)
 		S.laws.add_inherent_law(law.law)
 	for(var/datum/ai_law/law in supplied_laws)

@@ -5,10 +5,17 @@
 	job_rank = ROLE_DEVIL
 	special_role = ROLE_DEVIL
 	antag_hud_type = ANTAG_HUD_DEVIL
+	antag_hud_name = "huddevil"
 
 	var/datum/devilinfo/info = new
 	var/list/soulsOwned
+	var/list/ritualSouls
+	var/sacrifice_count
 	var/datum/devil_rank/rank
+	var/tmp/list/devil_targets
+
+	var/const/sacrifice_need = 13
+	var/const/contracts_need = 6
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -33,24 +40,42 @@
 		return
 
 	LAZYADD(soulsOwned, soul)
+	LAZYADD(ritualSouls, soul)
 	to_chat(owner.current, span_warning("Вы поглощаете душу и насыщаетесь ею."))
 
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
 	soul.hasSoul = FALSE
+	soul.soulOwner = owner
 
 	try_update_rank()
 	update_hud()
+
+/datum/antagonist/devil/proc/sacrifice_soul(datum/mind/soul)
+	if((!istype(soul)) || (LAZYIN(soulsOwned, soul)))
+		return
+
+	to_chat(owner.current, span_warning("Вы приносите душу в жертву."))
+	soul.hasSoul = FALSE
+	soul.soulOwner = owner
+	sacrifice_count += 1
+	try_update_rank()
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	LAZYREMOVE(soulsOwned, soul)
 	to_chat(owner.current, span_warning("Вы чувствуете, как часть ваших сил угасает"))
 	update_hud()
 
-/datum/antagonist/devil/proc/try_update_rank()
+/datum/antagonist/devil/proc/try_update_rank(is_ritual = FALSE)
 	if(!rank.required_souls || !rank.next_rank_type)
+		return FALSE
+	
+	if(rank.ritual_required && !is_ritual)
 		return FALSE
 
 	if(LAZYLEN(soulsOwned) < rank.required_souls)
+		return FALSE
+
+	if(sacrifice_count < rank.required_sacrifice)
 		return FALSE
 
 	if(!init_new_rank(rank.next_rank_type, TRUE))
@@ -69,17 +94,24 @@
 		return FALSE // something bad occured, but we prevent runtimes
 
 	rank.link_rank(owner.current)
-	rank.apply_rank()
+
+	if(rank.apply_rank())
+		return TRUE
+
 	rank.give_spells()
 
 	return TRUE
 
 /datum/antagonist/devil/proc/remove_spells()
-	rank.remove_spells()
+	rank?.remove_spells()
 	info.obligation.remove_spells()
 
 /datum/antagonist/devil/proc/update_hud()
 	var/mob/living/living = owner.current
+
+	if(!living.hud_used)
+		addtimer(CALLBACK(src, PROC_REF(update_hud), 1 SECONDS))
+		return
 
 	if(!living.hud_used?.devilsouldisplay)
 		living.hud_used.devilsouldisplay = new /atom/movable/screen/devil/soul_counter(null, living.hud_used)
@@ -118,12 +150,12 @@
 		return FALSE
 
 	var/mob/living/carbon/human/human = owner.current
-	human.store_memory("Your devilic true name is [info.truename]<br>[info.ban.law].<br>You may not directly and knowingly physically harm a devil, other than yourself.<br>[info.bane.law]<br>[info.obligation.law]<br>[info.banish.law]<br>")
+	human.store_memory("Твоё истинное имя — [info.truename]<br>[info.ban.law].<br>Ты не можешь сознательно и напрямую причинить физический вред другому дьяволу, за исключением себя самого.<br>[info.bane.law]<br>[info.obligation.law]<br>[info.banish.law]<br>")
 
 	update_hud()
 
 /datum/antagonist/devil/proc/init_devil()
-	GLOB.allDevils[lowertext(info.truename)] = src
+	GLOB.allDevils[lowertext(info.truename)] = info
 	rank = new BASIC_DEVIL_RANK()
 
 	return
@@ -153,14 +185,22 @@
 	forge_sacrifice_objective()
 
 /datum/antagonist/devil/proc/forge_sacrifice_objective()
-	var/datum/objective/devil/sacrifice/sacrifice = new
 
-	if(!sacrifice.forge())
-		addtimer(CALLBACK(src, PROC_REF(forge_sacrifice_objective)), 1 MINUTES)
-		qdel(sacrifice)
-		return
+	var/command_target_count = ceil(sacrifice_need / 12)
+	var/security_target_count = floor(sacrifice_need / 4)
+	var/other_target_count = sacrifice_need - command_target_count - security_target_count
 
-	add_objective(sacrifice)
+	for(var/i in 1 to command_target_count)
+		var/datum/objective/devil/sacrifice/command/sacrifice = new
+		add_objective(sacrifice)
+
+	for(var/i in 1 to security_target_count)
+		var/datum/objective/devil/sacrifice/security/sacrifice = new
+		add_objective(sacrifice)
+
+	for(var/i in 1 to other_target_count)
+		var/datum/objective/devil/sacrifice/other/sacrifice = new
+		add_objective(sacrifice)
 
 /datum/antagonist/devil/add_owner_to_gamemode()
 	LAZYADD(SSticker.mode.devils, owner)
@@ -198,11 +238,11 @@
 	remove_spells()
 	remove_hud()
 
-	info.banish.remove_banish()
-	info.bane.remove_bane()
+	info.banish?.remove_banish()
+	info.bane?.remove_bane()
 
-	info.obligation.remove_obligation()
-	info.ban.remove_ban()
+	info.obligation?.remove_obligation()
+	info.ban?.remove_ban()
 
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))

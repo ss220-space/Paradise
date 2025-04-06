@@ -2,7 +2,7 @@
 	var/name
 	 
 	var/desc
-	var/law    
+	var/law	
 
 	var/mob/living/carbon/owner
 	var/datum/antagonist/devil/devil
@@ -11,14 +11,14 @@
 
 /datum/devil_bane/Destroy(force)
 	remove_bane()
-    
+	
 	owner = null
 	devil = null
 
 	return ..()
 
 /datum/devil_bane/proc/remove_bane()
-    return
+	return
 
 /datum/devil_bane/proc/link_bane(mob/living/carbon/carbon)
 	owner = carbon
@@ -28,12 +28,12 @@
 	return
 
 /datum/devil_bane/toolbox
-    name = BANE_TOOLBOX
+	name = BANE_TOOLBOX
 
-    law = "Toolboxes are bad news for you, for some reason."
-    desc = "That which holds the means of creation also holds the means of the devil's undoing."
+	law = "Toolboxes are bad news for you, for some reason."
+	desc = "That which holds the means of creation also holds the means of the devil's undoing."
 
-    bonus_damage = BANE_TOOLBOX_DAMAGE_MODIFIER
+	bonus_damage = BANE_TOOLBOX_DAMAGE_MODIFIER
 
 /datum/devil_bane/toolbox/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(toolbox_attack))
@@ -53,10 +53,10 @@
 		span_notice("The [item] is [owner] unmaking!"))
 
 /datum/devil_bane/whiteclothes
-    name = BANE_WHITECLOTHES
+	name = BANE_WHITECLOTHES
 
-    desc = "Wearing clean white clothing will help ward off this devil."
-    law = "Those clad in pristine white garments will strike you true."
+	desc = "Wearing clean white clothing will help ward off this devil."
+	law = "Those clad in pristine white garments will strike you true."
 
 /datum/devil_bane/whiteclothes/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(whiteclothes_attack))
@@ -83,12 +83,12 @@
 	span_notice("Unsullied white clothing is disrupting [owner] form."))
 
 /datum/devil_bane/harvest
-    name = BANE_HARVEST
+	name = BANE_HARVEST
 
-    law = "The fruits of the harvest shall be your downfall."
-    desc = "Presenting the labors of a harvest will disrupt the devil."
+	law = "The fruits of the harvest shall be your downfall."
+	desc = "Presenting the labors of a harvest will disrupt the devil."
 
-    bonus_damage = BANE_HARVEST_DAMAGE_MULTIPLIER
+	bonus_damage = BANE_HARVEST_DAMAGE_MULTIPLIER
 
 /datum/devil_bane/harvest/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(harvest_attack))
@@ -102,7 +102,7 @@
 	if(!istype(item, /obj/item/reagent_containers/food/snacks/grown) || !istype(item, /obj/item/grown))
 		return
 
-	owner.apply_damage(item.force * bonus_damage)               
+	owner.apply_damage(item.force * bonus_damage)			   
 	item.visible_message(
 		span_warning("The spirits of the harvest aid in the exorcism."), 
 		span_notice("The harvest spirits are harming [owner]."))
@@ -110,10 +110,10 @@
 	qdel(item)
 
 /datum/devil_bane/light
-    name = BANE_LIGHT
+	name = BANE_LIGHT
 
-    desc = "Bright flashes will disorient the devil, likely causing him to flee."
-    law = "Blinding lights will prevent you from using offensive powers for a time."
+	desc = "Bright flashes will disorient the devil, likely causing him to flee."
+	law = "Blinding lights will prevent you from using offensive powers for a time."
 
 /datum/devil_bane/light/init_bane()
 	RegisterSignal(owner, COMSIG_LIVING_EARLY_FLASH_EYES, PROC_REF(flash_eyes))
@@ -122,21 +122,21 @@
 	UnregisterSignal(owner, COMSIG_LIVING_EARLY_FLASH_EYES)
 
 /datum/devil_bane/light/proc/flash_eyes(datum/source, intensity, override_blindness_check, affect_silicon, visual, type)
-    SIGNAL_HANDLER
-    
-    var/damage = intensity - owner.check_eye_prot()
+	SIGNAL_HANDLER
+	
+	var/damage = intensity - owner.check_eye_prot()
 
-    if(!damage)
-        owner.mind?.disrupt_spells(0)
-        return
+	if(!damage)
+		owner.mind?.disrupt_spells(0)
+		return
 
-    owner.mind?.disrupt_spells(-500)
+	owner.mind?.disrupt_spells(-500)
 
 /datum/devil_bane/silver
-    name = BANE_SILVER
+	name = BANE_SILVER
 
-    desc = "Silver seems to gravely injure this devil."
-    law = "Silver, in all of its forms shall be your downfall."
+	desc = "Silver seems to gravely injure this devil."
+	law = "Silver, in all of its forms shall be your downfall."
 
 /datum/devil_bane/silver/init_bane()
 	RegisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
@@ -153,20 +153,20 @@
 	no_react,
 	chem_temp
 	)
-    SIGNAL_HANDLER
+	SIGNAL_HANDLER
 
-    if(reagent_id != "silver")
-        return
+	if(reagent_id != "silver")
+		return
 
-    owner.reagents?.add_reagent("toxin", amount * bonus_damage)
+	owner.reagents?.add_reagent("toxin", amount * bonus_damage)
 
 /datum/devil_bane/iron
-    name = BANE_IRON
+	name = BANE_IRON
 
-    desc = "Cold iron will slowly injure him, until he can purge it from his system."
-    law = "Cold wrought iron shall act as poison to you."
+	desc = "Cold iron will slowly injure him, until he can purge it from his system."
+	law = "Cold wrought iron shall act as poison to you."
 
-    bonus_damage = 1
+	bonus_damage = 1
 
 /datum/devil_bane/iron/init_bane()
 	RegisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
@@ -183,9 +183,9 @@
 	no_react,
 	chem_temp
 	)
-    SIGNAL_HANDLER
+	SIGNAL_HANDLER
 
-    if(reagent_id != "iron")
-        return
-            
-    owner.reagents?.add_reagent("toxin", amount * bonus_damage)
+	if(reagent_id != "iron")
+		return
+			
+	owner.reagents?.add_reagent("toxin", amount * bonus_damage)

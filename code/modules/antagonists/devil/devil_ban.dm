@@ -1,32 +1,32 @@
 /datum/devil_ban
-    var/name
-    
-    var/desc
-    var/law
+	var/name
+	
+	var/desc
+	var/law
 
-    var/mob/living/carbon/owner
-    var/datum/antagonist/devil/devil
+	var/mob/living/carbon/owner
+	var/datum/antagonist/devil/devil
 
 /datum/devil_ban/proc/link_ban(mob/living/carbon/carbon)
-    owner = carbon
-    devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
+	owner = carbon
+	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /datum/devil_ban/proc/remove_ban()
-    remove_ban_effect()
+	remove_ban_effect()
 
-    owner = null
-    devil = null
+	owner = null
+	devil = null
 
 /datum/devil_ban/Destroy(force)
-    remove_ban()
+	remove_ban()
 
-    return ..()
+	return ..()
 
 /datum/devil_ban/proc/apply_ban_effect()
-    return
+	return
 
 /datum/devil_ban/proc/remove_ban_effect()
-    return
+	return
 
 /datum/devil_ban/hurtwoman
 	name = BAN_HURTWOMAN

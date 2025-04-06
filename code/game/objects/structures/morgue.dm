@@ -609,6 +609,10 @@ GLOBAL_LIST_EMPTY(crematoriums)
 	for(var/mob/living/entity in crema_content)
 		if(QDELETED(entity))
 			continue
+
+		if(!entity.can_be_cremated())
+			continue
+
 		if(entity.stat != DEAD)
 			entity.emote("scream")
 		if(user)

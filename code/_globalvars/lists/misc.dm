@@ -88,3 +88,6 @@ GLOBAL_LIST_EMPTY(blurb_witnesses)
 
 /// List of cargo consoles that print reports on completed/expired orders
 GLOBAL_LIST_EMPTY(cargo_announcers)
+
+
+GLOBAL_LIST_EMPTY(devil_contracts)

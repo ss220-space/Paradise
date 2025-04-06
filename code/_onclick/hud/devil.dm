@@ -100,12 +100,9 @@
 	mymob.throw_icon.alpha = ui_alpha
 	hotkeybuttons += mymob.throw_icon
 
-	mymob.healths = new /atom/movable/screen/healths(null, src)
+	mymob.healths = new /atom/movable/screen/healthdoll/living(null, src)
 	infodisplay += mymob.healths
-
-	mymob.healthdoll = new(null, src)
-	infodisplay += mymob.healthdoll
-
+	
 	mymob.pullin = new /atom/movable/screen/pull(null, src)
 	mymob.pullin.icon = ui_style
 	mymob.pullin.update_icon(UPDATE_ICON_STATE)

@@ -36,10 +36,10 @@
 		dna = new
 	devilinfo = mind?.has_antag_datum(/datum/antagonist/devil)
 	grant_all_babel_languages()
+	prepare_huds()
 	new /obj/item/organ/internal/brain(src)
 	new /obj/item/organ/internal/eyes(src)
 	new /obj/item/organ/internal/ears/invincible(src)
-	ADD_TRAIT(src,	TRAIT_SPACEWALK, INNATE_TRAIT)
 	. = ..()
 
 // Determines if mob has and can use his hands like a human
@@ -97,6 +97,12 @@
 
 	. = list(msg)
 
+
+/mob/living/carbon/true_devil/r_arm_broken()
+	return FALSE
+
+/mob/living/carbon/true_devil/l_arm_broken()
+	return FALSE
 
 /mob/living/carbon/true_devil/IsAdvancedToolUser()
 	return TRUE

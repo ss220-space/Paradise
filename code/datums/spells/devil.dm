@@ -24,6 +24,7 @@
 	item_type = /obj/item/instrument/violin/golden
 
 	invocation_type = "whisper"
+	human_req = FALSE
 	invocation = "I ain't have this much fun since Georgia."
 
 	action_icon_state = "golden_violin"
@@ -62,7 +63,7 @@
 
 
 /obj/effect/proc_holder/spell/summon_contract/valid_target(mob/living/carbon/target, mob/user)
-	return target.mind
+	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind)
 
 
 /obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)
@@ -76,26 +77,12 @@
 			if(!user.drop_from_active_hand())
 				continue
 
-			var/obj/item/paper/contract/infernal/revive/contract = new(user.loc, C.mind, user.mind)
+			var/obj/item/paper/contract/infernal/contract = new(user.loc, C.mind, user.mind, GLOB.devil_contracts[CONTRACT_REVIVE])
 			user.put_in_hands(contract)
 		else
-			var/obj/item/paper/contract/infernal/contract
-			var/contractTypeName = input(user, "What type of contract?") in list (CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP)  // no todo: contracts are deprecated and soon will be deleted
+			var/contract_type_name = tgui_input_list(user, "What type of contract?", "Contract Type", list(CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP))
 
-			switch(contractTypeName)
-				if(CONTRACT_POWER)
-					contract = new /obj/item/paper/contract/infernal/power(C.loc, C.mind, user.mind)
-				if(CONTRACT_WEALTH)
-					contract = new /obj/item/paper/contract/infernal/wealth(C.loc, C.mind, user.mind)
-				if(CONTRACT_PRESTIGE)
-					contract = new /obj/item/paper/contract/infernal/prestige(C.loc, C.mind, user.mind)
-				if(CONTRACT_MAGIC)
-					contract = new /obj/item/paper/contract/infernal/magic(C.loc, C.mind, user.mind)
-				if(CONTRACT_KNOWLEDGE)
-					contract = new /obj/item/paper/contract/infernal/knowledge(C.loc, C.mind, user.mind)
-				if(CONTRACT_FRIENDSHIP)
-					contract = new /obj/item/paper/contract/infernal/friendship(C.loc, C.mind, user.mind)
-
+			var/obj/item/paper/contract/infernal/contract = new(C.loc, C.mind, user.mind, GLOB.devil_contracts[contract_type_name])
 			C.put_in_hands(contract)
 
 

@@ -2,6 +2,8 @@
 	name = "Sintouched"
 	antag_menu_name = "Грешник"
 	special_role = SPECIAL_ROLE_SINTOUCHED
+	antag_hud_type = ANTAG_HUD_SINTOUCHED
+	antag_hud_name = "hudsintouched"
 
 /datum/antagonist/sintouched/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -41,4 +43,4 @@
 		sin_objective.init_sin(human)
 
 /datum/antagonist/sintouched/on_body_transfer(mob/living/old_body, mob/living/new_body)
-    return // No.
+	return // No.

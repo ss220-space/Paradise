@@ -1,32 +1,34 @@
 /datum/devil_obligation
-    var/name
+	var/name
 
-    var/desc
-    var/law
+	var/desc
+	var/law
 
-    var/mob/living/carbon/owner
-    var/datum/antagonist/devil/devil
+	var/mob/living/carbon/owner
+	var/datum/antagonist/devil/devil
 
-    var/list/obligation_spells
+	var/list/obligation_spells
 
 /datum/devil_obligation/proc/link_obligation(mob/living/carbon/carbon)
-    owner = carbon
-    devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
+	owner = carbon
+	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /datum/devil_obligation/proc/remove_obligation()
-    remove_obligation_effect()
+	remove_obligation_effect()
 
-    owner = null
-    devil = null
+	owner = null
+	devil = null
 
 /datum/devil_obligation/Destroy(force)
-    remove_obligation()
+	remove_obligation()
 
-    return ..()
+	return ..()
 
 /datum/devil_obligation/proc/give_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in obligation_spells)
-		owner.mind?.AddSpell(spell)
+		if(is_type_in_list(spell, obligation_spells))
+			continue
+		owner.mind?.AddSpell(new spell)
 
 /datum/devil_obligation/proc/remove_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
@@ -36,10 +38,10 @@
 		owner.mind?.RemoveSpell(spell)
 
 /datum/devil_obligation/proc/apply_obligation_effect()
-    return
+	return
 
 /datum/devil_obligation/proc/remove_obligation_effect()
-    return
+	return
 
 /datum/devil_obligation/food
 	name = OBLIGATION_FOOD

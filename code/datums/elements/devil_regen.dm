@@ -100,7 +100,6 @@
 		TRUE,
 		TRUE
 	)
-	human.reagents.remove_any(devil.rank.regen_amount * 5)
 
 	apply_status_effects(human, devil)
 	apply_cure(human, devil)

@@ -1,7 +1,7 @@
 /datum/devilinfo
 	/// Devil's truename
 	var/truename
-	/// Ban of our devil. 
+	/// Ban of our devil.
 	var/datum/devil_ban/ban
 	/// Obligation of our devil.
 	var/datum/devil_obligation/obligation
@@ -39,7 +39,7 @@
 
 	var/probability = 100
 	name += pick(GLOB.devil_syllable)
-    
+
 	while(prob(probability))
 		name += pick(GLOB.devil_syllable)
 		probability -= 20

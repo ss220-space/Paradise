@@ -164,6 +164,11 @@ GLOBAL_LIST_EMPTY(movespeed_modification_cache)
 /mob/proc/update_config_movespeed()
 	add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/mob_config_speedmod, multiplicative_slowdown = get_config_multiplicative_speed())
 
+/// Set or update the global movespeed config on a mob
+/mob/living/carbon/true_devil/get_config_multiplicative_speed()
+	if(!islist(GLOB.mob_config_movespeed_type_lookup) || !GLOB.mob_config_movespeed_type_lookup[/mob/living/carbon/human])
+		return 0
+	return GLOB.mob_config_movespeed_type_lookup[/mob/living/carbon/human]
 
 /// Get the global config movespeed of a mob by type
 /mob/proc/get_config_multiplicative_speed()

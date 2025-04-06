@@ -8,22 +8,22 @@
 	name = "Imp summoning ritual"
 	required_things = list(
 		/obj/item/wirecutters = 3,
-        /obj/item/organ/internal/kidneys = 2,
-        /obj/item/organ/internal/heart = 1,
-        /obj/effect/decal/cleanable/vomit = 2
+		/obj/item/organ/internal/kidneys = 2,
+		/obj/item/organ/internal/heart = 1,
+		/obj/effect/decal/cleanable/vomit = 2
 	)
 
 /datum/ritual/devil/imp/del_things(list/used_things)
-    for(var/obj/obj in used_things) // no type ignore for future.
-        qdel(obj)
+	for(var/obj/obj in used_things) // no type ignore for future.
+		qdel(obj)
 
-    return
+	return
 
 /datum/ritual/devil/imp/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", SPECIAL_ROLE_DEVIL_PAWN, TRUE)
 
 	if(!LAZYLEN(candidates))
-		return RITUAL_FAILED_ON_PROCEED 
+		return RITUAL_FAILED_ON_PROCEED
 
 	var/mob/mob = pick(candidates)
 	var/mob/living/simple_animal/imp/imp = new(get_turf(ritual_object))
@@ -51,38 +51,191 @@
 		/mob/living/carbon/human = 1
 	)
 
+/datum/ritual/devil/sacrifice/get_ui_things()
+	var/list/things = list()
+	things["жертва"] = 1
+	return things
+
 /datum/ritual/devil/sacrifice/check_contents(mob/living/carbon/human/invoker, list/used_things)
-    . = ..()
+	. = ..()
 
-    if(!.)
-        return FALSE
+	if(!.)
+		return FALSE
 
-    var/mob/living/carbon/human/human = locate() in used_things
+	var/mob/living/carbon/human/human = locate() in used_things
 
-    if(!human.mind || !human.mind.hasSoul)
-        ritual_object.balloon_alert("цель без души!")
-        return FALSE
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
-    var/datum/objective/devil/sacrifice/sacrifice = locate() in invoker.mind?.get_all_objectives()
+	if(!human.stat != DEAD)
+		ritual_object.balloon_alert(invoker, "жертва не мертва!")
+		return FALSE
 
-    if(sacrifice && !LAZYIN(sacrifice.target_minds, human.mind))
-        ritual_object.balloon_alert("не имеет ценности!")
-        return FALSE
+	if(!human.mind || !(human.mind.hasSoul || LAZYIN(devil.soulsOwned, human.mind)))
+		ritual_object.balloon_alert(invoker, "жертва без души!")
+		return FALSE
 
-    var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+	if(!(SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE_CHECK) & COMPONENT_SACRIFICE_VALID))
+		ritual_object.balloon_alert(invoker, "не имеет ценности!")
+		return FALSE
 
-    if(LAZYIN(devil.soulsOwned, human.mind))
-        return FALSE // Error occured / Admin changed hasSoul.
-
-    return TRUE
+	return TRUE
 
 /datum/ritual/devil/sacrifice/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
 	var/mob/living/carbon/human/human = locate() in used_things
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
-    
+
 	if(!devil || !human || !human.mind)
 		return RITUAL_FAILED_ON_PROCEED
 
-	devil.add_soul(human.mind)
+	devil.sacrifice_soul(human.mind)
+
+	SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE)
 
 	return RITUAL_SUCCESSFUL
+
+
+/datum/ritual/devil/ascendetion
+	name = "Ascendetion ritual"
+	ritual_should_del_things = FALSE
+	required_things = list(
+		/mob/living/carbon/human = 2
+	)
+	var/static/list/timers_list = list(
+		FIRST_DEVIL_ASCEND_STAGE = 5 SECONDS,
+		SECOND_DEVIL_ASCEND_STAGE = 10 SECONDS,
+		THIRD_DEVIL_ASCEND_STAGE = 9 SECONDS,
+		FOURTH_DEVIL_ASCEND_STAGE = 4 SECONDS,
+		FIFTH_DEVIL_ASCEND_STAGE = 1 SECONDS,
+		SIXTH_DEVIL_ASCEND_STAGE = 1 SECONDS,
+		SEVENTH_DEVIL_ASCEND_STAGE = 0.1 SECONDS,
+		EIGHTH_DEVIL_ASCEND_STAGE = 5 SECONDS,
+	)
+
+/datum/ritual/devil/ascendetion/get_ui_params()
+	var/list/params = ..()
+	params["Необходимо соответствовать требованиям для возвышения"] = " "
+	params["Необходимо выполнить цель на осквернение душ"] = " "
+	params["Необходим ранг истинного дьявола"] = " "
+	return params
+
+/datum/ritual/devil/ascendetion/get_ui_things()
+	var/list/things = list()
+	things["жертва"] = 2
+	return things
+
+/datum/ritual/devil/ascendetion/check_contents(mob/living/carbon/human/invoker, list/used_things)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	var/datum/objective/devil/sintouch/sintouch_objective = locate() in devil.objectives
+
+	if(!sintouch_objective || !(sintouch_objective.check_completion()))
+		ritual_object.balloon_alert(invoker, "на станции недостаточно грешников!")
+		return FALSE
+
+	if(devil.soulsOwned.len < ASCEND_THRESHOLD)
+		ritual_object.balloon_alert(invoker, "у вас недостаточно душ!")
+		return FALSE
+
+	if(devil.rank.type == TRUE_DEVIL_RANK)
+		ritual_object.balloon_alert(invoker, "у вас неподходящий ранг!")
+		return FALSE
+
+	var/count
+
+	for(var/mob/living/carbon/human/human in used_things)
+		if(!human.stat != DEAD)
+			ritual_object.balloon_alert(invoker, "одна из жертв не мертва!")
+			return FALSE
+
+		if(!human.mind || !(human.mind.hasSoul || LAZYIN(devil.soulsOwned, human.mind)))
+			ritual_object.balloon_alert(invoker, "одна из жертв без души!")
+			return FALSE
+
+		if(!(SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE_CHECK) & COMPONENT_SACRIFICE_VALID))
+			ritual_object.balloon_alert(invoker, "одна из жертв не имеет ценности!")
+			return FALSE
+		count += 1
+
+	if(count < required_things[/mob/living/carbon/human])
+		ritual_object.balloon_alert(invoker, "мало жертв!")
+		return FALSE
+
+	return TRUE
+
+/datum/ritual/devil/ascendetion/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	if(!devil)
+		return RITUAL_FAILED_ON_PROCEED
+	var/count
+	for(var/mob/living/carbon/human/human in used_things)
+		if(!human.mind)
+			return RITUAL_FAILED_ON_PROCEED
+		count += 1
+		devil.sacrifice_soul(human.mind)
+		SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE)
+	if(count < required_things[/mob/living/carbon/human])
+		return RITUAL_FAILED_ON_PROCEED
+
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/devil/ascendetion/proc/hell_coming(mob/living/carbon/human/invoker, datum/antagonist/devil/devil, stage = DEVIL_ASCEND_START_STAGE)
+	if(!invoker)
+		return
+
+	switch(stage)
+		if(DEVIL_ASCEND_START_STAGE)
+			to_chat(invoker, span_warning("Ты чувствуешь, будто вот-вот возвысишься."))
+			stage = FIRST_DEVIL_ASCEND_STAGE
+
+		if(FIRST_DEVIL_ASCEND_STAGE)
+			invoker.visible_message(span_warning("Кожа [invoker.declent_ru(GENITIVE)] начинает покрываться шипами."),
+							span_warning("Твоя плоть начинает образовывать вокруг тебя щит."))
+			stage = SECOND_DEVIL_ASCEND_STAGE
+
+		if(SECOND_DEVIL_ASCEND_STAGE)
+			invoker.visible_message(span_warning("Рога на голове [invoker.declent_ru(GENITIVE)] медленно растут и удлиняются."),
+							span_warning("Твоё тело продолжает изменяться. Твои телепатические способности усиливаются."))
+			stage = THIRD_DEVIL_ASCEND_STAGE
+
+		if(THIRD_DEVIL_ASCEND_STAGE)
+			invoker.visible_message(span_warning("Тело [invoker.declent_ru(GENITIVE)] начинает яростно растягиваться и искажаться."),
+							span_warning("Ты начинаешь разрывать последние преграды на пути к абсолютной силе."))
+			stage = FOURTH_DEVIL_ASCEND_STAGE
+
+		if(FOURTH_DEVIL_ASCEND_STAGE)
+			var/message = "<i><b>Да!</b></i>"
+			to_chat(invoker, message)
+			invoker.say(message)
+			stage = FIFTH_DEVIL_ASCEND_STAGE
+
+		if(FIFTH_DEVIL_ASCEND_STAGE)
+			var/message = span_big("<i><b>ДА!!</b></i>")
+			to_chat(invoker, message)
+			invoker.say(message)
+			stage = SIXTH_DEVIL_ASCEND_STAGE
+
+		if(SIXTH_DEVIL_ASCEND_STAGE)
+			var/message = span_reallybig("<i><b>Д--</b></i>")
+			to_chat(invoker, message)
+			invoker.say(message)
+			stage = SEVENTH_DEVIL_ASCEND_STAGE
+
+		if(SEVENTH_DEVIL_ASCEND_STAGE)
+			send_to_playing_players(span_danger("<span style='font-size: 5;'><b>\"ЛЕНЬ, ГНЕВ, ОБЖОРСТВО, УНЫНИЕ, ЗАВИСТЬ, ЖАДНОСТЬ, ГОРДЫНЯ! ОГНИ АДА ПРОСЫПАЮТСЯ!!\"</span>"))
+			sound_to_playing_players('sound/hallucinations/veryfar_noise.ogg')
+			devil.try_update_rank(TRUE)
+			var/area/area = get_area(invoker)
+			if(area)
+				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
+			stage = EIGHTH_DEVIL_ASCEND_STAGE
+
+		if(EIGHTH_DEVIL_ASCEND_STAGE)
+			SSshuttle.emergency.request(null, coefficient = 0.3)
+
+	addtimer(CALLBACK(src, PROC_REF(hell_coming), invoker, devil, stage), timers_list[stage])

@@ -557,6 +557,12 @@
 			return pick_candidates_manually(admin_client, max_slot)
 	return list()
 
+///sends a whatever to all playing players; use instead of to_chat(world, where needed)
+/proc/send_to_playing_players(thing)
+	for(var/player_mob in GLOB.player_list)
+		if(player_mob && !isnewplayer(player_mob))
+			to_chat(player_mob, thing)
+
 /proc/window_flash(client/C)
 	if(ismob(C))
 		var/mob/M = C
