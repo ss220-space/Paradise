@@ -34,9 +34,10 @@ export const DNAModifier = (props) => {
   const { act, data } = useBackend();
   const { irradiating, dnaBlockSize, occupant } = data;
 
-  const isDNAInvalid = !occupant.isViableSubject || 
-                       !occupant.uniqueIdentity || 
-                       !occupant.structuralEnzymes;
+  const isDNAInvalid =
+    !occupant.isViableSubject ||
+    !occupant.uniqueIdentity ||
+    !occupant.structuralEnzymes;
   let radiatingModal;
   if (irradiating) {
     radiatingModal = <DNAModifierIrradiating duration={irradiating} />;
@@ -51,7 +52,10 @@ export const DNAModifier = (props) => {
             <DNAModifierOccupant isDNAInvalid={isDNAInvalid} />
           </Stack.Item>
           <Stack.Item grow>
-            <DNAModifierMain isDNAInvalid={isDNAInvalid} dnaBlockSize={dnaBlockSize} />
+            <DNAModifierMain
+              isDNAInvalid={isDNAInvalid}
+              dnaBlockSize={dnaBlockSize}
+            />
           </Stack.Item>
         </Stack>
       </Window.Content>
@@ -187,7 +191,7 @@ const DNAModifierMain = ({ isDNAInvalid, dnaBlockSize }) => {
   } else if (selectedMenuKey === 'se') {
     body = (
       <>
-        <DNAModifierMainSE dnaBlockSize={dnaBlockSize}/>
+        <DNAModifierMainSE dnaBlockSize={dnaBlockSize} />
         <DNAModifierMainRadiationEmitter />
       </>
     );

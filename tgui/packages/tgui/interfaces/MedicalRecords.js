@@ -343,11 +343,7 @@ const MedicalRecordsViewGeneral = (_properties) => {
                 {field.value}
               </Box>
               {!!field.edit && (
-                <Button
-                  icon="pen"
-                  ml="0.5rem"
-                  onClick={() => doEdit(field)}
-                />
+                <Button icon="pen" ml="0.5rem" onClick={() => doEdit(field)} />
               )}
             </LabeledList.Item>
           ))}
