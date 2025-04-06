@@ -428,7 +428,9 @@
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
 
-		for(var/mob/dead/observe as anything in usr.orbiters)
+		for(var/mob/dead/observer/observe in usr.orbiters)
+			if(!istype(observe))
+				continue
 			if(observe.client && observe.s_active != src)
 				observe.client.screen -= W
 

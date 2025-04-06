@@ -111,7 +111,9 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
-			for(var/mob/dead/observe as anything in orbiters)
+			for(var/mob/dead/observer/observe in orbiters)
+				if(!istype(observe))
+					continue
 				if(observe.client && observe.client.eye == src)
 					observe.client.screen += r_hand
 				else
@@ -137,7 +139,9 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.screen_loc = ui_lhand
 			client.screen += l_hand
-			for(var/mob/dead/observe as anything in orbiters)
+			for(var/mob/dead/observer/observe in orbiters)
+				if(!istype(observe))
+					continue
 				if(observe.client && observe.client.eye == src)
 					observe.client.screen += l_hand
 				else
@@ -172,7 +176,9 @@
 	update_observer_view(worn_item, togleable_inventory)
 
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
-	for(var/mob/dead/observe as anything in orbiters)
+	for(var/mob/dead/observer/observe in orbiters)
+		if(!istype(observe))
+			continue
 		if(!(observe.client && observe.client.eye == src && observe.hud_used))
 			LAZYREMOVE(orbiters, observe)
 			continue

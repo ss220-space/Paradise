@@ -1110,7 +1110,9 @@
 			var/atom/movable/screen/screen_object = object
 			if(!screen_object.clear_with_screen)
 				continue
-		if(istype(object, /atom/movable/render_plane_relay) || istype(object, /atom/movable/screen/parallax_layer) || istype(object, /atom/movable/screen/plane_master/))
+		if( istype(object, /atom/movable/render_plane_relay) || \
+			istype(object, /atom/movable/screen/parallax_layer) || \
+			istype(object, /atom/movable/screen/plane_master/))
 			continue
 
 		screen -= object

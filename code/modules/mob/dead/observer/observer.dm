@@ -674,7 +674,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mob_eye.hud_used)
 		return
 
-	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, TYPE_PROC_REF(/mob/dead/observer, handle_when_autoobserve_move), TRUE)
+	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP,PROC_REF(handle_when_autoobserve_move), TRUE)
+	RegisterSignal(mob_eye, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(handle_when_autoobserve_sight_updated), TRUE)
 
 	client.set_eye(mob_eye)
 	set_sight(mob_eye.sight)
@@ -685,9 +686,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	for(var/datum/action/act in mob_eye.actions)
 		if( istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || \
-			(act in src.actions) || \
-			istype(act, /datum/action/innate/cult) || \
-			istype(act, /datum/action/innate/clockwork))
+			(act in src.actions))
 			continue
 		client.screen += act.button
 
@@ -700,7 +699,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	reset_perspective(null)
 	cleanup_observe()
+	lighting_alpha = client.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	update_sight()
+	LAZYREMOVE(orbiting?.orbiters, src)
+
+	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
+	game_plane_master_controller.remove_filter("eye_blur")
+
 	UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
+	UnregisterSignal(orbiting, COMSIG_MOB_UPDATE_SIGHT)
+
+/mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
+	SIGNAL_HANDLER  // COMSIG_MOB_UPDATE_SIGHT
+
+	var/mob/mob_eye = orbiting
+	sight = mob_eye.sight
+	lighting_alpha = mob_eye.lighting_alpha
+	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
