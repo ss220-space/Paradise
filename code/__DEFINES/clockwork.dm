@@ -151,3 +151,5 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define GATEWAY_REEBE_FOUND 60 // First stage
 #define GATEWAY_RATVAR_COMING 120 // Second stage
 #define GATEWAY_RATVAR_ARRIVAL 180 // Third Stage
+
+#define RATVAR_PLAYER_PER_CULTIST 20

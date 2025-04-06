@@ -104,6 +104,8 @@
 /obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
 		return FALSE
+	if(user.has_status_effect(STATUS_EFFECT_LEANING))
+		return FALSE
 	var/blocking_object = density_check(user)
 	if(blocking_object)
 		to_chat(user, "<span class='warning'>You cannot climb [src], as it is blocked by \a [blocking_object]!</span>")

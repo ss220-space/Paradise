@@ -159,6 +159,7 @@ export class Input extends Component {
             autofocus={false}
             ref={this.inputRef}
             className="Input__input"
+            type="search"
             placeholder={placeholder}
             onInput={this.handleInput}
             onFocus={this.handleFocus}

@@ -1493,7 +1493,7 @@
 
 	if(mob_container.forceMove(newloc))//ejecting mob container
 		log_message("[mob_container] moved out.")
-		L << browse(null, "window=exosuit")
+		close_window(L, "exosuit")
 
 		if(istype(mob_container, /obj/item/mmi))
 			var/obj/item/mmi/mmi = mob_container
