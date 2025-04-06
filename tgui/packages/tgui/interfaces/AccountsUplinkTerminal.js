@@ -15,8 +15,8 @@ import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 
-export const AccountsUplinkTerminal = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const AccountsUplinkTerminal = (properties) => {
+  const { act, data } = useBackend();
   const { loginState, currentPage } = data;
 
   let body;
@@ -54,12 +54,12 @@ export const AccountsUplinkTerminal = (properties, context) => {
   );
 };
 
-const AccountsRecordList = (properties, context) => {
-  const { act, data } = useBackend(context);
+const AccountsRecordList = (properties) => {
+  const { act, data } = useBackend();
   const { accounts } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [sortId, _setSortId] = useLocalState(context, 'sortId', 'owner_name');
-  const [sortOrder, _setSortOrder] = useLocalState(context, 'sortOrder', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [sortId, _setSortId] = useLocalState('sortId', 'owner_name');
+  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
   return (
     <Stack fill vertical>
       <AccountsActions />
@@ -117,9 +117,9 @@ const AccountsRecordList = (properties, context) => {
   );
 };
 
-const SortButton = (properties, context) => {
-  const [sortId, setSortId] = useLocalState(context, 'sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState(context, 'sortOrder', true);
+const SortButton = (properties) => {
+  const [sortId, setSortId] = useLocalState('sortId', 'name');
+  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -144,10 +144,10 @@ const SortButton = (properties, context) => {
   );
 };
 
-const AccountsActions = (properties, context) => {
-  const { act, data } = useBackend(context);
+const AccountsActions = (properties) => {
+  const { act, data } = useBackend();
   const { is_printing } = data;
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   return (
     <Stack>
       <Stack.Item>
@@ -175,8 +175,8 @@ const AccountsActions = (properties, context) => {
   );
 };
 
-const DetailedAccountInfo = (properties, context) => {
-  const { act, data } = useBackend(context);
+const DetailedAccountInfo = (properties) => {
+  const { act, data } = useBackend();
   const { account_number, owner_name, money, suspended, transactions } = data;
   return (
     <Stack fill vertical>
@@ -240,10 +240,10 @@ const DetailedAccountInfo = (properties, context) => {
   );
 };
 
-const CreateAccount = (properties, context) => {
-  const { act, data } = useBackend(context);
-  const [accName, setAccName] = useLocalState(context, 'accName', '');
-  const [accDeposit, setAccDeposit] = useLocalState(context, 'accDeposit', '');
+const CreateAccount = (properties) => {
+  const { act, data } = useBackend();
+  const [accName, setAccName] = useLocalState('accName', '');
+  const [accDeposit, setAccDeposit] = useLocalState('accDeposit', '');
   return (
     <Section
       title="Create Account"

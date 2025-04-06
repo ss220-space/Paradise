@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Button } from '../../components';
 
-export const pai_gps_module = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_gps_module = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <LabeledList>

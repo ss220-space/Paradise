@@ -21,6 +21,7 @@ import {
 } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
+import { globalStore } from '../backend';
 
 const logger = createLogger('Window');
 
@@ -28,7 +29,7 @@ const DEFAULT_SIZE = [400, 600];
 
 export class Window extends Component {
   componentDidMount() {
-    const { suspended } = useBackend(this.context);
+    const { suspended } = useBackend();
     if (suspended) {
       return;
     }
@@ -46,7 +47,7 @@ export class Window extends Component {
   }
 
   updateGeometry() {
-    const { config } = useBackend(this.context);
+    const { config } = useBackend();
     const options = {
       size: DEFAULT_SIZE,
       ...config.window,
@@ -62,9 +63,14 @@ export class Window extends Component {
 
   render() {
     const { theme, title, children, buttons } = this.props;
-    const { config, suspended } = useBackend(this.context);
-    const { debugLayout } = useDebug(this.context);
-    const dispatch = useDispatch(this.context);
+    const { config, suspended, debug } = useBackend();
+
+    let debugLayout = false;
+    if (debug) {
+      debugLayout = debug.debugLayout;
+    }
+
+    const dispatch = globalStore.dispatch;
     const fancy = config.window?.fancy;
     // Determine when to show dimmer
     const showDimmer =
@@ -142,10 +148,10 @@ const statusToColor = (status) => {
   }
 };
 
-const TitleBar = (props, context) => {
+const TitleBar = (props) => {
   const { className, title, status, fancy, onDragStart, onClose, children } =
     props;
-  const dispatch = useDispatch(context);
+  const dispatch = globalStore.dispatch;
   // prettier-ignore
   const finalTitle = (
     typeof title === 'string'

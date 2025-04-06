@@ -36,13 +36,9 @@ const getStatColor = (cm, critThreshold) => {
   return 'green';
 };
 
-export const CrewMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(
-    context,
-    'tabIndex',
-    data.IndexToggler
-  );
+export const CrewMonitor = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', data.IndexToggler);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -114,10 +110,10 @@ export const CrewMonitor = (props, context) => {
   );
 };
 
-const CrewMonitorTable = ({ crewData, context }) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorTable = ({ crewData }) => {
+  const { act, data } = useBackend();
   const crew = sortBy((cm) => cm.name)(crewData || []);
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [search, setSearch] = useLocalState('search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
   });
@@ -192,36 +188,35 @@ const CrewMonitorTable = ({ crewData, context }) => {
   );
 };
 
-const CrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const crew = data.crewmembers || [];
-  return <CrewMonitorTable crewData={crew} context={context} />;
+  return <CrewMonitorTable crewData={crew} />;
 };
 
-const ComCrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ComCrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const commandCrew = data.crewmembers.filter((cm) => cm.is_command) || [];
-  return <CrewMonitorTable crewData={commandCrew} context={context} />;
+  return <CrewMonitorTable crewData={commandCrew} />;
 };
 
-const SecCrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const SecCrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const securityCrew = data.crewmembers.filter((cm) => cm.is_security) || [];
-  return <CrewMonitorTable crewData={securityCrew} context={context} />;
+  return <CrewMonitorTable crewData={securityCrew} />;
 };
 
-const MiningCrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MiningCrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const miningCrew = data.crewmembers.filter((cm) => cm.is_shaft_miner) || [];
   return <CrewMonitorTable crewData={miningCrew} context={context} />;
 };
 
-const CrewMonitorMapView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorMapView = (_properties) => {
+  const { act, data } = useBackend();
   const { stationLevelNum, stationLevelName } = data;
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
+  const [zoom, setZoom] = useLocalState('zoom', 1);
   const [z_current, setZCurrent] = useLocalState(
-    context,
     'z_current',
     stationLevelNum[0]
   );

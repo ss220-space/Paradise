@@ -14,8 +14,8 @@ import {
 import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 
-export const PollManagement = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PollManagement = (props) => {
+  const { act, data } = useBackend();
   const {
     poll,
     has_poll,
@@ -23,79 +23,43 @@ export const PollManagement = (props, context) => {
     interval_types,
   } = data;
 
-  const [question, set_question] = useLocalState(
-    context,
-    'question',
-    poll.question
-  );
-  const [poll_type, setPollType] = useLocalState(
-    context,
-    'poll_type',
-    poll.poll_type
-  );
+  const [question, set_question] = useLocalState('question', poll.question);
+  const [poll_type, setPollType] = useLocalState('poll_type', poll.poll_type);
   const [options_allowed, set_options_allowed] = useLocalState(
-    context,
     'options_allowed',
     poll.options_allowed
   );
   const [admin_only, set_admin_only] = useLocalState(
-    context,
     'admin_only',
     poll.admin_only
   );
-  const [dont_show, set_dont_show] = useLocalState(
-    context,
-    'dont_show',
-    poll.dont_show
-  );
+  const [dont_show, set_dont_show] = useLocalState('dont_show', poll.dont_show);
   const [allow_revoting, set_allow_revoting] = useLocalState(
-    context,
     'allow_revoting',
     poll.allow_revoting
   );
-  const [interval, set_interval] = useLocalState(
-    context,
-    'interval',
-    poll.interval
-  );
-  const [duration, set_duration] = useLocalState(
-    context,
-    'duration',
-    poll.duration
-  );
+  const [interval, set_interval] = useLocalState('interval', poll.interval);
+  const [duration, set_duration] = useLocalState('duration', poll.duration);
   const [start_datetime, set_start_datetime] = useLocalState(
-    context,
     'start_datetime',
     poll.start_datetime
   );
   const [end_datetime, set_end_datetime] = useLocalState(
-    context,
     'end_datetime',
     poll.end_datetime
   );
-  const [subtitle, set_subtitle] = useLocalState(
-    context,
-    'subtitle',
-    poll.subtitle
-  );
+  const [subtitle, set_subtitle] = useLocalState('subtitle', poll.subtitle);
   const [minimum_playtime, set_minimum_playtime] = useLocalState(
-    context,
     'minimum_playtime',
     poll.minimum_playtime
   );
 
   const [run_duration, set_run_duration] = useLocalState(
-    context,
     'run_duration',
     poll.run_duration
   );
-  const [run_start, set_run_start] = useLocalState(
-    context,
-    'run_start',
-    poll.run_start
-  );
+  const [run_start, set_run_start] = useLocalState('run_start', poll.run_start);
   const [clear_votes, set_clear_votes] = useLocalState(
-    context,
     'clear_votes',
     poll.clear_votes
   );
@@ -323,11 +287,11 @@ export const PollManagement = (props, context) => {
   );
 };
 
-const PollMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const PollMenu = (props) => {
+  const { act, data } = useBackend();
   const { poll } = data;
   const { options } = poll;
-  const [poll_type, setPollType] = useLocalState(context, 'poll_type', null);
+  const [poll_type, setPollType] = useLocalState('poll_type', null);
 
   return (
     <Stack>

@@ -2,8 +2,8 @@ import { useBackend } from '../../backend';
 import { Box, Button, Section, NoticeBox, Stack } from '../../components';
 import { pages } from '../../interfaces/RequestConsole';
 
-export const pda_request_console = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_request_console = (props) => {
+  const { act, data } = useBackend();
 
   const { screen, selected_console, consoles_data, app } = data;
 

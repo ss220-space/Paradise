@@ -1,8 +1,8 @@
 import { useBackend, useLocalState } from '../backend';
 import { Box, Section, Button, LabeledList, Table } from '../components';
 import { Window } from '../layouts';
-export const Healthanalyzer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Healthanalyzer = (props) => {
+  const { act, data } = useBackend();
 
   const { scan_data } = data;
 
@@ -430,8 +430,8 @@ export const Healthanalyzer = (props, context) => {
   );
 };
 
-const TopButtons = (props, context) => {
-  const { act, data } = useBackend(context);
+const TopButtons = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <Section textAlign="center">
@@ -462,8 +462,8 @@ const TopButtons = (props, context) => {
   );
 };
 
-const StatusInfo = (props, context) => {
-  const { data } = useBackend(context);
+const StatusInfo = (props) => {
+  const { data } = useBackend();
 
   const {
     heartCondition,
@@ -540,8 +540,8 @@ const StatusInfo = (props, context) => {
   );
 };
 
-const DiseasesList = (props, context) => {
-  const { data } = useBackend(context);
+const DiseasesList = (props) => {
+  const { data } = useBackend();
 
   const { diseases } = data.scan_data;
 
@@ -577,8 +577,8 @@ const DiseasesList = (props, context) => {
   );
 };
 
-const ReagentList = (props, context) => {
-  const { data } = useBackend(context);
+const ReagentList = (props) => {
+  const { data } = useBackend();
 
   const { reagentList } = data.scan_data;
 
@@ -602,8 +602,8 @@ const ReagentList = (props, context) => {
   );
 };
 
-const AddictionList = (props, context) => {
-  const { data } = useBackend(context);
+const AddictionList = (props) => {
+  const { data } = useBackend();
 
   const { addictionList } = data.scan_data;
 
@@ -620,8 +620,8 @@ const AddictionList = (props, context) => {
   );
 };
 
-const ImplantList = (props, context) => {
-  const { data } = useBackend(context);
+const ImplantList = (props) => {
+  const { data } = useBackend();
 
   const { implantDetect } = data.scan_data;
 

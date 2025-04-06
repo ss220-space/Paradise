@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, NumberInput, LabeledList, Flex } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosMixer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosMixer = (props) => {
+  const { act, data } = useBackend();
   const {
     on,
     pressure,
@@ -66,8 +66,8 @@ export const AtmosMixer = (props, context) => {
   );
 };
 
-const NodeControls = (props, context) => {
-  const { act, data } = useBackend(context);
+const NodeControls = (props) => {
+  const { act, data } = useBackend();
   const { node_name, node_ref } = props;
 
   return (

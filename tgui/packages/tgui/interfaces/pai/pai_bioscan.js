@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Box, LabeledList, ProgressBar } from '../../components';
 
-export const pai_bioscan = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_bioscan = (props) => {
+  const { act, data } = useBackend();
   const {
     holder,
     dead,

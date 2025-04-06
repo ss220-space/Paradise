@@ -16,8 +16,8 @@ type Props =
       group: SearchGroup;
     };
 
-export const LootBox = (props: Props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const LootBox = (props: Props) => {
+  const { act, data } = useBackend<Data>();
   const { is_blind } = data;
 
   let amount = 0;
