@@ -256,11 +256,11 @@
 			if(isnull(nextchosen))
 				nextchosen = I
 			bombs_left += 1
-	if(!isnull(nextchosen))
-		return TRUE
-	else
+	if(isnull(nextchosen))
 		nextchosen = pick(contents)
 		return FALSE
+	return TRUE
+
 
 /obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
 	if(istype(AM, /obj/item/grenade/plastic))
