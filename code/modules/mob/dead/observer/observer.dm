@@ -706,8 +706,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 	game_plane_master_controller.remove_filter("eye_blur")
 
-	UnregisterSignal(src?, COMSIG_ORBITER_ORBIT_STOP)
-	UnregisterSignal(orbiting?, COMSIG_MOB_UPDATE_SIGHT)
+	if(src) // If player discconnected
+		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
+	if(orbiting != null)
+		UnregisterSignal(orbiting, COMSIG_MOB_UPDATE_SIGHT)
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER  // COMSIG_MOB_UPDATE_SIGHT
