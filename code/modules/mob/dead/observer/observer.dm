@@ -715,8 +715,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	SIGNAL_HANDLER  // COMSIG_MOB_UPDATE_SIGHT
 
 	var/mob/mob_eye = orbiting
-	sight = mob_eye.sight
-	lighting_alpha = mob_eye.lighting_alpha
+	sight = mob_eye?.sight
+	lighting_alpha = mob_eye?.lighting_alpha
 	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()

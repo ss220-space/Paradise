@@ -52,7 +52,7 @@
 			owner.do_observe(eye_mob)
 		else
 			owner.cleanup_observe()
-			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
 
 	owner.ManualFollow(poi)
 
