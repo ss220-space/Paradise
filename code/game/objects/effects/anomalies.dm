@@ -116,9 +116,11 @@
 	name = "gravitational anomaly"
 	icon_state = "shield2"
 	density = FALSE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
 	var/boing = FALSE
 	var/knockdown = FALSE
 	aSignal = /obj/item/assembly/signaler/anomaly/grav
+	var/obj/effect/warp_effect/supermatter/warp
 
 
 /obj/effect/anomaly/grav/Initialize(mapload, new_lifespan, _drops_core)
@@ -127,7 +129,16 @@
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
 	)
 	AddElement(/datum/element/connect_loc, loc_connections)
+	apply_wibbly_filters(src)
 
+	warp = new(src)
+	vis_contents += warp
+	apply_wibbly_filters(warp)
+
+/obj/effect/anomaly/grav/Destroy()
+	vis_contents -= warp
+	QDEL_NULL(warp)  // don't want to leave it hanging
+	return ..()
 
 /obj/effect/anomaly/grav/anomalyEffect()
 	..()
@@ -146,6 +157,9 @@
 			if(target && !target.stat)
 				O.throw_at(target, 5, 10)
 
+	//anomaly quickly contracts then slowly expands it's ring
+	animate(warp, time = 6, transform = matrix().Scale(0.5, 0.5))
+	animate(time = 14, transform = matrix())
 
 /obj/effect/anomaly/grav/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
