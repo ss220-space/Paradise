@@ -50,6 +50,7 @@
 	SHOULD_CALL_PARENT(TRUE)
 	//SHOULD_NOT_SLEEP(TRUE)
 	tag = null
+	datum_flags &= ~DF_USE_TAG //In case something tries to REF us
 	weak_reference = null //ensure prompt GCing of weakref.
 
 	var/list/timers = active_timers
@@ -105,3 +106,6 @@
 
 /datum/nothing
 	// Placeholder object, used for ispath checks. Has to be defined to prevent errors, but shouldn't ever be created.
+
+/datum/proc/GenerateTag()
+	datum_flags |= DF_USE_TAG
