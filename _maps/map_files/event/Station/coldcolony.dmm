@@ -2127,6 +2127,13 @@
 "aMN" = (
 /obj/structure/table/wood,
 /obj/item/flashlight/seclite,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Head of Security's Desk";
+	departmentType = 5;
+	name = "Head of Security Requests Console";
+	pixel_y = 30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -7425,6 +7432,14 @@
 /obj/structure/table/reinforced,
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Research Director's Office"
+	},
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Research Director's Desk";
+	departmentType = 7;
+	name = "Research Director Requests Console";
+	pixel_x = 30;
+	pixel_y = -2
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -28180,6 +28195,10 @@
 /obj/machinery/photocopier/faxmachine/longrange{
 	department = "Chief Engineer's Office"
 	},
+/obj/machinery/keycard_auth{
+	pixel_x = 8;
+	pixel_y = -24
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -43829,9 +43848,12 @@
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/escape_toilet)
 "qmg" = (
-/obj/machinery/keycard_auth{
-	pixel_x = 8;
-	pixel_y = -24
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Chief Engineer's Desk";
+	departmentType = 7;
+	name = "Chief Engineer Requests Console";
+	pixel_y = -32
 	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -46509,6 +46531,13 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table/reinforced,
 /obj/item/clothing/suit/hooded/wintercoat/cargo/qm,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Quartermaster's Desk";
+	departmentType = 5;
+	name = "Quartermaster Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -48650,6 +48679,13 @@
 	department = "Captain's Office"
 	},
 /obj/structure/table/wood,
+/obj/machinery/requests_console{
+	announcementConsole = 1;
+	department = "Bridge";
+	departmentType = 5;
+	name = "Bridge Requests Console";
+	pixel_y = -30
+	},
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge)
 "rUV" = (
