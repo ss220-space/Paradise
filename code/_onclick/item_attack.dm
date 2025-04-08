@@ -77,6 +77,7 @@
  */
 /obj/item/proc/tool_attack_chain(mob/user, atom/target, params)
 	. = ATTACK_CHAIN_PROCEED
+	SEND_SIGNAL(src, COMSIG_ATOM_TOOL_INTERACTION, user, target, params)
 	if(!tool_behaviour)
 		return .
 	if(target.tool_act(user, src, tool_behaviour))

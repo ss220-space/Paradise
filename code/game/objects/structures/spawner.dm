@@ -40,7 +40,19 @@
 
 /obj/structure/spawner/Initialize(mapload)
 	. = ..()
-	AddComponent(spawner_type, mob_types, spawn_time, faction, spawn_text, max_mobs)
+	AddComponent(\
+		spawner_type, \
+		spawn_types = mob_types, \
+		spawn_time = spawn_time, \
+		max_spawned = max_mobs, \
+		faction = faction, \
+		spawn_text = spawn_text,\
+		spawn_callback = CALLBACK(src, PROC_REF(on_mob_spawn)), \
+		initial_spawn_delay = !mapload, \
+	)
+
+/obj/structure/spawner/proc/on_mob_spawn(atom/created_atom)
+	return
 
 /obj/structure/spawner/attack_animal(mob/living/simple_animal/M)
 	if(faction_check(faction, M.faction, FALSE) && !M.client)

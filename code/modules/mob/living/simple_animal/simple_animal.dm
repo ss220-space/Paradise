@@ -88,6 +88,8 @@
 
 	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 
+	var/datum/component/spawner/nest
+
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies
@@ -163,10 +165,6 @@
 	master_commander = null
 	GLOB.simple_animals[AIStatus] -= src
 	SSnpcpool.currentrun -= src
-
-	if(nest)
-		nest.spawned_mobs -= src
-		nest = null
 
 	var/turf/our_turf = get_turf(src)
 	if(our_turf && AIStatus == AI_Z_OFF)
@@ -408,9 +406,6 @@
 	. = ..()
 	if(!.)
 		return FALSE
-	if(nest)
-		nest.spawned_mobs -= src
-		nest = null
 	drop_loot()
 	if(!gibbed)
 		if(death_sound)

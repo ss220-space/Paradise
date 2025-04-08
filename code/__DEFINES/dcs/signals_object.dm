@@ -35,3 +35,5 @@
 
 /// from  /datum/surgery_step/proc/initiate() : (&time)
 #define COMSIG_SURGERY_STEP_INIT "surgery_step_init"
+
+#define COMSIG_ATOM_TOOL_INTERACTION "atom_item_interaction"

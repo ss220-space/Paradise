@@ -313,3 +313,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_LEANING "leaning"
 /// Cannot be grabbed by goliath tentacles
 #define TRAIT_TENTACLE_IMMUNE "tentacle_immune"
+/// Trait given to mobs that have the basic eating element
+#define TRAIT_MOB_EATER "mob_eater"
