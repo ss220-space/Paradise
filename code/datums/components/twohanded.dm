@@ -427,7 +427,7 @@
 
 	if(!item)
 		return COMPONENT_BLOCK_SHARPEN_BLOCKED
-	if(sharpened_increase)
+	if(sharpened_increase) 
 		return COMPONENT_BLOCK_SHARPEN_ALREADY
 	var/wielded_val = 0
 	if(force_multiplier)

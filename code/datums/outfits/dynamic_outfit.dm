@@ -76,9 +76,9 @@
 	H.regenerate_icons()
 	
 	if(selfdestroy)
-		del(src)
+		qdel(src)
 
-/datum/dynamic_outfit/proc/temp_un_equip(mob/living/carbon/human/H, ignore_active_hand = FALSE, selective_mode = INFINITY)
+/datum/dynamic_outfit/proc/temp_unequip(mob/living/carbon/human/H, ignore_active_hand = FALSE, selective_mode = INFINITY)
 	debug_switch = FALSE
 	if(H.back && (ITEM_SLOT_BACK & selective_mode))
 		back = H.back
@@ -122,19 +122,19 @@
 	if(H.s_store)
 		suit_store = H.s_store
 		H.temporarily_remove_item_from_inventory(H.s_store, TRUE, FALSE, TRUE)
-	if(H.l_hand && !(H.is_in_active_hand(H.l_hand) && ignore_active_hand))
+	if(H.l_hand && !(H.is_in_active_hand(H.l_hand) && ignore_active_hand) && (ITEM_SLOT_HAND_LEFT & selective_mode))
 		l_hand = H.l_hand
 		H.temporarily_remove_item_from_inventory(H.l_hand, TRUE, FALSE, TRUE)
-	if(H.r_hand && !(H.is_in_active_hand(H.r_hand) && ignore_active_hand))
+	if(H.r_hand && !(H.is_in_active_hand(H.r_hand) && ignore_active_hand) && (ITEM_SLOT_HAND_RIGHT & selective_mode))
 		r_hand = H.r_hand
 		H.temporarily_remove_item_from_inventory(H.r_hand, TRUE, FALSE, TRUE)
-	if(H.wear_pda)
+	if(H.wear_pda && (ITEM_SLOT_PDA & selective_mode))
 		pda = H.wear_pda
 		H.temporarily_remove_item_from_inventory(H.wear_pda, TRUE, FALSE, TRUE)
-	if(H.l_store)
+	if(H.l_store && (ITEM_SLOT_POCKET_LEFT & selective_mode))
 		l_pocket = H.l_store
 		H.temporarily_remove_item_from_inventory(H.l_store, TRUE, FALSE, TRUE)
-	if(H.r_store)
+	if(H.r_store && (ITEM_SLOT_POCKET_RIGHT & selective_mode))
 		r_pocket = H.r_store
 		H.temporarily_remove_item_from_inventory(H.r_store, TRUE, FALSE, TRUE)
 
@@ -162,7 +162,7 @@
 	
 	var/mob/living/carbon/human/H = user
 	if(storage.debug_switch)
-		storage.temp_un_equip(H, TRUE)
+		storage.temp_unequip(H, TRUE)
 	else
 		storage.equip(H, FALSE)
 	return ..()
