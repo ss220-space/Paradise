@@ -88,8 +88,6 @@
 
 	var/mob/living/carbon/human/master_commander = null //holding var for determining who own/controls a sentient simple animal (for sentience potions).
 
-	var/datum/component/spawner/nest
-
 	var/sentience_type = SENTIENCE_ORGANIC // Sentience type, for slime potions
 
 	var/list/loot = list() //list of things spawned at mob's loc when it dies

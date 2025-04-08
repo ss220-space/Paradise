@@ -9,3 +9,13 @@
 #define COMSIG_HOSTILE_PRE_ATTACKINGTARGET "hostile_pre_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK COMPONENT_CANCEL_ATTACK_CHAIN //cancel the attack, only works before attack happens
 
+
+// signals for use by mob spawners
+/// called when a spawner spawns a mob
+#define COMSIG_SPAWNER_SPAWNED "spawner_spawned"
+
+/// Called when a spawner spawns a mob in a turf peel, but we need to use the default case.
+#define COMSIG_SPAWNER_SPAWNED_DEFAULT "spawner_spawned_default"
+
+/// called when a ghost clicks a spawner role: (mob/living)
+#define COMSIG_GHOSTROLE_SPAWNED "ghostrole_spawned"
