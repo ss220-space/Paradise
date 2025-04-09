@@ -22,17 +22,20 @@
 	var/obj/item/r_hand = null
 	var/obj/item/pda = null
 
-
 	var/debug_switch = FALSE
 
 /datum/dynamic_outfit/proc/equip_item(mob/living/carbon/human/H, obj/item/I, slot)
 	if(QDELETED(I))
 		return
+	H.equip_or_collect(I, slot)
+
+/datum/dynamic_outfit/proc/unequip_item(mob/living/carbon/human/H, obj/item/I)
 	if(isstorage(I))
 		var/obj/item/storage/prom = I
-		prom.hide_from(H)
-	H.equip_or_collect(I, slot)
- //																					all flags lmao xD
+		prom.close(H)
+	H.temporarily_remove_item_from_inventory(I, TRUE, FALSE, TRUE)
+
+ //																				all flags lmao xD
 /datum/dynamic_outfit/proc/equip(mob/living/carbon/human/H, selfdestroy = TRUE, selective_mode = INFINITY)
 	debug_switch = TRUE
 
@@ -85,61 +88,61 @@
 	debug_switch = FALSE
 	if(H.back && (ITEM_SLOT_BACK & selective_mode))
 		back = H.back
-		H.temporarily_remove_item_from_inventory(H.back, TRUE, FALSE, TRUE)
+		unequip_item(H, H.back)
 	if(H.w_uniform && (ITEM_SLOT_CLOTH_INNER & selective_mode))
 		uniform = H.w_uniform
-		H.temporarily_remove_item_from_inventory(H.w_uniform, TRUE, FALSE, TRUE)
+		unequip_item(H, H.w_uniform)
 	if(H.wear_suit && (ITEM_SLOT_CLOTH_OUTER & selective_mode))
 		suit = H.wear_suit
-		H.temporarily_remove_item_from_inventory(H.wear_suit, TRUE, FALSE, TRUE)
+		unequip_item(H, H.wear_suit)
 	if(H.belt && (ITEM_SLOT_BELT & selective_mode))
 		belt = H.belt
-		H.temporarily_remove_item_from_inventory(H.belt, TRUE, FALSE, TRUE)
+		unequip_item(H, H.belt)
 	if(H.gloves && (ITEM_SLOT_GLOVES & selective_mode))
 		gloves = H.gloves
-		H.temporarily_remove_item_from_inventory(H.gloves, TRUE, FALSE, TRUE)
+		unequip_item(H, H.gloves)
 	if(H.shoes && (ITEM_SLOT_FEET & selective_mode))
 		shoes = H.shoes
-		H.temporarily_remove_item_from_inventory(H.shoes, TRUE, FALSE, TRUE)
+		unequip_item(H, H.shoes)
 	if(H.head && (ITEM_SLOT_HEAD & selective_mode))
 		head = H.head
-		H.temporarily_remove_item_from_inventory(H.head, TRUE, FALSE, TRUE)
+		unequip_item(H, H.head)
 	if(H.wear_mask && (ITEM_SLOT_MASK & selective_mode))
 		mask = H.wear_mask
-		H.temporarily_remove_item_from_inventory(H.wear_mask, TRUE, FALSE, TRUE)
+		unequip_item(H, H.wear_mask)
 	if(H.neck && (ITEM_SLOT_NECK & selective_mode))
 		neck = H.neck
-		H.temporarily_remove_item_from_inventory(H.neck, TRUE, FALSE, TRUE)
+		unequip_item(H, H.neck)
 	if(H.l_ear && (ITEM_SLOT_EAR_LEFT & selective_mode))
 		l_ear = H.l_ear
-		H.temporarily_remove_item_from_inventory(H.l_ear, TRUE, FALSE, TRUE)
+		unequip_item(H, H.l_ear)
 	if(H.r_ear && (ITEM_SLOT_EAR_RIGHT & selective_mode))
 		r_ear = H.r_ear
-		H.temporarily_remove_item_from_inventory(H.r_ear, TRUE, FALSE, TRUE)
+		unequip_item(H, H.r_ear)
 	if(H.glasses && (ITEM_SLOT_EYES & selective_mode))
 		glasses = H.glasses
-		H.temporarily_remove_item_from_inventory(H.glasses, TRUE, FALSE, TRUE)
+		unequip_item(H, H.glasses)
 	if(H.wear_id && (ITEM_SLOT_ID & selective_mode))
 		id = H.wear_id
-		H.temporarily_remove_item_from_inventory(H.wear_id, TRUE, FALSE, TRUE)
+		unequip_item(H, H.wear_id)
 	if(H.s_store)
 		suit_store = H.s_store
-		H.temporarily_remove_item_from_inventory(H.s_store, TRUE, FALSE, TRUE)
+		unequip_item(H, H.s_store)
 	if(H.l_hand && !(H.is_in_active_hand(H.l_hand) && ignore_active_hand) && (ITEM_SLOT_HAND_LEFT & selective_mode))
 		l_hand = H.l_hand
-		H.temporarily_remove_item_from_inventory(H.l_hand, TRUE, FALSE, TRUE)
+		unequip_item(H, H.l_hand)
 	if(H.r_hand && !(H.is_in_active_hand(H.r_hand) && ignore_active_hand) && (ITEM_SLOT_HAND_RIGHT & selective_mode))
 		r_hand = H.r_hand
-		H.temporarily_remove_item_from_inventory(H.r_hand, TRUE, FALSE, TRUE)
+		unequip_item(H, H.r_hand)
 	if(H.wear_pda && (ITEM_SLOT_PDA & selective_mode))
 		pda = H.wear_pda
-		H.temporarily_remove_item_from_inventory(H.wear_pda, TRUE, FALSE, TRUE)
+		unequip_item(H, H.wear_pda)
 	if(H.l_store && (ITEM_SLOT_POCKET_LEFT & selective_mode))
 		l_pocket = H.l_store
-		H.temporarily_remove_item_from_inventory(H.l_store, TRUE, FALSE, TRUE)
+		unequip_item(H, H.l_store)
 	if(H.r_store && (ITEM_SLOT_POCKET_RIGHT & selective_mode))
 		r_pocket = H.r_store
-		H.temporarily_remove_item_from_inventory(H.r_store, TRUE, FALSE, TRUE)
+		unequip_item(H, H.r_store)
 
 	H.regenerate_icons()
 

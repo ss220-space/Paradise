@@ -463,7 +463,7 @@
 /obj/item/reagent_containers/hypospray/autoinjector/death_book
 	icon = 'icons/obj/death_book.dmi'
 
-/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/reagent_containers/hypospray/autoinjector/death_book/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
 		. = ..()
 	else

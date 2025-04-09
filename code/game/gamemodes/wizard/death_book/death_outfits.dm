@@ -78,7 +78,8 @@
 		/obj/item/flashlight/emp = 1,
 		/obj/item/flash/cameraflash = 1,
 		/obj/item/twohanded/garrote = 1,
-		/obj/item/card/id/syndicate = 1
+		/obj/item/card/id/syndicate = 1,
+		/obj/item/suppressor = 1
 	 )
 	
 /datum/outfit/radial_outfit/death_book/crusher
