@@ -38,6 +38,9 @@
 	  */
 	var/can_transfer = FALSE
 
+	/// A lazy list of the sources for this component
+	var/list/sources
+
 /**
   * Create a new component.
   *
@@ -392,7 +395,7 @@
   *
   * Properly handles duplicate situations based on the `dupe_mode` var
   */
-/datum/proc/_AddComponent(list/raw_args)
+/datum/proc/_AddComponent(list/raw_args, source)
 	var/original_type = raw_args[1]
 	var/datum/component/component_type = original_type
 
@@ -412,6 +415,12 @@
 
 	var/dupe_mode = initial(component_type.dupe_mode)
 	var/dupe_type = initial(component_type.dupe_type)
+	var/uses_sources = (dupe_mode == COMPONENT_DUPE_SOURCES)
+	if(uses_sources && !source)
+		CRASH("Attempted to add a sourced component of type '[component_type]' to '[type]' without a source!")
+	else if(!uses_sources && source)
+		CRASH("Attempted to add a normal component of type '[component_type]' to '[type]' with a source!")
+
 	var/datum/component/old_component
 
 	raw_args[1] = src
@@ -446,6 +455,14 @@
 					else
 						old_component.InheritComponent(new_component, TRUE)
 
+				if(COMPONENT_DUPE_SOURCES)
+					if((source in old_component.sources) && !old_component.allow_source_update(source))
+						return old_component // source already registered, no work to do
+
+					if(old_component.on_source_add(arglist(list(source) + raw_args.Copy(2))) == COMPONENT_INCOMPATIBLE)
+						stack_trace("incompatible source added to a [old_component.type]. Args: [json_encode(raw_args)]")
+						return null
+
 		else if(!new_component)
 			new_component = new component_type(raw_args) // There's a valid dupe mode but there's no old component, act like normal
 
@@ -465,6 +482,9 @@
 		new_component = new component_type(raw_args) // Dupes are allowed, act like normal
 
 	if(!old_component && !QDELETED(new_component)) // Nothing related to duplicate components happened and the new component is healthy
+		if(source && new_component.on_source_add(arglist(list(source) + raw_args.Copy(2))) == COMPONENT_INCOMPATIBLE)
+			stack_trace("incompatible source added to a [new_component.type]. Args: [json_encode(raw_args)]")
+			return null
 		SEND_SIGNAL(src, COMSIG_COMPONENT_ADDED, new_component)
 		return new_component
 
@@ -549,3 +569,39 @@
   */
 /datum/component/ui_host(mob/user)
 	return parent
+
+/**
+ * Called when the component has a new source registered.
+ * Return COMPONENT_INCOMPATIBLE to signal that the source is incompatible and should not be added
+ */
+/datum/component/proc/on_source_add(source, ...)
+	SHOULD_CALL_PARENT(TRUE)
+	if(dupe_mode != COMPONENT_DUPE_SOURCES)
+		return COMPONENT_INCOMPATIBLE
+	LAZYOR(sources, source)
+
+/**
+ * Called when the component has a source removed.
+ * You probably want to call parent after you do your logic because at the end of this we qdel if we have no sources remaining!
+ */
+/datum/component/proc/on_source_remove(source)
+	SHOULD_CALL_PARENT(TRUE)
+	if(dupe_mode != COMPONENT_DUPE_SOURCES)
+		CRASH("Component '[type]' does not use sources but is trying to remove a source")
+	LAZYREMOVE(sources, source)
+	if(!LAZYLEN(sources))
+		qdel(src)
+
+///Whether the component is allowed to call on_source_add() on a source that's already present
+/datum/component/proc/allow_source_update(source)
+	return FALSE
+
+/**
+ * Removes a component source from this datum
+ */
+/datum/proc/RemoveComponentSource(source, datum/component/component_type)
+	if(ispath(component_type))
+		component_type = GetExactComponent(component_type)
+	if(!component_type)
+		return
+	component_type.on_source_remove(source)

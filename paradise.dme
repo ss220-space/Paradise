@@ -564,6 +564,7 @@
 #include "code\datums\components\revenge_ability.dm"
 #include "code\datums\components\ritual_object.dm"
 #include "code\datums\components\shielded.dm"
+#include "code\datums\components\shovel_hands.dm"
 #include "code\datums\components\slippery.dm"
 #include "code\datums\components\spawner.dm"
 #include "code\datums\components\spinny.dm"

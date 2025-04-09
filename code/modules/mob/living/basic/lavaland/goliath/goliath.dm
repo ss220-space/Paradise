@@ -66,3 +66,5 @@
 	AddElement(/datum/element/basic_eating, heal_amt = 10, food_types = goliath_foods)
 	AddElement(/datum/element/move_cooldown, move_delay = movement_delay)
 	AddComponent(/datum/component/basic_mob_attack_telegraph)
+	AddComponentFrom(INNATE_TRAIT, /datum/component/shovel_hands)
+
