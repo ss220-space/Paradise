@@ -225,10 +225,11 @@
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))
 
 /datum/disease/virus/transformation/xeno/phantom/do_disease_transformation()
-	. = ..()
-	..mind.objectives += /datum/objective/xeno_genocide
-	var/list/messages = ..mind.prepare_announce_objectives()
-	to_chat(., chat_box_red(messages.Join("<br>")))
+	var/mob/living/prom = ..()
+	prom.mind.objectives += /datum/objective/xeno_genocide
+	var/list/messages = prom.mind.prepare_announce_objectives()
+	to_chat(prom, chat_box_red(messages.Join("<br>")))
+	return prom
 
 /datum/disease/virus/transformation/slime
 	name = "Advanced Mutation Transformation"
