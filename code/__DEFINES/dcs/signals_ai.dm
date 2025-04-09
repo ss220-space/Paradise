@@ -17,3 +17,16 @@
 #define COMSIG_MOB_ATE "mob_ate"
 	///cancel post eating
 	#define COMSIG_MOB_TERMINATE_EAT (1<<0)
+
+
+// simple_animal signals
+/// called when a simplemob is given sentience from a sentience potion (target = person who sentienced)
+#define COMSIG_SIMPLEMOB_SENTIENCEPOTION "simplemob_sentiencepotion"
+/// called when a simplemob is given sentience from a consciousness transference potion (target = person who sentienced)
+#define COMSIG_SIMPLEMOB_TRANSFERPOTION "simplemob_transferpotion"
+
+/// From /mob/living/befriend() : (mob/living/new_friend)
+#define COMSIG_LIVING_BEFRIENDED "living_befriended"
+
+/// From /mob/living/unfriend() : (mob/living/old_friend)
+#define COMSIG_LIVING_UNFRIENDED "living_unfriended"

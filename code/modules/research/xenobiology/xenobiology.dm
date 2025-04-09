@@ -360,6 +360,7 @@
 		return
 
 /obj/item/slimepotion/sentience/proc/after_success(mob/living/user, mob/living/simple_animal/SM)
+	SEND_SIGNAL(SM, COMSIG_SIMPLEMOB_SENTIENCEPOTION, user)
 	return
 
 /obj/item/slimepotion/transference
@@ -399,6 +400,7 @@
 	to_chat(user, "<span class='notice'>You drink the potion then place your hands on [SM]...</span>")
 	add_attack_logs(user, SM, "mind transference potion")
 	user.mind.transfer_to(SM)
+	SEND_SIGNAL(SM, COMSIG_SIMPLEMOB_TRANSFERPOTION, user)
 	SM.universal_speak = TRUE
 	SM.faction = user.faction
 	SM.sentience_act() //Same deal here as with sentience

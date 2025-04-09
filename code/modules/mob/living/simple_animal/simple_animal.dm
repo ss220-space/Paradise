@@ -175,11 +175,6 @@
 /mob/living/simple_animal/ComponentInitialize()
 	AddComponent(/datum/component/animal_temperature)
 
-
-///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
-/mob/living/simple_animal/proc/tamed(whomst)
-	return
-
 /mob/living/simple_animal/handle_atom_del(atom/A)
 	if(A == pcollar)
 		pcollar = null
