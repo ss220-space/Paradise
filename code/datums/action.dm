@@ -444,6 +444,9 @@
 /datum/action/item_action/toggle_helmet
 	name = "Toggle Helmet"
 
+/datum/action/item_action/payday
+	name = "I NEED A MEDIC BAG!"
+
 /datum/action/item_action/remove_tape
 	name = "Remove Duct Tape"
 	attack_self = FALSE

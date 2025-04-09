@@ -176,7 +176,7 @@
 								/obj/item/clothing/under/suit_jacket/really_black = 1,						// 0 TK
 								/obj/item/clothing/suit/storage/lawyer/blackjacket/armored = 1,				// 0 TK
 								/obj/item/clothing/gloves/color/latex/nitrile = 1,							// 0 TK
-								/obj/item/clothing/mask/gas/clown_hat = 1,									// 0 TK
+								/obj/item/clothing/mask/gas/dalas_mask = 1,									// 0 TK
 								/obj/item/thermal_drill/diamond_drill/syndicate = 1,						// 5 TK
 								/obj/item/encryptionkey/syndicate = 1),										// 0-2 TK
 			"Bio-сhip" = list(	"Name" = "\improper 'Bio-chip' bundle",	// 140-152 TK

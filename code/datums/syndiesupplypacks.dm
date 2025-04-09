@@ -2204,7 +2204,7 @@ GLOBAL_LIST_INIT(all_syndie_supply_groups, list(SYNDIE_SUPPLY_EMERGENCY,SYNDIE_S
 		/obj/item/clothing/under/suit_jacket/really_black,
 		/obj/item/clothing/suit/storage/lawyer/blackjacket/armored,
 		/obj/item/clothing/gloves/color/latex/nitrile,
-		/obj/item/clothing/mask/gas/clown_hat,
+		/obj/item/clothing/mask/gas/dalas_mask,
 		/obj/item/thermal_drill/diamond_drill/syndicate,
 		/obj/item/encryptionkey/syndicate
 	)

@@ -602,3 +602,26 @@
 
 /obj/item/clothing/mask/gas/ghostface/devil
 	icon_state = "devil_ghostface_mask"
+
+/obj/item/clothing/mask/gas/dalas_mask
+    name = "Mask of Liberty"
+    desc = "Чертова дрель..."
+    ru_names = list(
+        NOMINATIVE = "маска свободы",
+        GENITIVE = "маской свободы",
+        DATIVE = "маской свободы",
+        ACCUSATIVE = "маска свободы",
+        INSTRUMENTAL = "маской свободы",
+        PREPOSITIONAL = "маской свободы"
+    )
+    icon_state = "dalas_mask"
+    item_state = "dalas_mask"
+    actions_types = list(/datum/action/item_action/payday)
+
+/obj/item/clothing/mask/gas/dalas_mask/attack_self(mob/user)
+	payday(user)
+
+/obj/item/clothing/mask/gas/dalas_mask/proc/payday(mob/user)
+	if(cooldown < world.time - 35) // A cooldown, to stop people being jerks
+		playsound(src.loc, 'sound/items/dalas_line.ogg',  50, 1)
+		cooldown = world.time
