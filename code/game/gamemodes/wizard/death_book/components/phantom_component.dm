@@ -1,8 +1,9 @@
 //AkA guardian components
 
 /datum/component/phantom_component
-	var/atom/linked_item = null //Signal hear
+	var/datum/linked_item = null //Signal hear
 	var/deep = FALSE
+
 /datum/component/phantom_component/Initialize(link_item = null, so_deep = FALSE)
 	. = ..()
 	linked_item = link_item

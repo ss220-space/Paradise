@@ -87,6 +87,7 @@
 	message_to_chat = "Вы читаете главу о человеке, что разрушил мир – что навевает вам желание начинать сжигать всё вокруг."
 	descr = "Обрушьте всю вашу ярость с этим набором, залив станцию в огне. А в пекле вашу шкурку защитит огнеупорный скафандр."
 
+	uniform = /obj/item/clothing/under/syndicate/tacticool
 	suit = /obj/item/clothing/suit/space/syndicate/phantom
 	head = /obj/item/clothing/head/helmet/space/syndicate/phantom
 	back = /obj/item/storage/backpack/syndicate
@@ -101,11 +102,10 @@
 		)
 
 /datum/outfit/radial_outfit/death_book/crusher/post_equip(mob/living/carbon/human/H, visualsOnly)
-	if(isvox(H.dna.species))
-		var/obj/item/tank/internals/oxygen/red/prom = suit_store
-		prom.desc = "A tank of nitrogen, this one is red."
+	if(H.dna.species.name == SPECIES_VOX)
+		var/obj/item/tank/internals/oxygen/red/prom = H.s_store
 		prom.air_contents.oxygen = 0
-		prom.air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+		prom.air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * prom.volume / (R_IDEAL_GAS_EQUATION * T20C)
 
 /datum/outfit/radial_outfit/death_book/plague_inc
 	name = "Вестник чумы"
@@ -127,7 +127,7 @@
 		/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno = 1,
 		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1
 		)
-(6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+
 /datum/outfit/radial_outfit/death_book/plague_inc/post_equip(mob/living/carbon/human/H, visualsOnly)
 	SEND_SIGNAL(H.wear_suit, COMSIG_EQUIP_HOOD)
 	

@@ -95,6 +95,7 @@
 	var/i
 	for(i = 0, i < syringes_load, i++)
 		syringes += new /obj/item/reagent_containers/syringe/traitor_random(src)
+	process_chamber()
 
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"

@@ -475,12 +475,28 @@
 	desc = "Содержит в себе яица настоящего ужаса готового сокрушить станцию."
 	icon_state = "spider-injector"
 	list_reagents = list("terror_eggs" = 10)
+	ru_names = list(
+		NOMINATIVE = "зловещий зеленый инъектор",
+		GENITIVE = "зловещего зеленого инъектора",
+		DATIVE = "зловещему зеленому инъектору",
+		ACCUSATIVE = "зловещий зеленый инъектор",
+		INSTRUMENTAL = "зловещим зеленым инъектором",
+		PREPOSITIONAL = "зловещем зеленом инъекторе"
+	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno
 	name = "Зловещий фиолетовый инъектор"
 	desc = "Содержит в себе агрессивные ксеномикробы. Не облизывать!"
 	list_reagents = list("xenomicrobes_phantom" = 10)
 	icon_state = "xeno-injector"
+	ru_names = list(
+		NOMINATIVE = "зловещий фиолетовый инъектор",
+		GENITIVE = "зловещего фиолетового инъектора",
+		DATIVE = "зловещему фиолетовому инъектору",
+		ACCUSATIVE = "зловещий фиолетовый инъектор",
+		INSTRUMENTAL = "зловещим фиолетовым инъектором",
+		PREPOSITIONAL = "зловещем фиолетовом инъекторе"
+	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"
