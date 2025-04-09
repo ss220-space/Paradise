@@ -460,6 +460,27 @@
 	else
 		. += span_notice("Использовано.")
 
+/obj/item/reagent_containers/hypospray/autoinjector/death_book
+	icon = 'icons/obj/death_book.dmi'
+
+/obj/item/reagent_containers/hypospray/autoinjector/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
+		. = ..()
+	else
+		balloon_alert(user, "не двигайся!")
+		return ATTACK_CHAIN_PROCEED
+
+/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror
+	name = "Зловещий зеленый инъектор"
+	desc = "Содержит в себе яица настоящего ужаса готового сокрушить станцию."
+	icon_state = "spider-injector"
+	list_reagents = list("terror_eggs" = 10)
+
+/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno
+	name = "Зловещий фиолетовый инъектор"
+	desc = "Содержит в себе агрессивные ксеномикробы. Не облизывать!"
+	list_reagents = list("xenomicrobes_phantom" = 10)
+	icon_state = "xeno-injector"
 
 /obj/item/reagent_containers/hypospray/autoinjector/teporone //basilisks
 	name = "teporone autoinjector"

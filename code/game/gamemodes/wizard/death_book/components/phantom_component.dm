@@ -7,11 +7,14 @@
 	. = ..()
 	linked_item = link_item
 	deep = so_deep
-	if(!isitem(parent) || isnull(linked_item))
+	if(!isatom(parent) || isnull(linked_item))
 		return COMPONENT_INCOMPATIBLE
 	if(deep && isstorage(parent))
 		var/obj/item/storage/prom = parent
 		phantomification(prom.return_inv())
+	else if(deep)
+		var/atom/prom = parent
+		phantomification(prom.contents)
 
 /datum/component/phantom_component/RegisterWithParent()
 	RegisterSignal(linked_item, PHANTOM_DELETE, PROC_REF(smart_self_delete))
@@ -25,13 +28,7 @@
 
 /datum/component/phantom_component/proc/smart_self_delete()
 	SIGNAL_HANDLER
-	/*
-	if(isstorage(parent.loc))
-		var/obj/item/storage/prom = parent.loc
-	if(ismmob(parent.loc))
-		var/mob/prom = parent.loc
-		prom.drop
-	*/
+
 	if(isnull(parent))
 		qdel(src)
 	var/atom/prom_parent = parent

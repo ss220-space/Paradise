@@ -3,6 +3,8 @@
 	desc = "Загадочно поел говна с этими спрайтами"
 	icon = 'icons/obj/death_book.dmi'
 	icon_state = "close_death_book"
+	lefthand_file = 'icons/mob/inhands/death_book_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/death_book_rigthhand.dmi'
 	
 	var/list/outfits = list(
 		/datum/outfit/radial_outfit/death_book/executioner,

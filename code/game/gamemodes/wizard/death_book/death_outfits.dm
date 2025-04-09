@@ -55,7 +55,7 @@
 	name = "Убийца"
 	icon_state = "hitman"
 	message_to_chat = "Вы читаете главу о невероятном охотнике за головами, и жаждите повторить его успех."
-	descr = "Вы читаете главу о невероятном охотнике за головами, и жаждите повторить его успех."
+	descr = "Позволяет вам замаскироваться среди экипажа, и проводить быстрые и смертельные устранения. Стечкин поможет скрыться с места преступления в случае вашего обнаружения."
 
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
@@ -67,7 +67,8 @@
 	back =  /obj/item/storage/backpack/chameleon
 	r_ear = /obj/item/radio/headset/chameleon
 	neck = /obj/item/clothing/neck/chameleon
-	pda =  /obj/item/pda/chameleon  
+	pda =  /obj/item/pda/chameleon
+
 	backpack_contents = list(
 		/obj/item/stamp/chameleon = 1,
 	 	/obj/item/gun/projectile/automatic/pistol = 1,
@@ -84,12 +85,14 @@
 	name = "Разрушитель"
 	icon_state = "crusher"
 	message_to_chat = "Вы читаете главу о человеке, что разрушил мир – что навевает вам желание начинать сжигать всё вокруг."
-	descr = "ывфыф"
+	descr = "Обрушьте всю вашу ярость с этим набором, залив станцию в огне. А в пекле вашу шкурку защитит огнеупорный скафандр."
 
 	suit = /obj/item/clothing/suit/space/syndicate/phantom
 	head = /obj/item/clothing/head/helmet/space/syndicate/phantom
 	back = /obj/item/storage/backpack/syndicate
 	belt = /obj/item/storage/belt/grenade/full
+	suit_store = /obj/item/tank/internals/oxygen/red
+	mask = /obj/item/clothing/mask/gas/syndicate
 	backpack_contents = list(
 		/obj/item/tank/internals/plasma = 5,
 		/obj/item/pickaxe/drill/jackhammer/phantom = 1,
@@ -97,18 +100,34 @@
 		/obj/item/flamethrower/full/tank = 1
 		)
 
+/datum/outfit/radial_outfit/death_book/crusher/post_equip(mob/living/carbon/human/H, visualsOnly)
+	if(isvox(H.dna.species))
+		var/obj/item/tank/internals/oxygen/red/prom = suit_store
+		prom.desc = "A tank of nitrogen, this one is red."
+		prom.air_contents.oxygen = 0
+		prom.air_contents.nitrogen = (6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
+
 /datum/outfit/radial_outfit/death_book/plague_inc
 	name = "Вестник чумы"
 	icon_state = "plague_inc"
 	message_to_chat = "Вы читаете главу о мерзавце, превратившем свой мир в гниющее логово чудовищ – и это задевает ваше эго."
-	descr = "сукт"
+	descr = "Заставьте экипаж почувствовать ужас, порождая страшнейших тварей на их трупах. А для личной безопасности используйте энергоарбалет и различные химикаты."
 
 	force_unequip_slots = ITEM_SLOT_HEAD
 	uniform = /obj/item/clothing/under/syndicate/blackops
 	suit = /obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
-	mask = /obj/item/clothing/mask/gas/plaguedoctor
-	
-
+	mask = /obj/item/clothing/mask/gas/plaguedoctor/armoured
+	shoes = /obj/item/clothing/shoes/combat
+	gloves = /obj/item/clothing/gloves/combat
+	backpack_contents = list(
+		/obj/item/powersink/compact = 1,
+		/obj/item/pen/sleepy = 1,
+		/obj/item/gun/syringe/rapidsyringe/syndicate = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror = 1,
+		/obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno = 1,
+		/obj/item/gun/energy/kinetic_accelerator/crossbow = 1
+		)
+(6 * ONE_ATMOSPHERE) * volume / (R_IDEAL_GAS_EQUATION * T20C)
 /datum/outfit/radial_outfit/death_book/plague_inc/post_equip(mob/living/carbon/human/H, visualsOnly)
 	SEND_SIGNAL(H.wear_suit, COMSIG_EQUIP_HOOD)
 	

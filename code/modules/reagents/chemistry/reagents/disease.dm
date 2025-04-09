@@ -14,7 +14,6 @@
 				new/obj/item/organ/internal/body_egg/spider_eggs(M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
 	return ..()
 
-
 /datum/reagent/nanomachines
 	name = "Наномашины"
 	id = "nanomachines"
@@ -43,6 +42,34 @@
 		var/datum/disease/virus/transformation/xeno/D = new
 		D.Contract(M)
 	return ..()
+
+//I was told that someone will soon change the logic of their work, so I keep the old behavior.
+/datum/reagent/xenomicrobes/phantom
+	name = "Ксеномикробы"
+	id = "xenomicrobes_phantom"
+	description = "Микробы с совершенно чужеродной клеточной структурой. Кажутся более активными чем обычно."
+	color = "#535E66" // rgb: 83, 94, 102
+	can_synth = FALSE
+	taste_mult = 0
+
+/datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
+	if(volume >= 1)
+		var/datum/disease/virus/transformation/xeno/phantom/D = new
+		D.Contract(M)
+	return ..()
+
+/datum/reagent/terror_eggs
+	name = "Яица ужаса"
+	id = "terror_eggs"
+	description = "Да поможет вам бог."
+	color = "#6b336b"
+	can_synth = FALSE
+	taste_mult = 0
+
+/datum/reagent/terror_eggs/on_mob_life(mob/living/carbon/M)
+	if(volume >= 1)
+		if(!M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
+			new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
 
 /datum/reagent/fungalspores
 	name = "Микробы Космического Туберкулёза"

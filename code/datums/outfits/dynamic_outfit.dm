@@ -28,6 +28,9 @@
 /datum/dynamic_outfit/proc/equip_item(mob/living/carbon/human/H, obj/item/I, slot)
 	if(QDELETED(I))
 		return
+	if(isstorage(I))
+		var/obj/item/storage/prom = I
+		prom.hide_from(H)
 	H.equip_or_collect(I, slot)
  //																					all flags lmao xD
 /datum/dynamic_outfit/proc/equip(mob/living/carbon/human/H, selfdestroy = TRUE, selective_mode = INFINITY)
