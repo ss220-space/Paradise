@@ -204,7 +204,7 @@
 	stage3 = list(span_danger("Your throat feels very scratchy."), "Your skin feels tight.", span_danger("You can feel something move...inside."))
 	stage4 = list(span_danger("Your skin feels very tight."), span_danger("Your blood boils!"), span_danger("You can feel... something...inside you."))
 	transform_message = list(span_danger("<FONT size = 5><B>Теперь вы ксеноморф.</B></FONT></span>\n\
-	<B>Вы чувствуете боль от превращения! Вы желаете укусить того, кто с вами это сделал, благо, память вас не покинула и вы всё помните.</B>"))
+	<B>Вы чувствуете боль от превращения! Вы утратили всю память и первобытная жажда убийства охватила вас!</B>"))
 	new_form = null
 
 /datum/disease/virus/transformation/xeno/phantom/New()
@@ -226,9 +226,11 @@
 
 /datum/disease/virus/transformation/xeno/phantom/do_disease_transformation()
 	var/mob/living/prom = ..()
-	prom.mind.objectives += new /datum/objective/xeno_genocide()
-	var/list/messages = prom.mind.prepare_announce_objectives()
-	to_chat(prom, chat_box_red(messages.Join("<br>")))
+	if(prom.mind)
+		prom.mind.wipe_memory()
+		prom.mind.objectives += new /datum/objective/xeno_genocide
+		var/list/messages = prom.mind.prepare_announce_objectives()
+		to_chat(prom, chat_box_red(messages.Join("<br>")))
 	return prom
 
 /datum/disease/virus/transformation/slime
