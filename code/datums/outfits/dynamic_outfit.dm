@@ -145,30 +145,3 @@
 		unequip_item(H, H.r_store)
 
 	H.regenerate_icons()
-
-//DEBUG ITEM
-/obj/item/spatial_storage
-	name = "Межпространственное хранилище экиперовки"
-	desc = "Хранит в себе снаряжение человечка"
-	icon_state = "bodybags"
-	icon = 'icons/obj/storage.dmi'
-	var/datum/dynamic_outfit/storage = null
-
-/obj/item/spatial_storage/Initialize(mapload)
-	storage = new()
-	..()
-
-/obj/item/spatial_storage/Destroy()
-	qdel(storage)
-	..()
-
-/obj/item/spatial_storage/attack_self(mob/user)
-	if(!ishuman(user))
-		return ..()
-	
-	var/mob/living/carbon/human/H = user
-	if(storage.debug_switch)
-		storage.temp_unequip(H, TRUE)
-	else
-		storage.equip(H, FALSE)
-	return ..()

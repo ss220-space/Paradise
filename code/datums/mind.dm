@@ -2584,7 +2584,7 @@
 /**
  * Create and/or add the `datum_type_or_instance` antag datum to the src mind.
  *
- * Arguments:
+ * Arguments:ы
  * * datum_type - an antag datum typepath or instance
  * * datum/team/team - the antag team that the src mind should join, if any
  */

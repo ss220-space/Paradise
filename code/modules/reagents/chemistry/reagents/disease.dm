@@ -70,6 +70,7 @@
 	if(volume >= 1)
 		if(!M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
 			new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
+	return ..()
 
 /datum/reagent/fungalspores
 	name = "Микробы Космического Туберкулёза"

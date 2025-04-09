@@ -102,6 +102,7 @@
 		H.equip_or_collect(I, slot)
 	else
 		H.equip_to_slot_or_del(I, slot)
+
 /datum/outfit/proc/post_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	//to be overriden for toggling internals, id binding, access etc
 	return

@@ -1,6 +1,6 @@
 /obj/item/death_book
 	name = "Летопись вашей гибели"
-	desc = "Загадочно поел говна с этими спрайтами"
+	desc = "Странная книга с мерцающими страницами. Кажется, корешок её состоит из человеческой кожи..."
 	icon = 'icons/obj/death_book.dmi'
 	icon_state = "close_death_book"
 	lefthand_file = 'icons/mob/inhands/death_book_lefthand.dmi'
