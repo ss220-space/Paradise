@@ -169,5 +169,3 @@
 	else
 		storage.equip(H, FALSE)
 	return ..()
-
-	
