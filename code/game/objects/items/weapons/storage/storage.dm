@@ -220,8 +220,8 @@
 	if(user.s_active)
 		user.s_active.close(user)
 
-	if(user.hud_used.is_shown_robot_modules())
-		user.hud_used.toggle_show_robot_modules()
+	if(user?.hud_used?.is_shown_robot_modules())
+		user?.hud_used?.toggle_show_robot_modules()
 
 	show_to(user)
 
