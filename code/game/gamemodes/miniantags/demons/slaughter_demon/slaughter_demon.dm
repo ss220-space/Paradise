@@ -17,10 +17,10 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 
-	playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
+	playstyle_string = "<b>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
-						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
+						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </b>"
 
 
 /mob/living/simple_animal/demon/slaughter/Initialize(mapload)

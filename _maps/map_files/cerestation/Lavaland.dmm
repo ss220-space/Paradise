@@ -204,19 +204,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
-"aF" = (
-/obj/machinery/atmospherics/pipe/simple/visible/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
-	dir = 4
-	},
-/obj/structure/cable{
-	icon_state = "4-8"
-	},
-/obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
-/area/lavaland/surface/outdoors)
 "aI" = (
 /obj/machinery/vending/boozeomat,
 /turf/simulated/floor/plasteel{
@@ -284,7 +271,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "aR" = (
 /turf/simulated/wall/r_wall,
@@ -404,6 +392,7 @@
 /area/mine/production)
 "bs" = (
 /obj/structure/chair,
+/obj/item/toy/plushie/ashwalkerplushie,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -574,15 +563,13 @@
 	},
 /area/mine/living_quarters)
 "bT" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/office/light{
+	dir = 1;
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/mine/living_quarters)
 "bV" = (
@@ -623,23 +610,14 @@
 	},
 /area/mine/lobby)
 "cc" = (
-/obj/structure/closet/crate/medical,
-/obj/item/storage/firstaid/o2,
-/obj/item/storage/firstaid,
 /obj/structure/window/reinforced/polarized{
 	dir = 8;
 	id = "inf"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
-	},
+/obj/structure/closet/secure_closet/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 8;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (WEST)"
+	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
 "ci" = (
@@ -674,7 +652,8 @@
 	dir = 4
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cp" = (
 /obj/machinery/shower{
@@ -798,7 +777,8 @@
 	icon_state = "1-2"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "cW" = (
 /obj/structure/stone_tile/surrounding_tile{
@@ -1046,7 +1026,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ef" = (
 /obj/structure/table,
@@ -1092,26 +1073,16 @@
 /turf/simulated/floor/plating,
 /area/mine/maintenance)
 "ep" = (
-/obj/structure/closet/crate/freezer,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/reagent_containers/iv_bag/salglu,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
-/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
 	ispolzovano = "inf"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 4
-	},
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 4
+/obj/machinery/bodyscanner{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (EAST)"
+	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
 "eq" = (
@@ -1268,7 +1239,8 @@
 	icon_state = "2-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "fj" = (
 /obj/structure/cable{
@@ -1905,15 +1877,9 @@
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "iE" = (
-/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
-	dir = 1
-	},
-/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/mine/living_quarters)
 "iF" = (
@@ -2130,10 +2096,12 @@
 /obj/machinery/defibrillator_mount/loaded{
 	pixel_y = 24
 	},
+/obj/machinery/optable,
+/obj/item/tank/internals/anesthetic,
+/obj/item/clothing/mask/breath/medical,
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
 "jR" = (
@@ -3503,7 +3471,8 @@
 	icon_state = "1-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "rV" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
@@ -3673,17 +3642,16 @@
 	},
 /area/mine/living_quarters)
 "tj" = (
-/obj/structure/table,
-/obj/item/storage/toolbox,
-/obj/item/reagent_containers/spray/cleaner,
 /obj/machinery/vending/wallmed{
 	pixel_x = 26
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/computer/operating{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHEAST)"
+	icon_state = "darkyellow"
 	},
 /area/mine/living_quarters)
 "tu" = (
@@ -3851,11 +3819,8 @@
 /obj/machinery/door/window/southleft{
 	name = "Infirmary"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "dark"
 	},
 /area/mine/living_quarters)
 "uE" = (
@@ -4053,7 +4018,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "wD" = (
 /obj/item/flashlight/lantern{
@@ -4105,12 +4071,9 @@
 /obj/structure/window/reinforced/polarized{
 	ispolzovano = "inf"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
 "xh" = (
@@ -4344,7 +4307,8 @@
 	icon_state = "4-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "ze" = (
 /obj/structure/railing{
@@ -4357,7 +4321,8 @@
 /obj/structure/disposalpipe/segment,
 /obj/machinery/atmospherics/pipe/simple/visible/scrubbers,
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zi" = (
 /obj/structure/stone_tile/slab,
@@ -4409,7 +4374,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zt" = (
 /obj/structure/table,
@@ -4436,7 +4402,6 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "zB" = (
-/obj/machinery/iv_drip,
 /obj/structure/window/reinforced/polarized{
 	dir = 4;
 	ispolzovano = "inf"
@@ -4445,10 +4410,15 @@
 	ispolzovano = "inf"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/salglu,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis,
+/obj/structure/closet/crate/freezer,
 /turf/simulated/floor/plasteel{
 	dir = 6;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHEAST)"
+	icon_state = "darkyellow"
 	},
 /area/mine/living_quarters)
 "zC" = (
@@ -4658,7 +4628,8 @@
 	icon_state = "1-8"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Bm" = (
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/dwarf{
@@ -5050,13 +5021,8 @@
 /obj/machinery/door/window/southright{
 	name = "Infirmary"
 	},
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
-/obj/structure/disposalpipe/segment{
-	dir = 10
-	},
 /turf/simulated/floor/plasteel{
-	icon_state = "white"
+	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
 "EK" = (
@@ -5800,10 +5766,10 @@
 /obj/structure/fishingrodcabinet{
 	pixel_y = 32
 	},
+/obj/machinery/computer/crew,
 /turf/simulated/floor/plasteel{
-	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTHWEST)"
+	dir = 1;
+	icon_state = "darkblue"
 	},
 /area/mine/living_quarters)
 "Ky" = (
@@ -6110,6 +6076,20 @@
 /obj/structure/stone_tile/block,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"MT" = (
+/obj/machinery/atmospherics/pipe/simple/visible/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/visible/scrubbers{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/lattice/catwalk/mapping,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
 "Ne" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -6701,13 +6681,10 @@
 	dir = 8;
 	id = "inf"
 	},
-/obj/structure/disposalpipe/segment{
-	dir = 4
-	},
+/obj/machinery/suit_storage_unit/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 10;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (SOUTHWEST)"
+	icon_state = "darkyellow"
 	},
 /area/mine/living_quarters)
 "Tj" = (
@@ -6945,7 +6922,7 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "Vw" = (
 /obj/structure/stone_tile/surrounding_tile,
@@ -6973,7 +6950,8 @@
 	icon_state = "2-4"
 	},
 /obj/structure/lattice/catwalk/mapping,
-/turf/simulated/floor/lava/lava_land_surface,
+/obj/effect/mapping_helpers/no_lava,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "VE" = (
 /obj/structure/stone_tile/center,
@@ -6999,7 +6977,6 @@
 	},
 /area/mine/necropolis)
 "VM" = (
-/obj/structure/bed/roller,
 /obj/machinery/camera{
 	c_tag = "Mining Medpoint";
 	network = list("Mining Outpost")
@@ -7012,11 +6989,18 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/item/toy/plushie/ashwalkerplushie,
+/obj/structure/table/glass,
+/obj/item/storage/toolbox/surgery{
+	pixel_x = -1;
+	pixel_y = 2
+	},
+/obj/item/reagent_containers/spray/cleaner/medical{
+	desc = "Someone has crossed out the Space from Space Cleaner and written in Surgery. 'Do not remove under punishment of death!!!' is scrawled on the back.";
+	name = "Surgery Cleaner"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
-	icon_state = "whiteblue";
-	tag = "icon-whiteblue (NORTH)"
+	icon_state = "darkyellow"
 	},
 /area/mine/living_quarters)
 "VN" = (
@@ -7366,13 +7350,12 @@
 	dir = 8;
 	id = "inf"
 	},
-/obj/machinery/bodyscanner{
+/obj/machinery/computer/med_data{
 	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 9;
-	icon_state = "whiteblue";
-	tag = "icon-whitehall (WEST)"
+	icon_state = "darkyellow"
 	},
 /area/mine/living_quarters)
 "YU" = (
@@ -65307,7 +65290,7 @@ aj
 aj
 aj
 aj
-aF
+MT
 aR
 lC
 aR
@@ -65822,7 +65805,7 @@ aj
 aj
 aj
 aj
-aF
+MT
 aj
 aj
 at
@@ -67362,7 +67345,7 @@ bV
 ol
 bS
 Zf
-aF
+MT
 aj
 aj
 aj
@@ -67619,7 +67602,7 @@ bV
 bV
 aK
 Zf
-aF
+MT
 aj
 aj
 aj
@@ -67876,7 +67859,7 @@ JS
 Lc
 Km
 Zf
-aF
+MT
 aj
 aj
 aj
@@ -68127,7 +68110,7 @@ Vn
 Vn
 Zf
 VM
-bT
+iE
 uy
 aY
 FS

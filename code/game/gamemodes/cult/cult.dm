@@ -14,6 +14,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/ascend_number
 	/// Used for the CentComm announcement at ascension
 	var/ascend_percent
+	/// The number of ghost summons available to the cult.
+	var/ghost_summons = null
+
 
 /proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
@@ -39,6 +42,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(issilicon(mind.current))
 		return FALSE //can't convert machines, that's ratvar's thing
+	if(isalien(mind.current))
+		return FALSE
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
 		if(!iscultist(G.summoner))
@@ -56,16 +61,17 @@ GLOBAL_LIST_EMPTY(all_cults)
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/max_cultist_to_start = 4
+	var/static/max_cultist_to_start = 4
 
 /datum/game_mode/cult/announce()
-	to_chat(world, "<B>The current game mode is - Cult!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
+	to_chat(world, "<b>The current game mode is - Cult!</b>")
+	to_chat(world, "<b>Some crewmembers are attempting to start a cult!<br>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<br>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</b>")
 
 /datum/game_mode/cult/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
+	max_cultist_to_start += floor((num_players() - required_players) / CULT_PLAYER_PER_CULTIST)
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 	for(var/cultists_number = 1 to max_cultist_to_start)
 		if(!length(cultists_possible))
@@ -75,6 +81,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
+
+		ghost_summons = floor(num_players() / GHOST_SUMMONS_PER_READY)
 	return (length(cult) > 0)
 
 /datum/game_mode/cult/post_setup()
@@ -182,6 +190,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(!ascend_percent) // If the rise/ascend thresholds haven't been set (non-cult rounds)
 		cult_objs.setup()
 		cult_threshold_check()
+
+	if(isnull(ghost_summons))
+		ghost_summons = floor(num_station_players() / GHOST_SUMMONS_PER_READY)
 
 	if(!(cult_mind in cult))
 		cult += cult_mind
@@ -320,13 +331,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
-		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
+		to_chat(world, "<span class='danger'> <span style='font-size: 3;'>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</span></span>")
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
-		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
+		to_chat(world, "<span class='danger'> <span style='font-size: 3;'Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</span></span>")
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
-		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
+		to_chat(world, "<span class='warning'> <span style='font-size: 3;'>The staff managed to stop the cult!</span></span>")
 
 	var/endtext
 	endtext += "<br><b>The cultists' objectives were:</b>"
@@ -335,13 +346,13 @@ GLOBAL_LIST_EMPTY(all_cults)
 		if(!obj.check_completion())
 			endtext += "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 	if(cult_objs.cult_status >= NARSIE_NEEDS_SUMMONING)
 		endtext += "<br>[cult_objs.obj_summon.explanation_text] - "
 		if(!cult_objs.obj_summon.check_completion())
 			endtext+= "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 
 	to_chat(world, endtext)
 	..()

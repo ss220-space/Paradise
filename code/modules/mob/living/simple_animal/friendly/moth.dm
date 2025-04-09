@@ -29,35 +29,3 @@
 /mob/living/simple_animal/moth/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/simple_flying)
-
-
-/mob/living/simple_animal/mothroach
-	name = "mothroach"
-	desc = "Мотылёк. Обожает светочи."
-	icon = 'icons/mob/pets.dmi'
-	icon_state = "mothroach"
-	icon_living = "mothroach"
-	icon_dead = "mothroach_dead"
-	icon_resting = "mothroach_sleep"
-	speak = list("Furrr.","Uhh.", "Hurrr.")
-	speak_chance = 0
-	response_help  = "pets"
-	response_disarm = "bops"
-	response_harm   = "kicks"
-	faction = list("neutral")
-	maxHealth = 15
-	health = 15
-	nightvision = 30
-	turns_per_move = 10
-	emote_see = list("flutters")
-	response_help = "shoos"
-	response_disarm = "brushes aside"
-	response_harm = "squashes"
-	friendly = "nudges"
-	density = FALSE
-	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
-	gold_core_spawnable = FRIENDLY_SPAWN
-	footstep_type = FOOTSTEP_MOB_BAREFOOT
-	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/xenomeat = 1)
-	holder_type = /obj/item/holder/mothroach
-	tts_seed = "Tychus"

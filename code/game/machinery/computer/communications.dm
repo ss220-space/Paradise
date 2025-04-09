@@ -417,13 +417,13 @@
 	var/intercepttext
 	var/interceptname
 	interceptname = "Секретное постановление [command_name()]"
-	intercepttext += "<FONT size = 3><B>Постановление Nanotrasen</B>: Предупреждение о биологической угрозе.</FONT><HR>"
-	intercepttext += "Для [station_name()] была издана директива 7-12.<BR>"
-	intercepttext += "Биологическая угроза вышла из-под контроля.<BR>"
-	intercepttext += "Вам приказано следующее:<BR>"
-	intercepttext += " 1. Защищать диск ядерной аутентификации.<BR>"
-	intercepttext += " 2. Взорвать ядерную боеголовку, находящуюся в хранилище станции.<BR>"
-	intercepttext += "Код ядерной аутентификации: [nukecode]<BR>"
+	intercepttext += "<span style='font-size: 3;'><b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.</span><hr>"
+	intercepttext += "Для [station_name()] была издана директива 7-12.<br>"
+	intercepttext += "Биологическая угроза вышла из-под контроля.<br>"
+	intercepttext += "Вам приказано следующее:<br>"
+	intercepttext += " 1. Защищать диск ядерной аутентификации.<br>"
+	intercepttext += " 2. Взорвать ядерную боеголовку, находящуюся в хранилище станции.<br>"
+	intercepttext += "Код ядерной аутентификации: [nukecode]<br>"
 	intercepttext += "Конец сообщения."
 
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.player_list)

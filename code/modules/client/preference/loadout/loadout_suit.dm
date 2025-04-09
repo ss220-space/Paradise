@@ -33,7 +33,7 @@
 /datum/gear/suit/coat/job/med
 	index_name = "winter coat, medical"
 	path = /obj/item/clothing/suit/hooded/wintercoat/medical
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC , JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC , JOB_TITLE_CORONER)
 
 /datum/gear/suit/coat/job/cmo
 	index_name = "winter coat, chief medical officer"
@@ -83,7 +83,7 @@
 /datum/gear/suit/coat/job/miner
 	index_name = "winter coat, miner"
 	path = /obj/item/clothing/suit/hooded/wintercoat/miner
-	allowed_roles = list(JOB_TITLE_MINER)
+	allowed_roles = list(JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/suit/coat/job/hop
 	index_name = "winter coat, head of personnel"
@@ -192,7 +192,7 @@
 /datum/gear/suit/suragi_jacket/medic
 	index_name = "Suragi Jacket - Medical"
 	path = /obj/item/clothing/suit/storage/suragi_jacket/medic
-	allowed_roles = list(JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
 
 /datum/gear/suit/suragi_jacket/medsec

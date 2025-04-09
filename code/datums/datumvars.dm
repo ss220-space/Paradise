@@ -56,23 +56,23 @@
 /datum/proc/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Jump to Object"] = "?_src_=vars;jump_to=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
-	.["Add Component/Element"] = "?_src_=vars;addcomponent=[UID()]"
-	.["Remove Component/Element"] = "?_src_=vars;removecomponent=[UID()]"
-	.["Mass Remove Component/Element"] = "?_src_=vars;removecomponent_mass=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Jump to Object"] = "byond://?_src_=vars;jump_to=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
+	.["Add Component/Element"] = "byond://?_src_=vars;addcomponent=[UID()]"
+	.["Remove Component/Element"] = "byond://?_src_=vars;removecomponent=[UID()]"
+	.["Mass Remove Component/Element"] = "byond://?_src_=vars;removecomponent_mass=[UID()]"
 	. += "---"
 
 /client/vv_get_dropdown()
 	. = list()
 	. += "---"
-	.["Call Proc"] = "?_src_=vars;proc_call=[UID()]"
-	.["Mark Object"] = "?_src_=vars;mark_object=[UID()]"
-	.["Delete"] = "?_src_=vars;delete=[UID()]"
-	.["Modify Traits"] = "?_src_=vars;traitmod=[UID()]"
+	.["Call Proc"] = "byond://?_src_=vars;proc_call=[UID()]"
+	.["Mark Object"] = "byond://?_src_=vars;mark_object=[UID()]"
+	.["Delete"] = "byond://?_src_=vars;delete=[UID()]"
+	.["Modify Traits"] = "byond://?_src_=vars;traitmod=[UID()]"
 	. += "---"
 
 /client/proc/debug_variables(datum/D in world)
@@ -114,7 +114,6 @@
 			hash = md5(A.icon)
 			hash = md5(hash + A.icon_state)
 			usr << browse_rsc(sprite, "vv[hash].png")
-			
 	title = "[D]"
 	var/formatted_type = replacetext("[type]", "/", "<wbr>/")
 
@@ -145,7 +144,7 @@
 		else
 			atomsnowflake += "<a href='byond://?_src_=vars;datumedit=[refid];varnameedit=name'><b id='name'>[D]</b></a>"
 			atomsnowflake += "<br><font size='1'><a href='byond://?_src_=vars;rotatedatum=[refid];rotatedir=left'><<</a> <a href='byond://?_src_=vars;datumedit=[refid];varnameedit=dir' id='dir'>[dir2text(A.dir) || A.dir]</a> <a href='byond://?_src_=vars;rotatedatum=[refid];rotatedir=right'>>></a></font>"
-	
+
 	else if("name" in D.vars)
 		atomsnowflake += "<a href='byond://?_src_=vars;datumedit=[refid];varnameedit=name'><b id='name'>[D]</b></a>"
 	else

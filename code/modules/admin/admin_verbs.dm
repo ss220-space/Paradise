@@ -59,6 +59,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/empty_ai_core_toggle_latejoin,
 	/client/proc/aooc,
 	/client/proc/freeze,
+	/client/proc/secrets,
 	/client/proc/debug_variables,
 	/client/proc/reset_all_tcs,			/*resets all telecomms scripts*/
 	/client/proc/toggle_mentor_chat,
@@ -1166,7 +1167,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		message_admins("[key_name_admin(usr)] select [next_map] as next map")
 		log_admin("[key_name(usr)] select [next_map] as next map")
 		SSmapping.next_map = new next_map
-		to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+		to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
 
 /client/proc/toggle_log_hrefs()
 	set name = "Toggle href logging"
@@ -1240,7 +1241,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "CMA - Admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /// targeted form of admin_observe: this should only appear in the right-click menu.
-/client/proc/admin_observe_target(mob/target)
+/client/proc/admin_observe_target(mob/target, look_into_inventory = FALSE)
 	if(isnewplayer(mob))
 		to_chat(src, span_warning("Вы не можете а-гостнуться, пока находитесь в лобби. Сначала зайдите в раунд (как игрок или как призрак)."))
 		return
@@ -1259,6 +1260,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 
 	addtimer(CALLBACK(mob, TYPE_PROC_REF(/mob, ManualFollow), target), 5 DECISECONDS)
+
+	if(look_into_inventory)
+		if(!target.client)
+			to_chat(src, span_warning("[target] не имеет за собой игрока(Disconnected)."))
+			return
+		addtimer(CALLBACK(mob, TYPE_PROC_REF(/mob/dead/observer, do_observe), target), 10 DECISECONDS)
 
 /client/proc/change_human_appearance_self(mob/living/carbon/human/H)
 	if(!check_rights(R_EVENT))

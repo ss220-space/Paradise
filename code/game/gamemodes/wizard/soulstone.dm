@@ -499,9 +499,9 @@
 		SSticker.mode.add_cultist(C.mind)
 		SSticker.mode.update_cult_icons_added(C.mind)
 	if(user && iscultist(user))
-		to_chat(C, "<B>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</B>")
+		to_chat(C, "<b>You are still bound to serve the cult, follow their orders and help them complete their goals at all costs.</b>")
 	else
-		to_chat(C, "<B>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</B>")
+		to_chat(C, "<b>You are still bound to serve your creator, follow their orders and help them complete their goals at all costs.</b>")
 	C.cancel_camera()
 
 /obj/item/soulstone/proc/init_shade(mob/living/M, mob/user, forced = FALSE)

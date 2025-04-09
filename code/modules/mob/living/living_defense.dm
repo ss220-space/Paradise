@@ -519,6 +519,7 @@
 	return FALSE
 
 /mob/living/attack_alien(mob/living/carbon/alien/humanoid/M)
+	SEND_SIGNAL(src, COMSIG_MOB_ATTACK_ALIEN, M)
 	switch(M.a_intent)
 		if(INTENT_HELP)
 			visible_message("<span class='notice'>[M.declent_ru(NOMINATIVE)] глад[pluralize_ru(M.gender,"ит","ят")] [src.declent_ru(ACCUSATIVE)] своей серповидной рукой.</span>")
@@ -560,3 +561,22 @@
 	Knockdown(1 SECONDS)
 	return TRUE
 
+/mob/living/attack_basic_mob(mob/living/basic/user)
+	if(user.melee_damage == 0)
+		if(user != src)
+			visible_message(span_notice("[user] [user.friendly_verb_continuous] [src]!"), \
+				span_notice("[user] [user.friendly_verb_continuous] вас!"))
+			to_chat(user, span_notice("Вы [user.friendly_verb_simple] [src]!"))
+		return FALSE
+	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_warning("Вы не хотите никому вредить."))
+		return FALSE
+
+	if(user.attack_sound)
+		playsound(loc, user.attack_sound, 50, TRUE, TRUE)
+	user.do_attack_animation(src)
+	visible_message(span_danger("[user] [user.attack_verb_continuous] [src]!"), \
+					span_userdanger("[user] [user.attack_verb_continuous] вас!"))
+	to_chat(user, span_danger("Вы [user.attack_verb_simple] [src]!"))
+	add_attack_logs(user, src, "атаковал")
+	return TRUE

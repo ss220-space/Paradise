@@ -18,6 +18,8 @@
 #define COMSIG_GLOB_MOB_DEATH "!mob_death"
 /// global living say plug - use sparingly: (mob/speaker , message)
 #define COMSIG_GLOB_LIVING_SAY_SPECIAL "!say_special"
+/// a person somewhere has thrown something : (mob/living/carbon/carbon_thrower, target)
+#define COMSIG_GLOB_CARBON_THROW_THING	"!throw_thing"
 /// called by datum/cinematic/play() : (datum/cinematic/new_cinematic)
 #define COMSIG_GLOB_PLAY_CINEMATIC "!play_cinematic"
 	#define COMPONENT_GLOB_BLOCK_CINEMATIC (1<<0)
@@ -81,6 +83,9 @@
 #define COMSIG_ATOM_NO_LONGER_PULLED "movable_no_longer_pulled"
 ///signal sent out by an atom when it is no longer pulling something : (atom/pulling)
 #define COMSIG_ATOM_NO_LONGER_PULLING "movable_no_longer_pulling"
+
+/// From /mob/living/proc/stop_leaning()
+#define COMSIG_LIVING_STOPPED_LEANING "living_stopped_leaning"
 
 ///from base of atom/attackby(): (/obj/item, /mob/living, params)
 #define COMSIG_PARENT_ATTACKBY "atom_attackby"
@@ -216,6 +221,10 @@
 #define COMSIG_ATOM_ORBIT_BEGIN "atom_orbit_begin"
 ///called when an atom stops orbiting another atom: (atom)
 #define COMSIG_ATOM_ORBIT_STOP "atom_orbit_stop"
+///called when an ORBITER starts orbiting another atom: (atom)
+#define COMSIG_ORBITER_ORBIT_BEGIN "orbiter_orbit_begin"
+///called when an ORBITER stops orbiting another atom: (atom)
+#define COMSIG_ORBITER_ORBIT_STOP "orbiter_orbit_stop"
 ///from base of atom/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 #define COMSIG_ATOM_HITBY "atom_hitby"
 /// Called when an atom is sharpened or dulled.
@@ -486,6 +495,8 @@
 	#define SPEECH_FORCED 7 */
 ////from mob/living/adjust_fire_stacks()
 #define COMSIG_MOB_ADJUST_FIRE "mob_adjust_fire"
+/// from base of /mob/living/attack_alien(): (user)
+#define COMSIG_MOB_ATTACK_ALIEN "mob_attack_alien"
 
 ////from mob/living/adjust_wet_stacks()
 #define COMSIG_MOB_ADJUST_WET "mob_adjust_wet"
@@ -710,6 +721,9 @@
 
 /// from base of /client/proc/handle_popup_close() : (window_id)
 #define COMSIG_POPUP_CLEARED "popup_cleared"
+
+/// from base of /datum/status_effect/Destroy() : (effect_type)
+#define COMSIG_MOB_STATUS_EFFECT_ENDED "mob_status_effect_ended"
 
 /// Source: /mob/living/UnarmedAttack (atom/atom, proximity_flag)
 #define COMSIG_LIVING_UNARMED_ATTACK "living_unarmed_attack"
@@ -1298,7 +1312,9 @@
 
 /// Source: /mob/living/simple_animal/borer, listening in datum/antagonist/borer
 #define	COMSIG_BORER_ENTERED_HOST "borer_on_enter" // when borer entered host
-#define COMSIG_BORER_LEFT_HOST "borer_on_leave" // when borer left host
+#define COMSIG_BORER_EARLY_LEFT_HOST "borer_early_leave"
+/// From /datum/action/innate/borer/make_larvae/Activate (turf/turf)
+#define COMSIG_BORER_REPRODUCE "borer_reproduced"
 
 ///from /datum/spawners_menu/ui_act(): (mob/user)
 #define COMSIG_IS_GHOST_CONTROLABLE "is_ghost_controllable"
@@ -1326,3 +1342,20 @@
 
 /// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
 #define COMSIG_POSSESSED_MOVEMENT "possessed_movement"
+
+/// from base of atom/on_teleported(): ()
+#define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
+
+//from /obj/machinery/door/airlock/open(): (forced)
+#define COMSIG_AIRLOCK_OPEN "airlock_open"
+
+//from base of atom/attack_basic_mob(): (/mob/user)
+#define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"
+
+///Basic mob signals
+///Called on /basic when updating its speed, from base of /mob/living/basic/update_basic_mob_varspeed(): ()
+#define POST_BASIC_MOB_UPDATE_VARSPEED "post_basic_mob_update_varspeed"
+
+/// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
+#define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
+

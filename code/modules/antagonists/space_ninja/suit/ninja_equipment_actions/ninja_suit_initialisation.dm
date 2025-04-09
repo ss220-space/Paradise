@@ -86,7 +86,7 @@
 		s_busy = FALSE
 		return
 	if (phase > NINJA_INIT_LOCK_PHASE && (ninja.stat == DEAD || ninja.health <= 0))
-		to_chat(ninja, span_danger("<B>FÄAL ï¿½Rrï¿½R</B>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <B>RED</B>\nA-A-aBï¿½rTï¿½NG..."))
+		to_chat(ninja, span_danger("<b>FÄAL ï¿½Rrï¿½R</b>: 344--93#ï¿½&&21 BRï¿½ï¿½N |/|/aVï¿½ PATT$RN <b>RED</b>\nA-A-aBï¿½rTï¿½NG..."))
 		unlock_suit()
 		s_busy = FALSE
 		return

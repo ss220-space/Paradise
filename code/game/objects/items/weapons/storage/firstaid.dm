@@ -451,6 +451,20 @@
 	new /obj/item/stack/medical/bruise_pack(src)
 	new /obj/item/stack/medical/ointment(src)
 
+/obj/item/storage/firstaid/doctor/mining_medic
+	name = "mining first-aid kit"
+	desc = "Это аптечка для экстренной первой помощи, используемая шахтёрским врачом."
+	ru_names = list(
+        NOMINATIVE = "аптечка первой помощи (Шахтёрский Врач)",
+        GENITIVE = "аптечки первой помощи (Шахтёрский Врач)",
+        DATIVE = "аптечке первой помощи (Шахтёрский Врач)",
+        ACCUSATIVE = "аптечку первой помощи (Шахтёрский Врач)",
+        INSTRUMENTAL = "аптечкой первой помощи (Шахтёрский Врач)",
+        PREPOSITIONAL = "аптечке первой помощи (Шахтёрский Врач)"
+	)
+	icon_state = "mining_medic_firstaid"
+	item_state = "mining_medic_firstaid"
+
 /*
  * Pill Bottles
  */

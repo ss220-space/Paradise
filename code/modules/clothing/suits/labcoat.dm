@@ -1,6 +1,14 @@
 /obj/item/clothing/suit/storage/labcoat
 	name = "labcoat"
-	desc = "A suit that protects against minor chemical spills."
+	desc = "Стерильный белый халат. Защищает тело и одежду от попадания на неё опасных реагентов."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат",
+		GENITIVE = "лабораторного халата",
+		DATIVE = "лабораторному халату",
+		ACCUSATIVE = "лабораторный халат",
+		INSTRUMENTAL = "лабораторным халатом",
+		PREPOSITIONAL = "лабораторном халате"
+	)
 	icon_state = "labcoat_open"
 	item_state = "labcoat_open"
 	ignore_suitadjust = FALSE
@@ -24,47 +32,125 @@
 
 /obj/item/clothing/suit/storage/labcoat/cmo
 	name = "chief medical officer's labcoat"
-	desc = "Bluer than the standard model."
+	desc = "Стерильный лабораторный халат. Окрашен в синие цвета."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат главного врача",
+		GENITIVE = "лабораторного халата главного врача",
+		DATIVE = "лабораторному халату главного врача",
+		ACCUSATIVE = "лабораторный халат главного врача",
+		INSTRUMENTAL = "лабораторным халатом главного врача",
+		PREPOSITIONAL = "лабораторном халате главного врача"
+	)
 	icon_state = "labcoat_cmo_open"
 	item_state = "labcoat_cmo_open"
 
 /obj/item/clothing/suit/storage/labcoat/mad
 	name = "mad scientist's labcoat"
-	desc = "It makes you look capable of konking someone on the noggin and shooting them into space."
+	desc = "Ношение этого халата побуждает в вас желание врезать кому-нибудь по башке и выбросить его тело в космос."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат безумного учёного",
+		GENITIVE = "лабораторного халата безумного учёного",
+		DATIVE = "лабораторному халату безумного учёного",
+		ACCUSATIVE = "лабораторный халат безумного учёного",
+		INSTRUMENTAL = "лабораторным халатом безумного учёного",
+		PREPOSITIONAL = "лабораторном халате безумного учёного"
+	)
 	icon_state = "labcoat_green_open"
 	item_state = "labcoat_green_open"
 
 /obj/item/clothing/suit/storage/labcoat/genetics
 	name = "geneticist labcoat"
-	desc = "A suit that protects against minor chemical spills. Has a blue stripe on the shoulder."
+	desc = "Стерильный белый халат с голубыми нашивками на плечах. Защищает тело и одежду от попадания на неё опасных реагентов."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат генетика",
+		GENITIVE = "лабораторного халата генетика",
+		DATIVE = "лабораторному халату генетика",
+		ACCUSATIVE = "лабораторный халат генетика",
+		INSTRUMENTAL = "лабораторным халатом генетика",
+		PREPOSITIONAL = "лабораторном халате генетика"
+	)
 	icon_state = "labcoat_gen_open"
 	item_state = "labcoat_gen_open"
 
 /obj/item/clothing/suit/storage/labcoat/chemist
 	name = "chemist labcoat"
-	desc = "A suit that protects against minor chemical spills. Has an orange stripe on the shoulder."
+	desc = "Стерильный белый халат с оранжевыми нашивками на плечах. Защищает тело и одежду от попадания на неё опасных реагентов."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат химика",
+		GENITIVE = "лабораторного халата химика",
+		DATIVE = "лабораторному халату химика",
+		ACCUSATIVE = "лабораторный халат химика",
+		INSTRUMENTAL = "лабораторным халатом химика",
+		PREPOSITIONAL = "лабораторном халате химика"
+	)
 	icon_state = "labcoat_chem_open"
 	item_state = "labcoat_chem_open"
 
 /obj/item/clothing/suit/storage/labcoat/virologist
 	name = "virologist labcoat"
-	desc = "A suit that protects against minor chemical spills. Offers slightly more protection against biohazards than the standard model. Has a green stripe on the shoulder."
+	desc = "Стерильный белый халат с зелёными нашивками на плечах. Защищает тело и одежду от попадания на неё опасных реагентов."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат вирусолога",
+		GENITIVE = "лабораторного халата вирусолога",
+		DATIVE = "лабораторному халату вирусолога",
+		ACCUSATIVE = "лабораторный халат вирусолога",
+		INSTRUMENTAL = "лабораторным халатом вирусолога",
+		PREPOSITIONAL = "лабораторном халате вирусолога"
+	)
 	icon_state = "labcoat_vir_open"
 
 /obj/item/clothing/suit/storage/labcoat/science
 	name = "scientist labcoat"
-	desc = "A suit that protects against minor chemical spills. Has a purple stripe on the shoulder."
+	desc = "Стерильный белый халат с фиолетовыми нашивками на плечах. Защищает тело и одежду от попадания на неё опасных реагентов."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат учёного",
+		GENITIVE = "лабораторного халата учёного",
+		DATIVE = "лабораторному халату учёного",
+		ACCUSATIVE = "лабораторный халат учёного",
+		INSTRUMENTAL = "лабораторным халатом учёного",
+		PREPOSITIONAL = "лабораторном халате учёного"
+	)
 	icon_state = "labcoat_tox_open"
 	item_state = "labcoat_tox_open"
 
 /obj/item/clothing/suit/storage/labcoat/mortician
 	name = "coroner labcoat"
-	desc = "A suit that protects against minor chemical spills. Has a black stripe on the shoulder."
+	desc = "Стерильный белый халат с чёрными нашивками на плечах. Защищает тело и одежду от попадания на неё опасных реагентов."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат патологоанатома",
+		GENITIVE = "лабораторного халата патологоанатома",
+		DATIVE = "лабораторному халату патологоанатома",
+		ACCUSATIVE = "лабораторный халат патологоанатома",
+		INSTRUMENTAL = "лабораторным халатом патологоанатома",
+		PREPOSITIONAL = "лабораторном халате патологоанатома"
+	)
 	icon_state = "labcoat_mort_open"
 	item_state = "labcoat_mort_open"
 
 /obj/item/clothing/suit/storage/labcoat/emt
 	name = "EMT labcoat"
-	desc = "A comfortable suit for paramedics. Has dark colours."
+	desc = "Удобный халат, окрашенный в тёмные цвета. Создан специально для парамедиков."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат парамедика",
+		GENITIVE = "лабораторного халата парамедика",
+		DATIVE = "лабораторному халату парамедика",
+		ACCUSATIVE = "лабораторный халат парамедика",
+		INSTRUMENTAL = "лабораторным халатом парамедика",
+		PREPOSITIONAL = "лабораторном халате парамедика"
+	)
 	icon_state = "labcoat_emt_open"
 	item_state = "labcoat_emt_open"
+
+/obj/item/clothing/suit/storage/labcoat/mining_medic
+	name = "mining medic's labcoat"
+	desc = "Стерильный белый халат с коричневыми нашивками на плечах. От него исходит тонкий запах пепла."
+	ru_names = list(
+		NOMINATIVE = "лабораторный халат шахтёрского врача",
+		GENITIVE = "лабораторного халата шахтёрского врача",
+		DATIVE = "лабораторному халату шахтёрского врача",
+		ACCUSATIVE = "лабораторный халат шахтёрского врача",
+		INSTRUMENTAL = "лабораторным халатом шахтёрского врача",
+		PREPOSITIONAL = "лабораторном халате шахтёрского врача"
+	)
+	icon_state = "mining_labcoat_open"
+	item_state = "mining_labcoat_open"

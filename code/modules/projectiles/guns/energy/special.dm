@@ -515,6 +515,13 @@
 	has_bluespace_crystal = FALSE
 	update_icon(UPDATE_ICON_STATE)
 
+/obj/item/gun/energy/bsg/turret_check()
+	return has_bluespace_crystal && has_core
+
+/obj/item/gun/energy/bsg/turret_deconstruct()
+	has_bluespace_crystal = TRUE
+	has_bluespace_crystal = TRUE
+
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "bsg_finished"
 	has_bluespace_crystal = TRUE
@@ -566,7 +573,9 @@
 /obj/item/gun/energy/temperature/attack_self(mob/living/user)
 	user.set_machine(src)
 	update_dat()
-	user << browse({"<meta charset="UTF-8"><TITLE>Temperature Gun Configuration</TITLE><HR>[dat]"}, "window=tempgun;size=510x120")
+	var/datum/browser/popup = new(user, "tempgun", "Temperature Gun Configuration", 510, 120)
+	popup.set_content("<hr>[dat]")
+	popup.open(TRUE)
 	onclose(user, "tempgun")
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
@@ -636,33 +645,35 @@
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
-				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
+				var/datum/browser/popup = new(M, "tempgun", "Temperature Gun Configuration", 510, 120)
+				popup.set_content("<hr>[dat]")
+				popup.open(FALSE)
 	return
 
 /obj/item/gun/energy/temperature/proc/update_dat()
 	dat = ""
 	dat += "Current output temperature: "
 	if(temperature > 500)
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-		dat += "<FONT color=red><B> SEARING!</B></FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += "<span style='color: red;'><b> SEARING!</b></span>"
 	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: black;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	dat += "<BR>"
+		dat += "<span style='color: blue;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+	dat += "<br>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<a href='byond://?src=[UID()];temp=-100'>-</A> "
-	dat += "<a href='byond://?src=[UID()];temp=-10'>-</A> "
-	dat += "<a href='byond://?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</a> "
 	dat += "[target_temperature] "
-	dat += "<a href='byond://?src=[UID()];temp=1'>+</A> "
-	dat += "<a href='byond://?src=[UID()];temp=10'>+</A> "
-	dat += "<a href='byond://?src=[UID()];temp=100'>+</A>"
-	dat += "<BR>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</a>"
+	dat += "<br>"
 	dat += "Power cost: "
-	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
+	dat += "<span style='color: [powercostcolor];'><b>[powercost]</b></span>"
 
 
 /obj/item/gun/energy/temperature/update_icon_state()

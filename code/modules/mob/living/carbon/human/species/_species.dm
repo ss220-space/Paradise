@@ -688,6 +688,7 @@
 				return TRUE
 
 	var/moved = target.Move(shove_to, shove_dir)
+	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
 		target.visible_message(span_warning("[user] slams [target]"), \
@@ -790,6 +791,9 @@
 /datum/unarmed_attack/claws/armalis
 	attack_verb = list("хлестнул", "искромсал", "разорвал") //армалисами почти никто не пользуется. Зачем вносить пол вырезаной расе которой никогда не будет в игре?
 	damage = 6
+
+/datum/unarmed_attack/claws/shadowlings
+	attack_verb = list("хлестнул", "искромсал", "разорвал")
 
 
 /datum/species/proc/can_equip(obj/item/I, slot, mob/living/carbon/human/user, disable_warning = FALSE, bypass_equip_delay_self = FALSE, bypass_obscured = FALSE, bypass_incapacitated = FALSE)

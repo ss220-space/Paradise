@@ -95,7 +95,7 @@ export const VethPlayerPanel = (props, context) => {
             />
           </Section>
 
-          <Section title={`Players`}>
+          <Section title={`Players`} scrollable>
             <Table>
               <Table.Row header>
                 <Table.Cell>Ckey</Table.Cell>
@@ -176,6 +176,14 @@ export const VethPlayerPanel = (props, context) => {
                       content="TP"
                       onClick={() =>
                         act('tp', { selectedPlayerCkey: player.ckey })
+                      }
+                    />
+                    <Button
+                      content="OBS"
+                      onClick={() =>
+                        act('obs', {
+                          selectedPlayerCkey: player.ckey,
+                        })
                       }
                     />
                   </Table.Cell>

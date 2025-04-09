@@ -90,11 +90,13 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
-	usr << browse({"<html><meta charset="UTF-8"><head><title>[name]</title></head>"} \
-		+ "<body style='overflow:hidden;margin:0;text-align:center'>" \
-		+ "<img src='tmp_photo.png' width='[64*photo_size]' style='-ms-interpolation-mode:nearest-neighbor' />" \
-		+ "[scribble ? "<br>Written on the back:<br><i>[scribble]</i>" : ""]"\
-		+ "</body></html>", "window=Photo[UID()];size=[64*photo_size]x[scribble ? 400 : 64*photo_size]")
+	var/datum/browser/popup = new(usr, "Photo[UID()]", null, 64 * photo_size, scribble ? 400 : 64 * photo_size)
+	popup.set_content("<div class='photo-container' style='width: [64*photo_size]px; height: [64*photo_size]px;'> \
+	<img src='tmp_photo.png' width='100%' height='100%'  /> \
+	[scribble ? "<p>Written on the back:<br><i>[scribble]</i></p>" : ""] \
+	</div>")
+	popup.add_stylesheet("photo", 'html/css/photo.css')
+	popup.open(TRUE)
 	onclose(usr, "Photo[UID()]")
 	return
 

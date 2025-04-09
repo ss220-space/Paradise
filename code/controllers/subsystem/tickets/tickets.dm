@@ -118,7 +118,7 @@ SUBSYSTEM_DEF(tickets)
 /datum/controller/subsystem/tickets/proc/makeUrlMessage(client/C, msg, ticketNum)
 	var/list/L = list()
 	L += "<span class='[ticket_help_span]'>[ticket_help_type]: </span><span class='boldnotice'>[key_name(C, TRUE, ticket_help_type)] "
-	L += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_SM(C.mob,"SM")]) "
+	L += "([ADMIN_QUE(C.mob,"?")]) ([ADMIN_PP(C.mob,"PP")]) ([ADMIN_VV(C.mob,"VV")]) ([ADMIN_TP(C.mob,"TP")]) ([ADMIN_OBS(C.mob, "OBS")]) ([ADMIN_SM(C.mob,"SM")]) "
 	L += "([admin_jump_link(C.mob)]) (<a href='byond://?_src_=holder;openticket=[ticketNum][anchor_link_extra]'>TICKET</a>) "
 	L += "[isAI(C.mob) ? "(<a href='byond://?_src_=holder;adminchecklaws=[C.mob.UID()]'>CL</a>)" : ""] (<a href='byond://?_src_=holder;take_question=[ticketNum][anchor_link_extra]'>TAKE</a>) "
 	L += "(<a href='byond://?_src_=holder;resolve=[ticketNum][anchor_link_extra]'>RESOLVE</a>) (<a href='byond://?_src_=holder;autorespond=[ticketNum][anchor_link_extra]'>AUTO</a>) "
@@ -401,7 +401,7 @@ UI STUFF
 	dat +="<a href='byond://?src=[UID()];refresh=1'>Refresh</a><br /><a href='byond://?src=[UID()];showopen=1'>Open Tickets</a><a href='byond://?src=[UID()];showresolved=1'>Resolved Tickets</a><a href='byond://?src=[UID()];showclosed=1'>Closed Tickets</a>"
 	if(tab == TICKET_OPEN)
 		dat += "<h2>Open Tickets</h2>"
-	dat += "<table style='width:1300px; border: 3px solid;'>"
+	dat += "<table style='width:100%; border: 3px solid;'>"
 	dat +="<tr style='[trStyle]'><th style='[tdStyleleft]'>Control</th><th style='[tdStyle]'>Ticket</th></tr>"
 	if(tab == TICKET_OPEN)
 		for(var/T in allTickets)

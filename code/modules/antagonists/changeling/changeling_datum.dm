@@ -129,7 +129,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(owner.current, span_userdanger("You have been robotized!"))
 		to_chat(owner.current, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 	else
-		to_chat(owner.current, "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
+		to_chat(owner.current, "<span style='font-size: 3; color: red;'><b>You lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>")
 
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)

@@ -1049,6 +1049,7 @@
 	reagent_state = LIQUID
 	color = "#C8A5DC"
 	taste_description = "усталости"
+	chemuse = 50
 
 /datum/reagent/medicine/insulin/on_mob_life(mob/living/M)
 	M.reagents.remove_reagent("sugar", 5)
