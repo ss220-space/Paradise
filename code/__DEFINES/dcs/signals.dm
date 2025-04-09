@@ -1361,5 +1361,3 @@
 
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
-
->>>>>>> b22dacbc9fb2103df0b6d119ea358703eb16c8a5
