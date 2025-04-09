@@ -226,7 +226,7 @@
 
 /datum/disease/virus/transformation/xeno/phantom/do_disease_transformation()
 	var/mob/living/prom = ..()
-	prom.mind.objectives += /datum/objective/xeno_genocide
+	prom.mind.objectives += new /datum/objective/xeno_genocide()
 	var/list/messages = prom.mind.prepare_announce_objectives()
 	to_chat(prom, chat_box_red(messages.Join("<br>")))
 	return prom
