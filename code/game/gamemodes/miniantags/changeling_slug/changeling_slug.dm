@@ -13,7 +13,7 @@
 	SSticker.mode.headslugs |= mind
 	var/list/messages = list()
 	messages.Add("<b><font size=3 color='red'>Мы личинка генокрада.</font><br></b>")
-	messages.Add(span_changeling("Наши яйца можно отложить в любого крупного мёртвого гуманоида. Используйте <B>Alt + ЛКМ</B> на подходящем существе и стойте неподвижно в течение 5 секунд."))
+	messages.Add(span_changeling("Наши яйца можно отложить в любого крупного мёртвого гуманоида. Используйте <b>Alt + ЛКМ</b> на подходящем существе и стойте неподвижно в течение 5 секунд."))
 	messages.Add(span_notice("Хоть эта форма и погибнет после откладки яиц, наше истинное «я» со временем возродится."))
 
 	SEND_SOUND(src, sound('sound/vox_fem/changeling.ogg'))

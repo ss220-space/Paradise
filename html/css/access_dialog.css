@@ -1,0 +1,15 @@
+h1 {
+	font-size:15px;
+	margin-bottom:4px;
+}
+
+body {
+	color: #00ff00;
+	background: #000000;
+	font-family:"Courier New", Courier, monospace;
+	font-size: 12px;
+}
+
+a {
+	color:#0f0;
+}

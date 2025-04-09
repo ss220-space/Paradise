@@ -1174,10 +1174,10 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/hack(mob/user)
 	var/hack
 	if(issilicon(user) || user.can_admin_interact()) //Allows silicons or admins to toggle the emag status of a bot.
-		hack += "[emagged == 2 ? "Программное обеспечение взломано! Устройство может вести себя опасно или нестабильно." : "Устройство работает в нормальном режиме. Отключить протоколы безопасности?"]<BR>"
-		hack += "Протоколы безопасности: <a href='byond://?src=[UID()];operation=hack'>[emagged ? span_bad("Отключены") : "Включены"]</A><BR>"
+		hack += "[emagged == 2 ? "Программное обеспечение взломано! Устройство может вести себя опасно или нестабильно." : "Устройство работает в нормальном режиме. Отключить протоколы безопасности?"]<br>"
+		hack += "Протоколы безопасности: <a href='byond://?src=[UID()];operation=hack'>[emagged ? span_bad("Отключены") : "Включены"]</a><br>"
 	else if(!locked) //Humans with access can use this option to hide a bot from the AI's remote control panel and PDA control.
-		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</A><BR>"
+		hack += "Удалённое радиоуправление: <a href='byond://?src=[UID()];operation=remote'>[remote_disabled ? "Отключено" : "Включено"]</a><br>"
 	return hack
 
 
@@ -1188,15 +1188,15 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 			eject += "Состояние ПИИ: "
 			if(paicard)
 				if(client)
-					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Активирован</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Активирован</a>"
 				else
-					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Отключён</A>"
+					eject += "<a href='byond://?src=[UID()];operation=ejectpai'>Отключён</a>"
 			else if(!allow_pai || key)
 				eject += "Нет доступа"
 			else
 				eject += "Отсутствует"
-			eject += "<BR>"
-		eject += "<BR>"
+			eject += "<br>"
+		eject += "<br>"
 	return eject
 
 

@@ -33,7 +33,7 @@
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
+	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 
 /// Proc for recovering atom_integrity. Returns the amount repaired by
@@ -128,6 +128,22 @@
 	if(attack_generic(user, user.obj_damage, BRUTE, "melee", 0, user.armour_penetration))
 		playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
+/obj/attack_basic_mob(mob/living/basic/user)
+	if(!user.melee_damage && !user.obj_damage) //No damage
+		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
+		return FALSE
+
+	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [src]."))
+		return FALSE
+
+	else
+		if(user.obj_damage)
+			. = attack_generic(user, user.obj_damage, user.melee_damage_type, MELEE, TRUE, user.armour_penetration)
+		else
+			. = attack_generic(user, user.melee_damage, user.melee_damage_type, MELEE, TRUE, user.armour_penetration)
+		if(.)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))

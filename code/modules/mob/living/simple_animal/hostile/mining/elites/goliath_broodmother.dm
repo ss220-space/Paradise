@@ -282,7 +282,16 @@
 // Broodmother's loot: Broodmother Tongue
 /obj/item/crusher_trophy/broodmother_tongue
 	name = "broodmother tongue"
-	desc = "The tongue of a broodmother. If attached a certain way, makes for a suitable crusher trophy. It also feels very spongey, I wonder what would happen if you squeezed it?..."
+	desc = "Язык матери целой стаи. На ощупь очень губчатый, интересно что будет если на него надавить? Может быть прикреплен на крушитель в качестве трофея."
+	ru_names = list(
+            NOMINATIVE = "материнский язык",
+            GENITIVE = "материнского языка",
+            DATIVE = "материнскому языку",
+            ACCUSATIVE = "материнский язык",
+            INSTRUMENTAL = "материнским языком",
+            PREPOSITIONAL = "материнском языке"
+	)
+	gender = MALE
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "broodmother_tongue"
 	denied_type = /obj/item/crusher_trophy/broodmother_tongue
@@ -291,7 +300,7 @@
 	var/use_time
 
 /obj/item/crusher_trophy/broodmother_tongue/effect_desc()
-	return "mark detonation to have a <b>[bonus_value]%</b> chance to summon a patch of goliath tentacles at the target's location"
+	return "Взрыв метки с <b>[bonus_value]%</b> шансом призывает поле щупалец под врагом"
 
 /obj/item/crusher_trophy/broodmother_tongue/on_mark_detonation(mob/living/target, mob/living/user)
 	if(prob(bonus_value) && target.stat != DEAD)
@@ -302,15 +311,15 @@
 		return
 	var/mob/living/living_user = user
 	if(use_time > world.time)
-		to_chat(living_user, "<b>The tongue looks dried out. You'll need to wait longer to use it again.</b>")
+		balloon_alert(living_user, "перезарядка")
 		return
 	else if(HAS_TRAIT(living_user, TRAIT_LAVA_IMMUNE))
-		to_chat(living_user, "<b>You stare at the tongue. You don't think this is any use to you.</b>")
+		balloon_alert(living_user, "мне это не нужно")
 		return
 
 	ADD_TRAIT(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT)
 	addtimer(TRAIT_CALLBACK_REMOVE(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT), 20 SECONDS)
-	to_chat(living_user, "<b>You squeeze the tongue, and some transluscent liquid shoots out all over you.</b>")
+	to_chat(user, span_notice("Вы сжимаете <b>[src.declent_ru(NOMINATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
 	use_time = world.time + 60 SECONDS
 
 

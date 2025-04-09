@@ -178,7 +178,7 @@
 	process_mutation(holder)
 
 /datum/spacevine_mutation/space_covering/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(isspaceturf(target) && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
+	if(isspaceturf(target) && !(locate(/obj/structure/spacevine) in target) && is_location_within_transition_boundaries(target))
 		holder.master.spawn_spacevine_piece(target, holder)
 		. = TRUE
 
@@ -200,7 +200,7 @@
 	quality = MINOR_NEGATIVE
 
 /datum/spacevine_mutation/bluespace/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(holder.energy > 1 && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
+	if(holder.energy > 1 && !(locate(/obj/structure/spacevine) in target) && is_location_within_transition_boundaries(target))
 		// Lose bluespace upon piercing a single tile, and drop it from our own mutations too
 		// Representing a loss in "high potential"
 		// also conveniently prevents this from spreading too crazily
@@ -609,7 +609,7 @@
 		// 6 vines/spread at 6 production
 		// ~2.5 vines/spread at 1 production
 		spread_multiplier /= spread_value / 5
-		
+
 	..()
 
 

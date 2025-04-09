@@ -263,6 +263,7 @@
 
 //Handles special effects on teleporting. Overload for some items if you want to do so.
 /atom/movable/proc/on_teleported()
+	SEND_SIGNAL(src, COMSIG_ATOM_TELEPORT_ACT)
 	return
 
 
@@ -1460,7 +1461,7 @@
 /atom/movable/vv_get_dropdown()
 	. = ..()
 	if(!GetComponent(/datum/component/deadchat_control))
-		.["Give deadchat control"] = "?_src_=vars;grantdeadchatcontrol=[UID()]"
+		.["Give deadchat control"] = "byond://?_src_=vars;grantdeadchatcontrol=[UID()]"
 	else
-		.["Remove deadchat control"] = "?_src_=vars;removedeadchatcontrol=[UID()]"
+		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
 

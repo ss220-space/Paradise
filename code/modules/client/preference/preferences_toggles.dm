@@ -31,12 +31,19 @@
 	switch(preftoggle_toggle)
 		if(PREFTOGGLE_SPECIAL)
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
+
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
@@ -592,7 +599,7 @@
     disable_message = "You will see minuature TGUI strip menu."
     blackbox_message = "Toggle TGUI strip menu size"
 
-/datum/preference_toggle/toggle_item_descritpion_tips
+/datum/preference_toggle/toggle_item_description_tips
     name = "Toggle item description tips"
     description = "Toggles item description tips on hover."
     preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
@@ -622,3 +629,12 @@
     disable_message = "Теперь вы будете видить сообщения, появляющиеся при стрельбе."
     blackbox_message = "Переключение комбат логов от выстрелов"
 
+/datum/preference_toggle/toggle_auto_dnr
+    name = "DNR при смерти"
+    description = "При смерти автоматически включается статус DNR."
+    preftoggle_bitflag = PREFTOGGLE_3_DNR_AFTER_DEATH
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Смерть вашего персонажа теперь перманентная."
+    disable_message = "Смерть персонажа более не перманентная."
+    blackbox_message = "Переключение установки статуса DNR после смерти"

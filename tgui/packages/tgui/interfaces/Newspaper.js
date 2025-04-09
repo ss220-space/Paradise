@@ -55,7 +55,9 @@ export const Newspaper = (props, context) => {
               date.getDate() +
               ' ' +
               monthNames[date.getMonth()] +
-              ', 2568 год'}
+              ', ' +
+              (date.getFullYear() + 544) +
+              ' год'}
           </Flex.Item>
         </Flex>
 
@@ -120,7 +122,6 @@ export const Newspaper = (props, context) => {
                 ))}
             </Flex.Item>
 
-            {/* Правая колонка */}
             <Flex.Item width="50%" ml={1}>
               {currentStories
                 .filter((_, index) => index % 2 !== 0)

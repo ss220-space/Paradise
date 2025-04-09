@@ -668,7 +668,7 @@ REAGENT SCANNER
 					reagentList += list(list(
 						volume = "[R.volume]",
 						name = "[R.name]",
-						overdosed = "[R.overdosed]"
+						overdosed = R.overdosed
 					))
 				data["reagentList"] = reagentList
 			else
@@ -822,6 +822,20 @@ REAGENT SCANNER
 		if(length(damaged) > 0)
 			for(var/obj/item/organ/external/org as anything in damaged)
 				scan_data += "&emsp;<span class='info'>[capitalize(org.name)]</span>: [(org.burn_dam > 0) ? "<font color='#FF8000'>[org.burn_dam]</font>" : "<font color='#FF8000'>0</font>"] - [(org.brute_dam > 0) ? "<font color='red'>[org.brute_dam]</font>" : "<font color='red'>0</font>"]"
+	if(advanced)
+		if(H.reagents)
+			if(H.reagents.reagent_list.len)
+				scan_data += "Обнаружены реагенты:"
+				for(var/datum/reagent/R in H.reagents.reagent_list)
+					scan_data += "&emsp;[R.volume]u [R.name][R.overdosed ? " - [span_boldannounceic("ПЕРЕДОЗИРОВКА")]" : "."]"
+			else
+				scan_data += "Реагенты не обнаружены."
+			if(H.reagents.addiction_list.len)
+				scan_data += "<span class='danger'>Обнаружены зависимости от реагентов:</span>"
+				for(var/datum/reagent/R in H.reagents.addiction_list)
+					scan_data += "<span class='danger'>&emsp;[R.name] Стадия: [R.addiction_stage]/5</span>"
+			else
+				scan_data += "Зависимости от реагентов не обнаружены."
 	for(var/thing in H.diseases)
 		var/datum/disease/D = thing
 		if(!(D.visibility_flags & HIDDEN_SCANNER))
@@ -1334,7 +1348,7 @@ REAGENT SCANNER
 		found_disease = TRUE
 		break
 	if(found_disease)
-		dat += "<font color='red'>Disease detected in target.</font><BR>"
+		dat += "<font color='red'>Disease detected in target.</font><br>"
 
 	var/extra_font = null
 	extra_font = (target.getBruteLoss() < 60 ? "<font color='blue'>" : "<font color='red'>")
@@ -1373,17 +1387,17 @@ REAGENT SCANNER
 	dat += "[extra_font]\tBlood Level %: [blood_percent] ([target.blood_volume] units)</font><br>"
 
 	if(target.reagents)
-		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<BR>"
-		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<BR>"
+		dat += "Epinephrine units: [target.reagents.get_reagent_amount("Epinephrine")] units<br>"
+		dat += "Ether: [target.reagents.get_reagent_amount("ether")] units<br>"
 
 		extra_font = (target.reagents.get_reagent_amount("silver_sulfadiazine") < 30 ? "<font color='black'>" : "<font color='red'>")
 		dat += "[extra_font]\tSilver Sulfadiazine: [target.reagents.get_reagent_amount("silver_sulfadiazine")]</font><br>"
 
 		extra_font = (target.reagents.get_reagent_amount("styptic_powder") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<BR>"
+		dat += "[extra_font]\tStyptic Powder: [target.reagents.get_reagent_amount("styptic_powder")] units<br>"
 
 		extra_font = (target.reagents.get_reagent_amount("salbutamol") < 30 ? "<font color='black'>" : "<font color='red'>")
-		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<BR>"
+		dat += "[extra_font]\tSalbutamol: [target.reagents.get_reagent_amount("salbutamol")] units<br>"
 
 	dat += "<hr><table border='1'>"
 	dat += "<tr>"
@@ -1460,10 +1474,10 @@ REAGENT SCANNER
 		dat += "</tr>"
 	dat += "</table>"
 	if(HAS_TRAIT(target, TRAIT_BLIND))
-		dat += "<font color='red'>Cataracts detected.</font><BR>"
+		dat += "<font color='red'>Cataracts detected.</font><br>"
 	if(HAS_TRAIT(target, TRAIT_COLORBLIND))
-		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><BR>"
+		dat += "<font color='red'>Photoreceptor abnormalities detected.</font><br>"
 	if(HAS_TRAIT(target, TRAIT_NEARSIGHTED))
-		dat += "<font color='red'>Retinal misalignment detected.</font><BR>"
+		dat += "<font color='red'>Retinal misalignment detected.</font><br>"
 
 	return dat

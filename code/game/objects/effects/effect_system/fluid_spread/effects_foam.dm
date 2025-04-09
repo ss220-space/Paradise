@@ -287,6 +287,7 @@
 	result_type = /obj/structure/foamedmetal
 	icon_state = "mfoam"
 	slippery_foam = FALSE
+	allow_duplicate_results = FALSE
 	var/make_floor = TRUE
 
 /obj/effect/particle_effect/fluid/foam/metal/make_result() //Smart foam adheres to area borders for walls
@@ -299,20 +300,6 @@
 /obj/effect/particle_effect/fluid/foam/metal/iron
 	name = "iron foam"
 	result_type = /obj/structure/foamedmetal/iron
-
-/// A factory which produces aluminium metal foam.
-/datum/effect_system/fluid_spread/foam/metal
-	effect_type = /obj/effect/particle_effect/fluid/foam/metal
-
-/// A factory which produces smart aluminium metal foam.
-/datum/effect_system/fluid_spread/foam/metal
-	effect_type = /obj/effect/particle_effect/fluid/foam/metal
-
-/datum/effect_system/fluid_spread/foam/metal/iron
-	effect_type = /obj/effect/particle_effect/fluid/foam/metal/iron
-
-/datum/effect_system/fluid_spread/foam/metal/resin
-	effect_type = /obj/effect/particle_effect/fluid/foam/metal/resin
 
 /// A foam variant which produces atmos resin walls.
 /obj/effect/particle_effect/fluid/foam/metal/resin
@@ -328,6 +315,16 @@
 
 /obj/effect/particle_effect/fluid/foam/metal/resin/halon/temperature_expose(datum/gas_mixture/air, exposed_temperature)
 	return // Doesn't dissolve in heat.
+
+/// A factory which produces smart aluminium metal foam.
+/datum/effect_system/fluid_spread/foam/metal
+	effect_type = /obj/effect/particle_effect/fluid/foam/metal
+
+/datum/effect_system/fluid_spread/foam/metal/iron
+	effect_type = /obj/effect/particle_effect/fluid/foam/metal/iron
+
+/datum/effect_system/fluid_spread/foam/metal/resin
+	effect_type = /obj/effect/particle_effect/fluid/foam/metal/resin
 
 /datum/effect_system/fluid_spread/foam/metal/resin/halon
 	effect_type = /obj/effect/particle_effect/fluid/foam/metal/resin/halon

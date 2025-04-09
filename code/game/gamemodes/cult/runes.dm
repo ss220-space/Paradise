@@ -329,6 +329,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		convertee.visible_message("<span class='warning'>[convertee] writhes in pain as the markings below them glow a bloody red!</span>", \
 								"<span class='cultlarge'><i>AAAAAAAAAAAAAA-</i></span>")
 		SSticker.mode.add_cultist(convertee.mind)
+		SSticker.mode.ghost_summons += GHOST_SUMMONS_CONVERT
 		convertee.mind.special_role = "Cultist"
 		to_chat(convertee, "<span class='cultitalic'><b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, horrible, truth. The veil of reality has been ripped away \
 		and something evil takes root.</b></span>")
@@ -379,6 +380,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		GLOB.sacrificed += offering.mind
 		if(is_sacrifice_target(offering.mind))
 			sacrifice_fulfilled = TRUE
+			SSticker.mode.ghost_summons += GHOST_SUMMONS_OBJECTIVE
 	else
 		GLOB.sacrificed += offering
 
@@ -828,6 +830,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 		. += "<b>Amount of ghosts summoned:</b><span class='cultitalic'> [ghosts]</span>"
 		. += "<b>Maximum amount of ghosts:</b><span class='cultitalic'> [clamp(default_ghost_limit - SSticker.mode.cult_objs.sacrifices_done, minimum_ghost_limit, default_ghost_limit)]</span>"
 		. += "Lowers to a minimum of [minimum_ghost_limit] for each objective accomplished."
+		. += "<b>Всего доступно призывов:</b><span class='cultitalic'> [SSticker.mode.ghost_summons]</span>"
 
 /obj/effect/rune/manifest/invoke(list/invokers)
 	. = ..()
@@ -872,6 +875,9 @@ structure_check() searches for nearby cultist structures required for the invoca
 		to_chat(user, "<span class='cultitalic'>There are no spirits near [src]!</span>")
 		fail_invoke()
 		return list()
+	if(!SSticker.mode.ghost_summons)
+		to_chat(user, span_cultitalic("У вашего культа закончились призывы!"))
+		return list()
 
 	var/mob/dead/observer/ghost_to_spawn = pick(ghosts_on_rune)
 	var/mob/living/carbon/human/new_human = new(T)
@@ -887,6 +893,7 @@ structure_check() searches for nearby cultist structures required for the invoca
 
 	var/obj/machinery/shield/cult/weak/shield = new(T)
 	SSticker.mode.add_cultist(new_human.mind, 0)
+	SSticker.mode.ghost_summons = max(SSticker.mode.ghost_summons - 1, 0)
 	to_chat(new_human, "<span class='cultlarge'>You are a servant of the [SSticker.cultdat.entity_title3]. You have been made semi-corporeal by the cult of [SSticker.cultdat.entity_name], and you are to serve them at all costs.</span>")
 
 	while(!QDELETED(src) && !QDELETED(user) && !QDELETED(new_human) && (user in T))

@@ -79,7 +79,7 @@
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
 				msgs += "<span class='notice'>It is currently resting.</span>"
-		. += msgs.Join("<BR>")
+		. += msgs.Join("<br>")
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()

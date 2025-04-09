@@ -95,6 +95,28 @@
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 		[head_content.Join("")]
+		<script>
+			/** Remove conditionals with 516*/
+			if ('devicePixelRatio' in window) {
+				var supportsCssVariables = false;
+				try {
+					var testElement = document.createElement('div');
+					testElement.style.setProperty('--test', '1px');
+					supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
+				} catch (e) {
+					supportsCssVariables = false;
+				}
+
+				if (supportsCssVariables) {
+					var updateDpr = function () {
+						document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
+					};
+
+					updateDpr();
+					window.addEventListener('resize', updateDpr);
+				}
+			}
+		</script>
 	</head>
 	<body scroll=auto>
 		<div class='uiWrapper'>
@@ -151,7 +173,7 @@
 
 /datum/browser/proc/close()
 	if(!isnull(window_id))//null check because this can potentially nuke goonchat
-		user << browse(null, "window=[window_id]")
+		close_window(user, window_id)
 	else
 		WARNING("Browser [title] tried to close with a null ID")
 
@@ -358,11 +380,11 @@
 		var/setting = settings["mainsettings"][name]
 		if (setting["type"] == "datum")
 			if (setting["subtypesonly"])
-				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;subtypesonly=1;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 			else
-				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><BR>"
+				dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=datum;path=[setting["path"]]'>[setting["value"]]</a><br>"
 		else
-			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><BR>"
+			dat += "<b>[setting["desc"]]:</b> <a href='byond://?src=[src.UID()];setting=[name];task=input;type=[setting["type"]]'>[setting["value"]]</a><br>"
 
 	if (preview_icon)
 		dat += "<td valign='center'>"

@@ -106,7 +106,7 @@ export const Autolathe = (props, context) => {
   }
   return (
     <Window width={750} height={525}>
-      <Window.Content scrollable>
+      <Window.Content>
         <Stack fill horizontal>
           <Stack.Item width="70%">
             <Section

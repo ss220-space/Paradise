@@ -1290,11 +1290,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		M.ghost_orbiting -= 1
 
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_STOP, src)
-
 	LAZYREMOVE(orbiting.orbiters, src)
 	orbiting = null
 	transform = cached_transform
 	SpinAnimation(0, 0, parallel = FALSE)
+	// После, потому что сначало надо занулить orbiting дабы худ показался ЧИСТЫЙ
+	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP)
 
 
 //Centers an image.

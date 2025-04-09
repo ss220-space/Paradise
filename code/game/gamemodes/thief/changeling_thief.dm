@@ -10,8 +10,8 @@
 
 
 /datum/game_mode/changeling/thief/announce()
-	to_chat(world, "<B>The current game mode is - Changeling+Thief!</B>")
-	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</B>")
+	to_chat(world, "<b>The current game mode is - Changeling+Thief!</b>")
+	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров и генокрадов. Не дайте генокрадам достичь успеха и скрыться, и не допустите кражу дорогостоящего оборудования!</b>")
 
 
 /datum/game_mode/changeling/thief/pre_setup()

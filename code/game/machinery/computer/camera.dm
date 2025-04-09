@@ -22,6 +22,8 @@
 
 	// Parent object this camera is assigned to. Used for camera bugs
 	var/atom/movable/parent
+	/// If this TRUE, cameras are disabled when comms blackout
+	var/affected_by_blackout = FALSE
 
 /obj/machinery/computer/security/ui_host()
 	return parent ? parent : src
@@ -48,6 +50,13 @@
 
 /obj/machinery/computer/security/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
+
+	if(GLOB.communications_blackout && affected_by_blackout)
+		to_chat(user, span_warning("Монитор показывает странные символы. Разобрать в них что-то невозможно."))
+		if(ui)
+			ui.close()
+		return
+
 	// Show static if can't use the camera
 	if(!active_camera?.can_use())
 		show_camera_static()

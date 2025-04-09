@@ -206,14 +206,14 @@
 	var/photo_front = "'data:image/png;base64,[icon2base64(icon(photo, dir = SOUTH))]'"
 	var/photo_side = "'data:image/png;base64,[icon2base64(icon(photo, dir = WEST))]'"
 
-	dat = {"<meta charset="UTF-8"><table><tr><td>
-	Name: [registered_name]</A><BR>
-	Sex: [sex]</A><BR>
-	Age: [age]</A><BR>
-	Rank: [assignment]</A><BR>
-	Fingerprint: [fingerprint_hash]</A><BR>
-	Blood Type: [blood_type]<BR>
-	DNA Hash: [dna_hash]<BR><BR>
+	dat = {"<table><tr><td>
+	Name: [registered_name]</a><br>
+	Sex: [sex]</a><br>
+	Age: [age]</a><br>
+	Rank: [assignment]</a><br>
+	Fingerprint: [fingerprint_hash]</a><br>
+	Blood Type: [blood_type]<br>
+	DNA Hash: [dna_hash]<br><br>
 	<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>
 	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
 
@@ -416,6 +416,7 @@
 							"ERT_engineering",
 							"ERT_medical",
 							"ERT_janitorial",
+							"mining_medic",
 						)
 
 /obj/item/card/id/syndicate/anyone
@@ -1085,6 +1086,13 @@
 	item_state = "card-id"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/mining_medic
+	name = "Mining Medic ID"
+	registered_name = "Mining Medic"
+	icon_state = "mining_medic"
+	item_state = "mining_medic-id"
+	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"
@@ -1237,7 +1245,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo", "mining_medic","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
@@ -1279,5 +1287,7 @@
 			return "Thunderdome Red"
 		if("TDgreen")
 			return "Thunderdome Green"
+		if("mining_medic")
+			return "Mining Medic"
 		else
 			return capitalize(skin)

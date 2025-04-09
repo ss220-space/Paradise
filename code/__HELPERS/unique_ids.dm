@@ -96,4 +96,6 @@ GLOBAL_LIST_EMPTY(uid_log)
 		text += "<li>[key] - [sorted[key]]</li>"
 
 	text += "</ul>"
-	usr << browse(text.Join(), "window=uidlog")
+	var/datum/browser/popup = new(usr, "uidlog", "UID log")
+	popup.set_content(text.Join())
+	popup.open(FALSE)

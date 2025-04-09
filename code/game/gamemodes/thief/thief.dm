@@ -15,8 +15,8 @@
 
 
 /datum/game_mode/thief/announce()
-	to_chat(world, "<B>The current game mode is - thief!</B>")
-	to_chat(world, "<B>На станции зафиксирована деятельность гильдии воров. Не допустите кражу дорогостоящего оборудования!</B>")
+	to_chat(world, "<b>The current game mode is - thief!</b>")
+	to_chat(world, "<b>На станции зафиксирована деятельность гильдии воров. Не допустите кражу дорогостоящего оборудования!</b>")
 
 
 /datum/game_mode/thief/pre_setup()
@@ -57,7 +57,7 @@
 	if(!length(thieves))
 		return
 
-	var/text = "<FONT size = 2><B>Воры в розыске:</B></FONT><br>"
+	var/text = "<span style='font-size: 2;'><b>Воры в розыске:</b></span><br>"
 	for(var/datum/mind/thief in thieves)
 
 		text += printplayer(thief) + "<br>"
@@ -70,19 +70,19 @@
 		var/thiefwin = TRUE
 		for(var/datum/objective/objective in all_objectives)
 			if(objective.check_completion())
-				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='green'><B>Выполнена!</B></font>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Выполнена!</b></font>"
 				SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
-				text += "<br><B>Цель #[count]</B>: [objective.explanation_text] <font color='red'>Провалена.</font>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провалена.</font>"
 				SSblackbox.record_feedback("nested tally", "thief_objective", 1, list("[objective.type]", "FAIL"))
 				thiefwin = FALSE
 			count++
 
 		if(thiefwin)
-			text += "<br><font color='green'><B>Вор преуспел!</B></font><br>"
+			text += "<br><font color='green'><b>Вор преуспел!</b></font><br>"
 			SSblackbox.record_feedback("tally", "thief_success", 1, "SUCCESS")
 		else
-			text += "<br><font color='red'><B>Вор провалился.</B></font><br>"
+			text += "<br><font color='red'><b>Вор провалился.</b></font><br>"
 			SSblackbox.record_feedback("tally", "thief_success", 1, "FAIL")
 
 	to_chat(world, text)

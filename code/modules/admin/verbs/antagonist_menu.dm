@@ -166,7 +166,7 @@
 			if(!ismob(mind.current))
 				to_chat(ui.user, span_warning("Это можно использовать только для экземпляров типа /mob."))
 				return
-			C.admin_observe_target(mind.current)
+			C.admin_observe_target(mind.current, TRUE)
 		if("tp")
 			var/datum/mind/mind = locateUID(params["mind_uid"])
 			if(QDELETED(mind))

@@ -43,29 +43,31 @@
 	var/health_text = ""
 	if(occupant)
 		if(occupant.stat == DEAD)
-			health_text = "<FONT color=red>Dead</FONT>"
+			health_text = "<span style='color: red;'>Dead</span>"
 		else if(occupant.health < 0)
-			health_text = "<FONT color=red>[round(occupant.health, 0.1)]</FONT>"
+			health_text = "<span style='color: red;'>[round(occupant.health, 0.1)]</span>"
 		else
 			health_text = "[round(occupant.health, 0.1)]"
-	var/dat = {"<meta charset="UTF-8"><B>Mindshield Implanter Machine</B><BR>"}
-	dat +="<B>Current occupant:</B> [occupant ? "<BR>Name: [occupant]<BR>Health: [health_text]<BR>" : "<FONT color=red>None</FONT>"]<BR>"
+	var/dat = {"<b>Mindshield Implanter Machine</b><br>"}
+	dat +="<b>Current occupant:</b> [occupant ? "<br>Name: [occupant]<br>Health: [health_text]<br>" : "<span style='color: red;'>None</span>"]<br>"
 	var/remaining_time = cooldown_timer ? round(timeleft(cooldown_timer) / 10) : 0
 	var/implants_length = LAZYLEN(implants_list)
 	if(implants_length)
-		dat += "<B>Status:</B> [cooldown_timer ? "<FONT color=red>Recharging... For <B>[remaining_time]</B> more seconds</FONT><BR>" : "<FONT color=green><B>READY</B></FONT>"]<BR>"
+		dat += "<b>Status:</b> [cooldown_timer ? "<span style='color: red;'>Recharging... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
 	else
-		dat += "<B>Status:</B> [cooldown_timer ? "<FONT color=red>Replenishing... For <B>[remaining_time]</B> more seconds</FONT><BR>" : "<FONT color=green><B>READY</B></FONT>"]<BR>"
-	dat += "<B>Implants:</B> [implants_length ? "[implants_length]<BR>" : cooldown_timer ? "<FONT color=red>0</FONT><BR>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</A>"]<BR>"
+		dat += "<b>Status:</b> [cooldown_timer ? "<span style='color: red;'>Replenishing... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
+	dat += "<b>Implants:</b> [implants_length ? "[implants_length]<br>" : cooldown_timer ? "<span style='color: red;'>0</span><br>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</a>"]<br>"
 	if(occupant)
 		if(locate(/obj/item/implant/mindshield) in occupant)
-			dat += "Occupant is already <FONT color=green>implanted</FONT><BR>"
+			dat += "Occupant is already <span style='color: green;'>implanted</span><br>"
 		if(!cooldown_timer && implants_length)
-			dat += "<a href='byond://?src=[UID()];implant=1'>Implant</A><BR>"
-		dat += "<a href='byond://?src=[UID()];eject=1'>Eject Occupant</A><BR>"
-	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</A>"
+			dat += "<a href='byond://?src=[UID()];implant=1'>Implant</a><br>"
+		dat += "<a href='byond://?src=[UID()];eject=1'>Eject Occupant</a><br>"
+	dat += "<a href='byond://?src=[UID()];refresh=1'>Refresh</a>"
 	user.set_machine(src)
-	user << browse(dat, "window=implant")
+	var/datum/browser/popup = new(user, "implant", "Mindshield Implanter Machine")
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "implant")
 
 

@@ -155,7 +155,7 @@
 	action_icon_state = "spell_greytide"
 	var/recruiting = 0
 
-	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <B>Left-click to cast at a target!</B></span>"
+	selection_activated_message		= "<span class='notice'>You start preparing a mindblowing monologue. <b>Left-click to cast at a target!</b></span>"
 	selection_deactivated_message	= "<span class='notice'>You decide to save your brilliance for another day.</span>"
 	need_active_overlay = TRUE
 

@@ -85,8 +85,8 @@
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
-		H.mind.store_memory("<B>[themission]</B><BR><BR>")
+		to_chat(H, "<br><span class='danger'><b>[themission]</b></span>")
+		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
 			SSticker.mode.traitors |= H.mind //Adds them to extra antag list

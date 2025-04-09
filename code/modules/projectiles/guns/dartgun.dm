@@ -207,7 +207,7 @@
 
 /obj/item/gun/dartgun/attack_self(mob/user)
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><b>[src] mixing control:</b><br><br>"}
+	var/dat = {"<b>[src] mixing control:</b><br><br>"}
 
 	if(beakers.len)
 		var/i = 1
@@ -217,12 +217,12 @@
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
 				if(check_beaker_mixing(B))
-					dat += text("<a href='byond://?src=[UID()];stop_mix=[i]'><font color='green'>Mixing</font></A> ")
+					dat += text("<a href='byond://?src=[UID()];stop_mix=[i]'><span style='color: green;'>Mixing</span></a> ")
 				else
-					dat += text("<a href='byond://?src=[UID()];mix=[i]'><font color='red'>Not mixing</font></A> ")
+					dat += text("<a href='byond://?src=[UID()];mix=[i]'><span style='color: red;'>Not mixing</span></a> ")
 			else
 				dat += "nothing."
-			dat += " \[<a href='byond://?src=[UID()];eject=[i]'>Eject</A>\]<br>"
+			dat += " \[<a href='byond://?src=[UID()];eject=[i]'>Eject</a>\]<br>"
 			i++
 	else
 		dat += "There are no beakers inserted!<br><br>"
@@ -231,10 +231,12 @@
 		if(cartridge.darts)
 			dat += "The dart cartridge has [cartridge.darts] shots remaining."
 		else
-			dat += "<font color='red'>The dart cartridge is empty!</font>"
-		dat += " \[<a href='byond://?src=[UID()];eject_cart=1'>Eject</A>\]"
+			dat += "<span style='color: green;'>The dart cartridge is empty!</span>"
+		dat += " \[<a href='byond://?src=[UID()];eject_cart=1'>Eject</a>\]"
 
-	user << browse(dat, "window=dartgun")
+	var/datum/browser/popup = new(user, "dartgun", "Dartgun")
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "dartgun", src)
 
 /obj/item/gun/dartgun/proc/check_beaker_mixing(var/obj/item/B)

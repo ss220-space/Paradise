@@ -40,3 +40,28 @@
 	messages.Add("<center>Помните, что после вашей смерти в гнезде не останется королевы и оно будет обречено на вымирание!</center>")
 	SEND_SOUND(owner.current, sound('sound/voice/hiss1.ogg'))
 	return messages
+
+/datum/antagonist/facehugger
+	name = "Facehugger"
+	roundend_category = "xenomorph"
+	job_rank = ROLE_ALIEN
+	special_role = SPECIAL_ROLE_FACEHUGGER
+	wiki_page_name = "Xenomorph"
+	russian_wiki_name = "Ксеноморф"
+	show_in_roundend = FALSE
+	show_in_orbit = FALSE
+	antag_menu_name = "Ксеноморф"
+
+
+/datum/antagonist/facehugger/on_gain()
+	if(!isfacehugger(owner.current))
+		stack_trace("This antag datum cannot be attached to a mob of this type.")
+	. = ..()
+
+/datum/antagonist/facehugger/greet()
+	var/list/messages = list()
+	messages.Add(span_danger("<center>Вы лицехват!</center>"))
+	messages.Add("<center>Вы одна из первых стадий ксеноморфа. Ваша задача предельно простая: \
+	найти цель, напрыгнуть ей на лицо, оплодотворить и спрятаться так, чтобы носитель не понял что к чему!</center>")
+	SEND_SOUND(owner.current, sound('sound/voice/hiss1.ogg'))
+	return messages

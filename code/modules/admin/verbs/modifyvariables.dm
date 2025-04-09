@@ -96,12 +96,12 @@ GLOBAL_LIST_INIT(VVpixelmovement, list("step_x", "step_y", "step_size", "bound_h
 
 	switch(.["class"])
 		if(VV_TEXT)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = INFINITY, encode = FALSE, trim = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = MAX_BOOK_MESSAGE_LEN, encode = FALSE, trim = FALSE) //TGUI can not comprehend 1eN, don't use scientific notation
 			if(.["value"] == null)
 				.["class"] = null
 				return
 		if(VV_MESSAGE)
-			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = INFINITY, multiline = TRUE, encode = FALSE, trim = FALSE)
+			.["value"] = tgui_input_text(src, "Введите текст:", "Текст", current_value, max_length = MAX_BOOK_MESSAGE_LEN, multiline = TRUE, encode = FALSE, trim = FALSE)
 			if(.["value"] == null)
 				.["class"] = null
 				return

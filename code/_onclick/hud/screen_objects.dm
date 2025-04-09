@@ -16,6 +16,7 @@
 	var/obj/master = null	//A reference to the object in the slot. Grabs or items, generally.
 	VAR_PRIVATE/datum/hud/hud = null
 	appearance_flags = NO_CLIENT_COLOR
+	interaction_flags_click = BYPASS_ADJACENCY
 	/**
 	 * Map name assigned to this object.
 	 * Automatically set by /client/proc/add_obj_to_map.
@@ -29,6 +30,8 @@
 	 * But for now, this works.
 	 */
 	var/del_on_map_removal = TRUE
+	/// If FALSE, this will not be cleared when calling /client/clear_screen()
+	var/clear_with_screen = TRUE
 
 /atom/movable/screen/Initialize(mapload, datum/hud/hud_owner)
 	. = ..()
@@ -451,6 +454,9 @@
 	screen_loc = ui_crafting
 
 /atom/movable/screen/craft/Click()
+	if(isobserver(usr))
+		return
+
 	var/mob/living/M = usr
 	M.OpenCraftingMenu()
 
