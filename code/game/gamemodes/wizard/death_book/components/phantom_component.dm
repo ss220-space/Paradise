@@ -18,10 +18,10 @@
 		phantomification(prom.contents)
 
 /datum/component/phantom_component/RegisterWithParent()
-	RegisterSignal(linked_item, PHANTOM_DELETE, PROC_REF(smart_self_delete))
+	RegisterSignal(linked_item, COMSIG_PHANTOM_DELETE, PROC_REF(smart_self_delete))
 
 /datum/component/phantom_component/UnregisterFromParent()
-	UnregisterSignal(linked_item, PHANTOM_DELETE)
+	UnregisterSignal(linked_item, COMSIG_PHANTOM_DELETE)
 
 /datum/component/phantom_component/proc/phantomification(list/atoms)
 	for(var/atom/A in atoms)

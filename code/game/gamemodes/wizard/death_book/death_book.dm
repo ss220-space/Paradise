@@ -56,7 +56,7 @@
 	user.balloon_alert(user, "Ваша экиперовка теряет очертания медленно растворяясь в воздухе")
 
 /obj/item/death_book/proc/phantom_delete(mob/user)
-	SEND_SIGNAL(src, PHANTOM_DELETE)
+	SEND_SIGNAL(src, COMSIG_PHANTOM_DELETE)
 	temp_outfit_storage.equip(user)
 
 /obj/item/death_book/proc/cooldown_stop(mob/user)
