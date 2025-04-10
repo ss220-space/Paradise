@@ -10,6 +10,7 @@
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKS_LIGHT
+	interaction_flags_click = ALLOW_RESTING | FORBID_TELEKINESIS_REACH
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
