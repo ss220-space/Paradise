@@ -573,7 +573,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 /datum/theft_objective/animal/representative
 	id = "animal_mouse_rep"
-	typepath = /mob/living/simple_animal/mouse/wooly/Representative
+	typepath = /mob/living/simple_animal/mouse/wooly/rep
 	name = "лохматую мышь по кличке Господин Мышкин."
 
 /datum/theft_objective/animal/brain

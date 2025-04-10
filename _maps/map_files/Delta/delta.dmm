@@ -86749,8 +86749,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "peP" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -86758,6 +86756,8 @@
 	dir = 1;
 	pixel_y = 26
 	},
+/obj/structure/chair/mouse,
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "pfa" = (

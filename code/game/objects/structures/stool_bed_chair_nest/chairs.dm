@@ -564,3 +564,11 @@
 
 /obj/structure/chair/comfy/abductor/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
+
+/obj/structure/chair/mouse
+	name = "Sir Mishkin armchair"
+	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
+	icon_state = "mouse_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = null

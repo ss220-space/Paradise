@@ -139,7 +139,7 @@
 	gold_core_spawnable = NO_SPAWN
 	resting = TRUE
 
-/mob/living/simple_animal/mouse/wooly/Representative
+/mob/living/simple_animal/mouse/wooly/rep
 	name = "sir Mishkin"
 	desc = "Господин Мышкин - самый влиятельный грызун-дипломат в обозримой вселенной и сооснователь корпорации НаноТрейзен в одном лице. В текущее время находится в командировке в Секторе Эпсилон Лукусты"
 	ru_names = list(
@@ -154,12 +154,18 @@
 	icon_living = "mouse_rep"
 	icon_dead = "mouse_rep_dead"
 	icon_resting = "mouse_rep_rest"
+	icon_buckled = "mouse_rep_buckled"
 	unique_pet = TRUE
 	gold_core_spawnable = NO_SPAWN
 	holder_type = /obj/item/holder/mouse_rep
 	maxHealth = 20
 	health = 20
 	resting = TRUE
+
+/mob/living/simple_animal/mouse/wooly/rep/New()
+	..()
+	pixel_x = rand(0, 0)
+	pixel_y = rand(0, 0)
 
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Gennadiy"

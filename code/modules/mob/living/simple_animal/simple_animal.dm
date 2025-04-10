@@ -14,6 +14,7 @@
 	var/icon_living = ""
 	var/icon_dead = ""
 	var/icon_resting = ""
+	var/icon_buckled = ""
 	var/icon_gib = null	//We only try to show a gibbing animation if this exists.
 	var/flip_on_death = FALSE //Flip the sprite upside down on death. Mostly here for things lacking custom dead sprites.
 
@@ -225,6 +226,10 @@
 		icon_state = icon_resting || initial(icon_state)
 		if(collar_type)
 			collar_type = "[initial(collar_type)]_rest"
+	if(buckled)
+		icon_state = icon_buckled
+		if(collar_type)
+			collar_type = initial(collar_type)
 	else
 		icon_state = icon_living || initial(icon_state)
 		if(collar_type)
