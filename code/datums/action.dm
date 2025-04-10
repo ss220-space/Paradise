@@ -47,7 +47,7 @@
 		owner.client.screen += button
 
 		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
 				continue
 			observe.client.screen += button
 
@@ -76,7 +76,7 @@
 		user.client.screen -= button
 
 		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
 				continue
 			observe.client.screen -= button
 
