@@ -22,6 +22,4 @@
 	become_uncliented()
 	update_morgue()
 
-	GLOB.left_player_list |= src
-
 	return TRUE

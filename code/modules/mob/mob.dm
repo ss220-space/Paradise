@@ -403,6 +403,7 @@
 		canon_client.movingmob = null
 
 	canon_client = null
+	GLOB.left_player_list |= src
 
 /mob/verb/memory()
 	set name = "Notes"
