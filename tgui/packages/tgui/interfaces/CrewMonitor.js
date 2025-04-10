@@ -209,7 +209,7 @@ const SecCrewMonitorDataView = (_properties) => {
 const MiningCrewMonitorDataView = (_properties) => {
   const { act, data } = useBackend();
   const miningCrew = data.crewmembers.filter((cm) => cm.is_shaft_miner) || [];
-  return <CrewMonitorTable crewData={miningCrew} context={context} />;
+  return <CrewMonitorTable crewData={miningCrew} />;
 };
 
 const CrewMonitorMapView = (_properties) => {
