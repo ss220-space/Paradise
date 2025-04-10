@@ -354,7 +354,14 @@
 
 /mob/living/simple_animal/hostile/big_legion/Initialize(mapload)
 	.=..()
-	AddComponent(/datum/component/spawner, spawn_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril), spawn_time = 20 SECONDS, faction = list("mining"), spawn_text = "извергает из себя", 3)
+	AddComponent( \
+		/datum/component/spawner,\
+		spawn_time = 20 SECONDS, \
+		max_spawned = 3, \
+		spawn_text = "извергает из себя", \
+		spawn_types = list(/mob/living/simple_animal/hostile/asteroid/hivelord/legion/tendril),\
+		faction = list("mining"),\
+	)
 
 //Tendril-spawned Legion remains, the charred skeletons of those whose bodies sank into laval or fell into chasms.
 /obj/effect/mob_spawn/human/corpse/charredskeleton
