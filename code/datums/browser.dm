@@ -88,12 +88,12 @@
 
 	for (file in scripts)
 		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
-
-	if(user.client?.window_scaling && user.client?.window_scaling != 1 && !(user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE) && width && height)
+	var/client/client = isclient(user)? user : user.client
+	if(client?.window_scaling && client?.window_scaling != 1 && !(client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE) && width && height)
 		head_content += {"
 			<style>
 				body {
-					zoom: [100 / user.client?.window_scaling]%;
+					zoom: [100 / client?.window_scaling]%;
 				}
 			</style>
 			"}
@@ -131,10 +131,11 @@
 		to_chat(user, span_userdanger("The [title] browser you tried to open failed a sanity check! Please report this on GitHub!"))
 		return
 	var/window_size = ""
+	var/client/client = isclient(user)? user : user.client
 	if (width && height)
 		window_size = ""
-		if(width && height && user.client.window_scaling &&(user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
-			var/scaling = user.client.window_scaling
+		if(width && height && client.window_scaling &&(client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
+			var/scaling = client.window_scaling
 			window_size = "size=[width * scaling]x[height * scaling];"
 		else
 			window_size = "size=[width]x[height];"
