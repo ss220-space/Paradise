@@ -50,11 +50,11 @@
 	/// Slight cooldown to prevent double-dipping if we use both abilities at onc
 	COOLDOWN_DECLARE(ability_animation_cooldown)
 	/// Our base tentacles ability
-	var/obj/effect/proc_holder/spell/goliath_tentacles/tentacles
+	var/obj/effect/proc_holder/spell/basic_goliath_tentacles/tentacles
 	/// Our base tentacles ability
-	var/obj/effect/proc_holder/spell/tentacle_burst/melee_tentacles
+	var/obj/effect/proc_holder/spell/basic_tentacle_burst/melee_tentacles
 	/// Our base tentacles ability
-	var/obj/effect/proc_holder/spell/tentacle_grasp/tentacle_line
+	var/obj/effect/proc_holder/spell/basic_tentacle_grasp/tentacle_line
 	/// Things we want to eat off the floor (or a plate, we're not picky)
 	var/static/list/goliath_foods = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora, /obj/item/reagent_containers/food/snacks/bait)
 
@@ -65,23 +65,117 @@
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_HEAVY)
 	AddElement(/datum/element/basic_eating, heal_amt = 10, food_types = goliath_foods)
 	AddElement(/datum/element/move_cooldown, move_delay = movement_delay)
+	AddElement(\
+		/datum/element/change_force_on_death,\
+		move_force = MOVE_FORCE_DEFAULT,\
+		move_resist = MOVE_RESIST_DEFAULT,\
+		pull_force = PULL_FORCE_DEFAULT,\
+	)
+
 	AddComponent(/datum/component/basic_mob_attack_telegraph)
 	AddComponentFrom(INNATE_TRAIT, /datum/component/shovel_hands)
 	if(tameable)
-		AddComponent(\
-			/datum/component/tameable,\
-			food_types = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora),\
-			tame_chance = 10,\
-			bonus_tame_chance = 5,\
-			after_tame = CALLBACK(src, PROC_REF(tamed)),\
-		)
+		AddComponent(/datum/component/tameable, tame_chance = 10, bonus_tame_chance = 5)
+	AddSpell(new tentacles)
+	AddSpell(new melee_tentacles)
+	AddSpell(new tentacle_line)
 
+	AddComponent(/datum/component/revenge_ability, melee_tentacles, targetting = ai_controller.blackboard[BB_TARGETTING_DATUM], max_range = 1, target_self = TRUE)
+	AddComponent(/datum/component/revenge_ability, tentacle_line, targetting = ai_controller.blackboard[BB_TARGETTING_DATUM], min_range = 2, max_range = 9)
 
+	tentacles_ready()
 
+	RegisterSignal(src, COMSIG_MOB_ABILITY_FINISHED, PROC_REF(used_ability))
+	ai_controller.set_blackboard_key(BB_BASIC_FOODS, typecacheof(goliath_foods))
+	ai_controller.set_blackboard_key(BB_GOLIATH_TENTACLES, tentacles)
 
+/mob/living/basic/mining/goliath/Destroy()
+	QDEL_NULL(tentacles)
+	QDEL_NULL(melee_tentacles)
+	QDEL_NULL(tentacle_line)
+	return ..()
 
+/mob/living/basic/mining/goliath/examine(mob/user)
+	. = ..()
+	if(saddled)
+		. += span_info("Кажется кто-то надел на него седло.")
 
+// Goliaths can summon tentacles more frequently if they got hit
+/mob/living/basic/mining/goliath/apply_damage(damage, damagetype, def_zone, blocked, sharp, used_weapon, spread_damage, forced, silent, updating_health, update_damage_icon)
+	. = ..()
+	if(!.)
+		return
+	if(damage <= 0)
+		return
+	if(prob(25))
+		tentacles.revert_cast()
+
+/mob/living/basic/mining/goliath/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(!istype(attacking_item, /obj/item/goliath_saddle))
+		return ..()
+	if(!tameable)
+		balloon_alert(user, "не налезает!")
+		return
+	if(saddled)
+		balloon_alert(user, "уже осёдлан!")
+		return
+	if(!tamed)
+		balloon_alert(user, "слишком агрессивный!")
+		return
+	balloon_alert(user, "крепим седло...")
+	if(!do_after(user, delay = 5.5 SECONDS, target = src))
+		return
+	balloon_alert(user, "можно кататься!")
+	qdel(attacking_item)
+	make_rideable()
+
+/mob/living/basic/mining/goliath/proc/make_rideable()
+	saddled = TRUE
+	add_overlay("goliath_saddled")
+	//AddElement(/datum/element/ridable, /datum/component/riding/creature/goliath)
+
+/// When we use an ability, activate some kind of visual tell
+/mob/living/basic/mining/goliath/proc/used_ability(mob/living/source, obj/effect/proc_holder/spell/ability)
+	SIGNAL_HANDLER
+	if(stat == DEAD || ability.can_cast())
+		return // We died or the action failed for some reason like being out of range
+
+	if(istype(ability, /obj/effect/proc_holder/spell/basic_goliath_tentacles))
+		if(ability.cooldown_handler.find_cooldown_time() <= 2 SECONDS)
+			return
+		icon_state = icon_living
+		addtimer(CALLBACK(src, PROC_REF(tentacles_ready)), ability.cooldown_handler.find_cooldown_time() - 2 SECONDS, TIMER_DELETE_ME)
+		return
+	if(!COOLDOWN_FINISHED(src, ability_animation_cooldown))
+		return
+	COOLDOWN_START(src, ability_animation_cooldown, 2 SECONDS)
+	playsound(src, 'sound/misc/demon_attack1.ogg', vol = 50)
+	Shake(1, 0, 1.5 SECONDS)
+
+/// Called slightly before tentacles ability comes off cooldown, as a warning
+/mob/living/basic/mining/goliath/proc/tentacles_ready()
+	if(stat == DEAD)
+		return
+	icon_state = tentacle_warning_state
 
 /// Get ready for mounting
-/mob/living/basic/mining/goliath/proc/tamed()
+/mob/living/basic/mining/goliath/tamed(mob/living/tamer, atom/food)
 	tamed = TRUE
+
+// Copy entire faction rather than just placing user into faction, to avoid tentacle peril on station
+/mob/living/basic/mining/goliath/befriend(mob/living/new_friend)
+	. = ..()
+	if(isnull(.))
+		return
+	faction = new_friend.faction.Copy()
+
+
+
+
+
+/// Use this to ride a goliath
+/obj/item/goliath_saddle
+	name = "goliath saddle"
+	desc = "This rough saddle will give you a serviceable seat upon a goliath! Provided you can get one to stand still."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "goliath_saddle"

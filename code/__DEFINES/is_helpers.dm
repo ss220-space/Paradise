@@ -150,6 +150,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
 
+#define isasteroidturf(A) istype(A, /turf/simulated/floor/plating/asteroid)
+
 #define isancientturf(A) istype(A, /turf/simulated/mineral/ancient)
 
 #define islava(A) (istype(A, /turf/simulated/floor/lava))

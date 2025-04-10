@@ -197,6 +197,16 @@
 /datum/ai_behavior/find_and_set/proc/search_tactic(datum/ai_controller/controller)
 	return locate(locate_path) in oview(search_range, controller.pawn)
 
+/**
+ * Variant of find and set that takes a list of things to find.
+ */
+/datum/ai_behavior/find_and_set/in_list
+
+/datum/ai_behavior/find_and_set/in_list/search_tactic(datum/ai_controller/controller, locate_paths, search_range)
+	var/list/found = typecache_filter_list(oview(search_range, controller.pawn), locate_paths)
+	if(length(found))
+		return pick(found)
+
 
 /// This behavior involves attacking a target.
 /datum/ai_behavior/attack

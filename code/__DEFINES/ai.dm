@@ -21,8 +21,13 @@
 
 ///Does this task require movement from the AI before it can be performed?
 #define AI_BEHAVIOR_REQUIRE_MOVEMENT (1<<0)
+///Does this require the current_movement_target to be adjacent and in reach?
+#define AI_BEHAVIOR_REQUIRE_REACH (1<<1)
 ///Does this task let you perform the action while you move closer? (Things like moving and shooting)
-#define AI_BEHAVIOR_MOVE_AND_PERFORM (1<<1)
+#define AI_BEHAVIOR_MOVE_AND_PERFORM (1<<2)
+///Does this behavior NOT block planning?
+#define AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION (1<<2)
+
 
 ///AI flags
 #define STOP_MOVING_WHEN_PULLED (1<<0)
@@ -196,3 +201,33 @@
 
 /// Typecache of weakrefs to mobs this mob is friends with, will follow their instructions and won't attack them
 #define BB_FRIENDS_LIST "BB_friends_list"
+
+/// Generic key for a non-specific targeted action
+#define BB_TARGETED_ACTION "BB_TARGETED_action"
+
+///key holding a range to look for stuff in
+#define BB_SEARCH_RANGE "BB_search_range"
+
+///key holding our eating cooldown
+#define BB_EAT_FOOD_COOLDOWN "BB_eat_food_cooldown"
+
+///hunger cooldown for basic mobs
+#define EAT_FOOD_COOLDOWN 45 SECONDS
+
+///list of foods this mob likes
+#define BB_BASIC_FOODS "BB_basic_foods"
+
+///key holding any food we've found
+#define BB_TARGET_FOOD "BB_TARGET_FOOD"
+
+///key holding emotes we play after eating
+#define BB_EAT_EMOTES "BB_eat_emotes"
+
+///key holding the next time we eat
+#define BB_NEXT_FOOD_EAT "BB_next_food_eat"
+
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+
+/// Blackboard key storing how long your targeting strategy has held a particular target
+#define BB_BASIC_MOB_HAS_TARGET_TIME "BB_basic_mob_has_target_time"

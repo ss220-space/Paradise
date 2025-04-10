@@ -207,6 +207,9 @@
 
 
 /mob/living/carbon/proc/help_shake_act(mob/living/carbon/M)
+	if(SEND_SIGNAL(src, COMSIG_CARBON_PRE_MISC_HELP, M) & COMPONENT_BLOCK_MISC_HELP)
+		return
+
 	if(health >= HEALTH_THRESHOLD_CRIT)
 		if(src == M && ishuman(src))
 			check_self_for_injuries()

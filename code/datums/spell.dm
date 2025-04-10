@@ -465,6 +465,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 /obj/effect/proc_holder/spell/proc/before_cast(list/targets, mob/user)
 	SHOULD_CALL_PARENT(TRUE)
+	if(SEND_SIGNAL(user, COMSIG_MOB_ABILITY_STARTED, src, targets) & COMPONENT_BLOCK_ABILITY_START)
+		return
 	if(overlay)
 		for(var/atom/target in targets)
 			var/location
@@ -481,6 +483,8 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				qdel(spell)
 
 	custom_handler?.before_cast(targets, user, src)
+	if(!QDELETED(src) && !QDELETED(user))
+		SEND_SIGNAL(user, COMSIG_MOB_ABILITY_FINISHED, src)
 
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user)

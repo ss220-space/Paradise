@@ -1370,3 +1370,18 @@
 
 /// From [/item/attack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, proximity_flag, click_parameters)
 #define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"
+
+
+// Cooldown spells signals
+
+/// From base of /obj/effect/proc_holder/spell/proc/before_cast()
+#define COMSIG_MOB_ABILITY_STARTED "mob_ability_base_started"
+	/// Return to block the ability from starting / activating
+	#define COMPONENT_BLOCK_ABILITY_START (1<<0)
+/// From base of /obj/effect/proc_holder/spell/proc/before_cast(), sent to the action owner: (datum/action/cooldown/finished)
+#define COMSIG_MOB_ABILITY_FINISHED "mob_ability_base_finished"
+
+///Called from /mob/living/carbon/help_shake_act, before any hugs have occurred. (mob/living/helper)
+#define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
+	/// Stops the rest of help act (hugging, etc) from occurring
+	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
