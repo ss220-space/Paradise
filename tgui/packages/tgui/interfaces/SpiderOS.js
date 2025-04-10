@@ -16,8 +16,8 @@ import {
 import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
-export const SpiderOS = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const SpiderOS = (properties) => {
+  const { act, data } = useBackend();
   let body;
   if (data.suit_tgui_state === 0) {
     body = (
@@ -76,8 +76,8 @@ export const SpiderOS = (properties, context) => {
   );
 };
 
-const StylesPreview = (properties, context) => {
-  const { data } = useBackend((properties, context));
+const StylesPreview = (properties) => {
+  const { data } = useBackend(properties);
   const { stylesIcon, style_preview_icon_state } = data;
   return (
     <Section
@@ -128,8 +128,8 @@ const StylesPreview = (properties, context) => {
   );
 };
 
-const SuitTuning = (properties, context) => {
-  const { act, data } = useBackend((properties, context));
+const SuitTuning = (properties) => {
+  const { act, data } = useBackend(properties);
   const {
     designs,
     design_choice,
@@ -303,8 +303,8 @@ const SuitTuning = (properties, context) => {
   );
 };
 
-const Helpers = (properties, context) => {
-  const { data } = useBackend((properties, context));
+const Helpers = (properties) => {
+  const { data } = useBackend(properties);
   const { actionsIcon } = data;
   return (
     <Section
@@ -677,8 +677,8 @@ const Helpers = (properties, context) => {
   );
 };
 
-const ActionBuyPanel = (properties, context) => {
-  const { act, data } = useBackend((properties, context));
+const ActionBuyPanel = (properties) => {
+  const { act, data } = useBackend(properties);
   const { actionsIcon, blocked_TGUI_rows } = data;
 
   let rowStyles = [
@@ -1328,8 +1328,8 @@ const ActionBuyPanel = (properties, context) => {
   );
 };
 
-export const ShuttleConsole = (properties, context) => {
-  const { act, data } = useBackend((properties, context));
+export const ShuttleConsole = (properties) => {
+  const { act, data } = useBackend(properties);
   return (
     <Section
       title="Управление шаттлом"
@@ -1397,8 +1397,8 @@ export const ShuttleConsole = (properties, context) => {
   );
 };
 
-const FakeLoadBar = (properties, context) => {
-  const { data } = useBackend((properties, context));
+const FakeLoadBar = (properties) => {
+  const { data } = useBackend(properties);
   const { randomPercent, actionsIcon, color_choice } = data;
   return (
     <Section stretchContents>

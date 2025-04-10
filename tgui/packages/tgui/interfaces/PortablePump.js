@@ -10,8 +10,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const PortablePump = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PortablePump = (props) => {
+  const { act, data } = useBackend();
   const { has_holding_tank } = data;
 
   return (
@@ -33,8 +33,8 @@ export const PortablePump = (props, context) => {
   );
 };
 
-const PumpSettings = (props, context) => {
-  const { act, data } = useBackend(context);
+const PumpSettings = (props) => {
+  const { act, data } = useBackend();
   const { on, direction, port_connected } = data;
 
   return (
@@ -84,8 +84,8 @@ const PumpSettings = (props, context) => {
   );
 };
 
-const PressureSettings = (props, context) => {
-  const { act, data } = useBackend(context);
+const PressureSettings = (props) => {
+  const { act, data } = useBackend();
   const { tank_pressure, target_pressure, max_target_pressure } = data;
 
   const average_pressure = max_target_pressure * 0.7;
@@ -171,8 +171,8 @@ const PressureSettings = (props, context) => {
   );
 };
 
-const HoldingTank = (props, context) => {
-  const { act, data } = useBackend(context);
+const HoldingTank = (props) => {
+  const { act, data } = useBackend();
   const { holding_tank, max_target_pressure } = data;
 
   const average_pressure = max_target_pressure * 0.7;

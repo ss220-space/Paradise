@@ -10,8 +10,8 @@ import {
   DmIcon,
 } from '../components';
 
-export const PDAPainter = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PDAPainter = (props) => {
+  const { act, data } = useBackend();
 
   const {
     statusLabel,
@@ -135,8 +135,8 @@ export const PDAPainter = (props, context) => {
   );
 };
 
-export const PDAColorRow = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PDAColorRow = (props) => {
+  const { act, data } = useBackend();
 
   const { hasPDA, pdaIcon } = data;
 

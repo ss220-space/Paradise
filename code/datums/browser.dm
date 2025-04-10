@@ -89,34 +89,21 @@
 	for (file in scripts)
 		head_content += "<script type='text/javascript' src='[SSassets.transport.get_asset_url(file)]'></script>"
 
+	if(user.client?.window_scaling && user.client?.window_scaling != 1 && !(user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE) && width && height)
+		head_content += {"
+			<style>
+				body {
+					zoom: [100 / user.client?.window_scaling]%;
+				}
+			</style>
+			"}
+
 	return {"<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
 		<meta http-equiv='Content-Type' content='text/html; charset=UTF-8'>
 		<meta http-equiv='X-UA-Compatible' content='IE=edge'>
 		[head_content.Join("")]
-		<script>
-			/** Remove conditionals with 516*/
-			if ('devicePixelRatio' in window) {
-				var supportsCssVariables = false;
-				try {
-					var testElement = document.createElement('div');
-					testElement.style.setProperty('--test', '1px');
-					supportsCssVariables = testElement.style.getPropertyValue('--test') === '1px';
-				} catch (e) {
-					supportsCssVariables = false;
-				}
-
-				if (supportsCssVariables) {
-					var updateDpr = function () {
-						document.documentElement.style.setProperty('--dpr', window.devicePixelRatio);
-					};
-
-					updateDpr();
-					window.addEventListener('resize', updateDpr);
-				}
-			}
-		</script>
 	</head>
 	<body scroll=auto>
 		<div class='uiWrapper'>
@@ -145,7 +132,12 @@
 		return
 	var/window_size = ""
 	if (width && height)
-		window_size = "size=[width]x[height];"
+		window_size = ""
+		if(width && height && user.client.window_scaling &&(user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
+			var/scaling = user.client.window_scaling
+			window_size = "size=[width * scaling]x[height * scaling];"
+		else
+			window_size = "size=[width]x[height];"
 	if(include_default_stylesheet)
 		var/datum/asset/simple/namespaced/common/common_asset = get_asset_datum(/datum/asset/simple/namespaced/common)
 		common_asset.send(user)

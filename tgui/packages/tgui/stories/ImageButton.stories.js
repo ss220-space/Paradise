@@ -38,42 +38,25 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props, context) => {
-  const [disabled, setDisabled] = useLocalState(context, 'disabled', false);
-  const [onClick, setOnClick] = useLocalState(context, 'onClick', true);
-  const [vertical1, setVertical1] = useLocalState(context, 'vertical1', true);
-  const [vertical2, setVertical2] = useLocalState(context, 'vertical2', true);
-  const [vertical3, setVertical3] = useLocalState(context, 'vertical3', false);
-  const [title, setTitle] = useLocalState(context, 'title', 'Image Button');
-  const [content, setContent] = useLocalState(
-    context,
-    'content',
-    'Image is a LIE!'
-  );
+const Story = (props) => {
+  const [disabled, setDisabled] = useLocalState('disabled', false);
+  const [onClick, setOnClick] = useLocalState('onClick', true);
+  const [vertical1, setVertical1] = useLocalState('vertical1', true);
+  const [vertical2, setVertical2] = useLocalState('vertical2', true);
+  const [vertical3, setVertical3] = useLocalState('vertical3', false);
+  const [title, setTitle] = useLocalState('title', 'Image Button');
+  const [content, setContent] = useLocalState('content', 'Image is a LIE!');
   const [itemContent, setItemContent] = useLocalState(
-    context,
     'itemContent',
     'Second Button'
   );
-  const [itemIcon, setItemIcon] = useLocalState(
-    context,
-    'itemIcon',
-    'face-smile'
-  );
+  const [itemIcon, setItemIcon] = useLocalState('itemIcon', 'face-smile');
 
-  const [itemIconPos, setItemIconPos] = useLocalState(
-    context,
-    'itemIconPos',
-    'default'
-  );
+  const [itemIconPos, setItemIconPos] = useLocalState('itemIconPos', 'default');
 
-  const [itemIconSize, setItemIconSize] = useLocalState(
-    context,
-    'itemIconSize',
-    2
-  );
+  const [itemIconSize, setItemIconSize] = useLocalState('itemIconSize', 2);
 
-  const [imageSize, setImageSize] = useLocalState(context, 'imageSize', 64);
+  const [imageSize, setImageSize] = useLocalState('imageSize', 64);
 
   const toggleVertical1 = () => {
     setVertical1(!vertical1);

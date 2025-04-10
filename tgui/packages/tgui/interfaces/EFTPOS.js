@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, LabeledList, NoticeBox, Section } from '../components';
 import { Window } from '../layouts';
 
-export const EFTPOS = (props, context) => {
-  const { act, data } = useBackend(context);
+export const EFTPOS = (props) => {
+  const { act, data } = useBackend();
   const { transaction_locked, machine_name } = data;
   return (
     <Window width={800} height={300}>
@@ -18,8 +18,8 @@ export const EFTPOS = (props, context) => {
   );
 };
 
-const LockedView = (props, context) => {
-  const { act, data } = useBackend(context);
+const LockedView = (props) => {
+  const { act, data } = useBackend();
   const {
     transaction_purpose,
     transaction_amount,
@@ -62,8 +62,8 @@ const LockedView = (props, context) => {
   );
 };
 
-const UnlockedView = (props, context) => {
-  const { act, data } = useBackend(context);
+const UnlockedView = (props) => {
+  const { act, data } = useBackend();
   const { transaction_purpose, transaction_amount, linked_account } = data;
   return (
     <Section title="Transation Settings" mt={1}>

@@ -10,13 +10,9 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const VampireSpecMenu = (props, context) => {
-  const { act } = useBackend(context);
-  const [activeTab, setActiveTab] = useLocalState(
-    context,
-    'activeTab',
-    'hemomancer'
-  );
+export const VampireSpecMenu = (props) => {
+  const { act } = useBackend();
+  const [activeTab, setActiveTab] = useLocalState('activeTab', 'hemomancer');
 
   const renderMenu = () => {
     switch (activeTab) {
@@ -72,8 +68,8 @@ export const VampireSpecMenu = (props, context) => {
   );
 };
 
-export const HemoMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const HemoMenu = (props) => {
+  const { act, data } = useBackend();
   const { hemomancer } = data;
   return (
     <Section title="Гемомансер">
@@ -149,8 +145,8 @@ export const HemoMenu = (props, context) => {
   );
 };
 
-export const UmbrMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const UmbrMenu = (props) => {
+  const { act, data } = useBackend();
   const { umbrae } = data;
   return (
     <Section title="Умбра">
@@ -229,8 +225,8 @@ export const UmbrMenu = (props, context) => {
   );
 };
 
-export const GarMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GarMenu = (props) => {
+  const { act, data } = useBackend();
   const { gargantua } = data;
   return (
     <Section title="Гаргантюа">
@@ -308,8 +304,8 @@ export const GarMenu = (props, context) => {
   );
 };
 
-export const DantMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const DantMenu = (props) => {
+  const { act, data } = useBackend();
   const { dantalion } = data;
   return (
     <Section title="Данталион">
@@ -404,8 +400,8 @@ export const DantMenu = (props, context) => {
   );
 };
 
-export const BestMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BestMenu = (props) => {
+  const { act, data } = useBackend();
   const { bestia } = data;
   return (
     <Section title="Бестия">

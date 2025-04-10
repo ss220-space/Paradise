@@ -24,6 +24,17 @@ export const backendUpdate = createAction('backend/update');
 export const backendSetSharedState = createAction('backend/setSharedState');
 export const backendSuspendStart = createAction('backend/suspendStart');
 
+export const backendCreatePayloadQueue = createAction(
+  'backend/createPayloadQueue'
+);
+export const backendDequeuePayloadQueue = createAction(
+  'backend/dequeuePayloadQueue'
+);
+export const backendRemovePayloadQueue = createAction(
+  'backend/removePayloadQueue'
+);
+export const nextPayloadChunk = createAction('nextPayloadChunk');
+
 export const backendSuspendSuccess = () => ({
   type: 'backend/suspendSuccess',
   payload: {
@@ -31,10 +42,17 @@ export const backendSuspendSuccess = () => ({
   },
 });
 
+export let globalStore;
+
+export const setGlobalStore = (store) => {
+  globalStore = store;
+};
+
 const initialState = {
   config: {},
   data: {},
   shared: {},
+  outgoingPayloadQueues: {} as Record<string, string[]>,
   // Start as suspended
   suspended: Date.now(),
   suspending: false,
@@ -111,6 +129,44 @@ export const backendReducer = (state = initialState, action) => {
     };
   }
 
+  if (type === 'backend/createPayloadQueue') {
+    const { id, chunks } = payload;
+    const { outgoingPayloadQueues } = state;
+    return {
+      ...state,
+      outgoingPayloadQueues: {
+        ...outgoingPayloadQueues,
+        [id]: chunks,
+      },
+    };
+  }
+
+  if (type === 'backend/dequeuePayloadQueue') {
+    const { id } = payload;
+    const { outgoingPayloadQueues } = state;
+    const { [id]: targetQueue, ...otherQueues } = outgoingPayloadQueues;
+    const [_, ...rest] = targetQueue;
+    return {
+      ...state,
+      outgoingPayloadQueues: rest.length
+        ? {
+            ...otherQueues,
+            [id]: rest,
+          }
+        : otherQueues,
+    };
+  }
+
+  if (type === 'backend/removePayloadQueue') {
+    const { id } = payload;
+    const { outgoingPayloadQueues } = state;
+    const { [id]: _, ...otherQueues } = outgoingPayloadQueues;
+    return {
+      ...state,
+      outgoingPayloadQueues: otherQueues,
+    };
+  }
+
   return state;
 };
 
@@ -119,7 +175,9 @@ export const backendMiddleware = (store) => {
   let suspendInterval;
 
   return (next) => (action) => {
-    const { suspended } = selectBackend(store.getState());
+    const { suspended, outgoingPayloadQueues } = selectBackend(
+      store.getState()
+    );
     const { type, payload } = action;
 
     if (type === 'update') {
@@ -203,8 +261,84 @@ export const backendMiddleware = (store) => {
       });
     }
 
+    if (type === 'oversizePayloadResponse') {
+      const { allow } = payload;
+      if (allow) {
+        store.dispatch(nextPayloadChunk(payload));
+      } else {
+        store.dispatch(backendRemovePayloadQueue(payload));
+      }
+    }
+
+    if (type === 'acknowlegePayloadChunk') {
+      store.dispatch(backendDequeuePayloadQueue(payload));
+      store.dispatch(nextPayloadChunk(payload));
+    }
+
+    if (type === 'nextPayloadChunk') {
+      const { id } = payload;
+      const chunk = outgoingPayloadQueues[id][0];
+      Byond.sendMessage('payloadChunk', {
+        id,
+        chunk,
+      });
+    }
+
     return next(action);
   };
+};
+
+const encodedLengthBinarySearch = (haystack: string[], length: number) => {
+  const haystackLength = haystack.length;
+  let high = haystackLength - 1;
+  let low = 0;
+  let mid = 0;
+  while (low < high) {
+    mid = Math.round((low + high) / 2);
+    const substringLength = encodeURIComponent(
+      haystack.slice(0, mid).join('')
+    ).length;
+    if (substringLength === length) {
+      break;
+    }
+    if (substringLength < length) {
+      low = mid + 1;
+    } else {
+      high = mid - 1;
+    }
+  }
+  return mid;
+};
+
+const chunkSplitter = {
+  [Symbol.split]: (string: string) => {
+    const charSeq = Array.from(string[Symbol.iterator]());
+    const length = charSeq.length;
+    let chunks: string[] = [];
+    let startIndex = 0;
+    let endIndex = 1024;
+    while (startIndex < length) {
+      const cut = charSeq.slice(
+        startIndex,
+        endIndex < length ? endIndex : undefined
+      );
+      const cutString = cut.join('');
+      if (encodeURIComponent(cutString).length > 1024) {
+        const splitIndex = startIndex + encodedLengthBinarySearch(cut, 1024);
+        chunks.push(
+          charSeq
+            .slice(startIndex, splitIndex < length ? splitIndex : undefined)
+            .join('')
+        );
+        startIndex = splitIndex;
+      } else {
+        chunks.push(cutString);
+        startIndex = endIndex;
+      }
+      endIndex = startIndex + 1024;
+    }
+    return chunks;
+  },
 };
 
 /**
@@ -219,6 +353,33 @@ export const sendAct = (action: string, payload: object = {}) => {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
   }
+
+  if (!Byond.TRIDENT) {
+    const stringifiedPayload = JSON.stringify(payload);
+    const urlSize = Object.entries({
+      type: 'act/' + action,
+      payload: stringifiedPayload,
+      tgui: 1,
+      windowId: Byond.windowId,
+    }).reduce(
+      (url, [key, value], i) =>
+        url +
+        `${i > 0 ? '&' : '?'}${encodeURIComponent(key)}=${encodeURIComponent(value)}`,
+      ''
+    ).length;
+    if (urlSize > 2048) {
+      let chunks: string[] = stringifiedPayload.split(chunkSplitter);
+      const id = `${Date.now()}`;
+      globalStore?.dispatch(backendCreatePayloadQueue({ id, chunks }));
+      Byond.sendMessage('oversizedPayloadRequest', {
+        type: 'act/' + action,
+        id,
+        chunkCount: chunks.length,
+      });
+      return;
+    }
+  }
+
   Byond.sendMessage('act/' + action, payload);
 };
 
@@ -246,8 +407,14 @@ type BackendState<TData> = {
   };
   data: TData;
   shared: Record<string, any>;
+  outgoingPayloadQueues: Record<string, any[]>;
   suspending: boolean;
   suspended: boolean;
+  scale: boolean;
+  debug?: {
+    debugLayout: boolean;
+    kitchenSink: boolean;
+  };
 };
 
 /**
@@ -264,9 +431,8 @@ export const selectBackend = <TData>(state: any): BackendState<TData> =>
  *
  * You can make
  */
-export const useBackend = <TData>(context: any) => {
-  const { store } = context;
-  const state = selectBackend<TData>(store.getState());
+export const useBackend = <TData>() => {
+  const state: BackendState<TData> = globalStore?.getState()?.backend;
   return {
     ...state,
     act: sendAct,
@@ -287,23 +453,20 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  *
  * It is a lot more performant than `setSharedState`.
  *
- * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
 export const useLocalState = <T>(
-  context: any,
   key: string,
   initialState: T
 ): StateWithSetter<T> => {
-  const { store } = context;
-  const state = selectBackend(store.getState());
-  const sharedStates = state.shared ?? {};
+  const state = globalStore?.getState()?.backend;
+  const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,
     (nextState) => {
-      store.dispatch(
+      globalStore.dispatch(
         backendSetSharedState({
           key,
           nextState:
@@ -326,18 +489,15 @@ export const useLocalState = <T>(
  *
  * This makes creation of observable s
  *
- * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */
 export const useSharedState = <T>(
-  context: any,
   key: string,
   initialState: T
 ): StateWithSetter<T> => {
-  const { store } = context;
-  const state = selectBackend(store.getState());
-  const sharedStates = state.shared ?? {};
+  const state = globalStore?.getState()?.backend;
+  const sharedStates = state?.shared ?? {};
   const sharedState = key in sharedStates ? sharedStates[key] : initialState;
   return [
     sharedState,

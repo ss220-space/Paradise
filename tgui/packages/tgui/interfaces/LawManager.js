@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const LawManager = (props, context) => {
-  const { act, data } = useBackend(context);
+export const LawManager = (props) => {
+  const { act, data } = useBackend();
   const { isAdmin, isSlaved, isMalf, isAIMalf, view } = data;
 
   return (
@@ -40,8 +40,8 @@ export const LawManager = (props, context) => {
   );
 };
 
-const LawManagementView = (props, context) => {
-  const { act, data } = useBackend(context);
+const LawManagementView = (props) => {
+  const { act, data } = useBackend();
   const {
     has_zeroth_laws,
     zeroth_laws,
@@ -65,16 +65,14 @@ const LawManagementView = (props, context) => {
   return (
     <>
       {!!has_zeroth_laws && (
-        <LawTable title="ERR_NULL_VALUE" laws={zeroth_laws} ctx={context} />
+        <LawTable title="ERR_NULL_VALUE" laws={zeroth_laws} />
       )}
-      {!!has_ion_laws && (
-        <LawTable title={ion_law_nr} laws={ion_laws} ctx={context} />
-      )}
+      {!!has_ion_laws && <LawTable title={ion_law_nr} laws={ion_laws} />}
       {!!has_inherent_laws && (
-        <LawTable title="Inherent" laws={inherent_laws} ctx={context} />
+        <LawTable title="Inherent" laws={inherent_laws} />
       )}
       {!!has_supplied_laws && (
-        <LawTable title="Supplied" laws={supplied_laws} ctx={context} />
+        <LawTable title="Supplied" laws={supplied_laws} />
       )}
       <Section title="Statement Settings">
         <LabeledList>
@@ -187,8 +185,8 @@ const LawManagementView = (props, context) => {
   );
 };
 
-const LawsetsView = (props, context) => {
-  const { act, data } = useBackend(context);
+const LawsetsView = (props) => {
+  const { act, data } = useBackend();
   const { law_sets } = data;
   return (
     <Box>
@@ -236,8 +234,8 @@ const LawsetsView = (props, context) => {
   );
 };
 
-const LawTable = (props, context) => {
-  const { act, data } = useBackend(props.ctx);
+const LawTable = (props) => {
+  const { act, data } = useBackend();
   const { isMalf } = data;
   return (
     <Section title={props.title + ' Laws'}>
