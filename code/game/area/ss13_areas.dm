@@ -3650,7 +3650,7 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 
 /area/coldcolony/malta/security/prison/prison_break()
 	for(var/obj/structure/closet/secure_closet/brig/temp_closet in src)
-		temp_closet.locked = 0
+		temp_closet.locked = FALSE
 		temp_closet.update_icon()
 	for(var/obj/machinery/door_timer/temp_timer in machinery_cache)
 		temp_timer.releasetime = 1
