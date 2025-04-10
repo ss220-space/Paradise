@@ -3,7 +3,7 @@
 
 /datum/ai_controller/basic_controller/goliath
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic/allow_items/goliath,
+		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic/allow_items/goliath()
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance

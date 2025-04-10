@@ -56,6 +56,14 @@
 
 	return FALSE
 
+/datum/targetting_datum/basic/allow_items
+
+/datum/targetting_datum/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+	. = ..()
+	if(isitem(the_target))
+		// trust fall exercise
+		return TRUE
+
 /// Returns true if the mob and target share factions
 /datum/targetting_datum/basic/proc/faction_check(mob/living/living_mob, mob/living/the_target)
 	return living_mob.faction_check_mob(the_target, exact_match = check_factions_exactly)

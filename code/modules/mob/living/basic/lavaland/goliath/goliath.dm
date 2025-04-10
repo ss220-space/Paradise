@@ -71,7 +71,6 @@
 		move_resist = MOVE_RESIST_DEFAULT,\
 		pull_force = PULL_FORCE_DEFAULT,\
 	)
-
 	AddComponent(/datum/component/basic_mob_attack_telegraph)
 	AddComponentFrom(INNATE_TRAIT, /datum/component/shovel_hands)
 	if(tameable)
