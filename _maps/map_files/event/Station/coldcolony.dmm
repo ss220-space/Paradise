@@ -5934,7 +5934,8 @@
 "chF" = (
 /obj/machinery/door/airlock/mining{
 	name = "Miners bar";
-	welded = 1
+	welded = 1;
+	req_access = list(48)
 	},
 /obj/machinery/door/firedoor,
 /obj/structure/barricade/wooden/crude{
@@ -6807,6 +6808,7 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/ore_production)
 "cym" = (
@@ -7755,6 +7757,12 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/bar/atrium)
+"cMO" = (
+/obj/structure/marker_beacon{
+	icon_state = "markerjade-on"
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "cNA" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/space_heater,
@@ -9662,6 +9670,18 @@
 	},
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
+"dxL" = (
+/obj/effect/turf_decal/weather/snow/corner,
+/obj/effect/decal/rail_way{
+	dir = 8
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	temperature = 180
+	},
+/area/ruin/unpowered/coldcolony_outside)
 "dxN" = (
 /obj/structure/flora/rock/pile,
 /obj/structure/flora/tree/pine,
@@ -10659,7 +10679,8 @@
 	dir = 9
 	},
 /obj/machinery/door/airlock/external/glass{
-	name = "Mining External Airlock"
+	name = "Mining External Airlock";
+	req_access = list(48)
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
@@ -11821,6 +11842,21 @@
 /obj/structure/flora/ausbushes/sparsegrass,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/resid_serv/hydroponics)
+"enZ" = (
+/obj/effect/turf_decal/tile/neutral{
+	color = "black";
+	icon_state = "tile_full"
+	},
+/obj/effect/bump_teleporter{
+	id_target = "lavalandtele1";
+	id = "matlatele1"
+	},
+/turf/simulated/floor/plasteel{
+	color = "gray";
+	dir = 1;
+	icon_state = "rampbottom"
+	},
+/area/ruin/unpowered/coldcolony_outside)
 "eoq" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/hydroponics/soil,
@@ -13831,6 +13867,12 @@
 	},
 /turf/simulated/floor/wood/fancy/light,
 /area/coldcolony/malta/bridge/hop)
+"faj" = (
+/obj/structure/marker_beacon{
+	icon_state = "markerburgundy-on"
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "faO" = (
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_pump/on,
@@ -18606,6 +18648,8 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -20222,7 +20266,8 @@
 /obj/structure/fans/tiny,
 /obj/effect/decal/snow/sand/edge,
 /obj/machinery/door/airlock/external/glass{
-	name = "Mining External Airlock"
+	name = "Mining External Airlock";
+	req_access = list(48)
 	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/quartermaster/miningeva)
@@ -28618,6 +28663,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/sleeper)
 "kBE" = (
@@ -28734,7 +28780,7 @@
 "kDq" = (
 /obj/machinery/door/airlock/mining/glass{
 	name = "Mining Station EVA";
-	req_access = list(54)
+	req_access = list(48)
 	},
 /obj/machinery/door/firedoor,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
@@ -30187,6 +30233,12 @@
 "lgI" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/security/hos)
+"lgS" = (
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/turf/simulated/floor/plasteel{
+	icon_state = "grimy"
+	},
+/area/coldcolony/malta/quartermaster/miningbar)
 "lgT" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/security/securearmory)
@@ -33470,6 +33522,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -36365,6 +36418,17 @@
 "nBf" = (
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
+"nBy" = (
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 1
+	},
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	temperature = 180
+	},
+/area/ruin/unpowered/coldcolony_outside)
 "nBD" = (
 /obj/machinery/constructable_frame/machine_frame,
 /turf/simulated/floor/plating,
@@ -42066,6 +42130,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/item/radio/beacon,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -45023,6 +45088,10 @@
 /obj/effect/turf_decal/tile/neutral{
 	color = "black";
 	icon_state = "tile_full"
+	},
+/obj/effect/bump_teleporter{
+	id_target = "lavalandtele2";
+	id = "matlatele2"
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -49373,6 +49442,13 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/storage)
+"smq" = (
+/obj/structure/chair/stool,
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel{
+	icon_state = "bar"
+	},
+/area/coldcolony/malta/quartermaster/miningbar)
 "smD" = (
 /obj/effect/decal/cleanable/dust,
 /turf/simulated/floor/plasteel{
@@ -49656,6 +49732,21 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/fitness)
+"srA" = (
+/obj/effect/turf_decal/tile/neutral{
+	color = "black";
+	icon_state = "tile_full"
+	},
+/obj/effect/bump_teleporter{
+	id_target = "lavalandtele3";
+	id = "matlatele3"
+	},
+/turf/simulated/floor/plasteel{
+	color = "gray";
+	dir = 1;
+	icon_state = "rampbottom"
+	},
+/area/ruin/unpowered/coldcolony_outside)
 "srM" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -50161,6 +50252,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
+"sAT" = (
+/obj/item/radio/beacon,
+/turf/simulated/floor/wood/fancy/light,
+/area/coldcolony/malta/bridge/hop)
 "sBl" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood,
@@ -50754,6 +50849,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
+/obj/item/hand_tele,
 /turf/simulated/floor/carpet/royalblue,
 /area/coldcolony/malta/bridge/captain)
 "sLL" = (
@@ -56005,6 +56101,8 @@
 /obj/machinery/power/apc{
 	pixel_y = -26
 	},
+/obj/item/clothing/suit/hooded/wintercoat/miner,
+/obj/item/clothing/suit/hooded/wintercoat/miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "brown"
 	},
@@ -58911,7 +59009,8 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Miners bar";
-	welded = 1
+	welded = 1;
+	req_access = list(48)
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/quartermaster/miningbar)
@@ -87154,10 +87253,10 @@ vPw
 vPw
 vPw
 odd
-qEM
+enZ
 uyc
 gqN
-rSb
+faj
 rSb
 ixx
 vlt
@@ -87668,7 +87767,7 @@ vPw
 vPw
 vPw
 nZO
-qEM
+srA
 uyc
 gqN
 bXN
@@ -87932,7 +88031,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+cMO
 lfP
 gJe
 bGU
@@ -89218,7 +89317,7 @@ gBV
 uQx
 hFD
 rSb
-rSb
+faj
 oRC
 jDL
 rtt
@@ -89732,8 +89831,8 @@ vPw
 vPw
 vPw
 rSb
-jpa
-dYL
+nBy
+dxL
 rSb
 vPw
 vPw
@@ -90762,7 +90861,7 @@ mec
 mec
 sGS
 dYL
-rSb
+cMO
 rSb
 rSb
 rSb
@@ -97439,7 +97538,7 @@ kyF
 rSb
 pmH
 hjp
-eFK
+lgS
 bkF
 qcc
 xcb
@@ -98212,7 +98311,7 @@ khJ
 dAG
 vEi
 lKH
-ppK
+smq
 bcV
 iai
 fnN
@@ -117680,7 +117779,7 @@ jvV
 kuG
 gpk
 upt
-uRC
+sAT
 qzu
 udZ
 cvf
