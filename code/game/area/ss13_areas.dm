@@ -3348,10 +3348,6 @@ GLOBAL_LIST_INIT(centcom_areas, list(
 	icon_state = "Theatre"
 	holomap_color = HOLOMAP_AREACOLOR_HALLWAYS
 
-/area/coldcolony/malta/civilian/
-/area/coldcolony/malta/civilian/
-
-
 //Malta Residental
 /area/coldcolony/malta/resid_serv
 	holomap_color = HOLOMAP_AREACOLOR_SERVICE
