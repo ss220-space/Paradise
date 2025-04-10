@@ -471,6 +471,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(orbiting && ismob(orbiting))
 			var/mob/living/new_sight = orbiting
 			set_sight(new_sight.client? new_sight.sight : set_sight(NONE))
+		else
+			set_sight(null)
 	else
 		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 
