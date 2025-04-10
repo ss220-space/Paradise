@@ -1396,6 +1396,7 @@
 
 	for(var/mob/dead/observer/observe in mob.orbiters)
 		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(mob.orbiters, observe)
 			continue
 		observe.client.eye = new_eye
 

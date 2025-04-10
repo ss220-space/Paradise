@@ -18,6 +18,7 @@
 		client.screen += screen
 		for(var/mob/dead/observer/observe in orbiters)
 			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+				LAZYREMOVE(orbiters, observe)
 				continue
 			observe.client.screen += screen
 
