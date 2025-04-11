@@ -32,7 +32,7 @@
 					return SUBTREE_RETURN_FINISH_PLANNING
 
 				controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
-				controller.current_movement_target = selected_enemy
+				set_movement_target(controller, selected_enemy)
 				if(controller.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] < world.time)
 					controller.queue_behavior(/datum/ai_behavior/recruit_monkeys)
 				controller.queue_behavior(/datum/ai_behavior/battle_screech/monkey)
@@ -43,7 +43,7 @@
 				var/obj/machinery/disposal/bodyDisposal = locate(/obj/machinery/disposal/) in view(MONKEY_ENEMY_VISION, living_pawn)
 				if(bodyDisposal)
 					controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = selected_enemy
-					controller.current_movement_target = selected_enemy
+					set_movement_target(controller, selected_enemy)
 					controller.blackboard[BB_MONKEY_TARGET_DISPOSAL] = bodyDisposal
 					controller.queue_behavior(/datum/ai_behavior/disposal_mob, BB_MONKEY_CURRENT_ATTACK_TARGET, BB_MONKEY_TARGET_DISPOSAL)
 					return SUBTREE_RETURN_FINISH_PLANNING

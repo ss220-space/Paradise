@@ -25,8 +25,11 @@
 
 /datum/ai_behavior/item_move_close_and_attack/setup(datum/ai_controller/controller, target_key, throw_count_key)
 	. = ..()
-	controller.current_movement_target = controller.blackboard[target_key]
-
+	var/datum/weakref/target_ref = controller.blackboard[target_key]
+	var/atom/target = target_ref?.resolve()
+	if(isnull(target))
+		return FALSE
+	set_movement_target(controller, target)
 
 /datum/ai_behavior/item_move_close_and_attack/perform(delta_time, datum/ai_controller/controller, target_key, throw_count_key)
 	. = ..()

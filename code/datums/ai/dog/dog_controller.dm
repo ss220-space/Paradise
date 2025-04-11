@@ -80,7 +80,7 @@
 	if(!istype(thrown_thing) || !isturf(thrown_thing.loc) || !pawn.can_see(thrown_thing, length = AI_DOG_VISION_RANGE))
 		return
 
-	current_movement_target = thrown_thing
+	set_movement_target(thrown_thing)
 	blackboard[BB_FETCH_TARGET] = thrown_thing
 	blackboard[BB_FETCH_DELIVER_TO] = throwing_datum.thrower
 	queue_behavior(/datum/ai_behavior/fetch)
@@ -260,7 +260,7 @@
 			if(pointed_item.obj_flags & ABSTRACT)
 				return
 			pawn.visible_message(span_notice("[pawn] следует за указаниями [pointing_friend] и радостно гафкает!"))
-			current_movement_target = pointed_movable
+			set_movement_target(pointed_movable)
 			blackboard[BB_FETCH_TARGET] = pointed_movable
 			blackboard[BB_FETCH_DELIVER_TO] = pointing_friend
 			if(living_pawn.buckled)

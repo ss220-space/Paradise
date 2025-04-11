@@ -9,6 +9,8 @@ multiple modular subtrees with behaviors
 	var/atom/pawn
 	/// Bitfield of traits for this AI to handle extra behavior
 	var/ai_traits
+	///Current actions planned to be performed by the AI in the upcoming plan
+	var/list/planned_behaviors
 	/// Current actions being performed by the AI.
 	var/list/current_behaviors
 	/// Current actions and their respective last time ran as an assoc list.
@@ -17,6 +19,8 @@ multiple modular subtrees with behaviors
 	var/ai_status
 	/// Current movement target of the AI, generally set by decision making.
 	var/atom/current_movement_target
+	///Identifier for what last touched our movement target, so it can be cleared conditionally
+	var/movement_target_source
 	/// This is a list of variables the AI uses and can be mutated by actions. When an action is performed you pass this list and any relevant keys for the variables it can mutate.
 	var/list/blackboard = list()
 	/// Stored arguments for behaviors given during their initial creation
@@ -43,8 +47,6 @@ multiple modular subtrees with behaviors
 	// The variables below are fucking stupid and should be put into the blackboard at some point.
 	/// AI paused time
 	var/paused_until = 0
-	/// are we even able to plan?
-	var/able_to_plan = TRUE
 
 /datum/ai_controller/New(atom/new_pawn)
 	change_ai_movement_type(ai_movement)
@@ -186,6 +188,13 @@ multiple modular subtrees with behaviors
 			ProcessBehavior(action_delta_time, current_behavior)
 			return
 
+///Sets the current movement target, with an optional param to override the movement behavior
+/datum/ai_controller/proc/set_movement_target(atom/target, datum/ai_movement/new_movement)
+	movement_target_source = source
+	current_movement_target = target
+	if(new_movement)
+		change_ai_movement_type(new_movement)
+
 
 ///This is where you decide what actions are taken by the AI.
 /datum/ai_controller/proc/SelectBehaviors(delta_time)
@@ -194,11 +203,21 @@ multiple modular subtrees with behaviors
 		return FALSE
 
 	LAZYINITLIST(current_behaviors)
+	LAZYCLEARLIST(planned_behaviors)
 
 	if(LAZYLEN(planning_subtrees))
 		for(var/datum/ai_planning_subtree/subtree as anything in planning_subtrees)
 			if(subtree.SelectBehaviors(src, delta_time) == SUBTREE_RETURN_FINISH_PLANNING)
 				break
+
+	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
+		if(LAZYACCESS(planned_behaviors, current_behavior))
+			continue
+		var/list/arguments = list(src, FALSE)
+		var/list/stored_arguments = behavior_args[type]
+		if(stored_arguments)
+			arguments += stored_arguments
+		current_behavior.finish_action(arglist(arguments))
 
 ///This proc handles changing ai status, and starts/stops processing if required.
 /datum/ai_controller/proc/set_ai_status(new_ai_status)
@@ -225,17 +244,20 @@ multiple modular subtrees with behaviors
 		CRASH("Behavior [behavior_type] not found.")
 	var/list/arguments = args.Copy()
 	arguments[1] = src
+
+	if(LAZYACCESS(current_behaviors, behavior)) ///It's still in the plan, don't add it again to current_behaviors but do keep it in the planned behavior list so its not cancelled
+		LAZYADDASSOC(planned_behaviors, behavior, TRUE)
+		return
+
 	if(!behavior.setup(arglist(arguments)))
 		return
-	LAZYADD(current_behaviors, behavior)
+	LAZYADDASSOC(current_behaviors, behavior, TRUE)
+	LAZYADDASSOC(planned_behaviors, behavior, TRUE)
 	arguments.Cut(1, 2)
 	if(length(arguments))
 		behavior_args[behavior_type] = arguments
 	else
 		behavior_args -= behavior_type
-
-	if(!(behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) //this one blocks planning!
-		able_to_plan = FALSE
 
 /datum/ai_controller/proc/ProcessBehavior(delta_time, datum/ai_behavior/behavior)
 	var/list/arguments = list(delta_time, src)
@@ -297,6 +319,14 @@ multiple modular subtrees with behaviors
 	if(islist(key_value))
 		return length(key_value) > 0
 	return !!key_value
+
+///Determines whether the AI can currently make a new plan
+/datum/ai_controller/proc/able_to_plan()
+	. = TRUE
+	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
+		if(!(current_behavior.behavior_flags & AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION)) //We have a behavior that blocks planning
+			. = FALSE
+			break
 
 /**
  * Used to manage references to datum by AI controllers

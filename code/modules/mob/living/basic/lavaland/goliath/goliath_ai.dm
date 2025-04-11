@@ -108,7 +108,7 @@
 	var/turf/target_turf = controller.blackboard[target_key]
 	if(QDELETED(target_turf))
 		return
-	controller.current_movement_target = controller.blackboard[target_key]
+	set_movement_target(controller, controller.blackboard[target_key])
 
 /datum/ai_behavior/goliath_dig/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	. = ..()

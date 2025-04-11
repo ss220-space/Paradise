@@ -32,7 +32,7 @@
 
 /datum/ai_behavior/break_spine/setup(datum/ai_controller/controller, target_key)
 	. = ..()
-	controller.current_movement_target = controller.blackboard[target_key]
+	set_movement_target(controller, controller.blackboard[target_key])
 
 /datum/ai_behavior/break_spine/perform(delta_time, datum/ai_controller/controller, target_key)
 	var/mob/living/batman = controller.blackboard[target_key]
@@ -88,7 +88,7 @@
 
 /datum/ai_behavior/use_on_object/setup(datum/ai_controller/controller, target_key)
 	. = ..()
-	controller.current_movement_target = controller.blackboard[target_key]
+	set_movement_target(controller, controller.blackboard[target_key])
 
 /datum/ai_behavior/use_on_object/perform(delta_time, datum/ai_controller/controller, target_key)
 	. = ..()
@@ -115,7 +115,7 @@
 
 /datum/ai_behavior/give/setup(datum/ai_controller/controller, target_key)
 	. = ..()
-	controller.current_movement_target = controller.blackboard[target_key]
+	set_movement_target(controller, controller.blackboard[target_key])
 
 
 /datum/ai_behavior/give/perform(delta_time, datum/ai_controller/controller, target_key)
@@ -154,7 +154,7 @@
 
 /datum/ai_behavior/consume/setup(datum/ai_controller/controller, obj/item/target)
 	. = ..()
-	controller.current_movement_target = target
+	set_movement_target(controller, target)
 
 /datum/ai_behavior/consume/perform(delta_time, datum/ai_controller/controller, obj/item/target)
 	. = ..()
@@ -194,7 +194,7 @@
 		finish_action(controller, TRUE)
 		return
 
-	controller.current_movement_target = living_target
+	set_movement_target(controller, living_target)
 	attack(controller, living_target)
 
 /datum/ai_behavior/attack/finish_action(datum/ai_controller/controller, succeeded)
@@ -230,7 +230,7 @@
 		finish_action(controller, TRUE)
 		return
 
-	controller.current_movement_target = living_target
+	set_movement_target(controller, living_target)
 
 /datum/ai_behavior/follow/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
