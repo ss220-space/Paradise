@@ -26,7 +26,10 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
+
 	LAssailant = null
+	GLOB.left_player_list -= src
+	
 	return ..()
 
 /mob/Initialize(mapload)
