@@ -3,8 +3,8 @@ import { Tabs, Button, Box, Grid, Section, Stack, Icon } from '../components';
 import { Window } from '../layouts';
 import { classes } from 'common/react';
 
-export const RPD = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RPD = (props) => {
+  const { act, data } = useBackend();
   const { mainmenu, mode, auto_wrench } = data;
 
   const decideTab = (index) => {
@@ -58,8 +58,8 @@ export const RPD = (props, context) => {
   );
 };
 
-const AtmosPipeContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const AtmosPipeContent = (props) => {
+  const { act, data } = useBackend();
   const { pipemenu, pipe_category, pipelist, whatpipe, iconrotation } = data;
 
   return (
@@ -322,8 +322,8 @@ const AtmosPipeContent = (props, context) => {
   );
 };
 
-const DisposalPipeContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const DisposalPipeContent = (props) => {
+  const { act, data } = useBackend();
   const { pipe_category, pipelist, whatdpipe, iconrotation } = data;
 
   return (
@@ -476,7 +476,7 @@ const DisposalPipeContent = (props, context) => {
   );
 };
 
-const RotatePipeContent = (props, context) => {
+const RotatePipeContent = (props) => {
   return (
     <Stack.Item grow>
       <Section fill>
@@ -492,7 +492,7 @@ const RotatePipeContent = (props, context) => {
   );
 };
 
-const FlipPipeContent = (props, context) => {
+const FlipPipeContent = (props) => {
   return (
     <Stack.Item grow>
       <Section fill>
@@ -508,7 +508,7 @@ const FlipPipeContent = (props, context) => {
   );
 };
 
-const BinPipeContent = (props, context) => {
+const BinPipeContent = (props) => {
   return (
     <Stack.Item grow>
       <Section fill>

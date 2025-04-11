@@ -11,55 +11,40 @@ import {
 import { ButtonCheckbox } from '../components/Button';
 import { Window } from '../layouts';
 
-export const PollOptionPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PollOptionPanel = (props) => {
+  const { act, data } = useBackend();
   const { poll_question, is_rating, option } = data;
 
-  const [text, set_text] = useLocalState(context, 'text', option.text);
+  const [text, set_text] = useLocalState('text', option.text);
   const [default_percentage_calc, set_default_percentage_calc] = useLocalState(
-    context,
     'default_percentage_calc',
     option.default_percentage_calc
   );
 
-  const [min_val, set_min_val] = useLocalState(
-    context,
-    'min_val',
-    option.min_val
-  );
-  const [max_val, set_max_val] = useLocalState(
-    context,
-    'max_val',
-    option.max_val
-  );
+  const [min_val, set_min_val] = useLocalState('min_val', option.min_val);
+  const [max_val, set_max_val] = useLocalState('max_val', option.max_val);
 
   const [desc_min_check, set_desc_min_check] = useLocalState(
-    context,
     'desc_min_check',
     option.desc_min_check
   );
   const [desc_mid_check, set_desc_mid_check] = useLocalState(
-    context,
     'desc_mid_check',
     option.desc_mid_check
   );
   const [desc_max_check, set_desc_max_check] = useLocalState(
-    context,
     'desc_max_check',
     option.desc_max_check
   );
   const [desc_min_text, set_desc_min_text] = useLocalState(
-    context,
     'desc_min_text',
     option.desc_min_text
   );
   const [desc_mid_text, set_desc_mid_text] = useLocalState(
-    context,
     'desc_mid_text',
     option.desc_min_text
   );
   const [desc_max_text, set_desc_max_text] = useLocalState(
-    context,
     'desc_max_text',
     option.desc_min_text
   );

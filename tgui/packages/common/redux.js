@@ -144,9 +144,13 @@ export const createAction = (type, prepare = null) => {
 // --------------------------------------------------------
 
 export const useDispatch = (context) => {
-  return context.store.dispatch;
+  return context?.store?.dispatch;
 };
 
 export const useSelector = (context, selector) => {
-  return selector(context.store.getState());
+  if (!context) {
+    return {};
+  }
+
+  return selector(context?.store?.getState());
 };

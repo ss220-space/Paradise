@@ -41,7 +41,7 @@
 	if(!poi)
 		return
 
-	var/atom/cached_target = owner.orbiting
+	var/atom/movable/cached_target = owner.orbiting
 	owner.orbiting = null
 	owner.reset_perspective(null)
 	owner.orbiting = cached_target
@@ -52,7 +52,7 @@
 			owner.do_observe(eye_mob)
 		else
 			owner.cleanup_observe()
-			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
+			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока! Показать инвентарь <b>невозможно</b>."))
 
 	owner.ManualFollow(poi)
 
@@ -72,7 +72,7 @@
 		else
 			to_chat(owner, span_alert("Объект, за которым Вы следуете, не имеет за собой игрока. Показать инвентарь <b>невозможно</b>."))
 
-	var/mob/eye_mob = owner.orbiting
+	var/atom/movable/eye_mob = owner.orbiting
 	owner.orbiting = null
 	owner.reset_perspective(null)
 	owner.cleanup_observe()

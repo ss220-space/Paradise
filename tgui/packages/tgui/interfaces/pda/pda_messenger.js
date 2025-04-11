@@ -11,8 +11,8 @@ import {
   Stack,
 } from '../../components';
 
-export const pda_messenger = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pda_messenger = (props) => {
+  const { act, data } = useBackend();
   const { active_convo } = data;
 
   if (active_convo) {
@@ -21,14 +21,13 @@ export const pda_messenger = (props, context) => {
   return <MessengerList data={data} />;
 };
 
-export const ActiveConversation = (props, context) => {
-  const { act } = useBackend(context);
+export const ActiveConversation = (props) => {
+  const { act } = useBackend();
   const data = props.data;
 
   const { convo_device, messages, active_convo } = data;
 
   const [clipboardMode, setClipboardMode] = useLocalState(
-    context,
     'clipboardMode',
     false
   );
@@ -153,14 +152,14 @@ export const ActiveConversation = (props, context) => {
   );
 };
 
-export const MessengerList = (props, context) => {
-  const { act } = useBackend(context);
+export const MessengerList = (props) => {
+  const { act } = useBackend();
 
   const data = props.data;
 
   const { convopdas, pdas, charges, silent, toff } = data;
 
-  const [searchTerm, setSearchTerm] = useLocalState(context, 'searchTerm', '');
+  const [searchTerm, setSearchTerm] = useLocalState('searchTerm', '');
 
   return (
     <Stack fill vertical>
@@ -239,8 +238,8 @@ export const MessengerList = (props, context) => {
   );
 };
 
-const PDAList = (props, context) => {
-  const { act } = useBackend(context);
+const PDAList = (props) => {
+  const { act } = useBackend();
   const data = props.data;
 
   const { pdas, title, msgAct, searchTerm } = props;

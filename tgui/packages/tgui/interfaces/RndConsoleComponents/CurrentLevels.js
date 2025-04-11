@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Box, Divider } from '../../components';
 
-export const CurrentLevels = (properties, context) => {
-  const { data } = useBackend(context);
+export const CurrentLevels = (properties) => {
+  const { data } = useBackend();
 
   const { tech_levels } = data;
 

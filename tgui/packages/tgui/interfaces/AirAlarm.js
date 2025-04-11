@@ -13,8 +13,8 @@ import {
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-export const AirAlarm = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AirAlarm = (props) => {
+  const { act, data } = useBackend();
   const { locked } = data;
   // Bail straight away if there is no air
   return (
@@ -43,8 +43,8 @@ const Danger2Colour = (danger) => {
   return 'red';
 };
 
-const AirStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirStatus = (props) => {
+  const { act, data } = useBackend();
   const { air, mode, atmos_alarm, locked, alarmActivated, rcon, target_temp } =
     data;
 
@@ -190,8 +190,8 @@ const AirStatus = (props, context) => {
   );
 };
 
-const AirAlarmTabs = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+const AirAlarmTabs = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   return (
     <Tabs>
       <Tabs.Tab
@@ -226,8 +226,8 @@ const AirAlarmTabs = (props, context) => {
   );
 };
 
-const AirAlarmUnlockedContent = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+const AirAlarmUnlockedContent = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   switch (tabIndex) {
     case 0:
       return <AirAlarmVentsView />;
@@ -242,8 +242,8 @@ const AirAlarmUnlockedContent = (props, context) => {
   }
 };
 
-const AirAlarmVentsView = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirAlarmVentsView = (props) => {
+  const { act, data } = useBackend();
   const { vents } = data;
   return vents.map((v) => (
     <Section title={v.name} key={v.name}>
@@ -315,8 +315,8 @@ const AirAlarmVentsView = (props, context) => {
   ));
 };
 
-const AirAlarmScrubbersView = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirAlarmScrubbersView = (props) => {
+  const { act, data } = useBackend();
   const { scrubbers } = data;
   return scrubbers.map((s) => (
     <Section title={s.name} key={s.name}>
@@ -422,8 +422,8 @@ const AirAlarmScrubbersView = (props, context) => {
   ));
 };
 
-const AirAlarmModesView = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirAlarmModesView = (props) => {
+  const { act, data } = useBackend();
   const { modes, presets, emagged, mode, preset } = data;
   return (
     <>
@@ -472,8 +472,8 @@ const AirAlarmModesView = (props, context) => {
   );
 };
 
-const AirAlarmThresholdsView = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirAlarmThresholdsView = (props) => {
+  const { act, data } = useBackend();
   const { thresholds } = data;
   return (
     <Section title="Alarm Thresholds">

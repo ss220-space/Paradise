@@ -11,8 +11,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const SuitStorage = (props, context) => {
-  const { data } = useBackend(context);
+export const SuitStorage = (props) => {
+  const { data } = useBackend();
   const { uv } = data;
   return (
     <Window width={402} height={268}>
@@ -35,8 +35,8 @@ export const SuitStorage = (props, context) => {
   );
 };
 
-const StoredItems = (props, context) => {
-  const { act, data } = useBackend(context);
+const StoredItems = (props) => {
+  const { act, data } = useBackend();
   const { helmet, suit, magboots, mask, storage, open, locked } = data;
   return (
     <Section
@@ -116,8 +116,8 @@ const StoredItems = (props, context) => {
   );
 };
 
-const ItemRow = (props, context) => {
-  const { act, data } = useBackend(context);
+const ItemRow = (props) => {
+  const { act, data } = useBackend();
   const { object, label, missingText, eject } = props;
   return (
     <LabeledList.Item label={label}>
@@ -139,8 +139,8 @@ const ItemRow = (props, context) => {
   );
 };
 
-const Disinfect = (props, context) => {
-  const { act, data } = useBackend(context);
+const Disinfect = (props) => {
+  const { act, data } = useBackend();
   return (
     <Section>
       <Button

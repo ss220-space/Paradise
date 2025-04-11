@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Box, Button, LabeledList, Section } from '../../components';
 
-export const DeconstructionMenu = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const DeconstructionMenu = (properties) => {
+  const { data, act } = useBackend();
 
   const { loaded_item, linked_destroy } = data;
 

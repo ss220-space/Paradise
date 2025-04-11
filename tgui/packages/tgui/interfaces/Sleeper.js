@@ -39,8 +39,8 @@ const tempColors = [
   'bad',
 ];
 
-export const Sleeper = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Sleeper = (props) => {
+  const { act, data } = useBackend();
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
   return (
@@ -57,8 +57,8 @@ export const Sleeper = (props, context) => {
   );
 };
 
-const SleeperMain = (props, context) => {
-  const { act, data } = useBackend(context);
+const SleeperMain = (props) => {
+  const { act, data } = useBackend();
   const { occupant } = data;
   return (
     <>
@@ -69,8 +69,8 @@ const SleeperMain = (props, context) => {
   );
 };
 
-const SleeperOccupant = (props, context) => {
-  const { act, data } = useBackend(context);
+const SleeperOccupant = (props) => {
+  const { act, data } = useBackend();
   const { occupant, auto_eject_dead } = data;
   return (
     <Section
@@ -152,8 +152,8 @@ const SleeperOccupant = (props, context) => {
   );
 };
 
-const SleeperDamage = (props, context) => {
-  const { data } = useBackend(context);
+const SleeperDamage = (props) => {
+  const { data } = useBackend();
   const { occupant } = data;
   return (
     <Section title="Общий урон">
@@ -176,8 +176,8 @@ const SleeperDamage = (props, context) => {
   );
 };
 
-const SleeperDialysis = (props, context) => {
-  const { act, data } = useBackend(context);
+const SleeperDialysis = (props) => {
+  const { act, data } = useBackend();
   const {
     hasOccupant,
     isBeakerLoaded,
@@ -231,8 +231,8 @@ const SleeperDialysis = (props, context) => {
   );
 };
 
-const SleeperChemicals = (props, context) => {
-  const { act, data } = useBackend(context);
+const SleeperChemicals = (props) => {
+  const { act, data } = useBackend();
   const { occupant, chemicals, maxchem, amounts } = data;
   return (
     <Section title="Кровоток пациента">
@@ -308,7 +308,7 @@ const SleeperChemicals = (props, context) => {
   );
 };
 
-const SleeperEmpty = (props, context) => {
+const SleeperEmpty = (props) => {
   return (
     <Section fill textAlign="center">
       <Stack fill>

@@ -212,6 +212,8 @@
 	sleep(1) // Without a sleep here, VV sometimes disconnects clients
 
 
+	var/ui_scale = usr.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE
+
 	var/list/variable_html = list()
 	if(islist)
 		var/list/L = D
@@ -241,6 +243,7 @@
 				font-family: "Courier New", monospace;
 				font-size: 8pt;
 			}
+		[!ui_scale && window_scaling ? "<style>body {zoom: [100 / window_scaling]%;}</style>" : ""]
 		</style>
 	</head>
 	<body onload='selectTextField()' onkeydown='return handle_keydown()' onkeyup='handle_keyup()'>
@@ -462,7 +465,11 @@
 </html>
 	"}
 
-	usr << browse(html, "window=variables[refid];size=475x650")
+	var/size_string = "size=475x650";
+	if(ui_scale && window_scaling)
+		size_string = "size=[475 * window_scaling]x[650 * window_scaling]"
+
+	src << browse(html, "window=variables[refid];[size_string]")
 
 /client/proc/vv_update_display(datum/D, span, content)
 	src << output("[span]:[content]", "variables[D.UID()].browser:replace_span")

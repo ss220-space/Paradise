@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const PlayingCard = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const PlayingCard = (properties) => {
+  const { act, data } = useBackend();
 
   return (
     <Window width={250} height={350} theme="cardtable" title="Карты в руке">

@@ -8,8 +8,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const TankDispenser = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TankDispenser = (props) => {
+  const { act, data } = useBackend();
   const { o_tanks, p_tanks } = data;
   return (
     <Window width={275} height={100}>
