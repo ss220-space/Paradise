@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section, NumberInput, LabeledList, Grid } from '../components';
 import { Window } from '../layouts';
 
-export const ItemPixelShift = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ItemPixelShift = (props) => {
+  const { act, data } = useBackend();
   const { pixel_x, pixel_y, max_shift_x, max_shift_y, random_drop_on } = data;
 
   return (

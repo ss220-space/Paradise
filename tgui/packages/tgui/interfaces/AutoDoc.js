@@ -13,14 +13,10 @@ import {
 import { Window } from '../layouts';
 import { FlexItem } from '../components/Flex';
 
-export const AutoDoc = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AutoDoc = (props) => {
+  const { act, data } = useBackend();
   const { HasTray, TguiIcons, occupant, isHealing, fixtimer, healtimer } = data;
-  const [ChoosenPart, ChoosePart] = useLocalState(
-    context,
-    'ChoosePart',
-    'chest'
-  );
+  const [ChoosenPart, ChoosePart] = useLocalState('ChoosePart', 'chest');
   return (
     <Window theme="ntOS95" resizable>
       <Window.Content>

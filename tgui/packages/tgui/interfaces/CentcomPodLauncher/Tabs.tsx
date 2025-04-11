@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../../backend';
 import { Box, Button } from '../../components';
 import { PodLauncherData } from './types';
 
-export const TabPod = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
+export const TabPod = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
   const { oldArea } = data;
 
   return (
@@ -18,13 +18,9 @@ export const TabPod = (props, context) => {
   );
 };
 
-export const TabBay = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
-  const [teleported, setTeleported] = useLocalState(
-    context,
-    'teleported',
-    false
-  );
+export const TabBay = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
+  const [teleported, setTeleported] = useLocalState('teleported', false);
   const { oldArea } = data;
 
   return (
@@ -52,13 +48,9 @@ export const TabBay = (props, context) => {
   );
 };
 
-export const TabDrop = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
-  const [teleported, setTeleported] = useLocalState(
-    context,
-    'teleported',
-    false
-  );
+export const TabDrop = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
+  const [teleported, setTeleported] = useLocalState('teleported', false);
   const { oldArea } = data;
 
   return (
