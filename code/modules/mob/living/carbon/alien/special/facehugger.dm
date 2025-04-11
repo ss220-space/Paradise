@@ -325,7 +325,7 @@
 /obj/item/clothing/mask/facehugger/container_resist(mob/living/L)
 	var/mob/living/mob = src.loc
 
-	if(istype(mob))
+	if(istype(mob) || isstorage(loc))
 		mob.drop_item_ground(src)
 	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")
