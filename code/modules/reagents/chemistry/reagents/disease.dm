@@ -51,6 +51,7 @@
 	color = "#535E66" // rgb: 83, 94, 102
 	can_synth = FALSE
 	taste_mult = 0
+	metabolization_rate = 1
 
 /datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
 	if(volume >= 1)
@@ -65,9 +66,10 @@
 	color = "#6b336b"
 	can_synth = FALSE
 	taste_mult = 0
+	metabolization_rate = 1
 
 /datum/reagent/terror_eggs/on_mob_life(mob/living/carbon/M)
-	if(volume >= 1)
+	if(volume >= 5)
 		if(!M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
 			new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
 	return ..()

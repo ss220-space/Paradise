@@ -16,6 +16,10 @@
 	var/cooldown = FALSE
 	var/datum/dynamic_outfit/temp_outfit_storage = null
 
+/obj/item/death_book/Destroy()
+	SEND_SIGNAL(src, COMSIG_PHANTOM_DELETE)
+	. = ..()
+	
 /obj/item/death_book/attack_self(mob/user)
 	. = ..()
 	if(cooldown)
@@ -53,7 +57,7 @@
 	return desc_to_outfit?[show_radial_menu(user, src, radial_look, require_near = TRUE)]
 
 /obj/item/death_book/proc/alert_user(mob/user)
-	user.balloon_alert(user, "Ваша экиперовка теряет очертания медленно растворяясь в воздухе")
+	user.balloon_alert(user, "Ваша экипировка теряет очертания медленно растворяясь в воздухе")
 
 /obj/item/death_book/proc/phantom_delete(mob/user)
 	SEND_SIGNAL(src, COMSIG_PHANTOM_DELETE)

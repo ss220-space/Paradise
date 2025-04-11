@@ -41,14 +41,15 @@
 	message_to_chat = "Вы читаете главу о бандитских похождениях, и заражаетесь духом авантюризма."
 	descr = "Предоставляет небольшую защиту, но большой урон: револьвер 357 калибра никогда не подводил."
 
+	back = /obj/item/storage/backpack/syndicate
 	head = /obj/item/clothing/head/helmet
-	suit = /obj/item/clothing/suit/armor/bulletproof
+	suit = /obj/item/clothing/suit/armor/vest/security
 	mask = /obj/item/clothing/mask/bandana/black
 	belt = /obj/item/kitchen/knife/combat
 	uniform = /obj/item/clothing/under/syndicate/tacticool
 	accessories = list(/obj/item/clothing/accessory/holster)
 	gloves = /obj/item/clothing/gloves/color/black
-	shoes = /obj/item/clothing/shoes
+	shoes = /obj/item/clothing/shoes/black 
 	backpack_contents = list(/obj/item/ammo_box/speedloader/a357 = 2, /obj/item/gun/projectile/revolver = 1)
 
 /datum/outfit/radial_outfit/death_book/killer
@@ -56,7 +57,6 @@
 	icon_state = "hitman"
 	message_to_chat = "Вы читаете главу о невероятном охотнике за головами, и жаждите повторить его успех."
 	descr = "Позволяет вам замаскироваться среди экипажа, и проводить быстрые и смертельные устранения. Стечкин поможет скрыться с места преступления в случае вашего обнаружения."
-
 	uniform = /obj/item/clothing/under/chameleon
 	suit = /obj/item/clothing/suit/chameleon
 	gloves = /obj/item/clothing/gloves/chameleon
@@ -68,7 +68,7 @@
 	r_ear = /obj/item/radio/headset/chameleon
 	neck = /obj/item/clothing/neck/chameleon
 	pda =  /obj/item/pda/chameleon
-
+	accessories = list(/obj/item/clothing/accessory/holster)
 	backpack_contents = list(
 		/obj/item/stamp/chameleon = 1,
 	 	/obj/item/gun/projectile/automatic/pistol = 1,
@@ -87,14 +87,15 @@
 	icon_state = "crusher"
 	message_to_chat = "Вы читаете главу о человеке, что разрушил мир – что навевает вам желание начинать сжигать всё вокруг."
 	descr = "Обрушьте всю вашу ярость с этим набором, залив станцию в огне. А в пекле вашу шкурку защитит огнеупорный скафандр."
-
+	force_unequip_slots = ITEM_SLOT_CLOTH_OUTER | ITEM_SLOT_HEAD
+	
 	uniform = /obj/item/clothing/under/syndicate/tacticool
-	suit = /obj/item/clothing/suit/space/syndicate/phantom
-	head = /obj/item/clothing/head/helmet/space/syndicate/phantom
 	back = /obj/item/storage/backpack/syndicate
-	belt = /obj/item/storage/belt/grenade/full
+	belt = /obj/item/storage/belt/grenade/frag
 	suit_store = /obj/item/tank/internals/oxygen/red
 	mask = /obj/item/clothing/mask/gas/syndicate
+	shoes = /obj/item/clothing/shoes/magboots/security
+	gloves = /obj/item/clothing/gloves/combat
 	backpack_contents = list(
 		/obj/item/tank/internals/plasma = 5,
 		/obj/item/pickaxe/drill/jackhammer/phantom = 1,
@@ -102,7 +103,28 @@
 		/obj/item/flamethrower/full/tank = 1
 		)
 
+//I've got a bit of a problem, but this is the only way not to lose the component.
+/datum/outfit/radial_outfit/death_book/crusher/pre_equip(mob/living/carbon/human/H, visualsOnly = FALSE)
+	var/static/suit_types_to_roll = list(
+		/obj/item/clothing/suit/space/syndicate = /obj/item/clothing/head/helmet/space/syndicate,
+		/obj/item/clothing/suit/space/syndicate/orange = /obj/item/clothing/head/helmet/space/syndicate/orange,
+		/obj/item/clothing/suit/space/syndicate/blue = /obj/item/clothing/head/helmet/space/syndicate/blue,
+		/obj/item/clothing/suit/space/syndicate/green = /obj/item/clothing/head/helmet/space/syndicate/green,
+		/obj/item/clothing/suit/space/syndicate/black = /obj/item/clothing/head/helmet/space/syndicate/black,
+		/obj/item/clothing/suit/space/syndicate/black/green = /obj/item/clothing/head/helmet/space/syndicate/black/green,
+		/obj/item/clothing/suit/space/syndicate/black/orange = /obj/item/clothing/head/helmet/space/syndicate/black/orange,
+		/obj/item/clothing/suit/space/syndicate/black/red = /obj/item/clothing/head/helmet/space/syndicate/black/red,
+		/obj/item/clothing/suit/space/syndicate/green/dark = /obj/item/clothing/head/helmet/space/syndicate/green/dark,
+	)
+	var/suit_type = pick(suit_types_to_roll)
+	equip_item(H, suit_type, ITEM_SLOT_CLOTH_OUTER)
+	equip_item(H, suit_types_to_roll[suit_type], ITEM_SLOT_HEAD)
+
 /datum/outfit/radial_outfit/death_book/crusher/post_equip(mob/living/carbon/human/H, visualsOnly)
+	H.wear_suit.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	H.wear_suit.slowdown = 0
+	H.head.max_heat_protection_temperature = FIRE_IMMUNITY_MAX_TEMP_PROTECT
+	H.update_equipment_speed_mods()
 	if(H.dna.species.name == SPECIES_VOX)
 		var/obj/item/tank/internals/oxygen/red/prom = H.s_store
 		prom.air_contents.oxygen = 0
@@ -120,6 +142,7 @@
 	mask = /obj/item/clothing/mask/gas/plaguedoctor/armoured
 	shoes = /obj/item/clothing/shoes/combat
 	gloves = /obj/item/clothing/gloves/combat
+	back = /obj/item/storage/backpack/syndicate
 	backpack_contents = list(
 		/obj/item/powersink/compact = 1,
 		/obj/item/pen/sleepy = 1,
