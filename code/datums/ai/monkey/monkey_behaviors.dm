@@ -8,14 +8,9 @@
 	. = ..()
 
 	if(!success) //Don't try again on this item if we failed
-		var/list/item_blacklist = controller.blackboard[BB_MONKEY_BLACKLISTITEMS]
-		var/obj/item/target = controller.blackboard[BB_MONKEY_PICKUPTARGET]
+		controller.set_blackboard_key_assoc(BB_MONKEY_BLACKLISTITEMS, controller.blackboard[BB_MONKEY_PICKUPTARGET], TRUE)
 
-		item_blacklist[target] = TRUE
-		if(istype(controller, /datum/ai_controller/monkey)) //What the fuck
-			controller.RegisterSignal(target, COMSIG_QDELETING, /datum/ai_controller/monkey/proc/target_del)
-
-	controller.blackboard[BB_MONKEY_PICKUPTARGET] = null
+	controller.clear_blackboard_key(BB_MONKEY_PICKUPTARGET)
 
 /datum/ai_behavior/monkey_equip/proc/equip_item(datum/ai_controller/controller)
 	var/mob/living/living_pawn = controller.pawn
@@ -39,7 +34,7 @@
 	else if(target.force > best_force)
 		living_pawn.drop_all_held_items()
 		living_pawn.put_in_hands(target)
-		controller.blackboard[BB_MONKEY_BEST_FORCE_FOUND] = target.force
+		controller.set_blackboard_key(BB_MONKEY_BEST_FORCE_FOUND, target.force)
 		finish_action(controller, TRUE)
 		return
 
@@ -90,7 +85,7 @@
 			span_danger("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)]!")
 	)
 
-	controller.blackboard[BB_MONKEY_PICKPOCKETING] = TRUE
+	controller.set_blackboard_key(BB_MONKEY_PICKPOCKETING, TRUE)
 
 	var/success = FALSE
 
@@ -115,8 +110,8 @@
 
 /datum/ai_behavior/monkey_equip/pickpocket/finish_action(datum/ai_controller/controller, success)
 	. = ..()
-	controller.blackboard[BB_MONKEY_PICKPOCKETING] = FALSE
-	controller.blackboard[BB_MONKEY_PICKUPTARGET] = null
+	controller.set_blackboard_key(BB_MONKEY_PICKPOCKETING, FALSE)
+	controller.clear_blackboard_key(BB_MONKEY_PICKUPTARGET)
 
 /datum/ai_behavior/monkey_flee
 
@@ -144,10 +139,14 @@
 /datum/ai_behavior/monkey_attack_mob
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM //performs to increase frustration
 
-/datum/ai_behavior/monkey_attack_mob/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/monkey_attack_mob/setup(datum/ai_controller/controller, target_key)
+	. = ..()
+	set_movement_target(controller, controller.blackboard[target_key])
+
+/datum/ai_behavior/monkey_attack_mob/perform(delta_time, datum/ai_controller/controller, target_key)
 	. = ..()
 
-	var/mob/living/target = controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET]
+	var/mob/living/target = controller.blackboard[target_key]
 	var/mob/living/living_pawn = controller.pawn
 
 	if(!target || target.stat != CONSCIOUS)
@@ -172,7 +171,9 @@
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	SSmove_manager.stop_looping(living_pawn)
-	controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] = null
+	controller.clear_blackboard_key(BB_MONKEY_CURRENT_ATTACK_TARGET)
+
+
 
 /// attack using a held weapon otherwise bite the enemy, then if we are angry there is a chance we might calm down a little
 /datum/ai_behavior/monkey_attack_mob/proc/monkey_attack(datum/ai_controller/controller, mob/living/target, delta_time, disarm)
@@ -191,7 +192,7 @@
 	living_pawn.a_intent = INTENT_HARM
 
 	if(isnull(controller.blackboard[BB_MONKEY_GUN_WORKED]))
-		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE
+		controller.set_blackboard_key(BB_MONKEY_GUN_WORKED, TRUE)
 
 	// attack with weapon if we have one
 	if(living_pawn.Adjacent(target, weapon))
@@ -204,7 +205,7 @@
 				living_pawn.a_intent = INTENT_HARM
 			else
 				living_pawn.UnarmedAttack(target)
-		controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // We reset their memory of the gun being 'broken' if they accomplish some other attack
+		controller.set_blackboard_key(BB_MONKEY_GUN_WORKED, TRUE) // We reset their memory of the gun being 'broken' if they accomplish some other attack
 	else if(weapon)
 		var/atom/real_target = target
 		if(prob(40)) // Artificial miss
@@ -215,35 +216,45 @@
 		if(gun && controller.blackboard[BB_MONKEY_GUN_WORKED] && prob(95))
 			// We attempt to attack even if we can't shoot so we get the effects of pulling the trigger
 			gun.afterattack(real_target, living_pawn, FALSE)
-			controller.blackboard[BB_MONKEY_GUN_WORKED] = can_shoot ? TRUE : prob(80) // Only 20% likely to notice it didn't work
+			controller.set_blackboard_key(BB_MONKEY_GUN_WORKED, can_shoot ? TRUE : prob(80)) // Only 20% likely to notice it didn't work
 			if(can_shoot)
-				controller.blackboard[BB_MONKEY_GUN_NEURONS_ACTIVATED] = TRUE
+				controller.set_blackboard_key(BB_MONKEY_GUN_NEURONS_ACTIVATED, TRUE)
 		else
 			living_pawn.throw_item(real_target)
-			controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // 'worked'
+			controller.set_blackboard_key(BB_MONKEY_GUN_WORKED, TRUE) // 'worked'
 
 	// no de-aggro
 	if(controller.blackboard[BB_MONKEY_AGGRESSIVE])
 		return
 
+	// we've queued up a monkey attack on a mob which isn't already an enemy, so give them 1 threat to start
+	// note they might immediately reduce threat and drop from the list.
+	// this is fine, we're just giving them a love tap then leaving them alone.
+	// unless they fight back, then we retaliate
+	if(isnull(controller.blackboard[BB_MONKEY_ENEMIES][target]))
+		controller.set_blackboard_key_assoc(BB_MONKEY_ENEMIES, target, 1)
+
 	if(SPT_PROB(MONKEY_HATRED_REDUCTION_PROB, delta_time))
-		controller.blackboard[BB_MONKEY_ENEMIES][target]--
+		controller.add_blackboard_key_assoc(BB_MONKEY_ENEMIES, target, -1)
 
 	// if we are not angry at our target, go back to idle
 	if(controller.blackboard[BB_MONKEY_ENEMIES][target] <= 0)
-		var/list/enemies = controller.blackboard[BB_MONKEY_ENEMIES]
-		enemies.Remove(target)
+		controller.remove_thing_from_blackboard_key(BB_MONKEY_ENEMIES, target)
 		if(controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET] == target)
 			finish_action(controller, TRUE)
 
 /datum/ai_behavior/disposal_mob
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM //performs to increase frustration
 
+/datum/ai_behavior/disposal_mob/setup(datum/ai_controller/controller, attack_target_key, disposal_target_key)
+	. = ..()
+	set_movement_target(controller, controller.blackboard[attack_target_key])
+
 /datum/ai_behavior/disposal_mob/finish_action(datum/ai_controller/controller, succeeded, attack_target_key, disposal_target_key)
 	. = ..()
-	controller.blackboard[attack_target_key] = null //Reset attack target
-	controller.blackboard[BB_MONKEY_DISPOSING] = FALSE //No longer disposing
-	controller.blackboard[disposal_target_key] = null //No target disposal
+	controller.clear_blackboard_key(attack_target_key) //Reset attack target
+	controller.set_blackboard_key(BB_MONKEY_DISPOSING, FALSE) //No longer disposing
+	controller.clear_blackboard_key(disposal_target_key) //No target disposal
 
 /datum/ai_behavior/disposal_mob/perform(delta_time, datum/ai_controller/controller, attack_target_key, disposal_target_key)
 	. = ..()
@@ -283,21 +294,20 @@
 /datum/ai_behavior/recruit_monkeys/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 
-	controller.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] = world.time + MONKEY_RECRUIT_COOLDOWN
+	controller.set_blackboard_key(BB_MONKEY_RECRUIT_COOLDOWN, world.time + MONKEY_RECRUIT_COOLDOWN)
 	var/mob/living/living_pawn = controller.pawn
 
-	for(var/mob/living/L in view(living_pawn, MONKEY_ENEMY_VISION))
-		if(!HAS_AI_CONTROLLER_TYPE(L, /datum/ai_controller/monkey))
+	for(var/mob/living/nearby_monkey in view(living_pawn, MONKEY_ENEMY_VISION))
+		if(!HAS_AI_CONTROLLER_TYPE(nearby_monkey, /datum/ai_controller/monkey))
 			continue
 
 		if(!SPT_PROB(MONKEY_RECRUIT_PROB, delta_time))
 			continue
 
-		var/datum/ai_controller/monkey/monkey_ai = L.ai_controller
-		var/atom/your_enemy = controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET]
-		var/list/enemies = L.ai_controller.blackboard[BB_MONKEY_ENEMIES]
-		enemies[your_enemy] = MONKEY_RECRUIT_HATED_AMOUNT
-		monkey_ai.blackboard[BB_MONKEY_RECRUIT_COOLDOWN] = world.time + MONKEY_RECRUIT_COOLDOWN
+		// Recruited a monkey to our side
+		controller.set_blackboard_key(BB_MONKEY_RECRUIT_COOLDOWN, world.time + MONKEY_RECRUIT_COOLDOWN)
+		// Other monkeys now also hate the guy we're currently targeting
+		nearby_monkey.ai_controller.add_blackboard_key_assoc(BB_MONKEY_ENEMIES, controller.blackboard[BB_MONKEY_CURRENT_ATTACK_TARGET], MONKEY_RECRUIT_HATED_AMOUNT)
 	finish_action(controller, TRUE)
 
 

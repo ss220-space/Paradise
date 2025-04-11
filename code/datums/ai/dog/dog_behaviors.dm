@@ -24,8 +24,8 @@
 		var/obj/item/target = controller.blackboard[BB_FETCH_TARGET]
 		if(target)
 			controller.blackboard[BB_FETCH_IGNORE_LIST][WEAKREF(target)] = TRUE
-		controller.blackboard[BB_FETCH_TARGET] = null
-		controller.blackboard[BB_FETCH_DELIVER_TO] = null
+		controller.clear_blackboard_key(BB_FETCH_TARGET)
+		controller.clear_blackboard_key(BB_FETCH_DELIVER_TO)
 
 
 /// This is simply a behaviour to pick up a fetch target
@@ -168,13 +168,12 @@
 	if(!istype(living_pawn) || !(isturf(living_pawn.loc) || HAS_TRAIT(living_pawn, TRAIT_AI_BAGATTACK)))
 		return
 
-	var/datum/weakref/harass_ref = controller.blackboard[BB_DOG_HARASS_TARGET]
-	var/atom/movable/harass_target = harass_ref.resolve()
+	var/atom/harass_target = controller.blackboard[BB_DOG_HARASS_TARGET]
 	if(!harass_target || !living_pawn.can_see(harass_target, length = AI_DOG_VISION_RANGE))
 		finish_action(controller, FALSE)
 		return
 
-	if(controller.blackboard[BB_DOG_FRIENDS][harass_ref])
+	if(controller.blackboard[BB_DOG_FRIENDS][harass_target])
 		living_pawn.visible_message(span_warning("[living_pawn] некоторое время недоверительно смотрит на [harass_target], после чего трясет головой и успокаивается."))
 		finish_action(controller, FALSE)
 		return
@@ -196,7 +195,7 @@
 
 /datum/ai_behavior/harass/finish_action(datum/ai_controller/controller, succeeded)
 	. = ..()
-	controller.blackboard[BB_DOG_HARASS_TARGET] = null
+	controller.clear_blackboard_key(BB_DOG_HARASS_TARGET)
 
 /// A proc representing when the mob is pushed to actually attack the target. Again, subtypes can be used to represent different attacks from different animals, or it can be some other generic behavior
 /datum/ai_behavior/harass/proc/attack(datum/ai_controller/controller, mob/living/living_target)

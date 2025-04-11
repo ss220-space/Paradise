@@ -183,8 +183,9 @@
 	if(!istype(living_pawn) || !isturf(living_pawn.loc))
 		return
 
-	var/datum/weakref/attack_ref = controller.blackboard[BB_ATTACK_TARGET]
-	var/atom/movable/attack_target = attack_ref?.resolve()
+	var/atom/movable/attack_target = controller.blackboard[BB_ATTACK_TARGET]
+	if(QDELETED(attack_target))
+		return FALSE
 	if(!attack_target || !living_pawn.can_see(attack_target, length = controller.blackboard[BB_VISION_RANGE]))
 		finish_action(controller, FALSE)
 		return
@@ -219,8 +220,10 @@
 	if(!istype(living_pawn) || !isturf(living_pawn.loc))
 		return
 
-	var/datum/weakref/follow_ref = controller.blackboard[BB_FOLLOW_TARGET]
-	var/atom/movable/follow_target = follow_ref?.resolve()
+	var/atom/movable/follow_target = controller.blackboard[BB_FOLLOW_TARGET]
+	if(QDELETED(follow_target))
+		return FALSE
+
 	if(!follow_target || get_dist(living_pawn, follow_target) > controller.blackboard[BB_VISION_RANGE])
 		finish_action(controller, FALSE)
 		return

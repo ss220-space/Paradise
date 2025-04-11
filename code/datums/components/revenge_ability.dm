@@ -47,7 +47,7 @@
 		return
 	if(targetting && !targetting.can_attack(victim, attacker))
 		return
-	INVOKE_ASYNC(ability.action, TYPE_PROC_REF(/datum/action/spell_action, InterceptClickOn), ability_user, null, (target_self) ? ability_user : attacker)
+	INVOKE_ASYNC(ability, TYPE_PROC_REF(/obj/effect/proc_holder/spell, InterceptClickOn), ability_user, null, (target_self) ? ability_user : attacker)
 
 /// For whatever reason we lost our linked ability so we can drop this behaviour
 /datum/component/revenge_ability/proc/ability_destroyed(datum/source)

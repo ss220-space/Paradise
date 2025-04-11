@@ -8,6 +8,7 @@ have ways of interacting with a specific mob and control it.
 	movement_delay = 0.4 SECONDS
 	planning_subtrees = list(/datum/ai_planning_subtree/monkey_tree)
 	blackboard = list(
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
 		BB_MONKEY_AGGRESSIVE = FALSE,
 		BB_MONKEY_BEST_FORCE_FOUND = 0,
 		BB_MONKEY_ENEMIES = list(),

@@ -4,12 +4,13 @@
 
 /datum/ai_behavior/basic_melee_attack/setup(datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
 	. = ..()
-	if(!controller.blackboard[targeting_strategy_key])
+	var/datum/targeting_strategy/targeting_strategy = controller.blackboard[targeting_strategy_key]
+	if(isnull(targeting_strategy))
 		CRASH("No target datum was supplied in the blackboard for [controller.pawn]")
+
 	//Hiding location is priority
-	var/datum/weakref/weak_target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
-	if(!target)
+	var/atom/target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
+	if(QDELETED(target))
 		return FALSE
 	set_movement_target(controller, target)
 
@@ -17,8 +18,9 @@
 	. = ..()
 	var/mob/living/basic/basic_mob = controller.pawn
 	//targeting strategy will kill the action if not real anymore
-	var/datum/weakref/weak_target = controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
+	var/atom/target = controller.blackboard[target_key]
+	if(QDELETED(target))
+		return FALSE
 
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 
@@ -28,7 +30,7 @@
 
 	var/hiding_target = targeting_strategy.find_hidden_mobs(basic_mob, target) //If this is valid, theyre hidden in something!
 
-	controller.blackboard[hiding_location_key] = hiding_target
+	controller.set_blackboard_key(hiding_location_key, hiding_target)
 
 	if(hiding_target) //Slap it!
 		basic_mob.melee_attack(hiding_target)
@@ -39,7 +41,7 @@
 /datum/ai_behavior/basic_melee_attack/finish_action(datum/ai_controller/controller, succeeded, target_key, targeting_strategy_key, hiding_location_key)
 	. = ..()
 	if(!succeeded)
-		controller.blackboard -= target_key
+		controller.clear_blackboard_key(target_key)
 
 /datum/ai_behavior/basic_ranged_attack
 	action_cooldown = 0.6 SECONDS
@@ -48,9 +50,8 @@
 
 /datum/ai_behavior/basic_ranged_attack/setup(datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
 	. = ..()
-	var/datum/weakref/weak_target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
-	if(!target)
+	var/atom/target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
+	if(QDELETED(target))
 		return FALSE
 
 	set_movement_target(controller, target)
@@ -60,8 +61,7 @@
 	. = ..()
 	var/mob/living/basic/basic_mob = controller.pawn
 	//targeting strategy will kill the action if not real anymore
-	var/datum/weakref/weak_target = controller.blackboard[hiding_location_key] || controller.blackboard[target_key]
-	var/atom/target = weak_target?.resolve()
+	var/atom/target = controller.blackboard[target_key]
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 
 	if(!targeting_strategy.can_attack(basic_mob, target))
@@ -70,7 +70,7 @@
 
 	var/atom/hiding_target = targeting_strategy.find_hidden_mobs(basic_mob, target) //If this is valid, theyre hidden in something!
 
-	controller.blackboard[hiding_location_key] = WEAKREF(hiding_target)
+	controller.set_blackboard_key(hiding_location_key, hiding_target)
 
 	if(hiding_target) //Shoot it!
 		basic_mob.RangedAttack(hiding_target)
@@ -80,4 +80,4 @@
 /datum/ai_behavior/basic_ranged_attack/finish_action(datum/ai_controller/controller, succeeded, target_key, targeting_strategy_key, hiding_location_key)
 	. = ..()
 	if(!succeeded)
-		controller.blackboard -= target_key
+		controller.clear_blackboard_key(target_key)

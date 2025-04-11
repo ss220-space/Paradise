@@ -16,8 +16,9 @@
 	if(!controller.blackboard_key_exists(target_key))
 		return
 
+	var/mob/living/target = controller.blackboard[target_key]
 	var/obj/effect/proc_holder/spell/using_action = controller.blackboard[ability_key]
-	if(!using_action?.can_cast())
+	if (QDELETED(target) || QDELETED(using_action) || !using_action.action.IsAvailable())
 		return
 
 	controller.queue_behavior(use_ability_behaviour, ability_key, target_key)
