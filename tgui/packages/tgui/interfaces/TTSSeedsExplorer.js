@@ -63,7 +63,7 @@ const getCheckboxGroup = (
   });
 };
 
-export const TTSSeedsExplorer = (props, context) => {
+export const TTSSeedsExplorer = (props) => {
   return (
     <Window width={700} height={800}>
       <Window.Content>
@@ -73,8 +73,8 @@ export const TTSSeedsExplorer = (props, context) => {
   );
 };
 
-export const TTSSeedsExplorerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TTSSeedsExplorerContent = (props) => {
+  const { act, data } = useBackend();
 
   const { providers, seeds, selected_seed, phrases, donator_level } = data;
 
@@ -90,31 +90,26 @@ export const TTSSeedsExplorerContent = (props, context) => {
     .map((level) => donatorTiers[level]);
 
   const [selectedProviders, setSelectedProviders] = useLocalState(
-    context,
     'selectedProviders',
     providers
   );
   const [selectedGenders, setSelectedGenders] = useLocalState(
-    context,
     'selectedGenders',
     genders
   );
   const [selectedCategories, setSelectedCategories] = useLocalState(
-    context,
     'selectedCategories',
     categories
   );
   const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(
-    context,
     'selectedDonatorLevels',
     donatorLevels
   );
   const [selectedPhrase, setSelectedPhrase] = useLocalState(
-    context,
     'selectedPhrase',
     phrases[0]
   );
-  const [searchtext, setSearchtext] = useLocalState(context, 'searchtext', '');
+  const [searchtext, setSearchtext] = useLocalState('searchtext', '');
 
   let providerCheckboxes = getCheckboxGroup(
     providers,

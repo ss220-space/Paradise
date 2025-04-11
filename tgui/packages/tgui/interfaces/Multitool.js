@@ -11,8 +11,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const Multitool = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Multitool = (props) => {
+  const { act, data } = useBackend();
   const {
     multitoolMenuId,
     buffer,
@@ -164,7 +164,7 @@ export const Multitool = (props, context) => {
   );
 };
 
-const MachineName = (props, context) => {
+const MachineName = (props) => {
   const { iconName, machineName, noMachine, noMachineText, noMachineElem } =
     props;
 
@@ -205,7 +205,7 @@ const MachineName = (props, context) => {
   );
 };
 
-const BoxNoData = (props, context) => {
+const BoxNoData = (props) => {
   const { text } = props;
   return (
     <Box as="span" fontSize="0.9rem" color="yellow" italic nowrap>
@@ -214,7 +214,7 @@ const BoxNoData = (props, context) => {
   );
 };
 
-const TextOrDefault = (props, context) => {
+const TextOrDefault = (props) => {
   const { text, defaultText, ...rest } = props;
   return text ? (
     <Box as="span" wordWrap="break-word" {...rest}>
@@ -225,12 +225,12 @@ const TextOrDefault = (props, context) => {
   );
 };
 
-const ConfirmOrNormalButton = (props, context) => {
+const ConfirmOrNormalButton = (props) => {
   const { noConfirm = false, ...rest } = props;
   return noConfirm ? <Button {...rest} /> : <Button.Confirm {...rest} />;
 };
 
-const LabeledListOneItem = (props, context) => {
+const LabeledListOneItem = (props) => {
   const {
     label,
     wrapContent,
@@ -269,8 +269,8 @@ const LabeledListOneItem = (props, context) => {
   );
 };
 
-const DefaultMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const DefaultMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   return (
     <Box mt={1.5} fontSize="0.9rem" color="silver" italic>
       No options
@@ -278,8 +278,8 @@ const DefaultMtoolMenu = (props, context) => {
   );
 };
 
-const AccessDeniedMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const AccessDeniedMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   return (
     <Box fontSize="1.1rem" color="red" bold italic>
       ACCESS DENIED
@@ -287,8 +287,8 @@ const AccessDeniedMtoolMenu = (props, context) => {
   );
 };
 
-const TagMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const TagMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   const { attachedTag } = data;
   return (
     <LabeledListOneItem
@@ -316,8 +316,8 @@ const TagMtoolMenu = (props, context) => {
   );
 };
 
-const FrequencyMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const FrequencyMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   const { frequency, minFrequency, maxFrequency, canReset } = data;
   return (
     <LabeledListOneItem
@@ -352,8 +352,8 @@ const FrequencyMtoolMenu = (props, context) => {
   );
 };
 
-const MultipleTagsMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const MultipleTagsMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   const { attachedTags } = data;
   return (
     <Section
@@ -413,8 +413,8 @@ const MultipleTagsMtoolMenu = (props, context) => {
   );
 };
 
-const AirSensorMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirSensorMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   const {
     bolts,
     pressureCheck,
@@ -475,8 +475,8 @@ const AirSensorMtoolMenu = (props, context) => {
   );
 };
 
-const AirControlMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirControlMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   const { sensors } = data;
 
   return (
@@ -600,8 +600,8 @@ const AirControlMtoolMenu = (props, context) => {
   );
 };
 
-const TankControlMtoolMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const TankControlMtoolMenu = (props) => {
+  const { act, data } = useBackend();
   const {
     inputTag,
     outputTag,

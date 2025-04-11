@@ -45,4 +45,4 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash)
 		prefs.lastchangelog = GLOB.changelog_hash
 		prefs.save_preferences(src)
-		winset(src, "rpane.changelog", "font-style=;")
+		winset(src, "infobuttons.changelog", "font-style=;")

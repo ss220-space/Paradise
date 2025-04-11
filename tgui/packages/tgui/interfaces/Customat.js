@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 
-const CustomatRow = (props, context) => {
-  const { act, data } = useBackend(context);
+const CustomatRow = (props) => {
+  const { act, data } = useBackend();
   const { product } = props;
   const { user, userMoney, vend_ready } = data;
   const free = product.price === 0;
@@ -56,8 +56,8 @@ const CustomatRow = (props, context) => {
   );
 };
 
-export const Customat = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Customat = (props) => {
+  const { act, data } = useBackend();
   const {
     guestNotice,
     userMoney,
