@@ -52,6 +52,9 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
+/obj/effect/proc_holder/spell/basic_tentacle_burst/create_new_targeting()
+	return new /datum/spell_targeting/clicked_atom
+
 /obj/effect/proc_holder/spell/basic_tentacle_burst/cast(list/targets, mob/user = usr)
 	var/list/directions = GLOB.alldirs.Copy()
 	var/target = targets[1]

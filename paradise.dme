@@ -523,6 +523,7 @@
 #include "code\datums\cinematics\reaper_summon.dm"
 #include "code\datums\components\_component.dm"
 #include "code\datums\components\after_attacks_hub.dm"
+#include "code\datums\components\ai_target_timer.dm"
 #include "code\datums\components\animal_temperature.dm"
 #include "code\datums\components\aura_healing.dm"
 #include "code\datums\components\basic_mob_attack_telegraph.dm"

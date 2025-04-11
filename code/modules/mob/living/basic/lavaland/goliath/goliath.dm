@@ -71,13 +71,17 @@
 		move_resist = MOVE_RESIST_DEFAULT,\
 		pull_force = PULL_FORCE_DEFAULT,\
 	)
+	AddComponent(/datum/component/ai_target_timer)
 	AddComponent(/datum/component/basic_mob_attack_telegraph)
 	AddComponentFrom(INNATE_TRAIT, /datum/component/shovel_hands)
 	if(tameable)
 		AddComponent(/datum/component/tameable, tame_chance = 10, bonus_tame_chance = 5)
-	AddSpell(new tentacles)
-	AddSpell(new melee_tentacles)
-	AddSpell(new tentacle_line)
+	tentacles = new
+	AddSpell(tentacles)
+	melee_tentacles = new
+	AddSpell(melee_tentacles)
+	tentacle_line = new
+	AddSpell(tentacle_line)
 
 	AddComponent(/datum/component/revenge_ability, melee_tentacles, targetting = ai_controller.blackboard[BB_TARGETTING_DATUM], max_range = 1, target_self = TRUE)
 	AddComponent(/datum/component/revenge_ability, tentacle_line, targetting = ai_controller.blackboard[BB_TARGETTING_DATUM], min_range = 2, max_range = 9)
