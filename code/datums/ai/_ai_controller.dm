@@ -90,7 +90,6 @@ multiple modular subtrees with behaviors
 	if(TryPossessPawn(new_pawn) & AI_CONTROLLER_INCOMPATIBLE)
 		qdel(src)
 		CRASH("[src] attached to [new_pawn] but these are not compatible!")
-
 	pawn = new_pawn
 	pawn.ai_controller = src
 
@@ -122,6 +121,8 @@ multiple modular subtrees with behaviors
 
 /// Returns TRUE if the ai controller can actually run at the moment.
 /datum/ai_controller/proc/able_to_run()
+	if(HAS_TRAIT(pawn, TRAIT_AI_PAUSED))
+		return FALSE
 	if(world.time < paused_until)
 		return FALSE
 	return TRUE
@@ -141,9 +142,17 @@ multiple modular subtrees with behaviors
 		CancelActions()
 		return
 
-	for(var/i in current_behaviors)
-		var/datum/ai_behavior/current_behavior = i
+	if(current_movement_target)
+		if(!isatom(current_movement_target))
+			stack_trace("[pawn]'s current movement target is not an atom, rather a [current_movement_target.type]! Did you accidentally set it to a weakref?")
+			CancelActions()
+			return
 
+		if(get_dist(pawn, current_movement_target) > max_target_distance) //The distance is out of range
+			CancelActions()
+			return
+
+	for(var/datum/ai_behavior/current_behavior as anything in current_behaviors)
 
 		// Convert the current behaviour action cooldown to realtime seconds from deciseconds.current_behavior
 		// Then pick the max of this and the delta_time passed to ai_controller.process()
