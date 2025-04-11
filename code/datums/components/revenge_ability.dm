@@ -8,7 +8,7 @@
 	/// The ability to use when we are attacked
 	var/obj/effect/proc_holder/spell/ability
 	/// Optional datum for validating targets
-	var/datum/targetting_datum/targetting
+	var/datum/targeting_strategy/targetting
 	/// Trigger only if target is at least this far away
 	var/min_range
 	/// Trigger only if target is at least this close
@@ -16,7 +16,7 @@
 	/// Target the ability at ourself instead of at the offender
 	var/target_self
 
-/datum/component/revenge_ability/Initialize(obj/effect/proc_holder/spell/ability, datum/targetting_datum/targetting, min_range = 0, max_range = INFINITY, target_self = FALSE)
+/datum/component/revenge_ability/Initialize(obj/effect/proc_holder/spell/ability, datum/targeting_strategy/targetting, min_range = 0, max_range = INFINITY, target_self = FALSE)
 	. = ..()
 	if(!isliving(parent))
 		return COMPONENT_INCOMPATIBLE
@@ -41,13 +41,13 @@
 /// If we were attacked, get revenge
 /datum/component/revenge_ability/proc/on_attacked(mob/living/victim, atom/attacker)
 	SIGNAL_HANDLER
-	var/atom/ability_user = ability.ranged_ability_user
+	var/atom/ability_user = ability.action.owner
 	var/distance = get_dist(ability_user, attacker)
 	if(distance < min_range || distance > max_range)
 		return
 	if(targetting && !targetting.can_attack(victim, attacker))
 		return
-	INVOKE_ASYNC(ability, TYPE_PROC_REF(/obj/effect/proc_holder, InterceptClickOn), ability_user, null, (target_self) ? ability_user : attacker)
+	INVOKE_ASYNC(ability.action, TYPE_PROC_REF(/datum/action/spell_action, InterceptClickOn), ability_user, null, (target_self) ? ability_user : attacker)
 
 /// For whatever reason we lost our linked ability so we can drop this behaviour
 /datum/component/revenge_ability/proc/ability_destroyed(datum/source)

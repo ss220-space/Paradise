@@ -3,7 +3,8 @@
 
 /datum/ai_controller/basic_controller/goliath
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic/allow_items/goliath()
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -20,16 +21,13 @@
 		/datum/ai_planning_subtree/goliath_dig,
 	)
 
-/datum/targetting_datum/basic/allow_items/goliath
-	stat_attack = UNCONSCIOUS
-
 /datum/ai_planning_subtree/basic_melee_attack_subtree/goliath
 	melee_attack_behavior = /datum/ai_behavior/basic_melee_attack/goliath
 
 /// Go for the tentacles if they're available
 /datum/ai_behavior/basic_melee_attack/goliath
 
-/datum/ai_behavior/basic_melee_attack/goliath/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targetting_datum_key, hiding_location_key)
+/datum/ai_behavior/basic_melee_attack/goliath/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
 	var/mob/living/target = controller.blackboard[target_key]
 	// Interrupt attack chain to use tentacles, unless the target is already tentacled
 	if(isliving(target) && !target.has_status_effect(/datum/status_effect/incapacitating/stun/goliath_tentacled))

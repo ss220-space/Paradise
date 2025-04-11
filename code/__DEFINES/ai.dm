@@ -1,4 +1,5 @@
 #define GET_AI_BEHAVIOR(behavior_type) SSai_behaviors.ai_behaviors[behavior_type]
+#define GET_TARGETING_STRATEGY(targeting_type) SSai_behaviors.targeting_strategies[targeting_type]
 #define HAS_AI_CONTROLLER_TYPE(thing, type) istype(thing?.ai_controller, type)
 
 #define AI_STATUS_ON 1
@@ -186,10 +187,10 @@
 
 ///Basic Mob Keys
 
-///Targetting subtrees
+///Targeting subtrees
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
-#define BB_TARGETTING_DATUM "targetting_datum"
+#define BB_TARGETING_STRATEGY "targeting_strategy"
 
 /// Key where we store the tentacleing ability
 #define BB_GOLIATH_TENTACLES "BB_goliath_tentacles"
@@ -228,6 +229,26 @@
 
 ///Blackboard key for a whitelist typecache of "things we can target while trying to move"
 #define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// What typepath the holding object targeting strategy should look for
+#define BB_TARGET_HELD_ITEM "BB_target_held_item"
 
 /// Blackboard key storing how long your targeting strategy has held a particular target
 #define BB_BASIC_MOB_HAS_TARGET_TIME "BB_basic_mob_has_target_time"
+
+///Targetting keys for something to run away from, if you need to store this separately from current target
+///Targeting keys for something to run away from, if you need to store this separately from current target
+#define BB_BASIC_MOB_FLEE_TARGET "BB_basic_flee_target"
+#define BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION "BB_basic_flee_target_hiding_location"
+
+#define BB_FLEE_TARGETING_STRATEGY "flee_targeting_strategy"
+#define BB_BASIC_MOB_FLEE_DISTANCE "BB_basic_flee_distance"
+#define DEFAULT_BASIC_FLEE_DISTANCE 9
+
+///should we skip the faction check for the targeting strategy?
+#define BB_ALWAYS_IGNORE_FACTION "BB_always_ignore_factions"
+
+///are we in some kind of temporary state of ignoring factions when targeting? can result in volatile results if multiple behaviours touch this
+#define BB_TEMPORARILY_IGNORE_FACTION "BB_temporarily_ignore_factions"
+
+/// Key for the minimum status at which we want to target mobs (does not need to be specified if CONSCIOUS)
+#define BB_TARGET_MINIMUM_STAT "BB_target_minimum_stat"

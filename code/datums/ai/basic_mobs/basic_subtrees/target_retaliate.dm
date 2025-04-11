@@ -3,7 +3,7 @@
 
 /datum/ai_planning_subtree/target_retaliate/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	. = ..()
-	controller.queue_behavior(/datum/ai_behavior/target_from_retaliate_list, BB_BASIC_MOB_RETALIATE_LIST, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETTING_DATUM, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
+	controller.queue_behavior(/datum/ai_behavior/target_from_retaliate_list, BB_BASIC_MOB_RETALIATE_LIST, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETING_STRATEGY, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
 
 /**
  * Picks a target from a provided list of atoms who have been pissing you off
@@ -14,11 +14,11 @@
 	/// How far can we see stuff?
 	var/vision_range = 9
 
-/datum/ai_behavior/target_from_retaliate_list/perform(delta_time, datum/ai_controller/controller, shitlist_key, target_key, targetting_datum_key, hiding_location_key)
+/datum/ai_behavior/target_from_retaliate_list/perform(delta_time, datum/ai_controller/controller, shitlist_key, target_key, targeting_strategy_key, hiding_location_key)
 	. = ..()
 	var/mob/living/living_mob = controller.pawn
-	var/datum/targetting_datum/targetting_datum = controller.blackboard[targetting_datum_key]
-	if(!targetting_datum)
+	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
+	if(!targeting_strategy)
 		CRASH("No target datum was supplied in the blackboard for [controller.pawn]")
 
 	var/list/enemy_refs = controller.blackboard[shitlist_key]
@@ -29,7 +29,7 @@
 	var/list/enemies_list = list()
 	for(var/datum/weakref/enemy_ref as anything in enemy_refs)
 		var/atom/enemy = enemy_ref.resolve()
-		if(!can_attack_target(living_mob, enemy, targetting_datum))
+		if(!can_attack_target(living_mob, enemy, targeting_strategy))
 			controller.blackboard[shitlist_key] -= enemy_ref
 			continue
 			enemies_list += enemy
@@ -47,7 +47,7 @@
 	var/atom/new_target = pick_final_target(controller, enemies_list)
 	controller.blackboard[target_key] = WEAKREF(new_target)
 
-	var/atom/potential_hiding_location = targetting_datum.find_hidden_mobs(living_mob, new_target)
+	var/atom/potential_hiding_location = targeting_strategy.find_hidden_mobs(living_mob, new_target)
 
 	if(potential_hiding_location) //If they're hiding inside of something, we need to know so we can go for that instead initially.
 		controller.blackboard[hiding_location_key] = WEAKREF(potential_hiding_location)
@@ -55,14 +55,14 @@
 	finish_action(controller, succeeded = TRUE)
 
 /// Returns true if this target is valid for attacking based on current conditions
-/datum/ai_behavior/target_from_retaliate_list/proc/can_attack_target(mob/living/living_mob, atom/target, datum/targetting_datum/targetting_datum)
+/datum/ai_behavior/target_from_retaliate_list/proc/can_attack_target(mob/living/living_mob, atom/target, datum/targeting_strategy/targeting_strategy)
 	if(!target)
 		return FALSE
 	if(target == living_mob)
 		return FALSE
 	if(!living_mob.can_see(target, vision_range))
 		return FALSE
-	return targetting_datum.can_attack(living_mob, target)
+	return targeting_strategy.can_attack(living_mob, target)
 
 /// Returns the desired final target from the filtered list of enemies
 /datum/ai_behavior/target_from_retaliate_list/proc/pick_final_target(datum/ai_controller/controller, list/enemies_list)

@@ -189,7 +189,7 @@ multiple modular subtrees with behaviors
 			return
 
 ///Sets the current movement target, with an optional param to override the movement behavior
-/datum/ai_controller/proc/set_movement_target(atom/target, datum/ai_movement/new_movement)
+/datum/ai_controller/proc/set_movement_target(source, atom/target, datum/ai_movement/new_movement)
 	movement_target_source = source
 	current_movement_target = target
 	if(new_movement)

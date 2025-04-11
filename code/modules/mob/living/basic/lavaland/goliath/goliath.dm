@@ -83,8 +83,8 @@
 	tentacle_line = new
 	AddSpell(tentacle_line)
 
-	AddComponent(/datum/component/revenge_ability, melee_tentacles, targetting = ai_controller.blackboard[BB_TARGETTING_DATUM], max_range = 1, target_self = TRUE)
-	AddComponent(/datum/component/revenge_ability, tentacle_line, targetting = ai_controller.blackboard[BB_TARGETTING_DATUM], min_range = 2, max_range = 9)
+	AddComponent(/datum/component/revenge_ability, melee_tentacles, targetting = ai_controller.blackboard[BB_TARGETING_STRATEGY], max_range = 1, target_self = TRUE)
+	AddComponent(/datum/component/revenge_ability, tentacle_line, targetting = ai_controller.blackboard[BB_TARGETING_STRATEGY], min_range = 2, max_range = 9)
 
 	tentacles_ready()
 
