@@ -82,9 +82,10 @@
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
-#define PREFTOGGLE_3_DNR_AFTER_DEATH          (1<<0) // 1
+#define PREFTOGGLE_3_DNR_AFTER_DEATH         	(1<<0) // 1
+#define PREFTOGGLE_3_UI_SCALE         			(1<<1) // 2
 
-#define TOGGLES_3_TOTAL                       1 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_3_TOTAL                       3 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_3_DEFAULT NONE
 

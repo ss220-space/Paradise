@@ -6,8 +6,8 @@ import { EFFECTS_ALL, POD_GREY } from './constants';
 import { useCompact } from './hooks';
 import { PodEffect, PodLauncherData } from './types';
 
-export const PodStatusPage = (props, context) => {
-  const [compact] = useCompact(context);
+export const PodStatusPage = (props) => {
+  const [compact] = useCompact();
 
   return (
     <Section fill>
@@ -38,9 +38,9 @@ export const PodStatusPage = (props, context) => {
   );
 };
 
-const EffectDisplay = (props, context) => {
+const EffectDisplay = (props) => {
   const { effect, hasMargin, index } = props;
-  const { act, data } = useBackend<PodLauncherData>(context);
+  const { act, data } = useBackend<PodLauncherData>();
   const { effectShrapnel, payload, shrapnelMagnitude, shrapnelType } = data;
 
   if (effect.divider || !('icon' in effect)) {
@@ -86,9 +86,9 @@ const EffectDisplay = (props, context) => {
   );
 };
 
-const Extras = (props, context) => {
-  const { act } = useBackend(context);
-  const [compact, setCompact] = useCompact(context);
+const Extras = (props) => {
+  const { act } = useBackend();
+  const [compact, setCompact] = useCompact();
 
   return (
     <Stack.Item>

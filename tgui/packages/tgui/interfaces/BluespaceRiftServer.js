@@ -16,8 +16,8 @@ const status_table = {
   3: 'DANGER',
 };
 
-export const BluespaceRiftServer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BluespaceRiftServer = (props) => {
+  const { act, data } = useBackend();
   const { emagged, pointsPerProbe, cooldown, goals, servers, scanners } = data;
 
   const goal = (goalData) => {

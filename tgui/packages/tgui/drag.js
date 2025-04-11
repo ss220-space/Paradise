@@ -108,9 +108,21 @@ export const recallWindowGeometry = async (options = {}) => {
   let pos = geometry?.pos || options.pos;
   let size = options.size;
   // Convert size from css-pixels to display-pixels
-  if (size) {
+  if (options.scale && size) {
     size = [size[0] * pixelRatio, size[1] * pixelRatio];
   }
+
+  if (!options.scale) {
+    document.body.style.zoom = `${100 / window.devicePixelRatio}%`;
+    document.documentElement.style.setProperty(
+      '--scaling-amount',
+      window.devicePixelRatio.toString()
+    );
+  } else {
+    document.body.style.zoom = '';
+    document.documentElement.style.setProperty('--scaling-amount', null);
+  }
+
   // Wait until screen offset gets resolved
   await screenOffsetPromise;
   const areaAvailable = getScreenSize();
@@ -182,7 +194,7 @@ export const dragStartHandler = (event) => {
   dragging = true;
   let windowPosition = getWindowPosition();
   dragPointOffset = vecSubtract(
-    [event.screenX, event.screenY],
+    [event.screenX * pixelRatio, event.screenY * pixelRatio],
     getWindowPosition()
   );
   document.addEventListener('mousemove', dragMoveHandler);
@@ -205,7 +217,10 @@ const dragMoveHandler = (event) => {
   }
   event.preventDefault();
   setWindowPosition(
-    vecSubtract([event.screenX, event.screenY], dragPointOffset)
+    vecSubtract(
+      [event.screenX * pixelRatio, event.screenY * pixelRatio],
+      dragPointOffset
+    )
   );
 };
 
@@ -214,7 +229,7 @@ export const resizeStartHandler = (x, y) => (event) => {
   logger.log('resize start', resizeMatrix);
   resizing = true;
   dragPointOffset = vecSubtract(
-    [event.screenX, event.screenY],
+    [event.screenX * pixelRatio, event.screenY * pixelRatio],
     getWindowPosition()
   );
   initialSize = getWindowSize();
@@ -238,7 +253,7 @@ const resizeMoveHandler = (event) => {
   }
   event.preventDefault();
   const currentOffset = vecSubtract(
-    [event.screenX, event.screenY],
+    [event.screenX * pixelRatio, event.screenY * pixelRatio],
     getWindowPosition()
   );
   const delta = vecSubtract(currentOffset, dragPointOffset);

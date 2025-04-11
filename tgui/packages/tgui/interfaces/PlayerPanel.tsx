@@ -47,8 +47,8 @@ const isMobType = (currentType: string, checkType: string): boolean => {
   );
 };
 
-export const PlayerPanel = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+export const PlayerPanel = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -80,10 +80,10 @@ export const PlayerPanel = (props, context) => {
   );
 };
 
-const PlayerInformation = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
-  const [hideIP, setIP] = useLocalState(context, 'show_ip', false);
-  const [hideCID, setCID] = useLocalState(context, 'show_cid', false);
+const PlayerInformation = (props) => {
+  const { act, data } = useBackend<playerData>();
+  const [hideIP, setIP] = useLocalState('show_ip', false);
+  const [hideCID, setCID] = useLocalState('show_cid', false);
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -158,8 +158,8 @@ const PlayerInformation = (props, context) => {
   );
 };
 
-const PlayerOptionsMenu = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const PlayerOptionsMenu = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   return (
     <Stack.Item>
@@ -201,8 +201,8 @@ const PlayerOptionsMenu = (props, context) => {
   );
 };
 
-const PunishSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const PunishSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -293,8 +293,8 @@ const PunishSection = (props, context) => {
   );
 };
 
-const MessageSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MessageSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -361,8 +361,8 @@ const MessageSection = (props, context) => {
   );
 };
 
-const MovementSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MovementSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -428,8 +428,8 @@ const MovementSection = (props, context) => {
   );
 };
 
-const InfoSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const InfoSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -505,8 +505,8 @@ const InfoSection = (props, context) => {
   );
 };
 
-const TransformationSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const TransformationSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -574,8 +574,8 @@ const TransformationSection = (props, context) => {
   );
 };
 
-const HealthObserverSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const HealthObserverSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -666,8 +666,8 @@ const HealthObserverSection = (props, context) => {
   );
 };
 
-const MobManipulationSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MobManipulationSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -746,8 +746,8 @@ const MobManipulationSection = (props, context) => {
   );
 };
 
-const MiscSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MiscSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -865,8 +865,8 @@ const MiscSection = (props, context) => {
   );
 };
 
-const MuteSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MuteSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { LabeledList, Section, Button, Box } from '../components';
 import { Window } from '../layouts';
 
-export const ThiefKit = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ThiefKit = (props) => {
+  const { act, data } = useBackend();
   const { uses, possible_uses, multi_uses, kits, choosen_kits } = data;
   return (
     <Window width={600} height={900}>

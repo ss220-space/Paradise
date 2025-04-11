@@ -4,8 +4,8 @@ import { useBackend } from '../../backend';
 import { Box, Button, Section } from '../../components';
 import { PodLauncherData } from './types';
 
-export const StylePage = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
+export const StylePage = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
   const { effectName, styleChoice, podStyles } = data;
 
   return (

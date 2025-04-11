@@ -3,8 +3,8 @@ import { Box, Flex, LabeledList, Section } from '../../components';
 import { RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
 
-export const MainMenu = (properties, context) => {
-  const { data } = useBackend(context);
+export const MainMenu = (properties) => {
+  const { data } = useBackend();
 
   const {
     disk_type,

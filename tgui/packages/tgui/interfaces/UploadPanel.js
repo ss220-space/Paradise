@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, ProgressBar, LabeledList, Box, Section } from '../components';
 import { Window } from '../layouts';
 
-export const UploadPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const UploadPanel = (props) => {
+  const { act, data } = useBackend();
   const { selected_target, new_law, id, transmitting, hacked } = data;
   return (
     <Window width={900} height={200}>

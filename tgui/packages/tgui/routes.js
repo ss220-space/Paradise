@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { selectBackend } from './backend';
-import { Icon, Stack } from './components';
+import { useBackend } from './backend';
+import { Icon, Section, Stack } from './components';
 import { selectDebug } from './debug/selectors';
 import { Window } from './layouts';
 
@@ -53,19 +53,18 @@ const RefreshingWindow = () => {
   );
 };
 
-export const getRoutedComponent = (store) => {
-  const state = store.getState();
-  const { suspended, config } = selectBackend(state);
+export const getRoutedComponent = () => {
+  const { suspended, config, debug } = useBackend();
   if (suspended) {
     return SuspendedWindow;
   }
-  if (config.refreshing) {
+  if (config?.refreshing) {
     return RefreshingWindow;
   }
   if (process.env.NODE_ENV !== 'production') {
     const debug = selectDebug(state);
     // Show a kitchen sink
-    if (debug.kitchenSink) {
+    if (debug?.kitchenSink) {
       return require('./debug').KitchenSink;
     }
   }

@@ -9,8 +9,8 @@ import {
 import { Box } from '../../components';
 import { SUBMENU } from '../RndConsole';
 
-export const LatheMenu = (properties, context) => {
-  const { data } = useBackend(context);
+export const LatheMenu = (properties) => {
+  const { data } = useBackend();
 
   const { menu, linked_lathe, linked_imprinter } = data;
 

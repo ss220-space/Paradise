@@ -7,88 +7,43 @@ body
 	line-height: 170%;
 }
 
-/** Remove conditionals with 516*/
-@supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
-	body
-	{
-		font-size: calc(12px / var(--dpr));
-	}
 
-	h1
-	{
-		font-size: calc(15px / var(--dpr));
-	}
-
-	h2
-	{
-		font-size: calc(15px / var(--dpr));
-	}
-
-	h3
-	{
-		font-size: calc(13px / var(--dpr));
-	}
-
-	h4
-	{
-		font-size: calc(12px / var(--dpr));
-	}
-
-	.uiTitle
-	{
-		font-size: calc(16px / var(--dpr));
-	}
-
-	.notice
-	{
-		font-size: calc(10px / var(--dpr));
-	}
-
-	.code {
-		font-size: calc(12px / var(--dpr));
-	}
+body
+{
+	font-size: 12px;
 }
 
-/** Remove with 516 */
-@media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
-	body
-	{
-		font-size: 12px;
-	}
+h1
+{
+	font-size: 15px;
+}
 
-	h1
-	{
-		font-size: 15px;
-	}
+h2
+{
+	font-size: 14px;
+}
 
-	h2
-	{
-		font-size: 14px;
-	}
+h3
+{
+	font-size: 13px;
+}
 
-	h3
-	{
-		font-size: 13px;
-	}
+h4
+{
+	font-size: 12px;
+}
+.uiTitle
+{
+	font-size: 16px;
+}
 
-	h4
-	{
-		font-size: 12px;
-	}
+.notice
+{
+	font-size: 10px;
+}
 
-	.uiTitle
-	{
-		font-size: 16px;
-	}
-
-	.notice
-	{
-		font-size: 10px;
-	}
-
-	.code {
-		font-size: 12px;
-	}
+.code {
+	font-size: 12px;
 }
 
 hr

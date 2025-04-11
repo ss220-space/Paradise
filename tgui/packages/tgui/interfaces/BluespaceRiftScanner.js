@@ -17,8 +17,8 @@ const status_table = {
   3: 'DANGER',
 };
 
-export const BluespaceRiftScanner = (props, context) => {
-  const { act, data } = useBackend(context);
+export const BluespaceRiftScanner = (props) => {
+  const { act, data } = useBackend();
   const {
     scanStatus,
     serversFound,
