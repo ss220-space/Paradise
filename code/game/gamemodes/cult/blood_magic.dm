@@ -59,12 +59,6 @@
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 	var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
-
-	if(!new_spell.can_blood_cast())
-		owner.balloon_alert(owner, "лимит данного заклинания достигнут!")
-		qdel(new_spell)
-		return
-
 	//И также перед каждым return удаление спелла. Мы его возвели потому что нам надо был прок проверки.
 	//Ничего страшного не будет от создания, пока мы не Грант юзеру.
 	if(!channeling)
@@ -115,6 +109,21 @@
 
 	..()
 
+/datum/action/innate/cult/blood_spell/manipulation/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
+	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
+		qdel(src)
+		owner.balloon_alert(owner, "лимит данного заклинания достигнут достигнут!")
+		return
+	if(health_cost)
+		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
+
+	base_desc = desc
+	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	all_magic = BM
+	button.ordered = FALSE
+
+	..()
+
 /datum/action/innate/cult/blood_spell/override_location()
 	button.locked = TRUE
 	all_magic.Positioning()
@@ -147,13 +156,6 @@
 			qdel(hand_magic)
 			hand_magic = null
 
-/datum/action/innate/cult/blood_spell/proc/can_blood_cast()
-	return TRUE
-
-/datum/action/innate/cult/blood_spell/manipulation/can_blood_cast()
-	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
-		return FALSE
-	return ..()
 //the spell list
 
 /datum/action/innate/cult/blood_spell/stun
