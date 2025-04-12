@@ -1359,3 +1359,4 @@
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
 
+#define COMSIG_TICKER_GAME_STATE_CHANGED "ticker_game_state_changed"
