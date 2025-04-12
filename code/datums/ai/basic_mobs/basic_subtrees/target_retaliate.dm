@@ -1,9 +1,28 @@
 /// Sets the BB target to a mob which you can see and who has recently attacked you
 /datum/ai_planning_subtree/target_retaliate
+	/// Blackboard key which tells us how to select valid targets
+	var/targeting_strategy_key = BB_TARGETING_STRATEGY
+	/// Blackboard key in which to store selected target
+	var/target_key = BB_BASIC_MOB_CURRENT_TARGET
+	/// Blackboard key in which to store selected target's hiding place
+	var/hiding_place_key = BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION
+	/// do we check for faction?
+	var/check_faction = FALSE
 
 /datum/ai_planning_subtree/target_retaliate/SelectBehaviors(datum/ai_controller/controller, delta_time)
 	. = ..()
-	controller.queue_behavior(/datum/ai_behavior/target_from_retaliate_list, BB_BASIC_MOB_RETALIATE_LIST, BB_BASIC_MOB_CURRENT_TARGET, BB_TARGETING_STRATEGY, BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION)
+	controller.queue_behavior(/datum/ai_behavior/target_from_retaliate_list, BB_BASIC_MOB_RETALIATE_LIST, target_key, targeting_strategy_key, hiding_place_key, check_faction)
+
+/datum/ai_planning_subtree/target_retaliate
+	check_faction = TRUE
+
+/// Places a mob which you can see and who has recently attacked you into some 'run away from this' AI keys
+/// Can use a different targeting strategy than you use to select attack targets
+/// Not required if fleeing is the only target behaviour or uses the same target datum
+/datum/ai_planning_subtree/target_retaliate/to_flee
+	targeting_strategy_key = BB_FLEE_TARGETING_STRATEGY
+	target_key = BB_BASIC_MOB_FLEE_TARGET
+	hiding_place_key = BB_BASIC_MOB_FLEE_TARGET_HIDING_LOCATION
 
 /**
  * Picks a target from a provided list of atoms who have been pissing you off
@@ -14,20 +33,29 @@
 	/// How far can we see stuff?
 	var/vision_range = 9
 
-/datum/ai_behavior/target_from_retaliate_list/perform(delta_time, datum/ai_controller/controller, shitlist_key, target_key, targeting_strategy_key, hiding_location_key)
+/datum/ai_behavior/target_from_retaliate_list/perform(seconds_per_tick, datum/ai_controller/controller, shitlist_key, target_key, targeting_strategy_key, hiding_location_key, check_faction)
 	. = ..()
 	var/mob/living/living_mob = controller.pawn
 	var/datum/targeting_strategy/targeting_strategy = GET_TARGETING_STRATEGY(controller.blackboard[targeting_strategy_key])
 	if(!targeting_strategy)
 		CRASH("No target datum was supplied in the blackboard for [controller.pawn]")
 
-	var/list/enemies_list = controller.blackboard[shitlist_key]
+	var/list/shitlist = controller.blackboard[shitlist_key]
+	var/atom/existing_target = controller.blackboard[target_key]
+
+	if(!check_faction)
+		controller.set_blackboard_key(BB_TEMPORARILY_IGNORE_FACTION, TRUE)
+
+	if(!QDELETED(existing_target) && (locate(existing_target) in shitlist) && targeting_strategy.can_attack(living_mob, existing_target, vision_range))
+		finish_action(controller, succeeded = TRUE)
+
+	var/list/enemies_list = list()
+	for(var/mob/living/potential_target as anything in shitlist)
+		if(!targeting_strategy.can_attack(living_mob, potential_target, vision_range))
+			continue
+		enemies_list += potential_target
 
 	if(!length(enemies_list))
-		finish_action(controller, succeeded = FALSE)
-		return
-
-	if(controller.blackboard[target_key] in enemies_list) // Don't bother changing
 		finish_action(controller, succeeded = FALSE)
 		return
 
@@ -41,16 +69,13 @@
 
 	finish_action(controller, succeeded = TRUE)
 
-/// Returns true if this target is valid for attacking based on current conditions
-/datum/ai_behavior/target_from_retaliate_list/proc/can_attack_target(mob/living/living_mob, atom/target, datum/targeting_strategy/targeting_strategy)
-	if(!target)
-		return FALSE
-	if(target == living_mob)
-		return FALSE
-	if(!living_mob.can_see(target, vision_range))
-		return FALSE
-	return targeting_strategy.can_attack(living_mob, target)
-
 /// Returns the desired final target from the filtered list of enemies
 /datum/ai_behavior/target_from_retaliate_list/proc/pick_final_target(datum/ai_controller/controller, list/enemies_list)
 	return pick(enemies_list)
+
+/datum/ai_behavior/target_from_retaliate_list/finish_action(datum/ai_controller/controller, succeeded, shitlist_key, target_key, targeting_strategy_key, hiding_location_key, check_faction)
+	. = ..()
+	if (succeeded || check_faction)
+		return
+	var/usually_ignores_faction = controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || FALSE
+	controller.set_blackboard_key(BB_TEMPORARILY_IGNORE_FACTION, usually_ignores_faction)

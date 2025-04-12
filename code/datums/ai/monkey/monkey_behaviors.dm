@@ -4,6 +4,13 @@
 /datum/ai_behavior/monkey_equip
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
+/datum/ai_behavior/monkey_equip/setup(datum/ai_controller/controller, target_key)
+	. = ..()
+	var/obj/target = controller.blackboard[target_key]
+	if(QDELETED(target))
+		return FALSE
+	set_movement_target(controller, target)
+
 /datum/ai_behavior/monkey_equip/finish_action(datum/ai_controller/controller, success)
 	. = ..()
 
@@ -12,6 +19,8 @@
 
 	controller.clear_blackboard_key(BB_MONKEY_PICKUPTARGET)
 
+/// Equips an item on the monkey
+/// Returns TRUE if it works out, FALSE otherwise
 /datum/ai_behavior/monkey_equip/proc/equip_item(datum/ai_controller/controller)
 	var/mob/living/living_pawn = controller.pawn
 
@@ -137,7 +146,7 @@
 		finish_action(controller, TRUE)
 
 /datum/ai_behavior/monkey_attack_mob
-	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM //performs to increase frustration
+	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM | AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION
 
 /datum/ai_behavior/monkey_attack_mob/setup(datum/ai_controller/controller, target_key)
 	. = ..()
@@ -148,9 +157,10 @@
 
 	var/mob/living/target = controller.blackboard[target_key]
 	var/mob/living/living_pawn = controller.pawn
+	var/datum/targeting_strategy/strategy = GET_TARGETING_STRATEGY(controller.blackboard[BB_TARGETING_STRATEGY])
 
-	if(!target || target.stat != CONSCIOUS)
-		finish_action(controller, TRUE) //Target == owned
+	if(QDELETED(target) || !strategy.can_attack(living_pawn, target)) //Target == owned
+		finish_action(controller, TRUE)
 
 	if(isturf(target.loc) && !IS_DEAD_OR_INCAP(living_pawn)) // Check if they're a valid target
 		// check if target has a weapon
