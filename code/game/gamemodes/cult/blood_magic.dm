@@ -110,10 +110,6 @@
 	..()
 
 /datum/action/innate/cult/blood_spell/manipulation/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
-	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
-		qdel(src)
-		owner.balloon_alert(owner, "лимит данного заклинания достигнут достигнут!")
-		return
 	if(health_cost)
 		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
 
@@ -121,6 +117,10 @@
 	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
 	all_magic = BM
 	button.ordered = FALSE
+	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
+		all_magic.spells -= src
+		owner.balloon_alert(owner, "лимит данного заклинания достигнут достигнут!")
+		return
 
 	..()
 
