@@ -371,11 +371,16 @@ SUBSYSTEM_DEF(title)
 			const playersCount = document.getElementById('players-count');
 			const readyPlayers = document.getElementById('ready-players');
 
-			function update_newplayer_info(time, players, ready, mode){
+			function update_newplayer_info(){
+				var args = Array.prototype.slice.call(arguments);
+				var time = args\[0\];
+				var players = args\[1\];
+				var ready = args\[2\];
+				var mode = args\[3\];
 				gameMode.textContent = mode;
 				countdown.textContent = time;
 				playersCount.textContent = players;
-				readyPlayers.textContent = (ready === undefined || ready === null || ready <= 0)? 'НЕТУ' :`${ready}/${players}`;
+				readyPlayers.textContent = (ready === undefined || ready === null || ready <= 0)? 'НЕТУ' : ready + '/' + players;;
 			}
 
 			const character_name_slot = document.getElementById("character_slot");

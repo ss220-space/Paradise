@@ -42,7 +42,7 @@ SUBSYSTEM_DEF(new_player_info)
 	data += time_remaining
 	data += LAZYLEN(GLOB.clients)
 	data += total_players_ready
-	data += (SSticker.hide_mode)? "Скрыт" : (SSticker.current_state >= GAME_STATE_STARTUP)? SSticker.mode : GLOB.master_mode
+	data += (SSticker.hide_mode)? "Скрыт" : (SSticker.current_state > GAME_STATE_SETTING_UP)? SSticker.mode.name : GLOB.master_mode
 	var/params = list2params(data)
 	for(var/mob/new_player/viewer as anything in GLOB.new_player_mobs)
 		viewer << output(params, "title_browser:update_newplayer_info")
