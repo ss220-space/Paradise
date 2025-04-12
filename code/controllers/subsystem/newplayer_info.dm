@@ -1,5 +1,5 @@
 #define LOBBY_WAIT_TIME 0.5 SECONDS
-#define PLAYIND_WAIT_TIME 4 SECONDS
+#define PLAYIND_WAIT_TIME 30 SECONDS
 
 SUBSYSTEM_DEF(new_player_info)
 	name = "New Players Info"
