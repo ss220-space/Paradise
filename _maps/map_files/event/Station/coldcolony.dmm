@@ -11856,7 +11856,7 @@
 	dir = 1;
 	icon_state = "rampbottom"
 	},
-/area/ruin/unpowered/coldcolony_outside)
+/area/ruin/unpowered)
 "eoq" = (
 /obj/effect/decal/warning_stripes/yellow,
 /obj/machinery/hydroponics/soil,
@@ -37756,7 +37756,7 @@
 /area/coldcolony/malta/security/securearmory)
 "nZO" = (
 /turf/simulated/wall/r_wall,
-/area/ruin/unpowered/coldcolony_outside)
+/area/ruin/unpowered)
 "oab" = (
 /obj/item/flashlight,
 /obj/structure/rack{
@@ -37951,7 +37951,7 @@
 /area/coldcolony/ruin/syndie_outpost)
 "odd" = (
 /turf/simulated/wall/r_wall/rust,
-/area/ruin/unpowered/coldcolony_outside)
+/area/ruin/unpowered)
 "odf" = (
 /obj/machinery/door/airlock/research{
 	name = "Research Division";
@@ -45098,7 +45098,7 @@
 	dir = 1;
 	icon_state = "rampbottom"
 	},
-/area/ruin/unpowered/coldcolony_outside)
+/area/ruin/unpowered)
 "qEO" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -49746,7 +49746,7 @@
 	dir = 1;
 	icon_state = "rampbottom"
 	},
-/area/ruin/unpowered/coldcolony_outside)
+/area/ruin/unpowered)
 "srM" = (
 /obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
@@ -55485,7 +55485,7 @@
 	icon_state = "rampbottom";
 	tag = "icon-stage_stairs"
 	},
-/area/ruin/unpowered/coldcolony_outside)
+/area/ruin/unpowered)
 "uyk" = (
 /obj/structure/sink{
 	dir = 4;

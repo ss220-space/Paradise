@@ -76,6 +76,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
+"au" = (
+/obj/structure/stone_tile/block{
+	dir = 1
+	},
+/obj/structure/stone_tile/block,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
+/area/ruin/unpowered)
 "aL" = (
 /turf/simulated/wall/r_wall,
 /area/mine/maintenance)
@@ -127,9 +138,22 @@
 	},
 /area/mine/production)
 "ci" = (
-/obj/structure/stone_tile/surrounding,
-/obj/structure/stone_tile/center/cracked,
-/turf/simulated/floor/indestructible/boss,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile/surrounding_tile/cracked{
+	dir = 4
+	},
+/obj/structure/stone_tile/surrounding_tile,
+/obj/structure/stone_tile/center,
+/obj/structure/stone_tile/surrounding_tile{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "cm" = (
 /obj/structure/closet/crate/engineering,
@@ -175,20 +199,23 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "cY" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
+/obj/structure/stone_tile/center/cracked,
+/obj/structure/stone_tile/surrounding,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
 	},
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile/cracked,
-/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered)
 "cZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2;
+	pixel_y = -2
+	},
 /turf/simulated/floor/plating,
 /area/mine/production)
 "de" = (
@@ -309,7 +336,11 @@
 /obj/item/stack/fireproof_rods{
 	amount = 10
 	},
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "ey" = (
 /obj/structure/stone_tile/cracked{
@@ -622,6 +653,10 @@
 /obj/item/storage/backpack/medic,
 /turf/simulated/floor/plating,
 /area/mine/production)
+"hy" = (
+/obj/item/clothing/mask/breath,
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/unpowered)
 "hJ" = (
 /obj/structure/stone_tile/block{
 	dir = 8
@@ -914,18 +949,18 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "jQ" = (
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile/block/cracked{
 	dir = 1
 	},
-/obj/structure/stone_tile/surrounding_tile/cracked{
-	dir = 4
-	},
-/obj/structure/stone_tile/surrounding_tile,
-/obj/structure/stone_tile/center,
-/obj/structure/stone_tile/surrounding_tile{
+/obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
+/obj/structure/stone_tile/cracked,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "jR" = (
 /turf/simulated/wall/indestructible/boss,
@@ -1003,7 +1038,11 @@
 	id = "entrancemining"
 	},
 /obj/structure/stone_tile/slab/cracked,
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "kx" = (
 /obj/structure/stone_tile/block,
@@ -1383,13 +1422,12 @@
 /turf/simulated/floor/plating,
 /area/mine/production)
 "mj" = (
-/obj/structure/stone_tile/block{
-	dir = 8
+/obj/structure/table,
+/obj/item/storage/firstaid/regular{
+	pixel_x = 2;
+	pixel_y = -2
 	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "mk" = (
 /obj/structure/stone_tile/surrounding/cracked{
@@ -1945,6 +1983,27 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"rf" = (
+/obj/structure/stone_tile/block{
+	dir = 8
+	},
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/effect/bump_teleporter{
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	id_target = "entrancemining";
+	invisibility = 0;
+	name = "Межпространственный Разрыв";
+	id = "exitfromlavaland"
+	},
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
+/area/ruin/unpowered)
 "rh" = (
 /obj/structure/closet/secure_closet/miner,
 /turf/simulated/floor/plasteel,
@@ -2810,6 +2869,12 @@
 "Ct" = (
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
+"Cz" = (
+/obj/machinery/light/small{
+	dir = 8
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/unpowered)
 "CB" = (
 /obj/structure/stone_tile/block/burnt{
 	dir = 4
@@ -3071,19 +3136,8 @@
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "FS" = (
-/obj/effect/bump_teleporter{
-	icon = 'icons/obj/stationobjs.dmi';
-	icon_state = "acad_portal";
-	id_target = "entrancemining";
-	invisibility = 0;
-	name = "Межпространственный Разрыв";
-	id = "exitfromlavaland"
-	},
-/obj/structure/stone_tile/block{
-	dir = 1
-	},
-/obj/structure/stone_tile/block,
-/turf/simulated/floor/indestructible/boss,
+/obj/machinery/space_heater,
+/turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "Ga" = (
 /obj/machinery/power/terminal{
@@ -3176,11 +3230,15 @@
 	},
 /area/mine/necropolis)
 "Hu" = (
-/obj/effect/decal/warning_stripes/north,
+/obj/structure/marker_beacon{
+	icon_state = "markerburgundy-on"
+	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "Hy" = (
 /obj/structure/table,
+/obj/item/storage/firstaid/adv,
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Hz" = (
@@ -3266,7 +3324,11 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "If" = (
 /obj/structure/stone_tile{
@@ -3532,7 +3594,11 @@
 /obj/structure/stone_tile{
 	dir = 8
 	},
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "LG" = (
 /obj/effect/mapping_helpers/no_lava,
@@ -3730,13 +3796,17 @@
 /area/mine/production)
 "NG" = (
 /obj/structure/stone_tile/block/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile{
 	dir = 8
 	},
+/obj/structure/stone_tile{
+	dir = 1
+	},
 /obj/structure/stone_tile/cracked,
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "NJ" = (
 /obj/structure/stone_tile/block{
@@ -3855,7 +3925,11 @@
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
 	},
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "PU" = (
 /obj/machinery/door/airlock/glass{
@@ -3917,7 +3991,11 @@
 	dir = 1
 	},
 /obj/structure/stone_tile,
-/turf/simulated/floor/indestructible/boss,
+/turf/simulated/floor/indestructible/boss{
+	oxygen = 21;
+	nitrogen = 82;
+	temperature = 293.15
+	},
 /area/ruin/unpowered)
 "QJ" = (
 /obj/structure/stone_tile,
@@ -4059,6 +4137,10 @@
 /obj/structure/stone_tile/surrounding_tile/cracked,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"SF" = (
+/obj/machinery/portable_atmospherics/canister/oxygen,
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/unpowered)
 "SJ" = (
 /obj/structure/stone_tile/surrounding_tile{
 	dir = 4
@@ -4172,6 +4254,19 @@
 /obj/structure/stone_tile/slab,
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
+"Ur" = (
+/obj/structure/table,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf,
+/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+	pixel_x = -5;
+	pixel_y = -3
+	},
+/obj/item/reagent_containers/food/pill/patch/silver_sulf{
+	pixel_x = -8;
+	pixel_y = 8
+	},
+/turf/simulated/floor/indestructible/plating,
+/area/ruin/unpowered)
 "UA" = (
 /obj/effect/turf_decal/tile/neutral{
 	color = "black";
@@ -4509,10 +4604,7 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "Yh" = (
-/obj/effect/decal/warning_stripes/north,
-/obj/structure/marker_beacon{
-	icon_state = "markerburgundy-on"
-	},
+/obj/effect/decal/warning_stripes/south,
 /turf/simulated/floor/indestructible/plating,
 /area/ruin/unpowered)
 "Yj" = (
@@ -5433,11 +5525,11 @@ Lf
 Lf
 Lf
 Lf
+sx
 Lf
-Lf
-Lf
-Lf
-Lf
+dk
+sx
+sx
 Lf
 Lf
 Lf
@@ -5688,13 +5780,13 @@ Lf
 Lf
 Lf
 Lf
-Lf
-Lf
-Lf
-Lf
-Lf
-Lf
-Lf
+dk
+SF
+Cz
+fI
+fI
+AQ
+em
 Lf
 Lf
 Lf
@@ -5945,13 +6037,13 @@ Lf
 Lf
 Lf
 Lf
-Lf
 dk
-Lf
-Lf
-Lf
-Lf
-Lf
+fI
+fI
+hy
+fI
+AQ
+FD
 Lf
 Lf
 Lf
@@ -6201,14 +6293,14 @@ Lf
 Lf
 Lf
 Lf
-Lf
 dk
-dk
-dk
-Lf
-Lf
-sx
-sx
+Ur
+fI
+fI
+fI
+fI
+AQ
+UA
 dk
 Lf
 Lf
@@ -6458,14 +6550,14 @@ Lf
 Lf
 Lf
 Lf
-Lf
 dk
-ci
-jQ
-Yh
+mj
 fI
-AQ
-em
+fI
+dk
+dk
+dk
+dk
 Lf
 Lf
 Lf
@@ -6717,12 +6809,12 @@ dk
 Lf
 Lf
 dk
-FS
-mj
-Hu
 fI
-AQ
-FD
+fI
+Hu
+cY
+ci
+dk
 Lf
 Lf
 Lf
@@ -6974,12 +7066,12 @@ Lf
 Lf
 Lf
 dk
-cY
-NG
-Yh
 fI
-AQ
-UA
+fI
+Yh
+au
+rf
+dk
 Lf
 Lf
 Lf
@@ -7231,12 +7323,12 @@ Lf
 Lf
 Lf
 dk
+FS
+fI
+Hu
+NG
+jQ
 dk
-dk
-sx
-sx
-sx
-sx
 Lf
 Lf
 Lf
@@ -7488,12 +7580,12 @@ Lf
 Lf
 Lf
 Lf
-Lf
-Lf
+dk
 Lf
 Lf
 dk
-Lf
+dk
+dk
 Lf
 Lf
 Lf
