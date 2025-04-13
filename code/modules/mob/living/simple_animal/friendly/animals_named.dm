@@ -167,14 +167,13 @@
 		icon_state = "mouse_rep_buckled"
 		pixel_x = 0
 		pixel_y = 0
-	else
-		icon_state = icon_living
-
 
 /mob/living/simple_animal/mouse/wooly/rep/set_buckled(new_buckled)
 	. = ..()
 	if(buckled)
 		update_icon_state()
+	else
+		icon_state = icon_living
 
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Gennadiy"
