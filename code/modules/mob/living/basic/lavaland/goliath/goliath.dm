@@ -83,8 +83,8 @@
 	tentacle_line = new
 	AddSpell(tentacle_line)
 
-	AddComponent(/datum/component/revenge_ability, melee_tentacles, targetting = ai_controller.blackboard[BB_TARGETING_STRATEGY], max_range = 1, target_self = TRUE)
-	AddComponent(/datum/component/revenge_ability, tentacle_line, targetting = ai_controller.blackboard[BB_TARGETING_STRATEGY], min_range = 2, max_range = 9)
+	AddComponent(/datum/component/revenge_ability, melee_tentacles, targeting = GET_TARGETING_STRATEGY(ai_controller.blackboard[BB_TARGETING_STRATEGY]), max_range = 1, target_self = TRUE)
+	AddComponent(/datum/component/revenge_ability, tentacle_line, targeting = GET_TARGETING_STRATEGY(ai_controller.blackboard[BB_TARGETING_STRATEGY]), min_range = 2, max_range = 9)
 
 	tentacles_ready()
 
@@ -140,7 +140,7 @@
 /// When we use an ability, activate some kind of visual tell
 /mob/living/basic/mining/goliath/proc/used_ability(mob/living/source, obj/effect/proc_holder/spell/ability)
 	SIGNAL_HANDLER
-	if(stat == DEAD || ability.can_cast())
+	if(stat == DEAD || ability.can_cast(source))
 		return // We died or the action failed for some reason like being out of range
 
 	if(istype(ability, /obj/effect/proc_holder/spell/basic_goliath_tentacles))

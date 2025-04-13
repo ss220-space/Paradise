@@ -5,10 +5,14 @@ have ways of interacting with a specific mob and control it.
 ///OOK OOK OOK
 
 /datum/ai_controller/monkey
+	ai_movement = /datum/ai_movement/basic_avoidance
 	movement_delay = 0.4 SECONDS
-	planning_subtrees = list(/datum/ai_planning_subtree/monkey_tree)
+	planning_subtrees = list(
+		/datum/ai_planning_subtree/monkey_combat,
+		/datum/ai_planning_subtree/monkey_tree,
+	)
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic/monkey,
 		BB_MONKEY_AGGRESSIVE = FALSE,
 		BB_MONKEY_BEST_FORCE_FOUND = 0,
 		BB_MONKEY_ENEMIES = list(),
@@ -23,6 +27,14 @@ have ways of interacting with a specific mob and control it.
 		BB_MONKEY_NEXT_HUNGRY = 0
 	)
 	idle_behavior = /datum/idle_behavior/idle_monkey
+
+/datum/targeting_strategy/basic/monkey
+
+/datum/targeting_strategy/basic/monkey/faction_check(datum/ai_controller/controller, mob/living/living_mob, mob/living/the_target)
+	if(controller.blackboard[BB_MONKEY_ENEMIES][the_target])
+		return FALSE
+	return ..()
+
 
 /datum/ai_controller/monkey/angry
 
@@ -162,9 +174,12 @@ have ways of interacting with a specific mob and control it.
 	return FALSE
 
 ///Reactive events to being hit
-/datum/ai_controller/monkey/proc/retaliate(mob/living/L)
-	var/list/enemies = blackboard[BB_MONKEY_ENEMIES]
-	enemies[L] += MONKEY_HATRED_AMOUNT
+/datum/ai_controller/monkey/proc/retaliate(mob/living/living_mob)
+	// just to be safe
+	if(QDELETED(living_mob))
+		return
+
+	add_blackboard_key_assoc(BB_MONKEY_ENEMIES, living_mob, MONKEY_HATRED_AMOUNT)
 
 /datum/ai_controller/monkey/proc/on_attacked(datum/source, mob/attacker)
 	SIGNAL_HANDLER

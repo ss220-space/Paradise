@@ -593,10 +593,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
-		if(show_message)
-			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
-		return FALSE
+	if(!isbasicmob(user))
+		if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
+			if(show_message)
+				to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
+			return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
