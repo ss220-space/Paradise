@@ -177,7 +177,7 @@
 
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
 	for(var/mob/dead/observer/observe in orbiters)
-		if(!istype(observe) || !observe.orbit_menu.auto_observe)
+		if(!istype(observe) || !observe.orbit_menu?.auto_observe)
 			continue
 		if(!(observe.client && observe.client.eye == src && observe.hud_used))
 			LAZYREMOVE(orbiters, observe)

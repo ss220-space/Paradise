@@ -691,7 +691,8 @@
 		user.client.pixel_y = world.icon_size*_y
 
 		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+				LAZYREMOVE(user.orbiters, observe)
 				continue
 			observe.client.pixel_x = world.icon_size*_x
 			observe.client.pixel_y = world.icon_size*_y
@@ -700,7 +701,8 @@
 		user.client.pixel_y = 0
 
 		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+				LAZYREMOVE(user.orbiters, observe)
 				continue
 			observe.client.pixel_x = 0
 			observe.client.pixel_y = 0

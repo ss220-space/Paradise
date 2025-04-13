@@ -210,7 +210,7 @@
 	return robot.shown_robot_modules
 
 /datum/hud/proc/update_robot_modules_display(mob/viewer)
-	if(!isrobot(mymob))
+	if(!isrobot(mymob) || !mymob.client)
 		return
 
 	var/mob/living/silicon/robot/R = mymob

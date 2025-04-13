@@ -945,7 +945,8 @@
 
 	// Maybe this should be bad for server perfomance, but i dont test it on production server
 	for(var/mob/dead/observer/observe in owner.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(owner.orbiters, observe)
 			continue
 		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 		game_plane_master_controller.remove_filter("eye_blur")
@@ -965,7 +966,8 @@
 
 	// Maybe this should be bad for server perfomance, but i dont test it on production server
 	for(var/mob/dead/observer/observe in owner.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(owner.orbiters, observe)
 			continue
 		game_plane_master_controller = observe.hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
 		game_plane_master_controller.add_filter("eye_blur", 1, gauss_blur_filter(amount_of_blur))

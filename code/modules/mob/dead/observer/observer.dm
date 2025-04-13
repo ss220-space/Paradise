@@ -471,6 +471,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(orbiting && ismob(orbiting))
 			var/mob/living/new_sight = orbiting
 			set_sight(new_sight.client? new_sight.sight : set_sight(NONE))
+		else
+			set_sight(null)
 	else
 		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 
@@ -703,8 +705,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 	LAZYREMOVE(orbiting?.orbiters, src)
 
-	var/atom/movable/plane_master_controller/game_plane_master_controller = hud_used.plane_master_controllers[PLANE_MASTERS_GAME]
-	game_plane_master_controller.remove_filter("eye_blur")
+	clear_fullscreens()
 
 	if(src) // If player discconnected
 		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
