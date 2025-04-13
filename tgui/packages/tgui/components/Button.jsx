@@ -257,16 +257,18 @@ export class ButtonInput extends Component {
     } = this.props;
 
     let buttonContent = (
-      <Box
+      <div
         className={classes([
           'Button',
           fluid && 'Button--fluid',
           disabled && 'Button--disabled',
           'Button--color--' + color,
           multiLine + 'Button--multiLine',
+          className,
+          computeBoxClassName(rest),
         ])}
-        {...rest}
         onClick={() => this.setInInput(true)}
+        {...computeBoxProps(rest)}
       >
         {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
         <div>{content}</div>
@@ -295,7 +297,7 @@ export class ButtonInput extends Component {
             }
           }}
         />
-      </Box>
+      </div>
     );
 
     if (tooltip) {

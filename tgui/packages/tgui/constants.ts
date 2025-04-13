@@ -4,6 +4,13 @@ export const UI_UPDATE = 1;
 export const UI_DISABLED = 0;
 export const UI_CLOSE = -1;
 
+type Gas = {
+  id: string;
+  name: string;
+  label: string;
+  color: string;
+};
+
 // All game related colors are stored here
 export const COLORS = {
   // Department colors
@@ -26,7 +33,7 @@ export const COLORS = {
     burn: '#e67e22',
     brute: '#e74c3c',
   },
-};
+} as const;
 
 // Colors defined in CSS
 export const CSS_COLORS = [
@@ -176,117 +183,129 @@ export const RADIO_CHANNELS = [
     freq: 1251,
     color: '#776f96',
   },
-];
+] as const;
 
 const GASES = [
   {
-    'id': 'o2',
-    'name': 'Oxygen',
-    'label': 'O₂',
-    'color': 'blue',
+    id: 'o2',
+    name: 'Oxygen',
+    label: 'O₂',
+    color: 'blue',
   },
   {
-    'id': 'n2',
-    'name': 'Nitrogen',
-    'label': 'N₂',
-    'color': 'red',
+    id: 'n2',
+    name: 'Nitrogen',
+    label: 'N₂',
+    color: 'red',
   },
   {
-    'id': 'co2',
-    'name': 'Carbon Dioxide',
-    'label': 'CO₂',
-    'color': 'grey',
+    id: 'co2',
+    name: 'Carbon Dioxide',
+    label: 'CO₂',
+    color: 'grey',
   },
   {
-    'id': 'plasma',
-    'name': 'Plasma',
-    'label': 'Plasma',
-    'color': 'pink',
+    id: 'plasma',
+    name: 'Plasma',
+    label: 'Plasma',
+    color: 'pink',
   },
   {
-    'id': 'water_vapor',
-    'name': 'Water Vapor',
-    'label': 'H₂O',
-    'color': 'grey',
+    id: 'water_vapor',
+    name: 'Water Vapor',
+    label: 'H₂O',
+    color: 'grey',
   },
   {
-    'id': 'nob',
-    'name': 'Hyper-noblium',
-    'label': 'Hyper-nob',
-    'color': 'teal',
+    id: 'nob',
+    name: 'Hyper-noblium',
+    label: 'Hyper-nob',
+    color: 'teal',
   },
   {
-    'id': 'n2o',
-    'name': 'Nitrous Oxide',
-    'label': 'N₂O',
-    'color': 'red',
+    id: 'n2o',
+    name: 'Nitrous Oxide',
+    label: 'N₂O',
+    color: 'red',
   },
   {
-    'id': 'no2',
-    'name': 'Nitryl',
-    'label': 'NO₂',
-    'color': 'brown',
+    id: 'no2',
+    name: 'Nitryl',
+    label: 'NO₂',
+    color: 'brown',
   },
   {
-    'id': 'tritium',
-    'name': 'Tritium',
-    'label': 'Tritium',
-    'color': 'green',
+    id: 'tritium',
+    name: 'Tritium',
+    label: 'Tritium',
+    color: 'green',
   },
   {
-    'id': 'bz',
-    'name': 'BZ',
-    'label': 'BZ',
-    'color': 'purple',
+    id: 'bz',
+    name: 'BZ',
+    label: 'BZ',
+    color: 'purple',
   },
   {
-    'id': 'stim',
-    'name': 'Stimulum',
-    'label': 'Stimulum',
-    'color': 'purple',
+    id: 'stim',
+    name: 'Stimulum',
+    label: 'Stimulum',
+    color: 'purple',
   },
   {
-    'id': 'pluox',
-    'name': 'Pluoxium',
-    'label': 'Pluoxium',
-    'color': 'blue',
+    id: 'pluox',
+    name: 'Pluoxium',
+    label: 'Pluoxium',
+    color: 'blue',
   },
   {
-    'id': 'miasma',
-    'name': 'Miasma',
-    'label': 'Miasma',
-    'color': 'olive',
+    id: 'miasma',
+    name: 'Miasma',
+    label: 'Miasma',
+    color: 'olive',
   },
   {
-    'id': 'hydrogen',
-    'name': 'Hydrogen',
-    'label': 'H₂',
-    'color': 'white',
+    id: 'hydrogen',
+    name: 'Hydrogen',
+    label: 'H₂',
+    color: 'white',
   },
   {
-    'id': 'ab',
-    'name': 'Agent B',
-    'label': 'Agent B',
-    'color': 'purple',
+    id: 'ab',
+    name: 'Agent B',
+    label: 'Agent B',
+    color: 'purple',
   },
-];
+] as const;
 
-export const getGasLabel = (gasId, fallbackValue) => {
-  const gasSearchString = String(gasId).toLowerCase();
+// Returns gas label based on gasId
+export const getGasLabel = (gasId: string, fallbackValue?: string) => {
+  const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
       gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
-  return (gas && gas.label) || fallbackValue || gasId;
+  return gas?.label || fallbackValue || gasId;
 };
 
-export const getGasColor = (gasId) => {
-  const gasSearchString = String(gasId).toLowerCase();
+// Returns gas color based on gasId
+export const getGasColor = (gasId: string) => {
+  const gasSearchString = gasId.toLowerCase();
   const gas = GASES.find(
     (gas) =>
       gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
   );
-  return gas && gas.color;
+  return gas?.color;
+};
+
+// Returns gas object based on gasId
+export const getGasFromId = (gasId: string): Gas | undefined => {
+  const gasSearchString = gasId.toLowerCase();
+  const gas = GASES.find(
+    (gas) =>
+      gas.id === gasSearchString || gas.name.toLowerCase() === gasSearchString
+  );
+  return gas;
 };
 
 export const timeAgo = (ref_time, now_time) => {
