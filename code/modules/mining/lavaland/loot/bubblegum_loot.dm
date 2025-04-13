@@ -150,6 +150,7 @@
 // Soulscythe
 
 #define MAX_BLOOD_LEVEL 100
+#define BLOOD_LEVEL_PER_SECOND 1
 
 /obj/item/soulscythe
 	name = "soulscythe"
@@ -170,7 +171,7 @@
 	attack_verb = list("рубит", "режет", "нарезает", "пожинает")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	inhand_x_dimension = 64
-	inhand_y_dimension = 64 
+	inhand_y_dimension = 64
 	force = 20
 	throwforce = 17
 	armour_penetration = 50
@@ -198,6 +199,7 @@
 	RegisterSignal(soul, COMSIG_MOB_LOGIN, PROC_REF(on_login))
 	RegisterSignal(soul, COMSIG_MOB_LOGOUT, PROC_REF(on_logout))
 	RegisterSignal(src, COMSIG_OBJ_INTEGRITY_CHANGED, PROC_REF(on_integrity_change))
+	RegisterSignal(soul, COMSIG_BLOOD_LEVEL_TICK, PROC_REF(on_blood_level_tick))
 
 /obj/item/soulscythe/examine(mob/user)
 	. = ..()
@@ -266,7 +268,7 @@
 /obj/item/soulscythe/relaymove(mob/living/user, direction)
 	if(!COOLDOWN_FINISHED(src, move_cooldown) || charging)
 		return
-	
+
 	if(!isturf(loc))
 		balloon_alert(user, "для перемещения нужно вырваться!")
 		COOLDOWN_START(src, move_cooldown, 1 SECONDS)
@@ -277,7 +279,7 @@
 
 	if(pixel_x != base_pixel_x || pixel_y != base_pixel_y)
 		animate(src, 0.2 SECONDS, pixel_x = base_pixel_y, pixel_y = base_pixel_y, flags = ANIMATION_PARALLEL)
-	
+
 	try_step_multiz(direction)
 	COOLDOWN_START(src, move_cooldown, (direction in GLOB.cardinal) ? 0.1 SECONDS : 0.2 SECONDS)
 
@@ -304,6 +306,10 @@
 
 /obj/item/soulscythe/allow_click()
 	return TRUE
+
+/obj/item/soulscythe/proc/on_blood_level_tick(datum/source, amount)
+	SIGNAL_HANDLER
+	give_blood(amount)
 
 /obj/item/soulscythe/proc/use_blood(amount = 0, message = TRUE)
 	if(amount > soul.blood_level)
@@ -340,8 +346,8 @@
 
 /obj/item/soulscythe/proc/on_integrity_change(datum/source, old_value, new_value)
 	SIGNAL_HANDLER
-
 	soul.set_health(new_value)
+	soul.update_stat("itemBodyDamaged")
 
 /obj/item/soulscythe/proc/on_attack(mob/living/source, atom/attacked_atom, modifiers)
 	SIGNAL_HANDLER
@@ -362,7 +368,7 @@
 		INVOKE_ASYNC(src, PROC_REF(shoot_target), attacked_atom)
 	else
 		INVOKE_ASYNC(src, PROC_REF(slash_target), attacked_atom)
-		
+
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/soulscythe/proc/on_secondary_attack(mob/living/source, atom/attacked_atom, modifiers)
@@ -374,7 +380,7 @@
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(source, TRAIT_PACIFISM))
 		to_chat(source, span_notice("Немного подумав, Вы решаете не трогать [attacked_atom.declent_ru(ACCUSATIVE)]."))
 		return
-	
+
 	if(faction_check(list("[attacked_atom.UID()]"), soul.faction))
 		return
 
@@ -446,7 +452,7 @@
 
 /mob/living/simple_animal/soulscythe
 	name = "mysterious spirit"
-	ru_names = list( 
+	ru_names = list(
 		NOMINATIVE = "таинственный дух",
 		GENITIVE = "таинственного духа",
 		DATIVE = "таинственному духу",
@@ -474,15 +480,18 @@
 /mob/living/simple_animal/soulscythe/Life(seconds_per_tick, times_fired)
 	. = ..()
 	if(!stat)
-		blood_level = min(MAX_BLOOD_LEVEL, blood_level + round(1 * seconds_per_tick))
+		SEND_SIGNAL(src, COMSIG_BLOOD_LEVEL_TICK, round(BLOOD_LEVEL_PER_SECOND * seconds_per_tick))
+
+/mob/living/simple_animal/soulscythe/adjustHealth(amount, updating_health, blocked, damage_type, forced)
+	return STATUS_UPDATE_NONE
 
 /obj/projectile/soulscythe
 	name = "soulslash"
-	ru_names = list( 
+	ru_names = list(
 		NOMINATIVE = "рассечение души",
 		GENITIVE = "рассечения души",
 		DATIVE = "рассечению души",
-		ACCUSATIVE = "рассечение души",	
+		ACCUSATIVE = "рассечение души",
 		INSTRUMENTAL = "рассечением души",
 		PREPOSITIONAL = "рассечении души"
 	)
