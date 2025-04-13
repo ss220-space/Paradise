@@ -9,6 +9,10 @@
 			reenter_corpse()						// (cloning scanner, body bag, closet, mech, etc)
 			return									// seems legit.
 
+	if(istype(A, /mob/living) && orbit_menu?.auto_observe)
+		var/mob/living/eye_mob = A
+		do_observe(eye_mob)
+
 	// Follow !!ALL OF THE THINGS!!
 	if(istype(A, /atom/movable) && A != src)
 		ManualFollow(A)

@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const PollListPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PollListPanel = (props) => {
+  const { act, data } = useBackend();
   const polls = data.polls || {};
 
   return (

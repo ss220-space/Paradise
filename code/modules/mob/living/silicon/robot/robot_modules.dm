@@ -615,7 +615,7 @@
 	modules += new /obj/item/t_scanner/adv_mining_scanner/cyborg(src)
 	modules += new /obj/item/gun/energy/kinetic_accelerator/cyborg(src)
 	modules += new /obj/item/crowbar/cyborg(src)
-	emag = new /obj/item/borg/stun(src)
+	emag = new /obj/item/storage/bag/kaboom/cyborg(src)
 
 	fix_modules()
 

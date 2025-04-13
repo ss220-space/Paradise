@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
-export const EvolutionMenu = (props, context) => {
+export const EvolutionMenu = (props) => {
   return (
     <Window width={480} height={574} theme="changeling">
       <Window.Content className="Layout__content--flexColumn" scrollable>
@@ -13,8 +13,8 @@ export const EvolutionMenu = (props, context) => {
   );
 };
 
-const EvolutionPoints = (props, context) => {
-  const { act, data } = useBackend(context);
+const EvolutionPoints = (props) => {
+  const { act, data } = useBackend();
   const { evo_points, can_respec } = data;
   return (
     <Section title="Evolution Points" height={5.5}>
@@ -45,8 +45,8 @@ const EvolutionPoints = (props, context) => {
   );
 };
 
-const Abilities = (props, context) => {
-  const { act, data } = useBackend(context);
+const Abilities = (props) => {
+  const { act, data } = useBackend();
   const { evo_points, ability_list, purchased_abilities, view_mode } = data;
   return (
     <Section

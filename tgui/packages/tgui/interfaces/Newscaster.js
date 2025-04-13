@@ -60,8 +60,8 @@ const jobOpeningCategories = {
   },
 };
 
-export const Newscaster = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const Newscaster = (properties) => {
+  const { act, data } = useBackend();
   const {
     is_security,
     is_admin,
@@ -71,17 +71,9 @@ export const Newscaster = (properties, context) => {
     channels,
     channel_idx = -1,
   } = data;
-  const [menuOpen, setMenuOpen] = useLocalState(context, 'menuOpen', false);
-  const [viewingPhoto, _setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
-  const [censorMode, setCensorMode] = useLocalState(
-    context,
-    'censorMode',
-    false
-  );
+  const [menuOpen, setMenuOpen] = useLocalState('menuOpen', false);
+  const [viewingPhoto, _setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [censorMode, setCensorMode] = useLocalState('censorMode', false);
   let body;
   if (screen === 0 || screen === 2) {
     body = <NewscasterFeed />;
@@ -163,7 +155,7 @@ export const Newscaster = (properties, context) => {
                       icon="exclamation-circle"
                       title="Редактировать розыск"
                       mb="0.5rem"
-                      onClick={() => modalOpen(context, 'wanted_notice')}
+                      onClick={() => modalOpen('wanted_notice')}
                     />
                     <MenuButton
                       security
@@ -179,12 +171,12 @@ export const Newscaster = (properties, context) => {
                   icon="pen-alt"
                   title="Новая статья"
                   mb="0.5rem"
-                  onClick={() => modalOpen(context, 'create_story')}
+                  onClick={() => modalOpen('create_story')}
                 />
                 <MenuButton
                   icon="plus-circle"
                   title="Новый канал"
-                  onClick={() => modalOpen(context, 'create_channel')}
+                  onClick={() => modalOpen('create_channel')}
                 />
                 <Divider />
                 <MenuButton
@@ -211,8 +203,8 @@ export const Newscaster = (properties, context) => {
   );
 };
 
-const MenuButton = (properties, context) => {
-  const { act } = useBackend(context);
+const MenuButton = (properties) => {
+  const { act } = useBackend();
   const {
     icon = '',
     iconSpin,
@@ -241,8 +233,8 @@ const MenuButton = (properties, context) => {
   );
 };
 
-const NewscasterFeed = (properties, context) => {
-  const { act, data } = useBackend(context);
+const NewscasterFeed = (properties) => {
+  const { act, data } = useBackend();
   const {
     screen,
     is_admin,
@@ -252,16 +244,8 @@ const NewscasterFeed = (properties, context) => {
     stories,
     wanted,
   } = data;
-  const [fullStories, _setFullStories] = useLocalState(
-    context,
-    'fullStories',
-    []
-  );
-  const [censorMode, _setCensorMode] = useLocalState(
-    context,
-    'censorMode',
-    false
-  );
+  const [fullStories, _setFullStories] = useLocalState('fullStories', []);
+  const [censorMode, _setCensorMode] = useLocalState('censorMode', false);
   const channel =
     screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
@@ -330,7 +314,7 @@ const NewscasterFeed = (properties, context) => {
                 icon="cog"
                 content="Управление"
                 onClick={() =>
-                  modalOpen(context, 'manage_channel', {
+                  modalOpen('manage_channel', {
                     uid: channel.uid,
                   })
                 }
@@ -359,8 +343,8 @@ const NewscasterFeed = (properties, context) => {
   );
 };
 
-const NewscasterJobs = (properties, context) => {
-  const { act, data } = useBackend(context);
+const NewscasterJobs = (properties) => {
+  const { act, data } = useBackend();
   const { jobs, wanted } = data;
   const numOpenings = Object.entries(jobs).reduce(
     (a, [k, v]) => a + v.length,
@@ -443,19 +427,11 @@ const NewscasterJobs = (properties, context) => {
   );
 };
 
-const Story = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Story = (properties) => {
+  const { act, data } = useBackend();
   const { story, wanted = false } = properties;
-  const [fullStories, setFullStories] = useLocalState(
-    context,
-    'fullStories',
-    []
-  );
-  const [censorMode, _setCensorMode] = useLocalState(
-    context,
-    'censorMode',
-    false
-  );
+  const [fullStories, setFullStories] = useLocalState('fullStories', []);
+  const [censorMode, _setCensorMode] = useLocalState('censorMode', false);
   return (
     <Section
       className={classes([
@@ -532,13 +508,9 @@ const Story = (properties, context) => {
   );
 };
 
-const PhotoThumbnail = (properties, context) => {
+const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
-  const [viewingPhoto, setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
+  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
   return (
     <Box
       as="img"
@@ -550,12 +522,8 @@ const PhotoThumbnail = (properties, context) => {
   );
 };
 
-const PhotoZoom = (properties, context) => {
-  const [viewingPhoto, setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
+const PhotoZoom = (properties) => {
+  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
   return (
     <Modal className="Newscaster__photoZoom">
       <Box as="img" src={viewingPhoto} />
@@ -571,14 +539,14 @@ const PhotoZoom = (properties, context) => {
 };
 
 // This handles both creation and editing
-const manageChannelModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const manageChannelModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   // Additional data
   const channel =
     !!modal.args.uid &&
     data.channels.filter((c) => c.uid === modal.args.uid).pop();
   if (modal.id === 'manage_channel' && !channel) {
-    modalClose(context); // ?
+    modalClose(); // ?
     return;
   }
   const isEditing = modal.id === 'manage_channel';
@@ -586,28 +554,20 @@ const manageChannelModalBodyOverride = (modal, context) => {
   const scannedUser = modal.args.scanned_user;
   // Temp data
   const [author, setAuthor] = useLocalState(
-    context,
     'author',
     channel?.author || scannedUser || 'Неавторизованный'
   );
-  const [name, setName] = useLocalState(context, 'name', channel?.name || '');
+  const [name, setName] = useLocalState('name', channel?.name || '');
   const [description, setDescription] = useLocalState(
-    context,
     'description',
     channel?.description || ''
   );
-  const [icon, setIcon] = useLocalState(
-    context,
-    'icon',
-    channel?.icon || 'newspaper'
-  );
+  const [icon, setIcon] = useLocalState('icon', channel?.icon || 'newspaper');
   const [isPublic, setIsPublic] = useLocalState(
-    context,
     'isPublic',
     isEditing ? !!channel?.public : false
   );
   const [adminLocked, setAdminLocked] = useLocalState(
-    context,
     'adminLocked',
     channel?.admin === 1 || false
   );
@@ -687,7 +647,7 @@ const manageChannelModalBodyOverride = (modal, context) => {
         right="1rem"
         bottom="-0.75rem"
         onClick={() => {
-          modalAnswer(context, modal.id, '', {
+          modalAnswer(modal.id, '', {
             author: author,
             name: name.substr(0, 49),
             description: description.substr(0, 128),
@@ -701,8 +661,8 @@ const manageChannelModalBodyOverride = (modal, context) => {
   );
 };
 
-const createStoryModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const createStoryModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   const { photo, channels, channel_idx = -1 } = data;
   // Additional data
   const isAdmin = !!modal.args.is_admin;
@@ -724,23 +684,14 @@ const createStoryModalBodyOverride = (modal, context) => {
       (c) => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public))
     );
   // Temp data
-  const [author, setAuthor] = useLocalState(
-    context,
-    'author',
-    scannedUser || 'Unknown'
-  );
+  const [author, setAuthor] = useLocalState('author', scannedUser || 'Unknown');
   const [channel, setChannel] = useLocalState(
-    context,
     'channel',
     availableChannels.length > 0 ? availableChannels[0].name : ''
   );
-  const [title, setTitle] = useLocalState(context, 'title', '');
-  const [body, setBody] = useLocalState(context, 'body', '');
-  const [adminLocked, setAdminLocked] = useLocalState(
-    context,
-    'adminLocked',
-    false
-  );
+  const [title, setTitle] = useLocalState('title', '');
+  const [body, setBody] = useLocalState('body', '');
+  const [adminLocked, setAdminLocked] = useLocalState('adminLocked', false);
   return (
     <Section m="-1rem" pb="1.5rem" title="Написать новую статью">
       <Box mx="0.5rem">
@@ -844,7 +795,7 @@ const createStoryModalBodyOverride = (modal, context) => {
         right="1rem"
         bottom="-0.75rem"
         onClick={() => {
-          modalAnswer(context, 'create_story', '', {
+          modalAnswer('create_story', '', {
             author: author,
             channel: channel,
             title: title.substr(0, 127),
@@ -857,30 +808,23 @@ const createStoryModalBodyOverride = (modal, context) => {
   );
 };
 
-const wantedNoticeModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const wantedNoticeModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   const { photo, wanted } = data;
   // Additional data
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
   // Temp data
   const [author, setAuthor] = useLocalState(
-    context,
     'author',
     wanted?.author || scannedUser || 'Неавторизованный'
   );
-  const [name, setName] = useLocalState(
-    context,
-    'name',
-    wanted?.title.substr(8) || ''
-  );
+  const [name, setName] = useLocalState('name', wanted?.title.substr(8) || '');
   const [description, setDescription] = useLocalState(
-    context,
     'description',
     wanted?.body || ''
   );
   const [adminLocked, setAdminLocked] = useLocalState(
-    context,
     'adminLocked',
     wanted?.admin_locked === 1 || false
   );
@@ -956,7 +900,7 @@ const wantedNoticeModalBodyOverride = (modal, context) => {
         bottom="-0.75rem"
         onClick={() => {
           act('clear_wanted_notice');
-          modalClose(context);
+          modalClose();
         }}
       />
       <Button.Confirm
@@ -972,7 +916,7 @@ const wantedNoticeModalBodyOverride = (modal, context) => {
         right="1rem"
         bottom="-0.75rem"
         onClick={() => {
-          modalAnswer(context, modal.id, '', {
+          modalAnswer(modal.id, '', {
             author: author,
             name: name.substr(0, 127),
             description: description.substr(0, 511),

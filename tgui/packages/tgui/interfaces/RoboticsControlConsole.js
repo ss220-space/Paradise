@@ -10,8 +10,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const RoboticsControlConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RoboticsControlConsole = (props) => {
+  const { act, data } = useBackend();
   const { can_hack, safety, show_detonate_all, cyborgs = [] } = data;
   return (
     <Window width={500} height={460}>
@@ -39,9 +39,9 @@ export const RoboticsControlConsole = (props, context) => {
   );
 };
 
-const Cyborgs = (props, context) => {
+const Cyborgs = (props) => {
   const { cyborgs, can_hack } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   if (!cyborgs.length) {
     return (
       <NoticeBox>No cyborg units detected within access parameters.</NoticeBox>

@@ -41,8 +41,8 @@ const tempColors = [
   'bad',
 ];
 
-export const OperatingComputer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const OperatingComputer = (props) => {
+  const { act, data } = useBackend();
   const { hasOccupant, choice } = data;
   let body;
   if (!choice) {
@@ -87,8 +87,8 @@ export const OperatingComputer = (props, context) => {
   );
 };
 
-const OperatingComputerPatient = (props, context) => {
-  const { data } = useBackend(context);
+const OperatingComputerPatient = (props) => {
+  const { data } = useBackend();
   const { occupant } = data;
   return (
     <Stack fill vertical>
@@ -197,8 +197,8 @@ const OperatingComputerUnoccupied = () => {
   );
 };
 
-const OperatingComputerOptions = (props, context) => {
-  const { act, data } = useBackend(context);
+const OperatingComputerOptions = (props) => {
+  const { act, data } = useBackend();
   const { verbose, health, healthAlarm, oxy, oxyAlarm, crit } = data;
   return (
     <LabeledList>

@@ -24,7 +24,7 @@
 		return .
 
 	if(spider_team?.infect_target?.completed || \
-	spider_team?.lay_eggs_target?.completed|| \
+	spider_team?.lay_eggs_target?.completed || \
 	spider_team?.prince_target?.completed)
 		completed = TRUE
 		return TRUE

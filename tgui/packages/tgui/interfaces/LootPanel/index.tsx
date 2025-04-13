@@ -15,12 +15,12 @@ type Data = {
   searching: BooleanLike;
 };
 
-export const LootPanel = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const LootPanel = (props) => {
+  const { act, data } = useBackend<Data>();
   const { contents = [], searching } = data;
 
   // limitations: items with different stack counts, charges etc.
-  // const [contentsByPathName, setPresets] = useLocalState<Preset[]>(context, 'presets', []);
+  // const [contentsByPathName, setPresets] = useLocalState<Preset[]>('presets', []);
   // Тут был useMemo из 'react'. Я скушал его потому что не мог достать по другому. Он был кислым. Н
   const contentsByPathName: Record<string, SearchItem[]> = {};
   for (let i = 0; i < contents.length; i++) {
@@ -36,14 +36,10 @@ export const LootPanel = (props, context) => {
   }
 
   // Search
-  const [showSearchBar, setShowSearchBar] = useLocalState(
-    context,
-    'search_bar',
-    false
-  );
+  const [showSearchBar, setShowSearchBar] = useLocalState('search_bar', false);
 
-  const [grouping, setGrouping] = useLocalState(context, 'grouping', true);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [grouping, setGrouping] = useLocalState('grouping', true);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const headerHeight = 38;
   const itemHeight = 38;

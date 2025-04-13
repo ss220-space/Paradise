@@ -6,7 +6,7 @@ const roundTenths = function (input) {
   return (Math.round(input * 10) / 10).toFixed(1);
 };
 
-export const VampireTrophiesStatus = (props, context) => {
+export const VampireTrophiesStatus = (props) => {
   return (
     <Window theme="ntos_spooky" width={700} height={800}>
       <Window.Content scrollable>
@@ -28,8 +28,8 @@ export const VampireTrophiesStatus = (props, context) => {
   );
 };
 
-const Trophies = (props, context) => {
-  const { act, data } = useBackend(context);
+const Trophies = (props) => {
+  const { act, data } = useBackend();
   const {
     hearts,
     lungs,
@@ -242,8 +242,8 @@ const Trophies = (props, context) => {
   );
 };
 
-const Passives = (props, context) => {
-  const { act, data } = useBackend(context);
+const Passives = (props) => {
+  const { act, data } = useBackend();
   const {
     suck_rate,
     hearts,
@@ -485,8 +485,8 @@ const Passives = (props, context) => {
   );
 };
 
-const InfectedTrophy = (props, context) => {
-  const { act, data } = useBackend(context);
+const InfectedTrophy = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -588,8 +588,8 @@ const InfectedTrophy = (props, context) => {
   );
 };
 
-const Lunge = (props, context) => {
-  const { act, data } = useBackend(context);
+const Lunge = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -707,8 +707,8 @@ const Lunge = (props, context) => {
   );
 };
 
-const MarkPrey = (props, context) => {
-  const { act, data } = useBackend(context);
+const MarkPrey = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -809,8 +809,8 @@ const MarkPrey = (props, context) => {
   );
 };
 
-const MetamorphosisBats = (props, context) => {
-  const { act, data } = useBackend(context);
+const MetamorphosisBats = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -959,8 +959,8 @@ const MetamorphosisBats = (props, context) => {
   );
 };
 
-const ResonantShriek = (props, context) => {
-  const { act, data } = useBackend(context);
+const ResonantShriek = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -1048,8 +1048,8 @@ const ResonantShriek = (props, context) => {
   );
 };
 
-const Anabiosis = (props, context) => {
-  const { act, data } = useBackend(context);
+const Anabiosis = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -1255,8 +1255,8 @@ const Anabiosis = (props, context) => {
   );
 };
 
-const SummonBats = (props, context) => {
-  const { act, data } = useBackend(context);
+const SummonBats = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -1421,8 +1421,8 @@ const SummonBats = (props, context) => {
   );
 };
 
-const MetamorphosisHound = (props, context) => {
-  const { act, data } = useBackend(context);
+const MetamorphosisHound = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,
@@ -1556,8 +1556,8 @@ const MetamorphosisHound = (props, context) => {
   );
 };
 
-const LungeFinale = (props, context) => {
-  const { act, data } = useBackend(context);
+const LungeFinale = (props) => {
+  const { act, data } = useBackend();
   const {
     trophies_max_gen,
     trophies_max_crit,

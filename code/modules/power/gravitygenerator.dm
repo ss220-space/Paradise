@@ -431,6 +431,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
+	new /obj/effect/warp_effect/gravity_generator(our_turf)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/mob/shaked as anything in GLOB.mob_list)
 		var/turf/mob_turf = get_turf(shaked)
@@ -474,6 +475,15 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 // Misc
+
+/obj/effect/warp_effect/gravity_generator
+
+/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128, easing = CIRCULAR_EASING | EASE_IN)
+	QDEL_IN(src, 0.8 SECONDS)
 
 /obj/item/paper/gravity_gen
 	name = "paper- 'Generate your own gravity!'"
