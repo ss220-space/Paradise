@@ -188,7 +188,7 @@ export const SettingsGeneral = (props, context) => {
             accept=".json"
             tooltip="Import chat settings"
             icon="arrow-up-from-bracket"
-            onSelectFiles={(files) => importChatSettings(files)}
+            onSelectFiles={(files) => importChatSettings(files, context)}
           >
             Import settings
           </Button.File>

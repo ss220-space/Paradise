@@ -322,14 +322,10 @@ export class ButtonFile extends Component {
     const promises = Array.from(files).map((file) => {
       const reader = new FileReader();
 
-      return (
-        new Promise() <
-        string >
-        ((resolve) => {
-          reader.onload = () => resolve(reader.result);
-          reader.readAsText(file);
-        })
-      );
+      return new Promise((resolve) => {
+        reader.onload = () => resolve(reader.result);
+        reader.readAsText(file);
+      });
     });
 
     return await Promise.all(promises);
@@ -338,7 +334,7 @@ export class ButtonFile extends Component {
   handleChange = async (event) => {
     const files = event.target.files;
     if (files?.length) {
-      const readFiles = await read(files);
+      const readFiles = await this.read(files);
       this.props.onSelectFiles(this.props.multiple ? readFiles : readFiles[0]);
     }
   };
