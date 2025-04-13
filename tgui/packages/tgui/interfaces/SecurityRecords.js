@@ -259,16 +259,18 @@ const SecurityRecordsPageMaintenance = (properties) => {
       />
       <br />
       <Button.Confirm
+        disabled
         icon="trash"
         content="Delete All Security Records"
-        onClick={() => act('delete_security_all')}
+        tooltip="This feature is not available."
         mb="0.5rem"
       />
       <br />
       <Button.Confirm
+        disabled
         icon="trash"
         content="Delete All Cell Logs"
-        onClick={() => act('delete_cell_logs')}
+        tooltip="This feature is not available."
       />
     </Box>
   );

@@ -28,8 +28,12 @@
 /mob/Login()
 	if(!client)
 		return FALSE
+
 	canon_client = client
+	
 	add_to_player_list()
+	GLOB.left_player_list -= src
+
 	last_known_ckey = ckey
 	update_Login_details()
 	world.update_status()

@@ -56,8 +56,8 @@
 /datum/map/coldcolony
 	name = "Malta"
 	map_path = "_maps/map_files/event/Station/coldcolony.dmm"
-	lavaland_path = "_maps/map_files/Delta/Lavaland.dmm"
-	traits = list(MAIN_STATION, STATION_LEVEL = "Surface", ZTRAIT_BASETURF = /turf/simulated/floor/plating/asteroid/snow/planet)
+	lavaland_path = "_maps/map_files/coldcolony/Lavaland.dmm"
+	traits = list(MAIN_STATION, STATION_LEVEL = "Surface", AI_OK, ZTRAIT_BASETURF = /turf/simulated/floor/plating/asteroid/snow/planet)
 
 	station_name = "NMC Malta"
 	station_short = "Malta"

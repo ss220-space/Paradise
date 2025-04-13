@@ -43,10 +43,13 @@
 		if(!toggle || !is_active_toggle(toggle))
 			continue
 
-		if(!pref.activate(mob))
+		LAZYADD(prefs, new pref.type)
+
+	for(var/datum/preference_info/pref as anything in prefs)
+		if(pref.activate(mob))
 			continue
 
-		LAZYADD(prefs, new pref.type)
+		qdel(pref)
 
 	return prefs
 
