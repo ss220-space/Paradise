@@ -78,6 +78,7 @@ GLOBAL_LIST_INIT(admin_verbs_admin, list(
 	/client/proc/resolveAllAdminTickets,
 	/client/proc/resolveAllMentorTickets,
 	/client/proc/achievements_cleanup,
+	/datum/admins/proc/view_all_circuits,
 ))
 GLOBAL_LIST_INIT(admin_verbs_ban, list(
 	/client/proc/ban_panel,

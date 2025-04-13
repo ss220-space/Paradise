@@ -23,10 +23,6 @@
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
 		buckled.unbuckle_mob(src, force = TRUE)
-	if(viewing_alternate_appearances)
-		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
-			AA.viewers -= src
-		viewing_alternate_appearances = null
 
 	LAssailant = null
 	GLOB.left_player_list -= src
@@ -45,6 +41,9 @@
 	set_focus(src)
 	prepare_huds()
 	become_hearing_sensitive()
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.apply_to_new_mob(src)
+
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
@@ -84,6 +83,11 @@
 	if(. && slowdown_edit && isnum(diff))
 		add_or_update_variable_movespeed_modifier(/datum/movespeed_modifier/admin_varedit, multiplicative_slowdown = diff)
 
+/**
+ * Prepare the huds for this atom
+ *
+ * Goes through hud_possible list and adds the images to the hud_list variable (if not already cached)
+ */
 /atom/proc/prepare_huds()
 	if(hud_list) // I choose to be lienient about people calling this proc more then once
 		return
@@ -96,9 +100,10 @@
 
 		else
 			var/image/I = image('icons/mob/hud.dmi', src, "")
-			I.appearance_flags = RESET_COLOR|RESET_TRANSFORM
+			I.appearance_flags = RESET_COLOR|PIXEL_SCALE|KEEP_APART
 			hud_list[hud] = I
 		set_hud_image_active(hud, update_huds = FALSE) //by default everything is active. but dont add it to huds to keep control.
+
 
 /mob/proc/generate_name()
 	return name

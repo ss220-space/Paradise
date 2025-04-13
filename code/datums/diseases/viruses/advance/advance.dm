@@ -217,17 +217,19 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 		//severity
 		switch(properties["severity"])
 			if(-INFINITY to 0)
-				severity = NONTHREAT
+				severity = DISEASE_SEVERITY_POSITIVE
 			if(1)
-				severity = MINOR
+				severity = DISEASE_SEVERITY_NONTHREAT
 			if(2)
-				severity = MEDIUM
+				severity = DISEASE_SEVERITY_MINOR
 			if(3)
-				severity = HARMFUL
+				severity = DISEASE_SEVERITY_MEDIUM
 			if(4)
-				severity = DANGEROUS
-			if(5 to INFINITY)
-				severity = BIOHAZARD
+				severity = DISEASE_SEVERITY_HARMFUL
+			if(5)
+				severity = DISEASE_SEVERITY_DANGEROUS
+			if(6 to INFINITY)
+				severity = DISEASE_SEVERITY_BIOHAZARD
 
 		//resistance
 		cure_prob = clamp(15 - properties["resistance"], 5, 40)

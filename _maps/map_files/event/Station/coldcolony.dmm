@@ -22358,6 +22358,9 @@
 /obj/structure/table,
 /obj/item/gps/science,
 /obj/item/storage/toolbox/mechanical,
+/obj/item/multitool/circuit,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "whitepurple"

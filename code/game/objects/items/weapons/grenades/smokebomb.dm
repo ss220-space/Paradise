@@ -16,6 +16,9 @@
 
 /obj/item/grenade/smokebomb/prime()
 	. = ..()
+	INVOKE_ASYNC(src, PROC_REF(start_smoke))
+
+/obj/item/grenade/smokebomb/proc/start_smoke()
 	playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 	smoke.set_up(amount = 10, location = loc)
 	spawn(0)

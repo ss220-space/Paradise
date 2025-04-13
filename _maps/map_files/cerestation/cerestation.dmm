@@ -91144,6 +91144,11 @@
 /obj/item/clothing/glasses/hud/diagnostic,
 /obj/item/clothing/glasses/hud/diagnostic,
 /obj/item/clothing/glasses/welding,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay,
+/obj/item/multitool/circuit,
+/obj/item/multitool/circuit,
+/obj/item/multitool/circuit,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkpurple"

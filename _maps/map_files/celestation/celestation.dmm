@@ -123128,6 +123128,11 @@
 /obj/item/clothing/glasses/welding,
 /obj/item/clothing/glasses/hud/diagnostic,
 /obj/item/clothing/head/welding,
+/obj/item/multitool/circuit,
+/obj/item/multitool/circuit,
+/obj/item/multitool/circuit,
+/obj/item/integrated_circuit/loaded/hello_world,
+/obj/item/integrated_circuit/loaded/speech_relay,
 /obj/item/book/manual/robotics_cyborgs,
 /turf/simulated/floor/plasteel{
 	dir = 8;

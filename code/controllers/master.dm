@@ -173,7 +173,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 
 /datum/controller/master/ui_close(mob/user)
 	var/valid_found = FALSE
-	for(var/datum/tgui/open_ui as anything in SStgui.open_uis_by_src[src.UID()])
+	for(var/datum/tgui/open_ui as anything in open_uis)
 		if(open_ui.user == user)
 			continue
 		valid_found = TRUE

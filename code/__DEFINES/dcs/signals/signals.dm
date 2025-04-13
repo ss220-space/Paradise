@@ -231,6 +231,8 @@
 ///from internal loop in atom/movable/proc/CanReach(): (list/next)
 #define COMSIG_ATOM_CANREACH "atom_can_reach"
 	#define COMPONENT_BLOCK_REACH (1<<0)
+///from base of atom/proc/tool_act(): (mob/living/user, obj/item/I)
+#define COMSIG_ATOM_TOOL_ACT(tooltype) "tool_act_[tooltype]"
 ///from base of atom/screwdriver_act(): (mob/living/user, obj/item/I)
 #define COMSIG_ATOM_SCREWDRIVER_ACT "atom_screwdriver_act"
 ///from base of atom/wrench_act(): (mob/living/user, obj/item/I)
@@ -961,6 +963,8 @@
 #define COMSIG_ITEM_DISABLE_EMBED "item_disable_embed"
 ///from [/obj/effect/mine/proc/triggermine]:
 #define COMSIG_MINE_TRIGGERED "minegoboom"
+///from [/obj/item/organ/internal/insert]:
+#define COMSIG_ORGAN_IMPLANTED "organ_implanted"
 ///from [/obj/item/organ/internal/remove]:
 #define COMSIG_ORGAN_REMOVED "organ_removed"
 ///from [/obj/item/organ/internal/cyberimp/mouth/translator/check_lang]
@@ -1150,10 +1154,16 @@
 
 // /datum/song signals
 
-///sent to the instrument when a song starts playing
-#define COMSIG_SONG_START "song_start"
+///sent to the instrument when a song starts playing: (datum/starting_song, atom/player)
+#define COMSIG_INSTRUMENT_START "instrument_start"
 ///sent to the instrument when a song stops playing
-#define COMSIG_SONG_END "song_end"
+#define COMSIG_INSTRUMENT_END "instrument_end"
+///sent to the instrument on /should_stop_playing(): (atom/player). Return values can be found in DEFINES/song.dm
+#define COMSIG_INSTRUMENT_SHOULD_STOP_PLAYING "instrument_should_stop_playing"
+///sent to the instrument (and player if available) when a song repeats (datum/song)
+#define COMSIG_INSTRUMENT_REPEAT "instrument_repeat"
+///sent to the instrument when tempo changes, skipped on new. (datum/song)
+#define COMSIG_INSTRUMENT_TEMPO_CHANGE "instrument_tempo_change"
 
 /*******Component Specific Signals*******/
 //Janitor
@@ -1484,9 +1494,6 @@
 #define COMSIG_PHANTOM_DELETE "phantom_delete"
 /// from base of atom/on_teleported(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
-
-//from /obj/machinery/door/airlock/open(): (forced)
-#define COMSIG_AIRLOCK_OPEN "airlock_open"
 
 //from base of atom/attack_basic_mob(): (/mob/user)
 #define COMSIG_ATOM_ATTACK_BASIC_MOB "attack_basic_mob"

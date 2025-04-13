@@ -959,7 +959,7 @@ so that different stomachs can handle things in different ways VB*/
 
 /mob/living/carbon/lying_angle_on_lying_down(new_lying_angle)
 	if(!new_lying_angle)
-		set_lying_angle(pick(90, 270))
+		set_lying_angle(pick(LYING_ANGLE_EAST, LYING_ANGLE_WEST))
 	else
 		set_lying_angle(new_lying_angle)
 

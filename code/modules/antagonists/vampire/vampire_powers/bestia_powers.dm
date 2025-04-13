@@ -1630,7 +1630,7 @@
 					organ.status = NONE
 
 		for(var/datum/disease/virus as anything in human_vampire.diseases)
-			if(virus.severity == NONTHREAT)
+			if(virus.severity == DISEASE_SEVERITY_POSITIVE)
 				continue
 			virus.cure(need_immunity = FALSE)
 
