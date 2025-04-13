@@ -565,7 +565,7 @@
 /obj/structure/chair/comfy/abductor/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
 
-/obj/structure/chair/mouse
+/obj/structure/chair/comfy/mouse
 	name = "Кресло Господина Мышкина"
 	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
 	icon_state = "mouse_chair"
@@ -573,7 +573,7 @@
 	max_integrity = 375
 	buildstacktype = null
 
-/obj/structure/chair/mouse/wrench_act(mob/user, obj/item/I)
+/obj/structure/chair/comfy/mouse/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	to_chat(user, span_warning("Вы не можете осмелиться разобрать это дорогущее кресло!"))
 	return

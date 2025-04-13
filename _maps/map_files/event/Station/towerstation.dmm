@@ -27066,7 +27066,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -32
 	},
-/obj/structure/chair/mouse,
+/obj/structure/chair/comfy/mouse,
 /mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"

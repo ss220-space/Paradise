@@ -67798,7 +67798,7 @@
 /area/medical/patients_rooms)
 "lKz" = (
 /mob/living/simple_animal/mouse/wooly/rep,
-/obj/structure/chair/mouse,
+/obj/structure/chair/comfy/mouse,
 /turf/simulated/floor/wood,
 /area/ntrep)
 "lKI" = (

@@ -86756,7 +86756,7 @@
 	dir = 1;
 	pixel_y = 26
 	},
-/obj/structure/chair/mouse,
+/obj/structure/chair/comfy/mouse,
 /mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)

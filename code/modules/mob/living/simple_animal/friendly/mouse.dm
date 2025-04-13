@@ -544,7 +544,7 @@ GLOBAL_VAR_INIT(wooly_mouse_count, 0)
 	gold_core_spawnable = FRIENDLY_SPAWN
 	tts_seed = "Gyro"
 	maxHealth = 10
-	health = 10
+	health = 10 // kokok
 
 
 /mob/living/simple_animal/mouse/wooly/update_desc(updates)

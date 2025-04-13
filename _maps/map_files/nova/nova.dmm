@@ -162734,7 +162734,7 @@
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /mob/living/simple_animal/mouse/wooly/rep,
-/obj/structure/chair/mouse,
+/obj/structure/chair/comfy/mouse,
 /turf/simulated/floor/carpet/royalblue,
 /area/ntrep)
 "xPq" = (

@@ -161,14 +161,20 @@
 	health = 20
 	resting = TRUE
 
-/mob/living/simple_animal/mouse/wooly/rep/update_icons()
-	. = ..()
+/mob/living/simple_animal/mouse/wooly/rep/update_icon_state()
+	..()
 	if(buckled)
 		icon_state = "mouse_rep_buckled"
 		pixel_x = 0
 		pixel_y = 0
-	return
+	else
+		icon_state = icon_living
 
+
+/mob/living/simple_animal/mouse/wooly/rep/set_buckled(new_buckled)
+	. = ..()
+	if(buckled)
+		update_icon_state()
 
 /mob/living/simple_animal/pet/dog/bullterrier/Genn
 	name = "Gennadiy"
