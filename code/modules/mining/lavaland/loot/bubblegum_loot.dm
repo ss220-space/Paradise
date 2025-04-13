@@ -253,6 +253,7 @@
 	soul.possess_by_player(ghost.ckey)
 	LAZYOR(soul.languages, master.languages) //Make sure the sword can understand and communicate with the master.
 	soul.faction = list("\ref[master]")
+	soul.default_language = master.get_default_language()
 	balloon_alert(master, "коса светится")
 	add_overlay("soulscythe_gem")
 	density = TRUE
@@ -333,7 +334,9 @@
 	if(ismob(loc))
 		var/mob/holder = loc
 		holder.temporarily_remove_item_from_inventory(src)
-	forceMove(drop_location())
+	else if(soul.ckey)
+		addtimer(CALLBACK(src, PROC_REF(reset_spin)), 0.1 SECONDS)
+	forceMove(get_turf(loc))
 
 /obj/item/soulscythe/proc/on_integrity_change(datum/source, old_value, new_value)
 	SIGNAL_HANDLER
@@ -359,6 +362,7 @@
 		INVOKE_ASYNC(src, PROC_REF(shoot_target), attacked_atom)
 	else
 		INVOKE_ASYNC(src, PROC_REF(slash_target), attacked_atom)
+		
 	return COMPONENT_CANCEL_ATTACK_CHAIN
 
 /obj/item/soulscythe/proc/on_secondary_attack(mob/living/source, atom/attacked_atom, modifiers)
@@ -455,6 +459,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "ghost"
 	gender = NEUTER
+	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list()
 	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
 	hud_type = /datum/hud/simple_animal/lang
