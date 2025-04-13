@@ -6,7 +6,6 @@
 
 import { useBackend } from './backend';
 import { Icon, Section, Stack } from './components';
-import { selectDebug } from './debug/selectors';
 import { Window } from './layouts';
 
 const requireInterface = require.context('./interfaces');
