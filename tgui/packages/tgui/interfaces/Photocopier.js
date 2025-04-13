@@ -25,12 +25,12 @@ const selectForms = (forms, searchText = '') => {
   ])(forms);
 };
 
-export const Photocopier = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Photocopier = (props) => {
+  const { act, data } = useBackend();
 
   const { copies, maxcopies } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const forms = selectForms(
     sortBy((form) => form.category)(data.forms || []),
@@ -42,7 +42,7 @@ export const Photocopier = (props, context) => {
       categories.push(form.category);
     }
   }
-  const [number, setNumber] = useLocalState(context, 'number', 0);
+  const [number, setNumber] = useLocalState('number', 0);
 
   let category;
   if (data.category === '') {

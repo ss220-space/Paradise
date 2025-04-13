@@ -82,6 +82,10 @@
 
 /mob/living/simple_animal/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human_to_ask = over_object
+
+	if(!istype(human_to_ask))
+		return ..()
+
 	if(holder_type)
 		var/obj/item/holder = holder_type
 		var/holder_flags = holder.holder_flags
@@ -91,6 +95,7 @@
 
 	if(human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
+
 	if(usr == src)
 		switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,list("Yes","No")))
 			if("Yes")

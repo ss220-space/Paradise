@@ -55,9 +55,11 @@
 	. = ..()
 	holdered_mob = hugger
 	hugger?.forceMove(src)
+	RegisterSignal(src, COMSIG_DISPOSAL_INJECT, PROC_REF(on_disposal_inject))
 
 /obj/item/clothing/mask/facehugger/Destroy()
 	holdered_mob = null
+	UnregisterSignal(src, COMSIG_DISPOSAL_INJECT)
 	. = ..()
 
 /obj/item/clothing/mask/facehugger/take_damage(damage_amount, damage_type = BRUTE, damage_flag = 0, sound_effect = 1, attack_dir)
@@ -171,6 +173,13 @@
 /obj/item/clothing/mask/facehugger/proc/check_mob_inside()
 	if(holdered_mob && isturf(loc))
 		holdered_mob.forceMove(loc)
+		holdered_mob.hugger_holder = null
+		qdel(src)
+
+/obj/item/clothing/mask/facehugger/proc/on_disposal_inject(datum/source, obj/machinery/disposal/disposal)
+	SIGNAL_HANDLER
+	if(holdered_mob && istype(disposal))
+		holdered_mob.forceMove(disposal)
 		holdered_mob.hugger_holder = null
 		qdel(src)
 
@@ -316,7 +325,7 @@
 /obj/item/clothing/mask/facehugger/container_resist(mob/living/L)
 	var/mob/living/mob = src.loc
 
-	if(istype(mob))
+	if(istype(mob) || isstorage(loc))
 		mob.drop_item_ground(src)
 	else if(isitem(loc))
 		to_chat(L, "Вы выбираетесь из [loc].")

@@ -21,6 +21,8 @@
   .button-#{$channel} {
     border-color: darken($color, 10%);
     color: $color;
+    -webkit-user-select: none;
+    user-select: none;
     &:hover {
       border-color: lighten($color, 10%);
       color: lighten($color, 5%);

@@ -5,6 +5,7 @@
 
 @use 'sass:meta';
 @use './base.scss';
+@use './functions.scss' as *;
 
 // Core styles
 @include meta.load-css('./reset.scss');
@@ -85,4 +86,9 @@
   background-size: 70% 70%;
   background-position: center;
   background-repeat: no-repeat;
+}
+
+// A default, in case someone uses the vp() function outside of a <Window>
+:root {
+  --scaling-amount: 1;
 }
