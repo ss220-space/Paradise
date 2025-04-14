@@ -33,7 +33,7 @@
 	// Interrupt attack chain to use tentacles, unless the target is already tentacled
 	if(isliving(target) && !target.has_status_effect(/datum/status_effect/incapacitating/stun/goliath_tentacled))
 		var/obj/effect/proc_holder/spell/using_action = controller.blackboard[BB_GOLIATH_TENTACLES]
-		if(using_action?.can_cast(pawn, TRUE))
+		if(using_action?.can_cast(pawn))
 			finish_action(controller, succeeded = FALSE)
 			return
 	return ..()

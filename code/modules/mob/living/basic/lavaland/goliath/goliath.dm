@@ -140,14 +140,17 @@
 /// When we use an ability, activate some kind of visual tell
 /mob/living/basic/mining/goliath/proc/used_ability(mob/living/source, obj/effect/proc_holder/spell/ability)
 	SIGNAL_HANDLER
-	if(stat == DEAD || ability.can_cast(source, TRUE))
+	if(stat == DEAD || !ability.can_cast(source, TRUE))
 		return // We died or the action failed for some reason like being out of range
 
 	if(istype(ability, /obj/effect/proc_holder/spell/basic/basic_goliath_tentacles))
-		if(ability.cooldown_handler.find_cooldown_time() <= 2 SECONDS)
+		var/cooldown_time = ability.cooldown_handler.get_recharge_time()
+		var/needed_world_time = world.time + 2 SECONDS
+		var/test = needed_world_time - cooldown_time
+		if(cooldown_time <= needed_world_time)
 			return
 		icon_state = icon_living
-		addtimer(CALLBACK(src, PROC_REF(tentacles_ready)), ability.cooldown_handler.find_cooldown_time() - 2 SECONDS, TIMER_DELETE_ME)
+		addtimer(CALLBACK(src, PROC_REF(tentacles_ready)), test + 2 SECONDS, TIMER_DELETE_ME)
 		return
 	if(!COOLDOWN_FINISHED(src, ability_animation_cooldown))
 		return

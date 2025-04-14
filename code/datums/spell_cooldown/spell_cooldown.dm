@@ -65,9 +65,6 @@
 
 	return min(1, (recharge_duration - (recharge_time - world.time)) / recharge_duration)
 
-/datum/spell_cooldown/proc/find_cooldown_time()
-	return recharge_time - world.time
-
 /datum/spell_cooldown/proc/get_recharge_time()
 	return world.time + recharge_duration
 
