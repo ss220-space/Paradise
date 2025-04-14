@@ -153,6 +153,7 @@ GLOBAL_LIST_INIT(traits_by_type, list(
 		"TRAIT_VIRUSIMMUNE" = TRAIT_VIRUSIMMUNE,
 		"TRAIT_WATERBREATH"	= TRAIT_WATERBREATH,
 		"TRAIT_WEAK_PULLING" = TRAIT_WEAK_PULLING,
+		"TRAIT_STRONG_PULLING" = TRAIT_STRONG_PULLING,
 		"TRAIT_WINGDINGS" = TRAIT_WINGDINGS,
 		"TRAIT_XENO_HOST" = TRAIT_XENO_HOST,
 		"TRAIT_XRAY" = TRAIT_XRAY,
@@ -212,4 +213,3 @@ GLOBAL_LIST_INIT(movement_type_removetrait_signals, set_movement_type_removetrai
 	for(var/trait in GLOB.movement_type_trait_to_flag)
 		. += SIGNAL_REMOVETRAIT(trait)
 	return .
-

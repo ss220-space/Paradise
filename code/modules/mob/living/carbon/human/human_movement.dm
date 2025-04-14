@@ -83,6 +83,22 @@
 
 			apply_damage(stamina_damage, STAMINA)
 
+		var/strong_arms = FALSE
+		var/speed_mod = 1
+		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_STRONG_PULLING)))
+			strong_arms = TRUE
+
+		if(strong_arms)
+			var/small_pulled = FALSE
+			// Handle pulling all non /obj/item stuff or tiny mobs
+			if(pulling && isliving(pulling))
+				var/mob/living/pulled_mob = pulling
+				if(!pulled_mob.mob_size) // small or bigger mobs
+					small_pulled = TRUE
+
+			if(pulling && !(small_pulled || isitem(pulling)))
+				speed_mod = -0.5
+
 	if(!has_gravity())
 		return .
 
