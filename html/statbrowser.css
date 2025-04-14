@@ -6,13 +6,16 @@
 	--scrollbar-thumb: #a7a7a7;
 }
 
+html, body{
+	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
+}
+
 body {
 	font-family: Verdana, Geneva, Tahoma, sans-serif;
 	font-size: 12px;
 	margin: 0 !important;
 	padding: 0 !important;
 	overflow: hidden;
-	scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-base);
 	box-sizing: border-box;
 }
 
@@ -131,7 +134,7 @@ table {
 #statcontent {
 	flex: 1;
 	padding: 0.75em 0.5em;
-	overflow-y: scroll;
+	overflow-y: auto;
 	overflow-x: hidden;
 }
 
@@ -169,9 +172,8 @@ table {
 }
 
 .grid-item:hover .grid-item-text {
+	height: 100%;
 	overflow: visible;
-	position: absolute;
-	top: -1.33em;
 	white-space: normal;
 	background-color: #ececec;
 }
@@ -228,12 +230,12 @@ table {
  * MARK: Dark
  */
 .dark:root {
-	--scrollbar-base: #181818;
+	--scrollbar-base: #151515;
 	--scrollbar-thumb: #363636;
 }
 
 body.dark {
-	background-color: #131313;
+	background-color: #151515;
 	color: #b2c4dd;
 	scrollbar-base-color: #1c1c1c;
 	scrollbar-face-color: #3b3b3b;
@@ -255,7 +257,7 @@ body.dark {
 }
 
 .dark #menu {
-	background-color: #131313;
+	background-color: #151515;
 }
 
 .dark #menu.tabs-classic .button.active {
