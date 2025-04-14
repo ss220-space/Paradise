@@ -1,30 +1,32 @@
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
 import { clamp } from 'common/math';
-import { pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 
 const DEFAULT_UPDATE_RATE = 400;
-
 /**
  * Reduces screen offset to a single number based on the matrix provided.
  */
 const getScalarScreenOffset = (e, matrix) => {
   return e.screenX * matrix[0] + e.screenY * matrix[1];
 };
-
 export class DraggableControl extends Component {
   constructor(props) {
     super(props);
     this.inputRef = createRef();
     this.state = {
-      originalValue: props.value,
       value: props.value,
       dragging: false,
       editing: false,
+      internalValue: null,
       origin: null,
       suppressingFlicker: false,
     };
-
     // Suppresses flickering while the value propagates through the backend
     this.flickerTimer = null;
     this.suppressFlicker = () => {
@@ -34,16 +36,13 @@ export class DraggableControl extends Component {
           suppressingFlicker: true,
         });
         clearTimeout(this.flickerTimer);
-        this.flickerTimer = setTimeout(
-          () =>
-            this.setState({
-              suppressingFlicker: false,
-            }),
-          suppressFlicker
-        );
+        this.flickerTimer = setTimeout(() => {
+          this.setState({
+            suppressingFlicker: false,
+          });
+        }, suppressFlicker);
       }
     };
-
     this.handleDragStart = (e) => {
       const { value, dragMatrix, disabled } = this.props;
       const { editing } = this.state;
@@ -51,12 +50,12 @@ export class DraggableControl extends Component {
         return;
       }
       document.body.style['pointer-events'] = 'none';
-      this.ref = e.currentTarget;
+      this.ref = e.target;
       this.setState({
-        originalValue: value,
         dragging: false,
-        value,
         origin: getScalarScreenOffset(e, dragMatrix),
+        value,
+        internalValue: value,
       });
       this.timer = setTimeout(() => {
         this.setState({
@@ -73,45 +72,51 @@ export class DraggableControl extends Component {
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
     };
-
     this.handleDragMove = (e) => {
-      const { minValue, maxValue, step, dragMatrix, disabled } = this.props;
+      // prettier-ignore
+      const {
+        minValue,
+        maxValue,
+        step,
+        stepPixelSize,
+        dragMatrix,
+        disabled
+      } = this.props;
       if (disabled) {
         return;
       }
-      const defaultStepPixelSize =
-        this.ref.offsetWidth / ((maxValue - minValue) / step);
-      let stepPixelSize = this.props.stepPixelSize ?? defaultStepPixelSize;
-      if (typeof stepPixelSize === 'function') {
-        stepPixelSize = stepPixelSize(defaultStepPixelSize);
-      }
       this.setState((prevState) => {
         const state = { ...prevState };
-        const origin = prevState.origin;
-        const offset = getScalarScreenOffset(e, dragMatrix) - origin;
+        const offset = getScalarScreenOffset(e, dragMatrix) - state.origin;
         if (prevState.dragging) {
-          const stepDifference = Math.trunc(offset / stepPixelSize);
+          const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
+          // Translate mouse movement to value
+          // Give it some headroom (by increasing clamp range by 1 step)
+          state.internalValue = clamp(
+            state.internalValue + (offset * step) / stepPixelSize,
+            minValue - step,
+            maxValue + step
+          );
+          // Clamp the final value
           state.value = clamp(
-            Math.floor(state.originalValue / step) * step +
-              stepDifference * step,
+            state.internalValue - (state.internalValue % step) + stepOffset,
             minValue,
             maxValue
           );
+          state.origin = getScalarScreenOffset(e, dragMatrix);
         } else if (Math.abs(offset) > 4) {
           state.dragging = true;
         }
         return state;
       });
     };
-
     this.handleDragEnd = (e) => {
       const { onChange, onDrag } = this.props;
-      const { dragging, value } = this.state;
+      const { dragging, value, internalValue } = this.state;
       document.body.style['pointer-events'] = 'auto';
       clearTimeout(this.timer);
       clearInterval(this.dragInterval);
       this.setState({
-        originalValue: null,
         dragging: false,
         editing: !dragging,
         origin: null,
@@ -128,7 +133,7 @@ export class DraggableControl extends Component {
         }
       } else if (this.inputRef) {
         const input = this.inputRef.current;
-        input.value = value;
+        input.value = internalValue;
         // IE8: Dies when trying to focus a hidden element
         // (Error: Object does not support this action)
         try {
@@ -138,7 +143,6 @@ export class DraggableControl extends Component {
       }
     };
   }
-
   render() {
     const {
       dragging,
@@ -152,6 +156,7 @@ export class DraggableControl extends Component {
       unit,
       minValue,
       maxValue,
+      unclamped,
       format,
       onChange,
       onDrag,
@@ -166,17 +171,17 @@ export class DraggableControl extends Component {
     if (dragging || suppressingFlicker) {
       displayValue = intermediateValue;
     }
-    // Setup a display element
-    // Shows a formatted number based on what we are currently doing
-    // with the draggable surface.
-    const renderDisplayElement = (value) => value + (unit ? ' ' + unit : '');
-    const displayElement =
-      (animated && !dragging && !suppressingFlicker && (
-        <AnimatedNumber value={displayValue} format={format}>
-          {renderDisplayElement}
-        </AnimatedNumber>
-      )) ||
-      renderDisplayElement(format ? format(displayValue) : displayValue);
+    // prettier-ignore
+    const displayElement = (
+      <>
+        {
+          (animated && !dragging && !suppressingFlicker) ?
+            (<AnimatedNumber value={displayValue} format={format} />) :
+            (format ? format(displayValue) : displayValue)
+        }
+        { (unit ? ' ' + unit : '') }
+      </>
+    );
     // Setup an input element
     // Handles direct input via the keyboard
     const inputElement = (
@@ -186,14 +191,19 @@ export class DraggableControl extends Component {
         style={{
           display: !editing || disabled ? 'none' : undefined,
           height: height,
-          'line-height': lineHeight,
-          'font-size': fontSize,
+          lineHeight: lineHeight,
+          fontsize: fontSize,
         }}
         onBlur={(e) => {
           if (!editing) {
             return;
           }
-          const value = clamp(parseFloat(e.target.value), minValue, maxValue);
+          let value;
+          if (unclamped) {
+            value = parseFloat(e.target.value);
+          } else {
+            value = clamp(parseFloat(e.target.value), minValue, maxValue);
+          }
           if (Number.isNaN(value)) {
             this.setState({
               editing: false,
@@ -214,7 +224,12 @@ export class DraggableControl extends Component {
         }}
         onKeyDown={(e) => {
           if (e.keyCode === 13) {
-            const value = clamp(parseFloat(e.target.value), minValue, maxValue);
+            let value;
+            if (unclamped) {
+              value = parseFloat(e.target.value);
+            } else {
+              value = clamp(parseFloat(e.target.value), minValue, maxValue);
+            }
             if (Number.isNaN(value)) {
               this.setState({
                 editing: false,
@@ -257,11 +272,11 @@ export class DraggableControl extends Component {
   }
 }
 
-DraggableControl.defaultHooks = pureComponentHooks;
 DraggableControl.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,
   step: 1,
+  stepPixelSize: 1,
   suppressFlicker: 50,
   dragMatrix: [1, 0],
 };

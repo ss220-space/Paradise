@@ -72,7 +72,7 @@ type Props = Partial<{
 }> &
   BoxProps;
 
-export const ImageButtonTS = (props: Props) => {
+export const ImageButton = (props: Props) => {
   const {
     asset,
     base64,

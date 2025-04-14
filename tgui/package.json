@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "tgui-workspace",
-  "version": "4.5.1-paradise",
+  "version": "5.0.0",
   "packageManager": "yarn@4.3.1",
   "workspaces": [
     "packages/*"
@@ -12,6 +12,7 @@
     "@babel/plugin-transform-class-properties": "^7.24.7",
     "@babel/plugin-transform-jscript": "^7.24.7",
     "@babel/preset-env": "^7.24.8",
+    "@babel/preset-react": "^7.23.3",
     "@babel/preset-typescript": "^7.24.7",
     "@eslint/compat": "^1.1.1",
     "@eslint/eslintrc": "^3.1.0",
@@ -24,7 +25,6 @@
     "@typescript-eslint/parser": "^8.0.0-alpha",
     "babel-jest": "^29.7.0",
     "babel-loader": "^8.3.0",
-    "babel-plugin-inferno": "^6.7.1",
     "babel-plugin-transform-remove-console": "^6.9.4",
     "common": "workspace:*",
     "css-loader": "^7.1.2",
@@ -33,6 +33,7 @@
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "5.2.1",
     "eslint-plugin-react": "^7.35.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "eslint-plugin-unused-imports": "^4.0.0",
     "file-loader": "^6.2.0",
     "globals": "^15.8.0",

@@ -4,15 +4,12 @@
  * @license MIT
  */
 
-import { classes, pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
 import { KEY_ENTER, KEY_ESCAPE, KEY_SPACE } from 'common/keycodes';
-import { createLogger } from '../logging';
-import { Box } from './Box';
+import { classes } from 'common/react';
+import { Component, createRef } from 'react';
+import { Box, computeBoxClassName, computeBoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
-
-const logger = createLogger('Button');
 
 export const Button = (props) => {
   const {
@@ -20,7 +17,10 @@ export const Button = (props) => {
     fluid,
     icon,
     iconRotation,
+    multiLine,
     iconSpin,
+    iconColor,
+    iconStyle,
     color,
     textColor,
     disabled,
@@ -31,32 +31,21 @@ export const Button = (props) => {
     compact,
     circular,
     content,
-    iconColor,
-    iconRight,
-    iconStyle,
     children,
-    onclick,
     onClick,
-    multiLine,
+    verticalAlignContent,
     ...rest
   } = props;
   const hasContent = !!(content || children);
-  // A warning about the lowercase onclick
-  if (onclick) {
-    logger.warn(
-      `Lowercase 'onclick' is not supported on Button and lowercase` +
-        ` prop names are discouraged in general. Please use a camelCase` +
-        `'onClick' instead and read: ` +
-        `https://infernojs.org/docs/guides/event-handling`
-    );
-  }
+
   rest.onClick = (e) => {
     if (!disabled && onClick) {
       onClick(e);
     }
   };
+
   let buttonContent = (
-    <Box
+    <div
       className={classes([
         'Button',
         fluid && 'Button--fluid',
@@ -68,14 +57,22 @@ export const Button = (props) => {
         compact && 'Button--compact',
         iconRight && 'Button--iconRight',
         multiLine && 'Button--multiLine',
+        verticalAlignContent && 'Button--flex',
+        verticalAlignContent && fluid && 'Button--flex--fluid',
+        verticalAlignContent &&
+          'Button--verticalAlignContent--' + verticalAlignContent,
         color && typeof color === 'string'
           ? 'Button--color--' + color
           : 'Button--color--default',
         className,
+        computeBoxClassName(rest),
       ])}
       tabIndex={!disabled && '0'}
       color={textColor}
       onKeyDown={(e) => {
+        if (props.captureKeys === false) {
+          return;
+        }
         const keyCode = window.event ? e.which : e.keyCode;
         // Simulate a click when pressing space or enter.
         if (keyCode === KEY_SPACE || keyCode === KEY_ENTER) {
@@ -91,31 +88,32 @@ export const Button = (props) => {
           return;
         }
       }}
-      {...rest}
+      {...computeBoxProps(rest)}
     >
-      {icon && !iconRight && (
-        <Icon
-          name={icon}
-          color={iconColor}
-          rotation={iconRotation}
-          spin={iconSpin}
-          style={iconStyle}
-        />
-      )}
-      {content}
-      {children}
-      {icon && iconRight && (
-        <Icon
-          name={icon}
-          color={iconColor}
-          rotation={iconRotation}
-          spin={iconSpin}
-          style={iconStyle}
-        />
-      )}
-    </Box>
+      <div className="Button__content">
+        {icon && iconRight && (
+          <Icon
+            name={icon}
+            color={iconColor}
+            rotation={iconRotation}
+            spin={iconSpin}
+            style={iconStyle}
+          />
+        )}
+        {content}
+        {children}
+        {icon && iconRight && (
+          <Icon
+            name={icon}
+            color={iconColor}
+            rotation={iconRotation}
+            spin={iconSpin}
+            style={iconStyle}
+          />
+        )}
+      </div>
+    </div>
   );
-
   if (tooltip) {
     buttonContent = (
       <Tooltip content={tooltip} position={tooltipPosition}>
@@ -123,11 +121,8 @@ export const Button = (props) => {
       </Tooltip>
     );
   }
-
   return buttonContent;
 };
-
-Button.defaultHooks = pureComponentHooks;
 
 export const ButtonCheckbox = (props) => {
   const { checked, ...rest } = props;
@@ -140,12 +135,11 @@ export const ButtonCheckbox = (props) => {
     />
   );
 };
-
 Button.Checkbox = ButtonCheckbox;
 
 export class ButtonConfirm extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       clickedOnce: false,
     };
@@ -155,7 +149,6 @@ export class ButtonConfirm extends Component {
       }
     };
   }
-
   setClickedOnce(clickedOnce) {
     this.setState({
       clickedOnce,
@@ -166,7 +159,6 @@ export class ButtonConfirm extends Component {
       window.removeEventListener('click', this.handleClick);
     }
   }
-
   render() {
     const {
       confirmContent = 'Подтвердить?',
@@ -191,18 +183,16 @@ export class ButtonConfirm extends Component {
     );
   }
 }
-
 Button.Confirm = ButtonConfirm;
 
 export class ButtonInput extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.inputRef = createRef();
     this.state = {
       inInput: false,
     };
   }
-
   setInInput(inInput) {
     const { disabled } = this.props;
     if (disabled) {
@@ -222,7 +212,6 @@ export class ButtonInput extends Component {
       }
     }
   }
-
   commitResult(e) {
     if (this.inputRef) {
       const input = this.inputRef.current;
@@ -238,7 +227,6 @@ export class ButtonInput extends Component {
       }
     }
   }
-
   render() {
     const {
       fluid,
@@ -255,7 +243,6 @@ export class ButtonInput extends Component {
       multiLine,
       ...rest
     } = this.props;
-
     let buttonContent = (
       <div
         className={classes([
@@ -276,8 +263,8 @@ export class ButtonInput extends Component {
           ref={this.inputRef}
           className="NumberInput__input"
           style={{
-            'display': !this.state.inInput ? 'none' : undefined,
-            'text-align': 'left',
+            display: !this.state.inInput ? 'none' : '',
+            textAlign: 'left',
           }}
           onBlur={(e) => {
             if (!this.state.inInput) {
@@ -299,7 +286,6 @@ export class ButtonInput extends Component {
         />
       </div>
     );
-
     if (tooltip) {
       buttonContent = (
         <Tooltip content={tooltip} position={tooltipPosition}>
@@ -307,9 +293,56 @@ export class ButtonInput extends Component {
         </Tooltip>
       );
     }
-
     return buttonContent;
   }
 }
-
 Button.Input = ButtonInput;
+
+export class ButtonFile extends Component {
+  constructor(props) {
+    super(props);
+    this.inputRef = createRef();
+  }
+
+  async read(files) {
+    const promises = Array.from(files).map((file) => {
+      let reader = new FileReader();
+      return new Promise((resolve) => {
+        reader.onload = () => resolve(reader.result);
+        reader.readAsText(file);
+      });
+    });
+    return await Promise.all(promises);
+  }
+  render() {
+    const { onSelectFiles, accept, multiple, ...rest } = this.props;
+    const filePicker = (
+      <input
+        hidden
+        type="file"
+        ref={this.inputRef}
+        accept={accept}
+        multiple={multiple}
+        onChange={async () => {
+          const files = this.inputRef.current.files;
+          if (files.length) {
+            const readFiles = await this.read(files);
+            onSelectFiles(multiple ? readFiles : readFiles[0]);
+          }
+        }}
+      />
+    );
+    return (
+      <>
+        <Button
+          {...rest}
+          onClick={() => {
+            this.inputRef.current.click();
+          }}
+        />
+        {filePicker}
+      </>
+    );
+  }
+}
+Button.File = ButtonFile;

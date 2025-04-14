@@ -167,8 +167,8 @@
 					category += "_[cat]"
 				else
 					category = cat
-
-		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = path2assetID(path), "path" = path, "emagOnly" = item.emag_only)
+		var/obj/mecha/item_path = path
+		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = item_path.icon, "icon_state" = item_path.icon_state, "path" = path, "emagOnly" = item.emag_only)
 		newshop[category] += list(newitem)
 		qdel(item)
 
@@ -227,12 +227,6 @@
 	data["cats"] = CATS_BY_STAGE
 	data["shopItems"] = shop_items
 	return data
-
-/obj/machinery/computer/roboquest/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/roboquest),
-		get_asset_datum(/datum/asset/spritesheet/roboquest_large)
-	)
 
 /obj/machinery/computer/roboquest/ui_act(action, list/params, datum/tgui/ui)
 	if(..())

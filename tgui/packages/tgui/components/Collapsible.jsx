@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { Box } from './Box';
 import { Button } from './Button';
 
@@ -16,7 +16,6 @@ export class Collapsible extends Component {
       open: open || false,
     };
   }
-
   render() {
     const { props } = this;
     const { open } = this.state;

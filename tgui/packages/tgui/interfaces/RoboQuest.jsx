@@ -362,15 +362,15 @@ export const RoboQuest = (props) => {
                         key={i.name}
                         asset
                         color="purple"
-                        image={i.icon}
-                        imageAsset="roboquest64x64"
+                        dmIcon={i.icon}
+                        dmIconState={i.icon_state}
                         title={
                           <Box nowrap inline>
                             {i.name}{' '}
                             <b style={{ color: 'purple' }}>{i.cost.robo}</b>
                           </Box>
                         }
-                        content={i.desc}
+                        buttons={i.desc}
                         onClick={() =>
                           act('buyItem', {
                             item: i.path,

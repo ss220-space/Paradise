@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
@@ -23,9 +23,9 @@ import {
 import { MESSAGE_TYPES } from './constants';
 import { selectCurrentChatPage } from './selectors';
 
-export const ChatPageSettings = (props, context) => {
-  const page = useSelector(context, selectCurrentChatPage);
-  const dispatch = useDispatch(context);
+export const ChatPageSettings = (props) => {
+  const page = useSelector(selectCurrentChatPage);
+  const dispatch = useDispatch();
   return (
     <Section fill>
       <Stack align="center">

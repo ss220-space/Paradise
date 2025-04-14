@@ -26,7 +26,6 @@ export { Image } from './Image';
 export { Interactive } from './Interactive';
 export { Icon } from './Icon';
 export { ImageButton } from './ImageButton';
-export { ImageButtonTS } from './ImageButtonTS';
 export { Input } from './Input';
 export { Knob } from './Knob';
 export { LabeledControls } from './LabeledControls';

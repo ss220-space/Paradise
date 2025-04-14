@@ -4,7 +4,7 @@ import {
   Box,
   Dimmer,
   Dropdown,
-  ImageButtonTS,
+  ImageButton,
   Button,
   Input,
   Section,
@@ -268,7 +268,7 @@ const LoadoutGears = (props) => {
         );
 
         return (
-          <ImageButtonTS
+          <ImageButton
             key={key}
             m={0.5}
             imageSize={84}
@@ -289,7 +289,7 @@ const LoadoutGears = (props) => {
             onClick={() => act('toggle_gear', { gear: gear.index_name })}
           >
             {gear.name}
-          </ImageButtonTS>
+          </ImageButton>
         );
       })}
     </Section>
@@ -330,7 +330,7 @@ const LoadoutEquipped = (props) => {
           {selectedGears.map((gear) => {
             let gear_data = data.selected_gears[gear.key];
             return (
-              <ImageButtonTS
+              <ImageButton
                 key={gear.key}
                 fluid
                 imageSize={48}
@@ -367,7 +367,7 @@ const LoadoutEquipped = (props) => {
                 }
               >
                 {gear_data['name'] ? gear_data['name'] : gear.name}
-              </ImageButtonTS>
+              </ImageButton>
             );
           })}
         </Section>

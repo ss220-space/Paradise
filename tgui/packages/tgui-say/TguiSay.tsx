@@ -1,6 +1,6 @@
 import { Channel, ChannelIterator } from './ChannelIterator';
 import { ChatHistory } from './ChatHistory';
-import { Component, createRef, InfernoKeyboardEvent, RefObject } from 'inferno';
+import { Component, createRef, RefObject } from 'react';
 import { LINE_LENGTHS, RADIO_PREFIXES, WINDOW_SIZES } from './constants';
 import { byondMessages } from './timers';
 import { dragStartHandler } from 'tgui/drag';
@@ -268,7 +268,7 @@ export class TguiSay extends Component<{}, State> {
     this.setValue(typed.slice(3));
   }
 
-  handleKeyDown(event: InfernoKeyboardEvent<HTMLTextAreaElement>) {
+  handleKeyDown(event) {
     switch (event.key) {
       case KEY.Up:
       case KEY.Down:
@@ -377,15 +377,14 @@ export class TguiSay extends Component<{}, State> {
     return (
       <div
         className={`window window-${theme} window-${this.state.size}`}
-        $HasKeyedChildren
         style={{
           zoom: this.scale ? '' : `${100 / window.devicePixelRatio}%`,
         }}
       >
         <Dragzone position="top" theme={theme} />
-        <div className="center" $HasKeyedChildren>
+        <div className="center">
           <Dragzone position="left" theme={theme} />
-          <div className="input" $HasKeyedChildren>
+          <div className="input">
             <button
               className={`button button-${theme}`}
               onMouseDown={this.handleButtonClick}
@@ -421,7 +420,7 @@ const Dragzone = ({ theme, position }: { theme: string; position: string }) => {
   return (
     <div
       className={`dragzone-${location} dragzone-${position} dragzone-${theme}`}
-      onmousedown={dragStartHandler}
+      onMouseDown={dragStartHandler}
     />
   );
 };

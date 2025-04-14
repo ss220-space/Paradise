@@ -1,7 +1,7 @@
 import { capitalize } from 'common/string';
 import { toFixed } from 'common/math';
 import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Input,
@@ -16,10 +16,10 @@ import { updateSettings } from './actions';
 import { FONTS } from './constants';
 import { selectSettings } from './selectors';
 
-export const SettingsStatPanel = (props, context) => {
+export const SettingsStatPanel = (props) => {
   const { statLinked, statFontSize, statFontFamily, statTabsStyle } =
-    useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
 
   const TabsViews = ['default', 'classic', 'scrollable'];
   const LinkedToChat = () => (
@@ -28,11 +28,7 @@ export const SettingsStatPanel = (props, context) => {
     </NoticeBox>
   );
 
-  const [freeStatFont, setFreeStatFont] = useLocalState(
-    context,
-    'freeStatFont',
-    false
-  );
+  const [freeStatFont, setFreeStatFont] = useLocalState('freeStatFont', false);
 
   return (
     <Section fill>

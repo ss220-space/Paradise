@@ -167,20 +167,24 @@ export const AgentCardAppearances = (props) => {
   const { appearances } = data;
   return (
     <Section fill title="Card Appearance">
-      {appearances.map((appearance_unit) => (
+      {appearances.map((appearance) => (
         <ImageButton
-          key={appearance_unit}
-          tooltip={appearance_unit}
-          vertical
-          asset
-          style={{ 'margin': '1px' }}
-          image={appearance_unit}
-          imageAsset={'id_card64x64'}
-          onclick={() =>
-            act('change_appearance_new', {
-              new_appearance: appearance_unit,
-            })
-          }
+          key={appearance}
+          dmIcon={id_icon}
+          dmIconState={appearance}
+          imageSize={64}
+          compact
+          selected={appearance === selectedAppearance}
+          tooltip={appearance}
+          style={{
+            opacity: (appearance === selectedAppearance && '1') || '0.5',
+          }}
+          onClick={() => {
+            setSelectedAppearance(appearance);
+            act('change_appearance', {
+              new_appearance: appearance,
+            });
+          }}
         />
       ))}
     </Section>

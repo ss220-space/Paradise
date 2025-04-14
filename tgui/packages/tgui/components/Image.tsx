@@ -1,4 +1,5 @@
-import { Component } from 'inferno';
+import { useRef } from 'react';
+
 import { BoxProps, computeBoxProps } from './Box';
 
 type Props = Partial<{
@@ -11,7 +12,6 @@ type Props = Partial<{
 }> &
   IconUnion &
   BoxProps;
-
 // at least one of these is required
 type IconUnion =
   | {
@@ -26,45 +26,40 @@ type IconUnion =
 const maxAttempts = 5;
 
 /** Image component. Use this instead of Box as="img". */
-export class Image extends Component<Props> {
-  attempts: number = 0;
+export const Image = (props: Props) => {
+  const {
+    fixBlur = true,
+    fixErrors = false,
+    objectFit = 'fill',
+    src,
+    ...rest
+  } = props;
+  const attempts = useRef(0);
 
-  handleError = (event) => {
-    const { fixErrors, src } = this.props;
-    if (fixErrors && this.attempts < maxAttempts) {
+  const computedProps = computeBoxProps(rest);
+  /* Remove -ms-interpolation-mode with Byond 516. -webkit-optimize-contrast is better than pixelated */
+  computedProps['style'] = {
+    ...computedProps.style,
+    '-ms-interpolation-mode': fixBlur ? 'nearest-neighbor' : 'auto',
+    'image-rendering': `${fixBlur ? 'pixelated' : 'auto'}`,
+    objectFit: `${objectFit}`,
+  };
+
+  const handleError = (event) => {
+    if (fixErrors && attempts.current < maxAttempts) {
       const imgElement = event.currentTarget;
 
       setTimeout(() => {
-        imgElement.src = `${src}?attempt=${this.attempts}`;
-        this.attempts++;
+        imgElement.src = `${src}?attempt=${attempts.current}`;
+        attempts.current++;
       }, 1000);
     }
   };
 
-  render() {
-    const {
-      fixBlur = true,
-      fixErrors = false,
-      objectFit = 'fill',
-      src,
-      ...rest
-    } = this.props;
-
-    /* Remove -ms-interpolation-mode with Byond 516. -webkit-optimize-contrast is better than pixelated */
-    const computedProps = computeBoxProps({
-      style: {
-        '-ms-interpolation-mode': `${fixBlur ? 'nearest-neighbor' : 'auto'}`,
-        'image-rendering': `${fixBlur ? 'pixelated' : 'auto'}`,
-        'object-fit': `${objectFit}`,
-      },
-      ...rest,
-    });
-
-    /* Use div instead img if used asset, cause img with class leaves white border on 516 */
-    if (computedProps.className) {
-      return <div onError={this.handleError} {...computedProps} />;
-    }
-
-    return <img onError={this.handleError} src={src} {...computedProps} />;
+  /* Use div instead img if used asset, cause img with class leaves white border on 516 */
+  if (computedProps.className) {
+    return <div onError={handleError} {...computedProps} />;
   }
-}
+
+  return <img onError={handleError} src={src} {...computedProps} />;
+};
