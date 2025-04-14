@@ -11907,9 +11907,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "lavalandtele1";
-	id = "matlatele1"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 4;
+	teleport_x = 4;
+	teleport_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -45387,9 +45390,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "lavalandtele2";
-	id = "matlatele2"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 4;
+	teleport_x = 5;
+	teleport_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -50112,9 +50118,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "lavalandtele3";
-	id = "matlatele3"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 4;
+	teleport_x = 6;
+	teleport_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
