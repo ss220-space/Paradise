@@ -29,8 +29,8 @@ type PresetButtonsProps = {
   getPresets: () => void;
 };
 
-const PresetButtons = (props: PresetButtonsProps, context) => {
-  const { data } = useBackend<PodLauncherData>(context);
+const PresetButtons = (props: PresetButtonsProps) => {
+  const { data } = useBackend<PodLauncherData>();
   const {
     editing,
     deletePreset,
@@ -86,13 +86,13 @@ const PresetButtons = (props: PresetButtonsProps, context) => {
   );
 };
 
-export const PresetsPage = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [editing, setEditing] = useLocalState(context, 'editing', false);
-  const [hue, setHue] = useLocalState(context, 'hue', 0);
-  const [name, setName] = useLocalState(context, 'name', '');
-  const [presetID, setPresetID] = useLocalState(context, 'presetID', 0);
-  const [presets, setPresets] = useLocalState<Preset[]>(context, 'presets', []);
+export const PresetsPage = (props) => {
+  const { act, data } = useBackend();
+  const [editing, setEditing] = useLocalState('editing', false);
+  const [hue, setHue] = useLocalState('hue', 0);
+  const [name, setName] = useLocalState('name', '');
+  const [presetID, setPresetID] = useLocalState('presetID', 0);
+  const [presets, setPresets] = useLocalState<Preset[]>('presets', []);
   const deletePreset = async (deleteID: number) => {
     const newPresets: any[] = [...presets];
     for (let i = 0; i < presets.length; i++) {

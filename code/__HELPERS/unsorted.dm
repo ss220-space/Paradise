@@ -368,9 +368,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/get_mob_by_ckey(key)
 	if(!key)
 		return
-	for(var/mob/M in GLOB.mob_list)
-		if(M.ckey == key)
-			return M
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.ckey != key)
+			continue
+		
+		return mob
+
+	for(var/mob/mob as anything in GLOB.left_player_list)
+		if(mob.ckey != key)
+			continue
+
+		return mob
 
 /proc/get_client_by_ckey(ckey)
 	if(cmptext(copytext(ckey, 1, 2),"@"))
@@ -1290,11 +1299,12 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 		M.ghost_orbiting -= 1
 
 	SEND_SIGNAL(orbiting, COMSIG_ATOM_ORBIT_STOP, src)
-
 	LAZYREMOVE(orbiting.orbiters, src)
 	orbiting = null
 	transform = cached_transform
 	SpinAnimation(0, 0, parallel = FALSE)
+	// После, потому что сначало надо занулить orbiting дабы худ показался ЧИСТЫЙ
+	SEND_SIGNAL(src, COMSIG_ORBITER_ORBIT_STOP)
 
 
 //Centers an image.

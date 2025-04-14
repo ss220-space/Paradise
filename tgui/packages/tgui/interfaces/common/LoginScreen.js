@@ -23,10 +23,9 @@ import { Box, Button, Flex, Icon, Section } from '../../components';
  * The normal login button is only available when `loginState.id` is not null.
  * The AI, robot and admin login buttons are only visible if the user is one
  * @param {object} _properties
- * @param {object} context
  */
-export const LoginScreen = (_properties, context) => {
-  const { act, data } = useBackend(context);
+export const LoginScreen = (_properties) => {
+  const { act, data } = useBackend();
   const { loginState, isAI, isRobot, isAdmin } = data;
   return (
     <Section title="Добро пожаловать" fill stretchContents>

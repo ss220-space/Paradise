@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Button } from '../../components';
 
-export const pai_advsecrecords = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_advsecrecords = (props) => {
+  const { act, data } = useBackend();
 
   return (
     <LabeledList>

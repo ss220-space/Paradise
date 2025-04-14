@@ -19,8 +19,8 @@ enum DIRECTION {
   Increment = 1,
   Decrement = -1,
 }
-export const AlertModal = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+export const AlertModal = (props) => {
+  const { act, data } = useBackend<Data>();
   const {
     autofocus,
     buttons = [],
@@ -30,7 +30,7 @@ export const AlertModal = (props, context) => {
     title,
   } = data;
 
-  const [selected, setSelected] = useLocalState<number>(context, 'selected', 0);
+  const [selected, setSelected] = useLocalState<number>('selected', 0);
 
   // At least one of the buttons has a long text message
   const isVerbose = buttons.some((button) => button.length > 10);
@@ -112,8 +112,8 @@ type ButtonDisplayProps = {
  * Technically this handles more than 2 buttons, but you
  * should just be using a list input in that case.
  */
-const HorizontalButtons = (props: ButtonDisplayProps, context) => {
-  const { act, data } = useBackend<Data>(context);
+const HorizontalButtons = (props: ButtonDisplayProps) => {
+  const { act, data } = useBackend<Data>();
   const { buttons = [], large_buttons, swapped_buttons } = data;
   const { selected } = props;
 
@@ -143,8 +143,8 @@ const HorizontalButtons = (props: ButtonDisplayProps, context) => {
  * Technically the parent handles more than 2 buttons, but you
  * should just be using a list input in that case.
  */
-const VerticalButtons = (props: ButtonDisplayProps, context) => {
-  const { act, data } = useBackend<Data>(context);
+const VerticalButtons = (props: ButtonDisplayProps) => {
+  const { act, data } = useBackend<Data>();
   const { buttons = [], large_buttons, swapped_buttons } = data;
   const { selected } = props;
 

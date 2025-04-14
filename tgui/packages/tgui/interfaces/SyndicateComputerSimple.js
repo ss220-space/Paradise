@@ -10,8 +10,8 @@ import {
 import { LabeledListItem } from '../components/LabeledList';
 import { Window } from '../layouts';
 
-export const SyndicateComputerSimple = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SyndicateComputerSimple = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={400} height={400} theme="syndicate">
       <Window.Content>

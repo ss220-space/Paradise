@@ -327,7 +327,7 @@
 	log_client_to_db(tdata)
 	. = ..()	//calls mob.Login()
 
-
+	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
 	if(ckey in GLOB.clientmessages)
 		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
@@ -355,7 +355,7 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."), confidential=TRUE)
-		winset(src, "rpane.changelog", "font-style=bold")
+		winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
@@ -1103,6 +1103,19 @@
 	set hidden = TRUE
 	client_reset_held_keys()
 
+/// Clears the client's screen, aside from ones that opt out
+/client/proc/clear_screen()
+	for(var/object in screen)
+		if(istype(object, /atom/movable/screen))
+			var/atom/movable/screen/screen_object = object
+			if(!screen_object.clear_with_screen)
+				continue
+		if( istype(object, /atom/movable/render_plane_relay) || \
+			istype(object, /atom/movable/screen/parallax_layer) || \
+			istype(object, /atom/movable/screen/plane_master/))
+			continue
+
+		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
@@ -1380,6 +1393,13 @@
 		return
 	var/atom/old_eye = eye
 	eye = new_eye
+
+	for(var/mob/dead/observer/observe in mob.orbiters)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(mob.orbiters, observe)
+			continue
+		observe.client.eye = new_eye
+
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
@@ -1530,6 +1550,15 @@
 			target.reagents.add_reagent(chosen_id, amount)
 			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
 
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

@@ -15977,6 +15977,9 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 6
 	},
+/obj/structure/closet/sechammercabinet{
+	pixel_x = -32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -19141,15 +19144,6 @@
 	icon_state = "brownfull"
 	},
 /area/teleporter/quantum/engi)
-"czI" = (
-/obj/structure/closet/sechammercabinet{
-	pixel_x = 30
-	},
-/turf/simulated/floor/plasteel{
-	dir = 4;
-	icon_state = "darkred"
-	},
-/area/security/armory)
 "czK" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -61896,6 +61890,11 @@
 	},
 /turf/simulated/floor/plating,
 /area/bridge)
+"kwJ" = (
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/miningdock)
 "kwK" = (
 /obj/machinery/camera{
 	c_tag = "Brig General Population West";
@@ -102769,6 +102768,13 @@
 /obj/structure/lattice,
 /turf/space/openspace,
 /area/space)
+"swU" = (
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel{
+	icon_state = "brownfull"
+	},
+/area/quartermaster/miningdock)
 "swV" = (
 /obj/structure/table/glass,
 /obj/item/hemostat,
@@ -256123,7 +256129,7 @@ oqZ
 aeM
 tqz
 fhT
-uVl
+swU
 pLB
 uVl
 ipH
@@ -256380,7 +256386,7 @@ oqZ
 oqZ
 tYZ
 lwQ
-hMU
+kwJ
 qiz
 hMU
 ePS
@@ -285678,7 +285684,7 @@ rmd
 puS
 pus
 nxd
-czI
+iWY
 gRJ
 pNG
 aeM

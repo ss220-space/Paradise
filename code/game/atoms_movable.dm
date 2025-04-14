@@ -263,6 +263,7 @@
 
 //Handles special effects on teleporting. Overload for some items if you want to do so.
 /atom/movable/proc/on_teleported()
+	SEND_SIGNAL(src, COMSIG_ATOM_TELEPORT_ACT)
 	return
 
 

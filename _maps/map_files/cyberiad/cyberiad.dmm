@@ -61681,7 +61681,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "hzs" = (
@@ -68015,6 +68015,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "lRb" = (
@@ -70197,9 +70198,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "niQ" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"

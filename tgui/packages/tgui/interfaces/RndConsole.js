@@ -31,8 +31,8 @@ export const SUBMENU = {
   SETTINGS_DEVICES: 1,
 };
 
-export const RndConsole = (properties, context) => {
-  const { data } = useBackend(context);
+export const RndConsole = (properties) => {
+  const { data } = useBackend();
   const { wait_message } = data;
 
   return (

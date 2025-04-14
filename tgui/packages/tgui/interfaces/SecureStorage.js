@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Section, Button, Flex, LabeledList } from '../components';
 import { Window } from '../layouts';
 
-export const SecureStorage = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SecureStorage = (props) => {
+  const { act, data } = useBackend();
   const { emagged, locked, l_set, l_setshort, current_code } = data;
 
   const SafeButton = ({ buttonValue, color }) => {

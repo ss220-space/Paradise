@@ -94,7 +94,7 @@
 	..()
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !in_range(loc, usr))
-		usr << browse(null, "window=radio")
+		close_window(usr, "radio")
 		onclose(usr, "radio")
 		return
 

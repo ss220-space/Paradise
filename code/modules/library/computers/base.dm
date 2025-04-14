@@ -22,7 +22,7 @@
 	if(!Adjacent(user))
 		if(!issilicon(user) && !isobserver(user))
 			user.unset_machine()
-			user << browse(null, "window=library")
+			close_window(user, "library")
 			return 1
 
 	user.set_machine(src)

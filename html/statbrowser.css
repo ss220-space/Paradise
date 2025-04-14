@@ -17,7 +17,6 @@ body {
 }
 
 a {
-	cursor: pointer;
 	color: #003399;
 	text-decoration: none;
 }
@@ -70,12 +69,11 @@ table {
 }
 
 #menu.tabs-classic .button {
-	min-width: 3em;
-	min-height: auto;
-	line-height: 1.667em;
+	min-width: 2em;
 	margin: 0.1em;
+	padding: 0.25em 0.4em;
 	border: 0;
-	border-radius: 0.16em;
+	border-radius: 0.25em;
 }
 
 #menu.tabs-classic .button.active {
@@ -88,18 +86,17 @@ table {
 }
 
 .button {
-	display: inline-flex;
-	align-items: center;
-	flex-shrink: 0;
+	display: inline-table;
 	cursor: pointer;
 	user-select: none;
 	-ms-user-select: none; /* Remove after Byond 516 */
 	text-align: center;
-	white-space: nowrap;
-	min-width: 4em;
-	min-height: 2.25em;
+	font-size: 1em;
+	min-width: 2.9em;
+	padding: 0.5em 0.5em 0.4em;
+	background-color: transparent;
 	color: rgba(0, 0, 0, 0.5);
-	border-top: 0.1667em solid transparent;
+	border: 0;
 	border-bottom: 0.1667em solid transparent;
 	border-radius: 0.25em 0.25em 0 0;
 }
@@ -112,6 +109,7 @@ table {
 .button:hover {
 	background-color: #ececec;
 }
+
 
 .button.active {
 	cursor: default;
@@ -132,7 +130,7 @@ table {
 
 #statcontent {
 	flex: 1;
-	padding: 0.5em;
+	padding: 0.75em 0.5em;
 	overflow-y: scroll;
 	overflow-x: hidden;
 }
@@ -163,19 +161,23 @@ table {
 	display: inline-block;
 	overflow: hidden;
 	text-overflow: ellipsis;
-	white-space: nowrap;
 	pointer-events: none;
+	white-space: nowrap;
 	width: 100%;
 	padding: 0.33em 0.5em;
 	border-radius: 0.25em;
 }
 
-.grid-item:hover .grid-item-text,
-.grid-item:active .grid-item-text {
-	height: 100%;
+.grid-item:hover .grid-item-text {
 	overflow: visible;
+	position: absolute;
+	top: -1.33em;
 	white-space: normal;
 	background-color: #ececec;
+}
+
+.grid-item:active .grid-item-text  {
+	background-color: #dfdfdf;
 }
 
 @media only screen and (min-width: 300px) {
@@ -207,6 +209,15 @@ table {
 	align-items: center;
 	cursor: pointer;
 	border-radius: 0.25em;
+}
+
+.status-info {
+	margin: 0 0.33em 0.25em;
+}
+
+.interview_panel_stats,
+.interview_panel_controls {
+	margin-bottom: 1em;
 }
 
 .listedturf_link:hover {
@@ -259,7 +270,7 @@ body.dark {
 	background-color: #252525;
 }
 
-.dark .button.active {
+.dark .button.active  {
 	background-color: #313131;
 	color: #d4dfec;
 	border-bottom-color: #d4dfec;
@@ -270,20 +281,21 @@ body.dark {
 	background-color: #202020;
 }
 
-.dark .grid-item .grid-item-text {
+.dark .grid-item{
 	color: #b2c4dd;
 }
 
-.dark .grid-item:hover .grid-item-text,
-.dark .grid-item:active .grid-item-text {
+.dark .grid-item:hover .grid-item-text {
 	background-color: #252525;
-	color: #80bfff;
 }
 
 .dark .listedturf_link:hover {
 	background-color: #252525;
 }
 
+.dark .grid-item:active .grid-item-text {
+	background-color: #313131;
+}
 /**
  * MARK: NTOS
  */

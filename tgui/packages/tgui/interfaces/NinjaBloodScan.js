@@ -10,8 +10,8 @@ import {
 import { FlexItem } from '../components/Flex';
 import { Window } from '../layouts';
 
-export const NinjaBloodScan = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NinjaBloodScan = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={500} height={400} theme="spider_clan">
       <Window.Content className="Layout__content--flexColumn">
@@ -22,8 +22,8 @@ export const NinjaBloodScan = (props, context) => {
   );
 };
 
-const BloodScanMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const BloodScanMenu = (props) => {
+  const { act, data } = useBackend();
   const {
     vialIcons,
     noVialIcon,
@@ -131,8 +131,8 @@ const BloodScanMenu = (props, context) => {
   );
 };
 
-const FakeLoadBar = (properties, context) => {
-  const { data } = useBackend((properties, context));
+const FakeLoadBar = (properties) => {
+  const { data } = useBackend(properties);
   const { progressBar } = data;
   return (
     <Section stretchContents>

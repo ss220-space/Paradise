@@ -4,7 +4,7 @@ import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
 import { Box, Input, Button, Section, LabeledList } from '../../components';
 
-export const SimpleRecords = (props, context) => {
+export const SimpleRecords = (props) => {
   const { records } = props.data;
 
   return (
@@ -18,11 +18,11 @@ export const SimpleRecords = (props, context) => {
   );
 };
 
-const SelectionView = (props, context) => {
-  const { act } = useBackend(context);
+const SelectionView = (props) => {
+  const { act } = useBackend();
   const { recordsList } = props.data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   // Search for peeps
   const SelectMembers = (people, searchText = '') => {
@@ -61,8 +61,8 @@ const SelectionView = (props, context) => {
   );
 };
 
-const RecordView = (props, context) => {
-  const { act } = useBackend(context);
+const RecordView = (props) => {
+  const { act } = useBackend();
   const { records } = props.data;
 
   const { general, medical, security } = records;

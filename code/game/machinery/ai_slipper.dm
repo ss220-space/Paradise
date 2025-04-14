@@ -47,7 +47,7 @@
 	if(locked)
 		if(user.machine == src)
 			user.unset_machine()
-			user << browse(null, "window=ai_slipper")
+			close_window(user, "ai_slipper")
 	else
 		if(user.machine == src)
 			attack_hand(user)
