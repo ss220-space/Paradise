@@ -712,7 +712,7 @@
 	desc = "A special bulky helmet worn by the Blueshield Lieutenant. Has blue highlights and Blueshield`s sign on the chest plate. Heavy armoured, space ready and fire resistant."
 	icon_state = "hardsuit0-blueshield"
 	item_state = "hardsuit0-blueshield"
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 50, "bullet" = 30, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 80)
 	item_color = "blueshield"
 
 /obj/item/clothing/suit/space/hardsuit/blueshield
@@ -720,7 +720,7 @@
 	desc = "A special bulky suit worn by the Blueshield Lieutenant. Has blue highlights and Blueshield`s sign on the chest plate. Heavy armoured, space ready and fire resistant."
 	icon_state = "hardsuit-blueshield"
 	item_state = "hardsuit-blueshield"
-	armor = list("melee" = 40, "bullet" = 20, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 80)
+	armor = list("melee" = 50, "bullet" = 30, "laser" = 30, "energy" = 15, "bomb" = 25, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 80)
 	item_color = "blueshield"
 	allowed = list(/obj/item/gun,/obj/item/flashlight,/obj/item/tank/internals,/obj/item/melee/baton,/obj/item/reagent_containers/spray/pepper,/obj/item/ammo_box,/obj/item/ammo_casing,/obj/item/restraints/handcuffs)
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/blueshield
