@@ -586,13 +586,12 @@
 
 /obj/structure/chair/comfy/mouse/is_buckle_possible(mob/living/target, mob/living/user, force, check_loc)
 	. = ..()
-	if(!ismouse(target))
-		if(!istype(target, /mob/living/simple_animal/mouse/wooly/rep))
-			target.visible_message(
-				span_warning("[target.declent_ru(NOMINATIVE)] слишком велик для [src.declent_ru(GENITIVE)]!"),
-				span_userdanger("[src] слишком мало для вас!"),
-			)
-			return FALSE
+	if(!istype(target, /mob/living/simple_animal/mouse/wooly/rep))
+		target.visible_message(
+			span_warning("[target.declent_ru(NOMINATIVE)] слишком велик для [declent_ru(GENITIVE)]!"),
+			span_userdanger("[src] слишком мало для вас!"),
+		)
+		return FALSE
 
 /obj/structure/chair/comfy/mouse/wrench_act(mob/user, obj/item/I)
 	. = TRUE
