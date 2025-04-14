@@ -28,11 +28,12 @@
 /datum/ai_behavior/basic_melee_attack/goliath
 
 /datum/ai_behavior/basic_melee_attack/goliath/perform(seconds_per_tick, datum/ai_controller/controller, target_key, targeting_strategy_key, hiding_location_key)
+	var/mob/living/pawn = controller.pawn
 	var/mob/living/target = controller.blackboard[target_key]
 	// Interrupt attack chain to use tentacles, unless the target is already tentacled
 	if(isliving(target) && !target.has_status_effect(/datum/status_effect/incapacitating/stun/goliath_tentacled))
 		var/obj/effect/proc_holder/spell/using_action = controller.blackboard[BB_GOLIATH_TENTACLES]
-		if(using_action?.can_cast())
+		if(using_action?.can_cast(pawn, TRUE))
 			finish_action(controller, succeeded = FALSE)
 			return
 	return ..()

@@ -2,6 +2,8 @@
 	var/active = FALSE //Used by toggle based abilities.
 	var/ranged_mousepointer
 	var/mob/ranged_ability_user
+	/// Used on basic mobs to skip stupid mind checks
+	var/can_cast_mindless = FALSE
 
 
 /obj/effect/proc_holder/singularity_act()
@@ -16,10 +18,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /obj/effect/proc_holder/proc/InterceptClickOn(mob/user, params, atom/target)
-	if(user.ranged_ability != src)
-		to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
-		user.ranged_ability.remove_ranged_ability(user)
-		return TRUE //TRUE for failed, FALSE for passed.
+	if(!isnull(user.ranged_ability)) //cursed
+		if(user.ranged_ability != src)
+			to_chat(user, span_warning("<b>[user.ranged_ability.name]</b> has been disabled."))
+			user.ranged_ability.remove_ranged_ability(user)
+			return TRUE //TRUE for failed, FALSE for passed.
 	user.face_atom(target)
 	return FALSE
 
@@ -593,10 +596,11 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 
 
 /obj/effect/proc_holder/spell/proc/can_cast(mob/user = usr, charge_check = TRUE, show_message = FALSE)
-	if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
-		if(show_message)
-			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
-		return FALSE
+	if(!can_cast_mindless)
+		if((!user.mind || !LAZYIN(user.mind.spell_list, src)) && !LAZYIN(user.mob_spell_list, src))
+			if(show_message)
+				to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
+			return FALSE
 
 	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE

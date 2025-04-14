@@ -50,11 +50,11 @@
 	/// Slight cooldown to prevent double-dipping if we use both abilities at onc
 	COOLDOWN_DECLARE(ability_animation_cooldown)
 	/// Our base tentacles ability
-	var/obj/effect/proc_holder/spell/basic_goliath_tentacles/tentacles
+	var/obj/effect/proc_holder/spell/basic/basic_goliath_tentacles/tentacles
 	/// Our base tentacles ability
-	var/obj/effect/proc_holder/spell/basic_tentacle_burst/melee_tentacles
+	var/obj/effect/proc_holder/spell/basic/basic_tentacle_burst/melee_tentacles
 	/// Our base tentacles ability
-	var/obj/effect/proc_holder/spell/basic_tentacle_grasp/tentacle_line
+	var/obj/effect/proc_holder/spell/basic/basic_tentacle_grasp/tentacle_line
 	/// Things we want to eat off the floor (or a plate, we're not picky)
 	var/static/list/goliath_foods = list(/obj/item/reagent_containers/food/snacks/grown/ash_flora, /obj/item/reagent_containers/food/snacks/bait)
 
@@ -140,10 +140,10 @@
 /// When we use an ability, activate some kind of visual tell
 /mob/living/basic/mining/goliath/proc/used_ability(mob/living/source, obj/effect/proc_holder/spell/ability)
 	SIGNAL_HANDLER
-	if(stat == DEAD || ability.can_cast(source))
+	if(stat == DEAD || ability.can_cast(source, TRUE))
 		return // We died or the action failed for some reason like being out of range
 
-	if(istype(ability, /obj/effect/proc_holder/spell/basic_goliath_tentacles))
+	if(istype(ability, /obj/effect/proc_holder/spell/basic/basic_goliath_tentacles))
 		if(ability.cooldown_handler.find_cooldown_time() <= 2 SECONDS)
 			return
 		icon_state = icon_living
