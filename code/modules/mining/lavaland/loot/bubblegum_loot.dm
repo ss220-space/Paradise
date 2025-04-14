@@ -200,6 +200,7 @@
 	RegisterSignal(soul, COMSIG_MOB_LOGOUT, PROC_REF(on_logout))
 	RegisterSignal(src, COMSIG_OBJ_INTEGRITY_CHANGED, PROC_REF(on_integrity_change))
 	RegisterSignal(soul, COMSIG_BLOOD_LEVEL_TICK, PROC_REF(on_blood_level_tick))
+	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
 
 /obj/item/soulscythe/examine(mob/user)
 	. = ..()
@@ -468,6 +469,8 @@
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
 	faction = list()
 	weather_immunities = list(TRAIT_ASHSTORM_IMMUNE, TRAIT_SNOWSTORM_IMMUNE)
+	nightvision = 8
+	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
 	hud_type = /datum/hud/simple_animal/lang
 	/// Blood level, used for movement and abilities in a soulscythe
 	var/blood_level = MAX_BLOOD_LEVEL
