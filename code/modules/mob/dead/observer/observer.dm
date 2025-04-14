@@ -42,6 +42,7 @@ GLOBAL_VAR_INIT(observer_default_invisibility, INVISIBILITY_OBSERVER)
 	///does the ghost have plant scanner mode on? by default it should be off
 	var/plant_analyzer = FALSE
 	var/datum/orbit_menu/orbit_menu
+	var/mob/living/do_observe_target = null
 
 /mob/dead/observer/New(mob/body=null, flags=1)
 	set_invisibility(GLOB.observer_default_invisibility)
@@ -683,42 +684,42 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	set_sight(mob_eye.sight)
 
 	client.clear_screen()
-	LAZYOR(mob_eye.orbiters, src)
+	LAZYOR(mob_eye.inventory_observers, src)
 	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
+
+	do_observe_target = mob_eye
 
 	for(var/datum/action/act in mob_eye.actions)
 		if( istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || \
-			(act in src.actions))
+			(act in src.actions)) //maybe last check is useless
 			continue
-		client.screen += act.button
-
-	//An ingenious way to block access to the button. Yes, it's on the screen, but you can't press it.
-//	for(var/atom/movable/screen/movable/action_button/button in client.screen)
-//		button.mosue_opacity = 0
+		client.screen |= act.button
+	for(var/atom/movable/screen/alert/alert in mob_eye.alerts)
+		client.screen |= alert
 
 /mob/dead/observer/proc/handle_when_autoobserve_move()
 	SIGNAL_HANDLER  // COMSIG_ORBITER_ORBIT_STOP
 
 	reset_perspective(null)
+	hud_used.reorganize_alerts()
 	cleanup_observe()
+	hud_used.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
 	lighting_alpha = client?.prefs.ghost_darkness_level //Remembers ghost lighting pref
 	update_sight()
-	LAZYREMOVE(orbiting?.orbiters, src)
-
+	LAZYREMOVE(do_observe_target.inventory_observers, src)
 	clear_fullscreens()
-
 	if(src) // If player discconnected
 		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
-	if(orbiting != null)
-		UnregisterSignal(orbiting, COMSIG_MOB_UPDATE_SIGHT)
+		UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
+	do_observe_target = null
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER  // COMSIG_MOB_UPDATE_SIGHT
 
-	var/mob/mob_eye = orbiting
-	sight = mob_eye?.sight
-	lighting_alpha = mob_eye?.lighting_alpha
-	update_sight()
+	if(orbiting && client)
+		sight = do_observe_target.sight
+		lighting_alpha = do_observe_target.lighting_alpha
+		update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

@@ -46,9 +46,9 @@
 	if(owner.client)
 		owner.client.screen += button
 
-		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-				LAZYREMOVE(user.orbiters, observe)
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.screen += button
 
@@ -76,9 +76,9 @@
 	if(user.client)
 		user.client.screen -= button
 
-		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-				LAZYREMOVE(user.orbiters, observe)
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.screen -= button
 

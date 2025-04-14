@@ -846,6 +846,11 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!hud_shown)
 		for(var/i in 1 to alerts.len)
 			mymob.client.screen -= alerts[alerts[i]]
+			for(var/mob/dead/observer/observe in mymob.inventory_observers)
+				if(!observe.client)
+					LAZYREMOVE(mymob.inventory_observers, observe)
+					continue
+				observe.client.screen -= alerts[alerts[i]]
 		return TRUE
 	for(var/i in 1 to alerts.len)
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
@@ -868,6 +873,11 @@ so as to remain in compliance with the most up-to-date laws."
 				. = ""
 		alert.screen_loc = .
 		mymob.client.screen |= alert
+		for(var/mob/dead/observer/observe in mymob.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(mymob.inventory_observers, observe)
+				continue
+			observe.client.screen |= alert
 	return TRUE
 
 /atom/movable/screen/alert/Click(location, control, params)
@@ -878,7 +888,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return FALSE
-		
+
 	if(master)
 		return usr.client.Click(master, location, control, params)
 
