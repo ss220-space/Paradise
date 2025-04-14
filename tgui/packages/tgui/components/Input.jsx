@@ -4,17 +4,21 @@
  * @license MIT
  */
 
+import { KEY_ENTER } from 'common/keycodes';
 import { classes } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Box } from './Box';
-import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
 
-export const toInputValue = (value) =>
-  typeof value !== 'number' && typeof value !== 'string' ? '' : String(value);
+// prettier-ignore
+export const toInputValue = value => (
+  typeof value !== 'number' && typeof value !== 'string'
+    ? ''
+    : String(value)
+);
 
 export class Input extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.inputRef = createRef();
     this.state = {
       editing: false,
@@ -66,6 +70,10 @@ export class Input extends Component {
         return;
       }
       if (e.keyCode === KEY_ESCAPE) {
+        if (this.props.onEscape) {
+          this.props.onEscape(e);
+          return;
+        }
         this.setEditing(false);
         e.target.value = toInputValue(this.props.value);
         e.target.blur();
@@ -73,26 +81,21 @@ export class Input extends Component {
       }
     };
   }
-
   componentDidMount() {
     const nextValue = this.props.value;
     const input = this.inputRef.current;
     if (input) {
       input.value = toInputValue(nextValue);
-      input.selectionStart = 0;
-      input.selectionEnd = input.value.length;
     }
     if (this.props.autoFocus || this.props.autoSelect) {
       setTimeout(() => {
         input.focus();
-
         if (this.props.autoSelect) {
           input.select();
         }
       }, 1);
     }
   }
-
   componentDidUpdate(prevProps, prevState) {
     const { editing } = this.state;
     const prevValue = prevProps.value;
@@ -102,11 +105,9 @@ export class Input extends Component {
       input.value = toInputValue(nextValue);
     }
   }
-
   setEditing(editing) {
     this.setState({ editing });
   }
-
   render() {
     const { props } = this;
     // Input only props

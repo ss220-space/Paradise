@@ -3,12 +3,10 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
-
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from './Box';
 import { DraggableControl } from './DraggableControl';
-import { NumberInput } from './NumberInput';
 
 export const Slider = (props) => {
   const {
@@ -70,8 +68,9 @@ export const Slider = (props) => {
           maxValue
         );
         const scaledDisplayValue = scale(displayValue, minValue, maxValue);
-        const effectiveColor =
-          color || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
+        // prettier-ignore
+        const effectiveColor = color
+          || keyOfMatchingRange(fillValue ?? value, ranges) || 'default';
         return (
           <div
             className={classes([
@@ -84,8 +83,6 @@ export const Slider = (props) => {
               className,
               computeBoxClassName(rest),
             ])}
-            // Added for the sake of backward compatibility.
-            // Inferno ignores clicks inside elements marked with disabled
             disabled={disabled}
             {...computeBoxProps(rest)}
             onMouseDown={handleDragStart}
@@ -103,9 +100,9 @@ export const Slider = (props) => {
             <div
               className="ProgressBar__fill"
               style={{
-                width:
-                  clamp01(Math.min(scaledFillValue, scaledDisplayValue)) * 100 +
-                  '%',
+                // prettier-ignore
+                width: clamp01(Math.min(scaledFillValue, scaledDisplayValue))
+                  * 100 + '%',
               }}
             />
             <div

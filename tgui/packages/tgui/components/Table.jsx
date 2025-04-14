@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import { classes, pureComponentHooks } from 'common/react';
-import { Box, computeBoxClassName, computeBoxProps } from './Box';
+import { classes } from 'common/react';
+import { computeBoxClassName, computeBoxProps } from './Box';
 
 export const Table = (props) => {
   const { className, collapsing, children, ...rest } = props;
@@ -24,8 +24,6 @@ export const Table = (props) => {
   );
 };
 
-Table.defaultHooks = pureComponentHooks;
-
 export const TableRow = (props) => {
   const { className, header, ...rest } = props;
   return (
@@ -40,8 +38,6 @@ export const TableRow = (props) => {
     />
   );
 };
-
-TableRow.defaultHooks = pureComponentHooks;
 
 export const TableCell = (props) => {
   const { className, collapsing, header, ...rest } = props;
@@ -58,8 +54,6 @@ export const TableCell = (props) => {
     />
   );
 };
-
-TableCell.defaultHooks = pureComponentHooks;
 
 Table.Row = TableRow;
 Table.Cell = TableCell;

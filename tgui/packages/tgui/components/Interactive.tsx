@@ -13,7 +13,7 @@
  */
 
 import { clamp } from 'common/math';
-import { Component, InfernoNode, createRef, RefObject } from 'inferno';
+import { Component, ReactNode, createRef, RefObject } from 'react';
 
 export interface Interaction {
   left: number;
@@ -51,7 +51,7 @@ const getRelativePosition = (
 export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
-  children: InfernoNode[];
+  children: ReactNode[];
   style?: any;
 }
 
@@ -60,7 +60,7 @@ export class Interactive extends Component {
   props: InteractiveProps;
 
   constructor(props: InteractiveProps) {
-    super();
+    super(props);
     this.props = props;
     this.containerRef = createRef();
   }

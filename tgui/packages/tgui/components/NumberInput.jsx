@@ -5,13 +5,12 @@
  */
 
 import { clamp } from 'common/math';
-import { classes, pureComponentHooks } from 'common/react';
-import { Component, createRef } from 'inferno';
+import { classes } from 'common/react';
+import { Component, createRef } from 'react';
 import { AnimatedNumber } from './AnimatedNumber';
 import { Box } from './Box';
 
 const DEFAULT_UPDATE_RATE = 400;
-
 export class NumberInput extends Component {
   constructor(props) {
     super(props);
@@ -25,7 +24,6 @@ export class NumberInput extends Component {
       origin: null,
       suppressingFlicker: false,
     };
-
     // Suppresses flickering while the value propagates through the backend
     this.flickerTimer = null;
     this.suppressFlicker = () => {
@@ -44,7 +42,6 @@ export class NumberInput extends Component {
         );
       }
     };
-
     this.handleDragStart = (e) => {
       const { value } = this.props;
       const { editing } = this.state;
@@ -74,7 +71,6 @@ export class NumberInput extends Component {
       document.addEventListener('mousemove', this.handleDragMove);
       document.addEventListener('mouseup', this.handleDragEnd);
     };
-
     this.handleDragMove = (e) => {
       const { minValue, maxValue, step, stepPixelSize } = this.props;
       this.setState((prevState) => {
@@ -102,7 +98,6 @@ export class NumberInput extends Component {
         return state;
       });
     };
-
     this.handleDragEnd = (e) => {
       const { onChange, onDrag } = this.props;
       const { dragging, value, internalValue } = this.state;
@@ -136,7 +131,6 @@ export class NumberInput extends Component {
       }
     };
   }
-
   render() {
     const {
       dragging,
@@ -178,7 +172,6 @@ export class NumberInput extends Component {
         {unit ? ' ' + unit : ''}
       </div>
     );
-
     return (
       <Box
         className={classes([
@@ -212,8 +205,8 @@ export class NumberInput extends Component {
           style={{
             display: !editing ? 'none' : undefined,
             height: height,
-            'line-height': lineHeight,
-            'font-size': fontSize,
+            lineHeight: lineHeight,
+            fontSize: fontSize,
           }}
           onBlur={(e) => {
             if (!editing) {
@@ -240,6 +233,7 @@ export class NumberInput extends Component {
           }}
           onKeyDown={(e) => {
             if (e.keyCode === 13) {
+              // prettier-ignore
               const value = clamp(
                 parseFloat(e.target.value),
                 minValue,
@@ -277,7 +271,6 @@ export class NumberInput extends Component {
   }
 }
 
-NumberInput.defaultHooks = pureComponentHooks;
 NumberInput.defaultProps = {
   minValue: -Infinity,
   maxValue: +Infinity,

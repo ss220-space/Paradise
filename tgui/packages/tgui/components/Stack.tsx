@@ -5,7 +5,7 @@
  */
 
 import { classes } from 'common/react';
-import { RefObject } from 'inferno';
+import { RefObject } from 'react';
 import {
   computeFlexClassName,
   computeFlexItemClassName,
@@ -15,7 +15,7 @@ import {
   FlexProps,
 } from './Flex';
 
-type StackProps = FlexProps & {
+type Props = Partial<{
   /** Fills available space. */
   fill?: boolean;
   /** Reverses the stack. */
@@ -24,14 +24,13 @@ type StackProps = FlexProps & {
   vertical?: boolean;
   /** Adds zebra striping to the stack. */
   zebra?: boolean;
-};
+}> &
+  FlexProps;
 
-export const Stack = (props: StackProps) => {
+export const Stack = (props: Props) => {
   const { className, vertical, fill, reverse, zebra, ...rest } = props;
-
   const directionPrefix = vertical ? 'column' : 'row';
   const directionSuffix = reverse ? '-reverse' : '';
-
   return (
     <div
       className={classes([
@@ -51,9 +50,10 @@ export const Stack = (props: StackProps) => {
   );
 };
 
-type StackItemProps = FlexProps & {
-  innerRef?: RefObject<HTMLDivElement>;
-};
+type StackItemProps = FlexItemProps &
+  Partial<{
+    innerRef: RefObject<HTMLDivElement>;
+  }>;
 
 const StackItem = (props: StackItemProps) => {
   const { className, innerRef, ...rest } = props;
@@ -72,9 +72,10 @@ const StackItem = (props: StackItemProps) => {
 
 Stack.Item = StackItem;
 
-type StackDividerProps = FlexItemProps & {
-  hidden?: boolean;
-};
+type StackDividerProps = FlexItemProps &
+  Partial<{
+    hidden: boolean;
+  }>;
 
 const StackDivider = (props: StackDividerProps) => {
   const { className, hidden, ...rest } = props;
@@ -91,5 +92,4 @@ const StackDivider = (props: StackDividerProps) => {
     />
   );
 };
-
 Stack.Divider = StackDivider;

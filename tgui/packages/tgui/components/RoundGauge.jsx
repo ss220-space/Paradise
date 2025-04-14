@@ -3,7 +3,6 @@
  * @copyright 2020 bobbahbrown (https://github.com/bobbahbrown)
  * @license MIT
  */
-
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
 import { AnimatedNumber } from './AnimatedNumber';
@@ -16,6 +15,7 @@ export const RoundGauge = (props) => {
     maxValue = 1,
     ranges,
     alertAfter,
+    alertBefore,
     format,
     size = 1,
     className,
@@ -25,7 +25,7 @@ export const RoundGauge = (props) => {
 
   const scaledValue = scale(value, minValue, maxValue);
   const clampedValue = clamp01(scaledValue);
-  let scaledRanges = ranges ? {} : { 'primary': [0, 1] };
+  const scaledRanges = ranges ? {} : { primary: [0, 1] };
   if (ranges) {
     Object.keys(ranges).forEach((x) => {
       const range = ranges[x];
@@ -35,12 +35,25 @@ export const RoundGauge = (props) => {
       ];
     });
   }
-
-  let alertColor = null;
-  if (alertAfter < value) {
-    alertColor = keyOfMatchingRange(clampedValue, scaledRanges);
-  }
-
+  const shouldShowAlert = () => {
+    // If both after and before alert props are set, attempt to interpret both
+    // in a helpful way.
+    if (alertAfter && alertBefore && alertAfter < alertBefore) {
+      // If alertAfter is before alertBefore, only display an alert if
+      // we're between them.
+      if (alertAfter < value && alertBefore > value) {
+        return true;
+      }
+    } else if (alertAfter < value || alertBefore > value) {
+      // Otherwise, we have distint ranges, or only one or neither are set.
+      // Either way, being on the active side of either is sufficient.
+      return true;
+    }
+    return false;
+  };
+  // prettier-ignore
+  const alertColor = shouldShowAlert()
+    && keyOfMatchingRange(clampedValue, scaledRanges);
   return (
     <Box inline>
       <div
@@ -51,14 +64,14 @@ export const RoundGauge = (props) => {
         ])}
         {...computeBoxProps({
           style: {
-            'font-size': size + 'em',
+            fontSize: size + 'em',
             ...style,
           },
           ...rest,
         })}
       >
         <svg viewBox="0 0 100 50">
-          {alertAfter && (
+          {(alertAfter || alertBefore) && (
             <g
               className={classes([
                 'RoundGauge__alert',
@@ -79,7 +92,7 @@ export const RoundGauge = (props) => {
                   className={`RoundGauge__ringFill RoundGauge--color--${x}`}
                   key={i}
                   style={{
-                    'stroke-dashoffset': Math.max(
+                    strokeDashoffset: Math.max(
                       (2.0 - (col_ranges[1] - col_ranges[0])) * Math.PI * 50,
                       0
                     ),

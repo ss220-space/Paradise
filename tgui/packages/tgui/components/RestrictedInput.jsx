@@ -1,12 +1,11 @@
 import { classes } from 'common/react';
 import { clamp } from 'common/math';
-import { Component, createRef } from 'inferno';
+import { Component, createRef } from 'react';
 import { Box } from './Box';
 import { KEY_ESCAPE, KEY_ENTER } from 'common/keycodes';
 
 const DEFAULT_MIN = 0;
 const DEFAULT_MAX = 10000;
-
 /**
  * Takes a string input and parses integers or floats from it.
  * If none: Minimum is set.
@@ -28,8 +27,8 @@ const getClampedNumber = (value, minValue, maxValue, allowFloats) => {
 };
 
 export class RestrictedInput extends Component {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.inputRef = createRef();
     this.state = {
       editing: false,
@@ -99,7 +98,6 @@ export class RestrictedInput extends Component {
       }
     };
   }
-
   componentDidMount() {
     const { maxValue, minValue, allowFloats } = this.props;
     const nextValue = this.props.value?.toString();
@@ -115,14 +113,12 @@ export class RestrictedInput extends Component {
     if (this.props.autoFocus || this.props.autoSelect) {
       setTimeout(() => {
         input.focus();
-
         if (this.props.autoSelect) {
           input.select();
         }
       }, 1);
     }
   }
-
   componentDidUpdate(prevProps, _) {
     const { maxValue, minValue, allowFloats } = this.props;
     const { editing } = this.state;
@@ -140,11 +136,9 @@ export class RestrictedInput extends Component {
       }
     }
   }
-
   setEditing(editing) {
     this.setState({ editing });
   }
-
   render() {
     const { props } = this;
     const { onChange, onEnter, onInput, value, ...boxProps } = props;

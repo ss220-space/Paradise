@@ -1,4 +1,4 @@
-import { Component } from 'inferno';
+import { Component } from 'react';
 import { Box, Icon, Tooltip, Dropdown } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
@@ -110,14 +110,14 @@ export class NanoMap extends Component {
     const newStyle = {
       width: mapSize,
       height: mapSize,
-      'margin-top': offsetY + 'px',
-      'margin-left': offsetX + 'px',
-      'overflow': 'hidden',
-      'position': 'relative',
-      'background-size': 'cover',
-      'background-repeat': 'no-repeat',
-      'text-align': 'center',
-      'cursor': dragging ? 'move' : 'auto',
+      marginTop: offsetY + 'px',
+      marginLeft: offsetX + 'px',
+      overflow: 'hidden',
+      position: 'relative',
+      backgroundSize: 'cover',
+      backgroundRepeat: 'no-repeat',
+      textAlign: 'center',
+      cursor: dragging ? 'move' : 'auto',
     };
     const mapStyle = {
       width: '100%',
@@ -127,7 +127,7 @@ export class NanoMap extends Component {
       left: '50%',
       transform: 'translate(-50%, -50%)',
       '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-      'image-rendering': 'pixelated',
+      imageRendering: 'pixelated',
     };
 
     return (
