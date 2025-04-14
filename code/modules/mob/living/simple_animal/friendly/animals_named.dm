@@ -164,11 +164,11 @@
 /mob/living/simple_animal/mouse/wooly/rep/update_icons()
 	..()
 
-		if(buckled)
-			icon_state = "mouse_rep_buckled"
-			pixel_x = 0
-			pixel_y = 0
-		return
+	if(buckled)
+		icon_state = "mouse_rep_buckled"
+		pixel_x = 0
+		pixel_y = 0
+	return
 
 /mob/living/simple_animal/mouse/wooly/rep/set_buckled(new_buckled)
 	. = ..()
