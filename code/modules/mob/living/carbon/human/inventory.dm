@@ -317,11 +317,9 @@
 	if(client)
 		client.screen -= I
 
-	for(var/mob/dead/observer/observe in inventory_observers)
-		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+	for(var/mob/dead/observer/observe in orbiters)
+		if(observe.client && istype(observe))
 			observe.client.screen -= I
-		else
-			LAZYREMOVE(inventory_observers, observe)
 
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER

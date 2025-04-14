@@ -29,7 +29,7 @@
 
 	LAssailant = null
 	GLOB.left_player_list -= src
-
+	
 	return ..()
 
 /mob/Initialize(mapload)
@@ -1070,9 +1070,8 @@
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
-		for(var/mob/dead/observer/observe in inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(inventory_observers, observe)
+		for(var/mob/dead/observer/observe in orbiters)
+			if(!istype(observe) || !observe.client)
 				continue
 			observe.vision_type = vision_type
 	update_sight()

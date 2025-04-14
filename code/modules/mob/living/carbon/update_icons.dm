@@ -111,13 +111,13 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			r_hand.screen_loc = ui_rhand
 			client.screen += r_hand
-			for(var/mob/dead/observer/observe in inventory_observers)
+			for(var/mob/dead/observer/observe in orbiters)
 				if(!istype(observe))
 					continue
-				if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+				if(observe.client && observe.client.eye == src)
 					observe.client.screen += r_hand
 				else
-					LAZYREMOVE(inventory_observers, observe)
+					LAZYREMOVE(orbiters, observe)
 
 		var/t_state = r_hand.item_state ? r_hand.item_state : r_hand.icon_state
 
@@ -139,13 +139,13 @@
 		if(client && hud_used && hud_used.hud_version != HUD_STYLE_NOHUD)
 			l_hand.screen_loc = ui_lhand
 			client.screen += l_hand
-			for(var/mob/dead/observer/observe in inventory_observers)
+			for(var/mob/dead/observer/observe in orbiters)
 				if(!istype(observe))
 					continue
-				if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+				if(observe.client && observe.client.eye == src)
 					observe.client.screen += l_hand
 				else
-					LAZYREMOVE(inventory_observers, observe)
+					LAZYREMOVE(orbiters, observe)
 
 		var/t_state = l_hand.item_state ? l_hand.item_state : l_hand.icon_state
 
@@ -176,14 +176,15 @@
 	update_observer_view(worn_item, togleable_inventory)
 
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
-	for(var/mob/dead/observer/observe in inventory_observers)
-		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
-			if(observe.hud_used)
-				if(inventory && !observe.hud_used.inventory_shown)
-					continue
-				observe.client.screen += worn_item
-		else
-			LAZYREMOVE(inventory_observers, observe)
+	for(var/mob/dead/observer/observe in orbiters)
+		if(!istype(observe) || !observe.orbit_menu?.auto_observe)
+			continue
+		if(!(observe.client && observe.client.eye == src && observe.hud_used))
+			LAZYREMOVE(orbiters, observe)
+			continue
+		if(inventory && !observe.hud_used.inventory_shown)
+			continue
+		observe.client.screen += worn_item
 
 
 /mob/living/carbon/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)

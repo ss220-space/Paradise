@@ -69,9 +69,8 @@
 
 	viewer_client?.images += balloon_alert
 
-	for(var/mob/dead/observer/observe in viewer.inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(viewer, observe)
+	for(var/mob/dead/observer/observe in viewer.orbiters)
+		if(!istype(observe) || !observe.client)
 			continue
 		observe.client.images += balloon_alert
 

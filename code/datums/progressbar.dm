@@ -57,9 +57,8 @@
 		user_client = user.client
 		add_prog_bar_image_to_client()
 		// Ghosts wants to see a do_afters too!
-		for(var/mob/dead/observer/observe in user.inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(user.inventory_observers, observe)
+		for(var/mob/dead/observer/observe in user.orbiters)
+			if(!istype(observe) || !observe.client)
 				continue
 			user_client = observe.client
 			add_prog_bar_image_to_client()

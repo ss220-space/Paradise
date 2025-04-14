@@ -16,9 +16,9 @@
 	if(client && screen.should_show_to(src))
 		screen.update_for_view(client.view)
 		client.screen += screen
-		for(var/mob/dead/observer/observe in inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(inventory_observers, observe)
+		for(var/mob/dead/observer/observe in orbiters)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+				LAZYREMOVE(orbiters, observe)
 				continue
 			observe.client.screen += screen
 
@@ -34,9 +34,8 @@
 		return
 
 	screens -= category
-	for(var/mob/dead/observer/observe in inventory_observers)
-		if(!observe.client)
-			LAZYREMOVE(inventory_observers, observe)
+	for(var/mob/dead/observer/observe in orbiters)
+		if(!istype(observe) || !observe.client)
 			continue
 		observe.screens -= category
 
@@ -47,9 +46,8 @@
 		if(client)
 			client.screen -= screen
 
-			for(var/mob/dead/observer/observe in inventory_observers)
-				if(!observe.client)
-					LAZYREMOVE(inventory_observers, observe)
+			for(var/mob/dead/observer/observe in orbiters)
+				if(!istype(observe) || !observe.client)
 					continue
 				observe.client.screen -= screen
 		qdel(screen)
@@ -58,9 +56,8 @@
 /mob/proc/clear_fullscreen_after_animate(atom/movable/screen/fullscreen/screen)
 	if(client)
 		client.screen -= screen
-		for(var/mob/dead/observer/observe in inventory_observers)
-			if(!observe.client)
-				LAZYREMOVE(inventory_observers, observe)
+		for(var/mob/dead/observer/observe in orbiters)
+			if(!istype(observe) || !observe.client)
 				continue
 			observe.client.screen -= screen
 	qdel(screen)
@@ -81,17 +78,15 @@
 				screen.update_for_view(mymob.client.view)
 				mymob.client.screen |= screen
 
-				for(var/mob/dead/observer/observe in mymob.inventory_observers)
-					if(!observe.client)
-						LAZYREMOVE(mymob.inventory_observers, observe)
+				for(var/mob/dead/observer/observe in mymob.orbiters)
+					if(!istype(observe) || !observe.client)
 						continue
 					observe.client.screen |= screen
 			else
 				mymob.client.screen -= screen
 
-				for(var/mob/dead/observer/observe in mymob.inventory_observers)
-					if(!observe.client)
-						LAZYREMOVE(mymob.inventory_observers, observe)
+				for(var/mob/dead/observer/observe in mymob.orbiters)
+					if(!istype(observe) || !observe.client)
 						continue
 					observe.client.screen -= screen
 

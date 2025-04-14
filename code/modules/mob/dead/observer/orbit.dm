@@ -74,7 +74,8 @@
 
 	var/atom/movable/eye_mob = owner.orbiting
 	owner.orbiting = null
-	owner.handle_when_autoobserve_move()
+	owner.reset_perspective(null)
+	owner.cleanup_observe()
 	owner.orbiting = eye_mob
 
 /datum/orbit_menu/ui_data(mob/user)
