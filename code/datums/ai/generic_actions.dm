@@ -1,5 +1,5 @@
 
-/datum/ai_behavior/resist/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/resist/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	living_pawn.run_resist()
@@ -11,7 +11,7 @@
 	///List of possible screeches the behavior has
 	var/list/screeches
 
-/datum/ai_behavior/battle_screech/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/battle_screech/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	INVOKE_ASYNC(living_pawn, TYPE_PROC_REF(/mob, emote), pick("screech"))
@@ -21,7 +21,7 @@
 /datum/ai_behavior/move_to_target
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/move_to_target/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/move_to_target/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	finish_action(controller, TRUE)
 
@@ -34,7 +34,7 @@
 	. = ..()
 	set_movement_target(controller, controller.blackboard[target_key])
 
-/datum/ai_behavior/break_spine/perform(delta_time, datum/ai_controller/controller, target_key)
+/datum/ai_behavior/break_spine/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	var/mob/living/batman = controller.blackboard[target_key]
 	var/mob/living/big_guy = controller.pawn //he was molded by the darkness
 
@@ -71,7 +71,7 @@
 	behavior_flags = AI_BEHAVIOR_MOVE_AND_PERFORM
 
 
-/datum/ai_behavior/use_in_hand/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/use_in_hand/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/pawn = controller.pawn
 	var/obj/item/held = locate() in list(pawn.get_active_hand(), pawn.get_inactive_hand())
@@ -90,7 +90,7 @@
 	. = ..()
 	set_movement_target(controller, controller.blackboard[target_key])
 
-/datum/ai_behavior/use_on_object/perform(delta_time, datum/ai_controller/controller, target_key)
+/datum/ai_behavior/use_on_object/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/pawn = controller.pawn
 	var/obj/item/held_item = pawn.get_item_by_slot(pawn.get_active_hand())
@@ -118,7 +118,7 @@
 	set_movement_target(controller, controller.blackboard[target_key])
 
 
-/datum/ai_behavior/give/perform(delta_time, datum/ai_controller/controller, target_key)
+/datum/ai_behavior/give/perform(seconds_per_tick, datum/ai_controller/controller, target_key)
 	. = ..()
 	var/mob/living/pawn = controller.pawn
 	var/obj/item/held_item = pawn.get_active_hand()
@@ -156,7 +156,7 @@
 	. = ..()
 	set_movement_target(controller, target)
 
-/datum/ai_behavior/consume/perform(delta_time, datum/ai_controller/controller, obj/item/target)
+/datum/ai_behavior/consume/perform(seconds_per_tick, datum/ai_controller/controller, obj/item/target)
 	. = ..()
 	var/mob/living/pawn = controller.pawn
 
@@ -177,7 +177,7 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 	required_distance = 1
 
-/datum/ai_behavior/attack/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/attack/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn) || !isturf(living_pawn.loc))
@@ -214,7 +214,7 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 	required_distance = 1
 
-/datum/ai_behavior/follow/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/follow/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn) || !isturf(living_pawn.loc))
@@ -243,7 +243,7 @@
 
 /datum/ai_behavior/perform_emote
 
-/datum/ai_behavior/perform_emote/perform(delta_time, datum/ai_controller/controller, emote)
+/datum/ai_behavior/perform_emote/perform(seconds_per_tick, datum/ai_controller/controller, emote)
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn))
 		return
@@ -252,7 +252,7 @@
 
 /datum/ai_behavior/perform_speech
 
-/datum/ai_behavior/perform_speech/perform(delta_time, datum/ai_controller/controller, speech)
+/datum/ai_behavior/perform_speech/perform(seconds_per_tick, datum/ai_controller/controller, speech)
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn))
 		return

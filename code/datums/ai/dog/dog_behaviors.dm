@@ -5,7 +5,7 @@
 /datum/ai_behavior/fetch
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/fetch/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/fetch/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	var/obj/item/fetch_thing = controller.blackboard[BB_FETCH_TARGET]
@@ -29,7 +29,7 @@
 
 
 /// This is simply a behaviour to pick up a fetch target
-/datum/ai_behavior/simple_equip/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/simple_equip/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/obj/item/fetch_target = controller.blackboard[BB_FETCH_TARGET]
 	if(!isturf(fetch_target?.loc) || !isitem(fetch_target)) // someone picked it up, something happened to it, or it wasn't an item anyway
@@ -71,7 +71,7 @@
 /datum/ai_behavior/deliver_item
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/deliver_item/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/deliver_item/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/return_target = controller.blackboard[BB_FETCH_DELIVER_TO]
 	if(!return_target)
@@ -105,7 +105,7 @@
 /datum/ai_behavior/eat_snack
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT
 
-/datum/ai_behavior/eat_snack/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/eat_snack/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/obj/item/snack = controller.current_movement_target
 	if(!istype(snack) || !istype(snack, /obj/item/reagent_containers/food) || !(isturf(snack.loc) || ishuman(snack.loc)))
@@ -117,7 +117,7 @@
 
 	if(isturf(snack.loc))
 		snack.attack_animal(living_pawn) // snack attack!
-	else if(iscarbon(snack.loc) && SPT_PROB(10, delta_time))
+	else if(iscarbon(snack.loc) && SPT_PROB(10, seconds_per_tick))
 		living_pawn.custom_emote(EMOTE_VISIBLE, "смотрит на [snack.name] с грустным взглядом.")
 
 	if(QDELETED(snack)) // we ate it!
@@ -128,7 +128,7 @@
 /datum/ai_behavior/play_dead
 	behavior_flags = NONE
 
-/datum/ai_behavior/play_dead/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/play_dead/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/simple_animal/simple_pawn = controller.pawn
 	if(!istype(simple_pawn))
@@ -142,7 +142,7 @@
 			simple_pawn.transform = simple_pawn.transform.Turn(180)
 		simple_pawn.density = FALSE
 
-	if(SPT_PROB(10, delta_time))
+	if(SPT_PROB(10, seconds_per_tick))
 		finish_action(controller, TRUE)
 
 /datum/ai_behavior/play_dead/finish_action(datum/ai_controller/controller, succeeded)
@@ -162,7 +162,7 @@
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM
 	required_distance = 3
 
-/datum/ai_behavior/harass/perform(delta_time, datum/ai_controller/controller)
+/datum/ai_behavior/harass/perform(seconds_per_tick, datum/ai_controller/controller)
 	. = ..()
 	var/mob/living/living_pawn = controller.pawn
 	if(!istype(living_pawn) || !(isturf(living_pawn.loc) || HAS_TRAIT(living_pawn, TRAIT_AI_BAGATTACK)))
@@ -186,11 +186,11 @@
 	// subtypes of this behavior can change behavior for how eager/averse the pawn is to attack the target as opposed to falling back/making noise/getting help
 	if(in_range(living_pawn, living_target))
 		attack(controller, living_target)
-		if(SPT_PROB(15, delta_time))
+		if(SPT_PROB(15, seconds_per_tick))
 			finish_action(controller, TRUE)
-	else if(SPT_PROB(20, delta_time))
+	else if(SPT_PROB(20, seconds_per_tick))
 		living_pawn.custom_emote(EMOTE_VISIBLE, "[pick("угрожающе рычит", "агрессивно гафкает","злобно смотрит")] на [harass_target]!")
-		if(SPT_PROB(10, delta_time))
+		if(SPT_PROB(10, seconds_per_tick))
 			finish_action(controller, TRUE)
 
 /datum/ai_behavior/harass/finish_action(datum/ai_controller/controller, succeeded)

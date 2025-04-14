@@ -136,11 +136,11 @@
 		return
 	AddComponent(/datum/component/animal_temperature, minimum_survivable_temperature, maximum_survivable_temperature)
 
-/mob/living/basic/Life(delta_time, times_fired)
+/mob/living/basic/Life(seconds_per_tick, times_fired)
 	. = ..()
 	///Automatic stamina re-gain
 	if(staminaloss > 0)
-		adjustStaminaLoss(-stamina_recovery * delta_time, FALSE, TRUE)
+		adjustStaminaLoss(-stamina_recovery * seconds_per_tick, FALSE, TRUE)
 
 /mob/living/basic/death(gibbed)
 	. = ..()
