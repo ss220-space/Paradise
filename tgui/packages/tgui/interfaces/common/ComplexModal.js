@@ -88,7 +88,7 @@ export const ComplexModal = (props) => {
 
   // Different contents depending on the type
   if (bodyOverrides[id]) {
-    modalBody = modalOpen[id](data.modal);
+    modalBody = bodyOverrides[id](data.modal);
   } else if (type === 'input') {
     let curValue = data.modal.value;
     modalOnEnter = (e) => modalAnswer(id, curValue);

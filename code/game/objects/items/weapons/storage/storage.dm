@@ -181,7 +181,8 @@
 	LAZYOR(mobs_viewing, user)
 
 	for(var/mob/dead/observer/observe in user.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(user.orbiters, observe)
 			continue
 		show_to(observe)
 
@@ -196,7 +197,8 @@
 		user.s_active = null
 
 	for(var/mob/dead/observer/observe in user.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu.auto_observe)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(user.orbiters, observe)
 			continue
 		hide_from(observe)
 
