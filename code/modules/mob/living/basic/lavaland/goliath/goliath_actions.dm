@@ -6,6 +6,7 @@
 	human_req = FALSE
 	invocation_type = "none"
 	can_cast_mindless = TRUE
+	base_cooldown = 12 SECONDS
 
 /// Place some grappling tentacles underfoot
 /obj/effect/proc_holder/spell/basic/basic_goliath_tentacles
@@ -14,7 +15,6 @@
 	action_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	action_icon_state = "goliath_tentacle_wiggle"
 	action_background_icon_state = "bg_demon"
-	base_cooldown = 12 SECONDS
 	/// Furthest range we can activate ability at
 	var/max_range = 7
 
@@ -33,7 +33,7 @@
 
 /obj/effect/proc_holder/spell/basic/basic_goliath_tentacles/cast(list/targets, mob/user = usr)
 	. = ..()
-	var/target = targets[1]
+	var/target = get_turf(targets[1])
 	new /obj/effect/goliath_tentacle(target)
 	var/list/directions = GLOB.cardinal.Copy()
 	for(var/i in 1 to 3)
@@ -48,11 +48,10 @@
 /// Place grappling tentacles around you to grab attackers
 /obj/effect/proc_holder/spell/basic/basic_tentacle_burst
 	name = "Tentacle Grasp"
-	desc = "Unleash burrowed tentacles in a line towards a targeted location, grappling targets after a delay."
+	desc = "Unleash burrowed tentacles in an area around you, grappling targets after a delay."
 	action_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	action_icon_state = "goliath_tentacle_wiggle"
 	action_background_icon_state = "bg_demon"
-	base_cooldown = 12 SECONDS
 
 /obj/effect/proc_holder/spell/basic/basic_tentacle_burst/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom
@@ -69,11 +68,10 @@
 /// Summon a line of tentacles towards the target
 /obj/effect/proc_holder/spell/basic/basic_tentacle_grasp
 	name = "Tentacle Burst"
-	desc = "Unleash burrowed tentacles in an area around you, grappling targets after a delay."
+	desc = "Unleash burrowed tentacles in a line towards a targeted location, grappling targets after a delay."
 	action_icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	action_icon_state = "goliath_tentacle_wiggle"
 	action_background_icon_state = "bg_demon"
-	base_cooldown = 24 SECONDS
 
 /obj/effect/proc_holder/spell/basic/basic_tentacle_grasp/create_new_targeting()
 	return new /datum/spell_targeting/clicked_atom

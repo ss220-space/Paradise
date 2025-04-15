@@ -33,14 +33,15 @@
 	src.add_to_contents = add_to_contents
 	src.food_types = food_types
 
-	RegisterSignal(target, COMSIG_ATOM_TOOL_INTERACTION, PROC_REF(try_feed))
+
+	RegisterSignal(target, COMSIG_ATOM_TRY_FEED, PROC_REF(try_feed))
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_unarm_attack))
 
 /datum/element/basic_eating/Detach(datum/target)
 	REMOVE_TRAIT(target, TRAIT_MOB_EATER, REF(src))
 
 	UnregisterSignal(target, list(
-		COMSIG_ATOM_ATTACK_HAND,
+		COMSIG_ATOM_TRY_FEED,
 		COMSIG_ATOM_TOOL_INTERACTION,
 	))
 	return ..()
@@ -102,8 +103,6 @@
 	if(isstack(target)) //if stack, only consume 1
 		var/obj/item/stack/food_stack = target
 		final_target = food_stack.split_stack(eater, 1)
-
-	add_misc_logs(eater, "has eaten [target], [add_to_contents ? "swallowing it" : "destroying it"]!")
 
 	if(add_to_contents)
 		var/atom/movable/movable_target = final_target

@@ -1385,3 +1385,6 @@
 #define COMSIG_CARBON_PRE_MISC_HELP "carbon_pre_misc_help"
 	/// Stops the rest of help act (hugging, etc) from occurring
 	#define COMPONENT_BLOCK_MISC_HELP (1<<0)
+
+///Called from /obj/item/reagent_containers/attack, sent to target
+#define COMSIG_ATOM_TRY_FEED "atom_try_feed"

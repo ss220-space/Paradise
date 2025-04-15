@@ -119,6 +119,7 @@
 
 /obj/item/reagent_containers/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent != INTENT_HARM)
+		SEND_SIGNAL(target, COMSIG_ATOM_TRY_FEED, user, src)
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
