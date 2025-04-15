@@ -67,7 +67,7 @@
 	carbon_mob.a_intent_change(intent)
 
 	// For change dir to mouse dir
-	if(intent == INTENT_HARM)
+	if(intent == INTENT_HARM && (user.prefs.toggles3 & PREFTOGGLE_3_FACING_TO_MOUSE))
 		carbon_mob.face_mouse = TRUE
 	else
 		carbon_mob.face_mouse = FALSE

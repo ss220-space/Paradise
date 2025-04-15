@@ -29,7 +29,7 @@
 
 	LAssailant = null
 	GLOB.left_player_list -= src
-	
+
 	return ..()
 
 /mob/Initialize(mapload)
