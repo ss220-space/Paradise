@@ -168,7 +168,7 @@
 		icon_state = "mouse_rep_buckled"
 		pixel_x = 0
 		pixel_y = 0
-	return
+		return
 
 /mob/living/simple_animal/mouse/wooly/rep/set_buckled(new_buckled)
 	. = ..()
