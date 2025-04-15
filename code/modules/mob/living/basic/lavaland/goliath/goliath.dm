@@ -146,11 +146,11 @@
 	if(istype(ability, /obj/effect/proc_holder/spell/basic/basic_goliath_tentacles))
 		var/cooldown_time = ability.cooldown_handler.get_recharge_time()
 		var/needed_world_time = world.time + 2 SECONDS
-		var/test = needed_world_time - cooldown_time
+		var/test = cooldown_time - needed_world_time + 6 SECONDS
 		if(cooldown_time <= needed_world_time)
 			return
 		icon_state = icon_living
-		addtimer(CALLBACK(src, PROC_REF(tentacles_ready)), test + 2 SECONDS, TIMER_DELETE_ME)
+		addtimer(CALLBACK(src, PROC_REF(tentacles_ready)), test, TIMER_DELETE_ME)
 		return
 	if(!COOLDOWN_FINISHED(src, ability_animation_cooldown))
 		return

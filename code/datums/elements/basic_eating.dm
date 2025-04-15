@@ -34,13 +34,13 @@
 	src.food_types = food_types
 
 	RegisterSignal(target, COMSIG_ATOM_TOOL_INTERACTION, PROC_REF(try_feed))
-	RegisterSignal(target, COMSIG_LIVING_UNARMED_ATTACK, PROC_REF(on_unarm_attack))
+	RegisterSignal(target, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_unarm_attack))
 
 /datum/element/basic_eating/Detach(datum/target)
 	REMOVE_TRAIT(target, TRAIT_MOB_EATER, REF(src))
 
 	UnregisterSignal(target, list(
-		COMSIG_LIVING_UNARMED_ATTACK,
+		COMSIG_ATOM_ATTACK_HAND,
 		COMSIG_ATOM_TOOL_INTERACTION,
 	))
 	return ..()

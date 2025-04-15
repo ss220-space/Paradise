@@ -78,10 +78,11 @@
 #define INIT_ORDER_EVENTS 42
 #define INIT_ORDER_HOLIDAY 41
 #define INIT_ORDER_JOBS 40
-#define INIT_ORDER_AI_MOVEMENT 		36 //We need the movement setup
-#define INIT_ORDER_AI_CONTROLLERS 	35 //So the controller can get the ref
+#define INIT_ORDER_AI_MOVEMENT	36 //We need the movement setup
+#define INIT_ORDER_AI_CONTROLLERS	35 //So the controller can get the ref
 #define INIT_ORDER_TICKER 30
 #define INIT_ORDER_MAPPING 20
+#define INIT_ORDER_AI_IDLE_CONTROLLERS 10
 #define INIT_ORDER_HOLOMAP 8 // after map loads, but before atoms init
 #define INIT_ORDER_EARLY_ASSETS 7
 #define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
