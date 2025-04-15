@@ -313,37 +313,34 @@ export class ButtonFile extends Component {
         reader.readAsText(file);
       });
     });
+
     return await Promise.all(promises);
-  }
+  };
+
+  handleChange = async (event) => {
+    const files = event.target.files;
+    if (files?.length) {
+      const readFiles = await this.read(files);
+      this.props.onSelectFiles(this.props.multiple ? readFiles : readFiles[0]);
+    }
+  };
+
   render() {
-    const { onSelectFiles, accept, multiple, ...rest } = this.props;
-    const filePicker = (
-      <input
-        hidden
-        type="file"
-        ref={this.inputRef}
-        accept={accept}
-        multiple={multiple}
-        onChange={async () => {
-          const files = this.inputRef.current.files;
-          if (files.length) {
-            const readFiles = await this.read(files);
-            onSelectFiles(multiple ? readFiles : readFiles[0]);
-          }
-        }}
-      />
-    );
+    const { accept, multiple, onSelectFiles, ...rest } = this.props;
     return (
       <>
-        <Button
-          {...rest}
-          onClick={() => {
-            this.inputRef.current.click();
-          }}
+        <Button onClick={() => this.inputRef.current?.click()} {...rest} />
+        <input
+          hidden
+          type="file"
+          ref={this.inputRef}
+          accept={accept}
+          multiple={multiple}
+          onChange={this.handleChange}
         />
-        {filePicker}
       </>
     );
   }
 }
+
 Button.File = ButtonFile;

@@ -27,6 +27,14 @@ type LabeledListItemProps = Partial<{
   /** @deprecated */
   content: any;
   children: ReactNode;
+    /**
+   * Align both the label and the content vertically.
+   *
+   * - `baseline` (default)
+   * - `top`
+   * - `middle`
+   * - `bottom`
+   */
   verticalAlign: string;
   tooltip: string;
 }>;
