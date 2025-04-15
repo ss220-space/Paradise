@@ -21,6 +21,7 @@ export const Button = (props) => {
     iconSpin,
     iconColor,
     iconStyle,
+    iconRight,
     color,
     textColor,
     disabled,
@@ -91,7 +92,7 @@ export const Button = (props) => {
       {...computeBoxProps(rest)}
     >
       <div className="Button__content">
-        {icon && iconRight && (
+        {icon && !iconRight && (
           <Icon
             name={icon}
             color={iconColor}

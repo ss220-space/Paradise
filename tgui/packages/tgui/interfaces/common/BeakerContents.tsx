@@ -1,18 +1,40 @@
+import { ReactNode } from 'react';
 import { Stack } from '../../components';
-const PropTypes = require('prop-types');
 
-const formatUnits = (a) =>
+type Chemical = {
+  id: string | number;
+  name: string;
+  volume: number;
+};
+
+type BeakerContentsProps = {
+  /**
+   * Whether there is a loaded beaker or not
+   */
+  beakerLoaded?: boolean;
+
+  /**
+   * The reagents in the beaker
+   */
+  beakerContents?: Chemical[];
+
+  /**
+   * A function that returns ReactNode (buttons) for a given chemical
+   */
+  buttons?: (chemical: Chemical, index: number) => ReactNode;
+};
+
+const formatUnits = (a: number): string =>
   a +
   ' единиц' +
   (a % 10 === 1 && a % 100 !== 11 ? 'а' : '') +
   (a % 10 > 1 && a % 10 < 5 && !(a % 100 > 11) && !(a % 100 < 15) ? 'ы' : '');
 
-/**
- * Displays a beaker's contents
- * @property {object} props
- */
-export const BeakerContents = (props) => {
-  const { beakerLoaded, beakerContents = [], buttons } = props;
+export const BeakerContents = ({
+  beakerLoaded,
+  beakerContents = [],
+  buttons,
+}: BeakerContentsProps) => {
   return (
     <Stack vertical>
       {(!beakerLoaded && (
@@ -21,9 +43,10 @@ export const BeakerContents = (props) => {
         (beakerContents.length === 0 && (
           <Stack.Item color="label">Ёмкость пуста.</Stack.Item>
         ))}
+
       {beakerContents.map((chemical, i) => (
         <Stack key={chemical.name}>
-          <Stack.Item key={chemical.name} color="label" grow>
+          <Stack.Item color="label" grow>
             {formatUnits(chemical.volume)} {chemical.name}
           </Stack.Item>
           {!!buttons && <Stack.Item>{buttons(chemical, i)}</Stack.Item>}
@@ -31,19 +54,4 @@ export const BeakerContents = (props) => {
       ))}
     </Stack>
   );
-};
-
-BeakerContents.propTypes = {
-  /**
-   * Whether there is a loaded beaker or not
-   */
-  beakerLoaded: PropTypes.bool,
-  /**
-   * The reagents in the beaker
-   */
-  beakerContents: PropTypes.array,
-  /**
-   * The buttons to display next to each reagent line
-   */
-  buttons: PropTypes.arrayOf(PropTypes.element),
 };

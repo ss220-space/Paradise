@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Table,
@@ -153,12 +154,9 @@ const ChangeSecurityLevel = (props) => {
 
 const TransferFunds = (props) => {
   const { act, data } = useBackend();
-  const [targetAccNumber, setTargetAccNumber] = useLocalState(
-    'targetAccNumber',
-    0
-  );
-  const [fundsAmount, setFundsAmount] = useLocalState('fundsAmount', 0);
-  const [purpose, setPurpose] = useLocalState('purpose', 0);
+  const [targetAccNumber, setTargetAccNumber] = useState(0);
+  const [fundsAmount, setFundsAmount] = useState(0);
+  const [purpose, setPurpose] = useState(0);
   const { money } = data;
   return (
     <Section title="Transfer Fund">
@@ -243,11 +241,8 @@ const ChangeInsuranceType = (props) => {
 
 const DefaultScreen = (props) => {
   const { act, data } = useBackend();
-  const [fundsAmount, setFundsAmount] = useLocalState('fundsAmount', 0);
-  const [insuranceAmount, setInsuranceAmount] = useLocalState(
-    'insuranceAmount',
-    0
-  );
+  const [fundsAmount, setFundsAmount] = useState(0);
+  const [insuranceAmount, setInsuranceAmount] = useState(0);
   const { owner_name, money, insurance } = data;
   return (
     <>
@@ -342,8 +337,8 @@ const DefaultScreen = (props) => {
 
 const LoginScreen = (props) => {
   const { act, data } = useBackend();
-  const [accountID, setAccountID] = useLocalState('accountID', null);
-  const [accountPin, setAccountPin] = useLocalState('accountPin', null);
+  const [accountID, setAccountID] = useState(null);
+  const [accountPin, setAccountPin] = useState(null);
   const { machine_id, held_card_name } = data;
   return (
     <Section title="Insert card or enter ID and pin to login">

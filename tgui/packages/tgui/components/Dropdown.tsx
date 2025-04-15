@@ -69,10 +69,13 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
-  state: DropdownState = {
-    open: false,
-    selected: this.props.selected,
-  };
+  constructor(props: DropdownProps) {
+    super(props);
+    this.state = {
+      open: false,
+      selected: props.selected,
+    };
+  }
   handleClick = () => {
     if (this.state.open) {
       this.setOpen(false);

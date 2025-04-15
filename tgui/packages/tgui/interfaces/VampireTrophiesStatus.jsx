@@ -62,14 +62,14 @@ const Trophies = (props) => {
               icon_state={icon_hearts}
               verticalAlign="middle"
               style={{
-                'margin-left': '-32px',
-                'margin-right': '-48px',
-                'margin-top': '-32px',
-                'margin-bottom': '-48px',
-                'height': '128px',
-                'width': '128px',
+                marginLeft: '-32px',
+                marginRight: '-48px',
+                marginTop: '-32px',
+                marginBottom: '-48px',
+                height: '128px',
+                width: '128px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Box
@@ -92,14 +92,14 @@ const Trophies = (props) => {
               icon_state={icon_lungs}
               verticalAlign="middle"
               style={{
-                'margin-left': '-8px',
-                'margin-right': '-16px',
-                'margin-top': '-12px',
-                'margin-bottom': '-12px',
-                'height': '72px',
-                'width': '72px',
+                marginLeft: '-8px',
+                marginRight: '-16px',
+                marginTop: '-12px',
+                marginBottom: '-12px',
+                height: '72px',
+                width: '72px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Box
@@ -122,14 +122,14 @@ const Trophies = (props) => {
               icon_state={icon_livers}
               verticalAlign="middle"
               style={{
-                'margin-left': '-24px',
-                'margin-right': '-24px',
-                'margin-top': '-28px',
-                'margin-bottom': '-20px',
-                'height': '96px',
-                'width': '96px',
+                marginLeft: '-24px',
+                marginRight: '-24px',
+                marginTop: '-28px',
+                marginBottom: '-20px',
+                height: '96px',
+                width: '96px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Box
@@ -152,14 +152,14 @@ const Trophies = (props) => {
               icon_state={icon_kidneys}
               verticalAlign="middle"
               style={{
-                'margin-left': '-22px',
-                'margin-right': '-26px',
-                'margin-top': '-28px',
-                'margin-bottom': '-20px',
-                'height': '96px',
-                'width': '96px',
+                marginLeft: '-22px',
+                marginRight: '-26px',
+                marginTop: '-28px',
+                marginBottom: '-20px',
+                height: '96px',
+                width: '96px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Box
@@ -182,14 +182,14 @@ const Trophies = (props) => {
               icon_state={icon_eyes}
               verticalAlign="middle"
               style={{
-                'margin-left': '-26px',
-                'margin-right': '-22px',
-                'margin-top': '-22px',
-                'margin-bottom': '-26px',
-                'height': '96px',
-                'width': '96px',
+                marginLeft: '-26px',
+                marginRight: '-22px',
+                marginTop: '-22px',
+                marginBottom: '-26px',
+                height: '96px',
+                width: '96px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Box
@@ -212,14 +212,14 @@ const Trophies = (props) => {
               icon_state={icon_ears}
               verticalAlign="middle"
               style={{
-                'margin-left': '-8px',
-                'margin-right': '-8px',
-                'margin-top': '-8px',
-                'margin-bottom': '-8px',
-                'height': '64px',
-                'width': '64px',
+                marginLeft: '-8px',
+                marginRight: '-8px',
+                marginTop: '-8px',
+                marginBottom: '-8px',
+                height: '64px',
+                width: '64px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Box

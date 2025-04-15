@@ -312,7 +312,7 @@ const CloningConsoleMain = (props) => {
                   style={{
                     width: '100%',
                     '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                    'image-rendering': 'pixelated',
+                    imageRendering: 'pixelated',
                   }}
                 />
                 <Box color="label">Капсула №{i + 1}</Box>

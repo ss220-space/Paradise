@@ -61,7 +61,7 @@ export const PDAPainter = (props) => {
                       icon_state={pdaIconState}
                       style={{
                         '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                        'image-rendering': 'pixelated',
+                        imageRendering: 'pixelated',
                       }}
                       align="middle"
                     />
@@ -149,10 +149,10 @@ export const PDAColorRow = (props) => {
           icon={pdaIcon}
           icon_state={selectedPda}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             width: '32px',
             margin: '0px',
-            'margin-left': '0px',
+            marginLeft: '0px',
           }}
         />
       </Table.Cell>

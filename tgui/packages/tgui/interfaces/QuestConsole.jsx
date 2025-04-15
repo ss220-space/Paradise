@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Tabs,
@@ -40,7 +41,7 @@ const mapTwoByTwo = (a, c) => {
 };
 
 export const QuestConsole = (properties) => {
-  const [tabName, setTab] = useLocalState('tabName', 'centcomm');
+  const [tabName, setTab] = useState('centcomm');
   return (
     <Window width={1000} height={820}>
       <Window.Content scrollable>
@@ -196,10 +197,7 @@ const QuestFastTimeBonus = (properties) => (
 );
 
 const QuestItem = (properties) => {
-  const [cardWithShownMenu, setCardWithShownMenu] = useLocalState(
-    `cardWithShownMenu`,
-    false
-  );
+  const [cardWithShownMenu, setCardWithShownMenu] = useState(false);
   const { act } = useBackend();
   const { quest } = properties;
   const isCorp = quest.customer === 'corporation';
@@ -260,7 +258,7 @@ const QuestItem = (properties) => {
             fillPositionedParent
             backgroundColor="black"
             opacity="0.5"
-            style={{ 'z-index': '1' }}
+            style={{ zIndex: '1' }}
           />
           {!quest.active ? (
             <Box
@@ -268,7 +266,7 @@ const QuestItem = (properties) => {
               top="50%"
               left="50%"
               textAlign="center"
-              style={{ 'z-index': '2', 'transform': 'translate(-50%, -50%)' }}
+              style={{ zIndex: '2', transform: 'translate(-50%, -50%)' }}
             >
               <Box bold fontSize={1.3} mb={2}>
                 Choose an option:
@@ -301,7 +299,7 @@ const QuestItem = (properties) => {
               top="50%"
               left="50%"
               textAlign="center"
-              style={{ 'z-index': '2', 'transform': 'translate(-50%, -50%)' }}
+              style={{ zIndex: '2', transform: 'translate(-50%, -50%)' }}
             >
               <Box bold fontSize={1.2}>
                 The order is already being processed
@@ -346,15 +344,15 @@ const QuestItemTask = (properties) => {
             className={classes(['cargo_quest42x42', task?.image])}
             style={{
               '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-              'image-rendering': 'pixelated',
-              'vertical-align': 'middle',
+              imageRendering: 'pixelated',
+              verticalAlign: 'middle',
               width: '42px',
               margin: '0px',
             }}
           />
         </Box>
       </Stack.Item>
-      <Stack.Item style={{ 'max-width': '180px', 'white-space': 'pre' }}>
+      <Stack.Item style={{ maxWidth: '180px', whiteSpace: 'pre' }}>
         {decodeHtmlEntities(task.desc)}
       </Stack.Item>
     </Stack>

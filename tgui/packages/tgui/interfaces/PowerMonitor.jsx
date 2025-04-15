@@ -1,9 +1,9 @@
 import { map, sortBy } from 'common/collections';
 import { flow } from 'common/fp';
 import { toFixed } from 'common/math';
-import { pureComponentHooks } from 'common/react';
 import { decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -81,7 +81,7 @@ const DataView = (props) => {
       </Box>
     );
   } else {
-    const [sortByField, setSortByField] = useLocalState('sortByField', null);
+    const [sortByField, setSortByField] = useState(null);
     const supply = history.supply[history.supply.length - 1] || 0;
     const demand = history.demand[history.demand.length - 1] || 0;
     const supplyData = history.supply.map((value, i) => [i, value]);
@@ -257,8 +257,6 @@ const AreaCharge = (props) => {
   );
 };
 
-AreaCharge.defaultHooks = pureComponentHooks;
-
 const AreaStatusColorBox = (props) => {
   let auto;
   let active;
@@ -291,5 +289,3 @@ const AreaStatusColorBox = (props) => {
     />
   );
 };
-
-AreaStatusColorBox.defaultHooks = pureComponentHooks;

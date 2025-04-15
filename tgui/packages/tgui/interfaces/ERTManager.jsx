@@ -1,5 +1,6 @@
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { Fragment } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Button, LabeledList, Box, Section, Tabs, Input } from '../components';
 import { Window } from '../layouts';
 import { decodeHtmlEntities } from 'common/string';
@@ -19,7 +20,7 @@ const PickTab = (index) => {
 export const ERTManager = (props) => {
   const { act, data } = useBackend();
 
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   return (
     <Window title="Менеджер ОБР" width={400} height={540}>
@@ -98,13 +99,13 @@ const SendERT = (props) => {
   const { act, data } = useBackend();
   let slotOptions = [0, 1, 2, 3, 4, 5];
 
-  const [silentERT, setSilentERT] = useLocalState('silentERT', false);
+  const [silentERT, setSilentERT] = useState(false);
 
   return (
     <Section
       title="Отправить ОБР"
       buttons={
-        <Fragment>
+        <>
           <Button
             content="Эмбер"
             color={data.ert_type === 'Amber' ? 'orange' : ''}
@@ -120,7 +121,7 @@ const SendERT = (props) => {
             color={data.ert_type === 'Gamma' ? 'purple' : ''}
             onClick={() => act('ert_type', { ert_type: 'Gamma' })}
           />
-        </Fragment>
+        </>
       }
     >
       <LabeledList>
@@ -283,7 +284,7 @@ const ReadERTRequests = (props) => {
 const DenyERT = (props) => {
   const { act, data } = useBackend();
 
-  const [text, setText] = useLocalState('text', '');
+  const [text, setText] = useState('');
 
   return (
     <Section>

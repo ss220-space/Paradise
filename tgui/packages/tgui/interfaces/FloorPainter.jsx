@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   DmIcon,
@@ -22,9 +23,9 @@ const SelectableTile = (props) => {
       direction={direction}
       onClick={onSelect}
       style={{
-        'border-style': (isSelected && 'solid') || 'none',
-        'border-width': '2px',
-        'border-color': 'orange',
+        borderStyle: (isSelected && 'solid') || 'none',
+        borderWidth: '2px',
+        borderColor: 'orange',
         padding: (isSelected && '0px') || '2px',
       }}
     />
@@ -100,8 +101,8 @@ export const FloorPainter = (props) => {
                         <Table.Cell
                           key={dir}
                           style={{
-                            'vertical-align': 'middle',
-                            'text-align': 'center',
+                            verticalAlign: 'middle',
+                            textAlign: 'center',
                           }}
                         >
                           {dir === null ? (

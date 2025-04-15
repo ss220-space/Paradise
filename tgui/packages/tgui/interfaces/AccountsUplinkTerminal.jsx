@@ -1,5 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Icon,
@@ -57,9 +58,9 @@ export const AccountsUplinkTerminal = (properties) => {
 const AccountsRecordList = (properties) => {
   const { act, data } = useBackend();
   const { accounts } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId', 'owner_name');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('owner_name');
+  const [sortOrder, _setSortOrder] = useState(true);
   return (
     <Stack fill vertical>
       <AccountsActions />
@@ -118,8 +119,8 @@ const AccountsRecordList = (properties) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -147,7 +148,7 @@ const SortButton = (properties) => {
 const AccountsActions = (properties) => {
   const { act, data } = useBackend();
   const { is_printing } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   return (
     <Stack>
       <Stack.Item>
@@ -242,8 +243,8 @@ const DetailedAccountInfo = (properties) => {
 
 const CreateAccount = (properties) => {
   const { act, data } = useBackend();
-  const [accName, setAccName] = useLocalState('accName', '');
-  const [accDeposit, setAccDeposit] = useLocalState('accDeposit', '');
+  const [accName, setAccName] = useState('');
+  const [accDeposit, setAccDeposit] = useState('');
   return (
     <Section
       title="Create Account"

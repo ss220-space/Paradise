@@ -1,5 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -105,9 +106,9 @@ const SecurityRecordsNavigation = (properties) => {
 const SecurityRecordsPageList = (properties) => {
   const { act, data } = useBackend();
   const { records } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('name');
+  const [sortOrder, _setSortOrder] = useState(true);
   return (
     <>
       <Stack.Item>
@@ -175,8 +176,8 @@ const SecurityRecordsPageList = (properties) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
+  const [sortId, setSortId] = useState( 'name');
+  const [sortOrder, setSortOrder] = useState( true);
   const { id, children } = properties;
   return (
     <Stack.Item grow>
@@ -206,7 +207,7 @@ const SortButton = (properties) => {
 const SecurityRecordsActions = (properties) => {
   const { act, data } = useBackend();
   const { isPrinting } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState( '');
   return (
     <Stack fill>
       <Stack.Item>
@@ -432,10 +433,10 @@ const SecurityRecordsViewGeneral = (_properties) => {
               src={p}
               style={{
                 width: '96px',
-                'margin-top': '5rem',
-                'margin-bottom': '0.5rem',
+                marginTop: '5rem',
+                marginBottom: '0.5rem',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <br />

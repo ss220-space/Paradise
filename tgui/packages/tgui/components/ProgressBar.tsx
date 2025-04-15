@@ -78,8 +78,23 @@ export const ProgressBar = (props: Props) => {
   );
 };
 
-export class ProgressBarCountdown extends Component {
-  timer;
+type CountdownProps = Omit<Props, 'value'> & {
+  start: number;
+  current: number;
+  end: number;
+  rate?: number;
+};
+
+type CountdownState = {
+  value: number;
+};
+
+export class ProgressBarCountdown extends Component<
+  CountdownProps,
+  CountdownState
+> {
+  timer: ReturnType<typeof setInterval> | null = null;
+
   constructor(props) {
     super(props);
     this.timer = null;
@@ -87,6 +102,9 @@ export class ProgressBarCountdown extends Component {
       value: Math.max(props.current * 100, 0), // ds -> ms
     };
   }
+  static defaultProps = {
+    rate: 1000,
+  };
 
   tick() {
     const newValue = Math.max(this.state.value + this.props.rate, 0);
@@ -114,9 +132,5 @@ export class ProgressBarCountdown extends Component {
     return <ProgressBar value={frac} {...rest} />;
   }
 }
-
-ProgressBarCountdown.defaultProps = {
-  rate: 1000,
-};
 
 ProgressBar.Countdown = ProgressBarCountdown;

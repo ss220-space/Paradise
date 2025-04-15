@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Box, Section, Button, LabeledList, Table } from '../components';
 import { Window } from '../layouts';
 export const Healthanalyzer = (props) => {

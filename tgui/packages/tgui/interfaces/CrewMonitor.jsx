@@ -1,6 +1,7 @@
 import { sortBy } from 'common/collections';
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { COLORS } from '../constants';
@@ -38,7 +39,7 @@ const getStatColor = (cm, critThreshold) => {
 
 export const CrewMonitor = (props) => {
   const { act, data } = useBackend();
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', data.IndexToggler);
+  const [tabIndex, setTabIndex] = useState(data.IndexToggler);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -113,7 +114,7 @@ export const CrewMonitor = (props) => {
 const CrewMonitorTable = ({ crewData }) => {
   const { act, data } = useBackend();
   const crew = sortBy((cm) => cm.name)(crewData || []);
-  const [search, setSearch] = useLocalState('search', '');
+  const [search, setSearch] = useState('');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
   });
@@ -215,11 +216,8 @@ const MiningCrewMonitorDataView = (_properties) => {
 const CrewMonitorMapView = (_properties) => {
   const { act, data } = useBackend();
   const { stationLevelNum, stationLevelName } = data;
-  const [zoom, setZoom] = useLocalState('zoom', 1);
-  const [z_current, setZCurrent] = useLocalState(
-    'z_current',
-    stationLevelNum[0]
-  );
+  const [zoom, setZoom] = useState(1);
+  const [z_current, setZCurrent] = useState(stationLevelNum[0]);
   const getIcon = (cm) => {
     return (cm.is_command && data.isBS) || (cm.is_security && data.isBP)
       ? 'square'

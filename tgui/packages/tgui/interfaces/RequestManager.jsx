@@ -6,20 +6,20 @@
  */
 
 import { decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Button, Flex, Input, Section, Table } from '../components';
 import { Window } from '../layouts';
 
 export const RequestManager = (props) => {
   const { act, data } = useBackend();
   const { requests } = data;
-  const [filteredTypes, _] = useLocalState(
-    'filteredTypes',
+  const [filteredTypes, _] = useState(
     Object.fromEntries(
       Object.entries(displayTypeMap).map(([type, _]) => [type, true])
     )
   );
-  const [searchText, setSearchText] = useLocalState('searchText');
+  const [searchText, setSearchText] = useState();
 
   // Handle filtering
   let displayedRequests = requests.filter(

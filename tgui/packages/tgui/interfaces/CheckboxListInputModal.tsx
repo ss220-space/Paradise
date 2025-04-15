@@ -1,9 +1,9 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Window } from '../layouts';
-import { createLogger } from '../logging';
 import { BooleanLike } from 'common/react';
 
 type ListInputData = {
@@ -21,10 +21,7 @@ interface CheckboxData {
 export const CheckboxListInputModal = (props) => {
   const { act, data } = useBackend<ListInputData>();
   const { items = [], message = '', init_value, timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<CheckboxData[]>(
-    'edittedItems',
-    items
-  );
+  const [edittedItems, setEdittedItems] = useState<CheckboxData[]>(items);
 
   const windowHeight = 330 + Math.ceil(message.length / 3);
 
@@ -73,8 +70,8 @@ const ListDisplay = (props) => {
             onClick={() => onClick(item)}
             checked={item.checked}
             style={{
-              'animation': 'none',
-              'transition': 'none',
+              animation: 'none',
+              transition: 'none',
             }}
           >
             {item.key.replace(/^\w/, (c) => c.toUpperCase())}

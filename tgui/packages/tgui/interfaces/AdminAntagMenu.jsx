@@ -1,5 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend} from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -41,8 +42,8 @@ const PickTab = (index) => MenuTabs[index] || MenuTabs.default;
 export const AdminAntagMenu = (properties) => {
   const { act, data } = useBackend();
   const { loginState, currentPage } = data;
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [tabIndex, setTabIndex] = useState(0);
+  const [searchText, setSearchText] = useState('');
   return (
     <Window width={800} height={600} title={'Меню спец-ролей'}>
       <Window.Content scrollable>
@@ -121,9 +122,9 @@ export const AdminAntagMenu = (properties) => {
 const AntagList = (properties) => {
   const { act, data } = useBackend();
   const { antagonists } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId', 'antag_names');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('antag_names');
+  const [sortOrder, _setSortOrder] = useState(true);
 
   const keys = Object.keys(antagonists);
   if (!keys || keys.length === 0) {
@@ -251,9 +252,9 @@ const AntagList = (properties) => {
 const Objectives = (properties) => {
   const { act, data } = useBackend();
   const { objectives } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId2', 'target_name');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('target_name');
+  const [sortOrder, _setSortOrder] = useState(true);
   if (!objectives.length) {
     return 'Нет целей!';
   }
@@ -368,9 +369,9 @@ const Objectives = (properties) => {
 const Security = (properties) => {
   const { act, data } = useBackend();
   const { security } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId3', 'health');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('health');
+  const [sortOrder, _setSortOrder] = useState(true);
 
   const getColor = (officer) => {
     if (officer.status === 2) {
@@ -538,9 +539,9 @@ const Security = (properties) => {
 const HighValueItems = (properties) => {
   const { act, data } = useBackend();
   const { high_value_items } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId4', 'person');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('person');
+  const [sortOrder, _setSortOrder] = useState(true);
   if (!high_value_items.length) {
     return 'Нет особо ценных предметов!';
   }
@@ -627,8 +628,8 @@ const SortButton = (properties) => {
     default_sort = 'antag_names',
     children,
   } = properties;
-  const [sortId, setSortId] = useLocalState(sort_group, default_sort);
-  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
+  const [sortId, setSortId] = useState(default_sort);
+  const [sortOrder, setSortOrder] = useState(true);
   return (
     <Table.Cell>
       <Button

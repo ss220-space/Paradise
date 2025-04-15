@@ -1,4 +1,4 @@
-import { Component, Fragment } from 'inferno';
+import { Component, Fragment } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -82,7 +82,7 @@ const StylesPreview = (properties) => {
   return (
     <Section
       title="Персонализация костюма"
-      style={{ 'text-align': 'center' }}
+      style={{ textAlign: 'center' }}
       m="0px"
       width="100%"
       buttons={
@@ -106,7 +106,7 @@ const StylesPreview = (properties) => {
           align="center"
         >
           <Section
-            style={{ 'background': 'rgba(4, 74, 27, 0.75)' }}
+            style={{ background: 'rgba(4, 74, 27, 0.75)' }}
             mr={10}
             ml={10}
           >
@@ -116,9 +116,9 @@ const StylesPreview = (properties) => {
               icon={stylesIcon}
               icon_state={style_preview_icon_state}
               style={{
-                'margin-left': '0px',
+                marginLeft: '0px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
           </Section>
@@ -310,7 +310,7 @@ const Helpers = (properties) => {
     <Section
       m="0"
       title="Советы и подсказки"
-      style={{ 'text-align': 'center' }}
+      style={{ textAlign: 'center' }}
       buttons={
         <Button
           content="?"
@@ -332,9 +332,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="ninja_teleport"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -357,9 +357,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="headset_green"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -382,9 +382,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="ninja_sleeper"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -406,9 +406,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="ai_face"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -429,9 +429,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="ninja_borg"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -454,9 +454,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="server"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -479,9 +479,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="buckler"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -505,9 +505,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="cash"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -529,9 +529,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="handcuff"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -554,9 +554,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="spider_charge"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -579,9 +579,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="BSM"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -604,9 +604,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="changeling"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -630,9 +630,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="vampire"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -655,9 +655,9 @@ const Helpers = (properties) => {
               icon={actionsIcon}
               icon_state="syndicate"
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <Tooltip
@@ -693,7 +693,7 @@ const ActionBuyPanel = (properties) => {
   return (
     <Section
       title="Модули костюма"
-      style={{ 'text-align': 'center' }}
+      style={{ textAlign: 'center' }}
       buttons={
         <Button
           content="?"
@@ -723,8 +723,8 @@ const ActionBuyPanel = (properties) => {
               />
             }
             style={{
-              'text-align': 'center',
-              'background': 'rgba(53, 94, 163, 0.8)',
+              textAlign: 'center',
+              background: 'rgba(53, 94, 163, 0.8)',
             }}
           />
           <NoticeBox
@@ -750,9 +750,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="smoke"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -788,9 +788,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="ninja_cloak"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -825,9 +825,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="ninja_clones"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -862,9 +862,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="chameleon"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -900,9 +900,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="ninja_spirit_form"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -936,8 +936,8 @@ const ActionBuyPanel = (properties) => {
               />
             }
             style={{
-              'text-align': 'center',
-              'background': 'rgba(0, 174, 208, 0.15)',
+              textAlign: 'center',
+              background: 'rgba(0, 174, 208, 0.15)',
             }}
           />
           <NoticeBox success={0} danger={0} align="center">
@@ -958,9 +958,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="kunai"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -995,9 +995,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="chem_injector"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1031,9 +1031,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="emergency_blink"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1066,9 +1066,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="caltrop"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1104,9 +1104,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="cloning"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1139,8 +1139,8 @@ const ActionBuyPanel = (properties) => {
               />
             }
             style={{
-              'text-align': 'center',
-              'background': 'rgba(80, 20, 20, 1)',
+              textAlign: 'center',
+              background: 'rgba(80, 20, 20, 1)',
             }}
           />
           <NoticeBox
@@ -1166,9 +1166,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="shuriken"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1200,9 +1200,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="adrenal"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1230,9 +1230,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="emp"
                 style={{
-                  'margin-left': '-6px',
+                  marginLdeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1265,9 +1265,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="energynet"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1302,9 +1302,9 @@ const ActionBuyPanel = (properties) => {
                 icon={actionsIcon}
                 icon_state="spider_red"
                 style={{
-                  'margin-left': '-6px',
+                  marginLeft: '-6px',
                   '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                  'image-rendering': 'pixelated',
+                  imageRendering: 'pixelated',
                 }}
               />
               <Tooltip
@@ -1334,7 +1334,7 @@ export const ShuttleConsole = (properties) => {
     <Section
       title="Управление шаттлом"
       mr="5px"
-      style={{ 'text-align': 'center' }}
+      style={{ textAlign: 'center' }}
       buttons={
         <Button
           content="?"
@@ -1416,9 +1416,9 @@ const FakeLoadBar = (properties) => {
               icon={actionsIcon}
               icon_state={'spider_' + color_choice}
               style={{
-                'margin-left': '-6px',
+                marginLeft: '-6px',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <br />

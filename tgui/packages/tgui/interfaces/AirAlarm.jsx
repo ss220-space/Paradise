@@ -1,4 +1,4 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import {
   Button,
   LabeledList,
@@ -10,6 +10,7 @@ import {
   Tabs,
   Table,
 } from '../components';
+import { useState } from 'react';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
@@ -191,7 +192,7 @@ const AirStatus = (props) => {
 };
 
 const AirAlarmTabs = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   return (
     <Tabs>
       <Tabs.Tab
@@ -227,7 +228,7 @@ const AirAlarmTabs = (props) => {
 };
 
 const AirAlarmUnlockedContent = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   switch (tabIndex) {
     case 0:
       return <AirAlarmVentsView />;

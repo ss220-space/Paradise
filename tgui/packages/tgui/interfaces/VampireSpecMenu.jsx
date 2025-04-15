@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Flex,
@@ -12,7 +13,7 @@ import { Window } from '../layouts';
 
 export const VampireSpecMenu = (props) => {
   const { act } = useBackend();
-  const [activeTab, setActiveTab] = useLocalState('activeTab', 'hemomancer');
+  const [activeTab, setActiveTab] = useState('hemomancer');
 
   const renderMenu = () => {
     switch (activeTab) {

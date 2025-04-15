@@ -67,10 +67,8 @@ const dataToPolylinePoints = (data) => {
   return points;
 };
 
-class LineChart extends Component<Props> {
+class LineChart extends Component<Props, State> {
   ref: RefObject<HTMLDivElement>;
-  state: State;
-
   constructor(props: Props) {
     super(props);
     this.ref = createRef();
@@ -136,7 +134,8 @@ class LineChart extends Component<Props> {
               right: 0,
               bottom: 0,
               overflow: 'hidden',
-            }}>
+            }}
+          >
             <polyline
               transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
               fill={fillColor}

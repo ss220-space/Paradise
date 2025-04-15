@@ -1,6 +1,7 @@
 import { classes } from '../../common/react';
 import { createSearch } from '../../common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -107,7 +108,7 @@ const Materials = (properties) => {
 const Designs = (properties) => {
   const { act, data } = useBackend();
   const { curCategory, categories, designs, syncing } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const searcher = createSearch(searchText, (design) => {
     return design.name;
   });

@@ -1,5 +1,6 @@
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { Fragment } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Box, Button, Stack, Section } from '../components';
 import { Window } from '../layouts';
 
@@ -30,7 +31,7 @@ export const Minesweeper = (props) => {
     });
   };
 
-  const [currentMode, setMode] = useLocalState('mode', 'bomb');
+  const [currentMode, setMode] = useState('bomb');
 
   const altMode = {
     'flag': 'bomb',

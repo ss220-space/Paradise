@@ -1,5 +1,6 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -118,9 +119,9 @@ export const MedicalRecords = (_properties) => {
 const MedicalRecordsList = (_properties) => {
   const { act, data } = useBackend();
   const { records } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId, _setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId, _setSortId] = useState('name');
+  const [sortOrder, _setSortOrder] = useState(true);
   return (
     <>
       <Stack.Item>
@@ -356,10 +357,10 @@ const MedicalRecordsViewGeneral = (_properties) => {
               src={p}
               style={{
                 width: '96px',
-                'margin-top': '2.5rem',
-                'margin-bottom': '0.5rem',
+                marginTop: '2.5rem',
+                marginBottom: '0.5rem',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <br />
@@ -449,9 +450,9 @@ const MedicalRecordsViewComments = (_properties) => {
 const MedicalRecordsViruses = (_properties) => {
   const { act, data } = useBackend();
   const { virus } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [sortId2, _setSortId2] = useLocalState('sortId2', 'name');
-  const [sortOrder2, _setSortOrder2] = useLocalState('sortOrder2', true);
+  const [searchText, setSearchText] = useState('');
+  const [sortId2, _setSortId2] = useState('name');
+  const [sortOrder2, _setSortOrder2] = useState(true);
   return (
     <>
       <Stack.Item grow>
@@ -577,8 +578,8 @@ const MedicalRecordsMedbots = (_properties) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -604,8 +605,8 @@ const SortButton = (properties) => {
 };
 
 const SortButton2 = (properties) => {
-  const [sortId2, setSortId2] = useLocalState('sortId2', 'name');
-  const [sortOrder2, setSortOrder2] = useLocalState('sortOrder2', true);
+  const [sortId2, setSortId2] = useState('name');
+  const [sortOrder2, setSortOrder2] = useState(true);
   const { id, children } = properties;
   return (
     <Table.Cell>

@@ -1,7 +1,8 @@
 import { Loader } from './common/Loader';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Autofocus, Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
@@ -30,7 +31,7 @@ export const AlertModal = (props) => {
     title,
   } = data;
 
-  const [selected, setSelected] = useLocalState<number>('selected', 0);
+  const [selected, setSelected] = useState<number>(0);
 
   // At least one of the buttons has a long text message
   const isVerbose = buttons.some((button) => button.length > 10);

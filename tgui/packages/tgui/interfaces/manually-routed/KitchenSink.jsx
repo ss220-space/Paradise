@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useState } from 'react';
 import {
   BlockQuote,
   Box,
@@ -81,8 +82,8 @@ const PAGES = [
 ];
 
 export const KitchenSink = (props) => {
-  const [theme] = useLocalState('kitchenSinkTheme');
-  const [pageIndex, setPageIndex] = useLocalState('pageIndex', 0);
+  const [theme] = useState();
+  const [pageIndex, setPageIndex] = useState(0);
   const PageComponent = PAGES[pageIndex].component();
   return (
     <Window theme={theme} resizable>
@@ -167,7 +168,7 @@ const KitchenSinkBox = (props) => {
 };
 
 const KitchenSinkProgressBar = (props) => {
-  const [progress, setProgress] = useLocalState('progress', 0.5);
+  const [progress, setProgress] = useState(0.5);
 
   return (
     <Box>
@@ -192,9 +193,9 @@ const KitchenSinkProgressBar = (props) => {
 };
 
 const KitchenSinkTabs = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
-  const [vertical, setVertical] = useLocalState('tabVert');
-  const [altSelection, setAltSelection] = useLocalState('tabAlt');
+  const [tabIndex, setTabIndex] = useState(0);
+  const [vertical, setVertical] = useState();
+  const [altSelection, setAltSelection] = useState();
   const TAB_RANGE = [1, 2, 3, 4, 5];
   return (
     <Box>
@@ -262,9 +263,9 @@ const KitchenSinkTooltip = (props) => {
 };
 
 const KitchenSinkInput = (props) => {
-  const [number, setNumber] = useLocalState('number', 0);
+  const [number, setNumber] = useState(0);
 
-  const [text, setText] = useLocalState('text', 'Sample text');
+  const [text, setText] = useState('Sample text');
 
   return (
     <Box>
@@ -411,7 +412,7 @@ const KitchenSinkByondUi = (props) => {
 };
 
 const KitchenSinkThemes = (props) => {
-  const [theme, setTheme] = useLocalState('kitchenSinkTheme');
+  const [theme, setTheme] = useState();
   return (
     <Box>
       <LabeledList>

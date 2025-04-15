@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   LabeledList,
@@ -539,10 +540,10 @@ const AdminAnnouncePage = (props) => {
     return act('main');
   }
 
-  const [subtitle, setSubtitle] = useLocalState('subtitle', '');
-  const [text, setText] = useLocalState('text', '');
-  const [classified, setClassified] = useLocalState('classified', 0);
-  const [beepsound, setBeepsound] = useLocalState('beepsound', 'Beep');
+  const [subtitle, setSubtitle] = useState('');
+  const [text, setText] = useState('');
+  const [classified, setClassified] = useState(0);
+  const [beepsound, setBeepsound] = useState('Beep');
 
   return (
     <Stack.Item>

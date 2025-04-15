@@ -78,8 +78,8 @@ export const Multitool = (props) => {
         <Flex direction="column" height="100%">
           <Flex.Item
             style={{
-              'overflow-x': 'hidden',
-              'overflow-y': 'auto',
+              overflowX: 'hidden',
+              overflowY: 'auto',
             }}
             grow={1}
             shrink={1}

@@ -1,4 +1,4 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import { Box, Button, Stack, Dropdown } from '../components';
 import { Window } from '../layouts';
 
@@ -23,9 +23,9 @@ export const RitualMenu = (props) => {
             p="12px"
             color="white"
             style={{
-              'color': 'white',
-              'border-radius': '10px',
-              'font-weight': 'bold',
+              color: 'white',
+              borderRadius: '10px',
+              fontWeight: 'bold',
             }}
           >
             <span>Выбор ритуала</span>
@@ -39,9 +39,9 @@ export const RitualMenu = (props) => {
                 act('select_ritual', { selected_ritual: val });
               }}
               style={{
-                'color': 'white',
-                'border': '1px solid #444',
-                'border-radius': '5px',
+                color: 'white',
+                border: '1px solid #444',
+                borderRadius: '5px',
               }}
             />
           </Box>
@@ -57,10 +57,10 @@ export const RitualMenu = (props) => {
                     p="8px"
                     backgroundColor="#3a3a3a"
                     style={{
-                      'color': 'white',
-                      'border-radius': '6px 6px 0 0',
-                      'border-bottom': '2px solid #888',
-                      'font-weight': 'bold',
+                      color: 'white',
+                      borderRadius: '6px 6px 0 0',
+                      borderBottom: '2px solid #888',
+                      fontWeight: 'bold',
                     }}
                   >
                     Свойства:
@@ -73,10 +73,10 @@ export const RitualMenu = (props) => {
                     color="#ffffff"
                     backgroundColor="#3a3a3a"
                     style={{
-                      'color': 'white',
-                      'border-radius': '6px 6px 0 0',
-                      'border-bottom': '2px solid #888',
-                      'font-weight': 'bold',
+                      color: 'white',
+                      borderRadius: '6px 6px 0 0',
+                      borderBottom: '2px solid #888',
+                      fontWeight: 'bold',
                     }}
                   >
                     Результат:
@@ -92,9 +92,9 @@ export const RitualMenu = (props) => {
                     p="12px"
                     color="white"
                     style={{
-                      'color': 'white',
-                      'border-radius': '8px',
-                      'box-shadow': 'inset 0 0 8px #000',
+                      color: 'white',
+                      borderRadius: '8px',
+                      boxShadow: 'inset 0 0 8px #000',
                     }}
                   >
                     {params
@@ -109,7 +109,7 @@ export const RitualMenu = (props) => {
                       : ''}
                     <br />
                     Список необходимых предметов:
-                    <ul style={{ 'margin-left': '15px' }}>
+                    <ul style={{ marginLeft: '15px' }}>
                       {things
                         ? Object.entries(things).map(([key, value]) => {
                             return (
@@ -129,9 +129,9 @@ export const RitualMenu = (props) => {
                     p="12px"
                     color="white"
                     style={{
-                      'color': 'white',
-                      'border-radius': '8px',
-                      'box-shadow': 'inset 0 0 8px #000',
+                      color: 'white',
+                      borderRadius: '8px',
+                      boxShadow: 'inset 0 0 8px #000',
                     }}
                   >
                     {description}
@@ -150,13 +150,13 @@ export const RitualMenu = (props) => {
                 width="40em"
                 backgroundColor="#3c3c3c"
                 style={{
-                  'color': 'white',
-                  'border': '1px solid #555',
-                  'padding': '10px 20px',
-                  'border-radius': '10px',
-                  'cursor': 'pointer',
-                  'font-weight': 'bold',
-                  'text-align': 'center',
+                  color: 'white',
+                  border: '1px solid #555',
+                  padding: '10px 20px',
+                  borderRadius: '10px',
+                  cursor: 'pointer',
+                  fontWeight: 'bold',
+                  textAlign: 'center',
                 }}
                 disabled={!ritual_available}
                 onMouseOver={(e) => (e.target.style.backgroundColor = '#555')}
@@ -171,11 +171,11 @@ export const RitualMenu = (props) => {
               width="100%"
               height="100%"
               style={{
-                'display': 'flex',
-                'justify-content': 'center',
-                'align-items': 'center',
-                'font-size': '2em',
-                'font-weight': 'bold',
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+                fontSize: '2em',
+                fontWeight: 'bold',
               }}
             >
               Ритуал не выбран

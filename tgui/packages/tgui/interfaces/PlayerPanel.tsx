@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Box, Button, Section, Table, Stack, Grid } from '../components';
 import { Window } from '../layouts';
 
@@ -82,8 +83,8 @@ export const PlayerPanel = (props) => {
 
 const PlayerInformation = (props) => {
   const { act, data } = useBackend<playerData>();
-  const [hideIP, setIP] = useLocalState('show_ip', false);
-  const [hideCID, setCID] = useLocalState('show_cid', false);
+  const [hideIP, setIP] = useState(false);
+  const [hideCID, setCID] = useState(false);
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });

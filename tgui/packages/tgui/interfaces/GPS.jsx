@@ -1,6 +1,7 @@
 import { rad2deg } from 'common/math';
 
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -95,7 +96,7 @@ const TurnedOff = ({ emp }) => {
 const Settings = (properties) => {
   const { act, data } = useBackend();
   const { active, tag, same_z } = data;
-  const [newTag, setNewTag] = useLocalState('newTag', tag);
+  const [newTag, setNewTag] = useState( tag);
   return (
     <Section
       title="Settings"

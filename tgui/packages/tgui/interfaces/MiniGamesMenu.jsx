@@ -77,7 +77,7 @@ export const MiniGamesMenu = (props) => {
               }
             >
               <Box
-                style={{ 'white-space': 'pre-wrap' }} // preserve newline
+                style={{ whiteSpace: 'pre-wrap' }} // preserve newline
                 mb={1}
                 fontSize="16px"
               >
@@ -85,7 +85,7 @@ export const MiniGamesMenu = (props) => {
               </Box>
               {!!spawner.fluff && (
                 <Box // lighter grey than default grey for better contrast.
-                  style={{ 'white-space': 'pre-wrap' }}
+                  style={{ whiteSpace: 'pre-wrap' }}
                   textColor="#878787"
                   fontSize="14px"
                 >
@@ -94,7 +94,7 @@ export const MiniGamesMenu = (props) => {
               )}
               {!!spawner.important_info && (
                 <Box
-                  style={{ 'white-space': 'pre-wrap' }}
+                  style={{ whiteSpace: 'pre-wrap' }}
                   mt={1}
                   bold
                   color="red"

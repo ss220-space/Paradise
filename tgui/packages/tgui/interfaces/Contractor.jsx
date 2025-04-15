@@ -1,6 +1,7 @@
 import { rad2deg } from 'common/math';
-import { Component, Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { Component, Fragment } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -90,7 +91,7 @@ export const Contractor = (properties) => {
       </>
     );
   }
-  const [viewingPhoto, _setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [viewingPhoto, _setViewingPhoto] = useState( '');
   return (
     <Window width={600} height={800} theme="syndicate">
       {viewingPhoto && <PhotoZoom />}
@@ -197,7 +198,7 @@ const Contracts = (properties) => {
   const activeContract =
     !!contract_active && contracts.filter((c) => c.status === 1)[0];
   const extractionCooldown = activeContract && activeContract.time_left > 0;
-  const [_viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [_viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Section
       title="Доступные контракты"
@@ -472,7 +473,7 @@ class FakeTerminal extends Component {
 }
 
 const PhotoZoom = (properties) => {
-  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Modal className="Contractor__photoZoom">
       <Box as="img" src={viewingPhoto} />

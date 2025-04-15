@@ -1,5 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Dimmer,
@@ -50,13 +51,10 @@ const sortTypes = {
 
 export const Loadout = (props) => {
   const { act, data } = useBackend<Data>();
-  const [search, setSearch] = useLocalState('search', false);
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [category, setCategory] = useLocalState(
-    'category',
-    Object.keys(data.gears)[0]
-  );
-  const [tweakedGear, setTweakedGear] = useLocalState('tweakedGear', '');
+  const [search, setSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [category, setCategory] = useState(Object.keys(data.gears)[0]);
+  const [tweakedGear, setTweakedGear] = useState('');
 
   return (
     <Window width={975} height={650}>
@@ -94,13 +92,13 @@ const LoadoutCategories = (props) => {
   const { act, data } = useBackend<Data>();
   const { category, setCategory } = props;
   return (
-    <Tabs fluid textAlign="center" style={{ 'flex-wrap': 'wrap-reverse' }}>
+    <Tabs fluid textAlign="center" style={{ flexWrap: 'wrap-reverse' }}>
       {Object.keys(data.gears).map((cat) => (
         <Tabs.Tab
           key={cat}
           selected={cat === category}
           style={{
-            'white-space': 'nowrap',
+            whiteSpace: 'nowrap',
           }}
           onClick={() => setCategory(cat)}
         >
@@ -116,8 +114,8 @@ const LoadoutGears = (props) => {
   const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
 
-  const [sortType, setSortType] = useLocalState('sortType', 'Default');
-  const [sortReverse, setsortReverse] = useLocalState('sortReverse', false);
+  const [sortType, setSortType] = useState('Default');
+  const [sortReverse, setsortReverse] = useState(false);
   const testSearch = createSearch<Gear>(searchText, (gear) => gear.name);
 
   let contents;
@@ -254,7 +252,7 @@ const LoadoutGears = (props) => {
         const textInfo = (
           <Box class="Loadout-InfoBox">
             <Box
-              style={{ 'flex-grow': 1 }}
+              style={{ flexGrow: 1 }}
               fontSize={1}
               color="gold"
               opacity={0.75}
@@ -446,7 +444,7 @@ const GearTweak = (props) => {
                         width={1}
                         height={1}
                         verticalAlign={'middle'}
-                        style={{ 'background-color': `${tweakInfo}` }}
+                        style={{ backgroundColor: `${tweakInfo}` }}
                       />
                     </LabeledList.Item>
                   );

@@ -1,9 +1,10 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Button, Section, Box, Flex, NoticeBox, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const DestinationTagger = (_props) => {
-  const [tabName, setTab] = useLocalState('tabName', 'station');
+  const [tabName, setTab] = useState('station');
   return (
     <Window width={395} height={350}>
       <Window.Content scrollable>

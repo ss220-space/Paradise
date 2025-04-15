@@ -100,7 +100,7 @@ const AtmosPipeContent = (props) => {
                           onClick={() =>
                             act('whatpipe', { whatpipe: p.pipe_id })
                           }
-                          style={{ 'margin-bottom': '2px' }}
+                          style={{ marginBottom: '2px' }}
                         />
                       </Box>
                     ))}
@@ -130,7 +130,7 @@ const AtmosPipeContent = (props) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 0 })
                             }
-                            style={{ 'margin-bottom': '5px' }}
+                            style={{ marginBottom: '5px' }}
                           />
                         </Box>
                         {p.bendy ? (
@@ -153,7 +153,7 @@ const AtmosPipeContent = (props) => {
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 4 })
                                   }
-                                  style={{ 'margin-bottom': '5px' }}
+                                  style={{ marginBottom: '5px' }}
                                 />
                               </Grid.Column>
                               <Grid.Column>
@@ -173,7 +173,7 @@ const AtmosPipeContent = (props) => {
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 2 })
                                   }
-                                  style={{ 'margin-bottom': '5px' }}
+                                  style={{ marginBottom: '5px' }}
                                 />
                               </Grid.Column>
                             </Grid>
@@ -195,7 +195,7 @@ const AtmosPipeContent = (props) => {
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 1 })
                                   }
-                                  style={{ 'margin-bottom': '5px' }}
+                                  style={{ marginBottom: '5px' }}
                                 />
                               </Grid.Column>
                               <Grid.Column>
@@ -215,7 +215,7 @@ const AtmosPipeContent = (props) => {
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 8 })
                                   }
-                                  style={{ 'margin-bottom': '5px' }}
+                                  style={{ marginBottom: '5px' }}
                                 />
                               </Grid.Column>
                             </Grid>
@@ -240,7 +240,7 @@ const AtmosPipeContent = (props) => {
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 1 })
                                   }
-                                  style={{ 'margin-bottom': '5px' }}
+                                  style={{ marginBottom: '5px' }}
                                 />
                               </Grid.Column>
                               <Grid.Column>
@@ -260,7 +260,7 @@ const AtmosPipeContent = (props) => {
                                   onClick={() =>
                                     act('iconrotation', { iconrotation: 4 })
                                   }
-                                  style={{ 'margin-bottom': '5px' }}
+                                  style={{ marginBottom: '5px' }}
                                 />
                               </Grid.Column>
                             </Grid>
@@ -283,7 +283,7 @@ const AtmosPipeContent = (props) => {
                                     onClick={() =>
                                       act('iconrotation', { iconrotation: 2 })
                                     }
-                                    style={{ 'margin-bottom': '5px' }}
+                                    style={{ marginBottom: '5px' }}
                                   />
                                 </Grid.Column>
                                 <Grid.Column>
@@ -303,7 +303,7 @@ const AtmosPipeContent = (props) => {
                                     onClick={() =>
                                       act('iconrotation', { iconrotation: 8 })
                                     }
-                                    style={{ 'margin-bottom': '5px' }}
+                                    style={{ marginBottom: '5px' }}
                                   />
                                 </Grid.Column>
                               </Grid>
@@ -346,7 +346,7 @@ const DisposalPipeContent = (props) => {
                         onClick={() =>
                           act('whatdpipe', { whatdpipe: p.pipe_id })
                         }
-                        style={{ 'margin-bottom': '2px' }}
+                        style={{ marginBottom: '2px' }}
                       />
                     </Box>
                   ))}
@@ -376,7 +376,7 @@ const DisposalPipeContent = (props) => {
                           onClick={() =>
                             act('iconrotation', { iconrotation: 0 })
                           }
-                          style={{ 'margin-bottom': '5px' }}
+                          style={{ marginBottom: '5px' }}
                         />
                       </Box>
                       <Grid>
@@ -397,7 +397,7 @@ const DisposalPipeContent = (props) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 1 })
                             }
-                            style={{ 'margin-bottom': '5px' }}
+                            style={{ marginBottom: '5px' }}
                           />
                         </Grid.Column>
                         <Grid.Column>
@@ -417,7 +417,7 @@ const DisposalPipeContent = (props) => {
                             onClick={() =>
                               act('iconrotation', { iconrotation: 4 })
                             }
-                            style={{ 'margin-bottom': '5px' }}
+                            style={{ marginBottom: '5px' }}
                           />
                         </Grid.Column>
                       </Grid>
@@ -440,7 +440,7 @@ const DisposalPipeContent = (props) => {
                               onClick={() =>
                                 act('iconrotation', { iconrotation: 2 })
                               }
-                              style={{ 'margin-bottom': '5px' }}
+                              style={{ marginBottom: '5px' }}
                             />
                           </Grid.Column>
                           <Grid.Column>
@@ -460,7 +460,7 @@ const DisposalPipeContent = (props) => {
                               onClick={() =>
                                 act('iconrotation', { iconrotation: 8 })
                               }
-                              style={{ 'margin-bottom': '5px' }}
+                              style={{ marginBottom: '5px' }}
                             />
                           </Grid.Column>
                         </Grid>

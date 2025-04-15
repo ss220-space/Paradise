@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useState } from 'react';
 import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
 import { filter, sortBy } from 'common/collections';
@@ -22,7 +23,7 @@ const SelectionView = (props) => {
   const { act } = useBackend();
   const { recordsList } = props.data;
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
 
   // Search for peeps
   const SelectMembers = (people, searchText = '') => {

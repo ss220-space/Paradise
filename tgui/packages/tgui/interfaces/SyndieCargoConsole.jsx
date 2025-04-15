@@ -1,7 +1,8 @@
 import { flow } from 'common/fp';
 
 import { filter, sortBy } from 'common/collections';
-import { useBackend, useSharedState, useLocalState } from '../backend';
+import { useBackend, useSharedState } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   LabeledList,
@@ -31,15 +32,11 @@ export const SyndieCargoConsole = (props) => {
 };
 
 const ContentsModal = (_properties) => {
-  const [contentsModal, setContentsModal] = useLocalState(
-    'contentsModal',
+  const [contentsModal, setContentsModal] = useState(
     null
   );
 
-  const [contentsModalTitle, setContentsModalTitle] = useLocalState(
-    'contentsModalTitle',
-    null
-  );
+  const [contentsModalTitle, setContentsModalTitle] = useState(null);
   if (contentsModal !== null && contentsModalTitle !== null) {
     return (
       <Modal
@@ -157,15 +154,9 @@ const CataloguePane = (_properties) => {
 
   const [searchText, setSearchText] = useSharedState('search_text', '');
 
-  const [contentsModal, setContentsModal] = useLocalState(
-    'contentsModal',
-    null
-  );
+  const [contentsModal, setContentsModal] = useState(null);
 
-  const [contentsModalTitle, setContentsModalTitle] = useLocalState(
-    'contentsModalTitle',
-    null
-  );
+  const [contentsModalTitle, setContentsModalTitle] = useState(null);
 
   const packSearch = createSearch(searchText, (crate) => crate.name);
 

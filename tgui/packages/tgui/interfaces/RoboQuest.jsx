@@ -1,6 +1,7 @@
 import { classes } from 'common/react';
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { Fragment } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Section,
@@ -10,6 +11,7 @@ import {
   LabeledList,
   ImageButton,
   Divider,
+  DmIcon,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -31,7 +33,7 @@ export const RoboQuest = (props) => {
     cats,
   } = data;
 
-  const [shopState, changeShopState] = useLocalState('shopState', false);
+  const [shopState, changeShopState] = useState(false);
 
   const cat_to_color = {
     'medical': 'blue',
@@ -65,11 +67,9 @@ export const RoboQuest = (props) => {
                 <Stack>
                   <Stack.Item basis={60} textAlign="center" align="center">
                     {!!hasTask && (
-                      <img
-                        className={classes([
-                          'roboquest_large128x128',
-                          questInfo.icon,
-                        ])}
+                      <DmIcon
+                        icon={questInfo.icon}
+                        icon_state={questInfo.icon_state}
                       />
                     )}
                   </Stack.Item>
@@ -83,12 +83,10 @@ export const RoboQuest = (props) => {
                           questInfo.modules.map(
                             (i) =>
                               i.id < 4 && (
-                                <img
+                                <DmIcon
                                   key={i.id}
-                                  className={classes([
-                                    'roboquest64x64',
-                                    i.icon,
-                                  ])}
+                                  icon={i.icon}
+                                  icon_state={i.icon_state}
                                 />
                               )
                           )}
@@ -98,12 +96,10 @@ export const RoboQuest = (props) => {
                           questInfo.modules.map(
                             (i) =>
                               i.id > 3 && (
-                                <img
+                                <DmIcon
                                   key={i.id}
-                                  className={classes([
-                                    'roboquest64x64',
-                                    i.icon,
-                                  ])}
+                                  icon={i.icon}
+                                  icon_state={i.icon_state}
                                 />
                               )
                           )}
@@ -154,8 +150,8 @@ export const RoboQuest = (props) => {
                           key={i.path}
                           asset
                           color={cat_to_color[cat]}
-                          image={i.icon}
-                          imageAsset="roboquest64x64"
+                          dmIcon={i.icon}
+                          dmIconState={i.icon_state}
                           title={
                             <Box nowrap inline>
                               {i.name}{' '}

@@ -1,4 +1,4 @@
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 
 import { useBackend } from '../../backend';
 import { Box, Button, Section, Stack } from '../../components';
@@ -63,10 +63,10 @@ const EffectDisplay = (props) => {
           : data[effect.selected as string] === effect.choiceNumber
       }
       style={{
-        'border-radius': '5px',
-        'margin-left': index !== 0 ? '1px' : '0px',
-        'margin-right': hasMargin ? '1px' : '0px',
-        'vertical-align': 'middle',
+        borderRadius: '5px',
+        marginLeft: index !== 0 ? '1px' : '0px',
+        marginRight: hasMargin ? '1px' : '0px',
+        verticalAlign: 'middle',
       }}
       tooltip={
         effect.details

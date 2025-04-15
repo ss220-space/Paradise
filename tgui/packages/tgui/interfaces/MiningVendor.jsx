@@ -1,5 +1,6 @@
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -20,7 +21,7 @@ const sortTypes = {
 };
 
 export const MiningVendor = (_properties) => {
-  const [gridLayout, setGridLayout] = useLocalState('gridLayout', false);
+  const [gridLayout, setGridLayout] = useState(false);
   return (
     <Window width={400} height={525}>
       <Window.Content>
@@ -80,9 +81,9 @@ const MiningVendorItems = (_properties) => {
   const { has_id, id, items } = data;
   const { gridLayout } = _properties;
   // Search thingies
-  const [searchText, _setSearchText] = useLocalState('search', '');
-  const [sortOrder, _setSortOrder] = useLocalState('sort', 'Alphabetical');
-  const [descending, _setDescending] = useLocalState('descending', false);
+  const [searchText, _setSearchText] = useState('');
+  const [sortOrder, _setSortOrder] = useState('Alphabetical');
+  const [descending, _setDescending] = useState(false);
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -128,9 +129,9 @@ const MiningVendorItems = (_properties) => {
 
 const MiningVendorSearch = (_properties) => {
   const { gridLayout, setGridLayout } = _properties;
-  const [_searchText, setSearchText] = useLocalState('search', '');
-  const [_sortOrder, setSortOrder] = useLocalState('sort', '');
-  const [descending, setDescending] = useLocalState('descending', false);
+  const [_searchText, setSearchText] = useState('');
+  const [_sortOrder, setSortOrder] = useState('');
+  const [descending, setDescending] = useState(false);
   return (
     <Box>
       <Stack fill>

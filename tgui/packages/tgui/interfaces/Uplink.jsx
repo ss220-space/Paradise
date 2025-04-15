@@ -3,7 +3,8 @@ import { flow } from 'common/fp';
 
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { Countdown } from '../components/Countdown';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -40,8 +41,8 @@ export const Uplink = (props) => {
   const { act, data } = useBackend();
   const { cart } = data;
 
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [tabIndex, setTabIndex] = useState(0);
+  const [searchText, setSearchText] = useState('');
 
   return (
     <Window width={900} height={700} theme="syndicate">
@@ -140,12 +141,9 @@ const ItemsPage = (_properties) => {
   const { act, data } = useBackend();
   const { crystals, cats } = data;
   // Default to first
-  const [uplinkItems, setUplinkItems] = useLocalState(
-    'uplinkItems',
-    cats[0].items
-  );
+  const [uplinkItems, setUplinkItems] = useState(cats[0].items);
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
   const SelectEquipment = (cat, searchText = '') => {
     const EquipmentSearch = createSearch(searchText, (item) => {
       let is_hijack = item.hijack_only === 1 ? '|' + 'hijack' : '';
@@ -167,7 +165,7 @@ const ItemsPage = (_properties) => {
     );
   };
 
-  const [showDesc, setShowDesc] = useLocalState('showDesc', 1);
+  const [showDesc, setShowDesc] = useState(1);
 
   return (
     <Stack fill vertical>
@@ -256,7 +254,7 @@ const CartPage = (_properties) => {
   const { act, data } = useBackend();
   const { cart, crystals, cart_price } = data;
 
-  const [showDesc, setShowDesc] = useLocalState('showDesc', 0);
+  const [showDesc, setShowDesc] = useState(0);
 
   return (
     <Stack fill vertical>
@@ -316,7 +314,7 @@ const CartPage = (_properties) => {
 const Advert = (_properties) => {
   const { act, data } = useBackend();
   const { cats, lucky_numbers } = data;
-  const [showDesc, setShowDesc] = useLocalState('showDesc', 0);
+  const [showDesc, setShowDesc] = useState(0);
 
   return (
     <Stack.Item grow>
@@ -478,12 +476,9 @@ const ExploitableInfoPage = (_properties) => {
   const { act, data } = useBackend();
   const { exploitable } = data;
   // Default to first
-  const [selectedRecord, setSelectedRecord] = useLocalState(
-    'selectedRecord',
-    exploitable[0]
-  );
+  const [selectedRecord, setSelectedRecord] = useState(exploitable[0]);
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
 
   // Search for peeps
   const SelectMembers = (people, searchText = '') => {

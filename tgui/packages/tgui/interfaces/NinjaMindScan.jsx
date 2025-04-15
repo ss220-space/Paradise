@@ -52,7 +52,7 @@ const MindScanMenu = (props) => {
               align="left"
             >
               <Section
-                style={{ 'background': 'rgba(4, 74, 27, 0.75)' }}
+                style={{ background: 'rgba(4, 74, 27, 0.75)' }}
                 align="left"
               >
                 <img
@@ -60,9 +60,9 @@ const MindScanMenu = (props) => {
                   width="128px"
                   src={`data:image/jpeg;base64,${occupantIcon}`}
                   style={{
-                    'margin-left': '-28px',
+                    marginLeft: '-28px',
                     '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                    'image-rendering': 'pixelated',
+                    imageRendering: 'pixelated',
                   }}
                 />
               </Section>

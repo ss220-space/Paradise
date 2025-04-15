@@ -130,10 +130,10 @@ export const Autolathe = (props) => {
                     icon={recipe.icon}
                     icon_state={recipe.icon_state}
                     style={{
-                      'vertical-align': 'middle',
+                      verticalAlign: 'middle',
                       width: '32px',
                       margin: '0px',
-                      'margin-left': '0px',
+                      marginLeft: '0px',
                     }}
                   />
                   <Button

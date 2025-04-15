@@ -1,6 +1,7 @@
 import { storage } from 'common/storage';
 import { createUuid } from 'common/uuid';
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useEffect, useState } from 'react';
 import {
   Button,
   Divider,
@@ -88,11 +89,11 @@ const PresetButtons = (props: PresetButtonsProps) => {
 
 export const PresetsPage = (props) => {
   const { act, data } = useBackend();
-  const [editing, setEditing] = useLocalState('editing', false);
-  const [hue, setHue] = useLocalState('hue', 0);
-  const [name, setName] = useLocalState('name', '');
-  const [presetID, setPresetID] = useLocalState('presetID', 0);
-  const [presets, setPresets] = useLocalState<Preset[]>('presets', []);
+  const [editing, setEditing] = useState(false);
+  const [hue, setHue] = useState(0);
+  const [name, setName] = useState('');
+  const [presetID, setPresetID] = useState(0);
+  const [presets, setPresets] = useState<Preset[]>([]);
   const deletePreset = async (deleteID: number) => {
     const newPresets: any[] = [...presets];
     for (let i = 0; i < presets.length; i++) {
@@ -130,6 +131,10 @@ export const PresetsPage = (props) => {
     }
     setPresets(thing);
   };
+
+  useEffect(() => {
+    getPresets();
+  }, []);
 
   return (
     <Section
@@ -219,7 +224,7 @@ export const PresetsPage = (props) => {
           {preset.title}
         </Button>
       ))}
-      <span style={POD_GREY} onload={() => getPresets()}>
+      <span style={POD_GREY}>
         <br />
         <br />
         ПРИМЕЧАНИЕ. Пользовательские звуки, не входящие в файлы базовой игры, не

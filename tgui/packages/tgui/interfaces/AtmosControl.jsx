@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Box, Button, Icon, NanoMap, Table, Tabs } from '../components';
 import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
@@ -37,7 +38,7 @@ const getStatusColour = (level) => {
 
 export const AtmosControl = (props) => {
   const { act, data } = useBackend();
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -112,11 +113,8 @@ const AtmosControlDataView = (_properties) => {
 const AtmosControlMapView = (_properties) => {
   const { act, data } = useBackend();
   const { alarms, stationLevelNum, stationLevelName } = data;
-  const [zoom, setZoom] = useLocalState('zoom', 1);
-  const [z_current, setZCurrent] = useLocalState(
-    'z_current',
-    stationLevelNum[0]
-  );
+  const [zoom, setZoom] = useState(1);
+  const [z_current, setZCurrent] = useState(stationLevelNum[0]);
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap

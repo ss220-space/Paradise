@@ -1,5 +1,6 @@
 import { createSearch, toTitleCase } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -110,9 +111,9 @@ export const Workshop = (_properties) => {
 };
 
 const WorkshopSearch = (_properties) => {
-  const [_searchText, setSearchText] = useLocalState('search', '');
-  const [_sortOrder, setSortOrder] = useLocalState('sort', '');
-  const [descending, setDescending] = useLocalState('descending', false);
+  const [_searchText, setSearchText] = useState('');
+  const [_sortOrder, setSortOrder] = useState('');
+  const [descending, setDescending] = useState(false);
   return (
     <Box mb="0.5rem">
       <Stack width="100%">
@@ -143,9 +144,9 @@ const WorkshopItems = (_properties) => {
   const { items } = data;
 
   // Search thingies
-  const [searchText, _setSearchText] = useLocalState('search', '');
-  const [sortOrder, _setSortOrder] = useLocalState('sort', 'Alphabetical');
-  const [descending, _setDescending] = useLocalState('descending', false);
+  const [searchText, _setSearchText] = useState('');
+  const [sortOrder, _setSortOrder] = useState('Alphabetical');
+  const [descending, _setDescending] = useState(false);
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -198,10 +199,10 @@ const WorkshopItemsCategory = (properties) => {
             icon={item.icon}
             icon_state={item.icon_state}
             style={{
-              'vertical-align': 'middle',
+              verticalAlign: 'middle',
               width: '32px',
               margin: '0px',
-              'margin-left': '0px',
+              marginLeft: '0px',
             }}
           />
           <Button

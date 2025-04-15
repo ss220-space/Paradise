@@ -1,5 +1,6 @@
-import { Fragment } from 'inferno';
-import { useBackend, useLocalState } from '../backend';
+import { Fragment } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Section,
@@ -16,7 +17,7 @@ import { FlexItem } from '../components/Flex';
 export const AutoDoc = (props) => {
   const { act, data } = useBackend();
   const { HasTray, TguiIcons, occupant, isHealing, fixtimer, healtimer } = data;
-  const [ChoosenPart, ChoosePart] = useLocalState('ChoosePart', 'chest');
+  const [ChoosenPart, ChoosePart] = useState('chest');
   return (
     <Window theme="ntOS95" resizable>
       <Window.Content>
@@ -29,7 +30,7 @@ export const AutoDoc = (props) => {
               style={{
                 position: 'absolute',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
             <img
@@ -39,7 +40,7 @@ export const AutoDoc = (props) => {
               style={{
                 position: 'absolute',
                 '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                'image-rendering': 'pixelated',
+                imageRendering: 'pixelated',
               }}
             />
           </FlexItem>
@@ -47,7 +48,7 @@ export const AutoDoc = (props) => {
             <Section
               title="Info"
               buttons={
-                <Fragment>
+                <>
                   {Object.keys(TguiIcons).map(
                     (part) =>
                       !(part === 'human') && (
@@ -63,13 +64,13 @@ export const AutoDoc = (props) => {
 
                   <Button
                     style={{
-                      'margin-left': '30px',
+                      marginLeft: '30px',
                     }}
                     content={HasTray ? 'Eject Tray' : 'Reject Tray'}
                     locked={isHealing}
                     onClick={() => act('ChangeTrayState')}
                   />
-                </Fragment>
+                </>
               }
             >
               <Box>
@@ -81,11 +82,11 @@ export const AutoDoc = (props) => {
                       {organ.open ? 'opened' : ''}
                       {organ.broken ? 'broken' : ''}
                       {!!organ.broken && (
-                        <Fragment>
+                        <>
                           <Button
                             content="Fix"
                             style={{
-                              'margin-left': '30px',
+                              marginLeft: '30px',
                             }}
                             locked={isHealing}
                             onClick={() =>
@@ -96,15 +97,15 @@ export const AutoDoc = (props) => {
                             }
                           />
                           <br />
-                        </Fragment>
+                        </>
                       )}
                       {organ.internalBleeding ? 'bleeding' : ''}
                       {!!organ.internalBleeding && (
-                        <Fragment>
+                        <>
                           <Button
                             content="Fix"
                             style={{
-                              'margin-left': '30px',
+                              marginLeft: '30px',
                             }}
                             locked={isHealing}
                             onClick={() =>
@@ -115,13 +116,13 @@ export const AutoDoc = (props) => {
                             }
                           />
                           <br />
-                        </Fragment>
+                        </>
                       )}
                       Internals:
                       <Button
                         content="Complete"
                         style={{
-                          'margin-left': '10px',
+                          marginLeft: '10px',
                         }}
                         locked={isHealing}
                         onClick={() =>
@@ -151,7 +152,7 @@ export const AutoDoc = (props) => {
                       <Button
                         content="Remove"
                         style={{
-                          'margin-left': '1.5rem',
+                          marginLeft: '1.5rem',
                         }}
                         locked={isHealing}
                         onClick={() =>
@@ -167,11 +168,11 @@ export const AutoDoc = (props) => {
                       {!!organ.germ_level && <br />}
                       {organ.totalLoss ? 'Total damage is ' + organ.damage : ''}
                       {!!organ.totalLoss && (
-                        <Fragment>
+                        <>
                           <Button
                             content="Heal"
                             style={{
-                              'margin-left': '30px',
+                              marginLeft: '30px',
                             }}
                             locked={isHealing}
                             onClick={() =>
@@ -182,28 +183,28 @@ export const AutoDoc = (props) => {
                             }
                           />
                           <br />
-                        </Fragment>
+                        </>
                       )}
                     </Fragment>
                   ))}
                 {!!occupant.TotalBruteBurn && (
-                  <Fragment>
+                  <>
                     Total external damage is {occupant.TotalBruteBurn}
                     <Button
                       style={{
-                        'margin-left': '30px',
+                        marginLeft: '30px',
                       }}
                       content="Start Healing"
                       onClick={() => act('HealBruteBurn')}
                     />
                     <Button
                       style={{
-                        'margin-left': '30px',
+                        marginLeft: '30px',
                       }}
                       content="Reattach externals"
                       onClick={() => act('CompleteExternal')}
                     />
-                  </Fragment>
+                  </>
                 )}
                 <br />
                 {!!fixtimer && <b>Fixing organ: {fixtimer}</b>}

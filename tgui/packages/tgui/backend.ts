@@ -17,6 +17,7 @@ import { setupDrag } from './drag';
 import { focusMap } from './focus';
 import { createLogger } from './logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
+import { BooleanLike } from 'common/react';
 
 const logger = createLogger('backend');
 
@@ -392,8 +393,9 @@ type BackendState<TData> = {
     window: {
       key: string;
       size: [number, number];
-      fancy: boolean;
-      locked: boolean;
+      fancy: BooleanLike;
+      locked: BooleanLike;
+      scale: BooleanLike;
     };
     client: {
       ckey: string;
@@ -410,7 +412,6 @@ type BackendState<TData> = {
   outgoingPayloadQueues: Record<string, any[]>;
   suspending: boolean;
   suspended: boolean;
-  scale: boolean;
   debug?: {
     debugLayout: boolean;
     kitchenSink: boolean;

@@ -1,7 +1,7 @@
-import { KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
 
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useState } from 'react';
 import { Box, Button, Input, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
@@ -36,10 +36,10 @@ export const LootPanel = (props) => {
   }
 
   // Search
-  const [showSearchBar, setShowSearchBar] = useLocalState('search_bar', false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
-  const [grouping, setGrouping] = useLocalState('grouping', true);
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [grouping, setGrouping] = useState(true);
+  const [searchText, setSearchText] = useState('');
 
   const headerHeight = 38;
   const itemHeight = 38;

@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Section,
@@ -30,7 +31,7 @@ export const Photocopier = (props) => {
 
   const { copies, maxcopies } = data;
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
 
   const forms = selectForms(
     sortBy((form) => form.category)(data.forms || []),
@@ -42,7 +43,7 @@ export const Photocopier = (props) => {
       categories.push(form.category);
     }
   }
-  const [number, setNumber] = useLocalState('number', 0);
+  const [number, setNumber] = useState(0);
 
   let category;
   if (data.category === '') {

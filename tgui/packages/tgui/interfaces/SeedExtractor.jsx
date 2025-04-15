@@ -1,6 +1,7 @@
 import { createSearch, decodeHtmlEntities } from 'common/string';
 import { classes } from '../../common/react';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -125,10 +126,10 @@ const seedFilter = (searchText) => {
 const SeedList = (properties) => {
   const { act, data } = useBackend();
   const { icons, seeds, vend_amount } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [vendAmount, setVendAmount] = useLocalState('vendAmount', 1);
-  const [sortId, _setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, _setSortOrder] = useLocalState('sortOrder', true);
+  const [searchText, setSearchText] = useState('');
+  const [vendAmount, setVendAmount] = useState(1);
+  const [sortId, _setSortId] = useState('name');
+  const [sortOrder, _setSortOrder] = useState(true);
   return (
     <Stack.Item grow mt={0.5}>
       <Section fill scrollable>
@@ -169,10 +170,10 @@ const SeedList = (properties) => {
                       <img
                         className={classes(['seeds32x32', seed.image])}
                         style={{
-                          'vertical-align': 'middle',
+                          verticalAlign: 'middle',
                           width: '32px',
                           margin: '0px',
-                          'margin-left': '0px',
+                          marginLeft: '0px',
                         }}
                       />
                       {seed.name}
@@ -193,8 +194,8 @@ const SeedList = (properties) => {
 };
 
 const SortButton = (properties) => {
-  const [sortId, setSortId] = useLocalState('sortId', 'name');
-  const [sortOrder, setSortOrder] = useLocalState('sortOrder', true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
   const { id, children } = properties;
   return (
     <Stack.Item grow>
@@ -224,8 +225,8 @@ const SortButton = (properties) => {
 const SeedExtractorActions = (properties) => {
   const { act, data } = useBackend();
   const { vend_amount } = data;
-  const [searchText, setSearchText] = useLocalState('searchText', '');
-  const [vendAmount, setVendAmount] = useLocalState('vendAmount', 1);
+  const [searchText, setSearchText] = useState('');
+  const [vendAmount, setVendAmount] = useState(1);
   return (
     <Stack fill>
       <Stack.Item grow>

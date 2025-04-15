@@ -6,7 +6,8 @@
  */
 
 import { Loader } from './common/Loader';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Autofocus,
   Box,
@@ -30,7 +31,7 @@ import {
 } from 'common/color';
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
-import { Component, FocusEvent, FormEvent, InfernoNode } from 'inferno';
+import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
 import { logger } from 'tgui/logging';
 import { InputButtons } from './common/InputButtons';
 
@@ -54,8 +55,7 @@ export const ColorPickerModal = (_) => {
     autofocus,
     default_color = '#000000',
   } = data;
-  let [selectedColor, setSelectedColor] = useLocalState<HsvaColor>(
-    'color_picker_choice',
+  let [selectedColor, setSelectedColor] = useState<HsvaColor>(
     hexToHsva(default_color)
   );
 
@@ -340,7 +340,7 @@ interface HexColorInputProps
 /** Adds "#" symbol to the beginning of the string */
 const prefix = (value: string) => '#' + value;
 
-export const HexColorInput = (props: HexColorInputProps): InfernoNode => {
+export const HexColorInput = (props: HexColorInputProps): ReactNode => {
   const { prefixed, alpha, color, fluid, onChange, ...rest } = props;
 
   /** Escapes all non-hexadecimal characters including "#" */
@@ -380,7 +380,7 @@ export class ColorInput extends Component {
   state: { localValue: string };
 
   constructor(props: ColorInputBaseProps) {
-    super();
+    super(props);
     this.props = props;
     this.state = { localValue: this.props.escape(this.props.color) };
   }
@@ -450,7 +450,7 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    'background-color': `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
+    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
   };
 
   return (
@@ -540,7 +540,7 @@ const Saturation = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: 0,
             v: color.v,
@@ -589,7 +589,7 @@ const Value = ({
     <div className={nodeClassName}>
       <Interactive
         style={{
-          'background': `linear-gradient(to right, ${hsvaToHslString({
+          background: `linear-gradient(to right, ${hsvaToHslString({
             h: color.h,
             s: color.s,
             v: 0,

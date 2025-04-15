@@ -1,5 +1,6 @@
 import { classes } from '../../common/react';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   LabeledList,
@@ -12,7 +13,7 @@ import {
 import { Window } from '../layouts';
 
 export const AgentCard = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -195,7 +196,7 @@ export const AgentCardSLSlots = (props) => {
   const { act, data } = useBackend();
   const { saved_info } = data;
   return (
-    <Section title="Save/Load Manager" style={{ 'line-height': '25px' }}>
+    <Section title="Save/Load Manager" style={{ lineHeight: '25px' }}>
       <LabeledList>
         {saved_info.map((save_slot) => (
           <LabeledList.Item

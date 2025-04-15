@@ -1,4 +1,4 @@
-import { Component, InfernoNode } from 'inferno';
+import { Component, ReactNode } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -321,7 +321,7 @@ const ChemMasterProduction = (props: {}) => {
         <Section title="Продукция">
           <Stack fill>
             <Stack.Item grow align="center" textAlign="center" color="label">
-              <Icon name="tint-slash" mb="0.5rem" size="5" />
+              <Icon name="tint-slash" mb="0.5rem" size={5} />
               <br />
               Буфер пуст.
             </Stack.Item>
@@ -388,8 +388,8 @@ interface ChemMasterNameInputProps {
 class ChemMasterNameInput extends Component<
   ChemMasterNameInputProps & BoxProps
 > {
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
   }
 
   handleMouseUp = (e: MouseEvent) => {
@@ -422,7 +422,7 @@ class ChemMasterNameInput extends Component<
 }
 
 const ChemMasterProductionCommon = (props: {
-  children: InfernoNode | InfernoNode[];
+  children: ReactNode | ReactNode[];
   productionData: ProductionData;
 }) => {
   const { act, data } = useBackend<ChemMasterData>();
@@ -477,7 +477,7 @@ const ChemMasterProductionCommon = (props: {
 const SpriteStyleButton = (props: { icon: string } & BoxProps) => {
   const { icon, ...restProps } = props;
   return (
-    <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
+    <Button style={{ padding: 0, lineHeight: 0 }} {...restProps}>
       <Box className={classes(['chem_master_large32x32', icon])} />
     </Button>
   );
@@ -549,7 +549,7 @@ const ChemMasterCustomization = (props: {}) => {
             padding: 0,
             width: style_button_size.width,
             height: style_button_size.height,
-            'background-color': color,
+            backgroundColor: color,
             opacity: 0.6,
             filter: 'alpha(opacity=60)',
           }}

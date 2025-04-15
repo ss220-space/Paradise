@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -15,39 +16,20 @@ export const PollOptionPanel = (props) => {
   const { act, data } = useBackend();
   const { poll_question, is_rating, option } = data;
 
-  const [text, set_text] = useLocalState('text', option.text);
-  const [default_percentage_calc, set_default_percentage_calc] = useLocalState(
-    'default_percentage_calc',
+  const [text, set_text] = useState(option.text);
+  const [default_percentage_calc, set_default_percentage_calc] = useState(
     option.default_percentage_calc
   );
 
-  const [min_val, set_min_val] = useLocalState('min_val', option.min_val);
-  const [max_val, set_max_val] = useLocalState('max_val', option.max_val);
+  const [min_val, set_min_val] = useState(option.min_val);
+  const [max_val, set_max_val] = useState(option.max_val);
 
-  const [desc_min_check, set_desc_min_check] = useLocalState(
-    'desc_min_check',
-    option.desc_min_check
-  );
-  const [desc_mid_check, set_desc_mid_check] = useLocalState(
-    'desc_mid_check',
-    option.desc_mid_check
-  );
-  const [desc_max_check, set_desc_max_check] = useLocalState(
-    'desc_max_check',
-    option.desc_max_check
-  );
-  const [desc_min_text, set_desc_min_text] = useLocalState(
-    'desc_min_text',
-    option.desc_min_text
-  );
-  const [desc_mid_text, set_desc_mid_text] = useLocalState(
-    'desc_mid_text',
-    option.desc_min_text
-  );
-  const [desc_max_text, set_desc_max_text] = useLocalState(
-    'desc_max_text',
-    option.desc_min_text
-  );
+  const [desc_min_check, set_desc_min_check] = useState(option.desc_min_check);
+  const [desc_mid_check, set_desc_mid_check] = useState(option.desc_mid_check);
+  const [desc_max_check, set_desc_max_check] = useState(option.desc_max_check);
+  const [desc_min_text, set_desc_min_text] = useState(option.desc_min_text);
+  const [desc_mid_text, set_desc_mid_text] = useState(option.desc_min_text);
+  const [desc_max_text, set_desc_max_text] = useState(option.desc_min_text);
 
   return (
     <Window

@@ -1,5 +1,5 @@
 import { resolveAsset } from '../assets';
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 import { useBackend } from '../backend';
 import { Box, Button, Icon, Section } from '../components';
 import { Window } from '../layouts';
@@ -30,8 +30,8 @@ export const Safe = (properties) => {
               className="Safe--dial"
               src={resolveAsset('safe_dial.png')}
               style={{
-                'transform': 'rotate(-' + 3.6 * dial + 'deg)',
-                'z-index': 0,
+                transform: 'rotate(-' + 3.6 * dial + 'deg)',
+                zIndex: 0,
               }}
             />
           )}
@@ -58,7 +58,7 @@ const Dialer = (properties) => {
           })
         }
         style={{
-          'z-index': 10,
+          zIndex: 10,
         }}
       />
     );

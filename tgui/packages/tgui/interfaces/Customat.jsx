@@ -25,10 +25,10 @@ const CustomatRow = (props) => {
         <img
           src={`data:image/jpeg;base64,${product.icon}`}
           style={{
-            'vertical-align': 'middle',
+            verticalAlign: 'middle',
             width: '32px',
             margin: '0px',
-            'margin-left': '0px',
+            marginLeft: '0px',
           }}
         />
       </Table.Cell>

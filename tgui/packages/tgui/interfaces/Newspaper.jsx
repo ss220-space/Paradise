@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Box, Section, Image, Icon, Button, Flex } from '../components';
 import { Window } from '../layouts';
 
@@ -96,7 +97,7 @@ export const Newspaper = (props) => {
                   <Box key={index} mb={2}>
                     <Section
                       title={article.title}
-                      style={{ 'box-shadow': '0px 4px rgba(17, 17, 17, 0.35)' }}
+                      style={{ boxShadow: '0px 4px rgba(17, 17, 17, 0.35)' }}
                     >
                       {article.photo ? (
                         <Flex wrap="wrap" justify="space-between">
@@ -129,7 +130,7 @@ export const Newspaper = (props) => {
                   <Box key={index} mb={2}>
                     <Section
                       title={article.title}
-                      style={{ 'box-shadow': '0px 4px rgba(17, 17, 17, 0.35)' }}
+                      style={{ boxShadow: '0px 4px rgba(17, 17, 17, 0.35)' }}
                     >
                       {article.photo ? (
                         <Flex wrap="wrap" justify="space-between">
@@ -167,7 +168,7 @@ export const Newspaper = (props) => {
             <Box textAlign="center" fontSize="20px" bold mb={1}>
               Реклама
             </Box>
-            <Section style={{ 'box-shadow': '0px 4px rgba(17, 17, 17, 0.35)' }}>
+            <Section style={{ boxShadow: '0px 4px rgba(17, 17, 17, 0.35)' }}>
               <Flex>
                 <Flex.Item
                   key="1"
@@ -232,7 +233,7 @@ export const Newspaper = (props) => {
 
 const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
-  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Box
       as="img"
@@ -252,8 +253,8 @@ const WantedBlock = (properties, contex) => {
       title="Внимание! Розыск!"
       mb={2}
       style={{
-        'background-color': 'rgba(197, 22, 22, 0.71)',
-        'box-shadow': '0px 4px rgba(197, 22, 22, 0.9)',
+        backgroundColor: 'rgba(197, 22, 22, 0.71)',
+        boxShadow: '0px 4px rgba(197, 22, 22, 0.9)',
       }}
     >
       <Flex>

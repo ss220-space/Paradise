@@ -145,7 +145,7 @@ export class TguiSay extends Component<{}, State> {
 
     this.setSize(typed?.length);
   }
-  handleButtonClick(event: MouseEvent): void {
+  handleButtonClick(event): void {
     this.isDragging = true;
 
     setTimeout(() => {

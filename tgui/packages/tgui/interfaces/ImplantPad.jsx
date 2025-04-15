@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   Section,
@@ -13,7 +14,7 @@ import { Window } from '../layouts';
 export const ImplantPad = (props) => {
   const { act, data } = useBackend();
   const { implant, contains_case, tag } = data;
-  const [newTag, setNewTag] = useLocalState('newTag', tag);
+  const [newTag, setNewTag] = useState(tag);
 
   return (
     <Window width={410} height={325}>
@@ -41,7 +42,7 @@ export const ImplantPad = (props) => {
                   ml={0}
                   mr={2}
                   style={{
-                    'vertical-align': 'middle',
+                    verticalAlign: 'middle',
                     width: '32px',
                   }}
                 />

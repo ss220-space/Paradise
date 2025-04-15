@@ -51,7 +51,7 @@ const getRelativePosition = (
 export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
-  children: ReactNode[];
+  children: ReactNode;
   style?: any;
 }
 
@@ -65,7 +65,7 @@ export class Interactive extends Component {
     this.containerRef = createRef();
   }
 
-  handleMoveStart = (event: MouseEvent) => {
+  handleMoveStart = (event) => {
     const el = this.containerRef?.current;
     if (!el) return;
 
@@ -76,7 +76,7 @@ export class Interactive extends Component {
     this.toggleDocumentEvents(true);
   };
 
-  handleMove = (event: MouseEvent) => {
+  handleMove = (event) => {
     // Prevent text selection
     event.preventDefault();
 
@@ -98,7 +98,7 @@ export class Interactive extends Component {
     this.toggleDocumentEvents(false);
   };
 
-  handleKeyDown = (event: KeyboardEvent) => {
+  handleKeyDown = (event) => {
     const keyCode = event.which || event.keyCode;
 
     // Ignore all keys except arrow ones

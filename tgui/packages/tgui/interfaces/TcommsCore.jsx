@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   LabeledList,
@@ -14,7 +15,7 @@ import { Window } from '../layouts';
 export const TcommsCore = (props) => {
   const { act, data } = useBackend();
   const { ion } = data;
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
 
   const PickTab = (index) => {
     switch (index) {

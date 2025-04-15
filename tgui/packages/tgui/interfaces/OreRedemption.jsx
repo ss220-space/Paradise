@@ -56,7 +56,7 @@ const IdDisk = (properties) => {
               tooltip="Ejects the ID card."
               onClick={() => act('eject_id')}
               style={{
-                'white-space': 'pre-wrap',
+                whiteSpace: 'pre-wrap',
               }}
             />
           ) : (

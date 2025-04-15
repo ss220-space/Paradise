@@ -64,8 +64,8 @@ const BloodScanMenu = (props) => {
               <Section
                 title={bloodOwnerNames[i] ? 'Кровь' : 'Нет реагента'}
                 style={{
-                  'text-align': 'left',
-                  'background': 'rgba(53, 94, 163, 0.5)',
+                  textAlign: 'left',
+                  background: 'rgba(53, 94, 163, 0.5)',
                 }}
               />
               <NoticeBox
@@ -88,9 +88,9 @@ const BloodScanMenu = (props) => {
                     width="128px"
                     src={`data:image/jpeg;base64,${vialIcons[i] || noVialIcon}`}
                     style={{
-                      'margin-left': '3px',
+                      marginLeft: '3px',
                       '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                      'image-rendering': 'pixelated',
+                      imageRendering: 'pixelated',
                     }}
                   />
                   <Tooltip

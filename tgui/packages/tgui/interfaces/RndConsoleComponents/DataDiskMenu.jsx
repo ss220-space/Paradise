@@ -69,7 +69,7 @@ const LatheSummary = (properties) => {
       {materials.map((mat) => (
         <Box key={mat.name}>
           {'- '}
-          <span style={{ 'text-transform': 'capitalize' }}>{mat.name}</span>
+          <span style={{ textTransform: 'capitalize' }}>{mat.name}</span>
           {' x '}
           {mat.amount}
         </Box>

@@ -7,6 +7,7 @@
 import { storage } from 'common/storage';
 import { vecAdd, vecSubtract, vecMultiply, vecScale } from 'common/vector';
 import { createLogger } from './logging';
+import { BooleanLike } from 'common/react';
 
 const logger = createLogger('drag');
 const pixelRatio = window.devicePixelRatio ?? 1;
@@ -116,11 +117,11 @@ const storeWindowGeometry = async () => {
 // Recall window geometry from local storage and apply it
 export const recallWindowGeometry = async (
   options: {
-    fancy?: boolean;
+    fancy?: BooleanLike;
     pos?: [number, number];
     size?: [number, number];
-    locked?: boolean;
-    scale?: boolean;
+    locked?: BooleanLike;
+    scale?: BooleanLike;
   } = {}
 ) => {
   // Only recall geometry in fancy mode
@@ -218,10 +219,9 @@ const constraintPosition = (
 };
 
 // Start dragging the window
-export const dragStartHandler = (event: MouseEvent) => {
+export const dragStartHandler = (event) => {
   logger.log('drag start');
   dragging = true;
-  let windowPosition = getWindowPosition();
   dragPointOffset = vecSubtract(
     [event.screenX * pixelRatio, event.screenY * pixelRatio],
     getWindowPosition()
@@ -233,7 +233,7 @@ export const dragStartHandler = (event: MouseEvent) => {
 };
 
 // End dragging the window
-const dragEndHandler = (event: MouseEvent) => {
+const dragEndHandler = (event) => {
   logger.log('drag end');
   dragMoveHandler(event);
   document.removeEventListener('mousemove', dragMoveHandler);

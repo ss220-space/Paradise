@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { useLocalState } from '../../backend';
+import { uselState } from 'react';
 import {
   Box,
   Button,
@@ -39,8 +39,7 @@ export const AccessList = (props) => {
     grantDep,
     denyDep,
   } = props;
-  const [selectedAccessName, setSelectedAccessName] = useLocalState(
-    'accessName',
+  const [selectedAccessName, setSelectedAccessName] = useState(
     accesses[0]?.name
   );
   const selectedAccess = accesses.find(

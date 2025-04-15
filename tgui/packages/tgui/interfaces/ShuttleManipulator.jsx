@@ -1,9 +1,10 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import { Button, LabeledList, Box, Section, Tabs } from '../components';
 import { Window } from '../layouts';
 
 export const ShuttleManipulator = (props) => {
-  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index) => {
     switch (index) {
       case 0:

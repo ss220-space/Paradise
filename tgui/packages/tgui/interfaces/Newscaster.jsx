@@ -1,5 +1,6 @@
 import { classes } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -71,9 +72,9 @@ export const Newscaster = (properties) => {
     channels,
     channel_idx = -1,
   } = data;
-  const [menuOpen, setMenuOpen] = useLocalState('menuOpen', false);
-  const [viewingPhoto, _setViewingPhoto] = useLocalState('viewingPhoto', '');
-  const [censorMode, setCensorMode] = useLocalState('censorMode', false);
+  const [menuOpen, setMenuOpen] = useState(false);
+  const [viewingPhoto, _setViewingPhoto] = useState('');
+  const [censorMode, setCensorMode] = useState(false);
   let body;
   if (screen === 0 || screen === 2) {
     body = <NewscasterFeed />;
@@ -244,8 +245,8 @@ const NewscasterFeed = (properties) => {
     stories,
     wanted,
   } = data;
-  const [fullStories, _setFullStories] = useLocalState('fullStories', []);
-  const [censorMode, _setCensorMode] = useLocalState('censorMode', false);
+  const [fullStories, _setFullStories] = useState([]);
+  const [censorMode, _setCensorMode] = useState(false);
   const channel =
     screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
@@ -430,8 +431,8 @@ const NewscasterJobs = (properties) => {
 const Story = (properties) => {
   const { act, data } = useBackend();
   const { story, wanted = false } = properties;
-  const [fullStories, setFullStories] = useLocalState('fullStories', []);
-  const [censorMode, _setCensorMode] = useLocalState('censorMode', false);
+  const [fullStories, setFullStories] = useState([]);
+  const [censorMode, _setCensorMode] = useState(false);
   return (
     <Section
       className={classes([
@@ -510,7 +511,7 @@ const Story = (properties) => {
 
 const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
-  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Box
       as="img"
@@ -523,7 +524,7 @@ const PhotoThumbnail = (properties) => {
 };
 
 const PhotoZoom = (properties) => {
-  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
+  const [viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Modal className="Newscaster__photoZoom">
       <Box as="img" src={viewingPhoto} />
@@ -553,24 +554,16 @@ const manageChannelModalBodyOverride = (modal) => {
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
   // Temp data
-  const [author, setAuthor] = useLocalState(
-    'author',
+  const [author, setAuthor] = useState(
     channel?.author || scannedUser || 'Неавторизованный'
   );
-  const [name, setName] = useLocalState('name', channel?.name || '');
-  const [description, setDescription] = useLocalState(
-    'description',
-    channel?.description || ''
-  );
-  const [icon, setIcon] = useLocalState('icon', channel?.icon || 'newspaper');
-  const [isPublic, setIsPublic] = useLocalState(
-    'isPublic',
+  const [name, setName] = useState(channel?.name || '');
+  const [description, setDescription] = useState(channel?.description || '');
+  const [icon, setIcon] = useState(channel?.icon || 'newspaper');
+  const [isPublic, setIsPublic] = useState(
     isEditing ? !!channel?.public : false
   );
-  const [adminLocked, setAdminLocked] = useLocalState(
-    'adminLocked',
-    channel?.admin === 1 || false
-  );
+  const [adminLocked, setAdminLocked] = useState(channel?.admin === 1 || false);
   return (
     <Section
       m="-1rem"
@@ -684,14 +677,13 @@ const createStoryModalBodyOverride = (modal) => {
       (c) => isAdmin || (!c.frozen && (c.author === scannedUser || !!c.public))
     );
   // Temp data
-  const [author, setAuthor] = useLocalState('author', scannedUser || 'Unknown');
-  const [channel, setChannel] = useLocalState(
-    'channel',
+  const [author, setAuthor] = useState(scannedUser || 'Unknown');
+  const [channel, setChannel] = useState(
     availableChannels.length > 0 ? availableChannels[0].name : ''
   );
-  const [title, setTitle] = useLocalState('title', '');
-  const [body, setBody] = useLocalState('body', '');
-  const [adminLocked, setAdminLocked] = useLocalState('adminLocked', false);
+  const [title, setTitle] = useState('');
+  const [body, setBody] = useState('');
+  const [adminLocked, setAdminLocked] = useState(false);
   return (
     <Section m="-1rem" pb="1.5rem" title="Написать новую статью">
       <Box mx="0.5rem">
@@ -815,17 +807,12 @@ const wantedNoticeModalBodyOverride = (modal) => {
   const isAdmin = !!modal.args.is_admin;
   const scannedUser = modal.args.scanned_user;
   // Temp data
-  const [author, setAuthor] = useLocalState(
-    'author',
+  const [author, setAuthor] = useState(
     wanted?.author || scannedUser || 'Неавторизованный'
   );
-  const [name, setName] = useLocalState('name', wanted?.title.substr(8) || '');
-  const [description, setDescription] = useLocalState(
-    'description',
-    wanted?.body || ''
-  );
-  const [adminLocked, setAdminLocked] = useLocalState(
-    'adminLocked',
+  const [name, setName] = useState('name', wanted?.title.substr(8) || '');
+  const [description, setDescription] = useState(wanted?.body || '');
+  const [adminLocked, setAdminLocked] = useState(
     wanted?.admin_locked === 1 || false
   );
   return (

@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useState } from 'react';
 import { Box, Button } from '../../components';
 import { PodLauncherData } from './types';
 
@@ -20,7 +21,7 @@ export const TabPod = (props) => {
 
 export const TabBay = (props) => {
   const { act, data } = useBackend<PodLauncherData>();
-  const [teleported, setTeleported] = useLocalState('teleported', false);
+  const [teleported, setTeleported] = useState(false);
   const { oldArea } = data;
 
   return (
@@ -50,7 +51,7 @@ export const TabBay = (props) => {
 
 export const TabDrop = (props) => {
   const { act, data } = useBackend<PodLauncherData>();
-  const [teleported, setTeleported] = useLocalState('teleported', false);
+  const [teleported, setTeleported] = useState(false);
   const { oldArea } = data;
 
   return (

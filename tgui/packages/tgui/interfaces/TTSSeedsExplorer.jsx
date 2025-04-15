@@ -1,4 +1,5 @@
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Button,
   LabeledList,
@@ -89,27 +90,13 @@ export const TTSSeedsExplorerContent = (props) => {
     .filter((level, i, a) => a.indexOf(level) === i)
     .map((level) => donatorTiers[level]);
 
-  const [selectedProviders, setSelectedProviders] = useLocalState(
-    'selectedProviders',
-    providers
-  );
-  const [selectedGenders, setSelectedGenders] = useLocalState(
-    'selectedGenders',
-    genders
-  );
-  const [selectedCategories, setSelectedCategories] = useLocalState(
-    'selectedCategories',
-    categories
-  );
-  const [selectedDonatorLevels, setSelectedDonatorLevels] = useLocalState(
-    'selectedDonatorLevels',
-    donatorLevels
-  );
-  const [selectedPhrase, setSelectedPhrase] = useLocalState(
-    'selectedPhrase',
-    phrases[0]
-  );
-  const [searchtext, setSearchtext] = useLocalState('searchtext', '');
+  const [selectedProviders, setSelectedProviders] = useState(providers);
+  const [selectedGenders, setSelectedGenders] = useState(genders);
+  const [selectedCategories, setSelectedCategories] = useState(categories);
+  const [selectedDonatorLevels, setSelectedDonatorLevels] =
+    useState(donatorLevels);
+  const [selectedPhrase, setSelectedPhrase] = useState(phrases[0]);
+  const [searchtext, setSearchtext] = useState('');
 
   let providerCheckboxes = getCheckboxGroup(
     providers,

@@ -1,7 +1,7 @@
 import { createSearch } from 'common/string';
 import { multiline } from 'common/string';
 import { resolveAsset } from '../assets';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
 import {
   Box,
   Button,
@@ -102,7 +102,7 @@ export const Orbit = (props) => {
     npcs,
   } = data;
 
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [searchText, setSearchText] = useState('');
 
   const collatedAntagonists = {};
   for (const antagonist of antagonists) {
