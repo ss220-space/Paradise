@@ -7,6 +7,15 @@
 import { useState } from 'react';
 import { Button, Section, Tabs } from '../components';
 
+type Props = {
+  vertical: boolean;
+  leftSlot: boolean;
+  rightSlot: boolean;
+  leftAligned: boolean;
+  icon: boolean;
+  fluid: boolean;
+};
+
 export const meta = {
   title: 'Tabs',
   render: () => <Story />,
@@ -16,7 +25,7 @@ const TAB_RANGE = ['Tab #1', 'Tab #2', 'Tab #3', 'Tab #4'];
 
 const Story = (props) => {
   const [tabIndex, setTabIndex] = useState(0);
-  const [tabProps, setTabProps] = useState({});
+  const [tabProps, setTabProps] = useState<Props>({} as Props);
   return (
     <>
       <Section>

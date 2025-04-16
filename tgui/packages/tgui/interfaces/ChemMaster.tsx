@@ -1,4 +1,4 @@
-import { Component, ReactNode } from 'react';
+import { Component, ReactNode, MouseEvent } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -19,8 +19,7 @@ import {
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
 import { BooleanLike, classes } from 'common/react';
-import { BoxProps } from '../components/Box';
-import { ButtonProps } from '../components/Button';
+import { BoxProps, computeBoxProps } from '../components/Box';
 
 const transferAmounts = [1, 5, 10];
 
@@ -384,8 +383,9 @@ const ChemMasterProductionTabs = (props: {}) => {
 type ChemMasterNameInputProps = {
   placeholder: string;
   fluid: boolean;
-  selected: boolean;
+  value: string;
   onMouseUp?: (MouseEvent) => void;
+  onChange?: (e, value) => void;
 } & BoxProps;
 
 class ChemMasterNameInput extends Component<
@@ -395,7 +395,7 @@ class ChemMasterNameInput extends Component<
     super(props);
   }
 
-  handleMouseUp = (e: MouseEvent) => {
+  handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     const { placeholder, onMouseUp } = this.props;
     const target = e.target as HTMLInputElement;
 
@@ -418,7 +418,7 @@ class ChemMasterNameInput extends Component<
       <Input
         maxLength={maxnamelength}
         onMouseUp={this.handleMouseUp}
-        {...this.props}
+        {...computeBoxProps(this.props)}
       />
     );
   }
@@ -478,7 +478,9 @@ const ChemMasterProductionCommon = (props: {
   );
 };
 
-const SpriteStyleButton = (props: { icon: string } & ButtonProps) => {
+const SpriteStyleButton = (
+  props: { icon: string; selected: boolean } & BoxProps
+) => {
   const { icon, ...restProps } = props;
   return (
     <Button style={{ padding: '0', lineHeight: '0' }} {...restProps}>

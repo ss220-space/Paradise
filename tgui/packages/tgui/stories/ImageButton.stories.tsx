@@ -1,4 +1,34 @@
 import { useState } from 'react';
+import {
+  Section,
+  Stack,
+  LabeledList,
+  Input,
+  Slider,
+  Button,
+  ImageButton,
+} from '../components';
+
+export const meta = {
+  title: 'ImageButton',
+  render: () => <Story />,
+};
+
+const COLORS_SPECTRUM = [
+  'red',
+  'orange',
+  'yellow',
+  'olive',
+  'green',
+  'teal',
+  'blue',
+  'violet',
+  'purple',
+  'pink',
+  'brown',
+  'grey',
+  'gold',
+];
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
@@ -101,9 +131,8 @@ const Story = (props) => {
             buttons={
               <Button
                 fluid
-                translucent={fluid1}
                 compact={!fluid1}
-                color={!fluid1 && 'transparent'}
+                color={(fluid1 && 'translucent') || 'transparent'}
                 selected={addImage}
                 onClick={() => setAddImage(!addImage)}
               >

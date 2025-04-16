@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { uselState } from 'react';
+import { useState } from 'react';
 import {
   Box,
   Button,
@@ -100,7 +100,6 @@ export const AccessList = (props) => {
               return (
                 <Tabs.Tab
                   key={access.name}
-                  altSelection
                   color={color}
                   icon={icon}
                   selected={access.name === selectedAccessName}

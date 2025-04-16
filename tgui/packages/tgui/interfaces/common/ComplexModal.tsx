@@ -1,6 +1,14 @@
 import { useBackend } from '../../backend';
 import { Box, Button, Dropdown, Stack, Input, Modal } from '../../components';
 
+type Data = {
+  modal: ModalType;
+};
+
+type ModalType = {
+  args: object;
+};
+
 let bodyOverrides = {};
 
 /**
@@ -8,8 +16,8 @@ let bodyOverrides = {};
  * @param {string} id The identifier of the modal
  * @param {object=} args The arguments to pass to the modal
  */
-export const modalOpen = (id, args) => {
-  const { act, data } = useBackend();
+export const modalOpen = (id: string, args: object) => {
+  const { act, data } = useBackend<Data>();
   const newArgs = Object.assign(data.modal ? data.modal.args : {}, args || {});
 
   act('modal_open', {
@@ -28,8 +36,8 @@ export const modalRegisterBodyOverride = (id, bodyOverride) => {
   bodyOverrides[id] = bodyOverride;
 };
 
-export const modalAnswer = (id, answer, args) => {
-  const { act, data } = useBackend();
+export const modalAnswer = (id: string, answer: string, args: object) => {
+  const { act, data } = useBackend<Data>();
   if (!data.modal) {
     return;
   }
@@ -78,9 +86,10 @@ export const ComplexModal = (props) => {
     <Button
       className="Button--modal"
       icon="arrow-left"
-      content="Закрыть"
       onClick={() => modalClose()}
-    ></Button>
+    >
+      Закрыть
+    </Button>
   );
   let modalBody;
   let modalFooter;

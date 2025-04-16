@@ -34,7 +34,6 @@ const Story = (props) => {
       <Box mb={1}>
         <Button content="Simple" />
         <Button selected content="Selected" />
-        <Button altSelected content="Alt Selected" />
         <Button disabled content="Disabled" />
         <Button color="transparent" content="Transparent" />
         <Button icon="cog" content="Icon" />

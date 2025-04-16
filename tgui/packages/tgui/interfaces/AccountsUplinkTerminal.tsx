@@ -9,15 +9,41 @@ import {
   Section,
   Stack,
   Table,
-  Tabs,
 } from '../components';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
 import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 
+type Data = {
+  loginState: LogitState;
+  currentPage: number;
+  accounts: Account[];
+  is_printing: boolean;
+};
+
+type LogitState = {
+  logged_in: boolean;
+};
+
+type Account = {
+  account_index: string;
+  owner_name: string;
+  account_number: number;
+  suspended: boolean;
+  money: number;
+  transactions: Transaction[];
+};
+
+type Transaction = {
+  time: string;
+  purpose: string;
+  is_deposit: boolean;
+  amount: number;
+  target_name: string;
+};
+
 export const AccountsUplinkTerminal = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { loginState, currentPage } = data;
 
   let body;
@@ -56,7 +82,7 @@ export const AccountsUplinkTerminal = (properties) => {
 };
 
 const AccountsRecordList = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { accounts } = data;
   const [searchText, setSearchText] = useState('');
   const [sortId, _setSortId] = useState('owner_name');
@@ -146,7 +172,7 @@ const SortButton = (properties) => {
 };
 
 const AccountsActions = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Data>();
   const { is_printing } = data;
   const [searchText, setSearchText] = useState('');
   return (
@@ -177,7 +203,7 @@ const AccountsActions = (properties) => {
 };
 
 const DetailedAccountInfo = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<Account>();
   const { account_number, owner_name, money, suspended, transactions } = data;
   return (
     <Stack fill vertical>

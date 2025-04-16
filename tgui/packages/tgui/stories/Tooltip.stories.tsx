@@ -13,7 +13,7 @@ export const meta = {
 };
 
 const Story = () => {
-  const positions = [
+  const positions: Placement[] = [
     'top',
     'left',
     'right',

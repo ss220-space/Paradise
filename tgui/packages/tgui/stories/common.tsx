@@ -5,8 +5,9 @@
  */
 
 import { Box } from '../components';
+import { BoxProps } from '../components/Box';
 
-export const BoxWithSampleText = (props) => {
+export const BoxWithSampleText = (props: BoxProps) => {
   return (
     <Box {...props}>
       <Box italic>Jackdaws love my big sphinx of quartz.</Box>
