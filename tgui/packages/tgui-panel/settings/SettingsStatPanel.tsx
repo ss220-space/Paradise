@@ -1,45 +1,40 @@
-import { capitalize } from 'common/string';
 import { toFixed } from 'common/math';
+import { capitalize } from 'common/string';
 import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'common/redux';
 import {
   Button,
-  Input,
   LabeledList,
   NoticeBox,
   Section,
-  Stack,
   Slider,
+  Stack,
   Collapsible,
+  Input,
 } from 'tgui/components';
-import { updateSettings } from './actions';
+
 import { FONTS } from './constants';
+
+import { updateSettings } from './actions';
 import { selectSettings } from './selectors';
+
+const TabsViews = ['default', 'classic', 'scrollable'];
+const LinkedToChat = () => (
+  <NoticeBox color="red">Unlink Stat Panel from chat!</NoticeBox>
+);
 
 export const SettingsStatPanel = (props, context) => {
   const { statLinked, statFontSize, statFontFamily, statTabsStyle } =
     useSelector(context, selectSettings);
   const dispatch = useDispatch(context);
-
-  const TabsViews = ['default', 'classic', 'scrollable'];
-  const LinkedToChat = () => (
-    <NoticeBox m={0} color="red" style={{ padding: `0.2em 0.5em` }}>
-      Unlink Stat Panel from chat!
-    </NoticeBox>
-  );
-
-  const [freeStatFont, setFreeStatFont] = useLocalState(
-    context,
-    'freeStatFont',
-    false
-  );
+  const [freeStatFont, setFreeStatFont] = useLocalState('freeStatFont', false);
 
   return (
     <Section fill>
       <Stack fill vertical>
         <Stack.Item>
           <LabeledList>
-            <LabeledList.Item label="Tabs">
+            <LabeledList.Item label="Tabs" verticalAlign="middle">
               {TabsViews.map((view) => (
                 <Button
                   key={view}
