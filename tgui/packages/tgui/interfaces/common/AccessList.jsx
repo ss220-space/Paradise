@@ -75,18 +75,17 @@ export const AccessList = (props) => {
       title="Access"
       buttons={
         <>
-          <Button
-            icon="check-double"
-            content="Select All"
-            color="good"
-            onClick={() => grantAll()}
-          />
+          <Button icon="check-double" color="good" onClick={() => grantAll()}>
+            Select All
+          </Button>
           <Button
             icon="undo"
             content="Deselect All"
             color="bad"
             onClick={() => denyAll()}
-          />
+          >
+            Deselect All
+          </Button>
           {sectionButtons}
         </>
       }
@@ -122,19 +121,21 @@ export const AccessList = (props) => {
               <Button
                 fluid
                 icon="check"
-                content="Select All In Region"
                 color="good"
                 onClick={() => grantDep(selectedAccess.regid)}
-              />
+              >
+                Select All In Region
+              </Button>
             </Stack.Item>
             <Stack.Item grow>
               <Button
                 fluid
                 icon="times"
-                content="Deselect All In Region"
                 color="bad"
                 onClick={() => denyDep(selectedAccess.regid)}
-              />
+              >
+                Deselect All In Region
+              </Button>
             </Stack.Item>
           </Stack>
           {!!usedByRcd && (
@@ -150,7 +151,6 @@ export const AccessList = (props) => {
             <Button.Checkbox
               fluid
               key={entry.desc}
-              content={entry.desc}
               disabled={
                 grantableList.length > 0 &&
                 !grantableList.includes(entry.ref) &&
@@ -158,7 +158,9 @@ export const AccessList = (props) => {
               }
               checked={selectedList.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)}
-            />
+            >
+              {entry.desc}
+            </Button.Checkbox>
           ))}
         </Stack.Item>
       </Stack>

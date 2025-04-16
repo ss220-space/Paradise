@@ -23,7 +23,9 @@ export const RoboticsControlConsole = (props) => {
               content={safety ? 'Disable Safety' : 'Enable Safety'}
               selected={safety}
               onClick={() => act('arm', {})}
-            />
+            >
+              {safety ? 'Disable Safety' : 'Enable Safety'}
+            </Button>
             <Button
               icon="bomb"
               disabled={safety}

@@ -1,6 +1,6 @@
 import { Component } from 'react';
 import { useBackend } from '../backend';
-import { Button, Icon, Input, Section, Stack, Table } from '../components';
+import { Button, Input, Section, Stack, Table } from '../components';
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
@@ -32,7 +32,7 @@ type ReagentsEditorState = {
 };
 
 // The linter is raising false-positives for unused state
- 
+
 export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
   constructor(props: {}) {
     super(props);
@@ -97,12 +97,12 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
           <Section fill>
             <Stack fill vertical>
               <Stack.Item>
-                <Stack fill horizontal>
+                <Stack fill>
                   <Stack.Item grow>
                     <Input
                       fluid
                       value={searchText}
-                      onChange={this.handleSearchChange}
+                      onInput={this.handleSearchChange}
                     />
                   </Stack.Item>
                   <Stack.Item>

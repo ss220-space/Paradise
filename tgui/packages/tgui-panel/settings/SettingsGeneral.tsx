@@ -1,7 +1,7 @@
 import { toFixed } from 'common/math';
 import { capitalize } from 'common/string';
-import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
+import { useState } from 'react';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
   Collapsible,
@@ -22,17 +22,12 @@ import { setEditPaneSplitters } from './scaling';
 import { selectSettings } from './selectors';
 import { importChatSettings } from './settingsImExport';
 
-export const SettingsGeneral = (props, context) => {
-  const { theme, fontFamily, fontSize, lineHeight } = useSelector(
-    context,
-    selectSettings
-  );
-  const dispatch = useDispatch(context);
-  const [freeFont, setFreeFont] = useLocalState('freeFont', false);
-  const [editingPanes, setEditingPanes] = useLocalState<boolean>(
-    'editingPanes',
-    false
-  );
+export const SettingsGeneral = (props) => {
+  const { theme, fontFamily, fontSize, lineHeight } =
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
+  const [freeFont, setFreeFont] = useState(false);
+  const [editingPanes, setEditingPanes] = useState<boolean>(false);
 
   return (
     <Section>
@@ -188,7 +183,7 @@ export const SettingsGeneral = (props, context) => {
             accept=".json"
             tooltip="Import chat settings"
             icon="arrow-up-from-bracket"
-            onSelectFiles={(files) => importChatSettings(files, context)}
+            onSelectFiles={(files) => importChatSettings(files)}
           >
             Import settings
           </Button.File>

@@ -9,6 +9,7 @@ import {
   Input,
   Stack,
   Dropdown,
+  TextArea,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -564,11 +565,9 @@ const AdminAnnouncePage = (props) => {
           onChange={(e, value) => setSubtitle(value)}
           mb="5px"
         />
-        <Input
+        <TextArea
           placeholder="Введите текст объявления,\nМногострочный ввод принимается."
-          rows={10}
           fluid
-          multiline={1}
           value={text}
           onChange={(e, value) => setText(value)}
         />

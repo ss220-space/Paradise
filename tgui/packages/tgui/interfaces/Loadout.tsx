@@ -172,7 +172,7 @@ const LoadoutGears = (props) => {
                 width={20}
                 placeholder="Search..."
                 value={searchText}
-                onInput={(e) => setSearchText(e.target.value)}
+                onInput={(e, value) => setSearchText(value)}
               />
             </Stack.Item>
           )}
@@ -250,9 +250,9 @@ const LoadoutGears = (props) => {
         );
 
         const textInfo = (
-          <Box class="Loadout-InfoBox">
+          <Box className="Loadout-InfoBox">
             <Box
-              style={{ flexGrow: 1 }}
+              style={{ flexGrow: '1' }}
               fontSize={1}
               color="gold"
               opacity={0.75}

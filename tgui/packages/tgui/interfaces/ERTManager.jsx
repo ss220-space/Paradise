@@ -1,7 +1,15 @@
 import { Fragment } from 'react';
 import { useBackend } from '../backend';
 import { useState } from 'react';
-import { Button, LabeledList, Box, Section, Tabs, Input } from '../components';
+import {
+  Button,
+  LabeledList,
+  Box,
+  Section,
+  Tabs,
+  Input,
+  TextArea,
+} from '../components';
 import { Window } from '../layouts';
 import { decodeHtmlEntities } from 'common/string';
 
@@ -288,11 +296,9 @@ const DenyERT = (props) => {
 
   return (
     <Section>
-      <Input
+      <TextArea
         placeholder="Введите здесь причину отклонения ОБР.\nМногострочный ввод доступен."
-        rows={10}
         fluid
-        multiline={1}
         value={text}
         onChange={(e, value) => setText(value)}
       />

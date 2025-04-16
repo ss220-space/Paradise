@@ -80,7 +80,7 @@ export const ComplexModal = (props) => {
       icon="arrow-left"
       content="Закрыть"
       onClick={() => modalClose()}
-    />
+    ></Button>
   );
   let modalBody;
   let modalFooter;
@@ -111,7 +111,7 @@ export const ComplexModal = (props) => {
           content="Закрыть"
           color="grey"
           onClick={() => modalClose()}
-        />
+        ></Button>
         <Button
           icon="check"
           content={'Подтвердить'}
@@ -119,7 +119,7 @@ export const ComplexModal = (props) => {
           float="right"
           m="0"
           onClick={() => modalAnswer(id, curValue)}
-        />
+        ></Button>
         <Box clear="both" />
       </Box>
     );
@@ -163,7 +163,7 @@ export const ComplexModal = (props) => {
           float="left"
           mb="0"
           onClick={() => modalAnswer(id, 0)}
-        />
+        ></Button>
         <Button
           icon="check"
           content={data.modal.yes_text}
@@ -171,7 +171,7 @@ export const ComplexModal = (props) => {
           float="right"
           m="0"
           onClick={() => modalAnswer(id, 1)}
-        />
+        ></Button>
         <Box clear="both" />
       </Box>
     );

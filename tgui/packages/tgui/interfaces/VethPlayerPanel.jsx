@@ -88,7 +88,7 @@ export const VethPlayerPanel = (props) => {
               autoFocus
               placeholder="Search by name, job, or ckey"
               value={searchText}
-              onChange={(_, value) => setSearchText(value)}
+              onInput={(_, value) => setSearchText(value)}
               rows={1}
               height="2rem"
             />

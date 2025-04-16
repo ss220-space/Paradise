@@ -165,14 +165,14 @@ const TransferFunds = (props) => {
         <LabeledList.Item label="Target Account Number">
           <Input
             placeholder="7 Digit Number"
-            onInput={(e, value) => setTargetAccNumber(value)}
+            onChange={(e, value) => setTargetAccNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Funds to Transfer">
-          <Input onInput={(e, value) => setFundsAmount(value)} />
+          <Input onChange={(e, value) => setFundsAmount(value)} />
         </LabeledList.Item>
         <LabeledList.Item label="Transaction Purpose">
-          <Input fluid onInput={(e, value) => setPurpose(value)} />
+          <Input fluid onChange={(e, value) => setPurpose(value)} />
         </LabeledList.Item>
       </LabeledList>
       <Divider />
@@ -259,7 +259,7 @@ const DefaultScreen = (props) => {
         <LabeledList>
           <LabeledList.Item label="Account Balance">${money}</LabeledList.Item>
           <LabeledList.Item label="Withdrawal Amount">
-            <Input onInput={(e, value) => setFundsAmount(value)} />
+            <Input onChange={(e, value) => setFundsAmount(value)} />
           </LabeledList.Item>
           <LabeledList.Item>
             <Button
@@ -273,7 +273,7 @@ const DefaultScreen = (props) => {
             ${insurance}
           </LabeledList.Item>
           <LabeledList.Item label="Adding Insurance">
-            <Input onInput={(e, value) => setInsuranceAmount(value)} />
+            <Input onChange={(e, value) => setInsuranceAmount(value)} />
           </LabeledList.Item>
           <LabeledList.Item>
             <Button
@@ -346,13 +346,13 @@ const LoginScreen = (props) => {
         <LabeledList.Item label="Account ID">
           <Input
             placeholder="6 Digit Number"
-            onInput={(e, value) => setAccountID(value)}
+            onChange={(e, value) => setAccountID(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Pin">
           <Input
             placeholder="6 Digit Number"
-            onInput={(e, value) => setAccountPin(value)}
+            onChange={(e, value) => setAccountPin(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item>

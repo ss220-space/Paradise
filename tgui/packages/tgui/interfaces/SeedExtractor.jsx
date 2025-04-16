@@ -240,7 +240,7 @@ const SeedExtractorActions = (properties) => {
         Vend amount:
         <Input
           placeholder="1"
-          onInput={(e, value) =>
+          onChange={(e, value) =>
             setVendAmount(Number(value) >= 1 ? Number(value) : 1)
           }
         />

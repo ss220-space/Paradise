@@ -235,8 +235,7 @@ const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
   const [viewingPhoto, setViewingPhoto] = useState('');
   return (
-    <Box
-      as="img"
+    <Image
       className="Newscaster__photo"
       src={name}
       onClick={() => setViewingPhoto(name)}

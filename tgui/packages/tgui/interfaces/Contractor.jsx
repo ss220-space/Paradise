@@ -91,7 +91,7 @@ export const Contractor = (properties) => {
       </>
     );
   }
-  const [viewingPhoto, _setViewingPhoto] = useState( '');
+  const [viewingPhoto, _setViewingPhoto] = useState('');
   return (
     <Window width={600} height={800} theme="syndicate">
       {viewingPhoto && <PhotoZoom />}
@@ -476,7 +476,7 @@ const PhotoZoom = (properties) => {
   const [viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Modal className="Contractor__photoZoom">
-      <Box as="img" src={viewingPhoto} />
+      <Image src={viewingPhoto} />
       <Button
         icon="times"
         content="Закрыть"

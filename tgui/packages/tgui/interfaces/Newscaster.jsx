@@ -12,6 +12,7 @@ import {
   Modal,
   Section,
   Stack,
+  TextArea,
 } from '../components';
 import { timeAgo } from '../constants';
 import { Window } from '../layouts';
@@ -513,8 +514,7 @@ const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
   const [viewingPhoto, setViewingPhoto] = useState('');
   return (
-    <Box
-      as="img"
+    <Image
       className="Newscaster__photo"
       src={name}
       onClick={() => setViewingPhoto(name)}
@@ -527,7 +527,7 @@ const PhotoZoom = (properties) => {
   const [viewingPhoto, setViewingPhoto] = useState('');
   return (
     <Modal className="Newscaster__photoZoom">
-      <Box as="img" src={viewingPhoto} />
+      <Image src={viewingPhoto} />
       <Button
         icon="times"
         content="Закрыть"
@@ -577,7 +577,7 @@ const manageChannelModalBodyOverride = (modal) => {
               disabled={!isAdmin}
               width="100%"
               value={author}
-              onInput={(_e, v) => setAuthor(v)}
+              onChange={(_e, v) => setAuthor(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Название">
@@ -586,17 +586,16 @@ const manageChannelModalBodyOverride = (modal) => {
               placeholder="Макс. 50 символов"
               maxLength="50"
               value={name}
-              onInput={(_e, v) => setName(v)}
+              onChange={(_e, v) => setName(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Описание (опционально)" verticalAlign="top">
-            <Input
-              multiline
+            <TextArea
               width="100%"
               placeholder="Макс. 128 символов."
               maxLength="128"
               value={description}
-              onInput={(_e, v) => setDescription(v)}
+              onChange={(_e, v) => setDescription(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Иконка">
@@ -605,7 +604,7 @@ const manageChannelModalBodyOverride = (modal) => {
               value={icon}
               width="35%"
               mr="0.5rem"
-              onInput={(_e, v) => setIcon(v)}
+              onChange={(_e, v) => setIcon(v)}
             />
             <Icon name={icon} size="2" verticalAlign="middle" mr="0.5rem" />
           </LabeledList.Item>
@@ -693,7 +692,7 @@ const createStoryModalBodyOverride = (modal) => {
               disabled={!isAdmin}
               width="100%"
               value={author}
-              onInput={(_e, v) => setAuthor(v)}
+              onChange={(_e, v) => setAuthor(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Канал" verticalAlign="top">
@@ -712,19 +711,17 @@ const createStoryModalBodyOverride = (modal) => {
               placeholder="Макс. 128 символов"
               maxLength="128"
               value={title}
-              onInput={(_e, v) => setTitle(v)}
+              onChange={(_e, v) => setTitle(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Текст статьи" verticalAlign="top">
-            <Input
+            <TextArea
               fluid
-              multiline
               placeholder="Макс. 1024 символов"
               maxLength="1024"
-              rows="8"
               width="100%"
               value={body}
-              onInput={(_e, v) => setBody(v)}
+              onChange={(_e, v) => setBody(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Фото (опционально)" verticalAlign="top">
@@ -824,7 +821,7 @@ const wantedNoticeModalBodyOverride = (modal) => {
               disabled={!isAdmin}
               width="100%"
               value={author}
-              onInput={(_e, v) => setAuthor(v)}
+              onChange={(_e, v) => setAuthor(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Имя">
@@ -832,17 +829,15 @@ const wantedNoticeModalBodyOverride = (modal) => {
               width="100%"
               value={name}
               maxLength="128"
-              onInput={(_e, v) => setName(v)}
+              onChange={(_e, v) => setName(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Описание" verticalAlign="top">
-            <Input
-              multiline
+            <TextArea
               width="100%"
               value={description}
               maxLength="512"
-              rows="4"
-              onInput={(_e, v) => setDescription(v)}
+              onChange={(_e, v) => setDescription(v)}
             />
           </LabeledList.Item>
           <LabeledList.Item label="Фото (опционально)" verticalAlign="top">

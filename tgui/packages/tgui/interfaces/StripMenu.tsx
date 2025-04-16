@@ -2,7 +2,7 @@ import { range } from 'common/collections';
 import { BooleanLike } from 'common/react';
 import { resolveAsset } from '../assets';
 import { useBackend } from '../backend';
-import { Box, Button, DmIcon, Icon, Stack } from '../components';
+import { Box, Button, DmIcon, Icon, Stack, Image } from '../components';
 import { Window } from '../layouts';
 import { ReactNode } from 'react';
 
@@ -508,8 +508,6 @@ export const StripMenu = (props) => {
                         height="100%"
                         width="100%"
                         style={{
-                          '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-                          imageRendering: 'pixelated',
                           verticalAlign: 'middle',
                         }}
                       />
@@ -580,8 +578,7 @@ export const StripMenu = (props) => {
                           }}
                         >
                           {slot.image && (
-                            <Box
-                              as="img"
+                            <Image
                               src={resolveAsset(slot.image)}
                               opacity={0.7}
                               style={{

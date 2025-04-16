@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack } from '../components';
 import { useBackend } from '../backend';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { Window } from '../layouts';
 import { BooleanLike } from 'common/react';
 
@@ -60,12 +60,11 @@ const ListDisplay = (props) => {
   const { filteredItems, onClick } = props;
 
   return (
-    <Section fill scrollable tabIndex={0}>
+    <Section fill scrollable>
       {filteredItems.map((item, index) => {
         return (
           <Button.Checkbox
             fluid
-            id={index}
             key={index}
             onClick={() => onClick(item)}
             checked={item.checked}

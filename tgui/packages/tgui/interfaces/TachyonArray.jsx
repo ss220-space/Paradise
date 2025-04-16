@@ -33,12 +33,13 @@ export const TachyonArray = (props) => {
               />
               <Button.Confirm
                 icon="trash"
-                content="Delete All Logs"
                 disabled={!records.length}
                 color="bad"
                 align="center"
                 onClick={() => act('delete_logs')}
-              />
+              >
+                Delete All Logs
+              </Button.Confirm>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -76,14 +77,15 @@ export const TachyonArrayContent = (props) => {
                 <Table.Cell>
                   <Button.Confirm
                     icon="trash"
-                    content="Delete"
                     color="bad"
                     onClick={() =>
                       act('delete_record', {
                         'index': a.index,
                       })
                     }
-                  />
+                  >
+                    Delete
+                  </Button.Confirm>
                 </Table.Cell>
               </Table.Row>
             ))}

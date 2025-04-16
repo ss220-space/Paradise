@@ -7,12 +7,12 @@ import { Button } from './Button';
 import { Icon } from './Icon';
 import { Stack } from './Stack';
 
-export interface DropdownEntry {
+type DropdownEntry = {
   displayText: string | number | ReactNode;
   value: string | number | Enumerator;
-}
+};
 
-type DropdownUniqueProps = { options: string[] | DropdownEntry[] } & Partial<{
+type Props = { options: string[] | DropdownEntry[] } & Partial<{
   buttons: boolean;
   clipSelectedText: boolean;
   color: string;
@@ -30,9 +30,13 @@ type DropdownUniqueProps = { options: string[] | DropdownEntry[] } & Partial<{
   // you freaks really are just doing anything with this shit
   selected: any;
   width: string;
-}>;
+}> &
+  BoxProps;
 
-export type DropdownProps = BoxProps & DropdownUniqueProps;
+type State = {
+  selected?: string;
+  open: boolean;
+};
 
 const DEFAULT_OPTIONS = {
   placement: 'left-start',
@@ -54,13 +58,9 @@ const NULL_RECT: DOMRect = {
   y: 0,
   toJSON: () => null,
 } as const;
-type DropdownState = {
-  selected?: string;
-  open: boolean;
-};
 const DROPDOWN_DEFAULT_CLASSNAMES = 'Layout Dropdown__menu';
 const DROPDOWN_SCROLL_CLASSNAMES = 'Layout Dropdown__menu-scroll';
-export class Dropdown extends Component<DropdownProps, DropdownState> {
+export class Dropdown extends Component<Props, State> {
   static renderedMenu: HTMLDivElement | undefined;
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentOpenMenu: Element | undefined;
@@ -69,7 +69,7 @@ export class Dropdown extends Component<DropdownProps, DropdownState> {
       Dropdown.currentOpenMenu?.getBoundingClientRect() ?? NULL_RECT,
   };
   menuContents: any;
-  constructor(props: DropdownProps) {
+  constructor(props: Props) {
     super(props);
     this.state = {
       open: false,

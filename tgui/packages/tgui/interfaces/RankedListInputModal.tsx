@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack, Table } from '../components';
 import { useBackend } from '../backend';
-import { useState } from 'react';
+import { useState, DragEvent } from 'react';
 import { Window } from '../layouts';
 import { TableRow } from '../components/Table';
 
@@ -57,7 +57,7 @@ const ListDisplay = (props) => {
   };
 
   // Handle the drag over event
-  const handleDragOver = (event: DragEvent) => {
+  const handleDragOver = (event: DragEvent<HTMLDivElement>) => {
     event.preventDefault(); // Required to allow dropping
   };
 
@@ -83,7 +83,6 @@ const ListDisplay = (props) => {
     <Section
       fill
       scrollable
-      tabIndex={0}
       onDrop={() => handleDrop(null)} // Handle drop on Section
       onDragOver={handleDragOver} // Allow dropping on Section
     >

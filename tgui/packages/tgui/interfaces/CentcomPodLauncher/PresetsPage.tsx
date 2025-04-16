@@ -213,9 +213,9 @@ export const PresetsPage = (props) => {
           style={
             presetID === preset.id
               ? {
-                  'border-width': '1px',
-                  'border-style': 'solid',
-                  'border-color': `hsl(${preset.hue}, 80%, 80%)`,
+                  borderWidth: '1px',
+                  borderStyle: 'solid',
+                  borderColor: `hsl(${preset.hue}, 80%, 80%)`,
                 }
               : ''
           }

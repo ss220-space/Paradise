@@ -2,7 +2,7 @@ import { Loader } from './common/Loader';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
 import { useBackend } from '../backend';
-import { useState } from 'react';
+import { useState, KeyboardEvent } from 'react';
 import { Autofocus, Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
@@ -47,7 +47,7 @@ export const AlertModal = (props) => {
   const windowWidth = 345 + (buttons.length > 2 ? 55 : 0);
 
   /** Changes button selection, etc */
-  const keyDownHandler = (event: KeyboardEvent) => {
+  const keyDownHandler = (event: KeyboardEvent<HTMLDivElement>) => {
     switch (event.key) {
       case KEY.Space:
       case KEY.Enter:

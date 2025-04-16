@@ -5,25 +5,28 @@
  * @license MIT
  */
 
+import { isEscape, KEY } from 'common/keys';
 import { classes } from 'common/react';
 import {
   forwardRef,
-  useEffect,
-  useState,
+  ReactElement,
   RefObject,
-  useRef,
+  useEffect,
   useImperativeHandle,
+  useRef,
+  useState,
 } from 'react';
-import { toInputValue } from './Input';
-import { KEY } from 'common/keys';
-import { Box, BoxProps } from './Box';
 import { KeyboardEvent, SyntheticEvent } from 'react';
+
+import { Box, BoxProps } from './Box';
+import { toInputValue } from './Input';
 
 type Props = Partial<{
   autoFocus: boolean;
   autoSelect: boolean;
-  displayedValue: string;
+  displayedValue: ReactElement;
   dontUseTabForIndent: boolean;
+  fluid: boolean;
   maxLength: number;
   noborder: boolean;
   /** Fires when user is 'done typing': Clicked out, blur, enter key (but not shift+enter) */
@@ -77,11 +80,10 @@ export const TextArea = forwardRef(
           event.currentTarget.value = '';
         }
         event.currentTarget.blur();
-
         return;
       }
 
-      if (event.key === KEY.Escape) {
+      if (isEscape(event.key)) {
         onEscape?.(event);
         if (selfClear) {
           event.currentTarget.value = '';
@@ -112,10 +114,9 @@ export const TextArea = forwardRef(
     /** Focuses the input on mount */
     useEffect(() => {
       if (!autoFocus && !autoSelect) return;
+
       const input = textareaRef.current;
       if (!input) return;
-
-      input.value = toInputValue(value);
 
       if (autoFocus || autoSelect) {
         setTimeout(() => {

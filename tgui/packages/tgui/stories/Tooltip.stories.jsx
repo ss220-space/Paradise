@@ -30,7 +30,7 @@ const Story = () => {
             Box (hover me).
           </Box>
         </Tooltip>
-        <Button tooltip="Tooltip text." content="Button" />
+        <Button tooltip="Tooltip text.">Button</Button>
       </Box>
       <Box mt={1}>
         {positions.map((position) => (
@@ -39,8 +39,9 @@ const Story = () => {
             color="transparent"
             tooltip="Tooltip text."
             tooltipPosition={position}
-            content={position}
-          />
+          >
+            {position}
+          </Button>
         ))}
       </Box>
     </Section>

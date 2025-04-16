@@ -20,6 +20,7 @@ import {
 } from './common/ComplexModal';
 import { BooleanLike, classes } from 'common/react';
 import { BoxProps } from '../components/Box';
+import { ButtonProps } from '../components/Button';
 
 const transferAmounts = [1, 5, 10];
 
@@ -380,10 +381,12 @@ const ChemMasterProductionTabs = (props: {}) => {
   );
 };
 
-interface ChemMasterNameInputProps {
+type ChemMasterNameInputProps = {
   placeholder: string;
+  fluid: boolean;
+  selected: boolean;
   onMouseUp?: (MouseEvent) => void;
-}
+} & BoxProps;
 
 class ChemMasterNameInput extends Component<
   ChemMasterNameInputProps & BoxProps
@@ -464,20 +467,21 @@ const ChemMasterProductionCommon = (props: {
       <LabeledList.Item>
         <Button
           fluid
-          content="Создать"
           color="green"
           disabled={buffer_reagents.length <= 0}
           onClick={() => act(`create_items`, { production_mode: id })}
-        />
+        >
+          Создать
+        </Button>
       </LabeledList.Item>
     </LabeledList>
   );
 };
 
-const SpriteStyleButton = (props: { icon: string } & BoxProps) => {
+const SpriteStyleButton = (props: { icon: string } & ButtonProps) => {
   const { icon, ...restProps } = props;
   return (
-    <Button style={{ padding: 0, lineHeight: 0 }} {...restProps}>
+    <Button style={{ padding: '0', lineHeight: '0' }} {...restProps}>
       <Box className={classes(['chem_master_large32x32', icon])} />
     </Button>
   );
@@ -531,7 +535,7 @@ const ChemMasterCustomization = (props: {}) => {
         icon={selected && 'check'}
         iconStyle={{
           position: 'relative',
-          'z-index': 1,
+          zIndex: '1',
         }}
         tooltip={name}
         tooltipPosition="top"

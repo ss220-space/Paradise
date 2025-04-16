@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Box,
   Button,
@@ -22,9 +22,9 @@ import {
   selectHighlightSettings,
 } from './selectors';
 
-export const TextHighlightSettings = (props, context) => {
-  const highlightSettings = useSelector(context, selectHighlightSettings);
-  const dispatch = useDispatch(context);
+export const TextHighlightSettings = (props) => {
+  const highlightSettings = useSelector(selectHighlightSettings);
+  const dispatch = useDispatch();
 
   return (
     <Section fill scrollable height="250px">
@@ -63,10 +63,10 @@ export const TextHighlightSettings = (props, context) => {
   );
 };
 
-const TextHighlightSetting = (props, context) => {
+const TextHighlightSetting = (props) => {
   const { id, ...rest } = props;
-  const highlightSettingById = useSelector(context, selectHighlightSettingById);
-  const dispatch = useDispatch(context);
+  const highlightSettingById = useSelector(selectHighlightSettingById);
+  const dispatch = useDispatch();
   const {
     highlightColor,
     highlightText,
@@ -149,7 +149,7 @@ const TextHighlightSetting = (props, context) => {
             monospace
             placeholder="#ffffff"
             value={highlightColor}
-            onInput={(e, value) =>
+            onChange={(e, value) =>
               dispatch(
                 updateHighlightSetting({
                   id: id,

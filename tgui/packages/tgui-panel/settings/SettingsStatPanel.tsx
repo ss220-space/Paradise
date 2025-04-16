@@ -1,19 +1,21 @@
-import { capitalize } from 'common/string';
 import { toFixed } from 'common/math';
+import { capitalize } from 'common/string';
 import { useLocalState } from 'tgui/backend';
 import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
-  Input,
   LabeledList,
   NoticeBox,
   Section,
-  Stack,
   Slider,
+  Stack,
   Collapsible,
+  Input,
 } from 'tgui/components';
-import { updateSettings } from './actions';
+
 import { FONTS } from './constants';
+
+import { updateSettings } from './actions';
 import { selectSettings } from './selectors';
 
 export const SettingsStatPanel = (props) => {
@@ -23,7 +25,7 @@ export const SettingsStatPanel = (props) => {
 
   const TabsViews = ['default', 'classic', 'scrollable'];
   const LinkedToChat = () => (
-    <NoticeBox m={0} color="red" style={{ padding: `0.2em 0.5em` }}>
+    <NoticeBox color="red" style={{ padding: `0.2em 0.5em` }}>
       Unlink Stat Panel from chat!
     </NoticeBox>
   );
@@ -35,7 +37,7 @@ export const SettingsStatPanel = (props) => {
       <Stack fill vertical>
         <Stack.Item>
           <LabeledList>
-            <LabeledList.Item label="Tabs">
+            <LabeledList.Item label="Tabs" verticalAlign="middle">
               {TabsViews.map((view) => (
                 <Button
                   key={view}
