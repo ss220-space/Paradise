@@ -136,7 +136,6 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 	for(var/datum/spider as anything in members)
 		SEND_SIGNAL(spider, COMSIG_EMPRESS_EGG_LAYED)
 	give_protect_egg_objective()
-	other_target?.completed = TRUE
 	addtimer(CALLBACK(src, PROC_REF(egg_announce)), TIME_TO_ANNOUNCE)
 
 
