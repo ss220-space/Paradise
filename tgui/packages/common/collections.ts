@@ -55,7 +55,10 @@ export const toArray = (collection) => {
  * @param {string} keyProp Property, to which key will be assigned
  * @returns {T[]} Array of keyed objects
  */
-export const toKeyedArray = (obj, keyProp = 'key') => {
+export const toKeyedArray = (
+  obj: Record<string, any>,
+  keyProp: string = 'key'
+) => {
   return map((item, key) => ({
     [keyProp]: key,
     ...item,

@@ -65,7 +65,6 @@ let windowFocused = true;
 
 // Pretend to always be in focus.
 const setWindowFocus = (value: boolean, delayed?: boolean) => {
-  // Pretend to always be in focus.
   if (ignoreWindowFocus) {
     windowFocused = true;
     return;
@@ -141,6 +140,7 @@ const focusNearestTrackedParent = (node: HTMLElement | null) => {
       node.focus();
       return;
     }
+    // biome-ignore lint/style/noParameterAssign: This is fine
     node = node.parentElement;
   }
 };
@@ -162,21 +162,20 @@ window.addEventListener('focusin', (e) => {
   setWindowFocus(true);
   if (canStealFocus(e.target as HTMLElement)) {
     stealFocus(e.target as HTMLElement);
-    return;
   }
 });
 
-window.addEventListener('focusout', (e) => {
+window.addEventListener('focusout', () => {
   lastVisitedNode = null;
   setWindowFocus(false, true);
 });
 
-window.addEventListener('blur', (e) => {
+window.addEventListener('blur', () => {
   lastVisitedNode = null;
   setWindowFocus(false, true);
 });
 
-window.addEventListener('beforeunload', (e) => {
+window.addEventListener('beforeunload', () => {
   setWindowFocus(false);
 });
 
@@ -240,9 +239,9 @@ export class KeyEvent {
     if (this.code >= 48 && this.code <= 90) {
       this._str += String.fromCharCode(this.code);
     } else if (this.code >= KEY_F1 && this.code <= KEY_F12) {
-      this._str += 'F' + (this.code - 111);
+      this._str += `F${this.code - 111}`;
     } else {
-      this._str += '[' + this.code + ']';
+      this._str += `[${this.code}]`;
     }
     return this._str;
   }

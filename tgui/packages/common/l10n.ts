@@ -1,4 +1,9 @@
-export const declensionRu = (num, single_name, double_name, multiple_name) => {
+export const declensionRu = (
+  num: number,
+  single_name: string,
+  double_name: string,
+  multiple_name: string
+) => {
   const shorten = num % 100;
 
   if (shorten >= 10 && shorten <= 20) {
