@@ -87,6 +87,8 @@
 		stored_languages ^= translator.given_languages // you can't forget it, because it's on the chip in translator
 
 	for(var/datum/language/lan as anything in stored_languages)
+		if(lan.flags & NOBABEL)
+			continue
 		affected_mob.remove_language(lan.name)
 
 

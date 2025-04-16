@@ -3023,7 +3023,7 @@
 
 	if(!spell)
 		return FALSE
-	
+
 	LAZYREMOVE(spell_list, spell)
 
 	spell.action.Remove(current)

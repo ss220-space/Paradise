@@ -662,64 +662,78 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/proc/do_observe(mob/mob_eye)
 	if(isnewplayer(mob_eye))
-		stack_trace("/mob/dead/new_player: \[[mob_eye]\] is being observed by [key_name(src)]. This should never happen and has been blocked.")
+		stack_trace("/mob/dead/new_player: [mob_eye] is being observed by [key_name(src)]. This should never happen and has been blocked.")
 		message_admins("[ADMIN_LOOKUPFLW(src)] attempted to observe someone in the lobby: [ADMIN_LOOKUPFLW(mob_eye)]. This should not be possible and has been blocked.")
 		return
 
-	//Istype so we filter out points of interest that are not mobs
+	// Проверка типа и существования моба для наблюдения
 	if(!client || !mob_eye || !istype(mob_eye) || isobserver(mob_eye))
 		cleanup_observe()
 		return
 
+	// Ограничение видимости для админских зон
 	if(is_admin_level(mob_eye.z) && !client?.holder)
-		set_sight(NONE) //we dont want ghosts to see through walls in secret areas
+		set_sight(NONE)
 
+	// Проверка наличия HUD у моба
 	if(!mob_eye.hud_used)
 		return
 
-	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP,PROC_REF(handle_when_autoobserve_move), TRUE)
+	// Регистрация сигналов и установка параметров наблюдения
+	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, PROC_REF(handle_when_autoobserve_move), TRUE)
 	RegisterSignal(mob_eye, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(handle_when_autoobserve_sight_updated), TRUE)
 
 	client.set_eye(mob_eye)
-	set_sight(mob_eye.sight)
+	sight = mob_eye.sight
+	lighting_alpha = mob_eye.lighting_alpha
+	update_sight()
 
 	client.clear_screen()
 	LAZYOR(mob_eye.inventory_observers, src)
 	mob_eye.hud_used.show_hud(mob_eye.hud_used.hud_version, src)
 
 	do_observe_target = mob_eye
+	ADD_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
 
+	// Отображение элементов интерфейса
 	for(var/datum/action/act in mob_eye.actions)
-		if( istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || \
-			(act in src.actions)) //maybe last check is useless
+		if(istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || (act in src.actions))
 			continue
 		client.screen |= act.button
+
 	for(var/atom/movable/screen/alert/alert in mob_eye.alerts)
 		client.screen |= alert
 
-/mob/dead/observer/proc/handle_when_autoobserve_move()
-	SIGNAL_HANDLER  // COMSIG_ORBITER_ORBIT_STOP
 
-	reset_perspective(null)
-	hud_used.reorganize_alerts()
+/mob/dead/observer/proc/handle_when_autoobserve_move()
+	SIGNAL_HANDLER
+
+	reset_perspective()
 	cleanup_observe()
+
 	hud_used.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
-	lighting_alpha = client?.prefs.ghost_darkness_level //Remembers ghost lighting pref
+
+	lighting_alpha = client?.prefs.ghost_darkness_level
 	update_sight()
 	LAZYREMOVE(do_observe_target.inventory_observers, src)
 	clear_fullscreens()
-	if(src) // If player discconnected
+
+	if(client)
 		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
 		UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
+
 	do_observe_target = null
+	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
+
 
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
-	SIGNAL_HANDLER  // COMSIG_MOB_UPDATE_SIGHT
+	SIGNAL_HANDLER
 
 	if(orbiting && client)
 		sight = do_observe_target.sight
 		lighting_alpha = do_observe_target.lighting_alpha
 		update_sight()
+
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

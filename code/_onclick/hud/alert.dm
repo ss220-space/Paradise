@@ -91,6 +91,12 @@
 	if(client && hud_used)
 		hud_used.reorganize_alerts()
 		client.screen -= alert
+
+		for(var/mob/dead/observer/observe in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
+				continue
+			observe.client.screen -= alert
 	qdel(alert)
 
 /atom/movable/screen/alert
@@ -329,6 +335,8 @@ or something covering your eyes."
 	icon_state = "embeddedobject"
 
 /atom/movable/screen/alert/embeddedobject/Click()
+	if(!..())
+		return
 	if(isliving(usr))
 		var/mob/living/carbon/human/M = usr
 		return M.help_shake_act(M)
@@ -373,6 +381,9 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 
 /atom/movable/screen/alert/fire/Click()
+	if(!..())
+		return
+
 	if(!isliving(usr))
 		return FALSE
 
@@ -394,6 +405,9 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "direction_lock"
 
 /atom/movable/screen/alert/direction_lock/Click()
+	if(!..())
+		return
+
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.clear_forced_look()
@@ -452,7 +466,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
 
 /atom/movable/screen/alert/nymph/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/D = usr
@@ -491,7 +505,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/hackingapc/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(!target)
 		return
@@ -517,7 +531,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/mech_port_available/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(!ismecha(usr.loc) || !target)
 		return
@@ -533,7 +547,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "mech_port_x"
 
 /atom/movable/screen/alert/mech_port_disconnect/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(!ismecha(usr.loc))
 		return
@@ -823,11 +837,17 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
 /atom/movable/screen/alert/restrained/Click()
+	if(!..())
+		return
+
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
+	if(!..())
+		return
+
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist())
 		return
@@ -881,7 +901,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return TRUE
 
 /atom/movable/screen/alert/Click(location, control, params)
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return FALSE
 
 	var/paramslist = params2list(params)
@@ -907,7 +927,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	var/mob/living/living_owner = usr
 	if(!istype(usr))
