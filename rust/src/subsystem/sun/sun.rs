@@ -88,14 +88,7 @@ impl Sun {
         Ok(ByondValue::from(ANGLE.load(Ordering::Relaxed)))
     }
 
-    pub fn get_solars() -> eyre::Result<ByondValue> {
-        let mut byond_list = ByondValue::new_list()?;
-        let solars = SOLARS.read();
-
-        solars.iter().for_each(|solar| {
-            let _ = byond_list.push_list(*solar);
-        });
-
-        Ok(byond_list)
+    pub fn get_solars_length() -> eyre::Result<ByondValue> {
+        Ok(ByondValue::from(SOLARS.read().len() as f32))
     }
 }

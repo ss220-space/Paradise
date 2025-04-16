@@ -27,11 +27,6 @@ pub fn remove_solar(solar: ByondValue) -> eyre::Result<ByondValue> {
 }
 
 #[byondapi::bind]
-pub fn get_solars() -> eyre::Result<ByondValue> {
-    Sun::get_solars()
-}
-
-#[byondapi::bind]
 pub fn get_dy() -> eyre::Result<ByondValue> {
     Sun::get_dy()
 }
@@ -39,4 +34,9 @@ pub fn get_dy() -> eyre::Result<ByondValue> {
 #[byondapi::bind]
 pub fn get_dx() -> eyre::Result<ByondValue> {
     Sun::get_dx()
+}
+
+#[byondapi::bind]
+pub fn get_solars_length() -> eyre::Result<ByondValue> {
+    Sun::get_solars_length()
 }

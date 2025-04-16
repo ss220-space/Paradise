@@ -15,7 +15,7 @@ SUBSYSTEM_DEF(sun)
 
 
 /datum/controller/subsystem/sun/get_stat_details()
-	return "P:[length(get_solars())]"
+	return "P:[get_solars_length()]"
 
 
 /datum/controller/subsystem/sun/fire()
@@ -24,14 +24,14 @@ SUBSYSTEM_DEF(sun)
 /datum/controller/subsystem/sun/proc/get_angle()
 	return RUSTLIB_CALL(get_sun_angle)
 
-/datum/controller/subsystem/sun/proc/add_solar(obj/machinery/power/solar)
+/datum/controller/subsystem/sun/proc/add_solar(obj/machinery/power/solar_control)
 	return RUSTLIB_CALL(add_solar, solar)
 
-/datum/controller/subsystem/sun/proc/remove_solar(obj/machinery/power/solar/solar)
+/datum/controller/subsystem/sun/proc/remove_solar(obj/machinery/power/solar_control)
 	return RUSTLIB_CALL(remove_solar, solar)
 
-/datum/controller/subsystem/sun/proc/get_solars()
-	return RUSTLIB_CALL(get_solars)
+/datum/controller/subsystem/sun/proc/get_solars_length()
+	return RUSTLIB_CALL(get_solars_length)
 
 /datum/controller/subsystem/sun/proc/get_dy()
 	return RUSTLIB_CALL(get_dy)
