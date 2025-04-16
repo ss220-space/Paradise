@@ -48,20 +48,15 @@ const sortTypes = {
   'Cost': (a, b) => a.gear.cost - b.gear.cost,
 };
 
-export const Loadout = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [search, setSearch] = useLocalState(context, 'search', false);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+export const Loadout = (props) => {
+  const { act, data } = useBackend<Data>();
+  const [search, setSearch] = useLocalState('search', false);
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const [category, setCategory] = useLocalState(
-    context,
     'category',
     Object.keys(data.gears)[0]
   );
-  const [tweakedGear, setTweakedGear] = useLocalState(
-    context,
-    'tweakedGear',
-    ''
-  );
+  const [tweakedGear, setTweakedGear] = useLocalState('tweakedGear', '');
 
   return (
     <Window width={975} height={650}>
@@ -95,8 +90,8 @@ export const Loadout = (props, context) => {
   );
 };
 
-const LoadoutCategories = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LoadoutCategories = (props) => {
+  const { act, data } = useBackend<Data>();
   const { category, setCategory } = props;
   return (
     <Tabs fluid textAlign="center" style={{ 'flex-wrap': 'wrap-reverse' }}>
@@ -116,17 +111,13 @@ const LoadoutCategories = (props, context) => {
   );
 };
 
-const LoadoutGears = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LoadoutGears = (props) => {
+  const { act, data } = useBackend<Data>();
   const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
 
-  const [sortType, setSortType] = useLocalState(context, 'sortType', 'Default');
-  const [sortReverse, setsortReverse] = useLocalState(
-    context,
-    'sortReverse',
-    false
-  );
+  const [sortType, setSortType] = useLocalState('sortType', 'Default');
+  const [sortReverse, setsortReverse] = useLocalState('sortReverse', false);
   const testSearch = createSearch<Gear>(searchText, (gear) => gear.name);
 
   let contents;
@@ -305,8 +296,8 @@ const LoadoutGears = (props, context) => {
   );
 };
 
-const LoadoutEquipped = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LoadoutEquipped = (props) => {
+  const { act, data } = useBackend<Data>();
   const { setTweakedGear } = props;
   const selectedGears = Object.entries(data.gears).reduce(
     (a, [categoryKey, categoryItems]) => {
@@ -402,8 +393,8 @@ const LoadoutEquipped = (props, context) => {
   );
 };
 
-const GearTweak = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const GearTweak = (props) => {
+  const { act, data } = useBackend<Data>();
   const { tweakedGear, setTweakedGear } = props;
 
   return (

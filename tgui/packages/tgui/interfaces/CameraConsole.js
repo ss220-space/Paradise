@@ -57,8 +57,8 @@ const selectCameras = (cameras, searchText = '') => {
   ])(cameras);
 };
 
-export const CameraConsole = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const CameraConsole = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -97,13 +97,12 @@ export const CameraConsole = (props, context) => {
   );
 };
 
-export const CameraConsoleMapContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CameraConsoleMapContent = (props) => {
+  const { act, data } = useBackend();
   const cameras = selectCameras(data.cameras);
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
+  const [zoom, setZoom] = useLocalState('zoom', 1);
   const { mapRef, activeCamera, stationLevelNum, stationLevelName } = data;
   const [z_current, setZCurrent] = useLocalState(
-    context,
     'z_current',
     stationLevelNum[0]
   );
@@ -182,10 +181,10 @@ export const CameraConsoleMapContent = (props, context) => {
   );
 };
 
-export const CameraConsoleOldContent = (props, context) => {
-  const { act, data, config } = useBackend(context);
+export const CameraConsoleOldContent = (props) => {
+  const { act, data, config } = useBackend();
   const { mapRef, activeCamera } = data;
-  const [searchText] = useLocalState(context, 'searchText', '');
+  const [searchText] = useLocalState('searchText', '');
   const cameras = selectCameras(data.cameras, searchText);
   const [prevCameraName, nextCameraName] = prevNextCamera(
     cameras,
@@ -237,9 +236,9 @@ export const CameraConsoleOldContent = (props, context) => {
   );
 };
 
-export const CameraConsoleListContent = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+export const CameraConsoleListContent = (props) => {
+  const { act, data } = useBackend();
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const { activeCamera } = data;
   const cameras = selectCameras(data.cameras, searchText);
   return (

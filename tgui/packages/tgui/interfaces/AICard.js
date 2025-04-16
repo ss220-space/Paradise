@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const AICard = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AICard = (props) => {
+  const { act, data } = useBackend();
   if (data.has_ai === 0) {
     return (
       <Window width={250} height={120}>

@@ -9,8 +9,8 @@ type Props = {
   reverse?: boolean;
 };
 
-export const DelayHelper = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
+export const DelayHelper = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
   const { delays, rev_delays } = data;
   const { delay_list, reverse = false } = props;
 

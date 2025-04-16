@@ -11,8 +11,8 @@ import { StylePage } from './StylePage';
 import { Timing } from './Timing';
 import { ViewTabHolder } from './ViewTabHolder';
 
-export const CentcomPodLauncher = (props, context) => {
-  const [compact] = useCompact(context);
+export const CentcomPodLauncher = (props) => {
+  const [compact] = useCompact();
 
   return (
     <Window

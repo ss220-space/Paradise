@@ -4,13 +4,12 @@ import { Box, Button, Section, Table, TextArea, Grid } from '../components';
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
-export const VethPlayerPanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const VethPlayerPanel = (props) => {
+  const { act, data } = useBackend();
 
   const players = sortBy((player) => player.name)(data.Data || []);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
   const [selectedPlayerCkey, setSelectedPlayerCkey] = useLocalState(
-    context,
     'selectedPlayerCkey',
     ''
   );

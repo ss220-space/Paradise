@@ -204,6 +204,9 @@
 	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
 	var/list/completed_asset_jobs = list()
 
+	/// If this client has any windows scaling applied
+	var/window_scaling
+
 	/*
 	ASSET SENDING
 	*/

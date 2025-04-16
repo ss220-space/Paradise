@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Box, Button, ProgressBar } from '../../components';
 
-export const pai_sec_chem = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_sec_chem = (props) => {
+  const { act, data } = useBackend();
   const { holder, dead, health, current_chemicals, available_chemicals } =
     data.app_data;
 

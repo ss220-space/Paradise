@@ -3,8 +3,8 @@ import { Button, Section } from '../../components';
 import { SOUNDS } from './constants';
 import { PodLauncherData } from './types';
 
-export const PodSounds = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
+export const PodSounds = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
   const { defaultSoundVolume, soundVolume } = data;
 
   return (
