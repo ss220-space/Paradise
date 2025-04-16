@@ -193,36 +193,13 @@
 				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))
 
 /datum/disease/virus/transformation/xeno/phantom
-	name = "Xenomorph Transformation"
-	agent = "Rip-LEY Alien Microbes"
-	desc = "This disease changes the victim into a xenomorph."
-	cures = list("spaceacillin", "glycerol")
-	cure_prob = 5
-	stage_prob = 20
-	stage1 = null
-	stage2 = list("Your throat feels scratchy.", span_danger("Kill..."))
-	stage3 = list(span_danger("Your throat feels very scratchy."), "Your skin feels tight.", span_danger("You can feel something move...inside."))
-	stage4 = list(span_danger("Your skin feels very tight."), span_danger("Your blood boils!"), span_danger("You can feel... something...inside you."))
+	name = "Dangerous Xenomorph Transformation"
 	transform_message = list(span_danger("<FONT size = 5><B>Теперь вы ксеноморф.</B></FONT></span>\n\
 	<B>Вы чувствуете боль от превращения! Вы утратили всю память и первобытная жажда убийства охватила вас!</B>"))
-	new_form = null
 
 /datum/disease/virus/transformation/xeno/phantom/New()
 	..()
 	new_form = pick(/mob/living/carbon/alien/humanoid/hunter, /mob/living/carbon/alien/humanoid/drone/no_queen, /mob/living/carbon/alien/humanoid/sentinel)
-
-/datum/disease/virus/transformation/xeno/phantom/stage_act()
-	if(!..() || !affected_mob)
-		return FALSE
-
-	switch(stage)
-		if(3)
-			if(prob(4))
-				to_chat(affected_mob, span_danger("You feel a stabbing pain in your head."))
-				affected_mob.Paralyse(4 SECONDS)
-		if(4)
-			if(prob(20))
-				affected_mob.say(pick("You look delicious.", "Going to... devour you...", "Hsssshhhhh!"))
 
 /datum/disease/virus/transformation/xeno/phantom/do_disease_transformation()
 	var/mob/living/prom = ..()

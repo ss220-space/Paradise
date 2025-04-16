@@ -29,9 +29,9 @@
 
 /datum/component/phantom_component/proc/smart_self_delete()
 	SIGNAL_HANDLER
-
-	if(isnull(parent))
+	if(!parent || QDELETED(parent))
 		qdel(src)
+		return
 	var/atom/prom_parent = parent
 	if(iscarbon(prom_parent.loc))
 		var/mob/living/carbon/human/H = prom_parent.loc

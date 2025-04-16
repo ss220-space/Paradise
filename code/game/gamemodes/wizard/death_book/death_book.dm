@@ -22,6 +22,12 @@
 	
 /obj/item/death_book/attack_self(mob/user)
 	. = ..()
+	var/list/fuck = subtypesof(/obj/item/mecha_parts/mecha_equipment)
+	var/count = 0
+	for(var/f in fuck)
+		to_chat(user, "[f]")
+		count++
+	to_chat(user, "[count]")
 	if(cooldown)
 		to_chat(user, span_warning("Вы еще не готовы прочитать книгу!"))
 		return

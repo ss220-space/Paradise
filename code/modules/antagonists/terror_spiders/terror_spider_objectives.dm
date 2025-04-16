@@ -9,8 +9,12 @@
 
 /datum/objective/spider_protect/proc/generate_text(datum/team/terror_spiders/spider_team)
 	var/list/possible_spiders = list()
-	var/list/spiders = spider_team.main_spiders
+
+	var/list/spiders = spider_team?.main_spiders
 	if(!spiders)
+		return
+	if(length(spiders))
+		explanation_text = "Вы остались без стаи и единой цели. Но вы знаете что вы созданы убивать и сеять хаос."
 		return
 	for(var/spiter_type in spiders)
 		if(spiter_type != TERROR_OTHER && LAZYLEN(spiders[spiter_type]))

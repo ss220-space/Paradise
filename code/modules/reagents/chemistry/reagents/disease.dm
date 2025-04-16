@@ -53,7 +53,7 @@
 	taste_mult = 0
 	metabolization_rate = 1
 
-/datum/reagent/xenomicrobes/on_mob_life(mob/living/carbon/M)
+/datum/reagent/xenomicrobes/phantom/on_mob_life(mob/living/carbon/M)
 	if(volume >= 1)
 		var/datum/disease/virus/transformation/xeno/phantom/D = new
 		D.Contract(M)
