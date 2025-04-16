@@ -269,7 +269,7 @@ export const uniqBy =
 export const uniq = uniqBy();
 
 type Zip<T extends unknown[][]> = {
-  [I in keyof T]: T[I] extends (infer U)[] ? U : never;
+  [K in keyof T]: T[K] extends (infer U)[] ? U : never;
 }[];
 
 /**
@@ -277,21 +277,20 @@ type Zip<T extends unknown[][]> = {
  * the first elements of the given arrays, the second of which contains
  * the second elements of the given arrays, and so on.
  */
-export const zip = <T extends unknown[][]>(...arrays: T): Zip<T> => {
-  if (arrays.length === 0) {
-    return;
-  }
-  const numArrays = arrays.length;
-  const numValues = arrays[0].length;
-  const result = [];
-  for (let valueIndex = 0; valueIndex < numValues; valueIndex++) {
-    const entry = [];
-    for (let arrayIndex = 0; arrayIndex < numArrays; arrayIndex++) {
-      entry.push(arrays[arrayIndex][valueIndex]);
-    }
-    result.push(entry);
-  }
-  return result;
+export const zip = <T extends unknown[][]>(...arr: T): Zip<T> => {
+  return Array(Math.max(...arr.map((a) => a.length)))
+    .fill(undefined)
+    .map((_, i) => arr.map((a) => a[i])) as Zip<T>;
+};
+
+/**
+ * Helper function for string compares with native sorts
+ * @param a first string to compare
+ * @param b second string to compare
+ * @returns -1 for a < b, 1 for a > b and 0 otherwise
+ */
+export const stringCompare = (a: string, b: string) => {
+  return a < b ? -1 : a > b ? 1 : 0;
 };
 
 /**
