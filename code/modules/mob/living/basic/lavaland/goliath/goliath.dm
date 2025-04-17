@@ -118,24 +118,25 @@
 		return ..()
 	if(!tameable)
 		balloon_alert(user, "не налезает!")
-		return
+		return ATTACK_CHAIN_PROCEED
 	if(saddled)
 		balloon_alert(user, "уже осёдлан!")
-		return
+		return ATTACK_CHAIN_PROCEED
 	if(!tamed)
 		balloon_alert(user, "слишком агрессивный!")
-		return
+		return ATTACK_CHAIN_PROCEED
 	balloon_alert(user, "крепим седло...")
 	if(!do_after(user, delay = 5.5 SECONDS, target = src))
-		return
+		return ATTACK_CHAIN_PROCEED
 	balloon_alert(user, "можно кататься!")
 	qdel(attacking_item)
 	make_rideable()
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 /mob/living/basic/mining/goliath/proc/make_rideable()
 	saddled = TRUE
 	add_overlay("goliath_saddled")
-	//AddElement(/datum/element/ridable, /datum/component/riding/creature/goliath)
+	AddElement(/datum/element/ridable, /datum/component/riding/creature/goliath)
 
 /// When we use an ability, activate some kind of visual tell
 /mob/living/basic/mining/goliath/proc/used_ability(mob/living/source, obj/effect/proc_holder/spell/ability)
@@ -178,10 +179,69 @@
 /mob/living/basic/mining/goliath/RangedAttack(atom/atom_target, modifiers)
 	tentacles?.cast(list(atom_target), src)
 
+/// Legacy Goliath mob with different sprites, largely the same behaviour
+/mob/living/basic/mining/goliath/ancient
+	name = "ancient goliath"
+	desc = "Голиафы биологически бессмертны, и в крайне редких случаях они способны выживать на протяжении веков. \
+		Конкретно этот экземляр очень древний, и его щупальца постоянно разрывают землю около него."
+	ru_names = list(
+		NOMINATIVE = "древний голиаф",
+		GENITIVE = "древнего голиафа",
+		DATIVE = "древнему голиафу",
+		ACCUSATIVE = "древнего голиафа",
+		INSTRUMENTAL = "древним голиафом",
+		PREPOSITIONAL = "древнем голиафе"
+	)
+	icon_state = "ancient_goliath"
+	icon_living = "ancient_goliath"
+	icon_dead = "ancient_goliath_dead"
+	tentacle_warning_state = "ancient_goliath_preattack"
+	tameable = FALSE
+	maxHealth = 400
+	health = 400
+	crusher_drop_chance = 30 // Wow a whole 5% more likely, how generous
+	/// Don't re-check nearby turfs for this long
+	COOLDOWN_DECLARE(retarget_turfs_cooldown)
+	/// List of places we might spawn a tentacle, if we're alive
+	var/list/tentacle_target_turfs
+
+/mob/living/basic/mining/goliath/ancient/Life(seconds_per_tick, times_fired)
+	. = ..()
+	if (!. || !isturf(loc))
+		return
+	if(!LAZYLEN(tentacle_target_turfs) || COOLDOWN_FINISHED(src, retarget_turfs_cooldown))
+		cache_nearby_turfs()
+	for(var/turf/target_turf in tentacle_target_turfs)
+		if(target_turf.is_blocked_turf(exclude_mobs = TRUE))
+			tentacle_target_turfs -= target_turf
+			continue
+		if(prob(10))
+			new /obj/effect/goliath_tentacle(target_turf)
+
+/mob/living/basic/mining/goliath/ancient/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change)
+	. = ..()
+	if(loc == old_loc || stat == DEAD || !isturf(loc))
+		return
+	cache_nearby_turfs()
+
+/// Store nearby turfs in our list so we can pop them out later
+/mob/living/basic/mining/goliath/ancient/proc/cache_nearby_turfs()
+	COOLDOWN_START(src, retarget_turfs_cooldown, 10 SECONDS)
+	LAZYCLEARLIST(tentacle_target_turfs)
+	for(var/turf/simulated/floor in orange(4, loc))
+		LAZYADD(tentacle_target_turfs, floor)
 
 /// Use this to ride a goliath
 /obj/item/goliath_saddle
 	name = "goliath saddle"
-	desc = "This rough saddle will give you a serviceable seat upon a goliath! Provided you can get one to stand still."
+	desc = "Это седло позволит вам усидеться за голиафом! Конечно, если вы сможете заставить хотя бы одного из них стоять смирно."
+	ru_names = list(
+		NOMINATIVE = "седло для голиафа",
+		GENITIVE = "седла для голиафа",
+		DATIVE = "седлу для голиафа",
+		ACCUSATIVE = "седло для голиафа",
+		INSTRUMENTAL = "седлом для голиафа",
+		PREPOSITIONAL = "седле для голиафа"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_saddle"

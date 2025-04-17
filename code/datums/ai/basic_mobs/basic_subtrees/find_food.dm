@@ -28,8 +28,7 @@
 /datum/ai_behavior/interact_with_target/eat_food
 	///default list of actions we take after eating
 	var/list/food_actions = list(
-		"радостно поедает",
-		"счастливо ест",
+		"радостно кушает!",
 	)
 
 /datum/ai_behavior/interact_with_target/eat_food/perform(seconds_per_tick, datum/ai_controller/controller, target_key, emotes_blackboard_list)
@@ -38,4 +37,4 @@
 	if(!length(emotes_to_pick))
 		return
 	var/mob/living/living_pawn = controller.pawn
-	living_pawn.manual_emote(EMOTE_VISIBLE, pick(emotes_to_pick))
+	living_pawn.custom_emote(EMOTE_VISIBLE, pick(emotes_to_pick))

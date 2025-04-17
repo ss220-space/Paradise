@@ -78,5 +78,5 @@
 /datum/component/basic_mob_attack_telegraph/proc/forget_target(atom/target)
 	SIGNAL_HANDLER
 	current_target = null
-	target.cut_overlay(target_overlay)
+	target?.cut_overlay(target_overlay)
 	UnregisterSignal(target, list(COMSIG_QDELETING, COMSIG_MOVABLE_MOVED))

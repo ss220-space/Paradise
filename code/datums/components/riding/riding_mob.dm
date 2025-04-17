@@ -280,3 +280,24 @@
 	dismounted_rider.Knockdown(4 SECONDS)
 	dismounted_rider.visible_message(span_warning("[AM] pushes [dismounted_rider] off of [AM.p_them()]!"), \
 						span_warning("[AM] pushes you off of [AM.p_them()]!"))
+
+/datum/component/riding/creature/goliath
+	vehicle_move_delay = 3
+	rider_traits = list(TRAIT_NO_FLOATING_ANIM, TRAIT_TENTACLE_IMMUNE)
+
+/datum/component/riding/creature/goliath/Initialize(mob/living/riding_mob, force, ride_check_flags, potion_boost = FALSE)
+	. = ..()
+	var/mob/living/basic/mining/goliath/goliath = parent
+	goliath.add_movespeed_modifier(/datum/movespeed_modifier/goliath_mount)
+
+/datum/component/riding/creature/goliath/Destroy(force)
+	var/mob/living/basic/mining/goliath/goliath = parent
+	goliath.remove_movespeed_modifier(/datum/movespeed_modifier/goliath_mount)
+	return ..()
+
+/datum/component/riding/creature/goliath/handle_specials()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 16), TEXT_SOUTH = list(0, 16), TEXT_EAST = list(0, 16), TEXT_WEST = list(0, 16)))
+	set_vehicle_dir_offsets(NORTH, MOB_BELOW_PIGGYBACK_LAYER)
+	set_vehicle_dir_offsets(SOUTH, MOB_ABOVE_PIGGYBACK_LAYER)
+	set_vehicle_dir_offsets(EAST, MOB_ABOVE_PIGGYBACK_LAYER)
+	set_vehicle_dir_offsets(WEST, MOB_ABOVE_PIGGYBACK_LAYER)

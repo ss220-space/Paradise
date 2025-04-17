@@ -218,6 +218,9 @@
 /datum/movespeed_modifier/borer_leg_focus/lesser
 	multiplicative_slowdown = -0.125
 
+/datum/movespeed_modifier/goliath_mount
+	multiplicative_slowdown = -26
+
 /*
 /datum/movespeed_modifier/carbon_softcrit
 	multiplicative_slowdown = SOFTCRIT_ADD_SLOWDOWN
