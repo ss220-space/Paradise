@@ -14,14 +14,14 @@ const FRAME_DURATION = 1000 / FPS;
 // True if Performance API is supported
 const supportsPerf = !!window.performance?.now;
 // High precision markers
-let hpMarkersByName = {};
+let hpMarkersByName: Record<string, number> = {};
 // Low precision markers
-let lpMarkersByName = {};
+let lpMarkersByName: Record<string, number> = {};
 
 /**
  * Marks a certain spot in the code for later measurements.
  */
-const mark = (name: string, timestamp: number) => {
+const mark = (name: string, timestamp?: number): void => {
   if (process.env.NODE_ENV !== 'production') {
     if (supportsPerf && !timestamp) {
       hpMarkersByName[name] = performance.now();
@@ -35,21 +35,31 @@ const mark = (name: string, timestamp: number) => {
  *
  * Use logger.log() to print the measurement.
  */
-const measure = (markerNameA: string, markerNameB: string) => {
-  if (process.env.NODE_ENV !== 'production') {
-    let markerA = hpMarkersByName[markerNameA];
-    let markerB = hpMarkersByName[markerNameB];
-    if (!markerA || !markerB) {
-      markerA = lpMarkersByName[markerNameA];
-      markerB = lpMarkersByName[markerNameB];
-    }
-    const duration = Math.abs(markerB - markerA);
-    return formatDuration(duration);
+const measure = (
+  markerNameA: string,
+  markerNameB: string
+): string | undefined => {
+  if (process.env.NODE_ENV === 'production') return;
+
+  let markerA = hpMarkersByName[markerNameA];
+  let markerB = hpMarkersByName[markerNameB];
+
+  if (!markerA || !markerB) {
+    markerA = lpMarkersByName[markerNameA];
+    markerB = lpMarkersByName[markerNameB];
   }
+
+  const duration = Math.abs(markerB - markerA);
+
+  return formatDuration(duration);
 };
 
-const formatDuration = (duration: number) => {
+/**
+ * Formats a duration in milliseconds and frames.
+ */
+const formatDuration = (duration: number): string => {
   const durationInFrames = duration / FRAME_DURATION;
+
   return (
     duration.toFixed(duration < 10 ? 1 : 0) +
     'ms ' +

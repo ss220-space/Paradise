@@ -16,7 +16,7 @@ import { backendMiddleware, backendReducer } from './backend';
 import { debugMiddleware, debugReducer, relayMiddleware } from './debug';
 
 import { assetMiddleware } from './assets';
-import { createLogger } from './logging';
+import { createLogger } from 'common/logging';
 import { flow } from 'common/fp';
 
 type ConfigureStoreOptions = {
@@ -44,7 +44,7 @@ export const configureStore = (options: ConfigureStoreOptions = {}): Store => {
       debug: debugReducer,
       backend: backendReducer,
     }),
-    reducer,
+    reducer as any,
   ]);
 
   const middlewares: Middleware[] = !sideEffects
