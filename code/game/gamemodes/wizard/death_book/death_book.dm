@@ -33,7 +33,7 @@
 		flick("animate_death_book", src)
 		to_chat(user, span_info(choise.message_to_chat))
 		//Even death will not stop the progress of the bar
-		if(do_after(user, 1 SECONDS, src, INFINITY))
+		if(do_after(user, 1 SECONDS, src, INFINITY & !(DA_IGNORE_HELD_ITEM)))
 			cooldown = TRUE
 			addtimer(CALLBACK(src, PROC_REF(cooldown_stop), user), choise.cooldown)
 			addtimer(CALLBACK(src, PROC_REF(alert_user), user), choise.time_action - 30 SECONDS)
@@ -42,6 +42,7 @@
 			temp_outfit_storage.temp_unequip(user, selective_mode = (choise.force_unequip_slots | choise.used_slots | user.is_in_hands_to_flag(src)))
 			choise.equip(user, prom_component = /datum/component/phantom_component, comp_args = list(src, TRUE))
 		else
+			flick("close_death_book", src)
 			to_chat(user, span_info("Вам не хватает терпения и вы перестаете читать!"))
 		qdel(choise)
 		
