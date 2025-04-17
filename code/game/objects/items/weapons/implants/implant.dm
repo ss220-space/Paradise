@@ -10,6 +10,7 @@
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
+	var/datum/action/item_action/hands_free/activate/action = null
 	item_color = "black"
 	item_flags = DROPDEL  // By default, don't let implants be harvestable.
 
@@ -26,6 +27,9 @@
 	var/allow_multiple = FALSE
 	/// Amount of times that the implant can be triggered by the user. If the implant can't be used, it can't be inserted.
 	var/uses = -1
+	var/datum/implant_cooldown/cooldown_system
+	var/base_cooldown = 10 SECONDS
+	var/starts_charged = TRUE
 
 	/// List of emote keys that activate this implant when used.
 	var/list/trigger_emotes
@@ -42,7 +46,15 @@
 	. = ..()
 	if(ispath(implant_data, /datum/implant_fluff))
 		implant_data = new implant_data
+		cooldown_system = create_new_cooldown()
+		cooldown_system.cooldown_init(src)
 
+/obj/item/implant/proc/create_new_cooldown()
+	RETURN_TYPE(/datum/implant_cooldown)
+	var/datum/implant_cooldown/i_cooldown = new
+	i_cooldown.recharge_duration = base_cooldown
+	i_cooldown.starts_off_cooldown = starts_charged
+	return i_cooldown
 
 /obj/item/implant/Destroy()
 	if(imp_in)
@@ -57,6 +69,7 @@
 		implantcase.imp = null
 		implantcase.update_state()
 	QDEL_NULL(implant_data)
+	QDEL_NULL(cooldown_system)
 	return ..()
 
 

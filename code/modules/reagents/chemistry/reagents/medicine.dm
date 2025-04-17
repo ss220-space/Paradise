@@ -1555,30 +1555,13 @@
 /datum/reagent/medicine/adrenaline
 	name = "Адреналин"
 	id = "adrenaline"
-	description = "Мощный стимулятор, который делает вас невосприимчивым к оглушению на некоторое время."
+	description = "Мощное обезболивающее."
 	color = "#C8A5DC"
 	metabolization_rate = 0.8 * REAGENTS_METABOLISM
-	overdose_threshold = 2.1
-	shock_reduction = 80
+	overdose_threshold = 3.1
+	shock_reduction = 100
 	harmless = TRUE
 	can_synth = FALSE
-
-
-/datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
-	var/update_flags = STATUS_UPDATE_NONE
-	update_flags |= M.setStaminaLoss(0, FALSE)
-	return ..() | update_flags
-
-
-/datum/reagent/medicine/adrenaline/on_mob_add(mob/living/M)
-	. = ..()
-	M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
-
-
-/datum/reagent/medicine/adrenaline/on_mob_delete(mob/living/M)
-	. = ..()
-	M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
-
 
 /datum/reagent/medicine/adrenaline/overdose_process(mob/living/M, severity)
 	var/update_flags = STATUS_UPDATE_NONE

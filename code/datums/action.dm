@@ -188,6 +188,10 @@
 	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
 		apply_unavailable_effect()
 		return FALSE
+	var/obj/item/implant/implant = target
+	if(!IsAvailable() || istype(implant) && implant.cooldown_system?.should_draw_cooldown())
+		apply_unavailable_effect()
+		return FALSE
 	return TRUE
 
 
@@ -514,9 +518,23 @@
 
 /datum/action/item_action/hands_free
 	check_flags = AB_CHECK_CONSCIOUS
+	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/item_action/hands_free/activate
 	name = "Activate"
+
+/datum/action/item_action/hands_free/apply_unavailable_effect()
+	var/obj/item/implant/implant = target
+	if(!istype(implant))
+		return ..()
+	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
+	unavailable_effect.alpha = implant.cooldown_system.get_cooldown_alpha()
+	button.add_overlay(unavailable_effect)
+	// Make a holder for the charge text
+	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	var/text = implant.cooldown_system.cooldown_info()
+	maptext_holder.maptext = "<div style=\"font-size:6pt;color:[recharge_text_color];font:'Small Fonts';text-align:center;\" valign=\"bottom\">[text]</div>"
+	button.add_overlay(maptext_holder)
 
 /datum/action/item_action/hands_free/activate/always
 	check_flags = NONE
