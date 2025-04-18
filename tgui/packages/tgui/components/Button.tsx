@@ -4,20 +4,21 @@
  * @license MIT
  */
 
-import { Placement } from '@popperjs/core';
-import { isEscape, KEY } from 'common/keys';
-import { BooleanLike, classes } from 'common/react';
+import type { Placement } from '@popperjs/core';
 import {
-  ChangeEvent,
+  CSSProperties,
+  type ChangeEvent,
+  type MouseEvent,
+  type ReactNode,
   createRef,
-  MouseEvent,
-  ReactNode,
   useEffect,
   useRef,
   useState,
 } from 'react';
-
-import { Box, BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { KEY, isEscape } from 'common/keys';
+import { type BooleanLike, classes } from 'common/react';
+import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import { Box, type BoxProps } from './Box';
 import { Icon } from './Icon';
 import { Tooltip } from './Tooltip';
 
@@ -29,46 +30,68 @@ import { Tooltip } from './Tooltip';
  */
 type EllipsisUnion =
   | {
-      ellipsis: true;
       children: string;
       /** @deprecated use children instead */
       content?: never;
+      /** Cuts off text with an ellipsis */
+      ellipsis: true;
     }
   | Partial<{
-      ellipsis: undefined;
       children: ReactNode;
       /** @deprecated use children instead */
       content: ReactNode;
+      ellipsis: undefined;
     }>;
 
 type Props = Partial<{
+  /** Captures keyboard events */
   captureKeys: boolean;
+  /** Makes the button circular */
   circular: boolean;
+  /** Reduces the padding of the button */
   compact: boolean;
-  disabled: BooleanLike;
-  fluid: boolean;
-  icon: string | false;
-  iconColor: string;
-  iconStyle: Partial<CSSStyleDeclaration>;
-  iconPosition: string;
-  iconRotation: number;
+  /** Makes the button multiLine */
   multiLine: boolean;
+  /** Disables and greys out the button */
+  disabled: BooleanLike;
+  /** Fill all available horizontal space */
+  fluid: boolean;
+  /** Adds an icon to the button */
+  icon: string | false;
+  /** Icon color */
+  iconColor: string;
+  /** Icon styles */
+  iconStyle: Partial<CSSStyleDeclaration> & CSSProperties;
+  /** Icon position */
+  iconPosition: string;
+  /** Icon rotation */
+  iconRotation: number;
+  /** Icon size */
+  iconSize: number;
+  /** Makes the icon spin */
   iconSpin: BooleanLike;
+  /** Called when the button is blurred */
+  onBlur: (e: any) => void;
+  /** Called when element is clicked */
   onClick: (e: any) => void;
+  /** Activates the button (gives it a green color) */
   selected: BooleanLike;
+  /** A fancy, boxy tooltip, which appears when hovering over the button */
   tooltip: ReactNode;
+  /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
   tooltipPosition: Placement;
+  /** Align content vertically using flex. Use lineHeight if the height is static. */
   verticalAlignContent: string;
 }> &
   EllipsisUnion &
   BoxProps;
 
-/** Clickable button. Comes with variants. Read more in the documentation. */
 export const Button = (props: Props) => {
   const {
     captureKeys = true,
     children,
     circular,
+    multiLine,
     className,
     color,
     compact,
@@ -78,10 +101,10 @@ export const Button = (props: Props) => {
     fluid,
     icon,
     iconColor,
+    iconStyle,
     iconPosition,
     iconRotation,
-    iconStyle,
-    multiLine,
+    iconSize,
     iconSpin,
     onClick,
     selected,
@@ -101,16 +124,15 @@ export const Button = (props: Props) => {
         disabled && 'Button--disabled',
         selected && 'Button--selected',
         multiLine && 'Button--multiLine',
-        !!toDisplay && 'Button--hasContent',
         circular && 'Button--circular',
         compact && 'Button--compact',
-        iconPosition && 'Button--iconPosition--' + iconPosition,
+        iconPosition && `Button--iconPosition--${iconPosition}`,
         verticalAlignContent && 'Button--flex',
         verticalAlignContent && fluid && 'Button--flex--fluid',
         verticalAlignContent &&
-          'Button--verticalAlignContent--' + verticalAlignContent,
+          `Button--verticalAlignContent--${verticalAlignContent}`,
         color && typeof color === 'string'
-          ? 'Button--color--' + color
+          ? `Button--color--${color}`
           : 'Button--color--default',
         className,
         computeBoxClassName(rest),
@@ -142,12 +164,19 @@ export const Button = (props: Props) => {
       }}
       {...computeBoxProps(rest)}
     >
-      <div className="Button__content">
+      <div
+        className={classes([
+          'Button__content',
+          ellipsis && 'Button__content--ellipsis',
+        ])}
+      >
         {icon && iconPosition !== 'right' && (
           <Icon
+            mr={toDisplay && 0.5}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
+            size={iconSize}
             spin={iconSpin}
             style={iconStyle}
           />
@@ -155,20 +184,15 @@ export const Button = (props: Props) => {
         {!ellipsis ? (
           toDisplay
         ) : (
-          <span
-            className={classes([
-              'Button--ellipsis',
-              icon && 'Button__textMargin',
-            ])}
-          >
-            {toDisplay}
-          </span>
+          <span className="Button--ellipsis">{toDisplay}</span>
         )}
         {icon && iconPosition === 'right' && (
           <Icon
+            ml={toDisplay && 0.5}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
+            size={iconSize}
             spin={iconSpin}
             style={iconStyle}
           />
@@ -193,8 +217,7 @@ type CheckProps = Partial<{
 }> &
   Props;
 
-/** Visually toggles between checked and unchecked states. */
-export const ButtonCheckbox = (props: CheckProps) => {
+const ButtonCheckbox = (props: CheckProps) => {
   const { checked, ...rest } = props;
 
   return (
@@ -207,8 +230,6 @@ export const ButtonCheckbox = (props: CheckProps) => {
   );
 };
 
-Button.Checkbox = ButtonCheckbox;
-
 type ConfirmProps = Partial<{
   confirmColor: string;
   confirmContent: ReactNode;
@@ -216,7 +237,6 @@ type ConfirmProps = Partial<{
 }> &
   Props;
 
-/**  Requires user confirmation before triggering its action. */
 const ButtonConfirm = (props: ConfirmProps) => {
   const {
     children,
@@ -226,10 +246,16 @@ const ButtonConfirm = (props: ConfirmProps) => {
     confirmIcon,
     ellipsis = true,
     icon,
+    onBlur,
     onClick,
     ...rest
   } = props;
   const [clickedOnce, setClickedOnce] = useState(false);
+
+  const handleBlur = (event: FocusEvent) => {
+    setClickedOnce(false);
+    onBlur?.(event);
+  };
 
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     if (!clickedOnce) {
@@ -245,6 +271,7 @@ const ButtonConfirm = (props: ConfirmProps) => {
     <Button
       icon={clickedOnce ? confirmIcon : icon}
       color={clickedOnce ? confirmColor : color}
+      onBlur={handleBlur}
       onClick={handleClick}
       {...rest}
     >
@@ -253,23 +280,20 @@ const ButtonConfirm = (props: ConfirmProps) => {
   );
 };
 
-Button.Confirm = ButtonConfirm;
-
 type InputProps = Partial<{
   currentValue: string;
   defaultValue: string;
-  fluid: boolean;
   maxLength: number;
   onCommit: (e: any, value: string) => void;
   placeholder: string;
 }> &
   Props;
 
-/** Accepts and handles user input. */
 const ButtonInput = (props: InputProps) => {
   const {
     children,
     color = 'default',
+    content,
     currentValue,
     defaultValue,
     disabled,
@@ -280,15 +304,15 @@ const ButtonInput = (props: InputProps) => {
     maxLength,
     onCommit = () => null,
     placeholder,
+    multiLine,
     tooltip,
     tooltipPosition,
-    multiLine,
     ...rest
   } = props;
   const [inInput, setInInput] = useState(false);
   const inputRef = createRef<HTMLInputElement>();
 
-  const toDisplay = children;
+  const toDisplay = content || children;
 
   const commitResult = (e) => {
     const input = inputRef.current;
@@ -313,7 +337,9 @@ const ButtonInput = (props: InputProps) => {
       try {
         input.focus();
         input.select();
-      } catch {}
+      } catch {
+        // Ignore errors
+      }
     }
   }, [inInput, currentValue]);
 
@@ -324,14 +350,10 @@ const ButtonInput = (props: InputProps) => {
         fluid && 'Button--fluid',
         multiLine && 'Button--multiLine',
         disabled && 'Button--disabled',
-        'Button--color--' + color,
+        `Button--color--${color}`,
       ])}
       {...rest}
-      onClick={() => {
-        if (!disabled) {
-          setInInput(true);
-        }
-      }}
+      onClick={() => setInInput(true)}
     >
       {icon && <Icon name={icon} rotation={iconRotation} spin={iconSpin} />}
       <div>{toDisplay}</div>
@@ -375,15 +397,12 @@ const ButtonInput = (props: InputProps) => {
   return buttonContent;
 };
 
-Button.Input = ButtonInput;
-
 type FileProps = {
   accept: string;
   multiple?: boolean;
   onSelectFiles: (files: string | string[]) => void;
 } & Props;
 
-/**  Accepts file input */
 const ButtonFile = (props: FileProps) => {
   const { accept, multiple, onSelectFiles, ...rest } = props;
 
@@ -391,7 +410,8 @@ const ButtonFile = (props: FileProps) => {
 
   const read = async (files: FileList) => {
     const promises = Array.from(files).map((file) => {
-      let reader = new FileReader();
+      const reader = new FileReader();
+
       return new Promise<string>((resolve) => {
         reader.onload = () => resolve(reader.result as string);
         reader.readAsText(file);
@@ -406,7 +426,6 @@ const ButtonFile = (props: FileProps) => {
     if (files?.length) {
       const readFiles = await read(files);
       onSelectFiles(multiple ? readFiles : readFiles[0]);
-      event.target.value = '';
     }
   };
 
@@ -425,4 +444,29 @@ const ButtonFile = (props: FileProps) => {
   );
 };
 
+/**
+ * ## Button
+ * Buttons allow users to take actions, and make choices, with a single click.
+ */
+/**
+ * ## Button.Checkbox
+ * A ghetto checkbox, made entirely using existing Button API.
+ */
+Button.Checkbox = ButtonCheckbox;
+/**
+ * ## Button.Confirm
+ * A button with an extra confirmation step, using native button component.
+ */
+Button.Confirm = ButtonConfirm;
+/**
+ * ## Button.Input
+ * A button that turns into an input box after the first click.
+ *
+ * Turns back into a button after the user hits enter, defocuses, or hits escape. Enter and defocus commit, while escape cancels.
+ */
+Button.Input = ButtonInput;
+/**
+ * ## Button.File
+ * Accepts file input, based on the native element.
+ */
 Button.File = ButtonFile;

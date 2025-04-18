@@ -27,13 +27,13 @@ export const RoundGauge = (props) => {
   const clampedValue = clamp01(scaledValue);
   const scaledRanges = ranges ? {} : { primary: [0, 1] };
   if (ranges) {
-    Object.keys(ranges).forEach((x) => {
-      const range = ranges[x];
-      scaledRanges[x] = [
+    for (const key in ranges) {
+      const range = ranges[key];
+      scaledRanges[key] = [
         scale(range[0], minValue, maxValue),
         scale(range[1], minValue, maxValue),
       ];
-    });
+    }
   }
   const shouldShowAlert = () => {
     // If both after and before alert props are set, attempt to interpret both

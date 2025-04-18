@@ -5,9 +5,15 @@
  */
 
 import { classes } from 'common/react';
-import { Box } from './Box';
+import { Box, type BoxProps } from './Box';
 
-export const BlockQuote = (props) => {
+/**
+ * ## BlockQuote
+ * Just a block quote, just like this example in markdown:
+ * > Here's an example of a block quote.
+ */
+export const BlockQuote = (props: BoxProps) => {
   const { className, ...rest } = props;
+
   return <Box className={classes(['BlockQuote', className])} {...rest} />;
 };

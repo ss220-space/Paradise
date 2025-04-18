@@ -19,7 +19,8 @@ import {
   modalRegisterBodyOverride,
 } from './common/ComplexModal';
 import { BooleanLike, classes } from 'common/react';
-import { BoxProps, computeBoxProps } from '../components/Box';
+import { BoxProps } from '../components/Box';
+import { computeBoxProps } from 'common/ui';
 
 const transferAmounts = [1, 5, 10];
 
@@ -157,19 +158,17 @@ const ChemMasterBeaker = (props: {}) => {
         scrollable
         buttons={
           bufferNonEmpty ? (
-            <Button.Confirm
-              icon="eject"
-              disabled={!beaker}
-              content="Извлечь ёмкость и очистить буфер"
-              onClick={() => act('eject')}
-            />
+            <Button.Confirm icon="eject" onClick={() => act('eject')}>
+              Извлечь ёмкость и очистить буфер
+            </Button.Confirm>
           ) : (
             <Button
               icon="eject"
               disabled={!beaker}
-              content="Извлечь ёмкость и очистить буфер"
               onClick={() => act('eject')}
-            />
+            >
+              Извлечь ёмкость и очистить буфер
+            </Button>
           )
         }
       >
@@ -180,7 +179,6 @@ const ChemMasterBeaker = (props: {}) => {
             buttons={(chemical, i) => (
               <Box mb={i < beaker_reagents.length - 1 && '2px'}>
                 <Button
-                  content="Анализ"
                   mb="0"
                   onClick={() =>
                     modalOpen('analyze', {
@@ -188,11 +186,12 @@ const ChemMasterBeaker = (props: {}) => {
                       beaker: 1,
                     })
                   }
-                />
+                >
+                  Анализ
+                </Button>
                 {transferAmounts.map((am, j) => (
                   <Button
                     key={j}
-                    content={am}
                     mb="0"
                     onClick={() =>
                       act('add', {
@@ -200,10 +199,11 @@ const ChemMasterBeaker = (props: {}) => {
                         amount: am,
                       })
                     }
-                  />
+                  >
+                    {am}
+                  </Button>
                 ))}
                 <Button
-                  content="Всё"
                   mb="0"
                   onClick={() =>
                     act('add', {
@@ -211,16 +211,19 @@ const ChemMasterBeaker = (props: {}) => {
                       amount: chemical.volume,
                     })
                   }
-                />
+                >
+                  Всё
+                </Button>
                 <Button
-                  content="Задать объём..."
                   mb="0"
                   onClick={() =>
                     modalOpen('addcustom', {
                       id: chemical.id,
                     })
                   }
-                />
+                >
+                  Задать объём...
+                </Button>
               </Box>
             )}
           />

@@ -21,7 +21,6 @@ export const Slider = (props) => {
     stepPixelSize,
     suppressFlicker,
     unit,
-    value,
     // Own props
     className,
     fillValue,

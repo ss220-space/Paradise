@@ -1,8 +1,5 @@
 import { type KeyEvent, globalEvents } from './events';
 import * as keycodes from './keycodes';
-import { createLogger } from './logging';
-
-const logger = createLogger('hotkeys');
 
 // BYOND macros, in `key: command` format.
 const byondMacros: Record<string, string> = {};
@@ -96,21 +93,18 @@ const handlePassthrough = (key: KeyEvent) => {
   // Macro
   const macro = byondMacros[byondKeyCode];
   if (macro) {
-    logger.debug('macro', macro);
     return Byond.command(macro);
   }
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
     const command = `${globalThis.ByondKeyDown} "${byondKeyCode}"`;
-    logger.debug(command);
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
     const command = `${globalThis.ByondKeyUp} "${byondKeyCode}"`;
-    logger.debug(command);
     return Byond.command(command);
   }
 };
@@ -183,7 +177,6 @@ export const setupHotKeys = () => {
       const byondKeyName = unEscape(macro.name);
       byondMacros[byondKeyName] = unEscape(macro.command);
     }
-    logger.debug('loaded macros', byondMacros);
   });
   // Setup event handlers
   globalEvents.on('window-blur', () => {

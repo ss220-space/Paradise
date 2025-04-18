@@ -1,11 +1,8 @@
-import { ReactNode, useEffect, useState } from 'react';
-
-import { resolveAsset } from '../assets';
-import { fetchRetry } from '../http';
-import { BoxProps } from './Box';
+import type { ReactNode } from 'react';
+import type { BoxProps } from './Box';
 import { Image } from './Image';
 
-enum Direction {
+export enum Direction {
   NORTH = 1,
   SOUTH = 2,
   EAST = 4,
@@ -29,12 +26,15 @@ type Props = {
   /** Frame number. Default is 1 */
   frame: number;
   /** Movement state. Default is false */
-  movement: boolean;
+  movement: any;
 }> &
   BoxProps;
 
-let refMap: Record<string, string> | undefined;
-
+/**
+ * ## DmIcon
+ * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
+ * A much faster alternative to base64 icons.
+ */
 export const DmIcon = (props: Props) => {
   const {
     className,
@@ -47,26 +47,11 @@ export const DmIcon = (props: Props) => {
     ...rest
   } = props;
 
-  const [iconRef, setIconRef] = useState('');
-
-  const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${movement}&frame=${frame}`;
-
-  useEffect(() => {
-    const fetchRefMap = async () => {
-      const response = await fetchRetry(resolveAsset('icon_ref_map.json'));
-      const data = await response.json();
-      refMap = data;
-      setIconRef(data[icon]);
-    };
-
-    if (!refMap) {
-      fetchRefMap();
-    } else {
-      setIconRef(refMap[icon]);
-    }
-  }, []);
+  const iconRef = Byond.iconRefMap?.[icon];
 
   if (!iconRef) return fallback;
+
+  const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${!!movement}&frame=${frame}`;
 
   return <Image fixErrors src={query} {...rest} />;
 };

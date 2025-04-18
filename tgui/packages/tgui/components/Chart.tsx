@@ -4,9 +4,9 @@
  * @license MIT
  */
 
-import { map, zipWith } from 'common/collections';
-import { Component, createRef, RefObject } from 'react';
-import { Box, BoxProps } from './Box';
+import { type CSSProperties, useEffect, useRef, useState } from 'react';
+import { zip } from 'common/collections';
+import { Box, type BoxProps } from './Box';
 
 type Props = {
   data: number[][];
@@ -19,12 +19,9 @@ type Props = {
 }> &
   BoxProps;
 
-type State = {
-  viewBox: [number, number];
-};
-
 type Point = number[];
 type Range = [number, number];
+type ViewBox = [number, number];
 
 const normalizeData = (
   data: Point[],
@@ -36,8 +33,10 @@ const normalizeData = (
     return [];
   }
 
-  const min = zipWith(Math.min)(...data);
-  const max = zipWith(Math.max)(...data);
+  const zipped = zip(...data);
+
+  const min = zipped.map((p) => Math.min(...p));
+  const max = zipped.map((p) => Math.max(...p));
 
   if (rangeX !== undefined) {
     min[0] = rangeX[0];
@@ -49,11 +48,11 @@ const normalizeData = (
     max[1] = rangeY[1];
   }
 
-  const normalized = map((point: Point) => {
-    return zipWith((value: number, min: number, max: number, scale: number) => {
-      return ((value - min) / (max - min)) * scale;
-    })(point, min, max, scale);
-  })(data);
+  const normalized = data.map((point) =>
+    zip(point, min, max, scale).map(
+      ([value, min, max, scale]) => ((value - min) / (max - min)) * scale
+    )
+  );
 
   return normalized;
 };
@@ -62,94 +61,85 @@ const dataToPolylinePoints = (data) => {
   let points = '';
   for (let i = 0; i < data.length; i++) {
     const point = data[i];
-    points += point[0] + ',' + point[1] + ' ';
+    points += `${point[0]},${point[1]} `;
   }
   return points;
 };
 
-class LineChart extends Component<Props, State> {
-  ref: RefObject<HTMLDivElement>;
-  constructor(props: Props) {
-    super(props);
-    this.ref = createRef();
-    this.state = {
-      // Initial guess
-      viewBox: [600, 200],
-    };
-    this.handleResize = this.handleResize.bind(this);
-  }
+const computedStyles: CSSProperties = {
+  position: 'absolute',
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  overflow: 'hidden',
+};
 
-  componentDidMount() {
-    window.addEventListener('resize', this.handleResize);
-    this.handleResize();
-  }
-  componentWillUnmount() {
-    window.removeEventListener('resize', this.handleResize);
-  }
+export const Chart = (props: Props) => {
+  const {
+    data = [],
+    rangeX,
+    rangeY,
+    fillColor = 'none',
+    strokeColor = '#ffffff',
+    strokeWidth = 2,
+    ...rest
+  } = props;
 
-  handleResize = () => {
-    const element = this.ref.current;
+  const innerRef = useRef<HTMLDivElement>(null);
+  const [viewBox, setViewBox] = useState<ViewBox>([600, 200]);
+
+  const normalized = normalizeData(data, viewBox, rangeX, rangeY);
+  // Push data outside viewBox and form a fillable polygon
+  if (normalized.length > 0) {
+    const first = normalized[0];
+    const last = normalized[normalized.length - 1];
+    normalized.push([viewBox[0] + strokeWidth, last[1]]);
+    normalized.push([viewBox[0] + strokeWidth, -strokeWidth]);
+    normalized.push([-strokeWidth, -strokeWidth]);
+    normalized.push([-strokeWidth, first[1]]);
+  }
+  const points = dataToPolylinePoints(normalized);
+
+  const handleResize = () => {
+    const element = innerRef.current;
     if (!element) {
       return;
     }
-    this.setState({
-      viewBox: [element.offsetWidth, element.offsetHeight],
-    });
+
+    const rect = element.getBoundingClientRect();
+    setViewBox([rect.width, rect.height]);
   };
 
-  render() {
-    const {
-      data = [],
-      rangeX,
-      rangeY,
-      fillColor = 'none',
-      strokeColor = '#ffffff',
-      strokeWidth = 2,
-      ...rest
-    } = this.props;
-    const { viewBox } = this.state;
-    const normalized = normalizeData(data, viewBox, rangeX, rangeY);
-    // Push data outside viewBox and form a fillable polygon
-    if (normalized.length > 0) {
-      const first = normalized[0];
-      const last = normalized[normalized.length - 1];
-      normalized.push([viewBox[0] + strokeWidth, last[1]]);
-      normalized.push([viewBox[0] + strokeWidth, -strokeWidth]);
-      normalized.push([-strokeWidth, -strokeWidth]);
-      normalized.push([-strokeWidth, first[1]]);
-    }
-    const points = dataToPolylinePoints(normalized);
-    const divProps = { ...rest, className: '', ref: this.ref };
+  useEffect(() => {
+    window.addEventListener('resize', handleResize);
+    handleResize();
 
-    return (
-      <Box position="relative" {...rest}>
-        <Box {...divProps}>
-          <svg
-            viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
-            preserveAspectRatio="none"
-            style={{
-              position: 'absolute',
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              overflow: 'hidden',
-            }}
-          >
-            <polyline
-              transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
-              fill={fillColor}
-              stroke={strokeColor}
-              strokeWidth={strokeWidth}
-              points={points}
-            />
-          </svg>
-        </Box>
-      </Box>
-    );
-  }
-}
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
 
-export const Chart = {
-  Line: LineChart,
+  return (
+    <Box position="relative" {...rest}>
+      <div ref={innerRef} style={computedStyles}>
+        <svg
+          viewBox={`0 0 ${viewBox[0]} ${viewBox[1]}`}
+          preserveAspectRatio="none"
+          style={computedStyles}
+        >
+          <title>chart</title>
+          <polyline
+            transform={`scale(1, -1) translate(0, -${viewBox[1]})`}
+            fill={fillColor}
+            stroke={strokeColor}
+            strokeWidth={strokeWidth}
+            points={points}
+          />
+        </svg>
+      </div>
+    </Box>
+  );
 };
+
+Chart.Line = Chart;

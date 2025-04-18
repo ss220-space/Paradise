@@ -22,7 +22,6 @@ export const Knob = (props) => {
     stepPixelSize,
     suppressFlicker,
     unit,
-    value,
     // Own props
     className,
     style,

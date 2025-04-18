@@ -1,8 +1,21 @@
 import { Component } from 'react';
 import { Box } from './Box';
 
-export class Countdown extends Component {
-  constructor(props) {
+type State = {
+  value: number;
+};
+
+type Props = {
+  rate: number;
+  format?: (v: number, f: string) => string;
+  timeLeft?: number;
+  current?: number;
+};
+
+export class Countdown extends Component<Props, State> {
+  timer: NodeJS.Timeout;
+  static defaultProps: Props;
+  constructor(props: Props) {
     super(props);
     this.timer = null;
     this.state = {
