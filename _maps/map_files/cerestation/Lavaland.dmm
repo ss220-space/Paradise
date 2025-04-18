@@ -2138,7 +2138,9 @@
 /turf/simulated/genturf,
 /area/lavaland/surface/outdoors/unexplored/danger)
 "kj" = (
-/obj/structure/stone_tile/slab,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
 /turf/simulated/mineral/random/volcanic,
 /area/lavaland/surface/outdoors/necropolis)
 "kl" = (
@@ -2565,6 +2567,10 @@
 /turf/simulated/floor/lava/lava_land_surface,
 /area/lavaland/surface/outdoors/necropolis)
 "ma" = (
+/obj/structure/stone_tile/slab,
+/turf/simulated/mineral/random/volcanic,
+/area/lavaland/surface/outdoors/necropolis)
+"mb" = (
 /obj/structure/stone_tile/block{
 	dir = 8
 	},
@@ -2700,12 +2706,6 @@
 	},
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
-"mA" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/turf/simulated/mineral/random/volcanic,
-/area/lavaland/surface/outdoors/necropolis)
 "mB" = (
 /obj/structure/stone_tile/block{
 	dir = 1
@@ -19554,7 +19554,7 @@ Uo
 Uo
 Uo
 Uo
-RD
+Uo
 jK
 Ct
 Ct
@@ -19811,7 +19811,7 @@ Uo
 Uo
 Uo
 Uo
-RD
+Uo
 jK
 Ct
 Ct
@@ -34211,8 +34211,8 @@ Zx
 Zx
 Zx
 Zx
-ma
-ma
+mb
+mb
 jK
 Ct
 Ct
@@ -68127,8 +68127,8 @@ Uo
 Uo
 Uo
 Uo
+ma
 kj
-mA
 jK
 jK
 jK
