@@ -189,9 +189,10 @@
 		apply_unavailable_effect()
 		return FALSE
 	var/obj/item/implant/implant = target
-	if(!IsAvailable() || istype(implant) && implant.cooldown_system?.should_draw_cooldown())
-		apply_unavailable_effect()
-		return FALSE
+	if(istype(implant))
+		var/signal_result = SEND_SIGNAL(implant, COMSIG_ACTION_BUTTON_UPDATE, src)
+		if(signal_result & COMSIG_ACTION_UPDATE_INTERRUPT)
+			return FALSE
 	return TRUE
 
 

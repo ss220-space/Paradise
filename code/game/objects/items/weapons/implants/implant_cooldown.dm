@@ -94,7 +94,7 @@
 	if(recharge_time > world.time)
 		return FALSE
 	current_charges++
-	implant_parent.imp_in.balloon_alert(implant_parent.imp_in, ("+1 заряд"))
+	implant_parent.imp_in.balloon_alert(implant_parent.imp_in, "+1 заряд")
 	if(current_charges < max_charges) // we have more recharges to go
 		recharge_time = world.time + recharge_duration
 		return FALSE

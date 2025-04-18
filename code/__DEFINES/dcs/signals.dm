@@ -1163,6 +1163,8 @@
 ///from base of datum/action/proc/Trigger(): (datum/action)
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
+#define COMSIG_ACTION_BUTTON_UPDATE "action_button_update"
+	#define COMSIG_ACTION_UPDATE_INTERRUPT (1<<0)
 
 //Xenobio hotkeys
 

@@ -27,14 +27,14 @@
 
 /obj/item/implant/adrenalin/activate()
 	if(!imp_in || !cooldown_system || cooldown_system.is_on_cooldown())
-		balloon_alert(imp_in, ("нет зарядов"))
+		balloon_alert(imp_in, "нет зарядов")
 		return FALSE
 
 	if(uses != -1 && uses <= 0)
 		return FALSE
 
 	cooldown_system.start_recharge()
-	balloon_alert(imp_in, ("энергия переполняет тебя"))
+	balloon_alert(imp_in, "энергия переполняет тебя")
 
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)
@@ -77,7 +77,7 @@
 /obj/item/implant/adrenalin/prototype/activate()
 	uses--
 
-	balloon_alert(imp_in, ("энергия переполняет тебя"))
+	balloon_alert(imp_in, "энергия переполняет тебя")
 
 	imp_in.SetStunned(0)
 	imp_in.SetWeakened(0)

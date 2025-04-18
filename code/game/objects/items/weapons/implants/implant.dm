@@ -10,7 +10,7 @@
 	icon_state = "generic" //Shows up as a auto surgeon, used as a placeholder when a implant doesn't have a sprite
 	origin_tech = "materials=2;biotech=3;programming=2"
 	actions_types = list(/datum/action/item_action/hands_free/activate)
-	var/datum/action/item_action/hands_free/activate/action = null
+	var/datum/action/item_action/hands_free/activate/action
 	item_color = "black"
 	item_flags = DROPDEL  // By default, don't let implants be harvestable.
 
@@ -44,6 +44,7 @@
 
 /obj/item/implant/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE, PROC_REF(update_button))
 	if(ispath(implant_data, /datum/implant_fluff))
 		implant_data = new implant_data
 		cooldown_system = create_new_cooldown()
@@ -70,6 +71,7 @@
 		implantcase.update_state()
 	QDEL_NULL(implant_data)
 	QDEL_NULL(cooldown_system)
+	UnregisterSignal(src, COMSIG_ACTION_BUTTON_UPDATE)
 	return ..()
 
 
@@ -204,6 +206,7 @@
 		for(var/datum/action/action as anything in actions)
 			action.Grant(source)
 			update_button(action)
+			action.UpdateButtonIcon()
 
 	if(trigger_causes & (BIOCHIP_TRIGGER_DEATH_ONCE|BIOCHIP_TRIGGER_DEATH_ANY))
 		RegisterSignal(source, COMSIG_MOB_DEATH, PROC_REF(on_death))
@@ -258,8 +261,11 @@
 /**
  * Updates button name and description.
  */
-/obj/item/implant/proc/update_button(datum/action/action)
-	action.name = "[initial(action.name)] [name]"
-	action.desc = desc
-	action.UpdateButtonIcon()
-
+/obj/item/implant/proc/update_button(datum/source, datum/action/action)
+	SIGNAL_HANDLER
+	action?.name = "[initial(action.name)] [name]"
+	action?.desc = desc
+	if(cooldown_system?.should_draw_cooldown())
+		action.apply_unavailable_effect()
+		return COMSIG_ACTION_UPDATE_INTERRUPT
+	return NONE
