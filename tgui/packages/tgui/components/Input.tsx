@@ -4,12 +4,16 @@
  * @license MIT
  */
 
-import { isEscape, KEY } from 'common/keys';
+import {
+  type KeyboardEvent,
+  type SyntheticEvent,
+  useEffect,
+  useRef,
+} from 'react';
+import { KEY, isEscape } from 'common/keys';
 import { classes } from 'common/react';
 import { debounce } from 'common/timer';
-import { KeyboardEvent, SyntheticEvent, useEffect, useRef } from 'react';
-
-import { Box, BoxProps } from './Box';
+import { Box, type BoxProps } from './Box';
 
 type ConditionalProps =
   | {
@@ -52,22 +56,24 @@ type OptionalProps = Partial<{
   /** Fires when user is 'done typing': Clicked out, blur, enter key */
   onChange: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
   /** Fires once the enter key is pressed */
-  onEnter?: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
+  onEnter: (event: SyntheticEvent<HTMLInputElement>, value: string) => void;
   /** Fires once the escape key is pressed */
   onEscape: (event: SyntheticEvent<HTMLInputElement>) => void;
   /** The placeholder text when everything is cleared */
   placeholder: string;
   /** Clears the input value on enter */
   selfClear: boolean;
-  /** Auto-updates the input value on props change */
+  /** Auto-updates the input value on props change, ie, data from Byond */
   updateOnPropsChange: boolean;
   /** The state variable of the input. */
   value: string | number;
 }>;
 
-type Props = OptionalProps & ConditionalProps & BoxProps;
+type Props = OptionalProps & ConditionalProps & Omit<BoxProps, 'children'>;
 
-export const toInputValue = (value: string | number | undefined) => {
+type InputValue = string | number | undefined;
+
+export const toInputValue = (value: InputValue): string => {
   return typeof value !== 'number' && typeof value !== 'string'
     ? ''
     : String(value);
@@ -97,12 +103,11 @@ export const Input = (props: Props) => {
     onInput,
     placeholder,
     selfClear,
-    value,
     updateOnPropsChange,
+    value,
     ...rest
   } = props;
 
-  // The ref to the input field
   const inputRef = useRef<HTMLInputElement>(null);
 
   const handleInput = (event: SyntheticEvent<HTMLInputElement>) => {
@@ -138,38 +143,50 @@ export const Input = (props: Props) => {
     }
   };
 
-  /** Focuses the input on mount */
-  useEffect(() => {
+  const setValue = (newValue: InputValue) => {
     const input = inputRef.current;
     if (!input) return;
 
-    const newValue = toInputValue(value);
+    const changed = toInputValue(newValue);
+    if (input.value === changed) return;
 
-    if (input.value !== newValue) input.value = newValue;
+    input.value = changed;
+  };
 
-    if (!autoFocus && !autoSelect) return;
+  /** Focuses the input on mount */
+  useEffect(() => {
+    const input = inputRef.current;
 
-    setTimeout(() => {
-      input.focus();
+    if (input) {
+      setValue(value);
 
-      if (autoSelect) {
-        input.select();
+      const hasFocusOrSelect = autoFocus || autoSelect;
+      const isActive = document.activeElement === input;
+
+      if (hasFocusOrSelect && !isActive) {
+        setTimeout(() => {
+          input.focus();
+
+          if (autoSelect) {
+            input.select();
+          }
+        }, 1);
       }
-    }, 1);
+    }
   }, []);
 
-  if (updateOnPropsChange) {
-    /** Updates the initial value on props change */
-    useEffect(() => {
+  /** Updates the value on props change */
+  useEffect(() => {
+    if (updateOnPropsChange) {
       const input = inputRef.current;
-      if (!input) return;
-
-      const newValue = toInputValue(value);
-      if (input.value === newValue) return;
-
-      input.value = newValue;
-    }, [value]);
-  }
+      if (input) {
+        const isActive = document.activeElement === input;
+        if (!isActive) {
+          setValue(value);
+        }
+      }
+    }
+  }, [value]);
 
   return (
     <Box

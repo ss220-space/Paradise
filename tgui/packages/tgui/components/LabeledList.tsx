@@ -4,30 +4,83 @@
  * @license MIT
  */
 
-import { BooleanLike, classes } from 'common/react';
-import { PropsWithChildren, ReactNode } from 'react';
-import { Box, unit } from './Box';
+import type { PropsWithChildren, ReactNode } from 'react';
+import { type BooleanLike, classes } from 'common/react';
+import { unit } from 'common/ui';
+import { Box } from './Box';
 import { Divider } from './Divider';
 import { Tooltip } from './Tooltip';
 
+/**
+ * ## LabeledList
+ * LabeledList is a continuous, vertical list of text and other content, where
+ * every item is labeled.
+ *
+ * It works just like a two column table, where first column is labels, and
+ * second column is content.
+ *
+ * @example
+ * ```tsx
+ * <LabeledList>
+ *   <LabeledList.Item label="Item">Content</LabeledList.Item>
+ * </LabeledList>
+ * ```
+ *
+ * If you want to have a button on the right side of an item (for example,
+ * to perform some sort of action), there is a way to do that:
+ *
+ * @example
+ * ```tsx
+ * <LabeledList>
+ *   <LabeledList.Item label="Item" buttons={<Button>Click me!</Button>}>
+ *     Content
+ *   </LabeledList.Item>
+ * </LabeledList>
+ * ```
+ */
 export const LabeledList = (props: PropsWithChildren) => {
   const { children } = props;
-  return <table className="LabeledList">{children}</table>;
+
+  return (
+    <table className="LabeledList">
+      <tbody>{children}</tbody>
+    </table>
+  );
 };
 
 type LabeledListItemProps = Partial<{
+  /** Buttons to render aside the content. */
   buttons: ReactNode;
+  /** Content of this labeled item. */
+  children: ReactNode;
+  /** Applies a CSS class to the element. */
   className: string | BooleanLike;
+  /** Sets the color of the content text. */
   color: string;
-  key: string | number;
-  label: string | ReactNode | BooleanLike;
-  labelColor: string;
-  labelWrap: boolean;
-  textAlign: string;
   /** @deprecated */
   content: any;
-  children: ReactNode;
-    /**
+  /**
+   * Sometimes this does not properly register in TS.
+   * See [react key docs](https://react.dev/learn/rendering-lists#keeping-list-items-in-order-with-key) for more info.
+   */
+  key: string | number;
+  /** Item label. Appends a colon at the end. */
+  label: ReactNode;
+  /** Sets the color of the label. */
+  labelColor: string;
+  /** Lets the label wrap and makes it not take the minimum width. */
+  labelWrap: boolean;
+  /**
+   * Align the content text.
+   *
+   * - `left` (default)
+   * - `center`
+   * - `right`
+   */
+  textAlign: string;
+  /** Tooltip text. */
+  tooltip: string;
+  /**
    * Align both the label and the content vertically.
    *
    * - `baseline` (default)
@@ -36,8 +89,8 @@ type LabeledListItemProps = Partial<{
    * - `bottom`
    */
   verticalAlign: string;
-  tooltip: string;
 }>;
+
 const LabeledListItem = (props: LabeledListItemProps) => {
   const {
     className,
@@ -52,11 +105,13 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     verticalAlign = 'baseline',
     tooltip,
   } = props;
-  let innerLabel;
+
+  let innerLabel: ReactNode;
   if (label) {
     innerLabel = label;
     if (typeof label === 'string') innerLabel += ':';
   }
+
   if (tooltip !== undefined) {
     innerLabel = (
       <Tooltip content={tooltip}>
@@ -71,7 +126,8 @@ const LabeledListItem = (props: LabeledListItemProps) => {
       </Tooltip>
     );
   }
-  let labelChild = (
+
+  const labelChild = (
     <Box
       as="td"
       color={labelColor}
@@ -85,6 +141,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
       {innerLabel}
     </Box>
   );
+
   return (
     <tr className={classes(['LabeledList__row', className])}>
       {labelChild}
@@ -92,7 +149,8 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         as="td"
         color={color}
         textAlign={textAlign}
-        className={classes(['LabeledList__cell', 'LabeledList__content'])}
+        className="LabeledList__cell"
+        // @ts-ignore
         colSpan={buttons ? undefined : 2}
         verticalAlign={verticalAlign}
       >
@@ -107,10 +165,13 @@ const LabeledListItem = (props: LabeledListItemProps) => {
 };
 
 type LabeledListDividerProps = {
+  /** Size of the divider. */
   size?: number;
 };
+
 const LabeledListDivider = (props: LabeledListDividerProps) => {
   const padding = props.size ? unit(Math.max(0, props.size - 1)) : 0;
+
   return (
     <tr className="LabeledList__row">
       <td
@@ -126,5 +187,8 @@ const LabeledListDivider = (props: LabeledListDividerProps) => {
   );
 };
 
-LabeledList.Item = LabeledListItem;
+/**
+ * Adds some empty space between LabeledList items.
+ */
 LabeledList.Divider = LabeledListDivider;
+LabeledList.Item = LabeledListItem;

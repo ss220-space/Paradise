@@ -4,33 +4,50 @@
  * @license MIT
  */
 
-import { BooleanLike, classes } from 'common/react';
-import { ReactNode } from 'react';
-import { BoxProps, computeBoxClassName, computeBoxProps } from './Box';
+import { type BooleanLike, classes } from 'common/react';
+import { computeBoxClassName, computeBoxProps } from 'common/ui';
+import type { BoxProps } from './Box';
+
+type Props = {
+  /** Icon name. @see https://fontawesome.com/v6/search?o=r&m=free */
+  name: string;
+} & Partial<{
+  /** Icon rotation, in degrees. */
+  rotation: number;
+  /** Icon size. `1` is normal size, `2` is two times bigger. Fractional numbers are supported. */
+  size: number;
+  /** Whether an icon should be spinning. Good for load indicators. */
+  spin: BooleanLike;
+}> &
+  Omit<BoxProps, 'children'>;
 
 const FA_OUTLINE_REGEX = /-o$/;
 
-type IconPropsUnique = { name: string } & Partial<{
-  size: number;
-  spin: BooleanLike;
-  className: string;
-  rotation: number;
-  style: Partial<HTMLDivElement['style']>;
-}>;
+/**
+ * ## Icon
+ * Renders one of the FontAwesome icons of your choice.
+ *
+ * @example
+ * ```tsx
+ *  * <Icon name="plus" />
+ * ```
+ * @url https://fontawesome.com/v6/search?o=r&m=free
+ */
 
-export type IconProps = IconPropsUnique & BoxProps;
+export const Icon = (props: Props) => {
+  const { name = '', size, spin, className, rotation, ...rest } = props;
 
-export const Icon = (props: IconProps) => {
-  const { name, size, spin, className, rotation, ...rest } = props;
   const customStyle = rest.style || {};
   if (size) {
-    customStyle['fontSize'] = size * 100 + '%';
+    customStyle.fontSize = `${size * 100}%`;
   }
   if (rotation) {
-    customStyle['transform'] = `rotate(${rotation}deg)`;
+    customStyle.transform = `rotate(${rotation}deg)`;
   }
   rest.style = customStyle;
+
   const boxProps = computeBoxProps(rest);
+
   let iconClass = '';
   if (name.startsWith('tg-')) {
     // tgfont icon
@@ -40,6 +57,7 @@ export const Icon = (props: IconProps) => {
     const faRegular = FA_OUTLINE_REGEX.test(name);
     const faName = name.replace(FA_OUTLINE_REGEX, '');
     const preprendFa = !faName.startsWith('fa-');
+
     iconClass = faRegular ? 'far ' : 'fas ';
     if (preprendFa) {
       iconClass += 'fa-';
@@ -62,13 +80,7 @@ export const Icon = (props: IconProps) => {
   );
 };
 
-type IconStackUnique = {
-  children: ReactNode;
-  className?: string;
-};
-
-export type IconStackProps = IconStackUnique & BoxProps;
-export const IconStack = (props: IconStackProps) => {
+const IconStack = (props: BoxProps) => {
   const { className, children, ...rest } = props;
   return (
     <span
@@ -79,4 +91,17 @@ export const IconStack = (props: IconStackProps) => {
     </span>
   );
 };
-Icon.Stack = IconStack;
+
+/**
+ * ## Icon.Stack
+ * Renders children icons on top of each other in order to make your own icon.
+ *
+ * @example
+ * ```tsx
+ * <Icon.Stack>
+ *   <Icon name="pen" />
+ *   <Icon name="slash" />
+ * </Icon.Stack>
+ * ```
+ */
+export const Stack = IconStack;

@@ -55,10 +55,10 @@ enum DIRECTION {
   Previous = 'previous',
 }
 const NONE = -1;
-function getOptionValue(option: DropdownOption) {
+const getOptionValue = (option: DropdownOption) => {
   return typeof option === 'string' ? option : option.value;
-}
-export function Dropdown(props: Props) {
+};
+export const Dropdown = (props: Props) => {
   const {
     autoScroll = true,
     buttons,
@@ -86,7 +86,7 @@ export function Dropdown(props: Props) {
   const selectedIndex =
     options.findIndex((option) => getOptionValue(option) === selected) || 0;
 
-  function scrollToElement(position: number) {
+  const scrollToElement = (position: number) => {
     let scrollPos = position;
     if (position < selectedIndex) {
       scrollPos = position < 2 ? 0 : position - 2;
@@ -101,10 +101,10 @@ export function Dropdown(props: Props) {
     if (dropdownMenu && element) {
       dropdownMenu.scrollTop = element.offsetTop;
     }
-  }
+  };
 
   /** Update the selected value when clicking the left/right buttons */
-  function updateSelected(direction: DIRECTION) {
+  const updateSelected = (direction: DIRECTION) => {
     if (options.length < 1 || disabled) {
       return;
     }
@@ -123,7 +123,7 @@ export function Dropdown(props: Props) {
       scrollToElement(newIndex);
     }
     onSelected?.(getOptionValue(options[newIndex]));
-  }
+  };
   /** Allows the menu to be scrollable on open */
   useEffect(() => {
     if (!open) {
@@ -243,4 +243,4 @@ export function Dropdown(props: Props) {
       </div>
     </Popper>
   );
-}
+};

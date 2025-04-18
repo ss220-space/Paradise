@@ -101,7 +101,7 @@ export default [
       complexity: [
         'error',
         {
-          max: 50,
+          max: 60,
         },
       ],
 

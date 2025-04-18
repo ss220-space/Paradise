@@ -3,29 +3,80 @@
  * @copyright 2020 bobbahbrown (https://github.com/bobbahbrown)
  * @license MIT
  */
+import type { CSSProperties } from 'react';
 import { clamp01, keyOfMatchingRange, scale } from 'common/math';
 import { classes } from 'common/react';
+import { computeBoxClassName, computeBoxProps } from 'common/ui';
 import { AnimatedNumber } from './AnimatedNumber';
-import { Box, computeBoxClassName, computeBoxProps } from './Box';
-
-export const RoundGauge = (props) => {
+import { Box, type BoxProps } from './Box';
+type Props = {
+  /** The current value of the metric. */
+  value: number;
+} & Partial<{
+  /** When provided, will cause an alert symbol on the gauge to begin flashing in the color upon which the needle currently rests, as defined in `ranges`. */
+  alertAfter: number;
+  /** As with alertAfter, but alerts below a value. If both are set, and alertAfter comes earlier, the alert will only flash when the needle is between both values. Otherwise, the alert will flash when on the active side of either threshold. */
+  alertBefore: number;
+  /** CSS style. */
+  className: string;
+  /** When provided, will be used to format the value of the metric for display. */
+  format: (value: number) => string;
+  /** The upper bound of the gauge. */
+  maxValue: number;
+  /** The lower bound of the gauge. */
+  minValue: number;
+  /** Provide regions of the gauge to color between two specified values of the metric. */
+  ranges: Record<string, [number, number]>;
+  /** When provided scales the gauge. */
+  size: number;
+  /** Custom css */
+  style: CSSProperties;
+}> &
+  BoxProps;
+/**
+ * ## RoundGauge
+ * The RoundGauge component provides a visual representation of a single metric, as well as being capable of showing
+ * informational or cautionary boundaries related to that metric.
+ *
+ * @example
+ * ```tsx
+ * <RoundGauge
+ *  size={1.75}
+ *  value={tankPressure}
+ *  minValue={0}
+ *  maxValue={pressureLimit}
+ *  alertAfter={pressureLimit * 0.7}
+ *  ranges={{
+ *     good: [0, pressureLimit * 0.7],
+ *     average: [pressureLimit * 0.7, pressureLimit * 0.85],
+ *     bad: [pressureLimit * 0.85, pressureLimit],
+ *   }}
+ *   format={formatPressure}
+ * />
+ * ```
+ *
+ * The alert on the gauge is optional, and will only be shown if the `alertAfter` prop is defined. When defined, the alert
+ * will begin to flash the respective color upon which the needle currently rests, as defined in the `ranges` prop.
+ *
+ */
+export const RoundGauge = (props: Props) => {
   const {
-    value,
-    minValue = 1,
-    maxValue = 1,
-    ranges,
     alertAfter,
     alertBefore,
-    format,
-    size = 1,
     className,
+    format,
+    maxValue = 1,
+    minValue = 1,
+    ranges,
+    size = 1,
     style,
+    value,
     ...rest
   } = props;
-
   const scaledValue = scale(value, minValue, maxValue);
   const clampedValue = clamp01(scaledValue);
   const scaledRanges = ranges ? {} : { primary: [0, 1] };
+
   if (ranges) {
     for (const key in ranges) {
       const range = ranges[key];
@@ -35,25 +86,30 @@ export const RoundGauge = (props) => {
       ];
     }
   }
+
   const shouldShowAlert = () => {
-    // If both after and before alert props are set, attempt to interpret both
-    // in a helpful way.
-    if (alertAfter && alertBefore && alertAfter < alertBefore) {
-      // If alertAfter is before alertBefore, only display an alert if
-      // we're between them.
-      if (alertAfter < value && alertBefore > value) {
-        return true;
-      }
-    } else if (alertAfter < value || alertBefore > value) {
-      // Otherwise, we have distint ranges, or only one or neither are set.
-      // Either way, being on the active side of either is sufficient.
+    // If both after and before alert props are set, and value is between them
+    if (
+      alertAfter &&
+      alertBefore &&
+      value > alertAfter &&
+      value < alertBefore
+    ) {
       return true;
     }
+    // If only alertAfter is set and value is greater than alertAfter
+    if (alertAfter && value > alertAfter) {
+      return true;
+    }
+    // If only alertBefore is set and value is less than alertBefore
+    if (alertBefore && value < alertBefore) {
+      return true;
+    }
+    // If none of the above conditions are met
     return false;
   };
-  // prettier-ignore
-  const alertColor = shouldShowAlert()
-    && keyOfMatchingRange(clampedValue, scaledRanges);
+  const alertColor =
+    shouldShowAlert() && keyOfMatchingRange(clampedValue, scaledRanges);
   return (
     <Box inline>
       <div
@@ -64,7 +120,7 @@ export const RoundGauge = (props) => {
         ])}
         {...computeBoxProps({
           style: {
-            fontSize: size + 'em',
+            fontSize: `${size}em`,
             ...style,
           },
           ...rest,
@@ -120,9 +176,10 @@ export const RoundGauge = (props) => {
               r="8"
             />
           </g>
+          <title>alert</title>
         </svg>
       </div>
-      <AnimatedNumber value={value} format={format} size={size} />
+      <AnimatedNumber value={value} format={format} />
     </Box>
   );
 };

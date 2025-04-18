@@ -15,7 +15,7 @@ import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
 import { setupDrag } from './drag';
 import { focusMap } from './focus';
-import { createLogger } from './logging';
+import { createLogger } from 'common/logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
 import { BooleanLike } from 'common/react';
 
@@ -390,6 +390,7 @@ type BackendState<TData> = {
     status: number;
     interface: string;
     refreshing: boolean;
+    map: string;
     window: {
       key: string;
       size: [number, number];

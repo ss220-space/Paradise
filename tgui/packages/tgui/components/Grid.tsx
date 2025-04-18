@@ -30,4 +30,5 @@ export const GridColumn = (props) => {
   );
 };
 
+/** @deprecated */
 Grid.Column = GridColumn;

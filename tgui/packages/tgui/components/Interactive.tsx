@@ -13,7 +13,15 @@
  */
 
 import { clamp } from 'common/math';
-import { Component, ReactNode, createRef, RefObject } from 'react';
+import {
+  Component,
+  ReactNode,
+  createRef,
+  RefObject,
+  CSSProperties,
+  MouseEvent,
+  KeyboardEvent,
+} from 'react';
 
 export interface Interaction {
   left: number;
@@ -52,20 +60,18 @@ export interface InteractiveProps {
   onMove: (interaction: Interaction) => void;
   onKey: (offset: Interaction) => void;
   children: ReactNode;
-  style?: any;
+  style?: CSSProperties;
 }
 
-export class Interactive extends Component {
+export class Interactive extends Component<InteractiveProps> {
   containerRef: RefObject<HTMLDivElement>;
-  props: InteractiveProps;
 
   constructor(props: InteractiveProps) {
     super(props);
-    this.props = props;
     this.containerRef = createRef();
   }
 
-  handleMoveStart = (event) => {
+  handleMoveStart = (event: MouseEvent<HTMLDivElement>) => {
     const el = this.containerRef?.current;
     if (!el) return;
 
@@ -98,7 +104,7 @@ export class Interactive extends Component {
     this.toggleDocumentEvents(false);
   };
 
-  handleKeyDown = (event) => {
+  handleKeyDown = (event: KeyboardEvent<HTMLDivElement>) => {
     const keyCode = event.which || event.keyCode;
 
     // Ignore all keys except arrow ones

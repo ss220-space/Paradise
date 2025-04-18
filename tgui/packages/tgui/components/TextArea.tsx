@@ -5,29 +5,34 @@
  * @license MIT
  */
 
-import { isEscape, KEY } from 'common/keys';
-import { classes } from 'common/react';
 import {
+  type RefObject,
   forwardRef,
-  ReactElement,
-  RefObject,
   useEffect,
   useImperativeHandle,
   useRef,
   useState,
 } from 'react';
-import { KeyboardEvent, SyntheticEvent } from 'react';
-
-import { Box, BoxProps } from './Box';
+import type { KeyboardEvent, SyntheticEvent } from 'react';
+import { KEY, isEscape } from 'common/keys';
+import { classes } from 'common/react';
+import { Box, type BoxProps } from './Box';
 import { toInputValue } from './Input';
 
 type Props = Partial<{
+  /** Automatically focus the textarea on mount */
   autoFocus: boolean;
+  /** Selects all text on mount */
   autoSelect: boolean;
-  displayedValue: ReactElement;
+  /** The value to display in the textarea */
+  displayedValue: string;
+  /** Don't use tab for indent */
   dontUseTabForIndent: boolean;
+  /** Sets width to 100% */
   fluid: boolean;
+  /** Maximum length of the textarea */
   maxLength: number;
+  /** Removes the border. */
   noborder: boolean;
   /** Fires when user is 'done typing': Clicked out, blur, enter key (but not shift+enter) */
   onChange: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
@@ -37,13 +42,34 @@ type Props = Partial<{
   onEscape: (event: SyntheticEvent<HTMLTextAreaElement>) => void;
   /** Fires on each key press / value change. Used for searching */
   onInput: (event: SyntheticEvent<HTMLTextAreaElement>, value: string) => void;
+  /** Dummy text inside the textarea when it's empty */
   placeholder: string;
+  /** Whether the textarea is scrollable when it has more content than height */
   scrollbar: boolean;
+  /** Clears the textarea when the enter key is pressed */
   selfClear: boolean;
+  /** Provides a Record with key: markupChar entries which can be used for ctrl + key combinations to surround a selected text with the markup character */
+  userMarkup: Record<string, string>;
+  /** The value of the textarea */
   value: string;
 }> &
   BoxProps;
 
+const getMarkupString = (
+  inputText: string,
+  markupType: string,
+  startPosition: number,
+  endPosition: number
+) => {
+  return `${inputText.substring(0, startPosition)}${markupType}${inputText.substring(startPosition, endPosition)}${markupType}${inputText.substring(endPosition)}`;
+};
+
+/**
+ * ## Textarea
+ *
+ * An input for larger amounts of text. Use this when you want inputs larger
+ * than one row.
+ */
 export const TextArea = forwardRef(
   (props: Props, forwardedRef: RefObject<HTMLTextAreaElement>) => {
     const {
@@ -60,6 +86,7 @@ export const TextArea = forwardRef(
       placeholder,
       scrollbar,
       selfClear,
+      userMarkup,
       value,
       ...boxProps
     } = props;
@@ -98,11 +125,26 @@ export const TextArea = forwardRef(
       if (!dontUseTabForIndent && event.key === KEY.Tab) {
         event.preventDefault();
         const { value, selectionStart, selectionEnd } = event.currentTarget;
-        event.currentTarget.value =
-          value.substring(0, selectionStart) +
-          '\t' +
-          value.substring(selectionEnd);
+        event.currentTarget.value = `${value.substring(0, selectionStart)}\t${value.substring(selectionEnd)}`;
         event.currentTarget.selectionEnd = selectionStart + 1;
+      }
+
+      if (
+        userMarkup &&
+        (event.ctrlKey || event.metaKey) &&
+        userMarkup[event.key]
+      ) {
+        event.preventDefault();
+        const { value, selectionStart, selectionEnd } = event.currentTarget;
+        const markupString = userMarkup[event.key];
+        event.currentTarget.value = getMarkupString(
+          value,
+          markupString,
+          selectionStart,
+          selectionEnd
+        );
+        event.currentTarget.selectionEnd =
+          selectionEnd + markupString.length * 2;
       }
     };
 
@@ -173,6 +215,7 @@ export const TextArea = forwardRef(
           </div>
         )}
         <textarea
+          autoComplete="off"
           className={classes([
             'TextArea__textarea',
             scrollbar && 'TextArea__textarea--scrollable',
@@ -189,6 +232,7 @@ export const TextArea = forwardRef(
           }}
           placeholder={placeholder}
           ref={textareaRef}
+          spellCheck={false}
           style={{
             color: displayedValue ? 'rgba(0, 0, 0, 0)' : 'inherit',
           }}
