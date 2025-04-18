@@ -651,6 +651,23 @@
 			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		user.drop_item_ground(src)
 
+//clocwork guns
+/obj/item/gun/energy/clockwork
+	name = "Clockwork shotgun"
+	ru_names = list(
+		NOMINATIVE = "Латунный дробовик",
+		GENITIVE = "латунного дробовика",
+		DATIVE = "латунному дробовику",
+		ACCUSATIVE = "латунный дробовик",
+		INSTRUMENTAL = "латунным дробовиком",
+		PREPOSITIONAL = "латунном дробовике",
+	)
+	desc = "Дробовик из латуни с самовосполняющимися за счет энергии Ратвара патронами. От него исходит ритмичное тиканье."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "brassshotgun"
+	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	can_charge = FALSE
+
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
 	name = "clock robes"

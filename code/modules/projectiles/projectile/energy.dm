@@ -215,3 +215,16 @@
 	armour_penetration = 10 // It can have a little armor pen, as a treat. Bigger than it looks, energy armor is often low.
 	shield_buster = TRUE
 	reflectability = REFLECTABILITY_NEVER //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
+
+/obj/projectile/energy/rat
+	name = "brass shot"
+	icon_state = "brassslug"
+	damage = 25
+	armour_penetration = 50
+	hitsound = 'sound/weapons/tap.ogg'
+	damage_type = BRUTE
+	flag = "bullet"
+	reflectability = REFLECTABILITY_PHYSICAL
+
+/obj/projectile/energy/rat/slug
+	name = "brass slug"
