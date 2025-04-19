@@ -540,3 +540,12 @@
 
 /obj/item/ammo_casing/energy/rat/slug
 	projectile_type = /obj/projectile/energy/rat/slug
+
+/obj/item/ammo_casing/energy/rat/slug/emp
+	projectile_type = /obj/projectile/energy/rat/slug/emp
+
+/obj/item/ammo_casing/energy/rat/slug/heal
+	projectile_type = /obj/projectile/energy/rat/slug/heal
+
+/obj/item/ammo_casing/energy/rat/slug/stun
+	projectile_type = /obj/projectile/energy/rat/slug/stun

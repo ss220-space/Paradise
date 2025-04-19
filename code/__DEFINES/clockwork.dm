@@ -40,6 +40,10 @@
 #define EMP_SPELL 1
 #define TIME_SPELL 2
 #define RECONSTRUCT_SPELL 3
+//guns
+#define EMP_GUN_SPELL 1
+#define GUN_HEAL_SPELL 2
+#define GUN_STUN_SPELL 3
 
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
@@ -84,6 +88,11 @@ GLOBAL_LIST_INIT(shard_spells, list(
 	new /datum/spell_enchant("Electromagnetic Pulse", EMP_SPELL, 500, 9),
 	new /datum/spell_enchant("Stop the time", TIME_SPELL, 500, 9),
 	new /datum/spell_enchant("Reconstruction", RECONSTRUCT_SPELL, 500, 9)
+))
+GLOBAL_LIST_INIT(gun_spells, list(
+	new /datum/spell_enchant("EMP Shot", EMP_GUN_SPELL, time = 1),
+	new /datum/spell_enchant("Healing Shot", GUN_HEAL_SPELL, time = 1),
+	new /datum/spell_enchant("Stunning Shot", GUN_STUN_SPELL, time = 1)
 ))
 
 /// Power gains permanent

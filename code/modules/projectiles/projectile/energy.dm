@@ -228,3 +228,15 @@
 
 /obj/projectile/energy/rat/slug
 	name = "brass slug"
+
+/obj/projectile/energy/rat/slug/emp
+	name = "brass EMP slug"
+	icon_state = "brassslug_emp"
+
+/obj/projectile/energy/rat/slug/heal
+	name = "brass heal slug"
+	icon_state = "brassslug_heal"
+
+/obj/projectile/energy/rat/slug/stun
+	name = "brass stun slug"
+	icon_state = "brassslug_stun"
