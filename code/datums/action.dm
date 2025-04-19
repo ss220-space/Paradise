@@ -188,11 +188,10 @@
 	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
 		apply_unavailable_effect()
 		return FALSE
-	var/obj/item/implant/implant = target
-	if(istype(implant))
-		var/signal_result = SEND_SIGNAL(implant, COMSIG_ACTION_BUTTON_UPDATE, src)
-		if(signal_result & COMSIG_ACTION_UPDATE_INTERRUPT)
-			return FALSE
+
+	var/signal_result = SEND_SIGNAL(target, COMSIG_ACTION_BUTTON_UPDATE, src)
+	if(signal_result & COMSIG_ACTION_UPDATE_INTERRUPT)
+		return FALSE
 	return TRUE
 
 
@@ -528,9 +527,6 @@
 	var/obj/item/implant/implant = target
 	if(!istype(implant))
 		return ..()
-	var/mutable_appearance/unavailable_effect = mutable_appearance('icons/mob/screen_white.dmi', "template", BUTTON_LAYER_UNAVAILABLE, appearance_flags = RESET_COLOR|RESET_ALPHA, color = "#000000")
-	unavailable_effect.alpha = implant.cooldown_system.get_cooldown_alpha()
-	button.add_overlay(unavailable_effect)
 	// Make a holder for the charge text
 	var/static/mutable_appearance/maptext_holder = mutable_appearance('icons/effects/effects.dmi', "nothing", BUTTON_LAYER_MAPTEXT, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	var/text = implant.cooldown_system.cooldown_info()

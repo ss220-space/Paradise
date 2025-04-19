@@ -26,14 +26,19 @@
 	return C
 
 /obj/item/implant/adrenalin/activate()
-	if(!imp_in || !cooldown_system || cooldown_system.is_on_cooldown())
+	var/datum/implant_cooldown/charges/charges_cooldown = cooldown_system
+
+	if(charges_cooldown.is_on_cooldown())
+		return FALSE
+
+	if(charges_cooldown.current_charges <= 0)
 		balloon_alert(imp_in, "нет зарядов")
 		return FALSE
 
 	if(uses != -1 && uses <= 0)
 		return FALSE
 
-	cooldown_system.start_recharge()
+	charges_cooldown.start_recharge()
 	balloon_alert(imp_in, "энергия переполняет тебя")
 
 	imp_in.SetStunned(0)

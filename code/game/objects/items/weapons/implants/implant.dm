@@ -54,7 +54,6 @@
 	RETURN_TYPE(/datum/implant_cooldown)
 	var/datum/implant_cooldown/i_cooldown = new
 	i_cooldown.recharge_duration = base_cooldown
-	i_cooldown.starts_off_cooldown = starts_charged
 	return i_cooldown
 
 /obj/item/implant/Destroy()
