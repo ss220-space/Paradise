@@ -5,6 +5,7 @@
  */
 
 import { clamp01, scale } from 'common/math';
+
 import { pingFail, pingSuccess } from './actions';
 import {
   PING_MAX_FAILS,
@@ -12,8 +13,16 @@ import {
   PING_ROUNDTRIP_WORST,
 } from './constants';
 
-export const pingReducer = (state = {}, action) => {
+type PingState = {
+  roundtrip: number | undefined;
+  roundtripAvg: number | undefined;
+  failCount: number;
+  networkQuality: number;
+};
+
+export const pingReducer = (state = {} as PingState, action) => {
   const { type, payload } = action;
+
   if (type === pingSuccess.type) {
     const { roundtrip } = payload;
     const prevRoundtrip = state.roundtripAvg || roundtrip;
@@ -27,12 +36,13 @@ export const pingReducer = (state = {}, action) => {
       networkQuality,
     };
   }
+
   if (type === pingFail.type) {
     const { failCount = 0 } = state;
     const networkQuality = clamp01(
       state.networkQuality - failCount / PING_MAX_FAILS
     );
-    const nextState = {
+    const nextState: PingState = {
       ...state,
       failCount: failCount + 1,
       networkQuality,
@@ -43,5 +53,6 @@ export const pingReducer = (state = {}, action) => {
     }
     return nextState;
   }
+
   return state;
 };

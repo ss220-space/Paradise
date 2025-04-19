@@ -11,9 +11,8 @@ import {
   roundRestarted,
   autoReconnect,
 } from './actions';
+import { CONNECTION_LOST_AFTER } from './constants';
 import { selectGame } from './selectors';
-import { CONNECTION_LOST_AFTER, AUTO_RECONNECT_AFTER } from './constants';
-import { url } from '../reconnect';
 
 const withTimestamp = (action) => ({
   ...action,
@@ -25,6 +24,7 @@ const withTimestamp = (action) => ({
 
 export const gameMiddleware = (store) => {
   let lastPingedAt;
+
   setInterval(() => {
     const state = store.getState();
     if (!state) {
@@ -45,6 +45,7 @@ export const gameMiddleware = (store) => {
       store.dispatch(autoReconnect());
     }
   }, 1000);
+
   return (next) => (action) => {
     const { type } = action;
 
@@ -52,9 +53,11 @@ export const gameMiddleware = (store) => {
       lastPingedAt = Date.now();
       return next(action);
     }
+
     if (type === roundRestarted.type) {
       return next(withTimestamp(action));
     }
+
     if (type === autoReconnect.type) {
       Byond.command('.reconnect');
 

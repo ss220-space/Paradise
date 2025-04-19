@@ -3,19 +3,20 @@
  * @copyright 2020 Aleksej Komarov
  * @license MIT
  */
+
 export const THEMES = ['light', 'dark', 'ntos', 'syndicate', 'paradise'];
 
 const COLORS = {
   DARK: {
-    BG_BASE: '#212020',
-    BG_SECOND: '#161515',
-    BUTTON: '#414040',
+    BG_BASE: '#202020',
+    BG_SECOND: '#151515',
+    BUTTON: '#404040',
     TEXT: '#A6A6A6',
   },
   LIGHT: {
-    BG_BASE: '#EFEEEE',
+    BG_BASE: '#EEEEEE',
     BG_SECOND: '#FFFFFF',
-    BUTTON: '#FFFEFE',
+    BUTTON: '#FFFFFF',
     TEXT: '#000000',
   },
   NTOS: {
@@ -38,7 +39,7 @@ const COLORS = {
   },
 };
 
-let setClientThemeTimer = null;
+let setClientThemeTimer: NodeJS.Timeout;
 
 /**
  * Darkmode preference, originally by Kmc2000.
@@ -58,6 +59,7 @@ export const setClientTheme = (name) => {
   Byond.command(`.output title_browser:set_theme ${name}`);
   setClientThemeTimer = setTimeout(() => {
     Byond.command(`.output statbrowser:set_theme ${name}`);
+    Byond.command(`.output title_browser:set_theme ${name}`);
   }, 1500);
 
   const themeColor = COLORS[name.toUpperCase()];
@@ -66,6 +68,18 @@ export const setClientTheme = (name) => {
   }
 
   return Byond.winset({
+    /* Mainwindow */
+    'mainwindow.background-color': themeColor.BG_BASE,
+    'mainwindow.mainvsplit.background-color': themeColor.BG_BASE,
+    'mainwindow.tooltip.background-color': themeColor.BG_BASE,
+    'info_and_buttons.background-color': themeColor.BG_BASE,
+    'info.background-color': themeColor.BG_BASE,
+    'info.text-color': themeColor.TEXT,
+    'chat_panel.background-color': themeColor.BG_BASE,
+    'chat_panel.text-color': themeColor.TEXT,
+    'outputwindow.background-color': themeColor.BG_BASE,
+    'outputwindow.text-color': themeColor.TEXT,
+    'mainvsplit.background-color': themeColor.BG_BASE,
     /* Buttons */
     'infobuttons.textb.background-color': themeColor.BUTTON,
     'infobuttons.textb.text-color': themeColor.TEXT,
@@ -83,24 +97,11 @@ export const setClientTheme = (name) => {
     'infobuttons.webmap.text-color': themeColor.TEXT,
     'infobuttons.changelog.background-color': themeColor.BUTTON,
     'infobuttons.changelog.text-color': themeColor.TEXT,
-    'infobuttons.text-color': themeColor.TEXT,
-    'info_and_buttons.background-color': themeColor.BG_BASE,
-    'info.background-color': themeColor.BG_BASE,
-    'info.text-color': themeColor.TEXT,
-    'chat_panel.background-color': themeColor.BG_BASE,
-    'chat_panel.text-color': themeColor.TEXT,
-    'mainvsplit.background-color': themeColor.BG_BASE,
-    /* Mainwindow */
-    'mainwindow.background-color': themeColor.BG_BASE,
-    'mainwindow.mainvsplit.background-color': themeColor.BG_BASE,
-    'mainwindow.tooltip.background-color': themeColor.BG_BASE,
-    'outputwindow.background-color': themeColor.BG_BASE,
-    'outputwindow.text-color': themeColor.TEXT,
     'output.background-color': themeColor.BG_BASE,
     'output.text-color': themeColor.TEXT,
     /* Rpane */
     'infobuttons.background-color': themeColor.BG_BASE,
-    'infobuttons.rpanewindow.background-color': themeColor.BG_BASE,
+    'infobuttons.text-color': themeColor.TEXT,
     /* Infowindow */
     'infowindow.background-color': themeColor.BG_BASE,
     'infowindow.text-color': themeColor.TEXT,

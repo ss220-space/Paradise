@@ -7,15 +7,15 @@
 import {
   addHighlightSetting,
   changeSettingsTab,
+  importSettings,
   loadSettings,
   openChatSettings,
   removeHighlightSetting,
   toggleSettings,
   updateHighlightSetting,
   updateSettings,
-  importSettings,
 } from './actions';
-import { FONTS, MAX_HIGHLIGHT_SETTINGS, SETTINGS_TABS } from './constants';
+import { FONTS, SETTINGS_TABS } from './constants';
 import { createDefaultHighlightSetting } from './model';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
@@ -40,12 +40,10 @@ const initialState = {
     activeTab: SETTINGS_TABS[0].id,
   },
   initialized: false,
-  // Stat Panel settings
   statLinked: true,
   statFontSize: 12,
   statFontFamily: FONTS[0],
   statTabsStyle: 'default',
-  // End of Stat Panel settings
 } as const;
 
 export const settingsReducer = (
@@ -153,10 +151,6 @@ export const settingsReducer = (
 
     case addHighlightSetting.type: {
       const highlightSetting = payload;
-
-      if (state.highlightSettings.length >= MAX_HIGHLIGHT_SETTINGS) {
-        return state;
-      }
 
       return {
         ...state,

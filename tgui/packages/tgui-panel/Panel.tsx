@@ -4,8 +4,9 @@
  * @license MIT
  */
 
-import { Button, Section, Stack } from 'tgui/components';
 import { Pane } from 'tgui/layouts';
+import { Button, Section, Stack } from 'tgui/components';
+
 import { NowPlayingWidget, useAudio } from './audio';
 import { ChatPanel, ChatTabs } from './chat';
 import { useGame } from './game';
@@ -25,6 +26,7 @@ export const Panel = (props) => {
       return <KitchenSink panel />;
     }
   }
+
   return (
     <Pane theme={settings.theme}>
       <Stack fill vertical>
@@ -75,7 +77,7 @@ export const Panel = (props) => {
         )}
         <Stack.Item grow>
           <Section fill fitted position="relative">
-            <Pane.Content style={{ overflowY: 'scroll' }} scrollable>
+            <Pane.Content scrollable>
               <ChatPanel lineHeight={settings.lineHeight} />
             </Pane.Content>
             <Notifications>
@@ -88,39 +90,13 @@ export const Panel = (props) => {
               {game.roundRestartedAt && (
                 <Notifications.Item>
                   The connection has been closed because the server is
-                  restarting. <br /> Please wait while you automatically
-                  reconnect.
+                  restarting. Please wait while you automatically reconnect.
                 </Notifications.Item>
               )}
             </Notifications>
           </Section>
         </Stack.Item>
       </Stack>
-    </Pane>
-  );
-};
-
-const HoboPanel = (props) => {
-  const settings = useSettings();
-  return (
-    <Pane theme={settings.theme}>
-      <Pane.Content>
-        <Button
-          style={{
-            position: 'fixed',
-            top: '1em',
-            right: '2em',
-            zIndex: 1000,
-          }}
-          selected={settings.visible}
-          onClick={() => settings.toggle()}
-        >
-          Settings
-        </Button>
-        {(settings.visible && <SettingsPanel />) || (
-          <ChatPanel lineHeight={settings.lineHeight} />
-        )}
-      </Pane.Content>
     </Pane>
   );
 };

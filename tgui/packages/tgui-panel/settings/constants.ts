@@ -9,6 +9,7 @@ export const SETTINGS_TABS = [
     id: 'general',
     name: 'General',
   },
+
   {
     id: 'textHighlight',
     name: 'Text Highlights',
@@ -27,6 +28,7 @@ export const FONTS_DISABLED = 'Default';
 
 export const FONTS = [
   FONTS_DISABLED,
+  'Verdana',
   'Arial',
   'Arial Black',
   'Comic Sans MS',
@@ -38,4 +40,4 @@ export const FONTS = [
   'Lucida Console',
 ];
 
-export const MAX_HIGHLIGHT_SETTINGS = 10;
+export const WARN_AFTER_HIGHLIGHT_AMT = 10;

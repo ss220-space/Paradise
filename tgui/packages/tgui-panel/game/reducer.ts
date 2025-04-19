@@ -4,9 +4,12 @@
  * @license MIT
  */
 
-import { autoReconnect, connectionLost } from './actions';
-import { connectionRestored } from './actions';
-import { roundRestarted } from './actions';
+import {
+  autoReconnect,
+  connectionLost,
+  connectionRestored,
+  roundRestarted,
+} from './actions';
 import { AUTO_RECONNECT_AFTER } from './constants';
 
 const initialState = {

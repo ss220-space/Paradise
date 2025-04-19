@@ -1,5 +1,3 @@
-import { toFixed } from 'common/math';
-import { capitalize } from 'common/string';
 import { useState } from 'react';
 import { useDispatch, useSelector } from 'tgui/backend';
 import {
@@ -7,18 +5,19 @@ import {
   Collapsible,
   Divider,
   Input,
-  Slider,
   LabeledList,
-  NumberInput,
   Section,
+  Slider,
   Stack,
 } from 'tgui/components';
+import { toFixed } from 'common/math';
+import { capitalize } from 'common/string';
 
 import { clearChat, saveChatToDisk } from '../chat/actions';
 import { THEMES } from '../themes';
 import { exportSettings, updateSettings } from './actions';
 import { FONTS } from './constants';
-import { setEditPaneSplitters } from './scaling';
+import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { selectSettings } from './selectors';
 import { importChatSettings } from './settingsImExport';
 
@@ -27,7 +26,8 @@ export const SettingsGeneral = (props) => {
     useSelector(selectSettings);
   const dispatch = useDispatch();
   const [freeFont, setFreeFont] = useState(false);
-  const [editingPanes, setEditingPanes] = useState<boolean>(false);
+
+  const [editingPanes, setEditingPanes] = useState(false);
 
   return (
     <Section>
@@ -51,20 +51,27 @@ export const SettingsGeneral = (props) => {
           ))}
         </LabeledList.Item>
         <LabeledList.Item label="UI sizes">
-          <Button
-            onClick={() =>
-              setEditingPanes(
-                ((val) => {
-                  setEditPaneSplitters(!val);
-                  return !val;
-                })(editingPanes)
-              )
-            }
-            color={editingPanes ? 'red' : undefined}
-            icon={editingPanes ? 'save' : undefined}
-          >
-            {editingPanes ? 'Save' : 'Adjust UI Sizes'}
-          </Button>
+          <Stack>
+            <Stack.Item>
+              <Button
+                onClick={() =>
+                  setEditingPanes((val) => {
+                    setEditPaneSplitters(!val);
+                    return !val;
+                  })
+                }
+                color={editingPanes ? 'red' : undefined}
+                icon={editingPanes ? 'save' : undefined}
+              >
+                {editingPanes ? 'Save' : 'Adjust UI Sizes'}
+              </Button>
+            </Stack.Item>
+            <Stack.Item>
+              <Button onClick={resetPaneSplitters} icon="refresh" color="red">
+                Reset
+              </Button>
+            </Stack.Item>
+          </Stack>
         </LabeledList.Item>
         <LabeledList.Item label="Font style">
           <Stack.Item>
@@ -135,7 +142,7 @@ export const SettingsGeneral = (props) => {
               <Slider
                 width="100%"
                 step={1}
-                stepPixelSize={17.5}
+                stepPixelSize={20}
                 minValue={8}
                 maxValue={32}
                 value={fontSize}
@@ -152,7 +159,6 @@ export const SettingsGeneral = (props) => {
           <Slider
             width="100%"
             step={0.01}
-            stepPixelSize={2}
             minValue={0.8}
             maxValue={5}
             value={lineHeight}

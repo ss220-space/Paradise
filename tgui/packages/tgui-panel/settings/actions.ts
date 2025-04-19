@@ -5,6 +5,7 @@
  */
 
 import { createAction } from 'common/redux';
+
 import { createHighlightSetting } from './model';
 
 export const updateSettings = createAction('settings/update');
@@ -24,7 +25,6 @@ export const removeHighlightSetting = createAction(
 export const updateHighlightSetting = createAction(
   'settings/updateHighlightSetting'
 );
-
 export const exportSettings = createAction('settings/export');
 export const importSettings = createAction(
   'settings/import',
