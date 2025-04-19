@@ -35,7 +35,7 @@
 	var/can_be_admin_equipped = TRUE // Set to FALSE if your outfit requires runtime parameters
 
 	var/calc_used_slots = FALSE
-	var/used_slots = 0
+	var/used_slots = NONE
 
 	//I'm sorry for the my cringe.
 	var/datum/component/component_to_add = null
