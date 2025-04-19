@@ -291,7 +291,8 @@
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
+#define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define is_simple_or_basic_mob(A)	(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))

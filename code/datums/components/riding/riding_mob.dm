@@ -282,7 +282,7 @@
 						span_warning("[AM] pushes you off of [AM.p_them()]!"))
 
 /datum/component/riding/creature/goliath
-	vehicle_move_delay = 3
+	vehicle_move_delay = 2
 	rider_traits = list(TRAIT_NO_FLOATING_ANIM, TRAIT_TENTACLE_IMMUNE)
 
 /datum/component/riding/creature/goliath/Initialize(mob/living/riding_mob, force, ride_check_flags, potion_boost = FALSE)
@@ -296,8 +296,8 @@
 	return ..()
 
 /datum/component/riding/creature/goliath/handle_specials()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 16), TEXT_SOUTH = list(0, 16), TEXT_EAST = list(0, 16), TEXT_WEST = list(0, 16)))
-	set_vehicle_dir_offsets(NORTH, MOB_BELOW_PIGGYBACK_LAYER)
-	set_vehicle_dir_offsets(SOUTH, MOB_ABOVE_PIGGYBACK_LAYER)
-	set_vehicle_dir_offsets(EAST, MOB_ABOVE_PIGGYBACK_LAYER)
-	set_vehicle_dir_offsets(WEST, MOB_ABOVE_PIGGYBACK_LAYER)
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(0, 11), TEXT_SOUTH = list(0, 11), TEXT_EAST = list(0, 11), TEXT_WEST = list(0, 11)))
+	set_vehicle_dir_layer(NORTH, ABOVE_MOB_LAYER)
+	set_vehicle_dir_layer(SOUTH, ABOVE_MOB_LAYER)
+	set_vehicle_dir_layer(EAST, ABOVE_MOB_LAYER)
+	set_vehicle_dir_layer(WEST, ABOVE_MOB_LAYER)

@@ -37,7 +37,7 @@
 	var/modified_tame_chance = current_tame_chance
 	modified_tame_chance += 10
 
-	source.balloon_alert(attacker, "ест с ваших рук!")
+	source.balloon_alert(attacker, "[source.declent_ru(NOMINATIVE)] ест с ваших рук!")
 	if(prob(modified_tame_chance)) //note: lack of feedback message is deliberate, keep them guessing unless they're an expert!
 		on_tame(source, attacker, food, inform_tamer)
 	else
@@ -58,7 +58,7 @@
 	if(isliving(parent) && isliving(tamer))
 		INVOKE_ASYNC(source, TYPE_PROC_REF(/mob/living, befriend), tamer)
 		if(inform_tamer)
-			source.balloon_alert(tamer, "приручено!")
+			source.balloon_alert(tamer, "[source.declent_ru(NOMINATIVE)] приручен!")
 	if(unique)
 		qdel(src)
 	else

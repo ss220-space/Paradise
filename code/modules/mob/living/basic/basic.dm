@@ -142,6 +142,11 @@
 	if(staminaloss > 0)
 		adjustStaminaLoss(-stamina_recovery * seconds_per_tick, FALSE, TRUE)
 
+/mob/living/basic/relaymove(mob/living/user, direction)
+	if(user.incapacitated())
+		return
+	return relaydrive(user, direction)
+
 /mob/living/basic/death(gibbed)
 	. = ..()
 	if(basic_mob_flags & DEL_ON_DEATH)

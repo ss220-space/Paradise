@@ -18,7 +18,7 @@
     heat_damage,
     show_alert
 )
-	if(!isanimal(parent))
+	if(!is_simple_or_basic_mob(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	if(!isnull(minbodytemp))
