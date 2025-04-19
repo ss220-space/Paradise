@@ -664,6 +664,7 @@
 	)
 	desc = "Дробовик из латуни, с самовосполняющимися за счет энергии Ратвара, патронами. От него исходит ритмичное тиканье."
 	icon = 'icons/obj/clockwork.dmi'
+
 	icon_state = "brassshotgun"
 	item_state = "brassshotgun"
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
@@ -794,6 +795,21 @@
 	heal_bullet = /obj/item/ammo_casing/energy/rat/snipe/heal
 	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
 
+
+/obj/item/gun/energy/clockwork/update_overlays()
+	if(enchant_type)
+		. += "brassshotgun_overlay_[enchant_type]"
+	else
+		. += null
+		return
+
+
+/obj/item/gun/energy/clockwork/Initialize(mapload, ...)
+	. = ..()
+	enchants = GLOB.gun_spells
+
+/obj/item/gun/energy/clockwork/update_icon_state()
+	return
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe

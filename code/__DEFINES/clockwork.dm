@@ -44,6 +44,7 @@
 #define EMP_GUN_SPELL 1
 #define GUN_HEAL_SPELL 2
 #define GUN_STUN_SPELL 3
+
 //heart
 #define EMP_HEART_PULSE 1
 #define HEAL_HEART_PULSE 2
@@ -103,6 +104,7 @@ GLOBAL_LIST_INIT(heart_pulses, list(
 	new /datum/spell_enchant("Healing Pulse", HEAL_HEART_PULSE, time = 1),
 	new /datum/spell_enchant("Stunning Pulse", STUN_HEART_PULSE, time = 1)
 ))
+
 
 /// Power gains permanent
 #define CLOCK_POWER_CONVERT 200

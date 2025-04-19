@@ -333,4 +333,3 @@
 	if(issilicon(target))
 		target.emp_act(EMP_HEAVY)
 	. = ..()
-
