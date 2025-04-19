@@ -52,6 +52,11 @@ multiple modular subtrees with behaviors
 	// The variables below are fucking stupid and should be put into the blackboard at some point.
 	/// AI paused time
 	var/paused_until = 0
+	/// TRUE if we're able to run, FALSE if we aren't
+	/// Should not be set manually, override get_able_to_run() instead
+	/// Make sure you hook update_able_to_run() in setup_able_to_run() to whatever parameters changing that you added
+	/// Otherwise we will not pay attention to them changing
+	var/able_to_run = FALSE
 	/// are we even able to plan?
 	var/able_to_plan = TRUE
 	/// are we currently on failed planning timeout?
@@ -114,6 +119,33 @@ multiple modular subtrees with behaviors
 		set_ai_status(AI_STATUS_ON)
 
 	RegisterSignal(pawn, COMSIG_MOB_LOGIN, PROC_REF(on_sentience_gained))
+	update_able_to_run()
+	setup_able_to_run()
+
+/datum/ai_controller/proc/update_able_to_run()
+	SIGNAL_HANDLER
+	var/run_flags = get_able_to_run()
+	if(run_flags & AI_UNABLE_TO_RUN)
+		able_to_run = FALSE
+		SSmove_manager.stop_looping(pawn) //stop moving
+	else
+		able_to_run = TRUE
+	set_ai_status(get_expected_ai_status(), run_flags)
+
+///Returns TRUE if the ai controller can actually run at the moment, FALSE otherwise
+/datum/ai_controller/proc/get_able_to_run()
+	if(HAS_TRAIT(pawn, TRAIT_AI_PAUSED))
+		return AI_UNABLE_TO_RUN
+	if(world.time < paused_until)
+		return AI_UNABLE_TO_RUN
+	return NONE
+
+/datum/ai_controller/proc/setup_able_to_run()
+	// paused_until is handled by PauseAi() manually
+	RegisterSignal(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)), PROC_REF(update_able_to_run))
+
+/datum/ai_controller/proc/clear_able_to_run()
+	UnregisterSignal(pawn, list(SIGNAL_ADDTRAIT(TRAIT_AI_PAUSED), SIGNAL_REMOVETRAIT(TRAIT_AI_PAUSED)))
 
 /// Abstract proc for initializing the pawn to the new controller
 /datum/ai_controller/proc/TryPossessPawn(atom/new_pawn)
@@ -124,6 +156,7 @@ multiple modular subtrees with behaviors
 	UnregisterSignal(pawn,  list(COMSIG_MOB_LOGIN, COMSIG_MOB_LOGOUT))
 	if(ai_movement.moving_controllers[src])
 		ai_movement.stop_moving_towards(src)
+	clear_able_to_run()
 	pawn.ai_controller = null
 	pawn = null
 	if(destroy)
@@ -286,7 +319,7 @@ multiple modular subtrees with behaviors
 	if(!pawn_turf)
 		CRASH("AI controller [src] controlling pawn ([pawn]) is not on a turf.")
 #endif
-	if(!length(SSmobs.clients_by_zlevel[pawn_turf.z]))
+	if(!length(SSmobs.clients_by_zlevel[pawn_turf.z]) || !able_to_run)
 		return AI_STATUS_OFF
 	return AI_STATUS_ON
 

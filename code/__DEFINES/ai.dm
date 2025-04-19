@@ -11,6 +11,11 @@
 ///The AI is currently in idle mode.
 #define AI_STATUS_IDLE "ai_idle"
 
+//Flags returned by get_able_to_run()
+///pauses AI processing
+#define AI_UNABLE_TO_RUN (1<<1)
+///bypass canceling our actions on set_ai_status()
+#define AI_PREVENT_CANCEL_ACTIONS (1<<2)
 
 ///Monkey checks
 #define SHOULD_RESIST(source) (source.on_fire || source.buckled || HAS_TRAIT(source, TRAIT_RESTRAINED) || (source.pulledby && source.pulledby.grab_state > GRAB_PASSIVE))
