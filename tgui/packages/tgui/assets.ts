@@ -1,6 +1,12 @@
-import { Action, AnyAction, Middleware } from '../common/redux';
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
 
 import { Dispatch } from 'common/redux';
+
+import { Action, AnyAction, Middleware } from '../common/redux';
 
 const EXCLUDED_PATTERNS = [/v4shim/i];
 const loadedMappings: Record<string, string> = {};

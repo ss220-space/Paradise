@@ -6,7 +6,7 @@
 
 import { storage } from 'common/storage';
 import { vecAdd, vecSubtract, vecMultiply, vecScale } from 'common/vector';
-import { createLogger } from './logging';
+import { createLogger } from 'common/logging';
 import { BooleanLike } from 'common/react';
 
 const logger = createLogger('drag');
@@ -225,7 +225,7 @@ export const dragStartHandler = (event) => {
   dragPointOffset = vecSubtract(
     [event.screenX * pixelRatio, event.screenY * pixelRatio],
     getWindowPosition()
-  );
+  ) as [number, number];
   (event.target as HTMLElement)?.focus();
   document.addEventListener('mousemove', dragMoveHandler);
   document.addEventListener('mouseup', dragEndHandler);
@@ -252,7 +252,7 @@ const dragMoveHandler = (event: MouseEvent) => {
     vecSubtract(
       [event.screenX * pixelRatio, event.screenY * pixelRatio],
       dragPointOffset
-    )
+    ) as [number, number]
   );
 };
 
@@ -265,7 +265,7 @@ export const resizeStartHandler =
     dragPointOffset = vecSubtract(
       [event.screenX, event.screenY],
       getWindowPosition()
-    );
+    ) as [number, number];
     initialSize = getWindowSize();
     // Focus click target
     (event.target as HTMLElement)?.focus();
@@ -285,6 +285,7 @@ const resizeEndHandler = (event: MouseEvent) => {
 };
 
 // Move the window while resizing
+// Move the window while resizing
 const resizeMoveHandler = (event: MouseEvent) => {
   if (!resizing) {
     return;
@@ -296,7 +297,10 @@ const resizeMoveHandler = (event: MouseEvent) => {
   );
   const delta = vecSubtract(currentOffset, dragPointOffset);
   // Extra 1x1 area is added to ensure the browser can see the cursor
-  size = vecAdd(initialSize, vecMultiply(resizeMatrix, delta), [1, 1]);
+  size = vecAdd(initialSize, vecMultiply(resizeMatrix, delta), [1, 1]) as [
+    number,
+    number,
+  ];
   // Sane window size values
   size[0] = Math.max(size[0], 150 * pixelRatio);
   size[1] = Math.max(size[1], 50 * pixelRatio);

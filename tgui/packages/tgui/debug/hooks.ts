@@ -7,4 +7,6 @@
 import { useSelector } from '../backend';
 import { selectDebug } from './selectors';
 
-export const useDebug = () => useSelector(selectDebug);
+export const useDebug = () => {
+  return useSelector(selectDebug);
+};

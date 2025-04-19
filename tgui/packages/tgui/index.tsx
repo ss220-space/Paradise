@@ -68,11 +68,15 @@ const setupApp = () => {
   Byond.subscribe((type, payload) => store.dispatch({ type, payload }));
 
   // Enable hot module reloading
-  if (module.hot) {
+  if (import.meta.webpackHot) {
     setupHotReloading();
-    module.hot.accept(['./debug', './layouts', './routes', './App'], () => {
-      render(<App />);
-    });
+    import.meta.webpackHot.accept(
+      ['./debug', './layouts', './routes', './App'],
+      () => {
+        render(<App />);
+      }
+    );
   }
 };
+
 setupApp();

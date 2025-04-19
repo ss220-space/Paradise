@@ -4,9 +4,16 @@
  * @license MIT
  */
 
+/**
+ * @file
+ * @copyright 2020 Aleksej Komarov
+ * @license MIT
+ */
+
+import { globalEvents } from 'common/events';
+import { acquireHotKey } from 'common/hotkeys';
 import { KEY_BACKSPACE, KEY_F10, KEY_F11, KEY_F12 } from 'common/keycodes';
-import { globalEvents } from '../events';
-import { acquireHotKey } from '../hotkeys';
+
 import {
   openExternalBrowser,
   toggleDebugLayout,
@@ -41,7 +48,7 @@ export const debugMiddleware = (store) => {
 };
 
 export const relayMiddleware = (store) => {
-  const devServer = require('tgui-dev-server/link/client.cjs');
+  const devServer = require('tgui-dev-server/link/client.mjs');
   const externalBrowser = location.search === '?external';
   if (externalBrowser) {
     devServer.subscribe((msg) => {
@@ -62,7 +69,7 @@ export const relayMiddleware = (store) => {
     });
   }
   return (next) => (action) => {
-    const { type, payload, relayed } = action;
+    const { type, relayed } = action;
     if (type === openExternalBrowser.type) {
       window.open(location.href + '?external', '_blank');
       return;

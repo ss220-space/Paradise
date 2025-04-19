@@ -1,7 +1,9 @@
 /**
  * Uses DOMPurify to purify/sanitise HTML.
  */
+
 import DOMPurify from 'dompurify';
+
 // Default values
 const defTag = [
   'b',
@@ -42,9 +44,13 @@ const defTag = [
   'u',
   'ul',
 ];
+
 // Advanced HTML tags that we can trust admins (but not players) with
 const advTag = ['img'];
-const defAttr = ['class', 'style'];
+
+// Background is here because it accepts image urls
+const defAttr = ['class', 'style', 'background'];
+
 /**
  * Feed it a string and it should spit out a sanitized version.
  *

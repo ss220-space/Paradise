@@ -13,18 +13,24 @@
 
 import { perf } from 'common/perf';
 import { createAction } from 'common/redux';
+import { BooleanLike } from 'common/react';
+
 import { setupDrag } from './drag';
 import { focusMap } from './focus';
 import { createLogger } from 'common/logging';
 import { resumeRenderer, suspendRenderer } from './renderer';
-import { BooleanLike } from 'common/react';
 
 const logger = createLogger('backend');
+
+export let globalStore;
+
+export const setGlobalStore = (store) => {
+  globalStore = store;
+};
 
 export const backendUpdate = createAction('backend/update');
 export const backendSetSharedState = createAction('backend/setSharedState');
 export const backendSuspendStart = createAction('backend/suspendStart');
-
 export const backendCreatePayloadQueue = createAction(
   'backend/createPayloadQueue'
 );
@@ -42,12 +48,6 @@ export const backendSuspendSuccess = () => ({
     timestamp: Date.now(),
   },
 });
-
-export let globalStore;
-
-export const setGlobalStore = (store) => {
-  globalStore = store;
-};
 
 const initialState = {
   config: {},
@@ -252,6 +252,7 @@ export const backendMiddleware = (store) => {
         Byond.winset(Byond.windowId, {
           'is-visible': true,
         });
+        Byond.sendMessage('visible');
         perf.mark('resume/finish');
         if (process.env.NODE_ENV !== 'production') {
           logger.log(
@@ -348,13 +349,14 @@ const chunkSplitter = {
  */
 export const sendAct = (action: string, payload: object = {}) => {
   // Validate that payload is an object
-  const isObject =
-    typeof payload === 'object' && payload !== null && !Array.isArray(payload);
+  // prettier-ignore
+  const isObject = typeof payload === 'object'
+    && payload !== null
+    && !Array.isArray(payload);
   if (!isObject) {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
   }
-
   if (!Byond.TRIDENT) {
     const stringifiedPayload = JSON.stringify(payload);
     const urlSize = Object.entries({
@@ -380,7 +382,6 @@ export const sendAct = (action: string, payload: object = {}) => {
       return;
     }
   }
-
   Byond.sendMessage('act/' + action, payload);
 };
 
@@ -388,8 +389,11 @@ type BackendState<TData> = {
   config: {
     title: string;
     status: number;
-    interface: string;
-    refreshing: boolean;
+    interface: {
+      name: string;
+      layout: string;
+    };
+    refreshing: BooleanLike;
     map: string;
     window: {
       key: string;
@@ -413,10 +417,6 @@ type BackendState<TData> = {
   outgoingPayloadQueues: Record<string, any[]>;
   suspending: boolean;
   suspended: boolean;
-  debug?: {
-    debugLayout: boolean;
-    kitchenSink: boolean;
-  };
 };
 
 /**
@@ -426,15 +426,13 @@ export const selectBackend = <TData>(state: any): BackendState<TData> =>
   state.backend || {};
 
 /**
- * A React hook (sort of) for getting tgui state and related functions.
+ * Get data from tgui backend.
  *
- * This is supposed to be replaced with a real React Hook, which can only
- * be used in functional components.
- *
- * You can make
+ * Includes the `act` function for performing DM actions.
  */
 export const useBackend = <TData>() => {
   const state: BackendState<TData> = globalStore?.getState()?.backend;
+
   return {
     ...state,
     act: sendAct,
@@ -455,6 +453,7 @@ type StateWithSetter<T> = [T, (nextState: T) => void];
  *
  * It is a lot more performant than `setSharedState`.
  *
+ * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  * @deprecated Use useState and useEffect when you can. Pass the state as a prop.
@@ -492,6 +491,7 @@ export const useLocalState = <T>(
  *
  * This makes creation of observable s
  *
+ * @param context React context.
  * @param key Key which uniquely identifies this state in Redux store.
  * @param initialState Initializes your global variable with this value.
  */

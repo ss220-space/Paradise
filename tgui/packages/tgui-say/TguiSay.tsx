@@ -2,8 +2,8 @@ import './styles/main.scss';
 
 import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
-import { isEscape, KEY } from 'tgui-core/keys';
-import { BooleanLike, classes } from 'tgui-core/react';
+import { isEscape, KEY } from 'common/keys';
+import { BooleanLike, classes } from 'common/react';
 import { Channel, ChannelIterator } from './ChannelIterator';
 import { ChatHistory } from './ChatHistory';
 import { LineLength, RADIO_PREFIXES, WindowSize } from './constants';

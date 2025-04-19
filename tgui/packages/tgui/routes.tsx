@@ -5,7 +5,8 @@
  */
 
 import { useBackend } from './backend';
-import { Icon, Section, Stack } from './components';
+import { useDebug } from './debug';
+import { LoadingScreen } from './interfaces/common/LoadingScreen';
 import { Window } from './layouts';
 
 const requireInterface = require.context('./interfaces');
@@ -42,14 +43,9 @@ const SuspendedWindow = () => {
 // Displays a loading screen with a spinning icon
 const RefreshingWindow = () => {
   return (
-    <Window height={130} title="Loading" width={150}>
+    <Window title="Loading">
       <Window.Content>
-        <Stack align="center" fill justify="center" vertical>
-          <Stack.Item>
-            <Icon color="blue" name="toolbox" spin size={4} />
-          </Stack.Item>
-          <Stack.Item>Please wait...</Stack.Item>
-        </Stack>
+        <LoadingScreen />
       </Window.Content>
     </Window>
   );
@@ -57,26 +53,31 @@ const RefreshingWindow = () => {
 
 // Get the component for the current route
 export const getRoutedComponent = () => {
-  const { suspended, config, debug } = useBackend();
+  const { suspended, config } = useBackend();
+  const { kitchenSink = false } = useDebug();
+
   if (suspended) {
     return SuspendedWindow;
   }
   if (config?.refreshing) {
     return RefreshingWindow;
   }
+
   if (process.env.NODE_ENV !== 'production') {
     // Show a kitchen sink
-    if (debug?.kitchenSink) {
+    if (kitchenSink) {
       return require('./debug').KitchenSink;
     }
   }
-  const name = config?.interface;
+
+  const name = config?.interface?.name;
   const interfacePathBuilders = [
     (name: string) => `./${name}.tsx`,
     (name: string) => `./${name}.jsx`,
     (name: string) => `./${name}/index.tsx`,
     (name: string) => `./${name}/index.jsx`,
   ];
+
   let esModule;
   while (!esModule && interfacePathBuilders.length > 0) {
     const interfacePathBuilder = interfacePathBuilders.shift()!;
@@ -89,12 +90,15 @@ export const getRoutedComponent = () => {
       }
     }
   }
+
   if (!esModule) {
     return routingError('notFound', name);
   }
+
   const Component = esModule[name];
   if (!Component) {
     return routingError('missingExport', name);
   }
+
   return Component;
 };

@@ -2776,13 +2776,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@swc/counter@npm:^0.1.3":
-  version: 0.1.3
-  resolution: "@swc/counter@npm:0.1.3"
-  checksum: 10/df8f9cfba9904d3d60f511664c70d23bb323b3a0803ec9890f60133954173047ba9bdeabce28cd70ba89ccd3fd6c71c7b0bd58be85f611e1ffbe5d5c18616598
-  languageName: node
-  linkType: hard
-
 "@tootallnate/once@npm:2":
   version: 2.0.0
   resolution: "@tootallnate/once@npm:2.0.0"
@@ -3820,13 +3813,13 @@ __metadata:
   linkType: hard
 
 "axios@npm:^1.7.2":
-  version: 1.7.5
-  resolution: "axios@npm:1.7.5"
+  version: 1.8.4
+  resolution: "axios@npm:1.8.4"
   dependencies:
     follow-redirects: "npm:^1.15.6"
     form-data: "npm:^4.0.0"
     proxy-from-env: "npm:^1.1.0"
-  checksum: 10/6cbcfe943a84089f420a900a3a3aeb54ee94dcc9c2b81b150434896357be5d1079eff0b1bbb628597371e79f896b1bc5776df04184756ba99656ff31df9a75bf
+  checksum: 10/a10f0dd836613924e48cf03dc2eff3fd21b14f764807aedaee4880a70c0f142aaebdb21da7ce27104d4c16ca00d0e452a20a20851f60e385a8d5bad1ae909d46
   languageName: node
   linkType: hard
 
@@ -9070,18 +9063,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"swc-loader@npm:^0.2.6":
-  version: 0.2.6
-  resolution: "swc-loader@npm:0.2.6"
-  dependencies:
-    "@swc/counter": "npm:^0.1.3"
-  peerDependencies:
-    "@swc/core": ^1.2.147
-    webpack: ">=2"
-  checksum: 10/fe90948c02a51bb8ffcff1ce3590e01dc12860b0bb7c9e22052b14fa846ed437781ae265614a5e14344bea22001108780f00a6e350e28c0b3499bc4cd11335fb
-  languageName: node
-  linkType: hard
-
 "symbol-tree@npm:^3.2.4":
   version: 3.2.4
   resolution: "symbol-tree@npm:3.2.4"
@@ -9308,7 +9289,6 @@ __metadata:
     sass: "npm:^1.80.6"
     sass-loader: "npm:^16.0.3"
     style-loader: "npm:^4.0.0"
-    swc-loader: "npm:^0.2.6"
     terser-webpack-plugin: "npm:^5.3.10"
     typescript: "npm:^5.6.3"
     webpack: "npm:^5.96.1"
