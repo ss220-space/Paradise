@@ -14,7 +14,7 @@
 $dragSize: 0.3rem;
 $borderSize: 0.2rem;
 
-.dragzone-horizontal {
+.old-dragzone-horizontal {
   cursor: all-scroll;
   border-left: $borderSize solid;
   border-right: $borderSize solid;
@@ -23,7 +23,7 @@ $borderSize: 0.2rem;
   height: $dragSize;
 }
 
-.dragzone-left {
+.old-dragzone-left {
   width: $dragSize * 3 !important;
   height: 150% !important;
   margin-top: -($borderSize * 2);
@@ -35,26 +35,26 @@ $borderSize: 0.2rem;
   background-repeat: no-repeat;
 }
 
-.dragzone-right {
+.old-dragzone-right {
   border-right: $borderSize solid;
 }
 
-.dragzone-vertical {
+.old-dragzone-vertical {
   cursor: all-scroll;
   color: transparent;
   height: 100%;
   width: $dragSize;
 }
 
-.dragzone-top {
+.old-dragzone-top {
   border-top: $borderSize solid;
 }
 
-.dragzone-bottom {
+.old-dragzone-bottom {
   border-bottom: $borderSize solid;
 }
 
 /** Lightmode static theme */
-.dragzone-lightMode {
+.old-dragzone-lightMode {
   border-color: colors.$lightBorder;
 }

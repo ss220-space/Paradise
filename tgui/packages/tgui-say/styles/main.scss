@@ -18,7 +18,7 @@
 @each $channel, $color in colors.$channel-map {
   $darkened: darken($color, 20%);
 
-  .button-#{$channel} {
+  .old-button-#{$channel} {
     border-color: darken($color, 10%);
     color: $color;
     -webkit-user-select: none;
@@ -29,15 +29,15 @@
     }
   }
 
-  .dragzone-#{$channel} {
+  .old-dragzone-#{$channel} {
     border-color: $darkened;
   }
 
-  .dragzone-left.dragzone-#{$channel} {
+  .old-dragzone-left.dragzone-#{$channel} {
     background-color: $darkened;
   }
 
-  .textarea-#{$channel} {
+  .old-textarea-#{$channel} {
     color: $color;
   }
 }

@@ -1,7 +1,7 @@
 @use 'sass:color';
 @use './colors.scss';
 
-.button {
+.old-button {
   cursor: alias;
   align-items: center;
   background-color: colors.$button;
@@ -22,12 +22,12 @@
 
 // Remove conditionals with 516
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
-  .button {
+  .old-button {
     outline: none;
   }
 }
 
-.button-lightMode {
+.old-button-lightMode {
   background-color: colors.$lightBorder;
   border: none;
   color: black;

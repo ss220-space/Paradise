@@ -1,11 +1,22 @@
-import './styles/main.scss';
-import { render } from 'react-dom';
+import { createRoot, Root } from 'react-dom/client';
 
-import { TguiSay } from './TguiSay';
+// TODO: remove this once we're on 516
+import { TguiSay } from './515/TguiSay';
+import { TguiSay as NewSay } from './516/TguiSay';
+
+let reactRoot: Root | null = null;
 
 document.onreadystatechange = function () {
   if (document.readyState !== 'complete') return;
 
-  const root = document.getElementById('react-root');
-  render(<TguiSay />, root);
+  if (!reactRoot) {
+    const root = document.getElementById('react-root');
+    reactRoot = createRoot(root!);
+  }
+
+  if (!Byond.TRIDENT) {
+    reactRoot.render(<NewSay />);
+  } else {
+    reactRoot.render(<TguiSay />);
+  }
 };

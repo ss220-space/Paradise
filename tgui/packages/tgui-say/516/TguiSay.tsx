@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike, classes } from 'common/react';
-import { Channel, ChannelIterator } from './ChannelIterator';
-import { ChatHistory } from './ChatHistory';
+import { Channel, ChannelIterator } from '../ChannelIterator';
+import { ChatHistory } from '../ChatHistory';
 import { LineLength, RADIO_PREFIXES, WindowSize } from './constants';
 import { getPrefix, windowClose, windowOpen, windowSet } from './helpers';
-import { byondMessages } from './timers';
+import { byondMessages } from '../timers';
 type ByondOpen = {
   channel: Channel;
 };
@@ -23,7 +23,7 @@ const ROWS: Record<keyof typeof WindowSize, number> = {
   Large: 3,
   Width: 1, // not used
 } as const;
-export function TguiSay() {
+export const TguiSay = () => {
   const innerRef = useRef<HTMLTextAreaElement>(null);
   const channelIterator = useRef(new ChannelIterator());
   const chatHistory = useRef(new ChatHistory());
@@ -42,7 +42,7 @@ export function TguiSay() {
 
   const position = useRef([window.screenX, window.screenY]);
   const isDragging = useRef(false);
-  function handleArrowKeys(direction: KEY.Up | KEY.Down): void {
+  const handleArrowKeys = (direction: KEY.Up | KEY.Down): void => {
     const chat = chatHistory.current;
     const iterator = channelIterator.current;
     if (direction === KEY.Up) {
@@ -64,8 +64,8 @@ export function TguiSay() {
       setButtonContent(newContent);
       setValue(nextMessage);
     }
-  }
-  function handleBackspaceDelete(): void {
+  };
+  const handleBackspaceDelete = (): void => {
     const chat = chatHistory.current;
     const iterator = channelIterator.current;
     // User is on a chat history message
@@ -77,9 +77,11 @@ export function TguiSay() {
       setCurrentPrefix(null);
       setButtonContent(iterator.current());
     }
-  }
+  };
 
-  function handleButtonClick(event: React.MouseEvent<HTMLButtonElement>): void {
+  const handleButtonClick = (
+    event: React.MouseEvent<HTMLButtonElement>
+  ): void => {
     isDragging.current = true;
 
     setTimeout(() => {
@@ -88,9 +90,9 @@ export function TguiSay() {
         dragStartHandler(event.nativeEvent);
       }
     }, 50);
-  }
+  };
   // Prevents the button from changing channels if it's dragged
-  function handleButtonRelease(): void {
+  const handleButtonRelease = (): void => {
     isDragging.current = false;
     const currentPosition = [window.screenX, window.screenY];
     if (JSON.stringify(position.current) !== JSON.stringify(currentPosition)) {
@@ -98,8 +100,8 @@ export function TguiSay() {
       return;
     }
     handleIncrementChannel();
-  }
-  function handleClose(): void {
+  };
+  const handleClose = (): void => {
     innerRef.current?.blur();
     windowClose(scale.current);
     setTimeout(() => {
@@ -107,8 +109,8 @@ export function TguiSay() {
       channelIterator.current.reset();
       unloadChat();
     }, 25);
-  }
-  function handleEnter(): void {
+  };
+  const handleEnter = (): void => {
     const iterator = channelIterator.current;
     const prefix = currentPrefix ?? '';
     if (value?.length && value.length < maxLength) {
@@ -119,8 +121,13 @@ export function TguiSay() {
       });
     }
     handleClose();
-  }
-  function handleForceSay(): void {
+  };
+  const unloadChat = (): void => {
+    setCurrentPrefix(null);
+    setButtonContent(channelIterator.current.current());
+    setValue('');
+  };
+  const handleForceSay = (): void => {
     const iterator = channelIterator.current;
     // Only force say if we're on a visible channel and have typed something
     if (!value || iterator.isVisible()) return;
@@ -128,16 +135,16 @@ export function TguiSay() {
     const grunt = iterator.isSay() ? prefix + value : value;
     messages.current.forceSayMsg(grunt, iterator.current());
     unloadChat();
-  }
-  function handleIncrementChannel(): void {
+  };
+  const handleIncrementChannel = (): void => {
     const iterator = channelIterator.current;
     iterator.next();
     setButtonContent(iterator.current());
     setCurrentPrefix(null);
     messages.current.channelIncrementMsg(iterator.isVisible());
-  }
+  };
 
-  function handleInput(event: React.FormEvent<HTMLTextAreaElement>): void {
+  const handleInput = (event: React.FormEvent<HTMLTextAreaElement>): void => {
     const iterator = channelIterator.current;
     let newValue = event.currentTarget.value;
 
@@ -157,11 +164,11 @@ export function TguiSay() {
       messages.current.typingMsg();
     }
     setValue(newValue);
-  }
+  };
 
-  function handleKeyDown(
+  const handleKeyDown = (
     event: React.KeyboardEvent<HTMLTextAreaElement>
-  ): void {
+  ): void => {
     if (event.getModifierState('AltGraph')) return;
 
     switch (event.key) {
@@ -186,10 +193,17 @@ export function TguiSay() {
         if (isEscape(event.key)) {
           handleClose();
         }
+        if (event.altKey && event.shiftKey) {
+          setTimeout(() => {
+            if (innerRef.current) {
+              innerRef.current.focus();
+            }
+          }, 10);
+        }
     }
-  }
+  };
 
-  function handleOpen(data: ByondOpen): void {
+  const handleOpen = (data: ByondOpen): void => {
     channelIterator.current.set(data.channel);
 
     setCurrentPrefix(null);
@@ -198,18 +212,13 @@ export function TguiSay() {
     windowOpen(channelIterator.current.current(), scale.current);
 
     innerRef.current?.focus();
-  }
+  };
 
-  function handleProps(data: ByondProps): void {
+  const handleProps = (data: ByondProps): void => {
     setMaxLength(data.maxLength);
     setLightMode(!!data.lightMode);
     scale.current = !!data.scale;
-  }
-  function unloadChat(): void {
-    setCurrentPrefix(null);
-    setButtonContent(channelIterator.current.current());
-    setValue('');
-  }
+  };
   /** Subscribe to Byond messages */
   useEffect(() => {
     Byond.subscribeTo('props', handleProps);
@@ -272,4 +281,4 @@ export function TguiSay() {
       </div>
     </>
   );
-}
+};
