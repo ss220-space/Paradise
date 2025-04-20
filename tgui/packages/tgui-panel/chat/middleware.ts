@@ -4,15 +4,17 @@
  * @license MIT
  */
 
-import DOMPurify from 'dompurify';
+import { Store } from 'common/redux';
 import { storage } from 'common/storage';
+import DOMPurify from 'dompurify';
+
 import {
-  loadSettings,
-  updateSettings,
   addHighlightSetting,
   importSettings,
+  loadSettings,
   removeHighlightSetting,
   updateHighlightSetting,
+  updateSettings,
 } from '../settings/actions';
 import { selectSettings } from '../settings/selectors';
 import {
@@ -24,10 +26,10 @@ import {
   moveChatPageLeft,
   moveChatPageRight,
   rebuildChat,
-  toggleAcceptedType,
-  updateMessageCount,
   removeChatPage,
   saveChatToDisk,
+  toggleAcceptedType,
+  updateMessageCount,
 } from './actions';
 import { roundRestarted } from '../game/actions';
 import { MAX_PERSISTED_MESSAGES, MESSAGE_SAVE_INTERVAL } from './constants';
@@ -36,13 +38,13 @@ import { chatRenderer } from './renderer';
 import { selectChat, selectCurrentChatPage } from './selectors';
 
 // List of blacklisted tags
-const blacklisted_tags = ['a', 'iframe', 'link', 'video'];
+const FORBID_TAGS = ['a', 'iframe', 'link', 'video'];
 
-const saveChatToStorage = async (store) => {
+const saveChatToStorage = async (store: Store) => {
   const state = selectChat(store.getState());
   const fromIndex = Math.max(
     0,
-    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES
+    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES,
   );
   const messages = chatRenderer.messages
     .slice(fromIndex)
@@ -51,7 +53,7 @@ const saveChatToStorage = async (store) => {
   storage.set('chat-messages', messages);
 };
 
-const loadChatFromStorage = async (store) => {
+const loadChatFromStorage = async (store: Store) => {
   const [state, messages] = await Promise.all([
     storage.get('chat-state'),
     storage.get('chat-messages'),
@@ -65,7 +67,7 @@ const loadChatFromStorage = async (store) => {
     for (let message of messages) {
       if (message.html) {
         message.html = DOMPurify.sanitize(message.html, {
-          FORBID_TAGS: blacklisted_tags,
+          FORBID_TAGS,
         });
       }
     }
@@ -82,11 +84,11 @@ const loadChatFromStorage = async (store) => {
   store.dispatch(loadChat(state));
 };
 
-export const chatMiddleware = (store) => {
+export const chatMiddleware = (store: Store) => {
   let initialized = false;
   let loaded = false;
-  const sequences = [];
-  const sequences_requested = [];
+  const sequences: number[] = [];
+  const sequences_requested: number[] = [];
   chatRenderer.events.on('batchProcessed', (countByType) => {
     // Use this flag to workaround unread messages caused by
     // loading them from storage. Side effect of that, is that
@@ -117,7 +119,7 @@ export const chatMiddleware = (store) => {
         return;
       }
 
-      const sequence = payload_obj.sequence;
+      const sequence: number = payload_obj.sequence;
       if (sequences.includes(sequence)) {
         return;
       }
@@ -138,7 +140,6 @@ export const chatMiddleware = (store) => {
             requesting < sequence;
             requesting++
           ) {
-            // requested_sequences.push(requesting); in origin, but that calls error
             sequences_requested.push(requesting);
             Byond.sendMessage('chat/resend', requesting);
           }
@@ -146,6 +147,7 @@ export const chatMiddleware = (store) => {
       }
 
       chatRenderer.processBatch([payload_obj.content]);
+      sequences.push(sequence);
       return;
     }
     if (type === loadChat.type) {
@@ -173,6 +175,7 @@ export const chatMiddleware = (store) => {
       chatRenderer.rebuildChat();
       return next(action);
     }
+
     if (
       type === updateSettings.type ||
       type === loadSettings.type ||
@@ -185,8 +188,9 @@ export const chatMiddleware = (store) => {
       const nextSettings = selectSettings(store.getState());
       chatRenderer.setHighlight(
         nextSettings.highlightSettings,
-        nextSettings.highlightSettingById
+        nextSettings.highlightSettingById,
       );
+
       return;
     }
     if (type === roundRestarted.type) {

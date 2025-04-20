@@ -10,15 +10,24 @@ import { shallowDiffers } from 'common/react';
 
 import { chatRenderer } from './renderer';
 
-export class ChatPanel extends Component {
+type Props = {
+  fontSize?: number;
+  lineHeight?: number;
+};
+
+type State = {
+  scrollTracking: boolean;
+};
+export class ChatPanel extends Component<Props, State> {
   ref: RefObject<HTMLDivElement>;
-  constructor(props) {
+  handleScrollTrackingChange: (v: boolean) => void;
+  constructor(props: Props) {
     super(props);
     this.ref = createRef();
     this.state = {
       scrollTracking: true,
     };
-    this.handleScrollTrackingChange = (value) =>
+    this.handleScrollTrackingChange = (value: boolean) =>
       this.setState({
         scrollTracking: value,
       });
@@ -30,7 +39,7 @@ export class ChatPanel extends Component {
       'scrollTrackingChanged',
       this.handleScrollTrackingChange
     );
-    this.componentDidUpdate(this.props);
+    this.componentDidUpdate();
   }
 
   componentWillUnmount() {
@@ -40,7 +49,7 @@ export class ChatPanel extends Component {
     );
   }
 
-  componentDidUpdate(prevProps) {
+  componentDidUpdate(prevProps?) {
     requestAnimationFrame(() => {
       chatRenderer.ensureScrollTracking();
     });

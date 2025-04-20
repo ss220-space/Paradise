@@ -4,21 +4,27 @@
  * @license MIT
  */
 
+type ParseParams = {
+  node: Node;
+  regex: RegExp;
+  createNode: (text: string) => Node;
+  captureAdjust?: (text: string) => string;
+};
+
 /**
  * Replaces text matching a regular expression with a custom node.
  */
-const regexParseNode = (params) => {
+const regexParseNode = (params: ParseParams): ReplaceResult => {
   const { node, regex, createNode, captureAdjust } = params;
   const text = node.textContent;
   const textLength = text.length;
-  let nodes;
-  let new_node;
-  let match;
+  let nodes: Node[];
+  let new_node: Node;
+  let match: RegExpExecArray;
   let lastIndex = 0;
-  let fragment;
+  let fragment: Node;
   let n = 0;
   let count = 0;
-
   while ((match = regex.exec(text))) {
     n += 1;
     // Safety check to prevent permanent
@@ -68,61 +74,68 @@ const regexParseNode = (params) => {
   };
 };
 
+type ReplaceResult = {
+  n?: number;
+  nodes?: Node[];
+};
+
 /**
  * Replace text of a node with custom nades if they match
  * a regex expression or are in a word list
  */
-export const replaceInTextNode = (regex, words, createNode) => (node) => {
-  let nodes;
-  let result;
-  let n = 0;
+export const replaceInTextNode =
+  (regex: RegExp, words: string[], createNode: (text: string) => Node) =>
+  (node: Node) => {
+    let nodes: Node[];
+    let result: ReplaceResult;
+    let n = 0;
 
-  if (regex) {
-    result = regexParseNode({
-      node: node,
-      regex: regex,
-      createNode: createNode,
-    });
-    nodes = result.nodes;
-    n += result.n;
-  }
-
-  if (words) {
-    let i = 0;
-    let wordRegexStr = '(';
-    for (let word of words) {
-      // Capture if the word is at the beginning, end, middle,
-      // or by itself in a message
-      wordRegexStr += `^${word}\\s\\W|\\s\\W${word}\\s\\W|\\s\\W${word}$|^${word}\\s\\W$`;
-      // Make sure the last character for the expression is NOT '|'
-      if (++i !== words.length) {
-        wordRegexStr += '|';
-      }
+    if (regex) {
+      result = regexParseNode({
+        node: node,
+        regex: regex,
+        createNode: createNode,
+      });
+      nodes = result.nodes;
+      n += result.n;
     }
-    wordRegexStr += ')';
-    const wordRegex = new RegExp(wordRegexStr, 'gi');
-    if (regex && nodes) {
-      for (let a_node of nodes) {
+
+    if (words) {
+      let i = 0;
+      let wordRegexStr = '(';
+      for (let word of words) {
+        // Capture if the word is at the beginning, end, middle,
+        // or by itself in a message
+        wordRegexStr += `^${word}\\s\\W|\\s\\W${word}\\s\\W|\\s\\W${word}$|^${word}\\s\\W$`;
+        // Make sure the last character for the expression is NOT '|'
+        if (++i !== words.length) {
+          wordRegexStr += '|';
+        }
+      }
+      wordRegexStr += ')';
+      const wordRegex = new RegExp(wordRegexStr, 'gi');
+      if (regex && nodes) {
+        for (let a_node of nodes) {
+          result = regexParseNode({
+            node: a_node,
+            regex: wordRegex,
+            createNode: createNode,
+            captureAdjust: (str: string) => str.replace(/^\W|\W$/g, ''),
+          });
+          n += result.n;
+        }
+      } else {
         result = regexParseNode({
-          node: a_node,
+          node: node,
           regex: wordRegex,
           createNode: createNode,
-          captureAdjust: (str) => str.replace(/^\W|\W$/g, ''),
+          captureAdjust: (str: string) => str.replace(/^\W|\W$/g, ''),
         });
         n += result.n;
       }
-    } else {
-      result = regexParseNode({
-        node: node,
-        regex: wordRegex,
-        createNode: createNode,
-        captureAdjust: (str) => str.replace(/^\W|\W$/g, ''),
-      });
-      n += result.n;
     }
-  }
-  return n;
-};
+    return n;
+  };
 
 // Highlight
 // --------------------------------------------------------
@@ -130,7 +143,7 @@ export const replaceInTextNode = (regex, words, createNode) => (node) => {
 /**
  * Default highlight node.
  */
-const createHighlightNode = (text) => {
+const createHighlightNode = (text: string) => {
   const node = document.createElement('span');
   node.setAttribute('style', 'background-color:#fd4;color:#000');
   node.textContent = text;
@@ -146,9 +159,9 @@ const createHighlightNode = (text) => {
  * @returns {number} Number of matches
  */
 export const highlightNode = (
-  node,
-  regex,
-  words,
+  node: Node,
+  regex: RegExp,
+  words: string[],
   createNode = createHighlightNode
 ) => {
   if (!createNode) {
@@ -171,8 +184,8 @@ export const highlightNode = (
 // Linkify
 // --------------------------------------------------------
 
-// prettier-ignore
-const URL_REGEX = /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;(){}]+/ig;
+const URL_REGEX =
+  /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&@#/%?=~_|$!:,.;(){}]+/gi;
 
 /**
  * Highlights the text in the node based on the provided regular expression.
@@ -180,7 +193,7 @@ const URL_REGEX = /(?:(?:https?:\/\/)|(?:www\.))(?:[^ ]*?\.[^ ]*?)+[-A-Za-z0-9+&
  * @param {Node} node Node which you want to process
  * @returns {number} Number of matches
  */
-export const linkifyNode = (node) => {
+export const linkifyNode = (node: Node) => {
   let n = 0;
   const childNodes = node.childNodes;
   for (let i = 0; i < childNodes.length; i++) {

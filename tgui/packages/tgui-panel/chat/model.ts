@@ -5,12 +5,15 @@
  */
 
 import { createUuid } from 'common/uuid';
-import { MESSAGE_TYPES, MESSAGE_TYPE_INTERNAL } from './constants';
+
+import { MESSAGE_TYPE_INTERNAL, MESSAGE_TYPES } from './constants';
+
+import { type Page, type PageChunk, type Message, type Payload } from './types';
 
 export const canPageAcceptType = (page, type) =>
   type.startsWith(MESSAGE_TYPE_INTERNAL) || page.acceptedTypes[type];
 
-export const createPage = (obj) => {
+export const createPage = (obj?: PageChunk): Page => {
   let acceptedTypes = {};
 
   for (let typeDef of MESSAGE_TYPES) {
@@ -18,9 +21,9 @@ export const createPage = (obj) => {
   }
 
   return {
-    name: 'New Tab',
-    id: createUuid(),
     isMain: false,
+    id: createUuid(),
+    name: 'New Tab',
     acceptedTypes: acceptedTypes,
     unreadCount: 0,
     hideUnreadCount: false,
@@ -35,18 +38,19 @@ export const createMainPage = () => {
     acceptedTypes[typeDef.type] = true;
   }
   return createPage({
-    name: 'Main',
     isMain: true,
+    name: 'Main',
     acceptedTypes,
   });
 };
 
-export const createMessage = (payload) => ({
+export const createMessage = (payload: Payload): Message => ({
   createdAt: Date.now(),
+  pruned: false,
   ...payload,
 });
 
-export const serializeMessage = (message) => ({
+export const serializeMessage = (message: Message): {} => ({
   type: message.type,
   text: message.text,
   html: message.html,
@@ -54,6 +58,6 @@ export const serializeMessage = (message) => ({
   createdAt: message.createdAt,
 });
 
-export const isSameMessage = (a, b) =>
+export const isSameMessage = (a: Message, b: Message) =>
   (typeof a.text === 'string' && a.text === b.text) ||
   (typeof a.html === 'string' && a.html === b.html);
