@@ -10,10 +10,7 @@
 	deep = so_deep
 	if(!isatom(parent) || isnull(linked_item))
 		return COMPONENT_INCOMPATIBLE
-	if(deep && isstorage(parent))
-		var/obj/item/storage/prom = parent
-		phantomification(prom.return_inv())
-	else if(deep)
+	if(deep)
 		var/atom/prom = parent
 		phantomification(prom.contents)
 
