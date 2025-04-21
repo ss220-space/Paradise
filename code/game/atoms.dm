@@ -1795,5 +1795,5 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		return
 
 	// Face directions on harm intent
-	if(user.face_mouse)
+	if(user.face_mouse && !user.incapacitated())
 		user.face_atom(src)
