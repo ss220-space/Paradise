@@ -83,12 +83,12 @@
 
 			apply_damage(stamina_damage, STAMINA)
 
-		var/strong_pulling = FALSE
-		var/speed_boost = 0
-		if((pulling) && (HAS_TRAIT(src, TRAIT_STRONG_PULLING)))
-			strong_pulling = TRUE
+		var/strong_arms = FALSE
+		var/speed_mod = 1
+		if((pulling || now_pushing) && (HAS_TRAIT(src, TRAIT_STRONG_PULLING)))
+			strong_arms = TRUE
 
-		if(strong_pulling)
+		if(strong_arms)
 			var/small_pulled = FALSE
 			// Handle pulling all non /obj/item stuff or tiny mobs
 			if(pulling && isliving(pulling))
@@ -96,13 +96,8 @@
 				if(!pulled_mob.mob_size) // small or bigger mobs
 					small_pulled = TRUE
 
-			var/mob/living/carbon/human = pulledby
 			if(pulling && !(small_pulled || isitem(pulling)))
-				speed_boost = 12
-
-			human.dna.species.speed_mod -= speed_boost
-
-
+				speed_mod = -0.5
 
 	if(!has_gravity())
 		return .

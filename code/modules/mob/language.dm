@@ -588,11 +588,6 @@
 
 	return FALSE
 
-/datum/language/wryn/get_random_name()
-	var/new_name = "[pick(list("Да", "Бо", "Ло", "Та", "Но", "Ту", "За", "Бе", "Хо", "Бо", "Ри", "На",))]"
-	new_name += "[pick(list("до", "ло", "но", "го", "ле", "зо", "то", "ре", "нар", "зар"))]"
-	return new_name
-
 /datum/language/xenocommon
 	name = "Ксеноморфский"
 	colour = "alien"
