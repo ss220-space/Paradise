@@ -503,7 +503,7 @@
 	var/datum/browser/browser = new(src, "redirect_[url]", null, 400, 400)
 	browser.set_window_options("border=0;titlebar=0;focus=1;can_close=0;can_resize=0;")
 	browser.set_content({"
-			<h1>Вы перенаправлены на сервер [url]. Нажмите на ссылку, если переход не произошел автоматически.</h1>
+			<h1>Вы перенаправлены на сервер [url].<br> Нажмите на ссылку, если переход не произошел автоматически.</h1>
             <a id='link' href='[url]' style='text-align: center; width=100%;' onclick='closeByond()' >
                 Ссылка
             </a>
