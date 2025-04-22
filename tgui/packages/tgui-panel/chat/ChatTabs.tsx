@@ -10,6 +10,7 @@ import { Box, Button, Flex, Tabs } from 'tgui/components';
 import { openChatSettings } from '../settings/actions';
 import { addChatPage, changeChatPage } from './actions';
 import { selectChatPages, selectCurrentChatPage } from './selectors';
+import { Page } from './types';
 
 const UnreadCountWidget = ({ value }) => (
   <Box
@@ -34,7 +35,7 @@ export const ChatTabs = (props) => {
     <Flex align="center">
       <Flex.Item>
         <Tabs textAlign="center">
-          {pages.map((page) => (
+          {pages.map((page: Page) => (
             <Tabs.Tab
               key={page.id}
               selected={page === currentPage}
