@@ -508,10 +508,10 @@
                 Ссылка
             </a>
 			<script type='text/javascript'>
-				document.getElementById("link").click();
 				function closeByond(){
 					window.location="byond://winset?command=.quit"
 				}
+				document.getElementById("link").click();
             </script>
             "})
 	browser.open(FALSE)
