@@ -291,8 +291,6 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_ADVANCED_CYBERIMPLANTS "advanced_cyberimplants"
 /// Any movement of non-item objects or mobs expends stamina (10 run, 5 walk)
 #define TRAIT_WEAK_PULLING "weak_pulling"
-/// Any movement of non-item objects or mobs are faster (-0.5 speed_mod)
-#define TRAIT_STRONG_PULLING "strong_arms"
 /// Makes species acid proof(not it's items), affects: acetic, sulfiric, fluorosulfuric acids
 #define TRAIT_ACID_PROTECTED "acid_protected"
 /// Species with no vocal cords can't speak without translator
