@@ -1,13 +1,16 @@
+import { ReactNode } from 'react';
 import { useBackend } from '../../backend';
-import { Box, Button, Dropdown, Stack, Input, Modal } from '../../components';
+import {
+  Box,
+  Button,
+  Dropdown,
+  Stack,
+  Input,
+  Modal,
+  Image,
+} from '../../components';
 
-type Data = {
-  modal: ModalType;
-};
-
-type ModalType = {
-  args: object;
-};
+import { type ModalProps } from '../../components/Modal';
 
 let bodyOverrides = {};
 
@@ -17,7 +20,7 @@ let bodyOverrides = {};
  * @param {object=} args The arguments to pass to the modal
  */
 export const modalOpen = (id: string, args: object) => {
-  const { act, data } = useBackend<Data>();
+  const { act, data } = useBackend<ModalData>();
   const newArgs = Object.assign(data.modal ? data.modal.args : {}, args || {});
 
   act('modal_open', {
@@ -32,12 +35,19 @@ export const modalOpen = (id: string, args: object) => {
  * @param {function} bodyOverride The override function that returns the
  *    modal contents
  */
-export const modalRegisterBodyOverride = (id, bodyOverride) => {
+export const modalRegisterBodyOverride = (
+  id: string,
+  bodyOverride: () => ReactNode
+) => {
   bodyOverrides[id] = bodyOverride;
 };
 
-export const modalAnswer = (id: string, answer: string, args: object) => {
-  const { act, data } = useBackend<Data>();
+export const modalAnswer = (
+  id: string,
+  answer: string | number,
+  args?: object
+) => {
+  const { act, data } = useBackend<ModalData>();
   if (!data.modal) {
     return;
   }
@@ -50,13 +60,27 @@ export const modalAnswer = (id: string, answer: string, args: object) => {
   });
 };
 
-export const modalClose = (id) => {
+export const modalClose = (id: string) => {
   const { act } = useBackend();
   act('modal_close', {
     id: id,
   });
 };
 
+type ModalData = {
+  modal: ModalType;
+};
+
+type ModalType = {
+  id: string;
+  text: string;
+  args: object;
+  type: string;
+  value: string | number;
+  choices?: object | [];
+  no_text?: string;
+  yes_text?: string;
+};
 /**
  * Displays a modal and its actions. Passed data must have a valid modal field
  *
@@ -71,10 +95,10 @@ export const modalClose = (id) => {
  * `message`, `input`, `choice`, `bento` and `boolean`.
  * Overriden by a body override registered to the identifier if applicable.
  * Defaults to `message` if not found
- * @param {object} props
+ * @param {ModalProps} props
  */
-export const ComplexModal = (props) => {
-  const { data } = useBackend();
+export const ComplexModal = (props: ModalProps) => {
+  const { data } = useBackend<ModalData>();
   if (!data.modal) {
     return;
   }
@@ -86,13 +110,13 @@ export const ComplexModal = (props) => {
     <Button
       className="Button--modal"
       icon="arrow-left"
-      onClick={() => modalClose()}
+      onClick={() => modalClose(id)}
     >
       Закрыть
     </Button>
   );
-  let modalBody;
-  let modalFooter;
+  let modalBody: ReactNode;
+  let modalFooter: ReactNode;
   let overflowY = 'auto';
 
   // Different contents depending on the type
@@ -107,7 +131,7 @@ export const ComplexModal = (props) => {
         placeholder="ENTER для подтверждения"
         width="100%"
         my="0.5rem"
-        autofocus
+        autoFocus
         onChange={(_e, val) => {
           curValue = val;
         }}
@@ -115,21 +139,19 @@ export const ComplexModal = (props) => {
     );
     modalFooter = (
       <Box mt="0.5rem">
-        <Button
-          icon="arrow-left"
-          content="Закрыть"
-          color="grey"
-          onClick={() => modalClose()}
-        ></Button>
+        <Button icon="arrow-left" color="grey" onClick={() => modalClose(id)}>
+          Закрыть
+        </Button>
         <Button
           icon="check"
-          content={'Подтвердить'}
           color="good"
-          float="right"
+          style={{ float: 'right' }}
           m="0"
           onClick={() => modalAnswer(id, curValue)}
-        ></Button>
-        <Box clear="both" />
+        >
+          Подтвердить
+        </Button>
+        <Box style={{ clear: 'both' }} />
       </Box>
     );
   } else if (type === 'choice') {
@@ -140,7 +162,7 @@ export const ComplexModal = (props) => {
     modalBody = (
       <Dropdown
         options={realChoices}
-        selected={data.modal.value}
+        selected={data.modal.value as string}
         width="100%"
         my="0.5rem"
         onSelected={(val) => modalAnswer(id, val)}
@@ -149,14 +171,14 @@ export const ComplexModal = (props) => {
     overflowY = 'initial';
   } else if (type === 'bento') {
     modalBody = (
-      <Stack spacingPrecise="1" wrap="wrap" my="0.5rem" maxHeight="1%">
-        {data.modal.choices.map((c, i) => (
-          <Stack.Item key={i} flex="1 1 auto">
+      <Stack wrap="wrap" my="0.5rem" maxHeight="1%">
+        {(data.modal.choices as []).map((c, i) => (
+          <Stack.Item key={i} style={{ flex: '1 1 auto' }}>
             <Button
-              selected={i + 1 === parseInt(data.modal.value, 10)}
+              selected={i + 1 === parseInt(data.modal.value as string, 10)}
               onClick={() => modalAnswer(id, i + 1)}
             >
-              <img src={c} />
+              <Image src={c} />
             </Button>
           </Stack.Item>
         ))}
@@ -167,21 +189,23 @@ export const ComplexModal = (props) => {
       <Box mt="0.5rem">
         <Button
           icon="times"
-          content={data.modal.no_text}
           color="bad"
-          float="left"
+          style={{ float: 'left' }}
           mb="0"
           onClick={() => modalAnswer(id, 0)}
-        ></Button>
+        >
+          {data.modal.no_text}
+        </Button>
         <Button
           icon="check"
-          content={data.modal.yes_text}
           color="good"
-          float="right"
+          style={{ float: 'right' }}
           m="0"
           onClick={() => modalAnswer(id, 1)}
-        ></Button>
-        <Box clear="both" />
+        >
+          {data.modal.yes_text}
+        </Button>
+        <Box style={{ clear: 'both' }} />
       </Box>
     );
   }

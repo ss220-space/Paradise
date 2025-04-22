@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { useState } from 'react';
+import { ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -24,8 +24,29 @@ const diffMap = {
     color: 'good',
   },
 };
+type Access = {
+  name: string;
+  desc: string;
+  accesses: Access[];
+  regid: number;
+  ref: number;
+};
 
-export const AccessList = (props) => {
+type Props = {
+  sectionButtons?: ReactNode[];
+  usedByRcd: boolean;
+  rcdButtons?: ReactNode[];
+  accesses: Access[];
+  selectedList: number[];
+  grantableList: number[];
+  grantAll: () => void;
+  denyAll: () => void;
+  accessMod: (n: number) => void;
+  grantDep: (n: number) => void;
+  denyDep: (n: number) => void;
+};
+
+export const AccessList = (props: Props) => {
   const {
     sectionButtons = null,
     usedByRcd,
@@ -45,11 +66,12 @@ export const AccessList = (props) => {
   const selectedAccess = accesses.find(
     (access) => access.name === selectedAccessName
   );
-  const selectedAccessEntries = sortBy((entry) => entry.desc)(
-    selectedAccess?.accesses || []
+  const selectedAccessEntries = sortBy<Access>(
+    selectedAccess?.accesses || [],
+    (entry) => entry.desc
   );
 
-  const checkAccessIcon = (accesses) => {
+  const checkAccessIcon = (accesses: Access[]) => {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {

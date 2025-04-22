@@ -20,7 +20,6 @@ export const InputButtons = (props: InputButtonsProps) => {
   const submitButton = (
     <Button
       color="good"
-      content="Принять"
       bold={!!large_buttons}
       fluid={!!large_buttons}
       onClick={() => act('submit', { entry: input })}
@@ -28,18 +27,21 @@ export const InputButtons = (props: InputButtonsProps) => {
       tooltip={large_buttons && message}
       disabled={disabled}
       width={!large_buttons && 6}
-    />
+    >
+      Принять
+    </Button>
   );
   const cancelButton = (
     <Button
       color="bad"
-      content="Отменить"
       bold={!!large_buttons}
       fluid={!!large_buttons}
       onClick={() => act('cancel')}
       textAlign="center"
       width={!large_buttons && 6}
-    />
+    >
+      Отменить
+    </Button>
   );
 
   return (

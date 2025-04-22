@@ -16,7 +16,7 @@ const HeadRoles = [
 ];
 
 // Head colour check. Abbreviated to save on 80 char
-const HCC = (role) => {
+const HCC = (role: string) => {
   // Return green if they are the head
   if (HeadRoles.indexOf(role) !== -1) {
     return 'green';
@@ -27,14 +27,21 @@ const HCC = (role) => {
 };
 
 // Head bold check. Abbreviated to save on 80 char
-const HBC = (role) => {
+const HBC = (role: string) => {
   // Return true if they are a head
   if (HeadRoles.indexOf(role) !== -1) {
     return true;
   }
 };
 
-const ManifestTable = (group) => {
+type Person = {
+  name: string;
+  rank: string;
+  real_rank: string;
+  active: string;
+};
+
+const ManifestTable = (group: Person[]) => {
   return (
     group.length > 0 && (
       <Table>
@@ -44,7 +51,7 @@ const ManifestTable = (group) => {
           <Table.Cell width="15%">Active</Table.Cell>
         </Table.Row>
 
-        {group.map((person) => (
+        {group.map((person: Person) => (
           <Table.Row
             color={HCC(person.real_rank)}
             key={person.name + person.rank}
@@ -58,6 +65,18 @@ const ManifestTable = (group) => {
       </Table>
     )
   );
+};
+
+type Manifest = {
+  heads: Person[];
+  pro: Person[];
+  sec: Person[];
+  eng: Person[];
+  med: Person[];
+  sci: Person[];
+  ser: Person[];
+  sup: Person[];
+  misc: Person[];
 };
 
 export const CrewManifest = (props) => {
@@ -90,7 +109,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(heads)}
       </Section>
@@ -103,7 +121,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(pro)}
       </Section>
@@ -116,7 +133,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(sec)}
       </Section>
@@ -129,7 +145,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(eng)}
       </Section>
@@ -142,7 +157,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(med)}
       </Section>
@@ -155,7 +169,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(sci)}
       </Section>
@@ -168,7 +181,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(ser)}
       </Section>
@@ -181,7 +193,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(sup)}
       </Section>
@@ -194,7 +205,6 @@ export const CrewManifest = (props) => {
             </Box>
           </Box>
         }
-        level={2}
       >
         {ManifestTable(misc)}
       </Section>
