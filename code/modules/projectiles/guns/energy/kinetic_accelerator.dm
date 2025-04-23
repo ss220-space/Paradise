@@ -55,9 +55,9 @@
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += span_notice("Осталось <b>[get_remaining_mod_capacity()]%</b> свободного хранилища для улучшений.")
+			. += span_notice("Свободно <b>[get_remaining_mod_capacity()]%</b> хранилища для улучшений.")
 			for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
-				. += span_notice("Установлен модуль '<b>[MK.name]</b>', занимающий <b>[MK.cost]%</b> хранилища.")
+				. += span_notice("Установлен модуль '<b>[MK.declent_ru(NOMINATIVE)]</b>', занимающий <b>[MK.cost]%</b> хранилища.")
 
 
 /obj/item/gun/energy/kinetic_accelerator/attackby(obj/item/I, mob/user, params)
@@ -226,16 +226,16 @@
 
 /obj/item/gun/energy/kinetic_accelerator/experimental
 	name = "experimental kinetic accelerator"
-	desc = "Модифицированная версия Кинетического Акселератора, оснащенная расширенным хранилищем для модулей и блестящим корпусом."
+	desc = "Модифицированная версия Кинетического Акселератора. Оснащена расширенным хранилищем для модулей и блестящим корпусом."
 	ru_names = list(
         NOMINATIVE = "экспериментальный кинетический акселератор",
         GENITIVE = "экпериментального кинетического акселератора",
         DATIVE = "экспериментальному кинетическому акселератору",
         ACCUSATIVE = "экспериментальный кинетический акселератор",
         INSTRUMENTAL = "экспериментальным кинетическим акселератором",
-        PREPOSITIONAL = "экспериментальном кинетическом акселераторее"
+        PREPOSITIONAL = "экспериментальном кинетическом акселераторе"
 	)
-	gender =
+	gender = MALE
 	icon_state = "kineticgun_h"
 	item_state = "kineticgun_h"
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
@@ -247,16 +247,16 @@
 	icon_state = "kineticgun_m"
 	item_state = "kineticgun_mega"
 	empty_state = "kineticgun_m_empty"
-	desc = "A self recharging, ranged mining tool that does increased damage in low pressure. This one has been enhanced with plasma magmite."
+	desc = "Самозарядное, дальнобойное устройство, наносящее повышенный урон при низком давлении. Магмитовые детали позволяют расширить хранилище модулей еще дальше."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "магмитовый кинетический акселератор",
+        GENITIVE = "магмитового кинетического акселератора",
+        DATIVE = "магмитовому кинетическому акселератору",
+        ACCUSATIVE = "магмитовый кинетический акселератор",
+        INSTRUMENTAL = "магмитовым кинетическим акселератором",
+        PREPOSITIONAL = "магмитовом кинетическом акселераторе"
 	)
-	gender =
+	gender = MALE
 	origin_tech = "combat=5;powerstorage=3;engineering=5"
 	max_mod_capacity = 200
 	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
@@ -354,7 +354,7 @@
 			M.projectile_strike(src, target_turf, target, kinetic_gun)
 	if(ismineralturf(target_turf))
 		if(isancientturf(target_turf))
-			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
+			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
 		else
 			var/turf/simulated/mineral/M = target_turf
 			M.attempt_drill(firer, FALSE, power)
@@ -367,7 +367,7 @@
  */
 /obj/item/borg/upgrade/modkit
 	name = "kinetic accelerator modification kit"
-	desc = "Улучшение для кинетических акселераторов."
+	desc = "Модуль улучшения. Устанавливается на кинетический акселератор."
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "modkit"
 	origin_tech = "programming=2;materials=2;magnets=4"
@@ -418,7 +418,7 @@
 	add_fingerprint(user)
 	KA.add_fingerprint(user)
 	if(!(compatibility & KA.compatibility))
-		to_chat(user, span_warning("Похоже, что этот модуль не подходит для таких ускорителей!"))
+		balloon_alert(user, "не подходит!")
 		return FALSE
 	. = TRUE
 	if(denied_type)
@@ -435,13 +435,13 @@
 				return FALSE
 			if(loc != KA)
 				forceMove(KA)
-			balloon_alert(user, "модификация установлена!")
+			balloon_alert(user, "модуль установлен")
 			playsound(loc, usesound, 100, TRUE)
 			LAZYADD(KA.modkits, src)
 		else
-			to_chat(user, span_notice("The modkit you're trying to install would conflict with an already installed modkit. Use a crowbar to remove existing modkits."))
+			balloon_alert(user, "модули противоречат!")
 	else
-		to_chat(user, span_notice("You don't have room(<b>[KA.get_remaining_mod_capacity()]%</b> remaining, [cost]% needed) to install this modkit. Use a crowbar to remove existing modkits."))
+		balloon_alert(user, "нет места!")
 		. = FALSE
 
 
@@ -464,7 +464,16 @@
 // Range
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
-	desc = "Increases the range of a kinetic accelerator when installed."
+	desc = "Increases the range of a kinetic accelerator when installed. "
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	modifier = 1
 	cost = 24 // So you can fit four plus a tracer cosmetic.
 
@@ -481,6 +490,15 @@
 /obj/item/borg/upgrade/modkit/damage
 	name = "damage increase"
 	desc = "Increases the damage of kinetic accelerator when installed."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	modifier = 10
 
 
@@ -535,6 +553,15 @@
 /obj/item/borg/upgrade/modkit/cooldown/repeater
 	name = "rapid repeater"
 	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown. Not rated for minebot use."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	modifier = -14 // Makes the cooldown 3 seconds (with no cooldown mods) if you miss. Don't miss.
 	cost = 50
@@ -606,18 +633,45 @@
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"
 	desc = "Causes the kinetic accelerator to destroy rock in an AoE."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	turf_aoe = TRUE
 
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "offensive mining explosion"
 	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	modifier = 0.25
 
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
 	name = "offensive explosion"
 	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	modifier = 0.2
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/borg
@@ -633,6 +687,15 @@
 /obj/item/borg/upgrade/modkit/minebot_passthrough
 	name = "minebot passthrough"
 	desc = "Causes kinetic accelerator shots to pass through minebots."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	cost = 0
 
 
@@ -640,6 +703,15 @@
 /obj/item/borg/upgrade/modkit/hardness
 	name = "hardness increase"
 	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
 	cost = 30
 
@@ -656,6 +728,15 @@
 /obj/item/borg/upgrade/modkit/resonator_blasts
 	name = "resonator blast"
 	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	cost = 30
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
@@ -677,6 +758,15 @@
 /obj/item/borg/upgrade/modkit/lifesteal
 	name = "lifesteal crystal"
 	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target. Only rated for humanoid use."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
 	cost = 20
@@ -697,6 +787,15 @@
 /obj/item/borg/upgrade/modkit/bounty
 	name = "death syphon"
 	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
 	cost = 30
@@ -742,7 +841,7 @@
 // Indoors
 /obj/item/borg/upgrade/modkit/indoors
 	name = "decrease pressure penalty"
-	desc = "Специальный модкит, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
+	desc = "Специальный модуль, который позволяет повысить урон, наносимый кинетическим акселератором в условиях повышенного давления."
 	ru_names = list(
 		NOMINATIVE = "уменьшение штрафа от давления",
 		GENITIVE = "уменьшения штрафа от давления",
@@ -785,6 +884,15 @@
 /obj/item/borg/upgrade/modkit/chassis_mod
 	name = "super chassis"
 	desc = "Makes your KA yellow. All the fun of having a more powerful KA without actually having a more powerful KA."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	/// This text replaces KA's `icon_state` after installation.
@@ -809,6 +917,15 @@
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
 	name = "hyper chassis"
 	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	chassis_icon = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 
@@ -816,6 +933,15 @@
 /obj/item/borg/upgrade/modkit/tracer
 	name = "white tracer bolts"
 	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/tracer
 	/// This color colors the projectiles after installation.
@@ -830,6 +956,15 @@
 /obj/item/borg/upgrade/modkit/tracer/adjustable
 	name = "adjustable tracer bolts"
 	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
