@@ -680,7 +680,6 @@
 #include "code\datums\elements\give_turf_traits.dm"
 #include "code\datums\elements\high_value_item.dm"
 #include "code\datums\elements\light_blocking.dm"
-#include "code\datums\elements\move_cooldown.dm"
 #include "code\datums\elements\movetype_handler.dm"
 #include "code\datums\elements\openspace_item_click_handler.dm"
 #include "code\datums\elements\pet_bonus.dm"
