@@ -129,6 +129,8 @@ GLOBAL_PROTECT(admin_ranks) // this shit is being protected for obvious reasons
 			var/rights = query.item[4]
 			if(istext(rights))	rights = text2num(rights)
 			var/datum/admins/D = new /datum/admins(rank, rights, ckey)
+			GLOB.de_admins -= ckey
+			GLOB.de_mentors -= ckey
 
 			if(D.rights & R_DEBUG || D.rights & R_VIEWRUNTIMES) // Grants profiler access to anyone with R_DEBUG or R_VIEWRUNTIMES
 				world.SetConfig("APP/admin", ckey, "role=admin")
