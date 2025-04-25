@@ -58,7 +58,7 @@
 	BS = possible_spells[entered_spell_name]
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
-	var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
+
 	if(!channeling)
 		channeling = TRUE
 		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
@@ -73,7 +73,7 @@
 				human_owner.cult_self_harm(3 - rune * 2)
 			else
 				human_owner.bleed(20 - rune * 12)
-
+		var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
 		spells += new_spell
 		new_spell.Grant(owner, src)
 		to_chat(owner, "<span class='cult'>Your wounds glow with power, you have prepared a [new_spell.name] invocation!</span>")
