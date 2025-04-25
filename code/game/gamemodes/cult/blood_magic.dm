@@ -59,8 +59,6 @@
 	if(QDELETED(src) || owner.incapacitated() || !BS || (rune && !(locate(/obj/effect/rune/empower) in range(1, owner))) || (length(spells) >= limit))
 		return
 	var/datum/action/innate/cult/blood_spell/new_spell = new BS(owner)
-	//И также перед каждым return удаление спелла. Мы его возвели потому что нам надо был прок проверки.
-	//Ничего страшного не будет от создания, пока мы не Грант юзеру.
 	if(!channeling)
 		channeling = TRUE
 		to_chat(owner, "<span class='cultitalic'>You begin to carve unnatural symbols into your flesh!</span>")
