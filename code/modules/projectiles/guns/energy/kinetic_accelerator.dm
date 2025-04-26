@@ -390,7 +390,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += span_notice("Занято <b>[cost]%</b> от общей ёмкости модулей.")
+		. += span_notice("Занимает <b>[cost]%</b> ёмкости модулей.")
 
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/I, mob/user, params)
@@ -464,16 +464,16 @@
 // Range
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
-	desc = "Increases the range of a kinetic accelerator when installed. "
+	desc = "Повышает дальность выстрелов Кинетического Акселератора при установке."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "повышение дальности",
+        GENITIVE = "повышения дальности",
+        DATIVE = "повышению дальности",
+        ACCUSATIVE = "повышение дальности",
+        INSTRUMENTAL = "повышением дальности",
+        PREPOSITIONAL = "повышении дальности"
 	)
-	gender = 
+	gender = NEUTER
 	modifier = 1
 	cost = 24 // So you can fit four plus a tracer cosmetic.
 
@@ -489,16 +489,16 @@
 // Damage
 /obj/item/borg/upgrade/modkit/damage
 	name = "damage increase"
-	desc = "Increases the damage of kinetic accelerator when installed."
+	desc = "Повышает урон выстрелов Кинетического Акселератора при установке."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "повышение урона",
+        GENITIVE = "повышения урона",
+        DATIVE = "повышению урона",
+        ACCUSATIVE = "повышение урона",
+        INSTRUMENTAL = "повышением урона",
+        PREPOSITIONAL = "повышении урона"
 	)
-	gender = 
+	gender = NEUTER
 	modifier = 10
 
 
@@ -507,7 +507,7 @@
 
 
 /obj/item/borg/upgrade/modkit/damage/borg
-	desc = "Increases the damage of kinetic accelerator when installed. Only rated for cyborg use."
+	desc = "Повышает урон выстрелов Кинетического Акселератора. Модифицирован для установки в качестве модуля улучшения киборга."
 	compatibility = COMPATIBILITY_CYBORG
 
 
@@ -531,6 +531,15 @@
 /obj/item/borg/upgrade/modkit/cooldown/haste
 	name = "cooldown decrease"
 	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/haste
 	modifier = 3.2
 
@@ -543,6 +552,15 @@
 /obj/item/borg/upgrade/modkit/cooldown/haste/minebot
 	name = "minebot cooldown decrease"
 	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for minebot use."
+	ru_names = list(
+        NOMINATIVE = "",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = NEUTER
 	icon_state = "door_electronics"
 	icon = 'icons/obj/module.dmi'
 	modifier = 10
@@ -561,7 +579,7 @@
         INSTRUMENTAL = "",
         PREPOSITIONAL = ""
 	)
-	gender = 
+	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
 	modifier = -14 // Makes the cooldown 3 seconds (with no cooldown mods) if you miss. Don't miss.
 	cost = 50
