@@ -8,14 +8,14 @@ export const THEMES = ['light', 'dark', 'ntos', 'syndicate', 'paradise'];
 const COLORS = {
   DARK: {
     BG_BASE: '#212020',
-    BG_SECOND: '#131313',
-    BUTTON: '#4C4C4D',
-    TEXT: '#A4BAD6',
+    BG_SECOND: '#161515',
+    BUTTON: '#414040',
+    TEXT: '#A6A6A6',
   },
   LIGHT: {
     BG_BASE: '#EFEEEE',
     BG_SECOND: '#FFFFFF',
-    BUTTON: '#EEEEEE',
+    BUTTON: '#FFFEFE',
     TEXT: '#000000',
   },
   NTOS: {
