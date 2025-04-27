@@ -535,6 +535,7 @@
 	caliber = "ratvar"
 	projectile_type = /obj/projectile/energy/rat
 	muzzle_flash_effect = /obj/effect/temp_visual/target_angled/muzzle_flash/energy
+	fire_sound = 'sound/weapons/gunshots/1shotgun.ogg'
 	leaves_residue = FALSE
 	e_cost = 150
 
@@ -546,6 +547,8 @@
 
 /obj/item/ammo_casing/energy/rat/slug/heal
 	projectile_type = /obj/projectile/energy/rat/slug/heal
+	fire_sound = 'sound/magic/staff_healing.ogg'
 
 /obj/item/ammo_casing/energy/rat/slug/stun
 	projectile_type = /obj/projectile/energy/rat/slug/stun
+	fire_sound =  'sound/weapons/gunshots/gunshot_mg.ogg'

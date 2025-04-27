@@ -221,7 +221,7 @@
 	icon_state = "brassslug"
 	damage = 25
 	armour_penetration = 50
-	hitsound = 'sound/weapons/tap.ogg'
+	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = BRUTE
 	flag = "bullet"
 	reflectability = REFLECTABILITY_PHYSICAL
@@ -229,14 +229,47 @@
 /obj/projectile/energy/rat/slug
 	name = "brass slug"
 
+/obj/projectile/energy/rat/slug/on_hit(atom/target, blocked, hit_zone)
+	if(!isclocker(target))
+		. = ..()
+	return
+
 /obj/projectile/energy/rat/slug/emp
 	name = "brass EMP slug"
 	icon_state = "brassslug_emp"
+	damage = 0
+
+/obj/projectile/energy/rat/slug/emp/on_hit(atom/target, blocked, hit_zone)
+	if(isclocker(target))
+		return
+	if(iscarbon(target))
+		empulse(target, 0, 1, TRUE, cause = "[type] fired by [key_name(firer)]")
+	if(ismecha(target) || issilicon(target))
+		empulse(target, 1, 0, TRUE, cause = "[type] fired by [key_name(firer)]")
+	. = ..()
 
 /obj/projectile/energy/rat/slug/heal
 	name = "brass heal slug"
 	icon_state = "brassslug_heal"
+	damage = 0
+
+/obj/projectile/energy/rat/slug/heal/on_hit(mob/living/target, blocked, hit_zone)
+	if(isclocker(target))
+		target.heal_overall_damage(25, 25, TRUE)
+		. = ..()
+	return
 
 /obj/projectile/energy/rat/slug/stun
 	name = "brass stun slug"
 	icon_state = "brassslug_stun"
+	damage = 0
+
+/obj/projectile/energy/rat/slug/stun/on_hit(mob/living/target, blocked, hit_zone)
+	if(isclocker(target))
+		return
+	if(iscarbon(target))
+		target.Weaken(15 SECONDS)
+	if(issilicon(target))
+		empulse(target, 1, 0, TRUE, cause = "[type] fired by [key_name(firer)]")
+	. = ..()
+

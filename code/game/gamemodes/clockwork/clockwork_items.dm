@@ -664,10 +664,28 @@
 	)
 	desc = "Дробовик из латуни с самовосполняющимися за счет энергии Ратвара патронами. От него исходит ритмичное тиканье."
 	icon = 'icons/obj/clockwork.dmi'
-
 	icon_state = "brassshotgun"
+	item_state = "brassshotgun"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	can_add_sibyl_system = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	can_charge = FALSE
+	var/charge_rate = 4
+	var/charge_speed = 5
+
+/obj/item/gun/energy/clockwork/examine(mob/user)
+	. = ..()
+	if(isclocker(user))
+		.+= span_clockitalic("Осталось [cell.charge / 150] заряд[declension_ru(cell.charge/150, "", "а", "ов")].")
+
+/obj/item/gun/energy/clockwork/proc/charge()
+	if(cell.charge != cell.maxcharge)
+		cell.charge += 150*charge_rate
+
+/obj/item/gun/energy/clockwork/Initialize(mapload)
+	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed)
+	. = ..()
 
 /obj/item/gun/energy/clockwork/update_overlays()
 	if(enchant_type)
@@ -676,6 +694,19 @@
 		. += null
 		return
 
+/obj/item/gun/energy/clockwork/add_enchant()
+	switch(enchant_type)
+		if(EMP_GUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/emp)
+		if(GUN_HEAL_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/heal)
+		if(GUN_STUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/stun)
+		else ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	update_ammo_types()
+	if(chambered)
+		if(chambered.BB)
+			qdel(chambered.BB)
+			chambered.BB = null
+		chambered = null
+	newshot()
 
 /obj/item/gun/energy/clockwork/Initialize(mapload, ...)
 	. = ..()
@@ -683,6 +714,32 @@
 
 /obj/item/gun/energy/clockwork/update_icon_state()
 	return
+
+/obj/item/gun/energy/clockwork/emp_act(severity)
+	return
+
+/obj/item/gun/energy/clockwork/process_fire(atom/target, mob/living/carbon/human/user, message, params, zone_override, bonus_spread)
+	if(!isclocker(user))
+		var/zone = BODY_ZONE_HEAD
+		if(!(user.get_organ(zone)))
+			zone = BODY_ZONE_CHEST
+		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
+		user.visible_message(span_danger("[src] начинает ярко светится!"))
+		to_chat(user, span_clocklarge("Как ты посмел!"))
+		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
+		user.bleed(BLOOD_VOLUME_NORMAL)
+		user.death()
+	. = ..()
+	if(enchant_type)
+		deplete_spell()
+		ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+		update_ammo_types()
+		if(chambered)
+			if(chambered.BB)
+				qdel(chambered.BB)
+				chambered.BB = null
+			chambered = null
+		newshot()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe

@@ -130,6 +130,7 @@
 				E.owner = owner
 				owner.actions += E
 				owner.update_action_buttons(TRUE)
+			item.add_enchant()
 			item.update_icon()
 			to_chat(owner, "<span class='clock'>You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!</span>")
 
