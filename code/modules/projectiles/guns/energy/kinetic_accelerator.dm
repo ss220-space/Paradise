@@ -507,7 +507,7 @@
 
 
 /obj/item/borg/upgrade/modkit/damage/borg
-	desc = "Повышает урон выстрелов Кинетического Акселератора. Модифицирован для установки в качестве модуля улучшения киборга."
+	desc = "Повышает урон выстрелов Кинетического Акселератора. Предназначен только для использования киборгами."
 	compatibility = COMPATIBILITY_CYBORG
 
 
@@ -530,14 +530,14 @@
 
 /obj/item/borg/upgrade/modkit/cooldown/haste
 	name = "cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator. Not rated for minebot use."
+	desc = "Ускоряет перезарядку Кинетического Акселератора. Не предназначен для использования шахтоботами."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "ускорение перезарядки",
+        GENITIVE = "ускорения перезарядки",
+        DATIVE = "ускорению перезарядки",
+        ACCUSATIVE = "ускорение перезарядки",
+        INSTRUMENTAL = "ускорением перезарядки",
+        PREPOSITIONAL = "ускорении перезарядки"
 	)
 	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/haste
@@ -545,20 +545,20 @@
 
 
 /obj/item/borg/upgrade/modkit/cooldown/haste/borg
-	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for cyborg use."
+	desc = "Ускоряет перезарядку Кинетического Акселератора. Предназначен только для использования киборгами."
 	compatibility = COMPATIBILITY_CYBORG
 
 
 /obj/item/borg/upgrade/modkit/cooldown/haste/minebot
 	name = "minebot cooldown decrease"
-	desc = "Decreases the cooldown of a kinetic accelerator. Only rated for minebot use."
+	desc = "Ускоряет перезарядку Кинетического Акселератора. Предназначен только для использования шахтоботами."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "ускорение перезарядки шахтобота",
+        GENITIVE = "ускорения перезарядки шахтобота",
+        DATIVE = "ускорению перезарядки шахтобота",
+        ACCUSATIVE = "ускорение перезарядки шахтобота",
+        INSTRUMENTAL = "ускорением перезарядки шахтобота",
+        PREPOSITIONAL = "ускорении перезарядки шахтобота"
 	)
 	gender = NEUTER
 	icon_state = "door_electronics"
@@ -570,10 +570,10 @@
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater
 	name = "rapid repeater"
-	desc = "Quarters the kinetic accelerator's cooldown on striking a living target, but greatly increases the base cooldown. Not rated for minebot use."
+	desc = "Ускоряет перезарядку Акселератора в 4 раза при попадании в живую цель или породу, но продлевает её при промахе."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
+        NOMINATIVE = "ускоренный повторитель",
+        GENITIVE = "ускоренного повторителя",
         DATIVE = "",
         ACCUSATIVE = "",
         INSTRUMENTAL = "",
