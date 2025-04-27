@@ -808,6 +808,8 @@
 		if(GUN_STUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/stun)
 		else ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	update_ammo_types()
+	if(enchant_type)
+		pb_knockback = 0
 	if(chambered)
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -815,7 +817,7 @@
 		chambered = null
 	newshot()
 
-/obj/item/gun/energy/clockwork/Initialize(mapload, ...)
+/obj/item/gun/energy/clockwork/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.gun_spells
 
@@ -832,13 +834,17 @@
 			zone = BODY_ZONE_CHEST
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 		user.visible_message(span_danger("[src] начинает ярко светится!"))
-		to_chat(user, span_clocklarge("Как ты посмел!"))
+		if(iscultist(user))
+			to_chat(user, span_clocklarge("Получи, грязный еретик!"))
+		else
+			to_chat(user, span_clocklarge("Руки прочь!"))
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death()
 	. = ..()
 	if(enchant_type)
 		deplete_spell()
+		pb_knockback = 2
 		ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 		update_ammo_types()
 		if(chambered)
