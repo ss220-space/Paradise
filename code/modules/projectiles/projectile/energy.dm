@@ -259,18 +259,18 @@
 /obj/projectile/energy/rat/slug/heal
 	name = "brass heal slug"
 	icon_state = "brassslug_heal"
-	damage = 25
+	damage = 0
 
 /obj/projectile/energy/rat/slug/heal/on_hit(mob/living/target, blocked, hit_zone)
-	damage = 25
 	if(isclocker(target))
 		target.heal_overall_damage(25, 25, TRUE)
-	. = ..()
+		. = ..()
 	return
 
 /obj/projectile/energy/rat/slug/stun
 	name = "brass stun slug"
 	icon_state = "brassslug_stun"
+	damage = 0
 
 /obj/projectile/energy/rat/slug/stun/on_hit(mob/living/target, blocked, hit_zone)
 	if(isclocker(target))
