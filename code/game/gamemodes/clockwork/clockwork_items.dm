@@ -678,6 +678,7 @@
 /obj/item/gun/energy/clockwork/examine(mob/user)
 	. = ..()
 	if(isclocker(user))
+		.+=""
 		.+= span_clockitalic("Осталось [cell.charge / 150] заряд[declension_ru(cell.charge/150, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
@@ -692,11 +693,9 @@
 
 /obj/item/gun/energy/clockwork/update_overlays()
 	if(enchant_type)
-		. += ""
 		. += "brassshotgun_overlay_[enchant_type]"
-	else
-		. += null
 		return
+	. = ..()
 
 /obj/item/gun/energy/clockwork/add_enchant()
 	switch(enchant_type)
