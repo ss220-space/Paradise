@@ -671,8 +671,9 @@
 	can_add_sibyl_system = FALSE
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	can_charge = FALSE
+	pb_knockback = 2
 	var/charge_rate = 4
-	var/charge_speed = 5
+	var/charge_speed = 5 SECONDS
 
 /obj/item/gun/energy/clockwork/examine(mob/user)
 	. = ..()
@@ -680,15 +681,18 @@
 		.+= span_clockitalic("Осталось [cell.charge / 150] заряд[declension_ru(cell.charge/150, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
-	if(cell.charge != cell.maxcharge)
+	if(cell.charge < cell.maxcharge)
 		cell.charge += 150*charge_rate
+		if(cell.charge > cell.maxcharge)
+			cell.charge = cell.maxcharge
 
 /obj/item/gun/energy/clockwork/Initialize(mapload)
-	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed)
+	addtimer(CALLBACK(src, PROC_REF(charge)), charge_speed, TIMER_LOOP | TIMER_DELETE_ME)
 	. = ..()
 
 /obj/item/gun/energy/clockwork/update_overlays()
 	if(enchant_type)
+		. += ""
 		. += "brassshotgun_overlay_[enchant_type]"
 	else
 		. += null
@@ -701,6 +705,8 @@
 		if(GUN_STUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/stun)
 		else ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	update_ammo_types()
+	if(enchant_type)
+		pb_knockback = 0
 	if(chambered)
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -708,7 +714,7 @@
 		chambered = null
 	newshot()
 
-/obj/item/gun/energy/clockwork/Initialize(mapload, ...)
+/obj/item/gun/energy/clockwork/Initialize(mapload)
 	. = ..()
 	enchants = GLOB.gun_spells
 
@@ -725,13 +731,17 @@
 			zone = BODY_ZONE_CHEST
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 		user.visible_message(span_danger("[src] начинает ярко светится!"))
-		to_chat(user, span_clocklarge("Как ты посмел!"))
+		if(iscultist(user))
+			to_chat(user, span_clocklarge("Получи, грязный еретик!"))
+		else
+			to_chat(user, span_clocklarge("Руки прочь!"))
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death()
 	. = ..()
 	if(enchant_type)
 		deplete_spell()
+		pb_knockback = 2
 		ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 		update_ammo_types()
 		if(chambered)
