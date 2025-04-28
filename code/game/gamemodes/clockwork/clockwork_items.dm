@@ -807,8 +807,10 @@
 		if(GUN_STUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/stun)
 		else ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	update_ammo_types()
-	if(enchant_type)
+	if(enchant_type || haveKnockback)
 		pb_knockback = 0
+	if(!enchant_type || haveKnockback)
+		pb_knockback = defaultpb_knockback
 	if(chambered)
 		if(chambered.BB)
 			qdel(chambered.BB)
@@ -852,6 +854,30 @@
 				chambered.BB = null
 			chambered = null
 		newshot()
+
+/obj/item/gun/energy/clockwork/sniper
+	name = "Clockwork sniper rifle"
+	ru_names = list(
+		NOMINATIVE = "Латунная снайперская винтовка",
+		GENITIVE = "латунной снайперской винтовки",
+		DATIVE = "латунной снайперской винтовке",
+		ACCUSATIVE = "латунную снайперскую винтовку",
+		INSTRUMENTAL = "латунной снайперской винтовкой",
+		PREPOSITIONAL = "латунной снайперской винтовке",
+	)
+	desc = "Снайперская винтовка из латуни, с самовосполняющимися за счет энергии Ратвара, патронами. От него исходит ритмичное тиканье."
+	icon = 'icons/obj/clockwork.dmi'
+	icon_state = "brasssniper"
+	item_state = "brasssniper"
+	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
+	can_add_sibyl_system = FALSE
+	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	can_charge = FALSE
+	zoomable = TRUE
+	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
+	charge_rate = 1
+	charge_speed = 10 SECONDS
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
