@@ -80,7 +80,7 @@
 
 	if(alife_count >= targets_need)
 		completed = TRUE
-		spider_team.other_target?.check_completion()
+		spider_team.other_target?.check_completion(spider_team)
 		return TRUE
 	return .
 
@@ -99,7 +99,7 @@
 
 	if(spider_team?.terror_infections.len >= targets_need)
 		completed = TRUE
-		spider_team?.other_target?.check_completion()
+		spider_team?.other_target?.check_completion(spider_team)
 		return TRUE
 	return .
 
@@ -119,6 +119,6 @@
 
 	if(human_count >= targets_need)
 		completed = TRUE
-		spider_team?.other_target?.check_completion()
+		spider_team?.other_target?.check_completion(spider_team)
 		return TRUE
 	return .
