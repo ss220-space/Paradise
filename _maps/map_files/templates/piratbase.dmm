@@ -11400,7 +11400,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/structure/chair/wheelchair,
+/obj/vehicle/ridden/wheelchair,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "Hs" = (

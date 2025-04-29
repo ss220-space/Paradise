@@ -20406,7 +20406,7 @@
 	},
 /area/space)
 "rDd" = (
-/obj/structure/chair/wheelchair,
+/obj/vehicle/ridden/wheelchair,
 /turf/simulated/floor/plating,
 /area/syndicate/unpowered/syndicate_space_base/maintenance/east)
 "rEz" = (

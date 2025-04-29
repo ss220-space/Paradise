@@ -523,7 +523,7 @@ SUBSYSTEM_DEF(jobs)
 		if(turf_spawn)
 			H.forceMove(turf_spawn)
 			// Moving wheelchair if they have one
-			if(H.buckled && istype(H.buckled, /obj/structure/chair/wheelchair))
+			if(H.buckled && istype(H.buckled, /obj/vehicle/ridden/wheelchair))
 				H.buckled.forceMove(H.loc)
 				H.buckled.dir = H.dir
 
@@ -549,7 +549,7 @@ SUBSYSTEM_DEF(jobs)
 			var/obj/item/organ/external/l_foot = H.get_organ(BODY_ZONE_PRECISE_L_FOOT)
 			var/obj/item/organ/external/r_foot = H.get_organ(BODY_ZONE_PRECISE_R_FOOT)
 			if(!l_foot && !r_foot || (H.client.prefs.disabilities & DISABILITY_FLAG_PARAPLEGIA) && !(H.dna.species.blacklisted_disabilities & DISABILITY_FLAG_PARAPLEGIA))
-				var/obj/structure/chair/wheelchair/W = new /obj/structure/chair/wheelchair(H.loc)
+				var/obj/vehicle/ridden/wheelchair/W = new /obj/vehicle/ridden/wheelchair(H.loc)
 				W.buckle_mob(H, TRUE)
 	return H
 
