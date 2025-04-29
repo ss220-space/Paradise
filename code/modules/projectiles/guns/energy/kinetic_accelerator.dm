@@ -572,12 +572,12 @@
 	name = "rapid repeater"
 	desc = "Ускоряет перезарядку Акселератора в 4 раза при попадании в живую цель или породу, но продлевает её при промахе."
 	ru_names = list(
-        NOMINATIVE = "ускоренный повторитель",
-        GENITIVE = "ускоренного повторителя",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "скорострельный повторитель",
+        GENITIVE = "скорострельного повторителя",
+        DATIVE = "скорострельному повторителю",
+        ACCUSATIVE = "скорострельный повторитель",
+        INSTRUMENTAL = "скорострельным повторителем",
+        PREPOSITIONAL = "скорострельном повторителе"
 	)
 	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
