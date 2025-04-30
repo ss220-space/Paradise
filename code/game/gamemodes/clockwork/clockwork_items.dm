@@ -887,11 +887,6 @@
 	heal_bullet = /obj/item/ammo_casing/energy/rat/snipe/heal
 	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
 
-/obj/item/gun/energy/clockwork/update_overlays()
-	if(enchant_type)
-		. += "brasssniper_overlay_[enchant_type]"
-		return
-	. = ..()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
