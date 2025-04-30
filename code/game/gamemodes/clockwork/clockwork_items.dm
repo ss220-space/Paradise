@@ -675,20 +675,25 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
 	can_charge = FALSE
 	pb_knockback = 2
+	cell_type = /obj/item/stock_parts/cell/rat_shotgun
 	var/charge_rate = 4
 	var/charge_speed = 5 SECONDS
 	var/haveKnockback = TRUE
 	var/defaultpb_knockback = 2
+	var/def_bullet = /obj/item/ammo_casing/energy/rat/slug
+	var/emp_bullet = /obj/item/ammo_casing/energy/rat/slug/emp
+	var/heal_bullet = /obj/item/ammo_casing/energy/rat/slug/heal
+	var/stun_bullet = /obj/item/ammo_casing/energy/rat/slug/stun
 
 /obj/item/gun/energy/clockwork/examine(mob/user)
 	. = ..()
 	if(isclocker(user))
 		.+=""
-		.+= span_clockitalic("Осталось [cell.charge / 150] заряд[declension_ru(cell.charge/150, "", "а", "ов")].")
+		.+= span_clockitalic("Осталось [cell.charge] заряд[declension_ru(cell.charge, "", "а", "ов")].")
 
 /obj/item/gun/energy/clockwork/proc/charge()
 	if(cell.charge < cell.maxcharge)
-		cell.charge += 150*charge_rate
+		cell.charge += 1*charge_rate
 		if(cell.charge > cell.maxcharge)
 			cell.charge = cell.maxcharge
 
@@ -704,14 +709,14 @@
 
 /obj/item/gun/energy/clockwork/add_enchant()
 	switch(enchant_type)
-		if(EMP_GUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/emp)
-		if(GUN_HEAL_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/heal)
-		if(GUN_STUN_SPELL) ammo_type = list(/obj/item/ammo_casing/energy/rat/slug/stun)
-		else ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+		if(EMP_GUN_SPELL) ammo_type = list(emp_bullet)
+		if(GUN_HEAL_SPELL) ammo_type = list(heal_bullet)
+		if(GUN_STUN_SPELL) ammo_type = list(stun_bullet)
+		else ammo_type = list(def_bullet)
 	update_ammo_types()
-	if(enchant_type || haveKnockback)
+	if(enchant_type && haveKnockback)
 		pb_knockback = 0
-	if(!enchant_type || haveKnockback)
+	if(!enchant_type && haveKnockback)
 		pb_knockback = defaultpb_knockback
 	if(chambered)
 		if(chambered.BB)
@@ -774,12 +779,26 @@
 	lefthand_file = 'icons/mob/inhands/guns_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/guns_righthand.dmi'
 	can_add_sibyl_system = FALSE
-	ammo_type = list(/obj/item/ammo_casing/energy/rat/slug)
+	ammo_type = list(/obj/item/ammo_casing/energy/rat/snipe)
 	can_charge = FALSE
 	zoomable = TRUE
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
+	cell_type = /obj/item/stock_parts/cell/rat_sniper
 	charge_rate = 1
 	charge_speed = 10 SECONDS
+	pb_knockback = 0
+	haveKnockback = FALSE
+	fire_delay = 40
+	def_bullet = /obj/item/ammo_casing/energy/rat/snipe
+	emp_bullet = /obj/item/ammo_casing/energy/rat/snipe/emp
+	heal_bullet = /obj/item/ammo_casing/energy/rat/snipe/heal
+	stun_bullet =/obj/item/ammo_casing/energy/rat/snipe/stun
+
+/obj/item/gun/energy/clockwork/update_overlays()
+	if(enchant_type)
+		. += "brasssniper_overlay_[enchant_type]"
+		return
+	. = ..()
 
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe

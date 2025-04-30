@@ -217,7 +217,15 @@
 	reflectability = REFLECTABILITY_NEVER //I will let eswords block it like a normal projectile, but it's not getting reflected, and eshields will take the hit hard.
 
 /obj/projectile/energy/rat
-	name = "brass shot"
+	name = "brass bullet"
+	ru_names = list(
+		NOMINATIVE = "Латунная пуля",
+		GENITIVE = "латунной пули",
+		DATIVE = "латунной пуле",
+		ACCUSATIVE = "латунную пулю",
+		INSTRUMENTAL = "латунной пулей",
+		PREPOSITIONAL = "латунной пуле",
+	)
 	icon_state = "brassslug"
 	damage = 25
 	armour_penetration = 50
@@ -243,33 +251,85 @@
 	if(isclocker(target))
 		return
 	if(iscarbon(target))
-		empulse(target, 0, 1, TRUE, cause = "[type] fired by [key_name(firer)]")
+		target.emp_act(EMP_LIGHT)
 	if(ismecha(target) || issilicon(target))
-		empulse(target, 1, 0, TRUE, cause = "[type] fired by [key_name(firer)]")
+		target.emp_act(EMP_HEAVY)
 	. = ..()
 
 /obj/projectile/energy/rat/slug/heal
 	name = "brass heal slug"
 	icon_state = "brassslug_heal"
-	damage = 0
+	damage = 25
 
 /obj/projectile/energy/rat/slug/heal/on_hit(mob/living/target, blocked, hit_zone)
+	damage = 25
 	if(isclocker(target))
 		target.heal_overall_damage(25, 25, TRUE)
-		. = ..()
+	. = ..()
 	return
 
 /obj/projectile/energy/rat/slug/stun
 	name = "brass stun slug"
 	icon_state = "brassslug_stun"
-	damage = 0
 
 /obj/projectile/energy/rat/slug/stun/on_hit(mob/living/target, blocked, hit_zone)
 	if(isclocker(target))
 		return
 	if(iscarbon(target))
-		target.Weaken(15 SECONDS)
+		target.Weaken(10 SECONDS)
 	if(issilicon(target))
-		empulse(target, 1, 0, TRUE, cause = "[type] fired by [key_name(firer)]")
+		target.emp_act(EMP_HEAVY)
 	. = ..()
 
+/obj/projectile/energy/rat/snipe
+	name = "brass sniper bullet"
+	icon_state = "brassshot"
+	damage = 60
+	armour_penetration = 60
+	stun = 2
+
+/obj/projectile/energy/rat/snipe/on_hit(atom/target, blocked, hit_zone)
+	if(isclocker(target))
+		return
+	.=..()
+
+/obj/projectile/energy/rat/snipe/emp
+	name = "brass sniper EMP bullet"
+	icon_state = "brassshot_emp"
+
+/obj/projectile/energy/rat/snipe/emp/on_hit(atom/target, blocked, hit_zone)
+	if(isclocker(target))
+		return
+	if(iscarbon(target))
+		target.emp_act(EMP_LIGHT)
+	if(ismecha(target) || issilicon(target))
+		target.emp_act(EMP_HEAVY)
+	. = ..()
+
+/obj/projectile/energy/rat/snipe/heal
+	name = "brass sniper heal bullet"
+	icon_state = "brassshot_heal"
+	damage = 60
+
+/obj/projectile/energy/rat/snipe/heal/on_hit(mob/living/target, blocked, hit_zone)
+	damage = 25
+	stun = 2
+	if(isclocker(target))
+		damage = 0
+		stun = 0
+		target.heal_overall_damage(50, 50, TRUE)
+	. = ..()
+	return
+
+/obj/projectile/energy/rat/snipe/stun
+	name = "brass sniper stun bullet"
+	icon_state = "brassshot_stun"
+	damage = 0
+	stun = 15
+
+/obj/projectile/energy/rat/snipe/stun/on_hit(mob/living/target, blocked, hit_zone)
+	if(isclocker(target))
+		return
+	if(issilicon(target))
+		target.emp_act(EMP_HEAVY)
+	. = ..()

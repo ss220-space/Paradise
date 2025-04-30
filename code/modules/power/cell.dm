@@ -20,6 +20,16 @@
 	var/grown_battery = FALSE // If it's a grown that acts as a battery, add a wire overlay to it.
 	var/overlay_charged = "cell-o2" // for custom overlays
 
+/obj/item/stock_parts/cell/rat_shotgun
+	name = "brass power cell"
+	maxcharge = 10
+	desc = "Элемент, вырабатывающий энергию для оружия культистов ратвара, однако бесполезен в других целях. Этот предназначен для дробовика."
+
+/obj/item/stock_parts/cell/rat_sniper
+	name = "brass power cell"
+	maxcharge = 5
+	desc = "Элемент, вырабатывающий энергию для оружия культистов ратвара, однако бесполезен в других целях. Этот предназначен для снайперской винтовки."
+
 /obj/item/stock_parts/cell/laser
 	maxcharge = 1500
 
