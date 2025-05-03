@@ -17,7 +17,7 @@
 		to_chat(usr, span_warning("Вы или кто-то из вашего гнезда уже отложили яйцо Императрицы."))
 		return
 
-	if(team.protect_egg.check_completion())
+	if(!team.protect_egg && team.protect_egg.check_completion())
 		to_chat(usr, span_warning("Императрица уже вылупилась. Вы не можете отложить еще одно яйцо."))
 		return
 
