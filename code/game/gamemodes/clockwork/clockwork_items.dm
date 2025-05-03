@@ -684,6 +684,8 @@
 	var/emp_bullet = /obj/item/ammo_casing/energy/rat/slug/emp
 	var/heal_bullet = /obj/item/ammo_casing/energy/rat/slug/heal
 	var/stun_bullet = /obj/item/ammo_casing/energy/rat/slug/stun
+	isclockwork = TRUE
+	blocks_emissive = FALSE
 
 /obj/item/gun/energy/clockwork/examine(mob/user)
 	. = ..()

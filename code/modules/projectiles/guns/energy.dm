@@ -29,6 +29,7 @@
 
 	var/can_add_sibyl_system = TRUE	//if a sibyl system's mod can be added or removed if it already has one
 	var/obj/item/sibyl_system_mod/sibyl_mod = null
+	var/isclockwork = FALSE
 
 /obj/item/gun/energy/examine(mob/user)
 	. = ..()
@@ -331,6 +332,8 @@
 
 /obj/item/gun/energy/update_overlays()
 	. = ..()
+	if(isclockwork)
+		return
 	var/overlay_name = overlay_set ? overlay_set : icon_state
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	if(modifystate)
