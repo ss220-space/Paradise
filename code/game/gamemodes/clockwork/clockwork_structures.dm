@@ -402,8 +402,8 @@
 			return TRUE
 		for(var/obj/object in T.contents)
 			if(istype(object))
-			if(object.density)
-				return TRUE
+				if(object.density)
+					return TRUE
 	return FALSE
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
