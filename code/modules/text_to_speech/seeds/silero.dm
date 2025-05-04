@@ -1034,7 +1034,7 @@
 	name = "Rakan"
 	value = "rakan"
 	category = TTS_CATEGORY_LOL
-	gender = TTS_GENDER_FEMALE
+	gender = TTS_GENDER_MALE
 	donator_level = 1
 
 /datum/tts_seed/silero/renata_glasc
@@ -2686,7 +2686,7 @@
 	name = "Karliah"
 	value = "karliah"
 	category = TTS_CATEGORY_SKYRIM
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	donator_level = 1
 
 /datum/tts_seed/silero/felldir
@@ -2749,7 +2749,7 @@
 	name = "Gormlaith"
 	value = "gormlaith"
 	category = TTS_CATEGORY_SKYRIM
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	donator_level = 1
 
 /datum/tts_seed/silero/dragon
@@ -3689,7 +3689,7 @@
 	name = "Wywern"
 	value = "wywern"
 	category = TTS_CATEGORY_DOTA2
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	donator_level = 1
 
 /datum/tts_seed/silero/avallach
@@ -4158,7 +4158,7 @@
 	name = "Nalo"
 	value = "nalo"
 	category = TTS_CATEGORY_EVILISLANDS
-	gender = TTS_GENDER_MALE
+	gender = TTS_GENDER_FEMALE
 	donator_level = 1
 
 /datum/tts_seed/silero/dandelion
