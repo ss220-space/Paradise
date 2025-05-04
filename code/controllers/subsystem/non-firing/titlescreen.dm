@@ -403,9 +403,7 @@ SUBSYSTEM_DEF(title)
 
 			/* Return focus to Byond after click */
 			function reFocus() {
-				var focus = new XMLHttpRequest();
-				focus.open("GET", "?src=[player.UID()];focus=1");
-				focus.send();
+				location.href = 'byond://?src=[player.UID()];focus=1'
 			}
 
 			document.addEventListener('mouseup', reFocus);
