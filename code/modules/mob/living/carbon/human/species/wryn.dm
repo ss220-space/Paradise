@@ -8,7 +8,6 @@
 	eyes = "wryn_eyes_s"
 	punchdamagelow = 0
 	punchdamagehigh = 1
-	speed_mod = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
 	blurb = "The wryn (r-in, singular r-in) are a humanoid race that possess many bee-like features. Originating from Alveare they \
@@ -59,7 +58,8 @@
 		TRAIT_HAS_REGENERATION,
 		TRAIT_NO_BREATH,
 		TRAIT_NO_SCAN,
-		TRAIT_STRONG_PULLING
+		TRAIT_TEMPERATURE_MOVEMENT,
+		TRAIT_STRONG_PULLING,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
@@ -118,13 +118,13 @@
 		return
 	var/mob/living/carbon/user = owner
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
-		to_chat(user, "<span class='notice'>Вам нужна свобода передвижения, чтобы ужалить кого-то!</span>")
+		user.balloon_alert(user, "Слишком мало места!")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
-		to_chat(user, "<span class='notice'>Для использования жала нужно снять верхнюю одежду.</span>")
+		user.balloon_alert(user, "Снимите верхнюю одежду!")
 		return
 	if(user.getStaminaLoss() >= 50)	//Does your Wryn have enough Stamina to sting?
-		to_chat(user, "<span class='notice'>Вы слишком устали для использования жала.</span>")
+		user.balloon_alert(user, "Вы устали!")
 		return
 	else
 		button_on = TRUE
@@ -148,9 +148,9 @@
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M
-	var/target = input("Select a Target: ", "Sting Target", null) as null|anything in names
+	var/target = input("Выберите цель: ", "Цель укуса", null) as null|anything in names
 	if(!target)		//No one's around!
-		to_chat(user, "<span class='warning'>Вокруг некого жалить! Жало втягивается обратно.</span>")
+		user.balloon_alert(user, "Вокруг некого жалить!")
 		user.visible_message("<span class='warning'[user] втягивает своё жало.</span>")
 		button_on = FALSE
 		UpdateButtonIcon()
@@ -164,7 +164,7 @@
 /datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
-		to_chat(user, "<span class='warning'>Вы слишком далеко от [target]. Жало втягивается.</span>")
+		user.balloon_alert(user, "Слишком далеко от цели!")
 		user.visible_message("<span class='warning'[user] убирает свое жало.</span>")
 		UpdateButtonIcon()
 		return

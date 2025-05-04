@@ -71,12 +71,17 @@
 	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
+	var/list/icons = list("wax_floor1","wax_floor2", "Wax_floor3")
 	icon_state = "wax_floor"
 	max_integrity = 10
 	var/current_dir
 	var/static/list/floorImageCache
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
+/obj/structure/wryn/floor/Initialize()
+	. = ..()
+	var/picked = pick(icons)
+	icon_state = picked
 
 /obj/structure/wryn/floor/update_overlays()
 	. = ..()

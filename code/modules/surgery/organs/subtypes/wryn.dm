@@ -155,6 +155,11 @@
 		INSTRUMENTAL = "мозгом врина",
 		PREPOSITIONAL = "мозге врина"
 	)
+	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon_state = "brain2"
+	item_state = "wryn_brain"
+	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/heart/wryn
 	species_type = /datum/species/wryn
@@ -168,6 +173,9 @@
 		INSTRUMENTAL = "сердцем врина",
 		PREPOSITIONAL = "сердце врина"
 	)
+	icon = 'icons/obj/species_organs/wryn.dmi'
+	item_state = "heart-on"
+	item_base = "heart"
 
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
@@ -181,6 +189,8 @@
 		INSTRUMENTAL = "глазами врина",
 		PREPOSITIONAL = "глазах врина"
 	)
+	icon = 'icons/obj/species_organs/wryn.dmi'
+	item_state = "eyes"
 	see_in_dark = 3
 
 /obj/item/organ/internal/ears/wryn

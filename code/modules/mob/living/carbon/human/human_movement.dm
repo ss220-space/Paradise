@@ -82,27 +82,16 @@
 						stamina_damage += PUSH_STAMINADAM_RUN
 
 			apply_damage(stamina_damage, STAMINA)
-
-		var/strong_pulling = FALSE
-		var/speed_boost = 0
-		if((pulling) && (HAS_TRAIT(src, TRAIT_STRONG_PULLING)))
-			strong_pulling = TRUE
-
-		if(strong_pulling)
-			var/small_pulled = FALSE
-			// Handle pulling all non /obj/item stuff or tiny mobs
-			if(pulling && isliving(pulling))
-				var/mob/living/pulled_mob = pulling
-				if(!pulled_mob.mob_size) // small or bigger mobs
-					small_pulled = TRUE
-
-			var/mob/living/carbon/human = pulledby
-			if(pulling && !(small_pulled || isitem(pulling)))
-				speed_boost = 12
-
-			human.dna.species.speed_mod -= speed_boost
-
-
+		// if our speed is connected to enviroment temperature
+		var/datum/gas_mixture/environment
+		if(HAS_TRAIT(src,TRAIT_TEMPERATURE_MOVEMENT))
+			environment = loc.return_air()
+			if(environment.temperature >= 283.15)
+				remove_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
+				add_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
+			if(environment.temperature < 283.15)
+				remove_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
+				add_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
 
 	if(!has_gravity())
 		return .
@@ -265,6 +254,14 @@
 
 	return ..()
 
+/mob/living/carbon/human/update_pull_movespeed()
+	. = ..()
+	if(pulling && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
+
+/mob/living/proc/update_push_movespeed()
+	if(now_pushing && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 
 #undef PULL_STAMINADAM_WALK
 #undef PULL_STAMINADAM_RUN
