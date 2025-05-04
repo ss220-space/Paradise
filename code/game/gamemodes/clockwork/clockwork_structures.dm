@@ -396,6 +396,15 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
+/obj/structure/clockwork/functional/altar/proc/check_pos()
+	for(var/turf/T in range(1, src))
+		if(istype(T, /turf/simulated/wall))
+			return TRUE
+		for(var/obj/object in T.contents)
+			if(istype(object))
+			if(object.density)
+				return TRUE
+	return FALSE
 
 /obj/structure/clockwork/functional/altar/proc/double_check(mob/living/user, area/A)
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -415,6 +424,9 @@
 	if(!(A in summon_areas))
 		to_chat(user, span_cultlarge("Ratvar can only be summoned where the veil is weak - in [english_list(summon_areas)]!"))
 		return FALSE
+	if(!(check_pos()))
+		to_chat(user, span_clockitalic("Недостаточно места вокруг алтаря!"))
+		return FALSE
 	var/confirm_final = tgui_alert(user, "This is the FINAL step to summon, the crew will be alerted to your presence AND your location!",
 	"The power comes...", list("Let Ratvar shine ones more!", "No"))
 	if(user)
@@ -425,7 +437,7 @@
 
 /obj/structure/clockwork/functional/altar/proc/begin_the_ritual()
 	visible_message(span_danger("The [src] expands itself revealing into the great Ark!"))
-	new /obj/structure/clockwork/functional/celestial_gateway(get_turf(src))
+	new /obj/structure/clockwork/functional/heart(get_turf(src))
 	qdel(src)
 	return
 

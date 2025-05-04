@@ -118,13 +118,13 @@ GLOBAL_LIST_INIT(gun_spells, list(
 /// At what population does it switch to highpop values
 #define CLOCK_POPULATION_THRESHOLD 70
 /// Power per crew demand. (Lowpop)
-#define CLOCK_POWER_PER_CREW_LOW 260
+#define CLOCK_POWER_PER_CREW_LOW 26
 /// Percent for power to reveal (Lowpop)
 #define CLOCK_POWER_REVEAL_LOW 0.7
 /// Percent clockers to reveal (Lowpop)
 #define CLOCK_CREW_REVEAL_LOW 0.35
 /// Power per crew demand. (highpop)
-#define CLOCK_POWER_PER_CREW_HIGH 180
+#define CLOCK_POWER_PER_CREW_HIGH 18
 /// Percent for power to reveal (Highpop)
 #define CLOCK_POWER_REVEAL_HIGH 0.5
 /// Percent clockers to reveal (Highpop)

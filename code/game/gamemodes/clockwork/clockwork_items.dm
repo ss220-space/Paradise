@@ -787,6 +787,7 @@
 	zoom_amt = 7 //Long range, enough to see in front of you, but no tiles behind you.
 	cell_type = /obj/item/stock_parts/cell/rat_sniper
 	charge_rate = 1
+	recoil = 2
 	charge_speed = 10 SECONDS
 	pb_knockback = 0
 	haveKnockback = FALSE

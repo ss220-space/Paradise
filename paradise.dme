@@ -893,6 +893,7 @@
 #include "code\game\gamemodes\changeling\traitor_chan.dm"
 #include "code\game\gamemodes\clockwork\clock_actions.dm"
 #include "code\game\gamemodes\clockwork\clock_magic.dm"
+#include "code\game\gamemodes\clockwork\clockheart.dm"
 #include "code\game\gamemodes\clockwork\clockwork.dm"
 #include "code\game\gamemodes\clockwork\clockwork_gateway.dm"
 #include "code\game\gamemodes\clockwork\clockwork_items.dm"
