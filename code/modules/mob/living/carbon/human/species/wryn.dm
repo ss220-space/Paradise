@@ -3,6 +3,7 @@
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
+	language = LANGUAGE_WRYN
 	blacklisted = TRUE
 	tail = "wryntail"
 	eyes = "wryn_eyes_s"

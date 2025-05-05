@@ -259,7 +259,7 @@
 	if(pulling && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 
-/mob/living/proc/update_push_movespeed()
+/mob/living/carbon/human/update_push_movespeed()
 	if(now_pushing && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 		remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 
