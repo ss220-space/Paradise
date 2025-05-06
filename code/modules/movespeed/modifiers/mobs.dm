@@ -235,7 +235,7 @@
 	blacklisted_movetypes = (FLYING)
 
 /datum/movespeed_modifier/temperature/cold
-	multiplicative_slowdown = -0.5
+	multiplicative_slowdown = -0.2
 
 /datum/movespeed_modifier/temperature/hot
-	multiplicative_slowdown = 0.8
+	multiplicative_slowdown = 0.5

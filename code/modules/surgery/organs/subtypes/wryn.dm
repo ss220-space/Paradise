@@ -62,6 +62,7 @@
 	slot = INTERNAL_ORGAN_WAX_GLANDS
 	var/datum/action/innate/honeycomb/honeycomb = new
 	var/datum/action/innate/honeyfloor/honeyfloor = new
+	var/datum/action/innate/honeydoor/honeydoor = new
 	var/datum/action/innate/toggle_producing/toggle_producing = new
 	var/wax = 25
 	var/producing = FALSE
@@ -79,11 +80,13 @@
 	..()
 	honeycomb.Grant(M)
 	honeyfloor.Grant(M)
+	honeydoor.Grant(M)
 	toggle_producing.Grant(M)
 
 /obj/item/organ/internal/wryn/glands/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	honeycomb.Remove(M)
 	honeyfloor.Remove(M)
+	honeydoor.Remove(M)
 	toggle_producing.Remove(M)
 	. = ..()
 
@@ -111,7 +114,6 @@
 					new /obj/structure/wryn/wax/wall(host.loc)
 				if("прозрачные соты")
 					new /obj/structure/wryn/wax/window(host.loc)
-
 	else
 		owner.balloon_alert(owner, "недостаточно воска!")
 
@@ -133,6 +135,26 @@
 			host.adjustWax(-25)
 			host.visible_message(span_alert("[owner] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол!"))
 			new /obj/structure/wryn/floor(owner.loc)
+	else
+		owner.balloon_alert(owner, "недостаточно воска!")
+	return
+
+/datum/action/innate/honeydoor
+	name = "Дверь из сот"
+	desc = "Выделите много воска для постройки двери из сот."
+	button_icon_state = "wax_door"
+
+/datum/action/innate/honeydoor/Activate()
+	var/mob/living/carbon/human/wryn/host = owner
+
+	if(host.getWax() >= 75)
+		if(do_after(usr, 5 SECONDS, usr))
+			if(locate(/obj/structure/wryn/wax) in get_turf(owner))
+				owner.balloon_alert(owner, "место уже занято!")
+				return
+			host.adjustWax(-75)
+			host.visible_message(span_alert("[owner] выделя[pluralize_ru(host.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь!"))
+			new /obj/structure/wryn/wax/door(owner.loc)
 	else
 		owner.balloon_alert(owner, "недостаточно воска!")
 	return

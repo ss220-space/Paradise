@@ -1,5 +1,9 @@
+#define WRYN_WAX_DAMAGE 15
+
 /obj/structure/wryn
 	max_integrity = 100
+	var/damage = 0
+	var/modifier = 0
 
 /obj/structure/wryn/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)
@@ -11,6 +15,17 @@
 		if(BURN)
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
+
+/obj/structure/wryn/attack_hand(mob/living/user)
+	var/obj/structure/wryn/target
+	if(iswryn(user))
+		if(user.a_intent == INTENT_HARM)
+			take_damage(WRYN_WAX_DAMAGE, BRUTE, 0, 'sound/effects/attackblob.ogg')
+			user.do_attack_animation(target)
+	else
+		return
+
+// wax structures procs
 
 /obj/structure/wryn/wax
 	name = "wax"
@@ -46,6 +61,8 @@
 /obj/structure/wryn/wax/CanAtmosPass(turf/T, vertical)
 	return !density
 
+// Structure themselfs
+
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
 	desc = "Толстая, наложенная слой за слоем, стенка из воска."
@@ -77,6 +94,8 @@
 	var/current_dir
 	var/static/list/floorImageCache
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
+
+// wax floor procs
 
 /obj/structure/wryn/floor/update_overlays()
 	. = ..()
@@ -125,12 +144,14 @@
 #define WAX_DOOR_CLOSED 0
 #define WAX_DOOR_OPENED 1
 
-/obj/structure/wryn/door
+// wax door procs
+
+/obj/structure/wryn/wax/door
 	name = "wax door"
-	desc = "Толсто наложенная груда воска, которая, по всей видимости, используется в качестве двери."
+	desc = "Thick wax solidified into a weird looking door."
 	icon = 'icons/obj/smooth_structures/wryn/wax_door.dmi'
 	icon_state = "wax_door_closed"
-	max_integrity = 160
+	max_integrity = 50
 	canSmoothWith = null
 	smooth = NONE
 	pass_flags_self = PASSDOOR
@@ -139,91 +160,72 @@
 	var/autoclose = TRUE
 	var/autoclose_delay = 10 SECONDS
 
-/obj/structure/wryn/door/Initialize()
+
+/obj/structure/wryn/wax/door/Initialize()
 	. = ..()
 	update_freelook_sight()
 
 
-/obj/structure/wryn/door/Destroy()
+/obj/structure/wryn/wax/door/Destroy()
 	set_density(FALSE)
 	update_freelook_sight()
 	return ..()
 
 
-/obj/structure/wryn/door/update_icon_state()
+/obj/structure/wryn/wax/door/update_icon_state()
 	switch(state)
 		if(WAX_DOOR_CLOSED)
 			icon_state = "wax_door_closed"
 		if(WAX_DOOR_OPENED)
 			icon_state = "wax_door_opened"
 
-/obj/structure/wryn/door/attack_animal(mob/living/simple_animal/M)
-	if(M.a_intent == INTENT_HARM)
+/obj/structure/wryn/wax/door/attack_animal(mob/living/simple_animal/animal)
+	if(animal.a_intent == INTENT_HARM)
 		return ..()
 
-	return try_switch_state(M)
+	return try_switch_state(animal)
 
+/obj/structure/wryn/wax/door/attack_hand(mob/living/user)
+	if(user.a_intent == INTENT_HARM)
+		return ..()
+	if(!iswryn(user))
+		to_chat(user, span_notice("Вы даже не знаете, что делать с этой грудой воска."))
 
-/obj/structure/wryn/door/attack_hand(mob/living/user)
-	if(!istype(user, /mob/living/carbon/human/wryn))
-		to_chat(user, span_notice("Вы даже и не знаете, что делать с этой дверью."))
-		return FALSE
+	return try_switch_state(user)
 
-	return ..()
-
-
-/obj/structure/wryn/door/attack_ghost(mob/user)
+/obj/structure/wryn/wax/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
 		switch_state()
 
-
-/obj/structure/wryn/door/attack_tk(mob/user)
+/obj/structure/wryn/wax/door/attack_tk(mob/user)
 	return
 
-
-/obj/structure/wryn/door/Bumped(atom/movable/moving_atom)
-	. = ..()
-
-	if(operating)
-		return .
-
-	if(isliving(moving_atom))
-		var/mob/living/living = moving_atom
-		if(world.time - living.last_bumped <= 1 SECONDS)
-			return
-		living.last_bumped = world.time
-
-	try_switch_state(moving_atom)
-
-
-/obj/structure/wryn/door/proc/try_switch_state(atom/movable/user)
+/obj/structure/wryn/wax/door/proc/try_switch_state(atom/movable/user)
 	if(operating)
 		return FALSE
 
 	add_fingerprint(user)
 	if(!isliving(user))
 		return FALSE
-	var/mob/living/mob = user
-	if(!istype(mob, /mob/living/carbon/human/wryn))
+	// var/mob/living/mob = user
+	if(!istype(user, /mob/living/carbon/human/wryn))
 		return FALSE
 
-	var/mob/living/carbon/human/wryn = user
+	var/mob/living/carbon/human/wryn/wryn = user
 	if(wryn.incapacitated())
 		return FALSE
 
 	switch_state()
 	return TRUE
 
-
-/obj/structure/wryn/door/proc/switch_state()
+/obj/structure/wryn/wax/door/proc/switch_state()
 	switch(state)
 		if(WAX_DOOR_CLOSED)
 			open()
 		if(WAX_DOOR_OPENED)
 			close()
 
-
-/obj/structure/wryn/door/proc/open()
+/obj/structure/wryn/wax/door/proc/open()
 
 	if(operating || !density)
 		return
@@ -249,7 +251,7 @@
 	update_icon()
 
 
-/obj/structure/wryn/door/proc/close()
+/obj/structure/wryn/wax/door/proc/close()
 
 	if(operating || density)
 		return
@@ -280,21 +282,25 @@
 	check_mobs()
 
 
-/obj/structure/wryn/door/proc/check_mobs()
+/obj/structure/wryn/wax/door/proc/check_mobs()
 	if(locate(/mob/living) in get_turf(src))
 		sleep(0.1 SECONDS)
 		open()
 
 
-/obj/structure/wryn/door/proc/autoclose()
+/obj/structure/wryn/wax/door/proc/autoclose()
 	if(!QDELETED(src) && !density && !operating && autoclose)
 		close()
 
 
-/obj/structure/wryn/door/proc/autoclose_in(wait)
+/obj/structure/wryn/wax/door/proc/autoclose_in(wait)
 	addtimer(CALLBACK(src, PROC_REF(autoclose)), wait, TIMER_UNIQUE | TIMER_NO_HASH_WAIT | TIMER_OVERRIDE)
 
 
-/obj/structure/wryn/door/proc/update_freelook_sight()
+/obj/structure/wryn/wax/door/proc/update_freelook_sight()
 	if(GLOB.cameranet)
 		GLOB.cameranet.updateVisibility(src, opacity_check = FALSE)
+
+
+#undef WAX_DOOR_CLOSED
+#undef WAX_DOOR_OPENED
