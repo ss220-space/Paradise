@@ -58,6 +58,7 @@
 	gender = PLURAL
 	icon = 'icons/obj/species_organs/wryn.dmi'
 	icon_state = "waxsac"
+	item_state = "waxsac"
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 	slot = INTERNAL_ORGAN_WAX_GLANDS
 	var/datum/action/innate/honeycomb/honeycomb = new
@@ -180,7 +181,7 @@
 	icon = 'icons/obj/species_organs/wryn.dmi'
 	icon_state = "brain2"
 	item_state = "wryn_brain"
-	mmi_icon = 'icons/obj/species_organs/vulpkanin.dmi'
+	mmi_icon = 'icons/obj/species_organs/wryn.dmi'
 	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/heart/wryn
@@ -196,8 +197,8 @@
 		PREPOSITIONAL = "сердце врина"
 	)
 	icon = 'icons/obj/species_organs/wryn.dmi'
-	item_state = "heart-on"
-	item_base = "heart"
+	item_state = "wryn_heart-on"
+	item_base = "wryn_heart"
 
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
@@ -212,7 +213,7 @@
 		PREPOSITIONAL = "глазах врина"
 	)
 	icon = 'icons/obj/species_organs/wryn.dmi'
-	item_state = "eyes"
+	item_state = "wryn_eyes"
 	see_in_dark = 3
 
 /obj/item/organ/internal/ears/wryn
