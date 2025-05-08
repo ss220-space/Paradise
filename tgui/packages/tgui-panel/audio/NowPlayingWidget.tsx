@@ -11,7 +11,7 @@ import { toFixed } from 'common/math';
 import { useSettings } from '../settings';
 import { selectAudio } from './selectors';
 
-export const NowPlayingWidget = (props) => {
+export const NowPlayingWidget = (props:unknown) => {
   const audio = useSelector(selectAudio),
     dispatch = useDispatch(),
     settings = useSettings(),
@@ -99,7 +99,7 @@ export const NowPlayingWidget = (props) => {
           step={0.0025}
           stepPixelSize={1}
           format={(value) => toFixed(value * 100) + '%'}
-          onDrag={(e, value) =>
+          onDragInput={(e, value) =>
             settings.update({
               adminMusicVolume: value,
             })

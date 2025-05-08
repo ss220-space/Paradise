@@ -30,16 +30,12 @@ type AirContent = {
   entry: string;
 };
 
-type Props = {
-  data: Data;
-};
-
-type Data = {
+export type AtmosScanData = {
   aircontents: AirContent[];
 };
 
-export const AtmosScan = (props: Props) => {
-  const { aircontents } = props.data;
+export const AtmosScan = (props: AtmosScanData) => {
+  const { aircontents } = props;
 
   return (
     <Box>

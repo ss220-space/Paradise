@@ -14,6 +14,8 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+export type TableProps = Props;
+
 /**
  * ## Table
  * A straight forward mapping to a standard html table, which is slightly
@@ -72,7 +74,7 @@ const TableRow = (props: RowProps) => {
   );
 };
 
-type CellProps = Partial<{
+export type CellProps = Partial<{
   /** Additional columns for this cell to expand, assuming there is room. */
   colSpan: number;
   /** Collapses table cell to the smallest possible size,

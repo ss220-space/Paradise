@@ -79,15 +79,15 @@ type Manifest = {
   misc: Person[];
 };
 
-export const CrewManifest = (props) => {
-  const { act } = useBackend();
-  let finalData;
-  if (props.data) {
-    finalData = props.data;
-  } else {
-    let { data } = useBackend();
-    finalData = data;
-  }
+export type ManifestData = {
+  manifest?: Manifest;
+};
+
+type ManifestProps = {
+  manifest?: Manifest;
+};
+
+export const CrewManifest = (props: ManifestProps) => {
   // HOW TO USE THIS THING
   /*
   	GLOB.data_core.get_manifest_json()
@@ -95,7 +95,9 @@ export const CrewManifest = (props) => {
   */
   // And thats it
 
-  const { manifest } = finalData;
+  const manifest = props
+    ? props.manifest
+    : useBackend<ManifestData>().data.manifest;
 
   const { heads, pro, sec, eng, med, sci, ser, sup, misc } = manifest;
 

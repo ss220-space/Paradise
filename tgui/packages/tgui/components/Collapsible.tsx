@@ -24,6 +24,8 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+export type CollapsibleProps = Props;
+
 /**
  * ## Collapsible
  * Displays contents when open, acts as a fluid button when closed.

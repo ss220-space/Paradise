@@ -86,6 +86,8 @@ type Props = Partial<{
   EllipsisUnion &
   BoxProps;
 
+export type ButtonProps = Props;
+
 export const Button = (props: Props) => {
   const {
     captureKeys = true,
@@ -230,7 +232,7 @@ const ButtonCheckbox = (props: CheckProps) => {
   );
 };
 
-type ConfirmProps = Partial<{
+export type ConfirmProps = Partial<{
   confirmColor: string;
   confirmContent: ReactNode;
   confirmIcon: string;

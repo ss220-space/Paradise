@@ -1,6 +1,6 @@
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
-import { useState } from 'react';
+import { Key, ReactNode, useState } from 'react';
 import {
   Button,
   Icon,
@@ -15,14 +15,10 @@ import { LoginInfo } from './common/LoginInfo';
 import { LoginScreen } from './common/LoginScreen';
 
 type Data = {
-  loginState: LogitState;
+  loginState: LoginState;
   currentPage: number;
   accounts: Account[];
   is_printing: boolean;
-};
-
-type LogitState = {
-  logged_in: boolean;
 };
 
 type Account = {
@@ -34,19 +30,19 @@ type Account = {
   transactions: Transaction[];
 };
 
-type Transaction = {
+export type Transaction = {
   time: string;
   purpose: string;
   is_deposit: boolean;
   amount: number;
   target_name: string;
-};
+} & Key;
 
 export const AccountsUplinkTerminal = (properties) => {
-  const { act, data } = useBackend<Data>();
+  const { data } = useBackend<Data>();
   const { loginState, currentPage } = data;
 
-  let body;
+  let body: ReactNode;
   if (!loginState.logged_in) {
     return (
       <Window width={800} height={600}>
@@ -178,18 +174,17 @@ const AccountsActions = (properties) => {
   return (
     <Stack>
       <Stack.Item>
-        <Button
-          content="New Account"
-          icon="plus"
-          onClick={() => act('create_new_account')}
-        />
+        <Button icon="plus" onClick={() => act('create_new_account')}>
+          New Account
+        </Button>
         <Button
           icon="print"
-          content="Print Account List"
           disabled={is_printing}
           ml="0.25rem"
           onClick={() => act('print_records')}
-        />
+        >
+          Print Account List
+        </Button>
       </Stack.Item>
       <Stack.Item grow>
         <Input
@@ -211,11 +206,9 @@ const DetailedAccountInfo = (properties) => {
         <Section
           title={'#' + account_number + ' / ' + owner_name}
           buttons={
-            <Button
-              icon="arrow-left"
-              content="Back"
-              onClick={() => act('back')}
-            />
+            <Button icon="arrow-left" onClick={() => act('back')}>
+              Back
+            </Button>
           }
         >
           <LabeledList>
@@ -233,10 +226,11 @@ const DetailedAccountInfo = (properties) => {
               {suspended ? 'Suspended' : 'Active'}
               <Button
                 ml={1}
-                content={suspended ? 'Unsuspend' : 'Suspend'}
                 icon={suspended ? 'unlock' : 'lock'}
                 onClick={() => act('toggle_suspension')}
-              />
+              >
+                {suspended ? 'Unsuspend' : 'Suspend'}
+              </Button>
             </LabeledList.Item>
           </LabeledList>
         </Section>
@@ -268,7 +262,7 @@ const DetailedAccountInfo = (properties) => {
 };
 
 const CreateAccount = (properties) => {
-  const { act, data } = useBackend();
+  const { act } = useBackend();
   const [accName, setAccName] = useState('');
   const [accDeposit, setAccDeposit] = useState('');
   return (
@@ -295,14 +289,15 @@ const CreateAccount = (properties) => {
       <Button
         mt={1}
         fluid
-        content="Create Account"
         onClick={() =>
           act('finalise_create_account', {
             holder_name: accName,
             starting_funds: accDeposit,
           })
         }
-      />
+      >
+        Create Account
+      </Button>
     </Section>
   );
 };

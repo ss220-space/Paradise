@@ -4,10 +4,10 @@
  * @license MIT
  */
 
-import { Table } from './Table';
+import { CellProps, Table, TableProps } from './Table';
 
 /** @deprecated */
-export const Grid = (props) => {
+export const Grid = (props: TableProps) => {
   const { children, ...rest } = props;
   return (
     <Table {...rest}>
@@ -16,8 +16,12 @@ export const Grid = (props) => {
   );
 };
 
+type GridColumnProps = {
+  size?: number;
+} & CellProps;
+
 /** @deprecated */
-export const GridColumn = (props) => {
+const GridColumn = (props: GridColumnProps) => {
   const { size = 1, style, ...rest } = props;
   return (
     <Table.Cell

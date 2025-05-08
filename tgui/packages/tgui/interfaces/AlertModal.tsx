@@ -1,10 +1,11 @@
-import { Loader } from './common/Loader';
+import { KeyboardEvent, useState } from 'react';
+import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
+
 import { useBackend } from '../backend';
-import { useState, KeyboardEvent } from 'react';
-import { Autofocus, Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
+import { Loader } from './common/Loader';
 
 type Data = {
   autofocus: BooleanLike;
@@ -20,7 +21,8 @@ enum DIRECTION {
   Increment = 1,
   Decrement = -1,
 }
-export const AlertModal = (props) => {
+
+export const AlertModal = (props: unknown) => {
   const { act, data } = useBackend<Data>();
   const {
     autofocus,
@@ -31,20 +33,37 @@ export const AlertModal = (props) => {
     title,
   } = data;
 
-  const [selected, setSelected] = useState<number>(0);
+  // Stolen wholesale from fontcode
+  const textWidth = (text: string, font: string, fontsize: number) => {
+    // default font height is 12 in tgui
+    font = fontsize + 'x ' + font;
+    const c = document.createElement('canvas');
+    const ctx = c.getContext('2d') as CanvasRenderingContext2D;
+    ctx.font = font;
+    return ctx.measureText(text).width;
+  };
+
+  const [selected, setSelected] = useState(0);
+
+  const windowWidth = 345 + (buttons.length > 2 ? 55 : 0);
+
+  // very accurate estimate of padding for each num of buttons
+  const paddingMagicNumber = 67 / buttons.length + 23;
 
   // At least one of the buttons has a long text message
-  const isVerbose = buttons.some((button) => button.length > 10);
+  const isVerbose = buttons.some(
+    (button) =>
+      textWidth(button, '', large_buttons ? 14 : 12) > // 14 is the larger font size for large buttons
+      windowWidth / buttons.length - paddingMagicNumber
+  );
   const largeSpacing = isVerbose && large_buttons ? 20 : 15;
 
   // Dynamically sets window dimensions
   const windowHeight =
     120 +
     (isVerbose ? largeSpacing * buttons.length : 0) +
-    (message.length > 40 ? Math.ceil(message.length / 3) : 0) +
+    (message.length > 30 ? Math.ceil(message.length / 4) : 0) +
     (message.length && large_buttons ? 5 : 0);
-
-  const windowWidth = 345 + (buttons.length > 2 ? 55 : 0);
 
   /** Changes button selection, etc */
   const keyDownHandler = (event: KeyboardEvent<HTMLDivElement>) => {
@@ -52,9 +71,6 @@ export const AlertModal = (props) => {
       case KEY.Space:
       case KEY.Enter:
         act('choose', { choice: buttons[selected] });
-        return;
-      case KEY.Escape:
-        act('cancel');
         return;
       case KEY.Left:
         event.preventDefault();
@@ -65,9 +81,11 @@ export const AlertModal = (props) => {
         event.preventDefault();
         onKey(DIRECTION.Increment);
         return;
+
       default:
         if (isEscape(event.key)) {
           act('cancel');
+          return;
         }
     }
   };
@@ -79,12 +97,12 @@ export const AlertModal = (props) => {
   };
 
   return (
-    <Window title={title} height={windowHeight} width={windowWidth}>
+    <Window height={windowHeight} title={title} width={windowWidth}>
       {!!timeout && <Loader value={timeout} />}
       <Window.Content onKeyDown={keyDownHandler}>
         <Section fill>
           <Stack fill vertical>
-            <Stack.Item grow m={1}>
+            <Stack.Item m={1}>
               <Box color="label" overflow="hidden">
                 {message}
               </Box>
@@ -110,8 +128,6 @@ type ButtonDisplayProps = {
 
 /**
  * Displays a list of buttons ordered by user prefs.
- * Technically this handles more than 2 buttons, but you
- * should just be using a list input in that case.
  */
 const HorizontalButtons = (props: ButtonDisplayProps) => {
   const { act, data } = useBackend<Data>();
@@ -163,7 +179,6 @@ const VerticalButtons = (props: ButtonDisplayProps) => {
           width={large_buttons ? '100%' : undefined}
           key={index}
           m={0}
-          mb={large_buttons ? 2.5 : 0}
         >
           <Button
             fluid

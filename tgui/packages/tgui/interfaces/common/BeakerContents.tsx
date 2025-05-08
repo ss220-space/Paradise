@@ -1,12 +1,6 @@
 import { ReactNode } from 'react';
 import { Stack } from '../../components';
 
-type Chemical = {
-  id: string | number;
-  name: string;
-  volume: number;
-};
-
 type BeakerContentsProps = {
   /**
    * Whether there is a loaded beaker or not

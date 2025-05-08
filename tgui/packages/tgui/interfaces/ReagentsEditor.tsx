@@ -41,9 +41,8 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     };
   }
 
-  handleSearchChange = (e: Event) => {
-    const target = e.target as HTMLInputElement;
-    this.setState({ searchText: target.value });
+  handleSearchChange = (e, value: string) => {
+    this.setState({ searchText: value });
   };
 
   override render() {

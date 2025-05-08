@@ -12,7 +12,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props) => {
+const Story = (props:unknown) => {
   const [progress, setProgress] = useState(0.5);
   return (
     <Section>

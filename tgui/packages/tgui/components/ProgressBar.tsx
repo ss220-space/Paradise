@@ -52,9 +52,15 @@ type Props = {
    *
    */
   ranges: Record<string, [number, number]>;
+  /**
+   *The number of digits to appear after the decimal point; should be a value between 0 and 100.
+   */
+  fractionDigits: number;
 }> &
   BoxProps &
   PropsWithChildren;
+
+export type ProgressBarProps = Props;
 
 /**
  * ## ProgressBar
@@ -69,6 +75,7 @@ export const ProgressBar = (props: Props) => {
     color,
     ranges = {},
     children,
+    fractionDigits = 0,
     ...rest
   } = props;
   const scaledValue = scale(value, minValue, maxValue);
@@ -104,7 +111,9 @@ export const ProgressBar = (props: Props) => {
         style={fillStyles}
       />
       <div className="ProgressBar__content">
-        {hasContent ? children : `${toFixed(scaledValue * 100)}%`}
+        {hasContent
+          ? children
+          : `${toFixed(scaledValue * 100, fractionDigits)}%`}
       </div>
     </div>
   );

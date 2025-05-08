@@ -15,7 +15,7 @@ import { PingIndicator } from './ping';
 import { ReconnectButton } from './reconnect';
 import { SettingsPanel, useSettings } from './settings';
 
-export const Panel = (props) => {
+export const Panel = (props:unknown) => {
   const audio = useAudio();
   const settings = useSettings();
   const game = useGame();

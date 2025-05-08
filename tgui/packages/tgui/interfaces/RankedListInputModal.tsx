@@ -4,7 +4,6 @@ import { Button, Section, Stack, Table } from '../components';
 import { useBackend } from '../backend';
 import { useState, DragEvent } from 'react';
 import { Window } from '../layouts';
-import { TableRow } from '../components/Table';
 
 type ListInputData = {
   items: string[];
@@ -13,8 +12,8 @@ type ListInputData = {
   title: string;
 };
 
-export const RankedListInputModal = (props) => {
-  const { act, data } = useBackend<ListInputData>();
+export const RankedListInputModal = (_props:unknown) => {
+  const { data } = useBackend<ListInputData>();
   const { items = [], message = '', timeout, title } = data;
   const [edittedItems, setEdittedItems] = useState<string[]>(items);
 
@@ -88,9 +87,8 @@ const ListDisplay = (props) => {
     >
       <Table>
         {filteredItems.map((item, index) => (
-          <TableRow
+          <Table.Row
             key={index}
-            draggable
             onDragStart={() => handleDragStart(index)}
             onDragOver={handleDragOver}
             onDrop={() => handleDrop(index)}
@@ -109,9 +107,9 @@ const ListDisplay = (props) => {
               }}
               icon="grip-lines"
             >
-              {item.replace(/^\w/, (c) => c.toUpperCase())}
+              {item.replace(/^\w/, (c: string) => c.toUpperCase())}
             </Button>
-          </TableRow>
+          </Table.Row>
         ))}
       </Table>
     </Section>

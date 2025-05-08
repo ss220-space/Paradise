@@ -47,7 +47,7 @@ type Props = {
   /** An event which fires when you release the input, or successfully enter a number. */
   onChange: (event: Event, value: number) => void;
   /** An event which fires when you drag the input. */
-  onDrag: (event: MouseEvent, value: number) => void;
+  onDragInput: (event: MouseEvent, value: number) => void;
   /** The step size. */
   step: number;
   /** The step size in pixels. */
@@ -87,7 +87,7 @@ export const DraggableControl = (props: Props) => {
     maxValue = Number.POSITIVE_INFINITY,
     minValue = Number.NEGATIVE_INFINITY,
     onChange,
-    onDrag,
+    onDragInput,
     step = 1,
     stepPixelSize = 1,
     suppressFlicker = 50,
@@ -131,7 +131,7 @@ export const DraggableControl = (props: Props) => {
 
     suppress();
     onChange?.(event, internalValue.current);
-    onDrag?.(event, internalValue.current);
+    onDragInput?.(event, internalValue.current);
 
     if (inputRef.current) {
       const input = inputRef.current;
@@ -194,7 +194,7 @@ export const DraggableControl = (props: Props) => {
     }, 250);
 
     dragIntervalRef.current = setInterval(() => {
-      if (dragging) onDrag?.(baseEvent, props.value);
+      if (dragging) onDragInput?.(baseEvent, props.value);
     }, updateRate);
 
     document.addEventListener('mousemove', handleDragMove);

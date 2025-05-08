@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { ReactNode, useState } from 'react';
+import { ReactElement, ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -24,7 +24,7 @@ const diffMap = {
     color: 'good',
   },
 };
-type Access = {
+export type Access = {
   name: string;
   desc: string;
   accesses: Access[];
@@ -32,7 +32,7 @@ type Access = {
   ref: number;
 };
 
-type Props = {
+type AccessListProps = Partial<{
   sectionButtons?: ReactNode[];
   usedByRcd: boolean;
   rcdButtons?: ReactNode[];
@@ -44,9 +44,9 @@ type Props = {
   accessMod: (n: number) => void;
   grantDep: (n: number) => void;
   denyDep: (n: number) => void;
-};
+}>;
 
-export const AccessList = (props: Props) => {
+export const AccessList = (props: AccessListProps) => {
   const {
     sectionButtons = null,
     usedByRcd,

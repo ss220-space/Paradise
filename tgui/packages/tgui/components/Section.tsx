@@ -42,6 +42,7 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+export type SectionProps = Props;
 /**
  * ## Section
  * Section is a surface that displays content and actions on a single topic.

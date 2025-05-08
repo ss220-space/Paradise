@@ -44,7 +44,7 @@ const saveChatToStorage = async (store: Store) => {
   const state = selectChat(store.getState());
   const fromIndex = Math.max(
     0,
-    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES,
+    chatRenderer.messages.length - MAX_PERSISTED_MESSAGES
   );
   const messages = chatRenderer.messages
     .slice(fromIndex)
@@ -188,7 +188,7 @@ export const chatMiddleware = (store: Store) => {
       const nextSettings = selectSettings(store.getState());
       chatRenderer.setHighlight(
         nextSettings.highlightSettings,
-        nextSettings.highlightSettingById,
+        nextSettings.highlightSettingById
       );
 
       return;

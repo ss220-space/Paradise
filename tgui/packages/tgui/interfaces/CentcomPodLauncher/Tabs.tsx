@@ -3,7 +3,7 @@ import { useState } from 'react';
 import { Box, Button } from '../../components';
 import { PodLauncherData } from './types';
 
-export const TabPod = (props) => {
+export const TabPod = (props:unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const { oldArea } = data;
 
@@ -19,7 +19,7 @@ export const TabPod = (props) => {
   );
 };
 
-export const TabBay = (props) => {
+export const TabBay = (props:unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const [teleported, setTeleported] = useState(false);
   const { oldArea } = data;
@@ -49,7 +49,7 @@ export const TabBay = (props) => {
   );
 };
 
-export const TabDrop = (props) => {
+export const TabDrop = (props:unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const [teleported, setTeleported] = useState(false);
   const { oldArea } = data;

@@ -1,7 +1,7 @@
 import { storage } from 'common/storage';
 import { createUuid } from 'common/uuid';
 import { useBackend } from '../../backend';
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 import {
   Button,
   Divider,
@@ -87,7 +87,7 @@ const PresetButtons = (props: PresetButtonsProps) => {
   );
 };
 
-export const PresetsPage = (props) => {
+export const PresetsPage = (props: unknown) => {
   const { act, data } = useBackend();
   const [editing, setEditing] = useState(false);
   const [hue, setHue] = useState(0);
@@ -185,10 +185,9 @@ export const PresetsPage = (props) => {
             <span color="label"> Hue: </span>
             <NumberInput
               animated
-              inline
               maxValue={360}
               minValue={0}
-              onChange={(e, value) => setHue(value)}
+              onChange={(value) => setHue(value)}
               step={5}
               stepPixelSize={5}
               value={hue}
@@ -211,13 +210,13 @@ export const PresetsPage = (props) => {
           onClick={() => setPresetID(preset.id)}
           onDoubleClick={() => loadPreset(preset.id)}
           style={
-            presetID === preset.id
+            (presetID === preset.id
               ? {
                   borderWidth: '1px',
                   borderStyle: 'solid',
                   borderColor: `hsl(${preset.hue}, 80%, 80%)`,
                 }
-              : ''
+              : '') as CSSProperties
           }
           width="100%"
         >

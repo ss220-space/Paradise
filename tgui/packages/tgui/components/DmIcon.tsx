@@ -53,5 +53,5 @@ export const DmIcon = (props: Props) => {
 
   const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${!!movement}&frame=${frame}`;
 
-  return <Image fixErrors src={query} {...rest} />;
+  return <Image fixErrors fixBlur src={query} {...rest} />;
 };

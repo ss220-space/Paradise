@@ -6,7 +6,7 @@ import { EFFECTS_ALL, POD_GREY } from './constants';
 import { useCompact } from './hooks';
 import { PodEffect, PodLauncherData } from './types';
 
-export const PodStatusPage = (props) => {
+export const PodStatusPage = (props: unknown) => {
   const [compact] = useCompact();
 
   return (
@@ -86,7 +86,7 @@ const EffectDisplay = (props) => {
   );
 };
 
-const Extras = (props) => {
+const Extras = (props: unknown) => {
   const { act } = useBackend();
   const [compact, setCompact] = useCompact();
 

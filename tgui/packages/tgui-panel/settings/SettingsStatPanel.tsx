@@ -23,7 +23,7 @@ const LinkedToChat = () => (
   <NoticeBox color="red">Unlink Stat Panel from chat!</NoticeBox>
 );
 
-export const SettingsStatPanel = (props) => {
+export const SettingsStatPanel = (props:unknown) => {
   const { statLinked, statFontSize, statFontFamily, statTabsStyle } =
     useSelector(selectSettings);
   const dispatch = useDispatch();

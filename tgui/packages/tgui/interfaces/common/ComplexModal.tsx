@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, KeyboardEvent } from 'react';
 import { useBackend } from '../../backend';
 import {
   Box,
@@ -19,7 +19,7 @@ let bodyOverrides = {};
  * @param {string} id The identifier of the modal
  * @param {object=} args The arguments to pass to the modal
  */
-export const modalOpen = (id: string, args: object) => {
+export const modalOpen = (id: string, args?: object) => {
   const { act, data } = useBackend<ModalData>();
   const newArgs = Object.assign(data.modal ? data.modal.args : {}, args || {});
 
@@ -37,7 +37,7 @@ export const modalOpen = (id: string, args: object) => {
  */
 export const modalRegisterBodyOverride = (
   id: string,
-  bodyOverride: () => ReactNode
+  bodyOverride: (modal: ModalType<any>) => ReactNode
 ) => {
   bodyOverrides[id] = bodyOverride;
 };
@@ -60,7 +60,7 @@ export const modalAnswer = (
   });
 };
 
-export const modalClose = (id: string) => {
+export const modalClose = (id?: string) => {
   const { act } = useBackend();
   act('modal_close', {
     id: id,
@@ -68,13 +68,13 @@ export const modalClose = (id: string) => {
 };
 
 type ModalData = {
-  modal: ModalType;
+  modal: ModalType<any>;
 };
 
-type ModalType = {
+export type ModalType<T> = {
   id: string;
   text: string;
-  args: object;
+  args: T;
   type: string;
   value: string | number;
   choices?: object | [];
@@ -105,7 +105,7 @@ export const ComplexModal = (props: ModalProps) => {
 
   const { id, text, type } = data.modal;
 
-  let modalOnEnter;
+  let modalOnEnter: (e: KeyboardEvent<HTMLInputElement>) => void;
   let modalHeader = (
     <Button
       className="Button--modal"

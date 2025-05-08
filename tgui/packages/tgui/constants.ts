@@ -57,7 +57,13 @@ export const CSS_COLORS = [
   'label',
 ];
 
-export const RADIO_CHANNELS = [
+export type Channel = {
+  name: string;
+  freq: number;
+  color: string;
+};
+
+export const RADIO_CHANNELS: Channel[] = [
   {
     name: 'Syndicate',
     freq: 1213,
@@ -308,7 +314,7 @@ export const getGasFromId = (gasId: string): Gas | undefined => {
   return gas;
 };
 
-export const timeAgo = (ref_time, now_time) => {
+export const timeAgo = (ref_time: number, now_time: number) => {
   if (ref_time > now_time) {
     return 'in the future';
   }

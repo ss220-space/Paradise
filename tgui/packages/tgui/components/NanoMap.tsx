@@ -30,6 +30,7 @@ type Props = {
   zLevels: number[];
   zNames: string[];
   children: ReactNode;
+  setZCurrent?: (z: number) => void;
 };
 
 export const NanoMap = (props: Props) => {
@@ -119,6 +120,7 @@ export const NanoMap = (props: Props) => {
   };
 
   const handleZChange = (value: number) => {
+    props.setZCurrent(value);
     setZCurrent(value);
   };
 
@@ -176,7 +178,7 @@ type NanoMakerProps = {
   icon: string;
   tooltip: ReactNode;
   color: string;
-  bordered: boolean;
+  bordered?: boolean;
   onClick: MouseEventHandler<HTMLDivElement>;
 };
 
@@ -220,7 +222,8 @@ NanoMap.Marker = NanoMapMarker;
 
 type ZoomerProps = {
   zoom: number;
-} & Props;
+  onZoom?: (e: Event, n: number) => void;
+};
 
 const NanoMapZoomer = (props: ZoomerProps) => {
   return (
@@ -233,7 +236,7 @@ const NanoMapZoomer = (props: ZoomerProps) => {
             stepPixelSize={10}
             format={(v) => v + 'x'}
             value={props.zoom}
-            onDrag={(e, v) => props.onZoom(e, v)}
+            onDragInput={(e, v) => props.onZoom(e, v)}
           />
         </LabeledList.Item>
       </LabeledList>
@@ -245,7 +248,10 @@ NanoMap.Zoomer = NanoMapZoomer;
 
 type ZLevelerProps = {
   onZChange: (n: number) => any;
-} & Props;
+  zCurrent: number;
+  zLevels: number[];
+  zNames: string[];
+};
 
 const NanoMapZLeveler = (props: ZLevelerProps) => {
   if (props.zLevels.length === 1) {

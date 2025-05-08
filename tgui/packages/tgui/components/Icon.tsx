@@ -104,4 +104,4 @@ const IconStack = (props: BoxProps) => {
  * </Icon.Stack>
  * ```
  */
-export const Stack = IconStack;
+Icon.Stack = IconStack;

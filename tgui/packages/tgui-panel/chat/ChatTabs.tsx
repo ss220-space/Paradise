@@ -27,7 +27,7 @@ const UnreadCountWidget = ({ value }) => (
   </Box>
 );
 
-export const ChatTabs = (props) => {
+export const ChatTabs = (props:unknown) => {
   const pages = useSelector(selectChatPages);
   const currentPage = useSelector(selectCurrentChatPage);
   const dispatch = useDispatch();

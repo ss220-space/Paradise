@@ -29,7 +29,7 @@ const SmallStackItems = () => (
   </>
 );
 
-const Story = (props) => {
+const Story = (props:unknown) => {
   return (
     <Section fill>
       <Stack fill className="debug-layout">

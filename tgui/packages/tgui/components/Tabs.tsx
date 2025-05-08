@@ -25,6 +25,8 @@ type Props = Partial<{
 }> &
   BoxProps;
 
+export type TabsProps = Props;
+
 /**
  *  ## Tabs
  * Tabs make it easy to explore and switch between different views.

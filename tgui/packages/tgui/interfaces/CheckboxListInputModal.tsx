@@ -18,9 +18,9 @@ interface CheckboxData {
   key: string;
   checked: BooleanLike;
 }
-export const CheckboxListInputModal = (props) => {
-  const { act, data } = useBackend<ListInputData>();
-  const { items = [], message = '', init_value, timeout, title } = data;
+export const CheckboxListInputModal = (props: unknown) => {
+  const { data } = useBackend<ListInputData>();
+  const { items = [], message = '', timeout, title } = data;
   const [edittedItems, setEdittedItems] = useState<CheckboxData[]>(items);
 
   const windowHeight = 330 + Math.ceil(message.length / 3);
@@ -43,7 +43,7 @@ export const CheckboxListInputModal = (props) => {
               <ListDisplay filteredItems={edittedItems} onClick={onClick} />
             </Stack.Item>
             <Stack.Item mt={0.5}>
-              <InputButtons input={edittedItems} />
+              <InputButtons input={edittedItems.map as any} />
             </Stack.Item>
           </Stack>
         </Section>
@@ -52,11 +52,16 @@ export const CheckboxListInputModal = (props) => {
   );
 };
 
+type ListDisplayProps = {
+  filteredItems: CheckboxData[];
+  onClick: (new_item: CheckboxData | null) => void;
+};
+
 /**
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props) => {
+const ListDisplay = (props: ListDisplayProps) => {
   const { filteredItems, onClick } = props;
 
   return (

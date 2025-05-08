@@ -10,6 +10,8 @@
 
 $text-color: hsl(210, 50%, 80%) !default;
 $color-bg-section: base.$color-bg-section !default;
+$color-bg-reconnect: $color-bg-section !default;
+$color-text-reconnect: colors.$red !default;
 
 .Chat {
   color: $text-color;

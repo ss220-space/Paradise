@@ -8,14 +8,14 @@ import { GroupedContents } from './GroupedContents';
 import { RawContents } from './RawContents';
 import { SearchItem } from './types';
 import { clamp } from 'common/math';
-import { KEY_ESCAPE } from 'common/keycodes';
+import { isEscape } from 'common/keys';
 
 type Data = {
   contents: SearchItem[];
   searching: BooleanLike;
 };
 
-export const LootPanel = (props) => {
+export const LootPanel = (props:unknown) => {
   const { act, data } = useBackend<Data>();
   const { contents = [], searching } = data;
 
@@ -92,7 +92,7 @@ export const LootPanel = (props) => {
         fitted
         scrollable={height === maxHeight}
         onKeyDown={(event) => {
-          if (event.keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             Byond.sendMessage('close');
           }
         }}

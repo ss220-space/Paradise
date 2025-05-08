@@ -6,7 +6,7 @@ type State = {
 };
 
 type Props = {
-  rate: number;
+  rate?: number;
   format?: (v: number, f: string) => string;
   timeLeft?: number;
   current?: number;

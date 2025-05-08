@@ -1,10 +1,16 @@
+import type { Placement } from '@popperjs/core';
 import type { ReactNode } from 'react';
 import { classes } from 'common/react';
 import { computeBoxClassName, computeBoxProps } from 'common/ui';
 import type { BoxProps } from './Box';
+import { Tooltip } from './Tooltip';
 
 type Props = {
   content?: ReactNode;
+  /** A fancy, boxy tooltip, which appears when hovering over the button */
+  tooltip?: ReactNode;
+  /** Position of the tooltip. See [`Popper`](#Popper) for valid options. */
+  tooltipPosition?: Placement;
 } & BoxProps;
 
 /**
@@ -16,17 +22,27 @@ type Props = {
  * [Box](https://github.com/tgstation/tgui-core/tree/main/lib/components/Box.tsx) instead.
  */
 export const ColorBox = (props: Props) => {
-  const { content, children, className, ...rest } = props;
+  const { content, children, className, tooltip, tooltipPosition, ...rest } =
+    props;
 
   rest.color = content ? null : 'default';
   rest.backgroundColor = props.color || 'default';
+  let result = content || children;
+
+  if (tooltip) {
+    result = (
+      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
+        {result}
+      </Tooltip>
+    );
+  }
 
   return (
     <div
       className={classes(['ColorBox', className, computeBoxClassName(rest)])}
       {...computeBoxProps(rest)}
     >
-      {content || ''}
+      {result || ''}
     </div>
   );
 };

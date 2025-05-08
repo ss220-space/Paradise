@@ -11,7 +11,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props) => {
+const Story = (props:unknown) => {
   return (
     <Section>
       <Box bold>bold</Box>

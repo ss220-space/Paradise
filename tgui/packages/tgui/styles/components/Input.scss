@@ -4,6 +4,7 @@
  */
 
 @use '../base';
+@use 'sass:color';
 @use '../functions' as *;
 
 $text-color: base.$color-fg !default;
@@ -12,6 +13,11 @@ $border-color: hsl(212.3, 100%, 76.7%) !default;
 $border-radius: base.$border-radius !default;
 $font-family: Verdana, sans-serif !default;
 $mono-font-family: 'Consolas', monospace !default;
+$border-color-disabled: color.adjust(
+  $border-color,
+  $saturation: -100%,
+  $lightness: -25%
+) !default;
 
 .Input {
   position: relative;

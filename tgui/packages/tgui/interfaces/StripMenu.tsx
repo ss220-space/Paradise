@@ -7,7 +7,6 @@ import { Window } from '../layouts';
 import { ReactNode } from 'react';
 
 const ROWS = 5;
-const COLUMNS = 9;
 
 const getColumnsAmount = (mode: number): number => {
   if (mode === 0) {
@@ -425,7 +424,7 @@ type StripMenuData = {
   show_mode: number;
 };
 
-export const StripMenu = (props) => {
+export const StripMenu = (_props: unknown) => {
   const { act, data } = useBackend<StripMenuData>();
 
   const gridSpots = new Map<GridSpotKey, string>();
@@ -495,8 +494,8 @@ export const StripMenu = (props) => {
 
                   let alternateActions: Array<string> | undefined;
 
-                  let content;
-                  let tooltip;
+                  let content: ReactNode;
+                  let tooltip: ReactNode;
 
                   if (item === null) {
                     tooltip = slot.displayName;

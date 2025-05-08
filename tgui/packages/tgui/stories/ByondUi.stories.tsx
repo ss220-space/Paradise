@@ -6,14 +6,14 @@
 
 import { useState } from 'react';
 import { Button, ByondUi, Section, TextArea } from '../components';
-import { logger } from '../logging';
+import { logger } from 'common/logging';
 
 export const meta = {
   title: 'ByondUi',
   render: () => <Story />,
 };
 
-const Story = (props) => {
+const Story = (props:unknown) => {
   const [code, setCode] = useState<string>(
     `Byond.winset('${Byond.windowId}', {\n 'is-visible': true,\n})`
   );

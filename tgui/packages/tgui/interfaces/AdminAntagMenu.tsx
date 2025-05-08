@@ -1,23 +1,20 @@
 import { createSearch } from 'common/string';
-import { useBackend} from '../backend';
+import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
   Box,
   Button,
   Icon,
   Input,
-  LabeledList,
-  NoticeBox,
   ProgressBar,
   Section,
   Stack,
   Table,
   Tabs,
 } from '../components';
-import { TableCell } from '../components/Table';
 import { Window } from '../layouts';
-import { LoginInfo } from './common/LoginInfo';
-import { LoginScreen } from './common/LoginScreen';
+import { computeBoxProps } from 'common/ui';
+import { ButtonProps } from '../components/Button';
 
 const Titles = {
   0: 'Антагонисты',
@@ -30,7 +27,7 @@ const Titles = {
 const MenuTabs = {
   0: () => <AntagList />,
   1: () => <Objectives />,
-  2: () => <Security />,
+  2: () => <SecurityList />,
   3: () => <HighValueItems />,
   default: () => 'Что-то не так, пора писать баг репорт!',
 };
@@ -39,9 +36,59 @@ const PickTitle = (index) => Titles[index] || Titles.default;
 
 const PickTab = (index) => MenuTabs[index] || MenuTabs.default;
 
+type AntagMenuData = {
+  antagonists: Antagonist[];
+  objectives: Objective[];
+  high_value_items: HighValueItem[];
+  security: Security[];
+};
+
+type Antagonist = {
+  name: string;
+  body_destroyed: boolean;
+  is_hijacker: boolean;
+  antag_mind_uid: string;
+  ckey: string;
+  status: string;
+  antag_names: string[];
+};
+
+type Security = {
+  name: string;
+  role: string;
+  mind_uid: string;
+  antag: string;
+  ckey: string;
+  status: number;
+  health: number;
+  max_health: number;
+  broken_bone: boolean;
+  internal_bleeding: boolean;
+};
+
+type Objective = {
+  obj_name: string;
+  obj_desc: string;
+  obj_uid: string;
+  target_name: string;
+  status: boolean;
+  no_target: boolean;
+  owner_name: string;
+  owner_uid: string;
+  track: string[];
+};
+
+type HighValueItem = {
+  name: string;
+  loc: string;
+  obj_desc: string;
+  admin_z: boolean;
+  uid: string;
+  person: string;
+};
+
 export const AdminAntagMenu = (properties) => {
-  const { act, data } = useBackend();
-  const { loginState, currentPage } = data;
+  const { act } = useBackend();
   const [tabIndex, setTabIndex] = useState(0);
   const [searchText, setSearchText] = useState('');
   return (
@@ -120,7 +167,7 @@ export const AdminAntagMenu = (properties) => {
 };
 
 const AntagList = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<AntagMenuData>();
   const { antagonists } = data;
   const [searchText, setSearchText] = useState('');
   const [sortId, _setSortId] = useState('antag_names');
@@ -131,7 +178,10 @@ const AntagList = (properties) => {
     return <div>Нет антагонистов.</div>;
   }
 
-  const antagArray = keys.map((key) => ({ key, ...antagonists[key] }));
+  const antagArray = keys.map<Antagonist>((key) => ({
+    key,
+    ...antagonists[key],
+  }));
 
   return (
     <Table className="AdminAntagMenu__list">
@@ -143,7 +193,7 @@ const AntagList = (properties) => {
       </Table.Row>
       {antagArray
         .filter(
-          createSearch(searchText, ({ key, name, status, antag_names }) => {
+          createSearch(searchText, ({ name, status, antag_names }) => {
             return name + '|' + status + '|' + antag_names.join(', ');
           })
         )
@@ -169,7 +219,6 @@ const AntagList = (properties) => {
         .map(
           (
             {
-              key,
               name,
               body_destroyed,
               is_hijacker,
@@ -250,7 +299,7 @@ const AntagList = (properties) => {
 };
 
 const Objectives = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<AntagMenuData>();
   const { objectives } = data;
   const [searchText, setSearchText] = useState('');
   const [sortId, _setSortId] = useState('target_name');
@@ -261,18 +310,10 @@ const Objectives = (properties) => {
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton sort_group="sortId2" id="obj_name">
-          Имя
-        </SortButton>
-        <SortButton sort_group="sortId2" id="target_name">
-          Цель
-        </SortButton>
-        <SortButton sort_group="sortId2" id="status">
-          Статус
-        </SortButton>
-        <SortButton sort_group="sortId2" id="owner_name">
-          Хозяин
-        </SortButton>
+        <SortButton id="obj_name">Имя</SortButton>
+        <SortButton id="target_name">Цель</SortButton>
+        <SortButton id="status">Статус</SortButton>
+        <SortButton id="owner_name">Хозяин</SortButton>
       </Table.Row>
       {objectives
         .filter(
@@ -338,7 +379,7 @@ const Objectives = (properties) => {
                       >
                         {objective.target_name}{' '}
                         {objective.track.length > 1
-                          ? '(' + (parseInt(index, 10) + 1) + ')'
+                          ? '(' + (index + 1) + ')'
                           : ''}
                       </Button>
                     ))
@@ -366,14 +407,14 @@ const Objectives = (properties) => {
   );
 };
 
-const Security = (properties) => {
-  const { act, data } = useBackend();
+const SecurityList = (properties) => {
+  const { act, data } = useBackend<AntagMenuData>();
   const { security } = data;
   const [searchText, setSearchText] = useState('');
   const [sortId, _setSortId] = useState('health');
   const [sortOrder, _setSortOrder] = useState(true);
 
-  const getColor = (officer) => {
+  const getColor = (officer: Security) => {
     if (officer.status === 2) {
       return 'red';
     }
@@ -385,7 +426,7 @@ const Security = (properties) => {
     }
     return 'grey';
   };
-  const getStatus = (officer) => {
+  const getStatus = (officer: Security) => {
     if (officer.status === 2) {
       return 'Мёртв';
     }
@@ -410,21 +451,11 @@ const Security = (properties) => {
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton sort_group="sortId3" id="name">
-          Имя
-        </SortButton>
-        <SortButton sort_group="sortId3" id="role">
-          Должность
-        </SortButton>
-        <SortButton sort_group="sortId3" id="status">
-          Статус
-        </SortButton>
-        <SortButton sort_group="sortId3" id="antag">
-          Антагонист
-        </SortButton>
-        <SortButton sort_group="sortId3" id="health">
-          Здоровье
-        </SortButton>
+        <SortButton id="name">Имя</SortButton>
+        <SortButton id="role">Должность</SortButton>
+        <SortButton id="status">Статус</SortButton>
+        <SortButton id="antag">Антагонист</SortButton>
+        <SortButton id="health">Здоровье</SortButton>
       </Table.Row>
       {security
         .filter(
@@ -474,7 +505,7 @@ const Security = (properties) => {
               {officer.antag ? (
                 <Button
                   textColor="red"
-                  translucent
+                  style={{ color: 'translucent' }}
                   onClick={() => {
                     act('tp', {
                       mind_uid: officer.mind_uid,
@@ -537,7 +568,7 @@ const Security = (properties) => {
 };
 
 const HighValueItems = (properties) => {
-  const { act, data } = useBackend();
+  const { act, data } = useBackend<AntagMenuData>();
   const { high_value_items } = data;
   const [searchText, setSearchText] = useState('');
   const [sortId, _setSortId] = useState('person');
@@ -548,18 +579,10 @@ const HighValueItems = (properties) => {
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton sort_group="sortId4" id="name">
-          Имя
-        </SortButton>
-        <SortButton sort_group="sortId4" id="person">
-          Носитель
-        </SortButton>
-        <SortButton sort_group="sortId4" id="loc">
-          Местоположение
-        </SortButton>
-        <SortButton sort_group="sortId4" id="admin_z">
-          Админский Z-уровень
-        </SortButton>
+        <SortButton id="name">Имя</SortButton>
+        <SortButton id="person">Носитель</SortButton>
+        <SortButton id="loc">Местоположение</SortButton>
+        <SortButton id="admin_z">Админский Z-уровень</SortButton>
       </Table.Row>
       {high_value_items
         .filter(
@@ -585,7 +608,7 @@ const HighValueItems = (properties) => {
             <Table.Cell>
               <Button
                 tooltip={item.obj_desc}
-                translucent={item.admin_z}
+                style={item.admin_z ? { color: 'translucent' } : {}}
                 onClick={() =>
                   act('vv', {
                     uid: item.uid,
@@ -621,13 +644,10 @@ const HighValueItems = (properties) => {
   );
 };
 
-const SortButton = (properties) => {
-  const {
-    id,
-    sort_group = 'sortId',
-    default_sort = 'antag_names',
-    children,
-  } = properties;
+type SortButtonProps = { default_sort?: string } & ButtonProps;
+
+const SortButton = (properties: SortButtonProps) => {
+  const { id, default_sort = 'antag_names', children } = properties;
   const [sortId, setSortId] = useState(default_sort);
   const [sortOrder, setSortOrder] = useState(true);
   return (
@@ -643,6 +663,7 @@ const SortButton = (properties) => {
             setSortOrder(true);
           }
         }}
+        {...computeBoxProps(properties)}
       >
         {children}
         {sortId === id && (

@@ -13,7 +13,7 @@ type Props = ExclusiveProps & BoxProps;
 type NoticeType = 'info' | 'success' | 'warning' | 'danger';
 
 type None = {
-  [K in NoticeType]?: undefined;
+  [K in NoticeType]?: boolean;
 };
 
 type ExclusiveProps =

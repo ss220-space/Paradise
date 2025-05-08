@@ -17,6 +17,7 @@ import {
   ComplexModal,
   modalOpen,
   modalRegisterBodyOverride,
+  ModalType,
 } from './common/ComplexModal';
 import { BooleanLike, classes } from 'common/react';
 import { BoxProps } from '../components/Box';
@@ -24,7 +25,22 @@ import { computeBoxProps } from 'common/ui';
 
 const transferAmounts = [1, 5, 10];
 
-const analyzeModalBodyOverride = (modal) => {
+type ChemicalModalData = {
+  beaker: string;
+  analysis: Analysis;
+};
+
+type Analysis = {
+  blood_type: string;
+  blood_dna: string;
+  idx: string;
+  name: string;
+  desc: string;
+};
+
+const analyzeModalBodyOverride = (
+  modal: ModalType<ChemicalModalData>
+): ReactNode => {
   const { act, data } = useBackend<ChemMasterData>();
   const result = modal.args.analysis;
   return (
@@ -55,14 +71,15 @@ const analyzeModalBodyOverride = (modal) => {
                 disabled={data.printing}
                 iconSpin={!!data.printing}
                 ml="0.5rem"
-                content="Печать"
                 onClick={() =>
                   act('print', {
                     idx: result.idx,
                     beaker: modal.args.beaker,
                   })
                 }
-              />
+              >
+                Печать
+              </Button>
             )}
           </LabeledList>
         </Box>
@@ -86,7 +103,7 @@ interface StaticProductionData {
 
 interface NonStaticProductionData {
   set_name?: string;
-  set_items_amount: string;
+  set_items_amount: number;
   set_sprite?: number;
   placeholder_name?: string;
 }
@@ -99,12 +116,9 @@ enum TransferMode {
   ToBeaker = 1,
 }
 
-interface ReagentData {
-  id: string;
-  name: string;
+type ReagentData = {
   description: string;
-  volume: number;
-}
+} & Chemical;
 
 interface ContainerStyle {
   color: string;
@@ -130,7 +144,7 @@ interface ChemMasterData {
   production_data: Record<string, NonStaticProductionData>;
 }
 
-export const ChemMaster = (props) => {
+export const ChemMaster = (props: unknown) => {
   return (
     <Window width={575} height={650}>
       <ComplexModal />
@@ -250,9 +264,10 @@ const ChemMasterBuffer = (props: {}) => {
             <Button
               icon={mode ? 'flask' : 'trash'}
               color={!mode && 'bad'}
-              content={mode ? 'Ёмкость' : 'Слив'}
               onClick={() => act('toggle')}
-            />
+            >
+              {mode ? 'Ёмкость' : 'Слив'}
+            </Button>
           </Box>
         }
       >
@@ -263,7 +278,6 @@ const ChemMasterBuffer = (props: {}) => {
             buttons={(chemical, i) => (
               <Box mb={i < buffer_reagents.length - 1 && '2px'}>
                 <Button
-                  content="Анализ"
                   mb="0"
                   onClick={() =>
                     modalOpen('analyze', {
@@ -271,11 +285,12 @@ const ChemMasterBuffer = (props: {}) => {
                       beaker: 0,
                     })
                   }
-                />
+                >
+                  Анализ
+                </Button>
                 {transferAmounts.map((am, i) => (
                   <Button
                     key={i}
-                    content={am}
                     mb="0"
                     onClick={() =>
                       act('remove', {
@@ -283,10 +298,11 @@ const ChemMasterBuffer = (props: {}) => {
                         amount: am,
                       })
                     }
-                  />
+                  >
+                    {am}
+                  </Button>
                 ))}
                 <Button
-                  content="Всё"
                   mb="0"
                   onClick={() =>
                     act('remove', {
@@ -294,16 +310,19 @@ const ChemMasterBuffer = (props: {}) => {
                       amount: chemical.volume,
                     })
                   }
-                />
+                >
+                  Всё
+                </Button>
                 <Button
-                  content="Задать объём..."
                   mb="0"
                   onClick={() =>
                     modalOpen('removecustom', {
                       id: chemical.id,
                     })
                   }
-                />
+                >
+                  Задать объём...
+                </Button>
               </Box>
             )}
           />
@@ -394,7 +413,7 @@ type ChemMasterNameInputProps = {
 class ChemMasterNameInput extends Component<
   ChemMasterNameInputProps & BoxProps
 > {
-  constructor(props) {
+  constructor(props: ChemMasterNameInputProps) {
     super(props);
   }
 
@@ -497,7 +516,7 @@ const ChemMasterProductionGeneric = (props: {
 }) => {
   const { act } = useBackend<ChemMasterData>();
   const { id: modeId, set_sprite, sprites } = props.productionData;
-  let style_buttons;
+  let style_buttons: ReactNode;
   if (sprites && sprites.length > 0) {
     style_buttons = sprites.map(({ id, sprite }) => (
       <SpriteStyleButton
@@ -575,9 +594,10 @@ const ChemMasterCustomization = (props: {}) => {
           <Button
             icon="eject"
             disabled={!loaded_pill_bottle}
-            content="Извлечь контейнер"
             onClick={() => act('ejectp')}
-          />
+          >
+            Извлечь контейнер
+          </Button>
         }
       >
         {!loaded_pill_bottle ? (

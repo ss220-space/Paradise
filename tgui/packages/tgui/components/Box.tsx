@@ -6,6 +6,7 @@
 
 import {
   type CSSProperties,
+  DragEventHandler,
   type KeyboardEventHandler,
   type MouseEventHandler,
   type ReactNode,
@@ -33,6 +34,14 @@ type EventHandlers = {
   onMouseOver: MouseEventHandler<HTMLDivElement>;
   onMouseUp: MouseEventHandler<HTMLDivElement>;
   onScroll: UIEventHandler<HTMLDivElement>;
+  /**
+   * An event, which fires about every 500ms when you drag the input up and
+   * down, on release and on manual editing.
+   */
+  onDrag: DragEventHandler<HTMLDivElement>;
+  onDragStart: DragEventHandler<HTMLDivElement>;
+  onDragOver: DragEventHandler<HTMLDivElement>;
+  onDrop: DragEventHandler<HTMLDivElement>;
 };
 
 type InternalProps = {

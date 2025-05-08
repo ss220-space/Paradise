@@ -7,7 +7,6 @@
 const webpack = require('webpack');
 const path = require('path');
 const ExtractCssPlugin = require('mini-css-extract-plugin');
-const { createBabelConfig } = require('./babel.config.js');
 
 const createStats = (verbose) => ({
   assets: verbose,
@@ -52,11 +51,10 @@ module.exports = (env = {}, argv) => {
     module: {
       rules: [
         {
-          test: /\.(js(x)?|cjs|ts(x)?)$/,
+          test: /\.([tj]s(x)?|cjs)$/,
           use: [
             {
-              loader: require.resolve('babel-loader'),
-              options: createBabelConfig({ mode }),
+              loader: require.resolve('swc-loader'),
             },
           ],
         },
@@ -127,7 +125,7 @@ module.exports = (env = {}, argv) => {
     const { EsbuildPlugin } = require('esbuild-loader');
     config.optimization.minimizer = [
       new EsbuildPlugin({
-        target: 'ie11',
+        target: 'edge123',
         css: true,
       }),
     ];

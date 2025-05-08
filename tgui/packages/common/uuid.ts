@@ -6,7 +6,7 @@
  * createUuid(); // 'f47ac10b-58cc-4372-a567-0e02b2c3d479'
  * ```
  */
-export const createUuid = (): string =>{
+export const createUuid = (): string => {
   let d = new Date().getTime();
 
   return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, (c) => {
@@ -15,4 +15,4 @@ export const createUuid = (): string =>{
 
     return (c === 'x' ? r : (r & 0x3) | 0x8).toString(16);
   });
-}
+};

@@ -32,7 +32,7 @@ import {
 import { Interaction, Interactive } from 'tgui/components/Interactive';
 import { classes } from 'common/react';
 import { Component, FocusEvent, FormEvent, ReactNode } from 'react';
-import { logger } from 'tgui/logging';
+import { logger } from 'common/logging';
 import { InputButtons } from './common/InputButtons';
 
 type ColorPickerData = {

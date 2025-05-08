@@ -36,7 +36,7 @@ import './styles/themes/ntOS95.scss';
 import { perf } from 'common/perf';
 import { setupGlobalEvents } from 'common/events';
 import { setupHotKeys } from 'common/hotkeys';
-import { setupHotReloading } from 'tgui-dev-server/link/client.cjs';
+import { setupHotReloading } from 'tgui-dev-server/link/client.mjs';
 
 import { App } from './App';
 import { setGlobalStore } from './backend';

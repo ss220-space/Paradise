@@ -23,7 +23,7 @@ import {
   selectHighlightSettings,
 } from './selectors';
 
-export const TextHighlightSettings = (props) => {
+export const TextHighlightSettings = (props: unknown) => {
   const highlightSettings = useSelector(selectHighlightSettings);
   const dispatch = useDispatch();
 

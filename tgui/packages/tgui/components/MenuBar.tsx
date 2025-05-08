@@ -15,8 +15,6 @@ export const MenuBar = (props: MenuBarProps) => {
 
 type MenuProps = {
   children: any;
-  menuRef: RefObject<HTMLElement>;
-  onOutsideClick: () => void;
   width: string;
 };
 
@@ -78,15 +76,7 @@ const MenuBarButton = (props: MenuBarDropdownProps) => {
       <Popper
         onClickOutside={onOutsideClick}
         placement="bottom-start"
-        content={
-          <Menu
-            width={openWidth}
-            menuRef={menuRef}
-            onOutsideClick={onOutsideClick}
-          >
-            {children}
-          </Menu>
-        }
+        content={<Menu width={openWidth}>{children}</Menu>}
         isOpen={open}
       />
     </div>

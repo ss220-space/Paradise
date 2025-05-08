@@ -21,7 +21,7 @@ import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { selectSettings } from './selectors';
 import { importChatSettings } from './settingsImExport';
 
-export const SettingsGeneral = (props) => {
+export const SettingsGeneral = (_props: unknown) => {
   const { theme, fontFamily, fontSize, lineHeight } =
     useSelector(selectSettings);
   const dispatch = useDispatch();
@@ -163,7 +163,7 @@ export const SettingsGeneral = (props) => {
             maxValue={5}
             value={lineHeight}
             format={(value) => toFixed(value, 2)}
-            onDrag={(e, value) =>
+            onDragInput={(e, value) =>
               dispatch(
                 updateSettings({
                   lineHeight: value,

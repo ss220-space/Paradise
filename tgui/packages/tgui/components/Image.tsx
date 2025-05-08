@@ -20,6 +20,8 @@ type Props = Partial<{
 
 const maxAttempts = 5;
 
+export type ImageProps = Props;
+
 /**
  * ## Image
  * A wrapper for the `<img>` element.

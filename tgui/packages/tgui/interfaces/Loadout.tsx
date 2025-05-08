@@ -49,7 +49,7 @@ const sortTypes = {
   'Cost': (a, b) => a.gear.cost - b.gear.cost,
 };
 
-export const Loadout = (props) => {
+export const Loadout = (props: unknown) => {
   const { act, data } = useBackend<Data>();
   const [search, setSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
@@ -89,7 +89,7 @@ export const Loadout = (props) => {
 };
 
 const LoadoutCategories = (props) => {
-  const { act, data } = useBackend<Data>();
+  const { data } = useBackend<Data>();
   const { category, setCategory } = props;
   return (
     <Tabs fluid textAlign="center" style={{ flexWrap: 'wrap-reverse' }}>

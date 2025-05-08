@@ -12,7 +12,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props) => {
+const Story = (props:unknown) => {
   return (
     <Section>
       <BlockQuote>
