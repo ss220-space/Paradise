@@ -85,7 +85,7 @@ const setGlobalFontFamily = (
     statFontFamily = null;
   }
 
-  clearInterval(setStatFontFamilyTimer);
+  clearInterval(statFamilyTimer);
   Byond.command(
     `.output statbrowser:set_font_style ${statLinked ? fontFamily : statFontFamily}`
   );
