@@ -53,7 +53,7 @@ type Pipe = {
   pipe_icon: string;
 };
 
-export const RPD = (_props:unknown) => {
+export const RPD = (_props: unknown) => {
   const { act, data } = useBackend<RPDData>();
   const { mainmenu, mode, auto_wrench } = data;
 
@@ -75,14 +75,17 @@ export const RPD = (_props:unknown) => {
               ))}
               <Button
                 fluid
+                icon="wrench"
                 textAlign="center"
+                iconPosition="right"
+                px={1.5}
+                pt={0.8}
+                mt={-0.3}
                 selected={auto_wrench}
                 onClick={() =>
                   act('auto_wrench', { auto_wrench: !auto_wrench })
                 }
-              >
-                Auto-wrench
-              </Button>
+              />
             </Tabs>
           </Stack.Item>
           {decideTab(mode)}
@@ -92,7 +95,7 @@ export const RPD = (_props:unknown) => {
   );
 };
 
-const AtmosPipeContent = (_props:unknown) => {
+const AtmosPipeContent = (_props: unknown) => {
   const { act, data } = useBackend<RPDData>();
   const { pipemenu, pipe_category, pipelist, whatpipe, iconrotation } = data;
 
@@ -366,7 +369,7 @@ const AtmosPipeContent = (_props:unknown) => {
   );
 };
 
-const DisposalPipeContent = (_props:unknown) => {
+const DisposalPipeContent = (_props: unknown) => {
   const { act, data } = useBackend<RPDData>();
   const { pipelist, whatdpipe, iconrotation } = data;
 
@@ -526,7 +529,7 @@ const DisposalPipeContent = (_props:unknown) => {
   );
 };
 
-const RotatePipeContent = (_props:unknown) => {
+const RotatePipeContent = (_props: unknown) => {
   return (
     <Stack.Item grow>
       <Section fill>
@@ -542,7 +545,7 @@ const RotatePipeContent = (_props:unknown) => {
   );
 };
 
-const FlipPipeContent = (_props:unknown) => {
+const FlipPipeContent = (_props: unknown) => {
   return (
     <Stack.Item grow>
       <Section fill>
@@ -558,7 +561,7 @@ const FlipPipeContent = (_props:unknown) => {
   );
 };
 
-const BinPipeContent = (_props:unknown) => {
+const BinPipeContent = (_props: unknown) => {
   return (
     <Stack.Item grow>
       <Section fill>

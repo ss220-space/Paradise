@@ -43,7 +43,7 @@ export const MiningVendor = (_properties) => {
 type MiningVendorData = {
   has_id: boolean;
   id: ID;
-  items: Item[];
+  items: Record<string, Record<string, Item>>;
 };
 
 type ID = {
@@ -110,17 +110,17 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
   const [searchText, _setSearchText] = useState('');
   const [sortOrder, _setSortOrder] = useState('Alphabetical');
   const [descending, _setDescending] = useState(false);
-  const searcher = createSearch<Item>(searchText, (item) => {
-    return item.name;
+  const searcher = createSearch<[string, Item]>(searchText, (item) => {
+    return item[0];
   });
 
   let has_contents = false;
-  let contents = items.map((kv, _i) => {
-    let items_in_cat = items
+  let contents = Object.entries(items).map((kv, _i) => {
+    let items_in_cat = Object.entries(kv[1] as Record<string, Item>)
       .filter(searcher)
       .map((kv2) => {
-        kv2.affordable = has_id && id.points >= kv2.price;
-        return kv2;
+        kv2[1].affordable = has_id && id.points >= kv2[1].price;
+        return kv2[1];
       })
       .sort(sortTypes[sortOrder]);
     if (items_in_cat.length === 0) {

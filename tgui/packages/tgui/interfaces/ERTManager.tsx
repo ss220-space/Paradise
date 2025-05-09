@@ -23,7 +23,7 @@ const PickTab = (index) => {
   return TabList[index];
 };
 
-export const ERTManager = (props:unknown) => {
+export const ERTManager = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
 
   return (
@@ -92,7 +92,7 @@ type ErtRequest = {
   message: string;
 };
 
-export const ERTOverview = (props:unknown) => {
+export const ERTOverview = (props: unknown) => {
   const { act, data } = useBackend<ERTData>();
   const { security_level_color, str_security_level, ert_request_answered } =
     data;
@@ -124,7 +124,7 @@ export const ERTOverview = (props:unknown) => {
   );
 };
 
-const SendERT = (props:unknown) => {
+const SendERT = (props: unknown) => {
   const { act, data } = useBackend<ERTData>();
   let slotOptions = [0, 1, 2, 3, 4, 5];
 
@@ -288,7 +288,7 @@ const SendERT = (props:unknown) => {
   );
 };
 
-const ReadERTRequests = (props:unknown) => {
+const ReadERTRequests = (props: unknown) => {
   const { act, data } = useBackend<ERTData>();
 
   const { ert_request_messages } = data;
@@ -323,16 +323,17 @@ const ReadERTRequests = (props:unknown) => {
   );
 };
 
-const DenyERT = (props:unknown) => {
+const DenyERT = (props: unknown) => {
   const { act } = useBackend();
 
   const [text, setText] = useState('');
 
   return (
-    <Section>
+    <Section fill>
       <TextArea
-        placeholder="Введите здесь причину отклонения ОБР.\nМногострочный ввод доступен."
+        placeholder="Введите здесь причину отклонения ОБР. Многострочный ввод доступен."
         fluid
+        height={'50%'}
         value={text}
         onChange={(e, value) => setText(value)}
       />

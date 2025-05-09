@@ -43,8 +43,8 @@ type CrewMonitorData = {
   isBP: boolean;
   isMM: boolean;
   isAI: boolean;
-  stationLevelNum: number;
-  stationLevelName: string;
+  stationLevelNum: number[];
+  stationLevelName: string[];
   critThreshold: number;
 };
 
@@ -69,7 +69,7 @@ type CrewMember = {
   dead: boolean;
 };
 
-export const CrewMonitor = (props:unknown) => {
+export const CrewMonitor = (props: unknown) => {
   const { data } = useBackend<CrewMonitorData>();
   const [tabIndex, setTabIndex] = useState(data.IndexToggler);
   const decideTab = (index: number) => {
@@ -282,8 +282,8 @@ const CrewMonitorMapView = (_properties) => {
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap
         onZoom={(e, v) => setZoom(v)}
-        zLevels={[stationLevelNum]}
-        zNames={[stationLevelName]}
+        zLevels={stationLevelNum}
+        zNames={stationLevelName}
         zCurrent={z_current}
         setZCurrent={setZCurrent}
       >

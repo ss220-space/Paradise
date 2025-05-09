@@ -30,7 +30,7 @@ type Product = {
   needs_container: boolean;
 } & Key;
 
-export const Biogenerator = (props:unknown) => {
+export const Biogenerator = (props: unknown) => {
   const { data, config } = useBackend<BiogeneratorProps>();
   const { processing } = data;
   const { title } = config;
@@ -48,7 +48,7 @@ export const Biogenerator = (props:unknown) => {
   );
 };
 
-const Storage = (props:unknown) => {
+const Storage = (props: unknown) => {
   const { data } = useBackend<BiogeneratorProps>();
   const {
     biomass,
@@ -90,7 +90,7 @@ const Storage = (props:unknown) => {
   );
 };
 
-const Controls = (props:unknown) => {
+const Controls = (props: unknown) => {
   const { act, data } = useBackend<BiogeneratorProps>();
   const { has_plants, container } = data;
 
@@ -145,7 +145,7 @@ const Controls = (props:unknown) => {
   );
 };
 
-const Products = (props:unknown) => {
+const Products = (props: unknown) => {
   const { act, data } = useBackend<BiogeneratorProps>();
   const { biomass, product_list, container } = data;
 
@@ -214,7 +214,8 @@ const Products = (props:unknown) => {
             width="32px"
             minValue={1}
             maxValue={10}
-            step={7}
+            step={1}
+            stepPixelSize={7}
             onChange={(value) => setVendAmount(value)}
           />
         </>

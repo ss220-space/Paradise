@@ -25,11 +25,11 @@ const Titles = {
 };
 
 const MenuTabs = {
-  0: () => <AntagList />,
-  1: () => <Objectives />,
-  2: () => <SecurityList />,
-  3: () => <HighValueItems />,
-  default: () => 'Что-то не так, пора писать баг репорт!',
+  0: (props: SearchTextProps) => <AntagList {...props} />,
+  1: (props: SearchTextProps) => <Objectives {...props} />,
+  2: (props: SearchTextProps) => <SecurityList {...props} />,
+  3: (props: SearchTextProps) => <HighValueItems {...props} />,
+  default: (_) => 'Что-то не так, пора писать баг репорт!',
 };
 
 const PickTitle = (index) => Titles[index] || Titles.default;
@@ -157,7 +157,10 @@ export const AdminAntagMenu = (properties) => {
                 </Stack>
               }
             >
-              {PickTab(tabIndex)()}
+              {PickTab(tabIndex)({
+                searchText: searchText,
+                setSearchText: setSearchText,
+              })}
             </Section>
           </Stack.Item>
         </Stack>
@@ -166,12 +169,12 @@ export const AdminAntagMenu = (properties) => {
   );
 };
 
-const AntagList = (properties) => {
+const AntagList = (properties: SearchTextProps) => {
   const { act, data } = useBackend<AntagMenuData>();
   const { antagonists } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('antag_names');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = properties;
+  const [sortId, setSortId] = useState('antag_names');
+  const [sortOrder, setSortOrder] = useState(true);
 
   const keys = Object.keys(antagonists);
   if (!keys || keys.length === 0) {
@@ -186,10 +189,42 @@ const AntagList = (properties) => {
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton id="name">Имя существа</SortButton>
-        <SortButton id="">Кнопки</SortButton>
-        <SortButton id="antag_names">Тип(-ы) антагонистов</SortButton>
-        <SortButton id="status">Статус</SortButton>
+        <SortButton
+          id="name"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Имя существа
+        </SortButton>
+        <SortButton
+          id=""
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Кнопки
+        </SortButton>
+        <SortButton
+          id="antag_names"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Тип(-ы) антагонистов
+        </SortButton>
+        <SortButton
+          id="status"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Статус
+        </SortButton>
       </Table.Row>
       {antagArray
         .filter(
@@ -298,22 +333,54 @@ const AntagList = (properties) => {
   );
 };
 
-const Objectives = (properties) => {
+const Objectives = (properties: SearchTextProps) => {
   const { act, data } = useBackend<AntagMenuData>();
   const { objectives } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('target_name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = properties;
+  const [sortId, setSortId] = useState('target_name');
+  const [sortOrder, setSortOrder] = useState(true);
   if (!objectives.length) {
     return 'Нет целей!';
   }
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton id="obj_name">Имя</SortButton>
-        <SortButton id="target_name">Цель</SortButton>
-        <SortButton id="status">Статус</SortButton>
-        <SortButton id="owner_name">Хозяин</SortButton>
+        <SortButton
+          id="obj_name"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Имя
+        </SortButton>
+        <SortButton
+          id="target_name"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Цель
+        </SortButton>
+        <SortButton
+          id="status"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Статус
+        </SortButton>
+        <SortButton
+          id="owner_name"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Хозяин
+        </SortButton>
       </Table.Row>
       {objectives
         .filter(
@@ -407,12 +474,12 @@ const Objectives = (properties) => {
   );
 };
 
-const SecurityList = (properties) => {
+const SecurityList = (properties: SearchTextProps) => {
   const { act, data } = useBackend<AntagMenuData>();
   const { security } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('health');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = properties;
+  const [sortId, setSortId] = useState('health');
+  const [sortOrder, setSortOrder] = useState(true);
 
   const getColor = (officer: Security) => {
     if (officer.status === 2) {
@@ -451,11 +518,51 @@ const SecurityList = (properties) => {
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton id="name">Имя</SortButton>
-        <SortButton id="role">Должность</SortButton>
-        <SortButton id="status">Статус</SortButton>
-        <SortButton id="antag">Антагонист</SortButton>
-        <SortButton id="health">Здоровье</SortButton>
+        <SortButton
+          id="name"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Имя
+        </SortButton>
+        <SortButton
+          id="role"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Должность
+        </SortButton>
+        <SortButton
+          id="status"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Статус
+        </SortButton>
+        <SortButton
+          id="antag"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Антагонист
+        </SortButton>
+        <SortButton
+          id="health"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Здоровье
+        </SortButton>
       </Table.Row>
       {security
         .filter(
@@ -567,22 +674,54 @@ const SecurityList = (properties) => {
   );
 };
 
-const HighValueItems = (properties) => {
+const HighValueItems = (properties: SearchTextProps) => {
   const { act, data } = useBackend<AntagMenuData>();
   const { high_value_items } = data;
-  const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('person');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const { searchText } = properties;
+  const [sortId, setSortId] = useState('person');
+  const [sortOrder, setSortOrder] = useState(true);
   if (!high_value_items.length) {
     return 'Нет особо ценных предметов!';
   }
   return (
     <Table className="AdminAntagMenu__list">
       <Table.Row bold>
-        <SortButton id="name">Имя</SortButton>
-        <SortButton id="person">Носитель</SortButton>
-        <SortButton id="loc">Местоположение</SortButton>
-        <SortButton id="admin_z">Админский Z-уровень</SortButton>
+        <SortButton
+          id="name"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Имя
+        </SortButton>
+        <SortButton
+          id="person"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Носитель
+        </SortButton>
+        <SortButton
+          id="loc"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Местоположение
+        </SortButton>
+        <SortButton
+          id="admin_z"
+          sortId={sortId}
+          setSortId={setSortId}
+          sortOrder={sortOrder}
+          setSortOrder={setSortOrder}
+        >
+          Админский Z-уровень
+        </SortButton>
       </Table.Row>
       {high_value_items
         .filter(
@@ -644,12 +783,11 @@ const HighValueItems = (properties) => {
   );
 };
 
-type SortButtonProps = { default_sort?: string } & ButtonProps;
+type SortButtonProps = ButtonProps & SordIdProps & SortOrderProps;
 
 const SortButton = (properties: SortButtonProps) => {
-  const { id, default_sort = 'antag_names', children } = properties;
-  const [sortId, setSortId] = useState(default_sort);
-  const [sortOrder, setSortOrder] = useState(true);
+  const { id, children } = properties;
+  const { sortId, setSortId, sortOrder, setSortOrder } = properties;
   return (
     <Table.Cell>
       <Button

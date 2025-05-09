@@ -87,7 +87,12 @@ export const MatrixMathTester = (props: unknown) => {
               </Table.Cell>
             </Table.Row>
           </Table>
-          <Table mt={3}>
+          <Table
+            style={{
+              borderCollapse: 'separate',
+              borderSpacing: '0 1px',
+            }}
+          >
             <Table.Row header>
               <Table.Cell>Action</Table.Cell>
               <Table.Cell>X</Table.Cell>

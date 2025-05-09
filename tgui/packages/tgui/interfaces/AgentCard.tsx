@@ -11,7 +11,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const AgentCard = (props:unknown) => {
+export const AgentCard = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index: number) => {
     switch (index) {
@@ -73,7 +73,7 @@ type CartData = {
   ai_tracking: boolean;
 };
 
-export const AgentCardInfo = (props:unknown) => {
+export const AgentCardInfo = (props: unknown) => {
   const { act, data } = useBackend<CartData>();
   const {
     registered_name,
@@ -164,14 +164,14 @@ type CardAppearancesData = {
   seleced_appearance: string;
 };
 
-export const AgentCardAppearances = (props:unknown) => {
+export const AgentCardAppearances = (props: unknown) => {
   const { act, data } = useBackend<CardAppearancesData>();
   const { appearances, id_icon, seleced_appearance } = data;
   const [selectedAppearance, setSelectedAppearance] =
     useState(seleced_appearance);
 
   return (
-    <Section fill title="Card Appearance">
+    <Section fill height={'92%'} title="Card Appearance" overflowY={'scroll'}>
       {appearances.map((appearance) => (
         <ImageButton
           key={appearance}
@@ -186,7 +186,7 @@ export const AgentCardAppearances = (props:unknown) => {
           }}
           onClick={() => {
             setSelectedAppearance(appearance);
-            act('change_appearance', {
+            act('change_appearance_new', {
               new_appearance: appearance,
             });
           }}
@@ -202,7 +202,7 @@ type CardSLSlotsData = {
 
 type SavedInfo = { id: string } & CartData;
 
-export const AgentCardSLSlots = (props:unknown) => {
+export const AgentCardSLSlots = (props: unknown) => {
   const { act, data } = useBackend<CardSLSlotsData>();
   const { saved_info } = data;
   return (

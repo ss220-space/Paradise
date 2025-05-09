@@ -75,8 +75,8 @@ const MainMenu = (_props: unknown) => {
           View Messages
         </Button>
       </Box>
-      <Box mt={2}>
-        <Box>
+      <Box mt={2} mb={2}>
+        <Box mb={0.1}>
           <Button
             icon="hand-paper"
             onClick={() => act('setScreen', { setScreen: 1 })}
@@ -84,7 +84,7 @@ const MainMenu = (_props: unknown) => {
             Request Assistance
           </Button>
         </Box>
-        <Box>
+        <Box mb={0.1}>
           <Button icon="box" onClick={() => act('setScreen', { setScreen: 2 })}>
             Request Supplies
           </Button>
@@ -99,7 +99,7 @@ const MainMenu = (_props: unknown) => {
         </Box>
       </Box>
       <Box mt={2}>
-        <Box>
+        <Box mb={'1px'}>
           <Button icon="tag" onClick={() => act('setScreen', { setScreen: 9 })}>
             Print Shipping Label
           </Button>

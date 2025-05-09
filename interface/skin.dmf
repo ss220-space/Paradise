@@ -186,7 +186,7 @@ window "mainwindow"
 		anchor1 = -1,-1
 		anchor2 = -1,-1
 		is-default = true
-		saved-params = "pos;size;is-minimized;is-maximized"
+		saved-params = "pos;size;is-minimized;is-maximized;"
 		statusbar = false
 		is-maximized = true
 		icon = 'icons\\paradise.png'

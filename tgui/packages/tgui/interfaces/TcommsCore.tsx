@@ -48,7 +48,7 @@ type Relay = {
   sector: string;
 };
 
-export const TcommsCore = (_props:unknown) => {
+export const TcommsCore = (_props: unknown) => {
   const { data } = useBackend<TcommsCoreData>();
   const { ion } = data;
   const [tabIndex, setTabIndex] = useState(0);
@@ -56,14 +56,14 @@ export const TcommsCore = (_props:unknown) => {
   return (
     <Window width={900} height={600}>
       <Window.Content scrollable>
-        {ion && <IonBanner />}
+        {!!ion && <IonBanner />}
         <Tabs>
           <Tabs.Tab
             key="ConfigPage"
             selected={tabIndex === 0}
             onClick={() => setTabIndex(0)}
           >
-            <Icon name="wrench" />
+            <Icon name="wrench" mr={0.5} />
             Configuration
           </Tabs.Tab>
           <Tabs.Tab
@@ -71,7 +71,7 @@ export const TcommsCore = (_props:unknown) => {
             selected={tabIndex === 1}
             onClick={() => setTabIndex(1)}
           >
-            <Icon name="link" />
+            <Icon name="link" mr={0.5} />
             Device Linkage
           </Tabs.Tab>
           <Tabs.Tab
@@ -79,7 +79,7 @@ export const TcommsCore = (_props:unknown) => {
             selected={tabIndex === 2}
             onClick={() => setTabIndex(2)}
           >
-            <Icon name="user-times" />
+            <Icon name="user-times" mr={0.5} />
             User Filtering
           </Tabs.Tab>
         </Tabs>

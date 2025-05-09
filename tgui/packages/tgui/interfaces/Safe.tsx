@@ -38,8 +38,8 @@ export const Safe = (_properties) => {
             <Contents />
           ) : (
             <Image
-              className="Safe--dial"
               src={resolveAsset('safe_dial.png')}
+              fixBlur
               style={{
                 transform: 'rotate(-' + 3.6 * dial + 'deg)',
                 zIndex: 0,
@@ -59,6 +59,7 @@ const Dialer = (_properties) => {
   const dialButton = (amount: number, right?: boolean) => {
     return (
       <Button
+        key={amount}
         disabled={open || (right && !locked)}
         icon={'arrow-' + (right ? 'right' : 'left')}
         iconPosition={right ? 'right' : ''}
@@ -80,10 +81,11 @@ const Dialer = (_properties) => {
       <Button
         disabled={locked}
         icon={open ? 'lock' : 'lock-open'}
-        content={open ? 'Close' : 'Open'}
         mb="0.5rem"
         onClick={() => act('open')}
-      />
+      >
+        {open ? 'Close' : 'Open'}
+      </Button>
       <br />
       <Box position="absolute">
         {[dialButton(50), dialButton(10), dialButton(1)]}

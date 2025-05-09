@@ -1,11 +1,11 @@
 import {
   type MouseEventHandler,
   type ReactNode,
+  useEffect,
   useRef,
   useState,
-  useEffect,
 } from 'react';
-import { KEY } from 'common/keys';
+import { KEY, isEscape } from 'common/keys';
 import { clamp } from 'common/math';
 import { AnimatedNumber } from './AnimatedNumber';
 import type { BoxProps } from './Box';
@@ -34,8 +34,6 @@ type Props = {
 } & Partial<{
   /** Animates the value if it was changed externally. */
   animated: boolean;
-  /** Whether component disabled. */
-  disabled: boolean;
   /** The matrix to use for the drag. */
   dragMatrix: [number, number];
   /** Format the value using this function before displaying it. */
@@ -47,13 +45,12 @@ type Props = {
   /** An event which fires when you release the input, or successfully enter a number. */
   onChange: (event: Event, value: number) => void;
   /** An event which fires when you drag the input. */
-  onDragInput: (event: MouseEvent, value: number) => void;
+  onDrag: (event: MouseEvent, value: number) => void;
   /** The step size. */
   step: number;
   /** The step size in pixels. */
   stepPixelSize: number;
-  /** The number of milliseconds to suppress flickering. */
-  suppressFlicker: number;
+
   /** Whether to unclamp the value. */
   unclamped: boolean;
   /** The unit of the value. */
@@ -64,6 +61,8 @@ type Props = {
   Omit<BoxProps, 'children'>;
 
 const DEFAULT_UPDATE_RATE = 400;
+
+const ORIGIN_UNSET = -1;
 
 /** Reduces screen offset to a single number based on the matrix provided. */
 const getScalarScreenOffset = (event: MouseEvent, matrix: number[]) => {
@@ -81,16 +80,15 @@ export const DraggableControl = (props: Props) => {
     // Our props
     animated,
     children,
-    disabled,
     dragMatrix = [1, 0],
     format,
     maxValue = Number.POSITIVE_INFINITY,
     minValue = Number.NEGATIVE_INFINITY,
     onChange,
-    onDragInput,
+    onDrag,
     step = 1,
     stepPixelSize = 1,
-    suppressFlicker = 50,
+
     unclamped,
     unit,
     updateRate = DEFAULT_UPDATE_RATE,
@@ -100,62 +98,72 @@ export const DraggableControl = (props: Props) => {
     lineHeight,
   } = props;
 
-  const [finalValue, setFinalValue] = useState(props.value);
+  // just to re-render
+  const [_stateValue, setStateValue] = useState(props.value);
   const [editing, setEditing] = useState(false);
-  const [suppressingFlicker, setSuppressingFlicker] = useState(false);
 
   const dragging = useRef(false);
+  const finalValue = useRef(props.value);
   const internalValue = useRef(0);
-  const origin = useRef(0);
+  const origin = useRef(ORIGIN_UNSET);
 
-  const flickerTimer = useRef<NodeJS.Timeout | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const dragIntervalRef = useRef<NodeJS.Timeout | null>(null);
   const timerRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
-    setFinalValue(props.value);
+    if (props.value !== finalValue.current) {
+      finalValue.current = props.value;
+      setStateValue(props.value);
+    }
   }, [props.value]);
 
-  const handleDragEnd = (event: MouseEvent) => {
-    document.body.style['pointer-events'] = 'auto';
+  /** Handed to the child component - onMouseDown  */
+  const handleDragStart = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (editing) return;
 
-    if (timerRef.current) clearTimeout(timerRef.current);
-    if (dragIntervalRef.current) clearInterval(dragIntervalRef.current);
+    document.body.style['pointer-events'] = 'none';
 
-    dragging.current = false;
-    setEditing(false);
-    origin.current = 0;
-    document.removeEventListener('mousemove', handleDragMove);
-    document.removeEventListener('mouseup', handleDragEnd);
+    origin.current = getScalarScreenOffset(event.nativeEvent, dragMatrix);
+    internalValue.current = props.value;
+    dragging.current = true;
 
-    suppress();
-    onChange?.(event, internalValue.current);
-    onDragInput?.(event, internalValue.current);
+    document.addEventListener('mouseup', handleDragEnd);
 
-    if (inputRef.current) {
-      const input = inputRef.current;
-      input.value = internalValue.toString();
-
-      setTimeout(() => {
-        input.focus();
-        input.select();
-      }, 10);
-    }
+    timerRef.current = setTimeout(() => {
+      checkDragging(event.nativeEvent);
+    }, 100);
   };
 
-  /** Triggers on mouse move */
+  /** Called after x seconds to ensure it's still dragging */
+  const checkDragging = (event: MouseEvent) => {
+    if (dragging.current) {
+      document.addEventListener('mousemove', handleDragMove);
+
+      dragIntervalRef.current = setInterval(() => {
+        if (dragging.current) onDrag?.(event, props.value);
+      }, updateRate);
+    } else {
+      setEditing(true);
+
+      if (inputRef.current) {
+        const input = inputRef.current;
+        input.value = internalValue.current.toString();
+
+        setTimeout(() => {
+          input.focus();
+          input.select();
+        }, 10);
+      }
+    }
+
+    if (timerRef.current) clearTimeout(timerRef.current);
+  };
+
+  /** User has held mouse down and is moving */
   const handleDragMove = (event: MouseEvent) => {
-    if (!origin.current) return;
     const position = getScalarScreenOffset(event, dragMatrix);
     const offset = position - origin.current;
-
-    if (!dragging.current) {
-      if (Math.abs(offset) > 4) {
-        dragging.current = true;
-      }
-      return;
-    }
 
     const stepOffset = Number.isFinite(minValue) ? minValue % step : 0;
 
@@ -167,60 +175,45 @@ export const DraggableControl = (props: Props) => {
       maxValue + step
     );
 
-    // Clamp the final value
-    setFinalValue(
-      clamp(
-        internalValue.current - (internalValue.current % step) + stepOffset,
-        minValue,
-        maxValue
-      )
+    const clamped = clamp(
+      internalValue.current - (internalValue.current % step) + stepOffset,
+      minValue,
+      maxValue
     );
+
+    finalValue.current = clamped;
+    setStateValue(clamped);
 
     origin.current = position;
   };
 
-  /** Handed to the child component - onMouseDown  */
-  const handleDragStart = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (editing || disabled) return;
+  /** Ends all drag/click events */
+  const handleDragEnd = (event: MouseEvent) => {
+    document.body.style['pointer-events'] = 'auto';
 
-    const baseEvent = event.nativeEvent;
+    if (dragIntervalRef.current) clearInterval(dragIntervalRef.current);
 
-    document.body.style['pointer-events'] = 'none';
-    origin.current = getScalarScreenOffset(baseEvent, dragMatrix);
-    internalValue.current = props.value;
+    origin.current = ORIGIN_UNSET;
 
-    timerRef.current = setTimeout(() => {
-      dragging.current = true;
-    }, 250);
+    document.removeEventListener('mousemove', handleDragMove);
+    document.removeEventListener('mouseup', handleDragEnd);
 
-    dragIntervalRef.current = setInterval(() => {
-      if (dragging) onDragInput?.(baseEvent, props.value);
-    }, updateRate);
+    if (!dragging.current) return; // user only clicked
 
-    document.addEventListener('mousemove', handleDragMove);
-    document.addEventListener('mouseup', handleDragEnd);
+    onChange?.(event, finalValue.current);
+    onDrag?.(event, finalValue.current);
+    dragging.current = false;
   };
 
-  /** Triggers on key down */
   const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    if (event.key === KEY.Enter) {
-      event.preventDefault();
-      event.stopPropagation();
-      setEventValue(event.nativeEvent, event.currentTarget.value);
-      return;
-    }
-    if (event.key === KEY.Escape) {
+    if (event.key === KEY.Enter || isEscape(event.key)) {
       setEditing(false);
-      return;
     }
   };
 
-  /** Sets the value of the event */
-  const setEventValue = (
-    event: KeyboardEvent | FocusEvent,
-    newValue: string
-  ) => {
-    let ourValue = Number.parseFloat(newValue);
+  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    let ourValue = Number.parseFloat(event.currentTarget.value);
+
     if (!unclamped) {
       ourValue = clamp(ourValue, minValue, maxValue);
     }
@@ -230,46 +223,25 @@ export const DraggableControl = (props: Props) => {
       return;
     }
 
-    setEditing(false);
-    setFinalValue(ourValue);
     internalValue.current = ourValue;
-    suppress();
-    onChange?.(event, ourValue);
-  };
+    finalValue.current = ourValue;
+    setStateValue(ourValue);
 
-  /** Suppresses flickering */
-  const suppress = () => {
-    if (suppressFlicker <= 0) return;
+    onChange?.(event.nativeEvent, ourValue);
 
-    const timer = flickerTimer.current;
-    if (!timer) return;
-
-    setSuppressingFlicker(true);
-    clearTimeout(timer);
-    flickerTimer.current = setTimeout(() => {
-      setSuppressingFlicker(false);
-    }, suppressFlicker);
-
-    return () => clearTimeout(timer);
-  };
-
-  /** Triggers on blur */
-  const handleBlur = (event: React.FocusEvent<HTMLInputElement>) => {
     if (editing) {
       setEditing(false);
     }
-
-    setEventValue(event.nativeEvent, event.currentTarget.value);
   };
 
   let displayValue = props.value;
-  if (dragging.current || suppressingFlicker) {
-    displayValue = finalValue;
+  if (dragging.current) {
+    displayValue = finalValue.current;
   }
 
   const displayElement: ReactNode = (
     <>
-      {animated && !dragging.current && !suppressingFlicker ? (
+      {animated && !dragging.current ? (
         <AnimatedNumber value={displayValue} format={format} />
       ) : format ? (
         format(displayValue)
@@ -286,14 +258,13 @@ export const DraggableControl = (props: Props) => {
       ref={inputRef}
       className="NumberInput__input"
       style={{
-        display: !editing || disabled ? 'none' : undefined,
+        display: !editing ? 'none' : undefined,
         height: height as StyleProp,
         lineHeight: lineHeight as StyleProp,
         fontSize: fontSize as StyleProp,
       }}
       onBlur={handleBlur}
       onKeyDown={handleKeyDown}
-      disabled={disabled}
     />
   );
 

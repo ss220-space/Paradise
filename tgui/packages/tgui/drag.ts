@@ -292,7 +292,7 @@ const resizeMoveHandler = (event: MouseEvent) => {
   }
   event.preventDefault();
   const currentOffset = vecSubtract(
-    [event.screenX * pixelRatio, event.screenY * pixelRatio],
+    [event.screenX, event.screenY],
     getWindowPosition()
   );
   const delta = vecSubtract(currentOffset, dragPointOffset);

@@ -44,7 +44,6 @@ export const Image = (props: Props) => {
   const computedProps = computeBoxProps(rest);
   computedProps.style = {
     ...computedProps.style,
-    '-ms-interpolation-mode': fixBlur ? 'nearest-neighbor' : 'auto',
     imageRendering: fixBlur ? 'pixelated' : 'auto',
     objectFit,
   };

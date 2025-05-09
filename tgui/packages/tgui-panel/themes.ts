@@ -67,9 +67,12 @@ export const setClientTheme = (name) => {
     return;
   }
 
+  Byond.sendMessage('theme', { 'theme': name });
+
   return Byond.winset({
     /* Mainwindow */
     'mainwindow.background-color': themeColor.BG_BASE,
+    'mainwindow.theme': name,
     'mainwindow.mainvsplit.background-color': themeColor.BG_BASE,
     'mainwindow.tooltip.background-color': themeColor.BG_BASE,
     'info_and_buttons.background-color': themeColor.BG_BASE,

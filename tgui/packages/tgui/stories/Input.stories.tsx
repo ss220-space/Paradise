@@ -65,7 +65,7 @@ const Story = (props) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDragInput={(e, value) => setNumber(value)}
+            onDrag={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Knob (onDrag)">
@@ -77,7 +77,7 @@ const Story = (props) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDragInput={(e, value) => setNumber(value)}
+            onDrag={(e, value) => setNumber(value)}
           />
           <Knob
             ml={1}
@@ -89,7 +89,7 @@ const Story = (props) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDragInput={(e, value) => setNumber(value)}
+            onDrag={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Rotating Icon">
@@ -101,7 +101,7 @@ const Story = (props) => {
               dragMatrix={[0, -1]}
               step={1}
               stepPixelSize={5}
-              onDragInput={(e, value) => setNumber(value)}
+              onDrag={(e, value) => setNumber(value)}
             >
               {(control) => (
                 <Box onMouseDown={control.handleDragStart}>

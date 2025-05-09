@@ -139,8 +139,8 @@ const SecurityRecordsPageList = (_properties) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { records } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
   return (
     <>
       <Stack.Item>
@@ -148,15 +148,59 @@ const SecurityRecordsPageList = (_properties) => {
       </Stack.Item>
       <Stack.Item grow mt={0.5}>
         <Section fill scrollable>
-          <Table className="SecurityRecords__list">
-            <Table.Row bold>
-              <Stack>
-                <SortButton id="name">Name</SortButton>
-                <SortButton id="id">ID</SortButton>
-                <SortButton id="rank">Assignment</SortButton>
-                <SortButton id="fingerprint">Fingerprint</SortButton>
-                <SortButton id="status">Criminal Status</SortButton>
-              </Stack>
+          <Table
+            className="SecurityRecords__list"
+            style={{
+              borderCollapse: 'separate',
+              borderSpacing: '0 5px',
+            }}
+          >
+            <Table.Row bold mb={1}>
+              <SortButton
+                id="name"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Name
+              </SortButton>
+              <SortButton
+                id="id"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                ID
+              </SortButton>
+              <SortButton
+                id="rank"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Assignment
+              </SortButton>
+              <SortButton
+                id="fingerprint"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Fingerprint
+              </SortButton>
+              <SortButton
+                id="status"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Criminal Status
+              </SortButton>
             </Table.Row>
             {records
               .filter(
@@ -181,6 +225,7 @@ const SecurityRecordsPageList = (_properties) => {
               .map((record) => (
                 <Table.Row
                   key={record.id}
+                  mb={1}
                   className={
                     'SecurityRecords__listRow--' + statusStyles[record.status]
                   }
@@ -192,7 +237,7 @@ const SecurityRecordsPageList = (_properties) => {
                   }
                 >
                   <Table.Cell>
-                    <Icon name="user" /> {record.name}
+                    <Button icon="user">{record.name}</Button>
                   </Table.Cell>
                   <Table.Cell>{record.id}</Table.Cell>
                   <Table.Cell>{record.rank}</Table.Cell>
@@ -241,7 +286,7 @@ const SecurityRecordsActions = (_properties) => {
 
 const SecurityRecordsPageMaintenance = (_properties) => {
   return (
-    <Box>
+    <Box m={1}>
       <Button
         disabled
         icon="download"

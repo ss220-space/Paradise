@@ -52,7 +52,7 @@ type Options = {
   num: number;
 };
 
-export const PollManagement = (_props:unknown) => {
+export const PollManagement = (_props: unknown) => {
   const { act, data } = useBackend<PollManagementData>();
   const {
     poll,
@@ -85,119 +85,140 @@ export const PollManagement = (_props:unknown) => {
       <Window.Content scrollable>
         <Section title="Poll Creation">
           <Box>
-            Question:
-            <Input
-              width={40}
-              placeholder="Question goes here"
-              value={question}
-              onChange={(_, value) => set_question(value)}
-            />
-            <br />
-            <Box inline pl={1}>
-              Choice:
-            </Box>
-            <Dropdown
-              width={10}
-              disabled={has_poll}
-              options={poll_types}
-              selected={poll_type}
-              onSelected={(value) => setPollType(value)}
-            />
-            {has_poll && poll_type !== 'Multiple Choice' ? null : (
-              <Box inline>
-                Mult-choice options allowed:
-                <Button.Checkbox
-                  width={3}
-                  checked={options_allowed}
-                  onClick={() => set_options_allowed(!options_allowed)}
+            <Stack vertical>
+              <Stack>
+                <Stack.Item>Question:</Stack.Item>
+                <Stack.Item>
+                  <Input
+                    width={40}
+                    placeholder="Question goes here"
+                    value={question}
+                    onChange={(_, value) => set_question(value)}
+                  />
+                </Stack.Item>
+              </Stack>
+              <br />
+              <Stack mb={2}>
+                <Box mr={45}>Choice:</Box>{' '}
+                <Dropdown
+                  width={20}
+                  disabled={has_poll}
+                  options={poll_types}
+                  selected={poll_type}
+                  onSelected={(value) => setPollType(value)}
                 />
-              </Box>
-            )}
-            <br />
-            <Button.Checkbox
-              checked={admin_only}
-              onClick={() => set_admin_only(!admin_only)}
-            >
-              Admin only
-            </Button.Checkbox>
-            <Button.Checkbox
-              checked={dont_show}
-              onClick={() => set_dont_show(!dont_show)}
-            >
-              {"Don't show"}
-            </Button.Checkbox>
-            <Button.Checkbox
-              checked={allow_revoting}
-              onClick={() => set_allow_revoting(!allow_revoting)}
-            >
-              Allow revoting
-            </Button.Checkbox>
-            Min. playtime to vote (in hours):
-            <Box inline ml={1}>
-              <NumberInput
-                width={3}
-                minValue={0}
-                step={1}
-                maxValue={Infinity}
-                value={minimum_playtime}
-                onChange={(value) => set_minimum_playtime(value)}
-              />
-            </Box>
-          </Box>
-          <Stack fill>
-            <Stack.Item width="50%">
-              <Box>Duration</Box>
-              <Button
-                icon="chevron-right"
-                py={1}
-                onClick={() => set_run_duration(!run_duration)}
-              >
-                {run_duration ? 'Run for' : 'Run until'}
-              </Button>
-              {run_duration ? (
+              </Stack>
+              {has_poll && poll_type !== 'Multiple Choice' ? null : (
                 <Box inline>
+                  Mult-choice options allowed:
+                  <Button.Checkbox
+                    checked={options_allowed}
+                    onClick={() => set_options_allowed(!options_allowed)}
+                  />
+                </Box>
+              )}
+              <br />
+              <Stack mb={2}>
+                <Button.Checkbox
+                  checked={admin_only}
+                  onClick={() => set_admin_only(!admin_only)}
+                >
+                  Admin only
+                </Button.Checkbox>
+                <Button.Checkbox
+                  checked={dont_show}
+                  onClick={() => set_dont_show(!dont_show)}
+                >
+                  {"Don't show"}
+                </Button.Checkbox>
+                <Button.Checkbox
+                  checked={allow_revoting}
+                  onClick={() => set_allow_revoting(!allow_revoting)}
+                >
+                  Allow revoting
+                </Button.Checkbox>
+              </Stack>
+              <Stack mb={2}>
+                <Stack.Item>Min. playtime to vote (in hours):</Stack.Item>
+                <Stack.Item inline ml={1}>
                   <NumberInput
                     width={3}
                     minValue={0}
-                    maxValue={100}
                     step={1}
-                    value={duration}
-                    onChange={(value) => set_duration(value)}
+                    maxValue={Infinity}
+                    value={minimum_playtime}
+                    onChange={(value) => set_minimum_playtime(value)}
                   />
-                  <Dropdown
-                    options={interval_types}
-                    selected={interval}
-                    onSelected={(value) => set_interval(value)}
-                  />
-                </Box>
-              ) : (
-                <Box inline>
-                  Until:
-                  <br />
+                </Stack.Item>
+              </Stack>
+            </Stack>
+          </Box>
+          <Stack fill vertical>
+            <Stack.Item width="50%">
+              <Stack mb={2}>
+                <Stack.Item>Duration</Stack.Item>
+                <Stack.Item>
+                  <Button
+                    icon="chevron-right"
+                    onClick={() => set_run_duration(!run_duration)}
+                  >
+                    {run_duration ? 'Run for' : 'Run until'}
+                  </Button>
+                </Stack.Item>
+                {run_duration ? (
+                  <Stack.Item>
+                    <Stack>
+                      <NumberInput
+                        width={3}
+                        minValue={0}
+                        maxValue={100}
+                        step={1}
+                        value={duration}
+                        onChange={(value) => set_duration(value)}
+                      />
+                      <Dropdown
+                        options={interval_types}
+                        selected={interval}
+                        onSelected={(value) => set_interval(value)}
+                      />
+                    </Stack>
+                  </Stack.Item>
+                ) : (
+                  <Stack.Item>
+                    <Stack>
+                      <Stack.Item>Until:</Stack.Item>
+                      <Stack.Item>
+                        <Input
+                          width={15}
+                          placeholder="YYYY-MM-DD HH:MM:SS"
+                          value={
+                            end_datetime ? end_datetime : '1970-01-01 00:00:01'
+                          }
+                          onChange={(_, value) => set_end_datetime(value)}
+                        />
+                      </Stack.Item>
+                    </Stack>
+                  </Stack.Item>
+                )}
+              </Stack>
+            </Stack.Item>
+            <Stack.Item mb={5}>
+              <Stack>
+                <Box>Start</Box>
+                <Button onClick={() => set_run_start(!run_start)}>
+                  {run_start ? 'Now' : 'At datetime'}
+                </Button>
+                {run_start ? null : (
                   <Input
                     width={15}
                     placeholder="YYYY-MM-DD HH:MM:SS"
-                    value={end_datetime ? end_datetime : '1970-01-01 00:00:01'}
-                    onChange={(_, value) => set_end_datetime(value)}
+                    value={
+                      start_datetime ? start_datetime : '1970-01-01 00:00:01'
+                    }
+                    onChange={(_, value) => set_start_datetime(value)}
                   />
-                </Box>
-              )}
-            </Stack.Item>
-            <Stack.Item>
-              <Box>Start</Box>
-              <Button onClick={() => set_run_start(!run_start)}>
-                {run_start ? 'Now' : 'At datetime'}
-              </Button>
-              {run_start ? null : (
-                <Input
-                  width={15}
-                  placeholder="YYYY-MM-DD HH:MM:SS"
-                  value={
-                    start_datetime ? start_datetime : '1970-01-01 00:00:01'
-                  }
-                  onChange={(_, value) => set_start_datetime(value)}
-                />
-              )}
+                )}
+              </Stack>
             </Stack.Item>
           </Stack>
           <Stack fill>
@@ -262,7 +283,6 @@ export const PollManagement = (_props:unknown) => {
                     <Button
                       p={1}
                       m={2}
-                      content="Initliaze Question"
                       onClick={() =>
                         act('initialize_poll', {
                           question: question,
@@ -282,7 +302,9 @@ export const PollManagement = (_props:unknown) => {
                           clear_votes: clear_votes,
                         })
                       }
-                    />
+                    >
+                      Initliaze Question
+                    </Button>
                   </Stack.Item>
                 </Stack>
               )}
@@ -306,7 +328,7 @@ export const PollManagement = (_props:unknown) => {
   );
 };
 
-const PollMenu = (_props:unknown) => {
+const PollMenu = (_props: unknown) => {
   const { act, data } = useBackend<PollManagementData>();
   const { poll } = data;
   const { options } = poll;

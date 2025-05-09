@@ -11,7 +11,7 @@ type BSAData = {
   connected: boolean;
 };
 
-export const BlueSpaceArtilleryControl = (props:unknown) => {
+export const BlueSpaceArtilleryControl = (props: unknown) => {
   const { act, data } = useBackend<BSAData>();
   let alertStatus: ReactNode;
   if (data.ready) {
@@ -40,7 +40,7 @@ export const BlueSpaceArtilleryControl = (props:unknown) => {
           <Stack.Item grow>
             <Section fill scrollable>
               <LabeledList>
-                {data.notice && (
+                {!!data.notice && (
                   <LabeledList.Item label="Alert" color="red">
                     {data.notice}
                   </LabeledList.Item>
@@ -51,7 +51,7 @@ export const BlueSpaceArtilleryControl = (props:unknown) => {
                     {data.target ? data.target : 'None'}
                   </Button>
                 </LabeledList.Item>
-                {data.ready && !!data.target && (
+                {!!data.ready && !!data.target && (
                   <LabeledList.Item label="Firing">
                     <Button
                       icon="skull"

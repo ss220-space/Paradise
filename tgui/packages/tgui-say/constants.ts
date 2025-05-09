@@ -3,7 +3,7 @@ export enum WindowSize {
   Small = 30,
   Medium = 50,
   Large = 70,
-  Width = 231,
+  Width = 270,
 }
 /** Line lengths for autoexpand */
 export enum LineLength {

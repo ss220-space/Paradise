@@ -117,7 +117,8 @@
 	var/list/station_level_names = list()
 	for(var/z_level in levels_by_trait(STATION_LEVEL))
 		station_level_numbers += z_level
-		station_level_names += check_level_trait(z_level, STATION_LEVEL)
+		var/datum/space_level/level = GLOB.space_manager.get_zlev(z_level)
+		station_level_names += level.name
 	static_data["stationLevelNum"] = station_level_numbers
 	static_data["stationLevelName"] = station_level_names
 	return static_data

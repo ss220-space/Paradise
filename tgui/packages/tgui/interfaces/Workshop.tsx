@@ -36,7 +36,7 @@ type WorkshopData = {
   buildStart: number;
   buildEnd: number;
   worldTime: number;
-  items: Item[];
+  items: Record<string, Record<string, Item>>;
 };
 
 type Item = {
@@ -171,16 +171,22 @@ const WorkshopItems = (properties: WorkshopState) => {
 
   // Search thingies
   const { searchText, descending } = properties;
-  const searcher = createSearch(searchText, (item) => {
+  const searcher = createSearch<[string, Item]>(searchText, (item) => {
     return item[0];
   });
 
   let has_contents = false;
-  const contents = items.map((kv, _i) => {
-    let items_in_cat = items.filter(searcher).map((kv2) => {
-      kv2.affordable = canBeMade(kv2, data.brass_amount, data.power_amount);
-      return kv2;
-    });
+  const contents = Object.entries(items).map((kv, _i) => {
+    let items_in_cat = Object.entries(kv[1])
+      .filter(searcher)
+      .map((kv2) => {
+        kv2[1].affordable = canBeMade(
+          kv2[1],
+          data.brass_amount,
+          data.power_amount
+        );
+        return kv2[1];
+      });
     if (items_in_cat.length === 0) {
       return;
     }
@@ -190,11 +196,7 @@ const WorkshopItems = (properties: WorkshopState) => {
 
     has_contents = true;
     return (
-      <WorkshopItemsCategory
-        key={kv.name}
-        title={kv.name}
-        items={items_in_cat}
-      />
+      <WorkshopItemsCategory key={kv[0]} title={kv[0]} items={items_in_cat} />
     );
   });
   return (

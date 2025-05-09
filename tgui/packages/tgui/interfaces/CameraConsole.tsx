@@ -59,13 +59,13 @@ const selectCameras = (cameras: Camera[], searchText = ''): Camera[] => {
     // Null camera filter
     (cameras) => filter<Camera>(cameras, (camera) => !!camera?.name),
     // Optional search term
-    (cameras) => searchText && filter(cameras, testSearch),
+    (cameras) => (searchText ? filter(cameras, testSearch) : cameras),
     // Slightly expensive, but way better than sorting in BYOND
     (cameras) => sortBy<Camera>(cameras, (camera) => camera.name),
   ])(cameras);
 };
 
-export const CameraConsole = (props:unknown) => {
+export const CameraConsole = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index: number) => {
     switch (index) {
@@ -105,7 +105,7 @@ export const CameraConsole = (props:unknown) => {
   );
 };
 
-export const CameraConsoleMapContent = (props:unknown) => {
+export const CameraConsoleMapContent = (props: unknown) => {
   const { act, data } = useBackend<CameraConsoleData>();
   const cameras = selectCameras(data.cameras);
   const [zoom, setZoom] = useState(1);
@@ -127,9 +127,9 @@ export const CameraConsoleMapContent = (props:unknown) => {
             zCurrent={z_current}
             setZCurrent={setZCurrent}
           >
-            {cameras.map((cm) => (
+            {cameras.map((cm, index) => (
               <NanoMap.Marker
-                key={cm.ref}
+                key={index}
                 x={cm.x}
                 y={cm.y}
                 z={cm.z}
@@ -186,7 +186,7 @@ export const CameraConsoleMapContent = (props:unknown) => {
   );
 };
 
-export const CameraConsoleOldContent = (props:unknown) => {
+export const CameraConsoleOldContent = (props: unknown) => {
   const { act, data } = useBackend<CameraConsoleData>();
   const { mapRef, activeCamera } = data;
   const [searchText] = useState('');
@@ -241,7 +241,7 @@ export const CameraConsoleOldContent = (props:unknown) => {
   );
 };
 
-export const CameraConsoleListContent = (props:unknown) => {
+export const CameraConsoleListContent = (props: unknown) => {
   const { act, data } = useBackend<CameraConsoleData>();
   const [searchText, setSearchText] = useState('');
   const { activeCamera } = data;

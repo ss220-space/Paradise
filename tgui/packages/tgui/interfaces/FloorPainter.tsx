@@ -62,24 +62,24 @@ export const FloorPainter = (props: unknown) => {
           <Flex>
             <Flex.Item>
               <Button
+                py={0.15}
                 icon="chevron-left"
                 onClick={() => act('cycle_style', { offset: -1 })}
               />
             </Flex.Item>
-            <Flex.Item>
+            <Flex.Item ml={0.15} mr={0.2}>
               <Dropdown
                 options={availableStyles}
                 selected={selectedStyle}
                 width="150px"
                 height="20px"
-                ml="2px"
-                mr="2px"
                 noChevron
                 onSelected={(val) => act('select_style', { style: val })}
               />
             </Flex.Item>
             <Flex.Item>
               <Button
+                py={0.15}
                 icon="chevron-right"
                 onClick={() => act('cycle_style', { offset: 1 })}
               />

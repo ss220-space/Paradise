@@ -22,12 +22,27 @@ type Props = {
  * [Box](https://github.com/tgstation/tgui-core/tree/main/lib/components/Box.tsx) instead.
  */
 export const ColorBox = (props: Props) => {
-  const { content, children, className, tooltip, tooltipPosition, ...rest } =
-    props;
+  const {
+    content,
+    children,
+    className,
+    tooltip,
+    tooltipPosition = 'auto',
+    ...rest
+  } = props;
 
   rest.color = content ? null : 'default';
   rest.backgroundColor = props.color || 'default';
   let result = content || children;
+
+  result = (
+    <div
+      className={classes(['ColorBox', className, computeBoxClassName(rest)])}
+      {...computeBoxProps(rest)}
+    >
+      {result || ''}
+    </div>
+  );
 
   if (tooltip) {
     result = (
@@ -37,12 +52,5 @@ export const ColorBox = (props: Props) => {
     );
   }
 
-  return (
-    <div
-      className={classes(['ColorBox', className, computeBoxClassName(rest)])}
-      {...computeBoxProps(rest)}
-    >
-      {result || ''}
-    </div>
-  );
+  return result;
 };

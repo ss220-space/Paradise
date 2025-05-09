@@ -8,10 +8,10 @@ import {
   Component,
   type ReactNode,
   createRef,
-  Children,
+  isValidElement,
   cloneElement,
 } from 'react';
-import { createRoot } from 'react-dom/client';
+import { createRoot, Root } from 'react-dom/client';
 
 type Props = {
   /** The content to display in the tooltip */
@@ -77,7 +77,14 @@ export class Tooltip extends Component<Props, State> {
       Tooltip.currentHoveredElement?.getBoundingClientRect() ?? NULL_RECT,
   };
 
-  tooltipRef: React.RefObject<HTMLElement> = createRef();
+  static reactRoot?: Root;
+
+  constructor(props) {
+    super(props);
+    this.tooltipRef = createRef();
+  }
+
+  tooltipRef: React.RefObject<HTMLElement>;
 
   componentDidMount() {
     const domNode = this.tooltipRef.current;
@@ -122,10 +129,11 @@ export class Tooltip extends Component<Props, State> {
       return;
     }
 
-    renderedTooltip.innerHTML = '';
+    if (!Tooltip.reactRoot) {
+      Tooltip.reactRoot = createRoot(renderedTooltip);
+    }
 
-    const root = createRoot(renderedTooltip);
-    root.render(<span>{this.props.content}</span>);
+    Tooltip.reactRoot.render(<span>{this.props.content}</span>);
 
     setTimeout(() => {
       let singletonPopper = Tooltip.singletonPopper;
@@ -165,7 +173,10 @@ export class Tooltip extends Component<Props, State> {
   }
 
   render() {
-    const child = Children.only(this.props.children);
+    let child = this.props.children;
+    if (!isValidElement(child)) {
+      child = <span>{child}</span>;
+    }
     return cloneElement(child as React.ReactElement, {
       ref: this.tooltipRef,
     });

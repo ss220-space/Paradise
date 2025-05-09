@@ -703,9 +703,14 @@ const DNAModifierMainRejuvenators = (props: unknown) => {
       ) : (
         <Stack fill>
           <Stack.Item bold grow textAlign="center" align="center" color="label">
-            <Icon.Stack>
+            <Icon.Stack style={{ transform: 'translate(-30px, -50px)' }}>
               <Icon name="flask" size={5} color="silver" />
-              <Icon name="slash" size={5} color="red" />
+              <Icon
+                name="slash"
+                size={5}
+                color="red"
+                style={{ transform: 'translate(-10px, 0)' }}
+              />
             </Icon.Stack>
             <br />
             <h3>Ёмкость не вставлена.</h3>

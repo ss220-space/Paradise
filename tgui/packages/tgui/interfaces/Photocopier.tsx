@@ -21,7 +21,7 @@ const selectForms = (forms: Form[], searchText = ''): Form[] => {
   const testSearch = createSearch(searchText, (form: Form) => form.altername);
   return flow([
     (forms: Form[]) => filter(forms, (form) => !!form?.altername),
-    (forms: Form[]) => searchText && filter(forms, testSearch),
+    (forms: Form[]) => (searchText ? filter(forms, testSearch) : forms),
     (forms: Form[]) => sortBy(forms, (form) => form.id),
   ])(forms);
 };
@@ -48,7 +48,7 @@ type PhotocopierData = {
   isAI: boolean;
 };
 
-export const Photocopier = (_props:unknown) => {
+export const Photocopier = (_props: unknown) => {
   const { act, data } = useBackend<PhotocopierData>();
 
   const { copies, maxcopies } = data;

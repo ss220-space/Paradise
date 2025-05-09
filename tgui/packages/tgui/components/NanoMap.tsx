@@ -5,7 +5,7 @@ import {
   ReactNode,
   MouseEventHandler,
 } from 'react';
-import { Box, Icon, Tooltip, Dropdown } from '.';
+import { Box, Icon, Tooltip, Dropdown, Image } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
@@ -124,8 +124,8 @@ export const NanoMap = (props: Props) => {
     setZCurrent(value);
   };
 
-  const mapUrl =
-    config.map + '_nanomap_z' + (props.zLevels.indexOf(zCurrent) + 1) + '.png';
+  const index = props.zLevels.findIndex((level) => +level === zCurrent);
+  const mapUrl = config.map + '_nanomap_z' + (index + 1) + '.png';
 
   const mapSize = 510 * zoom + 'px';
 
@@ -146,17 +146,13 @@ export const NanoMap = (props: Props) => {
     width: '100%',
     height: '100%',
     position: 'absolute',
-    top: '50%',
-    left: '50%',
-    transform: 'translate(-50%, -50%)',
-    '-ms-interpolation-mode': 'nearest-neighbor', // TODO: Remove with 516
-    imageRendering: 'pixelated',
+    left: 0,
   };
 
   return (
     <Box className="NanoMap__container">
       <Box onMouseDown={handleDragStart} {...computeBoxProps(newStyle)}>
-        <img src={resolveAsset(mapUrl)} {...computeBoxProps(mapStyle)} />
+        <Image src={resolveAsset(mapUrl)} {...computeBoxProps(mapStyle)} />
         <Box>{props.children}</Box>
       </Box>
       <NanoMapZoomer zoom={zoom} onZoom={handleZoom} {...props} />
@@ -236,7 +232,7 @@ const NanoMapZoomer = (props: ZoomerProps) => {
             stepPixelSize={10}
             format={(v) => v + 'x'}
             value={props.zoom}
-            onDragInput={(e, v) => props.onZoom(e, v)}
+            onDrag={(e, v) => props.onZoom(e, v)}
           />
         </LabeledList.Item>
       </LabeledList>

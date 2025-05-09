@@ -217,7 +217,9 @@
 	json_data["config"] = list(
 		"title" = title,
 		"status" = status,
-		"interface" = interface,
+		"interface" = list(
+			"name" = interface
+		),
 		"refreshing" = refreshing,
 		"window" = list(
 			"key" = window_key,

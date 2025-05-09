@@ -61,7 +61,13 @@ const BrigCellsTableRow = ({ cell }: CellData) => {
 };
 
 const BrigCellsTable = ({ cells }: CellsData) => (
-  <Table className="BrigCells__list">
+  <Table
+    className="BrigCells__list"
+    style={{
+      borderCollapse: 'separate',
+      borderSpacing: '0 5px',
+    }}
+  >
     <Table.Row>
       <Table.Cell header>Cell</Table.Cell>
       <Table.Cell header>Occupant</Table.Cell>

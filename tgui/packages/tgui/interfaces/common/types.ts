@@ -76,3 +76,13 @@ type SearchTextProps = Partial<{
   searchText: string;
   setSearchText: React.Dispatch<React.SetStateAction<string>>;
 }>;
+
+type SortOrderProps = Partial<{
+  sortOrder: boolean;
+  setSortOrder: React.Dispatch<React.SetStateAction<boolean>>;
+}>;
+
+type SordIdProps = Partial<{
+  sortId: string;
+  setSortId: React.Dispatch<React.SetStateAction<string>>;
+}>;

@@ -301,7 +301,7 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDragInput={(e, value) => setNumber(value)}
+            onDrag={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Knob (onDrag)">
@@ -313,7 +313,7 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDragInput={(e, value) => setNumber(value)}
+            onDrag={(e, value) => setNumber(value)}
           />
           <Knob
             ml={1}
@@ -325,7 +325,7 @@ const KitchenSinkInput = (props: unknown) => {
             value={number}
             minValue={-100}
             maxValue={100}
-            onDragInput={(e, value) => setNumber(value)}
+            onDrag={(e, value) => setNumber(value)}
           />
         </LabeledList.Item>
         <LabeledList.Item label="Rotating Icon">
@@ -337,7 +337,7 @@ const KitchenSinkInput = (props: unknown) => {
               dragMatrix={[0, -1]}
               step={1}
               stepPixelSize={5}
-              onDragInput={(e, value) => setNumber(value)}
+              onDrag={(e, value) => setNumber(value)}
             >
               {(control) => (
                 <Box onMouseDown={control.handleDragStart}>

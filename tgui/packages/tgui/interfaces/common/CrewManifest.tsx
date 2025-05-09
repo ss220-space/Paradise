@@ -95,7 +95,7 @@ export const CrewManifest = (props: ManifestProps) => {
   */
   // And thats it
 
-  const manifest = props
+  const manifest = props?.manifest
     ? props.manifest
     : useBackend<ManifestData>().data.manifest;
 

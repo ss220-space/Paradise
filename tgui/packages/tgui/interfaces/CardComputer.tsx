@@ -27,9 +27,14 @@ export const CardComputerLoginWarning = () => (
         align="center"
         color="label"
       >
-        <Icon.Stack>
+        <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
           <Icon name="user" size={5} color="gray" />
-          <Icon name="slash" size={5} color="red" />
+          <Icon
+            name="slash"
+            size={5}
+            color="red"
+            style={{ transform: 'translate(-15px, 0)' }}
+          />
         </Icon.Stack>
         <br />
         Not logged in
@@ -153,7 +158,7 @@ type DepRecord = {
   demotable: boolean;
 };
 
-export const CardComputer = (props:unknown) => {
+export const CardComputer = (props: unknown) => {
   const { act, data } = useBackend<CardComputerData>();
 
   let menuBlock = (

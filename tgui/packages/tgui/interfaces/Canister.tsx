@@ -49,7 +49,7 @@ type Options = {
   options: string[][];
 };
 
-export const Canister = (props:unknown) => {
+export const Canister = (props: unknown) => {
   const { act, data } = useBackend<CanisterData>();
   const {
     portConnected,
@@ -213,7 +213,7 @@ export const Canister = (props:unknown) => {
                   maxValue={maxReleasePressure}
                   step={5}
                   stepPixelSize={1}
-                  onDragInput={(e, value) =>
+                  onDrag={(e, value) =>
                     act('pressure', {
                       pressure: value,
                     })

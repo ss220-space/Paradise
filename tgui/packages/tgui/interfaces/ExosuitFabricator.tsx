@@ -46,7 +46,7 @@ type QueueItem = {
   notEnough: boolean;
 };
 
-export const ExosuitFabricator = (properties) => {
+export const ExosuitFabricator = (_properties) => {
   const { data } = useBackend<ExosuitFabricatorData>();
   const { building } = data;
   return (
@@ -153,7 +153,7 @@ const Designs = (properties) => {
         />
       }
       buttons={
-        <Box mt="2px">
+        <Box mt={-3.5}>
           <Button icon="plus" onClick={() => act('queueall')}>
             Queue all
           </Button>

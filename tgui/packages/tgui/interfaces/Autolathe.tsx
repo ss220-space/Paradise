@@ -58,7 +58,7 @@ type AutolatheData = {
   fill_percent: number;
 };
 
-export const Autolathe = (props:unknown) => {
+export const Autolathe = (props: unknown) => {
   const { act, data } = useBackend<AutolatheData>();
   const {
     total_amount,
@@ -121,7 +121,8 @@ export const Autolathe = (props:unknown) => {
           (recipe.category.indexOf(category) > -1 || searchText) &&
           (data.showhacked || !recipe.hacked)
       ),
-    (recipes: Recipe[]) => searchText && filter<Recipe>(recipes, testSearch),
+    (recipes: Recipe[]) =>
+      searchText ? filter<Recipe>(recipes, testSearch) : recipes,
     (recipes: Recipe[]) =>
       sortBy(recipes, (recipe) => recipe.name.toLowerCase()),
   ])(recipes);

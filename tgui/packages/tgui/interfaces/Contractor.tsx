@@ -231,13 +231,14 @@ const Navigation = (properties: TabsProps) => {
     <Tabs {...properties}>
       <Tabs.Tab
         selected={page === 1}
+        mr={0.5}
         onClick={() =>
           act('page', {
             page: 1,
           })
         }
       >
-        <Icon name="suitcase" />
+        <Icon name="suitcase" mr={1} />
         Контракты
       </Tabs.Tab>
       <Tabs.Tab
@@ -248,7 +249,7 @@ const Navigation = (properties: TabsProps) => {
           })
         }
       >
-        <Icon name="shopping-cart" />
+        <Icon name="shopping-cart" mr={1} />
         Магазин
       </Tabs.Tab>
     </Tabs>
@@ -446,7 +447,7 @@ const Hub = (properties: SectionProps) => {
           key={buyable.uid}
           title={buyable.name}
           buttons={
-            buyable.refundable && (
+            !!buyable.refundable && (
               <Button.Confirm
                 onClick={() =>
                   act('refund', {
@@ -474,11 +475,7 @@ const Hub = (properties: SectionProps) => {
             {'Купить (' + buyable.cost + ' репутации)'}
           </Button.Confirm>
           {buyable.stock > -1 && (
-            <Box
-              as="span"
-              color={buyable.stock === 0 ? 'bad' : 'good'}
-              ml="0.5rem"
-            >
+            <Box as="span" color={!buyable.stock ? 'bad' : 'good'} ml="0.5rem">
               {buyable.stock} в наличии
             </Box>
           )}

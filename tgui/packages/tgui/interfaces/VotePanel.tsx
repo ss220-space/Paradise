@@ -12,7 +12,7 @@ type VotePanelData = {
   show_cancel: boolean;
 };
 
-export const VotePanel = (_props:unknown) => {
+export const VotePanel = (_props: unknown) => {
   const { act, data } = useBackend<VotePanelData>();
   const {
     remaining,
@@ -33,6 +33,7 @@ export const VotePanel = (_props:unknown) => {
               <Button
                 onClick={() => act('vote', { 'target': choice })}
                 selected={choice === user_vote}
+                mb={0.5}
               >
                 {choice +
                   (show_counts ? ' (' + (counts[choice] || 0) + ')' : '')}

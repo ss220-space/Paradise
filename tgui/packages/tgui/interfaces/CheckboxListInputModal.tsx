@@ -43,7 +43,7 @@ export const CheckboxListInputModal = (props: unknown) => {
               <ListDisplay filteredItems={edittedItems} onClick={onClick} />
             </Stack.Item>
             <Stack.Item mt={0.5}>
-              <InputButtons input={edittedItems.map as any} />
+              <InputButtons input={edittedItems as any} />
             </Stack.Item>
           </Stack>
         </Section>

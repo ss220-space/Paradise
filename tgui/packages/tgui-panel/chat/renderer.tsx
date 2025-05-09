@@ -199,7 +199,7 @@ class ChatRenderer {
     // Find scrollable parent
     this.scrollNode = findNearestScrollableParent(this.rootNode) as HTMLElement;
     this.scrollNode.addEventListener('scroll', this.handleScroll);
-    requestAnimationFrame(() => {
+    setTimeout(() => {
       this.scrollToBottom();
     });
     // Flush the queue

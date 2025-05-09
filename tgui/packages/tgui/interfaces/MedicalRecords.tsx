@@ -164,8 +164,8 @@ const MedicalRecordsList = (_properties) => {
   const { act, data } = useBackend<MedicalRecordsData>();
   const { records } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
   return (
     <>
       <Stack.Item>
@@ -190,13 +190,59 @@ const MedicalRecordsList = (_properties) => {
       </Stack.Item>
       <Stack.Item grow mt={0.5}>
         <Section fill scrollable>
-          <Table className="MedicalRecords__list">
-            <Table.Row bold>
-              <SortButton id="name">Имя</SortButton>
-              <SortButton id="id">ID</SortButton>
-              <SortButton id="rank">Должность</SortButton>
-              <SortButton id="p_stat">Физическое состояние</SortButton>
-              <SortButton id="m_stat">Психологическое состояние</SortButton>
+          <Table
+            className="MedicalRecords__list"
+            style={{
+              borderCollapse: 'separate',
+              borderSpacing: '0 5px',
+            }}
+          >
+            <Table.Row bold mb={1}>
+              <SortButton
+                id="name"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Имя
+              </SortButton>
+              <SortButton
+                id="id"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                ID
+              </SortButton>
+              <SortButton
+                id="rank"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Должность
+              </SortButton>
+              <SortButton
+                id="p_stat"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Физическое состояние
+              </SortButton>
+              <SortButton
+                id="m_stat"
+                sortId={sortId}
+                setSortId={setSortId}
+                sortOrder={sortOrder}
+                setSortOrder={setSortOrder}
+              >
+                Психологическое состояние
+              </SortButton>
             </Table.Row>
             {records
               .filter(
@@ -221,6 +267,7 @@ const MedicalRecordsList = (_properties) => {
               .map((record) => (
                 <Table.Row
                   key={record.id}
+                  mb={1}
                   className={
                     'MedicalRecords__listRow--' + medStatusStyles[record.p_stat]
                   }
@@ -506,8 +553,8 @@ const MedicalRecordsViruses = (_properties) => {
   const { act, data } = useBackend<MedicalRecordsData>();
   const { virus } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId2, _setSortId2] = useState('name');
-  const [sortOrder2, _setSortOrder2] = useState(true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
   return (
     <>
       <Stack.Item grow>
@@ -521,11 +568,41 @@ const MedicalRecordsViruses = (_properties) => {
       <Stack fill vertical mt={0.5}>
         <Stack.Item grow>
           <Section fill scrollable>
-            <Table className="MedicalRecords__list">
-              <Table.Row bold>
-                <SortButton id="name">Название</SortButton>
-                <SortButton id="max_stages">Количество стадий</SortButton>
-                <SortButton id="severity">Тяжесть</SortButton>
+            <Table
+              className="MedicalRecords__list"
+              style={{
+                borderCollapse: 'separate',
+                borderSpacing: '0 5px',
+              }}
+            >
+              <Table.Row bold mb={1}>
+                <SortButton
+                  id="name"
+                  sortId={sortId}
+                  setSortId={setSortId}
+                  sortOrder={sortOrder}
+                  setSortOrder={setSortOrder}
+                >
+                  Название
+                </SortButton>
+                <SortButton
+                  id="max_stages"
+                  sortId={sortId}
+                  setSortId={setSortId}
+                  sortOrder={sortOrder}
+                  setSortOrder={setSortOrder}
+                >
+                  Количество стадий
+                </SortButton>
+                <SortButton
+                  id="severity"
+                  sortId={sortId}
+                  setSortId={setSortId}
+                  sortOrder={sortOrder}
+                  setSortOrder={setSortOrder}
+                >
+                  Тяжесть
+                </SortButton>
               </Table.Row>
               {virus
                 .filter(
@@ -534,12 +611,13 @@ const MedicalRecordsViruses = (_properties) => {
                   })
                 )
                 .sort((a, b) => {
-                  const i = sortOrder2 ? 1 : -1;
-                  return a[sortId2].localeCompare(b[sortId2]) * i;
+                  const i = sortOrder ? 1 : -1;
+                  return a[sortId].localeCompare(b[sortId]) * i;
                 })
                 .map((vir) => (
                   <Table.Row
                     key={vir.id}
+                    mb={1}
                     className={'MedicalRecords__listVirus--' + vir.severity}
                     onClick={() => act('vir', { vir: vir.D })}
                   >
@@ -603,8 +681,14 @@ const MedicalRecordsMedbots = (_properties) => {
   return (
     <Stack.Item grow>
       <Section fill scrollable>
-        <Table className="MedicalRecords__list">
-          <Table.Row bold>
+        <Table
+          className="MedicalRecords__list"
+          style={{
+            borderCollapse: 'separate',
+            borderSpacing: '0 5px',
+          }}
+        >
+          <Table.Row bold mb={1}>
             <Table.Cell>Название</Table.Cell>
             <Table.Cell>Локация</Table.Cell>
             <Table.Cell>Состояние</Table.Cell>
@@ -613,6 +697,7 @@ const MedicalRecordsMedbots = (_properties) => {
           {medbots.map((medbot) => (
             <Table.Row
               key={medbot.id}
+              mb={1}
               className={'MedicalRecords__listMedbot--' + medbot.on}
             >
               <Table.Cell>
@@ -645,9 +730,8 @@ const MedicalRecordsMedbots = (_properties) => {
 };
 
 export const SortButton = (properties: SortButtonProps) => {
-  const [sortId, setSortId] = useState('name');
-  const [sortOrder, setSortOrder] = useState(true);
   const { id, children } = properties;
+  const { sortId, setSortId, sortOrder, setSortOrder } = properties;
   return (
     <Table.Cell>
       <Button
@@ -674,7 +758,8 @@ export const SortButton = (properties: SortButtonProps) => {
 type SortButtonProps = {
   id: string;
   children: ReactNode;
-};
+} & SordIdProps &
+  SortOrderProps;
 
 const MedicalRecordsNavigation = (_properties) => {
   const { act, data } = useBackend<MedicalRecordsData>();

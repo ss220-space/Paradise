@@ -10,7 +10,7 @@ type ConveyorSwitchData = {
   position: number;
 };
 
-export const ConveyorSwitch = (props:unknown) => {
+export const ConveyorSwitch = (props: unknown) => {
   const { act, data } = useBackend<ConveyorSwitchData>();
   const { slowFactor, minSpeed, maxSpeed, oneWay, position } = data;
 
@@ -59,6 +59,7 @@ export const ConveyorSwitch = (props:unknown) => {
                     minValue={minSpeed}
                     maxValue={maxSpeed}
                     step={0.1}
+                    stepPixelSize={2}
                     format={(value) => value + 's.'}
                     onChange={(e, value) => act('slowFactor', { value: value })}
                   />

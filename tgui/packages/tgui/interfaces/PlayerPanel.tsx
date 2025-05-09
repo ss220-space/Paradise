@@ -445,7 +445,7 @@ const InfoSection = (_props: unknown) => {
         </Grid.Column>
         <Grid.Column size={6}>
           <Button fluid icon="user-secret" onClick={() => handleAction('tp')}>
-            TRAITOR PANE
+            TRAITOR PANEL
           </Button>
           <Button fluid icon="code" onClick={() => handleAction('vv')}>
             VV

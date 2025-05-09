@@ -13,7 +13,7 @@ type RitualMenuData = {
   time_left: number;
 };
 
-export const RitualMenu = (_props:unknown) => {
+export const RitualMenu = (_props: unknown) => {
   const { act, data } = useBackend<RitualMenuData>();
   const [startButtonColor, SetStartButtonColor] = useState('#3c3c3c');
   const {
@@ -41,23 +41,32 @@ export const RitualMenu = (_props:unknown) => {
               fontWeight: 'bold',
             }}
           >
-            <span>Выбор ритуала</span>
-            <Dropdown
-              width="100%"
-              options={rituals}
-              selected={selectedRitual ? selectedRitual : 'Ритуал не выбран'}
-              backgroundColor="#2a2a2a"
-              mt="10px"
-              onSelected={(val) => {
-                SetSelectedRitual(val);
-                act('select_ritual', { selected_ritual: val });
-              }}
-              style={{
-                color: 'white',
-                border: '1px solid #444',
-                borderRadius: '5px',
-              }}
-            />
+            <Stack vertical>
+              <Stack.Item style={{ marginBottom: '2px' }}>
+                Выбор ритуала
+              </Stack.Item>
+              <Stack.Item>
+                <Dropdown
+                  width="100%"
+                  noChevron
+                  options={rituals}
+                  selected={
+                    selectedRitual ? selectedRitual : 'Ритуал не выбран'
+                  }
+                  mt={1}
+                  onSelected={(val) => {
+                    SetSelectedRitual(val);
+                    act('select_ritual', { selected_ritual: val });
+                  }}
+                  style={{
+                    color: 'white',
+                    border: '1px solid #444',
+                    backgroundColor: '#2a2a2a',
+                    borderRadius: '5px',
+                  }}
+                />
+              </Stack.Item>
+            </Stack>
           </Box>
         </Stack.Item>
         {selected_ritual ? (

@@ -1,4 +1,4 @@
-/* eslint-disable react/state-in-constructor */
+ 
 /**
  * @file
  * @copyright 2023 itsmeow
@@ -102,9 +102,7 @@ export const ColorSelector = ({
   defaultColor: string;
 }) => {
   const handleChange = (params: Partial<HsvaColor>) => {
-    setColor((current: HsvaColor) => {
-      return Object.assign({}, current, params);
-    });
+    setColor(Object.assign({}, color, params));
   };
   const rgb = hsvaToRgba(color);
   const hexColor = hsvaToHex(color);
@@ -375,13 +373,12 @@ interface ColorInputBaseProps {
   format?: (value: string) => string;
 }
 
-export class ColorInput extends Component {
-  props: ColorInputBaseProps;
-  state: { localValue: string };
-
+export class ColorInput extends Component<
+  ColorInputBaseProps,
+  { localValue: string }
+> {
   constructor(props: ColorInputBaseProps) {
     super(props);
-    this.props = props;
     this.state = { localValue: this.props.escape(this.props.color) };
   }
 
@@ -450,11 +447,11 @@ const SaturationValue = ({ hsva, onChange }) => {
   };
 
   const containerStyle = {
-    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })} !important`,
+    backgroundColor: `${hsvaToHslString({ h: hsva.h, s: 100, v: 100, a: 1 })}`,
   };
 
   return (
-    <div className="react-colorful__saturation_value" style={containerStyle}>
+    <Box className="react-colorful__saturation_value" style={containerStyle}>
       <Interactive
         onMove={handleMove}
         onKey={handleKey}
@@ -468,7 +465,7 @@ const SaturationValue = ({ hsva, onChange }) => {
           color={hsvaToHslString(hsva)}
         />
       </Interactive>
-    </div>
+    </Box>
   );
 };
 

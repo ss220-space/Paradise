@@ -110,7 +110,7 @@ export const Uplink = (_props: unknown) => {
 
   return (
     <Window width={900} height={700} theme="syndicate">
-      <ComplexModal />
+      <ComplexModal maxHeight={50} />
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
@@ -553,7 +553,7 @@ const CartButtons = (props: CartButtonsProps) => {
 
 const ExploitableInfoPage = (_properties) => {
   const { data } = useBackend<UplinkData>();
-  const { exploitable } = data;
+  const { exploitable = [] } = data;
   // Default to first
   const [selectedRecord, setSelectedRecord] = useState(exploitable[0]);
 
@@ -563,7 +563,7 @@ const ExploitableInfoPage = (_properties) => {
   const SelectMembers = (people: ExploitableRecord[], searchText = '') => {
     const MemberSearch = createSearch<ExploitableRecord>(
       searchText,
-      (member) => member.name
+      (member: ExploitableRecord) => member.name
     );
     return flow([
       (people: ExploitableRecord[]) =>
@@ -571,7 +571,7 @@ const ExploitableInfoPage = (_properties) => {
         filter(people, (member) => !!member?.name),
       // Optional search term
       (people: ExploitableRecord[]) =>
-        searchText && filter(people, MemberSearch),
+        searchText ? filter(people, MemberSearch) : people,
       // Slightly expensive, but way better than sorting in BYOND
       (people: ExploitableRecord[]) => sortBy(people, (member) => member.name),
     ])(people);

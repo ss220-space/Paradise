@@ -3,41 +3,42 @@
 @use './colors.scss';
 
 // Core styles
-@include meta.load-css('~tgui/styles/reset.scss');
+@include meta.load-css('~tgui/styles/reset');
 // Atomic styles
 @include meta.load-css('~tgui/styles/atomic/text.scss');
 // External styles
 @include meta.load-css('~tgui/styles/components/TextArea.scss');
 // Local styles
-@include meta.load-css('./button.scss');
-@include meta.load-css('./content.scss');
-@include meta.load-css('./dragzone.scss');
-@include meta.load-css('./textarea.scss');
-@include meta.load-css('./window.scss');
+@include meta.load-css('./styles.scss');
 
 @each $channel, $color in colors.$channel-map {
-  $darkened: color.adjust($color, $lightness: -20%);
+  $darkened: color.adjust($color, $lightness: -20%, $space: hsl);
 
-  .old-button-#{$channel} {
-    border-color: color.adjust($color, $lightness: -10%);
+  .button-#{$channel} {
+    border-color: color.adjust($color, $lightness: -10%, $space: hsl);
     color: $color;
-    -webkit-user-select: none;
-    user-select: none;
     &:hover {
-      border-color: color.adjust($color, $lightness: 10%);
-      color: lighten($color, 5%);
+      border-color: color.adjust($color, $lightness: 10%, $space: hsl);
+      color: color.adjust($color, $lightness: 5%, $space: hsl);
     }
   }
 
-  .old-dragzone-#{$channel} {
-    border-color: $darkened;
-  }
-
-  .old-dragzone-left.dragzone-#{$channel} {
-    background-color: $darkened;
-  }
-
-  .old-textarea-#{$channel} {
+  .textarea-#{$channel} {
     color: $color;
+  }
+
+  .window-#{$channel} {
+    background-color: $color;
+  }
+
+  .shine-#{$channel} {
+    background: radial-gradient(
+      circle,
+      color.adjust($color, $lightness: 5%, $space: hsl),
+      color.adjust($color, $lightness: -15%, $space: hsl),
+      color.adjust($color, $lightness: 15%, $space: hsl),
+      color.adjust($color, $lightness: -15%, $space: hsl),
+      color.adjust($color, $lightness: 5%, $space: hsl)
+    );
   }
 }

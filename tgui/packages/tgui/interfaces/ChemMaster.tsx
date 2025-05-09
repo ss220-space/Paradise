@@ -10,6 +10,7 @@ import {
   Stack,
   Slider,
   Tabs,
+  Image,
 } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
@@ -506,7 +507,7 @@ const SpriteStyleButton = (
   const { icon, ...restProps } = props;
   return (
     <Button style={{ padding: '0', lineHeight: '0' }} {...restProps}>
-      <Box className={classes(['chem_master_large32x32', icon])} />
+      <Image fixBlur className={classes(['chem_master_large32x32', icon])} />
     </Button>
   );
 };

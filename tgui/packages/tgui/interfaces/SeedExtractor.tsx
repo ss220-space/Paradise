@@ -1,6 +1,6 @@
 import { classes } from '../../common/react';
 import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import {
   Button,
   Icon,
@@ -14,15 +14,20 @@ import { Window } from '../layouts';
 import { ComplexModal } from './common/ComplexModal';
 
 export const SeedExtractor = (_properties) => {
+  const [searchText, setSearchText] = useState('');
+  const [vendAmount, setVendAmount] = useState(1);
   return (
     <Window theme="hydroponics" width={800} height={400}>
       <ComplexModal />
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
-            <SeedExtractorActions />
+            <SeedExtractorActions
+              setSearchText={setSearchText}
+              setVendAmount={setVendAmount}
+            />
           </Stack.Item>
-          <SeedList />
+          <SeedList searchText={searchText} vendAmount={vendAmount} />
         </Stack>
       </Window.Content>
     </Window>
@@ -136,26 +141,90 @@ type Seed = {
   amount: number;
 };
 
-const SeedList = (_properties) => {
+const SeedList = (properties: VendAmountProps & SearchTextProps) => {
   const { act, data } = useBackend<SeedExtractorData>();
   const { seeds } = data;
-  const [searchText, setSearchText] = useState('');
-  const [vendAmount, setVendAmount] = useState(1);
-  const [sortId, _setSortId] = useState('name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const [sortId, setSortId] = useState('name');
+  const [sortOrder, setSortOrder] = useState(true);
+
+  const { searchText, vendAmount } = properties;
   return (
     <Stack.Item grow mt={0.5}>
       <Section fill scrollable>
         <Table className="SeedExtractor__list">
           <Table.Row bold>
-            <SortButton id="name">Name</SortButton>
-            <SortButton id="lifespan">Lifespan</SortButton>
-            <SortButton id="endurance">Endurance</SortButton>
-            <SortButton id="maturation">Maturation</SortButton>
-            <SortButton id="production">Production</SortButton>
-            <SortButton id="yield">Yield</SortButton>
-            <SortButton id="potency">Potency</SortButton>
-            <SortButton id="amount">Stock</SortButton>
+            <SortButton
+              id="name"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Name
+            </SortButton>
+            <SortButton
+              id="lifespan"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Lifespan
+            </SortButton>
+            <SortButton
+              id="endurance"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Endurance
+            </SortButton>
+            <SortButton
+              id="maturation"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Maturation
+            </SortButton>
+            <SortButton
+              id="production"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Production
+            </SortButton>
+            <SortButton
+              id="yield"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Yield
+            </SortButton>
+            <SortButton
+              id="potency"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Potency
+            </SortButton>
+            <SortButton
+              id="amount"
+              sortId={sortId}
+              setSortId={setSortId}
+              sortOrder={sortOrder}
+              setSortOrder={setSortOrder}
+            >
+              Stock
+            </SortButton>
           </Table.Row>
           {!seeds
             ? 'No seeds present.'
@@ -209,11 +278,11 @@ const SeedList = (_properties) => {
 type SortButtonProps = {
   id: string;
   children: ReactNode;
-};
+} & SortOrderProps &
+  SordIdProps;
 
 const SortButton = (properties: SortButtonProps) => {
-  const [sortId, setSortId] = useState('name');
-  const [sortOrder, setSortOrder] = useState(true);
+  const { sortId, setSortId, sortOrder, setSortOrder } = properties;
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -238,9 +307,15 @@ const SortButton = (properties: SortButtonProps) => {
   );
 };
 
-const SeedExtractorActions = (_properties) => {
-  const [searchText, setSearchText] = useState('');
-  const [vendAmount, setVendAmount] = useState(1);
+type VendAmountProps = {
+  vendAmount?: number;
+  setVendAmount?: React.Dispatch<React.SetStateAction<number>>;
+};
+
+const SeedExtractorActions = (
+  properties: VendAmountProps & SearchTextProps
+) => {
+  const { setSearchText, setVendAmount } = properties;
   return (
     <Stack fill>
       <Stack.Item grow>

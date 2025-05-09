@@ -93,7 +93,13 @@ const SelectionView = (_props: unknown) => {
 
 const DataView = (_props: unknown) => {
   const { act, data } = useBackend<PowerMonitorData>();
-  const { powermonitor, history, apcs, can_select_monitor, no_powernet } = data;
+  const {
+    powermonitor,
+    history,
+    apcs = [],
+    can_select_monitor,
+    no_powernet,
+  } = data;
 
   let body: ReactNode;
   if (no_powernet) {
@@ -116,15 +122,16 @@ const DataView = (_props: unknown) => {
       (apcs: APC[]) =>
         map(apcs, (apc: APC, i) => ({
           ...apc,
-          // Generate a unique id
           id: apc.Name + i,
         })),
       (apcs: APC[]) =>
-        sortByField === 'name' && sortBy(apcs, (apc) => apc.Name),
+        sortByField === 'name' ? sortBy(apcs, (apc: APC) => apc.Name) : apcs,
       (apcs: APC[]) =>
-        sortByField === 'charge' && sortBy(apcs, (apc) => -apc.CellPct),
+        sortByField === 'charge'
+          ? sortBy(apcs, (apc: APC) => -apc.CellPct)
+          : apcs,
       (apcs: APC[]) =>
-        sortByField === 'draw' && sortBy(apcs, (apc) => -apc.Load),
+        sortByField === 'draw' ? sortBy(apcs, (apc: APC) => -apc.Load) : apcs,
     ])(apcs);
 
     body = (
@@ -200,7 +207,12 @@ const DataView = (_props: unknown) => {
             Draw
           </Button.Checkbox>
         </Box>
-        <Table>
+        <Table
+          style={{
+            borderCollapse: 'separate',
+            borderSpacing: '0 5px',
+          }}
+        >
           <Table.Row header>
             <Table.Cell>Area</Table.Cell>
             <Table.Cell collapsing>Charge</Table.Cell>
@@ -310,12 +322,12 @@ const AreaStatusColorBox = (props: AreaStatusColorBoxProps) => {
       active = false;
       break;
   }
-  const tooltipText =
-    (active ? 'On' : 'Off') + ` [${auto ? 'auto' : 'manual'}]`;
+  const tooltipText = 'база';
+
   return (
     <ColorBox
       color={active ? 'good' : 'bad'}
-      content={auto ? undefined : 'M'}
+      content={auto ? 'A' : 'M'}
       tooltip={tooltipText}
     />
   );

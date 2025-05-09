@@ -105,7 +105,7 @@ type Addiction = {
   addiction_stage: number;
 };
 
-export const Healthanalyzer = (props:unknown) => {
+export const Healthanalyzer = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
 
   const { scan_data } = data;
@@ -292,7 +292,7 @@ export const Healthanalyzer = (props:unknown) => {
                     )}
 
                     <LabeledList.Item label="Пульс">
-                      <span style={scan_data.pulse === 0 && { color: 'red' }}>
+                      <span style={!!scan_data.pulse && { color: 'red' }}>
                         {scan_data.pulse} уд/мин
                       </span>
                     </LabeledList.Item>
@@ -456,14 +456,6 @@ export const Healthanalyzer = (props:unknown) => {
                   )
                 )}
 
-                {!!scan_data.reagentList && <ReagentList />}
-
-                {!!scan_data.diseases[0] && <DiseasesList />}
-
-                {!!scan_data.addictionList && <AddictionList />}
-
-                {!!scan_data.implantDetect && <ImplantList />}
-
                 <Section title="Страховка">
                   <LabeledList>
                     <LabeledList.Item label="Тип страховки ">
@@ -488,7 +480,7 @@ export const Healthanalyzer = (props:unknown) => {
   );
 };
 
-const TopButtons = (props:unknown) => {
+const TopButtons = (props: unknown) => {
   const { act, data } = useBackend<HealthanalyzerData>();
 
   return (
@@ -517,7 +509,7 @@ const TopButtons = (props:unknown) => {
   );
 };
 
-const StatusInfo = (props:unknown) => {
+const StatusInfo = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
 
   const {
@@ -595,7 +587,7 @@ const StatusInfo = (props:unknown) => {
   );
 };
 
-const DiseasesList = (props:unknown) => {
+const DiseasesList = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
 
   const { diseases } = data.scan_data;
@@ -632,7 +624,7 @@ const DiseasesList = (props:unknown) => {
   );
 };
 
-const ReagentList = (props:unknown) => {
+const ReagentList = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
 
   const { reagentList } = data.scan_data;
@@ -657,7 +649,7 @@ const ReagentList = (props:unknown) => {
   );
 };
 
-const AddictionList = (props:unknown) => {
+const AddictionList = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
 
   const { addictionList } = data.scan_data;
@@ -675,7 +667,7 @@ const AddictionList = (props:unknown) => {
   );
 };
 
-const ImplantList = (props:unknown) => {
+const ImplantList = (props: unknown) => {
   const { data } = useBackend<HealthanalyzerData>();
 
   const { implantDetect } = data.scan_data;

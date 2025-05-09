@@ -66,6 +66,13 @@ export const Window = (props: Props) => {
     setIsReadyToRender(true);
   }, []);
 
+  useEffect(() => {
+    Byond.winset(Byond.windowId, {
+      'is-fullscreen': false,
+      'size': `${width}x${height}`,
+    });
+  }, []);
+
   const { scale } = config.window;
 
   useEffect(() => {

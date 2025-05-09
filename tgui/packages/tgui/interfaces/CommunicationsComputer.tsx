@@ -627,55 +627,67 @@ const AdminAnnouncePage = (props: unknown) => {
     <Stack.Item>
       <Section
         title="Оповещение ЦК"
+        height={30}
         buttons={
           <Button icon="arrow-circle-left" onClick={() => act('main')}>
             Вернуться в Основное меню
           </Button>
         }
       >
-        <Input
-          placeholder="Введите заголовок тут."
-          fluid
-          value={subtitle}
-          onChange={(e, value) => setSubtitle(value)}
-          mb="5px"
-        />
-        <TextArea
-          placeholder="Введите текст объявления,\nМногострочный ввод принимается."
-          fluid
-          value={text}
-          onChange={(e, value) => setText(value)}
-        />
-        <Button.Checkbox
-          checked={classified}
-          fluid
-          m="5px"
-          tooltip={
-            classified
-              ? 'Отправить на консоли связи станции'
-              : 'Публично объявить'
-          }
-          onClick={() => setClassified(!classified)}
-        >
-          Засекречено
-        </Button.Checkbox>
-        <Button.Confirm
-          fluid
-          icon="paper-plane"
-          mt="5px"
-          textAlign="center"
-          align="center"
-          onClick={() =>
-            act('make_cc_announcement', {
-              subtitle: subtitle,
-              text: text,
-              classified: classified,
-              beepsound: beepsound,
-            })
-          }
-        >
-          Сделать объявление
-        </Button.Confirm>
+        <Stack vertical fill>
+          <Stack.Item>
+            <Input
+              placeholder="Введите заголовок тут."
+              fluid
+              value={subtitle}
+              onChange={(e, value) => setSubtitle(value)}
+              mb="5px"
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <TextArea
+              placeholder="Введите текст объявления. Многострочный ввод принимается."
+              fluid
+              height={18}
+              value={text}
+              onChange={(e, value) => setText(value)}
+            />
+          </Stack.Item>
+          <Stack.Item>
+            <Button.Checkbox
+              checked={classified}
+              fluid
+              m="5px"
+              tooltip={
+                classified
+                  ? 'Отправить на консоли связи станции'
+                  : 'Публично объявить'
+              }
+              onClick={() => setClassified(!classified)}
+            >
+              Засекречено
+            </Button.Checkbox>
+          </Stack.Item>
+          <Stack.Item>
+            <Button.Confirm
+              fluid
+              icon="paper-plane"
+              mt="5px"
+              textAlign="center"
+              align="center"
+              onClick={() =>
+                act('make_cc_announcement', {
+                  subtitle: subtitle,
+                  text: text,
+                  classified: classified,
+                  beepsound: beepsound,
+                })
+              }
+            >
+              Сделать объявление
+            </Button.Confirm>
+          </Stack.Item>
+        </Stack>
       </Section>
     </Stack.Item>
   );

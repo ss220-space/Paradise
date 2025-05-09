@@ -105,6 +105,10 @@ You can double-click these batch files to achieve the same thing:
 
 ## Troubleshooting
 
+**Development server isn't attaching to the game**
+Make sure that you have a tgui window open before you run the dev server. Then,
+once it's running, you may need to press F5 to refresh the page.
+
 **Development server doesn't find my BYOND cache!**
 
 This happens if your Documents folder in Windows has a custom location, for
@@ -126,6 +130,12 @@ BYOND_CACHE="E:/Libraries/Documents/BYOND/cache"
 > hallucinating.
 
 To fix this kind of problem, run `bin/tgui --clean` and try again.
+
+## Browser Developer Tools
+
+WebView2 is chromium based, so you can access the dev tools much easier than its
+predecessor. Simply go to debug tab in your stat panel and click "Allow Browser
+Inspection". You can then f12 to open the standard chrome dev tools.
 
 ## Developer Tools
 
@@ -150,7 +160,7 @@ together, and can reveal certain layout bugs which are not normally visible.
 
 - `/packages` - Each folder here represents a self-contained Node module.
 - `/packages/common` - Helper functions
-- `/packages/tgui/index.js` - Application entry point.
+- `/packages/tgui/index.ts` - Application entry point.
 - `/packages/tgui/components` - Basic UI building blocks.
 - `/packages/tgui/interfaces` - Actual in-game interfaces.
   Interface takes data via the `state` prop and outputs an html-like stucture,
@@ -158,11 +168,11 @@ together, and can reveal certain layout bugs which are not normally visible.
 - `/packages/tgui/layouts` - Root level UI components, that affect the final
   look and feel of the browser window. They usually hold various window
   elements, like the titlebar and resize handlers, and control the UI theme.
-- `/packages/tgui/routes.js` - This is where tgui decides which interface to
+- `/packages/tgui/routes.ts` - This is where tgui decides which interface to
   pull and render.
-- `/packages/tgui/layout.js` - A root-level component, holding the
+- `/packages/tgui/layout/index.ts` - A root-level component, holding the
   window elements, like the titlebar, buttons, resize handlers. Calls
-  `routes.js` to decide which component to render.
+  `routes.ts` to decide which component to render.
 - `/packages/tgui/styles/main.scss` - CSS entry point.
 - `/packages/tgui/styles/functions.scss` - Useful SASS functions.
   Stuff like `lighten`, `darken`, `luminance` are defined here.

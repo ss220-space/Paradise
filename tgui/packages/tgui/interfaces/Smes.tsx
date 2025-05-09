@@ -30,7 +30,7 @@ type SmesData = {
   outputUsed: number;
 };
 
-export const Smes = (_props:unknown) => {
+export const Smes = (_props: unknown) => {
   const { act, data } = useBackend<SmesData>();
   const {
     capacityPercent,
@@ -86,7 +86,7 @@ export const Smes = (_props:unknown) => {
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Input">
-                <Stack inline width="100%">
+                <Stack width="100%">
                   <Stack.Item>
                     <Button
                       icon="fast-backward"
@@ -175,7 +175,7 @@ export const Smes = (_props:unknown) => {
                 </Box>
               </LabeledList.Item>
               <LabeledList.Item label="Target Output">
-                <Stack inline width="100%">
+                <Stack width="100%">
                   <Stack.Item>
                     <Button
                       icon="fast-backward"

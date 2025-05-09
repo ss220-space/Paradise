@@ -1,4 +1,4 @@
-import { Channel } from '../ChannelIterator';
+import { Channel } from './ChannelIterator';
 import { RADIO_PREFIXES, WindowSize } from './constants';
 
 /**
@@ -49,7 +49,7 @@ const setWindowVisibility = (visible: boolean, scale: boolean): void => {
   });
 };
 
-const CHANNEL_REGEX = /^[:.]\w\s/;
+const CHANNEL_REGEX = /^[:.][A-Za-zА-Яа-я0-9_]\s/;
 
 /** Tests for a channel prefix, returning it or none */
 export const getPrefix = (

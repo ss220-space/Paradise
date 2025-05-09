@@ -17,7 +17,7 @@ import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 import { CataloguePaneProps, ContentsModalProps } from './CargoConsole';
 
-export const SyndieCargoConsole = (_props:unknown) => {
+export const SyndieCargoConsole = (_props: unknown) => {
   const [contentsModal, setContentsModal] = useState<string[]>(null);
   const [contentsModalTitle, setContentsModalTitle] = useState<string>(null);
 
@@ -194,7 +194,7 @@ const CataloguePane = (properties: CataloguePaneProps) => {
             searchText)
       ),
     (supply_packs: SupplyPack[]) =>
-      searchText && filter(supply_packs, packSearch),
+      searchText ? filter(supply_packs, packSearch) : supply_packs,
     (supply_packs: SupplyPack[]) =>
       sortBy(supply_packs, (pack) => pack.name.toLowerCase()),
   ])(supply_packs);

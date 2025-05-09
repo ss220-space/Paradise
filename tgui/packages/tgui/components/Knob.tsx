@@ -37,7 +37,7 @@ type Props = {
    * An event, which fires about every 500ms when you drag the input up and
    * down, on release and on manual editing.
    */
-  onDragInput: (event: Event, value: number) => void;
+  onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the outer ring around the knob based on whether the
    * value lands in the range between `from` and `to`.

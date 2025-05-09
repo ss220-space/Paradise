@@ -209,15 +209,7 @@ export const ImageButton = (props: Props) => {
     </div>
   );
 
-  if (tooltip) {
-    buttonContent = (
-      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
-        {buttonContent}
-      </Tooltip>
-    );
-  }
-
-  return (
+  let result = (
     <div
       className={classes([
         'ImageButton',
@@ -265,6 +257,16 @@ export const ImageButton = (props: Props) => {
       )}
     </div>
   );
+
+  if (tooltip) {
+    result = (
+      <Tooltip content={tooltip} position={tooltipPosition as Placement}>
+        {result}
+      </Tooltip>
+    );
+  }
+
+  return result;
 };
 
 type FallbackProps = {

@@ -49,11 +49,11 @@
 .content {
   background-color: black;
   display: grid;
-  font: 'tgfont';
-  grid-template-columns: 3.5rem 1fr;
-  inset: 2px;
+  font-family: 'Verdana';
+  grid-template-columns: 3.5em 1fr;
+  inset: 0.125em;
   overflow: hidden;
-  padding: 2px;
+  padding: 0.125em;
   position: absolute;
 }
 
@@ -74,7 +74,7 @@
   text-align: center;
   text-overflow: ellipsis;
   white-space: nowrap;
-  width: 100%;
+  width: 5em;
   &:hover {
     background-color: color.adjust(
       colors.$button,
@@ -98,7 +98,7 @@
   border: none;
   font-family: inherit;
   font-size: 1.1rem;
-  margin: 0.1rem 0 0 0.4rem;
+  margin: 0.1rem 0 0 1.1rem;
   outline: none;
   resize: none;
   &::-webkit-scrollbar {

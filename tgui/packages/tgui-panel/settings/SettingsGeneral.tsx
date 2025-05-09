@@ -20,14 +20,25 @@ import { FONTS } from './constants';
 import { resetPaneSplitters, setEditPaneSplitters } from './scaling';
 import { selectSettings } from './selectors';
 import { importChatSettings } from './settingsImExport';
+import { storage } from 'common/storage';
 
 export const SettingsGeneral = (_props: unknown) => {
-  const { theme, fontFamily, fontSize, lineHeight } =
+  const { theme, fontFamily, fontSize, lineHeight, chatSaving } =
     useSelector(selectSettings);
   const dispatch = useDispatch();
   const [freeFont, setFreeFont] = useState(false);
 
   const [editingPanes, setEditingPanes] = useState(false);
+
+  const updateChatSaving = (value) => {
+    const boolValue = value === true;
+    dispatch(
+      updateSettings({
+        chatSaving: boolValue,
+      })
+    );
+    storage.set('chat-saving-enabled', boolValue);
+  };
 
   return (
     <Section>
@@ -163,7 +174,7 @@ export const SettingsGeneral = (_props: unknown) => {
             maxValue={5}
             value={lineHeight}
             format={(value) => toFixed(value, 2)}
-            onDragInput={(e, value) =>
+            onDrag={(e, value) =>
               dispatch(
                 updateSettings({
                   lineHeight: value,
@@ -181,7 +192,7 @@ export const SettingsGeneral = (_props: unknown) => {
             tooltip="Export chat settings"
             onClick={() => dispatch(exportSettings())}
           >
-            Export settings
+            Export
           </Button>
         </Stack.Item>
         <Stack.Item mt={0.15}>
@@ -191,8 +202,17 @@ export const SettingsGeneral = (_props: unknown) => {
             icon="arrow-up-from-bracket"
             onSelectFiles={(files) => importChatSettings(files)}
           >
-            Import settings
+            Import
           </Button.File>
+        </Stack.Item>
+        <Stack.Item mt={0.15}>
+          <Button.Checkbox
+            checked={!!chatSaving}
+            tooltip="Enable chat persistence"
+            onClick={() => updateChatSaving(!chatSaving)}
+          >
+            Persistent Chat
+          </Button.Checkbox>
         </Stack.Item>
         <Stack.Item grow mt={0.15}>
           <Button

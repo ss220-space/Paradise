@@ -195,6 +195,7 @@ SUBSYSTEM_DEF(title)
 
 	// here we hope that our browser already updated. :pepepray:
 	SStitle.update_preview(viewer)
+	viewer << output((viewer?.tgui_panel_theme)? viewer.tgui_panel_theme : "dark", "title_browser:set_theme")
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)

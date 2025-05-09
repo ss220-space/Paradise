@@ -1,6 +1,6 @@
 import { CSSProperties, Key } from 'react';
 import { useBackend } from '../backend';
-import { Button, Flex, LabeledList, Section, Box } from '../components';
+import { Button, Flex, LabeledList, Section, Box, Stack } from '../components';
 import { Window } from '../layouts';
 
 type GasMix = {
@@ -24,7 +24,7 @@ type GasAnalyzerData = {
   autoUpdating: boolean;
 };
 
-export const GasAnalyzerContent = (props:unknown) => {
+export const GasAnalyzerContent = (props: unknown) => {
   const { act, data } = useBackend<GasAnalyzerData>();
   const { gasmixes, autoUpdating } = data;
   return (
@@ -163,7 +163,7 @@ type HistoryData = {
   historyIndex: number;
 };
 
-export const GasAnalyzerHistory = (props:unknown) => {
+export const GasAnalyzerHistory = (props: unknown) => {
   const { act, data } = useBackend<HistoryData>();
   const { historyGasmixes, historyViewMode, historyIndex } = data;
   return (
@@ -181,8 +181,8 @@ export const GasAnalyzerHistory = (props:unknown) => {
       }
     >
       <LabeledList.Item label="Mode">
-        <Flex inline width="50%">
-          <Flex.Item>
+        <Stack fill width="50%">
+          <Stack.Item>
             <Button
               onClick={() => act('modekpa')}
               textAlign="center"
@@ -190,8 +190,8 @@ export const GasAnalyzerHistory = (props:unknown) => {
             >
               kPa
             </Button>
-          </Flex.Item>
-          <Flex.Item>
+          </Stack.Item>
+          <Stack.Item>
             <Button
               onClick={() => act('modemol')}
               textAlign="center"
@@ -199,12 +199,12 @@ export const GasAnalyzerHistory = (props:unknown) => {
             >
               mol
             </Button>
-          </Flex.Item>
-        </Flex>
+          </Stack.Item>
+        </Stack>
       </LabeledList.Item>
-      <LabeledList>
+      <Stack vertical>
         {historyGasmixes.map((historyGasmix, index) => (
-          <Box key={historyGasmix[0]}>
+          <Stack.Item key={historyGasmix[0]}>
             <Button
               onClick={() => act('input', { target: index + 1 })}
               textAlign="left"
@@ -216,16 +216,17 @@ export const GasAnalyzerHistory = (props:unknown) => {
                 '. ' +
                 (historyViewMode === 'mol'
                   ? historyGasmix[0].total_moles.toFixed(2)
-                  : historyGasmix[0].pressure.toFixed(2))}
+                  : historyGasmix[0].pressure.toFixed(2)) +
+                ` ${historyViewMode}`}
             </Button>
-          </Box>
+          </Stack.Item>
         ))}
-      </LabeledList>
+      </Stack>
     </Section>
   );
 };
 
-export const GasAnalyzer = (props:unknown) => {
+export const GasAnalyzer = (props: unknown) => {
   const styleLeftDiv: CSSProperties = {
     float: 'left',
     width: '67%',

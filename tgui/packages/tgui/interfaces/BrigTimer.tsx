@@ -20,7 +20,7 @@ type BrigTimerData = {
   spns: string[];
 };
 
-export const BrigTimer = (props:unknown) => {
+export const BrigTimer = (props: unknown) => {
   const { act, data } = useBackend<BrigTimerData>();
   data.nameText = data.occupant;
   if (data.timing) {
@@ -42,7 +42,7 @@ export const BrigTimer = (props:unknown) => {
     nameOptions.push(data.spns[i]);
   }
   return (
-    <Window width={500} height={!data.timing ? 396 : 237}>
+    <Window width={500} height={!data.timing ? 405 : 245}>
       <Window.Content>
         <Section title="Cell Information">
           <LabeledList>

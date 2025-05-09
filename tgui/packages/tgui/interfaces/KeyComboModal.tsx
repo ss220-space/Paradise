@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { Autofocus, Box, Button, Section, Stack } from 'tgui/components';
+import { useState, useEffect, useRef } from 'react';
+import { Box, Button, Section, Stack } from 'tgui/components';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
 
@@ -71,19 +71,29 @@ const formatKeyboardEvent = (
   return text;
 };
 
-export const KeyComboModal = (props:unknown) => {
+export const KeyComboModal = (props: unknown) => {
   const { act, data } = useBackend<KeyInputData>();
   const { init_value, large_buttons, message = '', title, timeout } = data;
   const [input, setInput] = useState(init_value);
   const [binding, setBinding] = useState(true);
+  const contentRef = useRef<HTMLDivElement>(null);
+
+  // Фокусируем элемент при монтировании и при сбросе биндинга
+  useEffect(() => {
+    contentRef.current?.focus();
+  }, [binding]);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isEscape(event.key)) {
+      event.preventDefault();
+      act('cancel');
+      return;
+    }
+
     if (!binding) {
       if (event.key === KEY.Enter) {
+        event.preventDefault();
         act('submit', { entry: input });
-      }
-      if (isEscape(event.key)) {
-        act('cancel');
       }
       return;
     }
@@ -91,24 +101,18 @@ export const KeyComboModal = (props:unknown) => {
     event.preventDefault();
 
     if (isStandardKey(event)) {
-      setValue(formatKeyboardEvent(event));
-      setBinding(false);
-      return;
-    } else if (isEscape(event.key)) {
-      setValue(init_value);
+      const newValue = formatKeyboardEvent(event);
+      setInput(newValue);
       setBinding(false);
       return;
     }
   };
 
-  const setValue = (value: string) => {
-    if (value === input) {
-      return;
-    }
-    setInput(value);
+  const resetBinding = () => {
+    setInput(init_value);
+    setBinding(true);
   };
 
-  // Dynamically changes the window height based on the message.
   const windowHeight =
     130 +
     (message.length > 30 ? Math.ceil(message.length / 3) : 0) +
@@ -117,31 +121,38 @@ export const KeyComboModal = (props:unknown) => {
   return (
     <Window title={title} width={240} height={windowHeight}>
       {timeout && <Loader value={timeout} />}
-      <Window.Content onKeyDown={handleKeyDown}>
-        <Section fill>
-          <Autofocus />
-          <Stack fill vertical>
-            <Stack.Item grow>
-              <Box color="label">{message}</Box>
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                disabled={binding}
-                fluid
-                textAlign="center"
-                onClick={() => {
-                  setValue(init_value);
-                  setBinding(true);
-                }}
-              >
-                {binding ? 'Awaiting input...' : '' + input}
-              </Button>
-            </Stack.Item>
-            <Stack.Item>
-              <InputButtons input={input} />
-            </Stack.Item>
-          </Stack>
-        </Section>
+      <Window.Content>
+        <div
+          ref={contentRef}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          style={{
+            width: '100%',
+            height: '100%',
+            outline: 'none',
+          }}
+        >
+          <Section fill>
+            <Stack fill vertical>
+              <Stack.Item grow>
+                <Box color="label">{message}</Box>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  disabled={binding}
+                  fluid
+                  textAlign="center"
+                  onClick={resetBinding}
+                >
+                  {binding ? 'Awaiting input...' : input}
+                </Button>
+              </Stack.Item>
+              <Stack.Item>
+                <InputButtons input={input} />
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </div>
       </Window.Content>
     </Window>
   );

@@ -22,7 +22,7 @@ type Item = {
   vend: string;
 };
 
-export const Smartfridge = (_props:unknown) => {
+export const Smartfridge = (_props: unknown) => {
   const { act, data } = useBackend<SmartfridgeData>();
   const { secure, can_dry, drying, contents } = data;
   return (
@@ -60,9 +60,14 @@ export const Smartfridge = (_props:unknown) => {
                   align="center"
                   color="average"
                 >
-                  <Icon.Stack>
+                  <Icon.Stack style={{ transform: 'translate(-30px, -50px)' }}>
                     <Icon name="cookie-bite" size={5} color="brown" />
-                    <Icon name="slash" size={5} color="red" />
+                    <Icon
+                      name="slash"
+                      size={5}
+                      color="red"
+                      style={{ transform: 'translate(-5px, 0)' }}
+                    />
                   </Icon.Stack>
                   <br />
                   Хранилище пусто.

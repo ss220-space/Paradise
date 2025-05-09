@@ -39,7 +39,7 @@ type Props = {
    * An event which fires when you release the input or successfully enter
    * a number.
    */
-  onDragInput: (event: Event, value: number) => void;
+  onDrag: (event: Event, value: number) => void;
   /**
    * Applies a `color` to the slider based on whether the value lands in the
    * range between `from` and `to`.

@@ -4,11 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike, classes } from 'common/react';
-import { Channel, ChannelIterator } from '../ChannelIterator';
-import { ChatHistory } from '../ChatHistory';
+import { Channel, ChannelIterator } from './ChannelIterator';
+import { ChatHistory } from './ChatHistory';
 import { LineLength, RADIO_PREFIXES, WindowSize } from './constants';
 import { getPrefix, windowClose, windowOpen, windowSet } from './helpers';
-import { byondMessages } from '../timers';
+import { byondMessages } from './timers';
 type ByondOpen = {
   channel: Channel;
 };
@@ -250,6 +250,9 @@ export const TguiSay = () => {
       <div
         className={`window window-${theme} window-${size}`}
         onMouseDown={dragStartHandler}
+        style={{
+          zoom: scale.current ? '' : `${100 / window.devicePixelRatio}%`,
+        }}
       >
         {!lightMode && <div className={`shine shine-${theme}`} />}
       </div>

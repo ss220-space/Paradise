@@ -79,6 +79,7 @@ export const Dropdown = (props: Props) => {
     placeholder = 'Select...',
     selected,
     width = '15rem',
+    ...rest
   } = props;
   const [open, setOpen] = useState(false);
   const adjustedOpen = over ? !open : open;
@@ -200,6 +201,7 @@ export const Dropdown = (props: Props) => {
               onClick?.(event);
             }
           }}
+          {...rest}
         >
           {icon && (
             <Icon mr={1} name={icon} rotation={iconRotation} spin={iconSpin} />

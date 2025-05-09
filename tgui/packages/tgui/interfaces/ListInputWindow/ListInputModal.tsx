@@ -156,7 +156,8 @@ export const ListInputModal = (props: ListInputModalProps) => {
             onEnter={() => {
               act('submit', { entry: filteredItems[selected] });
             }}
-            onChange={onSearch}
+            expensive
+            onInput={onSearch}
             placeholder="Search..."
             value={searchQuery}
           />

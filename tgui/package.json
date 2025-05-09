@@ -2,7 +2,7 @@
   "private": true,
   "name": "tgui-workspace",
   "version": "5.0.0",
-  "packageManager": "yarn@4.3.1",
+  "packageManager": "yarn@4.8.1",
   "workspaces": [
     "packages/*"
   ],
@@ -20,6 +20,7 @@
     "@types/wicg-file-system-access": "^2023.10.5",
     "@typescript-eslint/parser": "^8.13.0",
     "@typescript-eslint/utils": "^8.13.0",
+    "common": "workspace:*",
     "css-loader": "^7.1.2",
     "esbuild-loader": "^4.2.2",
     "eslint": "^9.7.0",

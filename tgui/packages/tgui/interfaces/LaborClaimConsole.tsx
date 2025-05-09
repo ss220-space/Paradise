@@ -10,10 +10,10 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const LaborClaimConsole = (props:unknown) => {
+export const LaborClaimConsole = (props: unknown) => {
   return (
-    <Window width={315} height={470}>
-      <Window.Content>
+    <Window width={320} height={470}>
+      <Window.Content scrollable>
         <ShuttleControlSection />
         <MaterialValuesSection />
       </Window.Content>
@@ -37,7 +37,7 @@ type Ore = {
   value: number;
 };
 
-const ShuttleControlSection = (props:unknown) => {
+const ShuttleControlSection = (props: unknown) => {
   const { act, data } = useBackend<LaborClaimData>();
   const {
     can_go_home,
@@ -100,7 +100,7 @@ const ShuttleControlSection = (props:unknown) => {
   );
 };
 
-const MaterialValuesSection = (props:unknown) => {
+const MaterialValuesSection = (props: unknown) => {
   const { data } = useBackend<LaborClaimData>();
   const { ores } = data;
   return (

@@ -11,6 +11,7 @@ import {
   NoticeBox,
   DmIcon,
   ImageButton,
+  Stack,
 } from '../components';
 import { Window } from '../layouts';
 import { Placement } from '@popperjs/core';
@@ -23,7 +24,7 @@ const helpButtonsData = [
 В него встроен специальный канал для общения с вашим боргом или другими членами клана.
 \nК тому же он способен просканировать любые другие наушники и скопировать доступные для прослушки и/или разговора каналы их ключей.
 Благодаря этому вы можете постепенно накапливать необходимые вам местные каналы связи для получения любой информации.
-\nТак же ваш наушник автомати- чески улавливает и переводит бинарные сигналы генерируемые синтетиками при общении друг с другом. \
+\nТак же ваш наушник автоматически улавливает и переводит бинарные сигналы генерируемые синтетиками при общении друг с другом. \
 К тому же позволяя вам самим общаться с ними.`,
   },
   {
@@ -32,16 +33,16 @@ const helpButtonsData = [
     tooltipContent: `Порой клану нужны сведения которыми могут обладать люди работающие на обьекте вашей миссии. \
 В такой ситуации вам становится доступно особое устройство для сканирования чужого разума. \
 Даже если вам не удастся найти обладающего всей информацией человека, можно будет собрать информацию по крупицам продолжая похищать людей.
-\nДля того, чтобы успешно похи- тить людей. У вас на шаттле есть скафандры, а на базе запас на- ручников, кислорода и балло- нов. \
+\nДля того, чтобы успешно похитить людей. У вас на шаттле есть скафандры, а на базе запас наручников, кислорода и баллонов. \
 \nТак же напоминаем, что ваши перчатки способны направлять в людей электрический импульс, эффективно станя их на короткое время. `,
   },
   {
     icon_state: 'ai_face',
     tooltipTitle: 'Саботаж ИИ',
-    tooltipContent: `Иногда у нас заказывают сабо- таж Искусственного интеллекта на обьектах операции. Это про- цесс сложный и требующий от нас основательной подготовки. \
+    tooltipContent: `Иногда у нас заказывают саботаж Искусственного интеллекта на обьектах операции. Это процесс сложный и требующий от нас основательной подготовки. \
 \nПредпочитаемый кланом метод это создание уязвимости прямо в загрузочной для законов позволяющей вывести ИИ из строя. \
 В результате такого метода мы можем легко перегрузить ИИ абсурдными законами, но это ограничивает нас в том плане, что для взлома в итоге подходят только консоли в самой загрузочной.
-Так же взлом задача нелёгкая - системы защиты есть везде. А процесс занимает время. Не удивляйтесь если ИИ будет противодейст- вовать вашим попыткам его сломать.`,
+Так же взлом задача нелёгкая - системы защиты есть везде. А процесс занимает время. Не удивляйтесь если ИИ будет противодействовать вашим попыткам его сломать.`,
   },
   {
     icon_state: 'ninja_borg',
@@ -49,15 +50,15 @@ const helpButtonsData = [
     tooltipContent: `Иногда оценивая ваши шансы на выполнение миссии для их увеличения на обьектах, \
 что используют роботов для своих целей, мы даём вам особый "Улучшающий" их прибор, встроенный в ваши перчатки. \
 \nПри взломе киборга таким прибором(Взлом занимает время) вы получите лояльного клану и вам лично \
-слугу способ- ного на оказание помощи как в саботаже станции так и в вашем лечении. \
+слугу способного на оказание помощи как в саботаже станции так и в вашем лечении. \
 \nТак же робот будет оснащён личной катаной, устройством маскировки, пинпоинтером указывающим ему на вас и генератором электрических сюрикенов. \
 Помните, что катана робота не способна обеспечить его блюспейс транслокацию!`,
   },
   {
     icon_state: 'server',
     tooltipTitle: 'Саботаж исследований',
-    tooltipContent: `На научных обьектах всегда есть своя команда учёных и мно- жество данных которые прихо- дится где то хранить. \
-В качестве такого обьекта обычно высту- пают сервера. А как известно корпорации вечно грызутся за знания. Что нам на руку. \
+    tooltipContent: `На научных обьектах всегда есть своя команда учёных и множество данных которые приходится где то хранить. \
+В качестве такого обьекта обычно выступают сервера. А как известно корпорации вечно грызутся за знания. Что нам на руку. \
 \nМы разработали специальный вирус который будет записан на ваши перчатки перед миссией такого рода. \
 Вам нужно будет лишь загрузить его напрямую на их научный сервер и все их исследования будут утеряны. \
 \nНо загрузка вируса требует времени, и системы защиты многих обьектов не дремлют. \
@@ -77,10 +78,10 @@ const helpButtonsData = [
   {
     icon_state: 'cash',
     tooltipTitle: 'Кража денег',
-    tooltipContent: `Как бы это не было тривиально. Иногда клан нуждается в день- гах. Или даже возможно вы задолжали нам. \
+    tooltipContent: `Как бы это не было тривиально. Иногда клан нуждается в деньгах. Или даже возможно вы задолжали нам. \
 В таком случае мы скорее всего дадим вам задачу достать для нас эти деньги на следующей вашей миссии. \
 \nДля вас эта задача не трудная, но времязатратная. Помните, что вы натренированы в искусстве незаметных карманных краж. \
-Вы можете это использовать для кражи чужих карт и обналичи- вания их счетов. Либо можете метить выше и ограбить хранилища или счета самого обьекта вашей миссии.
+Вы можете это использовать для кражи чужих карт и обналичивания их счетов. Либо можете метить выше и ограбить хранилища или счета самого обьекта вашей миссии.
 Самое главное. Достаньте эти деньги!`,
   },
   {
@@ -91,7 +92,7 @@ const helpButtonsData = [
 Самое главное чтобы в криминальной истории цели остался след. \
 Но в то же время просто прийти и вписать цели срок в консоли - не рабочий метод. Цель легко оправдают в суде, что не устроит клиента.
 \n У вас достаточно инструментов, чтобы совершить преступление под личиной цели. \
-Главное постарайтесь обойтись без слиш- ком больших последствий. Лишняя дыра в обшивке станции или трупы - увеличивают шансы провала вашего плана.`,
+Главное постарайтесь обойтись без слишком больших последствий. Лишняя дыра в обшивке станции или трупы - увеличивают шансы провала вашего плана.`,
   },
 ];
 
@@ -336,19 +337,24 @@ export const SpiderOS = (_properties) => {
   const { act, data } = useBackend<SpiderOSData>();
   let body: ReactNode;
   if (data.suit_tgui_state === 0) {
+    let actionsCheck = !!data.blocked_TGUI_rows.filter((value) => !value)
+      .length;
     body = (
       <Flex direction="row" spacing={1}>
-        <Flex direction="column" width="60%">
-          <Flex.Item backgroundColor="rgba(0, 0, 0, 0)">
-            <ActionBuyPanel />
-          </Flex.Item>
-          <Flex.Item mt={2.2} backgroundColor="rgba(0, 0, 0, 0)">
-            <ShuttleConsole />
-          </Flex.Item>
-        </Flex>
+        <Flex.Item width="55%">
+          <Stack direction="column" fill mx={1}>
+            <Stack.Item backgroundColor="rgba(0, 0, 0, 0)">
+              <ActionBuyPanel actionsCheck={actionsCheck} />
+            </Stack.Item>
+
+            <Stack.Item mt={2.2} backgroundColor="rgba(0, 0, 0, 0)">
+              <ShuttleConsole />
+            </Stack.Item>
+          </Stack>
+        </Flex.Item>
 
         <Flex.Item
-          width="40%"
+          width="45%"
           height="190px"
           grow={1}
           backgroundColor="rgba(0, 0, 0, 0)"
@@ -381,7 +387,7 @@ export const SpiderOS = (_properties) => {
     );
   }
   return (
-    <Window width={800} height={630} theme="spider_clan">
+    <Window width={800} height={730} theme="spider_clan">
       <Window.Content>
         <Flex direction="row" spacing={1}>
           {body}
@@ -398,8 +404,8 @@ const StylesPreview = (_properties) => {
     <Section
       title="Персонализация костюма"
       style={{ textAlign: 'center' }}
-      m="0px"
-      width="100%"
+      m={1}
+      width="97%"
       buttons={
         <Button
           tooltip={
@@ -409,26 +415,20 @@ const StylesPreview = (_properties) => {
         Потому что удобство при ношении костюма, жизненно важно для настоящего убийцы.'
           }
           tooltipPosition="bottom-start"
-        >
-          ?
-        </Button>
+          icon={'question'}
+          iconSize={0.8}
+          mt={-0.5}
+        />
       }
     >
       <Flex direction="column" grow={1} alignContent="center">
-        <NoticeBox className="NoticeBox_blue" success danger align="center">
-          <Section
-            style={{ background: 'rgba(4, 74, 27, 0.75)' }}
-            mr={10}
-            ml={10}
-          >
+        <NoticeBox success align="center">
+          <Section style={{ background: 'rgba(4, 74, 27, 0.75)' }} mt={0}>
             <DmIcon
-              height="128px"
-              width="128px"
+              height="100px"
+              width="100px"
               icon={stylesIcon}
               icon_state={style_preview_icon_state}
-              style={{
-                marginLeft: '0px',
-              }}
             />
           </Section>
         </NoticeBox>
@@ -475,6 +475,7 @@ const SuitTuning = (_properties) => {
           <Dropdown
             options={designs}
             selected={scarf_design_choice}
+            width={'60%'}
             onSelected={(val) =>
               act('set_scarf_design', { scarf_design_choice: val })
             }
@@ -505,9 +506,9 @@ const SuitTuning = (_properties) => {
               'Включение или отключение интерфейса показывающего сконцентрированы ли вы для применения боевого исскуства.'
             }
             tooltipPosition="top-start"
-          >
-            ?
-          </Button>
+            icon={'question'}
+            iconSize={0.8}
+          />
         </Box>
       </LabeledList.Item>
     );
@@ -517,13 +518,14 @@ const SuitTuning = (_properties) => {
 
   return (
     <Flex direction="row" grow={1} alignContent="center">
-      <Flex.Item grow={1} width="100%">
-        <NoticeBox success danger align="center">
+      <Flex.Item grow={1} width="100%" m={1} my={0}>
+        <NoticeBox success align="center" fontSize={'14px'}>
           <LabeledList>
             <LabeledList.Item label="Стиль">
               <Dropdown
                 options={designs}
                 selected={design_choice}
+                width={'60%'}
                 onSelected={(val) => act('set_design', { design_choice: val })}
               />
             </LabeledList.Item>
@@ -531,6 +533,7 @@ const SuitTuning = (_properties) => {
               <Dropdown
                 options={colors}
                 selected={color_choice}
+                width={'60%'}
                 onSelected={(val) => act('set_color', { color_choice: val })}
               />
             </LabeledList.Item>
@@ -538,6 +541,7 @@ const SuitTuning = (_properties) => {
               <Dropdown
                 options={genders}
                 selected={preferred_clothes_gender}
+                width={'60%'}
                 onSelected={(val) =>
                   act('set_gender', { preferred_clothes_gender: val })
                 }
@@ -564,9 +568,9 @@ const SuitTuning = (_properties) => {
                             с целью уменьшения помех в их работе.'
                 }
                 tooltipPosition="top-start"
-              >
-                ?
-              </Button>
+                icon={'question'}
+                iconSize={0.8}
+              />
             </LabeledList.Item>
             {if_scarf}
             <LabeledList.Item label="Заряд костюма">
@@ -584,16 +588,15 @@ const SuitTuning = (_properties) => {
                   'Включение или отключение интерфейса показывающего заряд вашего костюма.'
                 }
                 tooltipPosition="top-start"
-              >
-                ?
-              </Button>
+                icon={'question'}
+                iconSize={0.8}
+              />
             </LabeledList.Item>
             {if_concentration}
           </LabeledList>
-        </NoticeBox>
-        <NoticeBox success danger mt={-1.3} mb={0} align="center">
           <Button
             width="80%"
+            mt={1}
             icon="power-off"
             textAlign="center"
             backgroundColor={color_choice}
@@ -631,9 +634,10 @@ const Helpers = (_properties) => {
         или рассказать о малоизвестной информации которую вы можете обернуть в свою пользу.'
           }
           tooltipPosition="bottom-start"
-        >
-          ?
-        </Button>
+          icon={'question'}
+          iconSize={0.8}
+          mt={-0.5}
+        />
       }
     >
       <Flex direction="column" grow={1} alignContent="center">
@@ -660,7 +664,11 @@ const Helpers = (_properties) => {
   );
 };
 
-const ActionBuyPanel = (_properties) => {
+type ActionBuyPanelProps = {
+  actionsCheck: boolean;
+};
+
+const ActionBuyPanel = (properties: ActionBuyPanelProps) => {
   const { act, data } = useBackend<SpiderOSData>();
   const { actionsIcon, blocked_TGUI_rows } = data;
 
@@ -677,6 +685,8 @@ const ActionBuyPanel = (_properties) => {
     <Section
       title="Модули костюма"
       style={{ textAlign: 'center' }}
+      overflowY={'scroll'}
+      height="550px"
       buttons={
         <Button
           tooltip={
@@ -686,166 +696,192 @@ const ActionBuyPanel = (_properties) => {
         приобретение любого модуля, блокирует приобретение модулей одного уровня из соседних столбцов'
           }
           tooltipPosition="bottom"
-        >
-          ?
-        </Button>
+          icon={'question'}
+          iconSize={0.8}
+          mt={-0.5}
+        />
       }
     >
-      <Flex direction="row" alignContent="center" ml={1.5}>
-        <Flex.Item width="33%" shrink={1}>
-          <Section
-            width="100%"
-            title="Призрак"
-            ml="0px"
-            buttons={
-              <Button
-                tooltip={
-                  'Скрывайтесь среди врагов, нападайте из тени и будьте незримой угрозой, всё для того чтобы о вас и вашей миссии никто не узнал! Будьте незаметны как призрак!'
-                }
-                tooltipPosition="bottom"
-              >
-                ?
-              </Button>
-            }
-            style={{
-              textAlign: 'center',
-              background: 'rgba(53, 94, 163, 0.8)',
-            }}
-          />
-          <NoticeBox className="NoticeBox_blue" success danger align="center">
-            {abilityButtons.ghost.map(
-              (
-                { style, row, iconState, title, content, tooltipPosition },
-                i
-              ) => (
-                <ImageButton
-                  key={style}
-                  className={
-                    !blocked_TGUI_rows[i]
-                      ? rowStyles[0].blue
-                      : rowStyles[0].disabled
+      {properties.actionsCheck ? (
+        <Flex direction="row" alignContent="center" ml={1.5}>
+          <Flex.Item width="33%" shrink={1}>
+            <Section
+              width="100%"
+              title="Призрак"
+              height={'100%'}
+              ml="0px"
+              buttons={
+                <Button
+                  tooltip={
+                    'Скрывайтесь среди врагов, нападайте из тени и будьте незримой угрозой, всё для того чтобы о вас и вашей миссии никто не узнал! Будьте незаметны как призрак!'
                   }
-                  height="64px"
-                  width="64px"
-                  dmIcon={actionsIcon}
-                  dmIconState={iconState}
-                  disabled={blocked_TGUI_rows[i]}
-                  style={{
-                    marginLeft: '-6px',
-                  }}
-                  onClick={() => act('give_ability', { style, row })}
-                  tooltip={content}
-                  tooltipPosition={tooltipPosition as Placement}
-                >
-                  {title}
-                </ImageButton>
-              )
-            )}
-          </NoticeBox>
-        </Flex.Item>
-        <Flex.Item width="33%" shrink={1}>
-          <Section
-            ml="0px"
-            width="100%"
-            title="Змей"
-            buttons={
-              <Button
-                tooltip={
-                  'Удивляйте! Трюки, ловушки, щиты. Покажите им, что такое бой с настоящим убийцей. Извивайтесь и изворачивайтесь находя выход из любой ситуации. Враги всего лишь грызуны, чьё логово навестил змей!'
-                }
-                tooltipPosition="bottom"
+                  tooltipPosition="bottom"
+                  icon={'question'}
+                  iconSize={0.8}
+                  mt={-0.5}
+                />
+              }
+              style={{
+                textAlign: 'center',
+                background: 'rgba(53, 94, 163, 0.8)',
+              }}
+            >
+              <NoticeBox
+                className="NoticeBox_blue"
+                success
+                danger
+                align="center"
               >
-                ?
-              </Button>
-            }
-            style={{
-              textAlign: 'center',
-              background: 'rgba(0, 174, 208, 0.15)',
-            }}
-          />
-          <NoticeBox success danger align="center">
-            {abilityButtons.snake.map(
-              (
-                { style, row, icon_state, title, content, tooltipPosition },
-                index
-              ) => (
-                <ImageButton
-                  key={style}
-                  className={
-                    !blocked_TGUI_rows[index]
-                      ? rowStyles[0].green
-                      : rowStyles[0].disabled
+                {abilityButtons.ghost.map(
+                  (
+                    { style, row, iconState, title, content, tooltipPosition },
+                    i
+                  ) =>
+                    !blocked_TGUI_rows[i] && (
+                      <ImageButton
+                        key={style}
+                        className={
+                          !blocked_TGUI_rows[i]
+                            ? rowStyles[0].blue
+                            : rowStyles[0].disabled
+                        }
+                        height="64px"
+                        imageSize={90}
+                        width="64px"
+                        fontSize={'10px'}
+                        dmIcon={actionsIcon}
+                        dmIconState={iconState}
+                        disabled={blocked_TGUI_rows[i]}
+                        onClick={() => act('give_ability', { style, row })}
+                        tooltip={content}
+                        tooltipPosition={tooltipPosition as Placement}
+                      >
+                        {title}
+                      </ImageButton>
+                    )
+                )}
+              </NoticeBox>
+            </Section>
+          </Flex.Item>
+          <Flex.Item width="33%" shrink={1}>
+            <Section
+              ml="0px"
+              width="100%"
+              title="Змей"
+              height={'100%'}
+              buttons={
+                <Button
+                  tooltip={
+                    'Удивляйте! Трюки, ловушки, щиты. Покажите им, что такое бой с настоящим убийцей. Извивайтесь и изворачивайтесь находя выход из любой ситуации. Враги всего лишь грызуны, чьё логово навестил змей!'
                   }
-                  height="64px"
-                  width="64px"
-                  dmIcon={actionsIcon}
-                  dmIconState={icon_state}
-                  tooltip={content}
-                  tooltipPosition={tooltipPosition as Placement}
-                  disabled={blocked_TGUI_rows[index]}
-                  onClick={() => act('give_ability', { style, row })}
-                  style={{
-                    marginLeft: '-6px',
-                  }}
-                >
-                  {title}
-                </ImageButton>
-              )
-            )}
-          </NoticeBox>
-        </Flex.Item>
-        <Flex.Item width="33%" shrink={1}>
-          <Section
-            ml="0px"
-            width="100%"
-            title="Сталь"
-            buttons={
-              <Button
-                tooltip={
-                  'Ярость не доступная обычным людям. Сила, скорость и орудия выше их понимания. Разите их как хищник что разит свою добычу. Покажите им холодный вкус стали!'
-                }
-                tooltipPosition="bottom"
+                  tooltipPosition="bottom"
+                  icon={'question'}
+                  iconSize={0.8}
+                  mt={-0.5}
+                />
+              }
+              style={{
+                textAlign: 'center',
+                background: 'rgba(0, 174, 208, 0.15)',
+              }}
+            >
+              <NoticeBox success align="center">
+                {abilityButtons.snake.map(
+                  (
+                    { style, row, icon_state, title, content, tooltipPosition },
+                    index
+                  ) =>
+                    !blocked_TGUI_rows[index] && (
+                      <ImageButton
+                        key={style}
+                        className={
+                          !blocked_TGUI_rows[index]
+                            ? rowStyles[0].green
+                            : rowStyles[0].disabled
+                        }
+                        height="64px"
+                        imageSize={90}
+                        width="64px"
+                        fontSize={'10px'}
+                        dmIcon={actionsIcon}
+                        dmIconState={icon_state}
+                        tooltip={content}
+                        tooltipPosition={tooltipPosition as Placement}
+                        disabled={blocked_TGUI_rows[index]}
+                        onClick={() => act('give_ability', { style, row })}
+                      >
+                        {title}
+                      </ImageButton>
+                    )
+                )}
+              </NoticeBox>
+            </Section>
+          </Flex.Item>
+          <Flex.Item width="33%" shrink={1}>
+            <Section
+              ml="0px"
+              width="100%"
+              title="Сталь"
+              height={'100%'}
+              buttons={
+                <Button
+                  tooltip={
+                    'Ярость не доступная обычным людям. Сила, скорость и орудия выше их понимания. Разите их как хищник что разит свою добычу. Покажите им холодный вкус стали!'
+                  }
+                  tooltipPosition="bottom"
+                  icon={'question'}
+                  iconSize={0.8}
+                  mt={-0.5}
+                />
+              }
+              style={{
+                textAlign: 'center',
+                background: 'rgba(80, 20, 20, 1)',
+              }}
+            >
+              <NoticeBox
+                className="NoticeBox_red"
+                success
+                danger
+                align="center"
               >
-                ?
-              </Button>
-            }
-            style={{
-              textAlign: 'center',
-              background: 'rgba(80, 20, 20, 1)',
-            }}
-          />
-          <NoticeBox className="NoticeBox_red" success danger align="center">
-            {abilityButtons.steel.map(
-              (
-                { style, row, icon_state, title, content, tooltipPosition },
-                index
-              ) => (
-                <ImageButton
-                  key={style}
-                  className={
-                    !blocked_TGUI_rows[index]
-                      ? rowStyles[0].red
-                      : rowStyles[0].disabled
-                  }
-                  height="64px"
-                  width="64px"
-                  dmIcon={actionsIcon}
-                  dmIconState={icon_state}
-                  tooltip={content}
-                  tooltipPosition={tooltipPosition as Placement}
-                  disabled={blocked_TGUI_rows[index]}
-                  onClick={() => act('give_ability', { style, row })}
-                  style={{
-                    marginLeft: '-6px',
-                  }}
-                >
-                  {title}
-                </ImageButton>
-              )
-            )}
-          </NoticeBox>
-        </Flex.Item>
-      </Flex>
+                {abilityButtons.steel.map(
+                  (
+                    { style, row, icon_state, title, content, tooltipPosition },
+                    index
+                  ) =>
+                    !blocked_TGUI_rows[index] && (
+                      <ImageButton
+                        key={style}
+                        className={
+                          !blocked_TGUI_rows[index]
+                            ? rowStyles[0].red
+                            : rowStyles[0].disabled
+                        }
+                        height="64px"
+                        imageSize={90}
+                        width="64px"
+                        fontSize={'10px'}
+                        dmIcon={actionsIcon}
+                        dmIconState={icon_state}
+                        tooltip={content}
+                        tooltipPosition={tooltipPosition as Placement}
+                        disabled={blocked_TGUI_rows[index]}
+                        onClick={() => act('give_ability', { style, row })}
+                      >
+                        {title}
+                      </ImageButton>
+                    )
+                )}
+              </NoticeBox>
+            </Section>
+          </Flex.Item>
+        </Flex>
+      ) : (
+        <NoticeBox className="NoticeBox_red" success danger align="center">
+          Все модули выбраны
+        </NoticeBox>
+      )}
     </Section>
   );
 };
@@ -864,9 +900,10 @@ export const ShuttleConsole = (_properties) => {
         Так же показывает вашу текущую позицию и позицию самого шаттла!'
           }
           tooltipPosition="right"
-        >
-          ?
-        </Button>
+          icon={'question'}
+          iconSize={0.8}
+          mt={-0.5}
+        />
       }
     >
       <Flex ml={2}>

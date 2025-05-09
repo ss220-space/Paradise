@@ -13,7 +13,7 @@ import { AiData } from './AICard';
 
 type AIFixerData = { occupant: string; stat: number; active: boolean } & AiData;
 
-export const AIFixer = (props:unknown) => {
+export const AIFixer = (props: unknown) => {
   const { act, data } = useBackend<AIFixerData>();
   if (data.occupant === null) {
     return (
@@ -28,7 +28,7 @@ export const AIFixer = (props:unknown) => {
                 align="center"
                 color="average"
               >
-                <Icon.Stack>
+                <Icon.Stack style={{ transform: 'translate(-40px, -55px)' }}>
                   <Icon name="robot" size={5} color="silver" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
