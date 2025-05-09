@@ -638,3 +638,23 @@
     enable_message = "Смерть вашего персонажа теперь перманентная."
     disable_message = "Смерть персонажа более не перманентная."
     blackbox_message = "Переключение установки статуса DNR после смерти"
+
+/datum/preference_toggle/ui_scale
+    name = "Маштабирование UI"
+    description = "Включает маштабирование содержимого UI окон."
+    preftoggle_bitflag = PREFTOGGLE_3_UI_SCALE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь содержимое UI маштабируется."
+    disable_message = "Теперь содержимое UI не маштабируется."
+    blackbox_message = "Переключение маштабирования UI"
+
+
+/datum/preference_toggle/ui_scale/set_toggles(client/user)
+	. = ..()
+	if(!istype(user))
+		return
+	ASYNC
+		user.acquire_dpi()
+	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
+	user.tgui_say?.load()

@@ -17,7 +17,7 @@ const logger = createLogger('OreRedemption');
 
 const formatPoints = (amt) => amt.toLocaleString('en-US') + ' pts';
 
-export const OreRedemption = (properties, context) => {
+export const OreRedemption = (properties) => {
   return (
     <Window width={490} height={750}>
       <Window.Content>
@@ -33,8 +33,8 @@ export const OreRedemption = (properties, context) => {
   );
 };
 
-const IdDisk = (properties, context) => {
-  const { act, data } = useBackend(context);
+const IdDisk = (properties) => {
+  const { act, data } = useBackend();
   const { id, points, disk } = data;
   const { ...rest } = properties;
   return (
@@ -133,8 +133,8 @@ const IdDisk = (properties, context) => {
 Manages titles under "Sheet"
 */
 
-const Sheet = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Sheet = (properties) => {
+  const { act, data } = useBackend();
   const { sheets } = data;
   const { ...rest } = properties;
   return (
@@ -160,8 +160,8 @@ const Sheet = (properties, context) => {
 Manages titles under "Alloy"
 */
 
-const Alloy = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Alloy = (properties) => {
+  const { act, data } = useBackend();
   const { alloys } = data;
   const { ...rest } = properties;
   return (
@@ -183,7 +183,7 @@ const Alloy = (properties, context) => {
   );
 };
 
-const OreHeader = (properties, context) => {
+const OreHeader = (properties) => {
   return (
     <Box className="OreHeader">
       <Stack fill>
@@ -208,8 +208,8 @@ const OreHeader = (properties, context) => {
  ********* SHEETS BOX PROPERTIES *********
  */
 
-const SheetLine = (properties, context) => {
-  const { act } = useBackend(context);
+const SheetLine = (properties) => {
+  const { act } = useBackend();
   const { ore } = properties;
   if (
     ore.value &&
@@ -268,8 +268,8 @@ const SheetLine = (properties, context) => {
  ********* ALLOYS BOX PROPERTIES *********
  */
 
-const AlloyLine = (properties, context) => {
-  const { act } = useBackend(context);
+const AlloyLine = (properties) => {
+  const { act } = useBackend();
   const { ore } = properties;
   return (
     <Box className="SheetLine">

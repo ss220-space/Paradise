@@ -471,6 +471,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		if(orbiting && ismob(orbiting))
 			var/mob/living/new_sight = orbiting
 			set_sight(new_sight.client? new_sight.sight : set_sight(NONE))
+		else
+			set_sight(null)
 	else
 		set_sight(SEE_TURFS|SEE_MOBS|SEE_OBJS|SEE_SELF)
 
@@ -674,7 +676,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!mob_eye.hud_used)
 		return
 
-	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP, TYPE_PROC_REF(/mob/dead/observer, handle_when_autoobserve_move), TRUE)
+	RegisterSignal(src, COMSIG_ORBITER_ORBIT_STOP,PROC_REF(handle_when_autoobserve_move), TRUE)
+	RegisterSignal(mob_eye, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(handle_when_autoobserve_sight_updated), TRUE)
 
 	client.set_eye(mob_eye)
 	set_sight(mob_eye.sight)
@@ -685,9 +688,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	for(var/datum/action/act in mob_eye.actions)
 		if( istype(act.button, /atom/movable/screen/movable/action_button/hide_toggle) || \
-			(act in src.actions) || \
-			istype(act, /datum/action/innate/cult) || \
-			istype(act, /datum/action/innate/clockwork))
+			(act in src.actions))
 			continue
 		client.screen += act.button
 
@@ -700,7 +701,24 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	reset_perspective(null)
 	cleanup_observe()
-	UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
+	lighting_alpha = client?.prefs.ghost_darkness_level //Remembers ghost lighting pref
+	update_sight()
+	LAZYREMOVE(orbiting?.orbiters, src)
+
+	clear_fullscreens()
+
+	if(src) // If player discconnected
+		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
+	if(orbiting != null)
+		UnregisterSignal(orbiting, COMSIG_MOB_UPDATE_SIGHT)
+
+/mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
+	SIGNAL_HANDLER  // COMSIG_MOB_UPDATE_SIGHT
+
+	var/mob/mob_eye = orbiting
+	sight = mob_eye?.sight
+	lighting_alpha = mob_eye?.lighting_alpha
+	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"

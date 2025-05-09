@@ -526,7 +526,7 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
+		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
 		if(isclothing(O))
@@ -534,7 +534,8 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 				return
-		I.item_flags |= IGNORE_SLOWDOWN
+		I.slowdown /= 2
+		I.item_flags |= SPEEDPOTION_APPLIED
 		I.update_equipped_item()
 
 	if(isvehicle(O)) //simple solution

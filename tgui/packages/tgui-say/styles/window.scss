@@ -17,6 +17,11 @@
   }
 }
 
+#react-root {
+  height: 100%;
+  width: 100%;
+}
+
 .window-lightMode {
   background-color: colors.$lightMode;
 }

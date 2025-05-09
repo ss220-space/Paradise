@@ -1,9 +1,9 @@
 import { useBackend } from '../../backend';
 import { Button } from '../../components';
 
-export const RndNavButton = (properties, context) => {
+export const RndNavButton = (properties) => {
   const { icon, children, disabled, content } = properties;
-  const { data, act } = useBackend(context);
+  const { data, act } = useBackend();
   const { menu, submenu } = data;
 
   let nextMenu = menu;

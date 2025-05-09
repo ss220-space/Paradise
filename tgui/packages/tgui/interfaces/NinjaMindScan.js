@@ -10,8 +10,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const NinjaMindScan = (props, context) => {
-  const { act, data } = useBackend(context);
+export const NinjaMindScan = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={500} height={400} theme="spider_clan">
       <Window.Content className="Layout__content--flexColumn">
@@ -21,8 +21,8 @@ export const NinjaMindScan = (props, context) => {
   );
 };
 
-const MindScanMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+const MindScanMenu = (props) => {
+  const { act, data } = useBackend();
   const { occupantIcon, occupant_name, occupant_health, scanned_occupants } =
     data;
   let block_buttons = occupant_name === 'none' ? 1 : 0;

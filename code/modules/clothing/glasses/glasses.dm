@@ -171,6 +171,17 @@
 	icon_state = "mesonvisor"
 	item_state = "mesonvisor"
 
+/obj/item/clothing/glasses/meson/monocle
+	name = "Meson Monocle Scanner"
+	desc = "Моноколь со встроенным мезонным сканером."
+	icon_state = "monomeson"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
+
 /obj/item/clothing/glasses/science
 	name = "science goggles"
 	desc = "A pair of snazzy goggles used to protect against chemical spills. Fitted with an analyzer for scanning items and reagents."
@@ -224,6 +235,17 @@
 	)
 	icon_state = "sciencevisor"
 	item_state = "sciencevisor"
+
+/obj/item/clothing/glasses/science/monocle
+	name = "Science HUD monocle"
+	desc = "Моноколь со встроенным научным ИЛС."
+	icon_state = "monohudsci"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/janitor
 	name = "Janitorial Goggles"
@@ -281,7 +303,7 @@
 	name = "monocle"
 	desc = "Such a dapper eyepiece!"
 	icon_state = "monocle"
-	item_state = "headset" // lol
+	item_state = "monohud"
 	prescription_upgradable = TRUE
 
 	sprite_sheets = list(
@@ -648,6 +670,17 @@
 	desc = "A monocle thermal."
 	icon_state = "thermoncle"
 	flags_cover = null //doesn't protect eyes because it's a monocle, duh
+
+/obj/item/clothing/glasses/thermal/monothermal
+	name = "Thermal Monocle Scanner"
+	desc = "Моноколь со встроенным термальным сканером."
+	icon_state = "monothermal"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
 
 /obj/item/clothing/glasses/thermal/eyepatch
 	name = "Optical Thermal Eyepatch"

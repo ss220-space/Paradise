@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Stack, Dropdown } from '../components';
 import { Window } from '../layouts';
 
-export const RitualMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RitualMenu = (props) => {
+  const { act, data } = useBackend();
   const {
     rituals,
     selected_ritual,
