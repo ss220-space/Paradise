@@ -17,13 +17,12 @@
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/wryn/attack_hand(mob/living/user)
-	var/obj/structure/wryn/target
-	if(iswryn(user))
+	if(!iswryn(user))
+		return
+	else
 		if(user.a_intent == INTENT_HARM)
 			take_damage(WRYN_WAX_DAMAGE, BRUTE, 0, 'sound/effects/attackblob.ogg')
-			user.do_attack_animation(target)
-	else
-		return
+			user.do_attack_animation(src)
 
 // wax structures procs
 
