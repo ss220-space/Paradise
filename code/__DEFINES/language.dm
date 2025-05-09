@@ -23,7 +23,7 @@
 #define LANGUAGE_XENOS				"Ксеноморфский"
 #define LANGUAGE_HIVE_XENOS			"Разум улья Ксеноморфов"
 #define LANGUAGE_HIVE_TERRORSPIDER	"Разум улья Пауков Ужаса"
-#define LANGUAGE_HIVE_CHANGELING	"Разум улья генокрадов"
+#define LANGUAGE_HIVE_CHANGELING	"Коллективный разум Генокрадов"
 #define LANGUAGE_HIVE_EVENTLING		"Инфильтрованный коллективный разум Генокрадов"
 #define LANGUAGE_HIVE_SHADOWLING	"Коллективный разум Тенеморфов"
 #define LANGUAGE_HIVE_ABDUCTOR		"Псисвязь Абдукторов"

@@ -77,7 +77,15 @@ const setGlobalFontFamily = (
 ) => {
   overrideFontFamily = fontFamily === FONTS_DISABLED ? undefined : fontFamily;
 
-  clearInterval(statFamilyTimer);
+  if (fontFamily === FONTS_DISABLED) {
+    fontFamily = null;
+  }
+
+  if (statFontFamily === FONTS_DISABLED) {
+    statFontFamily = null;
+  }
+
+  clearInterval(setStatFontFamilyTimer);
   Byond.command(
     `.output statbrowser:set_font_style ${statLinked ? fontFamily : statFontFamily}`
   );
