@@ -23,10 +23,28 @@ else
   rm -rf "$HOME/BYOND"
   mkdir -p "$HOME/BYOND"
   cd "$HOME/BYOND"
-  echo "Trying to download BYOND ${TARGET_MAJOR}.${TARGET_MINOR}"
-  curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" -o byond.zip
+  
+  if ! curl -L --fail --retry 3 \
+    "https://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" \
+    -o byond.zip; then
+    echo "Failed to download BYOND!"
+    exit 1
+  fi
+
+  if ! file byond.zip | grep -q "Zip archive"; then
+    echo "Invalid archive detected:"
+    head -n5 byond.zip
+    exit 1
+  fi
+
   sudo apt-get install -y libarchive-tools
-  unzip byond.zip
+  bsdtar -xf byond.zip || unzip -q byond.zip
+
+  if [ ! -d "byond" ]; then
+    echo "Extraction failed! Contents:"
+    ls -la
+    exit 1
+  fi
   rm byond.zip
   cd byond
   make here
