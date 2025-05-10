@@ -24,7 +24,8 @@ else
   mkdir -p "$HOME/BYOND"
   cd "$HOME/BYOND"
   curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" -o byond.zip
-  unzip byond.zip
+  sudo apt-get install -y libarchive-tools
+  bsdtar -xf byond.zip || echo "Распаковка не удалась"
   rm byond.zip
   cd byond
   make here
