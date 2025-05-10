@@ -38,14 +38,14 @@ else
     exit 1
   fi
 
-  sudo apt-get install -y libarchive-tools
-  bsdtar -xf byond.zip || unzip -q byond.zip
+  unzip -q byond.zip
 
   if [ ! -d "byond" ]; then
     echo "Extraction failed! Contents:"
     ls -la
     exit 1
   fi
+
   rm byond.zip
   cd byond
   make here
