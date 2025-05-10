@@ -18,7 +18,7 @@ type Note = {
   text: string;
 };
 
-export const Newspaper = (_props:unknown) => {
+export const Newspaper = (_props: unknown) => {
   const { act, data } = useBackend<NewspaperData>();
 
   const {
@@ -119,8 +119,7 @@ export const Newspaper = (_props:unknown) => {
                           <Flex.Item width="40%">
                             <PhotoThumbnail
                               name={'story_photo_' + article.uid + '.png'}
-                              style={{ float: 'left' }}
-                              width="100%"
+                              style={{ float: 'left', width: '100%' }}
                             />
                           </Flex.Item>
                           <Flex.Item width="58%">{article.body}</Flex.Item>
@@ -152,8 +151,7 @@ export const Newspaper = (_props:unknown) => {
                           <Flex.Item width="40%">
                             <PhotoThumbnail
                               name={'story_photo_' + article.uid + '.png'}
-                              style={{ float: 'left' }}
-                              width="100%"
+                              style={{ float: 'left', width: '100%' }}
                             />
                           </Flex.Item>
                           <Flex.Item width="58%">{article.body}</Flex.Item>
@@ -270,9 +268,7 @@ const WantedBlock = (properties: WantedBlockProps) => {
           <Flex.Item width="30%">
             <PhotoThumbnail
               name={'story_photo_' + id + '.png'}
-              style={{ float: 'left' }}
-              mr="0.5rem"
-              width="100%"
+              style={{ float: 'left', marginRight: '0.5rem', width: '100%' }}
             />
           </Flex.Item>
         )}

@@ -1,6 +1,6 @@
 import { BooleanLike, classes } from 'common/react';
 import { useBackend } from '../backend';
-import { ReactNode, useState } from 'react';
+import React, { CSSProperties, ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -26,7 +26,6 @@ import {
   ModalType,
 } from './common/ComplexModal';
 import { TemporaryNotice } from './common/TemporaryNotice';
-import { ImageProps } from '../components/Image';
 import { BoxProps } from '../components/Box';
 
 const HEADLINE_MAX_LENGTH = 128;
@@ -100,6 +99,16 @@ type Photo = {
   uid: string;
 };
 
+type CensorModeProps = Partial<{
+  censorMode: boolean;
+  setCensorMode: React.Dispatch<React.SetStateAction<boolean>>;
+}>;
+
+type FullStoriesProps = Partial<{
+  fullStories: string[];
+  setFullStories: React.Dispatch<React.SetStateAction<string[]>>;
+}>;
+
 export const Newscaster = (properties) => {
   const { act, data } = useBackend<NewscasterData>();
   const {
@@ -114,11 +123,24 @@ export const Newscaster = (properties) => {
   const [menuOpen, setMenuOpen] = useState(false);
   const [viewingPhoto, _setViewingPhoto] = useState('');
   const [censorMode, setCensorMode] = useState(false);
+  const [fullStories, setFullStories] = useState([]);
   let body: ReactNode;
   if (screen === 0 || screen === 2) {
-    body = <NewscasterFeed />;
+    body = (
+      <NewscasterFeed
+        censorMode={censorMode}
+        fullStories={fullStories}
+        setFullStories={setFullStories}
+      />
+    );
   } else if (screen === 1) {
-    body = <NewscasterJobs />;
+    body = (
+      <NewscasterJobs
+        censorMode={censorMode}
+        fullStories={fullStories}
+        setFullStories={setFullStories}
+      />
+    );
   }
   const totalUnread = channels.reduce((a, c) => a + c.unread, 0);
   return (
@@ -126,10 +148,7 @@ export const Newscaster = (properties) => {
       {viewingPhoto ? (
         <PhotoZoom />
       ) : (
-        <ComplexModal
-          maxWidth={window.innerWidth / 1.5 + 'px'}
-          maxHeight={window.innerHeight / 1.5 + 'px'}
-        />
+        <ComplexModal maxWidth={50} maxHeight={70} />
       )}
       <Window.Content>
         <Stack fill>
@@ -283,7 +302,7 @@ const MenuButton = (properties: MenuButtonProps) => {
   );
 };
 
-const NewscasterFeed = (properties) => {
+const NewscasterFeed = (properties: CensorModeProps & FullStoriesProps) => {
   const { act, data } = useBackend<NewscasterData>();
   const {
     screen,
@@ -294,13 +313,21 @@ const NewscasterFeed = (properties) => {
     stories,
     wanted,
   } = data;
-  const [fullStories, _setFullStories] = useState([]);
-  const [censorMode, _setCensorMode] = useState(false);
+  const { censorMode, fullStories, setFullStories } = properties;
+
   const channel =
     screen === 2 && channel_idx > -1 ? channels[channel_idx - 1] : null;
   return (
     <Stack fill vertical>
-      {!!wanted && <Story story={wanted} wanted />}
+      {!!wanted && (
+        <Story
+          story={wanted}
+          wanted
+          censorMode={censorMode}
+          fullStories={fullStories}
+          setFullStories={setFullStories}
+        />
+      )}
       <Section
         fill
         scrollable
@@ -325,7 +352,15 @@ const NewscasterFeed = (properties) => {
                   }
                 : story
             )
-            .map((story, index) => <Story key={index} story={story} />)
+            .map((story, index) => (
+              <Story
+                key={index}
+                story={story}
+                censorMode={censorMode}
+                fullStories={fullStories}
+                setFullStories={setFullStories}
+              />
+            ))
         ) : (
           <Box className="Newscaster__emptyNotice">
             <Icon name="times" size={3} />
@@ -349,14 +384,16 @@ const NewscasterFeed = (properties) => {
                 <Button
                   disabled={!!channel.admin && !is_admin}
                   selected={channel.censored}
-                  icon={channel.censored ? 'comment-slash' : 'comment'}
+                  icon={channel.censored ? 'comment' : 'ban'}
+                  backgroundColor={!channel.censored && 'red'}
                   mr="0.5rem"
+                  tooltip={
+                    !channel.censored
+                      ? 'Заблокировать канал'
+                      : 'Разблокировать канал'
+                  }
                   onClick={() => act('censor_channel', { uid: channel.uid })}
-                >
-                  {channel.censored
-                    ? 'Заблокировать канал'
-                    : 'Разблокировать канал'}
-                </Button>
+                />
               )}
               <Button
                 disabled={!channel_can_manage}
@@ -393,16 +430,25 @@ const NewscasterFeed = (properties) => {
   );
 };
 
-const NewscasterJobs = (properties) => {
+const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
   const { data } = useBackend<NewscasterData>();
   const { jobs, wanted } = data;
   const numOpenings = Object.entries(jobs).reduce(
     (a, [k, v]) => a + v.length,
     0
   );
+  const { censorMode, setCensorMode, fullStories, setFullStories } = properties;
   return (
     <Stack fill vertical>
-      {!!wanted && <Story story={wanted} wanted />}
+      {!!wanted && (
+        <Story
+          censorMode={censorMode}
+          fullStories={fullStories}
+          setFullStories={setFullStories}
+          story={wanted}
+          wanted
+        />
+      )}
       <Section
         fill
         scrollable
@@ -494,13 +540,13 @@ export type StoryData = {
 type StoryProps = {
   story: StoryData;
   wanted?: boolean;
-};
+} & FullStoriesProps &
+  CensorModeProps;
 
 const Story = (properties: StoryProps) => {
   const { act, data } = useBackend<NewscasterData>();
   const { story, wanted = false } = properties;
-  const [fullStories, setFullStories] = useState([]);
-  const [censorMode, _setCensorMode] = useState(false);
+  const { censorMode, fullStories, setFullStories } = properties;
   return (
     <Section
       className={classes([
@@ -521,14 +567,16 @@ const Story = (properties: StoryProps) => {
             {!wanted && censorMode && (
               <Box inline>
                 <Button
-                  disabled={!(story.censor_flags & 2)}
-                  icon={story.censor_flags & 2 ? 'comment-slash' : 'comment'}
+                  disabled={!!story.admin_locked && !data.is_admin}
+                  icon={story.censor_flags & 2 ? 'comment' : 'ban'}
+                  backgroundColor={!(story.censor_flags & 2) && 'red'}
                   mr="0.5rem"
                   mt="-0.25rem"
+                  tooltip={
+                    story.censor_flags & 2 ? 'Разблокировать' : 'Заблокировать'
+                  }
                   onClick={() => act('censor_story', { uid: story.uid })}
-                >
-                  {story.censor_flags & 2 ? 'Разблокировать' : 'Заблокировать'}
-                </Button>
+                />
               </Box>
             )}
             <Box inline>
@@ -554,8 +602,7 @@ const Story = (properties: StoryProps) => {
             {!!story.has_photo && (
               <PhotoThumbnail
                 name={'story_photo_' + story.uid + '.png'}
-                style={{ float: 'right' }}
-                ml="0.5rem"
+                style={{ float: 'right', marginLeft: '0.5rem' }}
               />
             )}
             {(story.body_short || story.body).split('\n').map((p, index) => (
@@ -579,13 +626,14 @@ const Story = (properties: StoryProps) => {
 
 type PhotoThumbnailProps = {
   name: string;
-} & ImageProps;
+  style: CSSProperties;
+};
 
 export const PhotoThumbnail = (properties: PhotoThumbnailProps) => {
   const { name, ...rest } = properties;
   const [viewingPhoto, setViewingPhoto] = useState('');
   return (
-    <Image
+    <img
       className="Newscaster__photo"
       src={name}
       onClick={() => setViewingPhoto(name)}
@@ -649,8 +697,8 @@ const manageChannelModalBodyOverride = (
       pb="1.5rem"
       title={isEditing ? 'Управление: ' + channel.name : 'Создать новый канал'}
     >
-      <Box mx="0.5rem">
-        <LabeledList>
+      <Stack vertical mx="0.5rem">
+        <Stack.Item>
           <LabeledList.Item label="Владелец">
             <Input
               disabled={!isAdmin}
@@ -659,6 +707,8 @@ const manageChannelModalBodyOverride = (
               onChange={(_e, v) => setAuthor(v)}
             />
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Название">
             <Input
               width="100%"
@@ -668,34 +718,47 @@ const manageChannelModalBodyOverride = (
               onChange={(_e, v) => setName(v)}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Описание (опционально)" verticalAlign="top">
+        </Stack.Item>
+        <Stack.Item>
+          <Stack.Item>
+            <LabeledList.Item label="Описание (опционально)" />
+          </Stack.Item>
+          <Stack.Item>
             <TextArea
               width="100%"
               placeholder="Макс. 128 символов."
               maxLength={128}
+              height={10}
               value={description}
               onChange={(_e, v) => setDescription(v)}
             />
-          </LabeledList.Item>
+          </Stack.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Иконка">
             <Input
+              overflowX="visible"
               disabled={!isAdmin}
               value={icon}
-              width="35%"
               mr="0.5rem"
               onChange={(_e, v) => setIcon(v)}
             />
             <Icon name={icon} size={2} verticalAlign="middle" mr="0.5rem" />
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Сделать канал публичным?">
             <Button
               selected={isPublic}
+              width={4}
               icon={isPublic ? 'toggle-on' : 'toggle-off'}
               onClick={() => setIsPublic(!isPublic)}
             >
               {isPublic ? 'Да' : 'Нет'}
             </Button>
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
           {isAdmin && (
             <LabeledList.Item label="CentComm Lock" verticalAlign="top">
               <Button
@@ -709,28 +772,30 @@ const manageChannelModalBodyOverride = (
               </Button>
             </LabeledList.Item>
           )}
-        </LabeledList>
-      </Box>
-      <Button.Confirm
-        disabled={author.trim().length === 0 || name.trim().length === 0}
-        icon="check"
-        color="good"
-        position="absolute"
-        right="1rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          modalAnswer(modal.id, '', {
-            author: author,
-            name: name.substr(0, 49),
-            description: description.substr(0, 128),
-            icon: icon,
-            public: isPublic ? 1 : 0,
-            admin_locked: adminLocked ? 1 : 0,
-          });
-        }}
-      >
-        ОК
-      </Button.Confirm>
+        </Stack.Item>
+        <Stack.Item>
+          <Button.Confirm
+            disabled={author.trim().length === 0 || name.trim().length === 0}
+            icon="check"
+            color="good"
+            position="absolute"
+            right={1}
+            bottom="-0.75rem"
+            onClick={() => {
+              modalAnswer(modal.id, '', {
+                author: author,
+                name: name.substr(0, 49),
+                description: description.substr(0, 128),
+                icon: icon,
+                public: isPublic ? 1 : 0,
+                admin_locked: adminLocked ? 1 : 0,
+              });
+            }}
+          >
+            Создать
+          </Button.Confirm>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -769,8 +834,8 @@ const createStoryModalBodyOverride = (
   const [adminLocked, setAdminLocked] = useState(false);
   return (
     <Section m="-1rem" pb="1.5rem" title="Написать новую статью">
-      <Box mx="0.5rem">
-        <LabeledList>
+      <Stack vertical mx="0.5rem">
+        <Stack.Item>
           <LabeledList.Item label="Автор">
             <Input
               disabled={!isAdmin}
@@ -779,6 +844,8 @@ const createStoryModalBodyOverride = (
               onChange={(_e, v) => setAuthor(v)}
             />
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Канал" verticalAlign="top">
             <Dropdown
               selected={channel}
@@ -788,7 +855,11 @@ const createStoryModalBodyOverride = (
               onSelected={(c) => setChannel(c)}
             />
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Divider />
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Заголовок">
             <Input
               width="100%"
@@ -798,16 +869,24 @@ const createStoryModalBodyOverride = (
               onChange={(_e, v) => setTitle(v)}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Текст статьи" verticalAlign="top">
+        </Stack.Item>
+        <Stack.Item>
+          <Stack.Item>
+            <LabeledList.Item label="Текст статьи" verticalAlign="top" />
+          </Stack.Item>
+          <Stack.Item>
             <TextArea
               fluid
               placeholder="Макс. 1024 символов"
               maxLength={1024}
               width="100%"
+              height={10}
               value={body}
               onChange={(_e, v) => setBody(v)}
             />
-          </LabeledList.Item>
+          </Stack.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Фото (опционально)" verticalAlign="top">
             <Button
               icon="image"
@@ -820,27 +899,38 @@ const createStoryModalBodyOverride = (
               {photo ? 'Достать: ' + photo.name : 'Вставить фото'}
             </Button>
           </LabeledList.Item>
-          <LabeledList.Item label="Превью" verticalAlign="top">
-            <Section
-              noTopPadding
-              title={title}
-              maxHeight="13.5rem"
-              overflow="auto"
-            >
-              <Box mt="0.5rem">
-                {!!photo && (
-                  <PhotoThumbnail
-                    name={'inserted_photo_' + photo.uid + '.png'}
-                    style={{ float: 'right' }}
-                  />
-                )}
-                {body.split('\n').map((p, index) => (
-                  <Box key={index}>{p || <br />}</Box>
-                ))}
-                <Box style={{ clear: 'right' }} />
-              </Box>
-            </Section>
-          </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item mt={3}>
+          <Stack vertical>
+            <Stack.Item>
+              <Section
+                noTopPadding
+                title={title}
+                maxHeight="13.5rem"
+                overflow="auto"
+                style={{
+                  border: '1px solid #3a3a3a',
+                  boxShadow: '0 0 8px #3a3a3a',
+                  borderRadius: '4px',
+                }}
+              >
+                <Box mt="0.5rem">
+                  {!!photo && (
+                    <PhotoThumbnail
+                      name={'inserted_photo_' + photo.uid + '.png'}
+                      style={{ float: 'right' }}
+                    />
+                  )}
+                  {body.split('\n').map((p, index) => (
+                    <Box key={index}>{p || <br />}</Box>
+                  ))}
+                  <Box style={{ clear: 'right' }} />
+                </Box>
+              </Section>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+        <Stack.Item>
           {isAdmin && (
             <LabeledList.Item label="CentComm Lock" verticalAlign="top">
               <Button
@@ -854,32 +944,34 @@ const createStoryModalBodyOverride = (
               </Button>
             </LabeledList.Item>
           )}
-        </LabeledList>
-      </Box>
-      <Button.Confirm
-        disabled={
-          author.trim().length === 0 ||
-          channel.trim().length === 0 ||
-          title.trim().length === 0 ||
-          body.trim().length === 0
-        }
-        icon="check"
-        color="good"
-        position="absolute"
-        right="1rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          modalAnswer('create_story', '', {
-            author: author,
-            channel: channel,
-            title: title.substr(0, 127),
-            body: body.substr(0, 1023),
-            admin_locked: adminLocked ? 1 : 0,
-          });
-        }}
-      >
-        ОК
-      </Button.Confirm>
+        </Stack.Item>
+        <Stack.Item>
+          <Button.Confirm
+            disabled={
+              author.trim().length === 0 ||
+              channel.trim().length === 0 ||
+              title.trim().length === 0 ||
+              body.trim().length === 0
+            }
+            icon="check"
+            color="good"
+            position="absolute"
+            right="1rem"
+            bottom="-0.75rem"
+            onClick={() => {
+              modalAnswer('create_story', '', {
+                author: author,
+                channel: channel,
+                title: title.substr(0, 127),
+                body: body.substr(0, 1023),
+                admin_locked: adminLocked ? 1 : 0,
+              });
+            }}
+          >
+            Создать
+          </Button.Confirm>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };
@@ -896,13 +988,13 @@ const wantedNoticeModalBodyOverride = (
   const [author, setAuthor] = useState(
     wanted?.author || scannedUser || 'Неавторизованный'
   );
-  const [name, setName] = useState(wanted?.title.substr(8) || '');
+  const [name, setName] = useState(wanted?.title.substring(8) || '');
   const [description, setDescription] = useState(wanted?.body || '');
   const [adminLocked, setAdminLocked] = useState(wanted?.admin_locked || false);
   return (
     <Section m="-1rem" pb="1.5rem" title="Уведомлением о розыске">
-      <Box mx="0.5rem">
-        <LabeledList>
+      <Stack vertical mx="0.5rem">
+        <Stack.Item>
           <LabeledList.Item label="Authority">
             <Input
               disabled={!isAdmin}
@@ -911,6 +1003,8 @@ const wantedNoticeModalBodyOverride = (
               onChange={(_e, v) => setAuthor(v)}
             />
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Имя">
             <Input
               width="100%"
@@ -919,14 +1013,18 @@ const wantedNoticeModalBodyOverride = (
               onChange={(_e, v) => setName(v)}
             />
           </LabeledList.Item>
-          <LabeledList.Item label="Описание" verticalAlign="top">
-            <TextArea
-              width="100%"
-              value={description}
-              maxLength={512}
-              onChange={(_e, v) => setDescription(v)}
-            />
-          </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
+          <LabeledList.Item label="Описание" verticalAlign="top" />
+          <TextArea
+            width="100%"
+            value={description}
+            height={10}
+            maxLength={512}
+            onChange={(_e, v) => setDescription(v)}
+          />
+        </Stack.Item>
+        <Stack.Item>
           <LabeledList.Item label="Фото (опционально)" verticalAlign="top">
             <Button
               icon="image"
@@ -939,18 +1037,23 @@ const wantedNoticeModalBodyOverride = (
             >
               {photo ? 'Достать: ' + photo.name : 'Вставить фото'}
             </Button>
-            {!!photo && (
-              <PhotoThumbnail
-                name={'inserted_photo_' + photo.uid + '.png'}
-                style={{ float: 'right' }}
-              />
-            )}
           </LabeledList.Item>
+        </Stack.Item>
+        <Stack.Item>
+          {!!photo && (
+            <PhotoThumbnail
+              name={'inserted_photo_' + photo.uid + '.png'}
+              style={{ float: 'right' }}
+            />
+          )}
+        </Stack.Item>
+        <Stack.Item>
           {isAdmin && (
             <LabeledList.Item label="CentComm Lock" verticalAlign="top">
               <Button
                 selected={adminLocked}
-                icon={adminLocked ? 'lock' : 'lock-open'}
+                icon={adminLocked ? 'lock-open' : 'lock'}
+                backgroundColor={!adminLocked && 'red'}
                 tooltip="Заблокировав это уведомление о розыске, никто, кроме сотрудников CentComm, не сможет его редактировать."
                 tooltipPosition="top"
                 onClick={() => setAdminLocked(!adminLocked)}
@@ -959,44 +1062,51 @@ const wantedNoticeModalBodyOverride = (
               </Button>
             </LabeledList.Item>
           )}
-        </LabeledList>
-      </Box>
-      <Button.Confirm
-        disabled={!wanted}
-        icon="eraser"
-        color="danger"
-        position="absolute"
-        right="7.25rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          act('clear_wanted_notice');
-          modalClose();
-        }}
-      >
-        Очистить
-      </Button.Confirm>
-      <Button.Confirm
-        disabled={
-          author.trim().length === 0 ||
-          name.trim().length === 0 ||
-          description.trim().length === 0
-        }
-        icon="check"
-        color="good"
-        position="absolute"
-        right="1rem"
-        bottom="-0.75rem"
-        onClick={() => {
-          modalAnswer(modal.id, '', {
-            author: author,
-            name: name.substr(0, 127),
-            description: description.substr(0, 511),
-            admin_locked: adminLocked ? 1 : 0,
-          });
-        }}
-      >
-        ОК
-      </Button.Confirm>
+        </Stack.Item>
+        <Stack.Item>
+          <Stack>
+            <Stack.Item>
+              <Button.Confirm
+                disabled={!wanted}
+                icon="eraser"
+                color="danger"
+                position="absolute"
+                bottom="-0.75rem"
+                onClick={() => {
+                  act('clear_wanted_notice');
+                  modalClose();
+                }}
+              >
+                Очистить
+              </Button.Confirm>
+            </Stack.Item>
+            <Stack.Item>
+              <Button.Confirm
+                disabled={
+                  author.trim().length === 0 ||
+                  name.trim().length === 0 ||
+                  description.trim().length === 0
+                }
+                icon="check"
+                color="good"
+                position="absolute"
+                right="1rem"
+                bottom="-0.75rem"
+                onClick={() => {
+                  modalAnswer(modal.id, '', {
+                    author: author,
+                    name: name.substring(0, 127),
+                    description: description.substr(0, 511),
+                    admin_locked: adminLocked ? 1 : 0,
+                  });
+                }}
+              >
+                ОК
+              </Button.Confirm>
+            </Stack.Item>
+          </Stack>
+        </Stack.Item>
+      </Stack>
     </Section>
   );
 };

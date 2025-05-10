@@ -99,7 +99,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
 				msg = "<span class='emoji_enabled'>[msg]</span>"
 
-			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <EM>[display_name]:</EM> <span class='message'>[msg]</span></span></font>")
+			to_chat(C, "<font color='[display_colour]'><span class='ooc'><span class='prefix'>OOC:</span> <em>[display_name]:</em> <span class='message'>[msg]</span></span></font>")
 
 /proc/toggle_ooc()
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
@@ -206,7 +206,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><EM>[display_name][admin_stuff]:</EM> <span class='message'>[msg]</span></span></span>")
+				to_chat(target, "<span class='ooc'><span class='looc'>LOOC<span class='prefix'>[prefix]: </span><em>[display_name][admin_stuff]:</em> <span class='message'>[msg]</span></span></span>")
 
 /mob/proc/get_looc_source()
 	return src
