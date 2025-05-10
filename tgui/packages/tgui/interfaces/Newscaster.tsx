@@ -437,7 +437,7 @@ const NewscasterJobs = (properties: FullStoriesProps & CensorModeProps) => {
     (a, [k, v]) => a + v.length,
     0
   );
-  const { censorMode, setCensorMode, fullStories, setFullStories } = properties;
+  const { censorMode, fullStories, setFullStories } = properties;
   return (
     <Stack fill vertical>
       {!!wanted && (
