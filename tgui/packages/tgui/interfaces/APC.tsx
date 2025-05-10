@@ -3,7 +3,7 @@ import { Box, Button, LabeledList, ProgressBar, Section } from '../components';
 import { Window } from '../layouts';
 import { InterfaceLockNoticeBox } from './common/InterfaceLockNoticeBox';
 
-export const APC = (props:unknown) => {
+export const APC = (props: unknown) => {
   return (
     <Window width={510} height={435}>
       <Window.Content>
@@ -83,7 +83,7 @@ type TopicParams = {
   auto: object;
 };
 
-const ApcContent = (props:unknown) => {
+const ApcContent = (props: unknown) => {
   const { act, data } = useBackend<APCData>();
   const locked = data.locked && !data.siliconUser;
   const externalPowerStatus =

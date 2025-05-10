@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
 import { LabeledList, Button } from '../../components';
 
-export const pai_advsecrecords = (props:unknown) => {
+export const pai_advsecrecords = (props: unknown) => {
   const { act } = useBackend();
 
   return (

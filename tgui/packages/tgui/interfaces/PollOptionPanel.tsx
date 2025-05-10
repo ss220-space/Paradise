@@ -23,7 +23,7 @@ type PollOptionPanelData = {
   is_rating: boolean;
 };
 
-export const PollOptionPanel = (_props:unknown) => {
+export const PollOptionPanel = (_props: unknown) => {
   const { act, data } = useBackend<PollOptionPanelData>();
   const { poll_question, is_rating, option } = data;
 

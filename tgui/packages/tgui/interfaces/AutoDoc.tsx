@@ -13,7 +13,7 @@ type AutoDocData = {
   healtimer;
 };
 
-export const AutoDoc = (props:unknown) => {
+export const AutoDoc = (props: unknown) => {
   const { act, data } = useBackend<AutoDocData>();
   const { HasTray, TguiIcons, occupant, isHealing, fixtimer, healtimer } = data;
   const [ChoosenPart, ChoosePart] = useState('chest');

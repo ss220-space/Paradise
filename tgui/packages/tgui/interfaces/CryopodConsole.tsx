@@ -26,7 +26,7 @@ type Item = {
   uid: string;
 };
 
-export const CryopodConsole = (props:unknown) => {
+export const CryopodConsole = (props: unknown) => {
   const { data } = useBackend<CryopodConsoleData>();
   const { account_name, allow_items } = data;
 
@@ -44,7 +44,7 @@ export const CryopodConsole = (props:unknown) => {
   );
 };
 
-const CrewList = (props:unknown) => {
+const CrewList = (props: unknown) => {
   const { data } = useBackend<CryopodConsoleData>();
   const { frozen_crew } = data;
 
@@ -67,7 +67,7 @@ const CrewList = (props:unknown) => {
   );
 };
 
-const ItemList = (props:unknown) => {
+const ItemList = (props: unknown) => {
   const { act, data } = useBackend<CryopodConsoleData>();
   const { frozen_items } = data;
 

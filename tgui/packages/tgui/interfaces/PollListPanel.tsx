@@ -12,7 +12,7 @@ type Poll = {
   description: string;
 };
 
-export const PollListPanel = (_props:unknown) => {
+export const PollListPanel = (_props: unknown) => {
   const { act, data } = useBackend<PollListPanelData>();
   const polls = data.polls || [];
 

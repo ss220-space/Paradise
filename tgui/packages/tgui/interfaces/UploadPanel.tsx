@@ -10,7 +10,7 @@ type UploadPanelData = {
   hacked: boolean;
 };
 
-export const UploadPanel = (_props:unknown) => {
+export const UploadPanel = (_props: unknown) => {
   const { act, data } = useBackend<UploadPanelData>();
   const { selected_target, new_law, id, transmitting, hacked } = data;
   return (

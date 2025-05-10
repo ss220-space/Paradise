@@ -24,7 +24,7 @@ type CraftItem = {
   tool_text: string;
 };
 
-export const PersonalCrafting = (_props:unknown) => {
+export const PersonalCrafting = (_props: unknown) => {
   const { act, data } = useBackend<PersonalCraftingData>();
   const {
     busy,
@@ -92,7 +92,7 @@ export const PersonalCrafting = (_props:unknown) => {
   );
 };
 
-const CompactView = (_props:unknown) => {
+const CompactView = (_props: unknown) => {
   const { act, data } = useBackend<PersonalCraftingData>();
   const { display_craftable_only, can_craft, cant_craft } = data;
   return (
@@ -142,7 +142,7 @@ const CompactView = (_props:unknown) => {
   );
 };
 
-const ExpandedView = (_props:unknown) => {
+const ExpandedView = (_props: unknown) => {
   const { act, data } = useBackend<PersonalCraftingData>();
   const { display_craftable_only, can_craft, cant_craft } = data;
   return (

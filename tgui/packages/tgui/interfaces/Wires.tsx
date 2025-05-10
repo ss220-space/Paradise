@@ -16,7 +16,7 @@ type Wire = {
   wire: string;
 };
 
-export const Wires = (_props:unknown) => {
+export const Wires = (_props: unknown) => {
   const { act, data } = useBackend<WiresData>();
 
   const wires = data.wires || [];

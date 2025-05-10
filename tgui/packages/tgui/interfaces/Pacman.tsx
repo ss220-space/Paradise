@@ -30,7 +30,7 @@ type PacmanData = {
   has_fuel: boolean;
 };
 
-export const Pacman = (_props:unknown) => {
+export const Pacman = (_props: unknown) => {
   const { act, data } = useBackend<PacmanData>();
   const {
     broken,

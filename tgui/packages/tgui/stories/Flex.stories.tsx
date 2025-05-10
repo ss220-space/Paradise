@@ -12,7 +12,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props:unknown) => {
+const Story = (props: unknown) => {
   const [grow, setGrow] = useState(1);
   const [direction, setDirection] = useState('column');
   const [fill, setFill] = useState(true);

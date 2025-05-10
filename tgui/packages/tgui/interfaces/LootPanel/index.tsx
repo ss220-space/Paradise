@@ -15,7 +15,7 @@ type Data = {
   searching: BooleanLike;
 };
 
-export const LootPanel = (props:unknown) => {
+export const LootPanel = (props: unknown) => {
   const { act, data } = useBackend<Data>();
   const { contents = [], searching } = data;
 

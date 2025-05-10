@@ -32,7 +32,7 @@ type Product = {
   price: number;
 };
 
-export const BluespaceTap = (props:unknown) => {
+export const BluespaceTap = (props: unknown) => {
   const { act, data } = useBackend<BluespaceTapData>();
   const product = data.product || [];
   const {

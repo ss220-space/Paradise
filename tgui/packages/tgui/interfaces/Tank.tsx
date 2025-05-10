@@ -19,7 +19,7 @@ type TankData = {
   defaultReleasePressure: number;
 };
 
-export const Tank = (_props:unknown) => {
+export const Tank = (_props: unknown) => {
   const { act, data } = useBackend<TankData>();
   let maskStatus: ReactNode;
   if (!data.has_mask) {

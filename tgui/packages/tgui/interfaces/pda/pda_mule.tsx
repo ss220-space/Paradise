@@ -1,7 +1,7 @@
 import { useBackend } from '../../backend';
 import { Box, Button, LabeledList, Section } from '../../components';
 
-export const pda_mule = (props:unknown) => {
+export const pda_mule = (props: unknown) => {
   const { data } = useBackend<MuleBotsData>();
   const { mulebot } = data;
   const { active } = mulebot;
@@ -24,7 +24,7 @@ type MuleBotStatusData = {
   pick: boolean;
 } & BotStatusData;
 
-const BotList = (props:unknown) => {
+const BotList = (props: unknown) => {
   const { act, data } = useBackend<MuleBotsData>();
   const { mulebot } = data;
   const { bots } = mulebot;
@@ -47,7 +47,7 @@ const BotList = (props:unknown) => {
   );
 };
 
-const BotStatus = (props:unknown) => {
+const BotStatus = (props: unknown) => {
   const { act, data } = useBackend<MuleBotsData>();
   // Why are these things like 3 layers deep
   const { mulebot } = data;

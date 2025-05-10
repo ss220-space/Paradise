@@ -16,7 +16,7 @@ type ClassData = {
   icon_state: string;
 };
 
-export const VampireSpecMenu = (_props:unknown) => {
+export const VampireSpecMenu = (_props: unknown) => {
   const [activeTab, setActiveTab] = useState('hemomancer');
 
   const renderMenu = () => {
@@ -78,7 +78,7 @@ export const VampireSpecMenu = (_props:unknown) => {
   );
 };
 
-export const HemoMenu = (_props:unknown) => {
+export const HemoMenu = (_props: unknown) => {
   const { act, data } = useBackend<VampireSpecMenuData>();
   const { hemomancer } = data;
   return (
@@ -152,7 +152,7 @@ export const HemoMenu = (_props:unknown) => {
   );
 };
 
-export const UmbrMenu = (_props:unknown) => {
+export const UmbrMenu = (_props: unknown) => {
   const { act, data } = useBackend<VampireSpecMenuData>();
   const { umbrae } = data;
   return (
@@ -229,7 +229,7 @@ export const UmbrMenu = (_props:unknown) => {
   );
 };
 
-export const GarMenu = (_props:unknown) => {
+export const GarMenu = (_props: unknown) => {
   const { act, data } = useBackend<VampireSpecMenuData>();
   const { gargantua } = data;
   return (
@@ -305,7 +305,7 @@ export const GarMenu = (_props:unknown) => {
   );
 };
 
-export const DantMenu = (_props:unknown) => {
+export const DantMenu = (_props: unknown) => {
   const { act, data } = useBackend<VampireSpecMenuData>();
   const { dantalion } = data;
   return (
@@ -398,7 +398,7 @@ export const DantMenu = (_props:unknown) => {
   );
 };
 
-export const BestMenu = (_props:unknown) => {
+export const BestMenu = (_props: unknown) => {
   const { act, data } = useBackend<VampireSpecMenuData>();
   const { bestia } = data;
   return (

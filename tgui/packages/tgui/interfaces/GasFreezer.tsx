@@ -21,7 +21,7 @@ type GasFreezerData = {
   targetCelsius: number;
 };
 
-export const GasFreezer = (props:unknown) => {
+export const GasFreezer = (props: unknown) => {
   const { act, data } = useBackend<GasFreezerData>();
   const {
     on,

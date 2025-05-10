@@ -9,7 +9,7 @@ type AirlockAccessData = {
   processing: boolean;
 };
 
-export const AirlockAccessController = (props:unknown) => {
+export const AirlockAccessController = (props: unknown) => {
   const { act, data } = useBackend<AirlockAccessData>();
   const { exterior_status, interior_status, processing } = data;
   let exteriorbutton: ReactNode;

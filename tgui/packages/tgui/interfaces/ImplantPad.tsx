@@ -26,7 +26,7 @@ type Implant = {
   function: string;
 };
 
-export const ImplantPad = (props:unknown) => {
+export const ImplantPad = (props: unknown) => {
   const { act, data } = useBackend<ImplantPadData>();
   const { implant, contains_case, tag } = data;
   const [newTag, setNewTag] = useState(tag);

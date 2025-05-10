@@ -10,7 +10,7 @@ type AtmosPumpData = {
   step: number;
 };
 
-export const AtmosPump = (props:unknown) => {
+export const AtmosPump = (props: unknown) => {
   const { act, data } = useBackend<AtmosPumpData>();
   const { on, rate, max_rate, gas_unit, step } = data;
 

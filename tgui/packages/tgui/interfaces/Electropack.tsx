@@ -8,7 +8,7 @@ type ElectropackData = {
   code: number;
 } & Frequency;
 
-export const Electropack = (props:unknown) => {
+export const Electropack = (props: unknown) => {
   const { act, data } = useBackend<ElectropackData>();
   const { power, code, frequency, minFrequency, maxFrequency } = data;
   return (

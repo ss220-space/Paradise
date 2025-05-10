@@ -25,7 +25,7 @@ export type BSRScannerData = {
   time_till_failure: number;
 };
 
-export const BluespaceRiftScanner = (props:unknown) => {
+export const BluespaceRiftScanner = (props: unknown) => {
   const { act, data } = useBackend<BSRScannerData>();
   const {
     scanStatus,

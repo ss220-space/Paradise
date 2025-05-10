@@ -24,7 +24,7 @@ import {
 import { MESSAGE_TYPES } from './constants';
 import { selectCurrentChatPage } from './selectors';
 
-export const ChatPageSettings = (props:unknown) => {
+export const ChatPageSettings = (props: unknown) => {
   const page = useSelector(selectCurrentChatPage);
   const dispatch = useDispatch();
   return (

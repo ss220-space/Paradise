@@ -9,7 +9,7 @@ type SecBot = { botstatus: SecBotStatusData } & Bot;
 
 type SecBotStatusData = BotStatusData;
 
-export const pda_secbot = (props:unknown) => {
+export const pda_secbot = (props: unknown) => {
   const { data } = useBackend<SecBotsData>();
   const { beepsky } = data;
   const { active } = beepsky;
@@ -17,7 +17,7 @@ export const pda_secbot = (props:unknown) => {
   return <Box>{active ? <BotStatus /> : <BotList />}</Box>;
 };
 
-const BotList = (props:unknown) => {
+const BotList = (props: unknown) => {
   const { act, data } = useBackend<SecBotsData>();
   const { beepsky } = data;
   const { bots } = beepsky;
@@ -40,7 +40,7 @@ const BotList = (props:unknown) => {
   );
 };
 
-const BotStatus = (props:unknown) => {
+const BotStatus = (props: unknown) => {
   const { act, data } = useBackend<SecBotsData>();
   // Why are these things like 3 layers deep
   const { beepsky } = data;

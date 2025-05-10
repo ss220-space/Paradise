@@ -11,7 +11,7 @@ import { toFixed } from 'common/math';
 
 import { selectPing } from './selectors';
 
-export const PingIndicator = (props:unknown) => {
+export const PingIndicator = (props: unknown) => {
   const ping = useSelector(selectPing);
   const color = Color.lookup(ping.networkQuality, [
     new Color(220, 40, 40),

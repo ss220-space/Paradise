@@ -16,7 +16,7 @@ type StationAlertConsoleData = {
   alarms: Record<string, string[]>;
 };
 
-export const StationAlertConsoleContent = (_props:unknown) => {
+export const StationAlertConsoleContent = (_props: unknown) => {
   const { data } = useBackend<StationAlertConsoleData>();
   const categories = data.alarms || {};
 

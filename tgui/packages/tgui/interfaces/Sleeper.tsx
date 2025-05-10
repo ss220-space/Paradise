@@ -79,7 +79,7 @@ type SleeperOcupant = {
   fireLoss: number;
 } & Occupant;
 
-export const Sleeper = (_props:unknown) => {
+export const Sleeper = (_props: unknown) => {
   const { data } = useBackend<SleeperData>();
   const { hasOccupant } = data;
   const body = hasOccupant ? <SleeperMain /> : <SleeperEmpty />;
@@ -97,7 +97,7 @@ export const Sleeper = (_props:unknown) => {
   );
 };
 
-const SleeperMain = (_props:unknown) => {
+const SleeperMain = (_props: unknown) => {
   return (
     <>
       <SleeperOccupant />
@@ -107,7 +107,7 @@ const SleeperMain = (_props:unknown) => {
   );
 };
 
-const SleeperOccupant = (_props:unknown) => {
+const SleeperOccupant = (_props: unknown) => {
   const { act, data } = useBackend<SleeperData>();
   const { occupant, auto_eject_dead } = data;
   return (
@@ -189,7 +189,7 @@ const SleeperOccupant = (_props:unknown) => {
   );
 };
 
-const SleeperDamage = (_props:unknown) => {
+const SleeperDamage = (_props: unknown) => {
   const { data } = useBackend<SleeperData>();
   const { occupant } = data;
   return (
@@ -213,7 +213,7 @@ const SleeperDamage = (_props:unknown) => {
   );
 };
 
-const SleeperDialysis = (_props:unknown) => {
+const SleeperDialysis = (_props: unknown) => {
   const { act, data } = useBackend<SleeperData>();
   const {
     hasOccupant,
@@ -270,7 +270,7 @@ const SleeperDialysis = (_props:unknown) => {
   );
 };
 
-const SleeperChemicals = (_props:unknown) => {
+const SleeperChemicals = (_props: unknown) => {
   const { act, data } = useBackend<SleeperData>();
   const { occupant, chemicals, maxchem, amounts } = data;
   return (
@@ -346,7 +346,7 @@ const SleeperChemicals = (_props:unknown) => {
   );
 };
 
-const SleeperEmpty = (_props:unknown) => {
+const SleeperEmpty = (_props: unknown) => {
   return (
     <Section fill textAlign="center">
       <Stack fill>

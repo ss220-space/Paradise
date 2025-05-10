@@ -15,7 +15,7 @@ import { SettingsGeneral } from './SettingsGeneral';
 import { SettingsStatPanel } from './SettingsStatPanel';
 import { TextHighlightSettings } from './TextHighlight';
 
-export const SettingsPanel = (props:unknown) => {
+export const SettingsPanel = (props: unknown) => {
   const activeTab = useSelector(selectActiveTab);
   const dispatch = useDispatch();
 

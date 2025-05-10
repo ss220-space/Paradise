@@ -65,7 +65,7 @@ const getCheckboxGroup = (
   });
 };
 
-export const TTSSeedsExplorer = (_props:unknown) => {
+export const TTSSeedsExplorer = (_props: unknown) => {
   return (
     <Window width={700} height={800}>
       <Window.Content>
@@ -95,7 +95,7 @@ type Provider = {
   name: string;
 };
 
-export const TTSSeedsExplorerContent = (_props:unknown) => {
+export const TTSSeedsExplorerContent = (_props: unknown) => {
   const { act, data } = useBackend<TTSSeedsExplorerData>();
 
   const { providers, seeds, selected_seed, phrases, donator_level } = data;

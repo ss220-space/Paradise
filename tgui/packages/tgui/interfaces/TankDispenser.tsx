@@ -7,7 +7,7 @@ type TankDispenserData = {
   p_tanks: number;
 };
 
-export const TankDispenser = (_props:unknown) => {
+export const TankDispenser = (_props: unknown) => {
   const { act, data } = useBackend<TankDispenserData>();
   const { o_tanks, p_tanks } = data;
   return (

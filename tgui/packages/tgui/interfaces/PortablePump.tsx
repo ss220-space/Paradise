@@ -29,7 +29,7 @@ type Tank = {
   tank_pressure: number;
 };
 
-export const PortablePump = (_props:unknown) => {
+export const PortablePump = (_props: unknown) => {
   const { data } = useBackend<PortablePumpData>();
   const { has_holding_tank } = data;
 
@@ -52,7 +52,7 @@ export const PortablePump = (_props:unknown) => {
   );
 };
 
-const PumpSettings = (_props:unknown) => {
+const PumpSettings = (_props: unknown) => {
   const { act, data } = useBackend<PortablePumpData>();
   const { on, direction, port_connected } = data;
 
@@ -106,7 +106,7 @@ const PumpSettings = (_props:unknown) => {
   );
 };
 
-const PressureSettings = (_props:unknown) => {
+const PressureSettings = (_props: unknown) => {
   const { act, data } = useBackend<PortablePumpData>();
   const { tank_pressure, target_pressure, max_target_pressure } = data;
 
@@ -193,7 +193,7 @@ const PressureSettings = (_props:unknown) => {
   );
 };
 
-const HoldingTank = (_props:unknown) => {
+const HoldingTank = (_props: unknown) => {
   const { act, data } = useBackend<PortablePumpData>();
   const { holding_tank, max_target_pressure } = data;
 

@@ -10,7 +10,7 @@ type Records = {
   message2: string;
 };
 
-export const pda_status_display = (props:unknown) => {
+export const pda_status_display = (props: unknown) => {
   const { act, data } = useBackend<StatusDisplayData>();
 
   const { records } = data;

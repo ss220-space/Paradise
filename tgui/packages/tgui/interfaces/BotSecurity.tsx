@@ -11,7 +11,7 @@ type SecurityBotData = {
   arrest_declare: boolean;
 } & BotControlsData;
 
-export const BotSecurity = (props:unknown) => {
+export const BotSecurity = (props: unknown) => {
   const { act, data } = useBackend<SecurityBotData>();
   const {
     locked,

@@ -25,7 +25,7 @@ type MainMenuData = {
   current_emotion: string;
 };
 
-export const pai_main_menu = (props:unknown) => {
+export const pai_main_menu = (props: unknown) => {
   const { act, data } = useBackend<PaiData<MainMenuData>>();
   const {
     available_software,

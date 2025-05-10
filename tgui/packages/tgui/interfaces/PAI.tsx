@@ -30,7 +30,7 @@ type PAIData = {
   app_title: string;
 };
 
-export const PAI = (_props:unknown) => {
+export const PAI = (_props: unknown) => {
   const { act, data } = useBackend<PAIData>();
   const { app_template, app_icon, app_title } = data;
 

@@ -28,7 +28,7 @@ type ComponentData = {
   status: boolean;
 };
 
-export const RobotSelfDiagnosis = (_props:unknown) => {
+export const RobotSelfDiagnosis = (_props: unknown) => {
   const { data } = useBackend<RobotSelfDiagnosisData>();
   const { component_data } = data;
   return (

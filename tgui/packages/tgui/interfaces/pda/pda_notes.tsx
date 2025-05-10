@@ -5,7 +5,7 @@ type NoteData = {
   note: string;
 };
 
-export const pda_notes = (props:unknown) => {
+export const pda_notes = (props: unknown) => {
   const { act, data } = useBackend<NoteData>();
 
   const { note } = data;

@@ -18,7 +18,7 @@ type Adiction = {
   stage: number;
 };
 
-export const pai_bioscan = (props:unknown) => {
+export const pai_bioscan = (props: unknown) => {
   const { data } = useBackend<PaiData<Bioscan>>();
   const {
     holder,

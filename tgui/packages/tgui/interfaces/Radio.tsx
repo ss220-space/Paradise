@@ -16,7 +16,7 @@ type RadioData = {
   ichannels: Channel[];
 } & Frequency;
 
-export const Radio = (_props:unknown) => {
+export const Radio = (_props: unknown) => {
   const { act, data } = useBackend<RadioData>();
   const {
     freqlock,

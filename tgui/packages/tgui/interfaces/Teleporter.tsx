@@ -28,7 +28,7 @@ type Cords = {
   z: number;
 };
 
-export const Teleporter = (_props:unknown) => {
+export const Teleporter = (_props: unknown) => {
   const { act, data } = useBackend<TeleporterData>();
   let targetsTeleport = data.targetsTeleport ? data.targetsTeleport : {};
   const REGIME_TELEPORT = 0;

@@ -16,7 +16,7 @@ type Spawner = {
   important_info: string;
 };
 
-export const MiniGamesMenu = (props:unknown) => {
+export const MiniGamesMenu = (props: unknown) => {
   const { act, data } = useBackend<MiniGamesMenuData>();
   const spawners = data.spawners || [];
   const thunderdome_eligible = data.thunderdome_eligible;

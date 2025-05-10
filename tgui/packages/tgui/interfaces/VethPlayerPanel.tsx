@@ -17,7 +17,7 @@ type Player = {
   last_ip: string;
 };
 
-export const VethPlayerPanel = (_props:unknown) => {
+export const VethPlayerPanel = (_props: unknown) => {
   const { act, data } = useBackend<VethPlayerPanelData>();
 
   const players = sortBy(data.Data || [], (player) => player.name);

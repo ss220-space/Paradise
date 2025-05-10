@@ -15,7 +15,7 @@ type SafeButtonProps = {
   color?: string;
 };
 
-export const SecureStorage = (_props:unknown) => {
+export const SecureStorage = (_props: unknown) => {
   const { act, data } = useBackend<SecureStorageData>();
   const { emagged, locked, l_set, l_setshort, current_code } = data;
 

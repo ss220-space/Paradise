@@ -24,7 +24,7 @@ type ExplosionRecord = {
   theoretical_size_message: string;
 };
 
-export const TachyonArray = (_props:unknown) => {
+export const TachyonArray = (_props: unknown) => {
   const { act, data } = useBackend<TachyonArrayData>();
   const { records = [], explosion_target, toxins_tech, printing } = data;
   return (
@@ -69,7 +69,7 @@ export const TachyonArray = (_props:unknown) => {
   );
 };
 
-export const TachyonArrayContent = (_props:unknown) => {
+export const TachyonArrayContent = (_props: unknown) => {
   const { act, data } = useBackend<TachyonArrayData>();
   const { records = [] } = data;
 

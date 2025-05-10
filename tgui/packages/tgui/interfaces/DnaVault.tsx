@@ -10,7 +10,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const DnaVault = (props:unknown) => {
+export const DnaVault = (props: unknown) => {
   const { data } = useBackend<DnaVaultData>();
   const { completed } = data;
   return (
@@ -35,7 +35,7 @@ type DnaVaultData = {
   animals_max: number;
 };
 
-const DnaVaultDataBase = (props:unknown) => {
+const DnaVaultDataBase = (props: unknown) => {
   const { data } = useBackend<DnaVaultData>();
   const { dna, dna_max, plants, plants_max, animals, animals_max } = data;
   const average_progress = 0.66;
@@ -92,7 +92,7 @@ type DnaChoiceData = {
   used: boolean;
 };
 
-const GeneTherapySelection = (props:unknown) => {
+const GeneTherapySelection = (props: unknown) => {
   const { act, data } = useBackend<DnaChoiceData>();
   const { choiceA, choiceB, used } = data;
   return (

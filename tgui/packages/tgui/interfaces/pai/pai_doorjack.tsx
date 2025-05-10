@@ -8,7 +8,7 @@ type DoorjackInfo = {
   inprogress: boolean;
 };
 
-export const pai_doorjack = (props:unknown) => {
+export const pai_doorjack = (props: unknown) => {
   const { act, data } = useBackend<PaiData<DoorjackInfo>>();
   const { cable, machine, inprogress } = data.app_data;
 

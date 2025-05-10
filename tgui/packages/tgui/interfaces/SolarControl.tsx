@@ -22,7 +22,7 @@ type SolarControlData = {
   rotating_direction: string;
 };
 
-export const SolarControl = (_props:unknown) => {
+export const SolarControl = (_props: unknown) => {
   const { act, data } = useBackend<SolarControlData>();
   const TRACKER_OFF = 0;
   const TRACKER_TIMED = 1;

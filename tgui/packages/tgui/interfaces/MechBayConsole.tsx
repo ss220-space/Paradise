@@ -29,7 +29,7 @@ type Cell = {
   maxcharge: number;
 };
 
-export const MechBayConsole = (props:unknown) => {
+export const MechBayConsole = (props: unknown) => {
   const { act, data } = useBackend<MechBayConsoleData>();
   const { recharge_port } = data;
   const mech = recharge_port && recharge_port.mech;

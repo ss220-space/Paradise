@@ -50,7 +50,7 @@ type AirlockData = {
   welded: boolean;
 };
 
-export const AiAirlock = (props:unknown) => {
+export const AiAirlock = (props: unknown) => {
   const { act, data } = useBackend<AirlockData>();
   const statusMain = dangerMap[data.power.main] || dangerMap[0];
   const statusBackup = dangerMap[data.power.backup] || dangerMap[0];

@@ -16,7 +16,7 @@ type EFTPOSData = {
   machine_name: string;
 };
 
-export const EFTPOS = (props:unknown) => {
+export const EFTPOS = (props: unknown) => {
   const { data } = useBackend<EFTPOSData>();
   const { transaction_locked, machine_name } = data;
   return (
@@ -32,7 +32,7 @@ export const EFTPOS = (props:unknown) => {
   );
 };
 
-const LockedView = (props:unknown) => {
+const LockedView = (props: unknown) => {
   const { act, data } = useBackend<LockedViewData>();
   const {
     transaction_purpose,
@@ -71,7 +71,7 @@ const LockedView = (props:unknown) => {
   );
 };
 
-const UnlockedView = (props:unknown) => {
+const UnlockedView = (props: unknown) => {
   const { act, data } = useBackend<UnlockedViewData>();
   const { transaction_purpose, transaction_amount, linked_account } = data;
   return (

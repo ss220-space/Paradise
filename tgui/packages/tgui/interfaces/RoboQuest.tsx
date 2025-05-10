@@ -59,7 +59,7 @@ type Molule = {
   icon_state: string;
 };
 
-export const RoboQuest = (_props:unknown) => {
+export const RoboQuest = (_props: unknown) => {
   const { act, data } = useBackend<RoboQuestData>();
   const {
     hasID,

@@ -8,7 +8,7 @@ type Directives = {
   supplemental: string;
 };
 
-export const pai_directives = (props:unknown) => {
+export const pai_directives = (props: unknown) => {
   const { act, data } = useBackend<PaiData<Directives>>();
   const { master, dna, prime, supplemental } = data.app_data;
 

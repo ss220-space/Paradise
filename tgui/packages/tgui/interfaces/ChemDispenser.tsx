@@ -27,7 +27,7 @@ type ChemDispenserData = {
   glass: boolean;
 };
 
-export const ChemDispenser = (props:unknown) => {
+export const ChemDispenser = (props: unknown) => {
   const { data } = useBackend<ChemDispenserData>();
   const { chemicals } = data;
   return (

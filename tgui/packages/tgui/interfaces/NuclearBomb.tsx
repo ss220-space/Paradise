@@ -15,7 +15,7 @@ type NuclearBombData = {
   safety: boolean;
 };
 
-export const NuclearBomb = (_props:unknown) => {
+export const NuclearBomb = (_props: unknown) => {
   const { act, data } = useBackend<NuclearBombData>();
 
   if (!data.extended) {

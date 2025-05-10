@@ -18,7 +18,7 @@ type App = {
   icon: string;
 };
 
-export const pda_main_menu = (props:unknown) => {
+export const pda_main_menu = (props: unknown) => {
   const { act, data } = useBackend<MainMenuData>();
 
   const { owner, ownjob, idInserted, categories, pai, notifying } = data;

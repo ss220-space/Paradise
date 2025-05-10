@@ -42,7 +42,7 @@ type App = {
   template: string;
 };
 
-export const PDA = (_props:unknown) => {
+export const PDA = (_props: unknown) => {
   const { data } = useBackend<PDAData>();
   const { app, owner } = data;
   if (!owner) {
@@ -91,7 +91,7 @@ export const PDA = (_props:unknown) => {
   );
 };
 
-const PDAHeader = (_props:unknown) => {
+const PDAHeader = (_props: unknown) => {
   const { act, data } = useBackend<PDAData>();
   const {
     idInserted,
@@ -137,7 +137,7 @@ const PDAHeader = (_props:unknown) => {
   );
 };
 
-const PDAFooter = (_props:unknown) => {
+const PDAFooter = (_props: unknown) => {
   const { act, data } = useBackend<PDAData>();
 
   const { app } = data;

@@ -18,7 +18,7 @@ type Core = {
   sector: string;
 };
 
-export const TcommsRelay = (_props:unknown) => {
+export const TcommsRelay = (_props: unknown) => {
   const { act, data } = useBackend<TcommsRelayData>();
   const { linked, active, network_id } = data;
 

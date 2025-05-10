@@ -7,7 +7,7 @@ type AtmosAlertData = {
   minor: string[];
 };
 
-export const AtmosAlertConsole = (props:unknown) => {
+export const AtmosAlertConsole = (props: unknown) => {
   const { act, data } = useBackend<AtmosAlertData>();
   const priorityAlerts = data.priority || [];
   const minorAlerts = data.minor || [];

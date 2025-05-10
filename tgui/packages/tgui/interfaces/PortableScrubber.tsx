@@ -16,7 +16,7 @@ type PortableScrubberData = {
   max_rate: number;
 } & PortableBaseData;
 
-export const PortableScrubber = (_props:unknown) => {
+export const PortableScrubber = (_props: unknown) => {
   const { data } = useBackend<PortableScrubberData>();
   const { has_holding_tank } = data;
 
@@ -39,7 +39,7 @@ export const PortableScrubber = (_props:unknown) => {
   );
 };
 
-const PumpSettings = (_props:unknown) => {
+const PumpSettings = (_props: unknown) => {
   const { act, data } = useBackend<PortableScrubberData>();
   const { on, port_connected } = data;
 
@@ -72,7 +72,7 @@ const PumpSettings = (_props:unknown) => {
   );
 };
 
-const PressureSettings = (_props:unknown) => {
+const PressureSettings = (_props: unknown) => {
   const { act, data } = useBackend<PortableScrubberData>();
   const { tank_pressure, rate, max_rate } = data;
 
@@ -159,7 +159,7 @@ const PressureSettings = (_props:unknown) => {
   );
 };
 
-const HoldingTank = (_props:unknown) => {
+const HoldingTank = (_props: unknown) => {
   const { act, data } = useBackend<PortableScrubberData>();
   const { holding_tank, max_rate } = data;
 

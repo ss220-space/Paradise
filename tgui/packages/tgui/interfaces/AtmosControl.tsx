@@ -50,7 +50,7 @@ type Alarm = {
   z: number;
 };
 
-export const AtmosControl = (props:unknown) => {
+export const AtmosControl = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index: number) => {
     switch (index) {

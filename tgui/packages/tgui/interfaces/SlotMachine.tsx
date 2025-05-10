@@ -16,7 +16,7 @@ type SlotMachineData = {
   result: string;
 };
 
-export const SlotMachine = (_props:unknown) => {
+export const SlotMachine = (_props: unknown) => {
   const { act, data } = useBackend<SlotMachineData>();
   if (data.money === null) {
     return (

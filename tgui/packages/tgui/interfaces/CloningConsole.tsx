@@ -181,7 +181,7 @@ const viewRecordModalBodyOverride = (modal: ModalType<CloningModalData>) => {
   );
 };
 
-export const CloningConsole = (props:unknown) => {
+export const CloningConsole = (props: unknown) => {
   modalRegisterBodyOverride('view_rec', viewRecordModalBodyOverride);
   return (
     <Window width={640} height={520}>
@@ -198,7 +198,7 @@ export const CloningConsole = (props:unknown) => {
   );
 };
 
-const CloningConsoleNavigation = (props:unknown) => {
+const CloningConsoleNavigation = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const { menu } = data;
   return (
@@ -229,7 +229,7 @@ const CloningConsoleNavigation = (props:unknown) => {
   );
 };
 
-const CloningConsoleBody = (props:unknown) => {
+const CloningConsoleBody = (props: unknown) => {
   const { data } = useBackend<CloningConsoleData>();
   const { menu } = data;
   let body: ReactNode;
@@ -241,7 +241,7 @@ const CloningConsoleBody = (props:unknown) => {
   return body;
 };
 
-const CloningConsoleMain = (props:unknown) => {
+const CloningConsoleMain = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const {
     loading,
@@ -382,7 +382,7 @@ const CloningConsoleMain = (props:unknown) => {
   );
 };
 
-const CloningConsoleRecords = (props:unknown) => {
+const CloningConsoleRecords = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const { records } = data;
   if (!records.length) {
@@ -416,7 +416,7 @@ const CloningConsoleRecords = (props:unknown) => {
   );
 };
 
-const CloningConsoleTemp = (props:unknown) => {
+const CloningConsoleTemp = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const { temp } = data;
   if (!temp || !temp.text || temp.text.length <= 0) {
@@ -439,7 +439,7 @@ const CloningConsoleTemp = (props:unknown) => {
   );
 };
 
-const CloningConsoleStatus = (props:unknown) => {
+const CloningConsoleStatus = (props: unknown) => {
   const { act, data } = useBackend<CloningConsoleData>();
   const { scanner, numberofpods, autoallowed, autoprocess, disk } = data;
   return (

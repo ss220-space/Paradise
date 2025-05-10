@@ -25,7 +25,7 @@ type Location = {
   dir: string;
 } & Key;
 
-export const pda_janitor = (props:unknown) => {
+export const pda_janitor = (props: unknown) => {
   const { data } = useBackend<JanitorData>();
   const { janitor } = data;
 

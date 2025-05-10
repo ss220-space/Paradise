@@ -23,7 +23,7 @@ type Request = {
   OrderedBy: string;
 } & Key;
 
-export const pda_supplyrecords = (props:unknown) => {
+export const pda_supplyrecords = (props: unknown) => {
   const { data } = useBackend<SupplyRecordsData>();
   const { supply } = data;
   const {

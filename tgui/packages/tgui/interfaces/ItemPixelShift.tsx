@@ -10,7 +10,7 @@ type PixelShiftData = {
   random_drop_on: boolean;
 };
 
-export const ItemPixelShift = (props:unknown) => {
+export const ItemPixelShift = (props: unknown) => {
   const { act, data } = useBackend<PixelShiftData>();
   const { pixel_x, pixel_y, max_shift_x, max_shift_y, random_drop_on } = data;
 

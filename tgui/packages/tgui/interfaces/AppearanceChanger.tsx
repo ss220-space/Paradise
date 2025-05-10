@@ -83,7 +83,7 @@ type Altheadstyle = {
   altheadstyle: string;
 };
 
-export const AppearanceChanger = (props:unknown) => {
+export const AppearanceChanger = (props: unknown) => {
   const { act, data } = useBackend<AppearanceData>();
   const {
     change_race,
@@ -330,7 +330,7 @@ export const AppearanceChanger = (props:unknown) => {
   );
 };
 
-const ColorContent = (props:unknown) => {
+const ColorContent = (props: unknown) => {
   const { act, data } = useBackend();
 
   const colorOptions = [

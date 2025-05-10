@@ -18,7 +18,7 @@ type Filter = {
   gas_type: string;
 };
 
-export const AtmosFilter = (props:unknown) => {
+export const AtmosFilter = (props: unknown) => {
   const { act, data } = useBackend<AtmosData>();
   const { on, pressure, max_pressure, filter_type, filter_type_list } = data;
 

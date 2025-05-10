@@ -5,7 +5,7 @@ import {
   MessengerList,
 } from '../pda/pda_messenger';
 
-export const pai_messenger = (props:unknown) => {
+export const pai_messenger = (props: unknown) => {
   const { data } = useBackend<PaiData<MessenderData>>();
   const { active_convo } = data.app_data;
 

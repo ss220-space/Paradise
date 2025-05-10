@@ -34,7 +34,7 @@ type ATMData = {
   transaction_log: Transaction[];
 };
 
-export const ATM = (props:unknown) => {
+export const ATM = (props: unknown) => {
   const { data } = useBackend<ATMData>();
   const {
     view_screen,
@@ -89,7 +89,7 @@ export const ATM = (props:unknown) => {
   );
 };
 
-const IntroductionAndCard = (props:unknown) => {
+const IntroductionAndCard = (props: unknown) => {
   const { act, data } = useBackend<ATMData>();
   const { held_card_name } = data;
   return (
@@ -107,7 +107,7 @@ const IntroductionAndCard = (props:unknown) => {
   );
 };
 
-const ChangeSecurityLevel = (props:unknown) => {
+const ChangeSecurityLevel = (props: unknown) => {
   const { act, data } = useBackend<ATMData>();
   const { security_level } = data;
   return (
@@ -168,7 +168,7 @@ const ChangeSecurityLevel = (props:unknown) => {
   );
 };
 
-const TransferFunds = (props:unknown) => {
+const TransferFunds = (props: unknown) => {
   const { act, data } = useBackend<ATMData>();
   const [targetAccNumber, setTargetAccNumber] = useState('0');
   const [fundsAmount, setFundsAmount] = useState('0');
@@ -210,7 +210,7 @@ const TransferFunds = (props:unknown) => {
   );
 };
 
-const ChangeInsuranceType = (props:unknown) => {
+const ChangeInsuranceType = (props: unknown) => {
   const { act, data } = useBackend<ATMData>();
   const { insurance_type } = data;
   return (
@@ -260,7 +260,7 @@ const ChangeInsuranceType = (props:unknown) => {
   );
 };
 
-const DefaultScreen = (props:unknown) => {
+const DefaultScreen = (props: unknown) => {
   const { act, data } = useBackend<ATMData>();
   const [fundsAmount, setFundsAmount] = useState('0');
   const [insuranceAmount, setInsuranceAmount] = useState('0');
@@ -359,7 +359,7 @@ const DefaultScreen = (props:unknown) => {
   );
 };
 
-const LoginScreen = (props:unknown) => {
+const LoginScreen = (props: unknown) => {
   const { act } = useBackend();
   const [accountID, setAccountID] = useState('');
   const [accountPin, setAccountPin] = useState('');
@@ -396,7 +396,7 @@ const LoginScreen = (props:unknown) => {
   );
 };
 
-const ViewTransactionLogs = (props:unknown) => {
+const ViewTransactionLogs = (props: unknown) => {
   const { data } = useBackend<ATMData>();
   const { transaction_log } = data;
   return (
@@ -425,7 +425,7 @@ const ViewTransactionLogs = (props:unknown) => {
   );
 };
 
-const BackButton = (props:unknown) => {
+const BackButton = (props: unknown) => {
   const { act } = useBackend();
   return (
     <Button

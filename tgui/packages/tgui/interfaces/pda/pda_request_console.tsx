@@ -14,7 +14,7 @@ type Console = {
   muted: boolean;
 };
 
-export const pda_request_console = (props:unknown) => {
+export const pda_request_console = (props: unknown) => {
   const { act, data } = useBackend<RequestConsolePdaData>();
 
   const { screen, selected_console, consoles_data } = data;

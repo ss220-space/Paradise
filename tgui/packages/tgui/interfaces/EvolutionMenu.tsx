@@ -2,7 +2,7 @@ import { useBackend } from '../backend';
 import { Box, Button, Flex, Section } from '../components';
 import { Window } from '../layouts';
 
-export const EvolutionMenu = (props:unknown) => {
+export const EvolutionMenu = (props: unknown) => {
   return (
     <Window width={480} height={574} theme="changeling">
       <Window.Content className="Layout__content--flexColumn" scrollable>
@@ -29,7 +29,7 @@ type Ability = {
   helptext: string;
 };
 
-const EvolutionPoints = (props:unknown) => {
+const EvolutionPoints = (props: unknown) => {
   const { act, data } = useBackend<EvolutionMenuData>();
   const { evo_points, can_respec } = data;
   return (
@@ -62,7 +62,7 @@ const EvolutionPoints = (props:unknown) => {
   );
 };
 
-const Abilities = (props:unknown) => {
+const Abilities = (props: unknown) => {
   const { act, data } = useBackend<EvolutionMenuData>();
   const { evo_points, ability_list, purchased_abilities, view_mode } = data;
   return (

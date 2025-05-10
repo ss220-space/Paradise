@@ -36,7 +36,7 @@ type StoredData = {
   message: string;
 };
 
-export const MechaControlConsole = (props:unknown) => {
+export const MechaControlConsole = (props: unknown) => {
   const { act, data } = useBackend<MechaControlData>();
   const { beacons, stored_data } = data;
 

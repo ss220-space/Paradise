@@ -13,7 +13,7 @@ type MimickingData = {
   slots: Voice[];
 };
 
-export const Mimicking = (props:unknown) => {
+export const Mimicking = (props: unknown) => {
   const { act, data } = useBackend<MimickingData>();
   const slots = data.slots || [];
 

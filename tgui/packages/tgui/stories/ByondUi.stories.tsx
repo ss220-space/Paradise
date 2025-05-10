@@ -13,7 +13,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props:unknown) => {
+const Story = (props: unknown) => {
   const [code, setCode] = useState<string>(
     `Byond.winset('${Byond.windowId}', {\n 'is-visible': true,\n})`
   );

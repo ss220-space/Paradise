@@ -16,7 +16,7 @@ type Record = {
   bullets: string[];
 };
 
-export const SyndicateComputerSimple = (_props:unknown) => {
+export const SyndicateComputerSimple = (_props: unknown) => {
   const { act, data } = useBackend<SyndicateComputerSimpleData>();
   return (
     <Window width={400} height={400} theme="syndicate">

@@ -9,7 +9,7 @@ type TransferValveData = {
   valve: boolean;
 };
 
-export const TransferValve = (_props:unknown) => {
+export const TransferValve = (_props: unknown) => {
   const { act, data } = useBackend<TransferValveData>();
   const { tank_one, tank_two, attached_device, valve } = data;
   return (

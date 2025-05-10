@@ -32,7 +32,7 @@ const COLORS_SPECTRUM = [
 
 const COLORS_STATES = ['good', 'average', 'bad', 'black', 'white'];
 
-const Story = (props:unknown) => {
+const Story = (props: unknown) => {
   const [fluid1, setFluid1] = useState(true);
   const [fluid2, setFluid2] = useState(false);
   const [fluid3, setFluid3] = useState(false);

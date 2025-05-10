@@ -6,7 +6,7 @@ const roundTenths = (input: number) => {
   return (Math.round(input * 10) / 10).toFixed(1);
 };
 
-export const VampireTrophiesStatus = (_props:unknown) => {
+export const VampireTrophiesStatus = (_props: unknown) => {
   return (
     <Window theme="ntos_spooky" width={700} height={800}>
       <Window.Content scrollable>
@@ -60,7 +60,7 @@ type VampireTrophiesStatusData = {
   full_power: boolean;
 };
 
-const Trophies = (_props:unknown) => {
+const Trophies = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const {
     hearts,
@@ -268,7 +268,7 @@ const Trophies = (_props:unknown) => {
   );
 };
 
-const Passives = (_props:unknown) => {
+const Passives = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const {
     suck_rate,
@@ -524,7 +524,7 @@ const Passives = (_props:unknown) => {
   );
 };
 
-const InfectedTrophy = (_props:unknown) => {
+const InfectedTrophy = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const { trophies_max_gen, trophies_max_crit, hearts, livers, eyes, ears } =
     data;
@@ -624,7 +624,7 @@ const InfectedTrophy = (_props:unknown) => {
   );
 };
 
-const Lunge = (_props:unknown) => {
+const Lunge = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const { trophies_max_gen, trophies_max_crit, hearts, lungs, kidneys, ears } =
     data;
@@ -741,7 +741,7 @@ const Lunge = (_props:unknown) => {
   );
 };
 
-const MarkPrey = (_props:unknown) => {
+const MarkPrey = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const { trophies_max_gen, trophies_max_crit, hearts, kidneys, eyes } = data;
   return (
@@ -839,7 +839,7 @@ const MarkPrey = (_props:unknown) => {
   );
 };
 
-const MetamorphosisBats = (_props:unknown) => {
+const MetamorphosisBats = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const {
     trophies_max_gen,
@@ -996,7 +996,7 @@ const MetamorphosisBats = (_props:unknown) => {
   );
 };
 
-const ResonantShriek = (_props:unknown) => {
+const ResonantShriek = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const { trophies_max_gen, trophies_max_crit, hearts, kidneys, eyes, ears } =
     data;
@@ -1081,7 +1081,7 @@ const ResonantShriek = (_props:unknown) => {
   );
 };
 
-const Anabiosis = (_props:unknown) => {
+const Anabiosis = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const {
     trophies_max_gen,
@@ -1298,7 +1298,7 @@ const Anabiosis = (_props:unknown) => {
   );
 };
 
-const SummonBats = (_props:unknown) => {
+const SummonBats = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const {
     trophies_max_gen,
@@ -1473,7 +1473,7 @@ const SummonBats = (_props:unknown) => {
   );
 };
 
-const MetamorphosisHound = (_props:unknown) => {
+const MetamorphosisHound = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const { trophies_max_gen, trophies_max_crit, hearts, lungs, livers, eyes } =
     data;
@@ -1607,7 +1607,7 @@ const MetamorphosisHound = (_props:unknown) => {
   );
 };
 
-const LungeFinale = (_props:unknown) => {
+const LungeFinale = (_props: unknown) => {
   const { data } = useBackend<VampireTrophiesStatusData>();
   const {
     trophies_max_gen,

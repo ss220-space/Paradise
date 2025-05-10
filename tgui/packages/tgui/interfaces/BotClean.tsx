@@ -6,7 +6,7 @@ type CleanBotData = {
   cleanblood: boolean;
 } & BotControlsData;
 
-export const BotClean = (props:unknown) => {
+export const BotClean = (props: unknown) => {
   const { act, data } = useBackend<CleanBotData>();
   const {
     locked,

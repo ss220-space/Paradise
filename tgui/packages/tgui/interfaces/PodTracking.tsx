@@ -14,7 +14,7 @@ type Pod = {
   passengers: string[];
 };
 
-export const PodTracking = (_props:unknown) => {
+export const PodTracking = (_props: unknown) => {
   const { data } = useBackend<PodTrackingData>();
   const { pods } = data;
   return (

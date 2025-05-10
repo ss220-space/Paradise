@@ -17,7 +17,7 @@ type Satellite = {
   active: boolean;
 };
 
-export const SatelliteControl = (_props:unknown) => {
+export const SatelliteControl = (_props: unknown) => {
   const { act, data } = useBackend<SatelliteControlData>();
   const {
     satellites,

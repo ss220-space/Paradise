@@ -23,7 +23,7 @@ export const meta = {
 
 const TAB_RANGE = ['Tab #1', 'Tab #2', 'Tab #3', 'Tab #4'];
 
-const Story = (props:unknown) => {
+const Story = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   const [tabProps, setTabProps] = useState<Props>({} as Props);
   return (

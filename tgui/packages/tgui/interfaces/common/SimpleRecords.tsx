@@ -61,7 +61,7 @@ type SimpleRecordsProps = {
   recordsList: Record[];
 };
 
-export const SimpleRecords = (props:SimpleRecordsProps) => {
+export const SimpleRecords = (props: SimpleRecordsProps) => {
   const { records } = props;
 
   return (

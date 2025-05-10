@@ -35,7 +35,7 @@ type AirlockControllerData = {
   processing: boolean;
 };
 
-export const ExternalAirlockController = (props:unknown) => {
+export const ExternalAirlockController = (props: unknown) => {
   const { act, data } = useBackend<AirlockControllerData>();
   const { chamber_pressure, exterior_status, interior_status, processing } =
     data;

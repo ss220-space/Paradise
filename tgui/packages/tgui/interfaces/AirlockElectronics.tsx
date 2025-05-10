@@ -9,7 +9,7 @@ const SOUTH = 2;
 const EAST = 4;
 const WEST = 8;
 
-export const AirlockElectronics = (props:unknown) => {
+export const AirlockElectronics = (props: unknown) => {
   return (
     <Window width={450} height={565}>
       <Window.Content>
@@ -29,7 +29,7 @@ type AirlockElectronicsData = {
   regions: Access[];
 };
 
-const UnrestrictedAccess = (props:unknown) => {
+const UnrestrictedAccess = (props: unknown) => {
   const { act, data } = useBackend<AirlockElectronicsData>();
   const { unrestricted_dir } = data;
   return (
@@ -106,7 +106,7 @@ const UnrestrictedAccess = (props:unknown) => {
   );
 };
 
-const ChooseAccess = (props:unknown) => {
+const ChooseAccess = (props: unknown) => {
   const { act, data } = useBackend<AirlockElectronicsData>();
   const { selected_accesses, one_access, regions } = data;
   return (

@@ -17,7 +17,7 @@ type Kit = {
   desc: string;
 };
 
-export const ThiefKit = (_props:unknown) => {
+export const ThiefKit = (_props: unknown) => {
   const { act, data } = useBackend<ThiefKitData>();
   const { uses, possible_uses, multi_uses, kits, choosen_kits } = data;
   return (

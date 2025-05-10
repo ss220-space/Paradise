@@ -22,7 +22,7 @@ type MintMaterial = {
   id: string;
 };
 
-export const CoinMint = (props:unknown) => {
+export const CoinMint = (props: unknown) => {
   const { act, data } = useBackend<MintData>();
   const { materials, moneyBag, moneyBagContent, moneyBagMaxContent } = data;
   const dynamicHeight =

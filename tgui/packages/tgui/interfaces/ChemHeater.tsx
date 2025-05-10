@@ -12,7 +12,7 @@ import {
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
-export const ChemHeater = (_props:unknown) => {
+export const ChemHeater = (_props: unknown) => {
   return (
     <Window width={450} height={275}>
       <Window.Content>

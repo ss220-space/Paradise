@@ -10,7 +10,7 @@ type DisposalBinData = {
   flushing: boolean;
 };
 
-export const DisposalBin = (props:unknown) => {
+export const DisposalBin = (props: unknown) => {
   const { act, data } = useBackend<DisposalBinData>();
   let stateColor: string;
   let stateText: string;

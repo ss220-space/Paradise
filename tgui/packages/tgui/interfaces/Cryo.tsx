@@ -37,7 +37,7 @@ const statNames = [
   ['bad', 'Смерть'],
 ];
 
-export const Cryo = (props:unknown) => {
+export const Cryo = (props: unknown) => {
   return (
     <Window width={520} height={490}>
       <Window.Content>
@@ -58,7 +58,7 @@ type CryoData = {
   auto_eject_dead: boolean;
 };
 
-const CryoContent = (props:unknown) => {
+const CryoContent = (props: unknown) => {
   const { act, data } = useBackend<CryoData>();
   const {
     isOperating,
@@ -213,7 +213,7 @@ type CryoBeakerData = {
   beakerVolume: number;
 };
 
-const CryoBeaker = (props:unknown) => {
+const CryoBeaker = (props: unknown) => {
   const { data } = useBackend<CryoBeakerData>();
   const { isBeakerLoaded, beakerLabel, beakerVolume } = data;
   if (isBeakerLoaded) {

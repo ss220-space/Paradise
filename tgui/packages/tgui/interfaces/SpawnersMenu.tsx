@@ -15,7 +15,7 @@ type Spawner = {
   important_info: string;
 };
 
-export const SpawnersMenu = (_props:unknown) => {
+export const SpawnersMenu = (_props: unknown) => {
   const { act, data } = useBackend<SpawnersMenuData>();
   const spawners = data.spawners || [];
   return (

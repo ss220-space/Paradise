@@ -12,7 +12,7 @@ export const meta = {
   render: () => <Story />,
 };
 
-const Story = (props:unknown) => {
+const Story = (props: unknown) => {
   const [theme, setTheme] = useState('kitchenSinkTheme');
   return (
     <Section>

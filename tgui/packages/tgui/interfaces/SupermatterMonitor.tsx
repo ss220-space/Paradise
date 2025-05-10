@@ -29,7 +29,7 @@ type Supermatter = {
   integrity: number;
 };
 
-export const SupermatterMonitor = (_props:unknown) => {
+export const SupermatterMonitor = (_props: unknown) => {
   const { data } = useBackend<SupermatterMonitorData>();
   if (!data.active) {
     return <SupermatterMonitorListView />;
@@ -68,7 +68,7 @@ const pressureToColor = (pressure: number) => {
   }
 };
 
-const SupermatterMonitorListView = (_props:unknown) => {
+const SupermatterMonitorListView = (_props: unknown) => {
   const { act, data } = useBackend<SupermatterMonitorData>();
   return (
     <Window width={600} height={325}>
@@ -118,7 +118,7 @@ const SupermatterMonitorListView = (_props:unknown) => {
   );
 };
 
-const SupermatterMonitorDataView = (_props:unknown) => {
+const SupermatterMonitorDataView = (_props: unknown) => {
   const { act, data } = useBackend<SupermatterMonitorData>();
   return (
     <Window width={600} height={325}>

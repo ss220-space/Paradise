@@ -6,7 +6,7 @@ type RadioEncoder = {
   radio_rank: string;
 };
 
-export const pai_encoder = (props:unknown) => {
+export const pai_encoder = (props: unknown) => {
   const { act, data } = useBackend<PaiData<RadioEncoder>>();
   const { radio_name, radio_rank } = data.app_data;
 

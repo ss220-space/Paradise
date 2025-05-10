@@ -10,7 +10,7 @@ import { Window } from '../layouts';
 
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 
-export const HandheldChemDispenser = (props:unknown) => {
+export const HandheldChemDispenser = (props: unknown) => {
   return (
     <Window width={450} height={500}>
       <Window.Content>

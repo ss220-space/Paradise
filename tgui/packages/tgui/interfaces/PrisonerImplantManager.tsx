@@ -34,7 +34,7 @@ type TrackingInfo = {
   health: number;
 } & Implant;
 
-export const PrisonerImplantManager = (_props:unknown) => {
+export const PrisonerImplantManager = (_props: unknown) => {
   const { act, data } = useBackend<PrisonerImplantManagerData>();
   const { loginState, prisonerInfo, chemicalInfo, trackingInfo } = data;
 

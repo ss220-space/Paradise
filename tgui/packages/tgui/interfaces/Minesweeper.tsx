@@ -11,7 +11,7 @@ type MinesweeperData = {
   uiWidth: number;
 };
 
-export const Minesweeper = (props:unknown) => {
+export const Minesweeper = (props: unknown) => {
   const { act, data } = useBackend<MinesweeperData>();
   const { matrix, showMessage, tokens, uiWidth } = data;
 

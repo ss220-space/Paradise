@@ -10,7 +10,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const NinjaBloodScan = (props:unknown) => {
+export const NinjaBloodScan = (props: unknown) => {
   return (
     <Window width={500} height={400} theme="spider_clan">
       <Window.Content className="Layout__content--flexColumn">
@@ -32,7 +32,7 @@ type BloodScanData = {
   progressBar: number;
 };
 
-const BloodScanMenu = (props:unknown) => {
+const BloodScanMenu = (props: unknown) => {
   const { act, data } = useBackend<BloodScanData>();
   const {
     vialIcons,

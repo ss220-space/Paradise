@@ -31,7 +31,7 @@ type Shuttle = {
   timer: string;
 };
 
-export const ShuttleManipulator = (_props:unknown) => {
+export const ShuttleManipulator = (_props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   const decideTab = (index: number) => {
     switch (index) {
@@ -83,7 +83,7 @@ export const ShuttleManipulator = (_props:unknown) => {
   );
 };
 
-const StatusView = (_props:unknown) => {
+const StatusView = (_props: unknown) => {
   const { act, data } = useBackend<ShuttleManipulatorData>();
 
   const { shuttles } = data;
@@ -122,7 +122,7 @@ const StatusView = (_props:unknown) => {
   );
 };
 
-const TemplatesView = (_props:unknown) => {
+const TemplatesView = (_props: unknown) => {
   const { act, data } = useBackend<ShuttleManipulatorData>();
 
   const { templates_tabs, existing_shuttle, templates } = data;
@@ -172,7 +172,7 @@ const TemplatesView = (_props:unknown) => {
   );
 };
 
-const ModificationView = (_props:unknown) => {
+const ModificationView = (_props: unknown) => {
   const { act, data } = useBackend<ShuttleManipulatorData>();
 
   const { existing_shuttle, selected } = data;

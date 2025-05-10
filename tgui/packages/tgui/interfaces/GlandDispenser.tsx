@@ -12,7 +12,7 @@ type Gland = {
   amount: number;
 };
 
-export const GlandDispenser = (props:unknown) => {
+export const GlandDispenser = (props: unknown) => {
   const { act, data } = useBackend<GlandDispenserData>();
   const { glands = [] } = data;
   return (

@@ -49,7 +49,7 @@ type Scanner = {
   switching: boolean;
 };
 
-export const BluespaceRiftServer = (props:unknown) => {
+export const BluespaceRiftServer = (props: unknown) => {
   const { act, data } = useBackend<BSRServerData>();
   const { emagged, pointsPerProbe, cooldown, goals, servers, scanners } = data;
 

@@ -107,7 +107,7 @@ type Setting = {
   val: number;
 };
 
-export const AirAlarm = (props:unknown) => {
+export const AirAlarm = (props: unknown) => {
   const { data } = useBackend<AirAlarmData>();
   const { locked } = data;
   // Bail straight away if there is no air
@@ -137,7 +137,7 @@ const Danger2Colour = (danger: number) => {
   return 'red';
 };
 
-const AirStatus = (props:unknown) => {
+const AirStatus = (props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { air, mode, atmos_alarm, locked, alarmActivated, rcon, target_temp } =
     data;
@@ -289,7 +289,7 @@ const AirStatus = (props:unknown) => {
   );
 };
 
-const AirAlarmTabs = (props:unknown) => {
+const AirAlarmTabs = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   return (
     <Tabs>
@@ -325,7 +325,7 @@ const AirAlarmTabs = (props:unknown) => {
   );
 };
 
-const AirAlarmUnlockedContent = (props:unknown) => {
+const AirAlarmUnlockedContent = (props: unknown) => {
   const [tabIndex, setTabIndex] = useState(0);
   switch (tabIndex) {
     case 0:
@@ -341,7 +341,7 @@ const AirAlarmUnlockedContent = (props:unknown) => {
   }
 };
 
-const AirAlarmVentsView = (props:unknown) => {
+const AirAlarmVentsView = (props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { vents } = data;
   return vents.map((v) => (
@@ -420,7 +420,7 @@ const AirAlarmVentsView = (props:unknown) => {
   ));
 };
 
-const AirAlarmScrubbersView = (props:unknown) => {
+const AirAlarmScrubbersView = (props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { scrubbers } = data;
   return scrubbers.map((s) => (
@@ -534,7 +534,7 @@ const AirAlarmScrubbersView = (props:unknown) => {
   ));
 };
 
-const AirAlarmModesView = (props:unknown) => {
+const AirAlarmModesView = (props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { modes, presets, emagged, mode, preset } = data;
   return (
@@ -586,7 +586,7 @@ const AirAlarmModesView = (props:unknown) => {
   );
 };
 
-const AirAlarmThresholdsView = (props:unknown) => {
+const AirAlarmThresholdsView = (props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { thresholds } = data;
   return (

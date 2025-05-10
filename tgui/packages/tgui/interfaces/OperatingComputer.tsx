@@ -73,7 +73,7 @@ type Surgery = {
   stepName: string;
 };
 
-export const OperatingComputer = (_props:unknown) => {
+export const OperatingComputer = (_props: unknown) => {
   const { act, data } = useBackend<OperatingComputerData>();
   const { hasOccupant, choice } = data;
   let body: ReactNode;
@@ -119,7 +119,7 @@ export const OperatingComputer = (_props:unknown) => {
   );
 };
 
-const OperatingComputerPatient = (_props:unknown) => {
+const OperatingComputerPatient = (_props: unknown) => {
   const { data } = useBackend<OperatingComputerData>();
   const { occupant } = data;
   return (
@@ -239,7 +239,7 @@ type OptionsData = {
   crit: boolean;
 };
 
-const OperatingComputerOptions = (_props:unknown) => {
+const OperatingComputerOptions = (_props: unknown) => {
   const { act, data } = useBackend<OptionsData>();
   const { verbose, health, healthAlarm, oxy, oxyAlarm, crit } = data;
   return (

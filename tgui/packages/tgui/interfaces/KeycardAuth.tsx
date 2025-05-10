@@ -12,7 +12,7 @@ type KeycardAuthData = {
   hasConfirm: boolean;
   isRemote: boolean;
 };
-export const KeycardAuth = (props:unknown) => {
+export const KeycardAuth = (props: unknown) => {
   const { act, data } = useBackend<KeycardAuthData>();
   let infoBox = (
     <Section title="Keycard Authentication Device">

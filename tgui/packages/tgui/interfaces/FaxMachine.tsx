@@ -11,7 +11,7 @@ type FaxMachineData = {
   sendError: string;
 };
 
-export const FaxMachine = (props:unknown) => {
+export const FaxMachine = (props: unknown) => {
   const { act, data } = useBackend<FaxMachineData>();
   return (
     <Window width={540} height={300}>

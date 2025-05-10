@@ -50,7 +50,7 @@ type AI = {
   ref: string;
 };
 
-export const BorgPanel = (props:unknown) => {
+export const BorgPanel = (props: unknown) => {
   const { act, data } = useBackend<BorgPanelData>();
   const { borg, cell, channels, modules, upgrades, ais, laws } = data;
   const cellPercent = cell.charge / cell.maxcharge;

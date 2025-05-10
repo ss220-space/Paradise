@@ -22,7 +22,7 @@ type PortableTurretData = {
   neutralize_cyborgs: boolean;
 };
 
-export const PortableTurret = (_props:unknown) => {
+export const PortableTurret = (_props: unknown) => {
   const { act, data } = useBackend<PortableTurretData>();
   const {
     locked,

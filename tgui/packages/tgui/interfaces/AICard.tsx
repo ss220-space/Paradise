@@ -23,7 +23,7 @@ export type AiData = {
   laws: string[];
 };
 
-export const AICard = (props:unknown) => {
+export const AICard = (props: unknown) => {
   const { act, data } = useBackend<AiCartData>();
   if (!data.has_ai) {
     return (

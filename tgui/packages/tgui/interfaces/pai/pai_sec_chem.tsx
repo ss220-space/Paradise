@@ -13,7 +13,7 @@ type PaiChem = {
   cost: number;
 };
 
-export const pai_sec_chem = (props:unknown) => {
+export const pai_sec_chem = (props: unknown) => {
   const { act, data } = useBackend<PaiData<PaiChems>>();
   const { holder, dead, health, current_chemicals, available_chemicals } =
     data.app_data;
