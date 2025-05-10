@@ -368,9 +368,18 @@ Turf and target are seperate in case you want to teleport some distance from a t
 /proc/get_mob_by_ckey(key)
 	if(!key)
 		return
-	for(var/mob/M in GLOB.mob_list)
-		if(M.ckey == key)
-			return M
+
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.ckey != key)
+			continue
+		
+		return mob
+
+	for(var/mob/mob as anything in GLOB.left_player_list)
+		if(mob.ckey != key)
+			continue
+
+		return mob
 
 /proc/get_client_by_ckey(ckey)
 	if(cmptext(copytext(ckey, 1, 2),"@"))

@@ -1575,11 +1575,11 @@
 	name = "\improper Security Bombsuit"
 	desc = "It's a box with explosion-protective suit."
 
-/obj/item/storage/box/bombclosetsecurity/populate_contents()
-	new /obj/item/clothing/suit/bomb_suit/security( src )
-	new /obj/item/clothing/under/rank/security( src )
-	new /obj/item/clothing/shoes/brown( src )
-	new /obj/item/clothing/head/bomb_hood/security( src )
+/obj/item/storage/box/bombsecurity/populate_contents()
+	new /obj/item/clothing/suit/bomb_suit/security(src)
+	new /obj/item/clothing/under/rank/security(src)
+	new /obj/item/clothing/shoes/brown(src)
+	new /obj/item/clothing/head/bomb_hood/security(src)
 
 /*
  *  Plant DNA Disks Box
