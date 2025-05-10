@@ -23,9 +23,10 @@ else
   rm -rf "$HOME/BYOND"
   mkdir -p "$HOME/BYOND"
   cd "$HOME/BYOND"
+  echo "Trying to download BYOND ${TARGET_MAJOR}.${TARGET_MINOR}"
   curl "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" -o byond.zip
   sudo apt-get install -y libarchive-tools
-  bsdtar -xf byond.zip || echo "Распаковка не удалась"
+  unzip byond.zip
   rm byond.zip
   cd byond
   make here
