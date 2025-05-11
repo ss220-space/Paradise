@@ -1779,10 +1779,3 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
-
-/atom/proc/get_external_loc()
-	var/atom/ext_loc = src
-	while(!isturf(ext_loc.loc))
-		ext_loc = ext_loc.loc
-
-	return ext_loc
