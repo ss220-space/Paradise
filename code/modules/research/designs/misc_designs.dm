@@ -152,22 +152,22 @@
 	build_path = /obj/item/vending_refill/custom
 	category = list("Miscellaneous")
 
-/datum/design/anomaly_stabilizer
-	name = "anomaly stabilizer"
-	desc = "Продвинутое устройство предназначенное для стабилизации аномалий."
-	id = "anomaly_stabilizer"
-	req_tech = list("powerstorage" = 2, "programming" = 4, "magnets" = 3)
+/datum/design/translator_chip
+	name = "PVR Language Chip"
+	desc = "Крошечный чип с индикатором. Устанавливается в импланты-переводчики."
+	id = "pvr_language_chip"
+	req_tech = list("materials" = 3, "programming" = 5, "abductor" = 1)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=3000, MAT_GLASS=2000)
-	build_path = /obj/item/gun/energy/anomaly_stabilizer
+	build_path = /obj/item/translator_chip
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 100, MAT_TITANIUM = 500, MAT_PLASMA = 500, MAT_DIAMOND = 100)
 	category = list("Miscellaneous")
 
-/datum/design/anomaly_analyzer
-	name = "anomaly analyzer"
-	desc = "Продвинутое устройство предназначенное для сканирования аномалий."
-	id = "anomaly_analyzer"
-	req_tech = list("programming" = 4, "magnets" = 3)
+/datum/design/retranslator_upgrade
+	name = "PVR Storage Upgrade"
+	desc = "Маленькое устройство для расширения количества слотов голосовых чипов в ретрансляторе псионического голоса."
+	id = "pvr_storage_upgrade"
+	req_tech = list("materials" = 5, "programming" = 6, "bluespace" = 6, "abductor" = 2)
 	build_type = PROTOLATHE
-	materials = list(MAT_METAL=1000, MAT_GLASS=500)
-	build_path = /obj/item/anomaly_analyzer
+	build_path = /obj/item/translator_upgrade/grey_retraslator
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 100, MAT_TITANIUM = 500, MAT_PLASMA = 500, MAT_DIAMOND = 100)
 	category = list("Miscellaneous")
