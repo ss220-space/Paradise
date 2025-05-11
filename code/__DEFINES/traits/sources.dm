@@ -160,9 +160,15 @@
 /// inherited from riding vehicles
 #define VEHICLE_TRAIT "vehicle"
 
-// blob trait sourses
+/// blob trait sourses
 #define BLOB_INFECTED_TRAIT "blob_infected"
 
 #define VENDOR_FLATTENING_TRAIT "vendor_flattening"
+
+#define WET_TRAIT "wet"
+
+#define BLOB_ZOMBIE_TRAIT "blob_zombie_trait"
+
+#define ADMIN_OFFER_TRAIT "admin_offer"
 
 #define GRAVITATION_TRAIT	"gravitation"
