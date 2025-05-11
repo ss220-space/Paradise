@@ -401,7 +401,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set name = "Restart"
 	set desc = "Restarts the world."
 
-	if(!check_rights(R_SERVER))
+	if(!check_rights(R_SERVER | R_DEBUG))
 		return
 
 	// Give an extra popup if they are rebooting a live server
@@ -449,7 +449,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
 
-	if(!check_rights(R_SERVER) || SSticker.force_ending)
+	if(!check_rights(R_SERVER | R_DEBUG) || SSticker.force_ending)
 		return
 
 	var/response = tgui_alert(usr, "Are you sure you want to end the round?", "End Round", list("Yes", "No"))
@@ -565,7 +565,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 
-	if(!check_rights(R_SERVER))
+	if(!check_rights(R_SERVER | R_DEBUG))
 		return
 
 	if(!SSticker)

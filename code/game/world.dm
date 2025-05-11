@@ -127,7 +127,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 	//special reboot, do none of the normal stuff
 	if((reason == 1) || fast_track) // Do NOT change this to if(reason). You WILL break the entirety of world rebooting
 		if(usr)
-			if(!check_rights(R_SERVER))
+			if(!check_rights(R_SERVER | R_DEBUG))
 				log_and_message_admins("attempted to restart the server via the Profiler, without access.")
 				return
 			log_and_message_admins("has requested an immediate world restart via client side debugging tools")
