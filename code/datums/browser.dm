@@ -36,17 +36,17 @@
 		ref = WEAKREF(nref)
 
 /datum/browser/proc/set_title(ntitle)
-	title = islist(ntitle) ? ntitle : list(ntitle)
+	title = ntitle
 
 /datum/browser/proc/user_deleted(datum/source)
 	SIGNAL_HANDLER
 	user = null
 
 /datum/browser/proc/add_head_content(nhead_content)
-	head_content = islist(nhead_content) ? nhead_content : list(nhead_content)
+	head_content =islist(nhead_content) ? nhead_content : list(nhead_content)
 
 /datum/browser/proc/set_window_options(nwindow_options)
-	window_options = islist(nwindow_options) ? nwindow_options : list(nwindow_options)
+	window_options = nwindow_options
 
 /datum/browser/proc/add_stylesheet(name, file)
 	if (istype(name, /datum/asset/spritesheet))
@@ -155,7 +155,7 @@
 /datum/browser/proc/setup_onclose()
 	set waitfor = 0 //winexists sleeps, so we don't need to.
 	for (var/i in 1 to 10)
-		if (user?.client && winexists(user, window_id))
+		if ((isclient(user) || user?.client) && winexists(user, window_id))
 			var/atom/send_ref
 			if(ref)
 				send_ref = ref.resolve()
