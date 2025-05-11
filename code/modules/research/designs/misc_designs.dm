@@ -171,3 +171,4 @@
 	build_path = /obj/item/translator_upgrade/grey_retraslator
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 100, MAT_TITANIUM = 500, MAT_PLASMA = 500, MAT_DIAMOND = 100)
 	category = list("Miscellaneous")
+
