@@ -1,11 +1,3 @@
-// Падежи русского языка
-#define NOMINATIVE 1 // Именительный: кто это? Клоун и ассистуха
-#define GENITIVE 2 // Родительный: откусить кусок от кого? От клоуна и ассистухи
-#define DATIVE 3 // Дательный: дать полный доступ кому? Клоуну и ассистухе
-#define ACCUSATIVE 4 // Винительный: обвинить кого? Клоуна и ассистуху
-#define INSTRUMENTAL 5 // Творительный: возить по полу кем? Клоуном и ассистухой
-#define PREPOSITIONAL 6 // Предложный: прохладная история о ком? О клоуне и об ассистухе
-
 /atom
 	layer = TURF_LAYER
 	plane = GAME_PLANE
@@ -13,6 +5,7 @@
 	var/level = 2
 	var/flags = NONE
 	var/flags_2 = NONE
+	var/flags_ricochet = NONE
 	var/list/fingerprints
 	var/list/fingerprints_time
 	var/list/fingerprintshidden
@@ -32,6 +25,9 @@
 	/// Things we can pass through while moving. If any of this matches the thing we're trying to pass's [pass_flags_self], then we can pass through.
 	var/pass_flags = NONE
 
+	/// Flags to check for in can_perform_action. Used in alt-click checks
+	var/interaction_flags_click = 0
+
 	/// How this atom should react to having its astar blocking checked
 	var/can_astar_pass = CANASTARPASS_DENSITY
 
@@ -48,6 +44,8 @@
 	var/explosion_block = 0
 	//Value used in multiz_explosions. it set here, so may some objects that cover the floor, may also impact the explosion
 	var/explosion_vertical_block = 0
+
+	var/list/orbiters
 
 	//Detective Work, used for the duplicate data points kept in the scanners
 	var/list/original_atom
@@ -108,6 +106,10 @@
 	var/base_pixel_y = 0
 
 	var/tts_seed = "Arthas"
+	var/tts_atom_say_effect = SOUND_EFFECT_RADIO
+
+	///AI controller that controls this atom. type on init, then turned into an instance during runtime
+	var/datum/ai_controller/ai_controller
 
 /atom/New(loc, ...)
 	SHOULD_CALL_PARENT(TRUE)
@@ -159,6 +161,7 @@
 	SETUP_SMOOTHING()
 
 	ComponentInitialize()
+	InitializeAIController()
 
 	return INITIALIZE_HINT_NORMAL
 
@@ -179,14 +182,21 @@
 	if(!T)
 		return
 
+	if(is_reserved_level(T.z))
+		for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
+			if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+				for(var/area/shuttle/shuttle_area in mobile.shuttle_areas)
+					if(T in shuttle_area)
+						return TRUE
+
 	if(!is_admin_level(T.z))//if not, don't bother
 		return
 
-	//check for centcomm shuttles
-	for(var/centcom_shuttle in list("emergency", "pod1", "pod2", "pod3", "pod4", "ferry"))
-		var/obj/docking_port/mobile/M = SSshuttle.getShuttle(centcom_shuttle)
-		if(T in M.areaInstance)
-			return TRUE
+	//Check for centcom shuttles
+	for(var/obj/docking_port/mobile/mobile in SSshuttle.mobile)
+		if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+			if(T in mobile.areaInstance)
+				return TRUE
 
 	//finally check for centcom itself
 	return istype(T.loc, /area/centcom)
@@ -217,7 +227,7 @@
 		overlays.Cut()
 
 	LAZYNULL(managed_overlays)
-
+	QDEL_NULL(ai_controller)
 	QDEL_NULL(light)
 	if(length(light_sources))
 		light_sources.Cut()
@@ -331,6 +341,12 @@
 /atom/proc/is_open_container()
 	return is_refillable() && is_drainable()
 
+/atom/proc/setOpened()
+	return
+
+/atom/proc/setClosed()
+	return
+
 /// Is this atom injectable into other atoms
 /atom/proc/is_injectable(mob/user, allowmobs = TRUE)
 	return reagents && (container_type & (INJECTABLE|REFILLABLE))
@@ -357,7 +373,7 @@
 /atom/proc/water_act(volume, temperature, source, method = REAGENT_TOUCH)
 	return TRUE
 
-/atom/proc/bullet_act(obj/item/projectile/P, def_zone)
+/atom/proc/bullet_act(obj/projectile/P, def_zone)
 	SEND_SIGNAL(src, COMSIG_ATOM_BULLET_ACT, P, def_zone)
 	. = P.on_hit(src, 0, def_zone)
 
@@ -397,39 +413,34 @@
 
 //All atoms
 /atom/proc/examine(mob/user, infix = "", suffix = "")
-	//This reformat names to get a/an properly working on item descriptions when they are bloody
-	var/f_name = "\a [src][infix]."
+	var/f_name = "."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
-		if(gender == PLURAL)
-			f_name = "some "
-		else
-			f_name = "a "
 		if(blood_color != "#030303")
-			f_name += "<span class='danger'>blood-stained</span> [name][infix]!"
+			f_name = span_danger(", в кровавых следах.")
 		else
-			f_name += "oil-stained [name][infix]."
-	. = list("[bicon(src)] That's [f_name] [suffix]")
+			f_name = ", в масляных следах."
+	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
 	if(desc)
 		. += desc
 
 	if(reagents)
 		if(container_type & TRANSPARENT)
-			. += "<span class='notice'>It contains:</span>"
+			. += span_notice("Содержимое:")
 			if(reagents.reagent_list.len)
 				if(user.can_see_reagents()) //Show each individual reagent
 					for(var/I in reagents.reagent_list)
 						var/datum/reagent/R = I
-						. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+						. += span_notice("<b>[R.name]</b> - <b>[R.volume]</b> единиц[declension_ru(R.volume, "а", "ы", "")].")
 				else //Otherwise, just show the total volume
 					if(reagents && reagents.reagent_list.len)
-						. += "<span class='notice'>[reagents.total_volume] units of various reagents.</span>"
+						. += span_notice("<b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
 			else
-				. += "<span class='notice'>Nothing.</span>"
+				. += span_notice("Ничего.")
 		else if(container_type & AMOUNT_VISIBLE)
 			if(reagents.total_volume)
-				. += "<span class='notice'>It has [reagents.total_volume] unit\s left.</span>"
+				. += span_notice("Осталось ещё <b>[reagents.total_volume]</b> единиц[declension_ru(reagents.total_volume, "а", "ы", "")] вещества.")
 			else
-				. += "<span class='danger'>It's empty.</span>"
+				. += span_danger("Внутри ничего нет.")
 
 	//Detailed description
 	var/descriptions
@@ -615,13 +626,13 @@
 	if(.)
 		return TRUE
 	if(href_list["description_info"])
-		to_chat(usr, "<div class='examine'><span class='info'>[get_description_info()]</span></div>")
+		to_chat(usr, span_info("<div class='examine'>[get_description_info()]</div>"))
 		return TRUE
 	if(href_list["description_antag"])
-		to_chat(usr, "<div class='examine'><span class='syndradio'>[get_description_antag()]</span></div>")
+		to_chat(usr, span_syndradio("<div class='examine'>[get_description_antag()]</div>"))
 		return TRUE
 	if(href_list["description_fluff"])
-		to_chat(usr, "<div class='examine'><span class='notice'>[get_description_fluff()]</span></div>")
+		to_chat(usr,  span_notice("<div class='examine'>[get_description_fluff()]</div>"))
 		return TRUE
 
 /atom/proc/relaymove()
@@ -630,8 +641,19 @@
 /atom/proc/ex_act()
 	return
 
-/atom/proc/blob_act(obj/structure/blob/B)
-	SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, B)
+/**
+ * React to a hit by a blob objecd
+ *
+ * default behaviour is to send the [COMSIG_ATOM_BLOB_ACT] signal
+ */
+/atom/proc/blob_act(obj/structure/blob/attacking_blob)
+	var/blob_act_result = SEND_SIGNAL(src, COMSIG_ATOM_BLOB_ACT, attacking_blob)
+	if(blob_act_result & COMPONENT_CANCEL_BLOB_ACT)
+		return FALSE
+	return TRUE
+
+/atom/proc/blob_vore_act(obj/structure/blob/special/core/voring_core)
+	return TRUE
 
 /atom/proc/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	SEND_SIGNAL(src, COMSIG_ATOM_FIRE_ACT, exposed_temperature, exposed_volume)
@@ -664,7 +686,7 @@
 //Check if the multitool has an item in its data buffer
 /atom/proc/multitool_check_buffer(user, silent = FALSE)
 	if(!silent)
-		to_chat(user, "<span class='warning'>[src] has no data buffer!</span>")
+		balloon_alert(user, "буфер данных отсутствует!")
 	return FALSE
 
 /atom/proc/screwdriver_act(mob/living/user, obj/item/I)
@@ -731,10 +753,10 @@
 
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(density && AM.no_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
+	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
-	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 /**
  * Called when living mob clicks on this atom with pulled movable.
@@ -1193,8 +1215,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/ratvar_act()
 	return
 
-/atom/proc/handle_ricochet(obj/item/projectile/P)
-	return
 
 //This proc is called on the location of an atom when the atom is Destroy()'d
 /atom/proc/handle_atom_del(atom/A)
@@ -1208,7 +1228,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	var/list/speech_bubble_hearers = list()
 	for(var/mob/M in get_mobs_in_view(7, src))
-		M.show_message("<span class='game say'><span class='name'>[src]</span> [atom_say_verb], \"[message]\"</span>", 2, null, 1)
+		M.show_message(span_gamesay(span_name("[src]") + " [atom_say_verb], \"[message]\""), 2, null, 1)
 		if(M.client)
 			speech_bubble_hearers += M.client
 
@@ -1218,9 +1238,8 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				M.create_chat_message(src, message, list("italics"))
 
-			var/effect = SOUND_EFFECT_RADIO
 			var/traits = TTS_TRAIT_RATE_MEDIUM
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, effect, traits)
+			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, tts_atom_say_effect, traits)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -1239,7 +1258,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	else
 		tts_seeds = SStts.get_available_seeds(src)
 
-	var/new_tts_seed = tgui_input_list(user || src, "Choose your preferred voice:", "Character Preference", tts_seeds, tts_seed)
+	var/new_tts_seed = tgui_input_list(user || src, "Выберите предпочитаемый голос:", "Выбор голоса", tts_seeds, tts_seed)
 	if(!new_tts_seed)
 		new_tts_seed = tts_seed
 	if(!silent_target && ismob(src) && src != user)
@@ -1261,6 +1280,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 /atom/proc/speech_bubble(bubble_state = "", bubble_loc = src, list/bubble_recipients = list())
 	return
+
+/atom/proc/atom_emote(emote)
+	if(!emote)
+		return
+	visible_message(span_game_emote(span_name("[src]") + "[emote]"), span_game_emote("Вы слышите, как что-то [emote]."))
+
+	runechat_emote(src, emote)
 
 /atom/vv_edit_var(var_name, var_value)
 	var/old_light_flags = light_flags
@@ -1335,10 +1361,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	. = ..()
 	var/turf/curturf = get_turf(src)
 	if(curturf)
-		.["Jump to turf"] = "?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
-	.["Add reagent"] = "?_src_=vars;addreagent=[UID()]"
-	.["Trigger explosion"] = "?_src_=vars;explode=[UID()]"
-	.["Trigger EM pulse"] = "?_src_=vars;emp=[UID()]"
+		.["Jump to turf"] = "byond://?_src_=holder;adminplayerobservecoodjump=1;X=[curturf.x];Y=[curturf.y];Z=[curturf.z]"
+	.["Atom say"] = "byond://?_src_=vars;atom_say=[UID()]"
+	.["Add reagent"] = "byond://?_src_=vars;addreagent=[UID()]"
+	.["Edit reagents"] = "byond://?_src_=vars;editreagents=[UID()]"
+	.["Transform editor"] = "byond://?_src_=vars;matrix_tester=[UID()]"
+	.["Trigger explosion"] = "byond://?_src_=vars;explode=[UID()]"
+	.["Trigger EM pulse"] = "byond://?_src_=vars;emp=[UID()]"
 
 /atom/proc/AllowDrop()
 	return FALSE
@@ -1470,9 +1499,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 		// OR (much more likely) the thing is unlabeled yet.
 		default_value = ""
 	if(!prompt)
-		prompt = "What would you like the label on [src] to be?"
+		prompt = "Что вы хотите написать на этикетке [declent_ru(GENITIVE)]?"
 
-	var/t = input(user, prompt, "Renaming [src]", default_value)  as text | null
+	var/t = input(user, prompt, "Переименование [declent_ru(GENITIVE)]", default_value)  as text | null
 	if(isnull(t))
 		// user pressed Cancel
 		return null
@@ -1481,13 +1510,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!user)
 		return null
 	else if(implement && implement.loc != user)
-		to_chat(user, "<span class='warning'>You no longer have the pen to rename [src].</span>")
+		balloon_alert(user, "ваша ручка недоступна!")
 		return null
 	else if(!in_range(src, user))
-		to_chat(user, "<span class='warning'>You cannot rename [src] from here.</span>")
+		balloon_alert(user, "слишком далеко!")
 		return null
 	else if (user.incapacitated())
-		to_chat(user, "<span class='warning'>You cannot rename [src] in your current state.</span>")
+		balloon_alert(user, "невозможно в данный момент!")
 		return null
 
 
@@ -1501,8 +1530,14 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 	if(actually_rename)
 		if(t == "")
+			if(ru_names)
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[initial(ru_names[i])]"
 			name = "[initial(name)]"
 		else
+			if(ru_names)
+				for(var/i = 1; i <= 6; i++)
+					ru_names[i] = "[initial(ru_names[i])] - [t]"
 			name = "[prefix][t]"
 	return t
 
@@ -1544,6 +1579,18 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/get_visible_gender()	// Used only in /mob/living/carbon/human and /mob/living/simple_animal/hostile/morph
 	return gender
 
+/atom/proc/handle_ricochet(obj/projectile/ricocheting_projectile)
+	var/turf/p_turf = get_turf(ricocheting_projectile)
+	var/face_direction = get_dir(src, p_turf) || get_dir(src, ricocheting_projectile)
+	var/face_angle = dir2angle(face_direction)
+	var/incidence_s = GET_ANGLE_OF_INCIDENCE(face_angle, (ricocheting_projectile.Angle + 180))
+	var/a_incidence_s = abs(incidence_s)
+	if(a_incidence_s > 90 && a_incidence_s < 270)
+		return FALSE
+	var/new_angle_s = SIMPLIFY_DEGREES(face_angle + incidence_s)
+	ricocheting_projectile.set_angle(new_angle_s)
+	visible_message(span_warning("[ricocheting_projectile] reflects off [src]!"))
+	return TRUE
 
 /// Whether the mover object can avoid being blocked by this atom, while arriving from (or leaving through) the border_dir.
 /atom/proc/CanPass(atom/movable/mover, border_dir)
@@ -1593,44 +1640,36 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * Gravity if there's a gravity generator on the z level
  * * otherwise no gravity
  */
-/atom/proc/get_gravity(turf/gravity_turf)
+/atom/proc/has_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override
 		return GLOB.gravity_is_on
 
 	if(!isturf(gravity_turf))
 		gravity_turf = get_turf(src)
 
-		if(!gravity_turf)//no gravity in nullspace 1984
+		if(!gravity_turf)//no gravity in nullspace
 			return FALSE
 
 	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
 		return TRUE
 
-	if(gravity_turf.force_no_gravity)
-		return FALSE
+	var/list/forced_gravity = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
+	if(length(forced_gravity))
+		var/positive_grav = max(forced_gravity)
+		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
 
-	var/result_gravity = 0
-	var/list/gravity_deltas = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, gravity_deltas)
-	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, gravity_deltas)
+		//our gravity is sum of the most massive positive and negative numbers returned by the signal
+		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
+		//but negative force gravity effects can cancel out positive ones
+
+		return (positive_grav + negative_grav)
 
 	var/area/turf_area = gravity_turf.loc
-	if(turf_area.has_gravity)
-		gravity_deltas.Add(1)
-	else if(!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"]) && !(GRAVITY_SOURCE_GRAVGEN in ignored_gravity_sources))
-		gravity_deltas.Add(1)
 
-	for(var/source in gravity_sources)
-		if(!(source in ignored_gravity_sources))
-			gravity_deltas.Add(gravity_sources[source])
+	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
 
-	for(var/delta in gravity_deltas)
-		result_gravity += delta
-
-	return result_gravity
-
-/atom/proc/no_gravity(turf/gravity_turf)
-	return abs(get_gravity(gravity_turf)) <= NO_GRAVITY
 
 ///Setter for the `density` variable to append behavior related to its changing.
 /atom/proc/set_density(new_density)
@@ -1693,8 +1732,6 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!usr?.client)
 		return
 
-	if(loc != usr.listed_turf)
-		return
 
 	if(href_list["statpanel_item_click"])
 		var/client/usr_client = usr.client
@@ -1730,9 +1767,15 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/relaydrive(mob/living/user, direction)
 	return !(SEND_SIGNAL(src, COMSIG_RIDDEN_DRIVER_MOVE, user, direction) & COMPONENT_DRIVER_BLOCK_MOVE)
 
-/atom/proc/get_external_loc()
-	var/atom/ext_loc = src
-	while(!isturf(ext_loc.loc))
-		ext_loc = ext_loc.loc
+///returns how much the object blocks an explosion. Used by subtypes.
+/atom/proc/get_explosion_block()
+	CRASH("Unimplemented get_explosion_block()")
 
-	return ext_loc
+/**
+* Instantiates the AI controller of this atom. Override this if you want to assign variables first.
+*
+* This will work fine without manually passing arguments.
++*/
+/atom/proc/InitializeAIController()
+	if(ai_controller)
+		ai_controller = new ai_controller(src)
