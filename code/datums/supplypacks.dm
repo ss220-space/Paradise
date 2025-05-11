@@ -497,26 +497,20 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 
 /datum/supply_packs/security/armory/riothelmets
 	name = "Riot Bundle Crate"
-	contains = list(/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
-					/obj/item/clothing/head/helmet/riot,
+	contains = list(/obj/item/storage/backpack/duffel/security/riot_armory,
+					/obj/item/storage/backpack/duffel/security/riot_armory,
+					/obj/item/storage/backpack/duffel/security/riot_armory,
 					/obj/item/shield/riot,
 					/obj/item/shield/riot,
-					/obj/item/shield/riot,
-					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/suit/armor/riot,
-					/obj/item/clothing/suit/armor/riot)
+					/obj/item/shield/riot)
 	cost = 80
 	containername = "riot bundle crate"
 
 /datum/supply_packs/security/armory/bulletarmor
 	name = "Bulletproof Armor Crate"
-	contains = list(/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/suit/armor/bulletproof,
-					/obj/item/clothing/head/helmet/alt,
-					/obj/item/clothing/head/helmet/alt,
-					/obj/item/clothing/head/helmet/alt)
+	contains = list(/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+					/obj/item/storage/backpack/duffel/security/bulletproof_armory,
+					/obj/item/storage/backpack/duffel/security/bulletproof_armory)
 	cost = 40
 	containername = "tactical armor crate"
 
@@ -875,7 +869,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/engineering
-	required_tech = list("toxins" = 6, "plasma" = 4)
+	required_tech = list("toxins" = 6, "plasmatech" = 4)
 	containername = "Engineering Hardsuit Crate"
 	access = ACCESS_ATMOSPHERICS
 
@@ -2386,6 +2380,14 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	cost = 15
 	containername = "laser tag crate"
 
+/datum/supply_packs/misc/plasmavendor
+	name = "PlasmaMate pack crate"
+	contains = list(/obj/item/vending_refill/plasma,
+					/obj/item/circuitboard/vendor/plasmamate)
+	cost = 100
+	containername = "plasmamate pack crate"
+	required_tech = list("toxins" = 5, "plasmatech" = 6)
+
 /datum/supply_packs/misc/religious_supplies
 	name = "Religious Supplies Crate"
 	contains = list(/obj/item/reagent_containers/food/drinks/bottle/holywater,
@@ -2406,6 +2408,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/barber_kit
+	name = "Barber kit"
+	contains = list(/obj/item/storage/box/barber,
+					/obj/item/clothing/under/barber,
+					/obj/item/clothing/under/barber/skirt,
+					/obj/item/razor,
+					/obj/item/storage/box/lip_stick)
+	cost = 10
+	containername = "barber kit crate"
 
 /datum/supply_packs/misc/patriotic
 	name = "Patriotic Crate"

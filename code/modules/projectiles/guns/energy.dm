@@ -14,6 +14,8 @@
 	var/modifystate = FALSE
 	var/shaded_charge = FALSE	//if this gun uses a stateful charge bar for more detail
 	var/selfcharge = FALSE
+	/// Recharge rate if self-charging
+	var/recharge_rate = 100
 	var/can_charge = TRUE
 	var/charge_sections = 4
 	var/charge_tick = 0
@@ -186,7 +188,7 @@
 		charge_tick = 0
 		if(!cell)
 			return // check if we actually need to recharge
-		cell.give(100) //... to recharge the shot
+		cell.give(recharge_rate) // to recharge the shot
 		on_recharge()
 		update_icon()
 
@@ -201,14 +203,14 @@
 		update_icon()
 
 
-/obj/item/gun/energy/can_shoot(mob/living/user)
+/obj/item/gun/energy/can_shoot(mob/living/user, silent = FALSE)
 	if(user && sibyl_mod && !sibyl_mod.check_auth(user))
 		return FALSE
 
 	var/obj/item/ammo_casing/energy/shot = ammo_type[select]
 	. = cell.charge >= shot.e_cost
 
-	if(!.)
+	if(!. && !silent)
 		sibyl_mod?.sibyl_sound(user, 'sound/voice/dominator/battery.ogg', 5 SECONDS)
 
 
@@ -390,3 +392,9 @@
 			var/obj/item/ammo_casing/energy/shot = ammo_type[select] //Necessary to find cost of shot
 			if(R.cell.use(shot.e_cost)) 		//Take power from the borg...
 				cell.give(shot.e_cost)	//... to recharge the shot
+
+/obj/item/gun/energy/proc/turret_check()
+	return TRUE
+
+/obj/item/gun/energy/proc/turret_deconstruct()
+	return

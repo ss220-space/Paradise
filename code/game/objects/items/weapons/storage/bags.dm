@@ -196,6 +196,127 @@
 	. = ..()
 	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
 
+// -----------------------------
+//          bombs bag
+// -----------------------------
+
+/obj/item/storage/bag/kaboom // bag that can hold plastic explosions(used only for emagged mining borg)
+	name = "Charge Deployment System"
+	ru_names = list(
+		NOMINATIVE = "Система Размещения Зарядов",
+		GENITIVE = "Системы Размещения Зарядов",
+		DATIVE = "Системе Размещения Зарядов",
+		ACCUSATIVE = "Систему Размещения Зарядов",
+		INSTRUMENTAL = "Системой Размещения Зарядов",
+		PREPOSITIONAL = "Системе Размещения Зарядов"
+	)
+	desc = "Система Размещения Зарядов. Способна автоматически устанавливать выбранную взрывчатку."
+	icon = 'icons/obj/mining.dmi'
+	icon_state = "bomb_satchel"
+	origin_tech = "engineering=2"
+	slot_flags = ITEM_SLOT_BELT
+	slot_flags_2 = ITEM_FLAG_POCKET_LARGE
+	w_class = WEIGHT_CLASS_NORMAL
+	storage_slots = 5
+	max_combined_w_class = 200
+	max_w_class = WEIGHT_CLASS_BULKY
+	can_hold = list(/obj/item/grenade/plastic)
+	var/obj/item/grenade/plastic/nextbomb = null
+	var/obj/item/grenade/plastic/miningcharge/nextbombbutmining = null
+	var/obj/item/grenade/plastic/nextchosen = null
+	var/bombs_left = 0
+
+/obj/item/storage/bag/kaboom/proc/bombradialmenu(mob/user)
+	if(!LAZYLEN(contents))
+		balloon_alert(user, "сумка пустая!")
+		return
+	else
+		var/list/bombs = list()
+		var/list/bombs_inside = list()
+		for(var/atom/explos as anything in contents)
+			bombs[explos.name] = image(icon = explos.icon, icon_state = explos.icon_state)
+			bombs_inside[explos.name] = explos
+		nextbomb = show_radial_menu(user = user, anchor = src, choices = bombs, require_near = TRUE)
+		nextbomb = bombs_inside[nextbomb]
+
+
+/obj/item/storage/bag/kaboom/attack_self(mob/user)
+	bombradialmenu(user)
+
+/obj/item/storage/bag/kaboom/click_alt(mob/user)
+	bombradialmenu(user)
+
+/obj/item/storage/bag/kaboom/examine(mob/user)
+	. = ..()
+	. += span_notice("Внутри [LAZYLEN(contents)] заряд[declension_ru(LAZYLEN(contents),"", "а", "ов")].")
+
+/obj/item/storage/bag/kaboom/proc/set_next_bomb()
+	for(var/obj/item/grenade/plastic/I in contents)
+		if(istype(I, nextbomb.type))
+			if(isnull(nextchosen))
+				nextchosen = I
+			bombs_left += 1
+	if(isnull(nextchosen))
+		nextchosen = pick(contents)
+		return FALSE
+	return TRUE
+
+
+/obj/item/storage/bag/kaboom/afterattack(atom/movable/AM, mob/living/user, flag, params)
+	if(istype(AM, /obj/item/grenade/plastic))
+		if(!..())
+			return
+
+	if(!LAZYLEN(contents))
+		balloon_alert(user, "сумка пустая!")
+		return
+
+	if(isnull(nextbomb))
+		nextbomb = pick(contents)
+
+	if(!flag)
+		return
+
+	if(iscarbon(AM))
+		balloon_alert(user, "нельзя прикрепить!")
+		return
+
+	if(isobserver(AM))
+		to_chat(user, span_warning("Ваша рука проходит сквозь [AM]!"))
+		return
+	balloon_alert(user, "устанавливаем...")
+	if(do_after(user, 5 SECONDS, AM))
+		if(istype(nextbomb, /obj/item/grenade/plastic/miningcharge))
+			nextbombbutmining = nextbomb
+			nextbombbutmining.override_safety()
+		nextbomb.attach(AM, user, TRUE)
+		if(!LAZYLEN(contents))
+			to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time / 10], сумка пуста."))
+		else
+			if(set_next_bomb())
+				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки: [nextchosen], осталось взрывчатки этого типа: [bombs_left]."))
+			else
+				to_chat(user, span_notice("Заряд установлен с таймером [nextbomb.det_time/10], выбранный тип взрывчатки отсутствует, автоматически выбран: [nextchosen]."))
+
+
+	bombs_left = 0
+	nextbomb = nextchosen
+	nextchosen = null
+
+/obj/item/storage/bag/kaboom/cyborg // borg version
+	name = "cyborg Charge Deployment System"
+	var/upgraded = FALSE
+
+/obj/item/storage/bag/kaboom/cyborg/Initialize(mapload)
+	. = ..()
+	ADD_TRAIT(src, TRAIT_NODROP, CYBORG_ITEM_TRAIT)
+
+/obj/item/storage/bag/kaboom/cyborg/update_icon_state()
+	. = ..()
+	if(upgraded)
+		icon_state = "bomb_satchell_adv"
+	else
+		icon_state = "bomb_satchel"
 
 // -----------------------------
 //          Plant bag
@@ -432,6 +553,7 @@
 /*
  * Trays - Agouri
  */
+
 /obj/item/storage/bag/tray
 	name = "tray"
 	icon = 'icons/obj/food/containers.dmi'
@@ -536,11 +658,20 @@
 /*
  *	Antag Tray
  */
+
 /obj/item/storage/bag/dangertray
 	name = "tray"
+	desc = "Металлический поднос для еды с острыми как бритва краями."
+	ru_names = list(
+		NOMINATIVE = "поднос",
+		GENITIVE = "подноса",
+		DATIVE = "подносу",
+		ACCUSATIVE = "поднос",
+		INSTRUMENTAL = "подносом",
+		PREPOSITIONAL = "подносе"
+	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "dangertray"
-	desc = "A metal tray to lay food on. The edges are razor sharp"
 	force = 25
 	throwforce = 25.0
 	throw_speed = 3
@@ -579,7 +710,6 @@
 	for(var/obj/item/item in contents)
 		. += image(icon = item.icon, icon_state = item.icon_state, layer = -1, pixel_x = rand(-4,4), pixel_y = rand(-4,4))
 
-
 /*
  *	Chemistry bag
  */
@@ -595,6 +725,7 @@
 	w_class = WEIGHT_CLASS_TINY
 	can_hold = list(/obj/item/reagent_containers/food/pill,/obj/item/reagent_containers/glass/beaker,/obj/item/reagent_containers/glass/bottle)
 	resistance_flags = FLAMMABLE
+
 /*
  *  Biowaste bag (mostly for xenobiologists)
  */
@@ -616,9 +747,43 @@
 
 /obj/item/storage/bag/medpouch
 	name = "medicinal pouch"
+	desc = "Небольшой мешочек для хранения трав, припарок, наживки и мелких предметов."
+	ru_names = list(
+		NOMINATIVE = "лекарственный мешочек",
+		GENITIVE = "лекарственного мешочка",
+		DATIVE = "лекарственному мешочку",
+		ACCUSATIVE = "лекарственный мешочек",
+		INSTRUMENTAL = "лекарственным мешочком",
+		PREPOSITIONAL = "лекарственном мешочке"
+	)
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "pouch_ash"
-	desc = "A small pouch for holding plants, poultices, resin, and pestles."
 	storage_slots = 40
 	max_combined_w_class = 200
-	can_hold = list(/obj/item/reagent_containers/food/snacks/grown, /obj/item/stack/medical)
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown,
+					/obj/item/stack/medical,
+					/obj/item/reagent_containers/food/snacks/bait,
+					/obj/item/reagent_containers/food/snacks/charred_krill,
+					/obj/item/stack/sheet/cartilage_plate,
+					/obj/item/stack/sheet/razor_sharp_teeth,
+			)
+
+/obj/item/storage/bag/medpouch/fishing
+	name = "fishing pouch"
+	desc = "Небольшой мешочек для хранения различной наживки и частей рыб."
+	ru_names = list(
+		NOMINATIVE = "рыболовный мешочек",
+		GENITIVE = "рыболовного мешочка",
+		DATIVE = "рыболовному мешочку",
+		ACCUSATIVE = "рыболовный мешочек",
+		INSTRUMENTAL = "рыболовным мешочком",
+		PREPOSITIONAL = "рыболовном мешочке"
+	)
+	icon_state = "fishpouch_ash"
+	storage_slots = 40
+	max_combined_w_class = 200
+	can_hold = list(/obj/item/reagent_containers/food/snacks/bait,
+					/obj/item/reagent_containers/food/snacks/charred_krill,
+					/obj/item/stack/sheet/cartilage_plate,
+					/obj/item/stack/sheet/razor_sharp_teeth,
+			)

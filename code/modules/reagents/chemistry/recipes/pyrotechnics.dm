@@ -271,18 +271,11 @@
 	for(var/f_reagent in forbidden_reagents)
 		holder.del_reagent(f_reagent)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/smoke_spread/chem/S = new
+	var/datum/effect_system/fluid_spread/smoke/chem/smoke = new
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-	if(S)
-		S.set_up(holder, location)
-		if(created_volume < 5)
-			S.start(1)
-		if(created_volume >=5 && created_volume < 10)
-			S.start(2)
-		if(created_volume >= 10 && created_volume < 15)
-			S.start(3)
-		if(created_volume >=15)
-			S.start(4)
+	if(smoke)
+		smoke.set_up(amount = round(created_volume), carry = holder, location = location)
+		smoke.start(TRUE)
 
 /datum/chemical_reaction/smoke/smoke_powder
 	name = "smoke_powder_smoke"
@@ -303,18 +296,18 @@
 
 /datum/chemical_reaction/smoke_solid/on_reaction(datum/reagents/holder, created_volume)
 	var/location = get_turf(holder.my_atom)
-	var/datum/effect_system/smoke_spread/solid/S = new
+	var/datum/effect_system/fluid_spread/smoke/solid/smoke = new
 	playsound(location, 'sound/effects/smoke.ogg', 50, 1, -3)
-	if(S)
+	if(smoke)
 		if(created_volume < 15)
-			S.set_up(3, 0, location, range = 0)
+			smoke.set_up(amount = 3, location = location, effect_range = 0)
 		if(created_volume >= 15 && created_volume < 30)
-			S.set_up(3, 0, location, range = "2x2")
+			smoke.set_up(amount = 3, location = location, effect_range = "2x2")
 		if(created_volume >= 30 && created_volume < 48)
-			S.set_up(3, 0, location, range = 1)
+			smoke.set_up(amount = 3, location = location, effect_range = 1)
 		if(created_volume >= 48)
-			S.set_up(3, 0, location, range = 2)
-		S.start()
+			smoke.set_up(amount = 3, location = location, effect_range = 2)
+		smoke.start()
 
 /datum/chemical_reaction/sonic_powder
 	name = "sonic_powder"

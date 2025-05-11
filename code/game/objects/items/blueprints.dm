@@ -8,7 +8,7 @@
 	name = "area modification item"
 	icon = 'icons/obj/items.dmi'
 	icon_state = "blueprints"
-	attack_verb = list("attacked", "bapped", "hit")
+	attack_verb = list("атаковал", "стукнул", "ударил")
 	/// Whether someone is currently using us
 	var/currently_used = FALSE
 	/// Fluff name for station in interaction window
@@ -27,7 +27,7 @@
 
 /obj/item/areaeditor/dropped(mob/user, slot, silent = FALSE)
 	. = ..()
-	user << browse(null, "window=blueprints")
+	close_window(user, "blueprints")
 
 
 /obj/item/areaeditor/proc/interact_prints(mob/user)
@@ -50,7 +50,7 @@
 	if(..())
 		return TRUE
 	if(usr != loc)
-		usr << browse(null, "window=blueprints")
+		close_window(usr, "blueprints")
 		return TRUE
 	if(href_list["create_area"])
 		if(currently_used)
@@ -267,7 +267,9 @@
 
 //Blueprint Subtypes
 
-/obj/item/areaeditor/blueprints/ce
+/obj/item/areaeditor/blueprints/ce/Initialize()
+	. = ..()
+	AddElement(/datum/element/high_value_item)
 
 
 /obj/item/areaeditor/blueprints/cyborg

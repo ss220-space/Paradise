@@ -32,7 +32,7 @@
 		ADD_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
 	return ..()
 
-/obj/structure/Destroy()
+/obj/structure/Destroy(force)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
 	if(smooth)
@@ -103,6 +103,8 @@
 
 /obj/structure/proc/do_climb(mob/living/user)
 	if(!can_touch(user) || !climbable)
+		return FALSE
+	if(user.has_status_effect(STATUS_EFFECT_LEANING))
 		return FALSE
 	var/blocking_object = density_check(user)
 	if(blocking_object)

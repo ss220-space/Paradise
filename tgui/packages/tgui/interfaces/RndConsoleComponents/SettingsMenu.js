@@ -3,8 +3,8 @@ import { Box, Button, Flex, LabeledList, Section } from '../../components';
 import { RndRoute, RndNavButton } from './index';
 import { MENU, SUBMENU } from '../RndConsole';
 
-export const SettingsMenu = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const SettingsMenu = (properties) => {
+  const { data, act } = useBackend();
 
   const { sync, admin, linked_destroy, linked_lathe, linked_imprinter } = data;
 

@@ -15,12 +15,15 @@
 
 	harm_intent_damage = 3
 	icon_living = "grey baby slime"
-	icon_dead = "grey baby slime dead"
+	icon_dead = "grey baby slime dead-nocore"
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
 	emote_see = list("jiggles", "bounces in place")
-	speak_emote = list("blorbles")
+	verb_say = "blorbles"
+	verb_ask = "inquisitively blorbles"
+	verb_exclaim = "loudly blorbles"
+	verb_yell = "loudly blorbles"
 	bubble_icon = "slime"
 	tts_seed = "Chen"
 
@@ -39,6 +42,8 @@
 	status_flags = CANPARALYSE | CANPUSH
 
 	footstep_type = FOOTSTEP_MOB_SLIME
+
+	hud_type = /datum/hud/slime
 
 	var/cores = 1 // the number of /obj/item/slime_extract's the slime has left inside
 	var/mutation_chance = 30 // Chance of mutating, should be between 25 and 35
@@ -148,7 +153,7 @@
 	..()
 	var/icon_text = "[colour] [(age_state.age != SLIME_BABY) ? "adult" : "baby"] slime"
 	//icon_dead = "[icon_text] dead"
-	icon_dead = "[colour] baby slime dead" //REMOVE THIS ONLY WHEN THERE WILL BE SPRITES OF ALL SLIME COLOURS AND SIZES!!!
+	icon_dead = "[colour] baby slime dead-nocore" //REMOVE THIS ONLY WHEN THERE WILL BE SPRITES OF ALL SLIME COLOURS AND SIZES!!!
 	if(stat != DEAD)
 		icon_state = icon_text
 		if(mood && !stat)
@@ -282,7 +287,7 @@
 		amount = -abs(amount)
 	return ..() //Heals them
 
-/mob/living/simple_animal/slime/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/slime/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
 	attacked += 10 - age_state.attacked
@@ -472,7 +477,7 @@
 			if (getBruteLoss() < 40)
 				. += "It has some punctures in its flesh!"
 			else
-				. += "<B>It has severe punctures and tears in its flesh!</B>"
+				. += "<b>It has severe punctures and tears in its flesh!</b>"
 			. += "</span>\n"
 
 		switch(powerlevel)
@@ -486,7 +491,7 @@
 				. += "<span class='warning'>It is glowing brightly with high levels of electrical activity.</span>"
 
 			if(10)
-				. += "<span class='warning'><B>It is radiating with massive levels of electrical activity!</B></span>"
+				. += "<span class='warning'><b>It is radiating with massive levels of electrical activity!</b></span>"
 
 	. += "</span>"
 

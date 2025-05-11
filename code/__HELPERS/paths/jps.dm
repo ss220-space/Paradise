@@ -115,7 +115,7 @@
 		return FALSE
 
 	var/datum/jps_node/current_processed_node = new(start, -1, 0, end)
-	open.Insert(current_processed_node)
+	open.insert(current_processed_node)
 	found_turfs[start] = TRUE // i'm sure this is fine
 	return TRUE
 
@@ -127,8 +127,8 @@
 	if(QDELETED(requester))
 		return FALSE
 
-	while(!open.IsEmpty() && !path)
-		var/datum/jps_node/current_processed_node = open.Pop() //get the lower f_value turf in the open list
+	while(!open.is_empty() && !path)
+		var/datum/jps_node/current_processed_node = open.pop() //get the lower f_value turf in the open list
 		if(max_distance && (current_processed_node.number_tiles > max_distance))//if too many steps, don't process that path
 			continue
 
@@ -239,7 +239,7 @@
 		if(interesting)
 			var/datum/jps_node/newnode = new(current_turf, parent_node, steps_taken)
 			if(parent_node) // if we're a diagonal subscan, we'll handle adding ourselves to the heap in the diag
-				open.Insert(newnode)
+				open.insert(newnode)
 			return newnode
 
 
@@ -309,10 +309,10 @@
 
 		if(interesting || possible_child_node)
 			var/datum/jps_node/newnode = new(current_turf, parent_node, steps_taken)
-			open.Insert(newnode)
+			open.insert(newnode)
 			if(possible_child_node)
 				possible_child_node.update_parent(newnode)
-				open.Insert(possible_child_node)
+				open.insert(possible_child_node)
 				if(possible_child_node.tile == end || (mintargetdist && (get_dist(possible_child_node.tile, end) <= mintargetdist)))
 					unwind_path(possible_child_node)
 			return

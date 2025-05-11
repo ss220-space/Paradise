@@ -8,17 +8,17 @@ import { Window } from '../layouts';
 
 const getStatText = (cm, critThreshold) => {
   if (cm.dead) {
-    return 'Deceased';
+    return 'Мёртв';
   }
   if (parseInt(cm.health, 10) <= critThreshold) {
     // Critical
-    return 'Critical';
+    return 'Критическое состояние';
   }
   if (parseInt(cm.stat, 10) === 1) {
     // Unconscious
-    return 'Unconscious';
+    return 'Без сознания';
   }
-  return 'Living';
+  return 'Жив';
 };
 
 const getStatColor = (cm, critThreshold) => {
@@ -36,13 +36,9 @@ const getStatColor = (cm, critThreshold) => {
   return 'green';
 };
 
-export const CrewMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(
-    context,
-    'tabIndex',
-    data.IndexToggler
-  );
+export const CrewMonitor = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', data.IndexToggler);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -50,17 +46,19 @@ export const CrewMonitor = (props, context) => {
       case 1:
         return <SecCrewMonitorDataView />;
       case 2:
-        return <CrewMonitorDataView />;
+        return <MiningCrewMonitorDataView />;
       case 3:
+        return <CrewMonitorDataView />;
+      case 4:
         return <CrewMonitorMapView />;
       default:
-        return "WE SHOULDN'T BE HERE!";
+        return 'ЧТО-ТО ТОЧНО НЕ ТАК!';
     }
   };
 
   return (
     <Window width={800} height={600}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Box fillPositionedParent>
           <Tabs>
             {data.isBS ? (
@@ -69,7 +67,7 @@ export const CrewMonitor = (props, context) => {
                 selected={0 === tabIndex}
                 onClick={() => setTabIndex(0)}
               >
-                <Icon name="table" /> Command Data View
+                <Icon name="table" /> Данные о Командовании
               </Tabs.Tab>
             ) : null}
             {data.isBP ? (
@@ -78,22 +76,31 @@ export const CrewMonitor = (props, context) => {
                 selected={1 === tabIndex}
                 onClick={() => setTabIndex(1)}
               >
-                <Icon name="table" /> Security Data View
+                <Icon name="table" /> Данные о Службе Безопасности
+              </Tabs.Tab>
+            ) : null}
+            {data.isMM ? (
+              <Tabs.Tab
+                key="MiningDataView"
+                selected={2 === tabIndex}
+                onClick={() => setTabIndex(2)}
+              >
+                <Icon name="table" /> Данные о шахтёрах
               </Tabs.Tab>
             ) : null}
             <Tabs.Tab
               key="DataView"
-              selected={2 === tabIndex}
-              onClick={() => setTabIndex(2)}
-            >
-              <Icon name="table" /> Data View
-            </Tabs.Tab>
-            <Tabs.Tab
-              key="MapView"
               selected={3 === tabIndex}
               onClick={() => setTabIndex(3)}
             >
-              <Icon name="map-marked-alt" /> Map View
+              <Icon name="table" /> Данные об Экипаже
+            </Tabs.Tab>
+            <Tabs.Tab
+              key="MapView"
+              selected={4 === tabIndex}
+              onClick={() => setTabIndex(4)}
+            >
+              <Icon name="map-marked-alt" /> Просмотр Карты
             </Tabs.Tab>
           </Tabs>
           {decideTab(tabIndex)}
@@ -103,25 +110,25 @@ export const CrewMonitor = (props, context) => {
   );
 };
 
-const CrewMonitorTable = ({ crewData, context }) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorTable = ({ crewData }) => {
+  const { act, data } = useBackend();
   const crew = sortBy((cm) => cm.name)(crewData || []);
-  const [search, setSearch] = useLocalState(context, 'search', '');
+  const [search, setSearch] = useLocalState('search', '');
   const searcher = createSearch(search, (cm) => {
     return cm.name + '|' + cm.assignment + '|' + cm.area;
   });
   return (
     <Box>
       <Input
-        placeholder="Search by name, assignment or location.."
+        placeholder="Введите Имя, Должность или Локацию..."
         width="100%"
         onInput={(_e, value) => setSearch(value)}
       />
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell>Name</Table.Cell>
-          <Table.Cell>Status</Table.Cell>
-          <Table.Cell>Location</Table.Cell>
+          <Table.Cell>Имя</Table.Cell>
+          <Table.Cell>Состояние</Table.Cell>
+          <Table.Cell>Локация</Table.Cell>
         </Table.Row>
         {crew.filter(searcher).map((cm) => (
           <Table.Row key={cm.ref} bold={!!cm.is_command}>
@@ -168,10 +175,10 @@ const CrewMonitorTable = ({ crewData, context }) => {
                     }
                   />
                 ) : (
-                  cm.area + ' (' + cm.x + ', ' + cm.y + ')'
+                  cm.area + ' (' + cm.x + ', ' + cm.y + ', ' + cm.z + ')'
                 )
               ) : (
-                'Not Available'
+                'Недоступно'
               )}
             </TableCell>
           </Table.Row>
@@ -181,30 +188,35 @@ const CrewMonitorTable = ({ crewData, context }) => {
   );
 };
 
-const CrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const crew = data.crewmembers || [];
-  return <CrewMonitorTable crewData={crew} context={context} />;
+  return <CrewMonitorTable crewData={crew} />;
 };
 
-const ComCrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ComCrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const commandCrew = data.crewmembers.filter((cm) => cm.is_command) || [];
-  return <CrewMonitorTable crewData={commandCrew} context={context} />;
+  return <CrewMonitorTable crewData={commandCrew} />;
 };
 
-const SecCrewMonitorDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const SecCrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
   const securityCrew = data.crewmembers.filter((cm) => cm.is_security) || [];
-  return <CrewMonitorTable crewData={securityCrew} context={context} />;
+  return <CrewMonitorTable crewData={securityCrew} />;
 };
 
-const CrewMonitorMapView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const MiningCrewMonitorDataView = (_properties) => {
+  const { act, data } = useBackend();
+  const miningCrew = data.crewmembers.filter((cm) => cm.is_shaft_miner) || [];
+  return <CrewMonitorTable crewData={miningCrew} />;
+};
+
+const CrewMonitorMapView = (_properties) => {
+  const { act, data } = useBackend();
   const { stationLevelNum, stationLevelName } = data;
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
+  const [zoom, setZoom] = useLocalState('zoom', 1);
   const [z_current, setZCurrent] = useLocalState(
-    context,
     'z_current',
     stationLevelNum[0]
   );

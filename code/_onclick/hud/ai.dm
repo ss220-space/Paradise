@@ -15,9 +15,10 @@
 	icon_state = "camera"
 
 /atom/movable/screen/ai/camera_list/Click()
-	var/mob/living/silicon/ai/AI = usr
-	var/camera = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.get_camera_list())
-	AI.ai_camera_list(camera)
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		var/camera = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.get_camera_list())
+		AI.ai_camera_list(camera)
 
 /atom/movable/screen/ai/camera_track
 	name = "Track With Camera"
@@ -71,8 +72,9 @@
 	icon_state = "announcement"
 
 /atom/movable/screen/ai/announcement/Click()
-	var/mob/living/silicon/ai/AI = usr
-	AI.announcement()
+	if(isAI(usr))
+		var/mob/living/silicon/ai/AI = usr
+		AI.announcement()
 
 /atom/movable/screen/ai/call_shuttle
 	name = "Call Emergency Shuttle"
@@ -158,9 +160,6 @@
 		var/mob/living/silicon/ai/AI = usr
 		AI.move_down()
 
-/mob/living/silicon/ai/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/ai(src)
 
 /datum/hud/ai/New(mob/owner)
 	..()

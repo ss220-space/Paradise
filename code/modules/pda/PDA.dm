@@ -6,12 +6,27 @@
 /// Global list of all PDAs in the world
 GLOBAL_LIST_EMPTY(PDAs)
 
+//authorization log
+GLOBAL_LIST_EMPTY(name_to_PDAs)
+
+//Helpers
+/obj/item/pda/proc/inject_to_authorization_log()
+	if(GLOB.name_to_PDAs?[owner])
+		GLOB.name_to_PDAs?[owner] += src
+	else
+		GLOB.name_to_PDAs?[owner] = list(src)
+
+/obj/item/pda/proc/remove_from_authorization_log()
+	if(GLOB.name_to_PDAs?[owner])
+		LAZYREMOVE(GLOB.name_to_PDAs[owner], src)
 
 /obj/item/pda
 	name = "PDA"
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
+	lefthand_file = 'icons/mob/inhands/pda_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/pda_righthand.dmi'
 	w_class = WEIGHT_CLASS_TINY
 	item_flags = DENY_UI_BLOCKED
 	slot_flags = ITEM_SLOT_ID|ITEM_SLOT_PDA|ITEM_SLOT_BELT
@@ -79,8 +94,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	var/obj/item/pda/chameleon_skin
 	/// Custom job name used in chameleon PDA.
 	var/fakejob
-	/// Our icon saved in the text format for TGUI usage
-	var/base64icon
 	/// Custom PDA name used in update_name()
 	var/custom_name
 	/// Current PDA case
@@ -105,8 +118,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 	GLOB.PDAs += src
 	GLOB.PDAs = sortAtom(GLOB.PDAs)
 
-	base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
-
 	update_programs()
 	if(default_cartridge)
 		cartridge = new default_cartridge(src)
@@ -123,6 +134,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 
 /obj/item/pda/Destroy()
 	GLOB.PDAs -= src
+	remove_from_authorization_log()
 	var/T = get_turf(loc)
 	if(id)
 		id.forceMove(T)
@@ -219,14 +231,13 @@ GLOBAL_LIST_EMPTY(PDAs)
 	else
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
-/obj/item/pda/AltClick(mob/living/user)
-	if(!iscarbon(user))
-		return
+/obj/item/pda/click_alt(mob/living/user)
 	if(can_use(user))
 		if(id)
 			remove_id(user)
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have an ID in it!</span>")
+			to_chat(user, span_warning("This PDA does not have an ID in it!"))
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pda/CtrlClick(mob/user)
@@ -321,6 +332,10 @@ GLOBAL_LIST_EMPTY(PDAs)
 		return TRUE
 	return FALSE
 
+/obj/item/pda/proc/update_owner_name(new_name)
+	remove_from_authorization_log()
+	owner = new_name
+	inject_to_authorization_log()
 
 /obj/item/pda/update_name(updates = ALL)
 	. = ..()
@@ -332,7 +347,6 @@ GLOBAL_LIST_EMPTY(PDAs)
 		name = "PDA-[owner] ([ownjob])"
 	else
 		name = initial(name)
-
 
 /obj/item/pda/update_desc(updates = ALL)
 	. = ..()
@@ -354,16 +368,12 @@ GLOBAL_LIST_EMPTY(PDAs)
 /obj/item/pda/update_icon_state()
 	if(chameleon_skin)
 		icon_state = initial(chameleon_skin.icon_state)
-		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 	else if(current_case?.new_icon_state)
 		icon_state = current_case.new_icon_state
-		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 	else if(current_painting)
 		icon_state = current_painting["icon"]
-		base64icon = current_painting["base64"]
 	else
 		icon_state = initial(icon_state)
-		base64icon = "[icon2base64(icon(icon, icon_state, frame = 1))]"
 
 	if(chameleon_skin)
 		item_state = initial(chameleon_skin.item_state)
@@ -453,7 +463,7 @@ GLOBAL_LIST_EMPTY(PDAs)
 			to_chat(user, span_warning("The PDA rejects empty ID card."))
 			return ATTACK_CHAIN_PROCEED
 		if(!owner)
-			owner = id_card.registered_name
+			update_owner_name(id_card.registered_name)
 			ownjob = id_card.assignment
 			ownrank = id_card.rank
 			update_appearance(UPDATE_NAME)

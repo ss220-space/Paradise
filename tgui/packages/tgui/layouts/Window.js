@@ -11,7 +11,6 @@ import { Component } from 'inferno';
 import { backendSuspendStart, useBackend } from '../backend';
 import { Icon } from '../components';
 import { UI_DISABLED, UI_INTERACTIVE, UI_UPDATE } from '../constants';
-import { useDebug } from '../debug';
 import { toggleKitchenSink } from '../debug/actions';
 import {
   dragStartHandler,
@@ -21,6 +20,7 @@ import {
 } from '../drag';
 import { createLogger } from '../logging';
 import { Layout } from './Layout';
+import { globalStore } from '../backend';
 
 const logger = createLogger('Window');
 
@@ -28,7 +28,7 @@ const DEFAULT_SIZE = [400, 600];
 
 export class Window extends Component {
   componentDidMount() {
-    const { suspended } = useBackend(this.context);
+    const { suspended } = useBackend();
     if (suspended) {
       return;
     }
@@ -46,13 +46,16 @@ export class Window extends Component {
   }
 
   updateGeometry() {
-    const { config } = useBackend(this.context);
+    const { config } = useBackend();
     const options = {
       size: DEFAULT_SIZE,
       ...config.window,
     };
     if (this.props.width && this.props.height) {
       options.size = [this.props.width, this.props.height];
+    }
+    if (this.props.scale) {
+      options.scale = this.props.scale;
     }
     if (config.window?.key) {
       setWindowKey(config.window.key);
@@ -61,11 +64,17 @@ export class Window extends Component {
   }
 
   render() {
-    const { theme, title, children } = this.props;
-    const { config, suspended } = useBackend(this.context);
-    const { debugLayout } = useDebug(this.context);
-    const dispatch = useDispatch(this.context);
+    const { theme, title, children, buttons } = this.props;
+    const { config, suspended, debug } = useBackend();
+
+    let debugLayout = false;
+    if (debug) {
+      debugLayout = debug.debugLayout;
+    }
+
+    const dispatch = globalStore.dispatch;
     const fancy = config.window?.fancy;
+    const { scale } = config.window;
     // Determine when to show dimmer
     const showDimmer =
       config.user &&
@@ -84,7 +93,9 @@ export class Window extends Component {
             logger.log('pressed close');
             dispatch(backendSuspendStart());
           }}
-        />
+        >
+          {buttons}
+        </TitleBar>
         <div
           className={classes(['Window__rest', debugLayout && 'debug-layout'])}
         >
@@ -140,9 +151,17 @@ const statusToColor = (status) => {
   }
 };
 
-const TitleBar = (props, context) => {
-  const { className, title, status, fancy, onDragStart, onClose } = props;
-  const dispatch = useDispatch(context);
+const TitleBar = (props) => {
+  const { className, title, status, fancy, onDragStart, onClose, children } =
+    props;
+  const dispatch = globalStore.dispatch;
+  // prettier-ignore
+  const finalTitle = (
+    typeof title === 'string'
+    && title === title.toLowerCase()
+    && toTitleCase(title)
+    || title
+  );
   return (
     <div className={classes(['TitleBar', className])}>
       {(status === undefined && (
@@ -154,16 +173,14 @@ const TitleBar = (props, context) => {
           name="eye"
         />
       )}
-      <div className="TitleBar__title">
-        {(typeof title === 'string' &&
-          title === title.toLowerCase() &&
-          toTitleCase(title)) ||
-          title}
-      </div>
       <div
         className="TitleBar__dragZone"
         onMousedown={(e) => fancy && onDragStart(e)}
       />
+      <div className="TitleBar__title">
+        {finalTitle}
+        {!!children && <div className="TitleBar__buttons">{children}</div>}
+      </div>
       {process.env.NODE_ENV !== 'production' && (
         <div
           className="TitleBar__devBuildIndicator"

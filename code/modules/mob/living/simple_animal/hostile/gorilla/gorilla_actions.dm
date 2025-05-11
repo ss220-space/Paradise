@@ -93,7 +93,7 @@
 	return ..()
 
 
-/mob/living/simple_animal/hostile/gorilla/hear_say(list/message_pieces, verb = "says", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE)
+/mob/living/simple_animal/hostile/gorilla/hear_say(list/message_pieces, verb = "says", italics = FALSE, mob/speaker = null, sound/speech_sound, sound_vol, sound_frequency, use_voice = TRUE, is_whisper = FALSE)
 	if(client || !can_befriend || !ishuman(speaker) || speaker == src || incapacitated() || is_on_cooldown())
 		return ..()
 

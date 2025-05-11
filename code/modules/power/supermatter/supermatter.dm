@@ -269,7 +269,7 @@
 	//We are assuming here, that volume does not change here
 	removed.temperature += (thermal_power / heat_capacity)
 
-	removed.temperature = max(0, removed.temperature)
+	removed.temperature = max(TCMB, removed.temperature)
 
 	env.merge(removed)
 
@@ -302,7 +302,7 @@
 
 /obj/machinery/power/supermatter_shard
 
-/obj/machinery/power/supermatter_shard/bullet_act(var/obj/item/projectile/Proj)
+/obj/machinery/power/supermatter_shard/bullet_act(var/obj/projectile/Proj)
 	var/turf/L = loc
 	if(!istype(L))		// We don't run process() when we are in space
 		return 0	// This stops people from being able to really power up the supermatter
@@ -355,7 +355,7 @@
 
 	consume(user)
 
-/obj/machinery/power/supermatter_shard/proc/get_integrity()
+/obj/machinery/power/supermatter_shard/proc/get_internal_integrity()
 	var/integrity = damage / explosion_point
 	integrity = round(100 - integrity * 100)
 	integrity = integrity < 0 ? 0 : integrity
@@ -541,16 +541,16 @@
 	if(!air)
 		return SUPERMATTER_ERROR
 
-	if(get_integrity() < 25)
+	if(get_internal_integrity() < 25)
 		return SUPERMATTER_DELAMINATING
 
-	if(get_integrity() < 50)
+	if(get_internal_integrity() < 50)
 		return SUPERMATTER_EMERGENCY
 
-	if(get_integrity() < 75)
+	if(get_internal_integrity() < 75)
 		return SUPERMATTER_DANGER
 
-	if((get_integrity() < 100) || (air.temperature > CRITICAL_TEMPERATURE))
+	if((get_internal_integrity() < 100) || (air.temperature > CRITICAL_TEMPERATURE))
 		return SUPERMATTER_WARNING
 
 	if(air.temperature > (CRITICAL_TEMPERATURE * 0.8))
@@ -612,3 +612,11 @@
 		user.revive()
 		nuclear.touched_supermatter = TRUE
 		to_chat(user, span_userdanger("The wave of warm energy is overwhelming you. You feel calm."))
+
+/obj/effect/warp_effect/supermatter
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE // no tile bound so you can see it around corners and so
+	icon = 'icons/effects/light_overlays/light_352.dmi'
+	icon_state = "light"
+	pixel_x = -176
+	pixel_y = -176

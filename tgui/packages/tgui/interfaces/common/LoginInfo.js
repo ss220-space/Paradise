@@ -6,10 +6,9 @@ import { Button, NoticeBox, Stack } from '../../components';
  *
  * Also gives an option to log off (calls `login_logout` TGUI action)
  * @param {object} _properties
- * @param {object} context
  */
-export const LoginInfo = (_properties, context) => {
-  const { act, data } = useBackend(context);
+export const LoginInfo = (_properties) => {
+  const { act, data } = useBackend();
   const { loginState } = data;
   if (!data) {
     return;
@@ -18,19 +17,19 @@ export const LoginInfo = (_properties, context) => {
     <NoticeBox info>
       <Stack>
         <Stack.Item grow mt={0.5}>
-          Logged in as: {loginState.name} ({loginState.rank})
+          Выполнен вход в систему как: {loginState.name} ({loginState.rank})
         </Stack.Item>
         <Stack.Item>
           <Button
             icon="sign-out-alt"
-            content="Logout"
+            content="Выйти из системы"
             color="good"
             onClick={() => act('login_logout')}
           />
           <Button
             icon="eject"
             disabled={!loginState.id}
-            content="Eject ID"
+            content="Извлечь ID"
             color="good"
             onClick={() => act('login_eject')}
           />

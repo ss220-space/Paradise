@@ -31,13 +31,13 @@ export const SUBMENU = {
   SETTINGS_DEVICES: 1,
 };
 
-export const RndConsole = (properties, context) => {
-  const { data } = useBackend(context);
+export const RndConsole = (properties) => {
+  const { data } = useBackend();
   const { wait_message } = data;
 
   return (
     <Window width={800} height={550} theme={data.ui_theme}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Box className="RndConsole">
           <RndNavbar />
           <RndRoute menu={MENU.MAIN} render={() => <MainMenu />} />

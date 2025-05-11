@@ -23,8 +23,8 @@ export const removeAllSkiplines = (toSanitize: string) => {
   return toSanitize.replace(/[\r\n]+/, '');
 };
 
-export const TextInputModal = (props, context) => {
-  const { act, data } = useBackend<TextInputData>(context);
+export const TextInputModal = (props) => {
+  const { act, data } = useBackend<TextInputData>();
   const {
     max_length,
     message = '',
@@ -33,11 +33,7 @@ export const TextInputModal = (props, context) => {
     timeout,
     title,
   } = data;
-  const [input, setInput] = useLocalState<string>(
-    context,
-    'input',
-    placeholder || ''
-  );
+  const [input, setInput] = useLocalState<string>('input', placeholder || '');
   const onType = (value: string) => {
     if (value === input) {
       return;
@@ -52,7 +48,7 @@ export const TextInputModal = (props, context) => {
   // Dynamically changes the window height based on the message.
   const windowHeight =
     130 +
-    (message.length > 40 ? Math.ceil(message.length / 4) : 0) +
+    (message.length > 40 ? Math.ceil(message.length / 3) : 0) +
     (visualMultiline ? 80 : 0);
 
   return (
@@ -91,8 +87,8 @@ export const TextInputModal = (props, context) => {
 };
 
 /** Gets the user input and invalidates if there's a constraint. */
-const InputArea = (props, context) => {
-  const { act, data } = useBackend<TextInputData>(context);
+const InputArea = (props) => {
+  const { act, data } = useBackend<TextInputData>();
   const { max_length, multiline } = data;
   const { input, onType } = props;
 
@@ -113,7 +109,7 @@ const InputArea = (props, context) => {
         act('submit', { entry: input });
       }}
       onInput={(_, value) => onType(value)}
-      placeholder="Type something..."
+      placeholder="Напишите что-нибудь..."
       value={input}
     />
   );

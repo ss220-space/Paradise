@@ -45,6 +45,13 @@
 
 	if(owner.client)
 		owner.client.screen += button
+
+		for(var/mob/dead/observer/observe in user.orbiters)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+				LAZYREMOVE(user.orbiters, observe)
+				continue
+			observe.client.screen += button
+
 		button.locked = TRUE
 	owner.update_action_buttons()
 
@@ -68,6 +75,13 @@
 
 	if(user.client)
 		user.client.screen -= button
+
+		for(var/mob/dead/observer/observe in user.orbiters)
+			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+				LAZYREMOVE(user.orbiters, observe)
+				continue
+			observe.client.screen -= button
+
 		button.clean_up_keybinds(user)
 
 	button.moved = FALSE //so the button appears in its normal position when given to another owner.
@@ -510,16 +524,22 @@
 /datum/action/item_action/toggle_research_scanner
 	name = "Toggle Research Scanner"
 
+
 /datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
-	if(IsAvailable())
-		owner.research_scanner = !owner.research_scanner
-		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
-		return TRUE
+	if(!..())
+		return FALSE
+
+	owner.research_scanner = !owner.research_scanner
+	to_chat(owner, span_notice("Вы [owner.research_scanner ? "включили" : "отключили"] исследовательский анализатор."))
+
+	return TRUE
+
 
 /datum/action/item_action/toggle_research_scanner/Remove(mob/living/L)
 	if(owner)
 		owner.research_scanner = 0
-	..()
+
+	. = ..()
 
 
 /datum/action/item_action/toggle_research_scanner/ApplyIcon()
@@ -527,6 +547,33 @@
 	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "scan_mode", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
 	button.add_overlay(new_icon)
 
+
+/datum/action/innate/overdrive
+	name = "Overdrive"
+	check_flags = AB_CHECK_CONSCIOUS
+	var/used = FALSE
+
+/datum/action/innate/overdrive/Activate()
+	var/mob/living/silicon/robot/robot = owner
+	if(used)
+		return
+
+	if(!do_after(robot, 10 SECONDS) || robot.stat)
+		return
+
+	robot.rejuvenate()
+	robot.opened = FALSE
+	robot.locked = TRUE
+	robot.SetEmagged(TRUE)
+	robot.SetLockdown(FALSE)
+	robot.UnlinkSelf()
+	used = TRUE
+	Remove(robot)
+
+/datum/action/innate/overdrive/ApplyIcon()
+	button.cut_overlays()
+	var/static/mutable_appearance/new_icon = mutable_appearance('icons/mob/actions/actions.dmi', "heal", BUTTON_LAYER_ICON, appearance_flags = RESET_COLOR|RESET_ALPHA)
+	button.add_overlay(new_icon)
 
 /datum/action/item_action/instrument
 	name = "Use Instrument"
@@ -638,6 +685,9 @@
 	name = "Mirror Walk"
 	desc = "Use near a mirror to enter it."
 
+/datum/action/item_action/accessory/mining_camera
+	name = "Переключить камеру"
+
 //Preset for spells
 /datum/action/spell_action
 	check_flags = 0
@@ -673,7 +723,7 @@
 /datum/action/spell_action/AltTrigger()
 	if(target)
 		var/obj/effect/proc_holder/spell/spell = target
-		spell.AltClick(usr)
+		owner.base_click_alt(spell)
 		return TRUE
 
 /datum/action/spell_action/IsAvailable(message = FALSE)
@@ -742,16 +792,18 @@
 /datum/action/innate/research_scanner
 	name = "Toggle Research Scanner"
 
-/datum/action/innate/research_scanner/Trigger(left_click = TRUE)
-	if(IsAvailable())
-		owner.research_scanner = !owner.research_scanner
-		to_chat(owner, "<span class='notice'>Research analyzer is now [owner.research_scanner ? "active" : "deactivated"].</span>")
-		return TRUE
+/datum/action/innate/research_scanner/Activate()
+	owner.research_scanner = !owner.research_scanner
+	to_chat(owner, span_notice("Вы [owner.research_scanner ? "включили" : "отключили"] исследовательский анализатор."))
+
+	return TRUE
+
 
 /datum/action/innate/research_scanner/Remove(mob/living/L)
 	if(owner)
 		owner.research_scanner = 0
-	..()
+
+	. = ..()
 
 
 /datum/action/innate/research_scanner/ApplyIcon()

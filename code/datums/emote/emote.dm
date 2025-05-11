@@ -280,7 +280,7 @@
  * * user - The user of the emote.
  * * text - The text of the emote.
  */
-/datum/emote/proc/runechat_emote(mob/user, text)
+/proc/runechat_emote(atom/user, text)
 	var/list/can_see = get_mobs_in_view(1, user)  //Allows silicon & mmi mobs carried around to see the emotes of the person carrying them around.
 	can_see |= viewers(user, null)
 	for(var/mob/viewer in can_see)
@@ -379,7 +379,7 @@
 		. = islist(message_AI) ? pick(message_AI) : message_AI
 	else if(is_monkeybasic(user) && message_monkey)
 		. = islist(message_monkey) ? pick(message_monkey) : message_monkey
-	else if(isanimal(user) && message_simple)
+	else if((isanimal(user)  || isbasicmob(user)) && message_simple)
 		. = islist(message_simple) ? pick(message_simple) : message_simple
 	else if(isobserver(user) && message_observer)
 		. = islist(message_observer) ? pick(message_observer) : message_observer

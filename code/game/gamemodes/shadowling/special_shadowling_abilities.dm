@@ -4,7 +4,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 /obj/effect/proc_holder/spell/shadowling_hatch
 	name = "Hatch"
-	desc = "Casts off your disguise."
+	desc = "Сбрасывает вашу маскировку."
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "hatch"
@@ -21,18 +21,18 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 	if(!isturf(user.loc))
 		revert_cast(user)
-		to_chat(user, span_warning("You must be standing on a floor to hatch!"))
+		to_chat(user, span_warning("Ты должен стоять на полу, чтобы раскрыться!"))
 		return
 
-	if(tgui_alert(user,"Are you sure you want to hatch? You cannot undo this!", "Hatch", list("Yes", "No")) != "Yes")
-		to_chat(user, span_warning("You decide against hatching for now."))
+	if(tgui_alert(user,"Ты уверен, что хочешь раскрыться? Ты не сможешь прервать это!", "Hatch", list("Yes", "No")) != "Yes")
+		to_chat(user, span_warning("Ты решил не раскрываться сейчас."))
 		revert_cast(user)
 		return
 
 	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
-	user.visible_message(span_warning("[user]'s things suddenly slip off. They hunch over and vomit up a copious amount of purple goo which begins to shape around them!"), \
-						span_shadowling("You remove any equipment which would hinder your hatching and begin regurgitating the resin which will protect you."))
-
+	user.visible_message(span_warning("Вещи [user] неожиданно начали сползать. С них стикает обильное количество фиолетовой жижи, которая формируется вокруг них"), \
+						span_shadowling("Ты сбрасываешь свою одежду, которая может помешать твоему вылуплению и начинаешь выделять смолу, которая защитит тебя."))
+	user.Stun(35 SECONDS, TRUE)
 	for(var/obj/item/item as anything in user.get_equipped_items(TRUE, TRUE))
 		user.drop_item_ground(item, force = TRUE)
 
@@ -52,29 +52,29 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	//Can't die while hatching
 	ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 
-	user.visible_message(span_warning("A chrysalis forms around [user], sealing [user.p_them()] inside."), \
-						span_shadowling("You create your chrysalis and begin to contort within."))
+	user.visible_message(span_warning("Хризалида окутывает [user] и [user.p_them()] скрывается внутри."), \
+						span_shadowling("Ты обвиваешься в хризалиду и начинаете извиваться внутри."))
 
 	sleep(10 SECONDS)
 	if(QDELETED(user))
 		return
 
-	user.visible_message(span_boldwarning("The skin on [user]'s back begins to split apart. Black spines slowly emerge from the divide."), \
-						span_shadowling("Spines pierce your back. Your claws break apart your fingers. You feel excruciating pain as your true form begins its exit."))
+	user.visible_message(span_boldwarning("Кожа на спине [user] начинает расслаиваться. Из дыр медленно показываются чёрные шипы."), \
+						span_shadowling("Шипы пронзают твою спину. Когти разрывают твои пальцы. Ты чувствуешь мучительную боль, когда твоя истинная форма начинают проявляться."))
 
 	sleep(9 SECONDS)
 	if(QDELETED(user))
 		return
 
-	user.visible_message(span_boldwarning("[user], skin shifting, begins tearing at the walls around [user.p_them()]."), \
-						span_shadowling("Your false skin slips away. You begin tearing at the fragile membrane protecting you."))
+	user.visible_message(span_boldwarning("[user], кожа рвётся, налипая на стены вокруг [user.p_them()]."), \
+						span_shadowling("Твоя фальшивая кожа отваливается. Ты начинаете рвать хрупкую мембрану, защищающую тебя.."))
 
 	sleep(8 SECONDS)
 	if(QDELETED(user))
 		return
 
 	playsound(user.loc, 'sound/weapons/slash.ogg', 15, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(user, span_boldnotice("You rip and slice."))
+	to_chat(user, span_boldnotice("Ты рвешь и режешь."))
 
 
 	sleep(1 SECONDS)
@@ -82,14 +82,14 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		return
 
 	playsound(user.loc, 'sound/weapons/slashmiss.ogg', 15, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(user, span_boldnotice("The chrysalis falls like water before you."))
+	to_chat(user, span_boldnotice("Хризалида осыпается перед тобой, как капли воды."))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
 		return
 
 	playsound(user.loc, 'sound/weapons/slice.ogg', 15, TRUE, SILENCED_SOUND_EXTRARANGE)
-	to_chat(user, span_boldnotice("You are free!"))
+	to_chat(user, span_boldnotice("Ты освободился!"))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
@@ -100,7 +100,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	GLOB.possibleShadowlingNames.Remove(newNameId)
 	user.real_name = newNameId
 	user.name = user.real_name
-	to_chat(user, span_mind_control("YOU LIVE!!!"))
+	to_chat(user, span_mind_control("ТЫ ЖИВОЙ!!!"))
 	user.remove_traits(list(TRAIT_NO_TRANSFORM, TRAIT_GODMODE), UNIQUE_TRAIT_SOURCE(src))
 
 	for(var/obj/structure/alien/resin/wall/shadowling/resin in orange(user, 1))
@@ -109,39 +109,33 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	for(var/obj/structure/alien/weeds/node/node in shadowturf)
 		qdel(node)
 
-	user.visible_message(span_warning("The chrysalis explodes in a shower of purple flesh and fluid!"))
+	user.visible_message(span_warning("Хризалиду разрывает и из неё бъётся поток фиолетовой плоти и жидкости!"))
 	user.underwear = "None"
 	user.undershirt = "None"
 	user.socks = "None"
 	user.faction |= "faithless"
 
 	user.set_species(/datum/species/shadow/ling)	//can't be a shadowling without being a shadowling
-	user.equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(user), ITEM_SLOT_CLOTH_INNER)
-	user.equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(user), ITEM_SLOT_FEET)
-	user.equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(user), ITEM_SLOT_CLOTH_OUTER)
-	user.equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(user), ITEM_SLOT_HEAD)
-	user.equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(user), ITEM_SLOT_GLOVES)
-	user.equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(user), ITEM_SLOT_MASK)
-	user.equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(user), ITEM_SLOT_EYES)
-
 	user.mind.RemoveSpell(src)
+	var/obj/item/organ/internal/cyberimp/eyes/eyes
+	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null) // thermal without item
+	eyes.insert(user)
+	user.set_vision_override(/datum/vision_override/nightvision) // nighvision withot button
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
 		return
 
-	to_chat(user, span_shadowling("<b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i>"))
+	to_chat(user, span_shadowling("<b><i>Твои силы пробудились. Теперь ты заживешь в полную меру. Помни свои цели. Сотрудничай со своими союзниками и рабами.</b></i>"))
 	user.ExtinguishMob()
 	user.set_nutrition(NUTRITION_LEVEL_FED + 50)
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
+	//user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_veil(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_collective_mind(null))
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_regen_armor(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_extend_shuttle(null))
 
 	QDEL_NULL(user.hud_used)
 	user.hud_used = new /datum/hud/human(user, ui_style2icon(user.client.prefs.UI_style), user.client.prefs.UI_style_color, user.client.prefs.UI_style_alpha)
@@ -150,7 +144,7 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 
 /obj/effect/proc_holder/spell/shadowling_ascend
 	name = "Ascend"
-	desc = "Enters your true form."
+	desc = "Завершить свою истинную форму."
 	base_cooldown = 5 MINUTES
 	clothes_req = FALSE
 	action_icon_state = "ascend"
@@ -164,55 +158,55 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	if(!shadowling_check(user))
 		return
 
-	if(tgui_alert(user, "It is time to ascend. Are you sure about this?", "Ascend", list("Yes", "No")) != "Yes")
-		to_chat(user, span_warning("You decide against ascending for now."))
+	if(tgui_alert(user, "Время завершить свою форму. Ты уверен?", "Ascend", list("Yes", "No")) != "Yes")
+		to_chat(user, span_warning("Ты передумал завершать свою форму сейчас."))
 		revert_cast(user)
 		return
 
 	ADD_TRAIT(user, TRAIT_NO_TRANSFORM, PERMANENT_TRANSFORMATION_TRAIT)
-	user.visible_message(span_warning("[user] gently rises into the air, red light glowing in its eyes."), \
-						span_shadowling("You rise into the air and get ready for your transformation."))
+	user.visible_message(span_warning("[user] взмывает в воздух, красный свет бъёт из его глаз."), \
+						span_shadowling("Ты взмываешь в воздух и ты готов к своей трансформации."))
 
 	sleep(5 SECONDS)
 	if(QDELETED(user))
 		return
 
-	user.visible_message(span_warning("[user]'s skin begins to crack and harden."), \
-						span_shadowling("Your flesh begins creating a shield around yourself."))
+	user.visible_message(span_warning("Кожа [user] начинает трескаться и становится твержё."), \
+						span_shadowling("Твоя кожа становится твойм щитом."))
 
 	sleep(10 SECONDS)
 	if(QDELETED(user))
 		return
-	user.visible_message(span_warning("The small horns on [user]'s head slowly grow and elongate."), \
-						span_shadowling("Your body continues to mutate. Your telepathic abilities grow."))	// Nothing was here.
+	user.visible_message(span_warning("Рожки на голове [user] начинают расти."), \
+						span_shadowling("Твоё тело начинает мутировать. Твои телепатические силы растут."))
 
 	sleep(9 SECONDS)
 	if(QDELETED(user))
 		return
-	user.visible_message(span_warning("[user]'s body begins to violently stretch and contort."), \
-						span_shadowling("You begin to rend apart the final barriers to godhood."))
+	user.visible_message(span_warning("Тело [user] начинает сильно растягиваться."), \
+						span_shadowling("Ты разрушаешь последние врата к божественности."))
 
 	sleep(4 SECONDS)
 	if(QDELETED(user))
 		return
-	to_chat(user, span_boldwarning("Yes!"))
+	to_chat(user, span_boldwarning("Да!"))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
 		return
-	to_chat(user, span_big(span_boldwarning("YES!!")))
+	to_chat(user, span_big(span_boldwarning("ДА!!")))
 
 	sleep(1 SECONDS)
 	if(QDELETED(user))
 		return
-	to_chat(user, span_reallybig(span_boldwarning("YE--")))
+	to_chat(user, span_reallybig(span_boldwarning("ДАА---!!!")))
 
 	sleep(0.1 SECONDS)
 	if(QDELETED(user))
 		return
 	for(var/mob/living/mob in orange(7, user))
 		mob.Weaken(20 SECONDS)
-		to_chat(mob, span_userdanger("An immense pressure slams you onto the ground!"))
+		to_chat(mob, span_userdanger("Огромное давление прибивает вас к полу!"))
 
 	for(var/obj/machinery/power/apc/apc in GLOB.apcs)
 		INVOKE_ASYNC(apc, TYPE_PROC_REF(/obj/machinery/power/apc, overload_lighting))
@@ -245,12 +239,13 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 		return
 
 	if(!SSticker.mode.shadowling_ascended)
-		SSshuttle.emergency.request(null, 0.3)
-		SSshuttle.emergency.canRecall = FALSE
+		sleep(60 SECONDS)
+		SSticker?.mode?.end_game()
 
 	SSticker.mode.shadowling_ascended = TRUE
 	ascendant.mind.RemoveSpell(src)
 	qdel(user)
+
 
 
 /**
@@ -270,29 +265,17 @@ GLOBAL_LIST_INIT(possibleShadowlingNames, list("U'ruan", "Y`shej", "Nex", "Hel-u
 	socks = "None"
 	faction |= "faithless"
 	add_language(LANGUAGE_HIVE_SHADOWLING)
-
 	set_species(/datum/species/shadow/ling)
-	equip_to_slot_or_del(new /obj/item/clothing/under/shadowling(src), ITEM_SLOT_CLOTH_INNER)
-	equip_to_slot_or_del(new /obj/item/clothing/shoes/shadowling(src), ITEM_SLOT_FEET)
-	equip_to_slot_or_del(new /obj/item/clothing/suit/space/shadowling(src), ITEM_SLOT_CLOTH_OUTER)
-	equip_to_slot_or_del(new /obj/item/clothing/head/shadowling(src), ITEM_SLOT_HEAD)
-	equip_to_slot_or_del(new /obj/item/clothing/gloves/shadowling(src), ITEM_SLOT_GLOVES)
-	equip_to_slot_or_del(new /obj/item/clothing/mask/gas/shadowling(src), ITEM_SLOT_MASK)
-	equip_to_slot_or_del(new /obj/item/clothing/glasses/shadowling(src), ITEM_SLOT_EYES)
-
-	to_chat(src, span_shadowling("<b><i>Your powers are awoken. You may now live to your fullest extent. Remember your goal. Cooperate with your thralls and allies.</b></i>"))
+	to_chat(src, span_shadowling("<b><i>Твои силы пробудились. Теперь ты заживешь в полную меру. Помни свои цели. Сотрудничай со своими союзниками и рабами.</b></i>"))
 
 	ExtinguishMob()
 	set_nutrition(NUTRITION_LEVEL_FED + 50)
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_vision(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_enthrall(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_glare(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_veil(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_shadow_walk(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_icy_veins(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_collective_mind(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_regen_armor(null))
-	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_extend_shuttle(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/shadowling_screech(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_blindness_smoke(null))
 	mind.AddSpell(new /obj/effect/proc_holder/spell/shadowling_null_charge(null))

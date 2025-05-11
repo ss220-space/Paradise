@@ -108,7 +108,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		var/mob/mob = M
 		if(is_station_level(mob.z))
 			check_station_player(mob)
-		else if(SSshuttle.emergency.mode >= SHUTTLE_ENDGAME && istype(get_area(mob), SSshuttle.emergency.areaInstance))
+		else if(EMERGENCY_ESCAPED_OR_ENDGAMED && istype(get_area(mob), SSshuttle.emergency.areaInstance))
 			check_shuttle_player(mob)
 
 	check_apc_power()
@@ -327,7 +327,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		crewscore -= 250
 
 	// Generate the score panel
-	var/dat = {"<head><title>Итоги смены №[GLOB.round_id]</title><!DOCTYPE html><meta charset='UTF-8'></head>"}
+	var/dat = ""
 	if(SSticker.mode)
 		dat += SSticker.mode.get_scoreboard_stats()
 
@@ -342,7 +342,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	dat += "<b>Есть электропитание на всей станции:</b> [power_bonus ? "Да" : "Нет"] ([power_bonus * 2500] очков)<br>"
 	dat += "<b>Вся станция в чистоте и порядке:</b> [mess_bonus ? "Да" : "Нет"] ([mess_bonus * 1500] очков)<br><br>"
 
-	dat += "<U>Плохое</U><br>"
+	dat += "<u>Плохое</u><br>"
 	dat += "<b>Трупов на станции:</b> [score_dead_crew] (-[points_dead_crew] очков)<br>"
 	if(!mess_bonus)
 		dat += "<b>Неприбранная грязь:</b> [score_mess] (-[score_mess] [declension_ru(score_mess, "очко", "очка", "очков")])<br>"
@@ -351,11 +351,11 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 	dat += {"
 	<b>ИИ уничтожен:</b> [dead_ai ? "Да" : "Нет"] (-[dead_ai * 250] очков)<br><br>
 
-	<U>Прочее</U><br>
+	<u>Прочее</u><br>
 	<b>Съедено еды:</b> [score_food_eaten] [declension_ru(score_food_eaten, "укус", "укуса", "укусов")]/[declension_ru(score_food_eaten, "глоток", "глотка", "глотков")].<br>
 	<b>Клоуна избили:</b> [score_clown_abuse] [declension_ru(score_clown_abuse, "раз", "раза", "раз")]<br><br>
 	
-	<U>Финансовая статистка</U><br>
+	<u>Финансовая статистка</u><br>
 	<b>Выплачено персоналу зарплат на сумму: </b> [SScapitalism.total_salary_payment].<br>
 	<b>Поступило денег с выполнения заказов карго на счет станции: </b> [SScapitalism.total_station_bounty].<br>
 	<b>Поступило денег с выполнения заказов карго на счет карго: </b> [SScapitalism.total_cargo_bounty].<br>
@@ -367,7 +367,7 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 		if(damaged_health)
 			dat += "<b>Самый потрёпанный из эвакуировавшихся:</b> [damaged_name], [damaged_job]: [damaged_health] урона ([damaged_key])<br>"
 	else
-		if(SSshuttle.emergency.mode <= SHUTTLE_STRANDED)
+		if(!EMERGENCY_ESCAPED_OR_ENDGAMED)
 			dat += "Станция не была эвакуирована!<br>"
 		else
 			dat += "Никто не выжил!<br>"
@@ -406,7 +406,9 @@ GLOBAL_VAR(scoreboard) // Variable to save the scoreboard string once it's been 
 			to_chat(mob, "<b>Итоговый результат экипажа:</b>")
 			to_chat(mob, "<b><font size='4'><a href='byond://?src=[mob.UID()];scoreboard=1'>[crewscore]</a></font></b>")
 			if(!mob.get_preference(PREFTOGGLE_DISABLE_SCOREBOARD))
-				mob << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
+				var/datum/browser/popup = new(mob, "roundstats", "Итоги смены №[GLOB.round_id]", 700, 900)
+				popup.set_content(GLOB.scoreboard)
+				popup.open(FALSE)
 
 
 /**

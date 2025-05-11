@@ -22,8 +22,8 @@
 
 	drop_hat()
 
-	GLOB.alive_mob_list -= src
-	GLOB.dead_mob_list -= src
+	remove_from_alive_mob_list()
+	remove_from_dead_mob_list()
 	QDEL_IN(animation, 15)
 	QDEL_IN(src, 15)
 	return TRUE
@@ -36,7 +36,7 @@
 	invisibility = INVISIBILITY_ABSTRACT
 	if(mmi)
 		qdel(mmi)	//Delete the MMI first so that it won't go popping out.
-	GLOB.dead_mob_list -= src
+	remove_from_dead_mob_list()
 	QDEL_IN(src, 15)
 	return TRUE
 

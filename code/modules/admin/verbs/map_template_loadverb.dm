@@ -1,5 +1,5 @@
 /client/proc/map_template_load()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Map template - Place"
 
 	if(!check_rights(R_DEBUG | R_EVENT))
@@ -7,7 +7,7 @@
 
 	var/datum/map_template/template
 
-	var/map = input(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template") as null|anything in GLOB.map_templates
+	var/map = tgui_input_list(usr, "Choose a Map Template to place at your CURRENT LOCATION","Place Map Template", GLOB.map_templates)
 	if(!map)
 		return
 	template = GLOB.map_templates[map]
@@ -26,7 +26,7 @@
 		SET_PLANE(I, ABOVE_LIGHTING_PLANE, place_on)
 		preview += I
 	usr.client.images += preview
-	if(alert(usr,"Confirm location.","Template Confirm","Yes","No") == "Yes")
+	if(tgui_alert(usr, "Confirm location.", "Template Confirm", list("Yes", "No")) == "Yes")
 		var/timer = start_watch()
 		log_and_message_admins("<span class='adminnotice'>has started to place the map template ([template.name]) at [ADMIN_COORDJMP(T)]</span>")
 		if(template.load(T, centered = TRUE))
@@ -36,13 +36,13 @@
 	usr.client.images -= preview
 
 /client/proc/map_template_upload()
-	set category = "Event"
+	set category = "Admin.Event"
 	set name = "Map Template - Upload"
 
 	if(!check_rights(R_DEBUG | R_EVENT))
 		return
 
-	var/map = input(usr, "Choose a Map Template to upload to template storage","Upload Map Template") as null|file
+	var/map = input(usr, "Choose a Map Template to upload to template storage", "Upload Map Template") as null|file
 	if(!map)
 		return
 	if(copytext("[map]",-4) != ".dmm")

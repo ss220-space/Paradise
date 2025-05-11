@@ -109,6 +109,54 @@
 	)
 	..()
 
+/obj/item/gripper/universal
+	name = "Universal gripper"
+	desc = "Универсальный захватывающий инструмент, используемый для выполнения сверх секретных заданий клана паука."
+	icon_state = "diskgripper"
+	can_hold = list(/obj/item/firealarm_electronics,
+		/obj/item/airalarm_electronics,
+		/obj/item/airlock_electronics,
+		/obj/item/firelock_electronics,
+		/obj/item/intercom_electronics,
+		/obj/item/apc_electronics,
+		/obj/item/access_control,
+		/obj/item/tracker_electronics,
+		/obj/item/stock_parts,
+		/obj/item/vending_refill,
+		/obj/item/mounted/frame/light_fixture,
+		/obj/item/mounted/frame/apc_frame,
+		/obj/item/mounted/frame/alarm_frame,
+		/obj/item/mounted/frame/firealarm,
+		/obj/item/mounted/frame/newscaster_frame,
+		/obj/item/mounted/frame/intercom,
+		/obj/item/mounted/frame/extinguisher,
+		/obj/item/mounted/frame/light_switch,
+		/obj/item/mounted/frame/door_control,
+		/obj/item/assembly/control,
+		/obj/item/rack_parts,
+		/obj/item/camera_assembly,
+		/obj/item/tank,
+		/obj/item/circuitboard,
+		/obj/item/stack/tile/light,
+		/obj/item/stack/ore/bluespace_crystal,
+		/obj/item/organ,
+		/obj/item/reagent_containers/iv_bag,
+		/obj/item/robot_parts/head,
+		/obj/item/robot_parts/l_arm,
+		/obj/item/robot_parts/r_arm,
+		/obj/item/robot_parts/l_leg,
+		/obj/item/robot_parts/r_leg,
+		/obj/item/robot_parts/chest,
+		/obj/item/stack/sheet/mineral/plasma,
+		/obj/item/card,
+		/obj/item/camera_film,
+		/obj/item/paper,
+		/obj/item/photo,
+		/obj/item/toy/plushie,
+		/obj/item/reagent_containers/food,
+		/obj/item/seeds,
+		/obj/item/disk/plantgene)
+
 /obj/item/gripper/nuclear
 	name = "Nuclear gripper"
 	desc = "Designed for all your nuclear needs."
@@ -290,32 +338,32 @@
 	if(!module)
 		module = new /obj/item/robot_module/drone(src)
 
-	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Drone modules</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"}
-	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Close</A>
-	<BR>
-	<BR>
-	<B>Activated Modules</B>
-	<BR>
-	Module 1: [module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "No Module"]<BR>
-	Module 2: [module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "No Module"]<BR>
-	Module 3: [module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "No Module"]<BR>
-	<BR>
-	<B>Installed Modules</B><BR><BR>"}
+	var/dat = ""
+	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Close</a>
+	<br>
+	<br>
+	<b>Activated Modules</b>
+	<br>
+	Module 1: [module_state_1 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_1]'>[module_state_1]</a>" : "No Module"]<br>
+	Module 2: [module_state_2 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_2]'>[module_state_2]</a>" : "No Module"]<br>
+	Module 3: [module_state_3 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_3]'>[module_state_3]</a>" : "No Module"]<br>
+	<br>
+	<b>Installed Modules</b><br><br>"}
 
 
-	var/tools = "<B>Tools and devices</B><BR>"
-	var/resources = "<BR><B>Resources</B><BR>"
+	var/tools = "<b>Tools and devices</b><br>"
+	var/resources = "<br><b>Resources</b><br>"
 
 	for(var/O in module.modules)
 
 		var/module_string = ""
 
 		if(!O)
-			module_string += text("<B>Resource depleted</B><BR>")
+			module_string += "<b>Resource depleted</b><br>"
 		else if(activated(O))
-			module_string += text("[O]: <B>Activated</B><BR>")
+			module_string += "[O]: <b>Activated</b><br>"
 		else
-			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Activate</A><BR>")
+			module_string += "[O]: <a href='byond://?src=[UID()];act=\ref[O]'>Activate</a><br>"
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -326,15 +374,18 @@
 
 	if(emagged)
 		if(!module.emag)
-			dat += text("<B>Resource depleted</B><BR>")
+			dat += "<b>Resource depleted</b><br>"
 		else if(activated(module.emag))
-			dat += text("[module.emag]: <B>Activated</B><BR>")
+			dat += "[module.emag]: <b>Activated</b><br>"
 		else
-			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Activate</A><BR>")
+			dat += "[module.emag]: <a href='byond://?src=[UID()];act=\ref[module.emag]'>Activate</a><br>"
 
 	dat += resources
 
-	src << browse(dat, "window=robotmod&can_close=0")
+	var/datum/browser/popup = new(src, "robotmod", "Drone modules")
+	popup.set_content(dat)
+	popup.set_window_options("can_close=0;")
+	popup.open(FALSE)
 
 //Putting the decompiler here to avoid doing list checks every tick.
 /mob/living/silicon/robot/drone/use_power()

@@ -92,16 +92,6 @@
 				var/obj/item/crusher_trophy/T = t
 				T.remove_from(gun, user)
 			qdel(gun)
-			var/obj/item/twohanded/kinetic_crusher/almost/newgun = new(get_turf(user))
-			user.put_in_hands(newgun)
-			to_chat(user,span_notice("Harsh tendrils wraps around the kinetic crusher, but there is not enough magmite to fully upgrade it! You need more magmite"))
-			qdel(src)
-		if(/obj/item/twohanded/kinetic_crusher/almost)
-			var/obj/item/twohanded/kinetic_crusher/almost/gun = target
-			for(var/t in gun.trophies)
-				var/obj/item/crusher_trophy/T = t
-				T.remove_from(gun, user)
-			qdel(gun)
 			var/obj/item/twohanded/kinetic_crusher/mega/newgun = new(get_turf(user))
 			user.put_in_hands(newgun)
 			to_chat(user,span_notice("Harsh tendrils wraps around the kinetic crusher, merging the parts and crusher to form a mega kinetic crusher."))

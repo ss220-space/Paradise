@@ -1,3 +1,4 @@
+
 /atom/movable/screen/movable/action_button
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
@@ -6,6 +7,9 @@
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
 
 /atom/movable/screen/movable/action_button/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(!observer_check(usr))
+		return
+
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
 		Click()
 		drag_start = 0
@@ -33,6 +37,9 @@
 
 
 /atom/movable/screen/movable/action_button/Click(location,control,params)
+	if(!observer_check(usr))
+		return
+
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
@@ -52,7 +59,7 @@
 		to_chat(usr, span_notice("Action button \"[name]\" [locked ? "" : "un"]locked."))
 		return TRUE
 	if(modifiers["alt"])
-		AltClick(usr)
+		usr.base_click_alt(src)
 		return TRUE
 	if(modifiers["middle"])
 		linked_action.Trigger(left_click = FALSE)
@@ -66,6 +73,9 @@
 	return TRUE
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
+	if(!observer_check(usr))
+		return
+
 	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
 	if(length(keybind_to_set_to) == 1)
 		keybind_to_set_to = uppertext(keybind_to_set_to)
@@ -83,12 +93,19 @@
 		to_chat(user, span_info("Your active keybinding on [src] has been cleared."))
 
 
-/atom/movable/screen/movable/action_button/AltClick(mob/user)
-	. = linked_action.AltTrigger()
+/atom/movable/screen/movable/action_button/click_alt(mob/user)
+	if(!observer_check(usr))
+		return
+
+	linked_action.AltTrigger()
 	linked_action.UpdateButtonIcon()
+	return CLICK_ACTION_SUCCESS
 
 /atom/movable/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
 	if(linked_keybind)
+		if(!observer_check(usr))
+			return
+
 		owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
 		if(!length(owner.client.active_keybindings[linked_keybind.binded_to]))
 			owner.client.active_keybindings[linked_keybind.binded_to] = null
@@ -116,12 +133,17 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/Click(location,control,params)
+	if(isobserver(usr))
+		var/mob/dead/observer/dead_mob = usr
+		if(dead_mob.orbiting)
+			return FALSE
+
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
 	var/list/modifiers = params2list(params)
 	if(modifiers["alt"])
-		AltClick(usr)
+		usr.base_click_alt(src)
 		return TRUE
 
 	usr.hud_used.action_buttons_hidden = !usr.hud_used.action_buttons_hidden
@@ -135,7 +157,10 @@
 	usr.update_action_buttons()
 
 
-/atom/movable/screen/movable/action_button/hide_toggle/AltClick(mob/user)
+/atom/movable/screen/movable/action_button/hide_toggle/click_alt(mob/user)
+	if(!observer_check(usr))
+		return
+
 	for(var/datum/action/action as anything in user.actions)
 		var/atom/movable/screen/movable/action_button/our_button = action.button
 		our_button.moved = FALSE
@@ -143,6 +168,7 @@
 		moved = FALSE
 	user.update_action_buttons(reload_screen = TRUE)
 	to_chat(user, span_notice("Action button positions have been reset."))
+	return CLICK_ACTION_SUCCESS
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/proc/InitialiseIcon(mob/living/user)
@@ -153,11 +179,13 @@
 		icon = initial(icon)
 		icon_state = "bg_default"
 		if(user.client) // Apply the client's UI style
-			icon = ui_style2icon(user.client.prefs.UI_style)
+			icon = ui_style2icon(user.client.prefs?.UI_style)
 			icon_state = "template"
+
 	if(user.client)
-		alpha = user.client.prefs.UI_style_alpha
-		color = user.client.prefs.UI_style_color
+		alpha = user.client.prefs?.UI_style_alpha
+		color = user.client.prefs?.UI_style_color
+
 	update_icon(UPDATE_OVERLAYS)
 
 
@@ -169,6 +197,9 @@
 
 
 /atom/movable/screen/movable/action_button/MouseEntered(location, control, params)
+	if(!observer_check(usr))
+		return
+
 	if(!QDELETED(src))
 		if(!linked_keybind)
 			openToolTip(usr, src, params, title = name, content = desc, theme = actiontooltipstyle)
@@ -183,6 +214,13 @@
 /atom/movable/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
 
+// We don't want give permit to use buttons
+/atom/movable/screen/movable/action_button/proc/observer_check(mob/user)
+	if(isobserver(user))
+		var/mob/dead/observer/dead_mob = user
+		if(linked_action?.owner != user || dead_mob.orbiting)
+			return FALSE
+	return TRUE
 
 /mob/proc/update_action_buttons_icon()
 	for(var/datum/action/action as anything in actions)

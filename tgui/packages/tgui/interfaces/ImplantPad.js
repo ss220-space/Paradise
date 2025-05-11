@@ -1,11 +1,19 @@
 import { useBackend, useLocalState } from '../backend';
-import { Button, Section, Box, LabeledList, Input, Icon } from '../components';
+import {
+  Button,
+  Section,
+  Box,
+  LabeledList,
+  Input,
+  Icon,
+  DmIcon,
+} from '../components';
 import { Window } from '../layouts';
 
-export const ImplantPad = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ImplantPad = (props) => {
+  const { act, data } = useBackend();
   const { implant, contains_case, tag } = data;
-  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
+  const [newTag, setNewTag] = useLocalState('newTag', tag);
 
   return (
     <Window width={410} height={325}>
@@ -27,8 +35,9 @@ export const ImplantPad = (props, context) => {
           {implant && contains_case ? (
             <>
               <Box bold mb={2}>
-                <img
-                  src={`data:image/jpeg;base64,${implant.image}`}
+                <DmIcon
+                  icon={implant.icon}
+                  icon_state={implant.icon_state}
                   ml={0}
                   mr={2}
                   style={{

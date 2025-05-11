@@ -2,6 +2,15 @@
 /obj/item/bee_briefcase
 	name = "briefcase"
 	desc = "This briefcase has easy-release clasps and smells vaguely of honey and blood..."
+	ru_names = list(
+		NOMINATIVE = "портфель",
+		GENITIVE = "портфеля",
+		DATIVE = "портфелю",
+		ACCUSATIVE = "портфель",
+		INSTRUMENTAL = "портфелем",
+		PREPOSITIONAL = "портфеле"
+	)
+	gender = MALE
 	description_antag = "A briefcase filled with deadly bees, you should inject this with a syringe of your own blood before opening it."
 	icon = 'icons/obj/storage.dmi'
 	icon_state = "briefcase"
@@ -12,7 +21,7 @@
 	throw_speed = 2
 	throw_range = 4
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb = list("ударил", "огрел")
 	var/bees_left = 10
 	var/list/blood_list = list()
 	var/sound_file = 'sound/misc/briefcase_bees.ogg'

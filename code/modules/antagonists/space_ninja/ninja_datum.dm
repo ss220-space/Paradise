@@ -4,6 +4,7 @@
 	special_role = SPECIAL_ROLE_SPACE_NINJA
 	antag_hud_name = "hudninja"
 	antag_hud_type = ANTAG_HUD_NINJA
+	antag_menu_name = "Космический ниндзя"
 	/// Abilities bicons used for the end game info.
 	var/purchased_abilities
 	/// If `FALSE` ninja will not get default items.
@@ -99,7 +100,7 @@
 
 /datum/antagonist/ninja/greet()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ninja_greeting.ogg')
-	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><B>Космический Ниндзя!</B></font>")
+	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><b>Космический Ниндзя!</b></font>")
 	to_chat(owner.current, "Моё оружие внезапность. Моя броня Тень. Без них, я ничто.")
 
 
@@ -114,6 +115,17 @@
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
 
+	user.AddElement( \
+		/datum/element/pref_viewer, \
+		list(/datum/preference_info/take_out_of_the_round_without_obj), \
+	)
+
+/datum/antagonist/ninja/handle_last_instance_removal()
+	owner.current.RemoveElement(/datum/element/pref_viewer)
+
+/datum/antagonist/ninja/on_body_transfer(mob/living/old_body, mob/living/new_body)
+	. = ..()
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
 	human_ninja = ishuman(mob_to_change) ? mob_to_change : null

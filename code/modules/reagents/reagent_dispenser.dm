@@ -98,13 +98,14 @@
 	return ..()
 
 
-/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
+/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/projectile/P)
 	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
 
 	if(will_explode) // Log here while you have the information needed
 		add_attack_logs(P.firer, src, "shot with [P.name]", ATKLOG_FEW)
 		investigate_log("[key_name_log(P.firer)] triggered a fueltank explosion with [P.name]", INVESTIGATE_BOMB)
 	..()
+
 
 /obj/structure/reagent_dispensers/fueltank/boom(rigtrigger = FALSE, log_attack = FALSE) // Prevent case where someone who rigged the tank is blamed for the explosion when the rig isn't what triggered the explosion
 	if(rigtrigger) // If the explosion is triggered by an assembly holder
@@ -151,6 +152,11 @@
 
 
 /obj/structure/reagent_dispensers/fueltank/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/weldingtool/sword))
+		if(I.tool_enabled)
+			boom(FALSE, TRUE)
+			return ATTACK_CHAIN_BLOCKED_ALL
+
 	if(istype(I, /obj/item/assembly_holder))
 		add_fingerprint(user)
 		var/obj/item/assembly_holder/assembly = I

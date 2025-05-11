@@ -29,7 +29,7 @@
 	var/hat_offset_y = -3
 	var/isCentered = FALSE //центрирован ли синтетик. Если нет, то шляпа будет растянута
 
-	var/list/blacklisted_hats = list( //Запрещенные шляпы на ношение для боргов с большими головами
+	var/list/blacklisted_hats = list( //Запрещённые шляпы на ношение для боргов с большими головами
 		/obj/item/clothing/head/helmet,
 		/obj/item/clothing/head/welding,
 		/obj/item/clothing/head/snowman,

@@ -38,6 +38,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		return FALSE
 	if(issilicon(mind.current))
 		return FALSE //Can't be converted by platform. Have to use a clock slab as an emag.
+	if(isalien(mind.current))
+		return FALSE
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
 		if(!isclocker(G.summoner))
@@ -58,16 +60,17 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/max_clockers_to_start = 4
+	var/static/max_clockers_to_start = 4
 
 /datum/game_mode/clockwork/announce()
-	to_chat(world, "<B>The current game mode is - Clockwork Cult!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a clockwork cult!<BR>\nClockers - complete your objectives. Convert crewmembers to your cause by using the credence structure. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
+	to_chat(world, "<b>The current game mode is - Clockwork Cult!</b>")
+	to_chat(world, "<b>Some crewmembers are attempting to start a clockwork cult!<br>\nClockers - complete your objectives. Convert crewmembers to your cause by using the credence structure. Remember - there is no you, there is only the cult.<br>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</b>")
 
 /datum/game_mode/clockwork/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
+	max_clockers_to_start += floor((num_players() - required_players) / RATVAR_PLAYER_PER_CULTIST)
 	var/list/clockers_possible = get_players_for_role(ROLE_CLOCKER)
 	for(var/clockers_number in 1 to max_clockers_to_start)
 		if(!length(clockers_possible))
@@ -346,14 +349,14 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(!clocker_objs.obj_demand.check_completion())
 		endtext += "<font color='red'>Fail.</font>"
 	else
-		endtext += "<font color='green'><B>Success!</B></font>"
+		endtext += "<font color='green'><b>Success!</b></font>"
 
 	if(clocker_objs.clock_status >= RATVAR_NEEDS_SUMMONING)
 		endtext += "<br>[clocker_objs.obj_summon.explanation_text] - "
 		if(!clocker_objs.obj_summon.check_completion())
 			endtext+= "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 
 	to_chat(world, endtext)
 	. = ..()

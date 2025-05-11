@@ -10,8 +10,8 @@ import {
 import { Window } from '../layouts';
 import { TableRow, TableCell } from '../components/Table';
 
-export const SupermatterMonitor = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SupermatterMonitor = (props) => {
+  const { act, data } = useBackend();
   if (data.active === 0) {
     return <SupermatterMonitorListView />;
   } else {
@@ -49,8 +49,8 @@ const pressureToColor = (pressure) => {
   }
 };
 
-const SupermatterMonitorListView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SupermatterMonitorListView = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={600} height={325}>
       <Window.Content scrollable>
@@ -100,8 +100,8 @@ const SupermatterMonitorListView = (props, context) => {
   );
 };
 
-const SupermatterMonitorDataView = (props, context) => {
-  const { act, data } = useBackend(context);
+const SupermatterMonitorDataView = (props) => {
+  const { act, data } = useBackend();
   return (
     <Window width={600} height={325}>
       <Window.Content>

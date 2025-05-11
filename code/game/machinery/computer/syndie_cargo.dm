@@ -53,7 +53,7 @@ GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage
 	slip.ordernumber = ordernum
 
 	var/stationName = "Syndicate RaMSS 'Taipan' Supply Mannifest"
-	var/packagesAmt = data_storage.shoppinglist.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
+	var/packagesAmt = data_storage?.shoppinglist?.len + ((errors & MANIFEST_ERROR_COUNT) ? rand(1,2) : 0)
 
 	slip.name = "Shipping Manifest - '[object.name]' for [orderedby]"
 

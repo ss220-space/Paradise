@@ -38,7 +38,7 @@ Limb Rejection
 	need_active_overlay = TRUE
 	invocation = ""
 
-	selection_activated_message		= span_notice("Your prepare to throw a limb!! <B>Left-click to cast at a target!</B>")
+	selection_activated_message		= span_notice("Your prepare to throw a limb!! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message	= span_notice("You decided not to throw a limb...for now.")
 
 	action_icon_state = "limb_throw"
@@ -74,7 +74,7 @@ Limb Rejection
 			to_chat(H, span_alert("You still need [organ]!"))
 			return FALSE
 
-	var/obj/item/projectile/limb/limb_projectile = new(user.loc, limb)
+	var/obj/projectile/limb/limb_projectile = new(user.loc, limb)
 	limb_projectile.current = get_turf(user)
 	var/turf/target_turf = get_turf(target)
 	limb_projectile.preparePixelProjectile(target, target_turf, user)

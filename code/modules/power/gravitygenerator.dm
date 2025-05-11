@@ -14,6 +14,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 #define GRAV_NEEDS_PLASTEEL 2
 #define GRAV_NEEDS_WRENCH 3
 
+#define BLOB_HITS_NEED 4
+
 //
 // Abstract Generator
 //
@@ -27,6 +29,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	use_power = NO_POWER_USE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | NO_MALF_EFFECT
 	var/sprite_number = 0
+	/// Number of successful blob hits
+	var/blob_hits = 0
 
 
 /obj/machinery/gravity_generator/ex_act(severity)
@@ -35,7 +39,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 /obj/machinery/gravity_generator/blob_act(obj/structure/blob/B)
-	if(prob(20))
+	blob_hits++
+	if(blob_hits >= BLOB_HITS_NEED)
 		set_broken()
 
 
@@ -290,15 +295,15 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	if(stat & BROKEN)
 		return
 
-	var/dat = {"<meta charset="UTF-8">Gravity Generator Breaker: "}
+	var/dat = "Gravity Generator Breaker: "
 	if(breaker)
-		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</A>"
+		dat += "<span class='linkOn'>ON</span> <a href='byond://?src=[UID()];gentoggle=1'>OFF</a>"
 	else
-		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</A> <span class='linkOn'>OFF</span> "
+		dat += "<a href='byond://?src=[UID()];gentoggle=1'>ON</a> <span class='linkOn'>OFF</span> "
 
 	dat += "<br>Generator Status:<br><div class='statusDisplay'>"
 	if(charging_state != GRAV_POWER_IDLE)
-		dat += "<font class='bad'>WARNING</font> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
+		dat += "<span class='bad'>WARNING</span> Radiation Detected. <br>[charging_state == GRAV_POWER_UP ? "Charging..." : "Discharging..."]"
 	else if(on)
 		dat += "Powered."
 	else
@@ -317,7 +322,7 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 	if(href_list["gentoggle"])
 		breaker = !breaker
-		investigate_log("was toggled [breaker ? "<font color='green'>ON</font>" : "<font color='red'>OFF</font>"] by [key_name_log(usr)].", INVESTIGATE_GRAVITY)
+		investigate_log("was toggled [breaker ? "<span style='color: green;'>ON</span>" : "<span style='color: red;'>OFF</span>"] by [key_name_log(usr)].", INVESTIGATE_GRAVITY)
 		set_power()
 		updateUsrDialog()
 
@@ -426,12 +431,13 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 // Shake everyone on the z level to let them know that gravity was enagaged/disenagaged.
 /obj/machinery/gravity_generator/main/proc/shake_everyone()
 	var/turf/our_turf = get_turf(src)
+	new /obj/effect/warp_effect/gravity_generator(our_turf)
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/mob/shaked as anything in GLOB.mob_list)
 		var/turf/mob_turf = get_turf(shaked)
 		if(!istype(mob_turf))
 			continue
-		if(!is_valid_z_level(our_turf, mob_turf))
+		if(!are_zs_connected(our_turf, mob_turf))
 			continue
 		if(isliving(shaked))
 			var/mob/living/living_shaked = shaked
@@ -457,11 +463,8 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 		return
 	var/list/z_list = list()
 	// Multi-Z, station gravity generator generates gravity on all STATION_LEVEL z-levels.
-	if(check_level_trait(our_turf.z, STATION_LEVEL))
-		for(var/z in levels_by_trait(STATION_LEVEL))
-			z_list += z
-	else
-		z_list += our_turf.z
+	for(var/z in SSmapping.get_connected_levels(our_turf))
+		z_list += z
 	for(var/z in z_list)
 		if(!GLOB.gravity_generators["[z]"])
 			GLOB.gravity_generators["[z]"] = list()
@@ -472,6 +475,15 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 
 
 // Misc
+
+/obj/effect/warp_effect/gravity_generator
+
+/obj/effect/warp_effect/gravity_generator/Initialize(mapload)
+	. = ..()
+	var/matrix/M = matrix() * 0.5
+	transform = M
+	animate(src, transform = M * 40, time = 0.8 SECONDS, alpha = 128, easing = CIRCULAR_EASING | EASE_IN)
+	QDEL_IN(src, 0.8 SECONDS)
 
 /obj/item/paper/gravity_gen
 	name = "paper- 'Generate your own gravity!'"

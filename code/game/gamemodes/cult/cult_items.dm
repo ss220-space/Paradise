@@ -30,7 +30,7 @@
 	throwforce = 10
 	sharp = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	sprite_sheets_inhand = list(SPECIES_SKRELL = 'icons/mob/clothing/species/skrell/held.dmi') // To stop skrell stabbing themselves in the head
 
 
@@ -504,7 +504,7 @@
 	throwforce = 15
 	throw_speed = 1
 	throw_range = 3
-	attack_verb = list("bumped", "prodded")
+	attack_verb = list("стукнул", "толкнул")
 	hitsound = 'sound/weapons/smash.ogg'
 	/// Chance that energy projectiles will be reflected
 	var/reflect_chance = 70
@@ -544,7 +544,7 @@
 
 		// Hit by a projectile
 		if(isprojectile(hitby))
-			var/obj/item/projectile/P = hitby
+			var/obj/projectile/P = hitby
 			var/shatter_chance = 0 // Percent chance of the shield shattering on a projectile hit
 			var/threshold // Depends on the damage Type (Brute or Burn)
 			if(P.damage_type == BRUTE)
@@ -631,7 +631,7 @@
 	throw_speed = 2
 	armour_penetration = 30
 	block_chance = 30
-	attack_verb = list("attacked", "impaled", "stabbed", "torn", "gored")
+	attack_verb = list("атаковал", "пронзил", "уколол", "поранил", "пронзил")
 	sharp = TRUE
 	no_spin_thrown = TRUE
 	hitsound = 'sound/weapons/bladeslice.ogg'
@@ -678,7 +678,7 @@
 		final_block_chance *= 2
 	if(prob(final_block_chance))
 		if(attack_type == PROJECTILE_ATTACK)
-			owner.visible_message("<span class='danger'>[owner] deflects [attack_text] with [src]!</span>")
+			owner.visible_message(span_danger("[owner] deflects [attack_text] with [src]!"), projectile_message = TRUE)
 			playsound(src, pick('sound/weapons/effects/ric1.ogg', 'sound/weapons/effects/ric2.ogg', 'sound/weapons/effects/ric3.ogg', 'sound/weapons/effects/ric4.ogg', 'sound/weapons/effects/ric5.ogg'), 100, TRUE)
 			return TRUE
 		else
@@ -730,17 +730,17 @@
 	ammo_type = /obj/item/ammo_casing/magic/arcane_barrage/blood
 
 /obj/item/ammo_casing/magic/arcane_barrage/blood
-	projectile_type = /obj/item/projectile/magic/arcane_barrage/blood
+	projectile_type = /obj/projectile/magic/arcane_barrage/blood
 	muzzle_flash_effect = /obj/effect/temp_visual/emp/cult
 
-/obj/item/projectile/magic/arcane_barrage/blood
+/obj/projectile/magic/arcane_barrage/blood
 	name = "blood bolt"
 	icon_state = "blood_bolt"
 	damage_type = BRUTE
 	impact_effect_type = /obj/effect/temp_visual/dir_setting/bloodsplatter
 	hitsound = 'sound/effects/splat.ogg'
 
-/obj/item/projectile/magic/arcane_barrage/blood/prehit(atom/target)
+/obj/projectile/magic/arcane_barrage/blood/prehit(atom/target)
 	if(iscultist(target))
 		damage = 0
 		nodamage = TRUE

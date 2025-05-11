@@ -6,8 +6,6 @@
 	var/robotic
 	/// If it should penetrate space suits
 	var/ignore_hardsuits
-	/// If ignore_hardsuits is true, this determines whether or not it should always cause a heart attack.
-	var/heart_attack_chance
 	/// Whether the safeties are enabled or not
 	var/safety
 	/// If the defib is actively performing a defib cycle
@@ -33,13 +31,12 @@
  * * cooldown - Minimum time possible between shocks.
  * * speed_multiplier - Speed multiplier for defib do-afters.
  * * ignore_hardsuits - If true, the defib can zap through hardsuits.
- * * heart_attack_chance - If safeties are off, the % chance for this to cause a heart attack on harm intent.
  * * safe_by_default - If true, safety will be enabled by default.
  * * emp_proof - If true, safety won't be switched by emp. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * emag_proof - If true, safety won't be switched by emag. Note that the device itself can still have behavior from it, it's just that the component will not.
  * * actual_unit - Unit which the component's parent is based from, such as a large defib unit or a borg. The actual_unit will make the sounds and be the "origin" of visible messages, among other things.
  */
-/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, heart_attack_chance = 100, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
+/datum/component/defib/Initialize(robotic, cooldown = 5 SECONDS, speed_multiplier = 1, ignore_hardsuits = FALSE, safe_by_default = TRUE, emp_proof = FALSE, emag_proof = FALSE, obj/item/actual_unit = null)
 	if(!isitem(parent))
 		return COMPONENT_INCOMPATIBLE
 
@@ -47,7 +44,6 @@
 	src.speed_multiplier = speed_multiplier
 	src.cooldown = cooldown
 	src.ignore_hardsuits = ignore_hardsuits
-	src.heart_attack_chance = heart_attack_chance
 	safety = safe_by_default
 	src.emp_proof = emp_proof
 	src.emag_proof = emag_proof
@@ -58,6 +54,7 @@
 	var/effect_target = isnull(actual_unit) ? parent : actual_unit
 
 	RegisterSignal(parent, COMSIG_ITEM_ATTACK, PROC_REF(trigger_defib))
+	RegisterSignal(parent, COMSIG_GLOVES_DOUBLE_HANDS_TOUCH, PROC_REF(trigger_defib))
 	RegisterSignal(effect_target, COMSIG_ATOM_EMAG_ACT, PROC_REF(on_emag))
 	RegisterSignal(effect_target, COMSIG_ATOM_EMP_ACT, PROC_REF(on_emp))
 
@@ -77,12 +74,12 @@
 
 	if(safety)
 		safety = FALSE
-		unit.visible_message(span_warning("[unit] beeps: Safety protocols disabled!"))
 		playsound(get_turf(unit), 'sound/machines/defib_saftyoff.ogg', 50, 0)
+		unit.atom_say("Протоколы безопасности деактивированы!")
 	else
 		safety = TRUE
-		unit.visible_message(span_notice("[unit] beeps: Safety protocols enabled!"))
 		playsound(get_turf(unit), 'sound/machines/defib_saftyon.ogg', 50, 0)
+		unit.atom_say("Протоколы безопасности активированы!")
 
 /datum/component/defib/proc/on_emag(obj/item/unit, mob/user)
 	SIGNAL_HANDLER  // COMSIG_ATOM_EMAG_ACT
@@ -90,7 +87,7 @@
 		return
 	safety = !safety
 	if(user && !robotic)
-		user.balloon_alert(user, "протоколы безопасности [safety ? "де" : ""]активированы!")
+		user.balloon_alert(user, "протоколы безопасности [safety ? "" : "де"]активированы!")
 
 /datum/component/defib/proc/set_cooldown(how_short)
 	on_cooldown = TRUE
@@ -133,22 +130,19 @@
 	var/application_result = SEND_SIGNAL(parent, COMSIG_DEFIB_PADDLES_APPLIED, user, target, should_cause_harm)
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_DEAD)
-		user.visible_message(span_notice("[defib_ref] beeps: Unit is unpowered."))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		defib_ref.atom_say("Недостаточно энергии!")
 		return
 
 	if(on_cooldown)
-		user.balloon_alert(user, "всё ещё заряжается!")
+		user.balloon_alert(user, "заряд не готов!")
 		return
 
 	if(application_result & COMPONENT_BLOCK_DEFIB_MISC)
 		return  // the unit should handle this
 
 	if(!istype(target))
-		if(robotic)
-			user.balloon_alert(user, "на роботах не сработает")
-		else
-			user.balloon_alert(user, "\"это\" нельзя дефибриллировать")
+		user.balloon_alert(user, "неподходящая цель!")
 		return
 
 	if(should_cause_harm)
@@ -158,14 +152,14 @@
 		return
 
 	user.visible_message(
-		span_warning("[user] begins to place [parent] on [target.name]'s chest."),
-		span_warning("You begin to place [parent] on [target.name]'s chest."),
+		span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] размещать электроды дефибриллятора на груди [target.name]."),
+		span_warning("Вы начинаете размещать электроды дефибриллятора на груди [target.name]."),
 	)
 
 	busy = TRUE
 	var/mob/dead/observer/ghost = target.get_ghost(TRUE)
 	if(ghost?.can_reenter_corpse)
-		to_chat(ghost, "[span_ghostalert("Your heart is being defibrillated. Return to your body if you want to be revived!")] (Verbs -> Ghost -> Re-enter corpse)")
+		to_chat(ghost, span_ghostalert("Ваше сердце пытаются дефибриллировать. Вернитесь в своё тело, если хотите быть оживлены!"))
 		window_flash(ghost.client)
 		SEND_SOUND(ghost, sound('sound/effects/genetics.ogg'))
 
@@ -174,8 +168,8 @@
 		return
 
 	user.visible_message(
-		span_notice("[user] places [parent] on [target.name]'s chest."),
-		span_warning("You place [parent] on [target.name]'s chest."),
+		span_notice("[user] разместил[genderize_ru(user.gender, "", "а", "о", "и")] электроды дефибриллятора на груди [target.name]."),
+		span_notice("Вы разместили электроды дефибриллятора на груди [target.name]."),
 	)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_charge.ogg', 50, 0)
 
@@ -188,29 +182,28 @@
 		return
 
 	if(istype(target.wear_suit, /obj/item/clothing/suit/space) && !ignore_hardsuits)
-		user.visible_message(span_notice("[defib_ref] buzzes: Patient's chest is obscured. Operation aborted."))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		defib_ref.atom_say("Грудь пациента закрыта. Операция отменена.")
 		busy = FALSE
 		return
 
 
 	if(target.undergoing_cardiac_arrest())
 		var/obj/item/organ/internal/heart/heart = target.get_organ_slot(INTERNAL_ORGAN_HEART)
-		if(!heart)
-			user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Failed to pick up any heart electrical activity."))
-		else if(heart.is_dead())
-			user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Heart necrosis detected."))
 		if(!heart || heart.is_dead())
 			playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
 			busy = FALSE
-			return
+		if(!heart)
+			defib_ref.atom_say("Реанимация не удалась - электрическая активность сердца не зафиксирована!")
+		else if(heart.is_dead())
+			defib_ref.atom_say("Реанимация не удалась - обнаружен некроз сердца!")
 
 		target.set_heartattack(FALSE)
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		SEND_SIGNAL(parent, COMSIG_DEFIB_SHOCK_APPLIED, user, target, should_cause_harm, TRUE)
 		set_cooldown(cooldown)
-		user.visible_message(span_boldnotice("[defib_ref] pings: Cardiac arrhythmia corrected."))
-		target.visible_message(span_warning("[target]'s body convulses a bit."), span_userdanger("You feel a jolt, and your heartbeat seems to steady."))
+		defib_ref.atom_say("Сердечная аритмия устранена!")
+		target.visible_message(span_warning("Тело [target] слегка вздрагивает."), span_userdanger("Вы чувствуете мощный удар током, после которого ритм вашего сердца приходит в норму."))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 		playsound(get_turf(defib_ref), "bodyfall", 50, 1)
 		playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
@@ -219,12 +212,12 @@
 		return
 
 	if(target.stat != DEAD && !HAS_TRAIT(target, TRAIT_FAKEDEATH))
-		user.visible_message(span_notice("[defib_ref] buzzes: Patient is not in a valid state. Operation aborted."))
 		playsound(get_turf(defib_ref), 'sound/machines/defib_failed.ogg', 50, 0)
+		defib_ref.atom_say("Пациент не подлежит реанимации. Операция отменена.")
 		busy = FALSE
 		return
 
-	target.visible_message(span_warning("[target]'s body convulses a bit."))
+	target.visible_message(span_warning("Тело [target] слегка вздрагивает."))
 	playsound(get_turf(defib_ref), "bodyfall", 50, 1)
 	playsound(get_turf(defib_ref), 'sound/machines/defib_zap.ogg', 50, 1, -1)
 	ghost = target.get_ghost(TRUE) // We have to double check whether the dead guy has entered their body during the above
@@ -235,25 +228,25 @@
 	var/time_dead = world.time - target.timeofdeath
 
 	if((time_dead > DEFIB_TIME_LIMIT) || !target.get_organ_slot(INTERNAL_ORGAN_HEART))
-		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Heart tissue damage beyond point of no return for defibrillation."))
+		defib_ref.atom_say("Реанимация не удалась - обнаружены необратимые повреждения сердца!")
 		defib_success = FALSE
 	else if(target.getBruteLoss() >= 180 || target.getFireLoss() >= 180 || target.getCloneLoss() >= 180)
-		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Severe tissue damage detected."))
+		defib_ref.atom_say("Реанимация не удалась - обнаружены обширные повреждения тканей!")
 		defib_success = FALSE
 	else if(target.blood_volume < BLOOD_VOLUME_SURVIVE)
-		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Patient blood volume critically low."))
+		defib_ref.atom_say("Реанимация не удалась - объём крови в организме пациента на критически низком уровне!")
 		defib_success = FALSE
 	else if(!target.get_organ_slot(INTERNAL_ORGAN_BRAIN))  //So things like headless clings don't get outed
-		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - No brain detected within patient."))
+		defib_ref.atom_say("Реанимация не удалась - мозг в теле пациента не обнаружен!")
 		defib_success = FALSE
 	else if(ghost)
 		if(!ghost.can_reenter_corpse || target.suiciding) // DNR or AntagHUD
-			user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - No electrical brain activity detected."))
+			defib_ref.atom_say("Реанимация не удалась - электрическая активность мозга не зафиксирована!")
 		else
-			user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed - Patient's brain is unresponsive. Further attempts may succeed."))
+			defib_ref.atom_say("Реанимация не удалась - мозг пациента не отреагировал!")
 		defib_success = FALSE
 	else if(HAS_TRAIT(target, TRAIT_NO_CLONE) || !target.mind || !(target.mind.is_revivable()) || HAS_TRAIT(target, TRAIT_FAKEDEATH) || target.suiciding)  // these are a bit more arbitrary
-		user.visible_message(span_boldnotice("[defib_ref] buzzes: Resuscitation failed."))
+		defib_ref.atom_say("Реанимация не удалась!")
 		defib_success = FALSE
 
 	if(!defib_success)
@@ -275,10 +268,10 @@
 
 		if(target.getBrainLoss() >= 100)
 			playsound(get_turf(defib_ref), 'sound/machines/defib_saftyoff.ogg', 50, 0)
-			user.visible_message(span_boldnotice("[defib_ref] chimes: Minimal brain activity detected, brain treatment recommended for full resuscitation."))
+			defib_ref.atom_say("Реанимация успешна. Критически слабая активность мозга пациента.")
 		else
 			playsound(get_turf(defib_ref), 'sound/machines/defib_success.ogg', 50, 0)
-		user.visible_message(span_boldnotice("[defib_ref] pings: Resuscitation successful."))
+		defib_ref.atom_say("Реанимация успешна!")
 
 		SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 		if(ishuman(target.pulledby)) // for some reason, pulledby isnt a list despite it being possible to be pulled by multiple people
@@ -295,7 +288,7 @@
 	busy = FALSE
 
 /**
- * Inflict stamina loss (and possibly inflict cardiac arrest) on someone.
+ * Inflict stamina loss and stun/knockdown on someone.
  *
  * Arguments:
  * * user - wielder of the defib
@@ -306,16 +299,17 @@
 		return
 	busy = TRUE
 	target.visible_message(
-		span_danger("[user] has touched [target.name] with [parent]!"),
-		span_userdanger("[user] has touched [target.name] with [parent]!"),
+		span_danger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] [target.name] электродами боевого дефибриллятора!"),
+		span_userdanger("[user] коснул[genderize_ru(user.gender, "ся", "ась", "ось", "ись")] вас электродами боевого дефибриллятора!"),
 	)
-	target.apply_damage(50, STAMINA)
-	target.Weaken(4 SECONDS)
+	if(ignore_hardsuits)
+		target.apply_damage(70, STAMINA)
+		target.Weaken(4 SECONDS)
+	else
+		target.apply_damage(40, STAMINA)
+		target.Knockdown(3 SECONDS)
 	playsound(get_turf(parent), 'sound/machines/defib_zap.ogg', 50, TRUE, -1)
 	target.emote("gasp")
-	if(prob(heart_attack_chance))
-		add_attack_logs(user, target, "Gave a heart attack with [parent]")
-		target.set_heartattack(TRUE)
 	SEND_SIGNAL(target, COMSIG_LIVING_MINOR_SHOCK, 100)
 	add_attack_logs(user, target, "Stunned with [parent]")
 	target.shock_internal_organs(100)
@@ -347,7 +341,7 @@
 	if(electrocute_mob(affecting, power_source, origin)) // shock anyone touching them >:)
 		var/obj/item/organ/internal/heart/heart = affecting.get_organ_slot(INTERNAL_ORGAN_HEART)
 		if(istype(heart) && heart.parent_organ_zone == BODY_ZONE_CHEST && affecting.has_both_hands()) // making sure the shock will go through their heart (drask hearts are in their head), and that they have both arms so the shock can cross their heart inside their chest
-			affecting.visible_message(span_danger("[affecting]'s entire body shakes as a shock travels up [affecting.p_their()] arm!"), \
-							span_userdanger("You feel a powerful shock travel up your [affecting.hand ? affecting.get_organ(BODY_ZONE_L_ARM) : affecting.get_organ(BODY_ZONE_R_ARM)] and back down your [affecting.hand ? affecting.get_organ(BODY_ZONE_R_ARM) : affecting.get_organ(BODY_ZONE_L_ARM)]!"))
+			affecting.visible_message(span_danger("[affecting] сотряса[pluralize_ru(affecting.gender, "ет", "ют")]ся от электрического тока, проходящего через [genderize_ru(affecting.gender, "его", "её", "его", "их")] руку!"), \
+							span_userdanger("Вы чувствуете мощный удар током, проходящий через ваше сердце!"))
 			affecting.set_heartattack(TRUE)
 

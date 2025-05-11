@@ -15,7 +15,7 @@ import {
 import { Window } from '../layouts';
 import { createSearch } from 'common/string';
 
-export const CargoConsole = (props, context) => {
+export const CargoConsole = (props) => {
   return (
     <Window width={900} height={800}>
       <Window.Content>
@@ -30,15 +30,13 @@ export const CargoConsole = (props, context) => {
   );
 };
 
-const ContentsModal = (_properties, context) => {
+const ContentsModal = (_properties) => {
   const [contentsModal, setContentsModal] = useLocalState(
-    context,
     'contentsModal',
     null
   );
 
   const [contentsModalTitle, setContentsModalTitle] = useLocalState(
-    context,
     'contentsModalTitle',
     null
   );
@@ -75,8 +73,8 @@ const ContentsModal = (_properties, context) => {
   }
 };
 
-const StatusPane = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const StatusPane = (_properties) => {
+  const { act, data } = useBackend();
   const { is_public, points, credits, timeleft, moving, at_station } = data;
 
   // Shuttle status text
@@ -128,30 +126,20 @@ const StatusPane = (_properties, context) => {
   );
 };
 
-const CataloguePane = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const CataloguePane = (_properties) => {
+  const { act, data } = useBackend();
   const { categories, supply_packs } = data;
 
-  const [category, setCategory] = useSharedState(
-    context,
-    'category',
-    'Emergency'
-  );
+  const [category, setCategory] = useSharedState('category', 'Emergency');
 
-  const [searchText, setSearchText] = useSharedState(
-    context,
-    'search_text',
-    ''
-  );
+  const [searchText, setSearchText] = useSharedState('search_text', '');
 
   const [contentsModal, setContentsModal] = useLocalState(
-    context,
     'contentsModal',
     null
   );
 
   const [contentsModalTitle, setContentsModalTitle] = useLocalState(
-    context,
     'contentsModalTitle',
     null
   );
@@ -244,8 +232,8 @@ const CataloguePane = (_properties, context) => {
   );
 };
 
-const DetailsPane = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const DetailsPane = (_properties) => {
+  const { act, data } = useBackend();
   const { requests, canapprove, orders } = data;
   return (
     <Section fill scrollable title="Details">

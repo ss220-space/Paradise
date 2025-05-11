@@ -117,10 +117,12 @@
     }
 
     // Perform a standard call via location.href
-    if (url.length < 2048) {
+    // Remove condition with 516
+    if (url.length < 2048 || Byond.BLINK !== null) {
       location.href = 'byond://' + url;
       return;
     }
+      // Remove with 516
     // Send an HTTP request to DreamSeeker's HTTP server.
     // Allows sending much bigger payloads.
     var xhr = new XMLHttpRequest();
@@ -339,12 +341,27 @@
       var node = document.createElement('link');
       node.type = 'text/css';
       node.rel = 'stylesheet';
+      node.crossOrigin = 'anonymous';
       node.href = url;
       // Temporarily set media to something inapplicable
       // to ensure it'll fetch without blocking render
       if (!sync) {
         node.media = 'only x';
       }
+
+      var removeNodeAndRetry = function () {
+        node.parentNode.removeChild(node);
+        node = null;
+        retry();
+      }
+      // 516: Chromium won't call onload() if there is a 404 error
+      // Legacy IE doesn't use onerror, so we retain that
+      // https://developer.mozilla.org/en-US/docs/Web/HTML/Element/link#stylesheet_load_events
+      node.onerror = function () {
+        node.onerror = null;
+        removeNodeAndRetry();
+      }
+
       node.onload = function () {
         node.onload = null;
         if (isStyleSheetLoaded(node, url)) {
@@ -353,9 +370,7 @@
           return;
         }
         // Try again
-        node.parentNode.removeChild(node);
-        node = null;
-        retry();
+        removeNodeAndRetry();
       };
       injectNode(node);
       return;
@@ -369,6 +384,40 @@
   Byond.loadCss = function (url, sync) {
     loadAsset({ url: url, sync: sync, type: 'css' });
   };
+
+  Byond.saveBlob = function (blob, filename, ext) {
+    if (window.navigator.msSaveBlob) {
+      window.navigator.msSaveBlob(blob, filename);
+    } else if (window.showSaveFilePicker) {
+      var accept = {};
+      accept[blob.type] = [ext];
+
+      var opts = {
+        suggestedName: filename,
+        types: [
+          {
+            description: 'SS13 file',
+            accept: accept,
+          },
+        ],
+      };
+
+      window
+        .showSaveFilePicker(opts)
+        .then(function (file) {
+          return file.createWritable();
+        })
+        .then(function (file) {
+          return file.write(blob).then(function () {
+            return file.close();
+          });
+        })
+        .catch(function () {});
+    }
+  };
+
+  // Icon cache
+  Byond.iconRefMap = {};
 })();
 
 // Error handling
@@ -514,6 +563,7 @@ window.replaceHtml = function (inline_html) {
       + "<!-- tgui:inline-html-end -->"
   );
 };
+
 </script>
 
 <style>
@@ -638,15 +688,15 @@ blink {
         ╚═╝  ╚═══╝   ╚═╝    ╚═════╝ ╚══════╝
 </div>
 <marquee class="FatalError__header">
-  A fatal exception has occurred at 002B:C562F1B7 in TGUI. The current
-  application will be terminated. Please remain calm. Get to the nearest
-  NTNet workstation and send the copy of the following stack trace to:
+  Произошла фатальная ошибка в секторе 002B:C562F1B7 TGUI. Текущее
+  приложение будет завершено. Сохраняйте спокойствие. Доберитесь до
+  ближайшей рабочей станции NTNet и сделайте отчёт по ошибке:
   <a
     target="_blank"
     style="color: white"
-    href="https://github.com/ParadiseSS13/Paradise"
-    >https://github.com/ParadiseSS13/Paradise</a
-  >. Thank you for your cooperation.
+    href="https://discord.gg/ss1984"
+    >https://discord.gg/ss1984</a
+  >. Благодарим вас за сотрудничество.
 </marquee>
 <div id="FatalError__stack" class="FatalError__stack"></div>
 <div class="FatalError__footer">

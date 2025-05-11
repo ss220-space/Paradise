@@ -202,6 +202,8 @@
 		last_message_time = world.time
 	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
 		last_message_count++
+		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
+			return FALSE
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
 			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>", confidential=TRUE)
 			cmd_admin_mute(mob, mute_type, 1)
@@ -235,7 +237,7 @@
 /client/New(TopicData)
 	// TODO: Remove with 516
 	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage")
+		winset(src, "", "browser-options=byondstorage,find")
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
 
@@ -325,7 +327,7 @@
 	log_client_to_db(tdata)
 	. = ..()	//calls mob.Login()
 
-
+	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
 	if(ckey in GLOB.clientmessages)
 		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
@@ -353,7 +355,7 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."), confidential=TRUE)
-		winset(src, "rpane.changelog", "font-style=bold")
+		winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
@@ -385,6 +387,8 @@
 	//This is down here because of the browse() calls in tooltip/New()
 	if(!tooltips)
 		tooltips = new /datum/tooltip(src)
+
+	loot_panel = new(src)
 
 	Master.UpdateTickRate()
 
@@ -435,13 +439,13 @@
 		movingmob.client_mobs_in_contents -= mob
 		UNSETEMPTY(movingmob.client_mobs_in_contents)
 
-	if(obj_window)
-		QDEL_NULL(obj_window)
 
 	SSambience.remove_ambience_client(src)
 	SSping.currentrun -= src
 	QDEL_LIST(parallax_layers_cached)
 	QDEL_NULL(void)
+	QDEL_NULL(tooltips)
+	QDEL_NULL(loot_panel)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -496,18 +500,23 @@
 /client/proc/send_to_server_by_url(url)
 	if (!url)
 		return
-	src << browse({"
-            <a id='link' href='[url]'>
-                LINK
+	var/datum/browser/browser = new(src, "redirect_[url]", null, 400, 400)
+	browser.set_window_options("border=0;titlebar=0;focus=1;can_close=0;can_resize=0;")
+	browser.set_content({"
+			<h1>Вы перенаправлены на сервер [url].<br> Нажмите на ссылку, если переход не произошел автоматически.</h1>
+            <a id='link' href='[url]' style='text-align: center; width=100%;' onclick='closeByond()' >
+                Ссылка
             </a>
-            <script type='text/javascript'>
-                document.getElementById("link").click();
-                window.location="byond://winset?command=.quit"
+			<script type='text/javascript'>
+				function closeByond(){
+					window.location="byond://winset?command=.quit"
+				}
+				document.getElementById("link").click();
             </script>
-            "},
-            "border=0;titlebar=0;size=1x1"
-        )
+            "})
+	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
+	
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -575,7 +584,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><B>Notice: </B></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins("<font color='red'><b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
@@ -697,7 +706,7 @@
 		if(CONFIG_GET(flag/ipintel_whitelist))
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
 				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
-				var/blockmsg = "<B>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</B>"
+				var/blockmsg = "<b>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</b>"
 				if(CONFIG_GET(string/banappeals))
 					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [CONFIG_GET(string/banappeals)]"
 				to_chat(src, blockmsg, confidential=TRUE)
@@ -713,7 +722,7 @@
 		var/living_hours = get_exp_type_num(EXP_TYPE_LIVING) / 60
 		if(living_hours < 20)
 			return
-	to_chat(src, "<B>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></B>", confidential=TRUE)
+	to_chat(src, "<b>You have no verified forum account. <a href='byond://?src=[UID()];link_forum_account=true'>VERIFY FORUM ACCOUNT</a></b>", confidential=TRUE)
 
 /client/proc/create_oauth_token()
 	var/datum/db_query/query_find_token = SSdbcore.NewQuery("SELECT token FROM [format_table_name("oauth_tokens")] WHERE ckey=:ckey limit 1", list(
@@ -1099,6 +1108,19 @@
 	set hidden = TRUE
 	client_reset_held_keys()
 
+/// Clears the client's screen, aside from ones that opt out
+/client/proc/clear_screen()
+	for(var/object in screen)
+		if(istype(object, /atom/movable/screen))
+			var/atom/movable/screen/screen_object = object
+			if(!screen_object.clear_with_screen)
+				continue
+		if( istype(object, /atom/movable/render_plane_relay) || \
+			istype(object, /atom/movable/screen/parallax_layer) || \
+			istype(object, /atom/movable/screen/plane_master/))
+			continue
+
+		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
@@ -1349,13 +1371,15 @@
 		log_adminwarn("[key] has just connected with BYOND v[byond_version].[byond_build] for the first time. BYOND account registered on [byondacc_date] ([byondacc_age] days old)")
 
 /client/proc/show_update_notice()
-	var/list/msg = list({"<meta charset="UTF-8">"})
+	var/list/msg = list()
 	msg += "<b>Ваша версия BYOND устарела:</b><br>"
 	msg += "Это может привести к проблемам, таким как к неправильному отображением вещей или лагам.<br><br>"
 	msg += "Ваша версия: [byond_version].[byond_build]<br>"
 	msg += "Требуемая версия, чтобы убрать это окно: [SUGGESTED_CLIENT_VERSION].[SUGGESTED_CLIENT_BUILD] или выше<br>"
 	msg += "Посетите <a href=\"https://secure.byond.com/download\">сайт BYOND</a>, чтобы скачать последнюю версию.<br>"
-	src << browse(msg.Join(""), "window=warning_popup")
+	var/datum/browser/popup = new(src, "warning_popup", "Warning")
+	popup.set_content(msg.Join(""))
+	popup.open(FALSE)
 	to_chat(src, span_userdanger("Ваш клиент BYOND (версия: [byond_version].[byond_build]) устарел. Это может вызвать лаги. Мы крайне рекомендуем скачать последнюю версию с <a href='https://www.byond.com/download/'>byond.com</a> Прежде чем играть. Также можете обновиться через приложение BYOND."), confidential=TRUE)
 
 
@@ -1374,6 +1398,13 @@
 		return
 	var/atom/old_eye = eye
 	eye = new_eye
+
+	for(var/mob/dead/observer/observe in mob.orbiters)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(mob.orbiters, observe)
+			continue
+		observe.client.eye = new_eye
+
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
@@ -1463,12 +1494,6 @@
 		if("Set-Tab")
 			stat_tab = payload["tab"]
 			SSstatpanels.immediate_send_stat_data(src)
-		if("Listedturf-Scroll")
-			if(payload["min"] == payload["max"])
-				// Not properly loaded yet, send the default set.
-				SSstatpanels.refresh_client_obj_view(src)
-			else
-				SSstatpanels.refresh_client_obj_view(src, payload["min"], payload["max"])
 		// Uncomment to enable log_debug in stat panel code.
 		// Disabled normally due to HREF exploit concerns.
 		//if("Statpanel-Debug")
@@ -1490,6 +1515,55 @@
 				class = "unknown"
 			debug_variables(stat_item)
 			message_admins("Admin [key_name_admin(usr)] is debugging the [stat_item] [class].")
+
+/client/proc/try_open_reagent_editor(atom/target)
+	var/target_UID = target.UID()
+	var/datum/reagents_editor/editor
+	// editors is static, it can be accessed using a null reference
+	editor = editor.editors[target_UID]
+	if(!editor)
+		editor = new /datum/reagents_editor(target)
+		editor.editors[target_UID] = editor
+
+	editor.ui_interact(mob)
+
+
+/client/proc/try_add_reagent(atom/target)
+	if(!target.reagents)
+		var/amount = tgui_input_number(usr, "Укажите размер хранилища реагентов для [target]", "Размер хранилища", 50)
+		if(amount)
+			target.create_reagents(amount)
+	var/chosen_id
+	var/list/reagent_options = sortAssoc(GLOB.chemical_reagents_list)
+	switch(tgui_alert(usr, "Выберите метод.", "Добавить реагент", list("Ввести ID", "Выбрать ID")))
+		if("Ввести ID")
+			var/valid_id
+			while(!valid_id)
+				chosen_id = tgui_input_text(usr, "Введите ID реагента, который хотите добавить.")
+				if(!chosen_id) //Get me out of here!
+					break
+				for(var/ID in reagent_options)
+					if(ID == chosen_id)
+						valid_id = 1
+				if(!valid_id)
+					to_chat(usr, span_warning("Реагента с данным ID не существует!"), confidential=TRUE)
+		if("Выбрать ID")
+			chosen_id = tgui_input_list(usr, "Выберите реагент для добавления.", "Выберите реагент.", reagent_options)
+	if(chosen_id)
+		var/amount = tgui_input_number(usr, "Введите количество добавляемого реагента.", "Введите количество.", target.reagents.maximum_volume)
+		if(amount)
+			target.reagents.add_reagent(chosen_id, amount)
+			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
+
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

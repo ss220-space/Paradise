@@ -344,38 +344,6 @@
 	tools = list(TOOL_WIRECUTTER)
 	category = CAT_CLOTHING
 
-/datum/crafting_recipe/footwrapsgoliath
-	name = "Goliath Hide Footwraps"
-	result = /obj/item/clothing/shoes/footwraps/goliath
-	reqs = list(/obj/item/stack/sheet/animalhide/goliath_hide = 1,
-				/obj/item/stack/sheet/leather = 1)
-	time = 6 SECONDS
-	category = CAT_CLOTHING
-
-/datum/crafting_recipe/footwrapsdragon
-	name = "Ash Drake Hide Footwraps"
-	result = /obj/item/clothing/shoes/footwraps/dragon
-	reqs = list(/obj/item/stack/sheet/animalhide/ashdrake = 1,
-				/obj/item/stack/sheet/leather = 1)
-	time = 6 SECONDS
-	category = CAT_CLOTHING
-
-/datum/crafting_recipe/goliathgloves
-	name = "Goliath Gloves"
-	result = /obj/item/clothing/gloves/color/black/goliath
-	time = 2 SECONDS
-	reqs = list(/obj/item/stack/sheet/leather = 2,
-				/obj/item/stack/sheet/animalhide/goliath_hide = 1)
-	category = CAT_CLOTHING
-
-/datum/crafting_recipe/chitingloves
-	name = "Weaver Chitin Gloves"
-	result = /obj/item/clothing/gloves/fingerless/weaver
-	time = 2 SECONDS
-	reqs = list(/obj/item/stack/sheet/leather = 1,
-				/obj/item/stack/sheet/animalhide/weaver_chitin = 3)
-	category = CAT_CLOTHING
-
 /datum/crafting_recipe/voice_modulator
 	name = "Voice Modulator Mask"
 	result = list(/obj/item/clothing/mask/gas/voice_modulator)
@@ -438,3 +406,93 @@
 	reqs = list(/obj/item/reagent_containers/food/snacks/grown/geranium = 5)
 	time = 2 SECONDS
 	category = CAT_CLOTHING
+
+
+/datum/crafting_recipe/hudsunsec/monocle
+	name = "Security HUD Monocle"
+	result = /obj/item/clothing/glasses/hud/security/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/security = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsunmed/monocle
+	name = "Medical HUD Monocle"
+	result = /obj/item/clothing/glasses/hud/health/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/health = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsunskills/monocle
+	name = "Skills HUD Monocle"
+	result = /obj/item/clothing/glasses/hud/skills/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/skills = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsunhydroponic/monocle
+	name = "Hydroponic HUD Monocle"
+	result = /obj/item/clothing/glasses/hud/hydroponic/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsundiag/monocle
+	name = "Diagnostic HUD Monocle"
+	result = /obj/item/clothing/glasses/hud/diagnostic/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsundiag/monoclesci
+	name = "Science HUD Monocle"
+	result = /obj/item/clothing/glasses/science/monocle
+	reqs = list(/obj/item/clothing/glasses/science = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsunmeson/monocle
+	name = "Meson HUD Monocle"
+	result = /obj/item/clothing/glasses/meson/monocle
+	reqs = list(/obj/item/clothing/glasses/meson = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsunthermal/monocle
+	name = "Thermal HUD Monocle"
+	result = /obj/item/clothing/glasses/thermal/monothermal
+	reqs = list(/obj/item/clothing/glasses/thermal = 1,
+				  /obj/item/clothing/glasses/monocle = 1,
+				  /obj/item/stack/cable_coil = 5)
+
+/datum/crafting_recipe/hudsunsecremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/security/monocle = 1)
+
+/datum/crafting_recipe/hudsunmedremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/health/monocle = 1)
+
+/datum/crafting_recipe/hudsunskillsremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/skills/monocle = 1)
+
+/datum/crafting_recipe/hudsunhydroponicremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/hydroponic/monocle = 1)
+
+/datum/crafting_recipe/hudsundiagremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/hud/diagnostic/monocle = 1)
+
+/datum/crafting_recipe/hudsundiagremoval/monoclesci
+	name = "Science HUD removal"
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/science/monocle = 1)
+
+/datum/crafting_recipe/hudsunmesonremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/meson/monocle = 1)
+
+/datum/crafting_recipe/hudsunthermalremoval/monocle
+	result = /obj/item/clothing/glasses/monocle
+	reqs = list(/obj/item/clothing/glasses/thermal/monothermal = 1)

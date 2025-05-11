@@ -8,19 +8,19 @@ type InputButtonsData = {
 };
 
 type InputButtonsProps = {
-  input: string | number | string[];
+  input: string | number | string[] | Object;
   message?: string;
   disabled?: boolean;
 };
 
-export const InputButtons = (props: InputButtonsProps, context) => {
-  const { act, data } = useBackend<InputButtonsData>(context);
+export const InputButtons = (props: InputButtonsProps) => {
+  const { act, data } = useBackend<InputButtonsData>();
   const { large_buttons, swapped_buttons } = data;
   const { input, message, disabled } = props;
   const submitButton = (
     <Button
       color="good"
-      content="Submit"
+      content="Принять"
       bold={!!large_buttons}
       fluid={!!large_buttons}
       onClick={() => act('submit', { entry: input })}
@@ -33,7 +33,7 @@ export const InputButtons = (props: InputButtonsProps, context) => {
   const cancelButton = (
     <Button
       color="bad"
-      content="Cancel"
+      content="Отменить"
       bold={!!large_buttons}
       fluid={!!large_buttons}
       onClick={() => act('cancel')}

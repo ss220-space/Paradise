@@ -366,7 +366,8 @@
 	enable_reproduce(TRUE)
 	mind.assigned_role = SPECIAL_ROLE_MORPH
 	mind.special_role = SPECIAL_ROLE_MORPH
-	SSticker.mode.traitors |= mind
+	SSticker.mode.morphs |= mind
+
 	var/list/messages = list()
 	messages.Add("<b><font size=3 color='red'>You are a morph.</font><br></b>")
 	messages.Add("<span class='sinister'>You hunger for living beings and desire to procreate. Achieve this goal by ambushing unsuspecting pray using your abilities.</span>")

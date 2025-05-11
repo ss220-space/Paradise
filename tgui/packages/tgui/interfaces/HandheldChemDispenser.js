@@ -11,7 +11,7 @@ import { Window } from '../layouts';
 const dispenseAmounts = [1, 5, 10, 20, 30, 50];
 const removeAmounts = [1, 5, 10];
 
-export const HandheldChemDispenser = (props, context) => {
+export const HandheldChemDispenser = (props) => {
   return (
     <Window width={450} height={500}>
       <Window.Content>
@@ -24,14 +24,14 @@ export const HandheldChemDispenser = (props, context) => {
   );
 };
 
-const HandheldChemDispenserSettings = (properties, context) => {
-  const { act, data } = useBackend(context);
+const HandheldChemDispenserSettings = (properties) => {
+  const { act, data } = useBackend();
   const { amount, energy, maxEnergy, mode } = data;
   return (
     <Stack.Item>
-      <Section title="Settings">
+      <Section title="Параметры">
         <LabeledList>
-          <LabeledList.Item label="Energy">
+          <LabeledList.Item label="Энергия">
             <ProgressBar
               value={energy}
               minValue={0}
@@ -42,10 +42,10 @@ const HandheldChemDispenserSettings = (properties, context) => {
                 bad: [-Infinity, maxEnergy * 0.25],
               }}
             >
-              {energy} / {maxEnergy} Units
+              {energy} / {maxEnergy} Единиц
             </ProgressBar>
           </LabeledList.Item>
-          <LabeledList.Item label="Amount" verticalAlign="middle">
+          <LabeledList.Item label="Объём синтеза" verticalAlign="middle">
             <Stack>
               {dispenseAmounts.map((a, i) => (
                 <Stack.Item key={i} grow width="15%">
@@ -64,12 +64,12 @@ const HandheldChemDispenserSettings = (properties, context) => {
               ))}
             </Stack>
           </LabeledList.Item>
-          <LabeledList.Item label="Mode" verticalAlign="middle">
+          <LabeledList.Item label="Режим" verticalAlign="middle">
             <Stack justify="space-between">
               <Button
                 icon="cog"
                 selected={mode === 'dispense'}
-                content="Dispense"
+                content="Синтез"
                 m="0"
                 width="32%"
                 onClick={() =>
@@ -81,7 +81,7 @@ const HandheldChemDispenserSettings = (properties, context) => {
               <Button
                 icon="cog"
                 selected={mode === 'remove'}
-                content="Remove"
+                content="Удаление"
                 m="0"
                 width="32%"
                 onClick={() =>
@@ -93,7 +93,7 @@ const HandheldChemDispenserSettings = (properties, context) => {
               <Button
                 icon="cog"
                 selected={mode === 'isolate'}
-                content="Isolate"
+                content="Изоляция"
                 m="0"
                 width="32%"
                 onClick={() =>
@@ -110,8 +110,8 @@ const HandheldChemDispenserSettings = (properties, context) => {
   );
 };
 
-const HandheldChemDispenserChemicals = (properties, context) => {
-  const { act, data } = useBackend(context);
+const HandheldChemDispenserChemicals = (properties) => {
+  const { act, data } = useBackend();
   const { chemicals = [], current_reagent } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
@@ -122,7 +122,7 @@ const HandheldChemDispenserChemicals = (properties, context) => {
       <Section
         fill
         scrollable
-        title={data.glass ? 'Drink Selector' : 'Chemical Selector'}
+        title={data.glass ? 'Выбор напитка' : 'Выбор реагента'}
       >
         {chemicals.map((c, i) => (
           <Button

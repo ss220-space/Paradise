@@ -13,8 +13,8 @@ import { Window } from '../layouts';
 const dispenseAmounts = [1, 5, 10, 20, 30, 50, 100];
 const removeAmounts = [1, 5, 10];
 
-export const ChemDispenser = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemDispenser = (props) => {
+  const { act, data } = useBackend();
   const { chemicals } = data;
   return (
     <Window width={460} height={400 + chemicals.length * 8}>
@@ -29,14 +29,14 @@ export const ChemDispenser = (props, context) => {
   );
 };
 
-const ChemDispenserSettings = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserSettings = (properties) => {
+  const { act, data } = useBackend();
   const { amount, energy, maxEnergy } = data;
   return (
     <Stack.Item>
-      <Section title="Settings">
+      <Section title="Параметры">
         <LabeledList>
-          <LabeledList.Item label="Energy">
+          <LabeledList.Item label="Энергия">
             <ProgressBar
               value={energy}
               minValue={0}
@@ -47,10 +47,10 @@ const ChemDispenserSettings = (properties, context) => {
                 bad: [-Infinity, maxEnergy * 0.25],
               }}
             >
-              {energy} / {maxEnergy} Units
+              {energy} / {maxEnergy} единиц
             </ProgressBar>
           </LabeledList.Item>
-          <LabeledList.Item label="Dispense" verticalAlign="middle">
+          <LabeledList.Item label="Объём синтеза" verticalAlign="middle">
             <Stack>
               {dispenseAmounts.map((a, i) => (
                 <Stack.Item key={i} grow width="15%">
@@ -75,8 +75,8 @@ const ChemDispenserSettings = (properties, context) => {
   );
 };
 
-const ChemDispenserChemicals = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserChemicals = (properties) => {
+  const { act, data } = useBackend();
   const { chemicals = [] } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
@@ -87,21 +87,22 @@ const ChemDispenserChemicals = (properties, context) => {
       <Section
         fill
         scrollable
-        title={data.glass ? 'Drink Dispenser' : 'Chemical Dispenser'}
+        title={data.glass ? 'Синтез напитков' : 'Синтез реагентов'}
       >
-        {chemicals.map((c, i) => (
+        {chemicals.map((chemical, i) => (
           <Button
             m={0.1}
             key={i}
             width="32.5%"
-            icon="arrow-circle-down"
+            icon="tint"
+            iconColor={chemical.reagentColor}
             overflow="hidden"
             textOverflow="ellipsis"
-            content={c.title}
+            content={chemical.title}
             style={{ 'margin-left': '2px' }}
             onClick={() =>
               act('dispense', {
-                reagent: c.id,
+                reagent: chemical.id,
               })
             }
           />
@@ -114,8 +115,8 @@ const ChemDispenserChemicals = (properties, context) => {
   );
 };
 
-const ChemDispenserBeaker = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserBeaker = (properties) => {
+  const { act, data } = useBackend();
   const {
     isBeakerLoaded,
     beakerCurrentVolume,
@@ -125,19 +126,19 @@ const ChemDispenserBeaker = (properties, context) => {
   return (
     <Stack.Item height={16}>
       <Section
-        title={data.glass ? 'Glass' : 'Beaker'}
+        title="Ёмкость"
         fill
         scrollable
         buttons={
           <Box>
             {!!isBeakerLoaded && (
               <Box inline color="label" mr={2}>
-                {beakerCurrentVolume} / {beakerMaxVolume} units
+                {beakerCurrentVolume} / {beakerMaxVolume} единиц
               </Box>
             )}
             <Button
               icon="eject"
-              content="Eject"
+              content="Извлечь"
               disabled={!isBeakerLoaded}
               onClick={() => act('ejectBeaker')}
             />
@@ -150,12 +151,15 @@ const ChemDispenserBeaker = (properties, context) => {
           buttons={(chemical) => (
             <>
               <Button
-                content="Isolate"
-                icon="compress-arrows-alt"
+                tooltip={
+                  'Удаляет лишнее, округляя объём до ' +
+                  Math.trunc(chemical.volume)
+                }
+                icon="arrow-circle-down"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: -1,
+                    amount: -2,
                   })
                 }
               />
@@ -172,22 +176,22 @@ const ChemDispenserBeaker = (properties, context) => {
                 />
               ))}
               <Button
-                content="ALL"
+                tooltip={'Удаляет остальные реагенты'}
+                icon="compress-arrows-alt"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: chemical.volume,
+                    amount: -1,
                   })
                 }
               />
               <Button
-                content="Floor"
-                tooltip={'Set to ' + Math.trunc(chemical.volume)}
-                icon="arrow-circle-down"
+                tooltip={'Удаляет этот реагент'}
+                icon="droplet-slash"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: -2,
+                    amount: chemical.volume,
                   })
                 }
               />

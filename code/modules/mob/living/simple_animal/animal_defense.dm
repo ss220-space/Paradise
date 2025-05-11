@@ -62,7 +62,7 @@
 
 		if(INTENT_GRAB)
 			if(holder_type)
-				get_scooped(M)
+				pick_up_mob(M)
 			else
 				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
@@ -125,7 +125,7 @@
 		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))
 		return TRUE
 
-/mob/living/simple_animal/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bullet_act(obj/projectile/Proj)
 	if(!Proj)
 		return
 	apply_damage(Proj.damage, Proj.damage_type)
@@ -156,7 +156,10 @@
 			adjustBruteLoss(bloss)
 
 /mob/living/simple_animal/blob_act(obj/structure/blob/B)
-	adjustBruteLoss(20)
+	var/result = ..()
+	if(result)
+		adjustBruteLoss(20)
+	return result
 
 /mob/living/simple_animal/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
 	if(!no_effect && !visual_effect_icon && melee_damage_upper)
@@ -165,3 +168,8 @@
 		else
 			visual_effect_icon = ATTACK_EFFECT_SMASH
 	..()
+
+/mob/living/simple_animal/attack_basic_mob(mob/living/basic/user, list/modifiers)
+	. = ..()
+	if(.)
+		return attack_threshold_check(user.melee_damage, user.melee_damage_type)

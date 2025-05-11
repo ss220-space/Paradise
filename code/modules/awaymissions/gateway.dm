@@ -75,6 +75,8 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 		return
 
 	if(active)
+		if(GLOB.full_lockdown)
+			toggleoff()
 		use_power(5000)
 
 
@@ -104,6 +106,9 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 	if(length(linked) != 8)
 		return
 	if(!powered())
+		return
+	if(GLOB.full_lockdown)
+		to_chat(user, span_notice("Error: Lockdowned by CentComm."))
 		return
 	if(!awaygate)
 		awaygate = locate(/obj/machinery/gateway/centeraway) in GLOB.machines

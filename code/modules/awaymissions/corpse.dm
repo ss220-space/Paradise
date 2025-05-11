@@ -349,7 +349,7 @@
 			if(hair_style)
 				D.h_style = hair_style
 			else
-				D.h_style = random_hair_style(gender, D.dna.species.name)
+				D.h_style = random_hair_style(gender, D.dna.species)
 			D.hair_colour = rand_hex_color()
 			if(facial_hair_style)
 				D.f_style = facial_hair_style

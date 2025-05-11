@@ -46,41 +46,33 @@
 
 	return pick(valid_picks)
 
-/proc/random_hair_style(gender, species = SPECIES_HUMAN, datum/robolimb/robohead, mob/living/carbon/human/H)
+/proc/random_hair_style(
+	gender,
+	datum/species/species,
+	datum/robolimb/robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"],
+	mob/living/carbon/human/human
+	)
 	var/h_style = "Bald"
 	var/list/valid_hairstyles = list()
 
-	if(species == SPECIES_WRYN) // wryns antennaes now bound to hivenode, no need to change them
-		if(H)
-			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-			if(head_organ?.h_style)
-				return head_organ.h_style
-		else
-			return "Antennae"
-
 	for(var/hairstyle in GLOB.hair_styles_public_list)
-		var/datum/sprite_accessory/S = GLOB.hair_styles_public_list[hairstyle]
+		var/datum/sprite_accessory/style = GLOB.hair_styles_public_list[hairstyle]
 
-		if(hairstyle == "Bald") //Just in case.
-			valid_hairstyles += hairstyle
+		if(!LAZYIN(style.species_allowed, species.name))
 			continue
-		if(gender == S.unsuitable_gender)
-			continue
-		if(species == SPECIES_MACNINEPERSON) //If the user is a species who can have a robotic head...
-			if(!robohead)
-				robohead = GLOB.all_robolimbs["Morpheus Cyberkinetics"]
-			if((species in S.species_allowed) && robohead.is_monitor && ((S.models_allowed && (robohead.company in S.models_allowed)) || !S.models_allowed)) //If this is a hair style native to the user's species, check to see if they have a head with an ipc-style screen and that the head's company is in the screen style's allowed models list.
-				valid_hairstyles += hairstyle //Give them their hairstyles if they do.
-			else
-				if(!robohead.is_monitor && (SPECIES_HUMAN in S.species_allowed)) /*If the hairstyle is not native to the user's species and they're using a head with an ipc-style screen, don't let them access it.
-																			But if the user has a robotic humanoid head and the hairstyle can fit humans, let them use it as a wig. */
-					valid_hairstyles += hairstyle
-		else //If the user is not a species who can have robotic heads, use the default handling.
-			if(species in S.species_allowed) //If the user's head is of a species the hairstyle allows, add it to the list.
-				valid_hairstyles += hairstyle
 
-	if(valid_hairstyles.len)
-		h_style = pick(valid_hairstyles)
+		if(gender == style.unsuitable_gender)
+			continue
+
+		if(!species.is_allowed_hair_style(human, robohead, style))
+			continue
+
+		LAZYADD(valid_hairstyles, hairstyle)
+
+	if(human)
+		SEND_SIGNAL(human, COMSIG_RANDOM_HAIR_STYLE, valid_hairstyles, robohead)
+
+	h_style = safepick(valid_hairstyles)
 
 	return h_style
 
@@ -141,6 +133,8 @@
 		if(gender == S.unsuitable_gender)	// If the marking isn't allowed for the user's gender, skip.
 			continue
 		if(!(species in S.species_allowed))	// If the user's head is not of a species the marking style allows, skip it. Otherwise, add it to the list.
+			continue
+		if(!S.pickable) //If our markings are unpickable in normal ways, skip it
 			continue
 		if(location == "tail")
 			if(!body_accessory)
@@ -492,7 +486,7 @@
 			if(DEAD)
 				status = "<font color='red'><b>Dead</b></font>"
 		health_description = "Status = [status]"
-		health_description += "<BR>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
+		health_description += "<br>Oxy: [L.getOxyLoss()] - Tox: [L.getToxLoss()] - Fire: [L.getFireLoss()] - Brute: [L.getBruteLoss()] - Clone: [L.getCloneLoss()] - Brain: [L.getBrainLoss()]"
 	else
 		health_description = "This mob type has no health to speak of."
 
@@ -508,7 +502,7 @@
 	to_chat(user, "Name = <b>[M.name]</b>; Real_name = [M.real_name]; Mind_name = [M.mind?"[M.mind.name]":""]; Key = <b>[M.key]</b>;")
 	to_chat(user, "Location = [location_description];")
 	to_chat(user, "[special_role_description]")
-	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")])")
+	to_chat(user, "(<a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a>) ([ADMIN_PP(M,"PP")]) ([ADMIN_VV(M,"VV")]) ([ADMIN_TP(M,"TP")]) ([ADMIN_SM(M,"SM")]) ([ADMIN_FLW(M,"FLW")]) ([ADMIN_OBS(M, "OBS")])")
 
 // Gets the first mob contained in an atom, and warns the user if there's not exactly one
 /proc/get_mob_in_atom_with_warning(atom/A, mob/user = usr)
@@ -596,14 +590,20 @@
 					mob_spawn_meancritters += T
 				if(FRIENDLY_SPAWN)
 					mob_spawn_nicecritters += T
+		for(var/mob/living/basic/basic_mob as anything in typesof(/mob/living/basic))
+			switch(initial(basic_mob.gold_core_spawnable))
+				if(HOSTILE_SPAWN)
+					mob_spawn_meancritters += basic_mob
+				if(FRIENDLY_SPAWN)
+					mob_spawn_nicecritters += basic_mob
 
 	var/chosen
 	if(mob_class == FRIENDLY_SPAWN)
 		chosen = pick(mob_spawn_nicecritters)
 	else
 		chosen = pick(mob_spawn_meancritters)
-	var/mob/living/simple_animal/C = new chosen(spawn_location)
-	return C
+	var/mob/living/spawned_mob = new chosen(spawn_location)
+	return spawned_mob
 
 //determines the job of a mob, taking into account job transfers
 /proc/determine_role(mob/living/P)
@@ -668,4 +668,3 @@
 		out_ckey = "(Disconnected)"
 
 	return out_ckey
-

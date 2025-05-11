@@ -24,7 +24,7 @@
 	generate_space_underlay(underlay_appearance, asking_turf)
 	return TRUE // stops ruining parallax space
 
-/turf/space/openspace/ChangeTurf(path, defer_change, keep_icon, ignore_air, copy_existing_baseturf)
+/turf/space/openspace/ChangeTurf(path, defer_change, keep_icon, after_flags, copy_existing_baseturf)
 	UnregisterSignal(src, COMSIG_ATOM_AFTER_SUCCESSFUL_INITIALIZED_ON)
 	return ..()
 
@@ -193,7 +193,7 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 	return RCD_ACT_FAILED
 
-/turf/space/openspace/bullet_act(obj/item/projectile/P, def_zone)
+/turf/space/openspace/bullet_act(obj/projectile/P, def_zone)
 	return -1
 
 // Every new proc that should be edited or added here. Also needs to be copied into /turf/simulated/openspace. I'm not sorry.

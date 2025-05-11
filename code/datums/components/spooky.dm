@@ -24,7 +24,7 @@
 		C.SetStuttering(40 SECONDS)
 		if(!istype(H.dna.species, /datum/species/diona) && !istype(H.dna.species, /datum/species/machine) && !istype(H.dna.species, /datum/species/slime) && !istype(H.dna.species, /datum/species/golem) && !istype(H.dna.species, /datum/species/plasmaman))
 			C.apply_damage(25, STAMINA) //boneless humanoids don't lose the will to live
-		to_chat(C, "<font color='red' size='4'><B>DOOT</B></font>")
+		to_chat(C, "<font color='red' size='4'><b>DOOT</b></font>")
 		spectral_change(H)
 
 	else //the sound will spook monkeys.

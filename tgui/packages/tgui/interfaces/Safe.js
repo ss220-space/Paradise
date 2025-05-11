@@ -4,8 +4,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Icon, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Safe = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const Safe = (properties) => {
+  const { act, data } = useBackend();
   const { dial, open, locked, contents } = data;
   return (
     <Window theme="safe" width={600} height={800}>
@@ -42,8 +42,8 @@ export const Safe = (properties, context) => {
   );
 };
 
-const Dialer = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Dialer = (properties) => {
+  const { act, data } = useBackend();
   const { dial, open, locked } = data;
   const dialButton = (amount, right) => {
     return (
@@ -84,8 +84,8 @@ const Dialer = (properties, context) => {
   );
 };
 
-const Contents = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Contents = (properties) => {
+  const { act, data } = useBackend();
   const { contents } = data;
   return (
     <Box className="Safe--contents" overflow="auto">
@@ -115,7 +115,7 @@ const Contents = (properties, context) => {
   );
 };
 
-const Help = (properties, context) => {
+const Help = (properties) => {
   return (
     <Section
       className="Safe--help"

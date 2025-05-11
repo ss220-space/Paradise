@@ -37,10 +37,13 @@
 
 /datum/component/spawner/proc/try_spawn_mob()
 	var/atom/P = parent
+	var/turf/T = get_turf(P)
+	if(GLOB.mob_suspension && T && !length(SSmobs?.clients_by_zlevel[T.z]))
+		return FALSE
 	if(spawned_mobs.len >= max_mobs)
-		return 0
+		return FALSE
 	if(spawn_delay > world.time)
-		return 0
+		return FALSE
 	spawn_delay = world.time + spawn_time
 	var/chosen_mob_type = pickweight(mob_types)
 	var/mob/living/simple_animal/L = new chosen_mob_type(P.loc)

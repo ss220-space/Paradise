@@ -35,9 +35,9 @@ const getStatusColour = (level) => {
   }
 };
 
-export const AtmosControl = (props, context) => {
-  const { act, data } = useBackend(context);
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const AtmosControl = (props) => {
+  const { act, data } = useBackend();
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -76,8 +76,8 @@ export const AtmosControl = (props, context) => {
   );
 };
 
-const AtmosControlDataView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const AtmosControlDataView = (_properties) => {
+  const { act, data } = useBackend();
   const { alarms } = data;
   return (
     <Box>
@@ -109,12 +109,11 @@ const AtmosControlDataView = (_properties, context) => {
   );
 };
 
-const AtmosControlMapView = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const AtmosControlMapView = (_properties) => {
+  const { act, data } = useBackend();
   const { alarms, stationLevelNum, stationLevelName } = data;
-  const [zoom, setZoom] = useLocalState(context, 'zoom', 1);
+  const [zoom, setZoom] = useLocalState('zoom', 1);
   const [z_current, setZCurrent] = useLocalState(
-    context,
     'z_current',
     stationLevelNum[0]
   );

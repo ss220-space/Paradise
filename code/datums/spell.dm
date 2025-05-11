@@ -89,6 +89,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	/// What panel the proc holder needs to go on.
 	density = FALSE
 	opacity = FALSE
+	interaction_flags_click = BYPASS_ADJACENCY
 
 	/// Not relevant at now, but may be important later if there are changes to how spells work. the ones I used for now will probably be changed... maybe spell presets? lacking flexibility but with some other benefit?
 	var/school = "evocation"
@@ -251,7 +252,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /obj/effect/proc_holder/spell/proc/invocation(mob/user = usr) //spelling the spell out and setting it on recharge/reducing charges amount
 	switch(invocation_type)
 		if("shout")
-			if(!user.IsVocal())
+			if(!user.IsVocal()  || user.cannot_speak_loudly())
 				user.custom_emote(EMOTE_VISIBLE, "дела%(ет,ют)% безумные жесты!")
 			else
 				if(prob(50))//Auto-mute? Fuck that noise
@@ -500,15 +501,15 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			do_sparks(sparks_amt, 0, location)
 
 		if(smoke_type)
-			var/datum/effect_system/smoke_spread/smoke
+			var/datum/effect_system/fluid_spread/smoke/smoke
 			switch(smoke_type)
 				if(SMOKE_HARMLESS)
-					smoke = new /datum/effect_system/smoke_spread()
+					smoke = new /datum/effect_system/fluid_spread/smoke()
 				if(SMOKE_COUGHING)
-					smoke = new /datum/effect_system/smoke_spread/bad()
+					smoke = new /datum/effect_system/fluid_spread/smoke/bad()
 				if(SMOKE_SLEEPING)
-					smoke = new /datum/effect_system/smoke_spread/sleeping()
-			smoke.set_up(smoke_amt, FALSE, location)
+					smoke = new /datum/effect_system/fluid_spread/smoke/sleeping()
+			smoke.set_up(amount = smoke_amt, location = location)
 			smoke.start()
 
 	custom_handler?.after_cast(targets, user, src)

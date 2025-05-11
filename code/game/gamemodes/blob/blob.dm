@@ -1,6 +1,6 @@
 /datum/game_mode
 	/// List of of blobs, their offsprings and blobburnouts spawned by them
-	var/list/blobs = list("infected"=list(), "offsprings"=list(), "blobernauts"=list())
+	var/list/blobs = list("infected"=list(), "offsprings"=list(), "minions"=list())
 	/// Count of blob tiles to blob win
 	var/blob_win_count = BLOB_BASE_TARGET_POINT
 	/// Number of resource produced by the core
@@ -15,6 +15,10 @@
 	var/off_auto_gamma = FALSE
 	/// Disables automatic nuke codes
 	var/off_auto_nuke_codes = FALSE
+	/// Is all blobs have infinity points
+	var/is_blob_infinity_points = FALSE
+	/// Is all blobs have infinity points
+	var/list/legit_blobs = list()
 	/// Total blobs objective
 	var/datum/objective/blob_critical_mass/blob_objective
 
@@ -76,8 +80,8 @@
 
 
 /datum/game_mode/blob/announce()
-	to_chat(world, "<B>Текущий режим игры - <font color='green'>Блоб</font>!</B>")
-	to_chat(world, "<B>Опасный инопланетный организм стремительно распространяется по всей станции!</B>")
+	to_chat(world, "<b>Текущий режим игры - <font color='green'>Блоб</font>!</b>")
+	to_chat(world, "<b>Опасный инопланетный организм стремительно распространяется по всей станции!</b>")
 	to_chat(world, "Вы должны уничтожить его, сведя к минимуму ущерб, нанесенный станции.")
 
 
@@ -110,9 +114,10 @@
 
 /datum/game_mode/proc/update_blob_objective()
 	if(blob_objective && !blob_objective.completed)
-		blob_objective.critical_mass = GLOB.blobs.len
+		blob_objective.critical_mass = legit_blobs.len
 		blob_objective.needed_critical_mass = blob_win_count
 		blob_objective.set_target()
+		blob_objective.owner = src
 
 
 /datum/game_mode/proc/blob_died()
@@ -126,7 +131,7 @@
 		blob_list.Add(value)
 	for(var/value in blobs["offsprings"])
 		blob_list.Add(value)
-	for(var/value in blobs["blobernauts"])
+	for(var/value in blobs["minions"])
 		blob_list.Add(value)
 	return blob_list
 
@@ -135,8 +140,6 @@
 	switch(report_number)
 		if (BLOB_DEATH_REPORT_FIRST)
 			send_intercept(BLOB_THIRD_REPORT)
-		if (BLOB_DEATH_REPORT_SECOND)
-			SSshuttle?.stop_lockdown()
 		if (BLOB_DEATH_REPORT_THIRD)
 			if(!off_auto_gamma && GLOB.security_level == SEC_LEVEL_GAMMA)
 				set_security_level(SEC_LEVEL_RED)
@@ -176,18 +179,19 @@
 	for(var/i in 1 to count)
 		if (length(candidates))
 			var/obj/vent = pick(vents)
-			var/mob/living/simple_animal/mouse/B = new(vent.loc)
-			var/mob/M = pick(candidates)
-			candidates.Remove(M)
-			B.key = M.key
-			var/datum_type = B.mind.get_blob_infected_type()
+			var/mob/living/simple_animal/mouse/blob = new(vent.loc)
+			blob.move_into_vent(vent, FALSE)
+			var/mob/ghost = pick_n_take(candidates)
+			blob.set_key(ghost.key)
+			var/datum_type = blob.mind.get_blob_infected_type()
 			var/datum/antagonist/blob_infected/blob_datum = new datum_type()
 			blob_datum.time_to_burst_hight = TIME_TO_BURST_MOUSE_HIGHT
 			blob_datum.time_to_burst_low = TIME_TO_BURST_MOUSE_LOW
-			B.mind.add_antag_datum(blob_datum)
-			to_chat(B, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
-			log_game("[B.key] has become blob infested mouse.")
-			notify_ghosts("Заражённая мышь появилась в [get_area(B)].", source = B, action = NOTIFY_FOLLOW)
+			blob.mind.add_antag_datum(blob_datum)
+			to_chat(blob, span_userdanger("Теперь вы мышь, заражённая спорами Блоба. Найдите какое-нибудь укромное место до того, как вы взорветесь и станете Блобом! Вы можете перемещаться по вентиляции, нажав Alt+ЛКМ на вентиляционном отверстии."))
+			log_game("[blob.key] has become blob infested mouse.")
+			notify_ghosts("Заражённая мышь появилась в [get_area(blob)].", source = blob, action = NOTIFY_FOLLOW)
+
 	return TRUE
 
 
@@ -196,35 +200,37 @@
 		return
 	if(blob_stage == BLOB_STAGE_NONE)
 		blob_stage = BLOB_STAGE_ZERO
-	if(blob_stage == BLOB_STAGE_ZERO && GLOB.blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_ZERO && legit_blobs.len >= min(FIRST_STAGE_COEF * blob_win_count, FIRST_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_FIRST
 		send_intercept(BLOB_FIRST_REPORT)
 		SSshuttle?.emergency?.cancel()
-		SSshuttle?.lockdown_escape()
+		SSshuttle?.add_hostile_environment(GLOB.blob_cores)
 
-	if(blob_stage == BLOB_STAGE_FIRST && GLOB.blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
+	if(blob_stage == BLOB_STAGE_FIRST && legit_blobs.len >= min(SECOND_STAGE_COEF * blob_win_count, SECOND_STAGE_THRESHOLD))
 		blob_stage = BLOB_STAGE_SECOND
 		GLOB.event_announcement.Announce("Подтверждена вспышка биологической угрозы пятого уровня на борту [station_name()]. Весь персонал обязан локализовать угрозу.",
-										 "ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
+										"ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.", 'sound/AI/outbreak5.ogg')
 		if(!off_auto_gamma)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/set_security_level, SEC_LEVEL_GAMMA), TIME_TO_SWITCH_CODE)
 
-	if(blob_stage == BLOB_STAGE_SECOND && GLOB.blobs.len >= THIRD_STAGE_COEF * blob_win_count)
+	if(blob_stage == BLOB_STAGE_SECOND && legit_blobs.len >= THIRD_STAGE_COEF * blob_win_count && (blob_win_count - legit_blobs.len) <= THIRD_STAGE_DELTA_THRESHOLD)
 		blob_stage = BLOB_STAGE_THIRD
 		send_intercept(BLOB_SECOND_REPORT)
 
-	if(GLOB.blobs.len >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
+	if(legit_blobs.len >= blob_win_count && blob_stage < BLOB_STAGE_STORM)
 		if(SSweather)
 			blob_stage = BLOB_STAGE_STORM
 			SSweather.run_weather(/datum/weather/blob_storm)
+		show_warning("Вы набрали критическую массу и ощущаете практически бесконечный приток ресурсов.")
+		is_blob_infinity_points = TRUE
 
 	addtimer(CALLBACK(src, PROC_REF(process_blob_stages)), STAGES_CALLBACK_TIME)
 
 
 /datum/game_mode/proc/show_warning(message)
-	for(var/datum/mind/blob in blobs["infected"])
+	for(var/datum/mind/blob in (blobs["infected"] + blobs["offsprings"]))
 		if(blob.current.stat != DEAD)
-			to_chat(blob.current, "<span class='warning'>[message]</span>")
+			to_chat(blob.current, span_warning("[message]"))
 
 
 /datum/game_mode/proc/burst_blobs()

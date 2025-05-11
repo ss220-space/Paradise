@@ -14,19 +14,19 @@ import { Window } from '../layouts';
 
 const damageTypes = [
   {
-    label: 'Асфиксия',
+    label: 'Удушье',
     type: 'oxyLoss',
   },
   {
-    label: 'Интоксикация',
+    label: 'Отравление',
     type: 'toxLoss',
   },
   {
-    label: 'Раны',
+    label: 'Механические повреждения',
     type: 'bruteLoss',
   },
   {
-    label: 'Ожоги',
+    label: 'Термические повреждения',
     type: 'fireLoss',
   },
 ];
@@ -34,10 +34,10 @@ const damageTypes = [
 const statNames = [
   ['good', 'В сознании'],
   ['average', 'Без сознания'],
-  ['bad', 'ТРУП'],
+  ['bad', 'Смерть'],
 ];
 
-export const Cryo = (props, context) => {
+export const Cryo = (props) => {
   return (
     <Window width={520} height={490}>
       <Window.Content>
@@ -47,8 +47,8 @@ export const Cryo = (props, context) => {
   );
 };
 
-const CryoContent = (props, context) => {
-  const { act, data } = useBackend(context);
+const CryoContent = (props) => {
+  const { act, data } = useBackend();
   const {
     isOperating,
     hasOccupant,
@@ -80,7 +80,7 @@ const CryoContent = (props, context) => {
               <LabeledList.Item label="Пациент">
                 {occupant.name || 'Имя неизвестно'}
               </LabeledList.Item>
-              <LabeledList.Item label="Здоровье">
+              <LabeledList.Item label="Оценка здоровья">
                 <ProgressBar
                   min={occupant.health}
                   max={occupant.maxHealth}
@@ -91,12 +91,12 @@ const CryoContent = (props, context) => {
                 </ProgressBar>
               </LabeledList.Item>
               <LabeledList.Item
-                label="Статус"
+                label="Состояние"
                 color={statNames[occupant.stat][0]}
               >
                 {statNames[occupant.stat][1]}
               </LabeledList.Item>
-              <LabeledList.Item label="Температура">
+              <LabeledList.Item label="Температура тела">
                 <AnimatedNumber value={Math.round(occupant.bodyTemperature)} />{' '}
                 K
               </LabeledList.Item>
@@ -135,7 +135,7 @@ const CryoContent = (props, context) => {
               onClick={() => act('ejectBeaker')}
               disabled={!isBeakerLoaded}
             >
-              Извлечь ёмкость
+              Извлечь ёмкость.
             </Button>
           }
         >
@@ -193,8 +193,8 @@ const CryoContent = (props, context) => {
   );
 };
 
-const CryoBeaker = (props, context) => {
-  const { act, data } = useBackend(context);
+const CryoBeaker = (props) => {
+  const { act, data } = useBackend();
   const { isBeakerLoaded, beakerLabel, beakerVolume } = data;
   if (isBeakerLoaded) {
     return (

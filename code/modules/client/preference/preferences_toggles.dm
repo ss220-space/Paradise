@@ -31,12 +31,19 @@
 	switch(preftoggle_toggle)
 		if(PREFTOGGLE_SPECIAL)
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
+
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, "<span class='notice'>[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
 			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
@@ -400,6 +407,17 @@
 	disable_message = "You'll no longer see subsystem information in the verb panel."
 	blackbox_message = "MC tabs toggled"
 
+/datum/preference_toggle/toggle_split_admins_tabs
+	name = "Toggle Split Admins Tabs"
+	description = "Toggles Admins Tabs spliting"
+	preftoggle_bitflag = PREFTOGGLE_2_SPLIT_ADMIN_TABS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "Теперь ваши вербы разделены по подкатегориям."
+	disable_message = "Теперь ваши вербы не разделены по подкатегориям."
+	blackbox_message = "Split Admins Tabs toggled"
+
 /datum/preference_toggle/special_toggle
 	preftoggle_toggle = PREFTOGGLE_SPECIAL
 
@@ -434,8 +452,8 @@
 	blackbox_message = "Set Own OOC"
 
 /datum/preference_toggle/special_toggle/set_ooc_color/set_toggles(client/user)
-	var/new_ooccolor = input(usr, "Please select your OOC color.", "OOC color", user.prefs.ooccolor) as color|null
-	if(new_ooccolor)
+	var/new_ooccolor = tgui_input_color(usr, "Please select your OOC color.", "OOC color", user.prefs.ooccolor)
+	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
 		to_chat(usr, "Your OOC color has been set to [new_ooccolor].")
 	else
@@ -533,7 +551,7 @@
 
 	for(var/group_key as anything in my_hud.master_groups)
 		var/datum/plane_master_group/group = my_hud.master_groups[group_key]
-		group.transform_lower_turfs(my_hud, my_hud.current_plane_offset)
+		group.build_planes_offset(my_hud, my_hud.current_plane_offset)
 
 /datum/preference_toggle/toggle_vote_popup
 	name = "Toggle Vote Popup"
@@ -581,7 +599,7 @@
     disable_message = "You will see minuature TGUI strip menu."
     blackbox_message = "Toggle TGUI strip menu size"
 
-/datum/preference_toggle/toggle_item_descritpion_tips
+/datum/preference_toggle/toggle_item_description_tips
     name = "Toggle item description tips"
     description = "Toggles item description tips on hover."
     preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
@@ -601,3 +619,42 @@
     disable_message = "Другие игроки больше не имеют права выводить вас из раунда без цели."
     blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
+/datum/preference_toggle/toggle_off_projectile_messages
+    name = "Выключить комбат логи выстрелов"
+    description = "Выключает большую часть сообщений, появляющихся при стрельбе."
+    preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
+    preftoggle_toggle = PREFTOGGLE_TOGGLE2
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь вы не будете видить сообщения, появляющиеся при стрельбе."
+    disable_message = "Теперь вы будете видить сообщения, появляющиеся при стрельбе."
+    blackbox_message = "Переключение комбат логов от выстрелов"
+
+/datum/preference_toggle/toggle_auto_dnr
+    name = "DNR при смерти"
+    description = "При смерти автоматически включается статус DNR."
+    preftoggle_bitflag = PREFTOGGLE_3_DNR_AFTER_DEATH
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Смерть вашего персонажа теперь перманентная."
+    disable_message = "Смерть персонажа более не перманентная."
+    blackbox_message = "Переключение установки статуса DNR после смерти"
+
+/datum/preference_toggle/ui_scale
+    name = "Маштабирование UI"
+    description = "Включает маштабирование содержимого UI окон."
+    preftoggle_bitflag = PREFTOGGLE_3_UI_SCALE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь содержимое UI маштабируется."
+    disable_message = "Теперь содержимое UI не маштабируется."
+    blackbox_message = "Переключение маштабирования UI"
+
+
+/datum/preference_toggle/ui_scale/set_toggles(client/user)
+	. = ..()
+	if(!istype(user))
+		return
+	ASYNC
+		user.acquire_dpi()
+	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
+	user.tgui_say?.load()

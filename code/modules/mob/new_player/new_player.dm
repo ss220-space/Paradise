@@ -16,15 +16,14 @@
 	if(flags & INITIALIZED)
 		stack_trace("Warning: [src]([type]) initialized multiple times!")
 	flags |= INITIALIZED
-	GLOB.mob_list += src
+	add_to_mob_list()
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/proc/privacy_consent()
-	src << browse(null, "window=playersetup")
-	var/output = {"<!DOCTYPE html><meta charset="UTF-8">"} + GLOB.join_tos
-	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Я согласен</A>"
-	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>Я НЕ согласен</A>"
-	src << browse(output,"window=privacy_consent;size=500x300")
+	close_window(src, "playersetup")
+	var/output = GLOB.join_tos
+	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Я согласен</a>"
+	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>Я НЕ согласен</a>"
 	var/datum/browser/popup = new(src, "privacy_consent", "<div align='center'>Политика Конфидициальности</div>", 500, 400)
 	popup.set_window_options("can_close=0")
 	popup.set_content(output)
@@ -64,7 +63,7 @@
 		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
 		query.warn_execute()
 		qdel(query)
-		src << browse(null, "window=privacy_consent")
+		close_window(src, "privacy_consent")
 		client.tos_consent = TRUE
 
 	if(href_list["consent_rejected"])
@@ -138,8 +137,19 @@
 	if(href_list["sound_options"])
 		client.volume_mixer()
 
+	if(href_list["poll_panel"])
+		handle_player_polling()
+
+	if(href_list["viewpoll"])
+		var/datum/poll_question/poll = locate(href_list["viewpoll"]) in GLOB.active_polls
+		poll_player(poll)
+
+	if(href_list["votepollref"])
+		var/datum/poll_question/poll = locate(href_list["votepollref"]) in GLOB.active_polls
+		vote_on_poll_handler(poll, href_list)
+
 	if(href_list["refresh"])
-		src << browse(null, "window=playersetup") //closes the player setup window
+		close_window(src, "playersetup")		//closes the player setup window
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
@@ -162,7 +172,7 @@
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
-			src << browse(null, "window=playersetup")
+			close_window(src, "playersetup")
 			spawning = 1
 			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			client?.tgui_panel?.stop_music()
@@ -339,7 +349,7 @@
 	if(src != usr)
 		return FALSE
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>Раунд либо еще не готов, либо уже завершился...</span>")
+		to_chat(usr, "<span class='warning'>Раунд либо ещё не готов, либо уже завершился...</span>")
 		return FALSE
 	if(!GLOB.enter_allowed)
 		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
@@ -511,13 +521,13 @@
 	dat += "Продолжительность раунда: [round(hours)]h [round(mins)]m<br>"
 	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
-	if(SSshuttle.emergency.mode >= SHUTTLE_ESCAPE)
-		dat += "<font color='red'><b>Станция была эвакуирована.</b></font><br>"
-	else if(SSshuttle.emergency.mode >= SHUTTLE_CALL)
-		dat += "<font color='red'>В настоящее время станция проходит процедуру эвакуации.</font><br>"
+	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
+		dat += "<span style='color: red;'><b>Станция была эвакуирована.</b></span><br>"
+	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
+		dat += "<span style='color: red;'>В настоящее время станция проходит процедуру эвакуации.</span><br>"
 
 	if(length(SSjobs.prioritized_jobs))
-		dat += "<font color='lime'>Станция отметила эти позиции как приоритетные: "
+		dat += "<span style='color: lime;'>Станция отметила эти позиции как приоритетные: "
 		var/amt = length(SSjobs.prioritized_jobs)
 		var/amt_count
 		for(var/datum/job/a in SSjobs.prioritized_jobs)
@@ -525,7 +535,7 @@
 			if(amt_count != amt)
 				dat += " [a.title], "
 			else
-				dat += " [a.title]. </font><br>"
+				dat += " [a.title]. </span><br>"
 
 
 	var/num_jobs_available = 0
@@ -581,16 +591,14 @@
 				dat += "<a href='byond://?src=[UID()];SelectedJob=RandomJob'>Random (free jobs)</a><br>"
 			for(var/datum/job/job in categorizedJobs[jobcat]["jobs"])
 				if(job in SSjobs.prioritized_jobs)
-					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><font color='lime'><B>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</B></font></a><br>"
+					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'><span style='color: lime;'><b>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</b></span></a><br>"
 				else
 					dat += "<a href='byond://?src=[UID()];SelectedJob=[job.title]'>[job.title] ([job.current_positions]) (Active: [activePlayers[job]])</a><br>"
 			dat += "</fieldset><br>"
 
 		dat += "</td></tr></table></center>"
 	else
-		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<BR>Wait a few minutes, then try again.<BR>Or, try observing the round.</center>"
-	// Removing the old window method but leaving it here for reference
-//		src << browse(dat, "window=latechoices;size=300x640;can_close=1")
+		dat += "<br><br><center>Unfortunately, there are no job slots free currently.<br>Wait a few minutes, then try again.<br>Or, try observing the round.</center>"
 	// Added the new browser window method
 	var/datum/browser/popup = new(src, "latechoices", "Choose Profession", 900, 600)
 	popup.add_stylesheet("playeroptions", 'html/browser/playeroptions.css')
@@ -599,7 +607,7 @@
 	popup.open(0) // 0 is passed to open so that it doesn't use the onclose() proc
 
 /mob/new_player/proc/create_character()
-	spawning = 1
+	spawning = TRUE
 	close_spawn_windows()
 
 	check_prefs_are_sane()
@@ -616,19 +624,22 @@
 
 
 	if(mind)
-		mind.active = 0					//we wish to transfer the key manually
-		if(mind.assigned_role == JOB_TITLE_CLOWN)				//give them a clownname if they are a clown
-			new_character.real_name = pick(GLOB.clown_names)	//I hate this being here of all places but unfortunately dna is based on real_name!
+		mind.active = FALSE					// we wish to transfer the key manually
+
+		if(mind.assigned_role == JOB_TITLE_CLOWN)				// give them a clownname if they are a clown
+			new_character.real_name = pick(GLOB.clown_names)	// I hate this being here of all places but unfortunately dna is based on real_name!
 			new_character.rename_self(JOB_TITLE_CLOWN)
+
 		else if(mind.assigned_role == JOB_TITLE_MIME)
 			new_character.real_name = pick(GLOB.mime_names)
 			new_character.rename_self(JOB_TITLE_MIME)
+
 		mind.set_original_mob(new_character)
-		mind.transfer_to(new_character)					//won't transfer key since the mind is not active
+		mind.transfer_to(new_character)					// won't transfer key since the mind is not active
 		GLOB.human_names_list += new_character.real_name
 
 
-	new_character.key = key		//Manually transfer the key to log them in
+	new_character.set_key(key)		// Manually transfer the key to log them in
 
 	return new_character
 
@@ -658,11 +669,10 @@
 
 
 /mob/new_player/proc/close_spawn_windows()
-	src << browse(null, "window=latechoices") //closes late choices window
-	src << browse(null, "window=playersetup") //closes the player setup window
-	src << browse(null, "window=preferences") //closes job selection
-	src << browse(null, "window=mob_occupation")
-	src << browse(null, "window=latechoices") //closes late job selection
+	close_window(src, "latechoices") //closes late choices window
+	close_window(src, "playersetup") //closes the player setup window
+	close_window(src, "preferences")	
+	close_window(src, "mob_occupation") //closes job selection
 
 
 /mob/new_player/proc/has_admin_rights()

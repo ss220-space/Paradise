@@ -49,18 +49,18 @@
 #define JOB_FLAG_QUARTERMASTER		(1<<6)
 #define JOB_FLAG_CARGOTECH			(1<<7)
 #define JOB_FLAG_MINER				(1<<8)
-#define JOB_FLAG_LAWYER			(1<<9)
+#define JOB_FLAG_LAWYER				(1<<9)
 #define JOB_FLAG_CHAPLAIN			(1<<10)
 #define JOB_FLAG_CLOWN				(1<<11)
 #define JOB_FLAG_MIME				(1<<12)
 #define JOB_FLAG_CIVILIAN			(1<<13)
 #define JOB_FLAG_EXPLORER			(1<<14)
+#define JOB_FLAG_MINING_MEDIC			(1<<15)
 
 #define JOBCAT_KARMA				(1<<3)
 
 #define JOB_FLAG_REPRESENTATIVE				(1<<0)
 #define JOB_FLAG_BLUESHIELD		(1<<1)
-#define JOB_FLAG_BARBER			(1<<3)
 #define JOB_FLAG_MECHANIC			(1<<4)
 #define JOB_FLAG_BRIGDOC			(1<<5)
 #define JOB_FLAG_JUDGE				(1<<6)
@@ -112,6 +112,7 @@
 #define JOB_TITLE_QUARTERMASTER "Quartermaster"
 #define JOB_TITLE_CARGOTECH "Cargo Technician"
 #define JOB_TITLE_MINER "Shaft Miner"
+#define JOB_TITLE_MINING_MEDIC "Mining Medic"
 
 #define JOB_TITLE_BARTENDER "Bartender"
 #define JOB_TITLE_CHEF "Chef"
@@ -120,7 +121,6 @@
 #define JOB_TITLE_MIME "Mime"
 #define JOB_TITLE_JANITOR "Janitor"
 #define JOB_TITLE_LIBRARIAN "Librarian"
-#define JOB_TITLE_BARBER "Barber"
 #define JOB_TITLE_EXPLORER "Explorer"
 
 #define JOB_TITLE_SYNDICATE "Syndicate Officer"

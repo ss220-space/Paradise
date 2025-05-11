@@ -16,6 +16,8 @@
 #define NODECONSTRUCT (1<<5)
 /// Objects will ignore item attacks
 #define IGNORE_HITS (1<<6)
+/// Objects will ignore blob_act
+#define IGNORE_BLOB_ACT (1<<7)
 
 
 // Flags for the item_flags var on /obj/item
@@ -54,6 +56,8 @@
 #define DENY_UI_BLOCKED (1<<15)
 /// When an item has this it produces no "X has been hit by Y with Z" message in the default /mob/living/proc/send_item_attack_message()
 #define SKIP_ATTACK_MESSAGE (1<<16)
+/// Checks whether the item was upgraded with a speed potion
+#define SPEEDPOTION_APPLIED (1<<17)
 
 
 // Flags for the clothing_flags var on /obj/item/clothing
@@ -73,3 +77,10 @@
 /// Checks for finger coverage, prevents damage from nettles
 #define FINGERS_COVERED (1<<6)
 
+/// Flags for the pod_flags var on /obj/structure/closet/supplypod
+#define FIRST_SOUNDS (1<<0) // If it shouldn't play sounds the first time it lands, used for reverse mode
+
+
+#define HUMAN_HOLDER (1<<0)
+
+#define ALIEN_HOLDER (1<<1)

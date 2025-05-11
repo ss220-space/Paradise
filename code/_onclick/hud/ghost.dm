@@ -1,8 +1,3 @@
-/mob/dead/observer/create_mob_hud()
-	if(client && !hud_used)
-		hud_used = new /datum/hud/ghost(src)
-		SEND_SIGNAL(src, COMSIG_MOB_HUD_CREATED)
-
 /atom/movable/screen/ghost
 	icon = 'icons/mob/screen_ghost.dmi'
 
@@ -135,7 +130,16 @@
 	using.screen_loc = ui_ghost_respawn_pai
 	toggleable_inventory += using
 
-/datum/hud/ghost/show_hud()
-	mymob.client.screen = list()
-	mymob.client.screen += static_inventory
+/datum/hud/ghost/show_hud(version = 0, mob/viewmob)
+	// don't show this HUD if observing; show the HUD of the observee
+	var/mob/dead/observer/observe = mymob
+	if(istype(observe) && observe.orbiting)
+		plane_masters_update()
+		return FALSE
+
+	var/mob/screenmob = viewmob || mymob
+
+	screenmob.client.screen = list()
+	screenmob.client.screen += static_inventory
+
 	..()

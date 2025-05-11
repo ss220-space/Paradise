@@ -177,7 +177,7 @@
 	throw_range = 5
 	force = 2
 	w_class = WEIGHT_CLASS_NORMAL		 //upped to three because books are, y'know, pretty big. (and you could hide them inside eachother recursively forever)
-	attack_verb = list("bashed", "whacked")
+	attack_verb = list("ударил", "огрел")
 	resistance_flags = FLAMMABLE
 	drop_sound = 'sound/items/handling/book_drop.ogg'
 	pickup_sound =  'sound/items/handling/book_pickup.ogg'
@@ -226,7 +226,10 @@
 			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
 			return
 	if(src.dat)
-		user << browse({"<meta charset="UTF-8"><TT><I>Penned by [author].</I></TT> <BR>"} + "[dat]", "window=book")
+		var/datum/browser/popup = new(user, "book", title)
+		popup.include_default_stylesheet = FALSE
+		popup.set_content("<tt><i>Penned by [author].</i></tt><br>" + "[dat]")
+		popup.open(TRUE)
 		if(!isobserver(user))
 			user.visible_message("[user] opens a book titled \"[title]\" and begins reading intently.")
 		onclose(user, "book")
@@ -325,10 +328,10 @@
 /obj/item/book/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(user.a_intent == INTENT_HELP)
 		force = 0
-		attack_verb = list("educated")
+		attack_verb = list("обучил")
 	else
 		force = initial(force)
-		attack_verb = list("bashed", "whacked")
+		attack_verb = list("ударил", "огрел")
 	return ..()
 
 

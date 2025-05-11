@@ -5,6 +5,8 @@
 	desc = "A standard edition welder provided by Nanotrasen."
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
+	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
+	lefthand_file = 'icons/mob/inhands/tools_lefthand.dmi'
 	item_state = "welder"
 	belt_icon = "welding_tool"
 	flags = CONDUCT
@@ -87,15 +89,23 @@
 	remove_fuel(maximum_fuel)
 
 /obj/item/weldingtool/attack_self(mob/user)
+	if(try_toggle_welder(user))
+		return ..()
+
+/obj/item/weldingtool/proc/try_toggle_welder(mob/user, manual_toggle = TRUE)
 	if(tool_enabled) //Turn off the welder if it's on
-		to_chat(user, "<span class='notice'>You switch off [src].</span>")
-		toggle_welder()
-		return
+		balloon_alert(user, "выключено")
+		if(manual_toggle)
+			toggle_welder()
+		return TRUE
 	else if(GET_FUEL) //The welder is off, but we need to check if there is fuel in the tank
-		to_chat(user, "<span class='notice'>You switch on [src].</span>")
-		toggle_welder()
+		balloon_alert(user, "включено")
+		if(manual_toggle)
+			toggle_welder()
+		return TRUE
 	else //The welder is off and unfuelled
-		to_chat(user, "<span class='notice'>[src] is out of fuel!</span>")
+		balloon_alert(user, "нет топлива!")
+		return FALSE
 
 /obj/item/weldingtool/proc/toggle_welder(turn_off = FALSE) //Turn it on or off, forces it to deactivate
 	tool_enabled = turn_off ? FALSE : !tool_enabled
@@ -202,6 +212,8 @@
 	if(tool_enabled)
 		. += "[initial(icon_state)]-on"
 
+/obj/item/weldingtool/get_heat()
+	return tool_enabled * 2500
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
@@ -231,7 +243,7 @@
 	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
-	item_state = "alien_welder"
+	item_state = "alienwelder"
 	belt_icon = "alien_welding_tool"
 	toolspeed = 0.1
 	light_intensity = 0

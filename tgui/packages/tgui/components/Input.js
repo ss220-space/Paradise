@@ -142,6 +142,7 @@ export class Input extends Component {
         <div className="Input__baseline">.</div>
         {multiline ? (
           <textarea
+            autofocus={false}
             ref={this.inputRef}
             className="Input__textarea"
             placeholder={placeholder}
@@ -155,8 +156,10 @@ export class Input extends Component {
           />
         ) : (
           <input
+            autofocus={false}
             ref={this.inputRef}
             className="Input__input"
+            type="search"
             placeholder={placeholder}
             onInput={this.handleInput}
             onFocus={this.handleFocus}

@@ -67,7 +67,7 @@
 	to_chat(src, msg)
 
 /client/verb/adminwho()
-	set category = "Admin"
+	set category = "Admin.Admin Tickets"
 	set name = "Adminwho"
 
 	var/msg = ""

@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const MiniGamesMenu = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MiniGamesMenu = (props) => {
+  const { act, data } = useBackend();
   const spawners = data.spawners || [];
   const thunderdome_eligible = data.thunderdome_eligible;
   const notifications_enabled = data.notifications_enabled;

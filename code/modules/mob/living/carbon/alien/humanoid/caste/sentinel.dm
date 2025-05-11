@@ -6,6 +6,7 @@
 	attack_damage = 25
 	time_to_open_doors = 0.2 SECONDS
 	icon_state = "aliens_s"
+	role_text = "Вы - Часовой. Ваша основная задача - защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
 
 
@@ -45,6 +46,7 @@
 	obj_damage = 80
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
+	role_text = "Вы - Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача - защита гнезда от непрошенных гостей."
 	var/datum/action/innate/small_sprite_alien/praetorian/action_sprite
 
 

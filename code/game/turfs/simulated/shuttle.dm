@@ -68,12 +68,24 @@
 /turf/simulated/wall/shuttle/nodiagonal
 	icon_state = "shuttle-15"
 
+/turf/simulated/wall/shuttle/nodiagonal/Initialize()
+	. = ..()
+	icon_state = "shuttle"
+
 /turf/simulated/wall/shuttle/nosmooth
 	icon_state = "shuttle_ns"
 	smooth = NONE
 
+/turf/simulated/wall/shuttle/nosmooth/Initialize()
+	. = ..()
+	icon_state = "shuttle"
+
 /turf/simulated/wall/shuttle/onlyselfsmooth
 	canSmoothWith = SMOOTH_GROUP_SHUTTLE_PARTS
+
+/turf/simulated/wall/shuttle/onlyselfsmooth/Initialize()
+	. = ..()
+	icon_state = "shuttle"
 
 /turf/simulated/wall/shuttle/onlyselfsmooth/nodiagonal
 	icon_state = "shuttle-15"
@@ -82,6 +94,9 @@
 	icon_state = "overspace"
 	fixed_underlay = list("space"=1)
 
+/turf/simulated/wall/shuttle/overspace/Initialize()
+	. = ..()
+	icon_state = "shuttle"
 
 /turf/simulated/wall/shuttle/copyTurf(turf/T)
 	. = ..()

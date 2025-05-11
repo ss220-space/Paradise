@@ -20,11 +20,11 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 	var/win_button_triggered = 0
 
 /datum/game_mode/heist/announce()
-	to_chat(world, "<B>The current game mode is - Heist!</B>")
-	to_chat(world, "<B>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</B>")
+	to_chat(world, "<b>The current game mode is - Heist!</b>")
+	to_chat(world, "<b>An unidentified bluespace signature has slipped past the Icarus and is approaching [station_name()]!</b>")
 	to_chat(world, "Whoever they are, they're likely up to no good. Protect the crew and station resources against this dastardly threat!")
-	to_chat(world, "<B>Raiders:</B> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")
-	to_chat(world, "<B>Personnel:</B> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
+	to_chat(world, "<b>Raiders:</b> Loot [station_name()] for anything and everything you need, or choose the peaceful route and attempt to trade with them.")
+	to_chat(world, "<b>Personnel:</b> Trade with the raiders, or repel them and their low, low prices and/or crossbows.")
 
 /datum/game_mode/heist/can_start()
 	if(!..())
@@ -206,7 +206,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 		win_type = "Major"
 		win_group = "Crew"
-		win_msg += "<B>The Vox Raiders have been wiped out!</B>"
+		win_msg += "<b>The Vox Raiders have been wiped out!</b>"
 
 	else if(!is_raider_crew_safe())
 
@@ -214,7 +214,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 			win_type = "Major"
 
 		win_group = "Crew"
-		win_msg += "<B>The Vox Raiders have left someone behind!</B>"
+		win_msg += "<b>The Vox Raiders have left someone behind!</b>"
 
 	else
 
@@ -222,21 +222,21 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 			if(win_type == "Minor")
 
 				win_type = "Major"
-			win_msg += "<B>The Vox Raiders escaped the station!</B>"
+			win_msg += "<b>The Vox Raiders escaped the station!</b>"
 		else
-			win_msg += "<B>The Vox Raiders were repelled!</B>"
+			win_msg += "<b>The Vox Raiders were repelled!</b>"
 
-	to_chat(world, "<span class='warning'><FONT size = 3><B>[win_type] [win_group] victory!</B></FONT></span>")
+	to_chat(world, "<span class='warning'><span style='font-size: 3;'><b>[win_type] [win_group] victory!</b></span></span>")
 	to_chat(world, "[win_msg]")
 	SSticker.mode_result = "heist - [win_type] [win_group]"
 
 	var/count = 1
 	for(var/datum/objective/objective in raid_objectives)
 		if(objective.check_completion())
-			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='green'><B>Success!</B></font>")
+			to_chat(world, "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='green'><b>Success!</b></font>")
 			SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "SUCCESS"))
 		else
-			to_chat(world, "<br><B>Objective #[count]</B>: [objective.explanation_text] <font color='red'>Fail.</font>")
+			to_chat(world, "<br><b>Objective #[count]</b>: [objective.explanation_text] <font color='red'>Fail.</font>")
 			SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[objective.type]", "FAIL"))
 		count++
 
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)
 			check_return = 1
-		var/text = "<FONT size = 2><B>The Vox raiders were:</B></FONT>"
+		var/text = "<span style='font-size: 2;'><b>The Vox raiders were:</b></span>"
 
 		for(var/datum/mind/vox in raiders)
 			text += "<br>[vox.get_display_key()] was [vox.name] ("

@@ -4,7 +4,7 @@ import { Window } from '../layouts';
 import { ComplexModal, modalOpen } from './common/ComplexModal';
 import { AccessList } from './common/AccessList';
 
-export const RCD = (props, context) => {
+export const RCD = (props) => {
   return (
     <Window width={480} height={670}>
       <ComplexModal />
@@ -20,8 +20,8 @@ export const RCD = (props, context) => {
   );
 };
 
-const MatterReadout = (props, context) => {
-  const { data } = useBackend(context);
+const MatterReadout = (props) => {
+  const { data } = useBackend();
   const { matter, max_matter } = data;
   const good_matter = max_matter * 0.7;
   const average_matter = max_matter * 0.25;
@@ -62,8 +62,8 @@ const ConstructionType = () => {
   );
 };
 
-const ConstructionTypeCheckbox = (props, context) => {
-  const { act, data } = useBackend(context);
+const ConstructionTypeCheckbox = (props) => {
+  const { act, data } = useBackend();
   const { mode_type } = props;
   const { mode } = data;
   return (
@@ -83,8 +83,8 @@ const ConstructionTypeCheckbox = (props, context) => {
   );
 };
 
-const AirlockSettings = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirlockSettings = (props) => {
+  const { act, data } = useBackend();
   const { door_name, electrochromic, airlock_glass } = data;
   return (
     <Stack.Item>
@@ -96,7 +96,7 @@ const AirlockSettings = (props, context) => {
               color="transparent"
               icon="pen-alt"
               content={<>Rename: {<b>{door_name}</b>}</>}
-              onClick={() => modalOpen(context, 'renameAirlock')}
+              onClick={() => modalOpen('renameAirlock')}
             />
           </Stack.Item>
           <Stack.Item>
@@ -116,8 +116,8 @@ const AirlockSettings = (props, context) => {
   );
 };
 
-const TypesAndAccess = (props, context) => {
-  const { act, data } = useBackend(context);
+const TypesAndAccess = (props) => {
+  const { act, data } = useBackend();
   const { tab, locked, one_access, selected_accesses, regions } = data;
   return (
     <>
@@ -238,8 +238,8 @@ const TypesAndAccess = (props, context) => {
   );
 };
 
-const AirlockTypeList = (props, context) => {
-  const { act, data } = useBackend(context);
+const AirlockTypeList = (props) => {
+  const { act, data } = useBackend();
   const { door_types_ui_list, door_type } = data;
   const { check_number } = props;
   // Filter either odd or even airlocks in the list, based on what `check_number` is.

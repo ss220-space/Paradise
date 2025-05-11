@@ -5,6 +5,7 @@
 	deform = 'icons/mob/human_races/r_wryn.dmi'
 	blacklisted = TRUE
 	tail = "wryntail"
+	eyes = "wryn_eyes_s"
 	punchdamagelow = 0
 	punchdamagehigh = 1
 	speed_mod = 1
@@ -27,10 +28,10 @@
 	body_temperature = 286
 
 	has_organ = list(
-		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
-		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/wryn,
+		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/wryn,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/wryn, //3 darksight.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/wryn,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_HIVENODE = /obj/item/organ/internal/wryn/hivenode,
 		INTERNAL_ORGAN_WAX_GLANDS = /obj/item/organ/internal/wryn/glands,
@@ -60,7 +61,7 @@
 		TRAIT_NO_SCAN,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
-	bodyflags = HAS_SKIN_COLOR
+	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
 
 	dies_at_threshold = TRUE
 
@@ -70,8 +71,10 @@
 	blood_color = "#FFFF99"
 	blood_species = "Wryn"
 	//Default styles for created mobs.
-	default_hair = "Antennae"
-
+	default_hair = "Normal antennae"
+	default_fhair = "Default mane"
+	default_bodyacc = "Bee Tail"
+	default_fhair_colour = "#704300"
 	age_sheet = list(
 		SPECIES_AGE_MIN = 15,
 		SPECIES_AGE_MAX = 55,
@@ -93,14 +96,10 @@
 
 /datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
 	var/comb_deafness = H.client.prefs.speciesprefs
+
 	if(comb_deafness)
 		var/obj/item/organ/internal/wryn/hivenode/node = H.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
-		node.remove(H)
 		qdel(node)
-	else
-		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-		head_organ.h_style = "Antennae"
-		H.update_hair()
 
 /* Wryn Sting Action Begin */
 
@@ -193,7 +192,7 @@
 
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			to_chat(C, "<span class='danger'><B>Ваши усики дрожат, когда вас одолевает боль...</B></span>")
+			to_chat(C, "<span class='danger'><b>Ваши усики дрожат, когда вас одолевает боль...</b></span>")
 			to_chat(C, "<span class='danger'>Такое ощущение, что часть вас умерла.</span>") // This is bullshit -- Да, согласен.
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
@@ -202,13 +201,13 @@
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
 				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
-				to_chat(target, "<span class='danger'><B>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<B></span>")
+				to_chat(target, "<span class='danger'><b>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<b></span>")
 				if(do_after(user, 25 SECONDS, target, NONE))
 					node.remove(target)
 					node.forceMove(get_turf(target))
 					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
 					to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
-					to_chat(target, "<span class='danger'><B>Стало так тихо...</B></span>")
+					to_chat(target, "<span class='danger'><b>Стало так тихо...</b></span>")
 
 					add_attack_logs(user, target, "Antennae removed")
 				return 0

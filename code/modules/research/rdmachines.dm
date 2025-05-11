@@ -49,14 +49,16 @@
 		shock(user,50)
 	if(panel_open)
 		var/list/dat = list()
-		dat += "[src.name] Wires:<BR>"
+		dat += "[src.name] Wires:<br>"
 		for(var/wire in wires)
-			dat += "[wire] Wire: <a href='byond://?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</A> <a href='byond://?src=[UID()];wire=[wire];pulse=1'>Pulse</A><BR>"
+			dat += "[wire] Wire: <a href='byond://?src=[UID()];wire=[wire];cut=1'>[src.wires[wire] ? "Mend" : "Cut"]</a> <a href='byond://?src=[UID()];wire=[wire];pulse=1'>Pulse</a><br>"
 
-		dat += "The red light is [src.disabled ? "off" : "on"].<BR>"
-		dat += "The green light is [src.shocked ? "off" : "on"].<BR>"
-		dat += "The blue light is [src.hacked ? "off" : "on"].<BR>"
-		user << browse({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[src.name] Hacking</TITLE></HEAD><BODY>[dat.Join("")]</BODY></HTML>"},"window=hack_win")
+		dat += "The red light is [src.disabled ? "off" : "on"].<br>"
+		dat += "The green light is [src.shocked ? "off" : "on"].<br>"
+		dat += "The blue light is [src.hacked ? "off" : "on"].<br>"
+		var/datum/browser/popup = new(user, "hack_win", "[src.name] Hacking")
+		popup.set_content(dat.Join(""))
+		popup.open(FALSE)
 	return
 
 
@@ -133,7 +135,7 @@
 		var/obj/item/stack/S = type_inserted
 		stack_name = initial(S.name)
 		use_power(min(1000, (amount_inserted / 100)))
-	flick_overlay_view(image(icon, src,"[initial(name)]_[stack_name]", layer + 0.01), 1 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, "[initial(name)]_[stack_name]"), 1 SECONDS)
 
 
 /obj/machinery/r_n_d/proc/check_mat(datum/design/being_built, var/M)

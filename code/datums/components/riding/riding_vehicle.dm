@@ -180,20 +180,19 @@
 
 /datum/component/riding/vehicle/lavaboat
 	ride_check_flags = NONE // not sure
+	vehicle_move_delay = 3
 	keytype = /obj/item/oar
 	var/allowed_turf = /turf/simulated/floor/lava
 
 /datum/component/riding/vehicle/lavaboat/handle_specials()
 	. = ..()
+	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
+	set_vehicle_dir_layer(NORTH, ABOVE_MOB_LAYER)
 	allowed_turf_typecache = typecacheof(allowed_turf)
 
 /datum/component/riding/vehicle/lavaboat/dragonboat
-	vehicle_move_delay = 1
+	vehicle_move_delay = 2
 	keytype = null
-
-/datum/component/riding/vehicle/lavaboat/dragonboat/handle_specials()
-	. = ..()
-	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(1, 2), TEXT_SOUTH = list(1, 2), TEXT_EAST = list(1, 2), TEXT_WEST = list( 1, 2)))
 
 /datum/component/riding/vehicle/car
 	vehicle_move_delay = 1.75

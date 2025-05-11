@@ -300,3 +300,96 @@
 	alert_type = null
 	duration = 1 MINUTES
 	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/forced_rumble
+	id = "forced_rumble"
+	alert_type = null
+	duration = 30 SECONDS
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/forced_rumble/tick(seconds_between_ticks)
+	if(prob(20) && isunathi(owner))
+		owner.emote("rumble")
+
+/datum/status_effect/forced_sneeze
+	id = "forced_sneeze"
+	alert_type = null
+	duration = 1 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+
+/datum/status_effect/forced_sneeze/tick(seconds_between_ticks)
+	if(prob(30))
+		owner.emote("sneeze")
+
+/atom/movable/screen/alert/status_effect/lavaland_tail_o_dead
+	name = "tail'o'dead"
+	desc = "Поедание человеческих конечностей себя оправдало!"
+	icon_state = "tail_o_dead"
+
+/datum/status_effect/lavaland_vision
+	id = "lavaland vision"
+	duration = 5 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/lavaland_tail_o_dead
+
+
+/datum/status_effect/lavaland_vision/on_apply()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human = owner
+		human.force_gene_block(GLOB.colourblindblock, TRUE)
+		human.set_vision_override(/datum/vision_override/nightvision)
+	return TRUE
+
+/datum/status_effect/lavaland_vision/on_remove()
+	if(ishuman(owner))
+		var/mob/living/carbon/human/human = owner
+		human.force_gene_block(GLOB.colourblindblock, FALSE)
+		human.set_vision_override(null)
+
+/atom/movable/screen/alert/status_effect/temperature_stabilize
+	name = "beer grub stew"
+	desc = "Температура вашего тела стабилизируется в разы быстрее."
+	icon_state = "beer_grub_stew"
+
+/datum/status_effect/temperature_stabilize
+	id = "temperature stabilisation"
+	duration = 5 MINUTES
+	status_type = STATUS_EFFECT_REFRESH
+	alert_type = /atom/movable/screen/alert/status_effect/temperature_stabilize
+	var/temp_effect
+
+/datum/status_effect/temperature_stabilize/tick(seconds_between_ticks)
+	var/normal_temperature = owner?.dna?.species.body_temperature
+	if(!normal_temperature)
+		normal_temperature = BODYTEMP_NORMAL
+	var/difference = owner.bodytemperature - normal_temperature
+	if(abs(difference) > temp_effect)
+		var/current_effect = difference > 0 ? -temp_effect : temp_effect
+		owner.adjust_bodytemperature(current_effect * TEMPERATURE_DAMAGE_COEFFICIENT)
+
+
+/atom/movable/screen/alert/status_effect/leaning
+	name = "Leaning"
+	desc = "Вы на что-то облокотились."
+	icon_state = "buckled"
+
+/atom/movable/screen/alert/status_effect/leaning/Click()
+	var/mob/living/L = usr
+	if(!istype(L))
+		return
+	L.changeNext_move(CLICK_CD_RESIST)
+	if(L.last_special <= world.time)
+		return L.stop_leaning()
+
+/datum/status_effect/leaning
+	id = "leaning"
+	duration = -1
+	tick_interval = -1
+	status_type = STATUS_EFFECT_UNIQUE
+	alert_type = /atom/movable/screen/alert/status_effect/leaning
+
+/datum/status_effect/leaning/on_creation(mob/living/carbon/new_owner, atom/object, leaning_offset = 11)
+	. = ..()
+	if(!.)
+		return
+	new_owner.start_leaning(object, leaning_offset)

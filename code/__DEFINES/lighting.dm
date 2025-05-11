@@ -87,6 +87,17 @@
 #define LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE 128 //For lighting alpha, small amounts lead to big changes. even at 128 its hard to figure out what is dark and what is light, at 64 you almost can't even tell.
 #define LIGHTING_PLANE_ALPHA_INVISIBLE 0
 
+#define standartize_alpha(__alpha) (__alpha / LIGHTING_PLANE_ALPHA_VISIBLE)
+
+#define ALPHA_SOURCE_DEFAULT		"default"
+#define ALPHA_SOURCE_CHAMELEON		"chameleon_gene"
+#define ALPHA_SOURCE_SHADOW_CLOAK	"shadow_cloak_gene"
+#define ALPHA_SOURCE_VAMPIRE		"vampire"
+#define ALPHA_SOURCE_SHADOW_THRALL	"shadowling_thrall"
+#define ALPHA_SOURCE_SHADOWLING		"shadowling"
+#define ALPHA_SOURCE_NINJA			"ninja"
+#define ALPHA_SOURCE_CLOCKROBE		"clockrobe"
+
 
 //code assumes higher numbers override lower numbers.
 #define LIGHTING_NO_UPDATE 0

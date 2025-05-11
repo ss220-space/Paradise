@@ -2,7 +2,7 @@
 	if(!check_rights(R_ADMIN))
 		return
 	if(!target_ckey)
-		var/new_ckey = ckey(clean_input("Who would you like to add to the watchlist?","Enter a ckey",null))
+		var/new_ckey = ckey(tgui_input_text(usr, "Who would you like to add to the watchlist?", "Enter a ckey", null))
 		if(!new_ckey)
 			return
 		var/datum/db_query/query_watchfind = SSdbcore.NewQuery("SELECT ckey FROM [format_table_name("player")] WHERE ckey=:new_ckey", list(
@@ -20,7 +20,7 @@
 	if(check_watchlist(target_ckey))
 		to_chat(usr, "<span class='redtext'>[target_ckey] is already on the watchlist.</span>")
 		return
-	var/reason = input(usr,"Please state the reason","Reason") as message|null
+	var/reason = tgui_input_text(usr, "Please state the reason", "Reason", multiline = TRUE, encode = FALSE)
 	if(!reason)
 		return
 	var/adminckey = usr.ckey
@@ -68,7 +68,7 @@
 		return
 	if(query_watchreason.NextRow())
 		var/watch_reason = query_watchreason.item[1]
-		var/new_reason = input("Input the new reason", "New Reason", "[watch_reason]") as message|null
+		var/new_reason = tgui_input_text(usr, "Input the new reason", "New Reason", "[watch_reason]", multiline = TRUE, encode = FALSE)
 		if(!new_reason || new_reason == watch_reason)
 			return
 		var/sql_ckey = usr.ckey
@@ -94,8 +94,8 @@
 /client/proc/watchlist_show(search)
 	if(!check_rights(R_ADMIN))
 		return
-	var/output = {"<meta charset="UTF-8">"}
-	output += "<!DOCTYPE html><form method='GET' name='search' action='?'>\
+	var/output = ""
+	output += "<form method='GET' name='search' action='?'>\
 	<input type='hidden' name='_src_' value='holder'>\
 	<input type='text' name='watchsearch' value='[search]'>\
 	<input type='submit' value='Search'></form>"
@@ -122,7 +122,10 @@
 		if(last_editor)
 			output += " <font size='2'>Last edit by [last_editor] <a href='byond://?_src_=holder;watcheditlog=[ckey]'>(Click here to see edit log)</a></font>"
 		output += "<br>[reason]<hr style='background:#000000; border:0; height:1px'>"
-	usr << browse(output, "window=watchwin;size=900x500")
+	var/datum/browser/popup = new(usr, "watchwin", "Watch list", 900, 500)
+	popup.set_content(output)
+	popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+	popup.open(FALSE)
 	qdel(query_watchlist)
 
 /proc/check_watchlist(target_ckey)

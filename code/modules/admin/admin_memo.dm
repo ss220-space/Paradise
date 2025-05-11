@@ -1,6 +1,6 @@
 /client/proc/admin_memo()
 	set name = "Memo"
-	set category = "Server"
+	set category = "Admin.Admin"
 	if(!check_rights(R_SERVER))
 		return
 	if(!SSdbcore.IsConnected())
@@ -132,7 +132,7 @@
 				var/last_editor = query_memoshow.item[4]
 				output += "<span class='memo'>Memo by <span class='prefix'>[ckey]</span> on [timestamp]"
 				if(last_editor)
-					output += "<br><span class='memoedit'>Last edit by [last_editor] <a href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</A></span>"
+					output += "<br><span class='memoedit'>Last edit by [last_editor] <a href='byond://?_src_=holder;memoeditlist=[ckey]'>(Click here to see edit log)</a></span>"
 				output += "<br>[memotext]</span><br>"
 			if(output)
 				to_chat(src, output, confidential=TRUE)
