@@ -40,7 +40,7 @@
 
 	scan_data += "Состояние аномалии: [state]"
 	if(target.stability > ANOMALY_MOVE_MAX_STABILITY || world.time > target.move_moment)
-		scan_data += span_info("Движение прекращено.")
+		scan_data += span_info("Естественное перемещение прекращено.")
 
 	scan_data += "<hr>Импульсы:\n"
 	for(var/datum/anomaly_impulse/impulse in target.impulses)

@@ -82,6 +82,9 @@
 		if(!(O in was_near))
 			continue
 
+		if(isobserver(O))
+			continue
+
 		if(O.anchored && !ismachinery(O))
 			continue
 
@@ -91,7 +94,8 @@
 
 /obj/effect/anomaly/vortex/mob_touch_effect(mob/living/M)
 	. = ..()
-	M.random_throw(tier * 2, tier * 3, 4)
+	if(!isobserver(M) && !M.anchored)
+		M.random_throw(tier * 2, tier * 3, 4)
 
 /obj/effect/anomaly/vortex/item_touch_effect(obj/item/I)
 	. = ..()
@@ -101,7 +105,7 @@
 	. = ..()
 
 	for(var/atom/movable/A in loc.contents)
-		if(!A.anchored)
+		if(!A.anchored && !isobserver(A))
 			A.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/tier1
@@ -231,7 +235,6 @@
 
 /obj/effect/anomaly/vortex/tier4/do_move(dir)
 	. = ..()
-	pull()
 	for(var/atom/A in range(2, src))
 		A.singularity_act()
 
