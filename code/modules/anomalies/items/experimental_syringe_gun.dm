@@ -102,7 +102,7 @@
 
 	return ..()
 
-/obj/item/gun/syringe/rapidsyringe/experimental/AltClick(mob/user)
+/obj/item/gun/syringe/rapidsyringe/experimental/click_alt(mob/user)
 	if(!user.contains(src))
 		return
 

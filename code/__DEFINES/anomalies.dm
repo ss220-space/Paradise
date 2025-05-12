@@ -23,7 +23,7 @@
 #define iscoreflux(A)		(istype((A), /obj/item/assembly/signaler/core/energetic))
 
 GLOBAL_LIST_INIT(anomaly_types, list(
-	TIER1 = list(
+		TIER1 = list(
 		ANOMALY_TYPE_ATMOS = /datum/anomaly_gen_datum/tier1/pyroclastic,
 		ANOMALY_TYPE_BLUESPACE = /datum/anomaly_gen_datum/tier1/bluespace,
 		ANOMALY_TYPE_GRAV = /datum/anomaly_gen_datum/tier1/gravitational,

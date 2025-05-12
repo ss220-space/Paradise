@@ -67,7 +67,7 @@
 
 	return ..()
 
-/obj/item/gun/energy/bsg/AltClick(mob/user)
+/obj/item/gun/energy/bsg/click_alt(mob/user)
 	if(!core)
 		user.balloon_alert(user, "нет ядра")
 		return
@@ -91,7 +91,7 @@
 	if(!chambered?.BB)
 		return ..()
 
-	var/obj/item/projectile/energy/bsg/bsg_BB = chambered.BB
+	var/obj/projectile/energy/bsg/bsg_BB = chambered.BB
 	bsg_BB.core_strenght = core.get_strenght()
 	return ..()
 

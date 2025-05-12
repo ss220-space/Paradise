@@ -96,7 +96,7 @@
 		return
 
 	if(!spawner.last_command || spawner.last_command == "stop")
-		LoseTarget()
+		lose_target()
 		return
 
 	if(get_dist(src, spawner.current_target) > 7)

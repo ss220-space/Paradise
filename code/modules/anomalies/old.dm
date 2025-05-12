@@ -66,7 +66,7 @@
 			var/amount = rand(1, 3)
 			for (var/i; i <= amount; i++)
 				new /obj/item/relic(get_turf(I))
-				var/datum/effect_system/smoke_spread/smoke = new
+				var/datum/effect_system/fluid_spread/smoke/smoke = new
 				smoke.set_up(5, get_turf(I))
 				smoke.start()
 			qdel(I)
@@ -93,7 +93,7 @@
 		qdel(src)
 
 /obj/effect/old_anomaly/proc/anomalyNeutralize()
-	new /obj/effect/particle_effect/smoke/bad(loc)
+	new /obj/effect/particle_effect/fluid/smoke/bad(loc)
 
 	if(drops_core)
 		aSignal.forceMove(drop_location())

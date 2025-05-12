@@ -61,7 +61,7 @@
 	var/obj/item/ammo_casing/energy/anomaly/en_chambered = chambered
 	en_chambered.e_cost *= max(1, stability_delta * stability_delta)
 
-	var/obj/item/projectile/beam/anomaly/BB = chambered.BB
+	var/obj/projectile/beam/anomaly/BB = chambered.BB
 	BB.stability_delta = stability_delta
 	BB.pull_strenght = choosen_pull_dist
 	BB.move_block = block_move_time

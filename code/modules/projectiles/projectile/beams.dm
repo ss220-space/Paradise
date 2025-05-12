@@ -266,7 +266,7 @@
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
 
-/obj/item/projectile/beam/anomaly
+/obj/projectile/beam/anomaly
 	name = "луч стабилизатора аномалий"
 	icon_state = "xray" // Looks mostly like "blue/red_laser" in green colour.
 	damage = 0
@@ -286,7 +286,7 @@
 	/// The moment at which the reduction in the effects of the anomaly will be reset.
 	var/weaken_time = 0
 
-/obj/item/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
+/obj/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
 	if(!isanomaly(target))
 		return ..()
 
@@ -304,13 +304,13 @@
 	INVOKE_ASYNC(anomaly, TYPE_PROC_REF(/obj/effect/anomaly, go_to), get_turf(firer_source_atom), pull_strenght)
 	return TRUE
 
-/obj/item/projectile/beam/anomaly/stabilizer
+/obj/projectile/beam/anomaly/stabilizer
 	name = "стабилизирующий луч"
 	icon_state = "bluelaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/item/projectile/beam/anomaly/destabilizer
+/obj/projectile/beam/anomaly/destabilizer
 	name = "дестабилизирующий луч"
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser

@@ -92,7 +92,7 @@
 /obj/item/fauna_bomb/process(seconds_per_tick)
 	use_charge(-charge_speed)
 
-/obj/item/fauna_bomb/AltClick(mob/user)
+/obj/item/fauna_bomb/click_alt(mob/user)
 	if(!core)
 		user.balloon_alert(user, "нет ядра")
 		return

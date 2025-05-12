@@ -41,7 +41,7 @@
 	user.balloon_alert(user, msg)
 	return ATTACK_CHAIN_BLOCKED
 
-/obj/item/assembly/anomaly_beacon/AltClick(mob/user)
+/obj/item/assembly/anomaly_beacon/click_alt(mob/user)
 	if(!core)
 		user.balloon_alert(user, "нет ядра")
 		return

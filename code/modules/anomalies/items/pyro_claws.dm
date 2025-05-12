@@ -172,7 +172,7 @@
 
 	return ..()
 
-/obj/item/clothing/gloves/color/black/pyro_claws/AltClick(mob/user)
+/obj/item/clothing/gloves/color/black/pyro_claws/click_alt(mob/user)
 	if(!user.contains(src))
 		return
 

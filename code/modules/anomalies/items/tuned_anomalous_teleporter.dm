@@ -90,8 +90,8 @@
 	for(var/i in 1 to tp_range)
 		T1 = get_step(T1, crossdir)
 
-	var/datum/effect_system/smoke_spread/s1 = new
-	var/datum/effect_system/smoke_spread/s2 = new
+	var/datum/effect_system/fluid_spread/smoke/s1 = new
+	var/datum/effect_system/fluid_spread/smoke/s2 = new
 	s1.set_up(5, FALSE, tp_target)
 	s2.set_up(5, FALSE, tp_target)
 	TP.start(tp_target, T1, FALSE, TRUE, s1, s2, 'sound/effects/phasein.ogg', )
@@ -119,7 +119,7 @@
 	if(emp_timer > world.time)
 		. += span_warning("[declent_ru(NOMINATIVE)] выглядит неработающим.")
 
-/obj/item/assembly/tuned_anomalous_teleporter/AltClick(mob/user)
+/obj/item/assembly/tuned_anomalous_teleporter/click_alt(mob/user)
 	if(!user.contains(src))
 		return
 
@@ -198,13 +198,13 @@ Ranges with core charge 50-100:
 		return ..()
 
 	tp_range = rand(1, max_tp_range)
-	var/datum/effect_system/smoke_spread/smoke = new
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
 	smoke.set_up(10, FALSE, user)
 	smoke.start()
 	user.gib()
 	return OBLITERATION
 
-/obj/item/assembly/tuned_anomalous_teleporter/bullet_act(obj/item/projectile/P)
+/obj/item/assembly/tuned_anomalous_teleporter/bullet_act(obj/projectile/P)
 	. = ..()
 	activate()
 

@@ -135,7 +135,7 @@
 	return ..()
 
 
-/obj/item/clothing/shoes/magboots/gravity/AltClick(mob/user)
+/obj/item/clothing/shoes/magboots/gravity/click_alt(mob/user)
 	if(!user.contains(src))
 		return ..()
 
