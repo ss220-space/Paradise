@@ -20,7 +20,7 @@
 /datum/hud/proc/create_parallax(mob/viewmob)
 	var/mob/screenmob = viewmob || mymob
 	var/client/C = screenmob.client
-	if(!apply_parallax_pref())
+	if(!apply_parallax_pref(viewmob))
 		for(var/atom/movable/screen/plane_master/parallax as anything in get_true_plane_masters(PLANE_SPACE_PARALLAX))
 			parallax.hide_plane(screenmob)
 		return
@@ -50,7 +50,7 @@
 	// We could do not do parallax for anything except the main plane group
 	// This could be changed, but it would require refactoring this whole thing
 	// And adding non client particular hooks for all the inputs, and I do not have the time I'm sorry :(
-	for(var/atom/movable/screen/plane_master/plane_master as anything in get_true_plane_masters(PLANE_SPACE))
+	for(var/atom/movable/screen/plane_master/plane_master as anything in screenmob.hud_used.get_true_plane_masters(PLANE_SPACE))
 		plane_master.color = list(
 			0, 0, 0, 0,
 			0, 0, 0, 0,
@@ -68,8 +68,9 @@
 	C.parallax_layers = null
 
 
-/datum/hud/proc/apply_parallax_pref()
-	var/client/C = mymob.client
+/datum/hud/proc/apply_parallax_pref(mob/viewmob)
+	var/mob/screenmob = viewmob || mymob
+	var/client/C = screenmob.client
 	var/pref = C.prefs?.parallax || PARALLAX_HIGH
 	switch(pref)
 		if (PARALLAX_INSANE)
@@ -197,7 +198,7 @@
 	var/largest_change = max(abs(offset_x), abs(offset_y))
 	var/max_allowed_dist = (glide_rate / world.tick_lag) + 1
 	// If we aren't already moving/don't allow parallax, have made some movement, and that movement was smaller then our "glide" size, animate
-	var/run_parralax = (C.do_parallax_animations && glide_rate && !areaobj.parallax_movedir && C.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
+	var/run_parralax = (C.do_parallax_animations && glide_rate && !areaobj.parallax_movedir && !SA?.moving && C.dont_animate_parallax <= world.time && largest_change <= max_allowed_dist)
 
 	for(var/atom/movable/screen/parallax_layer/parallax_layer as anything in C.parallax_layers)
 		var/our_speed = parallax_layer.speed
@@ -231,6 +232,9 @@
 
 		parallax_layer.offset_x -= change_x
 		parallax_layer.offset_y -= change_y
+
+		parallax_layer.pixel_w = round(parallax_layer.offset_x, 1)
+		parallax_layer.pixel_z = round(parallax_layer.offset_y, 1)
 
 		// Now that we have our offsets, let's do our positioning
 		// We're going to use an animate to "glide" that last movement out, so it looks nicer
