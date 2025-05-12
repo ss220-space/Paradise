@@ -35,6 +35,9 @@
 	. = ..()
 
 /obj/effect/anomaly/vortex/proc/pull(atom/movable/A)
+	if (QDELETED(A))
+		return
+
 	// a - vector A->src
 	var/ax = x - A.x
 	var/ay = y - A.y

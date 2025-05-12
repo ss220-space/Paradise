@@ -34,6 +34,9 @@
 
 /obj/effect/anomaly/gravitational/item_touch_effect(obj/item/I)
 	. = ..()
+	if (QDELETED(I))
+		return
+
 	var/grav_delta = -I.get_gravity()
 	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
 	I.add_gravity(id, grav_delta)

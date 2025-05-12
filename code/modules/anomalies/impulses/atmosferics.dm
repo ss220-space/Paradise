@@ -13,7 +13,7 @@
 /datum/anomaly_impulse/random_temp/impulse()
 	. = ..()
 	for(var/turf/simulated/T in view(scale_by_strenght(range_low, range_high), owner))
-		T.air.temperature += max(0, rand(temp_delta_low, temp_delta_high))
+		T?.air?.temperature += max(0, rand(temp_delta_low, temp_delta_high))
 
 /datum/anomaly_impulse/random_temp/tier1
 	period_low = 15 SECONDS

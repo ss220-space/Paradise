@@ -1174,6 +1174,9 @@
 		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
 			targets.Add(T)
 
+	if(targets.len == 0)
+		return FALSE
+
 	var/turf/target = pick(targets)
 	return throw_at(target, get_dist(src, target), speed)
 
