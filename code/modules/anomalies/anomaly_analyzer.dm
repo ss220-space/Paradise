@@ -48,7 +48,7 @@
 		scan_data += "  [impulse.name]" + (blocked ? " ([span_green("заблокирован")]" : "")
 		scan_data += "  &emsp;Описание: [impulse.desc]"
 		scan_data += "  &emsp;Время между импульсами: [impulse.scale_by_strenght(impulse.period_low, impulse.period_high) / 10]"
-		scan_data += "  &emsp;Блокируящая стабильность: [impulse.stability_high]"
+		scan_data += "  &emsp;Блокирующая стабильность: [impulse.stability_high]"
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 500, 600)
