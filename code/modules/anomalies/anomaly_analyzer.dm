@@ -12,10 +12,10 @@
 			Выводит достаточно полную информацию о сканируемой аномалии. \
 			Может сканировать аномалии на расстоянии."
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
-	lefthand_file = 'icons/obj/anomaly/anomaly_inhand_l.dmi'
-	righthand_file = 'icons/obj/anomaly/anomaly_inhand_r.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	icon_state = "scanner_item"
-	item_state = "scanner"
+	item_state = "anom_scanner"
 	gender = MALE
 	origin_tech = "programming=3;magnets=1"
 	/// Title of scan window.

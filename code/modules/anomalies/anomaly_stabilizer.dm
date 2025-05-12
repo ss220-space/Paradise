@@ -12,8 +12,8 @@
 			Имеет два слота для ядер аномалий."
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "pistol_base_item"
-	lefthand_file = 'icons/obj/anomaly/anomaly_inhand_l.dmi'
-	righthand_file = 'icons/obj/anomaly/anomaly_inhand_r.dmi'
+	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
 	item_state = "pistol_base"
 	gender = MALE
 	gun_light_overlay = "flight"
