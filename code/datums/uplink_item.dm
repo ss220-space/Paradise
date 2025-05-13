@@ -2340,7 +2340,7 @@
 			имплант медицинской лучевой пушки, имплант хирургических инструментов, отвертка, автоимплантер, элитный медицинский ИКС Синдиката, портативный анализатор тела, \
 			медицинская шина, инъектор с нанокальцием."
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	cost = 175 // normally 200
+	cost = 130 // normally 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/sniper

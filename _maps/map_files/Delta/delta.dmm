@@ -48562,10 +48562,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -84028,10 +84024,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -86749,8 +86741,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "peP" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -86758,6 +86748,8 @@
 	dir = 1;
 	pixel_y = 26
 	},
+/obj/structure/chair/comfy/mouse,
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "pfa" = (
@@ -110902,10 +110894,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -117919,10 +117907,6 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
-	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"

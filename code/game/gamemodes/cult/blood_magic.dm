@@ -107,6 +107,21 @@
 
 	..()
 
+/datum/action/innate/cult/blood_spell/manipulation/Grant(mob/living/owner, datum/action/innate/cult/blood_magic/BM)
+	if(health_cost)
+		desc += "<br>Deals <u>[health_cost] damage</u> to your arm per use."
+
+	base_desc = desc
+	desc += "<br><b><u>Has [charges] use\s remaining</u></b>."
+	all_magic = BM
+	button.ordered = FALSE
+	if(locate(/datum/action/innate/cult/blood_spell/manipulation) in owner.actions)
+		all_magic.spells -= src
+		owner.balloon_alert(owner, "лимит данного заклинания достигнут достигнут!")
+		return
+
+	..()
+
 /datum/action/innate/cult/blood_spell/override_location()
 	button.locked = TRUE
 	all_magic.Positioning()
@@ -346,6 +361,8 @@
 	charges = 5
 	magic_path = /obj/item/melee/blood_magic/manipulator
 
+
+
 // The "magic hand" items
 /obj/item/melee/blood_magic
 	name = "\improper magical aura"
@@ -367,6 +384,7 @@
 	var/uses = 1
 	var/health_cost = 0 //The amount of health taken from the user when invoking the spell
 	var/datum/action/innate/cult/blood_spell/source
+	var/max_charges
 
 /obj/item/melee/blood_magic/New(loc, spell)
 	if(has_source)
@@ -700,6 +718,8 @@
 	name = "Blood Rite Aura"
 	desc = "Absorbs blood from anything you touch. Touching cultists and constructs can heal them. Use in-hand to cast an advanced rite."
 	color = "#7D1717"
+	max_charges = 300
+
 
 /obj/item/melee/blood_magic/manipulator/examine(mob/user)
 	. = ..()
@@ -772,6 +792,9 @@
 
 			//Draining blood from non-cultists
 			else
+				if(uses >= max_charges)
+					balloon_alert(user, "лимит крови достигнут!")
+					return
 				if(H.stat == DEAD)
 					to_chat(user, "<span class='warning'>[H.p_their(TRUE)] blood has stopped flowing, you'll have to find another way to extract it.</span>")
 					return
@@ -815,16 +838,23 @@
 
 		//Draining blood on the floor
 		if(istype(target, /obj/effect/decal/cleanable/blood) || istype(target, /obj/effect/decal/cleanable/trail_holder))
+			if(uses >= max_charges)
+				balloon_alert(user, "лимит крови достигнут!")
+				return
 			blood_draw(target, user)
 		if(istype(target, /obj/item/blood_orb))
 			var/obj/item/blood_orb/candidate = target
+			if(uses >= max_charges)
+				balloon_alert(user, "лимит крови достигнут!")
+				return
 			if(candidate.blood)
 				uses += candidate.blood
 				to_chat(user, "<span class='warning'>You obtain [candidate.blood] blood from the orb of blood!</span>")
 				playsound(user, 'sound/misc/enter_blood.ogg', 50)
 				qdel(candidate)
-
 		..()
+	if(uses > max_charges)
+		uses = max_charges
 
 /obj/item/melee/blood_magic/manipulator/proc/blood_draw(atom/target, mob/living/carbon/human/user)
 	var/temp = 0
