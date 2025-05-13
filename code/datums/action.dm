@@ -188,6 +188,9 @@
 	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
 		apply_unavailable_effect()
 		return FALSE
+		
+	if(!target)
+		return TRUE
 
 	var/signal_result = SEND_SIGNAL(target, COMSIG_ACTION_BUTTON_UPDATE, src)
 	if(signal_result & COMSIG_ACTION_UPDATE_INTERRUPT)
