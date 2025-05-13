@@ -81,6 +81,14 @@
 	dir = 1
 	},
 /obj/structure/stone_tile/block,
+/obj/effect/bump_teleporter{
+	density = 0;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	name = "Межпространственный Разрыв";
+	invisibility = 0;
+	pixel_y = -32
+	},
 /turf/simulated/floor/indestructible/boss{
 	oxygen = 21;
 	nitrogen = 82;
@@ -296,9 +304,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "matlatele1";
-	id = "lavalandtele1"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 3;
+	teleport_x = 84;
+	teleport_y = 109
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -1029,15 +1040,11 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "kp" = (
-/obj/effect/bump_teleporter{
-	icon = 'icons/obj/stationobjs.dmi';
-	icon_state = "acad_portal";
-	id_target = "exitfromlavaland";
-	invisibility = 0;
-	name = "Межпространственный Разрыв";
-	id = "entrancemining"
+/obj/effect/step_trigger/teleporter{
+	teleport_z = 4;
+	teleport_x = 9;
+	teleport_y = 6
 	},
-/obj/structure/stone_tile/slab/cracked,
 /turf/simulated/floor/indestructible/boss{
 	oxygen = 21;
 	nitrogen = 82;
@@ -1984,19 +1991,10 @@
 /turf/simulated/floor/indestructible/boss,
 /area/mine/necropolis)
 "rf" = (
-/obj/structure/stone_tile/block{
-	dir = 8
-	},
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/effect/bump_teleporter{
-	icon = 'icons/obj/stationobjs.dmi';
-	icon_state = "acad_portal";
-	id_target = "entrancemining";
-	invisibility = 0;
-	name = "Межпространственный Разрыв";
-	id = "exitfromlavaland"
+/obj/effect/step_trigger/teleporter{
+	teleport_z = 4;
+	teleport_x = 82;
+	teleport_y = 78
 	},
 /turf/simulated/floor/indestructible/boss{
 	oxygen = 21;
@@ -3102,9 +3100,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "matlatele2";
-	id = "lavalandtele2"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 3;
+	teleport_x = 85;
+	teleport_y = 109
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -3323,6 +3324,14 @@
 /obj/structure/stone_tile,
 /obj/structure/stone_tile{
 	dir = 8
+	},
+/obj/effect/bump_teleporter{
+	density = 0;
+	icon = 'icons/obj/stationobjs.dmi';
+	icon_state = "acad_portal";
+	name = "Межпространственный Разрыв";
+	invisibility = 0;
+	pixel_y = 32
 	},
 /turf/simulated/floor/indestructible/boss{
 	oxygen = 21;
@@ -4272,9 +4281,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "matlatele3";
-	id = "lavalandtele3"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 3;
+	teleport_x = 86;
+	teleport_y = 109
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
