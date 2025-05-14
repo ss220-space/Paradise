@@ -176,6 +176,13 @@
 		if(M.on_fire)
 			M.adjust_fire_stacks(6)
 
+/datum/reagent/plasma/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("plasma", volume)
+
 
 /datum/reagent/thermite
 	name = "Термит"
@@ -319,6 +326,13 @@
 	penetrates_skin = TRUE
 	taste_description = "соли"
 
+/datum/reagent/flash_powder/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("flash_powder", volume)
+
 /datum/reagent/smoke_powder
 	name = "Дымный порошок"
 	id = "smoke_powder"
@@ -326,6 +340,13 @@
 	reagent_state = LIQUID
 	color = "#808080"
 	taste_description = "дыма"
+
+/datum/reagent/smoke_powder/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("smoke_powder", 10)
 
 /datum/reagent/sonic_powder
 	name = "Звуковой порошок"
@@ -335,6 +356,13 @@
 	color = "#0000FF"
 	penetrates_skin = TRUE
 	taste_description = "шума"
+
+/datum/reagent/sonic_powder/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("sonic_powder", volume)
 
 /datum/reagent/cryostylane
 	name = "Криостилан"
@@ -453,3 +481,10 @@
 		M.adjust_fire_stacks(volume / 5)
 		return
 	..()
+
+/datum/reagent/plasma_dust/reaction_turf(turf/simulated/T, volume)
+	if(isspaceturf(T))
+		return
+	if(!T.reagents)
+		T.create_reagents(volume)
+	T.reagents.add_reagent("plasma_dust", volume)

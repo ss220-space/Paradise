@@ -5216,6 +5216,10 @@
 	dir = 1
 	},
 /area/security/lobby)
+"aLO" = (
+/mob/living/simple_animal/mouse/wooly/rep,
+/turf/simulated/floor/engine/hull/reinforced,
+/area/space)
 "aLP" = (
 /obj/structure/barricade/wooden,
 /obj/structure/disposalpipe/segment{
@@ -162721,8 +162725,6 @@
 	dir = 4;
 	layer = 2.9
 	},
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
 /obj/item/radio/intercom{
 	name = "north station intercom (General)";
 	pixel_y = 28
@@ -162731,6 +162733,8 @@
 	c_tag = "NT Representative's bedroom"
 	},
 /obj/machinery/atmospherics/unary/vent_pump/on,
+/mob/living/simple_animal/mouse/wooly/rep,
+/obj/structure/chair/comfy/mouse,
 /turf/simulated/floor/carpet/royalblue,
 /area/ntrep)
 "xPq" = (
@@ -254045,7 +254049,7 @@ uJG
 uJG
 uJG
 fvL
-fvL
+aLO
 gto
 nWA
 iaV

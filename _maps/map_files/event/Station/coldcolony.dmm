@@ -131,6 +131,17 @@
 	icon_state = "dark"
 	},
 /area/coldcolony/malta/security/permabrig)
+"aco" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/camera{
+	c_tag = "Minisat Maintenance Room";
+	dir = 1;
+	network = list("Minisat","SS13")
+	},
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/turret_protected/aisat)
 "acq" = (
 /obj/machinery/door/airlock/maintenance{
 	req_access = list(47)
@@ -266,6 +277,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/xenobiology)
+"adX" = (
+/obj/machinery/camera{
+	c_tag = "Security East Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "adZ" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 6
@@ -2214,6 +2233,14 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/quartermaster/storage)
+"aOh" = (
+/obj/machinery/camera{
+	c_tag = "Security West Exterior";
+	use_power = 0;
+	dir = 9
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "aOQ" = (
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
@@ -2894,7 +2921,6 @@
 /area/coldcolony/malta/engineering/atmos)
 "bbm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/engineering/break_room)
 "bbD" = (
@@ -3028,6 +3054,14 @@
 /obj/structure/reagent_dispensers/water_cooler,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/resid_serv/crew_quarters/theatre)
+"bdq" = (
+/obj/machinery/camera{
+	c_tag = "Service SouthEast Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "beh" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
@@ -3153,7 +3187,6 @@
 /area/coldcolony/malta/medical/virology)
 "bhE" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/vehicle/ridden/snowmobile/key,
 /obj/structure/sign/poster/official/work_for_a_future{
 	pixel_x = 32
 	},
@@ -5569,6 +5602,14 @@
 	icon_state = "red"
 	},
 /area/coldcolony/malta/security/lobby)
+"bZk" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Research Hallway";
+	network = list("Research","SS13")
+	},
+/turf/simulated/floor/plating,
+/area/coldcolony/malta/research/hallway)
 "bZo" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -6578,9 +6619,6 @@
 	},
 /area/ruin/unpowered)
 "cuz" = (
-/obj/machinery/atmospherics/unary/portables_connector{
-	dir = 8
-	},
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -9203,6 +9241,14 @@
 	icon_state = "whitered"
 	},
 /area/coldcolony/malta/security/medbay)
+"dnA" = (
+/obj/machinery/camera{
+	c_tag = "Bridge West Exterior";
+	use_power = 0;
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "dnF" = (
 /turf/simulated/wall/rust,
 /area/coldcolony/malta/quartermaster/miningeva)
@@ -10955,6 +11001,15 @@
 	icon_state = "darkred"
 	},
 /area/coldcolony/malta/security/evidence)
+"dXU" = (
+/obj/structure/flora/grass/brown,
+/obj/machinery/camera{
+	c_tag = "Research East Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "dXZ" = (
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plasteel{
@@ -11035,6 +11090,7 @@
 "eaf" = (
 /obj/structure/rack,
 /obj/effect/spawner/lootdrop/maintenance/double,
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
 "eaJ" = (
@@ -11685,6 +11741,10 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/camera{
+	c_tag = "Paramedic's Office";
+	network = list("Medical","SS13")
+	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
 "elx" = (
@@ -11847,9 +11907,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "lavalandtele1";
-	id = "matlatele1"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 4;
+	teleport_x = 4;
+	teleport_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -12554,14 +12617,13 @@
 /area/coldcolony/malta/resid_serv/bar/atrium)
 "eBZ" = (
 /obj/structure/table,
-/obj/effect/spawner/lootdrop/maintenance,
 /obj/item/radio/intercom{
 	pixel_x = -28
 	},
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/clothing/accessory/stethoscope,
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
 "eCb" = (
@@ -13242,6 +13304,19 @@
 	temperature = 180
 	},
 /area/ruin/unpowered/coldcolony_outside)
+"ePi" = (
+/obj/effect/turf_decal/tile/neutral,
+/obj/effect/turf_decal/tile/neutral{
+	dir = 8
+	},
+/obj/machinery/camera{
+	c_tag = "Escape Checkpoint"
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "escape"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/entrance)
 "ePo" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/ruin/sm_lab)
@@ -13696,6 +13771,9 @@
 	},
 /area/coldcolony/malta/medical/sleeper)
 "eXP" = (
+/obj/machinery/computer/security{
+	network = list("SS13","Research Outpost","Mining Outpost")
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "red"
@@ -13973,6 +14051,18 @@
 /obj/structure/window/reinforced,
 /turf/simulated/floor/grass,
 /area/coldcolony/malta/hallway/cargo_escape/exit)
+"fdE" = (
+/obj/docking_port/stationary{
+	dwidth = 8;
+	height = 22;
+	id = "syndicate_s";
+	name = "south of station";
+	width = 18;
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
+	area_type = /area/ruin/unpowered/coldcolony_outside
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "fdF" = (
 /obj/machinery/vending/coffee,
 /obj/effect/decal/warning_stripes/yellow/partial{
@@ -16471,6 +16561,14 @@
 	icon_state = "greencorner"
 	},
 /area/coldcolony/malta/hallway/cargo_escape/exit)
+"gfx" = (
+/obj/machinery/camera{
+	c_tag = "Service NorthEast Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "gfy" = (
 /obj/effect/landmark/tiles/burnturf,
 /obj/structure/door_assembly/door_assembly_shuttle{
@@ -16484,6 +16582,14 @@
 	temperature = 180
 	},
 /area/ruin/unpowered)
+"gfB" = (
+/obj/machinery/camera{
+	c_tag = "Bridge SouthWest Exterior";
+	use_power = 0;
+	dir = 9
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "gga" = (
 /obj/effect/spawner/lootdrop/maintenance/double,
 /obj/structure/closet,
@@ -16712,6 +16818,22 @@
 	icon_state = "fancy-wood-cherry-broken3"
 	},
 /area/coldcolony/malta/resid_serv/library)
+"glg" = (
+/obj/structure/target_stake{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern";
+	density = 0;
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "Street lamp"
+	},
+/obj/machinery/camera{
+	c_tag = "Engineering Entrance Exterior";
+	use_power = 0;
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "glj" = (
 /obj/effect/decal/cleanable/blood/drip{
 	pixel_x = -2;
@@ -17255,6 +17377,13 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/wood/fancy/cherry,
 /area/coldcolony/malta/security/hos)
+"gtT" = (
+/obj/machinery/camera{
+	c_tag = "Bridge Hangar Exterior";
+	use_power = 0
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "guc" = (
 /obj/effect/spawner/window/reinforced,
 /obj/machinery/atmospherics/pipe/simple/hidden{
@@ -17292,7 +17421,8 @@
 /area/coldcolony/malta/engineering/atmos)
 "gui" = (
 /obj/machinery/power/smes{
-	charge = 5e+006
+	charge = 5e+006;
+	output_level = 10000
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -18587,6 +18717,18 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/security/detectives_office)
+"gQn" = (
+/obj/docking_port/stationary{
+	dwidth = 8;
+	height = 22;
+	id = "syndicate_nw";
+	name = "northwest of station";
+	width = 18;
+	area_type = /area/ruin/unpowered/coldcolony_outside;
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "gQr" = (
 /obj/item/radio/intercom/private{
 	pixel_x = 28;
@@ -18774,6 +18916,14 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
+"gWg" = (
+/obj/machinery/camera{
+	c_tag = "Service South Exterior";
+	use_power = 0;
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "gWl" = (
 /obj/effect/decal/warning_stripes/yellow,
 /turf/simulated/floor/plasteel{
@@ -18804,6 +18954,14 @@
 	},
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
+"gWx" = (
+/obj/machinery/camera{
+	c_tag = "Escape NorthWest Exterior";
+	use_power = 0;
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "gWC" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -19556,6 +19714,14 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/research/storage)
+"hlr" = (
+/obj/machinery/camera{
+	c_tag = "Service Hangar Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "hlA" = (
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/garden)
@@ -20381,6 +20547,11 @@
 /area/coldcolony/malta/resid_serv/crew_quarters/barber)
 "hCq" = (
 /obj/structure/table_frame,
+/obj/machinery/camera{
+	c_tag = "Virology Main Hall";
+	dir = 9;
+	network = list("Medical","SS13")
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -20499,10 +20670,9 @@
 	},
 /area/coldcolony/malta/research/test_chamber)
 "hDV" = (
-/obj/machinery/constructable_frame/machine_frame,
-/obj/item/stack/sheet/glass,
-/obj/item/shard{
-	icon_state = "medium"
+/obj/machinery/bodyscanner{
+	dir = 2;
+	pixel_y = 4
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
@@ -20531,7 +20701,6 @@
 /area/coldcolony/malta/medical/sleeper)
 "hEm" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/ruin/sm_division)
 "hFa" = (
@@ -21700,6 +21869,14 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/turret_protected/ai)
+"idL" = (
+/obj/machinery/camera{
+	c_tag = "Medbay SouthEast Exterior";
+	use_power = 0;
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "iea" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel,
@@ -22035,6 +22212,18 @@
 	icon_state = "darkblue"
 	},
 /area/coldcolony/malta/bridge/vip)
+"ija" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior 1";
+	dir = 8;
+	network = list("SS13","MiniSat");
+	use_power = 0
+	},
+/obj/machinery/light/small{
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "ijf" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -22739,6 +22928,17 @@
 	icon_state = "purple"
 	},
 /area/coldcolony/ruin/sm_division)
+"iyw" = (
+/obj/structure/sign/poster/official/random{
+	pixel_y = -32
+	},
+/obj/machinery/camera{
+	c_tag = "Research North Exterior";
+	use_power = 0;
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "iyF" = (
 /obj/structure/table/wood,
 /obj/item/folder/blue,
@@ -23684,6 +23884,14 @@
 /obj/item/clothing/suit/hooded/wintercoat/medical,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
+"iRF" = (
+/obj/machinery/camera{
+	c_tag = "Medbay East Exterior";
+	use_power = 0;
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "iRM" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -24660,7 +24868,6 @@
 /obj/effect/decal/warning_stripes/yellow/hollow,
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
-/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "jif" = (
@@ -24868,10 +25075,10 @@
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "jlR" = (
-/obj/effect/turf_decal/weather/snow/corner{
-	dir = 5
-	},
 /obj/structure/flora/grass/both,
+/obj/effect/turf_decal/weather/snow/corner{
+	dir = 4
+	},
 /turf/simulated/floor/plating/asteroid{
 	temperature = 180
 	},
@@ -26614,6 +26821,15 @@
 	icon_state = "red"
 	},
 /area/coldcolony/malta/security/prison/cell_block/A)
+"jRi" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior 4";
+	dir = 6;
+	network = list("SS13","MiniSat");
+	use_power = 0
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "jRT" = (
 /obj/structure/filingcabinet/filingcabinet,
 /turf/simulated/floor/plating,
@@ -28599,6 +28815,9 @@
 /obj/structure/sign/poster/official/random{
 	pixel_y = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Cargo Backroom"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -29291,6 +29510,18 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
+"kNd" = (
+/obj/structure/flora/grass/brown,
+/obj/structure/sign/poster/official/random{
+	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Cargo Entrance Exterior";
+	use_power = 0;
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "kNl" = (
 /obj/structure/table/wood,
 /obj/item/storage/fancy/candle_box/full{
@@ -31604,6 +31835,14 @@
 "lJF" = (
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
+"lJJ" = (
+/obj/machinery/camera{
+	c_tag = "Engineering East Exterior";
+	use_power = 0;
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "lJK" = (
 /obj/machinery/portable_atmospherics/scrubber,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -31865,6 +32104,10 @@
 	},
 /obj/item/radio/intercom{
 	pixel_y = -26
+	},
+/obj/machinery/camera{
+	c_tag = "Bridge East Hallway";
+	dir = 1
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -32736,7 +32979,6 @@
 /area/coldcolony/malta/security/prison/cell_block/A)
 "mfg" = (
 /obj/effect/decal/warning_stripes/yellow/hollow,
-/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "mfh" = (
@@ -35265,6 +35507,7 @@
 	pixel_x = 28
 	},
 /obj/machinery/light/small,
+/obj/structure/closet/secure_closet/pilot_sniper,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -35838,6 +36081,13 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/quartermaster/office)
+"nmu" = (
+/obj/machinery/camera{
+	c_tag = "Outpost Entrance Exterior";
+	use_power = 0
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "nmw" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -37009,6 +37259,15 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/research/shallway)
+"nKZ" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior 2";
+	dir = 1;
+	network = list("SS13","MiniSat");
+	use_power = 0
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "nLc" = (
 /obj/structure/chair/comfy/blue{
 	dir = 1
@@ -37643,6 +37902,14 @@
 	},
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/quartermaster/miningbar)
+"nXy" = (
+/obj/machinery/camera{
+	c_tag = "Security Hangar Exterior";
+	use_power = 0;
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "nXO" = (
 /obj/structure/closet/cabinet,
 /obj/item/reagent_containers/food/drinks/bottle/whiskey,
@@ -38205,6 +38472,9 @@
 	},
 /obj/machinery/atmospherics/meter,
 /obj/effect/decal/warning_stripes/west,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
 "ohl" = (
@@ -38242,6 +38512,9 @@
 	pixel_y = 26
 	},
 /obj/effect/landmark/tiles/burnturf,
+/obj/machinery/camera{
+	c_tag = "Mining Production"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -38957,6 +39230,9 @@
 /obj/item/pickaxe/safety,
 /obj/item/pickaxe/safety,
 /obj/item/storage/bag/ore,
+/obj/machinery/camera{
+	c_tag = "Mining West"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -39143,6 +39419,10 @@
 	dir = 4;
 	pixel_x = -22
 	},
+/obj/machinery/camera{
+	c_tag = "Mr. Chang's";
+	dir = 4
+	},
 /turf/simulated/floor/carpet/green,
 /area/coldcolony/malta/civilian/mrchangs)
 "oxe" = (
@@ -39246,9 +39526,11 @@
 	},
 /area/coldcolony/malta/security/permabrig)
 "oyS" = (
-/obj/machinery/power/port_gen/pacman,
 /obj/structure/cable{
 	icon_state = "0-4"
+	},
+/obj/machinery/power/port_gen/pacman{
+	anchored = 1
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/turret_protected/aisat)
@@ -41405,6 +41687,10 @@
 /area/ruin/unpowered/coldcolony_outside)
 "ppK" = (
 /obj/structure/chair/stool,
+/obj/machinery/camera{
+	c_tag = "Miner's bar";
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -41860,6 +42146,14 @@
 "pwt" = (
 /turf/simulated/wall/r_wall/coated,
 /area/coldcolony/malta/research/test_chamber)
+"pwu" = (
+/obj/machinery/camera{
+	c_tag = "Service East Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "pww" = (
 /obj/structure/table/wood,
 /obj/machinery/computer/security/wooden_tv,
@@ -43252,6 +43546,7 @@
 /area/coldcolony/malta/security/hos)
 "pYS" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/item/storage/toolbox/surgery,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/medical/surgery/west)
 "pYW" = (
@@ -44634,6 +44929,12 @@
 	pixel_y = 8;
 	pixel_x = -24
 	},
+/obj/machinery/camera{
+	c_tag = "Engineering Monitoring";
+	dir = 4;
+	network = list("Engineering","SS13");
+	pixel_y = -22
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "yellow"
@@ -45089,9 +45390,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "lavalandtele2";
-	id = "matlatele2"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 4;
+	teleport_x = 5;
+	teleport_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -45139,6 +45443,14 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/break_room)
+"qFL" = (
+/obj/machinery/camera{
+	c_tag = "Security SouthWest Exterior";
+	use_power = 0;
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "qFY" = (
 /turf/simulated/floor/plasteel{
 	dir = 9;
@@ -45395,6 +45707,17 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/atmos)
+"qKR" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Thermal Generator";
+	network = list("SS13","Engineering");
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "caution"
+	},
+/area/coldcolony/malta/engineering/teg)
 "qLj" = (
 /obj/structure/table,
 /obj/item/stack/packageWrap,
@@ -46904,6 +47227,13 @@
 	icon_state = "grimy"
 	},
 /area/coldcolony/malta/chapel/main)
+"rkJ" = (
+/obj/machinery/camera{
+	c_tag = "Research SouthEast Exterior";
+	use_power = 0
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "rkK" = (
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
@@ -47045,6 +47375,14 @@
 	icon_state = "wood-cherry-broken6"
 	},
 /area/coldcolony/ruin/abandoned_house)
+"rmQ" = (
+/obj/machinery/camera{
+	c_tag = "Cargo East Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "rmU" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -47099,6 +47437,15 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/control)
+"rnZ" = (
+/obj/machinery/camera{
+	c_tag = "AI Satellite Exterior 3";
+	dir = 4;
+	network = list("SS13","MiniSat");
+	use_power = 0
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "rod" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -47166,6 +47513,10 @@
 /obj/effect/decal/cleanable/dirt,
 /obj/item/radio/intercom{
 	pixel_x = 28
+	},
+/obj/machinery/camera{
+	c_tag = "Service North Hall";
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -48390,6 +48741,11 @@
 /obj/structure/extinguisher_cabinet{
 	pixel_y = -28
 	},
+/obj/machinery/camera{
+	c_tag = "Research Lobby";
+	dir = 1;
+	network = list("Research","SS13")
+	},
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/research)
 "rNM" = (
@@ -48866,6 +49222,22 @@
 	temperature = 180
 	},
 /area/shuttle/pirate_corvette)
+"rXQ" = (
+/obj/structure/target_stake{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern";
+	density = 0;
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "Street lamp"
+	},
+/obj/machinery/camera{
+	c_tag = "Bridge Entrance Exterior";
+	use_power = 0;
+	dir = 9
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "rXS" = (
 /obj/structure/disposalpipe/segment{
 	dir = 4
@@ -49711,6 +50083,15 @@
 /obj/structure/cable,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/syndie_outpost)
+"src" = (
+/obj/structure/flora/grass/green,
+/obj/machinery/camera{
+	c_tag = "Engineering North Exterior";
+	use_power = 0;
+	dir = 10
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "sre" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -49737,9 +50118,12 @@
 	color = "black";
 	icon_state = "tile_full"
 	},
-/obj/effect/bump_teleporter{
-	id_target = "lavalandtele3";
-	id = "matlatele3"
+/obj/effect/step_trigger/teleporter{
+	icon = 'icons/mob/screen_gen.dmi';
+	icon_state = "x2";
+	teleport_z = 4;
+	teleport_x = 6;
+	teleport_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	color = "gray";
@@ -50276,6 +50660,14 @@
 	},
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/maintenance/servicegen)
+"sBN" = (
+/obj/machinery/camera{
+	c_tag = "Security SouthEast Exterior";
+	use_power = 0;
+	dir = 6
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "sBU" = (
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
@@ -51181,6 +51573,11 @@
 	},
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
+	},
+/obj/machinery/camera{
+	c_tag = "Security Hall";
+	network = list("SS13","Security");
+	dir = 8
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -53048,6 +53445,9 @@
 /obj/structure/sign/electricshock{
 	pixel_y = 32
 	},
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -53451,6 +53851,14 @@
 "tLE" = (
 /turf/simulated/wall,
 /area/coldcolony/malta/resid_serv/library/game_zone)
+"tLF" = (
+/obj/machinery/camera{
+	c_tag = "Research West Exterior";
+	use_power = 0;
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "tMx" = (
 /obj/effect/decal/cleanable/blood/old,
 /obj/effect/decal/cleanable/dirt,
@@ -53629,6 +54037,14 @@
 /obj/structure/sign/chemistry,
 /turf/simulated/wall,
 /area/coldcolony/malta/medical/sleeper)
+"tQK" = (
+/obj/machinery/camera{
+	c_tag = "Morgue Exterior";
+	use_power = 0;
+	dir = 5
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "tQU" = (
 /obj/structure/chair,
 /obj/effect/landmark/start/civilian,
@@ -54571,15 +54987,21 @@
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/biostorage)
 "ugn" = (
-/obj/effect/decal/cleanable/dirt,
+/obj/structure/target_stake{
+	icon = 'icons/obj/lighting.dmi';
+	icon_state = "lantern";
+	density = 0;
+	light_color = "#FFBF00";
+	light_range = 6;
+	name = "Street lamp"
+	},
 /obj/machinery/camera{
-	c_tag = "Dorm Hallway";
-	dir = 9
+	c_tag = "Medbay SouthWest Exterior";
+	use_power = 0;
+	dir = 6
 	},
-/turf/simulated/floor/plasteel{
-	icon_state = "neutralfull"
-	},
-/area/coldcolony/malta/hallway/service/north)
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "ugy" = (
 /obj/machinery/door/airlock/security/glass{
 	id_tag = "BrigRight";
@@ -56531,7 +56953,7 @@
 "uVX" = (
 /obj/machinery/vending/snack,
 /obj/machinery/camera{
-	c_tag = "OutPost";
+	c_tag = "Outpost East";
 	dir = 9
 	},
 /turf/simulated/floor/plasteel{
@@ -56713,6 +57135,14 @@
 "uYL" = (
 /turf/simulated/wall/r_wall,
 /area/coldcolony/malta/bridge/vip)
+"uYN" = (
+/obj/machinery/camera{
+	c_tag = "Research South Exterior";
+	use_power = 0;
+	dir = 4
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "uYP" = (
 /obj/effect/spawner/random_spawners/rodent,
 /obj/machinery/light/small{
@@ -57817,7 +58247,6 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "vrL" = (
@@ -57952,6 +58381,20 @@
 	icon_state = "whitepurple"
 	},
 /area/coldcolony/malta/research/hor)
+"vtw" = (
+/obj/docking_port/stationary{
+	dheight = 2;
+	dir = 2;
+	dwidth = 4;
+	height = 10;
+	id = "ombra_away";
+	name = "southeast of station";
+	width = 21;
+	turf_type = /turf/simulated/floor/plating/asteroid/snow/atmosphere;
+	area_type = /area/ruin/unpowered/coldcolony_outside
+	},
+/turf/simulated/floor/plating/asteroid/snow/planet,
+/area/ruin/unpowered/coldcolony_outside)
 "vtQ" = (
 /obj/machinery/light{
 	dir = 4
@@ -58329,6 +58772,10 @@
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
+	},
+/obj/machinery/camera{
+	c_tag = "Outpost West";
+	dir = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59009,7 +59456,6 @@
 /obj/machinery/door/firedoor,
 /obj/machinery/door/airlock/mining/glass{
 	name = "Miners bar";
-	welded = 1;
 	req_access = list(48)
 	},
 /turf/simulated/floor/plating,
@@ -59392,6 +59838,15 @@
 "vSn" = (
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
+"vSs" = (
+/obj/machinery/camera{
+	c_tag = "Dorm Hallway";
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/service/north)
 "vSS" = (
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -59921,6 +60376,11 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 32
 	},
+/obj/machinery/camera{
+	c_tag = "Security NorthWest Exterior";
+	use_power = 0;
+	dir = 9
+	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
 "wec" = (
@@ -60049,14 +60509,15 @@
 	},
 /area/coldcolony/ruin/abandoned_banya)
 "wgl" = (
-/obj/structure/computerframe,
-/obj/machinery/power/apc/worn_out{
-	pixel_x = 26;
-	dir = 4;
-	cell_type = 0
-	},
 /obj/structure/cable{
 	icon_state = "0-8"
+	},
+/obj/machinery/power/apc{
+	dir = 4;
+	pixel_x = 26
+	},
+/obj/machinery/computer/operating{
+	dir = 8
 	},
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/surgery/west)
@@ -60299,6 +60760,17 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/resid_serv/crew_quarters/cabin2)
+"wiO" = (
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/structure/rack,
+/obj/item/stack/sheet/mineral/plasma/fifty,
+/obj/item/wrench,
+/turf/simulated/floor/plasteel{
+	icon_state = "dark"
+	},
+/area/coldcolony/malta/turret_protected/aisat)
 "wiS" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -60398,7 +60870,6 @@
 	dir = 4;
 	pixel_x = 26
 	},
-/obj/vehicle/ridden/snowmobile/key,
 /turf/simulated/floor/plasteel,
 /area/coldcolony/malta/security/lobby)
 "wkH" = (
@@ -61454,6 +61925,16 @@
 	icon_state = "neutralfull"
 	},
 /area/coldcolony/malta/engineering/break_room)
+"wFz" = (
+/obj/machinery/camera{
+	c_tag = "Escape Entrance Exterior";
+	use_power = 0;
+	dir = 8
+	},
+/turf/simulated/floor/plating/asteroid{
+	temperature = 180
+	},
+/area/ruin/unpowered/coldcolony_outside)
 "wFH" = (
 /obj/machinery/atmospherics/pipe/simple/visible/purple{
 	desc = "Труба ведёт газ на фильтрацию";
@@ -63260,6 +63741,16 @@
 	icon_state = "white"
 	},
 /area/coldcolony/malta/research/chargebay)
+"xnj" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/camera{
+	c_tag = "Cargo Escape Hall";
+	dir = 6
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "neutralfull"
+	},
+/area/coldcolony/malta/hallway/cargo_escape/north)
 "xnv" = (
 /obj/machinery/atmospherics/trinary/mixer{
 	desc = "Смешивает кислород и азот, создавая смесь для дыхания на станции";
@@ -68878,7 +69369,7 @@ qKF
 qKF
 qKF
 qKF
-rSb
+jPR
 rSb
 rSb
 rSb
@@ -91272,7 +91763,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+gQn
 rSb
 rSb
 rSb
@@ -91886,7 +92377,7 @@ vPw
 vPw
 vPw
 vPw
-rSb
+rtt
 rSb
 xcc
 rSb
@@ -94509,7 +95000,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+fdE
 rSb
 rSb
 rSb
@@ -96884,7 +97375,7 @@ nCO
 vCe
 nCO
 nCO
-rSb
+rMu
 feo
 euq
 rSb
@@ -98563,7 +99054,7 @@ rSb
 rSb
 jpa
 kyF
-rSb
+lJh
 khJ
 khJ
 vpd
@@ -98686,7 +99177,7 @@ gNG
 nCO
 xJx
 xJx
-rSb
+rMu
 rSb
 rSb
 rSb
@@ -99006,9 +99497,9 @@ xMW
 jjM
 ozh
 tYw
-ugn
+kuC
 iDk
-hen
+vSs
 ozh
 hen
 mbt
@@ -99200,7 +99691,7 @@ qfO
 nCO
 xJx
 xJx
-rSb
+nmu
 lQI
 rSb
 rSb
@@ -99844,7 +100335,7 @@ bQv
 bQv
 bQv
 bQv
-rSb
+gWg
 rSb
 jpa
 kyF
@@ -101872,8 +102363,8 @@ twC
 ukG
 iDd
 oad
-kMa
-kMa
+azl
+azl
 twC
 twC
 pbc
@@ -102114,7 +102605,7 @@ rSb
 rSb
 rtA
 rSb
-rSb
+pwu
 rSb
 rSb
 rSb
@@ -102350,7 +102841,7 @@ jgc
 hBQ
 abG
 rSb
-rSb
+gfx
 rSb
 rSb
 rSb
@@ -102382,7 +102873,7 @@ xcr
 rSb
 hBQ
 rSb
-rSb
+hlr
 jpa
 kyF
 lQI
@@ -102472,7 +102963,7 @@ eQC
 dcU
 kLX
 wqW
-xqe
+qKR
 iXy
 rSb
 rSb
@@ -102862,16 +103353,16 @@ awI
 mec
 mec
 qQX
-fAJ
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-rSb
-woD
+qQX
+qQX
+qQX
+qQX
+qQX
+qQX
+qQX
+qQX
+qQX
+qQX
 sGS
 awI
 awI
@@ -103120,14 +103611,14 @@ rSb
 rSb
 wpG
 awI
-mec
-mec
-mec
-mec
-mec
-mec
-mec
-mec
+awI
+awI
+awI
+awI
+awI
+awI
+awI
+awI
 sGS
 kyF
 rSb
@@ -103423,7 +103914,7 @@ kyF
 rSb
 lQI
 rSb
-rSb
+bdq
 rSb
 rSb
 dkR
@@ -103883,7 +104374,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+aOh
 rSb
 rSb
 rSb
@@ -104498,7 +104989,7 @@ pwt
 rSb
 rSb
 xGJ
-rSb
+lJh
 oIs
 nFM
 taP
@@ -104670,7 +105161,7 @@ yaw
 rSb
 rSb
 rSb
-wpG
+jpa
 kyF
 rSb
 rtA
@@ -104717,7 +105208,7 @@ iqm
 rtA
 trl
 rSb
-rSb
+tLF
 rSb
 rSb
 abG
@@ -104755,7 +105246,7 @@ pwt
 rSb
 woD
 kyF
-hBQ
+src
 oIs
 pUP
 aMK
@@ -104924,11 +105415,11 @@ uIq
 jNK
 dsL
 dsY
-rSb
+qFL
 rSb
 abG
-rSb
-tNS
+jpa
+kyF
 rSb
 rSb
 rSb
@@ -105184,8 +105675,8 @@ vkU
 rSb
 nUD
 rSb
-rSb
-tNS
+wpG
+kyF
 rSb
 rSb
 rSb
@@ -106244,7 +106735,7 @@ hFn
 xSc
 phb
 dPq
-jPR
+rSb
 rSb
 rfq
 sGS
@@ -106501,7 +106992,7 @@ ksm
 gOL
 eNv
 ydR
-lQI
+ugn
 rSb
 jpa
 kyF
@@ -107826,7 +108317,7 @@ xOz
 rSb
 xcr
 xcr
-rSb
+uYN
 rSb
 ksO
 rSb
@@ -107836,7 +108327,7 @@ rSb
 rSb
 woD
 sGS
-awI
+sGS
 awI
 awI
 jVM
@@ -108092,10 +108583,10 @@ woD
 qQX
 qQX
 sGS
+sGS
 kyF
 rSb
-rSb
-lQI
+glg
 kJj
 iLS
 qxH
@@ -108344,13 +108835,13 @@ rSb
 woD
 qQX
 qQX
-vOt
-sGS
-awI
-awI
-sGS
-sGS
 qQX
+sGS
+sGS
+sGS
+sGS
+sGS
+sGS
 qQX
 qQX
 pnT
@@ -108588,7 +109079,7 @@ xcr
 rSb
 woD
 sGS
-awI
+sGS
 awI
 awI
 awI
@@ -108600,11 +109091,11 @@ awI
 vOt
 awI
 awI
-gPO
-rSb
-kHB
-rSb
-rSb
+awI
+awI
+awI
+awI
+awI
 jlR
 awI
 awI
@@ -108779,7 +109270,7 @@ rDl
 jrw
 jhR
 wxh
-rSb
+nXy
 rSb
 rSb
 jpa
@@ -108844,8 +109335,8 @@ hBQ
 rSb
 woD
 sGS
+sGS
 gPO
-rSb
 abG
 rSb
 rSb
@@ -109096,12 +109587,12 @@ oxe
 cMw
 lwI
 jFa
-rSb
+rkJ
 rSb
 woD
 sGS
+sGS
 gPO
-rSb
 rSb
 rSb
 rSb
@@ -109356,8 +109847,8 @@ jFa
 aTd
 rSb
 jpa
-kyF
-rSb
+sGS
+gPO
 rSb
 rSb
 rSb
@@ -109598,7 +110089,7 @@ bAX
 hsg
 vkp
 cTc
-gUv
+bZk
 piK
 gUv
 kXE
@@ -109846,7 +110337,7 @@ xkz
 xOz
 jpa
 kyF
-spc
+iyw
 tnK
 tnK
 tnK
@@ -110163,8 +110654,8 @@ xcr
 rSb
 rSb
 kgc
-rSb
-rSb
+xaA
+lJJ
 dkR
 rSb
 rSb
@@ -110854,7 +111345,7 @@ vWC
 rSb
 rSb
 rSb
-rSb
+iRF
 xOz
 rSb
 rSb
@@ -111127,7 +111618,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+idL
 rSb
 jpa
 kyF
@@ -111359,7 +111850,7 @@ vWC
 pnW
 vWC
 vWC
-jPR
+rSb
 ePa
 rSb
 rSb
@@ -111399,7 +111890,7 @@ hBQ
 rSb
 xcr
 uXA
-abG
+dXU
 rSb
 rSb
 xcr
@@ -111615,7 +112106,7 @@ rSb
 xcr
 rSb
 abG
-rSb
+tQK
 rSb
 ePa
 rSb
@@ -111674,7 +112165,7 @@ abG
 lQI
 jpa
 sGS
-sGS
+wFz
 sGS
 sGS
 kyF
@@ -111867,13 +112358,13 @@ rSb
 rSb
 rSb
 jpa
-kyF
-rSb
-woD
+sGS
 qQX
 qQX
 qQX
-mec
+qQX
+qQX
+qQX
 sGS
 qQX
 qQX
@@ -111892,7 +112383,7 @@ qQX
 qQX
 qQX
 qQX
-mec
+qQX
 qQX
 qQX
 qQX
@@ -112120,24 +112611,24 @@ dxj
 dxj
 tRI
 tSW
-rSb
+sBN
 rSb
 xcr
 wpG
 awI
-vOt
-awI
-awI
-awI
-cTk
-rSb
-wpG
 awI
 awI
 awI
 awI
 awI
 awI
+awI
+awI
+awI
+awI
+awI
+awI
+sGS
 sGS
 awI
 awI
@@ -112148,9 +112639,9 @@ awI
 awI
 awI
 awI
-gPO
-rSb
-wpG
+awI
+awI
+awI
 awI
 awI
 awI
@@ -112394,8 +112885,8 @@ rSb
 rSb
 xcr
 rSb
-rSb
-tNS
+jpa
+kyF
 rSb
 lQI
 rSb
@@ -112651,8 +113142,8 @@ rSb
 abG
 rSb
 rSb
-rSb
-tNS
+jpa
+kyF
 rSb
 xcr
 hBQ
@@ -112876,6 +113367,7 @@ abG
 abG
 rSb
 rSb
+adX
 rSb
 rSb
 rSb
@@ -112886,8 +113378,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
-rSb
+xaA
 tTj
 rSb
 rSb
@@ -112908,7 +113399,7 @@ rSb
 rSb
 rSb
 rSb
-woD
+jpa
 kyF
 rSb
 rSb
@@ -113143,10 +113634,10 @@ hBQ
 rSb
 rSb
 rSb
-xcr
 rSb
-tTj
-rSb
+woD
+wnh
+jVv
 hBQ
 hBQ
 rSb
@@ -113401,7 +113892,7 @@ abG
 rSb
 rSb
 xcr
-rSb
+wpG
 tTj
 rSb
 rSb
@@ -113422,7 +113913,7 @@ rSb
 rSb
 rSb
 jpa
-gPO
+kyF
 rSb
 rSb
 rSb
@@ -113678,8 +114169,8 @@ rSb
 hBQ
 rSb
 rSb
-ePa
-rSb
+jpa
+kyF
 rSb
 abG
 rSb
@@ -113713,7 +114204,7 @@ hBQ
 rSb
 hBQ
 rSb
-rSb
+gWx
 jpa
 kyF
 lQI
@@ -113914,9 +114405,9 @@ rSb
 rSb
 rSb
 rSb
+xcr
 rSb
-rSb
-kgc
+tTj
 rSb
 rSb
 rSb
@@ -113935,8 +114426,8 @@ rSb
 rSb
 rSb
 woD
+sGS
 kyF
-rSb
 rSb
 xOz
 dkR
@@ -114192,8 +114683,8 @@ rSb
 rSb
 woD
 sGS
-kyF
-rSb
+sGS
+gPO
 hBQ
 rSb
 rSb
@@ -114759,7 +115250,7 @@ izv
 cZg
 wiF
 lyQ
-eSu
+ePi
 vTb
 aky
 pqq
@@ -114939,7 +115430,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+dnA
 rSb
 rSb
 rSb
@@ -114953,7 +115444,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+gfB
 rSb
 rSb
 abG
@@ -114986,7 +115477,7 @@ rSb
 lQI
 jpa
 kyF
-jmL
+kNd
 rSb
 rSb
 xcr
@@ -115219,7 +115710,7 @@ rSb
 woD
 sGS
 kyF
-lQI
+rXQ
 rSb
 auy
 rSb
@@ -117277,7 +117768,7 @@ arK
 llP
 drJ
 voL
-rSb
+gtT
 tNS
 rSb
 rSb
@@ -117313,7 +117804,7 @@ taU
 taU
 taU
 taU
-eDi
+xnj
 tRg
 ruK
 awh
@@ -122183,10 +122674,10 @@ hBQ
 rSb
 rSb
 rSb
-rSb
+rmQ
 qwv
 tNS
-rSb
+xaA
 rSb
 rSb
 rSb
@@ -122941,7 +123432,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+ija
 rSb
 rSb
 rSb
@@ -123462,7 +123953,7 @@ aQv
 jaZ
 aBp
 vvS
-rSb
+rtt
 mLe
 rSb
 vPw
@@ -124235,7 +124726,7 @@ ggd
 vvS
 tDo
 cpS
-rPl
+wiO
 fEK
 rSb
 rSb
@@ -124492,7 +124983,7 @@ ggd
 vvS
 fvO
 hiD
-sax
+aco
 fEK
 vPw
 rSb
@@ -125503,8 +125994,8 @@ gZt
 dOU
 eYy
 icb
-rSb
-rSb
+rMu
+nKZ
 vvS
 vvS
 sWs
@@ -125779,7 +126270,7 @@ fEK
 fEK
 fEK
 fEK
-rSb
+jRi
 rSb
 rSb
 xcr
@@ -126630,7 +127121,7 @@ rSb
 rSb
 xcr
 rSb
-rSb
+vtw
 rSb
 rSb
 rSb
@@ -127311,7 +127802,7 @@ rSb
 rSb
 rSb
 rSb
-rSb
+rnZ
 rSb
 rSb
 vPw
