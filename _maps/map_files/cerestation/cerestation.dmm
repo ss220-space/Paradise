@@ -73434,8 +73434,8 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
+/mob/living/simple_animal/mouse/wooly/rep,
+/obj/structure/chair/comfy/mouse,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
