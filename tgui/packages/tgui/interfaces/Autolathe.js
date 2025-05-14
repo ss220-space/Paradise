@@ -27,8 +27,8 @@ const canBeMade = (recipe, mavail, gavail, multi) => {
   return true;
 };
 
-export const Autolathe = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Autolathe = (props) => {
+  const { act, data } = useBackend();
   const {
     total_amount,
     max_amount,
@@ -43,7 +43,7 @@ export const Autolathe = (props, context) => {
     categories,
   } = data;
 
-  let [category, setCategory] = useSharedState(context, 'category', 0);
+  let [category, setCategory] = useSharedState('category', 0);
 
   if (category === 0) {
     category = 'Tools';
@@ -58,11 +58,7 @@ export const Autolathe = (props, context) => {
     .toString()
     .replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1,');
 
-  const [searchText, setSearchText] = useSharedState(
-    context,
-    'search_text',
-    ''
-  );
+  const [searchText, setSearchText] = useSharedState('search_text', '');
 
   const testSearch = createSearch(searchText, (recipe) => recipe.name);
 
@@ -106,7 +102,7 @@ export const Autolathe = (props, context) => {
   }
   return (
     <Window width={750} height={525}>
-      <Window.Content scrollable>
+      <Window.Content>
         <Stack fill horizontal>
           <Stack.Item width="70%">
             <Section

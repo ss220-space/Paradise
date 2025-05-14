@@ -160,7 +160,7 @@
 
 		return
 
-	if(!isturf(loc)) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
+	if(!loc.allow_click()) // This is going to stop you from telekinesing from inside a closet, but I don't shed many tears for that
 		return
 
 	// Allows you to click on a box's contents, if that box is on the ground, but no deeper than that
@@ -181,7 +181,10 @@
 			if(W)
 				W.afterattack(A, src, FALSE, params)
 			else
-				RangedAttack(A, params)
+				if(LAZYACCESS(modifiers, RIGHT_CLICK))
+					ranged_secondary_attack(A, modifiers)
+				else
+					RangedAttack(A, params)
 
 	return
 
@@ -246,6 +249,18 @@
 
 	if(SEND_SIGNAL(A, COMSIG_MOB_ATTACKED_RANGED, src, params) & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+
+/**
+ * Ranged secondary attack
+ *
+ * If the same conditions are met to trigger RangedAttack but it is
+ * instead initialized via a right click, this will trigger instead.
+ * Useful for mobs that have their abilities mapped to right click.
+ */
+/mob/proc/ranged_secondary_attack(atom/target, modifiers)
+	if(SEND_SIGNAL(src, COMSIG_MOB_ATTACK_RANGED_SECONDARY, target, modifiers) & COMPONENT_CANCEL_ATTACK_CHAIN)
+		return TRUE
+
 /*
 	Restrained ClickOn
 
@@ -374,6 +389,12 @@
 	return
 
 
+/atom/proc/allow_click()
+	return FALSE
+
+/turf/allow_click()
+	return TRUE
+
 /*
 	Misc helpers
 
@@ -388,7 +409,7 @@
 	var/turf/T = get_turf(src)
 	var/turf/U = get_turf(A)
 
-	var/obj/item/projectile/beam/LE = new /obj/item/projectile/beam(loc)
+	var/obj/projectile/beam/LE = new /obj/projectile/beam(loc)
 	LE.icon = 'icons/effects/genetics.dmi'
 	LE.icon_state = "eyelasers"
 	playsound(usr.loc, 'sound/weapons/taser2.ogg', 75, 1)

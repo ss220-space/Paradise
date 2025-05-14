@@ -156,7 +156,7 @@
 /datum/gear/uniform/skirt/job/med
 	index_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
 /datum/gear/uniform/skirt/job/phys
 	index_name = "skirt, physician"
@@ -250,7 +250,7 @@
 	index_name = "medical scrubs, select"
 	display_name = "medical scrubs"
 	path = /obj/item/clothing/under/rank/medical/purple
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN)
 
 /datum/gear/uniform/medical/scrubs/New()
 	..()
@@ -298,7 +298,7 @@
 /datum/gear/uniform/cargo/miner
 	index_name = "shaft miner sweater"
 	path = /obj/item/clothing/under/rank/miner/alt
-	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER)
+	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/uniform/shorts
 	index_name = "shorts, select"

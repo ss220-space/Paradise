@@ -13,6 +13,7 @@
 	var/grant_action = FALSE
 	var/stage = XENO_STAGE_START
 	var/delay_xeno_end = FALSE
+	var/list/facehuggers = list()
 
 /datum/team/xenomorph/New(list/starting_members)
 	. = ..()
@@ -24,8 +25,12 @@
 
 /datum/team/xenomorph/add_member(datum/mind/new_member, add_objectives)
 	var/is_queen = new_member?.current && isalienqueen(new_member.current)
+	var/is_facehuggger = new_member?.current && isfacehugger(new_member.current)
 	. = ..(new_member, !is_queen)
-	RegisterSignal(new_member, COMSIG_ALIEN_EVOLVE, PROC_REF(on_alien_evolve))
+	if(!is_facehuggger)
+		RegisterSignal(new_member, COMSIG_ALIEN_EVOLVE, PROC_REF(on_alien_evolve))
+	else
+		facehuggers |= new_member
 	if(is_queen && !current_queen)
 		add_queen(new_member)
 	check_queen_power()
@@ -75,6 +80,8 @@
 	queen.add_antag_datum(datum, type)
 	if(announce)
 		SSshuttle?.add_hostile_environment(current_queen.current)
+	grant_action = FALSE
+	check_queen_power()
 
 /datum/team/xenomorph/proc/check_queen_power()
 	var/mob/queen_mob = current_queen?.current
@@ -151,36 +158,36 @@
 
 /datum/team/xenomorph/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
-		to_chat(world, "<BR><FONT size = 3><B>Частичная победа Ксеноморфов!</B></FONT>")
-		to_chat(world, "<B>Станция была уничтожена!</B>")
-		to_chat(world, "<B>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Частичная победа Ксеноморфов!</b></span>")
+		to_chat(world, "<b>Станция была уничтожена!</b>")
+		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>")
 	else if(protect_cocon?.check_completion(src))
-		to_chat(world, "<BR><FONT size = 3><B>Полная победа Ксеноморфов!</B></FONT>")
-		to_chat(world, "<B>Ксеноморфы захватили станцию!</B>")
-		to_chat(world, "<B>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа Ксеноморфов!</b></span>")
+		to_chat(world, "<b>Ксеноморфы захватили станцию!</b>")
+		to_chat(world, "<b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!current_queen?.current || current_queen.current.stat == DEAD)
-		to_chat(world, "<BR><FONT size = 3><B>Полная победа персонала станции!</B></FONT>")
-		to_chat(world, "<B>Экипаж защитил станцию от Ксеноморфов!</B>")
-		to_chat(world, "<B>Ксеноморфы были истреблены.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа персонала станции!</b></span>")
+		to_chat(world, "<b>Экипаж защитил станцию от Ксеноморфов!</b>")
+		to_chat(world, "<b>Ксеноморфы были истреблены.</b>")
 	else
-		to_chat(world, "<BR><FONT size = 3><B>Ничья!</B></FONT>")
-		to_chat(world, "<B>Экипаж эвакуирован!</B>")
-		to_chat(world, "<B>Ксеноморфы не были истреблены.</B>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Ничья!</b></span>")
+		to_chat(world, "<b>Экипаж эвакуирован!</b>")
+		to_chat(world, "<b>Ксеноморфы не были истреблены.</b>")
 
-	to_chat(world, "<B>Целями Ксеноморфов было:</B>")
+	to_chat(world, "<b>Целями Ксеноморфов было:</b>")
 
 	if(xeno_power_objective)
-		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[xeno_power_objective.type]", xeno_power_objective.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[xeno_power_objective.type]", xeno_power_objective.check_completion()? "SUCCESS" : "FAIL"))
 	if(create_queen)
-		to_chat(world, "<br/>Создание королевы: [create_queen.explanation_text] [create_queen.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[create_queen.type]", create_queen.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Создание королевы: [create_queen.explanation_text] [create_queen.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[create_queen.type]", create_queen.check_completion()? "SUCCESS" : "FAIL"))
 	if(protect_queen)
-		to_chat(world, "<br/>Защита королевы: [protect_queen.explanation_text] [protect_queen.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_queen.type]", protect_queen.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Защита королевы: [protect_queen.explanation_text] [protect_queen.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_queen.type]", protect_queen.check_completion()? "SUCCESS" : "FAIL"))
 	if(protect_cocon)
-		to_chat(world, "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.completed?"<font color='green'><B>Успех!</B></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.check_completion()? "SUCCESS" : "FAIL"))
 	return TRUE
 
 
@@ -189,12 +196,17 @@
 		declare_results()
 		var/text = ""
 		if(queens?.len)
-			text += "<br/><FONT size = 2><B>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</B></FONT>"
+			text += "<br/><span style='font-size: 2;'><b>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</b></span>"
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
-		text += "<br/><FONT size = 2><B>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</B></FONT>"
-		for(var/datum/mind/spider in members)
-			text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
+		text += "<br/><span style='font-size: 2;'><b>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		for(var/datum/mind/alien in members)
+			if(alien in facehuggers)
+				continue
+			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
+		text += "<br/><span style='font-size: 2;'><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b></span>"
+		for(var/datum/mind/alien in facehuggers)
+			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		to_chat(world, text)
 	return TRUE
 
@@ -225,7 +237,7 @@
 
 /proc/spawn_aliens(spawn_count)
 	var/spawn_vectors = tgui_alert(usr, "Какой тип ксеноморфа заспавнить?", "Тип ксеноморфов", list("Вектор", "Грудолом")) == "Вектор"
-	var/list/vents = get_valid_vent_spawns(exclude_mobs_nearby = TRUE, exclude_visible_by_mobs = TRUE)
+	var/list/vents = get_valid_vent_spawns(exclude_visible_by_mobs = TRUE)
 	if(spawn_vectors)
 		spawn_vectors(vents, spawn_count)
 	else
@@ -242,7 +254,7 @@
 			var/mob/living/carbon/alien/larva/new_xeno = new(vent.loc)
 			new_xeno.evolution_points += (0.75 * new_xeno.max_evolution_points)	//event spawned larva start off almost ready to evolve.
 			new_xeno.key = C.key
-
+			new_xeno.move_into_vent(vent, FALSE)
 			if(first_spawn)
 				new_xeno.queen_maximum++
 				first_spawn = FALSE
@@ -262,8 +274,8 @@
 		if(C)
 			GLOB.respawnable_list -= C
 			var/mob/living/carbon/alien/humanoid/hunter/vector/new_xeno = new(vent.loc)
+			new_xeno.move_into_vent(vent, FALSE)
 			new_xeno.key = C.key
-
 			if(first_spawn)
 				new_xeno.queen_maximum++
 				first_spawn = FALSE

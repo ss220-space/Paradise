@@ -13,11 +13,11 @@ import { Window } from '../layouts';
 const dispenseAmounts = [1, 5, 10, 20, 30, 50, 100];
 const removeAmounts = [1, 5, 10];
 
-export const ChemDispenser = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ChemDispenser = (props) => {
+  const { act, data } = useBackend();
   const { chemicals } = data;
   return (
-    <Window width={650} height={400 + chemicals.length * 8}>
+    <Window width={460} height={400 + chemicals.length * 8}>
       <Window.Content>
         <Stack fill vertical>
           <ChemDispenserSettings />
@@ -29,8 +29,8 @@ export const ChemDispenser = (props, context) => {
   );
 };
 
-const ChemDispenserSettings = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserSettings = (properties) => {
+  const { act, data } = useBackend();
   const { amount, energy, maxEnergy } = data;
   return (
     <Stack.Item>
@@ -75,8 +75,8 @@ const ChemDispenserSettings = (properties, context) => {
   );
 };
 
-const ChemDispenserChemicals = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserChemicals = (properties) => {
+  const { act, data } = useBackend();
   const { chemicals = [] } = data;
   const flexFillers = [];
   for (let i = 0; i < (chemicals.length + 1) % 3; i++) {
@@ -89,19 +89,20 @@ const ChemDispenserChemicals = (properties, context) => {
         scrollable
         title={data.glass ? 'Синтез напитков' : 'Синтез реагентов'}
       >
-        {chemicals.map((c, i) => (
+        {chemicals.map((chemical, i) => (
           <Button
             m={0.1}
             key={i}
             width="32.5%"
-            icon="arrow-circle-down"
+            icon="tint"
+            iconColor={chemical.reagentColor}
             overflow="hidden"
             textOverflow="ellipsis"
-            content={c.title}
+            content={chemical.title}
             style={{ 'margin-left': '2px' }}
             onClick={() =>
               act('dispense', {
-                reagent: c.id,
+                reagent: chemical.id,
               })
             }
           />
@@ -114,8 +115,8 @@ const ChemDispenserChemicals = (properties, context) => {
   );
 };
 
-const ChemDispenserBeaker = (properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemDispenserBeaker = (properties) => {
+  const { act, data } = useBackend();
   const {
     isBeakerLoaded,
     beakerCurrentVolume,
@@ -150,12 +151,15 @@ const ChemDispenserBeaker = (properties, context) => {
           buttons={(chemical) => (
             <>
               <Button
-                content="Изолировать"
-                icon="compress-arrows-alt"
+                tooltip={
+                  'Удаляет лишнее, округляя объём до ' +
+                  Math.trunc(chemical.volume)
+                }
+                icon="arrow-circle-down"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: -1,
+                    amount: -2,
                   })
                 }
               />
@@ -172,25 +176,22 @@ const ChemDispenserBeaker = (properties, context) => {
                 />
               ))}
               <Button
-                content="Удалить всё"
+                tooltip={'Удаляет остальные реагенты'}
+                icon="compress-arrows-alt"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: chemical.volume,
+                    amount: -1,
                   })
                 }
               />
               <Button
-                content="Округлить"
-                tooltip={
-                  'Удаляет лишнее, округляя объём до ' +
-                  Math.trunc(chemical.volume)
-                }
-                icon="arrow-circle-down"
+                tooltip={'Удаляет этот реагент'}
+                icon="droplet-slash"
                 onClick={() =>
                   act('remove', {
                     reagent: chemical.id,
-                    amount: -2,
+                    amount: chemical.volume,
                   })
                 }
               />

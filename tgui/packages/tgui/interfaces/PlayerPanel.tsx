@@ -47,8 +47,8 @@ const isMobType = (currentType: string, checkType: string): boolean => {
   );
 };
 
-export const PlayerPanel = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+export const PlayerPanel = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -56,7 +56,7 @@ export const PlayerPanel = (props, context) => {
 
   return (
     <Window title={`Options Panel - ${data.ckey}`} width={800} height={950}>
-      <Window.Content>
+      <Window.Content scrollable>
         <Stack vertical>
           <Stack.Item>
             <Button
@@ -80,10 +80,10 @@ export const PlayerPanel = (props, context) => {
   );
 };
 
-const PlayerInformation = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
-  const [hideIP, setIP] = useLocalState(context, 'show_ip', false);
-  const [hideCID, setCID] = useLocalState(context, 'show_cid', false);
+const PlayerInformation = (props) => {
+  const { act, data } = useBackend<playerData>();
+  const [hideIP, setIP] = useLocalState('show_ip', false);
+  const [hideCID, setCID] = useLocalState('show_cid', false);
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -92,7 +92,7 @@ const PlayerInformation = (props, context) => {
   return (
     <Stack.Item>
       <Section title="Player Information">
-        <Table>
+        <Table cellpadding="1px">
           <Table.Row>
             <Table.Cell bold>Character:</Table.Cell>
             <Table.Cell>{data.characterName}</Table.Cell>
@@ -109,7 +109,7 @@ const PlayerInformation = (props, context) => {
             <Table.Cell bold>Account Registered:</Table.Cell>
             <Table.Cell>{data.accountRegistered}</Table.Cell>
             <Table.Cell bold>Playtime as Crew:</Table.Cell>
-            <Table.Cell>
+            <Table.Cell p="1px">
               <Button
                 content={data.playtime}
                 onClick={() => handleAction('playtime')}
@@ -118,14 +118,14 @@ const PlayerInformation = (props, context) => {
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>CID:</Table.Cell>
-            <Table.Cell>
+            <Table.Cell p="1px">
               <Button
                 content={!hideCID ? 'Hidden' : data.CID}
                 onClick={() => setCID(!hideCID)}
               />
             </Table.Cell>
             <Table.Cell bold>IP Address:</Table.Cell>
-            <Table.Cell>
+            <Table.Cell p="1px">
               <Button
                 content={!hideIP ? 'Hidden' : data.ipAddress}
                 onClick={() => setIP(!hideIP)}
@@ -158,8 +158,8 @@ const PlayerInformation = (props, context) => {
   );
 };
 
-const PlayerOptionsMenu = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const PlayerOptionsMenu = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   return (
     <Stack.Item>
@@ -201,8 +201,8 @@ const PlayerOptionsMenu = (props, context) => {
   );
 };
 
-const PunishSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const PunishSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -293,8 +293,8 @@ const PunishSection = (props, context) => {
   );
 };
 
-const MessageSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MessageSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -361,8 +361,8 @@ const MessageSection = (props, context) => {
   );
 };
 
-const MovementSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MovementSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -428,8 +428,8 @@ const MovementSection = (props, context) => {
   );
 };
 
-const InfoSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const InfoSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -493,14 +493,20 @@ const InfoSection = (props, context) => {
               onClick={() => handleAction('ccdb')}
             />
           ) : null}
+          <Button
+            fluid
+            icon="eye"
+            content="OBS"
+            onClick={() => handleAction('obs')}
+          />
         </Grid.Column>
       </Grid>
     </Section>
   );
 };
 
-const TransformationSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const TransformationSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -568,8 +574,8 @@ const TransformationSection = (props, context) => {
   );
 };
 
-const HealthObserverSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const HealthObserverSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -660,8 +666,8 @@ const HealthObserverSection = (props, context) => {
   );
 };
 
-const MobManipulationSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MobManipulationSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -740,8 +746,8 @@ const MobManipulationSection = (props, context) => {
   );
 };
 
-const MiscSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MiscSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -859,8 +865,8 @@ const MiscSection = (props, context) => {
   );
 };
 
-const MuteSection = (props, context) => {
-  const { act, data } = useBackend<playerData>(context);
+const MuteSection = (props) => {
+  const { act, data } = useBackend<playerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });

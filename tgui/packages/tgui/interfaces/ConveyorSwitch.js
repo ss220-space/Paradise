@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const ConveyorSwitch = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ConveyorSwitch = (props) => {
+  const { act, data } = useBackend();
   const { slowFactor, minSpeed, maxSpeed, oneWay, position } = data;
 
   return (

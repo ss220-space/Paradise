@@ -291,7 +291,7 @@
 
 /datum/uplink_item/jobspecific/combat_baking
 	name = "Набор боевого пекаря"
-	desc = "Набор секретного оружия, приготовленного из выпечки! В наборе вы найдёте багет, который опытный мим мог бы использовать в качестве меча, \
+	desc = "Набор секретного оружия, изготовленного из выпечки! В наборе вы найдёте багет, который опытный мим мог бы использовать в качестве меча, \
 			пару круассанов для метания и рецепт, по которому можно приготовить ещё. Когда работа будет выполнена, не забудьте съесть улики."
 	item = /obj/item/storage/box/syndie_kit/combat_baking
 	cost = 25
@@ -305,7 +305,7 @@
 			Для полной компенсации штрафа необходимо использовать 2 таких модуля."
 	item = /obj/item/borg/upgrade/modkit/indoors
 	cost = 18 //you need two for full damage, so total of 8 for maximum damage
-	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
+	job = list(JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_QUARTERMASTER)
 
 /datum/uplink_item/jobspecific/mining_charge_hacker
 	name = "Взломщик подрывных зарядов"
@@ -314,7 +314,7 @@
 			Уменьшает взрывную силу зарядов за счет модификации их внутренних компонентов."
 	item = /obj/item/t_scanner/adv_mining_scanner/syndicate
 	cost = 20
-	job = list(JOB_TITLE_MINER, JOB_TITLE_QUARTERMASTER)
+	job = list(JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC, JOB_TITLE_QUARTERMASTER)
 
 //Chef
 
@@ -353,7 +353,7 @@
 
 /datum/uplink_item/jobspecific/dangertray
 	name = "Набор особо острых подносов"
-	desc = "В набор входят три острых металлических подноса, которые можно использовать для отрезания конечностей."
+	desc = "В набор входят 3 острых металлических подноса, которые можно использовать для отрезания конечностей."
 	item = /obj/item/storage/box/syndie_kit/dangertray
 	cost = 15
 	job = list(JOB_TITLE_CHEF)
@@ -370,7 +370,7 @@
 
 /datum/uplink_item/jobspecific/missionary_kit
 	name = "Стартовый набор миссионера"
-	desc = "В этой коробке вы найдете миссионерский посох, миссионерскую одежду и Библию. \
+	desc = "В комплект входят миссионерский посох, миссионерская одежда и Библия. \
 			С помощью посоха и одежды вы сможете убедить ваших жертв следовать вашим указаниям на короткое время. ВОЛОЛО!"
 	item = /obj/item/storage/box/syndie_kit/missionary_set
 	cost = 72
@@ -426,7 +426,7 @@
 			Важно отметить, что он может некорректно работать на гуманоидах, устойчивых к радиации!"
 	item = /obj/item/rad_laser
 	cost = 23
-	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_GENETICIST, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER, JOB_TITLE_VIROLOGIST)
 
 /datum/uplink_item/jobspecific/batterer
@@ -653,7 +653,7 @@
 	desc = "Синдикат отправит вам флакон с 40 единицами случайно выбранного яда. Этот яд может быть как совершенно неэффективным, так и крайне смертельным."
 	item = /obj/item/reagent_containers/glass/bottle/traitor
 	cost = 10
-	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
+	job = list(JOB_TITLE_RD, JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, \
 			JOB_TITLE_CHEMIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BARTENDER, JOB_TITLE_CHEF)
 
 /datum/uplink_item/jobspecific/poison_pen
@@ -911,7 +911,7 @@
 	cost = 40
 
 /datum/uplink_item/dangerous/commando_kit
-	name = "Искусство ножевого боя"
+	name = "Набор для ножевого боя"
 	desc = "Коробка, наполненная ароматами пороха, напалма и дешёвого виски, хранит в себе всё необходимое для выживания в суровых условиях."
 	item = /obj/item/storage/box/syndie_kit/commando_kit
 	cost = 33
@@ -1214,8 +1214,8 @@
 	cost = 25
 
 /datum/uplink_item/ammo/bioterror
-	name = "Коробка с шприцами \"Биотеррор\""
-	desc = "В коробке находится семь шприцов, каждый из которых содержит смесь химических веществ: нейротоксин, капулеттий плюс и тиопентал натрия. \
+	name = "Набор шприцов \"Биотеррор\""
+	desc = "Коробка, содержащая семь шприцов, каждый из которых содержит смесь химических веществ: нейротоксин, капулеттий плюс и тиопентал натрия. \
 			Для эффективного использования рекомендуется применять шприцемёт."
 	item = /obj/item/storage/box/syndie_kit/bioterror
 	cost = 25
@@ -1223,7 +1223,7 @@
 
 /datum/uplink_item/ammo/toydarts
 	name = "Коробка усиленных пенных патронов"
-	desc = "Коробка содержит 40 усиленных пенных патронов, предназначенных для перезарядки игрушечного оружия от компании \"Донксофт\". \
+	desc = "Коробка, содержащая 40 усиленных пенных патронов, предназначенных для перезарядки игрушечного оружия от компании \"Донксофт\". \
 			Эти патроны предназначены для того, чтобы вывести из строя цель, не причиняя ей вреда."
 	item = /obj/item/ammo_box/foambox/riot
 	cost = 10
@@ -1239,7 +1239,7 @@
 
 /datum/uplink_item/ammo/revolver
 	name = "Револьвер Синдиката .357 — 2 сменных барабана"
-	desc = "В коробке находятся 2 сменных барабана, каждый из которых вмещает 7 патронов \"Магнум\" .357 калибра."
+	desc = "Коробка, содержащая 2 сменных барабана, каждый из которых вмещает 7 патронов \"Магнум\" .357 калибра."
 	item = /obj/item/storage/box/syndie_kit/revolver_ammo
 	cost = 5
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1271,7 +1271,7 @@
 
 /datum/uplink_item/ammo/knives_kit
 	name = "Набор метательных ножей"
-	desc = "Коробка с 7 метательными ножами. Испытайте себя в роли Рэмбо."
+	desc = "Коробка, содержащая 7 метательных ножей. Ощутите себя в роли Рэмбо!"
 	item = /obj/item/storage/box/syndie_kit/knives_kit
 	cost = 4
 	excludefrom = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1303,7 +1303,7 @@
 	can_discount = FALSE
 
 /datum/uplink_item/stealthy_weapons/cqc
-	name = "Руководство по \"Тактике ближнего боя\""
+	name = "Руководство по \"Технике ближнего боя\" (CQC)"
 	desc = "Это одноразовое руководство по тактике ближнего боя, также известное как CQC. \
 			Оно предназначено для того, чтобы быстро и эффективно нейтрализовать противников с помощью захватов и сокрушительных ударов. \
 			Оно не накладывает ограничений на использование оружия, однако не может быть использовано вместе с перчатками \"Полярная Звезда\"."
@@ -1382,7 +1382,7 @@
 	surplus = 50
 
 /datum/uplink_item/stealthy_weapons/dart_pistol
-	name = "Набор шприцемёта"
+	name = "Набор дротикового пистолета"
 	desc = "Это миниатюрная версия обычного шприцемёта. Он не издаёт громких звуков при выстреле и легко помещается в кармане. \
 			В комплекте с ним идут три шприца, содержащие: Капулеттий+, Зарин и Панкуроний."
 	item = /obj/item/storage/box/syndie_kit/dart_gun
@@ -1919,8 +1919,8 @@
 	surplus = 75
 
 /datum/uplink_item/device_tools/bowman_kit
-	name = "Набор наушников с ключом-шифратором Синдиката"
-	desc = "В комплект входят наушники, оснащённые технологией \"Хамелеон\", которые обеспечивают защиту от громких звуков, а также ключ-шифратор Синдиката. \
+	name = "Набор гарнитуры с ключом-шифратором Синдиката"
+	desc = "В комплект входит гарнитура, оснащённая технологией \"Хамелеон\", которая обеспечивает защиту от громких звуков, а также ключ-шифратор Синдиката. \
 			Этот ключ открывает доступ к зашифрованному каналу Синдиката и позволяет прослушивать все каналы связи на станции."
 	item = /obj/item/storage/box/syndie_kit/bowman_conversion_kit
 	cost = 2
@@ -2340,7 +2340,7 @@
 			имплант медицинской лучевой пушки, имплант хирургических инструментов, отвертка, автоимплантер, элитный медицинский ИКС Синдиката, портативный анализатор тела, \
 			медицинская шина, инъектор с нанокальцием."
 	item = /obj/item/storage/backpack/duffel/syndie/med/medicalbundle
-	cost = 175 // normally 200
+	cost = 130 // normally 200
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/sniper
@@ -2351,8 +2351,8 @@
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
 
 /datum/uplink_item/bundles_TC/cyborg_maint
-	name = "Набор починки роботов"
-	desc = "Коробка, содержащая всё необходимое для ремонта робота, а также подробная инструкция по эксплуатации."
+	name = "Набор для починки роботов"
+	desc = "Коробка, содержащая всё необходимое для ремонта робота, а также подробную инструкцию по эксплуатации."
 	item = /obj/item/storage/box/syndie_kit/cyborg_maint
 	cost = 20
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

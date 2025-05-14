@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Section } from '../components';
 import { Window } from '../layouts';
 
-export const AtmosAlertConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AtmosAlertConsole = (props) => {
+  const { act, data } = useBackend();
   const priorityAlerts = data.priority || [];
   const minorAlerts = data.minor || [];
   return (
@@ -17,6 +17,7 @@ export const AtmosAlertConsole = (props, context) => {
             {priorityAlerts.map((alert) => (
               <li key={alert}>
                 <Button
+                  m="1px"
                   icon="times"
                   content={alert}
                   color="bad"
@@ -30,6 +31,7 @@ export const AtmosAlertConsole = (props, context) => {
             {minorAlerts.map((alert) => (
               <li key={alert}>
                 <Button
+                  m="1px"
                   icon="times"
                   content={alert}
                   color="average"

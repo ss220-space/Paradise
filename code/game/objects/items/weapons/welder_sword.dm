@@ -10,6 +10,8 @@
 		PREPOSITIONAL = "сварочном мече"
 	)
 	icon = 'icons/obj/items.dmi'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 	icon_state = "fuelsword"
 	item_state = "fuelsword"
 	needs_permit = 1

@@ -69,6 +69,7 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/reagent_containers/food/drinks/flask(src)
 	new /obj/item/storage/garmentbag/hos(src)
+	new /obj/item/camera_bug/security(src)
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
@@ -99,6 +100,8 @@
 	new /obj/item/security_voucher(src)
 	new /obj/item/security_voucher(src)
 	new /obj/item/security_voucher(src)
+	new /obj/item/storage/box/sec_cameras(src)
+	new /obj/item/camera_bug/security(src)
 
 /obj/structure/closet/secure_closet/pilot_sniper
 	name = "sniper gun cabinet"

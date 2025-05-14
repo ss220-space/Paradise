@@ -5,7 +5,7 @@
 // Remove conditionals with 516
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
   .center {
-    flex-grow: 1;
+    flex: 1 1 0;
   }
 }
 
@@ -26,7 +26,7 @@
 // Remove conditionals with 516
 @supports (not (-webkit-hyphens: none)) and (not (-moz-appearance: none)) {
   .input {
-    flex-grow: 1;
+    flex: 1 1 0;
     gap: 0.2rem;
   }
 }

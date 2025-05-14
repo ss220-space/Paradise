@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 import { Input, LabeledList, Section } from '../../components';
 
-export const pai_encoder = (props, context) => {
-  const { act, data } = useBackend(context);
+export const pai_encoder = (props) => {
+  const { act, data } = useBackend();
   const { radio_name, radio_rank } = data.app_data;
 
   return (

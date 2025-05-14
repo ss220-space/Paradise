@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(!usr.mind.special_role)
 				var/list/messages = list()
 				if(prob(probability_evil))
-					messages.Add("<span class='warning'><B>With your new found power you could easily conquer the station!</B></span>")
+					messages.Add("<span class='warning'><b>With your new found power you could easily conquer the station!</b></span>")
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					hijack_objective.owner = usr.mind
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					messages.Add("<span class='warning'><B>With your new found power you could easily defend the station!</B></span>")
+					messages.Add("<span class='warning'><b>With your new found power you could easily defend the station!</b></span>")
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					new_objective.owner = usr.mind
@@ -208,12 +208,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
-				to_chat(user, "<span class='warning'><B>The sword flashes, and you find yourself face to face with...you!</B></span>")
+				to_chat(user, "<span class='warning'><b>The sword flashes, and you find yourself face to face with...you!</b></span>")
 
 			else
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
 	else
-		to_chat(user, "<span class='warning'><B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
+		to_chat(user, "<span class='warning'><b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies.</span>")
 
 
 /obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		C.prefs.copy_to(M)
 	M.key = C.key
 	M.mind.name = user.real_name
-	to_chat(M, "<B>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</B>")
+	to_chat(M, "<b>You are an alternate version of [user.real_name] from another universe! Help [user.p_them()] accomplish [user.p_their()] goals at all costs.</b>")
 	M.faction = list("[user.real_name]")
 	if(duplicate_self)
 		M.set_species(user.dna.species.type) //duplicate the sword user's species.
@@ -563,7 +563,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 		target.revive()
 		equip_skeleton(target)
 	spooky_scaries |= target
-	to_chat(target, "[span_userdanger("You have been revived by ")]<B>[user.real_name]!</B>")
+	to_chat(target, "[span_userdanger("You have been revived by ")]<b>[user.real_name]!</b>")
 	to_chat(target, span_userdanger("[user.p_theyre(TRUE)] your master now, assist them even if it costs you your new life!"))
 	desc = "A shard capable of resurrecting humans as skeleton thralls[unlimited ? "." : ", [spooky_scaries.len]/3 active thralls."]"
 

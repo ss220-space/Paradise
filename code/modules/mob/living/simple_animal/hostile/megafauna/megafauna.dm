@@ -168,7 +168,7 @@
 	..()
 
 
-/mob/living/simple_animal/hostile/megafauna/LoseTarget()
+/mob/living/simple_animal/hostile/megafauna/lose_target()
 	var/mob/living/L = target
 	if(istype(L) && L.mind)
 		add_attack_logs(src, L, "Lost")

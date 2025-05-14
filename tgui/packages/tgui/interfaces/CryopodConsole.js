@@ -9,8 +9,8 @@ import {
 import { Window } from '../layouts';
 import { toTitleCase } from 'common/string';
 
-export const CryopodConsole = (props, context) => {
-  const { data } = useBackend(context);
+export const CryopodConsole = (props) => {
+  const { data } = useBackend();
   const { account_name, allow_items } = data;
 
   return (
@@ -27,8 +27,8 @@ export const CryopodConsole = (props, context) => {
   );
 };
 
-const CrewList = (props, context) => {
-  const { data } = useBackend(context);
+const CrewList = (props) => {
+  const { data } = useBackend();
   const { frozen_crew } = data;
 
   return (
@@ -36,7 +36,7 @@ const CrewList = (props, context) => {
       {!frozen_crew.length ? (
         <NoticeBox>No stored crew!</NoticeBox>
       ) : (
-        <Section>
+        <Section scrollable>
           <LabeledList>
             {frozen_crew.map((person, index) => (
               <LabeledList.Item key={index} label={person.name}>
@@ -50,8 +50,8 @@ const CrewList = (props, context) => {
   );
 };
 
-const ItemList = (props, context) => {
-  const { act, data } = useBackend(context);
+const ItemList = (props) => {
+  const { act, data } = useBackend();
   const { frozen_items } = data;
 
   const replaceItemName = (item) => {
@@ -68,7 +68,7 @@ const ItemList = (props, context) => {
         <NoticeBox>No stored items!</NoticeBox>
       ) : (
         <>
-          <Section>
+          <Section scrollable>
             <LabeledList>
               {frozen_items.map((item) => (
                 <LabeledList.Item

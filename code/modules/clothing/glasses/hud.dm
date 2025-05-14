@@ -164,6 +164,17 @@ MEDICAL
 	vision_flags = SEE_TURFS
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
 
+/obj/item/clothing/glasses/hud/health/monocle
+	name = "Medical HUD Monocle"
+	desc = "Моноколь со встроенным медицинским ИЛС."
+	icon_state = "monohudmed"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
+
 /*
 DIAGNOSTIC
 */
@@ -247,6 +258,18 @@ DIAGNOSTIC
 	)
 	icon_state = "diagvisor"
 	item_state = "diagvisor"
+
+/obj/item/clothing/glasses/hud/diagnostic/monocle
+	name = "Diagnostic HUD Monocle"
+	desc = "Моноколь со встроенным диагностическим ИЛС."
+	icon_state = "monohuddiag"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
+
 /*
 SECURITY
 */
@@ -404,6 +427,17 @@ SECURITY
 	icon_state = "securityvisor"
 	item_state = "securityvisor"
 
+/obj/item/clothing/glasses/hud/security/monocle
+	name = "Security HUD Monocle"
+	desc = "Моноколь со встроенным охранным ИЛС."
+	icon_state = "monohudsec"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
+
 /*
 HYDROPONIC
 */
@@ -485,6 +519,18 @@ HYDROPONIC
 	)
 	icon_state = "hydroponicvisor"
 	item_state = "hydroponicvisor"
+
+/obj/item/clothing/glasses/hud/hydroponic/monocle
+	name = "Hydroponic HUD Monocle"
+	desc = "Моноколь со встроенным ботаническим ИЛС."
+	icon_state = "monohudhydro"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)
+
 /*
 SKILLS
 */
@@ -605,3 +651,14 @@ SKILLS
 	)
 	icon_state = "skillvisor"
 	item_state = "skillvisor"
+
+/obj/item/clothing/glasses/hud/skills/monocle
+	name = "Skills HUD Monocle"
+	desc = "Моноколь со встроенным ИЛС навыков."
+	icon_state = "monohudskill"
+	item_state = "monohud"
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/eyes.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/eyes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/eyes.dmi'
+	)

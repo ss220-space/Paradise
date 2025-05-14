@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const PodTracking = (props, context) => {
-  const { act, data } = useBackend(context);
+export const PodTracking = (props) => {
+  const { act, data } = useBackend();
   const { pods } = data;
   return (
     <Window width={400} height={500}>

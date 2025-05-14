@@ -6,8 +6,8 @@ import { SUBMENU } from '../RndConsole';
 const DISK_TYPE_DESIGN = 'design';
 const DISK_TYPE_TECH = 'tech';
 
-const TechSummary = (properties, context) => {
-  const { data, act } = useBackend(context);
+const TechSummary = (properties) => {
+  const { data, act } = useBackend();
   const { disk_data } = data;
 
   if (!disk_data) {
@@ -41,8 +41,8 @@ const TechSummary = (properties, context) => {
 };
 
 // summarize a design disk contents from d_disk
-const LatheSummary = (properties, context) => {
-  const { data, act } = useBackend(context);
+const LatheSummary = (properties) => {
+  const { data, act } = useBackend();
   const { disk_data } = data;
   if (!disk_data) {
     return null;
@@ -92,8 +92,8 @@ const LatheSummary = (properties, context) => {
   );
 };
 
-const EmptyDisk = (properties, context) => {
-  const { data } = useBackend(context);
+const EmptyDisk = (properties) => {
+  const { data } = useBackend();
   const { disk_type } = data;
   return (
     <Box>
@@ -114,8 +114,8 @@ const EmptyDisk = (properties, context) => {
   );
 };
 
-const EjectDisk = (properties, context) => {
-  const { data, act } = useBackend(context);
+const EjectDisk = (properties) => {
+  const { data, act } = useBackend();
   const { disk_type } = data;
 
   if (!disk_type) {
@@ -135,10 +135,10 @@ const EjectDisk = (properties, context) => {
   );
 };
 
-const ContentsSubmenu = (properties, context) => {
+const ContentsSubmenu = (properties) => {
   const {
     data: { disk_data, disk_type },
-  } = useBackend(context);
+  } = useBackend();
 
   const body = () => {
     if (!disk_data) {
@@ -157,8 +157,8 @@ const ContentsSubmenu = (properties, context) => {
   return <Section title="Data Disk Contents">{body()}</Section>;
 };
 
-const CopySubmenu = (properties, context) => {
-  const { data, act } = useBackend(context);
+const CopySubmenu = (properties) => {
+  const { data, act } = useBackend();
   const { disk_type, to_copy } = data;
 
   return (
@@ -188,8 +188,8 @@ const CopySubmenu = (properties, context) => {
   );
 };
 
-export const DataDiskMenu = (properties, context) => {
-  const { data } = useBackend(context);
+export const DataDiskMenu = (properties) => {
+  const { data } = useBackend();
   const { disk_type } = data;
 
   if (!disk_type) {

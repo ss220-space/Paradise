@@ -9,9 +9,9 @@
 	action_background_icon_state = ""
 	need_active_overlay = TRUE
 	var/projectiles_icons = list(
-		"watcher_normal" = /obj/item/projectile/watcher,
-		"watcher_fire" = /obj/item/projectile/temp/basilisk/magmawing,
-		"watcher_ice" = /obj/item/projectile/temp/basilisk/icewing)
+		"watcher_normal" = /obj/projectile/watcher,
+		"watcher_fire" = /obj/projectile/temp/basilisk/magmawing,
+		"watcher_ice" = /obj/projectile/temp/basilisk/icewing)
 	var/selected_projectile = 1
 
 
@@ -26,7 +26,7 @@
 	if(!istype(U) || !istype(T))
 		return FALSE
 	var/projectile_type = projectiles_icons[projectiles_icons[selected_projectile]]
-	var/obj/item/projectile/proj = new projectile_type(T)
+	var/obj/projectile/proj = new projectile_type(T)
 	proj.current = get_turf(user)
 	proj.original = target
 	proj.firer = user

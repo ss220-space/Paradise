@@ -10,8 +10,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const GasFreezer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GasFreezer = (props) => {
+  const { act, data } = useBackend();
   const {
     on,
     pressure,

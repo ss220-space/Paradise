@@ -2,8 +2,8 @@ import { useBackend } from '../../backend';
 import { Button, Divider, Flex, Section } from '../../components';
 import { LatheMaterials, LatheSearch } from './index';
 
-export const LatheMainMenu = (properties, context) => {
-  const { data, act } = useBackend(context);
+export const LatheMainMenu = (properties) => {
+  const { data, act } = useBackend();
 
   const { menu, categories } = data;
 

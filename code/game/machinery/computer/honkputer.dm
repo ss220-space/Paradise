@@ -72,7 +72,7 @@
 		return
 
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><head><title>HONKputer Interface</title></head><body>"}
+	var/dat = ""
 
 	if(istype(user, /mob/living/silicon))
 		to_chat(user, "This console is not networked to the rest of the grid.")
@@ -81,12 +81,14 @@
 	switch(src.state)
 		if(STATE_DEFAULT)
 			if(src.authenticated)
-				dat += "<BR>\[ <a href='byond://?src=[UID()];operation=logout'>Log Out</A> \]"
-				dat += "<BR>\[ <a href='byond://?src=[UID()];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</A> \]"
+				dat += "<br> <a href='byond://?src=[UID()];operation=logout'>Log Out</a> "
+				dat += "<br> <a href='byond://?src=[UID()];operation=MessageHonkplanet'>Send an emergency message to Honkplanet</a>"
 			else
-				dat += "<BR>\[ <a href='byond://?src=[UID()];operation=login'>Log In</A> \]"
+				dat += "<br> <a href='byond://?src=[UID()];operation=login'>Log In</a>"
 
 
-	dat += "<BR>\[ [(src.state != STATE_DEFAULT) ? "<a href='byond://?src=[UID()];operation=main'>Main Menu</A> | " : ""]<a href='byond://?src=[user.UID()];mach_close=honkputer'>Close</A> \]"
-	user << browse(dat, "window=honkputer;size=400x500")
+	dat += "<br> [(src.state != STATE_DEFAULT) ? "<a href='byond://?src=[UID()];operation=main'>Main Menu</a><br>" : ""]<a href='byond://?src=[user.UID()];mach_close=honkputer'>Close</a>"
+	var/datum/browser/popup = new(user, "honkputer", "HONKputer Interface", 400, 500)
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "honkputer")

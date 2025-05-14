@@ -186,6 +186,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	var/static/list/override_unplatable_armor_typecache = typecacheof(list(
+			/obj/item/clothing/suit/hooded/explorer/mining,
+			/obj/item/clothing/head/hooded/explorer/mining,
+	))
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/pathfinder,
 			/obj/item/clothing/head/hooded/pathfinder,
@@ -200,6 +204,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(!proximity_flag)
+		return
+	var/uplatable_armor = is_type_in_typecache(target, override_unplatable_armor_typecache)
+	if(uplatable_armor)
+		balloon_alert(user, "нельзя улучшить!")
 		return
 	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || platable_armor_with_icon)

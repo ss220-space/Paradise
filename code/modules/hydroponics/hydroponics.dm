@@ -140,14 +140,14 @@
 	update_state()
 
 
-/obj/machinery/hydroponics/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
+/obj/machinery/hydroponics/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
 	if(!myseed)
 		return ..()
-	if(istype(Proj, /obj/item/projectile/energy/floragamma))
+	if(istype(Proj, /obj/projectile/energy/floragamma))
 		make_grow()
-	else if(istype(Proj, /obj/item/projectile/energy/florabeta))
+	else if(istype(Proj, /obj/projectile/energy/florabeta))
 		myseed.on_floragun_beta_act()
-	else if(istype(Proj, /obj/item/projectile/energy/floraalpha) && !lid_closed)
+	else if(istype(Proj, /obj/projectile/energy/floraalpha) && !lid_closed)
 		plantdies()
 	else
 		return ..()
@@ -1138,13 +1138,13 @@
 /obj/machinery/hydroponics/proc/send_plant_details(mob/user)
 	var/list/msg = list()
 	if(myseed)
-		msg += "*** <B>[myseed.plantname]</B> ***" //Carn: now reports the plants growing, not the seeds.
+		msg += "*** <b>[myseed.plantname]</b> ***" //Carn: now reports the plants growing, not the seeds.
 		msg += "- Plant Age: <span class='notice'>[age]</span>"
 		var/list/text_string = myseed.get_analyzer_text()
 		if(text_string)
 			msg += text_string
 	else
-		msg += "<B>No plant found.</B>"
+		msg += "<b>No plant found.</b>"
 	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
 	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
 	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"

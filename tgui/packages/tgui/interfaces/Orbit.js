@@ -1,6 +1,16 @@
 import { createSearch } from 'common/string';
+import { multiline } from 'common/string';
+import { resolveAsset } from '../assets';
 import { useBackend, useLocalState } from '../backend';
-import { Button, Divider, Flex, Icon, Input, Section } from '../components';
+import {
+  Box,
+  Button,
+  Divider,
+  Flex,
+  Icon,
+  Input,
+  Section,
+} from '../components';
 import { Window } from '../layouts';
 
 const PATTERN_NUMBER = / \(([0-9]+)\)$/;
@@ -37,8 +47,8 @@ const compareNumberedText = (a, b) => {
   return compareString(aName, bName);
 };
 
-const BasicSection = (props, context) => {
-  const { act } = useBackend(context);
+const BasicSection = (props) => {
+  const { act } = useBackend();
   const { searchText, source, title } = props;
   const things = source.filter(searchFor(searchText));
   things.sort(compareNumberedText);
@@ -61,8 +71,8 @@ const BasicSection = (props, context) => {
   );
 };
 
-const OrbitedButton = (props, context) => {
-  const { act } = useBackend(context);
+const OrbitedButton = (props) => {
+  const { act } = useBackend();
   const { color, thing } = props;
 
   return (
@@ -79,8 +89,8 @@ const OrbitedButton = (props, context) => {
   );
 };
 
-export const Orbit = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Orbit = (props) => {
+  const { act, data } = useBackend();
   const {
     alive,
     antagonists,
@@ -92,7 +102,7 @@ export const Orbit = (props, context) => {
     npcs,
   } = data;
 
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
+  const [searchText, setSearchText] = useLocalState('searchText', '');
 
   const collatedAntagonists = {};
   for (const antagonist of antagonists) {
@@ -149,6 +159,15 @@ export const Orbit = (props, context) => {
               <Divider vertical />
             </Flex.Item>
             <Flex.Item>
+              <Button
+                inline
+                color="transparent"
+                tooltip={multiline`Доп.возможности наблюдения. Когда активно, Вам будет виден интерфейс / полный инвентарь наблюдаемого. Удобно!`}
+                tooltipPosition="bottom-start"
+                selected={auto_observe}
+                icon={auto_observe ? 'toggle-on' : 'toggle-off'}
+                onClick={() => act('toggle_observe')}
+              />
               <Button
                 inline
                 color="transparent"

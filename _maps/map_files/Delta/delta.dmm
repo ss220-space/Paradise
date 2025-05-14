@@ -22236,7 +22236,7 @@
 /area/maintenance/banya)
 "cBq" = (
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor";
+	id_tag = "QMLoaddoor2";
 	name = "supply dock loading door"
 	},
 /obj/machinery/conveyor{
@@ -27774,14 +27774,14 @@
 /area/crew_quarters/bar/atrium)
 "cYX" = (
 /obj/machinery/door_control{
-	id = "QMLoaddoor2";
+	id = "QMLoaddoor";
 	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 24;
 	pixel_y = 8
 	},
 /obj/machinery/door_control{
-	id = "QMLoaddoor";
+	id = "QMLoaddoor2";
 	layer = 4;
 	name = "Loading Doors";
 	pixel_x = 24;
@@ -41470,7 +41470,7 @@
 /area/security/podbay)
 "eqQ" = (
 /obj/machinery/door/poddoor{
-	id_tag = "QMLoaddoor2";
+	id_tag = "QMLoaddoor";
 	name = "supply dock loading door"
 	},
 /obj/machinery/conveyor{
@@ -48561,10 +48561,6 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
-	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -56440,10 +56436,8 @@
 /turf/simulated/floor/plasteel,
 /area/teleporter)
 "hRx" = (
-/obj/structure/chair/office/dark{
-	dir = 4
-	},
-/obj/effect/landmark/start/shaft_miner,
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "brown"
@@ -60493,6 +60487,14 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"iRP" = (
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "purple"
+	},
+/area/quartermaster/miningdock)
 "iSa" = (
 /obj/machinery/atm{
 	pixel_y = 32
@@ -84022,10 +84024,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -84837,9 +84835,7 @@
 	},
 /area/hallway/secondary/entry/lounge)
 "oHJ" = (
-/obj/structure/sign/poster/official/random{
-	pixel_y = 32
-	},
+/obj/machinery/station_map/directional/north,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -86745,8 +86741,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "peP" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -86754,6 +86748,8 @@
 	dir = 1;
 	pixel_y = 26
 	},
+/obj/structure/chair/comfy/mouse,
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "pfa" = (
@@ -91860,6 +91856,7 @@
 "qjh" = (
 /obj/effect/decal/warning_stripes/yellow/partial,
 /obj/effect/decal/warning_stripes/arrow,
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel{
 	icon_state = "purple"
 	},
@@ -95789,7 +95786,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/mob/living/simple_animal/mothroach,
+/mob/living/basic/mothroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -108368,13 +108365,6 @@
 	},
 /turf/simulated/floor/engine,
 /area/toxins/mixing)
-"tVr" = (
-/obj/machinery/station_map/directional/north,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "red"
-	},
-/area/security/main)
 "tVu" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -108827,12 +108817,6 @@
 	icon_state = "darkblue"
 	},
 /area/maintenance/detectives_office)
-"tZO" = (
-/obj/structure/chair/wood{
-	dir = 4
-	},
-/turf/simulated/wall,
-/area/hallway/secondary/entry/commercial)
 "tZR" = (
 /obj/machinery/pipedispenser,
 /obj/effect/decal/warning_stripes/yellow/hollow,
@@ -110909,10 +110893,6 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
-	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -117927,10 +117907,6 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
-	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -155202,7 +155178,7 @@ bjr
 uCN
 uCN
 uCN
-tZO
+uCN
 nEC
 bnk
 xzD
@@ -171427,7 +171403,7 @@ duw
 hzg
 dDb
 aZp
-kMn
+iRP
 mfh
 mfh
 djR
@@ -181218,7 +181194,7 @@ ePU
 wCH
 wCY
 lhS
-tVr
+vcX
 iHp
 uZU
 xFL

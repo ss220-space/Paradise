@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					sensor_part += "</table>"
 
 				else
-					sensor_part += "<FONT color='red'>[long_name] can not be found!</FONT><BR>"
+					sensor_part += "<span style='color: red;'>[long_name] can not be found!</span><br>"
 				sensor_part += "</fieldset>"
 				sensor_data += sensor_part
 
@@ -367,18 +367,18 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	//if(signal.data)
 	//	input_info = signal.data // Attempting to fix intake control -- TLE
 
-	output += "<h2>Tank Control System</h2><BR>"
+	output += "<h2>Tank Control System</h2><br>"
 	if(input_tag)
 		if(input_info)
 			var/power = (input_info["power"])
 			var/volume_rate = input_info["volume_rate"]
 			output += {"
 <fieldset>
-	<legend>Input (<a href='byond://?src=[UID()];in_refresh_status=1'>Refresh</A>)</legend>
+	<legend>Input (<a href='byond://?src=[UID()];in_refresh_status=1'>Refresh</a>)</legend>
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><a href='byond://?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];in_toggle_injector=1'>[power?("Injecting"):("On Hold")]</a></td>
 		</tr>
 		<tr>
 			<th>Rate:</th>
@@ -388,7 +388,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find input port</FONT> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</A><BR>"
+			output += "<span style='color: red;'>ERROR: Can not find input port</span> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</a><br>"
 	if(output_tag)
 		if(output_info)
 			var/power = (output_info["power"])
@@ -399,17 +399,17 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 	<table>
 		<tr>
 			<th>State:</th>
-			<td><a href='byond://?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</A></td>
+			<td><a href='byond://?src=[UID()];out_toggle_power=1'>[power?("Open"):("On Hold")]</a></td>
 		</tr>
 		<tr>
 			<th>Max Output Pressure:</th>
-			<td><a href='byond://?src=[UID()];out_set_pressure=1'>[output_pressure]</A> kPa</td>
+			<td><a href='byond://?src=[UID()];out_set_pressure=1'>[output_pressure]</a> kPa</td>
 		</tr>
 	</table>
 </fieldset>
 "}
 		else
-			output += "<FONT color='red'>ERROR: Can not find output port</FONT> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</A><BR>"
+			output += "<span style='color: red;'>ERROR: Can not find output port</span> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</a><br>"
 
 	return output
 
@@ -548,7 +548,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		if(automation)
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:372: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Engaged</A><br>"
 			output += {"
 			<tr>
 				<td colspan="2">Injector Controls Locked Out</td>
@@ -557,7 +557,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 		else
 
 			// AUTOFIXED BY fix_string_idiocy.py
-			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</A><BR>"
+			// C:\Users\Rob\Documents\Projects\vgstation13\code\game\machinery\atmo_control.dm:375: output += "Automated Fuel Injection: <a href='byond://?src=[UID()];toggle_automation=1'>Disengaged</A><br>"
 			output += {"
 			<tr>
 				<th>Injector:</th>

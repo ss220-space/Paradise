@@ -869,7 +869,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 					/obj/item/clothing/mask/breath)
 	cost = 130
 	containertype = /obj/structure/closet/crate/engineering
-	required_tech = list("toxins" = 6, "plasma" = 4)
+	required_tech = list("toxins" = 6, "plasmatech" = 4)
 	containername = "Engineering Hardsuit Crate"
 	access = ACCESS_ATMOSPHERICS
 
@@ -2071,11 +2071,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/gosling
 	containername = "gosling crate"
 
-/datum/supply_packs/organic/hamster
-	name = "Hamster Crate"
+/datum/supply_packs/organic/wooly_mouse
+	name = "Wooly mouse Crate"
 	cost = 50
-	containertype = /obj/structure/closet/critter/hamster
-	containername = "hamster crate"
+	containertype = /obj/structure/closet/critter/wooly_mouse
+	containername = "wooly mouse crate"
 
 /datum/supply_packs/organic/frog
 	name = "Frog Crate"
@@ -2408,6 +2408,16 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	contains = list(/obj/item/storage/backpack/duffel/mining_conscript)
 	containertype = /obj/structure/closet/crate/secure
 	containername = "shaft miner starter kit"
+
+/datum/supply_packs/misc/barber_kit
+	name = "Barber kit"
+	contains = list(/obj/item/storage/box/barber,
+					/obj/item/clothing/under/barber,
+					/obj/item/clothing/under/barber/skirt,
+					/obj/item/razor,
+					/obj/item/storage/box/lip_stick)
+	cost = 10
+	containername = "barber kit crate"
 
 /datum/supply_packs/misc/patriotic
 	name = "Patriotic Crate"

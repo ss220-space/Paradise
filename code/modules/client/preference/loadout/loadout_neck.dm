@@ -74,7 +74,7 @@
 /datum/gear/neck/cloak/job/healer
 	index_name = "cloak, healer"
 	path = /obj/item/clothing/neck/cloak/healer
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/neck/cloak/job/captain
 	index_name = "cloak, captain"

@@ -647,6 +647,13 @@
 	if(!..())
 		return FALSE
 
+	if(istype(robot.module, /obj/item/robot_module/miner))
+		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
+		satchel.storage_slots = 15
+		satchel.upgraded = TRUE
+		robot.module.emag = satchel
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
+
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy *= 3
 		energy_storage.recharge_rate *= 2
@@ -657,6 +664,13 @@
 /obj/item/borg/upgrade/storageincreaser/deactivate(mob/living/silicon/robot/robot, mob/user)
 	if(!..())
 		return FALSE
+
+	if(istype(robot.module, /obj/item/robot_module/miner))
+		var/obj/item/storage/bag/kaboom/cyborg/satchel = robot.module.emag
+		satchel.storage_slots = 5
+		satchel.upgraded = FALSE
+		robot.module.emag = satchel
+		robot.module.emag.update_icon(UPDATE_ICON_STATE)
 
 	for(var/datum/robot_energy_storage/energy_storage in robot.module.storages)
 		energy_storage.max_energy = initial(energy_storage.max_energy)

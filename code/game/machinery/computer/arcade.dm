@@ -113,7 +113,6 @@
 
 	dat += "</b></center>"
 
-	//user << browse(dat, "window=arcade")
 	//onclose(user, "arcade")
 	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
@@ -169,7 +168,7 @@
 
 	if(href_list["close"])
 		usr.unset_machine()
-		usr << browse(null, "window=arcade")
+		close_window(usr, "arcade")
 
 	else if(href_list["newgame"]) //Reset everything
 		temp = "New Round"
@@ -451,7 +450,7 @@
 		return
 	if(href_list["close"])
 		usr.unset_machine()
-		usr << browse(null, "window=arcade")
+		close_window(usr, "arcade")
 	if(busy)
 		return
 	busy = 1
