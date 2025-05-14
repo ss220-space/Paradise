@@ -55,7 +55,7 @@
 /datum/anomaly_impulse/random_throws/impulse()
 	var/ost_atoms = 100
 	for(var/atom/movable/A in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
-		if(isobserver(A))
+		if(isobserver(A) || ismachinery(A) || iseffect(A))
 			continue
 
 		if(!A.anchored)

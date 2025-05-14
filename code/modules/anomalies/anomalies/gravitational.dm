@@ -12,10 +12,9 @@
 	for(var/i = 1 to max(2, rand(tier, tier * 2)))
 		sleep(2)
 		for(var/atom/movable/A in view(tier * 2, src))
-			if(isobserver(A))
+			if(isobserver(A) || iseffect(A) || ismachinery(A))
 				continue
 
-			if(!iseffect(A))
 				A.random_throw(tier, tier * 3, 5)
 				A.update_icon()
 
