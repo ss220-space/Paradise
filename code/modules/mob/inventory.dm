@@ -234,7 +234,7 @@
 		return ITEM_SLOT_HAND_LEFT
 	if(I == r_hand)
 		return ITEM_SLOT_HAND_RIGHT
-	return 0
+	return NONE
 
 /**
  * Returns `TRUE` if mob's hands free

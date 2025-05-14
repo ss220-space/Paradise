@@ -26,25 +26,26 @@
 		to_chat(user, span_warning("Вы еще не готовы прочитать книгу!"))
 		return
 
-	if(iscarbon(user))
-		var/datum/outfit/radial_outfit/death_book/choise = radial_menu(user)
-		if(isnull(choise))
-			return 
-		flick("animate_death_book", src)
-		to_chat(user, span_info(choise.message_to_chat))
-		//Even death will not stop the progress of the bar
-		if(do_after(user, 1 SECONDS, src, INFINITY & !(DA_IGNORE_HELD_ITEM)))
-			cooldown = TRUE
-			addtimer(CALLBACK(src, PROC_REF(cooldown_stop), user), choise.cooldown)
-			addtimer(CALLBACK(src, PROC_REF(alert_user), user), choise.time_action - 30 SECONDS)
-			addtimer(CALLBACK(src, PROC_REF(phantom_delete), user), choise.time_action)
-			temp_outfit_storage = new()	
-			temp_outfit_storage.temp_unequip(user, selective_mode = (choise.force_unequip_slots | choise.used_slots | user.is_in_hands_to_flag(src)))
-			choise.equip(user, prom_component = /datum/component/phantom_component, comp_args = list(src, TRUE))
-		else
-			flick("close_death_book", src)
-			to_chat(user, span_info("Вам не хватает терпения и вы перестаете читать!"))
-		qdel(choise)
+	if(!iscarbon(user))
+		return
+	var/datum/outfit/radial_outfit/death_book/choise = radial_menu(user)
+	if(isnull(choise))
+		return 
+	flick("animate_death_book", src)
+	to_chat(user, span_info(choise.message_to_chat))
+	//Even death will not stop the progress of the bar
+	if(do_after(user, 1 SECONDS, src, INFINITY & !(DA_IGNORE_HELD_ITEM)))
+		cooldown = TRUE
+		addtimer(CALLBACK(src, PROC_REF(cooldown_stop), user), choise.cooldown)
+		addtimer(CALLBACK(src, PROC_REF(alert_user), user), choise.time_action - 30 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(phantom_delete), user), choise.time_action)
+		temp_outfit_storage = new()	
+		temp_outfit_storage.temp_unequip(user, selective_mode = (choise.force_unequip_slots | choise.used_slots | user.is_in_hands_to_flag(src)))
+		choise.equip(user, prom_component = /datum/component/phantom_component, comp_args = list(src, TRUE))
+	else
+		flick("close_death_book", src)
+		to_chat(user, span_info("Вам не хватает терпения и вы перестаете читать!"))
+	qdel(choise)
 		
 /obj/item/death_book/proc/radial_menu(mob/living/carbon/user)
 	var/list/radial_look = list()

@@ -69,9 +69,8 @@
 	metabolization_rate = 1
 
 /datum/reagent/terror_eggs/on_mob_life(mob/living/carbon/M)
-	if(volume >= 5)
-		if(!M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
-			new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
+	if(volume >= 5 && !M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
+		new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
 	return ..()
 
 /datum/reagent/fungalspores
