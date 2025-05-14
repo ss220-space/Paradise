@@ -715,12 +715,16 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	lighting_alpha = client?.prefs.ghost_darkness_level
 	update_sight()
-	LAZYREMOVE(do_observe_target.inventory_observers, src)
+
+	if(do_observe_target)
+		LAZYREMOVE(do_observe_target.inventory_observers, src)
+
 	clear_fullscreens()
 
 	if(client)
 		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
-		UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
+		if(do_observe_target)
+			UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
 
 	do_observe_target = null
 	REMOVE_TRAIT(src, TRAIT_OBSERVING_INVENTORY, UNIQUE_TRAIT_SOURCE(src))
