@@ -324,6 +324,7 @@
 		M.visible_message(span_notice("[M] seems happy with you after exposure to the bouquet!"))
 		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
 		M.drop_loot()
+		M.loot = list()
 		M.faction = user.faction
 		summons |= M
 	..()

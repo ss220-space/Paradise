@@ -116,11 +116,12 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	var/sleep_time = 40 SECONDS
 
 /obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
-		L.SetSleeping(40 SECONDS)
+		L.SetSleeping(sleep_time)
 
 	return ..()
 
@@ -172,11 +173,12 @@
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	var/bleeding = 100
 
 /obj/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.bleed(100)
+		C.bleed(bleeding)
 
 	return ..()
 
@@ -276,3 +278,148 @@
 	else if(ammo)
 		. += ".50mag-f"
 
+
+/obj/item/gun/projectile/automatic/sniper_rifle/axmc
+	name = "axmc sniper rifle"
+	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний Нанотрейзен. Обладает схожими со снайперской винтовкой Синдиката характеристиками."
+	ru_names = list(
+		NOMINATIVE = "снайперская винтовка axmc",
+		GENITIVE = "снайперской винтовки axmc",
+		DATIVE = "снайперской винтовке axmc",
+		ACCUSATIVE = "снайперскую винтовку axmc",
+		INSTRUMENTAL = "снайперской винтовкой axmc",
+		PREPOSITIONAL = "снайперской винтовке axmc",
+	)
+	icon_state = "AXMC"
+	item_state = "AXMC"
+	mag_type = /obj/item/ammo_box/magazine/a338
+	fire_delay = 5.5 SECONDS
+
+/obj/item/ammo_box/magazine/a338
+	name = "sniper rounds (.338)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338",
+		GENITIVE = "снайперских патронов .338",
+		DATIVE = "снайперским патронам .338",
+		ACCUSATIVE = "снайперские патроны .338",
+		INSTRUMENTAL = "снайперскими патронами .338",
+		PREPOSITIONAL = "снайперских патронах .338",
+	)
+	icon_state = ".338mag"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/a338
+	max_ammo = 10
+	caliber = ".338"
+
+/obj/item/ammo_box/magazine/a338/update_icon_state()
+	if(ammo_count())
+		icon_state = "[initial(icon_state)]-ammo"
+	else
+		icon_state = "[initial(icon_state)]"
+
+/obj/item/ammo_casing/a338
+	desc = "Гильзя калибра .338."
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/a338
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	icon_state = ".50"
+
+/obj/projectile/bullet/sniper/a338
+	damage = 80
+	dismemberment = 0
+
+//Sleepy ammo
+/obj/item/ammo_box/magazine/a338/soporific
+	name = "sniper rounds .338 (Zzzzz)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (усыпляющие)",
+		GENITIVE = "снайперских патронов .338 (усыпляющих)",
+		DATIVE = "снайперским патронам .338 (усыпляющим)",
+		ACCUSATIVE = "снайперские патроны .338 (усыпляющие)",
+		INSTRUMENTAL = "снайперскими патронами .338 (усыпляющими)",
+		PREPOSITIONAL = "снайперских патронах .338 (усыпляющих)",
+	)
+	desc = "Усыпляющие снайперские патроны калибра .338, созданные для счастливых дней и тихих ночей..."
+	icon_state = "soporific"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/a338_soporific
+	max_ammo = 6
+
+/obj/item/ammo_casing/a338_soporific
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/soporific/a338
+	icon_state = ".50sop"
+	harmful = FALSE
+
+/obj/projectile/bullet/sniper/soporific/a338
+
+//hemorrhage ammo
+/obj/item/ammo_box/magazine/a338/explosive
+	name = "sniper rounds .338 (boom)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (разрывные)",
+		GENITIVE = "снайперских патронов .338 (разрывных)",
+		DATIVE = "снайперским патронам .338 (разрывным)",
+		ACCUSATIVE = "снайперские патроны .338 (разрывные)",
+		INSTRUMENTAL = "снайперскими патронами .338 (разрывными)",
+		PREPOSITIONAL = "снайперских патронах .338 (разрывных)",
+	)
+	desc = "Что вы имели в виду, говоря о военных преступлениях? Не было никаких военных."
+	icon_state = "explosive"
+	ammo_type = /obj/item/ammo_casing/a338_explosive
+	max_ammo = 10
+
+/obj/item/ammo_casing/a338_explosive
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/explosive/a338
+	icon_state = ".50exp"
+
+/obj/projectile/bullet/sniper/explosive/a338
+
+//hemorrhage ammo
+/obj/item/ammo_box/magazine/a338/haemorrhage
+	name = "sniper rounds 338 (Bleed)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (кровопускающие)",
+		GENITIVE = "снайперских патронов .338 (кровопускающих)",
+		DATIVE = "снайперским патронам .338 (кровопускающим)",
+		ACCUSATIVE = "снайперские патроны .338 (кровопускающие)",
+		INSTRUMENTAL = "снайперскими патронами .338 (кровопускающими)",
+		PREPOSITIONAL = "снайперских патронах .338 (кровопускающих)",
+	)
+	desc = "Кровопускающие снайперские выстрелы, оставляют вашу цель в луже кровавой боли"
+	icon_state = "haemorrhage"
+	ammo_type = /obj/item/ammo_casing/a338_haemorrhage
+	max_ammo = 10
+
+/obj/item/ammo_casing/a338_haemorrhage
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/haemorrhage/a338
+	icon_state = ".50exp"
+
+/obj/projectile/bullet/sniper/haemorrhage/a338
+
+//penetrator ammo
+/obj/item/ammo_box/magazine/a338/penetrator
+	name = "sniper rounds 338 (penetrator)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (проникающие)",
+		GENITIVE = "снайперских патронов .338 (проникающих)",
+		DATIVE = "снайперским патронам .338 (проникающим)",
+		ACCUSATIVE = "снайперские патроны .338 (проникающие)",
+		INSTRUMENTAL = "снайперскими патронами .338 (проникающими)",
+		PREPOSITIONAL = "снайперских патронах .338 (проникающих)",
+	)
+	desc = "Чрезвычайно мощный патрон, способный пронзить укрытие и любого, кому не повезло оказаться за ним."
+	icon_state = "penetrator"
+	ammo_type = /obj/item/ammo_casing/a338_penetrator
+	origin_tech = "combat=6"
+	max_ammo = 10
+
+/obj/item/ammo_casing/a338_penetrator
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/penetrator/a338
+	icon_state = ".50pen"
+
+/obj/projectile/bullet/sniper/penetrator/a338

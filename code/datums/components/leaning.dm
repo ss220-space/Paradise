@@ -43,7 +43,7 @@
 		return FALSE
 	if(leaner.incapacitated(INC_IGNORE_RESTRAINED) || leaner.stat != CONSCIOUS || leaner.buckled || leaner.body_position == LYING_DOWN) //Are we in a valid state?
 		return FALSE
-	if(HAS_TRAIT_FROM(leaner, TRAIT_UNDENSE, TRAIT_LEANING)) //Are we leaning already?
+	if(leaner.leaned_object) //Are we leaning already?
 		return FALSE
 	if(ISDIAGONALDIR(get_dir(leaner, source)) || ((get_dir(leaner, source)) == SOUTH)) //Not leaning on a corner, idiot, or a south wall because it looks bad
 		return FALSE
@@ -78,7 +78,10 @@
 			new_x += leaning_offset
 
 	animate(src, 0.2 SECONDS, pixel_x = new_x, pixel_y = new_y)
-	ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
+
+	if(density == TRUE) //no point in giving the trait if we are already undense
+		ADD_TRAIT(src, TRAIT_UNDENSE, TRAIT_LEANING)
+
 	visible_message(
 		span_notice("[src] прислоня[pluralize_ru(gender, "ется", "ются")] к [lean_target.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы прислоняетесь к [lean_target.declent_ru(ACCUSATIVE)]."),
