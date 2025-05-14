@@ -21,20 +21,19 @@
 
 /mob/living/carbon/alien/humanoid/empress/large
 	name = "alien empress"
-	caste = "e"
+	caste = "q"
 	icon = 'icons/mob/alienhuge.dmi'
-	icon_state = "empress_s"
 	pixel_x = -32
 
 /mob/living/carbon/alien/humanoid/empress/large/update_icons()
 	cut_overlays()
 
 	if(stat == DEAD)
-		icon_state = "empress_dead"
+		icon_state = "alien[caste]_dead"
 	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
-		icon_state = "empress_sleep"
+		icon_state = "alien[caste]_sleep"
 	else
-		icon_state = "empress_s"
+		icon_state = "alien[caste]_s"
 
 	for(var/image/I in overlays_standing)
 		add_overlay(I)

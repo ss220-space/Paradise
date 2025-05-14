@@ -84,7 +84,7 @@
 #define span_name(str) ("<span class='name'>" + str + "</span>")
 #define span_narsie(str) ("<span class='narsie'>" + str + "</span>")
 #define span_narsiesmall(str) ("<span class='narsiesmall'>" + str + "</span>")
-//#define span_nicegreen(str) ("<span class='nicegreen'>" + str + "</span>")
+#define span_nicegreen(str) ("<span class='nicegreen'>" + str + "</span>")
 #define span_notice(str) ("<span class='notice'>" + str + "</span>")
 #define span_noticealien(str) ("<span class='noticealien'>" + str + "</span>")
 #define span_ooc(str) ("<span class='ooc'>" + str + "</span>")
