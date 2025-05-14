@@ -170,24 +170,24 @@
 		to_chat(world, "<b>Экипаж защитил станцию от Ксеноморфов!</b>")
 		to_chat(world, "<b>Ксеноморфы были истреблены.</b>")
 	else
-		to_chat(world, "<br><FONT size = 3><b>Ничья!</b></FONT>")
+		to_chat(world, "<br><span style='font-size: 3;'><b>Ничья!</b></span>")
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Ксеноморфы не были истреблены.</b>")
 
 	to_chat(world, "<b>Целями Ксеноморфов было:</b>")
 
 	if(xeno_power_objective)
-		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[xeno_power_objective.type]", xeno_power_objective.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[xeno_power_objective.type]", xeno_power_objective.check_completion()? "SUCCESS" : "FAIL"))
 	if(create_queen)
-		to_chat(world, "<br/>Создание королевы: [create_queen.explanation_text] [create_queen.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[create_queen.type]", create_queen.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Создание королевы: [create_queen.explanation_text] [create_queen.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[create_queen.type]", create_queen.check_completion()? "SUCCESS" : "FAIL"))
 	if(protect_queen)
-		to_chat(world, "<br/>Защита королевы: [protect_queen.explanation_text] [protect_queen.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_queen.type]", protect_queen.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Защита королевы: [protect_queen.explanation_text] [protect_queen.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_queen.type]", protect_queen.check_completion()? "SUCCESS" : "FAIL"))
 	if(protect_cocon)
-		to_chat(world, "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.check_completion()?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.check_completion()? "SUCCESS" : "FAIL"))
 	return TRUE
 
 

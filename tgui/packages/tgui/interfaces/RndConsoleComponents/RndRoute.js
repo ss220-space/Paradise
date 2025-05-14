@@ -1,8 +1,8 @@
 import { useBackend } from '../../backend';
 
-export const RndRoute = (properties, context) => {
+export const RndRoute = (properties) => {
   const { render } = properties;
-  const { data } = useBackend(context);
+  const { data } = useBackend();
   const { menu, submenu } = data;
 
   const compare = (comparator, item) => {

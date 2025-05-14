@@ -25,7 +25,7 @@ const diffMap = {
   },
 };
 
-export const AccessList = (props, context) => {
+export const AccessList = (props) => {
   const {
     sectionButtons = null,
     usedByRcd,
@@ -40,7 +40,6 @@ export const AccessList = (props, context) => {
     denyDep,
   } = props;
   const [selectedAccessName, setSelectedAccessName] = useLocalState(
-    context,
     'accessName',
     accesses[0]?.name
   );

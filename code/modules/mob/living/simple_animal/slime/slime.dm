@@ -15,7 +15,7 @@
 
 	harm_intent_damage = 3
 	icon_living = "grey baby slime"
-	icon_dead = "grey baby slime dead"
+	icon_dead = "grey baby slime dead-nocore"
 	response_help  = "pets"
 	response_disarm = "shoos"
 	response_harm   = "stomps on"
@@ -153,7 +153,7 @@
 	..()
 	var/icon_text = "[colour] [(age_state.age != SLIME_BABY) ? "adult" : "baby"] slime"
 	//icon_dead = "[icon_text] dead"
-	icon_dead = "[colour] baby slime dead" //REMOVE THIS ONLY WHEN THERE WILL BE SPRITES OF ALL SLIME COLOURS AND SIZES!!!
+	icon_dead = "[colour] baby slime dead-nocore" //REMOVE THIS ONLY WHEN THERE WILL BE SPRITES OF ALL SLIME COLOURS AND SIZES!!!
 	if(stat != DEAD)
 		icon_state = icon_text
 		if(mood && !stat)

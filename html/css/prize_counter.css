@@ -29,6 +29,7 @@ caption {
 	padding: 10px 15px;
 	background: #444;
 	border: 1px solid #666;
+	border-radius: 5px;
 	display: inline-block;
 }
 

@@ -28,8 +28,8 @@ const windows = {
 
 const PickWindow = (index) => windows[index];
 
-export const CommunicationsComputer = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CommunicationsComputer = (props) => {
+  const { act, data } = useBackend();
 
   const { menu_state } = data;
 
@@ -45,8 +45,8 @@ export const CommunicationsComputer = (props, context) => {
   );
 };
 
-const AuthBlock = (props, context) => {
-  const { act, data } = useBackend(context);
+const AuthBlock = (props) => {
+  const { act, data } = useBackend();
 
   const {
     authenticated,
@@ -140,8 +140,8 @@ const AuthBlock = (props, context) => {
   );
 };
 
-const MainPage = (props, context) => {
-  const { act, data } = useBackend(context);
+const MainPage = (props) => {
+  const { act, data } = useBackend();
 
   const { is_admin } = data;
 
@@ -151,8 +151,8 @@ const MainPage = (props, context) => {
   return <PlayerPage />;
 };
 
-const AdminPage = (props, context) => {
-  const { act, data } = useBackend(context);
+const AdminPage = (props) => {
+  const { act, data } = useBackend();
   const {
     is_admin,
     gamma_armory_location,
@@ -247,8 +247,8 @@ const AdminPage = (props, context) => {
   );
 };
 
-const PlayerPage = (props, context) => {
-  const { act, data } = useBackend(context);
+const PlayerPage = (props) => {
+  const { act, data } = useBackend();
 
   const {
     msg_cooldown,
@@ -362,8 +362,8 @@ const PlayerPage = (props, context) => {
   );
 };
 
-const StatusScreens = (props, context) => {
-  const { act, data } = useBackend(context);
+const StatusScreens = (props) => {
+  const { act, data } = useBackend();
 
   const { stat_display, authhead, current_message_title } = data;
 
@@ -428,8 +428,8 @@ const StatusScreens = (props, context) => {
   );
 };
 
-const MessageView = (props, context) => {
-  const { act, data } = useBackend(context);
+const MessageView = (props) => {
+  const { act, data } = useBackend();
 
   const {
     authhead,
@@ -496,8 +496,8 @@ const MessageView = (props, context) => {
   return <Box>{messageView}</Box>;
 };
 
-const MappedAlertLevelButtons = (props, context) => {
-  const { act, data } = useBackend(context);
+const MappedAlertLevelButtons = (props) => {
+  const { act, data } = useBackend();
 
   const { levels, required_access, use_confirm } = props;
   const { security_level } = data;
@@ -531,18 +531,18 @@ const MappedAlertLevelButtons = (props, context) => {
   });
 };
 
-const AdminAnnouncePage = (props, context) => {
-  const { act, data } = useBackend(context);
+const AdminAnnouncePage = (props) => {
+  const { act, data } = useBackend();
   const { is_admin } = data;
 
   if (!is_admin) {
     return act('main');
   }
 
-  const [subtitle, setSubtitle] = useLocalState(context, 'subtitle', '');
-  const [text, setText] = useLocalState(context, 'text', '');
-  const [classified, setClassified] = useLocalState(context, 'classified', 0);
-  const [beepsound, setBeepsound] = useLocalState(context, 'beepsound', 'Beep');
+  const [subtitle, setSubtitle] = useLocalState('subtitle', '');
+  const [text, setText] = useLocalState('text', '');
+  const [classified, setClassified] = useLocalState('classified', 0);
+  const [beepsound, setBeepsound] = useLocalState('beepsound', 'Beep');
 
   return (
     <Stack.Item>

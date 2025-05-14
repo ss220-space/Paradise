@@ -275,5 +275,5 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/auto_dnr/proc/set_dnr_status(mob/source, gibbed)
     SIGNAL_HANDLER
 
-    var/mob/dead/observer/ghost = source.ghostize(NONE)
-    ghost.apply_dnr() // we prevented re-entering earlier, but we need to update hud and send signal
+    var/mob/dead/observer/ghost = source.ghostize()
+    ghost.apply_dnr()

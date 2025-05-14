@@ -188,6 +188,7 @@
 
 	var/datum/browser/B = new /datum/browser(user, "library", "Book Inventory Management")
 	B.set_content(dat)
+	B.add_stylesheet("dark_inputs", "html/dark_inputs.css")
 	B.open()
 
 /obj/machinery/computer/library/checkout/emag_act(mob/user)
@@ -218,7 +219,7 @@
 
 /obj/machinery/computer/library/checkout/Topic(href, href_list)
 	if(..())
-		usr << browse(null, "window=library")
+		close_window(usr, "library")
 		onclose(usr, "library")
 		return 1
 

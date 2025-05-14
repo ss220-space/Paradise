@@ -11,8 +11,8 @@ import {
 import { ComplexModal } from '../interfaces/common/ComplexModal';
 import { Window } from '../layouts';
 
-export const GeneModder = (props, context) => {
-  const { data } = useBackend(context);
+export const GeneModder = (props) => {
+  const { data } = useBackend();
   const { has_seed } = data;
 
   return (
@@ -28,8 +28,8 @@ export const GeneModder = (props, context) => {
   );
 };
 
-const Genes = (props, context) => {
-  const { act, data } = useBackend(context);
+const Genes = (props) => {
+  const { act, data } = useBackend();
   const { disk } = data;
 
   return (
@@ -53,7 +53,7 @@ const Genes = (props, context) => {
   );
 };
 
-const MissingSeed = (props, context) => {
+const MissingSeed = (props) => {
   return (
     <Section fill height="85%">
       <Stack height="100%">
@@ -73,8 +73,8 @@ const MissingSeed = (props, context) => {
   );
 };
 
-const Storage = (props, context) => {
-  const { act, data } = useBackend(context);
+const Storage = (props) => {
+  const { act, data } = useBackend();
   const { has_seed, seed, has_disk, disk } = data;
 
   let show_seed;
@@ -133,8 +133,8 @@ const Storage = (props, context) => {
   );
 };
 
-const CoreGenes = (props, context) => {
-  const { act, data } = useBackend(context);
+const CoreGenes = (props) => {
+  const { act, data } = useBackend();
   const { disk, core_genes } = data;
 
   return (
@@ -178,8 +178,8 @@ const CoreGenes = (props, context) => {
   );
 };
 
-const ReagentGenes = (props, context) => {
-  const { data } = useBackend(context);
+const ReagentGenes = (props) => {
+  const { data } = useBackend();
   const { reagent_genes, has_reagent } = data;
 
   return (
@@ -191,8 +191,8 @@ const ReagentGenes = (props, context) => {
   );
 };
 
-const TraitGenes = (props, context) => {
-  const { data } = useBackend(context);
+const TraitGenes = (props) => {
+  const { data } = useBackend();
   const { trait_genes, has_trait } = data;
 
   return (
@@ -204,9 +204,9 @@ const TraitGenes = (props, context) => {
   );
 };
 
-const OtherGenes = (props, context) => {
+const OtherGenes = (props) => {
   const { title, gene_set, do_we_show } = props;
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
   const { disk } = data;
 
   return (

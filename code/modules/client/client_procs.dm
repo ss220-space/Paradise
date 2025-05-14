@@ -327,7 +327,7 @@
 	log_client_to_db(tdata)
 	. = ..()	//calls mob.Login()
 
-
+	INVOKE_ASYNC(src, PROC_REF(acquire_dpi))
 	if(ckey in GLOB.clientmessages)
 		for(var/message in GLOB.clientmessages[ckey])
 			to_chat(src, message)
@@ -355,7 +355,7 @@
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
 		to_chat(src, span_info("You have unread updates in the changelog."), confidential=TRUE)
-		winset(src, "rpane.changelog", "font-style=bold")
+		winset(src, "infobuttons.changelog", "font-style=bold")
 
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
@@ -500,18 +500,23 @@
 /client/proc/send_to_server_by_url(url)
 	if (!url)
 		return
-	src << browse({"
-            <a id='link' href='[url]'>
-                LINK
+	var/datum/browser/browser = new(src, "redirect_[url]", null, 400, 400)
+	browser.set_window_options("border=0;titlebar=0;focus=1;can_close=0;can_resize=0;")
+	browser.set_content({"
+			<h1>Вы перенаправлены на сервер [url].<br> Нажмите на ссылку, если переход не произошел автоматически.</h1>
+            <a id='link' href='[url]' style='text-align: center; width=100%;' onclick='closeByond()' >
+                Ссылка
             </a>
-            <script type='text/javascript'>
-                document.getElementById("link").click();
-                window.location="byond://winset?command=.quit"
+			<script type='text/javascript'>
+				function closeByond(){
+					window.location="byond://winset?command=.quit"
+				}
+				document.getElementById("link").click();
             </script>
-            "},
-            "border=0;titlebar=0;size=1x1"
-        )
+            "})
+	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
+	
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -1103,6 +1108,19 @@
 	set hidden = TRUE
 	client_reset_held_keys()
 
+/// Clears the client's screen, aside from ones that opt out
+/client/proc/clear_screen()
+	for(var/object in screen)
+		if(istype(object, /atom/movable/screen))
+			var/atom/movable/screen/screen_object = object
+			if(!screen_object.clear_with_screen)
+				continue
+		if( istype(object, /atom/movable/render_plane_relay) || \
+			istype(object, /atom/movable/screen/parallax_layer) || \
+			istype(object, /atom/movable/screen/plane_master/))
+			continue
+
+		screen -= object
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
@@ -1380,6 +1398,13 @@
 		return
 	var/atom/old_eye = eye
 	eye = new_eye
+
+	for(var/mob/dead/observer/observe in mob.orbiters)
+		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
+			LAZYREMOVE(mob.orbiters, observe)
+			continue
+		observe.client.eye = new_eye
+
 	SEND_SIGNAL(src, COMSIG_CLIENT_SET_EYE, old_eye, new_eye)
 
 /**
@@ -1530,6 +1555,15 @@
 			target.reagents.add_reagent(chosen_id, amount)
 			log_and_message_admins("has added [amount] units of [chosen_id] to \the [target]")
 
+
+/client/proc/acquire_dpi()
+	set waitfor = FALSE
+
+	// Remove with 516
+	if(byond_version < 516)
+		return
+
+	window_scaling = text2num(winget(src, null, "dpi"))
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

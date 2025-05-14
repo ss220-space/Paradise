@@ -439,7 +439,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bg" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plating,
 /area/ruin/powered/animal_hospital)
 "bh" = (

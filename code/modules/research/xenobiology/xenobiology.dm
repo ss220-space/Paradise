@@ -526,7 +526,7 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
+		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
 		if(isclothing(O))
@@ -534,7 +534,8 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 				return
-		I.item_flags |= IGNORE_SLOWDOWN
+		I.slowdown /= 2
+		I.item_flags |= SPEEDPOTION_APPLIED
 		I.update_equipped_item()
 
 	if(isvehicle(O)) //simple solution
@@ -774,23 +775,6 @@
 
 /obj/item/slimepotion/clothing/teleportation/cancel_effect(obj/item/clothing/C)
 	C.teleportation = initial(C.teleportation)
-
-/obj/item/slimepotion/clothing/damage
-	name = "Physical damage resistance slime potion"
-	id = "Damage Resistance"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	desc = "A potent chemical mix that will increase impact and gunshot resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle10"
-	origin_tech = "biotech=5"
-
-	inapplicable_caption = "damage proof"
-	applied_caption = "damageproof"
-	applied_color = "#00d9ffff"
-	color_name = "blue"
-
-/obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
-	return C.armor.melee < 100 || C.armor.bullet < 100
 
 /obj/effect/timestop
 	anchored = TRUE

@@ -959,6 +959,7 @@
         FEMALE = list("Дева"),
         NEUTER = null
         )
+	speed_mod = 0
 	chance_name_male = 70
 	chance_name_female = 60
 	chance_name_neuter = 10

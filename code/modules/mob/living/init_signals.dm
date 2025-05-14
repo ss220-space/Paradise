@@ -244,6 +244,12 @@
 	else
 		set_density(TRUE)
 
+/mob/living/proc/update_density()
+	if(HAS_TRAIT(src, TRAIT_UNDENSE))
+		set_density(FALSE)
+	else
+		set_density(TRUE)
+
 
 /// Called when [TRAIT_NO_BREATH] is gained or lost
 /mob/living/proc/on_no_breath_trait_gain(datum/source)

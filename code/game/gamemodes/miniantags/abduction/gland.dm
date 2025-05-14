@@ -1,6 +1,14 @@
 /obj/item/organ/internal/heart/gland
 	name = "fleshy mass"
 	desc = "A nausea-inducing hunk of twisting flesh and metal."
+	ru_names = list(
+		NOMINATIVE = "мясистая масса",
+		GENITIVE = "мясистой массы",
+		DATIVE = "мясистой массе",
+		ACCUSATIVE = "мясистую массу",
+		INSTRUMENTAL = "мясистой массой",
+		PREPOSITIONAL = "мясистой массе"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "gland"
 	dead_icon = null

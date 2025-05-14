@@ -75,6 +75,7 @@
 		JOB_TITLE_QUARTERMASTER = "supradio",
 		JOB_TITLE_CARGOTECH = "supradio",
 		JOB_TITLE_MINER = "supradio",
+		JOB_TITLE_MINING_MEDIC = "supradio",
 		// Service
 		JOB_TITLE_BARTENDER = "srvradio",
 		JOB_TITLE_BOTANIST = "srvradio",

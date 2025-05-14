@@ -438,8 +438,13 @@
 /obj/effect/particle_effect/fluid/smoke/chem/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
 	if(lifetime < 1)
 		return FALSE
+
 	if(!istype(smoker))
 		return FALSE
+
+	if(smoker.stat == DEAD)
+		return FALSE
+
 	if(!smoker.can_breathe_gas())
 		return FALSE
 

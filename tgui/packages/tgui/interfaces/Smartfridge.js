@@ -10,8 +10,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const Smartfridge = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Smartfridge = (props) => {
+  const { act, data } = useBackend();
   const {
     secure, // secure fridge notice
     can_dry, // dry section
@@ -34,7 +34,7 @@ export const Smartfridge = (props, context) => {
             buttons={
               !!can_dry && (
                 <Button
-                  width={4}
+                  width={11}
                   icon={drying ? 'power-off' : 'times'}
                   content={drying ? 'Начать сушку' : 'Закончить сушку'}
                   selected={drying}

@@ -19,7 +19,7 @@ const isStandardKey = (event): boolean => {
     event.key !== KEY.Alt &&
     event.key !== KEY.Control &&
     event.key !== KEY.Shift &&
-    event.key !== KEY.Escape
+    !isEscape(event.key)
   );
 };
 
@@ -35,6 +35,7 @@ const KEY_CODE_TO_BYOND: Record<string, string> = {
   RIGHT: 'East',
   SPACEBAR: 'Space',
   UP: 'North',
+  ' ': 'Space',
 };
 
 const DOM_KEY_LOCATION_NUMPAD = 3;
@@ -71,11 +72,11 @@ const formatKeyboardEvent = (event): string => {
   return text;
 };
 
-export const KeyComboModal = (props, context) => {
-  const { act, data } = useBackend<KeyInputData>(context);
+export const KeyComboModal = (props) => {
+  const { act, data } = useBackend<KeyInputData>();
   const { init_value, large_buttons, message = '', title, timeout } = data;
-  const [input, setInput] = useLocalState(context, 'input', init_value);
-  const [binding, setBinding] = useLocalState(context, 'binding', true);
+  const [input, setInput] = useLocalState('input', init_value);
+  const [binding, setBinding] = useLocalState('binding', true);
 
   const handleKeyPress = (event) => {
     if (!binding) {
@@ -93,13 +94,12 @@ export const KeyComboModal = (props, context) => {
       setValue(formatKeyboardEvent(event));
       setBinding(false);
       return;
-    } else if (event.key === KEY.Escape) {
+    } else if (isEscape(event.key)) {
       setValue(init_value);
       setBinding(false);
       return;
     }
   };
-
   const setValue = (value: string) => {
     if (value === input) {
       return;

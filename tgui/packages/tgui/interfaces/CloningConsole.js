@@ -20,8 +20,8 @@ import {
 import { Window } from '../layouts';
 import { resolveAsset } from '../assets';
 
-const viewRecordModalBodyOverride = (modal, context) => {
-  const { act, data } = useBackend(context);
+const viewRecordModalBodyOverride = (modal) => {
+  const { act, data } = useBackend();
   const { activerecord, realname, health, unidentity, strucenzymes } =
     modal.args;
   const damages = health.split(' - ');
@@ -125,8 +125,8 @@ const viewRecordModalBodyOverride = (modal, context) => {
   );
 };
 
-export const CloningConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const CloningConsole = (props) => {
+  const { act, data } = useBackend();
   const { menu } = data;
   modalRegisterBodyOverride('view_rec', viewRecordModalBodyOverride);
   return (
@@ -144,8 +144,8 @@ export const CloningConsole = (props, context) => {
   );
 };
 
-const CloningConsoleNavigation = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleNavigation = (props) => {
+  const { act, data } = useBackend();
   const { menu } = data;
   return (
     <Tabs>
@@ -175,8 +175,8 @@ const CloningConsoleNavigation = (props, context) => {
   );
 };
 
-const CloningConsoleBody = (props, context) => {
-  const { data } = useBackend(context);
+const CloningConsoleBody = (props) => {
+  const { data } = useBackend();
   const { menu } = data;
   let body;
   if (menu === 1) {
@@ -187,8 +187,8 @@ const CloningConsoleBody = (props, context) => {
   return body;
 };
 
-const CloningConsoleMain = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleMain = (props) => {
+  const { act, data } = useBackend();
   const {
     loading,
     scantemp,
@@ -333,8 +333,8 @@ const CloningConsoleMain = (props, context) => {
   );
 };
 
-const CloningConsoleRecords = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleRecords = (props) => {
+  const { act, data } = useBackend();
   const { records } = data;
   if (!records.length) {
     return (
@@ -366,8 +366,8 @@ const CloningConsoleRecords = (props, context) => {
   );
 };
 
-const CloningConsoleTemp = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleTemp = (props) => {
+  const { act, data } = useBackend();
   const { temp } = data;
   if (!temp || !temp.text || temp.text.length <= 0) {
     return;
@@ -389,8 +389,8 @@ const CloningConsoleTemp = (props, context) => {
   );
 };
 
-const CloningConsoleStatus = (props, context) => {
-  const { act, data } = useBackend(context);
+const CloningConsoleStatus = (props) => {
+  const { act, data } = useBackend();
   const { scanner, numberofpods, autoallowed, autoprocess, disk } = data;
   return (
     <Section

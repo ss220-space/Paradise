@@ -48,7 +48,7 @@
 			if(new_outfit == "Naked")
 				selected_outfit = null
 				return
-			selected_outfit = new_outfit
+			selected_outfit = new new_outfit
 			return
 
 	var/response = tgui_alert(user, "Вы уверены, что хотите появиться здесь?\n(Если вы сделаете это, вас нельзя будет клонировать!)", "Возродиться?", list("Да", "Нет"))
@@ -57,6 +57,8 @@
 		log_admin("[key_name_log(user)] was incarnated by a respawner machine.")
 		message_admins("[key_name_admin(user)] was incarnated by a respawner machine.")
 		var/mob/living/carbon/human/new_human = user.incarnate_ghost(use_old_mind)
+		if(selected_outfit)
+			selected_outfit.equip(new_human)
 		new_human.mind.offstation_role = TRUE // To prevent them being an antag objective
 
 /obj/structure/respawner/old_mind

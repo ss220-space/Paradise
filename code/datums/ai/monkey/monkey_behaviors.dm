@@ -86,7 +86,7 @@
 		finish_action(controller, FALSE)
 		return
 
-	victim.visible_message(span_warning("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)] у [controller.current_movement_target]!"),
+	victim.visible_message(span_warning("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)] у [victim]!"),
 			span_danger("[living_pawn] пытается взять [target.declent_ru(ACCUSATIVE)]!")
 	)
 
@@ -144,10 +144,6 @@
 /datum/ai_behavior/monkey_attack_mob
 	behavior_flags = AI_BEHAVIOR_REQUIRE_MOVEMENT | AI_BEHAVIOR_MOVE_AND_PERFORM //performs to increase frustration
 
-/datum/ai_behavior/monkey_attack_mob/setup(datum/ai_controller/controller, target_key)
-	. = ..()
-	controller.current_movement_target = controller.blackboard[target_key]
-
 /datum/ai_behavior/monkey_attack_mob/perform(delta_time, datum/ai_controller/controller)
 	. = ..()
 
@@ -167,11 +163,9 @@
 
 		// if the target has a weapon, chance to disarm them
 		if(W && SPT_PROB(MONKEY_ATTACK_DISARM_PROB, delta_time))
-			living_pawn.a_intent = INTENT_DISARM
 			monkey_attack(controller, target, delta_time, TRUE)
 
 		else
-			living_pawn.a_intent = INTENT_HARM
 			monkey_attack(controller, target, delta_time, FALSE)
 
 /datum/ai_behavior/monkey_attack_mob/finish_action(datum/ai_controller/controller, succeeded)
@@ -228,10 +222,8 @@
 			living_pawn.throw_item(real_target)
 			controller.blackboard[BB_MONKEY_GUN_WORKED] = TRUE // 'worked'
 
-	living_pawn.a_intent = INTENT_HELP
-
 	// no de-aggro
-	if(controller.blackboard[BB_MONKEY_AGRESSIVE])
+	if(controller.blackboard[BB_MONKEY_AGGRESSIVE])
 		return
 
 	if(SPT_PROB(MONKEY_HATRED_REDUCTION_PROB, delta_time))

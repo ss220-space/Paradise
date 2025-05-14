@@ -98,7 +98,7 @@ SUBSYSTEM_DEF(ticker)
 			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
 			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
 			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
-			current_state = GAME_STATE_PREGAME
+			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
@@ -115,11 +115,11 @@ SUBSYSTEM_DEF(ticker)
 				tipped = TRUE
 
 			if(pregame_timeleft <= 0 || force_start)
-				current_state = GAME_STATE_SETTING_UP
+				change_state(GAME_STATE_SETTING_UP)
 				Master.SetRunLevel(RUNLEVEL_SETUP)
 		if(GAME_STATE_SETTING_UP)
 			if(!setup()) // Setup failed
-				current_state = GAME_STATE_STARTUP
+				change_state(GAME_STATE_STARTUP)
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
@@ -136,9 +136,9 @@ SUBSYSTEM_DEF(ticker)
 			else
 				game_finished |= mode.check_finished()
 			if(game_finished || force_ending)
-				current_state = GAME_STATE_FINISHED
+				change_state(GAME_STATE_FINISHED)
 		if(GAME_STATE_FINISHED)
-			current_state = GAME_STATE_FINISHED
+			change_state(GAME_STATE_FINISHED)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
 
@@ -192,7 +192,7 @@ SUBSYSTEM_DEF(ticker)
 		if(!length(runnable_modes))
 			to_chat(world, "<b>Unable to choose playable game mode.</b> Reverting to pre-game lobby.")
 			force_start = FALSE
-			current_state = GAME_STATE_PREGAME
+			change_state(GAME_STATE_PREGAME)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
@@ -210,7 +210,7 @@ SUBSYSTEM_DEF(ticker)
 	if(!mode.can_start())
 		to_chat(world, "<b>Unable to start [mode.name].</b> Not enough players, [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
 		mode = null
-		current_state = GAME_STATE_PREGAME
+		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 
@@ -249,7 +249,7 @@ SUBSYSTEM_DEF(ticker)
 	if(!can_continue)
 		QDEL_NULL(mode)
 		to_chat(world, "<b>Error setting up [GLOB.master_mode].</b> Reverting to pre-game lobby.")
-		current_state = GAME_STATE_PREGAME
+		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
@@ -299,7 +299,7 @@ SUBSYSTEM_DEF(ticker)
 	log_debug("Manifest creation took [stop_watch(watch)]s")
 
 	// Update the MC and state to game playing
-	current_state = GAME_STATE_PLAYING
+	change_state(GAME_STATE_PLAYING)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
@@ -488,7 +488,9 @@ SUBSYSTEM_DEF(ticker)
 				else //Station nuked (nuke,explosion,summary)
 					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
-
+/datum/controller/subsystem/ticker/proc/change_state(new_state)
+	current_state = new_state
+	SEND_SIGNAL(src, COMSIG_TICKER_GAME_STATE_CHANGED, new_state)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)

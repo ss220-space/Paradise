@@ -206,3 +206,6 @@
 #define STATUS_EFFECT_LAVALAND_VISION /datum/status_effect/lavaland_vision
 
 #define STATUS_EFFECT_TEMPERATURE_STABILIZE /datum/status_effect/temperature_stabilize
+
+/// Makes you lean on something
+#define STATUS_EFFECT_LEANING /datum/status_effect/leaning

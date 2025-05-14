@@ -1008,6 +1008,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		return ..()
 	return FALSE
 
+/obj/item/attack_basic_mob(mob/living/basic/user)
+	if(obj_flags & IGNORE_HITS)
+		return ..()
+	return FALSE
+
 
 /obj/item/mech_melee_attack(obj/mecha/M)
 	return FALSE
