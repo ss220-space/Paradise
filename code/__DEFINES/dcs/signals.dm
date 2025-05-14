@@ -1365,11 +1365,9 @@
 
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
-<<<<<<< HEAD
-=======
 
 #define COMSIG_TICKER_GAME_STATE_CHANGED "ticker_game_state_changed"
 
 /// from start of /mob/living/simple_animal/soulscythe/Life(): (amount)
 #define COMSIG_BLOOD_LEVEL_TICK "blood_level_tick"
->>>>>>> 0f94ee1e528ff4c68191e83a030d5a4a88f806f2
+
