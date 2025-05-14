@@ -529,6 +529,9 @@
 		/* TAKEOFF */
 		var/should_transit = !is_turf_blacklisted_for_transit(oldT)
 		if(should_transit) // Only move over stuff if the transfer actually happened
+			for(var/mob/living/mob in oldT) //check for people leaned on anything
+				if(mob.leaned_object)
+					mob.stop_leaning()
 			oldT.copyTurf(newT)
 
 			//copy over air
