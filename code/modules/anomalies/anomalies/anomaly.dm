@@ -179,7 +179,8 @@
 											но остаётся пустым из-за слишком низкого заряда."))
 		return
 
-	var/path = text2path("/obj/item/assembly/signaler/core/tier[core.tier]/[anomaly_type]")
+	var/path = "/obj/item/assembly/signaler/core/[anomaly_type]/tier[(core.tier < 4 ? core.tier : "tier3/tier4")]"
+	path = text2path(path)
 	var/obj/item/assembly/signaler/core/new_core = new path(core.loc, new_charge)
 	new_core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] заряжается от [declent_ru(GENITIVE)], \
 											превращаясь в [new_core.declent_ru(ACCUSATIVE)]."))

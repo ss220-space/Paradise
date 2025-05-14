@@ -105,7 +105,7 @@
 	. = ..()
 
 	for(var/atom/movable/A in loc.contents)
-		if(!A.anchored && !isobserver(A))
+		if(!A.anchored && !isobserver(A) && (tier > 2 || !ismachinery(A)))
 			A.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/tier1

@@ -45,7 +45,7 @@
 /obj/effect/anomaly/gravitational/process()
 	. = ..()
 	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
-		if(!O.anchored)
+		if(!O.anchored && (tier > 2 || !ismachinery(O)))
 			step_towards(O,src)
 
 /obj/effect/anomaly/gravitational/tier1
