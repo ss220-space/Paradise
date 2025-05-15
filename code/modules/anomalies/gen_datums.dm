@@ -6,7 +6,7 @@
 	/// The charge required to create this anomaly.
 	var/req_energy
 	/// The type of raw material required to generate the anomaly.
-	var/req_item = "Плюшевая игрушка акулы"
+	var/req_item = "-"
 
 /datum/anomaly_gen_datum/proc/is_req_item(obj/item/I)
 	return FALSE
@@ -84,27 +84,22 @@
 /datum/anomaly_gen_datum/tier1/pyroclastic
 	anomaly_type = "малая атмосферная"
 	anomaly = /obj/effect/anomaly/atmospheric/tier1
-	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/bluespace
 	anomaly_type = "малая блюспейс"
 	anomaly = /obj/effect/anomaly/bluespace/tier1
-	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/vortex
 	anomaly_type = "малая вихревая"
 	anomaly = /obj/effect/anomaly/vortex/tier1
-	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/gravitational
 	anomaly_type = "малая гравитационная"
 	anomaly = /obj/effect/anomaly/gravitational/tier1
-	req_item = "-"
 
 /datum/anomaly_gen_datum/tier1/energetic
 	anomaly_type = "малая энергетическая"
 	anomaly = /obj/effect/anomaly/energetic/tier1
-	req_item = "-"
 
 //==================================== TIER 2 ===========================================
 
