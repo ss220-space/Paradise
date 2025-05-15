@@ -119,20 +119,20 @@
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(iscoregrav(I))
-		add_fingerprint(user)
-		if(core)
-			to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть [core.declent_ru(NOMINATIVE)]."))
-			return ATTACK_CHAIN_PROCEED
+	if(!iscoregrav(I))
+		return ..()
 
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
+	add_fingerprint(user)
+	if(core)
+		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть [core.declent_ru(NOMINATIVE)]."))
+		return ATTACK_CHAIN_PROCEED
 
-		to_chat(user, span_notice("Вы установили [I.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
-		core = I
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!user.drop_transfer_item_to_loc(I, src))
+		return ..()
 
-	return ..()
+	to_chat(user, span_notice("Вы установили [I.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
+	core = I
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 
 /obj/item/clothing/shoes/magboots/gravity/click_alt(mob/user)

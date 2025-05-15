@@ -566,27 +566,30 @@
 
 /obj/structure/holohoop/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
-		if(prob(50))
-			mover.forceMove(loc)
-			visible_message(span_notice("Swish! [mover] lands in [src]."))
-		else
-			visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+	if(!isitem(mover) || isprojectile(mover) || !mover.throwing || mover.pass_flags == PASSEVERYTHING)
+		return
+
+	if(prob(50))
+		visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
 		return FALSE
+
+	mover.forceMove(loc)
+	visible_message(span_notice("Swish! [mover] lands in [src]."))
+	return FALSE
 
 
 /obj/structure/holohoop/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
-	if(isitem(AM) && !isprojectile(AM))
-		if(prob(50) || (throwingdatum && throwingdatum.thrower && HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
-			AM.forceMove(get_turf(src))
-			visible_message(span_warning("Swish! [AM] lands in [src]."))
-			SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
-			return
-		else
-			visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
-			return ..()
-	else
+	if(!isitem(AM) || isprojectile(AM))
 		return ..()
+
+	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
+		visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
+		return ..()
+
+	AM.forceMove(get_turf(src))
+	visible_message(span_warning("Swish! [AM] lands in [src]."))
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
+	return
 
 /obj/machinery/readybutton
 	name = "Ready Declaration Device"

@@ -53,14 +53,14 @@
 	var/throw_speed_high = 0
 
 /datum/anomaly_impulse/random_throws/impulse()
+	var/obj/effect/anomaly/anomaly = owner
 	var/ost_atoms = 100
 	for(var/atom/movable/A in view(scale_by_strenght(effect_radius_low, effect_radius_high), owner))
-		if(isobserver(A) || ismachinery(A) || iseffect(A))
+		if(!anomaly.can_move_sth(A))
 			continue
 
-		if(!A.anchored)
-			A.random_throw(throw_range_low, throw_range_high, scale_by_strenght(throw_speed_low, throw_speed_high))
-			ost_atoms--
+		A.random_throw(throw_range_low, throw_range_high, scale_by_strenght(throw_speed_low, throw_speed_high))
+		ost_atoms--
 
 		if(!ost_atoms)
 			break

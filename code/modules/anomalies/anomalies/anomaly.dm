@@ -45,12 +45,16 @@
 	var/weaken_moment = 0
 	/// Matrix used for anomaly animations.
 	var/matrix/matr = matrix()
+	/// Cool visual effect.
+	var/obj/effect/warp_effect/supermatter/warp
+	/// If FALSE, there won't be warp effect.
+	var/has_warp = FALSE
 
 /obj/effect/anomaly/proc/size_by_strenght(cur_strenght)
 	if(!cur_strenght)
 		cur_strenght = strenght
 
-	return (tier * 50 + cur_strenght / 2) / 100
+	return (tier * 50 + cur_strenght / 2) / 250
 
 /obj/effect/anomaly/proc/init_animation()
 	matr.Scale(0.1, 0.1)
@@ -79,9 +83,31 @@
 	for(var/datum/anomaly_impulse/imp in impulses)
 		addtimer(CALLBACK(imp, TYPE_PROC_REF(/datum/anomaly_impulse, impulse_cycle)), rand(0, imp.scale_by_strenght(imp.period_low, imp.period_high)))
 
+	if(!has_warp)
+		return
+
+	warp = new(src)
+	vis_contents += warp
+	apply_wibbly_filters(warp)
+
 /obj/effect/anomaly/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	if(!has_warp)
+		return ..()
+
+	vis_contents -= warp
+	QDEL_NULL(warp)
 	return ..()
+
+/obj/effect/anomaly/proc/update_warp()
+	if(!warp)
+		return
+
+	warp.pixel_x = initial(warp.pixel_x) - pixel_x
+	warp.pixel_y = initial(warp.pixel_x) - pixel_y
+	var/scaling = (get_strenght() * (1 << (tier - 1))) / 100
+	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
+	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
 /obj/effect/anomaly/proc/get_move_dir()
 	return pick(GLOB.alldirs)
@@ -117,40 +143,42 @@
 	qdel(src)
 
 /obj/effect/anomaly/proc/level_down()
-	if(!weaker_anomaly_type)
-		matr.Scale(0, 0)
-		animate(src, transform = matr, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] теряет свою энергию и растворяется в пространстве!"))
-		sleep(1 SECONDS)
-		qdel(src)
-	else
+	if(weaker_anomaly_type)
 		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] ослабевает!"))
 		new weaker_anomaly_type(loc, rand(50, 80), clamp(stability + rand(10, 20), 0, 100))
 		qdel(src)
+		return
+
+	matr.Scale(0, 0)
+	animate(src, transform = matr, time = 1 SECONDS, flags = ANIMATION_PARALLEL)
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] теряет свою энергию и растворяется в пространстве!"))
+	sleep(1 SECONDS)
+	qdel(src)
 
 /obj/effect/anomaly/proc/level_up()
 	if(!stronger_anomaly_type)
 		collapse()
-	else
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] становится мощнее!"))
-		new stronger_anomaly_type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
-		qdel(src)
+		return
+
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] становится мощнее!"))
+	new stronger_anomaly_type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
+	qdel(src)
 
 /obj/effect/anomaly/proc/mob_touch_effect(mob/living/matr)
 	return TRUE
 
 /obj/effect/anomaly/proc/check_size_change()
-	if(strenght == 100)
-		if(stability >= 50)
-			level_up()
-		else
-			collapse()
-
-		return
-
 	if(!strenght)
 		level_down()
 		return
+
+	if(strenght != 100)
+		return
+
+	if(stability >= 50)
+		level_up()
+	else
+		collapse()
 
 /obj/effect/anomaly/proc/core_touch_effect(obj/item/assembly/signaler/core/core)
 	var/mult
@@ -284,6 +312,9 @@
 	if(normal_move())
 		after_move()
 
+	if(has_warp)
+		update_warp()
+
 /obj/effect/anomaly/proc/go_to(target, steps)
 	var/reversed = steps < 0
 	if(reversed)
@@ -298,6 +329,28 @@
 
 		do_move(move_dir)
 		sleep(2)
+
+/obj/effect/anomaly/proc/can_move_sth(obj/O) {
+	if(QDELETED(O))
+		return FALSE
+
+	if(O.anchored)
+		return FALSE
+
+	if(O.move_resist >= MOVE_FORCE_OVERPOWERING)
+		return FALSE
+
+	if(O.pulledby)
+		return FALSE
+
+	if(isobserver(O))
+		return FALSE
+
+	if(iseffect(O))
+		return FALSE
+
+	return TRUE
+}
 
 /obj/effect/anomaly/singularity_act()
 	collapse()

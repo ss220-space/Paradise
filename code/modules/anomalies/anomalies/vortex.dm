@@ -64,10 +64,7 @@
 /obj/effect/anomaly/vortex/proc/do_pulls()
 	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
 	for(var/atom/movable/A in view(radius, src))
-		if(isobserver(A))
-			continue
-
-		if(!A.anchored || ismachinery(A))
+		if(can_move_sth(A))
 			pull(A)
 
 /obj/effect/anomaly/vortex/process()
@@ -82,10 +79,7 @@
 		if(!(O in was_near))
 			continue
 
-		if(isobserver(O))
-			continue
-
-		if(O.anchored && !ismachinery(O))
+		if(!can_move_sth(O))
 			continue
 
 		O.random_throw(tier * 2, tier * 3, 4)
@@ -94,18 +88,19 @@
 
 /obj/effect/anomaly/vortex/mob_touch_effect(mob/living/M)
 	. = ..()
-	if(!isobserver(M) && !M.anchored)
+	if(can_move_sth(M))
 		M.random_throw(tier * 2, tier * 3, 4)
 
 /obj/effect/anomaly/vortex/item_touch_effect(obj/item/I)
 	. = ..()
-	I.random_throw(tier * 2, tier * 3, 4)
+	if(can_move_sth(I))
+		I.random_throw(tier * 2, tier * 3, 4)
 
 /obj/effect/anomaly/vortex/process()
 	. = ..()
 
 	for(var/atom/movable/A in loc.contents)
-		if(!A.anchored && !isobserver(A) && (tier > 2 || !ismachinery(A)))
+		if(can_move_sth(A))
 			A.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/tier1
@@ -177,6 +172,7 @@
 	grav_pull_range_high = 4
 	grav_pull_strenght = STAGE_FIVE
 	collapse_range = 3
+	has_warp = TRUE
 
 /obj/effect/anomaly/vortex/tier3/New()
 	. = ..()
@@ -188,7 +184,7 @@
 		if(get_dist(src, M) > 20 || z != M.z)
 			return
 
-		to_chat(M, "<span class='vortex_anomaly'>Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?</span>") // It used in one place.
+		to_chat(M, span_vortexanomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
 
 //			 TIER 4 ADMIN SPAWN ONLY
 
@@ -215,6 +211,7 @@
 	grav_pull_range_high = 16
 	grav_pull_strenght = STAGE_SIX
 	collapse_range = 15
+	has_warp = TRUE
 
 /obj/effect/anomaly/vortex/tier4/New()
 	. = ..()
@@ -223,7 +220,7 @@
 		if(M.stat)
 			continue
 
-		to_chat(M, "<span class='vortex_anomaly'>Ураганный поток ветра чуть не сбивает вас с ног. Это точно не сулит для вас ничего хорошего.</span>")
+		to_chat(M, span_vortexanomaly("Ураганный поток ветра чуть не сбивает вас с ног. Это точно не сулит для вас ничего хорошего."))
 
 /obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/I)
 	. = ..()

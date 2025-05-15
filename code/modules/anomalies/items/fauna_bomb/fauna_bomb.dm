@@ -72,22 +72,21 @@
 	return TRUE
 
 /obj/item/fauna_bomb/attackby(obj/item/I, mob/user, params)
-	if(iscoreatmos(I))
-		if(!user.drop_transfer_item_to_loc(I, src))
-			balloon_alert(user, "отпустить невозможно!")
-			return ATTACK_CHAIN_PROCEED
+	if(!iscoreatmos(I))
+		return ..()
 
-		var/msg = "ядро вставлено"
-		if(core)
-			msg = "ядро заменено"
-			user.put_in_hands(core)
+	if(!user.drop_transfer_item_to_loc(I, src))
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
 
-		core = I
-		user.balloon_alert(user, msg)
-		update_core()
-		return
+	var/msg = "ядро вставлено"
+	if(core)
+		msg = "ядро заменено"
+		user.put_in_hands(core)
 
-	return ..()
+	core = I
+	user.balloon_alert(user, msg)
+	update_core()
 
 /obj/item/fauna_bomb/process(seconds_per_tick)
 	use_charge(-charge_speed)

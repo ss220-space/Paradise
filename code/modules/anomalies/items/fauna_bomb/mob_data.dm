@@ -77,41 +77,33 @@
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		rapid_melee = 1.25
+		var/list/damage
 		if(H.has_left_hand())
-			var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_HAND_LEFT)
-			if(I)
-				armour_penetration = I.armour_penetration
-				if(!istype(I, /obj/item/twohanded))
-					melee_damage_lower = I.force
-					melee_damage_upper = I.force
-				else
-					var/obj/item/twohanded/ITH = I
-					if(ITH.wielded)
-						melee_damage_lower = ITH.force_wielded
-						melee_damage_upper = ITH.force_wielded
-					else
-						melee_damage_lower = ITH.force_unwielded
-						melee_damage_upper = ITH.force_unwielded
-			else
-				melee_damage_lower = H.dna.species.punchdamagelow
-				melee_damage_upper = H.dna.species.punchdamagehigh
+			damage = get_arm_damage(H, ITEM_SLOT_HAND_LEFT)
 		else
-			var/obj/item/I = H.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
-			if(I)
-				armour_penetration = max(armour_penetration, I.armour_penetration)
-				if(!istype(I, /obj/item/twohanded))
-					melee_damage_lower = max(melee_damage_lower, I.force)
-					melee_damage_upper = max(melee_damage_upper, I.force)
-				else
-					var/obj/item/twohanded/ITH = I
-					if(ITH.wielded)
-						melee_damage_lower = max(melee_damage_lower, ITH.force_wielded)
-						melee_damage_upper = max(melee_damage_upper, ITH.force_wielded)
-					else
-						melee_damage_lower = max(melee_damage_lower, ITH.force_unwielded)
-						melee_damage_upper = max(melee_damage_upper, ITH.force_unwielded)
-			else
-				melee_damage_lower = max(melee_damage_lower, H.dna.species.punchdamagelow)
-				melee_damage_upper = max(melee_damage_upper, H.dna.species.punchdamagehigh)
+			damage = get_arm_damage(H, ITEM_SLOT_HAND_RIGHT)
 
+		melee_damage_lower = damage["lower"]
+		melee_damage_upper = damage["upper"]
 		req_charge = sqrt(max(20, target.maxHealth) * max(5, (melee_damage_lower + melee_damage_upper) / 2)) * 1.2
+
+/datum/airmob_data/proc/get_arm_damage(mob/living/carbon/human/H, arm_slot)
+	var/obj/item/I = H.get_item_by_slot(arm_slot)
+	if(I)
+		armour_penetration = max(armour_penetration, I.armour_penetration)
+		if(!istype(I, /obj/item/twohanded))
+			melee_damage_lower = max(melee_damage_lower, I.force)
+			melee_damage_upper = max(melee_damage_upper, I.force)
+		else
+			var/obj/item/twohanded/ITH = I
+			if(ITH.wielded)
+				melee_damage_lower = max(melee_damage_lower, ITH.force_wielded)
+				melee_damage_upper = max(melee_damage_upper, ITH.force_wielded)
+			else
+				melee_damage_lower = max(melee_damage_lower, ITH.force_unwielded)
+				melee_damage_upper = max(melee_damage_upper, ITH.force_unwielded)
+	else
+		melee_damage_lower = max(melee_damage_lower, H.dna.species.punchdamagelow)
+		melee_damage_upper = max(melee_damage_upper, H.dna.species.punchdamagehigh)
+
+	return list("lower" = melee_damage_lower, "upper" = melee_damage_upper)

@@ -322,7 +322,9 @@
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с холодным объектом, испуская языки пламени!")
 		H.adjust_fire_stacks(round(get_strenght() / 30 + 0.5))
 		H.IgniteMob()
-	else if(H.bodytemperature > T0C + 100)
+		return
+
+	if(H.bodytemperature > T0C + 100)
 		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
 		H.apply_status_effect(/datum/status_effect/freon)
 		H.ExtinguishMob()

@@ -10,15 +10,17 @@
 
 /obj/effect/anomaly/gravitational/collapse()
 	for(var/i = 1 to max(2, rand(tier, tier * 2)))
-		sleep(2)
-		for(var/atom/movable/A in view(tier * 2, src))
-			if(isobserver(A) || iseffect(A) || ismachinery(A))
-				continue
-
-				A.random_throw(tier, tier * 3, 5)
-				A.update_icon()
+		addtimer(CALLBACK(src, PROC_REF(collapse_throws), 0.2 SECONDS))
 
 	. = ..()
+
+/obj/effect/anomaly/gravitational/proc/collapse_throws()
+	for(var/atom/movable/A in view(tier * 2, src))
+		if(!can_move_sth(A))
+			continue
+
+		A.random_throw(tier, tier * 3, 5)
+		A.update_icon()
 
 /obj/effect/anomaly/gravitational/proc/random_gravity_change(atom/A)
 	var/grav_delta = rand(-grav_change_level * 100, grav_change_level * 100) / 100
@@ -44,7 +46,7 @@
 /obj/effect/anomaly/gravitational/process()
 	. = ..()
 	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
-		if(!O.anchored && (tier > 2 || !ismachinery(O)))
+		if(can_move_sth(O))
 			step_towards(O,src)
 
 /obj/effect/anomaly/gravitational/tier1
@@ -113,6 +115,7 @@
 	grav_change_level = 3
 	grav_change_time_low = 5 SECONDS
 	grav_change_time_high = 20 SECONDS
+	has_warp = TRUE
 
 /obj/effect/anomaly/gravitational/tier3/New()
 	. = ..()
@@ -125,7 +128,7 @@
 			return
 
 		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(M, "<span class='gravitational_anomaly'>Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает.</span>") // It used in one place.
+		to_chat(M, span_gravitationalanomaly("Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает."))
 
 /obj/effect/anomaly/gravitational/tier3/collapse()
 	for(var/i = 1 to rand(30, 60))
@@ -159,6 +162,7 @@
 	grav_change_level = 10
 	grav_change_time_low = 60 SECONDS
 	grav_change_time_high = 360 SECONDS
+	has_warp = TRUE
 
 /obj/effect/anomaly/gravitational/tier4/New()
 	. = ..()
@@ -168,7 +172,7 @@
 			continue
 
 		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(M, "<span class='gravitational_anomaly'>Вы чувствуете, что кто-то решил поиграть в Бога...</span>") // It used in one place.
+		to_chat(M, span_gravitationalanomaly("Вы чувствуете, что кто-то решил поиграть в Бога..."))
 
 /obj/effect/anomaly/gravitational/tier4/collapse()
 	for(var/i = 1 to rand(100, 200))
@@ -194,5 +198,8 @@
 /obj/effect/anomaly/gravitational/process()
 	. = ..()
 	for(var/obj/O in oview(max(2, tier * 2 - 1), src))
+		if (!can_move_sth(O))
+			continue
+
 		step_towards(O, src)
 		step_towards(O, src)

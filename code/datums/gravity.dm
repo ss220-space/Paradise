@@ -1,7 +1,3 @@
-/atom
-	var/list/gravity_sources = list()
-	var/list/ignored_gravity_sources = list()
-
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
 		gravity_sources[id] = 0

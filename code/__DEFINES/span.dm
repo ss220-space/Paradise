@@ -160,6 +160,11 @@
 #define span_specialnoticebold(str) ("<span class='specialnoticebold'>" + str + "</span>")
 #define span_moderate(str) ("<span class='moderate'>" + str + "</span>")
 #define span_shadowling(str) ("<span class='shadowling'>" + str + "</span>")
+#define span_atmospfericanomaly(str) ("<span class='atmospferic_anomaly'>" + str + "</span>")
+#define span_bluespaceanomaly(str) ("<span class='bluespace_anomaly'>" + str + "</span>")
+#define span_energeticanomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
+#define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
+#define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
 
 // Spans that use embedded tgui components:

@@ -14,7 +14,7 @@
 	var/collapse_tp_radius = 0
 
 /obj/effect/anomaly/bluespace/proc/teleport(atom/movable/target, radius)
-	if(target.anchored && target != src || isobserver(target))
+	if(target.anchored && target != src || isobserver(target) || iseffect(target))
 		return
 
 	var/turf/start = get_turf(src)
@@ -138,7 +138,7 @@
 			return
 
 		M.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(M, "<span class='bluespace_anomaly'>Вы слышите страшный треск! Это что... трещит пространство?</span>") // It used in one place.
+		to_chat(M, span_bluespaceanomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
 
 /obj/effect/anomaly/bluespace/tier3/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -182,7 +182,7 @@
 			continue
 
 		M.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(M, "<span class='bluespace_anomaly'>Пространство пало...</span>")
+		to_chat(M, span_bluespaceanomaly("Пространство пало..."))
 
 /obj/effect/anomaly/bluespace/tier4/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -237,7 +237,7 @@
 	. = ..()
 
 /obj/effect/anomaly/bluespace/tier4/teleport(atom/movable/target, radius)
-	if(target.anchored && target != src || isobserver(target))
+	if(target.anchored && target != src || isobserver(target) || iseffect(target))
 		return
 
 	var/turf/start = get_turf(src)

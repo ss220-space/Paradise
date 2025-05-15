@@ -148,29 +148,29 @@
 
 
 /obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
-	if(iscoreatmos(I))
-		var/obj/item/assembly/signaler/core/I_core = I
-		if(I_core.get_strenght() < 100)
-			user.balloon_alert(user, "ядро слишком слабо")
-			return
+	if(!iscoreatmos(I))
+		return ..()
 
-		add_fingerprint(user)
-		var/msg = "ядро вставлено"
-		if(core)
-			user.put_in_hands(core)
-			msg = "ядро заменено"
+	var/obj/item/assembly/signaler/core/I_core = I
+	if(I_core.get_strenght() < 100)
+		user.balloon_alert(user, "ядро слишком слабо")
+		return
 
-		if(!user.drop_transfer_item_to_loc(I, src))
-			balloon_alert(user, "отпустить невозможно!")
-			return ATTACK_CHAIN_PROCEED
+	add_fingerprint(user)
+	var/msg = "ядро вставлено"
+	if(core)
+		user.put_in_hands(core)
+		msg = "ядро заменено"
 
-		user.balloon_alert(user, msg)
-		to_chat(user, span_notice("Вы вставили [I.declent_ru(NOMINATIVE)] в [declent_ru(ACCUSATIVE)]. \
-		От [declent_ru(GENITIVE)] начал исходить жар."))
-		core = I
-		return ATTACK_CHAIN_BLOCKED_ALL
+	if(!user.drop_transfer_item_to_loc(I, src))
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
 
-	return ..()
+	user.balloon_alert(user, msg)
+	to_chat(user, span_notice("Вы вставили [I.declent_ru(NOMINATIVE)] в [declent_ru(ACCUSATIVE)]. \
+	От [declent_ru(GENITIVE)] начал исходить жар."))
+	core = I
+	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/clothing/gloves/color/black/pyro_claws/click_alt(mob/user)
 	if(!user.contains(src))
