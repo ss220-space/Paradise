@@ -1,5 +1,3 @@
-#define WRYN_WAX_DAMAGE 15
-
 /obj/structure/wryn
 	max_integrity = 100
 	var/damage = 0
@@ -16,13 +14,10 @@
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/wryn/attack_hand(mob/living/user)
-	if(!iswryn(user))
-		return
-	else
-		if(user.a_intent == INTENT_HARM)
-			take_damage(WRYN_WAX_DAMAGE, BRUTE, 0, 'sound/effects/attackblob.ogg')
-			user.do_attack_animation(src)
+/obj/structure/wryn/New()
+	..(	)
+	AddComponent(/datum/component/wryn_destruction)
+
 
 // wax structures procs
 
