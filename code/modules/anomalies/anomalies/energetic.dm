@@ -243,7 +243,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/effect/energy_ball/process()
-	if(!owner)
+	if(QDELETED(owner))
 		qdel(src)
 		return
 
@@ -260,6 +260,10 @@
 		sleep(2)
 
 /obj/effect/energy_ball/proc/jump(target)
+	if(QDELETED(owner))
+		qdel(src)
+		return
+
 	var/turf/target_turf = get_turf(target)
 	if(!target_turf)
 		return
