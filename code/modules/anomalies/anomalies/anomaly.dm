@@ -54,7 +54,7 @@
 	if(!cur_strenght)
 		cur_strenght = strenght
 
-	return (tier * 50 + cur_strenght / 2) / 250
+	return (tier * 50 + cur_strenght / 2) / 1000
 
 /obj/effect/anomaly/proc/init_animation()
 	matr.Scale(0.1, 0.1)
@@ -105,7 +105,7 @@
 
 	warp.pixel_x = initial(warp.pixel_x) - pixel_x
 	warp.pixel_y = initial(warp.pixel_x) - pixel_y
-	var/scaling = (get_strenght() * (1 << (tier - 1))) / 100
+	var/scaling = (get_strenght() * (1 << (tier - 1))) / 250
 	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
 	animate(time = 14, transform = matrix().Scale(scaling, scaling))
 
