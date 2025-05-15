@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
-			to_chat(world, "<b><span class='darkmblue'>Welcome to the pre-game lobby!</span></b>")
+			to_chat(world, span_darkmblue("<b>Welcome to the pre-game lobby!</b>"))
 			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
@@ -237,7 +237,7 @@ SUBSYSTEM_DEF(ticker)
 
 		var/has_antags = (length(P.client.prefs.be_special) > 0)
 		if(!P.client.prefs.check_any_job())
-			to_chat(P, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(P, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 			if(has_antags)
 				// We add these to a list so we can deal with them as a batch later
 				flagged_antag_rollers |= P.ckey
@@ -345,11 +345,11 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, "<span class='darkmblue'><b>Enjoy the game!</b></span>")
+	to_chat(world, span_darkmblue("<b>Enjoy the game!</b>"))
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)
-		to_chat(world, "<span class='darkmblue'>and...</span>")
+		to_chat(world, span_darkmblue("and..."))
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -535,7 +535,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Совет раунда: </b>[html_encode(m)]</span>")
+		to_chat(world, span_purple("<b>Совет раунда: </b>[html_encode(m)]"))
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
