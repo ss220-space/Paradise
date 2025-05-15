@@ -136,6 +136,7 @@
 #define span_combatuserdanger(str) ("<span class='combat userdanger'>" + str + "</span>")
 #define span_darkmblue(str) ("<span class='darkmblue'>" + str + "</span>")
 #define span_boldmessage(str) ("<span class='boldmessage'>" + str + "</span>")
+#define span_message(str) ("<span class='message'>" + str + "</span>")
 #define span_adminchannel(str) ("<span class='admin_channel'>" + str + "</span>")
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")
 #define span_error(str) ("<span class='error'>" + str + "</span>")
@@ -160,14 +161,19 @@
 #define span_specialnoticebold(str) ("<span class='specialnoticebold'>" + str + "</span>")
 #define span_moderate(str) ("<span class='moderate'>" + str + "</span>")
 #define span_shadowling(str) ("<span class='shadowling'>" + str + "</span>")
+#define span_motd(str) ("<span class='motd'>" + str + "</span>")
+#define span_emojienabled(str) ("<span class='emoji_enabled'>" + str + "</span>")
+#define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
 #define span_atmospfericanomaly(str) ("<span class='atmospferic_anomaly'>" + str + "</span>")
 #define span_bluespaceanomaly(str) ("<span class='bluespace_anomaly'>" + str + "</span>")
 #define span_energeticanomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
 #define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
 #define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
-
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
 
+// Font size spans
+#define span_fontsize3(str) ("<span style='font-size: 3;'>" + str + "</span>")
+#define span_fontsize4(str) ("<span style='font-size: 4;'>" + str + "</span>")
