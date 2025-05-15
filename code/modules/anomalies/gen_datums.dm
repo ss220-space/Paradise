@@ -46,7 +46,7 @@
 	var/list/used = list()
 	if(use_items)
 		used = get_used(containment)
-		if(!used.len && !istype(src, /datum/anomaly_gen_datum/tier1))
+		if(!used.len && req_item != "-")
 			return FALSE
 
 	var/turf/choosen
