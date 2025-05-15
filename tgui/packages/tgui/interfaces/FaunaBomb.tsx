@@ -26,10 +26,17 @@ const PickTab = (index) => {
   }
 };
 
+type Data1 = {
+  charge: number;
+  max_charge: number;
+  charge_speed: number;
+  created_len: number;
+};
+
 export const FaunaBomb = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data1>();
   const { charge, max_charge, charge_speed, created_len } = data;
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState<number>('tabIndex', 0);
   return (
     <Window width={710} height={500} title="Меню управления проекциями">
       <Window.Content>
@@ -70,7 +77,7 @@ export const FaunaBomb = (props, context) => {
 };
 
 const Commands = (_properties, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend();
 
   return (
     <Stack vertical>
@@ -87,10 +94,15 @@ const Commands = (_properties, context) => {
   );
 };
 
+type Data2 = {
+  scans;
+  selected_scan_ind;
+};
+
 const Scans = (_properties, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data2>();
   const { scans, selected_scan_ind } = data;
-  const [scanIndex, setScanIndex] = useLocalState(context, 'scanIndex', 0);
+  const [scanIndex, setScanIndex] = useLocalState<number>('scanIndex', 0);
 
   return (
     <Stack fill vertical>

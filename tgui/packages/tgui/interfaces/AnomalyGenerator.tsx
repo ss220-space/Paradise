@@ -14,8 +14,24 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
+type Data1 = {
+  type;
+  tier;
+  creating;
+  req_energy;
+  req_item;
+  anomaly_type;
+  charge;
+  generating;
+  use_acps;
+  use_smeses;
+  use_powernet;
+  has_powernet;
+  last_charge;
+};
+
 export const AnomalyGenerator = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data1>();
   const {
     type,
     tier,

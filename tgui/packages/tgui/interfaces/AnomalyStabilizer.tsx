@@ -14,8 +14,22 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
+type Data1 = {
+  full_info;
+  core1_name;
+  core2_name;
+  possible_stability;
+  stability_delta;
+  pull_range;
+  choosen_pull_dist;
+  block_move_time;
+  block_move_impulses_time;
+  weaken_val;
+  weaken_time;
+};
+
 export const AnomalyStabilizer = (props, context) => {
-  const { act, data } = useBackend(context);
+  const { act, data } = useBackend<Data1>();
   const {
     full_info,
     core1_name,
@@ -100,10 +114,11 @@ export const AnomalyStabilizer = (props, context) => {
   );
 };
 
-const InsertedCores = (core1_name, core2_name) => {
-  if ({ core1_name } === 'Пустой') {
+const InsertedCores = (core1_name: string, core2_name: string) => {
+  const { act, data } = useBackend();
+  if (core1_name === 'Пустой') {
     return null;
-  } else if ({ core2_name } === 'Пустой') {
+  } else if (core2_name === 'Пустой') {
     return <Button content={core1_name} onClick={() => act('eject1', {})} />;
   } else {
     return (

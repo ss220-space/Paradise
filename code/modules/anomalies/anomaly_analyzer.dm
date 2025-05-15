@@ -19,9 +19,9 @@
 	gender = MALE
 	origin_tech = "programming=3;magnets=1"
 	/// Title of scan window.
-	var/scan_title
+	var/scan_title = "ERROR_NO_DATA"
 	/// Anomaly info in scan window.
-	var/scan_data
+	var/scan_data= list()
 
 /obj/item/anomaly_analyzer/proc/scan(obj/effect/anomaly/target)
 	scan_title = "Сканирование [target.declent_ru(GENITIVE)]"
