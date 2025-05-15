@@ -194,7 +194,7 @@
 
 /datum/disease/virus/transformation/xeno/phantom
 	name = "dangerous xenomorph transformation"
-	transform_message = list(span_danger("[span_fontsize5("<b>Теперь вы ксеноморф.</b>")]\n\
+	transform_message = list(span_danger(span_fontsize5("<b>Теперь вы ксеноморф.</b>") + "\n\
 	<b>Вы чувствуете боль от превращения! Вы утратили всю память и первобытная жажда убийства охватила вас!</b>"))
 
 /datum/disease/virus/transformation/xeno/phantom/New()
