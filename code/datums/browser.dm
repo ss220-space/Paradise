@@ -93,7 +93,7 @@
 		head_content += {"
 			<style>
 				body {
-					zoom: [100 / client?.window_scaling]%;
+					zoom: [100 / client.window_scaling]%;
 				}
 			</style>
 			"}
