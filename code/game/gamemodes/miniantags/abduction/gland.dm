@@ -58,8 +58,8 @@
 	if(!ownerCheck() || !mind_control_uses || active_mind_control)
 		return
 	mind_control_uses--
-	to_chat(owner, "<span class='userdanger'>You suddenly feel an irresistible compulsion to follow an order...</span>")
-	to_chat(owner, "<span class='mind_control'>[command]</span>")
+	to_chat(owner, span_userdanger("You suddenly feel an irresistible compulsion to follow an order..."))
+	to_chat(owner, "[span_mind_control(command)]")
 	active_mind_control = TRUE
 	log_admin("[key_name(user)] sent an abductor mind control message to [key_name(owner)]: [command]")
 	message_admins("[key_name_admin(user)] sent an abductor mind control message to [key_name_admin(owner)]: [command]")
@@ -71,7 +71,7 @@
 /obj/item/organ/internal/heart/gland/proc/clear_mind_control()
 	if(!ownerCheck() || !active_mind_control)
 		return
-	to_chat(owner, "<span class='userdanger'>You feel the compulsion fade, and you completely forget about your previous orders.</span>")
+	to_chat(owner, span_userdanger("You feel the compulsion fade, and you completely forget about your previous orders."))
 	active_mind_control = FALSE
 	update_gland_hud()
 
@@ -120,7 +120,7 @@
 	mind_control_duration = 3000
 
 /obj/item/organ/internal/heart/gland/heals/activate()
-	to_chat(owner, "<span class='notice'>You feel curiously revitalized.</span>")
+	to_chat(owner, span_notice("You feel curiously revitalized."))
 	var/update = NONE
 	update |= owner.heal_overall_damage(20, 20, updating_health = FALSE)
 	update |= owner.heal_damages(tox = 20, oxy = 20, updating_health = FALSE)
@@ -141,7 +141,7 @@
 	owner.add_language(LANGUAGE_SLIME)
 
 /obj/item/organ/internal/heart/gland/slime/activate()
-	to_chat(owner, "<span class='warning'>You feel nauseous!</span>")
+	to_chat(owner, span_warning("You feel nauseous!"))
 	owner.vomit(20)
 
 	var/mob/living/simple_animal/slime/Slime = new(get_turf(owner), "grey")
@@ -158,7 +158,7 @@
 	mind_control_duration = 6000
 
 /obj/item/organ/internal/heart/gland/mindshock/activate()
-	to_chat(owner, "<span class='notice'>You get a headache.</span>")
+	to_chat(owner, span_notice("You get a headache."))
 
 	var/turf/T = get_turf(owner)
 	for(var/mob/living/carbon/H in orange(4,T))
@@ -166,10 +166,10 @@
 			continue
 		switch(rand(1, 3))
 			if(1)
-				to_chat(H, "<span class='userdanger'>You hear a loud buzz in your head, silencing your thoughts!</span>")
+				to_chat(H, span_userdanger("You hear a loud buzz in your head, silencing your thoughts!"))
 				H.Stun(6 SECONDS)
 			if(2)
-				to_chat(H, "<span class='warning'>You hear an annoying buzz in your head.</span>")
+				to_chat(H, span_warning("You hear an annoying buzz in your head."))
 				H.AdjustConfused(30 SECONDS)
 				H.apply_damage(rand(5, 15), BRAIN)
 			if(3)
@@ -186,7 +186,7 @@
 
 /obj/item/organ/internal/heart/gland/pop/activate()
 	var/mob/living/carbon/human/h_owner = owner
-	to_chat(h_owner, "<span class='notice'>You feel unlike yourself.</span>")
+	to_chat(h_owner, span_notice("You feel unlike yourself."))
 	var/obj/item/organ/internal/heart/gland/pop/gland = locate() in h_owner.internal_organs
 	var/old_control_uses = initial(mind_control_uses)
 	if(gland)
@@ -215,7 +215,7 @@
 
 
 /obj/item/organ/internal/heart/gland/ventcrawling/activate()
-	to_chat(owner, "<span class='notice'>You feel very stretchy.</span>")
+	to_chat(owner, span_notice("You feel very stretchy."))
 	ADD_TRAIT(owner, TRAIT_VENTCRAWLER_ALWAYS, type)
 
 
@@ -228,7 +228,7 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/viral/activate()
-	to_chat(owner, "<span class='warning'>You feel sick.</span>")
+	to_chat(owner, span_warning("You feel sick."))
 	var/datum/disease/virus/advance/new_virus
 	new_virus = CreateRandomVirus(count_of_symptoms = rand(4, 6), resistance = rand(0,11), stealth = pick(0,0,1,1,2),
 								stage_rate = rand(-11,5), transmittable = rand(2,9), severity = rand(0,5))
@@ -248,7 +248,7 @@
 	emp_proof = TRUE	// EMP should not stop our own heart instantly
 
 /obj/item/organ/internal/heart/gland/emp/activate()
-	to_chat(owner, "<span class='warning'>You feel a spike of pain in your head.</span>")
+	to_chat(owner, span_warning("You feel a spike of pain in your head."))
 	empulse(get_turf(owner), 2, 5, TRUE, "Alien EMP Organ")
 
 /obj/item/organ/internal/heart/gland/spiderman
@@ -260,7 +260,7 @@
 	mind_control_duration = 2400
 
 /obj/item/organ/internal/heart/gland/spiderman/activate()
-	to_chat(owner, "<span class='warning'>You feel something crawling in your skin.</span>")
+	to_chat(owner, span_warning("You feel something crawling in your skin."))
 	owner.faction |= "spiders"
 	var/obj/structure/spider/spiderling/S = new(owner.loc)
 	S.master_commander = owner
@@ -274,7 +274,7 @@
 	mind_control_duration = 1800
 
 /obj/item/organ/internal/heart/gland/egg/activate()
-	owner.visible_message("<span class='alertalien'>[owner] [pick(EGG_LAYING_MESSAGES)]</span>")
+	owner.visible_message(span_alertalien("[owner] [pick(EGG_LAYING_MESSAGES)]"))
 	new /obj/item/reagent_containers/food/snacks/egg/gland(get_turf(owner))
 
 /obj/item/organ/internal/heart/gland/electric
@@ -297,8 +297,8 @@
 	return ..()
 
 /obj/item/organ/internal/heart/gland/electric/activate()
-	owner.visible_message("<span class='danger'>[owner]'s skin starts emitting electric arcs!</span>",\
-	"<span class='warning'>You feel electric energy building up inside you!</span>")
+	owner.visible_message(span_danger("[owner]'s skin starts emitting electric arcs!"),\
+							span_warning("You feel electric energy building up inside you!"))
 	playsound(get_turf(owner), "sparks", 100, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	addtimer(CALLBACK(src, PROC_REF(zap)), rand(30, 100))
 
@@ -346,15 +346,15 @@
 
 /obj/item/organ/internal/heart/gland/plasma/activate()
 	spawn(0)
-		to_chat(owner, "<span class='warning'>You feel bloated.</span>")
+		to_chat(owner, span_warning("You feel bloated."))
 		sleep(150)
 		if(!owner)
 			return
-		to_chat(owner, "<span class='userdanger'>A massive stomachache overcomes you.</span>")
+		to_chat(owner, span_userdanger("A massive stomachache overcomes you."))
 		sleep(50)
 		if(!owner)
 			return
-		owner.visible_message("<span class='danger'>[owner] vomits a cloud of plasma!</span>")
+		owner.visible_message(span_danger("[owner] vomits a cloud of plasma!"))
 		var/turf/simulated/T = get_turf(owner)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,50)

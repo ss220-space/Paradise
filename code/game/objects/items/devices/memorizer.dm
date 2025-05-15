@@ -68,7 +68,7 @@
 /obj/item/memorizer/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	visible_message("<span class='notice'>The [name] burns out!</span>")
+	visible_message(span_notice("The [name] burns out!"))
 
 
 /obj/item/memorizer/proc/flash_recharge(mob/user)
@@ -112,10 +112,13 @@
 				fucking_target.Stun(2 SECONDS)
 				visible_message(span_disarm("[user] erases [fucking_target] memory with the memorizer!"))
 				to_chat(user, span_danger("You erased [fucking_target] memory with the memorizer!"))
-				to_chat(fucking_target, span_danger("<span class='reallybig'>Your memory about last events has been erased!"))
+				to_chat(fucking_target, span_danger(span_reallybig("Your memory about last events has been erased!")))
 				if(fucking_target.weakeyes)
 					fucking_target.Stun(4 SECONDS)
-					fucking_target.visible_message(span_disarm("[fucking_target] gasps and shields [fucking_target.p_their()] eyes!"), span_userdanger("You gasp and shield your eyes!"))
+					fucking_target.visible_message(
+						span_disarm("[fucking_target] gasps and shields [fucking_target.p_their()] eyes!"),
+						span_userdanger("You gasp and shield your eyes!")
+					)
 			else
 				visible_message(span_disarm("[user] fails to erase [fucking_target] memory with the memorizer!"))
 				to_chat(user, span_warning("You fail to erase [fucking_target] memory with the memorizer!"))
@@ -141,7 +144,10 @@
 		add_attack_logs(user, fucking_target, "Flashed with [src]")
 		if(fucking_target.flash_eyes(affect_silicon = TRUE))
 			fucking_target.Weaken(rand(10 SECONDS, 20 SECONDS))
-			user.visible_message(span_disarm("[user] overloads [fucking_target]'s sensors with the [name]!"), span_danger("You overload [fucking_target]'s sensors with the [name]!"))
+			user.visible_message(
+				span_disarm("[user] overloads [fucking_target]'s sensors with the [name]!"),
+				span_danger("You overload [fucking_target]'s sensors with the [name]!")
+			)
 		return .|ATTACK_CHAIN_SUCCESS
 	user.visible_message(span_disarm("[user] fails to blind [fucking_target] with the [name]!"), span_warning("You fail to blind [fucking_target] with the [name]!"))
 
@@ -149,7 +155,10 @@
 /obj/item/memorizer/attack_self(mob/living/carbon/user, flag = 0, emp = FALSE)
 	if(!try_use_flash(user))
 		return FALSE
-	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+	user.visible_message(
+		span_disarm("[user]'s [src.name] emits a blinding light!"),
+		span_danger("Your [src.name] emits a blinding light!")
+	)
 	for(var/mob/living/carbon/fucking_target in oviewers(3, get_turf(src)))
 		memorize_carbon(fucking_target, user, 3, FALSE)
 
