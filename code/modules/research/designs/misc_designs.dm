@@ -173,16 +173,17 @@
 	category = list("Miscellaneous")
 
 /datum/design/anomaly_stabilizer
-	name = "anomaly stabilizer"
+	name = "Anomaly stabilizer"
 	desc = "Продвинутое устройство предназначенное для стабилизации аномалий."
 	id = "anomaly_stabilizer"
 	req_tech = list("powerstorage" = 2, "programming" = 4, "magnets" = 3)
+	build_type = PROTOLATHE
 	materials = list(MAT_METAL=3000, MAT_GLASS=2000)
 	build_path = /obj/item/gun/energy/anomaly_stabilizer
 	category = list("Miscellaneous")
 
 /datum/design/anomaly_analyzer
-	name = "anomaly analyzer"
+	name = "Anomaly analyzer"
 	desc = "Продвинутое устройство предназначенное для сканирования аномалий."
 	id = "anomaly_analyzer"
 	req_tech = list("programming" = 4, "magnets" = 3)

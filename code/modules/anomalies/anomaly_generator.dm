@@ -367,5 +367,11 @@
 	powernet = find_powernet()
 	return TRUE
 
+/obj/machinery/power/anomaly_generator/screwdriver_act(mob/user, obj/item/I)
+	return default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+
+/obj/machinery/power/anomaly_generator/crowbar_act(mob/user, obj/item/I)
+	return default_deconstruction_crowbar(user, I)
+
 /obj/machinery/power/anomaly_generator/upgraded/admin/get_req_energy()
 	return 0

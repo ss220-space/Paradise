@@ -1,5 +1,5 @@
 #define ANOMALY_TYPE_RANDOM			"random"
-#define ANOMALY_TYPE_ATMOS			"atmospheric"
+#define ANOMALY_TYPE_ATMOS			"pyroclastic"
 #define ANOMALY_TYPE_BLUESPACE		"bluespace"
 #define ANOMALY_TYPE_GRAV			"gravitational"
 #define ANOMALY_TYPE_VORTEX			"vortex"
