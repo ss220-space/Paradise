@@ -243,7 +243,7 @@
 	STOP_PROCESSING(SSobj, src)
 
 /obj/effect/energy_ball/process()
-	if(QDELETED(owner))
+	if(QDELETED(owner) || owner.loc == null)
 		qdel(src)
 		return
 
@@ -260,7 +260,7 @@
 		sleep(2)
 
 /obj/effect/energy_ball/proc/jump(target)
-	if(QDELETED(owner))
+	if(QDELETED(owner) || owner.loc == null)
 		qdel(src)
 		return
 

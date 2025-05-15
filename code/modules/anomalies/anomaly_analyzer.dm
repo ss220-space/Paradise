@@ -23,32 +23,37 @@
 	/// Anomaly info in scan window.
 	var/scan_data= list()
 
-/obj/item/anomaly_analyzer/proc/scan(obj/effect/anomaly/target)
-	scan_title = "Сканирование [target.declent_ru(GENITIVE)]"
-	scan_data = list()
-	var/stre = target.strenght
-	var/stab = target.stability
+/obj/effect/anomaly/proc/get_data()
+	var/list/scan_data = list()
+	var/stre = strenght
+	var/stab = stability
 	scan_data += "Сила аномалии: [stre > 70 ? span_warning("[stre]") : stre]"
 	scan_data += "Стабильность аномалии: [stab < 30 ? span_warning("[stab]") : stab]"
 	var/state
-	if(target.stability < ANOMALY_GROW_STABILITY)
+	if(stability < ANOMALY_GROW_STABILITY)
 		state = span_warning("Рост")
-	else if(target.stability > ANOMALY_DECREASE_STABILITY)
+	else if(stability > ANOMALY_DECREASE_STABILITY)
 		state = "Уменьшение"
 	else
 		state = "Стабильное"
 
 	scan_data += "Состояние аномалии: [state]"
-	if(target.stability > ANOMALY_MOVE_MAX_STABILITY || world.time > target.move_moment)
+	if(stability > ANOMALY_MOVE_MAX_STABILITY || world.time > move_moment)
 		scan_data += span_info("Естественное перемещение прекращено.")
 
 	scan_data += "<hr>Импульсы:\n"
-	for(var/datum/anomaly_impulse/impulse in target.impulses)
-		var/blocked = world.time < target.move_impulse_moment && istype(impulse, /datum/anomaly_impulse/move) || target.stability > impulse.stability_high
+	for(var/datum/anomaly_impulse/impulse in impulses)
+		var/blocked = world.time < move_impulse_moment && istype(impulse, /datum/anomaly_impulse/move) || stability > impulse.stability_high
 		scan_data += "  [impulse.name]" + (blocked ? " ([span_green("заблокирован")]" : "")
 		scan_data += "  &emsp;Описание: [impulse.desc]"
 		scan_data += "  &emsp;Время между импульсами: [impulse.scale_by_strenght(impulse.period_low, impulse.period_high) / 10]"
 		scan_data += "  &emsp;Блокирующая стабильность: [impulse.stability_high]"
+
+	return scan_data
+
+/obj/item/anomaly_analyzer/proc/scan(obj/effect/anomaly/target)
+	scan_title = "Сканирование [target.declent_ru(GENITIVE)]"
+	scan_data = target.get_data()
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 500, 600)

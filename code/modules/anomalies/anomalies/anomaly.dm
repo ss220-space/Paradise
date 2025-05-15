@@ -112,6 +112,11 @@
 /obj/effect/anomaly/proc/get_move_dir()
 	return pick(GLOB.alldirs)
 
+/obj/effect/anomaly/attack_ghost(mob/dead/observer/user)
+	var/datum/browser/popup = new(user, "anomalyscanner", "Информация о аномалии", 500, 600)
+	popup.set_content(span_highlight("[jointext(get_data(), "<br>")]"))
+	popup.open(no_focus = 1)
+
 // It is in function because the size will change depending on the strength of the anomaly.
 /obj/effect/anomaly/proc/set_strenght(new_strenght, do_anim = TRUE)
 	if(do_anim)

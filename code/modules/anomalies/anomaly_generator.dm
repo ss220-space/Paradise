@@ -179,7 +179,7 @@
 		if("beakon")
 			atom_say("Функция временно недоступна.")
 			return
-
+/*
 			var/list/options = list()
 			for(var/obj/item/radio/beacon/R in GLOB.beacons)
 				var/turf/T = get_turf(R)
@@ -199,7 +199,7 @@
 				choice = beacon;
 
 			selected_beacon = choice
-
+*/
 		else
 			. = FALSE
 
