@@ -135,8 +135,8 @@ export const AnomalyGenerator = (props, context) => {
               />
               <Button
                 content="Энергетическая"
-                selected={type === 'flux'}
-                onClick={() => act('choose_type', { type: 'flux' })}
+                selected={type === 'energetic'}
+                onClick={() => act('choose_type', { type: 'energetic' })}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Уровень аномалии">
