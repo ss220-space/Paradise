@@ -1370,5 +1370,3 @@
 
 /// from start of /mob/living/simple_animal/soulscythe/Life(): (amount)
 #define COMSIG_BLOOD_LEVEL_TICK "blood_level_tick"
-
-	
