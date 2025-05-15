@@ -42,28 +42,30 @@
 	if(prob(60))
 		do_sparks(rand(1,6), 1, loc)
 
-	if(istype(target, /obj/machinery/door/airlock))
-		var/obj/machinery/door/airlock/A = target
+	if(!istype(target, /obj/machinery/door/airlock))
+		return
 
-		if(!A.requiresID() || A.allowed(user))
-			return
+	var/obj/machinery/door/airlock/A = target
 
-		if(A.locked)
-			to_chat(user, span_notice("Болты шлюза не позволяют взломать его силой."))
-			return
+	if(!A.requiresID() || A.allowed(user))
+		return
 
-		if(A.arePowerSystemsOn())
-			user.visible_message(span_warning("[user] вставляет [declent_ru(NOMINATIVE)] в шлюз и начинает открывать его!"), \
-								span_warning("Вы начинаете силой открывать шлюз."), \
-								span_warning("Вы слышите металлический скрежет."))
-			playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-			if(!do_after(user, 2.5 SECONDS, A))
-				return
+	if(A.locked)
+		to_chat(user, span_notice("Болты шлюза не позволяют взломать его силой."))
+		return
 
-		user.visible_message(span_warning("[user] силой открыл шлюз при помощи [declent_ru(GENITIVE)]!"), \
-							span_warning("Вы силой открыли шлюз."), \
+	if(A.arePowerSystemsOn())
+		user.visible_message(span_warning("[user] вставляет [declent_ru(NOMINATIVE)] в шлюз и начинает открывать его!"), \
+							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
-		A.open(2)
+		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+		if(!do_after(user, 2.5 SECONDS, A))
+			return
+
+	user.visible_message(span_warning("[user] силой открыл шлюз при помощи [declent_ru(GENITIVE)]!"), \
+						span_warning("Вы силой открыли шлюз."), \
+						span_warning("Вы слышите металлический скрежет."))
+	A.open(2)
 
 /obj/item/twohanded/required/pyro_claws/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] начинает пилить [declent_ru(NOMINATIVE)] друг об друга! \

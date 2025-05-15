@@ -14,7 +14,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-type Data1 = {
+type AnomalyGeneratorData = {
   type;
   tier;
   creating;
@@ -31,7 +31,7 @@ type Data1 = {
 };
 
 export const AnomalyGenerator = (props, context) => {
-  const { act, data } = useBackend<Data1>();
+  const { act, data } = useBackend<AnomalyGeneratorData>();
   const {
     type,
     tier,

@@ -45,12 +45,17 @@
 	if(core && cell)
 		. += span_notice("[declent_ru(NOMINATIVE)] полностью функциональны!")
 		. += span_notice("Ботинки заряжены на [round(cell.percent())]%.")
-	else if(core)
+		return
+
+	if(core)
 		. += span_warning("В них установлено ядро ​​гравитационной аномалии, но не установлена батарейка.")
-	else if(cell)
+		return
+
+	if(cell)
 		. += span_warning("В них установлена батарейка, но не установлено ядро гравитационной аномалии.")
-	else
-		. += span_warning("В них не хватает ядра гравитационной аномалии и батарейки.")
+		return
+
+	. += span_warning("В них не хватает ядра гравитационной аномалии и батарейки.")
 
 
 /obj/item/clothing/shoes/magboots/gravity/toggle_magpulse(mob/user, silent = FALSE)
@@ -76,13 +81,14 @@
 	if(!cell) //There should be a cell here, but safety first
 		return
 
-	if(cell.charge <= power_consumption_rate * 2)
-		if(ishuman(loc))
-			var/mob/living/carbon/human/user = loc
-			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] израсходовали весь заряд и отключились!"))
-			toggle_magpulse(user, silent = TRUE)
-	else
+	if(cell.charge > power_consumption_rate * 2)
 		cell.use(power_consumption_rate)
+		return
+
+	if(ishuman(loc))
+		var/mob/living/carbon/human/user = loc
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] израсходовали весь заряд и отключились!"))
+		toggle_magpulse(user, silent = TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
 	if(!cell)

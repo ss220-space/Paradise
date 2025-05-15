@@ -299,14 +299,15 @@
 	return FIRELOSS
 
 /obj/item/assembly/signaler/core/atmospheric/tier3/forceMove(atom/destination)
-	if(ishuman(destination))
-		START_PROCESSING(SSobj, src)
-		if(prob(1))
-			var/mob/living/carbon/human/H = destination
-			H.adjust_fire_stacks(charge/10)
-			H.IgniteMob()
-	else
+	if(!ishuman(destination))
 		STOP_PROCESSING(SSobj, src)
+		return ..()
+
+	START_PROCESSING(SSobj, src)
+	if(prob(1))
+		var/mob/living/carbon/human/H = destination
+		H.adjust_fire_stacks(charge/10)
+		H.IgniteMob()
 
 	return ..()
 

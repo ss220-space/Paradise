@@ -26,7 +26,7 @@ const PickTab = (index) => {
   }
 };
 
-type Data1 = {
+type FaunaBombData = {
   charge: number;
   max_charge: number;
   charge_speed: number;
@@ -34,7 +34,7 @@ type Data1 = {
 };
 
 export const FaunaBomb = (props, context) => {
-  const { act, data } = useBackend<Data1>();
+  const { act, data } = useBackend<FaunaBombData>();
   const { charge, max_charge, charge_speed, created_len } = data;
   const [tabIndex, setTabIndex] = useLocalState<number>('tabIndex', 0);
   return (
@@ -94,13 +94,13 @@ const Commands = (_properties, context) => {
   );
 };
 
-type Data2 = {
+type ScansData = {
   scans;
   selected_scan_ind;
 };
 
 const Scans = (_properties, context) => {
-  const { act, data } = useBackend<Data2>();
+  const { act, data } = useBackend<ScansData>();
   const { scans, selected_scan_ind } = data;
   const [scanIndex, setScanIndex] = useLocalState<number>('scanIndex', 0);
 

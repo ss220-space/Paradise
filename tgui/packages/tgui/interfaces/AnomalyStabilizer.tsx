@@ -14,7 +14,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-type Data1 = {
+type AnomalyStabilizerData = {
   full_info;
   core1_name;
   core2_name;
@@ -29,7 +29,7 @@ type Data1 = {
 };
 
 export const AnomalyStabilizer = (props, context) => {
-  const { act, data } = useBackend<Data1>();
+  const { act, data } = useBackend<AnomalyStabilizerData>();
   const {
     full_info,
     core1_name,

@@ -436,7 +436,6 @@
 #include "code\datums\discord.dm"
 #include "code\datums\dog_fashion.dm"
 #include "code\datums\filter.dm"
-#include "code\datums\gravity.dm"
 #include "code\datums\holocall.dm"
 #include "code\datums\http.dm"
 #include "code\datums\hud.dm"
