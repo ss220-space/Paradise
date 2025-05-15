@@ -147,7 +147,7 @@
 		animate(transform = new_transform, time = 0)
 		animate(transform = matrix(), time = scaled_time / 2)
 		C.parallax_animate_timers[layer] = addtimer(CALLBACK(src, PROC_REF(update_parallax_motionblur), C, layer, new_parallax_movedir, new_transform), scaled_time, TIMER_CLIENT_TIME|TIMER_STOPPABLE)
-	
+
 	C.dont_animate_parallax = world.time + min(longest_timer, PARALLAX_LOOP_TIME)
 	C.parallax_movedir = new_parallax_movedir
 
@@ -350,7 +350,8 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 	if(SSmapping.lavaland_theme?.planet_icon_state)
 		icon_state = SSmapping.lavaland_theme.planet_icon_state
 
-	var/client/boss = hud_owner?.mymob?.canon_client
+	var/client/boss = hud_owner?.mymob?.canon_client || hud_owner?.mymob?.client
+
 	if(!boss)
 		return
 
@@ -358,27 +359,28 @@ INITIALIZE_IMMEDIATE(/atom/movable/screen/parallax_layer)
 		COMSIG_MOVABLE_Z_CHANGED = PROC_REF(on_z_change),
 		COMSIG_MOB_LOGOUT = PROC_REF(on_mob_logout),
 	)
-	AddComponent(/datum/component/connect_mob_behalf, boss, connections) // I have a feeling that this shit doesn't work
-	update_status(hud_owner?.mymob)
+
+	AddComponent(/datum/component/connect_mob_behalf, boss, connections)
+
+	if(!hud_owner?.mymob?.canon_client)
+		return
+
+	on_z_change(hud_owner?.mymob)
 
 /atom/movable/screen/parallax_layer/planet/proc/on_mob_logout(mob/source)
 	SIGNAL_HANDLER
-	var/client/boss = source.canon_client
-	if(boss) // this is stupid. I don't know why, but in rare cases it runtimes. Perhaps client's deletes before we can check all procs on him
-		update_status(boss.mob)
+	var/client/boss = source?.canon_client
+	on_z_change(boss?.mob)
 
 /atom/movable/screen/parallax_layer/planet/proc/on_z_change(mob/source)
 	SIGNAL_HANDLER
-	var/client/boss = source.client
-	if(boss)
-		update_status(boss.mob)
+	var/client/boss = source?.client
+	var/turf/posobj = get_turf(boss?.eye)
 
-/atom/movable/screen/parallax_layer/planet/update_status(mob/M)
-	var/turf/T = get_turf(M)
-	if(is_station_level(T?.z))
-		invisibility = 0
-	else
-		invisibility = INVISIBILITY_ABSTRACT
+	if(!posobj)
+		return
+
+	invisibility = is_station_level(posobj?.z)? 0 : INVISIBILITY_ABSTRACT
 
 /atom/movable/screen/parallax_layer/planet/update_o()
 	return //Shit wont move
