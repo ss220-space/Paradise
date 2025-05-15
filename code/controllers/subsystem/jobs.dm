@@ -451,7 +451,7 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 	var/list/L = list()
-	L.Add("<B>Вы [span_red(alt_title ? alt_title : rank)].</B>")
+	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
 	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
 	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)

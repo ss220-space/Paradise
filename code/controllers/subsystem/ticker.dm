@@ -96,7 +96,7 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
-			to_chat(world, span_darkmblue("<B>Welcome to the pre-game lobby!</B>"))
+			to_chat(world, span_darkmblue("<b>Welcome to the pre-game lobby!</b>"))
 			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
@@ -345,7 +345,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, span_darkmblue("<B>Enjoy the game!</B>"))
+	to_chat(world, span_darkmblue("<b>Enjoy the game!</b>"))
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)

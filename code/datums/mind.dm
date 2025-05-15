@@ -1348,14 +1348,14 @@
 				for(var/obj/item/implant/mindshield/ert/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, span_notice(span_fontsize3("<B>Your ert mindshield implant has been deactivated.</B>")))
+				to_chat(H, span_notice(span_fontsize3("<b>Your ert mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s ert mindshield implant")
 			if("remove")
 				for(var/obj/item/implant/mindshield/I in H.contents)
 					if(I && I.implanted)
 						qdel(I)
-				to_chat(H, span_notice(span_fontsize3("<B>Your mindshield implant has been deactivated.</B>")))
+				to_chat(H, span_notice(span_fontsize3("<b>Your mindshield implant has been deactivated.</b>")))
 				log_admin("[key_name(usr)] has deactivated [key_name(current)]'s mindshield implant")
 				message_admins("[key_name_admin(usr)] has deactivated [key_name_admin(current)]'s mindshield implant")
 			if("add")
@@ -1365,7 +1365,7 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a mindshield implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a mindshield implant")
 
-				to_chat(H, span_warning(span_fontsize3("<B>You somehow have become the recepient of a mindshield transplant, and it just activated!</B>")))
+				to_chat(H, span_warning(span_fontsize3("<b>You somehow have become the recepient of a mindshield transplant, and it just activated!</b>")))
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.remove_revolutionary(src)
 			if("ertadd")
@@ -1375,7 +1375,7 @@
 				log_admin("[key_name(usr)] has given [key_name(current)] a ert mindshield implant")
 				message_admins("[key_name_admin(usr)] has given [key_name_admin(current)] a ert mindshield implant")
 
-				to_chat(H, span_warning(span_fontsize3("<B>You somehow have become the recepient of a ert mindshield transplant, and it just activated!</B>")))
+				to_chat(H, span_warning(span_fontsize3("<b>You somehow have become the recepient of a ert mindshield transplant, and it just activated!</b>")))
 				if(src in SSticker.mode.revolutionaries)
 					SSticker.mode.remove_revolutionary(src)
 
@@ -1393,7 +1393,7 @@
 						qdel(C)
 					SSticker.mode.head_revolutionaries -= src
 					SSticker.mode.update_rev_icons_removed(src)
-					to_chat(current, span_warning(span_fontsize3("<B>Revolution has been disappointed of your leadership traits! You are a regular revolutionary now!</B>")))
+					to_chat(current, span_warning(span_fontsize3("<b>Revolution has been disappointed of your leadership traits! You are a regular revolutionary now!</b>")))
 				else if(!(src in SSticker.mode.revolutionaries))
 					to_chat(current, span_warning(span_fontsize3(" You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.")))
 				else
@@ -1833,7 +1833,7 @@
 		switch(href_list["nuclear"])
 			if("clear")
 				remove_syndicate_role()
-				to_chat(current, span_warning(span_fontsize3("<B>You have been brainwashed! You are no longer a syndicate operative!</B>")))
+				to_chat(current, span_warning(span_fontsize3("<b>You have been brainwashed! You are no longer a syndicate operative!</b>")))
 				log_admin("[key_name(usr)] has de-nuke op'd [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-nuke op'd [key_name_admin(current)]")
 			if("nuclear")
@@ -1957,7 +1957,7 @@
 
 				traitor_datum.silent = TRUE
 				remove_antag_datum(traitor_datum)
-				to_chat(current, span_warning(span_fontsize3("<B>You have been brainwashed! You are no longer a traitor!</B>")))
+				to_chat(current, span_warning(span_fontsize3("<b>You have been brainwashed! You are no longer a traitor!</b>")))
 				log_admin("[key_name(usr)] has de-traitored [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-traitored [key_name_admin(current)]")
 
@@ -1988,7 +1988,7 @@
 					return
 
 				remove_antag_datum(malf_datum)
-				to_chat(current, span_warning(span_fontsize3("<B>Unknown hackers have brought your systems back to normal, you are no longer malfunctioning!</B>")))
+				to_chat(current, span_warning(span_fontsize3("<b>Unknown hackers have brought your systems back to normal, you are no longer malfunctioning!</b>")))
 				log_admin("[key_name(usr)] has de-malfAIed [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has de-malfAIed [key_name_admin(current)]")
 				SSticker?.score?.save_silicon_laws(current, usr, additional_info = "admin removed malf AI", log_all_laws = TRUE)

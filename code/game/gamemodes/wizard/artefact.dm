@@ -177,7 +177,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(!usr.mind.special_role)
 				var/list/messages = list()
 				if(prob(probability_evil))
-					messages.Add(span_warning("<B>With your new found power you could easily conquer the station!</B>"))
+					messages.Add(span_warning("<b>With your new found power you could easily conquer the station!</b>"))
 					var/datum/objective/hijackclone/hijack_objective = new /datum/objective/hijackclone
 					hijack_objective.explanation_text = "Ensure only [usr.real_name] and [usr.p_their()] copies are on the shuttle!"
 					hijack_objective.owner = usr.mind
@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 					usr.mind.special_role = "[usr.real_name] Prime"
 					evil = TRUE
 				else
-					messages.Add(span_warning("<B>With your new found power you could easily defend the station!</B>"))
+					messages.Add(span_warning("<b>With your new found power you could easily defend the station!</b>"))
 					var/datum/objective/survive/new_objective = new /datum/objective/survive
 					new_objective.explanation_text = "Survive, and help defend the innocent from the mobs of multiverse clones."
 					new_objective.owner = usr.mind
@@ -208,12 +208,12 @@ GLOBAL_LIST_EMPTY(multiverse)
 			if(candidates.len)
 				var/mob/C = pick(candidates)
 				spawn_copy(C.client, get_turf(user.loc), user)
-				to_chat(user, span_warning("<B>The sword flashes, and you find yourself face to face with...you!</B>"))
+				to_chat(user, span_warning("<b>The sword flashes, and you find yourself face to face with...you!</b>"))
 
 			else
 				to_chat(user, "You fail to summon any copies of yourself. Perhaps you should try again in a bit.")
 	else
-		to_chat(user, span_warning("<B>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
+		to_chat(user, span_warning("<b>[src] is recharging! Keep in mind it shares a cooldown with the swords wielded by your copies."))
 
 
 /obj/item/multisword/proc/spawn_copy(var/client/C, var/turf/T, mob/user)
