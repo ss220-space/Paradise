@@ -34,7 +34,7 @@
 		return
 
 	for(var/turf/T in range(center, range))
-		if(!issimulatedturf(T))
+		if(!T.is_safe())
 			return FALSE
 
 	return TRUE

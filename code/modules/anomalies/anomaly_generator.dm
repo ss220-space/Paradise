@@ -177,6 +177,9 @@
 			use_powernet = !use_powernet
 
 		if("beakon")
+			atom_say("Функция временно недоступна.")
+			return
+
 			var/list/options = list()
 			for(var/obj/item/radio/beacon/R in GLOB.beacons)
 				var/turf/T = get_turf(R)
