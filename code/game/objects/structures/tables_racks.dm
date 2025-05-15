@@ -858,7 +858,7 @@
 /obj/structure/rack/examine(mob/user)
 	. = ..()
 	if(!wooden_version)
-		. += "<span class='notice'>It's held together by a couple of <b>bolts</b>.</span>"
+		. += span_notice("It's held together by a couple of <b>bolts</b>.")
 
 
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
@@ -898,7 +898,7 @@
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>Try as you might, you can't figure out how to deconstruct this.</span>")
+		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct this."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -912,8 +912,10 @@
 	add_fingerprint(user)
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
-	user.visible_message("<span class='warning'>[user] kicks [src].</span>", \
-							 "<span class='danger'>You kick [src].</span>")
+	user.visible_message(
+		span_warning("[user] kicks [src]."),
+		span_danger("You kick [src].")
+	)
 	take_damage(rand(4,8), BRUTE, "melee", 1)
 
 /obj/structure/rack/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -1030,13 +1032,15 @@
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, "<span class='notice'>You start constructing a gun rack...</span>")
+	to_chat(user, span_notice("You start constructing a gun rack..."))
 	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
-		user.visible_message("<span class='notice'>[user] assembles \a [GR].\
-			</span>", "<span class='notice'>You assemble \a [GR].</span>")
+		user.visible_message(
+			span_notice("[user] assembles \a [GR]."),
+			span_notice("You assemble \a [GR].")
+		)
 		GR.add_fingerprint(user)
 		qdel(src)
 	building = FALSE
@@ -1076,13 +1080,13 @@
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, "<span class='notice'>You start constructing a rack...</span>")
+	to_chat(user, span_notice("You start constructing a rack..."))
 	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
-		user.visible_message("<span class='notice'>[user] assembles \a [R].\
-			</span>", "<span class='notice'>You assemble \a [R].</span>")
+		user.visible_message(span_notice("[user] assembles \a [R].\
+			"), span_notice("You assemble \a [R]."))
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE

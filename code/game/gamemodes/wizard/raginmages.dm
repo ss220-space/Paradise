@@ -19,7 +19,7 @@
 /datum/game_mode/wizard/raginmages/greet_wizard(var/datum/mind/wizard, var/you_are=1)
 	var/list/messages = list()
 	if(you_are)
-		messages.Add("<span class='danger'>You are the Space Wizard!</span>")
+		messages.Add(span_danger("You are the Space Wizard!"))
 	messages.Add("<b>The Space Wizards Federation has given you the following tasks:</b>")
 	messages.Add("<b>Supreme Objective</b>: Make sure the station pays for its actions against our diplomats. We might send more Wizards to the station if the situation is not developing in our favour.")
 	messages.Add(wizard.prepare_announce_objectives(title = FALSE))
@@ -39,34 +39,34 @@
 			continue
 		if(!iscarbon(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was transformed in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(isbrain(wizard.current))
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] was brainified in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==DEAD)
 			if(istype(get_area(wizard.current), /area/wizard_station)) // We don't want people camping other wizards
-				to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+				to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 				message_admins("[wizard.current] died in the wizard lair, another wizard is likely camping")
 				end_squabble(get_area(wizard.current))
 			continue
 		if(wizard.current.stat==UNCONSCIOUS)
 			if(wizard.current.health < 0)
 				if(istype(get_area(wizard.current), /area/wizard_station))
-					to_chat(wizard.current, "<span class='warning'>If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums</span>")
+					to_chat(wizard.current, span_warning("If there aren't any admins on and another wizard is camping you in the wizard lair, report them on the forums"))
 					message_admins("[wizard.current] went into crit in the wizard lair, another wizard is likely camping")
 					end_squabble(get_area(wizard.current))
 				else
-					to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+					to_chat(wizard.current, span_warning("<font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"))
 					wizard.current.gib() // *REAL* ACTION!! *REAL* DRAMA!! *REAL* BLOODSHED!!
 			continue
 		if(wizard.current.client && wizard.current.client.is_afk() > 10 * 60 * 10) // 10 minutes
-			to_chat(wizard.current, "<span class='warning'><font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font></span>")
+			to_chat(wizard.current, span_warning("<font size='4'>The Space Wizard Federation is upset with your performance and have terminated your employment.</font>"))
 			wizard.current.gib() // Let's keep the round moving
 			continue
 		if(!wizard.current.client)
@@ -100,7 +100,7 @@
 			marked_for_death |= M.current
 	for(var/mob/living/L in marked_for_death)
 		if(L.stat == CONSCIOUS) // Probably a troublemaker - I'd like to see YOU fight when unconscious
-			to_chat(L, "<span class='userdanger'>STOP FIGHTING.</span>")
+			to_chat(L, span_userdanger("STOP FIGHTING."))
 		L.ghostize()
 		if(isbrain(L))
 			// diediedie
@@ -157,5 +157,5 @@
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
 		SSticker.mode_result = "raging wizard loss - wizard killed"
-		to_chat(world, "<span class='warning'><span style='font-size: 3;'><b> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b></span></span>")
+		to_chat(world, span_warning(span_fontsize3("<b> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b>")))
 	..(1)

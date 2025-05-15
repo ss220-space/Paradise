@@ -23,7 +23,7 @@
 	var/list/validSurfaces = list(/turf/simulated/floor)
 
 /obj/item/toy/crayon/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is jamming the [name] up [user.p_their()] nose and into [user.p_their()] brain. It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS|OXYLOSS
 
 /obj/item/toy/crayon/Initialize(mapload)
@@ -86,16 +86,16 @@
 			temp = "letter"
 		else if(graffiti.Find(drawtype))
 			temp = "graffiti"
-		to_chat(user, "<span class='info'>You start drawing a [temp] on the [target.name].</span>")
+		to_chat(user, span_info("You start drawing a [temp] on the [target.name]."))
 		busy = TRUE
 		if(instant || do_after(user, 5 SECONDS * toolspeed, target, category = DA_CAT_TOOL))
 			var/obj/effect/decal/cleanable/crayon/C = new /obj/effect/decal/cleanable/crayon(target,colour,drawtype,temp)
 			C.add_hiddenprint(user)
-			to_chat(user, "<span class='info'>You finish drawing [temp].</span>")
+			to_chat(user, span_info("You finish drawing [temp]."))
 			if(uses)
 				uses--
 				if(!uses)
-					to_chat(user, "<span class='danger'>You used up your [name]!</span>")
+					to_chat(user, span_danger("You used up your [name]!"))
 					qdel(src)
 		busy = FALSE
 
@@ -299,7 +299,7 @@
 	var/choice = input(user,"Spraycan options") in list("Toggle Cap","Change Drawing","Change Color")
 	switch(choice)
 		if("Toggle Cap")
-			to_chat(user, "<span class='notice'>You [capped ? "Remove" : "Replace"] the cap of the [src]</span>")
+			to_chat(user, span_notice("You [capped ? "Remove" : "Replace"] the cap of the [src]"))
 			capped = !capped
 			update_icon()
 		if("Change Drawing")
@@ -321,7 +321,7 @@
 			if(uses-10 > 0)
 				uses = uses - 10
 				var/mob/living/carbon/human/C = target
-				user.visible_message("<span class='danger'> [user] sprays [src] into the face of [target]!</span>")
+				user.visible_message(span_danger(" [user] sprays [src] into the face of [target]!"))
 				if(C.client)
 					C.EyeBlurry(6 SECONDS)
 					C.EyeBlind(2 SECONDS)

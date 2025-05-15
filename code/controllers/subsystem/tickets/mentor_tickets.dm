@@ -21,7 +21,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 
 /datum/controller/subsystem/tickets/mentor_tickets/Initialize()
 	close_messages = list("<font color='red' size='3'><b>- [ticket_name] Закрыт -</b></font>",
-				"<span class='boldmessage'>Пожалуйста, постарайтесь быть как можно более описательными в тикетах. Менторы не знают всей ситуации, в которой вы находитесь, и нуждаются в дополнительной информации, чтобы дать вам полезный ответ.</span>",
+				span_boldmessage("Пожалуйста, постарайтесь быть как можно более описательными в тикетах. Менторы не знают всей ситуации, в которой вы находитесь, и нуждаются в дополнительной информации, чтобы дать вам полезный ответ."),
 				"<span class='[span_class]'>Ваш [ticket_name] теперь закрыт.</span>")
 	return ..()
 
