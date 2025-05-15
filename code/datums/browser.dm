@@ -134,7 +134,7 @@
 	var/client/client = isclient(user)? user : user.client
 	if (width && height)
 		window_size = ""
-		if(width && height && client.window_scaling &&(client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
+		if(width && height && client?.window_scaling &&(client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE))
 			var/scaling = client.window_scaling
 			window_size = "size=[width * scaling]x[height * scaling];"
 		else
