@@ -172,3 +172,4 @@
 // Font size spans
 #define span_fontsize3(str) ("<span style='font-size: 3;'>" + str + "</span>")
 #define span_fontsize4(str) ("<span style='font-size: 4;'>" + str + "</span>")
+#define span_fontsize5(str) ("<span style='font-size: 5;'>" + str + "</span>")

@@ -464,11 +464,10 @@
 	icon = 'icons/obj/death_book.dmi'
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/attack(mob/living/carbon/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
-		. = ..()
-	else
+	if(!do_after(user, 5 SECONDS, target, DEFAULT_DOAFTER_IGNORE))
 		balloon_alert(user, "не двигайся!")
 		return ATTACK_CHAIN_PROCEED
+	. = ..()
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror
 	name = "Зловещий зеленый инъектор"
