@@ -60,7 +60,7 @@
 	return ..()
 
 /datum/reagent/terror_eggs
-	name = "Яица ужаса"
+	name = "Яйца ужаса"
 	id = "terror_eggs"
 	description = "Да поможет вам Бог."
 	color = "#6b336b"
