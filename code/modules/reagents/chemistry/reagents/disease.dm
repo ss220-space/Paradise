@@ -62,7 +62,7 @@
 /datum/reagent/terror_eggs
 	name = "Яица ужаса"
 	id = "terror_eggs"
-	description = "Да поможет вам бог."
+	description = "Да поможет вам Бог."
 	color = "#6b336b"
 	can_synth = FALSE
 	taste_mult = 0
