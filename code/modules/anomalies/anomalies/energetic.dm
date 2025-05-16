@@ -35,8 +35,10 @@
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
 		jump_to_machinery(collapse_shock_damage * 2)
 		do_shock_ex(collapse_shock_range, collapse_shock_damage, TRUE)
+		explosion(loc, -1, -1, -1, tier)
 		sleep(0.2 SECONDS)
 
+	explosion(loc, max(-1, tier - 2), max(-1, tier - 1), max(-1, tier), tier + 2)
 	if(tier < 3)
 		QDEL_LIST(eballs)
 		return ..()

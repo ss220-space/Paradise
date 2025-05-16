@@ -9,13 +9,14 @@
 	var/grav_change_time_high = 0
 
 /obj/effect/anomaly/gravitational/collapse()
-	for(var/i = 1 to max(2, rand(tier, tier * 2)))
+	for(var/i = 1 to max(2, rand(tier * 2, tier * 3)))
 		addtimer(CALLBACK(src, PROC_REF(collapse_throws), 0.2 SECONDS))
 
+	explosion(loc, max(-1, tier - 2), max(-1, tier - 1), max(-1, tier), tier + 2)
 	. = ..()
 
 /obj/effect/anomaly/gravitational/proc/collapse_throws()
-	for(var/atom/movable/A in view(tier * 2, src))
+	for(var/atom/movable/A in view(tier * 3, src))
 		if(!can_move_sth(A))
 			continue
 
