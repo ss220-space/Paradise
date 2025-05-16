@@ -471,7 +471,7 @@
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/eggs_terror
 	name = "Зловещий зеленый инъектор"
-	desc = "Содержит в себе яица настоящего ужаса готового сокрушить станцию."
+	desc = "Содержит в себе яйца настоящего ужаса готового сокрушить станцию."
 	icon_state = "spider-injector"
 	list_reagents = list("terror_eggs" = 10)
 	ru_names = list(
