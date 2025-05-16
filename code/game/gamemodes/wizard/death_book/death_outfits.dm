@@ -1,7 +1,7 @@
 /datum/outfit/radial_outfit
 	var/icon/icon_outfit = null
 	var/icon_state = ""
-	var/descr = "Если вы видите это значит что-то пошло не так"
+	var/descr = "Если вы видите это, значит, что-то пошло не так."
 
 /datum/outfit/radial_outfit/proc/get_image()
 	return image(icon = icon_outfit, icon_state = icon_state)
