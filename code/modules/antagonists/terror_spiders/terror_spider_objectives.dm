@@ -20,7 +20,7 @@
 	if(!length(possible_spiders))
 		explanation_text = "Вы остались без стаи и единой цели. Но вы знаете что вы созданы убивать и сеять хаос."
 	else
-		explanation_text = "Помогите вашему гнезду отложить яйцо Императрицы Ужаса. Это могут сделать: [possible_spiders.Join(", ")]. Защищайте их и помогите им набрать силу, чтобы они могли отложить яйцо."
+		explanation_text = "Помогите вашему гнезду отложить яйцо Императрицы Ужаса. Это могут сделать: [possible_spiders.Join(", ")]. Защищайте их и помогите им набрать силу, чтобы они смогли это сделать."
 
 /datum/objective/spider_protect/check_completion(datum/team/terror_spiders/spider_team)
 	. = ..()
