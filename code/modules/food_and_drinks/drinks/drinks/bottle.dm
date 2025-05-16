@@ -105,13 +105,13 @@
 	//Display an attack message.
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] бутылкой [name.declent_ru(INSTRUMENTAL)]!"),
-			span_userdanger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] бутылкой [name.declent_ru(INSTRUMENTAL)]!"),
+			span_danger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] бутылкой [declent_ru(INSTRUMENTAL)]!"),
+			span_userdanger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] бутылкой [declent_ru(INSTRUMENTAL)]!"),
 		)
 	else
 		user.visible_message(
-			span_danger("[target] ударил[genderize_ru(target.gender,"","а","о","и")] себя [name.declent_ru(INSTRUMENTAL)][head_attack_message]!"),
-			span_userdanger("[target] ударил[genderize_ru(target.gender,"","а","о","и")] себя [name.declent_ru(INSTRUMENTAL)][head_attack_message]!"),
+			span_danger("[target] ударил[genderize_ru(target.gender,"","а","о","и")] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
+			span_userdanger("[target] ударил[genderize_ru(target.gender,"","а","о","и")] себя [declent_ru(INSTRUMENTAL)][head_attack_message]!"),
 		)
 
 	//Attack logs
@@ -722,7 +722,7 @@
 
 	add_fingerprint(user)
 	if(active)
-		to_chat(user, span_warning("[capitalize(name.declent_ru(NOMINATIVE))] уже горит."))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] уже горит."))
 		return .
 	. |= ATTACK_CHAIN_SUCCESS
 	active = TRUE
