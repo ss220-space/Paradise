@@ -15,7 +15,7 @@
 	calc_used_slots = TRUE
 	var/cooldown = 10 MINUTES
 	var/time_action = 3 MINUTES
-	var/message_to_chat = "Ты не должен это видеть! Кодер ишшуй"
+	var/message_to_chat = "Вы не должны этого видеть! Кодер ишшуй."
 	var/force_unequip_slots = 0
 
 /datum/outfit/radial_outfit/death_book/executioner
