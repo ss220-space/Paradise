@@ -1296,6 +1296,7 @@
 /datum/construction/reversible/mecha/phazon/after_spawn_result(atom/A)
 	var/obj/mecha/phazon = A
 	phazon.phase_modifier = core.get_strenght() / 150
+	core.forceMove(A)
 
 /datum/construction/reversible/mecha/phazon/custom_action(index, diff, atom/used_atom, mob/user)
 	if(!..())
