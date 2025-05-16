@@ -605,14 +605,14 @@
 
 /obj/item/clothing/mask/gas/dalas_mask
     name = "Mask of Liberty"
-    desc = "Чертова дрель..."
+    desc = "ПРИКРОЙ СВОИ ЯЙЦА!"
     ru_names = list(
-        NOMINATIVE = "маска свободы",
-        GENITIVE = "маской свободы",
-        DATIVE = "маской свободы",
-        ACCUSATIVE = "маска свободы",
-        INSTRUMENTAL = "маской свободы",
-        PREPOSITIONAL = "маской свободы"
+        NOMINATIVE = "маска Свободы",
+        GENITIVE = "маской Свободы",
+        DATIVE = "маской Свободы",
+        ACCUSATIVE = "маска Свободы",
+        INSTRUMENTAL = "маской Свободы",
+        PREPOSITIONAL = "маской Свободы"
     )
     icon_state = "dalas_mask"
     item_state = "dalas_mask"
