@@ -55,7 +55,7 @@
 	. = ..()
 	if(in_range(user, src))
 		if(max_mod_capacity)
-			. += span_notice("Свободно <b>[get_remaining_mod_capacity()]%</b> хранилища для улучшений.")
+			. += span_notice("Свободно <b>[get_remaining_mod_capacity()]%</b> хранилища модулей.")
 			for(var/obj/item/borg/upgrade/modkit/MK in get_modkits())
 				. += span_notice("Установлен модуль '<b>[MK.declent_ru(NOMINATIVE)]</b>', занимающий <b>[MK.cost]%</b> хранилища.")
 
@@ -464,7 +464,7 @@
 // Range
 /obj/item/borg/upgrade/modkit/range
 	name = "range increase"
-	desc = "Повышает дальность выстрелов Кинетического Акселератора при установке."
+	desc = "Повышает дальность выстрелов кинетического акселератора."
 	ru_names = list(
         NOMINATIVE = "повышение дальности",
         GENITIVE = "повышения дальности",
@@ -489,7 +489,7 @@
 // Damage
 /obj/item/borg/upgrade/modkit/damage
 	name = "damage increase"
-	desc = "Повышает урон выстрелов Кинетического Акселератора при установке."
+	desc = "Повышает урон выстрелов кинетического акселератора."
 	ru_names = list(
         NOMINATIVE = "повышение урона",
         GENITIVE = "повышения урона",
@@ -507,7 +507,7 @@
 
 
 /obj/item/borg/upgrade/modkit/damage/borg
-	desc = "Повышает урон выстрелов Кинетического Акселератора. Предназначен только для использования киборгами."
+	desc = "Повышает урон выстрелов кинетического акселератора. Предназначен только для использования киборгами."
 	compatibility = COMPATIBILITY_CYBORG
 
 
@@ -530,7 +530,7 @@
 
 /obj/item/borg/upgrade/modkit/cooldown/haste
 	name = "cooldown decrease"
-	desc = "Ускоряет перезарядку Кинетического Акселератора. Не предназначен для использования шахтоботами."
+	desc = "Ускоряет перезарядку кинетического акселератора. Не предназначен для использования шахтерскими дронами."
 	ru_names = list(
         NOMINATIVE = "ускорение перезарядки",
         GENITIVE = "ускорения перезарядки",
@@ -545,13 +545,13 @@
 
 
 /obj/item/borg/upgrade/modkit/cooldown/haste/borg
-	desc = "Ускоряет перезарядку Кинетического Акселератора. Предназначен только для использования киборгами."
+	desc = "Ускоряет перезарядку кинетического акселератора. Предназначен только для использования киборгами."
 	compatibility = COMPATIBILITY_CYBORG
 
 
 /obj/item/borg/upgrade/modkit/cooldown/haste/minebot
 	name = "minebot cooldown decrease"
-	desc = "Ускоряет перезарядку Кинетического Акселератора. Предназначен только для использования шахтоботами."
+	desc = "Ускоряет перезарядку кинетического акселератора. Предназначен только для использования шахтерскими дронами."
 	ru_names = list(
         NOMINATIVE = "ускорение перезарядки шахтобота",
         GENITIVE = "ускорения перезарядки шахтобота",
@@ -570,14 +570,14 @@
 
 /obj/item/borg/upgrade/modkit/cooldown/repeater
 	name = "rapid repeater"
-	desc = "Ускоряет перезарядку Акселератора в 4 раза при попадании в живую цель или породу, но продлевает её при промахе."
+	desc = "Ускоряет перезарядку акселератора в 4 раза при попадании в живую цель или породу, но продлевает её при промахе."
 	ru_names = list(
-        NOMINATIVE = "скорострельный повторитель",
-        GENITIVE = "скорострельного повторителя",
-        DATIVE = "скорострельному повторителю",
-        ACCUSATIVE = "скорострельный повторитель",
-        INSTRUMENTAL = "скорострельным повторителем",
-        PREPOSITIONAL = "скорострельном повторителе"
+        NOMINATIVE = "скоростной повторитель",
+        GENITIVE = "скоростного повторителя",
+        DATIVE = "скоростному повторителю",
+        ACCUSATIVE = "скоростной повторитель",
+        INSTRUMENTAL = "скоростным повторителем",
+        PREPOSITIONAL = "скоростном повторителе"
 	)
 	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/cooldown/repeater
@@ -650,46 +650,46 @@
 
 /obj/item/borg/upgrade/modkit/aoe/turfs
 	name = "mining explosion"
-	desc = "Causes the kinetic accelerator to destroy rock in an AoE."
+	desc = "Позволяет выстрелам акселератора уничтожать породу в радиусе 3х3 клетки."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "шахтёрский взрыв",
+        GENITIVE = "шахтёрского взрыва",
+        DATIVE = "шахтёрскому взрыву",
+        ACCUSATIVE = "шахтерский взрыв",
+        INSTRUMENTAL = "шахтерским взрывом",
+        PREPOSITIONAL = "шахтерском взрыве"
 	)
-	gender = 
+	gender = MALE
 	turf_aoe = TRUE
 
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/andmobs
 	name = "offensive mining explosion"
-	desc = "Causes the kinetic accelerator to destroy rock and damage mobs in an AoE."
+	desc = "Позволяет выстрелам акселератора уничтожать породу и ранить существ в радиусе 3х3 клетки."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "боевой шахтёрский взрыв",
+        GENITIVE = "боевого шахтёрского взрыва",
+        DATIVE = "боевому шахтёрскому взрыву",
+        ACCUSATIVE = "боевой шахтерский взрыв",
+        INSTRUMENTAL = "боевым шахтерским взрывом",
+        PREPOSITIONAL = "боевом шахтерском взрыве"
 	)
-	gender = 
+	gender = MALE
 	modifier = 0.25
 
 
 /obj/item/borg/upgrade/modkit/aoe/mobs
 	name = "offensive explosion"
-	desc = "Causes the kinetic accelerator to damage mobs in an AoE."
+	desc = "Позволяет выстрелам акселератора ранить существ в радиусе 3х3 клетки."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "боевой взрыв",
+        GENITIVE = "боевом взрыве",
+        DATIVE = "боевому взрыву",
+        ACCUSATIVE = "боевой взрыв",
+        INSTRUMENTAL = "боевым взрывом",
+        PREPOSITIONAL = "боевом взрыве"
 	)
-	gender = 
+	gender = MALE
 	modifier = 0.2
 
 /obj/item/borg/upgrade/modkit/aoe/turfs/borg
@@ -704,7 +704,7 @@
 // Minebot passthrough
 /obj/item/borg/upgrade/modkit/minebot_passthrough
 	name = "minebot passthrough"
-	desc = "Causes kinetic accelerator shots to pass through minebots."
+	desc = "Позволяет выстрелам кинетического акселератора проходить через шахтерских дронов насквозь, не нанося им урона."
 	ru_names = list(
         NOMINATIVE = "",
         GENITIVE = "",
@@ -720,16 +720,16 @@
 // Hardness
 /obj/item/borg/upgrade/modkit/hardness
 	name = "hardness increase"
-	desc = "Increases the maximum piercing power of a kinetic accelerator when installed."
+	desc = "Повышает пробивную способность кинетического акселератора, позволяя более эффективно уничтожать плотную породу."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "повышение плотности",
+        GENITIVE = "повышения плотности",
+        DATIVE = "повышению плотности",
+        ACCUSATIVE = "повышение плотности",
+        INSTRUMENTAL = "повышением плотности",
+        PREPOSITIONAL = "повышении плотности"
 	)
-	gender = 
+	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
 	cost = 30
 
@@ -745,9 +745,9 @@
 // Resonator Blasts
 /obj/item/borg/upgrade/modkit/resonator_blasts
 	name = "resonator blast"
-	desc = "Causes kinetic accelerator shots to leave and detonate resonator blasts."
+	desc = "Модифицирует выстрелы кинетического акселератора, позволяя им оставлять за собой и взрывать поля резонатора."
 	ru_names = list(
-        NOMINATIVE = "",
+        NOMINATIVE = "взрыв резонатора",
         GENITIVE = "",
         DATIVE = "",
         ACCUSATIVE = "",
@@ -775,7 +775,7 @@
 // Tendril-unique modules
 /obj/item/borg/upgrade/modkit/lifesteal
 	name = "lifesteal crystal"
-	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target. Only rated for humanoid use."
+	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target. Only rated for humanoid use. Позволяет выстрелам Акселератора л"
 	ru_names = list(
         NOMINATIVE = "",
         GENITIVE = "",
