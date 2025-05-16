@@ -5,14 +5,16 @@
 	icon_state = "close_death_book"
 	lefthand_file = 'icons/mob/inhands/death_book_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/death_book_rigthhand.dmi'
-	
-	var/list/outfits = list(
-		/datum/outfit/radial_outfit/death_book/executioner,
-		/datum/outfit/radial_outfit/death_book/bandit,
-		/datum/outfit/radial_outfit/death_book/killer,
-		/datum/outfit/radial_outfit/death_book/crusher,
-		/datum/outfit/radial_outfit/death_book/plague_inc
+
+	ru_names = list(
+		NOMINATIVE = "летопись вашей погибели",
+		GENITIVE = "летописи вашей погибели",
+		DATIVE = "летописе вашей погибели",
+		ACCUSATIVE = "летопись вашей погибели",
+		INSTRUMENTAL = "летописью вашей погибели",
+		PREPOSITIONAL = "летописе вашей погибели",
 	)
+
 	var/cooldown = FALSE
 	var/datum/dynamic_outfit/temp_outfit_storage = null
 
@@ -46,11 +48,12 @@
 		flick("close_death_book", src)
 		to_chat(user, span_info("Вам не хватает терпения и вы перестаете читать!"))
 	qdel(choise)
+	
 		
 /obj/item/death_book/proc/radial_menu(mob/living/carbon/user)
 	var/list/radial_look = list()
 	var/list/desc_to_outfit = list()
-	for(var/prom_outfit in outfits)
+	for(var/prom_outfit in subtypesof(/datum/outfit/radial_outfit))
 		var/datum/outfit/radial_outfit/death_book/prom_obj = new prom_outfit()
 		if(prom_obj.can_choise(user))
 			desc_to_outfit[prom_obj.descr] = prom_obj
