@@ -608,11 +608,11 @@
     desc = "ПРИКРОЙ СВОИ ЯЙЦА!"
     ru_names = list(
         NOMINATIVE = "маска Свободы",
-        GENITIVE = "маской Свободы",
-        DATIVE = "маской Свободы",
-        ACCUSATIVE = "маска Свободы",
+        GENITIVE = "маски Свободы",
+        DATIVE = "маске Свободы",
+        ACCUSATIVE = "маску Свободы",
         INSTRUMENTAL = "маской Свободы",
-        PREPOSITIONAL = "маской Свободы"
+        PREPOSITIONAL = "маске Свободы"
     )
     icon_state = "dalas_mask"
     item_state = "dalas_mask"
