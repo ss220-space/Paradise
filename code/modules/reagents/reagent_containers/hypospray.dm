@@ -475,12 +475,12 @@
 	icon_state = "spider-injector"
 	list_reagents = list("terror_eggs" = 10)
 	ru_names = list(
-		NOMINATIVE = "зловещий зеленый инъектор",
-		GENITIVE = "зловещего зеленого инъектора",
-		DATIVE = "зловещему зеленому инъектору",
-		ACCUSATIVE = "зловещий зеленый инъектор",
-		INSTRUMENTAL = "зловещим зеленым инъектором",
-		PREPOSITIONAL = "зловещем зеленом инъекторе"
+		NOMINATIVE = "зловещий зелёный инъектор",
+		GENITIVE = "зловещего зелёного инъектора",
+		DATIVE = "зловещему зелёному инъектору",
+		ACCUSATIVE = "зловещий зелёный инъектор",
+		INSTRUMENTAL = "зловещим зелёным инъектором",
+		PREPOSITIONAL = "зловещем зелёном инъекторе"
 	)
 
 /obj/item/reagent_containers/hypospray/autoinjector/death_book/xeno
