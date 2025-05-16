@@ -48,7 +48,7 @@
 		return ..()
 
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_warning("Вы же не хотите навредить [target]!"))
+		to_chat(user, span_warning("Вы не хотите навредить [target]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	. = ATTACK_CHAIN_BLOCKED_ALL
@@ -105,8 +105,8 @@
 	//Display an attack message.
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] бутылкой [declent_ru(INSTRUMENTAL)]!"),
-			span_userdanger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] бутылкой [declent_ru(INSTRUMENTAL)]!"),
+			span_danger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
+			span_userdanger("[user] ударил[genderize_ru(user.gender,"","а","о","и")] [target][head_attack_message] [declent_ru(INSTRUMENTAL)]!"),
 		)
 	else
 		user.visible_message(
@@ -126,7 +126,7 @@
 
 /obj/item/reagent_containers/food/drinks/bottle/proc/SplashReagents(mob/M)
 	if(reagents && reagents.total_volume)
-		M.visible_message(span_danger("Содержимое [src.declent_ru(GENITIVE)] разбрызгивается по всему [M.declent_ru(DATIVE)]!"))
+		M.visible_message(span_danger("Содержимое [src.declent_ru(GENITIVE)] разбрызгивается по [M.declent_ru(PREPOSITIONAL)]!"))
 		reagents.reaction(M, REAGENT_TOUCH)
 		reagents.clear_reagents()
 
@@ -730,8 +730,8 @@
 	message_admins("[ADMIN_LOOKUP(user)] has primed a [name] for detonation at [ADMIN_COORDJMP(bombturf)].")
 	add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)].", user)
 	user.visible_message(
-		span_danger("[user] поджигает [src.declent_ru(GENITIVE)]!"),
-		span_notice("Вы поджигаете [src.declent_ru(GENITIVE)]."),
+		span_danger("[user] поджигает [src.declent_ru(ACCUSATIVE)]!"),
+		span_notice("Вы поджигаете [src.declent_ru(ACCUSATIVE)]."),
 	)
 	add_overlay(GLOB.fire_overlay)
 	if(!isGlass)
@@ -756,8 +756,8 @@
 /obj/item/reagent_containers/food/drinks/bottle/molotov/attack_self(mob/user)
 	if(active)
 		if(!isGlass)
-			to_chat(user, span_danger("Пламя распространилось слишком далеко!"))
+			to_chat(user, span_danger("Пламя распространилось уже слишком далеко!"))
 			return
-		to_chat(user, span_info("Вы гасите пламя на [src.declent_ru(PREPOSITIONAL)]."))
+		to_chat(user, span_info("Вы гасите пламя у [src.declent_ru(GENITIVE)]."))
 		active = FALSE
 		update_icon(UPDATE_OVERLAYS)
