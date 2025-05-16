@@ -21,7 +21,7 @@
 /datum/outfit/radial_outfit/death_book/executioner
 	name = "Палач"
 	icon_state = "executioner"
-	message_to_chat = "Вы читаете главу о кровавой распре, и это пробуждает в вас жажду крови... "
+	message_to_chat = "Вы читаете историю о кровавой распре, и это пробуждает в вас жажду крови... "
 	descr = "Позволяет быстро вступить в ближний бой с врагом и так же быстро его завершить, используя костяное оружие и артефактный крюк."
 	
 	head = /obj/item/clothing/head/helmet/skull
