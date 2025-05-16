@@ -1824,4 +1824,4 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 /datum/objective/xeno_genocide
 	name = "Геноцид разумной жизни"
 	needs_target = FALSE
-	explanation_text = "Убивайте всех кто не является ксеноморфом. Утопите станцию в крови."
+	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"
