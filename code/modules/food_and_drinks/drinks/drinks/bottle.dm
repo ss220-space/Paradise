@@ -656,7 +656,7 @@
 /obj/item/reagent_containers/food/drinks/bottle/molotov
 	name = "molotov cocktail"
 	desc = "Бутылка с зажигательной смесью. Обязательный элемент экипировки любого бунтаря или революционера. Поджигайте и бросайте."
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "коктейль Молотова",
 		GENITIVE = "коктейля Молотова",
 		DATIVE = "коктейлю Молотова",
