@@ -54,7 +54,7 @@
 	if(!cur_strenght)
 		cur_strenght = strenght
 
-	return (tier * 50 + cur_strenght / 2) / 1000
+	return (tier * 50 + cur_strenght / 2) / 100
 
 /obj/effect/anomaly/proc/init_animation()
 	matr.Scale(0.1, 0.1)
