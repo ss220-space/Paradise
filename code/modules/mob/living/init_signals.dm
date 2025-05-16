@@ -70,12 +70,14 @@
 /mob/living/proc/on_fakedeath_trait_gain(datum/source)
 	SIGNAL_HANDLER
 	ADD_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
+	apply_status_effect(STATUS_EFFECT_REVIVABLE)
 
 
 /// Called when [TRAIT_FAKEDEATH] is removed from the mob.
 /mob/living/proc/on_fakedeath_trait_loss(datum/source)
 	SIGNAL_HANDLER
 	REMOVE_TRAIT(src, TRAIT_KNOCKEDOUT, TRAIT_FAKEDEATH)
+	remove_status_effect(STATUS_EFFECT_REVIVABLE)
 
 
 /// Called when [TRAIT_IMMOBILIZED] is added to the mob.

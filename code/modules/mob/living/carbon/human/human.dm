@@ -538,7 +538,7 @@
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
 									found_record = 1
 									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-										to_chat(usr, "<span class='warning'>Unable to modify the sec status of a person with an active Execution order. Use a security computer instead.</span>")
+										to_chat(usr, span_warning("Unable to modify the sec status of a person with an active Execution order. Use a security computer instead."))
 									else
 										var/rank
 										if(ishuman(usr))
@@ -555,7 +555,7 @@
 							break // Git out of the general records
 
 			if(!found_record)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -579,7 +579,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -598,12 +598,12 @@
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
-									to_chat(usr, "<span class='warning'>No comments found</span>")
+									to_chat(usr, span_warning("No comments found"))
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 									to_chat(usr, "<a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["secrecordadd"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -638,7 +638,7 @@
 										sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -663,7 +663,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -682,11 +682,11 @@
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
-									to_chat(usr, "<span class='warning'>No comment found</span>")
+									to_chat(usr, span_warning("No comment found"))
 								to_chat(usr, "<a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>")
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Unable to locate a data core entry for this person.</span>")
+				to_chat(usr, span_warning("Unable to locate a data core entry for this person."))
 
 	if(href_list["medrecordadd"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -710,7 +710,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, "<span class='deptradio'>Employment records: [skills]</span>\n")
+					to_chat(usr, span_deptradio("Employment records: [skills]\n"))
 
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
@@ -779,7 +779,7 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("<span class='warning'>[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
+		visible_message(span_warning("[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky."), span_notice("You begin to play a spooky refrain on your ribcage."), span_warning("You hear a spooky xylophone melody."))
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -813,7 +813,7 @@
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == BODY_ZONE_HEAD ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
-		to_chat(user, "<span class='alert'>[fail_msg]</span>")
+		to_chat(user, span_alert("[fail_msg]"))
 
 
 /mob/living/carbon/human/check_obscured_slots(check_transparent)
@@ -961,16 +961,16 @@
 	if(usr == src)
 		self = 1
 	if(!self)
-		usr.visible_message("<span class='notice'>[usr] kneels down, puts [usr.p_their()] hand on [src]'s wrist and begins counting [p_their()] pulse.</span>",\
+		usr.visible_message(span_notice("[usr] kneels down, puts [usr.p_their()] hand on [src]'s wrist and begins counting [p_their()] pulse."),\
 		"You begin counting [src]'s pulse")
 	else
-		usr.visible_message("<span class='notice'>[usr] begins counting [p_their()] pulse.</span>",\
+		usr.visible_message(span_notice("[usr] begins counting [p_their()] pulse."),\
 		"You begin counting your pulse.")
 
 	if(src.pulse)
-		to_chat(usr, "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>")
+		to_chat(usr, span_notice("[self ? "You have a" : "[src] has a"] pulse! Counting..."))
 	else
-		to_chat(usr, "<span class='warning'>[src] has no pulse!</span>")//it is REALLY UNLIKELY that a dead person would check his own pulse
+		to_chat(usr, span_warning("[src] has no pulse!"))//it is REALLY UNLIKELY that a dead person would check his own pulse
 
 		return
 
@@ -980,7 +980,7 @@
 	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
 		to_chat(usr, "You moved while counting. Try again.")
 	else
-		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
+		to_chat(usr, span_notice("[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."))
 
 
 /**
@@ -1272,18 +1272,18 @@
 	if(usr != src)
 		return 0 //something is terribly wrong
 	if(incapacitated())
-		to_chat(src, "<span class='warning'>You can't write on the floor in your current state!</span>")
+		to_chat(src, span_warning("You can't write on the floor in your current state!"))
 		return
 	if(!bloody_hands)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
-		to_chat(src, "<span class='warning'>[gloves] are preventing you from writing anything down!</span>")
+		to_chat(src, span_warning("[gloves] are preventing you from writing anything down!"))
 		return
 
 	var/turf/simulated/T = loc
 	if(!istype(T)) //to prevent doodling out of mechs and lockers
-		to_chat(src, "<span class='warning'>You cannot reach the floor.</span>")
+		to_chat(src, span_warning("You cannot reach the floor."))
 		return
 
 	var/turf/origin = T
@@ -1291,21 +1291,21 @@
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
-		to_chat(src, "<span class='warning'>You cannot doodle there.</span>")
+		to_chat(src, span_warning("You cannot doodle there."))
 		return
 
 	var/num_doodles = 0
 	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
 	if(num_doodles > 4)
-		to_chat(src, "<span class='warning'>There is no space to write on!</span>")
+		to_chat(src, span_warning("There is no space to write on!"))
 		return
 
 	var/max_length = bloody_hands * 30 //tweeter style
 
 	var/message = tgui_input_text(src, "Write a message. It cannot be longer than [max_length] characters.", "Blood writing", max_length = max_length)
 	if(origin != loc)
-		to_chat(src, "<span class='notice'>Stay still while writing!</span>")
+		to_chat(src, span_notice("Stay still while writing!"))
 		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
@@ -1313,9 +1313,9 @@
 
 		if(length(message) > max_length)
 			message += "-"
-			to_chat(src, "<span class='warning'>You ran out of blood to write with!</span>")
+			to_chat(src, span_warning("You ran out of blood to write with!"))
 		else
-			to_chat(src, "<span class='notice'>You daub '[message]' on [T] in shiny red lettering.</span>")
+			to_chat(src, span_notice("You daub '[message]' on [T] in shiny red lettering."))
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
 		W.message = message
 		W.add_fingerprint(src)
@@ -1451,7 +1451,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		for(var/obj/item/hand in handlist)
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand))
 				step_towards(hand, src)
-				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
+				to_chat(src, span_warning("\The [S] pulls \the [hand] from your grip!"))
 	apply_effect(current_size * 3, IRRADIATE)
 
 /mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
@@ -1469,8 +1469,9 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 #define CPR_CHEST_COMPRESSION_ONLY	0.75
 #define CPR_RESCUE_BREATHS			1
-#define CPR_CHEST_COMPRESSION_RESTORATION (2 SECONDS)
-#define CPR_BREATHS_RESTORATION (4 SECONDS)
+#define CPR_START_HEART_CHANCE		25
+#define CPR_CHEST_COMPRESSION_RESTORATION (1 SECONDS)
+#define CPR_BREATHS_RESTORATION (3 SECONDS)
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 
@@ -1485,16 +1486,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	)
 
 	if(H == src)
-		to_chat(src, "<span class='warning'>You cannot perform CPR on yourself!</span>")
+		to_chat(src, span_warning("You cannot perform CPR on yourself!"))
 		return
 	if(!isnull(H.receiving_cpr_from)) // To prevent spam stacking
-		to_chat(src, "<span class='warning'>They are already receiving CPR!</span>")
+		to_chat(src, span_warning("They are already receiving CPR!"))
 		return
-	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) || !has_both_hands())
-		to_chat(src, "<span class='warning'>You need two hands available to do CPR!</span>")
+	if(HAS_TRAIT(src, TRAIT_HANDS_BLOCKED) || !has_both_hands() || pulling && pull_hand != PULL_WITHOUT_HANDS)
+		to_chat(src, span_warning("You need two hands available to do CPR!"))
 		return
 	if(l_hand || r_hand)
-		to_chat(src, "<span class='warning'>You can't perform effective CPR with your hands full!</span>")
+		to_chat(src, span_warning("You can't perform effective CPR with your hands full!"))
 		return
 
 	H.receiving_cpr_from = UID()
@@ -1502,8 +1503,8 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
 		if(ismachineperson(H) && do_after(src, 4 SECONDS, H, NONE))  // hehe
 			visible_message(
-				"<span class='warning'>[src] bangs [p_their()] head on [H]'s chassis by accident!</span>",
-				"<span class='danger'>You go in for a rescue breath, and bang your head on [H]'s <i>machine</i> chassis. CPR's not going to work.</span>"
+				span_warning("[src] bangs [p_their()] head on [H]'s chassis by accident!"),
+				span_danger("You go in for a rescue breath, and bang your head on [H]'s <i>machine</i> chassis. CPR's not going to work.")
 				)
 			playsound(H, 'sound/weapons/ringslam.ogg', 50, TRUE)
 			apply_damage(2, BRUTE, BODY_ZONE_HEAD)
@@ -1511,29 +1512,26 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return
 
 		if(!H.is_revivable())
-			to_chat(src, "<span class='warning'>[H] is already too far gone for CPR...</span>")
+			to_chat(src, span_warning("[H] is already too far gone for CPR..."))
 			H.receiving_cpr_from = null
 			return
 
-		visible_message("<span class='danger'>[src] is trying to perform CPR on [H]'s lifeless body!</span>", "<span class='danger'>You start trying to perform CPR on [H]'s lifeless body!</span>")
+		visible_message(span_danger("[src] is trying to perform CPR on [H]'s lifeless body!"), span_danger("You start trying to perform CPR on [H]'s lifeless body!"))
 		while(do_after(src, 4 SECONDS, H, NONE) && (H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH)) && H.is_revivable())
 			var/timer_restored
 			if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
-				visible_message("<span class='notice'>[src] gives [H] chest compressions.</span>", "<span class='notice'>You can't make rescue breaths work, so you do your best to give chest compressions.</span>")
+				visible_message(span_notice("[src] gives [H] chest compressions."), span_notice("You can't make rescue breaths work, so you do your best to give chest compressions."))
 				timer_restored = CPR_CHEST_COMPRESSION_RESTORATION  // without rescue breaths, it won't stave off the death timer forever
 			else
-				visible_message("<span class='notice'>[src] gives [H] chest compressions and rescue breaths.</span>", "<span class='notice'>You give [H] chest compressions and rescue breaths.</span>")
+				visible_message(span_notice("[src] gives [H] chest compressions and rescue breaths."), span_notice("You give [H] chest compressions and rescue breaths."))
 				timer_restored = CPR_BREATHS_RESTORATION  // this, however, should keep it indefinitely postponed assuming CPR continues
 
 			if(HAS_TRAIT(H, TRAIT_FAKEDEATH))
 				if(prob(25))
-					to_chat(H, "<span class='userdanger'>Your chest burns as you receive unnecessary CPR!</span>")
+					to_chat(H, span_userdanger("Your chest burns as you receive unnecessary CPR!"))
 				continue
 
-			// this is the amount of time that should get added onto the timer.
-			var/new_time = (timer_restored + H.get_cpr_timer_adjustment(cpr_modifier))
-
-			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, (new_time SECONDS))
+			SEND_SIGNAL(H, COMSIG_HUMAN_RECEIVE_CPR, timer_restored)
 
 			if(prob(5))
 				if(timer_restored >= CPR_BREATHS_RESTORATION)
@@ -1545,35 +1543,38 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 		if(!H.is_revivable())
-			to_chat(src, "<span class='notice'>You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now.</span>")
+			to_chat(src, span_notice("You feel [H]'s body is already starting to stiffen beneath you...it's too late for CPR now."))
 		else
-			visible_message("<span class='notice'>[src] stops giving [H] CPR.</span>", "<span class='notice'>You stop giving [H] CPR.</span>")
+			visible_message(span_notice("[src] stops giving [H] CPR."), span_notice("You stop giving [H] CPR."))
 
 		H.receiving_cpr_from = null
 		return
 
-	visible_message("<span class='danger'>[src] is trying to perform CPR on [H.name]!</span>", "<span class='danger'>You try to perform CPR on [H.name]!</span>")
+	visible_message(span_danger("[src] is trying to perform CPR on [H.name]!"), span_danger("You try to perform CPR on [H.name]!"))
+
 	if(cpr_modifier == CPR_CHEST_COMPRESSION_ONLY)
-		to_chat(src, "<span class='warning'>You can't get to [H]'s mouth, so your CPR will be less effective!</span>")
+		to_chat(src, span_warning("You can't get to [H]'s mouth, so your CPR will be less effective!"))
+
 	while(do_after(src, 4 SECONDS, H, NONE) && H.health <= HEALTH_THRESHOLD_CRIT)
 		H.adjustOxyLoss(-15 * cpr_modifier)
 		H.SetLoseBreath(0)
 		H.AdjustParalysis(-2 SECONDS)
 		H.updatehealth("cpr")
-		visible_message("<span class='danger'>[src] performs CPR on [H.name]!</span>", "<span class='notice'>You perform CPR on [H.name].</span>")
+		visible_message(span_danger("[src] performs CPR on [H.name]!"), span_notice("You perform CPR on [H.name]."))
 
-		if(prob(50))
+		if(prob(CPR_START_HEART_CHANCE))
 			set_heartattack(FALSE)
 
 		cpr_try_activate_bomb(H)
 
 		if(cpr_modifier == CPR_RESCUE_BREATHS)
-			to_chat(H, "<span class='notice'>You feel a breath of fresh air enter your lungs. It feels good.</span>")
+			to_chat(H, span_notice("You feel a breath of fresh air enter your lungs. It feels good."))
+
 		add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 
 	H.receiving_cpr_from = null
-	visible_message("<span class='notice'>[src] stops performing CPR on [H].</span>", "<span class='notice'>You stop performing CPR on [H].</span>")
-	to_chat(src, "<span class='danger'>You need to stay still while performing CPR!</span>")
+	visible_message(span_notice("[src] stops performing CPR on [H]."), span_notice("You stop performing CPR on [H]."))
+	to_chat(src, span_danger("You need to stay still while performing CPR!"))
 
 /mob/living/carbon/human/proc/get_cpr_mod(mob/living/carbon/human/H)
 	if(is_mouth_covered() || H.is_mouth_covered())
@@ -1584,28 +1585,16 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		return CPR_CHEST_COMPRESSION_ONLY
 
 	if(dna?.species.breathid != H.dna?.species.breathid)  // sorry non oxy-breathers
-		to_chat(src, "<span class='warning'>You don't think you'd be able to give [H] very effective rescue breaths...</span>")
+		to_chat(src, span_warning("You don't think you'd be able to give [H] very effective rescue breaths..."))
 		return CPR_CHEST_COMPRESSION_ONLY
 	return CPR_RESCUE_BREATHS
-
-/// Get the amount of time that this round of CPR should add to the death timer
-/mob/living/carbon/human/proc/get_cpr_timer_adjustment(cpr_mod)
-	var/time_since_original_death = round(world.time - timeofdeath) / 10
-	// this looks good on desmos I guess
-	// goal here is that you'll get some surplus time added regardless of method if you catch them early
-	var/adjustment_time = max(round(-60 * log((12 + time_since_original_death) / 240)), 0)
-	if(cpr_mod == CPR_CHEST_COMPRESSION_ONLY)
-		// you just won't get as much if you're late
-		adjustment_time /= 2
-
-	return adjustment_time
 
 /mob/living/carbon/human/proc/cpr_try_activate_bomb(mob/living/carbon/human/target)
 	var/obj/item/organ/external/chest/org = target.get_organ("chest")
 	if(istype(org) && istype(org.hidden, /obj/item/grenade))
 		var/obj/item/grenade/G = org.hidden
 		if(!G.active && prob(25))
-			to_chat(src, "<span class='notice'>You feel something <i>click</i> under your hands.</span>")
+			to_chat(src, span_notice("You feel something <i>click</i> under your hands."))
 			add_attack_logs(src, target, "activated an implanted grenade [G] in [target] with CPR.", ATKLOG_MOST)
 			playsound(target.loc, 'sound/weapons/armbomb.ogg', 60, TRUE)
 			G.active = TRUE
@@ -1613,6 +1602,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 #undef CPR_CHEST_COMPRESSION_ONLY
 #undef CPR_RESCUE_BREATHS
+#undef CPR_START_HEART_CHANCE
 #undef CPR_CHEST_COMPRESSION_RESTORATION
 #undef CPR_BREATHS_RESTORATION
 
@@ -1905,7 +1895,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/get_spooked()
-	to_chat(src, "<span class='whisper'>[pick(GLOB.boo_phrases)]</span>")
+	to_chat(src, span_whisper("[pick(GLOB.boo_phrases)]"))
 	return TRUE
 
 /mob/living/carbon/human/extinguish_light(force = FALSE)

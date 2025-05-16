@@ -417,6 +417,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	can_reenter_corpse = FALSE
 
 	if(!QDELETED(mind.current)) // Could change while they're choosing
+		mind.current.remove_status_effect(STATUS_EFFECT_REVIVABLE)
 		mind.current.med_hud_set_status()
 
 	SEND_SIGNAL(mind.current, COMSIG_LIVING_SET_DNR)

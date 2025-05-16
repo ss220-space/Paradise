@@ -913,7 +913,7 @@
 // Revivability
 
 /mob/living/proc/is_revivable()
-	return has_status_effect(/datum/status_effect/limited_bonus/revivable)
+	return has_status_effect(STATUS_EFFECT_REVIVABLE)
 
 
 ///Unignores all slowdowns that lack the IGNORE_NOSLOW flag.

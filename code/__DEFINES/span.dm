@@ -140,6 +140,7 @@
 #define span_adminticket(str) ("<span class='adminticket'>" + str + "</span>")
 #define span_error(str) ("<span class='error'>" + str + "</span>")
 #define span_gamesay(str) ("<span class='game say'>" + str + "</span>")
+#define span_whisper(str) ("<span class='whisper'>" + str + "</span>")
 #define span_wingdings(str) ("<span class='wingdings'>" + str + "</span>")
 #define span_disarm(str) ("<span class='disarm'>" + str + "</span>")
 #define span_heavybrass(str) ("<span class='heavy_brass'>" + str + "</span>")
