@@ -161,7 +161,7 @@
 		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
 	)
 	icon_state = "bluespace3"
-	core_type = /obj/item/assembly/signaler/core/bluespace/tier3
+	core_type = /obj/item/assembly/signaler/core/bluespace/tier3/tier4
 	weaker_anomaly_type = /obj/effect/anomaly/bluespace/tier3
 	tier = 4
 	impulses_types = list(

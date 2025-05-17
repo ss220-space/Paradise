@@ -31,10 +31,10 @@
 
 /datum/anomaly_gen_datum/proc/is_ok_in_range(turf/center, range)
 	if(!center)
-		return
+		return FALSE
 
 	for(var/turf/T in range(center, range))
-		if(!T.is_safe())
+		if(!issimulatedturf(T) || !T.is_safe())
 			return FALSE
 
 	return TRUE
