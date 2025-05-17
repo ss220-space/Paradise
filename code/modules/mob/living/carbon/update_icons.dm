@@ -177,14 +177,16 @@
 
 /mob/living/carbon/proc/update_observer_view(obj/item/worn_item, inventory)
 	for(var/mob/dead/observer/observe in inventory_observers)
-		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
-			if(observe.hud_used)
-				if(inventory && !observe.hud_used.inventory_shown)
-					continue
-				observe.client.screen += worn_item
-		else
+		if(!observe.client || observe.client.eye != src || !observe.do_observe_target != src)
 			LAZYREMOVE(inventory_observers, observe)
+			continue
 
+		if(!observe.hud_used)
+			continue
+
+		if(inventory && !observe.hud_used.inventory_shown)
+			continue
+		observe.client.screen += worn_item
 
 /mob/living/carbon/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()

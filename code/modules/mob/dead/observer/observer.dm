@@ -733,11 +733,12 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/proc/handle_when_autoobserve_sight_updated()
 	SIGNAL_HANDLER
 
-	if(orbiting && client)
-		sight = do_observe_target.sight
-		lighting_alpha = do_observe_target.lighting_alpha
-		update_sight()
+	if(!orbiting || !client)
+		return
 
+	sight = do_observe_target.sight
+	lighting_alpha = do_observe_target.lighting_alpha
+	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Toggle Ghost Vision"
