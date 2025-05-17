@@ -1,7 +1,7 @@
 /obj/item/gun/energy/anomaly_stabilizer
 	name = "стабилизатор аномалий"
 	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
-			Имеет два слота для ядер аномалий."
+			Имеет две ячейки для ядер аномалий."
 	ru_names = list(
 		NOMINATIVE = "стабилизатор аномалий", \
 		GENITIVE = "стабилизатора аномалий", \
@@ -103,7 +103,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(cores.len >= 2)
-		balloon_alert(user, "слоты для ядер заняты!")
+		balloon_alert(user, "ячейки для ядер заняты!")
 		return ATTACK_CHAIN_PROCEED
 
 

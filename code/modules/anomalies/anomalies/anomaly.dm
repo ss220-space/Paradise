@@ -113,7 +113,7 @@
 	return pick(GLOB.alldirs)
 
 /obj/effect/anomaly/attack_ghost(mob/dead/observer/user)
-	var/datum/browser/popup = new(user, "anomalyscanner", "Информация о аномалии", 500, 600)
+	var/datum/browser/popup = new(user, "anomalyscanner", "Информация об аномалии", 500, 600)
 	popup.set_content(span_highlight("[jointext(get_data(), "<br>")]"))
 	popup.open(no_focus = 1)
 

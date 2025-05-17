@@ -1,5 +1,5 @@
 /obj/item/gun/energy/bsg
-	name = "Б.С.П" // No \improper because it's russian name. "The Б.С.П." is worse than just "Б.С.П.".
+	name = "Б.С.П." // No \improper because it's russian name. "The Б.С.П." is worse than just "Б.С.П.".
 	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"
@@ -22,7 +22,7 @@
 	if(core && has_bluespace_crystal)
 		. += span_notice("[src] в рабочем состоянии!")
 	else if(core)
-		. += span_warning("Ядро энергетической аномалии присутствует, но не хватает БС кристалла.")
+		. += span_warning("Ядро энергетической аномалии вставлено, но не хватает БС кристалла.")
 	else if(has_bluespace_crystal)
 		. += span_warning("БС кристалл присутствует, но не хватает ядра энергетической аномалии.")
 	else

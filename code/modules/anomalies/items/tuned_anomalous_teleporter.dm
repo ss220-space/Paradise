@@ -65,7 +65,7 @@
 
 	if(!COOLDOWN_FINISHED(src, tuned_anomalous_teleporter_cooldown))
 		if(user)
-			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] все еще перезаряжается."))
+			to_chat(user, span_warning("[declent_ru(NOMINATIVE)] все ещё перезаряжается."))
 
 		return FALSE
 
