@@ -114,7 +114,6 @@
 		. += span_warning("В [declent_ru(PREPOSITIONAL)] нет ядра!")
 	else
 		. += span_info("В [declent_ru(PREPOSITIONAL)] есть ядро.")
-		. += span_info("Для настройки кликните пустой рукой.")
 
 	if(emp_timer > world.time)
 		. += span_warning("[declent_ru(NOMINATIVE)] выглядит неработающим.")

@@ -2,12 +2,12 @@
 /obj/item/twohanded/required/pyro_claws
 	name = "hardplasma energy claws"
 	ru_names = list(
-		NOMINATIVE = "энергокогти", \
-		GENITIVE = "энергокогтей", \
-		DATIVE = "энергокогтям", \
-		ACCUSATIVE = "энергокогти", \
-		INSTRUMENTAL = "энергокогтями", \
-		PREPOSITIONAL = "энергокогтях"
+		NOMINATIVE = "плазменные энергокогти", \
+		GENITIVE = "плазменных энергокогтей", \
+		DATIVE = "плазменным энергокогтям", \
+		ACCUSATIVE = "плазменные энергокогти", \
+		INSTRUMENTAL = "плазменными энергокогтями", \
+		PREPOSITIONAL = "плазменных энергокогтях"
 	)
 	desc = "Сила солнца в ваших когтях."
 	gender = PLURAL
@@ -55,21 +55,21 @@
 		return
 
 	if(A.arePowerSystemsOn())
-		user.visible_message(span_warning("[user] вставляет [declent_ru(NOMINATIVE)] в шлюз и начинает открывать его!"), \
+		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в шлюз и начина[pluralize_ru(user.gender,"ет","ют")] открывать его!"), \
 							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
 		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
 		if(!do_after(user, 2.5 SECONDS, A))
 			return
 
-	user.visible_message(span_warning("[user] силой открыл шлюз при помощи [declent_ru(GENITIVE)]!"), \
+	user.visible_message(span_warning("[user] силой открыл[genderize_ru(user.gender, "", "а", "о", "и")] шлюз при помощи [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы силой открыли шлюз."), \
 						span_warning("Вы слышите металлический скрежет."))
 	A.open(2)
 
 /obj/item/twohanded/required/pyro_claws/suicide_act(mob/living/user)
-	user.visible_message(span_suicide("[user] начинает пилить [declent_ru(NOMINATIVE)] друг об друга! \
-						Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[genderize_ru(user.gender, "е", "е", "е", "ю")]тся убить себя!"))
+	user.visible_message(span_suicide("[user] начина[pluralize_ru(user.gender,"ет","ют")] пилить [declent_ru(NOMINATIVE)] друг об друга! \
+						Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
 	user.adjust_fire_stacks(10)
 	user.IgniteMob()
 	return FIRELOSS
@@ -140,7 +140,7 @@
 	claws.block_chance = 100 * (1 - 0.5 / strenght_mult)
 	claws.toolspeed = 0.5 / strenght_mult
 
-	user.visible_message(span_warning("[user] со снопом искр выпуска[genderize_ru(user.gender, "е", "е", "е", "ю")]т [claws.declent_ru(NOMINATIVE)] из запястий!"), \
+	user.visible_message(span_warning("[user] со снопом искр выпуска[pluralize_ru(user.gender,"ет","ют")] [claws.declent_ru(NOMINATIVE)] из запястий!"), \
 						span_notice("Вы выпускаете [claws.declent_ru(NOMINATIVE)] из [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы слышите сноп искр!"))
 	user.put_in_hands(claws)
@@ -190,4 +190,4 @@
 	on_cooldown = FALSE
 	used = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
-	atom_say("Внутренние плазменные баллоны перезаряжены. Перчатки достаточно охлаждены.")
+	atom_say("Внутренние плазменные баллоны перезаряжены. Перчатки достаточно охлаждены.", FALSE)

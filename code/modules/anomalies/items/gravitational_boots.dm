@@ -43,7 +43,7 @@
 /obj/item/clothing/shoes/magboots/gravity/examine(mob/user)
 	. = ..()
 	if(core && cell)
-		. += span_notice("[declent_ru(NOMINATIVE)] полностью функциональны!")
+		. += span_notice("[declent_ru(NOMINATIVE)] в рабочем состоянии!")
 		. += span_notice("Ботинки заряжены на [round(cell.percent())]%.")
 		return
 
@@ -174,7 +174,7 @@
 		return
 
 	if(!silent)
-		to_chat(user, span_notice("Как только вы сняли [declent_ru(NOMINATIVE)] они автоматически деактивировались."))
+		to_chat(user, span_notice("Как только вы сняли [declent_ru(NOMINATIVE)], они автоматически деактивировались."))
 
 	toggle_magpulse(user, silent = TRUE)
 
@@ -239,8 +239,8 @@
 	if(!cell || !core)
 		return ..()
 
-	user.visible_message(span_suicide("[user] прижимает подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активирует. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[genderize_ru(user.gender, "е", "е", "е", "ю")]тся убить себя!"))
-	user.visible_message(span_suicide("[user] взрывается из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] прижима[pluralize_ru(user.gender,"ет","ют")] подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активиру[pluralize_ru(user.gender,"ет","ют")]. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]тся убить себя!"))
+	user.visible_message(span_suicide("[user] взрыва[pluralize_ru(user.gender,"ет","ют")]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()
