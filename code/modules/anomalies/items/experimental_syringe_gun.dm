@@ -156,10 +156,9 @@
 	if(!core || HAS_TRAIT(user, TRAIT_NO_BLOOD) || !istype(user))
 		return ..()
 
-	var/gend_letter = genderize_ru(gender, "е", "е", "е", "ю")
-	user.visible_message(span_suicide("[user] разреза[gend_letter]т свою руку и подключают систему автозаправки к \
+	user.visible_message(span_suicide("[user] разреза[pluralize_ru(user.gender,"ет","ют")] свою руку и подключают систему автозаправки к \
 									кровеносной системе! Выглядит будто он[genderize_ru(gender, "", "а", "о", "и")] \
-									птыа[genderize_ru(gender, "е", "е", "е", "ю")]тся убить себя!"))
+									пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
 	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
 	user.bleed(user.blood_volume)
 	return OXYLOSS | BRUTELOSS

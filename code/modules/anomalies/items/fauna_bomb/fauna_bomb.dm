@@ -148,8 +148,8 @@
 	. += span_info("Проецируется существ: [created_mobs.len != MAX_CREATED_MOBS ? created_mobs.len : span_boldnotice("[created_mobs.len]")]/[MAX_CREATED_MOBS]")
 
 /obj/item/fauna_bomb/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] направляет проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
-						выкручивает на максимальную мощность и активирует."), \
+	user.visible_message(span_suicide("[user] направля[pluralize_ru(user.gender,"ет","ют")] проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
+						выкручива[pluralize_ru(user.gender,"ет","ют")] на максимальную мощность и активиру[pluralize_ru(user.gender,"ет","ют")]."), \
 						span_suicide("Вы направляете проецирующую систему [declent_ru(GENITIVE)] себе в рот, \
 						выкручиваете на максимальную мощность и активируете."),
 						span_warning("Вы слышите громкий хлопок!"))

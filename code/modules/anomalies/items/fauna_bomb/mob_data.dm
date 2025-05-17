@@ -8,7 +8,7 @@
 	var/armor
 	var/response_help = "гладит"
 	var/response_disarm = "толкает"
-	var/response_harm = "бьет"
+	var/list/response_harm = list("бьёт", "атакует", "пинает")
 	var/harm_intent_damage = 10
 	var/melee_damage_lower = 10
 	var/melee_damage_upper = 10
@@ -31,11 +31,11 @@
 	icon = icon(initial(target.icon), initial(target.icon_state), SOUTH, 1, FALSE)
 	name = "воздушная проекция [target.declent_ru(GENITIVE)]"
 	ru_names = list(NOMINATIVE = "воздушная проекция [target.declent_ru(GENITIVE)]", \
-				GENITIVE = "воздушной проекции [target.declent_ru(GENITIVE)]", \
-				DATIVE = "воздушной проекции [target.declent_ru(GENITIVE)]", \
-				ACCUSATIVE = "воздушную проекцию [target.declent_ru(GENITIVE)]", \
-				INSTRUMENTAL = "воздушной проекцей [target.declent_ru(GENITIVE)]", \
-				PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]")
+					GENITIVE = "воздушной проекции [target.declent_ru(GENITIVE)]", \
+					DATIVE = "воздушной проекции [target.declent_ru(GENITIVE)]", \
+					ACCUSATIVE = "воздушную проекцию [target.declent_ru(GENITIVE)]", \
+					INSTRUMENTAL = "воздушной проекцей [target.declent_ru(GENITIVE)]", \
+					PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]")
 	desc = "Уплотненная смесь газов, принявшая форму [target.declent_ru(GENITIVE)]."
 	appearance = target.appearance
 	maxHealth = target.maxHealth
@@ -50,7 +50,7 @@
 		var/mob/living/simple_animal/SA = target
 		response_help = SA.response_help
 		response_disarm = SA.response_disarm
-		response_harm = SA.response_harm
+		response_harm = pick(SA.response_harm)
 		harm_intent_damage = SA.harm_intent_damage
 		if(SA.melee_damage_type == BRUTE)
 			melee_damage_lower = SA.melee_damage_lower

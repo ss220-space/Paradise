@@ -192,8 +192,7 @@ Ranges with core charge 50-100:
 	if(!can_teleport()) // Without massages.
 		return ..()
 
-	var/gend_letter = genderize_ru(gender, "е", "е", "е", "ю")
-	user.visible_message(span_suicide("[user] перенастраива[gend_letter]т [declent_ru(NOMINATIVE)] случайным образом и пыта[gend_letter]тся телепортироваться! Выглядит, будто он[genderize_ru(gender, "", "а", "о", "и")] хо[genderize_ru(gender, "чет", "чет", "чет", "тят")] убить себя!"))
+	user.visible_message(span_suicide("[user] перенастраива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] случайным образом и пыта[pluralize_ru(user.gender,"ет","ют")]ся телепортироваться! Выглядит, будто он[genderize_ru(gender, "", "а", "о", "и")] хо[genderize_ru(gender, "чет", "чет", "чет", "тят")] убить себя!"))
 	if(!do_after(user, 1 SECONDS, user))
 		return ..()
 
