@@ -156,7 +156,7 @@
 	if(!core || HAS_TRAIT(user, TRAIT_NO_BLOOD) || !istype(user))
 		return ..()
 
-	user.visible_message(span_suicide("[user] разреза[pluralize_ru(user.gender,"ет","ют")] свою руку и подключают систему автозаправки к \
+	user.visible_message(span_suicide("[user] разреза[pluralize_ru(user.gender,"ет","ют")] свою руку и подключа[pluralize_ru(user.gender,"ет","ют")] систему автозаправки к \
 									кровеносной системе! Выглядит будто он[genderize_ru(gender, "", "а", "о", "и")] \
 									пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
 	ready_reagents.reagents.trans_to(user, ready_reagents.reagents.total_volume)
