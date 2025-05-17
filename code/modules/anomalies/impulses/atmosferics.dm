@@ -89,10 +89,10 @@
 	range_high = 4
 
 /datum/anomaly_impulse/freese/tier4
-	period_low = 5 SECONDS
-	period_low = 15 SECONDS
-	range_low = 4
-	range_high = 7
+	period_low = 3 SECONDS
+	period_low = 10 SECONDS
+	range_low = 5
+	range_high = 10
 
 /datum/anomaly_impulse/freese/tier4/impulse()
 	. = ..()
@@ -146,12 +146,12 @@
 	gases_high = 7
 
 /datum/anomaly_impulse/fire/tier4
-	period_low = 3 SECONDS
-	period_high = 5 SECONDS
+	period_low = 5 SECONDS
+	period_high = 10 SECONDS
 	range_low = 3
-	range_high = 7
+	range_high = 5
 	gases_low = 7
-	gases_high = 14
+	gases_high = 10
 
 // TIER 4 ONLY
 
@@ -159,17 +159,17 @@
 	name = "Пожар на расстоянии"
 	desc = "Аномалия создает в нескольких точках вокруг себя нагретую горючую смесь плазмы и кислорода."
 	/// Minimum range of effect.
-	var/range_low = 7
+	var/range_low = 1
 	/// Maximum range of effect.
-	var/range_high = 15
+	var/range_high = 5
 	/// Minimum generated amount of gases.
-	var/gases_low = 300
+	var/gases_low = 30
 	/// Maximum generated amount of gases.
-	var/gases_high = 600
+	var/gases_high = 60
 	/// Minimum number of fire spawns.
-	var/count_low = 3
+	var/count_low = 0
 	/// Maximum number of fire spawns.
-	var/count_high = 10
+	var/count_high = 5
 
 /datum/anomaly_impulse/dist_fire/impulse()
 	. = ..()
@@ -193,13 +193,13 @@
 	period_low = 10 SECONDS
 	period_high = 20 SECONDS
 	/// Minimum range of effect.
-	var/range_low = 7
+	var/range_low = 0
 	/// Maximum range of effect.
-	var/range_high = 21
+	var/range_high = 3
 	/// Minimum generated amount of gases.
-	var/gases_low = 50
+	var/gases_low = 5
 	/// Maximum generated amount of gases.
-	var/gases_high = 150
+	var/gases_high = 15
 
 /datum/anomaly_impulse/atmosfastmove/impulse()
 	. = ..()
