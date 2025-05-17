@@ -59,7 +59,7 @@
 
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
-	desc = "Толстая, наложенная слой за слоем, стенка из воска."
+	desc = "Похоже на затвердевшую массу воска."
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
@@ -77,7 +77,7 @@
 	icon = 'icons/obj/smooth_structures/wryn/floor.dmi'
 	gender = PLURAL
 	name = "wax floor"
-	desc = "Какая-то жёлтая, липкая половица... Так, стоп...."
+	desc = "Что-то жёлтое и липкое покрывает пол... Так стоп..."
 	anchored = TRUE
 	density = FALSE
 	layer = TURF_LAYER
@@ -142,7 +142,7 @@
 
 /obj/structure/wryn/wax/door
 	name = "wax door"
-	desc = "Толстое наложение груд воска, напоминающее подобие двери."
+	desc = "Толстая масса воска, напоминающая дверь."
 	icon = 'icons/obj/smooth_structures/wryn/wax_door.dmi'
 	icon_state = "wax_door_closed"
 	max_integrity = 50
@@ -183,7 +183,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 	if(!iswryn(user))
-		to_chat(user, span_notice("Вы даже не знаете, что делать с этой грудой воска."))
+		to_chat(user, span_notice("Вы даже не знаете, что делать с этой массой воска."))
 
 	return try_switch_state(user)
 

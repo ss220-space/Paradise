@@ -119,13 +119,13 @@
 		return
 	var/mob/living/carbon/user = owner
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
-		user.balloon_alert(user, "Слишком мало места!")
+		user.balloon_alert(user, "слишком мало места!")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
-		user.balloon_alert(user, "Снимите верхнюю одежду!")
+		user.balloon_alert(user, "снимите верхнюю одежду!")
 		return
 	if(user.getStaminaLoss() >= 50)	//Does your Wryn have enough Stamina to sting?
-		user.balloon_alert(user, "Вы устали!")
+		user.balloon_alert(user, "вы устали!")
 		return
 	else
 		button_on = TRUE
@@ -151,7 +151,7 @@
 		names += M
 	var/target = input("Выберите цель: ", "Цель укуса", null) as null|anything in names
 	if(!target)		//No one's around!
-		user.balloon_alert(user, "Вокруг некого жалить!")
+		user.balloon_alert(user, "вокруг некого жалить!")
 		user.visible_message("<span class='warning'[user] втягивает своё жало.</span>")
 		button_on = FALSE
 		UpdateButtonIcon()
@@ -165,8 +165,8 @@
 /datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
-		user.balloon_alert(user, "Слишком далеко от цели!")
-		user.visible_message("<span class='warning'[user] убирает свое жало.</span>")
+		user.balloon_alert(user, "слишком далеко от цели!")
+		user.visible_message(span_warning("[user] втягивает своё жало."))
 		UpdateButtonIcon()
 		return
 	else								//Nah, that chump is still here! Sting 'em! Sting 'em good!
