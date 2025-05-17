@@ -156,7 +156,7 @@
 			owner.balloon_alert(owner, "место уже занято!")
 			return
 		host.adjustWax(-75)
-		host.visible_message(span_alert("[owner] выделя[pluralize_ru(host.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь!"))
+		host.visible_message(span_alert("[owner] выделя[pluralize_ru(owner.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(owner.gender, "ет", "ют")] из неё дверь!"))
 		new /obj/structure/wryn/wax/door(owner.loc)
 
 
