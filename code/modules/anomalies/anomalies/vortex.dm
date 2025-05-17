@@ -220,7 +220,7 @@
 		if(M.stat)
 			continue
 
-		to_chat(M, span_vortexanomaly("Ураганный поток ветра чуть не сбивает вас с ног. Это точно не сулит для вас ничего хорошего."))
+		to_chat(M, span_vortexanomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
 
 /obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/I)
 	. = ..()
