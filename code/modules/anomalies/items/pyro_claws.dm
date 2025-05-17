@@ -75,7 +75,7 @@
 	return FIRELOSS
 
 /obj/item/clothing/gloves/color/black/pyro_claws
-	name = "Fusion gauntlets"
+	name = "fusion gauntlets"
 	ru_names = list(
 		NOMINATIVE = "плавящие перчатки", \
 		GENITIVE = "плавящих перчаток", \
