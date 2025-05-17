@@ -50,7 +50,7 @@ const Dialer = (properties) => {
       <Button
         disabled={open || (right && !locked)}
         icon={'arrow-' + (right ? 'right' : 'left')}
-        content={(right ? 'Right' : 'Left') + ' ' + amount}
+        content={(right ? 'Вправо' : 'Влево') + ' ' + amount}
         iconRight={right}
         onClick={() =>
           act(!right ? 'turnright' : 'turnleft', {
@@ -68,7 +68,7 @@ const Dialer = (properties) => {
       <Button
         disabled={locked}
         icon={open ? 'lock' : 'lock-open'}
-        content={open ? 'Close' : 'Open'}
+        content={open ? 'Закрыть' : 'Открыть'}
         mb="0.5rem"
         onClick={() => act('open')}
       />
@@ -119,20 +119,20 @@ const Help = (properties) => {
   return (
     <Section
       className="Safe--help"
-      title="Safe opening instructions (because you all keep forgetting)"
+      title="Инструкция по открытию сейфа (потому что вы всегда забываете как это сделать)."
     >
       <Box>
-        1. Turn the dial left to the first number.
+        1. Поверните замок налево к первому числу.
         <br />
-        2. Turn the dial right to the second number.
+        2. Поверните замок направо к второму числу.
         <br />
-        3. Continue repeating this process for each number, switching between
-        left and right each time.
+        3. Продолжайте так для каждого числа, поворачивая сначало налево,
+        затем направо.
         <br />
-        4. Open the safe.
+        4. Откройте сейф.
       </Box>
       <Box bold>
-        To lock fully, turn the dial to the left after closing the safe.
+        Чтобы полностью закрыть сейф закройте дверь и поверните  циферблат  налево.
       </Box>
     </Section>
   );
