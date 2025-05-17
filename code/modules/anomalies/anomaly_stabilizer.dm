@@ -9,7 +9,7 @@
 		PREPOSITIONAL = "стабилизаторе аномалий"
 	)
 	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
-			Имеет два слота для ядер аномалий."
+			Имеет две ячейки для ядер аномалий."
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "pistol_base_item"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
