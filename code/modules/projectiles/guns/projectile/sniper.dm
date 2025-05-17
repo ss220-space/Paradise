@@ -341,7 +341,7 @@
 		PREPOSITIONAL = "снайперских патронах .338 (усыпляющих)",
 	)
 	desc = "Усыпляющие снайперские патроны калибра .338, созданные для счастливых дней и тихих ночей..."
-	icon_state = "soporific"
+	icon_state = ".338soporific"
 	origin_tech = "combat=6"
 	ammo_type = /obj/item/ammo_casing/a338_soporific
 	max_ammo = 6
@@ -366,7 +366,7 @@
 		PREPOSITIONAL = "снайперских патронах .338 (разрывных)",
 	)
 	desc = "Что вы имели в виду, говоря о военных преступлениях? Не было никаких военных."
-	icon_state = "explosive"
+	icon_state = ".338explosive"
 	ammo_type = /obj/item/ammo_casing/a338_explosive
 	max_ammo = 10
 
@@ -389,7 +389,7 @@
 		PREPOSITIONAL = "снайперских патронах .338 (кровопускающих)",
 	)
 	desc = "Кровопускающие снайперские выстрелы, оставляют вашу цель в луже кровавой боли"
-	icon_state = "haemorrhage"
+	icon_state = ".338haemorrhage"
 	ammo_type = /obj/item/ammo_casing/a338_haemorrhage
 	max_ammo = 10
 
@@ -412,7 +412,7 @@
 		PREPOSITIONAL = "снайперских патронах .338 (проникающих)",
 	)
 	desc = "Чрезвычайно мощный патрон, способный пронзить укрытие и любого, кому не повезло оказаться за ним."
-	icon_state = "penetrator"
+	icon_state = ".338penetrator"
 	ammo_type = /obj/item/ammo_casing/a338_penetrator
 	origin_tech = "combat=6"
 	max_ammo = 10

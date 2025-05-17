@@ -446,6 +446,7 @@
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
+	QDEL_NULL(parallax_rock)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()

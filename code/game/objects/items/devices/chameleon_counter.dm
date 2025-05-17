@@ -24,7 +24,7 @@
 	if(dummy_active || !isitem(target))
 		return
 	playsound(get_turf(src), 'sound/weapons/flash.ogg', 100, 1, -6)
-	to_chat(user, "<span class='notice'>Scanned [target].</span>")
+	to_chat(user, span_notice("Scanned [target]."))
 	saved_name = target.name
 	saved_desc = target.desc
 	saved_icon = target.icon
@@ -42,9 +42,9 @@
 	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 	if(dummy_active)
 		matter_deactivate()
-		to_chat(user, "<span class='notice'>You deactivate [src].</span>")
+		to_chat(user, span_notice("You deactivate [src]."))
 	else
-		to_chat(user, "<span class='notice'>You activate [src].</span>")
+		to_chat(user, span_notice("You activate [src]."))
 		matter_activate()
 
 /obj/item/chameleon_counterfeiter/proc/matter_activate()
@@ -76,6 +76,6 @@
 	matter_toggle(user)
 
 /obj/item/chameleon_counterfeiter/proc/buzz()
-	visible_message("<span class='danger'> The [name] is buzzing weirdly!</span>")
+	visible_message(span_danger(" The [name] is buzzing weirdly!"))
 	playsound(get_turf(src), 'sound/effects/pop.ogg', 100, 1, -6)
 	matter_deactivate()
