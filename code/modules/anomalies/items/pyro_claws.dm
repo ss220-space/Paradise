@@ -2,12 +2,12 @@
 /obj/item/twohanded/required/pyro_claws
 	name = "hardplasma energy claws"
 	ru_names = list(
-		NOMINATIVE = "плазменные энергокогти", \
-		GENITIVE = "плазменных энергокогтей", \
-		DATIVE = "плазменным энергокогтям", \
-		ACCUSATIVE = "плазменные энергокогти", \
-		INSTRUMENTAL = "плазменными энергокогтями", \
-		PREPOSITIONAL = "плазменных энергокогтях"
+		NOMINATIVE = "энергокогти", \
+		GENITIVE = "энергокогтей", \
+		DATIVE = "энергокогтям", \
+		ACCUSATIVE = "энергокогти", \
+		INSTRUMENTAL = "энергокогтями", \
+		PREPOSITIONAL = "энергокогтях"
 	)
 	desc = "Сила солнца в ваших когтях."
 	gender = PLURAL
