@@ -14,9 +14,10 @@
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/wryn/New()
-	..(	)
+/obj/structure/wryn/Initialize(mapload)
+	. = ..()
 	AddComponent(/datum/component/wryn_destruction)
+
 
 
 // wax structures procs
