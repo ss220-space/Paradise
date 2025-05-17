@@ -128,7 +128,7 @@
 	check_size_change()
 
 /obj/effect/anomaly/proc/collapse()
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] достигает критической массы и разрушается!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] достигает критической массы и распадается!"))
 	add_filter("collapse", 1, gauss_blur_filter(1))
 	matr.Scale(3, 3)
 	animate(src, transform = matr, time = 1 SECONDS, alpha = 0, flags = ANIMATION_PARALLEL)
@@ -136,9 +136,9 @@
 	qdel(src)
 
 /obj/effect/anomaly/proc/stabilyse()
-	//var/datum/effect_system/fluid_spread/smoke/smoke = new
-	//smoke.set_up(tier * 3, FALSE, loc)
-	//smoke.start()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(tier * 3, FALSE, loc)
+	smoke.start()
 
 	if(strenght < 50)
 		core_type = text2path("/obj/item/assembly/signaler/core/tier[tier]")

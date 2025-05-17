@@ -242,6 +242,6 @@
 	user.visible_message(span_suicide("[user] прижимает подошвы [declent_ru(GENITIVE)] к своему торсу с двух сторон и активирует. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[genderize_ru(user.gender, "е", "е", "е", "ю")]тся убить себя!"))
 	user.visible_message(span_suicide("[user] взрывается из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
-						span_suicide("Вы слышите громкий, гулкий хлопок!"))
+						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()
 	return OBLITERATION

@@ -552,10 +552,10 @@
 
 	if((mover.throwing && mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) || prob(50))
 		mover.forceMove(get_turf(src))
-		visible_message(span_notice("Swish! [mover] lands in [src]."))
+		visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 
 	else
-		visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [declent_ru(GENITIVE)]!"))
 
 	return FALSE
 
@@ -570,11 +570,11 @@
 		return
 
 	if(prob(50))
-		visible_message(span_alert("[mover] bounces off of [src]'s rim!"))
+		visible_message(span_alert("[mover.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	mover.forceMove(loc)
-	visible_message(span_notice("Swish! [mover] lands in [src]."))
+	visible_message(span_notice("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 	return FALSE
 
 
@@ -583,11 +583,11 @@
 		return ..()
 
 	if(prob(50) && (!throwingdatum || !throwingdatum.thrower || !HAS_TRAIT(throwingdatum.thrower, TRAIT_BADASS)))
-		visible_message(span_danger("[AM] bounces off of [src]'s rim!"))
+		visible_message(span_danger("[AM.declent_ru(NOMINATIVE)] отскакивает от края [src.declent_ru(GENITIVE)]!"))
 		return ..()
 
 	AM.forceMove(get_turf(src))
-	visible_message(span_warning("Swish! [AM] lands in [src]."))
+	visible_message(span_warning("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	return
 

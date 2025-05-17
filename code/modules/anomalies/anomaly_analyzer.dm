@@ -1,5 +1,8 @@
 /obj/item/anomaly_analyzer
 	name = "сканер аномалий"
+	desc = "Продвинутое устройство предназначенное для сканирования аномалий. \
+			Выводит достаточно полную информацию о сканируемой аномалии. \
+			Может сканировать аномалии на расстоянии."
 	ru_names = list(
 		NOMINATIVE = "сканер аномалий", \
 		GENITIVE = "сканера аномалий", \
@@ -8,9 +11,6 @@
 		INSTRUMENTAL = "сканером аномалий", \
 		PREPOSITIONAL = "сканере аномалий"
 	)
-	desc = "Продвинутое устройство предназначенное для сканирования аномалий. \
-			Выводит достаточно полную информацию о сканируемой аномалии. \
-			Может сканировать аномалии на расстоянии."
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'

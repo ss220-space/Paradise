@@ -1,5 +1,7 @@
 /obj/item/gun/energy/anomaly_stabilizer
 	name = "стабилизатор аномалий"
+	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
+			Имеет два слота для ядер аномалий."
 	ru_names = list(
 		NOMINATIVE = "стабилизатор аномалий", \
 		GENITIVE = "стабилизатора аномалий", \
@@ -8,8 +10,6 @@
 		INSTRUMENTAL = "стабилизатором аномалий", \
 		PREPOSITIONAL = "стабилизаторе аномалий"
 	)
-	desc = "Продвинутое устройство, предназначенное для стабилизации аномалий. \
-			Имеет два слота для ядер аномалий."
 	icon = 'icons/obj/anomaly/anomaly_stuff.dmi'
 	icon_state = "pistol_base_item"
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'

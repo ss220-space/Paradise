@@ -1,11 +1,20 @@
 /obj/item/assembly/anomaly_beacon
+	name = "anomaly beacon"
+	desc = "Небольшое устройство, способное единоразово дестабилизировать вставленное в него ядро. \
+			Из-за несовершенства технологии, часть энергии теряется в процессе."
+	ru_names = list(
+		NOMINATIVE = "аномальный маячок",
+		GENITIVE = "аномального маячка",
+		DATIVE = "аномальному маячку",
+		ACCUSATIVE = "аномальный маячок",
+		INSTRUMENTAL = "аномальным маячком",
+		PREPOSITIONAL = "аномальном маячке"
+	)
 	icon = 'icons/obj/weapons/techrelic.dmi'
 	icon_state = "beacon"
 	item_state = "beacon"
 	lefthand_file = 'icons/mob/inhands/relics_production/inhandl.dmi'
 	righthand_file = 'icons/mob/inhands/relics_production/inhandr.dmi'
-	name = "anomaly beacon"
-	desc = "A device that draws power from bluespace and creates a permanent tracking beacon."
 	origin_tech = "bluespace=6"
 	/// Inserted core of anomaly.
 	var/obj/item/assembly/signaler/core/core = null
@@ -18,7 +27,7 @@
 	var/datum/anomaly_gen_datum/gen_datum = GLOB.anomaly_types["[core.tier - 1]"][pick(GLOB.anomaly_types["[core.tier - 1]"])]
 	var/obj/effect/anomaly/anomaly_path = gen_datum.anomaly
 	var/newAnomaly = new anomaly_path(get_turf(src))
-	notify_ghosts("[name] has an object of interest: [newAnomaly]!", title = "Аномалия!", source = newAnomaly, action = NOTIFY_FOLLOW)
+	notify_ghosts("[declent_ru(NOMINATIVE)] создал [newAnomaly.declent_ru(ACCUSATIVE)]!", title = "Аномалия!", source = newAnomaly, action = NOTIFY_FOLLOW)
 	qdel(src)
 
 /obj/item/assembly/anomaly_beacon/attack_self(mob/user)

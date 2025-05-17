@@ -60,7 +60,7 @@ export const AnomalyGenerator = (props, context) => {
                 onClick={() => act('toggle_apcs', {})}
               />
               <Button
-                content="СМЕСы рядом"
+                content="СКАНы рядом"
                 selected={use_smeses}
                 onClick={() => act('toggle_smeses', {})}
               />
@@ -96,7 +96,7 @@ export const AnomalyGenerator = (props, context) => {
                 onClick={() => act('toggle_apcs', {})}
               />
               <Button
-                content="СМЕСы рядом"
+                content="СКАНы рядом"
                 selected={use_smeses}
                 onClick={() => act('toggle_smeses', {})}
               />

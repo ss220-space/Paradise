@@ -268,6 +268,14 @@
 
 /obj/projectile/beam/anomaly
 	name = "луч стабилизатора аномалий"
+	ru_names = list(
+		NOMINATIVE = "луч стабилизатора аномалий", \
+		GENITIVE = "луча стабилизатора аномалий", \
+		DATIVE = "лучу стабилизатора аномалий", \
+		ACCUSATIVE = "луч стабилизатора аномалий", \
+		INSTRUMENTAL = "лучом стабилизатора аномалий", \
+		PREPOSITIONAL = "луче стабилизатора аномалий"
+	)
 	icon_state = "xray" // Looks mostly like "blue/red_laser" in green colour.
 	damage = 0
 	hitsound = 'sound/weapons/resonator_blast.ogg'
@@ -306,12 +314,28 @@
 
 /obj/projectile/beam/anomaly/stabilizer
 	name = "стабилизирующий луч"
+	ru_names = list(
+		NOMINATIVE = "стабилизирующий луч", \
+		GENITIVE = "стабилизирующего луча", \
+		DATIVE = "стабилизирующему лучу", \
+		ACCUSATIVE = "стабилизирующий луч", \
+		INSTRUMENTAL = "стабилизирующим лучом", \
+		PREPOSITIONAL = "стабилизирующем луче"
+	)
 	icon_state = "bluelaser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_BLUE
 
 /obj/projectile/beam/anomaly/destabilizer
 	name = "дестабилизирующий луч"
+	ru_names = list(
+		NOMINATIVE = "дестабилизирующий луч", \
+		GENITIVE = "дестабилизирующего луча", \
+		DATIVE = "дестабилизирующему лучу", \
+		ACCUSATIVE = "дестабилизирующий луч", \
+		INSTRUMENTAL = "дестабилизирующим лучом", \
+		PREPOSITIONAL = "дестабилизирующем луче"
+	)
 	icon_state = "laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_RED

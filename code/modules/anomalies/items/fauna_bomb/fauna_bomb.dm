@@ -87,6 +87,7 @@
 	core = I
 	user.balloon_alert(user, msg)
 	update_core()
+	return ATTACK_CHAIN_PROCEED
 
 /obj/item/fauna_bomb/process(seconds_per_tick)
 	use_charge(-charge_speed)

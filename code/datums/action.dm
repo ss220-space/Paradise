@@ -188,7 +188,7 @@
 	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
 		apply_unavailable_effect()
 		return FALSE
-		
+
 	if(!target)
 		return TRUE
 

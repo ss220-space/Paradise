@@ -354,13 +354,13 @@ or something covering your eyes."
 
 /atom/movable/screen/alert/highgravity
 	name = "Повышенная гравитация"
-	desc = "На вас давит высокая гравитация. Двигаться в таком состоянии непросто."
+	desc = "На вас действует высокая гравитация. Двигаться в таком состоянии непросто."
 	icon_state = "paralysis"
 
 
 /atom/movable/screen/alert/veryhighgravity
 	name = "Сокрушительная гравитация"
-	desc = "На вас давит невероятно высокая гравитация. Вы чувствуете, будто вас буквально разрывает на части!"
+	desc = "На вас действует невероятно высокая гравитация. Ощущение, будто вас буквально разрывает на части!"
 	icon_state = "paralysis"
 
 
@@ -876,7 +876,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return FALSE
-		
+
 	if(master)
 		return usr.client.Click(master, location, control, params)
 

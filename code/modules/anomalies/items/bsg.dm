@@ -20,7 +20,7 @@
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
 	if(core && has_bluespace_crystal)
-		. += span_notice("[src] полностью рабочая!")
+		. += span_notice("[src] в рабочем состоянии!")
 	else if(core)
 		. += span_warning("Ядро энергетической аномалии присутствует, но не хватает БС кристалла.")
 	else if(has_bluespace_crystal)
@@ -119,7 +119,7 @@
 	if(admin_model)
 		return
 
-	visible_message(span_warning("БС кристалл [src] треснул!"))
+	visible_message(span_warning("БС кристалл внутри [src] треснул!"))
 	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
 	has_bluespace_crystal = FALSE
 	update_icon(UPDATE_ICON_STATE)
@@ -127,12 +127,19 @@
 /obj/item/gun/energy/bsg/prebuilt
 	icon_state = "bsg_finished"
 	has_bluespace_crystal = TRUE
+	core = new /obj/item/assembly/signaler/core/energetic/tier3()
 
 /obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
 	. = ..()
-	core = TRUE
+	core.charge = 75
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/bsg/prebuilt/admin
-	desc = "Большая С*** Пушка. Лучшим людям - лучшее творение. У этой версии БС кристалл никогда не треснет, и уже загружено ядро аномалии потока."
+	desc = "Большая С*** Пушка. Лучшим людям ― лучшее творение. У этой версии БС кристалл никогда не треснет, и уже загружено ядро энергетической аномалии."
 	admin_model = TRUE
+	core = new /obj/item/assembly/signaler/core/energetic/tier3/tier4()
+
+/obj/item/gun/energy/bsg/prebuilt/admin/Initialize(mapload)
+	. = ..()
+	core.charge = 100
+	update_icon(UPDATE_ICON_STATE)

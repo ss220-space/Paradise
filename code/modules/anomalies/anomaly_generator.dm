@@ -1,15 +1,15 @@
 /obj/machinery/power/anomaly_generator
-	name = "Генератор аномалий"
-	ru_names = list(
-		NOMINATIVE = "Генератор аномалий", \
-		GENITIVE = "Генератора аномалий", \
-		DATIVE = "Генератору аномалий", \
-		ACCUSATIVE = "Генератор аномалий", \
-		INSTRUMENTAL = "Генератором аномалий", \
-		PREPOSITIONAL = "Генераторе аномалий"
-	)
+	name = "генератор аномалий"
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий."
+	ru_names = list(
+		NOMINATIVE = "генератор аномалий", \
+		GENITIVE = "генератора аномалий", \
+		DATIVE = "генератору аномалий", \
+		ACCUSATIVE = "генератор аномалий", \
+		INSTRUMENTAL = "генератором аномалий", \
+		PREPOSITIONAL = "генераторе аномалий"
+	)
 	gender = MALE
 	density = TRUE
 	anchored = TRUE
@@ -57,6 +57,9 @@
 	var/use_smeses = TRUE
 	/// If true, generator will collect charge from apcs in this area.
 	var/use_apcs = TRUE
+
+	/// Sound cooldown
+	COOLDOWN_DECLARE(sound_cooldown)
 
 /obj/machinery/power/anomaly_generator/New()
 	..()
@@ -136,6 +139,11 @@
 
 	return ..()
 
+/obj/machinery/power/anomaly_generator/proc/buzz()
+	if(COOLDOWN_FINISHED(sound_cooldown))
+		playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
+		COOLDOWN_START(src, 0.5 SECONDS, sound_cooldown)
+
 /obj/machinery/power/anomaly_generator/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
 		return
@@ -164,8 +172,8 @@
 
 		if("stop")
 			cur_anomaly = null
-			atom_say("Создание аномалии прекращено.")
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
+			atom_say("Создание аномалии прекращено.", FALSE)
+			buzz()
 
 		if("toggle_apcs")
 			use_apcs = !use_apcs
@@ -177,9 +185,6 @@
 			use_powernet = !use_powernet
 
 		if("beakon")
-			atom_say("Функция временно недоступна.")
-			return
-/*
 			var/list/options = list()
 			for(var/obj/item/radio/beacon/R in GLOB.beacons)
 				var/turf/T = get_turf(R)
@@ -189,17 +194,17 @@
 				if(!is_teleport_allowed(T.z) && !R.cc_beacon)
 					continue
 
-				if(R.syndicate)
+				if(R.syndicate || is_taipan(R.z) && R != beacon)
 					continue
 
 				options["[T.loc.name]"] = R
 
-			var/obj/item/radio/beacon/choice = tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)
+			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
 			if (choice == null)
 				choice = beacon;
 
 			selected_beacon = choice
-*/
+
 		else
 			. = FALSE
 
@@ -292,11 +297,11 @@
 		anomaly = new anomaly_datum_type
 		var/list/possible_used = anomaly.get_used(containment)
 		if(!possible_used.len && anomaly.req_item != "-")
-			playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
-			atom_say("Недостаточно ресурсов!")
+			buzz()
+			atom_say("Недостаточно ресурсов!", FALSE)
 			return
 
-	atom_say("Сбор энергии начался. Текущая цель: [selected_type == ANOMALY_TYPE_RANDOM ? "RANDOM" : anomaly.anomaly_type].")
+	atom_say("Сбор энергии начался. Текущая цель: [selected_type == ANOMALY_TYPE_RANDOM ? "RANDOM" : anomaly.anomaly_type].", FALSE)
 	cur_anomaly = anomaly
 	START_PROCESSING(SSprocessing, src)
 
@@ -354,12 +359,12 @@
 
 /obj/machinery/power/anomaly_generator/proc/finish_generation()
 	if(!cur_anomaly.generate(containment, selected_beacon, creating_range, selected_type != ANOMALY_TYPE_RANDOM))
-		atom_say("Создание аномалии провалилось.")
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
+		atom_say("Создание аномалии провалилось.", FALSE)
+		buzz()
 		return
 
-	atom_say("Была создана [cur_anomaly.anomaly_type] аномалия.")
-	playsound(src, 'sound/machines/ping.ogg', 50, 1, -1)
+	atom_say("Была создана [cur_anomaly.anomaly_type] аномалия.", FALSE)
+	playsound(src, 'sound/machines/ping.ogg', 50, 1, -1) // A rare call, let it be without CD.
 
 /obj/machinery/power/anomaly_generator/upgraded/admin
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
