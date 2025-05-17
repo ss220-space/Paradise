@@ -75,7 +75,7 @@
 	return FIRELOSS
 
 /obj/item/clothing/gloves/color/black/pyro_claws
-	name = "Fusion gauntlets"
+	name = "fusion gauntlets"
 	ru_names = list(
 		NOMINATIVE = "плавящие перчатки", \
 		GENITIVE = "плавящих перчаток", \
@@ -84,7 +84,7 @@
 		INSTRUMENTAL = "плавящими перчатками", \
 		PREPOSITIONAL = "плавящих перчатках"
 	)
-	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил атмосферное ядро ​​к \
+	desc = "Перчатки разработаенные Cybersun Industries после того, как один из солдат прикрепил ядро атмосферной аномалии ​​к \
 			энергетическому мечу, и нашел результат весьма эффективными."
 	gender = PLURAL
 	item_state = "pyro"
