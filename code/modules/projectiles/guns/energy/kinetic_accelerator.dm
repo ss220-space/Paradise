@@ -390,7 +390,7 @@
 /obj/item/borg/upgrade/modkit/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += span_notice("Занимает <b>[cost]%</b> ёмкости модулей.")
+		. += span_notice("Занимает <b>[cost]%</b> хранилища акселератора.")
 
 
 /obj/item/borg/upgrade/modkit/attackby(obj/item/I, mob/user, params)
@@ -722,12 +722,12 @@
 	name = "hardness increase"
 	desc = "Повышает пробивную способность кинетического акселератора, позволяя более эффективно уничтожать плотную породу."
 	ru_names = list(
-        NOMINATIVE = "повышение плотности",
-        GENITIVE = "повышения плотности",
-        DATIVE = "повышению плотности",
-        ACCUSATIVE = "повышение плотности",
-        INSTRUMENTAL = "повышением плотности",
-        PREPOSITIONAL = "повышении плотности"
+        NOMINATIVE = "усилитель пробития",
+        GENITIVE = "усилителя пробития",
+        DATIVE = "усилителю пробития",
+        ACCUSATIVE = "усилитель пробития",
+        INSTRUMENTAL = "усилителем пробития",
+        PREPOSITIONAL = "усилителе пробития"
 	)
 	gender = NEUTER
 	denied_type = /obj/item/borg/upgrade/modkit/hardness
@@ -747,12 +747,12 @@
 	name = "resonator blast"
 	desc = "Модифицирует выстрелы кинетического акселератора, позволяя им оставлять за собой и взрывать поля резонатора."
 	ru_names = list(
-        NOMINATIVE = "взрыв резонатора",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "резонирующий взрыв",
+        GENITIVE = "резонирующего взрыва",
+        DATIVE = "резонирующему взрыву",
+        ACCUSATIVE = "резонирующий взрыв",
+        INSTRUMENTAL = "резонирующим взрывом",
+        PREPOSITIONAL = "резонирующем взрыве"
 	)
 	gender = 
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
@@ -775,9 +775,9 @@
 // Tendril-unique modules
 /obj/item/borg/upgrade/modkit/lifesteal
 	name = "lifesteal crystal"
-	desc = "Causes kinetic accelerator shots to slightly heal the firer on striking a living target. Only rated for humanoid use. Позволяет выстрелам Акселератора л"
+	desc = "Позволяет кинетическому акселератору исцелять пользователя, при попадании по живой цели. Работает только на пользователей-гуманоидов."
 	ru_names = list(
-        NOMINATIVE = "",
+        NOMINATIVE = "вампирический кристалл",
         GENITIVE = "",
         DATIVE = "",
         ACCUSATIVE = "",
