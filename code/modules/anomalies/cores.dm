@@ -351,7 +351,7 @@
 
 /obj/item/assembly/signaler/core/gravitational/tier3/suicide_act(mob/user)
 	..()
-	user.visible_message(span_suicide("[user] взрывается из-за возникшего гравитационного колодца!"), \
+	user.visible_message(span_suicide("[user] взрыва[pluralize_ru(user.gender,"ет","ют")]ся из-за возникшего гравитационного колодца!"), \
 						span_suicide("Вы взрываетесь из-за возникшего гравитационного колодца!"),
 						span_suicide("Вы слышите громкий, оглушительный хлопок!"))
 	user.gib()
