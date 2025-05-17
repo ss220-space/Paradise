@@ -622,7 +622,7 @@
 	button_icon_state = "clown"
 
 /datum/action/item_action/gravity_jump
-	name = "Gravity jump"
+	name = "Гравитационный прыжок"
 	desc = "Направляет импульс гравитации перед пользователем, придавая ему ускорение."
 	attack_self = FALSE
 
