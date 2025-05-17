@@ -8,7 +8,7 @@
 	var/armor
 	var/response_help = "гладит"
 	var/response_disarm = "толкает"
-	var/list/response_harm = list("бьёт", "атакует", "пинает")
+	var/list/response_harm = list("бьёт", "атакует", "лупит", "колотит", "ударяет", "поражает")
 	var/harm_intent_damage = 10
 	var/melee_damage_lower = 10
 	var/melee_damage_upper = 10
@@ -30,20 +30,23 @@
 	normal_name = target.declent_ru(NOMINATIVE)
 	icon = icon(initial(target.icon), initial(target.icon_state), SOUTH, 1, FALSE)
 	name = "воздушная проекция [target.declent_ru(GENITIVE)]"
-	ru_names = list(NOMINATIVE = "воздушная проекция [target.declent_ru(GENITIVE)]", \
-					GENITIVE = "воздушной проекции [target.declent_ru(GENITIVE)]", \
-					DATIVE = "воздушной проекции [target.declent_ru(GENITIVE)]", \
-					ACCUSATIVE = "воздушную проекцию [target.declent_ru(GENITIVE)]", \
-					INSTRUMENTAL = "воздушной проекцей [target.declent_ru(GENITIVE)]", \
-					PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]")
 	desc = "Уплотненная смесь газов, принявшая форму [target.declent_ru(GENITIVE)]."
+
+	ru_names = list(NOMINATIVE = 	"воздушная проекция [target.declent_ru(GENITIVE)]", \
+					GENITIVE = 		"воздушной проекции [target.declent_ru(GENITIVE)]", \
+					DATIVE = 		"воздушной проекции [target.declent_ru(GENITIVE)]", \
+					ACCUSATIVE = 	"воздушную проекцию [target.declent_ru(GENITIVE)]", \
+					INSTRUMENTAL = 	"воздушной проекцей [target.declent_ru(GENITIVE)]", \
+					PREPOSITIONAL = "воздушной проекции [target.declent_ru(GENITIVE)]")
+
+	armor = list(MELEE = target.getarmor(attack_flag = MELEE), BULLET = target.getarmor(attack_flag = BULLET), \
+				 LASER = target.getarmor(attack_flag = LASER), ENERGY = target.getarmor(attack_flag = ENERGY), \
+				 BOMB = target.getarmor(attack_flag = BOMB), BIO = target.getarmor(attack_flag = BIO), \
+				 RAD = target.getarmor(attack_flag = RAD), FIRE = target.getarmor(attack_flag = FIRE), \
+				 ACID = target.getarmor(attack_flag = ACID))
+
 	appearance = target.appearance
 	maxHealth = target.maxHealth
-	armor = list(MELEE = target.getarmor(attack_flag = MELEE), BULLET = target.getarmor(attack_flag = BULLET), \
-				LASER = target.getarmor(attack_flag = LASER), ENERGY = target.getarmor(attack_flag = ENERGY), \
-				BOMB = target.getarmor(attack_flag = BOMB), BIO = target.getarmor(attack_flag = BIO), \
-				RAD = target.getarmor(attack_flag = RAD), FIRE = target.getarmor(attack_flag = FIRE), \
-				ACID = target.getarmor(attack_flag = ACID))
 	speed = target.cached_multiplicative_slowdown
 
 	if(istype(target, /mob/living/simple_animal))

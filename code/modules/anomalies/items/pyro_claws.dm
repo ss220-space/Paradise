@@ -9,7 +9,7 @@
 		INSTRUMENTAL = "энергокогтями", \
 		PREPOSITIONAL = "энергокогтях"
 	)
-	desc = "Сила солнца в ваших когтях."
+	desc = "Мощь солнца, в моих когтях!"
 	gender = PLURAL
 	icon_state = "pyro_claws"
 	item_flags = ABSTRACT|DROPDEL
