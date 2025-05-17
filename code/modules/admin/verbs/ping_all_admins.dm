@@ -35,5 +35,5 @@
 
 	for(var/client/C in admins_to_ping)
 		SEND_SOUND(C, sound('sound/misc/ping.ogg'))
-		to_chat(C, span_all_admin_ping("ALL ADMIN PING: <span class='name'>[key_name(usr, TRUE)]</span> ([admin_jump_link(mob)]): <span class='emoji_enabled'>[msg]</span>"))
+		to_chat(C, span_all_admin_ping("ALL ADMIN PING: [span_name(key_name(usr, TRUE))] ([admin_jump_link(mob)]): [span_emojienabled(msg)]"))
 	to_chat(usr, "[length(admins_to_ping)] клиентов пропинговано.")

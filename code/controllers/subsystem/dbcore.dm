@@ -456,7 +456,7 @@ SUBSYSTEM_DEF(dbcore)
 	if(!.)
 		SSdbcore.total_errors++
 		if(usr)
-			to_chat(usr, "<span class='danger'>A SQL error occurred during this operation, please inform an admin or a coder.</span>")
+			to_chat(usr, span_danger("A SQL error occurred during this operation, please inform an admin or a coder."))
 		message_admins("An SQL error has occured. Please check the server logs, with the following timestamp ID: \[[time_stamp()]]")
 
 /**
@@ -563,12 +563,12 @@ SUBSYSTEM_DEF(dbcore)
 	set category = "Debug"
 	set name = "Reestablish DB Connection"
 	if(!CONFIG_GET(flag/sql_enabled))
-		to_chat(usr, "<span class='warning'>The Database is not enabled in the server configuration!</span>")
+		to_chat(usr, span_warning("The Database is not enabled in the server configuration!"))
 		return
 
 	if(SSdbcore.IsConnected())
 		if(!check_rights(R_ADMIN, FALSE) || !check_rights(R_DEBUG, FALSE)) //we dont want coders to deal with db
-			to_chat(usr, "<span class='warning'>The database is already connected! (Only those with +DEBUG can force a reconnection)</span>")
+			to_chat(usr, span_warning("The database is already connected! (Only those with +DEBUG can force a reconnection)"))
 			return
 
 		var/reconnect = alert("The database is already connected! If you *KNOW* that this is incorrect, you can force a reconnection", "The database is already connected!", "Force Reconnect", "Cancel")

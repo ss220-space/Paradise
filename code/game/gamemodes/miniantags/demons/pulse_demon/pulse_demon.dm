@@ -268,7 +268,7 @@
 	drainpower.owner = mind
 	tampermach.owner = mind
 	greeting.Add(mind.prepare_announce_objectives(FALSE))
-	greeting.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a></span>")
+	greeting.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Pulse_Demon\">Электродемон</a>"))
 	to_chat(src, chat_box_yellow(greeting.Join("<br>")))
 	SSticker.mode.traitors |= mind
 	return
@@ -423,16 +423,16 @@
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
-		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
 		return FALSE
 
 	var/turf/turf_to_check = GET_TURF_ABOVE(current_turf)
 	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
-		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		to_chat(src, span_warning("There isn't a connected cable to be moved on!"))
 		return FALSE
 
 	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
-		to_chat(src, "<span class='notice'>You move upwards.</span>")
+		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
 	set name = "Move Down"
@@ -440,16 +440,16 @@
 
 	var/turf/current_turf = get_turf(src)
 	if(!locate(/obj/structure/cable/multiz) in current_turf)
-		to_chat(src, "<span class='warning'>You need to be on multi z cable hub to move up and down!</span>")
+		to_chat(src, span_warning("You need to be on multi z cable hub to move up and down!"))
 		return
 
 	var/turf/turf_to_check = GET_TURF_BELOW(current_turf)
 	if(!(can_exit_cable || locate(/obj/structure/cable/multiz) in turf_to_check))
-		to_chat(src, "<span class='warning'>There isn't a connected cable to be moved on!</span>")
+		to_chat(src, span_warning("There isn't a connected cable to be moved on!"))
 		return FALSE
 
 	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK|ZMOVE_IGNORE_OBSTACLES))
-		to_chat(src, "<span class='notice'>You move down.</span>")
+		to_chat(src, span_notice("You move down."))
 
 // signal to replace relaymove where or when? // Never, actually just manage your code instead
 /obj/machinery/power/relaymove(mob/user, dir)
