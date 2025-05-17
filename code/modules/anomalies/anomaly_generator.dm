@@ -140,9 +140,9 @@
 	return ..()
 
 /obj/machinery/power/anomaly_generator/proc/buzz()
-	if(COOLDOWN_FINISHED(sound_cooldown))
+	if(COOLDOWN_FINISHED(src, sound_cooldown))
 		playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
-		COOLDOWN_START(src, 0.5 SECONDS, sound_cooldown)
+		COOLDOWN_START(src, sound_cooldown, 0.5 SECONDS)
 
 /obj/machinery/power/anomaly_generator/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())

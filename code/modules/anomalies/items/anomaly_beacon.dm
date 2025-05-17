@@ -26,7 +26,7 @@
 
 	var/datum/anomaly_gen_datum/gen_datum = GLOB.anomaly_types["[core.tier - 1]"][pick(GLOB.anomaly_types["[core.tier - 1]"])]
 	var/obj/effect/anomaly/anomaly_path = gen_datum.anomaly
-	var/newAnomaly = new anomaly_path(get_turf(src))
+	var/atom/newAnomaly = new anomaly_path(get_turf(src))
 	notify_ghosts("[declent_ru(NOMINATIVE)] создал [newAnomaly.declent_ru(ACCUSATIVE)]!", title = "Аномалия!", source = newAnomaly, action = NOTIFY_FOLLOW)
 	qdel(src)
 

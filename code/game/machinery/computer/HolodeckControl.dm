@@ -587,7 +587,7 @@
 		return ..()
 
 	AM.forceMove(get_turf(src))
-	visible_message(span_warning("Вжух! [mover.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
+	visible_message(span_warning("Вжух! [AM.declent_ru(NOMINATIVE)] приземляется в [declent_ru(ACCUSATIVE)]."))
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	return
 
