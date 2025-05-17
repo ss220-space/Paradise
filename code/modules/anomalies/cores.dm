@@ -25,7 +25,7 @@
 	var/born_moment = 0
 
 /obj/item/assembly/signaler/core/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] засовывает [declent_ru(ACCUSATIVE)] себе в рот. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[genderize_ru(user.gender, "е", "е", "е", "ю")]тся убить себя!"))
+	user.visible_message(span_suicide("[user] засовыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] себе в рот. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
 	return OXYLOSS | BRUTELOSS
 
 /obj/item/assembly/signaler/core/examine(mob/user)
