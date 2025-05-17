@@ -445,7 +445,7 @@
 	name = "Toggle Helmet"
 
 /datum/action/item_action/payday
-	name = "I NEED A MEDIC BAG!"
+	name = "Мне нужна медицинская сумка!"
 
 /datum/action/item_action/remove_tape
 	name = "Remove Duct Tape"

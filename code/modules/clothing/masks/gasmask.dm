@@ -605,7 +605,7 @@
 
 /obj/item/clothing/mask/gas/dalas_mask
     name = "Mask of Liberty"
-    desc = "ПРИКРОЙ СВОИ ЯЙЦА!"
+    desc = "Теперь поплачься маме, чтобы она сменила тебе подгузники!"
     ru_names = list(
         NOMINATIVE = "маска Свободы",
         GENITIVE = "маски Свободы",
