@@ -103,7 +103,7 @@
 		return ATTACK_CHAIN_PROCEED
 
 	if(cores.len >= 2)
-		balloon_alert(user, "слоты для ядер заняты!")
+		balloon_alert(user, "ячейки для ядер заняты!")
 		return ATTACK_CHAIN_PROCEED
 
 
