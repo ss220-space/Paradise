@@ -62,7 +62,7 @@
 //Fetching a message if needed. src is the sender and C is the target client
 /client/proc/cmd_admin_pm(whom, msg, type = "PM")
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PM-s (muted).</span>", confidential=TRUE)
+		to_chat(src, span_danger("Error: Private-Message: You are unable to use PM-s (muted)."), confidential=TRUE)
 		return
 
 	var/client/C
@@ -73,7 +73,7 @@
 
 	if(!C)
 		if(holder)
-			to_chat(src, "<span class='danger'>Error: Private-Message: Client not found.</span>", confidential=TRUE)
+			to_chat(src, span_danger("Error: Private-Message: Client not found."), confidential=TRUE)
 		else
 			adminhelp(msg)	//admin we are replying to left. adminhelp instead
 		return
@@ -81,7 +81,7 @@
 	/*if(C && C.last_pm_recieved + config.simultaneous_pm_warning_timeout > world.time && holder)
 		//send a warning to admins, but have a delay popup for mods
 		if(holder.rights & R_ADMIN)
-			to_chat(src, "<span class='danger'>Simultaneous PMs warning:</span> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
+			to_chat(src, span_danger("Simultaneous PMs warning:</span> that player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]")
 		else
 			if(alert("That player has been PM'd in the last [config.simultaneous_pm_warning_timeout / 10] seconds by: [C.ckey_last_pm]","Simultaneous PMs warning","Continue","Cancel") == "Cancel")
 				return*/
@@ -97,7 +97,7 @@
 			return
 		if(!C)
 			if(holder)
-				to_chat(src, "<span class='danger'>Error: Admin-PM: Client not found.</span>", confidential=TRUE)
+				to_chat(src, span_danger("Error: Admin-PM: Client not found."), confidential=TRUE)
 			else
 				adminhelp(msg)	//admin we are replying to has vanished, adminhelp instead
 			return
@@ -131,7 +131,7 @@
 			recieve_pm_type = holder.rank
 
 	else if(!C.holder)
-		to_chat(src, "<span class='danger'>Error: Admin-PM: Non-admin to non-admin PM communication is forbidden.</span>", confidential=TRUE)
+		to_chat(src, span_danger("Error: Admin-PM: Non-admin to non-admin PM communication is forbidden."), confidential=TRUE)
 		return
 
 	var/recieve_message = ""
@@ -158,8 +158,8 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
-	var/emoji_msg = "<span class='emoji_enabled'>[msg]</span>"
-	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>:<br><br>[emoji_msg]</span>")
+	var/emoji_msg = span_emojienabled("[msg]")
+	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>:<br><br>[emoji_msg]")
 	to_chat(C, recieve_message, confidential=TRUE)
 	var/ping_link = check_rights(R_MOD, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
 	var/window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
@@ -185,13 +185,13 @@
 			switch(type)
 				if("Mentorhelp")
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						to_chat(X, "<span class='mentorhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]</span>", confidential=TRUE)
+						to_chat(X, span_mentorhelp("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
 				if("Adminhelp")
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='adminhelp'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)] [observe_link]: [emoji_msg]</span>", confidential=TRUE)
+						to_chat(X, span_adminhelp("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
 				else
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, "<span class='boldnotice'>[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)] [observe_link]: [emoji_msg]</span>", confidential=TRUE)
+						to_chat(X, span_boldnotice("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
 
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
@@ -217,11 +217,11 @@
 
 /client/proc/cmd_admin_discord_pm()
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<span class='danger'>Error: Private-Message: You are unable to use PMs (muted).</span>", confidential=TRUE)
+		to_chat(src, span_danger("Error: Private-Message: You are unable to use PMs (muted)."), confidential=TRUE)
 		return
 
 	if(last_discord_pm_time > world.time)
-		to_chat(usr, "<span class='warning'>Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("Please wait [(last_discord_pm_time - world.time)/10] seconds, or for a reply, before sending another PM to Discord."), confidential=TRUE)
 		return
 
 	// We only allow PMs once every 10 seconds, othewrise the channel can get spammed very quickly
@@ -235,8 +235,8 @@
 	sanitize(msg)
 
 	if(length(msg) > 400) // Dont want them super spamming
-		to_chat(src, "<span class='warning'>Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting</span>", confidential=TRUE)
-		to_chat(src, "<span class='notice'>[msg]</span>", confidential=TRUE)
+		to_chat(src, span_warning("Your message was not sent because it was more then 400 characters find your message below for ease of copy/pasting"), confidential=TRUE)
+		to_chat(src, span_notice("[msg]"), confidential=TRUE)
 		return
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
@@ -248,7 +248,7 @@
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> <span class='notice'>[msg]</span></span>", confidential=TRUE)
+			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> [span_notice(msg)]</span>", confidential=TRUE)
 
 /client/verb/open_pms_ui()
 	set name = "My PMs"
@@ -397,7 +397,7 @@
 			C.pm_tracker.current_title = usr.key
 			window_flash(C)
 			C.pm_tracker.show_ui(C.mob)
-			to_chat(usr, "<span class='notice'>Forced open [C]'s messages window.</span>", confidential=TRUE)
+			to_chat(usr, span_notice("Forced open [C]'s messages window."), confidential=TRUE)
 		return
 
 	if(href_list["reply"])

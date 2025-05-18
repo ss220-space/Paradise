@@ -11,7 +11,7 @@
 		return
 
 	if(mute_category && check_mute(C.ckey, mute_category))
-		to_chat(C, "<span class='danger'>You cannot use [name] (muted).</span>", MESSAGE_TYPE_WARNING)
+		to_chat(C, span_danger("You cannot use [name] (muted)."), MESSAGE_TYPE_WARNING)
 		return
 
 	winset(C, null, "command=[C.tgui_say_create_open_command(name)]")
@@ -25,11 +25,11 @@
 		return ..()
 
 	if(!CONFIG_GET(flag/ooc_allowed))
-		to_chat(C, "<span class='danger'>OOC is globally muted.</span>", MESSAGE_TYPE_WARNING)
+		to_chat(C, span_danger("OOC is globally muted."), MESSAGE_TYPE_WARNING)
 		return
 
 	if(!CONFIG_GET(flag/dooc_allowed))
-		to_chat(C, "<span class='danger'>OOC for dead mobs has been turned off.</span>", MESSAGE_TYPE_WARNING)
+		to_chat(C, span_danger("OOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING)
 		return
 
 	return ..()

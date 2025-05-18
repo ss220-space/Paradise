@@ -1275,3 +1275,15 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 /mob/proc/set_key(key)
 	src.key = key
+
+/// Assigns a (c)key to this mob.
+/mob/proc/possess_by_player(ckey)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(isnull(ckey))
+		return
+
+	if(!istext(ckey))
+		CRASH("Tried to assign a mob a non-text ckey, wtf?!")
+
+	src.ckey = ckey(ckey)
+
