@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';
-import { Key, ReactNode } from 'react';
+import { ReactNode } from 'react';
 import { ProgressBarProps } from '../components/ProgressBar';
 
 const stats = [
@@ -216,7 +216,7 @@ const BodyScannerMainOccupant = (props) => {
           <ProgressBar
             minValue={0}
             maxValue={occupant.maxHealth}
-            value={occupant.health / occupant.maxHealth}
+            value={occupant.health}
             ranges={{
               good: [0.5, Infinity],
               average: [0, 0.5],
@@ -286,18 +286,14 @@ const BodyScannerMainDamage = (props: BodyScannerProps) => {
         {mapTwoByTwo<string, ReactNode>(damages, (d1, d2, i) => (
           <>
             <Table.Row color="label">
-              <Table.Cell>{d1[0]}:</Table.Cell>
-              <Table.Cell>{!!d2 && d2[0] + ':'}</Table.Cell>
+              <Table.Cell>{d1}:</Table.Cell>
             </Table.Row>
             <Table.Row>
               <Table.Cell>
                 <BodyScannerMainDamageBar
-                  value={occupant[d1[1]]}
+                  value={occupant[d2]}
                   mb={i < damages.length - 2}
                 />
-              </Table.Cell>
-              <Table.Cell>
-                {!!d2 && <BodyScannerMainDamageBar value={occupant[d2[1]]} />}
               </Table.Cell>
             </Table.Row>
           </>
@@ -313,7 +309,7 @@ const BodyScannerMainDamageBar = (props: ProgressBarProps) => {
     <ProgressBar
       minValue={0}
       maxValue={100}
-      value={value / 100}
+      value={value}
       mt="0.5rem"
       mb={!!mb && '0.5rem'}
       ranges={damageRange}
@@ -365,7 +361,7 @@ const BodyScannerMainOrgansExternal = (props: Organs<ExternalOrgan>) => {
                 minValue={0}
                 maxValue={o.maxHealth}
                 mt={i > 0 && '0.5rem'}
-                value={o.totalLoss / o.maxHealth}
+                value={o.totalLoss}
                 ranges={damageRange}
               >
                 <Stack>
@@ -465,7 +461,7 @@ const BodyScannerMainOrgansInternal = (props: Organs<InternalOrgan>) => {
               <ProgressBar
                 minValue={0}
                 maxValue={o.maxHealth}
-                value={o.damage / o.maxHealth}
+                value={o.damage}
                 mt={i > 0 && '0.5rem'}
                 ranges={damageRange}
               >

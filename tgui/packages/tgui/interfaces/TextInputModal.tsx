@@ -59,7 +59,7 @@ export const TextInputModal = (props) => {
     (message.length && large_buttons ? 5 : 0);
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-    if (event.key === KEY.Enter && (!visualMultiline || !event.shiftKey)) {
+    if (event.key === KEY.Enter && !event.shiftKey) {
       act('submit', { entry: input });
     }
     if (isEscape(event.key)) {

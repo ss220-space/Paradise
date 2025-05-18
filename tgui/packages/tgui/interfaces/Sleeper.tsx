@@ -139,7 +139,7 @@ const SleeperOccupant = (_props: unknown) => {
           <ProgressBar
             minValue={0}
             maxValue={occupant.maxHealth}
-            value={occupant.health / occupant.maxHealth}
+            value={occupant.health}
             ranges={{
               good: [0.5, Infinity],
               average: [0, 0.5],
@@ -156,7 +156,7 @@ const SleeperOccupant = (_props: unknown) => {
           <ProgressBar
             minValue={0}
             maxValue={occupant.maxTemp}
-            value={occupant.bodyTemperature / occupant.maxTemp}
+            value={occupant.bodyTemperature}
             color={tempColors[occupant.temperatureSuitability + 3]}
           >
             {round(occupant.btCelsius, 0)}&deg;C,
@@ -169,7 +169,7 @@ const SleeperOccupant = (_props: unknown) => {
               <ProgressBar
                 minValue={0}
                 maxValue={occupant.bloodMax}
-                value={occupant.bloodLevel / occupant.bloodMax}
+                value={occupant.bloodLevel}
                 ranges={{
                   bad: [-Infinity, 0.6],
                   average: [0.6, 0.9],
@@ -201,7 +201,7 @@ const SleeperDamage = (_props: unknown) => {
               key={i}
               minValue={0}
               maxValue={100}
-              value={occupant[d[1]] / 100}
+              value={occupant[d[1]]}
               ranges={damageRange}
             >
               {round(occupant[d[1]], 0)}
@@ -252,7 +252,7 @@ const SleeperDialysis = (_props: unknown) => {
             <ProgressBar
               minValue={0}
               maxValue={beakerMaxSpace}
-              value={beakerFreeSpace / beakerMaxSpace}
+              value={beakerFreeSpace}
               ranges={{
                 good: [0.5, Infinity],
                 average: [0.25, 0.5],
@@ -307,7 +307,7 @@ const SleeperChemicals = (_props: unknown) => {
                 <ProgressBar
                   minValue={0}
                   maxValue={maxchem}
-                  value={chem.occ_amount / maxchem}
+                  value={chem.occ_amount}
                   color={barColor}
                   mr="0.5rem"
                 >
