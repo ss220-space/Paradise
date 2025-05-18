@@ -706,12 +706,12 @@
 	name = "minebot passthrough"
 	desc = "Позволяет выстрелам кинетического акселератора проходить через шахтерских дронов насквозь, не нанося им урона."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "игнорирование дронов",
+        GENITIVE = "игнорирования дронов",
+        DATIVE = "игнорированию дронов",
+        ACCUSATIVE = "игнорирование дронов",
+        INSTRUMENTAL = "игнорированием дронов",
+        PREPOSITIONAL = "игнорировании дронов"
 	)
 	gender = 
 	cost = 0
@@ -777,12 +777,12 @@
 	name = "lifesteal crystal"
 	desc = "Позволяет кинетическому акселератору исцелять пользователя, при попадании по живой цели. Работает только на пользователей-гуманоидов."
 	ru_names = list(
-        NOMINATIVE = "вампирический кристалл",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "кристалл вампиризма",
+        GENITIVE = "кристалла вампиризма",
+        DATIVE = "кристаллу вампиризма",
+        ACCUSATIVE = "кристалл вампиризма",
+        INSTRUMENTAL = "кристаллом вампиризма",
+        PREPOSITIONAL = "кристалле вампиризма"
 	)
 	gender = 
 	icon_state = "modkit_crystal"
@@ -804,14 +804,14 @@
 
 /obj/item/borg/upgrade/modkit/bounty
 	name = "death syphon"
-	desc = "Killing or assisting in killing a creature permanently increases your damage against that type of creature."
+	desc = "Убийство или помощь в убийстве существа навсегда увеличивает урон, наносимый этому типу фауны."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "охота за головами",
+        GENITIVE = "охоты за головами",
+        DATIVE = "охоте за головами",
+        ACCUSATIVE = "охоту за головами",
+        INSTRUMENTAL = "охотой за головами",
+        PREPOSITIONAL = "охоте за головами"
 	)
 	gender = 
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
@@ -881,7 +881,16 @@
 // Trigger Guard
 /obj/item/borg/upgrade/modkit/trigger_guard
 	name = "modified trigger guard"
-	desc = "Allows creatures normally incapable of firing guns to operate the weapon when installed. Only rated for humanoid use."
+	desc = "Модифицирует ударно-спусковой механизм, позволяя существам неспособным использовать оружие использовать КА. Поможет только стрелкам-гуманоидам."
+	ru_names = list(
+        NOMINATIVE = "модифицированный курок",
+        GENITIVE = "",
+        DATIVE = "",
+        ACCUSATIVE = "",
+        INSTRUMENTAL = "",
+        PREPOSITIONAL = ""
+	)
+	gender = 
 	cost = 20
 	denied_type = /obj/item/borg/upgrade/modkit/trigger_guard
 	compatibility = COMPATIBILITY_STANDART
@@ -901,9 +910,9 @@
 // Cosmetic
 /obj/item/borg/upgrade/modkit/chassis_mod
 	name = "super chassis"
-	desc = "Makes your KA yellow. All the fun of having a more powerful KA without actually having a more powerful KA."
+	desc = "Покрывает ваш кинетический акселератор блестящим, желтым корпусом. Все плюсы улучшенного КА, без улучшенного КА."
 	ru_names = list(
-        NOMINATIVE = "",
+        NOMINATIVE = "супер корпус",
         GENITIVE = "",
         DATIVE = "",
         ACCUSATIVE = "",
@@ -986,7 +995,7 @@
 
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
-	var/color = tgui_input_color(user,"","Choose Color",bolt_color)
+	var/color = tgui_input_color(user,"","Выберите Цвет",bolt_color)
 	if(isnull(color))
 		return
 	bolt_color = color
