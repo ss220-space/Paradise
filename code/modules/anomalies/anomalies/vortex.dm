@@ -27,8 +27,10 @@
 		animate(src, transform = matr, time = 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 		var/list/list = affected[key]
 		for(var/turf/T in list)
-			if(prob(100 - mult * 10))
-				T.singularity_act(grav_pull_strenght)
+			if(!prob(mult * 10))
+				continue
+
+			T.singularity_act(grav_pull_strenght)
 
 		sleep(2)
 
@@ -64,8 +66,10 @@
 /obj/effect/anomaly/vortex/proc/do_pulls()
 	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
 	for(var/atom/movable/A in view(radius, src))
-		if(can_move_sth(A))
-			pull(A)
+		if(!can_move_sth(A))
+			continue
+
+		pull(A)
 
 /obj/effect/anomaly/vortex/process()
 	var/list/obj/was_near = list()
@@ -100,8 +104,10 @@
 	. = ..()
 
 	for(var/atom/movable/A in loc.contents)
-		if(can_move_sth(A))
-			A.random_throw(tier * 2, tier * 3, 5)
+		if(!can_move_sth(A))
+			continue
+
+		A.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/tier1
 	name = "малая вихревая аномалия"
@@ -177,7 +183,7 @@
 /obj/effect/anomaly/vortex/tier3/New()
 	. = ..()
 
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 
@@ -216,7 +222,7 @@
 /obj/effect/anomaly/vortex/tier4/New()
 	. = ..()
 
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 

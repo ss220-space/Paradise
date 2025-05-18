@@ -28,7 +28,7 @@ type AnomalyStabilizerData = {
   weaken_time;
 };
 
-export const AnomalyStabilizer = (props, context) => {
+export const AnomalyStabilizer = (props) => {
   const { act, data } = useBackend<AnomalyStabilizerData>();
   const {
     full_info,

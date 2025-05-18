@@ -93,6 +93,11 @@
 /obj/machinery/power/anomaly_generator/Destroy()
 	. = ..()
 	qdel(beacon)
+	qdel(cur_anomaly)
+	for(var/obj/O as anything in containment)
+		O.forceMove(loc)
+
+	containment = null
 	STOP_PROCESSING(SSprocessing, src)
 
 /obj/machinery/power/anomaly_generator/RefreshParts()
@@ -113,11 +118,7 @@
 		speed *= capacitor.rating * capacitor.rating
 
 /obj/machinery/power/anomaly_generator/update_icon(updates = ALL)
-	if(stat & NOPOWER)
-		icon_state = "generator_off"
-	else
-		icon_state = "generator_on"
-
+	icon_state = "generator_[stat & NOPOWER ? "off" : "on"]"
 	return ..()
 
 /obj/machinery/power/anomaly_generator/attackby(obj/item/I, mob/user, params)
@@ -140,9 +141,11 @@
 	return ..()
 
 /obj/machinery/power/anomaly_generator/proc/buzz()
-	if(COOLDOWN_FINISHED(src, sound_cooldown))
-		playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
-		COOLDOWN_START(src, sound_cooldown, 0.5 SECONDS)
+	if(!COOLDOWN_FINISHED(src, sound_cooldown))
+		return
+
+	playsound(src, 'sound/machines/buzz-sigh.ogg', 40)
+	COOLDOWN_START(src, sound_cooldown, 0.5 SECONDS)
 
 /obj/machinery/power/anomaly_generator/ui_act(action, params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -186,18 +189,18 @@
 
 		if("beakon")
 			var/list/options = list()
-			for(var/obj/item/radio/beacon/R in GLOB.beacons)
-				var/turf/T = get_turf(R)
+			for(var/obj/item/radio/beacon/beacon in GLOB.beacons)
+				var/turf/T = get_turf(beacon)
 				if(!T)
 					continue
 
-				if(!is_teleport_allowed(T.z) && !R.cc_beacon)
+				if(!is_teleport_allowed(T.z) && !beacon.cc_beacon)
 					continue
 
-				if(R.syndicate || is_taipan(R.z) && R != beacon)
+				if(beacon.syndicate || is_taipan(beacon.z) && beacon != beacon)
 					continue
 
-				options["[T.loc.name]"] = R
+				options["[T.loc.name]"] = beacon
 
 			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
 			if (choice == null)
@@ -292,14 +295,18 @@
 	if(selected_type == ANOMALY_TYPE_RANDOM)
 		var/anomaly_datum_type = GLOB.anomaly_types[selected_tier][pick(GLOB.anomaly_types[selected_tier])]
 		anomaly = new anomaly_datum_type
-	else
-		var/anomaly_datum_type = GLOB.anomaly_types["[selected_tier]"][selected_type]
-		anomaly = new anomaly_datum_type
-		var/list/possible_used = anomaly.get_used(containment)
-		if(!possible_used.len && anomaly.req_item != "-")
-			buzz()
-			atom_say("Недостаточно ресурсов!", FALSE)
-			return
+		atom_say("Сбор энергии начался. Текущая цель: [selected_type == ANOMALY_TYPE_RANDOM ? "RANDOM" : anomaly.anomaly_type].", FALSE)
+		cur_anomaly = anomaly
+		START_PROCESSING(SSprocessing, src)
+		return
+
+	var/anomaly_datum_type = GLOB.anomaly_types["[selected_tier]"][selected_type]
+	anomaly = new anomaly_datum_type
+	var/list/possible_used = anomaly.get_used(containment)
+	if(!possible_used.len && anomaly.req_item != "-")
+		buzz()
+		atom_say("Недостаточно ресурсов!", FALSE)
+		return
 
 	atom_say("Сбор энергии начался. Текущая цель: [selected_type == ANOMALY_TYPE_RANDOM ? "RANDOM" : anomaly.anomaly_type].", FALSE)
 	cur_anomaly = anomaly

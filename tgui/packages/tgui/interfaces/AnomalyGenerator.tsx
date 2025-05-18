@@ -30,7 +30,7 @@ type AnomalyGeneratorData = {
   last_charge;
 };
 
-export const AnomalyGenerator = (props, context) => {
+export const AnomalyGenerator = (props) => {
   const { act, data } = useBackend<AnomalyGeneratorData>();
   const {
     type,

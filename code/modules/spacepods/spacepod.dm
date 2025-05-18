@@ -358,7 +358,7 @@
 			deal_damage(cached_damage)
 		return .
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!hatch_open)
 			to_chat(user, span_warning("The maintenance hatch is closed."))

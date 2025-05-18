@@ -111,7 +111,7 @@
 
 
 /obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть батарейка."))
@@ -245,3 +245,6 @@
 						span_suicide("Вы слышите громкий хлопок!"))
 	user.gib()
 	return OBLITERATION
+
+/obj/item/clothing/shoes/magboots/gravity/preloaded
+	core = new /obj/item/assembly/signaler/core/gravitational/tier2()

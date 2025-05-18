@@ -97,6 +97,7 @@
 
 	vis_contents -= warp
 	QDEL_NULL(warp)
+	QDEL_LAZYLIST(impulses)
 	return ..()
 
 /obj/effect/anomaly/proc/update_warp()
@@ -186,11 +187,7 @@
 		collapse()
 
 /obj/effect/anomaly/proc/core_touch_effect(obj/item/assembly/signaler/core/core)
-	var/mult
-	if(core.tier <= tier)
-		mult = 1 << (tier - core.tier)
-	else
-		mult = 1 / (1 << (core.tier - tier))
+	var/mult = core.tier <= tier ? (1 << (tier - core.tier)) : (1.0 / (1 << (core.tier - tier)))
 
 	if(!iscoreempty(core))
 		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] распадается, передавая свой заряд [declent_ru(DATIVE)]."))
@@ -326,12 +323,7 @@
 		steps = -steps
 
 	for(var/i = 1 to steps)
-		var/move_dir
-		if(reversed)
-			move_dir = get_dir(target, src)
-		else
-			move_dir = get_dir(src, target)
-
+		var/move_dir = reversed ? get_dir(target, src) : get_dir(src, target)
 		do_move(move_dir)
 		sleep(2)
 

@@ -56,6 +56,13 @@
 	for(var/mob/living/M in created_mobs)
 		M.death()
 
+	QDEL_LAZYLIST(created_mobs)
+	QDEL_LAZYLIST(datas)
+	current_target = null
+	owner = null
+	chooser = null
+	core?.forceMove(get_turf(src))
+	core = null
 	. = ..()
 
 /obj/item/fauna_bomb/proc/use_charge(amount)
@@ -121,14 +128,17 @@
 		SA.leash_radius = round(core.get_strenght() / 15 + 0.5)
 		if (get_dist(src, SA) > SA.leash_radius)
 			SA.dust()
-		else
-			req_charge += SA.req_charge
+			continue
+
+		req_charge += SA.req_charge
 
 	while(used_charge > max_charge)
 		var/mob/living/simple_animal/hostile/airmob/cheapest_mob = null
 		for(var/mob/living/simple_animal/hostile/airmob/SA in created_mobs)
-			if(!cheapest_mob || cheapest_mob.req_charge > SA.req_charge)
-				cheapest_mob = SA
+			if(cheapest_mob && cheapest_mob.req_charge <= SA.req_charge)
+				continue
+
+			cheapest_mob = SA
 
 		cheapest_mob.death()
 
@@ -239,12 +249,16 @@
 
 	switch(action)
 		if("forget")
+			atom_say("Функция временно недоступна!", FALSE)
+			/*return
 			var/index = params["index"]
 			for(var/mob/living/simple_animal/hostile/airmob/SA in created_mobs)
-				if(SA.scan_num == datas["[index]"].scan_num)
-					SA.death()
+				if(SA.scan_num != datas["[index]"].scan_num)
+					continue
 
-			datas.Remove("[index]")
+				SA.death()
+
+			datas.Remove("[index]")*/
 
 		if("kill")
 			var/index = params["index"]
@@ -253,11 +267,12 @@
 				if(SA.scan_num == datas["[index]"].scan_num && (!weakest_mob || weakest_mob.health > SA.health))
 					weakest_mob = SA
 
-			if(weakest_mob)
-				weakest_mob.death()
-				ui.user.balloon_alert(ui.user, "проекция развеяна")
-			else
+			if(!weakest_mob)
 				ui.user.balloon_alert(ui.user, "нет таких проекций")
+				return
+
+			weakest_mob.death()
+			ui.user.balloon_alert(ui.user, "проекция развеяна")
 
 		if("create")
 			if(created_mobs.len >= MAX_CREATED_MOBS)

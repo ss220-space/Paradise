@@ -52,15 +52,6 @@
 /obj/item/assembly/signaler/core/attack_self()
 	return
 
-/proc/iscoret1(obj/item/assembly/signaler/core/A)
-	return istype(A) && A.tier == 1
-
-/proc/iscoret2(obj/item/assembly/signaler/core/A)
-	return istype(A) && A.tier == 2
-
-/proc/iscoret3(obj/item/assembly/signaler/core/A)
-	return istype(A) && A.tier == 3
-
 /*
 100 of tier 1 == 50 of tier 2 == 25 of tier 3
 100 of tier 3 == 200 of tier 2 == 400 of tier 1
@@ -304,11 +295,12 @@
 		return ..()
 
 	START_PROCESSING(SSobj, src)
-	if(prob(1))
-		var/mob/living/carbon/human/H = destination
-		H.adjust_fire_stacks(charge/10)
-		H.IgniteMob()
+	if(!prob(1))
+		return ..()
 
+	var/mob/living/carbon/human/H = destination
+	H.adjust_fire_stacks(charge/10)
+	H.IgniteMob()
 	return ..()
 
 /obj/item/assembly/signaler/core/atmospheric/tier3/process()
@@ -325,11 +317,13 @@
 		H.IgniteMob()
 		return
 
-	if(H.bodytemperature > T0C + 100)
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
-		H.apply_status_effect(/datum/status_effect/freon)
-		H.ExtinguishMob()
-		H.adjust_bodytemperature(-get_strenght())
+	if(H.bodytemperature <= T0C + 100)
+		return
+
+	visible_message("[capitalize(declent_ru(NOMINATIVE))] реагирует на контакт с горячим объектом, значительно охлаждая окружающую среду!")
+	H.apply_status_effect(/datum/status_effect/freon)
+	H.ExtinguishMob()
+	H.adjust_bodytemperature(-get_strenght())
 
 
 /obj/item/assembly/signaler/core/gravitational/tier3
@@ -447,8 +441,10 @@
 	..()
 	user.gib()
 	for(var/obj/item/organ/internal/O in range(2))
-		if(isturf(O.loc))
-			do_teleport(O, O, 2, asoundin = 'sound/effects/phasein.ogg')
+		if(!isturf(O.loc))
+			continue
+
+		do_teleport(O, O, 2, asoundin = 'sound/effects/phasein.ogg')
 
 	return OBLITERATION
 

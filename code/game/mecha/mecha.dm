@@ -900,7 +900,7 @@
 		to_chat(user, span_notice("You replace the fused wires."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/stock_parts/cell) && state == 4)
+	if(iscell(I) && state == 4)
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("There's already a powercell installed."))

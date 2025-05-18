@@ -59,7 +59,7 @@
 
 
 /obj/item/flash/attackby(obj/item/I, mob/user, params)
-	if(!can_overcharge || !istype(I, /obj/item/stock_parts/cell))
+	if(!can_overcharge || !iscell(I))
 		return ..()
 	add_fingerprint(user)
 	if(!battery_panel)

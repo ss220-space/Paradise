@@ -584,7 +584,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))	// trying to put a cell inside
+	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(opened == APC_CLOSED)
 			to_chat(user, span_warning("You should open the APC cover to insert a power cell."))

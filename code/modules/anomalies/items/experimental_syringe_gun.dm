@@ -37,6 +37,10 @@
 
 /obj/item/gun/syringe/rapidsyringe/experimental/Destroy()
 	STOP_PROCESSING(SSobj, src)
+	core?.forceMove(get_turf(src))
+	core = null
+	QDEL_LAZYLIST(synth_reagents)
+	qdel(ready_reagents)
 	return ..()
 
 /obj/item/gun/syringe/rapidsyringe/experimental/proc/update_core()
@@ -62,7 +66,7 @@
 		update_core()
 		return ATTACK_CHAIN_PROCEED
 
-	if(istype(I, /obj/item/reagent_containers/syringe))
+	if(issyringe(I))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip >= max_syringes)
 			user.balloon_alert(user, "недостаточно места")
@@ -76,7 +80,7 @@
 		process_chamber() // Chamber the syringe if none is already
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(istype(I, /obj/item/reagent_containers/glass))
+	if(isglassreagentcontainer(I))
 		if(!core)
 			user.balloon_alert(user, "нет ядра")
 			return ..()
@@ -90,12 +94,16 @@
 		RC.reagents.trans_to(ready_reagents, bank_size)
 		var/synch_reagent_volume = 0
 		for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
-			if(reagent.can_synth)
-				synch_reagent_volume += reagent.volume
+			if(!reagent.can_synth)
+				continue
+
+			synch_reagent_volume += reagent.volume
 
 		for(var/datum/reagent/reagent in ready_reagents.reagents.reagent_list)
-			if(reagent.can_synth)
-				synth_reagents[reagent.id] = reagent.volume / synch_reagent_volume
+			if(!reagent.can_synth)
+				continue
+
+			synth_reagents[reagent.id] = reagent.volume / synch_reagent_volume
 
 		user.balloon_alert(user, "смесь изменена")
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -130,7 +138,7 @@
 		ready_reagents.reagents.trans_to(S, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)
-	if(!istype(target, /obj/item/reagent_containers/glass))
+	if(!isglassreagentcontainer(target))
 		return ..()
 
 	var/obj/item/reagent_containers/glass/G = target
@@ -165,6 +173,10 @@
 
 /obj/item/gun/syringe/rapidsyringe/experimental/attack_self(mob/living/user)
 	return
+
+/obj/item/gun/syringe/rapidsyringe/experimental/preloaded
+	core = new /obj/item/assembly/signaler/core/vortex/tier2()
+
 
 /datum/crafting_recipe/rapidsyringe_experimental
 	name = "Experemintal syringe gun"

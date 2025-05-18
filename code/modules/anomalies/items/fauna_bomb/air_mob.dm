@@ -18,6 +18,11 @@
 	/// Number of scan data. Used to find mob of some type.
 	var/scan_num = 0
 
+/mob/living/simple_animal/hostile/airmob/Destroy()
+	. = ..()
+	armor = null
+	spawner = null
+
 /mob/living/simple_animal/hostile/airmob/Initialize(mapload, obj/item/fauna_bomb/spawner, datum/airmob_data/data)
 	. = ..()
 	scan_num = data.scan_num

@@ -17,20 +17,30 @@
 	var/has_bluespace_crystal = FALSE
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 
+/obj/item/gun/energy/bsg/Destroy()
+	. = ..()
+	core?.forceMove(get_turf(src))
+	core = null
+
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
 	if(core && has_bluespace_crystal)
 		. += span_notice("[src] в рабочем состоянии!")
-	else if(core)
+		return
+
+	if(core)
 		. += span_warning("Ядро энергетической аномалии вставлено, но не хватает БС кристалла.")
-	else if(has_bluespace_crystal)
+		return
+
+	if(has_bluespace_crystal)
 		. += span_warning("БС кристалл присутствует, но не хватает ядра энергетической аномалии.")
-	else
-		. += span_warning("Не хватает ядра энергетической аномалии и БС кристалла для работы.")
+		return
+
+	. += span_warning("Не хватает ядра энергетической аномалии и БС кристалла для работы.")
 
 
 /obj/item/gun/energy/bsg/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
+	if(isbluespacecrystal(I))
 		add_fingerprint(user)
 		var/obj/item/stack/ore/bluespace_crystal/crystal = I
 		if(has_bluespace_crystal)
@@ -98,22 +108,19 @@
 
 /obj/item/gun/energy/bsg/update_icon_state()
 	if(core)
-		if(has_bluespace_crystal)
-			icon_state = "bsg_finished"
-		else
-			icon_state = "bsg_core"
+		icon_state = "bsg_[has_bluespace_crystal ? "finished" : "core"]"
+		return
 
-	else if(has_bluespace_crystal)
-		icon_state = "bsg_crystal"
-	else
-		icon_state = "bsg"
+	icon_state = "bsg[has_bluespace_crystal ? "_crystal" : ""]"
 
 
 /obj/item/gun/energy/bsg/emp_act(severity)
 	..()
-	if(prob(75 / severity))
-		if(has_bluespace_crystal)
-			shatter()
+	if(!prob(75 / severity))
+		return
+
+	if(has_bluespace_crystal)
+		shatter()
 
 /obj/item/gun/energy/bsg/proc/shatter()
 	if(admin_model)

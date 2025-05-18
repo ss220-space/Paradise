@@ -31,6 +31,10 @@
 		var/type = pick_weight_classic(eballs_types)
 		eballs.Add(new type(loc, src))
 
+/obj/effect/anomaly/energetic/Destroy()
+	. = ..()
+	QDEL_LAZYLIST(eballs)
+
 /obj/effect/anomaly/energetic/collapse()
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
 		jump_to_machinery(collapse_shock_damage * 2)
@@ -44,9 +48,11 @@
 		return ..()
 
 	for(var/obj/effect/energy_ball/eball in eballs)
-		if(prob(50))
-			var/spawn_type = eball.spawn_type
-			new spawn_type(eball.loc)
+		if(!prob(50))
+			continue
+
+		var/spawn_type = eball.spawn_type
+		new spawn_type(eball.loc)
 
 	QDEL_LIST(eballs)
 	return ..()
@@ -194,7 +200,7 @@
 
 /obj/effect/anomaly/energetic/tier3/New()
 	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 
@@ -283,9 +289,11 @@
 
 /obj/effect/energy_ball/CanAllowThrough(atom/movable/mover, border_dir)
 	. = ..()
-	if(isliving(mover))
-		var/mob/living/M = mover
-		M.electrocute_act(rand(20, 30), "энергетического шара",  flags = SHOCK_NOGLOVES)
+	if(!isliving(mover))
+		return
+
+	var/mob/living/M = mover
+	M.electrocute_act(rand(20, 30), "энергетического шара",  flags = SHOCK_NOGLOVES)
 
 /obj/effect/energy_ball/big
 	size = 1

@@ -64,11 +64,13 @@
 	S.set_nutrition(S.get_max_nutrition())
 
 	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за слайма из атмосферной аномалии?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
-	if(LAZYLEN(candidates))
-		var/mob/dead/observer/chosen = pick(candidates)
-		S.key = chosen.key
-		S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
-		add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
+	if(!LAZYLEN(candidates))
+		return
+
+	var/mob/dead/observer/chosen = pick(candidates)
+	S.key = chosen.key
+	S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
+	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
 
 /obj/effect/anomaly/atmospheric/tier1
 	name = "малая атмосферная аномалия"
@@ -144,7 +146,7 @@
 /obj/effect/anomaly/atmospheric/tier3/New()
 	. = ..()
 
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 
@@ -191,21 +193,17 @@
 
 /obj/effect/anomaly/atmospheric/tier4/do_move(dir)
 	. = ..()
-	for(var/turf/simulated/wall/wall in range(3, src))
+	for(var/turf/simulated/wall/wall in range(2, src))
 		wall.take_damage(700)
 
-	for(var/mob/living/M in range(3, src))
+	for(var/mob/living/M in range(2, src))
 		to_chat(M, span_danger("Вы были испепелены [declent_ru(INSTRUMENTAL)]!"))
 		M.dust()
-
-	for(var/obj/O in range(3, src))
-		if(!isanomaly(O))
-			qdel(O)
 
 /obj/effect/anomaly/atmospheric/tier4/New()
 	. = ..()
 
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 

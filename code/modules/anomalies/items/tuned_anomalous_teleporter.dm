@@ -48,6 +48,11 @@
 	. = ..()
 	update_core()
 
+/obj/item/assembly/tuned_anomalous_teleporter/Destroy()
+	. = ..()
+	core?.forceMove(get_turf(src))
+	core = null
+
 /obj/item/assembly/tuned_anomalous_teleporter/proc/can_teleport(mob/user)
 	if(max_tp_range < 5)
 		if(user)
@@ -205,6 +210,9 @@ Ranges with core charge 50-100:
 /obj/item/assembly/tuned_anomalous_teleporter/bullet_act(obj/projectile/P)
 	. = ..()
 	activate()
+
+/obj/item/assembly/tuned_anomalous_teleporter/preloaded
+	core = new /obj/item/assembly/signaler/core/bluespace/tier2()
 
 /datum/crafting_recipe/tuned_anomalous_teleporter
 	name = "Tuned anomalous teleporter"

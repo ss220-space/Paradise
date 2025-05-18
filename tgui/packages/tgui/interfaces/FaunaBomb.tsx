@@ -33,7 +33,7 @@ type FaunaBombData = {
   created_len: number;
 };
 
-export const FaunaBomb = (props, context) => {
+export const FaunaBomb = (props) => {
   const { act, data } = useBackend<FaunaBombData>();
   const { charge, max_charge, charge_speed, created_len } = data;
   const [tabIndex, setTabIndex] = useLocalState<number>('tabIndex', 0);
@@ -99,7 +99,7 @@ type ScansData = {
   selected_scan_ind;
 };
 
-const Scans = (_properties, context) => {
+const Scans = (_properties) => {
   const { act, data } = useBackend<ScansData>();
   const { scans, selected_scan_ind } = data;
   const [scanIndex, setScanIndex] = useLocalState<number>('scanIndex', 0);

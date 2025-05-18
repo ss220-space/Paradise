@@ -62,13 +62,13 @@
 	var/obj/item/ammo_casing/energy/anomaly/en_chambered = chambered
 	en_chambered.e_cost *= max(1, stability_delta * stability_delta)
 
-	var/obj/projectile/beam/anomaly/BB = chambered.BB
-	BB.stability_delta = stability_delta
-	BB.pull_strenght = choosen_pull_dist
-	BB.move_block = block_move_time
-	BB.move_impulces_block = block_move_impulses_time
-	BB.anom_weaken = weaken_val
-	BB.weaken_time = weaken_time
+	var/obj/projectile/beam/anomaly/shot = chambered.BB
+	shot.stability_delta = stability_delta
+	shot.pull_strenght = choosen_pull_dist
+	shot.move_block = block_move_time
+	shot.move_impulces_block = block_move_impulses_time
+	shot.anom_weaken = weaken_val
+	shot.weaken_time = weaken_time
 
 /obj/item/gun/energy/anomaly_stabilizer/proc/update_stability_delta(new_val)
 	new_val = clamp(new_val, -stability_range, stability_range)
@@ -98,14 +98,13 @@
 		balloon_alert(user, "ядро пустое!")
 		return ATTACK_CHAIN_PROCEED
 
-	if(!user.drop_transfer_item_to_loc(core, src))
-		balloon_alert(user, "отпустить невозможно!")
-		return ATTACK_CHAIN_PROCEED
-
 	if(cores.len >= 2)
 		balloon_alert(user, "ячейки для ядер заняты!")
 		return ATTACK_CHAIN_PROCEED
 
+	if(!user.drop_transfer_item_to_loc(core, src))
+		balloon_alert(user, "отпустить невозможно!")
+		return ATTACK_CHAIN_PROCEED
 
 	cores.Add(core)
 	update_cores()
@@ -155,7 +154,7 @@
 		return ..()
 
 	add_fingerprint(user)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			balloon_alert(user, "отпустить невозможно!")
 			return ATTACK_CHAIN_PROCEED
@@ -239,10 +238,14 @@
 	. = list()
 	if(cell.charge < /obj/item/ammo_casing/energy/anomaly::e_cost)
 		return
-	else if(stability_delta < 0)
+
+	if(stability_delta < 0)
 		. += image(icon = icon, icon_state = "pistol_destab_overlay")
-	else if(stability_delta > 0)
+		return
+
+	if(stability_delta > 0)
 		. += image(icon = icon, icon_state = "pistol_stabil_overlay")
-	else
-		. += image(icon = icon, icon_state = "pistol_zero_overlay")
+		return
+
+	. += image(icon = icon, icon_state = "pistol_zero_overlay")
 

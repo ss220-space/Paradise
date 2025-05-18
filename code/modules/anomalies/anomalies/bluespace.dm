@@ -133,7 +133,7 @@
 
 /obj/effect/anomaly/bluespace/tier3/New()
 	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 
@@ -180,7 +180,7 @@
 
 /obj/effect/anomaly/bluespace/tier4/New()
 	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 

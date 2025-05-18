@@ -66,7 +66,7 @@
 		if(T.air)
 			T.air.temperature = rand(0, 50)
 
-	for(var/turf/simulated/floor/T in spiral_range_turfs(scale_by_strenght(range_low, range_high), owner))
+	for(var/turf/simulated/floor/T in range(scale_by_strenght(range_low, range_high), owner))
 		if(prob(100 - get_dist(T, owner) * 5))
 			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
@@ -99,8 +99,10 @@
 	for(var/mob/living/M in view(7, owner))
 		M.adjust_bodytemperature(-100)
 		M.apply_status_effect(/datum/status_effect/freon)
-		if(ishuman(M))
-			M.reagents.add_reagent("frostoil", 15)
+		if(!ishuman(M))
+			continue
+
+		M.reagents.add_reagent("frostoil", 15)
 
 /datum/anomaly_impulse/fire
 	name = "Пожар"
@@ -158,6 +160,8 @@
 /datum/anomaly_impulse/dist_fire
 	name = "Пожар на расстоянии"
 	desc = "Аномалия создает в нескольких точках вокруг себя нагретую горючую смесь плазмы и кислорода."
+	period_low = 5 SECONDS
+	period_high = 10 SECONDS
 	/// Minimum range of effect.
 	var/range_low = 1
 	/// Maximum range of effect.
@@ -182,20 +186,20 @@
 		try_x = clamp(try_x, 1, world.maxx)
 		try_y = clamp(try_y, 1, world.maxy)
 		var/turf/simulated/spawn_pos = get_turf(locate(try_x, try_y, start.z))
-		spawn_pos.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
-		spawn_pos.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
+		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
+		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
 
 
 /datum/anomaly_impulse/atmosfastmove
 	name = "Рывок"
 	desc = "Аномалия быстро двигается в определенном направлении сжигая все на своем пути."
 	stability_high = 60
-	period_low = 10 SECONDS
-	period_high = 20 SECONDS
+	period_low = 3 SECONDS
+	period_high = 5 SECONDS
 	/// Minimum range of effect.
-	var/range_low = 0
+	var/range_low = 5
 	/// Maximum range of effect.
-	var/range_high = 3
+	var/range_high = 10
 	/// Minimum generated amount of gases.
 	var/gases_low = 5
 	/// Maximum generated amount of gases.
@@ -208,6 +212,6 @@
 	for(var/i = 0 to scale_by_strenght(range_low, range_high))
 		owner.do_move(dir)
 		var/turf/simulated/spawn_pos = get_turf(owner)
-		spawn_pos.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
-		spawn_pos.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
+		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_OXYGEN, gases_amount * 2/7)
+		spawn_pos?.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, gases_amount * 5/7)
 		sleep(2)

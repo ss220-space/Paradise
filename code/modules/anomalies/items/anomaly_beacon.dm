@@ -33,11 +33,11 @@
 /obj/item/assembly/anomaly_beacon/attack_self(mob/user)
 	activate()
 
-/obj/item/assembly/anomaly_beacon/attackby(obj/item/I, mob/user, params)
-	if(!(iscore(I) && !iscoreempty(I) && !iscoret1(I)))
+/obj/item/assembly/anomaly_beacon/attackby(obj/item/assembly/signaler/core/possible_core, mob/user, params)
+	if(!(iscore(possible_core) && !iscoreempty(possible_core) && !iscoret1(possible_core)))
 		return ..()
 
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_transfer_item_to_loc(possible_core, src))
 		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
 
@@ -46,7 +46,7 @@
 		msg = "ядро заменено"
 		user.put_in_hands(core)
 
-	core = I
+	core = possible_core
 	user.balloon_alert(user, msg)
 	return ATTACK_CHAIN_BLOCKED
 

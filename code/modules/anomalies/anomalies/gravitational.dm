@@ -52,7 +52,7 @@
 
 /obj/effect/anomaly/gravitational/do_move(dir)
 	. = ..()
-	for(var/atom/movable/O in oview(max(1, tier), src))
+	for(var/atom/movable/O in oview(max(0, tier - 1), src))
 		if(can_move_sth(O))
 			O.throw_at(get_step(O, dir), tier, tier * 2)
 
@@ -127,7 +127,7 @@
 /obj/effect/anomaly/gravitational/tier3/New()
 	. = ..()
 
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 
@@ -174,7 +174,7 @@
 /obj/effect/anomaly/gravitational/tier4/New()
 	. = ..()
 
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/M as anything in GLOB.player_list)
 		if(M.stat)
 			continue
 

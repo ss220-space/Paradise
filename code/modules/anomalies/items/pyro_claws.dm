@@ -104,8 +104,9 @@
 	. = ..()
 	if(core)
 		. += span_notice("[declent_ru(NOMINATIVE)] полностью работоспособны.")
-	else
-		. += span_warning("[declent_ru(NOMINATIVE)] требуют атмосферное ядро для работы!")
+		return
+
+	. += span_warning("[declent_ru(NOMINATIVE)] требуют атмосферное ядро для работы!")
 
 /obj/item/clothing/gloves/color/black/pyro_claws/item_action_slot_check(slot, mob/user, datum/action/action)
 	return slot == ITEM_SLOT_GLOVES
@@ -191,3 +192,6 @@
 	used = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, PYRO_CLAWS_TRAIT)
 	atom_say("Внутренние плазменные баллоны перезаряжены. Перчатки достаточно охлаждены.", FALSE)
+
+/obj/item/clothing/gloves/color/black/pyro_claws/preloaded
+	core = new /obj/item/assembly/signaler/core/atmospheric/tier2()

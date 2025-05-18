@@ -49,7 +49,7 @@
 	maxHealth = target.maxHealth
 	speed = target.cached_multiplicative_slowdown
 
-	if(istype(target, /mob/living/simple_animal))
+	if(isanimal(target))
 		var/mob/living/simple_animal/SA = target
 		response_help = SA.response_help
 		response_disarm = SA.response_disarm

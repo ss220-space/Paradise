@@ -223,14 +223,16 @@
 	var/atom/mover_loc = mover.loc
 	var/border_dir = get_dir(src, mover)
 	var/can_pass_self = CanPass(mover, border_dir)
-	if(can_pass_self)
-		for(var/atom/movable/obstacle as anything in contents)
-			// Multi tile objects and moving out of other objects.
-			if(obstacle == mover || obstacle == mover_loc)
-				continue
+	if(!can_pass_self)
+		return TRUE
 
-			if(!obstacle.CanPass(mover, border_dir))
-				return FALSE
+	for(var/atom/movable/obstacle as anything in contents)
+		// Multi tile objects and moving out of other objects.
+		if(obstacle == mover || obstacle == mover_loc)
+			continue
+
+		if(!obstacle.CanPass(mover, border_dir))
+			return FALSE
 
 	return TRUE
 
