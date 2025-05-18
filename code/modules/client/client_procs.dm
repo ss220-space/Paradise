@@ -517,7 +517,7 @@
             "})
 	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
-	
+
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -652,7 +652,7 @@
 			qdel(src)
 			return // Dont insert or they can just go in again
 
-		is_tutorial_needed = TRUE
+		is_tutorial_needed = !!CONFIG_GET(string/tutorial_server_url)
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
