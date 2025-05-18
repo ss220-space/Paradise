@@ -19,18 +19,21 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/structure/safe
 	name = "safe"
-	desc = "Большой кусок металла с лимбовым замком. Маленький текст на замке гласит гласит:\"Сейф от Scarborough Arms защитит ваши вещи драгоценности от термита, взрывов и ассистентов.\" "
+	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\""
+	ru_names = list(
+		NOMINATIVE = "сейф",
+		GENITIVE = "сейфа",
+		DATIVE = "сейфу",
+		ACCUSATIVE = "сейф",
+		INSTRUMENTAL = "сейфом",
+		PREPOSITIONAL = "сейфе"
+	)
+	gender = MALE
 	icon = 'icons/obj/structures.dmi'
 	icon_state = "safe"
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
-	ru_names = list(NOMINATIVE = "сейф",
-					GENITIVE = "сейфа",
-					DATIVE = "сейфу",
-					ACCUSATIVE = "сейф",
-					INSTRUMENTAL = "сейфом",
-					PREPOSITIONAL = "сейфе")
 	// Settings
 	/// The maximum combined w_class of stuff in the safe.
 	var/maxspace = 24
@@ -110,9 +113,9 @@ GLOBAL_LIST_EMPTY(safes)
 
 /obj/structure/safe/examine(mob/user)
 	. = ..()
-	. += span_notice("Эта модель имеет [number_of_tumblers] тумблера.")
+	. += span_notice("Похоже, что эта модель имеет [number_of_tumblers] [declension_ru(number_of_tumblers,"тумблер","тумблера","тумблеров")].")
 	if(open)
-		. += span_notice("На внутренней стороне двери написанны цифры: <b>[get_combination()]</b>.")
+		. += span_notice("На внутренней стороне двери написаны цифры: <b>[get_combination()]</b>.")
 
 /obj/structure/safe/blob_act(obj/structure/blob/B)
 	return
@@ -156,7 +159,7 @@ GLOBAL_LIST_EMPTY(safes)
 		return TRUE
 
 	if(drill && !broken)
-		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Термальная дрель", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
+		switch(tgui_alert(user, "Что вы собираетесь сделать?", "Дрель с усиленным сверлом", list("[drill_timer ? "Выключить" : "Включить"]", "Убрать дрель", "Отмена")))
 			if("Включить")
 				if(do_after(user, 2 SECONDS, src))
 					drill_timer = addtimer(CALLBACK(src, PROC_REF(drill_open)), time_to_drill, TIMER_STOPPABLE)
@@ -178,7 +181,7 @@ GLOBAL_LIST_EMPTY(safes)
 					STOP_PROCESSING(SSobj, src)
 			if("Убрать дрель")
 				if(drill_timer)
-					balloon_alert(user, ("дрель работает!"))
+					user.balloon_alert(user, "дрель работает!")
 				else if(do_after(user, 2 SECONDS, src))
 					remove_drill(user)
 			if("Отмена")
@@ -198,24 +201,24 @@ GLOBAL_LIST_EMPTY(safes)
 			return ..()
 		add_fingerprint(user)
 		if(broken && istype(item, /obj/item/safe_internals))
-			to_chat(user, span_notice("Вы начинаете замещать сломанный механизм."))
+			user.balloon_alert(user, "замена началась")
 			if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || !broken)
 				return ATTACK_CHAIN_PROCEED
 			if(!user.drop_transfer_item_to_loc(item, src))
 				return ..()
-			to_chat(user, span_notice("Вы заменили сломанный механизм."))
+			user.balloon_alert(user, "механизм заменён")
 			broken = FALSE
 			locked = FALSE
 			update_icon()
 			qdel(item)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(item.w_class + space > maxspace)
-			balloon_alert(user,"[item.name] не помещается!")
+			to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] не помещается [item.declent_ru(NOMINATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(item, src))
 			return ATTACK_CHAIN_PROCEED
 		space += item.w_class
-		to_chat(user, span_notice("Вы кладёте [item] в [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы кладёте [item.declent_ru(ACCUSATIVE)] в [src.declent_ru(ACCUSATIVE)]."))
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -226,9 +229,9 @@ GLOBAL_LIST_EMPTY(safes)
 	add_fingerprint(user)
 	if(istype(item, /obj/item/thermal_drill))
 		if(drill)
-			balloon_alert(user, "дрель уже стоит!")
+			user.balloon_alert(user, "дрель уже стоит!")
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Вы начинаете устанавливать [item]."))
+		user.balloon_alert(user, "начинается установка")
 		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || drill)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(item, src))
@@ -290,11 +293,11 @@ GLOBAL_LIST_EMPTY(safes)
 	switch(action)
 		if("open")
 			if(check_unlocked() || open || broken)
-				to_chat(usr, span_notice("Вы [open ? "закрываете" : "открываете"] [src.declent_ru(ACCUSATIVE)]."))
+				to_chat(usr, span_notice("Вы [open ? "закрываете" : "открываете"] [declent_ru(ACCUSATIVE)]."))
 				open = !open
 				update_icon()
 			else
-				to_chat(usr, span_warning("Вы не можете открыть [src.declent_ru(ACCUSATIVE)] пока замок не открыт!"))
+				to_chat(usr, span_warning("Вы не можете открыть [declent_ru(ACCUSATIVE)] пока замок не открыт!"))
 		if("turnright")
 			if(open)
 				return
@@ -319,7 +322,7 @@ GLOBAL_LIST_EMPTY(safes)
 			if(open)
 				return
 			if(broken)
-				to_chat(usr, span_warning("Циферблат не может поеврнуться так как механизм сейфа сломан!"))
+				to_chat(usr, span_warning("Циферблат не поворачивается, так как его механизм сломан!"))
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
@@ -409,9 +412,9 @@ GLOBAL_LIST_EMPTY(safes)
 		return
 
 	if(current_tick == 2)
-		to_chat(user, "<span class='italics'>Звуки от [src.declent_ru(GENITIVE)] смешиваются вместе.</span>")
+		to_chat(user, span_italics("Звуки от [declent_ru(GENITIVE)] издаются слишком быстро и смешиваются друг с другом."))
 	if(total_ticks == 1 || prob(SOUND_CHANCE))
-		to_chat(user, "<span class='italics'>Вы слышите [pick(sounds)] от [src.declent_ru(GENITIVE)].</span>")
+		to_chat(user, span_italics("Вы слышите [pick(sounds)] от [declent_ru(GENITIVE)].</span>"))
 
 /**
   * Returns the combination to unlock the safe as text.
@@ -447,6 +450,14 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/structure/safe/floor
 	name = "floor safe"
+	ru_names = list(
+		NOMINATIVE = "напольный сейф",
+		GENITIVE = "напольного сейфа",
+		DATIVE = "напольному сейфу",
+		ACCUSATIVE = "напольный сейф",
+		INSTRUMENTAL = "напольным сейфом",
+		PREPOSITIONAL = "напольном сейфе"
+	)
 	icon_state = "floorsafe"
 	density = FALSE
 	level = 1 //Under the floor
@@ -454,12 +465,6 @@ GLOBAL_LIST_EMPTY(safes)
 	layer = ABOVE_PLATING_LAYER
 	drill_x_offset = -1
 	drill_y_offset = 20
-	ru_names = list(NOMINATIVE = "напольный сейф",
-					GENITIVE = "напольного сейфа",
-					DATIVE = "напольному сейфу",
-					ACCUSATIVE = "напольный сейф",
-					INSTRUMENTAL = "напольным сейфом",
-					PREPOSITIONAL = "напольном сейфе")
 
 /obj/structure/safe/floor/Initialize()
 	. = ..()
@@ -477,13 +482,15 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/item/safe_internals
 	name = "safe internals"
-	ru_names = list(NOMINATIVE = "внутренности сейфа",
-					GENITIVE = "внтренностей сейфа",
-					DATIVE = "внутренностям сейфа",
-					ACCUSATIVE = "внутренности сейфа",
-					INSTRUMENTAL = "внутренностями сейфа",
-					PREPOSITIONAL = "внутренностях сейфа")
-	desc = "Механизмы и болты для сейфа Scarborough Arms."
+	desc = "Механизм и запирающие ригели для тумбового сейфа \"Скарборо Армс - 2\"."
+	ru_names = list(
+		NOMINATIVE = "внутренности сейфа",
+		GENITIVE = "внтренностей сейфа",
+		DATIVE = "внутренностям сейфа",
+		ACCUSATIVE = "внутренности сейфа",
+		INSTRUMENTAL = "внутренностями сейфа",
+		PREPOSITIONAL = "внутренностях сейфа"
+	)
 	icon_state = "safe_internals"
 
 /**
@@ -493,12 +500,14 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/item/paper/safe_code
 	name = "safe codes"
-	ru_names = list(NOMINATIVE = "коды от сейфа",
-					GENITIVE = "кодов от сейфа",
-					DATIVE = "кодам от сейфа",
-					ACCUSATIVE = "коды от сейфа",
-					INSTRUMENTAL = "кодами от сейфа",
-					PREPOSITIONAL = "кодах от сейфа")
+	ru_names = list(
+		NOMINATIVE = "коды от сейфа",
+		GENITIVE = "кодов от сейфа",
+		DATIVE = "кодам от сейфа",
+		ACCUSATIVE = "коды от сейфа",
+		INSTRUMENTAL = "кодами от сейфа",
+		PREPOSITIONAL = "кодах от сейфа"
+	)
 	var/owner
 	info = "<div style='text-align:center;'><img src = ntlogo.png><center><h3>Коды от сейфа</h3></center>"
 
@@ -511,7 +520,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> Комбинация для сейфа в [get_area(S)]: [S.get_combination()]<br>"
+			info += "<br> Комбинация для сейфа, расположенного в [get_area(S)], следующая: [S.get_combination()]<br>"
 			info_links = info
 			update_icon()
 
