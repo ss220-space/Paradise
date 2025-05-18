@@ -60,10 +60,10 @@
 /obj/effect/anomaly/energetic/process()
 	. = ..()
 	var/list/powernets = list()
-	for(var/turf/T in view(3, src))
+	for(var/turf/turf in view(3, src))
 		var/obj/structure/cable/C = null
-		if(isturf(T))
-			C = locate() in T
+		if(isturf(turf))
+			C = locate() in turf
 
 		if(!C?.powernet)
 			continue

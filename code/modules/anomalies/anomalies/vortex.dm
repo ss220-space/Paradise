@@ -12,13 +12,13 @@
 
 /obj/effect/anomaly/vortex/collapse()
 	var/list/affected = list()
-	for(var/turf/T in range(collapse_range, src))
-		var/key = "[get_dist(src, T)]"
+	for(var/turf/turf in range(collapse_range, src))
+		var/key = "[get_dist(src, turf)]"
 		if(!(key in affected))
 			affected[key] = list()
 
 		var/list/list = affected[key]
-		list.Add(T)
+		list.Add(turf)
 
 	for(var/key in affected)
 		matr = matrix()
@@ -26,11 +26,11 @@
 		matr.Scale(mult, mult)
 		animate(src, transform = matr, time = 0.2 SECONDS, flags = ANIMATION_PARALLEL)
 		var/list/list = affected[key]
-		for(var/turf/T in list)
+		for(var/turf/turf in list)
 			if(!prob(mult * 10))
 				continue
 
-			T.singularity_act(grav_pull_strenght)
+			turf.singularity_act(grav_pull_strenght)
 
 		sleep(2)
 

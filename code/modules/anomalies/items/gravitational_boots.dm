@@ -210,14 +210,14 @@
 	var/jump_mult = core.get_strenght() / 150
 	var/cur_jumpdistance = jumpdistance * jump_mult
 	var/cur_jumpjumpspeed = jumpspeed * jump_mult
-	var/turf/T = get_step(get_turf(user), user.dir)
+	var/turf/turf = get_step(get_turf(user), user.dir)
 	for(var/i = 1 to cur_jumpdistance)
-		if(!T.can_enter(user))
+		if(!turf.can_enter(user))
 			cur_jumpjumpspeed = max(3, cur_jumpjumpspeed * ((i - 1) / cur_jumpdistance))
 			cur_jumpdistance = i - 1
 			break
 
-		T = get_step(T, user.dir)
+		turf = get_step(turf, user.dir)
 
 	var/atom/target = get_edge_target_turf(user, user.dir) //gets the user's direction
 	ADD_TRAIT(user, TRAIT_MOVE_FLYING, ITEM_GRAV_BOOTS_TRAIT)

@@ -193,8 +193,8 @@
 		new /obj/effect/anomaly/bluespace/tier2(get_turf(locate(rand(1, world.maxx), rand(1, world.maxy), z)))
 
 	var/list/turf/turfs = list()
-	for(var/turf/simulated/T in range(10, src))
-		turfs.Add(T)
+	for(var/turf/simulated/turf in range(10, src))
+		turfs.Add(turf)
 
 	// swaps
 	for(var/i = 1; i <= rand(40, 50); ++i)

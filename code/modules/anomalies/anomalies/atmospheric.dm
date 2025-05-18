@@ -11,20 +11,20 @@
 	var/collapse_slimes_high = 0
 
 /obj/effect/anomaly/atmospheric/collapse()
-	for(var/turf/simulated/T in view(collapse_range * 2, src))
-		if(T.air)
-			T.air.temperature = rand(0, 50)
+	for(var/turf/simulated/turf in view(collapse_range * 2, src))
+		if(turf.air)
+			turf.air.temperature = rand(0, 50)
 
-	for(var/turf/simulated/floor/T in view(collapse_range, src))
+	for(var/turf/simulated/floor/turf in view(collapse_range, src))
 		var/near_ice = 0 // Generation will be more beautiful.
-		for(var/turf/simulated/checked in view(1, T))
+		for(var/turf/simulated/checked in view(1, turf))
 			if(checked.GetComponent(/datum/component/wet_floor))
 				near_ice++
 
 		if(prob(80 - near_ice * 20))
-			new /obj/effect/snow(T)
+			new /obj/effect/snow(turf)
 		else
-			T.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
+			turf.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
 	for(var/mob/living/M in view(collapse_range, src))
 		M.adjust_bodytemperature(-100)
@@ -32,10 +32,10 @@
 		if(ishuman(M))
 			M.reagents.add_reagent("frostoil", 5)
 
-	var/turf/simulated/T = get_turf(src)
-	if(istype(T))
-		T.atmos_spawn_air(LINDA_SPAWN_OXYGEN, collapse_gas_amount * 2/7)
-		T.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, collapse_gas_amount * 5/7)
+	var/turf/simulated/turf = get_turf(src)
+	if(istype(turf))
+		turf.atmos_spawn_air(LINDA_SPAWN_OXYGEN, collapse_gas_amount * 2/7)
+		turf.atmos_spawn_air(LINDA_SPAWN_HEAT | LINDA_SPAWN_TOXINS, collapse_gas_amount * 5/7)
 
 	for(var/i = 1 to rand(collapse_slimes_low, collapse_slimes_high))
 		INVOKE_ASYNC(src, PROC_REF(make_slime))
@@ -57,9 +57,9 @@
 	I.fire_act(null, rand(0, 1000), rand(20, 200))
 
 /obj/effect/anomaly/atmospheric/proc/make_slime()
-	var/turf/simulated/T = get_turf(src)
+	var/turf/simulated/turf = get_turf(src)
 	var/new_colour = pick("red", "orange", "blue", "dark blue")
-	var/mob/living/simple_animal/slime/random/S = new(T, new_colour)
+	var/mob/living/simple_animal/slime/random/S = new(turf, new_colour)
 	S.rabid = TRUE
 	S.set_nutrition(S.get_max_nutrition())
 
@@ -70,7 +70,7 @@
 	var/mob/dead/observer/chosen = pick(candidates)
 	S.key = chosen.key
 	S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
-	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(T)].", S)
+	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", S)
 
 /obj/effect/anomaly/atmospheric/tier1
 	name = "малая атмосферная аномалия"

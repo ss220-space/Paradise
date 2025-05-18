@@ -96,8 +96,8 @@
 /datum/anomaly_impulse/wormholes/impulse()
 	var/radius = scale_by_strenght(effect_range_low, effect_range_high)
 	var/list/possible_turfs = list()
-	for(var/turf/T in range(radius, owner))
-		possible_turfs.Add(T)
+	for(var/turf/turf in range(radius, owner))
+		possible_turfs.Add(turf)
 
 	var/number_of_wormholes = scale_by_strenght(wormholes_num_low, wormholes_num_high)
 	for(var/i in 1 to number_of_wormholes)
@@ -154,8 +154,8 @@
 /datum/anomaly_impulse/bs_tp_other_t4/impulse()
 	var/list/turf/turfs = list()
 	var/tp_range = scale_by_strenght(5, 10)
-	for(var/turf/simulated/T in range(tp_range, owner))
-		turfs.Add(T)
+	for(var/turf/simulated/turf in range(tp_range, owner))
+		turfs.Add(turf)
 
 	// swaps
 	for(var/i = 1; i <= rand(20, 30); ++i)

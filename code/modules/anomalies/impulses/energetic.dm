@@ -15,9 +15,9 @@
 
 	var/list/turf/possible_targets = list()
 	var/jumps = scale_by_strenght(jumps_low, jumps_high)
-	for(var/turf/T in orange(jumps, owner))
-		if(get_dist(owner, T) == jumps)
-			possible_targets.Add(T)
+	for(var/turf/turf in orange(jumps, owner))
+		if(get_dist(owner, turf) == jumps)
+			possible_targets.Add(turf)
 
 	var/turf/target = pick(possible_targets)
 	if(!target)
