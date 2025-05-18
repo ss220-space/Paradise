@@ -16,7 +16,7 @@
 	if(client && screen.should_show_to(src))
 		screen.update_for_view(client.view)
 		client.screen += screen
-		for(var/mob/dead/observer/observe in inventory_observers)
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
 				LAZYREMOVE(inventory_observers, observe)
 				continue
@@ -34,7 +34,7 @@
 		return
 
 	screens -= category
-	for(var/mob/dead/observer/observe in inventory_observers)
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
 		if(!observe.client)
 			LAZYREMOVE(inventory_observers, observe)
 			continue
@@ -47,7 +47,7 @@
 		if(client)
 			client.screen -= screen
 
-			for(var/mob/dead/observer/observe in inventory_observers)
+			for(var/mob/dead/observer/observe as anything in inventory_observers)
 				if(!observe.client)
 					LAZYREMOVE(inventory_observers, observe)
 					continue
@@ -58,7 +58,7 @@
 /mob/proc/clear_fullscreen_after_animate(atom/movable/screen/fullscreen/screen)
 	if(client)
 		client.screen -= screen
-		for(var/mob/dead/observer/observe in inventory_observers)
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
 				LAZYREMOVE(inventory_observers, observe)
 				continue

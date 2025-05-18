@@ -213,7 +213,7 @@
 
 
 /obj/item/storage/proc/update_viewers()
-	for(var/mob/M in mobs_viewing)
+	for(var/mob/M as anything in mobs_viewing)
 		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
 			continue
 		hide_from(M)

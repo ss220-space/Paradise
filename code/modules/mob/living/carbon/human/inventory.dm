@@ -317,7 +317,7 @@
 	if(client)
 		client.screen -= I
 
-	for(var/mob/dead/observer/observe in inventory_observers)
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
 		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
 			observe.client.screen -= I
 		else

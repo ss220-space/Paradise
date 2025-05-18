@@ -103,9 +103,7 @@
 
 
 /mob/living/silicon/robot/proc/observer_screen_update(obj/item/item_to_update, add = TRUE)
-	for(var/mob/dead/observer/observe in inventory_observers)
-		if(!istype(observe))
-			continue
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
 		if(!(observe.client && observe.client.eye == src))
 			LAZYREMOVE(inventory_observers, observe)
 			continue

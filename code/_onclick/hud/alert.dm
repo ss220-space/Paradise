@@ -92,7 +92,7 @@
 		hud_used.reorganize_alerts()
 		client.screen -= alert
 
-		for(var/mob/dead/observer/observe in inventory_observers)
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
 				LAZYREMOVE(inventory_observers, observe)
 				continue

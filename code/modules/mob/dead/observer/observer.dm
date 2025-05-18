@@ -711,7 +711,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	reset_perspective()
 	cleanup_observe()
 
-	hud_used.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
 
 	lighting_alpha = client?.prefs.ghost_darkness_level
 	update_sight()
@@ -722,6 +721,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	clear_fullscreens()
 
 	if(client)
+		hud_used.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
 		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
 		if(do_observe_target)
 			UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)

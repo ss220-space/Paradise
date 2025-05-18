@@ -1073,7 +1073,7 @@
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
-		for(var/mob/dead/observer/observe in inventory_observers)
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
 			if(!observe.client)
 				LAZYREMOVE(inventory_observers, observe)
 				continue
