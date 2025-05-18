@@ -517,6 +517,7 @@
 	select_name  = "emitter"
 	delay = 0.4
 	e_cost = 100
+	harmful = FALSE
 	projectile_type = /obj/projectile/beam/anomaly
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 

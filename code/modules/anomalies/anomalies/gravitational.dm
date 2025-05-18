@@ -50,6 +50,12 @@
 		if(can_move_sth(O))
 			step_towards(O,src)
 
+/obj/effect/anomaly/gravitational/do_move(dir)
+	. = ..()
+	for(var/atom/movable/O in oview(max(1, tier), src))
+		if(can_move_sth(O))
+			O.throw_at(get_step(O, dir), tier, tier * 2)
+
 /obj/effect/anomaly/gravitational/tier1
 	name = "малая гравитационная аномалия"
 	ru_names = list(
@@ -183,7 +189,7 @@
 	. = ..()
 
 /obj/effect/anomaly/gravitational/tier4/do_move(dir)
-	. = ..()
+	. = ..(dir)
 	for(var/turf/simulated/wall/wall in range(3, src))
 		wall.take_damage(700)
 
