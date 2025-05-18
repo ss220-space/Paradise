@@ -62,7 +62,7 @@
 	use_pathfinding = TRUE
 	can_strip = FALSE
 	butcher_results = list()
-	hud_type = /datum/hud/simple_animal/facehugger
+	hud_type = /datum/hud/simple_animal/lang
 	var/jumpdistance = 7
 	var/jumpspeed = 1.5
 	var/host_species = ""

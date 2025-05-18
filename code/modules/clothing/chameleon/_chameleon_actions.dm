@@ -163,12 +163,12 @@
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_IMMOBILE|AB_CHECK_HANDS_BLOCKED
 	/// Typecache of all item types we explicitly cannot pick
 	/// Note that abstract items are already excluded
-	VAR_FINAL/list/chameleon_blacklist = list()
+	VAR_FINAL/static/list/chameleon_blacklist = list()
 	/// Typecache of typepaths we can turn into
 	VAR_FINAL/list/chameleon_typecache
 	/// Assoc list of item name + icon state to item typepath
 	/// This is passed to the list input
-	VAR_FINAL/list/chameleon_list
+	VAR_FINAL/static/list/chameleon_list = list()
 	/// The prime typepath of what class of item we're allowed to pick from
 	var/chameleon_type
 	/// Used in the action button to describe what we're changing into
@@ -176,6 +176,7 @@
 	/// What chameleon is active right now?
 	/// Can be set in the declaration to update in init
 	var/active_type
+	var/obj/item/holder
 	/// Cooldown from when we started being EMP'd
 	COOLDOWN_DECLARE(emp_timer)
 
@@ -189,6 +190,7 @@
 
 	initialize_blacklist()
 	initialize_disguises()
+	holder = Target
 	if(active_type)
 		if(chameleon_blacklist[active_type])
 			stack_trace("[type] has an active type defined in init which is blacklisted ([active_type])")
@@ -203,6 +205,46 @@
 	STOP_PROCESSING(SSprocessing, src)
 	return ..()
 
+
+/datum/action/item_action/chameleon/change/ui_host()
+	return target
+
+/datum/action/item_action/chameleon/change/ui_state(mob/user)
+	return GLOB.physical_state
+
+/datum/action/item_action/chameleon/change/ui_data(mob/user)
+	var/list/data = list()
+	data["selected_appearance"] = "[holder.name]_[holder.icon_state]"
+	return data
+
+/datum/action/item_action/chameleon/change/ui_static_data(mob/user, datum/tgui/ui = null)
+	var/list/data = list()
+	var/list/chameleon_skins = list()
+	for(var/chameleon_type in chameleon_list[chameleon_name])
+		var/obj/item/chameleon_item = chameleon_list[chameleon_name][chameleon_type]
+		chameleon_skins.Add(list(list(
+			"icon" = initial(chameleon_item.icon),
+			"icon_state" = initial(chameleon_item.icon_state),
+			"name" = initial(chameleon_item.name),
+		)))
+
+	data["chameleon_skins"] = chameleon_skins
+	return data
+
+/datum/action/item_action/chameleon/change/ui_interact(mob/user, datum/tgui/ui = null)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		ui = new(user, src, "Chameleon", "Change [chameleon_name] Appearance")
+		ui.open()
+		ui.set_autoupdate(FALSE)
+
+/datum/action/item_action/chameleon/change/ui_act(action, list/params)
+	if(..())
+		return
+
+	switch(action)
+		if("change_appearance")
+			update_look(chameleon_list[chameleon_name][params["new_appearance"]])
 
 /datum/action/item_action/chameleon/change/proc/on_emp(datum/source, severity)
 	SIGNAL_HANDLER
@@ -244,6 +286,7 @@
 
 	LAZYINITLIST(chameleon_typecache)
 	LAZYINITLIST(chameleon_list)
+	LAZYINITLIST(chameleon_list[chameleon_name])
 
 	if(!ispath(chameleon_type, /obj/item))
 		stack_trace("Non-item chameleon type defined on [type] ([chameleon_type])")
@@ -257,27 +300,23 @@
 	for(var/obj/item/item_type as anything in chameleon_typecache)
 		if(chameleon_blacklist[item_type] || (initial(item_type.item_flags) & ABSTRACT) || !initial(item_type.icon_state))
 			continue
-		var/chameleon_item_name = "[initial(item_type.name)] ([initial(item_type.icon_state)])"
+		var/chameleon_item_name = "[replacetext(initial(item_type.name), "\improper","")]_[initial(item_type.icon_state)]"
 		var/item_exist = FALSE
-		for(var/existing_item_name in chameleon_list)
+		for(var/existing_item_name in chameleon_list[chameleon_name])
 			if(existing_item_name == chameleon_item_name)
 				item_exist = TRUE
 				break
 		if(!item_exist)
-			chameleon_list[chameleon_item_name] = item_type
+			chameleon_list[chameleon_name][chameleon_item_name] = item_type
 
 
 /datum/action/item_action/chameleon/change/proc/select_look(mob/user)
-	var/picked_name = tgui_input_list(user, "Select [chameleon_name] to change into", "Chameleon Settings", sort_list(chameleon_list, GLOBAL_PROC_REF(cmp_typepaths_asc)))
-	if(isnull(picked_name) || isnull(chameleon_list[picked_name]) || QDELETED(src) || QDELETED(user) || QDELETED(owner) || !IsAvailable())
-		return
-	var/obj/item/picked_item = chameleon_list[picked_name]
-	update_look(picked_item)
+	ui_interact(user)
 
 
 /datum/action/item_action/chameleon/change/proc/random_look()
-	var/picked_name = pick(chameleon_list)
-	update_look(chameleon_list[picked_name])
+	var/picked_name = pick(chameleon_list[chameleon_name])
+	update_look(chameleon_list[chameleon_name][picked_name])
 
 
 /datum/action/item_action/chameleon/change/proc/update_look(obj/item/picked_item)
@@ -289,6 +328,7 @@
 		chameleon_item.update_equipped_item()
 	else
 		UpdateButtonIcon()
+	SStgui.update_uis(src)
 
 
 /datum/action/item_action/chameleon/change/proc/update_item(obj/item/picked_item)

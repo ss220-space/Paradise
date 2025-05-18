@@ -496,7 +496,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	if(first_piece.speaking)
 		if(first_piece.speaking.whisper_verbs)
 			verb = pick(first_piece.speaking.whisper_verbs)
-			not_heard = "[verb] что-то"
+			not_heard = "[genderize_decode(src, verb)] что-то"
 		else
 			var/adverb = pick("еле слышно", "едва слышно", "тихо", "очень тихо", "негромко")
 			adverb_added = TRUE
@@ -581,7 +581,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	speech_bubble("[bubble_icon][speech_bubble_test]", src, speech_bubble_recipients)
 
 	if(length(watching))
-		var/rendered = "<span class='game say'><span class='name'>[name]</span> [not_heard].</span>"
+		var/rendered = span_gamesay("[span_name(name)] [not_heard]")
 		for(var/mob/M in watching)
 			M.show_message(rendered, 2)
 
