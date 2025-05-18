@@ -357,6 +357,13 @@
 	if(istype(implant) && implant.activated)
 		msg += "Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [genderize_ru(gender, "его", "её", "его", "их")] хвосте.\n"
 
+
+	if(get_gravity(src) < -NO_GRAVITY && !buckled)
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] наход[genderize_ru(user.gender, "и", "и", "и", "я")]тся на потолке."
+
+	if(user.no_gravity() && !buckled)
+		msg += "[p_they(TRUE)] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
+
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
 	if(decaylevel == 2)

@@ -164,6 +164,11 @@
 #define span_motd(str) ("<span class='motd'>" + str + "</span>")
 #define span_emojienabled(str) ("<span class='emoji_enabled'>" + str + "</span>")
 #define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
+#define span_atmospfericanomaly(str) ("<span class='atmospferic_anomaly'>" + str + "</span>")
+#define span_bluespaceanomaly(str) ("<span class='bluespace_anomaly'>" + str + "</span>")
+#define span_energeticanomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
+#define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
+#define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

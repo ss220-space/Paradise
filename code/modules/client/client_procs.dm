@@ -1401,9 +1401,9 @@
 	var/atom/old_eye = eye
 	eye = new_eye
 
-	for(var/mob/dead/observer/observe in mob.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-			LAZYREMOVE(mob.orbiters, observe)
+	for(var/mob/dead/observer/observe in mob.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
 		observe.client.eye = new_eye
 

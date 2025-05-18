@@ -29,7 +29,7 @@
 
 	LAssailant = null
 	GLOB.left_player_list -= src
-	
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -354,6 +354,9 @@
 		if(hud_used)
 			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
+		if(!new_eye)
+			client.set_eye(src)
+			client.perspective = MOB_PERSPECTIVE
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -1070,8 +1073,9 @@
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
-		for(var/mob/dead/observer/observe in orbiters)
-			if(!istype(observe) || !observe.client)
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.vision_type = vision_type
 	update_sight()

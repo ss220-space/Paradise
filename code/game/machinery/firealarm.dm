@@ -85,7 +85,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		return
 
 	var/area/area = get_area(src)
-	if(area.fire)
+	if(area?.fire)
 		icon_state = "firealarm_alarming"
 		return
 	if(!detecting)
