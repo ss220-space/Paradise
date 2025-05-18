@@ -218,49 +218,49 @@
 	new_core.random_throw(3, 6, 5)
 	return
 
-/obj/effect/anomaly/proc/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/proc/item_touch_effect(obj/item/item)
 	. = TRUE
-	if(!istype(I))
+	if(!istype(item))
 		return
 
-	if(tier == 3 && istype(I, /obj/item/anomaly_upgrader))
-		visible_message(span_danger("[capitalize(I.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
+	if(tier == 3 && istype(item, /obj/item/anomaly_upgrader))
+		visible_message(span_danger("[capitalize(item.declent_ru(NOMINATIVE))] попадает в [declent_ru(ACCUSATIVE)], прикрепляется к ней и активируется!"))
 		var/type = text2path("/obj/effect/anomaly/[anomaly_type]/tier4")
 		new type(loc, rand(20, 50), clamp(stability - rand(10, 20), 0, 100))
-		qdel(I)
+		qdel(item)
 		qdel(src)
 		return FALSE
 
-	if(iscore(I))
-		var/obj/item/assembly/signaler/core/core = I
+	if(iscore(item))
+		var/obj/item/assembly/signaler/core/core = item
 		if(core.born_moment + 1 SECONDS >= world.time)
 			return TRUE
 
 		core_touch_effect(core)
 		return FALSE
 
-	if(!I.origin_tech)
+	if(!item.origin_tech)
 		return
 
 	if (prob(2))
 		do_sparks(5, TRUE, src)
-		new /obj/item/relic(get_turf(I))
-		qdel(I)
+		new /obj/item/relic(get_turf(item))
+		qdel(item)
 		return
 
-	if (!istype(I, /obj/item/relict_production/rapid_dupe))
+	if (!istype(item, /obj/item/relict_production/rapid_dupe))
 		return
 
 	var/amount = rand(1, 3)
 	for (var/i; i <= amount; i++)
-		new /obj/item/relic(get_turf(I))
+		new /obj/item/relic(get_turf(item))
 		//var/datum/effect_system/fluid_spread/smoke/smoke = new
-		//smoke.set_up(5, get_turf(I))
+		//smoke.set_up(5, get_turf(item))
 		//smoke.start()
 
-	qdel(I)
+	qdel(item)
 
-/obj/effect/anomaly/attackby(obj/item/I, mob/living/user, params)
+/obj/effect/anomaly/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
 	mob_touch_effect(user)
 
@@ -277,8 +277,8 @@
 		mob_touch_effect(moving_atom)
 
 /obj/effect/anomaly/proc/after_move()
-	for(var/obj/item/I in get_turf(src))
-		item_touch_effect(I)
+	for(var/obj/item/item in get_turf(src))
+		item_touch_effect(item)
 
 	for(var/mob/living/matr in get_turf(src))
 		mob_touch_effect(matr)

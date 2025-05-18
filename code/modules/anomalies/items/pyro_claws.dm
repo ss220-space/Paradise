@@ -45,27 +45,27 @@
 	if(!istype(target, /obj/machinery/door/airlock))
 		return
 
-	var/obj/machinery/door/airlock/A = target
+	var/obj/machinery/door/airlock/airlock = target
 
-	if(!A.requiresID() || A.allowed(user))
+	if(!airlock.requiresID() || airlock.allowed(user))
 		return
 
-	if(A.locked)
+	if(airlock.locked)
 		to_chat(user, span_notice("Болты шлюза не позволяют взломать его силой."))
 		return
 
-	if(A.arePowerSystemsOn())
+	if(airlock.arePowerSystemsOn())
 		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender,"ет","ют")] [declent_ru(NOMINATIVE)] в шлюз и начина[pluralize_ru(user.gender,"ет","ют")] открывать его!"), \
 							span_warning("Вы начинаете силой открывать шлюз."), \
 							span_warning("Вы слышите металлический скрежет."))
-		playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
-		if(!do_after(user, 2.5 SECONDS, A))
+		playsound(airlock, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
+		if(!do_after(user, 2.5 SECONDS, airlock))
 			return
 
 	user.visible_message(span_warning("[user] силой открыл[genderize_ru(user.gender, "", "а", "о", "и")] шлюз при помощи [declent_ru(GENITIVE)]!"), \
 						span_warning("Вы силой открыли шлюз."), \
 						span_warning("Вы слышите металлический скрежет."))
-	A.open(2)
+	airlock.open(2)
 
 /obj/item/twohanded/required/pyro_claws/suicide_act(mob/living/user)
 	user.visible_message(span_suicide("[user] начина[pluralize_ru(user.gender,"ет","ют")] пилить [declent_ru(NOMINATIVE)] друг об друга! \
@@ -150,11 +150,11 @@
 	do_sparks(rand(1,6), 1, loc)
 
 
-/obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/I, mob/user, params)
-	if(!iscoreatmos(I))
+/obj/item/clothing/gloves/color/black/pyro_claws/attackby(obj/item/item, mob/user, params)
+	if(!iscoreatmos(item))
 		return ..()
 
-	var/obj/item/assembly/signaler/core/I_core = I
+	var/obj/item/assembly/signaler/core/I_core = item
 	if(I_core.get_strenght() < 100)
 		user.balloon_alert(user, "ядро слишком слабо")
 		return
@@ -165,14 +165,14 @@
 		user.put_in_hands(core)
 		msg = "ядро заменено"
 
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_transfer_item_to_loc(item, src))
 		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
 
 	user.balloon_alert(user, msg)
-	to_chat(user, span_notice("Вы вставили [I.declent_ru(NOMINATIVE)] в [declent_ru(ACCUSATIVE)]. \
+	to_chat(user, span_notice("Вы вставили [item.declent_ru(NOMINATIVE)] в [declent_ru(ACCUSATIVE)]. \
 	От [declent_ru(GENITIVE)] начал исходить жар."))
-	core = I
+	core = item
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/clothing/gloves/color/black/pyro_claws/click_alt(mob/user)

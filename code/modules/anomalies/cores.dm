@@ -46,8 +46,8 @@
 	if(!..())
 		return
 
-	for(var/obj/effect/old_anomaly/A in get_turf(src))
-		A.anomalyNeutralize()
+	for(var/obj/effect/old_anomaly/anomaly in get_turf(src))
+		anomaly.anomalyNeutralize()
 
 /obj/item/assembly/signaler/core/attack_self()
 	return

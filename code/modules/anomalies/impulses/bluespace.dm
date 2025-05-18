@@ -170,18 +170,18 @@
 		T2.icon_state = icon_state1
 
 		var/list/C1 = list()
-		for(var/atom/movable/A in T1)
-			C1.Add(A)
+		for(var/atom/movable/atom in T1)
+			C1.Add(atom)
 
 		var/list/C2 = list()
-		for(var/atom/movable/A in T2)
-			C2.Add(A)
+		for(var/atom/movable/atom in T2)
+			C2.Add(atom)
 
-		for(var/atom/movable/A in C1)
-			A.forceMove(T2)
+		for(var/atom/movable/atom in C1)
+			atom.forceMove(T2)
 
-		for(var/atom/movable/A in C2)
-			A.forceMove(T2)
+		for(var/atom/movable/atom in C2)
+			atom.forceMove(T2)
 
 		C1 = list()
 		C2 = list()

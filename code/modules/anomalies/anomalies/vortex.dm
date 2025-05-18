@@ -36,13 +36,13 @@
 
 	. = ..()
 
-/obj/effect/anomaly/vortex/proc/pull(atom/movable/A)
-	if (QDELETED(A))
+/obj/effect/anomaly/vortex/proc/pull(atom/movable/atom)
+	if (QDELETED(atom))
 		return
 
-	// a - vector A->src
-	var/ax = x - A.x
-	var/ay = y - A.y
+	// a - vector atom->src
+	var/ax = x - atom.x
+	var/ay = y - atom.y
 	var/a_len = sqrt(ax * ax + ay * ay)
 
 	// a1 - notmalised (len = 1) vector a
@@ -59,17 +59,17 @@
 	var/cx = ax * radius + bx * (a_len - 1)
 	var/cy = ay * radius + by * (a_len - 1)
 
-	var/turf/target = get_turf(locate(A.x + cx, A.y + cy, z))
-	A.singularity_pull(target, grav_pull_strenght)
-	A.update_icon()
+	var/turf/target = get_turf(locate(atom.x + cx, atom.y + cy, z))
+	atom.singularity_pull(target, grav_pull_strenght)
+	atom.update_icon()
 
 /obj/effect/anomaly/vortex/proc/do_pulls()
 	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
-	for(var/atom/movable/A in view(radius, src))
-		if(!can_move_sth(A))
+	for(var/atom/movable/atom in view(radius, src))
+		if(!can_move_sth(atom))
 			continue
 
-		pull(A)
+		pull(atom)
 
 /obj/effect/anomaly/vortex/process()
 	var/list/obj/was_near = list()
@@ -90,24 +90,24 @@
 
 	. = ..()
 
-/obj/effect/anomaly/vortex/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/vortex/mob_touch_effect(mob/living/mob)
 	. = ..()
-	if(can_move_sth(M))
-		M.random_throw(tier * 2, tier * 3, 4)
+	if(can_move_sth(mob))
+		mob.random_throw(tier * 2, tier * 3, 4)
 
-/obj/effect/anomaly/vortex/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/vortex/item_touch_effect(obj/item/item)
 	. = ..()
-	if(can_move_sth(I))
-		I.random_throw(tier * 2, tier * 3, 4)
+	if(can_move_sth(item))
+		item.random_throw(tier * 2, tier * 3, 4)
 
 /obj/effect/anomaly/vortex/process()
 	. = ..()
 
-	for(var/atom/movable/A in loc.contents)
-		if(!can_move_sth(A))
+	for(var/atom/movable/atom in loc.contents)
+		if(!can_move_sth(atom))
 			continue
 
-		A.random_throw(tier * 2, tier * 3, 5)
+		atom.random_throw(tier * 2, tier * 3, 5)
 
 /obj/effect/anomaly/vortex/tier1
 	name = "малая вихревая аномалия"
@@ -183,14 +183,14 @@
 /obj/effect/anomaly/vortex/tier3/New()
 	. = ..()
 
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		if(get_dist(src, M) > 20 || z != M.z)
+		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		to_chat(M, span_vortexanomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
+		to_chat(mob, span_vortexanomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
 
 //			 TIER 4 ADMIN SPAWN ONLY
 
@@ -222,24 +222,24 @@
 /obj/effect/anomaly/vortex/tier4/New()
 	. = ..()
 
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		to_chat(M, span_vortexanomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
+		to_chat(mob, span_vortexanomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
 
-/obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/item)
 	. = ..()
-	if(!iscore(I))
-		I.singularity_act()
+	if(!iscore(item))
+		item.singularity_act()
 
-/obj/effect/anomaly/vortex/tier4/mob_touch_effect(mob/living/M)
-	M.singularity_act()
+/obj/effect/anomaly/vortex/tier4/mob_touch_effect(mob/living/mob)
+	mob.singularity_act()
 
 /obj/effect/anomaly/vortex/tier4/do_move(dir)
 	. = ..()
-	for(var/atom/A in range(2, src))
-		A.singularity_act()
+	for(var/atom/atom in range(2, src))
+		atom.singularity_act()
 
 /obj/effect/anomaly/vortex/singularity_act()
 	return

@@ -90,7 +90,7 @@
 		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] израсходовали весь заряд и отключились!"))
 		toggle_magpulse(user, silent = TRUE)
 
-/obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/I)
+/obj/item/clothing/shoes/magboots/gravity/screwdriver_act(mob/living/user, obj/item/item)
 	if(!cell)
 		to_chat(user, span_warning("Внутри нет батарейки!"))
 		return
@@ -99,7 +99,7 @@
 		to_chat(user, span_warning("Сначала выключите [declent_ru(ACCUSATIVE)]!"))
 		return
 
-	if(!I.use_tool(src, user, volume = I.tool_volume))
+	if(!item.use_tool(src, user, volume = item.tool_volume))
 		return
 
 	cell.forceMove_turf()
@@ -110,22 +110,22 @@
 	update_icon()
 
 
-/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/I, mob/user, params)
-	if(iscell(I))
+/obj/item/clothing/shoes/magboots/gravity/attackby(obj/item/item, mob/user, params)
+	if(iscell(item))
 		add_fingerprint(user)
 		if(cell)
 			to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть батарейка."))
 			return ATTACK_CHAIN_PROCEED
 
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			return ..()
 
-		to_chat(user, span_notice("Вы установили [I.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]."))
-		cell = I
+		to_chat(user, span_notice("Вы установили [item.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]."))
+		cell = item
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(!iscoregrav(I))
+	if(!iscoregrav(item))
 		return ..()
 
 	add_fingerprint(user)
@@ -133,11 +133,11 @@
 		to_chat(user, span_warning("В [declent_ru(PREPOSITIONAL)] уже есть [core.declent_ru(NOMINATIVE)]."))
 		return ATTACK_CHAIN_PROCEED
 
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_transfer_item_to_loc(item, src))
 		return ..()
 
-	to_chat(user, span_notice("Вы установили [I.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
-	core = I
+	to_chat(user, span_notice("Вы установили [item.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
+	core = item
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 

@@ -67,13 +67,13 @@
 		return
 
 	if(isalien(target))
-		var/mob/living/carbon/alien/A = target
+		var/mob/living/carbon/alien/alien = target
 		rapid_melee = 1.25
-		armour_penetration = A.armour_penetration
-		melee_damage_lower = A.attack_damage
-		melee_damage_upper = A.attack_damage
-		obj_damage = A.obj_damage
-		environment_smash = A.environment_smash
+		armour_penetration = alien.armour_penetration
+		melee_damage_lower = alien.attack_damage
+		melee_damage_upper = alien.attack_damage
+		obj_damage = alien.obj_damage
+		environment_smash = alien.environment_smash
 		req_charge = sqrt(max(20, target.maxHealth) * max(5, (melee_damage_lower + melee_damage_upper) / 2)) * 1.2
 		return
 
@@ -91,14 +91,14 @@
 		req_charge = sqrt(max(20, target.maxHealth) * max(5, (melee_damage_lower + melee_damage_upper) / 2)) * 1.2
 
 /datum/airmob_data/proc/get_arm_damage(mob/living/carbon/human/H, arm_slot)
-	var/obj/item/I = H.get_item_by_slot(arm_slot)
-	if(I)
-		armour_penetration = max(armour_penetration, I.armour_penetration)
-		if(!istype(I, /obj/item/twohanded))
-			melee_damage_lower = max(melee_damage_lower, I.force)
-			melee_damage_upper = max(melee_damage_upper, I.force)
+	var/obj/item/item = H.get_item_by_slot(arm_slot)
+	if(item)
+		armour_penetration = max(armour_penetration, item.armour_penetration)
+		if(!istype(item, /obj/item/twohanded))
+			melee_damage_lower = max(melee_damage_lower, item.force)
+			melee_damage_upper = max(melee_damage_upper, item.force)
 		else
-			var/obj/item/twohanded/ITH = I
+			var/obj/item/twohanded/ITH = item
 			if(ITH.wielded)
 				melee_damage_lower = max(melee_damage_lower, ITH.force_wielded)
 				melee_damage_upper = max(melee_damage_upper, ITH.force_wielded)

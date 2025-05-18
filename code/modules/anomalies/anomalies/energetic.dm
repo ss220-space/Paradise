@@ -32,8 +32,8 @@
 		eballs.Add(new type(loc, src))
 
 /obj/effect/anomaly/energetic/Destroy()
-	. = ..()
 	QDEL_LAZYLIST(eballs)
+	. = ..()
 
 /obj/effect/anomaly/energetic/collapse()
 	for(var/i = 1 to rand(collapse_jumps_low, collapse_jumps_high))
@@ -72,15 +72,15 @@
 			powernets.Add(C.powernet)
 
 	var/cur_voltage = voltage * strenght / 100
-	for(var/datum/powernet/P in powernets)
-		P.newavail += cur_voltage / powernets.len
+	for(var/datum/powernet/powernet in powernets)
+		powernet.newavail += cur_voltage / powernets.len
 
-/obj/effect/anomaly/energetic/mob_touch_effect(mob/living/M)
-	. = ..()
-	M.electrocute_act(collapse_shock_damage, "энергетической аномалии", flags = SHOCK_NOGLOVES)
+/obj/effect/anomaly/energetic/mob_touch_effect(mob/living/mob)
+	. = ..(mob)
+	mob.electrocute_act(collapse_shock_damage, "энергетической аномалии", flags = SHOCK_NOGLOVES)
 
-/obj/effect/anomaly/energetic/item_touch_effect(obj/item/I)
-	. = ..()
+/obj/effect/anomaly/energetic/item_touch_effect(obj/item/item)
+	. = ..(item)
 	do_shock_ex(collapse_shock_range / 2, collapse_shock_damage / 2, TRUE)
 
 /obj/effect/anomaly/energetic/proc/jump_to_machinery(damage)
@@ -200,15 +200,15 @@
 
 /obj/effect/anomaly/energetic/tier3/New()
 	. = ..()
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		if(get_dist(src, M) > 20 || z != M.z)
+		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		M.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
-		to_chat(M, span_energeticanomaly("Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество."))
+		mob.playsound_local(null, 'sound/magic/lightningbolt.ogg', 15, TRUE)
+		to_chat(mob, span_energeticanomaly("Вы слышите тихое потрескивание в воздухе. Подозрительно похоже на статическое электричество."))
 
 
 /obj/effect/energy_ball
@@ -238,17 +238,17 @@
 	. = ..()
 	src.owner = owner
 
-	var/matrix/M = matrix()
-	M.Scale(0.1, 0.1)
-	animate(src, transform = M, time = 0, flags = ANIMATION_PARALLEL)
-	M.Scale(10 * size, 10 * size)
-	animate(src, transform = M, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
+	var/matrix/mob = matrix()
+	mob.Scale(0.1, 0.1)
+	animate(src, transform = mob, time = 0, flags = ANIMATION_PARALLEL)
+	mob.Scale(10 * size, 10 * size)
+	animate(src, transform = mob, time = 1 SECONDS, alpha = 255, flags = ANIMATION_PARALLEL)
 
 	START_PROCESSING(SSobj, src)
 
 /obj/effect/energy_ball/Destroy()
-	. = ..()
 	STOP_PROCESSING(SSobj, src)
+	. = ..()
 
 /obj/effect/energy_ball/process()
 	if(QDELETED(owner) || owner.loc == null)
@@ -292,8 +292,8 @@
 	if(!isliving(mover))
 		return
 
-	var/mob/living/M = mover
-	M.electrocute_act(rand(20, 30), "энергетического шара",  flags = SHOCK_NOGLOVES)
+	var/mob/living/mob = mover
+	mob.electrocute_act(rand(20, 30), "энергетического шара",  flags = SHOCK_NOGLOVES)
 
 /obj/effect/energy_ball/big
 	size = 1
@@ -339,16 +339,16 @@
 
 /obj/effect/anomaly/energetic/tier4/New()
 	. = ..()
-	for(var/mob/living/M as anything in GLOB.player_list)
-		M.electrocute_act(rand(5, 15), "[declent_ru(GENITIVE)]")
-		if(M.stat)
+	for(var/mob/living/mob as anything in GLOB.player_list)
+		mob.electrocute_act(rand(5, 15), "[declent_ru(GENITIVE)]")
+		if(mob.stat)
 			continue
 
-		if(is_admin_level(M))
+		if(is_admin_level(mob))
 			continue
 
-		M.playsound_local(null, 'sound/magic/lightningbolt.ogg', 25, TRUE)
-		to_chat(M, span_energeticanomaly("Вы слышите черезвычайно громкий электрический треск!"))
+		mob.playsound_local(null, 'sound/magic/lightningbolt.ogg', 25, TRUE)
+		to_chat(mob, span_energeticanomaly("Вы слышите черезвычайно громкий электрический треск!"))
 
 /obj/effect/anomaly/energetic/tier4/do_move(dir)
 	. = ..()

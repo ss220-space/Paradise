@@ -91,7 +91,6 @@
 	powernet = find_powernet()
 
 /obj/machinery/power/anomaly_generator/Destroy()
-	. = ..()
 	qdel(beacon)
 	qdel(cur_anomaly)
 	for(var/obj/O as anything in containment)
@@ -99,6 +98,7 @@
 
 	containment = null
 	STOP_PROCESSING(SSprocessing, src)
+	. = ..()
 
 /obj/machinery/power/anomaly_generator/RefreshParts()
 	containment_limit = 0
@@ -121,21 +121,21 @@
 	icon_state = "generator_[stat & NOPOWER ? "off" : "on"]"
 	return ..()
 
-/obj/machinery/power/anomaly_generator/attackby(obj/item/I, mob/user, params)
+/obj/machinery/power/anomaly_generator/attackby(obj/item/item, mob/user, params)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(exchange_parts(user, I))
+	if(exchange_parts(user, item))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(!iscore(I))
+	if(!iscore(item))
 		return ..()
 
-	if(user.drop_transfer_item_to_loc(I, src))
+	if(user.drop_transfer_item_to_loc(item, src))
 		add_fingerprint(user)
-		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."), \
-					span_warning("Вы поместили [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-		containment.Add(I)
+		user.visible_message(span_warning("[user] поместил[genderize_ru(user.gender, "", "а", "о", "и")] [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."), \
+					span_warning("Вы поместили [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
+		containment.Add(item)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()
@@ -252,14 +252,14 @@
 	var/list/data = list()
 	return data
 
-/obj/machinery/power/anomaly_generator/proc/eject(obj/item/I, mob/living/carbon/human/user)
-	if(!(I in containment))
+/obj/machinery/power/anomaly_generator/proc/eject(obj/item/item, mob/living/carbon/human/user)
+	if(!(item in containment))
 		return
 
-	if(!user?.put_in_hands(I, ignore_anim = FALSE))
-		I.forceMove(get_turf(src))
+	if(!user?.put_in_hands(item, ignore_anim = FALSE))
+		item.forceMove(get_turf(src))
 
-	containment.Remove(I)
+	containment.Remove(item)
 
 /obj/machinery/power/anomaly_generator/proc/get_req_energy()
 	var/mult
@@ -346,10 +346,10 @@
 			going_to_use -= used_charge
 
 	//			APC
-	var/area/A = get_area(src)
-	if(use_apcs && A)
+	var/area/area = get_area(src)
+	if(use_apcs && area)
 		// It won't use more power than was prepared for equipment.
-		for(var/obj/machinery/power/apc/apc in A?.apc)
+		for(var/obj/machinery/power/apc/apc in area?.apc)
 			if(!apc.cell)
 				continue
 
@@ -377,16 +377,16 @@
 	desc = "Необычного вида машина, разработанная на основе эксперементальной технологии, предназначенная для \
 			генерации аномалий. В данной модели были использованы секретные разработки NanoTrasen."
 
-/obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/I)
-	default_unfasten_wrench(user, I)
+/obj/machinery/power/anomaly_generator/wrench_act(mob/living/user, obj/item/item)
+	default_unfasten_wrench(user, item)
 	powernet = find_powernet()
 	return TRUE
 
-/obj/machinery/power/anomaly_generator/screwdriver_act(mob/user, obj/item/I)
-	return default_deconstruction_screwdriver(user, icon_state, icon_state, I)
+/obj/machinery/power/anomaly_generator/screwdriver_act(mob/user, obj/item/item)
+	return default_deconstruction_screwdriver(user, icon_state, icon_state, item)
 
-/obj/machinery/power/anomaly_generator/crowbar_act(mob/user, obj/item/I)
-	return default_deconstruction_crowbar(user, I)
+/obj/machinery/power/anomaly_generator/crowbar_act(mob/user, obj/item/item)
+	return default_deconstruction_crowbar(user, item)
 
 /obj/machinery/power/anomaly_generator/upgraded/admin/get_req_energy()
 	return 0

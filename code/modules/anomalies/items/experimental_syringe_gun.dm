@@ -49,43 +49,43 @@
 
 	synth_speed = core.get_strenght() / 30
 
-/obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/I, mob/user)
-	if(iscorevortex(I))
+/obj/item/gun/syringe/rapidsyringe/experimental/attackby(obj/item/item, mob/user)
+	if(iscorevortex(item))
 		add_fingerprint(user)
 		var/msg = "ядро вставлено"
 		if(core)
 			user.put_in_hands(core)
 			msg = "ядро заменено"
 
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			balloon_alert(user, "отпустить невозможно!")
 			return ATTACK_CHAIN_PROCEED
 
-		core = I
+		core = item
 		user.balloon_alert(user, msg)
 		update_core()
 		return ATTACK_CHAIN_PROCEED
 
-	if(issyringe(I))
+	if(issyringe(item))
 		var/in_clip = length(syringes) + (chambered.BB ? 1 : 0)
 		if(in_clip >= max_syringes)
 			user.balloon_alert(user, "недостаточно места")
 			return ATTACK_CHAIN_PROCEED
 
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			return ..()
 
 		user.balloon_alert(user, "заряжено")
-		syringes.Add(I)
+		syringes.Add(item)
 		process_chamber() // Chamber the syringe if none is already
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	if(isglassreagentcontainer(I))
+	if(isglassreagentcontainer(item))
 		if(!core)
 			user.balloon_alert(user, "нет ядра")
 			return ..()
 
-		var/obj/item/reagent_containers/glass/RC = I
+		var/obj/item/reagent_containers/glass/RC = item
 		if (!RC.reagents.reagent_list)
 			return  ..()
 
@@ -134,8 +134,8 @@
 	if(chambered?.BB)
 		ready_reagents.reagents.trans_to(chambered.BB, ready_reagents.reagents.total_volume)
 
-	for (var/obj/item/reagent_containers/syringe/S in syringes)
-		ready_reagents.reagents.trans_to(S, ready_reagents.reagents.total_volume)
+	for (var/obj/item/reagent_containers/syringe/slime in syringes)
+		ready_reagents.reagents.trans_to(slime, ready_reagents.reagents.total_volume)
 
 /obj/item/gun/syringe/rapidsyringe/experimental/afterattack(atom/target, mob/living/user, flag, params)
 	if(!isglassreagentcontainer(target))

@@ -49,9 +49,9 @@
 	update_core()
 
 /obj/item/assembly/tuned_anomalous_teleporter/Destroy()
-	. = ..()
 	core?.forceMove(get_turf(src))
 	core = null
+	. = ..()
 
 /obj/item/assembly/tuned_anomalous_teleporter/proc/can_teleport(mob/user)
 	if(max_tp_range < 5)
@@ -136,8 +136,8 @@
 	user.balloon_alert(user, "ядро извлечено")
 	update_core()
 
-/obj/item/assembly/tuned_anomalous_teleporter/attackby(obj/item/I, mob/user, params)
-	if(!iscorebluespace(I))
+/obj/item/assembly/tuned_anomalous_teleporter/attackby(obj/item/item, mob/user, params)
+	if(!iscorebluespace(item))
 		return ..()
 
 	add_fingerprint(user)
@@ -146,11 +146,11 @@
 		user.put_in_hands(core)
 		msg = "ядро заменено"
 
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_transfer_item_to_loc(item, src))
 		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
 
-	core = I
+	core = item
 	balloon_alert(user, msg)
 	update_core()
 	return ATTACK_CHAIN_PROCEED
@@ -207,8 +207,8 @@ Ranges with core charge 50-100:
 	user.gib()
 	return OBLITERATION
 
-/obj/item/assembly/tuned_anomalous_teleporter/bullet_act(obj/projectile/P)
-	. = ..()
+/obj/item/assembly/tuned_anomalous_teleporter/bullet_act(obj/projectile/projectile)
+	. = ..(projectile)
 	activate()
 
 /obj/item/assembly/tuned_anomalous_teleporter/preloaded

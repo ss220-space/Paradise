@@ -153,9 +153,9 @@
 
 /datum/anomaly_impulse/move/machinery_destroy/impulse()
 	. = ..()
-	for(var/obj/machinery/M in range(10, owner))
-		explosion(get_turf(M), -1, 1, 2, cause = "machinery_destroy impulse")
-		new /obj/effect/anomaly/energetic/tier1(get_turf(M))
-		qdel(M)
+	for(var/obj/machinery/mob in range(10, owner))
+		explosion(get_turf(mob), -1, 1, 2, cause = "machinery_destroy impulse")
+		new /obj/effect/anomaly/energetic/tier1(get_turf(mob))
+		qdel(mob)
 		if(prob(30))
 			break

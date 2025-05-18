@@ -8,16 +8,16 @@
 	/// The type of raw material required to generate the anomaly.
 	var/req_item = "-"
 
-/datum/anomaly_gen_datum/proc/is_req_item(obj/item/I)
+/datum/anomaly_gen_datum/proc/is_req_item(obj/item/item)
 	return FALSE
 
 /datum/anomaly_gen_datum/proc/get_useful(list/obj/item/containment)
 	var/list/useful = list()
-	for(var/I in containment)
-		if(!is_req_item(I))
+	for(var/item in containment)
+		if(!is_req_item(item))
 			continue
 
-		useful.Add(I)
+		useful.Add(item)
 
 	return useful
 
@@ -68,9 +68,9 @@
 	return spawn_anomaly(choosen, used, containment)
 
 /datum/anomaly_gen_datum/proc/spawn_anomaly(turf/T, list/used, list/containment)
-	for(var/I in used)
-		containment.Remove(I)
-		qdel(used[I])
+	for(var/item in used)
+		containment.Remove(item)
+		qdel(used[item])
 
 	new anomaly(T)
 	return TRUE
@@ -111,8 +111,8 @@
 	anomaly = /obj/effect/anomaly/atmospheric/tier2
 	req_item = "Ядро малой атмосферной аноамлии"
 
-/datum/anomaly_gen_datum/tier2/pyroclastic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/atmospheric/tier1)
+/datum/anomaly_gen_datum/tier2/pyroclastic/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/atmospheric/tier1)
 
 
 /datum/anomaly_gen_datum/tier2/bluespace
@@ -120,8 +120,8 @@
 	anomaly = /obj/effect/anomaly/bluespace/tier2
 	req_item = "Ядро малой блюспейс аномалии"
 
-/datum/anomaly_gen_datum/tier2/bluespace/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/bluespace/tier1)
+/datum/anomaly_gen_datum/tier2/bluespace/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/bluespace/tier1)
 
 
 /datum/anomaly_gen_datum/tier2/vortex
@@ -129,8 +129,8 @@
 	anomaly = /obj/effect/anomaly/vortex/tier2
 	req_item = "Ядро малой вихревой аномалии"
 
-/datum/anomaly_gen_datum/tier2/vortex/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/vortex/tier1)
+/datum/anomaly_gen_datum/tier2/vortex/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/vortex/tier1)
 
 
 /datum/anomaly_gen_datum/tier2/gravitational
@@ -138,8 +138,8 @@
 	anomaly = /obj/effect/anomaly/gravitational/tier2
 	req_item = "Ядро малой гравитационной аномалии"
 
-/datum/anomaly_gen_datum/tier2/gravitational/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/gravitational/tier1)
+/datum/anomaly_gen_datum/tier2/gravitational/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/gravitational/tier1)
 
 
 /datum/anomaly_gen_datum/tier2/energetic
@@ -147,8 +147,8 @@
 	anomaly = /obj/effect/anomaly/energetic/tier2
 	req_item = "Ядро малой энергетической аномалии"
 
-/datum/anomaly_gen_datum/tier2/energetic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/energetic/tier1)
+/datum/anomaly_gen_datum/tier2/energetic/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/energetic/tier1)
 
 
 //==================================== TIER 3 ===========================================
@@ -168,8 +168,8 @@
 	anomaly = /obj/effect/anomaly/atmospheric/tier3
 	req_item = "Два ядра атмосферных аномалий"
 
-/datum/anomaly_gen_datum/tier3/pyroclastic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/atmospheric/tier2)
+/datum/anomaly_gen_datum/tier3/pyroclastic/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/atmospheric/tier2)
 
 
 /datum/anomaly_gen_datum/tier3/bluespace
@@ -177,8 +177,8 @@
 	anomaly = /obj/effect/anomaly/bluespace/tier3
 	req_item = "Два ядра блюспейс аномалий"
 
-/datum/anomaly_gen_datum/tier3/bluespace/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/bluespace/tier2)
+/datum/anomaly_gen_datum/tier3/bluespace/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/bluespace/tier2)
 
 
 /datum/anomaly_gen_datum/tier3/vortex
@@ -186,8 +186,8 @@
 	anomaly = /obj/effect/anomaly/vortex/tier3
 	req_item = "Два ядра вихревых аномалий"
 
-/datum/anomaly_gen_datum/tier3/vortex/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/vortex/tier2)
+/datum/anomaly_gen_datum/tier3/vortex/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/vortex/tier2)
 
 
 /datum/anomaly_gen_datum/tier3/gravitational
@@ -195,8 +195,8 @@
 	anomaly = /obj/effect/anomaly/gravitational/tier3
 	req_item = "Два ядра гравитационных аномалий"
 
-/datum/anomaly_gen_datum/tier3/gravitational/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/gravitational/tier2)
+/datum/anomaly_gen_datum/tier3/gravitational/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/gravitational/tier2)
 
 
 /datum/anomaly_gen_datum/tier3/energetic
@@ -204,5 +204,5 @@
 	anomaly = /obj/effect/anomaly/energetic/tier3
 	req_item = "Два ядра энергетических аномалий"
 
-/datum/anomaly_gen_datum/tier3/energetic/is_req_item(obj/item/I)
-	return istype(I, /obj/item/assembly/signaler/core/energetic/tier2)
+/datum/anomaly_gen_datum/tier3/energetic/is_req_item(obj/item/item)
+	return istype(item, /obj/item/assembly/signaler/core/energetic/tier2)

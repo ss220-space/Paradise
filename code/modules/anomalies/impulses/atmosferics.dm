@@ -49,8 +49,8 @@
 
 /datum/anomaly_impulse/random_temp/tier4/impulse()
 	. = ..()
-	for(var/mob/living/M in view(scale_by_strenght(range_low, range_high), owner))
-		M.IgniteMob()
+	for(var/mob/living/mob in view(scale_by_strenght(range_low, range_high), owner))
+		mob.IgniteMob()
 
 /datum/anomaly_impulse/freese
 	name = "Заморозка"
@@ -96,13 +96,13 @@
 
 /datum/anomaly_impulse/freese/tier4/impulse()
 	. = ..()
-	for(var/mob/living/M in view(7, owner))
-		M.adjust_bodytemperature(-100)
-		M.apply_status_effect(/datum/status_effect/freon)
-		if(!ishuman(M))
+	for(var/mob/living/mob in view(7, owner))
+		mob.adjust_bodytemperature(-100)
+		mob.apply_status_effect(/datum/status_effect/freon)
+		if(!ishuman(mob))
 			continue
 
-		M.reagents.add_reagent("frostoil", 15)
+		mob.reagents.add_reagent("frostoil", 15)
 
 /datum/anomaly_impulse/fire
 	name = "Пожар"

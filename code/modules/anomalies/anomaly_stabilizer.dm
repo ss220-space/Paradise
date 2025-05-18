@@ -149,26 +149,26 @@
 
 	newshot()
 
-/obj/item/gun/energy/anomaly_stabilizer/attackby(obj/item/I, mob/user, params)
+/obj/item/gun/energy/anomaly_stabilizer/attackby(obj/item/item, mob/user, params)
 	if(user.intent == INTENT_HARM)
 		return ..()
 
 	add_fingerprint(user)
-	if(iscell(I))
-		if(!user.drop_transfer_item_to_loc(I, src))
+	if(iscell(item))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			balloon_alert(user, "отпустить невозможно!")
 			return ATTACK_CHAIN_PROCEED
 
 		user.put_in_hands(cell)
-		cell = I
-		cell_type = I.type
+		cell = item
+		cell_type = item.type
 		balloon_alert(user, "батарейка заменена")
 		return ATTACK_CHAIN_PROCEED
 
-	if(!iscore(I))
+	if(!iscore(item))
 		return ..()
 
-	return insert_core(I, user)
+	return insert_core(item, user)
 
 
 /obj/item/gun/energy/anomaly_stabilizer/ui_interact(mob/user, datum/tgui/ui = null)

@@ -53,8 +53,8 @@
 	var/cur_choosing = 0
 
 /obj/item/fauna_bomb/Destroy()
-	for(var/mob/living/M in created_mobs)
-		M.death()
+	for(var/mob/living/mob in created_mobs)
+		mob.death()
 
 	QDEL_LAZYLIST(created_mobs)
 	QDEL_LAZYLIST(datas)
@@ -78,11 +78,11 @@
 
 	return TRUE
 
-/obj/item/fauna_bomb/attackby(obj/item/I, mob/user, params)
-	if(!iscoreatmos(I))
+/obj/item/fauna_bomb/attackby(obj/item/item, mob/user, params)
+	if(!iscoreatmos(item))
 		return ..()
 
-	if(!user.drop_transfer_item_to_loc(I, src))
+	if(!user.drop_transfer_item_to_loc(item, src))
 		balloon_alert(user, "отпустить невозможно!")
 		return ATTACK_CHAIN_PROCEED
 
@@ -91,7 +91,7 @@
 		msg = "ядро заменено"
 		user.put_in_hands(core)
 
-	core = I
+	core = item
 	user.balloon_alert(user, msg)
 	update_core()
 	return ATTACK_CHAIN_PROCEED
@@ -238,8 +238,8 @@
 	return data
 
 /obj/item/fauna_bomb/proc/do_commands()
-	for(var/mob/living/simple_animal/hostile/airmob/M in created_mobs)
-		M.do_commands()
+	for(var/mob/living/simple_animal/hostile/airmob/mob in created_mobs)
+		mob.do_commands()
 
 /obj/item/fauna_bomb/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())

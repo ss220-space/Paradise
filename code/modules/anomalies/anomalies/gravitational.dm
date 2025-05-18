@@ -16,33 +16,33 @@
 	. = ..()
 
 /obj/effect/anomaly/gravitational/proc/collapse_throws()
-	for(var/atom/movable/A in view(tier * 3, src))
-		if(!can_move_sth(A))
+	for(var/atom/movable/movable_atom in view(tier * 3, src))
+		if(!can_move_sth(movable_atom))
 			continue
 
-		A.random_throw(tier, tier * 3, 5)
-		A.update_icon()
+		movable_atom.random_throw(tier, tier * 3, 5)
+		movable_atom.update_icon()
 
-/obj/effect/anomaly/gravitational/proc/random_gravity_change(atom/A)
+/obj/effect/anomaly/gravitational/proc/random_gravity_change(atom/atom)
 	var/grav_delta = rand(-grav_change_level * 100, grav_change_level * 100) / 100
 	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
 
-	A.add_gravity(id, grav_delta)
-	addtimer(CALLBACK(A, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
+	atom.add_gravity(id, grav_delta)
+	addtimer(CALLBACK(atom, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
 
-/obj/effect/anomaly/gravitational/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/gravitational/mob_touch_effect(mob/living/mob)
 	. = ..()
-	random_gravity_change(M)
+	random_gravity_change(mob)
 
-/obj/effect/anomaly/gravitational/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/gravitational/item_touch_effect(obj/item/item)
 	. = ..()
-	if (QDELETED(I))
+	if (QDELETED(item))
 		return
 
-	var/grav_delta = -I.get_gravity()
+	var/grav_delta = -item.get_gravity()
 	var/id = GRAVITY_SOURCE_ANOMALY + "[rand(1, 1000000)]"
-	I.add_gravity(id, grav_delta)
-	addtimer(CALLBACK(I, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
+	item.add_gravity(id, grav_delta)
+	addtimer(CALLBACK(item, TYPE_PROC_REF(/atom, remove_gravity_source), id), rand(grav_change_time_low, grav_change_time_high))
 
 /obj/effect/anomaly/gravitational/process()
 	. = ..()
@@ -127,20 +127,20 @@
 /obj/effect/anomaly/gravitational/tier3/New()
 	. = ..()
 
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		if(get_dist(src, M) > 20 || z != M.z)
+		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(M, span_gravitationalanomaly("Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает."))
+		mob.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
+		to_chat(mob, span_gravitationalanomaly("Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает."))
 
 /obj/effect/anomaly/gravitational/tier3/collapse()
 	for(var/i = 1 to rand(30, 60))
-		var/mob/living/M = pick(GLOB.mob_living_list)
-		random_gravity_change(M)
+		var/mob/living/mob = pick(GLOB.mob_living_list)
+		random_gravity_change(mob)
 
 	. = ..()
 
@@ -174,17 +174,17 @@
 /obj/effect/anomaly/gravitational/tier4/New()
 	. = ..()
 
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		M.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(M, span_gravitationalanomaly("Вы чувствуете, что кто-то решил поиграть в Бога..."))
+		mob.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
+		to_chat(mob, span_gravitationalanomaly("Вы чувствуете, что кто-то решил поиграть в Бога..."))
 
 /obj/effect/anomaly/gravitational/tier4/collapse()
 	for(var/i = 1 to rand(100, 200))
-		var/mob/living/M = pick(GLOB.mob_living_list)
-		random_gravity_change(M)
+		var/mob/living/mob = pick(GLOB.mob_living_list)
+		random_gravity_change(mob)
 
 	. = ..()
 
@@ -196,11 +196,11 @@
 	for(var/obj/structure/struct in range(3, src))
 		struct.take_damage(700)
 
-	for(var/obj/item/I in range(3, src))
-		I.random_throw(tier, tier * 3, 5)
+	for(var/obj/item/item in range(3, src))
+		item.random_throw(tier, tier * 3, 5)
 
-	for(var/mob/living/M in range(3, src))
-		M.random_throw(tier, tier * 3, 5)
+	for(var/mob/living/mob in range(3, src))
+		mob.random_throw(tier, tier * 3, 5)
 
 /obj/effect/anomaly/gravitational/process()
 	. = ..()

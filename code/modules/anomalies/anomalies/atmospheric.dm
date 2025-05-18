@@ -26,11 +26,11 @@
 		else
 			turf.MakeSlippery(TURF_WET_ICE, 120 SECONDS)
 
-	for(var/mob/living/M in view(collapse_range, src))
-		M.adjust_bodytemperature(-100)
-		M.apply_status_effect(/datum/status_effect/freon)
-		if(ishuman(M))
-			M.reagents.add_reagent("frostoil", 5)
+	for(var/mob/living/mob in view(collapse_range, src))
+		mob.adjust_bodytemperature(-100)
+		mob.apply_status_effect(/datum/status_effect/freon)
+		if(ishuman(mob))
+			mob.reagents.add_reagent("frostoil", 5)
 
 	var/turf/simulated/turf = get_turf(src)
 	if(istype(turf))
@@ -42,35 +42,35 @@
 
 	. = ..()
 
-/obj/effect/anomaly/atmospheric/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/atmospheric/mob_touch_effect(mob/living/mob)
 	. = ..()
 	var/new_temp = rand(0, 500)
-	M.adjust_bodytemperature(new_temp - M.bodytemperature)
+	mob.adjust_bodytemperature(new_temp - mob.bodytemperature)
 	if(new_temp >= T0C + 100 && prob(70))
-		M.adjust_fire_stacks(new_temp / 50)
-		M.IgniteMob()
+		mob.adjust_fire_stacks(new_temp / 50)
+		mob.IgniteMob()
 	else
-		M.ExtinguishMob()
+		mob.ExtinguishMob()
 
-/obj/effect/anomaly/atmospheric/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/atmospheric/item_touch_effect(obj/item/item)
 	. = ..()
-	I.fire_act(null, rand(0, 1000), rand(20, 200))
+	item.fire_act(null, rand(0, 1000), rand(20, 200))
 
 /obj/effect/anomaly/atmospheric/proc/make_slime()
 	var/turf/simulated/turf = get_turf(src)
 	var/new_colour = pick("red", "orange", "blue", "dark blue")
-	var/mob/living/simple_animal/slime/random/S = new(turf, new_colour)
-	S.rabid = TRUE
-	S.set_nutrition(S.get_max_nutrition())
+	var/mob/living/simple_animal/slime/random/slime = new(turf, new_colour)
+	slime.rabid = TRUE
+	slime.set_nutrition(slime.get_max_nutrition())
 
-	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за слайма из атмосферной аномалии?", ROLE_SENTIENT, FALSE, 100, source = S, role_cleanname = "pyroclastic anomaly slime")
+	var/list/mob/dead/observer/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за слайма из атмосферной аномалии?", ROLE_SENTIENT, FALSE, 100, source = slime, role_cleanname = "pyroclastic anomaly slime")
 	if(!LAZYLEN(candidates))
 		return
 
 	var/mob/dead/observer/chosen = pick(candidates)
-	S.key = chosen.key
-	S.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
-	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", S)
+	slime.key = chosen.key
+	slime.mind.special_role = SPECIAL_ROLE_PYROCLASTIC_SLIME
+	add_game_logs("was made into a slime by pyroclastic anomaly at [AREACOORD(turf)].", slime)
 
 /obj/effect/anomaly/atmospheric/tier1
 	name = "малая атмосферная аномалия"
@@ -146,15 +146,15 @@
 /obj/effect/anomaly/atmospheric/tier3/New()
 	. = ..()
 
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		if(get_dist(src, M) > 20 || z != M.z)
+		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
-		to_chat(M, span_atmospfericanomaly("Вас накрывает волна жара! Воздух вокруг дрожит."))
+		mob.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
+		to_chat(mob, span_atmospfericanomaly("Вас накрывает волна жара! Воздух вокруг дрожит."))
 
 /obj/effect/anomaly/atmospheric/tier3/collapse()
 	for(var/obj/item/paper in range(30)) // Just for fan.
@@ -196,16 +196,16 @@
 	for(var/turf/simulated/wall/wall in range(2, src))
 		wall.take_damage(700)
 
-	for(var/mob/living/M in range(2, src))
-		to_chat(M, span_danger("Вы были испепелены [declent_ru(INSTRUMENTAL)]!"))
-		M.dust()
+	for(var/mob/living/mob in range(2, src))
+		to_chat(mob, span_danger("Вы были испепелены [declent_ru(INSTRUMENTAL)]!"))
+		mob.dust()
 
 /obj/effect/anomaly/atmospheric/tier4/New()
 	. = ..()
 
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		M.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
-		to_chat(M, span_atmospfericanomaly("Вас накрывает волна жара! Воздух вокруг сильно дрожит."))
+		mob.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
+		to_chat(mob, span_atmospfericanomaly("Вас накрывает волна жара! Воздух вокруг сильно дрожит."))

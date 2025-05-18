@@ -18,9 +18,9 @@
 	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
 
 /obj/item/gun/energy/bsg/Destroy()
-	. = ..()
 	core?.forceMove(get_turf(src))
 	core = null
+	. = ..()
 
 /obj/item/gun/energy/bsg/examine(mob/user)
 	. = ..()
@@ -39,10 +39,10 @@
 	. += span_warning("Не хватает ядра энергетической аномалии и БС кристалла для работы.")
 
 
-/obj/item/gun/energy/bsg/attackby(obj/item/I, mob/user, params)
-	if(isbluespacecrystal(I))
+/obj/item/gun/energy/bsg/attackby(obj/item/item, mob/user, params)
+	if(isbluespacecrystal(item))
 		add_fingerprint(user)
-		var/obj/item/stack/ore/bluespace_crystal/crystal = I
+		var/obj/item/stack/ore/bluespace_crystal/crystal = item
 		if(has_bluespace_crystal)
 			balloon_alert(user, "уже установлено!")
 			return ATTACK_CHAIN_PROCEED
@@ -56,22 +56,22 @@
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(iscoreflux(I))
+	if(iscoreflux(item))
 		add_fingerprint(user)
 		if(core)
 			balloon_alert(user, "уже установлено!")
 			return ATTACK_CHAIN_PROCEED
 
-		var/obj/item/assembly/signaler/core/Icore = I
+		var/obj/item/assembly/signaler/core/Icore = item
 		if(Icore.get_strenght() < 140)
 			balloon_alert(user, "ядро слишком слабо")
 			return
 
-		if(!user.drop_transfer_item_to_loc(I, src))
+		if(!user.drop_transfer_item_to_loc(item, src))
 			return ..()
 
 		balloon_alert(user, "установлено")
-		core = I
+		core = item
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 

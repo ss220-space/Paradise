@@ -27,21 +27,21 @@
 	if(isliving(target))
 		investigate_log("teleported [key_name_log(target)] to [COORD(target)]", INVESTIGATE_TELEPORTATION)
 
-/obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/M)
+/obj/effect/anomaly/bluespace/mob_touch_effect(mob/living/mob)
 	..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
-	teleport(M, radius)
+	teleport(mob, radius)
 	return FALSE
 
-/obj/effect/anomaly/bluespace/item_touch_effect(obj/item/I)
+/obj/effect/anomaly/bluespace/item_touch_effect(obj/item/item)
 	..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
-	if(isturf(I.loc))
-		teleport(I, radius)
+	if(isturf(item.loc))
+		teleport(item, radius)
 
 	return FALSE
 
-/obj/effect/anomaly/bluespace/attackby(obj/item/I, mob/living/user, params)
+/obj/effect/anomaly/bluespace/attackby(obj/item/item, mob/living/user, params)
 	. = ..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
 	teleport(user, radius)
@@ -133,15 +133,15 @@
 
 /obj/effect/anomaly/bluespace/tier3/New()
 	. = ..()
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		if(get_dist(src, M) > 20 || z != M.z)
+		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		M.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(M, span_bluespaceanomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
+		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
+		to_chat(mob, span_bluespaceanomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
 
 /obj/effect/anomaly/bluespace/tier3/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -180,12 +180,12 @@
 
 /obj/effect/anomaly/bluespace/tier4/New()
 	. = ..()
-	for(var/mob/M as anything in GLOB.player_list)
-		if(M.stat)
+	for(var/mob/mob as anything in GLOB.player_list)
+		if(mob.stat)
 			continue
 
-		M.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(M, span_bluespaceanomaly("Пространство пало..."))
+		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
+		to_chat(mob, span_bluespaceanomaly("Пространство пало..."))
 
 /obj/effect/anomaly/bluespace/tier4/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -209,22 +209,22 @@
 		T2.icon_state = icon_state1
 
 		var/list/C1 = list()
-		for(var/atom/movable/A in T1)
-			if(isturf(A.loc))
-				C1.Add(A)
+		for(var/atom/movable/movable_atom in T1)
+			if(isturf(movable_atom.loc))
+				C1.Add(movable_atom)
 
 		var/list/C2 = list()
-		for(var/atom/movable/A in T2)
-			if(isturf(A.loc))
-				C2.Add(A)
+		for(var/atom/movable/movable_atom in T2)
+			if(isturf(movable_atom.loc))
+				C2.Add(movable_atom)
 
-		for(var/atom/movable/A in C1)
-			if(isturf(A.loc))
-				A.forceMove(T2)
+		for(var/atom/movable/movable_atom in C1)
+			if(isturf(movable_atom.loc))
+				movable_atom.forceMove(T2)
 
-		for(var/atom/movable/A in C2)
-			if(isturf(A.loc))
-				A.forceMove(T2)
+		for(var/atom/movable/movable_atom in C2)
+			if(isturf(movable_atom.loc))
+				movable_atom.forceMove(T2)
 
 		C1 = list()
 		C2 = list()

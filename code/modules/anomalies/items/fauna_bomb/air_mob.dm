@@ -19,9 +19,9 @@
 	var/scan_num = 0
 
 /mob/living/simple_animal/hostile/airmob/Destroy()
-	. = ..()
 	armor = null
 	spawner = null
+	. = ..()
 
 /mob/living/simple_animal/hostile/airmob/Initialize(mapload, obj/item/fauna_bomb/spawner, datum/airmob_data/data)
 	. = ..()
