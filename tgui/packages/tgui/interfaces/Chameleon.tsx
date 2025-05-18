@@ -2,7 +2,7 @@ import { createSearch } from 'common/string';
 import { flow } from 'common/fp';
 import { filter } from 'common/collections';
 import { useBackend, useLocalState } from '../backend';
-import { Section, Stack, Input, ImageButtonTS } from '../components';
+import { Section, Stack, Input, ImageButton } from '../components';
 import { Window } from '../layouts';
 
 type Data = {
@@ -28,16 +28,17 @@ export const Chameleon = (props) => {
   );
 };
 
-const selectSkins = (skins, searchText = '') => {
+const selectSkins = (skins: ChameleonSkin[], searchText = '') => {
   const testSearch = createSearch(
     searchText,
     (skin: ChameleonSkin) => skin.name
   );
   return flow([
-    // Null filter
-    filter((skin) => skin?.name),
+    (skins) =>
+      // Null filter
+      filter<ChameleonSkin>(skins, (skin) => !!skin?.name),
     // Optional search term
-    searchText && filter(testSearch),
+    (skins) => (searchText ? filter(skins, testSearch) : skins),
   ])(skins);
 };
 
@@ -61,12 +62,11 @@ export const ChameleonAppearances = (props) => {
             const skin_name =
               chameleon_skin.name + '_' + chameleon_skin.icon_state;
             return (
-              <ImageButtonTS
+              <ImageButton
                 dmIcon={chameleon_skin.icon}
                 dmIconState={chameleon_skin.icon_state}
                 imageSize={64}
                 m={0.5}
-                compact
                 key={skin_name}
                 selected={skin_name === selected_appearance}
                 tooltip={chameleon_skin.name}
