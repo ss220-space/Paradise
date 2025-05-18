@@ -115,8 +115,8 @@
 		max_charge = 0
 		charge_speed = 0
 		used_charge = 0
-		for(var/mob/living/simple_animal/SA in created_mobs)
-			SA.death()
+		for(var/mob/living/simple_animal/airmob in created_mobs)
+			airmob.death()
 
 		use_charge(0) // Stop charging.
 		return
@@ -124,21 +124,21 @@
 	max_charge = core.get_strenght()
 	charge_speed = max_charge / 75
 	var/req_charge = 0
-	for(var/mob/living/simple_animal/hostile/airmob/SA in created_mobs)
-		SA.leash_radius = round(core.get_strenght() / 15 + 0.5)
-		if (get_dist(src, SA) > SA.leash_radius)
-			SA.dust()
+	for(var/mob/living/simple_animal/hostile/airmob/airmob as anything in created_mobs)
+		airmob.leash_radius = round(core.get_strenght() / 15 + 0.5)
+		if (get_dist(src, airmob) > airmob.leash_radius)
+			airmob.dust()
 			continue
 
-		req_charge += SA.req_charge
+		req_charge += airmob.req_charge
 
 	while(used_charge > max_charge)
 		var/mob/living/simple_animal/hostile/airmob/cheapest_mob = null
-		for(var/mob/living/simple_animal/hostile/airmob/SA in created_mobs)
-			if(cheapest_mob && cheapest_mob.req_charge <= SA.req_charge)
+		for(var/mob/living/simple_animal/hostile/airmob/airmob as anything in created_mobs)
+			if(cheapest_mob && cheapest_mob.req_charge <= airmob.req_charge)
 				continue
 
-			cheapest_mob = SA
+			cheapest_mob = airmob
 
 		cheapest_mob.death()
 
@@ -252,20 +252,20 @@
 			atom_say("Функция временно недоступна!", FALSE)
 			/*return
 			var/index = params["index"]
-			for(var/mob/living/simple_animal/hostile/airmob/SA in created_mobs)
-				if(SA.scan_num != datas["[index]"].scan_num)
+			for(var/mob/living/simple_animal/hostile/airmob/airmob in created_mobs)
+				if(airmob.scan_num != datas["[index]"].scan_num)
 					continue
 
-				SA.death()
+				airmob.death()
 
 			datas.Remove("[index]")*/
 
 		if("kill")
 			var/index = params["index"]
 			var/mob/living/simple_animal/hostile/airmob/weakest_mob = null
-			for(var/mob/living/simple_animal/hostile/airmob/SA in created_mobs)
-				if(SA.scan_num == datas["[index]"].scan_num && (!weakest_mob || weakest_mob.health > SA.health))
-					weakest_mob = SA
+			for(var/mob/living/simple_animal/hostile/airmob/airmob in created_mobs)
+				if(airmob.scan_num == datas["[index]"].scan_num && (!weakest_mob || weakest_mob.health > airmob.health))
+					weakest_mob = airmob
 
 			if(!weakest_mob)
 				ui.user.balloon_alert(ui.user, "нет таких проекций")

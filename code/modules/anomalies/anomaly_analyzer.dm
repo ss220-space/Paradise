@@ -42,7 +42,7 @@
 		scan_data += span_info("Естественное перемещение прекращено.")
 
 	scan_data += "<hr>Импульсы:\n"
-	for(var/datum/anomaly_impulse/impulse in impulses)
+	for(var/datum/anomaly_impulse/impulse as anything in impulses)
 		var/blocked = world.time < move_impulse_moment && istype(impulse, /datum/anomaly_impulse/move) || stability > impulse.stability_high
 		scan_data += "  [impulse.name]" + (blocked ? " ([span_green("заблокирован")]" : "")
 		scan_data += "  &emsp;Описание: [impulse.desc]"

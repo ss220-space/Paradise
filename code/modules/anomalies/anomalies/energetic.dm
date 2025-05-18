@@ -47,7 +47,7 @@
 		QDEL_LIST(eballs)
 		return ..()
 
-	for(var/obj/effect/energy_ball/eball in eballs)
+	for(var/obj/effect/energy_ball/eball as anything in eballs)
 		if(!prob(50))
 			continue
 
@@ -339,7 +339,7 @@
 
 /obj/effect/anomaly/energetic/tier4/New()
 	. = ..()
-	for(var/mob/living/M in GLOB.player_list)
+	for(var/mob/living/M as anything in GLOB.player_list)
 		M.electrocute_act(rand(5, 15), "[declent_ru(GENITIVE)]")
 		if(M.stat)
 			continue

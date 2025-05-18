@@ -1804,9 +1804,11 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(!gravity_sources[id])
 		gravity_sources.Remove(id)
 
-	if(isliving(src))
-		var/mob/living/M = src
-		M.refresh_gravity()
+	if(!isliving(src))
+		return
+
+	var/mob/living/M = src
+	M.refresh_gravity()
 
 /atom/proc/remove_gravity_source(id)
 	gravity_sources.Remove(id)
