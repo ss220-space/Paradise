@@ -36,7 +36,9 @@
 /obj/effect/anomaly/bluespace/item_touch_effect(obj/item/I)
 	..()
 	var/radius = bump_tp_min + round((bump_tp_max - bump_tp_min) * get_strenght() / 100)
-	teleport(I, radius)
+	if(isturf(I.loc))
+		teleport(I, radius)
+
 	return FALSE
 
 /obj/effect/anomaly/bluespace/attackby(obj/item/I, mob/living/user, params)
@@ -46,7 +48,8 @@
 
 /obj/effect/anomaly/bluespace/collapse()
 	for(var/atom/movable/atom in range(collapse_radius))
-		teleport(atom, collapse_tp_radius)
+		if(isturf(atom.loc))
+			teleport(atom, collapse_tp_radius)
 
 	. = ..()
 
@@ -207,17 +210,21 @@
 
 		var/list/C1 = list()
 		for(var/atom/movable/A in T1)
-			C1.Add(A)
+			if(isturf(A.loc))
+				C1.Add(A)
 
 		var/list/C2 = list()
 		for(var/atom/movable/A in T2)
-			C2.Add(A)
+			if(isturf(A.loc))
+				C2.Add(A)
 
 		for(var/atom/movable/A in C1)
-			A.forceMove(T2)
+			if(isturf(A.loc))
+				A.forceMove(T2)
 
 		for(var/atom/movable/A in C2)
-			A.forceMove(T2)
+			if(isturf(A.loc))
+				A.forceMove(T2)
 
 		C1 = list()
 		C2 = list()
