@@ -143,7 +143,7 @@
 
 /obj/structure/wryn/wax/door
 	name = "wax door"
-	desc = "Толстая масса воска, напоминающая дверь."
+	desc = "Объёмная масса воска, напоминающая дверь."
 	icon = 'icons/obj/smooth_structures/wryn/wax_door.dmi'
 	icon_state = "wax_door_closed"
 	max_integrity = 50

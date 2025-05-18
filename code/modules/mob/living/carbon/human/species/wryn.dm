@@ -152,7 +152,7 @@
 		names += M
 	var/target = input("Выберите цель: ", "Цель укуса", null) as null|anything in names
 	if(!target)		//No one's around!
-		user.balloon_alert(user, "вокруг некого жалить!")
+		user.balloon_alert(user, "вокруг некого ужалить!")
 		user.visible_message(span_warning("[user] втягивает своё жало."))
 		button_on = FALSE
 		UpdateButtonIcon()
