@@ -292,6 +292,8 @@
 	weaken  = 8 SECONDS //This is going to knock you off your feet
 	eyeblur = 20 SECONDS
 	speed   = 2
+	/// The strenght of the core of the fired Б.С.Г.
+	var/core_strenght = 0
 
 /obj/item/ammo_casing/energy/bsg/ready_proj(atom/target, mob/living/user, quiet, zone_override = "")
 	..()
@@ -312,30 +314,35 @@
 	..()
 
 /obj/projectile/energy/bsg/proc/kaboom()
-	playsound(src, 'sound/weapons/bsg_explode.ogg', 75, TRUE)
-	for(var/mob/living/M in hearers(7, src)) //No stuning people with thermals through a wall.
+	var/effects_mult = core_strenght / 170
+	playsound(src, 'sound/weapons/bsg_explode.ogg', 75 * effects_mult, TRUE)
+	for(var/mob/living/M in hearers(7 * effects_mult, src)) //No stuning people with thermals through a wall.
 		var/floored = FALSE
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/gun/energy/bsg/N = locate() in H
 			if(N)
-				to_chat(H, "<span class='notice'>[N] deploys an energy shield to project you from [src]'s explosion.</span>")
+				to_chat(H, span_notice("[N] развертывает энергетический щит, чтобы защитить вас от взрыва [declent_ru(GENITIVE)]."))
 				continue
+
 		var/distance = (1 + get_dist(M, src))
-		if(prob(min(400 / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7
-			if(prob(min(150 / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 75% at 1 tile, 50% at 2, 37.5% at 3, 30% at 4, 25% at 5, 21% at 6, and finaly 19% at 7. This is calculated after the first hit however.
+		if(prob(min(400 * effects_mult / distance, 100))) //100% chance to hit with the blast up to 3 tiles, after that chance to hit is 80% at 4 tiles, 66.6% at 5, 57% at 6, and 50% at 7
+			if(prob(min(150 * effects_mult / distance, 100)))//100% chance to upgraded to a stun as well at a direct hit, 75% at 1 tile, 50% at 2, 37.5% at 3, 30% at 4, 25% at 5, 21% at 6, and finaly 19% at 7. This is calculated after the first hit however.
 				floored = TRUE
-			M.apply_damage((rand(15, 30) * (1.1 - distance / 10)), BURN) //reduced by 10% per tile
+
+			M.apply_damage((rand(15, 30) * (1.1 - distance / 10)) * effects_mult, BURN) //reduced by 10% per tile
 			add_attack_logs(src, M, "Hit heavily by [src]")
 			if(floored)
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, knocking you to the ground and burning you!</span>")
-				M.Weaken(8 SECONDS)
+				to_chat(M, span_userdanger("Вы видите яркую вспышку синего света, когда [declent_ru(NOMINATIVE)] взрывается, сбивая вас с ног и обжигая!"))
+				M.Weaken(8 * effects_mult SECONDS)
 			else
-				to_chat(M, "<span class='userdanger'>You see a flash of briliant blue light as [src] explodes, burning you!</span>")
+				to_chat(M, span_userdanger("Вы видите яркую вспышку синего света, когда [declent_ru(NOMINATIVE)] взрывается, обжигая вас!"))
+
 		else
-			to_chat(M, "<span class='userdanger'>You feel the heat of the explosion of [src], but the blast mostly misses you.</span>")
+			to_chat(M, span_userdanger("Вы чувствуете жар от взрыва [declent_ru(GENITIVE)], но он почти не задевает вас."))
 			add_attack_logs(src, M, "Hit lightly by [src]")
-			M.apply_damage(rand(1, 5), BURN)
+			M.apply_damage(rand(1, 5) * effects_mult, BURN)
+
 
 /obj/item/ammo_casing/energy/dart
 	projectile_type = /obj/projectile/energy/dart
@@ -504,3 +511,20 @@
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "emitter"
 	e_cost = 750
+
+/obj/item/ammo_casing/energy/anomaly
+	fire_sound = 'sound/weapons/emitter.ogg'
+	select_name  = "emitter"
+	delay = 0.4
+	e_cost = 100
+	harmful = FALSE
+	projectile_type = /obj/projectile/beam/anomaly
+	muzzle_flash_color = LIGHT_COLOR_GREEN
+
+/obj/item/ammo_casing/energy/anomaly/stabilizer
+	projectile_type = /obj/projectile/beam/anomaly/stabilizer
+	muzzle_flash_color = LIGHT_COLOR_BLUE
+
+/obj/item/ammo_casing/energy/anomaly/destabilizer
+	projectile_type = /obj/projectile/beam/anomaly/destabilizer
+	muzzle_flash_color = LIGHT_COLOR_RED
