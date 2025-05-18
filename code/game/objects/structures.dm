@@ -290,4 +290,3 @@
 	name = initial(name)
 	desc = initial(desc)
 	deltimer(extinguish_timer_id)
-

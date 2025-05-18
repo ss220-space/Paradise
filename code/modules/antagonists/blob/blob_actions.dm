@@ -23,7 +23,7 @@
 		return
 
 	add_say_logs(usr, message, language = "BLOB")
-	var/rendered = span_blob("<b>\[Blob Telepathy\] <span class='name'>[usr.name]</span> states, [message]")
+	var/rendered = span_blob("<b>\[Blob Telepathy\] [span_name(usr.name)]</b> states, [message]")
 	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, usr)
 
 /datum/action/innate/blob/self_burst

@@ -38,7 +38,7 @@ SUBSYSTEM_DEF(jobs)
 	occupations = list()
 	var/list/all_jobs = subtypesof(/datum/job)
 	if(!all_jobs.len)
-		to_chat(world, "<span class='warning'>Ошибка выдачи профессий, датумы профессий не найдены.</span>")
+		to_chat(world, span_warning("Ошибка выдачи профессий, датумы профессий не найдены."))
 		return
 
 	for(var/J in all_jobs)
@@ -429,7 +429,7 @@ SUBSYSTEM_DEF(jobs)
 			Debug("AC2 Assistant located, Player: [player]")
 			AssignRole(player, JOB_TITLE_CIVILIAN)
 		else if(player.client.prefs.alternate_option == RETURN_TO_LOBBY)
-			to_chat(player, "<span class='danger'>Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot.</span>")
+			to_chat(player, span_danger("Unfortunately, none of the round start roles you selected had a free slot. Please join the game by using \"Join Game!\" button and selecting a role with a free slot."))
 			player.ready = 0
 			unassigned -= player
 
@@ -451,8 +451,8 @@ SUBSYSTEM_DEF(jobs)
 
 		CreateMoneyAccount(H, rank, job)
 	var/list/L = list()
-	L.Add("<b>Вы <span class='red'>[alt_title ? alt_title : rank]</span>.</b>")
-	L.Add("<b>На этой должности вы отвечаете непосредственно перед <span class='red'>[replacetext(job.supervisors,"the ","")]</span>. Особые обстоятельства могут это изменить.</b>")
+	L.Add("<b>Вы [span_red(alt_title ? alt_title : rank)].</b>")
+	L.Add("<b>На этой должности вы отвечаете непосредственно перед [span_red(replacetext(job.supervisors,"the ",""))]. Особые обстоятельства могут это изменить.</b>")
 	L.Add("<b>Для получения дополнительной информации о работе на станции, см. <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure\">Стандартные Рабочие Процедуры (СРП)</a></b>")
 	if(job.is_service)
 		L.Add("<b>Будучи работником отдела Обслуживания, убедитесь что прочли <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Standard_Operating_Procedure_&#40;Service&#41\">СРП своего отдела</a></b>")
@@ -682,7 +682,7 @@ SUBSYSTEM_DEF(jobs)
 			H.mind.initial_account.insurance = INSURANCE_NT_SPECIAL
 
 	spawn(0)
-		to_chat(H, "<span class='boldnotice'>Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]</span>")
+		to_chat(H, span_boldnotice("Номер вашего аккаунта: [M.account_number], ПИН вашего аккаунта: [M.remote_access_pin]"))
 
 /datum/controller/subsystem/jobs/proc/format_jobs_for_id_computer(obj/item/card/id/tgtcard)
 	var/list/jobs_to_formats = list()
@@ -878,25 +878,25 @@ SUBSYSTEM_DEF(jobs)
 			added_living += minutes
 
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Living EXP!</span>")
+				to_chat(C.mob, span_notice("You got: [minutes] Living EXP!"))
 
 			for(var/category in GLOB.exp_jobsmap)
 				if(GLOB.exp_jobsmap[category]["titles"])
 					if(myrole in GLOB.exp_jobsmap[category]["titles"])
 						play_records[C.ckey][category] += minutes
 						if(announce)
-							to_chat(C.mob, "<span class='notice'>You got: [minutes] [category] EXP!</span>")
+							to_chat(C.mob, span_notice("You got: [minutes] [category] EXP!"))
 
 			if(C.mob.mind.special_role)
 				play_records[C.ckey][EXP_TYPE_SPECIAL] += minutes
 				if(announce)
-					to_chat(C.mob, "<span class='notice'>You got: [minutes] Special EXP!</span>")
+					to_chat(C.mob, span_notice("You got: [minutes] Special EXP!"))
 
 		else if(isobserver(C.mob))
 			play_records[C.ckey][EXP_TYPE_GHOST] += minutes
 			added_ghost += minutes
 			if(announce)
-				to_chat(C.mob, "<span class='notice'>You got: [minutes] Ghost EXP!</span>")
+				to_chat(C.mob, span_notice("You got: [minutes] Ghost EXP!"))
 		else
 			continue
 

@@ -470,6 +470,8 @@
 #define COMSIG_MOB_ITEM_ATTACK_QDELETED "mob_item_attack_qdeleted"
 ///from base of mob/RangedAttack(): (atom/A, params)
 #define COMSIG_MOB_ATTACK_RANGED "mob_attack_ranged"
+///from base of mob/ranged_secondary_attack(): (atom/target, modifiers)
+#define COMSIG_MOB_ATTACK_RANGED_SECONDARY "mob_attack_ranged_secondary"
 ///from base of mob/RangedAttack(): (atom/A, params) after being range attacked
 #define COMSIG_MOB_ATTACKED_RANGED "mob_attack_ranged"
 ///from base of /mob/throw_item(): (atom/target)
@@ -1163,6 +1165,8 @@
 ///from base of datum/action/proc/Trigger(): (datum/action)
 #define COMSIG_ACTION_TRIGGER "action_trigger"
 	#define COMPONENT_ACTION_BLOCK_TRIGGER (1<<0)
+#define COMSIG_ACTION_BUTTON_UPDATE "action_button_update"
+	#define COMSIG_ACTION_UPDATE_INTERRUPT (1<<0)
 
 //Xenobio hotkeys
 
@@ -1359,3 +1363,7 @@
 /// from start of /mob/living/handle_breathing(): (delta_time, times_fired)
 #define COMSIG_LIVING_HANDLE_BREATHING "living_handle_breathing"
 
+#define COMSIG_TICKER_GAME_STATE_CHANGED "ticker_game_state_changed"
+
+/// from start of /mob/living/simple_animal/soulscythe/Life(): (amount)
+#define COMSIG_BLOOD_LEVEL_TICK "blood_level_tick"

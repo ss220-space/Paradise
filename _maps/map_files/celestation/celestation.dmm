@@ -75873,8 +75873,8 @@
 	},
 /area/quartermaster/miningdock)
 "nkA" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
+/obj/structure/chair/comfy/mouse,
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},

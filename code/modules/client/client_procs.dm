@@ -447,6 +447,7 @@
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
+	QDEL_NULL(parallax_rock)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -652,7 +653,7 @@
 			qdel(src)
 			return // Dont insert or they can just go in again
 
-		is_tutorial_needed = TRUE
+		is_tutorial_needed = !!CONFIG_GET(string/tutorial_server_url)
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,

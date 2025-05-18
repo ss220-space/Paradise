@@ -87,7 +87,7 @@
 /obj/item/flash/proc/burn_out() //Made so you can override it if you want to have an invincible flash from R&D or something.
 	broken = TRUE
 	update_icon(UPDATE_ICON_STATE)
-	visible_message("<span class='notice'>The [src.name] burns out!</span>")
+	visible_message(span_notice("The [src.name] burns out!"))
 
 
 /obj/item/flash/proc/flash_recharge(mob/user)
@@ -108,7 +108,7 @@
 		return FALSE
 	if(!COOLDOWN_FINISHED(src, flash_cooldown))
 		if(user)
-			to_chat(user, "<span class='warning'>Your [name] is still too hot to use again!</span>")
+			to_chat(user, span_warning("Your [name] is still too hot to use again!"))
 		return FALSE
 	COOLDOWN_START(src, flash_cooldown, cooldown_duration)
 	flash_recharge(user)
@@ -179,7 +179,10 @@
 /obj/item/flash/attack_self(mob/living/carbon/user, flag = 0, emp = FALSE)
 	if(!try_use_flash(user))
 		return FALSE
-	user.visible_message("<span class='disarm'>[user]'s [src.name] emits a blinding light!</span>", "<span class='danger'>Your [src.name] emits a blinding light!</span>")
+	user.visible_message(
+		span_disarm("[user]'s [src.name] emits a blinding light!"),
+		span_danger("Your [src.name] emits a blinding light!")
+	)
 	for(var/mob/living/carbon/M in oviewers(3, get_turf(src)))
 		flash_carbon(M, user, 6 SECONDS, FALSE)
 
@@ -243,7 +246,7 @@
 /obj/item/flash/cameraflash/try_use_flash(mob/user)
 	if(!flash_cur_charges)
 		if(user)
-			to_chat(user, "<span class='warning'>[src] needs time to recharge!</span>")
+			to_chat(user, span_warning("[src] needs time to recharge!"))
 		return FALSE
 	. = ..()
 	if(.)
@@ -263,7 +266,7 @@
 
 /obj/item/flash/armimplant/burn_out()
 	if(I && I.owner)
-		to_chat(I.owner, "<span class='warning'>Your [name] implant overheats and deactivates!</span>")
+		to_chat(I.owner, span_warning("Your [name] implant overheats and deactivates!"))
 		I.Retract()
 
 /obj/item/flash/synthetic //just a regular flash now

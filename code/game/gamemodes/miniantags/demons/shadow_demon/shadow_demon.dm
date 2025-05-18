@@ -247,14 +247,14 @@
 		return
 
 	var/list/messages = list()
-	messages.Add("<b><font size=3 color='red'>You are a Shadow Demon.</font><br></b>")
+	messages.Add(span_fontsize3(span_red("<b>You are a Shadow Demon.<br></b>")))
 	messages.Add("<b>You are a terrible creature from another existence. You have only two desires to survive and to lurk and ambush careless preys.</b>")
 	messages.Add("<b>You may use the Shadow Crawl ability when near the dark spots, appearing and dissapearing from the station at will.</b>")
 	messages.Add("<b>Your Shadow Grapple ability allows you to pull living preys or to push yourself to the other objects. Also extinguishes all light sources at the area of impact.</b>")
 	messages.Add("<b>You can wrap dead humanoid bodies by attacking them, use Alt+Click on the shadow cocoon afterwards to lure more victims.</b>")
 	messages.Add("<b>You move quickly and regenerate fast in the shadows, but any light source will hurt you to the death. STAY AWAY FROM THE LIGHT! </b>")
 	messages.Add(span_notice("<b>You are not currently in the same plane of existence as the station. Use the shadow crawl action near any dark spot.</b>"))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadow_Demon\">Теневой демон</a></span>")
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadow_Demon\">Теневой демон</a>"))
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)
 		return

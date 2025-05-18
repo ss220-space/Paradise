@@ -57,7 +57,6 @@
 
 /mob/living/carbon/alien/humanoid/queen/large
 	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "queen_s"
 	pixel_x = -16
 	var/datum/action/innate/small_sprite_alien/action_sprite
 
@@ -79,11 +78,11 @@
 	cut_overlays()
 
 	if(stat == DEAD)
-		icon_state = "queen_dead"
+		icon_state = "alien[caste]_dead"
 	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
-		icon_state = "queen_sleep"
+		icon_state = "alien[caste]_sleep"
 	else
-		icon_state = "queen_s"
+		icon_state = "alien[caste]_s"
 
 	update_inv_r_hand()
 	update_inv_l_hand()
