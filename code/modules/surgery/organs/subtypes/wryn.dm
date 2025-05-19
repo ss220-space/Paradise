@@ -100,7 +100,7 @@
 	var/mob/living/carbon/human/wryn/host = owner
 
 	if(host.getWax() < 50)
-		owner.balloon_alert(owner, "недостаточно воска!")
+		host.balloon_alert(host, "недостаточно воска!")
 		return
 
 	var/choice = input("Доступно для постройки:", "Строительство") as null|anything in list("соты", "прозрачные соты")
@@ -108,8 +108,8 @@
 	if(!choice || host.getWax() < 50)	return
 
 	if(do_after(usr, 5 SECONDS, usr))
-		if(locate(/obj/structure/wryn/wax) in get_turf(owner))
-			owner.balloon_alert(owner, "место уже занято!")
+		if(locate(/obj/structure/wryn/wax) in get_turf(host))
+			host.balloon_alert(host, "место уже занято!")
 			return
 		host.adjustWax(-50)
 		host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё [choice]."))
@@ -128,16 +128,16 @@
 	var/mob/living/carbon/human/wryn/host = owner
 
 	if(host.getWax() < 25)
-		owner.balloon_alert(owner, "недостаточно воска!")
+		host.balloon_alert(host, "недостаточно воска!")
 		return
 
 	if(do_after(usr, 1 SECONDS, usr))
-		if(locate(/obj/structure/wryn/floor) in get_turf(owner))
-			owner.balloon_alert(owner, "уже покрыто воском!")
+		if(locate(/obj/structure/wryn/floor) in get_turf(host))
+			host.balloon_alert(host, "уже покрыто воском!")
 			return
 		host.adjustWax(-25)
-		host.visible_message(span_alert("[owner] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол!"))
-		new /obj/structure/wryn/floor(owner.loc)
+		host.visible_message(span_alert("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол!"))
+		new /obj/structure/wryn/floor(host.loc)
 
 /datum/action/innate/honeydoor
 	name = "Дверь из сот"
@@ -148,16 +148,16 @@
 	var/mob/living/carbon/human/wryn/host = owner
 
 	if(host.getWax() < 75)
-		owner.balloon_alert(owner, "недостаточно воска!")
+		host.balloon_alert(host, "недостаточно воска!")
 		return
 
 	if(do_after(usr, 5 SECONDS, usr))
-		if(locate(/obj/structure/wryn/wax) in get_turf(owner))
-			owner.balloon_alert(owner, "место уже занято!")
+		if(locate(/obj/structure/wryn/wax) in get_turf(host))
+			host.balloon_alert(host, "место уже занято!")
 			return
 		host.adjustWax(-75)
-		host.visible_message(span_alert("[owner] выделя[pluralize_ru(owner.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(owner.gender, "ет", "ют")] из неё дверь!"))
-		new /obj/structure/wryn/wax/door(owner.loc)
+		host.visible_message(span_alert("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь!"))
+		new /obj/structure/wryn/wax/door(host.loc)
 
 
 
