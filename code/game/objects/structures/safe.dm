@@ -414,7 +414,7 @@ GLOBAL_LIST_EMPTY(safes)
 	if(current_tick == 2)
 		to_chat(user, span_italics("Звуки от [declent_ru(GENITIVE)] издаются слишком быстро и смешиваются друг с другом."))
 	if(total_ticks == 1 || prob(SOUND_CHANCE))
-		to_chat(user, span_italics("Вы слышите [pick(sounds)] от [declent_ru(GENITIVE)].</span>"))
+		to_chat(user, span_italics("Вы слышите [pick(sounds)] от [declent_ru(GENITIVE)]."))
 
 /**
   * Returns the combination to unlock the safe as text.
