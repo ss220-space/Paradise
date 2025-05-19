@@ -520,7 +520,7 @@ GLOBAL_LIST_EMPTY(safes)
 	for(var/safe in GLOB.safes)
 		var/obj/structure/safe/S = safe
 		if(owner in S.known_by)
-			info += "<br> Комбинация для сейфа, расположенного в [get_area(S)], следующая: [S.get_combination()]<br>"
+			info += "<br> Комбинация для сейфа, расположенного в <b>[get_area(S)]</b>, следующая: <b>[S.get_combination()]</b><br>"
 			info_links = info
 			update_icon()
 
