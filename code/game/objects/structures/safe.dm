@@ -450,6 +450,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/structure/safe/floor
 	name = "floor safe"
+	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\""
 	ru_names = list(
 		NOMINATIVE = "напольный сейф",
 		GENITIVE = "напольного сейфа",
@@ -500,6 +501,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/item/paper/safe_code
 	name = "safe codes"
+	desc = "Надежный способ сохранить важные цифры в тайне"
 	ru_names = list(
 		NOMINATIVE = "коды от сейфа",
 		GENITIVE = "кодов от сейфа",
