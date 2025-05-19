@@ -482,7 +482,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/item/safe_internals
 	name = "safe internals"
-	desc = "Механизм и запирающие ригели для тумбового сейфа \"Скарборо Армс - 2\"."
+	desc = "Механизм и запирающие ригели для тумблерного сейфа \"Скарборо Армс - 2\"."
 	ru_names = list(
 		NOMINATIVE = "внутренности сейфа",
 		GENITIVE = "внтренностей сейфа",
