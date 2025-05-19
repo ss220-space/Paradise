@@ -541,7 +541,12 @@ const AirAlarmModesView = (props: unknown) => {
   return (
     <>
       <Section title="System Mode">
-        <Table>
+        <Table
+          style={{
+            borderCollapse: 'separate',
+            borderSpacing: '0 1px',
+          }}
+        >
           {modes.map(
             (m) =>
               (!m.emagonly || (m.emagonly && !!emagged)) && (
@@ -566,7 +571,13 @@ const AirAlarmModesView = (props: unknown) => {
           After making a selection, the system will automatically cycle in order
           to remove contaminants.
         </Box>
-        <Table mt={1}>
+        <Table
+          mt={1}
+          style={{
+            borderCollapse: 'separate',
+            borderSpacing: '0 1px',
+          }}
+        >
           {presets.map((p) => (
             <Table.Row key={p.name}>
               <Table.Cell textAlign="right" width={1}>
@@ -592,7 +603,12 @@ const AirAlarmThresholdsView = (props: unknown) => {
   const { thresholds } = data;
   return (
     <Section title="Alarm Thresholds">
-      <Table>
+      <Table
+        style={{
+          borderCollapse: 'separate',
+          borderSpacing: '0 5px',
+        }}
+      >
         <Table.Row header>
           <Table.Cell width="20%">Value</Table.Cell>
           <Table.Cell color="red" width="20%">
