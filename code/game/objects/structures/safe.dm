@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(safes)
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	balloon_alert(user,"сейф закрыт!")
+	user.balloon_alert(user,"сейф закрыт!")
 	return ATTACK_CHAIN_PROCEED
 
 
