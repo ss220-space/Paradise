@@ -17,8 +17,7 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(harming))
 
-/datum/component/wryn_destruction/proc/harming()
-	var/living/carbon/human/user
+/datum/component/wryn_destruction/proc/harming(var/mob/living/carbon/human/user)
 	var/obj/obj_parent = parent
 	if(user.a_intent == INTENT_HARM)
 		obj_parent.take_damage(WRYN_WAX_DAMAGE, BRUTE, 0, 'sound/effects/attackblob.ogg')
