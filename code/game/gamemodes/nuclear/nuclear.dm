@@ -59,9 +59,9 @@
 			operative_mind.objectives -= O
 		add_conversion_logs(operative_mind.current, "No longer nuclear operative")
 		if(issilicon(operative_mind.current))
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been turned into a robot! You are no longer a Syndicate operative.</span>")
+			to_chat(operative_mind.current, span_userdanger("You have been turned into a robot! You are no longer a Syndicate operative."))
 		else
-			to_chat(operative_mind.current, "<span class='userdanger'>You have been brainwashed! You are no longer a Syndicate operative.</span>")
+			to_chat(operative_mind.current, span_userdanger("You have been brainwashed! You are no longer a Syndicate operative."))
 		SSticker.mode.update_synd_icons_removed(operative_mind)
 
 ////////////////////////////////////////////////////////////////////////////////////////
@@ -218,9 +218,9 @@
 	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
 	var/list/messages = list()
 	if(you_are)
-		messages.Add("<span class='notice'>You are a [syndicate_name()] agent!</span>")
+		messages.Add(span_notice("You are a [syndicate_name()] agent!"))
 	messages.Add(syndicate.prepare_announce_objectives(FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Nuclear_Agent\">Ядерный Оперативник</a></span>")
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Nuclear_Agent\">Ядерный Оперативник</a>"))
 	to_chat(syndicate.current, chat_box_red(messages.Join("<br>")))
 	return
 

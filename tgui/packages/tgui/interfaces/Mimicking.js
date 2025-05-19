@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Section, Stack } from '../components';
 import { Window } from '../layouts';
 
-export const Mimicking = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Mimicking = (props) => {
+  const { act, data } = useBackend();
   const slots = data.slots || [];
 
   return (

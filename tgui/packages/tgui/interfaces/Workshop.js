@@ -28,8 +28,8 @@ const canBeMade = (design, brsail, pwrail) => {
   return true;
 };
 
-export const Workshop = (_properties, context) => {
-  const { act, data } = useBackend(context);
+export const Workshop = (_properties) => {
+  const { act, data } = useBackend();
   const {
     brass_amount,
     power_amount,
@@ -109,14 +109,10 @@ export const Workshop = (_properties, context) => {
   );
 };
 
-const WorkshopSearch = (_properties, context) => {
-  const [_searchText, setSearchText] = useLocalState(context, 'search', '');
-  const [_sortOrder, setSortOrder] = useLocalState(context, 'sort', '');
-  const [descending, setDescending] = useLocalState(
-    context,
-    'descending',
-    false
-  );
+const WorkshopSearch = (_properties) => {
+  const [_searchText, setSearchText] = useLocalState('search', '');
+  const [_sortOrder, setSortOrder] = useLocalState('sort', '');
+  const [descending, setDescending] = useLocalState('descending', false);
   return (
     <Box mb="0.5rem">
       <Stack width="100%">
@@ -142,22 +138,14 @@ const WorkshopSearch = (_properties, context) => {
   );
 };
 
-const WorkshopItems = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const WorkshopItems = (_properties) => {
+  const { act, data } = useBackend();
   const { items } = data;
 
   // Search thingies
-  const [searchText, _setSearchText] = useLocalState(context, 'search', '');
-  const [sortOrder, _setSortOrder] = useLocalState(
-    context,
-    'sort',
-    'Alphabetical'
-  );
-  const [descending, _setDescending] = useLocalState(
-    context,
-    'descending',
-    false
-  );
+  const [searchText, _setSearchText] = useLocalState('search', '');
+  const [sortOrder, _setSortOrder] = useLocalState('sort', 'Alphabetical');
+  const [descending, _setDescending] = useLocalState('descending', false);
   const searcher = createSearch(searchText, (item) => {
     return item[0];
   });
@@ -199,8 +187,8 @@ const WorkshopItems = (_properties, context) => {
   );
 };
 
-const WorkshopItemsCategory = (properties, context) => {
-  const { act, data } = useBackend(context);
+const WorkshopItemsCategory = (properties) => {
+  const { act, data } = useBackend();
   const { title, items, ...rest } = properties;
   return (
     <Collapsible open title={title} {...rest}>

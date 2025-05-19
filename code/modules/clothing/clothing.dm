@@ -523,6 +523,7 @@ BLIND     // can't see anything
 //Head
 /obj/item/clothing/head
 	name = "head"
+	gender = MALE
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
@@ -590,6 +591,7 @@ BLIND     // can't see anything
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
+	gender = FEMALE
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
@@ -809,8 +811,9 @@ BLIND     // can't see anything
 
 //Suit
 /obj/item/clothing/suit
-	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
+	gender = MALE
+	icon = 'icons/obj/clothing/suits.dmi'
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -1054,8 +1057,9 @@ BLIND     // can't see anything
 
 // Under clothing
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
+	gender = MALE
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER

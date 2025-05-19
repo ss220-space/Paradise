@@ -25732,6 +25732,10 @@
 	icon_state = "red"
 	},
 /area/security/brig)
+"qAT" = (
+/obj/effect/landmark/start/mining_medic,
+/turf/simulated/floor/plasteel,
+/area/quartermaster/storage)
 "qBf" = (
 /obj/machinery/atmospherics/pipe/simple/visible/cyan,
 /obj/machinery/atmospherics/pipe/simple/visible/green{
@@ -27062,8 +27066,8 @@
 /obj/item/radio/intercom{
 	pixel_y = -32
 	},
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
+/obj/structure/chair/comfy/mouse,
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/wood/fancy/light{
 	color = "gray"
 	},
@@ -336572,7 +336576,7 @@ jez
 vjB
 llI
 jxt
-llI
+qAT
 isi
 isi
 jxt

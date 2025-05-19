@@ -1,3 +1,4 @@
+
 /atom/movable/screen/movable/action_button
 	var/datum/action/linked_action
 	var/actiontooltipstyle = ""
@@ -6,6 +7,9 @@
 	var/datum/keybinding/mob/trigger_action_button/linked_keybind
 
 /atom/movable/screen/movable/action_button/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
+
 	if(locked && could_be_click_lag()) // in case something bad happend and game realised we dragged our ability instead of pressing it
 		Click()
 		drag_start = 0
@@ -33,6 +37,9 @@
 
 
 /atom/movable/screen/movable/action_button/Click(location,control,params)
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
+
 	var/list/modifiers = params2list(params)
 	if(modifiers["ctrl"] && modifiers["shift"])
 		INVOKE_ASYNC(src, PROC_REF(set_to_keybind), usr)
@@ -66,6 +73,9 @@
 	return TRUE
 
 /atom/movable/screen/movable/action_button/proc/set_to_keybind(mob/user)
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
+
 	var/keybind_to_set_to = tgui_input_keycombo(user, "What keybind do you want to set this action button to?")
 	if(length(keybind_to_set_to) == 1)
 		keybind_to_set_to = uppertext(keybind_to_set_to)
@@ -84,12 +94,18 @@
 
 
 /atom/movable/screen/movable/action_button/click_alt(mob/user)
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
+
 	linked_action.AltTrigger()
 	linked_action.UpdateButtonIcon()
 	return CLICK_ACTION_SUCCESS
 
 /atom/movable/screen/movable/action_button/proc/clean_up_keybinds(mob/owner)
 	if(linked_keybind)
+		if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+			return
+
 		owner.client.active_keybindings[linked_keybind.binded_to] -= (linked_keybind)
 		if(!length(owner.client.active_keybindings[linked_keybind.binded_to]))
 			owner.client.active_keybindings[linked_keybind.binded_to] = null
@@ -117,6 +133,9 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/Click(location,control,params)
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
+
 	if(usr.next_click > world.time)
 		return FALSE
 	usr.changeNext_click(1)
@@ -137,6 +156,9 @@
 
 
 /atom/movable/screen/movable/action_button/hide_toggle/click_alt(mob/user)
+	if(HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
+		return
+
 	for(var/datum/action/action as anything in user.actions)
 		var/atom/movable/screen/movable/action_button/our_button = action.button
 		our_button.moved = FALSE
@@ -186,7 +208,6 @@
 
 /atom/movable/screen/movable/action_button/MouseExited()
 	closeToolTip(usr)
-
 
 /mob/proc/update_action_buttons_icon()
 	for(var/datum/action/action as anything in actions)

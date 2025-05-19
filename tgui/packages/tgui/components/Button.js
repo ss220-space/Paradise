@@ -311,3 +311,50 @@ export class ButtonInput extends Component {
 }
 
 Button.Input = ButtonInput;
+
+export class ButtonFile extends Component {
+  constructor(props) {
+    super(props);
+    this.inputRef = createRef();
+  }
+
+  read = async (files) => {
+    const promises = Array.from(files).map((file) => {
+      const reader = new FileReader();
+
+      return new Promise((resolve) => {
+        reader.onload = () => resolve(reader.result);
+        reader.readAsText(file);
+      });
+    });
+
+    return await Promise.all(promises);
+  };
+
+  handleChange = async (event) => {
+    const files = event.target.files;
+    if (files?.length) {
+      const readFiles = await this.read(files);
+      this.props.onSelectFiles(this.props.multiple ? readFiles : readFiles[0]);
+    }
+  };
+
+  render() {
+    const { accept, multiple, onSelectFiles, ...rest } = this.props;
+    return (
+      <>
+        <Button onClick={() => this.inputRef.current?.click()} {...rest} />
+        <input
+          hidden
+          type="file"
+          ref={this.inputRef}
+          accept={accept}
+          multiple={multiple}
+          onChange={this.handleChange}
+        />
+      </>
+    );
+  }
+}
+
+Button.File = ButtonFile;

@@ -36,7 +36,7 @@
 
 		return QDEL_HINT_LETMELIVE
 
-/obj/docking_port/has_gravity(turf/T)
+/obj/docking_port/get_gravity(turf/T)
 	return FALSE
 
 /obj/docking_port/take_damage()
@@ -529,6 +529,9 @@
 		/* TAKEOFF */
 		var/should_transit = !is_turf_blacklisted_for_transit(oldT)
 		if(should_transit) // Only move over stuff if the transfer actually happened
+			for(var/mob/living/mob in oldT) //check for people leaned on anything
+				if(mob.leaned_object)
+					mob.stop_leaning()
 			oldT.copyTurf(newT)
 
 			//copy over air

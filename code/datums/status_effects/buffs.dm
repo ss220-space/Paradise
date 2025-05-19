@@ -904,3 +904,33 @@
 		owner.AdjustSleeping(-(duration - elapsed_time))
 
 	UnregisterSignal(owner, COMSIG_MOB_STATCHANGE)
+
+/atom/movable/screen/alert/status_effect/adrenaline
+	name = "Прилив адреналина"
+	desc = "Твоя стамина полностью восстановлена. Регенерация увеличена, а длительность станов уменьшена."
+	icon_state = "adrenaline"
+
+/datum/status_effect/adrenaline
+	id = "adrenaline"
+	duration = 5 SECONDS
+	status_type = STATUS_EFFECT_UNIQUE
+	tick_interval = 1 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/adrenaline
+
+	var/heal_amount = 15
+
+/datum/status_effect/adrenaline/on_apply()
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= owner.setStaminaLoss(0, FALSE)
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	return TRUE | update_flags
+
+
+/datum/status_effect/adrenaline/tick(seconds_between_ticks)
+	var/update = NONE
+	update |= owner.heal_overall_damage(heal_amount, heal_amount, updating_health = FALSE)
+	if(update)
+		owner.updatehealth("adrenaline")
+
+/datum/status_effect/adrenaline/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))

@@ -6,7 +6,13 @@
  */
 #define NEGATIVE_GRAVITY -1
 
+#define NO_GRAVITY 0.3
+
 #define STANDARD_GRAVITY 1 //Anything above this is high gravity, anything below no grav until negative gravity
+/// The gravity strength threshold for slownown.
+#define HIGH_GRAVITY_SLOWDOWN 1.5
+/// The gravity strength threshold for disability of staying.
+#define GRAVITY_CANT_STAY 2
 /// The gravity strength threshold for high gravity damage.
 #define GRAVITY_DAMAGE_THRESHOLD 3
 /// The scaling factor for high gravity damage.
@@ -14,3 +20,6 @@
 /// The maximum [BRUTE] damage a mob can take from high gravity per second.
 #define GRAVITY_DAMAGE_MAXIMUM 1.5
 
+
+#define GRAVITY_SOURCE_GRAVGEN			"gravgen"
+#define GRAVITY_SOURCE_ANOMALY			"anomaly"

@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const Tank = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Tank = (props) => {
+  const { act, data } = useBackend();
   let maskStatus;
   if (!data.has_mask) {
     maskStatus = (

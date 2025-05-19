@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const TachyonArray = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TachyonArray = (props) => {
+  const { act, data } = useBackend();
   const { records = [], explosion_target, toxins_tech, printing } = data;
   return (
     <Window width={500} height={600}>
@@ -52,8 +52,8 @@ export const TachyonArray = (props, context) => {
   );
 };
 
-export const TachyonArrayContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const TachyonArrayContent = (props) => {
+  const { act, data } = useBackend();
   const { records = [] } = data;
 
   return (

@@ -11,8 +11,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const AgentCard = (props, context) => {
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+export const AgentCard = (props) => {
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
   const decideTab = (index) => {
     switch (index) {
       case 0:
@@ -60,8 +60,8 @@ export const AgentCard = (props, context) => {
   );
 };
 
-export const AgentCardInfo = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AgentCardInfo = (props) => {
+  const { act, data } = useBackend();
   const {
     registered_name,
     sex,
@@ -162,8 +162,8 @@ export const AgentCardInfo = (props, context) => {
   );
 };
 
-export const AgentCardAppearances = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AgentCardAppearances = (props) => {
+  const { act, data } = useBackend();
   const { appearances } = data;
   return (
     <Section fill title="Card Appearance">
@@ -187,8 +187,8 @@ export const AgentCardAppearances = (props, context) => {
   );
 };
 
-export const AgentCardSLSlots = (props, context) => {
-  const { act, data } = useBackend(context);
+export const AgentCardSLSlots = (props) => {
+  const { act, data } = useBackend();
   const { saved_info } = data;
   return (
     <Section title="Save/Load Manager" style={{ 'line-height': '25px' }}>

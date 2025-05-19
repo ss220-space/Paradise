@@ -154,7 +154,7 @@
 
 	if(pai)
 		if(!in_range(src, U))
-			U << browse(null, "window=paicard")
+			close_window(U, "paicard")
 			usr.unset_machine()
 			return
 

@@ -1,5 +1,6 @@
 /datum/action/innate/borer
 	background_icon_state = "bg_alien"
+	var/cost
 
 /datum/action/innate/borer/talk_to_host
 	name = "Converse with Host"
@@ -82,28 +83,50 @@
 	name = "Reproduce"
 	desc = "Spawn several young."
 	button_icon_state = "borer_reproduce"
+	cost = 100
 
 /datum/action/innate/borer/make_larvae/Activate()
 	var/mob/living/simple_animal/borer/borer = owner.has_brain_worms()
-	borer.host = owner
-	borer.host.spawn_larvae()
+
+	if(!borer)
+		return
+
+	if(borer.chemicals < cost)
+		to_chat(borer.host, "Вам требуется [cost] химикат[declension_ru(cost, "", "а", "ов")] для размножения!")
+		return
+
+	borer.chemicals -= cost
+
+	borer.host.visible_message(
+		span_danger("[borer.host] яростно блюёт, изрыгая рвотные массы вместе с извивающимся, похожим на слизня существом!"),
+		span_danger("Ваш хозяин дёргается и вздрагивает, когда вы быстро выводите личинку из своего слизнеподобного тела.")
+		)
+
+	var/turf/turf = get_turf(borer.host)
+	turf.add_vomit_floor()
+
+	new /mob/living/simple_animal/borer(turf, borer.generation + 1)
+	SEND_SIGNAL(borer, COMSIG_BORER_REPRODUCE, turf)
+
+	return
 
 /datum/action/innate/borer/torment
 	name = "Torment Host"
 	desc = "Punish your host with agony."
 	button_icon_state = "blind"
+	cost = 70
 
 /datum/action/innate/borer/torment/Activate()
 	var/mob/living/simple_animal/borer/borer = isborer(owner) ? owner : owner.has_brain_worms()
 	var/mob/living/carbon/host = borer.host
 
-	var/cost = 70 - (borer.antag_datum.borer_rank.rank_ability_amplifier * 10)
+	var/total_cost = cost - (borer.antag_datum.borer_rank.rank_ability_amplifier * 10)
 
-	if(borer.chemicals < cost)
-		to_chat(owner, "Вам требуется [cost] химикатов для вызова психической агонии!")
+	if(borer.chemicals < total_cost)
+		to_chat(owner, "Вам требуется [total_cost] химикат[declension_ru(total_cost, "", "а", "ов")] для вызова психической агонии!")
 		return
 
-	borer.chemicals -= cost
+	borer.chemicals -= total_cost
 
 	to_chat(owner, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
 	var/target = borer.host_brain ? borer.host_brain : host

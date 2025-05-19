@@ -24,7 +24,7 @@
 		return .
 
 	if(spider_team?.infect_target?.completed || \
-	spider_team?.lay_eggs_target?.completed|| \
+	spider_team?.lay_eggs_target?.completed || \
 	spider_team?.prince_target?.completed)
 		completed = TRUE
 		return TRUE
@@ -75,7 +75,7 @@
 
 	if(alife_count >= targets_need)
 		completed = TRUE
-		spider_team.other_target?.check_completion()
+		spider_team.other_target?.check_completion(spider_team)
 		return TRUE
 	return .
 
@@ -94,7 +94,7 @@
 
 	if(spider_team?.terror_infections.len >= targets_need)
 		completed = TRUE
-		spider_team?.other_target?.check_completion()
+		spider_team?.other_target?.check_completion(spider_team)
 		return TRUE
 	return .
 
@@ -114,6 +114,6 @@
 
 	if(human_count >= targets_need)
 		completed = TRUE
-		spider_team?.other_target?.check_completion()
+		spider_team?.other_target?.check_completion(spider_team)
 		return TRUE
 	return .
