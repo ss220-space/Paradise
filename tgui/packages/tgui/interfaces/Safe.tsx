@@ -72,7 +72,7 @@ const Dialer = (_properties) => {
           zIndex: 10,
         }}
       >
-        {(right ? 'Right' : 'Left') + ' ' + amount}
+        {amount}
       </Button>
     );
   };
@@ -84,7 +84,7 @@ const Dialer = (_properties) => {
         mb="0.5rem"
         onClick={() => act('open')}
       >
-        {open ? 'Close' : 'Open'}
+        {open ? 'Закрыть' : 'Открыть'}
       </Button>
       <br />
       <Box position="absolute">
@@ -132,20 +132,20 @@ const Help = (_properties) => {
   return (
     <Section
       className="Safe--help"
-      title="Safe opening instructions (because you all keep forgetting)"
+      title="Инструкция по открытию сейфа. (потому что вы всё время забываете)"
     >
       <Box>
-        1. Turn the dial left to the first number.
+        1. Поверните циферблат влево на первую цифру.
         <br />
-        2. Turn the dial right to the second number.
+        2. Поверните циферблат вправо на вторую цифру.
         <br />
-        3. Continue repeating this process for each number, switching between
-        left and right each time.
+        3. Продолжайте так для каждого числа, поворачивая сначало налево, затем
+        направо.
         <br />
-        4. Open the safe.
+        4. Откройте сейф.
       </Box>
       <Box bold>
-        To lock fully, turn the dial to the left after closing the safe.
+        Чтобы полностью запереть сейф, после закрытия поверните циферблат влево.
       </Box>
     </Section>
   );

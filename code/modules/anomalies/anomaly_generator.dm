@@ -61,8 +61,8 @@
 	/// Sound cooldown
 	COOLDOWN_DECLARE(sound_cooldown)
 
-/obj/machinery/power/anomaly_generator/New()
-	..()
+/obj/machinery/power/anomaly_generator/Initialize(mapload)
+	. = ..()
 	beacon = new(src)
 	selected_beacon = beacon
 	component_parts = list()
@@ -74,7 +74,7 @@
 	component_parts += new /obj/item/stock_parts/capacitor
 	RefreshParts()
 
-/obj/machinery/power/anomaly_generator/upgraded/New()
+/obj/machinery/power/anomaly_generator/upgraded/Initialize()
 	..()
 	LAZYCLEARLIST(component_parts)
 	component_parts = list()
