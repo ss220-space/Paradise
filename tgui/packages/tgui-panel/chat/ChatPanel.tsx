@@ -18,6 +18,7 @@ type Props = {
 type State = {
   scrollTracking: boolean;
 };
+
 export class ChatPanel extends Component<Props, State> {
   ref: RefObject<HTMLDivElement>;
   handleScrollTrackingChange: (v: boolean) => void;

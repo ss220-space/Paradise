@@ -22,7 +22,7 @@ export const Wires = (_props: unknown) => {
   const wires = data.wires || [];
   const statuses = data.status || [];
   const dynamicHeight =
-    56 + wires.length * 23 + (data.status ? 0 : 15 + statuses.length * 17);
+    130 + wires.length * 23 + (data.status ? 0 : 15 + statuses.length * 17);
 
   return (
     <Window width={350} height={dynamicHeight}>
