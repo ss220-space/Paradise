@@ -713,7 +713,7 @@
         INSTRUMENTAL = "игнорированием дронов",
         PREPOSITIONAL = "игнорировании дронов"
 	)
-	gender = 
+	gender = NEUTER
 	cost = 0
 
 
@@ -754,7 +754,7 @@
         INSTRUMENTAL = "резонирующим взрывом",
         PREPOSITIONAL = "резонирующем взрыве"
 	)
-	gender = 
+	gender = MALE
 	denied_type = /obj/item/borg/upgrade/modkit/resonator_blasts
 	cost = 30
 	modifier = 0.25 // A bonus 15 damage if you burst the field on a target, 60 if you lure them into it.
@@ -784,7 +784,7 @@
         INSTRUMENTAL = "кристаллом вампиризма",
         PREPOSITIONAL = "кристалле вампиризма"
 	)
-	gender = 
+	gender = MALE
 	icon_state = "modkit_crystal"
 	modifier = 2.5 //Not a very effective method of healing.
 	cost = 20
@@ -813,7 +813,7 @@
         INSTRUMENTAL = "охотой за головами",
         PREPOSITIONAL = "охоте за головами"
 	)
-	gender = 
+	gender = FEMALE
 	denied_type = /obj/item/borg/upgrade/modkit/bounty
 	modifier = 1.25
 	cost = 30
@@ -890,7 +890,7 @@
         INSTRUMENTAL = "модифицированным курком",
         PREPOSITIONAL = "модифицированном курке"
 	)
-	gender = 
+	gender = MALE
 	cost = 20
 	denied_type = /obj/item/borg/upgrade/modkit/trigger_guard
 	compatibility = COMPATIBILITY_STANDART
@@ -952,7 +952,7 @@
         INSTRUMENTAL = "гипер корпусом",
         PREPOSITIONAL = "гипер корпусе"
 	)
-	gender = 
+	gender = MALE
 	chassis_icon = "kineticgun_h"
 	chassis_name = "hyper-kinetic accelerator"
 
