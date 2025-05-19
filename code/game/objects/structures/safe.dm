@@ -19,7 +19,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/structure/safe
 	name = "safe"
-	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\""
+	desc = "Огромный кусок металла со встроенным в него циферблатом. Мелким шрифтом на циферблате написано: \"Сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
 	ru_names = list(
 		NOMINATIVE = "сейф",
 		GENITIVE = "сейфа",
@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(safes)
 		if(!user.drop_transfer_item_to_loc(item, src))
 			return ATTACK_CHAIN_PROCEED
 		space += item.w_class
-		to_chat(user, span_notice("Вы кладёте [item.declent_ru(ACCUSATIVE)] в [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы кладёте [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -241,7 +241,7 @@ GLOBAL_LIST_EMPTY(safes)
 		update_icon()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	balloon_alert(user,"сейф закрыт!")
+	user.balloon_alert(user,"сейф закрыт!")
 	return ATTACK_CHAIN_PROCEED
 
 
@@ -450,7 +450,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/structure/safe/floor
 	name = "floor safe"
-	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\""
+	desc = "Огромный металлический люк со встроенным в него цифербалтом. Мелким шрифтом на циферблате написано: \"Напольный сейф от \"Скарборо Армс\" надёжно защитит ваши ценные вещи от любых посягательств, включая любопытных ассистентов\"."
 	ru_names = list(
 		NOMINATIVE = "напольный сейф",
 		GENITIVE = "напольного сейфа",
@@ -501,7 +501,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/item/paper/safe_code
 	name = "safe codes"
-	desc = "Надежный способ сохранить важные цифры в тайне"
+	desc = "Надежный способ сохранить секретность важных цифр."
 	ru_names = list(
 		NOMINATIVE = "коды от сейфа",
 		GENITIVE = "кодов от сейфа",
