@@ -1416,9 +1416,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["mach_close"])
-		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
-		close_window(src, t1)
+		close_window(src, href_list["mach_close"])
 		return TRUE
 
 	if(href_list["mod"])

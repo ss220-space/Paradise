@@ -42,7 +42,7 @@ $color-text-reconnect: colors.$red !default;
 }
 
 .Chat__scrollButton {
-  position: fixed;
+  position: fixed !important;
   right: 2em;
   bottom: 1em;
 }

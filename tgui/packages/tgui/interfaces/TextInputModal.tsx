@@ -83,7 +83,8 @@ export const TextInputModal = (props) => {
                 height={multiline || input.length >= 30 ? '100%' : '1.8rem'}
                 maxLength={max_length}
                 onEscape={() => act('cancel')}
-                onChange={onType}
+                onInput={onType}
+                onEnter={() => act('submit', { entry: input })}
                 placeholder="Type something..."
                 value={input}
               />

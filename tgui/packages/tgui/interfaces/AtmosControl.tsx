@@ -95,7 +95,13 @@ const AtmosControlDataView = (_properties) => {
   const { alarms } = data;
   return (
     <Box>
-      <Table m="0.5rem">
+      <Table
+        m="0.5rem"
+        style={{
+          borderCollapse: 'separate',
+          borderSpacing: '0 5px',
+        }}
+      >
         <Table.Row header>
           <Table.Cell>Name</Table.Cell>
           <Table.Cell>Status</Table.Cell>

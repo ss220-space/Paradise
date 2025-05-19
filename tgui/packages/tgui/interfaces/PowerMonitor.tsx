@@ -79,6 +79,7 @@ const SelectionView = (_props: unknown) => {
           <Box key={uid}>
             <Button
               icon="arrow-right"
+              mb={0.5}
               onClick={() =>
                 act('selectmonitor', {
                   selectmonitor: uid,

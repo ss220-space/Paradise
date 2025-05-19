@@ -433,7 +433,7 @@
 			pose = addtext(pose,".") //Makes sure all emotes end with a period.
 		msg += "\n[p_they(TRUE)] [p_are()] [pose]"
 
-	. = list(replacetext(msg, "\n", "<br>"))
+	. = list(msg)
 	SEND_SIGNAL(src, COMSIG_PARENT_EXAMINE, user, .)
 
 
