@@ -18,7 +18,7 @@ describe('ChatHistory', () => {
     expect(chatHistory.getOlderMessage().value).toEqual('World');
     expect(chatHistory.getOlderMessage().value).toEqual('Hello');
     expect(chatHistory.getNewerMessage().value).toEqual('World');
-    expect(chatHistory.getNewerMessage().value).toBeNull();
+    expect(chatHistory.getNewerMessage()).toBeNull();
     expect(chatHistory.getOlderMessage().value).toEqual('World');
   });
 
@@ -31,13 +31,13 @@ describe('ChatHistory', () => {
     for (let i = 5; i >= 2; i--) {
       expect(chatHistory.getOlderMessage().value).toEqual(`Message ${i}`);
     }
-    expect(chatHistory.getOlderMessage().value).toBeNull();
+    expect(chatHistory.getOlderMessage()).toBeNull();
   });
 
   it('should handle temp message correctly', () => {
     chatHistory.saveTemp({ value: 'Temp message' });
     expect(chatHistory.getTemp().value).toEqual('Temp message');
-    expect(chatHistory.getTemp().value).toBeNull();
+    expect(chatHistory.getTemp()).toBeNull();
   });
 
   it('should reset correctly', () => {
