@@ -218,7 +218,7 @@ GLOBAL_LIST_EMPTY(safes)
 		if(!user.drop_transfer_item_to_loc(item, src))
 			return ATTACK_CHAIN_PROCEED
 		space += item.w_class
-		to_chat(user, span_notice("Вы кладёте [item.declent_ru(ACCUSATIVE)] в [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы кладёте [item.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
