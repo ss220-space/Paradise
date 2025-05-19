@@ -302,7 +302,7 @@ GLOBAL_LIST_EMPTY(safes)
 			if(open)
 				return
 			if(broken)
-				to_chat(usr, span_warning("Циферблат не может поеврнуться так как механизм сейфа сломан!"))
+				to_chat(usr, span_warning("Циферблат не поворачивается, так как его механизм сломан!"))
 				return
 			var/ticks = text2num(params["num"])
 			for(var/i = 1 to ticks)
