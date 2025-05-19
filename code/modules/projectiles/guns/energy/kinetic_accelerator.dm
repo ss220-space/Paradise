@@ -881,14 +881,14 @@
 // Trigger Guard
 /obj/item/borg/upgrade/modkit/trigger_guard
 	name = "modified trigger guard"
-	desc = "Модифицирует ударно-спусковой механизм, позволяя существам неспособным использовать оружие использовать КА. Поможет только стрелкам-гуманоидам."
+	desc = "Модифицирует ударно-спусковой механизм, позволяя существам неспособным использовать оружие использовать КА."
 	ru_names = list(
         NOMINATIVE = "модифицированный курок",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        GENITIVE = "модифицированного курка",
+        DATIVE = "модифицированному курку",
+        ACCUSATIVE = "модифицированный курок",
+        INSTRUMENTAL = "модифицированным курком",
+        PREPOSITIONAL = "модифицированном курке"
 	)
 	gender = 
 	cost = 20
@@ -913,13 +913,13 @@
 	desc = "Покрывает ваш кинетический акселератор блестящим, желтым корпусом. Все плюсы улучшенного КА, без улучшенного КА."
 	ru_names = list(
         NOMINATIVE = "супер корпус",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        GENITIVE = "супер корпуса",
+        DATIVE = "супер корпусу",
+        ACCUSATIVE = "супер корпус",
+        INSTRUMENTAL = "супер корпусом",
+        PREPOSITIONAL = "супер корпусе"
 	)
-	gender = 
+	gender = MALE
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/chassis_mod
 	/// This text replaces KA's `icon_state` after installation.
@@ -943,14 +943,14 @@
 
 /obj/item/borg/upgrade/modkit/chassis_mod/orange
 	name = "hyper chassis"
-	desc = "Makes your KA orange. All the fun of having explosive blasts without actually having explosive blasts."
+	desc = "Покрывает ваш КА стильным оранжевым корпусом. Всё веселье устаревших технологий, без устаревших технологий."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "гипер корпус",
+        GENITIVE = "гипер корпуса",
+        DATIVE = "гипер корпусу",
+        ACCUSATIVE = "гипер корпус",
+        INSTRUMENTAL = "гипер корпусом",
+        PREPOSITIONAL = "гипер корпусе"
 	)
 	gender = 
 	chassis_icon = "kineticgun_h"
@@ -959,16 +959,16 @@
 
 /obj/item/borg/upgrade/modkit/tracer
 	name = "white tracer bolts"
-	desc = "Causes kinetic accelerator bolts to have a white tracer trail and explosion."
+	desc = "Перекрашивает выстрелы кинетического акселератора в белый цвет."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "белый трассер",
+        GENITIVE = "белого трассера",
+        DATIVE = "белому трассеру",
+        ACCUSATIVE = "белый трассер",
+        INSTRUMENTAL = "белым трассером",
+        PREPOSITIONAL = "белом трассере"
 	)
-	gender = 
+	gender = MALE
 	cost = 0
 	denied_type = /obj/item/borg/upgrade/modkit/tracer
 	/// This color colors the projectiles after installation.
@@ -982,16 +982,16 @@
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable
 	name = "adjustable tracer bolts"
-	desc = "Causes kinetic accelerator bolts to have an adjustable-colored tracer trail and explosion. Use in-hand to change color."
+	desc = "Перекрашивает выстрелы кинетического акселератора. Используйте в руке чтобы выбрать цвет."
 	ru_names = list(
-        NOMINATIVE = "",
-        GENITIVE = "",
-        DATIVE = "",
-        ACCUSATIVE = "",
-        INSTRUMENTAL = "",
-        PREPOSITIONAL = ""
+        NOMINATIVE = "цветной трассер",
+        GENITIVE = "цветного трассера",
+        DATIVE = "цветному трассеру",
+        ACCUSATIVE = "цветной трассер",
+        INSTRUMENTAL = "цветным трассером",
+        PREPOSITIONAL = "цветном трассере"
 	)
-	gender = 
+	gender = MALE
 
 
 /obj/item/borg/upgrade/modkit/tracer/adjustable/attack_self(mob/user)
