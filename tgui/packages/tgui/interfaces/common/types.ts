@@ -86,3 +86,8 @@ type SordIdProps = Partial<{
   sortId: string;
   setSortId: React.Dispatch<React.SetStateAction<string>>;
 }>;
+
+type TabIndexProps = Partial<{
+  tabIndex: number;
+  setTabIndex: React.Dispatch<React.SetStateAction<number>>;
+}>;

@@ -110,6 +110,7 @@ type Setting = {
 export const AirAlarm = (props: unknown) => {
   const { data } = useBackend<AirAlarmData>();
   const { locked } = data;
+  const [tabIndex, setTabIndex] = useState(0);
   // Bail straight away if there is no air
   return (
     <Window width={570} height={locked ? 310 : 755}>
@@ -118,8 +119,8 @@ export const AirAlarm = (props: unknown) => {
         <AirStatus />
         {!locked && (
           <>
-            <AirAlarmTabs />
-            <AirAlarmUnlockedContent />
+            <AirAlarmTabs tabIndex={tabIndex} setTabIndex={setTabIndex} />
+            <AirAlarmUnlockedContent tabIndex={tabIndex} />
           </>
         )}
       </Window.Content>
@@ -137,7 +138,7 @@ const Danger2Colour = (danger: number) => {
   return 'red';
 };
 
-const AirStatus = (props: unknown) => {
+const AirStatus = (_props: unknown) => {
   const { act, data } = useBackend<AirAlarmData>();
   const { air, mode, atmos_alarm, locked, alarmActivated, rcon, target_temp } =
     data;
@@ -289,8 +290,8 @@ const AirStatus = (props: unknown) => {
   );
 };
 
-const AirAlarmTabs = (props: unknown) => {
-  const [tabIndex, setTabIndex] = useState(0);
+const AirAlarmTabs = (props: TabIndexProps) => {
+  const { tabIndex, setTabIndex } = props;
   return (
     <Tabs>
       <Tabs.Tab
@@ -325,8 +326,8 @@ const AirAlarmTabs = (props: unknown) => {
   );
 };
 
-const AirAlarmUnlockedContent = (props: unknown) => {
-  const [tabIndex, setTabIndex] = useState(0);
+const AirAlarmUnlockedContent = (props: TabIndexProps) => {
+  const { tabIndex } = props;
   switch (tabIndex) {
     case 0:
       return <AirAlarmVentsView />;
