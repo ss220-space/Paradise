@@ -43,6 +43,9 @@
 	key = "airguitar"
 	message = "дела%(ет,ют)% невероятный запил на воображаемой гитаре!"
 	hands_use_check = TRUE
+	audio_cooldown = 1 MINUTES
+	cooldown = 10 SECONDS
+	sound = 'sound/misc/airguitar_1.ogg'
 
 
 /datum/emote/living/carbon/human/clap
