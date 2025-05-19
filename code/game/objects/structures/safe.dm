@@ -501,7 +501,7 @@ GLOBAL_LIST_EMPTY(safes)
   */
 /obj/item/paper/safe_code
 	name = "safe codes"
-	desc = "Надежный способ сохранить важные цифры в тайне"
+	desc = "Надежный способ сохранить секретность важных цифр."
 	ru_names = list(
 		NOMINATIVE = "коды от сейфа",
 		GENITIVE = "кодов от сейфа",
