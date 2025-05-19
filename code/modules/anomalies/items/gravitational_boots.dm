@@ -103,7 +103,9 @@
 		return
 
 	cell.forceMove_turf()
-	user.put_in_hands(cell, ignore_anim = FALSE)
+	if(!user.put_in_hands(core))
+		core.forceMove(get_turf(user))
+
 	to_chat(user, span_notice("Вы достали [cell.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	cell.update_icon()
 	cell = null
@@ -149,7 +151,9 @@
 		user.balloon_alert(user, "нет ядра")
 		return
 
-	user.put_in_active_hand(core)
+	if(!user.put_in_hands(core))
+		core.forceMove(get_turf(user))
+
 	core = null
 	user.balloon_alert(user, "ядро извлечено")
 

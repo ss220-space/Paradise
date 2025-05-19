@@ -82,9 +82,12 @@
 		user.balloon_alert(user, "нет ядра")
 		return
 
-	user.put_in_active_hand(core)
+	if(!user.put_in_hands(core))
+		core.forceMove(get_turf(user))
+
 	core = null
 	user.balloon_alert(user, "ядро извлечено")
+	update_icon(UPDATE_ICON_STATE)
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)

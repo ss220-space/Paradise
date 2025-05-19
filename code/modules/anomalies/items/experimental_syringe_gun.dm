@@ -46,6 +46,7 @@
 /obj/item/gun/syringe/rapidsyringe/experimental/proc/update_core()
 	if(!core)
 		synth_speed = 0
+		return
 
 	synth_speed = core.get_strenght() / 30
 
@@ -54,7 +55,9 @@
 		add_fingerprint(user)
 		var/msg = "ядро вставлено"
 		if(core)
-			user.put_in_hands(core)
+			if(!user.put_in_hands(core))
+				core.forceMove(get_turf(user))
+
 			msg = "ядро заменено"
 
 		if(!user.drop_transfer_item_to_loc(item, src))
@@ -114,7 +117,9 @@
 	if(!user.contains(src))
 		return
 
-	user.put_in_active_hand(core)
+	if(!user.put_in_hands(core))
+		core.forceMove(get_turf(user))
+
 	core = null
 	user.balloon_alert(user, "ядро извлечено")
 	update_core()
