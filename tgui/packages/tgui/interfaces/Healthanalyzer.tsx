@@ -456,6 +456,14 @@ export const Healthanalyzer = (props: unknown) => {
                   )
                 )}
 
+                {!!scan_data.reagentList && <ReagentList />}
+
+                {!!scan_data.diseases[0] && <DiseasesList />}
+
+                {!!scan_data.addictionList && <AddictionList />}
+
+                {!!scan_data.implantDetect && <ImplantList />}
+
                 <Section title="Страховка">
                   <LabeledList>
                     <LabeledList.Item label="Тип страховки ">

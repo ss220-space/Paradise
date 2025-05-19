@@ -5,8 +5,13 @@ import { dragStartHandler } from 'tgui/drag';
 import { isEscape, KEY } from 'common/keys';
 import { BooleanLike, classes } from 'common/react';
 import { Channel, ChannelIterator } from './ChannelIterator';
-import { ChatHistory } from './ChatHistory';
-import { LineLength, RADIO_PREFIXES, WindowSize } from './constants';
+import { ChatHistory, HistoryRecord } from './ChatHistory';
+import {
+  LineLength,
+  RADIO_PREFIXES,
+  BINARY_PREFIXES,
+  WindowSize,
+} from './constants';
 import { getPrefix, windowClose, windowOpen, windowSet } from './helpers';
 import { byondMessages } from './timers';
 type ByondOpen = {
@@ -23,6 +28,7 @@ const ROWS: Record<keyof typeof WindowSize, number> = {
   Large: 3,
   Width: 1, // not used
 } as const;
+
 export const TguiSay = () => {
   const innerRef = useRef<HTMLTextAreaElement>(null);
   const channelIterator = useRef(new ChannelIterator());
@@ -48,21 +54,20 @@ export const TguiSay = () => {
     if (direction === KEY.Up) {
       if (chat.isAtLatest() && value) {
         // Save current message to temp history if at the most recent message
-        chat.saveTemp(value);
+        chat.saveTemp({
+          value: value,
+          channel: iterator.current(),
+          prefix: currentPrefix,
+        });
       }
       // Try to get the previous message, fall back to the current value if none
       const prevMessage = chat.getOlderMessage();
       if (prevMessage) {
-        setButtonContent(chat.getIndex().toString());
-        setValue(prevMessage);
+        UpdateInput(prevMessage);
       }
     } else {
-      const nextMessage = chat.getNewerMessage() || chat.getTemp() || '';
-      const newContent = chat.isAtLatest()
-        ? iterator.current()
-        : chat.getIndex().toString();
-      setButtonContent(newContent);
-      setValue(nextMessage);
+      const nextMessage = chat.getNewerMessage() || chat.getTemp();
+      UpdateInput(nextMessage);
     }
   };
   const handleBackspaceDelete = (): void => {
@@ -75,6 +80,14 @@ export const TguiSay = () => {
       // Empty input, resets the channel
     } else if (currentPrefix && iterator.isSay() && value?.length === 0) {
       setCurrentPrefix(null);
+      setButtonContent(iterator.current());
+    } else if (
+      innerRef.current?.selectionStart === 0 &&
+      innerRef.current?.selectionEnd === 0 &&
+      !iterator.isCurrentChannelBlacklisted()
+    ) {
+      setCurrentPrefix(null);
+      iterator.set('Say');
       setButtonContent(iterator.current());
     }
   };
@@ -91,6 +104,7 @@ export const TguiSay = () => {
       }
     }, 50);
   };
+
   // Prevents the button from changing channels if it's dragged
   const handleButtonRelease = (): void => {
     isDragging.current = false;
@@ -101,6 +115,7 @@ export const TguiSay = () => {
     }
     handleIncrementChannel();
   };
+
   const handleClose = (): void => {
     innerRef.current?.blur();
     windowClose(scale.current);
@@ -112,11 +127,16 @@ export const TguiSay = () => {
   };
   const handleEnter = (): void => {
     const iterator = channelIterator.current;
-    const prefix = currentPrefix ?? '';
+    const prefix = currentPrefix ?? null;
+    const channel = iterator.current();
     if (value?.length && value.length < maxLength) {
-      chatHistory.current.add(value);
+      chatHistory.current.add({
+        prefix: prefix,
+        channel: channel,
+        value: value,
+      });
       Byond.sendMessage('entry', {
-        channel: iterator.current(),
+        channel: channel,
         entry: iterator.isSay() ? prefix + value : value,
       });
     }
@@ -136,34 +156,69 @@ export const TguiSay = () => {
     messages.current.forceSayMsg(grunt, iterator.current());
     unloadChat();
   };
+
   const handleIncrementChannel = (): void => {
     const iterator = channelIterator.current;
     iterator.next();
     setButtonContent(iterator.current());
     setCurrentPrefix(null);
     messages.current.channelIncrementMsg(iterator.isVisible());
+    innerRef.current.focus();
   };
 
   const handleInput = (event: React.FormEvent<HTMLTextAreaElement>): void => {
     const iterator = channelIterator.current;
     let newValue = event.currentTarget.value;
 
+    // Early check for standard radio channel key
+    if (newValue && newValue.slice(0, 2) === '; ') {
+      iterator.set('Radio');
+      setCurrentPrefix(null);
+      setValue(newValue.slice(2));
+      setButtonContent(iterator.current());
+      return;
+    }
+
     let newPrefix = getPrefix(newValue) || currentPrefix;
+
     // Handles switching prefixes
     if (newPrefix && newPrefix !== currentPrefix) {
-      setButtonContent(RADIO_PREFIXES[newPrefix]);
-      setCurrentPrefix(newPrefix);
       newValue = newValue.slice(3);
-      iterator.set('Say');
-      if (newPrefix === ':b ') {
-        Byond.sendMessage('thinking', { visible: false });
-      }
+      UpdatePrefix(newPrefix);
     }
     // Handles typing indicators
-    if (channelIterator.current.isVisible() && newPrefix !== ':b ') {
+    UpdateTyping(newPrefix);
+    setValue(newValue);
+  };
+
+  const UpdatePrefix = (prefix: keyof typeof RADIO_PREFIXES | null) => {
+    const iterator = channelIterator.current;
+    setButtonContent(RADIO_PREFIXES[prefix]);
+    setCurrentPrefix(prefix);
+    iterator.set('Say');
+    if (prefix in BINARY_PREFIXES) {
+      Byond.sendMessage('thinking', { visible: false });
+    }
+  };
+
+  const UpdateTyping = (prefix: keyof typeof RADIO_PREFIXES | null) => {
+    if (channelIterator.current.isVisible() && !(prefix in BINARY_PREFIXES)) {
       messages.current.typingMsg();
     }
-    setValue(newValue);
+  };
+
+  const UpdateInput = ({ value, prefix, channel }: HistoryRecord) => {
+    const iterator = channelIterator.current;
+    if (prefix && prefix !== currentPrefix) {
+      UpdatePrefix(prefix);
+    } else if (channel) {
+      setCurrentPrefix(null);
+      iterator.set(channel);
+      setButtonContent(channel);
+    }
+
+    UpdateTyping(prefix);
+    setValue(value);
   };
 
   const handleKeyDown = (

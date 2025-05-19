@@ -72,7 +72,6 @@ export const setClientTheme = (name) => {
   return Byond.winset({
     /* Mainwindow */
     'mainwindow.background-color': themeColor.BG_BASE,
-    'mainwindow.theme': name,
     'mainwindow.mainvsplit.background-color': themeColor.BG_BASE,
     'mainwindow.tooltip.background-color': themeColor.BG_BASE,
     'info_and_buttons.background-color': themeColor.BG_BASE,
@@ -92,14 +91,8 @@ export const setClientTheme = (name) => {
     'infobuttons.wikib.text-color': themeColor.TEXT,
     'infobuttons.forumb.background-color': themeColor.BUTTON,
     'infobuttons.forumb.text-color': themeColor.TEXT,
-    'infobuttons.rulesb.background-color': themeColor.BUTTON,
-    'infobuttons.rulesb.text-color': themeColor.TEXT,
-    'infobuttons.githubb.background-color': themeColor.BUTTON,
-    'infobuttons.githubb.text-color': themeColor.TEXT,
     'infobuttons.webmap.background-color': themeColor.BUTTON,
     'infobuttons.webmap.text-color': themeColor.TEXT,
-    'infobuttons.changelog.background-color': themeColor.BUTTON,
-    'infobuttons.changelog.text-color': themeColor.TEXT,
     'output.background-color': themeColor.BG_BASE,
     'output.text-color': themeColor.TEXT,
     /* Rpane */

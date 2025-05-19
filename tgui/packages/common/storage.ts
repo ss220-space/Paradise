@@ -70,41 +70,41 @@ class HubStorageBackend implements StorageBackend {
 
   async get(key: string): Promise<any> {
     return new Promise((resolve) => {
-      setTimeout(() => {
+      queueMicrotask(() => {
         const value = window.hubStorage.getItem('paradise-' + key);
         if (typeof value === 'string') {
           resolve(JSON.parse(value));
         } else {
           resolve(undefined);
         }
-      }, 0);
+      });
     });
   }
 
   async set(key: string, value: any): Promise<void> {
     return new Promise((resolve) => {
-      setTimeout(() => {
+      queueMicrotask(() => {
         window.hubStorage.setItem('paradise-' + key, JSON.stringify(value));
         resolve();
-      }, 0);
+      });
     });
   }
 
   async remove(key: string): Promise<void> {
     return new Promise((resolve) => {
-      setTimeout(() => {
+      queueMicrotask(() => {
         window.hubStorage.removeItem('paradise-' + key);
         resolve();
-      }, 0);
+      });
     });
   }
 
   async clear(): Promise<void> {
     return new Promise((resolve) => {
-      setTimeout(() => {
+      queueMicrotask(() => {
         window.hubStorage.clear();
         resolve();
-      }, 0);
+      });
     });
   }
 }

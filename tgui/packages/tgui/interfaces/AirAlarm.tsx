@@ -483,6 +483,7 @@ const AirAlarmScrubbersView = (props: unknown) => {
             Carbon Dioxide
           </Button>
           <Button
+            selected={s.filter_toxins}
             onClick={() =>
               act('command', {
                 cmd: 'tox_scrub',

@@ -119,7 +119,7 @@ export const CameraConsoleMapContent = (props: unknown) => {
   return (
     <Box height="100%" style={{ display: 'flex' }}>
       <div className="CameraConsole__left">
-        <Box height="100%" style={{ display: 'flex' }}>
+        <Box height="100%" style={{ display: 'flex' }} m={2}>
           <NanoMap
             onZoom={(e, v) => setZoom(v)}
             zLevels={[stationLevelNum]}

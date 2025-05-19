@@ -51,7 +51,7 @@ export class ChatPanel extends Component<Props, State> {
   }
 
   componentDidUpdate(prevProps?) {
-    setTimeout(() => {
+    requestAnimationFrame(() => {
       chatRenderer.ensureScrollTracking();
     });
     const shouldUpdateStyle =

@@ -59,7 +59,7 @@ export const ActiveConversation = (props: Conversation) => {
     <Section
       fill
       scrollable
-      title={'Conversation with ' + convo_device + ' '}
+      title={convo_device}
       buttons={
         <>
           <Button
@@ -190,7 +190,7 @@ type MessengerListProps = {
 export const MessengerList = (props: MessengerListProps) => {
   const { act } = useBackend();
 
-  const { convopdas, pdas, charges, silent, toff } = props;
+  const { convopdas, pdas, charges, silent, toff, plugins } = props;
 
   const [searchTerm, setSearchTerm] = useState('');
 
@@ -257,26 +257,28 @@ export const MessengerList = (props: MessengerListProps) => {
         title="Current Conversations"
         msgAct="Select Conversation"
         searchTerm={searchTerm}
-        {...props}
+        pdas={convopdas}
       />
       <PDAList
         title="Other PDAs"
         msgAct="Message"
+        pdas={pdas}
         searchTerm={searchTerm}
-        {...props}
+        charges={charges}
+        plugins={plugins}
       />
     </Stack>
   );
 };
 
-type PDAProps = {
+type PDAProps = Partial<{
   title: string;
   msgAct: string;
   searchTerm: string;
   pdas: PDA[];
   charges: number;
   plugins: Plugin[];
-};
+}>;
 
 const PDAList = (props: PDAProps) => {
   const { act } = useBackend();

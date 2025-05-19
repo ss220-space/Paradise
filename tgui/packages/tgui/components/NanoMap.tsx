@@ -1,27 +1,24 @@
 import {
   useState,
   useRef,
-  useEffect,
+  useCallback,
   ReactNode,
   MouseEventHandler,
+  useEffect,
+  CSSProperties,
 } from 'react';
 import { Box, Icon, Tooltip, Dropdown, Image } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
 import { resolveAsset } from '../assets';
-import { computeBoxProps } from 'common/ui';
 
-const pauseEvent = (e: MouseEvent) => {
-  if (e.stopPropagation) {
-    e.stopPropagation();
-  }
-  if (e.preventDefault) {
-    e.preventDefault();
-  }
-  e.cancelBubble = true;
-  e.returnValue = false;
-  return false;
+const pauseEvent = (e: {
+  stopPropagation: () => void;
+  preventDefault: () => void;
+}) => {
+  e.stopPropagation();
+  e.preventDefault();
 };
 
 type Props = {
@@ -35,85 +32,68 @@ type Props = {
 
 export const NanoMap = (props: Props) => {
   const { config } = useBackend();
+  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [offsetX, setOffsetX] = useState(128);
-  const [offsetY, setOffsetY] = useState(48);
+  const [position, setPosition] = useState({ x: 128, y: 48 });
   const [zCurrent, setZCurrent] = useState<number>(props.zCurrent);
   const [zoom, setZoom] = useState(1);
   const [dragging, setDragging] = useState(false);
-  const origin = useRef({ x: null, y: null });
+  const dragStartPos = useRef({ x: 0, y: 0 });
 
-  useEffect(() => {
-    const handleMouseMove = (e: MouseEvent) => {
-      if (origin.current.x === null || origin.current.y === null) return;
-
-      const deltaX = e.screenX - origin.current.x;
-      const deltaY = e.screenY - origin.current.y;
-
-      if (dragging) {
-        setOffsetX((prev) => prev + deltaX);
-        setOffsetY((prev) => prev + deltaY);
-        origin.current.x = e.screenX;
-        origin.current.y = e.screenY;
-      } else {
-        setDragging(true);
-      }
-
-      pauseEvent(e);
-    };
-
-    const handleMouseUp = (e: MouseEvent) => {
-      setDragging(false);
-      origin.current = { x: null, y: null };
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-      pauseEvent(e);
-    };
-
-    // Cleanup on unmount
-    return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleMouseUp);
-    };
-  }, [dragging]);
-
-  const handleDragStart = (e: React.MouseEvent<HTMLDivElement>) => {
-    origin.current = { x: e.screenX, y: e.screenY };
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleMouseUp);
-    pauseEvent(e.nativeEvent);
-  };
-
-  const handleMouseMove = (e: MouseEvent) => {
-    const deltaX = e.screenX - origin.current.x;
-    const deltaY = e.screenY - origin.current.y;
-
-    if (dragging) {
-      setOffsetX((prev) => prev + deltaX);
-      setOffsetY((prev) => prev + deltaY);
-      origin.current.x = e.screenX;
-      origin.current.y = e.screenY;
-    } else {
+  // Обработчики событий мыши
+  const handleMouseDown = useCallback(
+    (e: React.MouseEvent<HTMLDivElement>) => {
       setDragging(true);
-    }
+      dragStartPos.current = {
+        x: e.clientX - position.x,
+        y: e.clientY - position.y,
+      };
 
-    pauseEvent(e);
-  };
+      pauseEvent(e);
+    },
+    [position]
+  );
 
-  const handleMouseUp = (e: MouseEvent) => {
+  const handleMouseMove = useCallback(
+    (e: MouseEvent) => {
+      if (!dragging) return;
+
+      setPosition({
+        x: e.clientX - dragStartPos.current.x,
+        y: e.clientY - dragStartPos.current.y,
+      });
+
+      pauseEvent(e);
+    },
+    [dragging]
+  );
+
+  const handleMouseUp = useCallback(() => {
     setDragging(false);
-    origin.current = { x: null, y: null };
-    document.removeEventListener('mousemove', handleMouseMove);
-    document.removeEventListener('mouseup', handleMouseUp);
-    pauseEvent(e);
-  };
+  }, []);
+
+  // Подписываемся на события мыши
+  useEffect(() => {
+    if (dragging) {
+      document.addEventListener('mousemove', handleMouseMove);
+      document.addEventListener('mouseup', handleMouseUp);
+      return () => {
+        document.removeEventListener('mousemove', handleMouseMove);
+        document.removeEventListener('mouseup', handleMouseUp);
+      };
+    }
+  }, [dragging, handleMouseMove, handleMouseUp]);
 
   const handleZoom = (_e: Event, value: number) => {
     setZoom((prevZoom) => {
       const newZoom = Math.min(Math.max(value, 1), 8);
       const zoomDiff = (newZoom - prevZoom) * 1.5;
-      setOffsetX((prev) => prev - 262 * zoomDiff);
-      setOffsetY((prev) => prev - 256 * zoomDiff);
+      setPosition((prev) => {
+        return {
+          x: prev.x - 262 * zoomDiff,
+          y: prev.y - 256 * zoomDiff,
+        };
+      });
       props.onZoom?.(_e, newZoom);
       return newZoom;
     });
@@ -127,39 +107,34 @@ export const NanoMap = (props: Props) => {
   const index = props.zLevels.findIndex((level) => +level === zCurrent);
   const mapUrl = config.map + '_nanomap_z' + (index + 1) + '.png';
 
-  const mapSize = 510 * zoom + 'px';
-
   const newStyle = {
-    width: mapSize,
-    height: mapSize,
-    marginTop: offsetY + 'px',
-    marginLeft: offsetX + 'px',
-    overflow: 'hidden',
+    width: `${510 * zoom}px`,
+    height: `${510 * zoom}px`,
     position: 'relative',
-    backgroundSize: 'cover',
-    backgroundRepeat: 'no-repeat',
-    textAlign: 'center',
+    transform: `translate(${position.x}px, ${position.y}px)`,
     cursor: dragging ? 'move' : 'auto',
-  };
+    userSelect: 'none', // Предотвращаем выделение текста при перетаскивании
+  } as CSSProperties;
 
   const mapStyle = {
     width: '100%',
     height: '100%',
     position: 'absolute',
     left: 0,
-  };
+  } as CSSProperties;
 
   return (
     <Box className="NanoMap__container">
-      <Box onMouseDown={handleDragStart} {...computeBoxProps(newStyle)}>
-        <Image src={resolveAsset(mapUrl)} {...computeBoxProps(mapStyle)} />
+      <Box onMouseDown={handleMouseDown} style={newStyle}>
+        <Image src={resolveAsset(mapUrl)} style={mapStyle} />
         <Box>{props.children}</Box>
       </Box>
-      <NanoMapZoomer zoom={zoom} onZoom={handleZoom} {...props} />
+      <NanoMapZoomer zoom={zoom} onZoom={handleZoom} />
       <NanoMapZLeveler
         zCurrent={zCurrent}
+        zNames={props.zNames}
+        zLevels={props.zLevels}
         onZChange={handleZChange}
-        {...props}
       />
     </Box>
   );

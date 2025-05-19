@@ -120,3 +120,11 @@ export const RADIO_PREFIXES = {
   '#3 ': 'Gamma',
   '.3 ': 'Gamma',
 } as const;
+
+export const BINARY_PREFIXES = {
+  ':b ': true,
+  '#b ': true,
+  '.b ': true,
+  '.и ': true,
+  ':и ': true,
+};

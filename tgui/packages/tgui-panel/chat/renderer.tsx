@@ -56,7 +56,7 @@ const findNearestScrollableParent = (startingNode: HTMLElement) => {
     }
     node = node.parentNode as HTMLElement;
   }
-  return window;
+  return null;
 };
 
 const createHighlightNode = (text: string, color: string) => {
@@ -159,10 +159,14 @@ class ChatRenderer {
     this.scrollTracking = true;
     this.handleScroll = (type: Event) => {
       const node = this.scrollNode;
+      if (!node) {
+        return;
+      }
       const height = node.scrollHeight;
       const bottom = node.scrollTop + node.offsetHeight;
       const scrollTracking =
-        Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE;
+        Math.abs(height - bottom) < SCROLL_TRACKING_TOLERANCE ||
+        this.lastScrollHeight === 0;
       if (scrollTracking !== this.scrollTracking) {
         this.scrollTracking = scrollTracking;
         this.events.emit('scrollTrackingChanged', scrollTracking);
@@ -192,14 +196,23 @@ class ChatRenderer {
       this.rootNode = node;
     }
     // Find scrollable parent
-    this.scrollNode = findNearestScrollableParent(this.rootNode) as HTMLElement;
-    this.scrollNode.addEventListener('scroll', this.handleScroll);
-    setTimeout(() => {
-      this.scrollToBottom();
-    });
+    this.findScrollNode(this.rootNode);
     // Flush the queue
     this.tryFlushQueue();
   }
+
+  findScrollNode = (rootNode: HTMLElement) => {
+    this.scrollNode = findNearestScrollableParent(rootNode) as HTMLElement;
+    if (this.scrollNode) {
+      this.scrollNode?.addEventListener('scroll', this.handleScroll);
+
+      setTimeout(() => {
+        this.scrollToBottom();
+      });
+    } else {
+      setTimeout(() => this.findScrollNode(rootNode), 10);
+    }
+  };
 
   onStateLoaded() {
     this.loaded = true;
@@ -312,9 +325,7 @@ class ChatRenderer {
   scrollToBottom() {
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.
-    this.scrollNode.scrollTo({
-      top: this.scrollNode.scrollHeight,
-    });
+    this.scrollNode.scrollTop = this.scrollNode.scrollHeight;
   }
 
   changePage(page: Page) {
