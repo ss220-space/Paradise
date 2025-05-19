@@ -297,7 +297,7 @@ GLOBAL_LIST_EMPTY(safes)
 				open = !open
 				update_icon()
 			else
-				to_chat(usr, span_warning("Вы не можете открыть [declent_ru(ACCUSATIVE)] пока замок не открыт!"))
+				to_chat(usr, span_warning("Вы не можете открыть [declent_ru(ACCUSATIVE)], пока замок закрыт!"))
 		if("turnright")
 			if(open)
 				return
