@@ -46,9 +46,9 @@
 	if(owner.client)
 		owner.client.screen += button
 
-		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-				LAZYREMOVE(user.orbiters, observe)
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.screen += button
 
@@ -76,9 +76,9 @@
 	if(user.client)
 		user.client.screen -= button
 
-		for(var/mob/dead/observer/observe in user.orbiters)
-			if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-				LAZYREMOVE(user.orbiters, observe)
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
 				continue
 			observe.client.screen -= button
 
@@ -188,7 +188,7 @@
 	if(!IsAvailable() || istype(spell) && spell.cooldown_handler.should_draw_cooldown())
 		apply_unavailable_effect()
 		return FALSE
-		
+
 	if(!target)
 		return TRUE
 
@@ -622,8 +622,8 @@
 	button_icon_state = "clown"
 
 /datum/action/item_action/gravity_jump
-	name = "Gravity jump"
-	desc = "Directs a pulse of gravity in front of the user, pulling them forward rapidly."
+	name = "Гравитационный прыжок"
+	desc = "Направляет импульс гравитации перед пользователем, придавая ему ускорение."
 	attack_self = FALSE
 
 /datum/action/item_action/gravity_jump/Trigger(left_click = TRUE)

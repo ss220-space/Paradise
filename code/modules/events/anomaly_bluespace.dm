@@ -2,5 +2,5 @@
 	name = "Anomaly: Bluespace"
 	startWhen = 3
 	announceWhen = 10
-	anomaly_path = /obj/effect/anomaly/bluespace
+	anomaly_path = /obj/effect/anomaly/bluespace/tier2
 	prefix_message = "На сканерах дальнего действия обнаружена нестабильная блюспейс-аномалия."

@@ -209,7 +209,7 @@
 
 
 /obj/item/clothing/gloves/color/yellow/stun/attackby(obj/item/I, mob/living/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(cell)
 			balloon_alert(user, "батарея уже установлена!")
