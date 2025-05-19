@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(safes)
 		if(drill)
 			user.balloon_alert(user, "дрель уже стоит!")
 			return ATTACK_CHAIN_PROCEED
-		user.balloon_alert(user, "начинается установка")
+		user.balloon_alert(user, "установка началась")
 		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || drill)
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(item, src))
