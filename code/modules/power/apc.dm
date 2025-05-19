@@ -584,7 +584,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))	// trying to put a cell inside
+	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(opened == APC_CLOSED)
 			to_chat(user, span_warning("You should open the APC cover to insert a power cell."))
@@ -1701,6 +1701,33 @@
 		aidisabled = FALSE
 		updateDialog()
 
+/obj/machinery/power/apc/proc/is_channel_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON || channel_type == CHANNEL_SETTING_AUTO_ON
+
+/obj/machinery/power/apc/proc/is_channel_force_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1
