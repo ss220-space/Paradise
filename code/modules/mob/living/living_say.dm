@@ -34,7 +34,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":x" = PROC_FREQ_NAME,			"#x" = PROC_FREQ_NAME,			"№x" = PROC_FREQ_NAME,			".x" = PROC_FREQ_NAME,
 	  ":e" = ENG_FREQ_NAME, 			"#e" = ENG_FREQ_NAME,			"№e" = ENG_FREQ_NAME,			".e" = ENG_FREQ_NAME,
 	  ":s" = SEC_FREQ_NAME,				"#s" = SEC_FREQ_NAME,			"№s" = SEC_FREQ_NAME,			".s" = SEC_FREQ_NAME,
-	  ":w" = "шёпот",					"#w" = "шёпот",					"№w" = "шёпот",					".w" = "шёпот",
+	  ":w" = WHISPER_CHANNEL,			"#w" = WHISPER_CHANNEL,			"№w" = WHISPER_CHANNEL,			".w" = WHISPER_CHANNEL,
 	  ":t" = SYND_FREQ_NAME,			"#t" = SYND_FREQ_NAME,			"№t" = SYND_FREQ_NAME,			".t" = SYND_FREQ_NAME,
 	  ":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
 	  ":u" = SUP_FREQ_NAME,				"#u" = SUP_FREQ_NAME,			"№u" = SUP_FREQ_NAME,			".u" = SUP_FREQ_NAME,
@@ -52,7 +52,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":X" = PROC_FREQ_NAME,			"#X" = PROC_FREQ_NAME,			"№X" = PROC_FREQ_NAME,			".X" = PROC_FREQ_NAME,
 	  ":E" = ENG_FREQ_NAME,				"#E" = ENG_FREQ_NAME,			"№E" = ENG_FREQ_NAME,			".E" = ENG_FREQ_NAME,
 	  ":S" = SEC_FREQ_NAME,				"#S" = SEC_FREQ_NAME,			"№S" = SEC_FREQ_NAME,			".S" = SEC_FREQ_NAME,
-	  ":W" = "шёпот",					"#W" = "шёпот",					"№W" = "шёпот",					".W" = "шёпот",
+	  ":W" = WHISPER_CHANNEL,			"#W" = WHISPER_CHANNEL,			"№W" = WHISPER_CHANNEL,			".W" = WHISPER_CHANNEL,
 	  ":T" = SYND_FREQ_NAME,			"#T" = SYND_FREQ_NAME,			"№T" = SYND_FREQ_NAME,			".T" = SYND_FREQ_NAME,
 	  ":'" = SOV_FREQ_NAME,				"#'" = SOV_FREQ_NAME,			"№'" = SOV_FREQ_NAME,			".'" = SOV_FREQ_NAME,
 	  ":U" = SUP_FREQ_NAME,				"#U" = SUP_FREQ_NAME,			"№U" = SUP_FREQ_NAME,			".U" = SUP_FREQ_NAME,
@@ -70,7 +70,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":ч" = PROC_FREQ_NAME,			"#ч" = PROC_FREQ_NAME,			"№ч" = PROC_FREQ_NAME,			".ч" = PROC_FREQ_NAME,
 	  ":у" = ENG_FREQ_NAME, 			"#у" = ENG_FREQ_NAME,			"№у" = ENG_FREQ_NAME,			".у" = ENG_FREQ_NAME,
 	  ":ы" = SEC_FREQ_NAME,				"#ы" = SEC_FREQ_NAME,			"№ы" = SEC_FREQ_NAME,			".ы" = SEC_FREQ_NAME,
-	  ":ц" = "шёпот",					"#ц" = "шёпот",					"№ц" = "шёпот",					".ц" = "шёпот",
+	  ":ц" = WHISPER_CHANNEL,			"#ц" = WHISPER_CHANNEL,			"№ц" = WHISPER_CHANNEL,			".ц" = WHISPER_CHANNEL,
 	  ":е" = SYND_FREQ_NAME,			"#е" = SYND_FREQ_NAME,			"№е" = SYND_FREQ_NAME,			".е" = SYND_FREQ_NAME,
 	  ":э" = SOV_FREQ_NAME,				"#э" = SOV_FREQ_NAME,			"№э" = SOV_FREQ_NAME,			".э" = SOV_FREQ_NAME,
 	  ":б" = SYND_TAIPAN_FREQ_NAME,		"#б" = SYND_TAIPAN_FREQ_NAME,	"№б" = SYND_TAIPAN_FREQ_NAME,	".б" = SYND_TAIPAN_FREQ_NAME,
@@ -89,7 +89,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Ь" = MED_FREQ_NAME,				"#Ь" = MED_FREQ_NAME,			"№Ь" = MED_FREQ_NAME,			".Ь" = MED_FREQ_NAME,
 	  ":У" = ENG_FREQ_NAME,				"#У" = ENG_FREQ_NAME,			"№У" = ENG_FREQ_NAME,			".У" = ENG_FREQ_NAME,
 	  ":Ы" = SEC_FREQ_NAME,				"#Ы" = SEC_FREQ_NAME,			"№Ы" = SEC_FREQ_NAME,			".Ы" = SEC_FREQ_NAME,
-	  ":Ц" = "шёпот",					"#Ц" = "шёпот",					"№Ц" = "шёпот",					".Ц" = "шёпот",
+	  ":Ц" = WHISPER_CHANNEL,			"#Ц" = WHISPER_CHANNEL,			"№Ц" = WHISPER_CHANNEL,			".Ц" = WHISPER_CHANNEL,
 	  ":Е" = SYND_FREQ_NAME,			"#Е" = SYND_FREQ_NAME,			"№Е" = SYND_FREQ_NAME,			".Е" = SYND_FREQ_NAME,
 	  ":Э" = SOV_FREQ_NAME,				"#Э" = SOV_FREQ_NAME,			"№Э" = SOV_FREQ_NAME,			".Э" = SOV_FREQ_NAME,
 	  ":Б" = SYND_TAIPAN_FREQ_NAME,		"#Б" = SYND_TAIPAN_FREQ_NAME,	"№Б" = SYND_TAIPAN_FREQ_NAME,	".Б" = SYND_TAIPAN_FREQ_NAME,
@@ -153,29 +153,29 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(HAS_TRAIT(src, TRAIT_HULK) && health >= 25)
 			S.message = "[uppertext(S.message)]!!!"
-			verb = pick("yells", "roars", "hollers")
+			verb = pick("крич[pluralize_ru(gender, "ит", "ат")]", "рыч[pluralize_ru(gender, "ит", "ат")]", "воп[pluralize_ru(gender, "ит", "ят")]")
 
 		if(AmountSluring())
 			if(robot)
 				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
-			verb = "slurs"
+			verb = "бормоч[pluralize_ru(gender, "ет", "ут")]"
 
 		if(AmountStuttering())
 			if(robot)
 				S.message = robostutter(S.message)
 			else
 				S.message = stutter(S.message)
-			verb = "stammers"
+			verb = "заика[pluralize_ru(gender, "ет", "ют")]ся"
 
 		if(AmountCultSlurring())
 			S.message = cultslur(S.message)
-			verb = "slurs"
+			verb = "бормоч[pluralize_ru(gender, "ет", "ут")]"
 
 		if(AmountClockSlurring())
 			S.message = clockslur(S.message)
-			verb = "slurs"
+			verb = "бормоч[pluralize_ru(gender, "ет", "ут")]"
 
 		if(!IsVocal())
 			S.message = ""
@@ -185,7 +185,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 /mob/living/proc/handle_message_mode(message_mode, list/message_pieces, verb, used_radios)
 	switch(message_mode)
-		if("шёпот") //all mobs can whisper by default
+		if(WHISPER_CHANNEL) //all mobs can whisper by default
 			whisper_say(message_pieces)
 			return TRUE
 	return FALSE
