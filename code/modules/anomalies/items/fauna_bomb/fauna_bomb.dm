@@ -69,7 +69,7 @@
 	if(amount > charge)
 		return FALSE
 
-	var/delta = clamp(amount, -(max_charge - charge), max_charge - charge)
+	var/delta = clamp(amount, -(max_charge - charge), charge)
 	charge -= delta
 	if(charge == max_charge)
 		STOP_PROCESSING(SSobj, src)

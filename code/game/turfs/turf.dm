@@ -224,7 +224,7 @@
 	var/border_dir = get_dir(src, mover)
 	var/can_pass_self = CanPass(mover, border_dir)
 	if(!can_pass_self)
-		return TRUE
+		return FALSE
 
 	for(var/atom/movable/obstacle as anything in contents)
 		// Multi tile objects and moving out of other objects.

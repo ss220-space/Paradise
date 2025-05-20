@@ -25,6 +25,7 @@
 
 /mob/living/simple_animal/hostile/airmob/Initialize(mapload, obj/item/fauna_bomb/spawner, datum/airmob_data/data)
 	. = ..()
+	src.spawner = spawner
 	scan_num = data.scan_num
 	name = data.name
 	ru_names = data.ru_names
@@ -59,7 +60,6 @@
 	else
 		color = MATRIX_GREYSCALE
 
-	src.spawner = spawner
 	req_charge = data.req_charge
 
 /mob/living/simple_animal/hostile/airmob/getarmor(def_zone, attack_flag = MELEE)
@@ -89,6 +89,9 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/airmob/proc/do_commands()
+	if(!spawner)
+		death()
+
 	if(!spawner.current_target)
 		return
 
