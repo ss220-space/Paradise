@@ -202,7 +202,7 @@
 	var/new_icon_state = "vox_wheelchair"
 	var/new_overlay = "vox_wheelchair_overlay"
 	var/new_name = "vox wheelchair"
-	var/new_desc = "Каталка люкс-класса, когда-то принадлежащая воксу."
+	var/new_desc = "Роскошное кресло-каталка, когда-то принадлежавшая воксу."
 
 /obj/item/fluff/rapid_wheelchair_kit/afterattack(var/obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
