@@ -90,6 +90,7 @@
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
+	
 	var/list/cameras = get_available_cameras()
 	data["cameras"] = list()
 	for(var/i in cameras)
@@ -102,6 +103,7 @@
 			ref = camera.UID(),
 			status = camera.status
 		))
+
 	data["activeCamera"] = null
 	if(active_camera)
 		data["activeCamera"] = list(
