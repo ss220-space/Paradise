@@ -49,3 +49,5 @@
 		return_var = text2num(copytext(_measurement, findtextEx(_measurement, "x") + 1)); \
 	} while(FALSE);
 
+
+#define LOWER_TEXT(thing) lowertext(UNLINT("[thing]"))
