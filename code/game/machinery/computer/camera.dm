@@ -90,6 +90,18 @@
 
 /obj/machinery/computer/security/ui_data()
 	var/list/data = list()
+	var/list/cameras = get_available_cameras()
+	data["cameras"] = list()
+	for(var/i in cameras)
+		var/obj/machinery/camera/camera = cameras[i]
+		data["cameras"] += list(list(
+			name = camera.c_tag,
+			x = camera.x,
+			y = camera.y,
+			z = camera.z,
+			ref = camera.UID(),
+			status = camera.status
+		))
 	data["activeCamera"] = null
 	if(active_camera)
 		data["activeCamera"] = list(
@@ -111,18 +123,6 @@
 		station_level_names += level.name
 	data["stationLevelNum"] = station_level_numbers
 	data["stationLevelName"] = station_level_names
-	var/list/cameras = get_available_cameras()
-	data["cameras"] = list()
-	for(var/i in cameras)
-		var/obj/machinery/camera/camera = cameras[i]
-		data["cameras"] += list(list(
-			name = camera.c_tag,
-			x = camera.x,
-			y = camera.y,
-			z = camera.z,
-			ref = camera.UID(),
-			status = camera.status
-		))
 	return data
 
 /obj/machinery/computer/security/ui_act(action, params)
