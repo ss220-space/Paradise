@@ -8,7 +8,7 @@
 		INSTRUMENTAL = "инвалидной коляской",
 		PREPOSITIONAL = "инвалидной коляске"
 	)
-	desc = "Коляска для людей с физическими отклонениями. Почему просто не пришить новые ноги?"
+	desc = "Коляска для людей с ограниченными физическими возможностями. Почему просто не пришить новые ноги?"
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wheelchair"
 	/// Overlay used to overlap buckled mob.
