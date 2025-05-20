@@ -464,6 +464,7 @@ const ChemMasterProductionCommon = (props: {
           value={set_items_amount}
           minValue={1}
           maxValue={max_items_amount}
+          stepPixelSize={20}
           onChange={(e, value) =>
             act(`set_items_amount`, {
               production_mode: id,

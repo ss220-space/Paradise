@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { Box, Button, Icon, Input, NanoMap, Table, Tabs } from '../components';
 import { COLORS } from '../constants';
 import { Window } from '../layouts';
+import { NanoMakerProps } from '../components/NanoMap';
 
 const getStatText = (cm: CrewMember, critThreshold: number) => {
   if (cm.dead) {
@@ -38,14 +39,19 @@ const getStatColor = (cm: CrewMember, critThreshold: number) => {
 
 type CrewMonitorData = {
   crewmembers: CrewMember[];
-  IndexToggler: number;
   isBS: boolean;
   isBP: boolean;
   isMM: boolean;
   isAI: boolean;
+  isObserver: boolean;
   stationLevelNum: number[];
   stationLevelName: string[];
   critThreshold: number;
+  highlightedNames: string[];
+  zoom: number;
+  offsetX: number;
+  offsetY: number;
+  tabIndex: number;
 };
 
 type CrewMember = {
@@ -70,8 +76,12 @@ type CrewMember = {
 };
 
 export const CrewMonitor = (props: unknown) => {
-  const { data } = useBackend<CrewMonitorData>();
-  const [tabIndex, setTabIndex] = useState(data.IndexToggler);
+  const { data, act } = useBackend<CrewMonitorData>();
+  const [tabIndex, setTabIndexInternal] = useState(data.tabIndex);
+  const setTabIndex = (index: number) => {
+    setTabIndexInternal(index);
+    act('set_tab_index', { tab_index: index });
+  };
   const decideTab = (index: number) => {
     switch (index) {
       case 0:
@@ -161,66 +171,99 @@ const CrewMonitorTable = ({ crewData }: CrewMonitorTableProps) => {
         width="100%"
         onInput={(_e, value) => setSearch(value)}
       />
-      <Table m="0.5rem">
+      <Table
+        m="0.5rem"
+        style={{
+          borderCollapse: 'separate',
+          borderSpacing: '1px',
+        }}
+      >
         <Table.Row header>
+          <Table.Cell>
+            <Button
+              tooltip="Очистить отметки на карте"
+              icon="square-xmark"
+              onClick={() => act('clear_highlighted_names')}
+            />
+          </Table.Cell>
           <Table.Cell>Имя</Table.Cell>
           <Table.Cell>Состояние</Table.Cell>
           <Table.Cell>Локация</Table.Cell>
         </Table.Row>
-        {crew.filter(searcher).map((cm) => (
-          <Table.Row key={cm.ref} bold={!!cm.is_command}>
-            <Table.Cell>
-              {cm.name} ({cm.assignment})
-            </Table.Cell>
-            <Table.Cell>
-              <Box inline color={getStatColor(cm, data.critThreshold)}>
-                {getStatText(cm, data.critThreshold)}
-              </Box>
-              {cm.sensor_type >= 2 ? (
-                <Box inline>
-                  {'('}
-                  <Box inline color={COLORS.damageType.oxy}>
-                    {cm.oxy}
-                  </Box>
-                  {'|'}
-                  <Box inline color={COLORS.damageType.toxin}>
-                    {cm.tox}
-                  </Box>
-                  {'|'}
-                  <Box inline color={COLORS.damageType.burn}>
-                    {cm.fire}
-                  </Box>
-                  {'|'}
-                  <Box inline color={COLORS.damageType.brute}>
-                    {cm.brute}
-                  </Box>
-                  {')'}
+        {crew.filter(searcher).map((cm) => {
+          const highlighted = data.highlightedNames.includes(cm.name);
+          return (
+            <Table.Row key={cm.name} bold={!!cm.is_command}>
+              <Table.Cell>
+                <Button.Checkbox
+                  checked={highlighted}
+                  tooltip="Отметить на карте"
+                  onClick={() =>
+                    act(
+                      highlighted
+                        ? 'remove_highlighted_name'
+                        : 'add_highlighted_name',
+                      { name: cm.name }
+                    )
+                  }
+                />
+              </Table.Cell>
+              <Table.Cell>
+                {cm.name} ({cm.assignment})
+              </Table.Cell>
+              <Table.Cell>
+                <Box inline color={getStatColor(cm, data.critThreshold)}>
+                  {getStatText(cm, data.critThreshold)}
                 </Box>
-              ) : null}
-            </Table.Cell>
-            <Table.Cell>
-              {cm.sensor_type === 3 ? (
-                data.isAI ? (
-                  <Button
-                    fluid
-                    icon="location-arrow"
-                    onClick={() =>
-                      act('track', {
-                        track: cm.ref,
-                      })
-                    }
-                  >
-                    {cm.area + ' (' + cm.x + ', ' + cm.y + ')'}
-                  </Button>
+                {cm.sensor_type >= 2 ? (
+                  <Box inline ml={1}>
+                    {'('}
+                    <Box inline color={COLORS.damageType.oxy}>
+                      {cm.oxy}
+                    </Box>
+                    {'|'}
+                    <Box inline color={COLORS.damageType.toxin}>
+                      {cm.tox}
+                    </Box>
+                    {'|'}
+                    <Box inline color={COLORS.damageType.burn}>
+                      {cm.fire}
+                    </Box>
+                    {'|'}
+                    <Box inline color={COLORS.damageType.brute}>
+                      {cm.brute}
+                    </Box>
+                    {')'}
+                  </Box>
+                ) : null}
+              </Table.Cell>
+              <Table.Cell>
+                {cm.sensor_type === 3 ? (
+                  data.isAI || data.isObserver ? (
+                    <Button
+                      fluid
+                      mr={1}
+                      icon="location-arrow"
+                      onClick={() =>
+                        act('track', {
+                          track: cm.ref,
+                        })
+                      }
+                    >
+                      {cm.area + ' (' + cm.x + ', ' + cm.y + ')'}
+                    </Button>
+                  ) : (
+                    cm.area + ' (' + cm.x + ', ' + cm.y + ')'
+                  )
                 ) : (
-                  cm.area + ' (' + cm.x + ', ' + cm.y + ', ' + cm.z + ')'
-                )
-              ) : (
-                'Недоступно'
-              )}
-            </Table.Cell>
-          </Table.Row>
-        ))}
+                  <Box inline color="grey">
+                    Недоступно
+                  </Box>
+                )}
+              </Table.Cell>
+            </Table.Row>
+          );
+        })}
       </Table>
     </Box>
   );
@@ -250,10 +293,23 @@ const MiningCrewMonitorDataView = (_properties) => {
   return <CrewMonitorTable crewData={miningCrew} />;
 };
 
+type HighlightedMarkerProps = {
+  color: string;
+} & NanoMakerProps;
+
+const HighlightedMarker = (props: HighlightedMarkerProps) => {
+  const { color, ...rest } = props;
+  return (
+    <NanoMap.Marker {...rest}>
+      <span className={`highlighted-marker color-border-${color}`} />
+    </NanoMap.Marker>
+  );
+};
+
 const CrewMonitorMapView = (_properties) => {
   const { act, data } = useBackend<CrewMonitorData>();
   const { stationLevelNum, stationLevelName } = data;
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(data.zoom);
   const [z_current, setZCurrent] = useState(stationLevelNum[0]);
   const getIcon = (cm) => {
     return (cm.is_command && data.isBS) || (cm.is_security && data.isBP)
@@ -281,34 +337,76 @@ const CrewMonitorMapView = (_properties) => {
   return (
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap
-        onZoom={(e, v) => setZoom(v)}
-        zLevels={stationLevelNum}
+        zoom={data.zoom}
+        offsetX={data.offsetX}
+        offsetY={data.offsetY}
         zNames={stationLevelName}
+        zLevels={stationLevelNum}
         zCurrent={z_current}
         setZCurrent={setZCurrent}
+        onZoom={(e, zoom) => {
+          setZoom(zoom);
+          act('set_zoom', { zoom });
+        }}
+        onOffsetChange={(e, state) =>
+          act('set_offset', {
+            offset_x: state.x,
+            offset_y: state.y,
+          })
+        }
       >
         {data.crewmembers
           .filter((x) => x.sensor_type === 3)
-          .map((cm) => (
-            <NanoMap.Marker
-              key={cm.ref}
-              x={cm.x}
-              y={cm.y}
-              z={cm.z}
-              z_current={z_current}
-              zoom={zoom}
-              icon={getIcon(cm)}
-              tooltip={cm.name + ' (' + cm.assignment + ')'}
-              color={getExtendedStatColor(cm, data.critThreshold)}
-              onClick={() => {
-                if (data.isAI) {
-                  act('track', {
+          .map((cm) => {
+            const color = getExtendedStatColor(cm, data.critThreshold);
+            const highlighted = data.highlightedNames.includes(cm.name);
+            const onClick = () =>
+              data.isObserver
+                ? act('track', {
                     track: cm.ref,
-                  });
-                }
-              }}
-            />
-          ))}
+                  })
+                : null;
+            const onDblClick = () =>
+              act(
+                highlighted
+                  ? 'remove_highlighted_name'
+                  : 'add_highlighted_name',
+                { name: cm.name }
+              );
+            const tooltip = cm.name + ' (' + cm.assignment + ')';
+            if (highlighted) {
+              return (
+                <HighlightedMarker
+                  key={cm.ref}
+                  x={cm.x}
+                  y={cm.y}
+                  z={cm.z}
+                  zoom={zoom}
+                  z_current={z_current}
+                  tooltip={tooltip}
+                  color={color}
+                  onClick={onClick}
+                  onDblClick={onDblClick}
+                />
+              );
+            } else {
+              return (
+                <NanoMap.MarkerIcon
+                  key={cm.ref}
+                  x={cm.x}
+                  y={cm.y}
+                  z={cm.z}
+                  z_current={z_current}
+                  zoom={zoom}
+                  icon={getIcon(cm)}
+                  tooltip={tooltip}
+                  color={color}
+                  onClick={onClick}
+                  onDblClick={onDblClick}
+                />
+              );
+            }
+          })}
       </NanoMap>
     </Box>
   );

@@ -188,7 +188,7 @@ const ListDisplay = (props) => {
       <Autofocus />
       {filteredItems.map((item, index) => (
         <Button
-          className="candystripe"
+          className={index !== selected ? 'candystripe' : ''}
           color="transparent"
           fluid
           id={index}

@@ -137,7 +137,7 @@ export const TguiSay = () => {
       });
       Byond.sendMessage('entry', {
         channel: channel,
-        entry: iterator.isSay() ? prefix + value : value,
+        entry: iterator.isSay() ? (prefix || '') + value : value,
       });
     }
     handleClose();

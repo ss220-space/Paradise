@@ -3,7 +3,7 @@ import { flow } from 'common/fp';
 import { classes } from 'common/react';
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   Button,
   ByondUi,
@@ -128,7 +128,7 @@ export const CameraConsoleMapContent = (props: unknown) => {
             setZCurrent={setZCurrent}
           >
             {cameras.map((cm, index) => (
-              <NanoMap.Marker
+              <NanoMap.MarkerIcon
                 key={index}
                 x={cm.x}
                 y={cm.y}

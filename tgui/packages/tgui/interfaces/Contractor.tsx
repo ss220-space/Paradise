@@ -189,11 +189,13 @@ const Summary = (properties: SectionProps) => {
                 <Flex.Item grow="1">{tc_available} ТК</Flex.Item>
                 <Button
                   disabled={tc_available <= 0}
-                  mx="0.75rem"
+                  mx={0.75}
                   mb="0"
                   style={{ flexBasis: 'content' }}
                   onClick={() => act('claim')}
-                />
+                >
+                  Забрать
+                </Button>
               </Flex>
             </LabeledList.Item>
             <LabeledList.Item label="Заработано ТК" verticalAlign="middle">

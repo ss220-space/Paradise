@@ -99,7 +99,7 @@ const CompactView = (_props: unknown) => {
     <Box mt={1}>
       <LabeledList>
         {can_craft.map((r) => (
-          <LabeledList.Item key={r.name} label={r.name}>
+          <LabeledList.Item key={r.ref} label={r.name}>
             <Button icon="hammer" onClick={() => act('make', { make: r.ref })}>
               Craft
             </Button>
@@ -120,8 +120,10 @@ const CompactView = (_props: unknown) => {
         ))}
         {!display_craftable_only &&
           cant_craft.map((r) => (
-            <LabeledList.Item key={r.name} label={r.name}>
-              <Button icon="hammer" content="Craft" disabled />
+            <LabeledList.Item key={r.ref} label={r.name}>
+              <Button icon="hammer" disabled>
+                Craft
+              </Button>
               {r.catalyst_text && (
                 <Button tooltip={r.catalyst_text} color="transparent">
                   Catalysts
@@ -149,7 +151,7 @@ const ExpandedView = (_props: unknown) => {
     <Box mt={1}>
       {can_craft.map((r) => (
         <Section
-          key={r.name}
+          key={r.ref}
           title={r.name}
           buttons={
             <Button icon="hammer" onClick={() => act('make', { make: r.ref })}>
@@ -175,7 +177,7 @@ const ExpandedView = (_props: unknown) => {
       {!display_craftable_only &&
         cant_craft.map((r) => (
           <Section
-            key={r.name}
+            key={r.ref}
             title={r.name}
             buttons={
               <Button icon="hammer" disabled>

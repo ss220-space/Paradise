@@ -7,11 +7,16 @@ import {
   useEffect,
   CSSProperties,
 } from 'react';
-import { Box, Icon, Tooltip, Dropdown, Image } from '.';
+import { Box, Icon, Tooltip, Button, Flex, Dropdown, Image } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
 import { resolveAsset } from '../assets';
+
+const MAP_SIZE = 510;
+const HALF_SIZE = MAP_SIZE / 2;
+/** At zoom = 1 */
+const PIXELS_PER_TURF = 2;
 
 const pauseEvent = (e: {
   stopPropagation: () => void;
@@ -21,24 +26,35 @@ const pauseEvent = (e: {
   e.preventDefault();
 };
 
-type Props = {
-  onZoom?: (e: Event, n: number) => void;
+type Props = Partial<{
+  onZoom: (e: Event, n: number) => void;
   zCurrent: number;
   zLevels: number[];
   zNames: string[];
+  offsetX: number;
+  offsetY: number;
+  onOffsetChange: (e: Event, v: Position) => void;
+  zoom: number;
   children: ReactNode;
-  setZCurrent?: (z: number) => void;
+  setZCurrent: (z: number) => void;
+}>;
+
+type Position = {
+  x: number;
+  y: number;
 };
 
 export const NanoMap = (props: Props) => {
   const { config } = useBackend();
-  const containerRef = useRef<HTMLDivElement>(null);
 
-  const [position, setPosition] = useState({ x: 128, y: 48 });
+  const [position, setPosition] = useState<Position>({
+    x: props.offsetX ?? 0,
+    y: props.offsetY ?? 0,
+  });
   const [zCurrent, setZCurrent] = useState<number>(props.zCurrent);
-  const [zoom, setZoom] = useState(1);
+  const [zoom, setZoom] = useState(props.zoom ?? 1);
   const [dragging, setDragging] = useState(false);
-  const dragStartPos = useRef({ x: 0, y: 0 });
+  const dragStartPos = useRef({ x: HALF_SIZE, y: HALF_SIZE });
 
   // Обработчики событий мыши
   const handleMouseDown = useCallback(
@@ -62,7 +78,7 @@ export const NanoMap = (props: Props) => {
         x: e.clientX - dragStartPos.current.x,
         y: e.clientY - dragStartPos.current.y,
       });
-
+      props.onOffsetChange?.(e, position);
       pauseEvent(e);
     },
     [dragging]
@@ -85,18 +101,9 @@ export const NanoMap = (props: Props) => {
   }, [dragging, handleMouseMove, handleMouseUp]);
 
   const handleZoom = (_e: Event, value: number) => {
-    setZoom((prevZoom) => {
-      const newZoom = Math.min(Math.max(value, 1), 8);
-      const zoomDiff = (newZoom - prevZoom) * 1.5;
-      setPosition((prev) => {
-        return {
-          x: prev.x - 262 * zoomDiff,
-          y: prev.y - 256 * zoomDiff,
-        };
-      });
-      props.onZoom?.(_e, newZoom);
-      return newZoom;
-    });
+    const newZoom = Math.min(Math.max(value, 1), 8);
+    props.onZoom?.(_e, newZoom);
+    setZoom(newZoom);
   };
 
   const handleZChange = (value: number) => {
@@ -104,14 +111,22 @@ export const NanoMap = (props: Props) => {
     setZCurrent(value);
   };
 
+  const handleReset = (e: Event) => {
+    props.onOffsetChange?.(e, position);
+    setPosition({ x: 0, y: 0 });
+    handleZoom(e, 1);
+  };
+
   const index = props.zLevels.findIndex((level) => +level === zCurrent);
   const mapUrl = config.map + '_nanomap_z' + (index + 1) + '.png';
 
   const newStyle = {
-    width: `${510 * zoom}px`,
-    height: `${510 * zoom}px`,
+    width: `${MAP_SIZE * zoom}px`,
+    height: `${MAP_SIZE * zoom}px`,
     position: 'relative',
-    transform: `translate(${position.x}px, ${position.y}px)`,
+    top: '50%',
+    left: '50%',
+    transform: `translate(${(-HALF_SIZE + position.x) * zoom}px, ${(-HALF_SIZE + position.y) * zoom}px)`,
     cursor: dragging ? 'move' : 'auto',
     userSelect: 'none', // Предотвращаем выделение текста при перетаскивании
   } as CSSProperties;
@@ -129,7 +144,7 @@ export const NanoMap = (props: Props) => {
         <Image src={resolveAsset(mapUrl)} style={mapStyle} />
         <Box>{props.children}</Box>
       </Box>
-      <NanoMapZoomer zoom={zoom} onZoom={handleZoom} />
+      <NanoMapZoomer zoom={zoom} onZoom={handleZoom} onReset={handleReset} />
       <NanoMapZLeveler
         zCurrent={zCurrent}
         zNames={props.zNames}
@@ -140,18 +155,18 @@ export const NanoMap = (props: Props) => {
   );
 };
 
-type NanoMakerProps = {
+export type NanoMakerProps = Partial<{
   x: number;
   y: number;
   z: number;
   z_current: number;
   zoom: number;
-  icon: string;
   tooltip: ReactNode;
-  color: string;
-  bordered?: boolean;
+  children: ReactNode;
+  bordered: boolean;
   onClick: MouseEventHandler<HTMLDivElement>;
-};
+  onDblClick: MouseEventHandler<HTMLDivElement>;
+}>;
 
 const NanoMapMarker = (props: NanoMakerProps) => {
   const {
@@ -160,17 +175,19 @@ const NanoMapMarker = (props: NanoMakerProps) => {
     z,
     z_current,
     zoom = 1,
-    icon,
     tooltip,
-    color,
     bordered,
     onClick,
+    onDblClick,
+    children,
   } = props;
   if (z_current !== z) {
     return null;
   }
-  const rx = x * 2 * zoom - zoom - 3;
-  const ry = y * 2 * zoom - zoom - 3;
+  const pixelsPerTurfAtZoom = PIXELS_PER_TURF * zoom;
+  // For some reason the X and Y are offset by 1
+  const rx = (x - 1) * pixelsPerTurfAtZoom;
+  const ry = (y - 1) * pixelsPerTurfAtZoom;
   return (
     <div>
       <Tooltip content={tooltip}>
@@ -180,9 +197,12 @@ const NanoMapMarker = (props: NanoMakerProps) => {
           lineHeight="0"
           bottom={ry + 'px'}
           left={rx + 'px'}
+          width={pixelsPerTurfAtZoom + 'px'}
+          height={pixelsPerTurfAtZoom + 'px'}
           onClick={onClick}
+          onDoubleClick={onDblClick}
         >
-          <Icon name={icon} color={color} fontSize="6px" />
+          {children}
         </Box>
       </Tooltip>
     </div>
@@ -191,24 +211,63 @@ const NanoMapMarker = (props: NanoMakerProps) => {
 
 NanoMap.Marker = NanoMapMarker;
 
-type ZoomerProps = {
+type NanoMapMarkerIconProps = Partial<{
+  icon: string;
+  color: string;
   zoom: number;
-  onZoom?: (e: Event, n: number) => void;
+}> &
+  NanoMakerProps;
+
+const NanoMapMarkerIcon = (props: NanoMapMarkerIconProps) => {
+  const { icon, color, zoom, ...rest } = props;
+  const markerSize = PIXELS_PER_TURF * zoom + 4 / Math.ceil(zoom / 4);
+  return (
+    <NanoMapMarker zoom={zoom} {...rest}>
+      <Icon
+        name={icon}
+        color={color}
+        fontSize={`${markerSize}px`}
+        style={{
+          position: 'relative',
+          top: '50%',
+          left: '50%',
+          transform: 'translate(-50%, -50%)',
+        }}
+      />
+    </NanoMapMarker>
+  );
 };
+
+NanoMap.MarkerIcon = NanoMapMarkerIcon;
+
+type ZoomerProps = Partial<{
+  zoom: number;
+  onZoom: (e: Event, n: number) => void;
+  onReset: (e: Event) => void;
+}>;
 
 const NanoMapZoomer = (props: ZoomerProps) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
-        <LabeledList.Item label="Zoom">
-          <Slider
-            minValue={1}
-            maxValue={8}
-            stepPixelSize={10}
-            format={(v) => v + 'x'}
-            value={props.zoom}
-            onDrag={(e, v) => props.onZoom(e, v)}
-          />
+        <LabeledList.Item label="Zoom" labelStyle={{ verticalAlign: 'middle' }}>
+          <Flex direction="row">
+            <Slider
+              minValue={1}
+              maxValue={8}
+              stepPixelSize={20}
+              format={(v) => v + 'x'}
+              value={props.zoom}
+              onDrag={(e, v) => props.onZoom(e, v)}
+            />
+            <Button
+              ml="0.5em"
+              icon="sync"
+              tooltip="Reset View"
+              style={{ float: 'right' }}
+              onClick={(e) => props.onReset?.(e)}
+            />
+          </Flex>
         </LabeledList.Item>
       </LabeledList>
     </Box>

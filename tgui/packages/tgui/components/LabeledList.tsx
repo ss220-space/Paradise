@@ -4,7 +4,7 @@
  * @license MIT
  */
 
-import type { PropsWithChildren, ReactNode } from 'react';
+import type { CSSProperties, PropsWithChildren, ReactNode } from 'react';
 import { type BooleanLike, classes } from 'common/react';
 import { unit } from 'common/ui';
 import { Box } from './Box';
@@ -70,6 +70,8 @@ type LabeledListItemProps = Partial<{
   labelColor: string;
   /** Lets the label wrap and makes it not take the minimum width. */
   labelWrap: boolean;
+
+  labelStyle: CSSProperties;
   /**
    * Align the content text.
    *
@@ -97,6 +99,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     label,
     labelColor = 'label',
     labelWrap,
+    labelStyle,
     color,
     textAlign,
     buttons,
@@ -137,6 +140,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         !labelWrap && 'LabeledList__label--nowrap',
       ])}
       verticalAlign={verticalAlign}
+      style={labelStyle}
     >
       {innerLabel}
     </Box>
