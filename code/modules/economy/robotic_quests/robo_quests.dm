@@ -167,7 +167,7 @@
 /datum/roboshop_item/bluespace_core
 	name = "bluespace anomaly core"
 	desc = "The neutralized core of a bluespace anomaly. It keeps phasing in and out of view. It'd probably be valuable for research."
-	visual_item = /obj/item/assembly/signaler/anomaly/bluespace
+	visual_item = /obj/item/assembly/signaler/core/bluespace/tier3
 	cost = list("working" = 0, "medical" = 0, "security" = 0, "robo" = 15)
 
 /datum/roboshop_item/advanced_roboquest_pad

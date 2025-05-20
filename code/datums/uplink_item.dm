@@ -1126,7 +1126,7 @@
 
 /datum/uplink_item/ammo/uzi_ammobag
 	name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
+	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Молоко для детей с Зелёной улицы."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	cost = 70 // normally 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1178,7 +1178,7 @@
 
 /datum/uplink_item/ammo/LMG_ammobag
 	name = "Ручной пулемёт L6 SAW — сумка с магазинами 5.56x45 мм"
-	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова на общесолнечном."
+	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова по-неорусски!"
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/lmg
 	cost = 200 // normally 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

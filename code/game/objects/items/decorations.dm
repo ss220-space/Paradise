@@ -337,7 +337,7 @@
 /obj/structure/decorative_structures/corpse/attack_hand(mob/living/user)
 	take_damage(pick(2,3), BRUTE, "melee")
 	playsound(src, (pick('sound/weapons/punch1.ogg','sound/weapons/punch2.ogg','sound/weapons/punch3.ogg','sound/weapons/punch4.ogg')), 20, 0)
-	user.visible_message("<span class='danger'>You punched something viscous! You hear a slimy sound.</span>")
+	user.visible_message(span_danger("You punched something viscous! You hear a slimy sound."))
 
 /obj/structure/decorative_structures/corpse/play_attack_sound()
 	return
@@ -359,7 +359,7 @@
 				continue
 			if(HAS_TRAIT(H, TRAIT_NO_BREATH))
 				continue //no puking if you can't smell!
-			to_chat(H, "<span class='warning'>You smell something foul...</span>")
+			to_chat(H, span_warning("You smell something foul..."))
 			H.fakevomit()
 
 ///// jumping meat for body explotion effect

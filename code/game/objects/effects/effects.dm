@@ -82,7 +82,7 @@
 /obj/effect/abstract/singularity_act()
 	return
 
-/obj/effect/abstract/has_gravity()
+/obj/effect/abstract/get_gravity()
 	return
 
 /obj/effect/abstract/narsie_act()
@@ -103,7 +103,7 @@
 /obj/effect/abstract/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return
 
-/obj/effect/abstract/has_gravity(turf/gravity_turf)
+/obj/effect/abstract/get_gravity(turf/gravity_turf)
 	return FALSE
 
 /obj/effect/decal
