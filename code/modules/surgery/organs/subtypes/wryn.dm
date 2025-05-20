@@ -157,7 +157,7 @@
 			return
 		host.adjustWax(-75)
 		host.visible_message(span_alert("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь!"))
-		new /obj/structure/wryn/wax/door(host.loc)
+		new /obj/structure/alien/resin/door/wax(host.loc)
 
 
 
