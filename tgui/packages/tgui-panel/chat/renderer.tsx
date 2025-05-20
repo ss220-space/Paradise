@@ -323,9 +323,10 @@ class ChatRenderer {
   }
 
   scrollToBottom() {
+    if (!this.scrollNode) return;
     // scrollHeight is always bigger than scrollTop and is
     // automatically clamped to the valid range.
-    this.scrollNode.scrollTop = this.scrollNode.scrollHeight;
+    this.scrollNode.scrollTop = this.scrollNode?.scrollHeight;
   }
 
   changePage(page: Page) {

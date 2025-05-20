@@ -61,8 +61,7 @@ export const InputButtons = (props: InputButtonsProps) => {
       height={!!large_buttons && 2}
       onClick={on_cancel_actual}
       m={0.5}
-      pl={2}
-      pr={2}
+      px={1}
       pt={large_buttons ? 0.33 : 0}
       textAlign="center"
       width={!large_buttons && 6}
