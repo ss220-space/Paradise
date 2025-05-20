@@ -195,7 +195,7 @@
 		if(!istype(prisoner_id, /obj/item/card/id/prisoner))
 			to_chat(user, span_warning("Error: Invalid ID."))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_info("<B>ID: [prisoner_id.registered_name]</B>"))
+		to_chat(user, span_info("<b>ID: [prisoner_id.registered_name]</b>"))
 		to_chat(user, span_info("Points Collected:[prisoner_id.mining_points]"))
 		to_chat(user, span_info("Point Quota: [prisoner_id.goal]"))
 		to_chat(user, span_info("Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release."))

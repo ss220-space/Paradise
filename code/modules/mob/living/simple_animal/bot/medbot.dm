@@ -204,9 +204,9 @@
 	var/dat
 	dat += hack(user)
 	dat += showpai(user)
-	dat += "<TT><B>Панель управления медицинским роботом v1.1</B></TT><BR><BR>"
-	dat += "Состояние: <a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</A><BR>"
-	dat += "Панель технического обслуживания [open ? "открыта" : "закрыта"]<BR>"
+	dat += "<tt><b>Панель управления медицинским роботом v1.1</b></tt><br><br>"
+	dat += "Состояние: <a href='byond://?src=[UID()];power=1'>[on ? "Включён" : "Выключен"]</a><br>"
+	dat += "Панель технического обслуживания [open ? "открыта" : "закрыта"]<br>"
 	dat += "Ёмкость: "
 	if(reagent_glass)
 		dat += "<a href='byond://?src=[UID()];eject=1'>Установлена \[[reagent_glass.reagents.total_volume]/[reagent_glass.reagents.maximum_volume]\]</a>"
@@ -214,19 +214,19 @@
 		dat += "Не установлена"
 	dat += "<br>Управление поведением [locked ? "заблокировано" : "разблокировано"]<hr>"
 	if(!locked || issilicon(user) || user.can_admin_interact())
-		dat += "<TT>Порог лечения: "
+		dat += "<tt>Порог лечения: "
 		dat += "<a href='byond://?src=[UID()];adj_threshold=-10'>--</a> "
 		dat += "<a href='byond://?src=[UID()];adj_threshold=-5'>-</a> "
 		dat += "[heal_threshold] "
 		dat += "<a href='byond://?src=[UID()];adj_threshold=5'>+</a> "
 		dat += "<a href='byond://?src=[UID()];adj_threshold=10'>++</a>"
-		dat += "</TT><br>"
+		dat += "</tt><br>"
 
-		dat += "<TT>Объём инъекции: "
+		dat += "<tt>Объём инъекции: "
 		dat += "<a href='byond://?src=[UID()];adj_inject=-5'>-</a> "
 		dat += "[injection_amount] "
 		dat += "<a href='byond://?src=[UID()];adj_inject=5'>+</a> "
-		dat += "</TT><br>"
+		dat += "</tt><br>"
 
 		dat += "Источник реагентов: "
 		dat += "<a href='byond://?src=[UID()];use_beaker=1'>[use_beaker ? "Установленная ёмкость (Если доступна)" : "Внутренний синтезатор"]</a><br>"

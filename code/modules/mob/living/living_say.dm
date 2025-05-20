@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 
 		if(AmountSluring())
 			if(robot)
-				S.message = slur(S.message, list("@", "!", 		"#", "$", "%", "&", "?"))
+				S.message = slur(S.message, list("@", "!", "#", "$", "%", "&", "?"))
 			else
 				S.message = slur(S.message)
 			verb = "slurs"
@@ -222,8 +222,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", 		".")) && length(message) != 0)
-		message += 		"."
+	if(!(ending in list("!", "?", ",", ".")) && length(message) != 0)
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = list()
@@ -442,8 +442,8 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		return
 
 	var/ending = copytext(message, length(message))
-	if(!(ending in list("!", "?", ",", 		".")))
-		message += 		"."
+	if(!(ending in list("!", "?", ",", ".")))
+		message += "."
 
 	//parse the language code and consume it
 	var/list/message_pieces = parse_languages(message)

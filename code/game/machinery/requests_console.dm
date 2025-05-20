@@ -49,7 +49,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 /obj/machinery/requests_console/Initialize(mapload)
 	Radio = new /obj/item/radio(src)
 	Radio.listening = TRUE
-	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, "Безопаность", AI_FREQ_NAME = 0))
+	Radio.config(list(ENG_FREQ_NAME, MED_FREQ_NAME, SUP_FREQ_NAME, COMM_FREQ_NAME, SCI_FREQ_NAME, SRV_FREQ_NAME, SEC_FREQ_NAME, AI_FREQ_NAME = 0))
 	Radio.follow_target = src
 	. = ..()
 
@@ -70,6 +70,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 
 /obj/machinery/requests_console/Destroy()
 	GLOB.allRequestConsoles -= src
+	QDEL_NULL(connected_apps)
 	var/lastDeptRC = TRUE
 	for(var/obj/machinery/requests_console/Console in GLOB.allRequestConsoles)
 		if(Console.department == department)

@@ -519,7 +519,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/mob/living/carbon/human/H = modify.getPlayer()
 				if(istype(H))
 					if(jobban_isbanned(H, t1))
-						to_chat(usr, span_warning("<FONT size = 4>ЦК не одобряет данную должность для этого сотрудника. Причиной этому могла послужить его профнепригодность для данной профессии.")) //На русском, потому что не все поймут на инглише
+						to_chat(usr, span_warning("<span style='font-size: 4;'>ЦК не одобряет данную должность для этого сотрудника. Причиной этому могла послужить его профнепригодность для данной профессии.</span>")) //На русском, потому что не все поймут на инглише
 						message_admins("[ADMIN_FULLMONTY(H)] tried to make an appointment to the position [t1], in possible violation of their job ban.")
 						return
 					if(H.mind)
