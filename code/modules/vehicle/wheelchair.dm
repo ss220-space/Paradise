@@ -1,5 +1,6 @@
 /obj/vehicle/ridden/wheelchair
 	name = "wheelchair"
+	desc = "Коляска для людей с ограниченными физическими возможностями. Почему просто не пришить новые ноги?"
 	ru_names = list(
 		NOMINATIVE = "инвалидная коляска",
 		GENITIVE = "инвалидной коляски",
@@ -8,7 +9,6 @@
 		INSTRUMENTAL = "инвалидной коляской",
 		PREPOSITIONAL = "инвалидной коляске"
 	)
-	desc = "Коляска для людей с ограниченными физическими возможностями. Почему просто не пришить новые ноги?"
 	icon = 'icons/obj/chairs.dmi'
 	icon_state = "wheelchair"
 	/// Overlay used to overlap buckled mob.
