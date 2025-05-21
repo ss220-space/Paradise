@@ -257,11 +257,7 @@
 	if(isclocker(living))
 		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-<<<<<<< Updated upstream
-			living.visible_message(span_warning("[living] ловит [src] прямо из воздуха!"))
-=======
 			living.visible_message(span_warning("[living] ловит [src] прямо на лету!"))
->>>>>>> Stashed changes
 		else
 			do_sparks(5, TRUE, living)
 			living.visible_message(span_warning("[src] отскакивает от [living], как будто бы отталкиваясь невидимой силой!"))
@@ -275,11 +271,7 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
 			human.embed_item_inside(src)
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"И каково тебе чувствовать это?\""))
-=======
 			to_chat(user, span_clocklarge("\"Каково это – чувствовать такое?\""))
->>>>>>> Stashed changes
 		else
 			user.drop_item_ground(src, force = TRUE)
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
@@ -410,11 +402,7 @@
 	if(isclocker(living))
 		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-<<<<<<< Updated upstream
-			living.visible_message(span_warning("[living] ловит [src] прямо из воздуха!"))
-=======
 			living.visible_message(span_warning("[living] ловит [src] прямо на лету!"))
->>>>>>> Stashed changes
 		else
 			do_sparks(5, TRUE, living)
 			living.visible_message(span_warning("[src] отскакивает от [living], как будто бы отталкиваясь невидимой силой!"))
@@ -512,11 +500,7 @@
 	if(isclocker(living))
 		if(ishuman(living) && living.put_in_active_hand(src))
 			playsound(src, 'sound/weapons/throwtap.ogg', 50)
-<<<<<<< Updated upstream
-			living.visible_message(span_warning("[living] ловит [src] прямо из воздуха!"))
-=======
 			living.visible_message(span_warning("[living] ловит [src] прямо на лету!"))
->>>>>>> Stashed changes
 		else
 			do_sparks(5, TRUE, living)
 			living.visible_message(span_warning("[src] отскакивает от [living], как будто бы отталкиваясь невидимой силой!"))
@@ -536,11 +520,7 @@
 		force = 7
 		swordsman = TRUE
 		add_attack_logs(user, user, "Sworded [src]", ATKLOG_ALL)
-<<<<<<< Updated upstream
-		to_chat(user, span_danger("The blood inside your veind flows quickly, as you try to sharp someone by any means!"))
-=======
 		to_chat(user, span_danger("Кровь в твоих жилах бурлит, когда ты пытаешься поразить кого угодно любыми средствами!"))
->>>>>>> Stashed changes
 		addtimer(CALLBACK(src, PROC_REF(reset_swordsman), user), 9 SECONDS)
 
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
@@ -557,11 +537,7 @@
 		if(ishuman(user))
 			var/mob/living/carbon/human/human = user
 			human.embed_item_inside(src)
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"И каково тебе чувствовать это?\""))
-=======
 			to_chat(user, span_clocklarge("\"Каково это – чувствовать такое?\""))
->>>>>>> Stashed changes
 		else
 			user.drop_item_ground(src, force = TRUE)
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
@@ -663,11 +639,7 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
-<<<<<<< Updated upstream
-			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с их рук!"), span_warning("Баклер мерцает и исчезает с твоих рук, оставляя лишь тошноту!"))
-=======
 			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Баклер мерцает и исчезает с твоих рук, оставляя лишь тошноту!"))
->>>>>>> Stashed changes
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
@@ -682,10 +654,6 @@
 // Clockwork robe. Basic robe from clockwork slab.
 /obj/item/clothing/suit/hooded/clockrobe
 	name = "clock robes"
-<<<<<<< Updated upstream
-	desc = "A set of robes worn by the followers of a clockwork cult."
-=======
->>>>>>> Stashed changes
 	desc = "Набор одежды, которые носят последователи культа Ратвара."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "clockwork_robe"
@@ -756,11 +724,7 @@
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(SPEED_SPELL))
 			carbon.add_movespeed_modifier(/datum/movespeed_modifier/clock_robe)
 			addtimer(CALLBACK(src, PROC_REF(unspeed), carbon), 8 SECONDS)
-<<<<<<< Updated upstream
-			to_chat(carbon, span_danger("Robe tightens, as it frees you to be flexible around!"))
-=======
 			to_chat(carbon, span_danger("Роба затягивается и больше не сковывает движения!"))
->>>>>>> Stashed changes
 			add_attack_logs(user, user, "speed boosted with [src]", ATKLOG_ALL)
 	else
 		ToggleHood()
@@ -804,23 +768,14 @@
 
 	if(!isclocker(user))
 		if(!iscultist(user))
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-			user.visible_message(span_warning("As [user] picks [src] up, it flickers off their arms!"), span_warning("The robe flicker off your arms, leaving only nausea!"))
-=======
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
 			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Капюшон мерцает и исчезает с твоих рук, оставляя лишь тошноту!"))
->>>>>>> Stashed changes
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"I think this armor is too hot for you to handle.\""))
-=======
 			to_chat(user, span_clocklarge("\"Я думаю, что эта броня слишком горяча для тебя чтобы ты мог[genderize_ru(user.gender, "", "ла", "", "")]] её держать.\""))
->>>>>>> Stashed changes
 			user.emote("scream")
 			user.apply_damage(7, BURN, BODY_ZONE_CHEST)
 			user.IgniteMob()
@@ -880,11 +835,7 @@
 
 /obj/item/clothing/suit/armor/clockwork/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text, final_block_chance, damage, attack_type)
 	if(enchant_type == ABSORB_SPELL && isclocker(owner))
-<<<<<<< Updated upstream
-		owner.visible_message(span_danger("[attack_text] is absorbed by [src] sparks!"))
-=======
 		owner.visible_message(span_danger("[attack_text] поглощется искрами [src]!"))
->>>>>>> Stashed changes
 		playsound(loc, "sparks", 100, TRUE)
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(owner))
 		deplete_spell()
@@ -913,28 +864,17 @@
 	if(!isclocker(user))
 		user.drop_item_ground(src)
 		user.emote("scream")
-<<<<<<< Updated upstream
-		to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-=======
 		to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
->>>>>>> Stashed changes
 		return
 	if(!iscarbon(user))
 		return
 	var/mob/living/carbon/carbon = user
 	if(enchant_type == ARMOR_SPELL)
 		if(carbon.wear_suit != src)
-<<<<<<< Updated upstream
-			to_chat(carbon, span_notice("You should wear [src]!"))
-			return
-		carbon.visible_message(span_danger("[carbon] concentrates as [carbon.p_their()] curiass shifts his plates!"),
-		span_notice("The [src.name] becomes more hardened as the plates becomes to shift for any attack!"))
-=======
 			to_chat(carbon, span_notice("Ты должен одеть [src]!"))
 			return
 		carbon.visible_message(span_danger("[carbon] сосредотачивается, пока [carbon.p_their()] кирасса смещает свои пластины!"),
 		span_notice("[src.name] становится более закалённым, так как пластины смещаются, чтобы отразить любую атаку!"))
->>>>>>> Stashed changes
 		//armor = list("melee" = 80, "bullet" = 60, "laser" = 50, "energy" = 50, "bomb" = 100, "bio" = 100, "rad" = 100, "fire" = 100, "acid" = 100)
 		armor = harden_armor
 		ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
@@ -944,11 +884,7 @@
 		addtimer(CALLBACK(src, PROC_REF(reset_armor), carbon), 12 SECONDS)
 
 /obj/item/clothing/suit/armor/clockwork/proc/reset_armor(mob/user)
-<<<<<<< Updated upstream
-	to_chat(user, span_notice("The [src] stops shifting..."))
-=======
 	to_chat(user, span_notice("Пластины [src] замедляются, переставая смещаться..."))
->>>>>>> Stashed changes
 	set_light_on(FALSE)
 	armor = normal_armor
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(ARMOR_SPELL))
@@ -959,23 +895,14 @@
 
 	if(!isclocker(user))
 		if(!iscultist(user))
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-			user.visible_message(span_warning("As [user] puts [src] on, it flickers off their body!"), span_warning("The curiass flickers off your body, leaving only nausea!"))
-=======
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
 			user.visible_message(span_warning("Когда [user] наряжается в [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] тела!"), span_warning("Кираса мерцает и исчезает с твоего тела, оставляя лишь тошноту!"))
->>>>>>> Stashed changes
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
 				C.Knockdown(10 SECONDS)
 		else
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"I think this armor is too hot for you to handle.\""))
-=======
 			to_chat(user, span_clocklarge("\"Я думаю, что эта броня слишком горяча для тебя чтобы ты мог[genderize_ru(user.gender, "", "ла", "", "")]] её держать.\""))
->>>>>>> Stashed changes
 			user.emote("scream")
 			user.apply_damage(15, BURN, BODY_ZONE_CHEST)
 			user.adjust_fire_stacks(2)
@@ -1020,15 +947,6 @@
 	switch(enchant_type)
 		if(FASTPUNCH_SPELL)
 			if(human.gloves != src)
-<<<<<<< Updated upstream
-				to_chat(human, span_notice("You should wear [src]!"))
-				return
-			if(human.mind.martial_art)
-				to_chat(human, span_warning("You're too powerful to use it!"))
-				return
-			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
-			to_chat(human, span_notice("You fastening gloves making your moves agile!"))
-=======
 				to_chat(human, span_notice("Ты должен одеть [src]!"))
 				return
 			if(human.mind.martial_art)
@@ -1036,24 +954,16 @@
 				return
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
 			to_chat(human, span_notice("Ты застегиваешь руковицы, что делает твои движения более ловкими!"))
->>>>>>> Stashed changes
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
 			add_attack_logs(human, human, "North-starred [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, PROC_REF(reset_punch)), 6 SECONDS)
 		if(FIRE_SPELL)
 			if(human.gloves != src)
-<<<<<<< Updated upstream
-				to_chat(human, span_notice("You should wear [src]!"))
-				return
-			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
-			to_chat(human, span_notice("Your gloves becomes in red flames ready to burn any enemy in sight!"))
-=======
 				to_chat(human, span_notice("Ты должен одеть [src]!"))
 				return
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
 			to_chat(human, span_notice("Твои руковицы охватываются красным пламенем, готовым сжечь любого врага в поле зрения!"))
->>>>>>> Stashed changes
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
 			add_attack_logs(human, human, "Fire-casted [src]", ATKLOG_ALL)
@@ -1068,11 +978,7 @@
 	if(enchant_type == STUNHAND_SPELL && isliving(A))
 		var/mob/living/living = A
 		if(living.null_rod_check())
-<<<<<<< Updated upstream
-			src.visible_message(span_warning("[living]'s holy weapon absorbs the light!"))
-=======
 			src.visible_message(span_warning("Еретик [living] и его ложное оружие поглощает праведный свет!"))
->>>>>>> Stashed changes
 			deplete_spell()
 			return
 		if(isclocker(living))
@@ -1100,22 +1006,14 @@
 /obj/item/clothing/gloves/clockwork/proc/reset_punch()
 	north_star = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
-<<<<<<< Updated upstream
-	to_chat(usr, span_notice(" [src] depletes last magic they had."))
-=======
 	to_chat(usr, span_notice("[src] истощает последнюю магию, которая у них была."))
->>>>>>> Stashed changes
 	deplete_spell()
 
 
 /obj/item/clothing/gloves/clockwork/proc/reset_fire()
 	fire_casting = FALSE
 	REMOVE_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
-<<<<<<< Updated upstream
-	to_chat(usr, span_notice(" [src] depletes last magic they had."))
-=======
 	to_chat(usr, span_notice("[src] истощает последнюю магию, которая у них была."))
->>>>>>> Stashed changes
 	deplete_spell()
 
 
@@ -1124,25 +1022,15 @@
 
 	if(!isclocker(user))
 		if(!iscultist(user))
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-			user.visible_message(span_warning("As [user] puts [src] on, it flickers off their arms!"), span_warning("The gauntlets flicker off your arms, leaving only nausea!"))
-=======
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
 			user.visible_message(span_warning("Когда [user] надевает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Рукавицы мерцают и исчезают с твоего тела, оставляя лишь тошноту!"))
->>>>>>> Stashed changes
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Did you like having arms?\""))
-			to_chat(user, span_userdanger("The gauntlets suddenly squeeze tight, crushing your arms before you manage to get them off!"))
-=======
 			to_chat(user, span_clocklarge("\"Тебе нравятся твои руки?\""))
 			to_chat(user, span_userdanger("Перчатки внезапно сильно сжимаются, сдавливая руки, прежде чем ты успеваешь их снять!"))
->>>>>>> Stashed changes
 			user.emote("scream")
 			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM)
 			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM)
@@ -1174,25 +1062,15 @@
 
 	if(!isclocker(user))
 		if(!iscultist(user))
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-			user.visible_message(span_warning("As [user] puts [src] on, it flickers off their feet!"), span_warning("The treads flicker off your feet, leaving only nausea!"))
-=======
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
 			user.visible_message(span_warning("Когда [user] натягивает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] стоп!"), span_warning("Ботинки мерцают и исчезают с твоих стоп, оставляя лишь тошноту!"))
->>>>>>> Stashed changes
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Let's see if you can dance with these.\""))
-			to_chat(user, span_userdanger("The treads turn searing hot as you scramble to get them off!"))
-=======
 			to_chat(user, span_clocklarge("\"Давай посмотрим, сможешь ли ты танцевать с ними.\""))
 			to_chat(user, span_userdanger("Шнурки становятся обжигающе горячими, когда ты пытаешься их снять"))
->>>>>>> Stashed changes
 			user.emote("scream")
 			user.apply_damage(7, BURN, BODY_ZONE_L_LEG)
 			user.apply_damage(7, BURN, BODY_ZONE_R_LEG)
@@ -1231,25 +1109,15 @@
 
 	if(!isclocker(user))
 		if(!iscultist(user))
-<<<<<<< Updated upstream
-			to_chat(user, span_clocklarge("\"Now now, this is for my servants, not you.\""))
-			user.visible_message(span_warning("As [user] puts [src] on, it flickers off their head!"), span_warning("The helmet flickers off your head, leaving only nausea!"))
-=======
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
 			user.visible_message(span_warning("Когда [user] надевает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] головы!"), span_warning("Шлем мерцает и исчезает с твоей головы, оставляя лишь тошноту!"))
->>>>>>> Stashed changes
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
 				C.Knockdown(10 SECONDS)
 		else
-<<<<<<< Updated upstream
-			to_chat(user, span_heavybrass("\"Do you have a hole in your head? You're about to.\""))
-			to_chat(user, span_userdanger("The helmet tries to drive a spike through your head as you scramble to remove it!"))
-=======
 			to_chat(user, span_heavybrass("\"Видишь дырку в своей голове? А она есть.\""))
 			to_chat(user, span_userdanger("Шлем пытается вонзить латунный шип тебе голову, когда ты пытаетешься его снять!"))
->>>>>>> Stashed changes
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 			user.adjustBrainLoss(30)
@@ -1287,11 +1155,7 @@
 
 /obj/item/clothing/glasses/clockwork/attack_self(mob/user)
 	if(!isclocker(user))
-<<<<<<< Updated upstream
-		to_chat(user, span_warning("You fiddle around with [src], to no avail."))
-=======
 		to_chat(user, span_warning("Ты возишься с [src], но безрезультатно."))
->>>>>>> Stashed changes
 		return
 	active = !active
 
@@ -1301,15 +1165,9 @@
 	lighting_alpha = active ? LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE : null
 	switch(active)
 		if(TRUE)
-<<<<<<< Updated upstream
-			to_chat(user, span_notice("You toggle [src], its lens begins to glow."))
-		if(FALSE)
-			to_chat(user, span_notice("You toggle [src], its lens darkens once more."))
-=======
 			to_chat(user, span_notice("Ты приспускаешь [src], линзы визора светлеют."))
 		if(FALSE)
 			to_chat(user, span_notice("Ты приподнимаешь [src], линзы визора темнеют."))
->>>>>>> Stashed changes
 
 	user.update_action_buttons_icon()
 	user.update_inv_glasses()
@@ -1410,20 +1268,12 @@
 
 /obj/item/clockwork/cogscarab/attack_self(mob/user)
 	if(!isclocker(user))
-<<<<<<< Updated upstream
-		to_chat(user, span_warning("You fiddle around with [src], to no avail."))
-=======
 		to_chat(user, span_warning("Ты возишься с [src], но безрезультатно."))
->>>>>>> Stashed changes
 		return FALSE
 	if(searching)
 		return
 	searching = TRUE
-<<<<<<< Updated upstream
-	to_chat(user, span_notice("You're trying to boot up [src] as the gears inside start to hum."))
-=======
 	to_chat(user, span_notice("Ты пытаешься запустить [src], шестерёнки внутри начинают шуметь."))
->>>>>>> Stashed changes
 	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /mob/living/silicon/robot/cogscarab)
 	if(candidates.len)
 		var/mob/dead/observer/O = pick(candidates)
@@ -1434,11 +1284,7 @@
 		user.drop_item_ground(src)
 		qdel(src)
 	else
-<<<<<<< Updated upstream
-		visible_message(span_notice("[src] stops to hum. Perhaps you could try again?"))
-=======
 		visible_message(span_notice("[src] перестаёт шуметь. Попробуешь еще раз?"))
->>>>>>> Stashed changes
 		searching = FALSE
 	return TRUE
 
@@ -1500,24 +1346,6 @@
 		var/mob/living/L = user
 		user.emote("scream")
 		if(ishuman(L))
-<<<<<<< Updated upstream
-			to_chat(L, span_danger("[src] pierces into your hand!"))
-			var/mob/living/carbon/human/H = L
-			H.embed_item_inside(src)
-			to_chat(user, span_clocklarge("\"How does it feel it now?\""))
-		else
-			to_chat(L, span_danger("[src] pierces into you!"))
-			L.adjustBruteLoss(force)
-		return
-	if(!enchant_type)
-		to_chat(user, span_warning("There is no spell stored!"))
-		return
-	else
-		if(!ishuman(user))
-			to_chat(user,span_warning("You are too weak to crush this massive shard!"))
-			return
-		user.visible_message(span_warning("[user] crushes [src] in his hands!"), span_notice("You crush [src] in your hand!"))
-=======
 			to_chat(L, span_danger("[src] вонзается в твою руку!"))
 			var/mob/living/carbon/human/H = L
 			H.embed_item_inside(src)
@@ -1534,7 +1362,6 @@
 			to_chat(user,span_warning("Ты слишком слаб чтобы разрушить этот массивный осколок!"))
 			return
 		user.visible_message(span_warning("[user] сокрушается [src] в [genderize_ru(user.gender, "его", "её", "их", "их")] руках!"), span_notice("Ты сокрушаешь [src] в своих руках!"))
->>>>>>> Stashed changes
 		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)
@@ -1581,22 +1408,13 @@
 		else
 			human.revive()
 			human.set_species(/datum/species/golem/clockwork)
-<<<<<<< Updated upstream
-			to_chat(human, span_clocklarge("<b>\"You are back once again.\"</b>"))
-=======
 			to_chat(human, span_clocklarge("<b>\"Ты снова в строю, вставай!\"</b>"))
->>>>>>> Stashed changes
 
 /obj/item/clockwork/shard/pickup(mob/living/user)
 	. = ..()
 	if(!isclocker(user))
-<<<<<<< Updated upstream
-		to_chat(user, span_clocklarge("\"I wouldn't advise that.\""))
-		to_chat(user, span_warning("An overwhelming sense of nausea overpowers you!"))
-=======
 		to_chat(user, span_clocklarge("\"Я бы не советовал этого делать.\""))
 		to_chat(user, span_warning("Вас одолевает непреодолимое чувство тошноты!"))
->>>>>>> Stashed changes
 		user.Confused(20 SECONDS)
 		user.Jitter(12 SECONDS)
 
@@ -1612,11 +1430,7 @@
 		log_game("[golem.key] has become Brass Golem.")
 		SEND_SOUND(golem, 'sound/ambience/antag/clockcult.ogg')
 	else
-<<<<<<< Updated upstream
-		golem.visible_message(span_warning("[golem] twitches as their body twists and rapidly changes the form!"))
-=======
 		golem.visible_message(span_warning("[golem] дергается, когда его тело изгибается, и быстро меняет форму!"))
->>>>>>> Stashed changes
 		new /obj/effect/mob_spawn/human/golem/clockwork(get_turf(golem))
 		golem.dust()
 
