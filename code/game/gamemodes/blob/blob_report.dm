@@ -48,7 +48,7 @@
 
 		if(BLOB_THIRD_REPORT)
 			interceptname = "Секретное постановление [command_name()]"
-			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биоугроза не обнаружена<hr>"
+			intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биоугроза не обнаружена<hr>")
 			intercepttext += "Дирректива 7-10 была отменена для [station_name()].<br>"
 			if(blob_stage == BLOB_STAGE_THIRD)
 				intercepttext += "Дирректива 7-12 была отменена для [station_name()].<br>"

@@ -47,7 +47,7 @@
 
 	dat +=  {"• <a href='byond://?src=[UID()];interaction=bow'>Отвесить поклон.</a><br>"}
 	if (hashands)
-		dat +=  {span_fontsize3("<b>Руки:</b><br>")}
+		dat +=  span_fontsize3("<b>Руки:</b><br>")
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=wave'>Приветливо помахать.</a><br>"}
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=bow_affably'>Приветливо кивнуть.</a><br>"}
 		if (Adjacent(P))
@@ -70,7 +70,7 @@
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=threaten'><span style='color: darkred;'>Погрозить кулаком.</span></a><br>"}
 
 	if (mouthfree && H.dna.species.name != SPECIES_DIONA)
-		dat += {span_fontsize3("<b>Лицо:</b><br>")}
+		dat += span_fontsize3("<b>Лицо:</b><br>")
 		dat += {"• <a href='byond://?src=[UID()];interaction=kiss'>Поцеловать.</a><br>"}
 		if (Adjacent(P))
 			if (mouthfree_p)
