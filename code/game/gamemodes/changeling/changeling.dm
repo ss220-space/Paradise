@@ -61,7 +61,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))
-		var/text = "<span style='font-size: 3;'><b>The changelings were:</b></span>"
+		var/text = span_fontsize3("<b>The changelings were:</b>")
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
