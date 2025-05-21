@@ -21,6 +21,7 @@
 	origin_tech = "programming=3;magnets=3"
 	cell_type = /obj/item/stock_parts/cell/high
 	resistance_flags = FIRE_PROOF
+	trigger_guard = TRIGGER_GUARD_ALLOW_ALL
 	var/cur_ammo_type = /obj/item/ammo_casing/energy/anomaly/stabilizer
 	/// Cores inserted into this anomaly stabilizer.
 	var/list/obj/item/assembly/signaler/core/cores = list()
