@@ -1,26 +1,24 @@
-#define WRYN_WAX_DAMAGE 15
-
 /datum/component/wryn_destruction
-	var/mob/living/carbon/human/user
 
 /datum/component/wryn_destruction/Initialize()
-	START_PROCESSING(SSprocessing, src)
-
+	if(isitem(parent))
+		return COMPONENT_INCOMPATIBLE
 
 /datum/component/wryn_destruction/RegisterWithParent()
 	RegisterSignal(parent, COMSIG_ATOM_ATTACK_HAND, PROC_REF(attack_hand))
 
-/datum/component/wryn_destruction/proc/attack_hand()
+/datum/component/wryn_destruction/UnregisterFromParent()
+	UnregisterSignal(parent)
+
+/datum/component/wryn_destruction/proc/attack_hand(mob/living/user)
 	SIGNAL_HANDLER
 
-	if(!iswryn(user))
-		return
-	INVOKE_ASYNC(src, PROC_REF(harming))
+	if(iswryn(user))
+		INVOKE_ASYNC(src, PROC_REF(harming))
 
-/datum/component/wryn_destruction/proc/harming(var/mob/living/carbon/human/user)
-	var/obj/obj_parent = parent
+	return
+
+/datum/component/wryn_destruction/proc/harming()
 	if(user.a_intent == INTENT_HARM)
-		obj_parent.take_damage(WRYN_WAX_DAMAGE, BRUTE, 0, 'sound/effects/attackblob.ogg')
+		obj_parent.take_damage(15, BRUTE, 0, 'sound/effects/attackblob.ogg')
 		user.do_attack_animation(src)
-
-#undef WRYN_WAX_DAMAGE

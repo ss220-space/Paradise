@@ -14,11 +14,8 @@
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
-/obj/structure/wryn/Initialize(mapload)
-	. = ..()
+/obj/structure/wryn/ComponentInitialize()
 	AddComponent(/datum/component/wryn_destruction)
-
-
 
 // wax structures procs
 
@@ -56,7 +53,7 @@
 /obj/structure/wryn/wax/CanAtmosPass(turf/T, vertical)
 	return !density
 
-// Structure themselfs
+// Structure themself
 
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
@@ -152,8 +149,7 @@
 	icon_opening = "wax_door_opening"
 	max_integrity = 50
 
-/obj/structure/alien/resin/door/Initialize()
-	. = ..()
+/obj/structure/alien/resin/door/wax/ComponentInitialize()
 	AddComponent(/datum/component/wryn_destruction)
 
 /obj/structure/alien/resin/door/wax/update_icon_state()
@@ -184,11 +180,10 @@
 	add_fingerprint(user)
 	if(!isliving(user))
 		return FALSE
-	// var/mob/living/mob = user
-	if(!istype(user, /mob/living/carbon/human/wryn))
-		return FALSE
 
-	var/mob/living/carbon/human/wryn/wryn = user
+	if(!iswryn(user))
+		return FALSE
+	var/mob/living/carbon/human/wryn = user
 	if(wryn.incapacitated())
 		return FALSE
 

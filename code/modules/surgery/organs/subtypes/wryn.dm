@@ -105,7 +105,8 @@
 
 	var/choice = input("Доступно для постройки:", "Строительство") as null|anything in list("соты", "прозрачные соты")
 
-	if(!choice || host.getWax() < 50)	return
+	if(!choice || host.getWax() < 50)
+		return
 
 	if(do_after(usr, 5 SECONDS, usr))
 		if(locate(/obj/structure/wryn/wax) in get_turf(host))
