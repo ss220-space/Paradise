@@ -113,6 +113,7 @@ const getSettings = (store) => {
       setTimeout(() => getSettings(store), 5);
       return;
     }
+    if (!settings) return;
     store.dispatch(loadSettings(settings));
   });
 };

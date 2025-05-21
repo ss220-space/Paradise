@@ -119,14 +119,48 @@ class StorageProxy implements StorageBackend {
 
   constructor() {
     this.backendPromise = (async () => {
-      if (!Byond.TRIDENT && testHubStorage()) {
-        return new HubStorageBackend();
+      if (!Byond.TRIDENT) {
+        try {
+          const isHubAvailable = await this.retryWithDelay(
+            () => testHubStorage(),
+            3,
+            5
+          );
+
+          if (isHubAvailable) {
+            this.impl = IMPL_HUB_STORAGE;
+            return new HubStorageBackend();
+          }
+        } catch (err) {}
       }
       console.warn(
         'No supported storage backend found. Using in-memory storage.'
       );
       return new MemoryBackend();
     })();
+  }
+
+  async retryWithDelay<T>(
+    action: () => Promise<T> | T,
+    maxAttempts: number,
+    delayMs: number
+  ): Promise<T> {
+    let attempt = 0;
+    let lastError: unknown;
+
+    while (attempt < maxAttempts) {
+      attempt++;
+      try {
+        const result = await Promise.resolve(action());
+        return result;
+      } catch (error) {
+        lastError = error;
+        if (attempt < maxAttempts) {
+          await new Promise((resolve) => setTimeout(resolve, delayMs));
+        }
+      }
+    }
+    throw lastError;
   }
 
   async get(key: string): Promise<any> {
