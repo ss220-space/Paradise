@@ -123,7 +123,7 @@ class StorageProxy implements StorageBackend {
         const isHubAvailable = await this.retryWithDelay(
           () => testHubStorage(),
           5,
-          10
+          500
         );
 
         if (isHubAvailable) {
