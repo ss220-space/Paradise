@@ -235,15 +235,17 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
-	// TODO: Remove with 516
-	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage,find")
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
 
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
+	//kill old tgui panel
+	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
