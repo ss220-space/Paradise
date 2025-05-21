@@ -112,7 +112,7 @@
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать [item]"))
+			to_chat(owner, span_clockitalic("Ты начинаешь сосредотачиваться на своей силе, чтобы зачаровать [item]"))
 		else
 			to_chat(owner, span_warning("Ты <b>уже</b> подготавливаешь зачарование!"))
 			return
@@ -147,11 +147,7 @@
 
 		if(!channeling)
 			channeling = TRUE
-<<<<<<< Updated upstream
-			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать в свою руку."))
-=======
-			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать свою руку."))
->>>>>>> Stashed changes
+			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in your hand.</span>")
 		else
 			to_chat(owner, span_warning("Ты <b>уже</b> подготавливаешь зачарование!"))
 			return
@@ -159,11 +155,7 @@
 		if(do_after(owner, 5 SECONDS, owner))
 			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
 			midas_spell.Grant(owner, src)
-<<<<<<< Updated upstream
-			to_chat(owner, span_clock("Ты чувствуешь как праведные силы текут по руке, ты подготовил [midas_spell.name]!"))
-=======
-			to_chat(owner, span_clock("Ты чувствуешь как праведные силы текут по руке. Ты подготовил [midas_spell.name]!"))
->>>>>>> Stashed changes
+			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
 		channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
@@ -207,11 +199,7 @@
 
 /datum/action/innate/clockwork/hand_spell/construction
 	name = "Midas Touch"
-<<<<<<< Updated upstream
-	desc = "Зачаровывает твои руки обращать стальные объекты в латунь. <br> <u>Обращает:</u><br>Пласталь и сталь в листы латуни<br>Листы латуни в встраиваемые шестерни или в заводные плиты<br>Киборгов и оболочку ИИ в прислужников Ратвара."
-=======
 	desc = "Зачаровывает твои руки обращать стальные объекты в латунь. <br> <u>Обращает:</u><br>Пласталь и сталь в листы латуни<br>Листы латуни в встраиваемые шестерни или в заводные плиты<br>Боргов и оболочку ИИ в прислужников Ратвара."
->>>>>>> Stashed changes
 	button_icon_state = "midas_touch"
 	magic_path = /obj/item/melee/clock_magic/construction
 
@@ -253,14 +241,11 @@
 	var/channeling = FALSE
 
 /obj/item/melee/clock_magic/construction/examine(mob/user)
-	. += {"<u>Зловещее заклинание используемое для обращения:</u>\n
-	Пластали в латунь,\n
-	[CLOCK_METAL_TO_BRASS] листов стали в латунь,\n
-<<<<<<< Updated upstream
-	Киборгов и оболочку ИИ в прислужников Ратвара."}
-=======
-	Боргов и оболочку ИИ в прислужников Ратвара."}
->>>>>>> Stashed changes
+	. = ..()
+	. += {"<u>A sinister spell used to convert:</u>\n
+	Plasteel into brass metal\n
+	[CLOCK_METAL_TO_BRASS] metal into a brass\n
+	Robots into cult"}
 
 /obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
@@ -280,13 +265,7 @@
 		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-<<<<<<< Updated upstream
-			var/suffix = (candidate.amount > CLOCK_METAL_TO_BRASS*2)? "ами":"ом"
-			to_chat(user, span_warning("Твоя рука начинает очень ярко сиять над лист[suffix] стали, превращая их в лист[suffix? "ы":""] латуни!"))
-=======
-			var/suffix = (candidate.amount > CLOCK_METAL_TO_BRASS*2)
-			to_chat(user, span_warning("Твоя рука начинает очень ярко сиять над листами стали, превращая их в лист[suffix? "ы":""] латуни!"))
->>>>>>> Stashed changes
+			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
 			to_chat(user, span_warning("Тебе нужно [CLOCK_METAL_TO_BRASS] листов стали чтобы сделать 1 лист латуни!"))
@@ -299,12 +278,7 @@
 		if(candidate.use(quantity))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-<<<<<<< Updated upstream
-			var/suffix =  candidate.amount > 1? "ами":"ом"
-=======
-			var/suffix =  candidate.amount > 1
->>>>>>> Stashed changes
-			to_chat(user, span_warning("Твоя рука начинает очень ярко сиять над лист[suffix? "ами":"ом"] пластали, превращая их в лист[suffix? "ы":""] латуни!"))
+			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /obj/item/stack/sheet/brass))
@@ -351,11 +325,7 @@
 				channeling = FALSE
 				return
 		else
-<<<<<<< Updated upstream
-			to_chat(user, span_warning("Твоя рука заканчивает работать с [candidate] - собирая из него Праведного Мародёра!"))
-=======
-			to_chat(user, span_warning("Твоя рука завершает работу с [candidate], превращая его в Праведного Мародёра!"))
->>>>>>> Stashed changes
+			to_chat(user, "<span class='warning'>Your hand finalizes [candidate] - twisting it into a marauder!</span>")
 			new /obj/item/clockwork/marauder(get_turf(src))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			qdel(candidate)
