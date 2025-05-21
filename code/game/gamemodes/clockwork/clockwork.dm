@@ -309,9 +309,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		H.update_body()
 	add_conversion_logs(clocker, "deconverted from the clockwork cult.")
 	if(show_message)
-		clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
-		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it.</span>")
-
 		clocker.visible_message("<span class='clock'>[clocker], кажется, [clocker.p_they()] только что вернул[genderize_ru(clocker.gender,"ся","ась","ось","ись")] к своей старой вере [clocker.p_their()]!</span>",
 		"<span class='userdanger'>Неизвестный белый свет пронзает твой разум, очищая пятна света Ратвара и стирая воспоминания о службе ему.</span>")
 
