@@ -18,7 +18,8 @@
 
 	return
 
-/datum/component/wryn_destruction/proc/harming()
+/datum/component/wryn_destruction/proc/harming(mob/living/user, obj/obj_parent)
+	obj_parent = parent
 	if(user.a_intent == INTENT_HARM)
 		obj_parent.take_damage(15, BRUTE, 0, 'sound/effects/attackblob.ogg')
 		user.do_attack_animation(src)
