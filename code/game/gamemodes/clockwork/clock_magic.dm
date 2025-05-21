@@ -86,10 +86,10 @@
 			return
 	if(item?.enchants?.len) // it just works
 		if(item.enchant_type == CASTING_SPELL)
-			to_chat(owner, "<span class='warning'> You can't enchant [item] right now while spell is working!</span>")
+			to_chat(owner, span_warning("Ты не можешь зачаровать [item] пока ранее наложенная магия еще работает!"))
 			return
 		if(item.enchant_type)
-			to_chat(owner, "<span class='clockitalic'>There is already prepared spell in [item]! If you choose another spell it will overwrite old one!</span>")
+			to_chat(owner, span_clockitalic("[item] и так зачарован! Если ты выберешь другое зачарование - оно заменит текущее!"))
 		var/entered_spell_name
 		var/list/possible_enchants = list()
 		var/list/possible_enchant_icons = list()
@@ -112,9 +112,9 @@
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in [item].</span>")
+			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать [item]"))
 		else
-			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
+			to_chat(owner, span_warning("Ты <b>уже</b> подготавливаешь зачарование!"))
 			return
 
 		var/clock_structure_in_range = locate(/obj/structure/clockwork/functional) in range(1, usr)
@@ -131,31 +131,39 @@
 				owner.actions += E
 				owner.update_action_buttons(TRUE)
 			item.update_icon()
-			to_chat(owner, "<span class='clock'>You sealed the power in [item], you have prepared a [spell_enchant.name] invocation!</span>")
+			to_chat(owner, span_clock("Ты зачаровал [item], дав ему способность [spell_enchant.name]!"))
 
 		channeling = FALSE
 	// If it's empty or not an item we can enchant. Making a spell on hand.
 	else
 		if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
-			to_chat(owner, "<span class='clockitalic'>You need an item that you can enchant!</span>")
+			to_chat(owner, span_clockitalic("Тебе нужен предмет который ты можешь зачаровать!"))
 			return
 		if(midas_spell)
-			to_chat(owner, "<span class='clockitalic'>You already prepared midas touch!</b></span>")
+			to_chat(owner, span_clockitalic("Ты уже подготовил [midas_spell.name]!"))
 			return
 		if(QDELETED(src) || owner.incapacitated())
 			return
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in your hand.</span>")
+<<<<<<< Updated upstream
+			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать в свою руку."))
+=======
+			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать свою руку."))
+>>>>>>> Stashed changes
 		else
-			to_chat(owner, "<span class='warning'>You are already invoking clock magic!</span>")
+			to_chat(owner, span_warning("Ты <b>уже</b> подготавливаешь зачарование!"))
 			return
 
 		if(do_after(owner, 5 SECONDS, owner))
 			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
 			midas_spell.Grant(owner, src)
-			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
+<<<<<<< Updated upstream
+			to_chat(owner, span_clock("Ты чувствуешь как праведные силы текут по руке, ты подготовил [midas_spell.name]!"))
+=======
+			to_chat(owner, span_clock("Ты чувствуешь как праведные силы текут по руке. Ты подготовил [midas_spell.name]!"))
+>>>>>>> Stashed changes
 		channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
@@ -191,22 +199,26 @@
 		hand_magic = new magic_path(owner, src)
 		if(!owner.put_in_hands(hand_magic))
 			QDEL_NULL(hand_magic)
-			to_chat(owner, "<span class='warning'>You have no empty hand for invoking clockwork magic!</span>")
+			to_chat(owner, span_warning("Твои руки заняты, вызвать праведную магию не получится!"))
 			return
-		to_chat(owner, "<span class='cultitalic'>Your wounds glow as you invoke the [name].</span>")
+		to_chat(owner, span_cultitalic("Твои руки начинают светится когда ты кастуешь [name]."))
 	else // If the spell is active, and you clicked on the button for it
 		QDEL_NULL(hand_magic)
 
 /datum/action/innate/clockwork/hand_spell/construction
 	name = "Midas Touch"
-	desc = "Empowers your hand to cover metalic objects into brass.<br><u>Converts:</u><br>Plasteel and metal into brass metal<br>Brass metal into integration cog or clockwork slab<br>Cyborgs or AI into Ratvar's servants after a short delay"
+<<<<<<< Updated upstream
+	desc = "Зачаровывает твои руки обращать стальные объекты в латунь. <br> <u>Обращает:</u><br>Пласталь и сталь в листы латуни<br>Листы латуни в встраиваемые шестерни или в заводные плиты<br>Киборгов и оболочку ИИ в прислужников Ратвара."
+=======
+	desc = "Зачаровывает твои руки обращать стальные объекты в латунь. <br> <u>Обращает:</u><br>Пласталь и сталь в листы латуни<br>Листы латуни в встраиваемые шестерни или в заводные плиты<br>Боргов и оболочку ИИ в прислужников Ратвара."
+>>>>>>> Stashed changes
 	button_icon_state = "midas_touch"
 	magic_path = /obj/item/melee/clock_magic/construction
 
 // The "magic hand" items
 /obj/item/melee/clock_magic
 	name = "\improper magical aura"
-	desc = "A sinister looking aura that distorts the flow of reality around it."
+	desc = "Зловещая аура, искажающая реальность вокруг себя."
 	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -236,22 +248,25 @@
 
 /obj/item/melee/clock_magic/construction
 	name = "Midas Aura"
-	desc = "A dripping brass from hand charged to twist metal."
+	desc = "Капающая латунь из твоей руки заряжена обращать сталь."
 	color = "#FFDF00"
 	var/channeling = FALSE
 
 /obj/item/melee/clock_magic/construction/examine(mob/user)
-	. = ..()
-	. += {"<u>A sinister spell used to convert:</u>\n
-	Plasteel into brass metal\n
-	[CLOCK_METAL_TO_BRASS] metal into a brass\n
-	Robots into cult"}
+	. += {"<u>Зловещее заклинание используемое для обращения:</u>\n
+	Пластали в латунь,\n
+	[CLOCK_METAL_TO_BRASS] листов стали в латунь,\n
+<<<<<<< Updated upstream
+	Киборгов и оболочку ИИ в прислужников Ратвара."}
+=======
+	Боргов и оболочку ИИ в прислужников Ратвара."}
+>>>>>>> Stashed changes
 
 /obj/item/melee/clock_magic/construction/afterattack(atom/target, mob/user, proximity_flag, click_parameters)
 	if(!proximity_flag)
 		return
 	if(channeling)
-		to_chat(user, "<span class='clockitalic'>You are already invoking midas touch!</span>")
+		to_chat(user, span_clockitalic("Ты <b>уже</b> кастуешь Прикосновение Мидаса!"))
 		return
 	var/turf/turf_target = get_turf(target)
 
@@ -259,16 +274,22 @@
 	if(istype(target, /obj/item/stack/sheet/metal))
 		var/obj/item/stack/sheet/candidate = target
 		if(candidate.amount < CLOCK_METAL_TO_BRASS)
-			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			to_chat(user, span_warning("Тебе нужно [CLOCK_METAL_TO_BRASS] листов стали чтобы сделать 1 лист латуни!"))
 			return
 		var/quantity = (candidate.amount - (candidate.amount % CLOCK_METAL_TO_BRASS)) / CLOCK_METAL_TO_BRASS
 		if(candidate.use(quantity * CLOCK_METAL_TO_BRASS))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the metal, transforming it into brass!</span>")
+<<<<<<< Updated upstream
+			var/suffix = (candidate.amount > CLOCK_METAL_TO_BRASS*2)? "ами":"ом"
+			to_chat(user, span_warning("Твоя рука начинает очень ярко сиять над лист[suffix] стали, превращая их в лист[suffix? "ы":""] латуни!"))
+=======
+			var/suffix = (candidate.amount > CLOCK_METAL_TO_BRASS*2)
+			to_chat(user, span_warning("Твоя рука начинает очень ярко сиять над листами стали, превращая их в лист[suffix? "ы":""] латуни!"))
+>>>>>>> Stashed changes
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 		else
-			to_chat(user, "<span class='warning'>You need [CLOCK_METAL_TO_BRASS] metal to produce a single brass!</span>")
+			to_chat(user, span_warning("Тебе нужно [CLOCK_METAL_TO_BRASS] листов стали чтобы сделать 1 лист латуни!"))
 			return
 
 	//Plasteel to brass metal
@@ -278,7 +299,12 @@
 		if(candidate.use(quantity))
 			var/obj/item/stack/sheet/brass/B = new(turf_target, quantity)
 			user.put_in_hands(B)
-			to_chat(user, "<span class='warning'>Your hand starts to shine very bright onto the plasteel, transforming it into brass!</span>")
+<<<<<<< Updated upstream
+			var/suffix =  candidate.amount > 1? "ами":"ом"
+=======
+			var/suffix =  candidate.amount > 1
+>>>>>>> Stashed changes
+			to_chat(user, span_warning("Твоя рука начинает очень ярко сиять над лист[suffix? "ами":"ом"] пластали, превращая их в лист[suffix? "ы":""] латуни!"))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /obj/item/stack/sheet/brass))
@@ -292,14 +318,14 @@
 		if(!user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		candidate.use(1)
-		to_chat(user, "<span class='warning'>With you magic hand you re-materialize brass into [O.name]!</span>")
+		to_chat(user, span_warning("При помощи своей магии в руке ты превращаешь лист латуни в [O.name]!"))
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /mob/living/silicon/robot))
 		var/mob/living/silicon/robot/candidate = target
 		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE
-			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] and rapidly turns all his metal into cogs and brass gears!</span>")
+			user.visible_message( span_warning("Рука [user] касается [candidate], и его корпус стремительно превращается в набор винтов и латунных шестерёнок!"))
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 9 SECONDS, candidate))
@@ -314,7 +340,7 @@
 		var/mob/living/silicon/ai/candidate = target
 		if(candidate.stat != DEAD || !isclocker(candidate))
 			channeling = TRUE
-			user.visible_message("<span class='warning'>A [user]'s hand touches [candidate] as he starts to manipulate every piece of technology inside!</span>")
+			user.visible_message( span_warning("Рука [user] касается [candidate], и он начинает манипулировать каждой частью технологии внутри!"))
 			playsound(get_turf(src), 'sound/machines/airlockforced.ogg', 80, TRUE)
 			do_sparks(5, TRUE, target)
 			if(do_after(user, 9 SECONDS, candidate))
@@ -325,12 +351,16 @@
 				channeling = FALSE
 				return
 		else
-			to_chat(user, "<span class='warning'>Your hand finalizes [candidate] - twisting it into a marauder!</span>")
+<<<<<<< Updated upstream
+			to_chat(user, span_warning("Твоя рука заканчивает работать с [candidate] - собирая из него Праведного Мародёра!"))
+=======
+			to_chat(user, span_warning("Твоя рука завершает работу с [candidate], превращая его в Праведного Мародёра!"))
+>>>>>>> Stashed changes
 			new /obj/item/clockwork/marauder(get_turf(src))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			qdel(candidate)
 	else
-		to_chat(user, "<span class='warning'>The spell will not work on [target]!</span>")
+		to_chat(user, span_warning("Праведная магия не действует на [target]!"))
 		return
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE

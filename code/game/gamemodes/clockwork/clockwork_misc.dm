@@ -1,7 +1,7 @@
 // Dead Ratvar
 /obj/structure/dead_ratvar
 	name = "hulking wreck"
-	desc = "The remains of a monstrous war machine."
+	desc = "Останки чудовищной машины войны."
 	icon = 'icons/obj/lavaland/dead_ratvar.dmi'
 	icon_state = "dead_ratvar"
 	flags = ON_BORDER
@@ -69,19 +69,19 @@
 
 /obj/item/clockwork/clockgolem_remains
 	name = "clockwork golem scrap"
-	desc = "A pile of scrap metal. It seems damaged beyond repair."
+	desc = "Кучка металлолома. Кажется, он поврежден и не подлежит ремонту"
 	icon_state = "clockgolem_dead"
 
 /obj/item/clockwork/fallen_armor
 	name = "fallen armor"
-	desc = "Lifeless chunks of armor. They're designed in a strange way and won't fit on you."
+	desc = "Безжизненные куски брони. Они сконструированы странным образом и не подойдут вам."
 	icon_state = "fallen_armor"
 	w_class = WEIGHT_CLASS_NORMAL
 
 // Gibs
 /obj/effect/decal/cleanable/blood/gibs/clock
 	name = "clockwork debris"
-	desc = "Some useless mass of gears and junk."
+	desc = "Какая-то бесполезная куча шестерёнок и хлама"
 	icon = 'icons/effects/clockwork_effects.dmi'
 	icon_state = "gib1"
 	basecolor = "#B18B25"
@@ -117,7 +117,7 @@
 
 /obj/effect/decal/cleanable/blood/clock
 	name = "strange liquid"
-	desc = "It's yellow with orange tint. It looks like an oil."
+	desc = "Оно желтое с оранжевым оттенком. Похоже на масло."
 	basecolor = "#B18B25"
 	bloodiness = MAX_SHOE_BLOODINESS
 
@@ -143,7 +143,7 @@
 	anchored = TRUE
 	density = TRUE
 	resistance_flags = FIRE_PROOF | ACID_PROOF
-	desc = "A massive brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
+	desc = "Массивная латунная шестерня. Вероятно, ты мог бы закрепить или снять ее с помощью гаечного ключа или просто перелезть через нее."
 	var/metal_type = /obj/item/stack/sheet/brass
 
 /obj/structure/clockwork/wall_gear/displaced
@@ -170,7 +170,7 @@
 /obj/structure/clockwork/wall_gear/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
 	if(anchored)
-		to_chat(user, "<span class='warning'>[src] needs to be unsecured to disassemble it!</span>")
+		to_chat(user, span_warning("[src] должен быть откреплён от пола, чтобы его можно было разобрать!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -191,26 +191,26 @@
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/brass/brass = I
 		if(brass.get_amount() < 1)
-			to_chat(user, span_warning("You need one brass sheet to do this!"))
+			to_chat(user, span_warning("Тебе нужен хотя бы 1 лист латуни чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
-			to_chat(user, span_warning("There is already a wall present!"))
+			to_chat(user, span_warning("Тут уже есть настоящая стена!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!isfloorturf(T))
-			to_chat(user, span_warning("A floor must be present to build a [anchored ? "false ":""]wall!"))
+			to_chat(user, span_warning("Для создания [anchored? "фальшивой ":""] стены должен присутствовать пол!"))
 			return ATTACK_CHAIN_PROCEED
 		if(locate(/obj/structure/falsewall) in T.contents)
-			to_chat(user, span_warning("There is already a false wall present!"))
+			to_chat(user, span_warning("Тут уже есть фальшивая стена!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You start adding [brass] to [src]..."))
+		to_chat(user, span_notice("Ты начинаешь вставлять [brass] в [src]..."))
 		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || QDELETED(brass))
 			return ATTACK_CHAIN_PROCEED
 		var/brass_floor = FALSE
 		if(istype(T, /turf/simulated/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
 			brass_floor = TRUE
 		if(!brass.use(brass_floor ? 1 : 2))
-			to_chat(user, span_warning("You need more brass to make a [anchored ? "false ":""]wall!"))
+			to_chat(user, span_warning("Тебе нужно больше листов латуни чтобы создать [anchored ? "фальшивую ":""] стену!"))
 			return ATTACK_CHAIN_PROCEED
 		if(anchored)
 			T.ChangeTurf(/turf/simulated/wall/clockwork)
@@ -229,7 +229,7 @@
 	return ..()
 
 /obj/structure/clockwork/wall_gear/fake
-	desc = "A massive tarnished brass gear. You could probably secure or unsecure it with a wrench, or just climb over it."
+	desc = "Массивная потускневшая латунная шестерня. Вероятно, ты мог бы закрепить или открепить ее с помощью гаечного ключа или просто перелезть через нее."
 	max_integrity = 200
 	metal_type = /obj/item/stack/sheet/brass_fake
 
@@ -243,26 +243,26 @@
 	if(istype(I, /obj/item/stack/sheet/brass_fake))
 		var/obj/item/stack/sheet/brass_fake/brass = I
 		if(brass.get_amount() < 1)
-			to_chat(user, span_warning("You need one brass sheet to do this!"))
+			to_chat(user, span_warning("Тебе нужен хотя бы 1 лист латуни чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
-			to_chat(user, span_warning("There is already a wall present!"))
+			to_chat(user, span_warning("Тут уже есть настоящая стена!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!isfloorturf(T))
-			to_chat(user, span_warning("A floor must be present to build a [anchored ? "false ":""]wall!"))
+			to_chat(user, span_warning("Для создания [anchored? "фальшивой ":""] стены должен присутствовать пол!"))
 			return ATTACK_CHAIN_PROCEED
 		if(locate(/obj/structure/falsewall) in T.contents)
-			to_chat(user, span_warning("There is already a false wall present!"))
+			to_chat(user, span_warning("Тут уже есть фальшивая стена!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("You start adding [brass] to [src]..."))
+		to_chat(user, span_notice("Ты начинаешь вставлять [brass] в [src]..."))
 		if(!do_after(user, 2 SECONDS, src) || QDELETED(brass))
 			return ATTACK_CHAIN_PROCEED
 		var/brass_floor = FALSE
 		if(istype(T, /turf/simulated/floor/clockwork/fake)) //if the floor is already brass, costs less to make(conservation of masssssss)
 			brass_floor = TRUE
 		if(!brass.use(brass_floor ? 1 : 2))
-			to_chat(user, span_warning("You need more brass to make a [anchored ? "false ":""]wall!"))
+			to_chat(user, span_warning("Тебе нужно больше листов латуни чтобы создать [anchored ? "фальшивую ":""] стену!"))
 			return ATTACK_CHAIN_PROCEED
 		if(anchored)
 			T.ChangeTurf(/turf/simulated/wall/clockwork/fake)

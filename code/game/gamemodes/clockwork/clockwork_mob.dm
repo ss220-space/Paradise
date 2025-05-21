@@ -3,7 +3,7 @@
 
 /mob/living/simple_animal/hostile/clockwork/marauder
 	name = "clockwork marauder"
-	desc = "The stalwart apparition of a soldier, blazing with crimson flames. It's armed with a gladius and shield."
+	desc = "Стойкий призрак солдата, пылающий багровыми огнями. Вооружён гладиусом и щитом."
 	icon_state = "marauder"
 	health = 200
 	maxHealth = 200
@@ -26,7 +26,7 @@
 	universal_speak = TRUE
 	loot = list(/obj/item/clockwork/fallen_armor)
 	del_on_death = TRUE
-	deathmessage = "shatters as the flames goes out."
+	deathmessage = "разлетается вдребезги, когда гаснет пламя."
 	light_range = 2
 	light_power = 1.1
 	var/deflect_chance = 30
@@ -57,8 +57,8 @@
 		playsound(loc, 'sound/weapons/clash.ogg', 50, TRUE)
 		L.apply_damage(25, STAMINA)
 		src.do_attack_animation(target)
-		target.visible_message("<span class='danger'>[src] hits [target] with flat of the sword!</span>", \
-						"<span class='userdanger'>[src] hits you with flat of the sword!</span>")
+		target.visible_message(span_danger("[src] бьёт [target] тыльной стороной меча!"), \
+						span_userdanger("[src] бьёт тебя тыльной стороной меча!"))
 		add_attack_logs(src, target, "Knocks")
 	else
 		..()
@@ -88,8 +88,8 @@
 	else if(!energy_projectile) //Flat 30% chance against energy projectiles; ballistic projectiles are 30% - (damage of projectile)%, min. 10%
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
-		visible_message(span_danger("[src] deflects [P] with their shield!"), \
-		span_danger("You block [P] with your shield!"), projectile_message = TRUE)
+		visible_message(span_danger("[src] отклоняет [P] своим щитом!"), \
+		span_danger("Ты заблокировал [P] при помощи своего щита!"), projectile_message = TRUE)
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
@@ -126,7 +126,7 @@
 /mob/living/simple_animal/mouse/clockwork
 	name = "moaus"
 	real_name = "moaus"
-	desc = "A fancy clocked mouse. And it still squeeks!"
+	desc = "Красивая заводная мышь. Она всё еще пищит!"
 	icon_state = "mouse_clockwork"
 	icon_living = "mouse_clockwork"
 	icon_dead = "mouse_clockwork_dead"
@@ -154,10 +154,10 @@
 	var/obj/structure/cable/C = locate() in F
 	if(C && prob(30))
 		if(C.avail())
-			visible_message("<span class='warning'>[src] chews through [C]. [src] sparks for a moment!</span>")
+			visible_message(span_warning("[src] грызанула [C]. [src] начала искрится!"))
 			playsound(src, 'sound/effects/sparks2.ogg', 100, 1)
 		else
-			visible_message("<span class='warning'>[src] chews through [C].</span>")
+			visible_message(span_warning("[src] грызанула [C]."))
 		investigate_log("was chewed through by a clock mouse in [get_area(F)]([F.x], [F.y], [F.z] - [ADMIN_JMP(F)])","wires")
 		C.deconstruct()
 
@@ -168,8 +168,8 @@
 	return
 
 /mob/living/simple_animal/mouse/clockwork/get_scooped(mob/living/carbon/grabber)
-	to_chat(grabber, "<span class='warning'>You try to pick up [src], but they slip out of your grasp!</span>")
-	to_chat(src, "<span class='warning'>[src] tries to pick you up, but you wriggle free of their grasp!</span>")
+	to_chat(grabber, span_warning("Ты пытаешься поднять [src], но она ускользает из твоей хватки!"))
+	to_chat(src, span_warning("[src] пытался взять тебя на руки, но ты сбежал из его хватки!"))
 
 /mob/living/simple_animal/mouse/clockwork/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	return

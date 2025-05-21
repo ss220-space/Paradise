@@ -61,20 +61,20 @@ export const Workshop = (_properties) => {
         <Stack fill vertical>
           <Stack.Item>
             <WorkshopSearch />
-            <Section title="Materials">
+            <Section title="Латунь">
               <LabeledList>
                 <LabeledList.Item label="Brass">
                   {brassReadable}
                   <Button
                     icon={'arrow-down'}
                     height="19px"
-                    tooltip={'Dispense Brass'}
+                    tooltip={'Извлечь листы латуни'}
                     tooltipPosition="bottom-start"
                     ml="0.5rem"
                     onClick={() => act('dispense')}
                   />
                 </LabeledList.Item>
-                <LabeledList.Item label="Power">
+                <LabeledList.Item label="Энергия">
                   {powerReadable}
                 </LabeledList.Item>
               </LabeledList>
@@ -118,7 +118,7 @@ const WorkshopSearch = (_properties) => {
       <Stack width="100%">
         <Stack.Item grow="1" mr="0.5rem">
           <Input
-            placeholder="Search by item name.."
+            placeholder="Введи название предмета для поиска.."
             width="100%"
             onInput={(_e, value) => setSearchText(value)}
           />
@@ -127,7 +127,7 @@ const WorkshopSearch = (_properties) => {
           <Button
             icon={descending ? 'arrow-down' : 'arrow-up'}
             height="19px"
-            tooltip={descending ? 'Descending order' : 'Ascending order'}
+            tooltip={descending ? 'По убыванию' : 'По возрастанию'}
             tooltipPosition="bottom-start"
             ml="0.5rem"
             onClick={() => setDescending(!descending)}
