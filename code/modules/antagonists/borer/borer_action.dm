@@ -130,8 +130,8 @@
 
 	to_chat(owner, span_danger("Вы посылаете карающий всплеск психической агонии в мозг своего носителя."))
 	var/target = borer.host_brain ? borer.host_brain : host
-	to_chat(target, span_danger("<span style='font-size: 3;'>Ужасная, жгучая агония пронзает вас насквозь, \
-			вырывая беззвучный крик из глубин вашего разума!</span>"))
+	to_chat(target, span_danger(span_fontsize3("Ужасная, жгучая агония пронзает вас насквозь, \
+			вырывая беззвучный крик из глубин вашего разума!")))
 
 	if(borer.host_brain?.host_resisting)
 		borer.host_brain.resist()
