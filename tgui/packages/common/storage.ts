@@ -35,32 +35,6 @@ const testHubStorage = testGeneric(
   () => window.hubStorage && !!window.hubStorage.getItem
 );
 
-class MemoryBackend implements StorageBackend {
-  private store: Record<string, any>;
-  public impl: StorageImplementation;
-
-  constructor() {
-    this.impl = IMPL_MEMORY;
-    this.store = {};
-  }
-
-  async get(key: string): Promise<any> {
-    return this.store[key];
-  }
-
-  async set(key: string, value: any): Promise<void> {
-    this.store[key] = value;
-  }
-
-  async remove(key: string): Promise<void> {
-    this.store[key] = undefined;
-  }
-
-  async clear(): Promise<void> {
-    this.store = {};
-  }
-}
-
 class HubStorageBackend implements StorageBackend {
   public impl: StorageImplementation;
 
@@ -119,46 +93,18 @@ class StorageProxy implements StorageBackend {
 
   constructor() {
     this.backendPromise = (async () => {
-      try {
-        const isHubAvailable = await this.retryWithDelay(
-          () => testHubStorage(),
-          5,
-          500
-        );
+      if (!testHubStorage()) {
+        return new Promise((resolve) => {
+          const listener = () => {
+            document.removeEventListener('byondstorageupdated', listener);
+            resolve(new HubStorageBackend());
+          };
 
-        if (isHubAvailable) {
-          this.impl = IMPL_HUB_STORAGE;
-          return new HubStorageBackend();
-        }
-      } catch (err) {}
-      console.warn(
-        'No supported storage backend found. Using in-memory storage.'
-      );
-      return new MemoryBackend();
-    })();
-  }
-
-  async retryWithDelay<T>(
-    action: () => Promise<T> | T,
-    maxAttempts: number,
-    delayMs: number
-  ): Promise<T> {
-    let attempt = 0;
-    let lastError: unknown;
-
-    while (attempt < maxAttempts) {
-      attempt++;
-      try {
-        const result = await Promise.resolve(action());
-        return result;
-      } catch (error) {
-        lastError = error;
-        if (attempt < maxAttempts) {
-          await new Promise((resolve) => setTimeout(resolve, delayMs));
-        }
+          document.addEventListener('byondstorageupdated', listener);
+        });
       }
-    }
-    throw lastError;
+      return new HubStorageBackend();
+    })();
   }
 
   async get(key: string): Promise<any> {
