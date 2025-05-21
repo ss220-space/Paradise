@@ -5,7 +5,7 @@
 // Little Coggy Droney!
 /mob/living/silicon/robot/cogscarab
 	name = "cogscarab"
-	desc = "A strange, drone-like machine. It constantly emits the hum of gears."
+	desc = "Странный, похожий на дрона механизм. От него исходит гул шестерней."
 	icon = 'icons/mob/clockwork_mobs.dmi'
 	icon_state = "drone"
 	health = 35
@@ -107,7 +107,7 @@
 		warn_wind_up = WINDUP_STATE_NONE
 	else
 		if(!warn_wind_up)
-			to_chat(src, "<span class='warning'>You feel how your cogs inside slowing down! You need to find beacon to rewind yourself!</span>")
+			to_chat(src, span_warning("Ты чувствуешь как шестерни твоего механизма замедляются! Тебе надо найти маяк для дозаводки!"))
 			warn_wind_up = WINDUP_STATE_WARNING
 
 
@@ -115,7 +115,7 @@
 		if(wind_up_timer < 0)
 			wind_up_timer = 0
 		if(warn_wind_up < WINDUP_STATE_DANGER)
-			to_chat(src, "<span class='userdanger'>The gears inside stopped to work! Find the beacon!</span>")
+			to_chat(src, span_userdanger("Шестерни твоего механизма остановились! Найди маяк!"))
 			warn_wind_up = WINDUP_STATE_DANGER
 		adjustBruteLoss(2)
 	else
@@ -128,7 +128,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(mind?.current)
-		status_tab_data[++status_tab_data.len] = list("Wind Up Timer:", "[wind_up_timer]")
+		status_tab_data[++status_tab_data.len] = list("Время до остановки шестерней:", "[wind_up_timer]")
 
 /mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
 	// force it to not actually change most things
@@ -171,8 +171,8 @@
 	H.w_class = WEIGHT_CLASS_TINY
 	H.attack_hand(grabber)
 
-	to_chat(grabber, "<span class='notice'>Вы подняли [src.name].")
-	to_chat(src, "<span class='notice'>[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас.</span>")
+	to_chat(grabber, span_notice("Вы подняли [src.name]."))
+	to_chat(src, span_notice("[grabber.name] поднял[genderize_ru(grabber.gender,"","а","о","и")] вас."))
 	grabber.status_flags |= PASSEMOTES
 
 	return H
@@ -235,12 +235,12 @@
 		var/obj/item/pulled_item = pulled_atom
 		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
 			if(!supress_message)
-				to_chat(src, span_warning("You are too small to pull that."))
+				to_chat(src, span_warning("Ты слишком мал чтобы тащить это."))
 			return FALSE
 		return ..()
 
 	if(!supress_message)
-		to_chat(src, span_warning("You are too small to pull that."))
+		to_chat(src, span_warning("Ты слишком мал чтобы тащить это."))
 	return FALSE
 
 

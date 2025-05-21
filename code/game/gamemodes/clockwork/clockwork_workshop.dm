@@ -9,16 +9,16 @@
 
 /obj/structure/clockwork/workshop
 	name = "ratvar's workshop"
-	desc = "A workshop of elder god. Has unique brass tools to manipulate both power and metal to make fine clockwork pieces."
+	desc = "Мастерская древнего бога. Здесь есть уникальные латунные инструменты для управления энергией и металлом, чтобы создавать изящные часовые механизмы."
 	icon_state = "workshop"
 	max_integrity = 400
 
 /obj/structure/clockwork/functional/workshop
 	name = "ratvar's workshop"
-	desc = "A workshop of elder god. Has unique brass tools to manipulate both power and metal to make fine clockwork pieces."
+	desc = "Мастерская древнего бога. Здесь есть уникальные латунные инструменты для управления энергией и металлом, чтобы создавать изящные часовые механизмы."
 	icon_state = "workshop"
 	max_integrity = 400
-	death_message = "<span class='danger'>The workshop begins to crumble in pieces as the tools and the gears on table starts to dust!</span>"
+	death_message = span_danger("Мастерская начинает разваливаться на куски, а инструменты и приспособления на столе превращаются в пыль!")
 	var/temp_search
 	var/datum/clockwork_design/being_built = null
 	var/list/item_list
@@ -74,10 +74,10 @@
 /obj/structure/clockwork/functional/workshop/attack_hand(mob/user)
 	if(hidden)
 		if(isclocker(user))
-			to_chat(user,"<span class='warning'>This workshop is hidden. You need clockwork slab to reveal it!</span>")
+			to_chat(user, span_warning("Эта мастерская замаскирована. Тебе нужна заводная плита чтобы демаскировать его!"))
 		return
 	if(!isclocker(user))
-		to_chat(user,"<span class='warning'>You are trying to understand how this table works, but to no avail.</span>")
+		to_chat(user, span_warning("Вы пытаетесь понять, как работает этот стол, но безуспешно."))
 		return
 	if(anchored && !hidden)
 		add_fingerprint(user)
@@ -93,7 +93,7 @@
 		var/obj/item/stack/sheet/brass/brass = I
 		if(!user.drop_transfer_item_to_loc(brass, src))
 			return ..()
-		to_chat(user, span_notice("You reconstruct [brass] for workshop to work with."))
+		to_chat(user, span_notice("Ты восполняешь запасы [brass] мастерской."))
 		brass_amount += MINERAL_MATERIAL_AMOUNT*brass.amount
 		qdel(brass)
 		flick("workshop_b", src)
@@ -172,15 +172,15 @@
 				return
 			var/datum/clockwork_design/item = item_list[category][name]
 			if(item.brass_cost > brass_amount) // shouldn't be able to access this since the button is greyed out, but..
-				to_chat(usr, "<span class='danger'>You have insufficient brass in workshop.</span>")
+				to_chat(usr, span_danger("Недостаточно запасов латуни в мастерской для сборки этого предмета."))
 				return
 			if(item.power_cost > GLOB.clockwork_power)
-				to_chat(usr, "<span class='danger'>Your cult have insufficient power.</span>")
+				to_chat(usr, span_danger("Праведной Энергии не достаточно для сборки этого предмета."))
 				return
 			build_design(item)
 		if("dispense")
 			if(brass_amount < MINERAL_MATERIAL_AMOUNT)
-				to_chat(usr, "<span class='danger'>You have insufficient brass in workshop.</span>")
+				to_chat(usr, span_danger("Недостаточно запасов латуни в мастерской для выдачи."))
 			else
 				brass_amount -= MINERAL_MATERIAL_AMOUNT
 				new /obj/item/stack/sheet/brass(loc)
@@ -190,13 +190,13 @@
 /obj/structure/clockwork/functional/workshop/proc/build_design(datum/clockwork_design/CD)
 	. = FALSE
 	if(being_built)
-		to_chat(usr, "<span class='danger'>Something is already being built!</span>")
+		to_chat(usr, span_danger("Что-то уже собирается!"))
 		return
 	if(CD.brass_cost > brass_amount) // IF
-		to_chat(usr, "<span class='danger'>You have insufficient brass in workshop.</span>")
+		to_chat(usr, span_danger("Недостаточно запасов латуни в мастерской для сборки этого предмета."))
 		return
 	if(CD.power_cost > GLOB.clockwork_power)
-		to_chat(usr, "<span class='danger'>Your cult have insufficient power.</span>")
+		to_chat(usr, span_danger("Праведной Энергии не достаточно для сборки этого предмета."))
 		return
 
 	// Subtract the materials from the holder
@@ -207,7 +207,7 @@
 	being_built = CD
 	build_start = world.time
 	build_end = build_start + CD.build_time SECONDS
-	desc = "It's creating \a [initial(CD.design_name)]."
+	desc = "Собирает \a [CD.design_name]."
 	addtimer(CALLBACK(src, PROC_REF(build_design_timer_finish), CD), CD.build_time SECONDS)
 
 	return TRUE

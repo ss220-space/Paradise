@@ -20,7 +20,7 @@
 /obj/singularity/god/ratvar/New()
 	..()
 	set_light(15, 1, "#BE8700")
-	to_chat(world, "<span class='ratvar'>ONCE AGAIN MY LIGHT SHINES AMONG THESE PATHETIC STARS</span>")
+	to_chat(world, "<span class='ratvar'>И СНОВА МОЙ СВЕТ СИЯЕТ СРЕДИ ЭТИХ ЖАЛКИХ ЗВЕЗД.</span>")
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
 
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -30,7 +30,7 @@
 	var/area/A = get_area(src)
 	if(A)
 		var/image/alert_overlay = image('icons/effects/clockwork_effects.dmi', "ghostalert")
-		notify_ghosts("The Justiciar's light calls to you! Reach out to Ratvar in [A.name] to be granted a shell to spread his glory!", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
+		notify_ghosts("Свет Судьи взывает к вам! Обратитесь к Ратвару в [A.name], чтобы получить оболочку для распространения его славы!", source = src, alert_overlay = alert_overlay, action = NOTIFY_ATTACK)
 
 	ratvar_spawn_animation()
 	addtimer(CALLBACK(SSticker.mode, TYPE_PROC_REF(/datum/game_mode, apocalypse)), 10 SECONDS)
@@ -40,15 +40,15 @@
 	return
 
 /obj/singularity/god/ratvar/Destroy()
-	to_chat(world, "<span class='ratvar'>RATVAR HAS FALLEN</span>")
+	to_chat(world, "<span class='ratvar'>РАТВАР ПАЛ</span>")
 	SEND_SOUND(world, 'sound/hallucinations/wail.ogg')
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
 		gamemode.clocker_objs.ratvar_death()
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>RETRIBUTION!</span>")
-				to_chat(clock_mind.current, "<span class='clock'>Current goal: Slaughter the heretics!</span>")
+				to_chat(clock_mind.current, "<span class='clocklarge'МЕСТЬ!</span>")
+				to_chat(clock_mind.current, "<span class='clock'>Текущая цель: уничтожить не верных!</span>")
 	return ..()
 
 /obj/singularity/god/ratvar/attack_ghost(mob/dead/observer/user)
@@ -90,7 +90,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!isclocker(M))
-				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
+				to_chat(M, "<span class='warning'>Вы чувствуете, как ваше здравомыслие рушится в одно мгновение, когда вы смотрите на [src.name]...</span>")
 				M.Stun(6 SECONDS)
 
 /obj/singularity/god/ratvar/consume(atom/A)

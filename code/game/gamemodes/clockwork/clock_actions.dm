@@ -11,8 +11,8 @@
 
 //Comms
 /datum/action/innate/clockwork/comm
-	name = "Hierophant's Network"
-	desc = "Whispered words that all clockers can hear.<br><b>Warning:</b>Nearby non-clockers can still hear you."
+	name = "Сеть Иерофанта"
+	desc = "Шепот, который слышат все праведники Ратвара.<br><b>Внимание:</b> Рядом находящиеся не-культисты тоже могут вас услышать."
 	button_icon_state = "hierophant"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
@@ -29,32 +29,32 @@
 
 	var/prefix = ""
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message(span_notice("[user] начинает шептаться сам[genderize_ru(user.gender,"","а","о","и")] с собой."),
+		span_notice("Ты начинаешь шептать самому себе.</span>")) //Make them do *something* abnormal.
 		sleep(10)
 	else if(!issilicon(user))
 		user.whisper("N`i th`e le-ing roc-cus!") // Otherwise book club sayings.
 		sleep(10)
 		user.whisper(message) // And whisper the actual message
-		prefix = "Workmate"
+		prefix = "Праведник ратвара"
 	else
-		prefix = "Automaton"
+		prefix = "Механизм"
 
 
-	var/my_message = "<span class='clockspeech'><b>[prefix] [user.real_name]:</b> [message]</span>"
+	var/my_message = span_clockspeech("<b>[prefix] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(isclocker(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='clockspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, span_clockspeech("<a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message]"))
 
 	add_say_logs(user, message, language = "CLOCKCULT")
 
 //Objectives
 /datum/action/innate/clockwork/check_progress
-	name = "Study the Veil"
+	name = "Изучить Завесу"
 	button_icon_state = "tome"
-	desc = "Check your cult's current progress and objective."
+	desc = "Проверить текущий прогресс и цель вашего культа."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
 /datum/action/innate/clockwork/check_progress/IsAvailable()
@@ -68,4 +68,4 @@
 	if(SSticker?.mode)
 		SSticker.mode.clocker_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='clockitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, "<span class='clockitalic'>Вам не удалось изучить Завесу. (Это не должно происходить, сообщите администратору или разработчику)</span>")
