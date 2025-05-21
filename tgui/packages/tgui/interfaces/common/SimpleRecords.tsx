@@ -92,13 +92,14 @@ const SelectionView = (props: SelectionViewProps) => {
       (member) => member.Name
     );
     return flow([
-      (r: Record[]) =>
+      (recordsList: Record[]) =>
         // Null member filter
-        filter(r, (member) => !!member?.Name),
+        filter(recordsList, (member) => !!member?.Name),
       // Optional search term
-      searchText && ((r: Record[]) => filter(r, MemberSearch)),
+      (recordsList: Record[]) =>
+        searchText ? filter(recordsList, MemberSearch) : recordsList,
       // Slightly expensive, but way better than sorting in BYOND
-      (r: Record[]) => sortBy(r, (member) => member.Name),
+      (recordsList: Record[]) => sortBy(recordsList, (member) => member.Name),
     ])(recordsList);
   };
 

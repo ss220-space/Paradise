@@ -222,7 +222,7 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
     });
     return flow([
       (cat: Item[]) => filter(cat, (item) => !!item?.name), // Make sure it has a name
-      (cat: Item[]) => searchText && filter(cat, EquipmentSearch), // Search for anything
+      (cat: Item[]) => (searchText ? filter(cat, EquipmentSearch) : cat), // Search for anything
       (cat: Item[]) => sortBy(cat, (item) => item?.name), // Sort by name
     ])(cat);
   };
@@ -563,7 +563,7 @@ const ExploitableInfoPage = (_properties) => {
   const SelectMembers = (people: ExploitableRecord[], searchText = '') => {
     const MemberSearch = createSearch<ExploitableRecord>(
       searchText,
-      (member: ExploitableRecord) => member.name
+      (member: ExploitableRecord) => member?.name
     );
     return flow([
       (people: ExploitableRecord[]) =>
@@ -573,7 +573,7 @@ const ExploitableInfoPage = (_properties) => {
       (people: ExploitableRecord[]) =>
         searchText ? filter(people, MemberSearch) : people,
       // Slightly expensive, but way better than sorting in BYOND
-      (people: ExploitableRecord[]) => sortBy(people, (member) => member.name),
+      (people: ExploitableRecord[]) => sortBy(people, (member) => member?.name),
     ])(people);
   };
 
@@ -597,7 +597,7 @@ const ExploitableInfoPage = (_properties) => {
                   selected={r === selectedRecord}
                   onClick={() => setSelectedRecord(r)}
                 >
-                  {r.name}
+                  {r?.name}
                 </Tabs.Tab>
               ))}
             </Tabs>
@@ -605,7 +605,7 @@ const ExploitableInfoPage = (_properties) => {
         </Stack.Item>
         <Divider vertical />
         <Stack.Item grow>
-          <Section fill title={selectedRecord.name} scrollable>
+          <Section fill title={selectedRecord?.name} scrollable>
             <LabeledList>
               <LabeledList.Item label="Возраст">
                 {selectedRecord.age}

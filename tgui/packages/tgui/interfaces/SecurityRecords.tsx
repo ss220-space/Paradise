@@ -144,7 +144,7 @@ const SecurityRecordsPageList = (_properties) => {
   return (
     <>
       <Stack.Item>
-        <SecurityRecordsActions />
+        <SecurityRecordsActions setSearchText={setSearchText} />
       </Stack.Item>
       <Stack.Item grow mt={0.5}>
         <Section fill scrollable>
@@ -252,10 +252,10 @@ const SecurityRecordsPageList = (_properties) => {
   );
 };
 
-const SecurityRecordsActions = (_properties) => {
+const SecurityRecordsActions = (properties: SearchTextProps) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { isPrinting } = data;
-  const [searchText, setSearchText] = useState('');
+  const { setSearchText } = properties;
   return (
     <Stack fill>
       <Stack.Item>

@@ -41,3 +41,5 @@ export const FONTS = [
 ];
 
 export const WARN_AFTER_HIGHLIGHT_AMT = 10;
+
+export const MAX_SETTINGS_LOAT_ATEMPS = 5;

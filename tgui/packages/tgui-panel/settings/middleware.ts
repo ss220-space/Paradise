@@ -16,7 +16,7 @@ import {
   updateHighlightSetting,
   updateSettings,
 } from './actions';
-import { FONTS_DISABLED } from './constants';
+import { FONTS_DISABLED, MAX_SETTINGS_LOAT_ATEMPS } from './constants';
 import { setDisplayScaling } from './scaling';
 import { selectSettings } from './selectors';
 import { exportChatSettings } from './settingsImExport';
@@ -104,6 +104,19 @@ const setStatTabsStyle = (style: string) => {
   }, 1500);
 };
 
+let atempsNumber = 0;
+
+const getSettings = (store) => {
+  storage.get('panel-settings').then((settings) => {
+    if (!settings && atempsNumber < MAX_SETTINGS_LOAT_ATEMPS) {
+      atempsNumber++;
+      setTimeout(() => getSettings(store), 5);
+      return;
+    }
+    store.dispatch(loadSettings(settings));
+  });
+};
+
 export const settingsMiddleware = (store) => {
   let initialized = false;
 
@@ -115,9 +128,7 @@ export const settingsMiddleware = (store) => {
 
       setDisplayScaling();
 
-      storage.get('panel-settings').then((settings) => {
-        store.dispatch(loadSettings(settings));
-      });
+      getSettings(store);
     }
     if (type === exportSettings.type) {
       const state = store.getState();

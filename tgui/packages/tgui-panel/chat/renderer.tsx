@@ -134,7 +134,6 @@ class ChatRenderer {
   queue: Payload[];
   messages: Message[];
   visibleMessages: Message[];
-  regexCache: Map<string, RegExp>;
   scrollNode: HTMLElement;
   scrollTracking: boolean;
   lastScrollHeight: number;
@@ -150,7 +149,6 @@ class ChatRenderer {
     this.queue = [];
     this.messages = [];
     this.visibleMessages = [];
-    this.regexCache = new Map();
     this.page = null;
     this.events = new EventEmitter();
     // Scroll handler
@@ -284,26 +282,17 @@ class ChatRenderer {
         }
       }
       const regexStr = regexExpressions.join('|');
-      const flags = 'g' + (matchCase ? '' : 'i');
+      const flags = 'gu' + (matchCase ? '' : 'i');
       let highlightRegex: RegExp;
       // We wrap this in a try-catch to ensure that broken regex doesn't break
       // the entire chat.
       try {
         // setting regex overrides matchword
         if (regexStr) {
-          if (!this.regexCache.has(regexStr)) {
-            this.regexCache.set(
-              regexStr,
-              new RegExp('(' + regexStr + ')', flags)
-            );
-          }
-          highlightRegex = this.regexCache.get(regexStr);
+          highlightRegex = new RegExp('(' + regexStr + ')', flags);
         } else {
-          const pattern = `${matchWord ? '\\b' : ''}(${highlightWords.join('|')})${matchWord ? '\\b' : ''}`;
-          if (!this.regexCache.has(pattern)) {
-            this.regexCache.set(pattern, new RegExp(pattern, flags));
-          }
-          highlightRegex = this.regexCache.get(pattern);
+          const pattern = `${matchWord ? '(?<=\\P{L}|^)' : ''}(${highlightWords.join('|')})${matchWord ? '(?=\\P{L}|$)' : ''}`;
+          highlightRegex = new RegExp(pattern, flags);
         }
       } catch {
         // We just reset it if it's invalid.
