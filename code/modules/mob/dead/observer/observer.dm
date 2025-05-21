@@ -712,7 +712,6 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	cleanup_observe()
 
 
-	hud_used?.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
 	lighting_alpha = client?.prefs.ghost_darkness_level
 	update_sight()
 
@@ -722,6 +721,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	clear_fullscreens()
 
 	if(client)
+		hud_used.plane_master_controllers[PLANE_MASTERS_GAME].remove_filter("eye_blur")
 		UnregisterSignal(src, COMSIG_ORBITER_ORBIT_STOP)
 		if(do_observe_target)
 			UnregisterSignal(do_observe_target, COMSIG_MOB_UPDATE_SIGHT)
@@ -736,9 +736,8 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!orbiting || !client)
 		return
 
-	// idk why, but we need to hold '?' here, else this runtimes sometimes
-	sight = do_observe_target?.sight
-	lighting_alpha = do_observe_target?.lighting_alpha
+	sight = do_observe_target.sight
+	lighting_alpha = do_observe_target.lighting_alpha
 	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
