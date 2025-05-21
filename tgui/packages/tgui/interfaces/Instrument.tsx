@@ -371,9 +371,13 @@ const InstrumentStatus = (properties) => {
           <Button icon="file" onClick={() => act('newsong')}>
             New
           </Button>
-          <Button icon="upload" onClick={() => act('import')}>
+          <Button.File
+            icon="upload"
+            accept=".txt"
+            onSelectFiles={(value) => act('import', { import: value })}
+          >
             Import
-          </Button>
+          </Button.File>
         </>
       }
     >

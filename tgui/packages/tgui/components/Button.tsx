@@ -400,7 +400,7 @@ const ButtonInput = (props: InputProps) => {
 };
 
 type FileProps = {
-  accept: string;
+  accept?: string;
   multiple?: boolean;
   onSelectFiles: (files: string | string[]) => void;
 } & Props;

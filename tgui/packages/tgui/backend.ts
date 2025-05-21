@@ -322,7 +322,7 @@ const encodedLengthBinarySearch = (haystack: string[], length: number) => {
 
 const chunkSplitter = {
   [Symbol.split]: (string: string) => {
-    const charSeq = Array.from(string[Symbol.iterator]());
+    const charSeq = Array.from(string);
     const length = charSeq.length;
     let chunks: string[] = [];
     let startIndex = 0;
@@ -365,6 +365,7 @@ export const sendAct = (action: string, payload: object = {}) => {
     logger.error(`Payload for act() must be an object, got this:`, payload);
     return;
   }
+
   const stringifiedPayload = JSON.stringify(payload);
   const urlSize = Object.entries({
     type: 'act/' + action,
@@ -388,6 +389,7 @@ export const sendAct = (action: string, payload: object = {}) => {
     });
     return;
   }
+
   Byond.sendMessage('act/' + action, payload);
 };
 
