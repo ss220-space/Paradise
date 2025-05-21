@@ -131,8 +131,8 @@
 
 /obj/item/rcd/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>MATTER: [matter]/[max_matter] matter-units.</span>"
-	. += "<span class='notice'>MODE: [mode].</span>"
+	. += span_notice("MATTER: [matter]/[max_matter] matter-units.")
+	. += span_notice("MODE: [mode].")
 
 /obj/item/rcd/Destroy()
 	QDEL_NULL(spark_system)
@@ -180,11 +180,11 @@
 
 /obj/item/rcd/proc/rcd_reload(obj/item/rcd_ammo/rcd_ammo, mob/user)
 	if(matter >= max_matter)
-		to_chat(user, "<span class='notice'>The RCD can't hold any more matter-units.</span>")
+		to_chat(user, span_notice("The RCD can't hold any more matter-units."))
 		return
 
 	if(!user.drop_item_ground(rcd_ammo))
-		to_chat(user, "<span class='warning'>[rcd_ammo] is stuck to your hand!</span>")
+		to_chat(user, span_warning("[rcd_ammo] is stuck to your hand!"))
 		return
 
 	user.put_in_active_hand(rcd_ammo)
@@ -192,9 +192,9 @@
 		matter = min(matter + rcd_ammo.ammoamt, max_matter)
 		qdel(rcd_ammo)
 		playsound(loc, 'sound/machines/click.ogg', 50, 1)
-		to_chat(user, "<span class='notice'>The RCD now holds [matter]/[max_matter] matter-units.</span>")
+		to_chat(user, span_notice("The RCD now holds [matter]/[max_matter] matter-units."))
 	else
-		to_chat(user, "<span class='warning'>This matter cartridge is incompatible with your RCD</span>")
+		to_chat(user, span_warning("This matter cartridge is incompatible with your RCD"))
 	SStgui.update_uis(src)
 
 /**
@@ -240,7 +240,7 @@
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
-	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
+	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
 
 
 /obj/item/rcd/attack_self(mob/user)
@@ -309,13 +309,13 @@
 		if("door_type")
 			var/new_door_type = text2path(params["door_type"])
 			if(!(new_door_type in current_rcd_door_types))
-				message_admins("<span class='warning'>RCD Door HREF exploit</span> attempted by [ADMIN_FULLMONTY(usr)]!")
+				message_admins("[span_warning("RCD Door HREF exploit")] attempted by [ADMIN_FULLMONTY(usr)]!")
 				return FALSE
 			door_type = new_door_type
 
 		if("set_lock")
 			if(!allowed(usr))
-				to_chat(usr, "<span class='warning'>Access denied.</span>")
+				to_chat(usr, span_warning("Access denied."))
 				return FALSE
 			locked = params["new_lock"] == "lock" ? TRUE : FALSE
 
@@ -436,7 +436,10 @@
 /obj/item/rcd/proc/detonate_pulse()
 	if(is_taipan(z) || is_admin_level(z)) //Защищает тайпан и админские Z-lvla от взрыва RCD
 		return
-	audible_message("<span class='danger'><b>[src] begins to vibrate and buzz loudly!</b></span>", "<span class='danger'><b>[src] begins vibrating violently!</b></span>")
+	audible_message(
+		span_danger("<b>[src] begins to vibrate and buzz loudly!</b>"),
+		span_danger("<b>[src] begins vibrating violently!</b>")
+	)
 	// 5 seconds to get rid of it
 	addtimer(CALLBACK(src, PROC_REF(detonate_pulse_explode)), 50)
 

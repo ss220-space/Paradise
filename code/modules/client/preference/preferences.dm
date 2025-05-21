@@ -2588,7 +2588,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref()
+						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(

@@ -174,15 +174,18 @@
 	orient2hud(user)  // this only needs to happen to make .contents show properly as screen objects.
 	if(user.s_active)
 		user.s_active.hide_from(user)
-	user.client.screen |= boxes
-	user.client.screen |= closer
-	user.client.screen |= contents
+	user.client.screen -= boxes
+	user.client.screen -= closer
+	user.client.screen -= contents
+	user.client.screen += boxes
+	user.client.screen += closer
+	user.client.screen += contents
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
-	for(var/mob/dead/observer/observe in user.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-			LAZYREMOVE(user.orbiters, observe)
+	for(var/mob/dead/observer/observe in user.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(user.inventory_observers, observe)
 			continue
 		show_to(observe)
 
@@ -196,9 +199,9 @@
 	if(user.s_active == src)
 		user.s_active = null
 
-	for(var/mob/dead/observer/observe in user.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-			LAZYREMOVE(user.orbiters, observe)
+	for(var/mob/dead/observer/observe in user.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(user.inventory_observers, observe)
 			continue
 		hide_from(observe)
 
@@ -440,11 +443,11 @@
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
 
-		for(var/mob/dead/observer/observe in usr.orbiters)
-			if(!istype(observe))
+		for(var/mob/dead/observer/observe in usr.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(usr.inventory_observers, observe)
 				continue
-			if(observe.client && observe.s_active != src)
-				observe.client.screen -= W
+			observe.client.screen -= W
 
 		add_fingerprint(usr)
 

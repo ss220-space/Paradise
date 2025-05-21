@@ -29,6 +29,7 @@ const icons = {
   imageadd: { icon: 'tg-image-plus', color: 'green' },
   imagedel: { icon: 'tg-image-minus', color: 'red' },
   map: { icon: 'map-location-dot', color: 'green' },
+  local: { icon: 'language', color: 'green' },
   qol: { icon: 'hand-holding-heart', color: 'green' },
   refactor: { icon: 'tools', color: 'green' },
   rscadd: { icon: 'check-circle', color: 'green' },

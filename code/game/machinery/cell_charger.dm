@@ -64,7 +64,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(stat & BROKEN)
 			to_chat(user, span_warning("[src] is broken!"))

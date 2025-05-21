@@ -309,29 +309,29 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		var/msg = "*--------* <br>"
 
 		if(origin_tech)
-			msg += "<span class='notice'>Testing potentials:</span><br>"
+			msg += span_notice("Testing potentials:<br>")
 			var/list/techlvls = params2list(origin_tech)
 			for(var/T in techlvls) //This needs to use the better names.
 				msg += "Tech: [CallTechName(T)] | Magnitude: [techlvls[T]] <br>"
 		else
-			msg += "<span class='danger'>No tech origins detected.</span><br>"
+			msg += span_danger("No tech origins detected.<br>")
 
 
 		if(length(materials))
-			msg += "<span class='notice'>Extractable materials:<br>"
+			msg += span_notice("Extractable materials:<br>")
 			for(var/mat in materials)
 				msg += "[CallMaterialName(mat)]<br>" //Capitize first word, remove the "$"
 		else
-			msg += "<span class='danger'>No extractable materials detected.</span><br>"
+			msg += span_danger("No extractable materials detected.<br>")
 		msg += "*--------*"
 		. += msg
 
 	if(isclocker(user) && enchant_type)
 		if(enchant_type == CASTING_SPELL)
-			. += "<span class='notice'>The last spell hasn't expired yet!</span><br>"
+			. += span_notice("The last spell hasn't expired yet!<br>")
 		for(var/datum/spell_enchant/S in enchants)
 			if(S.enchantment == enchant_type)
-				. += "<span class='notice'>It has a sealed spell \"[S.name]\" inside.</span><br>"
+				. += span_notice("It has a sealed spell \"[S.name]\" inside.<br>")
 				break
 
 
@@ -979,13 +979,13 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/wash(mob/user, atom/source)
 	if(item_flags & ABSTRACT) //Abstract items like grabs won't wash. No-drop items will though because it's still technically an item in your hand.
 		return
-	to_chat(user, "<span class='notice'>You start washing [src]...</span>")
+	to_chat(user, span_notice("You start washing [src]..."))
 	if(!do_after(user, 4 SECONDS, source))
 		return
 	clean_blood()
 	acid_level = 0
-	user.visible_message("<span class='notice'>[user] washes [src] using [source].</span>", \
-						"<span class='notice'>You wash [src] using [source].</span>")
+	user.visible_message(span_notice("[user] washes [src] using [source]."), \
+						span_notice("You wash [src] using [source]."))
 	return TRUE
 
 
