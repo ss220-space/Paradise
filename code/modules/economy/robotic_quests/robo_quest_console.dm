@@ -167,8 +167,7 @@
 					category += "_[cat]"
 				else
 					category = cat
-		var/obj/mecha/item_path = path
-		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = item_path.icon, "icon_state" = item_path.icon_state, "path" = path, "emagOnly" = item.emag_only)
+		var/newitem = list("name" = item.name, "desc" = item.desc, "cost" = item.cost, "icon" = item.icon_file, "icon_state" = item.icon_file, "path" = path, "emagOnly" = item.emag_only)
 		newshop[category] += list(newitem)
 		qdel(item)
 

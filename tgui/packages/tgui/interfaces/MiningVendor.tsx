@@ -24,6 +24,9 @@ const sortTypes = {
 
 export const MiningVendor = (_properties) => {
   const [gridLayout, setGridLayout] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [sortType, setSortType] = useState('Alphabetical');
+  const [sortOrder, setSortOrder] = useState(false);
   return (
     <Window width={400} height={525}>
       <Window.Content>
@@ -32,8 +35,18 @@ export const MiningVendor = (_properties) => {
           <MiningVendorSearch
             gridLayout={gridLayout}
             setGridLayout={setGridLayout}
+            sortOrder={sortOrder}
+            sortType={sortType}
+            setSortOrder={setSortOrder}
+            setSearchText={setSearchText}
+            setSortType={setSortType}
           />
-          <MiningVendorItems gridLayout={gridLayout} />
+          <MiningVendorItems
+            gridLayout={gridLayout}
+            sortOrder={sortOrder}
+            searchText={searchText}
+            sortType={sortType}
+          />
         </Stack>
       </Window.Content>
     </Window>
@@ -100,16 +113,16 @@ const MiningVendorUser = (_properties) => {
 
 type MiningVendorItemsProps = {
   gridLayout?: boolean;
-};
+} & SortOrderProps &
+  SearchTextProps &
+  SortTypeProps;
 
 const MiningVendorItems = (properties: MiningVendorItemsProps) => {
   const { data } = useBackend<MiningVendorData>();
   const { has_id, id, items } = data;
   const { gridLayout } = properties;
   // Search thingies
-  const [searchText, _setSearchText] = useState('');
-  const [sortOrder, _setSortOrder] = useState('Alphabetical');
-  const [descending, _setDescending] = useState(false);
+  const { searchText, sortOrder, sortType } = properties;
   const searcher = createSearch<[string, Item]>(searchText, (item) => {
     return item[0];
   });
@@ -122,11 +135,11 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
         kv2[1].affordable = has_id && id.points >= kv2[1].price;
         return kv2[1];
       })
-      .sort(sortTypes[sortOrder]);
+      .sort(sortTypes[sortType]);
     if (items_in_cat.length === 0) {
       return;
     }
-    if (descending) {
+    if (sortOrder) {
       items_in_cat = items_in_cat.reverse();
     }
 
@@ -156,13 +169,14 @@ const MiningVendorItems = (properties: MiningVendorItemsProps) => {
 type MiningVendorSearchProps = {
   gridLayout: boolean;
   setGridLayout: React.Dispatch<React.SetStateAction<boolean>>;
-};
+} & SortOrderProps &
+  SortTypeProps &
+  SearchTextProps;
 
 const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
   const { gridLayout, setGridLayout } = properties;
-  const [_searchText, setSearchText] = useState('');
-  const [_sortOrder, setSortOrder] = useState('');
-  const [descending, setDescending] = useState(false);
+  const { setSearchText, setSortOrder, setSortType, sortOrder, sortType } =
+    properties;
   return (
     <Box>
       <Stack fill>
@@ -185,19 +199,19 @@ const MiningVendorSearch = (properties: MiningVendorSearchProps) => {
         </Stack.Item>
         <Stack.Item basis="30%">
           <Dropdown
-            selected="Alphabetical"
+            selected={sortType}
             options={Object.keys(sortTypes)}
             width="100%"
-            onSelected={(v) => setSortOrder(v)}
+            onSelected={(v) => setSortType(v)}
           />
         </Stack.Item>
         <Stack.Item>
           <Button
-            icon={descending ? 'arrow-down' : 'arrow-up'}
+            icon={sortOrder ? 'arrow-down' : 'arrow-up'}
             height={1.75}
-            tooltip={descending ? 'Descending order' : 'Ascending order'}
+            tooltip={sortOrder ? 'Descending order' : 'Ascending order'}
             tooltipPosition="bottom-start"
-            onClick={() => setDescending(!descending)}
+            onClick={() => setSortOrder(!sortOrder)}
           />
         </Stack.Item>
       </Stack>

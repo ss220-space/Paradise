@@ -348,7 +348,7 @@ const CrewMonitorMapView = (_properties) => {
           setZoom(zoom);
           act('set_zoom', { zoom });
         }}
-        onOffsetChange={(e, state) =>
+        onOffsetChangeEnded={(e, state) =>
           act('set_offset', {
             offset_x: state.x,
             offset_y: state.y,

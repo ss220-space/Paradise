@@ -1,4 +1,4 @@
-import { type KeyEvent, globalEvents } from './events';
+import { globalEvents, type KeyEvent } from './events';
 import * as keycodes from './keycodes';
 
 // BYOND macros, in `key: command` format.
@@ -81,11 +81,6 @@ const handlePassthrough = (key: KeyEvent) => {
   ) {
     return;
   }
-  if (keyString === 'F5') {
-    // Hacky prevention of F5 reloading
-    key.event.preventDefault();
-    key.event.returnValue = false;
-  }
   const byondKeyCode = keyCodeToByond(key.code);
   if (!byondKeyCode) {
     return;
@@ -98,13 +93,19 @@ const handlePassthrough = (key: KeyEvent) => {
   // KeyDown
   if (key.isDown() && !keyState[byondKeyCode]) {
     keyState[byondKeyCode] = true;
-    const command = `${globalThis.ByondKeyDown} "${byondKeyCode}"`;
+    const command = keyPassthroughConfig.verbParamsFn(
+      keyPassthroughConfig.keyDownVerb,
+      byondKeyCode
+    );
     return Byond.command(command);
   }
   // KeyUp
   if (key.isUp() && keyState[byondKeyCode]) {
     keyState[byondKeyCode] = false;
-    const command = `${globalThis.ByondKeyUp} "${byondKeyCode}"`;
+    const command = keyPassthroughConfig.verbParamsFn(
+      keyPassthroughConfig.keyUpVerb,
+      byondKeyCode
+    );
     return Byond.command(command);
   }
 };
@@ -131,7 +132,12 @@ export const releaseHeldKeys = () => {
   for (const byondKeyCode in keyState) {
     if (keyState[byondKeyCode]) {
       keyState[byondKeyCode] = false;
-      Byond.command(`${globalThis.ByondKeyUp} "${byondKeyCode}"`);
+      Byond.command(
+        keyPassthroughConfig.verbParamsFn(
+          keyPassthroughConfig.keyUpVerb,
+          byondKeyCode
+        )
+      );
     }
   }
 };
@@ -141,12 +147,22 @@ type ByondSkinMacro = {
   name: string;
 };
 
-export const setupHotKeys = () => {
-  if (!globalThis.ByondKeyUp) {
-    globalThis.ByondKeyUp = 'KeyUp';
-    globalThis.ByondKeyDown = 'KeyDown';
-  }
+let keyPassthroughConfig: KeyPassthroughConfig = {
+  keyDownVerb: 'KeyDown',
+  keyUpVerb: 'KeyUp',
+  verbParamsFn: (verb, keyCode) => `${verb} "${keyCode}"`,
+};
 
+export type KeyPassthroughConfig = {
+  keyUpVerb: string;
+  keyDownVerb: string;
+  verbParamsFn: (verb: string, keyCode: string) => string;
+};
+
+export const setupHotKeys = (config?: KeyPassthroughConfig) => {
+  if (config) {
+    keyPassthroughConfig = config;
+  }
   // Read macros
   Byond.winget('default.*').then((data: Record<string, string>) => {
     // Group each macro by ref

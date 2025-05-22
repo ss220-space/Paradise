@@ -1,5 +1,5 @@
 import { sortBy } from 'common/collections';
-import { ReactElement, ReactNode, useState } from 'react';
+import { ReactNode, useState } from 'react';
 import {
   Box,
   Button,
@@ -75,7 +75,7 @@ export const AccessList = (props: AccessListProps) => {
     let oneAccess = false;
     let oneInaccess = false;
     for (let element of accesses) {
-      if (selectedList.includes(element.ref)) {
+      if (selectedList?.includes(element.ref)) {
         oneAccess = true;
       } else {
         oneInaccess = true;
@@ -100,12 +100,7 @@ export const AccessList = (props: AccessListProps) => {
           <Button icon="check-double" color="good" onClick={() => grantAll()}>
             Select All
           </Button>
-          <Button
-            icon="undo"
-            content="Deselect All"
-            color="bad"
-            onClick={() => denyAll()}
-          >
+          <Button icon="undo" color="bad" onClick={() => denyAll()}>
             Deselect All
           </Button>
           {sectionButtons}
@@ -173,11 +168,11 @@ export const AccessList = (props: AccessListProps) => {
               fluid
               key={entry.desc}
               disabled={
-                grantableList.length > 0 &&
+                grantableList?.length > 0 &&
                 !grantableList.includes(entry.ref) &&
-                !selectedList.includes(entry.ref)
+                !selectedList?.includes(entry.ref)
               }
-              checked={selectedList.includes(entry.ref)}
+              checked={selectedList?.includes(entry.ref)}
               onClick={() => accessMod(entry.ref)}
             >
               {entry.desc}

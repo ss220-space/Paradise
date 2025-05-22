@@ -9,22 +9,33 @@ import {
   LabeledList,
   NumberInput,
   Section,
+  Tabs,
 } from '../components';
 import { Window } from '../layouts';
 import { SectionProps } from '../components/Section';
+import { useState } from 'react';
 
 const formatPoints = (amt: number) => amt.toLocaleString('en-US') + ' pts';
 
 export const OreRedemption = (properties) => {
+  const [tabIndex, setTabIndex] = useState(0);
   return (
-    <Window width={490} height={750}>
+    <Window width={490} height={700}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
             <IdDisk height="100%" />
           </Stack.Item>
-          <Sheet />
-          <Alloy />
+          <Tabs>
+            <Tabs.Tab selected={tabIndex === 0} onClick={() => setTabIndex(0)}>
+              Sheets
+            </Tabs.Tab>
+            <Tabs.Tab selected={tabIndex === 1} onClick={() => setTabIndex(1)}>
+              Alloys
+            </Tabs.Tab>
+          </Tabs>
+          {tabIndex === 0 && <Sheet mt={-2} />}
+          {tabIndex === 1 && <Alloy mt={-2} />}
         </Stack>
       </Window.Content>
     </Window>

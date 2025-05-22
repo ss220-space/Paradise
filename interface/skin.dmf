@@ -322,7 +322,7 @@ window "infobuttons"
 		background-color = none
 		saved-params = "is-checked"
 		text = "Свернуть"
-		command = ".winset \"info_button_child.right=;\""
+		command = ".winset \"info.left=;\""
 		group = "rpanemode"
 		button-type = pushbox
 
@@ -335,7 +335,7 @@ window "infobuttons"
 		background-color = none
 		saved-params = "is-checked"
 		text = "Развернуть"
-		command = ".winset \"info_button_child.right=infowindow\""
+		command = ".winset \"info.left=statwindow\""
 		is-checked = true
 		group = "rpanemode"
 		button-type = pushbox

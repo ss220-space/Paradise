@@ -131,7 +131,7 @@
       Byond.call(path, Object.assign({}, params, {
         callback: 'Byond.__callbacks__[' + index + ']',
       }));
-    
+
     return promise;
   };
 
@@ -160,6 +160,7 @@
         return props[propName];
       });
     }
+    promise.then((value)=> console.log(value))
     return promise;
   };
 
@@ -204,7 +205,7 @@
         tgui: 1,
         window_id: Byond.windowId,
       });
-    
+
     Byond.topic(message);
   };
 

@@ -34,6 +34,7 @@ type Props = Partial<{
   offsetX: number;
   offsetY: number;
   onOffsetChange: (e: Event, v: Position) => void;
+  onOffsetChangeEnded: (e: Event, v: Position) => void;
   zoom: number;
   children: ReactNode;
   setZCurrent: (z: number) => void;
@@ -84,7 +85,8 @@ export const NanoMap = (props: Props) => {
     [dragging]
   );
 
-  const handleMouseUp = useCallback(() => {
+  const handleMouseUp = useCallback((e: MouseEvent) => {
+    props?.onOffsetChangeEnded?.(e, position);
     setDragging(false);
   }, []);
 

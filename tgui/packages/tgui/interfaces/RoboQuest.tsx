@@ -109,9 +109,11 @@ export const RoboQuest = (_props: unknown) => {
                 }
               >
                 <Stack>
-                  <Stack.Item basis={60} textAlign="center" align="center">
+                  <Stack.Item basis={120} textAlign="center" align="center">
                     {!!hasTask && (
                       <DmIcon
+                        width="100%"
+                        height="100%"
                         icon={questInfo.icon}
                         icon_state={questInfo.icon_state}
                       />
@@ -121,33 +123,22 @@ export const RoboQuest = (_props: unknown) => {
                     <Divider vertical />
                   </Stack.Item>
                   <Stack.Item basis={42}>
-                    <Stack>
-                      <Stack.Item>
-                        {!!hasTask &&
-                          questInfo.modules.map(
-                            (i) =>
-                              i.id < 4 && (
+                    <Stack vertical>
+                      {!!hasTask &&
+                        questInfo.modules.map(
+                          (i) =>
+                            i.id < 4 && (
+                              <Stack.Item key={i.id}>
                                 <DmIcon
                                   key={i.id}
+                                  width="100%"
+                                  height="100%"
                                   icon={i.icon}
                                   icon_state={i.icon_state}
                                 />
-                              )
-                          )}
-                      </Stack.Item>
-                      <Stack.Item>
-                        {!!hasTask &&
-                          questInfo.modules.map(
-                            (i) =>
-                              i.id > 3 && (
-                                <DmIcon
-                                  key={i.id}
-                                  icon={i.icon}
-                                  icon_state={i.icon_state}
-                                />
-                              )
-                          )}
-                      </Stack.Item>
+                              </Stack.Item>
+                            )
+                        )}
                     </Stack>
                   </Stack.Item>
                 </Stack>
@@ -175,7 +166,7 @@ export const RoboQuest = (_props: unknown) => {
                     Магазин чертежей
                     <Box>
                       Очки: <b style={{ color: 'brown' }}>{points.working}</b>|
-                      <b style={{ color: 'lightblue' }}>{points.medical}</b>|
+                      <b style={{ color: 'teal' }}>{points.medical}</b>|
                       <b style={{ color: 'red' }}>{points.security}</b>
                     </Box>
                   </Box>
@@ -195,16 +186,14 @@ export const RoboQuest = (_props: unknown) => {
                           color={cat_to_color[cat]}
                           dmIcon={i.icon}
                           dmIconState={i.icon_state}
+                          dmFallback={i.name}
+                          imageSize={90}
                           tooltip={
-                            <Box nowrap inline>
-                              {i.name}{' '}
-                              <b style={{ color: 'brown' }}>{i.cost.working}</b>
-                              |
-                              <b style={{ color: 'lightblue' }}>
-                                {i.cost.medical}
-                              </b>
-                              |<b style={{ color: 'red' }}>{i.cost.security}</b>
-                            </Box>
+                            <>
+                              <b>{i.name}</b>
+                              <br />
+                              {i.desc}
+                            </>
                           }
                           onClick={() =>
                             act('buyItem', {
@@ -212,7 +201,21 @@ export const RoboQuest = (_props: unknown) => {
                             })
                           }
                         >
-                          {i.desc}
+                          <Box
+                            inline
+                            backgroundColor="rgb(42.21, 3.35, 61.64)"
+                            style={{
+                              borderRadius: '10px',
+                            }}
+                            p={0.5}
+                            px={3}
+                          >
+                            <b style={{ color: 'brown' }}>{i.cost.working}</b>|
+                            <b style={{ color: 'lightblue' }}>
+                              {i.cost.medical}
+                            </b>
+                            |<b style={{ color: 'red' }}>{i.cost.security}</b>
+                          </Box>
                         </ImageButton>
                       ))}
                   </Fragment>
@@ -412,19 +415,23 @@ export const RoboQuest = (_props: unknown) => {
                         color="purple"
                         dmIcon={i.icon}
                         dmIconState={i.icon_state}
+                        imageSize={90}
+                        dmFallback={i.name}
                         tooltip={
-                          <Box nowrap inline>
-                            {i.name}{' '}
-                            <b style={{ color: 'purple' }}>{i.cost.robo}</b>
-                          </Box>
+                          <>
+                            <b>{i.name}</b>
+                            <br />
+                            {i.desc}
+                          </>
                         }
-                        buttons={i.desc}
                         onClick={() =>
                           act('buyItem', {
                             item: i.path,
                           })
                         }
-                      />
+                      >
+                        {i.cost.robo}
+                      </ImageButton>
                     )
                 )}
               </Section>

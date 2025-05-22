@@ -5868,12 +5868,32 @@ __metadata:
   languageName: node
   linkType: hard
 
-"marked@npm:^4.3.0":
-  version: 4.3.0
-  resolution: "marked@npm:4.3.0"
+"marked-base-url@npm:^1.1.6":
+  version: 1.1.6
+  resolution: "marked-base-url@npm:1.1.6"
+  peerDependencies:
+    marked: ">= 4 < 16"
+  checksum: 10/226fa3aa48b0be33c99acd2b21261e491fd641911942be613d505fa531cb2e0044179d80ce73e55392f33901ca400ad6698d504058b6951c3a9284707d8b6a4d
+  languageName: node
+  linkType: hard
+
+"marked-smartypants@npm:^1.1.9":
+  version: 1.1.9
+  resolution: "marked-smartypants@npm:1.1.9"
+  dependencies:
+    smartypants: "npm:^0.2.2"
+  peerDependencies:
+    marked: ">=4 <16"
+  checksum: 10/a53ccf745cdc626af7ed217d143f722a0512645547f825f0c968e1d67c3bed89a8806b72a516239eea9ac50b9078f269fe1400385e1ef8a929ca05370f1959d0
+  languageName: node
+  linkType: hard
+
+"marked@npm:^15.0.11":
+  version: 15.0.12
+  resolution: "marked@npm:15.0.12"
   bin:
     marked: bin/marked.js
-  checksum: 10/c830bb4cb3705b754ca342b656e8a582d7428706b2678c898b856f6030c134ce2d1e19136efa3e6a1841f7330efbd24963d6bdeddc57d2938e906250f99895d0
+  checksum: 10/deeb619405c0c46af00c99b18b3365450abeb309104b24e3658f46142344f6b7c4117608c3b5834084d8738e92f81240c19f596e6ee369260f96e52b3457eaee
   languageName: node
   linkType: hard
 
@@ -7390,6 +7410,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"smartypants@npm:^0.2.2":
+  version: 0.2.2
+  resolution: "smartypants@npm:0.2.2"
+  bin:
+    smartypants: bin/smartypants.js
+    smartypantsu: bin/smartypantsu.js
+  checksum: 10/e73ff0493fab65f8302d471cff01c1287d3d83ccbdd3d972c2bc383e2e65a51f6862429c0ce3efbafb6bad7cf4bb5648711567cb11465251aa273faee22626c0
+  languageName: node
+  linkType: hard
+
 "socks-proxy-agent@npm:^8.0.3":
   version: 8.0.5
   resolution: "socks-proxy-agent@npm:8.0.5"
@@ -7880,7 +7910,9 @@ __metadata:
     highlight.js: "npm:^11.10.0"
     jest: "npm:^29.7.0"
     js-yaml: "npm:^4.1.0"
-    marked: "npm:^4.3.0"
+    marked: "npm:^15.0.11"
+    marked-base-url: "npm:^1.1.6"
+    marked-smartypants: "npm:^1.1.9"
     prop-types: "npm:^15.8.1"
     react: "npm:^18.3.1"
     react-dom: "npm:^18.3.1"

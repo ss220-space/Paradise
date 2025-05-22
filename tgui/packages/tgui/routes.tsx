@@ -59,6 +59,7 @@ export const getRoutedComponent = () => {
   if (suspended) {
     return SuspendedWindow;
   }
+
   if (config?.refreshing) {
     return RefreshingWindow;
   }

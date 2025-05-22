@@ -91,3 +91,8 @@ type TabIndexProps = Partial<{
   tabIndex: number;
   setTabIndex: React.Dispatch<React.SetStateAction<number>>;
 }>;
+
+type SortTypeProps = Partial<{
+  sortType: string;
+  setSortType: React.Dispatch<React.SetStateAction<string>>;
+}>;

@@ -67,7 +67,7 @@ export const TguiSay = () => {
       }
     } else {
       const nextMessage = chat.getNewerMessage() || chat.getTemp();
-      UpdateInput(nextMessage);
+      if (nextMessage) UpdateInput(nextMessage);
     }
   };
   const handleBackspaceDelete = (): void => {
@@ -209,6 +209,7 @@ export const TguiSay = () => {
 
   const UpdateInput = ({ value, prefix, channel }: HistoryRecord) => {
     const iterator = channelIterator.current;
+    channel = channel || 'Say';
     if (prefix && prefix !== currentPrefix) {
       UpdatePrefix(prefix);
     } else if (channel) {
