@@ -175,5 +175,10 @@
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
 
 // Font size spans
-#define span_fontsize3(str) ("<span style='font-size: 3;'>" + str + "</span>")
-#define span_fontsize4(str) ("<span style='font-size: 4;'>" + str + "</span>")
+#define span_fontsize1(str) ("<span style='font-size: 10px;'>" + str + "</span>")
+#define span_fontsize2(str) ("<span style='font-size: 13px;'>" + str + "</span>")
+#define span_fontsize3(str) ("<span style='font-size: 16px;'>" + str + "</span>")
+#define span_fontsize4(str) ("<span style='font-size: 18px;'>" + str + "</span>")
+#define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
+#define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
+#define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
