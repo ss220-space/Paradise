@@ -55903,8 +55903,11 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
-/obj/item/clothing/suit/armor/laserproof,
 /obj/item/gun/energy/ionrifle,
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},

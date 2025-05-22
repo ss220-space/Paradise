@@ -316,7 +316,7 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 		/obj/item/clothing/shoes/reflector,
 		/obj/item/clothing/head/helmet/reflector,
 	)
-	required_tech = list("combat" = 7, "materials" = 7) //какие 8
+	required_tech = list("combat" = 8, "materials" = 7) 
 
 /datum/supply_packs/emergency/highrisk/capt_jet
 	name = "Deluxe Jetpack Crate"

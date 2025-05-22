@@ -60712,7 +60712,6 @@
 /area/hallway/primary/starboard/south)
 "klu" = (
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/item/clothing/suit/armor/laserproof,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -60726,6 +60725,10 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/head/helmet/reflector,
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/suit/armor/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
 	},
