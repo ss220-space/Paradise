@@ -21,14 +21,23 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 ))
 
 /obj/item/radio
-	icon = 'icons/obj/radio.dmi'
 	name = "shortwave radio"
-	desc = "A basic handheld radio that can communicate with local telecommunication networks."
-	dog_fashion = /datum/dog_fashion/back
-	suffix = "\[3\]"
+	desc = "Базовая портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями."
+	ru_names = list(
+		NOMINATIVE = "коротковолновая рация",
+		GENITIVE = "коротковолновой рации",
+		DATIVE = "коротковолновой рации",
+		ACCUSATIVE = "коротковолновую рацию",
+		INSTRUMENTAL = "коротковолновой рацией",
+		PREPOSITIONAL = "коротковолновой рации"
+	)
+	gender = FEMALE
+	icon = 'icons/obj/radio.dmi'
 	icon_state = "walkietalkie"
 	item_state = "walkietalkie"
 	belt_icon = "radio"
+	dog_fashion = /datum/dog_fashion/back
+	suffix = "\[3\]"
 	/// boolean for radio enabled or not
 	var/on = TRUE
 	var/last_transmission
@@ -122,7 +131,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 		if(ismob(loc))
 			var/mob/M = loc
-			M.show_message(span_danger("Your [src] explodes!"), 1)
+			M.show_message(span_danger("Ваша [declent_ru(NOMINATIVE)] взрывается!"), 1)
 
 		if(T)
 			T.hotspot_expose(700,125)
@@ -147,7 +156,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Radio", name)
+		ui = new(user, src, "Radio", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/item/radio/ui_data(mob/user)
@@ -269,7 +278,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/proc/ToggleReception()
 	listening = !listening && !(wires.is_cut(WIRE_RADIO_RECEIVER) || wires.is_cut(WIRE_RADIO_SIGNAL))
 
-/obj/item/radio/proc/autosay(message, from, channel, role = "Unknown") //BS12 EDIT
+/obj/item/radio/proc/autosay(message, from, channel, role = "Неизвестный") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len)
 		if(channel == "department")
@@ -302,9 +311,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Automated Announcement"
-	tcm.sender_rank = "Automated Announcement"
-	tcm.vname = "synthesized voice"
+	tcm.sender_job = "Автоматическое Оповещение"
+	tcm.sender_rank = "Автоматическое Оповещение"
+	tcm.vname = "синтезированный голос"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
 	if(loc && loc.z)
@@ -322,7 +331,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/sec
 	name = "security shortwave radio"
-	desc = "A basic handheld radio that can communicate with local telecommunication networks. This model is painted in black colors."
+	desc = "Базовая портативная рация, способная взаимодействовать с локальными телекоммуникационными сетями. Специальная модель для сотрудников службы безопасности."
+	ru_names = list(
+		NOMINATIVE = "коротковолновая рация СБ",
+		GENITIVE = "коротковолновой рации СБ",
+		DATIVE = "коротковолновой рации СБ",
+		ACCUSATIVE = "коротковолновую рацию СБ",
+		INSTRUMENTAL = "коротковолновой рацией СБ",
+		PREPOSITIONAL = "коротковолновой рации СБ"
+	)
 	icon_state = "walkietalkie_sec"
 	item_state = "walkietalkie_sec"
 	frequency = SEC_FREQ
@@ -366,7 +383,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	// If we were to send to a channel we don't have, drop it.
 	return RADIO_CONNECTION_FAIL
 
-/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "says")
+/obj/item/radio/talk_into(mob/living/M as mob, list/message_pieces, channel, verbage = "говор%(ит,ят)%")
 	if(!on)
 		return FALSE // the device has to be on
 	//  Fix for permacell radios, but kinda eh about actually fixing them.
@@ -430,8 +447,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- Carbon Nonhuman ---
 	else if(iscarbon(M)) // Nonhuman carbon mob
-		jobname = "No id"
-		rank = "No id"
+		jobname = "Без ID"
+		rank = "Без ID"
 
 	// --- AI ---
 	else if(isAI(M))
@@ -453,12 +470,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	// --- Cogscarab ---
 	else if(iscogscarab(M))
-		jobname = "Unknown"
+		jobname = "Неизвестный"
 
 	// --- Unidentifiable mob ---
 	else
-		jobname = "Unknown"
-		rank = "Unknown"
+		jobname = "Неизвестный"
+		rank = "Неизвестный"
 
 	// --- Modifications to the mob's identity ---
 
@@ -471,8 +488,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 	if(syndiekey && syndiekey.change_voice && connection.frequency == SYND_FREQ)
 		displayname = syndiekey.fake_name
-		jobname = "Unknown"
-		rank = "Unknown"
+		jobname = "Неизвестный"
+		rank = "Неизвестный"
 		voicemask = TRUE
 
 	// Copy the message pieces so we can safely edit comms line without affecting the actual line
@@ -522,7 +539,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	return FALSE
 
 
-/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "says")
+/obj/item/radio/hear_talk(mob/M as mob, list/message_pieces, var/verb = "говор%(ит,ят)%")
 	if(broadcasting)
 		if(get_dist(src, M) <= canhear_range)
 			talk_into(M, message_pieces, null, verb)
@@ -608,14 +625,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
-			. += "<span class='notice'>\the [src] can be attached and modified!</span>"
+			. += span_notice("Может быть прикреплено или модифицировано!")
 		else
-			. += "<span class='notice'>\the [src] can not be modified or attached!</span>"
-		. += "<span class='info'>Ctrl-Shift-click on the [name] to toggle speaker.<br/>Alt-click on the [name] to toggle broadcasting.</span>"
+			. += span_notice("Не может быть прикреплено или модифицировано!")
+		. += span_info("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
 
 /obj/item/radio/click_alt(mob/user)
 	broadcasting = !broadcasting
-	to_chat(user, "<span class='notice'>You toggle broadcasting [broadcasting ? "on" : "off"].</span>")
+	balloon_alert(user, "микрофон [broadcasting ? "включён" : "выключен"]")
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/radio/CtrlShiftClick(mob/user) //weird checks
@@ -624,10 +641,10 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	if(!iscarbon(usr) && !isrobot(usr))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		balloon_alert(user, "невозможно!")
 		return
 	listening = !listening
-	to_chat(user, "<span class='notice'>You toggle speaker [listening ? "on" : "off"].</span>")
+	balloon_alert(user, "динамик [broadcasting ? "включён" : "выключен"]")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -637,9 +654,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	b_stat = !b_stat
 	if(!istype(src, /obj/item/radio/beacon))
 		if(b_stat)
-			user.show_message("<span class='notice'>The radio can now be attached and modified!</span>")
+			balloon_alert(user, "модификация возможна!")
 		else
-			user.show_message("<span class='notice'>The radio can no longer be modified or attached!</span>")
+			balloon_alert(user, "модификация невозможна!")
 		updateDialog()
 
 /obj/item/radio/wirecutter_act(mob/user, obj/item/I)
@@ -660,7 +677,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	addtimer(CALLBACK(src, PROC_REF(enable_radio)), rand(100, 200))
 
 	if(listening)
-		visible_message("<span class='warning'>[src] buzzes violently!</span>")
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] громко жужжит!"))
 
 	broadcasting = 0
 	listening = 0
