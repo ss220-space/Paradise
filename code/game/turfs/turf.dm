@@ -712,6 +712,9 @@
 
 /// Precipitates a movable (plus whatever buckled to it) to lower z levels if possible and then calls zImpact()
 /turf/proc/zFall(atom/movable/falling, levels = 1, force = FALSE, falling_from_move = FALSE)
+	if(no_gravity())
+		return FALSE
+
 	// Yes, you can fall up.
 	var/fall_dir = get_gravity() > 0 ? DOWN : UP
 

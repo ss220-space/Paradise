@@ -675,6 +675,11 @@
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override))
 		. = FALSE
 
+	var/area/area = get_area(src)
+	if(!no_gravity() && get_gravity() < 0 && area.outdoors && !iswallturf(src)) // If no ceiling above us with antigravity, fall up in space.
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, fall_up_in_space))
+		return FALSE
+
 	if(currently_z_moving)
 		if(. && loc == newloc)
 			var/turf/pitfall = get_turf(src)
@@ -1489,3 +1494,54 @@
 	else
 		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
 
+
+/atom/movable/proc/fall_up_in_space()
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
+					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
+	if(ishuman(src))
+		var/mob/living/carbon/human/dropped_human = src
+		if(dropped_human.stat != DEAD && prob(25))
+			playsound(dropped_human, 'sound/effects/wilhelm_scream.ogg', 150)
+
+	if(isliving(src))
+		var/mob/living/M = src
+		M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
+		M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
+	else
+		set_anchored(TRUE)
+		ADD_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+
+	var/obj/effect/extraction_holder/holder_obj = new(loc)
+	holder_obj.appearance = appearance
+	forceMove(holder_obj)
+	sleep(4)
+	animate(holder_obj, pixel_z = 1000, time = 30)
+	sleep(30)
+	if(ishuman(src))
+		var/mob/living/carbon/human/L = src
+		L.SetParalysis(0)
+		L.SetDrowsy(0)
+		L.SetSleeping(0)
+
+	var/list/datum/space_level/reachable_levels = levels_by_trait(REACHABLE)
+	var/trys = 1000
+	var/turf/target_space_turf
+	while(trys > 0) {
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = pick(reachable_levels)
+		target_space_turf = locate(x, y, z)
+		if(isspaceturf(target_space_turf))
+			break
+
+		trys--
+	}
+
+	holder_obj.forceMove(pick(target_space_turf))
+	holder_obj.pixel_z = -1000
+	animate(holder_obj, pixel_z = 0, time = 30)
+	sleep(30)
+	set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+	forceMove(holder_obj.loc)
+	qdel(holder_obj)

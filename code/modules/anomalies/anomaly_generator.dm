@@ -163,8 +163,7 @@
 			selected_type = type
 
 		if("choose_tier")
-			var/tier = params["tier"]
-			selected_tier = tier
+			selected_tier = "[params["tier"]]"
 
 		if("generate")
 			generate()
@@ -200,7 +199,7 @@
 				if(possible_beacon.syndicate || possible_beacon.z != src.z)
 					continue
 
-				options["[T.loc.name]"] = beacon
+				options["[T.loc.name]"] = possible_beacon
 
 			var/obj/item/radio/beacon/choice = options[tgui_input_list(ui.user, "Выберите маячок для создания аномалии.", "Выбор маячка", options)]
 			if (choice == null)
@@ -264,7 +263,7 @@
 /obj/machinery/power/anomaly_generator/proc/get_req_energy()
 	var/mult
 	if(selected_type == ANOMALY_TYPE_RANDOM)
-		mult = selected_tier == 1 ? 0.3 : 3
+		mult = selected_tier == "1" ? 0.3 : 3
 	else
 		mult = 1 + GLOB.created_anomalies[selected_type]
 
