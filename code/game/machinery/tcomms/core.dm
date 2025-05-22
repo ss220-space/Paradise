@@ -324,7 +324,7 @@
 			var/datum/browser/popup = new(usr, "save_nttc", "NTTC")
 			popup.set_content(nttc.nttc_serialize())
 			popup.open(FALSE)
-			
+
 
 		// Set network ID
 		if("network_id")
@@ -338,7 +338,7 @@
 		if("unlink")
 			var/obj/machinery/tcomms/relay/R = locate(params["addr"])
 			if(istype(R, /obj/machinery/tcomms/relay))
-				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: \ref[R]", "Отвязка реле", list("Да", "Нет"))
+				var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле?\nID: [R.network_id]\nADDR: \ref[R].", "Отвязка реле", list("Да", "Нет"))
 				if(confirm == "Да")
 					log_action(usr, "has unlinked tcomms relay with ID [R.network_id] from tcomms core with ID [network_id]", TRUE)
 					R.Reset()

@@ -211,7 +211,7 @@
 		if("unlink")
 			if(!linked)
 				return
-			var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле? Для обратной привязки вам потребуется ввести пароль", "Отвязка реле", list("Да", "Нет"))
+			var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле? Для обратной привязки вам потребуется ввести пароль.", "Отвязка реле", list("Да", "Нет"))
 			if(confirm == "Да")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()
