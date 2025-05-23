@@ -265,10 +265,8 @@
 				available_channels.Add(":n")
 			if(MED_FREQ_NAME)
 				available_channels.Add(":m")
-			if("Шахта")
-				available_channels.Add(":d")
 			if(SUP_FREQ_NAME)
-				available_channels.Add(":q")
+				available_channels.Add(":u")
 
 	if(ears.translate_binary)
 		available_channels.Add(":b")
