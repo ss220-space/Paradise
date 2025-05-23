@@ -742,4 +742,8 @@ EXTRA_SPACE_RUIN_LEVELS_MIN 4
 ## Maximum number of space ruins levels to generate
 EXTRA_SPACE_RUIN_LEVELS_MAX 8
 
+## Tgui payloads larger than the 2kb limit for BYOND topic requests are split into roughly 1kb chunks and sent in sequence.
+## This config option limits the maximum chunk count for which the server will accept a payload, default is 32
+TGUI_MAX_CHUNK_COUNT 32
+
 ### INITIALIZATION SETTINGS END ###

@@ -341,6 +341,7 @@ function draw_status() {
 	for (var i = 0; i < status_tab_parts.length; i++) {
 		var part = status_tab_parts[i];
 		var tr = document.createElement('tr');
+		tr.className = 'status-info';
 		var td1 = document.createElement('td');
 		td1.textContent = part[0];
 		var td2 = document.createElement('td');

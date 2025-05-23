@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Box, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-export const VotePanel = (props, context) => {
-  const { act, data } = useBackend(context);
+export const VotePanel = (props) => {
+  const { act, data } = useBackend();
   const {
     remaining,
     question,

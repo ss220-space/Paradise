@@ -467,14 +467,17 @@
 /obj/machinery/disco/process()
 	if(charge < 35)
 		charge += 1
+
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection.song_path)
 
-		for(var/mob/M in range(10,src))
-			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
-				if(!(M in rangers))
-					rangers[M] = TRUE
-					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
+		for(var/mob/mob in range(10, src))
+			if(LAZYIN(rangers, mob) || !HASBIT(mob.client?.prefs.sound, SOUND_DISCO))
+				continue
+
+			rangers[mob] = TRUE
+			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound = song_played, use_reverb = FALSE)
+
 		for(var/mob/mob as anything in rangers)
 			var/mob/living/l_mob = mob
 			if(get_dist(src, mob) > 10)

@@ -82,6 +82,10 @@
 
 /mob/living/simple_animal/MouseDrop(atom/over_object)
 	var/mob/living/carbon/human_to_ask = over_object
+
+	if(!istype(human_to_ask))
+		return ..()
+
 	if(holder_type)
 		var/obj/item/holder = holder_type
 		var/holder_flags = holder.holder_flags
@@ -91,6 +95,7 @@
 
 	if(human_to_ask.incapacitated() || HAS_TRAIT(human_to_ask, TRAIT_HANDS_BLOCKED) || !Adjacent(human_to_ask) || !holder_type)
 		return ..()
+
 	if(usr == src)
 		switch(tgui_alert(human_to_ask, "[src] wants you to pick [p_them()] up. Do it?",,list("Yes","No")))
 			if("Yes")
@@ -368,17 +373,17 @@
 	icon_state = "cock"
 	slot_flags = null
 
-/obj/item/holder/hamster
+/obj/item/holder/wooly_mouse
 	name = "pet"
 	desc = "It's a pet"
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "hamster"
+	icon_state = "wooly_mouse"
 
-/obj/item/holder/hamster_rep
-	name = "Представитель Алексей"
-	desc = "Уважаемый хомяк"
+/obj/item/holder/mouse_rep
+	name = "Господин Мышкин"
+	desc = "Самый уважаемый грызун во вселенной."
 	icon = 'icons/mob/animal.dmi'
-	icon_state = "hamster_rep"
+	icon_state = "mouse_rep"
 
 /obj/item/holder/fennec
 	name = "fennec"

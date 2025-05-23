@@ -97,6 +97,8 @@
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
 
+	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
+	var/face_mouse = FALSE
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -263,6 +265,7 @@
 
 //Handles special effects on teleporting. Overload for some items if you want to do so.
 /atom/movable/proc/on_teleported()
+	SEND_SIGNAL(src, COMSIG_ATOM_TELEPORT_ACT)
 	return
 
 
@@ -481,7 +484,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -614,7 +617,7 @@
 						. = Move(get_step(src, SOUTH), SOUTH)
 
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!. && set_dir_on_move && update_dir)
+				if(!. && set_dir_on_move && !face_mouse)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
@@ -667,7 +670,7 @@
 	move_speed = world.time - l_move_time
 	l_move_time = world.time
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && !face_mouse)
 		setDir(direct)
 
 	// movement failed due to buckled mob(s)
@@ -934,6 +937,18 @@
 				moved_mov.check_pulling(TRUE)
 	return TRUE
 
+/*
+ * Attempts to move using zMove if direction is UP or DOWN, step if not
+ *
+ * Args:
+ * direction: The direction to go
+ * z_move_flags: bitflags used for checks in zMove and can_z_move
+*/
+/atom/movable/proc/try_step_multiz(direction, z_move_flags = ZMOVE_FLIGHT_FLAGS)
+	if(direction == UP || direction == DOWN)
+		return zMove(direction, null, z_move_flags)
+	return step(src, direction)
+
 
 /// Returns a list of movables that should also be affected when src moves through zlevels, and src.
 /atom/movable/proc/get_z_move_affected(z_move_flags)
@@ -981,9 +996,9 @@
 			if(z_move_flags & ZMOVE_FEEDBACK)
 				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
 			return FALSE
-	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || !has_gravity(start)))
+	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || no_gravity(start)))
 		return FALSE
-	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && has_gravity(start))
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && !no_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
 				to_chat(rider, span_notice("[src] is not capable of flight."))
@@ -1049,7 +1064,7 @@
  * * continuous_move - If this check is coming from something in the context of already drifting
  */
 /atom/movable/proc/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	if(has_gravity())
+	if(!no_gravity())
 		return TRUE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
@@ -1164,8 +1179,20 @@
 	SSthrowing.processing[src] = thrown_thing
 	thrown_thing.tick()
 
+	update_icon()
 	return TRUE
 
+/atom/movable/proc/random_throw(range_low = 0, range_high = 5, speed = 4)
+	var/list/turf/targets = list()
+	for(var/turf/T in range(range_high, src))
+		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
+			targets.Add(T)
+
+	if(targets.len == 0)
+		return FALSE
+
+	var/turf/target = pick(targets)
+	return throw_at(target, get_dist(src, target), speed)
 
 //Overlays
 /atom/movable/overlay

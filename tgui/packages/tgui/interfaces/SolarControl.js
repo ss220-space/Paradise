@@ -10,8 +10,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const SolarControl = (props, context) => {
-  const { act, data } = useBackend(context);
+export const SolarControl = (props) => {
+  const { act, data } = useBackend();
   const TRACKER_OFF = 0;
   const TRACKER_TIMED = 1;
   const TRACKER_AUTO = 2;

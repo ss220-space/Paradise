@@ -56,6 +56,8 @@
 #define DENY_UI_BLOCKED (1<<15)
 /// When an item has this it produces no "X has been hit by Y with Z" message in the default /mob/living/proc/send_item_attack_message()
 #define SKIP_ATTACK_MESSAGE (1<<16)
+/// Checks whether the item was upgraded with a speed potion
+#define SPEEDPOTION_APPLIED (1<<17)
 
 
 // Flags for the clothing_flags var on /obj/item/clothing

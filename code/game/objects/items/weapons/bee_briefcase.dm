@@ -35,9 +35,9 @@
 	. = ..()
 	if(loc == user)
 		if(bees_left)
-			. += "<span class='warning'>There are [bees_left] bees still inside in briefcase!</span>"
+			. += span_warning("There are [bees_left] bees still inside in briefcase!")
 		else
-			. += "<span class='warning'>The bees are gone... Colony collapse disorder?</span>"
+			. += span_warning("The bees are gone... Colony collapse disorder?")
 
 
 /obj/item/bee_briefcase/attackby(obj/item/I, mob/user, params)
@@ -81,7 +81,7 @@
 
 /obj/item/bee_briefcase/attack_self(mob/user as mob)
 	if(!bees_left)
-		to_chat(user, "<span class='danger'>The lack of all and any bees at this event has been somewhat of a let-down...</span>")
+		to_chat(user, span_danger("The lack of all and any bees at this event has been somewhat of a let-down..."))
 		return
 	else
 		if(world.time >= next_sound)		//This cooldown doesn't prevent us from releasing bees, just stops the sound

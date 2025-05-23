@@ -41,7 +41,7 @@
 /obj/machinery/computer/Destroy()
 	if(istype(frame))
 		qdel(frame)
-		
+
 	frame = null
 
 	return ..()
@@ -57,6 +57,11 @@
 		set_light_on(FALSE)
 		underlays.Cut()
 		visible_message(span_danger("[src] grows dim, its screen barely readable."))
+
+/obj/machinery/computer/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of windows & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /*
  * Reimp, flash the screen on and off repeatedly.

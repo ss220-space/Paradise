@@ -97,7 +97,7 @@ export class NanoMap extends Component {
   }
 
   render() {
-    const { config } = useBackend(this.context);
+    const { config } = useBackend();
     const { dragging, offsetX, offsetY, zoom = 1 } = this.state;
     const { children } = this.props;
 
@@ -148,7 +148,7 @@ export class NanoMap extends Component {
   }
 }
 
-const NanoMapMarker = (props, context) => {
+const NanoMapMarker = (props) => {
   const {
     x,
     y,
@@ -186,7 +186,7 @@ const NanoMapMarker = (props, context) => {
 
 NanoMap.Marker = NanoMapMarker;
 
-const NanoMapZoomer = (props, context) => {
+const NanoMapZoomer = (props) => {
   return (
     <Box className="NanoMap__zoomer">
       <LabeledList>
