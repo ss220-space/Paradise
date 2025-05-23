@@ -166,9 +166,7 @@
 	return
 
 /obj/structure/alien/resin/door/wax/attack_hand(mob/living/user)
-	if(user.a_intent == INTENT_HARM)
-		return
-	if(!iswryn(user))
+	if(!iswryn(user) || user.a_intent == INTENT_HARM)
 		to_chat(user, span_notice("Вы даже не знаете, что делать с этой массой воска."))
 
 	return try_switch_state(user)

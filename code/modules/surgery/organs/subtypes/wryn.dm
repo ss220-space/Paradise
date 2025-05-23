@@ -61,9 +61,10 @@
 	item_state = "waxsac"
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 	slot = INTERNAL_ORGAN_WAX_GLANDS
-	var/datum/action/innate/honeycomb/honeycomb = new
+	/*var/datum/action/innate/honeycomb/honeycomb = new
 	var/datum/action/innate/honeyfloor/honeyfloor = new
-	var/datum/action/innate/honeydoor/honeydoor = new
+	var/datum/action/innate/honeydoor/honeydoor = new */
+	var/datum/action/innate/build_wax/build_wax = new
 	var/datum/action/innate/toggle_producing/toggle_producing = new
 	var/wax = 25
 	var/producing = FALSE
@@ -79,18 +80,103 @@
 
 /obj/item/organ/internal/wryn/glands/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	honeycomb.Grant(M)
+	/* honeycomb.Grant(M)
 	honeyfloor.Grant(M)
-	honeydoor.Grant(M)
+	honeydoor.Grant(M) */
+	build_wax.Grant(M)
 	toggle_producing.Grant(M)
 
 /obj/item/organ/internal/wryn/glands/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	honeycomb.Remove(M)
+	/* honeycomb.Remove(M)
 	honeyfloor.Remove(M)
-	honeydoor.Remove(M)
+	honeydoor.Remove(M) */
+	build_wax.Remove(M)
 	toggle_producing.Remove(M)
 	. = ..()
 
+/datum/action/innate/build_wax
+	name = "Строительство из воска"
+	desc = "Выделите воск для строительства"
+	button_icon_state = "wax_wall"
+
+/datum/action/innate/build_wax/Activate()
+	var/mob/living/carbon/human/wryn/host = owner
+
+	var/static/list/new_structure = list("Соты" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
+								"Прозрачные соты" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),
+								"Пол из воска" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_floor"),
+								"Дверь из сот" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_door"))
+	var/choosen_type = show_radial_menu(user, user, new_structure, src, radius = 40)
+	if(!choosen_type)
+		return
+	switch(choosen_type)
+		if("Соты")
+			evolution_path = /mob/living/carbon/alien/humanoid/hunter
+		if("Прозрачные соты")
+			evolution_path = /mob/living/carbon/alien/humanoid/sentinel
+		if("Пол из воска")
+			evolution_path = /mob/living/carbon/alien/humanoid/drone
+		if("Дверь из сот")
+			evolution_path = /mob/living/carbon/alien/humanoid/drone
+
+
+	var/list/structure_type = list("Соты" = /obj/structure/wryn/wax/wall,
+							"Прозрачные соты" = /obj/structure/wryn/wax/window,
+							"Пол из воска" = /obj/structure/wryn/floor,
+							"Дверь из сот" = /obj/structure/alien/resin/door/wax)
+
+	var/list/structures = list("Соты" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
+							"Прозрачные соты" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),
+							"Пол из воска" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_floor"),
+							"Дверь из сот" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_door"))
+	var/choice = show_radial_menu(host, host, structures, src, radius = 40)
+	var/picked = structure_type[choice]
+
+	if(!picked)
+		return
+
+	if(locate(/obj/structure/wryn) in get_turf(host))
+		host.balloon_alert(host, "место уже занято!")
+		return
+
+	var/obj/structure/new_structure = new picked(get_turf(user))
+	switch(picked)
+		if("Соты")
+			if(host.getWax() < 50)
+				host.balloon_alert(host, "недостаточно воска!")
+				return
+
+			host.adjustWax(-50)
+			host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё [choice]."))
+			new_structure
+
+		if("Прозрачные соты")
+			if(host.getWax() < 50)
+				host.balloon_alert(host, "недостаточно воска!")
+				return
+
+			host.adjustWax(-50)
+			host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё [choice]."))
+			new /obj/structure/wryn/wax/window(host.loc)
+
+		if("Пол из воска")
+			if(host.getWax() < 25)
+				host.balloon_alert(host, "недостаточно воска!")
+				return
+
+			host.adjustWax(-25)
+			host.visible_message(span_alert("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол!"))
+			new /obj/structure/wryn/floor(host.loc)
+
+		if("Дверь из сот")
+			if(host.getWax() < 75)
+				host.balloon_alert(host, "недостаточно воска!")
+				return
+			host.adjustWax(-75)
+			host.visible_message(span_alert("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь!"))
+			new /obj/structure/alien/resin/door/wax(host.loc)
+
+/*
 /datum/action/innate/honeycomb
 	name = "Секреция воска"
 	desc = "Выделите воск для строительства."
@@ -160,6 +246,7 @@
 		host.visible_message(span_alert("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] большую кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь!"))
 		new /obj/structure/alien/resin/door/wax(host.loc)
 
+*/
 
 
 /datum/action/innate/toggle_producing
