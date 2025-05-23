@@ -247,13 +247,13 @@
 	if(!item.origin_tech)
 		return
 
-	if (prob(2))
+	if(prob(2))
 		do_sparks(5, TRUE, src)
 		new /obj/item/relic(get_turf(item))
 		qdel(item)
 		return
 
-	if (!istype(item, /obj/item/relict_production/rapid_dupe))
+	if(!istype(item, /obj/item/relict_production/rapid_dupe))
 		return
 
 	var/amount = rand(1, 3)
