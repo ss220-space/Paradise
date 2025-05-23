@@ -117,13 +117,13 @@
 		return
 	var/mob/living/carbon/user = owner
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
-		to_chat(user, "<span class='notice'>Вам нужна свобода передвижения, чтобы ужалить кого-то!</span>")
+		to_chat(user, span_notice("Вам нужна свобода передвижения, чтобы ужалить кого-то!"))
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
-		to_chat(user, "<span class='notice'>Для использования жала нужно снять верхнюю одежду.</span>")
+		to_chat(user, span_notice("Для использования жала нужно снять верхнюю одежду."))
 		return
 	if(user.getStaminaLoss() >= 50)	//Does your Wryn have enough Stamina to sting?
-		to_chat(user, "<span class='notice'>Вы слишком устали для использования жала.</span>")
+		to_chat(user, span_notice("Вы слишком устали для использования жала."))
 		return
 	else
 		button_on = TRUE
@@ -149,13 +149,13 @@
 		names += M
 	var/target = input("Select a Target: ", "Sting Target", null) as null|anything in names
 	if(!target)		//No one's around!
-		to_chat(user, "<span class='warning'>Вокруг некого жалить! Жало втягивается обратно.</span>")
-		user.visible_message("<span class='warning'[user] втягивает своё жало.</span>")
+		to_chat(user, span_warning("Вокруг некого жалить! Жало втягивается обратно."))
+		user.visible_message(span_warning("[user] втягивает своё жало."))
 		button_on = FALSE
 		UpdateButtonIcon()
 		return
 	else			//Get ready, aim, fire!
-		user.visible_message("<span class='warning'> [user] собирается применить жало!</span>")
+		user.visible_message(span_warning(" [user] собирается применить жало!"))
 		sting_target(user, target)
 	return
 
@@ -163,14 +163,14 @@
 /datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
-		to_chat(user, "<span class='warning'>Вы слишком далеко от [target]. Жало втягивается.</span>")
-		user.visible_message("<span class='warning'[user] убирает свое жало.</span>")
+		to_chat(user, span_warning("Вы слишком далеко от [target]. Жало втягивается."))
+		user.visible_message(span_warning("[user] убирает свое жало."))
 		UpdateButtonIcon()
 		return
 	else								//Nah, that chump is still here! Sting 'em! Sting 'em good!
 		var/obj/item/organ/external/organ = target.get_organ(pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG, BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT, BODY_ZONE_PRECISE_GROIN))
-		to_chat(user, "<span class='danger'> Вы жалите [target] в [organ]!</span>")
-		user.visible_message("<span class='danger'>[user] жалит [target] в [organ]! </span>")
+		to_chat(user, span_danger("Вы жалите [target] в [organ]!"))
+		user.visible_message(span_danger("[user] жалит [target] в [organ]! "))
 		user.adjustStaminaLoss(20)		//You can't sting infinitely, Wryn - take some Stamina loss
 		var/dam = rand(3, 7)
 		target.apply_damage(dam, BRUTE, organ)
@@ -179,8 +179,8 @@
 		if(HAS_TRAIT(target, TRAIT_RESTRAINED))			//Apply tiny BURN damage if target is restrained
 			if(prob(50))
 				user.apply_damage(2, BURN, target)
-				to_chat(target, "<span class='danger'>Вы ощущаете небольшое жжение! Ауч!</span>")
-				user.visible_message("<span class='danger'>[user] выглядит ужаленным!</span>")
+				to_chat(target, span_danger("Вы ощущаете небольшое жжение! Ауч!"))
+				user.visible_message(span_danger("[user] выглядит ужаленным!"))
 		UpdateButtonIcon()
 		return
 
@@ -192,22 +192,22 @@
 
 	for(var/mob/living/carbon/C in GLOB.alive_mob_list)
 		if(C.get_int_organ(/obj/item/organ/internal/wryn/hivenode))
-			to_chat(C, "<span class='danger'><b>Ваши усики дрожат, когда вас одолевает боль...</b></span>")
-			to_chat(C, "<span class='danger'>Такое ощущение, что часть вас умерла.</span>") // This is bullshit -- Да, согласен.
+			to_chat(C, span_danger("<b>Ваши усики дрожат, когда вас одолевает боль...</b>"))
+			to_chat(C, span_danger("Такое ощущение, что частичка вас умерла.")) // This is bullshit
 
 /datum/species/wryn/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	var/obj/item/organ/internal/wryn/hivenode/node = target.get_int_organ(/obj/item/organ/internal/wryn/hivenode)
 	if(target.handcuffed && node && user.zone_selected == BODY_ZONE_HEAD)
 		switch(alert(user, "Вы хотите вырвать усики этому существу?", "OH SHIT", "Да", "Нет"))
 			if("Да")
-				user.visible_message("<span class='notice'>[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target].</span>")
-				to_chat(target, "<span class='danger'><b>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<b></span>")
+				user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] яростно отрывать усики [target]."))
+				to_chat(target, span_danger("<b>[user] схватил[genderize_ru(user.gender,"","а","о","и")] ваши усики и яростно тян[pluralize_ru(user.gender,"ет","ут")] их!<b>"))
 				if(do_after(user, 25 SECONDS, target, NONE))
 					node.remove(target)
 					node.forceMove(get_turf(target))
-					to_chat(user, "<span class='notice'>Вы слышите громкий хруст, когда безжалостно отрываете усики [target].</span>")
-					to_chat(target, "<span class='danger'>Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы.</span>")
-					to_chat(target, "<span class='danger'><b>Стало так тихо...</b></span>")
+					to_chat(user, span_notice("Вы слышите громкий хруст, когда безжалостно отрываете усики [target]."))
+					to_chat(target, span_danger("Вы слышите невыносимый хруст, когда [user] вырыва[pluralize_ru(user.gender,"ет","ют")] усики из вашей головы."))
+					to_chat(target, span_danger("<b>Стало так тихо...</b>"))
 
 					add_attack_logs(user, target, "Antennae removed")
 				return 0
@@ -230,7 +230,7 @@
 /mob/living/carbon/human/proc/toggle_producing()
 	var/obj/item/organ/internal/wryn/glands/glands = get_int_organ(/obj/item/organ/internal/wryn/glands)
 	if(glands)
-		to_chat(usr, "<span class='notice'>Вы [glands.producing ? "расслабляете" : "напрягаете"] восковые железы</span>")
+		to_chat(usr, span_notice("Вы [glands.producing ? "расслабляете" : "напрягаете"] восковые железы"))
 		glands.producing = !glands.producing
 
 /mob/living/carbon/human/proc/get_producing()

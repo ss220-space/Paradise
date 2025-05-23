@@ -396,6 +396,8 @@
 
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
+///How much a mob's sprite should be moved when they're lying up (on the ceiling)
+#define PIXEL_Y_OFFSET_LYING_REVERSED 6
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -512,3 +514,5 @@
 #define SQUASHED_SHOULD_BE_DOWN (1<<0)
 ///Whether or not to gib when the squashed mob is moved over
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
+#define MINING_FACTIONS list("mining", "boss")

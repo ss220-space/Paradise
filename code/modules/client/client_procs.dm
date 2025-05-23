@@ -446,6 +446,7 @@
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
+	QDEL_NULL(parallax_rock)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -500,18 +501,23 @@
 /client/proc/send_to_server_by_url(url)
 	if (!url)
 		return
-	src << browse({"
-            <a id='link' href='[url]'>
-                LINK
+	var/datum/browser/browser = new(src, "redirect_[url]", null, 400, 400)
+	browser.set_window_options("border=0;titlebar=0;focus=1;can_close=0;can_resize=0;")
+	browser.set_content({"
+			<h1>Вы перенаправлены на сервер [url].<br> Нажмите на ссылку, если переход не произошел автоматически.</h1>
+            <a id='link' href='[url]' style='text-align: center; width=100%;' onclick='closeByond()' >
+                Ссылка
             </a>
-            <script type='text/javascript'>
-                document.getElementById("link").click();
-                window.location="byond://winset?command=.quit"
+			<script type='text/javascript'>
+				function closeByond(){
+					window.location="byond://winset?command=.quit"
+				}
+				document.getElementById("link").click();
             </script>
-            "},
-            "border=0;titlebar=0;size=1x1"
-        )
+            "})
+	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
+
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -646,7 +652,7 @@
 			qdel(src)
 			return // Dont insert or they can just go in again
 
-		is_tutorial_needed = TRUE
+		is_tutorial_needed = !!CONFIG_GET(string/tutorial_server_url)
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
@@ -1394,9 +1400,9 @@
 	var/atom/old_eye = eye
 	eye = new_eye
 
-	for(var/mob/dead/observer/observe in mob.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-			LAZYREMOVE(mob.orbiters, observe)
+	for(var/mob/dead/observer/observe in mob.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
 		observe.client.eye = new_eye
 

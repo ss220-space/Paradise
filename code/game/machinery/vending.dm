@@ -1199,7 +1199,7 @@
  */
 
 /obj/machinery/vending/proc/tilt(atom/target_atom, crit = FALSE, from_combat = FALSE)
-	if(QDELETED(src) || !has_gravity(src) || !tiltable || tilted)
+	if(QDELETED(src) || no_gravity(src) || !tiltable || tilted)
 		return
 
 	tilted = TRUE
@@ -2548,6 +2548,7 @@
 					/obj/item/clothing/shoes/singerb = 10,
 					/obj/item/clothing/under/singerb = 10,
 					/obj/item/clothing/suit/hooded/carp_costume = 10,
+					/obj/item/clothing/suit/hooded/penguin_costume = 10,
 					/obj/item/clothing/suit/hooded/bee_costume = 10,
 					/obj/item/clothing/suit/snowman = 10,
 					/obj/item/clothing/head/snowman = 10,
@@ -2696,6 +2697,7 @@
 					/obj/item/clothing/shoes/singerb = 20,
 					/obj/item/clothing/under/singerb = 20,
 					/obj/item/clothing/suit/hooded/carp_costume = 20,
+					/obj/item/clothing/suit/hooded/penguin_costume = 20,
 					/obj/item/clothing/suit/hooded/bee_costume = 20,
 					/obj/item/clothing/suit/snowman = 20,
 					/obj/item/clothing/head/snowman = 20,

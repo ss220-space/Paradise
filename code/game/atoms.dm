@@ -754,7 +754,7 @@
 
 /atom/proc/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
 	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
-	if(density && !AM.has_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
+	if(density && AM.no_gravity()) //thrown stuff bounces off dense stuff in no grav, unless the thrown stuff ends up inside what it hit(embedding, bola, etc...).
 		addtimer(CALLBACK(src, PROC_REF(hitby_react), AM), 2)
 
 
@@ -1220,7 +1220,7 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/handle_atom_del(atom/A)
 	return
 
-/atom/proc/atom_say(message)
+/atom/proc/atom_say(message, use_tts = TRUE)
 	if(!message)
 		return
 	var/message_tts = message
@@ -1238,8 +1238,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 			if(M.client.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 				M.create_chat_message(src, message, list("italics"))
 
-			var/traits = TTS_TRAIT_RATE_MEDIUM
-			INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, tts_atom_say_effect, traits)
+			if(use_tts)
+				var/traits = TTS_TRAIT_RATE_MEDIUM
+				INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, src, M, message_tts, tts_seed, TRUE, tts_atom_say_effect, traits)
 
 	if(length(speech_bubble_hearers))
 		var/image/I = image('icons/mob/talk.dmi', src, "[bubble_icon][say_test(message)]", FLY_LAYER)
@@ -1640,36 +1641,50 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
  * * Gravity if there's a gravity generator on the z level
  * * otherwise no gravity
  */
-/atom/proc/has_gravity(turf/gravity_turf)
+/atom/proc/get_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override
 		return GLOB.gravity_is_on
 
 	if(!isturf(gravity_turf))
 		gravity_turf = get_turf(src)
 
-		if(!gravity_turf)//no gravity in nullspace
+		if(!gravity_turf)//no gravity in nullspace 1984
 			return FALSE
 
 	if(check_level_trait(gravity_turf.z, ZTRAIT_GRAVITY))
 		return TRUE
 
-	var/list/forced_gravity = list()
-	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, forced_gravity)
-	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, forced_gravity)
-	if(length(forced_gravity))
-		var/positive_grav = max(forced_gravity)
-		var/negative_grav = min(min(forced_gravity), 0) //negative grav needs to be below or equal to 0
+	if(gravity_turf.force_no_gravity)
+		return FALSE
 
-		//our gravity is sum of the most massive positive and negative numbers returned by the signal
-		//so that adding two forced_gravity elements with an effect size of 1 each doesnt add to 2 gravity
-		//but negative force gravity effects can cancel out positive ones
-
-		return (positive_grav + negative_grav)
+	var/result_gravity = 0
+	var/list/gravity_deltas = list()
+	SEND_SIGNAL(src, COMSIG_ATOM_HAS_GRAVITY, gravity_turf, gravity_deltas)
+	SEND_SIGNAL(gravity_turf, COMSIG_TURF_HAS_GRAVITY, src, gravity_deltas)
 
 	var/area/turf_area = gravity_turf.loc
 
-	return !gravity_turf.force_no_gravity && (turf_area.has_gravity || (!turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"])))
+	if(turf_area.has_gravity || !turf_area.ignore_gravgen && length(GLOB.gravity_generators["[gravity_turf.z]"]) && !(GRAVITY_SOURCE_GRAVGEN in ignored_gravity_sources))
+		gravity_deltas.Add(1)
 
+	for(var/source in gravity_sources)
+		if(!(source in ignored_gravity_sources))
+			gravity_deltas.Add(gravity_sources[source])
+
+	for(var/delta in gravity_deltas)
+		result_gravity += delta
+
+	return result_gravity
+
+/atom/proc/no_gravity(turf/gravity_turf)
+	return abs(get_gravity(gravity_turf)) <= NO_GRAVITY
+
+/atom/proc/get_external_loc()
+	var/atom/ext_loc = src
+	while(!isturf(ext_loc.loc))
+		ext_loc = ext_loc.loc
+
+	return ext_loc
 
 ///Setter for the `density` variable to append behavior related to its changing.
 /atom/proc/set_density(new_density)
@@ -1779,3 +1794,35 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 /atom/proc/InitializeAIController()
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
+
+/atom/proc/add_gravity(id, gravity_delta)
+	if(id in gravity_sources)
+		gravity_sources[id] = 0
+
+	gravity_sources[id] += gravity_delta
+
+	if(!gravity_sources[id])
+		gravity_sources.Remove(id)
+
+	if(!isliving(src))
+		return
+
+	var/mob/living/M = src
+	M.refresh_gravity()
+
+/atom/proc/remove_gravity_source(id)
+	gravity_sources.Remove(id)
+	if(isliving(src))
+		var/mob/living/M = src
+		M.refresh_gravity()
+
+/atom/proc/add_ignored_gravity_source(id)
+	if(!(id in ignored_gravity_sources))
+		ignored_gravity_sources[id] = 1
+	else
+		ignored_gravity_sources[id]++
+
+/atom/proc/remove_ignored_gravity_source(id)
+	ignored_gravity_sources[id]--
+	if(!ignored_gravity_sources[id])
+		ignored_gravity_sources.Remove(id)

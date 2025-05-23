@@ -32,6 +32,15 @@ type LabeledListItemProps = {
   /** @deprecated */
   content?: any;
   children?: InfernoNode;
+  /**
+   * Align both the label and the content vertically.
+   *
+   * - `baseline` (default)
+   * - `top`
+   * - `middle`
+   * - `bottom`
+   */
+  verticalAlign?: string;
 };
 
 const LabeledListItem = (props: LabeledListItemProps) => {
@@ -45,6 +54,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
     tooltip,
     content,
     children,
+    verticalAlign = 'baseline',
   } = props;
   let listItem = (
     <tr className={classes(['LabeledList__row', className])}>
@@ -52,6 +62,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         as="td"
         color={labelColor}
         className={classes(['LabeledList__cell', 'LabeledList__label'])}
+        verticalAlign={verticalAlign}
       >
         {label ? label + ':' : null}
       </Box>
@@ -61,6 +72,7 @@ const LabeledListItem = (props: LabeledListItemProps) => {
         textAlign={textAlign}
         className={classes(['LabeledList__cell', 'LabeledList__content'])}
         colSpan={buttons ? undefined : 2}
+        verticalAlign={verticalAlign}
       >
         {content}
         {children}

@@ -72,7 +72,7 @@
 /obj/item/gun/projectile/shotgun/examine(mob/user)
 	. = ..()
 	if(chambered)
-		. += "<span class='notice'>A [chambered.BB ? "live" : "spent"] one is in the chamber.</span>"
+		. += span_notice("A [chambered.BB ? "live" : "spent"] one is in the chamber.")
 
 /obj/item/gun/projectile/shotgun/lethal
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/lethal
@@ -137,13 +137,22 @@
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			afterattack(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(
+				span_danger("\The [src] goes off!"),
+				span_danger("\The [src] goes off in your face!")
+			)
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message(
+				"The [src] goes click!",
+				span_notice("The [src] you are holding goes click.")
+			)
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(
+			span_danger("[user.name] opens [src] up and the shells go goes flying around!"),
+			span_userdanger("You open [src] up and the shells go goes flying everywhere!!")
+		)
 		while(get_ammo(FALSE) > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -152,7 +161,10 @@
 				CB.update_icon()
 
 	if(do_after(user, 3 SECONDS, src))
-		user.visible_message("[user] shortens \the [src]!", "<span class='notice'>You shorten \the [src].</span>")
+		user.visible_message(
+			"[user] shortens \the [src]!",
+			span_notice("You shorten \the [src].")
+		)
 		post_sawoff()
 		return 1
 
@@ -180,13 +192,13 @@
 	if(chambered)	//if the gun is chambering live ammo, shoot self, if chambering empty ammo, 'click'
 		if(chambered.BB)
 			afterattack(user, user)
-			user.visible_message("<span class='danger'>\The [src] goes off!</span>", "<span class='danger'>\The [src] goes off in your face!</span>")
+			user.visible_message(span_danger("\The [src] goes off!"), span_danger("\The [src] goes off in your face!"))
 			return
 		else
 			afterattack(user, user)
-			user.visible_message("The [src] goes click!", "<span class='notice'>The [src] you are holding goes click.</span>")
+			user.visible_message("The [src] goes click!", span_notice("The [src] you are holding goes click."))
 	if(magazine.ammo_count())	//Spill the mag onto the floor
-		user.visible_message("<span class='danger'>[user.name] opens [src] up and the shells go goes flying around!</span>", "<span class='userdanger'>You open [src] up and the shells go goes flying everywhere!!</span>")
+		user.visible_message(span_danger("[user.name] opens [src] up and the shells go goes flying around!"), span_userdanger("You open [src] up and the shells go goes flying everywhere!!"))
 		while(get_ammo() > 0)
 			var/obj/item/ammo_casing/CB
 			CB = magazine.get_round(0)
@@ -196,7 +208,7 @@
 
 	if(do_after(user, 3 SECONDS, src))
 		qdel(A)
-		user.visible_message("<span class='notice'>[user] lengthens [src]!</span>", "<span class='notice'>You lengthen [src].</span>")
+		user.visible_message(span_notice("[user] lengthens [src]!"), span_notice("You lengthen [src]."))
 		post_unsaw(user)
 		return 1
 
@@ -279,7 +291,7 @@
 
 /obj/item/gun/projectile/shotgun/boltaction/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The bolt is [bolt_open ? "open" : "closed"].</span>"
+	. += span_notice("The bolt is [bolt_open ? "open" : "closed"].")
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted
 	name = "enchanted bolt action rifle"
@@ -313,7 +325,7 @@
 		discard_gun(user)
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/proc/discard_gun(mob/living/user)
-	user.visible_message("<span class='warning'>[user] tosses aside the spent rifle!</span>")
+	user.visible_message(span_warning("[user] tosses aside the spent rifle!"))
 	user.throw_item(pick(oview(7, get_turf(user))))
 
 /obj/item/gun/projectile/shotgun/boltaction/enchanted/arcane_barrage

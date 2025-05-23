@@ -524,6 +524,10 @@ h2.alert {
   color: #03bb39;
 }
 
+.nicegreen {
+  color: hsl(132.8, 93.4%, 29.6%);
+}
+
 .pr_announce {
   color: #c51e1e;
   font-weight: bold;
@@ -1291,4 +1295,34 @@ span.body .coderesponses {
 
 .proradio {
   color: #e3027a;
+}
+
+.bluespace_anomaly {
+  color: #2cb5ff;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.energetic_anomaly {
+  color: #ffe925;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.atmospferic_anomaly {
+  color: #ff0707;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.gravitational_anomaly {
+  color: #00a7bd;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.vortex_anomaly {
+  color: #486374;
+  font-weight: bold;
+  font-size: 120%;
 }
