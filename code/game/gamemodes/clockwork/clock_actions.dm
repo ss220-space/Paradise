@@ -12,7 +12,7 @@
 //Comms
 /datum/action/innate/clockwork/comm
 	name = "Связь Иерофанта"
-	desc = "Шепот, который слышат все праведники Ратвара.<br><b>Внимание:</b> Рядом находящиеся не-культисты тоже могут вас услышать."
+	desc = "Шепот, который слышат все праведники Ратвара.<br><b>Внимание:</b> Находящиеся рядом не-культисты тоже могут вас услышать."
 	button_icon_state = "hierophant"
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
 
@@ -29,14 +29,14 @@
 
 	var/prefix = ""
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message(span_notice("[user] начинает шептаться сам[genderize_ru(user.gender,"","а","о","и")] с собой."),
-		span_notice("Ты начинаешь шептать самому себе.</span>")) //Make them do *something* abnormal.
+		user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] шептаться сам[genderize_ru(user.gender,"","а","о","и")] с собой."),
+		span_notice("Вы начинаете что-то бормотать.")) //Make them do *something* abnormal.
 		sleep(10)
 	else if(!issilicon(user))
 		user.whisper("N`i th`e le-ing roc-cus!") // Otherwise book club sayings.
 		sleep(10)
 		user.whisper(message) // And whisper the actual message
-		prefix = "Праведник ратвара"
+		prefix = "Праведник Ратвара"
 	else
 		prefix = "Механизм"
 
@@ -52,7 +52,7 @@
 
 //Objectives
 /datum/action/innate/clockwork/check_progress
-	name = "Изучить Завесу"
+	name = "Познать Завесу"
 	button_icon_state = "tome"
 	desc = "Проверить текущий прогресс и цель вашего культа."
 	check_flags = AB_CHECK_CONSCIOUS|AB_TRANSFER_MIND
@@ -68,4 +68,4 @@
 	if(SSticker?.mode)
 		SSticker.mode.clocker_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='clockitalic'>Вам не удалось изучить Завесу. (Это не должно происходить, сообщите администратору или разработчику)</span>")
+		to_chat(usr, span_clockitalic("Вам не удалось познать Завесу. <b>Это баг! Сообщите об этом в админхелп или баг-репорт.</b>"))

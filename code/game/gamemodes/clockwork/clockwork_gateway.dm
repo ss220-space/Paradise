@@ -19,12 +19,20 @@
 	var/third_sound_played = FALSE
 	var/purpose_fulfilled = FALSE
 	var/obj/effect/countdown/clockworkgate/countdown
+	ru_names = list(
+	    NOMINATIVE = "ковчег",
+	    GENITIVE = "ковчега",
+	    DATIVE = "ковчегу",
+	    ACCUSATIVE = "ковчег",
+	    INSTRUMENTAL = "ковчегом",
+	    PREPOSITIONAL = "ковчеге"
+	)
 
 /obj/structure/clockwork/functional/celestial_gateway/Initialize(mapload)
 	. = ..()
 	START_PROCESSING(SSprocessing, src)
 	GLOB.poi_list |= src
-	visible_message(span_boldwarning("[src] содрогается и ревет, его части начинают жужжать и скрежетать!"))
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] содрогается и ревет, его части начинают жужжать и скрежетать!"))
 	GLOB.ark_of_the_clockwork_justiciar = src
 	if(!countdown)
 		countdown = new(src)
@@ -35,7 +43,7 @@
 	if(SSticker.mode.clocker_objs.clock_status != RATVAR_HAS_RISEN)
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "Ковчег пал!")
+				to_chat(clock_mind.current, span_clocklarge("[declent_ru(NOMINATIVE)] пал!"))
 	if(countdown)
 		qdel(countdown)
 		countdown = null
@@ -49,7 +57,7 @@
 	if(!disassembled)
 		resistance_flags |= INDESTRUCTIBLE
 		countdown.stop()
-		visible_message(span_userdanger("[src] начинает некотроллируемо пульсировать... Возможно, тебе стоит бежать прочь!"))
+		visible_message(span_userdanger("[declent_ru(NOMINATIVE)] начинает некотроллируемо пульсировать... Возможно, тебе стоит бежать прочь!"))
 		sound_to_playing_players(volume = 50, channel = CHANNEL_JUSTICAR_ARK, S = sound('sound/magic/clockwork/clockcult_gateway_disrupted.ogg'))
 		update_icon(UPDATE_ICON_STATE)
 		resistance_flags |= INDESTRUCTIBLE
@@ -80,7 +88,7 @@
 /obj/structure/clockwork/functional/celestial_gateway/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/clockwork/clockslab) && isclocker(user))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Ты не можешь открутить от пола это громоздкое сочетание частей! Это может быть очень опасно!"))
+		to_chat(user, span_warning("Вы не можешь открепить от пола это громоздкое сочетание частей! Это может быть очень опасно!"))
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
 
@@ -90,7 +98,7 @@
 	if(isclocker(user) || isobserver(user))
 		switch(seconds_until_activation)
 			if(-INFINITY to GATEWAY_REEBE_FOUND)
-				to_chat(user, span_heavybrass("Ковчег подает энергию в блюспейс поле."))
+				to_chat(user, span_heavybrass("[declent_ru(NOMINATIVE)] подаёт энергию в блюспейс поле."))
 			if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
 				to_chat(user, span_heavybrass("Поле открывает свою копию в тюрьме Ратвара."))
 			if(GATEWAY_RATVAR_COMING to INFINITY)
@@ -100,7 +108,7 @@
 			if(-INFINITY to GATEWAY_REEBE_FOUND)
 				to_chat(user, span_warning("Вы видите завихряющуюся блюспейс аномалию, которая постепенно усиливается."))
 			if(GATEWAY_REEBE_FOUND to GATEWAY_RATVAR_COMING)
-				to_chat(user, span_warning("Аномалия стабильна, и вы видите в ней вспышки чего-то.</span>"))
+				to_chat(user, span_warning("Аномалия стабильна, и вы видите в ней вспышки чего-то."))
 			if(GATEWAY_RATVAR_COMING to INFINITY)
 				to_chat(user, span_boldwarning("Аномалия стабильна! Что-то выходит из неё!"))
 

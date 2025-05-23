@@ -95,6 +95,7 @@
 #define span_reallybig(str) ("<span class='reallybig'>" + str + "</span>")
 #define span_red(str) ("<span class='red'>" + str + "</span>")
 //#define span_redteamradio(str) ("<span class='redteamradio'>" + str + "</span>")
+#define span_ratvar(str) ("<span class='ratvar'>" + str + "</span>")
 #define span_redtext(str) ("<span class='redtext'>" + str + "</span>")
 #define span_resonate(str) ("<span class='resonate'>" + str + "</span>")
 #define span_revenbignotice(str) ("<span class='revenbignotice'>" + str + "</span>")

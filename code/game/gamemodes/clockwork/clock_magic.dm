@@ -1,7 +1,7 @@
 /datum/action/innate/clockwork/clock_magic //Clockwork magic casting.
 	name = "Prepare Clockwork Magic"
 	button_icon_state = "carve"
-	desc = "Prepare clockwork magic powering yourself from Ratvar's pool of power. The magic you will cast depends on what's in your hand."
+	desc = "Подготовь магию культа, черпающую силу из энергии Ратвара. Магия, которую вы будете использовать, зависит от того, что у тебя в руке."
 	var/datum/action/innate/clockwork/hand_spell/construction/midas_spell = null
 	var/channeling = FALSE
 
@@ -86,10 +86,10 @@
 			return
 	if(item?.enchants?.len) // it just works
 		if(item.enchant_type == CASTING_SPELL)
-			to_chat(owner, span_warning("Ты не можешь зачаровать [item] пока ранее наложенная магия еще работает!"))
+			to_chat(owner, span_warning("Вы не можете зачаровать [item.declent_ru(ACCUSATIVE)], пока ранее наложенная магия не развеялась!"))
 			return
 		if(item.enchant_type)
-			to_chat(owner, span_clockitalic("[item] и так зачарован! Если ты выберешь другое зачарование - оно заменит текущее!"))
+			to_chat(owner, span_clockitalic("[item] и так зачарован! Если вы выберете другое зачарование — оно заменит текущее!"))
 		var/entered_spell_name
 		var/list/possible_enchants = list()
 		var/list/possible_enchant_icons = list()
@@ -112,9 +112,9 @@
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, span_clockitalic("Ты начинаешь сосредотачиваться на своей силе, чтобы зачаровать [item]"))
+			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать [item]"))
 		else
-			to_chat(owner, span_warning("Ты <b>уже</b> подготавливаешь зачарование!"))
+			owner.balloon_alert(owner, "Вы <b>уже</b> подготавливаете зачарование!")
 			return
 
 		var/clock_structure_in_range = locate(/obj/structure/clockwork/functional) in range(1, usr)
@@ -131,31 +131,31 @@
 				owner.actions += E
 				owner.update_action_buttons(TRUE)
 			item.update_icon()
-			to_chat(owner, span_clock("Ты зачаровал [item], дав ему способность [spell_enchant.name]!"))
+			to_chat(owner, span_clock("Вы зачаровали [item], дав ему способность [spell_enchant.name]!"))
 
 		channeling = FALSE
 	// If it's empty or not an item we can enchant. Making a spell on hand.
 	else
 		if(!iscarbon(owner)) //This is to throw away non carbon who doesn't have hands, but silicon modules.
-			to_chat(owner, span_clockitalic("Тебе нужен предмет который ты можешь зачаровать!"))
+			to_chat(owner, span_clockitalic("Вам нужен предмет который подлежит зачарованию!"))
 			return
 		if(midas_spell)
-			to_chat(owner, span_clockitalic("Ты уже подготовил [midas_spell.name]!"))
+			owner.balloon_alert(owner, "Вы уже подготовили [midas_spell.name]!")
 			return
 		if(QDELETED(src) || owner.incapacitated())
 			return
 
 		if(!channeling)
 			channeling = TRUE
-			to_chat(owner, "<span class='clockitalic'>You start to concentrate on your power to seal the magic in your hand.</span>")
+			to_chat(owner, span_clockitalic("Вы начинаете сосредотачиваться на своей силе, чтобы зачаровать свои руки."))
 		else
-			to_chat(owner, span_warning("Ты <b>уже</b> подготавливаешь зачарование!"))
+			owner.balloon_alert(owner, "Вы <b>уже</b> подготавливаете чары!")
 			return
 
 		if(do_after(owner, 5 SECONDS, owner))
 			midas_spell = new /datum/action/innate/clockwork/hand_spell/construction(owner)
 			midas_spell.Grant(owner, src)
-			to_chat(owner, "<span class='clock'>You feel the power flows in your hand, you have prepared a [midas_spell.name] invocation!</span>")
+			to_chat(owner, span_clock("Вы чувствуете, как сила струится по вашей руке, значит, вы подготовили [midas_spell.name]!"))
 		channeling = FALSE
 
 /datum/action/innate/clockwork/hand_spell //The next generation of talismans, handles storage/creation of blood magic
@@ -191,22 +191,22 @@
 		hand_magic = new magic_path(owner, src)
 		if(!owner.put_in_hands(hand_magic))
 			QDEL_NULL(hand_magic)
-			to_chat(owner, span_warning("Твои руки заняты, вызвать праведную магию не получится!"))
+			to_chat(owner, span_warning("Ваши руки заняты, вызвать праведную магию не получится!"))
 			return
-		to_chat(owner, span_cultitalic("Твои руки начинают светится когда ты кастуешь [name]."))
+		to_chat(owner, span_cultitalic("Ваши раны начинают светиться, когда вы наполняетесь силой [name]."))
 	else // If the spell is active, and you clicked on the button for it
 		QDEL_NULL(hand_magic)
 
 /datum/action/innate/clockwork/hand_spell/construction
 	name = "Midas Touch"
-	desc = "Зачаровывает твои руки обращать стальные объекты в латунь. <br> <u>Обращает:</u><br>Пласталь и сталь в листы латуни<br>Листы латуни в встраиваемые шестерни или в заводные плиты<br>Боргов и оболочку ИИ в прислужников Ратвара."
+	desc = "Наполняет твою руку силой, позволяющей превращать металлические предметы в латунь.<br><u>Преобразует:</u><br>Пласталь и металл в латунные листы<br>Латунные листы в интеграционные шестерёнки или заводные плиты<br>Киборгов и ИИ — в слуг Ратвара после короткой задержки"
 	button_icon_state = "midas_touch"
 	magic_path = /obj/item/melee/clock_magic/construction
 
 // The "magic hand" items
 /obj/item/melee/clock_magic
 	name = "\improper magical aura"
-	desc = "Зловещая аура, искажающая реальность вокруг себя."
+	desc = "Зловещая аура, искажающая реальность."
 	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -236,7 +236,7 @@
 
 /obj/item/melee/clock_magic/construction
 	name = "Midas Aura"
-	desc = "Капающая латунь из твоей руки заряжена обращать сталь."
+	desc = "Капли латуни, стекающие с вашей руки, позволяющие трансмутировать металл."
 	color = "#FFDF00"
 	var/channeling = FALSE
 
@@ -251,7 +251,7 @@
 	if(!proximity_flag)
 		return
 	if(channeling)
-		to_chat(user, span_clockitalic("Ты <b>уже</b> кастуешь Прикосновение Мидаса!"))
+		user.balloon_alert(user, "Вы <b>уже</b> пробуждаете чары [src]!")
 		return
 	var/turf/turf_target = get_turf(target)
 
@@ -292,7 +292,7 @@
 		if(!user.put_in_hands(O))
 			O.forceMove(get_turf(src))
 		candidate.use(1)
-		to_chat(user, span_warning("При помощи своей магии в руке ты превращаешь лист латуни в [O.name]!"))
+		to_chat(user, span_warning("При помощи своей магии в руке вы превращаете лист латуни в [O.name]!"))
 		playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 
 	else if(istype(target, /mob/living/silicon/robot))
@@ -330,7 +330,7 @@
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			qdel(candidate)
 	else
-		to_chat(user, span_warning("Праведная магия не действует на [target]!"))
+		user.balloon_alert(user, "[target] невозможно зачаровать!")
 		return
 	user.whisper("Rqu-en qy'qby!")
 	source.used = TRUE

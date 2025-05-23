@@ -747,30 +747,30 @@
 	if(istype(I, /obj/item/clockwork/integration_cog))
 		add_fingerprint(user)
 		if(!isclocker(user))
-			to_chat(user, span_warning("You fiddle around with the APC, to no avail."))
+			to_chat(user, span_warning("Вы возитесь с ЛКП, пытаясь понять как это использовать, но безуспешно."))
 			return ATTACK_CHAIN_PROCEED
 		if(cog)
-			to_chat(user, span_warning("This APC already has a cog."))
+			to_chat(user, span_warning("В это ЛКП уже вставлена шестерня."))
 			return ATTACK_CHAIN_PROCEED
 		if(opened == APC_CLOSED)
 			playsound(loc, 'sound/items/crowbar.ogg', 50, TRUE)
 			user.visible_message(
-				span_warning("[user.name] starts slicing the APC's cover lock."),
-				span_clock("You start slicing the APC's cover lock..."),
+				span_warning("[user.name] начина[pluralize_ru(user.gender, "ет", "ют")] обрезать замок крышки ЛКП."),
+				span_clock("Вы начинаете обрезать замок крышки ЛКП..."),
 			)
 			if(!do_after(user, 4 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !isclocker(user) || cog || opened != APC_CLOSED)
 				return ATTACK_CHAIN_PROCEED
 			user.visible_message(
-				span_warning("[user.name] has sliced the APC's cover lock, and it swings wide open."),
-				span_clock("You have sliced the APC's cover lock apart, and it swings wide open."),
+				span_warning("[user.name] обреза[genderize_ru(user.gender, "л", "ла", "о", "ли")] замок крышки ЛКП, и она широко распахнулась."),
+				span_clock("Вы обрезали замок крышки ЛКП, и она широко распахнулась."),
 			)
 			opened = APC_OPENED
 			update_icon()
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		playsound(loc, 'sound/machines/click.ogg', 50, TRUE)
 		user.visible_message(
-			span_warning("[user.name] starts pressing [I] into the APC's internals."),
-			span_clock("You hold [I] in place within the APC, and it starts to slowly warm up..."),
+			span_warning("[user.name] начина[pluralize_ru(user.gender, "ет", "ют")] впихивать [I] во внутренний механизм ЛКП."),
+			span_clock("Вы удерживаете [I] внутри ЛКП, и она начинает медленно нагреваться..."),
 		)
 		if(!do_after(user, 7 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL) || !isclocker(user) || cog)
 			return ATTACK_CHAIN_PROCEED
@@ -778,8 +778,8 @@
 			return ATTACK_CHAIN_PROCEED
 		playsound(user, 'sound/machines/clockcult/integration_cog_install.ogg', 50, TRUE)
 		user.visible_message(
-			span_warning("[user.name] has installed [I] into the APC's internals."),
-			"[span_clock("Replicant alloy rapidly covers the APC's innards, replacing the machinery.<br>")][span_clockitalic("This APC will now passively provide power to the cult.")]",
+			span_warning("[user.name] установил [I] во внутренний механизм ЛКП."),
+			"[span_clock("Репликантный сплав быстро покрывает внутренности APC, заменяя механизмы.<br>")][span_clockitalic("Этот ЛКП теперь будет пассивно обеспечивать культ энергией.")]",
 		)
 		cog = new(src)
 		opened = APC_CLOSED

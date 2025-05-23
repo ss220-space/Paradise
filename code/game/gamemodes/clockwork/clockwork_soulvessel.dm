@@ -1,7 +1,7 @@
 // Soul vessel (Posi Brain)
 /obj/item/mmi/robotic_brain/clockwork
 	name = "soul vessel"
-	desc = "A heavy brass cube, three inches to a side, with a single protruding cogwheel."
+	desc = "Тяжелый латунный куб со стороной в 8 сантиметров и единственным выступающим зубчатым колесом."
 	icon = 'icons/obj/clockwork.dmi'
 	icon_state = "soul_vessel"
 	blank_icon = "soul_vessel"
@@ -23,7 +23,7 @@
 	if(!chosen_ghost)
 		searching = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='clocklarge'><b>Capture failed!</b></span> The soul has already fled its mortal frame. You attempt to bring it back...")
+		to_chat(user, "[span_clocklarge("<b>Заточить душу не удалось!</b>")] Она уже покинула своё смертное тело. Вы пытаетесь вернуть её обратно...")
 		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
 		if(length(candidates))
 			chosen_ghost = pick(candidates)
@@ -32,7 +32,7 @@
 	if(!M)
 		return FALSE
 	if(!chosen_ghost)
-		visible_message("<span class='notice'>[src] buzzes quietly as the cog stops moving. Perhaps you could use it to capture another soul?</span>")
+		visible_message(span_notice("[src] тихо гудит когда шестерня останавливается. Возможно, вы хотите попробовать использовать [src] для захвата другой души?"))
 		return FALSE
 	M.ckey = chosen_ghost.ckey
 	log_game("[M.ckey] has possesed clockwork robotic brain.")
@@ -50,7 +50,7 @@
 	else
 		target.dust()
 		transfer_personality(target)
-		to_chat(target, "<span class='clocklarge'><b>\"Теперь ты принадлежишь мне.\"</b></span>")
+		to_chat(target, span_clocklarge("<b>\"Теперь ты принадлежишь мне.\"</b>"))
 	if(victim_brain)
 		QDEL_NULL(victim_brain)
 
@@ -75,7 +75,7 @@
 		to_chat(attacker, span_clocklarge("\"Даже не пытайся.\""))
 		return
 	if(isdrone(attacker))
-		to_chat(attacker, span_warning("Ты недостаточно ловок, чтобы сделать это!"))
+		to_chat(attacker, span_warning("Вы недостаточно ловки, чтобы сделать это!"))
 		return
 	if(brainmob.key)
 		to_chat(attacker, span_clock("\"Это хранилище наполнено, друг. Обеспечь его телом.\""))
@@ -91,13 +91,13 @@
 		if(living == attacker)
 			return
 		if(!living.mind)
-			to_chat(attacker, span_clock("\"Тело без души.\""))
+			to_chat(attacker, span_clock("\"Цель без души.\""))
 			return
 		if(living.stat == CONSCIOUS)
-			to_chat(attacker, span_warning("[living] должен быть в бессознательном состоянии или мёртв чтобы ты мог заточить [living.p_their()] душу!"))
+			to_chat(attacker, span_warning("[living] должен быть в бессознательном состоянии или мёртв чтобы вы могли заточить [living.p_their()] душу!"))
 			return
 		if(living.has_brain_worms())
-			to_chat(attacker, "<span class='warning'>[living] испорчен инопланетным разумом. [living.p_their()] душа не подлежить заточению!</span>")
+			to_chat(attacker, span_warning("[living] испорчен инопланетным разумом. [living.p_their()] душа не подлежит заточению!"))
 			return
 	if(victim_brain)
 		crosshair = victim_brain
@@ -117,7 +117,7 @@
 			victim_brain = h_brain
 			living = h_brain.brainmob
 		if(!living?.mind)
-			to_chat(attacker, span_clock("\"Мозг [living] пуст, бездушный!\""))
+			to_chat(attacker, span_clock("\"Мозг [living] не отвечает!\""))
 			return
 	if(jobban_isbanned(living, ROLE_CLOCKER) || jobban_isbanned(living, ROLE_SYNDICATE))
 		to_chat(attacker, span_warning("Таинственная сила мешает вам завладеть разумом [living]."))
@@ -128,7 +128,7 @@
 	if(target_body)
 		time = 9 SECONDS
 		attacker.visible_message(span_warning("[attacker] начинает прижимать [src] к телу [target_body], разрывая поверхность"),
-		span_clock("Вы начинаете извлекать сознание [target_body] из тела [target_body.p_their()]."))
+		span_clock("Вы начинаете захватывать душу [target_body] из тела [target_body.p_their()]."))
 	if(victim_brain)
 		attacker.visible_message(span_warning("[attacker] начинает прижимать [src] к мозгу [living], разрывая поверхность"),
 		span_clock("Вы начинаете извлекать сознание [living] из мозга [living.p_their()]."))
@@ -141,10 +141,10 @@
 			to_chat(attacker, span_clock("\"Хранилище ищет душу для заточения.\""))
 			return
 		if(target_body && living.stat == CONSCIOUS)
-			to_chat(attacker, span_warning("[living] должен быть в бессознательном состоянии или мёртв чтобы ты мог заточить [living.p_their()] душу!"))
+			to_chat(attacker, span_warning("[living] должен быть в бессознательном состоянии или мёртв чтобы вы могли заточить [living.p_their()] душу!"))
 			return
 		if(target_body && living.has_brain_worms())
-			to_chat(attacker, "<span class='warning'>[living] испорчен инопланетным разумом. [living.p_their()] душа не подлежить заточению!</span>")
+			to_chat(attacker, span_warning("[living] испорчен инопланетным разумом. [living.p_their()] душа не подлежить заточению!"))
 			return
 		to_chat(attacker, span_clocklarge("\"Продолжай в том же духе!\""))
 
@@ -155,13 +155,13 @@
 
 /obj/item/mmi/robotic_brain/clockwork/attack_self(mob/living/user)
 	if(!isclocker(user))
-		to_chat(user, span_warning("Ты возишься с [src], но безрезультатно."))
+		to_chat(user, span_warning("Вы возитесь с [src], но безрезультатно."))
 		return
 	if(brainmob.key)
 		to_chat(user, span_clock("\"Это хранилище наполнено, друг. Обеспечь его телом.\""))
 		do_sparks(5, TRUE, user)
 	else
-		to_chat(user, span_warning("Тебе нужно найти тело или мозг, чтобы наполнить хранилище."))
+		to_chat(user, span_warning("Вам нужно найти тело или мозг, чтобы наполнить хранилище."))
 
 
 /obj/item/mmi/robotic_brain/clockwork/attackby(obj/item/I, mob/user, params)

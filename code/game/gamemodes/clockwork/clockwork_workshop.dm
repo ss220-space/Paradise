@@ -74,7 +74,7 @@
 /obj/structure/clockwork/functional/workshop/attack_hand(mob/user)
 	if(hidden)
 		if(isclocker(user))
-			to_chat(user, span_warning("Эта мастерская замаскирована. Тебе нужна заводная плита чтобы демаскировать его!"))
+			to_chat(user, span_warning("Эта мастерская замаскирована. Вам нужны латунные часы чтобы демаскировать его!"))
 		return
 	if(!isclocker(user))
 		to_chat(user, span_warning("Вы пытаетесь понять, как работает этот стол, но безуспешно."))
@@ -93,7 +93,7 @@
 		var/obj/item/stack/sheet/brass/brass = I
 		if(!user.drop_transfer_item_to_loc(brass, src))
 			return ..()
-		to_chat(user, span_notice("Ты восполняешь запасы [brass] мастерской."))
+		to_chat(user, span_notice("Вы восполняете запасы [brass] мастерской."))
 		brass_amount += MINERAL_MATERIAL_AMOUNT*brass.amount
 		qdel(brass)
 		flick("workshop_b", src)

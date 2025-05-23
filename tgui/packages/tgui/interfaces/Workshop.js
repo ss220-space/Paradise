@@ -118,7 +118,7 @@ const WorkshopSearch = (_properties) => {
       <Stack width="100%">
         <Stack.Item grow="1" mr="0.5rem">
           <Input
-            placeholder="Введи название предмета для поиска.."
+            placeholder="Введите название для поиска.."
             width="100%"
             onInput={(_e, value) => setSearchText(value)}
           />

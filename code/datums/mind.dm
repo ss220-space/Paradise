@@ -1475,7 +1475,7 @@
 				if(!(src in SSticker.mode.clockwork_cult))
 					to_chat(current, CLOCK_GREETING)
 					SSticker.mode.add_clocker(src)
-					to_chat(current, "<span class='clockitalic'>Assist your new compatriots in their dark dealings. Their goal is yours, and yours is theirs. You serve Ratvar above all else. Bring It back.</span>")
+					to_chat(current, "<span class='clockitalic'>Помогай своим новым товарищам в их тёмных делах. Их цели — твои, а твои — их. Ты служишь Ратвару превыше всего. Восстанови Его величие.</span>")
 					log_and_message_admins("[key_name(usr)] has clocked [key_name(current)]")
 			if("clockslab")
 				var/mob/living/carbon/human/H = current
@@ -3023,7 +3023,7 @@
 
 	if(!spell)
 		return FALSE
-	
+
 	LAZYREMOVE(spell_list, spell)
 
 	spell.action.Remove(current)

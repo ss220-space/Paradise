@@ -34,7 +34,7 @@
 		if(RATVAR_IS_ASLEEP)
 			to_chat(M, span_clock("Ратвар спит."))
 		if(RATVAR_DEMANDS_POWER)
-			to_chat(M, span_clock("Ратвар ищет источник энергии на станции. Помогите ему преодолеть могущественную завесу!!"))
+			to_chat(M, span_clock("Ратвар ищет источник энергии на станции. Помогите ему преодолеть могущественную завесу!"))
 			to_chat(M, span_clock("Текущие цели: "))
 			if(!obj_demand.power_get)
 				to_chat(M, span_clock("Нам надо набраться энергии. Необходимо энергии: [power_goal]. Текущее значение энергии: [GLOB.clockwork_power]"))
@@ -47,7 +47,7 @@
 			to_chat(M, span_clock("Текущая цель: [obj_summon.explanation_text]"))
 		if(RATVAR_HAS_RISEN)
 			to_chat(M, span_clocklarge("\"Я здесь.\""))
-			to_chat(M, span_clock("Текущая цель:</span> <span class='clocklarge'>\"Принесите мне еретиков.\""))
+			to_chat(M, span_clock("Текущая цель:[span_clocklarge("\"Принесите мне еретиков.\"")]"))
 		if(RATVAR_HAS_FALLEN)
 			to_chat(M, span_clocklarge("Ратвар был изгнан!"))
 			to_chat(M, span_clock("Текущая цель: Уничтожить неверных!"))
@@ -62,9 +62,9 @@
 		to_chat(M, span_clockitalic("<br><b>Сейчас нас: [total_clockers]</b>"))
 
 		if(clock_cult[2]) // If there are any constructs, separate them out
-			to_chat(M, span_clockitalic("Из которых"))
-			to_chat(M, span_clockitalic("  [clock_cult[1]] - <b>Праведники:</b>"))
-			to_chat(M, span_clockitalic("  [clock_cult[2]] - <b>Механизмы</b>"))
+			to_chat(M, span_clockitalic("Из которых:"))
+			to_chat(M, span_clockitalic("  [clock_cult[1]] — <b>Праведники</b>"))
+			to_chat(M, span_clockitalic("  [clock_cult[2]] — <b>Механизмы</b>"))
 
 /*
  * Makes a check if power or beacon has been completed.

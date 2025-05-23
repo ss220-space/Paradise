@@ -3,7 +3,7 @@
 
 /mob/living/simple_animal/hostile/clockwork/marauder
 	name = "clockwork marauder"
-	desc = "Стойкий призрак солдата, пылающий багровыми огнями. Вооружён гладиусом и щитом."
+	desc = "Стойкий призрак мародёра Ратвара, пылающий багровыми огнями. Вооружён гладиусом и щитом."
 	icon_state = "marauder"
 	health = 200
 	maxHealth = 200
@@ -89,7 +89,7 @@
 		final_deflection_chance = max(10, deflect_chance - P.damage)
 	if(prob(final_deflection_chance))
 		visible_message(span_danger("[src] отклоняет [P] своим щитом!"), \
-		span_danger("Ты заблокировал [P] при помощи своего щита!"), projectile_message = TRUE)
+		span_danger("Вы заблокировали [P] при помощи щита!"), projectile_message = TRUE)
 		if(energy_projectile)
 			playsound(src, 'sound/weapons/effects/searwall.ogg', 50, TRUE)
 		else
@@ -168,8 +168,8 @@
 	return
 
 /mob/living/simple_animal/mouse/clockwork/get_scooped(mob/living/carbon/grabber)
-	to_chat(grabber, span_warning("Ты пытаешься поднять [src], но она ускользает из твоей хватки!"))
-	to_chat(src, span_warning("[src] пытался взять тебя на руки, но ты сбежал из его хватки!"))
+	to_chat(grabber, span_warning("Вы пытаетесь поднять [src], но она ускользает из вашей хватки!"))
+	to_chat(src, span_warning("[src] пытался взять тебя на руки, но вы сбежали из его хватки!"))
 
 /mob/living/simple_animal/mouse/clockwork/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	return

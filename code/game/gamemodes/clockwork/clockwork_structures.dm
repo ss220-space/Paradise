@@ -47,7 +47,7 @@
 		return
 	switch(hidden_type) //used in case, where objects "examine" text aren't in their desc var (like in proc/examine()) or if you want do something funny
 		if("rack")
-			desc = "Изменёная версия времён эпохи Средневековья. <br>[span_notice("Он скреплён парой <b>болтов</b>.")]"
+			desc = "Изменёная версия эпохи Средневековья. <br>[span_notice("Он скреплён парой <b>болтов</b>.")]"
 		if("table")
 			desc = "Квадратный кусок металла стоящий на четырёх железных ножках. Он не может двигаться. <br>[span_notice("Верхняя часть <b>закручена</b>, но основные <b>болты</b> всё равно видны.")]"
 		if("wooden table")
@@ -79,7 +79,7 @@
 				if(I.enchant_type != HIDE_SPELL || !choice || !Adjacent(user) || user.incapacitated())
 					return ATTACK_CHAIN_BLOCKED_ALL
 			toggle_hide(choice)
-			to_chat(user, span_notice("Ты [hidden ? null : "де"]маскируешь [src]."))
+			to_chat(user, span_notice("Вы [hidden ? null : "де"]маскируете [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE)
 			I.deplete_spell()
 			return ATTACK_CHAIN_BLOCKED_ALL
@@ -87,16 +87,16 @@
 			toggle_hide(null)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
-			to_chat(user, span_warning("Под [src] должен быть пол чтобы его прикрутить!"))
+			to_chat(user, span_warning("Под [src] должен быть пол чтобы его можно было закрепить!"))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(locate(/obj/structure/clockwork) in (loc.contents-src))
-			to_chat(user, span_warning("Что-то мешает прикрутить объект!"))
+			to_chat(user, span_warning("Что-то мешает закрепить мастерскую!"))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(locate(/obj/structure/falsewall) in loc)
-			to_chat(user, span_warning("Что-то мешает прикрутить объект!"))
+			to_chat(user, span_warning("Что-то мешает закрепить мастерскую!"))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		set_anchored(!anchored)
-		to_chat(user, span_notice("Ты [anchored ? "в":"от"]кручиваешь [src] [anchored ? "в пол":"от пола"]."))
+		to_chat(user, span_notice("Вы [anchored ? "за":"от"]крепляете [src] [anchored ? "к полу":"от пола"]."))
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 	return ..()
@@ -129,7 +129,7 @@
 	desc = "An imposing spire formed of brass. It somewhat pulsates."
 	icon_state = "beacon"
 	max_integrity = 250 // A very important one
-	death_message = span_danger("Маяк рассыпается и частями падает на землю, выпуская свою силу!")
+	death_message = span_danger("Маяк рассыпается и частями падает на пол, выпуская свою силу!")
 	death_sound = 'sound/effects/creepyshriek.ogg'
 	var/heal_delay = 6 SECONDS
 	var/last_heal = 0
@@ -157,7 +157,7 @@
 			if(!isclocker(L))
 				continue
 			if(L.reagents?.has_reagent("holywater"))
-				to_chat(L, span_warning("Ты чувствуешь как нечистивая жидкость выходит из вашего тела."))
+				to_chat(L, span_warning("Вы чувствуете, как нечистивая жидкость выходит из вашего тела."))
 				L.reagents.del_reagent("holywater")
 			if(iscogscarab(L))
 				var/mob/living/silicon/robot/cogscarab/C = L
@@ -184,7 +184,7 @@
 	GLOB.clockwork_beacons -= src
 	STOP_PROCESSING(SSobj, src)
 	for(var/datum/mind/M in SSticker.mode.clockwork_cult)
-		to_chat(M.current, span_danger("Ты чувствуешь как один из маяков был уничтожен! Чувство подсказывает, что это было где-то в [areabeacon.name]"))
+		to_chat(M.current, span_danger("Вы чувствуете как один из маяков был уничтожен! Чувство подсказывает, что это было где-то в [areabeacon.name]"))
 	return ..()
 
 /obj/structure/clockwork/functional/beacon/attackby(obj/item/I, mob/user, params)
@@ -258,7 +258,7 @@
 			toggle_hide(null)
 			if(anchored)
 				START_PROCESSING(SSprocessing, src)
-			to_chat(user, span_notice("Ты демаскируешь [src]."))
+			to_chat(user, span_notice("Вы демаскируете [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(I.enchant_type == HIDE_SPELL && canbehidden)
@@ -276,12 +276,12 @@
 				second_stage = FALSE
 				convert_timer = 0
 				converting = null
-			to_chat(user, span_notice("Ты маскируешь [src]."))
+			to_chat(user, span_notice("Вы маскируете [src]."))
 			playsound(user, 'sound/magic/cult_spell.ogg', 25, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 			I.deplete_spell()
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(!anchored && !isfloorturf(loc))
-			to_chat(user, span_warning("Под [src] должен быть пол чтобы его прикрутить!"))
+			to_chat(user, span_warning("Под [src] должен быть пол чтобы его можно было закрепить!"))
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		if(!anchored && locate(/obj/structure/clockwork) in (loc.contents-src))
 			to_chat(user, span_warning("Здесь есть структура!"))
@@ -291,7 +291,7 @@
 			return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 		set_anchored(!anchored)
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, span_notice("Ты [anchored ? "в":"от"]кручиваешь [src] [anchored ? "в пол":"от пола"]."))
+		to_chat(user, span_notice("Вы [anchored ? "за":"от"]крепляете [src] [anchored ? "к полу":"от пола"]."))
 		if(!anchored)
 			stop_convert(TRUE)
 			STOP_PROCESSING(SSprocessing, src)
@@ -339,7 +339,7 @@
 
 /obj/structure/clockwork/functional/altar/proc/first_stage_check(var/mob/living/carbon/human/target)
 	first_stage = TRUE
-	target.visible_message(span_warning("[src] начинают светиться пронзительным янтарным светом!"), span_clock("Ты чувствуешь, как что-то начинает вторгаться в твой разум..."))
+	target.visible_message(span_warning("[src] начинают светиться пронзительным янтарным светом!"), span_clock("Вы чувствуете, как что-то начинает вторгаться в ваш разум..."))
 	glow = new (get_turf(src))
 	animate(glow, alpha = 255, time = 8 SECONDS)
 	update_icon(UPDATE_ICON_STATE)

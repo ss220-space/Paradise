@@ -191,7 +191,7 @@
 		add_fingerprint(user)
 		var/obj/item/stack/sheet/brass/brass = I
 		if(brass.get_amount() < 1)
-			to_chat(user, span_warning("Тебе нужен хотя бы 1 лист латуни чтобы сделать это!"))
+			to_chat(user, span_warning("Вам нужен хотя бы 1 лист латуни чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
@@ -203,14 +203,14 @@
 		if(locate(/obj/structure/falsewall) in T.contents)
 			to_chat(user, span_warning("Тут уже есть фальшивая стена!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Ты начинаешь вставлять [brass] в [src]..."))
+		to_chat(user, span_notice("Вы начинаете вставлять [brass] в [src]..."))
 		if(!do_after(user, 2 SECONDS, src, category = DA_CAT_TOOL) || QDELETED(brass))
 			return ATTACK_CHAIN_PROCEED
 		var/brass_floor = FALSE
 		if(istype(T, /turf/simulated/floor/clockwork)) //if the floor is already brass, costs less to make(conservation of masssssss)
 			brass_floor = TRUE
 		if(!brass.use(brass_floor ? 1 : 2))
-			to_chat(user, span_warning("Тебе нужно больше листов латуни чтобы создать [anchored ? "фальшивую ":""] стену!"))
+			to_chat(user, span_warning("Вам нужно больше листов латуни чтобы создать [anchored ? "фальшивую ":""] стену!"))
 			return ATTACK_CHAIN_PROCEED
 		if(anchored)
 			T.ChangeTurf(/turf/simulated/wall/clockwork)
@@ -243,7 +243,7 @@
 	if(istype(I, /obj/item/stack/sheet/brass_fake))
 		var/obj/item/stack/sheet/brass_fake/brass = I
 		if(brass.get_amount() < 1)
-			to_chat(user, span_warning("Тебе нужен хотя бы 1 лист латуни чтобы сделать это!"))
+			to_chat(user, span_warning("Вам нужен хотя бы 1 лист латуни чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
 		var/turf/T = get_turf(src)
 		if(iswallturf(T))
@@ -255,14 +255,14 @@
 		if(locate(/obj/structure/falsewall) in T.contents)
 			to_chat(user, span_warning("Тут уже есть фальшивая стена!"))
 			return ATTACK_CHAIN_PROCEED
-		to_chat(user, span_notice("Ты начинаешь вставлять [brass] в [src]..."))
+		to_chat(user, span_notice("Вы начинаете вставлять [brass] в [src]..."))
 		if(!do_after(user, 2 SECONDS, src) || QDELETED(brass))
 			return ATTACK_CHAIN_PROCEED
 		var/brass_floor = FALSE
 		if(istype(T, /turf/simulated/floor/clockwork/fake)) //if the floor is already brass, costs less to make(conservation of masssssss)
 			brass_floor = TRUE
 		if(!brass.use(brass_floor ? 1 : 2))
-			to_chat(user, span_warning("Тебе нужно больше листов латуни чтобы создать [anchored ? "фальшивую ":""] стену!"))
+			to_chat(user, span_warning("Вам нужно больше листов латуни чтобы создать [anchored ? "фальшивую ":""] стену!"))
 			return ATTACK_CHAIN_PROCEED
 		if(anchored)
 			T.ChangeTurf(/turf/simulated/wall/clockwork/fake)

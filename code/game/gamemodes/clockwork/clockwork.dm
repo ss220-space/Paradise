@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clockwork_mind.objectives += obj
 
 		if(clockwork_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(clockwork_mind.current, span_clockitalic("Тёмные силы позволили тебе преодолеть клоунскую натуру, дав возможность использовать стрелковое оружие без вреда для себя."))
+			to_chat(clockwork_mind.current, span_clockitalic("Тёмные силы позволили вам преодолеть клоунскую натуру, дав возможность использовать стрелковое оружие без вреда для себя."))
 			clockwork_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
 			// Don't give them another action if they already have one.
 			if(!(locate(/datum/action/innate/toggle_clumsy) in clockwork_mind.current.actions))
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	. += clock_give_item(/obj/item/clockwork/clockslab, H)
 	if(metal)
 		. += clock_give_item(/obj/item/stack/sheet/brass/ten, H)
-	to_chat(H, span_clock("Эти предметы помогут тебе развить культ. Используй их с пользой, и помни - ты не один."))
+	to_chat(H, span_clock("Эти предметы помогут вам развить культ. Используй их с пользой, и помни - ты не один."))
 
 /datum/game_mode/proc/clock_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
@@ -195,7 +195,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clock_mind.special_role = SPECIAL_ROLE_CLOCKER
 
 		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(clock_mind.current, span_clockitalic("Тёмные силы позволили тебе преодолеть клоунскую натуру, дав возможность использовать стрелковое оружие без вреда для себя."))
+			to_chat(clock_mind.current, span_clockitalic("Тёмные силы позволили вам преодолеть клоунскую натуру, дав возможность использовать стрелковое оружие без вреда для себя."))
 			clock_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
 			// Don't give them another action if they already have one.
 			if(!(locate(/datum/action/innate/toggle_clumsy) in clock_mind.current.actions))
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				powered_borgs(M.current)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
-			to_chat(M.current, span_clocklarge("Тонкая пелена пространственно‑временной материи содрогается от страха, присутствие Ратвара ощущается все сильнее, его сила растет одаряя твои руки праведным светом..."))
+			to_chat(M.current, span_clocklarge("Тонкая пелена пространственно‑временной материи содрогается от страха, присутствие Ратвара ощущается все сильнее, его сила растет, одаряя твои руки праведным светом..."))
 			addtimer(CALLBACK(src, PROC_REF(powered), M.current), 20 SECONDS)
 
 /datum/game_mode/proc/check_clock_reveal()
@@ -250,7 +250,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
 				continue
-			to_chat(M.current, span_clocklarge("Армия праведников увеличилась. Теперь будет проще..."))
+			to_chat(M.current, span_clocklarge("Численность праведников увеличилась. Теперь будет проще..."))
 			if(!clocker_objs.obj_demand.check_completion())
 				to_chat(M.current, span_clock("Но у нас всё еще много дел которые нужно закончить."))
 			else
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			if(!ishuman(M.current))
 				continue
-			to_chat(M.current, span_clocklarge("Ваш культ становится все больше по мере ослабления тонкой пелены пространственно-временной материи - ты не сможешь долго скрывать свою истинную натуру!"))
+			to_chat(M.current, span_clocklarge("Ваш культ становится все больше по мере ослабления тонкой пелены пространственно-временной материи - вы не сможете долго скрывать свою истинную натуру!"))
 			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
 		log_game("Clockwork cult reveal. Powergame allowed.")

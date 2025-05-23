@@ -1,7 +1,7 @@
 // A Clockwork slab. Ratvar's tool to cast most of essential spells.
 /obj/item/clockwork/clockslab
 	name = "clockwork slab"
-	desc = "Странная металлическая плита. Часы в центре тикают и шагают."
+	desc = "Странные латунные часы. Часы в центре шагают и тикают."
 	icon = 'icons/obj/clockwork.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -72,7 +72,7 @@
 		return
 
 	if(enchant_type == HIDE_SPELL)
-		to_chat(user, span_notice("Ты замаскировал заводную плиту под некую маленькую игрушку."))
+		to_chat(user, span_notice("Вы замаскировали заводную плиту под некую маленькую игрушку."))
 		playsound(user, 'sound/magic/cult_spell.ogg', 15, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		plushy = pick(plush_colors)
 		attack_verb = list("тыкнул", "ударил", "шлёпнул")
@@ -102,14 +102,14 @@
 			to_chat(user, span_warning("Нет алтарей на которые можно телепорироваться"))
 			return
 		if(!is_level_reachable(user.z))
-			to_chat(user, span_warning("Ты не в том измерении из которого можно телепортироваться!"))
+			to_chat(user, span_warning("Вы не в том измерении из которого можно телепортироваться!"))
 			return
 
 		var/selected_altar = tgui_input_list(user, "Pick a credence teleport to...", "Teleporation", possible_altars)
 		if(!selected_altar)
 			return
 		var/turf/destination = possible_altars[selected_altar]
-		to_chat(user, span_notice("Ты начинаешь кастовать заклинание телепортации..."))
+		to_chat(user, span_notice("Вы начинаете пробуждать чары телепортации..."))
 		animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 		if(do_after(user, 1.5 SECONDS, user) && destination)
 			do_sparks(4, 0, user)
@@ -139,8 +139,9 @@
 			var/mob/living/living = target
 			visible_message(span_warning("[src] [user.p_they()] на мгновение искрится ярким светом!"))
 			user.mob_light(LIGHT_COLOR_HOLY_MAGIC, 3, _duration = 2) //No questions
-			if(living.null_rod_check())
-				visible_message(span_warning("[target] еретика поглощает праведный свет!"))
+			var/obj/item/nullrod/null_rod = living.null_rod_check()
+			if(null_rod)
+				visible_message(span_warning("[null_rod] еретика поглощает праведный свет!"))
 				deplete_spell()
 				return
 			living.Knockdown(3 SECONDS)
@@ -180,17 +181,17 @@
 				closet.open()
 				deplete_spell()
 			else
-				to_chat(user, span_warning("Ты можешь использовать зачарование Стука только на шлюзах и закрытых шкафах!"))
+				to_chat(user, span_warning("Вы можете использовать чары Стука только на шлюзах и закрытых шкафах!"))
 		if(TELEPORT_SPELL)
 			if(target.density && !proximity)
 				to_chat(user, span_warning("Путь преграждён!"))
 				return
 			if(proximity)
-				to_chat(user, span_warning("Ты слишком близко к конечной точке телепорта!"))
+				to_chat(user, span_warning("Вы слишком близки к конечной точке телепорта!"))
 				return
 			if(!(target in view(user)))
 				return
-			to_chat(user, span_notice("Ты начинаешь кастовать заклинание телепортации..."))
+			to_chat(user, span_notice("Вы начинаете пробуждать чары телепортации..."))
 			animate(user, color = COLOR_PURPLE, time = 1.5 SECONDS)
 			if(do_after(user, 1.5 SECONDS, user))
 				do_sparks(4, FALSE, user)
@@ -292,7 +293,7 @@
 				return
 			var/mob/living/carbon/carbon = target
 			if(carbon.mind?.isholy)
-				to_chat(carbon, span_danger("Ты чувствуешь, как чужие мысли пытаются проникнуть в ваш разум..."))
+				to_chat(carbon, span_danger("Вы чувствуете, как чужие мысли пытаются проникнуть в ваш разум..."))
 				deplete_spell()
 				return
 			carbon.AdjustConfused(30 SECONDS)
@@ -350,7 +351,7 @@
 				return
 			var/mob/living/carbon/carbon = target
 			if(carbon.mind?.isholy)
-				to_chat(carbon,  span_danger("Ты чувствуешь, как чужие мысли пытаются проникнуть в твой разум..."))
+				to_chat(carbon,  span_danger("Вы чувствуете, как чужие мысли пытаются проникнуть в ваш разум..."))
 				deplete_spell()
 				return
 			carbon.AdjustConfused(30 SECONDS)
@@ -520,7 +521,7 @@
 		force = 7
 		swordsman = TRUE
 		add_attack_logs(user, user, "Sworded [src]", ATKLOG_ALL)
-		to_chat(user, span_danger("Кровь в твоих жилах бурлит, когда ты пытаешься поразить кого угодно любыми средствами!"))
+		to_chat(user, span_danger("Кровь в ваших жилах бурлит, когда вы хотите поразить кого угодно любыми средствами!"))
 		addtimer(CALLBACK(src, PROC_REF(reset_swordsman), user), 9 SECONDS)
 
 /obj/item/melee/clock_sword/proc/reset_swordsman(mob/user)
@@ -555,7 +556,7 @@
 		var/mob/living/carbon/human/human = target
 		var/obj/item/organ/external/bodypart = pick(human.bodyparts)
 		if(bodypart.internal_bleeding())
-			to_chat(user, span_warning("Ты разрываешь кожу [human], выпуская кровь из [human.p_their()] [bodypart.name]!"))
+			to_chat(user, span_warning("Вы разрываете кожу [human], выпуская кровь из [human.p_their()] [bodypart.name]!"))
 			playsound(get_turf(human), 'sound/effects/pierce.ogg', 30, TRUE)
 			human.setBlood(max(human.blood_volume - 100, 0))
 			var/splatter_dir = get_dir(user, human)
@@ -602,7 +603,7 @@
 	. = ..()
 	if(enchant_type == FLASH_SPELL)
 		if(!user.is_in_hands(src))
-			to_chat(user, span_notice("Ты должен держать [src] в руках!"))
+			to_chat(user, span_notice("Вы должны держать [src] в руках!"))
 			return
 		playsound(loc, 'sound/effects/phasein.ogg', 100, TRUE)
 		set_light_range_power_color(2, 1, COLOR_WHITE)
@@ -639,14 +640,14 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
-			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Баклер мерцает и исчезает с твоих рук, оставляя лишь тошноту!"))
+			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Баклер мерцает и исчезает с ваших рук, оставляя лишь тошноту!"))
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, span_clocklarge("\"У тебя вообще есть голова на плечах?\""))
-			to_chat(user, span_userdanger("Баклер вдарил тебе в голову!"))
+			to_chat(user, span_userdanger("Баклер вдарил вам в голову!"))
 			user.emote("scream")
 			user.apply_damage(10, BRUTE, BODY_ZONE_HEAD)
 		user.drop_item_ground(src)
@@ -769,7 +770,7 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
-			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Капюшон мерцает и исчезает с твоих рук, оставляя лишь тошноту!"))
+			user.visible_message(span_warning("Когда [user] поднимает [src], оно мерцает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Капюшон мерцает и исчезает с ваших рук, оставляя лишь тошноту!"))
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
@@ -871,7 +872,7 @@
 	var/mob/living/carbon/carbon = user
 	if(enchant_type == ARMOR_SPELL)
 		if(carbon.wear_suit != src)
-			to_chat(carbon, span_notice("Ты должен одеть [src]!"))
+			to_chat(carbon, span_notice("Вы должны одеть [src] перед тем как её активировать!"))
 			return
 		carbon.visible_message(span_danger("[carbon] сосредотачивается, пока [carbon.p_their()] кирасса смещает свои пластины!"),
 		span_notice("[src.name] становится более закалённым, так как пластины смещаются, чтобы отразить любую атаку!"))
@@ -896,7 +897,7 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
-			user.visible_message(span_warning("Когда [user] наряжается в [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] тела!"), span_warning("Кираса мерцает и исчезает с твоего тела, оставляя лишь тошноту!"))
+			user.visible_message(span_warning("Когда [user] наряжается в [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] тела!"), span_warning("Кираса мерцает и исчезает с вашего тела, оставляя лишь тошноту!"))
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit(20)
@@ -947,23 +948,23 @@
 	switch(enchant_type)
 		if(FASTPUNCH_SPELL)
 			if(human.gloves != src)
-				to_chat(human, span_notice("Ты должен одеть [src]!"))
+				to_chat(human, span_notice("Вы должны одеть [src] перед тем как их использовать!"))
 				return
 			if(human.mind.martial_art)
-				to_chat(human, span_warning("Ты <b>слишком</b> силён чтобы пытаться использовать это!"))
+				to_chat(human, span_warning("Вы <b>слишком</b> сильны, чтобы пытаться использовать их!"))
 				return
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FASTPUNCH_SPELL))
-			to_chat(human, span_notice("Ты застегиваешь руковицы, что делает твои движения более ловкими!"))
+			to_chat(human, span_notice("Вы застёгиваете руковицы, что делает ваши движения более ловкими!"))
 			enchant_type = CASTING_SPELL
 			north_star = TRUE
 			add_attack_logs(human, human, "North-starred [src]", ATKLOG_ALL)
 			addtimer(CALLBACK(src, PROC_REF(reset_punch)), 6 SECONDS)
 		if(FIRE_SPELL)
 			if(human.gloves != src)
-				to_chat(human, span_notice("Ты должен одеть [src]!"))
+				to_chat(human, span_notice("Вы должны одеть [src] перед тем как их использовать!"))
 				return
 			ADD_TRAIT(src, TRAIT_NODROP, CURSED_ITEM_TRAIT(FIRE_SPELL))
-			to_chat(human, span_notice("Твои руковицы охватываются красным пламенем, готовым сжечь любого врага в поле зрения!"))
+			to_chat(human, span_notice("Ваши руковицы охватываются красным пламенем, готовым сжечь любого врага в поле зрения!"))
 			enchant_type = CASTING_SPELL
 			fire_casting = TRUE
 			add_attack_logs(human, human, "Fire-casted [src]", ATKLOG_ALL)
@@ -1023,14 +1024,14 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
-			user.visible_message(span_warning("Когда [user] надевает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Рукавицы мерцают и исчезают с твоего тела, оставляя лишь тошноту!"))
+			user.visible_message(span_warning("Когда [user] надевает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] рук!"), span_warning("Рукавицы мерцают и исчезают с вашего тела, оставляя лишь тошноту!"))
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, span_clocklarge("\"Тебе нравятся твои руки?\""))
-			to_chat(user, span_userdanger("Перчатки внезапно сильно сжимаются, сдавливая руки, прежде чем ты успеваешь их снять!"))
+			to_chat(user, span_userdanger("Перчатки внезапно сильно сжимаются, сдавливая руки, прежде чем вы успеваете их снять!"))
 			user.emote("scream")
 			user.apply_damage(7, BRUTE, BODY_ZONE_L_ARM)
 			user.apply_damage(7, BRUTE, BODY_ZONE_R_ARM)
@@ -1063,14 +1064,14 @@
 	if(!isclocker(user))
 		if(!iscultist(user))
 			to_chat(user, span_clocklarge("\"Это для моих слуг, не для тебя\""))
-			user.visible_message(span_warning("Когда [user] натягивает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] стоп!"), span_warning("Ботинки мерцают и исчезают с твоих стоп, оставляя лишь тошноту!"))
+			user.visible_message(span_warning("Когда [user] натягивает [src], оно соскальзывает и исчезает с [genderize_ru(user.gender, "его", "её", "их", "их")] стоп!"), span_warning("Ботинки мерцают и исчезают с ваших стоп, оставляя лишь тошноту!"))
 			if(iscarbon(user))
 				var/mob/living/carbon/C = user
 				C.vomit()
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, span_clocklarge("\"Давай посмотрим, сможешь ли ты танцевать с ними.\""))
-			to_chat(user, span_userdanger("Шнурки становятся обжигающе горячими, когда ты пытаешься их снять"))
+			to_chat(user, span_userdanger("Шнурки становятся обжигающе горячими, когда вы пытаетесь снять ботинки."))
 			user.emote("scream")
 			user.apply_damage(7, BURN, BODY_ZONE_L_LEG)
 			user.apply_damage(7, BURN, BODY_ZONE_R_LEG)
@@ -1117,7 +1118,7 @@
 				C.Knockdown(10 SECONDS)
 		else
 			to_chat(user, span_heavybrass("\"Видишь дырку в своей голове? А она есть.\""))
-			to_chat(user, span_userdanger("Шлем пытается вонзить латунный шип тебе голову, когда ты пытаетешься его снять!"))
+			to_chat(user, span_userdanger("Шлем пытается вонзить латунный шип вам в голову, когда вы пытаетесь его снять!"))
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)
 			user.adjustBrainLoss(30)
@@ -1148,14 +1149,14 @@
 			playsound(loc, 'sound/weapons/flash.ogg', 50, TRUE)
 		else
 			to_chat(user, span_clocklarge("\"Считай, что тебя осудили, щенок.\""))
-			to_chat(user, span_userdanger("Ты внезапно загораешься!"))
+			to_chat(user, span_userdanger("Вы внезапно загораетесь!"))
 			user.adjust_fire_stacks(5)
 			user.IgniteMob()
 		user.drop_item_ground(src)
 
 /obj/item/clothing/glasses/clockwork/attack_self(mob/user)
 	if(!isclocker(user))
-		to_chat(user, span_warning("Ты возишься с [src], но безрезультатно."))
+		to_chat(user, span_warning("Вы возитесь с [src], но безрезультатно."))
 		return
 	active = !active
 
@@ -1165,9 +1166,9 @@
 	lighting_alpha = active ? LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE : null
 	switch(active)
 		if(TRUE)
-			to_chat(user, span_notice("Ты приспускаешь [src], линзы визора светлеют."))
+			to_chat(user, span_notice("Вы приспускаете [src], линзы визора светлеют."))
 		if(FALSE)
-			to_chat(user, span_notice("Ты приподнимаешь [src], линзы визора темнеют."))
+			to_chat(user, span_notice("Вы приподнимаете [src], линзы визора темнеют."))
 
 	user.update_action_buttons_icon()
 	user.update_inv_glasses()
@@ -1190,7 +1191,7 @@
 
 /obj/machinery/integration_cog
 	name = "integration cog"
-	desc = span_dangerbigger("Ты не должен этого видеть. Если ты каким-то образом это увидел - напиши об этом разработчикам, возможно где-то затаилась ошибка в коде.")
+	desc = span_dangerbigger("Ты не должен этого видеть. <b>Это баг! Сообщите об этом в админхелп или баг-репорт.</b>")
 	icon = null
 	anchored = TRUE
 	active_power_usage = 100 // In summary it costs 500 power. Most areas costs around 800, with top being medbay at around 8000. Fair number.
@@ -1268,12 +1269,12 @@
 
 /obj/item/clockwork/cogscarab/attack_self(mob/user)
 	if(!isclocker(user))
-		to_chat(user, span_warning("Ты возишься с [src], но безрезультатно."))
+		to_chat(user, span_warning("Вы возитесь с [src], но безрезультатно."))
 		return FALSE
 	if(searching)
 		return
 	searching = TRUE
-	to_chat(user, span_notice("Ты пытаешься запустить [src], шестерёнки внутри начинают шуметь."))
+	to_chat(user, span_notice("Вы пытаетесь запустить [src]. Шестерёнки внутри него начинают шуметь."))
 	var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /mob/living/silicon/robot/cogscarab)
 	if(candidates.len)
 		var/mob/dead/observer/O = pick(candidates)
@@ -1299,16 +1300,16 @@
 	if(istype(I, /obj/item/mmi/robotic_brain/clockwork))
 		add_fingerprint(user)
 		if(!isclocker(user))
-			to_chat(user, span_danger("Тебя охватывает всепоглощающее чувство ужаса, когда ты пытаешься поместить хранилище души в оболочку мародёра."))
+			to_chat(user, span_danger("Вас охватывает всепоглощающее чувство ужаса, когда вы пытаетесь поместить хранилище души в оболочку мародёра."))
 			user.Confused(10 SECONDS)
 			user.Jitter(8 SECONDS)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		if(isdrone(user))
-			to_chat(user, span_warning("Ты недостаточно ловок, чтобы сделать это!"))
+			to_chat(user, span_warning("Вы недостаточно ловки, чтобы сделать это!"))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/mmi/robotic_brain/clockwork/soul = I
 		if(!soul.brainmob?.mind)
-			to_chat(user, span_warning("[soul.brainmob? "Душа в [I] не активна!" : "[I] пуст!"]"))
+			to_chat(user, span_warning("Душа в [I] отсутствует или не активна!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.can_unEquip(src))
 			return ..()
@@ -1346,12 +1347,12 @@
 		var/mob/living/L = user
 		user.emote("scream")
 		if(ishuman(L))
-			to_chat(L, span_danger("[src] вонзается в твою руку!"))
+			to_chat(L, span_danger("[src] вонзается в вашу руку!"))
 			var/mob/living/carbon/human/H = L
 			H.embed_item_inside(src)
 			to_chat(user, span_clocklarge("\"Каково это – чувствовать такое?\""))
 		else
-			to_chat(L, span_danger("[src] вонзается в тебя!"))
+			to_chat(L, span_danger("[src] вонзается в вас!"))
 			L.adjustBruteLoss(force)
 		return
 	if(!enchant_type)
@@ -1359,9 +1360,9 @@
 		return
 	else
 		if(!ishuman(user))
-			to_chat(user,span_warning("Ты слишком слаб чтобы разрушить этот массивный осколок!"))
+			to_chat(user,span_warning("Вы слишком слабы чтобы разрушить этот массивный осколок!"))
 			return
-		user.visible_message(span_warning("[user] сокрушается [src] в [genderize_ru(user.gender, "его", "её", "их", "их")] руках!"), span_notice("Ты сокрушаешь [src] в своих руках!"))
+		user.visible_message(span_warning("[user] сокрушается [src] в [genderize_ru(user.gender, "его", "её", "их", "их")] руках!"), span_notice("Вы сокрушаете [src] в своих руках!"))
 		playsound(src, "shatter", 50, TRUE)
 		switch(enchant_type)
 			if(EMP_SPELL)

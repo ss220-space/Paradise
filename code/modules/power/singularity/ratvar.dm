@@ -20,7 +20,7 @@
 /obj/singularity/god/ratvar/New()
 	..()
 	set_light(15, 1, "#BE8700")
-	to_chat(world, "<span class='ratvar'>И СНОВА МОЙ СВЕТ СИЯЕТ СРЕДИ ЭТИХ ЖАЛКИХ ЗВЕЗД.</span>")
+	to_chat(world, span_ratvar("И СНОВА МОЙ СВЕТ СИЯЕТ СРЕДИ ЭТИХ ЖАЛКИХ ЗВЕЗД."))
 	SEND_SOUND(world, 'sound/effects/ratvar_reveal.ogg')
 
 	var/datum/game_mode/gamemode = SSticker.mode
@@ -40,15 +40,15 @@
 	return
 
 /obj/singularity/god/ratvar/Destroy()
-	to_chat(world, "<span class='ratvar'>РАТВАР ПАЛ</span>")
+	to_chat(world, span_ratvar("РАТВАР ПАЛ"))
 	SEND_SOUND(world, 'sound/hallucinations/wail.ogg')
 	var/datum/game_mode/gamemode = SSticker.mode
 	if(gamemode)
 		gamemode.clocker_objs.ratvar_death()
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'МЕСТЬ!</span>")
-				to_chat(clock_mind.current, "<span class='clock'>Текущая цель: уничтожить не верных!</span>")
+				to_chat(clock_mind.current, span_clocklarge("МЕСТЬ!"))
+				to_chat(clock_mind.current, span_clock("Текущая цель: уничтожить не верных!"))
 	return ..()
 
 /obj/singularity/god/ratvar/attack_ghost(mob/dead/observer/user)
@@ -90,7 +90,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!isclocker(M))
-				to_chat(M, "<span class='warning'>Вы чувствуете, как ваше здравомыслие рушится в одно мгновение, когда вы смотрите на [src.name]...</span>")
+				to_chat(M, span_warning("Вы чувствуете, как ваше здравомыслие рушится в одно мгновение, когда вы смотрите на [src.name]..."))
 				M.Stun(6 SECONDS)
 
 /obj/singularity/god/ratvar/consume(atom/A)

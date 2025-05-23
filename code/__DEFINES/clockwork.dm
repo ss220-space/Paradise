@@ -122,16 +122,16 @@ GLOBAL_LIST_INIT(shard_spells, list(
 #define CLOCK_CREW_REVEAL_HIGH 0.25
 
 // Text
-#define CLOCK_GREETING "<span class='clocklarge'>You catch a glimpse of the Realm of Ratvar, the Clockwork Justiciar. \
-						You now see how flimsy the world is, you see that it should be open to the knowledge of Ratvar.</span>"
+#define CLOCK_GREETING span_clocklarge("Ты ловишь проблеск Царства Ратвара, Часового Праведника. \
+						Теперь ты видишь, насколько хрупок этот мир, и понимаешь, что он должен быть открыт для знаний Ратвара.")
 
-#define CLOCK_CURSES list("A fuel technician just slit his own throat and begged for death.",                                          \
-			"The shuttle's navigation programming was replaced by a file containing two words, IT COMES.",                             \
-			"The shuttle's custodian tore out his guts and began painting strange shapes on the floor.",                               \
-			"A shuttle engineer began screaming 'DEATH IS NOT THE END' and ripped out wires until an arc flash seared off her flesh.", \
-			"A shuttle inspector started laughing madly over the radio and then threw herself into an engine turbine.",                \
-			"The shuttle dispatcher was found dead with bloody symbols carved into their flesh.",                                      \
-			"Steve repeatedly touched a lightbulb until his hands fell off.")
+#define CLOCK_CURSES list("Заправщик шаттла только что перерезал себе горло и умолял о смерти.",\
+			"Навигационная программа шаттла была заменена файлом, содержащим два слова: «ОНО ИДЁТ».",\
+			"Уборщик шаттла вырвал свои кишки и начал рисовать странные фигуры на полу.",\
+			"Инженер шаттла кричала «СМЕРТЬ НЕ КОНЕЦ» и вырывала проводку, пока электрический разряд не испепелил её плоть.",\
+			"Инспектор шаттла начала безумно смеяться в рацию и бросилась в турбину двигателя.",\
+			"Диспетчер шаттла был найден мертвым, на его теле были вырезаны кровавые символы.",\
+			"Стив так долго держался за лампочку, что у него отнялись руки.")
 
 // Misc
 #define CLOCK_COLOR "#ffb700"
