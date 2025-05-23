@@ -584,10 +584,10 @@
 		current_robot.say(message, null, FALSE, ignore_speech_problems, ignore_atmospherics, ignore_languages)
 		return TRUE
 
-	var/message_mode = parse_message_mode(message, "headset")
+	var/message_mode = parse_message_mode(message, HEADSET_MODE)
 
 	if(message_mode)
-		if(message_mode == "headset")
+		if(message_mode == HEADSET_MODE)
 			message = copytext(message, 2)
 		else
 			message = copytext(message, 3)

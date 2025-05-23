@@ -9,3 +9,10 @@
 #define ADMIN_CHANNEL "Admin"
 #define DSAY_CHANNEL "Dsay"
 #define DEV_CHANNEL "Dev"
+
+// Some other channels
+#define INTERCOM_MODE "Интерком"
+#define HEADSET_MODE "Гарнитура"
+#define R_EAR_MODE "Правое ухо"
+#define L_EAR_MODE "Левое ухо"
+#define CORDS_MODE "Связки"

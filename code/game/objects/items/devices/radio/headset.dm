@@ -63,11 +63,11 @@
 /obj/item/radio/headset/examine(mob/user)
 	. = ..()
 	if(in_range(src, user) && radio_desc)
-		. += span_notice("Доступные частоты:")
+		. += span_notice("<b>Доступные частоты:</b>")
 		. += span_info("[radio_desc]")
 
 /obj/item/radio/headset/handle_message_mode(mob/living/M, list/message_pieces, channel)
-	if(channel == "special")
+	if(channel == SPEC_FREQ_NAME)
 		if(translate_binary)
 			var/datum/language/binary = GLOB.all_languages[LANGUAGE_BINARY]
 			binary.broadcast(M, strip_prefixes(multilingual_to_message(message_pieces)))
@@ -668,7 +668,7 @@
 
 /obj/item/radio/headset/ert/alt/commander
 	name = "ERT commander's bowman headset"
-	desc = "Эта гарнитура принадлежит тому, кто управляет начальниками. Обеспечивает защиту от громких звуков. Позволяет отдавать приказы даже в случае отказа реле телекоммуникации."
+	desc = "Эта гарнитура принадлежит тому, кто управляет начальниками. Обеспечивает защиту от громких звуков. Позволяет отдавать приказы даже в случае отказа реле телекоммуникаций."
 	ru_names = list(
 		NOMINATIVE = "тактическая гарнитура лидера ОБР",
 		GENITIVE = "тактическую гарнитуру лидера ОБР",
@@ -693,7 +693,7 @@
 
 /obj/item/radio/headset/centcom
 	name = "\proper centcom officer's bowman headset"
-	desc = "Эта гарнитура принадлежит высшей должностной инстанции. Обеспечивает защиту от громких звуков. Позволяет отдавать приказы даже в случае отказа реле телекоммуникации."
+	desc = "Эта гарнитура принадлежит высшей должностной инстанции. Обеспечивает защиту от громких звуков. Позволяет отдавать приказы даже в случае отказа реле телекоммуникаций."
 	ru_names = list(
 		NOMINATIVE = "тактическая гарнитура офицера ЦК",
 		GENITIVE = "тактическую гарнитуру офицера ЦК",

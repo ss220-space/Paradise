@@ -281,7 +281,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 /obj/item/radio/proc/autosay(message, from, channel, role = "Неизвестный") //BS12 EDIT
 	var/datum/radio_frequency/connection = null
 	if(channel && channels && channels.len)
-		if(channel == "department")
+		if(channel == DEPARTMENT_FREQ_NAME)
 			channel = channels[1]
 		connection = secure_radio_connections[channel]
 	else
@@ -369,12 +369,12 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 // Interprets the message mode when talking into a radio, possibly returning a connection datum
 /obj/item/radio/proc/handle_message_mode(mob/living/M as mob, list/message_pieces, message_mode)
 	// If a channel isn't specified, send to common.
-	if(!message_mode || message_mode == "headset")
+	if(!message_mode || message_mode == HEADSET_MODE)
 		return radio_connection
 
 	// Otherwise, if a channel is specified, look for it.
 	if(channels && channels.len)
-		if(message_mode == "department") // Department radio shortcut
+		if(message_mode == DEPARTMENT_FREQ_NAME) // Department radio shortcut
 			message_mode = channels[1]
 
 		if(channels[message_mode]) // only broadcast if the channel is set on
@@ -625,9 +625,9 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	. = ..()
 	if(in_range(src, user) || loc == user)
 		if(b_stat)
-			. += span_notice("Может быть прикреплено или модифицировано!")
+			. += span_notice("Может быть прикреплено или модифицировано.")
 		else
-			. += span_notice("Не может быть прикреплено или модифицировано!")
+			. += span_notice("Не может быть прикреплено или модифицировано.")
 		. += span_info("Используйте <b>Ctrl+Shift+ЛКМ</b>, чтобы переключить динамик.<br/>Используйте <b>Alt+ЛКМ</b>, чтобы переключить микрофон.")
 
 /obj/item/radio/click_alt(mob/user)
@@ -644,7 +644,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		balloon_alert(user, "невозможно!")
 		return
 	listening = !listening
-	balloon_alert(user, "динамик [broadcasting ? "включён" : "выключен"]")
+	balloon_alert(user, "динамик [listening ? "включён" : "выключен"]")
 
 /obj/item/radio/screwdriver_act(mob/user, obj/item/I)
 	. = TRUE
@@ -702,8 +702,15 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/borg
 	name = "Cyborg Radio"
-	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
-	var/obj/item/encryptionkey/keyslot // Borg radios can handle a single encryption key
+	desc = "Радио-компонент, предназначенный для использования в роботизированных системах."
+	ru_names = list(
+		NOMINATIVE = "рация робота",
+		GENITIVE = "рации робота",
+		DATIVE = "рации робота",
+		ACCUSATIVE = "рацию робота",
+		INSTRUMENTAL = "рацией робота",
+		PREPOSITIONAL = "рации робота"
+	)
 	icon = 'icons/obj/robot_component.dmi' // Cyborgs radio icons should look like the component.
 	icon_state = "radio"
 	has_loudspeaker = TRUE
@@ -711,6 +718,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	canhear_range = 0
 	dog_fashion = null
 	freqlock = TRUE // don't let cyborgs change the default channel of their internal radio away from common
+	var/mob/living/silicon/robot/myborg = null // Cyborg which owns this radio. Used for power checks
+	var/obj/item/encryptionkey/keyslot // Borg radios can handle a single encryption key
 
 /obj/item/radio/borg/syndicate
 	keyslot = new /obj/item/encryptionkey/syndicate/nukeops
@@ -757,7 +766,7 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 		add_fingerprint(user)
 		user.set_machine(src)
 		if(keyslot)
-			to_chat(user, span_warning("The radio can't hold another key!"))
+			balloon_alert(user, "слот для ключа занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return .()
@@ -786,11 +795,11 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 				keyslot = null
 
 		recalculateChannels()
-		to_chat(user, "You pop out the encryption key in the radio!")
+		balloon_alert(user, "ключ извлечён")
 		I.play_tool_sound(user, I.tool_volume)
 
 	else
-		to_chat(user, "This radio doesn't have any encryption keys!")
+		balloon_alert(user, "слот для ключа пуст!")
 
 /obj/item/radio/borg/recalculateChannels()
 	channels = list()
@@ -819,6 +828,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 			sleep(30) // Waiting for SSradio to be created.
 		if(!SSradio)
 			name = "broken radio"
+			ru_names = list(
+				NOMINATIVE = "сломанная рация",
+				GENITIVE = "сломанной рации",
+				DATIVE = "сломанной рации",
+				ACCUSATIVE = "сломанную рацию",
+				INSTRUMENTAL = "сломанной рацией",
+				PREPOSITIONAL = "сломанной рации"
+			)
 			return
 
 		secure_radio_connections[ch_name] = SSradio.add_object(src, SSradio.radiochannels[ch_name],  RADIO_CHAT)
@@ -847,16 +864,36 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	dog_fashion = /datum/dog_fashion/back
 
 /obj/item/radio/phone
-	broadcasting = 0
+	name = "phone"
+	desc = "Телефон, подключённый к внутренней системе связи станции. Несколько старомодно для 26 века."
+	ru_names = list(
+		NOMINATIVE = "телефон",
+		GENITIVE = "телефона",
+		DATIVE = "телефону",
+		ACCUSATIVE = "телефон",
+		INSTRUMENTAL = "телефоном",
+		PREPOSITIONAL = "телефоне"
+	)
+	gender = MALE
 	icon = 'icons/obj/items.dmi'
 	icon_state = "red_phone"
-	listening = 1
-	name = "phone"
-	dog_fashion = null
+	listening = TRUE
+	broadcasting = FALSE
 	drop_sound = 'sound/items/handling/phone_drop.ogg'
 	pickup_sound = 'sound/items/handling/phone_pickup.ogg'
+	dog_fashion = null
 
 /obj/item/radio/phone/medbay
+	name = "medbay phone"
+	desc = "Телефон, настроенный на медицинскую частоту системы связи станции. Дзинь."
+	ru_names = list(
+		NOMINATIVE = "медицинский телефон",
+		GENITIVE = "медицинского телефона",
+		DATIVE = "медицинскому телефону",
+		ACCUSATIVE = "медицинский телефон",
+		INSTRUMENTAL = "медицинским телефоном",
+		PREPOSITIONAL = "медицинском телефоне"
+	)
 	frequency = MED_I_FREQ
 
 /obj/item/radio/phone/medbay/New()
@@ -868,5 +905,14 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 
 /obj/item/radio/phone/ussp
 	name = "Red phone"
+	desc = "Телефон, подключённый к частоте СССП в пределах сектора."
+	ru_names = list(
+		NOMINATIVE = "красный телефон",
+		GENITIVE = "красного телефона",
+		DATIVE = "красному телефону",
+		ACCUSATIVE = "красный телефон",
+		INSTRUMENTAL = "красным телефоном",
+		PREPOSITIONAL = "красном телефоне"
+	)
 	has_loudspeaker = TRUE
 	frequency = SOV_FREQ

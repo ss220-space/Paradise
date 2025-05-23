@@ -24,10 +24,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 				and must not contain prohibited characters!
 */
 	// English text lowercase
-	  ":r" = "правое ухо",				"#r" = "правое ухо",			"№r" = "правое ухо",			".r" = "правое ухо",
-	  ":l" = "левое ухо",				"#l" = "левое ухо",				"№l" = "левое ухо",				".l" = "левое ухо",
-	  ":i" = "интерком",				"#i" = "интерком",				"№i" = "интерком",				".i" = "интерком",
-	  ":h" = "отдел",					"#h" = "отдел",					"№h" = "отдел",					".h" = "отдел",
+	  ":r" = R_EAR_MODE,				"#r" = R_EAR_MODE,				"№r" = R_EAR_MODE,				".r" = R_EAR_MODE,
+	  ":l" = L_EAR_MODE,				"#l" = L_EAR_MODE,				"№l" = L_EAR_MODE,				".l" = L_EAR_MODE,
+	  ":i" = INTERCOM_MODE,				"#i" = INTERCOM_MODE,			"№i" = INTERCOM_MODE,			".i" = INTERCOM_MODE,
+	  ":h" = DEPARTMENT_FREQ_NAME,		"#h" = DEPARTMENT_FREQ_NAME,	"№h" = DEPARTMENT_FREQ_NAME,	".h" = DEPARTMENT_FREQ_NAME,
 	  ":c" = COMM_FREQ_NAME,			"#c" = COMM_FREQ_NAME,			"№c" = COMM_FREQ_NAME,			".c" = COMM_FREQ_NAME,
 	  ":n" = SCI_FREQ_NAME,				"#n" = SCI_FREQ_NAME,			"№n" = SCI_FREQ_NAME,			".n" = SCI_FREQ_NAME,
 	  ":m" = MED_FREQ_NAME,				"#m" = MED_FREQ_NAME,			"№m" = MED_FREQ_NAME,			".m" = MED_FREQ_NAME,
@@ -42,10 +42,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":p" = AI_FREQ_NAME,				"#p" = AI_FREQ_NAME,			"№p" = AI_FREQ_NAME,			".p" = AI_FREQ_NAME,
 
 	// English text uppercase
-	  ":R" = "правое ухо",				"#R" = "правое ухо",			"№R" = "правое ухо",			".R" = "правое ухо",
-	  ":L" = "левое ухо",				"#L" = "левое ухо",				"№L" = "левое ухо",				".L" = "левое ухо",
-	  ":I" = "интерком",				"#I" = "интерком",				"№I" = "интерком",				".I" = "интерком",
-	  ":H" = "отдел",					"#H" = "отдел",					"№H" = "отдел",					".H" = "отдел",
+	  ":R" = R_EAR_MODE,				"#R" = R_EAR_MODE,				"№R" = R_EAR_MODE,				".R" = R_EAR_MODE,
+	  ":L" = L_EAR_MODE,				"#L" = L_EAR_MODE,				"№L" = L_EAR_MODE,				".L" = L_EAR_MODE,
+	  ":I" = INTERCOM_MODE,				"#I" = INTERCOM_MODE,			"№I" = INTERCOM_MODE,			".I" = INTERCOM_MODE,
+	  ":H" = DEPARTMENT_FREQ_NAME,		"#H" = DEPARTMENT_FREQ_NAME,	"№H" = DEPARTMENT_FREQ_NAME,	".H" = DEPARTMENT_FREQ_NAME,
 	  ":C" = COMM_FREQ_NAME,			"#C" = COMM_FREQ_NAME,			"№C" = COMM_FREQ_NAME,			".C" = COMM_FREQ_NAME,
 	  ":N" = SCI_FREQ_NAME,				"#N" = SCI_FREQ_NAME,			"№N" = SCI_FREQ_NAME,			".N" = SCI_FREQ_NAME,
 	  ":M" = MED_FREQ_NAME,				"#M" = MED_FREQ_NAME,			"№M" = MED_FREQ_NAME,			".M" = MED_FREQ_NAME,
@@ -60,10 +60,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":P" = AI_FREQ_NAME,				"#P" = AI_FREQ_NAME,			"№P" = AI_FREQ_NAME,			".P" = AI_FREQ_NAME,
 
 	// Russian text lowercase
-	  ":к" = "правое ухо",				"#к" = "правое ухо",			"№к" = "правое ухо",			".к" = "правое ухо",
-	  ":д" = "левое ухо",				"#д" = "левое ухо",				"№д" = "левое ухо",				".д" = "левое ухо",
-	  ":ш" = "интерком",				"#ш" = "интерком",				"№ш" = "интерком",				".ш" = "интерком",
-	  ":р" = "отдел",					"#р" = "отдел",					"№р" = "отдел",					".р" = "отдел",
+	  ":к" = R_EAR_MODE,				"#к" = R_EAR_MODE,				"№к" = R_EAR_MODE,				".к" = R_EAR_MODE,
+	  ":д" = L_EAR_MODE,				"#д" = L_EAR_MODE,				"№д" = L_EAR_MODE,				".д" = L_EAR_MODE,
+	  ":ш" = INTERCOM_MODE,				"#ш" = INTERCOM_MODE,			"№ш" = INTERCOM_MODE,			".ш" = INTERCOM_MODE,
+	  ":р" = DEPARTMENT_FREQ_NAME,		"#р" = DEPARTMENT_FREQ_NAME,	"№р" = DEPARTMENT_FREQ_NAME,	".р" = DEPARTMENT_FREQ_NAME,
 	  ":с" = COMM_FREQ_NAME,			"#с" = COMM_FREQ_NAME,			"№с" = COMM_FREQ_NAME,			".с" = COMM_FREQ_NAME,
 	  ":т" = SCI_FREQ_NAME,				"#т" = SCI_FREQ_NAME,			"№т" = SCI_FREQ_NAME,			".т" = SCI_FREQ_NAME,
 	  ":ь" = MED_FREQ_NAME,				"#ь" = MED_FREQ_NAME,			"№ь" = MED_FREQ_NAME,			".ь" = MED_FREQ_NAME,
@@ -77,13 +77,13 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":г" = SUP_FREQ_NAME,				"#г" = SUP_FREQ_NAME,			"№г" = SUP_FREQ_NAME,			".г" = SUP_FREQ_NAME,
 	  ":я" = SRV_FREQ_NAME,				"#я" = SRV_FREQ_NAME,			"№я" = SRV_FREQ_NAME,			".я" = SRV_FREQ_NAME,
 	  ":з" = AI_FREQ_NAME,				"#з" = AI_FREQ_NAME,			"№з" = AI_FREQ_NAME,			".з" = AI_FREQ_NAME,
-	  ":ё" = "связки",					"#ё" = "связки",				"№ё" = "связки",				".ё" = "связки",
+	  ":ё" = CORDS_MODE,				"#ё" = CORDS_MODE,				"№ё" = CORDS_MODE,				".ё" = CORDS_MODE,
 
 	// Russian text uppercase
-	  ":К" = "правое ухо",				"#К" = "правое ухо",			"№К" = "правое ухо",			".К" = "правое ухо",
-	  ":Д" = "левое ухо",				"#Д" = "левое ухо",				"№Д" = "левое ухо",				".Д" = "левое ухо",
-	  ":Ш" = "интерком",				"#Ш" = "интерком",				"№Ш" = "интерком",				".Ш" = "интерком",
-	  ":Р" = "отдел",					"#Р" = "отдел",					"№Р" = "отдел",					".Р" = "отдел",
+	  ":К" = R_EAR_MODE,				"#К" = R_EAR_MODE,				"№К" = R_EAR_MODE,				".К" = R_EAR_MODE,
+	  ":Д" = L_EAR_MODE,				"#Д" = L_EAR_MODE,				"№Д" = L_EAR_MODE,				".Д" = L_EAR_MODE,
+	  ":Ш" = INTERCOM_MODE,				"#Ш" = INTERCOM_MODE,			"№Ш" = INTERCOM_MODE,			".Ш" = INTERCOM_MODE,
+	  ":Р" = DEPARTMENT_FREQ_NAME,		"#Р" = DEPARTMENT_FREQ_NAME,	"№Р" = DEPARTMENT_FREQ_NAME,	".Р" = DEPARTMENT_FREQ_NAME,
 	  ":С" = COMM_FREQ_NAME,			"#С" = COMM_FREQ_NAME,			"№С" = COMM_FREQ_NAME,			".С" = COMM_FREQ_NAME,
 	  ":Т" = SCI_FREQ_NAME,				"#Т" = SCI_FREQ_NAME,			"№Т" = SCI_FREQ_NAME,			".Т" = SCI_FREQ_NAME,
 	  ":Ь" = MED_FREQ_NAME,				"#Ь" = MED_FREQ_NAME,			"№Ь" = MED_FREQ_NAME,			".Ь" = MED_FREQ_NAME,
@@ -96,10 +96,10 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":Г" = SUP_FREQ_NAME,				"#Г" = SUP_FREQ_NAME,			"№Г" = SUP_FREQ_NAME,			".Г" = SUP_FREQ_NAME,
 	  ":Я" = SRV_FREQ_NAME,				"#Я" = SRV_FREQ_NAME,			"№Я" = SRV_FREQ_NAME,			".Я" = SRV_FREQ_NAME,
 	  ":З" = AI_FREQ_NAME,				"#З" = AI_FREQ_NAME,			"№З" = AI_FREQ_NAME,			".З" = AI_FREQ_NAME,
-	  ":Ё" = "связки",					"#Ё" = "связки",				"№Ё" = "связки",				".Ё" = "связки",
+	  ":Ё" = CORDS_MODE,				"#Ё" = CORDS_MODE,				"№Ё" = CORDS_MODE,				".Ё" = CORDS_MODE,
 
 	// English symbols no case
-	  ":~" = "связки",					"#~" = "связки",				"№~" = "связки",				".~" = "связки",
+	  ":~" = CORDS_MODE,				"#~" = CORDS_MODE,				"№~" = CORDS_MODE,				".~" = CORDS_MODE,
 	  ":," = SYND_TAIPAN_FREQ_NAME,		"#," = SYND_TAIPAN_FREQ_NAME,	"№," = SYND_TAIPAN_FREQ_NAME,	".," = SYND_TAIPAN_FREQ_NAME,
 	  ":1" = EVENT_ALPHA_FREQ_NAME,		"#1" = EVENT_ALPHA_FREQ_NAME,	"№1" = EVENT_ALPHA_FREQ_NAME,	".1" = EVENT_ALPHA_FREQ_NAME,
 	  ":2" = EVENT_BETA_FREQ_NAME,		"#2" = EVENT_BETA_FREQ_NAME,	"№2" = EVENT_BETA_FREQ_NAME,	".2" = EVENT_BETA_FREQ_NAME,
@@ -112,7 +112,7 @@ GLOBAL_LIST_INIT(department_radio_keys, list(
 	  ":$" = ERT_FREQ_NAME,				"#$" = ERT_FREQ_NAME, 			"№$" = ERT_FREQ_NAME,			".$" = ERT_FREQ_NAME,
   	  ":_" = SYNDTEAM_FREQ_NAME,		"#_" = SYNDTEAM_FREQ_NAME,		"№_" = SYNDTEAM_FREQ_NAME,		"._" = SYNDTEAM_FREQ_NAME,
 	  ":-" = DTH_FREQ_NAME,				"#-" = DTH_FREQ_NAME,			"№-" = DTH_FREQ_NAME,			".-" = DTH_FREQ_NAME,
-	  ":+" = "специальный",				"#+" = "специальный",			"№+" = "специальный",			".+" = "специальный" //activate radio-specific special functions
+	  ":+" = SPEC_FREQ_NAME,			"#+" = SPEC_FREQ_NAME,			"№+" = SPEC_FREQ_NAME,			".+" = SPEC_FREQ_NAME //activate radio-specific special functions
 ))
 
 
@@ -253,11 +253,11 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 		first_piece.speaking.broadcast(src, first_piece.message)
 		return TRUE
 
-	var/message_mode = parse_message_mode(first_piece.message, "headset")
+	var/message_mode = parse_message_mode(first_piece.message, HEADSET_MODE)
 
 	//parse the radio code and consume it
 	if(message_mode)
-		if(message_mode == "headset")
+		if(message_mode == HEADSET_MODE)
 			first_piece.message = copytext_char(first_piece.message, 2)	//it would be really nice if the parse procs could do this for us.
 		else
 			first_piece.message = copytext_char(first_piece.message, 3)
@@ -269,7 +269,7 @@ GLOBAL_LIST_EMPTY(channel_to_radio_key)
 	first_piece.message = trim_left(first_piece.message)
 	verb = say_quote(message, first_piece.speaking)
 
-	if(message_mode == "связки")
+	if(message_mode == CORDS_MODE)
 		if(iscarbon(src))
 			var/mob/living/carbon/C = src
 			var/obj/item/organ/internal/vocal_cords/V = C.get_int_organ(/obj/item/organ/internal/vocal_cords)

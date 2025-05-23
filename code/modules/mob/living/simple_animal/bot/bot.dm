@@ -593,7 +593,7 @@
 	if(!on || !message)
 		return
 	if(channel)
-		Radio.autosay(message, name, channel == "headset" ? null : channel)
+		Radio.autosay(message, name, channel == HEADSET_MODE ? null : channel)
 	else
 		say(message)
 
@@ -1298,11 +1298,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
-		if("intercom")
+		if(INTERCOM_MODE)
 			for(var/obj/item/radio/intercom/I in view(1, src))
 				I.talk_into(src, message, null, verb, speaking)
 				used_radios += I
-		if("headset")
+		if(HEADSET_MODE)
 			Radio.talk_into(src, message, null, verb, speaking)
 			used_radios += Radio
 		else
