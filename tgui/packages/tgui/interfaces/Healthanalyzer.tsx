@@ -644,7 +644,7 @@ const ReagentList = (props: unknown) => {
           <LabeledList.Item label={reagent.name} key={index}>
             <Box>
               {reagent.volume} ед.{' '}
-              {reagent.overdosed && (
+              {!!reagent.overdosed && (
                 <Box as="span" color="red" bold>
                   - ПЕРЕДОЗИРОВКА!
                 </Box>

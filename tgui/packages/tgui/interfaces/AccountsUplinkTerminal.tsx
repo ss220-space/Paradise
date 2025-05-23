@@ -38,7 +38,7 @@ export type Transaction = {
   target_name: string;
 } & Key;
 
-export const AccountsUplinkTerminal = (properties) => {
+export const AccountsUplinkTerminal = (_properties) => {
   const { data } = useBackend<Data>();
   const { loginState, currentPage } = data;
 
@@ -77,23 +77,55 @@ export const AccountsUplinkTerminal = (properties) => {
   );
 };
 
-const AccountsRecordList = (properties) => {
+const AccountsRecordList = (_properties) => {
   const { act, data } = useBackend<Data>();
   const { accounts } = data;
   const [searchText, setSearchText] = useState('');
-  const [sortId, _setSortId] = useState('owner_name');
-  const [sortOrder, _setSortOrder] = useState(true);
+  const [sortId, setSortId] = useState('owner_name');
+  const [sortOrder, setSortOrder] = useState(true);
   return (
     <Stack fill vertical>
-      <AccountsActions />
+      <AccountsActions setSearchText={setSearchText} />
       <Stack.Item grow>
         <Section fill scrollable>
           <Table className="AccountsUplinkTerminal__list">
             <Table.Row bold>
-              <SortButton id="owner_name">Account Holder</SortButton>
-              <SortButton id="account_number">Account Number</SortButton>
-              <SortButton id="suspended">Account Status</SortButton>
-              <SortButton id="money">Account Balance</SortButton>
+              <SortButton
+                sortId={sortId}
+                sortOrder={sortOrder}
+                setSortId={setSortId}
+                setSortOrder={setSortOrder}
+                id="owner_name"
+              >
+                Account Holder
+              </SortButton>
+              <SortButton
+                sortId={sortId}
+                sortOrder={sortOrder}
+                setSortId={setSortId}
+                setSortOrder={setSortOrder}
+                id="account_number"
+              >
+                Account Number
+              </SortButton>
+              <SortButton
+                sortId={sortId}
+                sortOrder={sortOrder}
+                setSortId={setSortId}
+                setSortOrder={setSortOrder}
+                id="suspended"
+              >
+                Account Status
+              </SortButton>
+              <SortButton
+                sortId={sortId}
+                sortOrder={sortOrder}
+                setSortId={setSortId}
+                setSortOrder={setSortOrder}
+                id="money"
+              >
+                Account Balance
+              </SortButton>
             </Table.Row>
             {accounts
               .filter(
@@ -140,9 +172,14 @@ const AccountsRecordList = (properties) => {
   );
 };
 
-const SortButton = (properties) => {
-  const [sortId, setSortId] = useState('name');
-  const [sortOrder, setSortOrder] = useState(true);
+type SortButtonProps = {
+  id: string;
+  children: ReactNode;
+} & SortOrderProps &
+  SordIdProps;
+
+const SortButton = (properties: SortButtonProps) => {
+  const { sortId, setSortId, sortOrder, setSortOrder } = properties;
   const { id, children } = properties;
   return (
     <Table.Cell>
@@ -167,10 +204,12 @@ const SortButton = (properties) => {
   );
 };
 
-const AccountsActions = (properties) => {
+type AccountsActionsProps = SearchTextProps;
+
+const AccountsActions = (properties: AccountsActionsProps) => {
   const { act, data } = useBackend<Data>();
   const { is_printing } = data;
-  const [searchText, setSearchText] = useState('');
+  const { setSearchText } = properties;
   return (
     <Stack>
       <Stack.Item>
@@ -197,7 +236,7 @@ const AccountsActions = (properties) => {
   );
 };
 
-const DetailedAccountInfo = (properties) => {
+const DetailedAccountInfo = (_properties) => {
   const { act, data } = useBackend<Account>();
   const { account_number, owner_name, money, suspended, transactions } = data;
   return (
@@ -269,7 +308,9 @@ const CreateAccount = (properties) => {
     <Section
       title="Create Account"
       buttons={
-        <Button icon="arrow-left" content="Back" onClick={() => act('back')} />
+        <Button icon="arrow-left" onClick={() => act('back')}>
+          Back
+        </Button>
       }
     >
       <LabeledList>

@@ -63,7 +63,7 @@ export const DisposalBin = (props: unknown) => {
               <Button
                 icon="toggle-on"
                 disabled={data.isAI || data.panel_open}
-                selected={!data.flushing}
+                selected={data.flushing}
                 onClick={() => act('engageHandle')}
               >
                 Engaged

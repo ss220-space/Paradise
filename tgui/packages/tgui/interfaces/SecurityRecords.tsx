@@ -357,7 +357,6 @@ const SecurityRecordsPageView = (_properties) => {
                   'and Medical records associated with this crew member!'
                 }
                 tooltipPosition="bottom-start"
-                content="Delete Record"
                 onClick={() => act('delete_general')}
               >
                 Delete Record

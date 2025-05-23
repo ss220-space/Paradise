@@ -54,9 +54,14 @@ export const CardComputerNoCard = () => (
         align="center"
         color="label"
       >
-        <Icon.Stack>
+        <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
           <Icon name="id-card" size={5} color="gray" />
-          <Icon name="slash" size={5} color="red" />
+          <Icon
+            name="slash"
+            size={5}
+            color="red"
+            style={{ transform: 'translate(-5px, 0)' }}
+          />
         </Icon.Stack>
         <br />
         No card to modify
