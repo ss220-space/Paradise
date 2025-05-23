@@ -97,6 +97,8 @@
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
 
+	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
+	var/face_mouse = FALSE
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -482,7 +484,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -615,7 +617,7 @@
 						. = Move(get_step(src, SOUTH), SOUTH)
 
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!. && set_dir_on_move && update_dir)
+				if(!. && set_dir_on_move && !face_mouse)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
@@ -668,7 +670,7 @@
 	move_speed = world.time - l_move_time
 	l_move_time = world.time
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && !face_mouse)
 		setDir(direct)
 
 	// movement failed due to buckled mob(s)

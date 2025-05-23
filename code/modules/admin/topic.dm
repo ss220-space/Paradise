@@ -2498,7 +2498,8 @@
 		P.faxmachineid = fax.UID()
 		P.forceMove(fax.loc)  // Do not use fax.receivefax(P) here, as it won't preserve the type. Physically teleporting the fax paper is required.
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, span_specialnoticebold("Your headset pings, notifying you that a reply to your fax has arrived."))
+			to_chat(H, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
+			H.playsound_local(H, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		to_chat(src.owner, "You sent a [eviltype] fax to [H]")
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a [eviltype] fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a [eviltype] fax")
@@ -2575,7 +2576,8 @@
 		P.stamp(/obj/item/stamp/centcom)
 		fax.receivefax(P)
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(H, span_specialnoticebold("Your headset pings, notifying you that a reply to your fax has arrived."))
+			to_chat(H, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
+			H.playsound_local(H, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		to_chat(src.owner, "You sent a standard '[stype]' fax to [H]", confidential=TRUE)
 		log_admin("[key_name(src.owner)] sent [key_name(H)] a standard '[stype]' fax")
 		message_admins("[key_name_admin(src.owner)] replied to [key_name_admin(H)] with a standard '[stype]' fax")
@@ -2800,7 +2802,8 @@
 		if(notify == "Yes")
 			var/mob/living/carbon/human/H = sender
 			if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-				to_chat(sender, span_specialnoticebold("Your headset pings, notifying you that a reply to your fax has arrived."), confidential=TRUE)
+				to_chat(sender, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."), confidential=TRUE)
+				sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		if(sender)
 			log_admin("[key_name(src.owner)] replied to a fax message from [key_name(sender)]: [input]")
 			message_admins("[key_name_admin(src.owner)] replied to a fax message from [key_name_admin(sender)] (<a href='byond://?_src_=holder;AdminFaxView=\ref[P]'>VIEW</a>).")
@@ -2814,7 +2817,8 @@
 		var/mob/sender = locate(href_list["AdminFaxNotify"])
 		var/mob/living/carbon/human/H = sender
 		if(istype(H) && H.stat == CONSCIOUS && (istype(H.l_ear, /obj/item/radio/headset) || istype(H.r_ear, /obj/item/radio/headset)))
-			to_chat(sender, span_specialnoticebold("Ваши наушники издают гудки, уведомляя вас о получении ответа на ваш факс."))
+			to_chat(sender, span_specialnoticebold("Ваша гарнитура издает звук, сигнализирующий о том, что пришёл ответ на ваш факс."))
+			sender.playsound_local(sender, 'sound/items/new_fax_message.ogg', 50, FALSE, use_reverb = FALSE)
 		return
 	else if(href_list["refreshfaxpanel"])
 		if(!check_rights(R_ADMIN))
