@@ -189,15 +189,15 @@
 
 		if("beakon")
 			var/list/options = list()
-			for(var/obj/item/radio/beacon/beacon in GLOB.beacons)
-				var/turf/T = get_turf(beacon)
+			for(var/obj/item/radio/beacon/possible_beacon in GLOB.beacons)
+				var/turf/T = get_turf(possible_beacon)
 				if(!T)
 					continue
 
-				if(!is_teleport_allowed(T.z) && !beacon.cc_beacon)
+				if(!is_teleport_allowed(T.z) && !possible_beacon.cc_beacon)
 					continue
 
-				if(beacon.syndicate || is_taipan(beacon.z) && beacon != beacon)
+				if(possible_beacon.syndicate || possible_beacon.z != src.z)
 					continue
 
 				options["[T.loc.name]"] = beacon
@@ -266,8 +266,9 @@
 	if(selected_type == ANOMALY_TYPE_RANDOM)
 		mult = selected_tier == 1 ? 0.3 : 3
 	else
-		mult = 1 + GLOB.created_anomalies[selected_type] / 2
+		mult = 1 + GLOB.created_anomalies[selected_type]
 
+	mult *= 2
 	switch(selected_tier)
 		if("1")
 			return (/datum/anomaly_gen_datum/tier1::req_energy) * mult
@@ -319,7 +320,9 @@
 	if(charge >= get_req_energy())
 		finish_generation()
 		cur_anomaly = null
+		charge = 0
 		STOP_PROCESSING(SSprocessing, src)
+		return
 
 	if(stat & NOPOWER)
 		return
