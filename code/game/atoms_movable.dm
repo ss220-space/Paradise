@@ -1500,7 +1500,7 @@
 					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
 	if(ishuman(src))
 		var/mob/living/carbon/human/dropped_human = src
-		if(dropped_human.stat != DEAD && prob(25))
+		if(dropped_human.stat != DEAD && dropped_human.IsVocal() && prob(25))
 			playsound(dropped_human, 'sound/effects/wilhelm_scream.ogg', 150)
 
 	if(isliving(src))
@@ -1514,7 +1514,6 @@
 	var/obj/effect/extraction_holder/holder_obj = new(loc)
 	holder_obj.appearance = appearance
 	forceMove(holder_obj)
-	sleep(4)
 	animate(holder_obj, pixel_z = 1000, time = 30)
 	sleep(30)
 	if(ishuman(src))
@@ -1523,20 +1522,7 @@
 		L.SetDrowsy(0)
 		L.SetSleeping(0)
 
-	var/list/datum/space_level/reachable_levels = levels_by_trait(REACHABLE)
-	var/trys = 1000
-	var/turf/target_space_turf
-	while(trys > 0) {
-		var/x = rand(1, world.maxx)
-		var/y = rand(1, world.maxy)
-		var/z = pick(reachable_levels)
-		target_space_turf = locate(x, y, z)
-		if(isspaceturf(target_space_turf))
-			break
-
-		trys--
-	}
-
+	var/turf/target_space_turf = get_random_reachable_space_turf()
 	holder_obj.forceMove(pick(target_space_turf))
 	holder_obj.pixel_z = -1000
 	animate(holder_obj, pixel_z = 0, time = 30)

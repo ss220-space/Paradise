@@ -898,3 +898,20 @@
 	/// Ought to work
 	turf_mask.color = list(255,255,255,0, 255,255,255,0, 255,255,255,0, 0,0,0,0, 0,0,0,255)
 	underlay_appearance.overlays += turf_mask
+
+/proc/get_random_reachable_space_turf()
+	var/list/datum/space_level/reachable_levels = levels_by_trait(REACHABLE)
+	var/trys = 1000
+	var/turf/target_space_turf
+	while(trys > 0) {
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = pick(reachable_levels)
+		target_space_turf = locate(x, y, z)
+		if(isspaceturf(target_space_turf))
+			break
+
+		trys--
+	}
+
+	return target_space_turf
