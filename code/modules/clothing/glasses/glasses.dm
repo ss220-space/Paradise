@@ -487,22 +487,21 @@
 /obj/item/clothing/glasses/sunglasses/yeah
 	name = "agreeable glasses"
 	desc = "H.C Limited edition."
-	var/punused = FALSE
+	COOLDOWN_DECLARE(use_cooldown)
 	actions_types = list(/datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH)
 
 /obj/item/clothing/glasses/sunglasses/yeah/attack_self(mob/user)
 	pun(user)
 
 /obj/item/clothing/glasses/sunglasses/yeah/proc/pun(mob/user)
-	if(punused) // one per round..
+	if(!COOLDOWN_FINISHED(src, use_cooldown))
 		to_chat(user, "The moment is gone.")
 		return
 
-	punused = TRUE
 	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
-	user.visible_message("<span class='biggerdanger'>YEEEAAAAAHHHHHHHHHHHHH!!</span>")
-	if(HAS_TRAIT(user, TRAIT_BADASS)) //unless you're badass
-		addtimer(VARSET_CALLBACK(src, punused, FALSE), 5 MINUTES)
+	user.visible_message(span_dangerbigger("YEEEAAAAAHHHHHHHHHHHHH!!"))
+
+	COOLDOWN_START(src, use_cooldown, 5 MINUTES)
 
 
 /obj/item/clothing/glasses/sunglasses/reagent

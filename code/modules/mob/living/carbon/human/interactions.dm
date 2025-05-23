@@ -43,7 +43,7 @@
 	var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 
 
-	var/dat = {"<b><hr>[span_fontsize3(H.partner)]</b><br><hr>"}
+	var/dat = span_fontsize3("<b><hr>[H.partner]</b><br><hr>")
 
 	dat +=  {"• <a href='byond://?src=[UID()];interaction=bow'>Отвесить поклон.</a><br>"}
 	if (hashands)

@@ -23,6 +23,7 @@
 	var/tier = 0
 	/// Moment whet this core was created. Used to prevent the core from instantly disintegrating when charging.
 	var/born_moment = 0
+	COOLDOWN_DECLARE(anomaly_toch_cooldown)
 
 /obj/item/assembly/signaler/core/suicide_act(mob/user)
 	user.visible_message(span_suicide("[user] засовыва[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)] себе в рот. Похоже [genderize_ru(user.gender, "он", "она", "оно", "они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся убить себя!"))
@@ -359,7 +360,7 @@
 // Mobs will be in reversed gravity. Items will be without gravity.
 /obj/item/assembly/signaler/core/gravitational/tier3/proc/update_gravity(restart = FALSE)
 	if(restart)
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/assembly/signaler/core/gravitational/tier3, update_gravity)), 5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(update_gravity), TRUE), 5 SECONDS)
 
 	var/atom/new_owner = get_external_loc()
 	if(old_owner == new_owner && old_owner.get_gravity() == -1)
