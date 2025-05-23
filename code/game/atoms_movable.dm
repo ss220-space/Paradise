@@ -1514,8 +1514,10 @@
 	var/obj/effect/extraction_holder/holder_obj = new(loc)
 	holder_obj.appearance = appearance
 	forceMove(holder_obj)
-	animate(holder_obj, pixel_z = 1000, time = 30)
-	sleep(30)
+	animate(holder_obj, pixel_z = 1000, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(fall_up_in_space_part2), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/fall_up_in_space_part2(obj/holder_obj)
 	if(ishuman(src))
 		var/mob/living/carbon/human/L = src
 		L.SetParalysis(0)
@@ -1525,8 +1527,10 @@
 	var/turf/target_space_turf = get_random_reachable_space_turf()
 	holder_obj.forceMove(pick(target_space_turf))
 	holder_obj.pixel_z = -1000
-	animate(holder_obj, pixel_z = 0, time = 30)
-	sleep(30)
+	animate(holder_obj, pixel_z = 0, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(fall_up_free_target), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/fall_up_free_target(obj/holder_obj)
 	set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
 	forceMove(holder_obj.loc)
