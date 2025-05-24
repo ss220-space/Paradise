@@ -143,17 +143,17 @@ export const AnomalyGenerator = (props) => {
               <Button
                 content="Малая"
                 selected={tier === '1'}
-                onClick={() => act('choose_tier', { tier: '1' })}
+                onClick={() => act('choose_tier', { tier: 1 })}
               />
               <Button
                 content="Средняя"
                 selected={tier === '2'}
-                onClick={() => act('choose_tier', { tier: '2' })}
+                onClick={() => act('choose_tier', { tier: 2 })}
               />
               <Button
                 content="Большая"
                 selected={tier === '3'}
-                onClick={() => act('choose_tier', { tier: '3' })}
+                onClick={() => act('choose_tier', { tier: 3 })}
               />
             </LabeledList.Item>
           </LabeledList>
