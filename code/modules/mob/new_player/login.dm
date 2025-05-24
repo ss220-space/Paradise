@@ -5,7 +5,7 @@
 	if(CONFIG_GET(number/player_reroute_cap) && CONFIG_GET(string/overflow_server_url))
 		if(!whitelist_check())
 			if(CONFIG_GET(number/player_reroute_cap) == 1 || length(GLOB.clients) > CONFIG_GET(number/player_reroute_cap))
-				src << browse(null, "window=privacy_consent")
+				close_window(src, "privacy_consent")
 				src << link(CONFIG_GET(string/overflow_server_url))
 
 	if(GLOB.join_motd)

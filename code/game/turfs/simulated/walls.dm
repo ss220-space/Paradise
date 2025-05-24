@@ -45,6 +45,9 @@
 	canSmoothWith = SMOOTH_GROUP_WALLS
 	smooth = SMOOTH_BITMASK
 
+	/// If we added a leaning component to ourselves
+	var/added_leaning = FALSE
+
 /turf/simulated/wall/get_smooth_underlay_icon(mutable_appearance/underlay_appearance, turf/asking_turf, adjacency_dir)
 	return FALSE
 
@@ -64,10 +67,14 @@
 			underlay_appearance.icon_state = fixed_underlay["icon_state"]
 		fixed_underlay = string_assoc_list(fixed_underlay)
 		underlays += underlay_appearance
-		
+
 /turf/simulated/wall/ComponentInitialize()
 	. = ..()
 	AddComponent(/datum/component/blob_turf_consuming, 2)
+
+/turf/simulated/wall/MouseDrop_T(atom/dropping, mob/user, params)
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of walls & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 //Appearance
 /turf/simulated/wall/examine(mob/user) // If you change this, consider changing the examine_status proc of false walls to match
@@ -178,7 +185,7 @@
 
 /turf/simulated/wall/blob_act(obj/structure/blob/B)
 	add_dent(WALL_DENT_HIT)
-		
+
 /turf/simulated/wall/blob_consume()
 	dismantle_wall()
 

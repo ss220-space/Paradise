@@ -43,6 +43,7 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
 	collar_type = "dog"
+	ai_controller = /datum/ai_controller/dog
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
 	set name = "Chase your tail"
@@ -59,6 +60,9 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
+/mob/living/simple_animal/pet/dog/click_alt(mob/user)
+	. = ..()
+	return CLICK_ACTION_SUCCESS
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -602,6 +606,10 @@
 	holder_type = /obj/item/holder/void_puppy
 	maxHealth = 60
 	health = 60
+
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_AI_BAGATTACK, INNATE_TRAIT)
 
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/ComponentInitialize()
 	AddComponent( \

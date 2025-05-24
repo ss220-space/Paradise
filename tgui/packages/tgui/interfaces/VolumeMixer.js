@@ -3,8 +3,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Icon, Section, Stack, Slider } from '../components';
 import { Window } from '../layouts';
 
-export const VolumeMixer = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const VolumeMixer = (properties) => {
+  const { act, data } = useBackend();
   const { channels } = data;
   return (
     <Window width={350} height={Math.min(95 + channels.length * 50, 565)}>
@@ -20,7 +20,7 @@ export const VolumeMixer = (properties, context) => {
                   <Stack.Item mr={0.5}>
                     <Button width="24px" color="transparent">
                       <Icon
-                        name="выкл. звук"
+                        name="volume-off"
                         size="1.5"
                         mt="0.1rem"
                         onClick={() =>
@@ -43,7 +43,7 @@ export const VolumeMixer = (properties, context) => {
                   <Stack.Item>
                     <Button width="24px" color="transparent">
                       <Icon
-                        name="вкл. звук"
+                        name="volume-up"
                         size="1.5"
                         mt="0.1rem"
                         onClick={() =>

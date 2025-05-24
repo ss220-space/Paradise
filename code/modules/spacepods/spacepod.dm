@@ -358,7 +358,7 @@
 			deal_damage(cached_damage)
 		return .
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(user)
 		if(!hatch_open)
 			to_chat(user, span_warning("The maintenance hatch is closed."))
@@ -839,7 +839,7 @@
 
 	var/fukkendisk = user.GetTypeInAllContents(/obj/item/disk/nuclear)
 	if(fukkendisk)
-		to_chat(user, span_danger("<B>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b>"))
+		to_chat(user, span_danger("<b>The nuke-disk is locking the door every time you try to open it. You get the feeling that it doesn't want to go into the spacepod.</b>"))
 		return FALSE
 
 	if(user.has_buckled_mobs()) //mob attached to us
@@ -1216,7 +1216,7 @@
 		if(!next_step)
 			COOLDOWN_START(src, spacepod_move_cooldown, 0.5 SECONDS)
 			return FALSE
-		var/calculated_move_delay = has_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
+		var/calculated_move_delay = !no_gravity(loc) ? GRAVITY_SPEED : NO_GRAVITY_SPEED
 		. = Move(next_step, direction)
 		if(ISDIAGONALDIR(direction) && loc == next_step)
 			calculated_move_delay *= sqrt(2)

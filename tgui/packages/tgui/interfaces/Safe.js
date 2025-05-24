@@ -4,8 +4,8 @@ import { useBackend } from '../backend';
 import { Box, Button, Icon, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Safe = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const Safe = (properties) => {
+  const { act, data } = useBackend();
   const { dial, open, locked, contents } = data;
   return (
     <Window theme="safe" width={600} height={800}>
@@ -42,15 +42,15 @@ export const Safe = (properties, context) => {
   );
 };
 
-const Dialer = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Dialer = (properties) => {
+  const { act, data } = useBackend();
   const { dial, open, locked } = data;
   const dialButton = (amount, right) => {
     return (
       <Button
         disabled={open || (right && !locked)}
         icon={'arrow-' + (right ? 'right' : 'left')}
-        content={(right ? 'Right' : 'Left') + ' ' + amount}
+        content={amount}
         iconRight={right}
         onClick={() =>
           act(!right ? 'turnright' : 'turnleft', {
@@ -68,7 +68,7 @@ const Dialer = (properties, context) => {
       <Button
         disabled={locked}
         icon={open ? 'lock' : 'lock-open'}
-        content={open ? 'Close' : 'Open'}
+        content={open ? 'Закрыть' : 'Открыть'}
         mb="0.5rem"
         onClick={() => act('open')}
       />
@@ -84,8 +84,8 @@ const Dialer = (properties, context) => {
   );
 };
 
-const Contents = (properties, context) => {
-  const { act, data } = useBackend(context);
+const Contents = (properties) => {
+  const { act, data } = useBackend();
   const { contents } = data;
   return (
     <Box className="Safe--contents" overflow="auto">
@@ -115,24 +115,24 @@ const Contents = (properties, context) => {
   );
 };
 
-const Help = (properties, context) => {
+const Help = (properties) => {
   return (
     <Section
       className="Safe--help"
-      title="Safe opening instructions (because you all keep forgetting)"
+      title="Инструкция по открытию сейфа. (потому что вы всё время забываете)"
     >
       <Box>
-        1. Turn the dial left to the first number.
+        1. Поверните циферблат влево на первую цифру.
         <br />
-        2. Turn the dial right to the second number.
+        2. Поверните циферблат вправо на вторую цифру.
         <br />
-        3. Continue repeating this process for each number, switching between
-        left and right each time.
+        3. Продолжайте так для каждого числа, поворачивая сначало налево, затем
+        направо.
         <br />
-        4. Open the safe.
+        4. Откройте сейф.
       </Box>
       <Box bold>
-        To lock fully, turn the dial to the left after closing the safe.
+        Чтобы полностью запереть сейф, после закрытия поверните циферблат влево.
       </Box>
     </Section>
   );

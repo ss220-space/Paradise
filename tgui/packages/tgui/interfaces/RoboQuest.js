@@ -13,8 +13,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const RoboQuest = (props, context) => {
-  const { act, data } = useBackend(context);
+export const RoboQuest = (props) => {
+  const { act, data } = useBackend();
   const {
     hasID,
     name,
@@ -31,11 +31,7 @@ export const RoboQuest = (props, context) => {
     cats,
   } = data;
 
-  const [shopState, changeShopState] = useLocalState(
-    context,
-    'shopState',
-    false
-  );
+  const [shopState, changeShopState] = useLocalState('shopState', false);
 
   const cat_to_color = {
     'medical': 'blue',

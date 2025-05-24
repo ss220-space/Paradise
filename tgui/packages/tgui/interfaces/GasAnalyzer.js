@@ -2,8 +2,8 @@ import { useBackend } from '../backend';
 import { Button, Flex, LabeledList, Section, Box } from '../components';
 import { Window } from '../layouts';
 
-export const GasAnalyzerContent = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GasAnalyzerContent = (props) => {
+  const { act, data } = useBackend();
   const { gasmixes, autoUpdating } = data;
   return (
     <Section
@@ -130,8 +130,8 @@ export const GasAnalyzerContent = (props, context) => {
   );
 };
 
-export const GasAnalyzerHistory = (props, context) => {
-  const { act, data } = useBackend(context);
+export const GasAnalyzerHistory = (props) => {
+  const { act, data } = useBackend();
   const { historyGasmixes, historyViewMode, historyIndex } = data;
   return (
     <Section
@@ -191,7 +191,7 @@ export const GasAnalyzerHistory = (props, context) => {
   );
 };
 
-export const GasAnalyzer = (props, context) => {
+export const GasAnalyzer = (props) => {
   const styleLeftDiv = {
     float: 'left',
     width: '67%',

@@ -315,13 +315,13 @@
 	P.name = "Prototype nanite repair guide" // The instructions need to be revised.
 	P.desc = "For when you want to safely get off Mr Bones' Wild Ride."
 	P.info = {"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Prototype Emergency Repair Nanites</B><HR></center><BR><BR>
+<font face="Verdana" color=black></font><font face="Verdana" color=black><center><b>Prototype Emergency Repair Nanites</b><hr></center><br><br>
 
-<B>Usage:</B> <BR><BR><BR>
+<b>Usage:</b> <br><br><br>
 
-<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<BR><BR><BR>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <B>Do not use with any kind of stimulant or drugs. Serious damage can occur!</B><BR><BR><BR>
+<font size = "1">This is a highly experimental prototype chemical designed to repair damaged bones, organs, and treat interenal bleeding of soldiers in the field, use only as a last resort. The autoinjector contains prototype nanites bearing a classifed payload. The nanites will simultaneously shut down body systems whilst aiding in repair.<br><br><br>Warning: Side effects can cause temporary paralysis, loss of co-ordination and sickness. <b>Do not use with any kind of stimulant or drugs. Serious damage can occur!</b><br><br><br>
 
-To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <BR><BR><BR><BR>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><BR><HR></font>
+To apply, hold the injector a short distance away from the outer thigh before applying firmly to the skin surface. The process of repairing should begin repair after a short time, during which you are advised to remain still. <br><br><br><br>After use you are advised to see a doctor at the next available opportunity. Mild scarring and tissue damage may occur after use. This is a prototype. We are not liable for any bone spurs, cancers, extra limbs, or creation of new viruses from use of the product.</font><br><hr></font>
 	"}
 
 /obj/item/storage/box/syndie_kit/chameleon
@@ -497,20 +497,20 @@ To apply, hold the injector a short distance away from the outer thigh before ap
 	var/obj/item/paper/P = new (src)
 	P.name = "Cyborg Repair Instruction" // The instructions need to be revised.
 	P.info = {"
-<font face="Verdana" color=black></font><font face="Verdana" color=black><center><B>Краткая инструкция по пончинке роботов</B><HR></center><BR><BR>
+<font face="Verdana" color=black></font><font face="Verdana" color=black><center><b>Краткая инструкция по пончинке роботов</b><hr></center><br><br>
 
-<font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<BR>
-2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<BR>
-3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<BR>
-4. Монтировкой откройте крышку робота.<BR>
-5. Руками вытащите батарейку у робота.<BR>
-6. Монтировкой снимите сломанные компоненты из пункта 2.<BR>
-7. Вставьте новые компоненты в робота.<BR>
-8. Вставьте батарейку в робота.<BR>
-9. Закройте крышку робота монтировкой.<BR>
-10. Залейте нанопастой поврежденные части робота.<BR>
-11. Готово. робот снова функционирует.<BR>
-<BR><BR><BR>
+<font size = "4">1. Возьмите Cyborg Analyzer, проведите им по роботу.<br>
+2. Запомните сломанные компоненты, которые вывел Cyborg Analyzer.<br>
+3. Если робот закрыт (будет визуально заметно), то попросите его открыться. Если он уничтожен - проведите ЕМАГом для открытия.<br>
+4. Монтировкой откройте крышку робота.<br>
+5. Руками вытащите батарейку у робота.<br>
+6. Монтировкой снимите сломанные компоненты из пункта 2.<br>
+7. Вставьте новые компоненты в робота.<br>
+8. Вставьте батарейку в робота.<br>
+9. Закройте крышку робота монтировкой.<br>
+10. Залейте нанопастой поврежденные части робота.<br>
+11. Готово. робот снова функционирует.<br>
+<br><br><br>
 	"}
 
 /obj/item/storage/box/syndie_kit/chameleon_counter

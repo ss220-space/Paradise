@@ -15,8 +15,8 @@ import {
 import { Window } from '../layouts';
 import { toTitleCase, decodeHtmlEntities } from 'common/string';
 
-export const MechaControlConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MechaControlConsole = (props) => {
+  const { act, data } = useBackend();
   const { beacons, stored_data } = data;
 
   if (stored_data.length) {

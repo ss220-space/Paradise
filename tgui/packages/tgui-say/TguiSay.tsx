@@ -6,7 +6,7 @@ import { byondMessages } from './timers';
 import { dragStartHandler } from 'tgui/drag';
 import { windowOpen, windowClose, windowSet } from './helpers';
 import { BooleanLike } from 'common/react';
-import { KEY } from 'common/keys';
+import { isEscape, KEY } from 'common/keys';
 
 type ByondOpen = {
   channel: Channel;
@@ -15,6 +15,7 @@ type ByondOpen = {
 type ByondProps = {
   maxLength: number;
   lightMode: BooleanLike;
+  scale: BooleanLike;
 };
 
 type State = {
@@ -40,6 +41,9 @@ export class TguiSay extends Component<{}, State> {
   private lightMode: boolean;
   private maxLength: number;
   private messages: typeof byondMessages;
+  private scale: boolean;
+  private position: Array<number>;
+  private isDragging: boolean;
   // eslint-disable-next-line react/state-in-constructor
   state: State;
 
@@ -53,6 +57,9 @@ export class TguiSay extends Component<{}, State> {
     this.lightMode = false;
     this.maxLength = 1024;
     this.messages = byondMessages;
+    this.scale = true;
+    this.position = [window.screenX, window.screenY];
+    this.isDragging = false;
     this.state = {
       buttonContent: '',
       size: WINDOW_SIZES.small,
@@ -74,6 +81,7 @@ export class TguiSay extends Component<{}, State> {
   }
 
   componentDidMount() {
+    windowSet(WINDOW_SIZES.small, this.scale);
     Byond.subscribeTo('props', this.handleProps);
     Byond.subscribeTo('open', this.handleOpen);
   }
@@ -137,7 +145,29 @@ export class TguiSay extends Component<{}, State> {
 
     this.setSize(typed?.length);
   }
+  handleButtonClick(event: MouseEvent): void {
+    this.isDragging = true;
 
+    setTimeout(() => {
+      // So the button doesn't jump around accidentally
+      if (this.isDragging) {
+        dragStartHandler(event);
+      }
+    }, 50);
+  }
+
+  // Prevents the button from changing channels if it's dragged
+  handleButtonRelease(): void {
+    this.isDragging = false;
+    const currentPosition = [window.screenX, window.screenY];
+
+    if (JSON.stringify(this.position) !== JSON.stringify(currentPosition)) {
+      this.position = currentPosition;
+      return;
+    }
+
+    this.handleIncrementChannel();
+  }
   handleClose() {
     const current = this.innerRef.current;
 
@@ -149,7 +179,7 @@ export class TguiSay extends Component<{}, State> {
     this.chatHistory.reset();
     this.channelIterator.reset();
     this.currentPrefix = null;
-    windowClose();
+    windowClose(this.scale);
   }
 
   handleEnter() {
@@ -186,16 +216,6 @@ export class TguiSay extends Component<{}, State> {
     }
 
     this.setState({ buttonContent: this.channelIterator.current() });
-  }
-
-  // Throw focus back on the text area while executing button function as expecrted
-  handleButtonClick(selectionStart: number, selectionEnd: number) {
-    this.handleIncrementChannel();
-    const textArea = this.innerRef?.current;
-    if (textArea) {
-      textArea.focus();
-      textArea.setSelectionRange(selectionStart, selectionEnd);
-    }
   }
 
   handleInput() {
@@ -271,17 +291,30 @@ export class TguiSay extends Component<{}, State> {
         this.handleIncrementChannel();
         break;
 
-      case KEY.Escape:
-        this.handleClose();
+      case KEY.Shift:
+        event.stopPropagation();
         break;
+
+      case KEY.Alt:
+        event.stopPropagation();
+        break;
+
+      default:
+        if (isEscape(event.key)) {
+          this.handleClose();
+        }
+
+        if (event.altKey && event.shiftKey) {
+          setTimeout(() => {
+            if (this.innerRef.current) {
+              this.innerRef.current.focus();
+            }
+          }, 10);
+        }
     }
   }
 
   handleOpen = (data: ByondOpen) => {
-    setTimeout(() => {
-      this.innerRef.current?.focus();
-    }, 0);
-
     const { channel } = data;
     // Catches the case where the modal is already open
     if (this.channelIterator.isSay()) {
@@ -289,13 +322,18 @@ export class TguiSay extends Component<{}, State> {
     }
     this.setState({ buttonContent: this.channelIterator.current() });
 
-    windowOpen(this.channelIterator.current());
+    windowOpen(this.channelIterator.current(), this.scale);
+    const input = this.innerRef;
+    setTimeout(() => {
+      input.current?.focus();
+    }, 1);
   };
 
   handleProps = (data: ByondProps) => {
-    const { maxLength, lightMode } = data;
+    const { maxLength, lightMode, scale } = data;
     this.maxLength = maxLength;
     this.lightMode = !!lightMode;
+    this.scale = !!scale;
   };
 
   reset() {
@@ -319,7 +357,7 @@ export class TguiSay extends Component<{}, State> {
 
     if (this.state.size !== newSize) {
       this.setState({ size: newSize });
-      windowSet(newSize);
+      windowSet(newSize, this.scale);
     }
   }
 
@@ -340,6 +378,9 @@ export class TguiSay extends Component<{}, State> {
       <div
         className={`window window-${theme} window-${this.state.size}`}
         $HasKeyedChildren
+        style={{
+          zoom: this.scale ? '' : `${100 / window.devicePixelRatio}%`,
+        }}
       >
         <Dragzone position="top" theme={theme} />
         <div className="center" $HasKeyedChildren>
@@ -347,12 +388,8 @@ export class TguiSay extends Component<{}, State> {
           <div className="input" $HasKeyedChildren>
             <button
               className={`button button-${theme}`}
-              onClick={() =>
-                this.handleButtonClick(
-                  this.innerRef.current.selectionStart,
-                  this.innerRef.current.selectionEnd
-                )
-              }
+              onMouseDown={this.handleButtonClick}
+              onMouseUp={this.handleButtonRelease}
               type="button"
             >
               {this.state.buttonContent}

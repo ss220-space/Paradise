@@ -3,8 +3,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Button, Stack, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Minesweeper = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Minesweeper = (props) => {
+  const { act, data } = useBackend();
   const { matrix, showMessage, tokens, uiWidth } = data;
 
   const NumColor = {
@@ -30,7 +30,7 @@ export const Minesweeper = (props, context) => {
     });
   };
 
-  const [currentMode, setMode] = useLocalState(context, 'mode', 'bomb');
+  const [currentMode, setMode] = useLocalState('mode', 'bomb');
 
   const altMode = {
     'flag': 'bomb',

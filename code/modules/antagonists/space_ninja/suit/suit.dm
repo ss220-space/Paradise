@@ -270,13 +270,13 @@
 		return
 	if(!ninja == affecting)
 		return
-	. += "All systems operational. Current energy capacity: <B>[cell.charge]</B>.\n"
+	. += "All systems operational. Current energy capacity: <b>[cell.charge]</b>.\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninja_stealth) in actions)
-		. += "The Cloak-Tech Device is <B>[stealth?"active":"inactive"]</B>.\n"
+		. += "The Cloak-Tech Device is <b>[stealth?"active":"inactive"]</b>.\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninja_chameleon) in actions)
-		. += "The Kitsune - Adaptive Chameleon Device is <B>[disguise_active?"active":"inactive"]</B>.\n"
+		. += "The Kitsune - Adaptive Chameleon Device is <b>[disguise_active?"active":"inactive"]</b>.\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninja_spirit_form) in actions)
-		. += "Spirit Form Prototype Module is <B>[spirited?"active":"inactive"]</B>.\n"
+		. += "Spirit Form Prototype Module is <b>[spirited?"active":"inactive"]</b>.\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninjaboost) in actions)
 		. += "[a_boost.charge_counter ? "Integrated Adrenaline Injector is available to use.":"There is no adrenaline boost available. Try refilling the suit with uranium sheets."]\n"
 	if(locate(/datum/action/item_action/advanced/ninja/ninjaheal) in actions)
@@ -404,7 +404,7 @@
 
 /obj/item/clothing/suit/space/space_ninja/ui_action_click(mob/ninja, datum/action/action, leftclick)
 	if(!isninja(ninja) && !anyone)
-		to_chat(ninja, span_danger("<B>fÄTaL ÈÈRRoR</B>: 382200-*#00CÖDE <B>RED</B>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
+		to_chat(ninja, span_danger("<b>fÄTaL ÈÈRRoR</b>: 382200-*#00CÖDE <b>RED</b>\nUNAUHORIZED USÈ DETÈCeD\nCoMMÈNCING SUB-R0UIN3 13...\nTÈRMInATING U-U-USÈR..."))
 		ninja.dust()
 		return FALSE
 	if(istype(action, /datum/action/item_action/advanced/ninja/SpiderOS))

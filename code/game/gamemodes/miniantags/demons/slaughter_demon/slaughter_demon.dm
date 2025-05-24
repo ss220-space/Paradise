@@ -17,10 +17,10 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 
-	playstyle_string = "<B>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
+	playstyle_string = "<b>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
 						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
 						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
-						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </B>"
+						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </b>"
 
 
 /mob/living/simple_animal/demon/slaughter/Initialize(mapload)
@@ -46,7 +46,7 @@
 
 	var/list/messages = list()
 	messages.Add(playstyle_string)
-	messages.Add("<b><span class ='notice'>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</span></b>")
+	messages.Add(span_notice("<b>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</b>"))
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)
 		return
@@ -59,7 +59,7 @@
 	mind.objectives += objective
 	mind.objectives += fluffObjective
 	messages.Add(mind.prepare_announce_objectives(FALSE))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a></span>")
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Slaughter_Demon\">Демон резни</a>"))
 	to_chat(src, chat_box_red(messages.Join("<br>")))
 
 
@@ -86,10 +86,10 @@
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
-	playstyle_string = "<b><span class='userdanger'>You are a Harbinger of the Slaughter.</span> Brought forth by the servants of Nar'Sie, you have a single purpose: slaughter the heretics \
-	who do not worship your master. You may use the ability 'Blood Crawl' near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
+	playstyle_string = "<b><span class='cult'><span class='userdanger'>You are a Harbinger of the Slaughter.</span> Brought forth by the servants of Nar'Sie, you have a single purpose: slaughter the heretics \
+	who do not worship your master. You may use the ability \"Blood Crawl\" near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
 	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
-	your health. You may use the ability 'Sense Victims' in your Cultist tab to locate a random, living heretic.</span></b>"
+	your health. You may use the ability \"Sense Victims\" in your Cultist tab to locate a random, living heretic.</span></b>"
 
 
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()

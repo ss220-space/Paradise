@@ -41,13 +41,14 @@
 
 /obj/structure/noticeboard/attack_hand(mob/user)
 	add_fingerprint(user)
-	var/list/dat = list({"<meta charset="UTF-8">"})
-	dat += "<HEAD><TITLE>Notices</TITLE></HEAD>"
-	dat += "<B>Noticeboard</B><BR>"
+	var/list/dat = list()
+	dat += "<b>Noticeboard</b><br>"
 	var/uid = UID()
 	for(var/obj/item/paper/P in src)
-		dat += "<a href='byond://?src=[uid];read=[P.UID()]'>[P.name]</A> <a href='byond://?src=[uid];write=[P.UID()]'>Write</A> <a href='byond://?src=[uid];remove=[P.UID()]'>Remove</A><BR>"
-	user << browse(dat.Join(""),"window=noticeboard")
+		dat += "<a href='byond://?src=[uid];read=[P.UID()]'>[P.name]</a> <a href='byond://?src=[uid];write=[P.UID()]'>Write</a> <a href='byond://?src=[uid];remove=[P.UID()]'>Remove</a><br>"
+	var/datum/browser/popup = new(user, "noticeboard", "Notices")
+	popup.set_content(dat.Join(""))
+	popup.open(TRUE)
 	onclose(user, "noticeboard")
 
 /obj/structure/noticeboard/screwdriver_act(mob/living/user, obj/item/I)

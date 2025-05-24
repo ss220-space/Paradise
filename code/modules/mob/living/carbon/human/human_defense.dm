@@ -634,7 +634,7 @@ emp_act
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 
-	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 	if(check_shields(AM, throwpower, "[AM.declent_ru(ACCUSATIVE)]", THROWN_PROJECTILE_ATTACK, armour_penetration, shields_penetration))
 		hitpush = FALSE
@@ -860,3 +860,13 @@ emp_act
 		to_chat(src, span_danger("[capitalize(head.declent_ru(NOMINATIVE))] защища[pluralize_ru(head.gender, "ет", "ют")] вас от [hot ? "горячей" : "холодной"] жидкости!"))
 		return FALSE
 	return TRUE
+
+/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
+	. = ..()
+	if(!.)
+		return
+	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACKS, user.armour_penetration))
+		return FALSE
+	var/obj/item/organ/external/affecting = user.get_organ(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
+	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)

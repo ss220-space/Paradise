@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Box, Section, Image, Icon, Button, Flex } from '../components';
 import { Window } from '../layouts';
 
-export const Newspaper = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Newspaper = (props) => {
+  const { act, data } = useBackend();
 
   const {
     wanted,
@@ -55,7 +55,9 @@ export const Newspaper = (props, context) => {
               date.getDate() +
               ' ' +
               monthNames[date.getMonth()] +
-              ', 2568 год'}
+              ', ' +
+              (date.getFullYear() + 544) +
+              ' год'}
           </Flex.Item>
         </Flex>
 
@@ -120,7 +122,6 @@ export const Newspaper = (props, context) => {
                 ))}
             </Flex.Item>
 
-            {/* Правая колонка */}
             <Flex.Item width="50%" ml={1}>
               {currentStories
                 .filter((_, index) => index % 2 !== 0)
@@ -229,13 +230,9 @@ export const Newspaper = (props, context) => {
   );
 };
 
-const PhotoThumbnail = (properties, context) => {
+const PhotoThumbnail = (properties) => {
   const { name, ...rest } = properties;
-  const [viewingPhoto, setViewingPhoto] = useLocalState(
-    context,
-    'viewingPhoto',
-    ''
-  );
+  const [viewingPhoto, setViewingPhoto] = useLocalState('viewingPhoto', '');
   return (
     <Box
       as="img"

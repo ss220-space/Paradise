@@ -405,14 +405,14 @@
 /mob/living/simple_animal/hostile/proc/MoveToTarget(list/possible_targets)//Step 5, handle movement between us and our target
 	stop_automated_movement = TRUE
 	if(!target || !CanAttack(target))
-		LoseTarget()
+		lose_target()
 		return FALSE
 
 	var/target_distance = get_dist(targets_from,target)
 	if(target in possible_targets)
 		var/turf/T = get_turf(src)
 		if(target.z != T.z)
-			LoseTarget()
+			lose_target()
 			return FALSE
 		if(ranged) //We ranged? Shoot at em
 			if(COOLDOWN_FINISHED(src, ranged_cooldown) && !target.Adjacent(targets_from)&& target_distance <= ranged_distance) //But make sure they're not in range for a melee attack
@@ -448,7 +448,7 @@
 			else
 				if(FindHidden())
 					return TRUE
-	LoseTarget()
+	lose_target()
 	return FALSE
 
 
@@ -475,7 +475,7 @@
 		return .
 	if(!ckey && !stat && search_objects < 3 && amount > 0)//Not unconscious, and we don't ignore mobs
 		if(search_objects)//Turn off item searching and ignore whatever item we were looking at, we're more concerned with fight or flight
-			LoseTarget()
+			lose_target()
 			LoseSearchObjects()
 		if(AIStatus != AI_ON && AIStatus != AI_OFF)
 			toggle_ai(AI_ON)
@@ -512,7 +512,8 @@
 	taunt_chance = initial(taunt_chance)
 
 
-/mob/living/simple_animal/hostile/proc/LoseTarget()
+/mob/living/simple_animal/hostile/lose_target()
+	. = ..()
 	GiveTarget(null)
 	approaching_target = FALSE
 	in_melee = FALSE
@@ -527,7 +528,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	LoseTarget()
+	lose_target()
 
 /mob/living/simple_animal/hostile/proc/summon_backup(distance)
 	do_alert_animation(src)
@@ -605,8 +606,12 @@
 	//Assuming we move towards the target we want to swerve toward them to get closer
 	var/cdir = turn(move_direction, 45)
 	var/ccdir = turn(move_direction, -45)
+	var/turf/step = get_step(loc, pick(cdir, ccdir))
+	for(var/atom/object in step)
+		if(!object.CanPass(src, get_dir(object, src)))
+			return Move(moving_to, move_direction)
 	dodging = FALSE
-	. = Move(get_step(loc, pick(cdir, ccdir)))
+	. = Move(step)
 	if(!.)//Can't dodge there so we just carry on
 		. = Move(moving_to, move_direction)
 	face_atom(target)
@@ -713,7 +718,7 @@
 	if(lose_patience_timeout)
 		LosePatience()
 		if(!QDELETED(src))
-			lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(LoseTarget)), lose_patience_timeout, TIMER_STOPPABLE)
+			lose_patience_timer_id = addtimer(CALLBACK(src, PROC_REF(lose_target)), lose_patience_timeout, TIMER_STOPPABLE)
 
 
 /mob/living/simple_animal/hostile/proc/LosePatience()
@@ -776,7 +781,7 @@
 
 	UnregisterSignal(target, COMSIG_QDELETING)
 	target = null
-	LoseTarget()
+	lose_target()
 
 
 /mob/living/simple_animal/hostile/proc/add_target(new_target)

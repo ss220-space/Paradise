@@ -40,7 +40,7 @@
 	datum_type = /datum/antagonist/terror_spider/main_spider/defiler
 
 
-/mob/living/simple_animal/hostile/poison/terror_spider/defiler/LoseTarget()
+/mob/living/simple_animal/hostile/poison/terror_spider/defiler/lose_target()
 	stop_automated_movement = 0
 	attackstep = 0
 	attackcycles = 0
@@ -72,7 +72,7 @@
 	if(!ckey && !IsTSInfected(L))
 		step_away(src, L)
 		step_away(src, L)
-		LoseTarget()
+		lose_target()
 		step_away(src, L)
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] отскакивает от [L.declent_ru(ACCUSATIVE)]!"))
 

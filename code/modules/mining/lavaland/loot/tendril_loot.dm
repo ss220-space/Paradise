@@ -299,7 +299,7 @@
 	else
 		UnregisterSignal(user, COMSIG_MOB_UPDATE_SIGHT)
 
-		balloon_alert("дух возвращён")
+		balloon_alert(user, "дух возвращён")
 		wisp.stop_orbit()
 		wisp.forceMove(src)
 		set_light_on(TRUE)

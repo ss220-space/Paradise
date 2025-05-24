@@ -1138,13 +1138,13 @@
 /obj/machinery/hydroponics/proc/send_plant_details(mob/user)
 	var/list/msg = list()
 	if(myseed)
-		msg += "*** <B>[myseed.plantname]</B> ***" //Carn: now reports the plants growing, not the seeds.
+		msg += "*** <b>[myseed.plantname]</b> ***" //Carn: now reports the plants growing, not the seeds.
 		msg += "- Plant Age: <span class='notice'>[age]</span>"
 		var/list/text_string = myseed.get_analyzer_text()
 		if(text_string)
 			msg += text_string
 	else
-		msg += "<B>No plant found.</B>"
+		msg += "<b>No plant found.</b>"
 	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
 	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
 	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"

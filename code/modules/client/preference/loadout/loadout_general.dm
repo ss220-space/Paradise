@@ -191,7 +191,7 @@
 /datum/gear/mug/department/med
 	index_name = "doctor coffee mug"
 	description = "A doctor's coffee mug, emblazoned in the colors of the Medical department."
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_CORONER)
 	path = /obj/item/reagent_containers/food/drinks/mug/med
 
 /datum/gear/mug/department/sci

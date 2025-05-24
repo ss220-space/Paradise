@@ -129,6 +129,13 @@
 	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
 
+/obj/machinery/suit_storage_unit/mining_medic
+	name = "mining medical suit storage unit"
+	suit_type = /obj/item/clothing/suit/hooded/explorer/mining
+	mask_type = /obj/item/clothing/mask/gas/mining_medic
+	storage_type = /obj/item/gps/mining
+	req_access = list(ACCESS_MEDICAL)
+
 /obj/machinery/suit_storage_unit/cmo
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/medical
 	storage_type = /obj/item/tank/internals/oxygen

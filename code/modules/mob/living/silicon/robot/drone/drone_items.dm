@@ -438,7 +438,10 @@
 
 	dat += resources
 
-	src << browse(dat, "window=robotmod&can_close=0")
+	var/datum/browser/popup = new(src, "robotmod", "Drone modules")
+	popup.set_content(dat)
+	popup.set_window_options("can_close=0;")
+	popup.open(FALSE)
 
 //Putting the decompiler here to avoid doing list checks every tick.
 /mob/living/silicon/robot/drone/use_power()

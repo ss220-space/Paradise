@@ -153,10 +153,10 @@ effective or pretty fucking useless.
 	user.set_machine(src)
 
 	var/cooldown = round(max(10,((intensity*8)-(wavelength/2))+(intensity*2)))
-	var/dat = {"<meta charset="UTF-8">
-	Интенсивность излучения: <a href='byond://?src=[UID()];radint=-5'>-</A><a href='byond://?src=[UID()];radint=-1'>-</A> [intensity] <a href='byond://?src=[UID()];radint=1'>+</A><a href='byond://?src=[UID()];radint=5'>+</A><BR>
-	Длина волны излучения: <a href='byond://?src=[UID()];radwav=-5'>-</A><a href='byond://?src=[UID()];radwav=-1'>-</A> [(wavelength+(intensity*4))] <a href='byond://?src=[UID()];radwav=1'>+</A><a href='byond://?src=[UID()];radwav=5'>+</A><BR>
-	Время перезарядки излучателя: [cooldown] секунд<BR>
+	var/dat = {"
+	Интенсивность излучения: <a href='byond://?src=[UID()];radint=-5'>-</a><a href='byond://?src=[UID()];radint=-1'>-</a> [intensity] <a href='byond://?src=[UID()];radint=1'>+</a><a href='byond://?src=[UID()];radint=5'>+</a><br>
+	Длина волны излучения: <a href='byond://?src=[UID()];radwav=-5'>-</a><a href='byond://?src=[UID()];radwav=-1'>-</a> [(wavelength+(intensity*4))] <a href='byond://?src=[UID()];radwav=1'>+</a><a href='byond://?src=[UID()];radwav=5'>+</a><br>
+	Время перезарядки излучателя: [cooldown] секунд<br>
 	"}
 
 	var/datum/browser/popup = new(user, "radlaser", "Интерфейс радиационного излучателя", 400, 240)

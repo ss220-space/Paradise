@@ -420,6 +420,13 @@
 	. = ..()
 	user.remove_movespeed_modifier(/datum/movespeed_modifier/reagent/methamphetamine)
 
+/datum/reagent/methamphetamine/reaction_mob(mob/living/mob, method = REAGENT_TOUCH, volume, show_message = TRUE)
+	. = ..()
+
+	if(method != REAGENT_INGEST)
+		return
+
+	mob.Knockdown(1 SECONDS)
 
 /datum/reagent/methamphetamine/overdose_process(mob/living/M, severity)
 	var/list/overdose_info = ..()
@@ -512,9 +519,9 @@
 		to_chat(M, span_danger("<font face='[pick("Curlz MT", "Comic Sans MS")]' size='[rand(4,6)]'>КАК ЖЕ ЭТО ОХУЕННО!!!</font>"))
 		M << 'sound/effects/singlebeat.ogg'
 		M.emote("faint")
-		M.apply_effect(5, IRRADIATE, negate_armor = 1)
-		M.adjustToxLoss(5)
-		M.adjustBrainLoss(10)
+		M.apply_effect(volume, IRRADIATE, negate_armor = 1)
+		M.adjustToxLoss(volume)
+		M.adjustBrainLoss(volume * 2)
 	else
 		to_chat(M, span_notice("Вы чувствуете себя соленоватым."))
 

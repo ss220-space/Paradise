@@ -11,8 +11,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-const VendingRow = (props, context) => {
-  const { act, data } = useBackend(context);
+const VendingRow = (props) => {
+  const { act, data } = useBackend();
   const { product, productStock, productIcon, productIconState } = props;
   const {
     chargesMoney,
@@ -80,8 +80,8 @@ const VendingRow = (props, context) => {
   );
 };
 
-export const Vending = (props, context) => {
-  const { act, data } = useBackend(context);
+export const Vending = (props) => {
+  const { act, data } = useBackend();
   const {
     user,
     guestNotice,
@@ -108,7 +108,7 @@ export const Vending = (props, context) => {
   inventory = inventory.filter((item) => !!item);
   return (
     <Window
-      width={710}
+      width={470}
       height={100 + Math.min(product_records.length * 38, 500)}
     >
       <Window.Content>

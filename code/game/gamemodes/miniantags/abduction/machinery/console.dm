@@ -41,8 +41,8 @@
 			TeleporterSend()
 		return
 	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
-	dat += "<H3> Abductsoft 3000 </H3>"
+	var/dat = ""
+	dat += "<h3> Abductsoft 3000 </h3>"
 
 	if(experiment != null)
 		var/points = experiment.points
@@ -50,22 +50,22 @@
 		dat += "Collected Samples : [points] <br>"
 		dat += "Gear Credits: [credits] <br>"
 		dat += "<b>Transfer data in exchange for supplies:</b><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=baton'>Advanced Baton</A><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=helmet'>Agent Helmet</A><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=vest'>Agent Vest</A><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=silencer'>Radio Silencer</A><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=tool'>Science Tool</A><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=mind_device'>Mental Interface Device</A><br>"
-		dat += "<a href='byond://?src=[UID()];dispense=medkit'>Medkit</A><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=baton'>Advanced Baton</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=helmet'>Agent Helmet</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=vest'>Agent Vest</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=silencer'>Radio Silencer</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=tool'>Science Tool</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=mind_device'>Mental Interface Device</a><br>"
+		dat += "<a href='byond://?src=[UID()];dispense=medkit'>Medkit</a><br>"
 	else
 		dat += "<span class='bad'>NO EXPERIMENT MACHINE DETECTED</span> <br>"
 
 	if(pad)
 		dat += "<span class='bad'>Emergency Teleporter System.</span>"
 		dat += "<span class='bad'>Consider using primary observation console first.</span>"
-		dat += "<a href='byond://?src=[UID()];teleporter_send=1'>Activate Teleporter</A><br>"
+		dat += "<a href='byond://?src=[UID()];teleporter_send=1'>Activate Teleporter</a><br>"
 		if(gizmo && gizmo.marked)
-			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</A><br>"
+			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</a><br>"
 		else
 			dat += "<span class='linkOff'>Retrieve Mark</span><br>"
 	else
@@ -75,11 +75,11 @@
 		dat += "<h4> Agent Vest Mode </h4><br>"
 		var/mode = vest.mode
 		if(mode == VEST_STEALTH)
-			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Combat</A>"
+			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Combat</a>"
 			dat += "<span class='linkOff'>Stealth</span>"
 		else
 			dat += "<span class='linkOff'>Combat</span>"
-			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Stealth</A>"
+			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Stealth</a>"
 
 		dat+="<br>"
 		dat += "<a href='byond://?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"

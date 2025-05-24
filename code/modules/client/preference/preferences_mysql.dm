@@ -21,7 +21,8 @@
 					discord_name,
 					keybindings,
 					viewrange,
-					ghost_darkness_level
+					ghost_darkness_level,
+					toggles_3
 					FROM [format_table_name("player")]
 					WHERE ckey=:ckey"}, list(
 						"ckey" = C.ckey
@@ -55,6 +56,7 @@
 		keybindings = init_keybindings(raw = query.item[19])
 		viewrange = query.item[20]
 		ghost_darkness_level = query.item[21]
+		toggles3 = text2num(query.item[22])
 
 	qdel(query)
 
@@ -64,6 +66,7 @@
 	default_slot	= sanitize_integer(default_slot, 1, max_save_slots, initial(default_slot))
 	toggles			= sanitize_integer(toggles, 0, TOGGLES_TOTAL, initial(toggles))
 	toggles2		= sanitize_integer(toggles2, 0, TOGGLES_2_TOTAL, initial(toggles2))
+	toggles3		= sanitize_integer(toggles3, 0, TOGGLES_3_TOTAL, initial(toggles3))
 	sound			= sanitize_integer(sound, 0, 65535, initial(sound))
 	UI_style_color	= sanitize_hexcolor(UI_style_color, initial(UI_style_color))
 	UI_style_alpha	= sanitize_integer(UI_style_alpha, 0, 255, initial(UI_style_alpha))
@@ -75,7 +78,7 @@
 	parallax = sanitize_integer(parallax, 0, 16, initial(parallax))
 	discord_id			= sanitize_text(discord_id, initial(discord_id))
 	discord_name		= sanitize_text(discord_name, initial(discord_name))
-	return 1
+	return TRUE
 
 /datum/preferences/proc/save_preferences(client/C)
 
@@ -108,7 +111,8 @@
 					parallax=:parallax,
 					keybindings=:keybindings,
 					viewrange=:viewrange,
-					ghost_darkness_level=:ghost_darkness_level
+					ghost_darkness_level=:ghost_darkness_level,
+					toggles_3=:toggles3
 					WHERE ckey=:ckey"}, list(
 						// OH GOD THE PARAMETERS
 						"ooccolour" = ooccolor,
@@ -130,6 +134,7 @@
 						"viewrange" = viewrange,
 						"ghost_darkness_level" = ghost_darkness_level,
 						"ckey" = C.ckey,
+						"toggles3" = num2text(toggles3, CEILING(log(10, (TOGGLES_3_TOTAL)), 1)),
 					)
 					)
 

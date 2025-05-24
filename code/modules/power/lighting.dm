@@ -26,8 +26,8 @@
 	icon_state = "tube-construct-stage1"
 	anchored = TRUE
 	layer = 5
-	max_integrity = 200
-	armor = list("melee" = 50, "bullet" = 10, "laser" = 10, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 50)
+	max_integrity = 50
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	/// Construction stage (1 = Empty frame | 2 = Wired frame | 3 = Completed frame)
 	var/stage = STAGE_EMPTY
 	/// Light bulb type
@@ -179,7 +179,8 @@
 	desc = "A lighting fixture."
 	anchored = TRUE
 	layer = WALL_OBJ_LAYER
-	max_integrity = 100
+	max_integrity = 10
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
 	use_power = ACTIVE_POWER_USE
 	idle_power_usage = 2
 	active_power_usage = 20

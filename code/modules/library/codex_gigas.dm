@@ -65,8 +65,9 @@
 		usedName += "x"
 
 	var/datum/antagonist/devil/devil = devilInfo(usedName)
-	user << browse("Information on [devilName]<br><br><br>[devil.info.ban.desc]<br>[devil.info.bane.desc]<br>[devil.info.obligation.desc]<br>[devil.info.banish.desc]", "window=book")
-
+	var/datum/browser/popup = new(user, "codex_gigax", "Codex Gigax")
+	popup.set_content("Information on [devilName]<br><br><br>[devil.info.ban.desc]<br>[devil.info.bane.desc]<br>[devil.info.obligation.desc]<br>[devil.info.banish.desc]")
+	popup.open(FALSE)
 	inUse = FALSE
 	addtimer(CALLBACK(src, PROC_REF(close), human, willpower), 10 SECONDS)
 

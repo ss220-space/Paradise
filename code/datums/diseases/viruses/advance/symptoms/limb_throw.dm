@@ -38,7 +38,7 @@ Limb Rejection
 	need_active_overlay = TRUE
 	invocation = ""
 
-	selection_activated_message		= span_notice("Your prepare to throw a limb!! <B>Left-click to cast at a target!</B>")
+	selection_activated_message		= span_notice("Your prepare to throw a limb!! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message	= span_notice("You decided not to throw a limb...for now.")
 
 	action_icon_state = "limb_throw"

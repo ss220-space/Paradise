@@ -28,7 +28,7 @@
 		COMSIG_MOB_ITEM_ATTACK,
 		COMSIG_MOB_APPLY_DAMAGE,
 		COMSIG_SIMPLE_ANIMAL_ATTACKEDBY,
-		COMSIG_CARBON_HITBY), PROC_REF(cancel_states))
+		COMSIG_ATOM_HITBY), PROC_REF(cancel_states))
 
 
 /datum/component/ninja_states_breaker/UnregisterFromParent()
@@ -43,7 +43,7 @@
 		COMSIG_MOB_ITEM_ATTACK,
 		COMSIG_MOB_APPLY_DAMAGE,
 		COMSIG_SIMPLE_ANIMAL_ATTACKEDBY,
-		COMSIG_CARBON_HITBY))
+		COMSIG_ATOM_HITBY))
 
 /// Собственно код выключающий сам инвиз и хамелион режимы костюма
 /datum/component/ninja_states_breaker/proc/cancel_states()

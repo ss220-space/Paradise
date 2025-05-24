@@ -85,3 +85,23 @@
 /obj/item/sensor_device/advanced/security/Initialize(mapload)
 	. = ..()
 	crew_monitor.crew_vision = CREW_VISION_SECURITY
+
+/obj/item/sensor_device/advanced/mining
+	name = "mining crew monitor"
+	desc = "Миниатюрное устройство, с помощью которого можно отслеживать датчики членов экипажа станции. Эта модель настроена на шахтёрский персонал станции."
+	ru_names = list(
+		NOMINATIVE = "шахтёрский монитор экипажа",
+		GENITIVE = "шахтёрского монитора экипажа",
+		DATIVE = "шахтёрскому монитору экипажа",
+		ACCUSATIVE = "шахтёрский монитор экипажа",
+		INSTRUMENTAL = "шахтёрским монитором экипажа",
+		PREPOSITIONAL = "шахтёрском мониторе экипажа"
+	)
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	icon_state = "shaft_scanner"
+	item_state = "mining_scanner"
+
+/obj/item/sensor_device/advanced/mining/Initialize(mapload)
+	. = ..()
+	crew_monitor.crew_vision = CREW_VISION_MINING

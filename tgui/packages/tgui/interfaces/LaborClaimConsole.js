@@ -10,7 +10,7 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const LaborClaimConsole = (props, context) => {
+export const LaborClaimConsole = (props) => {
   return (
     <Window width={315} height={470}>
       <Window.Content>
@@ -21,8 +21,8 @@ export const LaborClaimConsole = (props, context) => {
   );
 };
 
-const ShuttleControlSection = (props, context) => {
-  const { act, data } = useBackend(context);
+const ShuttleControlSection = (props) => {
+  const { act, data } = useBackend();
   const {
     can_go_home,
     emagged,
@@ -84,8 +84,8 @@ const ShuttleControlSection = (props, context) => {
   );
 };
 
-const MaterialValuesSection = (props, context) => {
-  const { data } = useBackend(context);
+const MaterialValuesSection = (props) => {
+  const { data } = useBackend();
   const { ores } = data;
   return (
     <Section title="Material values">

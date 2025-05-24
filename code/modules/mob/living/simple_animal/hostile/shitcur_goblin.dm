@@ -28,7 +28,7 @@
 	griefer.visible_message("<span class='danger'>[src] dealing with [griefer]!</span>",\
 							"<span class='userdanger'>You have been BANNED FOR NO REASON</span>")
 
-/mob/living/simple_animal/hostile/shitcur_goblin/LoseTarget()
+/mob/living/simple_animal/hostile/shitcur_goblin/lose_target()
 	message_admins("Smiting shitcurity goblin was deleted due to a lack of valid target. Someone killed them first, or they ceased to exist.")
 	qdel(src) //so we dont shitcur after banning
 

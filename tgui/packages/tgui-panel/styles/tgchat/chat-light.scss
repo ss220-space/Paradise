@@ -37,6 +37,7 @@ img {
 img.icon {
   height: 1em;
   min-height: 16px;
+  min-width: 16px;
   width: auto;
   vertical-align: bottom;
 }
@@ -530,6 +531,10 @@ h2.alert {
 
 .green {
   color: #03bb39;
+}
+
+.nicegreen {
+  color: hsl(132.6, 78.7%, 36.9%);
 }
 
 .pr_announce {
