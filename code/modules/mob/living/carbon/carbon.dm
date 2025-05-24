@@ -177,6 +177,9 @@
 				shocking_queue += carried
 		//Found our victims, now lets shock them all
 		for(var/mob/living/carbon/victim as anything in shocking_queue)
+			if(victim == src)
+				continue
+
 			victim.electrocute_act(shock_damage * 0.75, name, 1, flags, jitter_time, stutter_time, stun_duration)
 
 	//Stun
@@ -514,6 +517,8 @@
 
 /mob/living/carbon/proc/throw_mode_on()
 	SIGNAL_HANDLER //This signal is here so we can turn throw mode back on via carp when an object is caught
+	if(!client)
+		return
 	in_throw_mode = TRUE
 	if(throw_icon)
 		throw_icon.icon_state = "act_throw_on"
@@ -528,6 +533,8 @@
 
 
 /mob/proc/throw_item(atom/target)
+	SEND_SIGNAL(src, COMSIG_MOB_THROW, target)
+	SEND_GLOBAL_SIGNAL(COMSIG_GLOB_CARBON_THROW_THING, src, target)
 	return TRUE
 
 

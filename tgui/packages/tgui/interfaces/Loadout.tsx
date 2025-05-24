@@ -1,10 +1,11 @@
 import { createSearch } from 'common/string';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Dimmer,
   Dropdown,
-  ImageButtonTS,
+  ImageButton,
   Button,
   Input,
   Section,
@@ -48,20 +49,12 @@ const sortTypes = {
   'Cost': (a, b) => a.gear.cost - b.gear.cost,
 };
 
-export const Loadout = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
-  const [search, setSearch] = useLocalState(context, 'search', false);
-  const [searchText, setSearchText] = useLocalState(context, 'searchText', '');
-  const [category, setCategory] = useLocalState(
-    context,
-    'category',
-    Object.keys(data.gears)[0]
-  );
-  const [tweakedGear, setTweakedGear] = useLocalState(
-    context,
-    'tweakedGear',
-    ''
-  );
+export const Loadout = (props: unknown) => {
+  const { act, data } = useBackend<Data>();
+  const [search, setSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [category, setCategory] = useState(Object.keys(data.gears)[0]);
+  const [tweakedGear, setTweakedGear] = useState('');
 
   return (
     <Window width={975} height={650}>
@@ -95,17 +88,17 @@ export const Loadout = (props, context) => {
   );
 };
 
-const LoadoutCategories = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LoadoutCategories = (props) => {
+  const { data } = useBackend<Data>();
   const { category, setCategory } = props;
   return (
-    <Tabs fluid textAlign="center" style={{ 'flex-wrap': 'wrap-reverse' }}>
+    <Tabs fluid textAlign="center" style={{ flexWrap: 'wrap-reverse' }}>
       {Object.keys(data.gears).map((cat) => (
         <Tabs.Tab
           key={cat}
           selected={cat === category}
           style={{
-            'white-space': 'nowrap',
+            whiteSpace: 'nowrap',
           }}
           onClick={() => setCategory(cat)}
         >
@@ -116,17 +109,13 @@ const LoadoutCategories = (props, context) => {
   );
 };
 
-const LoadoutGears = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LoadoutGears = (props) => {
+  const { act, data } = useBackend<Data>();
   const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
 
-  const [sortType, setSortType] = useLocalState(context, 'sortType', 'Default');
-  const [sortReverse, setsortReverse] = useLocalState(
-    context,
-    'sortReverse',
-    false
-  );
+  const [sortType, setSortType] = useState('Default');
+  const [sortReverse, setsortReverse] = useState(false);
   const testSearch = createSearch<Gear>(searchText, (gear) => gear.name);
 
   let contents;
@@ -183,7 +172,7 @@ const LoadoutGears = (props, context) => {
                 width={20}
                 placeholder="Search..."
                 value={searchText}
-                onInput={(e) => setSearchText(e.target.value)}
+                onInput={(e, value) => setSearchText(value)}
               />
             </Stack.Item>
           )}
@@ -261,9 +250,9 @@ const LoadoutGears = (props, context) => {
         );
 
         const textInfo = (
-          <Box class="Loadout-InfoBox">
+          <Box className="Loadout-InfoBox">
             <Box
-              style={{ 'flex-grow': 1 }}
+              style={{ flexGrow: '1' }}
               fontSize={1}
               color="gold"
               opacity={0.75}
@@ -277,7 +266,7 @@ const LoadoutGears = (props, context) => {
         );
 
         return (
-          <ImageButtonTS
+          <ImageButton
             key={key}
             m={0.5}
             imageSize={84}
@@ -298,15 +287,15 @@ const LoadoutGears = (props, context) => {
             onClick={() => act('toggle_gear', { gear: gear.index_name })}
           >
             {gear.name}
-          </ImageButtonTS>
+          </ImageButton>
         );
       })}
     </Section>
   );
 };
 
-const LoadoutEquipped = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const LoadoutEquipped = (props) => {
+  const { act, data } = useBackend<Data>();
   const { setTweakedGear } = props;
   const selectedGears = Object.entries(data.gears).reduce(
     (a, [categoryKey, categoryItems]) => {
@@ -339,7 +328,7 @@ const LoadoutEquipped = (props, context) => {
           {selectedGears.map((gear) => {
             let gear_data = data.selected_gears[gear.key];
             return (
-              <ImageButtonTS
+              <ImageButton
                 key={gear.key}
                 fluid
                 imageSize={48}
@@ -376,7 +365,7 @@ const LoadoutEquipped = (props, context) => {
                 }
               >
                 {gear_data['name'] ? gear_data['name'] : gear.name}
-              </ImageButtonTS>
+              </ImageButton>
             );
           })}
         </Section>
@@ -402,8 +391,8 @@ const LoadoutEquipped = (props, context) => {
   );
 };
 
-const GearTweak = (props, context) => {
-  const { act, data } = useBackend<Data>(context);
+const GearTweak = (props) => {
+  const { act, data } = useBackend<Data>();
   const { tweakedGear, setTweakedGear } = props;
 
   return (
@@ -455,7 +444,7 @@ const GearTweak = (props, context) => {
                         width={1}
                         height={1}
                         verticalAlign={'middle'}
-                        style={{ 'background-color': `${tweakInfo}` }}
+                        style={{ backgroundColor: `${tweakInfo}` }}
                       />
                     </LabeledList.Item>
                   );

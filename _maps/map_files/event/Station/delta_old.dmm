@@ -65737,6 +65737,7 @@
 	},
 /area/medical/chemistry)
 "kMn" = (
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "purple"

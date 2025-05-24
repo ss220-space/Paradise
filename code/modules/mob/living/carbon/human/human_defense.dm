@@ -9,7 +9,7 @@ emp_act
 */
 
 
-/mob/living/carbon/human/bullet_act(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/bullet_act(obj/projectile/P, def_zone)
 	if(!dna.species.bullet_act(P, src))
 		add_attack_logs(P.firer, src, "hit by [P.type] but got deflected by species '[dna.species]'")
 		return FALSE
@@ -21,7 +21,7 @@ emp_act
 			if(1) // proper reflection
 				reflected = TRUE
 			if(2) //If target is holding a toy sword
-				var/static/list/safe_list = list(/obj/item/projectile/beam/lasertag, /obj/item/projectile/beam/practice)
+				var/static/list/safe_list = list(/obj/projectile/beam/lasertag, /obj/projectile/beam/practice)
 				reflected = is_type_in_list(P, safe_list) //And it's safe
 
 		if(reflected)
@@ -146,7 +146,7 @@ emp_act
 		add_attack_logs(user, src, "set on fire with [I]")
 
 
-/mob/living/carbon/human/check_projectile_dismemberment(obj/item/projectile/P, def_zone)
+/mob/living/carbon/human/check_projectile_dismemberment(obj/projectile/P, def_zone)
 	var/obj/item/organ/external/affecting = get_organ(check_zone(def_zone))
 	if(affecting && !affecting.cannot_amputate && affecting.get_damage() >= (affecting.max_damage - P.dismemberment))
 		var/damtype = DROPLIMB_SHARP
@@ -634,7 +634,7 @@ emp_act
 		if(locateUID(I.thrownby) == src) //No throwing stuff at yourself to trigger reactions
 			return ..()
 
-	SEND_SIGNAL(src, COMSIG_CARBON_HITBY)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 
 	if(check_shields(AM, throwpower, "[AM.declent_ru(ACCUSATIVE)]", THROWN_PROJECTILE_ATTACK, armour_penetration, shields_penetration))
 		hitpush = FALSE
@@ -860,3 +860,13 @@ emp_act
 		to_chat(src, span_danger("[capitalize(head.declent_ru(NOMINATIVE))] защища[pluralize_ru(head.gender, "ет", "ют")] вас от [hot ? "горячей" : "холодной"] жидкости!"))
 		return FALSE
 	return TRUE
+
+/mob/living/carbon/human/attack_basic_mob(mob/living/basic/user)
+	. = ..()
+	if(!.)
+		return
+	if(check_shields(user, user.melee_damage, "the [user.name]", MELEE_ATTACKS, user.armour_penetration))
+		return FALSE
+	var/obj/item/organ/external/affecting = user.get_organ(BODY_ZONE_CHEST)
+	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
+	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)

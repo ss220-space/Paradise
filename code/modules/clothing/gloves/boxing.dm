@@ -9,6 +9,7 @@
 	icon_state = "boxinggreen"
 	item_state = "boxinggreen"
 
+
 /obj/item/clothing/gloves/boxing/blue
 	icon_state = "boxingblue"
 	item_state = "boxingblue"

@@ -66,8 +66,9 @@
 /obj/structure/chair/wheelchair/relaymove(mob/user, direction)
 	if(!COOLDOWN_FINISHED(src, wheelchair_move_delay))
 		return FALSE
+
 	var/turf/next_step = get_step(src, direction)
-	if(!next_step || propelled || !Process_Spacemove(direction) || !has_gravity(loc) || !isturf(loc) || !has_buckled_mobs() || user != buckled_mobs[1])
+	if(!next_step || propelled || !Process_Spacemove(direction) || no_gravity(loc) || !isturf(loc) || !has_buckled_mobs() || user != buckled_mobs[1])
 		COOLDOWN_START(src, wheelchair_move_delay, 0.5 SECONDS)
 		return FALSE
 

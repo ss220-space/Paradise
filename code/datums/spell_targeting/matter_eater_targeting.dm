@@ -5,14 +5,13 @@
 	range = 1
 	var/list/types_allowed = list(
 		/obj/item,
+		/mob/living/carbon/human,
+		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/pet,
 		/mob/living/simple_animal/hostile,
 		/mob/living/simple_animal/parrot,
 		/mob/living/simple_animal/crab,
 		/mob/living/simple_animal/mouse,
-		/mob/living/carbon/human,
-		/mob/living/simple_animal/slime,
-		/mob/living/carbon/alien/larva,
 		/mob/living/simple_animal/slime,
 		/mob/living/simple_animal/chick,
 		/mob/living/simple_animal/chicken,

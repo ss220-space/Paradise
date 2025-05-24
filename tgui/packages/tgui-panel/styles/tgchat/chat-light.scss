@@ -30,13 +30,13 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
   image-rendering: pixelated;
 }
 
 img.icon {
   height: 1em;
   min-height: 16px;
+  min-width: 16px;
   width: auto;
   vertical-align: bottom;
 }
@@ -530,6 +530,10 @@ h2.alert {
 
 .green {
   color: #03bb39;
+}
+
+.nicegreen {
+  color: hsl(132.6, 78.7%, 36.9%);
 }
 
 .pr_announce {

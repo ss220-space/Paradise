@@ -223,8 +223,8 @@
  */
 /obj/effect/particle_effect/fluid/smoke/bad/proc/on_entered(datum/source, atom/movable/arrived, atom/old_loc, list/atom/old_locs)
 	SIGNAL_HANDLER
-	if(istype(arrived, /obj/item/projectile/beam))
-		var/obj/item/projectile/beam/beam = arrived
+	if(istype(arrived, /obj/projectile/beam))
+		var/obj/projectile/beam/beam = arrived
 		beam.damage = (beam.damage / beam_resistance)
 
 /// A factory which produces smoke that makes you cough.
@@ -398,7 +398,7 @@
 	color = "#752424"
 	lifetime = 3 SMOKE_TICK_TO_SECONDS
 
-/obj/effect/particle_effect/fluid/smoke/smoke_mob(mob/living/carbon/victim)
+/obj/effect/particle_effect/fluid/smoke/vomiting/smoke_mob(mob/living/carbon/victim)
 	. = ..()
 	if(!.)
 		return .
@@ -438,8 +438,13 @@
 /obj/effect/particle_effect/fluid/smoke/chem/smoke_mob(mob/living/carbon/smoker, seconds_per_tick)
 	if(lifetime < 1)
 		return FALSE
+
 	if(!istype(smoker))
 		return FALSE
+
+	if(smoker.stat == DEAD)
+		return FALSE
+
 	if(!smoker.can_breathe_gas())
 		return FALSE
 

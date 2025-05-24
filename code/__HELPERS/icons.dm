@@ -163,7 +163,9 @@ mob
 			// Send the icon to src's local cache
 			src<<browse_rsc(getFlatIcon(src), iconName)
 			// Display the icon in their browser
-			src<<browse("<body bgcolor='#000000'><p><img src='[iconName]'></p></body>")
+			var/datum/browser/popup = new(src, "icon", "Icon")
+			popup.set_content("<p><img src='[iconName]'></p>")
+			popup.open(FALSE)
 
 		Output_Icon()
 			set name = "2. Output Icon"

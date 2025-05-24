@@ -56,6 +56,17 @@
 	/// Trait modification, lazylist of traits to add/take away, on equipment/drop in the correct slot
 	var/list/clothing_traits
 
+/obj/item/clothing/examine(mob/user)
+	. = ..()
+	var/healthpercent = (obj_integrity/max_integrity) * 100
+	switch(healthpercent)
+		if(50 to 99)
+			. +=  span_notice("Выглядит слегка повреждённ[genderize_ru(gender, "ым", "ой", "ым", "ыми")].")
+		if(25 to 50)
+			. +=  span_notice("Выглядит сильно повреждённ[genderize_ru(gender, "ым", "ой", "ым", "ыми")].")
+		if(0 to 25)
+			. +=  span_warning("Да [genderize_ru(gender, "он разваливается", "она разваливается", "оно разваливается", "они разваливаются")] на глазах!")
+
 
 /obj/item/clothing/update_icon_state()
 	if(!can_toggle)
@@ -64,6 +75,44 @@
 	icon_state = "[replacetext("[icon_state]", "_up", "")][up ? "_up" : ""]"
 	return TRUE
 
+
+/obj/item/clothing/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/radio/spy_spider))
+		add_fingerprint(user)
+		var/obj/item/radio/spy_spider/spy_spider = I
+		if(!(slot_flags & (ITEM_SLOT_CLOTH_OUTER|ITEM_SLOT_CLOTH_INNER)))
+			to_chat(user, span_warning("Вы не находите места для жучка."))
+			return ATTACK_CHAIN_PROCEED
+		if(spy_spider_attached)
+			to_chat(user, span_warning("Жучок уже установлен."))
+			return ATTACK_CHAIN_PROCEED
+		if(!spy_spider.broadcasting)
+			to_chat(user, span_warning("Жучок выключен."))
+			return ATTACK_CHAIN_PROCEED
+		if(!user.drop_transfer_item_to_loc(spy_spider, src))
+			return ATTACK_CHAIN_PROCEED
+		spy_spider_attached = spy_spider
+		to_chat(user, span_notice("Вы незаметно прикрепляете жучок к [declent_ru(DATIVE)]."))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	if(istype(I, /obj/item/stack/nanopaste))
+		var/obj/item/stack/nanopaste/nanopaste = I
+
+		if(obj_integrity >= max_integrity)
+			user.balloon_alert(user, "[capitalize(declent_ru(NOMINATIVE))] в полном порядке")
+			return ATTACK_CHAIN_PROCEED
+
+		if(!nanopaste.use(1))
+			user.balloon_alert(user, "нанопаста закончилась!")
+			return ATTACK_CHAIN_PROCEED
+
+		repair_damage(max_integrity * 0.15)
+		user.visible_message(
+			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] наносит немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
+			span_notice("Вы нанесли немного нанопасты на [declent_ru(ACCUSATIVE)]. [capitalize(declent_ru(NOMINATIVE))] выглядит целее."),
+		)
+		return ATTACK_CHAIN_PROCEED_SUCCESS
+	return ..()
 
 /obj/item/clothing/proc/weldingvisortoggle(mob/user) //proc to toggle welding visors on helmets, masks, goggles, etc.
 	if(user && !can_use(user))
@@ -123,20 +172,22 @@
 	. = ..()
 	if(!istype(user) || !LAZYLEN(clothing_traits))
 		return .
-
-	for(var/trait in clothing_traits)
-		REMOVE_CLOTHING_TRAIT(user, src, trait)
-
+	remove_clothing_traits(user)
 
 /obj/item/clothing/equipped(mob/living/user, slot, initial = FALSE)
 	. = ..()
 	if(!istype(user) || !LAZYLEN(clothing_traits) || !(slot_flags & slot))
 		return .
 
+	add_clothing_traits(user)
+
+/obj/item/clothing/proc/remove_clothing_traits(mob/living/user)
+	for(var/trait in clothing_traits)
+		REMOVE_CLOTHING_TRAIT(user, src, trait)
+
+/obj/item/clothing/proc/add_clothing_traits(mob/living/user)
 	for(var/trait in clothing_traits)
 		ADD_CLOTHING_TRAIT(user, src, trait)
-
-
 /**
   * Used for any clothing interactions when the user is on fire. (e.g. Cigarettes getting lit.)
   */
@@ -289,6 +340,7 @@ BLIND     // can't see anything
 	gender = PLURAL //Carn: for grammarically correct text-parsing
 	w_class = WEIGHT_CLASS_SMALL
 	icon = 'icons/obj/clothing/gloves.dmi'
+	item_state = "bgloves" //For gloves withoit their own item_state
 	belt_icon = "bgloves"
 	siemens_coefficient = 0.50
 	body_parts_covered = HANDS
@@ -311,6 +363,9 @@ BLIND     // can't see anything
 	var/surgery_germ_chance = 100
 	strip_delay = 20
 	put_on_delay = 40
+
+	lefthand_file = 'icons/mob/inhands/gloves_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/gloves_righthand.dmi'
 
 	sprite_sheets = list(
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
@@ -468,6 +523,7 @@ BLIND     // can't see anything
 //Head
 /obj/item/clothing/head
 	name = "head"
+	gender = MALE
 	icon = 'icons/obj/clothing/hats.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_HEAD
@@ -535,6 +591,7 @@ BLIND     // can't see anything
 //Mask
 /obj/item/clothing/mask
 	name = "mask"
+	gender = FEMALE
 	icon = 'icons/obj/clothing/masks.dmi'
 	body_parts_covered = HEAD
 	slot_flags = ITEM_SLOT_MASK
@@ -754,8 +811,9 @@ BLIND     // can't see anything
 
 //Suit
 /obj/item/clothing/suit
-	icon = 'icons/obj/clothing/suits.dmi'
 	name = "suit"
+	gender = MALE
+	icon = 'icons/obj/clothing/suits.dmi'
 	var/fire_resist = T0C+100
 	allowed = list(/obj/item/tank/internals/emergency_oxygen)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
@@ -999,8 +1057,9 @@ BLIND     // can't see anything
 
 // Under clothing
 /obj/item/clothing/under
-	icon = 'icons/obj/clothing/uniforms.dmi'
 	name = "under"
+	gender = MALE
+	icon = 'icons/obj/clothing/uniforms.dmi'
 	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|ARMS
 	permeability_coefficient = 0.90
 	slot_flags = ITEM_SLOT_CLOTH_INNER

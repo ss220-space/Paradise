@@ -61681,7 +61681,7 @@
 /obj/structure/chair/office/dark{
 	dir = 8
 	},
-/obj/effect/landmark/start/shaft_miner,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "hzs" = (
@@ -67796,6 +67796,11 @@
 /obj/effect/spawner/random_spawners/wall_rusted_30,
 /turf/simulated/wall,
 /area/medical/patients_rooms)
+"lKz" = (
+/mob/living/simple_animal/mouse/wooly/rep,
+/obj/structure/chair/comfy/mouse,
+/turf/simulated/floor/wood,
+/area/ntrep)
 "lKI" = (
 /obj/machinery/computer/guestpass{
 	pixel_y = 30
@@ -67937,6 +67942,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "lOh" = (
@@ -68015,6 +68021,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 4
 	},
+/obj/effect/landmark/start/shaft_miner,
 /turf/simulated/floor/plasteel,
 /area/quartermaster/miningdock)
 "lRb" = (
@@ -70197,9 +70204,8 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "niQ" = (
-/obj/structure/chair/office/dark{
-	dir = 8
-	},
+/obj/structure/chair/office/dark,
+/obj/effect/landmark/start/mining_medic,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "brown"
@@ -114101,7 +114107,7 @@ cdV
 cdN
 cgW
 ckI
-ccK
+lKz
 cmK
 com
 ncD

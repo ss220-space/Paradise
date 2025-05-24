@@ -129,15 +129,15 @@
 		school.owner = apprentice
 		school.kit()
 		if (teacher)
-			to_chat(teacher, "<B>Ваш подопечный прибыл по первому вашему зову. Прилежно и усердно обучаясь у вас, он смог выучить одну из школ магии. [school.desc]")
-			to_chat(apprentice, "<B>Ваше служение не осталось незамеченный. Обучаясь у [teacher.real_name], вы смогли научиться одной из школ магии. [school.desc]")
+			to_chat(teacher, "<b>Ваш подопечный прибыл по первому вашему зову. Прилежно и усердно обучаясь у вас, он смог выучить одну из школ магии. [school.desc]</b>")
+			to_chat(apprentice, "<b>Ваше служение не осталось незамеченный. Обучаясь у [teacher.real_name], вы смогли научиться одной из школ магии. [school.desc]</b>")
 		else
-			to_chat(apprentice, "<B>Выбрана [school.name]. [school.desc]")
+			to_chat(apprentice, "<b>Выбрана [school.name]. [school.desc]</b>")
 		break
 
 /obj/item/contract/attack_self(mob/user as mob)
 	user.set_machine(src)
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	if(used)
 		dat += used_contract()
 	else
@@ -145,37 +145,39 @@
 
 		var/datum/possible_schools/schools = new
 		for (var/datum/magick_school/school in schools.schools_list)
-			dat += "<A href='byond://?src=[UID()];school=[school.id]'>[school.name]</A><BR>"
-			dat += "<I>[school.desc]</I><BR>"
+			dat += "<a href='byond://?src=[UID()];school=[school.id]'>[school.name]</a><br>"
+			dat += "<i>[school.desc]</i><br>"
 
-	user << browse(dat, "window=radio")
-	onclose(user, "radio")
+	var/datum/browser/popup = new(user, "magick_school", "Выбор школы")
+	popup.set_content(dat)
+	popup.open(TRUE)
+	onclose(user, "magick_school")
 	return
 
 ///Титульник в контракте
 /obj/item/contract/proc/tittle()
-	var/dat = "<B>Contract of apprenticeship:</B><BR>"
-	dat += "<I>Using this contract, you may summon an apprentice to aid you on your mission.</I><BR>"
-	dat += "<I>If you are unable to establish contact with your apprentice, you can feed the contract back to the spellbook to refund your points.</I><BR>"
+	var/dat = "<b>Contract of apprenticeship:</b><br>"
+	dat += "<i>Using this contract, you may summon an apprentice to aid you on your mission.</i><br>"
+	dat += "<i>If you are unable to establish contact with your apprentice, you can feed the contract back to the spellbook to refund your points.</i><br>"
 
-	dat += "<B>Which school of magic is your apprentice studying?:</B><BR>"
+	dat += "<b>Which school of magic is your apprentice studying?:</b><br>"
 	return dat
 
 /obj/item/contract/apprentice_choose_book/tittle()
-	var/dat = "<B>Магический учебник:</B><BR>"
-	dat += "<I>Изучив этот учебник, вы определитесь в магии, которую будете практиковать.</I><BR>"
-	dat += "<I>Перед тем как выбрать один из путей, хорошо подумайте и поговорите со своим учителем для получении рекомендаций.</I><BR>"
-	dat += "<I>Если учитель не настроен на разговор - ничего страшного! В данном учебнике приведено краткое описание возможных путей.</I><BR>"
+	var/dat = "<b>Магический учебник:</b><br>"
+	dat += "<i>Изучив этот учебник, вы определитесь в магии, которую будете практиковать.</i><br>"
+	dat += "<i>Перед тем как выбрать один из путей, хорошо подумайте и поговорите со своим учителем для получении рекомендаций.</i><br>"
+	dat += "<i>Если учитель не настроен на разговор - ничего страшного! В данном учебнике приведено краткое описание возможных путей.</i><br>"
 
-	dat += "<BR><B>Какую школу магии вы хотели бы изучать?:</B><BR>"
+	dat += "<br><b>Какую школу магии вы хотели бы изучать?:</b><br>"
 	return dat
 
 ///Сообщение выдаваемое при использовании использованных контрактов
 /obj/item/contract/proc/used_contract()
-	return "<span class='notice'>You have already summoned your apprentice.</span><BR>"
+	return "<span class='notice'>You have already summoned your apprentice.</span><br>"
 
 /obj/item/contract/apprentice_choose_book/used_contract()
-	return "<span class='notice'>Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.</span><BR>"
+	return "<span class='notice'>Письмена стерты, а все страницы пусты. Похоже учебник уже был изучен.</span><br>"
 
 /////////Magick Schools//////////
 

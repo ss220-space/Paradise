@@ -122,7 +122,11 @@
 	if(afilter.get("eject"))
 		go_out(FALSE)
 	else if(afilter.get("view_stats"))
-		chassis.occupant << browse(get_patient_stats(),"window=msleeper")
+		var/datum/browser/popup = new(chassis.occupant, "msleeper", "[patient] statistics")
+		popup.set_content(get_patient_stats())
+		popup.add_script("byjax", 'html/js/byjax.js')
+		popup.add_stylesheet("mech_sleeper", 'html/css/mech_sleeper.css')
+		popup.open(TRUE)
 		onclose(chassis.occupant, "msleeper")
 		return
 	else if(afilter.get("inject"))
@@ -132,20 +136,7 @@
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_stats()
 	if(!patient)
 		return
-	return {"<html>
-				<meta charset="UTF-8">
-				<head>
-				<title>[patient] statistics</title>
-				<script language='javascript' type='text/javascript'>
-				[JS_BYJAX]
-				</script>
-				<style>
-				h3 {margin-bottom:2px;font-size:14px;}
-				#lossinfo, #reagents, #injectwith {padding-left:15px;}
-				</style>
-				</head>
-				<body>
-				<h3>Health statistics</h3>
+	return {"<h3>Health statistics</h3>
 				<div id="lossinfo">
 				[get_patient_dam()]
 				</div>
@@ -156,8 +147,7 @@
 				<div id="injectwith">
 				[get_available_reagents()]
 				</div>
-				</body>
-				</html>"}
+				"}
 
 /obj/item/mecha_parts/mecha_equipment/medical/sleeper/proc/get_patient_dam()
 	var/t1
@@ -170,12 +160,12 @@
 			t1 = "*dead*"
 		else
 			t1 = "Unknown"
-	return {"<font color="[patient.health > 50 ? "blue" : "red"]"><b>Health:</b> [patient.stat > 1 ? "[t1]" : "[patient.health]% ([t1])"]</font><br />
-				<font color="[patient.bodytemperature > 50 ? "blue" : "red"]"><b>Core Temperature:</b> [patient.bodytemperature-T0C]&deg;C ([patient.bodytemperature*1.8-459.67]&deg;F)</font><br />
-				<font color="[patient.getBruteLoss() < 60 ? "blue" : "red"]"><b>Brute Damage:</b> [patient.getBruteLoss()]%</font><br />
-				<font color="[patient.getOxyLoss() < 60 ? "blue" : "red"]"><b>Respiratory Damage:</b> [patient.getOxyLoss()]%</font><br />
-				<font color="[patient.getToxLoss() < 60 ? "blue" : "red"]"><b>Toxin Content:</b> [patient.getToxLoss()]%</font><br />
-				<font color="[patient.getFireLoss() < 60 ? "blue" : "red"]"><b>Burn Severity:</b> [patient.getFireLoss()]%</font><br />
+	return {"<b>Health:</b> <font color="[patient.health > 50 ? "green" : "red"]">[patient.stat > 1 ? "[t1]" : "[patient.health]% ([t1])"]</font><br />
+				<b>Core Temperature:</b> <font color="[patient.bodytemperature > 50 ? "green" : "red"]">[patient.bodytemperature-T0C]&deg;C ([patient.bodytemperature*1.8-459.67]&deg;F)</font><br />
+				<b>Brute Damage:</b> <font color="[patient.getBruteLoss() < 60 ? "green" : "red"]">[patient.getBruteLoss()]%</font><br />
+				<b>Respiratory Damage:</b> <font color="[patient.getOxyLoss() < 60 ? "green" : "red"]">[patient.getOxyLoss()]%</font><br />
+				<b>Toxin Content:</b> <font color="[patient.getToxLoss() < 60 ? "green" : "red"]">[patient.getToxLoss()]%</font><br />
+				<b>Burn Severity:</b> <font color="[patient.getFireLoss() < 60 ? "green" : "red"]">[patient.getFireLoss()]%</font><br />
 				<font color="red">[patient.getCloneLoss() ? "Subject appears to have cellular damage." : ""]</font><br />
 				<font color="red">[patient.getBrainLoss() ? "Significant brain damage detected." : ""]</font><br />
 				"}
@@ -414,7 +404,12 @@
 			log_message("Reagent processing started.")
 		return
 	if(afilter.get("show_reagents"))
-		chassis.occupant << browse(get_reagents_page(),"window=msyringegun")
+		var/datum/browser/popup = new(chassis.occupant, "msyringegun", "Reagent Synthesizer")
+		popup.set_content(get_reagents_page())
+		popup.add_script("byjax", 'html/js/byjax.js')
+		popup.add_stylesheet("dark_inputs", "html/dark_inputs.css")
+		popup.add_stylesheet("mech_syringe_gun", 'html/css/mech_syringe_gun.css')
+		popup.open(FALSE)
 	if(afilter.get("purge_reagent"))
 		var/reagent = afilter.get("purge_reagent")
 		if(reagent)
@@ -432,21 +427,7 @@
 		playsound(loc, 'sound/effects/sparks4.ogg', 50, TRUE)
 
 /obj/item/mecha_parts/mecha_equipment/medical/syringe_gun/proc/get_reagents_page()
-	var/output = {"<html>
-						<meta charset="UTF-8">
-						<head>
-						<title>Reagent Synthesizer</title>
-						<script language='javascript' type='text/javascript'>
-						[JS_BYJAX]
-						</script>
-						<style>
-						h3 {margin-bottom:2px;font-size:14px;}
-						#reagents, #reagents_form {}
-						form {width: 90%; margin:10px auto; border:1px dotted #999; padding:6px;}
-						#submit {margin-top:5px;}
-						</style>
-						</head>
-						<body>
+	var/output = {"
 						<h3>Current reagents:</h3>
 						<div id="reagents">
 						[get_current_reagents()]
@@ -455,8 +436,6 @@
 						<div id="reagents_form">
 						[get_reagents_form()]
 						</div>
-						</body>
-						</html>
 						"}
 	return output
 

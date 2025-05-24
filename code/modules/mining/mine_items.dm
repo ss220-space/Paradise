@@ -21,6 +21,7 @@
 
 /obj/structure/closet/wardrobe/miner
 	name = "mining wardrobe"
+	desc = "Стандартный шкаф, в котором хранится сменная шахтёрская одежда."
 	icon_state = "mine_ward"
 
 /obj/structure/closet/wardrobe/miner/populate_contents()
@@ -36,18 +37,20 @@
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
 	new /obj/item/clothing/gloves/color/black(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
+	new /obj/item/radio/headset/headset_cargo/mining(src)
 
 /obj/structure/closet/secure_closet/miner
 	name = "miner's equipment"
+	desc = "Шкаф с электронным замком, в котором хранится всё необходимое для работы шахтёра."
 	icon_state = "mining"
 	req_access = list(ACCESS_MINING)
 
 /obj/structure/closet/secure_closet/miner/populate_contents()
 	new /obj/item/stack/sheet/mineral/sandbags(src, 5)
-	new /obj/item/storage/box/emptysandbags(src)
 	new /obj/item/shovel(src)
 	new /obj/item/pickaxe/mini(src)
-	new /obj/item/radio/headset/headset_cargo/mining(src)
 	new /obj/item/flashlight/seclite(src)
 	new /obj/item/storage/bag/plants(src)
 	new /obj/item/storage/bag/gem(src)
@@ -55,6 +58,28 @@
 	new /obj/item/mining_scanner(src)
 	new /obj/item/gun/energy/kinetic_accelerator(src)
 	new /obj/item/clothing/glasses/meson(src)
+
+/obj/structure/closet/secure_closet/mining_medic
+	name = "mining medic's equipment"
+	desc = "Шкаф с электронным замком, в котором хранятся личные вещи шахтёрского врача."
+	icon_state = "mining_medic"
+	req_access = list(ACCESS_MEDICAL)
+
+/obj/structure/closet/secure_closet/mining_medic/populate_contents()
+	new /obj/item/storage/backpack/medic(src)
+	new /obj/item/storage/garmentbag/mining_medic(src)
+	new /obj/item/clothing/glasses/hud/health(src)
+	new /obj/item/storage/belt/medical(src)
+	new /obj/item/camera_bug/mining(src)
+	new /obj/item/flashlight/lantern(src)
+	new /obj/item/storage/box/mining_cameras(src)
+	new /obj/item/radio/headset/headset_mining_medic(src)
+	new /obj/item/defibrillator/loaded(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/handheld_defibrillator(src)
+	new /obj/item/storage/box/bodybags/biohazard(src)
+	new /obj/item/sensor_device/advanced/mining(src)
+	new /obj/item/gun/energy/kinetic_accelerator(src)
 
 /**********************Shuttle Computer**************************/
 

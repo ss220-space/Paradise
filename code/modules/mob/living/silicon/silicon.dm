@@ -2,7 +2,7 @@
 	gender = NEUTER
 	voice_name = "synthesized voice"
 	bubble_icon = "machine"
-	has_unlimited_silicon_privilege = 1
+	has_unlimited_silicon_privilege = TRUE
 	weather_immunities = list(TRAIT_WEATHER_IMMUNE)
 	var/syndicate = 0
 	var/obj/item/gps/cyborg/gps
@@ -215,7 +215,7 @@
 			ventcrawl_target.visible_message("<b>[name] опрокинул шляпу при залезании в вентиляцию!</b>")
 
 
-/mob/living/silicon/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/bullet_act(var/obj/projectile/Proj)
 
 	Proj.on_hit(src,2)
 

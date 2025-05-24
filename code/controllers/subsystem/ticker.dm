@@ -96,9 +96,9 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
-			to_chat(world, "<B><span class='darkmblue'>Welcome to the pre-game lobby!</span></B>")
+			to_chat(world, span_darkmblue("<b>Welcome to the pre-game lobby!</b>"))
 			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
-			current_state = GAME_STATE_PREGAME
+			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
 			if(!SSticker.ticker_going) // This has to be referenced like this, and I dont know why. If you dont put SSticker. it will break
@@ -115,11 +115,11 @@ SUBSYSTEM_DEF(ticker)
 				tipped = TRUE
 
 			if(pregame_timeleft <= 0 || force_start)
-				current_state = GAME_STATE_SETTING_UP
+				change_state(GAME_STATE_SETTING_UP)
 				Master.SetRunLevel(RUNLEVEL_SETUP)
 		if(GAME_STATE_SETTING_UP)
 			if(!setup()) // Setup failed
-				current_state = GAME_STATE_STARTUP
+				change_state(GAME_STATE_STARTUP)
 				Master.SetRunLevel(RUNLEVEL_LOBBY)
 		if(GAME_STATE_PLAYING)
 			delay_end = FALSE // reset this in case round start was delayed
@@ -136,9 +136,9 @@ SUBSYSTEM_DEF(ticker)
 			else
 				game_finished |= mode.check_finished()
 			if(game_finished || force_ending)
-				current_state = GAME_STATE_FINISHED
+				change_state(GAME_STATE_FINISHED)
 		if(GAME_STATE_FINISHED)
-			current_state = GAME_STATE_FINISHED
+			change_state(GAME_STATE_FINISHED)
 			Master.SetRunLevel(RUNLEVEL_POSTGAME) // This shouldnt process more than once, but you never know
 			auto_toggle_ooc(TRUE) // Turn it on
 
@@ -167,7 +167,7 @@ SUBSYSTEM_DEF(ticker)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
-				to_chat(world, "<B>The next map is - [SSmapping.next_map.name]!</B>")
+				to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
 
 
 /datum/controller/subsystem/ticker/proc/call_reboot()
@@ -190,9 +190,9 @@ SUBSYSTEM_DEF(ticker)
 	if(GLOB.master_mode == "random" || GLOB.master_mode == "secret")
 		runnable_modes = config.get_runnable_modes()
 		if(!length(runnable_modes))
-			to_chat(world, "<B>Unable to choose playable game mode.</B> Reverting to pre-game lobby.")
+			to_chat(world, "<b>Unable to choose playable game mode.</b> Reverting to pre-game lobby.")
 			force_start = FALSE
-			current_state = GAME_STATE_PREGAME
+			change_state(GAME_STATE_PREGAME)
 			Master.SetRunLevel(RUNLEVEL_LOBBY)
 			return FALSE
 		if(GLOB.secret_force_mode != "secret")
@@ -208,9 +208,9 @@ SUBSYSTEM_DEF(ticker)
 		mode = config.pick_mode(GLOB.master_mode)
 
 	if(!mode.can_start())
-		to_chat(world, "<B>Unable to start [mode.name].</B> Not enough players, [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
+		to_chat(world, "<b>Unable to start [mode.name].</b> Not enough players, [CONFIG_GET(flag/enable_gamemode_player_limit) ? config.mode_required_players[mode.config_tag] : mode.required_enemies] players needed. Reverting to pre-game lobby.")
 		mode = null
-		current_state = GAME_STATE_PREGAME
+		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
 
@@ -237,7 +237,7 @@ SUBSYSTEM_DEF(ticker)
 
 		var/has_antags = (length(P.client.prefs.be_special) > 0)
 		if(!P.client.prefs.check_any_job())
-			to_chat(P, "<span class='danger'>You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences.</span>")
+			to_chat(P, span_danger("You have no jobs enabled, along with return to lobby if job is unavailable. This makes you ineligible for any round start role, please update your job preferences."))
 			if(has_antags)
 				// We add these to a list so we can deal with them as a batch later
 				flagged_antag_rollers |= P.ckey
@@ -248,8 +248,8 @@ SUBSYSTEM_DEF(ticker)
 	can_continue = mode.pre_setup() //Setup special modes
 	if(!can_continue)
 		QDEL_NULL(mode)
-		to_chat(world, "<B>Error setting up [GLOB.master_mode].</B> Reverting to pre-game lobby.")
-		current_state = GAME_STATE_PREGAME
+		to_chat(world, "<b>Error setting up [GLOB.master_mode].</b> Reverting to pre-game lobby.")
+		change_state(GAME_STATE_PREGAME)
 		force_start = FALSE
 		SSjobs.ResetOccupations()
 		Master.SetRunLevel(RUNLEVEL_LOBBY)
@@ -271,8 +271,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
-		to_chat(world, "<B>The current game mode is - Secret!</B>")
-		to_chat(world, "<B>Possibilities:</B> [english_list(modes)]")
+		to_chat(world, "<b>The current game mode is - Secret!</b>")
+		to_chat(world, "<b>Possibilities:</b> [english_list(modes)]")
 	else
 		mode.announce()
 
@@ -299,7 +299,7 @@ SUBSYSTEM_DEF(ticker)
 	log_debug("Manifest creation took [stop_watch(watch)]s")
 
 	// Update the MC and state to game playing
-	current_state = GAME_STATE_PLAYING
+	change_state(GAME_STATE_PLAYING)
 	Master.SetRunLevel(RUNLEVEL_GAME)
 
 	// Generate the list of empty playable AI cores in the world
@@ -345,11 +345,11 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, "<span class='darkmblue'><B>Enjoy the game!</B></span>")
+	to_chat(world, span_darkmblue("<b>Enjoy the game!</b>"))
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)
-		to_chat(world, "<span class='darkmblue'>and...</span>")
+		to_chat(world, span_darkmblue("and..."))
 		for(var/holidayname in SSholiday.holidays)
 			var/datum/holiday/holiday = SSholiday.holidays[holidayname]
 			to_chat(world, "<h4>[holiday.greet()]</h4>")
@@ -488,7 +488,9 @@ SUBSYSTEM_DEF(ticker)
 				else //Station nuked (nuke,explosion,summary)
 					play_cinematic(/datum/cinematic/nuke/self_destruct, world)
 
-
+/datum/controller/subsystem/ticker/proc/change_state(new_state)
+	current_state = new_state
+	SEND_SIGNAL(src, COMSIG_TICKER_GAME_STATE_CHANGED, new_state)
 
 /datum/controller/subsystem/ticker/proc/create_characters()
 	for(var/mob/new_player/player in GLOB.player_list)
@@ -533,7 +535,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, "<span class='purple'><b>Совет раунда: </b>[html_encode(m)]</span>")
+		to_chat(world, span_purple("<b>Совет раунда: </b>[html_encode(m)]"))
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()
@@ -545,9 +547,9 @@ SUBSYSTEM_DEF(ticker)
 	ending_station_state.count()
 	var/station_integrity = min(round( 100.0 *  GLOB.start_state.score(ending_station_state), 0.1), 100.0)
 
-	to_chat(world, "<BR>[TAB]Shift Duration: <B>[SHIFT_TIME_TEXT()]</B>")
-	to_chat(world, "<BR>[TAB]Station Integrity: <B>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</B>")
-	to_chat(world, "<BR>")
+	to_chat(world, "<br>[TAB]Shift Duration: <b>[SHIFT_TIME_TEXT()]</b>")
+	to_chat(world, "<br>[TAB]Station Integrity: <b>[mode.station_was_nuked ? "<font color='red'>Destroyed</font>" : "[station_integrity]%"]</b>")
+	to_chat(world, "<br>")
 
 	//Silicon laws report
 	for(var/mob/living/silicon/ai/aiPlayer in GLOB.mob_list)

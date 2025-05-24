@@ -23,6 +23,8 @@
 	update_layer()
 	owner.visible_message(span_notice("<b>[owner] scurries to the ground!</b>"), span_notice("You are now hiding."))
 	var/mob/living/simple_animal/simplemob = owner
+	if(isanimal(simplemob))
+		simplemob.hidden = TRUE
 	if(istype(simplemob) && simplemob.pass_door_while_hidden || isdrone(simplemob))
 		simplemob.pass_flags |= PASSDOOR
 
@@ -32,6 +34,8 @@
 	update_layer()
 	owner.visible_message(span_notice("[owner] slowly peeks up from the ground..."), span_notice("You have stopped hiding."))
 	var/mob/living/simple_animal/simplemob = owner
+	if(isanimal(simplemob))
+		simplemob.hidden = FALSE
 	if(istype(simplemob) && simplemob.pass_door_while_hidden || isdrone(simplemob))
 		simplemob.pass_flags &= ~PASSDOOR
 

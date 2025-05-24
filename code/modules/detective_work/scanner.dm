@@ -82,9 +82,9 @@
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(drop_location())
 	P.name = "paper- 'Scanner Report'"
-	P.info = "<center><font size='6'><B>Scanner Report</B></font></center><HR><BR>"
-	P.info += jointext(log, "<BR>")
-	P.info += "<HR><B>Notes:</B><BR>"
+	P.info = "<center><font size='6'><b>Scanner Report</b></font></center><hr><br>"
+	P.info += jointext(log, "<br>")
+	P.info += "<hr><b>Notes:</b><br>"
 	P.info_links = P.info
 
 	if(ismob(loc))
@@ -175,12 +175,12 @@
 
 		// We gathered everything. Slowly display the results to the holder of the scanner.
 		var/found_something = FALSE
-		add_log("<B>[station_time_timestamp()][get_timestamp()] - [target_name]</B>", FALSE)
+		add_log("<b>[station_time_timestamp()][get_timestamp()] - [target_name]</b>", FALSE)
 
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log("<span class='info'><B>Prints:</B></span>")
+			add_log("<span class='info'><b>Prints:</b></span>")
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = TRUE
@@ -188,7 +188,7 @@
 		// Blood
 		if(length(blood))
 			sleep(30)
-			add_log("<span class='info'><B>Blood:</B></span>")
+			add_log("<span class='info'><b>Blood:</b></span>")
 			found_something = TRUE
 			for(var/B in blood)
 				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
@@ -196,7 +196,7 @@
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log("<span class='info'><B>Fibers:</B></span>")
+			add_log("<span class='info'><b>Fibers:</b></span>")
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = TRUE
@@ -204,14 +204,14 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log("<span class='info'><B>Reagents:</B></span>")
+			add_log("<span class='info'><b>Reagents:</b></span>")
 			for(var/R in reagents)
 				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE
 
 		if(found_spy_device)
 			sleep(10)
-			add_log("<span class='info'><B>Найдено шпионское устройство!</B></span>")
+			add_log("<span class='info'><b>Найдено шпионское устройство!</b></span>")
 			if(!(/obj/item/clothing/proc/remove_spy_spider in scan_atom.verbs))
 				scan_atom.verbs += /obj/item/clothing/proc/remove_spy_spider
 
@@ -221,7 +221,7 @@
 			holder = loc
 
 		if(!found_something)
-			add_log("<I># No forensic traces found #</I>", FALSE) // Don't display this to the holder user
+			add_log("<i># No forensic traces found #</i>", FALSE) // Don't display this to the holder user
 			if(holder)
 				to_chat(holder, "<span class='notice'>Unable to locate any fingerprints, materials, fibers, or blood on [scan_atom]!</span>")
 		else

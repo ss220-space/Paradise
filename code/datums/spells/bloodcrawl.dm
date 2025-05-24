@@ -140,7 +140,7 @@
 	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] drags [victim] into [enter_point]!</b>"))
 	to_chat(user, "<b>You begin to feast on [victim]. You can not move while you are doing this.</b>")
-	enter_point.visible_message(span_warning("<B>Loud eating sounds come from the blood...</b>"))
+	enter_point.visible_message(span_warning("<b>Loud eating sounds come from the blood...</b>"))
 	var/sound
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
@@ -252,7 +252,7 @@
 	var/turf/tele_loc = isturf(enter_point) ? enter_point : enter_point.loc
 	var/holder = user.loc
 	user.forceMove(tele_loc)
-	user.client.eye = user
+	user.client.set_eye(user)
 
 	rise_animation(tele_loc, user, enter_point)
 

@@ -20,7 +20,7 @@
 /datum/borer_rank/proc/on_apply()
 	return
 
-/datum/borer_rank/proc/tick(seconds_between_ticks)
+/datum/borer_rank/proc/tick()
 	return
 
 /datum/borer_rank/young
@@ -62,21 +62,21 @@
 	parent.user.maxHealth += 10
 	return TRUE
 
-/datum/borer_rank/young/tick(seconds_between_ticks)
+/datum/borer_rank/young/tick()
 	parent.user.adjustHealth(-0.1)
 
-/datum/borer_rank/mature/tick(seconds_between_ticks)
+/datum/borer_rank/mature/tick()
 	parent.user.adjustHealth(-0.15)
 
-/datum/borer_rank/adult/tick(seconds_between_ticks)
+/datum/borer_rank/adult/tick()
 	parent.user.adjustHealth(-0.2)
 
-	if(parent.host?.stat != DEAD && !parent.user.sneaking)
-		parent.user.chemicals += 0.2
+	if(parent.user.host && parent.user.host.stat != DEAD && !parent.user.sneaking)
+		parent.user.add_chemicals(0.2)
 
-/datum/borer_rank/elder/tick(seconds_between_ticks)
+/datum/borer_rank/elder/tick()
 	parent.user.adjustHealth(-0.3)
 
-	if(parent.host?.stat != DEAD)
-		parent.host?.heal_overall_damage(0.4, 0.4)
-		parent.user.chemicals += 0.3
+	if(parent.user.host && parent.user.host.stat != DEAD)
+		parent.user.host.heal_overall_damage(0.4, 0.4)
+		parent.user.add_chemicals(0.3)

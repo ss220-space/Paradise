@@ -59,6 +59,7 @@ GLOBAL_LIST_EMPTY(airlock_emissive_underlays)
 	assemblytype = /obj/structure/door_assembly
 	siemens_strength = 1
 	smoothing_groups = SMOOTH_GROUP_AIRLOCK
+	interaction_flags_click = ALLOW_SILICON_REACH
 
 	var/security_level = 0 //How much are wires secured
 	var/aiControlDisabled = AICONTROLDISABLED_OFF
@@ -200,6 +201,11 @@ About the new airlock wires panel:
 		note = null
 		update_icon()
 
+/obj/machinery/door/airlock/MouseDrop_T(atom/dropping, mob/user, params)
+	. = ..()
+
+	//Adds the component only once. We do it here & not in Initialize() because there are tons of airlocks & we don't want to add to their init times
+	LoadComponent(/datum/component/leanable, dropping)
 
 /obj/machinery/door/airlock/bumpopen(mob/living/user) //Airlocks now zap you when you 'bump' them open when they're electrified. --NeoFite
 	if(!issilicon(user))
@@ -1322,6 +1328,7 @@ About the new airlock wires panel:
 	if(!density)
 		return TRUE
 
+	SEND_SIGNAL(src, COMSIG_AIRLOCK_OPEN, forced)
 	operating = DOOR_OPENING
 	update_icon(AIRLOCK_OPENING, TRUE)
 	sleep(1)

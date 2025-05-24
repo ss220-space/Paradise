@@ -79,11 +79,11 @@
 		revealed = 0
 		incorporeal_move = INCORPOREAL_REVENANT
 		invisibility = INVISIBILITY_REVENANT
-		to_chat(src, "<span class='revenboldnotice'>You are once more concealed.</span>")
+		to_chat(src, span_revenboldnotice("You are once more concealed."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
 		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
-		to_chat(src, "<span class='revenboldnotice'>You can move again!</span>")
+		to_chat(src, span_revenboldnotice("You can move again!"))
 	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/can_perform_action(atom/target, action_bitflags)
@@ -120,7 +120,7 @@
 		return .
 	essence = max(0, essence-amount)
 	if(essence == 0)
-		to_chat(src, "<span class='revendanger'>You feel your essence fraying!</span>")
+		to_chat(src, span_revendanger("You feel your essence fraying!"))
 
 
 /mob/living/simple_animal/revenant/say(message)
@@ -133,7 +133,7 @@
 		return emote(copytext(message, 2), intentional = TRUE)
 
 	for(var/mob/M in GLOB.mob_list)
-		var/rendered = "<span class='revennotice'><b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"</span>"
+		var/rendered = span_revennotice("<b>[src]</b> [(isobserver(M) ? ("([ghost_follow_link(src, ghost=M)])") : "")] says, \"[message]\"")
 		if(istype(M, /mob/living/simple_animal/revenant) || isobserver(M))
 			to_chat(M, rendered)
 
@@ -190,13 +190,13 @@
 			mind.wipe_memory()
 			SEND_SOUND(src, 'sound/effects/ghost.ogg')
 			var/list/messages = list()
-			messages.Add("<span class='deadsay'><font size=3><b>You are a revenant.</b></font></span>")
+			messages.Add(span_deadsay("<font size=3><b>You are a revenant.</b></font>"))
 			messages.Add("<b>Your formerly mundane spirit has been infused with alien energies and empowered into a revenant.</b>")
 			messages.Add("<b>You are not dead, not alive, but somewhere in between. You are capable of limited interaction with both worlds.</b>")
 			messages.Add("<b>You are invincible and invisible to everyone but other ghosts. Most abilities will reveal you, rendering you vulnerable.</b>")
 			messages.Add("<b>To function, you are to drain the life essence from humans. This essence is a resource, as well as your health, and will power all of your abilities.</b>")
 			messages.Add("<b><i>You do not remember anything of your past lives, nor will you remember anything about this one after your death.</i></b>")
-			messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a></span>")
+			messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a>"))
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
@@ -233,12 +233,12 @@
 	if(!.)
 		return FALSE
 
-	to_chat(src, "<span class='revendanger'>NO! No... it's too late, you can feel your essence breaking apart...</span>")
+	to_chat(src, span_revendanger("NO! No... it's too late, you can feel your essence breaking apart..."))
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	revealed = 1
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
-	visible_message("<span class='warning'>[src] lets out a waning screech as violet mist swirls around its dissolving body!</span>")
+	visible_message(span_warning("[src] lets out a waning screech as violet mist swirls around its dissolving body!"))
 	update_icon(UPDATE_ICON_STATE)
 	delayed_death()
 
@@ -249,7 +249,7 @@
 	sleep(2.5 SECONDS)
 	if(QDELETED(src))
 		return
-	visible_message("<span class='danger'>[src]'s body breaks apart into a fine pile of blue dust.</span>")
+	visible_message(span_danger("[src]'s body breaks apart into a fine pile of blue dust."))
 	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
@@ -276,13 +276,13 @@
 		return
 	var/turf/T = get_turf(src)
 	if(iswallturf(T))
-		to_chat(src, "<span class='revenwarning'>You cannot use abilities from inside of a wall.</span>")
+		to_chat(src, span_revenwarning("You cannot use abilities from inside of a wall."))
 		return 0
 	if(src.inhibited)
-		to_chat(src, "<span class='revenwarning'>Your powers have been suppressed by nulling energy!</span>")
+		to_chat(src, span_revenwarning("Your powers have been suppressed by nulling energy!"))
 		return 0
 	if(!src.change_essence_amount(essence_cost, 1))
-		to_chat(src, "<span class='revenwarning'>You lack the essence to use that ability.</span>")
+		to_chat(src, span_revenwarning("You lack the essence to use that ability."))
 		return 0
 	return 1
 
@@ -296,9 +296,9 @@
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 	if(!silent)
 		if(essence_amt > 0)
-			to_chat(src, "<span class='revennotice'>Gained [essence_amt]E from [source].</span>")
+			to_chat(src, span_revennotice("Gained [essence_amt]E from [source]."))
 		else
-			to_chat(src, "<span class='revenminor'>Lost [essence_amt]E from [source].</span>")
+			to_chat(src, span_revenminor("Lost [essence_amt]E from [source]."))
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -310,10 +310,10 @@
 	invisibility = 0
 	incorporeal_move = INCORPOREAL_NONE
 	if(!unreveal_time)
-		to_chat(src, "<span class='revendanger'>You have been revealed!</span>")
+		to_chat(src, span_revendanger("You have been revealed!"))
 		unreveal_time = world.time + time
 	else
-		to_chat(src, "<span class='revenwarning'>You have been revealed!</span>")
+		to_chat(src, span_revenwarning("You have been revealed!"))
 		unreveal_time = unreveal_time + time
 	update_icon(UPDATE_ICON_STATE)
 
@@ -324,10 +324,10 @@
 		return
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	if(!unstun_time)
-		to_chat(src, "<span class='revendanger'>You cannot move!</span>")
+		to_chat(src, span_revendanger("You cannot move!"))
 		unstun_time = world.time + time
 	else
-		to_chat(src, "<span class='revenwarning'>You cannot move!</span>")
+		to_chat(src, span_revenwarning("You cannot move!"))
 		unstun_time = unstun_time + time
 	update_icon(UPDATE_ICON_STATE)
 

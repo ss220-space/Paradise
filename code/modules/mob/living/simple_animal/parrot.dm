@@ -193,7 +193,7 @@
 
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/parrot/bullet_act(obj/projectile/P)
 	..()
 	if(!stat && !client)
 		if(parrot_state == PARROT_PERCH)

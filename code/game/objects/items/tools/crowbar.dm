@@ -10,8 +10,8 @@
 	usesound = 'sound/items/crowbar.ogg'
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	force = 5
-	throwforce = 7
+	force = 15
+	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
 	drop_sound = 'sound/items/handling/crowbar_drop.ogg'
@@ -30,7 +30,6 @@
 /obj/item/crowbar/red
 	icon_state = "crowbar_red"
 	item_state = "crowbar_red"
-	force = 8
 
 /obj/item/crowbar/red/sec
 	icon_state = "crowbar_sec"
@@ -58,7 +57,7 @@
 /obj/item/crowbar/large
 	name = "crowbar"
 	desc = "It's a big crowbar. It doesn't fit in your pockets, because its too big."
-	force = 12
+	force = 20
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 3
 	throw_range = 3
@@ -71,7 +70,6 @@
 	name = "hydraulic crowbar"
 	desc = "A hydraulic prying tool, compact but powerful. Designed to replace crowbar in construction cyborgs."
 	usesound = 'sound/items/jaws_pry.ogg'
-	force = 10
 	toolspeed = 0.5
 
 /obj/item/crowbar/power
@@ -83,7 +81,6 @@
 	materials = list(MAT_METAL=150,MAT_SILVER=50,MAT_TITANIUM=25)
 	origin_tech = "materials=2;engineering=2"
 	usesound = 'sound/items/jaws_pry.ogg'
-	force = 15
 	toolspeed = 0.25
 	ru_names = list(NOMINATIVE = "челюсти жизни", GENITIVE = "челюстей жизни", DATIVE = "челюстям жизни", ACCUSATIVE = "челюсти жизни", INSTRUMENTAL = "челюстями жизни", PREPOSITIONAL = "челюстях жизни")
 	var/airlock_open_time = 100 // Time required to open powered airlocks

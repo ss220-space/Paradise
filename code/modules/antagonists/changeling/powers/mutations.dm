@@ -360,7 +360,7 @@
 /obj/item/ammo_casing/magic/tentacle
 	name = "tentacle"
 	desc = "a tentacle."
-	projectile_type = /obj/item/projectile/tentacle
+	projectile_type = /obj/projectile/tentacle
 	caliber = "tentacle"
 	icon_state = "tentacle_end"
 	muzzle_flash_effect = null
@@ -377,7 +377,7 @@
 	return ..()
 
 
-/obj/item/projectile/tentacle
+/obj/projectile/tentacle
 	name = "tentacle"
 	icon_state = "tentacle_end"
 	pass_flags = PASSTABLE
@@ -391,12 +391,12 @@
 	var/obj/item/ammo_casing/magic/tentacle/source //the item that shot it
 
 
-/obj/item/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
+/obj/projectile/tentacle/New(obj/item/ammo_casing/magic/tentacle/tentacle_casing)
 	source = tentacle_casing
 	..()
 
 
-/obj/item/projectile/tentacle/fire(setAngle)
+/obj/projectile/tentacle/fire(setAngle)
 	if(firer)
 		chain = firer.Beam(src, icon_state = "tentacle", time = INFINITY, maxdistance = INFINITY)
 		intent = firer.a_intent
@@ -405,14 +405,14 @@
 	..()
 
 
-/obj/item/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/user)
+/obj/projectile/tentacle/proc/reset_throw(mob/living/carbon/human/user)
 	if(QDELETED(user))
 		return
 	if(user.in_throw_mode)
 		user.throw_mode_off() //Don't annoy the changeling if he doesn't catch the item
 
 
-/obj/item/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item, mob/living/carbon/user)
+/obj/projectile/tentacle/proc/tentacle_disarm(obj/item/thrown_item, mob/living/carbon/user)
 	reset_throw(user)
 
 	if(QDELETED(thrown_item) || QDELETED(user))
@@ -430,7 +430,7 @@
 	user.put_in_active_hand(thrown_item)
 
 
-/obj/item/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/target, mob/living/carbon/user)
+/obj/projectile/tentacle/proc/tentacle_grab(mob/living/carbon/target, mob/living/carbon/user)
 	if(QDELETED(target) || QDELETED(user))
 		return
 
@@ -442,7 +442,7 @@
 		target.Weaken(4 SECONDS)
 
 
-/obj/item/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target, mob/living/carbon/user)
+/obj/projectile/tentacle/proc/tentacle_stab(mob/living/carbon/target, mob/living/carbon/user)
 	if(QDELETED(target) || QDELETED(user))
 		return
 
@@ -466,7 +466,7 @@
 	playsound(get_turf(user), offarm_item.hitsound, 75, TRUE)
 
 
-/obj/item/projectile/tentacle/on_hit(atom/target, blocked = 0)
+/obj/projectile/tentacle/on_hit(atom/target, blocked = 0)
 	qdel(source.gun) //one tentacle only unless you miss
 	if(blocked >= 100)
 		return FALSE
@@ -546,7 +546,7 @@
 				. = TRUE
 
 
-/obj/item/projectile/tentacle/Destroy()
+/obj/projectile/tentacle/Destroy()
 	qdel(chain)
 	source = null
 	return ..()

@@ -23,7 +23,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 				.["desc"] = "\nReason: [GLOB.banlist_savefile["reason"]]\nExpires: [GetExp(GLOB.banlist_savefile["minutes"])]\nBy: [GLOB.banlist_savefile["bannedby"]][appeal]"
 		else
 			GLOB.banlist_savefile.cd	= "/base/[ckey][id]"
-			.["desc"]	= "\nReason: [GLOB.banlist_savefile["reason"]]\nExpires: <B>PERMENANT</B>\nBy: [GLOB.banlist_savefile["bannedby"]][appeal]"
+			.["desc"]	= "\nReason: [GLOB.banlist_savefile["reason"]]\nExpires: <b>PERMENANT</b>\nBy: [GLOB.banlist_savefile["bannedby"]][appeal]"
 		.["reason"]	= "ckey/id"
 		return .
 	else
@@ -49,7 +49,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 					else
 						.["desc"] = "\nReason: [GLOB.banlist_savefile["reason"]]\nExpires: [GetExp(GLOB.banlist_savefile["minutes"])]\nBy: [GLOB.banlist_savefile["bannedby"]][appeal]"
 				else
-					.["desc"] = "\nReason: [GLOB.banlist_savefile["reason"]]\nExpires: <B>PERMENANT</B>\nBy: [GLOB.banlist_savefile["bannedby"]][appeal]"
+					.["desc"] = "\nReason: [GLOB.banlist_savefile["reason"]]\nExpires: <b>PERMENANT</b>\nBy: [GLOB.banlist_savefile["bannedby"]][appeal]"
 				.["reason"] = matches
 				return .
 	return 0
@@ -168,7 +168,7 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 
 /datum/admins/proc/unbanpanel()
 	var/count = 0
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 	GLOB.banlist_savefile.cd = "/base"
 	for(var/A in GLOB.banlist_savefile.dir)
 		count++
@@ -185,11 +185,13 @@ GLOBAL_PROTECT(banlist_savefile) // Obvious reasons
 			if(!expiry)		expiry = "Removal Pending"
 		else				expiry = "Permaban"
 
-		dat += text("<tr><td><a href='byond://?src=[ref];unbanf=[key][id]'>(U)</A><a href='byond://?src=[ref];unbane=[key][id]'>(E)</A> Key: <B>[key]</B></td><td>ComputerID: <B>[id]</B></td><td>IP: <B>[ip]</B></td><td> [expiry]</td><td>(By: [by])</td><td>(Reason: [reason])</td></tr>")
+		dat += text("<tr><td><a href='byond://?src=[ref];unbanf=[key][id]'>(U)</a><a href='byond://?src=[ref];unbane=[key][id]'>(E)</a> Key: <b>[key]</b></td><td>ComputerID: <b>[id]</b></td><td>IP: <b>[ip]</b></td><td> [expiry]</td><td>(By: [by])</td><td>(Reason: [reason])</td></tr>")
 
 	dat += "</table>"
-	dat = "<HR><B>Bans:</B> <FONT COLOR=blue>(U) = Unban , (E) = Edit Ban</FONT> - <FONT COLOR=green>([count] Bans)</FONT><HR><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"
-	usr << browse(dat, "window=unbanp;size=875x400")
+	dat = "<hr><b>Bans:</b> <span style='color: blue;'>(U) = Unban , (E) = Edit Ban</span> - <span style='color: green;'>([count] Bans)</span><hr><table border=1 rules=all frame=void cellspacing=0 cellpadding=3 >[dat]"
+	var/datum/browser/popup = new(usr, "unbanp", "Unban", 875, 400)
+	popup.set_content(dat)
+	popup.open(FALSE)
 
 //////////////////////////////////// DEBUG ////////////////////////////////////
 

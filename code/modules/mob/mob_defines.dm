@@ -138,6 +138,8 @@
 
 	var/in_throw_mode = FALSE
 
+	var/can_strip = TRUE
+
 	// See /datum/emote
 
 	/// Cooldown on audio effects from emotes.
@@ -254,6 +256,7 @@
 	var/last_emote = null
 
 	var/ghost_orbiting = 0
+	var/list/inventory_observers = null
 
 	/// List of movement speed modifiers applying to this mob
 	var/list/movespeed_modification //Lazy list, see mob_movespeed.dm

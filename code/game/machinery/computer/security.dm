@@ -367,7 +367,7 @@
 						if(!record_general)
 							return
 
-						var/datum/species/species = record_general.fields["species"]
+						var/datum/species/species = GLOB.all_species[record_general.fields["species"]]
 						var/new_age = text2num(answer)
 						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
@@ -387,7 +387,7 @@
 
 					if(record_security && (field in record_security.fields))
 						record_security.fields[field] = answer
-					else if(record_general && (field in record_general.fields))
+					if(record_general && (field in record_general.fields))
 						record_general.fields[field] = answer
 				if("criminal_reason")
 					var/status = arguments["status"]
@@ -458,7 +458,7 @@
 		<br>\nMajor Crimes: [record_security.fields["ma_crim"]]
 		<br>\nDetails: [record_security.fields["ma_crim_d"]]<br>\n
 		<br>\nImportant Notes:
-		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><B>Comments/Log</B></center><br>"}
+		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"}
 		for(var/c in record_security.fields["comments"])
 			P.info += "[c]<br>"
 	else

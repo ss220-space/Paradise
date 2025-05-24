@@ -101,6 +101,7 @@
 	target.set_glide_size(glide_size)
 	target.setDir(dir)
 
+	REMOVE_TRAIT(target, TRAIT_FLOORED, GRAVITATION_TRAIT)
 	post_buckle_mob(target)
 
 	SEND_SIGNAL(src, COMSIG_MOVABLE_BUCKLE, target, force)
@@ -156,6 +157,10 @@
 		var/turf/location = buckled_mob.loc
 		if(istype(location) && !buckled_mob.currently_z_moving)
 			location.zFall(buckled_mob)
+
+	if(isliving(src))
+		var/mob/living/M = src
+		M.refresh_gravity()
 
 	post_unbuckle_mob(.)
 

@@ -40,8 +40,6 @@
 	var/harm_intent_damage = 3
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
-	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
-	var/xenobiology_spawned = FALSE
 
 	/// If the mob can catch fire
 	var/can_be_on_fire = FALSE
@@ -69,6 +67,8 @@
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide = FALSE
+	var/hidden = FALSE
+
 	/// Allows a mob to pass unbolted doors while hidden
 	var/pass_door_while_hidden = FALSE
 
@@ -179,6 +179,7 @@
 /mob/living/simple_animal/ComponentInitialize()
 	AddComponent(/datum/component/animal_temperature)
 
+
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
 	return
@@ -243,6 +244,11 @@
 			set_stat(CONSCIOUS)
 	return ..()
 
+/mob/living/simple_animal/update_layer()
+	if(pulledby && loc == pulledby.loc)
+		layer = (pulledby.dir & NORTH) ? pulledby.layer - 0.001 : pulledby.layer + 0.001
+		return
+	layer = hidden? (/datum/action/innate/hide::layer_to_change_to) : (body_position == LYING_DOWN) ? LYING_MOB_LAYER : initial(layer)
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -415,8 +421,6 @@
 			visible_message(span_danger("\The [src] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)
 			visible_message(span_danger("\The [src] stops moving..."))
-	if(xenobiology_spawned)
-		SSmobs.xenobiology_mobs--
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
@@ -639,6 +643,8 @@
 	AIStatus = togglestatus
 	AI_delay_current = world.time
 
+/mob/living/simple_animal/proc/lose_target()
+	return
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
