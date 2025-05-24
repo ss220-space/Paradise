@@ -103,7 +103,7 @@
 			bmode = dir2text(targetdirection)
 		else
 			bmode = "Выключен"
-		dat += "Режим постройки моста: <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</A><BR>"
+		dat += "Режим постройки моста: <a href='byond://?src=[UID()];operation=bridgemode'>[bmode]</a><br>"
 
 	return dat
 

@@ -13,7 +13,7 @@
 
 // ENGINEERING RELAY //
 /obj/machinery/tcomms/relay/engineering
-	network_id = "ENGINEERING-RELAY"
+	network_id = "ИНЖЕНЕРИЯ-РЕЛЕ"
 	autolink_id = "СТАНЦИЯ-ЯДРО"
 	active = FALSE
 
