@@ -15,6 +15,7 @@
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
 /obj/structure/wryn/ComponentInitialize()
+	. = ..()
 	AddComponent(/datum/component/wryn_destruction)
 
 // wax structures procs
@@ -58,6 +59,14 @@
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
 	desc = "Похоже на затвердевшую массу воска."
+	ru_names = list(
+		NOMINATIVE = "Соты",
+		GENITIVE = "Сот",
+		DATIVE = "Сотам",
+		ACCUSATIVE = "Соты",
+		INSTRUMENTAL = "Сотами",
+		PREPOSITIONAL = "Сотах"
+	)
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
@@ -76,6 +85,14 @@
 	gender = PLURAL
 	name = "wax floor"
 	desc = "Что-то жёлтое и липкое покрывает пол... Так стоп..."
+	ru_names = list(
+		NOMINATIVE = "Пол из воска",
+		GENITIVE = "Пола из воска",
+		DATIVE = "Полу из воска",
+		ACCUSATIVE = "Пол из воска",
+		INSTRUMENTAL = "Полом из воска",
+		PREPOSITIONAL = "Поле из воска"
+	)
 	anchored = TRUE
 	density = FALSE
 	layer = TURF_LAYER
@@ -141,6 +158,14 @@
 /obj/structure/alien/resin/door/wax
 	name = "wax door"
 	desc = "Объёмная масса воска, напоминающая дверь."
+	ru_names = list(
+		NOMINATIVE = "Дверь из сот",
+		GENITIVE = "Двери из сот",
+		DATIVE = "Двери из сот",
+		ACCUSATIVE = "Дверь из сот",
+		INSTRUMENTAL = "Дверью из сот",
+		PREPOSITIONAL = "Двери из сот"
+	)
 	icon = 'icons/obj/smooth_structures/wryn/wax_door.dmi'
 	icon_state = "wax_door_closed"
 	icon_closed = "wax_door_closed"
@@ -150,6 +175,7 @@
 	max_integrity = 50
 
 /obj/structure/alien/resin/door/wax/ComponentInitialize()
+	. = ..()
 	AddComponent(/datum/component/wryn_destruction)
 
 /obj/structure/alien/resin/door/wax/update_icon_state()
@@ -166,8 +192,11 @@
 	return
 
 /obj/structure/alien/resin/door/wax/attack_hand(mob/living/user)
-	if(!iswryn(user) || user.a_intent == INTENT_HARM)
+	if(!iswryn(user))
 		to_chat(user, span_notice("Вы даже не знаете, что делать с этой массой воска."))
+
+	if(user.a_intent == INTENT_HARM)
+		call(/obj/structure/attack_hand(mob/living/user))
 
 	return try_switch_state(user)
 
