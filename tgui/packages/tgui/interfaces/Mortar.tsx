@@ -1,9 +1,18 @@
-import { useBackend, useLocalState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import { Button, LabeledList, NumberInput, Section } from '../components';
 import { Window } from '../layouts';
 
-export const Mortar = (props, context) => {
-  const { act, data } = useBackend(context);
+type MortarData = {
+  data_target_x: number;
+  data_target_y: number;
+  data_target_z: number;
+  data_dial_x: number;
+  data_dial_y: number;
+};
+
+export const Mortar = (_props) => {
+  const { act, data } = useBackend<MortarData>();
   const {
     data_target_x,
     data_target_y,
@@ -12,23 +21,11 @@ export const Mortar = (props, context) => {
     data_dial_y,
   } = data;
 
-  const [target_x, setTargetX] = useLocalState(
-    context,
-    'target_x',
-    data_target_x
-  );
-  const [target_y, setTargetY] = useLocalState(
-    context,
-    'target_y',
-    data_target_y
-  );
-  const [target_z, setTargetZ] = useLocalState(
-    context,
-    'target_z',
-    data_target_z
-  );
-  const [dial_x, setDialX] = useLocalState(context, 'dial_x', data_dial_x);
-  const [dial_y, setDialY] = useLocalState(context, 'dial_y', data_dial_y);
+  const [target_x, setTargetX] = useState(data_target_x);
+  const [target_y, setTargetY] = useState(data_target_y);
+  const [target_z, setTargetZ] = useState(data_target_z);
+  const [dial_x, setDialX] = useState(data_dial_x);
+  const [dial_y, setDialY] = useState(data_dial_y);
 
   return (
     <Window width={400} height={300}>
@@ -38,45 +35,42 @@ export const Mortar = (props, context) => {
             <LabeledList.Item label="Target X">
               <NumberInput
                 animated
-                inline
                 width="4em"
                 step={1}
                 minValue={0}
                 maxValue={255}
                 value={target_x}
-                onChange={(e, value) => setTargetX(value)}
+                onChange={(value) => setTargetX(value)}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Target Y">
               <NumberInput
                 animated
-                inline
                 width="4em"
                 step={1}
                 minValue={0}
                 maxValue={255}
                 value={target_y}
-                onChange={(e, value) => setTargetY(value)}
+                onChange={(value) => setTargetY(value)}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Target Z">
               <NumberInput
                 animated
-                inline
                 width="4em"
                 step={1}
                 minValue={0}
                 maxValue={255}
                 value={target_z}
-                onChange={(e, value) => setTargetZ(value)}
+                onChange={(value) => setTargetZ(value)}
               />
             </LabeledList.Item>
           </LabeledList>
           <Button
             icon="crosshairs"
             style={{
-              'margin-top': '5px',
-              'margin-left': '10px',
+              marginTop: '5px',
+              marginLeft: '10px',
             }}
             onClick={() =>
               act('set_target', {
@@ -90,16 +84,19 @@ export const Mortar = (props, context) => {
           </Button>
           <Button
             style={{
-              'display': 'flex',
-              'position': 'absolute',
-              'top': '10px',
-              'right': '15px',
-              'height': '65px',
-              'width': '80px',
-              'white-space': 'normal',
-              'text-align': 'center',
-              'align-items': 'center',
+              position: 'absolute',
+              top: '10px',
+              right: '15px',
+              height: '65px',
+              width: '80px',
+              whiteSpace: 'normal',
+              display: 'flex',
+              flexWrap: 'wrap',
+              justifyContent: 'center',
+              flexDirection: 'column',
             }}
+            align="center"
+            verticalAlign="center"
             onClick={() =>
               act('operate_cam', {
                 camera: 1,
@@ -114,35 +111,33 @@ export const Mortar = (props, context) => {
             <LabeledList.Item label="X Offset">
               <NumberInput
                 animated
-                inline
                 width="4em"
                 step={1}
                 stepPixelSize={10}
                 minValue={-10}
                 maxValue={10}
                 value={dial_x}
-                onChange={(e, value) => setDialX(value)}
+                onChange={(value) => setDialX(value)}
               />
             </LabeledList.Item>
             <LabeledList.Item label="Y Offset">
               <NumberInput
                 animated
-                inline
                 width="4em"
                 step={1}
                 stepPixelSize={10}
                 minValue={-10}
                 maxValue={10}
                 value={dial_y}
-                onChange={(e, value) => setDialY(value)}
+                onChange={(value) => setDialY(value)}
               />
             </LabeledList.Item>
           </LabeledList>
           <Button
             icon="wrench"
             style={{
-              'margin-top': '5px',
-              'margin-left': '10px',
+              marginTop: '5px',
+              marginLeft: '10px',
             }}
             onClick={() =>
               act('set_offset', {

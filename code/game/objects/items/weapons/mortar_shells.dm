@@ -192,9 +192,9 @@
 
 /obj/item/mortar_shell/proc/can_explode()
 	return TRUE
-
+/*
 /obj/item/mortar_shell/custom/can_explode()
-	return FALSE
+	return FALSE */
 
 /obj/item/mortar_shell/flare/can_explode()
 	return FALSE
@@ -232,3 +232,37 @@
 /obj/effect/warning/explosive
 	name = "explosive warning"
 	color = "#ff0000"
+
+
+/obj/structure/closet/crate/secure/weapon/mortar
+	name = "mortar kit crate"
+
+/obj/structure/closet/crate/secure/weapon/mortar/populate_contents()
+	new /obj/item/mortar_kit(src)
+	new /obj/item/mortar_shell/he(src)
+	new /obj/item/mortar_shell/he(src)
+	new /obj/item/mortar_shell/flare(src)
+	new /obj/item/mortar_shell/frag(src)
+	new /obj/item/mortar_shell/frag(src)
+
+/obj/structure/closet/crate/secure/weapon/mortar_shells
+	name = "mortar kit crate"
+	var/count = 5
+	var/shell_type = /obj/item/mortar_shell
+
+/obj/structure/closet/crate/secure/weapon/mortar_shells/populate_contents()
+	for (var/i = 1; i <= count; i++)
+		new shell_type(src)
+
+/obj/structure/closet/crate/secure/weapon/mortar_shells/he
+	name = "mortar shells HE crate"
+	shell_type = /obj/item/mortar_shell/he
+
+/obj/structure/closet/crate/secure/weapon/mortar_shells/frag
+	name = "mortar shells frag crate"
+	shell_type = /obj/item/mortar_shell/frag
+
+/obj/structure/closet/crate/secure/weapon/mortar_shells/flare
+	name = "mortar shells flare crate"
+	count = 3
+	shell_type = /obj/item/mortar_shell/flare

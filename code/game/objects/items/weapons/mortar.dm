@@ -275,12 +275,12 @@
 	invisibility = INVISIBILITY_MAXIMUM
 
 /obj/structure/mortar/proc/handle_shell(turf/target, obj/item/mortar_shell/shell)
-
+	/*
 	if(istype(shell, /obj/item/mortar_shell/custom)) // big shell warning for ghosts
 		var/obj/effect/effect = new /obj/effect/mortar_effect(target)
 		QDEL_IN(effect, 5 SECONDS)
 		notify_ghosts(title = "Custom Shell", message = "A custom mortar shell is about to land at [get_area(target)].", source = effect)
-
+	*/
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 50, 1)
 	var/relative_dir
 	for(var/mob/mob in range(15, target))
