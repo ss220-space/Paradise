@@ -60,7 +60,9 @@
 	questinfo["name"] = name
 	generate_flavour()
 	questinfo["desc"] = desc
-	questinfo["icon"] = path2assetID(mech)
+	var/obj/mecha/selected_mech = selected.mech_type
+	questinfo["icon"] = selected_mech.icon
+	questinfo["icon_state"] = selected_mech.icon_state
 	choosen_mech = selected.mech_type //тут мы выбираем меха из заготовок
 	questinfo["modules"] = list()
 	maximum_cash = rand(round(0.75 * selected.cash_reward), round(1.25 * selected.cash_reward))
@@ -84,7 +86,8 @@
 			var/list/newmodule = list()
 			var/obj/module = new i
 			newmodule["id"] = modules_amount
-			newmodule["icon"] = path2assetID(i)
+			newmodule["icon"] = module.icon
+			newmodule["icon_state"] = module.icon_state
 			newmodule["name"] = capitalize(module.name)
 			questinfo["modules"] += list(newmodule)
 			qdel(module)

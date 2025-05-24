@@ -180,7 +180,7 @@
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
-			for(var/uid_watcher as anything in console.watchers)
+			for(var/uid_watcher as anything in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
 				to_chat(watcher, "[user] holds the [itemname] up to one of the cameras ...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
@@ -379,7 +379,7 @@
 
 /obj/machinery/camera/proc/update_computers_watched_by()
 	for(var/obj/machinery/computer/security/computer as anything in computers_watched_by)
-		computer.update_camera_view()
+		computer.update_active_camera_screen()
 
 /atom/proc/auto_turn()
 	//Automatically turns based on nearby walls.
