@@ -88,7 +88,7 @@ export const LawManager = (props: unknown) => {
   );
 };
 
-const LawManagementView = (props: unknown) => {
+const LawManagementView = (_props: unknown) => {
   const { act, data } = useBackend<LawManagerData>();
   const {
     has_zeroth_laws,
@@ -226,7 +226,7 @@ const LawManagementView = (props: unknown) => {
   );
 };
 
-const LawsetsView = (props: unknown) => {
+const LawsetsView = (_props: unknown) => {
   const { act, data } = useBackend<LawManagerData>();
   const { law_sets } = data;
   return (
@@ -245,25 +245,25 @@ const LawsetsView = (props: unknown) => {
           }
         >
           <LabeledList>
-            {l.laws.has_ion_laws &&
+            {!!l.laws.has_ion_laws &&
               l.laws.ion_laws.map((il) => (
                 <LabeledList.Item key={il.index} label={il.index}>
                   {il.law}
                 </LabeledList.Item>
               ))}
-            {l.laws.has_zeroth_laws &&
+            {!!l.laws.has_zeroth_laws &&
               l.laws.zeroth_laws.map((zl) => (
                 <LabeledList.Item key={zl.index} label={zl.index}>
                   {zl.law}
                 </LabeledList.Item>
               ))}
-            {l.laws.has_inherent_laws &&
+            {!!l.laws.has_inherent_laws &&
               l.laws.inherent_laws.map((il) => (
                 <LabeledList.Item key={il.index} label={il.index}>
                   {il.law}
                 </LabeledList.Item>
               ))}
-            {l.laws.has_supplied_laws &&
+            {!!l.laws.has_supplied_laws &&
               l.laws.inherent_laws.map((sl) => (
                 <LabeledList.Item key={sl.index} label={sl.index}>
                   {sl.law}
