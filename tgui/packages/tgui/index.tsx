@@ -62,8 +62,10 @@ const setupApp = () => {
   setupHotKeys({
     keyUpVerb: 'KeyUp',
     keyDownVerb: 'KeyDown',
+    verbParamsFn: (verb, key) => `${verb} "${key}"`,
     // In the future you could send a winget here to get mousepos/size from the map here if it's necessary
-    verbParamsFn: (verb, key) => `${verb} "${key}" 0 0 0 0`,
+    // TODO return with KeyDown and KeyUp Upgrade
+    // verbParamsFn: (verb, key) => `${verb} "${key}" 0 0 0 0`,
   });
   captureExternalLinks();
 

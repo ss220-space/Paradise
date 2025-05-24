@@ -556,4 +556,4 @@ State: `+JSON.stringify({ckey:K==null||(T=K.client)==null?void 0:T.ckey,interfac
  * @file
  * @copyright 2020 Aleksej Komarov
  * @license MIT
- */var C;M.k.mark("inception",(C=window.performance)==null?void 0:C.timeOrigin),M.k.mark("init");var x=g(),I=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",I);return}(0,p.H$)(x),(0,i.y4)(),(0,e.Bm)({keyUpVerb:"KeyUp",keyDownVerb:"KeyDown",verbParamsFn:function(O,A){return O+' "'+A+'" 0 0 0 0'}}),d(),x.subscribe(function(){return(0,f.XX)((0,Y.jsx)(c,{}))}),Byond.subscribe(function(O,A){return x.dispatch({type:O,payload:A})})};I()})()})();
+ */var C;M.k.mark("inception",(C=window.performance)==null?void 0:C.timeOrigin),M.k.mark("init");var x=g(),I=function(){if(document.readyState==="loading"){document.addEventListener("DOMContentLoaded",I);return}(0,p.H$)(x),(0,i.y4)(),(0,e.Bm)({keyUpVerb:"KeyUp",keyDownVerb:"KeyDown",verbParamsFn:function(O,A){return O+' "'+A+'"'}}),d(),x.subscribe(function(){return(0,f.XX)((0,Y.jsx)(c,{}))}),Byond.subscribe(function(O,A){return x.dispatch({type:O,payload:A})})};I()})()})();
