@@ -1326,6 +1326,8 @@
 #include "code\game\objects\items\weapons\manuals.dm"
 #include "code\game\objects\items\weapons\misc.dm"
 #include "code\game\objects\items\weapons\mop.dm"
+#include "code\game\objects\items\weapons\mortar.dm"
+#include "code\game\objects\items\weapons\mortar_shells.dm"
 #include "code\game\objects\items\weapons\paint.dm"
 #include "code\game\objects\items\weapons\paiwire.dm"
 #include "code\game\objects\items\weapons\pneumaticCannon.dm"
