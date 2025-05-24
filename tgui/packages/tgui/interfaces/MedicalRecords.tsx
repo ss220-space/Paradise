@@ -366,7 +366,7 @@ const MedicalRecordsView = (_properties) => {
             fill
             title="Медицинская информация"
             buttons={
-              <Button icon="pen" onClick={() => act('new')}>
+              <Button icon="pen" onClick={() => act('new_med_record')}>
                 Создать новую запись
               </Button>
             }
@@ -380,7 +380,7 @@ const MedicalRecordsView = (_properties) => {
                 align="center"
                 color="label"
               >
-                <Icon.Stack>
+                <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
@@ -401,7 +401,7 @@ const MedicalRecordsView = (_properties) => {
                 <Button.Confirm
                   icon="trash"
                   disabled={!!medical.empty}
-                  onClick={() => act('del_r')}
+                  onClick={() => act('del_med_record')}
                 >
                   Удалить медицинскую запись
                 </Button.Confirm>
@@ -666,7 +666,7 @@ const MedicalRecordsMedbots = (_properties) => {
               align="center"
               color="label"
             >
-              <Icon.Stack>
+              <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
                 <Icon name="robot" size={5} color="gray" />
                 <Icon name="slash" size={5} color="red" />
               </Icon.Stack>
