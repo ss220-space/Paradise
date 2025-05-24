@@ -36,14 +36,62 @@
 
 	var/displayed_species = get_visible_species()
 	var/examine_color = dna.species.flesh_color
+	var/ru_species = list(
+		SPECIES_ABDUCTOR = "абдуктор",
+		SPECIES_DIONA = "диона",
+		SPECIES_DRASK = "драск",
+		SPECIES_GOLEM_BASIC = "голем",
+		SPECIES_GOLEM_RANDOM = "случайный голем",
+		SPECIES_GOLEM_ADAMANTINE = "адамантиновый голем",
+		SPECIES_GOLEM_PLASMA = "плазменный голем",
+		SPECIES_GOLEM_DIAMOND = "алмазный голем",
+		SPECIES_GOLEM_GOLD = "золотой голем",
+		SPECIES_GOLEM_SILVER = "серебрянный голем",
+		SPECIES_GOLEM_PLASTEEL = "пласталиевый голем",
+		SPECIES_GOLEM_TITANIUM = "титановый голем",
+		SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
+		SPECIES_GOLEM_ALLOY = "голем из инопланетных сплавов",
+		SPECIES_GOLEM_WOOD = "деревянный голем",
+		SPECIES_GOLEM_URANIUM = "урановый голем",
+		SPECIES_GOLEM_PLASTIC = "пластиковый голем",
+		SPECIES_GOLEM_SAND = "песчаный голем",
+		SPECIES_GOLEM_GLASS = "стеклянный голем",
+		SPECIES_GOLEM_BLUESPACE = "блюспейс-голем",
+		SPECIES_GOLEM_BANANIUM = "бананиевый голем",
+		SPECIES_GOLEM_TRANQUILLITITE = "транквилитовый голем",
+		SPECIES_GOLEM_CLOCKWORK = "Латунный голем",
+		SPECIES_GREY = "грей",
+		SPECIES_HUMAN = "человек",
+		SPECIES_KIDAN = "кидан",
+		SPECIES_MACNINEPERSON = "машина",
+		SPECIES_MONKEY = "шимпанзе",
+		SPECIES_FARWA = "фарва",
+		SPECIES_WOLPIN = "вульпин",
+		SPECIES_NEARA = "неара",
+		SPECIES_STOK ="сток",
+		SPECIES_MOTH = "ниан",
+		SPECIES_NUCLEATION = "нуклеация",
+		SPECIES_PLASMAMAN = "плазмамен",
+		SPECIES_SHADOW_BASIC = "тень",
+		SPECIES_SHADOWLING = "тенелинг",
+		SPECIES_LESSER_SHADOWLING = "низший тенелинг",
+		SPECIES_SKELETON = "скелет",
+		SPECIES_SKRELL = "скрелл",
+		SPECIES_SLIMEPERSON = "слаймолюд",
+		SPECIES_TAJARAN = "таяран",
+		SPECIES_UNATHI = "унатх",
+		SPECIES_ASHWALKER_BASIC = "пеплоходец",
+		SPECIES_ASHWALKER_SHAMAN = "шаман пеплоходец",
+		SPECIES_DRACONOID = "драконид",
+		SPECIES_VOX = "вокс",
+		SPECIES_VOX_ARMALIS = "вокс армалис",
+		SPECIES_VULPKANIN = "вульпакин",
+		SPECIES_WRYN = "врин"
+	)
 	if(skipjumpsuit && (skipface || HAS_TRAIT(src, TRAIT_NO_SPECIES_EXAMINE))) //either obscured or on the nospecies list
 		msg += "!\n"    //omit the species when examining
-	else if(displayed_species == SPECIES_SLIMEPERSON) //snowflakey because Slime People are defined as a plural
-		msg += ",<b><font color='[examine_color]'> слаймолюд</font></b>!\n"
-	else if(displayed_species == SPECIES_UNATHI) //DAMN YOU, VOWELS
-		msg += ",<b><font color='[examine_color]'> унатх</font></b>!\n"
 	else
-		msg += ",<b><font color='[examine_color]'> [lowertext(displayed_species)]</font></b>!\n"
+		msg += ",<b><font color='[examine_color]'> [ru_species[displayed_species]]</font></b>!\n"
 
 	//uniform
 	if(w_uniform && !skipjumpsuit && !(w_uniform.item_flags & ABSTRACT))
