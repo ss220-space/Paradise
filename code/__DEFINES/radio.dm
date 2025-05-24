@@ -82,7 +82,7 @@
 #define ENG_FREQ_NAME "Инженерия"
 #define SEC_FREQ_NAME "Безопасность"
 #define ERT_FREQ_NAME "ОБР"
-#define DTH_FREQ_NAME "Спецназ"
+#define DTH_FREQ_NAME "ССО"
 #define SYND_FREQ_NAME "Синдикат"
 #define SYND_TAIPAN_FREQ_NAME "СиндиТайпан"
 #define SYNDTEAM_FREQ_NAME "СиндиДОС"

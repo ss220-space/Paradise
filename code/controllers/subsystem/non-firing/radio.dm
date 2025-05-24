@@ -12,7 +12,7 @@ SUBSYSTEM_DEF(radio)
 	"Инженерия"				= ENG_FREQ,
 	"Безопасность" 			= SEC_FREQ,
 	"ОБР" 					= ERT_FREQ,
-	"Спецназ" 				= DTH_FREQ,
+	"ССО" 					= DTH_FREQ,
 	"Синдикат"	 			= SYND_FREQ,
 	"СиндиТайпан" 			= SYND_TAIPAN_FREQ,
 	"СиндиДОС" 				= SYNDTEAM_FREQ,
