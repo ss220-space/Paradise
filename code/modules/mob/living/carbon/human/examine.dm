@@ -199,7 +199,7 @@
 								foundghost = FALSE
 							break
 				if(!foundghost)
-					msg += ", и [genderize_ru(gender, "его", "её", "его", "их")] душа покинула тело"
+					msg += " [genderize_ru(gender, "Его", "Её", "Его", "Их")] душа покинула тело"
 		msg += "...\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
@@ -210,31 +210,44 @@
 	var/list/wound_flavor_text = list()
 	for(var/limb_zone in dna.species.has_limbs)
 
-		var/list/organ_data = dna.species.has_limbs[limb_zone]
-		var/organ_descriptor = organ_data["descriptor"]
+		var/ru_limbs =list(
+			BODY_ZONE_CHEST = "грудь",
+			BODY_ZONE_PRECISE_GROIN = "живот",
+			BODY_ZONE_HEAD = "голова",
+			BODY_ZONE_L_ARM = "левая рука",
+			BODY_ZONE_R_ARM = "правая рука",
+			BODY_ZONE_L_LEG = "левая нога",
+			BODY_ZONE_R_LEG = "правая нога",
+			BODY_ZONE_PRECISE_L_FOOT = "левая ступня",
+			BODY_ZONE_PRECISE_R_FOOT = "правая ступня",
+			BODY_ZONE_PRECISE_L_HAND = "левая кисть",
+			BODY_ZONE_PRECISE_R_HAND = "правая кисть"
+		)
+		var/organ_descriptor = ru_limbs[limb_zone]
 
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
+
 		if(!bodypart)
 			wound_flavor_text[limb_zone] = "<B>У [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует [organ_descriptor]!</B>\n"
 		else
 			if(!ismachineperson(src) && !skipprostheses)
 				if(bodypart.is_robotic())
-					wound_flavor_text[limb_zone] = "У [genderize_ru(gender, "него", "неё", "него", "них")] роботизированная [bodypart.name].\n"
+					wound_flavor_text[limb_zone] = "[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] роботизированная.\n"
 
 				else if(bodypart.is_splinted())
-					wound_flavor_text[limb_zone] = "У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [bodypart.name]!\n"
+					wound_flavor_text[limb_zone] = "У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [organ_descriptor]!\n"
 
 				else if(!bodypart.properly_attached)
-					wound_flavor_text[limb_zone] = "[genderize_ru(gender, "Его", "Её", "Его", "Их")] [bodypart.name] едва держится!\n"
+					wound_flavor_text[limb_zone] = "[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] едва держится!\n"
 
 			if(bodypart.open)
 				if(bodypart.is_robotic())
-					msg += "<b>Технический люк [ignore_limb_branding(limb_zone)] открыт.</b>\n"
+					msg += "<b>Технический люк на [ignore_limb_branding(limb_zone)] открыт.</b>\n"
 				else
 					msg += "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] открытый разрез на [ignore_limb_branding(limb_zone)].</b>\n"
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
-				msg += "<B>В [genderize_ru(gender, "его", "её", "его", "их")] [bodypart.name] застрял [bicon(embed)] [embed]!</B>\n"
+				msg += "<B>В [genderize_ru(gender, "его", "её", "его", "их")] [ignore_limb_branding(limb_zone)] застрял [bicon(embed)] [embed]!</B>\n"
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -264,7 +277,7 @@
 	var/damage = getBruteLoss() //no need to calculate each of these twice
 
 	if(damage)
-		var/brute_message = !ismachineperson(src) ? "синяки" : "вмятины"
+		var/brute_message = !ismachineperson(src) ? "ушибы" : "вмятины"
 		if(damage < 60)
 			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] [brute_message].\n"
 		else
@@ -331,26 +344,26 @@
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[p_they(TRUE)] [p_are()]n't responding to anything around [p_them()] and seems to be asleep.\n"
+			msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не реагиру[genderize_ru(user.gender, "ет", "ет", "ет", "ют")] на происходящее вокруг и, кажется, сп[genderize_ru(user.gender, "ит", "ит", "ит", "ят")].\n"
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
-				msg += "[p_they(TRUE)] [p_have()] a stupid expression on [p_their()] face.\n"
+				msg += "На [genderize_ru(user.gender, "его", "её", "его", "их")] лице застыло глупое выражение.\n"
 			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
-				msg += span_warning("[p_they(TRUE)] [p_are()] barely conscious.\n")
+				msg += span_warning("[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n")
 
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(dna.species.show_ssd)
 				if(!key)
-					msg += "<span class='deadsay'>[p_they(TRUE)] [p_are()] totally catatonic. The stresses of life in deep-space must have been too much for [p_them()]. Any recovery is unlikely.</span>\n"
+					msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] в полной кататонии. Должно быть, тяготы жизни в глубоком космосе оказались непосильны для [genderize_ru(gender, "него", "неё", "него", "них")]. Шансы на восстановление ничтожны.\n")
 				else if(!client)
-					msg += "[p_they(TRUE)] [p_have()] suddenly fallen asleep, suffering from Space Sleep Disorder. [p_they(TRUE)] may wake up soon.\n"
+					msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] внезапно заснул[genderize_ru(gender, "", "а", "о", "и")] [genderize_ru(gender, "Он", "Она", "Оно", "Они")] может скоро проснуться.\n"
 
 		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
-			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"
+			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] двигает своё тело неестественно и откровенно нечеловеческим образом.\n"
 
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
-		msg += "Their features seem unnaturally tight and drawn.\n"
+		msg += "[genderize_ru(gender, "Его", "Её", "Их", "Их")] черты лица выглядят неестественно напряжёнными и застывшими.\n"
 
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
@@ -361,21 +374,21 @@
 		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] наход[genderize_ru(user.gender, "и", "и", "и", "я")]тся на потолке."
 
 	if(user.no_gravity() && !buckled)
-		msg += "[p_they(TRUE)] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
 
 	if(decaylevel == 1)
-		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] начал[genderize_ru(user.gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[p_they(TRUE)] [p_are()] bloated and smells disgusting.\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] раздут[genderize_ru(user.gender, "", "а", "о", "ы")] и отвратительно пахнет[genderize_ru(user.gender, "ет", "ет", "ет", "ут")].\n"
 	if(decaylevel == 3)
-		msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
+		msg += "[genderize_ru(user.gender, "Он почернел", "Она почернела", "Оно почернело", "Они почернели")] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)
-		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти полностью разложил[genderize_ru(user.gender, "ся", "ась", "ось", "ись")]. От [genderize_ru(user.gender, "него", "неё", "него", "них")] остался лишь скелет.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(add_id_name = FALSE)
 		var/criminal = "None"
-		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
+		var/commentLatest = "ОШИБКА: Не удалось найти запись в базе данных о данном лице." //If there is no datacore present, give this
 
 		if(perpname)
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -387,12 +400,12 @@
 								var/list/comments = R.fields["comments"]
 								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
 							else
-								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
+								commentLatest = "Нет записей." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
+			msg += span_deptradio("Криминальный статус: [criminal_status]\n")
+			msg += span_deptradio("Записи службы безопасности: <a href='byond://?src=[UID()];secrecordComment=`'>\[Посмотреть записи\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Добавить комментарий\]</a>\n")
+			msg += span_deptradio("Последние данные: [commentLatest]\n")
 
 	if(hasHUD(user, EXAMINE_HUD_SKILLS))
 		var/perpname = get_visible_name(add_id_name = FALSE)
@@ -405,9 +418,9 @@
 			if(skills)
 				var/char_limit = 40
 				if(length(skills) <= char_limit)
-					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+					msg += span_deptradio("Личное дело: [skills]\n")
 				else
-					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+					msg += span_deptradio("Личное дело: [copytext_preserve_html(skills, 1, char_limit-3)]...<a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n")
 
 
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
@@ -420,8 +433,8 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += "<span class = 'deptradio'>Physical status:</span> <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
-		msg += "<span class = 'deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += span_deptradio("Психологический статус: <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n")
+		msg += span_deptradio("Медицинский записи: <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n")
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(print_flavor_text() && !skipface && !head_organ?.is_disfigured())
@@ -503,24 +516,24 @@
 /proc/ignore_limb_branding(limb_zone)
 	switch(limb_zone)
 		if(BODY_ZONE_CHEST)
-			. = "upper body"
+			. = "груди"
 		if(BODY_ZONE_PRECISE_GROIN)
-			. = "lower body"
+			. = "животе"
 		if(BODY_ZONE_HEAD)
-			. = "head"
+			. = "голове"
 		if(BODY_ZONE_L_ARM)
-			. = "left arm"
+			. = "левой руке"
 		if(BODY_ZONE_R_ARM)
-			. = "right arm"
+			. = "правой руке"
 		if(BODY_ZONE_L_LEG)
-			. = "left leg"
+			. = "левой ноге"
 		if(BODY_ZONE_R_LEG)
-			. = "right leg"
+			. = "правой ноге"
 		if(BODY_ZONE_PRECISE_L_FOOT)
-			. = "left foot"
+			. = "левой ступне"
 		if(BODY_ZONE_PRECISE_R_FOOT)
-			. = "right foot"
+			. = "правой ступне"
 		if(BODY_ZONE_PRECISE_L_HAND)
-			. = "left hand"
+			. = "левой кисти"
 		if(BODY_ZONE_PRECISE_R_HAND)
-			. = "right hand"
+			. = "правой кисти"
