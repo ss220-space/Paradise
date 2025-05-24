@@ -39,8 +39,8 @@ const mapTwoByTwo = (a, c) => {
   return result;
 };
 
-export const QuestConsole = (properties, context) => {
-  const [tabName, setTab] = useLocalState(context, 'tabName', 'centcomm');
+export const QuestConsole = (properties) => {
+  const [tabName, setTab] = useLocalState('tabName', 'centcomm');
   return (
     <Window width={1000} height={820}>
       <Window.Content scrollable>
@@ -90,8 +90,8 @@ export const QuestConsole = (properties, context) => {
   );
 };
 
-const StatusPane = (properties, context) => {
-  const { act, data } = useBackend(context);
+const StatusPane = (properties) => {
+  const { act, data } = useBackend();
   const {
     points,
     timeleft,
@@ -165,8 +165,8 @@ const StatusPane = (properties, context) => {
   );
 };
 
-const QuestPane = (properties, context) => {
-  const { data } = useBackend(context);
+const QuestPane = (properties) => {
+  const { data } = useBackend();
   const { source_customer } = properties;
   const { quests } = data;
   return (
@@ -195,13 +195,12 @@ const QuestFastTimeBonus = (properties) => (
   </Box>
 );
 
-const QuestItem = (properties, context) => {
+const QuestItem = (properties) => {
   const [cardWithShownMenu, setCardWithShownMenu] = useLocalState(
-    context,
     `cardWithShownMenu`,
     false
   );
-  const { act } = useBackend(context);
+  const { act } = useBackend();
   const { quest } = properties;
   const isCorp = quest.customer === 'corporation';
   const rewardColor = getRewardColor(quest.reward, isCorp);

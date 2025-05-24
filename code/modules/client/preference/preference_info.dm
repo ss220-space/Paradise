@@ -132,6 +132,9 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/item_description_tips
     name = "Item Description Tips"
 
+/datum/preference_info/facing_to_mouse
+    name = "Facing to mouse"
+
 /datum/preference_info/take_out_of_the_round_without_obj
     name = "Take out from round without objective"
 
@@ -255,6 +258,9 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/item_description_tips/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_item_description_tips]
 
+/datum/preference_info/facing_to_mouse/get_preference_toggle()
+    return GLOB.preference_toggles[/datum/preference_toggle/toggle_facing_to_mouse]
+
 /datum/preference_info/take_out_of_the_round_without_obj/get_preference_toggle()
     return GLOB.preference_toggles[/datum/preference_toggle/toggle_take_out_of_the_round_without_obj]
 
@@ -275,5 +281,5 @@ GLOBAL_LIST_INIT(preferences_info, list())
 /datum/preference_info/auto_dnr/proc/set_dnr_status(mob/source, gibbed)
     SIGNAL_HANDLER
 
-    var/mob/dead/observer/ghost = source.ghostize(NONE)
-    ghost.apply_dnr() // we prevented re-entering earlier, but we need to update hud and send signal
+    var/mob/dead/observer/ghost = source.ghostize()
+    ghost.apply_dnr()

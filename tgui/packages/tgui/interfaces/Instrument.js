@@ -12,8 +12,8 @@ import {
   Stack,
 } from '../components';
 import { Window } from '../layouts';
-export const Instrument = (properties, context) => {
-  const { act, data } = useBackend(context);
+export const Instrument = (properties) => {
+  const { act, data } = useBackend();
   return (
     <Window width={600} height={505}>
       <InstrumentHelp />
@@ -27,8 +27,8 @@ export const Instrument = (properties, context) => {
   );
 };
 
-const InstrumentHelp = (properties, context) => {
-  const { act, data } = useBackend(context);
+const InstrumentHelp = (properties) => {
+  const { act, data } = useBackend();
   const { help } = data;
   if (!help) {
     return;
@@ -312,8 +312,8 @@ const InstrumentHelp = (properties, context) => {
   );
 };
 
-const InstrumentStatus = (properties, context) => {
-  const { act, data } = useBackend(context);
+const InstrumentStatus = (properties) => {
+  const { act, data } = useBackend();
   const {
     lines,
     playing,
@@ -427,8 +427,8 @@ const InstrumentStatus = (properties, context) => {
   );
 };
 
-const InstrumentStatusAdvanced = (properties, context) => {
-  const { act, data } = useBackend(context);
+const InstrumentStatusAdvanced = (properties) => {
+  const { act, data } = useBackend();
   const {
     allowedInstrumentNames,
     instrumentLoaded,
@@ -571,8 +571,8 @@ const InstrumentStatusAdvanced = (properties, context) => {
   );
 };
 
-const InstrumentEditor = (properties, context) => {
-  const { act, data } = useBackend(context);
+const InstrumentEditor = (properties) => {
+  const { act, data } = useBackend();
   const { playing, lines, editing } = data;
   return (
     <Section

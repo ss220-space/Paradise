@@ -10,10 +10,10 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const ImplantPad = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ImplantPad = (props) => {
+  const { act, data } = useBackend();
   const { implant, contains_case, tag } = data;
-  const [newTag, setNewTag] = useLocalState(context, 'newTag', tag);
+  const [newTag, setNewTag] = useLocalState('newTag', tag);
 
   return (
     <Window width={410} height={325}>

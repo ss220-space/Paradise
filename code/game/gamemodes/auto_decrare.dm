@@ -2,7 +2,7 @@
 	if(!length(morphs))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Морфами были:</b></span>"
+	var/text = span_fontsize2("<b>Морфами были:</b>")
 	for(var/datum/mind/morph in morphs)
 		var/traitorwin = TRUE
 		text += "<br>[morph.get_display_key()] был [morph.name] ("
@@ -42,7 +42,7 @@
 	if(!length(revenants))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Ревенантами были:</b></span>"
+	var/text = span_fontsize2("<b>Ревенантами были:</b>")
 	for(var/datum/mind/revenant in revenants)
 		var/traitorwin = TRUE
 		text += "<br>[revenant.get_display_key()] был [revenant.name] ("
@@ -82,7 +82,7 @@
 	if(!length(honksquad))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Членами Хонксквада были:</b></span>"
+	var/text = span_fontsize2("<b>Членами Хонксквада были:</b>")
 	for(var/datum/mind/honker in honksquad)
 		var/traitorwin = TRUE
 		text += "<br>[honker.get_display_key()] был [honker.name] ("
@@ -124,7 +124,7 @@
 	if(!length(deathsquad))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Бойцами Отряда Смерти были:</b></span>"
+	var/text = span_fontsize2("<b>Бойцами Отряда Смерти были:</b>")
 	for(var/datum/mind/commando in deathsquad)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -166,7 +166,7 @@
 	if(!length(sst))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Бойцами Ударного Отряда Синдиката были:</b></span>"
+	var/text = span_fontsize2("<b>Бойцами Ударного Отряда Синдиката были:</b>")
 	for(var/datum/mind/commando in sst)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("
@@ -208,7 +208,7 @@
 	if(!length(sit))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>Агентами Диверсионного Отряда Синдиката были:</b></span>"
+	var/text = span_fontsize2("<b>Агентами Диверсионного Отряда Синдиката были:</b>")
 	for(var/datum/mind/commando in sit)
 		var/traitorwin = TRUE
 		text += "<br>[commando.get_display_key()] был [commando.name] ("

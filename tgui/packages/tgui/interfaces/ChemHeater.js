@@ -12,7 +12,7 @@ import {
 import { BeakerContents } from '../interfaces/common/BeakerContents';
 import { Window } from '../layouts';
 
-export const ChemHeater = (_props, _context) => {
+export const ChemHeater = (_props) => {
   return (
     <Window width={450} height={275}>
       <Window.Content>
@@ -25,8 +25,8 @@ export const ChemHeater = (_props, _context) => {
   );
 };
 
-const ChemHeaterSettings = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemHeaterSettings = (_properties) => {
+  const { act, data } = useBackend();
   const {
     targetTemp,
     targetTempReached,
@@ -93,8 +93,8 @@ const ChemHeaterSettings = (_properties, context) => {
   );
 };
 
-const ChemHeaterBeaker = (_properties, context) => {
-  const { act, data } = useBackend(context);
+const ChemHeaterBeaker = (_properties) => {
+  const { act, data } = useBackend();
   const {
     isBeakerLoaded,
     beakerCurrentVolume,

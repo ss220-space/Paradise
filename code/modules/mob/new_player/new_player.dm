@@ -20,7 +20,7 @@
 	return INITIALIZE_HINT_NORMAL
 
 /mob/new_player/proc/privacy_consent()
-	src << browse(null, "window=playersetup")
+	close_window(src, "playersetup")
 	var/output = GLOB.join_tos
 	output += "<p><a href='byond://?src=[UID()];consent_signed=SIGNED'>Я согласен</a>"
 	output += "<p><a href='byond://?src=[UID()];consent_rejected=NOTSIGNED'>Я НЕ согласен</a>"
@@ -33,23 +33,12 @@
 /mob/new_player/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	if(SSticker)
-		if(!SSticker.hide_mode)
-			status_tab_data[++status_tab_data.len] = list("Game Mode:", "[GLOB.master_mode]")
-		else
-			status_tab_data[++status_tab_data.len] = list("Game Mode:", "Secret")
 
-		if(SSticker.current_state == GAME_STATE_PREGAME)
-			status_tab_data[++status_tab_data.len] = list("Time To Start:", SSticker.ticker_going ? deciseconds_to_time_stamp(SSticker.pregame_timeleft) : "DELAYED")
-
-		if(SSticker.current_state == GAME_STATE_PREGAME)
-			status_tab_data[++status_tab_data.len] = list("Players Ready:", "[totalPlayersReady]")
-			totalPlayersReady = 0
-			for(var/mob/new_player/player in GLOB.player_list)
-				if(check_rights(R_ADMIN, 0, src))
-					status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
-				if(player.ready)
-					totalPlayersReady++
+	if(!(SSticker && SSticker.current_state == GAME_STATE_PREGAME && check_rights(R_ADMIN, 0, src)))
+		return .
+	status_tab_data[++status_tab_data.len] = list("Список игроков:", "")
+	for(var/mob/new_player/player in GLOB.player_list)
+		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -63,7 +52,7 @@
 		// If the query fails we dont want them permenantly stuck on being unable to accept TOS
 		query.warn_execute()
 		qdel(query)
-		src << browse(null, "window=privacy_consent")
+		close_window(src, "privacy_consent")
 		client.tos_consent = TRUE
 
 	if(href_list["consent_rejected"])
@@ -149,7 +138,7 @@
 		vote_on_poll_handler(poll, href_list)
 
 	if(href_list["refresh"])
-		src << browse(null, "window=playersetup") //closes the player setup window
+		close_window(src, "playersetup")		//closes the player setup window
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
@@ -172,7 +161,7 @@
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
-			src << browse(null, "window=playersetup")
+			close_window(src, "playersetup")
 			spawning = 1
 			// stop_sound_channel(CHANNEL_LOBBYMUSIC)
 			client?.tgui_panel?.stop_music()
@@ -669,11 +658,10 @@
 
 
 /mob/new_player/proc/close_spawn_windows()
-	src << browse(null, "window=latechoices") //closes late choices window
-	src << browse(null, "window=playersetup") //closes the player setup window
-	src << browse(null, "window=preferences") //closes job selection
-	src << browse(null, "window=mob_occupation")
-	src << browse(null, "window=latechoices") //closes late job selection
+	close_window(src, "latechoices") //closes late choices window
+	close_window(src, "playersetup") //closes the player setup window
+	close_window(src, "preferences")	
+	close_window(src, "mob_occupation") //closes job selection
 
 
 /mob/new_player/proc/has_admin_rights()

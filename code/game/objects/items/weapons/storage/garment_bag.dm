@@ -6,7 +6,15 @@
 
 /obj/item/storage/garmentbag
 	name = "Garmentbag"
-	desc = "This is where all your clothes are stored."
+	desc = "Небольшая сумка, в которой хранится одежда."
+	ru_names = list(
+		NOMINATIVE = "сумка для одежды",
+		GENITIVE = "сумки для одежды",
+		DATIVE = "сумке для одежды",
+		ACCUSATIVE = "сумку для одежды",
+		INSTRUMENTAL = "сумкой для одежды",
+		PREPOSITIONAL = "сумке для одежды"
+	)
 	icon_state = "garment_bag"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'
@@ -37,7 +45,7 @@
 		/obj/item/clothing/suit/hooded,	//chaplain
 		/obj/item/clothing/suit/witchhunter,
 		/obj/item/clothing/suit/holidaypriest,
-		/obj/item/clothing/suit/armor/riot/knight
+		/obj/item/clothing/suit/armor/riot/knight,
 	)
 
 /obj/item/storage/garmentbag/captains/populate_contents()
@@ -247,3 +255,15 @@
 	new /obj/item/clothing/suit/hooded/wintercoat/cargo/qm(src)
 	new /obj/item/clothing/under/rank/cargo/alt(src)
 	new /obj/item/clothing/head/cowboyhat/tan(src)
+
+/obj/item/storage/garmentbag/mining_medic/populate_contents()
+	new /obj/item/clothing/suit/storage/labcoat/mining_medic(src)
+	new /obj/item/clothing/under/rank/medical/mining_medic(src)
+	new /obj/item/clothing/under/rank/medical/mining_medic/skirt(src)
+	new /obj/item/clothing/under/rank/medical/brown(src)
+	new /obj/item/clothing/under/rank/medical/mining_paramedic(src)
+	new /obj/item/clothing/under/rank/medical/mining_paramedic/skirt(src)
+	new /obj/item/clothing/gloves/color/latex/nitrile(src)
+	new /obj/item/clothing/head/beret/mining_medic(src)
+	new /obj/item/clothing/head/surgery/brown(src)
+	new /obj/item/clothing/shoes/white(src)

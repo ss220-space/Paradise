@@ -9,8 +9,8 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-export const MechBayConsole = (props, context) => {
-  const { act, data } = useBackend(context);
+export const MechBayConsole = (props) => {
+  const { act, data } = useBackend();
   const { recharge_port } = data;
   const mech = recharge_port && recharge_port.mech;
   const cell = mech && mech.cell;

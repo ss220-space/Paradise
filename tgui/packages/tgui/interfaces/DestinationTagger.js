@@ -2,8 +2,8 @@ import { useBackend, useLocalState } from '../backend';
 import { Button, Section, Box, Flex, NoticeBox, Tabs } from '../components';
 import { Window } from '../layouts';
 
-export const DestinationTagger = (_props, context) => {
-  const [tabName, setTab] = useLocalState(context, 'tabName', 'station');
+export const DestinationTagger = (_props) => {
+  const [tabName, setTab] = useLocalState('tabName', 'station');
   return (
     <Window width={395} height={350}>
       <Window.Content scrollable>
@@ -42,8 +42,8 @@ export const DestinationTagger = (_props, context) => {
   );
 };
 
-export const DestinationTaggerStation = (_props, context) => {
-  const { act, data } = useBackend(context);
+export const DestinationTaggerStation = (_props) => {
+  const { act, data } = useBackend();
 
   const { destinations, selected_destination_id } = data;
 
@@ -77,8 +77,8 @@ export const DestinationTaggerStation = (_props, context) => {
   );
 };
 
-export const DestinationTaggerCC = (props, context) => {
-  const { act, data } = useBackend(context);
+export const DestinationTaggerCC = (props) => {
+  const { act, data } = useBackend();
 
   const { selected_centcom_id } = data;
 

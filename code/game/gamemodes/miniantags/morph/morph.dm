@@ -308,6 +308,7 @@
 /mob/living/simple_animal/hostile/morph/attack_animal(mob/living/simple_animal/animal)
 	if(animal.a_intent == INTENT_HELP && ambush_prepared)
 		to_chat(animal, span_notice("Вы трётесь о [declent_ru(GENITIVE)].") + span_danger(" И [declent_ru(NOMINATIVE)] трётся в ответ!"))
+
 		ambush_attack(animal, TRUE)
 		return TRUE
 	restore_form()

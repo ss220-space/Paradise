@@ -42,7 +42,7 @@
 	animation.icon_state = "newtear"
 	animation.icon = 'icons/effects/tear.dmi'
 	animation.master = src
-	
+
 	if(animation)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/qdel, animation), 1.5 SECONDS)
 
@@ -50,9 +50,9 @@
 
 /obj/effect/tear/proc/spew_critters()
 	for(var/i in 1 to 5)
-		var/mob/living/simple_animal/S
-		S = create_random_mob(get_turf(src), HOSTILE_SPAWN)
-		S.faction |= "chemicalsummon"
+		var/mob/living/spawned_mob
+		spawned_mob  = create_random_mob(get_turf(src), HOSTILE_SPAWN)
+		spawned_mob.faction |= "chemicalsummon"
 		if(prob(50))
 			for(var/j = 1, j <= rand(1, 3), j++)
-				step(S, pick(NORTH, SOUTH, EAST, WEST))
+				step(spawned_mob , pick(NORTH, SOUTH, EAST, WEST))

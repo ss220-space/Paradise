@@ -46,11 +46,11 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
     this.setState({ searchText: target.value });
   };
 
-  override render(props: {}, state: ReagentsEditorState, context: unknown) {
+  override render(props: {}, state: ReagentsEditorState) {
     const {
       act,
       data: { reagentsInformation, reagents: reagentsInContainer },
-    } = useBackend<ReagentsEditorData>(this.context);
+    } = useBackend<ReagentsEditorData>();
 
     let reagents = Object.entries(reagentsInContainer)
       .map(
@@ -139,13 +139,12 @@ export class ReagentsEditor extends Component<{}, ReagentsEditorState> {
 }
 
 // Row for a reagent with non-zero volume
-const PresentReagentRow = (
-  {
-    reagent: { id: reagentID, name, uid, volume },
-  }: { reagent: FilteredReagentInformation },
-  context: unknown
-) => {
-  const { act } = useBackend<ReagentsEditorData>(context);
+const PresentReagentRow = ({
+  reagent: { id: reagentID, name, uid, volume },
+}: {
+  reagent: FilteredReagentInformation;
+}) => {
+  const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row">
       <Table.Cell>
@@ -190,11 +189,12 @@ const PresentReagentRow = (
 };
 
 // Row for a reagent with zero volume
-const AbsentReagentRow = (
-  { reagent: { id: reagentID, name } }: { reagent: FilteredReagentInformation },
-  context: unknown
-) => {
-  const { act } = useBackend<ReagentsEditorData>(context);
+const AbsentReagentRow = ({
+  reagent: { id: reagentID, name },
+}: {
+  reagent: FilteredReagentInformation;
+}) => {
+  const { act } = useBackend<ReagentsEditorData>();
   return (
     <Table.Row className="reagent-row absent-row">
       <Table.Cell className="reagent-absent-name-cell">

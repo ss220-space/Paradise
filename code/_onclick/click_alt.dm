@@ -27,20 +27,13 @@
 	if(can_perform_action(target, (target.interaction_flags_click | SILENT_ADJACENCY)))
 		return target.click_alt(src) & CLICK_ACTION_ANY
 
-	// No alt clicking to view turf from beneath
-	if(HAS_TRAIT(src, TRAIT_MOVE_VENTCRAWLING))
-		return
-
-	client.loot_panel.open(get_turf(target))
-
 	return FALSE
 
 /mob/living/base_click_alt(atom/target)
 	SHOULD_NOT_OVERRIDE(TRUE)
 
-	if(..())
-		return
-	if(!CAN_I_SEE(target) || (!has_vision() && !IN_GIVEN_RANGE(src, target, 1)))
+	. = ..()
+	if(. || !CAN_I_HEAR(target) || (!has_vision() && !IN_GIVEN_RANGE(src, target, 1)))
 		return
 
 	// No alt clicking to view turf from beneath

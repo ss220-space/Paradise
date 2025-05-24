@@ -16,10 +16,10 @@ const PickTab = (index) => {
   return TabList[index];
 };
 
-export const ERTManager = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ERTManager = (props) => {
+  const { act, data } = useBackend();
 
-  const [tabIndex, setTabIndex] = useLocalState(context, 'tabIndex', 0);
+  const [tabIndex, setTabIndex] = useLocalState('tabIndex', 0);
 
   return (
     <Window title="Менеджер ОБР" width={400} height={540}>
@@ -63,8 +63,8 @@ export const ERTManager = (props, context) => {
   );
 };
 
-export const ERTOverview = (props, context) => {
-  const { act, data } = useBackend(context);
+export const ERTOverview = (props) => {
+  const { act, data } = useBackend();
   const { security_level_color, str_security_level, ert_request_answered } =
     data;
 
@@ -94,11 +94,11 @@ export const ERTOverview = (props, context) => {
   );
 };
 
-const SendERT = (props, context) => {
-  const { act, data } = useBackend(context);
+const SendERT = (props) => {
+  const { act, data } = useBackend();
   let slotOptions = [0, 1, 2, 3, 4, 5];
 
-  const [silentERT, setSilentERT] = useLocalState(context, 'silentERT', false);
+  const [silentERT, setSilentERT] = useLocalState('silentERT', false);
 
   return (
     <Section
@@ -246,8 +246,8 @@ const SendERT = (props, context) => {
   );
 };
 
-const ReadERTRequests = (props, context) => {
-  const { act, data } = useBackend(context);
+const ReadERTRequests = (props) => {
+  const { act, data } = useBackend();
 
   const { ert_request_messages } = data;
 
@@ -280,10 +280,10 @@ const ReadERTRequests = (props, context) => {
   );
 };
 
-const DenyERT = (props, context) => {
-  const { act, data } = useBackend(context);
+const DenyERT = (props) => {
+  const { act, data } = useBackend();
 
-  const [text, setText] = useLocalState(context, 'text', '');
+  const [text, setText] = useLocalState('text', '');
 
   return (
     <Section>
