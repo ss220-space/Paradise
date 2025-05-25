@@ -572,9 +572,9 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/animal/representative
-	id = "animal_hamster_alex"
-	typepath = /mob/living/simple_animal/mouse/hamster/Representative
-	name = "хомяка по кличке Представитель Алексей"
+	id = "animal_mouse_rep"
+	typepath = /mob/living/simple_animal/mouse/wooly/rep
+	name = "лохматую мышь по кличке Господин Мышкин."
 
 /datum/theft_objective/animal/brain
 	id = "animal_brain"

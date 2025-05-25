@@ -32,7 +32,7 @@
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
-	msg += "<EM>[name]</EM>"
+	msg += "<em>[name]</em>"
 
 	var/displayed_species = get_visible_species()
 	var/examine_color = dna.species.flesh_color
@@ -356,6 +356,13 @@
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
 		msg += "Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [genderize_ru(gender, "его", "её", "его", "их")] хвосте.\n"
+
+
+	if(get_gravity(src) < -NO_GRAVITY && !buckled)
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] наход[genderize_ru(user.gender, "и", "и", "и", "я")]тся на потолке."
+
+	if(user.no_gravity() && !buckled)
+		msg += "[p_they(TRUE)] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
 
 	if(decaylevel == 1)
 		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"

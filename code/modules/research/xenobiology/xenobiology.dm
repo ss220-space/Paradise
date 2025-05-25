@@ -199,16 +199,24 @@
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag, params)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	if(being_used || !ismob(M))
 		return
+
 	if(!isanimal(M) && !is_monkeybasic(M))
-		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
+		to_chat(user, span_warning("[M] is not animal nor lesser life form!"))
 		return ..()
+
 	if(istype(M, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-		to_chat(user, "<span class='warning'>unknown power prevents you from using sentience potion on [M]</span>")
+		to_chat(user, span_warning("unknown power prevents you from using sentience potion on [M])"))
 		return ..()
+
+	if(istype(M, /mob/living/simple_animal/hostile/airmob))
+		to_chat(user, span_warning("[M.declent_ru(NOMINATIVE)] не является формой жизни и не может обрести разум."))
+		return ..()
+
 	if(M.stat)
-		to_chat(user, "<span class='warning'>[M] is dead!</span>")
+		to_chat(user, span_warning("[M] is dead!"))
 		return ..()
 
 	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
@@ -526,7 +534,7 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
+		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
 		if(isclothing(O))
@@ -534,7 +542,8 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 				return
-		I.item_flags |= IGNORE_SLOWDOWN
+		I.slowdown /= 2
+		I.item_flags |= SPEEDPOTION_APPLIED
 		I.update_equipped_item()
 
 	if(isvehicle(O)) //simple solution

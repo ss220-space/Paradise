@@ -32,7 +32,7 @@
 		to_chat(ninja, span_notice("The suit's restorative cocktail is now reloaded."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		add_fingerprint(ninja)
 		var/obj/item/stock_parts/cell/new_cell = I
 		var/obj/item/stock_parts/cell/old_cell = cell

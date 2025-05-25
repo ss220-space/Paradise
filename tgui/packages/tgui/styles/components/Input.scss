@@ -3,19 +3,21 @@
  * SPDX-License-Identifier: MIT
  */
 
+@use '../base';
 @use 'sass:color';
-@use '../base.scss';
-@use '../functions.scss' as *;
+@use '../functions' as *;
 
 $text-color: base.$color-fg !default;
-$background-color: #0a0a0a !default;
-$border-color: #88bfff !default;
+$background-color: hsl(0, 0%, 3.9%) !default;
+$border-color: hsl(212.3, 100%, 76.7%) !default;
+$border-radius: base.$border-radius !default;
+$font-family: Verdana, sans-serif !default;
+$mono-font-family: 'Consolas', monospace !default;
 $border-color-disabled: color.adjust(
   $border-color,
   $saturation: -100%,
   $lightness: -25%
 ) !default;
-$border-radius: base.$border-radius !default;
 
 .Input {
   position: relative;
@@ -26,14 +28,10 @@ $border-radius: base.$border-radius !default;
   border-radius: $border-radius;
   color: $text-color;
   background-color: $background-color;
-  color: #fff;
-  background-color: #000;
-  background-color: rgba(0, 0, 0, 0.75);
   padding: 0 base.em(4px);
   margin-right: base.em(2px);
   line-height: base.em(17px);
   overflow: visible;
-  white-space: nowrap;
 
   &--disabled {
     color: #777;
@@ -69,7 +67,7 @@ $border-radius: base.$border-radius !default;
   height: base.em(17px);
   margin: 0;
   padding: 0 0.5em;
-  font-family: Verdana, sans-serif;
+  font-family: $font-family;
   background-color: transparent;
   color: $text-color;
   color: inherit;
@@ -79,13 +77,11 @@ $border-radius: base.$border-radius !default;
     color: #777;
     color: rgba(255, 255, 255, 0.45);
   }
-
   // TODO: Remove with 516
-
   &:-ms-input-placeholder {
     font-style: italic;
-    color: #777;
-    color: rgba(255, 255, 255, 0.45);
+    color: hsl(0, 0%, 46.7%);
+    color: hsla(0, 0%, 100%, 0.45);
   }
 }
 
@@ -96,9 +92,6 @@ $border-radius: base.$border-radius !default;
   line-height: base.em(17px);
   margin-left: base.em(-4px);
   font-family: Verdana, sans-serif;
-  background-color: transparent;
-  color: #fff;
-  color: inherit;
   resize: both;
   overflow: auto;
   white-space: pre-wrap;
@@ -112,11 +105,11 @@ $border-radius: base.$border-radius !default;
   // TODO: Remove with 516
   &:-ms-input-placeholder {
     font-style: italic;
-    color: #777;
-    color: rgba(255, 255, 255, 0.45);
+    color: hsl(0, 0%, 46.7%);
+    color: hsla(0, 0%, 100%, 0.45);
   }
 }
 
 .Input--monospace .Input__input {
-  font-family: 'Consolas', monospace;
+  font-family: $mono-font-family;
 }

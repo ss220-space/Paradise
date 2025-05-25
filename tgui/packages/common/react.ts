@@ -7,12 +7,12 @@
 /**
  * Helper for conditionally adding/removing classes in React
  */
-export const classes = (classNames: (string | BooleanLike)[]) => {
+export const classes = (classNames: (string | BooleanLike)[]): string => {
   let className = '';
   for (let i = 0; i < classNames.length; i++) {
     const part = classNames[i];
     if (typeof part === 'string') {
-      className += part + ' ';
+      className += `${part} `;
     }
   }
   return className;
@@ -22,7 +22,7 @@ export const classes = (classNames: (string | BooleanLike)[]) => {
  * Normalizes children prop, so that it is always an array of VDom
  * elements.
  */
-export const normalizeChildren = <T>(children: T | T[]) => {
+export const normalizeChildren = <T>(children: T | T[]): T[] => {
   if (Array.isArray(children)) {
     return children.flat().filter((value) => value) as T[];
   }
@@ -36,8 +36,11 @@ export const normalizeChildren = <T>(children: T | T[]) => {
  * Shallowly checks if two objects are different.
  * Credit: https://github.com/developit/preact-compat
  */
-export const shallowDiffers = (a: object, b: object) => {
-  let i;
+export const shallowDiffers = (
+  a: Record<string, any>,
+  b: Record<string, any>
+): boolean => {
+  let i: string;
   for (i in a) {
     if (!(i in b)) {
       return true;
@@ -52,23 +55,14 @@ export const shallowDiffers = (a: object, b: object) => {
 };
 
 /**
- * Default inferno hooks for pure components.
- */
-export const pureComponentHooks = {
-  onComponentShouldUpdate: (lastProps, nextProps) => {
-    return shallowDiffers(lastProps, nextProps);
-  },
-};
-
-/**
- * A helper to determine whether the object is renderable by React.
- */
-export const canRender = (value: unknown) => {
-  return value !== undefined && value !== null && typeof value !== 'boolean';
-};
-
-/**
  * A common case in tgui, when you pass a value conditionally, these are
  * the types that can fall through the condition.
  */
 export type BooleanLike = number | boolean | null | undefined;
+
+/**
+ * A helper to determine whether the object is renderable by React.
+ */
+export const canRender = (value: unknown): boolean => {
+  return value !== undefined && value !== null && typeof value !== 'boolean';
+};

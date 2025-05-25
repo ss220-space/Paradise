@@ -210,7 +210,7 @@
 	return robot.shown_robot_modules
 
 /datum/hud/proc/update_robot_modules_display(mob/viewer)
-	if(!isrobot(mymob))
+	if(!isrobot(mymob) || !mymob.client)
 		return
 
 	var/mob/living/silicon/robot/R = mymob
@@ -232,7 +232,7 @@
 		screenmob.client?.screen += module_store_icon	//"store" icon
 
 		if(!R.module.modules)
-			to_chat(usr, "<span class='danger'>Selected module has no modules to select.</span>")
+			to_chat(usr, span_danger("Selected module has no modules to select."))
 			return
 
 		if(!R.robot_modules_background)

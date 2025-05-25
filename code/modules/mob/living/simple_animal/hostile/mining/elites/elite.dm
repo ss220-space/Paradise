@@ -367,6 +367,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		update_icon(UPDATE_ICON_STATE)
 		set_light(6, l_on = TRUE)
 		qdel(I)
+		boosted = TRUE
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()

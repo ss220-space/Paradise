@@ -252,7 +252,7 @@
 	var/turf/tele_loc = isturf(enter_point) ? enter_point : enter_point.loc
 	var/holder = user.loc
 	user.forceMove(tele_loc)
-	user.client.eye = user
+	user.client.set_eye(user)
 
 	rise_animation(tele_loc, user, enter_point)
 

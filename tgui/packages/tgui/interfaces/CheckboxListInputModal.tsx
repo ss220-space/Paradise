@@ -1,9 +1,9 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState, KeyboardEvent } from 'react';
 import { Window } from '../layouts';
-import { createLogger } from '../logging';
 import { BooleanLike } from 'common/react';
 
 type ListInputData = {
@@ -18,13 +18,10 @@ interface CheckboxData {
   key: string;
   checked: BooleanLike;
 }
-export const CheckboxListInputModal = (props) => {
-  const { act, data } = useBackend<ListInputData>();
-  const { items = [], message = '', init_value, timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<CheckboxData[]>(
-    'edittedItems',
-    items
-  );
+export const CheckboxListInputModal = (props: unknown) => {
+  const { data } = useBackend<ListInputData>();
+  const { items = [], message = '', timeout, title } = data;
+  const [edittedItems, setEdittedItems] = useState<CheckboxData[]>(items);
 
   const windowHeight = 330 + Math.ceil(message.length / 3);
 
@@ -46,7 +43,7 @@ export const CheckboxListInputModal = (props) => {
               <ListDisplay filteredItems={edittedItems} onClick={onClick} />
             </Stack.Item>
             <Stack.Item mt={0.5}>
-              <InputButtons input={edittedItems} />
+              <InputButtons input={edittedItems as any} />
             </Stack.Item>
           </Stack>
         </Section>
@@ -55,26 +52,30 @@ export const CheckboxListInputModal = (props) => {
   );
 };
 
+type ListDisplayProps = {
+  filteredItems: CheckboxData[];
+  onClick: (new_item: CheckboxData | null) => void;
+};
+
 /**
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props) => {
+const ListDisplay = (props: ListDisplayProps) => {
   const { filteredItems, onClick } = props;
 
   return (
-    <Section fill scrollable tabIndex={0}>
+    <Section fill scrollable>
       {filteredItems.map((item, index) => {
         return (
           <Button.Checkbox
             fluid
-            id={index}
             key={index}
             onClick={() => onClick(item)}
             checked={item.checked}
             style={{
-              'animation': 'none',
-              'transition': 'none',
+              animation: 'none',
+              transition: 'none',
             }}
           >
             {item.key.replace(/^\w/, (c) => c.toUpperCase())}
