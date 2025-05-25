@@ -400,6 +400,6 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 	return RCD_NO_ACT
 
 /turf/simulated/floor/flamer_fire_act(danage)
-	if(pick(80))
+	if(pick(60))
 		return
 	break_tile()
