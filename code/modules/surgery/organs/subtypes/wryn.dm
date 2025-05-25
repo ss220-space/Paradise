@@ -93,10 +93,10 @@
 /datum/action/innate/build_wax/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
 
-	var/static/list/new_structure = list("Соты" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
-								"Прозрачные соты" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),
-								"Пол из воска" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_floor"),
-								"Дверь из сот" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_door"))
+	var/static/list/new_structure = list("Соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
+								"Прозрачные соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),
+								"Пол из воска (25)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_floor"),
+								"Дверь из сот (75)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_door"))
 	var/choosen_type = show_radial_menu(host, host, new_structure, src, radius = 40)
 	if(!choosen_type)
 		return
@@ -126,15 +126,15 @@
 				host.balloon_alert(host, "недостаточно воска!")
 				return
 			if(do_after(usr, 1 SECONDS, usr))
-				host.adjustWax(-50)
+				host.adjustWax(-25)
 				host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол из воска."))
 				new /obj/structure/wryn/floor(host.loc)
 		if("Дверь из сот")
-			if(host.getWax() < 50)
+			if(host.getWax() < 75)
 				host.balloon_alert(host, "недостаточно воска!")
 				return
 			if(do_after(usr, 10 SECONDS, usr))
-				host.adjustWax(-50)
+				host.adjustWax(-75)
 				host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь из сот."))
 				new /obj/structure/alien/resin/door/wax(host.loc)
 
