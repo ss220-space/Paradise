@@ -10,14 +10,17 @@
 /datum/component/wryn_destruction/UnregisterFromParent()
 	UnregisterSignal(parent, COMSIG_ATOM_ATTACK_HAND)
 
-/datum/component/wryn_destruction/proc/attack_hand(source, user)
+/datum/component/wryn_destruction/proc/attack_hand(atom/source, mob/living/user)
 	SIGNAL_HANDLER
 
 	if(!iswryn(user))
 		return
-	INVOKE_ASYNC(src, PROC_REF(harming))
+	INVOKE_ASYNC(src, PROC_REF(harming), source, user)
 
-/datum/component/wryn_destruction/proc/harming(source, user)
-	if(user.a_intent == INTENT_HARM)
-		source.take_damage(15, BRUTE, 0, 'sound/effects/attackblob.ogg')
-		user.do_attack_animation(src)
+/datum/component/wryn_destruction/proc/harming(atom/source, mob/living/carbon/user)
+	var/obj/structure = source
+	if(user.a_intent != INTENT_HARM)
+		return
+
+	structure.take_damage(15, BRUTE, 0, 'sound/effects/attackblob.ogg')
+	user.do_attack_animation(src)

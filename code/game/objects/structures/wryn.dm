@@ -191,14 +191,15 @@
 /obj/structure/alien/resin/door/wax/attack_animal(mob/living/simple_animal/M)
 	return
 
-/obj/structure/alien/resin/door/wax/attack_hand(mob/living/user)
+/obj/structure/alien/resin/door/wax/attack_check(mob/living/user)
 	if(!iswryn(user))
 		to_chat(user, span_notice("Вы даже не знаете, что делать с этой массой воска."))
 
 	if(user.a_intent == INTENT_HARM)
-		call(/obj/structure/attack_hand(mob/living/user))
+		return TRUE
 
 	return try_switch_state(user)
+
 
 /obj/structure/alien/resin/door/wax/try_switch_state(atom/movable/user)
 	if(operating)

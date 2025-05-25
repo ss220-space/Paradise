@@ -185,12 +185,14 @@
 
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
+	..()
+	attack_check(user)
+
+/obj/structure/alien/resin/door/proc/attack_check(mob/living/user)
 	if(!isalien(user))
 		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
 		return FALSE
-
-	return ..()
-
+	return TRUE
 
 /obj/structure/alien/resin/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
