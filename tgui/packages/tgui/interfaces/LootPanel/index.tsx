@@ -1,21 +1,21 @@
-import { KEY } from 'common/keys';
 import { BooleanLike } from 'common/react';
 
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useState } from 'react';
 import { Box, Button, Input, Section, Stack } from '../../components';
 import { Window } from '../../layouts';
 import { GroupedContents } from './GroupedContents';
 import { RawContents } from './RawContents';
 import { SearchItem } from './types';
 import { clamp } from 'common/math';
-import { KEY_ESCAPE } from 'common/keycodes';
+import { isEscape } from 'common/keys';
 
 type Data = {
   contents: SearchItem[];
   searching: BooleanLike;
 };
 
-export const LootPanel = (props) => {
+export const LootPanel = (props: unknown) => {
   const { act, data } = useBackend<Data>();
   const { contents = [], searching } = data;
 
@@ -36,10 +36,10 @@ export const LootPanel = (props) => {
   }
 
   // Search
-  const [showSearchBar, setShowSearchBar] = useLocalState('search_bar', false);
+  const [showSearchBar, setShowSearchBar] = useState(false);
 
-  const [grouping, setGrouping] = useLocalState('grouping', true);
-  const [searchText, setSearchText] = useLocalState('searchText', '');
+  const [grouping, setGrouping] = useState(true);
+  const [searchText, setSearchText] = useState('');
 
   const headerHeight = 38;
   const itemHeight = 38;
@@ -92,7 +92,7 @@ export const LootPanel = (props) => {
         fitted
         scrollable={height === maxHeight}
         onKeyDown={(event) => {
-          if (event.keyCode === KEY_ESCAPE) {
+          if (isEscape(event.key)) {
             Byond.sendMessage('close');
           }
         }}

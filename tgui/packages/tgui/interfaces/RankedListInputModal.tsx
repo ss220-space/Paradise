@@ -1,9 +1,9 @@
 import { Loader } from './common/Loader';
 import { InputButtons } from './common/InputButtons';
 import { Button, Section, Stack, Table } from '../components';
-import { useBackend, useLocalState } from '../backend';
+import { useBackend } from '../backend';
+import { useState, useEffect } from 'react';
 import { Window } from '../layouts';
-import { TableRow } from '../components/Table';
 
 type ListInputData = {
   items: string[];
@@ -12,13 +12,10 @@ type ListInputData = {
   title: string;
 };
 
-export const RankedListInputModal = (props) => {
-  const { act, data } = useBackend<ListInputData>();
+export const RankedListInputModal = (_props: unknown) => {
+  const { data } = useBackend<ListInputData>();
   const { items = [], message = '', timeout, title } = data;
-  const [edittedItems, setEdittedItems] = useLocalState<string[]>(
-    'edittedItems',
-    items
-  );
+  const [edittedItems, setEdittedItems] = useState<string[]>(items);
 
   // Dynamically changes the window height based on the message.
   const windowHeight = 330 + Math.ceil(message.length / 3);
@@ -45,79 +42,110 @@ export const RankedListInputModal = (props) => {
   );
 };
 
+type ListDisplayProps = {
+  filteredItems: string[];
+  setEdittedItems: React.Dispatch<React.SetStateAction<string[]>>;
+};
+
 /**
  * Displays the list of selectable items.
  * If a search query is provided, filters the items.
  */
-const ListDisplay = (props) => {
+const ListDisplay = (props: ListDisplayProps) => {
   const { filteredItems, setEdittedItems } = props;
-  const [draggedItemIndex, setDraggedItemIndex] = useLocalState<number | null>(
-    'draggedItemIndex',
-    null
-  );
+  const [draggedIndex, setDraggedIndex] = useState<number | null>(null);
+  const [targetIndex, setTargetIndex] = useState<number | null>(null);
+  const [dragOffset, setDragOffset] = useState(0);
 
-  // Handle the drag start event
-  const handleDragStart = (index: number) => {
-    setDraggedItemIndex(index);
+  useEffect(() => {
+    const handleGlobalMouseUp = () => {
+      if (draggedIndex !== null) {
+        setDraggedIndex(null);
+        setTargetIndex(null);
+      }
+    };
+
+    window.addEventListener('mouseup', handleGlobalMouseUp);
+    return () => window.removeEventListener('mouseup', handleGlobalMouseUp);
+  }, [draggedIndex]);
+  // Начало перетаскивания
+  const handleGrab = (index: number, e: React.MouseEvent) => {
+    setDraggedIndex(index);
+    // Запоминаем позицию мыши относительно элемента
+    const target = e.currentTarget as HTMLElement;
+    const rect = target.getBoundingClientRect();
+    setDragOffset(e.clientY - rect.top);
   };
 
-  // Handle the drag over event
-  const handleDragOver = (event: DragEvent) => {
-    event.preventDefault(); // Required to allow dropping
-  };
+  // Определение позиции при движении мыши
+  const handleMouseMove = (e: React.MouseEvent) => {
+    if (draggedIndex === null) return;
 
-  // Handle the drop event for items
-  const handleDrop = (index: number | null = null) => {
-    if (draggedItemIndex === null) return;
+    // Находим элемент под курсором
+    const elements = document.elementsFromPoint(e.clientX, e.clientY);
+    const button = elements.find((el) => el.classList.contains('Button'));
 
-    const updatedItems = [...filteredItems];
-    const draggedItem = updatedItems.splice(draggedItemIndex, 1)[0]; // Remove dragged item
-
-    // If no index is provided, add the item to the end of the list (used for drop on section)
-    if (index === null) {
-      updatedItems.push(draggedItem);
-    } else {
-      updatedItems.splice(index, 0, draggedItem); // Insert dragged item at new position
+    if (button) {
+      const row = button.closest('.Table__row');
+      if (row) {
+        const index = Array.from(row.parentNode?.children || []).indexOf(row);
+        if (index !== -1 && index !== draggedIndex) {
+          setTargetIndex(index);
+        }
+      }
     }
+  };
 
-    setEdittedItems(updatedItems);
-    setDraggedItemIndex(null); // Reset the dragged item index
+  // Завершение перетаскивания
+  const handleRelease = () => {
+    if (
+      draggedIndex !== null &&
+      targetIndex !== null &&
+      draggedIndex !== targetIndex
+    ) {
+      const newItems = [...filteredItems];
+      const [movedItem] = newItems.splice(draggedIndex, 1);
+      newItems.splice(targetIndex, 0, movedItem);
+      setEdittedItems(newItems);
+    }
+    setDraggedIndex(null);
+    setTargetIndex(null);
   };
 
   return (
     <Section
       fill
       scrollable
-      tabIndex={0}
-      onDrop={() => handleDrop(null)} // Handle drop on Section
-      onDragOver={handleDragOver} // Allow dropping on Section
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleRelease}
+      onMouseLeave={handleRelease}
     >
       <Table>
         {filteredItems.map((item, index) => (
-          <TableRow
+          <Table.Row
             key={index}
-            draggable
-            onDragStart={() => handleDragStart(index)}
-            onDragOver={handleDragOver}
-            onDrop={() => handleDrop(index)}
-            style={{
-              padding: '8px',
-            }}
+            className={`Table__row ${targetIndex === index ? 'hovered-row' : ''}`}
           >
             <Button
               fluid
               py="0.25rem"
-              color="transparent"
+              color={index === draggedIndex ? 'blue' : 'transparent'}
+              onMouseDown={(e) => handleGrab(index, e)}
               style={{
+                cursor: draggedIndex === null ? 'grab' : 'grabbing',
                 animation: 'none',
                 transition: 'none',
-                cursor: 'move',
+                ...(index === draggedIndex && { opacity: 0.5 }),
+                ...(targetIndex === index && {
+                  borderTop: '2px solid #2185d0',
+                  marginTop: '-2px',
+                }),
               }}
               icon="grip-lines"
             >
-              {item.replace(/^\w/, (c) => c.toUpperCase())}
+              {item.replace(/^\w/, (c: string) => c.toUpperCase())}
             </Button>
-          </TableRow>
+          </Table.Row>
         ))}
       </Table>
     </Section>

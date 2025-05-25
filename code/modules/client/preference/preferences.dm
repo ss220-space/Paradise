@@ -267,6 +267,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
 
+	var/datum/ui_module/loadout/loadout
+
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -2113,7 +2115,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						backbag = new_backbag
 
 				if("loadout")
-					var/datum/ui_module/loadout/loadout = new()
+					if(!loadout)
+						loadout = new()
 					loadout.ui_interact(user)
 					return FALSE
 
