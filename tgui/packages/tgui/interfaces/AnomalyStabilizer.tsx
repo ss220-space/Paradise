@@ -1,31 +1,19 @@
-import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Section,
-  Stack,
-  Table,
-  AnimatedNumber,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  NumberInput,
-} from '../components';
+import { Box, Button, Section, NumberInput } from '../components';
 import { Window } from '../layouts';
 
 type AnomalyStabilizerData = {
-  full_info;
-  core1_name;
-  core2_name;
-  possible_stability;
-  stability_delta;
-  pull_range;
-  choosen_pull_dist;
-  block_move_time;
-  block_move_impulses_time;
-  weaken_val;
-  weaken_time;
+  full_info: string;
+  core1_name: string;
+  core2_name: string;
+  possible_stability: number;
+  stability_delta: number;
+  pull_range: number;
+  choosen_pull_dist: number;
+  block_move_time: number;
+  block_move_impulses_time: number;
+  weaken_val: number;
+  weaken_time: number;
 };
 
 export const AnomalyStabilizer = (props) => {
@@ -56,7 +44,7 @@ export const AnomalyStabilizer = (props) => {
             maxValue={possible_stability}
             step={1}
             value={stability_delta}
-            onChange={(e, value) => act('change_stability', { new_val: value })}
+            onChange={(value) => act('change_stability', { new_val: value })}
           />
         </Box>
         {full_info ? (
@@ -74,7 +62,7 @@ export const AnomalyStabilizer = (props) => {
             maxValue={pull_range}
             step={1}
             value={choosen_pull_dist}
-            onChange={(e, value) => act('change_pull_dist', { new_val: value })}
+            onChange={(value) => act('change_pull_dist', { new_val: value })}
           />
         </Box>
         {full_info ? (
@@ -104,27 +92,25 @@ export const AnomalyStabilizer = (props) => {
             </Box>
           </Box>
         ) : null}
-        <Button
-          mt="5px"
-          content={!full_info ? 'Показать справку' : 'Скрыть'}
-          onClick={() => act('toggle_full_info')}
-        />
+        <Button mt="5px" onClick={() => act('toggle_full_info')}>
+          {!full_info ? 'Показать справку' : 'Скрыть'}
+        </Button>
       </Window.Content>
     </Window>
   );
 };
 
 const InsertedCores = (core1_name: string, core2_name: string) => {
-  const { act, data } = useBackend();
+  const { act } = useBackend();
   if (core1_name === 'Пустой') {
     return null;
   } else if (core2_name === 'Пустой') {
-    return <Button content={core1_name} onClick={() => act('eject1', {})} />;
+    return <Button onClick={() => act('eject1', {})}>{core1_name}</Button>;
   } else {
     return (
       <Box>
-        <Button content={core1_name} onClick={() => act('eject1', {})} />
-        <Button content={core2_name} onClick={() => act('eject2', {})} />
+        <Button onClick={() => act('eject1', {})}>{core1_name}</Button>
+        <Button onClick={() => act('eject2', {})}>{core2_name}</Button>
       </Box>
     );
   }

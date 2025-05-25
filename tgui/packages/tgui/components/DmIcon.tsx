@@ -1,10 +1,8 @@
-import { Component, InfernoNode } from 'inferno';
-import { resolveAsset } from '../assets';
-import { fetchRetry } from '../http';
-import { BoxProps } from './Box';
+import type { ReactNode } from 'react';
+import type { BoxProps } from './Box';
 import { Image } from './Image';
 
-enum Direction {
+export enum Direction {
   NORTH = 1,
   SOUTH = 2,
   EAST = 4,
@@ -24,7 +22,7 @@ type Props = {
   /** Facing direction. See direction enum. Default is South */
   direction: Direction;
   /** Fallback icon. */
-  fallback: InfernoNode;
+  fallback: ReactNode;
   /** Frame number. Default is 1 */
   frame: number;
   /** Movement state. Default is false */
@@ -32,61 +30,28 @@ type Props = {
 }> &
   BoxProps;
 
-let refMap: Record<string, string> | undefined;
+/**
+ * ## DmIcon
+ * Displays an icon from the BYOND icon reference map. Requires Byond 515+.
+ * A much faster alternative to base64 icons.
+ */
+export const DmIcon = (props: Props) => {
+  const {
+    className,
+    direction = Direction.SOUTH,
+    fallback,
+    frame = 1,
+    icon_state,
+    icon,
+    movement = false,
+    ...rest
+  } = props;
 
-export class DmIcon extends Component<Props, { iconRef: string }> {
-  constructor(props: Props) {
-    super(props);
-    this.state = {
-      iconRef: '',
-    };
-  }
+  const iconRef = Byond.iconRefMap?.[icon];
 
-  async fetchRefMap() {
-    try {
-      const response = await fetchRetry(resolveAsset('icon_ref_map.json'));
-      const data = await response.json();
-      refMap = data;
-      this.setState({ iconRef: data[this.props.icon] || '' });
-    } catch (err) {
-      return;
-    }
-  }
+  if (!iconRef) return fallback;
 
-  componentDidMount() {
-    if (!refMap) {
-      this.fetchRefMap();
-    } else {
-      this.setState({ iconRef: refMap[this.props.icon] });
-    }
-  }
+  const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${!!movement}&frame=${frame}`;
 
-  componentDidUpdate(prevProps: Props) {
-    if (prevProps.icon !== this.props.icon) {
-      if (refMap) {
-        this.setState({ iconRef: refMap[this.props.icon] });
-      } else {
-        this.fetchRefMap();
-      }
-    }
-  }
-
-  render() {
-    const {
-      className,
-      direction = Direction.SOUTH,
-      fallback,
-      frame = 1,
-      icon_state,
-      movement = false,
-      ...rest
-    } = this.props;
-    const { iconRef } = this.state;
-
-    const query = `${iconRef}?state=${icon_state}&dir=${direction}&movement=${!!movement}&frame=${frame}`;
-
-    if (!iconRef) return fallback || null;
-
-    return <Image fixErrors src={query} {...rest} />;
-  }
-}
+  return <Image fixErrors fixBlur src={query} {...rest} />;
+};

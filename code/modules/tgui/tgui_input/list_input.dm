@@ -74,7 +74,7 @@
 	/// Whether the tgui list input is invalid or not (i.e. due to all list entries being null)
 	var/invalid = FALSE
 	/// The TGUI modal to use for this popup
-	var/modal_type = "ListInputModal"
+	var/modal_type = "ListInputWindow"
 
 /datum/tgui_list_input/New(mob/user, message, title, list/_items, default, timeout, ui_state)
 	src.title = title

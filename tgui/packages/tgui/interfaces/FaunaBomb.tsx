@@ -1,21 +1,9 @@
-import { classes } from 'common/react';
-import { useBackend, useLocalState } from '../backend';
-import {
-  Box,
-  Button,
-  Section,
-  Stack,
-  Table,
-  AnimatedNumber,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  NumberInput,
-  Tabs,
-} from '../components';
+import { useBackend } from '../backend';
+import { Box, Button, Section, Stack, Tabs, Image } from '../components';
 import { Window } from '../layouts';
+import { useState } from 'react';
 
-const PickTab = (index) => {
+const PickTab = (index: number) => {
   switch (index) {
     case 0:
       return <Commands />;
@@ -33,10 +21,10 @@ type FaunaBombData = {
   created_len: number;
 };
 
-export const FaunaBomb = (props) => {
-  const { act, data } = useBackend<FaunaBombData>();
+export const FaunaBomb = (_props) => {
+  const { data } = useBackend<FaunaBombData>();
   const { charge, max_charge, charge_speed, created_len } = data;
-  const [tabIndex, setTabIndex] = useLocalState<number>('tabIndex', 0);
+  const [tabIndex, setTabIndex] = useState<number>(0);
   return (
     <Window width={710} height={500} title="Меню управления проекциями">
       <Window.Content>
@@ -76,19 +64,19 @@ export const FaunaBomb = (props) => {
   );
 };
 
-const Commands = (_properties, context) => {
-  const { act, data } = useBackend();
+const Commands = (_properties) => {
+  const { act } = useBackend();
 
   return (
     <Stack vertical>
       <Stack.Item>
-        <Button content="Атаковать" onClick={() => act('attack')} />
+        <Button onClick={() => act('attack')}>Атаковать</Button>
       </Stack.Item>
       <Stack.Item>
-        <Button content="Следовать" onClick={() => act('go')} />
+        <Button onClick={() => act('go')}>Следовать</Button>
       </Stack.Item>
       <Stack.Item>
-        <Button content="Прекратить" onClick={() => act('stop')} />
+        <Button onClick={() => act('stop')}>Прекратить</Button>
       </Stack.Item>
     </Stack>
   );
@@ -101,8 +89,8 @@ type ScansData = {
 
 const Scans = (_properties) => {
   const { act, data } = useBackend<ScansData>();
-  const { scans, selected_scan_ind } = data;
-  const [scanIndex, setScanIndex] = useLocalState<number>('scanIndex', 0);
+  const { scans } = data;
+  const [scanIndex, setScanIndex] = useState<number>(0);
 
   return (
     <Stack fill vertical>
@@ -129,7 +117,7 @@ const Scans = (_properties) => {
             <Stack vertical>
               <Stack.Item>
                 {
-                  <img
+                  <Image
                     src={`data:image/jpeg;base64,${scans[scanIndex]['icon']}`}
                     style={{
                       width: '64px',
@@ -154,29 +142,32 @@ const Scans = (_properties) => {
               </Stack.Item>
               <Stack.Item>
                 <Button
-                  content="Спроецировать"
                   onClick={() =>
                     act('create', {
                       index: scans[scanIndex]['index'],
                     })
                   }
-                />
+                >
+                  Спроецировать
+                </Button>
                 <Button
-                  content="Развеять"
                   onClick={() =>
                     act('kill', {
                       index: scans[scanIndex]['index'],
                     })
                   }
-                />
+                >
+                  Развеять
+                </Button>
                 <Button
-                  content="Забыть"
                   onClick={() =>
                     act('forget', {
                       index: scans[scanIndex]['index'],
                     })
                   }
-                />
+                >
+                  Забыть
+                </Button>
               </Stack.Item>
             </Stack>
           ) : null}

@@ -151,6 +151,8 @@
 #define MEGAFAUNA_SPAWN_ALLOWED (1<<4)
 /// If blobs can spawn there and if it counts towards their score.
 #define BLOBS_ALLOWED (1<<5)
+/// If blobs can spawn there and if it counts towards their score.
+#define MORTAR_ALLOWED (1<<6)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
