@@ -369,7 +369,7 @@
 	var/list/result = target.examine(src)
 	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
-	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	to_chat(src, chat_box_examine(result.Join("<br>")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
@@ -555,9 +555,8 @@
 /mob/Topic(href, href_list)
 	. = ..()
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
-		close_window(src, t1)
+		close_window(src, href_list["mach_close"])
 
 	if(href_list["flavor_more"])
 		var/datum/browser/popup = new(usr, name, name, 500, 200)

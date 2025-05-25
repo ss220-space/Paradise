@@ -235,15 +235,17 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
-	// TODO: Remove with 516
-	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage,find")
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
 
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
+	//kill old tgui panel
+	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
@@ -391,6 +393,7 @@
 	loot_panel = new(src)
 
 	Master.UpdateTickRate()
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
 	// Check total playercount
 	var/playercount = 0
@@ -1565,6 +1568,19 @@
 		return
 
 	window_scaling = text2num(winget(src, null, "dpi"))
+
+// This is in its own proc so we can async it out
+/client/proc/nag_516()
+	if(byond_version >= 516)
+		return
+
+	var/choice = alert(src, "Внимание - Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
+	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
+	if(choice != "Обновиться сейчас")
+		return
+
+	src << link("https://secure.byond.com/download/")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

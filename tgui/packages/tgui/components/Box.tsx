@@ -4,268 +4,149 @@
  * @license MIT
  */
 
-import { BooleanLike, classes, pureComponentHooks } from 'common/react';
-import { createVNode, InfernoNode, Inferno } from 'inferno';
-import { ChildFlags, VNodeFlags } from 'inferno-vnode-flags';
-import { CSS_COLORS } from '../constants';
+import {
+  type CSSProperties,
+  DragEventHandler,
+  type KeyboardEventHandler,
+  type MouseEventHandler,
+  type ReactNode,
+  type UIEventHandler,
+  createElement,
+} from 'react';
+import type { BooleanLike } from 'common/react';
+import {
+  type BooleanStyleMap,
+  type StringStyleMap,
+  computeBoxClassName,
+  computeBoxProps,
+  computeTwClass,
+} from 'common/ui';
 
-export interface BoxProps {
-  [key: string]: any;
-  as?: string;
-  className?: string | BooleanLike;
-  children?: InfernoNode;
-  position?: string | BooleanLike;
-  overflow?: string | BooleanLike;
-  overflowX?: string | BooleanLike;
-  overflowY?: string | BooleanLike;
-  top?: string | BooleanLike;
-  bottom?: string | BooleanLike;
-  left?: string | BooleanLike;
-  right?: string | BooleanLike;
-  width?: string | BooleanLike;
-  minWidth?: string | BooleanLike;
-  maxWidth?: string | BooleanLike;
-  height?: string | BooleanLike;
-  minHeight?: string | BooleanLike;
-  maxHeight?: string | BooleanLike;
-  fontSize?: string | BooleanLike;
-  fontFamily?: string;
-  lineHeight?: string | BooleanLike;
-  opacity?: number;
-  textAlign?: string | BooleanLike;
-  verticalAlign?: string | BooleanLike;
-  inline?: BooleanLike;
-  bold?: BooleanLike;
-  italic?: BooleanLike;
-  nowrap?: BooleanLike;
-  preserveWhitespace?: BooleanLike;
-  m?: string | BooleanLike;
-  mx?: string | BooleanLike;
-  my?: string | BooleanLike;
-  mt?: string | BooleanLike;
-  mb?: string | BooleanLike;
-  ml?: string | BooleanLike;
-  mr?: string | BooleanLike;
-  p?: string | BooleanLike;
-  px?: string | BooleanLike;
-  py?: string | BooleanLike;
-  pt?: string | BooleanLike;
-  pb?: string | BooleanLike;
-  pl?: string | BooleanLike;
-  pr?: string | BooleanLike;
-  color?: string | BooleanLike;
-  textColor?: string | BooleanLike;
-  backgroundColor?: string | BooleanLike;
-  fillPositionedParent?: boolean;
-}
+type EventHandlers = {
+  onClick: MouseEventHandler<HTMLDivElement>;
+  onContextMenu: MouseEventHandler<HTMLDivElement>;
+  onDoubleClick: MouseEventHandler<HTMLDivElement>;
+  onKeyDown: KeyboardEventHandler<HTMLDivElement>;
+  onKeyUp: KeyboardEventHandler<HTMLDivElement>;
+  onMouseDown: MouseEventHandler<HTMLDivElement>;
+  onMouseLeave: MouseEventHandler<HTMLDivElement>;
+  onMouseMove: MouseEventHandler<HTMLDivElement>;
+  onMouseOver: MouseEventHandler<HTMLDivElement>;
+  onMouseUp: MouseEventHandler<HTMLDivElement>;
+  onScroll: UIEventHandler<HTMLDivElement>;
+};
 
-/**
- * Coverts our rem-like spacing unit into a CSS unit.
- */
-export const unit = (value: unknown): string | undefined => {
-  if (typeof value === 'string') {
-    // Transparently convert pixels into rem units
-    if (value.endsWith('px')) {
-      return parseFloat(value) / 12 + 'rem';
-    }
-    return value;
-  }
-  if (typeof value === 'number') {
-    return value + 'rem';
-  }
+type InternalProps = {
+  /** The component used for the root node. */
+  as: string;
+  /** The content of the component. */
+  children: ReactNode;
+  /** Class name to pass into the component. */
+  className: string | BooleanLike;
+  /** The unique id of the component. */
+  id: string;
+  /** The inline style of the component. */
+  style: CSSProperties;
+  /**
+   * ### tw
+   * A shorthand classname syntax based loosely on tailwind.
+   *
+   * This takes all Box style props with a dash separator for params, e.g.'mb-4' or the prop name alone e.g. 'bold'.
+   *
+   * It's compatible with regular Box props, even on the same component, but it will take precedence.
+   *
+   * ### Example:
+   * ```tsx
+   * <Box tw="mb-2 bold fontSize-16px">
+   *  // Is equivalent to
+   * <Box mb={2} bold fontSize="16px">
+   *  ```
+   *
+   * ### Caveats:
+   * 1. You can't use this for custom props from other components.
+   *
+   * 2. There is no type info or safety for this method. Like the old days, it simply won't work if you use it incorrectly.
+   *
+   * 3. This should be a static string with minimal interpolation. If you need more logic, prefer the props approach.
+   */
+  tw: string;
+};
+
+// You may wonder why we don't just use ComponentProps<typeof Box> here.
+// This is because I'm trying to isolate DangerDoNotUse from the rest of the props.
+// While you still can technically use ComponentProps, it won't throw an error if someone uses dangerouslySet.
+export type BoxProps = Partial<
+  InternalProps & BooleanStyleMap & StringStyleMap & EventHandlers
+>;
+
+// Don't you dare put this elsewhere
+type DangerDoNotUse = {
+  dangerouslySetInnerHTML?: {
+    __html: any;
+  };
 };
 
 /**
- * Same as `unit`, but half the size for integers numbers.
+ * ## Box
+
+ * The Box component serves as a wrapper component for most of the CSS utility
+ * needs. It creates a new DOM element, a `<div>` by default that can be changed
+ * with the `as` property. Let's say you want to use a `<span>` instead:
+ *
+ * @example
+ * ```tsx
+ * <Box as="span" m={1}>
+ *   <Button />
+ * </Box>
+ * ```
+ *
+ * This works great when the changes can be isolated to a new DOM element.
+ * For instance, you can change the margin this way.
+ *
+ * However, sometimes you have to target the underlying DOM element.
+ * For instance, you want to change the text color of the button. The Button
+ * component defines its own color. CSS inheritance doesn't help.
+ *
+ * To workaround this problem, the Box children accept a render props function.
+ * This way, `Button` can pull out the `className` generated by the `Box`.
+ *
+ * @example
+ * ```tsx
+ * <Box color="primary">{(props) => <Button {...props} />}</Box>
+ * ```
+ *
+ * ## Box Units
+ *
+ * `Box` units, like width, height and margins can be defined in two ways:
+ *
+ * - By plain numbers
+ *   - 1 unit equals `1rem` for width, height and positioning properties.
+ *   - 1 unit equals `0.5rem` for margins and paddings.
+ * - By strings with proper CSS units
+ *   - For example: `100px`, `2em`, `1rem`, `100%`, etc.
+ *
+ * If you need more precision, you can always use fractional numbers.
+ *
+ * Default font size (`1rem`) is equal to `12px`.
  */
-export const halfUnit = (value: unknown): string | undefined => {
-  if (typeof value === 'string') {
-    return unit(value);
-  }
-  if (typeof value === 'number') {
-    return unit(value * 0.5);
-  }
-};
+export const Box = (props: BoxProps & DangerDoNotUse) => {
+  const { as = 'div', className, children, tw, ...rest } = props;
 
-const isColorCode = (str: unknown) => !isColorClass(str);
+  const computedClassName = className
+    ? `${className} ${computeBoxClassName(rest)}`
+    : computeBoxClassName(rest);
 
-const isColorClass = (str: unknown): boolean => {
-  if (typeof str === 'string') {
-    return CSS_COLORS.includes(str);
-  }
-};
+  const computedProps = computeBoxProps({
+    ...rest,
+    ...computeTwClass(tw),
+  });
 
-const mapRawPropTo = (attrName) => (style, value) => {
-  if (typeof value === 'number' || typeof value === 'string') {
-    style[attrName] = value;
-  }
-};
-
-const mapUnitPropTo = (attrName, unit) => (style, value) => {
-  if (typeof value === 'number' || typeof value === 'string') {
-    style[attrName] = unit(value);
-  }
-};
-
-const mapBooleanPropTo = (attrName, attrValue) => (style, value) => {
-  if (value) {
-    style[attrName] = attrValue;
-  }
-};
-
-const mapDirectionalUnitPropTo = (attrName, unit, dirs) => (style, value) => {
-  if (typeof value === 'number' || typeof value === 'string') {
-    for (let i = 0; i < dirs.length; i++) {
-      style[attrName + '-' + dirs[i]] = unit(value);
-    }
-  }
-};
-
-const mapColorPropTo = (attrName) => (style, value) => {
-  if (isColorCode(value)) {
-    style[attrName] = value;
-  }
-};
-
-const styleMapperByPropName = {
-  // Direct mapping
-  position: mapRawPropTo('position'),
-  overflow: mapRawPropTo('overflow'),
-  overflowX: mapRawPropTo('overflow-x'),
-  overflowY: mapRawPropTo('overflow-y'),
-  top: mapUnitPropTo('top', unit),
-  bottom: mapUnitPropTo('bottom', unit),
-  left: mapUnitPropTo('left', unit),
-  right: mapUnitPropTo('right', unit),
-  width: mapUnitPropTo('width', unit),
-  minWidth: mapUnitPropTo('min-width', unit),
-  maxWidth: mapUnitPropTo('max-width', unit),
-  height: mapUnitPropTo('height', unit),
-  minHeight: mapUnitPropTo('min-height', unit),
-  maxHeight: mapUnitPropTo('max-height', unit),
-  fontSize: mapUnitPropTo('font-size', unit),
-  fontFamily: mapRawPropTo('font-family'),
-  lineHeight: (style, value) => {
-    if (typeof value === 'number') {
-      style['line-height'] = value;
-    } else if (typeof value === 'string') {
-      style['line-height'] = unit(value);
-    }
-  },
-  opacity: mapRawPropTo('opacity'),
-  textAlign: mapRawPropTo('text-align'),
-  verticalAlign: mapRawPropTo('vertical-align'),
-  // Boolean props
-  inline: mapBooleanPropTo('display', 'inline-block'),
-  bold: mapBooleanPropTo('font-weight', 'bold'),
-  italic: mapBooleanPropTo('font-style', 'italic'),
-  nowrap: mapBooleanPropTo('white-space', 'nowrap'),
-  preserveWhitespace: mapBooleanPropTo('white-space', 'pre-wrap'),
-  // Margins
-  m: mapDirectionalUnitPropTo('margin', halfUnit, [
-    'top',
-    'bottom',
-    'left',
-    'right',
-  ]),
-  mx: mapDirectionalUnitPropTo('margin', halfUnit, ['left', 'right']),
-  my: mapDirectionalUnitPropTo('margin', halfUnit, ['top', 'bottom']),
-  mt: mapUnitPropTo('margin-top', halfUnit),
-  mb: mapUnitPropTo('margin-bottom', halfUnit),
-  ml: mapUnitPropTo('margin-left', halfUnit),
-  mr: mapUnitPropTo('margin-right', halfUnit),
-  // Margins
-  p: mapDirectionalUnitPropTo('padding', halfUnit, [
-    'top',
-    'bottom',
-    'left',
-    'right',
-  ]),
-  px: mapDirectionalUnitPropTo('padding', halfUnit, ['left', 'right']),
-  py: mapDirectionalUnitPropTo('padding', halfUnit, ['top', 'bottom']),
-  pt: mapUnitPropTo('padding-top', halfUnit),
-  pb: mapUnitPropTo('padding-bottom', halfUnit),
-  pl: mapUnitPropTo('padding-left', halfUnit),
-  pr: mapUnitPropTo('padding-right', halfUnit),
-  // Color props
-  color: mapColorPropTo('color'),
-  textColor: mapColorPropTo('color'),
-  backgroundColor: mapColorPropTo('background-color'),
-  // Utility props
-  fillPositionedParent: (style, value) => {
-    if (value) {
-      style['position'] = 'absolute';
-      style['top'] = 0;
-      style['bottom'] = 0;
-      style['left'] = 0;
-      style['right'] = 0;
-    }
-  },
-};
-
-export const computeBoxProps = (props: BoxProps) => {
-  const computedProps: Inferno.HTMLAttributes<any> = {};
-  const computedStyles = {};
-  // Compute props
-  for (let propName of Object.keys(props)) {
-    if (propName === 'style') {
-      continue;
-    }
-    const propValue = props[propName];
-    const mapPropToStyle = styleMapperByPropName[propName];
-    if (mapPropToStyle) {
-      mapPropToStyle(computedStyles, propValue);
-    } else {
-      computedProps[propName] = propValue;
-    }
-  }
-  // Concatenate styles
-  let style = '';
-  for (let attrName of Object.keys(computedStyles)) {
-    const attrValue = computedStyles[attrName];
-    style += attrName + ':' + attrValue + ';';
-  }
-  if (props.style) {
-    for (let attrName of Object.keys(props.style)) {
-      const attrValue = props.style[attrName];
-      style += attrName + ':' + attrValue + ';';
-    }
-  }
-  if (style.length > 0) {
-    computedProps.style = style;
-  }
-  return computedProps;
-};
-
-export const computeBoxClassName = (props: BoxProps) => {
-  const color = props.textColor || props.color;
-  const backgroundColor = props.backgroundColor;
-  return classes([
-    isColorClass(color) && 'color-' + color,
-    isColorClass(backgroundColor) && 'color-bg-' + backgroundColor,
-  ]);
-};
-
-export const Box = (props: BoxProps) => {
-  const { as = 'div', className, children, ...rest } = props;
-  // Render props
-  if (typeof children === 'function') {
-    return children(computeBoxProps(props));
-  }
-  const computedClassName =
-    typeof className === 'string'
-      ? className + ' ' + computeBoxClassName(rest)
-      : computeBoxClassName(rest);
-  const computedProps = computeBoxProps(rest);
-  // Render a wrapper element
-  return createVNode(
-    VNodeFlags.HtmlElement,
+  return createElement(
     as,
-    computedClassName,
-    children,
-    ChildFlags.UnknownChildren,
-    computedProps
+    {
+      ...computedProps,
+      className: computedClassName,
+    },
+    children
   );
 };
-
-Box.defaultHooks = pureComponentHooks;

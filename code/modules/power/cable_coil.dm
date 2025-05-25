@@ -48,7 +48,7 @@
 	update_weight()
 
 
-/obj/item/stack/cable_coil/split_stack()
+/obj/item/stack/cable_coil/split()
 	var/obj/item/stack/cable_coil/C = ..()
 	C.color = color
 	return C

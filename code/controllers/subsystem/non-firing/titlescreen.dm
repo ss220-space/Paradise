@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(title)
 	var/random_phrase = "О нет, моя фраза!"
 	var/current_icon = "ss1984.gif"
 
-	var/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
+	var/list/color2tguitheme = list("#202020" = "dark", "#EEEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
 
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
@@ -195,6 +195,7 @@ SUBSYSTEM_DEF(title)
 
 	// here we hope that our browser already updated. :pepepray:
 	SStitle.update_preview(viewer)
+	viewer << output((viewer?.tgui_panel_theme)? viewer.tgui_panel_theme : "dark", "title_browser:set_theme")
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)

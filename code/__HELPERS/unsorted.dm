@@ -972,7 +972,7 @@ GLOBAL_LIST_INIT(wall_items, typecacheof(list(/obj/machinery/power/apc, /obj/mac
 
 
 /proc/get_angle(atom/a, atom/b)
-		return atan2(b.y - a.y, b.x - a.x)
+	return atan2(b.y - a.y, b.x - a.x)
 
 /proc/atan2(x, y)
 	if(!x && !y) return 0
@@ -2015,3 +2015,95 @@ GLOBAL_DATUM_INIT(dview_mob, /mob/dview, new)
 /proc/return_typenames(type)
 	return splittext("[type]", "/")
 
+// Among other things, used by flamethrower and boiler spray to calculate if flame/spray can pass through.
+// Returns an atom for specific effects (primarily flames and acid spray) that damage things upon contact
+//
+// This is a copy-and-paste of the Enter() proc for turfs with tweaks related to the applications
+// of LinkBlocked
+/proc/LinkBlocked(atom/movable/mover, turf/start_turf, turf/target_turf, list/atom/forget)
+	if (!mover)
+		return null
+
+	/// the actual dir between the start and target turf
+	var/fdir = get_dir(start_turf, target_turf)
+	if (!fdir)
+		return null
+
+	var/fd1 = fdir & (fdir-1)
+	var/fd2 = fdir - fd1
+
+	/// The direction that mover's path is being blocked by
+	var/blocking_dir = 0
+
+	var/obstacle
+	var/turf/T
+	var/atom/A
+
+	var/datum/can_pass_info/pass = new(mover, no_id = FALSE)
+
+	blocking_dir |= start_turf.CanAStarPass(fdir, pass)
+	for (obstacle in start_turf) //First, check objects to block exit
+		if (mover == obstacle || (obstacle in forget))
+			continue
+		if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+			continue
+		A = obstacle
+		blocking_dir |= A.CanAStarPass(fdir, pass)
+		if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+			return A
+
+	// Check for atoms in adjacent turf EAST/WEST
+	if (fd1 && fd1 != fdir)
+		T = get_step(start_turf, fd1)
+		if (T.CanAStarPass(fd2, pass) || T.CanAStarPass(fd1, pass))
+			blocking_dir |= fd1
+			if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+				return T
+		for (obstacle in T)
+			if(obstacle in forget)
+				continue
+			if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+				continue
+			A = obstacle
+			if (A.CanAStarPass(fd2, pass) || A.CanAStarPass(fd1, pass))
+				blocking_dir |= fd1
+				if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+					return A
+				break
+
+	// Check for atoms in adjacent turf NORTH/SOUTH
+	if (fd2 && fd2 != fdir)
+		T = get_step(start_turf, fd2)
+		if (T.CanAStarPass(fd1, pass) || T.CanAStarPass(fd2, pass))
+			blocking_dir |= fd2
+			if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+				return T
+		for (obstacle in T)
+			if(obstacle in forget)
+				continue
+			if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+				continue
+			A = obstacle
+			if (A.CanAStarPass(fd1, pass) || A.CanAStarPass(fd2, pass))
+				blocking_dir |= fd2
+				if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+					return A
+				break
+
+	// Check the turf itself
+	blocking_dir |= target_turf.CanAStarPass(fdir, pass)
+	if ((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+		return target_turf
+	for (obstacle in target_turf) // Finally, check atoms in the target turf
+		if(obstacle in forget)
+			continue
+		if (!isstructure(obstacle) && !ismob(obstacle) && !isvehicle(obstacle))
+			continue
+		A = obstacle
+		blocking_dir |= A.CanAStarPass(fdir, pass)
+		if((fd1 && blocking_dir == fd1) || (fd2 && blocking_dir == fd2))
+			return A
+		if((!fd1 || blocking_dir & fd1) && (!fd2 || blocking_dir & fd2))
+			return A
+
+	return null // Nothing found to block the link of mover from start_turf to target_turf
