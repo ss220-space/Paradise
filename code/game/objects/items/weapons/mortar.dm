@@ -10,7 +10,6 @@
 	// So you can't hide it under corpses
 	layer = ABOVE_MOB_LAYER
 	resistance_flags = ACID_PROOF
-	var/computer_enabled = TRUE
 	// Initial target coordinates
 	var/targ_x = 0
 	var/targ_y = 0
@@ -32,8 +31,6 @@
 	var/fixed = FALSE
 	/// Can fire across sectors
 	var/cross_sector = FALSE
-	/// if true, blows up the shell immediately
-	var/ship_side = FALSE
 	/// The max range the mortar can fire at
 	var/max_range = 75
 	/// The min range the mortar can fire at
@@ -91,9 +88,11 @@
 	if(busy)
 		to_chat(user, span_warning("Someone else is currently using [src]."))
 		return
+
 	if(firing)
 		to_chat(user, span_warning("[src]'s barrel is still steaming hot. Wait a few seconds and stop firing it."))
 		return
+
 	add_fingerprint(user)
 
 	ui_interact(user)
@@ -147,8 +146,10 @@
 
 	var/success = do_after(user, 3 SECONDS)
 	busy = FALSE
+
 	if(!success)
 		return
+
 	user.visible_message(span_notice("[user] finishes adjusting [src]'s firing angle and distance."),
 	span_notice("You finish adjusting [src]'s firing angle and distance to match the new coordinates."))
 	targ_x = temp_targ_x
@@ -191,77 +192,92 @@
 	SStgui.update_uis(src)
 
 /obj/structure/mortar/attackby(obj/item/item, mob/user)
-	if(istype(item, /obj/item/mortar_shell))
-		var/obj/item/mortar_shell/mortar_shell = item
-		var/turf/target_turf = locate(targ_x + dial_x + offset_x, targ_y + dial_y + offset_y, targ_z)
-		var/area/target_area = get_area(target_turf)
-		if(busy)
-			to_chat(user, span_warning("Someone else is currently using [src]."))
-			return
-		if(!ship_side)
-			if(targ_x == 0 && targ_y == 0 && targ_z == 0) //Mortar wasn't set
-				to_chat(user, span_warning("[src] needs to be aimed first."))
-				return ATTACK_CHAIN_PROCEED
-			if(!target_turf)
-				to_chat(user, span_warning("You cannot fire [src] to this target."))
-				return ATTACK_CHAIN_PROCEED
-			if(!istype(target_area))
-				to_chat(user, span_warning("This area is out of bounds!"))
-				return ATTACK_CHAIN_PROCEED
-			var/turf/above_turf = GET_TURF_ABOVE(target_turf)
-			if(above_turf && !isopenspaceturf(above_turf))
-				to_chat(user, span_warning("You cannot hit the target. It is probably underground."))
-				return ATTACK_CHAIN_PROCEED
+	if(!istype(item, /obj/item/mortar_shell))
+		return ATTACK_CHAIN_PROCEED
+	var/obj/item/mortar_shell/mortar_shell = item
 
-			var/turf/deviation_turf = locate(target_turf.x + pick(-1,0,0,1), target_turf.y + pick(-1,0,0,1), target_turf.z) //Small amount of spread so that consecutive mortar shells don't all land on the same tile
-			if(deviation_turf)
-				target_turf = deviation_turf
+	if(!mortar_shell.locked)
+		return ATTACK_CHAIN_PROCEED
+	var/turf/target_turf = locate(targ_x + dial_x + offset_x, targ_y + dial_y + offset_y, targ_z)
+	var/area/target_area = get_area(target_turf)
+	if(busy)
+		to_chat(user, span_warning("Someone else is currently using [src]."))
+		return
 
-		user.visible_message(span_notice("[user] starts loading \a [mortar_shell.name] into [src]."),
-		span_notice("You start loading \a [mortar_shell.name] into [src]."))
-		playsound(loc, 'sound/weapons/gun_mortar_reload.ogg', 50, 1)
-		busy = TRUE
-		var/success = do_after(user, 1.5 SECONDS)
-		busy = FALSE
-		if(success)
-			user.visible_message(span_notice("[user] loads \a [mortar_shell.name] into [src]."),
-			span_notice("You load \a [mortar_shell.name] into [src]."))
-			visible_message("[icon2html(src, viewers(src))] [span_danger("The [name] fires!")]")
-			user.drop_transfer_item_to_loc(mortar_shell, src, TRUE, TRUE)
-			playsound(loc, 'sound/weapons/gun_mortar_fire.ogg', 50, 1)
-			busy = FALSE
-			firing = TRUE
-			flick(icon_state + "_fire", src)
-			mortar_shell.forceMove(src)
+	if(targ_x == 0 && targ_y == 0 && targ_z == 0) //Mortar wasn't set
+		to_chat(user, span_warning("[src] needs to be aimed first."))
+		return ATTACK_CHAIN_PROCEED
 
+	if(!target_turf)
+		to_chat(user, span_warning("You cannot fire [src] to this target."))
+		return ATTACK_CHAIN_PROCEED
 
-			for(var/mob/mob in range(7))
-				shake_camera(mob, 3, 1)
+	if(!istype(target_area))
+		to_chat(user, span_warning("This area is out of bounds!"))
+		return ATTACK_CHAIN_PROCEED
 
-			addtimer(CALLBACK(src, PROC_REF(handle_shell), target_turf, mortar_shell), travel_time)
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+	var/turf/above_turf = GET_TURF_ABOVE(target_turf)
+	if(above_turf && !isopenspaceturf(above_turf))
+		to_chat(user, span_warning("You cannot hit the target. It is probably underground."))
+		return ATTACK_CHAIN_PROCEED
 
-	if(item.tool_behaviour == TOOL_WRENCH)
-		if(fixed)
-			to_chat(user, span_warning("[src]'s supports are bolted and welded into the floor. It looks like it's going to be staying there."))
-			return ATTACK_CHAIN_PROCEED
-		if(busy)
-			to_chat(user, span_warning("Someone else is currently using [src]."))
-			return ATTACK_CHAIN_PROCEED
-		if(firing)
-			to_chat(user, span_warning("[src]'s barrel is still steaming hot. Wait a few seconds and stop firing it."))
-			return ATTACK_CHAIN_PROCEED
-		playsound(loc, 'sound/items/Ratchet.ogg', 25, 1)
-		user.visible_message(span_notice("[user] starts undeploying [src]."),
-				span_notice("You start undeploying [src]."))
-		if(do_after(user, 4 SECONDS))
-			user.visible_message(span_notice("[user] undeploys [src]."),
-				span_notice("You undeploy [src]."))
-			playsound(loc, 'sound/items/Deconstruct.ogg', 25, 1)
-			var/obj/item/mortar_kit/mortar = new /obj/item/mortar_kit(loc, skin)
-			mortar.name = src.name
-			qdel(src)
-			return ATTACK_CHAIN_PROCEED_SUCCESS
+	var/turf/deviation_turf = locate(target_turf.x + pick(-1,0,0,1), target_turf.y + pick(-1,0,0,1), target_turf.z) //Small amount of spread so that consecutive mortar shells don't all land on the same tile
+	if(deviation_turf)
+		target_turf = deviation_turf
+
+	user.visible_message(span_notice("[user] starts loading \a [mortar_shell.name] into [src]."),
+	span_notice("You start loading \a [mortar_shell.name] into [src]."))
+	playsound(loc, 'sound/weapons/gun_mortar_reload.ogg', 50, 1)
+	busy = TRUE
+	var/success = do_after(user, 1.5 SECONDS)
+	busy = FALSE
+
+	if(!success)
+		return ATTACK_CHAIN_PROCEED
+
+	user.visible_message(span_notice("[user] loads \a [mortar_shell.name] into [src]."),
+	span_notice("You load \a [mortar_shell.name] into [src]."))
+	visible_message("[icon2html(src, viewers(src))] [span_danger("The [name] fires!")]")
+	user.drop_transfer_item_to_loc(mortar_shell, src, TRUE, TRUE)
+	playsound(loc, 'sound/weapons/gun_mortar_fire.ogg', 50, 1)
+	busy = FALSE
+	firing = TRUE
+	flick(icon_state + "_fire", src)
+	mortar_shell.sended = TRUE
+	mortar_shell.forceMove(src)
+	for(var/mob/mob in range(7))
+		shake_camera(mob, 3, 1)
+
+	addtimer(CALLBACK(src, PROC_REF(handle_shell), target_turf, mortar_shell), travel_time)
+	return ATTACK_CHAIN_PROCEED_SUCCESS
+
+/obj/structure/mortar/wrench_act(mob/living/user, obj/item/I)
+	. = ..()
+	if(fixed)
+		to_chat(user, span_warning("[src]'s supports are bolted and welded into the floor. It looks like it's going to be staying there."))
+		return
+
+	if(busy)
+		to_chat(user, span_warning("Someone else is currently using [src]."))
+		return
+
+	if(firing)
+		to_chat(user, span_warning("[src]'s barrel is still steaming hot. Wait a few seconds and stop firing it."))
+		return
+
+	playsound(loc, 'sound/items/Ratchet.ogg', 25, 1)
+	user.visible_message(span_notice("[user] starts undeploying [src]."),
+		span_notice("You start undeploying [src]."))
+
+	if(!do_after(user, 4 SECONDS))
+		return
+
+	user.visible_message(span_notice("[user] undeploys [src]."),
+		span_notice("You undeploy [src]."))
+	playsound(loc, 'sound/items/Deconstruct.ogg', 25, 1)
+	var/obj/item/mortar_kit/mortar = new /obj/item/mortar_kit(loc, skin)
+	mortar.name = src.name
+	qdel(src)
 
 /obj/structure/mortar/ex_act(severity)
 	switch(severity)
@@ -270,17 +286,25 @@
 
 /obj/effect/mortar_effect
 	icon = 'icons/obj/structures/mortar.dmi'
-	icon_state = "mortar_ammo_custom"
+	icon_state = "mortar_ammo_custom_locked"
 	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
 	invisibility = INVISIBILITY_MAXIMUM
 
 /obj/structure/mortar/proc/handle_shell(turf/target, obj/item/mortar_shell/shell)
-	/*
 	if(istype(shell, /obj/item/mortar_shell/custom)) // big shell warning for ghosts
 		var/obj/effect/effect = new /obj/effect/mortar_effect(target)
 		QDEL_IN(effect, 5 SECONDS)
 		notify_ghosts(title = "Custom Shell", message = "A custom mortar shell is about to land at [get_area(target)].", source = effect)
-	*/
+	
+	if(!shell.silent)
+		handle_messages(target)
+	else
+		sleep(5.5 SECONDS)
+	shell.detonate(target)
+	qdel(shell)
+	firing = FALSE
+
+/obj/structure/mortar/proc/handle_messages(turf/target)
 	playsound(target, 'sound/weapons/gun_mortar_travel.ogg', 50, 1)
 	var/relative_dir
 	for(var/mob/mob in range(15, target))
@@ -295,34 +319,36 @@
 	sleep(2.5 SECONDS) // Sleep a bit to give a message
 	new /obj/effect/overlay/temp/blinking_laser(target)
 	sleep(2 SECONDS) // Wait out the rest of the landing time
-	shell.detonate(target)
-	qdel(shell)
-	firing = FALSE
+
 
 /obj/structure/mortar/proc/can_fire_at(mob/user, test_targ_x = targ_x, test_targ_y = targ_y, test_targ_z = targ_z, test_dial_x, test_dial_y)
 	var/dialing = test_dial_x || test_dial_y
-	if(ship_side)
-		to_chat(user, span_warning("You cannot aim the mortar while on a ship."))
-		return FALSE
+
 	if(test_dial_x + test_targ_x > world.maxx || test_dial_x + test_targ_x < 0)
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is outside of the area of operations."))
 		return FALSE
+
 	if(test_dial_x < -10 || test_dial_x > 10 || test_dial_y < -10 || test_dial_y > 10)
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too far away from the original target."))
 		return FALSE
+
 	if(test_dial_y + test_targ_y > world.maxy || test_dial_y + test_targ_y < 0)
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is outside of the area of operations."))
 		return FALSE
+
 	var/turf/turf = locate(test_targ_x + test_dial_x, test_targ_y + test_dial_y, z);
 	if(!turf)
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. Location not exist."))
 		return FALSE
+
 	if(get_dist(src, turf) < min_range)
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too close to your mortar."))
 		return FALSE
+
 	if(isspaceturf(turf))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is in space."))
 		return FALSE
+
 	var/turf/above_turf = GET_TURF_ABOVE(turf)
 	if(above_turf && !isopenspaceturf(above_turf))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it isn't first floor to impact."))
@@ -330,6 +356,7 @@
 
 	var/turf/top_turf = get_highest_turf(turf)
 	var/turf/low_turf = get_lowest_turf(turf)
+
 	if(!cross_sector && (test_targ_z < low_turf.z || test_targ_z > top_turf.z))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. It isn't in your sector."))
 		return FALSE
@@ -337,9 +364,11 @@
 	if(get_dist(src, turf) > max_range)
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too far from your mortar."))
 		return FALSE
+
 	if(busy)
 		to_chat(user, span_warning("Someone else is currently using this mortar."))
 		return FALSE
+
 	return TRUE
 
 /obj/structure/mortar/fixed
@@ -348,12 +377,13 @@
 
 /obj/structure/mortar/wo
 	fixed = TRUE
-	offset_per_turfs = 50 // The mortar is located at the edge of the map in WO, This to to prevent mass FF
+	cross_sector = TRUE
+	offset_per_turfs = 30
 	max_range = 999
 
 //The portable mortar item
 /obj/item/mortar_kit
-	name = "\improper M402 mortar portable kit"
+	name = "\improper M402S mortar portable kit"
 	desc = "A manual, crew-operated mortar system intended to rain down 80mm goodness on anything it's aimed at. Needs to be set down first"
 	icon = 'icons/obj/structures/mortar.dmi'
 	icon_state = "mortar_m402_carry"
@@ -438,14 +468,17 @@
 	user.visible_message(span_notice("[user] starts deploying [src]."),
 	span_notice("You start deploying [src]."))
 	playsound(deploy_turf, 'sound/items/Deconstruct.ogg', 25, 1)
-	if(do_after(user, 4 SECONDS))
-		var/obj/structure/mortar/mortar = new /obj/structure/mortar(deploy_turf, skin)
-		user.visible_message(span_notice("[user] deploys [src]."),
-			span_notice("You deploy [src]."))
-		playsound(deploy_turf, 'sound/weapons/gun_mortar_unpack.ogg', 25, 1)
-		mortar.name = src.name
-		mortar.setDir(user.dir)
-		qdel(src)
+
+	if(!do_after(user, 4 SECONDS))
+		return
+
+	var/obj/structure/mortar/mortar = new /obj/structure/mortar(deploy_turf, skin)
+	user.visible_message(span_notice("[user] deploys [src]."),
+	span_notice("You deploy [src]."))
+	playsound(deploy_turf, 'sound/weapons/gun_mortar_unpack.ogg', 25, 1)
+	mortar.name = src.name
+	mortar.setDir(user.dir)
+	qdel(src)
 
 
 //used to show where dropship ordnance will impact.

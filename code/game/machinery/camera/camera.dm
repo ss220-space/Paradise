@@ -479,6 +479,8 @@
 	density = FALSE
 	invuln = TRUE
 	network = list("mortar")
+	use_power = NO_POWER_USE
+	interact_offline = TRUE
 
 /obj/machinery/camera/mortar/Initialize()
 	c_tag = "Para-Cam ([x]):([y])"
@@ -487,3 +489,12 @@
 
 /obj/machinery/camera/mortar/isXRay()
 	return TRUE
+
+/obj/machinery/camera/mortar/blob_act(obj/structure/blob/B)
+	return
+
+/obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	return
+	
+/obj/machinery/camera/mortar/flamer_fire_act(damage)
+	return
