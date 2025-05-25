@@ -46,7 +46,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	return icon2base64(new_icon)
 
 /datum/gear/proc/get_display_name()
-	return ((display_name == /datum/gear::display_name)? path.name : display_name)
+	var/atom/item = new path(src)
+	return capitalize((display_name == /datum/gear::display_name)? (item.ru_names ? item.ru_names[1] : item.name) : display_name)
 
 /datum/gear_data
 	var/path
