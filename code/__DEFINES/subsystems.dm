@@ -81,6 +81,7 @@
 #define INIT_ORDER_AI_MOVEMENT 		36 //We need the movement setup
 #define INIT_ORDER_AI_CONTROLLERS 	35 //So the controller can get the ref
 #define INIT_ORDER_TICKER 30
+#define INIT_ORDER_NEW_PLAYERS_INFO 31
 #define INIT_ORDER_MAPPING 20
 #define INIT_ORDER_HOLOMAP 8 // after map loads, but before atoms init
 #define INIT_ORDER_EARLY_ASSETS 7
@@ -140,16 +141,18 @@
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_ASSETS 		105
 #define FIRE_PRIORITY_TGUI			110
+#define FIRE_PRIORITY_NEW_PLAYERS_INFO 	199
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_STATPANEL		390
 #define FIRE_PRIORITY_CHAT 			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
+#define FIRE_PRIORITY_MOUSE_ENTERED 450
 #define FIRE_PRIORITY_OVERLAYS		500
 #define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SPEECH_CONTROLLER 900
-#define FIRE_PRIORITY_DELAYED_VERBS 950
-#define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
+#define FIRE_PRIORITY_DELAYED_VERBS 	950
+#define FIRE_PRIORITY_INPUT				1000 // This must always always be the max highest priority. Player input must never be lost.
 
 
 // SS runlevels

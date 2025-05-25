@@ -4,8 +4,8 @@
  * @license MIT
  */
 
-import fs from 'fs';
-import { createRequire } from 'module';
+import fs from 'node:fs';
+import { createRequire } from 'node:module';
 import { dirname } from 'path';
 
 import { loadSourceMaps, setupLink } from './link/server.js';
@@ -22,6 +22,7 @@ const logger = createLogger('webpack');
 export const createCompiler = async (options) => {
   const compiler = new WebpackCompiler();
   await compiler.setup(options);
+
   return compiler;
 };
 
@@ -76,7 +77,7 @@ class WebpackCompiler {
         return;
       }
       stats
-        .toString(this.config.devServer.stats)
+        ?.toString(this.config.devServer.stats)
         .split('\n')
         .forEach((line) => logger.log(line));
     });

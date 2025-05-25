@@ -172,6 +172,8 @@
 	if(!can_be_inserted(I) || !user.drop_transfer_item_to_loc(I, src))
 		return ..()
 
+	SEND_SIGNAL(I, COMSIG_DISPOSAL_INJECT, src)
+
 	user.visible_message(
 		span_notice("[user] has placed [I] into [src]."),
 		span_notice("You have placed [I] into [src]."),
@@ -603,6 +605,7 @@
 	if((isitem(mover) && !isprojectile(mover)) && mover.throwing && mover.pass_flags != PASSEVERYTHING)
 		if((prob(75)  || mover.throwing.thrower && HAS_TRAIT(mover.throwing.thrower, TRAIT_BADASS)) && can_be_inserted(mover, TRUE))
 			mover.forceMove(src)
+			SEND_SIGNAL(mover, COMSIG_DISPOSAL_INJECT, src)
 			visible_message("[mover] lands in [src].")
 			update()
 		else

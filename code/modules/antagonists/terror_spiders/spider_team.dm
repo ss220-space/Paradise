@@ -190,19 +190,19 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 /datum/team/terror_spiders/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !terror_stage == TERROR_STAGE_POST_END)
-		to_chat(world, "<br><<span style='font-size: 3;'><b>Частичная победа Пауков Ужаса!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Частичная победа Пауков Ужаса!</b>"))
 		to_chat(world, "<b>Станция была уничтожена!</b>")
 		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Пауков Ужаса.</b>")
 	else if(protect_egg?.check_completion(src))
-		to_chat(world, "<br><span style='font-size: 3;'<b>Полная победа Пауков Ужаса!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Полная победа Пауков Ужаса!</b>"))
 		to_chat(world, "<b>Пауки захватили станцию!</b>")
 		to_chat(world, "<b>Императрица Ужаса появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!check_main_spiders())
-		to_chat(world, "<br><<span style='font-size: 3;'><b>Полная победа персонала станции!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Полная победа персонала станции!</b>"))
 		to_chat(world, "<b>Экипаж защитил станцию от Пауков Ужаса!</b>")
 		to_chat(world, "<b>Пауки Ужаса были истреблены.</b>")
 	else
-		to_chat(world, "<br><span style='font-size: 3;'><b>Ничья!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Ничья!</b>"))
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Пауки Ужаса не были истреблены.</b>")
 	to_chat(world, "<b>Целями Пауков Ужаса было:</b>")
@@ -210,16 +210,16 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		to_chat(world, "<br/>Цель Принца: [prince_target.explanation_text] [prince_target.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[prince_target.type]", prince_target.completed? "SUCCESS" : "FAIL"))
 	if(infect_target)
-		to_chat(world, "<br/>Цель Осквернителя: [infect_target.explanation_text] [infect_target.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[infect_target.type]", infect_target.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Цель Осквернителя: [infect_target.explanation_text] [infect_target.check_completion(src)?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[infect_target.type]", infect_target.check_completion(src)? "SUCCESS" : "FAIL"))
 	if(lay_eggs_target)
-		to_chat(world, "<br/>Цель Принцессы/Королевы: [lay_eggs_target.explanation_text] [lay_eggs_target.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[lay_eggs_target.type]", lay_eggs_target.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Цель Принцессы/Королевы: [lay_eggs_target.explanation_text] [lay_eggs_target.check_completion(src)?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[lay_eggs_target.type]", lay_eggs_target.check_completion(src)? "SUCCESS" : "FAIL"))
 	if(other_target)
-		to_chat(world, "<br/>Цель Пауков Ужаса: [other_target.explanation_text] [other_target.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
-		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[other_target.type]", other_target.completed? "SUCCESS" : "FAIL"))
+		to_chat(world, "<br/>Цель Пауков Ужаса: [other_target.explanation_text] [other_target.check_completion(src)?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[other_target.type]", other_target.check_completion(src)? "SUCCESS" : "FAIL"))
 	if(protect_egg)
-		var/completed = protect_egg.completed && (!SSticker?.mode?.station_was_nuked || terror_stage == TERROR_STAGE_POST_END)
+		var/completed = protect_egg.check_completion(src) && (!SSticker?.mode?.station_was_nuked || terror_stage == TERROR_STAGE_POST_END)
 		to_chat(world, "<br/>Защита яйца: [protect_egg.explanation_text] [completed ?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_egg.type]", completed ? "SUCCESS" : "FAIL"))
 	return TRUE
@@ -319,7 +319,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		var/mob/ghost = pick_n_take(candidates)
 		var/obj/machinery/atmospherics/unary/vent_pump/vent = pick(vent_spawns)
 		var/mob/living/simple_animal/hostile/poison/terror_spider/spider = new spider_type(spider_type.ventcrawler_trait ? vent.loc : pick(GLOB.xeno_spawn))
-		
+
 		spider.set_key(ghost.key)
 
 		if(spider_type.ventcrawler_trait)
@@ -330,7 +330,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 		count--
 		successSpawn = TRUE
 		log_game("[spider.key] has become [spider].")
-		
+
 	return successSpawn
 
 

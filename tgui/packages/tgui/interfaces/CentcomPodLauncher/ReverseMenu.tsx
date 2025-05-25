@@ -4,7 +4,7 @@ import { REVERSE_OPTIONS } from './constants';
 import { useTab } from './hooks';
 import { PodLauncherData } from './types';
 
-export const ReverseMenu = (props) => {
+export const ReverseMenu = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const {
     customDropoff,

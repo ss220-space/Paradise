@@ -2071,11 +2071,11 @@ GLOBAL_LIST_INIT(all_supply_groups, list(SUPPLY_EMERGENCY,SUPPLY_SECURITY,SUPPLY
 	containertype = /obj/structure/closet/critter/gosling
 	containername = "gosling crate"
 
-/datum/supply_packs/organic/hamster
-	name = "Hamster Crate"
+/datum/supply_packs/organic/wooly_mouse
+	name = "Wooly mouse Crate"
 	cost = 50
-	containertype = /obj/structure/closet/critter/hamster
-	containername = "hamster crate"
+	containertype = /obj/structure/closet/critter/wooly_mouse
+	containername = "wooly mouse crate"
 
 /datum/supply_packs/organic/frog
 	name = "Frog Crate"

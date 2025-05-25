@@ -96,7 +96,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clockwork_mind.objectives += obj
 
 		if(clockwork_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(clockwork_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
+			to_chat(clockwork_mind.current, span_clockitalic("A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."))
 			clockwork_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
 			// Don't give them another action if they already have one.
 			if(!(locate(/datum/action/innate/toggle_clumsy) in clockwork_mind.current.actions))
@@ -163,7 +163,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	. += clock_give_item(/obj/item/clockwork/clockslab, H)
 	if(metal)
 		. += clock_give_item(/obj/item/stack/sheet/brass/ten, H)
-	to_chat(H, "<span class='clock'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(H, span_clock("These will help you start the cult on this station. Use them well, and remember - you are not the only one."))
 
 /datum/game_mode/proc/clock_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
@@ -174,10 +174,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
 	if(!where)
-		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
+		to_chat(H, span_userdanger("Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1)."))
 		return FALSE
 	else
-		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
+		to_chat(H, span_danger("You have a [item_name] in your [where]."))
 		return TRUE
 
 
@@ -195,7 +195,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		clock_mind.special_role = SPECIAL_ROLE_CLOCKER
 
 		if(clock_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(clock_mind.current, "<span class='clockitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
+			to_chat(clock_mind.current, span_clockitalic("A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."))
 			clock_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
 			// Don't give them another action if they already have one.
 			if(!(locate(/datum/action/innate/toggle_clumsy) in clock_mind.current.actions))
@@ -238,7 +238,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 				powered_borgs(M.current)
 				continue
 			SEND_SOUND(M.current, 'sound/hallucinations/i_see_you2.ogg')
-			to_chat(M.current, "<span class='clocklarge'>The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow...</span>")
+			to_chat(M.current, span_clocklarge("The veil begins to stutter in fear as the power of Ratvar grows, your hands begin to glow..."))
 			addtimer(CALLBACK(src, PROC_REF(powered), M.current), 20 SECONDS)
 
 /datum/game_mode/proc/check_clock_reveal()
@@ -250,9 +250,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		for(var/datum/mind/M in clockwork_cult)
 			if(!M.current)
 				continue
-			to_chat(M.current, "<span class='clocklarge'>The army of my servants have grown. Now it will be easier...</span>")
+			to_chat(M.current, span_clocklarge("The army of my servants have grown. Now it will be easier..."))
 			if(!clocker_objs.obj_demand.check_completion())
-				to_chat(M.current, "<span class='clock'>But there's still more tasks to do.</span>")
+				to_chat(M.current, span_clock("But there's still more tasks to do."))
 			else
 				clocker_objs.ratvar_is_ready()
 	if((clocker_players >= crew_reveal_number) && !crew_reveal)
@@ -263,7 +263,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			SEND_SOUND(M.current, 'sound/hallucinations/im_here1.ogg')
 			if(!ishuman(M.current))
 				continue
-			to_chat(M.current, "<span class='clocklarge'>Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!")
+			to_chat(M.current, span_clocklarge("Your cult gets bigger as the clocked harvest approaches - you cannot hide your true nature for much longer!"))
 			addtimer(CALLBACK(src, PROC_REF(clocked), M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с Заводным культом Ратвара. Данные свидетельствуют о том, что в ряды культа обращено около [reveal_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны), но не должен выслеживать культистов и охотиться на них. Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
 		log_game("Clockwork cult reveal. Powergame allowed.")
@@ -309,8 +309,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		H.update_body()
 	add_conversion_logs(clocker, "deconverted from the clockwork cult.")
 	if(show_message)
-		clocker.visible_message("<span class='clock'>[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!</span>",
-		"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it.</span>")
+		clocker.visible_message(span_clock("[clocker] looks like [clocker.p_they()] just reverted to [clocker.p_their()] old faith!"),
+		span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of Ratvar and the memories of your time as their servant with it."))
 
 /datum/game_mode/proc/update_clock_icons_added(datum/mind/clock_mind)
 	var/datum/atom_hud/antag/clockhud = GLOB.huds[ANTAG_HUD_CLOCK]

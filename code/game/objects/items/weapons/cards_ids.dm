@@ -739,12 +739,6 @@
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 	RebuildHTML()
 
-/obj/item/card/id/syndicate/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/id_card)
-	)
-
-
 /obj/item/card/id/syndicate/ui_data(mob/user)
 	var/list/data = list()
 	data["registered_name"] = registered_name
@@ -766,6 +760,7 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
+	data["id_icon"] = icon
 	data["appearances"] = appearances
 	return data
 
