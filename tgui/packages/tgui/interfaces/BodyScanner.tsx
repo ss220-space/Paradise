@@ -14,7 +14,7 @@ import {
   Tooltip,
 } from '../components';
 import { Window } from '../layouts';
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 import { ProgressBarProps } from '../components/ProgressBar';
 
 const stats = [
@@ -52,10 +52,10 @@ const damageRange: Record<string, [number, number]> = {
   'bad': [0.5, Infinity],
 };
 
-const mapTwoByTwo = <T, R>(a: T[][], c: (s: T, c2: T, i: number) => R) => {
+const mapTwoByTwo = <T, R>(a: T[][], c: (s: T[], c2: T[], i: number) => R) => {
   let result: R[] = [];
   for (let i = 0; i < a.length; i += 2) {
-    result.push(c(a[i][0], a[i][1], i));
+    result.push(c(a[i], a[i + 1], i));
   }
   return result;
 };
@@ -159,7 +159,7 @@ type Organs<T> = {
 
 type Shrapnel = { name: string; known: boolean };
 
-export const BodyScanner = (props: unknown) => {
+export const BodyScanner = (_props: unknown) => {
   const { data } = useBackend<BodyScannerData>();
   const { occupied, occupant } = data;
   const body = occupied ? (
@@ -284,19 +284,26 @@ const BodyScannerMainDamage = (props: BodyScannerProps) => {
     <Section title="Общий урон">
       <Table>
         {mapTwoByTwo<string, ReactNode>(damages, (d1, d2, i) => (
-          <>
+          <Fragment key={i}>
             <Table.Row color="label">
-              <Table.Cell>{d1}:</Table.Cell>
+              <Table.Cell>{d1[0]}:</Table.Cell>
+              <Table.Cell>{d2[0]}:</Table.Cell>
             </Table.Row>
-            <Table.Row>
+            <Table.Row color="label">
               <Table.Cell>
                 <BodyScannerMainDamageBar
-                  value={occupant[d2]}
+                  value={occupant[d1[1]]}
+                  mb={i < damages.length - 2}
+                />
+              </Table.Cell>
+              <Table.Cell>
+                <BodyScannerMainDamageBar
+                  value={occupant[d2[1]]}
                   mb={i < damages.length - 2}
                 />
               </Table.Cell>
             </Table.Row>
-          </>
+          </Fragment>
         ))}
       </Table>
     </Section>
