@@ -870,3 +870,10 @@ emp_act
 	var/obj/item/organ/external/affecting = user.get_organ(BODY_ZONE_CHEST)
 	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
 	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
+
+/mob/living/carbon/human/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	. = ..()
+	switch(fire.fire_variant)
+		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire
+			SetSlowed(1 SECONDS, (SLOWDOWN_AMT_GREENFIRE))
+			to_chat(src, span_danger("The viscous napalm clings to your limbs as you struggle to move through the flames!"))
