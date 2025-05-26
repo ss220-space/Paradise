@@ -5,7 +5,7 @@
 
 /datum/gear/hat/hhat
 	index_name = "hardhat, select"
-	display_name = "Защитная каска"
+	display_name = "Строительная каска"
 	path = /obj/item/clothing/head/hardhat
 	allowed_roles = list(JOB_TITLE_CHIEF, JOB_TITLE_ENGINEER, JOB_TITLE_ENGINEER_TRAINEE, JOB_TITLE_MECHANIC, JOB_TITLE_ATMOSTECH)
 
