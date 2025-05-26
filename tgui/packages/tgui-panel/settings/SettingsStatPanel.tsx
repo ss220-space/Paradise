@@ -1,20 +1,20 @@
-import { toFixed } from 'common/math';
-import { capitalize } from 'common/string';
-import { useLocalState } from 'tgui/backend';
-import { useDispatch, useSelector } from 'common/redux';
+import { useDispatch, useSelector } from 'tgui/backend';
 import {
   Button,
+  Collapsible,
+  Input,
   LabeledList,
   NoticeBox,
   Section,
   Slider,
   Stack,
-  Collapsible,
-  Input,
 } from 'tgui/components';
+import { toFixed } from 'common/math';
+import { capitalize } from 'common/string';
 
 import { FONTS } from './constants';
 
+import { useState } from 'react';
 import { updateSettings } from './actions';
 import { selectSettings } from './selectors';
 
@@ -23,11 +23,12 @@ const LinkedToChat = () => (
   <NoticeBox color="red">Unlink Stat Panel from chat!</NoticeBox>
 );
 
-export const SettingsStatPanel = (props, context) => {
+export const SettingsStatPanel = (props: unknown) => {
   const { statLinked, statFontSize, statFontFamily, statTabsStyle } =
-    useSelector(context, selectSettings);
-  const dispatch = useDispatch(context);
-  const [freeStatFont, setFreeStatFont] = useLocalState('freeStatFont', false);
+    useSelector(selectSettings);
+  const dispatch = useDispatch();
+
+  const [freeStatFont, setFreeStatFont] = useState(false);
 
   return (
     <Section fill>

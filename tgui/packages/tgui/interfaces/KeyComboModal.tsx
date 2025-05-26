@@ -1,20 +1,22 @@
+import { useState, useEffect, useRef } from 'react';
+import { Box, Button, Section, Stack } from 'tgui/components';
 import { isEscape, KEY } from 'common/keys';
+import { BooleanLike } from 'common/react';
 
-import { useBackend, useLocalState } from '../backend';
-import { Autofocus, Box, Button, Section, Stack } from '../components';
+import { useBackend } from '../backend';
 import { Window } from '../layouts';
 import { InputButtons } from './common/InputButtons';
 import { Loader } from './common/Loader';
 
 type KeyInputData = {
   init_value: string;
-  large_buttons: boolean;
+  large_buttons: BooleanLike;
   message: string;
   timeout: number;
   title: string;
 };
 
-const isStandardKey = (event): boolean => {
+const isStandardKey = (event: React.KeyboardEvent<HTMLDivElement>): boolean => {
   return (
     event.key !== KEY.Alt &&
     event.key !== KEY.Control &&
@@ -34,13 +36,15 @@ const KEY_CODE_TO_BYOND: Record<string, string> = {
   PAGEUP: 'Northeast',
   RIGHT: 'East',
   SPACEBAR: 'Space',
-  UP: 'North',
   ' ': 'Space',
+  UP: 'North',
 };
 
 const DOM_KEY_LOCATION_NUMPAD = 3;
 
-const formatKeyboardEvent = (event): string => {
+const formatKeyboardEvent = (
+  event: React.KeyboardEvent<HTMLDivElement>
+): string => {
   let text = '';
 
   if (event.altKey) {
@@ -51,7 +55,7 @@ const formatKeyboardEvent = (event): string => {
     text += 'Ctrl';
   }
 
-  if (event.shiftKey && !(event.keyCode >= 48 && event.keyCode <= 57)) {
+  if (event.shiftKey) {
     text += 'Shift';
   }
 
@@ -60,54 +64,55 @@ const formatKeyboardEvent = (event): string => {
   }
 
   if (isStandardKey(event)) {
-    if (event.shiftKey && event.keyCode >= 48 && event.keyCode <= 57) {
-      const number = event.keyCode - 48;
-      text += 'Shift' + number;
-    } else {
-      const key = event.key.toUpperCase();
-      text += KEY_CODE_TO_BYOND[key] || key;
-    }
+    const key = event.key.toUpperCase();
+    text += KEY_CODE_TO_BYOND[key] || key;
   }
 
   return text;
 };
 
-export const KeyComboModal = (props) => {
+export const KeyComboModal = (props: unknown) => {
   const { act, data } = useBackend<KeyInputData>();
   const { init_value, large_buttons, message = '', title, timeout } = data;
-  const [input, setInput] = useLocalState('input', init_value);
-  const [binding, setBinding] = useLocalState('binding', true);
+  const [input, setInput] = useState(init_value);
+  const [binding, setBinding] = useState(true);
+  const contentRef = useRef<HTMLDivElement>(null);
 
-  const handleKeyPress = (event) => {
+  // Фокусируем элемент при монтировании и при сбросе биндинга
+  useEffect(() => {
+    contentRef.current?.focus();
+  }, [binding]);
+
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (isEscape(event.key)) {
+      event.preventDefault();
+      act('cancel');
+      return;
+    }
+
     if (!binding) {
       if (event.key === KEY.Enter) {
+        event.preventDefault();
         act('submit', { entry: input });
-      }
-      if (isEscape(event.key)) {
-        act('cancel');
       }
       return;
     }
 
     event.preventDefault();
+
     if (isStandardKey(event)) {
-      setValue(formatKeyboardEvent(event));
-      setBinding(false);
-      return;
-    } else if (isEscape(event.key)) {
-      setValue(init_value);
+      const newValue = formatKeyboardEvent(event);
+      setInput(newValue);
       setBinding(false);
       return;
     }
-  };
-  const setValue = (value: string) => {
-    if (value === input) {
-      return;
-    }
-    setInput(value);
   };
 
-  // Dynamically changes the window height based on the message.
+  const resetBinding = () => {
+    setInput(init_value);
+    setBinding(true);
+  };
+
   const windowHeight =
     130 +
     (message.length > 30 ? Math.ceil(message.length / 3) : 0) +
@@ -116,36 +121,38 @@ export const KeyComboModal = (props) => {
   return (
     <Window title={title} width={240} height={windowHeight}>
       {timeout && <Loader value={timeout} />}
-      <Window.Content
-        onKeyDown={(event) => {
-          handleKeyPress(event);
-        }}
-      >
-        <Section fill>
-          <Autofocus />
-          <Stack fill vertical>
-            <Stack.Item grow>
-              <Box color="label">{message}</Box>
-            </Stack.Item>
-            <Stack.Item>
-              <Button
-                disabled={binding}
-                content={
-                  binding && binding !== null ? 'Awaiting input...' : '' + input
-                }
-                width="100%"
-                textAlign="center"
-                onClick={() => {
-                  setValue(init_value);
-                  setBinding(true);
-                }}
-              />
-            </Stack.Item>
-            <Stack.Item>
-              <InputButtons input={input} />
-            </Stack.Item>
-          </Stack>
-        </Section>
+      <Window.Content>
+        <div
+          ref={contentRef}
+          tabIndex={0}
+          onKeyDown={handleKeyDown}
+          style={{
+            width: '100%',
+            height: '100%',
+            outline: 'none',
+          }}
+        >
+          <Section fill>
+            <Stack fill vertical>
+              <Stack.Item grow>
+                <Box color="label">{message}</Box>
+              </Stack.Item>
+              <Stack.Item>
+                <Button
+                  disabled={binding}
+                  fluid
+                  textAlign="center"
+                  onClick={resetBinding}
+                >
+                  {binding ? 'Awaiting input...' : input}
+                </Button>
+              </Stack.Item>
+              <Stack.Item>
+                <InputButtons input={input} />
+              </Stack.Item>
+            </Stack>
+          </Section>
+        </div>
       </Window.Content>
     </Window>
   );
