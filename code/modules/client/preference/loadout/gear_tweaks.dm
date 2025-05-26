@@ -78,7 +78,7 @@
 */
 
 /datum/gear_tweak/path
-	display_type = "Подтипы"
+	display_type = "Подтип"
 	fa_icon = "bars"
 	info = "Имеет подтипы"
 	var/list/valid_paths = list()
