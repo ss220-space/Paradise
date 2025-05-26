@@ -50,6 +50,7 @@ const sortTypes = {
 };
 
 export const Loadout = (props: unknown) => {
+  const { act, data } = useBackend<Data>();
   const [search, setSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [category, setCategory] = useState(Object.keys(data.gears)[0]);
