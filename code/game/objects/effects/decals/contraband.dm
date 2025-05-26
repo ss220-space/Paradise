@@ -91,7 +91,7 @@
 		randomise(random_basetype)
 	if(!ruined)
 		original_name = name
-		name = "Постер - [name]"
+		name = "Постер – [name]"
 		desc = "Большой лист устойчивой к космическим условиям печатной бумаги. [desc]"
 
 /obj/structure/sign/poster/proc/randomise(base_type)
@@ -309,7 +309,7 @@
 
 /obj/structure/sign/poster/contraband/donut_corp
 	name = "Donut Corp."
-	desc = "Этот постер является несанкционированной рекламой Donut Corp."
+	desc = "Этот постер является несанкционированной рекламой Донат Корп."
 	icon_state = "poster13"
 
 /obj/structure/sign/poster/contraband/eat
@@ -339,7 +339,7 @@
 
 /obj/structure/sign/poster/contraband/lamarr
 	name = "Ламарр"
-	desc = "Этот постер изображает Ламарр. Вероятно, создан Директором Исследований, работавшим на Синдикат."
+	desc = "Этот постер изображает Ламарра. Вероятно, создан Директором Исследований, работавшим на Синдикат."
 	icon_state = "poster19"
 
 /obj/structure/sign/poster/contraband/borg_fancy_1
@@ -364,7 +364,7 @@
 
 /obj/structure/sign/poster/contraband/c20r
 	name = "C-20r"
-	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от Scarborough Arms."
+	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от Скарборо Армс."
 	icon_state = "poster24"
 
 /obj/structure/sign/poster/contraband/have_a_puff
@@ -399,7 +399,7 @@
 
 /obj/structure/sign/poster/contraband/cc64k_ad
 	name = "Реклама CC 64d"
-	desc = "Последний портативный компьютер от Comrade Computing с целыми 64 КБ оперативной памяти!"
+	desc = "Последний портативный компьютер от Комрад Тех с целыми 64 КБ оперативной памяти!"
 	icon_state = "poster31"
 
 /obj/structure/sign/poster/contraband/punch_shit
@@ -593,13 +593,13 @@
 	icon_state = "poster23_legit"
 
 /obj/structure/sign/poster/official/foam_force_ad
-	name = "Реклама Foam Force"
-	desc = "Foam Force: пеняй или будь пеной!"
+	name = "Реклама Фоум Форс"
+	desc = "Фоум Форс: пеняй или будь пеной!"
 	icon_state = "poster24_legit"
 
 /obj/structure/sign/poster/official/cohiba_robusto_ad
-	name = "Реклама Cohiba Robusto"
-	desc = "Cohiba Robusto - стильные сигары."
+	name = "Реклама Коиба Робусто"
+	desc = "Коиба Робусто - стильные сигары."
 	icon_state = "poster25_legit"
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
@@ -624,7 +624,7 @@
 
 /obj/structure/sign/poster/official/nanomichi_ad
 	name = "Реклама Nanomichi"
-	desc = "Постер, рекламирующий аудиокассеты бренда Nanomichi."
+	desc = "Постер, рекламирующий аудиокассеты бренда Наномичи."
 	icon_state = "poster30_legit"
 
 /obj/structure/sign/poster/official/twelve_gauge
@@ -714,12 +714,12 @@
 
 /obj/structure/sign/poster/official/space_a
 	name = "Постер восхищения космосом"
-	desc = "Этот постер создан компанией Generic Space Company как часть серии памятных постеров о чудесах космоса. Один из трёх."
+	desc = "Этот постер создан компанией Дженерерик Спейс Компани как часть серии памятных постеров о чудесах космоса. Один из трёх."
 	icon_state = "poster48_legit"
 
 /obj/structure/sign/poster/official/space_b
 	name = "Постер восхищения Марсом"
-	desc = "Этот постер создан компанией Generic Space Company как часть серии памятных постеров о чудесах космоса. Третий из трёх."
+	desc = "Этот постер создан компанией Дженерерик Спейс Компани как часть серии памятных постеров о чудесах космоса. Третий из трёх."
 	icon_state = "poster49_legit"
 
 /obj/structure/sign/poster/official/wild_west

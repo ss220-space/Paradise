@@ -245,7 +245,7 @@
 #define SPECIES_GOLEM_DIAMOND "Алмазный Голем"
 #define SPECIES_GOLEM_GOLD "Золотой Голем"
 #define SPECIES_GOLEM_SILVER "Серебрянный Голем"
-#define SPECIES_GOLEM_PLASTEEL "Пласталиевый Голем"
+#define SPECIES_GOLEM_PLASTEEL "Пласталевый Голем"
 #define SPECIES_GOLEM_TITANIUM "Титановый Голем"
 #define SPECIES_GOLEM_PLASTITANIUM "Пластитановый Голем"
 #define SPECIES_GOLEM_ALLOY "Голем из инопланетных сплавов"

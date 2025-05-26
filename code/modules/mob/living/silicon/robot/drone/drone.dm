@@ -10,7 +10,7 @@
 		PREPOSITIONAL = "дроне"
 	)
 	real_name = "drone"
-	desc = "Это крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта НаноТрейзен: Решаем проблемы завтрашнего дня уже сегодня!\""
+	desc = "Это крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта НаноТрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
@@ -190,7 +190,7 @@
 
 	if(istype(I, /obj/item/borg/upgrade))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Шасси дрона обслуживания несовместимо с [I]!"))
+		to_chat(user, span_warning("Шасси дрона обслуживания несовместимо с [I.declent_ru(ACCUSATIVE)]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(I.GetID())

@@ -230,7 +230,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
-			warningmsg = "Ещё слишком рано входить в крио"
+			warningmsg = "Ещё слишком рано входить в криокапсулу"
 	else if(suiciding && TOO_EARLY_TO_GHOST)
 		warningmsg = "Вы совершили самоубийство в раунде слишком рано."
 	else if(stat != DEAD)
@@ -397,7 +397,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(!can_reenter_corpse)
-		to_chat(src, span_warning("У вас уже стоит DNR!"))
+		to_chat(src, span_warning("У вас уже стоит НР!"))
 		return
 
 	if(!mind || QDELETED(mind.current))
@@ -412,7 +412,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	apply_dnr()
-	to_chat(src, span_boldnotice("Do Not Revive статус включён."))
+	to_chat(src, span_boldnotice("Статус \"Не Реанимировать\" включен."))
 
 /mob/dead/observer/proc/apply_dnr()
 	can_reenter_corpse = FALSE
