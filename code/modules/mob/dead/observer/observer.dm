@@ -230,7 +230,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 	if(P)
 		if(TOO_EARLY_TO_GHOST)
-			warningmsg = "Ещё слишком рано входить в криокапсулу"
+			warningmsg = "Слишком рано для вхождения в криокамеру."
 	else if(suiciding && TOO_EARLY_TO_GHOST)
 		warningmsg = "Вы совершили самоубийство в раунде слишком рано."
 	else if(stat != DEAD)
