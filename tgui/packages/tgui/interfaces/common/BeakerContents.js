@@ -4,8 +4,11 @@ const PropTypes = require('prop-types');
 const formatUnits = (a) =>
   a +
   ' единиц' +
-  (a % 10 === 1 && a % 100 !== 11 ? 'а' : '') +
-  (a % 10 > 1 && a % 10 < 5 && !(a % 100 > 11) && !(a % 100 < 15) ? 'ы' : '');
+  (a % 10 === 1 && a % 100 !== 11
+    ? 'а'
+    : a % 10 > 1 && a % 10 < 5 && (a % 100 < 11 || a % 100 > 15)
+      ? 'ы'
+      : '');
 
 /**
  * Displays a beaker's contents

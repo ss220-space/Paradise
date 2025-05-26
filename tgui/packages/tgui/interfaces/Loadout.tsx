@@ -197,15 +197,23 @@ const LoadoutGears = (props) => {
         const maxTextLength = 12;
         const selected = Object.keys(data.selected_gears).includes(key);
         const costText =
-          gear.cost ===
-          `${gear.cost} Очк` +
-            (gear.cost % 10 === 1 && gear.cost % 100 !== 11 ? 'о' : 'ов') +
-            (gear.cost % 10 > 1 &&
-            gear.cost % 10 < 5 &&
-            !(gear.cost % 100 > 11) &&
-            !(gear.cost % 100 < 15)
-              ? 'а'
-              : '');
+          gear.cost === 1
+            ? `${gear.cost} Очк` +
+              (gear.cost % 10 === 1 && gear.cost % 100 !== 11
+                ? 'о'
+                : gear.cost % 10 > 1 &&
+                    gear.cost % 10 < 5 &&
+                    (gear.cost % 100 < 11 || gear.cost % 100 > 15)
+                  ? 'а'
+                  : 'ов')
+            : `${gear.cost} Очк` +
+              (gear.cost % 10 === 1 && gear.cost % 100 !== 11
+                ? 'о'
+                : gear.cost % 10 > 1 &&
+                    gear.cost % 10 < 5 &&
+                    (gear.cost % 100 < 11 || gear.cost % 100 > 15)
+                  ? 'а'
+                  : 'ов');
         const tooltipText = (
           <Box>
             {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
