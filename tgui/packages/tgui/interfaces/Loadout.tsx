@@ -1,4 +1,5 @@
 import { createSearch } from 'common/string';
+import { declension_ru } from 'common/string';
 import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
@@ -57,7 +58,7 @@ export const Loadout = (props: unknown) => {
   const [tweakedGear, setTweakedGear] = useState('');
 
   return (
-    <Window width={1400} height={650}>
+    <Window width={975} height={650}>
       {tweakedGear && (
         <GearTweak tweakedGear={tweakedGear} setTweakedGear={setTweakedGear} />
       )}
@@ -196,22 +197,8 @@ const LoadoutGears = (props) => {
         const selected = Object.keys(data.selected_gears).includes(key);
         const costText =
           gear.cost === 1
-            ? `${gear.cost} Очк` +
-              (gear.cost % 10 === 1 && gear.cost % 100 !== 11
-                ? 'о'
-                : gear.cost % 10 > 1 &&
-                    gear.cost % 10 < 5 &&
-                    (gear.cost % 100 < 11 || gear.cost % 100 > 15)
-                  ? 'а'
-                  : 'ов')
-            : `${gear.cost} Очк` +
-              (gear.cost % 10 === 1 && gear.cost % 100 !== 11
-                ? 'о'
-                : gear.cost % 10 > 1 &&
-                    gear.cost % 10 < 5 &&
-                    (gear.cost % 100 < 11 || gear.cost % 100 > 15)
-                  ? 'а'
-                  : 'ов');
+            ? `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов')
+            : `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов');
         const tooltipText = (
           <Box>
             {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
@@ -267,7 +254,7 @@ const LoadoutGears = (props) => {
           <Box className="Loadout-InfoBox">
             <Box
               style={{ flexGrow: '1' }}
-              fontSize={1}
+              fontSize={0.75}
               color="gold"
               opacity={0.75}
             >
