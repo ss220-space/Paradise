@@ -86,9 +86,10 @@
 		var/datum/gas_mixture/environment
 		if(HAS_TRAIT(src,TRAIT_TEMPERATURE_MOVEMENT))
 			environment = loc.return_air()
-			if(!environment.temperature < 283.15)
+			if(environment.temperature < 283.15)
 				remove_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
 				add_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
+				return
 
 			remove_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
 			add_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
@@ -255,7 +256,7 @@
 	return ..()
 
 /mob/living/carbon/human/update_pull_movespeed()
-	if(pulling && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+	if(!pulling && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 		return ..()
 	remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 

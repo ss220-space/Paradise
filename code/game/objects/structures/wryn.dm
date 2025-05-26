@@ -1,7 +1,5 @@
 /obj/structure/wryn
 	max_integrity = 100
-	var/damage = 0
-	var/modifier = 0
 
 /obj/structure/wryn/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
 	switch(damage_type)

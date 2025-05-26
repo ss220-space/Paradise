@@ -17,10 +17,9 @@
 		return
 	INVOKE_ASYNC(src, PROC_REF(harming), source, user)
 
-/datum/component/wryn_destruction/proc/harming(atom/source, mob/living/carbon/user)
-	var/obj/structure = source
+/datum/component/wryn_destruction/proc/harming(obj/structure/source, mob/living/carbon/user)
 	if(user.a_intent != INTENT_HARM)
 		return
 
-	structure.take_damage(15, BRUTE, 0, 'sound/effects/attackblob.ogg')
+	source.take_damage(15, BRUTE, 0, 'sound/effects/attackblob.ogg')
 	user.do_attack_animation(src)
