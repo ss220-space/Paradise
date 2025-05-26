@@ -413,4 +413,16 @@
 	icon_state = "oldcomp"
 	icon_keyboard = null
 
+/obj/machinery/computer/security/mortar
+	name = "Mortar Camera Interface"
+	alpha = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	density = FALSE
+	idle_power_usage = 0
+	active_power_usage = 0
+	network = list("mortar")
+
+/obj/machinery/computer/security/mortar/set_broken()
+	return
+
 #undef DEFAULT_MAP_SIZE

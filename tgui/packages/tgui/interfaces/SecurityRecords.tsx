@@ -387,7 +387,7 @@ const SecurityRecordsPageView = (_properties) => {
                 align="center"
                 color="label"
               >
-                <Icon.Stack>
+                <Icon.Stack style={{ transform: 'translate(-50px, -100px)' }}>
                   <Icon name="scroll" size={5} color="gray" />
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>

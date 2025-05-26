@@ -1,10 +1,13 @@
 import { createSearch } from 'common/string';
 import { useBackend } from '../backend';
 import { useState } from 'react';
+import { useBackend } from '../backend';
+import { useState } from 'react';
 import {
   Box,
   Dimmer,
   Dropdown,
+  ImageButton,
   ImageButton,
   Button,
   Input,
@@ -50,7 +53,12 @@ const sortTypes = {
 };
 
 export const Loadout = (props: unknown) => {
+export const Loadout = (props: unknown) => {
   const { act, data } = useBackend<Data>();
+  const [search, setSearch] = useState(false);
+  const [searchText, setSearchText] = useState('');
+  const [category, setCategory] = useState(Object.keys(data.gears)[0]);
+  const [tweakedGear, setTweakedGear] = useState('');
   const [search, setSearch] = useState(false);
   const [searchText, setSearchText] = useState('');
   const [category, setCategory] = useState(Object.keys(data.gears)[0]);
@@ -90,14 +98,17 @@ export const Loadout = (props: unknown) => {
 
 const LoadoutCategories = (props) => {
   const { data } = useBackend<Data>();
+  const { data } = useBackend<Data>();
   const { category, setCategory } = props;
   return (
+    <Tabs fluid textAlign="center" style={{ flexWrap: 'wrap-reverse' }}>
     <Tabs fluid textAlign="center" style={{ flexWrap: 'wrap-reverse' }}>
       {Object.keys(data.gears).map((cat) => (
         <Tabs.Tab
           key={cat}
           selected={cat === category}
           style={{
+            whiteSpace: 'nowrap',
             whiteSpace: 'nowrap',
           }}
           onClick={() => setCategory(cat)}
@@ -172,6 +183,7 @@ const LoadoutGears = (props) => {
                 width={20}
                 placeholder="Поиск..."
                 value={searchText}
+                onInput={(e, value) => setSearchText(value)}
                 onInput={(e, value) => setSearchText(value)}
               />
             </Stack.Item>
@@ -265,7 +277,9 @@ const LoadoutGears = (props) => {
 
         const textInfo = (
           <Box className="Loadout-InfoBox">
+          <Box className="Loadout-InfoBox">
             <Box
+              style={{ flexGrow: '1' }}
               style={{ flexGrow: '1' }}
               fontSize={1}
               color="gold"
@@ -280,6 +294,7 @@ const LoadoutGears = (props) => {
         );
 
         return (
+          <ImageButton
           <ImageButton
             key={key}
             m={0.5}
@@ -301,6 +316,7 @@ const LoadoutGears = (props) => {
             onClick={() => act('toggle_gear', { gear: gear.index_name })}
           >
             {gear.name}
+          </ImageButton>
           </ImageButton>
         );
       })}
@@ -343,6 +359,7 @@ const LoadoutEquipped = (props) => {
             let gear_data = data.selected_gears[gear.key];
             return (
               <ImageButton
+              <ImageButton
                 key={gear.key}
                 fluid
                 imageSize={48}
@@ -379,6 +396,7 @@ const LoadoutEquipped = (props) => {
                 }
               >
                 {gear_data['name'] ? gear_data['name'] : gear.name}
+              </ImageButton>
               </ImageButton>
             );
           })}
@@ -458,6 +476,7 @@ const GearTweak = (props) => {
                         width={1}
                         height={1}
                         verticalAlign={'middle'}
+                        style={{ backgroundColor: `${tweakInfo}` }}
                         style={{ backgroundColor: `${tweakInfo}` }}
                       />
                     </LabeledList.Item>

@@ -472,3 +472,29 @@
 
 /obj/machinery/camera/portable/triggerCameraAlarm() // AI camera doesnt trigger alarm
 	return
+
+/obj/machinery/camera/mortar
+	alpha = 0
+	mouse_opacity = MOUSE_OPACITY_TRANSPARENT
+	density = FALSE
+	invuln = TRUE
+	network = list("mortar")
+	use_power = NO_POWER_USE
+	interact_offline = TRUE
+
+/obj/machinery/camera/mortar/Initialize()
+	c_tag = "Para-Cam ([x]):([y])"
+	. = ..()
+	QDEL_IN(src, 3 MINUTES)
+
+/obj/machinery/camera/mortar/isXRay()
+	return TRUE
+
+/obj/machinery/camera/mortar/blob_act(obj/structure/blob/B)
+	return
+
+/obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	return
+	
+/obj/machinery/camera/mortar/flamer_fire_act(damage)
+	return
