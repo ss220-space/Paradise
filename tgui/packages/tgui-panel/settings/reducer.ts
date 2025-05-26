@@ -45,8 +45,8 @@ const initialState = {
   statFontSize: 12,
   statFontFamily: FONTS[0],
   statTabsStyle: 'default',
-  // Chat persistence setting - default is false, but use stored value if available
-  chatSaving: (await storage.get('chat-saving-enabled')) === true,
+  // Chat persistence setting - default is true. False break chat for new 516 users
+  chatSaving: true,
 } as const;
 
 export const settingsReducer = (
