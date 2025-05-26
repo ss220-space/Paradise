@@ -1,6 +1,6 @@
 /datum/gear/donor
 	donator_tier = 2
-	sort_category = "Донат"
+	sort_category = "Донорское"
 	subtype_path = /datum/gear/donor
 
 /datum/gear/donor/can_select(client/cl, job_name, species_name, silent = FALSE)
