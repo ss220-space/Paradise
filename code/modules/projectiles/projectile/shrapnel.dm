@@ -1,10 +1,9 @@
 /obj/projectile/shrapnel
 	name = "shrapnel"
 	icon = 'icons/obj/shards.dmi'
-	throwforce = 20
 	throw_speed =  EMBED_THROWSPEED_THRESHOLD
 	sharp = TRUE
-	damage = 20
+	damage = 10
 	range = 20
 	armour_penetration = 30
 	dismemberment = 5
