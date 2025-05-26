@@ -1,5 +1,5 @@
 /datum/gear/plushie
-	sort_category = "Плюшевые игрушки"
+	sort_category = "Игрушки"
 	subtype_path = /datum/gear/plushie
 	cost = 1
 
