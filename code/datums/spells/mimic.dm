@@ -5,7 +5,7 @@
 	human_req = FALSE
 	base_cooldown = 3 SECONDS
 	action_icon_state = "genetic_morph"
-	selection_activated_message = span_sinister("Кликните на цель, чтобы запомнить её форму. Кликните на себя, чтобы изменить форму.")
+	selection_activated_message = span_sinister("Кликните на цель, чтобы запомнить её форму. Кликните на себя, чтобы изменить свою форму.")
 	create_attack_logs = FALSE
 	action_icon_state = "morph_mimic"
 	need_active_overlay = TRUE
@@ -72,7 +72,7 @@
 	if(length(available_forms) >= max_forms)
 		to_chat(user, span_warning("Вы начинаете забывать форму [available_forms[next_override_index]], чтобы изучить новую."))
 
-	to_chat(user, span_sinister("Вы начинаете запоминать форму [A]."))
+	to_chat(user, span_sinister("Вы начинаете запоминать форму [A.declent_ru(ACCUSATIVE)]."))
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		to_chat(user, span_warning("Вы теряете концентрацию."))
 		return
@@ -86,7 +86,7 @@
 			next_override_index = 1
 
 	available_forms[A.name] = new /datum/mimic_form(A, user)
-	to_chat(user, span_sinister("Вы изучили форму [A]."))
+	to_chat(user, span_sinister("Вы изучили форму [A.declent_ru(ACCUSATIVE)]."))
 
 
 /obj/effect/proc_holder/spell/mimic/proc/pick_form(mob/user)

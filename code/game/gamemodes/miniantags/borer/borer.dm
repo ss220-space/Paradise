@@ -66,6 +66,8 @@
 
 /mob/living/simple_animal/borer
 	name = "cortical borer"
+	real_name = "мозговой червь"
+	desc = "Маленькое дрожащее существо, похожее на слизня."
 	ru_names = list(
 		NOMINATIVE = "мозговой червь",
 		GENITIVE = "мозгового червя",
@@ -74,8 +76,6 @@
 		INSTRUMENTAL = "мозговым червём",
 		PREPOSITIONAL = "мозговом черве"
 	)
-	real_name = "мозговой червь"
-	desc = "Маленькое дрожащее существо, похожее на слизня."
 
 	speak_emote = list("chirrups")
 	emote_hear = list("chirrups")
@@ -157,7 +157,7 @@
 	generation = gen
 	add_language(LANGUAGE_HIVE_BORER)
 	notify_ghosts("Мозговой червь появился в [get_area(src)]!", enter_link = "<a href=?src=[UID()];ghostjoin=1>(Click to enter)</a>", source = src, action = NOTIFY_ATTACK)
-	real_name = "Мозговой Червь [rand(1000,9999)]"
+	real_name = "Мозговой червь [rand(1000,9999)]"
 	truename = "[borer_names[min(generation, borer_names.len)]] [rand(1000,9999)]"
 	GrantBorerActions()
 
@@ -182,7 +182,7 @@
 		return
 
 	if(jobban_isbanned(user, "Syndicate"))
-		to_chat(user, span_warning("Вы забанены от ролей антагонистов!"))
+		to_chat(user, span_warning("Вам запрещено играть за антагонистов!"))
 		return
 
 	if(key)
@@ -191,7 +191,7 @@
 	if(stat != CONSCIOUS)
 		return
 
-	var/be_borer = tgui_alert(user, "Стать мозговым червём? (Внимание, вы больше не сможете быть клонированы!)", "Мозговой Червь", list("Да", "Нет"))
+	var/be_borer = tgui_alert(user, "Стать мозговым червём? (Внимание, вы больше не сможете быть клонированы!)", "Мозговой червь", list("Да", "Нет"))
 	if(be_borer != "Да" || !src || QDELETED(src))
 		return
 
@@ -258,7 +258,7 @@
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
 	set name = "Переключить речь внутри хозяина"
 	set category = "Borer"
-	set desc = "Переключите, сможете ли вы произносить слышимые сообщения, находясь внутри хозяина."
+	set desc = "Переключить возможность произносить сообщения, слышимые окружающими, пока находитесь внутри носителя."
 
 	if(talk_inside_host)
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))
@@ -407,7 +407,7 @@
 	var/datum/browser/popup = new(usr, "viewBorer[UID()]chems", "Borer Chems", 585, 400)
 	popup.set_content(html)
 	popup.open(FALSE)
-	
+
 	return
 
 /mob/living/simple_animal/borer/Topic(href, href_list, hsrc)
@@ -781,7 +781,7 @@
 	candidate.mob = src
 	ckey = candidate.ckey
 	mind.add_antag_datum(antag_datum)
-	
+
 	GrantBorerSpells()
 	hide_borer()
 

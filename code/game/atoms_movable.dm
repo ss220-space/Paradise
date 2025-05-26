@@ -385,7 +385,7 @@
 		return FALSE
 	if(force < (move_resist * MOVE_FORCE_PULL_RATIO))
 		if(!supress_message && ismob(puller))
-			to_chat(puller, span_warning("[name] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
+			to_chat(puller, span_warning("[capitalize(name)] слишком тяжел[genderize_ru(src.gender,"ый","ая","ое","ые")]!"))
 		return FALSE
 	return TRUE
 

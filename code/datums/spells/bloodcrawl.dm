@@ -4,7 +4,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl
-	name = "Кровавый Путь"
+	name = "Кровавый путь"
 	desc = "Используйте лужи крови, чтобы исчезнуть из реальности."
 	base_cooldown = 0
 	clothes_req = FALSE
@@ -53,7 +53,15 @@
 
 
 /obj/item/bloodcrawl
-	name = "кровавый путь"
+	name = "blood crawl"
+	ru_names = list(
+		NOMINATIVE = "кровавый путь",
+		GENITIVE = "кровавого пути",
+		DATIVE = "кровавому пути",
+		ACCUSATIVE = "кровавый путь",
+		INSTRUMENTAL = "кровавым путём",
+		PREPOSITIONAL = "кровавом пути"
+	)
 	desc = "Вы не можете держать что-либо в этой форме."
 	icon = 'icons/effects/blood.dmi'
 	item_flags = ABSTRACT
@@ -65,7 +73,15 @@
 
 
 /obj/effect/dummy/slaughter //Can't use the wizard one, blocked by jaunt/slow
-	name = "странная кровь"
+	name = "odd blood"
+	ru_names = list(
+		NOMINATIVE = "странная кровь",
+		GENITIVE = "странной крови",
+		DATIVE = "странной крови",
+		ACCUSATIVE = "странную кровь",
+		INSTRUMENTAL = "странной кровью",
+		PREPOSITIONAL = "странной крови"
+	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
 	density = FALSE
@@ -92,7 +108,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/block_hands(mob/living/carbon/user)
 	if(user.l_hand || user.r_hand)
-		to_chat(user, span_warning("Вы не можете держать предметы, пока используете кровавый путь!"))
+		to_chat(user, span_warning("Вы не можете держать предметы, пока используете Кровавый путь!"))
 		return FALSE
 
 	var/obj/item/bloodcrawl/left_hand = new(user)
@@ -119,7 +135,7 @@
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/sink_animation(atom/enter_point, mob/living/user)
 	var/turf/mob_loc = get_turf(user)
-	visible_message(span_danger("[user] погружается в [enter_point]."))
+	visible_message(span_danger("[user] погружа[pluralize_ru(user.gender, "ется", "ются")] в [enter_point.declent_ru(ACCUSATIVE)]."))
 	playsound(mob_loc, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	new /obj/effect/temp_visual/dir_setting/bloodcrawl(mob_loc, user.dir, "jaunt")
 
@@ -132,15 +148,19 @@
 		return
 
 	if(victim.stat == CONSCIOUS)
-		enter_point.visible_message(span_warning("[victim] вырывается из [enter_point] прямо перед тем, как войти в неё!"))
+		enter_point.visible_message(span_warning("[victim] вырыва[pluralize_ru(victim.gender, "ется", "ются")] из [enter_point.declent_ru(GENITIVE)] прямо перед тем, как войти в неё!"))
 		user.stop_pulling()
 		return
 
 	victim.emote("scream")
 	victim.forceMove(holder)
-	enter_point.visible_message(span_warning("<b>[user] затягивает [victim] в [enter_point]!</b>"))
-	to_chat(user, "<b>Вы начинаете пожирать [victim]. Вы не можете двигаться, пока делаете это.</b>")
-	enter_point.visible_message(span_warning("<B>Из крови доносятся громкие звуки поедания...</b>"))
+	enter_point.visible_message(span_warning("<b>[user] затягива[pluralize_ru(user.gender, "ет", "ют")] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
+	if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостно щекотать его! Вы не можете двигаться, пока делаете это.</b>")
+		enter_point.visible_message(span_clown("<B>Из крови доносятся доносятся дикие хохот и крики...</b>"))
+	else
+		to_chat(user, "<b>Вы начинаете пожирать [victim.declent_ru(ACCUSATIVE)]. Вы не можете двигаться, пока делаете это.</b>")
+		enter_point.visible_message(span_warning("<B>Из крови доносятся громкие звуки поедания...</b>"))
 	var/sound
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
@@ -157,10 +177,16 @@
 		return
 
 	if(ishuman(victim) || isrobot(victim))
-		to_chat(user, span_warning("Вы пожираете [victim]. Ваше здоровье полностью восстановлено."))
+		if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+			to_chat(user, span_clown("Вы зарядились весёлой энергией от [victim.declent_ru(GENITIVE)]. Ваши силы восстановлены."))
+		else
+			to_chat(user, span_warning("Вы пожираете [victim.declent_ru(ACCUSATIVE)]. Ваши силы восстановлены."))
 		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
-		to_chat(user, span_warning("Вы пожираете [victim], но эта скудная добыча едва утоляет ваш голод!"))
+		if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+			to_chat(user, span_clown("Вы заставляете [victim.declent_ru(ACCUSATIVE)] смеяться до слёз, но их страдания лишь слегка подпитывают вашу радость!"))
+		else
+			to_chat(user, span_warning("Вы пожираете [victim.declent_ru(ACCUSATIVE)], но эта скудная добыча едва утоляет ваш голод!"))
 		user.heal_damages(brute = 25, burn = 25)
 
 	if(isslaughterdemon(user))
@@ -215,7 +241,7 @@
 	if(prob(25) && isdemon(user))
 		var/list/voice = list('sound/hallucinations/behind_you1.ogg', 'sound/hallucinations/im_here1.ogg', 'sound/hallucinations/turn_around1.ogg', 'sound/hallucinations/i_see_you1.ogg')
 		playsound(tele_loc, pick(voice), 50, TRUE, -1)
-	exit_point.visible_message(span_warning("<b>[user] rises out of [exit_point]!</b>"))
+	exit_point.visible_message(span_warning("<b>[capitalize(user.declent_ru(NOMINATIVE))] возникает из [exit_point.declent_ru(GENITIVE)]!</b>"))
 	playsound(get_turf(tele_loc), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
 
 
@@ -227,7 +253,7 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/rise_message(atom/exit_point)
-	exit_point.visible_message(span_warning("[exit_point] начинает пузыриться..."))
+	exit_point.visible_message(span_warning("[capitalize(exit_point.declent_ru(NOMINATIVE))] начинает пузыриться..."))
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/proc/post_phase_out(atom/exit_point, mob/living/user)
@@ -242,7 +268,10 @@
 	if(HAS_TRAIT_NOT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
 		return FALSE
 	if(HAS_TRAIT_FROM(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src)))
-		to_chat(user, span_warning("Сначала закончите трапезу!"))
+		if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+			to_chat(user, span_warning("Сначала закончите щекотку!"))
+		else
+			to_chat(user, span_warning("Сначала закончите трапезу!"))
 		return FALSE
 	rise_message(enter_point)
 	if(!do_after(user, 2 SECONDS, enter_point))
@@ -265,8 +294,8 @@
 
 
 /obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl
-	name = "Теневой Путь"
-	desc = "Используйте тьму, чтобы исчезнуть из реальности."
+	name = "Теневой путь"
+	desc = "Воспользуйтесь тьмой, чтобы раствориться в реальности."
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_crawl"
 	allowed_type = /turf

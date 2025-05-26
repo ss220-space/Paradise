@@ -55,7 +55,7 @@
 		else
 			if(istype(summoner.loc, /obj/effect))
 				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от [summoner.real_name]!"))
-				visible_message(span_danger("[src] jumps back to its user."))
+				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)
 			else
 				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от <b>[src]</b>!"))

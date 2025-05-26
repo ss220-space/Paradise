@@ -14,7 +14,7 @@
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
-	deathmessage = "кричит от ярости, превращаясь в лужу внутренностей!"
+	deathmessage = "издаёт последний рёв ярости, превращаясь в месиво из плоти!"
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	var/devoured = 0
@@ -76,8 +76,16 @@
 /obj/effect/decal/cleanable/blood/innards
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "innards"
-	name = "куча внутренностей"
-	desc = "Отвратительная куча кишок и крови."
+	name = "pile of viscera"
+	desc = "Омерзительная масса из разорванной плоти и органов."
+	ru_names = list(
+		NOMINATIVE = "кровавое месиво",
+		GENITIVE = "кровавого месива",
+		DATIVE = "кровавому месиву",
+		ACCUSATIVE = "кровавое месиво",
+		INSTRUMENTAL = "кровавым месивом",
+		PREPOSITIONAL = "кровавом месиве"
+	)
 
 
 /mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/M)
@@ -87,6 +95,8 @@
 // Cult slaughter demon
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
+	real_name = "harbinger of the Slaughter"
+	desc = "Ужасное существо из-за пределов царства безумия."
 	ru_names = list(
 		NOMINATIVE = "вестник резни",
 		GENITIVE = "вестника резни",
@@ -95,15 +105,13 @@
 		INSTRUMENTAL = "вестником резни",
 		PREPOSITIONAL = "вестнике резни"
 	)
-	real_name = "harbinger of the Slaughter"
-	desc = "Ужасное существо из-за пределов царства безумия."
 	maxHealth = 500
 	health = 500
 	melee_damage_upper = 60
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
-	playstyle_string = "<span class='span_userdanger'><b>Вы — Вестник Резни. Призванный слугами Нар'Си, у вас одна цель: уничтожить еретиков, которые не поклоняются вашему господину!</b></span><br> \
+	playstyle_string = "<b><span class='userdanger'>Вы — Вестник Резни. Призванный слугами Нар'Си, у вас одна цель: уничтожить еретиков, которые не поклоняются вашему господину!</span></b><br> \
 							<b>Вы можете использовать способность 'Кровавый путь' рядом с лужей крови, чтобы войти в неё и стать неосязаемым. \
 							Использование способности снова рядом с лужей крови позволит вам выйти из неё. Вы быстры, сильны и почти неуязвимы. Если вы тащите мёртвое или без сознания тело \
 							в лужу крови, вы поглотите его через некоторое время и полностью восстановите здоровье. Вы можете использовать способность 'Чувствовать Жертв' на вкладке Культиста, \
@@ -171,7 +179,7 @@
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind
-		new_objective.explanation_text = "Принесите Резню неверующим."
+		new_objective.explanation_text = "Устройте Резню неверующим!"
 		S.mind.objectives += new_objective
 		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
 		to_chat(S, chat_box_red(messages.Join("<br>")))
@@ -235,8 +243,8 @@
 	)
 	real_name = "laughter demon"
 	desc = "Огромное милое существо, покрытое броней с розовыми бантиками."
-	speak_emote = list("giggles", "titters", "chuckles")
-	emote_hear = list("gaffaws", "laughs")
+	speak_emote = list("хихикает", "смеётся", "посмеивается")
+	emote_hear = list("громко хохочет", "смеётся")
 	response_help  = "обнимает"
 	attacktext = "неистово щекочет"
 	maxHealth = 175

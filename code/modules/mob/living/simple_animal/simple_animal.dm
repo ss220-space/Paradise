@@ -418,9 +418,9 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message(span_danger("\The [src] [genderize_decode(src, deathmessage)]"))
+			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)
-			visible_message(span_danger("\The [src] stops moving..."))
+			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] перестаёт двигаться..."))
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again

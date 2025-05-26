@@ -224,7 +224,7 @@
 /mob/living/simple_animal/hostile/guardian/proc/Communicate(message)
 	var/input
 	if(!message)
-		input = tgui_input_text(src, "Введите сообщение для отправки вашему призывателю.", "Guardian")
+		input = tgui_input_text(src, "Введите сообщение для отправки вашему призывателю.", "Страж")
 	else
 		input = message
 	if(!input)
@@ -238,7 +238,7 @@
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, span_alien("<i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
+			to_chat(M, span_alien("<i>Сообщение Стража <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()

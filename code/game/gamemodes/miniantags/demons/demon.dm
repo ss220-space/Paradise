@@ -12,7 +12,7 @@
 		INSTRUMENTAL = "обычным демоном",
 		PREPOSITIONAL = "обычном демоне"
 	)
-	desc = "Вы не должны это читать, отправьте отчёт на GitHub."
+	desc = "Если вы это видите, составьте баг-репорт в Discord."
 	speak_emote = list("gurgles")
 	emote_hear = list("wails","screeches")
 	tts_seed = "Mannoroth"

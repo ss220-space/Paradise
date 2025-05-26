@@ -8,6 +8,7 @@
 
 /mob/living/simple_animal/revenant
 	name = "revenant"
+	desc = "Злобный дух."
 	ru_names = list(
 		NOMINATIVE = "ревенант",
 		GENITIVE = "ревенанта",
@@ -16,7 +17,6 @@
 		INSTRUMENTAL = "ревенантом",
 		PREPOSITIONAL = "ревенанте"
 	)
-	desc = "Злобный дух."
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "revenant_idle"
 	var/icon_idle = "revenant_idle"
@@ -204,7 +204,7 @@
 			messages.Add("<b>Вы неуязвимы и невидимы для всех, кроме других призраков. Большинство способностей раскроют вас, сделав уязвимым.</b>")
 			messages.Add("<b>Чтобы существовать, вы должны высасывать жизненную эссенцию из людей. Эта эссенции — ваш ресурс и здоровье, она питает все ваши способности.</b>")
 			messages.Add("<b><i>Вы не помните ничего из своих прошлых жизней, а также не будете помнить ничего из этой после своей смерти.</i></b>")
-			messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a></span>")
+			messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Revenant\">Ревенант</a>"))
 			var/datum/objective/revenant/objective = new
 			objective.owner = mind
 			mind.objectives += objective
@@ -246,7 +246,7 @@
 	revealed = 1
 	invisibility = 0
 	playsound(src, 'sound/effects/screech.ogg', 100, 1)
-	visible_message(span_warning("[src] издаёт затихающий визг, пока фиолетовый туман окутывает его распадающееся тело!"))
+	visible_message(span_warning("[declent_ru(NOMINATIVE)] издаёт затихающий визг, пока фиолетовый туман окутывает его распадающееся тело!"))
 	update_icon(UPDATE_ICON_STATE)
 	delayed_death()
 
@@ -257,7 +257,7 @@
 	sleep(2.5 SECONDS)
 	if(QDELETED(src))
 		return
-	visible_message(span_danger("Тело [src] рассыпается в мелкую синюю пыль."))
+	visible_message(span_danger("Тело [declent_ru(GENITIVE)] рассыпается в мелкую синюю пыль."))
 	var/obj/item/ectoplasm/revenant/R = new (get_turf(src))
 	var/reforming_essence = essence_regen_cap //retain the gained essence capacity
 	R.essence = max(reforming_essence - 15 * perfectsouls, 75) //minus any perfect souls
@@ -442,8 +442,8 @@
 /obj/item/ectoplasm/revenant/attack_self(mob/user)
 	if(!reforming || inert)
 		return ..()
-	user.visible_message(span_notice("[user] рассыпает [src] во всех направлениях."), \
-						 span_notice("Вы рассыпаете [src] по области. Частицы медленно исчезают."))
+	user.visible_message(span_notice("[user] рассыпает [declent_ru(NOMINATIVE)] во всех направлениях."), \
+						 span_notice("Вы рассыпаете [declent_ru(NOMINATIVE)] по области. Частицы медленно исчезают."))
 	user.drop_from_active_hand()
 	qdel(src)
 
@@ -452,7 +452,7 @@
 	..()
 	if(inert)
 		return
-	visible_message(span_notice("[src] рассыпается на частицы при ударе, которые исчезают в никуда."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается на частицы при ударе, которые исчезают в никуда."))
 	qdel(src)
 
 
@@ -470,7 +470,7 @@
 
 	if(!reforming)
 		inert = TRUE
-		visible_message(span_warning("[src] оседает и кажется безжизненным."))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] оседает и кажется безжизненным."))
 		return
 
 	var/key_of_revenant

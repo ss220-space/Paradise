@@ -144,23 +144,23 @@
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
 	if(food_value + gathered_food < 0)
-		to_chat(src, span_warning("Вы не можете заставить себя съесть что-то более отвратительное. Сначала съешьте что-то живое."))
+		to_chat(src, span_warning("Вы не можете заставить себя съесть ещё больше отвратительных вещей. Сначала съешьте что-то живое."))
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = span_warning("Вы начинаете есть [item]... отвратительно...")
+		eat_self_message = span_warning("Вы начинаете есть [item.declent_ru(ACCUSATIVE)]... отвратительно...")
 	else
-		eat_self_message = span_notice("Вы начинаете есть [item].")
+		eat_self_message = span_notice("Вы начинаете есть [item.declent_ru(ACCUSATIVE)].")
 	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает есть [target]!"), eat_self_message, "Вы слышите громкий хруст!")
 	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
-			to_chat(src, span_warning("Вы не можете заставить себя съесть что-то более отвратительное. Сначала съешьте что-то живое."))
+			to_chat(src, span_warning("Вы не можете заставить себя съесть ещё больше отвратительных вещей. Сначала съешьте что-то живое."))
 			return
 		eat(item)
 
 /mob/living/simple_animal/hostile/morph/proc/eat(atom/movable/item)
 	if(item && item.loc != src)
-		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] проглатывает [item] целиком!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] проглатывает [item.declent_ru(ACCUSATIVE)] целиком!"))
 
 		item.extinguish_light()
 		item.forceMove(src)
@@ -263,7 +263,7 @@
 		ambush_attack(attacker, TRUE)
 		return TRUE
 	else if (!morphed)
-		to_chat(attacker, span_warning("Прикосновение к [declent_ru(GENITIVE)] руками причиняет вам боль!"))
+		to_chat(attacker, span_warning("Прикосновение к [declent_ru(DATIVE)] руками причиняет вам боль!"))
 		attacker.apply_damage(20, def_zone = attacker.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 		add_food(5)
 
@@ -389,13 +389,13 @@
 	var/list/messages = list()
 	messages.Add("<b><font size=3 color='red'>Вы — морф.</font><br></b>")
 	messages.Add(span_sinister("Вы жаждете съесть живых существ и желаете размножаться. Достигните этой цели, устраивая засады на ничего не подозревающую добычу, используя свои способности."))
-	messages.Add(span_specialnotice("Будучи мерзостью, созданным в основном из клеток генокрада, вы можете принимать форму любого объекта поблизости, используя свою <span class='specialnoticebold'>способность Мимикрия.</span>"))
+	messages.Add(span_specialnotice("Будучи мерзостью, созданным в основном из клеток генокрада, вы можете принимать форму любого объекта поблизости, используя свою [span_specialnoticebold("способность Мимикрия.")]"))
 	messages.Add(span_specialnotice("Преобразование не останется незамеченным для наблюдателей."))
-	messages.Add(span_specialnoticebold("В изменённой форме<span class='specialnotice'>, вы двигаетесь медленнее и наносите меньше урона. Кроме того, любой, кто находится в радиусе трёх тайлов, заметит нечто странное, если осмотрит вас.</span>"))
-	messages.Add(span_specialnotice("В этой форме вы можете <span class='specialnoticebold'>Подготовить Засаду</span>, используя свою способность.</span>"))
-	messages.Add(span_specialnotice("Это позволит вам нанести огромный урон при первом ударе. А если они коснутся вас, то ещё больше.</span>"))
-	messages.Add(span_specialnotice("Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — существа восстановят 1/3 вашего максимального здоровья и добавят к вашему запасу пищи, а поедание предметов уменьшит ваш запас пищи.</span>"))
-	messages.Add("<span class='motd'>С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a></span>")
+	messages.Add(span_specialnoticebold("В изменённой форме, [span_specialnotice("вы двигаетесь медленнее и наносите меньше урона. Кроме того, любой, кто находится в радиусе трёх тайлов, заметит нечто странное, если осмотрит вас.")]"))
+	messages.Add(span_specialnotice("В этой форме вы можете [span_specialnoticebold("Подготовить засаду")], используя свою способность."))
+	messages.Add(span_specialnotice("Это позволит вам нанести огромный урон при первом ударе. А если они коснутся вас, то ещё больше."))
+	messages.Add(span_specialnotice("Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — существа восстановят 1/3 вашего максимального здоровья и добавят к вашему запасу пищи, а поедание предметов уменьшит ваш запас пищи."))
+	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a>"))
 
 	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
 	if(give_default_objectives)

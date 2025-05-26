@@ -133,7 +133,7 @@
 
 //Transmit: the revemant's only direct way to communicate. Sends a single message silently to a single mob
 /obj/effect/proc_holder/spell/revenant_transmit
-	name = "Передать"
+	name = "Шёпот"
 	desc = "Телепатически передаёт сообщение цели."
 	base_cooldown = 0
 	clothes_req = FALSE
