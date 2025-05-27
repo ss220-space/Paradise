@@ -174,9 +174,19 @@ export class Tooltip extends Component<Props, State> {
 
   render() {
     let child = this.props.children;
+
+    // If children is not a valid React element, wrap it in a span
     if (!isValidElement(child)) {
       child = <span>{child}</span>;
     }
+
+    // If the child is a function component, we can't attach a ref directly
+    // So we'll wrap it in a span in that case
+    if (typeof child.type === 'function') {
+      return <span ref={this.tooltipRef}>{child}</span>;
+    }
+
+    // For regular DOM elements, we can clone with the ref
     return cloneElement(child as React.ReactElement, {
       ref: this.tooltipRef,
     });

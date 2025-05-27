@@ -106,14 +106,14 @@
 
 				if(vaccine_type)
 
-					B.name = "бутылка вакцины \"[vaccine_name]\""
+					B.name = "вакцина [capitalize(vaccine_name)]"
 					B.ru_names = list(
-						NOMINATIVE = "бутылка вакцины \"[vaccine_name]\"",
-						GENITIVE = "бутылки вакцины \"[vaccine_name]\"",
-						DATIVE = "бутылке вакцины \"[vaccine_name]\"",
-						ACCUSATIVE = "бутылку вакцины \"[vaccine_name]\"",
-						INSTRUMENTAL = "бутылкой вакцины \"[vaccine_name]\"",
-						PREPOSITIONAL = "бутылке вакцины \"[vaccine_name]\""
+						NOMINATIVE = "вакцина [capitalize(vaccine_name)]",
+						GENITIVE = "вакцины [capitalize(vaccine_name)]",
+						DATIVE = "вакцине [capitalize(vaccine_name)]",
+						ACCUSATIVE = "вакцину [capitalize(vaccine_name)]",
+						INSTRUMENTAL = "вакциной [capitalize(vaccine_name)]",
+						PREPOSITIONAL = "вакцине [capitalize(vaccine_name)]"
 					)
 					B.reagents.add_reagent("vaccine", 15, list(vaccine_type))
 					replicator_cooldown(200)
@@ -142,16 +142,16 @@
 			B.pixel_y = rand(-3, 3)
 			replicator_cooldown(50)
 			var/list/data = list("diseases"=list(copy))
-			B.name = "бутылка культуры \"[name]\""
+			B.name = "культура [capitalize(name)]"
 			B.ru_names = list(
-				NOMINATIVE = "бутылка культуры \"[name]\"",
-				GENITIVE = "бутылки культуры \"[name]\"",
-				DATIVE = "бутылке культуры \"[name]\"",
-				ACCUSATIVE = "бутылку культуры \"[name]\"",
-				INSTRUMENTAL = "бутылкой культуры \"[name]\"",
-				PREPOSITIONAL = "бутылке культуры \"[name]\""
+				NOMINATIVE = "культура [capitalize(name)]",
+				GENITIVE = "культуры [capitalize(name)]",
+				DATIVE = "культуре [capitalize(name)]",
+				ACCUSATIVE = "культуру [capitalize(name)]",
+				INSTRUMENTAL = "культурой [capitalize(name)]",
+				PREPOSITIONAL = "культуре [capitalize(name)]"
 			)
-			B.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой \"[copy.agent]\"."
+			B.desc = "Небольшая бутылка. Содержит синтетическую кровь, заражённую культурой [capitalize(copy.agent)]."
 			B.reagents.add_reagent("blood",20,data)
 			updateUsrDialog()
 		else
