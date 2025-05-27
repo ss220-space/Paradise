@@ -46,11 +46,6 @@ export const BlueSpaceArtilleryControl = (props: unknown) => {
                   </LabeledList.Item>
                 )}
                 {alertStatus}
-                <LabeledList.Item label="Target">
-                  <Button icon="crosshairs" onClick={() => act('recalibrate')}>
-                    {data.target ? data.target : 'None'}
-                  </Button>
-                </LabeledList.Item>
                 {!!data.ready && !!data.target && (
                   <LabeledList.Item label="Firing">
                     <Button

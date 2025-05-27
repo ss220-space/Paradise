@@ -107,14 +107,7 @@ export const AlertModal = (props: unknown) => {
                 {message}
               </Box>
             </Stack.Item>
-            <Stack.Item grow>
-              {!!autofocus && <Autofocus />}
-              {isVerbose ? (
-                <VerticalButtons selected={selected} />
-              ) : (
-                <HorizontalButtons selected={selected} />
-              )}
-            </Stack.Item>
+            <Stack.Item grow>{!!autofocus && <Autofocus />}</Stack.Item>
           </Stack>
         </Section>
       </Window.Content>
