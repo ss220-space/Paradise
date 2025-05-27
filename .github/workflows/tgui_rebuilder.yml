@@ -1,77 +1,72 @@
-name: 'TGUI Clean and Rebuild'
+name: TGUI Auto-Rebuild on Public Conflicts
 
 on:
-  issue_comment:
-    types: [created]
-    if: |
-      github.event.issue.pull_request &&
-      contains(github.event.comment.body, '/rebuild-tgui')
-
-env:
-  TGUI_PUBLIC_DIR: 'tgui/public'
+  pull_request:
+    types: [opened, synchronize, reopened]
 
 jobs:
-  rebuild:
+  check-and-rebuild:
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
-    
-    steps:
-      - name: Check if comment contains trigger
-        id: check_comment
-        run: |
-          if [[ "${{ github.event.comment.body }}" == *"/rebuild-tgui"* ]]; then
-            echo "Trigger detected in comment"
-            echo "pr_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
-          else
-            echo "No trigger found in comment"
-            exit 1
-          fi
 
-      - name: Checkout code
+    steps:
+      - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
-          token: ${{ secrets.GITHUB_TOKEN }}
           fetch-depth: 0
-          ref: ${{ github.event.issue.pull_request.head.ref }}
+          ref: ${{ github.head_ref }}
 
-      - uses: actions/setup-node@v4
-        with:
-          node-version: 20
-          cache: 'yarn'
-          cache-dependency-path: ./tgui/yarn.lock
-
-      - name: Clean tgui/public (keep tgui.html)
+      - name: Fetch target branch (e.g., master220)
         run: |
-          cd ${{ env.TGUI_PUBLIC_DIR }}
-          # Keep tgui.html and remove everything else
+          git fetch origin ${{ github.base_ref }}  # Целевая ветка (base)
+
+      - name: Check merge conflicts in tgui/public
+        id: check-conflicts
+        run: |
+          # Пытаемся сделать мердж "вникуда" (чтобы проверить конфликты)
+          git merge --no-commit --no-ff origin/${{ github.base_ref }} || true
+          
+          CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
+          echo "Conflicted files: $CONFLICT_FILES"
+
+          BAD_CONFLICTS=0
+          for FILE in $CONFLICT_FILES; do
+            if [[ "$FILE" != "tgui/public/"* || "$FILE" == "tgui/public/tgui.html" ]]; then
+              echo "Invalid conflict: $FILE"
+              BAD_CONFLICTS=1
+              break
+            fi
+          done
+
+          # Если конфликты только в tgui/public (кроме tgui.html) — продолжаем
+          if [ "$BAD_CONFLICTS" -eq 0 ] && [ -n "$CONFLICT_FILES" ]; then
+            echo "safe_to_rebuild=true" >> $GITHUB_OUTPUT
+          else
+            echo "safe_to_rebuild=false" >> $GITHUB_OUTPUT
+          fi
+
+          git merge --abort
+
+      - name: Rebuild TGUI (if safe)
+        if: steps.check-conflicts.outputs.safe_to_rebuild == 'true'
+        run: |
+          cd tgui/public
           find . -type f -not -name 'tgui.html' -delete
           find . -type d -not -name '.' -exec rm -rf {} +
           cd ../..
-          git status
 
-      - name: Rebuild TGUI
-        run: |
-          cd tgui
-          yarn install
-          cd ..
           ./tgui/bin/tgui
 
-      - name: Commit and push changes
-        run: |
-          git config --local user.email "action@github.com"
-          git config --local user.name "TGUI Rebuilder"
-          
-          if git diff --quiet; then
-            echo "No changes to commit"
-          else
-            git add ${{ env.TGUI_PUBLIC_DIR }}
-            git commit -m "Rebuilt TGUI after cleaning public folder"
-            git push
-          fi
+          git config --local user.email "actions@github.com"
+          git config --local user.name "TGUI Auto-Rebuild"
+          git add tgui/public
+          git commit -m "Auto-rebuild TGUI after conflicts"
+          git push
 
-      - name: Add comment to PR
+      - name: Comment on PR (if rebuilt)
+        if: steps.check-conflicts.outputs.safe_to_rebuild == 'true'
         uses: actions/github-script@v7
         with:
           script: |
@@ -79,5 +74,19 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: '✅ TGUI public folder cleaned and rebuilt successfully!'
+              body: '🔧 Автоматически пересобрал TGUI после конфликтов в `tgui/public`. ' +
+                    'Проверьте изменения и обновите PR, если нужно!'
+            })
+
+      - name: Comment on PR (if unsafe conflicts)
+        if: steps.check-conflicts.outputs.safe_to_rebuild == 'false' && steps.check-conflicts.outputs.conflict_files != ''
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '⚠️ Обнаружены конфликты за пределами `tgui/public` или в `tgui.html`. ' +
+                    'Нельзя автоматически пересобрать TGUI. Разрешите конфликты вручную.'
             })
