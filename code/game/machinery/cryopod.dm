@@ -619,7 +619,7 @@
 
 
 /obj/machinery/cryopod/verb/eject()
-	set name = "Eject Pod"
+	set name = "Вылезти"
 	set category = "Object"
 	set src in oview(1)
 
@@ -644,7 +644,7 @@
 	add_fingerprint(usr)
 
 /obj/machinery/cryopod/verb/move_inside()
-	set name = "Enter Pod"
+	set name = "Залезть внутрь"
 	set category = "Object"
 	set src in oview(1)
 

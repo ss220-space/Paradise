@@ -1655,7 +1655,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set name = "Activate Held Object"
+	set name = "Использовать удерживаемый объект"
 	set category = "IC"
 	set src = usr
 

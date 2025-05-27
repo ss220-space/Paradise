@@ -117,7 +117,7 @@
 
 
 /mob/living/simple_animal/pet/cat/verb/sit()
-	set name = "Sit Down"
+	set name = "Присесть"
 	set category = "IC"
 
 	if(resting)

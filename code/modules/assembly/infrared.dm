@@ -192,7 +192,7 @@
 
 
 /obj/item/assembly/infra/verb/rotate_verb()
-	set name = "Rotate Infrared Laser"
+	set name = "Повернуть"
 	set category = "Object"
 	set src in usr
 

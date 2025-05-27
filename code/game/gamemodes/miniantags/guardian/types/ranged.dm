@@ -108,7 +108,7 @@
 		to_chat(src, span_danger("У вас установлено слишком много ловушек. Сначала удалите некоторые."))
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
-	set name = "Удалить ловушку для наблюдения"
+	set name = "Удалить ловушку для слежки"
 	set category = "Guardian"
 	set desc = "Обезвреживание нежелательных ловушек наблюдения."
 	var/picked_snare = input(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку") as null|anything in snares

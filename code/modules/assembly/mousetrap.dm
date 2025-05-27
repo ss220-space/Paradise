@@ -169,7 +169,7 @@
 
 /obj/item/assembly/mousetrap/verb/hide_under_verb()
 	set src in oview(1)
-	set name = "Hide"
+	set name = "Спрятать"
 	set category = "Object"
 
 	hide_under(usr)

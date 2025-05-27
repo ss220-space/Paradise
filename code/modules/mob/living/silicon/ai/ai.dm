@@ -373,7 +373,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/pick_icon()
 	set category = "AI Commands"
-	set name = "Set AI Core Display"
+	set name = "Задать дисплей ядра ИИ"
 	if(stat || aiRestorePowerRoutine)
 		return
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
@@ -567,14 +567,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
-	set name = "Show Crew Manifest"
+	set name = "Манифест экипажа"
 	set category = "AI Commands"
 	show_station_manifest()
 
 /mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
 	set category = "AI Commands"
-	set name = "Make Station Announcement"
+	set name = "Сделать станционное объявление"
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
@@ -596,7 +596,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		message_cooldown = 0
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
-	set name = "Call Emergency Shuttle"
+	set name = "Вызвать эвакуационный шаттл"
 	set category = "AI Commands"
 
 	if(check_unable(AI_CHECK_WIRELESS))
@@ -614,7 +614,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return
 
 /mob/living/silicon/ai/proc/ai_cancel_call()
-	set name = "Recall Emergency Shuttle"
+	set name = "Отозвать эвакуационный шаттл"
 	set category = "AI Commands"
 
 	if(check_unable(AI_CHECK_WIRELESS))
@@ -633,7 +633,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/verb/toggle_anchor()
 	set category = "AI Commands"
-	set name = "Toggle Floor Bolts"
+	set name = "Переключить болтирование к полу"
 
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
@@ -647,7 +647,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 
 /mob/living/silicon/ai/proc/announcement()
-	set name = "Announcement"
+	set name = "Звуковое оповещение"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
 	set category = "AI Commands"
 
@@ -855,7 +855,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/botcall()
 	set category = "AI Commands"
-	set name = "Access Robot Control"
+	set name = "Диспетчер роботов"
 	set desc = "Wirelessly control various automatic robots."
 	if(stat == 2)
 		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
@@ -965,7 +965,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 //Addition by Mord_Sith to define AI's network change ability
 /mob/living/silicon/ai/proc/ai_network_change()
 	set category = "AI Commands"
-	set name = "Jump To Network"
+	set name = "Сменить сеть камер"
 	unset_machine()
 	var/cameralist[0]
 
@@ -1010,7 +1010,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 /mob/living/silicon/ai/proc/ai_statuschange()
 	set category = "AI Commands"
-	set name = "AI Status"
+	set name = "Выбрать статус ИИ"
 
 	if(usr.stat == 2)
 		to_chat(usr, "You cannot change your emotional status because you are dead!")
@@ -1047,7 +1047,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
-	set name = "Change Hologram"
+	set name = "Сменить голограмму"
 	set desc = "Change the default hologram available to AI to something else."
 	set category = "AI Commands"
 
@@ -1196,7 +1196,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()
-	set name = "Toggle Camera Lights"
+	set name = "Переключение подсветки камер"
 	set desc = "Toggles the lights on the cameras throughout the station."
 	set category = "AI Commands"
 
@@ -1223,26 +1223,26 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRadio.make_syndie()
 
 /mob/living/silicon/ai/proc/sensor_mode()
-	set name = "Set Sensor Augmentation"
+	set name = "Настроить HUD камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = "AI Commands"
 	toggle_sensor_mode()
 
 /mob/living/silicon/ai/proc/ai_change_voice()
-	set name = "Change Voice"
+	set name = "Сменить голос"
 	set desc = "Express yourself!"
 	set category = "AI Commands"
 	change_voice()
 
 /mob/living/silicon/ai/proc/arrivals_announcement()
-	set name = "Toggle Arrivals Announcer"
+	set name = "Переключить авто-оповещения о прибытии на станцию"
 	set desc = "Change whether or not you wish to announce arrivals."
 	set category = "AI Commands"
 	announce_arrivals = !announce_arrivals
 	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
 
 /mob/living/silicon/ai/proc/change_arrival_message()
-	set name = "Set Arrival Message"
+	set name = "Задать сообщение о прибытии на станцию"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
 	set category = "AI Commands"
 
@@ -1298,7 +1298,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return
 
 /mob/living/silicon/ai/proc/control_integrated_radio()
-	set name = "Radio Settings"
+	set name = "Настройка радиомодуля"
 	set desc = "Allows you to change settings of your radio."
 	set category = "AI Commands"
 

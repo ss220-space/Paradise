@@ -1080,7 +1080,7 @@
 #undef SSD_WARNING_TIMER
 
 /client/verb/toggle_fullscreen()
-	set name = "Toggle Fullscreen"
+	set name = "Полноэкранный режим"
 	set category = "OOC"
 
 	fullscreen = !fullscreen
@@ -1128,7 +1128,7 @@
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
-	set name = "Fit Viewport"
+	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
 	set category = "Special Verbs"
 
@@ -1198,7 +1198,7 @@
  * Reloads the titlescreen if it is bugged for someone.
  */
 /client/verb/fix_title_screen()
-	set name = "Fix Lobby Screen"
+	set name = "Починить заставку в лобби"
 	set desc = "Lobbyscreen broke? Press this."
 	set category = "Special Verbs"
 

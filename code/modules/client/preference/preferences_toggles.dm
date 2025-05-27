@@ -1,5 +1,5 @@
 /client/verb/setup_character()
-	set name = "Game Preferences"
+	set name = "Игровые предпочтения"
 	set category = "Special Verbs"
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
@@ -280,7 +280,7 @@
 	blackbox_message = "Toggle Ghost PDA"
 
 /client/verb/silence_current_midi()
-	set name = "Silence Current Midi"
+	set name = "Заглушить текущий MIDI-файл"
 	set category = "Special Verbs"
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)

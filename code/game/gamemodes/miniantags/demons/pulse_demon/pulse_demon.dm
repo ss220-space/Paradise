@@ -418,7 +418,7 @@
 		update_controlling_area()
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
-	set name = "Move Upwards"
+	set name = "Подняться"
 	set category = "IC"
 
 	var/turf/current_turf = get_turf(src)
@@ -435,7 +435,7 @@
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
-	set name = "Move Down"
+	set name = "Опуститься"
 	set category = "IC"
 
 	var/turf/current_turf = get_turf(src)

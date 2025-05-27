@@ -141,7 +141,7 @@
 
 //For the holster hotkey
 /obj/item/clothing/accessory/holster/verb/holster_verb()
-	set name = "Holster"
+	set name = "Взаимодействие с кобурой"
 	set category = "Object"
 	set src in usr
 

@@ -70,7 +70,7 @@
 	qdel(src)
 
 /obj/structure/inflatable/verb/hand_deflate()
-	set name = "Deflate"
+	set name = "Сдуть"
 	set category = "Object"
 	set src in oview(1)
 

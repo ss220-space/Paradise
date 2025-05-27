@@ -102,7 +102,7 @@
 		CHECK_TICK
 
 /obj/structure/ore_box/verb/empty_box()
-	set name = "Empty Ore Box"
+	set name = "Опустошить"
 	set category = "Object"
 	set src in view(1)
 

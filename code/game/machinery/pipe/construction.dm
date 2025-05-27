@@ -180,7 +180,7 @@
 
 /obj/item/pipe/verb/rotate()
 	set category = "Object"
-	set name = "Rotate Pipe"
+	set name = "Повернуть трубу"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -197,7 +197,7 @@
 
 /obj/item/pipe/verb/flip()
 	set category = "Object"
-	set name = "Flip Pipe"
+	set name = "Перевернуть трубу"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

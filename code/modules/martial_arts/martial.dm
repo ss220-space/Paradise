@@ -226,7 +226,7 @@
 	return highest_weight
 
 /mob/living/carbon/human/proc/martial_arts_help()
-	set name = "Show Info"
+	set name = "Показать информацию о БИ"
 	set desc = "Gives information about the martial arts you know."
 	set category = "Martial Arts"
 	var/mob/living/carbon/human/H = usr
@@ -236,7 +236,7 @@
 	H.mind.martial_art.give_explaination(H)
 
 /mob/living/carbon/human/proc/dirslash_enabling()
-	set name = "Enable/Disable direction slash"
+	set name = "Переключить атаку по направлению"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
 	set category = "Martial Arts"
 	dirslash_enabled = !dirslash_enabled

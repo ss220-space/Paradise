@@ -30,7 +30,7 @@
 		return TRUE
 
 /obj/item/watertank/verb/toggle_mister()
-	set name = "Toggle Mister"
+	set name = "Вынуть шланг"
 	set category = "Object"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

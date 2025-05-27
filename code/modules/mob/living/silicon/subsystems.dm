@@ -73,7 +73,7 @@
 ********************/
 /mob/living/silicon/proc/subsystem_atmos_control()
 	set category = "Subsystems"
-	set name = "Atmospherics Control"
+	set name = "Контроль атмосферы"
 
 	atmos_control.ui_interact(usr)
 
@@ -82,14 +82,14 @@
 ********************/
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = "Subsystems"
-	set name = "Crew Monitor"
+	set name = "Манифест экипажа"
 	crew_monitor.ui_interact(usr)
 
 /****************
 *	Law Manager	*
 ****************/
 /mob/living/silicon/proc/subsystem_law_manager()
-	set name = "Law Manager"
+	set name = "Диспетчер законов"
 	set category = "Subsystems"
 
 	law_manager.ui_interact(usr)
@@ -99,7 +99,7 @@
 ********************/
 /mob/living/silicon/proc/subsystem_power_monitor()
 	set category = "Subsystems"
-	set name = "Power Monitor"
+	set name = "Монитор энергии"
 
 	power_monitor.ui_interact(usr)
 
@@ -116,14 +116,14 @@
 *	Blueprints	*
 ********************/
 /mob/living/silicon/proc/subsystem_blueprints()
-	set name = "Station Blueprints"
+	set name = "Чертежи станции"
 	set category = "Subsystems"
 
 	blueprints.interact_prints(src)
 
 /mob/living/silicon/robot/proc/self_diagnosis()
 	set category = "Robot Commands"
-	set name = "Self Diagnosis"
+	set name = "Самодиагностика"
 
 	if(!is_component_functioning("diagnosis unit"))
 		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")

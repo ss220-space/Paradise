@@ -248,7 +248,7 @@
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Toggle speech inside Host"
+	set name = "Говорить внутри Носителя"
 	set category = "Borer"
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
@@ -399,7 +399,7 @@
 	var/datum/browser/popup = new(usr, "viewBorer[UID()]chems", "Borer Chems", 585, 400)
 	popup.set_content(html)
 	popup.open(FALSE)
-	
+
 	return
 
 /mob/living/simple_animal/borer/Topic(href, href_list, hsrc)
@@ -773,7 +773,7 @@
 	candidate.mob = src
 	ckey = candidate.ckey
 	mind.add_antag_datum(antag_datum)
-	
+
 	GrantBorerSpells()
 	hide_borer()
 

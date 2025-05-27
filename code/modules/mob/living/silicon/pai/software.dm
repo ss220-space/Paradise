@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(pai_software_by_key)
 
 /mob/living/silicon/pai/verb/paiInterface()
 	set category = "pAI Commands"
-	set name = "Software Interface"
+	set name = "Диспетчер ПО"
 
 	ui_interact(src)
 

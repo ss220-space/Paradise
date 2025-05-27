@@ -172,7 +172,7 @@
 
 /obj/machinery/gibber/verb/eject()
 	set category = "Object"
-	set name = "Empty Gibber"
+	set name = "Опустошить мясорубку"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

@@ -787,7 +787,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	var/datum/browser/popup = new(usr, "simpledellog", "Simple del logs")
 	popup.set_content(dat)
 	popup.open(FALSE)
-	
+
 
 /client/proc/cmd_admin_toggle_block(mob/M, block)
 	if(!check_rights(R_SPAWN))
@@ -831,7 +831,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 /client/proc/jump_to_ruin()
 	set category = "OOC"
-	set name = "Jump to Ruin"
+	set name = "Телепортация к руине"
 	set desc = "Displays a list of all placed ruins to teleport to."
 
 	if(!check_rights(R_DEBUG))

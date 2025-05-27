@@ -864,7 +864,7 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Toggle Nanofibre Mode"
+	set name = "Переключить режим наноткани"
 	set category = "Object"
 	set src in usr
 
@@ -1159,7 +1159,7 @@
 
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Toggle Jumpsuit Zipper"
+	set name = "Переключить молнию костюма"
 	set category = "Object"
 	set src in usr
 

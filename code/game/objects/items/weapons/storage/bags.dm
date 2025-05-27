@@ -340,7 +340,7 @@
 	origin_tech = "biotech=3;engineering=2"
 
 /obj/item/storage/bag/plants/portaseeder/verb/dissolve_contents()
-	set name = "Activate Seed Extraction"
+	set name = "Активировать конвертацию в семена"
 	set category = "Object"
 	set desc = "Activate to convert your plants into plantable seeds."
 
@@ -601,7 +601,7 @@
 	var/placement_radius = 12
 
 /obj/item/storage/bag/tray/cyborg/verb/select_placement_radius()
-	set name = "Select Placement Radius"
+	set name = "Выбрать радиус размещения"
 	set category = "Object"
 	set src in usr
 

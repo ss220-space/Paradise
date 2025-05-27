@@ -22,9 +22,9 @@ function log_debug(data) {
 }
 
 // Status panel implementation ------------------------------------------------
-var status_tab_parts = [['Loading...', '']];
+var status_tab_parts = [['Загрузка...', '']];
 var current_tab = null;
-var mc_tab_parts = [['Loading...', '']];
+var mc_tab_parts = [['Загрузка...', '']];
 var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
@@ -244,7 +244,7 @@ function tab_change(tab) {
 	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
-		statcontentdiv.textContext = 'Loading...';
+		statcontentdiv.textContext = 'Загрузка...';
 	}
 	Byond.winset(Byond.windowId, {
 		'is-visible': true,

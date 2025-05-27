@@ -295,7 +295,7 @@
 /obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/high_value_item)
-	
+
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
@@ -524,7 +524,7 @@
 
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Holobadge"
+	set name = "Показать значок"
 	set category = "Object"
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
