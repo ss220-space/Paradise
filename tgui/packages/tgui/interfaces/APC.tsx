@@ -24,11 +24,6 @@ const powerStatusMap = {
     externalPowerText: 'Low External Power',
     chargingText: 'Charging',
   },
-  0: {
-    color: 'bad',
-    externalPowerText: 'No External Power',
-    chargingText: 'Not Charging',
-  },
 };
 
 const malfMap = {

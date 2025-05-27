@@ -56,8 +56,6 @@ export const AccountsUplinkTerminal = (_properties) => {
   } else {
     if (currentPage === 1) {
       body = <AccountsRecordList />;
-    } else if (currentPage === 2) {
-      body = <DetailedAccountInfo />;
     } else if (currentPage === 3) {
       body = <CreateAccount />;
     }
