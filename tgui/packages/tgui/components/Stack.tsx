@@ -118,13 +118,7 @@ const StackDivider = (props: StackDividerProps) => {
 
   return (
     <div
-      className={classes([
-        'Stack__item',
-        'Stack__divider',
-        hidden && 'Stack__divider--hidden',
-        className,
-        computeBoxClassName(rest),
-      ])}
+      className={classes([computeBoxClassName(rest)])}
       {...computeFlexItemProps(rest)}
     />
   );
