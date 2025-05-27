@@ -3,15 +3,30 @@ name: TGUI Auto-Rebuild on Public Conflicts
 on:
   pull_request_target:
     types: [ready_for_review, opened, synchronize, reopened]
+  issue_comment:
+    types: [created]
 
 jobs:
   check-and-rebuild:
+    if: |
+      github.event_name == 'pull_request_target' ||
+      (ithub.event.issue.pull_request && github.event_name == 'issue_comment' && contains(github.event.comment.body, '/rebuild-tgui'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
       pull-requests: write
 
     steps:
+      - name: Delete the command comment
+        if: contains(github.event.comment.body, '/rebuild-tgui')
+        uses: actions/github-script@v6
+        with:
+          script: |
+            await github.rest.issues.deleteComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              comment_id: context.payload.comment.id
+            })
       - name: Checkout PR branch
         uses: actions/checkout@v4
         with:
@@ -71,7 +86,7 @@ jobs:
           git config --local user.name "TGUI Auto-Rebuild"
 
           git merge --no-commit --no-ff origin/${{ github.event.pull_request.base.ref}} || true
-          
+
           cd tgui/public
           find . -type f -not -name 'tgui.html' -delete
           find . -type d -not -name '.' -exec rm -rf {} +
@@ -81,7 +96,6 @@ jobs:
 
           git add tgui/public
           git commit -m "Auto-rebuild TGUI after conflicts"
-          git merge --continue
           git push
 
       - name: Comment on PR (if rebuilt)
