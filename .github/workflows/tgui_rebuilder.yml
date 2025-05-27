@@ -29,6 +29,7 @@ jobs:
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           echo "Conflicted files: $CONFLICT_FILES"
+          echo "conflict_files=$CONFLICT_FILES" >> $GITHUB_OUTPUT
 
           BAD_CONFLICTS=0
           for FILE in $CONFLICT_FILES; do
@@ -66,26 +67,11 @@ jobs:
 
       - name: Comment on PR (if rebuilt)
         if: steps.check-conflicts.outputs.safe_to_rebuild == 'true'
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '🔧 Автоматически пересобрал TGUI после конфликтов в `tgui/public`. ' +
-                    'Проверьте изменения и обновите PR, если нужно!'
-            })
+        run:
+          echo '🔧 Конфликты успешно решены при пересборке tgui!'
 
       - name: Comment on PR (if unsafe conflicts)
         if: steps.check-conflicts.outputs.safe_to_rebuild == 'false' && steps.check-conflicts.outputs.conflict_files != ''
-        uses: actions/github-script@v7
-        with:
-          script: |
-            await github.rest.issues.createComment({
-              issue_number: context.issue.number,
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              body: '⚠️ Обнаружены конфликты за пределами `tgui/public` или в `tgui.html`. ' +
+        run:
+          echo '⚠️ Обнаружены конфликты за пределами `tgui/public` или в `tgui.html`. ' +
                     'Нельзя автоматически пересобрать TGUI. Разрешите конфликты вручную.'
-            })
