@@ -18,6 +18,12 @@ jobs:
           fetch-depth: 0
           ref: ${{ github.event.pull_request.head.sha}}
 
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
       - name: Fetch target branch (e.g., master220)
         run: |
           git fetch origin ${{ github.event.pull_request.base.ref }}
@@ -53,14 +59,15 @@ jobs:
             if [ "$BAD_CONFLICTS" -eq 1 ]; then
               echo "safe_to_rebuild=false" >> $GITHUB_ENV
             fi
-            if [ -f ".git/MERGE_HEAD" ]; then
-              git merge --abort
-            fi
+          fi
+          if [ -f ".git/MERGE_HEAD" ]; then
+            git merge --abort
           fi
 
       - name: Rebuild TGUI (if safe)
         if: env.safe_to_rebuild == 'true'
         run: |
+          git merge --no-commit --no-ff origin/${{ github.event.pull_request.base.ref}} || true
           cd tgui/public
           find . -type f -not -name 'tgui.html' -delete
           find . -type d -not -name '.' -exec rm -rf {} +
