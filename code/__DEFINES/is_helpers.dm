@@ -71,6 +71,8 @@
 
 #define issupplypod(A) (istype(A, /obj/structure/closet/supplypod))
 
+#define ismortarcasing(A) (istype(A, /obj/item/mortar_shell))
+
 #define isammocasing(A) (istype(A, /obj/item/ammo_casing))
 
 #define ismachinery(A) (istype(A, /obj/machinery))

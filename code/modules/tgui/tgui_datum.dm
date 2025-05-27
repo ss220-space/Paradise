@@ -217,13 +217,15 @@
 	json_data["config"] = list(
 		"title" = title,
 		"status" = status,
-		"interface" = interface,
+		"interface" = list(
+			"name" = interface
+		),
 		"refreshing" = refreshing,
 		"window" = list(
 			"key" = window_key,
 			"size" = window_size,
 			"fancy" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
-			"locked" = FALSE,
+			"locked" = (user.client?.prefs?.toggles2 & PREFTOGGLE_2_FANCYUI),
 			"scale" = (user.client?.prefs.toggles3 & PREFTOGGLE_3_UI_SCALE),
 		),
 		"client" = list(
@@ -241,9 +243,9 @@
 	var/data = custom_data || with_data && src_object.ui_data(user)
 	if(data)
 		json_data["data"] = data
-		
+
 	var/static_data = with_static_data && src_object.ui_static_data(user)
-	
+
 	if(static_data)
 		json_data["static_data"] = static_data
 

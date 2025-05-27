@@ -1,36 +1,24 @@
-import { classes } from 'common/react';
 import { useBackend } from '../backend';
-import {
-  Box,
-  Button,
-  Section,
-  Stack,
-  Table,
-  AnimatedNumber,
-  Icon,
-  LabeledList,
-  ProgressBar,
-  ImageButton,
-} from '../components';
+import { Box, Button, LabeledList } from '../components';
 import { Window } from '../layouts';
 
 type AnomalyGeneratorData = {
-  type;
-  tier;
-  creating;
-  req_energy;
-  req_item;
-  anomaly_type;
-  charge;
-  generating;
-  use_acps;
-  use_smeses;
-  use_powernet;
-  has_powernet;
-  last_charge;
+  type: string;
+  tier: string;
+  creating: boolean;
+  req_energy: boolean;
+  req_item: boolean;
+  anomaly_type: string;
+  charge: number;
+  generating: boolean;
+  use_acps: boolean;
+  use_smeses: boolean;
+  use_powernet: boolean;
+  has_powernet: boolean;
+  last_charge: string;
 };
 
-export const AnomalyGenerator = (props) => {
+export const AnomalyGenerator = (_props) => {
   const { act, data } = useBackend<AnomalyGeneratorData>();
   const {
     type,
@@ -55,21 +43,24 @@ export const AnomalyGenerator = (props) => {
           <LabeledList>
             <LabeledList.Item label="Источники энергии">
               <Button
-                content="ЛКП"
                 selected={use_acps}
                 onClick={() => act('toggle_apcs', {})}
-              />
+              >
+                ЛКП
+              </Button>
               <Button
-                content="СКАНы рядом"
                 selected={use_smeses}
                 onClick={() => act('toggle_smeses', {})}
-              />
+              >
+                СКАНы рядом
+              </Button>
               <Button
-                content="Узел энергосети"
                 selected={use_powernet}
                 disabled={!has_powernet}
                 onClick={() => act('toggle_powernet', {})}
-              />
+              >
+                Узел энергосети
+              </Button>
             </LabeledList.Item>
           </LabeledList>
           <Box>Создается {anomaly_type} аномалия.</Box>
@@ -77,10 +68,7 @@ export const AnomalyGenerator = (props) => {
             Накоплено энергии: {charge}/{req_energy}
           </Box>
           <Box>Накопление энергии в секунду: {last_charge}</Box>
-          <Button
-            content="Прекратить создание"
-            onClick={() => act('stop', {})}
-          />
+          <Button onClick={() => act('stop', {})}>Прекратить создание</Button>
         </Window.Content>
       </Window>
     );
@@ -91,90 +79,99 @@ export const AnomalyGenerator = (props) => {
           <LabeledList>
             <LabeledList.Item label="Источники энергии">
               <Button
-                content="ЛКП"
                 selected={use_acps}
                 onClick={() => act('toggle_apcs', {})}
-              />
+              >
+                ЛКП
+              </Button>
               <Button
-                content="СКАНы рядом"
                 selected={use_smeses}
                 onClick={() => act('toggle_smeses', {})}
-              />
+              >
+                СКАНы рядом
+              </Button>
               <Button
-                content="Узел энергосети"
                 selected={use_powernet}
                 disabled={!has_powernet}
                 onClick={() => act('toggle_powernet', {})}
-              />
+              >
+                Узел энергосети
+              </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Тип аномалии">
               <Button
-                content="Случайный"
                 selected={type === 'random'}
                 onClick={() => act('choose_type', { type: 'random' })}
-              />
+              >
+                Случайный
+              </Button>
               <Button
-                content="Атмосферная"
                 selected={type === 'pyroclastic'}
                 onClick={() => act('choose_type', { type: 'pyroclastic' })}
-              />
+              >
+                Атмосферная
+              </Button>
               <Button
-                content="Блюспейс"
                 selected={type === 'bluespace'}
                 onClick={() => act('choose_type', { type: 'bluespace' })}
-              />
+              >
+                Блюспейс
+              </Button>
               <Button
-                content="Вихревая"
                 selected={type === 'vortex'}
                 onClick={() => act('choose_type', { type: 'vortex' })}
-              />
+              >
+                Вихревая
+              </Button>
               <Button
-                content="Гравитационная"
                 selected={type === 'gravitational'}
                 onClick={() => act('choose_type', { type: 'gravitational' })}
-              />
+              >
+                Гравитационная
+              </Button>
               <Button
-                content="Энергетическая"
                 selected={type === 'energetic'}
                 onClick={() => act('choose_type', { type: 'energetic' })}
-              />
+              >
+                Энергетическая
+              </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Уровень аномалии">
               <Button
-                content="Малая"
                 selected={tier === '1'}
-                onClick={() => act('choose_tier', { tier: 1 })}
-              />
+                onClick={() => act('choose_tier', { tier: '1' })}
+              >
+                Малая
+              </Button>
               <Button
-                content="Средняя"
                 selected={tier === '2'}
-                onClick={() => act('choose_tier', { tier: 2 })}
-              />
+                onClick={() => act('choose_tier', { tier: '2' })}
+              >
+                Средняя
+              </Button>
               <Button
-                content="Большая"
                 selected={tier === '3'}
-                onClick={() => act('choose_tier', { tier: 3 })}
-              />
+                onClick={() => act('choose_tier', { tier: '3' })}
+              >
+                Большая
+              </Button>
             </LabeledList.Item>
           </LabeledList>
           <Box>Требуется: {req_item}</Box>
           <Box>Расходуемый заряд: {req_energy}</Box>
           <Button
-            content="Создать аномалию"
             selected={creating === true}
             mt="0.5rem"
             onClick={() => act('generate')}
-          />
-          <Button
-            content="Извлечь содержимое"
-            mt="0.5rem"
-            onClick={() => act('eject_all')}
-          />
-          <Button
-            content="Выбрать маячок"
-            mt="0.5rem"
-            onClick={() => act('beakon')}
-          />
+          >
+            Создать аномалию
+          </Button>
+          <Button mt="0.5rem" onClick={() => act('eject_all')}>
+            Извлечь содержимое
+          </Button>
+          <Button mt="0.5rem" onClick={() => act('beakon')}>
+            Выбрать маячок
+          </Button>
         </Window.Content>
       </Window>
     );

@@ -78,7 +78,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 												"cost" = uplink_item.cost,
 												"hijack_only" = uplink_item.hijack_only,
 												"obj_path" = ref(uplink_item),
-												"refundable" = uplink_item.refundable
+												"refundable" = uplink_item.refundable,
+												"uid" = uplink_item.UID()
 												)
 											)
 

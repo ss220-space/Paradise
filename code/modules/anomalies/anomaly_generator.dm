@@ -163,7 +163,7 @@
 			selected_type = type
 
 		if("choose_tier")
-			selected_tier = "[params["tier"]]"
+			selected_tier = params["tier"]
 
 		if("generate")
 			generate()

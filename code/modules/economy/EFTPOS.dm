@@ -180,14 +180,14 @@
 				return
 			last_change = world.timeofday
 			if(access_code)
-				var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 9999, min_value = 1000)
+				var/attempt_code = tgui_input_number(user, "Re-enter the current EFTPOS access code:", "Confirm old EFTPOS code", max_value = 999999, min_value = 1000)
 				if(!Adjacent(user))
 					return
 				if(attempt_code != access_code)
 					to_chat(user, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
-			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 9999, min_value = 1000)
+			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 999999, min_value = 1000)
 			if(!Adjacent(user) || !isnull(trycode))
 				return
 			access_code = trycode

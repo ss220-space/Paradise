@@ -1367,3 +1367,6 @@
 
 /// from start of /mob/living/simple_animal/soulscythe/Life(): (amount)
 #define COMSIG_BLOOD_LEVEL_TICK "blood_level_tick"
+
+/// Window is fully visible and we can make fragile calls
+#define COMSIG_TGUI_WINDOW_VISIBLE "tgui_window_visible"

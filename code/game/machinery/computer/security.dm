@@ -367,7 +367,7 @@
 						if(!record_general)
 							return
 
-						var/datum/species/species = record_general.fields["species"]
+						var/datum/species/species = GLOB.all_species[record_general.fields["species"]]
 						var/new_age = text2num(answer)
 						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
@@ -387,7 +387,7 @@
 
 					if(record_security && (field in record_security.fields))
 						record_security.fields[field] = answer
-					else if(record_general && (field in record_general.fields))
+					if(record_general && (field in record_general.fields))
 						record_general.fields[field] = answer
 				if("criminal_reason")
 					var/status = arguments["status"]
