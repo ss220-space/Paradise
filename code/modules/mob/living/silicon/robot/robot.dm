@@ -651,7 +651,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
-	return list("Charge Left:", cell ? "[cell.charge]/[cell.maxcharge]" : "No Cell Inserted!")
+	return list("Заряд:", cell ? "[cell.charge]/[cell.maxcharge]" : "Батарея не обнаружена")
 
 
 /mob/living/silicon/robot/proc/show_gps_coords()

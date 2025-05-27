@@ -43,7 +43,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(beacon_cooldown >= world.time)
-		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] секунд")
+		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] секунд[declension_ru(max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0), "а", "ы", "")]")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()

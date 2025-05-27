@@ -211,53 +211,53 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
-	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
 
 	var/total_user_contents = GetAllContents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
 		var/turf/T = get_turf(src)
 		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
 	if(locate(/obj/item/assembly/health) in total_user_contents)
-		status_tab_data[++status_tab_data.len] = list("Health:", "[health]")
+		status_tab_data[++status_tab_data.len] = list("Состояние здоровья:", "[health]")
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
 		else
-			status_tab_data[++status_tab_data.len] = list("Internal Atmosphere Info:", "[internal.name]")
-			status_tab_data[++status_tab_data.len] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
-			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
+			status_tab_data[++status_tab_data.len] = list("Информация о внутренней атмосфере:", "[internal.name]")
+			status_tab_data[++status_tab_data.len] = list("Давление в баллоне:", "[internal.air_contents.return_pressure()]")
+			status_tab_data[++status_tab_data.len] = list("Выходное давление:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	if(borer && borer.controlling)
-		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
-		status_tab_data[++status_tab_data.len] = list("Rank", borer.antag_datum.borer_rank.rankname)
-		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.antag_datum.evo_points)
+		status_tab_data[++status_tab_data.len] = list("Запас химикатов:", borer.chemicals)
+		status_tab_data[++status_tab_data.len] = list("Ранг:", borer.antag_datum.borer_rank.rankname)
+		status_tab_data[++status_tab_data.len] = list("Очки эволюции:", borer.antag_datum.evo_points)
 
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			status_tab_data[++status_tab_data.len] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
-			status_tab_data[++status_tab_data.len] = list("Absorbed DNA:", "[cling.absorbed_count]")
+			status_tab_data[++status_tab_data.len] = list("Запас химикатов:", "[cling.chem_charges]/[cling.chem_storage]")
+			status_tab_data[++status_tab_data.len] = list("Поглощено ДНК:", "[cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
-			status_tab_data[++status_tab_data.len] = list("Всего крови:", "[vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Доступная кровь:", "[vamp.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Поглощено крови:", "[vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Запас доступной кровь:", "[vamp.bloodusable]")
 
 		if(isclocker(mind.current))
-			status_tab_data[++status_tab_data.len] = list("Total Power", "[GLOB.clockwork_power]")
+			status_tab_data[++status_tab_data.len] = list("Заряд:", "[GLOB.clockwork_power]")
 
 		var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 		if(ninja?.my_suit)
-			status_tab_data[++status_tab_data.len] = list("Заряд костюма","[ninja.get_cell_charge()]")
-			status_tab_data[++status_tab_data.len] = list("Заряд рывков","[ninja.get_dash_charge()]")
+			status_tab_data[++status_tab_data.len] = list("Заряд костюма:","[ninja.get_cell_charge()]")
+			status_tab_data[++status_tab_data.len] = list("Заряд рывков:","[ninja.get_dash_charge()]")
 
 	if(isspacepod(loc)) // Spacdpods!
 		var/obj/spacepod/S = loc
-		status_tab_data[++status_tab_data.len] = list("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
-		status_tab_data[++status_tab_data.len] = list("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
+		status_tab_data[++status_tab_data.len] = list("Заряд пода:", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "Батарея не обнаружена"]")
+		status_tab_data[++status_tab_data.len] = list("Прочность пода:", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))

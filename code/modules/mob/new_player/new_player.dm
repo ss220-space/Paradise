@@ -38,7 +38,7 @@
 		return .
 	status_tab_data[++status_tab_data.len] = list("Список игроков:", "")
 	for(var/mob/new_player/player in GLOB.player_list)
-		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
+		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(готов)" : "(не готов)")
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -660,7 +660,7 @@
 /mob/new_player/proc/close_spawn_windows()
 	close_window(src, "latechoices") //closes late choices window
 	close_window(src, "playersetup") //closes the player setup window
-	close_window(src, "preferences")	
+	close_window(src, "preferences")
 	close_window(src, "mob_occupation") //closes job selection
 
 

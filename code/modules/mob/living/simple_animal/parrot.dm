@@ -145,7 +145,7 @@
 /mob/living/simple_animal/parrot/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Held Item", held_item)
+	status_tab_data[++status_tab_data.len] = list("Удерживаемый предмет:", held_item)
 
 
 /*

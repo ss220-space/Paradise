@@ -478,7 +478,7 @@
 /mob/living/simple_animal/soulscythe/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Кровь:", "[blood_level]/[MAX_BLOOD_LEVEL]")
+	status_tab_data[++status_tab_data.len] = list("Запас крови:", "[blood_level]/[MAX_BLOOD_LEVEL]")
 
 /mob/living/simple_animal/soulscythe/Life(seconds_per_tick, times_fired)
 	. = ..()

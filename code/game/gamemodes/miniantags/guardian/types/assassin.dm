@@ -31,7 +31,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(stealthcooldown >= world.time)
-		status_tab_data[++status_tab_data.len] = list("Время до невидимости:", "[max(round((stealthcooldown - world.time) * 0.1, 0.1), 0)] секунд")
+		status_tab_data[++status_tab_data.len] = list("Время до невидимости:", "[max(round((stealthcooldown - world.time) * 0.1, 0.1), 0)] секунд[declension_ru(max(round((stealthcooldown - world.time) * 0.1, 0.1), 0), "а", "ы", "")]")
 
 /mob/living/simple_animal/hostile/guardian/assassin/AttackingTarget()
 	var/mob/living/L = target

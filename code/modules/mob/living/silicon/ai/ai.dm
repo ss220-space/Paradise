@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(stat)
-		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
+		status_tab_data[++status_tab_data.len] = list("Состояние системы:", "Не функциональна")
 		return
 	status_tab_data = show_borg_info(status_tab_data)
 
@@ -296,18 +296,18 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	popup.open(FALSE)
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
-	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
+	status_tab_data[++status_tab_data.len] = list("Количество подключённых роботов:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
-		var/robot_status = "Nominal"
+		var/robot_status = "В порядке"
 		if(R.stat || !R.client)
-			robot_status = "OFFLINE"
+			robot_status = "Вне сети"
 		else if(!R.cell || R.cell.charge <= 0)
-			robot_status = "DEPOWERED"
+			robot_status = "Обесточен"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
-		var/area_name = A ? sanitize(A.name) : "Unknown"
-		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
-		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
+		var/area_name = A ? sanitize(A.name) : "Неизвестно"
+		status_tab_data[++status_tab_data.len] = list("[R.name]:", "Прочность: [R.health]% | Заряд: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Пусто"] | \
+		Модуль: [R.designation] | Локация: [area_name] | Состояние: [robot_status]")
 	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
