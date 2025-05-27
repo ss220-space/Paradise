@@ -58,8 +58,6 @@ jobs:
             fi
           fi
 
-          git merge --abort
-
       - name: Rebuild TGUI (if safe)
         if: steps.check-conflicts.outputs.safe_to_rebuild == 'true'
         run: |
