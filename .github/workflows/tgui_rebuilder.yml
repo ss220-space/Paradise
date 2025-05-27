@@ -2,7 +2,7 @@ name: TGUI Auto-Rebuild on Public Conflicts
 
 on:
   pull_request:
-    types: [opened, synchronize, reopened]
+    types: [ready_for_review, opened, synchronize, reopened]
 
 jobs:
   check-and-rebuild:
@@ -20,7 +20,7 @@ jobs:
 
       - name: Fetch target branch (e.g., master220)
         run: |
-          git fetch origin ${{ github.event.pull_request.base.ref }}
+          git fetch origin ${{ github.event.pull_request.base_ref }}
 
       - name: Check merge conflicts in tgui/public
         id: check-conflicts
@@ -31,9 +31,9 @@ jobs:
             git merge --abort
           fi
 
-          git merge --no-commit --no-ff origin/${{ github.event.pull_request.base.ref}} || true
+          git merge --no-commit --no-ff origin/${{ github.event.pull_request.base_ref}} || true
 
-          echo ${{ github.event.pull_request.base.ref }}
+          echo ${{ github.event.pull_request.base_ref }}
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           echo "Conflicted files: $CONFLICT_FILES"
