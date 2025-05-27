@@ -68,7 +68,7 @@
 
 /client/verb/adminwho()
 	set category = "Admin.Admin Tickets"
-	set name = "Adminwho"
+	set name = "Список администрации"
 
 	var/msg = ""
 	var/modmsg = ""

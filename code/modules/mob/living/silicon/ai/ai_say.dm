@@ -74,7 +74,7 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 /mob/living/silicon/ai/verb/announcement_help()
 	set name = "Памятка по оповещениям"
 	set desc = "Display a list of vocal words to announce to the crew."
-	set category = "AI Commands"
+	set category = "ИИ команды"
 
 	var/list/dat = list()
 

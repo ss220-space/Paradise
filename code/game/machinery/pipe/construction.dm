@@ -179,7 +179,7 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
-	set category = "Object"
+	set category = "Объекты"
 	set name = "Повернуть трубу"
 	set src in view(1)
 
@@ -196,7 +196,7 @@
 
 
 /obj/item/pipe/verb/flip()
-	set category = "Object"
+	set category = "Объекты"
 	set name = "Перевернуть трубу"
 	set src in view(1)
 

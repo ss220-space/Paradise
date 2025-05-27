@@ -34,7 +34,7 @@
 
 
 /mob/living/silicon/ai/proc/ai_camera_list(var/camera in get_camera_list())
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Показать список команд"
 
 	if(src.stat == 2)
@@ -50,7 +50,7 @@
 	return
 
 /mob/living/silicon/ai/proc/ai_store_location(loc as text)
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Сохранить местоположение камеры"
 	set desc = "Stores your current camera location by the given name"
 
@@ -79,7 +79,7 @@
 	return sortList(stored_locations)
 
 /mob/living/silicon/ai/proc/ai_goto_location(loc in sorted_stored_locations())
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Переместиться к местоположению камеры"
 	set desc = "Returns to the selected camera location"
 
@@ -91,7 +91,7 @@
 	src.eyeobj.setLoc(L)
 
 /mob/living/silicon/ai/proc/ai_remove_location(loc in sorted_stored_locations())
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Удалить местоположение камеры"
 	set desc = "Deletes the selected camera location"
 
@@ -146,7 +146,7 @@
 	return targets
 
 /mob/living/silicon/ai/proc/ai_camera_track(target_name in trackable_mobs())
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Режим отслеживания камеры"
 	set desc = "Select who you would like to track."
 

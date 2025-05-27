@@ -442,7 +442,7 @@
 
 /obj/item/tape/verb/wipe()
 	set name = "Стереть кассету"
-	set category = "Object"
+	set category = "Объекты"
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr

@@ -1,5 +1,5 @@
 /mob/living/silicon/ai/proc/show_laws_verb()
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Показать список законов"
 	src.show_laws()
 
@@ -22,6 +22,6 @@
 			R.show_laws()
 
 /mob/living/silicon/ai/proc/ai_checklaws()
-	set category = "AI Commands"
+	set category = "ИИ команды"
 	set name = "Объявить список законов"
 	subsystem_law_manager()

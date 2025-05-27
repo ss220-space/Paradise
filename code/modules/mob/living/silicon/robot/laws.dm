@@ -1,5 +1,5 @@
 /mob/living/silicon/robot/verb/cmd_show_laws()
-	set category = "Robot Commands"
+	set category = "Робокоманды"
 	set name = "Показать список законов"
 	show_laws()
 
@@ -49,6 +49,6 @@
 	return
 
 /mob/living/silicon/robot/proc/robot_checklaws()
-	set category = "Robot Commands"
+	set category = "Робокоманды"
 	set name = "Объявить список законов"
 	subsystem_law_manager()

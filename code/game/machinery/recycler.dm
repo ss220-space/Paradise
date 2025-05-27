@@ -192,7 +192,7 @@
 
 /obj/machinery/recycler/verb/rotate()
 	set name = "Повернуть по часовой"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 
 	var/mob/living/user = usr
@@ -208,7 +208,7 @@
 
 /obj/machinery/recycler/verb/rotateccw()
 	set name = "Повернуть против часовой"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 
 	var/mob/living/user = usr

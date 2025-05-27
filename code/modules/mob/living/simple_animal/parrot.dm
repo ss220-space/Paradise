@@ -527,8 +527,8 @@
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
 /mob/living/simple_animal/parrot/proc/steal_from_ground()
-	set name = "Steal from ground"
-	set category = "Parrot"
+	set name = "Схватить предмет"
+	set category = "Попугай"
 	set desc = "Grabs a nearby item."
 
 	if(stat)
@@ -558,8 +558,8 @@
 
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
-	set name = "Steal from mob"
-	set category = "Parrot"
+	set name = "Выхватить предмет из рук"
+	set category = "Попугай"
 	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
@@ -590,8 +590,8 @@
 
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
-	set name = "Drop held item"
-	set category = "Parrot"
+	set name = "Выбросить удерживаемый предмет"
+	set category = "Попугай"
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -601,8 +601,8 @@
 
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
-	set name = "Drop held item"
-	set category = "Parrot"
+	set name = "Выбросить удерживаемый предмет"
+	set category = "Попугай"
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -633,8 +633,8 @@
 
 
 /mob/living/simple_animal/parrot/proc/perch_player()
-	set name = "Sit"
-	set category = "Parrot"
+	set name = "Присесть"
+	set category = "Попугай"
 	set desc = "Sit on a nice comfy perch."
 
 	if(stat || !client)

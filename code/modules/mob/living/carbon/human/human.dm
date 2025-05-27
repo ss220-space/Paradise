@@ -950,7 +950,7 @@
 	return name
 
 /mob/living/carbon/human/verb/check_pulse()
-	set name = "Check pulse"
+	set name = "Проверить пульс"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
 	var/self = 0

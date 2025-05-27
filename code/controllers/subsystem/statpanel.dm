@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(statpanels)
 		if(!target.stat_panel.is_ready())
 			continue
 
-		if(target.stat_tab == "Status" && num_fires % status_wait == 0)
+		if(target.stat_tab == "Статус" && num_fires % status_wait == 0)
 			set_status_tab(target)
 
 		var/holder_check = !isnull(target.holder)
@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(statpanels)
 	if(!target.stat_panel.is_ready())
 		return FALSE
 
-	if(target.stat_tab == "Status")
+	if(target.stat_tab == "Статус")
 		set_status_tab(target)
 		return TRUE
 

@@ -865,7 +865,7 @@
 
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
 	set name = "Переключить режим наноткани"
-	set category = "Object"
+	set category = "Объекты"
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1160,7 +1160,7 @@
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
 	set name = "Переключить молнию костюма"
-	set category = "Object"
+	set category = "Объекты"
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

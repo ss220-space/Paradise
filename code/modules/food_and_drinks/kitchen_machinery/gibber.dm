@@ -171,7 +171,7 @@
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
-	set category = "Object"
+	set category = "Объекты"
 	set name = "Опустошить мясорубку"
 	set src in oview(1)
 

@@ -157,8 +157,8 @@ menu "menu"
 		command = ""
 		saved-params = "is-checked"
 	elem
-		name = "&Помощь админа"
-		command = "adminhelp"
+		name = "&Помощь администрации"
+		command = "Помощь-администрации"
 		category = "&Помощь"
 		saved-params = "is-checked"
 	elem

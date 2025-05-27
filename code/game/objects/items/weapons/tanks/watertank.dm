@@ -31,7 +31,7 @@
 
 /obj/item/watertank/verb/toggle_mister()
 	set name = "Вынуть шланг"
-	set category = "Object"
+	set category = "Объекты"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

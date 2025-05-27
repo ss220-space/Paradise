@@ -705,7 +705,7 @@
 
 /mob/dead/observer/verb/respawn()
 	set name = "Возродиться за NPC"
-	set category = "Ghost"
+	set category = "Призрак"
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("You are banned from playing as sentient animals."))

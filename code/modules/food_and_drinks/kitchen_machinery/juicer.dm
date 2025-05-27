@@ -134,7 +134,7 @@
 	return
 
 /obj/machinery/juicer/verb/detach()
-	set category = "Object"
+	set category = "Объекты"
 	set name = "Извлечь ёмкость"
 	set src in oview(1)
 	if(usr.stat != 0)

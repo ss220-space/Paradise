@@ -248,8 +248,8 @@
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Говорить внутри Носителя"
-	set category = "Borer"
+	set name = "Говорить внутри носителя"
+	set category = "Мозговой червь"
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)

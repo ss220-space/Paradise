@@ -683,7 +683,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Создать ловушку"
-	set category = "Swarmer"
+	set category = "Свармер"
 	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
@@ -693,7 +693,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
 	set name = "Создать баррикаду"
-	set category = "Swarmer"
+	set category = "Свармер"
 	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, "<span class='warning'>There is already a blockade here. Aborting.</span>")
@@ -721,7 +721,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Репликация"
-	set category = "Swarmer"
+	set category = "Свармер"
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, "<span class='info'>We are attempting to replicate ourselves. We will need to stand still until the process is complete.</span>")
 	if(resources < 100)
@@ -742,7 +742,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
 	set name = "Саморемонт"
-	set category = "Swarmer"
+	set category = "Свармер"
 	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return

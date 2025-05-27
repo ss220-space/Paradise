@@ -179,14 +179,14 @@
 
 /obj/machinery/implantchair/verb/get_out()
 	set name = "Извлечь сидящего"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 	go_out(usr)
 
 
 /obj/machinery/implantchair/verb/move_inside()
 	set name = "Залезть внутрь"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 	put_mob(usr, usr)
 

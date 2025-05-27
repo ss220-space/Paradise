@@ -1130,7 +1130,7 @@
 /client/verb/fit_viewport()
 	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "Special Verbs"
+	set category = "Спецкоманды"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1189,7 +1189,7 @@
 	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
 
 /client/verb/fix_stat_panel()
-	set name = "Fix Stat Panel"
+	set name = "Починить статус-меню"
 	set hidden = TRUE
 
 	init_verbs()
@@ -1200,7 +1200,7 @@
 /client/verb/fix_title_screen()
 	set name = "Починить заставку в лобби"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = "Special Verbs"
+	set category = "Спецкоманды"
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1213,7 +1213,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = "Special Verbs"
+	set category = "Спецкоманды"
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

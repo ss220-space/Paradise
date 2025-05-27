@@ -620,7 +620,7 @@
 
 /obj/machinery/cryopod/verb/eject()
 	set name = "Вылезти"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -645,7 +645,7 @@
 
 /obj/machinery/cryopod/verb/move_inside()
 	set name = "Залезть внутрь"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))

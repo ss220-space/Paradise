@@ -247,7 +247,7 @@
 	return
 
 /mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Toggle Night Vision"
+	set name = "Переключить зрение в темноте"
 
 	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

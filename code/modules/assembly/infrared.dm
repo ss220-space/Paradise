@@ -193,7 +193,7 @@
 
 /obj/item/assembly/infra/verb/rotate_verb()
 	set name = "Повернуть"
-	set category = "Object"
+	set category = "Объекты"
 	set src in usr
 
 	rotate(usr)

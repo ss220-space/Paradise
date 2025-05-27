@@ -555,7 +555,7 @@ GLOBAL_LIST_EMPTY(crematoriums)
 
 
 /obj/machinery/crematorium/verb/cremate_verb()
-	set name = "Cremate"
+	set name = "Кремировать"
 	set src in oview(1)
 
 	try_cremate(usr)
