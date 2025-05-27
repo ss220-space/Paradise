@@ -37,8 +37,8 @@ const getStatusColour = (level: number) => {
 
 type AtmosControlData = {
   alarms: Alarm[];
-  stationLevelNum: number;
-  stationLevelName: string;
+  stationLevelNum: number[];
+  stationLevelName: string[];
 };
 
 type Alarm = {
@@ -107,8 +107,8 @@ const AtmosControlDataView = (_properties) => {
           <Table.Cell>Status</Table.Cell>
           <Table.Cell>Access</Table.Cell>
         </Table.Row>
-        {alarms.map((a) => (
-          <Table.Row key={a.name}>
+        {alarms.map((a, i) => (
+          <Table.Row key={i}>
             <Table.Cell>{a.name}</Table.Cell>
             <Table.Cell>{getStatus(a.danger)}</Table.Cell>
             <Table.Cell>
@@ -139,8 +139,8 @@ const AtmosControlMapView = (_properties) => {
     <Box height="526px" mb="0.5rem" overflow="hidden">
       <NanoMap
         onZoom={(v, n) => setZoom(n)}
-        zLevels={[stationLevelNum]}
-        zNames={[stationLevelName]}
+        zLevels={stationLevelNum}
+        zNames={stationLevelName}
         zCurrent={z_current}
         setZCurrent={setZCurrent}
       >
@@ -155,6 +155,7 @@ const AtmosControlMapView = (_properties) => {
             zoom={zoom}
             icon="circle"
             tooltip={aa.name}
+            tooltipPosition={aa.x > 255 / 2 ? 'bottom' : 'right'}
             color={getStatusColour(aa.danger)}
             onClick={() =>
               act('open_alarm', {
