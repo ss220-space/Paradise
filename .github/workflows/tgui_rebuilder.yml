@@ -25,6 +25,8 @@ jobs:
       - name: Check merge conflicts in tgui/public
         id: check-conflicts
         run: |
+          git config --local user.email "actions@github.com"
+          git config --local user.name "TGUI Auto-Rebuild"
           git merge --no-commit --no-ff origin/${{ github.base_ref }} || true
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
@@ -59,8 +61,6 @@ jobs:
 
           ./tgui/bin/tgui
 
-          git config --local user.email "actions@github.com"
-          git config --local user.name "TGUI Auto-Rebuild"
           git add tgui/public
           git commit -m "Auto-rebuild TGUI after conflicts"
           git merge --continue 
