@@ -835,9 +835,6 @@ so as to remain in compliance with the most up-to-date laws."
 	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
 
 /atom/movable/screen/alert/restrained/Click()
-	if(!..())
-		return
-
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.resist()

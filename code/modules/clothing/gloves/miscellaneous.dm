@@ -465,3 +465,117 @@
 	name = "syndicate armored gloves"
 	icon_state = "syndicate_swat"
 	item_state = "syndicate_swat_gl"
+
+/obj/item/clothing/gloves/reflector
+	name = "reflector gloves"
+	desc = "Высокотехнологичные перчатки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Носить их — настоящее испытание для рук!"
+	ru_names = list(
+		NOMINATIVE = "рефлекторные перчатки",
+		GENITIVE = "рефлекторных перчаток",
+		DATIVE = "рефлекторнным перчаткам",
+		ACCUSATIVE = "рефлекторнные перчатки",
+		INSTRUMENTAL = "рефлекторными перчатками",
+		PREPOSITIONAL = "рефлекторных перчатках"
+	)
+	icon_state = "reflector"
+	item_state = "reflector"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/gloves.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/gloves.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/gloves.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/gloves.dmi',
+		)
+	var/list/reflect_zones = list(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/gloves/reflector/IsReflect(def_zone)
+	if(!(def_zone in reflect_zones))
+		return FALSE
+	if(prob(hit_reflect_chance))
+		return TRUE
+
+/obj/item/clothing/head/helmet/reflector
+	name = "reflector hat"
+	desc = "Высокотехнологичная шляпа, изготовленная из светоотражающего материала, предназначена для отражения энергетических лучей. В неё встроен защитный визор, который обладает повышенной устойчивостью к кислотам."
+	ru_names = list(
+		NOMINATIVE = "рефлекторная шляпа",
+		GENITIVE = "рефлекторную шляпу",
+		DATIVE = "рефлекторной шляпе",
+		ACCUSATIVE = "рефлекторную шляпу",
+		INSTRUMENTAL = "рефлекторной шляпой",
+		PREPOSITIONAL = "рефлекторной шляпе"
+	)
+	icon_state = "reflector"
+	item_state = "reflector"
+	flags_inv = HIDEHEADSETS
+	flags_cover = HEADCOVERSEYES|HEADCOVERSMOUTH
+	dog_fashion = null
+	armor = list("melee" = 10, "bullet" = 10, "laser" = 60, "energy" = 60, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 90, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/head.dmi',
+		SPECIES_GREY = 'icons/mob/clothing/species/grey/head.dmi',
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/head.dmi',
+		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/head.dmi',
+		SPECIES_TAJARAN = 'icons/mob/clothing/species/tajaran/head.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/head.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/head.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/head.dmi',
+		)
+	var/list/reflect_zones = list(BODY_ZONE_HEAD)
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/head/helmet/reflector/IsReflect(def_zone)
+	if(!(def_zone in reflect_zones))
+		return FALSE
+	if(prob(hit_reflect_chance))
+		return TRUE
+
+/obj/item/clothing/shoes/reflector
+	name = "reflector boots"
+	desc = "Высокотехнологичные ботинки, изготовленные из светоотражающего материала, предназначены для отражения энергетических лучей. Довольно лёгкая, но не очень удобная обувь."
+	ru_names = list(
+		NOMINATIVE = "рефлекторные ботинки",
+		GENITIVE = "рефлекторных ботинок",
+		DATIVE = "рефлекторным ботинкам",
+		ACCUSATIVE = "рефлекторные ботинки",
+		INSTRUMENTAL = "рефлекторными ботинками",
+		PREPOSITIONAL = "рефлекторных ботинках"
+	)
+	icon_state = "reflector"
+	item_state = "reflector"
+	armor = list("melee" = 0, "bullet" = 0, "laser" = 50, "energy" = 50, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 100)
+	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
+	sprite_sheets = list(
+		SPECIES_DRASK = 'icons/mob/clothing/species/drask/shoes.dmi',
+		SPECIES_MONKEY = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_FARWA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_WOLPIN = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_STOK = 'icons/mob/clothing/species/monkey/shoes.dmi',
+		SPECIES_VOX = 'icons/mob/clothing/species/vox/shoes.dmi',
+		SPECIES_UNATHI = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_BASIC = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/shoes.dmi',
+		)
+	var/list/reflect_zones = list(BODY_ZONE_R_LEG, BODY_ZONE_L_LEG)
+	var/hit_reflect_chance = 50
+
+/obj/item/clothing/shoes/reflector/IsReflect(def_zone)
+	if(!(def_zone in reflect_zones))
+		return FALSE
+	if(prob(hit_reflect_chance))
+		return TRUE

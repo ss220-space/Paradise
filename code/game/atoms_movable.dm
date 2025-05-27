@@ -677,6 +677,11 @@
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override))
 		. = FALSE
 
+	var/area/area = get_area(src)
+	if(!no_gravity() && get_gravity() < 0 && area.outdoors && !iswallturf(src)) // If no ceiling above us with antigravity, fall up in space.
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, fall_up_in_space))
+		return FALSE
+
 	if(currently_z_moving)
 		if(. && loc == newloc)
 			var/turf/pitfall = get_turf(src)
@@ -1491,3 +1496,45 @@
 	else
 		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
 
+
+/atom/movable/proc/fall_up_in_space()
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
+					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
+	if(ishuman(src))
+		var/mob/living/carbon/human/dropped_human = src
+		if(dropped_human.stat != DEAD && dropped_human.IsVocal() && prob(25))
+			playsound(dropped_human, 'sound/effects/wilhelm_scream.ogg', 150)
+
+	if(isliving(src))
+		var/mob/living/M = src
+		M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
+		M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
+	else
+		set_anchored(TRUE)
+		ADD_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+
+	var/obj/effect/extraction_holder/holder_obj = new(loc)
+	holder_obj.appearance = appearance
+	forceMove(holder_obj)
+	animate(holder_obj, pixel_z = 1000, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_falling_up_in_space), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/finish_falling_up_in_space(obj/holder_obj)
+	if(ishuman(src))
+		var/mob/living/carbon/human/L = src
+		L.SetParalysis(0)
+		L.SetDrowsy(0)
+		L.SetSleeping(0)
+		L.SetWeakened(0)
+
+	var/turf/target_space_turf = get_random_reachable_space_turf()
+	holder_obj.forceMove(pick(target_space_turf))
+	holder_obj.pixel_z = -1000
+	animate(holder_obj, pixel_z = 0, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(free_the_fallen), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/free_the_fallen(obj/holder_obj)
+	set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+	forceMove(holder_obj.loc)
+	qdel(holder_obj)

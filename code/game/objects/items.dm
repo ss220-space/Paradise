@@ -207,6 +207,11 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	/// Used in butchering of animals, set to TRUE for near instant butchering
 	var/has_speed_harvest = FALSE
 
+	/// How much to offset the item randomly either way alongside X visually
+	var/ground_offset_x = 0
+	/// How much to offset the item randomly either way alongside Y visually
+	var/ground_offset_y = 0
+
 /obj/item/Initialize(mapload)
 	. = ..()
 
@@ -230,6 +235,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		determine_move_resist()
 
 	add_eatable_component()
+	scatter_item()
 
 
 /obj/item/proc/add_eatable_component()
@@ -1352,3 +1358,20 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		to_chat(src, span_notice("Вы осторожно опускаете [declent_ru(ACCUSATIVE)] на землю."))
 		return
 	return src
+
+/obj/item/proc/scatter_item()
+	if(!pixel_x && !pixel_y)
+		pixel_x = rand(-ground_offset_x, ground_offset_x)
+		pixel_y = rand(-ground_offset_y, ground_offset_y)
+
+/**
+ * Global item proc for all of your unique item skin needs. Works with any
+ * item, and will change the skin to whatever you specify here. You can also
+ * manually override the icon with a unique skin if wanted, for the outlier
+ * cases. Override_icon_state should be a list. Generally requires NO_GAMEMODE_SKIN
+ * to not be set for changes to be applied.
+ *
+ * Returns whether changes were applied.
+ */
+/obj/item/proc/select_skin(new_skin)
+	return

@@ -611,3 +611,6 @@
 	add_overlay(dent_decals)
 
 #undef MAX_DENT_DECALS
+
+/turf/simulated/wall/flamer_fire_act(damage)
+	take_damage(damage)

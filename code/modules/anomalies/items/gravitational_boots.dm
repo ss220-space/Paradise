@@ -156,6 +156,11 @@
 
 	core = null
 	user.balloon_alert(user, "ядро извлечено")
+	if(!magpulse)
+		return
+
+	to_chat(user, span_warning("[declent_ru(NOMINATIVE)] отключились при извлечении ядра!"))
+	toggle_magpulse(user, silent = TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
 	. = ..()

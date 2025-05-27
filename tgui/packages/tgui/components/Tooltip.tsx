@@ -1,13 +1,29 @@
-import { createPopper, Placement, VirtualElement } from '@popperjs/core';
-import { Component, findDOMFromVNode, InfernoNode, render } from 'inferno';
+// TODO: Rewrite as an FC, remove this lint disable
+import {
+  type Placement,
+  type VirtualElement,
+  createPopper,
+} from '@popperjs/core';
+import {
+  Component,
+  type ReactNode,
+  createRef,
+  isValidElement,
+  cloneElement,
+} from 'react';
+import { createRoot, Root } from 'react-dom/client';
 
-type TooltipProps = {
-  children?: InfernoNode;
-  content: InfernoNode;
-  position?: Placement;
-};
+type Props = {
+  /** The content to display in the tooltip */
+  content: ReactNode;
+} & Partial<{
+  /** Hovering this element will show the tooltip */
+  children: ReactNode;
+  /** Where to place the tooltip relative to the reference element */
+  position: Placement;
+}>;
 
-type TooltipState = {
+type State = {
   hovered: boolean;
 };
 
@@ -32,7 +48,23 @@ const NULL_RECT: DOMRect = {
   toJSON: () => null,
 };
 
-export class Tooltip extends Component<TooltipProps, TooltipState> {
+/**
+ * ## Tooltip
+ * A boxy tooltip from tgui 1. It is very hacky in its current state, and
+ * requires setting `position: relative` on the container.
+ *
+ * Please note that
+ * [Button](https://github.com/tgstation/tgui-core/tree/main/lib/components/Button.tsx)
+ * component has a `tooltip` prop and it is recommended to use that prop instead.
+ *
+ * Usage:
+ * ```tsx
+ * <Tooltip position="bottom" content="Box tooltip">
+ *   <Box position="relative">Sample text.</Box>
+ * </Tooltip>
+ * ```
+ */
+export class Tooltip extends Component<Props, State> {
   // Mounting poppers is really laggy because popper.js is very slow.
   // Thus, instead of using the Popper component, Tooltip creates ONE popper
   // and stores every tooltip inside that.
@@ -41,27 +73,21 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
   static singletonPopper: ReturnType<typeof createPopper> | undefined;
   static currentHoveredElement: Element | undefined;
   static virtualElement: VirtualElement = {
-    // prettier-ignore
-    getBoundingClientRect: () => (
-      Tooltip.currentHoveredElement?.getBoundingClientRect()
-        ?? NULL_RECT
-    ),
+    getBoundingClientRect: () =>
+      Tooltip.currentHoveredElement?.getBoundingClientRect() ?? NULL_RECT,
   };
 
-  getDOMNode() {
-    // HACK: We don't want to create a wrapper, as it could break the layout
-    // of consumers, so we do the inferno equivalent of `findDOMNode(this)`.
-    // My attempt to avoid this was a render prop that passed in
-    // callbacks to onmouseenter and onmouseleave, but this was unwiedly
-    // to consumers, specifically buttons.
-    // This code is copied from `findDOMNode` in inferno-extras.
-    // Because this component is written in TypeScript, we will know
-    // immediately if this internal variable is removed.
-    return findDOMFromVNode(this.$LI, true);
+  static reactRoot?: Root;
+
+  constructor(props) {
+    super(props);
+    this.tooltipRef = createRef();
   }
 
+  tooltipRef: React.RefObject<HTMLElement>;
+
   componentDidMount() {
-    const domNode = this.getDOMNode();
+    const domNode = this.tooltipRef.current;
 
     if (!domNode) {
       return;
@@ -89,7 +115,7 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
   }
 
   fadeOut() {
-    if (Tooltip.currentHoveredElement !== this.getDOMNode()) {
+    if (Tooltip.currentHoveredElement !== this.tooltipRef.current) {
       return;
     }
 
@@ -103,12 +129,19 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
       return;
     }
 
-    render(<span>{this.props.content}</span>, renderedTooltip, () => {
+    if (!Tooltip.reactRoot) {
+      Tooltip.reactRoot = createRoot(renderedTooltip);
+    }
+
+    Tooltip.reactRoot.render(<span>{this.props.content}</span>);
+
+    setTimeout(() => {
       let singletonPopper = Tooltip.singletonPopper;
+
       if (singletonPopper === undefined) {
         singletonPopper = createPopper(
           Tooltip.virtualElement,
-          renderedTooltip!,
+          renderedTooltip,
           {
             ...DEFAULT_OPTIONS,
             placement: this.props.position || 'auto',
@@ -124,11 +157,11 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
 
         singletonPopper.update();
       }
-    });
+    }, 0);
   }
 
   componentDidUpdate() {
-    if (Tooltip.currentHoveredElement !== this.getDOMNode()) {
+    if (Tooltip.currentHoveredElement !== this.tooltipRef.current) {
       return;
     }
 
@@ -140,6 +173,12 @@ export class Tooltip extends Component<TooltipProps, TooltipState> {
   }
 
   render() {
-    return this.props.children;
+    let child = this.props.children;
+    if (!isValidElement(child)) {
+      child = <span>{child}</span>;
+    }
+    return cloneElement(child as React.ReactElement, {
+      ref: this.tooltipRef,
+    });
   }
 }
