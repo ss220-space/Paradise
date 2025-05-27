@@ -37,7 +37,6 @@ jobs:
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           echo "Conflicted files: $CONFLICT_FILES"
-          echo "CONFLICT_FILES=$CONFLICT_FILES" >> $GITHUB_ENV
 
           BAD_CONFLICTS=0
           for FILE in $CONFLICT_FILES; do
@@ -51,7 +50,9 @@ jobs:
           if [ "$BAD_CONFLICTS" -eq 0 ] && [ -n "$CONFLICT_FILES" ]; then
             echo "safe_to_rebuild=true" >> $GITHUB_ENV
           else
-            echo "safe_to_rebuild=false" >> $GITHUB_ENV
+            if [ "$BAD_CONFLICTS" -eq 1 ]; then
+              echo "safe_to_rebuild=false" >> $GITHUB_ENV
+            fi
             if [ -f ".git/MERGE_HEAD" ]; then
               git merge --abort
             fi
@@ -80,6 +81,6 @@ jobs:
           echo '🔧 Конфликты успешно решены при пересборке tgui!'
 
       - name: Comment on PR (if unsafe conflicts)
-        if: env.safe_to_rebuild == 'false' && env.CONFLICT_FILES != ''
+        if: env.safe_to_rebuild == 'false'
         run:
           echo '⚠️ Обнаружены конфликты за пределами `tgui/public` или в `tgui.html`. Нельзя автоматически пересобрать TGUI. Разрешите конфликты вручную.'
