@@ -63,6 +63,7 @@ jobs:
           git config --local user.name "TGUI Auto-Rebuild"
           git add tgui/public
           git commit -m "Auto-rebuild TGUI after conflicts"
+          git merge --continue 
           git push
 
       - name: Comment on PR (if rebuilt)
