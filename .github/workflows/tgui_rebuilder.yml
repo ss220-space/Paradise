@@ -10,7 +10,7 @@ jobs:
   check-and-rebuild:
     if: |
       github.event_name == 'pull_request_target' ||
-      (ithub.event.issue.pull_request && github.event_name == 'issue_comment' && contains(github.event.comment.body, '/rebuild-tgui'))
+      (github.event.issue.pull_request && github.event_name == 'issue_comment' && contains(github.event.comment.body, '/rebuild-tgui'))
     runs-on: ubuntu-latest
     permissions:
       contents: write
