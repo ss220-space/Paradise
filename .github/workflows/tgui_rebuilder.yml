@@ -1,0 +1,83 @@
+name: 'TGUI Clean and Rebuild'
+
+on:
+  issue_comment:
+    types: [created]
+    if: |
+      github.event.issue.pull_request &&
+      contains(github.event.comment.body, '/rebuild-tgui')
+
+env:
+  TGUI_PUBLIC_DIR: 'tgui/public'
+
+jobs:
+  rebuild:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      pull-requests: write
+    
+    steps:
+      - name: Check if comment contains trigger
+        id: check_comment
+        run: |
+          if [[ "${{ github.event.comment.body }}" == *"/rebuild-tgui"* ]]; then
+            echo "Trigger detected in comment"
+            echo "pr_number=${{ github.event.issue.number }}" >> $GITHUB_OUTPUT
+          else
+            echo "No trigger found in comment"
+            exit 1
+          fi
+
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          fetch-depth: 0
+          ref: ${{ github.event.issue.pull_request.head.ref }}
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'yarn'
+          cache-dependency-path: ./tgui/yarn.lock
+
+      - name: Clean tgui/public (keep tgui.html)
+        run: |
+          cd ${{ env.TGUI_PUBLIC_DIR }}
+          # Keep tgui.html and remove everything else
+          find . -type f -not -name 'tgui.html' -delete
+          find . -type d -not -name '.' -exec rm -rf {} +
+          cd ../..
+          git status
+
+      - name: Rebuild TGUI
+        run: |
+          cd tgui
+          yarn install
+          cd ..
+          ./tgui/bin/tgui
+
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "TGUI Rebuilder"
+          
+          if git diff --quiet; then
+            echo "No changes to commit"
+          else
+            git add ${{ env.TGUI_PUBLIC_DIR }}
+            git commit -m "Rebuilt TGUI after cleaning public folder"
+            git push
+          fi
+
+      - name: Add comment to PR
+        uses: actions/github-script@v7
+        with:
+          script: |
+            await github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: '✅ TGUI public folder cleaned and rebuilt successfully!'
+            })
