@@ -384,6 +384,7 @@ const CrewMonitorMapView = (_properties) => {
                   zoom={zoom}
                   z_current={z_current}
                   tooltip={tooltip}
+                  tooltipPosition={cm.x > 255 / 2 ? 'bottom' : 'right'}
                   color={color}
                   onClick={onClick}
                   onDblClick={onDblClick}
@@ -400,6 +401,7 @@ const CrewMonitorMapView = (_properties) => {
                   zoom={zoom}
                   icon={getIcon(cm)}
                   tooltip={tooltip}
+                  tooltipPosition={cm.x > 255 / 2 ? 'bottom' : 'right'}
                   color={color}
                   onClick={onClick}
                   onDblClick={onDblClick}

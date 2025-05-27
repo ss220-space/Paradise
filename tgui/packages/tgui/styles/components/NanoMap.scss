@@ -20,7 +20,7 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   border: 2px solid black;
 }
 
-.NanoMap__zoomer {
+.NanoMap__options {
   z-index: 20;
   background-color: $background-color;
   position: absolute;
@@ -28,14 +28,4 @@ $background-color: rgba(0, 0, 0, 0.33) !default;
   left: 0;
   padding: 0.5rem;
   width: 24rem;
-}
-
-.NanoMap__zlevel {
-  z-index: 20;
-  background-color: $background-color;
-  position: absolute;
-  top: 30px;
-  left: 20.5rem;
-  padding: 0.5rem;
-  width: 20rem;
 }
