@@ -684,10 +684,10 @@
 			SV.entangle_mob()
 
 		//if(prob(25))
-		SV.spread()
-		if(event)
+		var/spreads = event ? 3 : 1
+		while(spreads > 0)
 			SV.spread()
-			SV.spread()
+			spreads--
 
 		if(i >= length)
 			break
