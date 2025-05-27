@@ -71,7 +71,7 @@ jobs:
           git config --local user.name "TGUI Auto-Rebuild"
 
           git merge --no-commit --no-ff origin/${{ github.event.pull_request.base.ref}} || true
-          
+
           cd tgui/public
           find . -type f -not -name 'tgui.html' -delete
           find . -type d -not -name '.' -exec rm -rf {} +
@@ -81,7 +81,6 @@ jobs:
 
           git add tgui/public
           git commit -m "Auto-rebuild TGUI after conflicts"
-          git merge --continue
           git push
 
       - name: Comment on PR (if rebuilt)
