@@ -39,14 +39,14 @@ jobs:
             fi
           done
 
-          # Если конфликты только в tgui/public (кроме tgui.html) — продолжаем
           if [ "$BAD_CONFLICTS" -eq 0 ] && [ -n "$CONFLICT_FILES" ]; then
             echo "safe_to_rebuild=true" >> $GITHUB_OUTPUT
           else
             echo "safe_to_rebuild=false" >> $GITHUB_OUTPUT
+            if [ -f ".git/MERGE_HEAD" ]; then
+              git merge --abort
+            fi
           fi
-
-          git merge --abort
 
       - name: Rebuild TGUI (if safe)
         if: steps.check-conflicts.outputs.safe_to_rebuild == 'true'
