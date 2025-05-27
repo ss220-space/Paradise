@@ -37,7 +37,7 @@ jobs:
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           echo "Conflicted files: $CONFLICT_FILES"
-          echo "conflict_files=$CONFLICT_FILES" >> $GITHUB_OUTPUT
+          echo "conflict_files=\"$CONFLICT_FILES\"" >> $GITHUB_OUTPUT
 
           BAD_CONFLICTS=0
           for FILE in $CONFLICT_FILES; do
