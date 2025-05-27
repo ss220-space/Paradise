@@ -176,9 +176,10 @@
 		do_commands()
 		return
 
-	if(!isliving(target) || \
-		istype(target, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || \
-		istype(target, /mob/living/simple_animal/hostile/airmob))
+	if(!isanimal(target) && !iscarbon(target))
+		return ..()
+
+	if(isancientrobot(target) || isancientrobotleg(target) || isairmob(target))
 		return ..()
 
 	if(!proximity)
