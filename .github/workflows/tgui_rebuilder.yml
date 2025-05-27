@@ -16,7 +16,7 @@ jobs:
         uses: actions/checkout@v4
         with:
           fetch-depth: 0
-          ref: ${{ github.event.pull_request.head.sha }}
+          ref: ${{ github.event.pull_request.head.sha}}
 
       - name: Fetch target branch (e.g., master220)
         run: |
@@ -27,7 +27,13 @@ jobs:
         run: |
           git config --local user.email "actions@github.com"
           git config --local user.name "TGUI Auto-Rebuild"
+          if [ -f ".git/MERGE_HEAD" ]; then
+            git merge --abort
+          fi
+
           git merge --no-commit --no-ff origin/${{ github.base_ref }} || true
+
+          echo ${{ github.base_ref }}
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           echo "Conflicted files: $CONFLICT_FILES"
@@ -42,6 +48,7 @@ jobs:
             fi
           done
 
+          # Если конфликты только в tgui/public (кроме tgui.html) — продолжаем
           if [ "$BAD_CONFLICTS" -eq 0 ] && [ -n "$CONFLICT_FILES" ]; then
             echo "safe_to_rebuild=true" >> $GITHUB_OUTPUT
           else
@@ -50,6 +57,8 @@ jobs:
               git merge --abort
             fi
           fi
+
+          git merge --abort
 
       - name: Rebuild TGUI (if safe)
         if: steps.check-conflicts.outputs.safe_to_rebuild == 'true'
@@ -61,9 +70,11 @@ jobs:
 
           ./tgui/bin/tgui
 
+          git config --local user.email "actions@github.com"
+          git config --local user.name "TGUI Auto-Rebuild"
           git add tgui/public
           git commit -m "Auto-rebuild TGUI after conflicts"
-          git merge --continue 
+          git merge --continue
           git push
 
       - name: Comment on PR (if rebuilt)
@@ -74,5 +85,4 @@ jobs:
       - name: Comment on PR (if unsafe conflicts)
         if: steps.check-conflicts.outputs.safe_to_rebuild == 'false' && steps.check-conflicts.outputs.conflict_files != ''
         run:
-          echo '⚠️ Обнаружены конфликты за пределами `tgui/public` или в `tgui.html`. ' +
-                    'Нельзя автоматически пересобрать TGUI. Разрешите конфликты вручную.'
+          echo '⚠️ Обнаружены конфликты за пределами `tgui/public` или в `tgui.html`. Нельзя автоматически пересобрать TGUI. Разрешите конфликты вручную.'
