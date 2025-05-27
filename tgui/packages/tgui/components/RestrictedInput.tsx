@@ -201,16 +201,7 @@ export class RestrictedInput extends Component<Props, State> {
         {...rest}
       >
         <div className="Input__baseline">.</div>
-        <input
-          className="Input__input"
-          onChange={this.handleChange}
-          onInput={this.handleInput}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
-          ref={this.inputRef}
-          type="number"
-        />
+        <input className="Input__input" ref={this.inputRef} type="number" />
       </Box>
     );
   }
