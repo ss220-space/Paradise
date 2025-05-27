@@ -174,7 +174,7 @@ export const Button = (props: Props) => {
       >
         {icon && iconPosition !== 'right' && (
           <Icon
-            mr={toDisplay && 0.5}
+            mr={toDisplay && 0.6}
             name={icon}
             color={iconColor}
             rotation={iconRotation}
