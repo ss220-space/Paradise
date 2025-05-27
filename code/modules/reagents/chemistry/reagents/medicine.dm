@@ -1587,7 +1587,7 @@
 	harmless = TRUE
 	can_synth = FALSE
 
-/datum/reagent/medicine/adrenaline/on_mob_life(mob/living/M)
+/datum/reagent/medicine/noradrenaline/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	update_flags |= M.setStaminaLoss(0, FALSE)
 	return ..() | update_flags
