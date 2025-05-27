@@ -183,24 +183,9 @@ export const TextArea = forwardRef(
     }, [value]);
 
     return (
-      <Box
-        className={classes([
-          'TextArea',
-          fluid && 'TextArea--fluid',
-          noborder && 'TextArea--noborder',
-          className,
-        ])}
-        {...rest}
-      >
+      <Box className={classes(['TextArea'])} {...rest}>
         {!!displayedValue && (
-          <div
-            style={{
-              height: '100%',
-              overflow: 'hidden',
-              position: 'absolute',
-              width: '100%',
-            }}
-          >
+          <div>
             <div
               className={classes([
                 'TextArea__textarea',
