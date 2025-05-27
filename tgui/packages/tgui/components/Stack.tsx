@@ -86,15 +86,7 @@ export const Stack = (props: Props) => {
 
   return (
     <div
-      className={classes([
-        'Stack',
-        fill && 'Stack--fill',
-        vertical ? 'Stack--vertical' : 'Stack--horizontal',
-        zebra && 'Stack--zebra',
-        reverse && `Stack--reverse${vertical ? '--vertical' : ''}`,
-        className,
-        computeFlexClassName(props),
-      ])}
+      className={classes(['Stack', computeFlexClassName(props)])}
       {...computeFlexProps({
         direction: `${directionPrefix}${directionSuffix}`,
         ...rest,
