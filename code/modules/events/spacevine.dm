@@ -229,7 +229,7 @@
 	if(issilicon(crosser))
 		return
 	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
-		to_chat(crosser, span_alert("Вы чувствуете легкое онемение, случайно касаясь лозы."))
+		to_chat(crosser, span_alert("Вы чувствуете лёгкое онемение, когда случайно касаетесь лозы."))
 		crosser.apply_damage(5, TOX)
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)
