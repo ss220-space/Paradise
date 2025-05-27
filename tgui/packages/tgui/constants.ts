@@ -90,7 +90,7 @@ export const RADIO_CHANNELS: Channel[] = [
     color: '#2681a5',
   },
   {
-    name: 'Спецназ',
+    name: 'ССО',
     freq: 1341,
     color: '#2681a5',
   },
