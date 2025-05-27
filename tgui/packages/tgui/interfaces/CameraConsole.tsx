@@ -22,8 +22,8 @@ type Data = {
   activeCamera: Camera;
   cameras: Camera[];
   mapRef: string;
-  stationLevelNum: number;
-  stationLevelName: string;
+  stationLevelNum: number[];
+  stationLevelName: string[];
 };
 
 type Camera = {
@@ -208,8 +208,8 @@ const CameraSelectorMap = (props) => {
     <Box height="100%" style={{ display: 'flex' }} m={2}>
       <NanoMap
         onZoom={(e, v) => setZoom(v)}
-        zLevels={[stationLevelNum]}
-        zNames={[stationLevelName]}
+        zLevels={stationLevelNum}
+        zNames={stationLevelName}
         zCurrent={z_current}
         setZCurrent={setZCurrent}
       >
@@ -223,6 +223,7 @@ const CameraSelectorMap = (props) => {
             zoom={zoom}
             icon={'box'}
             tooltip={camera.name}
+            tooltipPosition={camera.x > 255 / 2 ? 'bottom' : 'right'}
             color={
               camera.status
                 ? camera.ref === activeCamera?.ref

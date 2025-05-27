@@ -7,11 +7,12 @@ import {
   useEffect,
   CSSProperties,
 } from 'react';
-import { Box, Icon, Tooltip, Button, Flex, Dropdown, Image } from '.';
+import { Box, Icon, Tooltip, Button, Flex, Dropdown, Image, Stack } from '.';
 import { useBackend } from '../backend';
 import { LabeledList } from './LabeledList';
 import { Slider } from './Slider';
 import { resolveAsset } from '../assets';
+import { Placement } from '@popperjs/core';
 
 const MAP_SIZE = 510;
 const HALF_SIZE = MAP_SIZE / 2;
@@ -119,7 +120,9 @@ export const NanoMap = (props: Props) => {
     handleZoom(e, 1);
   };
 
-  const index = props.zLevels.findIndex((level) => +level === zCurrent);
+  const index = props.zLevels.indexOf(Number(zCurrent));
+  console.log(typeof zCurrent); // Должно быть "number"
+  console.log(props.zLevels.map((item) => typeof item)); // Должно быть ["number", "number", "number"]
   const mapUrl = config.map + '_nanomap_z' + (index + 1) + '.png';
 
   const newStyle = {
@@ -146,13 +149,23 @@ export const NanoMap = (props: Props) => {
         <Image src={resolveAsset(mapUrl)} style={mapStyle} />
         <Box>{props.children}</Box>
       </Box>
-      <NanoMapZoomer zoom={zoom} onZoom={handleZoom} onReset={handleReset} />
-      <NanoMapZLeveler
-        zCurrent={zCurrent}
-        zNames={props.zNames}
-        zLevels={props.zLevels}
-        onZChange={handleZChange}
-      />
+      <Stack className="NanoMap__options" vertical>
+        <Stack.Item ml={0.5}>
+          <NanoMapZoomer
+            zoom={zoom}
+            onZoom={handleZoom}
+            onReset={handleReset}
+          />
+        </Stack.Item>
+        <Stack.Item>
+          <NanoMapZLeveler
+            zCurrent={zCurrent}
+            zNames={props.zNames}
+            zLevels={props.zLevels}
+            onZChange={handleZChange}
+          />
+        </Stack.Item>
+      </Stack>
     </Box>
   );
 };
@@ -164,6 +177,7 @@ export type NanoMakerProps = Partial<{
   z_current: number;
   zoom: number;
   tooltip: ReactNode;
+  tooltipPosition: Placement;
   children: ReactNode;
   bordered: boolean;
   onClick: MouseEventHandler<HTMLDivElement>;
@@ -178,6 +192,7 @@ const NanoMapMarker = (props: NanoMakerProps) => {
     z_current,
     zoom = 1,
     tooltip,
+    tooltipPosition,
     bordered,
     onClick,
     onDblClick,
@@ -191,14 +206,11 @@ const NanoMapMarker = (props: NanoMakerProps) => {
   const rx = (x - 1) * pixelsPerTurfAtZoom;
   const ry = (y - 1) * pixelsPerTurfAtZoom;
   return (
-    <div>
-      <Tooltip content={tooltip}>
+    <Tooltip content={tooltip} position={tooltipPosition}>
+      <div style={{ position: 'absolute', bottom: ry + 'px', left: rx + 'px' }}>
         <Box
-          position="absolute"
           className={bordered ? 'NanoMap__marker__bordered' : 'NanoMap__marker'}
           lineHeight="0"
-          bottom={ry + 'px'}
-          left={rx + 'px'}
           width={pixelsPerTurfAtZoom + 'px'}
           height={pixelsPerTurfAtZoom + 'px'}
           onClick={onClick}
@@ -206,8 +218,8 @@ const NanoMapMarker = (props: NanoMakerProps) => {
         >
           {children}
         </Box>
-      </Tooltip>
-    </div>
+      </div>
+    </Tooltip>
   );
 };
 
@@ -258,6 +270,7 @@ const NanoMapZoomer = (props: ZoomerProps) => {
               minValue={1}
               maxValue={8}
               stepPixelSize={20}
+              width={15.5}
               format={(v) => v + 'x'}
               value={props.zoom}
               onDrag={(e, v) => props.onZoom(e, v)}
