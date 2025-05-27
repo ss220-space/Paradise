@@ -31,9 +31,9 @@ jobs:
             git merge --abort
           fi
 
-          git merge --no-commit --no-ff origin/${{ github.base_ref }} || true
+          git merge --no-commit --no-ff origin/${{ github.event.pull_request.base.ref }} || true
 
-          echo ${{ github.base_ref }}
+          echo ${{ github.event.pull_request.base.ref }}
           
           CONFLICT_FILES=$(git diff --name-only --diff-filter=U)
           echo "Conflicted files: $CONFLICT_FILES"
