@@ -25,7 +25,7 @@
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		SC = new /obj/structure/spacevine_controller(T, null, rand(30, 70), rand(5, 2)) // spawn a controller at turf
+		SC = new /obj/structure/spacevine_controller/event(T, null, rand(30, 70), rand(5, 2)) // spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(SC.vines.len)
@@ -589,6 +589,11 @@
 	var/spread_cap = 30
 	var/list/mutations_list = list()
 	var/mutativeness = 0
+	/// If TRUE, kudzu spawned by event.
+	var/event = FALSE
+
+/obj/structure/spacevine_controller/event
+	event = TRUE
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
@@ -641,7 +646,7 @@
 	if(parent)
 		SV.mutations |= parent.mutations
 		SV.color = parent.color
-		if(prob(mutativeness))
+		if(prob(mutativeness * (event ? 1.2 : 1)))
 			var/list/random_mutations_picked = mutations_list - SV.mutations
 			if(random_mutations_picked.len)
 				var/datum/spacevine_mutation/randmut = pick(random_mutations_picked)
@@ -680,6 +685,10 @@
 
 		//if(prob(25))
 		SV.spread()
+		if(event)
+			SV.spread()
+			SV.spread()
+
 		if(i >= length)
 			break
 
@@ -719,6 +728,8 @@
 	var/spread_search = FALSE // Whether to exhaustive search all 4 cardinal dirs for an open direction
 	for(var/datum/spacevine_mutation/SM in mutations)
 		spread_search |= SM.on_search(src)
+
+	var/remaining_spreads = master.event ? 3 : 1
 	while(dir_list.len)
 		var/direction = pick_n_take(dir_list)
 		var/turf/stepturf = get_step(src, direction)
@@ -732,7 +743,9 @@
 			if(!isspaceturf(stepturf) && stepturf.Enter(src) && is_location_within_transition_boundaries(stepturf))
 				master?.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
-		if(spread_success || !spread_search)
+
+		remaining_spreads -= spread_success
+		if(remaining_spreads == 0 || !spread_search)
 			break
 
 /obj/structure/spacevine/ex_act(severity)
