@@ -191,26 +191,9 @@ export class RestrictedInput extends Component<Props, State> {
     } = this.props;
 
     return (
-      <Box
-        className={classes([
-          'Input',
-          fluid && 'Input--fluid',
-          monospace && 'Input--monospace',
-          className,
-        ])}
-        {...rest}
-      >
+      <Box className={classes(['Input', className])} {...rest}>
         <div className="Input__baseline">.</div>
-        <input
-          className="Input__input"
-          onChange={this.handleChange}
-          onInput={this.handleInput}
-          onFocus={this.handleFocus}
-          onBlur={this.handleBlur}
-          onKeyDown={this.handleKeyDown}
-          ref={this.inputRef}
-          type="number"
-        />
+        <input className="Input__input" ref={this.inputRef} type="number" />
       </Box>
     );
   }

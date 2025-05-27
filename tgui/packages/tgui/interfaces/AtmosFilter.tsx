@@ -38,13 +38,7 @@ export const AtmosFilter = (props: unknown) => {
               </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Rate">
-              <Button
-                icon="fast-backward"
-                textAlign="center"
-                disabled={pressure === 0}
-                width={2.2}
-                onClick={() => act('min_pressure')}
-              />
+              <Button icon="fast-backward" textAlign="center" />
               <NumberInput
                 animated
                 unit="kPa"
@@ -72,7 +66,6 @@ export const AtmosFilter = (props: unknown) => {
               {filter_type_list.map((filter) => (
                 <Button
                   key={filter.label}
-                  selected={filter.gas_type === filter_type}
                   onClick={() =>
                     act('set_filter', {
                       filter: filter.gas_type,
