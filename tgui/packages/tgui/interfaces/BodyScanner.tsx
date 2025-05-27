@@ -79,18 +79,6 @@ const germStatus = (i: number) => {
     if (i < 300) {
       return 'Лёгкая инфекция';
     }
-    if (i < 400) {
-      return 'Лёгкая инфекция+';
-    }
-    if (i < 500) {
-      return 'Лёгкая инфекция++';
-    }
-    if (i < 700) {
-      return 'Острая инфекция';
-    }
-    if (i < 800) {
-      return 'Острая инфекция+';
-    }
     if (i < 900) {
       return 'Острая инфекция++';
     }
@@ -180,8 +168,6 @@ const BodyScannerMain = (props: BodyScannerProps) => {
     <Box>
       <BodyScannerMainOccupant />
       <BodyScannerMainAbnormalities occupant={occupant} />
-      <BodyScannerMainDamage occupant={occupant} />
-      <BodyScannerMainOrgansExternal organs={occupant.extOrgan} />
       <BodyScannerMainOrgansInternal organs={occupant.intOrgan} />
     </Box>
   );
@@ -232,13 +218,6 @@ const BodyScannerMainOccupant = (props) => {
           &deg;C,&nbsp;
           <AnimatedNumber value={round(occupant.bodyTempF, 0)} />
           &deg;F
-        </LabeledList.Item>
-        <LabeledList.Item label="Импланты">
-          {occupant.implant_len ? (
-            <Box>{occupant.implant.map((im) => im.name).join(', ')}</Box>
-          ) : (
-            <Box color="label">Отсутствуют</Box>
-          )}
         </LabeledList.Item>
       </LabeledList>
     </Section>
