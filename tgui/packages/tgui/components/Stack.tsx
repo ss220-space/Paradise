@@ -103,13 +103,7 @@ type StackItemProps = FlexItemProps &
 const StackItem = (props: StackItemProps) => {
   const { className, innerRef, ...rest } = props;
 
-  return (
-    <div
-      className={classes(['Stack__item', className, computeBoxClassName(rest)])}
-      ref={innerRef}
-      {...computeFlexItemProps(rest)}
-    />
-  );
+  return <div ref={innerRef} {...computeFlexItemProps(rest)} />;
 };
 
 Stack.Item = StackItem;
