@@ -49,7 +49,7 @@ const setWindowVisibility = (visible: boolean, scale: boolean): void => {
   });
 };
 
-const CHANNEL_REGEX = /^[:#.][A-Za-zА-Яа-я0-9_]\s/;
+const CHANNEL_REGEX = /^[:#.][\p{L}0-9_$+,'*]\s/u;
 
 /** Tests for a channel prefix, returning it or none */
 export const getPrefix = (
