@@ -38,7 +38,7 @@ export const Dialog = (props: DialogProps) => {
             <Button
               color="transparent"
               icon="window-close-o"
-              lineHeight="21px"
+              lineHeight="22px"
               mr="-3px"
               onClick={onClose}
               textAlign="center"
