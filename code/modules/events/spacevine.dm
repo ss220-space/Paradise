@@ -589,11 +589,14 @@
 	var/spread_cap = 30
 	var/list/mutations_list = list()
 	var/mutativeness = 0
-	/// If TRUE, kudzu spawned by event.
-	var/event = FALSE
+	var/mutmod = 1
+	var/spreads_per_process = 1
+	var/vines_per_spread = 1
 
 /obj/structure/spacevine_controller/event
-	event = TRUE
+	mutmod = 1.2
+	spreads_per_process = 3
+	vines_per_spread = 3
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
@@ -646,7 +649,7 @@
 	if(parent)
 		SV.mutations |= parent.mutations
 		SV.color = parent.color
-		if(prob(mutativeness * (event ? 1.2 : 1)))
+		if(prob(mutativeness * mutmod))
 			var/list/random_mutations_picked = mutations_list - SV.mutations
 			if(random_mutations_picked.len)
 				var/datum/spacevine_mutation/randmut = pick(random_mutations_picked)
@@ -684,7 +687,7 @@
 			SV.entangle_mob()
 
 		//if(prob(25))
-		var/spreads = event ? 3 : 1
+		var/spreads = spreads_per_process
 		while(spreads > 0)
 			SV.spread()
 			spreads--
@@ -729,7 +732,7 @@
 	for(var/datum/spacevine_mutation/SM in mutations)
 		spread_search |= SM.on_search(src)
 
-	var/remaining_spreads = master.event ? 3 : 1
+	var/remaining_spreads = master.vines_per_spread
 	while(dir_list.len)
 		var/direction = pick_n_take(dir_list)
 		var/turf/stepturf = get_step(src, direction)
