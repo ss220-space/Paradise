@@ -5,7 +5,7 @@
 	fail_chance = 0
 
 /datum/ritual/devil/imp
-	name = "Imp summoning ritual"
+	name = "Ритуал призыва беса"
 	required_things = list(
 		/obj/item/wirecutters = 3,
 		/obj/item/organ/internal/kidneys = 2,
@@ -45,7 +45,7 @@
 	imp.mind.add_antag_datum(/datum/antagonist/devil_pawn)
 
 /datum/ritual/devil/sacrifice
-	name = "Sacrifice ritual"
+	name = "Ритуал жертвоприношения"
 	ritual_should_del_things = FALSE
 	required_things = list(
 		/mob/living/carbon/human = 1
@@ -95,18 +95,18 @@
 
 
 /datum/ritual/devil/ascendetion
-	name = "Ascendetion ritual"
+	name = "Ритуал возвышения"
 	ritual_should_del_things = FALSE
 	required_things = list(
 		/mob/living/carbon/human = 2
 	)
 	var/static/list/timers_list = list(
-		FIRST_DEVIL_ASCEND_STAGE = 5 SECONDS,
-		SECOND_DEVIL_ASCEND_STAGE = 10 SECONDS,
-		THIRD_DEVIL_ASCEND_STAGE = 9 SECONDS,
-		FOURTH_DEVIL_ASCEND_STAGE = 4 SECONDS,
-		FIFTH_DEVIL_ASCEND_STAGE = 1 SECONDS,
-		SIXTH_DEVIL_ASCEND_STAGE = 1 SECONDS,
+		FIRST_DEVIL_ASCEND_STAGE = 10 SECONDS,
+		SECOND_DEVIL_ASCEND_STAGE = 25 SECONDS,
+		THIRD_DEVIL_ASCEND_STAGE = 20 SECONDS,
+		FOURTH_DEVIL_ASCEND_STAGE = 10 SECONDS,
+		FIFTH_DEVIL_ASCEND_STAGE = 4 SECONDS,
+		SIXTH_DEVIL_ASCEND_STAGE = 4 SECONDS,
 		SEVENTH_DEVIL_ASCEND_STAGE = 0.1 SECONDS,
 		EIGHTH_DEVIL_ASCEND_STAGE = 5 SECONDS,
 	)
@@ -191,6 +191,7 @@
 	switch(stage)
 		if(DEVIL_ASCEND_START_STAGE)
 			to_chat(invoker, span_warning("Ты чувствуешь, будто вот-вот возвысишься."))
+			GLOB.command_announcement.Announce("Тёмная сушность, известная как [devil.info.truename], из изменерния известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
 		if(FIRST_DEVIL_ASCEND_STAGE)
@@ -224,18 +225,19 @@
 			var/message = span_reallybig("<i><b>Д--</b></i>")
 			to_chat(invoker, message)
 			invoker.say(message)
+			send_to_playing_players(span_danger("<span style='font-size: 5;'><b>\"ЛЕНЬ, ГНЕВ, ОБЖОРСТВО, УНЫНИЕ, ЗАВИСТЬ, ЖАДНОСТЬ, ГОРДЫНЯ! ОГНИ АДА ПРОСЫПАЮТСЯ!!\"</span>"))
+			sound_to_playing_players('sound/hallucinations/veryfar_noise.ogg')
 			stage = SEVENTH_DEVIL_ASCEND_STAGE
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
-			send_to_playing_players(span_danger("<span style='font-size: 5;'><b>\"ЛЕНЬ, ГНЕВ, ОБЖОРСТВО, УНЫНИЕ, ЗАВИСТЬ, ЖАДНОСТЬ, ГОРДЫНЯ! ОГНИ АДА ПРОСЫПАЮТСЯ!!\"</span>"))
-			sound_to_playing_players('sound/hallucinations/veryfar_noise.ogg')
 			devil.try_update_rank(TRUE)
+			GLOB.command_announcement.Announce("Обнаружено возвышение тёмной сущности известной как [devil.info.truename]. Зафиксировано критическое истончение завесы между мирами. Проникновение темных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 			var/area/area = get_area(invoker)
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
 			stage = EIGHTH_DEVIL_ASCEND_STAGE
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
-			SSshuttle.emergency.request(null, coefficient = 0.3)
+			SSweather.run_weather(/datum/weather/hell)
 
 	addtimer(CALLBACK(src, PROC_REF(hell_coming), invoker, devil, stage), timers_list[stage])

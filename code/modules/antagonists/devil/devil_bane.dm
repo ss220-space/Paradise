@@ -1,17 +1,17 @@
 /datum/devil_bane
 	var/name
-	 
+
 	var/desc
-	var/law	
+	var/law
 
 	var/mob/living/carbon/owner
 	var/datum/antagonist/devil/devil
 
-	var/bonus_damage = 1	
+	var/bonus_damage = 1
 
 /datum/devil_bane/Destroy(force)
 	remove_bane()
-	
+
 	owner = null
 	devil = null
 
@@ -30,8 +30,8 @@
 /datum/devil_bane/toolbox
 	name = BANE_TOOLBOX
 
-	law = "Toolboxes are bad news for you, for some reason."
-	desc = "That which holds the means of creation also holds the means of the devil's undoing."
+	law = "По какой-то причине тулбоксы крайне опасны для вас."
+	desc = "То, что хранит средства творения, служит также и средством уничтожения дьявола."
 
 	bonus_damage = BANE_TOOLBOX_DAMAGE_MODIFIER
 
@@ -49,14 +49,14 @@
 
 	owner.apply_damage(item.force * bonus_damage)
 	item.visible_message(
-		span_warning("The [item] seems unusually robust this time."), 
-		span_notice("The [item] is [owner] unmaking!"))
+		span_warning("На этот раз [item.declent_ru(NOMINATIVE)] кажется необычайно робастным."),
+		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] [genderize_ru(item.gender, "уничтожает", "уничтожает", "уничтожает", "уничтожают")] [owner.declent_ru(ACCUSATIVE)]!"))
 
 /datum/devil_bane/whiteclothes
 	name = BANE_WHITECLOTHES
 
-	desc = "Wearing clean white clothing will help ward off this devil."
-	law = "Those clad in pristine white garments will strike you true."
+	desc = "Ношение чистой белой одежды поможет отпугнуть этого дьявола."
+	law = "Те, кто облачен в безупречно белые одежды, наводят на вас ужас."
 
 /datum/devil_bane/whiteclothes/init_bane()
 	RegisterSignal(owner, COMSIG_PARENT_ATTACKBY, PROC_REF(whiteclothes_attack))
@@ -79,14 +79,14 @@
 		return
 
 	owner.apply_damage(bonus_damage * (item.force * (GLOB.whiteness[uniform.type] + 1)))
-	item.visible_message(span_warning("[owner] seems to have been harmed by the purity of [attacker]'s clothes."), 
-	span_notice("Unsullied white clothing is disrupting [owner] form."))
+	item.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))] кажется получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
+	span_notice("Незапятнанная белая одежда разрушает форму [owner.declent_ru(GENITIVE)]."))
 
 /datum/devil_bane/harvest
 	name = BANE_HARVEST
 
-	law = "The fruits of the harvest shall be your downfall."
-	desc = "Presenting the labors of a harvest will disrupt the devil."
+	law = "Плоды урожая станут вашим падением."
+	desc = "Представление трудов урожая нарушит планы дьявола."
 
 	bonus_damage = BANE_HARVEST_DAMAGE_MULTIPLIER
 
@@ -102,18 +102,18 @@
 	if(!istype(item, /obj/item/reagent_containers/food/snacks/grown) || !istype(item, /obj/item/grown))
 		return
 
-	owner.apply_damage(item.force * bonus_damage)			   
+	owner.apply_damage(item.force * bonus_damage)
 	item.visible_message(
-		span_warning("The spirits of the harvest aid in the exorcism."), 
-		span_notice("The harvest spirits are harming [owner]."))
+		span_warning("Духи урожая помогают в изгнании."),
+		span_notice("Духи урожая вредят [owner.declent_ru(DATIVE)]."))
 
 	qdel(item)
 
 /datum/devil_bane/light
 	name = BANE_LIGHT
 
-	desc = "Bright flashes will disorient the devil, likely causing him to flee."
-	law = "Blinding lights will prevent you from using offensive powers for a time."
+	desc = "Яркие вспышки дезориентируют дьявола и, вероятно, заставят его сбежать."
+	law = "Ослепляющий свет на время лишит вас возможности использовать атакующие способности."
 
 /datum/devil_bane/light/init_bane()
 	RegisterSignal(owner, COMSIG_LIVING_EARLY_FLASH_EYES, PROC_REF(flash_eyes))
@@ -123,7 +123,7 @@
 
 /datum/devil_bane/light/proc/flash_eyes(datum/source, intensity, override_blindness_check, affect_silicon, visual, type)
 	SIGNAL_HANDLER
-	
+
 	var/damage = intensity - owner.check_eye_prot()
 
 	if(!damage)
@@ -135,8 +135,8 @@
 /datum/devil_bane/silver
 	name = BANE_SILVER
 
-	desc = "Silver seems to gravely injure this devil."
-	law = "Silver, in all of its forms shall be your downfall."
+	desc = "Похоже, серебро наносит этому дьяволу серьёзные раны."
+	law = "Серебро во всех его формах станет вашим падением."
 
 /datum/devil_bane/silver/init_bane()
 	RegisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
@@ -145,11 +145,11 @@
 	UnregisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED)
 
 /datum/devil_bane/silver/proc/check_reagents(
-	datum/source, 
-	reagent_id, 
-	amount, 
-	data, 
-	reagtemp, 
+	datum/source,
+	reagent_id,
+	amount,
+	data,
+	reagtemp,
 	no_react,
 	chem_temp
 	)
@@ -158,13 +158,13 @@
 	if(reagent_id != "silver")
 		return
 
-	owner.reagents?.add_reagent("toxin", amount * bonus_damage)
+	owner.reagents?.add_reagent(/datum/reagent/toxin, amount * bonus_damage)
 
 /datum/devil_bane/iron
 	name = BANE_IRON
 
-	desc = "Cold iron will slowly injure him, until he can purge it from his system."
-	law = "Cold wrought iron shall act as poison to you."
+	desc = "Железо будет медленно ранить дьявола, пока оно не выйдет из его тела."
+	law = "Железо станет для вас ядом."
 
 	bonus_damage = 1
 
@@ -175,11 +175,11 @@
 	UnregisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED)
 
 /datum/devil_bane/iron/proc/check_reagents(
-	datum/source, 
-	reagent_id, 
-	amount, 
-	data, 
-	reagtemp, 
+	datum/source,
+	reagent_id,
+	amount,
+	data,
+	reagtemp,
 	no_react,
 	chem_temp
 	)
@@ -187,5 +187,5 @@
 
 	if(reagent_id != "iron")
 		return
-			
-	owner.reagents?.add_reagent("toxin", amount * bonus_damage)
+
+	owner.reagents?.add_reagent(/datum/reagent/toxin, amount * bonus_damage)

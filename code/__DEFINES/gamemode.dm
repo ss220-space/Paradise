@@ -83,3 +83,4 @@
 #define SPECIAL_ROLE_MALFAI                 "Malfunctioning AI"
 #define SPECIAL_ROLE_SINTOUCHED             "Sintouched"
 #define SPECIAL_ROLE_DEVIL_PAWN             "Devil's pawn"
+#define SPECIAL_ROLE_IMP             		"Imp"

@@ -4,7 +4,7 @@
 // This is used primarily for having hands.
 /mob/living/carbon/true_devil
 	name = "True Devil"
-	desc = "A pile of infernal energy, taking a vaguely humanoid form."
+	desc = "Сгусток адской энергии, смутно напоминающий гуманоида."
 	icon = 'icons/mob/32x64.dmi'
 	icon_state = "true_devil"
 	gender = NEUTER
@@ -24,6 +24,8 @@
 	hud_type = /datum/hud/devil
 
 /mob/living/carbon/true_devil/ascended
+	name = "Arch Devil"
+	desc = "Сгусток адской энергии, смутно напоминающий гуманоида. Кажется оно достигло пика своего могущества"
 	maxHealth = 500 // not an IMPOSSIBLE amount, but still near impossible.
 	ascended = TRUE
 	health = 500
@@ -50,16 +52,6 @@
 	name = devilinfo.info.truename
 	real_name = name
 
-/*
-/mob/living/carbon/true_devil/Login()
-	..()
-	var/list/messages = list()
-
-	LAZYADD(messages, devilinfo?.greet())
-	LAZYADD(messages, mind.prepare_announce_objectives())
-
-	to_chat(mind.current, chat_box_red(messages.Join("<br>")))*/
-
 
 /mob/living/carbon/true_devil/death(gibbed)
 	. = ..(gibbed)
@@ -67,33 +59,33 @@
 
 
 /mob/living/carbon/true_devil/examine(mob/user)
-	var/msg = span_info("Это [bicon(src)] <b>[src]</b>!\n")
+	var/msg = span_info("Это [bicon(src)] <b>[declent_ru(NOMINATIVE)]</b>!\n")
 
-	//Left hand items
+	//left hand
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += "<span class='warning'>It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!</span>\n"
+			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] [l_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в левой руке!\n")
 		else
-			msg += "It is holding [bicon(l_hand)] \a [l_hand] in its left hand.\n"
+			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(l_hand)] [l_hand.declent_ru(ACCUSATIVE)] в левой руке.\n"
 
-	//Right hand items
+	//right hand
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += "<span class='warning'>It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!</span>\n"
+			msg += span_warning("[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] [r_hand.blood_color != "#030303" ? "со следами крови":"со следами масла"] в правой руке!\n")
 		else
-			msg += "It is holding [bicon(r_hand)] \a [r_hand] in its right hand.\n"
+			msg += "[genderize_ru(gender, "Он держит", "Она держит", "Оно держит", "Они держат")] [bicon(r_hand)] [r_hand.declent_ru(ACCUSATIVE)] в правой руке.\n"
 
 	//Braindead
 	if(!client && stat != DEAD)
-		msg += "<span class='deadsay'>The devil seems to be in deep contemplation.</span>\n"
+		msg += span_deadsay("Кажется, этот дьявол пребывает в глубоком раздумье\n")
 
 	//Damaged
 	if(stat == DEAD)
-		msg += "<span class='deadsay'>The hellfire seems to have been extinguished, for now at least.</span>\n"
+		msg += span_deadsay("Похоже, адское пламя в нем потухло, по крайней мере на данный момент.\n")
 	else if(health < (maxHealth/10))
-		msg += "<span class='warning'>You can see hellfire inside of it's gaping wounds.</span>\n"
+		msg += span_warning("Внутри его зияющих ран можно увидеть адское пламя\n")
 	else if(health < (maxHealth/2))
-		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
+		msg += span_warning("Внутри его ран можно разглядеть адское пламя.\n")
 
 	. = list(msg)
 
@@ -135,14 +127,25 @@
 /mob/living/carbon/true_devil/resist_fire()
 	return
 
+/mob/living/carbon/true_devil/soundbang_act()
+	return FALSE
+
+/mob/living/carbon/true_devil/get_ear_protection()
+	return 2
+
+/mob/living/carbon/true_devil/singularity_act()
+	if(ascended)
+		return FALSE
+	return ..()
+
 /mob/living/carbon/true_devil/attack_hand(mob/living/carbon/human/M)
 	if(..())
 		switch(M.a_intent)
 			if(INTENT_HARM)
 				var/damage = rand(1, 5)
 				playsound(loc, "punch", 25, 1, -1)
-				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
-						"<span class='userdanger'>[M] has punched [src]!</span>")
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "attacked")
 			if(INTENT_DISARM)
@@ -155,17 +158,17 @@
 						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "pushed")
-						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
-							"<span class='userdanger'>[M] has pushed down [src]!</span>")
+						visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"))
 					else
 						if(prob(25))
 							drop_from_active_hand()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
-							"<span class='userdanger'>[M] has disarmed [src]!</span>")
+							visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"), \
+							span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"))
 						else
 							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-							visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
+							visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "попытался", "попыталась", "попыталось", "попытались")] обезоружить [declent_ru(ACCUSATIVE)]!"))
 
 /mob/living/carbon/true_devil/handle_breathing()
 	return
@@ -175,14 +178,14 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/ex_act(severity, ex_target)
-	var/b_loss
-	switch(severity)
-		if(1)
-			b_loss = 500
-		if(2)
-			b_loss = 150
-		if(3)
-			b_loss = 30
-
-	adjustBruteLoss(b_loss)
+	if(!ascended)
+		var/b_loss
+		switch (severity)
+			if (EXPLODE_DEVASTATE)
+				b_loss = 500
+			if (EXPLODE_HEAVY)
+				b_loss = 150
+			if (EXPLODE_LIGHT)
+				b_loss = 30
+		adjustBruteLoss(b_loss)
 	return ..()

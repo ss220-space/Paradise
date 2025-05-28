@@ -1,6 +1,7 @@
 /datum/antagonist/sintouched
 	name = "Sintouched"
 	antag_menu_name = "Грешник"
+	roundend_category = "sintouched"
 	special_role = SPECIAL_ROLE_SINTOUCHED
 	antag_hud_type = ANTAG_HUD_SINTOUCHED
 	antag_hud_name = "hudsintouched"

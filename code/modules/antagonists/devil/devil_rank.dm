@@ -1,5 +1,6 @@
 /datum/devil_rank
 	/// Antagonist datum of our owner
+	var/name
 	var/datum/antagonist/devil/devil
 	/// Which spells we'll give to rank owner when rank is applied
 	var/list/rank_spells
@@ -49,6 +50,7 @@
 		devil.owner.AddSpell(new spell)
 
 /datum/devil_rank/basic_devil
+	name = "Низший дьявол"
 	regen_threshold = BASIC_DEVIL_REGEN_THRESHOLD
 	regen_amount = BASIC_DEVIL_REGEN_AMOUNT
 
@@ -58,6 +60,7 @@
 	rank_spells = list(/obj/effect/proc_holder/spell/sacrifice_circle)
 
 /datum/devil_rank/enraged_devil
+	name = "Злой дьявол"
 	regen_threshold = ENRAGED_DEVIL_REGEN_THRESHOLD
 	regen_amount = ENRAGED_DEVIL_REGEN_AMOUNT
 
@@ -73,6 +76,8 @@
 	)
 
 /datum/devil_rank/blood_lizard
+	name = "Кровавый ящер"
+
 	regen_threshold = BLOOD_LIZARD_REGEN_THRESHOLD
 	regen_amount = BLOOD_LIZARD_REGEN_AMOUNT
 
@@ -108,6 +113,7 @@
 	return FALSE
 
 /datum/devil_rank/true_devil
+	name = "Истинный дьявол"
 	regen_threshold = TRUE_DEVIL_REGEN_THRESHOLD
 	regen_amount = TRUE_DEVIL_REGEN_AMOUNT
 
@@ -130,7 +136,7 @@
 	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
 		devil_mob.forceMove(get_turf(devil_mob))
 	var/mob/living/carbon/true_devil/true_devil
-	if(isdevil(devil_mob)) 
+	if(isdevil(devil_mob))
 		to_chat(devil_mob, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
 		true_devil = devil_mob
 		true_devil.devilinfo = devil.owner.has_antag_datum(/datum/antagonist/devil)
@@ -142,8 +148,9 @@
 	true_devil.oldform = devil_mob
 	devil.owner.transfer_to(true_devil)
 	return TRUE
-	
+
 /datum/devil_rank/ascend
+	name = "Архидьявол"
 	regen_threshold = ASCEND_DEVIL_REGEN_THRESHOLD
 	regen_amount = ASCEND_DEVIL_REGEN_AMOUNT
 
@@ -162,7 +169,7 @@
 	if(istype(devil_mob.loc, /obj/effect/dummy/slaughter))
 		devil_mob.forceMove(get_turf(devil_mob))
 	var/mob/living/carbon/true_devil/ascended/true_devil
-	if(isascendeddevil(devil_mob)) 
+	if(isascendeddevil(devil_mob))
 		true_devil = devil_mob
 		true_devil.devilinfo = devil.owner.has_antag_datum(/datum/antagonist/devil)
 		true_devil.set_name()

@@ -78,7 +78,7 @@
 
 /datum/objective/devil/sintouch
 	needs_target = FALSE
-	explanation_text = "You shouldn't see this text.  Error:DEVIL3"
+	explanation_text = "Вы не должны это видеть.  Error:DEVIL3"
 	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
@@ -89,9 +89,14 @@
 	return target_amount <= SSticker.mode.sintouched.len
 
 /datum/objective/devil/ascend
-	explanation_text = "Ascend to your true form."
+	explanation_text = "Возвыситься до архидьявола."
 	needs_target = FALSE
 	antag_menu_name = "Возвыситься"
 
 /datum/objective/devil/ascend/check_completion()
-	return isdevil(owner)
+	return  isascendeddevil(owner)
+
+/datum/objective/imp
+	explanation_text = "Постарайтесь получить повышение до более высокого адского ранга."
+	needs_target = FALSE
+	antag_menu_name = "Получить повышение"

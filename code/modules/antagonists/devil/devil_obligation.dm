@@ -49,13 +49,14 @@
 	desc = "Этот дьявол всегда предлагает его жертвам еду, прежде чем убивает их."
 	law = "Пока вы не самообороняетесь, вы должны предлагать вашим жертвам еду, прежде чем вредить им."
 
-	obligation_spells = list(/obj/effect/proc_holder/spell/conjure_item/violin)
 
 /datum/devil_obligation/fiddle
 	name = OBLIGATION_FIDDLE
 
 	desc = "Этот дьявол никогда не откажется от музыкального поединка"
 	law = "Пока вы не находитесь в опасности, при предложении музыкального поединка, то вы обязаны его принять."
+
+	obligation_spells = list(/obj/effect/proc_holder/spell/conjure_item/violin)
 
 /datum/devil_obligation/danceoff
 	name = OBLIGATION_DANCEOFF

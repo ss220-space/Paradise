@@ -267,6 +267,11 @@
 	name = "red smoke"
 	color = "#af0033"
 
+
+/obj/effect/particle_effect/fluid/smoke/bad/hell
+	name = "red smoke"
+	color = COLOR_BLOOD
+
 /obj/effect/particle_effect/fluid/smoke/bad/blue
 	name = "blue smoke"
 	color = "#88aaff"
