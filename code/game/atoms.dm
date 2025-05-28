@@ -1795,6 +1795,24 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	if(ai_controller)
 		ai_controller = new ai_controller(src)
 
+//Update the screentip to reflect what we're hoverin over
+/atom/MouseEntered(location, control, params)
+	SSmouse_entered.hovers[usr.client] = src
+
+/// Fired whenever this atom is the most recent to be hovered over in the tick.
+/// Preferred over MouseEntered if you do not need information such as the position of the mouse.
+/// Especially because this is deferred over a tick, do not trust that `client` is not null.
+/atom/proc/on_mouse_enter(client/client)
+	SHOULD_NOT_SLEEP(TRUE)
+
+	var/mob/user = client?.mob
+	if(isnull(user))
+		return
+
+	// Face directions on harm intent
+	if(user.face_mouse && !user.incapacitated())
+		user.face_atom(src)
+
 /atom/proc/add_gravity(id, gravity_delta)
 	if(id in gravity_sources)
 		gravity_sources[id] = 0
@@ -1826,3 +1844,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	ignored_gravity_sources[id]--
 	if(!ignored_gravity_sources[id])
 		ignored_gravity_sources.Remove(id)
+
+//Generalized Fire Proc.
+/atom/proc/flamer_fire_act(damage = BURN_LEVEL_TIER_1)
+	fire_act(exposed_temperature = 50 * damage, exposed_volume = 2 * damage)
+
+/atom/proc/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	return
+
+/atom/proc/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return

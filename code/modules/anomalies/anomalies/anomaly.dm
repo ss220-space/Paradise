@@ -187,6 +187,9 @@
 		collapse()
 
 /obj/effect/anomaly/proc/core_touch_effect(obj/item/assembly/signaler/core/core)
+	if(!COOLDOWN_FINISHED(core, anomaly_toch_cooldown))
+		return
+
 	var/mult = core.tier <= tier ? (1 << (tier - core.tier)) : (1.0 / (1 << (core.tier - tier)))
 
 	if(!iscoreempty(core))
@@ -207,11 +210,13 @@
 		core.random_throw(3, 6, 5)
 		core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] заряжается от [declent_ru(GENITIVE)], \
 											но остаётся пустым из-за слишком низкого заряда."))
+		COOLDOWN_START(core, anomaly_toch_cooldown, 5 SECONDS)
 		return
 
 	var/path = "/obj/item/assembly/signaler/core/[anomaly_type]/tier[(core.tier < 4 ? core.tier : "tier3/tier4")]"
 	path = text2path(path)
 	var/obj/item/assembly/signaler/core/new_core = new path(core.loc, new_charge)
+	COOLDOWN_START(new_core, anomaly_toch_cooldown, 5 SECONDS)
 	new_core.visible_message(span_warning("[capitalize(core.declent_ru(NOMINATIVE))] заряжается от [declent_ru(GENITIVE)], \
 											превращаясь в [new_core.declent_ru(ACCUSATIVE)]."))
 	qdel(core)
@@ -242,13 +247,13 @@
 	if(!item.origin_tech)
 		return
 
-	if (prob(2))
+	if(prob(2))
 		do_sparks(5, TRUE, src)
 		new /obj/item/relic(get_turf(item))
 		qdel(item)
 		return
 
-	if (!istype(item, /obj/item/relict_production/rapid_dupe))
+	if(!istype(item, /obj/item/relict_production/rapid_dupe))
 		return
 
 	var/amount = rand(1, 3)

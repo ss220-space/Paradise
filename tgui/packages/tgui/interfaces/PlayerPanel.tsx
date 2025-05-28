@@ -1,6 +1,8 @@
-import { useBackend, useLocalState } from '../backend';
-import { Box, Button, Section, Table, Stack, Grid } from '../components';
+import { useBackend } from '../backend';
+import { useState } from 'react';
+import { Button, Section, Table, Stack, Grid } from '../components';
 import { Window } from '../layouts';
+import { ButtonProps } from '../components/Button';
 
 interface MuteStates {
   ic: boolean;
@@ -13,7 +15,7 @@ interface MuteStates {
   all: boolean;
 }
 
-interface playerData {
+interface PlayerData {
   characterName: string;
   ckey: string;
   ipAddress: string;
@@ -41,14 +43,14 @@ const isMobType = (currentType: string, checkType: string): boolean => {
     animal: ['simple', 'animal'],
   };
   return (
-    types[checkType]?.some((type) =>
+    types[checkType]?.some((type: string) =>
       currentType.toLowerCase().includes(type)
     ) || false
   );
 };
 
-export const PlayerPanel = (props) => {
-  const { act, data } = useBackend<playerData>();
+export const PlayerPanel = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -59,16 +61,12 @@ export const PlayerPanel = (props) => {
       <Window.Content scrollable>
         <Stack vertical>
           <Stack.Item>
-            <Button
-              icon="sync"
-              content="Refresh"
-              onClick={() => handleAction('refresh')}
-            />
-            <Button
-              icon="sync"
-              content="Old Panel"
-              onClick={() => handleAction('old_pp')}
-            />
+            <Button icon="sync" onClick={() => handleAction('refresh')}>
+              Refresh
+            </Button>
+            <Button icon="sync" onClick={() => handleAction('old_pp')}>
+              Old Panel
+            </Button>
           </Stack.Item>
 
           <PlayerInformation />
@@ -80,10 +78,10 @@ export const PlayerPanel = (props) => {
   );
 };
 
-const PlayerInformation = (props) => {
-  const { act, data } = useBackend<playerData>();
-  const [hideIP, setIP] = useLocalState('show_ip', false);
-  const [hideCID, setCID] = useLocalState('show_cid', false);
+const PlayerInformation = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
+  const [hideIP, setIP] = useState(false);
+  const [hideCID, setCID] = useState(false);
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -92,7 +90,7 @@ const PlayerInformation = (props) => {
   return (
     <Stack.Item>
       <Section title="Player Information">
-        <Table cellpadding="1px">
+        <Table>
           <Table.Row>
             <Table.Cell bold>Character:</Table.Cell>
             <Table.Cell>{data.characterName}</Table.Cell>
@@ -110,26 +108,23 @@ const PlayerInformation = (props) => {
             <Table.Cell>{data.accountRegistered}</Table.Cell>
             <Table.Cell bold>Playtime as Crew:</Table.Cell>
             <Table.Cell p="1px">
-              <Button
-                content={data.playtime}
-                onClick={() => handleAction('playtime')}
-              />
+              <Button onClick={() => handleAction('playtime')}>
+                {data.playtime}
+              </Button>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>CID:</Table.Cell>
             <Table.Cell p="1px">
-              <Button
-                content={!hideCID ? 'Hidden' : data.CID}
-                onClick={() => setCID(!hideCID)}
-              />
+              <Button onClick={() => setCID(!hideCID)}>
+                {!hideCID ? 'Hidden' : data.CID}
+              </Button>
             </Table.Cell>
             <Table.Cell bold>IP Address:</Table.Cell>
             <Table.Cell p="1px">
-              <Button
-                content={!hideIP ? 'Hidden' : data.ipAddress}
-                onClick={() => setIP(!hideIP)}
-              />
+              <Button onClick={() => setIP(!hideIP)}>
+                {!hideIP ? 'Hidden' : data.ipAddress}
+              </Button>
             </Table.Cell>
           </Table.Row>
           <Table.Row>
@@ -140,17 +135,13 @@ const PlayerInformation = (props) => {
           </Table.Row>
           <Table.Row>
             <Table.Cell bold>Related By CID:</Table.Cell>
-            <Button
-              content="Related by CID"
-              color="blue"
-              onClick={() => handleAction('relatedbycid')}
-            />
+            <Button color="blue" onClick={() => handleAction('relatedbycid')}>
+              Related by CID
+            </Button>
             <Table.Cell bold>Related By IP:</Table.Cell>
-            <Button
-              content="Related by IP"
-              color="blue"
-              onClick={() => handleAction('relatedbyip')}
-            />
+            <Button color="blue" onClick={() => handleAction('relatedbyip')}>
+              Related by IP
+            </Button>
           </Table.Row>
         </Table>
       </Section>
@@ -158,9 +149,7 @@ const PlayerInformation = (props) => {
   );
 };
 
-const PlayerOptionsMenu = (props) => {
-  const { act, data } = useBackend<playerData>();
-
+const PlayerOptionsMenu = (_props: unknown) => {
   return (
     <Stack.Item>
       <Grid>
@@ -201,8 +190,8 @@ const PlayerOptionsMenu = (props) => {
   );
 };
 
-const PunishSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const PunishSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -223,69 +212,75 @@ const PunishSection = (props) => {
           <Button
             fluid
             icon="times"
-            content="KICK"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
             disabled={!hasCkey()}
             onClick={() => handleAction('kick')}
-          />
+          >
+            KICK
+          </Button>
           <Button
             fluid
             icon="ban"
-            content="JOBBAN"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('jobban')}
-          />
+          >
+            JOBBAN
+          </Button>
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="bullseye"
-              content="ADD TO WATCHLIST"
               color="red"
               tooltip={hasCkey ? null : 'NO CKEY'}
               disabled={!hasCkey()}
               onClick={() => handleAction('watchlist')}
-            />
+            >
+              ADD TO WATCHLIST
+            </Button>
           ) : null}
         </Grid.Column>
         <Grid.Column size={6}>
           <Button
             fluid
             icon="ban"
-            content="BAN"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('ban')}
-          />
+          >
+            BAN
+          </Button>
           <Button
             fluid
             icon="ban"
-            content="APPEARANCE BAN"
             color="red"
             tooltip={hasCkey ? null : 'NO CKEY'}
             disabled={!isButtonAllowed('ban') || !hasCkey()}
             onClick={() => handleAction('appban')}
-          />
+          >
+            APPEARANCE BAN
+          </Button>
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="bolt"
-              content="SMITE"
               color="red"
-              hidden={!isButtonAllowed('event')}
               onClick={() => handleAction('smite')}
-            />
+            >
+              SMITE
+            </Button>
           ) : null}
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="hand-holding-heart"
-              content="BLESS"
               onClick={() => handleAction('bless')}
-            />
+            >
+              BLESS
+            </Button>
           ) : null}
         </Grid.Column>
       </Grid>
@@ -293,8 +288,8 @@ const PunishSection = (props) => {
   );
 };
 
-const MessageSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const MessageSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -308,52 +303,50 @@ const MessageSection = (props) => {
     <Section title="Message">
       <Grid>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            icon="comment"
-            content="PM"
-            onClick={() => handleAction('pm')}
-          />
+          <Button fluid icon="comment" onClick={() => handleAction('pm')}>
+            PM
+          </Button>
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="comment-alt"
-              content="NARRATE"
               onClick={() => handleAction('narrate')}
-            />
+            >
+              NARRATE
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="user-secret"
-              content="SEND ALERT"
               onClick={() => handleAction('sendalert')}
-            />
+            >
+              SEND ALERT
+            </Button>
           ) : null}
         </Grid.Column>
         <Grid.Column size={6}>
           <Button
             fluid
             icon="user-secret"
-            content="SM"
             disabled={!isButtonAllowed('event')}
             onClick={() => handleAction('sm')}
-          />
+          >
+            SM
+          </Button>
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="crown"
-              content="MAN UP"
-              onClick={() => handleAction('manup')}
-            />
+            <Button fluid icon="crown" onClick={() => handleAction('manup')}>
+              MAN UP
+            </Button>
           ) : null}
           {isButtonAllowed('sound') ? (
             <Button
               fluid
               icon="music"
-              content="PLAY SOUND TO"
               onClick={() => handleAction('playsoundto')}
-            />
+            >
+              PLAY SOUND TO
+            </Button>
           ) : null}
         </Grid.Column>
       </Grid>
@@ -361,8 +354,8 @@ const MessageSection = (props) => {
   );
 };
 
-const MovementSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const MovementSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -376,51 +369,41 @@ const MovementSection = (props) => {
     <Section title="Movement">
       <Grid>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            icon="eye"
-            content="FLW"
-            onClick={() => handleAction('flw')}
-          />
+          <Button fluid icon="eye" onClick={() => handleAction('flw')}>
+            FLW
+          </Button>
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="download"
-              content="GET"
-              onClick={() => handleAction('get')}
-            />
+            <Button fluid icon="download" onClick={() => handleAction('get')}>
+              GET
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="paper-plane"
-              content="SEND"
               onClick={() => handleAction('send')}
-            />
+            >
+              SEND
+            </Button>
           ) : null}
         </Grid.Column>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            icon="running"
-            content="JUMPTO"
-            onClick={() => handleAction('jumpto')}
-          />
+          <Button fluid icon="running" onClick={() => handleAction('jumpto')}>
+            JUMPTO
+          </Button>
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="sign-out-alt"
-              content="LOBBY"
               onClick={() => handleAction('lobby')}
-            />
+            >
+              LOBBY
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="columns"
-              content="SEND TO CRYO"
-              onClick={() => handleAction('cryo')}
-            />
+            <Button fluid icon="columns" onClick={() => handleAction('cryo')}>
+              SEND TO CRYO
+            </Button>
           ) : null}
         </Grid.Column>
       </Grid>
@@ -428,8 +411,8 @@ const MovementSection = (props) => {
   );
 };
 
-const InfoSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const InfoSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -443,70 +426,46 @@ const InfoSection = (props) => {
     <Section title="Info">
       <Grid>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            icon="book"
-            content="LOGS"
-            onClick={() => handleAction('logs')}
-          />
-          <Button
-            fluid
-            icon="clipboard"
-            content="NOTES"
-            onClick={() => handleAction('notes')}
-          />
+          <Button fluid icon="book" onClick={() => handleAction('logs')}>
+            LOGS
+          </Button>
+          <Button fluid icon="clipboard" onClick={() => handleAction('notes')}>
+            NOTES
+          </Button>
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="eye"
-              content="PLAYTIME"
-              onClick={() => handleAction('playtime')}
-            />
+            <Button fluid icon="eye" onClick={() => handleAction('playtime')}>
+              PLAYTIME
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="globe"
-              content="GEOIP"
-              onClick={() => handleAction('geoip')}
-            />
+            <Button fluid icon="globe" onClick={() => handleAction('geoip')}>
+              GEOIP
+            </Button>
           ) : null}
         </Grid.Column>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            icon="user-secret"
-            content="TRAITOR PANEL"
-            onClick={() => handleAction('tp')}
-          />
-          <Button
-            fluid
-            icon="code"
-            content="VV"
-            onClick={() => handleAction('vv')}
-          />
+          <Button fluid icon="user-secret" onClick={() => handleAction('tp')}>
+            TRAITOR PANEL
+          </Button>
+          <Button fluid icon="code" onClick={() => handleAction('vv')}>
+            VV
+          </Button>
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="database"
-              content="CHECK GLOBAL CCDB"
-              onClick={() => handleAction('ccdb')}
-            />
+            <Button fluid icon="database" onClick={() => handleAction('ccdb')}>
+              CHECK GLOBAL CCDB
+            </Button>
           ) : null}
-          <Button
-            fluid
-            icon="eye"
-            content="OBS"
-            onClick={() => handleAction('obs')}
-          />
+          <Button fluid icon="eye" onClick={() => handleAction('obs')}>
+            OBS
+          </Button>
         </Grid.Column>
       </Grid>
     </Section>
   );
 };
 
-const TransformationSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const TransformationSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -527,55 +486,61 @@ const TransformationSection = (props) => {
           <Button
             fluid
             icon="ghost"
-            content="MAKE GHOST"
             color={isMobType(data.mobType, 'ghost') ? 'good' : ''}
             onClick={() => handleAction('makeghost')}
-          />
+          >
+            MAKE GHOST
+          </Button>
           <Button
             fluid
             icon="user"
-            content="MAKE HUMAN"
             color={isMobType(data.mobType, 'human') ? 'good' : ''}
             onClick={() => handleAction('makehuman')}
-          />
+          >
+            MAKE HUMAN
+          </Button>
           <Button
             fluid
             icon="paw"
-            content="MAKE MONKEY"
             color={isMobType(data.mobType, 'monkey') ? 'good' : ''}
             onClick={() => handleAction('makemonkey')}
-          />
+          >
+            MAKE MONKEY
+          </Button>
         </Grid.Column>
         <Grid.Column size={6}>
           <Button
             fluid
             icon="robot"
-            content="MAKE CYBORG"
             color={isMobType(data.mobType, 'cyborg') ? 'good' : ''}
             onClick={() => handleAction('makeborg')}
-          />
+          >
+            MAKE CYBORG
+          </Button>
           <Button
             fluid
             icon="microchip"
-            content="MAKE AI"
             color={isMobType(data.mobType, 'ai') ? 'good' : ''}
             onClick={() => handleAction('makeai')}
-          />
+          >
+            MAKE AI
+          </Button>
           <Button
             fluid
             icon="microchip"
-            content="ANIMALIZE"
             color={isMobType(data.mobType, 'animal') ? 'good' : ''}
             onClick={() => handleAction('makeanimal')}
-          />
+          >
+            ANIMALIZE
+          </Button>
         </Grid.Column>
       </Grid>
     </Section>
   );
 };
 
-const HealthObserverSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const HealthObserverSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -589,20 +554,19 @@ const HealthObserverSection = (props) => {
     <Section title="Observer">
       <Grid>
         <Grid.Column size={2}>
-          <Button
-            fluid
-            content="TOGGLE RESPAWNABILITY"
-            onClick={() => handleAction('respawnability')}
-          />
+          <Button fluid onClick={() => handleAction('respawnability')}>
+            TOGGLE RESPAWNABILITY
+          </Button>
         </Grid.Column>
         <Grid.Column size={2}>
           <Button
             fluid
             icon="staff-snake"
-            content="RE-INCARNATE"
             disabled={!isButtonAllowed('spawn')}
             onClick={() => handleAction('reviveghost')}
-          />
+          >
+            RE-INCARNATE
+          </Button>
         </Grid.Column>
       </Grid>
     </Section>
@@ -610,55 +574,42 @@ const HealthObserverSection = (props) => {
     <Section title="Health">
       <Grid>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            icon="heart"
-            content="HEALTHSCAN"
-            onClick={() => handleAction('healthscan')}
-          />
+          <Button fluid icon="heart" onClick={() => handleAction('healthscan')}>
+            HEALTHSCAN
+          </Button>
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              content="GIVE DISEASE"
-              onClick={() => handleAction('giveDisease')}
-            />
+            <Button fluid onClick={() => handleAction('giveDisease')}>
+              GIVE DISEASE
+            </Button>
           ) : null}
 
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              content="CURE DISEASE"
-              onClick={() => handleAction('cureDisease')}
-            />
+            <Button fluid onClick={() => handleAction('cureDisease')}>
+              CURE DISEASE
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              content="CURE ALL BAD DISEASES"
-              onClick={() => handleAction('cureAllDiseases')}
-            />
+            <Button fluid onClick={() => handleAction('cureAllDiseases')}>
+              CURE ALL BAD DISEASES
+            </Button>
           ) : null}
         </Grid.Column>
         <Grid.Column size={6}>
-          <Button
-            fluid
-            content="CHEMSCAN"
-            onClick={() => handleAction('chemscan')}
-          />
+          <Button fluid onClick={() => handleAction('chemscan')}>
+            CHEMSCAN
+          </Button>
           <Button
             fluid
             icon="plus"
-            content="REJUVINATE"
             disabled={!isButtonAllowed('rejuvinate')}
             onClick={() => handleAction('aheal')}
-          />
+          >
+            REJUVINATE
+          </Button>
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              icon="dna"
-              content="SHOW DNA"
-              onClick={() => handleAction('mutate')}
-            />
+            <Button fluid icon="dna" onClick={() => handleAction('mutate')}>
+              SHOW DNA
+            </Button>
           ) : null}
         </Grid.Column>
       </Grid>
@@ -666,8 +617,8 @@ const HealthObserverSection = (props) => {
   );
 };
 
-const MobManipulationSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const MobManipulationSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -688,57 +639,65 @@ const MobManipulationSection = (props) => {
           <Button
             fluid
             icon="pencil"
-            content="MOB RANDOM NAME"
             onClick={() => handleAction('randomizename')}
-          />
+          >
+            MOB RANDOM NAME
+          </Button>
           <Button
             fluid
             icon="shirt"
-            content="SELECT EQUIPMENT"
             disabled={!isButtonAllowed('event')}
             onClick={() => handleAction('selectequip')}
-          />
+          >
+            SELECT EQUIPMENT
+          </Button>
           <Button
             fluid
             icon="microphone"
-            content="CHANGE VOICE"
             onClick={() => handleAction('changevoice')}
-          />
+          >
+            CHANGE VOICE
+          </Button>
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="circle-user"
-              content="MIRROR UI TO ADMIN"
               onClick={() => handleAction('mirroradmin')}
-            />
+            >
+              MIRROR UI TO ADMIN
+            </Button>
           ) : null}
         </Grid.Column>
         <Grid.Column size={6}>
           <Button
             fluid
             icon="pen"
-            content="CHARACTER RANDOM NAME"
             onClick={() => handleAction('userandomname')}
-          />
+          >
+            CHARACTER RANDOM NAME
+          </Button>
           <Button
             fluid
             icon="eraser"
-            content="ERASE FLAVOR"
             onClick={() => handleAction('eraseflavortext')}
-          />
+          >
+            ERASE FLAVOR
+          </Button>
           <Button
             fluid
             icon="shirt"
-            content="CHECK CONTENTS"
             onClick={() => handleAction('checkcontents')}
-          />
+          >
+            CHECK CONTENTS
+          </Button>
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="circle-user"
-              content="MIRROR UI TO PLAYER"
               onClick={() => handleAction('mirrorplayer')}
-            />
+            >
+              MIRROR UI TO PLAYER
+            </Button>
           ) : null}
         </Grid.Column>
       </Grid>
@@ -746,8 +705,8 @@ const MobManipulationSection = (props) => {
   );
 };
 
-const MiscSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const MiscSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -765,48 +724,51 @@ const MiscSection = (props) => {
             <Button
               fluid
               icon="gavel"
-              content="THUNDERDOME 1"
               onClick={() => handleAction('thunderdome1')}
-            />
+            >
+              THUNDERDOME 1
+            </Button>
           ) : null}
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="gavel"
-              content="THUNDERDOME 2"
               onClick={() => handleAction('thunderdome2')}
-            />
+            >
+              THUNDERDOME 2
+            </Button>
           ) : null}
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="comment"
-              content="FORCESAY"
               onClick={() => handleAction('forcesay')}
-            />
+            >
+              FORCESAY
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="handcuffs"
-              content="PRISON"
               onClick={() => handleAction('prison')}
-            />
+            >
+              PRISON
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              content="SYNDI JAIL RELEASE"
-              onClick={() => handleAction('contractor_release')}
-            />
+            <Button fluid onClick={() => handleAction('contractor_release')}>
+              SYNDI JAIL RELEASE
+            </Button>
           ) : null}
           {isButtonAllowed('event') || isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="cookie"
-              content="SPAWN COOKIE"
               onClick={() => handleAction('spawncookie')}
-            />
+            >
+              SPAWN COOKIE
+            </Button>
           ) : null}
           {/* <Button
         fluid
@@ -820,53 +782,50 @@ const MiscSection = (props) => {
             <Button
               fluid
               icon="gavel"
-              content="THUNDERDOME ADMIN"
               onClick={() => handleAction('thunderdomeadmin')}
-            />
+            >
+              THUNDERDOME ADMIN
+            </Button>
           ) : null}
           {isButtonAllowed('event') ? (
             <Button
               fluid
               icon="eye"
-              content="THUNDERDOME OBSERVER"
               onClick={() => handleAction('thunderdomeobserver')}
-            />
+            >
+              THUNDERDOME OBSERVER
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
             <Button
               fluid
               icon="wheelchair-move"
-              content="AROOM WRAP"
               onClick={() => handleAction('adminroom')}
-            />
+            >
+              AROOM WRAP
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              content="SYNDI JAIL START"
-              onClick={() => handleAction('contractor_start')}
-            />
+            <Button fluid onClick={() => handleAction('contractor_start')}>
+              SYNDI JAIL START
+            </Button>
           ) : null}
           {isButtonAllowed('admin') ? (
-            <Button
-              fluid
-              content="SYNDI JAIL STOP"
-              onClick={() => handleAction('contractor_stop')}
-            />
+            <Button fluid onClick={() => handleAction('contractor_stop')}>
+              SYNDI JAIL STOP
+            </Button>
           ) : null}
-          <Button
-            fluid
-            content="Some Admin Button"
-            onClick={() => handleAction('someadminbutton')}
-          />
+          <Button fluid onClick={() => handleAction('someadminbutton')}>
+            Some Admin Button
+          </Button>
         </Grid.Column>
       </Grid>
     </Section>
   );
 };
 
-const MuteSection = (props) => {
-  const { act, data } = useBackend<playerData>();
+const MuteSection = (_props: unknown) => {
+  const { act, data } = useBackend<PlayerData>();
 
   const handleAction = (action: string, params = {}) => {
     act(action, { selectedPlayerCkey: data.ckey, ...params });
@@ -887,46 +846,53 @@ const MuteSection = (props) => {
             fluid
             checked={data.muteStates.ic}
             onClick={() => toggleMute('ic')}
-            content="IC"
-          />
+          >
+            IC
+          </ButtonMute>
           <ButtonMute
             fluid
             checked={data.muteStates.ooc}
             onClick={() => toggleMute('ooc')}
-            content="OOC"
-          />
+          >
+            OOC
+          </ButtonMute>
           <ButtonMute
             fluid
             checked={data.muteStates.pray}
             onClick={() => toggleMute('pray')}
-            content="PRAY"
-          />
+          >
+            PRAY
+          </ButtonMute>
           <ButtonMute
             fluid
             checked={data.muteStates.emote}
             onClick={() => toggleMute('emote')}
-            content="EMOTE"
-          />
+          >
+            EMOTE
+          </ButtonMute>
         </Grid.Column>
         <Grid.Column size={6}>
           <ButtonMute
             fluid
             checked={data.muteStates.adminhelp}
             onClick={() => toggleMute('adminhelp')}
-            content="ADMINHELP"
-          />
+          >
+            ADMINHELP
+          </ButtonMute>
           <ButtonMute
             fluid
             checked={data.muteStates.deadchat}
             onClick={() => toggleMute('deadchat')}
-            content="DEADCHAT"
-          />
+          >
+            DEADCHAT
+          </ButtonMute>
           <ButtonMute
             fluid
             checked={data.muteStates.all}
             onClick={() => toggleMute('all')}
-            content="ALL"
-          />
+          >
+            ALL
+          </ButtonMute>
         </Grid.Column>
       </Grid>
     </Section>
@@ -934,7 +900,12 @@ const MuteSection = (props) => {
 };
 
 // Button.CheckBox doesn't want colors and setting inside, make it "complexed"
-const ButtonMute = (props) => {
+
+type ButtonMuteProps = {
+  checked: boolean;
+} & ButtonProps;
+
+const ButtonMute = (props: ButtonMuteProps) => {
   const { checked, ...rest } = props;
   return (
     <Button

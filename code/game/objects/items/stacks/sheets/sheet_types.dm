@@ -468,7 +468,6 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
-	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal_fake
 	name = "runed metal"

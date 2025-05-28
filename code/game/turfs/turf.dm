@@ -712,6 +712,9 @@
 
 /// Precipitates a movable (plus whatever buckled to it) to lower z levels if possible and then calls zImpact()
 /turf/proc/zFall(atom/movable/falling, levels = 1, force = FALSE, falling_from_move = FALSE)
+	if(no_gravity())
+		return FALSE
+
 	// Yes, you can fall up.
 	var/fall_dir = get_gravity() > 0 ? DOWN : UP
 
@@ -895,3 +898,20 @@
 	/// Ought to work
 	turf_mask.color = list(255,255,255,0, 255,255,255,0, 255,255,255,0, 0,0,0,0, 0,0,0,255)
 	underlay_appearance.overlays += turf_mask
+
+/proc/get_random_reachable_space_turf()
+	var/list/datum/space_level/reachable_levels = levels_by_trait(REACHABLE)
+	var/trys = 1000
+	var/turf/target_space_turf
+	while(trys > 0) {
+		var/x = rand(1, world.maxx)
+		var/y = rand(1, world.maxy)
+		var/z = pick(reachable_levels)
+		target_space_turf = locate(x, y, z)
+		if(isspaceturf(target_space_turf))
+			break
+
+		trys--
+	}
+
+	return target_space_turf

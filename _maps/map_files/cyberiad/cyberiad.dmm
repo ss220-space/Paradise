@@ -87438,9 +87438,11 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
-/obj/item/clothing/suit/armor/laserproof,
-/obj/item/clothing/suit/armor/laserproof,
 /obj/effect/decal/warning_stripes/red/hollow,
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
