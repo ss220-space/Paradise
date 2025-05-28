@@ -1,7 +1,7 @@
 /datum/gear/glasses
 	subtype_path = /datum/gear/glasses
 	slot = ITEM_SLOT_EYES
-	sort_category = "Glasses"
+	sort_category = "Очки"
 
 /datum/gear/glasses/sunglasses
 	index_name = "cheap sunglasses"
@@ -47,7 +47,7 @@
 /datum/gear/glasses/medhudpatch
 	index_name = "Medical HUD eyepatch"
 	path = /obj/item/clothing/glasses/hud/health/patch
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_CHEMIST, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_VIROLOGIST, JOB_TITLE_BRIGDOC, JOB_TITLE_CORONER)
 
 /datum/gear/glasses/sechudpatch
 	index_name = "Security HUD eyepatch"

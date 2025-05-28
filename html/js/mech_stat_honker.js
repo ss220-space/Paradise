@@ -1,6 +1,10 @@
 function ticker() {
 	setInterval(function () {
-		window.location = 'byond://?src=[UID()]&update_content=1';
+		const uidElement = document.getElementById('uid_container');
+		const UID = uidElement ? uidElement.getAttribute('data-uid') : null;
+		if (UID) {
+			window.location = 'byond://?src=' + UID + '&update_content=1';
+		}
 		document.body.style.color = get_rand_color_string();
 		document.body.style.background = get_rand_color_string();
 	}, 1000);

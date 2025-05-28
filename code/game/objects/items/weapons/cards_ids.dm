@@ -416,6 +416,7 @@
 							"ERT_engineering",
 							"ERT_medical",
 							"ERT_janitorial",
+							"mining_medic",
 						)
 
 /obj/item/card/id/syndicate/anyone
@@ -738,12 +739,6 @@
 			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
 	RebuildHTML()
 
-/obj/item/card/id/syndicate/ui_assets(mob/user)
-	return list(
-		get_asset_datum(/datum/asset/spritesheet/id_card)
-	)
-
-
 /obj/item/card/id/syndicate/ui_data(mob/user)
 	var/list/data = list()
 	data["registered_name"] = registered_name
@@ -765,6 +760,7 @@
 
 /obj/item/card/id/syndicate/ui_static_data(mob/user)
 	var/list/data = list()
+	data["id_icon"] = icon
 	data["appearances"] = appearances
 	return data
 
@@ -1085,6 +1081,13 @@
 	item_state = "card-id"
 	access = list(ACCESS_HYDROPONICS, ACCESS_BAR, ACCESS_KITCHEN, ACCESS_MORGUE, ACCESS_WEAPONS, ACCESS_MINERAL_STOREROOM)
 
+/obj/item/card/id/mining_medic
+	name = "Mining Medic ID"
+	registered_name = "Mining Medic"
+	icon_state = "mining_medic"
+	item_state = "mining_medic-id"
+	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_VIROLOGY, ACCESS_GENETICS)
+
 /obj/item/card/id/rainbow
 	name = "Rainbow ID"
 	icon_state = "rainbow"
@@ -1237,7 +1240,7 @@
 	override_name = 1
 
 /proc/get_station_card_skins()
-	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
+	return list("data","id","gold","silver","security", "cadet","medical", "intern","research", "student","cargo", "mining_medic","engineering", "trainee","HoS","CMO","RD","CE","clown","mime","rainbow","prisoner")
 
 /proc/get_centcom_card_skins()
 	return list("centcom","centcom_old","nanotrasen","ERT_leader","ERT_empty","ERT_security","ERT_engineering","ERT_medical","ERT_janitorial","deathsquad","commander","syndie","TDred","TDgreen")
@@ -1279,5 +1282,7 @@
 			return "Thunderdome Red"
 		if("TDgreen")
 			return "Thunderdome Green"
+		if("mining_medic")
+			return "Mining Medic"
 		else
 			return capitalize(skin)

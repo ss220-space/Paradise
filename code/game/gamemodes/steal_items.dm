@@ -243,10 +243,10 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list(JOB_TITLE_CMO)
 
-/datum/theft_objective/highrisk/ablative
-	id = "ablative_armor"
-	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
+/datum/theft_objective/highrisk/reflector
+	id = "reflector_armor"
+	name = "a reflector coat"
+	typepath = /obj/item/clothing/suit/armor/reflector
 	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
 /datum/theft_objective/highrisk/krav
@@ -572,9 +572,9 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/animal/representative
-	id = "animal_hamster_alex"
-	typepath = /mob/living/simple_animal/mouse/hamster/Representative
-	name = "хомяка по кличке Представитель Алексей"
+	id = "animal_mouse_rep"
+	typepath = /mob/living/simple_animal/mouse/wooly/rep
+	name = "лохматую мышь по кличке Господин Мышкин."
 
 /datum/theft_objective/animal/brain
 	id = "animal_brain"
@@ -797,6 +797,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/heads/blueshield,
 		/obj/item/encryptionkey/headset_cargo,
 		/obj/item/encryptionkey/headset_service,
+		/obj/item/encryptionkey/headset_mining_medic
 		)
 
 

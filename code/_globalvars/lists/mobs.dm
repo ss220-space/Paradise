@@ -64,3 +64,5 @@ GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
 	/turf/simulated/floor/chasm,
 	/turf/space,
 	/turf/space/openspace)))
+
+GLOBAL_LIST_EMPTY(left_player_list)

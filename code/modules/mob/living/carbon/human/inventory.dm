@@ -314,6 +314,15 @@
 	I.pixel_x = initial(I.pixel_x)
 	I.pixel_y = initial(I.pixel_y)
 	I.screen_loc = null
+	if(client)
+		client.screen -= I
+
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
+		if(observe.client && observe.client.eye == src && observe.do_observe_target == src)
+			observe.client.screen -= I
+		else
+			LAZYREMOVE(inventory_observers, observe)
+
 	I.forceMove(src)
 	I.layer = ABOVE_HUD_LAYER
 	SET_PLANE_EXPLICIT(I, ABOVE_HUD_PLANE, src)

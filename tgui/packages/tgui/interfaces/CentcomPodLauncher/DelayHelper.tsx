@@ -9,8 +9,8 @@ type Props = {
   reverse?: boolean;
 };
 
-export const DelayHelper = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
+export const DelayHelper = (props) => {
+  const { act, data } = useBackend<PodLauncherData>();
   const { delays, rev_delays } = data;
   const { delay_list, reverse = false } = props;
 
@@ -18,10 +18,10 @@ export const DelayHelper = (props, context) => {
     <LabeledControls
       wrap
       style={{
-        'flex-direction': 'column',
-        'flex-wrap': 'wrap',
-        'height': '7.5em',
-        'justify-content': 'start',
+        flexDirection: 'column',
+        flexWrap: 'wrap',
+        height: '7.5em',
+        justifyContent: 'start',
       }}
     >
       {delay_list.map((delay, i) => (
@@ -29,8 +29,8 @@ export const DelayHelper = (props, context) => {
           key={i}
           label={delay.title}
           style={{
-            'flex-direction': 'column',
-            'min-width': '0',
+            flexDirection: 'column',
+            minWidth: '0',
           }}
         >
           <Knob

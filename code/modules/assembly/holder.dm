@@ -13,8 +13,7 @@
 	var/obj/item/assembly/a_left = null
 	var/obj/item/assembly/a_right = null
 
-
-/obj/item/assembly_holder/Initialize(mapload)
+/obj/item/assembly_holder/Initialize(mapload, left_icon, left_iconstate, right_icon, right_iconstate)
 	. = ..()
 	var/static/list/loc_connections = list(
 		COMSIG_ATOM_ENTERED = PROC_REF(on_entered),
@@ -89,14 +88,32 @@
 
 /obj/item/assembly_holder/update_overlays()
 	. = ..()
+	var/icon/icon_obj = new /icon(icon) // :)
+	var/list/states = icon_obj.IconStates()
+	var/list/add_overlays = list()
 	if(a_left)
-		. += "[a_left.icon_state]_left"
-		for(var/O in a_left.attached_overlays)
-			. += "[O]_l"
+		var/state = "[a_left.icon_state]_left"
+		if(state in states)
+			. += state
+			for(var/O in a_left.attached_overlays)
+				. += "[O]_l"
+
+		else
+			add_overlays += image(a_left.icon, a_left.icon_state)
+
 	if(a_right)
-		. += "[a_right.icon_state]_right"
-		for(var/O in a_right.attached_overlays)
-			. += "[O]_r"
+		var/state = "[a_right.icon_state]_right"
+		if(state in states)
+			. += state
+			for(var/O in a_right.attached_overlays)
+				. += "[O]_r"
+
+		else
+			add_overlays += image(a_right.icon, a_right.icon_state)
+
+	for(var/overlay in add_overlays)
+		add_overlay(overlay)
+
 	master?.update_icon()
 
 
@@ -232,6 +249,6 @@
 		if(a_right)
 			a_right.holder = null
 			a_right.forceMove(T)
-			user.put_in_hands(a_left, ignore_anim = FALSE)
+			user.put_in_hands(a_right, ignore_anim = FALSE)
 		qdel(src)
 

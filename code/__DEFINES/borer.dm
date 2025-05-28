@@ -1,13 +1,20 @@
 #define REPRODUCTIONS_TO_MATURE 3
-#define REPRODUCTIONS_TO_ADULT 6
-#define REPRODUCTIONS_TO_ELDER 10
-#define HEAD_FOCUS_COST 4.5
-#define TORSO_FOCUS_COST 7.5
-#define HANDS_FOCUS_COST 2.5
-#define LEGS_FOCUS_COST 5
-#define SCALING_MAX_CHEM 355
-#define SCALING_CHEM_GAIN 15
-#define BORER_RANK_YOUNG /datum/borer_rank/young
-#define BORER_RANK_MATURE /datum/borer_rank/mature
-#define BORER_RANK_ADULT /datum/borer_rank/adult
-#define BORER_RANK_ELDER /datum/borer_rank/elder
+#define REPRODUCTIONS_TO_ADULT  6
+#define REPRODUCTIONS_TO_ELDER  10
+
+#define HEAD_FOCUS_COST             4.5
+#define TORSO_FOCUS_COST            7.5
+#define HANDS_FOCUS_COST            2.5
+#define LEGS_FOCUS_COST             5
+#define STING_FOCUS_COST            2.5
+#define ABDOMEN_FOCUS_COST          4.5
+#define REPRODUCTION_FOCUS_COST     5
+#define SECRETION_FOCUS_COST        7.5
+
+#define SCALING_MAX_CHEM    355
+#define SCALING_CHEM_GAIN   15
+
+#define BORER_RANK_YOUNG    /datum/borer_rank/young
+#define BORER_RANK_MATURE   /datum/borer_rank/mature
+#define BORER_RANK_ADULT    /datum/borer_rank/adult
+#define BORER_RANK_ELDER    /datum/borer_rank/elder

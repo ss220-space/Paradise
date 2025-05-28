@@ -22,8 +22,8 @@ type MintMaterial = {
   id: string;
 };
 
-export const CoinMint = (props, context) => {
-  const { act, data } = useBackend<MintData>(context);
+export const CoinMint = (props: unknown) => {
+  const { act, data } = useBackend<MintData>();
   const { materials, moneyBag, moneyBagContent, moneyBagMaxContent } = data;
   const dynamicHeight =
     (moneyBag ? 210 : 138) + Math.ceil(materials.length / 4) * 64;
@@ -80,18 +80,17 @@ export const CoinMint = (props, context) => {
                       color={'translucent'}
                       selected={material.id === data.chosenMaterial}
                       tooltip={material.name}
-                      content={
-                        <Stack vertical>
-                          <Stack.Item
-                            className={classes(['materials32x32', material.id])}
-                          />
-                          <Stack.Item>{material.amount}</Stack.Item>
-                        </Stack>
-                      }
                       onClick={() =>
                         act('selectMaterial', { material: material.id })
                       }
-                    />
+                    >
+                      <Stack vertical>
+                        <Stack.Item
+                          className={classes(['materials32x32', material.id])}
+                        />
+                        <Stack.Item>{material.amount}</Stack.Item>
+                      </Stack>
+                    </Button>
                   ))}
                 </Stack.Item>
               </Stack>
@@ -104,10 +103,11 @@ export const CoinMint = (props, context) => {
                 buttons={
                   <Button
                     icon={'eject'}
-                    content={'Извлечь'}
                     disabled={data.active}
                     onClick={() => act('ejectBag')}
-                  />
+                  >
+                    Извлечь
+                  </Button>
                 }
               >
                 <ProgressBar

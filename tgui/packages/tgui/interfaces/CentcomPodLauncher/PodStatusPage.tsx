@@ -1,4 +1,4 @@
-import { Fragment } from 'inferno';
+import { Fragment } from 'react';
 
 import { useBackend } from '../../backend';
 import { Box, Button, Section, Stack } from '../../components';
@@ -6,8 +6,8 @@ import { EFFECTS_ALL, POD_GREY } from './constants';
 import { useCompact } from './hooks';
 import { PodEffect, PodLauncherData } from './types';
 
-export const PodStatusPage = (props, context) => {
-  const [compact] = useCompact(context);
+export const PodStatusPage = (props: unknown) => {
+  const [compact] = useCompact();
 
   return (
     <Section fill>
@@ -38,9 +38,9 @@ export const PodStatusPage = (props, context) => {
   );
 };
 
-const EffectDisplay = (props, context) => {
+const EffectDisplay = (props) => {
   const { effect, hasMargin, index } = props;
-  const { act, data } = useBackend<PodLauncherData>(context);
+  const { act, data } = useBackend<PodLauncherData>();
   const { effectShrapnel, payload, shrapnelMagnitude, shrapnelType } = data;
 
   if (effect.divider || !('icon' in effect)) {
@@ -63,10 +63,10 @@ const EffectDisplay = (props, context) => {
           : data[effect.selected as string] === effect.choiceNumber
       }
       style={{
-        'border-radius': '5px',
-        'margin-left': index !== 0 ? '1px' : '0px',
-        'margin-right': hasMargin ? '1px' : '0px',
-        'vertical-align': 'middle',
+        borderRadius: '5px',
+        marginLeft: index !== 0 ? '1px' : '0px',
+        marginRight: hasMargin ? '1px' : '0px',
+        verticalAlign: 'middle',
       }}
       tooltip={
         effect.details
@@ -86,9 +86,9 @@ const EffectDisplay = (props, context) => {
   );
 };
 
-const Extras = (props, context) => {
-  const { act } = useBackend(context);
-  const [compact, setCompact] = useCompact(context);
+const Extras = (props: unknown) => {
+  const { act } = useBackend();
+  const [compact, setCompact] = useCompact();
 
   return (
     <Stack.Item>

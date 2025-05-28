@@ -609,6 +609,16 @@
     disable_message = "You will not see item description tips now."
     blackbox_message = "Toggle item description tips on hover"
 
+/datum/preference_toggle/toggle_facing_to_mouse
+    name = "Следовать за курсором мыши"
+    description = "Когда включено - при выбранном HARM интенте ваш персонаж поворачивается в сторону курсора."
+    preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+    enable_message = "Теперь вы поворачиваетесь в сторону курсора мыши."
+    disable_message = "Вы больше не поворачиваетесь в сторону курсора мыши."
+    blackbox_message = "Переключение следования за курсором мыши."
+
 /datum/preference_toggle/toggle_take_out_of_the_round_without_obj
     name = "Вывод из игры без цели"
     description = "Переключает разрешение другим игрокам выводить вас из раунда без соответствующей цели."
@@ -638,3 +648,23 @@
     enable_message = "Смерть вашего персонажа теперь перманентная."
     disable_message = "Смерть персонажа более не перманентная."
     blackbox_message = "Переключение установки статуса DNR после смерти"
+
+/datum/preference_toggle/ui_scale
+    name = "Маштабирование UI"
+    description = "Включает маштабирование содержимого UI окон."
+    preftoggle_bitflag = PREFTOGGLE_3_UI_SCALE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь содержимое UI маштабируется."
+    disable_message = "Теперь содержимое UI не маштабируется."
+    blackbox_message = "Переключение маштабирования UI"
+
+
+/datum/preference_toggle/ui_scale/set_toggles(client/user)
+	. = ..()
+	if(!istype(user))
+		return
+	ASYNC
+		user.acquire_dpi()
+	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
+	user.tgui_say?.load()
