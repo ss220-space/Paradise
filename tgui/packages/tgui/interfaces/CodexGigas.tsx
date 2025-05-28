@@ -2,7 +2,11 @@ import { useBackend } from '../backend';
 import { Button, LabeledList, Section } from '../components';
 import { Window } from '../layouts';
 
-const MainPage = ({ act, data }) => {
+type MainPageProps = {
+  data: MainPageData;
+} & ActProps;
+
+const MainPage = ({ act, data }: MainPageProps) => {
   const { name, currentSection, prefixes, titles, names, suffixes } = data;
   return (
     <Section>
@@ -22,66 +26,80 @@ const MainPage = ({ act, data }) => {
           {prefixes.map((prefix) => (
             <Button
               key={prefix.toLowerCase()}
-              content={prefix}
               disabled={currentSection !== 1}
               onClick={() => act(prefix)}
               className="CodexGigas__button"
-            />
+            >
+              {prefix}
+            </Button>
           ))}
         </LabeledList.Item>
         <LabeledList.Item label="Заголовок">
           {titles.map((title) => (
             <Button
               key={title.toLowerCase()}
-              content={title}
               disabled={currentSection > 2}
               onClick={() => act(title)}
               className="CodexGigas__button"
-            />
+            >
+              {title}
+            </Button>
           ))}
         </LabeledList.Item>
         <LabeledList.Item label="Имя">
           {names.map((name) => (
             <Button
               key={name.toLowerCase()}
-              content={name}
               disabled={currentSection > 4}
               onClick={() => act(name)}
               className="CodexGigas__button"
-            />
+            >
+              {name}
+            </Button>
           ))}
         </LabeledList.Item>
         <LabeledList.Item label="Суффикс">
           {suffixes.map((suffix) => (
             <Button
               key={suffix.toLowerCase()}
-              content={suffix}
               disabled={currentSection !== 4}
               onClick={() => act(suffix)}
               className="CodexGigas__button"
-            />
+            >
+              {suffix}
+            </Button>
           ))}
         </LabeledList.Item>
         <LabeledList.Item>
           <Button
-            content="Поиск"
             disabled={currentSection < 4}
             onClick={() => act('search')}
             className="CodexGigas__search-button"
-          />
+          >
+            Поиск
+          </Button>
           <Button
-            content="Очистить"
             disabled={currentSection === 1}
             onClick={() => act('clear')}
             className="CodexGigas__search-button"
-          />
+          >
+            Очистить
+          </Button>
         </LabeledList.Item>
       </LabeledList>
     </Section>
   );
 };
 
-const DetailsPage = ({ act, data }) => {
+type DetailsPageProps = {
+  data: DevilData;
+} & ActProps;
+
+type ActProps = {
+  act: (s: string, o?: object) => void;
+};
+
+const DetailsPage = ({ act, data }: DetailsPageProps) => {
   const { devilName, ban, bane, obligation, banish } = data;
 
   return (
@@ -96,19 +114,39 @@ const DetailsPage = ({ act, data }) => {
         <p className="CodexGigas__info-text">Обязательство: {obligation}</p>
         <p className="CodexGigas__info-text">Ритуал изгнания: {banish}</p>
         <div className="CodexGigas__centered">
-          <Button
-            content="Искать заново"
-            onClick={() => act('reset')}
-            className="CodexGigas__button"
-          />
+          <Button onClick={() => act('reset')} className="CodexGigas__button">
+            Искать заново
+          </Button>
         </div>
       </>
     </Section>
   );
 };
 
-export const CodexGigas = (props, context) => {
-  const { act, data } = useBackend(context);
+type CodexGigasData = {
+  hasDevilInfo: boolean;
+} & DevilData &
+  MainPageData;
+
+type DevilData = {
+  devilName: string;
+  ban: string;
+  bane: string;
+  obligation: string;
+  banish: string;
+};
+
+type MainPageData = {
+  name: string;
+  currentSection: number;
+  prefixes: string[];
+  titles: string[];
+  names: string[];
+  suffixes: string[];
+};
+
+export const CodexGigas = (_props: unknown) => {
+  const { act, data } = useBackend<CodexGigasData>();
   return (
     <Window theme="infernal">
       <Window.Content className="CodexGigas__background">
