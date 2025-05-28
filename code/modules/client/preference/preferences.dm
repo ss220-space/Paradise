@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_VAMPIRE = 14,
 	ROLE_BLOB = 14,
 	ROLE_REVENANT = 14,
-	ROLE_OPERATIVE = 21,
+	ROLE_Оперативник = 21,
 	ROLE_CULTIST = 21,
 	ROLE_CLOCKER = 21,
 	ROLE_RAIDER = 21,
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
-	var/UI_style = "Midnight"
+	var/UI_style = "Полночь"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
 	var/toggles3 = TOGGLES_3_DEFAULT
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/job_karma_low = 0
 
 	//Special role pref
-	var/uplink_pref = "pda"
+	var/uplink_pref = "КПК"
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
@@ -446,7 +446,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				dat += "<a href=\"byond://?_src_=prefs;preference=records;record=1\">Записи о персонаже</a><br>"
 
 			dat += "<h2>Специальные роли</h2>"
-			dat += "<b>Локация аплинка:</b> <a href='byond://?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
+			dat += "<b>Местоположение аплинка:</b> <a href='byond://?_src_=prefs;preference=uplink_pref;task=input'>[uplink_pref]</a><br>"
 
 			if(CONFIG_GET(flag/tts_enabled))
 				dat += "<h2>Text-to-Speech</h2>"
@@ -1695,10 +1695,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 //						var/languages_available
 					var/list/new_languages = list("Нет")
 /*
-					if(CONFIG_GET(flag/usealienwhitelist))
+					if(CONFIG_GET(flag/usealienБелизнаlist))
 						for(var/L in GLOB.all_languages)
 							var/datum/language/lang = GLOB.all_languages[L]
-							if((!(lang.flags & RESTRICTED)) && (is_alien_whitelisted(user, L)||(!( lang.flags & WHITELISTED ))))
+							if((!(lang.flags & RESTRICTED)) && (is_alien_Белизнаlisted(user, L)||(!( lang.flags & БелизнаLISTED ))))
 								new_languages += lang
 								languages_available = 1
 
@@ -2166,7 +2166,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						organ_data[limb] = "cyborg"
 
 				if("uplink_pref")
-					var/new_uplink_pref = tgui_input_list(user, "Choose your preferred uplink location:", "Character Preference", list("pda", "headset"))
+					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list("КПК", "Гарнитура"))
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
 
@@ -2180,69 +2180,69 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return
 
 				if("limbs")
-					var/valid_limbs = list("Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
+					var/valid_limbs = list("Левая нога", "Правая нога", "Левая рука", "Правая рука", "Левая ступня", "Правая ступня", "Левая ладонь", "Правая ладонь")
 					if(S.bodyflags & ALL_RPARTS)
-						valid_limbs = list("Torso", "Lower Body", "Head", "Left Leg", "Right Leg", "Left Arm", "Right Arm", "Left Foot", "Right Foot", "Left Hand", "Right Hand")
-					var/limb_name = tgui_input_list(user, "Which limb do you want to change?", "Limbs and Parts", valid_limbs)
+						valid_limbs = list("Грудь", "Живот", "Голова", "Левая нога", "Правая нога", "Левая рука", "Правая рука", "Левая ступня", "Правая ступня", "Левая ладонь", "Правая ладонь")
+					var/limb_name = tgui_input_list(user, "Выберите часть тела для изменения", "Изменение части тела", valid_limbs)
 					if(!limb_name)
 						return
 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
-					var/valid_limb_states = list("Normal", "Prosthesis")
+					var/valid_limb_states = list("Органическое", "Синтетическое")
 					var/no_amputate = FALSE
 
 					switch(limb_name)
-						if("Torso")
+						if("Грудь")
 							limb = BODY_ZONE_CHEST
 							second_limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
-						if("Lower Body")
+						if("Живот")
 							limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
-						if("Head")
+						if("Голова")
 							limb = BODY_ZONE_HEAD
 							no_amputate = 1
-						if("Left Leg")
+						if("Левая нога")
 							limb = BODY_ZONE_L_LEG
 							second_limb = BODY_ZONE_PRECISE_L_FOOT
-						if("Right Leg")
+						if("Правая нога")
 							limb = BODY_ZONE_R_LEG
 							second_limb = BODY_ZONE_PRECISE_R_FOOT
-						if("Left Arm")
+						if("Левая рука")
 							limb = BODY_ZONE_L_ARM
 							second_limb = BODY_ZONE_PRECISE_L_HAND
-						if("Right Arm")
+						if("Правая рука")
 							limb = BODY_ZONE_R_ARM
 							second_limb = BODY_ZONE_PRECISE_R_HAND
-						if("Left Foot")
+						if("Левая ступня")
 							limb = BODY_ZONE_PRECISE_L_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_L_LEG
-						if("Right Foot")
+						if("Правая ступня")
 							limb = BODY_ZONE_PRECISE_R_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_LEG
-						if("Left Hand")
+						if("Левая ладонь")
 							limb = BODY_ZONE_PRECISE_L_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_L_ARM
-						if("Right Hand")
+						if("Правая ладонь")
 							limb = BODY_ZONE_PRECISE_R_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_ARM
 
 					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
-						valid_limb_states += "Amputated"
+						valid_limb_states += "Ампутированное"
 					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
-						valid_limb_states -= "Prosthesis"
+						valid_limb_states -= "Синтетическое"
 
-					var/new_state = tgui_input_list(user, "What state do you wish the limb to be in?", "[limb_name]", valid_limb_states)
+					var/new_state = tgui_input_list(user, "Выберите желаемое состояния части тела", "[limb_name] - изменение состояния", valid_limb_states)
 					if(!new_state) return
 
 					switch(new_state)
-						if("Normal")
+						if("Органическое")
 							if(limb == BODY_ZONE_HEAD)
 								m_styles["head"] = "Нет"
 								h_style = GLOB.hair_styles_public_list["Bald"]
@@ -2252,13 +2252,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(third_limb)
 								organ_data[third_limb] = null
 								rlimb_data[third_limb] = null
-						if("Amputated")
+						if("Ампутированное")
 							organ_data[limb] = "amputated"
 							rlimb_data[limb] = null
 							if(second_limb)
 								organ_data[second_limb] = "amputated"
 								rlimb_data[second_limb] = null
-						if("Prosthesis")
+						if("Синтетическое")
 							var/choice
 							var/subchoice
 							var/datum/robolimb/R = new()
@@ -2271,7 +2271,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 										robolimb_companies[R.company] = R //List only main brands that have the parts we're looking for.
 							R = new() //Re-initialize R.
 
-							choice = tgui_input_list(user, "Which manufacturer do you wish to use for this limb?", "[limb_name] - Prosthesis", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
+							choice = tgui_input_list(user, "Выберите фирму-изготовителя для синтетической части тела", "[limb_name] - выбор фирмы-изготовителя", robolimb_companies) //Choose from a list of companies that offer the part the user wants.
 							if(!choice)
 								return
 							R.company = choice
@@ -2287,7 +2287,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 										if(second_limb in L.parts) //If the child limb of the limb the user selected is also present in the model's parts list, state it's been found so the second limb can be set later.
 											in_model = 1
 								if(robolimb_models.len > 1) //If there's more than one model in the list that can provide the part the user wants, let them choose.
-									subchoice = tgui_input_list(user, "Which model of [choice] [limb_name] do you wish to use?", "[limb_name] - Prosthesis - Model", robolimb_models)
+									subchoice = tgui_input_list(user, "Выберите модель \"[choice]\" для части тела", "[limb_name] - выбор модели", robolimb_models)
 								if(subchoice)
 									choice = subchoice
 							if(limb in list(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_PRECISE_GROIN))
@@ -2310,39 +2310,39 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									rlimb_data[second_limb] = choice
 									organ_data[second_limb] = "cyborg"
 				if("organs")
-					var/organ_name = tgui_input_list(user, "Which internal function do you want to change?", "Internal Organs", list("Eyes", "Ears", "Heart", "Lungs", "Liver", "Kidneys"))
+					var/organ_name = tgui_input_list(user, "Выберите внутренний орган для изменения", "Изменение внутреннего органа", list("Глаза", "Уши", "Сердце", "Лёгкие", "Печень", "Почки"))
 					if(!organ_name)
 						return
 
 					var/organ = null
 					switch(organ_name)
-						if("Eyes")
+						if("Глаза")
 							organ = INTERNAL_ORGAN_EYES
-						if("Ears")
+						if("Уши")
 							organ = INTERNAL_ORGAN_EARS
-						if("Heart")
+						if("Сердце")
 							organ = INTERNAL_ORGAN_HEART
-						if("Lungs")
+						if("Лёгкие")
 							organ = INTERNAL_ORGAN_LUNGS
-						if("Liver")
+						if("Печень")
 							organ = INTERNAL_ORGAN_LIVER
-						if("Kidneys")
+						if("Почки")
 							organ = INTERNAL_ORGAN_KIDNEYS
 
-					var/list/allowed_organs_type = list("Normal", "Cybernetic")
+					var/list/allowed_organs_type = list("Органическое", "Синтетическое")
 					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
-						allowed_organs_type -= "Cybernetic"
-					var/new_state = tgui_input_list(user, "What state do you wish the organ to be in?", "[organ_name]", allowed_organs_type)
+						allowed_organs_type -= "Синтетическое"
+					var/new_state = tgui_input_list(user, "Выберите желаемое состояние органа", "[organ_name]", allowed_organs_type)
 					if(!new_state) return
 
 					switch(new_state)
-						if("Normal")
+						if("Органическое")
 							organ_data[organ] = null
-						if("Cybernetic")
+						if("Синтетическое")
 							organ_data[organ] = "cybernetic"
 
 				if("clientfps")
-					var/desiredfps = tgui_input_number(user, "Выберите желаемый FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Character Preference", clientfps, 120, -1)
+					var/desiredfps = tgui_input_number(user, "Выберите желаемое значение FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Выбор желаемого значения FPS", clientfps, 120, -1)
 					if(!isnull(desiredfps))
 						clientfps = desiredfps
 						if(clientfps)
@@ -2363,13 +2363,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("gender")
 					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Choose Gender:", "Gender", list("Male", "Female", "Genderless"))
+						var/newgender = tgui_input_list(user, "Выберите пол персонажа", "Пол персонажа", list("Мужской", "Женский", "Бесполый"))
 						switch(newgender)
-							if("Male")
+							if("Мужской")
 								gender = MALE
-							if("Female")
+							if("Женский")
 								gender = FEMALE
-							if("Genderless")
+							if("Бесполый")
 								gender = PLURAL
 					else
 						if(gender == MALE)
@@ -2391,22 +2391,22 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Choose your UI style", "UI style", list("Midnight", "Plasmafire", "Retro", "Slimecore", "Operative", "White"))
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list("Полночь", "Плазма", "Ретро", "Желе", "Оперативник", "Белизна"))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
-						if("Midnight")
-							UI_style = "Midnight"
-						if("Plasmafire")
-							UI_style = "Plasmafire"
-						if("Retro")
-							UI_style = "Retro"
-						if("Slimecore")
-							UI_style = "Slimecore"
-						if("Operative")
-							UI_style = "Operative"
-						if("White")
-							UI_style = "White"
+						if("Полночь")
+							UI_style = "Полночь"
+						if("Плазма")
+							UI_style = "Плазма"
+						if("Ретро")
+							UI_style = "Ретро"
+						if("Желе")
+							UI_style = "Желе"
+						if("Оперативник")
+							UI_style = "Оперативник"
+						if("Белизна")
+							UI_style = "Белизна"
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -2450,12 +2450,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("setviewrange")
 					var/list/viewrange_options = list(
-						"15x15 (Classic)" = "15x15",
-						"17x15 (Wide)" = "17x15",
-						"19x15 (Ultrawide)" = "19x15"
+						"15x15 (Классический)" = "15x15",
+						"17x15 (Широкий)" = "17x15",
+						"19x15 (Ультраширокий)" = "19x15"
 					)
 
-					var/new_range = tgui_input_list(user, "Select a view range", "Range", viewrange_options)
+					var/new_range = tgui_input_list(user, "Выберите диапазон видимости", "Диапазон видимости", viewrange_options)
 					if(!new_range)
 						return
 					var/actual_new_range = viewrange_options[new_range]
@@ -2474,7 +2474,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
-					var/UI_style_color_new = tgui_input_color(user, "Choose your UI color, dark colors are not recommended!", UI_style_color)
+					var/UI_style_color_new = tgui_input_color(user, "Настройте цвет интерфейса. Тёмные цвета не рекомендованы!", UI_style_color)
 					if(isnull(UI_style_color_new)) return
 					UI_style_color = UI_style_color_new
 
@@ -2483,7 +2483,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						H.remake_hud()
 
 				if("UIalpha")
-					var/UI_style_alpha_new = tgui_input_number(user, "Select a new alpha(transparence) parameter for UI, between 50 and 255", "UI Alpha", UI_style_alpha, 255, 50)
+					var/UI_style_alpha_new = tgui_input_number(user, "Задайте значение альфы (прозрачности) для интерфейса, от 50 до 255", "Альфа интерфейса", UI_style_alpha, 255, 50)
 					if(!UI_style_alpha_new)
 						return
 					UI_style_alpha = UI_style_alpha_new
@@ -2541,7 +2541,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					load_character(user)
 
 				if("clear")
-					if(!saved || real_name != input("This will clear the current slot permanently. Please enter the character's full name to confirm."))
+					if(!saved || real_name != input("Это действие полностью очистит текущий слот. Для подтверждения введите полное имя вашего персонажа."))
 						return FALSE
 					clear_character_slot(user)
 
@@ -2573,14 +2573,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("parallax")
 					var/parallax_styles = list(
-						"Off" = PARALLAX_DISABLE,
-						"Low" = PARALLAX_LOW,
-						"Medium" = PARALLAX_MED,
-						"High" = PARALLAX_HIGH,
-						"Insane" = PARALLAX_INSANE
+						"Отключено" = PARALLAX_DISABLE,
+						"Низкое" = PARALLAX_LOW,
+						"Среднее" = PARALLAX_MED,
+						"Высокое" = PARALLAX_HIGH,
+						"Очень высокое" = PARALLAX_INSANE
 					)
 
-					var/new_parallax = tgui_input_list(user, "Pick a parallax style", "Parallax Style", parallax_styles)
+					var/new_parallax = tgui_input_list(user, "Выберите качество параллакса", "Параллакс", parallax_styles)
 					if(!new_parallax)
 						return
 					/*
@@ -2595,13 +2595,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(
-						"Default" = MULTIZ_DETAIL_DEFAULT,
-						"Low" = MULTIZ_DETAIL_LOW,
-						"Medium" = MULTIZ_DETAIL_MEDIUM,
-						"High" = MULTIZ_DETAIL_HIGH,
+						"По умолчанию" = MULTIZ_DETAIL_DEFAULT,
+						"Низкое" = MULTIZ_DETAIL_LOW,
+						"Среднее" = MULTIZ_DETAIL_MEDIUM,
+						"Высокое" = MULTIZ_DETAIL_HIGH,
 					)
 
-					var/new_value = tgui_input_list(user, "Pick a Multi-z Detail", "Multi-z Detail", multiz_det_styles)
+					var/new_value = tgui_input_list(user, "Выберите качество Multi-Z параллакса", "Multi-Z параллакс", multiz_det_styles)
 					if(!new_value)
 						return
 					/*
@@ -2737,7 +2737,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								keybindings_overrides -= KB.name
 
 					else if(href_list["all"])
-						var/yes = tgui_alert(user, "Really [href_list["all"]] all Привязка клавиш?", "Confirm", list("Yes", "No")) == "Yes"
+						var/yes = tgui_alert(user, "Вы точно хотите [href_list["all"]] все привязанные клавиши?", "Подтверждение", list("Yes", "No")) == "Yes"
 						if(yes)
 							switch(href_list["all"])
 								if("reset")
@@ -2751,7 +2751,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						var/datum/keybinding/custom/custom_emote_keybind = locateUID(href_list["custom_emote_set"])
 						if(custom_emote_keybind)
 							var/emote_text = user.client.prefs.custom_emotes[custom_emote_keybind.name]
-							var/desired_emote = tgui_input_text(user, "Enter your custom emote text, 128 character limit.", "Custom Emote Setter", emote_text, max_length = 128)
+							var/desired_emote = tgui_input_text(user, "Введите текст для вашей пользовательской эмоции. Максимум 128 символов.", "Настройка пользовательской эмоции", emote_text, max_length = 128)
 							if(desired_emote && (desired_emote != custom_emote_keybind.default_emote_text)) //don't let them save the default custom emote text
 								user.client.prefs.custom_emotes[custom_emote_keybind.name] = desired_emote
 							save_character(user)
@@ -2976,17 +2976,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	var/dat = {"<meta charset="UTF-8"><body>"}
 	dat += "<tt><center>"
-	dat += "<b>Select a character slot to load</b><hr>"
+	dat += "<b>Выберите слот персонажа для загрузки</b><hr>"
 	var/name
 
 	for(var/i in 1 to max_save_slots)
-		name = slotnames[i] || "Character [i]"
+		name = slotnames[i] || "Персонаж №[i]"
 		if(i == default_slot)
 			name = "<b>[name]</b>"
 		dat += "<a href='byond://?_src_=prefs;preference=changeslot;num=[i];'>[name]</a><br>"
 
 	dat += "<hr>"
-	dat += "<a href='byond://?_src_=prefs;preference=close_load_dialog'>Close</a><br>"
+	dat += "<a href='byond://?_src_=prefs;preference=close_load_dialog'>Закрыть</a><br>"
 	dat += "</center></tt>"
 	var/datum/browser/popup = new(user, "saves", "<div align='center'>Character Saves</div>", 300, 390)
 	popup.set_content(dat)
