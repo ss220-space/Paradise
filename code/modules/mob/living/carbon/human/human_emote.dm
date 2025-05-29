@@ -44,8 +44,16 @@
 	message = "дела%(ет,ют)% невероятный запил на воображаемой гитаре!"
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE
-	sound = 'sound/misc/air_guitar.ogg'  // сделал из аудиофайла че дали, но мб можно будет сделать лист целый прикольный
-
+	volume = 70
+	vary = TRUE
+	sound = list(
+		'sound/misc/guitar_rifs/guitar_riff_1.ogg', // сделал из аудиофайла че дали
+		'sound/misc/guitar_rifs/guitar_riff_2.ogg', // нашел все остальные  на бесплатном сайте samplefocus и законвертил
+		'sound/misc/guitar_rifs/guitar_riff_3.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_4.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_5.ogg'
+	)
+	cooldown = 60 SECONDS
 
 /datum/emote/living/carbon/human/clap
 	key = "clap"
