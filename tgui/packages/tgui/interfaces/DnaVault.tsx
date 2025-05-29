@@ -2,7 +2,6 @@ import { useBackend } from '../backend';
 import {
   Box,
   Button,
-  Grid,
   LabeledList,
   ProgressBar,
   Section,
@@ -14,7 +13,7 @@ export const DnaVault = (props: unknown) => {
   const { data } = useBackend<DnaVaultData>();
   const { completed } = data;
   return (
-    <Window width={350} height={270}>
+    <Window width={350} height={280}>
       <Window.Content>
         <Stack fill vertical>
           <DnaVaultDataBase />
@@ -102,8 +101,8 @@ const GeneTherapySelection = (props: unknown) => {
           Applicable Gene Therapy Treatments
         </Box>
         {(!used && (
-          <Grid>
-            <Grid.Column>
+          <Stack vertical>
+            <Stack.Item>
               <Button
                 fluid
                 bold
@@ -116,8 +115,8 @@ const GeneTherapySelection = (props: unknown) => {
               >
                 {choiceA}
               </Button>
-            </Grid.Column>
-            <Grid.Column>
+            </Stack.Item>
+            <Stack.Item>
               <Button
                 fluid
                 bold
@@ -130,8 +129,8 @@ const GeneTherapySelection = (props: unknown) => {
               >
                 {choiceB}
               </Button>
-            </Grid.Column>
-          </Grid>
+            </Stack.Item>
+          </Stack>
         )) || (
           <Box bold textAlign="center" mb={1}>
             Users DNA deemed unstable. Unable to provide more upgrades.

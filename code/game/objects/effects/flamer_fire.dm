@@ -4,7 +4,7 @@
 	//By default, this generates a napalm fire with a radius of 1, flame_level of 20 per UT (prev 14 as greenfire), burn_level of 30 per UT (prev 15 as greenfire), in a diamond shape.
 	if(!istype(epicenter))
 		return
-		
+
 	var/datum/reagent/reagent = new /datum/reagent/napalm/ut()
 
 	if(burn_level >= BURN_LEVEL_TIER_7)
@@ -50,7 +50,6 @@
 
 	var/fire_variant = FIRE_VARIANT_DEFAULT
 
-	var/weather_smothering_strength = 0
 
 /obj/flamer_fire/ComponentInitialize()
 	. = ..()
@@ -159,7 +158,7 @@
 		return
 
 	entered.handle_flamer_fire_crossed(src)
-	
+
 
 /obj/flamer_fire/proc/set_on_fire(mob/living/mob)
 	if(!istype(mob))
@@ -172,7 +171,7 @@
 	var/fire_intensity_resistance = mob.run_armor_check(attack_flag = FIRE)
 
 	if(!tied_reagent.fire_penetrating)
-		burn_damage = max(burn_damage - fire_intensity_resistance * 0.5, 0)
+		burn_damage = max(burn_damage * (100 - fire_intensity_resistance) / 100, 0)
 
 
 	mob.adjust_fire_stacks(tied_reagent.durationfire)
@@ -226,7 +225,7 @@
 
 	//This has been made a simple loop, for the most part flamer_fire_act() just does return, but for specific items it'll cause other effects.
 
-	firelevel -= 2 + weather_smothering_strength //reduce the intensity by 2 as default or more if in weather ---- weather_smothering_strength is set as /datum/weather_event's fire_smothering_strength
+	firelevel -= 2
 
 	return
 
@@ -277,7 +276,7 @@
 				continue
 			has_pass = FALSE
 			break
-			
+
 		if(!has_pass)
 			return
 
@@ -308,7 +307,7 @@
 				continue
 			has_pass = FALSE
 			break
-			
+
 		if(!has_pass)
 			return
 		fire_spread_recur(picked_turf, spread_power, direction, fire_lvl, burn_lvl, f_color, burn_sprite)

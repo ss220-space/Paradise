@@ -1,4 +1,5 @@
 import { ReactNode } from 'react';
+import { declension_ru } from 'common/string';
 import { Stack } from '../../components';
 
 type BeakerContentsProps = {
@@ -19,10 +20,7 @@ type BeakerContentsProps = {
 };
 
 const formatUnits = (a: number): string =>
-  a +
-  ' единиц' +
-  (a % 10 === 1 && a % 100 !== 11 ? 'а' : '') +
-  (a % 10 > 1 && a % 10 < 5 && !(a % 100 > 11) && !(a % 100 < 15) ? 'ы' : '');
+  a + ' единиц' + declension_ru(a, 'а', 'ы', '');
 
 export const BeakerContents = ({
   beakerLoaded,
