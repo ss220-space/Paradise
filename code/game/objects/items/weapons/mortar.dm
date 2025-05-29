@@ -360,7 +360,7 @@
 	var/turf/top_turf = get_highest_turf(turf)
 	var/turf/low_turf = get_lowest_turf(turf)
 
-	if(!cross_sector && (test_targ_z < low_turf.z || test_targ_z > top_turf.z))
+	if (!cross_sector && (!low_turf && !top_turf || low_turf && (test_targ_z < low_turf.z) || top_turf && (test_targ_z > top_turf.z)))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. It isn't in your sector."))
 		return FALSE
 
