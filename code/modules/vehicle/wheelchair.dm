@@ -54,7 +54,7 @@
 	var/obj/item/stack/sheet/G = new material_type(loc, decon_amount)
 	G.add_fingerprint(user)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-	user.ballon_alert(user, "успешно разобрано")
+	user.balloon_alert(user, "успешно разобрано")
 	deconstruct()
 
 /obj/vehicle/ridden/wheelchair/update_icon_state()
