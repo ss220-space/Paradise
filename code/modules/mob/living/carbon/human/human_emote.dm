@@ -51,7 +51,7 @@
 		'sound/misc/guitar_rifs/guitar_riff_2.ogg', // found all the rest on the free site samplefocus
 		'sound/misc/guitar_rifs/guitar_riff_3.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_4.ogg',
-		'sound/misc/guitar_rifs/guitar_riff_5.ogg'
+		'sound/misc/guitar_rifs/guitar_riff_5.ogg',
 	)
 	cooldown = 60 SECONDS
 
