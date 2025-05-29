@@ -33,7 +33,7 @@
 
 /obj/vehicle/ridden/wheelchair/proc/on_skin_apply(obj/item/fluff/rapid_wheelchair_kit/kit, mob/user)
 	if(applied_skin && applied_skin == kit.type)
-		to_chat(user, span_warning("Эта [declent_ru(NOMINATIVE)] уже модифицирована!."))
+		to_chat(user, span_warning("Эта [declent_ru(NOMINATIVE)] уже модифицирована!"))
 		return
 
 	to_chat(user, span_notice("Вы начинаете модифицировать [declent_ru(ACCUSATIVE)]..."))
