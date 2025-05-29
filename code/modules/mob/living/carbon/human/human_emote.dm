@@ -43,6 +43,8 @@
 	key = "airguitar"
 	message = "дела%(ет,ют)% невероятный запил на воображаемой гитаре!"
 	hands_use_check = TRUE
+	emote_type = EMOTE_AUDIBLE
+	sound = 'sound/misc/air_guitar.ogg'  // сделал из аудиофайла че дали, но мб можно будет сделать лист целый прикольный
 
 
 /datum/emote/living/carbon/human/clap
