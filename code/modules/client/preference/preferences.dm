@@ -16,7 +16,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	ROLE_VAMPIRE = 14,
 	ROLE_BLOB = 14,
 	ROLE_REVENANT = 14,
-	ROLE_Оперативник = 21,
+	ROLE_OPERATIVE = 21,
 	ROLE_CULTIST = 21,
 	ROLE_CLOCKER = 21,
 	ROLE_RAIDER = 21,
@@ -208,7 +208,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/exploit_record = ""
 	var/disabilities = 0
 
-	var/nanotrasen_relation = "Нейтральное"
+	var/nanotrasen_relation = "Нейтральность"
 
 	// 0 = Персонаж, 1 = Игровые предпочтения
 	var/current_tab = TAB_CHAR
@@ -364,7 +364,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<b>Инопланетная речь:</b> <a href='byond://?_src_=prefs;preference=toggle_wingdings;task=input'>[disabilities & DISABILITY_FLAG_WINGDINGS ? "Да" : "Нет"]</a><br>"
 					dat += "<b>Дешифратор инопланетной речи:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Да" : "Нет"]</a><br>"
 				if(SPECIES_MACNINEPERSON)
-					dat += "<b>Фирма оболочки:</b> <a href='byond://?_src_=prefs;preference=ipcloadouts;task=input'>Выбрать</a><br>"
+					dat += "<b>Модель оболочки:</b> <a href='byond://?_src_=prefs;preference=ipcloadouts;task=input'>Выбрать</a><br>"
 				if(SPECIES_WRYN)
 					dat += "<b>Телепатическая глухота:</b> <a href='byond://?_src_=prefs;preference=speciesprefs;task=input'>[speciesprefs ? "Да" : "Нет"]</a><br>"
 			if(species != SPECIES_GREY)
@@ -582,7 +582,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "Высокое качество"
 			dat += "</a><br>"
 			dat += "<b>Multi-Z параллакс:</b> <a href='byond://?_src_=prefs;preference=parallax_multiz'>[toggles2 & PREFTOGGLE_2_PARALLAX_MULTIZ ? "Включить" : "Выключить"]</a><br>"
-			dat += "<b>Multi-Z детализация:</b> <a href='byond://?_src_=prefs;preference=multiz_detail'>"
+			dat += "<b>Качество Multi-Z параллакса:</b> <a href='byond://?_src_=prefs;preference=multiz_detail'>"
 			switch (multiz_detail)
 				if(MULTIZ_DETAIL_DEFAULT)
 					dat += "По умолчанию"
@@ -603,7 +603,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			// RIGHT SIDE OF THE PAGE
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
-			dat += "<b>Пользовательские настройки:</b><br>"
+			dat += "<b>Настройки пользовательского интерфейса:</b><br>"
 			dat += " - <b>Альфа (прозрачность):</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " - <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
@@ -1143,7 +1143,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_DIZZY))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_DIZZY, "Головокружение")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_NICOTINE_ADDICT))
-		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Зависимость от курения")
+		HTML += ShowDisabilityState(user, DISABILITY_FLAG_NICOTINE_ADDICT, "Зависимость от никотина")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_TEA_ADDICT))
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_TEA_ADDICT, "Зависимость от чая")
 	if(!(S.blacklisted_disabilities & DISABILITY_FLAG_COFFEE_ADDICT))
@@ -1586,7 +1586,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		if("input")
 			switch(href_list["preference"])
 				if("name")
-					var/raw_name = tgui_input_text(user, "Укажите имя вашего персонажа", "Имя персонажа", , MAX_NAME_LEN, FALSE)
+					var/raw_name = tgui_input_text(user, "Укажите имя", "Имя", , MAX_NAME_LEN, FALSE)
 					if(!isnull(raw_name)) // Check to ensure that the user entered text (rather than cancel.)
 						var/new_name = reject_bad_name(raw_name, 1)
 						if(new_name)
@@ -1597,7 +1597,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("age")
 					var/list/age_list = get_age_limits(S, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
-					var/new_age = tgui_input_number(user, "Укажите возраст вашего персонажа:\n([age_list[SPECIES_AGE_MIN]]-[age_list[SPECIES_AGE_MAX]])", "Возраст персонажа", age, age_list[SPECIES_AGE_MAX], age_list[SPECIES_AGE_MIN])
+					var/new_age = tgui_input_number(user, "Укажите возраст:\n([age_list[SPECIES_AGE_MIN]]-[age_list[SPECIES_AGE_MAX]])", "Возраст", age, age_list[SPECIES_AGE_MAX], age_list[SPECIES_AGE_MIN])
 					if(!new_age)
 						return
 					age = clamp(round(text2num(new_age)), age_list[SPECIES_AGE_MIN], age_list[SPECIES_AGE_MAX])
@@ -1606,7 +1606,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/prev_species = species
 					new_species += CONFIG_GET(str_list/playable_species)
 
-					species = tgui_input_list(user, "Выберите расу вашего персонажа", "Раса персонажа", sortTim(new_species, cmp = /proc/cmp_text_asc))
+					species = tgui_input_list(user, "Выберите расу", "Раса", sortTim(new_species, cmp = /proc/cmp_text_asc))
 					if(!species)
 						species = prev_species
 						return
@@ -1716,7 +1716,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						else if(!(lang.flags & RESTRICTED))
 							new_languages += language_name
 
-					var/new_language = tgui_input_list(user, "Выберите дополнительный язык вашего персонажа", "Дополнительный язык персонажа", sortTim(new_languages, cmp = /proc/cmp_text_asc))
+					var/new_language = tgui_input_list(user, "Выберите дополнительный язык", "Дополнительный язык", sortTim(new_languages, cmp = /proc/cmp_text_asc))
 					if(!new_language)
 						return
 					language = new_language
@@ -1724,7 +1724,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
 						var/list/autohiss_choice = list("Нет" = AUTOHISS_OFF, "Базовый" = AUTOHISS_BASIC, "Полный" = AUTOHISS_FULL)
-						var/new_autohiss_pref = tgui_input_list(user, "Выберите уровень авто-акцента вашего персонажа", "Уровень авто-акцента персонажа", autohiss_choice)
+						var/new_autohiss_pref = tgui_input_list(user, "Выберите уровень авто-акцента", "Уровень авто-акцента", autohiss_choice)
 						if(!new_autohiss_pref)
 							return
 						autohiss_mode = autohiss_choice[new_autohiss_pref]
@@ -1736,13 +1736,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					metadata = new_metadata
 
 				if("b_type")
-					var/new_b_type = tgui_input_list(user, "Выберите группу крови вашего персонажа", "Группа крови персонажа", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" ))
+					var/new_b_type = tgui_input_list(user, "Выберите группу крови", "Группа крови", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" ))
 					if(new_b_type)
 						b_type = new_b_type
 
 				if("hair")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
-						var/new_hair = tgui_input_color(user, "Выберите цвет волос вашего персонажа", "Цвет волос персонажа", h_colour)
+						var/new_hair = tgui_input_color(user, "Выберите цвет волос", "Цвет волос", h_colour)
 						if(!isnull(new_hair))
 							h_colour = new_hair
 
@@ -1750,7 +1750,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет волос вашего персонажа", "Дополнительный цвет волос", h_sec_colour)
+							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет волос", "Дополнительный цвет волос", h_sec_colour)
 							if(!isnull(new_hair))
 								h_sec_colour = new_hair
 
@@ -1827,7 +1827,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							valid_head_accessory_styles += head_accessory_style
 
 						sortTim(valid_head_accessory_styles, cmp = /proc/cmp_text_asc)
-						var/new_head_accessory_style = tgui_input_list(user, "Choose the style of your character's head accessory:", "Character Preference", valid_head_accessory_styles)
+						var/new_head_accessory_style = tgui_input_list(user, "Выберите тип аксессуаров на голове", "Аксессуары на голове", valid_head_accessory_styles)
 						if(new_head_accessory_style)
 							ha_style = new_head_accessory_style
 
@@ -1844,7 +1844,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_alt_heads += alternate_head
 
-						var/new_alt_head = tgui_input_list(user, "Choose your character's alternate head style:", "Character Preference", valid_alt_heads)
+						var/new_alt_head = tgui_input_list(user, "Выберите альтернативный тип головы", "Тип головы", valid_alt_heads)
 						if(new_alt_head)
 							alt_head = new_alt_head
 						if(m_styles["head"])
@@ -1885,14 +1885,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
-						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's head markings:", "Character Preference", valid_markings)
+						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на голове", "Отметки на голове", valid_markings)
 						if(new_marking_style)
 							m_styles["head"] = new_marking_style
 
 				if("m_head_colour")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/input = "Choose the colour of your your character's head markings:"
-						var/new_markings = tgui_input_color(user, input, "Character Preference", m_colours["head"])
+						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на голове", "Отметки на голове", m_colours["head"])
 						if(!isnull(new_markings))
 							m_colours["head"] = new_markings
 
@@ -1912,14 +1911,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								continue
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
-						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)
+						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на теле", "Отметки на теле", valid_markings)
 						if(new_marking_style)
 							m_styles["body"] = new_marking_style
 
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/input = "Choose the colour of your your character's body markings:"
-						var/new_markings = tgui_input_color(user, input, "Character Preference", m_colours["body"])
+						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на теле", "Отметки на теле", m_colours["body"])
 						if(!isnull(new_markings))
 							m_colours["body"] = new_markings
 
@@ -1942,14 +1940,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
-						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's tail markings:", "Character Preference", valid_markings)
+						var/new_marking_style = tgui_input_list(user, "Выберите тип отметок на хвосте", "Отметки на хвосте", valid_markings)
 						if(new_marking_style)
 							m_styles["tail"] = new_marking_style
 
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/input = "Choose the colour of your your character's tail markings:"
-						var/new_markings = tgui_input_color(user, input, "Character Preference", m_colours["tail"])
+						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на хвосте", "Отметки на хвосте", m_colours["tail"])
 						if(!isnull(new_markings))
 							m_colours["tail"] = new_markings
 
@@ -1967,7 +1964,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					else
 						possible_body_accessories.Remove("Нет") // in case an admin is viewing it
 					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
-					var/new_body_accessory = tgui_input_list(user, "Choose your body accessory:", "Character Preference", possible_body_accessories)
+					var/new_body_accessory = tgui_input_list(user, "Выберите тип аксессуаров на теле", "Аксессуары на теле", possible_body_accessories)
 					if(new_body_accessory)
 						m_styles["tail"] = "Нет"
 						body_accessory = (new_body_accessory == "Нет") ? null : new_body_accessory
@@ -1975,7 +1972,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("facial")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
-						var/new_facial = tgui_input_color(user, "Choose your character's facial-hair colour:", "Character Preference", f_colour)
+						var/new_facial = tgui_input_color(user, "Выберите цвет лицевой растительности", "Лицевая растительность", f_colour)
 						if(!isnull(new_facial))
 							f_colour = new_facial
 
@@ -1983,7 +1980,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-							var/new_facial = tgui_input_color(user, "Choose your character's secondary facial-hair colour:", "Character Preference", f_sec_colour)
+							var/new_facial = tgui_input_color(user, "Выберите дополнительный цвет лицевой растительности", "Лицевая растительность", f_sec_colour)
 							if(!isnull(new_facial))
 								f_sec_colour = new_facial
 
@@ -2014,7 +2011,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
 					sortTim(valid_facial_hairstyles, cmp = /proc/cmp_text_asc)
-					var/new_f_style = tgui_input_list(user, "Choose your character's facial-hair style:", "Character Preference", valid_facial_hairstyles)
+					var/new_f_style = tgui_input_list(user, "Выберите тип лицевой растительности", "Лицевая растительность", valid_facial_hairstyles)
 					if(new_f_style)
 						f_style = new_f_style
 
@@ -2028,13 +2025,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_underwear[underwear] = GLOB.underwear_list[underwear]
 					sortTim(valid_underwear, cmp = /proc/cmp_text_asc)
-					var/new_underwear = tgui_input_list(user, "Choose your character's underwear:", "Character Preference", valid_underwear)
+					var/new_underwear = tgui_input_list(user, "Выберите тип нижнего белья", "Нижнее бельё", valid_underwear)
 					ShowChoices(user)
 					if(new_underwear)
 						underwear = new_underwear
 
 				if("underwear_color")
-					var/new_uwear_color = tgui_input_color(user, "Choose your character's underwear colour:", "Character Preference", underwear_color)
+					var/new_uwear_color = tgui_input_color(user, "Выберите цвет нижнего белья", "Нижнее бельё", underwear_color)
 					if(!isnull(new_uwear_color))
 						underwear_color = new_uwear_color
 
@@ -2048,13 +2045,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_undershirts[undershirt] = GLOB.undershirt_list[undershirt]
 					sortTim(valid_undershirts, cmp = /proc/cmp_text_asc)
-					var/new_undershirt = tgui_input_list(user, "Choose your character's undershirt:", "Character Preference", valid_undershirts)
+					var/new_undershirt = tgui_input_list(user, "Выберите тип нательной рубашки", "Нательная рубашка", valid_undershirts)
 					ShowChoices(user)
 					if(new_undershirt)
 						undershirt = new_undershirt
 
 				if("undershirt_color")
-					var/new_ushirt_color = tgui_input_color(user, "Choose your character's undershirt colour:", "Character Preference", undershirt_color)
+					var/new_ushirt_color = tgui_input_color(user, "Выберите цвет нательной рубашки", "Нательная рубашка", undershirt_color)
 					if(!isnull(new_ushirt_color))
 						undershirt_color = new_ushirt_color
 
@@ -2068,25 +2065,25 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, cmp = /proc/cmp_text_asc)
-					var/new_socks = tgui_input_list(user, "Choose your character's socks:", "Character Preference", valid_sockstyles)
+					var/new_socks = tgui_input_list(user, "Выберите тип носков", "носков", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
 						socks = new_socks
 
 				if("eyes")
-					var/new_eyes = tgui_input_color(user, "Choose your character's eye colour:", "Character Preference", e_colour)
+					var/new_eyes = tgui_input_color(user, "Выберите цвет глаз", "Цвет глаз", e_colour)
 					if(!isnull(new_eyes))
 						e_colour = new_eyes
 
 				if("s_tone")
 					if(S.bodyflags & HAS_SKIN_TONE)
-						var/new_s_tone = input(user, "Choose your character's skin-tone:\n(Light 1 - 220 Dark)", "Character Preference")  as num|null
+						var/new_s_tone = tgui_input_number(user, "Выберите тон кожи\n(Больше - темнее)", "Тон кожи", 50, 220, 1)
 						if(!new_s_tone)
 							return
 						s_tone = 35 - max(min(round(new_s_tone), 220), 1)
 					else if(S.bodyflags & HAS_ICON_SKIN_TONE)
 						var/const/MAX_LINE_ENTRIES = 4
-						var/prompt = "Choose your character's skin tone: 1-[S.icon_skin_tones.len]\n("
+						var/prompt = "Выберите тон кожи: 1-[S.icon_skin_tones.len]\n("
 						for(var/i = 1 to S.icon_skin_tones.len)
 							if(i > MAX_LINE_ENTRIES && !((i - 1) % MAX_LINE_ENTRIES))
 								prompt += "\n"
@@ -2094,24 +2091,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(i != S.icon_skin_tones.len)
 								prompt += ", "
 						prompt += ")"
-						var/skin_c = tgui_input_number(user, prompt, "Character Preference", s_tone, length(S.icon_skin_tones), 1)
+						var/skin_c = tgui_input_number(user, prompt, "Тон кожи", s_tone, length(S.icon_skin_tones), 1)
 						if(!skin_c)
 							return
 						s_tone = skin_c
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[species]) || check_rights(R_ADMIN, 0, user))
-						var/new_skin = tgui_input_color(user, "Choose your character's skin colour: ", "Character Preference", s_colour)
+						var/new_skin = tgui_input_color(user, "Выберите цвет кожи", "Цвет кожи", s_colour)
 						if(!isnull(new_skin))
 							s_colour = new_skin
 
 				if("ooccolor")
-					var/new_ooccolor = tgui_input_color(user, "Choose your OOC colour:", "Game Preference", ooccolor)
+					var/new_ooccolor = tgui_input_color(user, "Выберите цвет ваших сообщений в OOC-чате:", "Цвет OOC-сообщений", ooccolor)
 					if(!isnull(new_ooccolor))
 						ooccolor = new_ooccolor
 
 				if("bag")
-					var/new_backbag = tgui_input_list(user, "Choose your character's style of bag:", "Character Preference", GLOB.backbaglist)
+					var/new_backbag = tgui_input_list(user, "Выберите тип рюкзака", "Рюкзак", GLOB.backbaglist)
 					if(new_backbag)
 						backbag = new_backbag
 
@@ -2122,12 +2119,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return FALSE
 
 				if("nt_relation")
-					var/new_relation = tgui_input_list(user, "Choose your relation to NT. Note that this represents what others can find out about your character by researching your background, not what your character actually thinks.", "Character Preference", list("Loyal", "Supportive", "Нейтральное", "Skeptical", "Opposed"))
+					var/new_relation = tgui_input_list(user, "Выберите отношение к НаноТрейзен. Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к НаноТрейзен", list("Преданность", "Поддержка", "Нейтральность", "Скепсис", "Враждебность"))
 					if(new_relation)
 						nanotrasen_relation = new_relation
 
 				if("flavor_text")
-					var/msg = tgui_input_text(usr, "Set the flavor text in your 'examine' verb. The flavor text should be a physical descriptor of your character at a glance. SFW Drawn Art of your character is acceptable.", "Flavor Text", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
+					var/msg = tgui_input_text(usr, "Пропишите описание внешности. Текст описания должен отражать базовую информацию с первого взгляда на персонажа, не стоит указывать. Нарисованный арт персонажа или ссылка на него не запрещены.", "Описания внешности", flavor_text, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 					if(isnull(msg))
 						return
 					flavor_text = msg
@@ -2152,7 +2149,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
 								robolimb_companies[R.company] = R
 					R = new() //Re-initialize R.
-					choice = tgui_input_list(user, "Which manufacturer model would you like to use?", "Character Preference",  robolimb_companies)
+					choice = tgui_input_list(user, "Выберите фирму-производителя оболочки", "Модель оболочки",  robolimb_companies)
 					if(!choice)
 						return
 					R.company = choice
@@ -2350,8 +2347,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							parent.fps = clientfps
 						else
 							parent.fps = CONFIG_GET(number/clientfps)
-
-
 		else
 			switch(href_list["preference"])
 				if("publicity")
@@ -2364,7 +2359,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("gender")
 					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Выберите пол персонажа", "Пол персонажа", list("Мужской", "Женский", "Бесполый"))
+						var/newgender = tgui_input_list(user, "Выберите пол", "Пол", list("Мужской", "Женский", "Бесполый"))
 						switch(newgender)
 							if("Мужской")
 								gender = MALE
@@ -2456,7 +2451,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						"19x15 (Ультраширокий)" = "19x15"
 					)
 
-					var/new_range = tgui_input_list(user, "Выберите диапазон видимости", "Диапазон видимости", viewrange_options)
+					var/new_range = tgui_input_list(user, "Выберите диапазон обзора", "Диапазон обзора", viewrange_options)
 					if(!new_range)
 						return
 					var/actual_new_range = viewrange_options[new_range]
@@ -2468,10 +2463,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, span_info("You will now get put into cryo dorms after [CONFIG_GET(number/auto_cryo_afk)] minutes. \
-								Then after [CONFIG_GET(number/auto_despawn_afk)] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms."))
+						to_chat(user, span_info("Ваш персонаж будет автоматические перемещён в криосон после [CONFIG_GET(number/auto_cryo_afk)] минут[declension_ru(CONFIG_GET(number/auto_cryo_afk), "ы", "", "")]. \
+								После чего через [CONFIG_GET(number/auto_despawn_afk)] минут[declension_ru(CONFIG_GET(number/auto_despawn_afk), "у", "ы", "")] ваш персонаж будет удалён. Перед перемещением в криосон вы получите уведомление."))
 					else
-						to_chat(user, span_info("Automatic cryoing turned off."))
+						to_chat(user, span_info("Автоматический переход в криосон выключен."))
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
@@ -2484,7 +2479,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						H.remake_hud()
 
 				if("UIalpha")
-					var/UI_style_alpha_new = tgui_input_number(user, "Задайте значение альфы (прозрачности) для интерфейса, от 50 до 255", "Альфа интерфейса", UI_style_alpha, 255, 50)
+					var/UI_style_alpha_new = tgui_input_number(user, "Задайте значение прозрачности для интерфейса, от 50 до 255", "Прозрачность интерфейса", UI_style_alpha, 255, 50)
 					if(!UI_style_alpha_new)
 						return
 					UI_style_alpha = UI_style_alpha_new
@@ -2542,7 +2537,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					load_character(user)
 
 				if("clear")
-					if(!saved || real_name != input("Это действие полностью очистит текущий слот. Для подтверждения введите полное имя вашего персонажа."))
+					if(!saved || real_name != input("Это действие полностью очистит текущий слот. Для подтверждения введите полное имя."))
 						return FALSE
 					clear_character_slot(user)
 
@@ -2989,7 +2984,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<hr>"
 	dat += "<a href='byond://?_src_=prefs;preference=close_load_dialog'>Закрыть</a><br>"
 	dat += "</center></tt>"
-	var/datum/browser/popup = new(user, "saves", "<div align='center'>Character Saves</div>", 300, 390)
+	var/datum/browser/popup = new(user, "saves", "<div align='center'>Слоты персонажей</div>", 300, 390)
 	popup.set_content(dat)
 	popup.open(0)
 

@@ -1068,17 +1068,17 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	var/theme = lowertext(user.client.prefs.UI_style)
 	if(!outline_color) //if we weren't provided with a color, take the theme's color
 		switch(theme) //yeah it kinda has to be this way
-			if("midnight")
+			if("полночь")
 				outline_color = COLOR_THEME_MIDNIGHT
-			if("plasmafire")
+			if("плазма")
 				outline_color = COLOR_THEME_PLASMAFIRE
-			if("retro")
+			if("ретро")
 				outline_color = COLOR_THEME_RETRO //just as garish as the rest of this theme
-			if("slimecore")
+			if("желе")
 				outline_color = COLOR_THEME_SLIMECORE
-			if("operative")
+			if("оперативник")
 				outline_color = COLOR_THEME_OPERATIVE
-			if("clockwork")
+			if("латунь")
 				outline_color = COLOR_THEME_CLOCKWORK //if you want free gbp go fix the fact that clockwork's tooltip css is glass'
 			if("glass")
 				outline_color = COLOR_THEME_GLASS

@@ -217,17 +217,17 @@ GLOBAL_LIST_INIT(modulo_angle_to_dir, list(NORTH,NORTHEAST,EAST,SOUTHEAST,SOUTH,
 
 /proc/ui_style2icon(ui_style)
 	switch(ui_style)
-		if("Retro")
+		if("Ретро")
 			return 'icons/mob/screen_retro.dmi'
-		if("Plasmafire")
+		if("Плазма")
 			return 'icons/mob/screen_plasmafire.dmi'
-		if("Slimecore")
+		if("Желе")
 			return 'icons/mob/screen_slimecore.dmi'
-		if("Operative")
+		if("Оперативник")
 			return 'icons/mob/screen_operative.dmi'
-		if("White")
+		if("Белизна")
 			return 'icons/mob/screen_white.dmi'
-		if("Midnight")
+		if("Полночь")
 			return 'icons/mob/screen_midnight.dmi'
 		else
 			return 'icons/mob/screen_midnight.dmi'
