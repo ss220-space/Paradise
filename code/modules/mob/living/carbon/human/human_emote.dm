@@ -44,7 +44,7 @@
 	message = "дела%(ет,ют)% невероятный запил на воображаемой гитаре!"
 	hands_use_check = TRUE
 	emote_type = EMOTE_AUDIBLE
-	volume = 70
+	volume = 60
 	vary = TRUE
 	sound = list(
 		'sound/misc/guitar_rifs/guitar_riff_1.ogg', // сделал из аудиофайла че дали
