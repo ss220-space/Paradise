@@ -2,7 +2,7 @@
 	name = "cybernetic implant"
 	desc = "a state-of-the-art implant that improves a baseline's functionality."
 	status = ORGAN_ROBOT
-	var/implant_color = "#FFFFFF"
+	var/implant_color = "#ffffff"
 	var/implant_overlay
 	tough = TRUE // Immune to damage
 	pickup_sound = 'sound/items/handling/component_pickup.ogg'
