@@ -47,8 +47,8 @@
 	volume = 60
 	vary = TRUE
 	sound = list(
-		'sound/misc/guitar_rifs/guitar_riff_1.ogg', // сделал из аудиофайла че дали
-		'sound/misc/guitar_rifs/guitar_riff_2.ogg', // нашел все остальные  на бесплатном сайте samplefocus и законвертил
+		'sound/misc/guitar_rifs/guitar_riff_1.ogg', // audio file from the sentences
+		'sound/misc/guitar_rifs/guitar_riff_2.ogg', // found all the rest on the free site samplefocus
 		'sound/misc/guitar_rifs/guitar_riff_3.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_4.ogg',
 		'sound/misc/guitar_rifs/guitar_riff_5.ogg'
