@@ -217,7 +217,7 @@
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/click_alt(mob/user)
+/obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
 	var/list/mask_type = list("Истинная Форма" = /obj/item/clothing/mask/gas/clown_hat,
 							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -238,6 +238,14 @@
 	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
 	balloon_alert(user, "внешний вид изменён!")
 	return TRUE
+
+/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
+	. = ..()
+	mask_action(user)
+
+/obj/item/clothing/mask/gas/clown_hat/click_alt(mob/user)
+	. = ..()
+	mask_action(user)
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
@@ -328,7 +336,7 @@
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/mask/gas/mime/click_alt(mob/user)
+/obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
 	var/list/mask_type = list("Счастливая маска" = /obj/item/clothing/mask/gas/mime,
 							"Печальная маска" = /obj/item/clothing/mask/gas/mime/sad,
 							"Злобная маска" = /obj/item/clothing/mask/gas/mime/angry,
@@ -351,6 +359,14 @@
 	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
 	balloon_alert(user, "внешний вид изменён!")
 	return TRUE
+
+/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
+	. = ..()
+	mask_action(user)
+
+/obj/item/clothing/mask/gas/clown_hat/click_alt(mob/user)
+	. = ..()
+	mask_action(user)
 
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
