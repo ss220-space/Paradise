@@ -1065,22 +1065,22 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 /obj/item/proc/apply_outline(mob/user, outline_color = null)
 	if(!(item_flags & (IN_INVENTORY|IN_STORAGE)) || QDELETED(src) || isobserver(user)) //cancel if the item isn't in an inventory, is being deleted, or if the person hovering is a ghost (so that people spectating you don't randomly make your items glow)
 		return
-	var/theme = lowertext(user.client.prefs.UI_style)
+	var/theme = user.client.prefs.UI_style
 	if(!outline_color) //if we weren't provided with a color, take the theme's color
 		switch(theme) //yeah it kinda has to be this way
-			if("полночь")
+			if(UI_THEME_MIDNIGHT)
 				outline_color = COLOR_THEME_MIDNIGHT
-			if("плазма")
+			if(UI_THEME_PLASMAFIRE)
 				outline_color = COLOR_THEME_PLASMAFIRE
-			if("ретро")
+			if(UI_THEME_RETRO)
 				outline_color = COLOR_THEME_RETRO //just as garish as the rest of this theme
-			if("желе")
+			if(UI_THEME_SLIMECORE)
 				outline_color = COLOR_THEME_SLIMECORE
-			if("оперативник")
+			if(UI_THEME_OPERATIVE)
 				outline_color = COLOR_THEME_OPERATIVE
-			if("латунь")
+			if(UI_THEME_CLOCKWORK)
 				outline_color = COLOR_THEME_CLOCKWORK //if you want free gbp go fix the fact that clockwork's tooltip css is glass'
-			if("glass")
+			if(UI_THEME_GLASS)
 				outline_color = COLOR_THEME_GLASS
 			else //this should never happen, hopefully
 				outline_color = COLOR_WHITE
