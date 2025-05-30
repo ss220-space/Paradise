@@ -66,48 +66,13 @@
 		emag.mouse_opacity = MOUSE_OPACITY_OPAQUE
 
 /obj/item/robot_module/proc/handle_storages()
-	for(var/obj/item/stack/I in modules)
-		var/obj/item/stack/S = I
-		if(istype(S, /obj/item/stack/sheet/metal))
-			S.cost = 4
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
-		else if(istype(S, /obj/item/stack/sheet/glass))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/glass)
-		else if(istype(S, /obj/item/stack/sheet/rglass))
-			var/obj/item/stack/sheet/rglass/cyborg/G = S
-			G.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
-			G.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
-		else if(istype(S, /obj/item/stack/cable_coil))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/wire)
-		else if(istype(S, /obj/item/stack/rods))
-			S.cost = 2
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
-		else if(istype(S, /obj/item/stack/tile/plasteel))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/metal)
-		else if(is_type_in_list(S, list(/obj/item/stack/medical/bruise_pack, /obj/item/stack/medical/ointment)))
-			S.cost = 1
-			if(istype(src, /obj/item/robot_module/syndicate_medical))
-				S.source = get_or_create_estorage(/datum/robot_energy_storage/medical/syndicate)
-			else
-				S.source = get_or_create_estorage(/datum/robot_energy_storage/medical)
-		else if(istype(S, /obj/item/stack/nanopaste))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/nanopaste)
-		else if(istype(S, /obj/item/stack/medical/splint))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/splint)
-		else if(istype(S, /obj/item/stack/sheet/wood/cyborg))
-			S.cost = 4
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
-		else if(istype(S, /obj/item/stack/tile/wood/cyborg))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/wood)
-		else if(istype(S, /obj/item/stack/sheet/brass/cyborg))
-			S.cost = 1
-			S.source = get_or_create_estorage(/datum/robot_energy_storage/brass)
+	for(var/obj/item/stack/stack in modules)
+		if(istype(stack, /obj/item/stack/sheet/rglass))
+			var/obj/item/stack/sheet/rglass/cyborg/rglass = stack
+			rglass.glasource = get_or_create_estorage(/datum/robot_energy_storage/glass)
+		stack.source = get_or_create_estorage(stack.energy_type)
+		stack.is_cyborg = TRUE
+		
 
 /obj/item/robot_module/proc/get_or_create_estorage(var/storage_type)
 	for(var/datum/robot_energy_storage/S in storages)
@@ -215,7 +180,7 @@
 	modules += new /obj/item/mining_scanner/cyborg(src) // instead of advanced scanner, we have mining module already
 	modules += new /obj/item/storage/bag/ore/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel(src)
 	modules += new /obj/item/instrument/piano_synth(src) // added for minimal service part
 
 	emag = new /obj/item/melee/energy/sword/cyborg(src)
@@ -274,7 +239,7 @@
 	modules += new /obj/item/circular_saw(src)
 	modules += new /obj/item/bonegel(src)
 	modules += new /obj/item/bonesetter(src)
-	modules += new /obj/item/stack/medical/splint/cyborg(src)
+	modules += new /obj/item/stack/medical/splint(src)
 	modules += new /obj/item/stack/nanopaste/cyborg(src)
 	modules += new /obj/item/reagent_containers/glass/beaker/large(src)
 	modules += new /obj/item/reagent_containers/dropper(src)
@@ -282,8 +247,8 @@
 	modules += new /obj/item/crowbar/cyborg(src)
 	modules += new /obj/item/FixOVein(src)
 	modules += new /obj/item/surgicaldrill(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
+	modules += new /obj/item/stack/medical/ointment/advanced(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/roller_holder(src)
 	modules += new /obj/item/rlf(src)
@@ -370,7 +335,7 @@
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel(src)
 	emag = new /obj/item/gun/energy/emittercannon(src)
 
 	fix_modules()
@@ -743,10 +708,10 @@
 	modules += new /obj/item/FixOVein(src)
 	modules += new /obj/item/surgicaldrill(src)
 	modules += new /obj/item/bodyanalyzer/borg/syndicate(src)
-	modules += new /obj/item/stack/medical/splint/cyborg(src)
+	modules += new /obj/item/stack/medical/splint(src)
 	modules += new /obj/item/stack/nanopaste/cyborg(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced/syndicate(src)
+	modules += new /obj/item/stack/medical/ointment/advanced/syndicate(src)
 	modules += new /obj/item/reagent_scanner/adv(src)
 	modules += new /obj/item/pinpointer/operative(src)
 	modules += new /obj/item/pinpointer/nukeop(src)
@@ -799,7 +764,7 @@
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel(src)
 	emag = null
 
 	fix_modules()
@@ -937,7 +902,7 @@
 	modules += new /obj/item/t_scanner(src)
 	modules += new /obj/item/analyzer(src)
 	modules += new /obj/item/stack/sheet/wood/cyborg(src)
-	modules += new /obj/item/stack/tile/wood/cyborg(src)
+	modules += new /obj/item/stack/tile/wood(src)
 	modules += new /obj/item/matter_decompiler(src)
 	modules += new /obj/item/lightreplacer/cyborg(src)
 	modules += new /obj/item/floor_painter(src)
@@ -946,7 +911,7 @@
 	modules += new /obj/item/stack/sheet/rglass/cyborg(src)
 	modules += new /obj/item/stack/cable_coil/cyborg(src)
 	modules += new /obj/item/stack/rods/cyborg(src)
-	modules += new /obj/item/stack/tile/plasteel/cyborg(src)
+	modules += new /obj/item/stack/tile/plasteel(src)
 
 	fix_modules()
 	handle_storages()
@@ -1086,8 +1051,8 @@
 	modules += new /obj/item/circular_saw(src)
 	modules += new /obj/item/bonegel(src)
 	modules += new /obj/item/bonesetter(src)
-	modules += new /obj/item/stack/medical/bruise_pack/advanced/cyborg(src)
-	modules += new /obj/item/stack/medical/ointment/advanced/cyborg(src)
+	modules += new /obj/item/stack/medical/bruise_pack/advanced(src)
+	modules += new /obj/item/stack/medical/ointment/advanced(src)
 	modules += new /obj/item/rcd/borg/syndicate(src)
 	modules += new /obj/item/rpd(src)
 	modules += new /obj/item/t_scanner(src)
