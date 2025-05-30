@@ -469,39 +469,39 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/organ_name = null
 				switch(name)
 					if(BODY_ZONE_CHEST)
-						organ_name = "torso"
+						organ_name = "грудь"
 					if(BODY_ZONE_PRECISE_GROIN)
-						organ_name = "lower body"
+						organ_name = "живот"
 					if(BODY_ZONE_HEAD)
-						organ_name = "head"
+						organ_name = "голова"
 					if(BODY_ZONE_L_ARM)
-						organ_name = "left arm"
+						organ_name = "левая рука"
 					if(BODY_ZONE_R_ARM)
-						organ_name = "right arm"
+						organ_name = "правая рука"
 					if(BODY_ZONE_L_LEG)
-						organ_name = "left leg"
+						organ_name = "левая нога"
 					if(BODY_ZONE_R_LEG)
-						organ_name = "right leg"
+						organ_name = "правая нога"
 					if(BODY_ZONE_PRECISE_L_FOOT)
-						organ_name = "left foot"
+						organ_name = "левая ступня"
 					if(BODY_ZONE_PRECISE_R_FOOT)
-						organ_name = "right foot"
+						organ_name = "правая ступня"
 					if(BODY_ZONE_PRECISE_L_HAND)
-						organ_name = "left hand"
+						organ_name = "левая ладонь"
 					if(BODY_ZONE_PRECISE_R_HAND)
-						organ_name = "right hand"
+						organ_name = "правая ладонь"
 					if(INTERNAL_ORGAN_EYES)
-						organ_name = "eyes"
+						organ_name = "глаза"
 					if(INTERNAL_ORGAN_EARS)
-						organ_name = "ears"
+						organ_name = "уши"
 					if(INTERNAL_ORGAN_HEART)
-						organ_name = "heart"
+						organ_name = "сердце"
 					if(INTERNAL_ORGAN_LUNGS)
-						organ_name = "lungs"
+						organ_name = "лёгкие"
 					if(INTERNAL_ORGAN_LIVER)
-						organ_name = "liver"
+						organ_name = "печень"
 					if(INTERNAL_ORGAN_KIDNEYS)
-						organ_name = "kidneys"
+						organ_name = "почки"
 
 				if(status in list("cyborg", "amputated", "cybernetic"))
 					++ind
@@ -514,11 +514,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							R = GLOB.all_robolimbs[rlimb_data[name]]
 						else
 							R = GLOB.basic_robolimb
-						dat += "\t[R.company] [organ_name] prosthesis"
+						dat += "\t[capitalize(organ_name)] - роботизированное ([R.company])"
 					if("amputated")
-						dat += "\tAmputated [organ_name]"
+						dat += "\t[capitalize(organ_name)] - ампутированное"
 					if("cybernetic")
-						dat += "\tCybernetic [organ_name]"
+						dat += "\t[capitalize(organ_name)] - синтетическое"
 			if(!ind)
 				dat += "\[...\]<br>"
 			else
@@ -536,13 +536,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if(ushirt?.allow_change_color)
 					dat += "<a href='byond://?_src_=prefs;preference=undershirt_color;task=input'>Цвет</a> [color_square(undershirt_color)]"
 			if(S.clothing_flags & HAS_SOCKS)
-				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a><br>"
-			dat += "<b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
+				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a>"
+			dat += "<br><b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
 
-		if(TAB_GAME) // Основные предпочтения
+		if(TAB_GAME) // General Preferences
 			// LEFT SIDE OF THE PAGE
 			dat += "<table><tr><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки игры</h2>"
@@ -710,7 +710,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</table>"
 
 		if(TAB_TOGGLES)
-			dat += "<div align='center'><b>Preference Toggles:&nbsp;</b>"
+			dat += "<div align='center'><b>Настройка предпочтений:&nbsp;</b>"
 
 			dat += "<table align='center' width='100%'>"
 
@@ -2064,7 +2064,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							continue
 						valid_sockstyles[sockstyle] = GLOB.socks_list[sockstyle]
 					sortTim(valid_sockstyles, cmp = /proc/cmp_text_asc)
-					var/new_socks = tgui_input_list(user, "Выберите тип носков", "носков", valid_sockstyles)
+					var/new_socks = tgui_input_list(user, "Выберите тип носков", "Носки", valid_sockstyles)
 					ShowChoices(user)
 					if(new_socks)
 						socks = new_socks
