@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/loadout_gear = list()
 	var/list/tgui_loadout_gear = list()
 	var/list/choosen_gears = list()
-	var/gear_tab = "General"
+	var/gear_tab = "Основное"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
 	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
@@ -2148,7 +2148,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(!R.unavailable_at_chargen && R.has_subtypes && (species in R.species_allowed))	//Needs to be available at chargen and not a Monitor Model and species in species_allowed
 								robolimb_companies[R.company] = R
 					R = new() //Re-initialize R.
-					choice = tgui_input_list(user, "Выберите фирму-производителя оболочки", "Модель оболочки",  robolimb_companies)
+					choice = tgui_input_list(user, "Выберите фирму-производителя оболочки", "Модель оболочки", robolimb_companies)
 					if(!choice)
 						return
 					R.company = choice
