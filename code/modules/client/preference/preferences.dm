@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/exp
 	var/ooccolor = "#b82e00"
 	var/list/be_special = list()				//Special role selection
-	var/UI_style = "Полночь"
+	var/UI_style = UI_THEME_MIDNIGHT
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
 	var/toggles3 = TOGGLES_3_DEFAULT
@@ -120,13 +120,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/undershirt_color = "#ffffff"			//undershirt color if undershirt allows it
 	var/socks = "Nude"					//socks type
 	var/backbag = GBACKPACK				//backpack type
-	var/ha_style = "Нет"				//Head accessory style
+	var/ha_style = "None"				//Head accessory style
 	var/hacc_colour = "#000000"			//Head accessory colour
 	var/list/m_styles = list(
-		"head" = "Нет",
-		"body" = "Нет",
-		"tail" = "Нет",
-		"wing" = "Нет"
+		"head" = "None",
+		"body" = "None",
+		"tail" = "None",
+		"wing" = "None"
 		)			//Marking styles.
 	var/list/m_colours = list(
 		"head" = "#000000",
@@ -136,7 +136,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/h_style = "Bald"				//Hair type
 	var/h_colour = "#000000"			//Hair color
 	var/h_sec_colour = "#000000"		//Secondary hair color
-	var/h_grad_style = "Нет"
+	var/h_grad_style = "None"
 	var/h_grad_colour = "#000000"
 	var/h_grad_alpha = 200
 	var/h_grad_offset_x = 0
@@ -147,7 +147,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/s_tone = 0						//Skin tone
 	var/s_colour = "#000000"			//Skin color
 	var/e_colour = "#000000"			//Eye color
-	var/alt_head = "Нет"				//Alt head style.
+	var/alt_head = "None"				//Alt head style.
 	var/species = SPECIES_HUMAN
 	var/language = "Нет"		//Secondary language for choise.
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
@@ -437,7 +437,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			if(GLOB.body_accessory_by_species[species] || check_rights(R_ADMIN, 0, user))
 				dat += "<b>Аксессуары на теле:</b> "
-				dat += "<a href='byond://?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "Нет"]</a><br>"
+				dat += "<a href='byond://?_src_=prefs;preference=body_accessory;task=input'>[body_accessory ? "[body_accessory]" : "None"]</a><br>"
 
 			dat += "</td><td width='405px' height='200px' valign='top'>"
 			dat += "<h2>Выбор должностей</h2>"
@@ -537,7 +537,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					dat += "<a href='byond://?_src_=prefs;preference=undershirt_color;task=input'>Цвет</a> [color_square(undershirt_color)]"
 			if(S.clothing_flags & HAS_SOCKS)
 				dat += "<br><b>Носки:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a><br>"
-			dat += "<b>Тип рюкзака:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
+			dat += "<b>Сумка на спину:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Меню выбора снаряжения</a><br>"
 
 			dat += "</td></tr></table>"
@@ -604,7 +604,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "</td><td width='405px' height='300px' valign='top'>"
 			dat += "<h2>Настройки интерфейса</h2>"
 			dat += "<b>Настройки пользовательского интерфейса:</b><br>"
-			dat += " - <b>Альфа (прозрачность):</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
+			dat += " - <b>Прозрачность:</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " - <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
 			dat += " - <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
 			dat += "<b>Красивый TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Да" : "Нет"]</a><br>"
@@ -1631,25 +1631,25 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						if(NS.bodyflags & HAS_HEAD_ACCESSORY) //Species that have head accessories.
 							ha_style = random_head_accessory(species)
 						else
-							ha_style = "Нет" // No Vulp ears on Unathi
+							ha_style = "None" // No Vulp ears on Unathi
 							hacc_colour = rand_hex_color()
 
 						if(NS.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 							m_styles["head"] = random_marking_style("head", species, robohead, null, alt_head)
 						else
-							m_styles["head"] = "Нет"
+							m_styles["head"] = "None"
 							m_colours["head"] = "#000000"
 
 						if(NS.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 							m_styles["body"] = random_marking_style("body", species, gender = src.gender)
 						else
-							m_styles["body"] = "Нет"
+							m_styles["body"] = "None"
 							m_colours["body"] = "#000000"
 
 						if(NS.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 							m_styles["tail"] = random_marking_style("tail", species, null, body_accessory)
 						else
-							m_styles["tail"] = "Нет"
+							m_styles["tail"] = "None"
 							m_colours["tail"] = "#000000"
 
 						// Don't wear another species' underwear!
@@ -1675,7 +1675,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							s_colour = "#000000"
 
 						age = get_rand_age(NS)
-						alt_head = "Нет" //No alt heads on species that don't have them.
+						alt_head = "None" //No alt heads on species that don't have them.
 						speciesprefs = 0 //My Vox tank shouldn't change how my future Grey talks.
 						language = LANGUAGE_NONE
 						body_accessory = null //no vulptail on humans damnit
@@ -1742,7 +1742,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("hair")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
-						var/new_hair = tgui_input_color(user, "Выберите цвет волос", "Цвет волос", h_colour)
+						var/new_hair = tgui_input_color(user, "Выберите цвет причёски.", "Причёска", h_colour)
 						if(!isnull(new_hair))
 							h_colour = new_hair
 
@@ -1750,7 +1750,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
-							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет волос", "Дополнительный цвет волос", h_sec_colour)
+							var/new_hair = tgui_input_color(user, "Выберите дополнительный цвет причёски.", "Причёска", h_sec_colour)
 							if(!isnull(new_hair))
 								h_sec_colour = new_hair
 
@@ -1780,17 +1780,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								valid_hairstyles += hairstyle
 
 					sortTim(valid_hairstyles, cmp = /proc/cmp_text_asc) //this alphabetizes the list
-					var/new_h_style = tgui_input_list(user, "Choose your character's hair style:", "Character Preference", valid_hairstyles)
+					var/new_h_style = tgui_input_list(user, "Выберите стиль причёски", "Причёска", valid_hairstyles)
 					if(new_h_style)
 						h_style = new_h_style
 
 				if("h_grad_style")
-					var/result = tgui_input_list(user, "Choose your character's hair gradient style:", "Character Preference", GLOB.hair_gradients_list)
+					var/result = tgui_input_list(user, "Выберите стиль градиента причёски", "Градиент причёски", GLOB.hair_gradients_list)
 					if(result)
 						h_grad_style = result
 
 				if("h_grad_offset")
-					var/result = input(user, "Enter your character's hair gradient offset as a comma-separated value (x,y). Example:\n0,0 (no offset)\n5,0 (5 pixels to the right)", "Character Preference") as null|text
+					var/result = tgui_input_text(user, "Введите значения смещения градиента причёски по координатам как разделённое запятой число (x,y).", "Градиент причёски", "0,0", 3)
 					if(!result)
 						return
 					var/list/expl = splittext(result, ",")
@@ -1799,20 +1799,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						h_grad_offset_y = clamp(text2num(expl[2]) || 0, -16, 16)
 
 				if("h_grad_colour")
-					var/result = tgui_input_color(user, "Choose your character's hair gradient colour:", "Character Preference", h_grad_colour)
+					var/result = tgui_input_color(user, "Выберите цвет градиента причёски.", "Градиент причёски", h_grad_colour)
 					if(!isnull(result))
 						h_grad_colour = result
 
 				if("h_grad_alpha")
-					var/result = tgui_input_number(user, "Choose your character's hair gradient alpha (0-255):", "Character Preference", h_grad_alpha, 255)
+					var/result = tgui_input_number(user, "Задайте значение прозрачности для градиента причёски", "Градиент причёски", h_grad_alpha, 255)
 					if(isnull(result))
 						return
 					h_grad_alpha = clamp(result, 0, 255)
 
 				if("headaccessory")
 					if(S.bodyflags & HAS_HEAD_ACCESSORY) //Species with head accessories.
-						var/input = "Choose the colour of your your character's head accessory:"
-						var/new_head_accessory = tgui_input_color(user, input, "Character Preference", hacc_colour)
+						var/new_head_accessory = tgui_input_color(user, "Выберите цвет аксессуаров на голове.", "Аксессуары на голове", hacc_colour)
 						if(!isnull(new_head_accessory))
 							hacc_colour = new_head_accessory
 
@@ -1836,7 +1835,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
-						valid_alt_heads["Нет"] = GLOB.alt_heads_list["Нет"] //The only null entry should be the "Нет" option
+						valid_alt_heads["None"] = GLOB.alt_heads_list["None"] //The only null entry should be the "None" option
 						for(var/alternate_head in GLOB.alt_heads_list)
 							var/datum/sprite_accessory/alt_heads/head = GLOB.alt_heads_list[alternate_head]
 							if(!(species in head.species_allowed))
@@ -1851,19 +1850,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							var/head_marking = m_styles["head"]
 							var/datum/sprite_accessory/body_markings/head/head_marking_style = GLOB.marking_styles_list[head_marking]
 							if(!head_marking_style.heads_allowed || (!("All" in head_marking_style.heads_allowed) && !(alt_head in head_marking_style.heads_allowed)))
-								m_styles["head"] = "Нет"
+								m_styles["head"] = "None"
 
 				if("m_style_head")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
 						var/list/valid_markings = list()
-						valid_markings["Нет"] = GLOB.marking_styles_list["Нет"]
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/head/M = GLOB.marking_styles_list[markingstyle]
 							if(!(species in M.species_allowed))
 								continue
 							if(M.marking_location != "head")
 								continue
-							if(alt_head && alt_head != "Нет")
+							if(alt_head && alt_head != "None")
 								if(!("All" in M.heads_allowed) && !(alt_head in M.heads_allowed))
 									continue
 							else
@@ -1877,9 +1876,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								else
 									head_model = rlimb_data["head"]
 								var/datum/robolimb/robohead = GLOB.all_robolimbs[head_model]
-								if(robohead.is_monitor && M.name != "Нет") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
+								if(robohead.is_monitor && M.name != "None") //If the character can have prosthetic heads and they have the default Morpheus head (or another monitor-head), no optic markings.
 									continue
-								else if(!robohead.is_monitor && M.name != "Нет") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
+								else if(!robohead.is_monitor && M.name != "None") //Otherwise, if they DON'T have the default head and the head's not a monitor but the head's not in the style's list of allowed models, skip.
 									if(!(robohead.company in M.models_allowed))
 										continue
 
@@ -1891,14 +1890,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("m_head_colour")
 					if(S.bodyflags & HAS_HEAD_MARKINGS) //Species with head markings.
-						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на голове", "Отметки на голове", m_colours["head"])
+						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на голове.", "Отметки на голове", m_colours["head"])
 						if(!isnull(new_markings))
 							m_colours["head"] = new_markings
 
 				if("m_style_body")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
 						var/list/valid_markings = list()
-						valid_markings["Нет"] = GLOB.marking_styles_list["Нет"]
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/M = GLOB.marking_styles_list[markingstyle]
 							if(gender == M.unsuitable_gender)
@@ -1917,14 +1916,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("m_body_colour")
 					if(S.bodyflags & HAS_BODY_MARKINGS) //Species with body markings/tattoos.
-						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на теле", "Отметки на теле", m_colours["body"])
+						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на теле.", "Отметки на теле", m_colours["body"])
 						if(!isnull(new_markings))
 							m_colours["body"] = new_markings
 
 				if("m_style_tail")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
 						var/list/valid_markings = list()
-						valid_markings["Нет"] = GLOB.marking_styles_list["Нет"]
+						valid_markings["None"] = GLOB.marking_styles_list["None"]
 						for(var/markingstyle in GLOB.marking_styles_list)
 							var/datum/sprite_accessory/body_markings/tail/M = GLOB.marking_styles_list[markingstyle]
 							if(M.marking_location != "tail")
@@ -1946,7 +1945,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("m_tail_colour")
 					if(S.bodyflags & HAS_TAIL_MARKINGS) //Species with tail markings.
-						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на хвосте", "Отметки на хвосте", m_colours["tail"])
+						var/new_markings = tgui_input_color(user, "Выберите цвет отметок на хвосте.", "Отметки на хвосте", m_colours["tail"])
 						if(!isnull(new_markings))
 							m_colours["tail"] = new_markings
 
@@ -1955,24 +1954,24 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					for(var/B in GLOB.body_accessory_by_name)
 						var/datum/body_accessory/accessory = GLOB.body_accessory_by_name[B]
 						if(!istype(accessory))
-							possible_body_accessories += "Нет" //the only null entry should be the "Нет" option
+							possible_body_accessories += "None" //the only null entry should be the "None" option
 							continue
 						if(species in accessory.allowed_species)
 							possible_body_accessories += B
 					if(S.optional_body_accessory)
-						possible_body_accessories.Add("Нет") //the only null entry should be the "Нет" option
+						possible_body_accessories.Add("None") //the only null entry should be the "None" option
 					else
-						possible_body_accessories.Remove("Нет") // in case an admin is viewing it
+						possible_body_accessories.Remove("None") // in case an admin is viewing it
 					sortTim(possible_body_accessories, cmp = /proc/cmp_text_asc)
 					var/new_body_accessory = tgui_input_list(user, "Выберите тип аксессуаров на теле", "Аксессуары на теле", possible_body_accessories)
 					if(new_body_accessory)
-						m_styles["tail"] = "Нет"
-						body_accessory = (new_body_accessory == "Нет") ? null : new_body_accessory
+						m_styles["tail"] = "None"
+						body_accessory = (new_body_accessory == "None") ? null : new_body_accessory
 
 
 				if("facial")
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
-						var/new_facial = tgui_input_color(user, "Выберите цвет лицевой растительности", "Лицевая растительность", f_colour)
+						var/new_facial = tgui_input_color(user, "Выберите цвет лицевой растительности.", "Лицевая растительность", f_colour)
 						if(!isnull(new_facial))
 							f_colour = new_facial
 
@@ -1980,7 +1979,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
-							var/new_facial = tgui_input_color(user, "Выберите дополнительный цвет лицевой растительности", "Лицевая растительность", f_sec_colour)
+							var/new_facial = tgui_input_color(user, "Выберите дополнительный цвет лицевой растительности.", "Лицевая растительность", f_sec_colour)
 							if(!isnull(new_facial))
 								f_sec_colour = new_facial
 
@@ -2011,7 +2010,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(species in SA.species_allowed) //If the user's head is of a species the facial hair style allows, add it to the list.
 								valid_facial_hairstyles += facialhairstyle
 					sortTim(valid_facial_hairstyles, cmp = /proc/cmp_text_asc)
-					var/new_f_style = tgui_input_list(user, "Выберите тип лицевой растительности", "Лицевая растительность", valid_facial_hairstyles)
+					var/new_f_style = tgui_input_list(user, "Выберите стиль лицевой растительности", "Лицевая растительность", valid_facial_hairstyles)
 					if(new_f_style)
 						f_style = new_f_style
 
@@ -2031,7 +2030,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						underwear = new_underwear
 
 				if("underwear_color")
-					var/new_uwear_color = tgui_input_color(user, "Выберите цвет нижнего белья", "Нижнее бельё", underwear_color)
+					var/new_uwear_color = tgui_input_color(user, "Выберите цвет нижнего белья.", "Нижнее бельё", underwear_color)
 					if(!isnull(new_uwear_color))
 						underwear_color = new_uwear_color
 
@@ -2051,7 +2050,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						undershirt = new_undershirt
 
 				if("undershirt_color")
-					var/new_ushirt_color = tgui_input_color(user, "Выберите цвет нательной рубашки", "Нательная рубашка", undershirt_color)
+					var/new_ushirt_color = tgui_input_color(user, "Выберите цвет нательной рубашки.", "Нательная рубашка", undershirt_color)
 					if(!isnull(new_ushirt_color))
 						undershirt_color = new_ushirt_color
 
@@ -2071,7 +2070,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						socks = new_socks
 
 				if("eyes")
-					var/new_eyes = tgui_input_color(user, "Выберите цвет глаз", "Цвет глаз", e_colour)
+					var/new_eyes = tgui_input_color(user, "Выберите цвет глаз.", "Цвет глаз", e_colour)
 					if(!isnull(new_eyes))
 						e_colour = new_eyes
 
@@ -2098,12 +2097,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("skin")
 					if((S.bodyflags & HAS_SKIN_COLOR) || ((S.bodyflags & HAS_BODYACC_COLOR) && GLOB.body_accessory_by_species[species]) || check_rights(R_ADMIN, 0, user))
-						var/new_skin = tgui_input_color(user, "Выберите цвет кожи", "Цвет кожи", s_colour)
+						var/new_skin = tgui_input_color(user, "Выберите цвет кожи.", "Цвет кожи", s_colour)
 						if(!isnull(new_skin))
 							s_colour = new_skin
 
 				if("ooccolor")
-					var/new_ooccolor = tgui_input_color(user, "Выберите цвет ваших сообщений в OOC-чате:", "Цвет OOC-сообщений", ooccolor)
+					var/new_ooccolor = tgui_input_color(user, "Выберите цвет ваших сообщений в OOC-чате.", "Цвет OOC-сообщений", ooccolor)
 					if(!isnull(new_ooccolor))
 						ooccolor = new_ooccolor
 
@@ -2155,11 +2154,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					R.company = choice
 					for(var/limb in rparts)
 						if(limb == BODY_ZONE_HEAD)
-							ha_style = "Нет"
+							ha_style = "None"
 							alt_head = null
 							h_style = GLOB.hair_styles_public_list["Bald"]
 							f_style = GLOB.facial_hair_styles_list["Shaved"]
-							m_styles["head"] = "Нет"
+							m_styles["head"] = "None"
 						rlimb_data[limb] = choice
 						organ_data[limb] = "cyborg"
 
@@ -2242,7 +2241,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					switch(new_state)
 						if("Органическое")
 							if(limb == BODY_ZONE_HEAD)
-								m_styles["head"] = "Нет"
+								m_styles["head"] = "None"
 								h_style = GLOB.hair_styles_public_list["Bald"]
 								f_style = GLOB.facial_hair_styles_list["Shaved"]
 							organ_data[limb] = null
@@ -2292,11 +2291,11 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								if(!(S.bodyflags & ALL_RPARTS))
 									return
 								if(limb == BODY_ZONE_HEAD)
-									ha_style = "Нет"
+									ha_style = "None"
 									alt_head = null
 									h_style = GLOB.hair_styles_public_list["Bald"]
 									f_style = GLOB.facial_hair_styles_list["Shaved"]
-									m_styles["head"] = "Нет"
+									m_styles["head"] = "None"
 							rlimb_data[limb] = choice
 							organ_data[limb] = "cyborg"
 							if(second_limb)
@@ -2392,17 +2391,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						return
 					switch(new_UI_style)
 						if("Полночь")
-							UI_style = "Полночь"
+							UI_style = UI_THEME_MIDNIGHT
 						if("Плазма")
-							UI_style = "Плазма"
+							UI_style = UI_THEME_PLASMAFIRE
 						if("Ретро")
-							UI_style = "Ретро"
+							UI_style = UI_THEME_RETRO
 						if("Желе")
-							UI_style = "Желе"
+							UI_style = UI_THEME_SLIMECORE
 						if("Оперативник")
-							UI_style = "Оперативник"
+							UI_style = UI_THEME_OPERATIVE
 						if("Белизна")
-							UI_style = "Белизна"
+							UI_style = UI_THEME_WHITE
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -2470,7 +2469,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")
-					var/UI_style_color_new = tgui_input_color(user, "Настройте цвет интерфейса. Тёмные цвета не рекомендованы!", UI_style_color)
+					var/UI_style_color_new = tgui_input_color(user, "Выберите цвет интерфейса. Тёмные цвета не рекомендованы!", UI_style_color)
 					if(isnull(UI_style_color_new)) return
 					UI_style_color = UI_style_color_new
 
