@@ -110,7 +110,7 @@ const AtmosControlDataView = (_properties) => {
         {alarms.map((a, i) => (
           <Table.Row key={i}>
             <Table.Cell>{a.name}</Table.Cell>
-            <Table.Cell>{getStatus(a.danger)}</Table.Cell>
+            <Table.Cell>{getStatus(a?.danger)}</Table.Cell>
             <Table.Cell>
               <Button
                 icon="cog"
@@ -156,7 +156,7 @@ const AtmosControlMapView = (_properties) => {
             icon="circle"
             tooltip={aa.name}
             tooltipPosition={aa.x > 255 / 2 ? 'bottom' : 'right'}
-            color={getStatusColour(aa.danger)}
+            color={getStatusColour(aa?.danger)}
             onClick={() =>
               act('open_alarm', {
                 aref: aa.ref,
