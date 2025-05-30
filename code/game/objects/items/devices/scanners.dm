@@ -372,12 +372,25 @@ REAGENT SCANNER
 		var/blood_volume = scan_data["bloodData"]["blood_volume"]
 		var/blood_type = scan_data["bloodData"]["blood_type"]
 		var/blood_species = scan_data["bloodData"]["blood_species"]
+		var/ru_blood_species = list(
+			"Diona" = "Диона",
+			"Drask" = "Драск",
+			"Grey" = "Грей",
+			"Human" = "Человек",
+			"Tajaran" = "Таяран",
+			"Vulpkanin" = "Вульпканин",
+			"Skrell" = "Скрелл",
+			"Nian" = "Ниан",
+			"Unathi" = "Унатх",
+			"Vox" = "Вокс",
+			"Wryn" = "Врин",
+		)
 		if(blood_volume <= BLOOD_VOLUME_SAFE && blood_percent > BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: <font color='red'>НИЗКИЙ - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [blood_species].<br>"
+			P.header += "Уровень крови: <font color='red'>НИЗКИЙ - [blood_percent] %, [blood_volume] u</font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
 		else if(blood_volume <= BLOOD_VOLUME_OKAY)
-			P.header += "Уровень крови: <font color='red'><b>КРИТИЧЕСКИЙ - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [blood_species].<br>"
+			P.header += "Уровень крови: <font color='red'><b>КРИТИЧЕСКИЙ - [blood_percent] %, [blood_volume] u</b></font>, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]].<br>"
 		else
-			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [blood_species]."
+			P.header += "Уровень крови: [blood_percent] %, [blood_volume] u, тип: [blood_type], <br>кровь расы: [ru_blood_species[blood_species]]."
 
 	if(scan_data["timeofdeath"])
 		P.header += "Время смерти: [scan_data["timeofdeath"]]<br>"
@@ -904,6 +917,19 @@ REAGENT SCANNER
 		var/blood_percent =  round((H.blood_volume / BLOOD_VOLUME_NORMAL)*100)
 		var/blood_type = H.dna.blood_type
 		var/blood_species = H.dna.species.blood_species
+		var/ru_blood_species = list(
+			"Diona" = "Диона",
+			"Drask" = "Драск",
+			"Grey" = "Грей",
+			"Human" = "Человек",
+			"Tajaran" = "Таяран",
+			"Vulpkanin" = "Вульпканин",
+			"Skrell" = "Скрелл",
+			"Nian" = "Ниан",
+			"Unathi" = "Унатх",
+			"Vox" = "Вокс",
+			"Wryn" = "Врин",
+		)
 		if(blood_id != "blood")//special blood substance
 			var/datum/reagent/R = GLOB.chemical_reagents_list[blood_id]
 			if(R)
@@ -911,11 +937,11 @@ REAGENT SCANNER
 			else
 				blood_type = blood_id
 		if(H.blood_volume <= BLOOD_VOLUME_SAFE && H.blood_volume > BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: <span class='danger'>НИЗКИЙ - [blood_percent] %, [H.blood_volume] u,</span> тип: [blood_type], кровь расы: [blood_species]."
+			scan_data += "Уровень крови: <span class='danger'>НИЗКИЙ - [blood_percent] %, [H.blood_volume] u,</span> тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
 		else if(H.blood_volume <= BLOOD_VOLUME_OKAY)
-			scan_data += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ - [blood_percent] %, [H.blood_volume] u,</span> тип: [blood_type], кровь расы: [blood_species]."
+			scan_data += "Уровень крови: <span class='danger'>КРИТИЧЕСКИЙ - [blood_percent] %, [H.blood_volume] u,</span> тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
 		else
-			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [blood_species]."
+			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [ru_blood_species[blood_species]]."
 
 	scan_data += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()

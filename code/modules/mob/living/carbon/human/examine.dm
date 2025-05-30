@@ -405,7 +405,7 @@
 				if(!key)
 					msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] в полной кататонии. Должно быть, тяготы жизни в глубоком космосе оказались непосильны для [genderize_ru(gender, "него", "неё", "него", "них")]. Шансы на восстановление ничтожны.\n")
 				else if(!client)
-					msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] внезапно заснул[genderize_ru(gender, "", "а", "о", "и")] [genderize_ru(gender, "Он", "Она", "Оно", "Они")] может скоро проснуться.\n"
+					msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] внезапно заснул[genderize_ru(gender, "", "а", "о", "и")]. [genderize_ru(gender, "Он", "Она", "Оно", "Они")] может скоро проснуться.\n"
 
 		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
 			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] двигает своё тело неестественно и откровенно нечеловеческим образом.\n"
