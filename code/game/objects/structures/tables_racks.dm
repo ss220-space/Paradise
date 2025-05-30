@@ -520,7 +520,9 @@
 /obj/structure/table/glass/proc/check_break(mob/living/M)
 	if(M.incorporeal_move || (M.movement_type & MOVETYPES_NOT_TOUCHING_GROUND))
 		return
-	if(M.has_gravity() && M.mob_size > MOB_SIZE_SMALL)
+
+	// It won't break with neative gravity.
+	if(M.get_gravity() > NO_GRAVITY && M.mob_size > MOB_SIZE_SMALL)
 		table_shatter(M)
 
 

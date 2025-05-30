@@ -97,6 +97,8 @@
 	///is the mob currently ascending or descending through z levels?
 	var/currently_z_moving
 
+	/// Whether a user will face atoms on entering them with a mouse. Despite being a mob variable, it is here for performance
+	var/face_mouse = FALSE
 
 /atom/movable/attempt_init(loc, ...)
 	var/turf/T = get_turf(src)
@@ -482,7 +484,7 @@
 	if(!direct)
 		direct = get_dir(src, newloc)
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && dir != direct && update_dir && !face_mouse) //for facing direction on harm - face_mouse
 		setDir(direct)
 
 	var/is_multi_tile = is_multi_tile_object(src)
@@ -615,7 +617,7 @@
 						. = Move(get_step(src, SOUTH), SOUTH)
 
 			if(moving_diagonally == SECOND_DIAG_STEP)
-				if(!. && set_dir_on_move && update_dir)
+				if(!. && set_dir_on_move && !face_mouse)
 					setDir(first_step_dir)
 				else if(!inertia_moving)
 					newtonian_move(direct)
@@ -668,12 +670,17 @@
 	move_speed = world.time - l_move_time
 	l_move_time = world.time
 
-	if(set_dir_on_move && dir != direct && update_dir)
+	if(set_dir_on_move && !face_mouse)
 		setDir(direct)
 
 	// movement failed due to buckled mob(s)
 	if(. && has_buckled_mobs() && !handle_buckled_mob_movement(loc, direct, glide_size_override))
 		. = FALSE
+
+	var/area/area = get_area(src)
+	if(!no_gravity() && get_gravity() < 0 && area.outdoors && !iswallturf(src)) // If no ceiling above us with antigravity, fall up in space.
+		INVOKE_ASYNC(src, TYPE_PROC_REF(/atom/movable, fall_up_in_space))
+		return FALSE
 
 	if(currently_z_moving)
 		if(. && loc == newloc)
@@ -994,9 +1001,9 @@
 			if(z_move_flags & ZMOVE_FEEDBACK)
 				to_chat(rider || src, span_warning("There's nowhere to go in that direction!"))
 			return FALSE
-	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || !has_gravity(start)))
+	if(z_move_flags & ZMOVE_FALL_CHECKS && (throwing || (movement_type & (FLYING|FLOATING)) || no_gravity(start)))
 		return FALSE
-	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && has_gravity(start))
+	if(z_move_flags & ZMOVE_CAN_FLY_CHECKS && !(movement_type & (FLYING|FLOATING)) && !no_gravity(start))
 		if(z_move_flags & ZMOVE_FEEDBACK)
 			if(rider)
 				to_chat(rider, span_notice("[src] is not capable of flight."))
@@ -1062,7 +1069,7 @@
  * * continuous_move - If this check is coming from something in the context of already drifting
  */
 /atom/movable/proc/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
-	if(has_gravity())
+	if(!no_gravity())
 		return TRUE
 
 	if(SEND_SIGNAL(src, COMSIG_MOVABLE_SPACEMOVE, movement_dir, continuous_move) & COMSIG_MOVABLE_STOP_SPACEMOVE)
@@ -1177,8 +1184,20 @@
 	SSthrowing.processing[src] = thrown_thing
 	thrown_thing.tick()
 
+	update_icon()
 	return TRUE
 
+/atom/movable/proc/random_throw(range_low = 0, range_high = 5, speed = 4)
+	var/list/turf/targets = list()
+	for(var/turf/T in range(range_high, src))
+		if(get_dist(T, src) >= range_low && get_dist(T, src) <= range_high)
+			targets.Add(T)
+
+	if(targets.len == 0)
+		return FALSE
+
+	var/turf/target = pick(targets)
+	return throw_at(target, get_dist(src, target), speed)
 
 //Overlays
 /atom/movable/overlay
@@ -1477,3 +1496,45 @@
 	else
 		.["Remove deadchat control"] = "byond://?_src_=vars;removedeadchatcontrol=[UID()]"
 
+
+/atom/movable/proc/fall_up_in_space()
+	visible_message(span_boldwarning("[declent_ru(NOMINATIVE)] улетает вверх под воздействием отрицательной гравитации!"),
+					span_userdanger("Вы улетаете вверх под воздействием отрицательной гравитации!"))
+	if(ishuman(src))
+		var/mob/living/carbon/human/dropped_human = src
+		if(dropped_human.stat != DEAD && dropped_human.IsVocal() && prob(25))
+			playsound(dropped_human, 'sound/effects/wilhelm_scream.ogg', 150)
+
+	if(isliving(src))
+		var/mob/living/M = src
+		M.Weaken(32 SECONDS) // Keep them from moving during the duration of the extraction
+		M.buckled?.unbuckle_mob(force = TRUE) // Unbuckle them to prevent anchoring problems
+	else
+		set_anchored(TRUE)
+		ADD_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+
+	var/obj/effect/extraction_holder/holder_obj = new(loc)
+	holder_obj.appearance = appearance
+	forceMove(holder_obj)
+	animate(holder_obj, pixel_z = 1000, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(finish_falling_up_in_space), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/finish_falling_up_in_space(obj/holder_obj)
+	if(ishuman(src))
+		var/mob/living/carbon/human/L = src
+		L.SetParalysis(0)
+		L.SetDrowsy(0)
+		L.SetSleeping(0)
+		L.SetWeakened(0)
+
+	var/turf/target_space_turf = get_random_reachable_space_turf()
+	holder_obj.forceMove(pick(target_space_turf))
+	holder_obj.pixel_z = -1000
+	animate(holder_obj, pixel_z = 0, time = 3 SECONDS)
+	addtimer(CALLBACK(src, PROC_REF(free_the_fallen), holder_obj), 3 SECONDS)
+
+/atom/movable/proc/free_the_fallen(obj/holder_obj)
+	set_anchored(FALSE) // An item has to be unanchored to be extracted in the first place.
+	REMOVE_TRAIT(src, TRAIT_UNDENSE, FULTON_TRAIT)
+	forceMove(holder_obj.loc)
+	qdel(holder_obj)

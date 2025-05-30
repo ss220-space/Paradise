@@ -222,7 +222,7 @@
 								span_userdanger("[L] is hit by \a [src][organ_hit_text]!"),
 								projectile_message = TRUE)	//X has fired Y is now given by the guns so you cant tell who shot you if you could not see the shooter
 
-		if(L.mind && firer?.mind?.objectives)
+		if(L?.mind && firer?.mind?.objectives)
 			for(var/datum/objective/pain_hunter/objective in firer.mind.get_all_objectives())
 				if(L.mind == objective.target)
 					objective.take_damage(damage, damage_type)
@@ -289,10 +289,11 @@
 		if(isnull(organ))
 			return FALSE
 
-	prehit(bumped_atom)
 	if(HAS_TRAIT(src, TRAIT_SHRAPNEL))
-		bumped_atom.hitby(src, TRUE)
-		qdel(src)
+		shrapnel_hit(bumped_atom)
+		return
+
+	prehit(bumped_atom)
 
 	var/permutation = bumped_atom.bullet_act(src, def_zone) // searches for return value, could be deleted after run so check A isn't null
 	if(permutation == -1 || forcedodge)// the bullet passes through a dense object!
@@ -335,6 +336,10 @@
 
 	for(var/i in 1 to required_moves)
 		pixel_move(1)
+
+
+/obj/projectile/proc/shrapnel_hit(atom/target)
+	return
 
 
 /obj/projectile/proc/pixel_move(trajectory_multiplier)

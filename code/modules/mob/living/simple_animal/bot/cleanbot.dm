@@ -16,7 +16,7 @@
 	anchored = FALSE
 	health = 25
 	maxHealth = 25
-	radio_channel = "Service" //Service
+	radio_channel = SRV_FREQ_NAME //Service
 	bot_filter = RADIO_CLEANBOT
 	bot_type = CLEAN_BOT
 	model = "Cleanbot"

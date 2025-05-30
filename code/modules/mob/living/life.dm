@@ -236,24 +236,42 @@
 
 
 /mob/living/proc/handle_gravity(seconds_per_tick, times_fired)
-	if(gravity_state > STANDARD_GRAVITY)
+	if(abs(gravity_state) > STANDARD_GRAVITY)
 		handle_high_gravity(gravity_state, seconds_per_tick, times_fired)
+
+
+/mob/living/carbon/handle_gravity(seconds_per_tick, times_fired)
+	. = ..()
+	if(gravity_state < HIGH_GRAVITY_SLOWDOWN)
+		remove_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
+
+	if(gravity_state < GRAVITY_CANT_STAY)
+		REMOVE_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
+		return
+
+	if(!buckled)
+		ADD_TRAIT(src, TRAIT_FLOORED, GRAVITATION_TRAIT)
 
 
 /mob/living/proc/gravity_animate()
 	if(!get_filter("gravity"))
 		add_filter("gravity",1,list("type"="motion_blur", "x"=0, "y"=0))
+
 	animate(get_filter("gravity"), y = 1, time = 10, loop = -1)
 	animate(y = 0, time = 10)
 
 
 /mob/living/proc/handle_high_gravity(gravity, seconds_per_tick, times_fired)
-	if(gravity < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+	if(abs(gravity) < HIGH_GRAVITY_SLOWDOWN)
 		return
 
-	var/grav_strength = gravity - GRAVITY_DAMAGE_THRESHOLD
-	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
+	add_movespeed_modifier(/datum/movespeed_modifier/high_gravity)
 
+	if(abs(gravity) < GRAVITY_DAMAGE_THRESHOLD) //Aka gravity values of 3 or more
+		return
+
+	var/grav_strength = abs(gravity) - GRAVITY_DAMAGE_THRESHOLD
+	adjustBruteLoss(min(GRAVITY_DAMAGE_SCALING * grav_strength, GRAVITY_DAMAGE_MAXIMUM) * seconds_per_tick)
 
 /// Updates grabbed victim status effects.
 /mob/living/proc/pull_on_life()

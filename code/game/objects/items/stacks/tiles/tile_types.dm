@@ -69,6 +69,8 @@
 	origin_tech = "biotech=1"
 	turf_type = /turf/simulated/floor/wood
 	resistance_flags = FLAMMABLE
+	energy_type = /datum/robot_energy_storage/wood
+	cost = 1
 
 /obj/item/stack/tile/wood/dark
 	name = "dark wood floor tiles"
@@ -117,9 +119,6 @@
 	singular_name = "fancy light oak wood floor tile"
 	icon_state = "tile-wood-fancy-light"
 	turf_type = /turf/simulated/floor/wood/fancy/light
-
-/obj/item/stack/tile/wood/cyborg
-	is_cyborg = 1
 
 // CARPETS
 /obj/item/stack/tile/carpet
@@ -238,10 +237,8 @@
 	mineralType = "metal"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 100, "acid" = 70)
 	resistance_flags = FIRE_PROOF
-
-/obj/item/stack/tile/plasteel/cyborg
-	is_cyborg = 1
-
+	energy_type = /datum/robot_energy_storage/metal
+	cost = 1
 // LIGHT
 /obj/item/stack/tile/light
 	name = "light tiles"

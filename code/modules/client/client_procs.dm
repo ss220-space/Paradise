@@ -235,15 +235,17 @@
 	//CONNECT//
 	///////////
 /client/New(TopicData)
-	// TODO: Remove with 516
-	if(byond_version >= 516) // Enable 516 compat browser storage mechanisms
-		winset(src, "", "browser-options=byondstorage,find")
 	var/tdata = TopicData //save this for later use
 	TopicData = null							//Prevent calls to client.Topic from connect
+
+	if(byond_version >= 516)
+		winset(src, null, list("browser-options" = "find,refresh,byondstorage"))
 
 	stat_panel = new(src, "statbrowser")
 	stat_panel.subscribe(src, PROC_REF(on_stat_panel_message))
 
+	//kill old tgui panel
+	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 	tgui_panel = new(src, "chat_panel")
 	tgui_say = new(src, "tgui_say")
 
@@ -391,6 +393,7 @@
 	loot_panel = new(src)
 
 	Master.UpdateTickRate()
+	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
 	// Check total playercount
 	var/playercount = 0
@@ -446,6 +449,7 @@
 	QDEL_NULL(void)
 	QDEL_NULL(tooltips)
 	QDEL_NULL(loot_panel)
+	QDEL_NULL(parallax_rock)
 	parallax_layers = null
 	seen_messages = null
 	Master.UpdateTickRate()
@@ -516,7 +520,7 @@
             "})
 	browser.open(FALSE)
 	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(qdel), src), 20)
-	
+
 
 /client/proc/log_client_to_db(connectiontopic)
 	set waitfor = FALSE // This needs to run async because any sleep() inside /client/New() breaks stuff badly
@@ -651,7 +655,7 @@
 			qdel(src)
 			return // Dont insert or they can just go in again
 
-		is_tutorial_needed = TRUE
+		is_tutorial_needed = !!CONFIG_GET(string/tutorial_server_url)
 
 		var/datum/db_query/query_insert = SSdbcore.NewQuery("INSERT INTO [format_table_name("player")] (id, ckey, firstseen, lastseen, ip, computerid, lastadminrank) VALUES (null, :ckey, Now(), Now(), :ip, :cid, :rank)", list(
 			"ckey" = ckey,
@@ -1399,9 +1403,9 @@
 	var/atom/old_eye = eye
 	eye = new_eye
 
-	for(var/mob/dead/observer/observe in mob.orbiters)
-		if(!istype(observe) || !observe.client || !observe.orbit_menu?.auto_observe)
-			LAZYREMOVE(mob.orbiters, observe)
+	for(var/mob/dead/observer/observe in mob.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(mob.inventory_observers, observe)
 			continue
 		observe.client.eye = new_eye
 
@@ -1564,6 +1568,19 @@
 		return
 
 	window_scaling = text2num(winget(src, null, "dpi"))
+
+// This is in its own proc so we can async it out
+/client/proc/nag_516()
+	if(byond_version >= 516)
+		return
+
+	var/choice = alert(src, "Внимание - Ваша версия BYOND: [byond_version].[byond_build]. Скоро минимальная требуемая версия для SS1984 Paradise будет 516, и 515 и ниже больше не будут работать.\
+	ТГУИ уже не поддерживает Internet Explorer, а следовательно на 515 и ниже будет работать некорректно. \
+	Обновитесь, чтобы избежать проблем в будущем.", " Предупреждение о версии BYOND", "Обновиться сейчас", "Игнорировать")
+	if(choice != "Обновиться сейчас")
+		return
+
+	src << link("https://secure.byond.com/download/")
 
 #undef LIMITER_SIZE
 #undef CURRENT_SECOND

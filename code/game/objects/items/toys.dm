@@ -2346,7 +2346,7 @@
 	return TRUE
 
 /obj/item/toy/desk/verb/rotate()
-	set name = "Rotate"
+	set name = "Повернуть"
 	set category = "Object"
 	set src in oview(1)
 

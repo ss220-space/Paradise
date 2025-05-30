@@ -1,4 +1,4 @@
-import { Component, InfernoNode } from 'inferno';
+import { Component, ReactNode, MouseEvent } from 'react';
 import { useBackend } from '../backend';
 import {
   Box,
@@ -10,6 +10,7 @@ import {
   Stack,
   Slider,
   Tabs,
+  Image,
 } from '../components';
 import { Window } from '../layouts';
 import { BeakerContents } from './common/BeakerContents';
@@ -17,13 +18,30 @@ import {
   ComplexModal,
   modalOpen,
   modalRegisterBodyOverride,
+  ModalType,
 } from './common/ComplexModal';
 import { BooleanLike, classes } from 'common/react';
 import { BoxProps } from '../components/Box';
+import { computeBoxProps } from 'common/ui';
 
 const transferAmounts = [1, 5, 10];
 
-const analyzeModalBodyOverride = (modal) => {
+type ChemicalModalData = {
+  beaker: string;
+  analysis: Analysis;
+};
+
+type Analysis = {
+  blood_type: string;
+  blood_dna: string;
+  idx: string;
+  name: string;
+  desc: string;
+};
+
+const analyzeModalBodyOverride = (
+  modal: ModalType<ChemicalModalData>
+): ReactNode => {
   const { act, data } = useBackend<ChemMasterData>();
   const result = modal.args.analysis;
   return (
@@ -54,14 +72,15 @@ const analyzeModalBodyOverride = (modal) => {
                 disabled={data.printing}
                 iconSpin={!!data.printing}
                 ml="0.5rem"
-                content="Печать"
                 onClick={() =>
                   act('print', {
                     idx: result.idx,
                     beaker: modal.args.beaker,
                   })
                 }
-              />
+              >
+                Печать
+              </Button>
             )}
           </LabeledList>
         </Box>
@@ -85,7 +104,7 @@ interface StaticProductionData {
 
 interface NonStaticProductionData {
   set_name?: string;
-  set_items_amount: string;
+  set_items_amount: number;
   set_sprite?: number;
   placeholder_name?: string;
 }
@@ -98,12 +117,9 @@ enum TransferMode {
   ToBeaker = 1,
 }
 
-interface ReagentData {
-  id: string;
-  name: string;
+type ReagentData = {
   description: string;
-  volume: number;
-}
+} & Chemical;
 
 interface ContainerStyle {
   color: string;
@@ -129,7 +145,7 @@ interface ChemMasterData {
   production_data: Record<string, NonStaticProductionData>;
 }
 
-export const ChemMaster = (props) => {
+export const ChemMaster = (props: unknown) => {
   return (
     <Window width={575} height={650}>
       <ComplexModal />
@@ -157,19 +173,17 @@ const ChemMasterBeaker = (props: {}) => {
         scrollable
         buttons={
           bufferNonEmpty ? (
-            <Button.Confirm
-              icon="eject"
-              disabled={!beaker}
-              content="Извлечь ёмкость и очистить буфер"
-              onClick={() => act('eject')}
-            />
+            <Button.Confirm icon="eject" onClick={() => act('eject')}>
+              Извлечь ёмкость и очистить буфер
+            </Button.Confirm>
           ) : (
             <Button
               icon="eject"
               disabled={!beaker}
-              content="Извлечь ёмкость и очистить буфер"
               onClick={() => act('eject')}
-            />
+            >
+              Извлечь ёмкость и очистить буфер
+            </Button>
           )
         }
       >
@@ -180,7 +194,6 @@ const ChemMasterBeaker = (props: {}) => {
             buttons={(chemical, i) => (
               <Box mb={i < beaker_reagents.length - 1 && '2px'}>
                 <Button
-                  content="Анализ"
                   mb="0"
                   onClick={() =>
                     modalOpen('analyze', {
@@ -188,11 +201,12 @@ const ChemMasterBeaker = (props: {}) => {
                       beaker: 1,
                     })
                   }
-                />
+                >
+                  Анализ
+                </Button>
                 {transferAmounts.map((am, j) => (
                   <Button
                     key={j}
-                    content={am}
                     mb="0"
                     onClick={() =>
                       act('add', {
@@ -200,10 +214,11 @@ const ChemMasterBeaker = (props: {}) => {
                         amount: am,
                       })
                     }
-                  />
+                  >
+                    {am}
+                  </Button>
                 ))}
                 <Button
-                  content="Всё"
                   mb="0"
                   onClick={() =>
                     act('add', {
@@ -211,16 +226,19 @@ const ChemMasterBeaker = (props: {}) => {
                       amount: chemical.volume,
                     })
                   }
-                />
+                >
+                  Всё
+                </Button>
                 <Button
-                  content="Задать объём..."
                   mb="0"
                   onClick={() =>
                     modalOpen('addcustom', {
                       id: chemical.id,
                     })
                   }
-                />
+                >
+                  Задать объём...
+                </Button>
               </Box>
             )}
           />
@@ -247,9 +265,10 @@ const ChemMasterBuffer = (props: {}) => {
             <Button
               icon={mode ? 'flask' : 'trash'}
               color={!mode && 'bad'}
-              content={mode ? 'Ёмкость' : 'Слив'}
               onClick={() => act('toggle')}
-            />
+            >
+              {mode ? 'Ёмкость' : 'Слив'}
+            </Button>
           </Box>
         }
       >
@@ -260,7 +279,6 @@ const ChemMasterBuffer = (props: {}) => {
             buttons={(chemical, i) => (
               <Box mb={i < buffer_reagents.length - 1 && '2px'}>
                 <Button
-                  content="Анализ"
                   mb="0"
                   onClick={() =>
                     modalOpen('analyze', {
@@ -268,11 +286,12 @@ const ChemMasterBuffer = (props: {}) => {
                       beaker: 0,
                     })
                   }
-                />
+                >
+                  Анализ
+                </Button>
                 {transferAmounts.map((am, i) => (
                   <Button
                     key={i}
-                    content={am}
                     mb="0"
                     onClick={() =>
                       act('remove', {
@@ -280,10 +299,11 @@ const ChemMasterBuffer = (props: {}) => {
                         amount: am,
                       })
                     }
-                  />
+                  >
+                    {am}
+                  </Button>
                 ))}
                 <Button
-                  content="Всё"
                   mb="0"
                   onClick={() =>
                     act('remove', {
@@ -291,16 +311,19 @@ const ChemMasterBuffer = (props: {}) => {
                       amount: chemical.volume,
                     })
                   }
-                />
+                >
+                  Всё
+                </Button>
                 <Button
-                  content="Задать объём..."
                   mb="0"
                   onClick={() =>
                     modalOpen('removecustom', {
                       id: chemical.id,
                     })
                   }
-                />
+                >
+                  Задать объём...
+                </Button>
               </Box>
             )}
           />
@@ -321,7 +344,7 @@ const ChemMasterProduction = (props: {}) => {
         <Section title="Продукция">
           <Stack fill>
             <Stack.Item grow align="center" textAlign="center" color="label">
-              <Icon name="tint-slash" mb="0.5rem" size="5" />
+              <Icon name="tint-slash" mb="0.5rem" size={5} />
               <br />
               Буфер пуст.
             </Stack.Item>
@@ -380,19 +403,22 @@ const ChemMasterProductionTabs = (props: {}) => {
   );
 };
 
-interface ChemMasterNameInputProps {
+type ChemMasterNameInputProps = {
   placeholder: string;
+  fluid: boolean;
+  value: string;
   onMouseUp?: (MouseEvent) => void;
-}
+  onChange?: (e, value) => void;
+} & BoxProps;
 
 class ChemMasterNameInput extends Component<
   ChemMasterNameInputProps & BoxProps
 > {
-  constructor() {
-    super();
+  constructor(props: ChemMasterNameInputProps) {
+    super(props);
   }
 
-  handleMouseUp = (e: MouseEvent) => {
+  handleMouseUp = (e: MouseEvent<HTMLDivElement>) => {
     const { placeholder, onMouseUp } = this.props;
     const target = e.target as HTMLInputElement;
 
@@ -415,14 +441,14 @@ class ChemMasterNameInput extends Component<
       <Input
         maxLength={maxnamelength}
         onMouseUp={this.handleMouseUp}
-        {...this.props}
+        {...computeBoxProps(this.props)}
       />
     );
   }
 }
 
 const ChemMasterProductionCommon = (props: {
-  children: InfernoNode | InfernoNode[];
+  children: ReactNode | ReactNode[];
   productionData: ProductionData;
 }) => {
   const { act, data } = useBackend<ChemMasterData>();
@@ -438,6 +464,7 @@ const ChemMasterProductionCommon = (props: {
           value={set_items_amount}
           minValue={1}
           maxValue={max_items_amount}
+          stepPixelSize={20}
           onChange={(e, value) =>
             act(`set_items_amount`, {
               production_mode: id,
@@ -464,21 +491,24 @@ const ChemMasterProductionCommon = (props: {
       <LabeledList.Item>
         <Button
           fluid
-          content="Создать"
           color="green"
           disabled={buffer_reagents.length <= 0}
           onClick={() => act(`create_items`, { production_mode: id })}
-        />
+        >
+          Создать
+        </Button>
       </LabeledList.Item>
     </LabeledList>
   );
 };
 
-const SpriteStyleButton = (props: { icon: string } & BoxProps) => {
+const SpriteStyleButton = (
+  props: { icon: string; selected: boolean } & BoxProps
+) => {
   const { icon, ...restProps } = props;
   return (
-    <Button style={{ padding: 0, 'line-height': 0 }} {...restProps}>
-      <Box className={classes(['chem_master_large32x32', icon])} />
+    <Button style={{ padding: '0', lineHeight: '0' }} {...restProps}>
+      <Image fixBlur className={classes(['chem_master_large32x32', icon])} />
     </Button>
   );
 };
@@ -488,7 +518,7 @@ const ChemMasterProductionGeneric = (props: {
 }) => {
   const { act } = useBackend<ChemMasterData>();
   const { id: modeId, set_sprite, sprites } = props.productionData;
-  let style_buttons;
+  let style_buttons: ReactNode;
   if (sprites && sprites.length > 0) {
     style_buttons = sprites.map(({ id, sprite }) => (
       <SpriteStyleButton
@@ -531,7 +561,7 @@ const ChemMasterCustomization = (props: {}) => {
         icon={selected && 'check'}
         iconStyle={{
           position: 'relative',
-          'z-index': 1,
+          zIndex: '1',
         }}
         tooltip={name}
         tooltipPosition="top"
@@ -549,7 +579,7 @@ const ChemMasterCustomization = (props: {}) => {
             padding: 0,
             width: style_button_size.width,
             height: style_button_size.height,
-            'background-color': color,
+            backgroundColor: color,
             opacity: 0.6,
             filter: 'alpha(opacity=60)',
           }}
@@ -566,9 +596,10 @@ const ChemMasterCustomization = (props: {}) => {
           <Button
             icon="eject"
             disabled={!loaded_pill_bottle}
-            content="Извлечь контейнер"
             onClick={() => act('ejectp')}
-          />
+          >
+            Извлечь контейнер
+          </Button>
         }
       >
         {!loaded_pill_bottle ? (

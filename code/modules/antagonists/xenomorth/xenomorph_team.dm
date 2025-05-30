@@ -158,19 +158,19 @@
 
 /datum/team/xenomorph/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
-		to_chat(world, "<br><span style='font-size: 3;'><b>Частичная победа Ксеноморфов!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Частичная победа Ксеноморфов!</b>"))
 		to_chat(world, "<b>Станция была уничтожена!</b>")
 		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>")
 	else if(protect_cocon?.check_completion(src))
-		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа Ксеноморфов!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Полная победа Ксеноморфов!</b>"))
 		to_chat(world, "<b>Ксеноморфы захватили станцию!</b>")
 		to_chat(world, "<b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!current_queen?.current || current_queen.current.stat == DEAD)
-		to_chat(world, "<br><span style='font-size: 3;'><b>Полная победа персонала станции!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Полная победа персонала станции!</b>"))
 		to_chat(world, "<b>Экипаж защитил станцию от Ксеноморфов!</b>")
 		to_chat(world, "<b>Ксеноморфы были истреблены.</b>")
 	else
-		to_chat(world, "<br><span style='font-size: 3;'><b>Ничья!</b></span>")
+		to_chat(world, span_fontsize3("<br><b>Ничья!</b>"))
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Ксеноморфы не были истреблены.</b>")
 

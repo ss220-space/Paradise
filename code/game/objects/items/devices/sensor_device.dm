@@ -66,7 +66,7 @@
 
 /obj/item/sensor_device/advanced/command/Initialize(mapload)
 	. = ..()
-	crew_monitor.crew_vision = CREW_VISION_COMMAND
+	crew_monitor.tab_index = CREW_VISION_COMMAND
 
 /obj/item/sensor_device/advanced/security
 	name = "security crew monitor"
@@ -84,7 +84,7 @@
 
 /obj/item/sensor_device/advanced/security/Initialize(mapload)
 	. = ..()
-	crew_monitor.crew_vision = CREW_VISION_SECURITY
+	crew_monitor.tab_index = CREW_VISION_SECURITY
 
 /obj/item/sensor_device/advanced/mining
 	name = "mining crew monitor"
@@ -104,4 +104,4 @@
 
 /obj/item/sensor_device/advanced/mining/Initialize(mapload)
 	. = ..()
-	crew_monitor.crew_vision = CREW_VISION_MINING
+	crew_monitor.tab_index = CREW_VISION_MINING

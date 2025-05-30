@@ -29,7 +29,7 @@
 
 	LAssailant = null
 	GLOB.left_player_list -= src
-	
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -354,6 +354,9 @@
 		if(hud_used)
 			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
+		if(!new_eye)
+			client.set_eye(src)
+			client.perspective = MOB_PERSPECTIVE
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
@@ -366,7 +369,7 @@
 	var/list/result = target.examine(src)
 	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
-	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	to_chat(src, chat_box_examine(result.Join("<br>")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
@@ -552,9 +555,8 @@
 /mob/Topic(href, href_list)
 	. = ..()
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
-		close_window(src, t1)
+		close_window(src, href_list["mach_close"])
 
 	if(href_list["flavor_more"])
 		var/datum/browser/popup = new(usr, name, name, 500, 200)
@@ -1070,8 +1072,9 @@
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
-		for(var/mob/dead/observer/observe in orbiters)
-			if(!istype(observe) || !observe.client)
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
 				continue
 			observe.vision_type = vision_type
 	update_sight()

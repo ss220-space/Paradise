@@ -89,7 +89,7 @@
 	/// Which channels can the bot listen to.
 	var/list/radio_config = null
 	/// The bot's default radio channel.
-	var/radio_channel = "Common"
+	var/radio_channel = PUB_FREQ_NAME
 	/// Set to `TRUE` make bot automatically patrol.
 	var/auto_patrol = FALSE
 	/// This is turf to navigate to (location of beacon).
@@ -158,7 +158,7 @@
 	var/mob/living/simple_animal/bot/B = loc
 	if(istype(B))
 		if(!B.radio_config)
-			B.radio_config = list("AI Private" = 1)
+			B.radio_config = list(AI_FREQ_NAME = 1)
 			if(!(B.radio_channel in B.radio_config)) // put it first so it's the :h channel
 				B.radio_config.Insert(1, "[B.radio_channel]")
 				B.radio_config["[B.radio_channel]"] = 1
@@ -593,7 +593,7 @@
 	if(!on || !message)
 		return
 	if(channel)
-		Radio.autosay(message, name, channel == "headset" ? null : channel)
+		Radio.autosay(message, name, channel == HEADSET_MODE ? null : channel)
 	else
 		say(message)
 
@@ -1298,11 +1298,11 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 /mob/living/simple_animal/bot/handle_message_mode(message_mode, message, verb, speaking, used_radios)
 	switch(message_mode)
-		if("intercom")
+		if(INTERCOM_MODE)
 			for(var/obj/item/radio/intercom/I in view(1, src))
 				I.talk_into(src, message, null, verb, speaking)
 				used_radios += I
-		if("headset")
+		if(HEADSET_MODE)
 			Radio.talk_into(src, message, null, verb, speaking)
 			used_radios += Radio
 		else
