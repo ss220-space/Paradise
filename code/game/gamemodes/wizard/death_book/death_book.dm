@@ -23,10 +23,9 @@
 
 	if(length(cached_outfit)) //О майн год это что какой-то там паттерн???!?
 		return
-	for(var/prom_outfit in subtypesof(/datum/outfit/radial_outfit))
+	for(var/prom_outfit in subtypesof(/datum/outfit/radial_outfit/death_book))
 		var/datum/outfit/radial_outfit/death_book/prom_obj = new prom_outfit()
 		cached_outfit += prom_obj
-	cached_outfit -= /datum/outfit/radial_outfit
 
 /obj/item/death_book/Destroy()
 	SEND_SIGNAL(src, COMSIG_PHANTOM_DELETE)
