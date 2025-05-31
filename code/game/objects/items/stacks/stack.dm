@@ -138,7 +138,7 @@
 	if(QDELETED(src) || QDELETED(check))
 		return FALSE
 	// We don't only use istype here, since that will match subtypes, and stack things that shouldn't stack
-	if(!istype(check, merge_type) || check.merge_type != merge_type)
+	if(!istype(check, merge_type))
 		return FALSE
 	if(amount <= 0 || check.amount <= 0) // no merging empty stacks that are in the process of being qdel'd
 		return FALSE

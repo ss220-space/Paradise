@@ -465,7 +465,9 @@
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
-	is_cyborg = 1
+	is_cyborg = TRUE
+	energy_type = /datum/robot_energy_storage/wire
+	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")

@@ -1901,6 +1901,7 @@
 #include "code\modules\antagonists\traitor\contractor\datums\contractor.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\contractor_hub.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\contractor_hub_ui.dm"
+#include "code\modules\antagonists\traitor\contractor\datums\contractor_pending.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\contractor_support.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\objective_contract.dm"
 #include "code\modules\antagonists\traitor\contractor\datums\syndicate_contract.dm"

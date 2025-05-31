@@ -66,4 +66,4 @@
 	desc = "An encryption key for a radio headset. Made by Spider Clan. (TM) To access the binary channel, use :+."
 	icon_state = "bin_cypherkey"
 	translate_binary = TRUE
-	channels = list("Spider Clan" = TRUE)
+	channels = list(NINJA_FREQ_NAME = 1)
