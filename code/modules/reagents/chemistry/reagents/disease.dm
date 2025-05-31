@@ -54,7 +54,7 @@
 	metabolization_rate = 1
 
 /datum/reagent/xenomicrobes/phantom/on_mob_life(mob/living/carbon/M)
-	if(volume >= 1)
+	if(volume >= REAGENT_UNITS_1)
 		var/datum/disease/virus/transformation/xeno/phantom/D = new
 		D.Contract(M)
 	return ..()
@@ -69,7 +69,7 @@
 	metabolization_rate = 1
 
 /datum/reagent/terror_eggs/on_mob_life(mob/living/carbon/M)
-	if(volume >= 5 && !M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
+	if(volume >= REAGENT_UNITS_5 && !M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
 		new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
 	return ..()
 
