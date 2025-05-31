@@ -202,13 +202,14 @@
 	new_form = pick(/mob/living/carbon/alien/humanoid/hunter, /mob/living/carbon/alien/humanoid/drone/no_queen, /mob/living/carbon/alien/humanoid/sentinel)
 
 /datum/disease/virus/transformation/xeno/phantom/do_disease_transformation()
-	var/mob/living/prom = ..()
-	if(prom.mind)
-		prom.mind.wipe_memory()
-		prom.mind.objectives += new /datum/objective/xeno_genocide
-		var/list/messages = prom.mind.prepare_announce_objectives()
-		to_chat(prom, chat_box_red(messages.Join("<br>")))
-	return prom
+	. = ..()
+	var/mob/living/prom = .
+	if(!prom.mind)
+		return
+	prom.mind.wipe_memory()
+	prom.mind.objectives += new /datum/objective/xeno_genocide
+	var/list/messages = prom.mind.prepare_announce_objectives()
+	to_chat(prom, chat_box_red(messages.Join("<br>")))
 
 /datum/disease/virus/transformation/slime
 	name = "Advanced Mutation Transformation"

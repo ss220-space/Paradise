@@ -10,9 +10,10 @@
 	deep = so_deep
 	if(!isatom(parent) || isnull(linked_item))
 		return COMPONENT_INCOMPATIBLE
-	if(deep)
-		var/atom/prom = parent
-		phantomification(prom.contents)
+	if(!deep)
+		return
+	var/atom/prom = parent
+	phantomification(prom.contents)
 
 /datum/component/phantom_component/RegisterWithParent()
 	RegisterSignal(linked_item, COMSIG_PHANTOM_DELETE, PROC_REF(smart_self_delete))

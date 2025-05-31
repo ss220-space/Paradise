@@ -1,11 +1,6 @@
 /obj/item/death_book
 	name = "Летопись вашей погибели"
 	desc = "Странная книга с мерцающими страницами. Кажется, её корешок выполнен из человеческой кожи..."
-	icon = 'icons/obj/death_book.dmi'
-	icon_state = "close_death_book"
-	lefthand_file = 'icons/mob/inhands/death_book_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/death_book_rigthhand.dmi'
-
 	ru_names = list(
 		NOMINATIVE = "летопись вашей погибели",
 		GENITIVE = "летописи вашей погибели",
@@ -14,6 +9,10 @@
 		INSTRUMENTAL = "летописью вашей погибели",
 		PREPOSITIONAL = "летописе вашей погибели",
 	)
+	icon = 'icons/obj/death_book.dmi'
+	icon_state = "close_death_book"
+	lefthand_file = 'icons/mob/inhands/death_book_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/death_book_rigthhand.dmi'
 
 	var/cooldown = FALSE
 	var/datum/dynamic_outfit/temp_outfit_storage = null
