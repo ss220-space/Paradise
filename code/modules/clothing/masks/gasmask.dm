@@ -235,16 +235,17 @@
 		return
 	var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
 	qdel(src)
+	var/obj/item/clothing/weared_mask = user.get_item_by_slot(ITEM_SLOT_MASK)
+	if(user.wear_mask)
+		user.drop_item_ground(weared_mask)
 	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
 	balloon_alert(user, "внешний вид изменён!")
 	return TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
-	. = ..()
 	mask_action(user)
 
 /obj/item/clothing/mask/gas/clown_hat/click_alt(mob/user)
-	. = ..()
 	mask_action(user)
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
@@ -341,12 +342,14 @@
 							"Печальная маска" = /obj/item/clothing/mask/gas/mime/sad,
 							"Злобная маска" = /obj/item/clothing/mask/gas/mime/angry,
 							"Равнодушная маска" = /obj/item/clothing/mask/gas/mime/clueless,
-							"Маска Трагика" = /obj/item/clothing/mask/gas/mime/morutopia)
+							"Маска Трагика" = /obj/item/clothing/mask/gas/mime/morutopia,
+							"сексуальная маска" = /obj/item/clothing/mask/gas/mime/sexy)
 	var/list/mask_icons = list("Счастливая маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "happymask"),
 							"Печальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sadmask"),
 							"Злобная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "angrymask"),
 							"Равнодушная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cluelessmask"),
-							"Маска Трагика" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "morutopia"))
+							"Маска Трагика" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "morutopia"),
+							"сексуальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexymime"))
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
@@ -356,16 +359,17 @@
 		return
 	var/obj/item/clothing/mask/gas/mime/new_mask = new picked_mask(get_turf(user))
 	qdel(src)
+	var/obj/item/clothing/weared_mask = user.get_item_by_slot(ITEM_SLOT_MASK)
+	if(user.wear_mask)
+		user.drop_item_ground(weared_mask)
 	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
 	balloon_alert(user, "внешний вид изменён!")
 	return TRUE
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
-	. = ..()
+/obj/item/clothing/mask/gas/mime/attack_self(mob/user)
 	mask_action(user)
 
-/obj/item/clothing/mask/gas/clown_hat/click_alt(mob/user)
-	. = ..()
+/obj/item/clothing/mask/gas/mime/click_alt(mob/user)
 	mask_action(user)
 
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
