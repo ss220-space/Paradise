@@ -486,6 +486,7 @@
 
 	I.do_pickup_animation(newloc)
 	I.forceMove(newloc)
+	I.dir = dir
 
 
 /**
@@ -523,6 +524,7 @@
 	I.pixel_x = shift_x
 	I.pixel_y = shift_y
 	I.do_drop_animation(src)
+	I.dir = dir
 
 
 /**
@@ -537,6 +539,7 @@
 /mob/proc/transfer_item_to_loc(obj/item/I, atom/newloc, force = FALSE, invdrop = TRUE, silent = FALSE)
 	. = do_unEquip(I, force, newloc, FALSE, invdrop, silent)
 	I.do_drop_animation(src)
+	I.dir = dir
 
 
 /**
@@ -589,6 +592,12 @@
 	if(I)
 		if(client)
 			client.screen -= I
+		// For inventory observing
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
+				continue
+			observe.client.screen -= I
 		I.layer = initial(I.layer)
 		SET_PLANE_EXPLICIT(I, initial(I.plane), newloc)
 		if(!no_move && !(I.item_flags & DROPDEL)) // Item may be moved/qdel'd immedietely, don't bother moving it

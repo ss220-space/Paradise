@@ -4,7 +4,7 @@ import { useBackend } from '../../backend';
 import { Box, Button, Section } from '../../components';
 import { PodLauncherData } from './types';
 
-export const StylePage = (props) => {
+export const StylePage = (props: unknown) => {
   const { act, data } = useBackend<PodLauncherData>();
   const { effectName, styleChoice, podStyles } = data;
 
@@ -35,9 +35,9 @@ export const StylePage = (props) => {
           onClick={() => act('setStyle', { style: page.id })}
           selected={styleChoice === page.id}
           style={{
-            'vertical-align': 'middle',
-            'margin-right': '5px',
-            'border-radius': '20px',
+            verticalAlign: 'middle',
+            marginRight: '5px',
+            borderRadius: '20px',
           }}
           tooltipPosition={
             i >= podStyles.length - 2
@@ -54,8 +54,8 @@ export const StylePage = (props) => {
           <Box
             className={classes(['supplypods64x64', 'pod_asset' + page.id])}
             style={{
-              'pointer-events': 'none',
-              'transform': 'rotate(45deg) translate(-25%,-10%)',
+              pointerEvents: 'none',
+              transform: 'rotate(45deg) translate(-25%,-10%)',
             }}
           />
         </Button>

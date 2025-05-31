@@ -18,5 +18,6 @@ $background-dimness: 0.75 !default;
   right: 0;
   // Dim everything around it
   background-color: rgba(0, 0, 0, $background-dimness);
-  z-index: 5;
+  // Should be enough to cover everything except tooltips
+  z-index: 100;
 }

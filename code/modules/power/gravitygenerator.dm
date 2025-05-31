@@ -435,16 +435,20 @@ GLOBAL_LIST_EMPTY(gravity_generators) // We will keep track of this by adding ne
 	var/sound/alert_sound = sound('sound/effects/alert.ogg')
 	for(var/mob/shaked as anything in GLOB.mob_list)
 		var/turf/mob_turf = get_turf(shaked)
+    
 		if(!istype(mob_turf))
 			continue
+
 		if(!are_zs_connected(our_turf, mob_turf))
 			continue
+
 		if(isliving(shaked))
 			var/mob/living/living_shaked = shaked
 			living_shaked.refresh_gravity()
+
 		if(shaked.client)
 			shake_camera(shaked, 15, 1)
-			shaked.playsound_local(our_turf, null, 100, 1, 0.5, S = alert_sound)
+			shaked.playsound_local(our_turf, null, 100, 1, 0.5, sound = alert_sound)
 
 
 // TODO: Make the gravity generator cooperate with the space manager

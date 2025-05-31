@@ -12,7 +12,6 @@ img {
   margin: 0;
   padding: 0;
   line-height: 1;
-  -ms-interpolation-mode: nearest-neighbor; // TODO: Remove with 516
   image-rendering: pixelated;
 }
 
@@ -1295,4 +1294,34 @@ span.body .coderesponses {
 
 .proradio {
   color: #e3027a;
+}
+
+.bluespace_anomaly {
+  color: #2cb5ff;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.energetic_anomaly {
+  color: #ffe925;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.atmospferic_anomaly {
+  color: #ff0707;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.gravitational_anomaly {
+  color: #00a7bd;
+  font-weight: bold;
+  font-size: 120%;
+}
+
+.vortex_anomaly {
+  color: #486374;
+  font-weight: bold;
+  font-size: 120%;
 }

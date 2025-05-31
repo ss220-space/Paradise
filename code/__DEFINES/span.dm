@@ -164,12 +164,23 @@
 #define span_motd(str) ("<span class='motd'>" + str + "</span>")
 #define span_emojienabled(str) ("<span class='emoji_enabled'>" + str + "</span>")
 #define span_mentorhelp(str) ("<span class='mentorhelp'>" + str + "</span>")
+#define span_atmospfericanomaly(str) ("<span class='atmospferic_anomaly'>" + str + "</span>")
+#define span_bluespaceanomaly(str) ("<span class='bluespace_anomaly'>" + str + "</span>")
+#define span_energeticanomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
+#define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
+#define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
 
 // Font size spans
-#define span_fontsize3(str) ("<span style='font-size: 3;'>" + str + "</span>")
-#define span_fontsize4(str) ("<span style='font-size: 4;'>" + str + "</span>")
-#define span_fontsize5(str) ("<span style='font-size: 5;'>" + str + "</span>")
+
+#define span_fontsize1(str) ("<span style='font-size: 10px;'>" + str + "</span>")
+#define span_fontsize2(str) ("<span style='font-size: 13px;'>" + str + "</span>")
+#define span_fontsize3(str) ("<span style='font-size: 16px;'>" + str + "</span>")
+#define span_fontsize4(str) ("<span style='font-size: 18px;'>" + str + "</span>")
+#define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
+#define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
+#define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
+#define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")

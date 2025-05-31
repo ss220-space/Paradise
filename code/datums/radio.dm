@@ -100,15 +100,15 @@
 		var/mob/living/carbon/brain/B = M
 		. = B.get_race()
 	else if(issilicon(M))
-		. = "Artificial Life"
+		. = "Синтетическая жизнь"
 	else if(isslime(M))
-		. = "Slime"
+		. = "Слайм"
 	else if(isbot(M))
-		. = "Bot"
+		. = "Бот"
 	else if(isanimal(M))
-		. = "Domestic Animal"
+		. = "Домашнее животное"
 	else
-		. = "Unidentifiable"
+		. = "Неопознанный"
 
 //callback used by objects to react to incoming radio signals
 /obj/proc/receive_signal(datum/signal/signal, receive_method, receive_param)

@@ -6398,7 +6398,7 @@
 /area/ruin/space/pirate_base/mining)
 "sq" = (
 /obj/structure/table/glass,
-/obj/item/assembly/signaler/anomaly/bluespace,
+/obj/item/assembly/signaler/core/bluespace/tier2,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11400,7 +11400,7 @@
 /obj/effect/turf_decal/siding/brown{
 	dir = 1
 	},
-/obj/structure/chair/wheelchair,
+/obj/vehicle/ridden/wheelchair,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "Hs" = (
