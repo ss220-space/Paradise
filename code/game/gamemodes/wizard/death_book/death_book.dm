@@ -69,5 +69,5 @@
 	temp_outfit_storage.equip(user)
 
 /obj/item/death_book/proc/cooldown_stop(mob/user)
-	user.balloon_alert(user, "Вас наполняет решимость. Вы готовы прочесть книгу вновь.")
+	user.balloon_alert(user, "книга что-то шепчет")
 	cooldown = FALSE
