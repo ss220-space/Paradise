@@ -373,8 +373,8 @@
 	check_forum_link()
 
 	if(GLOB.custom_event_msg && GLOB.custom_event_msg != "")
-		to_chat(src, span_alert("<h1>Специальное событие</h1>"))
-		to_chat(src, span_alert("<h1>Происходит нестандартное событие. OOC-информация:</h1>"))
+		to_chat(src, span_alert("<h1>Специальный ивент</h1>"))
+		to_chat(src, span_alert("<h1>Происходит нестандартный ивент. OOC-информация:</h1>"))
 		to_chat(src, span_alert("[html_encode(GLOB.custom_event_msg)]"))
 		to_chat(src, "<br>")
 
