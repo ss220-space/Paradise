@@ -46,7 +46,7 @@
 	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]."
 	if(is_custom)
 		vote_type_text = "custom"
-		text += "[question]"
+		text += "\n[question]"
 		if(usr)
 			log_admin("[capitalize(vote_type_text)] ([question]) vote started by [key_name(usr)].")
 

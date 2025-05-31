@@ -714,7 +714,7 @@
 				message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]"))
 				var/blockmsg = "<b>Ошибка: обнаружен прокси-сервер или VPN. Использование прокси-сервера или VPN не разрешено. Пожалуйста, отключите их перед повторным подключением.</b>"
 				if(CONFIG_GET(string/banappeals))
-					blockmsg += "Если вы не используете прокси-сервер или VPN, или у вас нет другого выбора, кроме как использовать их, пожалуйста, запросите белый список: [CONFIG_GET(string/banappeals)]"
+					blockmsg += "\nЕсли вы не используете прокси-сервер или VPN, или у вас нет другого выбора, кроме как использовать их, пожалуйста, запросите белый список: [CONFIG_GET(string/banappeals)]"
 				to_chat(src, blockmsg, confidential=TRUE)
 				qdel(src)
 		else
