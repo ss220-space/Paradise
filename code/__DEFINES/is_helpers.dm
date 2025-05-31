@@ -97,6 +97,8 @@
 
 #define is_pda(W) (istype(W, /obj/item/pda))
 
+#define is_id_card(W) (istype(W, /obj/item/card/id))
+
 #define isradio(A) istype(A, /obj/item/radio)
 
 #define isflower(A) istype(A, /obj/item/twohanded/required/kirbyplants)
