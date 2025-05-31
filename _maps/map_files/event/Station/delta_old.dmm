@@ -96233,7 +96233,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/engineering)
 "sWs" = (
-/obj/structure/chair/wheelchair{
+/obj/vehicle/ridden/wheelchair{
 	desc = "Это кресло осталось от одного из предыдущих детективов. Говорят, что тот открыл в себе псионические способности и ушёл работать в федерацию магов.";
 	name = "Старое инвалидное кресло"
 	},

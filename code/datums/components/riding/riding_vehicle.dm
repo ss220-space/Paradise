@@ -202,7 +202,14 @@
 	. = ..()
 	set_riding_offsets(RIDING_OFFSET_ALL, list(TEXT_NORTH = list(2, 20), TEXT_SOUTH = list(20, 23), TEXT_EAST = list(20, 27), TEXT_WEST = list(34, 10)))
 
+/datum/component/riding/vehicle/wheelchair
+	vehicle_move_delay = 3
+	ride_check_flags = RIDER_NEEDS_ARMS
 
+/datum/component/riding/vehicle/wheelchair/handle_specials()
+	set_vehicle_dir_layer(SOUTH, OBJ_LAYER)
+	set_vehicle_dir_layer(WEST, OBJ_LAYER)
+	set_vehicle_dir_layer(EAST, OBJ_LAYER)
 /*
 /datum/component/riding/vehicle/bicycle
 	ride_check_flags = RIDER_NEEDS_LEGS | RIDER_NEEDS_ARMS | UNBUCKLE_DISABLED_RIDER

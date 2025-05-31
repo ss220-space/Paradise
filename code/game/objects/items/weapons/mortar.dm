@@ -344,10 +344,6 @@
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. Location not exist."))
 		return FALSE
 
-	if(get_dist(src, turf) < min_range)
-		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too close to your mortar."))
-		return FALSE
-
 	if(isspaceturf(turf))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is in space."))
 		return FALSE
@@ -357,14 +353,18 @@
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it isn't first floor to impact."))
 		return FALSE
 
-	var/turf/top_turf = get_highest_turf(turf)
-	var/turf/low_turf = get_lowest_turf(turf)
+	var/turf/top_turf = get_highest_turf(loc)
+	var/turf/low_turf = get_lowest_turf(loc)
 
 	if (!cross_sector && (!low_turf && !top_turf || low_turf && (test_targ_z < low_turf.z) || top_turf && (test_targ_z > top_turf.z)))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate. It isn't in your sector."))
 		return FALSE
 
-	if(get_dist(src, turf) > max_range)
+	if(get_dist(src, turf) < min_range && !(cross_sector && turf.z != loc.z))
+		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too close to your mortar."))
+		return FALSE
+
+	if(get_dist(src, turf) > max_range && !(cross_sector && turf.z != loc.z))
 		to_chat(user, span_warning("You cannot [dialing ? "dial to" : "aim at"] this coordinate, it is too far from your mortar."))
 		return FALSE
 

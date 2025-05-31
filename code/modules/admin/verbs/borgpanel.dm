@@ -171,14 +171,14 @@
 					borg.radio.channels -= channel
 				else
 					borg.radio.keyslot.channels -= channel
-					if(channel == "Syndicate")
+					if(channel == SYND_FREQ_NAME)
 						borg.radio.keyslot.syndie = FALSE
 				log_and_message_admins("removed the [channel] radio channel from [key_name(borg)].")
 			else // We're adding a channel
 				if(!borg.radio.keyslot) // Assert that an encryption key exists
 					borg.radio.keyslot = new()
 				borg.radio.keyslot.channels[channel] = 1
-				if(channel == "Syndicate")
+				if(channel == SYND_FREQ_NAME)
 					borg.radio.keyslot.syndie = TRUE
 				log_and_message_admins("added the [channel] radio channel to [key_name(borg)].")
 			borg.radio.recalculateChannels()
