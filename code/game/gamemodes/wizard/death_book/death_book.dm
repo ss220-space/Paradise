@@ -45,14 +45,13 @@
 	flick("animate_death_book", src)
 	to_chat(user, span_info(choise.message_to_chat))
 	//Even death will not stop the progress of the bar
-	if(do_after(user, 1 SECONDS, src, INFINITY & !(DA_IGNORE_HELD_ITEM)))
-		cooldown_start(choise, user)
-		phantom_timer_start(choise, user)
-		equip_choise_outfit(choise, user)
-	else
+	if(!do_after(user, 1 SECONDS, src, INFINITY & !(DA_IGNORE_HELD_ITEM)))
 		flick("close_death_book", src)
 		to_chat(user, span_info("Вам не хватает терпения и вы перестаете читать!"))
-	//qdel(choise)
+		return
+	cooldown_start(choise, user)
+	phantom_timer_start(choise, user)
+	equip_choise_outfit(choise, user)
 
 /obj/item/death_book/proc/cooldown_start(datum/outfit/radial_outfit/death_book/choise, mob/user)
 	cooldown = TRUE
