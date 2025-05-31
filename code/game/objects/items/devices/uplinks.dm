@@ -259,7 +259,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
 
-	if(!traitor.contractor_pending)
+	if(!traitor?.contractor_pending)
 		return data
 
 	var/datum/contractor_pending/pending = traitor.contractor_pending
