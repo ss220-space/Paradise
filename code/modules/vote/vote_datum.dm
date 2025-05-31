@@ -122,7 +122,7 @@
 
 /datum/vote/proc/announce(start_text)
 	to_chat(world, chat_box_vote(span_fontcolor_purple("<b>[start_text]</b> <a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь или введите Vote, чтобы отдать свой голос.</a>\
-					У вас есть [CONFIG_GET(number/vote_period) / 10] секунд, чтобы проголосовать.")))
+					У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать.")))
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 
