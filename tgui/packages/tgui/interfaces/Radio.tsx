@@ -56,16 +56,16 @@ export const Radio = (_props: unknown) => {
       <Window.Content scrollable>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="Frequency">
+            <LabeledList.Item label="Частота">
               {(freqlock && (
                 <Box inline color="light-gray">
-                  {toFixed(frequency / 10, 1) + ' kHz'}
+                  {toFixed(frequency / 10, 1) + ' кГц'}
                 </Box>
               )) || (
                 <>
                   <NumberInput
                     animated
-                    unit="kHz"
+                    unit="кГц"
                     step={0.2}
                     stepPixelSize={10}
                     minValue={minFrequency / 10}
@@ -81,7 +81,7 @@ export const Radio = (_props: unknown) => {
                   <Button
                     icon="undo"
                     disabled={!canReset}
-                    tooltip="Reset"
+                    tooltip="Сброс"
                     onClick={() =>
                       act('frequency', {
                         tune: 'reset',
@@ -96,14 +96,18 @@ export const Radio = (_props: unknown) => {
                 </Box>
               )}
             </LabeledList.Item>
-            <LabeledList.Item label="Audio">
+            <LabeledList.Item label="Аудио">
               <Button
                 textAlign="center"
                 width="37px"
                 icon={listening ? 'volume-up' : 'volume-mute'}
                 selected={listening}
                 color={listening ? '' : 'bad'}
-                tooltip={listening ? 'Disable Incoming' : 'Enable Incoming'}
+                tooltip={
+                  listening
+                    ? 'Отключить входящий сигнал'
+                    : 'Включить входящий сигнал'
+                }
                 onClick={() => act('listen')}
               />
               <Button
@@ -111,7 +115,11 @@ export const Radio = (_props: unknown) => {
                 width="37px"
                 icon={broadcasting ? 'microphone' : 'microphone-slash'}
                 selected={broadcasting}
-                tooltip={broadcasting ? 'Disable Hotmic' : 'Enable Hotmic'}
+                tooltip={
+                  broadcasting
+                    ? 'Отключить активный микрофон'
+                    : 'Включить активный микрофон'
+                }
                 onClick={() => act('broadcast')}
               />
               {!!has_loudspeaker && (
@@ -120,16 +128,18 @@ export const Radio = (_props: unknown) => {
                   icon="bullhorn"
                   selected={loudspeaker}
                   tooltip={
-                    loudspeaker ? 'Disable Loudspeaker' : 'Enable Loudspeaker'
+                    loudspeaker
+                      ? 'Отключить громкоговоритель'
+                      : 'Включить громкоговоритель'
                   }
                   onClick={() => act('loudspeaker')}
                 >
-                  Loudspeaker
+                  Громкоговоритель
                 </Button>
               )}
             </LabeledList.Item>
             {schannels.length !== 0 && (
-              <LabeledList.Item label="Keyed Channels">
+              <LabeledList.Item label="Частоты ключей шифрования">
                 {schannels.map((channel) => (
                   <Box key={channel.name}>
                     <Button
@@ -149,7 +159,7 @@ export const Radio = (_props: unknown) => {
               </LabeledList.Item>
             )}
             {ichannels.length !== 0 && (
-              <LabeledList.Item label="Standard Channel">
+              <LabeledList.Item label="Стандартные частоты">
                 {ichannels.map((channel) => (
                   <Button
                     key={'i_' + channel.name}

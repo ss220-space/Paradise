@@ -4,39 +4,39 @@
 
 // STATION CORE //
 /obj/machinery/tcomms/core/station
-	network_id = "STATION-CORE"
+	network_id = "СТАНЦИЯ-ЯДРО"
 
 // MINING RELAY //
 /obj/machinery/tcomms/relay/mining
-	network_id = "MINING-RELAY"
-	autolink_id = "STATION-CORE"
+	network_id = "АВАНПОСТ-ЯДРО"
+	autolink_id = "СТАНЦИЯ-ЯДРО"
 
 // ENGINEERING RELAY //
 /obj/machinery/tcomms/relay/engineering
-	network_id = "ENGINEERING-RELAY"
-	autolink_id = "STATION-CORE"
+	network_id = "ИНЖЕНЕРИЯ-РЕЛЕ"
+	autolink_id = "СТАНЦИЯ-ЯДРО"
 	active = FALSE
 
 // RUSKIE RELAY //
 /obj/machinery/tcomms/relay/ruskie
-	network_id = "RUSKIE-RELAY"
-	autolink_id = "STATION-CORE"
+	network_id = "РУССКИЕ-ЯДРО"
+	autolink_id = "СТАНЦИЯ-ЯДРО"
 	active = FALSE
 	hidden_link = TRUE
 
 // CC RELAY //
 /obj/machinery/tcomms/relay/cc
-	network_id = "CENTCOMM-RELAY"
-	autolink_id = "STATION-CORE"
+	network_id = "ЦЕНТКОМ-ЯДРО"
+	autolink_id = "СТАНЦИЯ-ЯДРО"
 	hidden_link = TRUE
 
 // USSP CORE //
 /obj/machinery/tcomms/core/ussp
-	network_id = "USSP-CORE"
+	network_id = "СССП-ЯДРО"
 
 // GORKY17 RELAY //
 /obj/machinery/tcomms/relay/gorky17
-	network_id = "GORKY17-RELAY"
-	autolink_id = "USSP-CORE"
+	network_id = "ГОРКИ17-РЕЛЕ"
+	autolink_id = "СССП-ЯДРО"
 	active = TRUE
 	hidden_link = TRUE

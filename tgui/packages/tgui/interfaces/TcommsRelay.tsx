@@ -25,31 +25,31 @@ export const TcommsRelay = (_props: unknown) => {
   return (
     <Window width={600} height={400}>
       <Window.Content scrollable>
-        <Section title="Relay Configuration">
+        <Section title="Конфигурация реле">
           <LabeledList>
-            <LabeledList.Item label="Machine Power">
+            <LabeledList.Item label="Питание">
               <Button
                 selected={active}
                 icon="power-off"
                 onClick={() => act('toggle_active')}
               >
-                {active ? 'On' : 'Off'}
+                {active ? 'Включено' : 'Выключено'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label="Network ID">
+            <LabeledList.Item label="Сетевой идентификатор">
               <Button
                 selected={!!network_id}
                 icon="server"
                 onClick={() => act('network_id')}
               >
-                {network_id ? network_id : 'Unset'}
+                {network_id ? network_id : 'Не задано'}
               </Button>
             </LabeledList.Item>
-            <LabeledList.Item label="Link Status">
+            <LabeledList.Item label="Привзка">
               {linked ? (
-                <Box color="green">Linked</Box>
+                <Box color="green">Привязано</Box>
               ) : (
-                <Box color="red">Unlinked</Box>
+                <Box color="red">Не привязано</Box>
               )}
             </LabeledList.Item>
           </LabeledList>
@@ -64,26 +64,26 @@ const LinkedView = (_properties) => {
   const { act, data } = useBackend<TcommsRelayData>();
   const { linked_core_id, linked_core_addr, hidden_link } = data;
   return (
-    <Section title="Link Status">
+    <Section title="Состояние привязки">
       <LabeledList>
-        <LabeledList.Item label="Linked Core ID">
+        <LabeledList.Item label="Идентификатор привязанного ядра">
           {linked_core_id}
         </LabeledList.Item>
-        <LabeledList.Item label="Linked Core Address">
+        <LabeledList.Item label="Сетевой адрес привязано ядра">
           {linked_core_addr}
         </LabeledList.Item>
-        <LabeledList.Item label="Hidden Link">
+        <LabeledList.Item label="Скрытая привязка">
           <Button
             icon={hidden_link ? 'eye-slash' : 'eye'}
             selected={hidden_link}
             onClick={() => act('toggle_hidden_link')}
           >
-            {hidden_link ? 'Yes' : 'No'}
+            {hidden_link ? 'Да' : 'Нет'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Unlink">
+        <LabeledList.Item label="Отвязать">
           <Button icon="unlink" color="red" onClick={() => act('unlink')}>
-            Unlink
+            Отвязать
           </Button>
         </LabeledList.Item>
       </LabeledList>
@@ -95,13 +95,13 @@ const UnlinkedView = (_properties) => {
   const { act, data } = useBackend<TcommsRelayData>();
   const { cores } = data;
   return (
-    <Section title="Detected Cores">
+    <Section title="Обнаруженные ядра">
       <Table m="0.5rem">
         <Table.Row header>
-          <Table.Cell>Network Address</Table.Cell>
-          <Table.Cell>Network ID</Table.Cell>
-          <Table.Cell>Sector</Table.Cell>
-          <Table.Cell>Link</Table.Cell>
+          <Table.Cell>Сетевой адрес</Table.Cell>
+          <Table.Cell>Сетевой идентификатор</Table.Cell>
+          <Table.Cell>Сектор</Table.Cell>
+          <Table.Cell>Привязка</Table.Cell>
         </Table.Row>
         {cores.map((c) => (
           <Table.Row key={c.addr}>
@@ -117,7 +117,7 @@ const UnlinkedView = (_properties) => {
                   })
                 }
               >
-                Link
+                Привязать
               </Button>
             </Table.Cell>
           </Table.Row>

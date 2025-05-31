@@ -584,17 +584,17 @@
 	// Contractor
 	. += "<br><b><i>contractor</i></b>: "
 	var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
-	if(C)
+	if(traitor_datum?.contractor_pending)
 		var/status
-		if(C.contractor_uplink) // Offer accepted
+		if(C?.contractor_uplink) // Offer accepted
 			status = "<b><font color='red'>CONTRACTOR</font></b>"
-		else if(world.time >= C.offer_deadline)
+		else if(world.time >= traitor_datum.contractor_pending.offer_deadline)
 			status = "<b><font color='darkorange'>CONTRACTOR (EXPIRED)</font></b>"
 		else
 			status = "<b><font color='orange'>CONTRACTOR (PENDING)</font></b>"
 		. += "[status]|<a href='byond://?src=[UID()];contractor=clear'>no</a>"
 		// List all their contracts
-		if(C.contractor_uplink)
+		if(C?.contractor_uplink)
 			. += "<br><b>Contracts:</b>"
 			if(C.contractor_uplink.hub.contracts)
 				var/count = 1
@@ -2017,6 +2017,7 @@
 	else if(href_list["contractor"])
 		var/datum/antagonist/contractor/C = has_antag_datum(/datum/antagonist/contractor)
 		var/datum/contractor_hub/H = C && C.contractor_uplink?.hub
+		var/datum/antagonist/traitor/traitor = has_antag_datum(/datum/antagonist/traitor)
 		switch(href_list["contractor"])
 			if("clear")
 				remove_contractor_role()
@@ -2024,11 +2025,9 @@
 				message_admins("[key_name_admin(usr)] has de-contractored [key_name_admin(current)]")
 
 			if("contractor")
-				if(has_antag_datum(/datum/antagonist/contractor))
+				if(C || traitor.contractor_pending)
 					return
-				var/datum/antagonist/contractor/contractor_datum = new()
-				contractor_datum.is_admin_forced = TRUE
-				add_antag_datum(contractor_datum)
+				traitor.contractor_pending = new(src, TRUE)
 				// Notify
 				log_admin("[key_name(usr)] has contractored [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has contractored [key_name_admin(current)]")
@@ -2726,13 +2725,15 @@
 
 /datum/mind/proc/remove_contractor_role()
 	var/datum/antagonist/contractor/contractor_datum = has_antag_datum(/datum/antagonist/contractor)
-	if(!contractor_datum)
+	var/datum/antagonist/traitor/traitor_datum = has_antag_datum(/datum/antagonist/traitor)
+
+	if(!contractor_datum && !traitor_datum?.contractor_pending)
 		return
 
-	contractor_datum.silent = TRUE
-	if(contractor_datum.contractor_uplink && !contractor_datum.is_admin_forced)
+	if(contractor_datum?.contractor_uplink && !traitor_datum.contractor_pending.is_admin_forced)
 		SSticker?.mode?.contractor_accepted--
 	remove_antag_datum(/datum/antagonist/contractor)
+	traitor_datum.contractor_pending = null
 
 
 /datum/mind/proc/remove_traitor_role()

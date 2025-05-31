@@ -89,7 +89,7 @@
 	module = new /obj/item/robot_module/drone(src)
 
 	//Allows Drones to hear the Engineering channel.
-	module.channels = list("Engineering" = 1)
+	module.channels = list(ENG_FREQ_NAME = 1)
 	radio.recalculateChannels()
 
 	//Grab stacks.

@@ -125,8 +125,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
-	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/metal
+	cost = 4
+	energy_type = /datum/robot_energy_storage/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -260,8 +261,10 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/cyborg
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/wood
+	energy_type = /datum/robot_energy_storage/wood
+	cost = 4
 
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -618,6 +621,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	materials = list()
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
+	cost = 1
+	energy_type = /datum/robot_energy_storage/brass
 
 
 /obj/item/stack/sheet/brass_fake
