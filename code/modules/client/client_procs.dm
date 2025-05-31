@@ -1226,7 +1226,7 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
+		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!"), confidential=TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
@@ -1237,7 +1237,7 @@
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
+		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!"), confidential=TRUE)
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1256,7 +1256,7 @@
 			keysend_tripped = TRUE
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			to_chat(usr, span_warning("<big><b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b></big>"), confidential=TRUE)
+			to_chat(usr, span_warning(span_big("<b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b>")), confidential=TRUE)
 			log_admin("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			message_admins("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			qdel(src)
