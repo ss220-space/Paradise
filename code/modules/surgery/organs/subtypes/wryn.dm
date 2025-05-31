@@ -92,8 +92,9 @@
 
 /datum/action/innate/build_wax/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
+	var/static/list/actions = list()
 
-	var/static/list/new_structure = list("Соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
+/*	var/static/list/new_structure = list("Соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
 								"Прозрачные соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),
 								"Пол из воска (25)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_floor"),
 								"Дверь из сот (75)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_door"))
@@ -136,7 +137,7 @@
 			if(do_after(usr, 10 SECONDS, usr))
 				host.adjustWax(-75)
 				host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь из сот."))
-				new /obj/structure/alien/resin/door/wax(host.loc)
+				new /obj/structure/alien/resin/door/wax(host.loc)*/
 
 /datum/action/innate/toggle_producing
 	name = "Переключить секрецию воска"

@@ -66,3 +66,5 @@ GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
 	/turf/space/openspace)))
 
 GLOBAL_LIST_EMPTY(left_player_list)
+
+GLOBAL_LIST_EMPTY(wryn_structures)

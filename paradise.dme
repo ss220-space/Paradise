@@ -473,6 +473,7 @@
 #include "code\datums\verb_callback.dm"
 #include "code\datums\vision_override.dm"
 #include "code\datums\weakrefs.dm"
+#include "code\datums\wryn_building.dm"
 #include "code\datums\ai\_ai_behavior.dm"
 #include "code\datums\ai\_ai_controller.dm"
 #include "code\datums\ai\_ai_planning_subtree.dm"
