@@ -215,13 +215,13 @@
 	flags_inv = parent_type::flags_inv|HIDEHAIR
 
 	var/static/list/mask_type = list("Истинная форма" = /obj/item/clothing/mask/gas/clown_hat,
-							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
-							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
-							"Радужная Форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
+							"Женственная форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
+							"Безумная форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
+							"Радужная форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
 	var/static/list/mask_icons = list("Истинная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
-							"Женственная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
-							"Безумная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
-							"Радужная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
+							"Женственная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
+							"Безумная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
+							"Радужная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
 
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
