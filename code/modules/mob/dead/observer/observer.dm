@@ -401,18 +401,18 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(!mind || QDELETED(mind.current))
-		to_chat(src, span_warning("У вас нету тела."))
+		to_chat(src, span_warning("У вас нет тела!"))
 		return
 
 	if(mind.current.stat != DEAD)
-		to_chat(src, span_warning("Твое тело все ещё живо!"))
+		to_chat(src, span_warning("Ваше тело все ещё живо!"))
 		return
 
-	if(tgui_alert(src, "Если вы включите это, ваше тело не смогут больше возродить до конца раунда.", "Вы уверены?", list("Да", "Нет")) != "Да")
+	if(tgui_alert(src, "Если вы включите это, ваше тело более не смогут оживить в этом раунде.", "Вы уверены?", list("Да", "Нет")) != "Да")
 		return
 
 	apply_dnr()
-	to_chat(src, span_boldnotice("Do Not Revive статус включён."))
+	to_chat(src, span_boldnotice("Вы запретили реанимировать себя."))
 
 /mob/dead/observer/proc/apply_dnr()
 	can_reenter_corpse = FALSE
