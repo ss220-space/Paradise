@@ -8,7 +8,7 @@
 	/// The question being asked
 	var/question
 	/// Vote type text, for showing in UIs and stuff
-	var/vote_type_text = "безымянное"
+	var/vote_type_text = ""
 	/// Do we want to show the vote counts as it goes
 	var/show_counts = FALSE
 	/// Vote result type. This determines how a winner is picked
@@ -26,6 +26,8 @@
 
 
 /datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
+	if(SSvote.active_vote)
+		CRASH("Attempted to start another vote with one already in progress!")
 
 	if(_initiator)
 		initiator = _initiator
@@ -43,10 +45,10 @@
 		generate_choices()
 
 /datum/vote/proc/start()
-	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]."
+	var/text = "[capitalize(vote_type_text)] Голосование начато [initiator]\n"
 	if(is_custom)
 		vote_type_text = "custom"
-		text += "\n\"[question]\""
+		text += "\n[capitalize(question)]"
 		if(usr)
 			log_admin("[capitalize(vote_type_text)] ([question]) vote started by [key_name(usr)].")
 
@@ -97,32 +99,35 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, span_info("За \"[sanitize(res)]\" отдали – [results[res]] [declension_ru(results[res],"голос","голоса","голосов")]"))
+					to_chat(world, span_fontcolor_purple(span_big("[sanitize(capitalize(res))] – [results[res]] [declension_ru(results[res],"голос","голоса","голосов")]")))
 				else
 					// Make it normal
-					to_chat(world, span_interface("За \"[sanitize(res)]\" отдали – [results[res]] [declension_ru(results[res],"голос","голоса","голосов")]"))
+					to_chat(world, span_fontcolor_purple("[sanitize(capitalize(res))] – [results[res]] [declension_ru(results[res],"голос","голоса","голосов")]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
-				to_chat(world, span_interface("<b>Ничья между [russian_list(sanitize(winning_options))]. Выбираем \"[sanitize(random_dictator)]\" наугад.</b>")) // shame them
+				to_chat(world, span_fontcolor_purple(chat_box_purple("Ничья между [russian_list(sanitize(winning_options))]\n\
+				<b>Выбираем \"[sanitize(random_dictator)]\" наугад.</b>"))) // shame them
 				return random_dictator
 
 			// If we got here there must only be one thing in the list
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, span_interface("<b>Победитель голосования – \"[sanitize(res)]\"</b>"))
+				to_chat(world, span_fontcolor_purple(chat_box_purple("<b>Победитель голосования – [sanitize(capitalize(res))]</b>")))
 				return res
 
-			to_chat(world, span_interface("Победитель голосования – \"[sanitize(res)]\" не может считаться действительным выбором? Что за бред?!"))
-			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(res)], choices were [json_encode(choices)]")
+			to_chat(world, span_fontcolor_purple(chat_box_purple("<b>Победитель голосования – [sanitize(capitalize(res))]</b>\n\
+			Не может считаться действительным выбором? Что за бред?!")))
+			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
 			return null
 
 
 
 /datum/vote/proc/announce(start_text)
-	to_chat(world, chat_box_vote(span_fontcolor_purple("<b>[start_text]</b> <a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь, чтобы отдать свой голос.</a>\
-					У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")))
+	to_chat(world, span_fontcolor_purple(chat_box_purple("<b>[start_text]</b>\n\n\
+	<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос</a> или напишите <b>Vote</b>\n\
+	У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")))
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 
@@ -209,7 +214,7 @@
 				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 		if("cancel")
 			if(check_rights(R_ADMIN))
-				to_chat(world, "<b>Голосование было отменено!</b>")
+				to_chat(world, span_fontcolor_purple(chat_box_purple("<b>Голосование было отменено!</b>")))
 				log_and_message_admins("Canceled a vote")
 				qdel(src)
 
