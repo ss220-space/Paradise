@@ -93,6 +93,15 @@
 /datum/action/innate/build_wax/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
 	var/static/list/actions = list()
+	if(isnull(actions))
+		for(var/name in GLOB.wryn_structures)
+			var/datum/wryn_building/name = GLOB.wryn_structures[name]
+			actions[name] = name.icon_state
+		return actions
+
+	var/choosen_type = show_radial_menu(host, host, actions, radius = 40)
+	if(!choosen_type)
+		return
 
 /*	var/static/list/new_structure = list("Соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
 								"Прозрачные соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),

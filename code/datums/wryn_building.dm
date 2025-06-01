@@ -1,4 +1,5 @@
 /datum/wryn_building
+	var/name // name of button
 	var/wax_amount // cost of build
 	var/icon = 'icons/mob/actions/actions_wryn.dmi'// dmi path
 	var/icon_state // icon in radial menu
@@ -19,24 +20,28 @@
 
 
 /datum/wryn_building/wall
+	name = "Соты (50)"
 	wax_amount = 50
 	icon_state = "wall"
 	structure = /obj/structure/wryn/wax/wall
 	building_time = 5 SECONDS
 
 /datum/wryn_building/window
+	name = "Прозрачные соты (50)"
 	wax_amount = 50
 	icon_state = "window"
 	structure = /obj/structure/wryn/wax/window
 	building_time = 5 SECONDS
 
 /datum/wryn_building/floor
+	name = "Пол из воска (25)"
 	wax_amount = 25
 	icon_state = "floor"
 	structure = /obj/structure/wryn/floor
 	building_time = 1 SECONDS
 
 /datum/wryn_building/door
+	name = "Дверь из воска (75)"
 	wax_amount = 75
 	icon_state = "door"
 	structure = /obj/structure/alien/resin/door/wax
