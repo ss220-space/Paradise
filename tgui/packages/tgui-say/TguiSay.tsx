@@ -87,7 +87,7 @@ export const TguiSay = () => {
       !iterator.isCurrentChannelBlacklisted()
     ) {
       setCurrentPrefix(null);
-      iterator.set('Say');
+      iterator.set('Сказать');
       setButtonContent(iterator.current());
     }
   };
@@ -172,7 +172,7 @@ export const TguiSay = () => {
 
     // Early check for standard radio channel key
     if (newValue && newValue.slice(0, 2) === '; ') {
-      iterator.set('Radio');
+      iterator.set('Радио');
       setCurrentPrefix(null);
       setValue(newValue.slice(2));
       setButtonContent(iterator.current());
@@ -195,7 +195,7 @@ export const TguiSay = () => {
     const iterator = channelIterator.current;
     setButtonContent(RADIO_PREFIXES[prefix]);
     setCurrentPrefix(prefix);
-    iterator.set('Say');
+    iterator.set('Сказать');
     if (prefix in BINARY_PREFIXES) {
       Byond.sendMessage('thinking', { visible: false });
     }
@@ -209,7 +209,7 @@ export const TguiSay = () => {
 
   const UpdateInput = ({ value, prefix, channel }: HistoryRecord) => {
     const iterator = channelIterator.current;
-    channel = channel || 'Say';
+    channel = channel || 'Сказать';
     if (prefix && prefix !== currentPrefix) {
       UpdatePrefix(prefix);
     } else if (channel) {

@@ -1576,6 +1576,36 @@
 
 	return list(0, update_flags)
 
+/datum/reagent/medicine/noradrenaline //ling's special chem
+	name = "Норадреналин"
+	id = "noradrenaline"
+	description = "Мощный стимулятор, который делает вас невосприимчивым к оглушению на некоторое время."
+	color = "#C8A5DC"
+	metabolization_rate = 0.8 * REAGENTS_METABOLISM
+	overdose_threshold = 2.1
+	shock_reduction = 80
+	harmless = TRUE
+	can_synth = FALSE
+
+/datum/reagent/medicine/noradrenaline/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.setStaminaLoss(0, FALSE)
+	return ..() | update_flags
+
+/datum/reagent/medicine/noradrenaline/on_mob_add(mob/living/M)
+	. = ..()
+	M.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/datum/reagent/medicine/noradrenaline/on_mob_delete(mob/living/M)
+	. = ..()
+	M.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/datum/reagent/medicine/noradrenaline/overdose_process(mob/living/M, severity)
+	var/update_flags = STATUS_UPDATE_NONE
+	update_flags |= M.adjustToxLoss(10, FALSE)
+
+	return list(0, update_flags)
+
 /datum/reagent/medicine/adv_lava_extract
 	name = "Модифицированный Экстракт Лаваленда"
 	id = "adv_lava_extract"
