@@ -389,7 +389,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		H.remove_hud_from(src)
 
 /mob/dead/observer/verb/set_dnr()
-	set name = "Выставить статус НР"
+	set name = "Запретить реанимацию"
 	set category = "Призрак"
 	set desc = "Предотвращает возрождение вашего персонажа."
 
