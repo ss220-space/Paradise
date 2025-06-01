@@ -213,11 +213,7 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags_inv = parent_type::flags_inv|HIDEHAIR
-	flags_cover = MASKCOVERSEYES
-	resistance_flags = FLAMMABLE
-	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
 	var/static/list/mask_type = list("Истинная форма" = /obj/item/clothing/mask/gas/clown_hat,
 							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
@@ -226,6 +222,12 @@
 							"Женственная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
 							"Безумная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
 							"Радужная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
+
+	flags_cover = MASKCOVERSEYES
+	resistance_flags = FLAMMABLE
+	dog_fashion = /datum/dog_fashion/head/clown
+
+/obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
@@ -239,7 +241,7 @@
 	if(user.wear_mask)
 		user.drop_item_ground(weared_mask)
 	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
-	balloon_alert(user, "внешний вид изменён!")
+	user.balloon_alert(user, "внешний вид изменён!")
 	return TRUE
 
 /obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
@@ -334,22 +336,24 @@
 	gender = FEMALE
 	icon_state = "happymask"
 	item_state = "mime"
-	flags_cover = MASKCOVERSEYES
-	resistance_flags = FLAMMABLE
 
-/obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
 	var/static/list/mask_type = list("Счастливая маска" = /obj/item/clothing/mask/gas/mime,
 							"Печальная маска" = /obj/item/clothing/mask/gas/mime/sad,
 							"Злобная маска" = /obj/item/clothing/mask/gas/mime/angry,
 							"Равнодушная маска" = /obj/item/clothing/mask/gas/mime/clueless,
 							"Маска Трагика" = /obj/item/clothing/mask/gas/mime/morutopia,
-							"сексуальная маска" = /obj/item/clothing/mask/gas/mime/sexy)
+							"Сексуальная маска" = /obj/item/clothing/mask/gas/mime/sexy)
 	var/static/list/mask_icons = list("Счастливая маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "happymask"),
 							"Печальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sadmask"),
 							"Злобная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "angrymask"),
 							"Равнодушная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cluelessmask"),
 							"Маска Трагика" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "morutopia"),
 							"Сексуальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexymime"))
+
+	flags_cover = MASKCOVERSEYES
+	resistance_flags = FLAMMABLE
+
+/obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
