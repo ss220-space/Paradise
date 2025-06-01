@@ -251,7 +251,7 @@
 		msg += "...\n"
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		msg += span_deadsay("Кажется, [genderize_ru(gender, "его", "её", "его", "их")] мозг отсутствует...\n")
+		msg += span_deadsay("Кажется, что у [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует мозг...\n")
 
 	msg += span_warning("")
 
@@ -482,7 +482,7 @@
 						medical = R.fields["p_stat"]
 
 		msg += span_deptradio("Психологический статус: <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n")
-		msg += span_deptradio("Медицинский записи: <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n")
+		msg += span_deptradio("Медицинские записи: <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n")
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(print_flavor_text() && !skipface && !head_organ?.is_disfigured())

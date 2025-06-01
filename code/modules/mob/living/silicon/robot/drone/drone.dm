@@ -190,7 +190,7 @@
 
 	if(istype(I, /obj/item/borg/upgrade))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Шасси дрона обслуживания несовместимо с [I.declent_ru(ACCUSATIVE)]!"))
+		to_chat(user, span_warning("Шасси дрона обслуживания несовместимо с [I.declent_ru(PREPOSITIONAL)]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(I.GetID())
@@ -200,12 +200,12 @@
 				to_chat(user, span_warning("Интерфейс перегорел, и изнутри робота доносится тревожный запах гари. Вы не сможете перезагрузить его."))
 				return ATTACK_CHAIN_PROCEED
 			if(!allowed(I))
-				to_chat(user, span_warning("Доступ запрещён."))
+				balloon_alert(user, "Доступ запрещён.")
 				return ATTACK_CHAIN_PROCEED
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] сек."))
+				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[declension_ru(cooldown_time, "у", "ы", "")]."))
 				return ATTACK_CHAIN_PROCEED
 			user.visible_message(
 				span_warning("[user] провёл[genderize_ru(user.gender,"","а","о","и")] ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
@@ -256,7 +256,7 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, span_warning("[user] пытается загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
+		to_chat(src, span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
 		to_chat(user, span_warning("Вы пытаетесь подчинить [declent_ru(GENITIVE)], но секвенсор не оказывает эффекта."))
 		return
 
@@ -404,12 +404,12 @@
 		var/obj/item/pulled_item = pulled_atom
 		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
 			if(!supress_message)
-				to_chat(src, span_warning("Вы слишком малы, чтобы тянуть это."))
+				balloon_alert(src, "вы слишком малы, чтобы тянуть это!")
 			return FALSE
 		return ..()
 
 	if(!supress_message)
-		to_chat(src, span_warning("Вы слишком малы, чтобы тянуть это."))
+		balloon_alert(src, "вы слишком малы, чтобы тянуть это!")
 	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
@@ -424,13 +424,14 @@
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
-		to_chat(user, span_warning("Вы начинаете разбирать другого дрона."))
+		balloon_alert(user, "вы начинаете разбирать другого дрона!")
 		if(!do_after(user, 5 SECONDS, loc))
-			to_chat(user, span_warning("Вам нужно оставаться на месте, пока вы разбираете такой большой объект."))
+			balloon_alert(user, "вам нужно оставаться на месте!")
 			return
 		if(QDELETED(src) || QDELETED(user))
 			return ..()
 		to_chat(user, span_warning("Вы аккуратно и тщательно разбираете своего павшего собрата, сохраняя как можно больше его ресурсов внутри себя."))
+		balloon_alert(user, "готово!")
 		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15

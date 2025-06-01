@@ -523,7 +523,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 
 /mob/dead/observer/verb/jumptomob() //Moves the ghost instead of just changing the ghosts's eye -Nodrak
 	set category = "Ghost"
-	set name = "Перейти к существу"
+	set name = "Прыгнуть к существу"
 	set desc = "Телепортация к существу"
 
 	if(isobserver(usr)) //Make sure they're an observer!
@@ -574,7 +574,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		to_chat(src, span_notice("Сканирование газов отключено."))
 		gas_scan = FALSE
 	else
-		to_chat(src, span_notice("Сканирование газов включено. Кликните на пол для анализа."))
+		to_chat(src, span_notice("Сканирование газов включено. Кликните на тайл для анализа."))
 		gas_scan = TRUE
 
 /mob/dead/observer/verb/toggle_plant_anaylzer()

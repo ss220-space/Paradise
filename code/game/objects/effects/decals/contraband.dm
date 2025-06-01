@@ -120,10 +120,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(ruined)
-		to_chat(user, span_notice("Вы убираете остатки постера."))
+		balloon_alert(user, "вы убираете остатки постера")
 		qdel(src)
 	else
-		to_chat(user, span_notice("Вы аккуратно снимаете постер со стены."))
+		balloon_alert(user, "вы аккуратно снимаете постер")
 		roll_and_drop(user.loc)
 
 /obj/structure/sign/poster/attack_hand(mob/user)
@@ -157,14 +157,14 @@
 	var/stuff_on_wall = 0
 	for(var/obj/O in contents) //Let's see if it already has a poster on it or too much stuff
 		if(istype(O, /obj/structure/sign/poster))
-			to_chat(user, span_notice("Стена слишком загромождена, чтобы разместить постер!"))
+			balloon_alert(user, "нет места!")
 			return
 		stuff_on_wall++
 		if(stuff_on_wall >= 4)
-			to_chat(user, span_notice("Стена слишком загромождена, чтобы разместить постер!"))
+			balloon_alert(user, "нет места!")
 			return
 
-		to_chat(user, span_notice("Вы начинаете размещать постер на стене..."))//Looks like it's uncluttered enough. Place the poster.
+		balloon_alert(user, "размещение...") //Looks like it's uncluttered enough. Place the poster.
 
 	var/obj/structure/sign/poster/D = P.poster_structure
 
@@ -184,7 +184,7 @@
 			D.pixel_x = -32
 			D.pixel_y = 0
 		else
-			to_chat(user, span_notice("Вы не можете дотянуться до стены отсюда!"))
+			balloon_alert(user, "слишком далеко!")
 			return
 
 	P.transfer_fingerprints_to(D)
@@ -198,10 +198,10 @@
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
-			to_chat(user, span_notice("Вы размещаете постер."))
+			balloon_alert(user, "готово")
 			return
 
-	to_chat(user, span_notice("Постер падает!"))
+	balloon_alert(user, "постер упал!")
 	D.roll_and_drop(temp_loc, user)
 
 
@@ -364,7 +364,7 @@
 
 /obj/structure/sign/poster/contraband/c20r
 	name = "C-20r"
-	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от Скарборо Армс."
+	desc = "Постер, рекламирующий пистолет-пулемёт C-20r от \"Скарборо Армс\"."
 	icon_state = "poster24"
 
 /obj/structure/sign/poster/contraband/have_a_puff
@@ -399,7 +399,7 @@
 
 /obj/structure/sign/poster/contraband/cc64k_ad
 	name = "Реклама CC 64d"
-	desc = "Последний портативный компьютер от Комрад Тех с целыми 64 КБ оперативной памяти!"
+	desc = "Последний портативный компьютер от \"Комрад Тех\" с целыми 64 КБ оперативной памяти!"
 	icon_state = "poster31"
 
 /obj/structure/sign/poster/contraband/punch_shit
@@ -514,7 +514,7 @@
 
 /obj/structure/sign/poster/official/ian
 	name = "Иан"
-	desc = "Гав гав. Тяв."
+	desc = "Гав-гав. Тяв!"
 	icon_state = "poster8_legit"
 
 /obj/structure/sign/poster/official/obey
@@ -593,13 +593,13 @@
 	icon_state = "poster23_legit"
 
 /obj/structure/sign/poster/official/foam_force_ad
-	name = "Реклама Фоум Форс"
-	desc = "Фоум Форс: пеняй или будь пеной!"
+	name = "Реклама \"Пенная сила\""
+	desc = "Пенная сила: пеняй или будь пеной!"
 	icon_state = "poster24_legit"
 
 /obj/structure/sign/poster/official/cohiba_robusto_ad
 	name = "Реклама Коиба Робусто"
-	desc = "Коиба Робусто - стильные сигары."
+	desc = "Коиба Робусто – стильные сигары."
 	icon_state = "poster25_legit"
 
 /obj/structure/sign/poster/official/anniversary_vintage_reprint
@@ -629,7 +629,7 @@
 
 /obj/structure/sign/poster/official/twelve_gauge
 	name = "12 калибр"
-	desc = "Постер, восхваляющий превосходство патронов 12 калибра."
+	desc = "Постер, восхваляющий превосходство патронов калибра 12g."
 	icon_state = "poster31_legit"
 
 /obj/structure/sign/poster/official/high_class_martini
@@ -757,7 +757,7 @@
 
 /obj/structure/sign/poster/secret/lady
 	name = "Девушка-учёный"
-	desc = "Потрясающе выглядящая девушка в лабораторном халате. Вау, горячо!"
+	desc = "Потрясающе выглядящая девушка в лабораторном халате. Уфф, горяча!"
 	icon_state = "poster1_secret"
 
 /obj/structure/sign/poster/secret/Viper

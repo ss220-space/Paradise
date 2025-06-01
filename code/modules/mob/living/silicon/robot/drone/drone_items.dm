@@ -83,7 +83,7 @@
 				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
-				span_notice("[user] трясёт [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
+				span_notice("[user] тряс[pluralize_ru(user.gender,"ет","ут")] [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
 				span_notice("Вы трясёте [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)
@@ -227,7 +227,7 @@
 	if(gripped_item)
 		gripped_item.attack_self(user)
 	else
-		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] пуст."))
+		balloon_alert(user, "[declent_ru(NOMINATIVE)] пуст!")
 
 /obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
 	if(!gripped_item)
@@ -261,7 +261,7 @@
 	if(!gripped_item)
 		return
 	if(!silent)
-		to_chat(loc, span_warning("Вы выбросили [gripped_item]."))
+		balloon_alert(loc, "вы выбросили [gripped_item]!")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
@@ -299,7 +299,7 @@
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
 			. |= ATTACK_CHAIN_SUCCESS
-			to_chat(user, span_notice("Вы подобрали [I]."))
+			balloon_alert(user, "вы подобрали [I.declent_ru(ACCUSATIVE)]!")
 			I.forceMove(src)
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
@@ -307,7 +307,7 @@
 			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
 			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
-			to_chat(user, span_warning("Вы не можете взять [target]."))
+			balloon_alert(user, "вы не можете взять [target.declent_ru(ACCUSATIVE)]!")
 
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
@@ -379,9 +379,9 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, span_notice("Вы разворачиваете декомпилятор и забираете предметы с [T]."))
+		to_chat(user, span_notice("Вы разворачиваете декомпилятор и забираете предметы с [T.declent_ru(PREPOSITIONAL)]."))
 	else
-		to_chat(user, span_warning("На [T] ничего полезного для вас нет."))
+		to_chat(user, span_warning("На [T.declent_ru(PREPOSITIONAL)] ничего полезного для вас нет."))
 	return
 
 //PRETTIER TOOL LIST.
@@ -394,32 +394,32 @@
 	if(!module)
 		module = new /obj/item/robot_module/drone(src)
 
-	var/dat = {"<meta charset="UTF-8"><HEAD><TITLE>Модули дрона</TITLE><META HTTP-EQUIV='Refresh' CONTENT='10'></HEAD><BODY>\n"}
-	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Закрыть</A>
-	<BR>
-	<BR>
-	<B>Активированные модули</B>
-	<BR>
-	Модуль 1: [module_state_1 ? "<A HREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<A>" : "Нет модуля"]<BR>
-	Модуль 2: [module_state_2 ? "<A HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<A>" : "Нет модуля"]<BR>
-	Модуль 3: [module_state_3 ? "<A HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<A>" : "Нет модуля"]<BR>
-	<BR>
-	<B>Установленные модули</B><BR><BR>"}
+	var/dat = {"<meta charset="UTF-8"><head><title>Модули дрона</title><meta HTTP-EQUIV='Refresh' CONTENT='10'></head><body>\n"}
+	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Закрыть</a>
+	<br>
+	<br>
+	<b>Активированные модули</b>
+	<br>
+	Модуль 1: [module_state_1 ? "<aHREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
+	<br>
+	<b>Установленные модули</b><br><br>"}
 
 
-	var/tools = "<B>Инструменты и устройства</B><BR>"
-	var/resources = "<BR><B>Рекурсы</B><BR>"
+	var/tools = "<b>Инструменты и устройства</b><br>"
+	var/resources = "<br><b>Рекурсы</b><br>"
 
 	for(var/O in module.modules)
 
 		var/module_string = ""
 
 		if(!O)
-			module_string += text("<B>Ресурсы исчерпаны</B><BR>")
+			module_string += text("<b>Ресурсы исчерпаны</b><br>")
 		else if(activated(O))
-			module_string += text("[O]: <B>Активирован</B><BR>")
+			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += text("[O]: <A HREF=?src=[UID()];act=\ref[O]>Активировать</A><BR>")
+			module_string += text("[O]: <a HREF=?src=[UID()];act=\ref[O]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -430,11 +430,11 @@
 
 	if(emagged)
 		if(!module.emag)
-			dat += text("<B>Ресурсы исчерпаны</B><BR>")
+			dat += text("<b>Ресурсы исчерпаны</b><br>")
 		else if(activated(module.emag))
-			dat += text("[module.emag]: <B>Активирован</B><BR>")
+			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += text("[module.emag]: <A HREF=?src=[UID()];act=\ref[module.emag]>Активировать</A><BR>")
+			dat += text("[module.emag]: <a HREF=?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
 
 	dat += resources
 

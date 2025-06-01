@@ -10,7 +10,7 @@
 		mail_destination = 0
 		return
 
-	to_chat(src, span_notice("Вы настраиваете внутренний маячок, помечая себя для доставки в '[tag]'."))
+	to_chat(src, span_notice("Вы настраиваете внутренний маячок, помечая себя для доставки в \"[tag]\"."))
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.

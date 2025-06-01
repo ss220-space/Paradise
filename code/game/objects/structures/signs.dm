@@ -43,7 +43,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "Вы откручиваете табличку при помощи [I.declent_ru(INSTRUMENTAL)].")
+	to_chat(user, "Вы откручиваете табличку при помощи [I.declent_ru(GENITIVE)].")
 	var/obj/item/sign/S = new(src.loc)
 	S.name = name
 	S.desc = desc
@@ -96,7 +96,7 @@
 	sign.name = name
 	sign.desc = desc
 	sign.icon_state = sign_state
-	to_chat(user, span_notice("Вы прикрутили [sign.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENETIVE)]."))
+	to_chat(user, span_notice("Вы прикрутили [sign.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."))
 	qdel(src)
 	return TRUE
 
@@ -215,7 +215,7 @@
 
 /obj/structure/sign/goldenplaque
 	name = "награда \"Самый робастный мужчина\""
-	desc = "Робаст - это не действие или образ жизни, а состояние ума. Лишь те, чья воля крепка настолько, чтобы в час кризиса спасти друга от врага познали истинную суть робаста. Оставайтесь сильными, друзья."
+	desc = "Робаст – это не действие или образ жизни, а состояние ума. Лишь те, чья воля крепка настолько, чтобы в час кризиса спасти друга от врага познали истинную суть робаста. Оставайтесь сильными, друзья."
 	icon_state = "goldenplaque"
 
 /obj/structure/sign/kiddieplaque
@@ -283,7 +283,7 @@
 	blocks_emissive = FALSE
 
 /obj/structure/sign/bathhouse
-	name = " знак бани"
+	name = "знак бани"
 	desc = "Старая но рабочая табличка. Здесь изображён банный инвентарь."
 	icon_state = "banya"
 
