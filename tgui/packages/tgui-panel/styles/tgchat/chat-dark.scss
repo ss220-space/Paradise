@@ -1078,10 +1078,9 @@ span.body .coderesponses {
 
 .boxed_message {
   background: #1b1c1e;
-  border: 8px solid #a3b9d940;
-  border-left: 1.25em solid #a3b9d940;
-  margin: 0.75em 0;
-  padding: 0.75em 1.25em;
+  border: 1px solid #a3b9d940;
+  margin: 0.5em;
+  padding: 0.5em 0.75em;
   border-radius: 0.5em;
 }
 
@@ -1114,6 +1113,9 @@ span.body .coderesponses {
   text-align: left;
 }
 
+.boxed_message.thick_border {
+  border-width: thick;
+}
 /* GASES */
 
 .oxygen {
