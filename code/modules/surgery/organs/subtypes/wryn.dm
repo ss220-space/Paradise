@@ -61,8 +61,8 @@
 	item_state = "waxsac"
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 	slot = INTERNAL_ORGAN_WAX_GLANDS
-	var/datum/action/innate/build_wax/build_wax = new
-	var/datum/action/innate/toggle_producing/toggle_producing = new
+	var/datum/action/innate/wryn/build_wax/build_wax = new
+	var/datum/action/innate/wryn/toggle_producing/toggle_producing = new
 	var/wax = 25
 	var/producing = FALSE
 
@@ -85,18 +85,20 @@
 	toggle_producing.Remove(M)
 	. = ..()
 
-/datum/action/innate/build_wax
+/datum/action/innate/wryn/build_wax
 	name = "Строительство из воска"
 	desc = "Выделите воск для строительства"
-	button_icon_state = "wax_wall"
+	button_icon_state = "build"
 
-/datum/action/innate/build_wax/Activate()
+/datum/action/innate/wryn/build_wax/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
 	var/static/list/actions = list()
-	if(isnull(actions))
-		for(var/name in GLOB.wryn_structures)
-			var/datum/wryn_building/name = GLOB.wryn_structures[name]
-			actions[name] = name.icon_state
+
+	if(!isnull(actions))
+		continue
+	for(var/name in GLOB.wryn_structures)
+		var/datum/wryn_building/datum = GLOB.wryn_structures[name]
+		actions[name] = datum.icon_state
 		return actions
 
 	var/choosen_type = show_radial_menu(host, host, actions, radius = 40)
@@ -148,9 +150,9 @@
 				host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё дверь из сот."))
 				new /obj/structure/alien/resin/door/wax(host.loc)*/
 
-/datum/action/innate/toggle_producing
+/datum/action/innate/wryn/toggle_producing
 	name = "Переключить секрецию воска"
-	button_icon_state = "wrynglands"
+	button_icon_state = "glands"
 
 /datum/action/innate/toggle_producing/Activate()
 	var/mob/living/carbon/human/host = owner

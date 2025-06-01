@@ -86,14 +86,14 @@
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
+	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions
 	if(!wryn_sting)
 		wryn_sting = new
 		wryn_sting.Grant(H)
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
+	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions
 	wryn_sting?.Remove(H)
 
 /datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
@@ -105,16 +105,23 @@
 
 /* Wryn Sting Action Begin */
 
+/datum/action/innate/wryn
+	name = "wryn action"
+	button_icon = 'icons/mob/actions/actions_wryn.dmi'
+	background_icon_state = "bg_wryn"
+	icon_icon = 'icons/mob/actions/actions_wryn.dmi'
+
+
 //Define the Sting Action
-/datum/action/innate/wryn_sting
+/datum/action/innate/wryn/wryn_sting
 	name = "Жало врина"
 	desc = "Подготовка жала к ужаливанию."
-	button_icon_state = "wryn_sting_off"		//Default Button State
+	button_icon_state = "sting_off"		//Default Button State
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/button_on = FALSE
 
 //What happens when you click the Button?
-/datum/action/innate/wryn_sting/Trigger(left_click = TRUE)
+/datum/action/innate/wryn/wryn_sting/Trigger(left_click = TRUE)
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
@@ -134,19 +141,19 @@
 		select_target(user)
 
 //Update the Button Icon
-/datum/action/innate/wryn_sting/UpdateButtonIcon()
+/datum/action/innate/wryn/wryn_sting/UpdateButtonIcon()
 	if(button_on)
-		button_icon_state = "wryn_sting_on"
-		name = "Wryn Stinger \[READY\]"
+		button_icon_state = "sting_on"
+		name = "Жало врина \[ГОТОВО\]"
 		button.name = name
 	else
-		button_icon_state = "wryn_sting_off"
-		name = "Wryn Stinger"
+		button_icon_state = "sting_off"
+		name = "Жало врина"
 		button.name = name
 	..()
 
 //Select a Target from a List
-/datum/action/innate/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
+/datum/action/innate/wryn/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M
@@ -163,7 +170,7 @@
 	return
 
 //What does the Wryn Sting do?
-/datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/action/innate/wryn/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
 		user.balloon_alert(user, "слишком далеко от цели!")
