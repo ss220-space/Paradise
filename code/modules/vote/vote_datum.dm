@@ -2,13 +2,13 @@
 
 /datum/vote
 	/// Person who started the vote
-	var/initiator = "the server"
+	var/initiator = "Сервером"
 	/// world.time the vote started at
 	var/started_time
 	/// The question being asked
 	var/question
 	/// Vote type text, for showing in UIs and stuff
-	var/vote_type_text = "unset"
+	var/vote_type_text = "неназванное"
 	/// Do we want to show the vote counts as it goes
 	var/show_counts = FALSE
 	/// Vote result type. This determines how a winner is picked
@@ -43,10 +43,10 @@
 		generate_choices()
 
 /datum/vote/proc/start()
-	var/text = "[capitalize(vote_type_text)] vote started by [initiator]."
+	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]."
 	if(is_custom)
 		vote_type_text = "custom"
-		text += "\n[question]"
+		text += "[question]"
 		if(usr)
 			log_admin("[capitalize(vote_type_text)] ([question]) vote started by [key_name(usr)].")
 
@@ -70,7 +70,7 @@
 	switch(vote_result_type)
 		if(VOTE_RESULT_TYPE_MAJORITY)
 			if(!length(voted))
-				to_chat(world, "<span class='interface'>No votes were cast. Do you all hate democracy?!</span>") // shame them
+				to_chat(world, span_interface("Не было подано ни одного голоса. Вы все так ненавидите демократию?!")) // shame them
 				return null
 
 			var/list/results = list()
@@ -97,33 +97,32 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, "<span class='info'><code>[res]</code> - [results[res]] vote\s</span>")
+					to_chat(world, span_info("[res] – [results[res]] [declension_ru(results,"голос","голоса","голосов")]"))
 				else
 					// Make it normal
-					to_chat(world, "<span class='interface'><code>[res]</code> - [results[res]] vote\s</span>")
+					to_chat(world, span_interface("[res] – [results[res]] [declension_ru(results,"голос","голоса","голосов")]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
-				to_chat(world, "<span class='interface'><b>Its a tie between [english_list(winning_options)]. Picking <code>[random_dictator]</code> at random.</b></span>") // shame them
+				to_chat(world, span_interface("<b>Ничья между [russian_list(winning_options)]. Выбираем [random_dictator] наугад.</b>")) // shame them
 				return random_dictator
 
 			// If we got here there must only be one thing in the list
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, "<span class='interface'><b><code>[res]</code> won the vote.</b></span>")
+				to_chat(world, span_interface("<b>Победитель голосования – [res].</b>"))
 				return res
 
-			to_chat(world, "<span class='interface'>The winner of the vote ([sanitize(res)]) isnt a valid choice? What the heck?</span>")
+			to_chat(world, span_interface("Победитель голосования – ([sanitize(res)]) не может считаться действительным выбором? Что за бред?!"))
 			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(res)], choices were [json_encode(choices)]")
 			return null
 
 
 
 /datum/vote/proc/announce(start_text)
-	to_chat(world, {"<font color='purple'><b>[start_text]</b>
-		<a href='byond://?src=[SSvote.UID()];vote=open'>Click here or type <code>Vote</code> to place your vote.</a>
-		You have [CONFIG_GET(number/vote_period) / 10] seconds to vote.</font>"})
+	to_chat(world, chat_box_vote(span_fontcolor_purple("<b>[start_text]</b> <a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь или введите Vote, чтобы отдать свой голос.</a>\
+					У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать.")))
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 
@@ -210,7 +209,7 @@
 				message_admins("<span class='boldannounceooc'>\[EXPLOIT]</span> User [key_name_admin(usr)] spoofed a vote in the vote panel!")
 		if("cancel")
 			if(check_rights(R_ADMIN))
-				to_chat(world, "<b>The vote has been canceled.</b>")
+				to_chat(world, "<b>Голосование было отменено.</b>")
 				log_and_message_admins("Canceled a vote")
 				qdel(src)
 

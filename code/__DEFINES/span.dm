@@ -182,4 +182,7 @@
 #define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
 #define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
 #define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
+
+// Font color spans
 #define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")
+#define span_fontcolor_purple(str) ("<span style='color: purple;'>" + str + "</span>")
