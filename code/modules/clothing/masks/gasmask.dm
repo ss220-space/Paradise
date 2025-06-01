@@ -349,7 +349,7 @@
 							"Злобная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "angrymask"),
 							"Равнодушная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cluelessmask"),
 							"Маска Трагика" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "morutopia"),
-							"сексуальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexymime"))
+							"Сексуальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexymime"))
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
