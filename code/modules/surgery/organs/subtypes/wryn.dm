@@ -94,14 +94,15 @@
 	var/mob/living/carbon/human/wryn/host = owner
 	var/static/list/actions = list()
 
-	if(!isnull(actions))
-		continue
-	for(var/name in GLOB.wryn_structures)
-		var/datum/wryn_building/datum = GLOB.wryn_structures[name]
-		actions[name] = datum.icon_state
-		return actions
+	if(!LAZYLEN(actions))
+		for(var/name in GLOB.wryn_structures)
+			var/datum/wryn_building/datum = GLOB.wryn_structures[name]
+			actions[name] = list()
+			actions[name] += datum.icon
+			actions[name] += datum.icon_state
+			return actions
 
-	var/choosen_type = show_radial_menu(host, host, actions, radius = 40)
+	var/choosen_type = show_radial_menu(host, host, actions[name], radius = 40)
 	if(!choosen_type)
 		return
 
@@ -154,7 +155,7 @@
 	name = "Переключить секрецию воска"
 	button_icon_state = "glands"
 
-/datum/action/innate/toggle_producing/Activate()
+/datum/action/innate/wryn/toggle_producing/Activate()
 	var/mob/living/carbon/human/host = owner
 	host.toggle_producing()
 

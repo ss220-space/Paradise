@@ -23,7 +23,7 @@
 	//alt heads
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
-	init_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
+	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
 
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
