@@ -218,7 +218,7 @@
 	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
-	var/static/list/mask_type = list("Истинная Форма" = /obj/item/clothing/mask/gas/clown_hat,
+	var/static/list/mask_type = list("Истинная форма" = /obj/item/clothing/mask/gas/clown_hat,
 							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
 							"Радужная Форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
