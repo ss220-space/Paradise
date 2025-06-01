@@ -222,7 +222,7 @@
 							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
 							"Радужная Форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
-	var/static/list/mask_icons = list("Истинная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
+	var/static/list/mask_icons = list("Истинная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
 							"Женственная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
 							"Безумная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
 							"Радужная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
