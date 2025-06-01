@@ -218,11 +218,11 @@
 	dog_fashion = /datum/dog_fashion/head/clown
 
 /obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
-	var/list/mask_type = list("Истинная Форма" = /obj/item/clothing/mask/gas/clown_hat,
+	var/static/list/mask_type = list("Истинная Форма" = /obj/item/clothing/mask/gas/clown_hat,
 							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
 							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
 							"Радужная Форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
-	var/list/mask_icons = list("Истинная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
+	var/static/list/mask_icons = list("Истинная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
 							"Женственная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
 							"Безумная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
 							"Радужная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
@@ -338,13 +338,13 @@
 	resistance_flags = FLAMMABLE
 
 /obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
-	var/list/mask_type = list("Счастливая маска" = /obj/item/clothing/mask/gas/mime,
+	var/static/list/mask_type = list("Счастливая маска" = /obj/item/clothing/mask/gas/mime,
 							"Печальная маска" = /obj/item/clothing/mask/gas/mime/sad,
 							"Злобная маска" = /obj/item/clothing/mask/gas/mime/angry,
 							"Равнодушная маска" = /obj/item/clothing/mask/gas/mime/clueless,
 							"Маска Трагика" = /obj/item/clothing/mask/gas/mime/morutopia,
 							"сексуальная маска" = /obj/item/clothing/mask/gas/mime/sexy)
-	var/list/mask_icons = list("Счастливая маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "happymask"),
+	var/static/list/mask_icons = list("Счастливая маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "happymask"),
 							"Печальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sadmask"),
 							"Злобная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "angrymask"),
 							"Равнодушная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cluelessmask"),
@@ -363,7 +363,7 @@
 	if(user.wear_mask)
 		user.drop_item_ground(weared_mask)
 	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
-	balloon_alert(user, "внешний вид изменён!")
+	user.balloon_alert(user, "внешний вид изменён!")
 	return TRUE
 
 /obj/item/clothing/mask/gas/mime/attack_self(mob/user)
