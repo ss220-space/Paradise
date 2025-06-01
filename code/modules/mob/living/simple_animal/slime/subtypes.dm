@@ -83,7 +83,7 @@
 	health = 400
 	damage = 10
 	attacked = 5
-	stat_text = "обильно reproduce"
+	stat_text = "обильно размножиться"
 	stat_text_evolve = "эволюционировать в слаймолюда"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN
 	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD_OLD

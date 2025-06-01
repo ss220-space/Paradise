@@ -389,7 +389,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		H.remove_hud_from(src)
 
 /mob/dead/observer/verb/set_dnr()
-	set name = "Выставить статус DNR"
+	set name = "Выставить статус НР"
 	set category = "Призрак"
 	set desc = "Предотвращает возрождение вашего персонажа."
 
@@ -397,7 +397,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(!can_reenter_corpse)
-		to_chat(src, span_warning("У вас уже стоит DNR!"))
+		to_chat(src, span_warning("У вас уже стоит статус НР!"))
 		return
 
 	if(!mind || QDELETED(mind.current))
@@ -889,7 +889,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	GLOB.observer_default_invisibility = amount
 
 /mob/dead/observer/proc/open_spawners_menu()
-	set name = "Меню ролей для призраков"
+	set name = "Роли для призраков"
 	set desc = "See all currently available ghost spawners"
 	set category = "Призрак"
 
@@ -897,7 +897,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	menu.ui_interact(src)
 
 /mob/dead/observer/proc/open_minigames_menu()
-	set name = "Меню мини-игр"
+	set name = "Мини-игры"
 	set desc = "See all currently available mini games"
 	set category = "Призрак"
 

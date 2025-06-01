@@ -132,7 +132,7 @@
 
 /obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
 	set category = "Подсистемы"
-	set name = "Переключить мигание камеры"
+	set name = "Переключить вспышку камеры"
 	set desc = "Toggle camera flashing"
 	set src in usr
 
@@ -165,7 +165,7 @@
 
 /obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
 	set category = "Подсистемы"
-	set name = "Переключить мигание камеры"
+	set name = "Переключить вспышку камеры"
 	set desc = "Toggle camera flash"
 	set src in usr
 

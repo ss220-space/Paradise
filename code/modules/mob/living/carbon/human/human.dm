@@ -244,7 +244,7 @@
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
 			status_tab_data[++status_tab_data.len] = list("Поглощено крови:", "[vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Запас доступной кровь:", "[vamp.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Запас доступной крови:", "[vamp.bloodusable]")
 
 		if(isclocker(mind.current))
 			status_tab_data[++status_tab_data.len] = list("Заряд:", "[GLOB.clockwork_power]")

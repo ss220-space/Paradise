@@ -441,7 +441,7 @@
 
 
 /obj/item/tape/verb/wipe()
-	set name = "Стереть кассету"
+	set name = "Стереть плёнку"
 	set category = "Объекты"
 	set src in view(1)
 

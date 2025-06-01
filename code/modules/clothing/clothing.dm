@@ -500,7 +500,7 @@ BLIND     // can't see anything
 				H.update_suit_sensors()
 
 /obj/item/clothing/under/verb/toggle()
-	set name = "Переключить датчиков костюма"
+	set name = "Переключить датчики костюма"
 	set category = "Объекты"
 	set src in usr
 	set_sensors(usr)

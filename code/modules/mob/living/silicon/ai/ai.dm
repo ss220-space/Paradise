@@ -306,7 +306,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
 		var/area_name = A ? sanitize(A.name) : "Неизвестно"
-		status_tab_data[++status_tab_data.len] = list("[R.name]:", "Прочность: [R.health]% | Заряд: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Пусто"] | \
+		status_tab_data[++status_tab_data.len] = list("[R.name]:", "Прочность: [R.health]% | Заряд: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Батарея не обнаружена"] | \
 		Модуль: [R.designation] | Локация: [area_name] | Состояние: [robot_status]")
 	return status_tab_data
 
