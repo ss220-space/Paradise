@@ -397,7 +397,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 		return
 
 	if(!can_reenter_corpse)
-		to_chat(src, span_warning("У вас уже стоит статус НР!"))
+		to_chat(src, span_warning("Вы уже запретили реанимировать себя!"))
 		return
 
 	if(!mind || QDELETED(mind.current))
