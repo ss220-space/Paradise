@@ -69,13 +69,13 @@
 
 		topiclimiter[MINUTE_COUNT] += 1
 		if (topiclimiter[MINUTE_COUNT] > mtl)
-			var/msg = "Your previous action was ignored because you've done too many in a minute."
+			var/msg = "Ваше предыдущее действие было проигнорировано, потому что вы совершили слишком много действий за минуту."
 			if (minute != topiclimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				topiclimiter[ADMINSWARNED_AT] = minute
-				msg += " Administrators have been informed."
+				msg += " Администраторы были уведомлены."
 				add_game_logs("has hit the per-minute topic limit of [mtl] topic calls in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute topic limit of [mtl] topic calls in a given game minute")
-			to_chat(src, "<span class='danger'>[msg]</span>", confidential=TRUE)
+			to_chat(src, span_danger("[msg]"), confidential=TRUE)
 			return
 
 	var/stl = CONFIG_GET(number/second_topic_limit)
@@ -89,7 +89,7 @@
 
 		topiclimiter[SECOND_COUNT] += 1
 		if (topiclimiter[SECOND_COUNT] > stl)
-			to_chat(src, "<span class='danger'>Your previous action was ignored because you've done too many in a second</span>", confidential=TRUE)
+			to_chat(src, span_danger("Ваше предыдущее действие было проигнорировано, потому что вы совершили слишком много действий за секунду."), confidential=TRUE)
 			return
 
 	//search the href for script injection
@@ -108,10 +108,10 @@
 
 	if(href_list["discord_msg"])
 		if(!holder && received_discord_pm < world.time - 6000) // Worse they can do is spam discord for 10 minutes
-			to_chat(usr, "<span class='warning'>You are no longer able to use this, it's been more then 10 minutes since an admin on Discord has responded to you</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Вы больше не можете воспользоваться этой функцией, так как с момента ответа администратора Discord прошло более 10 минут."), confidential=TRUE)
 			return
 		if(check_mute(ckey, MUTE_ADMINHELP))
-			to_chat(usr, "<span class='warning'>You cannot use this as your client has been muted from sending messages to the admins on Discord</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Вы не можете воспользоваться этой функцией, поскольку ваш клиент был отключён от возможности отправлять сообщения администраторам в Discord."), confidential=TRUE)
 			return
 		cmd_admin_discord_pm()
 		return
@@ -129,7 +129,7 @@
 
 	if(href_list["ssdwarning"])
 		ssd_warning_acknowledged = TRUE
-		to_chat(src, span_notice("SSD warning acknowledged."), confidential=TRUE)
+		to_chat(src, span_notice("Предупреждение об SSD подтверждено."), confidential=TRUE)
 		return	//Otherwise, we will get 30+ messages of acknowledgement.
 	if(href_list["link_forum_account"])
 		link_forum_account()
@@ -159,7 +159,7 @@
 
 	//byond bug ID:2256651
 	if(asset_cache_job && (asset_cache_job in completed_asset_jobs))
-		to_chat(src, "<span class='danger'> An error has been detected in how your client is receiving resources. Attempting to correct.... (If you keep seeing these messages you might want to close byond and reconnect)</span>", confidential=TRUE)
+		to_chat(src, span_danger(" Обнаружена ошибка в получении ресурсов вашим клиентом. Попытка исправления.... (Если вы продолжаете видеть эти сообщения, возможно, вам стоит закрыть Byond и подключиться заново.)"), confidential=TRUE)
 		src << browse("...", "window=asset_cache_browser")
 		return
 
@@ -185,7 +185,7 @@
 
 /client/proc/is_content_unlocked()
 	if(!prefs.unlock_content)
-		to_chat(src, "Become a BYOND member to access member-perks and features, as well as support the engine that makes this game possible. <a href='http://www.byond.com/membership'>Click here to find out more</a>.", confidential=TRUE)
+		to_chat(src, "Станьте участником BYOND, чтобы получить доступ к преимуществам и возможностям, а также поддержать движок, на котором работает эта игра. <a href='http://www.byond.com/membership'>Нажмите здесь, чтобы узнать больше.</a>.", confidential=TRUE)
 		return 0
 	return 1
 
@@ -197,7 +197,7 @@
 	if(throttle)
 		if((last_message_time + throttle > world.time) && !check_rights(R_ADMIN, 0))
 			var/wait_time = round(((last_message_time + throttle) - world.time) / 10, 1)
-			to_chat(src, "<span class='danger'>You are sending messages to quickly. Please wait [wait_time] [wait_time == 1 ? "second" : "seconds"] before sending another message.</span>", confidential=TRUE)
+			to_chat(src, span_danger("Вы слишком быстро отправляете сообщения. Пожалуйста, подождите [wait_time] секунд[declension_ru(wait_time, "у", "ы", "")] перед отправкой нового сообщения."), confidential=TRUE)
 			return 1
 		last_message_time = world.time
 	if(CONFIG_GET(flag/automute_on) && !check_rights(R_ADMIN, 0) && last_message == message)
@@ -205,11 +205,11 @@
 		if(SEND_SIGNAL(mob, COMSIG_MOB_AUTOMUTE_CHECK, src, last_message, mute_type) & WAIVE_AUTOMUTE_CHECK)
 			return FALSE
 		if(last_message_count >= SPAM_TRIGGER_AUTOMUTE)
-			to_chat(src, "<span class='danger'>You have exceeded the spam filter limit for identical messages. An auto-mute was applied.</span>", confidential=TRUE)
+			to_chat(src, span_danger("Вы достигли предела допустимого количества одинаковых сообщений, который был установлен спам-фильтром. Система автоматически отключила вашу отправку."), confidential=TRUE)
 			cmd_admin_mute(mob, mute_type, 1)
 			return 1
 		if(last_message_count >= SPAM_TRIGGER_WARNING)
-			to_chat(src, "<span class='danger'>You are nearing the spam filter limit for identical messages.</span>", confidential=TRUE)
+			to_chat(src, span_danger("Вы приближаетесь к пределу, который устанавливает спам-фильтр для одинаковых сообщений."), confidential=TRUE)
 			return 0
 	else
 		last_message = message
@@ -219,7 +219,7 @@
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
-		to_chat(src, "<font color='red'>Error: AllowUpload(): File Upload too large. Upload Limit: [UPLOAD_LIMIT/1024]KiB.</font>", confidential=TRUE)
+		to_chat(src, span_fontcolor_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential=TRUE)
 		return 0
 /*	//Don't need this at the moment. But it's here if it's needed later.
 	//Helps prevent multiple files being uploaded at once. Or right after eachother.
@@ -263,7 +263,7 @@
 		show_update_prompt = TRUE
 	// Actually sent to client much later, so it appears after MOTD.
 
-	to_chat(src, "<span class='warning'>If the title screen is black, resources are still downloading. Please be patient until the title screen appears.</span>", confidential=TRUE)
+	to_chat(src, span_warning("Если вы видите чёрный экран, это означает, что процесс загрузки ещё продолжается. Пожалуйста, подождите немного, пока не появится начальный экран."), confidential=TRUE)
 
 	GLOB.directory[ckey] = src
 	//Admin Authorisation
@@ -356,14 +356,16 @@
 	send_resources()
 
 	if(GLOB.changelog_hash && prefs.lastchangelog != GLOB.changelog_hash) //bolds the changelog button on the interface so we know there are updates.
-		to_chat(src, span_info("You have unread updates in the changelog."), confidential=TRUE)
+		to_chat(src, span_info("У вас есть непрочитанные сообщения в Журнале обновлений."), confidential=TRUE)
 		winset(src, "infobuttons.changelog", "font-style=bold")
 
+	// Karma is disabled
+	/*
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
 		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
 	else
 		to_chat(src,"<span class='notice'>You have enabled karma gains.")
-
+	*/
 
 	if(show_update_prompt)
 		show_update_notice()
@@ -371,13 +373,13 @@
 	check_forum_link()
 
 	if(GLOB.custom_event_msg && GLOB.custom_event_msg != "")
-		to_chat(src, "<h1 class='alert'>Custom Event</h1>")
-		to_chat(src, "<h2 class='alert'>A custom event is taking place. OOC Info:</h2>")
-		to_chat(src, "<span class='alert'>[html_encode(GLOB.custom_event_msg)]</span>")
+		to_chat(src, span_alert("<h1>Специальный ивент</h1>"))
+		to_chat(src, span_alert("<h1>Происходит нестандартный ивент. OOC-информация:</h1>"))
+		to_chat(src, span_alert("[html_encode(GLOB.custom_event_msg)]"))
 		to_chat(src, "<br>")
 
 	if(!winexists(src, "asset_cache_browser")) // The client is using a custom skin, tell them.
-		to_chat(src, "<span class='warning'>Unable to access asset cache browser, if you are using a custom skin file, please allow DS to download the updated version, if you are not, then make a bug report. This is not a critical issue but can cause issues with resource downloading, as it is impossible to know when extra resources arrived to you.</span>", confidential=TRUE)
+		to_chat(src, span_warning("Невозможно получить доступ к кэшу в браузере, если вы используете пользовательские файлы скинов, пожалуйста, позвольте DS загрузить обновленную версию, если нет, то сделайте сообщение об ошибке. Это не критичная проблема, но может вызвать проблемы с загрузкой ресурсов, так как невозможно узнать, когда к вам поступили дополнительные ресурсы."), confidential=TRUE) // I don't know what this is about. Let it be the translation.
 
 	update_ambience_pref()
 
@@ -588,7 +590,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins("<font color='red'><b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]</font>")
+		message_admins(span_fontcolor_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 
@@ -709,14 +711,14 @@
 		var/detailsurl = CONFIG_GET(string/ipintel_detailsurl) ? "(<a href='[CONFIG_GET(string/ipintel_detailsurl)][address]'>IP Info</a>)" : ""
 		if(CONFIG_GET(flag/ipintel_whitelist))
 			spawn(40) // This is necessary because without it, they won't see the message, and addtimer cannot be used because the timer system may not have initialized yet
-				message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]</span>")
-				var/blockmsg = "<b>Error: proxy/VPN detected. Proxy/VPN use is not allowed here. Deactivate it before you reconnect.</b>"
+				message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] was rejected. [detailsurl]"))
+				var/blockmsg = "<b>Ошибка: обнаружен прокси-сервер или VPN. Использование прокси-сервера или VPN не разрешено. Пожалуйста, отключите их перед повторным подключением.</b>"
 				if(CONFIG_GET(string/banappeals))
-					blockmsg += "\nIf you are not actually using a proxy/VPN, or have no choice but to use one, request whitelisting at: [CONFIG_GET(string/banappeals)]"
+					blockmsg += "Если вы не используете прокси-сервер или VPN, или у вас нет другого выбора, кроме как использовать их, пожалуйста, запросите белый список: [CONFIG_GET(string/banappeals)]"
 				to_chat(src, blockmsg, confidential=TRUE)
 				qdel(src)
 		else
-			message_admins("<span class='adminnotice'>IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]</span>")
+			message_admins(span_adminnotice("IPIntel: [key_name_admin(src)] on IP [address] is likely to be using a Proxy/VPN. [detailsurl]"))
 
 
 /client/proc/check_forum_link()
@@ -842,7 +844,7 @@
 	else
 		if (!topic || !topic["token"] || !tokens[ckey] || topic["token"] != tokens[ckey])
 			if (!cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] appears to have attempted to spoof a cid randomizer check.</span>")
+				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] appears to have attempted to spoof a cid randomizer check."))
 				cidcheck_spoofckeys[ckey] = TRUE
 			cidcheck[ckey] = computer_id
 			tokens[ckey] = cid_check_reconnect()
@@ -855,11 +857,11 @@
 			// Change detected, they are randomizing
 			cidcheck -= ckey	// To allow them to try again after removing CID randomization
 
-			to_chat(src, "<span class='userdanger'>Connection Error:</span>", confidential=TRUE)
-			to_chat(src, "<span class='danger'>Invalid ComputerID(spoofed). Please remove the ComputerID spoofer from your BYOND installation and try again.</span>", confidential=TRUE)
+			to_chat(src, span_userdanger("Ошибка соединения:"), confidential=TRUE)
+			to_chat(src, span_danger("Неверный ComputerID (поддельный). Пожалуйста, удалите спуфер ComputerID из вашей установки BYOND и попробуйте снова."), confidential=TRUE)
 
 			if(!cidcheck_failedckeys[ckey])
-				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected.</span>")
+				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been detected as using a CID randomizer. Connection rejected."))
 				SSdiscord.send2discord_simple_noadmins("**\[Warning]** [key_name(src)] has been detected as using a CID randomizer. Connection rejected.")
 				cidcheck_failedckeys[ckey] = TRUE
 				note_randomizer_user()
@@ -872,11 +874,11 @@
 			// don't shoot, I'm innocent
 			if(cidcheck_failedckeys[ckey])
 				// Atonement
-				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer</span>")
+				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after showing they removed their cid randomizer"))
 				SSdiscord.send2discord_simple_noadmins("**\[Info]** [key_name(src)] has been allowed to connect after showing they removed their cid randomizer.")
 				cidcheck_failedckeys -= ckey
 			if (cidcheck_spoofckeys[ckey])
-				message_admins("<span class='adminnotice'>[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time</span>")
+				message_admins(span_adminnotice("[ADMIN_LOOKUP(src)] has been allowed to connect after appearing to have attempted to spoof a cid randomizer check because it <i>appears</i> they aren't spoofing one this time"))
 				cidcheck_spoofckeys -= ckey
 			cidcheck -= ckey
 
@@ -1011,10 +1013,10 @@
 		clicklimiter[MINUTE_COUNT] += 1
 
 		if(clicklimiter[MINUTE_COUNT] > mcl)
-			var/msg = "Your previous click was ignored because you've done too many in a minute."
+			var/msg = "Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за минуту."
 			if(minute != clicklimiter[ADMINSWARNED_AT]) //only one admin message per-minute. (if they spam the admins can just boot/ban them)
 				clicklimiter[ADMINSWARNED_AT] = minute
-				msg += " Administrators have been informed."
+				msg += " Администраторы были уведомлены."
 				add_game_logs("hit the per-minute click limit of [mcl] clicks in a given game minute", src)
 				message_admins("[ADMIN_LOOKUPFLW(usr)] Has hit the per-minute click limit of [mcl] clicks in a given game minute")
 			to_chat(src, span_danger("[msg]"), confidential=TRUE)
@@ -1033,7 +1035,7 @@
 		clicklimiter[SECOND_COUNT] += 1
 
 		if(clicklimiter[SECOND_COUNT] > scl)
-			to_chat(src, span_danger("Your previous click was ignored because you've done too many in a second"), confidential=TRUE)
+			to_chat(src, span_danger("Ваш предыдущий клик был проигнорирован, потому что вы сделали слишком много кликов за секунду."), confidential=TRUE)
 			return
 
 	//check if the server is overloaded and if it is then queue up the click for next tick
@@ -1074,7 +1076,7 @@
 		return FALSE
 	if(M && M.player_logged < SSD_WARNING_TIMER)
 		return FALSE
-	to_chat(src, "Are you taking this person to cryo or giving them medical treatment? If you are, <a href='byond://?src=[UID()];ssdwarning=accepted'>confirm that</a> and proceed. Interacting with SSD players in other ways is against server rules unless you've ahelped first for permission.", confidential=TRUE)
+	to_chat(src, "Вы отправляете этого человека в криохранилище или оказываете ему медицинскую помощь? Если это так, то <a href='byond://?src=[UID()];ssdwarning=accepted'>подтвердите это</a> и продолжайте. Взаимодействие с игроками SSD в других случаях противоречит правилам сервера, если вы не спросили разрешения у администрации.", confidential=TRUE)
 	return TRUE
 
 #undef SSD_WARNING_TIMER
@@ -1224,18 +1226,18 @@
 	if(prefs)
 		prefs.load_preferences(usr)
 	if(prefs && prefs.discord_id && length(prefs.discord_id) < 32)
-		to_chat(usr, chat_box_red("<span class='darkmblue'>Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"), confidential=TRUE)
+		to_chat(usr, chat_box_red(span_darkmblue("Аккаунт Discord уже привязан!<br>Чтобы отвязать используйте команду [span_boldannounceooc("!отвязать_аккаунт")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
 		return
 	var/token = md5("[world.time+rand(1000,1000000)]")
 	if(SSdbcore.IsConnected())
 		var/datum/db_query/query_update_token = SSdbcore.NewQuery("UPDATE [format_table_name("player")] SET discord_id=:token WHERE ckey =:ckey", list("token" = token, "ckey" = ckey))
 		if(!query_update_token.warn_execute())
-			to_chat(usr, "<span class='warning'>Ошибка записи токена в БД! Обратитесь к администрации.</span>", confidential=TRUE)
+			to_chat(usr, span_warning("Ошибка записи токена в БД! Обратитесь к администрации."), confidential=TRUE)
 			log_debug("link_discord_account: failed db update discord_id for ckey [ckey]")
 			qdel(query_update_token)
 			return
 		qdel(query_update_token)
-		to_chat(usr, chat_box_notice("<span class='darkmblue'>Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!</span>"), confidential=TRUE)
+		to_chat(usr, chat_box_notice(span_darkmblue("Для завершения привязки используйте команду<br>[span_boldannounceooc("!привязать_аккаунт [token]")]<br>В канале <b>#дом-бота</b> в Discord-сообществе!")), confidential=TRUE)
 		if(prefs)
 			prefs.load_preferences(usr)
 
@@ -1254,7 +1256,7 @@
 			keysend_tripped = TRUE
 			next_keysend_trip_reset = world.time + (2 SECONDS)
 		else
-			to_chat(usr, "<span class='warning'><big><b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b></big></span>", confidential=TRUE)
+			to_chat(usr, span_warning(span_big("<b>Вы были кикнуты из игры за спам. Пожалуйста постарайтесь не делать этого в следующий раз.</b>")), confidential=TRUE)
 			log_admin("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			message_admins("Client [ckey] was just autokicked for flooding Say/Emote sends; likely abuse but potentially lagspike.")
 			qdel(src)
@@ -1480,7 +1482,7 @@
 /client/proc/check_panel_loaded()
 	if(stat_panel.is_ready())
 		return
-	to_chat(src, "<span class='userdanger'>Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel </span>", confidential=TRUE)
+	to_chat(src, span_userdanger("Statpanel failed to load, click <a href='byond://?src=[UID()];reload_statbrowser=1'>here</a> to reload the panel "), confidential=TRUE)
 
 /**
  * Handles incoming messages from the stat-panel TGUI.
