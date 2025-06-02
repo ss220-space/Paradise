@@ -146,6 +146,9 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 				return
 	. = ..()
 
+/obj/structure/clockwork/functional/heart/Destroy(force)
+	QDEL_LIST(fillers)
+	. = ..()
 
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
@@ -165,7 +168,6 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 	icon = 'icons/effects/blood.dmi'
 	icon_state =  "thisisfuckingstupid"
 	alpha = 1
-	mouse_drag_pointer = MOUSE_DROP_POINTER
 
 /obj/structure/heart_filler/Destroy()
 	parent = null
@@ -180,144 +182,3 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 /obj/structure/heart_filler/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 
-/obj/structure/heart_filler/MouseDrop_T(atom/movable/dropping, mob/user, params)
-	parent.MouseDrop_T(dropping, user, params)
-
-/obj/structure/heart_filler/attackby(obj/item/I, mob/user, params)
-	parent.attackby(I, user, params)
-
-/obj/structure/part1
-	name = "big brass dial"
-	ru_names = list(
-		NOMINATIVE = "большой латунный циферблат",
-		GENITIVE = "большого латунного циферблата",
-		DATIVE = "большому латунному циферблату",
-		ACCUSATIVE = "большой латунный циферблат",
-		INSTRUMENTAL = "большим латунным циферблатом",
-		PREPOSITIONAL = "большом латунном циферблате",
-	)
-	desc = "Большой циферблат из латуни."
-	icon ='icons/obj/clockwork.dmi'
-	icon_state = "ratvarpart1"
-	density = TRUE
-	resistance_flags = INDESTRUCTIBLE
-	mouse_drag_pointer = MOUSE_DRAG_POINTER
-
-/obj/structure/part1/Bumped(atom/movable/moving_atom)
-	if(!ismob(moving_atom))
-		. = ..()
-	var/mob/dragger = moving_atom
-	if(isclocker(dragger))
-		anchored = FALSE
-		. = ..()
-		return
-	anchored = TRUE
-	to_chat(dragger, span_clockitalic("Вы пытаетесь толкнуть циферблат, но его что-то удерживает!"))
-	return
-
-/obj/structure/part1/CtrlClick(mob/user)
-	if(isclocker(user))
-		anchored = FALSE
-		. = ..()
-		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
-		else
-			to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
-	return
-
-/obj/item/part2
-	name = "brass component"
-	ru_names = list(
-		NOMINATIVE = "латунная деталь",
-		GENITIVE = "латунной детали",
-		DATIVE = "латунной детали",
-		ACCUSATIVE = "латунную деталь",
-		INSTRUMENTAL = "латунной деталью",
-		PREPOSITIONAL = "латунной детали",
-	)
-	desc = "Странная деталь из латуни."
-	icon ='icons/obj/clockwork.dmi'
-	icon_state = "ratvarpart2"
-	item_state = "ratvarpart2"
-	resistance_flags = INDESTRUCTIBLE
-	mouse_drag_pointer = MOUSE_DRAG_POINTER
-	w_class = WEIGHT_CLASS_BULKY
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-
-/obj/item/part2/CtrlClick(mob/user)
-	if(isclocker(user))
-		. = ..()
-		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
-		else
-			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
-	return
-
-/obj/item/part2/attack_hand(mob/user, pickupfireoverride)
-	if(isclocker(user))
-		. = ..()
-		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
-	return
-
-/obj/item/part3
-	name = "brass component"
-	ru_names = list(
-		NOMINATIVE = "латунная деталь",
-		GENITIVE = "латунной детали",
-		DATIVE = "латунной детали",
-		ACCUSATIVE = "латунную деталь",
-		INSTRUMENTAL = "латунной деталью",
-		PREPOSITIONAL = "латунной детали",
-	)
-	desc = "Странная деталь из латуни."
-	icon ='icons/obj/clockwork.dmi'
-	icon_state = "ratvarpart3"
-	item_state = "ratvarpart3"
-	resistance_flags = INDESTRUCTIBLE
-	mouse_drag_pointer = MOUSE_DRAG_POINTER
-	w_class = WEIGHT_CLASS_BULKY
-	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
-	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
-
-/obj/item/part3/CtrlClick(mob/user)
-	if(isclocker(user))
-		. = ..()
-		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
-		else
-			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
-	return
-
-/obj/item/part3/attack_hand(mob/user, pickupfireoverride)
-	if(isclocker(user))
-		. = ..()
-		return
-	if(user in orange(1, src))
-		if(ishuman(user))
-			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
-			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			new /obj/effect/decal/cleanable/ash(loc)
-	return
