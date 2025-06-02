@@ -157,8 +157,11 @@
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M
+	if(!LAZYLEN(names)) //No one's around!
+		user.balloon_alert(user, "вокруг некого ужалить!")
+		return
 	var/target = tgui_input_list(user, "Выберите цель: ", "Цель укуса", names)
-	if(!target)		//No one's around!
+	if(!target) // user didn't chose target
 		user.balloon_alert(user, "вокруг некого ужалить!")
 		user.visible_message(span_warning("[user] втягивает своё жало."))
 		button_on = FALSE

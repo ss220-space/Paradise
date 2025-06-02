@@ -89,22 +89,25 @@
 	name = "Строительство из воска"
 	desc = "Выделите воск для строительства"
 	button_icon_state = "build"
-
-/datum/action/innate/wryn/build_wax/Activate()
-	var/mob/living/carbon/human/wryn/host = owner
 	var/static/list/actions = list()
 
+/datum/action/innate/wryn/build_wax/New(Target)
+	. = ..()
 	if(!LAZYLEN(actions))
 		for(var/name in GLOB.wryn_structures)
 			var/datum/wryn_building/datum = GLOB.wryn_structures[name]
-			actions[name] = list()
-			actions[name] += datum.icon
-			actions[name] += datum.icon_state
-			return actions
+			// actions[name] = datum.icon_state
+			actions[name] = image(datum.icon_file, datum.icon_state)
+		return actions
 
-	var/choosen_type = show_radial_menu(host, host, actions[name], radius = 40)
+/datum/action/innate/wryn/build_wax/Activate()
+	var/mob/living/carbon/human/wryn/host = owner
+
+	var/choosen_type = show_radial_menu(host, host, actions, radius = 40)
 	if(!choosen_type)
 		return
+	var/datum/wryn_building/structure = GLOB.wryn_structures[choosen_type]
+	structure.wax_build(host, structure.wax_amount, structure.structure)
 
 /*	var/static/list/new_structure = list("Соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_wall"),
 								"Прозрачные соты (50)" = image(icon = 'icons/mob/actions/actions.dmi', icon_state = "wax_window"),
