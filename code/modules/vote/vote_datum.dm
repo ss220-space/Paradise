@@ -107,7 +107,7 @@
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
 				to_chat(world, span_fontcolor_purple(chat_box_purple("Ничья между [russian_list(sanitize(winning_options))]\n\
-				<b>Выбираем \"[sanitize(random_dictator)]\" наугад.</b>"))) // shame them
+				<b>Выбираем [sanitize(random_dictator)] наугад.</b>"))) // shame them
 				return random_dictator
 
 			// If we got here there must only be one thing in the list
