@@ -8,14 +8,17 @@
 	var/message_word // structure's name in chat
 
 /datum/wryn_building/proc/wax_build(mob/living/carbon/human/user, wax_amount, obj/structure)
-	if(user.getWax() >= wax_amount)
-		if(do_after(usr, building_time, usr))
-			user.adjustWax(-wax_amount)
-			user.visible_message(("[user] выделя[pluralize_ru(user.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(user.gender, "ет", "ют")] из неё [message_word]."))
-			new structure(user.loc)
+	if(user.getWax() < wax_amount)
+		user.balloon_alert(user, "недостаточно воска!")
 		return
-	user.balloon_alert(user, "недостаточно воска!")
-	return
+
+	if(!user.loc || !do_after(user, building_time, user))
+		return
+
+	user.adjustWax(-wax_amount)
+	user.visible_message(("[user] выделя[pluralize_ru(user.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(user.gender, "ет", "ют")] из неё [message_word]."))
+
+	new structure(user.loc)
 
 /datum/wryn_building/wall
 	name = "Соты (50)"
