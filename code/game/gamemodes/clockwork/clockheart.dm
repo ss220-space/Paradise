@@ -112,6 +112,9 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 				return
 	. = ..()
 
+/obj/structure/clockwork/functional/heart/Destroy(force)
+	QDEL_LIST(fillers)
+	. = ..()
 
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
