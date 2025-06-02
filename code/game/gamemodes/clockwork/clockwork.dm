@@ -147,10 +147,10 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	var/clockers = 0
 	var/constructs = 0
 	for(var/I in clockwork_cult)
-		var/datum/mind/M = I
-		if(ishuman(M.current))
+		var/datum/mind/mind = I
+		if(ishuman(mind.current) && !mind.madeby_sentience_potion)
 			clockers++
-		else if(istype(M.current, /mob/living/simple_animal/hostile/clockwork/marauder) && isclocker(M.current))
+		else if(ismarauder(mind.current) && isclocker(mind.current))
 			constructs++
 	if(separate)
 		return list(clockers, constructs)
