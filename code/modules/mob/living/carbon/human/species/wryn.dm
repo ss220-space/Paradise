@@ -3,12 +3,12 @@
 	name_plural = "Wryn"
 	icobase = 'icons/mob/human_races/r_wryn.dmi'
 	deform = 'icons/mob/human_races/r_wryn.dmi'
+	language = LANGUAGE_WRYN
 	blacklisted = TRUE
 	tail = "wryntail"
 	eyes = "wryn_eyes_s"
 	punchdamagelow = 0
 	punchdamagehigh = 1
-	speed_mod = 1
 	warning_low_pressure = -300
 	hazard_low_pressure = 1
 	blurb = "The wryn (r-in, singular r-in) are a humanoid race that possess many bee-like features. Originating from Alveare they \
@@ -59,6 +59,8 @@
 		TRAIT_HAS_REGENERATION,
 		TRAIT_NO_BREATH,
 		TRAIT_NO_SCAN,
+		TRAIT_TEMPERATURE_MOVEMENT,
+		TRAIT_STRONG_PULLING,
 	)
 	clothing_flags = HAS_UNDERWEAR | HAS_UNDERSHIRT | HAS_SOCKS
 	bodyflags = HAS_SKIN_COLOR | HAS_BODY_ACCESSORY
@@ -84,14 +86,14 @@
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
-	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
+	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions
 	if(!wryn_sting)
 		wryn_sting = new
 		wryn_sting.Grant(H)
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
 	. = ..()
-	var/datum/action/innate/wryn_sting/wryn_sting = locate() in H.actions
+	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions
 	wryn_sting?.Remove(H)
 
 /datum/species/wryn/after_equip_job(datum/job/J, mob/living/carbon/human/H)
@@ -103,27 +105,35 @@
 
 /* Wryn Sting Action Begin */
 
+/datum/action/innate/wryn
+	name = "wryn action"
+	button_icon = 'icons/mob/actions/actions_wryn.dmi'
+	background_icon_state = "bg_wryn"
+	icon_icon = 'icons/mob/actions/actions_wryn.dmi'
+
+
 //Define the Sting Action
-/datum/action/innate/wryn_sting
+/datum/action/innate/wryn/wryn_sting
 	name = "Жало врина"
 	desc = "Подготовка жала к ужаливанию."
-	button_icon_state = "wryn_sting_off"		//Default Button State
+	button_icon_state = "sting_off"		//Default Button State
 	check_flags = AB_CHECK_LYING|AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	var/button_on = FALSE
 
 //What happens when you click the Button?
-/datum/action/innate/wryn_sting/Trigger(left_click = TRUE)
+/datum/action/innate/wryn/wryn_sting/Trigger(left_click = TRUE)
 	if(!..())
 		return
 	var/mob/living/carbon/user = owner
 	if((HAS_TRAIT(user, TRAIT_RESTRAINED) && user.pulledby) || user.buckled) //Is your Wryn restrained, pulled, or buckled? No stinging!
-		to_chat(user, span_notice("Вам нужна свобода передвижения, чтобы ужалить кого-то!"))
+		user.balloon_alert(user, "слишком мало места!")
 		return
 	if(user.wear_suit)	//Is your Wryn wearing a Hardsuit or a Laboat that's blocking their Stinger?
-		to_chat(user, span_notice("Для использования жала нужно снять верхнюю одежду."))
+		user.balloon_alert(user, "снимите верхнюю одежду!")
 		return
 	if(user.getStaminaLoss() >= 50)	//Does your Wryn have enough Stamina to sting?
-		to_chat(user, span_notice("Вы слишком устали для использования жала."))
+		user.balloon_alert(user, "вы устали!")
+
 		return
 	else
 		button_on = TRUE
@@ -131,25 +141,28 @@
 		select_target(user)
 
 //Update the Button Icon
-/datum/action/innate/wryn_sting/UpdateButtonIcon()
+/datum/action/innate/wryn/wryn_sting/UpdateButtonIcon()
 	if(button_on)
-		button_icon_state = "wryn_sting_on"
-		name = "Wryn Stinger \[READY\]"
+		button_icon_state = "sting_on"
+		name = "Жало врина \[ГОТОВО\]"
 		button.name = name
 	else
-		button_icon_state = "wryn_sting_off"
-		name = "Wryn Stinger"
+		button_icon_state = "sting_off"
+		name = "Жало врина"
 		button.name = name
 	..()
 
 //Select a Target from a List
-/datum/action/innate/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
+/datum/action/innate/wryn/wryn_sting/proc/select_target(var/mob/living/carbon/human/user)
 	var/list/names = list()
 	for(var/mob/living/carbon/human/M in orange(1))
 		names += M
-	var/target = input("Select a Target: ", "Sting Target", null) as null|anything in names
-	if(!target)		//No one's around!
-		to_chat(user, span_warning("Вокруг некого жалить! Жало втягивается обратно."))
+	if(!LAZYLEN(names)) //No one's around!
+		user.balloon_alert(user, "вокруг некого ужалить!")
+		return
+	var/target = tgui_input_list(user, "Выберите цель: ", "Цель укуса", names)
+	if(!target) // user didn't chose target
+		user.balloon_alert(user, "вокруг некого ужалить!")
 		user.visible_message(span_warning("[user] втягивает своё жало."))
 		button_on = FALSE
 		UpdateButtonIcon()
@@ -160,11 +173,12 @@
 	return
 
 //What does the Wryn Sting do?
-/datum/action/innate/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
+/datum/action/innate/wryn/wryn_sting/proc/sting_target(mob/living/carbon/human/user, mob/living/carbon/human/target)
 	button_on = FALSE					//For when we Update the Button Icon
 	if(!(target in orange(1, user)))	//Dang, did they get away?
-		to_chat(user, span_warning("Вы слишком далеко от [target]. Жало втягивается."))
-		user.visible_message(span_warning("[user] убирает свое жало."))
+		user.balloon_alert(user, "слишком далеко от цели!")
+		user.visible_message(span_warning("[user] втягивает своё жало."))
+
 		UpdateButtonIcon()
 		return
 	else								//Nah, that chump is still here! Sting 'em! Sting 'em good!

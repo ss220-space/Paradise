@@ -63,7 +63,7 @@
 
 	if(isliving(pulling))
 		var/mob/living/pulling_mob = pulling
-		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE)
+		if(!slowed_by_pull_and_push || pulling_mob.body_position == STANDING_UP || grab_state > GRAB_PASSIVE || HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 			remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 			return
 		if(!pulling_mob.buckled)
