@@ -12,11 +12,12 @@
 		user.balloon_alert(user, "недостаточно воска!")
 		return
 
-	if(!do_after(usr, building_time, usr))
+	if(!user.loc || !do_after(user, building_time, user))
 		return
 
 	user.adjustWax(-wax_amount)
 	user.visible_message(("[user] выделя[pluralize_ru(user.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(user.gender, "ет", "ют")] из неё [message_word]."))
+
 	new structure(user.loc)
 
 /datum/wryn_building/wall
