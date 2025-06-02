@@ -227,7 +227,7 @@
 	if(gripped_item)
 		gripped_item.attack_self(user)
 	else
-		balloon_alert(user, "[declent_ru(NOMINATIVE)] пуст!")
+		balloon_alert(user, "клешня пуста!")
 
 /obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
 	if(!gripped_item)
@@ -261,7 +261,7 @@
 	if(!gripped_item)
 		return
 	if(!silent)
-		balloon_alert(loc, "вы выбросили [gripped_item]!")
+		balloon_alert(loc, "предмет выброшен")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
@@ -299,7 +299,7 @@
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
 			. |= ATTACK_CHAIN_SUCCESS
-			balloon_alert(user, "вы подобрали [I.declent_ru(ACCUSATIVE)]!")
+			balloon_alert(user, "подобрано")
 			I.forceMove(src)
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
@@ -307,7 +307,7 @@
 			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
 			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
-			balloon_alert(user, "вы не можете взять [target.declent_ru(ACCUSATIVE)]!")
+			balloon_alert(user, "невозможно взять!")
 
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
@@ -400,9 +400,9 @@
 	<br>
 	<b>Активированные модули</b>
 	<br>
-	Модуль 1: [module_state_1 ? "<aHREF=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
-	Модуль 2: [module_state_2 ? "<a HREF=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
-	Модуль 3: [module_state_3 ? "<a HREF=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
+	Модуль 1: [module_state_1 ? "<a href=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a href=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a href=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
 	<br>
 	<b>Установленные модули</b><br><br>"}
 
@@ -419,7 +419,7 @@
 		else if(activated(O))
 			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += text("[O]: <a HREF=?src=[UID()];act=\ref[O]>Активировать</a><br>")
+			module_string += text("[O]: <a href=?src=[UID()];act=\ref[O]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -434,7 +434,7 @@
 		else if(activated(module.emag))
 			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += text("[module.emag]: <a HREF=?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
+			dat += text("[module.emag]: <a href=?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
 
 	dat += resources
 

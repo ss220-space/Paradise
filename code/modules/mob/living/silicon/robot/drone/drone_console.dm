@@ -30,7 +30,7 @@
 		return
 
 	if(!allowed(user))
-		balloon_alert(user, "Доступ запрещён.")
+		balloon_alert(user, "доступ запрещён!")
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 

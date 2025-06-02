@@ -43,7 +43,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "Вы откручиваете табличку при помощи [I.declent_ru(GENITIVE)].")
+	balloon_alert(user, "табличка откручена")
 	var/obj/item/sign/S = new(src.loc)
 	S.name = name
 	S.desc = desc
@@ -96,7 +96,7 @@
 	sign.name = name
 	sign.desc = desc
 	sign.icon_state = sign_state
-	to_chat(user, span_notice("Вы прикрутили [sign.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."))
+	balloon_alert(user, "прикручено")
 	qdel(src)
 	return TRUE
 

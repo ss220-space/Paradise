@@ -200,7 +200,7 @@
 				to_chat(user, span_warning("Интерфейс перегорел, и изнутри робота доносится тревожный запах гари. Вы не сможете перезагрузить его."))
 				return ATTACK_CHAIN_PROCEED
 			if(!allowed(I))
-				balloon_alert(user, "Доступ запрещён.")
+				balloon_alert(user, "доступ запрещён!")
 				return ATTACK_CHAIN_PROCEED
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
@@ -404,12 +404,12 @@
 		var/obj/item/pulled_item = pulled_atom
 		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
 			if(!supress_message)
-				balloon_alert(src, "вы слишком малы, чтобы тянуть это!")
+				balloon_alert(src, "вы слишком малы!")
 			return FALSE
 		return ..()
 
 	if(!supress_message)
-		balloon_alert(src, "вы слишком малы, чтобы тянуть это!")
+		balloon_alert(src, "вы слишком малы!")
 	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
@@ -424,14 +424,14 @@
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
-		balloon_alert(user, "вы начинаете разбирать другого дрона!")
+		balloon_alert(user, "разбор дрона...")
 		if(!do_after(user, 5 SECONDS, loc))
-			balloon_alert(user, "вам нужно оставаться на месте!")
+			balloon_alert(user, "не двигайтесь!")
 			return
 		if(QDELETED(src) || QDELETED(user))
 			return ..()
 		to_chat(user, span_warning("Вы аккуратно и тщательно разбираете своего павшего собрата, сохраняя как можно больше его ресурсов внутри себя."))
-		balloon_alert(user, "готово!")
+		balloon_alert(user, "дрон разобран")
 		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15

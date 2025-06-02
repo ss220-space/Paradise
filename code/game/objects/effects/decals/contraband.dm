@@ -198,7 +198,7 @@
 			return
 
 		if(iswallturf(src) && user && user.loc == temp_loc)	//Let's check if everything is still there
-			balloon_alert(user, "готово")
+			balloon_alert(user, "постер размещён")
 			return
 
 	balloon_alert(user, "постер упал!")
