@@ -309,6 +309,7 @@
 #define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
 
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
