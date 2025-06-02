@@ -3,6 +3,10 @@
 #define METEOR_PROB 50
 #define PORTAL_PROB 10
 #define LAVA_TIME 2 SECONDS
+#define LAVA_MODE 1
+#define PORTAL_MODE 2
+#define METEOR_MODE 3
+#define EMPTY_MODE 4
 
 /datum/weather/hell
 	name = "Ад"
@@ -26,6 +30,7 @@
 	self_fire = TRUE
 
 	var/list/affected_turfs_list = list()
+	var/static/list/possible_modes = list(LAVA_MODE = 10, PORTAL_MODE = 10, METEOR_MODE = 20, EMPTY_MODE = )
 
 /datum/weather/hell/start()
 	. = ..()
@@ -49,8 +54,17 @@
 	max_integrity = 300
 	icon = 'icons/obj/carp_rift.dmi'
 	icon_state = "carp_rift_carpspawn"
-	light_color = LIGHT_COLOR_PURPLE
+	color = "#7D1E20"
+	light_color = LIGHT_COLOR_DARKRED
 	light_range = 8
 	anchored = TRUE
 	density = FALSE
 	plane = OBJ_LAYER
+
+/obj/structure/hell_rift/attack_ghost(mob/dead/observer/user)
+	var/result = tgui_alert(user, "Вы действительно хотите стать бесом?", "", list("Да", "Нет")) == "Да"
+	if(!result)
+		return ..()
+	var/mob/living/simple_animal/imp/imp = new(get_turf(loc))
+	imp.key = user.key
+	imp.mind.add_antag_datum(/datum/antagonist/imp)
