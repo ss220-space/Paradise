@@ -14,7 +14,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 		PREPOSITIONAL = "Сердце Ратвара",
 	)
 	desc = "Огромный механизм из латуни, напоминающий сердце. От его громкого тиканья у вас начинает болеть голова..."
-	icon = null
+	icon = 'icons/obj/clockheart.dmi'
 	icon_state = "heart"
 	pixel_x = -32
 	pixel_y = -32
