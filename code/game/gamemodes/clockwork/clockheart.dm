@@ -208,4 +208,21 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 	icon ='icons/obj/clockwork.dmi'
 	icon_state = "ratvarpart1"
 	density = TRUE
+	resistance_flags = INDESTRUCTIBLE
+	mouse_drag_pointer = TRUE
 
+/obj/structure/part1/Bump(atom/bumped_atom)
+	var/mob/bumped = bumped_atom
+	if(!isclocker(bumped))
+		to_chat(span_clockitalic("Вы пытаетесь толкнуть циферблат, но его словно что-то удерживает!"))
+		return
+	. = ..()
+
+/obj/structure/part1/CtrlClick(mob/user)
+	if(!isclocker(user))
+		var/mob/living/carbon/human/sinner = user
+		to_chat(span_clockitalic("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
+		var/limb_to_burn = sinner.pull_hand
+		qdel(limb_to_burn)
+		new /obj/effect/decal/cleanable/ash(user.loc)
+	. = ..()
