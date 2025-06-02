@@ -14,7 +14,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 		PREPOSITIONAL = "Сердце Ратвара",
 	)
 	desc = "Огромный механизм из латуни, напоминающий сердце. От его громкого тиканья у вас начинает болеть голова..."
-	icon = 'icons/obj/clockheart.dmi'
+	icon = null
 	icon_state = "heart"
 	pixel_x = -32
 	pixel_y = -32
@@ -147,7 +147,15 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/Destroy(force)
+	for(var/turf/tile in orange(1, src))
+		new /obj/effect/decal/cleanable/blood/gibs/clock(tile)
+	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 	QDEL_LIST(fillers)
+	. = ..()
+
+/obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	if(istype(dropping, /obj/structure/part1))
+		curse_dial = FALSE
 	. = ..()
 
 /obj/structure/heart_filler
@@ -181,4 +189,23 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 
 /obj/structure/heart_filler/take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
 	parent.take_damage(damage_amount, damage_type, damage_flag, sound_effect, attack_dir, armour_penetration)
+
+/obj/structure/heart_filler/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	parent.MouseDrop_T(dropping, user, params)
+	. = ..()
+
+/obj/structure/part1
+	name = "Big brass dial"
+	ru_names = list(
+		NOMINATIVE = "Большой латунный циферблат",
+		GENITIVE = "большого латунного циферблата",
+		DATIVE = "большому латунному циферблату",
+		ACCUSATIVE = "большой латунный циферблат",
+		INSTRUMENTAL = "большим латунным циферблатом",
+		PREPOSITIONAL = "большом латунном циферблате",
+	)
+	desc = "Большой циферблат из латуни."
+	icon ='icons/obj/clockwork.dmi'
+	icon_state = "ratvarpart1"
+	density = TRUE
 
