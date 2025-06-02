@@ -93,8 +93,9 @@
 	var/static/list/actions = list()
 
 /datum/action/innate/wryn/build_wax/New(Target)
+	. = ..()
 	if(LAZYLEN(actions))
-		. = ..()
+		return .
 	for(var/name in GLOB.wryn_structures)
 		var/datum/wryn_building/datum = GLOB.wryn_structures[name]
 		actions[name] = image(datum.icon_file, datum.icon_state)
