@@ -93,12 +93,11 @@
 	var/static/list/actions = list()
 
 /datum/action/innate/wryn/build_wax/New(Target)
-	. = ..()
-	if(!LAZYLEN(actions))
-		for(var/name in GLOB.wryn_structures)
-			var/datum/wryn_building/datum = GLOB.wryn_structures[name]
-			actions[name] = image(datum.icon_file, datum.icon_state)
-		return actions
+	if(LAZYLEN(actions))
+		. = ..()
+	for(var/name in GLOB.wryn_structures)
+		var/datum/wryn_building/datum = GLOB.wryn_structures[name]
+		actions[name] = image(datum.icon_file, datum.icon_state)
 
 /datum/action/innate/wryn/build_wax/Activate()
 	var/mob/living/carbon/human/wryn/host = owner

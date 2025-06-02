@@ -58,12 +58,12 @@
 	name = "wax wall"
 	desc = "Похоже на затвердевшую массу воска."
 	ru_names = list(
-		NOMINATIVE = "Соты",
-		GENITIVE = "Сот",
-		DATIVE = "Сотам",
-		ACCUSATIVE = "Соты",
-		INSTRUMENTAL = "Сотами",
-		PREPOSITIONAL = "Сотах"
+		NOMINATIVE = "соты",
+		GENITIVE = "сот",
+		DATIVE = "сотам",
+		ACCUSATIVE = "соты",
+		INSTRUMENTAL = "сотами",
+		PREPOSITIONAL = "сотах"
 	)
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
@@ -71,6 +71,14 @@
 /obj/structure/wryn/wax/window
 	name = "wax window"
 	desc = "Воск на этой стенке настолько тонкий, что через него может проходить свет."
+	ru_names = list(
+		NOMINATIVE = "прозрачныые соты",
+		GENITIVE = "прозрачных сот",
+		DATIVE = "прозрачным сотам сотам",
+		ACCUSATIVE = "прозрачные соты",
+		INSTRUMENTAL = "прозрачными сотами",
+		PREPOSITIONAL = "прозрачных сотах"
+	)
 	icon = 'icons/obj/smooth_structures/wryn/window.dmi'
 	base_icon_state = "window"
 	icon_state = "window-0"
@@ -84,12 +92,12 @@
 	name = "wax floor"
 	desc = "Что-то жёлтое и липкое покрывает пол... Так стоп..."
 	ru_names = list(
-		NOMINATIVE = "Пол из воска",
-		GENITIVE = "Пола из воска",
-		DATIVE = "Полу из воска",
-		ACCUSATIVE = "Пол из воска",
-		INSTRUMENTAL = "Полом из воска",
-		PREPOSITIONAL = "Поле из воска"
+		NOMINATIVE = "пол из воска",
+		GENITIVE = "пола из воска",
+		DATIVE = "полу из воска",
+		ACCUSATIVE = "пол из воска",
+		INSTRUMENTAL = "полом из воска",
+		PREPOSITIONAL = "поле из воска"
 	)
 	anchored = TRUE
 	density = FALSE
@@ -157,12 +165,12 @@
 	name = "wax door"
 	desc = "Объёмная масса воска, напоминающая дверь."
 	ru_names = list(
-		NOMINATIVE = "Дверь из сот",
-		GENITIVE = "Двери из сот",
-		DATIVE = "Двери из сот",
-		ACCUSATIVE = "Дверь из сот",
-		INSTRUMENTAL = "Дверью из сот",
-		PREPOSITIONAL = "Двери из сот"
+		NOMINATIVE = "дверь из сот",
+		GENITIVE = "двери из сот",
+		DATIVE = "двери из сот",
+		ACCUSATIVE = "дверь из сот",
+		INSTRUMENTAL = "дверью из сот",
+		PREPOSITIONAL = "двери из сот"
 	)
 	icon = 'icons/obj/smooth_structures/wryn/wax_door.dmi'
 	icon_state = "wax_door_closed"
