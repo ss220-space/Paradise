@@ -828,3 +828,11 @@
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
+
+/mob/living/carbon/human/proc/get_real_mind()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	return (borer && borer.controlling) ? borer.host_brain.mind : mind
+
+/mob/living/carbon/human/proc/get_real_ckey()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	return (borer && borer.controlling) ? borer.host_brain.ckey : ckey
