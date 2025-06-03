@@ -204,3 +204,38 @@ export const decodeHtmlEntities = (str: string): string => {
       })
   );
 };
+
+/**
+ * Accepts a number, returns one of the strings - for singular, dual, and plural numbers in Russian language.
+ * Handles -es and -ies.
+ * *
+ * @example
+ * ```tsx
+ * declension_ru(1, "single", "double", "multiple") // single
+ * declension_ru(3, "single", "double", "multiple") // double
+ * declension_ru(7, "single", "double", "multiple") // multiple
+ * declension_ru(11, "single", "double", "multiple") // multiple
+ * declension_ru(21, "single", "double", "multiple") // single
+ * declension_ru(24, "single", "double", "multiple") // double
+ * ```
+ */
+export const declension_ru = (
+  num: number,
+  single_name: string,
+  double_name: string,
+  multiple_name: string
+) => {
+  if (typeof num !== 'number' || Math.round(num) !== num) {
+    return double_name; // fractional numbers
+  }
+  if (num % 10 === 1 && num % 100 !== 11) {
+    // 1, not 11
+    return single_name;
+  }
+  if (num % 10 > 1 && num % 10 < 5 && (num % 100 < 11 || num % 100 > 15)) {
+    // 2, 3, 4, not 12, 13, 14
+    return double_name;
+  }
+
+  return multiple_name; // 5, 6, 7, 8, 9, 0
+};

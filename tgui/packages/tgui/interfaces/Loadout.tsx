@@ -1,4 +1,5 @@
 import { createSearch } from 'common/string';
+import { declension_ru } from 'common/string';
 import { useBackend } from '../backend';
 import { useState } from 'react';
 import {
@@ -43,10 +44,10 @@ type Tweak = {
 };
 
 const sortTypes = {
-  'Default': (a, b) => a.gear.gear_tier - b.gear.gear_tier,
-  'Alphabetical': (a, b) =>
+  'По умолчанию': (a, b) => a.gear.gear_tier - b.gear.gear_tier,
+  'По алфавиту': (a, b) =>
     a.gear.name.toLowerCase().localeCompare(b.gear.name.toLowerCase()),
-  'Cost': (a, b) => a.gear.cost - b.gear.cost,
+  'По стоимости': (a, b) => a.gear.cost - b.gear.cost,
 };
 
 export const Loadout = (props: unknown) => {
@@ -114,7 +115,7 @@ const LoadoutGears = (props) => {
   const { user_tier, gear_slots, max_gear_slots } = data;
   const { category, search, setSearch, searchText, setSearchText } = props;
 
-  const [sortType, setSortType] = useState('Default');
+  const [sortType, setSortType] = useState('По умолчанию');
   const [sortReverse, setsortReverse] = useState(false);
   const testSearch = createSearch<Gear>(searchText, (gear) => gear.name);
 
@@ -161,7 +162,7 @@ const LoadoutGears = (props) => {
               icon={
                 sortReverse ? 'arrow-down-wide-short' : 'arrow-down-short-wide'
               }
-              tooltip={sortReverse ? 'Ascending order' : 'Descending order'}
+              tooltip={sortReverse ? 'По возрастанию' : 'По убыванию'}
               tooltipPosition="bottom-end"
               onClick={() => setsortReverse(!sortReverse)}
             />
@@ -170,7 +171,7 @@ const LoadoutGears = (props) => {
             <Stack.Item>
               <Input
                 width={20}
-                placeholder="Search..."
+                placeholder="Поиск..."
                 value={searchText}
                 onInput={(e, value) => setSearchText(value)}
               />
@@ -180,7 +181,7 @@ const LoadoutGears = (props) => {
             <Button
               icon="magnifying-glass"
               selected={search}
-              tooltip="Toggle search field"
+              tooltip="Включить поисковую строку"
               tooltipPosition="bottom-end"
               onClick={() => {
                 setSearch(!search);
@@ -195,15 +196,15 @@ const LoadoutGears = (props) => {
         const maxTextLength = 12;
         const selected = Object.keys(data.selected_gears).includes(key);
         const costText =
-          gear.cost === 1 ? `${gear.cost} Points` : `${gear.cost} Points`;
-
+          gear.cost === 1
+            ? `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов')
+            : `${gear.cost} Очк` + declension_ru(gear.cost, 'о', 'а', 'ов');
         const tooltipText = (
           <Box>
             {gear.name.length > maxTextLength && <Box>{gear.name}</Box>}
             {gear.gear_tier > user_tier && (
               <Box mt={gear.name.length > maxTextLength && 1.5} textColor="red">
-                That gear is only available at a higher donation tier than you
-                are on.
+                Недоступно на вашем текущем уровне пожертвований!
               </Box>
             )}
           </Box>
@@ -217,7 +218,7 @@ const LoadoutGears = (props) => {
                 color="transparent"
                 icon="user"
                 tooltip={
-                  <Section m={-1} title="Allowed Roles">
+                  <Section m={-1} title="Разрешённые должности">
                     {gear.allowed_roles.map((role) => (
                       <Box key={role}>{role}</Box>
                     ))}
@@ -253,11 +254,11 @@ const LoadoutGears = (props) => {
           <Box className="Loadout-InfoBox">
             <Box
               style={{ flexGrow: '1' }}
-              fontSize={1}
+              fontSize={0.75}
               color="gold"
               opacity={0.75}
             >
-              {gear.gear_tier > 0 && `Tier ${gear.gear_tier}`}
+              {gear.gear_tier > 0 && `Уровень ${gear.gear_tier}`}
             </Box>
             <Box fontSize={0.75} opacity={0.66}>
               {costText}
@@ -315,11 +316,11 @@ const LoadoutEquipped = (props) => {
         <Section
           fill
           scrollable
-          title={'Selected Equipment'}
+          title={'Выбранное снаряжение'}
           buttons={
             <Button.Confirm
               icon="trash"
-              tooltip={'Clear Loadout'}
+              tooltip={'Очистить список'}
               tooltipPosition={'bottom-end'}
               onClick={() => act('clear_loadout')}
             />
@@ -382,7 +383,7 @@ const LoadoutEquipped = (props) => {
             }}
           >
             <Box textAlign="center">
-              Used points {data.gear_slots}/{data.max_gear_slots}
+              Использовано очков {data.gear_slots}/{data.max_gear_slots}
             </Box>
           </ProgressBar>
         </Section>
@@ -408,7 +409,7 @@ const GearTweak = (props) => {
             <Button
               color="red"
               icon="times"
-              tooltip="Close"
+              tooltip="Закрыть"
               tooltipPosition="top"
               onClick={() => setTweakedGear('')}
             />
@@ -437,7 +438,7 @@ const GearTweak = (props) => {
                         />
                       }
                     >
-                      {tweakInfo ? tweakInfo : 'Default'}
+                      {tweakInfo ? tweakInfo : 'По умолчанию'}
                       <Box
                         inline
                         ml={1}

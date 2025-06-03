@@ -1,0 +1,16 @@
+@use '../base';
+@use './Input';
+
+$text-color: 0 !default;
+$background-color: 0 !default;
+$border-color: 0 !default;
+$border-radius: 0 !default;
+
+.RestrictedInput {
+  text-align: right;
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+}

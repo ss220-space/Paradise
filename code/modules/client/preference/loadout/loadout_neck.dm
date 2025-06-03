@@ -1,7 +1,7 @@
 /datum/gear/neck
 	subtype_path = /datum/gear/neck
 	slot = ITEM_SLOT_NECK
-	sort_category = "Neck"
+	sort_category = "Плащи"
 
 //Mantles
 /datum/gear/neck/mantle
@@ -134,7 +134,7 @@
 //Ponchos
 /datum/gear/neck/poncho
 	index_name = "poncho, select"
-	display_name = "poncho"
+	display_name = "Пончо"
 	path = /obj/item/clothing/neck/poncho
 
 /datum/gear/neck/poncho/New()

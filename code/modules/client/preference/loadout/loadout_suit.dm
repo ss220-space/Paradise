@@ -1,7 +1,7 @@
 /datum/gear/suit
 	subtype_path = /datum/gear/suit
 	slot = ITEM_SLOT_CLOTH_OUTER
-	sort_category = "External Wear"
+	sort_category = "Верхняя одежда"
 
 //WINTER COATS
 /datum/gear/suit/coat
@@ -119,7 +119,7 @@
 
 /datum/gear/suit/miljacket
 	index_name = "military jacket, select"
-	display_name = "military jacket"
+	display_name = "Армейская куртка"
 	path = /obj/item/clothing/suit/jacket/miljacket
 
 /datum/gear/suit/miljacket/New()
@@ -243,7 +243,7 @@
 
 /datum/gear/suit/hoodie
 	index_name = "hoodie, select"
-	display_name = "hoodie"
+	display_name = "Худи"
 	path = /obj/item/clothing/suit/hooded/hoodie
 
 /datum/gear/suit/hoodie/New()
@@ -262,7 +262,7 @@
 
 /datum/gear/suit/blacksuit
 	index_name = "suit jacket, select"
-	display_name = "suit jacket"
+	display_name = "Пиджак"
 	path = /obj/item/clothing/suit/storage/lawyer/blackjacket
 
 /datum/gear/suit/blacksuit/New()

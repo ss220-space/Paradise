@@ -1,5 +1,6 @@
 import { ReactNode } from 'react';
 import { useBackend } from '../backend';
+import { declension_ru } from 'common/string';
 import {
   Box,
   Button,
@@ -736,9 +737,7 @@ const DNAModifierIrradiating = (props) => {
       <Box color="label">
         <h3>
           В течении {props.duration} секунд
-          {props.duration % 10 === 1 && !(props.duration % 100 === 11)
-            ? 'ы'
-            : ''}
+          {declension_ru(props.duration, 'ы', '', '')}
         </h3>
       </Box>
     </Dimmer>
