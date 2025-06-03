@@ -218,7 +218,7 @@
 			return FALSE
 
 		name = "[initial(name)] ([cast_amount]E)"
-		to_chat(user, span_revenwarning("Вы открыли <b>[initial(name)]</b>!"))
+		to_chat(user, span_revenwarning("Вы открыли способность <b>\"[initial(name)]\"</b>!"))
 
 		locked = FALSE
 		cooldown_handler.revert_cast()

@@ -87,7 +87,7 @@
 		revealed = 0
 		incorporeal_move = INCORPOREAL_REVENANT
 		invisibility = INVISIBILITY_REVENANT
-		to_chat(src, span_revenboldnotice("Реальность содрогается, и вы растворяетесь в тенях."))
+		to_chat(src, span_revenboldnotice("Реальность содрогается, и вы растворяетесь в тени."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
 		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
@@ -284,13 +284,13 @@
 		return
 	var/turf/T = get_turf(src)
 	if(iswallturf(T))
-		balloon_alert(scr, "нельзя использовать в стене!")
+		balloon_alert(src, "нельзя использовать в стене!")
 		return 0
 	if(src.inhibited)
-		balloon_alert(scr, "силы подавлены!")
+		balloon_alert(src, "силы подавлены!")
 		return 0
 	if(!src.change_essence_amount(essence_cost, 1))
-		balloon_alert(scr, "не хватает эссенции")
+		balloon_alert(src, "не хватает эссенции")
 		return 0
 	return 1
 
@@ -304,9 +304,9 @@
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 	if(!silent)
 		if(essence_amt > 0)
-			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source.declent_ru(GENITIVE)]."))
+			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source]."))
 		else
-			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source.declent_ru(GENITIVE)]."))
+			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source]."))
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -359,7 +359,7 @@
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
-	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(essence_amt,"e","и","")] эссенции у людей."
+	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(targetAmount,"e","и","")] эссенции у людей."
 	..()
 
 
