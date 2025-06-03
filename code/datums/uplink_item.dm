@@ -380,7 +380,7 @@
 	name = "Артистический ящик для инструментов"
 	desc = "Проклятый ящик для инструментов, который наделяет своих последователей невероятной силой, требуя взамен постоянных жертв. \
 			Если эти жертвы не будут принесены, он может напасть на своего обладателя."
-	item = /obj/item/storage/toolbox/green/memetic
+	item = /obj/item/his_grace
 	cost = 100
 	job = list(JOB_TITLE_CHAPLAIN, JOB_TITLE_CIVILIAN)
 	surplus = 0 //No lucky chances from the crate; if you get this, this is ALL you're getting

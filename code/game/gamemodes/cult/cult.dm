@@ -17,10 +17,6 @@ GLOBAL_LIST_EMPTY(all_cults)
 	/// The number of ghost summons available to the cult.
 	var/ghost_summons = null
 
-
-/proc/iscultist(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
-
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
 		return FALSE
@@ -106,6 +102,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(!(locate(/datum/action/innate/toggle_clumsy) in cult_mind.current.actions))
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
+
+		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
@@ -221,6 +219,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
 
+		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
+
 		if(cult_risen)
 			rise(cult_mind.current)
 			if(cult_ascendant)
@@ -272,7 +272,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
+		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
@@ -285,6 +285,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			cult_mind.objectives -= O
 			qdel(O)
 		REMOVE_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
+		cult_mind.current.RemoveElement(/datum/element/halo_attach)
 		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)
@@ -358,6 +359,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	..()
 
 
-/proc/is_cultist(mob/living/user)
+/proc/iscultist(mob/living/user)
 	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
 
+/proc/iscultist_ascended(mob/living/user)
+	return iscultist(user) && SSticker.mode.cult_ascendant

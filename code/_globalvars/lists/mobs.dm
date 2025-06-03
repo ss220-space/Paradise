@@ -67,4 +67,17 @@ GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
 
 GLOBAL_LIST_EMPTY(left_player_list)
 
+/// Halo overlays for datum/element/halo_attach
+GLOBAL_LIST_INIT(halo_overlays, list(
+	"cult" = mutable_appearance('icons/effects/32x64.dmi', pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6"), -HALO_LAYER, appearance_flags = RESET_TRANSFORM),
+	"clockwork" = mutable_appearance('icons/effects/32x64.dmi', "haloclock", -HALO_LAYER, appearance_flags = RESET_TRANSFORM),
+	"his_grace" = mutable_appearance('icons/effects/32x64.dmi', "toolbox_halo", -HALO_LAYER, appearance_flags = RESET_TRANSFORM),
+))
+
+/// Callback checks for datum/element/halo_attach
+GLOBAL_LIST_INIT(halo_callbacks, list(
+	"cult" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(iscultist_ascended)),
+	"clockwork" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(isclocker_ascended)),
+	"his_grace" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(is_grace_ascended)),
+))
 GLOBAL_LIST_EMPTY(wryn_structures)
