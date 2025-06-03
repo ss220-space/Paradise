@@ -1484,7 +1484,7 @@
 
 				user.visible_message("[user] carefully inserts the anomaly core into \the [holder] and secures it.", "You slowly place the anomaly core into its socket and close its chamber.")
 				src.core = used_atom
-				core.forceMove(holder)
+				return user.drop_transfer_item_to_loc(core, holder)
 			else
 				user.visible_message("[user] аккуратно достает [core.declent_ru(ACCUSATIVE)] из [holder.declent_ru(GENITIVE)].", "Вы аккуратно достаете [core.declent_ru(ACCUSATIVE)] из [holder.declent_ru(GENITIVE)].")
 				if(!user.put_in_hands(core))
