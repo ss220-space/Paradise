@@ -145,6 +145,11 @@
 			to_heal[candidate] = TRUE
 
 	for(var/mob/living/candidate as anything in to_heal)
+		if(isconstruct(candidate))
+			var/mob/living/simple_animal/hostile/construct/construct = candidate
+			if(!construct.can_repair)
+				continue
+
 		if(!current_alerts[candidate])
 			var/atom/movable/screen/alert/aura_healing/alert = candidate.throw_alert(alert_category, /atom/movable/screen/alert/aura_healing, new_master = parent)
 			alert.desc = "You are being healed by [parent]."

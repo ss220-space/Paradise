@@ -24,7 +24,7 @@
 //#define span_binarysay(str) ("<span class='binarysay'>" + str + "</span>")
 //#define span_blue(str) ("<span class='blue'>" + str + "</span>")
 //#define span_blueteamradio(str) ("<span class='blueteamradio'>" + str + "</span>")
-//#define span_bold(str) ("<span class='bold'>" + str + "</span>")
+#define span_bold(str) ("<span class='bold'>" + str + "</span>")
 #define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_bolddanger(str) ("<span class='bolddanger'>" + str + "</span>")

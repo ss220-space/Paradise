@@ -51,6 +51,7 @@
 #define ROLE_ELITE				"lavaland elite"
 #define ROLE_SPACE_DRAGON 		"space dragon"
 #define ROLE_MALF_AI			"Malfunctioning AI"
+#define ROLE_HERETIC			"heretic"
 
 #define ROLE_NONE				"nothing"	// special define used as a marker
 #define ROLE_HIJACKER			"hijacker"	// another marker

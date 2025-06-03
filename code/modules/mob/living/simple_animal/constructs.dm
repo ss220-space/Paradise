@@ -22,6 +22,8 @@
 	loot = list(/obj/item/reagent_containers/food/snacks/ectoplasm)
 	del_on_death = TRUE
 	deathmessage = "collapses in a shattered heap."
+	/// Whether this construct can repair other constructs or cult buildings. Gets the healing_touch component if so.
+	var/can_repair = TRUE
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
 	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
