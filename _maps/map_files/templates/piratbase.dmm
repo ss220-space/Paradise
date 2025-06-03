@@ -1,6 +1,6 @@
 //MAP CONVERTED BY dmm2tgm.py THIS HEADER COMMENT PREVENTS RECONVERSION, DO NOT REMOVE
 "aa" = (
-/obj/structure/closet/emcloset,
+/obj/machinery/suit_storage_unit/standard_unit,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "ac" = (
@@ -42,6 +42,12 @@
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -89,6 +95,7 @@
 /obj/item/stack/spacecash/c1000{
 	amount = 10000
 	},
+/obj/item/stack/tape_roll,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/security_atrium)
 "an" = (
@@ -226,6 +233,10 @@
 	dir = 4
 	},
 /obj/effect/landmark/tiles/burnturf,
+/obj/item/clothing/head/helmet/space/nasavoid{
+	name = "Old Void Helmet";
+	desc = "Old space helmet"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -259,11 +270,22 @@
 /obj/structure/disposalpipe/trunk{
 	dir = 1
 	},
+/obj/effect/turf_decal/delivery,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/lab_hall)
+"aK" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virus_lab)
 "aN" = (
 /obj/effect/turf_decal/caution/stand_clear/white{
 	dir = 8
@@ -315,6 +337,12 @@
 /area/ruin/space/pirate_base/kitchen)
 "aU" = (
 /obj/item/clothing/suit/bio_suit/scientist,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -498,6 +526,13 @@
 /obj/effect/baseturf_helper/asteroid,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
+"by" = (
+/obj/effect/spawner/lootdrop/spentcasing/pistol,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "bA" = (
 /obj/structure/chair/stool,
 /obj/effect/decal/cleanable/dirt,
@@ -699,23 +734,22 @@
 /area/ruin/space/pirate_base/kitchen)
 "ce" = (
 /obj/docking_port/mobile{
-	dir = 8;
-	height = 19;
+	height = 17;
 	id = "pirateship";
 	name = "Pirate Corvette";
 	rebuildable = 1;
-	width = 17;
-	dwidth = 8;
-	port_direction = 4
+	width = 19;
+	dheight = 8;
+	dir = 2
 	},
 /obj/docking_port/stationary{
-	dir = 8;
-	height = 19;
+	height = 17;
 	id = "pirateship_home";
 	name = "Homebase";
-	width = 17;
+	width = 19;
 	pixel_x = 20;
-	dwidth = 8
+	dheight = 8;
+	dir = 2
 	},
 /obj/effect/turf_decal/caution{
 	dir = 4;
@@ -783,6 +817,7 @@
 /obj/machinery/light/small{
 	dir = 1
 	},
+/obj/item/relict_production/strange_teleporter,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "cn" = (
@@ -938,6 +973,17 @@
 	icon_state = "dark"
 	},
 /area/shuttle/pirate_corvette)
+"cC" = (
+/obj/structure/cable{
+	icon_state = "1-2"
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virus_lab)
 "cD" = (
 /obj/machinery/door_control{
 	id = "arrivalspirat_blast";
@@ -975,7 +1021,9 @@
 	range = 3
 	},
 /obj/structure/table/glass,
-/obj/item/paper,
+/obj/item/paper/safe_code{
+	owner = "m1911"
+	},
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/virology)
 "cI" = (
@@ -1008,6 +1056,7 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
+/obj/item/clothing/accessory/stethoscope,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "cP" = (
@@ -1201,10 +1250,7 @@
 	},
 /area/ruin/space/pirate_base/kitchen)
 "dl" = (
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /obj/structure/sign/poster/official/mr_cheng{
 	pixel_x = -32
 	},
@@ -1414,13 +1460,6 @@
 	pixel_y = 6;
 	pixel_x = 6
 	},
-/obj/item/card/id/thunderdome/red{
-	name = "Pirate ID";
-	registered_name = "Pirate";
-	access = list(160,26);
-	desc = "A card used to determine access across.";
-	assignment = "Pirate"
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
 	},
@@ -1521,6 +1560,12 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply{
+	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple";
 	tag = "icon-whitepurple (WEST)"
@@ -1593,13 +1638,6 @@
 /obj/machinery/atmospherics/unary/vent_pump/on,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
-"en" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "ep" = (
 /obj/structure/cable/yellow{
 	d1 = 1;
@@ -1643,7 +1681,7 @@
 /area/ruin/space/pirate_base/lab_maint)
 "ew" = (
 /obj/structure/rack,
-/obj/item/storage/box/syndie_kit/blackops_kit,
+/obj/effect/spawner/lootdrop/maintenance/tripple,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "ex" = (
@@ -1958,6 +1996,7 @@
 "ft" = (
 /obj/structure/table/reinforced,
 /obj/item/clothing/gloves/color/latex,
+/obj/item/paicard,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkpurple"
@@ -1970,7 +2009,8 @@
 /obj/machinery/light/small{
 	dir = 4
 	},
-/obj/structure/closet/firecloset,
+/obj/item/storage/toolbox/electrical,
+/obj/structure/rack,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "fx" = (
@@ -2047,7 +2087,8 @@
 /area/ruin/space/pirate_base/prison_maint)
 "fJ" = (
 /obj/structure/closet/secure_closet{
-	req_access = list(160)
+	req_access = list(160);
+	name = "prison locker"
 	},
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/head/beanie/orange,
@@ -2163,21 +2204,12 @@
 	},
 /area/ruin/space/pirate_base/xeno_lab)
 "gc" = (
-/obj/structure/table,
-/obj/item/clothing/glasses/meson{
-	pixel_y = 3;
-	pixel_x = -2
+/obj/item/clothing/suit/space/nasavoid{
+	name = "Old Void Suit";
+	desc = "Old space suit"
 	},
-/obj/item/clothing/glasses/meson{
-	pixel_y = 7;
-	pixel_x = 3
-	},
-/obj/item/clothing/glasses/meson,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "darkredcorners"
-	},
-/area/shuttle/pirate_corvette)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "gd" = (
 /obj/machinery/conveyor{
 	id = "pirategarbage";
@@ -2629,14 +2661,11 @@
 	pixel_x = 3;
 	pixel_y = 11
 	},
-/mob/living/simple_animal/hostile/zombie/whiteship/fast{
-	maxHealth = 30;
-	health = 30
-	},
+/mob/living/simple_animal/hostile/zombie/whiteship/fast,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/card/id/warden{
 	access = list(161);
-	name = "Lab access ID";
+	name = "Laboratory ID";
 	registered_name = "Access Card";
 	desc = "ID Card."
 	},
@@ -2647,9 +2676,12 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "hm" = (
-/obj/structure/disposalpipe/segment,
-/turf/simulated/wall/r_wall,
-/area/ruin/space/pirate_base/virus_lab)
+/obj/effect/decal/cleanable/blood/old,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "ho" = (
 /obj/structure/disposalpipe/segment{
 	dir = 5
@@ -2740,6 +2772,12 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -2913,7 +2951,8 @@
 /area/ruin/space/pirate_base/kitchen)
 "hZ" = (
 /obj/machinery/door/poddoor{
-	id_tag = "prisonvirus_blast"
+	id_tag = "prisonvirus_blast";
+	use_power = 0
 	},
 /obj/effect/decal/cleanable/blood/tracks{
 	color = "red";
@@ -3019,18 +3058,6 @@
 /obj/item/clothing/under/pj/red,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/atrium)
-"ik" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/alien/weeds{
-	desc = "A large mottled egg.";
-	icon_state = "egg_hatched";
-	name = "egg"
-	},
-/obj/item/clothing/mask/facehugger,
-/turf/simulated/floor/engine,
-/area/ruin/space/pirate_base/xeno_lab)
 "il" = (
 /turf/simulated/floor/pod,
 /area/ruin/space/pirate_base/observ)
@@ -3042,7 +3069,6 @@
 	dir = 4
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden,
-/obj/item/stack/ore/bluespace_crystal,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
 "in" = (
@@ -3120,6 +3146,17 @@
 /obj/structure/reagent_dispensers/watertank/high,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"iA" = (
+/obj/machinery/camera{
+	c_tag = "LP7 ViruLab";
+	network = list("PPrison");
+	dir = 9
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virology)
 "iB" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -3134,6 +3171,7 @@
 /area/ruin/space/pirate_base/security_maint)
 "iC" = (
 /obj/item/trash/spentcasing,
+/obj/item/gun/projectile/shotgun/riot/buckshot,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -3279,12 +3317,7 @@
 	dir = 5;
 	pixel_x = -2
 	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "jg" = (
 /obj/structure/fans/tiny,
@@ -3453,10 +3486,6 @@
 /area/ruin/space/pirate_base/security_atrium)
 "jA" = (
 /obj/effect/decal/cleanable/blood,
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
 "jC" = (
@@ -3522,7 +3551,8 @@
 /obj/machinery/computer/shuttle{
 	shuttleId = "pirateship";
 	possible_destinations = "pirateship_home;pirateship_custom";
-	use_power = 0
+	use_power = 0;
+	req_access = list(160)
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkblue"
@@ -3619,9 +3649,17 @@
 	status = 2
 	},
 /obj/structure/rack,
-/obj/item/storage/firstaid,
+/obj/item/storage/firstaid/regular,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_medical)
+"kf" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virology)
 "kg" = (
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
@@ -3730,13 +3768,6 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/telecomms)
-"kA" = (
-/obj/machinery/computer/operating,
-/turf/simulated/floor/plasteel{
-	dir = 5;
-	icon_state = "arrival"
-	},
-/area/shuttle/pirate_corvette)
 "kB" = (
 /obj/structure/lattice/catwalk,
 /obj/structure/railing/corner{
@@ -3760,7 +3791,6 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
 "kF" = (
-/obj/structure/table/reinforced,
 /obj/item/storage/toolbox/mechanical,
 /obj/machinery/power/apc/noalarm{
 	req_access = list(160);
@@ -3770,6 +3800,8 @@
 /obj/structure/cable{
 	icon_state = "0-8"
 	},
+/obj/structure/table/reinforced,
+/obj/item/stack/cable_coil/random,
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/telecomms)
 "kG" = (
@@ -3811,6 +3843,19 @@
 	},
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/xeno_lab)
+"kL" = (
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virology)
 "kN" = (
 /obj/effect/turf_decal/siding/yellow,
 /obj/structure/window/reinforced,
@@ -3856,10 +3901,7 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "kS" = (
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 5;
@@ -4071,7 +4113,9 @@
 "lx" = (
 /obj/structure/rack,
 /obj/item/gun/energy/taser,
-/obj/item/gun/energy/taser,
+/obj/item/gun/energy/laser{
+	pixel_x = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4111,6 +4155,7 @@
 	pixel_x = 6
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/item/reagent_containers/syringe/calomel,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -4215,6 +4260,14 @@
 /obj/item/seeds/berry,
 /turf/simulated/floor/wood,
 /area/ruin/space/pirate_base/kitchen)
+"lS" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/trash/spentcasing,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/lab_medical)
 "lT" = (
 /obj/effect/turf_decal/siding/brown{
 	dir = 4
@@ -4330,6 +4383,7 @@
 	dir = 8
 	},
 /obj/item/clothing/mask/gas,
+/obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4635,12 +4689,11 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/security_atrium)
 "mZ" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
+/obj/structure/closet,
+/obj/item/poster/random_contraband,
+/obj/item/clothing/glasses/welding,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/prison_solar)
 "na" = (
 /obj/machinery/door/airlock/research/glass{
 	req_access = list(161);
@@ -4793,6 +4846,7 @@
 /area/shuttle/pirate_corvette)
 "ny" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/virus_lab)
 "nA" = (
@@ -4940,6 +4994,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -4993,11 +5049,19 @@
 "od" = (
 /obj/structure/table,
 /obj/item/folder/red,
+/obj/item/gun/energy/gun/advtaser,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"oe" = (
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/structure/bed/nest,
+/turf/simulated/floor/engine,
+/area/ruin/space/pirate_base/xeno_lab)
 "of" = (
 /obj/effect/turf_decal/stripes/gold{
 	dir = 4
@@ -5181,10 +5245,7 @@
 /turf/simulated/floor/pod/light,
 /area/ruin/space/pirate_base/security_maint)
 "ox" = (
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5207,6 +5268,14 @@
 	icon_state = "darkredcorners"
 	},
 /area/shuttle/pirate_corvette)
+"oB" = (
+/obj/structure/table/glass,
+/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/xeno_lab)
 "oD" = (
 /obj/structure/lattice,
 /obj/structure/sign/poster/official/tsf_emblem{
@@ -5284,6 +5353,8 @@
 /obj/effect/turf_decal/box,
 /obj/structure/closet/crate/medical,
 /obj/item/defibrillator/loaded,
+/obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis,
+/obj/item/reagent_containers/syringe/antiviral,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -5490,6 +5561,19 @@
 	icon_state = "darkred"
 	},
 /area/ruin/space/pirate_base/lab_sec)
+"pp" = (
+/obj/structure/alien/weeds/node,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
+"pq" = (
+/obj/structure/safe/floor{
+	known_by = list("m1911")
+	},
+/obj/item/gun/projectile/automatic/pistol/m1911,
+/obj/item/ammo_box/magazine/m45,
+/obj/item/ammo_box/magazine/m45,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/atmos)
 "pr" = (
 /obj/machinery/atmospherics/pipe/simple/hidden{
 	dir = 4
@@ -5545,9 +5629,8 @@
 	},
 /area/ruin/space/pirate_base/security_medical)
 "pF" = (
-/obj/structure/table/reinforced,
-/obj/item/stack/cable_coil/random,
-/turf/simulated/floor/pod/dark,
+/obj/machinery/tcomms/relay,
+/turf/simulated/floor/bluegrid,
 /area/ruin/space/pirate_base/telecomms)
 "pK" = (
 /obj/machinery/light{
@@ -5598,6 +5681,10 @@
 	},
 /turf/simulated/floor/carpet/red,
 /area/ruin/space/pirate_base/security_atrium)
+"pS" = (
+/obj/item/clothing/glasses/meson,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "pT" = (
 /obj/structure/toilet{
 	dir = 8;
@@ -5622,15 +5709,6 @@
 /obj/item/folder/blue{
 	pixel_x = 5
 	},
-/obj/machinery/door_control/mimic{
-	id = "secret_blast";
-	icon = 'icons/obj/pda.dmi';
-	icon_state = "cart-tox";
-	pixel_y = 8;
-	pixel_x = -6;
-	name = "Signal Ace 2";
-	desc = "Complete with integrated radio signaler!"
-	},
 /obj/item/radio/off,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -5645,7 +5723,8 @@
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /mob/living/simple_animal/bot/cleanbot{
-	on = 0
+	on = 0;
+	faction = list("neutral","silicon","pirate")
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
@@ -6120,6 +6199,12 @@
 	pixel_x = 6;
 	pixel_y = 6
 	},
+/obj/machinery/door_control{
+	id = "secret_blast";
+	pixel_x = -6;
+	pixel_y = 6;
+	name = "Storage"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6129,12 +6214,13 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/entertainment)
 "rx" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160)
-	},
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/card/id/prisoner/random,
 /obj/item/clothing/head/beanie/orange,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6356,9 +6442,6 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "sl" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160)
-	},
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
 /obj/item/card/id/prisoner/random,
@@ -6366,6 +6449,10 @@
 	dir = 1
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -6397,13 +6484,9 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/mining)
 "sq" = (
-/obj/structure/table/glass,
-/obj/item/assembly/signaler/core/bluespace/tier2,
-/turf/simulated/floor/plasteel{
-	dir = 1;
-	icon_state = "dark"
-	},
-/area/ruin/space/pirate_base/xeno_lab)
+/mob/living/simple_animal/hostile/zombie/whiteship,
+/turf/simulated/floor/engine,
+/area/ruin/space/pirate_base/virus_lab)
 "sr" = (
 /obj/item/inflatable/door,
 /turf/simulated/floor/plasteel{
@@ -6465,12 +6548,7 @@
 	dir = 10;
 	pixel_x = 2
 	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 10;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "sy" = (
 /obj/machinery/suit_storage_unit/pirate{
@@ -6543,12 +6621,11 @@
 "sH" = (
 /obj/effect/decal/warning_stripes/northeast,
 /obj/structure/bed,
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/virology)
 "sI" = (
-/obj/machinery/door/airlock/glass{
-	req_access = list(162)
-	},
+/obj/machinery/door/airlock/glass,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply{
 	dir = 4
 	},
@@ -6624,19 +6701,9 @@
 /obj/item/stack/sheet/glass,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
-"sX" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "sY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
-	},
-/obj/structure/cable{
-	icon_state = "1-8"
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 9
@@ -6646,6 +6713,9 @@
 	},
 /obj/structure/disposalpipe/junction/yjunction{
 	dir = 8
+	},
+/obj/structure/cable{
+	icon_state = "1-4"
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -6707,11 +6777,27 @@
 /obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
+"tl" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virology)
 "tm" = (
 /obj/machinery/light/small{
 	dir = 4
 	},
 /obj/machinery/optable,
+/obj/machinery/computer/operating{
+	density = 0;
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "arrival"
@@ -6736,7 +6822,8 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "prisonvirus_blast"
+	id_tag = "prisonvirus_blast";
+	use_power = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-8"
@@ -6996,11 +7083,29 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whitepurple"
 	},
 /area/ruin/space/pirate_base/laboratory)
+"ub" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 5
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virology)
 "uc" = (
 /obj/machinery/porta_turret/syndicate/pod{
 	name = "machine gun turret (4.6x30mm)";
@@ -7008,12 +7113,7 @@
 	dir = 6;
 	pixel_x = -2
 	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 6;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "ud" = (
 /obj/structure/table,
@@ -7119,7 +7219,6 @@
 "uv" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/table,
-/obj/item/reagent_containers/hypospray/autoinjector/nanocalcium,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7376,11 +7475,10 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/kitchen)
 "uY" = (
-/obj/structure/rack,
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
-/obj/item/storage/toolbox/electrical,
+/obj/structure/closet/emcloset,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "uZ" = (
@@ -7583,8 +7681,9 @@
 	},
 /area/shuttle/pirate_corvette)
 "vz" = (
-/obj/effect/mob_spawn/human/securty,
-/obj/item/gun/projectile/shotgun/riot/buckshot,
+/obj/effect/decal/remains/human,
+/obj/item/clothing/head/helmet,
+/obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7620,6 +7719,12 @@
 	icon_state = "4-8"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -7986,8 +8091,9 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "wQ" = (
-/obj/structure/disposalpipe/trunk,
-/obj/machinery/disposal,
+/obj/structure/table/reinforced,
+/obj/item/clothing/glasses/hud/health,
+/obj/item/healthanalyzer/advanced,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8019,6 +8125,8 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8035,9 +8143,8 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "xa" = (
-/obj/item/radio,
 /obj/structure/table,
-/obj/item/radio,
+/obj/item/storage/toolbox/emergency,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8290,12 +8397,10 @@
 	},
 /area/ruin/space/pirate_base/arrivals)
 "xJ" = (
-/obj/item/gun/projectile/automatic/pistol/m1911,
-/obj/item/ammo_box/magazine/m45,
-/obj/item/ammo_box/magazine/m45,
 /obj/structure/closet/crate/secure/weapon{
 	req_access = list(160)
 	},
+/obj/item/storage/box/syndie_kit/blackops_kit,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "xK" = (
@@ -8504,6 +8609,10 @@
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/arrivals)
+"yy" = (
+/obj/item/assembly/signaler/core/bluespace/tier2,
+/turf/simulated/floor/engine,
+/area/ruin/space/pirate_base/virus_lab)
 "yz" = (
 /obj/machinery/computer/crew{
 	name = "Pirate hack monitoring computer"
@@ -8555,18 +8664,17 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virology)
-"yL" = (
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 5;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners"
-	},
-/area/shuttle/pirate_corvette)
 "yQ" = (
 /obj/structure/table,
 /obj/item/flashlight,
@@ -8592,6 +8700,13 @@
 /area/ruin/space/pirate_base/observ)
 "yV" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -8857,6 +8972,15 @@
 	icon_state = "4-8"
 	},
 /obj/effect/landmark/tiles/burnturf,
+/obj/machinery/vending/wallmed{
+	pixel_y = -30
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurplecorner"
 	},
@@ -9611,6 +9735,7 @@
 	},
 /area/ruin/space/pirate_base/lab_medical)
 "BZ" = (
+/obj/effect/decal/remains/human,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkbluecorners"
@@ -9688,6 +9813,7 @@
 /obj/item/inflatable,
 /obj/item/inflatable,
 /obj/item/stock_parts/micro_laser/high,
+/obj/item/stock_parts/cell/high/plus,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -9895,16 +10021,16 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
-/obj/structure/cable{
-	icon_state = "2-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 5
 	},
 /obj/effect/landmark/tiles/burnturf,
+/obj/structure/cable{
+	icon_state = "1-4"
+	},
+/obj/structure/cable{
+	icon_state = "2-4"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "white"
@@ -10260,8 +10386,8 @@
 "Ef" = (
 /obj/structure/table/reinforced,
 /obj/item/paper{
-	info = "<color=black><I> Чёрный Рынок, работающий под покровительством Синдиката, рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес Синдиката, не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача - похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача - убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача - собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес Синдиката для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</I></font>";
-	info_links = "<color=black><I> Чёрный Рынок, работающий под покровительством Синдиката, рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес Синдиката, не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<br><br>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<br><br>Вот некоторые из доступных заданий и вознаграждения:<br><br>Похищение Определенного Человека: <br>Задача - похитить цель, живым. <br>Вознаграждение: до 120 000 кредитов.<br><br>Убийство Определенного Человека: <br>Задача - убить цель. <br>Вознаграждение: до 60 000 кредитов.<br><br>Сбор Редкой Фауны: <br>Найдите и захватите редких животных живыми. <br>Вознаграждение: до 40 000 кредитов.<br><br>Сбор Ядер Аномалии: <br>Опасная задача - собрать и доставить ядра из аномалий. <br>Вознаграждение: до 50 000 кредитов.<br><br>Выращивание Определенных Растений: <br>Поставьте и вырастите указанные растения. <br>Вознаграждение: до 20 000 кредитов.<br><br>Приготовление Особой Еды: <br>Подготовьте особую пиратскую пищу. <br>Вознаграждение: до 20 000 кредитов.<br><br>Половина заработанных вами кредитов будет уходить в уплату долга.<br><br>Пожалуйста, не забудьте отправить факс на адрес Синдиката для подтверждения. <br>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<br><br>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</I></font>";
+	info = "<color=black><I> Чёрный Рынок, работающий под покровительством Синдиката, рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес Синдиката, не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<BR><BR>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<BR><BR>Вот некоторые из доступных заданий и вознаграждения:<BR><BR>Похищение Определенного Человека: <BR>Задача - похитить цель, живым. <BR>Вознаграждение: до 120 000 кредитов.<BR><BR>Убийство Определенного Человека: <BR>Задача - убить цель. <BR>Вознаграждение: до 60 000 кредитов.<BR><BR>Сбор Редкой Фауны: <BR>Найдите и захватите редких животных живыми. <BR>Вознаграждение: до 40 000 кредитов.<BR><BR>Сбор Ядер Аномалии: <BR>Опасная задача - собрать и доставить ядра из аномалий. <BR>Вознаграждение: до 50 000 кредитов.<BR><BR>Выращивание Определенных Растений: <BR>Поставьте и вырастите указанные растения. <BR>Вознаграждение: до 20 000 кредитов.<BR><BR>Приготовление Особой Еды: <BR>Подготовьте особую пиратскую пищу. <BR>Вознаграждение: до 20 000 кредитов.<BR><BR>Половина заработанных вами кредитов будет уходить в уплату долга.<BR><BR>Пожалуйста, не забудьте отправить факс на адрес Синдиката для подтверждения. <BR>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<BR><BR>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</I></font>";
+	info_links = "<color=black><I> Чёрный Рынок, работающий под покровительством Синдиката, рад предложить вам разнообразные контракты, которые могут приносить вам приличные кредиты. Чтобы получить контракт, необходимо отправить факс на адрес Синдиката, не забывая указать, что обращение направлено к Черному Рынку. Это поможет ускорить обработку и направление контракта на выполнение.<BR><BR>Помните, что на поиск подходящего контракта Черному Рынку требуется некоторое время. Чтобы сделать процесс более эффективным, пожалуйста, заранее укажите интересующие вас направления, чтобы мы могли отправлять вам новые контракты в соответствии с вашими предпочтениями.<BR><BR>Вот некоторые из доступных заданий и вознаграждения:<BR><BR>Похищение Определенного Человека: <BR>Задача - похитить цель, живым. <BR>Вознаграждение: до 120 000 кредитов.<BR><BR>Убийство Определенного Человека: <BR>Задача - убить цель. <BR>Вознаграждение: до 60 000 кредитов.<BR><BR>Сбор Редкой Фауны: <BR>Найдите и захватите редких животных живыми. <BR>Вознаграждение: до 40 000 кредитов.<BR><BR>Сбор Ядер Аномалии: <BR>Опасная задача - собрать и доставить ядра из аномалий. <BR>Вознаграждение: до 50 000 кредитов.<BR><BR>Выращивание Определенных Растений: <BR>Поставьте и вырастите указанные растения. <BR>Вознаграждение: до 20 000 кредитов.<BR><BR>Приготовление Особой Еды: <BR>Подготовьте особую пиратскую пищу. <BR>Вознаграждение: до 20 000 кредитов.<BR><BR>Половина заработанных вами кредитов будет уходить в уплату долга.<BR><BR>Пожалуйста, не забудьте отправить факс на адрес Синдиката для подтверждения. <BR>Ваша активность на Черном Рынке может приносить вам богатства и славу в пиратском мире.<BR><BR>С наилучшими пиратскими пожеланиями, Чёрный Рынок.</I></font>";
 	name = "Чёрный Рынок"
 	},
 /turf/simulated/floor/plasteel{
@@ -10620,6 +10746,7 @@
 /obj/item/analyzer,
 /obj/item/assembly/signaler,
 /obj/item/assembly/signaler,
+/obj/item/stack/tape_roll/thick,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11313,7 +11440,8 @@
 /obj/structure/disposalpipe/segment{
 	dir = 4
 	},
-/turf/simulated/wall/r_wall,
+/obj/structure/window/full/reinforced/tinted,
+/turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "Hg" = (
 /obj/structure/cable{
@@ -11767,12 +11895,13 @@
 	},
 /area/shuttle/pirate_corvette)
 "Ir" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160)
-	},
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11815,9 +11944,13 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "Iz" = (
-/obj/structure/closet,
-/obj/item/poster/random_contraband,
-/obj/item/clothing/glasses/welding,
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/closet{
+	icon_state = "firecloset";
+	name = "fire-safety closet"
+	},
+/obj/item/clothing/suit/fire/firefighter,
+/obj/item/clothing/head/hardhat/red,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "IA" = (
@@ -11856,6 +11989,13 @@
 "IL" = (
 /obj/machinery/light,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_scrubber{
+	dir = 4;
+	name = "standard air scrubber";
+	on = 1;
+	scrub_N2O = 1;
+	scrub_Toxins = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -11872,6 +12012,16 @@
 /area/ruin/space/pirate_base/atrium)
 "IO" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/table,
+/obj/item/clothing/glasses/meson{
+	pixel_y = 3;
+	pixel_x = -2
+	},
+/obj/item/clothing/glasses/meson{
+	pixel_y = 7;
+	pixel_x = 3
+	},
+/obj/item/clothing/glasses/meson,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -11984,14 +12134,12 @@
 /area/ruin/space/pirate_base/security_medical)
 "Jc" = (
 /obj/effect/decal/cleanable/blood,
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/virus_lab)
 "Jd" = (
 /obj/item/clothing/head/bio_hood/scientist,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12129,6 +12277,7 @@
 /obj/structure/sign/poster/official/cleanliness{
 	pixel_x = -32
 	},
+/obj/effect/decal/warning_stripes/red/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -12636,7 +12785,7 @@
 	dir = 8
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/universal,
-/obj/machinery/suit_storage_unit,
+/obj/structure/closet/firecloset,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/security_maint)
 "KU" = (
@@ -12755,7 +12904,6 @@
 	pixel_y = -2;
 	pixel_x = 6
 	},
-/obj/item/clothing/gloves/color/latex,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12789,6 +12937,8 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -12808,20 +12958,18 @@
 	},
 /area/ruin/space/pirate_base/lab_hall)
 "Ly" = (
-/obj/structure/disposalpipe/trunk{
-	dir = 4
+/mob/living/simple_animal/hostile/alien,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
 	},
-/obj/structure/disposaloutlet{
-	dir = 4
-	},
-/turf/simulated/floor/engine,
-/area/ruin/space/pirate_base/virus_lab)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "Lz" = (
-/obj/structure/disposalpipe/segment{
-	dir = 9
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
 	},
-/turf/simulated/floor/engine,
-/area/ruin/space/pirate_base/virus_lab)
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "LC" = (
 /obj/structure/closet,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
@@ -12838,14 +12986,15 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
 "LG" = (
-/obj/structure/closet/secure_closet{
-	req_access = list(160)
-	},
 /obj/item/clothing/under/color/orange/prison,
 /obj/item/clothing/shoes/orange,
 /obj/item/clothing/head/beanie/orange,
 /obj/effect/decal/cleanable/dirt,
 /obj/item/card/id/prisoner/random,
+/obj/structure/closet/secure_closet{
+	req_access = list(160);
+	name = "prison locker"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -12865,18 +13014,18 @@
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/kitchen)
 "LK" = (
-/obj/structure/table/reinforced,
 /obj/structure/window/plasmareinforced{
 	dir = 4
 	},
-/obj/item/healthanalyzer/advanced,
-/obj/item/clothing/glasses/hud/health,
+/obj/machinery/disposal,
+/obj/structure/disposalpipe/trunk,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
 /area/ruin/space/pirate_base/virus_lab)
 "LN" = (
+/obj/item/stack/ore/bluespace_crystal,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "darkbluecorners"
@@ -13121,8 +13270,7 @@
 /area/ruin/space/pirate_base/arrivals)
 "MB" = (
 /obj/machinery/computer/security{
-	name = "Pirate hack camera console";
-	network = list("SS13","Mining Outpost","PPrison")
+	network = list("PPrison")
 	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -13149,10 +13297,7 @@
 /turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "MF" = (
-/mob/living/simple_animal/hostile/zombie/whiteship{
-	health = 30;
-	maxHealth = 30
-	},
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -13505,14 +13650,14 @@
 	},
 /area/space)
 "NC" = (
-/obj/structure/cable{
-	icon_state = "1-8"
-	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /obj/effect/landmark/tiles/burnturf,
 /obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "1-2"
+	},
+/obj/structure/cable{
+	icon_state = "2-8"
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
@@ -13625,6 +13770,11 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
+/obj/structure/sink{
+	dir = 1;
+	layer = 5;
+	pixel_y = -5
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},
@@ -13728,6 +13878,11 @@
 "Ol" = (
 /obj/structure/disposalpipe/segment,
 /obj/machinery/door/airlock/glass,
+/obj/structure/barricade/wooden/crude{
+	max_integrity = 150;
+	obj_integrity = 150;
+	layer = 3.5
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "cafeteria";
@@ -13866,6 +14021,13 @@
 /obj/item/gps{
 	tracking = 0
 	},
+/obj/item/card/id/thunderdome/red{
+	name = "Pirate ID";
+	registered_name = "Pirate";
+	access = list(160,26);
+	desc = "A card used to determine access across.";
+	assignment = "Pirate"
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "darkblue"
@@ -14002,7 +14164,7 @@
 /obj/item/folder/yellow,
 /obj/item/card/id/warden{
 	access = list(161);
-	name = "Lab access ID";
+	name = "Laboratory ID";
 	registered_name = "Access Card";
 	desc = "ID Card."
 	},
@@ -14075,6 +14237,8 @@
 	pixel_y = 36
 	},
 /obj/item/camera,
+/obj/item/radio,
+/obj/item/radio,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14109,7 +14273,7 @@
 /obj/structure/closet/secure_closet{
 	icon_state = "rd";
 	name = "research director's locker";
-	req_access = list(160)
+	req_access = list(161)
 	},
 /obj/item/storage/backpack/satchel_tox,
 /obj/item/clothing/suit/storage/labcoat/science,
@@ -14306,6 +14470,9 @@
 /area/ruin/space/pirate_base/lab_maint)
 "PW" = (
 /obj/effect/landmark/tiles/burnturf,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14351,12 +14518,7 @@
 	dir = 9;
 	pixel_x = 2
 	},
-/turf/simulated/wall/shuttle/nosmooth{
-	dir = 9;
-	icon = 'icons/turf/walls/shuttle/gray_shuttle_wall.dmi';
-	icon_state = "gray_walls_corners";
-	density = 0
-	},
+/turf/simulated/floor/plating,
 /area/shuttle/pirate_corvette)
 "Qg" = (
 /obj/effect/landmark/tiles/damageturf,
@@ -14537,6 +14699,13 @@
 /obj/machinery/atmospherics/binary/volume_pump,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/atmos)
+"QJ" = (
+/obj/structure/disposaloutlet,
+/obj/structure/disposalpipe/trunk{
+	dir = 1
+	},
+/turf/simulated/floor/engine,
+/area/ruin/space/pirate_base/virus_lab)
 "QM" = (
 /obj/structure/cable{
 	icon_state = "0-4"
@@ -14598,11 +14767,20 @@
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
 "QU" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/item/ammo_casing/shotgun/buckshot,
+/obj/item/ammo_casing/shotgun/buckshot{
+	pixel_x = -2;
+	pixel_y = -9
+	},
+/obj/item/ammo_casing/shotgun/buckshot{
+	pixel_x = -4;
+	pixel_y = 7
+	},
 /mob/living/simple_animal/hostile/zombie/whiteship{
 	health = 30;
 	maxHealth = 30
 	},
-/obj/effect/decal/cleanable/dirt,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkbluecorners"
@@ -14664,6 +14842,9 @@
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/lab_solar)
 "Rg" = (
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14911,6 +15092,12 @@
 /obj/structure/table,
 /obj/item/flashlight/seclite,
 /obj/item/camera,
+/obj/machinery/recharger/wallcharger{
+	pixel_y = -26
+	},
+/obj/machinery/recharger/wallcharger{
+	pixel_y = -34
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -14923,6 +15110,13 @@
 /obj/structure/flora/ausbushes/ppflowers,
 /turf/simulated/floor/grass,
 /area/ruin/space/pirate_base/kitchen)
+"RX" = (
+/obj/item/tank/internals/emergency_oxygen/engi/syndi,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "RY" = (
 /obj/structure/table/wood,
 /obj/effect/decal/cleanable/dirt,
@@ -15014,17 +15208,16 @@
 	icon_state = "1-2"
 	},
 /obj/effect/decal/cleanable/blood,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 10
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
 	},
-/area/ruin/space/pirate_base/xeno_lab)
-"Sp" = (
-/obj/structure/alien/weeds{
-	icon_state = "weeds2"
-	},
-/obj/structure/alien/egg/grown,
-/turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/xeno_lab)
 "Sr" = (
 /obj/structure/table/glass,
@@ -15258,6 +15451,8 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
+/obj/machinery/atmospherics/pipe/manifold/hidden/supply,
+/obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "whitepurplecorner"
@@ -15303,12 +15498,12 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "prisonvirus_blast"
+	id_tag = "prisonvirus_blast";
+	use_power = 0
 	},
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
-/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/virus_lab)
 "Tf" = (
@@ -15350,6 +15545,16 @@
 /obj/structure/table_frame,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/entertainment)
+"To" = (
+/obj/item/card/id/warden{
+	access = list(161);
+	name = "Laboratory ID";
+	registered_name = "Access Card";
+	desc = "ID Card."
+	},
+/obj/effect/decal/remains/human,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "Tp" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/supply{
 	dir = 8
@@ -15373,6 +15578,16 @@
 /obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/lab_maint)
+"Tr" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/virology)
 "Tu" = (
 /obj/machinery/light/small{
 	dir = 4
@@ -15610,6 +15825,7 @@
 /obj/item/stack/cable_coil{
 	amount = 2
 	},
+/obj/effect/mob_spawn/mousedead,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_maint)
 "Uj" = (
@@ -15635,7 +15851,8 @@
 	dir = 8
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "prisonvirus_blast"
+	id_tag = "prisonvirus_blast";
+	use_power = 0
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -15745,6 +15962,17 @@
 	},
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/prison_solar)
+"UB" = (
+/obj/effect/mob_spawn/human/corpse/tacticool,
+/obj/item/clothing/head/helmet/space/syndicate/black/red,
+/obj/item/clothing/suit/space/syndicate/black/red,
+/obj/item/clothing/mask/gas/syndicate,
+/obj/structure/alien/weeds{
+	icon_state = "weeds2"
+	},
+/obj/item/pickaxe,
+/turf/simulated/floor/plating/asteroid/airless,
+/area/ruin/unpowered)
 "UD" = (
 /obj/machinery/mineral/unloading_machine{
 	input_dir = 4;
@@ -15856,6 +16084,7 @@
 /turf/simulated/floor/engine,
 /area/ruin/space/pirate_base/virus_lab)
 "UW" = (
+/mob/living/simple_animal/hostile/zombie/whiteship,
 /turf/simulated/floor/greengrid,
 /area/ruin/space/pirate_base/virus_lab)
 "UX" = (
@@ -16040,6 +16269,9 @@
 	status = 2
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16113,6 +16345,16 @@
 /obj/effect/decal/cleanable/glass,
 /turf/simulated/floor/plasteel,
 /area/ruin/space/pirate_base/atrium)
+"VO" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/machinery/vending/wallmed{
+	pixel_y = -30
+	},
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "dark"
+	},
+/area/ruin/space/pirate_base/arrivals)
 "VP" = (
 /obj/machinery/vending/medical{
 	req_access = list(160)
@@ -16276,6 +16518,7 @@
 /obj/structure/rack,
 /obj/item/stock_parts/scanning_module,
 /obj/effect/spawner/lootdrop/maintenance/tripple,
+/obj/item/stock_parts/matter_bin,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/laboratory)
 "Wn" = (
@@ -16421,6 +16664,9 @@
 /obj/item/storage/backpack/security,
 /obj/item/restraints/handcuffs,
 /obj/item/clothing/shoes/jackboots,
+/obj/item/ammo_box/shotgun/buck{
+	pixel_y = 3
+	},
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -16533,6 +16779,7 @@
 	name = "emergency closet"
 	},
 /obj/item/tank/internals/emergency_oxygen/engi,
+/obj/effect/decal/warning_stripes/blue/hollow,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
 	},
@@ -16703,6 +16950,10 @@
 	icon_state = "bar"
 	},
 /area/ruin/space/pirate_base/atrium)
+"XK" = (
+/obj/structure/reagent_dispensers/fueltank,
+/turf/simulated/floor/plating,
+/area/ruin/space/pirate_base/lab_maint)
 "XL" = (
 /obj/effect/decal/cleanable/blood,
 /turf/simulated/floor/plating/asteroid/airless,
@@ -16742,6 +16993,9 @@
 "XS" = (
 /obj/effect/decal/cleanable/blood/gibs/old,
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "dark"
@@ -16875,7 +17129,8 @@
 	dir = 2
 	},
 /obj/machinery/computer/cryopod{
-	pixel_y = 32
+	pixel_y = 32;
+	req_access = list(160)
 	},
 /turf/simulated/floor/pod/dark,
 /area/ruin/space/pirate_base/atrium)
@@ -16976,6 +17231,9 @@
 	c_tag = "LP7 XenoLab";
 	network = list("PPrison");
 	dir = 1
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
 	},
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -17262,7 +17520,8 @@
 	dir = 4
 	},
 /obj/machinery/door/poddoor{
-	id_tag = "prisonvirus_blast"
+	id_tag = "prisonvirus_blast";
+	use_power = 0
 	},
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -17270,6 +17529,7 @@
 /obj/structure/cable{
 	icon_state = "0-4"
 	},
+/obj/structure/disposalpipe/segment,
 /turf/simulated/floor/plating,
 /area/ruin/space/pirate_base/virus_lab)
 "Zl" = (
@@ -17987,7 +18247,7 @@ AK
 mM
 mM
 mM
-qc
+bi
 qc
 qc
 qc
@@ -18089,7 +18349,7 @@ AK
 AK
 bi
 bi
-AK
+bi
 AK
 AK
 AK
@@ -18162,7 +18422,7 @@ qc
 qc
 qc
 qc
-mM
+bi
 mM
 AK
 mM
@@ -18264,7 +18524,7 @@ qc
 qc
 qc
 qc
-AK
+bi
 AK
 AK
 AK
@@ -18366,7 +18626,7 @@ AK
 AK
 AK
 AK
-AK
+bi
 AK
 AK
 AK
@@ -18762,7 +19022,7 @@ AK
 AK
 AK
 IZ
-Qd
+mZ
 pA
 Qd
 jc
@@ -20369,7 +20629,7 @@ qc
 qc
 qc
 qc
-mM
+NM
 AK
 AK
 AK
@@ -20785,7 +21045,7 @@ qc
 qc
 qc
 qc
-en
+it
 it
 it
 wI
@@ -20795,7 +21055,7 @@ it
 wI
 wI
 wI
-mZ
+it
 qc
 qc
 qc
@@ -20844,7 +21104,7 @@ AK
 AK
 AK
 AK
-gm
+mM
 AK
 AK
 AK
@@ -20885,7 +21145,7 @@ qc
 qc
 qc
 Qf
-Ok
+it
 Ok
 it
 cj
@@ -20899,7 +21159,7 @@ gi
 Ey
 it
 Ok
-wI
+it
 sx
 qc
 Ac
@@ -20946,7 +21206,7 @@ AK
 AK
 AK
 AK
-AK
+gm
 AK
 AK
 AK
@@ -20986,8 +21246,8 @@ qc
 qc
 qc
 qc
-Ok
-gc
+it
+it
 ux
 Xo
 Cz
@@ -21001,8 +21261,8 @@ sT
 KQ
 BF
 Hz
-kb
-xb
+wI
+it
 qc
 Th
 LQ
@@ -21103,7 +21363,7 @@ Ep
 AA
 WW
 Hx
-eh
+kb
 xb
 qc
 Th
@@ -21150,7 +21410,7 @@ AK
 bi
 AK
 AK
-AK
+mM
 AK
 AK
 bi
@@ -21190,7 +21450,7 @@ qc
 qc
 qc
 qc
-yL
+it
 Ok
 it
 OI
@@ -21205,8 +21465,8 @@ Hh
 sT
 ei
 Mp
-it
-sX
+eh
+xb
 qc
 Th
 LQ
@@ -21252,8 +21512,8 @@ bi
 bi
 bi
 AK
-AK
-AK
+mM
+mM
 AK
 bi
 bi
@@ -21294,7 +21554,7 @@ qc
 qc
 qc
 qc
-yL
+it
 it
 wI
 wI
@@ -21307,8 +21567,8 @@ it
 it
 ME
 it
-sX
-qc
+Ok
+it
 qc
 Th
 qY
@@ -21354,7 +21614,7 @@ bi
 bi
 AK
 AK
-AK
+mM
 AK
 AK
 AK
@@ -21455,8 +21715,8 @@ AK
 AK
 AK
 AK
-AK
-AK
+GG
+PE
 AK
 AK
 bi
@@ -21558,7 +21818,7 @@ AK
 AK
 AK
 AK
-AK
+mM
 AK
 AK
 AK
@@ -21906,7 +22166,7 @@ qc
 qc
 qc
 qc
-en
+it
 it
 wI
 wI
@@ -21919,8 +22179,8 @@ it
 it
 gU
 it
-mZ
-qc
+Ok
+it
 qc
 Ac
 qY
@@ -22006,7 +22266,7 @@ qc
 qc
 qc
 qc
-en
+it
 Ok
 it
 hc
@@ -22021,8 +22281,8 @@ ji
 dd
 jl
 Om
-it
-mZ
+eh
+xb
 qc
 Ac
 qY
@@ -22035,12 +22295,12 @@ VY
 Dn
 fj
 yx
-VY
+VO
 Iv
 AK
 AK
 mM
-mM
+To
 AK
 AK
 AK
@@ -22123,7 +22383,7 @@ zC
 Er
 hC
 Yx
-eh
+kb
 xb
 qc
 Th
@@ -22171,7 +22431,7 @@ xt
 AK
 AK
 mM
-mM
+pS
 AK
 AK
 bi
@@ -22210,8 +22470,8 @@ qc
 qc
 qc
 qc
-Ok
-kA
+it
+it
 tm
 xu
 zq
@@ -22225,8 +22485,8 @@ Wx
 Mj
 el
 wZ
-kb
-xb
+wI
+it
 qc
 Th
 Kf
@@ -22256,7 +22516,7 @@ sr
 ox
 iM
 xZ
-bZ
+XK
 vm
 SP
 iM
@@ -22313,7 +22573,7 @@ qc
 qc
 qc
 je
-Ok
+it
 Ok
 it
 xE
@@ -22327,7 +22587,7 @@ Jt
 Jt
 it
 Ok
-wI
+it
 uc
 qc
 Th
@@ -22417,7 +22677,7 @@ qc
 qc
 qc
 qc
-yL
+it
 wI
 wI
 wI
@@ -22427,7 +22687,7 @@ it
 wI
 wI
 wI
-sX
+it
 qc
 qc
 qc
@@ -23198,7 +23458,7 @@ AK
 AK
 AK
 AK
-AK
+GG
 AK
 bi
 bi
@@ -23267,7 +23527,7 @@ AK
 AK
 cS
 cS
-iK
+ox
 pQ
 pQ
 oz
@@ -23280,7 +23540,7 @@ Sk
 uA
 mA
 Sk
-nm
+lS
 nW
 wJ
 AN
@@ -23703,7 +23963,7 @@ AK
 AK
 mM
 mM
-mM
+gc
 mM
 AK
 AK
@@ -23957,7 +24217,7 @@ AK
 AK
 AK
 mc
-oT
+pq
 wK
 wf
 Sg
@@ -25005,7 +25265,7 @@ AK
 AK
 AK
 MD
-Nv
+oB
 Nv
 qW
 uv
@@ -25107,7 +25367,7 @@ AK
 AK
 AK
 MD
-sq
+Nv
 nl
 UK
 wl
@@ -25228,7 +25488,7 @@ za
 lu
 Ud
 jZ
-Ly
+dD
 dD
 jZ
 jZ
@@ -25329,9 +25589,9 @@ yV
 Kr
 wQ
 Te
-hm
-Lz
-dD
+jZ
+sq
+sq
 dD
 jZ
 AK
@@ -25414,9 +25674,9 @@ bi
 AK
 AK
 MD
-ik
+Zn
 rc
-Sp
+Zn
 MD
 JR
 zy
@@ -25427,11 +25687,11 @@ Us
 EA
 jZ
 jZ
-yV
+aK
 fg
 LK
 Zk
-dD
+QJ
 jA
 UW
 Ia
@@ -25528,7 +25788,7 @@ MD
 FS
 ed
 wU
-lu
+cC
 hB
 hs
 MZ
@@ -25615,7 +25875,7 @@ UI
 yr
 AK
 AK
-mM
+UB
 AK
 MD
 rc
@@ -25636,7 +25896,7 @@ fg
 mo
 Uk
 UV
-dD
+yy
 UW
 dD
 jZ
@@ -25717,7 +25977,7 @@ fR
 yr
 AK
 AK
-mM
+RX
 AK
 MD
 Rn
@@ -25740,7 +26000,7 @@ to
 jZ
 Ia
 Ia
-dD
+sq
 jZ
 AK
 ci
@@ -25818,8 +26078,8 @@ yr
 yr
 yr
 AK
-mM
-FN
+Ly
+hm
 AK
 MD
 Gw
@@ -25920,11 +26180,11 @@ AK
 AK
 AK
 AK
-mM
-Ik
+pp
+by
 AK
 MD
-rc
+oe
 IV
 Du
 MD
@@ -26022,12 +26282,12 @@ AK
 AK
 AK
 AK
-mM
-mM
+Lz
+Lz
 AK
 MD
 Zn
-rc
+oe
 Zn
 MD
 JR
@@ -26124,8 +26384,8 @@ AK
 AK
 AK
 AK
-FN
-mM
+hm
+Lz
 AK
 MD
 MD
@@ -26143,7 +26403,7 @@ Jd
 aU
 iZ
 TB
-DQ
+kL
 DQ
 DQ
 KC
@@ -26226,7 +26486,7 @@ AK
 AK
 AK
 AK
-mM
+Lz
 AK
 AK
 AK
@@ -26242,10 +26502,10 @@ MD
 mh
 mD
 uV
-DQ
-DQ
-DQ
-DQ
+tl
+kf
+kf
+ub
 KC
 KC
 KC
@@ -26346,8 +26606,8 @@ mh
 mh
 KC
 KC
-DQ
-KC
+iA
+Tr
 KC
 KC
 KC
@@ -26738,7 +26998,7 @@ AK
 AK
 AK
 AK
-mM
+FN
 AK
 AK
 AK

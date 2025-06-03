@@ -82,6 +82,17 @@
 						stamina_damage += PUSH_STAMINADAM_RUN
 
 			apply_damage(stamina_damage, STAMINA)
+		// if our speed is connected to enviroment temperature
+		var/datum/gas_mixture/environment
+		if(HAS_TRAIT(src,TRAIT_TEMPERATURE_MOVEMENT))
+			environment = loc.return_air()
+			if(environment.temperature < 283.15)
+				remove_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
+				add_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
+				return
+
+			remove_movespeed_modifier(/datum/movespeed_modifier/temperature/cold)
+			add_movespeed_modifier(/datum/movespeed_modifier/temperature/hot)
 
 	if(no_gravity())
 		return .
@@ -244,6 +255,15 @@
 
 	return ..()
 
+/mob/living/carbon/human/update_pull_movespeed()
+	if(!pulling && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+		return ..()
+	remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
+
+/mob/living/carbon/human/update_push_movespeed()
+	if(!now_pushing && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+		return ..()
+	remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 
 #undef PULL_STAMINADAM_WALK
 #undef PULL_STAMINADAM_RUN
