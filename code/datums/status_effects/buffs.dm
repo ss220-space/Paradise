@@ -80,7 +80,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/shadow_mend
 
 /atom/movable/screen/alert/status_effect/shadow_mend
-	name = "Теневой Исцеление"
+	name = "Теневой исцеление"
 	desc = "Тёмные энергии обволакивают ваши раны, запечатывая их, но за определённую цену. После исцеления вы будете медленно терять здоровье каждые 3 секунды, в течение 30 секунд."
 	icon_state = "shadow_mend"
 
@@ -102,7 +102,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/shadow_empower
 
 /atom/movable/screen/alert/status_effect/shadow_empower
-	name = "Усиление Тьмой"
+	name = "Усиление тьмой"
 	desc = "Ваше тело усилено тьмой, и теперь вы исцеляетесь гораздо лучше."
 	icon_state = "glare"
 
@@ -138,7 +138,7 @@
 	var/price = 3
 
 /atom/movable/screen/alert/status_effect/void_price
-	name = "Цена Бездны"
+	name = "Цена бездны"
 	desc = "Чёрные щупальца сжимают вас, впиваясь зловещими шипами в вашу плоть."
 	icon_state = "shadow_mend"
 
@@ -157,7 +157,7 @@
 	alert_type = /atom/movable/screen/alert/status_effect/blooddrunk
 
 /atom/movable/screen/alert/status_effect/blooddrunk
-	name = "Одурманенный Кровью"
+	name = "Одурманенный кровью"
 	desc = "Вы одурманены кровью! Ваш пульс бьётся в ушах! Ничто не может причинить вам вреда!" //not true, and the item description mentions its actual effect
 	icon_state = "blooddrunk"
 
@@ -375,10 +375,9 @@
 
 
 /atom/movable/screen/alert/status_effect/regenerative_core
-	name = "Укрепляющие Щупальца"
+	name = "Регенеративное ядро"
 	desc = "Вы можете двигаться быстрее, чем ваше повреждённое тело обычно позволяет!"
 	icon_state = "regenerative_core"
-	name = "Regenerative Core Tendrils"
 
 /datum/status_effect/regenerative_core
 	id = "Regenerative Core"
@@ -410,7 +409,7 @@
 
 
 /atom/movable/screen/alert/status_effect/fleshmend
-	name = "Регенерация Плоти"
+	name = "Регенерация плоти"
 	desc = "Наши раны быстро заживают."
 	icon_state = "fleshmend"
 
@@ -594,19 +593,18 @@
 
 /datum/status_effect/hope/proc/hope_message()
 	var/list/hope_messages = list(
-		"Вы наполняетесь [pick("надеждой", "решимостью", "силой", "спокойствием", "уверенностью", "робастом")].",
-		"Не сдавайтесь!",
-		"Вы видите, как [pick("друзья", "семья", "коллеги")] [pick("болеют за вас", "поддерживают вас", "переживают за вас")].",
-		"Вы не можете сдаваться сейчас, продолжайте!",
-		"Но вы отказались умирать!",
-		"Вы прошли через худшее, вы справитесь!",
-		"Люди нуждаются в вас, не [pick("сдавайтесь", "останавливайтесь", "отдыхайте", "уходите", "колеблитесь", "теряйте надежду")]!",
+		"Вы чувствуете, как вас переполняет [pick("надежда", "решимость", "сила", "ярость", "адреналин", "робаст")]!",
+		"Не вздумайте сдаваться!",
+		"Вы видишьте как [pick("друзья", "семья", "коллеги")] [pick("болеют за вас", "поддерживают вас", "переживают за вас")].",
+		"Вы не можете сдаться, продолжайте жить!",
+		"Вы пережили и не такое – соберите свою волю в кулак!",
+		"Люди нуждаются в вас, не [pick("сдавайтесь", "останавливайтесь", "уходите", "колеблитесь", "теряйте надежду")]!",
 		"Этот человек не такой робастный, как вы!",
 		"Вы РОБАСТ, не позволяйте никому говорить обратное!",
 		"[owner], не теряйте надежду, будущее станции зависит от вас!",
 		"Не идите за светом, пока что!"
 	)
-	var/list/un_hopeful_messages = list("НЕ СДОХНИ СЕЙЧАС, ТРУС ЕБАНЫЙ!",
+	var/list/un_hopeful_messages = list("НЕ СМЕЙ СДОХНУТЬ, ТРУС!",
 							"Git Gud, [owner]",
 							"Держу пари, [pick("вокс", "вульпа", "ниан", "таяра", "лысый")] справился бы лучше, чем ты!",
 							"Ты слышишь, как люди смеются над тобой за то, что тебя заробастили.")
@@ -690,7 +688,7 @@
 
 
 /atom/movable/screen/alert/status_effect/blood_swell
-	name = "Кровавый Прилив"
+	name = "Кровавый прилив"
 	desc = "Ваше тело наполнено багровой магией, ваша устойчивость к атакам значительно повысилась!"
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "blood_swell_status"
@@ -754,7 +752,7 @@
 
 
 /atom/movable/screen/alert/status_effect/blood_rush
-	name = "Кровавый Рывок"
+	name = "Кровавый рывок"
 	desc = "Ваше тело наполнено магией крови, увеличивая вашу скорость передвижения."
 	icon = 'icons/mob/actions/actions.dmi'
 	icon_state = "blood_rush_status"

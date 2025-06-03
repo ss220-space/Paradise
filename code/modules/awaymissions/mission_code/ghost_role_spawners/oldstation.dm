@@ -12,7 +12,7 @@
 	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	description = "Работайте в команде с другими выжившими на борту разрушенной древней космической станции."
+	description = "Работайте в команде с другими выжившими на борту древней разрушенной космической станции."
 	roundstart = FALSE
 	death = FALSE
 	allow_species_pick = TRUE

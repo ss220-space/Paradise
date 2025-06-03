@@ -30,7 +30,7 @@
 			if(prob(5))
 				affected_mob.emote(pick("twitch_s", "scream"))
 			if(prob(5))
-				var/speak = pick("ААААРГХ!!!!", "ГРРР!!!", "ЕБАТЬ!! БЛЯТЬ!!!", "ЁБАННЫЙ ГОВНОЕД!!", "ВРОООАААГХ!!")
+				var/speak = pick("ААААРГХ!!!!", "ГРРР!!!", "ЕБАТЬ!! БЛЯТЬ!!!", "ЁБАННЫЙ, СУКА!!", "ВРОООАААГХ!!")
 				affected_mob.say(speak)
 			if(prob(15))
 				affected_mob.visible_message(span_danger("[affected_mob] дёргается в конвульсиях!"))

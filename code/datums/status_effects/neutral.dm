@@ -63,8 +63,8 @@
 
 /datum/status_effect/staring/proc/catch_look(mob/living/opponent)
 	if(target == opponent)
-		to_chat(owner, span_notice("[opponent.name] ловит ваш взгляд!"))
-		to_chat(opponent, span_notice("[owner.name] ловит ваш взгляд!"))
+		to_chat(owner, span_notice("[opponent.name] лов[pluralize_ru(owner.gender, "ит", "ят")] ваш взгляд!"))
+		to_chat(opponent, span_notice("[owner.name] лов[pluralize_ru(owner.gender, "ит", "ят")] ваш взгляд!"))
 		var/list/loved_ones = list(MALE, FEMALE)
 		if(!ishuman(owner) || !(target_gender in loved_ones) || !(owner.gender in loved_ones))
 			return
@@ -143,7 +143,7 @@
 		"перемещает свою руку прямо ко лбу от стыда.",
 		"даёт пять в воздух.",
 		"стыдливо хлопает себя по другой руке, прежде чем смахнуть слезу.",
-		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [owner.p_are()] [owner.p_they()] делает?</i>"
+		"пытается пожать руку, затем ударить кулаками, прежде чем отдернуть руку...? <i>Что [pluralize_ru(owner.gender, "он", "они")] дела[pluralize_ru(owner.gender, "ет", "ют")]?</i>"
 	)
 	return pick(missed_highfive_messages)
 
@@ -171,9 +171,9 @@
 
 /datum/status_effect/high_five/handshake/get_missed_message()
 	var/list/missed_messages = list(
-		"стыдливо опускает руку.",
-		"хватает протянутую руку [owner.p_their()] другой рукой [owner.p_their()] и пожимает [owner.p_themselves()] руку.",
-		"сжимает [owner.p_their()] руку в кулак, медленно убирая её."
+		"стыдливо опуска[pluralize_ru(owner.gender, "ет", "ют")] руку.",
+		"хвата[pluralize_ru(owner.gender, "ет", "ют")] свою протянутую руку другой рукой и пожима[pluralize_ru(owner.gender, "ет", "ют")] её, будто здорова[pluralize_ru(owner.gender, "ется", "ются")] сам[genderize_ru(owner.gender, "", "а", "о", "и")] с собой.",
+		"сжима[pluralize_ru(owner.gender, "ет", "ют")] руку в кулак, медленно убирая её."
 	)
 	return pick(missed_messages)
 
@@ -242,7 +242,7 @@
 	ADD_TRAIT(owner, TRAIT_HANDS_BLOCKED, TRAIT_STATUS_EFFECT(id)) // they're kinda busy!
 
 	owner.visible_message(
-		span_danger("[owner] катается по полу, пытаясь потушить себя!"),
+		span_danger("[owner] ката[pluralize_ru(owner.gender, "ет", "ют")]ся по полу, пытаясь потушить себя!"),
 		span_notice("Вы останавливаетесь, падаете и катаетесь!"),
 	)
 	// Start with one weaker roll
@@ -273,7 +273,7 @@
 		return
 
 	owner.visible_message(
-		span_danger("[owner] успешно тушит себя!"),
+		span_danger("[owner] успешно туш[pluralize_ru(owner.gender, "ит", "ат")] себя!"),
 		span_notice("Вы тушите себя."),
 	)
 	qdel(src)
@@ -368,7 +368,7 @@
 
 
 /atom/movable/screen/alert/status_effect/leaning
-	name = "Leaning"
+	name = "Облокотился"
 	desc = "Вы на что-то облокотились."
 	icon_state = "buckled"
 

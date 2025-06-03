@@ -28,7 +28,7 @@
 				if(istajaran(affected_mob))
 					to_chat(affected_mob, span_danger("У вас чешется что-то в горле."))
 				else
-					to_chat(affected_mob, span_danger("Вам НУЖНО найти мышь."))
+					to_chat(affected_mob, span_danger("<b>Вам НУЖНО найти мышь!</b>"))
 
 		if(3)
 			if(prob(10))
@@ -44,6 +44,7 @@
 		if(4)
 			if(istajaran(affected_mob))
 				if(prob(5))
+					affected_mob.emote("cough")
 					affected_mob.visible_message(span_danger("[affected_mob] откашливает шерстяной комок!"), span_userdanger("Вы откашливаете шерстяной комок!"))
 					affected_mob.Stun(10 SECONDS)
 			else
@@ -113,7 +114,7 @@
 						H.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 				else
 					if(prob(5))
-						H.visible_message(span_danger("[H] царапает свою кожу!"), span_userdanger("Вы царапаете свою кожу, чтобы избавиться от зуда!</span>"))
+						H.visible_message(span_danger("[H] царапает свою кожу!"), span_userdanger("Вы царапаете свою кожу, чтобы избавиться от зуда!"))
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
 

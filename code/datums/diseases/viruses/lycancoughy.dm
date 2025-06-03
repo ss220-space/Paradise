@@ -28,7 +28,7 @@
 				to_chat(affected_mob, span_danger("Ваш желудок урчит!"))
 		if(4)
 			if(prob(10))
-				to_chat(affected_mob, span_danger("Ваш желудок лает?!"))
+				to_chat(affected_mob, span_danger("<b>Ваш желудок лает?!</b>"))
 			if(prob(5))
 				affected_mob.visible_message(span_danger("[affected_mob] воет!"), span_userdanger("Вы воете!"))
 				affected_mob.AdjustConfused(rand(12 SECONDS, 16 SECONDS))

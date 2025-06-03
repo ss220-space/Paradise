@@ -62,7 +62,7 @@
 			radiate(H, 6, 93)
 
 		if(5)
-			H.visible_message(span_danger("[H] превращается в нуклеацию!"), span_userdanger("ВЫ СНОВА ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ!"))
+			H.visible_message(span_danger("[H] превращается в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
 			H.setOxyLoss(0)
 			H.SetJitter(0)
 			var/mob/living/carbon/human/nucleat = H
