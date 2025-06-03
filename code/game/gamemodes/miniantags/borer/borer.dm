@@ -82,7 +82,7 @@
 
 	tts_seed = "Gman_e2"
 
-	response_help = "тыкает"
+	response_help = "тычет"
 	response_disarm = "подталкивает"
 	response_harm = "топчет"
 
@@ -256,9 +256,9 @@
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Переключить речь внутри хозяина"
+	set name = "Использование речи внутри носителя"
 	set category = "Borer"
-	set desc = "Переключить возможность произносить сообщения, слышимые окружающими, пока находитесь внутри носителя."
+	set desc = "Переключить возможность говорить, чтобы вас слышали окружающие, пока вы находитесь внутри носителя."
 
 	if(talk_inside_host)
 		to_chat(src, span_notice("Теперь вы будете говорить в сознание носителя."))

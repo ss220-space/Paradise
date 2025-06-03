@@ -29,11 +29,11 @@
 		return
 	if(!user.can_reproduce)
 		if(show_message)
-			to_chat(user, span_warning("Вы не знаете, как размножаться!"))
+			user.balloon_alert(user, "невозможно размножаться")
 		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, span_warning("Вы можете разделиться только на полу!"))
+			to_chat(user, span_warning("только на полу!"))
 		return FALSE
 
 

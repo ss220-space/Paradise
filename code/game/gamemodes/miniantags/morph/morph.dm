@@ -46,10 +46,10 @@
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/slab = 2)
 
 	var/playstyle_string = "<b><font size=3 color='red'>Вы — морф.</font><br>Как мерзость, созданная в основном из клеток генокрада, \
-								вы можете принимать форму любого объекта поблизости, Shift-кликнув по нему. Этот процесс предупредит всех \
+								вы можете принимать форму любого объекта поблизости, Shift-ЛКМ по нему. Этот процесс предупредит всех \
 								наблюдателей поблизости и может выполняться только раз в пять секунд.<br> В изменённой форме вы двигаетесь \
 								быстрее, но наносите меньше урона. Кроме того, любой, кто находится в радиусе трёх тайлов, заметит \
-								нечто странное, если осмотрит вас. Вы можете вернуться в свою изначальную форму, Shift-кликнув по себе.<br> \
+								нечто странное, если осмотрит вас. Вы можете вернуться в свою изначальную форму, Shift-ЛКМ по себе.<br> \
 								Наконец, вы можете атаковать любой предмет или мёртвое существо, чтобы поглотить его — существа восстановят \
 								1/3 вашего максимального здоровья.</b>"
 
@@ -129,7 +129,7 @@
 		PREPOSITIONAL = "магическом морфе"
 	)
 	real_name = "magical morph"
-	desc = "Отвратительная пульсирующая масса плоти. Этот выглядит несколько... магически."
+	desc = "Отвратительная пульсирующая масса плоти. Выглядит несколько... магически."
 
 /mob/living/simple_animal/hostile/morph/wizard/New()
 	. = ..()
@@ -144,17 +144,17 @@
 /mob/living/simple_animal/hostile/morph/proc/try_eat(atom/movable/item)
 	var/food_value = calc_food_gained(item)
 	if(food_value + gathered_food < 0)
-		to_chat(src, span_warning("Вы не можете заставить себя съесть ещё больше отвратительных вещей. Сначала съешьте что-то живое."))
+		to_chat(src, span_warning("Ваш организм отторгает эту массу. Нужен свежий труп!"))
 		return
 	var/eat_self_message
 	if(food_value < 0)
-		eat_self_message = span_warning("Вы начинаете есть [item.declent_ru(ACCUSATIVE)]... отвратительно...")
+		eat_self_message = span_warning("Вы начинаете [pick("жрать", "поглощать")] [item.declent_ru(ACCUSATIVE)]... отвратительно...")
 	else
-		eat_self_message = span_notice("Вы начинаете есть [item.declent_ru(ACCUSATIVE)].")
-	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает есть [target]!"), eat_self_message, "Вы слышите громкий хруст!")
+		eat_self_message = span_notice("Вы начинаете [pick("жрать", "поглощать")] [item.declent_ru(ACCUSATIVE)].")
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает [pick("жрать", "поглощать")] [target]!"), eat_self_message, "Вы слышите громкий хруст!")
 	if(do_after(src, 3 SECONDS, item))
 		if(food_value + gathered_food < 0)
-			to_chat(src, span_warning("Вы не можете заставить себя съесть ещё больше отвратительных вещей. Сначала съешьте что-то живое."))
+			to_chat(src, span_warning("Ваш организм отторгает эту массу. Нужен свежий труп!"))
 			return
 		eat(item)
 
@@ -224,7 +224,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/prepare_ambush()
 	ambush_prepared = TRUE
-	to_chat(src, span_sinister("Вы готовы устроить засаду на ничего не подозревающую цель. Ваша следующая атака нанесёт больше урона и ослабит цель! Движение нарушит вашу концентрацию. Стояние на месте улучшит вашу маскировку."))
+	to_chat(src, span_sinister("Вы готовы к внезапной атаке. Ваш следующий удар нанесёт больше урона и ослабит цель! Движение прервёт концентрацию. Бездействие улучшит маскировку."))
 	apply_status_effect(/datum/status_effect/morph_ambush)
 	RegisterSignal(src, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 
@@ -237,7 +237,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
-	to_chat(src, span_sinister("Вы идеально замаскировались. Теперь вас не отличить от настоящей формы!"))
+	to_chat(src, span_sinister("Ты стал совершенной копией... Они даже не заподозрят подмену."))
 
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()
@@ -281,7 +281,7 @@
 		return ..()
 
 	if(user.a_intent == INTENT_HELP && ambush_prepared)
-		to_chat(user, span_warning("Вы пытаетесь использовать [item] на [capitalize(declent_ru(NOMINATIVE))]... он кажется другим, чем раньше..."))
+		to_chat(user, span_warning("Вы пытаетесь использовать [item.declent_ru(ACCUSATIVE)] на [capitalize(declent_ru(NOMINATIVE))]... он кажется другим, чем раньше..."))
 		ambush_attack(user, TRUE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -296,7 +296,7 @@
 	if(!morphed && prob(50))
 		var/food_value = calc_food_gained(item)
 		if(food_value + gathered_food > 0 && !(item.item_flags & ABSTRACT) && user.drop_item_ground(item))
-			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] только что съел ваш [item]!"))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] только что съел ваш [item.declent_ru(ACCUSATIVE)]!"))
 			eat(item)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ..()
@@ -338,7 +338,7 @@
 	dumbass.apply_damage(total_damage, BRUTE)
 	add_attack_logs(src, dumbass, "morph ambush attacked")
 	do_attack_animation(dumbass, ATTACK_EFFECT_BITE)
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass]!"), span_warning("Вы атакуете [dumbass], когда [genderize_ru(dumbass.gender,"он","она","оно","они")] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] внезапно прыгает на [dumbass.declent_ru(ACCUSATIVE)]!"), span_warning("Вы атакуете [dumbass.declent_ru(ACCUSATIVE)], когда [genderize_ru(dumbass.gender,"он","она","оно","они")] меньше всего этого ожидает!"), "Вы слышите ужасный хруст!")
 
 	restore_form()
 
@@ -387,7 +387,7 @@
 	SSticker.mode.morphs |= mind
 
 	var/list/messages = list()
-	messages.Add("<b><font size=3 color='red'>Вы — морф.</font><br></b>")
+	messages.Add(span_fontsize3(span_red("<b>Вы — морф.<br></b>")))
 	messages.Add(span_sinister("Вы жаждете съесть живых существ и желаете размножаться. Достигните этой цели, устраивая засады на ничего не подозревающую добычу, используя свои способности."))
 	messages.Add(span_specialnotice("Будучи мерзостью, созданным в основном из клеток генокрада, вы можете принимать форму любого объекта поблизости, используя свою [span_specialnoticebold("способность Мимикрия.")]"))
 	messages.Add(span_specialnotice("Преобразование не останется незамеченным для наблюдателей."))

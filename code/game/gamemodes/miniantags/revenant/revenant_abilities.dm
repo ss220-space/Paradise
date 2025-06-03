@@ -90,7 +90,7 @@
 
 				reveal(27)
 				stun(27)
-				target.visible_message(span_warning("[target] внезапно слегка поднимается в воздух, [genderize_ru(target.gender,"его","её","их","их")] кожа становится пепельно-серой."))
+				target.visible_message(span_warning("[target] внезапно слегка поднима[pluralize_ru(target.gender,"ет","ют")]ся в воздух, [genderize_ru(target.gender,"его","её","его","их")] кожа становится пепельно-серой."))
 				target.Beam(src,icon_state="drain_life",icon='icons/effects/effects.dmi',time=26)
 
 				if(do_after(src, 3 SECONDS, target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM)) //As one cannot prove the existance of ghosts, ghosts cannot prove the existance of the target they were draining.
@@ -100,7 +100,7 @@
 						perfectsouls += 1
 						to_chat(src, span_revenboldnotice("Совершенство души [target] увеличило ваш максимальный уровень эссенции. Ваш новый максимум эссенции: [essence_regen_cap]."))
 					to_chat(src, span_revennotice("Душа [target] значительно ослабла и больше не даст эссенции в ближайшее время."))
-					target.visible_message(span_warning("[target] падает на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
+					target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, приближаясь..."))
 					drained_mobs.Add(mob_UID)
 					add_attack_logs(src, target, "revenant harvested soul")
 					target.death()
@@ -109,7 +109,7 @@
 					draining = 0
 					essence_drained = 0
 					if(target) //Wait, target is WHERE NOW?
-						target.visible_message(span_warning("[target] падает на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, отдаляясь..."))
+						target.visible_message(span_warning("[target] пада[pluralize_ru(target.gender,"ет","ют")] на землю."), span_revenwarning("Фиолетовые огни танцуют в вашем поле зрения, отдаляясь..."))
 					return
 			else
 				to_chat(src, span_revenwarning("Вы недостаточно близко, чтобы вытягивать эссенцию [target ? "души [target]":"их души"]. Связь разорвана."))
@@ -218,7 +218,7 @@
 			return FALSE
 
 		name = "[initial(name)] ([cast_amount]E)"
-		to_chat(user, span_revenwarning("Вы открыли <B>[initial(name)]</B>!"))
+		to_chat(user, span_revenwarning("Вы открыли <b>[initial(name)]</b>!"))
 
 		locked = FALSE
 		cooldown_handler.revert_cast()
@@ -269,7 +269,7 @@
 	if(!L.on)
 		return
 
-	L.visible_message(span_boldwarning("[L] внезапно вспыхивает и начинает искрить!"))
+	L.visible_message(span_boldwarning("[capitalize(L.declent_ru(NOMINATIVE))] внезапно вспыхивает и начинает искрить!"))
 	do_sparks(4, 0, L)
 	new /obj/effect/temp_visual/revenant(L.loc)
 	sleep(2 SECONDS)
@@ -625,7 +625,7 @@
  */
 
 /mob/living/carbon/human/rev_malfunction(cause_emp = TRUE)
-	to_chat(src, span_warning("Вы чувствуете, как [pick("ваше чувство направления пропадает", "острая боль пронзает вашу голову", "ваш разум наполняется статикой")]."))
+	to_chat(src, span_warning("Вы чувствуете [pick("потерю ориентации", "резкую боль в голове", "как мозг заполняет ледяная статика")]."))
 	new /obj/effect/temp_visual/revenant(loc)
 	if(cause_emp)
 		emp_act(1)

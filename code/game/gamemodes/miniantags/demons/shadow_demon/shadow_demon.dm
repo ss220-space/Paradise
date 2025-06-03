@@ -82,16 +82,16 @@
 		return
 
 	if(wrapping)
-		to_chat(src, span_notice("Мы уже что-то заворачиваем."))
+		balloon_alert(src, "занят!")
 		return
 
-	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает обматывать [h_target] теневой паутиной."))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает обматывать [h_target.declent_ru(ACCUSATIVE)] теневой паутиной."))
 	wrapping = TRUE
 	if(!do_after(src, 4 SECONDS, h_target, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		wrapping = FALSE
 		return
 
-	h_target.visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] окутывает [h_target] в теневой кокон, и из него начинает расползаться тьма.</b>"))
+	h_target.visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] окутывает [h_target.declent_ru(ACCUSATIVE)] в теневой кокон, и из него начинает расползаться тьма.</b>"))
 	var/obj/structure/shadowcocoon/cocoon = new(get_turf(h_target))
 	h_target.extinguish_light(TRUE) // may as well be safe
 	h_target.forceMove(cocoon)
@@ -109,6 +109,7 @@
 
 /obj/structure/shadowcocoon
 	name = "shadowy cocoon"
+	desc = "Объект, завёрнутый в густую, почти осязаемую тьму. Его поверхность дрожит и переливается, словно живая, а вокруг него клубится непроглядный мрак."
 	ru_names = list(
 		NOMINATIVE = "теневой кокон",
 		GENITIVE = "теневого кокона",
@@ -117,7 +118,6 @@
 		INSTRUMENTAL = "теневым коконом",
 		PREPOSITIONAL = "теневом коконе"
 	)
-	desc = "Объект, завёрнутый в густую, почти осязаемую тьму. Его поверхность дрожит и переливается, словно живая, а вокруг него клубится непроглядный мрак."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "shadowcocoon"
 	light_power = -4
@@ -142,7 +142,7 @@
 		if(prob(60) || !length(to_darken.light_sources))
 			continue
 		if(iswelder(to_darken) && length(to_darken.light_sources))
-			to_darken.visible_message(span_notice("Тени сгущаются вокруг и подавляют пламя [to_darken]."))
+			to_darken.visible_message(span_notice("Тени смыкаются вокруг и поглощают пламя [to_darken.declent_ru(GENITIVE)]."))
 		to_darken.extinguish_light(TRUE)
 	if(!silent && time_since_last_hallucination >= rand(8, 12))
 		playsound(src, pick('sound/items/deconstruct.ogg', 'sound/weapons/handcuffs.ogg', 'sound/machines/airlock_open.ogg',  'sound/machines/airlock_close.ogg', 'sound/machines/boltsup.ogg', 'sound/effects/eleczap.ogg', get_sfx("bodyfall"), get_sfx("gunshot"), 'sound/weapons/egloves.ogg'), 50)
@@ -187,8 +187,8 @@
 
 
 /obj/effect/proc_holder/spell/fireball/shadow_grapple
-	name = "Теневой Захват"
-	desc = "Выстрелите одной из своих рук. Если она попадёт в человека, вы притянете его к себе. Если попадёт в структуру, вы притянетесь к ней."
+	name = "Теневой захват"
+	desc = "Выстрелите одной из своих рук. Если она попадёт в человека, вы притянете его к себе. Если же она попадёт в структуру, то вы сами притянетесь к ней."
 	action_background_icon_state = "shadow_demon_bg"
 	action_icon_state = "shadow_grapple"
 	invocation_type = "none"
@@ -196,7 +196,7 @@
 	sound = null
 	need_active_overlay = TRUE
 	human_req = FALSE
-	selection_activated_message = span_notice("Вы поднимаете руку, наполненную демонической энергией! <b>Левый клик, чтобы применить к цели!</b>")
+	selection_activated_message = span_notice("Вы поднимаете руку, наполненную демонической энергией! <b>ЛКМ, чтобы применить к цели!</b>")
 	selection_deactivated_message = span_notice("Вы поглощаете энергию обратно... пока что.")
 	base_cooldown = 10 SECONDS
 	fireball_type = /obj/projectile/magic/shadow_hand
@@ -207,7 +207,15 @@
 
 
 /obj/projectile/magic/shadow_hand
-	name = "теневая рука"
+	name = "shadow hand"
+	ru_names = list(
+		NOMINATIVE = "теневая рука",
+		GENITIVE = "теневой руки",
+		DATIVE = "теневой руке",
+		ACCUSATIVE = "теневую руку",
+		INSTRUMENTAL = "теневой рукой",
+		PREPOSITIONAL = "теневой руке"
+	)
 	icon_state = "shadow_hand"
 	plane = FLOOR_PLANE
 	speed = 1
@@ -271,13 +279,13 @@
 		return
 
 	var/list/messages = list()
-	messages.Add("<b><font size=3 color='red'>Вы — Теневой Демон.</font><br></b>")
-	messages.Add("<B>Вы — ужасное существо из иного измерения. У вас две цели: выжить и поджидать неосторожную добычу.</B>")
-	messages.Add("<B>Вы можете использовать способность «Теневой Путь» рядом с тёмными участками, появляясь и исчезая на станции по своему желанию.</B>")
-	messages.Add("<B>Ваша способность «Теневой Захват» позволяет вам притягивать живую добычу или притягиваться к объектам. Также она гасит все источники света в зоне удара.</B>")
-	messages.Add("<B>Вы можете оборачивать мёртвые гуманоидные тела, атакуя их. Используйте Alt+ЛКМ на теневом коконе, чтобы заманить больше жертв.</B>")
-	messages.Add("<B>Вы быстро двигаетесь и восстанавливаетесь в тенях, но любой источник света причиняет вам боль и может убить. ДЕРЖИТЕСЬ ПОДАЛЬШЕ ОТ СВЕТА!</B>")
-	messages.Add(span_notice("<B>Вы сейчас находитесь в ином измерении, отличном от станции. Используйте способность «Теневой Путь» рядом с тёмным участком.</B>"))
+	messages.Add(span_fontsize3(span_red("Вы — Теневой Демон.</font><br></b>")))
+	messages.Add("<b>Вы — ужасное существо из иного измерения. У вас две цели: выжить и поджидать неосторожную добычу.</b>")
+	messages.Add("<b>Вы можете использовать способность \"Теневой Путь\" рядом с тёмными участками, появляясь и исчезая на станции по своему желанию.</b>")
+	messages.Add("<b>Ваша способность \"Теневой Захват\" позволяет вам притягивать живую добычу или притягиваться к объектам. Также она гасит все источники света в зоне удара.</b>")
+	messages.Add("<b>Вы можете оборачивать мёртвые гуманоидные тела, атакуя их. Используйте Alt+ЛКМ на теневом коконе, чтобы заманить больше жертв.</b>")
+	messages.Add("<b>Вы быстро двигаетесь и восстанавливаетесь в тенях, но любой источник света причиняет вам боль и может убить. ДЕРЖИТЕСЬ ПОДАЛЬШЕ ОТ СВЕТА!</b>")
+	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Теневой Путь\" рядом с тёмным участком.</b>"))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Shadow_Demon\">Теневой демон</a></span>"))
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)

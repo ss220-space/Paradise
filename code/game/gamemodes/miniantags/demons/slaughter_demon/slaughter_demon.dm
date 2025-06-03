@@ -25,9 +25,9 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 
-	playstyle_string = "<b><span class='userdanger'>Вы - Демон Резни!</span></b><br> \
+	playstyle_string = "<b><span class='userdanger'>Вы – Демон Резни!</span></b><br> \
 						<b>Вы - ужасное существо из иного измерения. У вас одна цель: убивать.</b><br> \
-						<b>Вы можете использовать способность 'Кровавый путь' на лужах крови, чтобы перемещаться через них, появляясь и исчезая на станции по своему желанию.</b><br> \
+						<b>Вы можете использовать способность \"Кровавый путь\" на лужах крови, чтобы перемещаться через них, появляясь и исчезая на станции по своему желанию.</b><br> \
 						<b>Если вы тащите мёртвое или находящееся в критическом состоянии существо, когда входите в лужу крови, он последует за вами, что позволит вам поглотить его.</b><br> \
 						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
 
@@ -55,7 +55,7 @@
 
 	var/list/messages = list()
 	messages.Add(playstyle_string)
-	messages.Add(span_notice("<b>Вы сейчас находитесь в ином измерении, отличном от станции. Используйте способность 'Кровавый путь' на луже крови, чтобы проявиться.</b>"))
+	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Кровавый путь\" на луже крови, чтобы проявиться.</b>"))
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)
 		return
@@ -96,7 +96,7 @@
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
-	desc = "Ужасное существо из-за пределов царства безумия."
+	desc = "Ужасное существо, обитающее за гранью здравого смысла."
 	ru_names = list(
 		NOMINATIVE = "вестник резни",
 		GENITIVE = "вестника резни",
@@ -112,9 +112,9 @@
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
 	playstyle_string = "<b><span class='userdanger'>Вы — Вестник Резни. Призванный слугами Нар'Си, у вас одна цель: уничтожить еретиков, которые не поклоняются вашему господину!</span></b><br> \
-							<b>Вы можете использовать способность 'Кровавый путь' рядом с лужей крови, чтобы войти в неё и стать неосязаемым. \
+							<b>Вы можете использовать способность \"Кровавый путь\" рядом с лужей крови, чтобы войти в неё и стать неосязаемым. \
 							Использование способности снова рядом с лужей крови позволит вам выйти из неё. Вы быстры, сильны и почти неуязвимы. Если вы тащите мёртвое или без сознания тело \
-							в лужу крови, вы поглотите его через некоторое время и полностью восстановите здоровье. Вы можете использовать способность 'Чувствовать Жертв' на вкладке Культиста, \
+							в лужу крови, вы поглотите его через некоторое время и полностью восстановите здоровье. Вы можете использовать способность \"Чувствовать Жертв\" на вкладке Культиста, \
 							чтобы найти случайного живого еретика.</b>"
 
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
@@ -122,7 +122,7 @@
 
 
 /obj/effect/proc_holder/spell/sense_victims
-	name = "Охота за Душами"
+	name = "Охота за душами"
 	desc = "Определите местоположение еретиков."
 	base_cooldown = 0
 	clothes_req = FALSE
@@ -149,7 +149,7 @@
 	if(!A)
 		to_chat(user, span_warning("Вы не смогли найти разумных еретиков для Резни."))
 		return
-	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A]. <b>Покажите [genderize_ru(victim.gender,"ему","ей","им","им")] ошибку [genderize_ru(victim.gender,"его","её","их","их")] пути.</b>"))
+	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [genderize_ru(victim.gender,"ему","ей","ему","им")] ошибку [genderize_ru(victim.gender,"его","её","его","их")] пути.</b>"))
 
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
@@ -194,8 +194,7 @@
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		user.visible_message(span_warning("Глаза [user] вспыхивают глубоким багровым светом!"), \
-						 span_userdanger("Вы чувствуете, как странная сила проникает в ваше тело... вы поглотили способность демона перемещаться через кровь!"))
+		user.visible_message(span_warning("Глаза [user] вспыхивают багровым светом!"), span_userdanger("Вы чувствуете, как странная сила проникает в ваше тело... Вы преобрели способность демона перемещаться через кровь!"))
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_from_active_hand()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
@@ -203,7 +202,7 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "Вы чувствуете себя иначе... [span_warning(" ПОГЛОТИ ИХ!")]")
+		to_chat(user, "Вы чувствуете себя иначе... [span_warning("ПОГЛОТИ ИХ!")]")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
@@ -263,7 +262,7 @@
 
 	playstyle_string = "<font color='#FF69B4'><b><span class='userdanger'>Вы — Демон Смеха!</span></b></font><br> \
 						<font color='#FF69B4'><b>Вы — очаровательное, и слегка пугающее, существо, которое обожает объятия и смех. Ваша цель — распространять радость, веселье и... немного хаоса!</b></font><br> \
-						<font color='#FF69B4'><b>Вы можете использовать способность 'Кровавый путь', чтобы перемещаться через милые лужи крови, появляясь и исчезая по своему желанию.</b></font><br> \
+						<font color='#FF69B4'><b>Вы можете использовать способность \"Кровавый путь\", чтобы перемещаться через милые лужи крови, появляясь и исчезая по своему желанию.</b></font><br> \
 						<font color='#FF69B4'><b>Если вы тащите кого-то в лужу крови – они получат порцию вашего веселья и обнимашек. Вы быстро двигаетесь и восстанавливаетесь в лужах крови, но будьте осторожны: слишком много серьёзности может ослабить вас!</b></font><br> \
 						<font color='#FF69B4'><b>Помните: смех — это ваше оружие, а объятия — ваш стиль. ДЕЛАЙТЕ МИР ЯРЧЕ И СМЕШНЕЕ!</b></font>"
 

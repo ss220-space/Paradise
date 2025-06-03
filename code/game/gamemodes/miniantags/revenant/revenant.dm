@@ -87,11 +87,11 @@
 		revealed = 0
 		incorporeal_move = INCORPOREAL_REVENANT
 		invisibility = INVISIBILITY_REVENANT
-		to_chat(src, span_revenboldnotice("Вы снова скрыты."))
+		to_chat(src, span_revenboldnotice("Реальность содрогается, и вы растворяетесь в тенях."))
 	if(unstun_time && world.time >= unstun_time)
 		unstun_time = 0
 		REMOVE_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
-		to_chat(src, span_revenboldnotice("Вы снова можете двигаться!"))
+		to_chat(src, span_revenboldnotice("Вы чувствуете, как контроль над вашим телом возвращается."))
 	update_icon(UPDATE_ICON_STATE)
 
 /mob/living/simple_animal/revenant/can_perform_action(atom/target, action_bitflags)
@@ -271,7 +271,7 @@
 	if(istype(I, /obj/item/nullrod))
 		visible_message(
 			span_warning("[src] дёргается в конвульсиях!"),
-			span_revendanger("Когда [I.name] проходит сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
+			span_revendanger("Когда [I.name] проход[pluralize_ru(I.gender,"ит","ят")] сквозь вас, вы чувствуете, как ваша эссенция утекает!"),
 		)
 		apply_damage(25) //hella effective
 		inhibited = TRUE
@@ -284,13 +284,13 @@
 		return
 	var/turf/T = get_turf(src)
 	if(iswallturf(T))
-		to_chat(src, span_revenwarning("Вы не можете использовать способности, находясь внутри стены."))
+		balloon_alert(scr, "нельзя использовать в стене!")
 		return 0
 	if(src.inhibited)
-		to_chat(src, span_revenwarning("Ваши силы подавлены нулевой энергией!"))
+		balloon_alert(scr, "силы подавлены!")
 		return 0
 	if(!src.change_essence_amount(essence_cost, 1))
-		to_chat(src, span_revenwarning("Вам не хватает эссенции для использования этой способности."))
+		balloon_alert(scr, "не хватает эссенции")
 		return 0
 	return 1
 
@@ -304,9 +304,9 @@
 		essence_accumulated = max(0, essence_accumulated+essence_amt)
 	if(!silent)
 		if(essence_amt > 0)
-			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source]."))
+			to_chat(src, span_revennotice("Получено [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] от [source.declent_ru(GENITIVE)]."))
 		else
-			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source]."))
+			to_chat(src, span_revenminor("Потеряно [essence_amt] эссенци[declension_ru(essence_amt,"я","и","и")] из-за [source.declent_ru(GENITIVE)]."))
 	return 1
 
 /mob/living/simple_animal/revenant/proc/reveal(time)
@@ -318,10 +318,10 @@
 	invisibility = 0
 	incorporeal_move = INCORPOREAL_NONE
 	if(!unreveal_time)
-		to_chat(src, span_revendanger("Вы раскрылись!"))
+		to_chat(src, span_revendanger("Ваша форма становится осязаемой, и смертные могут вас увидеть..."))
 		unreveal_time = world.time + time
 	else
-		to_chat(src, span_revenwarning("Вы раскрылись!"))
+		to_chat(src, span_revenwarning("Ваша форма становится осязаемой, и смертные могут вас увидеть..."))
 		unreveal_time = unreveal_time + time
 	update_icon(UPDATE_ICON_STATE)
 
@@ -332,10 +332,10 @@
 		return
 	ADD_TRAIT(src, TRAIT_NO_TRANSFORM, REVENANT_TRAIT)
 	if(!unstun_time)
-		to_chat(src, span_revendanger("Вы не можете двигаться!"))
+		to_chat(src, span_revendanger("Вы не можете двинуться, пока способность не завершится."))
 		unstun_time = world.time + time
 	else
-		to_chat(src, span_revenwarning("Вы не можете двигаться!"))
+		to_chat(src, span_revenwarning("Вы не можете двинуться, пока способность не завершится."))
 		unstun_time = unstun_time + time
 	update_icon(UPDATE_ICON_STATE)
 
@@ -359,7 +359,7 @@
 
 /datum/objective/revenant/New()
 	targetAmount = rand(350,600)
-	explanation_text = "Поглотите [targetAmount] единиц эссенции у людей."
+	explanation_text = "Поглотите [targetAmount] единиц[declension_ru(essence_amt,"e","и","")] эссенции у людей."
 	..()
 
 
@@ -410,15 +410,15 @@
 
 /obj/item/ectoplasm/revenant
 	name = "glimmering residue"
-	ru_names = list(
-		NOMINATIVE = "мерцающий остаток",
-		GENITIVE = "мерцающего остатка",
-		DATIVE = "мерцающему остатку",
-		ACCUSATIVE = "мерцающий остаток",
-		INSTRUMENTAL = "мерцающим остатком",
-		PREPOSITIONAL = "мерцающем остатке"
-	)
 	desc = "Куча мелкой синей пыли. Вокруг неё вьются тонкие фиолетовые туманные завитки."
+	ru_names = list(
+		NOMINATIVE = "фантомная пыль",
+		GENITIVE = "фантомной пыли",
+		DATIVE = "фантомной пыли",
+		ACCUSATIVE = "фантомную пыль",
+		INSTRUMENTAL = "фантомной пылью",
+		PREPOSITIONAL = "фантомной пыли"
+	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "revenantEctoplasm"
 	w_class = WEIGHT_CLASS_SMALL
@@ -496,7 +496,7 @@
 	if(!key_of_revenant)
 		qdel(new_revenant)
 		inert = TRUE
-		visible_message(span_revenwarning("[src] оседает и кажется безжизненным."))
+		visible_message(span_revenwarning("[capitalize(src.declent_ru(NOMINATIVE))] оседает и кажется безжизненной."))
 		message_admins("No candidates were found for the new revenant. Oh well!")
 		return
 
@@ -514,7 +514,7 @@
 	new_revenant.mind = player_mind
 	new_revenant.key = player_mind.key
 
-	visible_message(span_revenboldnotice("[src] внезапно поднимается в воздух, а затем исчезает."))
+	visible_message(span_revenboldnotice("[capitalize(src.declent_ru(NOMINATIVE))] внезапно поднимается в воздух, а затем исчезает."))
 	message_admins("[key_name_admin(new_revenant)] has been [client_to_revive ? "re":""]made into a revenant by reforming ectoplasm.")
 	add_game_logs("was [client_to_revive ? "re":""]made as a revenant by reforming ectoplasm.", new_revenant)
 

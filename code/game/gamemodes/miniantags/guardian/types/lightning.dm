@@ -93,7 +93,7 @@
 					continue
 				if(successfulshocks > 4)
 					L.visible_message(
-						span_danger("[L] был поражён цепью молний!"), \
+						span_danger("[L] был[genderize_ru(L.gender,"","а","о","и")] пораж[genderize_ru(L.gender,"ён","ена","ено","ены")] цепью молний!"), \
 						span_userdanger("Вас ударила цепь молний!"), \
 						span_italics("Вы слышите громкий электрический треск.") \
 					)

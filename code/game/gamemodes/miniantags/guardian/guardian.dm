@@ -9,7 +9,7 @@
 		PREPOSITIONAL = "Духе-Хранителе"
 	)
 	real_name = "Guardian Spirit"
-	desc = "Таинственное существо, которое стоит на страже своего подопечного, всегда бдительное."
+	desc = "Таинственное существо, которое всегда настороже, охраняет своего подопечного."
 	speak_emote = list("intones")
 	tts_seed = "Earth"
 	bubble_icon = "guardian"
@@ -104,8 +104,8 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!"))
-			visible_message(span_danger("\The [src] вернулся к носителю."))
+			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метр[declension_ru(range,"","а","ов")] от [summoner.real_name]!"))
+			visible_message(span_danger("[src] вернулся к носителю."))
 			if(iseffect(summoner.loc))
 				Recall(TRUE)
 			else
@@ -165,10 +165,10 @@
 	if(amount <= 0)
 		return .
 
-	to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
-	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
+	to_chat(summoner, span_danger("Вашего хранителя [name] атакуют! Вы получаете урон!"))
+	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src.declent_ru(NOMINATIVE)] получает урон!"))
 	if(summoner.stat == UNCONSCIOUS)
-		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src] в таком состоянии, оно начинает разрушаться!"))
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src.declent_ru(ACCUSATIVE)] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
 /mob/living/simple_animal/hostile/guardian/adjustStaminaLoss(
@@ -256,7 +256,7 @@
 ////////Creation
 
 /obj/item/guardiancreator
-	name = "Колода карт Таро"
+	name = "колода карт Таро"
 	ru_names = list(
 		NOMINATIVE = "колода карт Таро",
 		GENITIVE = "колоды карт Таро",
@@ -372,7 +372,7 @@
 	SSticker.mode.guardians |= G.mind
 	to_chat(G, "Вы [mob_name], обязанный служить [user.real_name].")
 	to_chat(G, "Вы можете появляться или возвращаться к вашему хозяину с помощью кнопок на панели Стража. Там же вы найдете кнопку связи с хозяином.")
-	to_chat(G, "Будучи лично неуязвимым, Вы умрете если [user.real_name] умрет, и любой урон попавший по вам будет пропорционально перенесен хозяину, так как вы питаетесь от его жизненной силы.")
+	to_chat(G, "Хотя вы лично неуязвимы, ваша жизнь зависит от [user.real_name]. Если [genderize_ru(user.gender,"он","она","оно","они")] погибн[pluralize_ru(user.gender,"ет","ут")] — умрёте и вы. Кроме того, любой полученный вами урон будет передан [genderize_ru(user.gender,"ему","ей","ему","им")], так как вы существуете за счёт [genderize_ru(user.gender,"его","её","его","их")] жизненной силы.")
 	to_chat(G, "[G.playstyle_string]")
 	G.faction = user.faction
 
@@ -394,7 +394,7 @@
 	random = FALSE
 
 /obj/item/guardiancreator/tech
-	name = "Инъектор голопаразитов"
+	name = "инъектор голопаразитов"
 	ru_names = list(
 		NOMINATIVE = "инъектор голопаразитов",
 		GENITIVE = "инъектора голопаразитов",
@@ -442,7 +442,7 @@
 	random = FALSE
 
 /obj/item/guardiancreator/biological
-	name = "Скопление яиц скарабеев"
+	name = "скопление яиц скарабеев"
 	ru_names = list(
 		NOMINATIVE = "скопление яиц скарабеев",
 		GENITIVE = "скопления яиц скарабеев",

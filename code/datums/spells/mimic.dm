@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/mimic
 	name = "Мимикрия"
-	desc = "Изучите новую форму для подражания или превратитесь в одну из известных вам форм."
+	desc = "Овладейте новой формой для подражания или трансформируйтесь в уже знакомую вам форму."
 	clothes_req = FALSE
 	human_req = FALSE
 	base_cooldown = 3 SECONDS
@@ -65,16 +65,17 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
-		to_chat(user, span_warning("[A] уже доступна как форма."))
+		to_chat(user, span_warning("[A.declent_ru(NOMINATIVE)] уже доступна как форма."))
+		balloon_alert(user, "эта форма уже изучена!")
 		revert_cast(user)
 		return
 
 	if(length(available_forms) >= max_forms)
 		to_chat(user, span_warning("Вы начинаете забывать форму [available_forms[next_override_index]], чтобы изучить новую."))
 
-	to_chat(user, span_sinister("Вы начинаете запоминать форму [A.declent_ru(ACCUSATIVE)]."))
+	to_chat(user, span_sinister("Вы начинаете запоминать форму [A.declent_ru(GENITIVE)]."))
 	if(!do_after(user, 2 SECONDS, user, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-		to_chat(user, span_warning("Вы теряете концентрацию."))
+		balloon_alert(user, "не двигайтесь!")
 		return
 
 	// Forget the old form if needed
@@ -86,12 +87,13 @@
 			next_override_index = 1
 
 	available_forms[A.name] = new /datum/mimic_form(A, user)
-	to_chat(user, span_sinister("Вы изучили форму [A.declent_ru(ACCUSATIVE)]."))
+	balloon_alert("форма изучена")
 
 
 /obj/effect/proc_holder/spell/mimic/proc/pick_form(mob/user)
 	if(!length(available_forms) && !selected_form)
-		to_chat(user, span_warning("Нет доступных форм. Изучите больше форм, используя эту способность на других объектах."))
+		to_chat(user, span_warning("Нет доступных форм. Используйте способность на других существах или предметах для изучения новых форм."))
+		balloon_alert("нет доступных форм!")
 		revert_cast(user)
 		return
 
@@ -256,5 +258,5 @@
 
 /obj/effect/proc_holder/spell/mimic/morph/show_death_message(mob/user)
 	user.visible_message(span_warning("[user] искажается и превращается в кучу зелёной плоти!"), \
-						span_userdanger("Ваша кожа разрывается! Ваша плоть распадается! Никакая маскировка не спасёт от смер--"))
+						span_userdanger("Ваша кожа разрывается! Ваша плоть распадается! Никакая маскировка не спасёт от смер.."))
 

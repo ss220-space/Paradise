@@ -19,11 +19,11 @@
 		return
 	if(!user.morphed)
 		if(show_message)
-			to_chat(user, span_warning("Вы можете подготовить засаду только в замаскированном виде!"))
+			balloon_alert(user, "нужна маскировка!")
 		return FALSE
 	if(user.ambush_prepared)
 		if(show_message)
-			to_chat(user, span_warning("Вы уже подготовлены!"))
+			balloon_alert(user, "вы уже подготовлены!")
 		return FALSE
 
 

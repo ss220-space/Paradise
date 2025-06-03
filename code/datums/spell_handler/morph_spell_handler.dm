@@ -6,12 +6,12 @@
 /datum/spell_handler/morph/can_cast(mob/living/simple_animal/hostile/morph/user, charge_check, show_message, obj/effect/proc_holder/spell/spell)
 	if(!istype(user))
 		if(show_message)
-			to_chat(user, span_warning("You should not be able to use this abilty! Report this as a bug on github please."))
+			to_chat(user, span_warning("Вы не должны иметь возможности использовать эту способность! Составьте баг-репорт в Discord."))
 		return FALSE
 
 	if(user.gathered_food < hunger_cost)
 		if(show_message)
-			to_chat(user, span_warning("You require at least [hunger_cost] stored food to use this ability!"))
+			to_chat(user, span_warning("Для использования этой способности вам требуется не менее [hunger_cost] единиц[declension_ru(hunger_cost,"ы","","")] запасов пищи!"))
 		return FALSE
 
 	return TRUE
@@ -22,11 +22,8 @@
 
 
 /datum/spell_handler/morph/before_cast(list/targets, mob/living/simple_animal/hostile/morph/user, obj/effect/proc_holder/spell/spell)
-	if(hunger_cost)
-		to_chat(user, span_boldnotice("You have [user.gathered_food] left to use."))
+	return
 
 
 /datum/spell_handler/morph/revert_cast(mob/living/simple_animal/hostile/morph/user, obj/effect/proc_holder/spell/spell)
 	user.add_food(hunger_cost)
-	to_chat(user, span_boldnotice("You have [user.gathered_food] left to use."))
-

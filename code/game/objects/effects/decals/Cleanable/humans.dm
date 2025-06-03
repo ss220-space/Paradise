@@ -234,7 +234,7 @@
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
-	desc = "Что-то явно было разорвано на части."
+	desc = "Кто-то или что-то явно было разорвано на части."
 	ru_names = list(
 		NOMINATIVE = "кровавое месиво",
 		GENITIVE = "кровавого месива",

@@ -67,7 +67,7 @@
 
 
 /datum/action/innate/demon/whisper
-	name = "Демонический Шёпот"
+	name = "Демонический шёпот"
 	button_icon_state = "cult_comms"
 	background_icon_state = "bg_demon"
 
@@ -79,7 +79,7 @@
 			validtargets += target
 
 	if(!length(validtargets))
-		to_chat(usr, span_warning("Нет подходящих целей!"))
+		user.balloon_alert(usr, "нет подходящих целей!")
 		return
 
 	var/mob/living/target = tgui_input_list(user, "Выберите цель для разговора", "Выбор цели", validtargets)

@@ -54,6 +54,7 @@
 
 /obj/item/bloodcrawl
 	name = "blood crawl"
+	desc = "Вы не можете держать что-либо в этой форме."
 	ru_names = list(
 		NOMINATIVE = "кровавый путь",
 		GENITIVE = "кровавого пути",
@@ -62,7 +63,6 @@
 		INSTRUMENTAL = "кровавым путём",
 		PREPOSITIONAL = "кровавом пути"
 	)
-	desc = "Вы не можете держать что-либо в этой форме."
 	icon = 'icons/effects/blood.dmi'
 	item_flags = ABSTRACT
 
@@ -148,19 +148,19 @@
 		return
 
 	if(victim.stat == CONSCIOUS)
-		enter_point.visible_message(span_warning("[victim] вырыва[pluralize_ru(victim.gender, "ется", "ются")] из [enter_point.declent_ru(GENITIVE)] прямо перед тем, как войти в неё!"))
+		enter_point.visible_message(span_warning("[victim] вырыва[pluralize_ru(victim.gender, "ется", "ются")] из [enter_point.declent_ru(GENITIVE)] в последний момент!"))
 		user.stop_pulling()
 		return
 
 	victim.emote("scream")
 	victim.forceMove(holder)
 	enter_point.visible_message(span_warning("<b>[user] затягива[pluralize_ru(user.gender, "ет", "ют")] [victim] в [enter_point.declent_ru(ACCUSATIVE)]!</b>"))
-	if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
-		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостно щекотать его! Вы не можете двигаться, пока делаете это.</b>")
-		enter_point.visible_message(span_clown("<B>Из крови доносятся доносятся дикие хохот и крики...</b>"))
+	if (user.type == /mob/living/simple_animal/demon/slaughter/laughter)
+		to_chat(user, "<b>Вы хватаете [victim.declent_ru(ACCUSATIVE)] и начинаете безжалостную щекотку! Вы не можете двигаться, пока делаете это.</b>")
+		enter_point.visible_message(span_clown("<b>Из крови доносятся крики и дикий хохот...</b>"))
 	else
 		to_chat(user, "<b>Вы начинаете пожирать [victim.declent_ru(ACCUSATIVE)]. Вы не можете двигаться, пока делаете это.</b>")
-		enter_point.visible_message(span_warning("<B>Из крови доносятся громкие звуки поедания...</b>"))
+		enter_point.visible_message(span_warning("<b>Из крови доносятся громкие звуки трапезы...</b>"))
 	var/sound
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
@@ -184,7 +184,7 @@
 		user.heal_damages(brute = 1000, burn = 1000, tox = 1000, oxy = 1000)
 	else
 		if(user.type == /mob/living/simple_animal/demon/slaughter/laughter)
-			to_chat(user, span_clown("Вы заставляете [victim.declent_ru(ACCUSATIVE)] смеяться до слёз, но их страдания лишь слегка подпитывают вашу радость!"))
+			to_chat(user, span_clown("Вы заставляете [victim.declent_ru(ACCUSATIVE)] смеяться до слёз, но [genderize_ru(victim.gender,"его","её","его","их")] страдания лишь слегка подпитывают вашу радость!"))
 		else
 			to_chat(user, span_warning("Вы пожираете [victim.declent_ru(ACCUSATIVE)], но эта скудная добыча едва утоляет ваш голод!"))
 		user.heal_damages(brute = 25, burn = 25)
@@ -192,7 +192,7 @@
 	if(isslaughterdemon(user))
 		var/mob/living/simple_animal/demon/slaughter/demon = user
 		demon.devoured++
-		to_chat(victim, span_userdanger("Вы чувствуете, как чьи-то зубы впиваются в вашу плоть, и--"))
+		to_chat(victim, span_userdanger("Вы чувствуете, как чьи-то зубы впиваются в вашу плоть, и..."))
 		var/obj/item/organ/internal/regenerative_core/legion/core = victim.get_int_organ(/obj/item/organ/internal/regenerative_core/legion)
 		if(core)
 			core.remove(victim)
