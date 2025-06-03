@@ -49,7 +49,7 @@
 	. = ..()
 	if(toggle)
 		if(loc == summoner)
-			to_chat(src, "<span class='danger'>Нужно явить себя для лечения!</span>")
+			to_chat(src, span_danger("Нужно явить себя для лечения!"))
 			return
 		if(iscarbon(target))
 			var/mob/living/carbon/c_target = target
@@ -78,17 +78,17 @@
 			hud_used.action_intent.icon_state = a_intent
 			melee_damage_lower = 5
 			melee_damage_upper = 5
-			to_chat(src, "<span class='danger'>Вы переключились в боевой режим.</span>")
+			to_chat(src, span_danger("Вы переключились в боевой режим."))
 			toggle = FALSE
 		else
 			a_intent = INTENT_HELP
 			hud_used.action_intent.icon_state = a_intent
 			melee_damage_lower = 0
 			melee_damage_upper = 0
-			to_chat(src, "<span class='danger'>Вы переключились в режим исцеления.</span>")
+			to_chat(src, span_danger("Вы переключились в режим исцеления."))
 			toggle = TRUE
 	else
-		to_chat(src, "<span class='danger'>Нужно быть в хозяине для переключения режимов!</span>")
+		to_chat(src, span_danger("Нужно быть в хозяине для переключения режимов!"))
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
 	set name = "Установить блюспейс маяк"
@@ -102,35 +102,35 @@
 			F.name = "bluespace recieving pad"
 			F.desc = "A recieving zone for bluespace teleportations. Building a wall over it should disable it."
 			F.icon_state = "light_on-w"
-			to_chat(src, "<span class='danger'>Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+Click </span>")
+			to_chat(src, span_danger("Маяк установлен! Вы можете телепортировать на него вещи и людей, нажав Alt+Click "))
 			if(beacon)
 				beacon.ChangeTurf(/turf/simulated/floor/plating)
 			beacon = F
 			beacon_cooldown = world.time + default_beacon_cooldown
 
 	else
-		to_chat(src, "<span class='danger'>Ваша сила на перезарядке! Нужно дождаться ещё [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд, пока вы сможете переставить маяк.</span>")
+		to_chat(src, span_danger("Ваша сила на перезарядке! Нужно дождаться ещё [max(round((beacon_cooldown - world.time)*0.1, 0.1), 0)] секунд, пока вы сможете переставить маяк."))
 
 /mob/living/simple_animal/hostile/guardian/healer/AltClickOn(atom/movable/A)
 	if(!istype(A))
 		return
 	if(loc == summoner)
-		to_chat(src, "<span class='danger'>Вы должны явить себя для телепортации вещей!</span>")
+		to_chat(src, span_danger("Вы должны явить себя для телепортации вещей!"))
 		return
 	if(!beacon)
-		to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
+		to_chat(src, span_danger("Вам нужно установить маяк чтобы телепортировать вещи!"))
 		return
 	if(!Adjacent(A))
-		to_chat(src, "<span class='danger'>Вам нужно быть рядом с целью!</span>")
+		to_chat(src, span_danger("Вам нужно быть рядом с целью!"))
 		return
 	if((A.anchored))
-		to_chat(src, "<span class='danger'>Цель прикреплена к полу. Телепортация невозможна.</span>")
+		to_chat(src, span_danger("Цель прикреплена к полу. Телепортация невозможна."))
 		return
-	to_chat(src, "<span class='danger'>Вы начинаете телепортировать [A]</span>")
+	to_chat(src, span_danger("Вы начинаете телепортировать [A]"))
 	if(do_after(src, 5 SECONDS, A, NONE))
 		if(!A.anchored)
 			if(!beacon) //Check that the beacon still exists and is in a safe place. No instant kills.
-				to_chat(src, "<span class='danger'>Вам нужно установить маяк чтобы телепортировать вещи!</span>")
+				to_chat(src, span_danger("Вам нужно установить маяк чтобы телепортировать вещи!"))
 				return
 			var/turf/T = beacon
 			if(T.is_safe())
@@ -139,10 +139,10 @@
 				investigate_log("[key_name_log(src)] teleported [key_name_log(A)] to [COORD(beacon)].", INVESTIGATE_TELEPORTATION)
 				new /obj/effect/temp_visual/guardian/phase(get_turf(A))
 				return
-			to_chat(src, "<span class='danger'>Маячок не в безопасном месте, нужен кислород для хозяина.</span>")
+			to_chat(src, span_danger("Маячок не в безопасном месте, нужен кислород для хозяина."))
 			return
 	else
-		to_chat(src, "<span class='danger'>Вам нужно стоять смирно!</span>")
+		to_chat(src, span_danger("Вам нужно стоять смирно!"))
 
 
 /obj/effect/proc_holder/spell/guardian_quickmend

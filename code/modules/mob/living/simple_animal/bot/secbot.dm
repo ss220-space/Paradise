@@ -23,7 +23,7 @@
 
 	allow_pai = FALSE
 
-	radio_channel = "Security" //Security channel
+	radio_channel = SEC_FREQ_NAME
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "Securitron"
@@ -97,7 +97,7 @@
 		INSTRUMENTAL = "Офицером Пингски",
 		PREPOSITIONAL = "Офицере Пингски",
 	)
-	radio_channel = "AI Private"
+	radio_channel = AI_FREQ_NAME
 
 
 /mob/living/simple_animal/bot/secbot/ofitser

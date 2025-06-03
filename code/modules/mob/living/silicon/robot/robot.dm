@@ -787,7 +787,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		to_chat(user, span_notice("You have fixed some of the burnt wires in [src]'s internals."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	if(istype(I, /obj/item/stock_parts/cell))	// trying to put a cell inside
+	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(!opened)
 			to_chat(user, span_warning("You must open the cover to access cyborg's internals!"))
@@ -1416,9 +1416,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return TRUE
 
 	if(href_list["mach_close"])
-		var/t1 = "window=[href_list["mach_close"]]"
 		unset_machine()
-		close_window(src, t1)
+		close_window(src, href_list["mach_close"])
 		return TRUE
 
 	if(href_list["mod"])

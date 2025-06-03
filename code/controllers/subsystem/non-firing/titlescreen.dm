@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(title)
 	var/random_phrase = "О нет, моя фраза!"
 	var/current_icon = "ss1984.gif"
 
-	var/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
+	var/list/color2tguitheme = list("#202020" = "dark", "#EEEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
 
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
@@ -195,6 +195,7 @@ SUBSYSTEM_DEF(title)
 
 	// here we hope that our browser already updated. :pepepray:
 	SStitle.update_preview(viewer)
+	viewer << output((viewer?.tgui_panel_theme)? viewer.tgui_panel_theme : "dark", "title_browser:set_theme")
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)
@@ -225,7 +226,6 @@ SUBSYSTEM_DEF(title)
 /datum/title_screen/proc/get_title_html(client/viewer, mob/user)
 	var/list/html = list(title_html)
 	var/mob/new_player/player = user
-
 	var/screen_image_url = SSassets.transport.get_asset_url(asset_cache_item = screen_image)
 
 	//hope that client won`t use custom theme
@@ -305,6 +305,12 @@ SUBSYSTEM_DEF(title)
 		</div>
 	"}
 	html += {"</div>"}
+	html += {"<div class="status-box">
+			<div class="status-item">Режим: <span id="game-mode">extended</span></div>
+			<div class="status-item">До начала раунда: <div class="countdown" id="countdown-timer">00:00</div></div>
+			<div class="status-item">Игроков: <span id="players-count">0</span></div>
+			<div class="status-item">Готовых игроков: <span id="ready-players">0/0</span></div>
+	</div>"}
 	html += {"
 		<script language="JavaScript">
 			let ready_int = 0;
@@ -359,6 +365,23 @@ SUBSYSTEM_DEF(title)
 			function update_preview_515() {
 				charPreview.src = "";
 				setTimeout(update_preview, 100); // TODO: change after 516
+			}
+
+			const gameMode = document.getElementById('game-mode');
+			const countdown = document.getElementById('countdown-timer');
+			const playersCount = document.getElementById('players-count');
+			const readyPlayers = document.getElementById('ready-players');
+
+			function update_newplayer_info(){
+				var args = Array.prototype.slice.call(arguments);
+				var time = args\[0\];
+				var players = args\[1\];
+				var ready = args\[2\];
+				var mode = args\[3\];
+				gameMode.textContent = mode;
+				countdown.textContent = time;
+				playersCount.textContent = players;
+				readyPlayers.textContent = (ready === undefined || ready === null || ready <= 0)? 'НЕТУ' : ready + '/' + players;;
 			}
 
 			const character_name_slot = document.getElementById("character_slot");

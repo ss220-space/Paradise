@@ -177,6 +177,9 @@
 				shocking_queue += carried
 		//Found our victims, now lets shock them all
 		for(var/mob/living/carbon/victim as anything in shocking_queue)
+			if(victim == src)
+				continue
+
 			victim.electrocute_act(shock_damage * 0.75, name, 1, flags, jitter_time, stutter_time, stun_duration)
 
 	//Stun

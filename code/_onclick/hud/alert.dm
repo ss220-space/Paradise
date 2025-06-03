@@ -91,6 +91,12 @@
 	if(client && hud_used)
 		hud_used.reorganize_alerts()
 		client.screen -= alert
+
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
+				continue
+			observe.client.screen -= alert
 	qdel(alert)
 
 /atom/movable/screen/alert
@@ -329,6 +335,8 @@ or something covering your eyes."
 	icon_state = "embeddedobject"
 
 /atom/movable/screen/alert/embeddedobject/Click()
+	if(!..())
+		return
 	if(isliving(usr))
 		var/mob/living/carbon/human/M = usr
 		return M.help_shake_act(M)
@@ -340,29 +348,27 @@ or something covering your eyes."
 
 
 /atom/movable/screen/alert/negative
-	name = "Negative Gravity"
-	desc = "You're getting pulled upwards. While you won't have to worry about falling down anymore, you may accidentally fall upwards!"
+	name = "Обратная гравитация"
+	desc = "Вас тянет вверх. Хоть падение вниз вам больше не грозит, вы всё ещё можете упасть вверх!"
 	icon_state = "negative"
 
 
 /atom/movable/screen/alert/weightless
-	name = "Weightless"
-	desc = "Gravity has ceased affecting you, and you're floating around aimlessly. You'll need something large and heavy, like a \
-wall or lattice, to push yourself off if you want to move. A jetpack would enable free range of motion. A pair of \
-magboots would let you walk around normally on the floor. Barring those, you can throw things, use a fire extinguisher, \
-or shoot a gun to move around via Newton's 3rd Law of Motion."
+	name = "Невесомость"
+	desc = "Гравитация перестала влиять на вас, и вы парите в пространстве. Чтобы двигаться, вы можете оттолкнуться от ближайших объектов, \
+кинуть что-то от себя или выстрелить в противоположную сторону. Для комфортного перемещения используйте специальное оборудование."
 	icon_state = "weightless"
 
 
 /atom/movable/screen/alert/highgravity
-	name = "High Gravity"
-	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed."
+	name = "Повышенная гравитация"
+	desc = "На вас действует высокая гравитация. Двигаться в таком состоянии непросто."
 	icon_state = "paralysis"
 
 
 /atom/movable/screen/alert/veryhighgravity
-	name = "Crushing Gravity"
-	desc = "You're getting crushed by high gravity, picking up items and movement will be slowed. You'll also accumulate brute damage!"
+	name = "Сокрушительная гравитация"
+	desc = "На вас действует невероятно высокая гравитация. Ощущение, будто вас буквально разрывает на части!"
 	icon_state = "paralysis"
 
 
@@ -373,6 +379,9 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 
 
 /atom/movable/screen/alert/fire/Click()
+	if(!..())
+		return
+
 	if(!isliving(usr))
 		return FALSE
 
@@ -394,6 +403,9 @@ or shoot a gun to move around via Newton's 3rd Law of Motion."
 	icon_state = "direction_lock"
 
 /atom/movable/screen/alert/direction_lock/Click()
+	if(!..())
+		return
+
 	if(isliving(usr))
 		var/mob/living/L = usr
 		return L.clear_forced_look()
@@ -452,7 +464,7 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
 
 /atom/movable/screen/alert/nymph/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(isnymph(usr))
 		var/mob/living/simple_animal/diona/D = usr
@@ -491,7 +503,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/hackingapc/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(!target)
 		return
@@ -517,7 +529,7 @@ so as to remain in compliance with the most up-to-date laws."
 	return ..()
 
 /atom/movable/screen/alert/mech_port_available/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(!ismecha(usr.loc) || !target)
 		return
@@ -533,7 +545,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "mech_port_x"
 
 /atom/movable/screen/alert/mech_port_disconnect/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	if(!ismecha(usr.loc))
 		return
@@ -828,6 +840,9 @@ so as to remain in compliance with the most up-to-date laws."
 		return L.resist()
 
 /atom/movable/screen/alert/restrained/buckled/Click()
+	if(!..())
+		return
+
 	var/mob/living/L = usr
 	if(!istype(L) || !L.can_resist())
 		return
@@ -846,6 +861,11 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!hud_shown)
 		for(var/i in 1 to alerts.len)
 			mymob.client.screen -= alerts[alerts[i]]
+			for(var/mob/dead/observer/observe in mymob.inventory_observers)
+				if(!observe.client)
+					LAZYREMOVE(mymob.inventory_observers, observe)
+					continue
+				observe.client.screen -= alerts[alerts[i]]
 		return TRUE
 	for(var/i in 1 to alerts.len)
 		var/atom/movable/screen/alert/alert = alerts[alerts[i]]
@@ -868,17 +888,22 @@ so as to remain in compliance with the most up-to-date laws."
 				. = ""
 		alert.screen_loc = .
 		mymob.client.screen |= alert
+		for(var/mob/dead/observer/observe in mymob.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(mymob.inventory_observers, observe)
+				continue
+			observe.client.screen |= alert
 	return TRUE
 
 /atom/movable/screen/alert/Click(location, control, params)
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || HAS_TRAIT(usr, TRAIT_OBSERVING_INVENTORY))
 		return FALSE
 
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
 		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
 		return FALSE
-		
+
 	if(master)
 		return usr.client.Click(master, location, control, params)
 
@@ -897,7 +922,7 @@ so as to remain in compliance with the most up-to-date laws."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
-	if(!usr || !usr.client)
+	if(!usr || !usr.client || !..())
 		return
 	var/mob/living/living_owner = usr
 	if(!istype(usr))

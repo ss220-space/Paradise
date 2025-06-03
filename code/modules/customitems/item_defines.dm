@@ -197,14 +197,22 @@
 
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
-	desc = "An assorted set of exchangable parts for a wheelchair."
+	desc = "Набор деталей для инвалидной коляски."
+	ru_names = list(
+		NOMINATIVE = "комплект модификаций для инвалидной коляски",
+		GENITIVE = "комплекта модификаций для инвалидной коляски",
+		DATIVE = "комплекту модификаций для инвалидной коляски",
+		ACCUSATIVE = "комплект модификаций для инвалидной коляски",
+		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
+		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
+	)
 	icon_state = "modkit"
 	var/new_icon_state = "vox_wheelchair"
 	var/new_overlay = "vox_wheelchair_overlay"
 	var/new_name = "vox wheelchair"
-	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
+	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity, params)
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -212,7 +220,7 @@
 		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, span_warning("You cannot modify [target]!"))
+	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
 
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad

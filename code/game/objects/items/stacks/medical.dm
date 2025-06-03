@@ -166,7 +166,11 @@
 	origin_tech = "biotech=2"
 	heal_brute = 10
 	stop_bleeding = 1800
+	energy_type = /datum/robot_energy_storage/medical
+	cost = 1
 
+/obj/item/stack/medical/bruise_pack/syndicate
+	energy_type = /datum/robot_energy_storage/medical/syndicate
 
 /obj/item/stack/medical/bruise_pack/attackby(obj/item/I, mob/user, params)
 	if(is_sharp(I))
@@ -191,6 +195,10 @@
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
+
+	if(!get_amount())
+		to_chat(user, span_danger("Not enough medical supplies!"))
+		return ATTACK_CHAIN_PROCEED
 
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	if(affecting.open != ORGAN_CLOSED)
@@ -228,15 +236,8 @@
 	stop_bleeding = 0
 
 
-/obj/item/stack/medical/bruise_pack/advanced/cyborg
-	is_cyborg = TRUE
-
-
-/obj/item/stack/medical/bruise_pack/advanced/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!get_amount())
-		to_chat(user, span_danger("Not enough medical supplies!"))
-		return ATTACK_CHAIN_PROCEED
-	return ..()
+/obj/item/stack/medical/bruise_pack/advanced/syndicate
+	energy_type = /datum/robot_energy_storage/medical/syndicate
 
 /obj/item/stack/medical/bruise_pack/extended
 	name = "extended trauma kit"
@@ -262,12 +263,21 @@
 	origin_tech = "biotech=2"
 	healverb = "salve"
 	heal_burn = 10
+	cost = 1
+	energy_type = /datum/robot_energy_storage/medical
+
+/obj/item/stack/medical/ointment/syndicate
+	energy_type = /datum/robot_energy_storage/medical/syndicate
 
 
 /obj/item/stack/medical/ointment/attack(mob/living/carbon/human/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
+
+	if(!get_amount())
+		to_chat(user, span_danger("Not enough medical supplies!"))
+		return ATTACK_CHAIN_PROCEED
 
 	var/obj/item/organ/external/affecting = target.get_organ(user.zone_selected)
 	if(affecting.open != ORGAN_CLOSED)
@@ -293,15 +303,8 @@
 	belt_icon = "advanced_burn_kit"
 	heal_burn = 25
 
-/obj/item/stack/medical/ointment/advanced/cyborg
-	is_cyborg = TRUE
-
-
-/obj/item/stack/medical/ointment/advanced/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!get_amount())
-		to_chat(user, span_danger("Not enough medical supplies!"))
-		return ATTACK_CHAIN_PROCEED
-	return ..()
+/obj/item/stack/medical/ointment/advanced/syndicate
+	energy_type = /datum/robot_energy_storage/medical/syndicate
 
 /obj/item/stack/medical/ointment/extended
 	name = "extended burn kit"
@@ -346,6 +349,8 @@
 	item_state = "splint"
 	unique_handling = TRUE
 	self_delay = 10 SECONDS
+	energy_type = /datum/robot_energy_storage/splint
+	cost = 1
 	var/other_delay = 0
 	var/static/list/available_splint_zones = list(
 		BODY_ZONE_L_ARM,
@@ -358,21 +363,14 @@
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
 
-/obj/item/stack/medical/splint/cyborg
-	is_cyborg = TRUE
-
-
-/obj/item/stack/medical/splint/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!get_amount())
-		to_chat(user, span_danger("No splints left!"))
-		return ATTACK_CHAIN_PROCEED
-	return ..()
-
-
 /obj/item/stack/medical/splint/attack(mob/living/carbon/human/target, mob/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !ishuman(target))
 		return .
+
+	if(!get_amount())
+		to_chat(user, span_danger("No splints left!"))
+		return ATTACK_CHAIN_PROCEED
 
 	var/obj/item/organ/external/bodypart = target.get_organ(user.zone_selected)
 	var/bodypart_name = bodypart.name

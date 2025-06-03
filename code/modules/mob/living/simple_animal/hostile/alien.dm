@@ -133,9 +133,9 @@
 /mob/living/simple_animal/hostile/alien/queen/large
 	name = "alien empress"
 	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "queen_s"
-	icon_living = "queen_s"
-	icon_dead = "queen_dead"
+	icon_state = "alienq_s"
+	icon_living = "alienq_s"
+	icon_dead = "alienq_dead"
 	bubble_icon = "alienroyal"
 	move_to_delay = 4
 	maxHealth = 400

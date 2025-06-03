@@ -172,3 +172,22 @@
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 100, MAT_TITANIUM = 500, MAT_PLASMA = 500, MAT_DIAMOND = 100)
 	category = list("Miscellaneous")
 
+/datum/design/anomaly_stabilizer
+	name = "Anomaly stabilizer"
+	desc = "Продвинутое устройство предназначенное для стабилизации аномалий."
+	id = "anomaly_stabilizer"
+	req_tech = list("powerstorage" = 2, "programming" = 4, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=3000, MAT_GLASS=2000)
+	build_path = /obj/item/gun/energy/anomaly_stabilizer
+	category = list("Miscellaneous")
+
+/datum/design/anomaly_analyzer
+	name = "Anomaly analyzer"
+	desc = "Продвинутое устройство предназначенное для сканирования аномалий."
+	id = "anomaly_analyzer"
+	req_tech = list("programming" = 4, "magnets" = 3)
+	build_type = PROTOLATHE
+	materials = list(MAT_METAL=1000, MAT_GLASS=500)
+	build_path = /obj/item/anomaly_analyzer
+	category = list("Miscellaneous")

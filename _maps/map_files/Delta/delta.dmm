@@ -48562,10 +48562,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -84028,10 +84024,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -86749,8 +86741,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fpmaint)
 "peP" = (
-/obj/structure/bed/dogbed/pet,
-/mob/living/simple_animal/mouse/hamster/Representative,
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -86758,6 +86748,8 @@
 	dir = 1;
 	pixel_y = 26
 	},
+/obj/structure/chair/comfy/mouse,
+/mob/living/simple_animal/mouse/wooly/rep,
 /turf/simulated/floor/carpet/royalblack,
 /area/ntrep)
 "pfa" = (
@@ -103974,7 +103966,6 @@
 /turf/simulated/floor/plating,
 /area/medical/virology/lab)
 "sXV" = (
-/obj/item/clothing/suit/armor/laserproof,
 /obj/structure/rack{
 	dir = 8;
 	layer = 2.9
@@ -103989,6 +103980,10 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -110902,10 +110897,6 @@
 	dir = 8;
 	id = "QMLoad2"
 	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
-	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -116776,7 +116767,7 @@
 	},
 /area/crew_quarters/locker)
 "vUc" = (
-/obj/structure/chair/wheelchair{
+/obj/vehicle/ridden/wheelchair{
 	desc = "Это кресло осталось от одного из предыдущих детективов. Говорят, что тот открыл в себе псионические способности и ушёл работать в федерацию магов.";
 	name = "Старое инвалидное кресло"
 	},
@@ -117919,10 +117910,6 @@
 /obj/machinery/conveyor{
 	dir = 8;
 	id = "QMLoad2"
-	},
-/obj/machinery/conveyor{
-	id = "QMLoad2";
-	layer = 2.494
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"

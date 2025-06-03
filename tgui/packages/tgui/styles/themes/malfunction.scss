@@ -34,7 +34,7 @@
   @include meta.load-css(
     '../components/ImageButton.scss',
     $with: (
-      'color-default': darken(colors.$primary, 20%),
+      'color-default': color.adjust(colors.$primary, $lightness: -20%),
       'color-disabled': #363636,
       'color-selected': #1e5881
     )
