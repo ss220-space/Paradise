@@ -43,7 +43,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	balloon_alert(user, "табличка откручена")
+	balloon_alert(user, "откручено")
 	var/obj/item/sign/S = new(src.loc)
 	S.name = name
 	S.desc = desc
