@@ -1,3 +1,4 @@
+import { BooleanLike } from 'common/react';
 import { useBackend, useSharedState } from '../backend';
 import {
   Button,
@@ -6,6 +7,7 @@ import {
   Section,
   Dropdown,
   Box,
+  Flex,
 } from '../components';
 import { Window } from '../layouts';
 type LightningBoltData = {
@@ -18,19 +20,29 @@ type LightningBoltData = {
   delay: number;
   ckey: string;
   players: Record<string, string>;
+  pointing: BooleanLike;
 };
 
 export const DropLightningBolt = (props: unknown) => {
   const { act, data } = useBackend<LightningBoltData>();
-  const { x_coord, y_coord, z_coord, damage, radius, delay, ckey, players } =
-    data;
+  const {
+    x_coord,
+    y_coord,
+    z_coord,
+    damage,
+    radius,
+    delay,
+    ckey,
+    players,
+    pointing,
+  } = data;
 
-  const avaivableModes = ['По игроку', 'По координатам'];
+  const avaivableModes = ['По игроку', 'По координатам', 'По указателю'];
   let [mode, setMode] = useSharedState('mode', '');
   let [autoupdate, setAutoupdate] = useSharedState('autoupdate', true);
 
   return (
-    <Window width={280} height={420} title="Вызов молнии">
+    <Window width={300} height={340} title="Вызов молнии">
       <Window.Content>
         <Section
           scrollable
@@ -43,6 +55,13 @@ export const DropLightningBolt = (props: unknown) => {
               onSelected={(val) => {
                 setMode(val);
                 act('set_mode', { 'mode': val });
+                if (val === 'По координатам') {
+                  act('set_coords', {
+                    'x_coord': x_coord,
+                    'y_coord': y_coord,
+                    'z_coord': z_coord,
+                  });
+                }
               }}
             />
           }
@@ -50,7 +69,7 @@ export const DropLightningBolt = (props: unknown) => {
           <LabeledList>
             <LabeledList.Item label="Урон молнии">
               <NumberInput
-                maxValue={255}
+                maxValue={600}
                 minValue={0}
                 step={1}
                 value={damage}
@@ -63,7 +82,7 @@ export const DropLightningBolt = (props: unknown) => {
               tooltip="Включая центр, без снижения урона с отдалением от центра"
             >
               <NumberInput
-                maxValue={255}
+                maxValue={30}
                 minValue={0}
                 step={1}
                 value={radius}
@@ -75,7 +94,7 @@ export const DropLightningBolt = (props: unknown) => {
               tooltip="В секундах"
             >
               <NumberInput
-                maxValue={255}
+                maxValue={60}
                 minValue={0}
                 step={1}
                 value={delay}
@@ -92,10 +111,9 @@ export const DropLightningBolt = (props: unknown) => {
                 buttons={
                   <Dropdown
                     width="150px"
-                    options={Object.values(players)} // Изменено с players на Object.values(players)
+                    options={Object.values(players)}
                     selected={players[ckey] || ckey}
                     onSelected={(val) => {
-                      // Найти ckey по значению
                       const selectedCkey = Object.keys(players).find(
                         (key) => players[key] === val
                       );
@@ -166,6 +184,23 @@ export const DropLightningBolt = (props: unknown) => {
                 />
               </LabeledList.Item>
             </LabeledList>
+          )}
+          {mode === 'По указателю' && (
+            <Button
+              width="100%"
+              tooltip="При статусе «Не готов» — нажмите на кнопку.
+                  После нажатия и при последующих кликах не по кнопке — вы будете дропать молнии на тайл/моба,
+                  на которого указывает курсор мыши."
+              textAlign="center"
+              selected={pointing}
+              onClick={() =>
+                act('set_pointing', {
+                  'val': !pointing, // ИСПРАВЛЕНИЕ: Инвертируем текущее значение
+                })
+              }
+            >
+              {pointing ? 'Готов' : 'Не готов'}
+            </Button>
           )}
         </Section>
         <Section>
