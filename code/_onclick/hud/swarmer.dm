@@ -5,8 +5,8 @@
 
 /atom/movable/screen/swarmer/FabricateTrap
 	icon_state = "ui_trap"
-	name = "Create trap (Costs 5 Resources)"
-	desc = "Creates a trap that will nonlethally shock any non-swarmer that attempts to cross it. (Costs 5 resources)"
+	name = "Создать ловушку (Стоимость: 5 ресурсов)"
+	desc = "Создаёт ловушку, которая наносит нелетальный разряд всем не-свармерам, при попытке пройти через неё. (Стоимость: 5 ресурсов)"
 
 /atom/movable/screen/swarmer/FabricateTrap/Click()
 	if(isswarmer(usr))
@@ -15,8 +15,8 @@
 
 /atom/movable/screen/swarmer/Barricade
 	icon_state = "ui_barricade"
-	name = "Create barricade (Costs 5 Resources)"
-	desc = "Creates a destructible barricade that will stop any non swarmer from passing it. Also allows disabler beams to pass through. (Costs 5 resources)"
+	name = "Создать баррикаду (Стоимость: 5 ресурсов)"
+	desc = "Создаёт разрушаемую баррикаду, которая блокирует проход для всех, кроме роевиков. Также пропускает лучи дизейблера. (Стоимость: 5 ресурсов)"
 
 /atom/movable/screen/swarmer/Barricade/Click()
 	if(isswarmer(usr))
@@ -25,8 +25,8 @@
 
 /atom/movable/screen/swarmer/Replicate
 	icon_state = "ui_replicate"
-	name = "Replicate (Costs 100 Resources)"
-	desc = "Creates a another of our kind."
+	name = "Репликация (Стоимость: 100 ресурсов)"
+	desc = "Создаёт ещё одного представителя нашего вида."
 
 /atom/movable/screen/swarmer/Replicate/Click()
 	if(isswarmer(usr))
@@ -35,8 +35,8 @@
 
 /atom/movable/screen/swarmer/RepairSelf
 	icon_state = "ui_self_repair"
-	name = "Repair self"
-	desc = "Repairs damage to our body."
+	name = "Самовосстановление"
+	desc = "Чинит повреждения нашего тела."
 
 /atom/movable/screen/swarmer/RepairSelf/Click()
 	if(isswarmer(usr))
@@ -45,8 +45,8 @@
 
 /atom/movable/screen/swarmer/ToggleLight
 	icon_state = "ui_light"
-	name = "Toggle light"
-	desc = "Toggles our inbuilt light on or off."
+	name = "Переключить свет"
+	desc = "Включает или выключает встроенную подсветку."
 
 /atom/movable/screen/swarmer/ToggleLight/Click()
 	if(isswarmer(usr))
@@ -55,8 +55,8 @@
 
 /atom/movable/screen/swarmer/ContactSwarmers
 	icon_state = "ui_contact_swarmers"
-	name = "Contact swarmers"
-	desc = "Sends a message to all other swarmers, should they exist."
+	name = "Связь роя"
+	desc = "Отправить сообщение всем свармерам, если они, конечно, есть."
 
 /atom/movable/screen/swarmer/ContactSwarmers/Click()
 	if(isswarmer(usr))
