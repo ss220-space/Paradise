@@ -1652,6 +1652,7 @@
 #include "code\modules\admin\tickets\adminticketsverbs.dm"
 #include "code\modules\admin\tickets\mentorticketsverbs.dm"
 #include "code\modules\admin\verbs\_ui_module_admin.dm"
+#include "code\modules\admin\verbs\admin_lightning_bolt.dm"
 #include "code\modules\admin\verbs\adminhelp.dm"
 #include "code\modules\admin\verbs\adminjump.dm"
 #include "code\modules\admin\verbs\adminpm.dm"
