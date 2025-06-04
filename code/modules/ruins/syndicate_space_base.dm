@@ -16,7 +16,7 @@
 
 // Space Base Spawners. Исспользуется переделанная копия спавнеров лавалендовских.
 /obj/effect/mob_spawn/human/space_base_syndicate
-	name = "Syndicate Scientist sleeper"
+	name = "Учёный Синдиката (спящий агент)"
 	mob_name = "Syndicate Scientist"
 	roundstart = FALSE
 	death = FALSE
@@ -106,7 +106,7 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/space_base_syndicate/medic
-	name = "Syndicate Medic sleeper"
+	name = "Медик Синдиката (спящий агент)"
 	mob_name = "Syndicate Medic"
 	id_job = "Syndicate Medic"
 	description = "Проводите медицинские опыты сомнительного содержания. Вылечивайте своих коллег, которые опять поссорились с генералом Синди, или оживляйте неудачливых космических путников, для допросов или киборгизации. Даже Синдикату нужны врачи!"
@@ -137,7 +137,7 @@
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/botanist
-	name = "Syndicate Botanist sleeper"
+	name = "Ботаник Синдиката (спящий агент)"
 	mob_name = "Syndicate Botanist"
 	id_job = "Syndicate Botanist"
 	description = "Выращивайте сомнительные растения. Помогите повару накормить экипаж, а учёным — создать опаснейшие растения! Наслаждайтесь силой природы в руках Синдиката!"
@@ -161,7 +161,7 @@
 	implants = list(/obj/item/implant/weapons_auth)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/cargotech
-	name = "Syndicate Cargo Technician sleeper"
+	name = "Грузчик Синдиката (спящий агент)"
 	mob_name = "Syndicate Cargo Technician"
 	id_job = "Syndicate Cargo Technician"
 	description = "Даже Синдикату нужны рабочие руки, приносите людям их посылки, заказывайте и продавайте, наслаждайтесь простой работой среди всех этих учёных. Здесь всё равно платят в разы лучше!"
@@ -181,7 +181,7 @@
 	back = /obj/item/storage/backpack/syndicate/cargo
 
 /obj/effect/mob_spawn/human/space_base_syndicate/chef
-	name = "Syndicate Chef Sleeper"
+	name = "Шеф-повар Синдиката (спящий агент)"
 	mob_name = "Syndicate Chef"
 	id_job = "Syndicate Chef"
 	description = "Даже Синдикату нужны рабочие руки! У вас в распоряжении свой бар, кухня и ботаника. Накормите этих голодных учёных или помогите им создать последнее блюдо для ваших врагов. Здесь всё равно платят в разы лучше!"
@@ -207,7 +207,7 @@
 	back = /obj/item/storage/backpack/syndicate
 
 /obj/effect/mob_spawn/human/space_base_syndicate/engineer
-	name = "Syndicate Atmos Engineer Sleeper"
+	name = "Инженер-атмосферник Синдиката (спящий агент)"
 	mob_name = "Syndicate Atmos Engineer"
 	id_job = "Syndicate Atmos Engineer"
 	description = "Там, где есть космическая станция, есть и двигатели с трубами, которым нужно своё техобслуживание. Обеспечьте станцию энергией, чините повреждения после неудачных опытов учёных и отдыхайте в баре, пока снова что-нибудь не взорвут. "
@@ -227,7 +227,7 @@
 	back = /obj/item/storage/backpack/syndicate/engineer
 
 /obj/effect/mob_spawn/human/space_base_syndicate/comms
-	name = "Syndicate Comms Officer sleeper"
+	name = "Офицер связи Синдиката (спящий агент)"
 	mob_name = "Syndicate Comms Officer"
 	id_job = "Syndicate Comms Officer"
 	description = "Проверяйте камеры и коммуникации, руководите станцией в случае ЧП, старайтесь помогать любым агентам Синдиката на станции, при этом сохраняя свою базу в секрете от НТ. Вы являетесь единственным агентом с доступом в хранилище и оружейную."
@@ -253,7 +253,7 @@
 	)
 
 /obj/effect/mob_spawn/human/space_base_syndicate/rd
-	name = "Syndicate Research Director sleeper"
+	name = "Научный руководитель Синдиката (спящий агент)"
 	mob_name = "Syndicate Research Director"
 	id_job = "Syndicate Research Director"
 	description = "Следите за тем, чтобы учёные занимались исследованиями и не подорвали всю станцию, предоставьте Синдикату результаты своих исследований через карго и помните: смерть НаноТрейзен!"

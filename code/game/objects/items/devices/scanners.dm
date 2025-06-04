@@ -355,7 +355,7 @@ REAGENT SCANNER
 	P.header += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font><br>"
 	P.header += "Уровень повреждений: <font color='#0080ff'>[scan_data["damageLevels"]["oxy"]]</font> - <font color='green'>[scan_data["damageLevels"]["tox"]]</font> - <font color='#FF8000'>[scan_data["damageLevels"]["burn"]]</font> - <font color='red'>[scan_data["damageLevels"]["brute"]]</font><br>"
 	P.header += "Температура тела: [scan_data["bodyTemperatureC"]] &deg;C ([scan_data["bodyTemperatureF"]] &deg;F)<br>"
-	P.header += "Пульс: <font color='[scan_data["pulse"] == PULSE_THREADY || scan_data["pulse"] == PULSE_NONE ? "red" : "#0080ff"]'>[scan_data["pulse"]] уд/мин.</font><br>"
+	P.header += "Пульс: <font color='[scan_data["pulse_status"] == PULSE_NORM ? "#0080ff" : "red"]'>[scan_data["pulse"]] уд/мин.</font><br>"
 
 	if(scan_data["genes"])
 		if(scan_data["genes"] < 40)
@@ -600,6 +600,7 @@ REAGENT SCANNER
 	else
 		data["status"] = H.stat
 	data["health"] = H.health
+	data["pulse_status"] = H.pulse
 	data["pulse"] = H.get_pulse(GETPULSE_TOOL)
 
 	if(H.timeofdeath)
@@ -917,7 +918,7 @@ REAGENT SCANNER
 		else
 			scan_data += "Уровень крови: [blood_percent] %, [H.blood_volume] u, тип: [blood_type], кровь расы: [blood_species]."
 
-	scan_data += "Пульс: <font color='[H.pulse == PULSE_THREADY || H.pulse == PULSE_NONE ? "red" : "#0080ff"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
+	scan_data += "Пульс: <font color='[H.pulse == PULSE_NORM ? "#0080ff" : "red"]'>[H.get_pulse(GETPULSE_TOOL)] уд/мин.</font>"
 	var/list/implant_detect = list()
 	for(var/obj/item/organ/internal/cyberimp/cybernetics in H.internal_organs)
 		if(cybernetics.is_robotic())

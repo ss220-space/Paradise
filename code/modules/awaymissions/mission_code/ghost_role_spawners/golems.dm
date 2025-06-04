@@ -2,7 +2,7 @@
 //Xenobiology golems are slaved to their creator.
 
 /obj/item/golem_shell
-	name = "Incomplete free golem shell"
+	name = "Незавершённая оболочка свободного голема"
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "construct"
 	desc = "Незавершённое тело голема. Добавьте десять листов любого минерала, чтобы завершить его."
@@ -18,7 +18,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 
 /obj/item/golem_shell/servant
-	name = "Incomplete servant golem shell"
+	name = "Незавершённая оболочка голема-слуги"
 	ru_names = list(
 		NOMINATIVE = "незавершённая оболочка голема-слуги",
 		GENITIVE = "незавершённой оболочки голема-слуги",
@@ -79,7 +79,7 @@
 
 
 /obj/effect/mob_spawn/human/golem
-	name = "Inert free golem shell"
+	name = "Инертная оболочка свободного голема"
 	desc = "Гуманоидная форма, пустая, безжизненная, но полная потенциала."
 	ru_names = list(
 		NOMINATIVE = "инертная оболочка свободного голема",
@@ -167,7 +167,7 @@
 
 /obj/effect/mob_spawn/human/golem/servant
 	has_owner = TRUE
-	name = "Inert servant golem shell"
+	name = "Инертная оболочка голема-слуги"
 	ru_names = list(
 		NOMINATIVE = "инертная оболочка голема-слуги",
 		GENITIVE = "инертной оболочки голема-слуги",
@@ -179,7 +179,7 @@
 	mob_name = "a servant golem"
 
 /obj/effect/mob_spawn/human/golem/adamantine
-	name = "Dust-caked free golem shell"
+	name = "Покрытая пылью оболочка свободного голема"
 	desc = "Гуманоидная форма, пустая, безжизненная, но полная потенциала."
 	ru_names = list(
 		NOMINATIVE = "покрытая пылью оболочка свободного голема",
@@ -194,7 +194,7 @@
 	mob_species = /datum/species/golem/adamantine
 
 /obj/effect/mob_spawn/human/golem/clockwork
-	name = "Fleshed golem shell"
+	name = "Оболочка голема из плоти"
 	desc = "Это тело когда-то было сделано из плоти, но теперь... это просто оболочка, отлитая в латуни."
 	ru_names = list(
 		NOMINATIVE = "оболочка голема из плоти",

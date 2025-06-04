@@ -3,7 +3,7 @@
 	info = "Ничего интересного."
 
 /obj/effect/mob_spawn/human/doctor/alive/lavaland
-	name = "Broken rejuvenation pod"
+	name = "Сломанный слиппер"
 	desc = "Медицинское устройство, предназначеное для стабилизации пациентов. Эта, кажется, сломана, а человек внутри находится в коме."
 	ru_names = list(
 		NOMINATIVE = "слипер",

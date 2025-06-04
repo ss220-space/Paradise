@@ -57,7 +57,7 @@
 
 
 /datum/disease/virus/kingstons_advanced
-	name = "Продвинутый Синдром Кингстона"
+	name = "Улучшенный Синдром Кингстона"
 	agent = "Бактерии AMB45DR"
 	desc = "Если не лечить, заражённый мутирует в другой вид."
 	max_stages = 4
@@ -66,8 +66,8 @@
 	cure_prob = 50
 	permeability_mod = 0.75
 	severity = BIOHAZARD
-	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi,/datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona)
-	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
+	var/list/virspecies = list("Человеческий", "Вокский", "Унатхский", "Таяранский", "Скрелловый", "Вульпканинский", "Дионейский")
+	var/list/virsuffix = list("грипп", "кашель", "вирус", "синдром", "мор", "хворь", "туберкулёз", "тиф")
 	var/datum/species/chosentype
 	var/chosensuff
 	possible_mutations = null

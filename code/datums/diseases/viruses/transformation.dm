@@ -265,7 +265,6 @@
 
 /datum/disease/virus/transformation/morph
 	name = "Благословение Обжорства"
-	name = "Благословение Обжорства"
 	desc = "\"Дар\" из какого-то ужасного места."
 	cure_text = "Ничего"
 	cures = list("adminordrazine")

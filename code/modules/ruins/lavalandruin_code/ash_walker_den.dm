@@ -91,7 +91,7 @@
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
 /obj/effect/mob_spawn/human/ash_walker
-	name = "Ash walker egg"
+	name = "Яйцо пеплоходца"
 	ru_names = list(
 		NOMINATIVE = "яйцо пеплоходца",
 		GENITIVE = "яйца пеплоходца",
@@ -112,7 +112,7 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
-	important_info = "Не покидайте Лаваленд без разрешения администратора. Нападать на шахтёрский аванпост можно только в ответ на агрессию."
+	important_info = "Не покидайте Лаваленд без разрешения администратора. Нападать на шахтёрский аванпост можно только если щупальце в вашем гнезде разрушено."
 	description = "Вы — пеплоходец, дикарь из племени коренных обитателей Лаваленда. Выживайте, охотьтесь и защищайте своё гнездо. Пользуйтесь примитивными племенными технологиями. Скармливайте трупы щупальцу в гнезде, дабы оно порождало яйца новых пеплоходцев. Вам разрешено атаковать шахтёров и других чужаков."
 	flavour_text = "Ваше племя поклоняется Некрополю. Пустоши для вас — священные земли, а местные чудища — их щедрые дары умелым охотникам. \
 	Вы видели вдали огни… Они предвещают прибытие чужаков, желающих разорить ваши земли и даже сам Некрополь. Но для вас они — лишь очередные подношения для гнезда."
@@ -134,7 +134,7 @@
 
 //Ash walker shaman eggs: Spawns in ash walker dens in lavaland. Only one can exist at a time, they are squishier than regular ashwalkers, and have the sole purpose of keeping other ashwalkers alive.
 /obj/effect/mob_spawn/human/ash_walker/shaman
-	name = "Ash walker shaman egg"
+	name = "Яйцо шамана пеплоходцев"
 	ru_names = list(
 		NOMINATIVE = "яйцо шамана пеплоходцев",
 		GENITIVE = "яйца шамана пеплоходцев",

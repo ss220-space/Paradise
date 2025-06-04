@@ -1,7 +1,7 @@
 //Ancient cryogenic sleepers. Players become NT crewmen from a hundred year old space station, now on the verge of collapse.
 
 /obj/effect/mob_spawn/human/oldstation
-	name = "Old cryogenics pod"
+	name = "Старая криогенная капсула"
 	ru_names = list(
 		NOMINATIVE = "старая криогенная капсула",
 		GENITIVE = "старой криогенной капсулы",
@@ -60,7 +60,7 @@
 	проспите всего восемь часов. Когда вы открываете глаза, всё вокруг кажется ржавым и разрушенным, а в животе нарастает тёмное предчувствие, пока вы выбираетесь из капсулы."
 
 /obj/structure/showcase/machinery/oldpod
-	name = "damaged cryogenic pod"
+	name = "Повреждённая криогенная капсула"
 	ru_names = list(
 		NOMINATIVE = "повреждённая криогенная капсула",
 		GENITIVE = "повреждённой криогенной капсулы",
@@ -74,7 +74,7 @@
 	icon_state = "sleeper-open"
 
 /obj/structure/showcase/machinery/oldpod/used
-	name = "opened cryogenic pod"
+	name = "Открытая криогенная капсула"
 	ru_names = list(
 		NOMINATIVE = "открытая криогенная капсула",
 		GENITIVE = "открытой криогенной капсулы",
