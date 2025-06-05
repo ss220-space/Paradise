@@ -195,7 +195,7 @@ export const DropLightningBolt = (props: unknown) => {
               selected={pointing}
               onClick={() =>
                 act('set_pointing', {
-                  'val': !pointing, // ИСПРАВЛЕНИЕ: Инвертируем текущее значение
+                  'val': !pointing,
                 })
               }
             >
@@ -208,7 +208,7 @@ export const DropLightningBolt = (props: unknown) => {
             <Button
               icon="bolt"
               color="red"
-              disabled={mode ? false : true}
+              disabled={mode && mode !== 'По указателю' ? false : true}
               onClick={() => act('drop')}
             >
               Вызвать молнию
