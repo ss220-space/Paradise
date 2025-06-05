@@ -1,3 +1,7 @@
+#define MODE_CKEY 	 "По игроку"
+#define MODE_COORDS  "По координатам"
+#define MODE_POINTER "По указателю"
+
 /client/proc/drop_lightning_bolt()
 	set category = "Admin.Fun"
 	set name = "Drop lightning bolt"
@@ -5,30 +9,16 @@
 
 	if(!check_rights(R_EVENT))
 		return
+	if(!SSticker || !SSticker.mode)
+		tgui_alert(usr, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
+		return
 
 	var/datum/drop_lightning_bolt_ui/editor = new()
 	editor.ui_interact(mob)
 
-/turf/proc/spawn_lightning_bolt()
-	// FLASH
-	var/obj/effect/temp_visual/flash = new (src)
-	flash.icon = 'icons/effects/light_overlays/light_128.dmi'
-	flash.icon_state = "light"
-	flash.pixel_w = -64
-	flash.pixel_z = -64
-	flash.set_light(7, 99, "#C5C5FF")
-	// BOOM
-	playsound(src, 'sound/effects/lightning_bolt.ogg', 100, TRUE, 15, 1.2)
-	for(var/mob/to_shake in range(5, src))
-		shake_camera(to_shake, 10, 1)
-	explosion(src, -1, -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
-	// BOLT
-	var/obj/effect/temp_visual/thunderbolt/bolt = new (src)
-	do_sparks(15, TRUE, bolt)
-
-
 // _________________________________________TGUI_________________________________________
 /datum/drop_lightning_bolt_ui
+	var/client/client = null
 	var/mob/living/victim_mob = null
 	var/turf/victim_turf = null
 	var/mode = null
@@ -44,6 +34,7 @@
 /datum/drop_lightning_bolt_ui/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
+		client = user.client
 		ui = new(user, src, "DropLightningBolt")
 		ui.open()
 		ui.set_autoupdate(TRUE)
@@ -62,7 +53,7 @@
 	.["pointing"] = pointing
 
 	players = list()
-	for(var/mob/player in GLOB.player_list) 				// extra 'spaces  ' hell yea
+	for(var/mob/player in GLOB.player_list) 	  // extra 'spaces  ' hell yea
 		players[player.ckey] = "[player.real_name] | [player.ckey]  "
 	.["players"] = players
 
@@ -73,30 +64,26 @@
 	. = TRUE
 
 	switch(action)
-		if("pickPlayer")
-			for(var/mob/player in GLOB.player_list)
-				if(player.ckey == params["ckey"])
-					victim_mob = player
-					break
+		if("pick_player")
+			var/ckey = params["ckey"]
+			victim_mob = get_mob_by_ckey(ckey)
 			victim_turf = null
 		if("set_autoupdate")
 			ui.set_autoupdate(params["val"])
-			victim_turf = locate(text2num(params["x_coord"]), text2num(params["y_coord"]), text2num(params["z_coord"]))
+			if(ui.autoupdate)
+				victim_turf = locate(text2num(params["x_coord"]), text2num(params["y_coord"]), text2num(params["z_coord"]))
 		if("set_mode")
 			mode = params["mode"]
-			if(mode == "По указателю")
-				if(!usr.client.click_intercept)
-					usr.client.click_intercept = new /datum/click_intercept/lightning_bolt_dropper(usr.client, src)
-			else
-				// Деактивируем перехват при выходе из режима "По указателю"
-				if(usr.client.click_intercept)
-					qdel(usr.client.click_intercept)
-					usr.client.click_intercept = null
-				pointing = FALSE  // ИСПРАВЛЕНИЕ: Сбрасываем pointing при смене режима
+			if(mode == MODE_COORDS)
+				victim_turf = null
+			if(usr.client.click_intercept)
+				qdel(usr.client.click_intercept)
+				usr.client.click_intercept = null
+			pointing = FALSE
 		if("set_coords")
 			victim_turf = locate(text2num(params["x_coord"]), text2num(params["y_coord"]), text2num(params["z_coord"]))
 			victim_mob = null
-			mode = "По координатам"  // Явно устанавливаем режим
+			mode = MODE_COORDS
 		if("set_damage")
 			damage = text2num(params["damage"])
 		if("set_radius")
@@ -105,20 +92,28 @@
 			delay = clamp(text2num(params["delay"]), 0, 60) //  Добавлено ограничение
 		if("drop")
 			if(!victim_mob && !victim_turf)
-				if(mode == "По координатам")
+				if(mode == MODE_COORDS)
 					victim_turf = locate(usr.x, usr.y, usr.z)
 				else
 					return
+			else if(ui.autoupdate)
+				victim_turf = locate(usr.x, usr.y, usr.z)
+
 			lightning_bolt()
 		if("set_pointing")
 			pointing = params["val"]
+			if(!usr.client.click_intercept)
+				usr.client.click_intercept = new /datum/click_intercept/lightning_bolt_dropper(usr.client, src)
+			else
+				qdel(usr.client.click_intercept)
+				usr.client.click_intercept = null
 		else
 			. = FALSE
 
 /datum/drop_lightning_bolt_ui/ui_close(mob/user)
-	if(usr.client && usr.client.click_intercept)
-		qdel(usr.client.click_intercept)
-		usr.client.click_intercept = null
+	if(client && client.click_intercept)
+		qdel(client.click_intercept)
+		client.click_intercept = null
 
 /datum/drop_lightning_bolt_ui/proc/lightning_bolt()
 	if((!victim_mob && !victim_turf) || !mode)
@@ -128,7 +123,7 @@
 	var/turf/target_turf
 	var/list/affected_mobs = list()
 
-	if(mode == "По игроку" && victim_mob)
+	if(mode == MODE_CKEY && victim_mob)
 		target_turf = get_turf(victim_mob)
 		if(!target_turf)
 			to_chat(usr, span_warning("Ошибка: не удалось найти местоположение игрока!"))
@@ -136,7 +131,7 @@
 		affected_mobs += victim_mob
 		victim_mob.visible_message(span_danger("В воздухе разливается металлический привкус, а волосы на затылке встают дыбом..."),
 				span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом..."))
-	else if(mode == "По координатам" && victim_turf)
+	else if(mode == MODE_COORDS && victim_turf)
 		target_turf = victim_turf
 
 	if(!target_turf)
@@ -150,28 +145,30 @@
 			affected_mobs += _mob
 			to_chat(_mob, span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом..."))
 
-	// Исправляем spawn - добавляем скобки
-	spawn(delay SECONDS)
-		// Обновляем позицию если цель - игрок (он мог переместиться)
-		if(mode == "По игроку" && victim_mob)
-			target_turf = get_turf(victim_mob)
-			if(!target_turf)
-				return
+	addtimer(CALLBACK(src, PROC_REF(lightning_bolt_part_2), target_turf, affected_mobs), delay SECONDS)
 
-		target_turf.spawn_lightning_bolt(damage <= 0)
-		for(var/mob/living/_mob in affected_mobs)
-			if(mode == "По координатам" && get_dist(_mob, target_turf) > radius)
-				continue
-			if(mode == "По игроку")
-				affected_mobs = list()
-				for(var/mob/living/nearby_mob in range(radius, target_turf))
-					affected_mobs += nearby_mob
+/datum/drop_lightning_bolt_ui/proc/lightning_bolt_part_2(turf/target_turf, list/affected_mobs)
+	// Обновляем позицию если цель - игрок (он мог переместиться)
+	if(mode == MODE_CKEY && victim_mob)
+		target_turf = get_turf(victim_mob)
+		if(!target_turf)
+			return
 
-			_mob.Jitter(10 SECONDS)
-			_mob.apply_damage(damage, BURN)
+	new /obj/effect/temp_visual/thunderbolt/fancy/(target_turf, damage <= 0)
+	for(var/mob/living/_mob as anything in affected_mobs)
+		if(mode == MODE_COORDS && get_dist(_mob, target_turf) > radius || isobserver(_mob))
+			continue
+		if(mode == MODE_CKEY)
+			affected_mobs = list()
+			for(var/mob/living/nearby_mob in range(radius, target_turf))
+				affected_mobs += nearby_mob
 
-		log_admin("[key_name(usr)] dropped lightning bolt at [target_turf] with damage=[damage], radius=[radius], delay=[delay]")
-		message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(target_turf)] with damage=[damage], radius=[radius], delay=[delay]")
+		_mob.Jitter(10 SECONDS)
+		_mob.apply_damage(damage, BURN)
+		_mob.updatehealth("admin lightning bolt")
+
+	log_admin("[key_name(usr)] dropped lightning bolt at [target_turf] with damage=[damage], radius=[radius], delay=[delay]")
+	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(target_turf)] with damage=[damage], radius=[radius], delay=[delay]")
 
 // _________________________________________CLICK HANDLER_________________________________________
 /datum/click_intercept/lightning_bolt_dropper
@@ -180,36 +177,40 @@
 /datum/click_intercept/lightning_bolt_dropper/New(client/C, datum/drop_lightning_bolt_ui/datum)
 	..()
 	dropper = datum
+	holder.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi' //Icon for when mouse is released
+	holder.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
+	holder.mouse_override_icon = holder.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+	holder.mouse_pointer_icon = holder.mouse_override_icon
 
-	if(C && C.mouse_pointer_icon == initial(C.mouse_pointer_icon))
-		C.mouse_pointer_icon = 'icons/effects/anomalies.dmi'
-
-/datum/click_intercept/lightning_bolt_dropper/quit()
-	if(holder && holder.mouse_pointer_icon == 'icons/effects/anomalies.dmi')
-		holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
+/datum/click_intercept/lightning_bolt_dropper/Destroy()
+	holder.mouse_up_icon = null
+	holder.mouse_down_icon = null
+	holder.mouse_override_icon = null
+	holder.mouse_pointer_icon = initial(holder.mouse_pointer_icon)
 	return ..()
 
 /datum/click_intercept/lightning_bolt_dropper/InterceptClickOn(mob/user, params, atom/object)
-	// ИСПРАВЛЕНИЕ: Проверяем что dropper существует и pointing активен
 	if(!dropper || !dropper.pointing)
 		return FALSE
 
-	// ИСПРАВЛЕНИЕ: Не перехватываем клики по UI элементам
-	if(istype(object, /atom/movable/screen))
+	if(is_screen_atom(object))
 		return FALSE
 
 	if(ismob(object))
 		dropper.victim_mob = object
 		dropper.victim_turf = null
-		dropper.mode = "По игроку"
+		dropper.mode = MODE_CKEY
 	else
 		dropper.victim_turf = get_turf(object)
 		dropper.victim_mob = null
-		dropper.mode = "По координатам"
+		dropper.mode = MODE_COORDS
 
 	dropper.lightning_bolt()
 	user.face_atom(object)
 
-	// Возвращаем режим обратно
-	dropper.mode = "По указателю"
+	dropper.mode = MODE_POINTER
 	return TRUE
+
+#undef MODE_CKEY
+#undef MODE_COORDS
+#undef MODE_POINTER

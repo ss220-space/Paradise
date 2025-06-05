@@ -10,11 +10,14 @@ import {
   Box,
 } from '../components';
 import { Window } from '../layouts';
+
+type LightningBoltMode = 'По игроку' | 'По координатам' | 'По указателю';
+
 type LightningBoltData = {
   x_coord: number;
   y_coord: number;
   z_coord: number;
-  mode: string;
+  mode: LightningBoltMode;
   damage: number;
   radius: number;
   delay: number;
@@ -35,32 +38,35 @@ export const DropLightningBolt = (props: unknown) => {
     ckey,
     players,
     pointing,
+    mode: backendMode,
   } = data;
 
-  const avaivableModes = ['По игроку', 'По координатам', 'По указателю'];
-  let [mode, setMode] = useState('');
-  let [autoupdate, setAutoupdate] = useState(true);
+  const availableModes: LightningBoltMode[] = [
+    'По игроку',
+    'По координатам',
+    'По указателю',
+  ];
+
+  const [mode, setMode] = useState<LightningBoltMode>(backendMode);
+  const [autoupdate, setAutoupdate] = useState(true);
 
   return (
     <Window width={300} height={340} title="Вызов молнии">
       <Window.Content>
         <Section
           scrollable
-          title={'Настройка'}
+          title="Настройка"
           buttons={
             <Dropdown
               width="150px"
-              options={avaivableModes}
+              options={availableModes}
               selected={mode}
               onSelected={(val) => {
-                setMode(val);
-                act('set_mode', { 'mode': val });
-                if (val === 'По координатам') {
-                  act('set_coords', {
-                    'x_coord': x_coord,
-                    'y_coord': y_coord,
-                    'z_coord': z_coord,
-                  });
+                const m = val as LightningBoltMode;
+                setMode(m);
+                act('set_mode', { mode: m });
+                if (m === 'По координатам') {
+                  act('set_coords', { x_coord, y_coord, z_coord });
                 }
               }}
             />
@@ -73,10 +79,9 @@ export const DropLightningBolt = (props: unknown) => {
                 minValue={0}
                 step={1}
                 value={damage}
-                onChange={(val) => act('set_damage', { 'damage': val })}
+                onChange={(val) => act('set_damage', { damage: val })}
               />
             </LabeledList.Item>
-
             <LabeledList.Item
               label="Радиус поражения"
               tooltip="Включая центр, без снижения урона с отдалением от центра"
@@ -86,7 +91,7 @@ export const DropLightningBolt = (props: unknown) => {
                 minValue={0}
                 step={1}
                 value={radius}
-                onChange={(val) => act('set_radius', { 'radius': val })}
+                onChange={(val) => act('set_radius', { radius: val })}
               />
             </LabeledList.Item>
             <LabeledList.Item
@@ -98,12 +103,12 @@ export const DropLightningBolt = (props: unknown) => {
                 minValue={0}
                 step={1}
                 value={delay}
-                onChange={(val) => act('set_delay', { 'delay': val })}
+                onChange={(val) => act('set_delay', { delay: val })}
               />
             </LabeledList.Item>
           </LabeledList>
         </Section>
-        <Section title={mode}>
+        <Section title={mode ?? 'Не выбран режим'}>
           {mode === 'По игроку' && (
             <LabeledList>
               <LabeledList.Item
@@ -117,14 +122,13 @@ export const DropLightningBolt = (props: unknown) => {
                       const selectedCkey = Object.keys(players).find(
                         (key) => players[key] === val
                       );
-                      act('pickPlayer', { 'ckey': selectedCkey });
+                      act('pick_player', { ckey: selectedCkey });
                     }}
                   />
                 }
               />
             </LabeledList>
           )}
-
           {mode === 'По координатам' && (
             <LabeledList>
               <LabeledList.Item label="Автообновление">
@@ -134,7 +138,7 @@ export const DropLightningBolt = (props: unknown) => {
                   onClick={() => {
                     const newValue = !autoupdate;
                     setAutoupdate(newValue);
-                    act('set_autoupdate', { 'val': newValue });
+                    act('set_autoupdate', { val: newValue });
                   }}
                 />
               </LabeledList.Item>
@@ -145,11 +149,7 @@ export const DropLightningBolt = (props: unknown) => {
                   step={1}
                   value={x_coord}
                   onChange={(val) =>
-                    act('set_coords', {
-                      'x_coord': val,
-                      'y_coord': y_coord,
-                      'z_coord': z_coord,
-                    })
+                    act('set_coords', { x_coord: val, y_coord, z_coord })
                   }
                 />
               </LabeledList.Item>
@@ -159,13 +159,9 @@ export const DropLightningBolt = (props: unknown) => {
                   minValue={0}
                   step={1}
                   value={y_coord}
-                  onChange={(val) => {
-                    act('set_coords', {
-                      'x_coord': x_coord,
-                      'y_coord': val,
-                      'z_coord': z_coord,
-                    });
-                  }}
+                  onChange={(val) =>
+                    act('set_coords', { x_coord, y_coord: val, z_coord })
+                  }
                 />
               </LabeledList.Item>
               <LabeledList.Item label="Z">
@@ -175,11 +171,7 @@ export const DropLightningBolt = (props: unknown) => {
                   step={1}
                   value={z_coord}
                   onChange={(val) =>
-                    act('set_coords', {
-                      'x_coord': x_coord,
-                      'y_coord': y_coord,
-                      'z_coord': val,
-                    })
+                    act('set_coords', { x_coord, y_coord, z_coord: val })
                   }
                 />
               </LabeledList.Item>
@@ -193,11 +185,7 @@ export const DropLightningBolt = (props: unknown) => {
                   на которого указывает курсор мыши."
               textAlign="center"
               selected={pointing}
-              onClick={() =>
-                act('set_pointing', {
-                  'val': !pointing,
-                })
-              }
+              onClick={() => act('set_pointing', { val: !pointing })}
             >
               {pointing ? 'Готов' : 'Не готов'}
             </Button>
@@ -208,7 +196,7 @@ export const DropLightningBolt = (props: unknown) => {
             <Button
               icon="bolt"
               color="red"
-              disabled={mode && mode !== 'По указателю' ? false : true}
+              disabled={!mode || mode === 'По указателю'}
               onClick={() => act('drop')}
             >
               Вызвать молнию
