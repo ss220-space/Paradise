@@ -158,12 +158,7 @@
 			if(!target_turf)
 				return
 
-<<<<<<< HEAD
 		target_turf.spawn_lightning_bolt(damage <= 0)
-=======
-		target_turf.spawn_lightning_bolt()
->>>>>>> parent of 474c0fd5273 (done)
-
 		for(var/mob/living/_mob in affected_mobs)
 			if(mode == "По координатам" && get_dist(_mob, target_turf) > radius)
 				continue
