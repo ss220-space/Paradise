@@ -161,7 +161,7 @@
 			if(!target_turf)
 				return
 
-		target_turf.spawn_lightning_bolt(damage > 0)
+		target_turf.spawn_lightning_bolt(damage <= 0)
 
 		for(var/mob/living/_mob in affected_mobs)
 			if(mode == "По координатам" && get_dist(_mob, target_turf) > radius)
