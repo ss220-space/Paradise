@@ -16,9 +16,6 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	/// Used for CentCom announcement when reached crew limit conversion
 	var/reveal_percent
 
-/proc/isclocker(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.clockwork_cult)
-
 /proc/is_convertable_to_clocker(datum/mind/mind)
 	if(!mind)
 		return FALSE
@@ -102,6 +99,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 			if(!(locate(/datum/action/innate/toggle_clumsy) in clockwork_mind.current.actions))
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(clockwork_mind.current)
+
+		clockwork_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
 
 		add_clock_actions(clockwork_mind)
 		update_clock_icons_added(clockwork_mind)
@@ -217,6 +216,8 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 		adjust_clockwork_power(CLOCK_POWER_CONVERT)
 
+		clock_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["clockwork"], GLOB.halo_callbacks["clockwork"])
+
 		if(power_reveal)
 			powered(clock_mind.current)
 			powered_borgs(clock_mind.current)
@@ -283,8 +284,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	if(ishuman(clocker) && isclocker(clocker))
 		var/mob/living/carbon/human/H = clocker
 		new /obj/effect/temp_visual/ratvar/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
-
+		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 /datum/game_mode/proc/remove_clocker(datum/mind/clock_mind, show_message = TRUE)
 	if(!(clock_mind in clockwork_cult))
@@ -302,6 +302,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	if(ishuman(clocker))
 		var/mob/living/carbon/human/H = clocker
+		clock_mind.current.RemoveElement(/datum/element/halo_attach)
 		REMOVE_TRAIT(H, CLOCK_HANDS, null)
 		H.change_eye_color(H.original_eye_color, FALSE)
 		H.update_eyes()
@@ -360,3 +361,9 @@ GLOBAL_LIST_EMPTY(all_clockers)
 
 	to_chat(world, endtext)
 	. = ..()
+
+/proc/isclocker(mob/living/user)
+	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.clockwork_cult)
+
+/proc/isclocker_ascended(mob/living/user)
+	return isclocker(user) && SSticker.mode.crew_reveal
