@@ -1,5 +1,6 @@
 import { BooleanLike } from 'common/react';
-import { useBackend, useSharedState } from '../backend';
+import { useState } from 'react';
+import { useBackend } from '../backend';
 import {
   Button,
   LabeledList,
@@ -7,7 +8,6 @@ import {
   Section,
   Dropdown,
   Box,
-  Flex,
 } from '../components';
 import { Window } from '../layouts';
 type LightningBoltData = {
@@ -38,8 +38,8 @@ export const DropLightningBolt = (props: unknown) => {
   } = data;
 
   const avaivableModes = ['По игроку', 'По координатам', 'По указателю'];
-  let [mode, setMode] = useSharedState('mode', '');
-  let [autoupdate, setAutoupdate] = useSharedState('autoupdate', true);
+  let [mode, setMode] = useState('');
+  let [autoupdate, setAutoupdate] = useState(true);
 
   return (
     <Window width={300} height={340} title="Вызов молнии">
