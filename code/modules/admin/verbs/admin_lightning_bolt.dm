@@ -53,7 +53,7 @@
 	.["pointing"] = pointing
 
 	players = list()
-	for(var/mob/player in GLOB.player_list) 	  // extra 'spaces  ' hell yea
+	for(var/mob/player as anything in GLOB.player_list) // extra 'spaces  ' hell yea
 		players[player.ckey] = "[player.real_name] | [player.ckey]  "
 	.["players"] = players
 
@@ -111,9 +111,11 @@
 			. = FALSE
 
 /datum/drop_lightning_bolt_ui/ui_close(mob/user)
-	if(client && client.click_intercept)
-		qdel(client.click_intercept)
-		client.click_intercept = null
+	if(!client || !client.click_intercept)
+		return
+
+	qdel(client.click_intercept)
+	client.click_intercept = null
 
 /datum/drop_lightning_bolt_ui/proc/lightning_bolt()
 	if((!victim_mob && !victim_turf) || !mode)
@@ -173,13 +175,15 @@
 // _________________________________________CLICK HANDLER_________________________________________
 /datum/click_intercept/lightning_bolt_dropper
 	var/datum/drop_lightning_bolt_ui/dropper = null
+	var/icon/mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi'
+	var/icon/mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi'
 
 /datum/click_intercept/lightning_bolt_dropper/New(client/C, datum/drop_lightning_bolt_ui/datum)
 	..()
 	dropper = datum
-	holder.mouse_up_icon = 'icons/effects/mouse_pointers/supplypod_pickturf.dmi' //Icon for when mouse is released
-	holder.mouse_down_icon = 'icons/effects/mouse_pointers/supplypod_pickturf_down.dmi' //Icon for when mouse is pressed
-	holder.mouse_override_icon = holder.mouse_up_icon //Icon for idle mouse (same as icon for when released)
+	holder.mouse_up_icon = mouse_up_icon
+	holder.mouse_down_icon = mouse_down_icon
+	holder.mouse_override_icon = holder.mouse_up_icon
 	holder.mouse_pointer_icon = holder.mouse_override_icon
 
 /datum/click_intercept/lightning_bolt_dropper/Destroy()
