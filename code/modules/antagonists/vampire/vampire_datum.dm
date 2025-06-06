@@ -180,16 +180,8 @@
 
 
 /datum/antagonist/vampire/proc/adjust_blood(mob/living/carbon/human/user, blood_amount = 0)
-	if(user)
-		var/datum/mind/mind = user.get_real_mind()
-		var/unique_suck_id = mind.UID()
-		if(!(unique_suck_id in drained_humans))
-			drained_humans[unique_suck_id] = 0
-
-		if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
-			return
-
-		drained_humans[unique_suck_id] += blood_amount
+	if(!count_drain(user, blood_amount))
+		return
 
 	bloodtotal += blood_amount
 	bloodusable += blood_amount
@@ -199,6 +191,24 @@
 		if(power.action)
 			power.action.UpdateButtonIcon()
 
+/datum/antagonist/vampire/proc/count_drain(mob/living/carbon/human/user, blood_amount = 0)
+	if(!user)
+		return TRUE
+
+	var/datum/mind/mind = user.get_real_mind()
+	var/unique_suck_id = mind?.UID()
+
+	if(!unique_suck_id)
+		return TRUE
+
+	if(!(unique_suck_id in drained_humans))
+		drained_humans[unique_suck_id] = 0
+
+	if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
+		return FALSE
+
+	drained_humans[unique_suck_id] += blood_amount
+	return TRUE
 
 #define BLOOD_GAINED_MODIFIER 0.5
 
@@ -215,7 +225,7 @@
 	draining = target
 	var/mob/living/carbon/human/cur = owner.current
 	var/datum/mind/mind = target.get_real_mind()
-	var/unique_suck_id = mind.UID()
+	var/unique_suck_id = mind?.UID()
 	var/blood = 0
 	var/blood_volume_warning = 9999 //Blood volume threshold for warnings
 	var/cycle_counter = 0
@@ -282,7 +292,7 @@
 				time_per_action = suck_rate_final
 				continue
 
-		if(unique_suck_id in drained_humans)
+		if(unique_suck_id && (unique_suck_id in drained_humans))
 			if(drained_humans[unique_suck_id] >= BLOOD_DRAIN_LIMIT)
 				to_chat(cur, span_warning("Вы поглотили всю жизненную эссенцию [target], дальнейшее питьё крови будет только утолять голод!"))
 				target.AdjustBlood(-25)
