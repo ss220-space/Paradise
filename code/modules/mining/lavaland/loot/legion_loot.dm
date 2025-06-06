@@ -144,7 +144,7 @@
 
 /obj/effect/temp_visual/thunderbolt/fancy
 
-/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, harmless)
+/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, harmless = FALSE)
 	new /obj/effect/temp_visual/flash(src)
 	// BOOM
 	playsound(src, 'sound/effects/lightning_bolt.ogg', 100, TRUE, 15, 1.2)

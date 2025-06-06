@@ -11,12 +11,9 @@ import {
 } from '../components';
 import { Window } from '../layouts';
 
-type LightningBoltMode = 'По игроку' | 'По координатам' | 'По указателю';
+type LightningBoltMode = 'По игроку' | 'По указателю';
 
 type LightningBoltData = {
-  x_coord: number;
-  y_coord: number;
-  z_coord: number;
   mode: LightningBoltMode;
   damage: number;
   radius: number;
@@ -29,9 +26,6 @@ type LightningBoltData = {
 export const DropLightningBolt = (props: unknown) => {
   const { act, data } = useBackend<LightningBoltData>();
   const {
-    x_coord,
-    y_coord,
-    z_coord,
     damage,
     radius,
     delay,
@@ -41,11 +35,7 @@ export const DropLightningBolt = (props: unknown) => {
     mode: backendMode,
   } = data;
 
-  const availableModes: LightningBoltMode[] = [
-    'По игроку',
-    'По координатам',
-    'По указателю',
-  ];
+  const availableModes: LightningBoltMode[] = ['По игроку', 'По указателю'];
 
   const [mode, setMode] = useState<LightningBoltMode>(backendMode);
   const [autoupdate, setAutoupdate] = useState(true);
@@ -65,9 +55,6 @@ export const DropLightningBolt = (props: unknown) => {
                 const m = val as LightningBoltMode;
                 setMode(m);
                 act('set_mode', { mode: m });
-                if (m === 'По координатам') {
-                  act('set_coords', { x_coord, y_coord, z_coord });
-                }
               }}
             />
           }
@@ -127,54 +114,6 @@ export const DropLightningBolt = (props: unknown) => {
                   />
                 }
               />
-            </LabeledList>
-          )}
-          {mode === 'По координатам' && (
-            <LabeledList>
-              <LabeledList.Item label="Автообновление">
-                <Button
-                  icon={autoupdate ? 'toggle-on' : 'toggle-off'}
-                  selected={autoupdate}
-                  onClick={() => {
-                    const newValue = !autoupdate;
-                    setAutoupdate(newValue);
-                    act('set_autoupdate', { val: newValue });
-                  }}
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="X">
-                <NumberInput
-                  maxValue={255}
-                  minValue={0}
-                  step={1}
-                  value={x_coord}
-                  onChange={(val) =>
-                    act('set_coords', { x_coord: val, y_coord, z_coord })
-                  }
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Y">
-                <NumberInput
-                  maxValue={255}
-                  minValue={0}
-                  step={1}
-                  value={y_coord}
-                  onChange={(val) =>
-                    act('set_coords', { x_coord, y_coord: val, z_coord })
-                  }
-                />
-              </LabeledList.Item>
-              <LabeledList.Item label="Z">
-                <NumberInput
-                  maxValue={255}
-                  minValue={0}
-                  step={1}
-                  value={z_coord}
-                  onChange={(val) =>
-                    act('set_coords', { x_coord, y_coord, z_coord: val })
-                  }
-                />
-              </LabeledList.Item>
             </LabeledList>
           )}
           {mode === 'По указателю' && (

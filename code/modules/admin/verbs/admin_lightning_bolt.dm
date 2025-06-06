@@ -1,6 +1,9 @@
 #define MODE_CKEY 	 "По игроку"
-#define MODE_COORDS  "По координатам"
 #define MODE_POINTER "По указателю"
+#define WARNING_MESSAGE span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
+#define DEFAULT_DAMAGE 600
+#define DEFAULT_RADIUS 3
+#define DEFAULT_DELAY 3
 
 /client/proc/drop_lightning_bolt()
 	set category = "Admin.Fun"
@@ -13,7 +16,9 @@
 		tgui_alert(usr, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
 		return
 
-	var/datum/drop_lightning_bolt_ui/editor = new()
+	var/datum/drop_lightning_bolt_ui/editor
+	if(!(editor in mob.tgui_open_uis))
+		editor = new()
 	editor.ui_interact(mob)
 
 // _________________________________________TGUI_________________________________________
@@ -42,9 +47,6 @@
 /datum/drop_lightning_bolt_ui/ui_data(mob/user)
 	. = ..()
 
-	.["x_coord"] = user.x
-	.["y_coord"] = user.y
-	.["z_coord"] = user.z
 	.["damage"] = damage
 	.["radius"] = radius
 	.["delay"] = delay
@@ -68,40 +70,29 @@
 			var/ckey = params["ckey"]
 			victim_mob = get_mob_by_ckey(ckey)
 			victim_turf = null
-		if("set_autoupdate")
-			ui.set_autoupdate(params["val"])
-			if(ui.autoupdate)
-				victim_turf = locate(text2num(params["x_coord"]), text2num(params["y_coord"]), text2num(params["z_coord"]))
+
 		if("set_mode")
 			mode = params["mode"]
-			if(mode == MODE_COORDS)
-				victim_turf = null
 			if(usr.client.click_intercept)
 				qdel(usr.client.click_intercept)
 				usr.client.click_intercept = null
 			pointing = FALSE
-		if("set_coords")
-			victim_turf = locate(text2num(params["x_coord"]), text2num(params["y_coord"]), text2num(params["z_coord"]))
-			victim_mob = null
-			mode = MODE_COORDS
+
 		if("set_damage")
 			damage = text2num(params["damage"])
+
 		if("set_radius")
 			radius = text2num(params["radius"])
-		if("set_delay")
-			delay = clamp(text2num(params["delay"]), 0, 60) //  Добавлено ограничение
-		if("drop")
-			if(!victim_mob && !victim_turf)
-				if(mode == MODE_COORDS)
-					victim_turf = locate(usr.x, usr.y, usr.z)
-				else
-					return
-			else if(ui.autoupdate)
-				victim_turf = locate(usr.x, usr.y, usr.z)
 
-			lightning_bolt()
+		if("set_delay")
+			delay = clamp(text2num(params["delay"]), 0, 1 MINUTES)
+
+		if("drop")
+			prepare_bolt()
+
 		if("set_pointing")
 			pointing = params["val"]
+
 			if(!usr.client.click_intercept)
 				usr.client.click_intercept = new /datum/click_intercept/lightning_bolt_dropper(usr.client, src)
 			else
@@ -117,60 +108,32 @@
 	qdel(client.click_intercept)
 	client.click_intercept = null
 
-/datum/drop_lightning_bolt_ui/proc/lightning_bolt()
+/datum/drop_lightning_bolt_ui/proc/prepare_bolt()
 	if((!victim_mob && !victim_turf) || !mode)
 		to_chat(usr, span_warning("Ошибка: не выбрана цель или режим!"))
 		return FALSE
 
-	var/turf/target_turf
-	var/list/affected_mobs = list()
+	var/turf/victim = get_turf(victim_mob) || victim_turf
 
-	if(mode == MODE_CKEY && victim_mob)
-		target_turf = get_turf(victim_mob)
-		if(!target_turf)
-			to_chat(usr, span_warning("Ошибка: не удалось найти местоположение игрока!"))
-			return FALSE
-		affected_mobs += victim_mob
-		victim_mob.visible_message(span_danger("В воздухе разливается металлический привкус, а волосы на затылке встают дыбом..."),
-				span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом..."))
-	else if(mode == MODE_COORDS && victim_turf)
-		target_turf = victim_turf
+	if(radius > 1)
+		for(var/mob/living/_mob in range(radius, victim))
+			to_chat(_mob, WARNING_MESSAGE)
+	else if(victim_mob)
+		to_chat(victim_mob, WARNING_MESSAGE)
 
-	if(!target_turf)
-		to_chat(usr, span_warning("Ошибка: не удалось определить целевую область!"))
-		return FALSE
+	addtimer(CALLBACK(src, PROC_REF(drop_bolt), victim), delay SECONDS)
 
-	if(radius > 0)
-		for(var/mob/living/_mob in range(radius, target_turf))
-			if(_mob in affected_mobs)
-				continue
-			affected_mobs += _mob
-			to_chat(_mob, span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом..."))
-
-	addtimer(CALLBACK(src, PROC_REF(lightning_bolt_part_2), target_turf, affected_mobs), delay SECONDS)
-
-/datum/drop_lightning_bolt_ui/proc/lightning_bolt_part_2(turf/target_turf, list/affected_mobs)
-	// Обновляем позицию если цель - игрок (он мог переместиться)
-	if(mode == MODE_CKEY && victim_mob)
-		target_turf = get_turf(victim_mob)
-		if(!target_turf)
-			return
-
-	new /obj/effect/temp_visual/thunderbolt/fancy/(target_turf, damage <= 0)
-	for(var/mob/living/_mob as anything in affected_mobs)
-		if(mode == MODE_COORDS && get_dist(_mob, target_turf) > radius || isobserver(_mob))
+/datum/drop_lightning_bolt_ui/proc/drop_bolt(atom/victim)
+	new /obj/effect/temp_visual/thunderbolt/fancy/(victim, damage <= 10)
+	for(var/mob/living/_mob in range(radius, victim))
+		if(isobserver(_mob))
 			continue
-		if(mode == MODE_CKEY)
-			affected_mobs = list()
-			for(var/mob/living/nearby_mob in range(radius, target_turf))
-				affected_mobs += nearby_mob
-
 		_mob.Jitter(10 SECONDS)
 		_mob.apply_damage(damage, BURN)
 		_mob.updatehealth("admin lightning bolt")
 
-	log_admin("[key_name(usr)] dropped lightning bolt at [target_turf] with damage=[damage], radius=[radius], delay=[delay]")
-	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(target_turf)] with damage=[damage], radius=[radius], delay=[delay]")
+	log_admin("[key_name(usr)] dropped lightning bolt at [victim] with damage=[damage], radius=[radius], delay=[delay]")
+	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(victim)] with damage=[damage], radius=[radius], delay=[delay]")
 
 // _________________________________________CLICK HANDLER_________________________________________
 /datum/click_intercept/lightning_bolt_dropper
@@ -207,14 +170,16 @@
 	else
 		dropper.victim_turf = get_turf(object)
 		dropper.victim_mob = null
-		dropper.mode = MODE_COORDS
 
-	dropper.lightning_bolt()
+	dropper.prepare_bolt()
 	user.face_atom(object)
 
 	dropper.mode = MODE_POINTER
 	return TRUE
 
 #undef MODE_CKEY
-#undef MODE_COORDS
 #undef MODE_POINTER
+#undef WARNING_MESSAGE
+#undef DEFAULT_DAMAGE
+#undef DEFAULT_RADIUS
+#undef DEFAULT_DELAY
