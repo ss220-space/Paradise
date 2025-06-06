@@ -1,9 +1,9 @@
-#define MODE_CKEY 	 "По игроку"
-#define MODE_POINTER "По указателю"
-#define WARNING_MESSAGE span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
-#define DEFAULT_DAMAGE 600
-#define DEFAULT_RADIUS 3
-#define DEFAULT_DELAY 3
+#define MODE_CKEY 	 		"По игроку"
+#define MODE_POINTER 		"По указателю"
+#define WARNING_MESSAGE		span_userdanger("Вы чувствуете что-то не ладное, в воздухе разливается металлический привкус и волосы встают дыбом...")
+#define DEFAULT_DAMAGE 		100
+#define DEFAULT_RADIUS 		3
+#define DEFAULT_DELAY 		3
 
 /client/proc/drop_lightning_bolt()
 	set category = "Admin.Fun"
@@ -16,9 +16,7 @@
 		tgui_alert(usr, "Нельзя вызывать молнии до начала раунда!", "Предупреждение")
 		return
 
-	var/datum/drop_lightning_bolt_ui/editor
-	if(!(editor in mob.tgui_open_uis))
-		editor = new()
+	var/datum/drop_lightning_bolt_ui/editor = new()
 	editor.ui_interact(mob)
 
 // _________________________________________TGUI_________________________________________
@@ -27,9 +25,9 @@
 	var/mob/living/victim_mob = null
 	var/turf/victim_turf = null
 	var/mode = null
-	var/damage = 600
-	var/radius = 3
-	var/delay = 3
+	var/damage = DEFAULT_DAMAGE
+	var/radius = DEFAULT_RADIUS
+	var/delay = DEFAULT_DELAY
 	var/list/players = list()
 	var/pointing = FALSE
 
@@ -44,6 +42,16 @@
 		ui.open()
 		ui.set_autoupdate(TRUE)
 
+/datum/drop_lightning_bolt_ui/ui_static_data(mob/user)
+	. = ..()
+
+	.["ckey"] = "Выберите..."
+
+	players = list()
+	for(var/mob/player as anything in GLOB.player_list) // extra 'spaces  ' hell yea
+		players[player.ckey] = "[player.real_name] | [player.ckey]  "
+	.["players"] = players
+
 /datum/drop_lightning_bolt_ui/ui_data(mob/user)
 	. = ..()
 
@@ -51,13 +59,8 @@
 	.["radius"] = radius
 	.["delay"] = delay
 	.["mode"] = mode
-	.["ckey"] = user.ckey
+	.["ckey"] = victim_mob.ckey
 	.["pointing"] = pointing
-
-	players = list()
-	for(var/mob/player as anything in GLOB.player_list) // extra 'spaces  ' hell yea
-		players[player.ckey] = "[player.real_name] | [player.ckey]  "
-	.["players"] = players
 
 /datum/drop_lightning_bolt_ui/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
 	if(..())
@@ -96,8 +99,8 @@
 			if(!usr.client.click_intercept)
 				usr.client.click_intercept = new /datum/click_intercept/lightning_bolt_dropper(usr.client, src)
 			else
-				qdel(usr.client.click_intercept)
-				usr.client.click_intercept = null
+				QDEL_NULL(usr.client.click_intercept)
+
 		else
 			. = FALSE
 
@@ -105,8 +108,14 @@
 	if(!client || !client.click_intercept)
 		return
 
-	qdel(client.click_intercept)
-	client.click_intercept = null
+	QDEL_NULL(client.click_intercept)
+
+	client = null
+	victim_mob = null
+	victim_turf = null
+
+	qdel(src)
+
 
 /datum/drop_lightning_bolt_ui/proc/prepare_bolt()
 	if((!victim_mob && !victim_turf) || !mode)
@@ -124,13 +133,16 @@
 	addtimer(CALLBACK(src, PROC_REF(drop_bolt), victim), delay SECONDS)
 
 /datum/drop_lightning_bolt_ui/proc/drop_bolt(atom/victim)
+	victim = get_turf(victim_mob) || victim_turf // yes, we need to update this
 	new /obj/effect/temp_visual/thunderbolt/fancy/(victim, damage <= 10)
+
 	for(var/mob/living/_mob in range(radius, victim))
 		if(isobserver(_mob))
 			continue
 		_mob.Jitter(10 SECONDS)
 		_mob.apply_damage(damage, BURN)
 		_mob.updatehealth("admin lightning bolt")
+
 
 	log_admin("[key_name(usr)] dropped lightning bolt at [victim] with damage=[damage], radius=[radius], delay=[delay]")
 	message_admins("[key_name_admin(usr)] dropped lightning bolt at [ADMIN_COORDJMP(victim)] with damage=[damage], radius=[radius], delay=[delay]")
