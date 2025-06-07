@@ -6,7 +6,7 @@
 	return
 
 /mob/verb/whisper(message as text)
-	set name = "Whisper"
+	set name = "Шептать"
 	set category = "IC"
 	return
 
@@ -14,7 +14,7 @@
 	return
 
 /mob/verb/say_verb(message as text)
-	set name = "Say"
+	set name = "Говорить"
 	set category = "IC"
 
 	//Let's try to make users fix their errors - we try to detect single, out-of-place letters and 'unintended' words
@@ -39,7 +39,7 @@
 
 
 /mob/verb/me_verb(message as text)
-	set name = "Me"
+	set name = "Эмоция"
 	set category = "IC"
 
 	message = strip_html_properly(message)

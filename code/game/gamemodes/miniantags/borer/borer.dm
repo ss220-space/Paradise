@@ -199,9 +199,9 @@
 /mob/living/simple_animal/borer/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
-	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
-	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
+	status_tab_data[++status_tab_data.len] = list("Запас химикатов:", chemicals)
+	status_tab_data[++status_tab_data.len] = list("Ранг:", antag_datum.borer_rank?.rankname)
+	status_tab_data[++status_tab_data.len] = list("Очки эволюции:", antag_datum.evo_points)
 
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -248,8 +248,8 @@
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Toggle speech inside Host"
-	set category = "Borer"
+	set name = "Говорить внутри носителя"
+	set category = "Мозговой червь"
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)

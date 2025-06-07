@@ -28,8 +28,8 @@
 
 
 /obj/item/clipboard/verb/removePen()
-	set category = "Object"
-	set name = "Remove clipboard pen"
+	set category = "Объекты"
+	set name = "Открепить ручку от планшета"
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	penPlacement(usr, containedpen, FALSE)
