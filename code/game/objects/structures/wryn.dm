@@ -12,9 +12,15 @@
 			if(damage_amount)
 				playsound(loc, 'sound/items/welder.ogg', 100, TRUE)
 
+/obj/structure/wryn/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wryn_destruction)
+
+// wax structures procs
+
 /obj/structure/wryn/wax
 	name = "wax"
-	desc = "Looks like some kind of thick wax."
+	desc = "Похоже на толстую стенку из воска."
 	icon = 'icons/obj/smooth_structures/wryn/wall.dmi'
 	icon_state = "wall"
 	base_icon_state = "wall"
@@ -46,15 +52,33 @@
 /obj/structure/wryn/wax/CanAtmosPass(turf/T, vertical)
 	return !density
 
+// Structure themself
+
 /obj/structure/wryn/wax/wall
 	name = "wax wall"
-	desc = "Thick wax solidified into a wall."
+	desc = "Похоже на затвердевшую массу воска."
+	ru_names = list(
+		NOMINATIVE = "соты",
+		GENITIVE = "сот",
+		DATIVE = "сотам",
+		ACCUSATIVE = "соты",
+		INSTRUMENTAL = "сотами",
+		PREPOSITIONAL = "сотах"
+	)
 	smoothing_groups = SMOOTH_GROUP_WRYN_WAX_WALL + SMOOTH_GROUP_WRYN_WAX_WINDOW
 	obj_flags = BLOCK_Z_IN_DOWN | BLOCK_Z_IN_UP
 
 /obj/structure/wryn/wax/window
 	name = "wax window"
-	desc = "Wax just thin enough to let light pass through."
+	desc = "Воск на этой стенке настолько тонкий, что через него может проходить свет."
+	ru_names = list(
+		NOMINATIVE = "прозрачныые соты",
+		GENITIVE = "прозрачных сот",
+		DATIVE = "прозрачным сотам сотам",
+		ACCUSATIVE = "прозрачные соты",
+		INSTRUMENTAL = "прозрачными сотами",
+		PREPOSITIONAL = "прозрачных сотах"
+	)
 	icon = 'icons/obj/smooth_structures/wryn/window.dmi'
 	base_icon_state = "window"
 	icon_state = "window-0"
@@ -66,17 +90,27 @@
 	icon = 'icons/obj/smooth_structures/wryn/floor.dmi'
 	gender = PLURAL
 	name = "wax floor"
-	desc = "A sticky yellow surface covers the floor."
+	desc = "Что-то жёлтое и липкое покрывает пол... Так стоп..."
+	ru_names = list(
+		NOMINATIVE = "пол из воска",
+		GENITIVE = "пола из воска",
+		DATIVE = "полу из воска",
+		ACCUSATIVE = "пол из воска",
+		INSTRUMENTAL = "полом из воска",
+		PREPOSITIONAL = "поле из воска"
+	)
 	anchored = TRUE
 	density = FALSE
 	layer = TURF_LAYER
 	plane = FLOOR_PLANE
-	icon_state = "wax_floor"
+	var/list/icons = list("wax_floor1", "wax_floor2", "wax_floor3")
+	icon_state = "wax_floor1"
 	max_integrity = 10
 	var/current_dir
 	var/static/list/floorImageCache
 	obj_flags = BLOCK_Z_OUT_DOWN | BLOCK_Z_IN_UP
 
+// wax floor procs
 
 /obj/structure/wryn/floor/update_overlays()
 	. = ..()
@@ -100,6 +134,8 @@
 
 /obj/structure/wryn/floor/New(pos)
 	..()
+	var/picked = pick(icons)
+	icon_state = picked
 	fullUpdateWeedOverlays()
 
 /obj/structure/wryn/floor/Destroy()
@@ -120,3 +156,70 @@
 	if(exposed_temperature > 300)
 		take_damage(5, BURN, 0, 0)
 
+#define WAX_DOOR_CLOSED 0
+#define WAX_DOOR_OPENED 1
+
+// wax door procs
+
+/obj/structure/alien/resin/door/wax
+	name = "wax door"
+	desc = "Объёмная масса воска, напоминающая дверь."
+	ru_names = list(
+		NOMINATIVE = "дверь из сот",
+		GENITIVE = "двери из сот",
+		DATIVE = "двери из сот",
+		ACCUSATIVE = "дверь из сот",
+		INSTRUMENTAL = "дверью из сот",
+		PREPOSITIONAL = "двери из сот"
+	)
+	icon = 'icons/obj/smooth_structures/wryn/wax_door.dmi'
+	icon_state = "wax_door_closed"
+	icon_closed = "wax_door_closed"
+	icon_opened = "wax_door_opened"
+	icon_closing = "wax_door_closing"
+	icon_opening = "wax_door_opening"
+	max_integrity = 50
+
+/obj/structure/alien/resin/door/wax/ComponentInitialize()
+	. = ..()
+	AddComponent(/datum/component/wryn_destruction)
+
+/obj/structure/alien/resin/door/wax/update_icon_state()
+	switch(state)
+		if(WAX_DOOR_CLOSED)
+			icon_state = "wax_door_closed"
+		if(WAX_DOOR_OPENED)
+			icon_state = "wax_door_opened"
+
+/obj/structure/alien/resin/door/wax/attack_alien(mob/living/carbon/alien/humanoid/user)
+	return
+
+/obj/structure/alien/resin/door/wax/attack_animal(mob/living/simple_animal/M)
+	return
+
+/obj/structure/alien/resin/door/wax/attack_check(mob/living/user)
+	if(!iswryn(user))
+		to_chat(user, span_notice("Вы даже не знаете, что делать с этой массой воска."))
+
+	if(user.a_intent == INTENT_HARM)
+		return TRUE
+
+	return try_switch_state(user)
+
+
+/obj/structure/alien/resin/door/wax/try_switch_state(atom/movable/user)
+	if(operating)
+		return FALSE
+
+	add_fingerprint(user)
+	if(!isliving(user))
+		return FALSE
+
+	if(!iswryn(user))
+		return FALSE
+	var/mob/living/carbon/human/wryn = user
+	if(wryn.incapacitated())
+		return FALSE
+
+	switch_state()
+	return TRUE

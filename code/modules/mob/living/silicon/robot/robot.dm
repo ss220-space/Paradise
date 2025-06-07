@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return "[modtype] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
-	set category = "Robot Commands"
+	set category = "Робокоманды"
 
 	if(custom_name)
 		return FALSE
@@ -287,9 +287,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_self(braintype, 1)
 
 /mob/living/silicon/robot/verb/Change_Voice()
-	set name = "Change Voice"
+	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = "Robot Commands"
+	set category = "Робокоманды"
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_character(real_name, get_default_name())
 	choose_icon()
 
-	if(client.stat_tab == "Status")
+	if(client.stat_tab == "Статус")
 		SSstatpanels.set_status_tab(client)
 
 	if(!static_radio_channels)
@@ -514,24 +514,24 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 //for borg hotkeys, here module refers to borg inv slot, not core module
 /mob/living/silicon/robot/verb/cmd_toggle_module(module as num)
-	set name = "Toggle Module"
+	set name = "Переключить модуль"
 	set hidden = 1
 	toggle_module(module)
 
 /mob/living/silicon/robot/verb/cmd_unequip_module()
-	set name = "Unequip Module"
+	set name = "Снять модуль"
 	set hidden = 1
 	uneq_active()
 
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
-	set category = "Robot Commands"
-	set name = "Show Station Manifest"
+	set category = "Робокоманды"
+	set name = "Манифест экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
-	set category = "Robot Commands"
-	set name = "Toggle Component"
+	set category = "Робокоманды"
+	set name = "Переключить компонент"
 	set desc = "Toggle a component, conserving power."
 
 	var/list/installed_components = list()
@@ -550,9 +550,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, span_warning("You [C.toggled ? "enable" : "disable"] [C.name]."))
 
 /mob/living/silicon/robot/proc/sensor_mode()
-	set name = "Set Sensor Augmentation"
+	set name = "Настроить HUD камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = "Robot Commands"
+	set category = "Робокоманды"
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
@@ -564,8 +564,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = "Robot Commands"
-	set name = "Show Alerts"
+	set category = "Робокоманды"
+	set name = "Показать оповещения"
 
 	if(usr.stat == DEAD)
 		to_chat(src, span_userdanger("Alert: You are dead."))
@@ -651,7 +651,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
-	return list("Charge Left:", cell ? "[cell.charge]/[cell.maxcharge]" : "No Cell Inserted!")
+	return list("Заряд:", cell ? "[cell.charge]/[cell.maxcharge]" : "Батарея не обнаружена")
 
 
 /mob/living/silicon/robot/proc/show_gps_coords()
@@ -1222,8 +1222,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	laws = new /datum/ai_laws/ratvar
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
-	set category = "Robot Commands"
-	set name = "Toggle Cover"
+	set category = "Робокоманды"
+	set name = "Переключить блокировку панели"
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
@@ -1643,8 +1643,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = "Robot Commands"
-	set name = "Reset Identity Codes"
+	set category = "Робокоманды"
+	set name = "Сброс кодов идентификации"
 	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
 	var/mob/living/silicon/robot/R = src
@@ -1655,7 +1655,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set name = "Activate Held Object"
+	set name = "Использовать удерживаемый объект"
 	set category = "IC"
 	set src = usr
 
@@ -2120,8 +2120,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/verb/powerwarn()
-	set category = "Robot Commands"
-	set name = "Power Warning"
+	set category = "Робокоманды"
+	set name = "Предупреждение о низком заряде"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))

@@ -1,6 +1,6 @@
 
 /client/verb/who()
-	set name = "Who"
+	set name = "Список игроков"
 	set category = "OOC"
 
 	var/msg = "<b>Онлайн Игроков:</b><br>"
@@ -68,7 +68,7 @@
 
 /client/verb/adminwho()
 	set category = "Admin.Admin Tickets"
-	set name = "Adminwho"
+	set name = "Список администрации"
 
 	var/msg = ""
 	var/modmsg = ""
@@ -97,7 +97,7 @@
 					msg += " - Играет"
 
 				if(C.is_afk())
-					msg += " (АФК)"
+					msg += " (Отошёл)"
 				msg += "<br>"
 
 				num_admins_online++
@@ -113,7 +113,7 @@
 					modmsg += " - Играет"
 
 				if(C.is_afk())
-					modmsg += " (АФК)"
+					modmsg += " (Отошёл)"
 				modmsg += "<br>"
 				num_mods_online++
 	else

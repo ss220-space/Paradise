@@ -149,9 +149,9 @@
 /mob/living/simple_animal/revenant/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Текущая эссенция:", "[essence]/[essence_regen_cap]")
-	status_tab_data[++status_tab_data.len] = list("Украдено эссенции:", "[essence_accumulated]")
-	status_tab_data[++status_tab_data.len] = list("Поглощено превосходных душ:", "[perfectsouls]")
+	status_tab_data[++status_tab_data.len] = list("Запас эссенции:", "[essence]/[essence_regen_cap]E")
+	status_tab_data[++status_tab_data.len] = list("Поглощено эссенции:", "[essence_accumulated]E")
+	status_tab_data[++status_tab_data.len] = list("Поглощено идеальных душ:", "[perfectsouls]")
 
 /mob/living/simple_animal/revenant/New()
 	..()

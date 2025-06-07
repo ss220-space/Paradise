@@ -73,8 +73,8 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 
 /obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Spin Chamber"
-	set category = "Object"
+	set name = "Вращать барабан"
+	set category = "Объекты"
 	set desc = "Click to spin your revolver's chamber."
 	set src in usr
 

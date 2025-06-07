@@ -1792,7 +1792,7 @@
 			/obj/item/stack/sheet/plasteel = 2,
 			/obj/item/stack/sheet/glass = 1,
 			/obj/item/stack/sheet/mineral/gold = 1,
-			/obj/item/stack/sheet/mineral/diamond = 12,
+			/obj/item/stack/sheet/mineral/diamond = 5,
 			/obj/item/mmi/robotic_brain = 1
 	)
 	tools = list(TOOL_SCREWDRIVER, TOOL_WELDER)

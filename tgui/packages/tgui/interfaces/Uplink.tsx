@@ -69,6 +69,7 @@ type Category = {
 };
 
 type Item = {
+  uid: string;
   name: string;
   desc: string;
   cost: number;
@@ -245,20 +246,17 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
             buttons={
               <>
                 <Button.Checkbox
-                  content="Показывать описание"
                   checked={showDesc}
                   onClick={() => setShowDesc(!showDesc)}
-                />
-                <Button
-                  content="Случайный предмет"
-                  icon="question"
-                  onClick={() => act('buyRandom')}
-                />
-                <Button
-                  content="Сделать возврат"
-                  icon="undo"
-                  onClick={() => act('refund')}
-                />
+                >
+                  Показывать описание
+                </Button.Checkbox>
+                <Button icon="question" onClick={() => act('buyRandom')}>
+                  Случайный предмет
+                </Button>
+                <Button icon="undo" onClick={() => act('refund')}>
+                  Сделать возврат
+                </Button>
               </>
             }
           >
@@ -300,14 +298,14 @@ const ItemsPage = (properties: SearchTextProps & ShowDescProps) => {
             <Stack vertical>
               {uplinkItems.map((i) => (
                 <Stack.Item
-                  key={decodeHtmlEntities(i.name)}
+                  key={decodeHtmlEntities(i.uid)}
                   p={1}
                   backgroundColor={'rgba(255, 0, 0, 0.1)'}
                 >
                   <UplinkItem
                     i={i}
                     showDecription={showDesc}
-                    key={decodeHtmlEntities(i.name)}
+                    key={decodeHtmlEntities(i.uid)}
                   />
                 </Stack.Item>
               ))}

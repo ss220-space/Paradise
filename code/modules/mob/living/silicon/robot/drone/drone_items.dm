@@ -168,9 +168,9 @@
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/verb/drop_item_gripped()
-	set name = "Drop Gripped Item"
+	set name = "Выкинуть удерживаемый предмет"
 	set desc = "Release an item from your magnetic gripper."
-	set category = "Drone"
+	set category = "Дрон"
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	drop_gripped_item()
