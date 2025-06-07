@@ -29953,6 +29953,11 @@
 /obj/machinery/light{
 	dir = 4
 	},
+/obj/machinery/button/windowtint{
+	id = chapelwindow;
+	pixel_x = 25;
+	pixel_y = 0
+	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "chapel"
@@ -30643,6 +30648,11 @@
 	icon_state = "freezerfloor"
 	},
 /area/security/permabrig)
+"dlt" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/reagent_dispensers/watertank,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "dlu" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 10
@@ -37597,9 +37607,6 @@
 /obj/machinery/atmospherics/unary/portables_connector{
 	dir = 4
 	},
-/obj/effect/decal/cleanable/blood{
-	layer = 2.5
-	},
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dQL" = (
@@ -37662,8 +37669,8 @@
 	},
 /area/atmos)
 "dRb" = (
-/obj/structure/girder,
 /obj/machinery/light/small,
+/obj/structure/girder,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint2)
 "dRc" = (
@@ -37821,6 +37828,13 @@
 	name = "Chapel Mass Driver";
 	pixel_x = 27;
 	pixel_y = -5
+	},
+/obj/machinery/door_control{
+	id = "chapel";
+	name = "Privacy Shutters Control";
+	pixel_x = 27;
+	pixel_y = 5;
+	req_access = list(22)
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -38158,12 +38172,20 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
+	announcementConsole = 1;
 	department = "Chapel";
 	departmentType = 2;
 	name = "Chapel Requests Console";
 	pixel_y = -30
 	},
 /obj/item/lighter/zippo/black,
+/obj/machinery/door_control{
+	id = "chapel";
+	name = "Privacy Shutters Control";
+	pixel_x = 26;
+	pixel_y = 0;
+	req_access = list(22)
+	},
 /turf/simulated/floor/carpet,
 /area/chapel/office)
 "dTo" = (
@@ -45250,6 +45272,10 @@
 	},
 /turf/simulated/floor/plating,
 /area/maintenance/fsmaint)
+"fjz" = (
+/obj/structure/kitchenspike,
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "fjD" = (
 /obj/machinery/washing_machine,
 /turf/simulated/floor/plasteel{
@@ -50529,7 +50555,6 @@
 /turf/simulated/floor/plating,
 /area/maintenance/fore)
 "gzB" = (
-/obj/item/twohanded/required/kirbyplants,
 /obj/machinery/camera{
 	c_tag = "Chaplain's Quarters"
 	},
@@ -50542,6 +50567,12 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
+/obj/machinery/button/windowtint{
+	id = chapeloffwindow;
+	pixel_x = -7;
+	pixel_y = 24
+	},
+/obj/item/twohanded/required/kirbyplants,
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -54235,7 +54266,7 @@
 /area/security/processing)
 "hqh" = (
 /obj/machinery/door/airlock/maintenance{
-	req_access = list(12)
+	req_access = list(22)
 	},
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -69933,6 +69964,15 @@
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
+/area/chapel/main)
+"llI" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "chapel";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
 /area/chapel/main)
 "llN" = (
 /obj/machinery/atmospherics/pipe/manifold4w/hidden/scrubbers,
@@ -90353,7 +90393,9 @@
 	},
 /area/medical/research/nhallway)
 "pSp" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = chapeloffwindow
+	},
 /turf/simulated/floor/plating,
 /area/chapel/office)
 "pSF" = (
@@ -96513,6 +96555,15 @@
 "rjT" = (
 /turf/simulated/floor/plating,
 /area/maintenance/maintcentral)
+"rkg" = (
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "chapel";
+	name = "Privacy Shutters"
+	},
+/obj/effect/spawner/window/reinforced,
+/turf/simulated/floor/plating,
+/area/chapel/office)
 "rki" = (
 /obj/structure/cable{
 	icon_state = "1-2"
@@ -110095,6 +110146,17 @@
 	icon_state = "white"
 	},
 /area/medical/paramedic)
+"upA" = (
+/obj/effect/spawner/window/reinforced/polarized{
+	id = chapeloffwindow
+	},
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 2;
+	id_tag = "chapel";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/chapel/office)
 "upN" = (
 /obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
 	dir = 4
@@ -112299,6 +112361,14 @@
 	icon_state = "neutralfull"
 	},
 /area/hallway/primary/aft)
+"uRe" = (
+/obj/effect/decal/cleanable/dirt,
+/obj/structure/kitchenspike,
+/obj/effect/decal/cleanable/blood{
+	layer = 2.5
+	},
+/turf/simulated/floor/plating,
+/area/maintenance/asmaint2)
 "uRi" = (
 /obj/structure/closet/coffin,
 /obj/item/shovel,
@@ -115700,6 +115770,15 @@
 	},
 /turf/simulated/floor/carpet,
 /area/lawoffice)
+"vGa" = (
+/obj/effect/spawner/window/reinforced,
+/obj/machinery/door/poddoor/shutters/preopen{
+	dir = 8;
+	id_tag = "chapel";
+	name = "Privacy Shutters"
+	},
+/turf/simulated/floor/plating,
+/area/chapel/main)
 "vGf" = (
 /obj/structure/table/wood,
 /obj/item/clipboard,
@@ -127263,7 +127342,9 @@
 	},
 /area/hallway/primary/central/sw)
 "yiZ" = (
-/obj/effect/spawner/window/reinforced,
+/obj/effect/spawner/window/reinforced/polarized{
+	id = chapelwindow
+	},
 /turf/simulated/floor/plating,
 /area/chapel/main)
 "yjk" = (
@@ -155579,7 +155660,7 @@ nFe
 rNX
 gJr
 nte
-rNh
+fjz
 oOX
 dQK
 nte
@@ -155836,7 +155917,7 @@ dFg
 mcQ
 fGj
 nte
-qcX
+uRe
 hlu
 bWX
 vEZ
@@ -156609,7 +156690,7 @@ rkV
 nte
 dRc
 oOX
-qcX
+dlt
 vEZ
 coE
 aaq
@@ -157126,8 +157207,8 @@ dRs
 dJx
 dJx
 dJx
-yiZ
-yiZ
+vGa
+vGa
 dJx
 lho
 aaq
@@ -157643,7 +157724,7 @@ hAQ
 dio
 dio
 wsC
-yiZ
+llI
 acF
 acF
 acF
@@ -158157,7 +158238,7 @@ cjs
 iJw
 iJw
 rFw
-yiZ
+llI
 acF
 acF
 acF
@@ -159184,7 +159265,7 @@ iFv
 gMZ
 sIs
 pql
-pSp
+upA
 coE
 bCI
 coE
@@ -159441,7 +159522,7 @@ dIx
 ich
 eIv
 pYm
-pSp
+upA
 aaq
 coE
 aaq
@@ -159698,7 +159779,7 @@ dIx
 gzB
 qsX
 eOr
-pSp
+upA
 coE
 bCI
 aaq
@@ -160726,7 +160807,7 @@ dSA
 fmK
 vTw
 dXS
-pSp
+rkg
 coE
 bCI
 aaq
@@ -160983,7 +161064,7 @@ sIs
 ikc
 eNt
 vCx
-pSp
+rkg
 aaq
 coE
 aaq
@@ -161240,7 +161321,7 @@ eye
 dTf
 wBo
 dTm
-pSp
+rkg
 aaq
 coE
 aaq
@@ -161497,7 +161578,7 @@ kGG
 dXV
 lCa
 dTm
-pSp
+rkg
 coE
 bCI
 aaq

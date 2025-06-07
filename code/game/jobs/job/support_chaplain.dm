@@ -9,11 +9,11 @@
 	supervisors = "the head of personnel"
 	department_head = list(JOB_TITLE_HOP)
 	selection_color = "#d1e8d3"
-	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
-	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_MAINT_TUNNELS)
+	access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_RC_ANNOUNCE, ACCESS_MAINT_TUNNELS)
+	minimal_access = list(ACCESS_MORGUE, ACCESS_CHAPEL_OFFICE, ACCESS_CREMATORIUM, ACCESS_RC_ANNOUNCE, ACCESS_MAINT_TUNNELS)
 	alt_titles = list("Priest","Monk","Preacher","Reverend","Oracle","Nun","Imam","Exorcist")
 	outfit = /datum/outfit/job/chaplain
-	
+
 	//God will not give you a salary roflcat
 	salary = 60
 	min_start_money = 10
