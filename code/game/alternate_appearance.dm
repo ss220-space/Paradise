@@ -55,7 +55,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/proc/mobShouldSee(mob/M)
 	return FALSE
 
-/datum/atom_hud/alternate_appearance/add_hud_to(mob/new_viewer)
+/datum/atom_hud/alternate_appearance/add_hud_to(mob/new_viewer, only_once=FALSE)
 	. = ..()
 	if(!new_viewer)
 		return
@@ -83,7 +83,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		// If that failed, probably shouldn't be seeing it at all, so nuke it
 		remove_from_hud(source, absolute = TRUE)
 
-/datum/atom_hud/alternate_appearance/add_hud_to(atom/A, image/I)
+/datum/atom_hud/alternate_appearance/add_hud_to(atom/A, only_once=FALSE, image/I)
 	. = ..()
 	if(.)
 		LAZYINITLIST(A.alternate_appearances)
@@ -134,7 +134,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 		QDEL_NULL(ghost_appearance)
 
 /datum/atom_hud/alternate_appearance/basic/track_mob(mob/new_viewer)
-	RegisterSignals(new_viewer, list(
+	RegisterSignal(new_viewer, list(
 		COMSIG_MOB_ANTAGONIST_REMOVED,
 		COMSIG_MOB_GHOSTIZED,
 		COMSIG_MOB_MIND_TRANSFERRED_INTO,

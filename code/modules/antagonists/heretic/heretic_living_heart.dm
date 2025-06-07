@@ -9,7 +9,7 @@
  */
 /datum/component/living_heart
 	/// The action we create and give to our heart.
-	var/datum/action/cooldown/track_target/action
+	var/obj/effect/proc_holder/spell/track_target/action
 
 /datum/component/living_heart/Initialize()
 	if(!isorgan(parent))
@@ -65,7 +65,7 @@
  * The action associated with the living heart.
  * Allows a heretic to track sacrifice targets.
  */
-/datum/action/cooldown/track_target
+/obj/effect/proc_holder/spell/track_target
 	name = "Биение Живого Сердца"
 	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания. ПКМ: Выбирает последнюю цель."
 	check_flags = AB_CHECK_CONSCIOUS
@@ -83,13 +83,13 @@
 	/// Navigator to our target that we have.
 	var/datum/status_effect/agent_pinpointer/scan/heretic/heretic_pinpointer
 
-/datum/action/cooldown/track_target/Grant(mob/granted)
+/obj/effect/proc_holder/spell/track_target/Grant(mob/granted)
 	if(!isheretic(granted))
 		return
 
 	return ..()
 
-/datum/action/cooldown/track_target/IsAvailable(feedback = FALSE)
+/obj/effect/proc_holder/spell/track_target/IsAvailable(feedback = FALSE)
 	. = ..()
 	if(!.)
 		return
@@ -102,7 +102,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/track_target/Activate(atom/target)
+/obj/effect/proc_holder/spell/track_target/Activate(atom/target)
 	var/datum/antagonist/heretic/heretic_datum = owner.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 
@@ -183,7 +183,7 @@
 	return TRUE
 
 /// Callback for the radial to ensure it's closed when not allowed.
-/datum/action/cooldown/track_target/proc/check_menu()
+/obj/effect/proc_holder/spell/track_target/proc/check_menu()
 	if(QDELETED(src))
 		return FALSE
 
@@ -193,7 +193,7 @@
 	return TRUE
 
 /// Gets the balloon message for who we're tracking.
-/datum/action/cooldown/track_target/proc/get_balloon_message(atom/tracked_thing)
+/obj/effect/proc_holder/spell/track_target/proc/get_balloon_message(atom/tracked_thing)
 	var/balloon_message = "ошибка!"
 	var/turf/their_turf = get_turf(tracked_thing)
 	var/turf/our_turf = get_turf(owner)

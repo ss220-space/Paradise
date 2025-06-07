@@ -206,9 +206,6 @@
  * causing them to lose their active hand to it.
  */
 /obj/structure/destructible/eldritch_crucible/proc/bite_the_hand(mob/living/carbon/user)
-	if(HAS_TRAIT(user, TRAIT_NODISMEMBER))
-		return
-
 	var/obj/item/organ/external/arm = user.get_active_hand()
 	if(QDELETED(arm))
 		return

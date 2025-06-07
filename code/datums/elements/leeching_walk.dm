@@ -47,7 +47,7 @@
 	need_mob_update += source.adjustFireLoss(-3 * delta_time, updating_health = FALSE)
 	need_mob_update += source.adjustToxLoss(-3 * delta_time, updating_health = FALSE, forced = TRUE) // Slimes are people too
 	need_mob_update += source.adjustOxyLoss(-1.5 * delta_time, updating_health = FALSE)
-	need_mob_update += source.adjustStaminaLoss(-10 * delta_time, updating_stamina = FALSE)
+	need_mob_update += source.adjustStaminaLoss(-10 * delta_time, updating_health = FALSE)
 	if(need_mob_update)
 		source.updatehealth()
 	// Reduces duration of stuns/etc
@@ -56,4 +56,9 @@
 	if(source.blood_volume < BLOOD_VOLUME_NORMAL)
 		source.blood_volume += 2.5 * delta_time
 	// Slowly regulates your body temp
-	source.adjust_bodytemperature((source.get_body_temp_normal() - source.bodytemperature) / 5)
+	var/normaltemp = BODYTEMP_NORMAL
+	if(ishuman(source))
+		var/mob/living/carbon/human/human = source
+		normaltemp = human.dna.species.body_temperature
+
+	source.adjust_bodytemperature((normaltemp - source.bodytemperature) / 5)

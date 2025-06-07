@@ -61,6 +61,9 @@
  */
 /obj/item/melee/baton/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	add_fingerprint(user)
+	if(HAS_TRAIT(target, TRAIT_BATON_RESISTANCE))
+		return ATTACK_CHAIN_BLOCKED
+
 	switch(baton_attack(target, user))
 		if(BATON_ATTACK_DONE)
 			return ATTACK_CHAIN_PROCEED

@@ -64,7 +64,7 @@
 		playsound(cast_on, 'sound/effects/bang.ogg', 50, vary = TRUE)
 		return
 
-	var/turf/closed/wall/new_wall = cast_on.place_on_top(/turf/closed/wall)
+	var/turf/simulated/wall/new_wall = cast_on.place_on_top(/turf/simulated/wall)
 	if(!istype(new_wall))
 		return
 
@@ -119,7 +119,7 @@
 	if(!message_shown)
 		new_wall.visible_message(span_warning("\A [new_wall] [rises_message]!"))
 
-/datum/action/innate/pointed/rust_construction/proc/fade_wall_filter(turf/closed/wall)
+/datum/action/innate/pointed/rust_construction/proc/fade_wall_filter(turf/simulated/wall/wall)
 	if(QDELETED(wall))
 		return
 
@@ -129,7 +129,7 @@
 
 	animate(rust_filter, alpha = 0, time = filter_duration * (9/20))
 
-/datum/action/innate/pointed/rust_construction/proc/remove_wall_filter(turf/closed/wall)
+/datum/action/innate/pointed/rust_construction/proc/remove_wall_filter(turf/simulated/wall/wall)
 	if(QDELETED(wall))
 		return
 

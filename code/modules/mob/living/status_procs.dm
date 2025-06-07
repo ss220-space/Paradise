@@ -958,6 +958,27 @@
 	return has_status_effect(/datum/status_effect/freon)
 
 
+/mob/living/proc/AllImmobility(amount)
+	Paralyse(amount)
+	Knockdown(amount)
+	Stun(amount)
+	Immobilize(amount)
+
+
+/mob/living/proc/SetAllImmobility(amount)
+	SetParalysis(amount)
+	SetKnockdown(amount)
+	SetStunned(amount)
+	SetImmobilized(amount)
+
+
+/mob/living/proc/AdjustAllImmobility(amount)
+	AdjustParalysis(amount)
+	AdjustKnockdown(amount)
+	AdjustStunned(amount)
+	AdjustImmobilized(amount)
+
+
 #undef RETURN_STATUS_EFFECT_STRENGTH
 #undef SET_STATUS_EFFECT_STRENGTH
 

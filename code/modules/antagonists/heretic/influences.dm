@@ -196,7 +196,6 @@
 	var/image/heretic_image = image(icon, src, real_icon_state, OBJ_LAYER)
 	add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/has_antagonist/heretic, "reality_smash", heretic_image)
 
-	AddElement(/datum/element/block_turf_fingerprints)
 	AddComponent(/datum/component/redirect_attack_hand_from_turf, interact_check = CALLBACK(src, PROC_REF(verify_user_can_see)))
 
 /obj/effect/heretic_influence/proc/verify_user_can_see(mob/user)

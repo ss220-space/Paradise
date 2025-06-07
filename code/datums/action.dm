@@ -20,6 +20,9 @@
 
 /datum/action/New(Target)
 	target = Target
+	create_button()
+
+/datum/action/proc/create_button()
 	button = new
 	button.linked_action = src
 	button.name = name

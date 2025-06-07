@@ -67,7 +67,7 @@
 	if (!isatom(parent))
 		return COMPONENT_INCOMPATIBLE
 
-	START_PROCESSING(SSaura, src)
+	START_PROCESSING(SSaura_healing, src)
 
 	src.range = range
 	src.requires_visibility = requires_visibility
@@ -85,7 +85,7 @@
 	src.current_owner = WEAKREF(current_owner)
 
 /datum/component/damage_aura/Destroy(force)
-	STOP_PROCESSING(SSaura, src)
+	STOP_PROCESSING(SSaura_healing, src)
 	return ..()
 
 /// The requirements for the mob to be effected by the damage aura.
@@ -97,7 +97,7 @@
 /// What effect the damage aura has if it has an owner.
 /datum/component/damage_aura/proc/owner_effect(mob/living/owner_mob, seconds_per_tick)
 	var/need_mob_update = FALSE
-	need_mob_update += owner_mob.adjustStaminaLoss(-20 * seconds_per_tick, updating_stamina = FALSE)
+	need_mob_update += owner_mob.adjustStaminaLoss(-20 * seconds_per_tick, updating_health = FALSE)
 	need_mob_update += owner_mob.adjustBruteLoss(-1 * seconds_per_tick, updating_health = FALSE)
 	need_mob_update += owner_mob.adjustFireLoss(-1 * seconds_per_tick, updating_health = FALSE)
 	need_mob_update += owner_mob.adjustToxLoss(-1 * seconds_per_tick, updating_health = FALSE, forced = TRUE)
@@ -140,7 +140,7 @@
 		if (iscarbon(candidate))
 			candidate.adjustToxLoss(toxin_damage * seconds_per_tick, updating_health = FALSE)
 			candidate.adjustOxyLoss(suffocation_damage * seconds_per_tick, updating_health = FALSE)
-			candidate.adjustStaminaLoss(stamina_damage * seconds_per_tick, updating_stamina = FALSE)
+			candidate.adjustStaminaLoss(stamina_damage * seconds_per_tick, updating_health = FALSE)
 
 			for (var/organ in organ_damage)
 				candidate.adjustOrganLoss(organ, organ_damage[organ] * seconds_per_tick)

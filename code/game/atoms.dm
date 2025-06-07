@@ -114,6 +114,7 @@
 	var/list/alternate_appearances
 	/// List of alpha changelog from various sources
 	var/list/alphas = list(ALPHA_SOURCE_DEFAULT = 1)
+	var/drag_start
 
 
 /atom/New(loc, ...)

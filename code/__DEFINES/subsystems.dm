@@ -62,6 +62,8 @@
 /// Succesfully initialized, BUT do not announce it to players (generally to hide game mechanics it would otherwise spoil)
 #define SS_INIT_NO_MESSAGE 4
 
+// The change in the world's time from the subsystem's last fire in seconds.
+#define DELTA_WORLD_TIME(ss) ((world.time - ss.last_fire) * 0.1)
 
 // Subsystem init_order, from highest priority to lowest priority
 // Subsystems shutdown in the reverse of the order they initialize in

@@ -41,7 +41,7 @@
 	add_team_hud(our_mob, /datum/antagonist/lunatic)
 	ADD_TRAIT(our_mob, TRAIT_MADNESS_IMMUNE, REF(src))
 
-	var/datum/action/cooldown/lunatic_track/moon_track = new /datum/action/cooldown/lunatic_track()
+	var/obj/effect/proc_holder/spell/lunatic_track/moon_track = new /obj/effect/proc_holder/spell/lunatic_track()
 	var/datum/action/innate/touch/mansus_grasp/mad_touch = new /datum/action/innate/touch/mansus_grasp()
 	mad_touch.Grant(our_mob)
 	moon_track.Grant(our_mob)

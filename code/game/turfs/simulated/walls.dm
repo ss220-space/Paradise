@@ -614,3 +614,11 @@
 
 /turf/simulated/wall/flamer_fire_act(damage)
 	take_damage(damage)
+
+/turf/simulated/wall/Bumped(atom/movable/bumped_atom)
+	. = ..()
+	SEND_SIGNAL(bumped_atom, COMSIG_LIVING_WALL_BUMP, src)
+
+/turf/simulated/wall/Exited(atom/movable/gone, direction)
+	. = ..()
+	SEND_SIGNAL(gone, COMSIG_LIVING_WALL_EXITED, src)

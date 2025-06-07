@@ -69,16 +69,7 @@
 
 	current_turf = next_turf
 
-	RegisterSignals(current_turf, list(
-		COMSIG_ATOM_ATTACK_HAND,
-		COMSIG_ATOM_ATTACK_HAND_SECONDARY,
-		COMSIG_ATOM_ATTACK_ROBOT,
-		COMSIG_ATOM_ATTACK_ROBOT_SECONDARY,
-	), PROC_REF(on_attack_hand))
-
-	if (!isnull(screentip_texts))
-		current_turf.flags_1 |= HAS_CONTEXTUAL_SCREENTIPS_1
-		RegisterSignal(current_turf, COMSIG_ATOM_REQUESTING_CONTEXT_FROM_ITEM, PROC_REF(on_requesting_context_from_item))
+	RegisterSignal(current_turf, COMSIG_ATOM_ATTACK_HAND, PROC_REF(on_attack_hand))
 
 /datum/component/redirect_attack_hand_from_turf/proc/disconnect_from_old_turf()
 	PRIVATE_PROC(TRUE)
@@ -86,51 +77,15 @@
 	if (isnull(current_turf))
 		return
 
-	UnregisterSignal(current_turf, list(
-		COMSIG_ATOM_ATTACK_HAND,
-		COMSIG_ATOM_ATTACK_HAND_SECONDARY,
-		COMSIG_ATOM_REQUESTING_CONTEXT_FROM_ITEM,
-		COMSIG_ATOM_ATTACK_ROBOT,
-		COMSIG_ATOM_ATTACK_ROBOT_SECONDARY,
-	))
+	UnregisterSignal(current_turf, COMSIG_ATOM_ATTACK_HAND)
 
 /datum/component/redirect_attack_hand_from_turf/proc/on_attack_hand(turf/source, mob/user, list/modifiers)
 	SIGNAL_HANDLER
 	PRIVATE_PROC(TRUE)
 
-	var/atom/movable/movable_parent = parent
-	if (!movable_parent.can_interact(user))
-		return NONE
-	
 	if (!isnull(interact_check) && !interact_check.Invoke(user))
 		return NONE
 
 	INVOKE_ASYNC(user, TYPE_PROC_REF(/mob, UnarmedAttack), parent, proximity_flag = TRUE, modifiers = modifiers)
 
 	return COMPONENT_CANCEL_ATTACK_CHAIN
-
-/datum/component/redirect_attack_hand_from_turf/proc/on_requesting_context_from_item(
-	datum/source,
-	list/context,
-	obj/item/held_item,
-	mob/user,
-)
-	PRIVATE_PROC(TRUE)
-	SIGNAL_HANDLER
-
-	if (!isliving(user))
-		return NONE
-
-	if (!isnull(held_item))
-		return NONE
-	
-	if (!isnull(interact_check) && !interact_check.Invoke(user))
-		return NONE
-
-	if (!isnull(screentip_texts["lmb_text"]))
-		context[SCREENTIP_CONTEXT_LMB] = screentip_texts["lmb_text"]
-
-	if (!isnull(screentip_texts["rmb_text"]))
-		context[SCREENTIP_CONTEXT_RMB] = screentip_texts["rmb_text"]
-
-	return CONTEXTUAL_SCREENTIP_SET

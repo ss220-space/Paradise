@@ -1,4 +1,4 @@
-/datum/action/cooldown/lunatic_track
+/obj/effect/proc_holder/spell/lunatic_track
 	name = "Moonlight Echo"
 	desc = "Track your ringleader."
 	check_flags = AB_CHECK_CONSCIOUS
@@ -8,12 +8,12 @@
 	button_icon_state = "moon_smile"
 	cooldown_time = 4 SECONDS
 
-/datum/action/cooldown/lunatic_track/Grant(mob/granted)
+/obj/effect/proc_holder/spell/lunatic_track/Grant(mob/granted)
 	if(!IS_LUNATIC(granted))
 		return
 	return ..()
 
-/datum/action/cooldown/lunatic_track/Activate(atom/target)
+/obj/effect/proc_holder/spell/lunatic_track/Activate(atom/target)
 	var/datum/antagonist/lunatic/lunatic_datum = IS_LUNATIC(owner)
 	var/mob/living/carbon/human/ascended_heretic = lunatic_datum.ascended_body
 	if(!(ascended_heretic))
@@ -31,7 +31,7 @@
 
 
 /// Gets the balloon message for the heretic we are tracking.
-/datum/action/cooldown/lunatic_track/proc/get_balloon_message(mob/living/carbon/human/tracked_mob)
+/obj/effect/proc_holder/spell/lunatic_track/proc/get_balloon_message(mob/living/carbon/human/tracked_mob)
 	var/balloon_message = generate_balloon_message(tracked_mob)
 	if(tracked_mob.stat == DEAD)
 		balloon_message = "they're dead, " + balloon_message
@@ -39,7 +39,7 @@
 	return balloon_message
 
 /// Create the text for the balloon message
-/datum/action/cooldown/lunatic_track/proc/generate_balloon_message(mob/living/carbon/human/tracked_mob)
+/obj/effect/proc_holder/spell/lunatic_track/proc/generate_balloon_message(mob/living/carbon/human/tracked_mob)
 	var/balloon_message = "error text!"
 	var/turf/their_turf = get_turf(tracked_mob)
 	var/turf/our_turf = get_turf(owner)

@@ -333,3 +333,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
 /// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
 #define TRAIT_OBSERVING_INVENTORY "observe_inventory"
+
+#define TRAIT_BATON_RESISTANCE "baton_resistance"

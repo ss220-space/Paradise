@@ -492,6 +492,7 @@
 	SEND_SIGNAL(src, COMSIG_HOSTILE_ATTACKINGTARGET, target)
 	if(!client)
 		mob_attack_logs += "[time_stamp()] Attacked [target] at [COORD(src)]"
+
 	var/result = attack_proc()
 	SEND_SIGNAL(src, COMSIG_HOSTILE_POST_ATTACKINGTARGET, target, result)
 	return result
