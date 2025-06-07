@@ -199,9 +199,9 @@
 /mob/living/simple_animal/borer/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Chemicals", chemicals)
-	status_tab_data[++status_tab_data.len] = list("Rank", antag_datum.borer_rank?.rankname)
-	status_tab_data[++status_tab_data.len] = list("Evolution points", antag_datum.evo_points)
+	status_tab_data[++status_tab_data.len] = list("Запас химикатов:", chemicals)
+	status_tab_data[++status_tab_data.len] = list("Ранг:", antag_datum.borer_rank?.rankname)
+	status_tab_data[++status_tab_data.len] = list("Очки эволюции:", antag_datum.evo_points)
 
 
 /mob/living/simple_animal/borer/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
@@ -248,8 +248,8 @@
 		talk_to_borer_action.Grant(host)
 
 /mob/living/simple_animal/borer/verb/toggle_silence_inside_host()
-	set name = "Toggle speech inside Host"
-	set category = "Borer"
+	set name = "Говорить внутри носителя"
+	set category = "Мозговой червь"
 	set desc = "Toggle whether you will be able to say audible messages while inside your host."
 
 	if(talk_inside_host)
@@ -399,7 +399,7 @@
 	var/datum/browser/popup = new(usr, "viewBorer[UID()]chems", "Borer Chems", 585, 400)
 	popup.set_content(html)
 	popup.open(FALSE)
-	
+
 	return
 
 /mob/living/simple_animal/borer/Topic(href, href_list, hsrc)
@@ -773,7 +773,7 @@
 	candidate.mob = src
 	ckey = candidate.ckey
 	mind.add_antag_datum(antag_datum)
-	
+
 	GrantBorerSpells()
 	hide_borer()
 
@@ -828,3 +828,11 @@
 	give_back_control_action.Remove(host)
 	sneak_mode_action.Remove(host)
 	torment_action.Remove(host)
+
+/mob/living/carbon/human/proc/get_real_mind()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	return (borer && borer.controlling) ? borer.host_brain.mind : mind
+
+/mob/living/carbon/human/proc/get_real_ckey()
+	var/mob/living/simple_animal/borer/borer = has_brain_worms()
+	return (borer && borer.controlling) ? borer.host_brain.ckey : ckey

@@ -9,8 +9,8 @@
  * tgui panel / chat troubleshooting verb
  */
 /client/verb/fix_tgui_panel()
-	set name = "Fix chat"
-	set category = "Special Verbs"
+	set name = "Починить чат"
+	set category = "Спецкоманды"
 	var/action
 	log_tgui(src, "Started fixing.")
 
@@ -29,14 +29,13 @@
 		log_tgui(src, "tgui_panel datum is missing")
 		tgui_panel = new(src, "chat_panel")
 	tgui_panel.initialize(force = TRUE)
+	sleep(3 SECONDS)
 	// Force show the panel to see if there are any errors
-	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
-	if(byond_version >= 516)
-		winset(src, null, "browser-options=byondstorage,find")
+	winset(src, "output_selector.legacy_output_selector", "left=output_browser")
 
 /client/verb/refresh_tgui()
-	set name = "Refresh TGUI"
-	set category = "Special Verbs"
+	set name = "Обновить TGUI"
+	set category = "Спецкоманды"
 
 	var/choice = alert(usr,
 		"Use it ONLY if you have trouble with TGUI window.\

@@ -1,17 +1,17 @@
 /client/verb/vote()
 	set category = "OOC"
-	set name = "Vote"
+	set name = "Голосование"
 
 	if(SSvote.active_vote)
 		SSvote.active_vote.ui_interact(usr)
 	else
-		to_chat(usr, "There is no active vote")
+		to_chat(usr, "<b>Нет активного голосования!<b>")
 
 /mob/proc/immediate_vote()
 	if(SSvote.active_vote)
 		SSvote.active_vote.ui_interact(src)
 	else
-		to_chat(src, "There is no active vote")
+		to_chat(src, "<b>Нет активного голосования!<b>")
 
 /client/proc/start_vote()
 	set category = "Admin.Admin"
@@ -72,7 +72,7 @@
 		return
 
 	if(!SSvote.active_vote)
-		to_chat(usr, "There is no active vote!")
+		to_chat(usr, "<b>Нет активного голосования!</b>")
 		return
 
 	SSvote.active_vote.no_dead_vote = !SSvote.active_vote.no_dead_vote

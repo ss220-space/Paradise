@@ -166,7 +166,7 @@ SUBSYSTEM_DEF(title)
 	var/random_phrase = "О нет, моя фраза!"
 	var/current_icon = "ss1984.gif"
 
-	var/list/color2tguitheme = list("#212020" = "dark", "#EFEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
+	var/list/color2tguitheme = list("#202020" = "dark", "#EEEEEE" = "light", "#1b2633" = "ntos", "#4d0202" = "syndicate", "#800448" = "paradise")
 
 /datum/title_screen/New(title_html, notice, screen_image_file)
 	src.title_html = title_html
@@ -195,6 +195,7 @@ SUBSYSTEM_DEF(title)
 
 	// here we hope that our browser already updated. :pepepray:
 	SStitle.update_preview(viewer)
+	viewer << output((viewer?.tgui_panel_theme)? viewer.tgui_panel_theme : "dark", "title_browser:set_theme")
 
 /datum/title_screen/proc/show_to(client/viewer)
 	if(!viewer)
@@ -372,15 +373,21 @@ SUBSYSTEM_DEF(title)
 			const readyPlayers = document.getElementById('ready-players');
 
 			function update_newplayer_info(){
-				var args = Array.prototype.slice.call(arguments);
-				var time = args\[0\];
-				var players = args\[1\];
-				var ready = args\[2\];
-				var mode = args\[3\];
+				const args = Object.fromEntries(
+										Array.from(arguments).map(item => item.split('='))
+									);
+				console.log(arguments);
+				console.log(args);
+				const time = args.time_remaining;
+				const players = args.players;
+				const ready = args.total_players_ready;
+				const mode = args.game_mode;
 				gameMode.textContent = mode;
 				countdown.textContent = time;
 				playersCount.textContent = players;
-				readyPlayers.textContent = (ready === undefined || ready === null || ready <= 0)? 'НЕТУ' : ready + '/' + players;;
+				const readyExist = (ready !== undefined && ready !== null);
+				readyPlayers.parentElement.style.display = readyExist? 'block' : 'none';
+				readyPlayers.textContent = (!readyExist || ready <= 0)? 'НЕТ' : ready + '/' + players;
 			}
 
 			const character_name_slot = document.getElementById("character_slot");

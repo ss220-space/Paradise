@@ -32,7 +32,7 @@
 
 	if(!(skipjumpsuit && skipface) && icon) //big suits/masks/helmets make it hard to tell their gender
 		msg += "[bicon(icon(icon, dir=SOUTH))] " //fucking BYOND: this should stop dreamseeker crashing if we -somehow- examine somebody before their icon is generated
-	msg += "<EM>[name]</EM>"
+	msg += "<em>[name]</em>"
 
 	var/displayed_species = get_visible_species()
 	var/examine_color = dna.species.flesh_color

@@ -360,7 +360,7 @@
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
-	set name = "Examine"
+	set name = "Осмотреть"
 	set category = "IC"
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
@@ -369,11 +369,11 @@
 	var/list/result = target.examine(src)
 	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
-	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	to_chat(src, chat_box_examine(result.Join("<br>")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
-	set name = "Activate Held Object"
+	set name = "Использовать удерживаемый объект"
 	set src = usr
 
 	if(ismecha(loc))
@@ -412,7 +412,7 @@
 	GLOB.left_player_list |= src
 
 /mob/verb/memory()
-	set name = "Notes"
+	set name = "Заметки"
 	set category = "IC"
 	if(mind)
 		mind.show_memory(src)
@@ -420,7 +420,7 @@
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
 /mob/verb/add_memory(msg as message)
-	set name = "Add Note"
+	set name = "Добавить заметку"
 	set category = "IC"
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
@@ -475,7 +475,7 @@
 	var/newPlayerType = /mob/new_player
 
 /mob/verb/abandon_mob()
-	set name = "Respawn"
+	set name = "Возродиться"
 	set category = "OOC"
 
 	if(!GLOB.abandon_allowed)
@@ -544,7 +544,7 @@
 	return stat == DEAD
 
 /mob/verb/cancel_camera()
-	set name = "Cancel Camera View"
+	set name = "Сбросить позицию камеры"
 	set category = "OOC"
 	reset_perspective(null)
 	unset_machine()
@@ -555,9 +555,8 @@
 /mob/Topic(href, href_list)
 	. = ..()
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
-		close_window(src, t1)
+		close_window(src, href_list["mach_close"])
 
 	if(href_list["flavor_more"])
 		var/datum/browser/popup = new(usr, name, name, 500, 200)
@@ -705,8 +704,8 @@
 	return
 
 /mob/dead/observer/verb/respawn()
-	set name = "Возродиться как НИП"
-	set category = "Ghost"
+	set name = "Возродиться за NPC"
+	set category = "Призрак"
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
 		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))

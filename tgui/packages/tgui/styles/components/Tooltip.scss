@@ -3,15 +3,15 @@
  * SPDX-License-Identifier: MIT
  */
 
-@use '../base.scss';
-@use '../functions.scss' as *;
+@use '../base';
+@use '../functions' as *;
 
-$color: #ffffff !default;
-$background-color: #000000 !default;
+$color: hsl(0, 0%, 100%) !default;
+$background-color: hsl(0, 0%, 0%) !default;
 $border-radius: base.$border-radius !default;
 
 .Tooltip {
-  z-index: 999; /* Should be above everything */
+  z-index: 2;
   padding: 0.5em 0.75em;
   pointer-events: none;
   text-align: left;

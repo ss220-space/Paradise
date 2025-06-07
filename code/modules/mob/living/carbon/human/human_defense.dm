@@ -221,21 +221,14 @@ emp_act
 	return siemens_coefficient
 
 
-/mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, or wear_suit based on the reflection chance var of the object
-	if(wear_suit?.IsReflect(def_zone) == 1)
-		return 1
+/mob/living/carbon/human/proc/check_reflect(def_zone) //Reflection checks for anything in your l_hand, r_hand, head, shoes, gloves or wear_suit based on the reflection chance var of the object
+    var/list/reflectable_slots = list(wear_suit, head, shoes, gloves, l_hand, r_hand)
+    for(var/obj/item/slot in reflectable_slots)
+        var/reflectability = slot?.IsReflect(def_zone)
+        if(reflectability)
+            return reflectability
 
-	if(l_hand)
-		var/result = l_hand.IsReflect(def_zone)
-		if(result)
-			return result
-
-	if(r_hand)
-		var/result = r_hand.IsReflect(def_zone)
-		if(result)
-			return result
-
-	return 0
+    return 0
 
 
 //End Here
@@ -870,3 +863,10 @@ emp_act
 	var/obj/item/organ/external/affecting = user.get_organ(BODY_ZONE_CHEST)
 	var/armor = run_armor_check(affecting, MELEE, armour_penetration = user.armour_penetration)
 	apply_damage(user.melee_damage, user.melee_damage_type, affecting, armor)
+
+/mob/living/carbon/human/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	. = ..()
+	switch(fire.fire_variant)
+		if(FIRE_VARIANT_TYPE_B) //Armor Shredding Greenfire
+			SetSlowed(1 SECONDS, (SLOWDOWN_AMT_GREENFIRE))
+			to_chat(src, span_danger("The viscous napalm clings to your limbs as you struggle to move through the flames!"))

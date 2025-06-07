@@ -182,7 +182,7 @@
 
 /obj/item/defibrillator/verb/toggle_paddles_verb()
 	set name = "Взять электроды"
-	set category = "Object"
+	set category = "Объекты"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

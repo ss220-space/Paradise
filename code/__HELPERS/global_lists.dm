@@ -23,6 +23,8 @@
 	//alt heads
 	init_sprite_accessory_subtypes(/datum/sprite_accessory/alt_heads, GLOB.alt_heads_list)
 
+	init_datum_subtypes(/datum/wryn_building, GLOB.wryn_structures, null, "name")
+
 	init_subtypes(/datum/surgery_step, GLOB.surgery_steps)
 	init_subtypes(/obj/item/slimepotion, GLOB.slime_potions)
 	init_subtypes(/datum/preference_info, GLOB.preferences_info)
@@ -395,4 +397,3 @@
 /proc/update_mob_config_movespeeds()
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.update_config_movespeed()
-

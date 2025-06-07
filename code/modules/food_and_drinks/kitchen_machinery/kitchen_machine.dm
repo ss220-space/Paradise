@@ -121,7 +121,7 @@
 				return ..()
 			updateUsrDialog()
 			return ATTACK_CHAIN_BLOCKED_ALL
-		var/obj/item/stack/to_add = stack.split_stack(user, 1)
+		var/obj/item/stack/to_add = stack.split(user, 1)
 		to_add.forceMove(src)
 		updateUsrDialog()
 		user.visible_message(

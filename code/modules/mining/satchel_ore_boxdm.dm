@@ -102,8 +102,8 @@
 		CHECK_TICK
 
 /obj/structure/ore_box/verb/empty_box()
-	set name = "Empty Ore Box"
-	set category = "Object"
+	set name = "Опустошить"
+	set category = "Объекты"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

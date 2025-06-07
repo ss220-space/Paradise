@@ -1,3 +1,12 @@
+import { Channel } from './ChannelIterator';
+import { RADIO_PREFIXES } from './constants';
+
+export type HistoryRecord = Partial<{
+  prefix: keyof typeof RADIO_PREFIXES | null;
+  value: string;
+  channel: Channel;
+}>;
+
 /**
  * ### ChatHistory
  * A class to manage a chat history,
@@ -5,11 +14,11 @@
  * temporary message storage, and query operations.
  */
 export class ChatHistory {
-  private messages: string[] = [];
+  private messages: HistoryRecord[] = [];
   private index: number = -1; // Initialize index at -1
-  private temp: string | null = null;
+  private temp: HistoryRecord | null = null;
 
-  public add(message: string): void {
+  public add(message: HistoryRecord): void {
     this.messages.unshift(message);
     this.index = -1; // Reset index
     if (this.messages.length > 5) {
@@ -21,7 +30,7 @@ export class ChatHistory {
     return this.index + 1;
   }
 
-  public getOlderMessage(): string | null {
+  public getOlderMessage(): HistoryRecord | null {
     if (this.messages.length === 0 || this.index >= this.messages.length - 1) {
       return null;
     }
@@ -29,7 +38,7 @@ export class ChatHistory {
     return this.messages[this.index];
   }
 
-  public getNewerMessage(): string | null {
+  public getNewerMessage(): HistoryRecord | null {
     if (this.index <= 0) {
       this.index = -1;
       return null;
@@ -42,11 +51,11 @@ export class ChatHistory {
     return this.index === -1;
   }
 
-  public saveTemp(message: string): void {
+  public saveTemp(message: HistoryRecord): void {
     this.temp = message;
   }
 
-  public getTemp(): string | null {
+  public getTemp(): HistoryRecord | null {
     const temp = this.temp;
     this.temp = null;
     return temp;

@@ -96,8 +96,8 @@
 	user.become_drone()
 
 /mob/dead/verb/join_as_drone()
-	set category = "Ghost"
-	set name = "Возродиться как дрон"
+	set category = "Призрак"
+	set name = "Присоединиться в роли дрона"
 	set desc = "Если в игровом мире есть активный и включённый фабрикатор с подготовленным шасси, присоединитесь как дрон для обслуживания."
 	become_drone(src)
 

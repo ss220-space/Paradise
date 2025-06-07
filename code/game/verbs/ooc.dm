@@ -5,7 +5,7 @@ GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 /client/verb/ooc(msg = "" as text)
-	set name = "OOC"
+	set name = "Написать в OOC чат"
 	set category = "OOC"
 
 	if(!mob)
@@ -98,8 +98,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
 				msg = span_emojienabled("[msg]")
-			to_chat(C, span_ooc("<font color='[display_colour]'>[span_prefix("OOC: ")]<EM>[display_name]:</EM> [span_message(msg)]</font>"))
-
+			to_chat(C, span_ooc("<span style='color:[display_colour];'>[span_prefix("OOC: ")]<em>[display_name]:</em> [span_message(msg)]</span>"))
 /proc/toggle_ooc()
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
 	if(CONFIG_GET(flag/ooc_allowed))
@@ -116,7 +115,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		toggle_ooc()
 
 /client/verb/looc(msg = "" as text)
-	set name = "LOOC"
+	set name = "Написать в LOOC чат"
 	set desc = "Local OOC, seen only by those in view."
 	set category = "OOC"
 
@@ -205,7 +204,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 					prefix = "(R)"
 
 			if(send)
-				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<EM>[display_name][admin_stuff]:</EM> [span_message(msg)]")))
+				to_chat(target, span_ooc(span_looc("LOOC[span_prefix("[prefix]: ")]<em>[display_name][admin_stuff]:</em> [span_message(msg)]")))
 
 /mob/proc/get_looc_source()
 	return src
