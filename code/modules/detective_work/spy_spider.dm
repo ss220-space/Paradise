@@ -25,7 +25,7 @@
 /obj/item/encryptionkey/spy_spider
 	name = "Spy Encryption Key"
 	icon_state = "spy_cypherkey"
-	channels = list("Spy Spider" = TRUE)
+	channels = list(SPY_SPIDER_FREQ_NAME = 1)
 
 /obj/item/storage/lockbox/spy_kit
 	name = "набор жучков"
@@ -64,7 +64,7 @@
 
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
-	set category = "Object"
+	set category = "Объекты"
 	set src in range(1, usr)
 
 	if(!ishuman(usr))

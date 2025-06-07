@@ -17,7 +17,7 @@
 	maxHealth = 25
 	damage_coeff = list(BRUTE = 0.5, BURN = 0.7, TOX = 0, CLONE = 0, STAMINA = 0, OXY = 0)
 	pass_flags = PASSMOB|PASSFLAPS
-	radio_channel = "Service" //Service
+	radio_channel = SRV_FREQ_NAME
 	bot_type = HONK_BOT
 	bot_filter = RADIO_HONKBOT
 	model = "Honkbot"

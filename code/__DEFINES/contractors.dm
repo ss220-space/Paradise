@@ -27,4 +27,8 @@
 
 #define CONTRACTOR_MAX_ACCEPTED 2
 
+#define CONTRACTOR_COST 100
+
+#define CONRACTOR_OFFER_DURATION 10 MINUTES
+
 GLOBAL_DATUM(prisoner_belongings, /obj/structure/closet/secure_closet/contractor)

@@ -34,7 +34,7 @@
 	return html
 
 /client/verb/show_all_emojis()
-	set name = "Show Emojis"
+	set name = "Показать эмодзи"
 	set desc = "Shows all the emojis available in OOC/LOOC/DSAY"
 	set category = "OOC"
 

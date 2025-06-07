@@ -5,7 +5,7 @@ GLOBAL_VAR_INIT(moderator_ooc_colour, "#184880")
 GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 /client/verb/ooc(msg = "" as text)
-	set name = "OOC"
+	set name = "Написать в OOC чат"
 	set category = "OOC"
 
 	if(!mob)
@@ -115,7 +115,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 		toggle_ooc()
 
 /client/verb/looc(msg = "" as text)
-	set name = "LOOC"
+	set name = "Написать в LOOC чат"
 	set desc = "Local OOC, seen only by those in view."
 	set category = "OOC"
 

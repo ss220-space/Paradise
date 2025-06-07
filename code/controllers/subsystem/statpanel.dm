@@ -24,15 +24,15 @@ SUBSYSTEM_DEF(statpanels)
 		var/datum/map/cached = SSmapping.next_map
 		var/round_time = world.time - SSticker.time_game_started
 		global_data = list(
-			list("Map:", SSmapping.map_datum?.station_short ? SSmapping.map_datum?.station_short : "Loading..."),
-			cached ? list("Next Map:", "[cached.station_short]") : null,
-			list("Round ID:", "[GLOB.round_id ? GLOB.round_id : "NULL"]"),
-			list("Server Time:", "[time2text(world.timeofday, "YYYY-MM-DD hh:mm:ss")]"),
-			list("[SSticker.time_game_started ? "Round Time" : "Lobby Time"]:", "[round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[roundtime2text()]" : roundtime2text()]"),
-			list("Station Time:", "[station_time_timestamp()]"),
-			list("Time Dilation:", "[round(SStime_track.time_dilation_current, 1)]% AVG:([round(SStime_track.time_dilation_avg_fast, 1)]%, [round(SStime_track.time_dilation_avg, 1)]%, [round(SStime_track.time_dilation_avg_slow, 1)]%)"),
-			list("Players Connected:", "[length(GLOB.clients)]"),
-			list("Players in Lobby:", "[length(GLOB.new_player_mobs)]")
+			list("Карта:", SSmapping.map_datum?.station_short ? SSmapping.map_datum?.station_short : "Загрузка..."),
+			cached ? list("Следующая карта:", "[cached.station_short]") : null,
+			list("ID раунда:", "[GLOB.round_id ? GLOB.round_id : "NULL"]"),
+			list("Серверное время:", "[time2text(world.timeofday, "DD-MM-YYYY hh:mm:ss")]"),
+			list("[SSticker.time_game_started ? "Длительность раунда" : "Длительность лобби"]:", "[round_time > MIDNIGHT_ROLLOVER ? "[round(round_time / MIDNIGHT_ROLLOVER)]:[roundtime2text()]" : roundtime2text()]"),
+			list("Внутриигровое время:", "[station_time_timestamp()]"),
+			list("Задержка времени:", "[round(SStime_track.time_dilation_current, 1)]% СРЕД:([round(SStime_track.time_dilation_avg_fast, 1)]%, [round(SStime_track.time_dilation_avg, 1)]%, [round(SStime_track.time_dilation_avg_slow, 1)]%)"),
+			list("Подключено игроков:", "[length(GLOB.clients)]"),
+			list("Игроков в лобби:", "[length(GLOB.new_player_mobs)]")
 		)
 
 		if(SSshuttle.emergency)
@@ -50,7 +50,7 @@ SUBSYSTEM_DEF(statpanels)
 		if(!target.stat_panel.is_ready())
 			continue
 
-		if(target.stat_tab == "Status" && num_fires % status_wait == 0)
+		if(target.stat_tab == "Статус" && num_fires % status_wait == 0)
 			set_status_tab(target)
 
 		var/holder_check = !isnull(target.holder)
@@ -130,7 +130,7 @@ SUBSYSTEM_DEF(statpanels)
 	if(!target.stat_panel.is_ready())
 		return FALSE
 
-	if(target.stat_tab == "Status")
+	if(target.stat_tab == "Статус")
 		set_status_tab(target)
 		return TRUE
 

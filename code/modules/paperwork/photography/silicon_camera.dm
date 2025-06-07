@@ -107,56 +107,56 @@
 	injectmasteralbum(P)
 
 /obj/item/camera/siliconcam/ai_camera/verb/take_image()
-	set category = "Subsystems"
-	set name = "Take Image"
+	set category = "Подсистемы"
+	set name = "Сделать фото"
 	set desc = "Takes an image"
 	set src in usr
 
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
-	set category = "Subsystems"
-	set name = "View Images"
+	set category = "Подсистемы"
+	set name = "Просмотреть фотографии"
 	set desc = "View images"
 	set src in usr
 
 	viewpictures()
 
 /obj/item/camera/siliconcam/ai_camera/verb/delete_images()
-	set category = "Subsystems"
-	set name = "Delete Image"
+	set category = "Подсистемы"
+	set name = "Удалить фото"
 	set desc = "Delete image"
 	set src in usr
 
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
-	set category = "Subsystems"
-	set name = "Toggle camera flashing"
+	set category = "Подсистемы"
+	set name = "Переключить вспышку камеры"
 	set desc = "Toggle camera flashing"
 	set src in usr
 
 	toggle_camera_flash(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/take_image()
-	set category ="Subsystems"
-	set name = "Take Image"
+	set category = "Подсистемы"
+	set name = "Сделать фото"
 	set desc = "Takes an image"
 	set src in usr
 
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/robot_camera/verb/view_images()
-	set category ="Subsystems"
-	set name = "View Images"
+	set category = "Подсистемы"
+	set name = "Просмотреть фотографии"
 	set desc = "View images"
 	set src in usr
 
 	viewpictures()
 
 /obj/item/camera/siliconcam/robot_camera/verb/delete_images()
-	set category = "Subsystems"
-	set name = "Delete Image"
+	set category = "Подсистемы"
+	set name = "Удалить фото"
 	set desc = "Delete a local image"
 	set src in usr
 
@@ -164,8 +164,8 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
-	set category = "Subsystems"
-	set name = "Toggle camera flash"
+	set category = "Подсистемы"
+	set name = "Переключить вспышку камеры"
 	set desc = "Toggle camera flash"
 	set src in usr
 

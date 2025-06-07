@@ -323,7 +323,7 @@ const CloningConsoleMain = (props: unknown) => {
                 <ProgressBar
                   minValue={0}
                   maxValue={100}
-                  value={pod.progress / 100}
+                  value={pod.progress}
                   ranges={{
                     good: [0.75, Infinity],
                     average: [0.25, 0.75],

@@ -128,7 +128,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(mind?.current)
-		status_tab_data[++status_tab_data.len] = list("Wind Up Timer:", "[wind_up_timer]")
+		status_tab_data[++status_tab_data.len] = list("Таймер заводного механизма:", "[wind_up_timer]")
 
 /mob/living/silicon/robot/cogscarab/rename_character(oldname, newname)
 	// force it to not actually change most things
@@ -278,9 +278,9 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/verb/light()
-	set name = "Light On/Off"
+	set name = "Вкл/выкл свет"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = "Cogscarab"
+	set category = "Заводной скарабей"
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp

@@ -312,3 +312,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 /// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
 /// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
 #define TRAIT_OBSERVING_INVENTORY "observe_inventory"
+
+/// When it's cold you go faster, when it's hotter - slower
+#define TRAIT_TEMPERATURE_MOVEMENT "temperature_movement"
+/// when pulling you keep your speed same
+#define TRAIT_STRONG_PULLING "strong_pulling"

@@ -76,7 +76,7 @@
 
 /obj/structure/proc/climb_on()
 
-	set name = "Climb structure"
+	set name = "Залезть на объект"
 	set desc = "Climbs onto a structure."
 	set src in oview(1)
 

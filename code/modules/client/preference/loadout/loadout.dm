@@ -2,7 +2,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 
 /datum/gear
 	var/index_name       //index. Must be unique.
-	var/display_name = "bug" //Name
+	var/display_name = "ОШИБКА" //Name
 	var/description        //Description of this gear. If left blank will default to the description of the pathed item.
 	var/atom/path          //Path to item.
 	var/icon_state		   //Icon state of item
@@ -11,7 +11,7 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	var/cost = 1           //Number of points used. Items in general cost 1 point, storage/armor/gloves/special use costs 2 points.
 	var/slot               //Slot to equip to.
 	var/list/allowed_roles //Roles that can spawn with this item.
-	var/sort_category = "General"
+	var/sort_category = "Основное"
 	var/list/gear_tweaks = list() //List of datums which will alter the item after it has been spawned.
 	var/subtype_path = /datum/gear //for skipping organizational subtypes (optional)
 	var/subtype_cost_overlap = TRUE //if subtypes can take points at the same time
@@ -46,7 +46,8 @@ GLOBAL_LIST_EMPTY(gear_datums)
 	return icon2base64(new_icon)
 
 /datum/gear/proc/get_display_name()
-	return ((display_name == /datum/gear::display_name)? path.name : display_name)
+	var/atom/item = new path(src)
+	return capitalize((display_name == /datum/gear::display_name)? (item.ru_names ? item.ru_names[1] : item.name) : display_name)
 
 /datum/gear_data
 	var/path

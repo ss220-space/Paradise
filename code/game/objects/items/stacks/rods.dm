@@ -75,8 +75,11 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/rods
+	energy_type = /datum/robot_energy_storage/metal
+	merge_type = /obj/item/stack/rods
+	cost = 2
 
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
