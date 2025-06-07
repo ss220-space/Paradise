@@ -55,8 +55,8 @@
 	active_power_usage = power_usage
 
 /obj/machinery/power/emitter/verb/rotate()
-	set name = "Повернуть"
-	set category = "Объекты"
+	set name = "Rotate"
+	set category = "Object"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

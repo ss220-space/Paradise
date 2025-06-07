@@ -64,7 +64,7 @@
 
 /obj/item/clothing/proc/remove_spy_spider()
 	set name = "Снять жучок"
-	set category = "Объекты"
+	set category = "Object"
 	set src in range(1, usr)
 
 	if(!ishuman(usr))

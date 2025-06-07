@@ -1,8 +1,8 @@
 // DRONE ABILITIES
 /mob/living/silicon/robot/drone/verb/set_mail_tag()
-	set name = "Задать почтовый тег"
-	set desc = "Пометьте себя для доставки через систему утилизации."
-	set category = "Дрон"
+	set name = "Set Mail Tag"
+	set desc = "Tag yourself for delivery through the disposals system."
+	set category = "Drone"
 
 	var/tag = input("Выберите желаемое место назначения.", "Установка почтового тега", null) as null|anything in GLOB.TAGGERLOCATIONS
 
@@ -21,9 +21,9 @@
 
 
 /mob/living/silicon/robot/drone/verb/hide()
-	set name = "Спрятаться"
-	set desc = "Позволяет спрятаться под столами или определёнными предметами. Включается или выключается."
-	set category = "Дрон"
+	set name = "Hide"
+	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
+	set category = "Drone"
 
 	var/datum/action/innate/hide/drone/hide = locate() in actions
 	if(!hide)
@@ -33,9 +33,9 @@
 
 
 /mob/living/silicon/robot/drone/verb/light()
-	set name = "Переключить освещение"
-	set desc = "Активирует маломощный всенаправленный светодиод. Включается или выключается."
-	set category = "Дрон"
+	set name = "Light On/Off"
+	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
+	set category = "Drone"
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
@@ -49,9 +49,9 @@
 		..()
 
 /mob/living/silicon/robot/drone/verb/customize()
-	set name = "Кастомизация шасси"
-	set desc = "Переконфигурируйте своё шасси в кастомную версию."
-	set category = "Дрон"
+	set name = "Customize Chassis"
+	set desc = "Reconfigure your chassis into a customized version."
+	set category = "Drone"
 
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
 		var/file = file2text("config/custom_sprites.txt")

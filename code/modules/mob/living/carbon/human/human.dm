@@ -211,53 +211,53 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 
-	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
-	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 
 	var/total_user_contents = GetAllContents() // cache it
 	if(locate(/obj/item/gps) in total_user_contents)
 		var/turf/T = get_turf(src)
 		status_tab_data[++status_tab_data.len] = list("GPS:", "[COORD(T)]")
 	if(locate(/obj/item/assembly/health) in total_user_contents)
-		status_tab_data[++status_tab_data.len] = list("Состояние здоровья:", "[health]")
+		status_tab_data[++status_tab_data.len] = list("Health:", "[health]")
 	if(internal)
 		if(!internal.air_contents)
 			qdel(internal)
 		else
-			status_tab_data[++status_tab_data.len] = list("Информация о внутренней атмосфере:", "[internal.name]")
-			status_tab_data[++status_tab_data.len] = list("Давление в баллоне:", "[internal.air_contents.return_pressure()]")
-			status_tab_data[++status_tab_data.len] = list("Выходное давление:", "[internal.distribute_pressure]")
+			status_tab_data[++status_tab_data.len] = list("Internal Atmosphere Info:", "[internal.name]")
+			status_tab_data[++status_tab_data.len] = list("Tank Pressure:", "[internal.air_contents.return_pressure()]")
+			status_tab_data[++status_tab_data.len] = list("Distribution Pressure:", "[internal.distribute_pressure]")
 
 	// I REALLY need to split up status panel things into datums
 	var/mob/living/simple_animal/borer/borer = has_brain_worms()
 	if(borer && borer.controlling)
-		status_tab_data[++status_tab_data.len] = list("Запас химикатов:", borer.chemicals)
-		status_tab_data[++status_tab_data.len] = list("Ранг:", borer.antag_datum.borer_rank.rankname)
-		status_tab_data[++status_tab_data.len] = list("Очки эволюции:", borer.antag_datum.evo_points)
+		status_tab_data[++status_tab_data.len] = list("Chemicals", borer.chemicals)
+		status_tab_data[++status_tab_data.len] = list("Rank", borer.antag_datum.borer_rank.rankname)
+		status_tab_data[++status_tab_data.len] = list("Evolution points", borer.antag_datum.evo_points)
 
 	if(mind)
 		var/datum/antagonist/changeling/cling = mind.has_antag_datum(/datum/antagonist/changeling)
 		if(cling)
-			status_tab_data[++status_tab_data.len] = list("Запас химикатов:", "[cling.chem_charges]/[cling.chem_storage]")
-			status_tab_data[++status_tab_data.len] = list("Поглощено ДНК:", "[cling.absorbed_count]")
+			status_tab_data[++status_tab_data.len] = list("Chemical Storage:", "[cling.chem_charges]/[cling.chem_storage]")
+			status_tab_data[++status_tab_data.len] = list("Absorbed DNA:", "[cling.absorbed_count]")
 
 		var/datum/antagonist/vampire/vamp = mind.has_antag_datum(/datum/antagonist/vampire)
 		if(vamp)
-			status_tab_data[++status_tab_data.len] = list("Поглощено крови:", "[vamp.bloodtotal]")
-			status_tab_data[++status_tab_data.len] = list("Запас доступной крови:", "[vamp.bloodusable]")
+			status_tab_data[++status_tab_data.len] = list("Всего крови:", "[vamp.bloodtotal]")
+			status_tab_data[++status_tab_data.len] = list("Доступная кровь:", "[vamp.bloodusable]")
 
 		if(isclocker(mind.current))
-			status_tab_data[++status_tab_data.len] = list("Заряд:", "[GLOB.clockwork_power]")
+			status_tab_data[++status_tab_data.len] = list("Total Power", "[GLOB.clockwork_power]")
 
 		var/datum/antagonist/ninja/ninja = mind?.has_antag_datum(/datum/antagonist/ninja)
 		if(ninja?.my_suit)
-			status_tab_data[++status_tab_data.len] = list("Заряд костюма:","[ninja.get_cell_charge()]")
-			status_tab_data[++status_tab_data.len] = list("Заряд рывков:","[ninja.get_dash_charge()]")
+			status_tab_data[++status_tab_data.len] = list("Заряд костюма","[ninja.get_cell_charge()]")
+			status_tab_data[++status_tab_data.len] = list("Заряд рывков","[ninja.get_dash_charge()]")
 
 	if(isspacepod(loc)) // Spacdpods!
 		var/obj/spacepod/S = loc
-		status_tab_data[++status_tab_data.len] = list("Заряд пода:", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "Батарея не обнаружена"]")
-		status_tab_data[++status_tab_data.len] = list("Прочность пода:", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
+		status_tab_data[++status_tab_data.len] = list("Spacepod Charge", "[istype(S.battery) ? "[(S.battery.charge / S.battery.maxcharge) * 100]" : "No cell detected"]")
+		status_tab_data[++status_tab_data.len] = list("Spacepod Integrity", "[!S.health ? "0" : "[(S.health / initial(S.health)) * 100]"]%")
 
 ///Define used for calculating explosve damage and effects upon humanoids. Result is >= 0
 #define ex_armor_reduction(value, armor) (clamp(value * (1 - (armor / 100)), 0, INFINITY))
@@ -950,7 +950,7 @@
 	return name
 
 /mob/living/carbon/human/verb/check_pulse()
-	set name = "Проверить пульс"
+	set name = "Check pulse"
 	set desc = "Approximately count somebody's pulse. Requires you to stand still at least 6 seconds."
 	set src in view(1)
 	var/self = 0
@@ -1266,7 +1266,7 @@
 
 /mob/living/carbon/human/proc/bloody_doodle()
 	set category = "IC"
-	set name = "Рисовать кровью"
+	set name = "Write in blood"
 	set desc = "Use blood on your hands to write a short message on the floor or a wall, murder mystery style."
 
 	if(usr != src)
@@ -1828,14 +1828,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/verb/pose()
-	set name = "Задать позу"
+	set name = "Set Pose"
 	set desc = "Устанавливает короткое описание отображаемое при омотре вас."
 	set category = "IC"
 
 	pose = tgui_input_text(usr, "Это [src]. [p_they(TRUE)] [p_are()]...", "Pose", pose)
 
 /mob/living/carbon/human/verb/set_flavor()
-	set name = "Задать описание внешности"
+	set name = "Set Flavour Text"
 	set desc = "Устанавливает подробное описание внешности вашего персонажа."
 	set category = "IC"
 

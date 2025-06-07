@@ -168,8 +168,8 @@
 /////For the Wishgranter///////////
 
 /mob/living/carbon/proc/immortality()
-	set category = "Бессмертие"
-	set name = "Воскрешение"
+	set category = "Immortality"
+	set name = "Resurrection"
 
 	var/mob/living/carbon/C = usr
 	if(C.stat != DEAD)
