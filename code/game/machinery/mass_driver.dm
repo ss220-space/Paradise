@@ -225,8 +225,8 @@
 
 
 /obj/machinery/mass_driver_frame/verb/rotate()
-	set category = "Объекты"
-	set name = "Повернуть каркас"
+	set category = "Object"
+	set name = "Rotate Frame"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || HAS_TRAIT(usr, TRAIT_FAKEDEATH))

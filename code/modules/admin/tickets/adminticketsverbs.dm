@@ -2,7 +2,7 @@
 
 /client/proc/openAdminTicketUI()
 
-	set name = "Открыть меню запросов администрации"
+	set name = "Open Admin Ticket Interface"
 	set category = "Admin.Admin Tickets"
 
 	if(!check_rights(R_ADMIN|R_MOD))
@@ -22,6 +22,6 @@
 	SStickets.resolveAllOpenTickets()
 
 /client/verb/openAdminUserUI()
-	set name = "Мои запросы администрации"
+	set name = "My Admin Tickets"
 	set category = "Admin.Admin Tickets"
 	SStickets.userDetailUI(usr)

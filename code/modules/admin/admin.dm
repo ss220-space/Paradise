@@ -397,8 +397,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/restart()
-	set category = "Сервер"
-	set name = "Перезапустить раунд"
+	set category = "Server"
+	set name = "Restart"
 	set desc = "Restarts the world."
 
 	if(!check_rights(R_SERVER))
@@ -445,8 +445,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/end_round()
-	set category = "Сервер"
-	set name = "Завершить раунд"
+	set category = "Server"
+	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
 
 	if(!check_rights(R_SERVER) || SSticker.force_ending)
@@ -561,9 +561,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
-	set category = "Сервер"
+	set category = "Server"
 	set desc="Start the round RIGHT NOW"
-	set name="Начать раунд"
+	set name="Start Now"
 
 	if(!check_rights(R_SERVER))
 		return
@@ -590,9 +590,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 /datum/admins/proc/toggleenter()
-	set category = "Сервер"
+	set category = "Server"
 	set desc="People can't enter"
-	set name="Переключить присоединение к раунду"
+	set name="Toggle Entering"
 
 	if(!check_rights(R_SERVER))
 		return
@@ -641,9 +641,9 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
-	set category = "Сервер"
+	set category = "Server"
 	set desc="Delay the game start/end"
-	set name="Задержка"
+	set name="Delay"
 
 	if(!check_rights(R_SERVER))
 		return

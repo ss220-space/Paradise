@@ -2347,7 +2347,7 @@
 
 /obj/item/toy/desk/verb/rotate()
 	set name = "Повернуть"
-	set category = "Объекты"
+	set category = "Object"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
