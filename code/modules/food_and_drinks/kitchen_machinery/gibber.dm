@@ -171,8 +171,8 @@
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
-	set category = "Объекты"
-	set name = "Опустошить мясорубку"
+	set category = "Object"
+	set name = "Empty Gibber"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

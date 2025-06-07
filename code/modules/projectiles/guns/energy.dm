@@ -61,7 +61,7 @@
 
 /obj/item/gun/energy/proc/toggle_voice()
 	set name = "Переключить голос Sibyl System"
-	set category = "Объекты"
+	set category = "Object"
 	set desc = "Кликните для переключения голосовой подсистемы."
 
 	if(sibyl_mod)

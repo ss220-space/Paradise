@@ -568,7 +568,7 @@
 
 
 /mob/living/verb/stop_pulling1()
-	set name = "Прекратить тащить"
+	set name = "Stop Pulling"
 	set category = "IC"
 	stop_pulling()
 
@@ -883,7 +883,7 @@
 
 
 /mob/living/proc/Examine_OOC()
-	set name = "Показать мета-инфу (OOC)"
+	set name = "Examine Meta-Info (OOC)"
 	set category = "OOC"
 	set src in view()
 
@@ -1048,7 +1048,7 @@
 
 
 /mob/living/verb/resist()
-	set name = "Сопротивляться"
+	set name = "Resist"
 	set category = "IC"
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
@@ -2081,7 +2081,7 @@
 
 
 /mob/living/proc/toggle_resting()
-	set name = "Лечь"
+	set name = "Rest"
 	set category = "IC"
 
 	set_resting(!resting, silent = FALSE)

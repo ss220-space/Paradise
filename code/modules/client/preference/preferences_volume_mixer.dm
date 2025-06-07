@@ -94,8 +94,8 @@
 
 
 /client/verb/volume_mixer()
-	set name = "Открыть микшер громкости"
-	set category = "Спецкоманды"
+	set name = "Open Volume Mixer"
+	set category = "Special Verbs"
 
 	var/datum/ui_module/volume_mixer/VM = new()
 	VM.ui_interact(usr)

@@ -69,8 +69,8 @@
 		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/papershredder/verb/empty_contents()
-	set name = "Опустошить корзину"
-	set category = "Объекты"
+	set name = "Empty bin"
+	set category = "Object"
 	set src in range(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
