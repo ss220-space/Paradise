@@ -29954,9 +29954,8 @@
 	dir = 4
 	},
 /obj/machinery/button/windowtint{
-	id = chapelwindow;
-	pixel_x = 25;
-	pixel_y = 0
+	id = "chapelwindow";
+	pixel_x = 25
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -50568,7 +50567,7 @@
 	icon_state = "2-8"
 	},
 /obj/machinery/button/windowtint{
-	id = chapeloffwindow;
+	id = "chapeloffwindow";
 	pixel_x = -7;
 	pixel_y = 24
 	},
@@ -90394,7 +90393,7 @@
 /area/medical/research/nhallway)
 "pSp" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = chapeloffwindow
+	id = "chapeloffwindow"
 	},
 /turf/simulated/floor/plating,
 /area/chapel/office)
@@ -102180,9 +102179,6 @@
 /obj/structure/grille/broken,
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint3)
-"szR" = (
-/turf/simulated/wall/r_wall,
-/area/chapel/office)
 "szY" = (
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -110148,7 +110144,7 @@
 /area/medical/paramedic)
 "upA" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = chapeloffwindow
+	id = "chapeloffwindow"
 	},
 /obj/machinery/door/poddoor/shutters/preopen{
 	dir = 2;
@@ -127343,7 +127339,7 @@
 /area/hallway/primary/central/sw)
 "yiZ" = (
 /obj/effect/spawner/window/reinforced/polarized{
-	id = chapelwindow
+	id = "chapelwindow"
 	},
 /turf/simulated/floor/plating,
 /area/chapel/main)
@@ -158740,11 +158736,11 @@ mmQ
 cmA
 riE
 dIx
-szR
-szR
-szR
-szR
-szR
+dIx
+dIx
+dIx
+dIx
+dIx
 dIx
 hYL
 dIx
