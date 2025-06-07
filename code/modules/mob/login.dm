@@ -30,7 +30,7 @@
 		return FALSE
 
 	canon_client = client
-	
+
 	add_to_player_list()
 	GLOB.left_player_list -= src
 
@@ -88,9 +88,12 @@
 
 	add_click_catcher()
 
-	if(viewing_alternate_appearances && viewing_alternate_appearances.len)
-		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
-			AA.display_to(list(src))
+	//Reload alternate appearances
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		if(alt_hud.apply_to_new_mob(src))
+			continue
+
+		alt_hud.remove_hud_from(src)
 
 	update_client_colour(0)
 	update_morgue()

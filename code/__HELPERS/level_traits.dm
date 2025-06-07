@@ -37,6 +37,9 @@
 /proc/is_taipan(z)
 	return check_level_trait(z, TAIPAN)
 
+/proc/is_centcomm(z)
+	return z == level_name_to_num(CENTCOMM)
+
 // Used for the nuke disk, or for checking if players survived through xenos
 /proc/is_secure_level(z)
 	var/secure = check_level_trait(z, STATION_LEVEL)

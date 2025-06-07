@@ -16,13 +16,13 @@
 	gain_text = "Piercing eyes guided them through the mundane. Neither darkness nor terror could stop them."
 
 	required_atoms = list(
-		/obj/item/organ/eyes = 1,
+		/obj/item/organ/internal/eyes = 1,
 		/obj/item/shard = 1,
-		/obj/item/flashlight/flare/candle = 1,
+		/obj/item/candle = 1,
 	)
 	result_atoms = list(/obj/item/clothing/neck/eldritch_amulet)
 	cost = 1
-	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "eye_medalion"
 
 /datum/heretic_knowledge/ether
@@ -38,7 +38,7 @@
 	)
 	result_atoms = list(/obj/item/ether)
 	cost = 1
-	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "poison_flask"
 
 /datum/heretic_knowledge/summon/ashy
@@ -50,7 +50,7 @@
 
 	required_atoms = list(
 		/obj/effect/decal/cleanable/ash = 1,
-		/obj/item/bodypart/head = 1,
+		/obj/item/organ/external/head = 1,
 		/obj/item/book = 1,
 		)
 	mob_to_summon = /mob/living/basic/heretic_summon/ash_spirit

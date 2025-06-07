@@ -1,5 +1,5 @@
 // Realignment. It's like Fleshmend but solely for stamina damage and stuns. Sec meta
-/datum/action/cooldown/spell/realignment
+/datum/action/innate/realignment
 	name = "Realignment"
 	desc = "Realign yourself, rapidly regenerating stamina and reducing any stuns or knockdowns. \
 		You cannot attack while realigning. Can be casted multiple times in short succession, but each cast lengthens the cooldown."
@@ -7,7 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/implants.dmi'
 	button_icon_state = "adrenal"
-	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
+	// sound = 'sound/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 6 SECONDS
@@ -18,15 +18,15 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/action/cooldown/spell/realignment/is_valid_target(atom/cast_on)
+/datum/action/innate/realignment/is_valid_target(atom/cast_on)
 	return isliving(cast_on)
 
-/datum/action/cooldown/spell/realignment/cast(mob/living/cast_on)
+/datum/action/innate/realignment/cast(mob/living/cast_on)
 	. = ..()
 	cast_on.apply_status_effect(/datum/status_effect/realignment)
 	to_chat(cast_on, span_notice("We begin to realign ourselves."))
 
-/datum/action/cooldown/spell/realignment/after_cast(atom/cast_on)
+/datum/action/innate/realignment/after_cast(atom/cast_on)
 	. = ..()
 	// With every cast, our spell level increases for a short time, which goes back down after a period
 	// and with every spell level, the cooldown duration of the spell goes up
@@ -34,7 +34,7 @@
 		var/reduction_timer = max(cooldown_time * spell_max_level * 0.5, 1.5 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(delevel_spell)), reduction_timer)
 
-/datum/action/cooldown/spell/realignment/get_spell_title()
+/datum/action/innate/realignment/get_spell_title()
 	switch(spell_level)
 		if(1, 2)
 			return "Hasty " // Hasty Realignment

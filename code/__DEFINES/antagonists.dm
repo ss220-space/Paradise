@@ -36,3 +36,6 @@
 /// - Skeletons cannot be husked (they are snowflaked instead of having a trait)
 /// - Monkeys are monkeys, not quite human (balance reasons)
 #define IS_VALID_GHOUL_MOB(mob) (ishuman(mob) && !isskeleton(mob) && !ismonkey(mob))
+
+/// JSON string file for all of our heretic influence flavors
+#define HERETIC_INFLUENCE_FILE "heretic_influences.json"

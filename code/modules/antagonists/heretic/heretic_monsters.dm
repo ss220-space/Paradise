@@ -1,24 +1,24 @@
 ///Tracking reasons
 /datum/antagonist/heretic_monster
-	name = "\improper Eldritch Horror"
+	name = "Древний ужас"
 	roundend_category = "Heretics"
-	antagpanel_category = ANTAG_GROUP_HORRORS
-	antag_moodlet = /datum/mood_event/heretics
 	job_rank = ROLE_HERETIC
 	antag_hud_name = "heretic_beast"
-	suicide_cry = "MY MASTER SMILES UPON ME!!"
-	show_in_antagpanel = FALSE
-	stinger_sound = 'sound/music/antag/heretic/heretic_gain.ogg'
+	//stinger_sound = 'sound/music/antag/heretic/heretic_gain.ogg'
 	/// Our master (a heretic)'s mind.
 	var/datum/mind/master
 
 /datum/antagonist/heretic_monster/on_removal()
-	if(!silent)
-		if(master?.current)
-			to_chat(master.current, span_warning("The essence of [owner], your servant, fades from your mind."))
-		if(owner.current)
-			to_chat(owner.current, span_deconversion_message("Your mind begins to fill with haze - your master is no longer[master ? " [master]":""], you are free!"))
-			owner.current.visible_message(span_deconversion_message("[owner.current] looks like [owner.current.p_theyve()] been freed from the chains of the Mansus!"), ignored_mobs = owner.current)
+	if(silent)
+		master = null
+		return ..()
+
+	if(master?.current)
+		to_chat(master.current, span_warning("Вы чувствуете как связь с [owner.current.declent_ru(NOMINATIVE)] - вашим слугой, постепенно рассеивается."))
+
+	if(owner.current)
+		to_chat(owner.current, span_deconversion_message("Ваш разум расслабляется. [master ? "[master.current.declent_ru(NOMINATIVE)] больше не властен над вами." : "у вас больше нет Мастера."]"))
+		owner.current.visible_message(span_deconversion_message("Вы чувствуете что [owner.current.declent_ru(NOMINATIVE)] освободился от цепей Мансуса!"), ignored_mobs = owner.current)
 
 	master = null
 	return ..()
@@ -32,10 +32,10 @@
 
 	var/datum/objective/master_obj = new()
 	master_obj.owner = owner
-	master_obj.explanation_text = "Assist your master."
+	master_obj.explanation_text = "Помогайте своему мастеру."
 	master_obj.completed = TRUE
 
 	objectives += master_obj
-	owner.announce_objectives()
-	to_chat(owner, span_boldnotice("You are a [ishuman(owner.current) ? "shambling corpse returned":"horrible creation brought"] to this plane through the Gates of the Mansus."))
-	to_chat(owner, span_notice("Your master is [master]. Assist them to all ends."))
+	owner.prepare_announce_objectives()
+	to_chat(owner, span_boldnotice("Вы [ishuman(owner.current) ? "вернулись с того света": "ужасное создание пришедшее"] сюда через Врата Мансуса."))
+	to_chat(owner, span_notice("[master.current.declent_ru(NOMINATIVE)] - ваш мастер. Помогайте ему во всем."))

@@ -24,7 +24,7 @@
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
 		to_chat(user, "<span class='notice'>You need to take that [target.name] off before cleaning it.</span>")
-	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
+	else if(HAS_TRAIT(target, TRAIT_MOPABLE))
 		user.visible_message("<span class='warning'>[user] begins to scrub \the [target.name] out with [src].</span>")
 		if(do_after(user, cleanspeed, target) && target)
 			to_chat(user, "<span class='notice'>You scrub \the [target.name] out.</span>")

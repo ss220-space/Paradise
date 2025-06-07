@@ -481,7 +481,7 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 				qdel(spell)
 
 	custom_handler?.before_cast(targets, user, src)
-
+	SEND_SIGNAL(owner, COMSIG_MOB_BEFORE_SPELL_CAST, src, targets)
 
 /obj/effect/proc_holder/spell/proc/after_cast(list/targets, mob/user)
 	SHOULD_CALL_PARENT(TRUE)

@@ -33,7 +33,7 @@
 
 /datum/heretic_knowledge/rust_fist
 	name = "Grasp of Rust"
-	desc = "Your Mansus Grasp will deal 500 damage to non-living matter and rust any surface it touches. \
+	desc = "Your Восприятие Мансуса will deal 500 damage to non-living matter and rust any surface it touches. \
 		Already rusted surfaces are destroyed. Surfaces and structures can only be rusted by using Right-Click. \
 		Allows you to rust basic iron walls and floors."
 	gain_text = "On the ceiling of the Mansus, rust grows as moss does on a stone."
@@ -86,7 +86,7 @@
 
 /datum/heretic_knowledge/mark/rust_mark
 	name = "Mark of Rust"
-	desc = "Your Mansus Grasp now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
+	desc = "Your Восприятие Мансуса now applies the Mark of Rust. The mark is triggered from an attack with your Rusty Blade. \
 		When triggered, your victim will suffer heavy disgust and confusion. \
 		Allows you to rust reinforced walls and floors as well as plasteel."
 	gain_text = "The Blacksmith looks away. To a place lost long ago. \"Rusted Hills help those in dire need... at a cost.\""
@@ -104,7 +104,7 @@
 		Anyone overtop the wall will be throw aside (or upwards) and sustain damage."
 	gain_text = "Images of foreign and ominous structures began to dance in my mind. Covered head to toe in thick rust, \
 		they no longer looked man made. Or perhaps they never were in the first place."
-	action_to_add = /datum/action/cooldown/spell/pointed/rust_construction
+	action_to_add = /datum/action/innate/pointed/rust_construction
 	cost = 1
 
 /datum/heretic_knowledge/spell/area_conversion
@@ -112,7 +112,7 @@
 	desc = "Grants you Aggressive Spread, a spell that spreads rust to nearby surfaces. \
 		Already rusted surfaces are destroyed \ Also improves the rusting abilities of non rust-heretics."
 	gain_text = "All wise men know well not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
-	action_to_add = /datum/action/cooldown/spell/aoe/rust_conversion
+	action_to_add = /datum/action/innate/aoe/rust_conversion
 	cost = 1
 	research_tree_icon_frame = 5
 
@@ -147,14 +147,14 @@
 	gain_text = "The corrosion was unstoppable. The rust was unpleasable. \
 		The Blacksmith was gone, and you hold their blade. Champions of hope, the Rustbringer is nigh!"
 
-	action_to_add = /datum/action/cooldown/spell/cone/staggered/entropic_plume
+	action_to_add = /datum/action/innate/cone/staggered/entropic_plume
 	cost = 1
 
 
 
 /datum/heretic_knowledge/spell/entropic_plume/on_gain(mob/user)
 	. = ..()
-	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
+	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic.increase_rust_strength(TRUE)
 
 /datum/heretic_knowledge/ultimate/rust_final
@@ -173,7 +173,7 @@
 	/// If TRUE, then immunities are currently active.
 	var/immunities_active = FALSE
 	/// A typepath to an area that we must finish the ritual in.
-	var/area/ritual_location = /area/station/command/bridge
+	var/area/ritual_location = /area/command/bridge
 	/// A static list of traits we give to the heretic when on rust.
 	var/static/list/conditional_immunities = list(
 		TRAIT_BOMBIMMUNE,
@@ -214,7 +214,7 @@
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
-	var/datum/action/cooldown/spell/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
+	var/datum/action/innate/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
 	rust_spread_spell?.cooldown_time /= 2
 
 // I sure hope this doesn't have performance implications

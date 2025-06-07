@@ -31,7 +31,7 @@
 
 	RegisterSignal(user, COMSIG_LIVING_CHECK_BLOCK, PROC_REF(shield_reaction))
 
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		to_chat(user, span_warning("The curio wraps around you, and you feel the beating of something dark inside it..."))
 
 /obj/item/storage/belt/unfathomable_curio/dropped(mob/user)
@@ -63,20 +63,20 @@
 		/datum/brain_trauma/severe/monophobia
 	)
 	wearer.visible_message(span_danger("[wearer]'s veil makes [attack_text] miss, but the force behind the blow causes it to disperse!"))
-	if(IS_HERETIC(wearer))
+	if(isheretic(wearer))
 		return
 
 	to_chat(wearer, span_warning("Laughter echoes in your mind...."))
-	wearer.adjustOrganLoss(ORGAN_SLOT_BRAIN, 40)
+	wearer.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 40)
 	wearer.dropItemToGround(src, TRUE)
 	wearer.gain_trauma(pick(brain_traumas) ,TRAUMA_RESILIENCE_ABSOLUTE)
 
 /obj/item/storage/belt/unfathomable_curio/examine(mob/living/carbon/user)
 	. = ..()
-	if(IS_HERETIC(user))
+	if(isheretic(user))
 		return
 
-	user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 160)
+	user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 160)
 	user.adjust_temp_blindness(5 SECONDS)
 	. += span_notice("It. It looked. IT WRAPS ITSELF AROUND ME.")
 

@@ -46,7 +46,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/eldritch/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return
 	if(hood_up)
 		return
@@ -135,7 +135,7 @@
 
 /obj/item/clothing/suit/hooded/cultrobes/void/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC(user) || !hood_up)
+	if(!isheretic(user) || !hood_up)
 		return
 
 	// Let examiners know this works as a focus only if the hood is down
@@ -149,7 +149,7 @@
 	if(!isliving(loc))
 		CRASH("[src] attempted to make a hood on a non-living thing: [loc]")
 	var/mob/living/wearer = loc
-	if(IS_HERETIC_OR_MONSTER(wearer))
+	if(isheretic_OR_MONSTER(wearer))
 		return TRUE
 
 	loc.balloon_alert(loc, "can't get the hood up!")

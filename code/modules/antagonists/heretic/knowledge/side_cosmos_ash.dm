@@ -20,7 +20,7 @@
 
 	required_atoms = list(
 		/obj/effect/decal/cleanable/ash = 1,
-		/obj/item/organ/liver = 1,
+		/obj/item/organ/internal/liver = 1,
 		/obj/item/stack/sheet/mineral/plasma = 1,
 	)
 	mob_to_summon = /mob/living/basic/heretic_summon/fire_shark
@@ -36,7 +36,7 @@
 		You can only phase in and out when you are on a space or misc turf."
 	gain_text = "You feel like your body can move through space as if you where dust."
 
-	action_to_add = /datum/action/cooldown/spell/jaunt/space_crawl
+	action_to_add = /datum/action/innate/jaunt/space_crawl
 	cost = 1
 
 

@@ -24,7 +24,7 @@
 	return
 
 /obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
-	return FALSE
+	return HAS_TRAIT(src, TRAIT_MOPABLE)
 
 /obj/effect/mech_melee_attack(obj/mecha/M)
 	return 0

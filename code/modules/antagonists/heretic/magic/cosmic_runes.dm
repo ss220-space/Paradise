@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/cosmic_rune
+/datum/action/innate/cosmic_rune
 	name = "Cosmic Rune"
 	desc = "Creates a cosmic rune at your position, only two can exist at a time. Invoking one rune transports you to the other. \
 		Anyone with a star mark gets transported along with you."
@@ -7,7 +7,7 @@
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "cosmic_rune"
 
-	sound = 'sound/effects/magic/forcewall.ogg'
+	sound = 'sound/magic/forcewall.ogg'
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 15 SECONDS
 
@@ -22,7 +22,7 @@
 	/// Rune removal effect.
 	var/obj/effect/rune_remove_effect = /obj/effect/temp_visual/cosmic_rune_fade
 
-/datum/action/cooldown/spell/cosmic_rune/cast(atom/cast_on)
+/datum/action/innate/cosmic_rune/cast(atom/cast_on)
 	. = ..()
 	var/obj/effect/cosmic_rune/first_rune_resolved = first_rune?.resolve()
 	var/obj/effect/cosmic_rune/second_rune_resolved = second_rune?.resolve()
@@ -42,7 +42,7 @@
 		second_rune = make_new_rune(get_turf(cast_on), first_rune_resolved)
 
 /// Returns a weak reference to a new rune, linked to an existing rune if provided
-/datum/action/cooldown/spell/cosmic_rune/proc/make_new_rune(turf/target_turf, obj/effect/cosmic_rune/other_rune)
+/datum/action/innate/cosmic_rune/proc/make_new_rune(turf/target_turf, obj/effect/cosmic_rune/other_rune)
 	var/obj/effect/cosmic_rune/new_rune = new /obj/effect/cosmic_rune(target_turf)
 	if(other_rune)
 		other_rune.link_rune(new_rune)
@@ -58,7 +58,7 @@
 	icon_state = "cosmic_rune"
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = CLEANABLES_LAYER
 	/// The other rune this rune is linked with
 	var/datum/weakref/linked_rune
 	/// Effect for when someone teleports
@@ -101,8 +101,8 @@
 		get_turf(linked_rune_resolved),
 		no_effects = TRUE,
 		channel = TELEPORT_CHANNEL_MAGIC,
-		asoundin = 'sound/effects/magic/cosmic_energy.ogg',
-		asoundout = 'sound/effects/magic/cosmic_energy.ogg',
+		asoundin = 'sound/magic/cosmic_energy.ogg',
+		asoundout = 'sound/magic/cosmic_energy.ogg',
 	)
 	for(var/mob/living/person_on_rune in get_turf(src))
 		if(person_on_rune.has_status_effect(/datum/status_effect/star_mark))
@@ -136,7 +136,7 @@
 	icon = 'icons/obj/service/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune_fade"
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = CLEANABLES_LAYER
 	anchored = TRUE
 	duration = 5
 
@@ -151,7 +151,7 @@
 	icon = 'icons/obj/service/hand_of_god_structures.dmi'
 	icon_state = "cosmic_rune_light"
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = CLEANABLES_LAYER
 	anchored = TRUE
 	duration = 5
 

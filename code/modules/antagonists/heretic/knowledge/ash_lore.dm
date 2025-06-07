@@ -32,7 +32,7 @@
 
 /datum/heretic_knowledge/ashen_grasp
 	name = "Grasp of Ash"
-	desc = "Your Mansus Grasp will burn the eyes of the victim, damaging them and blurring their vision."
+	desc = "Your Восприятие Мансуса will burn the eyes of the victim, damaging them and blurring their vision."
 	gain_text = "The Nightwatcher was the first of them, his treason started it all. \
 		Their lantern, expired to ash - their watch, absent."
 	cost = 1
@@ -51,11 +51,11 @@
 	if(target.is_blind())
 		return
 
-	if(!target.get_organ_slot(ORGAN_SLOT_EYES))
+	if(!target.get_organ_slot(INTERNAL_ORGAN_EYES))
 		return
 
 	to_chat(target, span_danger("A bright green light burns your eyes horrifically!"))
-	target.adjustOrganLoss(ORGAN_SLOT_EYES, 15)
+	target.adjustOrganLoss(INTERNAL_ORGAN_EYES, 15)
 	target.set_eye_blur_if_lower(20 SECONDS)
 
 /datum/heretic_knowledge/spell/ash_passage
@@ -63,16 +63,16 @@
 	desc = "Grants you Ashen Passage, a spell that lets you phase out of reality and traverse a short distance, passing though any walls."
 	gain_text = "He knew how to walk between the planes."
 
-	action_to_add = /datum/action/cooldown/spell/jaunt/ethereal_jaunt/ash
+	action_to_add = /datum/action/innate/jaunt/ethereal_jaunt/ash
 	cost = 1
 
 
 /datum/heretic_knowledge/mark/ash_mark
 	name = "Mark of Ash"
-	desc = "Your Mansus Grasp now applies the Mark of Ash. The mark is triggered from an attack with your Ashen Blade. \
+	desc = "Your Восприятие Мансуса now applies the Mark of Ash. The mark is triggered from an attack with your Ashen Blade. \
 		When triggered, the victim takes additional stamina and burn damage, and the mark is transferred to a nearby heathen. \
 		Damage dealt is decreased with each transfer. \
-		Triggering the mark will also greatly reduce the cooldown of your Mansus Grasp."
+		Triggering the mark will also greatly reduce the cooldown of your Восприятие Мансуса."
 	gain_text = "He was a very particular man, always watching in the dead of night. \
 		But in spite of his duty, he regularly tranced through the Manse with his blazing lantern held high. \
 		He shone brightly in the darkness, until the blaze begin to die."
@@ -84,7 +84,7 @@
 		return
 
 	// Also refunds 75% of charge!
-	var/datum/action/cooldown/spell/touch/mansus_grasp/grasp = locate() in source.actions
+	var/datum/action/innate/touch/mansus_grasp/grasp = locate() in source.actions
 	if(grasp)
 		grasp.next_use_time -= round(grasp.cooldown_time*0.75)
 		grasp.build_all_button_icons()
@@ -99,7 +99,7 @@
 		at a nearby enemy, setting them on fire and burning them. If they do not extinguish themselves, \
 		the beam will continue to another target."
 	gain_text = "No fire was hot enough to rekindle them. No fire was bright enough to save them. No fire is eternal."
-	action_to_add = /datum/action/cooldown/spell/charged/beam/fire_blast
+	action_to_add = /datum/action/innate/charged/beam/fire_blast
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -111,10 +111,10 @@
 		It can also be forced onto a heathen, to make them unable to take it off..."
 	gain_text = "The Nightwatcher was lost. That's what the Watch believed. Yet he walked the world, unnoticed by the masses."
 	required_atoms = list(
-		/obj/item/organ/liver = 1,
+		/obj/item/organ/internal/liver = 1,
 		/obj/item/melee/baton/security = 1,  // Technically means a cattleprod is valid
 		/obj/item/clothing/mask = 1,
-		/obj/item/flashlight/flare/candle = 4,
+		/obj/item/candle = 4,
 	)
 	result_atoms = list(/obj/item/clothing/mask/madness_mask)
 	cost = 1
@@ -145,7 +145,7 @@
 		If any victims afflicted are in critical condition, they will also instantly die."
 	gain_text = "The fire was inescapable, and yet, life remained in his charred body. \
 		The Nightwatcher was a particular man, always watching."
-	action_to_add = /datum/action/cooldown/spell/aoe/fiery_rebirth
+	action_to_add = /datum/action/innate/aoe/fiery_rebirth
 	cost = 1
 	research_tree_icon_frame = 5
 
@@ -189,19 +189,19 @@
 
 /datum/heretic_knowledge/ultimate/ash_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
-	var/datum/action/cooldown/spell/fire_sworn/circle_spell = new(user.mind)
+	var/datum/action/innate/fire_sworn/circle_spell = new(user.mind)
 	circle_spell.Grant(user)
 
-	var/datum/action/cooldown/spell/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
+	var/datum/action/innate/fire_cascade/big/screen_wide_fire_spell = new(user.mind)
 	screen_wide_fire_spell.Grant(user)
 
-	var/datum/action/cooldown/spell/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
+	var/datum/action/innate/charged/beam/fire_blast/existing_beam_spell = locate() in user.actions
 	if(existing_beam_spell)
 		existing_beam_spell.max_beam_bounces *= 2 // Double beams
 		existing_beam_spell.beam_duration *= 0.66 // Faster beams
 		existing_beam_spell.cooldown_time *= 0.66 // Lower cooldown
 
-	var/datum/action/cooldown/spell/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
+	var/datum/action/innate/aoe/fiery_rebirth/fiery_rebirth = locate() in user.actions
 	fiery_rebirth?.cooldown_time *= 0.16
 
 	user.add_traits(traits_to_apply, type)

@@ -1258,3 +1258,16 @@ span.body .coderesponses {
 .dantalion {
   color: #1a7d5b;
 }
+
+.hypnophrase {
+  color: hsl(0, 0%, 5.1%);
+  font-weight: bold;
+  animation: hypnocolor 1500ms infinite;
+  animation-direction: alternate;
+}
+
+.deconversion_message {
+  color: hsl(270, 100%, 31.4%);
+  font-size: 185%;
+  font-style: italic;
+}

@@ -113,6 +113,9 @@
 
 #define isglassreagentcontainer(A) istype(A, /obj/item/reagent_containers/glass)
 
+#define isorgan(A)	(istype(A, /obj/item/organ))
+#define isroboticorgan(A)	(isorgan(A) && (A.status & ORGAN_ROBOT))
+
 GLOBAL_LIST_INIT(pointed_types, typecacheof(list(
 	/obj/item/pen,
 	/obj/item/screwdriver,

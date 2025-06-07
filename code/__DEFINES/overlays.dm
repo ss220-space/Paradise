@@ -14,20 +14,6 @@
 	} \
 
 
-/*
-/// Performs any operations that ought to run after an appearance change
-#define POST_OVERLAY_CHANGE(changed_on) \
-	if(alternate_appearances) { \
-		for(var/I in changed_on.alternate_appearances){\
-			var/datum/atom_hud/alternate_appearance/AA = changed_on.alternate_appearances[I];\
-			if(AA.transfer_overlays){\
-				AA.copy_overlays(changed_on, TRUE);\
-			}\
-		} \
-	}
-*/
-
-
 // Float layers for closets
 #define CLOSET_OLAY_LAYER_CONTENTS -5
 #define CLOSET_OLAY_LAYER_DOOR -4

@@ -266,6 +266,7 @@
 	anchored = TRUE
 	mergeable_decal = FALSE
 	mouse_opacity = MOUSE_OPACITY_ICON
+	is_mopped = FALSE
 
 /obj/effect/decal/cleanable/ashrune/Initialize(mapload)
 	. = ..()
@@ -283,9 +284,6 @@
 		/datum/component/ritual_object, \
 		/datum/ritual/ashwalker, \
 	)
-
-/obj/effect/decal/cleanable/ashrune/is_cleanable()
-	return FALSE
 
 /obj/effect/decal/cleanable/devil
 	name = "Sinister rune"

@@ -3,7 +3,7 @@
 	name = "knife"
 	icon = 'icons/effects/eldritch.dmi'
 	icon_state = "dio_knife"
-	layer = LOW_MOB_LAYER
+	layer = MOB_LAYER
 	/// The color the knife glows around it.
 	var/glow_color = "#ececff"
 

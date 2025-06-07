@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/void_conduit
+/datum/action/innate/conjure/void_conduit
 	name = "Void Conduit"
 	desc = "Opens a gate to the Void; it releases an intermittent pulse that damages windows and airlocks, \
 		while afflicting Heathens with void chill. \
@@ -50,7 +50,7 @@
 	for(var/turf/affected_turf as anything in overlayed_turfs)
 		affected_turf.cut_overlay(void_overlay)
 	for(var/turf/affected_turf as anything in view(effect_range, src))
-		if(!isopenturf(affected_turf))
+		if(!is_space_or_openspace(affected_turf))
 			continue
 		affected_turf.add_overlay(void_overlay)
 		overlayed_turfs += affected_turf
@@ -94,7 +94,7 @@
 				var/mob/living/affected_mob = thing_to_affect
 				if(affected_mob.can_block_magic(MAGIC_RESISTANCE))
 					continue
-				if(IS_HERETIC_OR_MONSTER(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_MANSUS_TOUCHED))
+				if(isheretic_OR_MONSTER(affected_mob) || HAS_TRAIT(affected_mob, TRAIT_MANSUS_TOUCHED))
 					affected_mob.apply_status_effect(/datum/status_effect/void_conduit)
 				else
 					affected_mob.apply_status_effect(/datum/status_effect/void_chill, 1)

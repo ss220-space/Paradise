@@ -97,6 +97,7 @@
 #define ALPHA_SOURCE_SHADOWLING		"shadowling"
 #define ALPHA_SOURCE_NINJA			"ninja"
 #define ALPHA_SOURCE_CLOCKROBE		"clockrobe"
+#define ALPHA_SOURCE_HERETIC		"heretic"
 
 
 //code assumes higher numbers override lower numbers.

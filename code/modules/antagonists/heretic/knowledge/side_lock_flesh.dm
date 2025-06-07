@@ -23,18 +23,18 @@
 	)
 	result_atoms = list(/obj/item/reagent_containers/cup/phylactery)
 	cost = 1
-	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "phylactery_2"
 
 // Sidepaths for knowledge between Knock and Flesh.
 /datum/heretic_knowledge/spell/opening_blast
 	name = "Wave Of Desperation"
 	desc = "Grants you Wave Of Desparation, a spell which can only be cast while restrained. \
-		It removes your restraints, repels and knocks down adjacent people, and applies the Mansus Grasp to everything nearby. \
+		It removes your restraints, repels and knocks down adjacent people, and applies the Восприятие Мансуса to everything nearby. \
 		However, you will fall unconscious a short time after casting this spell."
 	gain_text = "My shackles undone in dark fury, their feeble bindings crumble before my power."
 
-	action_to_add = /datum/action/cooldown/spell/aoe/wave_of_desperation
+	action_to_add = /datum/action/innate/aoe/wave_of_desperation
 	cost = 1
 
 /datum/heretic_knowledge/spell/apetra_vulnera
@@ -44,7 +44,7 @@
 		Wounds a random limb if no limb is sufficiently damaged."
 	gain_text = "Flesh opens, and blood spills. My master seeks sacrifice, and I shall appease."
 
-	action_to_add = /datum/action/cooldown/spell/pointed/apetra_vulnera
+	action_to_add = /datum/action/innate/pointed/apetra_vulnera
 	cost = 1
 
 

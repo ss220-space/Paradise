@@ -151,6 +151,15 @@
 
 /mob/living/simple_animal/hostile/alien/maid
 	name = "lusty xenomorph maid"
+	// Finally, they translated something that is really needed!
+	ru_names = list(
+		NOMINATIVE = "похотливая ксеногорничная",
+		GENITIVE = "похотливой ксеногорничной",
+		DATIVE = "похотливой ксеногорничной",
+		ACCUSATIVE = "похотливую ксеногорничную",
+		INSTRUMENTAL = "похотливой ксеногорничной",
+		PREPOSITIONAL = "похотливой ксеногорничной"
+	)
 	melee_damage_lower = 0
 	melee_damage_upper = 0
 	a_intent = INTENT_HELP
@@ -163,12 +172,15 @@
 	icon_dead = "maid_dead"
 
 /mob/living/simple_animal/hostile/alien/maid/AttackingTarget()
-	if(ismovable(target))
-		if(istype(target, /obj/effect/decal/cleanable))
-			visible_message("<span class='notice'>\The [src] cleans up \the [target].</span>")
-			qdel(target)
-			return TRUE
-		var/atom/movable/M = target
-		M.clean_blood()
-		visible_message("<span class='notice'>\The [src] polishes \the [target].</span>")
+	if(HAS_TRAIT(target, TRAIT_MOPABLE))
+		visible_message(span_notice("[declent_ru(NOMINATIVE)] аккуратно оттирает [target.declent_ru(ACCUSATIVE)]."))
+		qdel(target)
 		return TRUE
+
+	if(!ismovable(target))
+		return FALSE
+
+	var/atom/movable/M = target
+	M.clean_blood()
+	visible_message(span_notice("[declent_ru(NOMINATIVE)] аккуратно оттирает грязь с [target.declent_ru(GENITIVE)]."))
+	return TRUE

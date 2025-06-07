@@ -144,3 +144,7 @@
 	. = light_flags
 	light_flags = new_value
 	SEND_SIGNAL(src, COMSIG_ATOM_UPDATE_LIGHT_FLAGS, .)
+
+/mob/living/proc/mob_light2(range, power, color, duration, light_type = /obj/effect/dummy/lighting_obj/moblight)
+	var/obj/effect/dummy/lighting_obj/moblight/mob_light_obj = new light_type(src, range, power, color, duration)
+	return mob_light_obj

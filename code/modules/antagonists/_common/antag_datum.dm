@@ -48,6 +48,8 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	var/show_in_orbit = TRUE
 	/// Role name in antag menu
 	var/antag_menu_name
+	/// A weakref to the HUD shown to teammates, created by `add_team_hud`
+	var/datum/weakref/team_hud_ref
 
 
 /datum/antagonist/New()
@@ -57,6 +59,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 
 /datum/antagonist/Destroy(force)
+	on_removal()
 	for(var/datum/objective/objective as anything in objectives)
 		objectives -= objective
 
@@ -65,6 +68,7 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 	remove_owner_from_gamemode()
 	GLOB.antagonists -= src
+	QDEL_NULL(team_hud_ref)
 
 	if(!silent)
 		farewell()
@@ -163,6 +167,9 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 	owner.current.create_log(MISC_LOG, "[owner.current] was made into \an [special_role]")
 	return TRUE
 
+
+/datum/antagonist/proc/on_removal()
+	return
 
 
 /**
@@ -506,3 +513,53 @@ GLOBAL_LIST_EMPTY(antagonists_datums)
 
 	else
 		add_objective(/datum/objective/steal)
+
+
+/// Adds a HUD that will show you other members with the same antagonist.
+/// If an antag typepath is passed to `antag_to_check`, will check that, otherwise will use the source type.
+/datum/antagonist/proc/add_team_hud(mob/target, antag_to_check)
+	QDEL_NULL(team_hud_ref)
+
+	team_hud_ref = WEAKREF(target.add_alt_appearance(
+		/datum/atom_hud/alternate_appearance/basic/has_antagonist,
+		"antag_team_hud_[REF(src)]",
+		hud_image_on(target),
+		antag_to_check || type,
+		get_team() && WEAKREF(get_team()),
+	))
+
+	// Add HUDs that they couldn't see before
+	for (var/datum/atom_hud/alternate_appearance/basic/has_antagonist/antag_hud as anything in GLOB.has_antagonist_huds)
+		antag_hud.apply_to_new_mob(owner.current)
+
+
+/// Link a new mobs mind to the creator of said mob. They will join any team they are currently on, and will only switch teams when their creator does.
+/datum/mind/proc/enslave_mind_to_creator(mob/living/creator)
+	if(iscultist(creator))
+		makecultist(owner.current)
+	else if(is_revolutionary(creator))
+		var/datum/antagonist/rev/converter = creator.mind.has_antag_datum(/datum/antagonist/rev,TRUE)
+		converter.add_revolutionary(src, stun = FALSE, mute = FALSE)
+
+	else if(IS_NUKE_OP(creator))
+		var/datum/antagonist/nukeop/converter = creator.mind.has_antag_datum(/datum/antagonist/nukeop,TRUE)
+		var/datum/antagonist/nukeop/N = new()
+		N.send_to_spawnpoint = FALSE
+		N.nukeop_outfit = null
+		add_antag_datum(N,converter.nuke_team)
+
+	enslaved_to = WEAKREF(creator)
+
+	SEND_SIGNAL(current, COMSIG_MOB_ENSLAVED_TO, creator)
+
+	current.faction |= creator.faction
+	creator.faction |= "[REF(current)]"
+
+	current.log_game("был порабощен [key_name(creator)].", LOG_GAME)
+	log_admin("[key_name(current)] был порабощен [key_name(creator)].")
+
+	if(creator.mind?.special_role)
+		message_admins("[ADMIN_LOOKUPFLW(current)] был порабощен [ADMIN_LOOKUPFLW(creator)] (антагонистом).")
+		to_chat(current, span_userdanger("Несмотря на нынешние пристрастия вашего создателя, вашим истинным хозяином остается [creator.real_name]. \
+											Если [genderize_ru(creator.gender, "его", "её", "его", "их")] лояльность изменится, изменится и ваша. \
+											Это будет так, пока тело вашего создателя не окажется уничтожено."))

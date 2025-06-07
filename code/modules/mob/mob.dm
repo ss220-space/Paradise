@@ -22,10 +22,6 @@
 	QDEL_LIST_ASSOC_VAL(tkgrabbed_objects)
 	if(buckled)
 		buckled.unbuckle_mob(src, force = TRUE)
-	if(viewing_alternate_appearances)
-		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
-			AA.viewers -= src
-		viewing_alternate_appearances = null
 
 	LAssailant = null
 	GLOB.left_player_list -= src
@@ -40,6 +36,9 @@
 		add_to_alive_mob_list()
 	set_focus(src)
 	prepare_huds()
+	for(var/datum/atom_hud/alternate_appearance/alt_hud as anything in GLOB.active_alternate_appearances)
+		alt_hud.apply_to_new_mob(src)
+
 	. = ..()
 	update_config_movespeed()
 	update_movespeed()
@@ -1290,3 +1289,73 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 
 	src.ckey = ckey(ckey)
 
+/**
+ * Checks to see if the mob can block magic
+ *
+ * args:
+ * * casted_magic_flags (optional) A bitfield with the types of magic resistance being checked (see flags at: /datum/component/anti_magic)
+ * * charge_cost (optional) The cost of charge to block a spell that will be subtracted from the protection used
+**/
+/mob/proc/can_block_magic(casted_magic_flags = MAGIC_RESISTANCE, charge_cost = 1)
+	if(casted_magic_flags == NONE) // magic with the NONE flag is immune to blocking
+		return FALSE
+
+	// A list of all things which are providing anti-magic to us
+	var/list/antimagic_sources = list()
+	var/is_magic_blocked = FALSE
+
+	if(can_block_magic())
+		is_magic_blocked = TRUE
+
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && src.mind.isholy)
+		is_magic_blocked = TRUE
+
+	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
+		on_block_magic_effects(casted_magic_flags, antimagic_sources)
+
+	return is_magic_blocked
+
+
+/// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.
+/mob/proc/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	return
+
+
+/mob/living/on_block_magic_effects(magic_flags, list/antimagic_sources)
+	ADD_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT)
+	addtimer(TRAIT_CALLBACK_REMOVE(src, TRAIT_RECENTLY_BLOCKED_MAGIC, MAGIC_TRAIT), 6 SECONDS)
+
+	var/mutable_appearance/antimagic_effect
+	var/antimagic_color
+	var/atom/antimagic_source = length(antimagic_sources) ? pick(antimagic_sources) : src
+
+	if(magic_flags & MAGIC_RESISTANCE)
+		visible_message(
+			span_warning("[declent_ru(NOMINATIVE)] пульсирует красным, поглощая магическую энергию!"),
+			span_userdanger("Интенсивная магическая аура пульсирует вокруг [ismob(antimagic_source) ? "вас" : antimagic_source.declent_ru(GENITIVE)], но постепенно рассеивается!"),
+		)
+		antimagic_effect = mutable_appearance('icons/effects/effects.dmi', "shield-red", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_BLOOD_MAGIC
+		playsound(src, 'sound/effects/magic/magic_block.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_HOLY)
+		visible_message(
+			span_warning("[declent_ru(NOMINATIVE)] излучает ореол света!"),
+			span_userdanger("Чувство тепла и лучи света исходящее от [ismob(antimagic_source) ? "вас" : antimagic_source.declent_ru(GENITIVE)] обеспечивают защиту от магии!"),
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "servitude", -MUTATIONS_LAYER)
+		antimagic_color = LIGHT_COLOR_HOLY_MAGIC
+		playsound(src, 'sound/effects/magic/magic_block_holy.ogg', 50, TRUE)
+
+	else if(magic_flags & MAGIC_RESISTANCE_MIND)
+		visible_message(
+			span_warning("Лоб [declent_ru(GENITIVE)] сияет, отражая ментальное воздействие!"),
+			span_userdanger("Вы чувствуете холодные брызки, когда отражаете ментальное воздействие!"),
+		)
+		antimagic_effect = mutable_appearance('icons/mob/genetics.dmi', "telekinesishead", ABOVE_MOB_LAYER)
+		antimagic_color = LIGHT_COLOR_DARK_BLUE
+		playsound(src, 'sound/effects/magic/magic_block_mind.ogg', 50, TRUE)
+
+	mob_light2(range = 2, power = 2, color = antimagic_color, duration = 5 SECONDS)
+	add_overlay(antimagic_effect)
+	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, cut_overlay), antimagic_effect), 5 SECONDS)

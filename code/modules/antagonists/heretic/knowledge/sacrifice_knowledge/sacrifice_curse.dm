@@ -62,14 +62,14 @@
 		return
 
 	var/mob/living/carbon/carbon_owner = owner
-	var/obj/item/bodypart/chest/organ_storage = owner.get_bodypart(BODY_ZONE_CHEST)
+	var/obj/item/organ/external/chest/organ_storage = owner.get_bodypart(BODY_ZONE_CHEST)
 	if (isnull(organ_storage))
 		carbon_owner.gib() // IDK how you don't have a chest but you're not getting away that easily
 		return
 
 	var/list/removable_organs = list()
 	for(var/obj/item/organ/bodypart_organ in organ_storage.contents)
-		if(bodypart_organ.organ_flags & (ORGAN_EXTERNAL|ORGAN_UNREMOVABLE))
+		if(bodypart_organ.status & (ORGAN_EXTERNAL|ORGAN_UNREMOVABLE))
 			continue
 		removable_organs += bodypart_organ
 

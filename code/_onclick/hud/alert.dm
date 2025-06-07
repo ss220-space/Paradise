@@ -50,6 +50,7 @@
 	if(icon_override)
 		alert.icon = icon_override
 
+	alert.owner = src
 	if(new_master)
 		var/old_layer = new_master.layer
 		var/old_plane = new_master.plane
@@ -109,6 +110,8 @@
 	var/severity = 0
 	var/alerttooltipstyle = ""
 	var/override_alerts = FALSE //If it is overriding other alerts of the same type
+	///Alert owner
+	var/mob/owner
 
 /atom/movable/screen/alert/MouseEntered(location,control,params)
 	openToolTip(usr, src, params, title = name, content = desc, theme = alerttooltipstyle)
@@ -439,6 +442,92 @@ or something covering your eyes."
 	desc = "You have no factory, and are slowly dying!"
 	icon_state = "blobbernaut_nofactory"
 	alerttooltipstyle = "blob"
+
+
+// BLOODCULT
+
+/atom/movable/screen/alert/bloodsense
+	name = "Кровавое чутье"
+	desc = "Позволяет вам чувствовать кровь, измененную темной магией."
+	icon_state = "cult_sense"
+	alerttooltipstyle = "cult"
+	var/static/image/narnar
+	var/angle = 0
+	var/mob/living/simple_animal/hostile/construct/construct_owner
+
+/atom/movable/screen/alert/bloodsense/Initialize(mapload, datum/hud/hud_owner)
+	. = ..()
+	narnar = new('icons/hud/screen_alert.dmi', "mini_nar")
+	START_PROCESSING(SSprocessing, src)
+
+/atom/movable/screen/alert/bloodsense/Destroy()
+	construct_owner = null
+	STOP_PROCESSING(SSprocessing, src)
+	return ..()
+
+/atom/movable/screen/alert/bloodsense/process()
+	var/atom/blood_target
+
+	if(!owner.mind)
+		return
+
+	if(isconstruct(owner))
+		construct_owner = owner
+	else
+		construct_owner = null
+
+	// construct track
+	if(construct_owner?.seeking && construct_owner.construct_master)
+		blood_target = construct_owner.construct_master
+		desc = "Ваше кровавое чутье ведет вас к [construct_owner.construct_master.declent_ru(DATIVE)]."
+
+	// actual tracking
+	var/turf/P = get_turf(blood_target)
+	var/turf/Q = get_turf(owner)
+	if(!P || !Q || (P.z != Q.z)) //The target is on a different Z level, we cannot sense that far.
+		icon_state = "runed_sense2"
+		desc = "Вы больше не можете ощутить присутствие своей цели."
+		return
+	if(isliving(blood_target))
+		var/mob/living/real_target = blood_target
+		desc = "Вы отслеживаете [real_target.real_name] в [get_area_name(blood_target)]."
+	else
+		desc = "Вы отслеживаете [blood_target] в [get_area_name(blood_target)]."
+
+	var/target_angle = get_angle(Q, P)
+	var/target_dist = get_dist(P, Q)
+	cut_overlays()
+	switch(target_dist)
+		if(0 to 1)
+			icon_state = "runed_sense2"
+		if(2 to 8)
+			icon_state = "arrow8"
+		if(9 to 15)
+			icon_state = "arrow7"
+		if(16 to 22)
+			icon_state = "arrow6"
+		if(23 to 29)
+			icon_state = "arrow5"
+		if(30 to 36)
+			icon_state = "arrow4"
+		if(37 to 43)
+			icon_state = "arrow3"
+		if(44 to 50)
+			icon_state = "arrow2"
+		if(51 to 57)
+			icon_state = "arrow1"
+		if(58 to 64)
+			icon_state = "arrow0"
+		if(65 to 400)
+			icon_state = "arrow"
+	var/difference = target_angle - angle
+	angle = target_angle
+	if(!difference)
+		return
+	var/matrix/final = matrix(transform)
+	final.Turn(difference)
+	animate(src, transform = final, time = 5, loop = 0)
+
 
 //SILICONS
 
@@ -913,6 +1002,7 @@ so as to remain in compliance with the most up-to-date laws."
 	severity = 0
 	master = null
 	screen_loc = ""
+	owner = null
 	return ..()
 
 /// Gives the player the option to succumb while in critical condition

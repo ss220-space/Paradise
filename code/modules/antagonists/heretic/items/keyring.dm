@@ -60,13 +60,13 @@
 		return
 
 	//get it?
-	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
+	var/obj/machinery/door/doorstination = (inverted ? !isheretic_OR_MONSTER(teleportee) : isheretic_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
 	if(!do_teleport(teleportee, get_turf(doorstination), channel = TELEPORT_CHANNEL_MAGIC))
 		return
 
 	teleportee.client?.move_delay = 0 //make moving through smoother
 
-	if(!IS_HERETIC_OR_MONSTER(teleportee))
+	if(!isheretic_OR_MONSTER(teleportee))
 		teleportee.apply_damage(20, BRUTE) //so they dont roll it like a jackpot machine to see if they can land in the armory
 		to_chat(teleportee, span_userdanger("You stumble through [src], battered by forces beyond your comprehension, landing anywhere but where you thought you were going."))
 
@@ -108,7 +108,7 @@
 
 /obj/item/card/id/advanced/heretic/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC_OR_MONSTER(user))
+	if(!isheretic_OR_MONSTER(user))
 		return
 	. += span_hypnophrase("Enchanted by the Mansus!")
 	. += span_hypnophrase("Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.")
@@ -118,7 +118,7 @@
 
 /obj/item/card/id/advanced/heretic/attack_self(mob/user)
 	. = ..()
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return
 	var/cardname = tgui_input_list(user, "Shapeshift into?", "Shapeshift", fused_ids)
 	if(!cardname)
@@ -128,7 +128,7 @@
 	shapeshift(card)
 
 /obj/item/card/id/advanced/heretic/item_ctrl_click(mob/user)
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return CLICK_ACTION_BLOCKING
 	inverted = !inverted
 	balloon_alert(user, "[inverted ? "now" : "no longer"] creating inverted rifts")
@@ -175,7 +175,7 @@
 	balloon_alert(user, "[message]")
 
 /obj/item/card/id/advanced/heretic/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(!istype(tool, /obj/item/card/id/advanced) || !IS_HERETIC(user))
+	if(!istype(tool, /obj/item/card/id/advanced) || !isheretic(user))
 		return ..()
 	eat_card(tool, user)
 	return ITEM_INTERACT_SUCCESS
@@ -191,7 +191,7 @@
 		balloon_alert(user, "consumed card")
 
 /obj/item/card/id/advanced/heretic/interact_with_atom(atom/target, mob/living/user, list/modifiers)
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return NONE
 	if(istype(target, /obj/item/card/id/advanced))
 		eat_card(target, user)

@@ -666,6 +666,11 @@
 				if(prob(round(-satiety/40)))
 					Jitter(10 SECONDS)
 				hunger_rate *= 3
+
+			// On TG it's done differently, but everything is in the component, and I'm too lazy to refactor.
+			if(HAS_TRAIT(src, TRAIT_VORACIOUS))
+				hunger_rate *= 2
+
 			adjust_nutrition(-hunger_rate)
 
 		if(nutrition > NUTRITION_LEVEL_FULL)

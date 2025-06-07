@@ -31,7 +31,7 @@
 		monster_types = subtypesof(/mob/living/basic/heretic_summon) - monster_types_blacklist
 	if(!isnull(ascendant_mind))
 		ascendee = ascendant_mind
-		RegisterSignals(ascendant_mind.current, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(end_madness))
+		RegisterSignal(ascendant_mind.current, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(end_madness))
 	SSpoints_of_interest.make_point_of_interest(src)
 	INVOKE_ASYNC(src, PROC_REF(poll_ghosts))
 
@@ -47,7 +47,7 @@
 /obj/structure/lock_tear/proc/end_madness(datum/former_master)
 	SIGNAL_HANDLER
 	var/turf/our_turf = get_turf(src)
-	playsound(our_turf, 'sound/effects/magic/castsummon.ogg', vol = 100, vary = TRUE)
+	playsound(our_turf, 'sound/magic/castsummon.ogg', vol = 100, vary = TRUE)
 	visible_message(span_boldwarning("The rip in space spasms and disappears!"))
 	UnregisterSignal(former_master, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING)) // Just in case they die THEN delete
 	new /obj/effect/temp_visual/destabilising_tear(our_turf)
@@ -73,7 +73,7 @@
 			return FALSE
 	var/monster_type = pick(monster_types)
 	var/mob/living/monster = new monster_type(loc)
-	monster.PossessByPlayer(user.key)
+	monster.key = user.key
 	monster.set_name()
 	ADD_TRAIT(monster, TRAIT_HERETIC_SUMMON, INNATE_TRAIT)
 	var/datum/antagonist/heretic_monster/woohoo_free_antag = new(src)

@@ -32,7 +32,7 @@
 	/// Amount of blood to heal over a second
 	var/blood_heal = 0
 
-	/// Map of organ (such as ORGAN_SLOT_BRAIN) to damage heal over a second
+	/// Map of organ (such as INTERNAL_ORGAN_BRAIN) to damage heal over a second
 	var/list/organ_healing
 
 	/// Amount of damage to heal on simple mobs over a second

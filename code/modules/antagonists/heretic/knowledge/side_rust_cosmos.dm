@@ -26,7 +26,7 @@
 	cost = 1
 
 
-	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "eldritch_flask"
 
 /datum/heretic_knowledge/rust_sower
@@ -35,7 +35,7 @@
 	gain_text = "The choked vines of the Rusted Hills are burdened with such overripe fruits. It undoes the markers of progress, leaving a clean slate to work into new shapes."
 	required_atoms = list(
 		/obj/item/grenade/chem_grenade = 1,
-		/obj/item/organ/liver = 1,
+		/obj/item/organ/internal/liver = 1,
 	)
 	result_atoms = list(/obj/item/grenade/chem_grenade/rust_sower)
 	cost = 1

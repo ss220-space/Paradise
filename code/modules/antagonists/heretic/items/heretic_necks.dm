@@ -24,12 +24,12 @@
 		return
 
 	var/team_color = COLOR_ADMIN_PINK
-	if(IS_CULTIST(user))
+	if(iscultist(user))
 		var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
 		team_color = COLOR_CULT_RED
 		magic_holder.magic_enhanced = TRUE
-	else if(IS_HERETIC_OR_MONSTER(user) && !active)
-		for(var/datum/action/cooldown/spell/spell_action in user.actions)
+	else if(isheretic_OR_MONSTER(user) && !active)
+		for(var/datum/action/innate/spell_action in user.actions)
 			spell_action.cooldown_time *= 0.5
 			active = TRUE
 		team_color = COLOR_GREEN
@@ -60,8 +60,8 @@
 	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, REF(src)))
 		to_chat(user, span_notice("Your heart and blood return to their regular old rhythm and flow."))
 
-	if(IS_HERETIC_OR_MONSTER(user) && active)
-		for(var/datum/action/cooldown/spell/spell_action in user.actions)
+	if(isheretic_OR_MONSTER(user) && active)
+		for(var/datum/action/innate/spell_action in user.actions)
 			spell_action.cooldown_time *= 2
 			active = FALSE
 	QDEL_NULL(component)
@@ -94,10 +94,10 @@
 	. = ..()
 
 	var/magic_dude
-	if(IS_CULTIST(user))
-		. += span_cult_bold("This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.")
+	if(iscultist(user))
+		. += span_cultbold("This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.")
 		magic_dude = TRUE
-	if(IS_HERETIC_OR_MONSTER(user))
+	if(isheretic_OR_MONSTER(user))
 		. += span_notice("This focus will halve your spell cooldowns, alongside granting a small regenerative effect to any nearby heretics or monsters, including you.")
 		magic_dude = TRUE
 
@@ -107,7 +107,7 @@
 /obj/item/clothing/neck/eldritch_amulet
 	name = "warm eldritch medallion"
 	desc = "A strange medallion. Peering through the crystalline surface, the world around you melts away. You see your own beating heart, and the pulsing of a thousand others."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
@@ -122,7 +122,7 @@
 	. = ..()
 	if(!(slot & ITEM_SLOT_NECK))
 		return
-	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
+	if(!ishuman(user) || !isheretic_OR_MONSTER(user))
 		return
 
 	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
@@ -142,7 +142,7 @@
 /obj/item/clothing/neck/fake_heretic_amulet
 	name = "religious icon"
 	desc = "A strange medallion, which makes its wearer look like they're part of some cult."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eye_medalion"
 	w_class = WEIGHT_CLASS_SMALL
 
@@ -151,7 +151,7 @@
 /obj/item/clothing/neck/heretic_focus/moon_amulet
 	name = "moonlight amulet"
 	desc = "A piece of the mind, the soul and the moon. Gazing into it makes your head spin and hear whispers of laughter and joy."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "moon_amulette"
 	w_class = WEIGHT_CLASS_SMALL
 	// How much damage does this item do to the targets sanity?
@@ -159,23 +159,12 @@
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, list/modifiers, list/attack_modifiers)
 	var/mob/living/carbon/human/hit = target
-	if(!IS_HERETIC_OR_MONSTER(user))
+	if(!isheretic_OR_MONSTER(user))
 		user.balloon_alert(user, "you feel a presence watching you")
-		user.add_mood_event("Moon Amulet Insanity", /datum/mood_event/amulet_insanity)
-		user.mob_mood.adjust_sanity(-50)
 		return
 
 	if(hit.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
-
-	if(!hit.mob_mood)
-		return
-
-	if(hit.mob_mood.sanity_level > SANITY_LEVEL_UNSTABLE)
-		user.balloon_alert(user, "their mind is too strong!")
-		hit.add_mood_event("Moon Amulet Insanity", /datum/mood_event/amulet_insanity)
-		hit.mob_mood.adjust_sanity(-sanity_damage)
-		return ..()
 
 	user.balloon_alert(user, "their mind bends to see the truth!")
 	hit.apply_status_effect(/datum/status_effect/moon_converted)

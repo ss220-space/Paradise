@@ -10,9 +10,9 @@
  */
 /datum/heretic_knowledge
 	/// Name of the knowledge, shown to the heretic.
-	var/name = "Basic knowledge"
+	var/name = "Пишите баг репорт."
 	/// Description of the knowledge, shown to the heretic. Describes what it unlocks / does.
-	var/desc = "Basic knowledge of forbidden arts."
+	var/desc = "Если вы это увидели, что-то пошло не так."
 	/// What's shown to the heretic when the knowledge is acquired
 	var/gain_text
 	/// The abstract parent type of the knowledge, used in determine mutual exclusivity in some cases
@@ -53,6 +53,7 @@
 
 	if(gain_text)
 		to_chat(user, span_warning("[gain_text]"))
+
 	on_gain(user, our_heretic)
 
 /**
@@ -115,8 +116,10 @@
 	// If we need a human, there is a high likelihood we actually need a (dead) body
 	if(ispath(item_path, /mob/living/carbon/human))
 		return "bod[number_of_things > 1 ? "ies" : "y"]"
+
 	if(ispath(item_path, /mob/living))
 		return "carcass[number_of_things > 1 ? "es" : ""] of any kind"
+
 	return "[initial(item_path.name)]\s"
 /**
  * Called whenever the knowledge's associated ritual is completed successfully.
@@ -136,10 +139,6 @@
 	if(!length(result_atoms))
 		return FALSE
 
-	for(var/result in result_atoms)
-		var/atom/result_item = new result(loc)
-		if(isitem(result_item))
-			ADD_TRAIT(result_item, TRAIT_CONTRABAND, INNATE_TRAIT)
 	return TRUE
 
 /**
@@ -163,23 +162,25 @@
 		if(isliving(sacrificed))
 			continue
 
-		if(isstack(sacrificed))
-			var/obj/item/stack/sac_stack = sacrificed
-			var/how_much_to_use = 0
-			for(var/requirement in required_atoms)
-				// If it's not requirement type and type is not a list, skip over this check
-				if(!istype(sacrificed, requirement) && !islist(requirement))
-					continue
-				// If requirement *is* a list and the stack *is* in the list, skip over this check
-				if(islist(requirement) && !is_type_in_list(sacrificed, requirement))
-					continue
-				how_much_to_use = min(required_atoms[requirement], sac_stack.amount)
-				break
-			sac_stack.use(how_much_to_use)
+		if(!isstack(sacrificed))
+			selected_atoms -= sacrificed
+			qdel(sacrificed)
 			continue
 
-		selected_atoms -= sacrificed
-		qdel(sacrificed)
+		var/obj/item/stack/sac_stack = sacrificed
+		var/how_much_to_use = 0
+		for(var/requirement in required_atoms)
+			// If it's not requirement type and type is not a list, skip over this check
+			if(!istype(sacrificed, requirement) && !islist(requirement))
+				continue
+			// If requirement *is* a list and the stack *is* in the list, skip over this check
+			if(islist(requirement) && !is_type_in_list(sacrificed, requirement))
+				continue
+			how_much_to_use = min(required_atoms[requirement], sac_stack.amount)
+			break
+
+		sac_stack.use(how_much_to_use)
+		continue
 
 /**
  * A knowledge subtype that grants the heretic a certain spell.
@@ -204,7 +205,7 @@
 	created_action_ref = WEAKREF(created_action)
 
 /datum/heretic_knowledge/spell/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
-	var/datum/action/cooldown/spell/created_action = created_action_ref?.resolve()
+	var/datum/action/innate/created_action = created_action_ref?.resolve()
 	if(created_action?.owner == user)
 		created_action.Remove(user)
 
@@ -227,11 +228,13 @@
 /datum/heretic_knowledge/limited_amount/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
 	for(var/datum/weakref/ref as anything in created_items)
 		var/atom/real_thing = ref.resolve()
-		if(QDELETED(real_thing))
-			LAZYREMOVE(created_items, ref)
+		if(!QDELETED(real_thing))
+			continue
+
+		LAZYREMOVE(created_items, ref)
 
 	if(LAZYLEN(created_items) >= limit)
-		loc.balloon_alert(user, "ritual failed, at limit!")
+		loc.balloon_alert(user, "лимит создания преавышен!")
 		return FALSE
 
 	return TRUE
@@ -240,6 +243,7 @@
 	for(var/result in result_atoms)
 		var/atom/created_thing = new result(loc)
 		LAZYADD(created_items, WEAKREF(created_thing))
+
 	return TRUE
 
 /**
@@ -273,7 +277,7 @@
 	var/datum/status_effect/eldritch/mark_type
 
 /datum/heretic_knowledge/mark/on_gain(mob/user, datum/antagonist/heretic/our_heretic)
-	RegisterSignals(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT), PROC_REF(on_mansus_grasp))
+	RegisterSignal(user, list(COMSIG_HERETIC_MANSUS_GRASP_ATTACK, COMSIG_LIONHUNTER_ON_HIT), PROC_REF(on_mansus_grasp))
 	RegisterSignal(user, COMSIG_HERETIC_BLADE_ATTACK, PROC_REF(on_eldritch_blade))
 
 /datum/heretic_knowledge/mark/on_lose(mob/user, datum/antagonist/heretic/our_heretic)
@@ -402,6 +406,7 @@
 		summoned = mob_to_summon
 	else
 		summoned = new mob_to_summon(loc)
+
 	summoned.ai_controller?.set_ai_status(AI_STATUS_OFF)
 	// Fade in the summon while the ghost poll is ongoing.
 	// Also don't let them mess with the summon while waiting
@@ -410,10 +415,11 @@
 	summoned.move_resist = MOVE_FORCE_OVERPOWERING
 	animate(summoned, 10 SECONDS, alpha = 155)
 
-	message_admins("A [summoned.name] is being summoned by [ADMIN_LOOKUPFLW(user)] in [ADMIN_COORDJMP(summoned)].")
-	var/mob/chosen_one = SSpolling.poll_ghosts_for_target(check_jobban = ROLE_HERETIC, poll_time = 10 SECONDS, checked_target = summoned, ignore_category = poll_ignore_define, alert_pic = summoned, role_name_text = summoned.name)
+	message_admins("[summoned.name] был[genderize_ru(summoned.gender, "", "а", "о", "и")] призван[genderize_ru(summoned.gender, "", "а", "о", "ы")] [ADMIN_LOOKUPFLW(user)] в [ADMIN_COORDJMP(summoned)].")
+	var/mob/chosen_one = pick(SSghost_spawns.poll_candidates("Вы бы хотели сыграть за [summoned.declent_ru(ACCUSATIVE)] призванн[genderize_ru(summoned.gender, "ого", "ую", "ое", "ых")] еретиком?", \
+								ROLE_HERETIC, FALSE, poll_time = 10 SECONDS, source = summoned))
 	if(isnull(chosen_one))
-		loc.balloon_alert(user, "ritual failed, no ghosts!")
+		loc.balloon_alert(user, "нет готовых кандидатов!")
 		animate(summoned, 0.5 SECONDS, alpha = 0)
 		QDEL_IN(summoned, 0.6 SECONDS)
 		return FALSE
@@ -424,7 +430,7 @@
 	summoned.move_resist = initial(summoned.move_resist)
 
 	summoned.ghostize(FALSE)
-	summoned.PossessByPlayer(chosen_one.key)
+	summoned.key = chosen_one.key
 
 	user.log_message("created a [summoned.name], controlled by [key_name(chosen_one)].", LOG_GAME)
 	message_admins("[ADMIN_LOOKUPFLW(user)] created a [summoned.name], [ADMIN_LOOKUPFLW(summoned)].")
@@ -445,13 +451,13 @@
  * A subtype of knowledge that generates random ritual components.
  */
 /datum/heretic_knowledge/knowledge_ritual
-	name = "Ritual of Knowledge"
-	desc = "A randomly generated transmutation ritual that rewards knowledge points and can only be completed once."
-	gain_text = "Everything can be a key to unlocking the secrets behind the Gates. I must be wary and wise."
+	name = "Ритуал Знания"
+	desc = "Случайный ритуал трансмутации, который дарует знания и может быть выполнен только один раз."
+	gain_text = "Все может быть ключом к разгадке секретов за Вратами. Я должен быть осторожным и мудрым."
 	abstract_parent_type = /datum/heretic_knowledge/knowledge_ritual
 	cost = 1
 	priority = MAX_KNOWLEDGE_PRIORITY - 10 // A pretty important midgame ritual.
-	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "book_open"
 	/// Whether we've done the ritual. Only doable once.
 	var/was_completed = FALSE
@@ -459,20 +465,20 @@
 /datum/heretic_knowledge/knowledge_ritual/New()
 	. = ..()
 	var/static/list/potential_organs = list(
-		/obj/item/organ/appendix,
-		/obj/item/organ/tail,
-		/obj/item/organ/eyes,
-		/obj/item/organ/tongue,
-		/obj/item/organ/ears,
-		/obj/item/organ/heart,
-		/obj/item/organ/liver,
-		/obj/item/organ/stomach,
-		/obj/item/organ/lungs,
+		/obj/item/organ/internal/appendix,
+		/obj/item/organ/external/tail,
+		/obj/item/organ/internal/eyes,
+		/obj/item/organ/internal/tongue,
+		/obj/item/organ/internal/ears,
+		/obj/item/organ/internal/heart,
+		/obj/item/organ/internal/liver,
+		/obj/item/organ/internal/stomach,
+		/obj/item/organ/internal/lungs,
 	)
 
 	var/static/list/potential_easy_items = list(
 		/obj/item/shard,
-		/obj/item/flashlight/flare/candle,
+		/obj/item/candle,
 		/obj/item/book,
 		/obj/item/pen,
 		/obj/item/paper,
@@ -505,15 +511,14 @@
 
 	var/list/requirements_string = list()
 
-	to_chat(user, span_hierophant("The [name] requires the following:"))
+	to_chat(user, span_hierophant("[name] требует следующих подношений:"))
 	for(var/obj/item/path as anything in required_atoms)
 		var/amount_needed = required_atoms[path]
 		to_chat(user, span_hypnophrase("[amount_needed] [initial(path.name)]\s..."))
 		requirements_string += "[amount_needed == 1 ? "":"[amount_needed] "][initial(path.name)]\s"
 
-	to_chat(user, span_hierophant("Completing it will reward you [KNOWLEDGE_RITUAL_POINTS] knowledge points. You can check the knowledge in your Researched Knowledge to be reminded."))
-
-	desc = "Allows you to transmute [english_list(requirements_string)] for [KNOWLEDGE_RITUAL_POINTS] bonus knowledge points. This can only be completed once."
+	to_chat(user, span_hierophant("Завершив этот ритуал вы получите в награду [KNOWLEDGE_RITUAL_POINTS] очков знаний. Вы можете проверить свои знания в разделе «Изученные знания»."))
+	desc = "Позволяет трансмутировать [english_list(requirements_string)] в [KNOWLEDGE_RITUAL_POINTS] дополнительных очков знаний. Этот ритуал может быть проведен только один раз."
 
 /datum/heretic_knowledge/knowledge_ritual/can_be_invoked(datum/antagonist/heretic/invoker)
 	return !was_completed
@@ -522,15 +527,14 @@
 	return !was_completed
 
 /datum/heretic_knowledge/knowledge_ritual/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/our_heretic = GET_HERETIC(user)
+	var/datum/antagonist/heretic/our_heretic = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	our_heretic.knowledge_points += KNOWLEDGE_RITUAL_POINTS
 	was_completed = TRUE
 
-	to_chat(user, span_boldnotice("[name] completed!"))
+	to_chat(user, span_boldnotice("[name] завершен!"))
 	to_chat(user, span_hypnophrase(span_big("[pick_list(HERETIC_INFLUENCE_FILE, "drain_message")]")))
-	desc += " (Completed!)"
-	log_heretic_knowledge("[key_name(user)] completed a [name] at [gameTimestamp()].")
-	user.add_mob_memory(/datum/memory/heretic_knowledge_ritual)
+	desc += " (Завершен!)"
+	user.store_memory("Проведен Ритуал Знания.")
 	return TRUE
 
 #undef KNOWLEDGE_RITUAL_POINTS
@@ -558,10 +562,6 @@
 	for(var/datum/heretic_knowledge/knowledge as anything in flatten_list(our_heretic.researched_knowledge))
 		total_points += knowledge.cost
 
-	log_heretic_knowledge("[key_name(user)] gained knowledge of their final ritual at [gameTimestamp()]. \
-		They have [length(our_heretic.researched_knowledge)] knowledge nodes researched, totalling [total_points] points \
-		and have sacrificed [our_heretic.total_sacrifices] people ([our_heretic.high_value_sacrifices] of which were high value)")
-
 /datum/heretic_knowledge/ultimate/can_be_invoked(datum/antagonist/heretic/invoker)
 	if(invoker.ascended)
 		return FALSE
@@ -572,7 +572,7 @@
 	return TRUE
 
 /datum/heretic_knowledge/ultimate/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(!can_be_invoked(heretic_datum))
 		return FALSE
 
@@ -593,7 +593,7 @@
 	return (sacrifice.stat == DEAD) && !ismonkey(sacrifice)
 
 /datum/heretic_knowledge/ultimate/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	heretic_datum.ascended = TRUE
 
 	// Show the cool red gradiant in our UI
@@ -605,27 +605,23 @@
 		human_user.physiology.burn_mod *= 0.5
 
 	SSblackbox.record_feedback("tally", "heretic_ascended", 1, GLOB.heretic_research_tree[type][HKT_ROUTE])
-	log_heretic_knowledge("[key_name(user)] completed their final ritual at [gameTimestamp()].")
 	notify_ghosts(
-		"[user.real_name] has completed an ascension ritual!",
+		"[user.real_name] завершил[genderize_ru(user.gender, "", "а", "о", "и")] ритуал вознесения!",
 		source = user,
-		header = "A Heretic is Ascending!",
+		title = "Еретик Вознесся!",
 	)
-	priority_announce(
-		text = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),
-		title = generate_heretic_text(),
-		sound = announcement_sound,
-		color_override = "pink",
+	GLOB.priority_announcement.Announce(
+		message = replacetext(replacetext(announcement_text, "%NAME%", user.real_name), "%SPOOKY%", GLOBAL_PROC_REF(generate_heretic_text)),
+		new_title = generate_heretic_text(),
+		new_sound = announcement_sound
 	)
 
-	if(!isnull(ascension_achievement))
-		user.client?.give_award(ascension_achievement, user)
 	heretic_datum.increase_rust_strength()
 	return TRUE
 
 /datum/heretic_knowledge/ultimate/cleanup_atoms(list/selected_atoms)
 	for(var/mob/living/carbon/human/sacrifice in selected_atoms)
 		selected_atoms -= sacrifice
-		sacrifice.gib(DROP_ALL_REMAINS)
+		sacrifice.gib()
 
 	return ..()

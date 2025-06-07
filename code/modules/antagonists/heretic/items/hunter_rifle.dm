@@ -142,7 +142,7 @@
 	if(QDELETED(src) || !isliving(firer) || !isliving(original))
 		return
 	var/mob/living/living_firer = firer
-	if(IS_HERETIC(living_firer))
+	if(isheretic(living_firer))
 		living_firer.forceMove(src)
 		stored_mob = living_firer
 
@@ -163,7 +163,7 @@
 		return BULLET_ACT_HIT
 	var/mob/living/victim = target
 	var/mob/firing_mob = firer
-	if(IS_HERETIC_OR_MONSTER(victim) || !IS_HERETIC(firing_mob))
+	if(isheretic_OR_MONSTER(victim) || !isheretic(firing_mob))
 		return BULLET_ACT_HIT
 
 	SEND_SIGNAL(firer, COMSIG_LIONHUNTER_ON_HIT, victim)

@@ -29,3 +29,6 @@ GLOBAL_LIST(antag_paradise_weights)
 GLOBAL_LIST(antag_paradise_special_weights)
 
 GLOBAL_VAR_INIT(gamma_ship_location, 1) // 0 = station , 1 = space
+
+/// We want reality_smash_tracker to exist only once and be accessible from anywhere.
+GLOBAL_DATUM_INIT(reality_smash_track, /datum/reality_smash_tracker, new)

@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/void_prison
+/datum/action/innate/pointed/void_prison
 	name = "Void Prison"
 	desc = "Sends a heathen into the void for 10 seconds. \
 		They will be unable to perform any actions for the duration. \
@@ -8,7 +8,7 @@
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "voidball"
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
-	sound = 'sound/effects/magic/voidblink.ogg'
+	sound = 'sound/magic/voidblink.ogg'
 
 	cooldown_time = 1 MINUTES
 	cast_range = 3
@@ -19,14 +19,14 @@
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE
 
-/datum/action/cooldown/spell/pointed/void_prison/before_cast(atom/cast_on)
+/datum/action/innate/pointed/void_prison/before_cast(atom/cast_on)
 	. = ..()
 	if(. & SPELL_CANCEL_CAST)
 		return
 	if(!ismob(cast_on))
 		return SPELL_CANCEL_CAST
 
-/datum/action/cooldown/spell/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
+/datum/action/innate/pointed/void_prison/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	if(cast_on.can_block_magic(antimagic_flags))
 		cast_on.visible_message(
@@ -52,7 +52,7 @@
 	addtimer(CALLBACK(src, PROC_REF(enter_prison), new_owner), 1 SECONDS)
 
 /datum/status_effect/void_prison/on_remove()
-	if(!IS_HERETIC(owner))
+	if(!isheretic(owner))
 		owner.apply_status_effect(/datum/status_effect/void_chill, 3)
 	if(stasis_overlay)
 		//Free our prisoner

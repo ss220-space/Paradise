@@ -15,7 +15,7 @@
 
 /// The heretic antagonist itself.
 /datum/antagonist/heretic
-	name = "\improper Heretic"
+	name = "Еретик"
 	roundend_category = "Heretics"
 	job_rank = ROLE_HERETIC
 	special_role = SPECIAL_ROLE_HERETIC
@@ -52,7 +52,7 @@
 	/// A static typecache of all tools we can scribe with.
 	var/static/list/scribing_tools = typecacheof(list(/obj/item/pen, /obj/item/toy/crayon))
 	/// A blacklist of turfs we cannot scribe on.
-	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/space, /turf/space/openspace, /turf/open/lava, /turf/open/chasm))
+	var/static/list/blacklisted_rune_turfs = typecacheof(list(/turf/space, /turf/space/openspace, /turf/simulated/floor/lava, /turf/simulated/floor/chasm))
 	/// Controls what types of turf we can spread rust to, increases as we unlock more powerful rust abilites
 	var/rust_strength = 0
 	/// Wether we are allowed to ascend
@@ -62,7 +62,7 @@
 	var/list/unlocked_heretic_items = list(
 		/obj/item/melee/sickly_blade/cursed = 0,
 		/obj/item/clothing/neck/heretic_focus/crimson_medallion = 0,
-		/mob/living/basic/construct/harvester/heretic = 0,
+		/mob/living/simple_animal/hostile/construct/harvester/heretic = 0,
 	)
 	/// Simpler version of above used to limit amount of loot that can be hoarded
 	var/rewards_given = 0
@@ -178,8 +178,8 @@
 /datum/antagonist/heretic/ui_static_data(mob/user)
 	var/list/data = list()
 
-	data["objectives"] = get_objectives()
-	data["can_change_objective"] = can_assign_self_objectives
+	data["objectives"] = user.mind.get_all_objectives()
+	data["can_change_objective"] = FALSE // can_assign_self_objectives
 
 	return data
 
@@ -204,52 +204,20 @@
 			if(!gain_knowledge(researched_path))
 				return TRUE
 
-			log_heretic_knowledge("[key_name(owner)] gained knowledge: [initial(researched_path.name)]")
+			log_game("[key_name(owner)] gained knowledge: [initial(researched_path.name)]")
 			knowledge_points -= initial(researched_path.cost)
 			return TRUE
-
-/datum/antagonist/heretic/submit_player_objective(retain_existing = FALSE, retain_escape = TRUE, force = FALSE)
-	if (isnull(owner) || isnull(owner.current))
-		return
-	var/confirmed = tgui_alert(
-		owner.current,
-		message = "Are you sure? You will no longer be able to Ascend.",
-		title = "Reject the call?",
-		buttons = list("Yes", "No"),
-	) == "Yes"
-	if (!confirmed)
-		return
-	return ..()
 
 /datum/antagonist/heretic/ui_status(mob/user, datum/ui_state/state)
 	if(user.stat == DEAD)
 		return UI_CLOSE
 	return ..()
 
-/datum/antagonist/heretic/get_preview_icon()
-	var/icon/icon = render_preview_outfit(preview_outfit)
-
-	// MOTHBLOCKS TOOD: Copied and pasted from cult, make this its own proc
-
-	// The sickly blade is 64x64, but getFlatIcon crunches to 32x32.
-	// So I'm just going to add it in post, screw it.
-
-	// Center the dude, because item icon states start from the center.
-	// This makes the image 64x64.
-	icon.Crop(-15, -15, 48, 48)
-
-	var/obj/item/melee/sickly_blade/blade = new
-	icon.Blend(icon(blade.lefthand_file, blade.inhand_icon_state), ICON_OVERLAY)
-	qdel(blade)
-
-	// Move the guy back to the bottom left, 32x32.
-	icon.Crop(17, 17, 48, 48)
-
-	return finish_preview_icon(icon)
-
 /datum/antagonist/heretic/farewell()
-	if(!silent)
-		to_chat(owner.current, span_userdanger("Your mind begins to flare as the otherwordly knowledge escapes your grasp!"))
+	if(silent)
+		return ..()
+
+	to_chat(owner.current, span_userdanger("Ваш разум будто горит, когда потусторонние знания начинают ускользать!"))
 	return ..()
 
 /datum/antagonist/heretic/on_gain()
@@ -275,8 +243,8 @@
 	return ..()
 
 /datum/antagonist/heretic/apply_innate_effects(mob/living/mob_override)
+	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
-	handle_clown_mutation(our_mob, "Ancient knowledge described to you has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself.")
 	our_mob.faction |= FACTION_HERETIC
 
 	if (!issilicon(our_mob))
@@ -284,13 +252,12 @@
 
 	ADD_TRAIT(our_mob, TRAIT_MANSUS_TOUCHED, REF(src))
 	RegisterSignal(our_mob, COMSIG_LIVING_CULT_SACRIFICED, PROC_REF(on_cult_sacrificed))
-	RegisterSignals(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
+	RegisterSignal(our_mob, list(COMSIG_MOB_BEFORE_SPELL_CAST, COMSIG_MOB_SPELL_ACTIVATED), PROC_REF(on_spell_cast))
 	RegisterSignal(our_mob, COMSIG_USER_ITEM_INTERACTION, PROC_REF(on_item_use))
-	RegisterSignal(our_mob, COMSIG_LIVING_POST_FULLY_HEAL, PROC_REF(after_fully_healed))
 
 /datum/antagonist/heretic/remove_innate_effects(mob/living/mob_override)
+	. = ..()
 	var/mob/living/our_mob = mob_override || owner.current
-	handle_clown_mutation(our_mob, removing = FALSE)
 	our_mob.faction -= FACTION_HERETIC
 
 	if (owner in GLOB.reality_smash_track.tracked_heretics)
@@ -301,7 +268,6 @@
 		COMSIG_MOB_BEFORE_SPELL_CAST,
 		COMSIG_MOB_SPELL_ACTIVATED,
 		COMSIG_USER_ITEM_INTERACTION,
-		COMSIG_LIVING_POST_FULLY_HEAL,
 		COMSIG_LIVING_CULT_SACRIFICED,
 	))
 
@@ -322,7 +288,7 @@
  * If so, allow them to cast like normal.
  * If not, cancel the cast, and returns [SPELL_CANCEL_CAST].
  */
-/datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, datum/action/cooldown/spell/spell)
+/datum/antagonist/heretic/proc/on_spell_cast(mob/living/source, obj/effect/proc_holder/spell/spell)
 	SIGNAL_HANDLER
 
 	// Heretic spells are of the forbidden school, otherwise we don't care
@@ -337,7 +303,7 @@
 		return
 
 	// We shouldn't be able to cast this! Cancel it.
-	source.balloon_alert(source, "you need a focus!")
+	source.balloon_alert(source, "нужно сфокусироваться")
 	return SPELL_CANCEL_CAST
 
 /*
@@ -351,15 +317,16 @@
 	SIGNAL_HANDLER
 	if(!is_type_in_typecache(weapon, scribing_tools))
 		return NONE
+
 	if(!isturf(target) || !isliving(source))
 		return NONE
 
-	var/obj/item/offhand = source.get_inactive_held_item()
+	var/obj/item/offhand = source.get_inactive_hand()
 	if(QDELETED(offhand) || !istype(offhand, /obj/item/melee/touch_attack/mansus_fist))
 		return NONE
 
 	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
-	return ITEM_INTERACT_SUCCESS
+	//return ITEM_INTERACT_SUCCESS
 
 /**
  * Attempt to draw a rune on [target_turf].
@@ -372,16 +339,16 @@
  */
 /datum/antagonist/heretic/proc/try_draw_rune(mob/living/user, turf/target_turf, drawing_time = 20 SECONDS, additional_checks)
 	for(var/turf/nearby_turf as anything in RANGE_TURFS(1, target_turf))
-		if(!isopenturf(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
-			target_turf.balloon_alert(user, "invalid placement for rune!")
+		if(!is_space_or_openspace(nearby_turf) || is_type_in_typecache(nearby_turf, blacklisted_rune_turfs))
+			target_turf.balloon_alert(user, "не подходящее место!")
 			return
 
 	if(locate(/obj/effect/heretic_rune) in range(3, target_turf))
-		target_turf.balloon_alert(user, "too close to another rune!")
+		target_turf.balloon_alert(user, "другая руна рядом!")
 		return
 
 	if(drawing_rune)
-		target_turf.balloon_alert(user, "already drawing a rune!")
+		target_turf.balloon_alert(user, "уже чертите")
 		return
 
 	INVOKE_ASYNC(src, PROC_REF(draw_rune), user, target_turf, drawing_time, additional_checks)
@@ -399,43 +366,34 @@
 	drawing_rune = TRUE
 
 	var/rune_colour = GLOB.heretic_path_to_color[heretic_path]
-	target_turf.balloon_alert(user, "drawing rune...")
+	target_turf.balloon_alert(user, "черчение руны...")
 	var/obj/effect/temp_visual/drawing_heretic_rune/drawing_effect
 	if (drawing_time < (10 SECONDS))
 		drawing_effect = new /obj/effect/temp_visual/drawing_heretic_rune/fast(target_turf, rune_colour)
 	else
 		drawing_effect = new(target_turf, rune_colour)
 
-	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks, hidden = TRUE))
-		target_turf.balloon_alert(user, "interrupted!")
+	if(!do_after(user, drawing_time, target_turf, extra_checks = additional_checks))
+		target_turf.balloon_alert(user, "прервано!")
 		new /obj/effect/temp_visual/drawing_heretic_rune/fail(target_turf, rune_colour)
 		qdel(drawing_effect)
 		drawing_rune = FALSE
 		return
 
 	qdel(drawing_effect)
-	target_turf.balloon_alert(user, "rune created")
+	target_turf.balloon_alert(user, "руна создана")
 	new /obj/effect/heretic_rune/big(target_turf, rune_colour)
 	drawing_rune = FALSE
 
 /**
- * Callback to check that the user's still got their Mansus Grasp out when drawing a rune.
+ * Callback to check that the user's still got their Восприятие Мансуса out when drawing a rune.
  *
  * Arguments
  * * user - the mob drawing the rune
  */
 /datum/antagonist/heretic/proc/check_mansus_grasp_offhand(mob/living/user)
-	var/obj/item/offhand = user.get_inactive_held_item()
+	var/obj/item/offhand = user.get_inactive_hand()
 	return !QDELETED(offhand) && istype(offhand, /obj/item/melee/touch_attack/mansus_fist)
-
-/// Signal proc for [COMSIG_LIVING_POST_FULLY_HEAL],
-/// Gives the heretic aliving heart on aheal or organ refresh
-/datum/antagonist/heretic/proc/after_fully_healed(mob/living/source, heal_flags)
-	SIGNAL_HANDLER
-
-	if(heal_flags & (HEAL_REFRESH_ORGANS|HEAL_ADMIN))
-		var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
-		heart_knowledge.on_research(source, src)
 
 /// Signal proc for [COMSIG_LIVING_CULT_SACRIFICED] to reward cultists for sacrificing a heretic
 /datum/antagonist/heretic/proc/on_cult_sacrificed(mob/living/source, list/invokers)
@@ -466,29 +424,31 @@
 	haunted_blade.gender_reveal(outline_color = null, ray_color = COLOR_HERETIC_GREEN)
 
 	for(var/mob/living/culto as anything in invokers)
-		to_chat(culto, span_cult_large("\"A follower of the forgotten gods! You must be rewarded for such a valuable sacrifice.\""))
-
+		to_chat(culto, span_cultlarge("\"Последователь забытых богов! Ты должен быть вознагражден за столь ценную жертву.\""))
+/*
 	// Locate a cultist team (Is there a better way??)
 	var/mob/living/random_cultist = pick(invokers)
-	var/datum/antagonist/cult/antag = random_cultist.mind.has_antag_datum(/datum/antagonist/cult)
-	ASSERT(antag)
-	var/datum/team/cult/cult_team = antag.get_team()
-
 	// Unlock one of 3 special items!
 	var/list/possible_unlocks
 	for(var/i in cult_team.unlocked_heretic_items)
 		if(cult_team.unlocked_heretic_items[i])
 			continue
+
 		LAZYADD(possible_unlocks, i)
-	if(length(possible_unlocks))
-		var/result = pick(possible_unlocks)
-		cult_team.unlocked_heretic_items[result] = TRUE
 
-		for(var/datum/mind/mind as anything in cult_team.members)
-			if(mind.current)
-				SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
-				to_chat(mind.current, span_cult_large(span_warning("Arcane and forbidden knowledge floods your forges and archives. The cult has learned how to create the ")) + span_cult_large(span_hypnophrase("[result]!")))
+	if(!length(possible_unlocks))
+		return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
+	var/result = pick(possible_unlocks)
+	cult_team.unlocked_heretic_items[result] = TRUE
+
+	for(var/datum/mind/mind as anything in SSticker.mode.cult)
+		if(!mind.current)
+			continue
+
+		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
+		to_chat(mind.current, span_cultlarge(span_warning("Тайные и запретные знания заполонили ваши кузницы и архивы. Культ научился создавать ")) + span_cultlarge(span_hypnophrase("[result]!")))
+*/
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE
 
 /**
@@ -559,14 +519,17 @@
 
 	var/num_heads = 0
 	for(var/mob/player in GLOB.alive_player_list)
-		if(player.mind.assigned_role.job_flags & JOB_HEAD_OF_STAFF)
-			num_heads++
+		if(!(player.mind.assigned_role in GLOB.command_positions))
+			continue
+
+		num_heads++
 
 	var/datum/objective/minor_sacrifice/sac_objective = new()
 	sac_objective.owner = owner
 	if(num_heads < 2) // They won't get major sacrifice, so bump up minor sacrifice a bit
 		sac_objective.target_amount += 2
 		sac_objective.update_explanation_text()
+
 	objectives += sac_objective
 
 	if(num_heads >= 2)
@@ -579,7 +542,6 @@
  * Generates a preview image and associates it with a weakref of the mob.
  */
 /datum/antagonist/heretic/proc/add_sacrifice_target(mob/living/carbon/human/target)
-
 	var/image/target_image = image(icon = target.icon, icon_state = target.icon_state)
 	target_image.overlays = target.overlays
 
@@ -614,8 +576,10 @@
  */
 /datum/antagonist/heretic/proc/passive_influence_gain()
 	knowledge_points++
-	if(owner.current.stat <= SOFT_CRIT)
-		to_chat(owner.current, "[span_hear("You hear a whisper...")] [span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
+	var/mob/living/carbon/human/human = owner.current
+	if(human.is_in_crit())
+		to_chat(owner.current, "[span_hear("Вы слышите шепот...")] [span_hypnophrase(pick_list(HERETIC_INFLUENCE_FILE, "drain_message"))]")
+
 	addtimer(CALLBACK(src, PROC_REF(passive_influence_gain)), passive_gain_timer)
 
 /datum/antagonist/heretic/roundend_report()
@@ -624,27 +588,30 @@
 	var/succeeded = TRUE
 
 	parts += printplayer(owner)
-	parts += "<b>Sacrifices Made:</b> [total_sacrifices]"
-	parts += "The heretic's sacrifice targets were: [english_list(all_sac_targets, nothing_text = "No one")]."
+	parts += "<b>Принесенные жертвы:</b> [total_sacrifices]"
+	parts += "Целями жертвоприношений еретика были: [english_list(all_sac_targets, nothing_text = "-")]."
 	if(length(objectives))
 		var/count = 1
 		for(var/datum/objective/objective as anything in objectives)
 			if(!objective.check_completion())
 				succeeded = FALSE
-			parts += "<b>Objective #[count]</b>: [objective.explanation_text] [objective.get_roundend_success_suffix()]"
+
+			parts += "<b>Цель #[count]</b>: [objective.explanation_text] [span_greentext("Успех!")]"
 			count++
+
 	if(feast_of_owls)
-		parts += span_greentext("Ascension Forsaken")
+		parts += span_greentext("Отрекшиеся Вознеслись")
+
 	if(ascended)
-		parts += span_greentext(span_big("THE HERETIC ASCENDED!"))
+		parts += span_greentext(span_big("ЕРЕТИК ВОЗНЕССЯ!"))
 
 	else
 		if(succeeded)
-			parts += span_greentext("The heretic was successful, but did not ascend!")
+			parts += span_greentext("Еретик выполнил цели, но не вознесся!")
 		else
-			parts += span_redtext("The heretic has failed.")
+			parts += span_redtext("Еретик провалился.")
 
-	parts += "<b>Knowledge Researched:</b> "
+	parts += "<b>Изученные Знания:</b> "
 
 	var/list/string_of_knowledge = list()
 
@@ -655,7 +622,7 @@
 	parts += english_list(string_of_knowledge)
 
 	return parts.Join("<br>")
-
+/*
 /datum/antagonist/heretic/get_admin_commands()
 	. = ..()
 
@@ -668,18 +635,18 @@
 
 	.["Adjust Knowledge Points"] = CALLBACK(src, PROC_REF(admin_change_points))
 	.["Give Focus"] = CALLBACK(src, PROC_REF(admin_give_focus))
-
+*/
 /**
  * Admin proc for giving a heretic a Living Heart easily.
  */
 /datum/antagonist/heretic/proc/give_living_heart(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, span_warning("You shouldn't be using this!"))
+		to_chat(admin, span_warning("Вам не следует это использовать!"))
 		return
 
 	var/datum/heretic_knowledge/living_heart/heart_knowledge = get_knowledge(/datum/heretic_knowledge/living_heart)
 	if(!heart_knowledge)
-		to_chat(admin, span_warning("The heretic doesn't have a living heart knowledge for some reason. What?"))
+		to_chat(admin, span_warning("У еретика почему-то нет знания о Живом сердце. Какого черта?"))
 		return
 
 	heart_knowledge.on_research(owner.current, src)
@@ -689,17 +656,17 @@
  */
 /datum/antagonist/heretic/proc/add_marked_as_target(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, span_warning("You shouldn't be using this!"))
+		to_chat(admin, span_warning("Вам не следует это использовать!"))
 		return
 
 	var/mob/living/carbon/human/new_target = admin.client?.holder.marked_datum
 	if(!istype(new_target))
-		to_chat(admin, span_warning("You need to mark a human to do this!"))
+		to_chat(admin, span_warning("Вы должны быть гуманойдом!"))
 		return
 
-	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-		to_chat(owner.current, span_danger("The Mansus has modified your targets. Go find them!"))
-		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role?.title || "human"]."))
+	if(tgui_alert(admin, "Сообщать им, что цели были обновлены?", "Шепот Мансуса", list("Да", "Нет")) == "Да")
+		to_chat(owner.current, span_danger("Мансус изменил следующую жертву. Иди и найди её!"))
+		to_chat(owner.current, span_danger("[new_target.real_name], the [new_target.mind?.assigned_role || "human"]."))
 
 	add_sacrifice_target(new_target)
 
@@ -708,36 +675,37 @@
  */
 /datum/antagonist/heretic/proc/remove_target(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, span_warning("You shouldn't be using this!"))
+		to_chat(admin, span_warning("Вы не должны это использовать!"))
 		return
 
 	var/list/removable = list()
 	for(var/mob/living/carbon/human/old_target as anything in sac_targets)
 		removable[old_target.name] = old_target
 
-	var/name_of_removed = tgui_input_list(admin, "Choose a human to remove", "Who to Spare", removable)
+	var/name_of_removed = tgui_input_list(admin, "Выберите цель которую хотите удалить.", "Кого пощадить", removable)
 	if(QDELETED(src) || !admin.client?.holder || isnull(name_of_removed))
 		return
+
 	var/mob/living/carbon/human/chosen_target = removable[name_of_removed]
 	if(QDELETED(chosen_target) || !ishuman(chosen_target))
 		return
 
 	if(!remove_sacrifice_target(chosen_target))
-		to_chat(admin, span_warning("Failed to remove [name_of_removed] from [owner]'s sacrifice list. Perhaps they're no longer in the list anyways."))
+		to_chat(admin, span_warning("Не получилось удалить [name_of_removed] из списка целей [owner]. Возможно [name_of_removed] уже не в списке."))
 		return
 
-	if(tgui_alert(admin, "Let them know their targets have been updated?", "Whispers of the Mansus", list("Yes", "No")) == "Yes")
-		to_chat(owner.current, span_danger("The Mansus has modified your targets."))
+	if(tgui_alert(admin, "Сообщать им, что цели были обновлены?", "Шепот Мансуса", list("Да", "Нет")) == "Да")
+		to_chat(owner.current, span_danger("Мансус изменил ваши задачи."))
 
 /**
  * Admin proc for easily adding / removing knowledge points.
  */
 /datum/antagonist/heretic/proc/admin_change_points(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, span_warning("You shouldn't be using this!"))
+		to_chat(admin, span_warning("Вы не должны это использовать!"))
 		return
 
-	var/change_num = tgui_input_number(admin, "Add or remove knowledge points", "Points", 0, 100, -100)
+	var/change_num = tgui_input_number(admin, "Добавить или забрать очки знаний", "Очки", 0, 100, -100)
 	if(!change_num || QDELETED(src))
 		return
 
@@ -748,38 +716,39 @@
  */
 /datum/antagonist/heretic/proc/admin_give_focus(mob/admin)
 	if(!admin.client?.holder)
-		to_chat(admin, span_warning("You shouldn't be using this!"))
+		to_chat(admin, span_warning("Вы не должны это использовать!"))
 		return
 
 	var/mob/living/pawn = owner.current
 	pawn.equip_to_slot_if_possible(new /obj/item/clothing/neck/heretic_focus(get_turf(pawn)), ITEM_SLOT_NECK, TRUE, TRUE)
-	to_chat(pawn, span_hypnophrase("The Mansus has manifested you a focus."))
+	to_chat(pawn, span_hypnophrase("Мансус даровал вам фокус."))
 
-/datum/antagonist/heretic/antag_panel_data()
+/datum/antagonist/heretic/roundend_report()
 	var/list/string_of_knowledge = list()
 
 	for(var/knowledge_index in researched_knowledge)
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		if(istype(knowledge, /datum/heretic_knowledge/ultimate))
 			string_of_knowledge += span_bold(knowledge.name)
-		else
-			string_of_knowledge += knowledge.name
+			continue
 
-	return "<br><b>Research Done:</b><br>[english_list(string_of_knowledge, and_text = ", and ")]<br>"
+		string_of_knowledge += knowledge.name
 
+	return "<br><b>Обретенные знания:</b><br>[english_list(string_of_knowledge, and_text = " и ")]<br>"
+/*
 /datum/antagonist/heretic/antag_panel_objectives()
 	. = ..()
+	if(!LAZYLEN(sac_targets))
+		. += "<br><i><b>Нет целей!</b></i><br><br>"
+		return .
 
 	. += "<br>"
-	. += "<i><b>Current Targets:</b></i><br>"
-	if(LAZYLEN(sac_targets))
-		for(var/mob/living/carbon/human/target as anything in sac_targets)
-			. += " - <b>[target.real_name]</b>, the [target.mind?.assigned_role?.title || "human"].<br>"
+	. += "<i><b>Текущие цели:</b></i><br>"
+	for(var/mob/living/carbon/human/target as anything in sac_targets)
+		. += " - <b>[target.real_name]</b> - [target.mind?.assigned_role || "обычный гуманоид"].<br>"
 
-	else
-		. += "<i>None!</i><br>"
 	. += "<br>"
-
+*/
 /**
  * Learns the passed [typepath] of knowledge, creating a knowledge datum
  * and adding it to our researched knowledge list.
@@ -790,8 +759,10 @@
 	if(!ispath(knowledge_type))
 		stack_trace("[type] gain_knowledge was given an invalid path! (Got: [knowledge_type])")
 		return FALSE
+
 	if(get_knowledge(knowledge_type))
 		return FALSE
+
 	var/datum/heretic_knowledge/initialized_knowledge = new knowledge_type()
 	researched_knowledge[knowledge_type] = initialized_knowledge
 	initialized_knowledge.on_research(owner.current, src)
@@ -809,6 +780,7 @@
 		researchable_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_NEXT]
 		banned_knowledge |= GLOB.heretic_research_tree[knowledge_index][HKT_BAN]
 		banned_knowledge |= knowledge.type
+
 	researchable_knowledge -= banned_knowledge
 	return researchable_knowledge
 
@@ -839,6 +811,7 @@
 		var/datum/heretic_knowledge/knowledge = researched_knowledge[knowledge_index]
 		if(!knowledge.can_be_invoked(src))
 			continue
+
 		rituals[knowledge.name] = knowledge
 
 	return sortTim(rituals, GLOBAL_PROC_REF(cmp_heretic_knowledge), associative = TRUE)
@@ -849,13 +822,15 @@
  * Returns FALSE if not all of our objectives are complete, or TRUE otherwise.
  */
 /datum/antagonist/heretic/proc/can_ascend()
-	if(!can_assign_self_objectives)
-		return FALSE // We spurned the offer of the Mansus :(
 	if(feast_of_owls)
 		return FALSE // We sold our ambition for immediate power :/
+
 	for(var/datum/objective/must_be_done as anything in objectives)
-		if(!must_be_done.check_completion())
-			return FALSE
+		if(must_be_done.check_completion())
+			continue
+
+		return FALSE
+
 	return TRUE
 
 /**
@@ -880,7 +855,7 @@
 
 /// Heretic's minor sacrifice objective. "Minor sacrifices" includes anyone.
 /datum/objective/minor_sacrifice
-	name = "minor sacrifice"
+	name = "незначительная жертва"
 
 /datum/objective/minor_sacrifice/New(text)
 	. = ..()
@@ -889,29 +864,31 @@
 
 /datum/objective/minor_sacrifice/update_explanation_text()
 	. = ..()
-	explanation_text = "Sacrifice at least [target_amount] crewmembers."
+	explanation_text = "Принесите в жертву как минимум [target_amount] член[target_amount == 3 ? "а" : "ов"] экипажа." // Only 3 or 4 normaly.
 
 /datum/objective/minor_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return FALSE
+
 	return completed || (heretic_datum.total_sacrifices >= target_amount)
 
 /// Heretic's major sacrifice objective. "Major sacrifices" are heads of staff.
 /datum/objective/major_sacrifice
-	name = "major sacrifice"
+	name = "значительная жертва"
 	target_amount = 1
-	explanation_text = "Sacrifice 1 head of staff."
+	explanation_text = "Принесите в жертву одного из глав. КМ тоже глава."
 
 /datum/objective/major_sacrifice/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return FALSE
+
 	return completed || (heretic_datum.high_value_sacrifices >= target_amount)
 
 /// Heretic's research objective. "Research" is heretic knowledge nodes (You start with some).
 /datum/objective/heretic_research
-	name = "research"
+	name = "исследование"
 	/// The length of a main path. Calculated once in New().
 	var/static/main_path_length = 0
 
@@ -923,8 +900,10 @@
 		// (All the main paths are (should be) the same length, so it doesn't matter.)
 		var/rust_paths_found = 0
 		for(var/datum/heretic_knowledge/knowledge as anything in subtypesof(/datum/heretic_knowledge))
-			if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] == PATH_RUST)
-				rust_paths_found++
+			if(GLOB.heretic_research_tree[knowledge][HKT_ROUTE] != PATH_RUST)
+				continue
+
+			rust_paths_found++
 
 		main_path_length = rust_paths_found
 
@@ -938,27 +917,42 @@
 
 /datum/objective/heretic_research/update_explanation_text()
 	. = ..()
-	explanation_text = "Research at least [target_amount] knowledge from the Mansus. You start with [length(GLOB.heretic_start_knowledge)] researched."
+	explanation_text = "Узнайте как минимум о [target_amount] еретических знаниях. Вы начинаете с уже изученным знанием \"[length(GLOB.heretic_start_knowledge)]\"."
 
 /datum/objective/heretic_research/check_completion()
 	var/datum/antagonist/heretic/heretic_datum = owner?.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return FALSE
+
 	return completed || (length(heretic_datum.researched_knowledge) >= target_amount)
 
 /datum/objective/heretic_summon
-	name = "summon monsters"
+	name = "призыв монстров"
 	target_amount = 2
-	explanation_text = "Summon 2 monsters from the Mansus into this realm."
+	explanation_text = "Призовите хотябы двух монстров из царства Мансуса в эту реальность."
 	/// The total number of summons the objective owner has done
 	var/num_summoned = 0
 
 /datum/objective/heretic_summon/check_completion()
 	return completed || (num_summoned >= target_amount)
 
-/datum/outfit/heretic
-	name = "Heretic (Preview only)"
 
-	suit = /obj/item/clothing/suit/hooded/cultrobes/eldritch
-	head = /obj/item/clothing/head/hooded/cult_hoodie/eldritch
-	r_hand = /obj/item/melee/touch_attack/mansus_fist
+/**
+ * Takes any datum `source` and checks it for heretic datum.
+ */
+/proc/isheretic(datum/source)
+	if(!source)
+		return FALSE
+
+	if(istype(source, /datum/mind))
+		var/datum/mind/our_mind = source
+		return our_mind.has_antag_datum(/datum/antagonist/heretic)
+
+	if(!ismob(source))
+		return FALSE
+
+	var/mob/mind_holder = source
+	if(!mind_holder.mind)
+		return FALSE
+
+	return mind_holder.mind.has_antag_datum(/datum/antagonist/heretic)

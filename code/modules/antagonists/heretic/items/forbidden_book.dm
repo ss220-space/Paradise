@@ -3,7 +3,7 @@
 	name = "Codex Cicatrix"
 	desc = "This heavy tome is full of cryptic scribbles and impossible diagrams. \
 	According to legend, it can be deciphered to reveal the secrets of the veil between worlds."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	base_icon_state = "book"
 	icon_state = "book"
 	worn_icon_state = "book"
@@ -29,7 +29,7 @@
 
 /obj/item/codex_cicatrix/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return
 
 	. += span_notice("Can be used to tap influences for additional knowledge points.")
@@ -51,10 +51,10 @@
 		update_weight_class(WEIGHT_CLASS_NORMAL)
 
 /obj/item/codex_cicatrix/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return NONE
-	if(isopenturf(interacting_with))
+	if(is_space_or_openspace(interacting_with))
 		var/obj/effect/heretic_influence/influence = locate(/obj/effect/heretic_influence) in interacting_with
 		if(!influence?.drain_influence_with_codex(user, src))
 			heretic_datum.try_draw_rune(user, interacting_with, drawing_time = draw_speed)
@@ -86,7 +86,7 @@
 
 /obj/item/codex_cicatrix/morbus/examine(mob/user)
 	. = ..()
-	if(IS_HERETIC(user))
+	if(isheretic(user))
 		. += span_info("Can be used to cast a curse with blood in your offhand by right clicking a rune.")
 		return
 	. += span_danger("The eyes stop blinking. They stare at you. Their gaze burns...")
@@ -94,8 +94,7 @@
 		return
 	var/mob/living/carbon/human/human_user = user
 	to_chat(human_user, span_userdanger("Your mind burns as you stare at the pages!"))
-	human_user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 10, 190)
-	human_user.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
+	human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 10, 190)
 
 /obj/item/codex_cicatrix/morbus/examine_more(mob/user)
 	. = ..() // XANTODO - Add a summary of each curse to the description so that the curser knows what will happen the cursee
@@ -114,13 +113,13 @@
 	if(!user.Adjacent(interacting_with))
 		return NONE
 
-	var/atom/held_offhand = user.get_inactive_held_item()
+	var/atom/held_offhand = user.get_inactive_hand()
 	if(!held_offhand)
 		user.balloon_alert(user, "no catalyst!")
 		return
 	var/blood_samples = list()
-	for(var/blood in GET_ATOM_BLOOD_DNA(held_offhand))
-		blood_samples[blood] = 1
+	blood_samples[requirement.get_blood_dna_list()] = TRUE
+
 	for(var/datum/reagent/blood/usable_reagent as anything in held_offhand.reagents?.reagent_list)
 		if(!istype(usable_reagent, /datum/reagent/blood))
 			continue

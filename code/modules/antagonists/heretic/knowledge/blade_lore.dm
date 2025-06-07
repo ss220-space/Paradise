@@ -34,7 +34,7 @@
 
 /datum/heretic_knowledge/blade_grasp
 	name = "Grasp of the Blade"
-	desc = "Your Mansus Grasp will cause a short stun when used on someone lying down or facing away from you."
+	desc = "Your Восприятие Мансуса will cause a short stun when used on someone lying down or facing away from you."
 	gain_text = "The story of the footsoldier has been told since antiquity. It is one of blood and valor, \
 		and is championed by sword, steel and silver."
 	cost = 1
@@ -110,8 +110,8 @@
 		return
 
 	// Let's check their held items to see if we can do a riposte
-	var/obj/item/main_hand = source.get_active_held_item()
-	var/obj/item/off_hand = source.get_inactive_held_item()
+	var/obj/item/main_hand = source.get_active_hand()
+	var/obj/item/off_hand = source.get_inactive_hand()
 	// This is the item that ends up doing the "blocking" (flavor)
 	var/obj/item/striking_with
 
@@ -153,7 +153,7 @@
 
 /datum/heretic_knowledge/mark/blade_mark
 	name = "Mark of the Blade"
-	desc = "Your Mansus Grasp now applies the Mark of the Blade. While marked, \
+	desc = "Your Восприятие Мансуса now applies the Mark of the Blade. While marked, \
 		the victim will be unable to leave their current room until it expires or is triggered. \
 		Triggering the mark will summon a knife that will orbit you for a short time. \
 		The knife will block any attack directed towards you, but is consumed on use."
@@ -185,7 +185,7 @@
 		During this process, you will rapidly regenerate stamina and quickly recover from stuns, however, you will be unable to attack. \
 		This spell can be cast in rapid succession, but doing so will increase the cooldown."
 	gain_text = "In the flurry of death, he found peace within himself. Despite insurmountable odds, he forged on."
-	action_to_add = /datum/action/cooldown/spell/realignment
+	action_to_add = /datum/action/innate/realignment
 	cost = 1
 
 /datum/heretic_knowledge/spell/wolves_among_sheep
@@ -200,7 +200,7 @@
 		again. I have shattered bonds and severed all alliances. In this truth, \
 		I know now the fragility of comradery. My enemies will be all, divided."
 	cost = 1
-	action_to_add = /datum/action/cooldown/spell/wolves_among_sheep
+	action_to_add = /datum/action/innate/wolves_among_sheep
 
 /datum/heretic_knowledge/blade_upgrade/blade
 	name = "Empowered Blades"
@@ -231,7 +231,7 @@
 /datum/heretic_knowledge/blade_upgrade/blade/proc/on_grasp_cast(mob/living/carbon/cast_on)
 	SIGNAL_HANDLER
 
-	var/held_item = cast_on.get_active_held_item()
+	var/held_item = cast_on.get_active_hand()
 	if(!istype(held_item, /obj/item/melee/sickly_blade/dark))
 		return NONE
 	var/obj/item/melee/sickly_blade/dark/held_blade = held_item
@@ -241,7 +241,7 @@
 	held_blade.update_appearance(UPDATE_ICON)
 
 	//Infuse our off-hand blade just so it's nicer visually
-	var/obj/item/melee/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_held_item()
+	var/obj/item/melee/sickly_blade/dark/off_hand_blade = cast_on.get_inactive_hand()
 	if(istype(off_hand_blade, /obj/item/melee/sickly_blade/dark))
 		off_hand_blade.infused = TRUE
 		off_hand_blade.update_appearance(UPDATE_ICON)
@@ -253,7 +253,7 @@
 	if(target == source)
 		return
 
-	var/obj/item/off_hand = source.get_inactive_held_item()
+	var/obj/item/off_hand = source.get_inactive_hand()
 	if(QDELETED(off_hand) || !istype(off_hand, /obj/item/melee/sickly_blade))
 		return
 	// If our off-hand is the blade that's attacking,
@@ -268,7 +268,7 @@
 	if(QDELETED(source) || QDELETED(target) || QDELETED(blade))
 		return
 	// Sanity to ensure that the blade we're delivering an offhand attack with is ACTUALLY our offhand
-	if(blade != source.get_inactive_held_item())
+	if(blade != source.get_inactive_hand())
 		return
 	// And we easily could've moved away
 	if(!source.Adjacent(target))
@@ -306,7 +306,7 @@
 		at a target, dealing damage and causing bleeding."
 	gain_text = "Without thinking, I took the knife of a fallen soldier and threw with all my might. My aim was true! \
 		The Torn Champion smiled at their first taste of agony, and with a nod, their blades became my own."
-	action_to_add = /datum/action/cooldown/spell/pointed/projectile/furious_steel
+	action_to_add = /datum/action/innate/pointed/projectile/furious_steel
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/blade_final
@@ -351,7 +351,7 @@
 		delete_after_passing_max = FALSE,
 		recharge_time = 2 MINUTES,
 	)
-	var/datum/action/cooldown/spell/pointed/projectile/furious_steel/steel_spell = locate() in user.actions
+	var/datum/action/innate/pointed/projectile/furious_steel/steel_spell = locate() in user.actions
 	steel_spell?.cooldown_time /= 2
 
 	var/mob/living/carbon/human/heretic = user

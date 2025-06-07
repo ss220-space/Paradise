@@ -396,3 +396,11 @@
 	for(var/mob/M as anything in GLOB.mob_list)
 		M.update_config_movespeed()
 
+
+/// Functions like init_subtypes, but uses the subtype's path as a key for easy access
+/proc/init_subtypes_w_path_keys(prototype, list/L)
+	if(!istype(L))
+		L = list()
+	for(var/path as anything in subtypesof(prototype))
+		L[path] = new path()
+	return L

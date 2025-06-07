@@ -1325,3 +1325,16 @@ span.body .coderesponses {
   font-weight: bold;
   font-size: 120%;
 }
+
+.hypnophrase {
+  color: hsl(0, 0%, 12.5%);
+  font-weight: bold;
+  animation: hypnocolor 1500ms infinite;
+  animation-direction: alternate;
+}
+
+.deconversion_message {
+  color: hsl(272, 100%, 63.9%);
+  font-size: 185%;
+  font-style: italic;
+}

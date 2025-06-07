@@ -79,25 +79,25 @@
 
 	last_ant_time = world.time
 
-/obj/item/reagent_containers/food/proc/check_liked(var/fraction, mob/M)
+/obj/item/reagent_containers/food/proc/check_liked(var/fraction, mob/mob)
 	if(last_check_time + 2 SECONDS < world.time)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			if(foodtype & H.dna.species.toxic_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, H.dna.species)]</span>")
+		if(ishuman(mob))
+			var/mob/living/carbon/human/human = mob
+			if(foodtype & human.dna.species.get_toxic_food(human))
+				var/type_string = matched_food_type(foodtype & human.dna.species.get_toxic_food(human))
+				to_chat(human, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, human.dna.species)]</span>")
 
-				H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
-			if(foodtype & H.dna.species.disliked_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
+				human.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
+			if(foodtype & human.dna.species.get_disliked_food(human))
+				var/type_string = matched_food_type(foodtype & human.dna.species.get_disliked_food(human))
+				to_chat(human, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, human.dna.species)]</span>")
 
-				H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
-			if(foodtype & H.dna.species.liked_food)
-				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
-				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
+				human.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
+			if(foodtype & human.dna.species.get_liked_food(human))
+				var/type_string = matched_food_type(foodtype & human.dna.species.get_liked_food(human))
+				to_chat(human, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, human.dna.species)]</span>")
 
-				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
+				human.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 			last_check_time = world.time
 
 /obj/item/reagent_containers/food/proc/format_message(var/type, var/list/messages, var/datum/species/species)

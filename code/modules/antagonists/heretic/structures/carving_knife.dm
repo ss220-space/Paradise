@@ -3,7 +3,7 @@
 	name = "carving knife"
 	desc = "A small knife made of cold steel, pure and perfect. Its sharpness can carve into titanium itself - \
 		but only few can evoke the dangers that lurk beneath reality."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "rune_carver"
 	icon_angle = -45
 	obj_flags = CONDUCTS_ELECTRICITY
@@ -46,7 +46,7 @@
 
 /obj/item/melee/rune_carver/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
+	if(!isheretic_OR_MONSTER(user) && !isobserver(user))
 		return
 
 	. += span_notice("<b>[length(current_runes)] / [max_rune_amt]</b> total carvings have been drawn.")
@@ -56,9 +56,9 @@
 		. += potion_string
 
 /obj/item/melee/rune_carver/interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
-	if(!IS_HERETIC_OR_MONSTER(user))
+	if(!isheretic_OR_MONSTER(user))
 		return NONE
-	if(!isopenturf(interacting_with) || is_type_in_typecache(interacting_with, blacklisted_turfs))
+	if(!is_space_or_openspace(interacting_with) || is_type_in_typecache(interacting_with, blacklisted_turfs))
 		return NONE
 
 	INVOKE_ASYNC(src, PROC_REF(try_carve_rune), interacting_with, user)
@@ -141,7 +141,7 @@
 		return
 
 /datum/action/item_action/rune_shatter/Grant(mob/granted)
-	if(!IS_HERETIC_OR_MONSTER(granted))
+	if(!isheretic_OR_MONSTER(granted))
 		return
 
 	return ..()
@@ -150,14 +150,14 @@
 	. = ..()
 	if(!.)
 		return
-	if(!IS_HERETIC_OR_MONSTER(owner))
+	if(!isheretic_OR_MONSTER(owner))
 		return FALSE
 	var/obj/item/melee/rune_carver/target_sword = target
 	if(!length(target_sword.current_runes))
 		return FALSE
 
 /datum/action/item_action/rune_shatter/do_effect(trigger_flags)
-	owner.playsound_local(get_turf(owner), 'sound/effects/magic/blind.ogg', 50, TRUE)
+	owner.playsound_local(get_turf(owner), 'sound/magic/blind.ogg', 50, TRUE)
 	var/obj/item/melee/rune_carver/target_sword = target
 	QDEL_LIST(target_sword.current_runes)
 	target_sword.SpinAnimation(5, 1)
@@ -185,7 +185,7 @@
 	var/mob/living/living_mob = entering_atom
 	if(WEAKREF(living_mob) == owner)
 		return
-	if(IS_HERETIC_OR_MONSTER(living_mob))
+	if(isheretic_OR_MONSTER(living_mob))
 		return
 	return ..()
 
@@ -210,7 +210,7 @@
 	var/mob/living/real_owner = owner?.resolve()
 	if(real_owner)
 		to_chat(real_owner, span_userdanger("[victim.real_name] has stepped foot on the alert rune in [get_area(src)]!"))
-		real_owner.playsound_local(get_turf(real_owner), 'sound/effects/magic/curse.ogg', 50, TRUE)
+		real_owner.playsound_local(get_turf(real_owner), 'sound/magic/curse.ogg', 50, TRUE)
 
 /obj/structure/trap/eldritch/tentacle
 	name = "grasping carving"
@@ -226,7 +226,7 @@
 	carbon_victim.Paralyze(5 SECONDS)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_R_LEG)
 	carbon_victim.apply_damage(20, BRUTE, BODY_ZONE_L_LEG)
-	playsound(src, 'sound/effects/magic/demon_attack1.ogg', 75, TRUE)
+	playsound(src, 'sound/magic/demon_attack1.ogg', 75, TRUE)
 
 /obj/structure/trap/eldritch/mad
 	name = "mad carving"
@@ -246,5 +246,4 @@
 	carbon_victim.set_jitter_if_lower(20 SECONDS)
 	carbon_victim.set_dizzy_if_lower(40 SECONDS)
 	carbon_victim.adjust_temp_blindness(4 SECONDS)
-	carbon_victim.add_mood_event("gates_of_mansus", /datum/mood_event/gates_of_mansus)
-	playsound(src, 'sound/effects/magic/blind.ogg', 75, TRUE)
+	playsound(src, 'sound/magic/blind.ogg', 75, TRUE)

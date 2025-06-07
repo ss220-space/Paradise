@@ -4,6 +4,25 @@
 /mob/proc/real_human_being()
 	return FALSE
 
+/**
+ * Returns the items that were successfully unequipped.
+ */
+/mob/living/proc/unequip_everything(force = FALSE)
+	var/list/items = list()
+	items |= get_equipped_items()
+	var/turf/floor = get_turf(src)
+	// In case something isn't actually unequipped somehow
+	var/list/dropped_items = list()
+	for(var/I in items)
+		var/return_val = do_unEquip(I, force, floor)
+		if(!isitem(return_val))
+			continue
+
+		dropped_items |= return_val
+
+	var/return_val = drop_all_held_items()
+	return !islist(return_val) ? dropped_items : (dropped_items | return_val)
+
 
 /**
  * This proc is called whenever someone clicks an inventory UI slot.

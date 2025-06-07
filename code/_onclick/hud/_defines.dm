@@ -13,6 +13,9 @@
 	Therefore, the top right corner (except during admin shenanigans) is at "15,15"
 */
 
+// Middle
+#define around_player "CENTER-1,CENTER-1"
+
 //Middle left indicators
 #define ui_alienplasmadisplay "EAST-1:28,CENTER-2:15"
 

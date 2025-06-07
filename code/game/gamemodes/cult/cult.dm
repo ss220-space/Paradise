@@ -21,6 +21,48 @@ GLOBAL_LIST_EMPTY(all_cults)
 /proc/iscultist(mob/living/M)
 	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
 
+/proc/makecultist(mob/living/convertee, list/invokers)
+	SSticker.mode.add_cultist(convertee.mind)
+	SSticker.mode.ghost_summons += GHOST_SUMMONS_CONVERT
+	convertee.mind.special_role = "Cultist"
+	to_chat(convertee, span_cultitalic("<b>Кровь пульсирует. Голова раскалывается. Мир окрашивается в кроваво красный. Внезапно вы осознаете ужасную, \
+											ужасную правду. Завеса сорвана, и что-то злое пускает корни в эту реальность.</b>"))
+	to_chat(convertee, span_cultitalic("<b>Помогите своим новым союзникам в их темных делах. Ваша цель — их, а их — ваша. \
+											Вы служите [SSticker.cultdat.entity_title3]. Верните его.</b>"))
+
+	if(!ishuman(convertee))
+		return
+
+	var/mob/living/carbon/human/H = convertee
+	var/brutedamage = convertee.getBruteLoss()
+	var/burndamage = convertee.getFireLoss()
+	if(brutedamage || burndamage) // If the convertee is injured
+		// Heal 90% of all damage, including robotic limbs
+		H.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
+		if(ismachineperson(H))
+			H.visible_message(span_warning("Темная сила восстанавливает корпус [convertee.declent_ru(GENITIVE)]!"),
+			span_cultitalic("Ваш поврежденный корпус был восстановлен. Распространите учения вашего Бога."))
+		else
+			H.visible_message(span_warning("Темная сила исцеляет [convertee.declent_ru(ACCUSATIVE)]!"),
+			span_cultitalic("Ваши повреждения были исцелены. Распространите учения вашего Бога."))
+			for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
+				bodypart.mend_fracture()
+				bodypart.stop_internal_bleeding()
+
+			for(var/datum/disease/critical/crit in H.diseases) // cure all crit conditions
+				crit.cure()
+
+	SEND_SIGNAL(convertee, COMSIG_LIVING_CULT_SACRIFICED, invokers)
+	H.uncuff()
+	H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
+
+	var/obj/item/melee/cultblade/dagger/D = new(get_turf(convertee))
+	if(H.equip_to_slot_if_possible(D, ITEM_SLOT_BACKPACK, disable_warning = TRUE))
+		to_chat(H, span_cultlarge("У вас в рюкзаке кинжал. Он поможет вам в призыве [SSticker.cultdat.entity_title1]."))
+		return
+
+	to_chat(H, span_cultlarge("На полу кинжал. Он поможет вам в призыве [SSticker.cultdat.entity_title1]."))
+
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
 		return FALSE

@@ -1255,6 +1255,89 @@ Note that amputating the affected organ does in fact remove the infection from t
 		owner?.throw_alert(ALERT_EMBEDDED, /atom/movable/screen/alert/embeddedobject)
 
 
+/mob/living/proc/get_bodypart(zone)
+	return
+
+
+/mob/living/carbon/human/get_bodypart(zone)
+	RETURN_TYPE(/obj/item/organ/external)
+
+	if(!zone)
+		zone = BODY_ZONE_CHEST
+	for(var/obj/item/organ/external/bodypart as anything in bodyparts)
+		if(bodypart.parent_organ_zone == zone)
+			return bodypart
+
+
+/obj/item/organ/external/proc/dismember(dam_type = BRUTE, silent=TRUE)
+	if(!owner)
+		return FALSE
+
+	var/mob/living/carbon/limb_owner = owner
+	if(HAS_TRAIT(limb_owner, TRAIT_GODMODE))
+		return FALSE
+
+	var/obj/item/organ/external/affecting = limb_owner.get_bodypart(BODY_ZONE_CHEST)
+	affecting.internal_receive_damage(clamp(brute_dam/2, 15, 50), clamp(burn_dam/2, 0, 50)) //Damage the chest based on limb's existing damage
+	if(!silent)
+		limb_owner.visible_message(span_danger("<B>[name] [limb_owner] жестоко отсечена!</B>"))
+
+	INVOKE_ASYNC(limb_owner, TYPE_PROC_REF(/mob, emote), "scream")
+	playsound(get_turf(limb_owner), 'sound/effects/dismember.ogg', 80, TRUE)
+	limb_owner.bleed(rand(20, 40))
+	droplimb()
+
+	limb_owner.update_equipment_speed_mods() // Update in case speed affecting item unequipped by dismemberment
+	var/turf/owner_location = limb_owner.loc
+	if(istype(owner_location))
+		limb_owner.add_splatter_floor(owner_location)
+
+	if(QDELETED(src)) //Could have dropped into lava/explosion/chasm/whatever
+		return TRUE
+
+	if(dam_type == BURN)
+		burn()
+		return TRUE
+
+	limb_owner.bleed(rand(20, 40))
+	var/direction = pick(ALL_CARDINALS)
+	var/t_range = rand(2,max(throw_range/2, 2))
+	var/turf/target_turf = get_turf(src)
+	for(var/i in 1 to t_range-1)
+		var/turf/new_turf = get_step(target_turf, direction)
+		if(!new_turf)
+			break
+
+		target_turf = new_turf
+		if(new_turf.density)
+			break
+
+	throw_at(target_turf, throw_range, throw_speed)
+	return TRUE
+
+/obj/item/organ/external/chest/dismember(dam_type = BRUTE, silent=TRUE)
+	if(!owner)
+		return FALSE
+
+	var/mob/living/carbon/chest_owner = owner
+	. = list()
+	if(isturf(chest_owner.loc))
+		chest_owner.add_splatter_floor(chest_owner.loc)
+
+	playsound(get_turf(chest_owner), 'sound/misc/splort.ogg', 80, TRUE)
+
+	for(var/obj/item/organ/organ in contents)
+		var/org_zone = check_zone(organ.parent_organ_zone)
+		if(org_zone != BODY_ZONE_CHEST)
+			continue
+
+		organ.remove(chest_owner)
+		if(chest_owner.loc)
+			organ.forceMove(chest_owner.loc)
+
+		. += organ
+
+
 #undef LIMB_SHARP_THRESH_INT_DMG
 #undef LIMB_THRESH_INT_DMG
 #undef LIMB_DMG_PROB

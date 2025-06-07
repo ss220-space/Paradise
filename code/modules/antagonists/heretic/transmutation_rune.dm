@@ -1,14 +1,21 @@
 /// The heretic's rune, which they use to complete transmutation rituals.
 /obj/effect/heretic_rune
-	name = "transmutation rune"
-	desc = "A flowing circle of shapes and runes is etched into the floor, filled with a thick black tar-like fluid. This one looks pretty small."
-	icon = 'icons/obj/antags/cult/rune.dmi'
+	name = "Руна Трансформации"
+	ru_names = list(
+		NOMINATIVE = "Руна Трансформации",
+		GENITIVE = "Руны Трансформации",
+		DATIVE = "Руне Трансформации",
+		ACCUSATIVE = "Руну Трансформации",
+		INSTRUMENTAL = "Руной Трансформации",
+		PREPOSITIONAL = "Руне Трансформации"
+	)
+	desc = "Жуткий круг фигур и рун изображенный на полу, заполненный густой черной как смоль жидкостью. Выглядит довольно маленьким."
+	icon = 'icons/obj/rune.dmi'
 	icon_state = "main1"
 	anchored = TRUE
-	interaction_flags_atom = INTERACT_ATOM_ATTACK_HAND
 	resistance_flags = FIRE_PROOF | UNACIDABLE | ACID_PROOF
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
+	layer = CLEANABLES_LAYER
 	///Used mainly for summoning ritual to prevent spamming the rune to create millions of monsters.
 	var/is_in_use = FALSE
 
@@ -21,26 +28,25 @@
 
 /obj/effect/heretic_rune/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return
 
-	. += span_notice("Allows you to transmute objects by invoking the rune after collecting the prerequisites overhead.")
-	. += span_notice("You can use your <i>Mansus Grasp</i> on the rune to remove it.")
+	. += span_notice("Позволяет трансмутировать предметы, после соблюдения некоторых условий.")
+	. += span_notice("Вы можете использовать <i>Восприятие Мансуса</i> на руне, чтобы стереть её.")
 
-/obj/effect/heretic_rune/attack_paw(mob/living/user, list/modifiers)
-	return attack_hand(user, modifiers)
-
-/obj/effect/heretic_rune/can_interact(mob/living/user)
-	. = ..()
-	if(!.)
-		return
-	if(!IS_HERETIC(user))
+/obj/effect/heretic_rune/proc/can_interact(mob/living/user)
+	if(!isheretic(user))
 		return FALSE
+
 	if(is_in_use)
 		return FALSE
+
 	return TRUE
 
 /obj/effect/heretic_rune/interact(mob/living/user)
+	if(!can_interact(user))
+		return FALSE
+
 	. = ..()
 	INVOKE_ASYNC(src, PROC_REF(try_rituals), user)
 	return TRUE
@@ -52,14 +58,14 @@
 /obj/effect/heretic_rune/proc/try_rituals(mob/living/user)
 	is_in_use = TRUE
 
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/list/rituals = heretic_datum.get_rituals()
 	if(!length(rituals))
-		loc.balloon_alert(user, "no rituals available!")
+		loc.balloon_alert(user, "нет доступных ритуалов")
 		is_in_use = FALSE
 		return
 
-	var/chosen = tgui_input_list(user, "Chose a ritual to attempt.", "Chose a Ritual", rituals)
+	var/chosen = tgui_input_list(user, "Выберите ритуал, который хотите провести.", "Выбор ритуала", rituals)
 	if(!chosen || !istype(rituals[chosen], /datum/heretic_knowledge) || QDELETED(src) || QDELETED(user) || QDELETED(heretic_datum))
 		is_in_use = FALSE
 		return
@@ -160,16 +166,16 @@
 
 	if(length(what_are_we_missing))
 		// Let them know it screwed up
-		loc.balloon_alert(user, "ritual failed, missing components!")
+		loc.balloon_alert(user, "не хватает компонентов!")
 		// Then let them know what they're missing
-		to_chat(user, span_hierophant_warning("You are missing [english_list(what_are_we_missing)] in order to complete the ritual \"[ritual.name]\"."))
+		to_chat(user, span_hierophant_warning("Для завершения ритуала \"[ritual.name]\" не хватает [english_list(what_are_we_missing)]."))
 		return FALSE
 
 	// If we made it here, the ritual had all necessary components, and we can try to cast it.
 	// This doesn't necessarily mean the ritual will succeed, but it's valid!
 	// Do the animations and associated feedback.
 	flick("[icon_state]_active", src)
-	playsound(user, 'sound/effects/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
+	playsound(user, 'sound/magic/castsummon.ogg', 75, TRUE, extrarange = SILENCED_SOUND_EXTRARANGE, falloff_exponent = 10)
 
 	// - We temporarily make all of our chosen atoms invisible, as some rituals may sleep,
 	// and we don't want people to be able to run off with ritual items.
@@ -177,7 +183,7 @@
 	// Some rituals may remove atoms from the selected_atoms list, and not consume them.
 	var/list/initial_selected_atoms = selected_atoms.Copy()
 	for(var/atom/to_disappear as anything in selected_atoms)
-		to_disappear.SetInvisibility(INVISIBILITY_ABSTRACT, id=type)
+		to_disappear.alpha_set(0, ALPHA_SOURCE_HERETIC)
 
 	// All the components have been invisibled, time to actually do the ritual. Call on_finished_recipe
 	// (Note: on_finished_recipe may sleep in the case of some rituals like summons, which expect ghost candidates.)
@@ -192,13 +198,14 @@
 	for(var/atom/to_appear as anything in initial_selected_atoms)
 		if(QDELETED(to_appear))
 			continue
-		to_appear.RemoveInvisibility(type)
+
+		to_appear.alpha_set(1, ALPHA_SOURCE_HERETIC)
 
 	// And finally, give some user feedback
 	// No feedback is given on failure here -
 	// the ritual itself should handle it (providing specifics as to why it failed)
 	if(ritual_result)
-		loc.balloon_alert(user, "ritual complete")
+		loc.balloon_alert(user, "ритуал завершен")
 
 	return ritual_result
 
@@ -210,12 +217,12 @@
 	pixel_x = -30
 	pixel_y = 18
 	pixel_z = -48
-	greyscale_config = /datum/greyscale_config/heretic_rune
+	//greyscale_config = /datum/greyscale_config/heretic_rune
 
 /obj/effect/heretic_rune/big/Initialize(mapload, path_colour)
 	. = ..()
-	if (path_colour)
-		set_greyscale(colors = list(path_colour))
+	//if (path_colour)
+	//	set_greyscale(colors = list(path_colour))
 
 /obj/effect/temp_visual/drawing_heretic_rune
 	duration = 30 SECONDS
@@ -225,14 +232,14 @@
 	pixel_y = 18
 	pixel_z = -48
 	plane = FLOOR_PLANE
-	layer = RUNE_LAYER
-	greyscale_config = /datum/greyscale_config/heretic_rune
+	layer = CLEANABLES_LAYER
+	//greyscale_config = /datum/greyscale_config/heretic_rune
 	/// We only set this state after setting the colour, otherwise the animation doesn't colour correctly
 	var/animation_state = "transmutation_rune_draw"
 
 /obj/effect/temp_visual/drawing_heretic_rune/Initialize(mapload, path_colour = COLOR_WHITE)
 	. = ..()
-	set_greyscale(colors = list(path_colour))
+	//set_greyscale(colors = list(path_colour))
 	icon_state = animation_state
 	var/image/silicon_image = image(icon = 'icons/effects/eldritch.dmi', icon_state = null, loc = src)
 	silicon_image.override = TRUE

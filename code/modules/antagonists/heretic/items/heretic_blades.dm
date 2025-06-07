@@ -39,7 +39,7 @@
 
 /// Checks if the passed mob can use this blade without being stunned
 /obj/item/melee/sickly_blade/proc/check_usability(mob/living/user)
-	return IS_HERETIC_OR_MONSTER(user)
+	return isheretic_OR_MONSTER(user)
 
 /obj/item/melee/sickly_blade/pre_attack(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
 	. = ..()
@@ -59,7 +59,7 @@
 		if(escape_attempts > 2)
 			to_chat(user, span_hypnophrase(span_big("Cowardly sheep will be slaughtered!")))
 			playsound(src, SFX_SHATTER, 70, TRUE)
-			var/obj/item/bodypart/to_remove = user.get_active_hand()
+			var/obj/item/organ/external/to_remove = user.get_active_hand()
 			to_remove.dismember()
 			deltimer(escape_timer)
 			qdel(src)
@@ -165,7 +165,7 @@
 	. = ..()
 	if(!infused || target == user || !isliving(target))
 		return
-	var/datum/antagonist/heretic/heretic_datum = IS_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = isheretic(user)
 	var/mob/living/living_target = target
 	if(!heretic_datum)
 		return
@@ -264,29 +264,29 @@
 	seek_safety(user, TRUE)
 
 /obj/item/melee/sickly_blade/cursed/seek_safety(mob/user, secondary_attack = FALSE)
-	if(IS_CULTIST(user) && !secondary_attack)
+	if(iscultist(user) && !secondary_attack)
 		return FALSE
 	return ..()
 
 /obj/item/melee/sickly_blade/cursed/check_usability(mob/living/user)
-	if(IS_HERETIC_OR_MONSTER(user) || IS_CULTIST(user))
+	if(isheretic_OR_MONSTER(user) || iscultist(user))
 		return TRUE
 	if(prob(15))
-		to_chat(user, span_cult_large(pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")))
+		to_chat(user, span_cultlarge(pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")))
 		user.apply_damage(5, BURN, user.get_active_hand())
 		playsound(src, SFX_SEAR, 25, TRUE)
 		to_chat(user, span_danger("Your hand sizzles.")) // Nar nar might not care but their essence still doesn't like you
 	else if(prob(15))
 		to_chat(user, span_big(span_hypnophrase("LW'NAFH'NAHOR UH'ENAH'YMG EPGOKA AH NAFL MGEMPGAH'EHYE")))
 		to_chat(user, span_danger("Horrible, unintelligible utterances flood your mind!"))
-		user.adjustOrganLoss(ORGAN_SLOT_BRAIN, 15) // This can kill you if you ignore it
+		user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 15) // This can kill you if you ignore it
 	return TRUE
 
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)
 	. = ..()
-	if(IS_HERETIC_OR_MONSTER(user))
+	if(isheretic_OR_MONSTER(user))
 		after_use_message = "The Mansus hears your call..."
-	else if(IS_CULTIST(user))
+	else if(iscultist(user))
 		after_use_message = "Nar'Sie hears your call..."
 	else
 		after_use_message = null
@@ -294,12 +294,12 @@
 /obj/item/melee/sickly_blade/cursed/interact_with_atom(atom/target, mob/living/user, list/modifiers)
 	. = ..()
 
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(user)
+	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_datum)
 		return NONE
 
 	// Can only carve runes with it if off combat mode.
-	if(isopenturf(target) && !user.combat_mode)
+	if(is_space_or_openspace(target) && !user.combat_mode)
 		heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS) // Faster than pen, slower than cicatrix
 		return ITEM_INTERACT_BLOCKING
 	return NONE

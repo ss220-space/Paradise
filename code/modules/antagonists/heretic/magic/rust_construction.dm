@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/pointed/rust_construction
+/datum/action/innate/pointed/rust_construction
 	name = "Rust Formation"
 	desc = "Transforms a rusted floor into a full wall of rust. Creating a wall underneath a mob will harm it."
 	background_icon_state = "bg_heretic"
@@ -24,10 +24,10 @@
 /**
  * Overrides 'aim assist' because we always want to hit just the turf we clicked on.
  */
-/datum/action/cooldown/spell/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
+/datum/action/innate/pointed/rust_construction/aim_assist(mob/living/clicker, atom/target)
 	return get_turf(target)
 
-/datum/action/cooldown/spell/pointed/rust_construction/is_valid_target(atom/cast_on)
+/datum/action/innate/pointed/rust_construction/is_valid_target(atom/cast_on)
 	if(!isturf(cast_on))
 		cast_on.balloon_alert(owner, "not a wall or floor!")
 		return FALSE
@@ -39,7 +39,7 @@
 
 	return TRUE
 
-/datum/action/cooldown/spell/pointed/rust_construction/before_cast(turf/open/cast_on)
+/datum/action/innate/pointed/rust_construction/before_cast(turf/open/cast_on)
 	. = ..()
 	if(!isliving(owner))
 		return
@@ -48,7 +48,7 @@
 	invocation = span_danger("<b>[owner]</b> drags [owner.p_their()] hand[living_owner.usable_hands == 1 ? "":"s"] upwards as a wall of rust rises out of [cast_on]!")
 	invocation_self_message = span_notice("You drag [living_owner.usable_hands == 1 ? "a hand":"your hands"] upwards as a wall of rust rises out of [cast_on].")
 
-/datum/action/cooldown/spell/pointed/rust_construction/cast(turf/cast_on)
+/datum/action/innate/pointed/rust_construction/cast(turf/cast_on)
 	. = ..()
 	var/rises_message = "rises out of [cast_on]"
 
@@ -86,7 +86,7 @@
 	var/message_shown = FALSE
 	for(var/mob/living/living_mob in cast_on)
 		message_shown = TRUE
-		if(IS_HERETIC_OR_MONSTER(living_mob) || living_mob == owner)
+		if(isheretic_OR_MONSTER(living_mob) || living_mob == owner)
 			living_mob.visible_message(
 				span_warning("\A [new_wall] [rises_message] and pushes along [living_mob]!"),
 				span_notice("\A [new_wall] [rises_message] beneath your feet and pushes you along!"),
@@ -119,7 +119,7 @@
 	if(!message_shown)
 		new_wall.visible_message(span_warning("\A [new_wall] [rises_message]!"))
 
-/datum/action/cooldown/spell/pointed/rust_construction/proc/fade_wall_filter(turf/closed/wall)
+/datum/action/innate/pointed/rust_construction/proc/fade_wall_filter(turf/closed/wall)
 	if(QDELETED(wall))
 		return
 
@@ -129,7 +129,7 @@
 
 	animate(rust_filter, alpha = 0, time = filter_duration * (9/20))
 
-/datum/action/cooldown/spell/pointed/rust_construction/proc/remove_wall_filter(turf/closed/wall)
+/datum/action/innate/pointed/rust_construction/proc/remove_wall_filter(turf/closed/wall)
 	if(QDELETED(wall))
 		return
 

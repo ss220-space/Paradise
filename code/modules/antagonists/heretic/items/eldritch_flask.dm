@@ -3,7 +3,7 @@
 /obj/item/reagent_containers/cup/beaker/eldritch
 	name = "flask of eldritch essence"
 	desc = "Toxic to the closed minded, yet refreshing to those with knowledge of the beyond."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "eldritch_flask"
 	list_reagents = list(/datum/reagent/eldritch = 50)
 
@@ -11,7 +11,7 @@
 /obj/item/reagent_containers/cup/phylactery
 	name = "phylactery of damnation"
 	desc = "Used to steal blood from soon-to-be victims."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "phylactery"
 	base_icon_state = "phylactery"
 	has_variable_transfer_amount = FALSE
@@ -66,7 +66,7 @@
 /obj/item/ether
 	name = "ether of the newborn"
 	desc = "A flask of nausea-inducing, thick green liquid. Restores your body completely, then places you into an enhanced sleep for a full minute."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "poison_flask"
 
 /obj/item/ether/attack_self(mob/living/user, modifiers)

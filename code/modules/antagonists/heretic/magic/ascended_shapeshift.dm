@@ -1,5 +1,5 @@
 // Given to ascended knock heretics, is a form of shapeshift that can turn into all 4 common heretic summons, and is not limited to 1 selection.
-/datum/action/cooldown/spell/shapeshift/eldritch/ascension
+/datum/action/innate/shapeshift/eldritch/ascension
 	name = "Ascended Shapechange"
 	desc = "A spell that allows you to take on the form of another eldritch creature, gaining their abilities. \
 		You can change your choice at any time, and if your form dies, you dont die."
@@ -15,12 +15,12 @@
 		/mob/living/basic/heretic_summon/stalker,
 	)
 
-/datum/action/cooldown/spell/shapeshift/eldritch/ascension/do_shapeshift(mob/living/caster)
+/datum/action/innate/shapeshift/eldritch/ascension/do_shapeshift(mob/living/caster)
 	. = ..()
 	if(!.)
 		return
 	//buff our forms so this ascension ability isnt shit
-	playsound(caster, 'sound/effects/magic/demon_consume.ogg', 50, TRUE)
+	playsound(caster, 'sound/magic/demon_consume.ogg', 50, TRUE)
 	var/mob/living/monster = .
 	monster.AddComponent(/datum/component/seethrough_mob)
 	monster.maxHealth *= 1.5
@@ -30,6 +30,6 @@
 	monster.transform *= 1.5
 	monster.AddElement(/datum/element/wall_tearer)
 
-/datum/action/cooldown/spell/shapeshift/eldritch/ascension/do_unshapeshift(mob/living/caster)
+/datum/action/innate/shapeshift/eldritch/ascension/do_unshapeshift(mob/living/caster)
 	. = ..()
 	shapeshift_type = null //pick another loser

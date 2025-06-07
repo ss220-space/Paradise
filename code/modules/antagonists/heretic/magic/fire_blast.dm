@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/charged/beam/fire_blast
+/datum/action/innate/charged/beam/fire_blast
 	name = "Volcano Blast"
 	desc = "Charge up a blast of fire that chains between nearby targets, setting them ablaze. \
 		Targets already on fire will take priority. If the target fails to catch ablaze, or \
@@ -7,7 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "flames"
-	sound = 'sound/effects/magic/fireball.ogg'
+	sound = 'sound/magic/fireball.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 45 SECONDS
@@ -22,14 +22,14 @@
 	/// How long the beam visual lasts, also used to determine time between jumps
 	var/beam_duration = 2 SECONDS
 
-/datum/action/cooldown/spell/charged/beam/fire_blast/cast(atom/cast_on)
+/datum/action/innate/charged/beam/fire_blast/cast(atom/cast_on)
 	var/mob/living/caster = get_caster_from_target(cast_on)
 	if(istype(caster))
 		// Caster becomes fireblasted, but in a good way - heals damage over time
 		caster.apply_status_effect(/datum/status_effect/fire_blasted, beam_duration, -2)
 	return ..()
 
-/datum/action/cooldown/spell/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
+/datum/action/innate/charged/beam/fire_blast/send_beam(atom/origin, mob/living/carbon/to_beam, bounces = 4)
 	// Send a beam from the origin to the hit mob
 	origin.Beam(to_beam, icon_state = "solar_beam", time = beam_duration, beam_type = /obj/effect/ebeam/reacting/fire)
 
@@ -62,7 +62,7 @@
 		// We hit the maximum chain length, apply a bonus for managing it
 		new /obj/effect/temp_visual/fire_blast_bonus(to_beam.loc)
 		for(var/mob/living/nearby_living in range(1, to_beam))
-			if(IS_HERETIC_OR_MONSTER(nearby_living) || nearby_living == owner)
+			if(isheretic_OR_MONSTER(nearby_living) || nearby_living == owner)
 				continue
 			nearby_living.Knockdown(0.8 SECONDS)
 			nearby_living.apply_damage(15, BURN, wound_bonus = 5)
@@ -70,7 +70,7 @@
 			nearby_living.ignite_mob()
 
 /// Timer callback to continue the chain, calling send_fire_bream recursively.
-/datum/action/cooldown/spell/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
+/datum/action/innate/charged/beam/fire_blast/proc/continue_beam(mob/living/carbon/beamed, bounces)
 	// We will only continue the chain if we exist, are still on fire, and still have the status effect
 	if(QDELETED(beamed) || !beamed.on_fire || !beamed.has_status_effect(/datum/status_effect/fire_blasted))
 		return
@@ -85,7 +85,7 @@
 /// Pick a carbon mob in a radius around us that we can reach.
 /// Mobs on fire will have priority and be targeted over others.
 /// Returns null or a carbon mob.
-/datum/action/cooldown/spell/charged/beam/fire_blast/get_target(atom/center)
+/datum/action/innate/charged/beam/fire_blast/get_target(atom/center)
 	var/list/possibles = list()
 	var/list/priority_possibles = list()
 	for(var/mob/living/carbon/to_check in view(target_radius, center))
@@ -93,7 +93,7 @@
 			continue
 		if(to_check.has_status_effect(/datum/status_effect/fire_blasted)) // Already blasted
 			continue
-		if(IS_HERETIC_OR_MONSTER(to_check))
+		if(isheretic_OR_MONSTER(to_check))
 			continue
 		if(!length(get_path_to(center, to_check, max_distance = target_radius, simulated_only = FALSE)))
 			continue
@@ -149,7 +149,7 @@
 	if(!isliving(entered))
 		return
 	var/mob/living/living_entered = entered
-	if(IS_HERETIC_OR_MONSTER(living_entered) || living_entered.has_status_effect(/datum/status_effect/fire_blasted))
+	if(isheretic_OR_MONSTER(living_entered) || living_entered.has_status_effect(/datum/status_effect/fire_blasted))
 		return
 	living_entered.apply_damage(10, BURN, wound_bonus = 5)
 	living_entered.adjust_fire_stacks(2)

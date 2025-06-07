@@ -882,6 +882,7 @@
 			var/list/organ_data = species.has_limbs[limb_zone]
 			var/limb_path = organ_data["path"]
 			var/obj/item/organ/new_organ = new limb_path(src)
+			SEND_SIGNAL(src, COMSIG_ORGAN_BEING_REPLACED, new_organ)
 			organ_data["descriptor"] = new_organ.name
 
 	for(var/organ_slot in species.has_organ)

@@ -66,6 +66,9 @@ To draw a rune, use a ritual dagger.
 	for(var/mob/living/silicon/ai/AI in GLOB.player_list)
 		AI.client.images += blood
 
+	ADD_TRAIT(src, TRAIT_MOPABLE, INNATE_TRAIT)
+
+
 /obj/effect/rune/examine(mob/user)
 	. = ..()
 	if(iscultist(user) || user.stat == DEAD) //If they're a cultist or a ghost, tell them the effects
@@ -325,44 +328,11 @@ structure_check() searches for nearby cultist structures required for the invoca
 		for(var/I in invokers)
 			to_chat(I, span_warning("You need at least two invokers to convert!"))
 		return
-	else
-		convertee.visible_message(span_warning("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
-									span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
-		SSticker.mode.add_cultist(convertee.mind)
-		SSticker.mode.ghost_summons += GHOST_SUMMONS_CONVERT
-		convertee.mind.special_role = "Cultist"
-		to_chat(convertee, span_cultitalic("<b>Your blood pulses. Your head throbs. The world goes red. All at once you are aware of a horrible, \
-											horrible, truth. The veil of reality has been ripped away and something evil takes root.</b>"))
-		to_chat(convertee, span_cultitalic("<b>Assist your new compatriots in their dark dealings. Your goal is theirs, and theirs is yours. \
-											You serve [SSticker.cultdat.entity_title3] above all else. Bring it back.</b>"))
 
-		if(ishuman(convertee))
-			var/mob/living/carbon/human/H = convertee
-			var/brutedamage = convertee.getBruteLoss()
-			var/burndamage = convertee.getFireLoss()
-			if(brutedamage || burndamage) // If the convertee is injured
-				// Heal 90% of all damage, including robotic limbs
-				H.heal_overall_damage(brutedamage * 0.9, burndamage * 0.9, affect_robotic = TRUE)
-				if(ismachineperson(H))
-					H.visible_message(span_warning("A dark force repairs [convertee]!"),
-					span_cultitalic("Your damage has been repaired. Now spread the blood to others."))
-				else
-					H.visible_message(span_warning("[convertee]'s wounds heal and close!"),
-					span_cultitalic("Your wounds have been healed. Now spread the blood to others."))
-					for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
-						bodypart.mend_fracture()
-						bodypart.stop_internal_bleeding()
-					for(var/datum/disease/critical/crit in H.diseases) // cure all crit conditions
-						crit.cure()
+	convertee.visible_message(span_warning("[convertee] writhes in pain as the markings below them glow a bloody red!"), \
+								span_cultlarge("<i>AAAAAAAAAAAAAA-</i>"))
+	makecultist(convertee, invokers)
 
-			H.uncuff()
-			H.Silence(6 SECONDS) //Prevent "HALP MAINT CULT" before you realise you're converted
-
-			var/obj/item/melee/cultblade/dagger/D = new(get_turf(src))
-			if(H.equip_to_slot_if_possible(D, ITEM_SLOT_BACKPACK, disable_warning = TRUE))
-				to_chat(H, span_cultlarge("You have a dagger in your backpack. Use it to do [SSticker.cultdat.entity_title1]'s bidding."))
-			else
-				to_chat(H, span_cultlarge("There is a dagger on the floor. Use it to do [SSticker.cultdat.entity_title1]'s bidding."))
 
 /obj/effect/rune/convert/proc/do_sacrifice(mob/living/offering, list/invokers)
 	var/mob/living/user = invokers[1] //the first invoker is always the user

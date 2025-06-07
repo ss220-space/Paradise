@@ -51,7 +51,7 @@
 /datum/status_effect/eldritch/proc/on_effect()
 	SHOULD_CALL_PARENT(TRUE)
 
-	playsound(owner, 'sound/effects/magic/repulse.ogg', 75, TRUE)
+	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
 //Each mark has different effects when it is destroyed that combine with the mansus grasp effect.
@@ -64,7 +64,7 @@
 /datum/status_effect/eldritch/flesh/on_effect()
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
-		var/obj/item/bodypart/bodypart = pick(human_owner.bodyparts)
+		var/obj/item/organ/external/bodypart = pick(human_owner.bodyparts)
 		human_owner.cause_wound_of_type_and_severity(WOUND_SLASH, bodypart, WOUND_SEVERITY_SEVERE)
 
 	return ..()
@@ -86,7 +86,7 @@
 		carbon_owner.adjustStaminaLoss(6 * repetitions) // first one = 30 stam
 		carbon_owner.adjustFireLoss(3 * repetitions) // first one = 15 burn
 		for(var/mob/living/carbon/victim in shuffle(range(1, carbon_owner)))
-			if(IS_HERETIC(victim) || victim == carbon_owner)
+			if(isheretic(victim) || victim == carbon_owner)
 				continue
 			victim.apply_status_effect(type, repetitions - 1)
 			break
@@ -189,7 +189,7 @@
 	SIGNAL_HANDLER
 
 	// Let's not mess with heretics dragging a potential victim.
-	if(ismob(source.pulledby) && IS_HERETIC(source.pulledby))
+	if(ismob(source.pulledby) && isheretic(source.pulledby))
 		return
 
 	// If the movement's forced, just let it happen regardless.
@@ -285,9 +285,8 @@
 
 /datum/status_effect/eldritch/moon/on_effect()
 	owner.adjust_confusion(30 SECONDS)
-	owner.adjustOrganLoss(ORGAN_SLOT_BRAIN, 25, 160)
+	owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
-	owner.add_mood_event("Moon Insanity", /datum/mood_event/moon_insanity)
 	return ..()
 
 /datum/status_effect/eldritch/moon/on_remove()

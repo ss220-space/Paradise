@@ -30,7 +30,7 @@
 	research_tree_icon_state = "void_blade"
 
 /datum/heretic_knowledge/limited_amount/starting/base_void/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(!isopenturf(loc))
+	if(!is_space_or_openspace(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
@@ -43,7 +43,7 @@
 
 /datum/heretic_knowledge/void_grasp
 	name = "Grasp of Void"
-	desc = "Your Mansus Grasp will temporarily mute and chill the victim."
+	desc = "Your Восприятие Мансуса will temporarily mute and chill the victim."
 	gain_text = "I saw the cold watcher who observes me. The chill mounts within me. \
 		They are quiet. This isn't the end of the mystery."
 	cost = 1
@@ -102,7 +102,7 @@
 
 /datum/heretic_knowledge/mark/void_mark
 	name = "Mark of Void"
-	desc = "Your Mansus Grasp now applies the Mark of Void. The mark is triggered from an attack with your Void Blade. \
+	desc = "Your Восприятие Мансуса now applies the Mark of Void. The mark is triggered from an attack with your Void Blade. \
 		When triggered, further silences the victim and swiftly lowers the temperature of their body and the air around them."
 	gain_text = "A gust of wind? A shimmer in the air? The presence is overwhelming, \
 		my senses began to betray me. My mind is my own enemy."
@@ -116,7 +116,7 @@
 	gain_text = "The hum in the still, cold air turns to a cacophonous rattle. \
 		Over the noise, there is no distinction to the clattering of window panes and the yawning knowledge that ricochets through my skull. \
 		The doors won't close. I can't keep the cold out now."
-	action_to_add = /datum/action/cooldown/spell/conjure/void_conduit
+	action_to_add = /datum/action/innate/conjure/void_conduit
 	cost = 1
 
 /datum/heretic_knowledge/spell/void_phase
@@ -125,7 +125,7 @@
 		Additionally causes damage to heathens around your original and target destination."
 	gain_text = "The entity calls themself the Aristocrat. They effortlessly walk through air like \
 		nothing - leaving a harsh, cold breeze in their wake. They disappear, and I am left in the blizzard."
-	action_to_add = /datum/action/cooldown/spell/pointed/void_phase
+	action_to_add = /datum/action/innate/pointed/void_phase
 	cost = 1
 	research_tree_icon_frame = 7
 
@@ -162,7 +162,7 @@
 	gain_text = "All is fleeting, but what else stays? I'm close to ending what was started. \
 		The Aristocrat reveals themselves to me again. They tell me I am late. Their pull is immense, I cannot turn back."
 
-	action_to_add = /datum/action/cooldown/spell/aoe/void_pull
+	action_to_add = /datum/action/innate/aoe/void_pull
 	cost = 1
 
 
@@ -190,7 +190,7 @@
 	var/datum/proximity_monitor/advanced/void_storm/heavy_storm
 
 /datum/heretic_knowledge/ultimate/void_final/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(!isopenturf(loc))
+	if(!is_space_or_openspace(loc))
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
@@ -209,11 +209,11 @@
 	sound_loop = new(user, TRUE, TRUE)
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	RegisterSignal(user, COMSIG_ATOM_PRE_BULLET_ACT, PROC_REF(hit_by_projectile))
-	RegisterSignals(user, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
+	RegisterSignal(user, list(COMSIG_LIVING_DEATH, COMSIG_QDELETING), PROC_REF(on_death))
 	heavy_storm = new(user, 10)
 	if(ishuman(user))
 		var/mob/living/carbon/human/ascended_human = user
-		var/obj/item/organ/eyes/heretic_eyes = ascended_human.get_organ_slot(ORGAN_SLOT_EYES)
+		var/obj/item/organ/internal/eyes/heretic_eyes = ascended_human.get_organ_slot(INTERNAL_ORGAN_EYES)
 		heretic_eyes?.color_cutoffs = list(30, 30, 30)
 		ascended_human.update_sight()
 
@@ -234,7 +234,7 @@
 	for(var/atom/thing_in_range as anything in range(10, source))
 		if(iscarbon(thing_in_range))
 			var/mob/living/carbon/close_carbon = thing_in_range
-			if(IS_HERETIC_OR_MONSTER(close_carbon))
+			if(isheretic_OR_MONSTER(close_carbon))
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
 			close_carbon.adjust_silence_up_to(2 SECONDS, 20 SECONDS)

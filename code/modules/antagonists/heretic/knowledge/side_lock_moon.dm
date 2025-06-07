@@ -17,7 +17,7 @@
 		The caster takes 20 brain damage per use."
 	gain_text = "My mind swings open like a gate, and its insight will let me perceive the truth."
 
-	action_to_add = /datum/action/cooldown/spell/pointed/mind_gate
+	action_to_add = /datum/action/innate/pointed/mind_gate
 	cost = 1
 
 /datum/heretic_knowledge/unfathomable_curio
@@ -29,7 +29,7 @@
 	gain_text = "The mansus holds many a curio, some are not meant for the mortal eye."
 
 	required_atoms = list(
-		/obj/item/organ/lungs = 1,
+		/obj/item/organ/internal/lungs = 1,
 		/obj/item/stack/rods = 3,
 		/obj/item/storage/belt = 1,
 	)
@@ -61,19 +61,19 @@
 
 
 /datum/heretic_knowledge/painting/recipe_snowflake_check(mob/living/user, list/atoms, list/selected_atoms, turf/loc)
-	if(locate(/obj/item/organ/eyes) in atoms)
+	if(locate(/obj/item/organ/internal/eyes) in atoms)
 		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/weeping)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
-			/obj/item/organ/eyes = 1,
+			/obj/item/organ/internal/eyes = 1,
 		)
 		return TRUE
 
-	if(locate(/obj/item/bodypart) in atoms)
+	if(locate(/obj/item/organ/external) in atoms)
 		src.result_atoms = list(/obj/item/wallframe/painting/eldritch/desire)
 		src.required_atoms = list(
 			/obj/item/canvas = 1,
-			/obj/item/bodypart = 1,
+			/obj/item/organ/external = 1,
 		)
 		return TRUE
 
@@ -124,15 +124,15 @@
 	)
 	result_atoms = list(/obj/item/codex_cicatrix/morbus)
 	cost = 1
-	research_tree_icon_path = 'icons/obj/antags/eldritch.dmi'
+	research_tree_icon_path = 'icons/obj/eldritch.dmi'
 	research_tree_icon_state = "book_morbus"
 
 /datum/heretic_knowledge/codex_morbus/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	var/mob/living/carbon/human/to_fuck_up = locate() in selected_atoms
 	for(var/_limb in to_fuck_up.bodyparts)
-		var/obj/item/bodypart/limb = _limb
+		var/obj/item/organ/external/limb = _limb
 		limb.force_wound_upwards(/datum/wound/slash/flesh/critical)
-	for(var/obj/item/bodypart/limb as anything in to_fuck_up.bodyparts)
+	for(var/obj/item/organ/external/limb as anything in to_fuck_up.bodyparts)
 		to_fuck_up.cause_wound_of_type_and_severity(WOUND_BLUNT, limb, WOUND_SEVERITY_CRITICAL)
 	return TRUE

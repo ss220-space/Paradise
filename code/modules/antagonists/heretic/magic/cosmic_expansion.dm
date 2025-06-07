@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/conjure/cosmic_expansion
+/datum/action/innate/conjure/cosmic_expansion
 	name = "Cosmic Expansion"
 	desc = "This spell generates a 3x3 domain of cosmic fields. \
 		Creatures up to 7 tiles away will also receive a star mark."
@@ -7,7 +7,7 @@
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "cosmic_domain"
 
-	sound = 'sound/effects/magic/cosmic_expansion.ogg'
+	sound = 'sound/magic/cosmic_expansion.ogg'
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 45 SECONDS
 
@@ -25,7 +25,7 @@
 	/// If the heretic is ascended or not
 	var/ascended = FALSE
 
-/datum/action/cooldown/spell/conjure/cosmic_expansion/cast(mob/living/cast_on)
+/datum/action/innate/conjure/cosmic_expansion/cast(mob/living/cast_on)
 	new expansion_effect(get_turf(cast_on))
 	for(var/mob/living/nearby_mob in range(star_mark_range, cast_on))
 		if(cast_on == nearby_mob || cast_on.buckled == nearby_mob)
@@ -36,7 +36,7 @@
 			new /obj/effect/forcefield/cosmic_field(cast_turf)
 	return ..()
 
-/datum/action/cooldown/spell/conjure/cosmic_expansion/proc/get_turfs(turf/target_turf)
+/datum/action/innate/conjure/cosmic_expansion/proc/get_turfs(turf/target_turf)
 	var/list/target_turfs = list()
 	for (var/direction as anything in GLOB.cardinals)
 		target_turfs += get_ranged_target_turf(target_turf, direction, 2)

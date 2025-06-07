@@ -32,7 +32,7 @@
 /datum/action/cancel_crucible_soul
 	name = "Recall"
 	desc = "Use to end the blessing early"
-	button_icon = 'icons/obj/antags/eldritch.dmi'
+	button_icon = 'icons/obj/eldritch.dmi'
 	button_icon_state = "crucible_soul"
 
 /datum/action/cancel_crucible_soul/Trigger(trigger_flags)
@@ -78,7 +78,7 @@
 	if(!iscarbon(owner))
 		return
 	var/mob/living/carbon/drinker = owner
-	for(var/obj/item/bodypart/potentially_wounded as anything in drinker.bodyparts)
+	for(var/obj/item/organ/external/potentially_wounded as anything in drinker.bodyparts)
 		for(var/datum/wound/found_wound as anything in potentially_wounded.wounds)
 			found_wound.remove_wound()
 	if(length(drinker.get_missing_limbs()))
@@ -94,7 +94,7 @@
 	carbie.adjustBruteLoss(-0.5 * seconds_between_ticks, updating_health = FALSE)
 	carbie.adjustFireLoss(-0.5 * seconds_between_ticks, updating_health = FALSE)
 	for(var/BP in carbie.bodyparts)
-		var/obj/item/bodypart/part = BP
+		var/obj/item/organ/external/part = BP
 		for(var/W in part.wounds)
 			var/datum/wound/wound = W
 			var/heal_amt = 0
@@ -138,7 +138,7 @@
 	id = "Silver Knives"
 	alert_type = null
 	status_type = STATUS_EFFECT_MULTIPLE
-	tick_interval = STATUS_EFFECT_NO_TICK
+	tick_interval = -1
 	/// The number of blades we summon up to.
 	var/max_num_blades = 4
 	/// The radius of the blade's orbit.
@@ -154,7 +154,7 @@
 
 /datum/status_effect/protective_blades/on_creation(
 	mob/living/new_owner,
-	new_duration = STATUS_EFFECT_PERMANENT,
+	new_duration = -1,
 	max_num_blades = 4,
 	blade_orbit_radius = 20,
 	time_between_initial_blades = 0.25 SECONDS,
@@ -256,7 +256,7 @@
 
 /datum/status_effect/protective_blades/recharging/on_creation(
 	mob/living/new_owner,
-	new_duration = STATUS_EFFECT_PERMANENT,
+	new_duration = -1,
 	max_num_blades = 4,
 	blade_orbit_radius = 20,
 	time_between_initial_blades = 0.25 SECONDS,
@@ -278,7 +278,7 @@
 /datum/status_effect/caretaker_refuge
 	id = "Caretaker’s Last Refuge"
 	status_type = STATUS_EFFECT_REFRESH
-	duration = STATUS_EFFECT_PERMANENT
+	duration = -1
 	alert_type = null
 	var/static/list/caretaking_traits = list(TRAIT_GODMODE, TRAIT_HANDS_BLOCKED, TRAIT_IGNORESLOWDOWN, TRAIT_SECLUDED_LOCATION)
 
@@ -328,7 +328,7 @@
 
 /datum/status_effect/caretaker_refuge/proc/prevent_spell_usage(datum/source, datum/spell)
 	SIGNAL_HANDLER
-	if(!istype(spell, /datum/action/cooldown/spell/caretaker))
+	if(!istype(spell, /datum/action/innate/caretaker))
 		owner.balloon_alert(owner, "may not cast spells in refuge!")
 		return SPELL_CANCEL_CAST
 

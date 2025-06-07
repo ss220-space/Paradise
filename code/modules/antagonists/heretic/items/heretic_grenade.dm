@@ -74,7 +74,7 @@
 		if(issilicon(exposed_mob) || ismecha(exposed_mob) || isbot(exposed_mob))
 			exposed_mob.adjustBruteLoss(500)
 		return
-	if(IS_HERETIC(exposed_mob))
+	if(isheretic(exposed_mob))
 		return
 	if(exposed_mob.can_block_magic(MAGIC_RESISTANCE_HOLY))
 		return
@@ -95,9 +95,9 @@
 			addtimer(CALLBACK(victim, TYPE_PROC_REF(/mob, remove_movespeed_modifier), /datum/movespeed_modifier/reagent/pepperspray), 10 SECONDS)
 		victim.update_damage_hud()
 		victim.adjust_disgust(5)
-		for(var/obj/item/bodypart/robotic_limb in victim.bodyparts)
+		for(var/obj/item/organ/external/robotic_limb in victim.bodyparts)
 			if(robotic_limb.biological_state & BIO_ROBOTIC)
-				robotic_limb.receive_damage(5, 5)
+				robotic_limb.internal_receive_damage(5, 5)
 	if(methods & INGEST)
 		if(!holder.has_reagent(/datum/reagent/consumable/milk))
 			if(prob(15))

@@ -27,11 +27,15 @@
 
 /obj/vehicle/ridden/janicart/Moved(atom/old_loc, movement_dir, forced, list/old_locs, momentum_change = TRUE)
 	. = ..()
-	if(. && installed_upgrade && isturf(loc))
-		loc.clean_blood()
-		for(var/obj/effect/check in loc)
-			if(check.is_cleanable())
-				qdel(check)
+	if(!. || !installed_upgrade || !isturf(loc))
+		return
+
+	loc.clean_blood()
+	for(var/obj/check in loc)
+		if(!HAS_TRAIT(check, TRAIT_MOPABLE))
+			continue
+
+		qdel(check)
 
 
 /obj/vehicle/ridden/janicart/examine(mob/user)

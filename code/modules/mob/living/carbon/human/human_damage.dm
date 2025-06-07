@@ -38,6 +38,63 @@
 		remove_movespeed_modifier(/datum/movespeed_modifier/damage_slowdown_flying)
 
 
+/**
+ * If an organ exists in the slot requested, and we are capable of taking damage (we don't have TRAIT_GODMODE), call the damage proc on that organ.
+ *
+ * Arguments:
+ * * slot - organ slot, like [INTERNAL_ORGAN_HEART]
+ * * amount - damage to be done
+ * * maximum - currently an arbitrarily large number, can be set so as to limit damage
+ * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOTIC
+ *
+ * Returns: The net change in damage from internal_receive_damage()
+ */
+/mob/living/carbon/adjustOrganLoss(slot, amount, maximum, required_organ_flag = NONE)
+	var/obj/item/organ/affected_organ = get_organ_slot(slot)
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	if(required_organ_flag && !(affected_organ.status & required_organ_flag))
+		return FALSE
+
+	return affected_organ.internal_receive_damage(amount, maximum)
+
+/**
+ * If an organ exists in the slot requested, and we are capable of taking damage (we don't have TRAIT_GODMODE), call the set damage proc on that organ, which can
+ * set or clear the failing variable on that organ, making it either cease or start functions again, unlike adjustOrganLoss.
+ *
+ * Arguments:
+ * * slot - organ slot, like [INTERNAL_ORGAN_HEART]
+ * * amount - damage to be set to
+ * * required_organ_flag - targets only a specific organ type if set to ORGAN_ORGANIC or ORGAN_ROBOTIC
+ *
+ * Returns: The net change in damage from set_organ_damage()
+ */
+/mob/living/carbon/setOrganLoss(slot, amount, required_organ_flag = NONE)
+	var/obj/item/organ/affected_organ = get_organ_slot(slot)
+	if(!affected_organ || HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	if(required_organ_flag && !(affected_organ.status & required_organ_flag))
+		return FALSE
+
+	if(affected_organ.damage == amount)
+		return FALSE
+
+	return affected_organ.set_organ_damage(amount)
+
+/**
+ * If an organ exists in the slot requested, return the amount of damage that organ has
+ *
+ * Arguments:
+ * * slot - organ slot, like [INTERNAL_ORGAN_HEART]
+ */
+/mob/living/carbon/get_organ_loss(slot)
+	var/obj/item/organ/affected_organ = get_organ_slot(slot)
+	if(affected_organ)
+		return affected_organ.damage
+
+
 /mob/living/carbon/human/adjustBrainLoss(
 	amount = 0,
 	updating_health = TRUE,
@@ -298,7 +355,7 @@
 		apply_status_effect(STATUS_EFFECT_VOMIT)
 
 	if(!mind)
-		return . 
+		return .
 
 	for(var/datum/objective/pain_hunter/objective in GLOB.all_objectives)
 		if(mind == objective.target)

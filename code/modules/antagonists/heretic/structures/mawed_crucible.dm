@@ -3,7 +3,7 @@
 	name = "mawed crucible"
 	desc = "A deep basin made of cast iron, immortalized by steel-like teeth holding it in place. \
 		Staring at the vile extract within fills your mind with terrible ideas."
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	icon_state = "crucible"
 	base_icon_state = "crucible"
 	break_sound = 'sound/effects/hallucinations/wail.ogg'
@@ -50,7 +50,7 @@
 
 /obj/structure/destructible/eldritch_crucible/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
+	if(!isheretic_OR_MONSTER(user) && !isobserver(user))
 		return
 
 	if(current_mass > 0)
@@ -62,14 +62,14 @@
 	else
 		. += span_boldnotice("[src] is bubbling to the brim with viscous liquid, and is ready to use.")
 
-	. += span_notice("You can <b>[anchored ? "unanchor and move":"anchor in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Mansus Grasp</b>.")
+	. += span_notice("You can <b>[anchored ? "unanchor and move":"anchor in place"]</b> [src] with a <b>Codex Cicatrix</b> or <b>Восприятие Мансуса</b>.")
 	. += span_info("The following potions can be brewed:")
 	for(var/obj/item/eldritch_potion/potion as anything in subtypesof(/obj/item/eldritch_potion))
 		var/potion_string = span_info("\tThe " + initial(potion.name) + " - " + initial(potion.crucible_tip))
 		. += potion_string
 
 /obj/structure/destructible/eldritch_crucible/examine_status(mob/user)
-	if(IS_HERETIC_OR_MONSTER(user) || isobserver(user))
+	if(isheretic_OR_MONSTER(user) || isobserver(user))
 		return span_notice("It's at <b>[round(atom_integrity * 100 / max_integrity)]%</b> stability.")
 	return ..()
 
@@ -79,11 +79,11 @@
 
 /obj/structure/destructible/eldritch_crucible/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
 	if(isbodypart(tool))
-		var/obj/item/bodypart/consumed = tool
+		var/obj/item/organ/external/consumed = tool
 		if(!IS_ORGANIC_LIMB(consumed))
 			balloon_alert(user, "not organic!")
 			return ITEM_INTERACT_BLOCKING
-		if(!IS_HERETIC_OR_MONSTER(user))
+		if(!isheretic_OR_MONSTER(user))
 			if(user.combat_mode)
 				return ITEM_INTERACT_SKIP_TO_ATTACK
 			bite_the_hand(user)
@@ -96,10 +96,10 @@
 		if(!IS_ORGANIC_ORGAN(consumed))
 			balloon_alert(user, "not organic!")
 			return ITEM_INTERACT_BLOCKING
-		if(consumed.organ_flags & ORGAN_VITAL) // Basically, don't eat organs like brains
+		if(consumed.status & ORGAN_VITAL) // Basically, don't eat organs like brains
 			balloon_alert(user, "invalid organ!")
 			return ITEM_INTERACT_BLOCKING
-		if(!IS_HERETIC_OR_MONSTER(user))
+		if(!isheretic_OR_MONSTER(user))
 			if(user.combat_mode)
 				return ITEM_INTERACT_SKIP_TO_ATTACK
 			bite_the_hand(user)
@@ -137,7 +137,7 @@
 	if(!isliving(user))
 		return
 
-	if(!IS_HERETIC_OR_MONSTER(user))
+	if(!isheretic_OR_MONSTER(user))
 		if(iscarbon(user))
 			bite_the_hand(user)
 		return TRUE
@@ -209,7 +209,7 @@
 	if(HAS_TRAIT(user, TRAIT_NODISMEMBER))
 		return
 
-	var/obj/item/bodypart/arm = user.get_active_hand()
+	var/obj/item/organ/external/arm = user.get_active_hand()
 	if(QDELETED(arm))
 		return
 
@@ -245,7 +245,7 @@
 /obj/item/eldritch_potion
 	name = "brew of day and night"
 	desc = "You should never see this"
-	icon = 'icons/obj/antags/eldritch.dmi'
+	icon = 'icons/obj/eldritch.dmi'
 	w_class = WEIGHT_CLASS_SMALL
 	/// When a heretic examines a mawed crucible, shows a list of possible potions by name + includes this tip to explain what it does.
 	var/crucible_tip = "Doesn't do anything."
@@ -254,7 +254,7 @@
 
 /obj/item/eldritch_potion/examine(mob/user)
 	. = ..()
-	if(!IS_HERETIC_OR_MONSTER(user) && !isobserver(user))
+	if(!isheretic_OR_MONSTER(user) && !isobserver(user))
 		return
 
 	. += span_notice(crucible_tip)
@@ -269,7 +269,7 @@
 
 	playsound(src, 'sound/effects/bubbles/bubbles.ogg', 50, TRUE)
 
-	if(!IS_HERETIC_OR_MONSTER(user))
+	if(!isheretic_OR_MONSTER(user))
 		to_chat(user, span_danger("You down some of the liquid from [src]. The taste causes you to retch, and the glass vanishes."))
 		user.reagents?.add_reagent(/datum/reagent/eldritch, 10)
 		user.adjust_disgust(50)

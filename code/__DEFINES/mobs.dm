@@ -309,6 +309,9 @@
 #define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
 #define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 #define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+#define ismonkey(A)		(istype(A, /datum/species/monkey))
+#define iswraith(A)		(istype(A, /mob/living/simple_animal/hostile/construct/wraith))
+#define isrevenant(A)		(istype(A, /mob/living/simple_animal/revenant))
 
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
@@ -520,3 +523,19 @@
 #define SQUASHED_SHOULD_BE_GIBBED (1<<0)
 
 #define MINING_FACTIONS list("mining", "boss")
+
+#define TRAUMA_RESILIENCE_BASIC 1 //Curable with chems
+#define TRAUMA_RESILIENCE_SURGERY 2 //Curable with brain surgery
+#define TRAUMA_RESILIENCE_LOBOTOMY 3 //Curable with lobotomy
+#define TRAUMA_RESILIENCE_WOUND 4 //Curable by healing the head wound
+#define TRAUMA_RESILIENCE_MAGIC 5 //Curable only with magic
+#define TRAUMA_RESILIENCE_ABSOLUTE 6 //This is here to stay
+
+
+//Limit of traumas for each resilience tier
+#define TRAUMA_LIMIT_BASIC 3
+#define TRAUMA_LIMIT_SURGERY 2
+#define TRAUMA_LIMIT_WOUND 2
+#define TRAUMA_LIMIT_LOBOTOMY 3
+#define TRAUMA_LIMIT_MAGIC 3
+#define TRAUMA_LIMIT_ABSOLUTE INFINITY

@@ -328,6 +328,13 @@
 	weapon_data.time_inflicted = world.time
 
 
+/obj/item/organ/proc/set_organ_damage(amount = 0, silent = 0)
+	if(amount >= damage)
+		internal_receive_damage(damage - amount, silent)
+		return
+
+	heal_internal_damage(damage - amount)
+
 /**
  * Adjusts internal organ damage value.
  *

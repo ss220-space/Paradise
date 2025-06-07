@@ -48,6 +48,7 @@
 		mark_target(target)
 		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
 
+	SEND_SIGNAL(user, COMSIG_USER_ITEM_INTERACTION, target, src)
 	. |= attackby_result
 	// yes a lot of QDELETED checks but attackby is a longest spaghetti code in the entire game
 	if((. & ATTACK_CHAIN_NO_AFTERATTACK) || QDELETED(src) || QDELETED(target) || QDELETED(user))

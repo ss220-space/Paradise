@@ -33,7 +33,7 @@
 
 /datum/heretic_knowledge/cosmic_grasp
 	name = "Grasp of Cosmos"
-	desc = "Your Mansus Grasp will give people a star mark (cosmic ring) and create a cosmic field where you stand. \
+	desc = "Your Восприятие Мансуса will give people a star mark (cosmic ring) and create a cosmic field where you stand. \
 		People with a star mark can not pass cosmic fields."
 	gain_text = "Some stars dimmed, others' magnitude increased. \
 		With newfound strength I could channel the nebula's power into myself."
@@ -62,13 +62,13 @@
 		However, people with a star mark will get transported along with another person using the rune."
 	gain_text = "The distant stars crept into my dreams, roaring and screaming without reason. \
 		I spoke, and heard my own words echoed back."
-	action_to_add = /datum/action/cooldown/spell/cosmic_rune
+	action_to_add = /datum/action/innate/cosmic_rune
 	cost = 1
 
 
 /datum/heretic_knowledge/mark/cosmic_mark
 	name = "Mark of Cosmos"
-	desc = "Your Mansus Grasp now applies the Mark of Cosmos. The mark is triggered from an attack with your Cosmic Blade. \
+	desc = "Your Восприятие Мансуса now applies the Mark of Cosmos. The mark is triggered from an attack with your Cosmic Blade. \
 		When triggered, the victim is returned to the location where the mark was originally applied to them, \
 		leaving a cosmic field in their place. \
 		They will then be paralyzed for 2 seconds."
@@ -86,7 +86,7 @@
 		The beam lasts a minute, until the beam is obstructed or until a new target has been found."
 	gain_text = "After waking in a cold sweat I felt a palm on my scalp, a sigil burned onto me. \
 		My veins now emitted a strange purple glow, the Beast knows I will surpass its expectations."
-	action_to_add = /datum/action/cooldown/spell/touch/star_touch
+	action_to_add = /datum/action/innate/touch/star_touch
 	cost = 1
 
 /datum/heretic_knowledge/spell/star_blast
@@ -94,7 +94,7 @@
 	desc = "Fires a projectile that moves very slowly, raising a short-lived wall of cosmic fields where it goes. \
 		Anyone hit by the projectile will receive burn damage, a knockdown, and give people in a three tile range a star mark."
 	gain_text = "The Beast was behind me now at all times, with each sacrifice words of affirmation coursed through me."
-	action_to_add = /datum/action/cooldown/spell/pointed/projectile/star_blast
+	action_to_add = /datum/action/innate/pointed/projectile/star_blast
 	cost = 1
 
 /datum/heretic_knowledge/blade_upgrade/cosmic
@@ -127,13 +127,13 @@
 
 /datum/heretic_knowledge/blade_upgrade/cosmic/do_melee_effects(mob/living/source, mob/living/target, obj/item/melee/sickly_blade/blade)
 	var/static/list/valid_organ_slots = list(
-		ORGAN_SLOT_HEART,
-		ORGAN_SLOT_LUNGS,
-		ORGAN_SLOT_STOMACH,
-		ORGAN_SLOT_EYES,
-		ORGAN_SLOT_EARS,
-		ORGAN_SLOT_LIVER,
-		ORGAN_SLOT_BRAIN
+		INTERNAL_ORGAN_HEART,
+		INTERNAL_ORGAN_LUNGS,
+		INTERNAL_ORGAN_STOMACH,
+		INTERNAL_ORGAN_EYES,
+		INTERNAL_ORGAN_EARS,
+		INTERNAL_ORGAN_LIVER,
+		INTERNAL_ORGAN_BRAIN
 	)
 	if(source == target || !isliving(target))
 		return
@@ -154,7 +154,7 @@
 		combo_counter += 1
 	if(second_target_resolved)
 		new /obj/effect/temp_visual/cosmic_explosion(get_turf(second_target_resolved))
-		playsound(get_turf(second_target_resolved), 'sound/effects/magic/cosmic_energy.ogg', 25, FALSE)
+		playsound(get_turf(second_target_resolved), 'sound/magic/cosmic_energy.ogg', 25, FALSE)
 		need_mob_update = FALSE
 		need_mob_update += second_target_resolved.adjustFireLoss(14, updating_health = FALSE)
 		need_mob_update += second_target_resolved.adjustOrganLoss(pick(valid_organ_slots), 12)
@@ -162,7 +162,7 @@
 			second_target_resolved.updatehealth()
 		if(third_target_resolved)
 			new /obj/effect/temp_visual/cosmic_domain(get_turf(third_target_resolved))
-			playsound(get_turf(third_target_resolved), 'sound/effects/magic/cosmic_energy.ogg', 50, FALSE)
+			playsound(get_turf(third_target_resolved), 'sound/magic/cosmic_energy.ogg', 50, FALSE)
 			need_mob_update = FALSE
 			need_mob_update += third_target_resolved.adjustFireLoss(28, updating_health = FALSE)
 			need_mob_update += third_target_resolved.adjustOrganLoss(pick(valid_organ_slots), 14)
@@ -199,7 +199,7 @@
 	desc = "Grants you Cosmic Expansion, a spell that creates a 3x3 area of cosmic fields around you. \
 		Nearby beings will also receive a star mark."
 	gain_text = "The ground now shook beneath me. The Beast inhabited me, and their voice was intoxicating."
-	action_to_add = /datum/action/cooldown/spell/conjure/cosmic_expansion
+	action_to_add = /datum/action/innate/conjure/cosmic_expansion
 	cost = 1
 
 /datum/heretic_knowledge/ultimate/cosmic_final
@@ -247,7 +247,7 @@
 	star_gazer_mob.befriend(user)
 	var/datum/action/cooldown/open_mob_commands/commands_action = new /datum/action/cooldown/open_mob_commands()
 	commands_action.Grant(user, star_gazer_mob)
-	var/datum/action/cooldown/spell/touch/star_touch/star_touch_spell = locate() in user.actions
+	var/datum/action/innate/touch/star_touch/star_touch_spell = locate() in user.actions
 	if(star_touch_spell)
 		star_touch_spell.set_star_gazer(star_gazer_mob)
 		star_touch_spell.ascended = TRUE
@@ -259,5 +259,5 @@
 	blade_upgrade.max_combo_duration = 30 SECONDS
 	blade_upgrade.increase_amount = 2 SECONDS
 
-	var/datum/action/cooldown/spell/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
+	var/datum/action/innate/conjure/cosmic_expansion/cosmic_expansion_spell = locate() in user.actions
 	cosmic_expansion_spell?.ascended = TRUE

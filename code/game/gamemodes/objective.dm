@@ -30,6 +30,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	var/datum/team/team
 	/// What the owner is supposed to do to complete the objective.
 	var/explanation_text = "Nothing"
+	var/team_explanation_text //For when there are multiple owners.
 	/// If the objective should have `find_target()` called for it.
 	var/needs_target = TRUE
 	/// If they are focused on a particular number. Steal objectives have their own counter.
@@ -135,6 +136,11 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 		target = pick(possible_targets)
 
 	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
+
+
+/datum/objective/proc/update_explanation_text()
+	if(team_explanation_text && LAZYLEN(get_owners()) > 1)
+		explanation_text = team_explanation_text
 
 
 /**

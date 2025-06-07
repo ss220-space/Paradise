@@ -38,11 +38,11 @@
 	SIGNAL_HANDLER
 	if(!isliving(viewer) || !can_see(viewer, src, range))
 		return
-	if(isnull(viewer.mind) || isnull(viewer.mob_mood) || viewer.stat != CONSCIOUS || viewer.is_blind())
+	if(isnull(viewer.mind) || viewer.stat != CONSCIOUS || viewer.is_blind())
 		return
 	if(viewer.has_trauma_type(applied_trauma))
 		return
-	if(IS_HERETIC(viewer))
+	if(isheretic(viewer))
 		return
 	if(viewer.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 		return
@@ -53,8 +53,8 @@
 
 /obj/structure/sign/painting/eldritch/wirecutter_act(mob/living/user, obj/item/I)
 	if(!user.can_block_magic(MAGIC_RESISTANCE))
-		user.add_mood_event("ripped_eldritch_painting", /datum/mood_event/eldritch_painting)
 		to_chat(user, span_hypnophrase("There's an itch in your brain. It's laughing at you..."))
+
 	qdel(src)
 	return ITEM_INTERACT_SUCCESS
 
@@ -71,7 +71,7 @@
 	addtimer(CALLBACK(src, PROC_REF(examine_effects), user), 0.2 SECONDS)
 
 /obj/structure/sign/painting/eldritch/proc/examine_effects(mob/living/carbon/examiner)
-	if(IS_HERETIC(examiner))
+	if(isheretic(examiner))
 		to_chat(examiner, span_notice("What an engrossing painting!"))
 	else
 		to_chat(examiner, span_notice("What a strange painting..."))
@@ -91,15 +91,12 @@
 	text_to_display = "Such beauty! Such sorrow!"
 
 /obj/structure/sign/painting/eldritch/weeping/examine_effects(mob/living/carbon/examiner)
-	if(!IS_HERETIC(examiner))
+	if(!isheretic(examiner))
 		to_chat(examiner, span_hypnophrase("Respite, for now...."))
-		examiner.mob_mood.mood_events.Remove("eldritch_weeping")
-		examiner.add_mood_event("weeping_withdrawal", /datum/mood_event/eldritch_painting/weeping_withdrawal)
 		return
 
 	to_chat(examiner, span_notice("Just gazing upon it clears your mind."))
 	examiner.remove_status_effect(/datum/status_effect/hallucination)
-	examiner.add_mood_event("heretic_eldritch_painting", /datum/mood_event/eldritch_painting/weeping_heretic)
 
 // The First Desire painting, using a lot of the painting/eldritch framework
 /obj/item/wallframe/painting/eldritch/desire
@@ -117,37 +114,34 @@
 
 // The special examine interaction for this painting
 /obj/structure/sign/painting/eldritch/desire/examine_effects(mob/living/carbon/examiner)
-	if(!IS_HERETIC(examiner))
+	if(!isheretic(examiner))
 		// Gives them some nutrition
 		examiner.adjust_nutrition(50)
 		to_chat(examiner, span_warning("You feel a searing pain in your stomach!"))
-		examiner.adjustOrganLoss(ORGAN_SLOT_STOMACH, 5)
+		examiner.adjustOrganLoss(INTERNAL_ORGAN_STOMACH, 5)
 		to_chat(examiner, span_notice("You feel less hungry."))
 		to_chat(examiner, span_warning("You should stockpile raw meat and organs, before you get hungry again."))
-		examiner.add_mood_event("respite_eldritch_hunger", /datum/mood_event/eldritch_painting/desire_examine)
 		return
 
 	// A list made of the organs and bodyparts the heretic can get
 	var/static/list/random_bodypart_or_organ = list(
-		/obj/item/organ/brain,
-		/obj/item/organ/lungs,
-		/obj/item/organ/eyes,
-		/obj/item/organ/ears,
-		/obj/item/organ/heart,
-		/obj/item/organ/liver,
-		/obj/item/organ/stomach,
-		/obj/item/organ/appendix,
-		/obj/item/bodypart/arm/left,
-		/obj/item/bodypart/arm/right,
-		/obj/item/bodypart/leg/left,
-		/obj/item/bodypart/leg/right
+		/obj/item/organ/internal/brain,
+		/obj/item/organ/internal/lungs,
+		/obj/item/organ/internal/eyes,
+		/obj/item/organ/internal/ears,
+		/obj/item/organ/internal/heart,
+		/obj/item/organ/internal/liver,
+		/obj/item/organ/internal/stomach,
+		/obj/item/organ/internal/appendix,
+		/obj/item/organ/external/arm/left,
+		/obj/item/organ/external/arm/right,
+		/obj/item/organ/external/leg/left,
+		/obj/item/organ/external/leg/right
 	)
 	var/organ_or_bodypart_to_spawn = pick(random_bodypart_or_organ)
 	new organ_or_bodypart_to_spawn(drop_location())
 	to_chat(examiner, span_notice("A piece of flesh crawls out of the painting and flops onto the floor."))
 	to_chat(examiner, span_warning("The void screams!"))
-	// Adds a negative mood event to our heretic
-	examiner.add_mood_event("heretic_eldritch_hunger", /datum/mood_event/eldritch_painting/desire_heretic)
 
 // Great chaparral over rolling hills, this one doesn't have the sensor type
 /obj/item/wallframe/painting/eldritch/vines
@@ -181,7 +175,7 @@
 
 /obj/structure/sign/painting/eldritch/vines/examine_effects(mob/living/carbon/examiner)
 	. = ..()
-	if(!IS_HERETIC(examiner))
+	if(!isheretic(examiner))
 		new /datum/spacevine_controller(get_turf(examiner), mutations, 0, 10)
 		to_chat(examiner, span_hypnophrase("You are transfixed for a moment by the vines on the painting."))
 		to_chat(examiner, span_notice("You feel something writhing around you."))
@@ -191,7 +185,6 @@
 	to_chat(examiner, span_notice("You are transfixed for a moment by the chaotic patterns the vines make."))
 	to_chat(examiner, span_notice("You feel life coalesce and bloom beneath you."))
 	new item_to_spawn(examiner.drop_location())
-	examiner.add_mood_event("heretic_vines", /datum/mood_event/eldritch_painting/heretic_vines)
 
 
 // Lady out of gates, gives a brain trauma causing the person to scratch themselves
@@ -216,7 +209,7 @@
 	if(!examiner.has_dna())
 		return
 
-	if(!IS_HERETIC(examiner))
+	if(!isheretic(examiner))
 		to_chat(examiner, span_hypnophrase("You are not yet pure."))
 		examiner.easy_random_mutate(NEGATIVE + MINOR_NEGATIVE)
 		return
@@ -242,10 +235,8 @@
 /obj/structure/sign/painting/eldritch/rust/examine_effects(mob/living/carbon/examiner)
 	. = ..()
 
-	if(!IS_HERETIC(examiner))
+	if(!isheretic(examiner))
 		to_chat(examiner, span_hypnophrase("You feel the rust. The rot."))
-		examiner.add_mood_event("rusted_examine", /datum/mood_event/eldritch_painting/rust_examine)
 		return
 
 	to_chat(examiner, span_notice("The painting fills you with resolve."))
-	examiner.add_mood_event("rusted_examine", /datum/mood_event/eldritch_painting/rust_heretic_examine)

@@ -896,6 +896,9 @@
 	if(next_hallucination > world.time)
 		return
 
+	if(HAS_MIND_TRAIT(owner, TRAIT_MADNESS_IMMUNE))
+		return
+
 	next_hallucination = world.time + rand(HALLUCINATE_COOLDOWN_MIN, HALLUCINATE_COOLDOWN_MAX) / (strength * HALLUCINATE_COOLDOWN_FACTOR)
 	if(!prob(HALLUCINATE_CHANCE))
 		return

@@ -35,7 +35,7 @@
 	src.pre_hit_callback = pre_hit_callback
 
 /datum/component/amputating_limbs/RegisterWithParent()
-	RegisterSignals(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HOSTILE_PRE_ATTACKINGTARGET), PROC_REF(try_amputate))
+	RegisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HOSTILE_PRE_ATTACKINGTARGET), PROC_REF(try_amputate))
 
 /datum/component/amputating_limbs/UnregisterFromParent()
 	UnregisterSignal(parent, list(COMSIG_LIVING_UNARMED_ATTACK, COMSIG_HOSTILE_PRE_ATTACKINGTARGET))
@@ -58,10 +58,11 @@
 		return
 
 	var/list/valid_targets = list()
-	for (var/obj/item/bodypart/possible_target as anything in limbed_victim.bodyparts)
+	for (var/obj/item/organ/external/possible_target as anything in limbed_victim.bodyparts)
 		if (possible_target.bodypart_flags & BODYPART_UNREMOVABLE)
 			continue
-		if (!(possible_target.body_zone in target_zones))
+
+		if (!(possible_target.parent_organ_zone in target_zones))
 			continue
 		valid_targets += possible_target
 

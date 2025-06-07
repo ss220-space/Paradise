@@ -26,6 +26,10 @@
 	var/can_repair = TRUE
 	var/construct_type = "shade"
 	var/list/construct_spells = list()
+	/// The construct's master
+	var/mob/construct_master = null
+	/// Whether this construct is currently seeking nar nar
+	var/seeking = FALSE
 	var/cult_icon_changing = TRUE //Changing the sprite from the type of cult
 	var/playstyle_string = "<b>You are a generic construct! Your job is to not exist, and you should probably adminhelp this.</b>"
 	var/holy = FALSE

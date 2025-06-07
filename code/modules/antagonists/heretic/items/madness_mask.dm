@@ -17,7 +17,7 @@
 
 /obj/item/clothing/mask/madness_mask/examine(mob/user)
 	. = ..()
-	if(IS_HERETIC_OR_MONSTER(user))
+	if(isheretic_OR_MONSTER(user))
 		. += span_notice("Actively drains the sanity and stamina of nearby non-heretics when worn.")
 		. += span_notice("If forced onto the face of a non-heretic, they will be unable to remove it willingly.")
 	else
@@ -33,7 +33,7 @@
 	local_user = user
 	START_PROCESSING(SSobj, src)
 
-	if(IS_HERETIC_OR_MONSTER(user))
+	if(isheretic_OR_MONSTER(user))
 		return
 
 	ADD_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
@@ -49,17 +49,15 @@
 	if(!local_user)
 		return PROCESS_KILL
 
-	if(IS_HERETIC_OR_MONSTER(local_user) && HAS_TRAIT(src, TRAIT_NODROP))
+	if(isheretic_OR_MONSTER(local_user) && HAS_TRAIT(src, TRAIT_NODROP))
 		REMOVE_TRAIT(src, TRAIT_NODROP, CLOTHING_TRAIT)
 
 	for(var/mob/living/carbon/human/human_in_range in view(local_user))
-		if(IS_HERETIC_OR_MONSTER(human_in_range) || human_in_range.is_blind())
+		if(isheretic_OR_MONSTER(human_in_range) || human_in_range.is_blind())
 			continue
 
 		if(human_in_range.can_block_magic(MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND))
 			continue
-
-		human_in_range.mob_mood.direct_sanity_drain(rand(-2, -20) * seconds_per_tick)
 
 		if(SPT_PROB(60, seconds_per_tick))
 			human_in_range.adjust_hallucinations_up_to(10 SECONDS, 120 SECONDS)

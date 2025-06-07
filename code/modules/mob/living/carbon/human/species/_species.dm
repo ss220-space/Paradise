@@ -1223,3 +1223,24 @@ It'll return null if the organ doesn't correspond, so include null checks when u
 /datum/species/proc/get_emote_pitch(mob/living/carbon/human/H, tolerance)
 	var/age_limits = get_age_limits(src, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 	return 1 + 0.5 * (age_limits[SPECIES_AGE_MIN] + 10 - H.age) / age_limits[SPECIES_AGE_MAX] + (0.01 * rand(-tolerance, tolerance))
+
+
+/datum/species/proc/get_liked_food(mob/living/carbon/human/owner)
+	if(HAS_TRAIT(owner, TRAIT_FLESH_DESIRE))
+		return MEAT | RAW
+
+	return liked_food
+
+
+/datum/species/proc/get_disliked_food(mob/living/carbon/human/owner)
+	if(HAS_TRAIT(owner, TRAIT_FLESH_DESIRE))
+		return VEGETABLES | DAIRY | FRUIT | FRIED
+
+	return disliked_food
+
+
+/datum/species/proc/get_toxic_food(mob/living/carbon/human/owner)
+	if(HAS_TRAIT(owner, TRAIT_FLESH_DESIRE))
+		return VEGETABLES | DAIRY | FRUIT | FRIED
+
+	return toxic_food

@@ -23,6 +23,9 @@
 	if(.) //not dead
 		handle_blood()
 
+	if(stat != DEAD)
+		handle_brain_damage(seconds, times_fired)
+
 	if(LAZYLEN(processing_patches))
 		handle_patches()
 
@@ -216,6 +219,16 @@
 //remember to remove the "proc" of the child procs of these.
 /mob/living/carbon/proc/handle_blood()
 	return
+
+
+////////////////
+//BRAIN DAMAGE//
+////////////////
+
+/mob/living/carbon/proc/handle_brain_damage(seconds_per_tick, times_fired)
+	for(var/trauma in get_traumas())
+		var/datum/brain_trauma/brain_trauma = trauma
+		brain_trauma.on_life(seconds_per_tick, times_fired)
 
 
 /mob/living/carbon/handle_mutations_and_radiation()

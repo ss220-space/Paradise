@@ -7,7 +7,7 @@
 	if(!isitem(target))
 		return ELEMENT_INCOMPATIBLE
 
-	RegisterSignal(target, COMSIG_ATOM_EXAMINE, PROC_REF(on_examine))
+	RegisterSignal(target, COMSIG_PARENT_EXAMINE, PROC_REF(on_examine))
 	RegisterSignal(target, COMSIG_ITEM_EQUIPPED, PROC_REF(on_equip))
 	RegisterSignal(target, COMSIG_ITEM_DROPPED, PROC_REF(on_drop))
 
@@ -20,7 +20,7 @@
 
 /datum/element/heretic_focus/Detach(obj/item/source)
 	. = ..()
-	UnregisterSignal(source, list(COMSIG_ATOM_EXAMINE, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
+	UnregisterSignal(source, list(COMSIG_PARENT_EXAMINE, COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED))
 	if(isliving(source.loc))
 		REMOVE_TRAIT(source.loc, TRAIT_ALLOW_HERETIC_CASTING, ELEMENT_TRAIT(source))
 
@@ -31,10 +31,10 @@
 /datum/element/heretic_focus/proc/on_examine(obj/item/source, mob/user, list/examine_list)
 	SIGNAL_HANDLER
 
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return
 
-	examine_list += span_notice("Allows you to cast advanced heretic spells when worn.")
+	examine_list += span_notice("При ношении позволяет применять сложные еретические заклинания.")
 
 /**
  * Signal proc for [COMSIG_ITEM_EQUIPPED].
@@ -43,7 +43,7 @@
 /datum/element/heretic_focus/proc/on_equip(obj/item/source, mob/user, slot)
 	SIGNAL_HANDLER
 
-	if(!IS_HERETIC(user))
+	if(!isheretic(user))
 		return
 
 	if(source.slot_flags && !(source.slot_flags & slot))

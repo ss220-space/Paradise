@@ -44,7 +44,7 @@
 /datum/component/living_heart/proc/on_organ_removed(obj/item/organ/source, mob/living/carbon/old_owner)
 	SIGNAL_HANDLER
 
-	to_chat(old_owner, span_userdanger("As your living [source.name] leaves your body, you feel less connected to the Mansus!"))
+	to_chat(old_owner, span_userdanger("[source.declent_ru(NOMINATIVE)] покидает ваше тело и вы чувствуете как ваша связь с Мансусом слабеет!"))
 	qdel(src)
 
 /**
@@ -55,7 +55,7 @@
 /datum/component/living_heart/proc/on_organ_replaced(obj/item/organ/source, obj/item/organ/replacement)
 	SIGNAL_HANDLER
 
-	if(IS_ROBOTIC_ORGAN(replacement))
+	if(isroboticorgan(replacement))
 		qdel(src)
 		return
 
@@ -66,11 +66,11 @@
  * Allows a heretic to track sacrifice targets.
  */
 /datum/action/cooldown/track_target
-	name = "Living Heartbeat"
-	desc = "LMB: Chose one of your sacrifice targets to track. RMB: Repeats last target you chose to track."
+	name = "Биение Живого Сердца"
+	desc = "ЛКМ: Выберите одну из целей жертвоприношения для отслеживания. ПКМ: Выбирает последнюю цель."
 	check_flags = AB_CHECK_CONSCIOUS
 	background_icon_state = "bg_heretic"
-	button_icon = 'icons/obj/antags/eldritch.dmi'
+	button_icon = 'icons/obj/eldritch.dmi'
 	button_icon_state = "living_heart"
 	cooldown_time = 4 SECONDS
 
@@ -84,7 +84,7 @@
 	var/datum/status_effect/agent_pinpointer/scan/heretic/heretic_pinpointer
 
 /datum/action/cooldown/track_target/Grant(mob/granted)
-	if(!IS_HERETIC(granted))
+	if(!isheretic(granted))
 		return
 
 	return ..()
@@ -94,23 +94,20 @@
 	if(!.)
 		return
 
-	if(!IS_HERETIC(owner))
+	if(!isheretic(owner))
 		return FALSE
+
 	if(radial_open)
 		return FALSE
 
 	return TRUE
 
-/datum/action/cooldown/track_target/Trigger(trigger_flags, atom/target)
-	right_clicked = !!(trigger_flags & TRIGGER_SECONDARY_ACTION)
-	return ..()
-
 /datum/action/cooldown/track_target/Activate(atom/target)
-	var/datum/antagonist/heretic/heretic_datum = GET_HERETIC(owner)
+	var/datum/antagonist/heretic/heretic_datum = owner.mind.has_antag_datum(/datum/antagonist/heretic)
 	var/datum/heretic_knowledge/sac_knowledge = heretic_datum.get_knowledge(/datum/heretic_knowledge/hunt_and_sacrifice)
 
 	if(!LAZYLEN(heretic_datum.sac_targets))
-		owner.balloon_alert(owner, "no targets, visit a rune!")
+		owner.balloon_alert(owner, "нет целей!")
 		StartCooldown(1 SECONDS)
 		return TRUE
 
@@ -126,15 +123,19 @@
 		blade_knowledge = heretic_datum.get_knowledge(potential_knowledge)
 		if(blade_knowledge)
 			break
+
 	for(var/datum/weakref/blade_ref as anything in blade_knowledge?.created_items)
 		var/obj/item/melee/sickly_blade/blade = blade_ref.resolve()
 		if(QDELETED(blade))
 			blade_knowledge.created_items -= blade_ref
 			continue
+
 		if(!istype(blade, /obj/item/melee/sickly_blade))
 			continue // Just in case someone makes a /datum/heretic_knowledge/limited_amount/starting that doesn't create blades
+
 		if(get(blade, /mob/living) == owner)
 			continue
+
 		// Means our blade is somewhere, but not on our person, so let's make it trackable
 		choosable_targets[blade.name] = image(icon = blade.icon, icon_state = blade.icon_state)
 		possible_tracked_atoms[blade.name] = blade
@@ -154,7 +155,7 @@
 			custom_check = CALLBACK(src, PROC_REF(check_menu)),
 			radius = 40,
 			require_near = TRUE,
-			tooltips = TRUE,
+			//tooltips = TRUE,
 		)
 		radial_open = FALSE
 
@@ -174,8 +175,9 @@
 	if(ismob(tracked_thing))
 		var/mob/tracked_mob = tracked_thing
 		if(tracked_mob.stat == DEAD)
-			to_chat(owner, span_hierophant("[tracked_mob] is dead. Bring them to a transmutation rune \
-				and invoke \"[sac_knowledge.name]\" to sacrifice them!"))
+			to_chat(owner, span_hierophant("[tracked_mob.declent_ru(NOMINATIVE)] мертв[genderize_ru(tracked_mob.gender, "", "а", "о", "ы")]. \
+											Принесите [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] на руну трансформации и скастуйте \
+											\"[sac_knowledge.name]\", чтобы принисти [genderize_ru(tracked_mob.gender, "его", "её", "его", "их")] в жертву!"))
 
 	StartCooldown()
 	return TRUE
@@ -184,13 +186,15 @@
 /datum/action/cooldown/track_target/proc/check_menu()
 	if(QDELETED(src))
 		return FALSE
-	if(!IS_HERETIC(owner))
+
+	if(!isheretic(owner))
 		return FALSE
+
 	return TRUE
 
 /// Gets the balloon message for who we're tracking.
 /datum/action/cooldown/track_target/proc/get_balloon_message(atom/tracked_thing)
-	var/balloon_message = "error text!"
+	var/balloon_message = "ошибка!"
 	var/turf/their_turf = get_turf(tracked_thing)
 	var/turf/our_turf = get_turf(owner)
 	var/their_z = their_turf?.z
@@ -199,7 +203,7 @@
 	// One of us is in somewhere we shouldn't be
 	if(!our_z || !their_z)
 		// "Hell if I know"
-		balloon_message = "on another plane!"
+		balloon_message = "на другом уровне!"
 
 	// They're not on the same z-level as us
 	else if(our_z != their_z)
@@ -208,24 +212,24 @@
 			// We're on a multi-z station
 			if(is_station_level(our_z))
 				if(our_z > their_z)
-					balloon_message = "below you!"
+					balloon_message = "под вами!"
 				else
-					balloon_message = "above you!"
+					balloon_message = "над вами!"
 			// We're off station, they're not
 			else
-				balloon_message = "on station!"
+				balloon_message = "на станции!"
 
 		// Mining
 		else if(is_mining_level(their_z))
-			balloon_message = "on lavaland!"
+			balloon_message = "на лаваленде!"
 
 		// In the gateway
-		else if(is_away_level(their_z) || is_secret_level(their_z))
-			balloon_message = "beyond the gateway!"
+		else if(is_away_level(their_z))
+			balloon_message = "в гейте!"
 
 		// They're somewhere we probably can't get too - sacrifice z-level, centcom, etc
 		else
-			balloon_message = "on another plane!"
+			balloon_message = "в другом секторе!"
 
 	// They're on the same z-level as us!
 	else
@@ -236,16 +240,16 @@
 
 		switch(dist)
 			if(0 to 15)
-				balloon_message = "very near, [dir2text(dir)]!"
+				balloon_message = "очень близко, [dir2textRU(dir)]!"
 				arrow_color = COLOR_GREEN
 			if(16 to 31)
-				balloon_message = "near, [dir2text(dir)]!"
+				balloon_message = "близко, [dir2textRU(dir)]!"
 				arrow_color = COLOR_YELLOW
 			if(32 to 127)
-				balloon_message = "far, [dir2text(dir)]!"
+				balloon_message = "далеко, [dir2textRU(dir)]!"
 				arrow_color = COLOR_ORANGE
 			else
-				balloon_message = "very far!"
+				balloon_message = "очень далеко!"
 				arrow_color = COLOR_RED
 
 		if(owner.hud_used)
@@ -254,13 +258,13 @@
 	if(ismob(tracked_thing))
 		var/mob/tracked_mob = tracked_thing
 		if(tracked_mob.stat == DEAD)
-			balloon_message = "they're dead, " + balloon_message
+			balloon_message = "мертв[genderize_ru(tracked_mob.gender, "ый", "ая", "ое", "ые")] " + balloon_message
 
 	return balloon_message
 
 /atom/movable/screen/navigate_arrow
 	icon = 'icons/effects/96x96.dmi'
-	name = "farsight arrow"
+	name = "указатель"
 	icon_state = "navigate_arrow_appear"
 	pixel_x = -32
 	pixel_y = -32
@@ -268,14 +272,16 @@
 
 /atom/movable/screen/navigate_arrow/Initialize(mapload, datum/hud/hud_owner, turf/tracked_turf, arrow_color)
 	. = ..()
-	var/mob/owner = get_mob()
+	var/mob/owner = hud?.mymob
 	if (owner)
 		animate(src, transform = matrix(get_angle(owner, tracked_turf), MATRIX_ROTATE), 0.2 SECONDS)
+
 	screen_loc = around_player
 	color = arrow_color
 	if (hud)
 		hud.infodisplay += src
 		hud.show_hud(hud.hud_version)
+
 	addtimer(CALLBACK(src, PROC_REF(end_effect)), 1.6 SECONDS)
 
 /atom/movable/screen/navigate_arrow/proc/end_effect()

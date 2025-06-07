@@ -1,4 +1,4 @@
-/datum/action/cooldown/spell/aoe/moon_ringleader
+/datum/action/innate/aoe/moon_ringleader
 	name = "Ringleaders Rise"
 	desc = "Big AoE spell that deals brain damage and causes hallucinations to everyone in the AoE. \
 			The worse their sanity, the stronger this spell becomes. \
@@ -20,20 +20,20 @@
 	/// Effect for when the spell triggers
 	var/obj/effect/moon_effect = /obj/effect/temp_visual/moon_ringleader
 
-/datum/action/cooldown/spell/aoe/moon_ringleader/cast(mob/living/caster)
+/datum/action/innate/aoe/moon_ringleader/cast(mob/living/caster)
 	new moon_effect(get_turf(caster))
 	return ..()
 
-/datum/action/cooldown/spell/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
+/datum/action/innate/aoe/moon_ringleader/get_things_to_cast_on(atom/center, radius_override)
 	var/list/stuff = list()
 	var/list/o_range = orange(center, radius_override || aoe_radius) - list(owner, center)
 	for(var/mob/living/carbon/nearby_mob in o_range)
 		if(nearby_mob.stat == DEAD)
 			continue
-		if(!nearby_mob.mob_mood)
+
+		if(isheretic_OR_MONSTER(nearby_mob))
 			continue
-		if(IS_HERETIC_OR_MONSTER(nearby_mob))
-			continue
+
 		if(nearby_mob.can_block_magic(antimagic_flags))
 			continue
 
@@ -41,17 +41,10 @@
 
 	return stuff
 
-/datum/action/cooldown/spell/aoe/moon_ringleader/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/caster)
-	var/victim_sanity = victim.mob_mood.sanity
-
-	victim.adjustOrganLoss(ORGAN_SLOT_BRAIN, 100 - victim_sanity, 160)
+/datum/action/innate/aoe/moon_ringleader/cast_on_thing_in_aoe(mob/living/carbon/victim, mob/living/caster)
+	victim.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 100 - victim_sanity, 160)
 	for(var/i in 1 to round((120 - victim_sanity) / 10))
 		victim.cause_hallucination(get_random_valid_hallucination_subtype(/datum/hallucination/body), name)
-	if(victim_sanity < 15)
-		victim.apply_status_effect(/datum/status_effect/moon_converted)
-		caster.log_message("made [victim] insane.", LOG_GAME)
-		victim.log_message("was driven insane by [caster]")
-	victim.mob_mood.adjust_sanity(victim_sanity * -0.5)
 
 
 /obj/effect/temp_visual/moon_ringleader
