@@ -36,8 +36,8 @@
 	return null
 
 /obj/item/radio/beacon/verb/alter_signal(t as text)
-	set name = "Изменить сигнал маяка"
-	set category = "Объекты"
+	set name = "Alter Beacon's Signal"
+	set category = "Object"
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

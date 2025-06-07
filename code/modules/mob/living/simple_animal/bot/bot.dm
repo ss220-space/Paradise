@@ -1264,7 +1264,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 
 /mob/living/simple_animal/bot/verb/show_laws()
-	set name = "Показать набор законов"
+	set name = "Show Directives"
 	set category = "IC"
 
 	to_chat(src, "<b>Набор законов:</b>")
