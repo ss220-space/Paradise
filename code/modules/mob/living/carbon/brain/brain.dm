@@ -74,8 +74,8 @@ I'm using this for Stat to give it a more nifty interface to work with
 		//Knowing how well-off your mech is doing is really important as an MMI
 		if(ismecha(src.loc))
 			var/obj/mecha/M = src.loc
-			status_tab_data[++status_tab_data.len] = list("Exosuit Charge:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "No cell detected"]")
-			status_tab_data[++status_tab_data.len] = list("Exosuit Integrity", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
+			status_tab_data[++status_tab_data.len] = list("Заряд экзоскелета:", "[istype(M.cell) ? "[M.cell.charge] / [M.cell.maxcharge]" : "Батарея отсутствует"]")
+			status_tab_data[++status_tab_data.len] = list("Прочность экзоскелета:", "[!M.obj_integrity ? "0" : "[(M.obj_integrity / M.max_integrity) * 100]"]%")
 
 
 /mob/living/carbon/brain/can_safely_leave_loc()

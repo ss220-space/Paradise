@@ -459,8 +459,8 @@
 	var/strap_side_straight = FALSE
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
-	set name = "Switch Strap Side"
-	set category = "Object"
+	set name = "Перекинуть через другое плечо"
+	set category = "Объекты"
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

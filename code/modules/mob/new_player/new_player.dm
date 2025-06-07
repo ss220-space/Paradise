@@ -660,6 +660,7 @@
 /mob/new_player/proc/close_spawn_windows()
 	close_window(src, "latechoices") //closes late choices window
 	close_window(src, "playersetup") //closes the player setup window
+	close_window(src, "preferences")
 	close_window(src, "preferences") //closes preferences
 	close_window(src, "mob_occupation") //closes job selection
 

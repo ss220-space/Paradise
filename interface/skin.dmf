@@ -137,7 +137,7 @@ menu "menu"
 		saved-params = "is-checked"
 	elem
 		name = "&Открыть микшер громкости"
-		command = "Open-Volume-Mixer"
+		command = "Открыть-микшер-громкости"
 		category = "&Опции"
 		saved-params = "is-checked"
 	elem "statusbar"
@@ -149,7 +149,7 @@ menu "menu"
 		saved-params = "is-checked"
 	elem
 		name = "&Игровые предпочтения"
-		command = "Game-Preferences"
+		command = "Игровые-предпочтения"
 		category = "&Опции"
 		saved-params = "is-checked"
 	elem
@@ -157,23 +157,23 @@ menu "menu"
 		command = ""
 		saved-params = "is-checked"
 	elem
-		name = "&Помощь админа"
-		command = "adminhelp"
+		name = "&Помощь администрации"
+		command = "Помощь-администрации"
 		category = "&Помощь"
 		saved-params = "is-checked"
 	elem
 		name = "&Подгонка области видимости"
-		command = "Fit-Viewport"
+		command = "Подгонка-области-видимости"
 		category = "&Помощь"
 		saved-params = "is-checked"
 	elem
 		name = "&Обновить TGUI"
-		command = "Refresh-TGUI"
+		command = "Обновить-TGUI"
 		category = "&Помощь"
 		saved-params = "is-checked"
 	elem
 		name = "&Починить чат"
-		command = "Fix-Chat"
+		command = "Починить-чат"
 		category = "&Помощь"
 		saved-params = "is-checked"
 
@@ -311,7 +311,7 @@ window "infobuttons"
 		anchor2 = 13,100
 		saved-params = "is-checked"
 		text = "Полный экран"
-		command = "fullscreen"
+		command = "Полноэкранный-режим"
 
 	elem "textb"
 		type = BUTTON

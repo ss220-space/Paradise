@@ -210,7 +210,7 @@
 
 /obj/item/reagent_containers/glass/beaker/verb/remove_assembly()
 	set name = "Отсоединить"
-	set category = "Object"
+	set category = "Объекты"
 	set src in usr
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

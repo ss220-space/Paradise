@@ -126,7 +126,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
-	set name = "Eject ID Card"
+	set name = "Извлечь ID-карту"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

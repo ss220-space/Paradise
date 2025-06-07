@@ -18,7 +18,7 @@
 
 /obj/item/reagent_containers/verb/set_APTFT() //set amount_per_transfer_from_this
 	set name = "Установить объём перемещения"
-	set category = "Object"
+	set category = "Объекты"
 	set src in usr
 
 	if(!ishuman(usr) && !isrobot(usr))
@@ -50,7 +50,7 @@
 /obj/item/reagent_containers/verb/empty()
 
 	set name = "Вылить содержимое"
-	set category = "Object"
+	set category = "Объекты"
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

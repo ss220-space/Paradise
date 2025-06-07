@@ -406,7 +406,7 @@ GLOBAL_LIST_EMPTY(ts_spiderling_list)
 	. = status_tab_data
 	if(ckey && stat == CONSCIOUS)
 		if(degenerate || !spider_awaymission && GLOB.global_degenerate)
-			status_tab_data[++status_tab_data.len] = list("Связь:", "<font color='#eb4034'>Связь с Коллективным разумом разорвана! Смерть..</font>") // color=red
+			status_tab_data[++status_tab_data.len] = list("Связь:", span_fontcolor_red("Связь с Коллективным Разумом разорвана! Смерть...")) // color=red
 
 /mob/living/simple_animal/hostile/poison/terror_spider/proc/DoRemoteView()
 	if(!isturf(loc))

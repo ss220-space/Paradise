@@ -24,7 +24,7 @@
 	damage = 3
 	attacked = -2
 	stat_text = ""
-	stat_text_evolve = "evolve to adult form"
+	stat_text_evolve = "эволюционировать во взрослую форму"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD
 	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD
 	max_nutrition = 1000
@@ -43,8 +43,8 @@
 	health = 200
 	damage = 5
 	attacked = 0
-	stat_text = "reproduce"
-	stat_text_evolve = "evolve to old form"
+	stat_text = "размножиться"
+	stat_text_evolve = "эволюционировать в старую форму"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_OLD
 	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD
 	max_nutrition = 1200
@@ -63,8 +63,8 @@
 	health = 300
 	damage = 7
 	attacked = 2
-	stat_text = "big reproduce"
-	stat_text_evolve = "evolve to elder form"
+	stat_text = "сильно размножиться"
+	stat_text_evolve = "эволюционировать в древнюю форму"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE
 	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD_OLD
 	max_nutrition = 3000
@@ -83,8 +83,8 @@
 	health = 400
 	damage = 10
 	attacked = 5
-	stat_text = "huge reproduce"
-	stat_text_evolve = "evolve to slimeman"
+	stat_text = "обильно размножиться"
+	stat_text_evolve = "эволюционировать в слаймолюда"
 	amount_grown = SLIME_EVOLUTION_THRESHOLD_EVOLVE_SLIMEMAN
 	amount_grown_for_split = SLIME_EVOLUTION_THRESHOLD_OLD
 	max_nutrition = 6000

@@ -104,9 +104,9 @@
 	AddElement(/datum/element/strippable, length(strippable_inventory_slots) ? create_strippable_list(strippable_inventory_slots) : GLOB.strippable_snake_items)
 
 /mob/living/simple_animal/hostile/retaliate/poison/snake/rouge/verb/chasetail()
-	set name = "Chase your tail"
+	set name = "Гоняться за своим хвостом"
 	set desc = "d'awwww."
-	set category = "Animal"
+	set category = "Животное"
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
 
