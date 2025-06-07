@@ -178,7 +178,7 @@
 		qdel(src)
 
 /datum/action/innate/end_holocall
-	name = "End Holocall"
+	name = "Закончить звонок"
 	button_icon_state = "camera_off"
 	var/datum/holocall/hcall
 

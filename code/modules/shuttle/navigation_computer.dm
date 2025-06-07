@@ -324,7 +324,7 @@
 	return TRUE
 
 /datum/action/innate/shuttledocker_rotate
-	name = "Rotate"
+	name = "Повернуть"
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_cycle_equip_off"
 
@@ -337,7 +337,7 @@
 	origin.rotateLandingSpot()
 
 /datum/action/innate/shuttledocker_place
-	name = "Place"
+	name = "Выбрать место"
 	icon_icon = 'icons/mob/actions/actions_mecha.dmi'
 	button_icon_state = "mech_zoom_off"
 
@@ -350,7 +350,7 @@
 	origin.placeLandingSpot(target)
 
 /datum/action/innate/camera_jump/shuttle_docker
-	name = "Jump to Location"
+	name = "Телепорт в локацию"
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/shuttle_docker/Activate()
@@ -380,6 +380,6 @@
 		if(T)
 			playsound(console, 'sound/machines/terminal_prompt_confirm.ogg', 25, 0)
 			remote_eye.setLoc(T)
-			to_chat(target, "<span class='notice'>Jumped to [selected]</span>")
+			to_chat(target, span_notice("Телепорт в [selected]"))
 	else
 		playsound(console, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)

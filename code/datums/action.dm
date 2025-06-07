@@ -296,7 +296,7 @@
 	name = "Взять электроды"
 
 /datum/action/item_action/set_internals
-	name = "Переключить балон"
+	name = "Переключить баллон"
 
 /datum/action/item_action/set_internals/UpdateButtonIcon()
 	if(..()) //button available
@@ -307,7 +307,7 @@
 				button.icon_state = "bg_default_on"
 
 /datum/action/item_action/set_internals_ninja
-	name = "Переключить балон"
+	name = "Переключить баллон"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
@@ -319,7 +319,8 @@
 				button.icon_state = "[background_icon_state]_active"
 
 
-/datum/action/item_action/toggle_mister	name = "Переключить распылитель"
+/datum/action/item_action/toggle_mister
+	name = "Переключить распылитель"
 
 /datum/action/item_action/toggle_helmet_light
 	name = "Переключить фонарь шлема"

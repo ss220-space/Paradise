@@ -1,5 +1,5 @@
 /datum/action/innate/alien_nightvision_toggle
-	name = "Toggle Night Vision"
+	name = "Переключить ночное зрение"
 	button_icon_state = "meson"
 
 

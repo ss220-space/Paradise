@@ -327,7 +327,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 
 //igniter. only for ashwalkers and drakonids because of """lore"""
 /datum/action/innate/ignite_unathi
-	name = "поджог"
+	name = "Поджог"
 	desc = "Вы формируете небольшой сгусток пламени в вашей пасти, достаточный для... розжига костра."
 	icon_icon = 'icons/obj/cigarettes.dmi'
 	button_icon_state = "match_unathi"
@@ -360,7 +360,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 /datum/action/innate/shaman_gps/Activate()
 	var/list/list_of_points = GLOB.lavaland_points_of_interest
 	if(list_of_points)
-		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", list_of_points)
+		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "Точки интереса", list_of_points)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
 							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
 	else

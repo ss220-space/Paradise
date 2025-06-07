@@ -3,7 +3,7 @@
 	background_icon_state = "bg_terror"
 
 /datum/action/innate/terrorspider/web
-	name = "Web"
+	name = "Паутина"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "stickyweb1"
 
@@ -12,7 +12,7 @@
 	user.Web()
 
 /datum/action/innate/terrorspider/wrap
-	name = "Wrap"
+	name = "Завернуть"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "cocoon_large1"
 
@@ -24,7 +24,7 @@
 // ---------- GREEN ACTIONS
 
 /datum/action/innate/terrorspider/greeneggs
-	name = "Lay Green Eggs"
+	name = "Отложить зелёные яйца"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
@@ -43,7 +43,7 @@
 	user.activate_mode(0)
 
 /datum/action/innate/terrorspider/knight/attackm
-	name = "Rage"
+	name = "Ярость"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "attack"
 
@@ -52,7 +52,7 @@
 	user.activate_mode(1)
 
 /datum/action/innate/terrorspider/knight/defencem
-	name = "Keratosis"
+	name = "Кератоз"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "defence"
 
@@ -63,7 +63,7 @@
 // ---------- BOSS ACTIONS
 
 /datum/action/innate/terrorspider/ventsmash
-	name = "Smash Welded Vent"
+	name = "Сломать вентиляцию"
 	icon_icon = 'icons/obj/pipes_and_stuff/atmospherics/atmos/vent_pump.dmi'
 	button_icon_state = "map_vent"
 
@@ -72,7 +72,7 @@
 	user.DoVentSmash()
 
 /datum/action/innate/terrorspider/remoteview
-	name = "Remote View"
+	name = "Удалённое зрение"
 	icon_icon = 'icons/obj/eyes.dmi'
 	button_icon_state = "heye"
 
@@ -83,7 +83,7 @@
 // ---------- QUEEN ACTIONS
 
 /datum/action/innate/terrorspider/queen/queennest
-	name = "Nest"
+	name = "Гнездо"
 	icon_icon = 'icons/mob/terrorspider.dmi'
 	button_icon_state = "terror_queen"
 
@@ -92,7 +92,7 @@
 	user.NestPrompt()
 
 /datum/action/innate/terrorspider/queen/queensense
-	name = "Hive Sense"
+	name = "Чувство улья"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "mindswap"
 
@@ -101,7 +101,7 @@
 	user.DoHiveSense()
 
 /datum/action/innate/terrorspider/queen/queeneggs
-	name = "Lay Queen Eggs"
+	name = "Отложить королевские яйца"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "eggs"
 
@@ -113,7 +113,7 @@
 // ---------- EMPRESS
 
 /datum/action/innate/terrorspider/queen/empress/empresserase
-	name = "Empress Erase Brood"
+	name = "Уничтожить выводок"
 	icon_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "mgibbl1"
 
@@ -122,7 +122,7 @@
 	user.EraseBrood()
 
 /datum/action/innate/terrorspider/queen/empress/empresslings
-	name = "Empresss Spiderlings"
+	name = "Паучки императрицы"
 	icon_icon = 'icons/effects/effects.dmi'
 	button_icon_state = "spiderling"
 
