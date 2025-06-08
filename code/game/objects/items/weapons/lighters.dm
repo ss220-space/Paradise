@@ -1,7 +1,7 @@
 // Basic lighters
 /obj/item/lighter
 	name = "cheap lighter"
-	desc = "A cheap-as-free lighter."
+	desc = "Стандартная дешёвая зажигалка."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "lighter-g"
 	item_state = "lighter-g"
@@ -55,12 +55,12 @@
 
 /obj/item/lighter/proc/attempt_light(mob/living/user)
 	if(prob(75) || issilicon(user)) // Robots can never burn themselves trying to light it.
-		to_chat(user, span_notice("You light [src]."))
+		to_chat(user, span_notice("Вы зажгли [src]."))
 	else if(HAS_TRAIT(user, TRAIT_BADASS))
-		to_chat(user, span_notice("[src]'s flames lick your hand as you light it, but you don't flinch."))
+		to_chat(user, span_notice("Как только вы зажгли [src], [genderize_ru(user.gender, "его", "её", "его", "их")] пламя окутывает вашу руку, но вы даже не дёрнулись."))
 	else
 		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
-		to_chat(user, span_notice("You light [src], but you burn your hand in the process."))
+		to_chat(user, span_notice("Вы зажгли [src], но в процессе обожгли себе руку."))
 	if(world.time > next_on_message)
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
@@ -84,7 +84,7 @@
 	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
-	to_chat(user, "<span class='notice'>You shut off [src].")
+	to_chat(user, "<span class='notice'>Вы затушили [src.declent_ru(ACCUSATIVE)].")
 	if(world.time > next_off_message)
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
@@ -105,7 +105,7 @@
 
 	var/obj/item/clothing/mask/cigarette/cig = target.wear_mask
 	if(cig.lit)
-		to_chat(user, span_notice("The [cig.name] is already lit."))
+		to_chat(user, span_notice("[cig.name] уже зажжена."))
 		return return_flags
 
 	if(target == user)
@@ -115,9 +115,9 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] whips the [name] out and holds it for [target]. [user.p_their(TRUE)] arm is as steady as the unflickering flame [user.p_they()] light[user.p_s()] [cig] with."))
+		cig.light(span_rose("[user] достает [name] и держит его у [target]. Рука [user.declent_ru(GENITIVE)] тверда, как негасимое пламя, которым [genderize_ru(living_pawn.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
 	else
-		cig.light(span_notice("[user] holds the [name] out for [target], and lights the [cig.name]."))
+		cig.light(span_notice("[user] держит [name.declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	target.update_inv_wear_mask()
@@ -131,8 +131,8 @@
 
 // Zippo lighters
 /obj/item/lighter/zippo
-	name = "zippo lighter"
-	desc = "The zippo."
+	name = "Зажигалка Zippo"
+	desc = "Металлическая бензиновая зажигалка Zippo."
 	icon_state = "zippo"
 	item_state = "zippo"
 	icon_on = "zippoon"
@@ -143,7 +143,7 @@
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		user.balloon_alert(user, "Потушите зажигалку!")
 		return FALSE
 	else
 		return TRUE
@@ -151,11 +151,11 @@
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
 	if(world.time > next_on_message)
-		user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
+		user.visible_message("<span class='rose'>Не отвлекаясь от дела, [user] одним плавным движением открывает и зажигает [src.declent_ru(ACCUSATIVE)].</span>")
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You light [src].</span>")
+		to_chat(user, "<span class='notice'>Вы зажигаете [src.declent_ru(ACCUSATIVE)].</span>")
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
@@ -163,11 +163,11 @@
 		return
 
 	if(world.time > next_off_message)
-		user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
+		user.visible_message("<span class='rose'>Вы слышите тихий щелчок, когда [user] закрывает [src.declent_ru(ACCUSATIVE)], даже не обращая внимания на то, что дела[pluralize_ru(user.gender, "ет", "ют")]. Во дает.")
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You shut off [src].")
+		to_chat(user, "<span class='notice'>Вы закрываете [src.declent_ru(ACCUSATIVE)].")
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return
@@ -178,7 +178,7 @@
 //EXTRA LIGHTERS
 /obj/item/lighter/zippo/nt_rep
 	name = "gold engraved zippo"
-	desc = "An engraved golden Zippo lighter with the letters NT on it."
+	desc = "Золотая зажигалка Zippo с гравировкой и буквами NT на ней."
 	icon_state = "zippo_nt_off"
 	item_state = "ntzippo"
 	icon_on = "zippo_nt_on"
@@ -186,7 +186,7 @@
 
 /obj/item/lighter/zippo/blue
 	name = "blue zippo lighter"
-	desc = "A zippo lighter made of some blue metal."
+	desc = "Зажигалка Zippo, сделанная из какого-то синего металла."
 	icon_state = "bluezippo"
 	item_state = "bluezippo"
 	icon_on = "bluezippoon"
@@ -194,7 +194,7 @@
 
 /obj/item/lighter/zippo/black
 	name = "black zippo lighter"
-	desc = "A black zippo lighter."
+	desc = "Чёрная зажигалка Zippo."
 	icon_state = "blackzippo"
 	item_state = "chapzippo"
 	icon_on = "blackzippoon"
@@ -202,7 +202,7 @@
 
 /obj/item/lighter/zippo/engraved
 	name = "engraved zippo lighter"
-	desc = "A intricately engraved zippo lighter."
+	desc = "Зажигалка zippo с замысловатой гравировкой."
 	icon_state = "engravedzippo"
 	item_state = "engravedzippo"
 	icon_on = "engravedzippoon"
@@ -210,7 +210,7 @@
 
 /obj/item/lighter/zippo/gonzofist
 	name = "Gonzo Fist zippo"
-	desc = "A Zippo lighter with the iconic Gonzo Fist on a matte black finish."
+	desc = "Зажигалка Zippo с культовым изображением Кулака Гонзо на матовой чёрной поверхности."
 	icon_state = "gonzozippo"
 	item_state = "gonzozippo"
 	icon_on = "gonzozippoon"
@@ -218,7 +218,7 @@
 
 /obj/item/lighter/zippo/cap
 	name = "Captain's zippo"
-	desc = "A limited edition gold Zippo espesially for NT Captains. Looks extremely expensive."
+	desc = "Ограниченная серия золотых Zippo специально для капитанов НТ. Выглядит очень роскошно."
 	icon_state = "zippo_cap"
 	item_state = "capzippo"
 	icon_on = "zippo_cap_on"
@@ -226,7 +226,7 @@
 
 /obj/item/lighter/zippo/hop
 	name = "Head of personnel zippo"
-	desc = "A limited edition Zippo for NT Heads. Tries it best to look like captain's."
+	desc = "Ограниченная серия Zippo для Глав станций НаноТрейзен. Старается изо всех сил выглядеть как капитанская."
 	icon_state = "zippo_hop"
 	item_state = "hopzippo"
 	icon_on = "zippo_hop_on"
@@ -234,7 +234,7 @@
 
 /obj/item/lighter/zippo/hos
 	name = "Head of Security zippo"
-	desc = "A limited edition Zippo for NT Heads. Fuel it with clown's tears."
+	desc = "Ограниченная серия Zippo для Глав станций НаноТрейзен. Работает на клоунских слезах."
 	icon_state = "zippo_hos"
 	item_state = "hoszippo"
 	icon_on = "zippo_hos_on"
@@ -242,7 +242,7 @@
 
 /obj/item/lighter/zippo/cmo
 	name = "Chief Medical Officer zippo"
-	desc = "A limited edition Zippo for NT Heads. Made of hypoallergenic steel."
+	desc = "Ограниченная серия Zippo для Глав станций НаноТрейзен. Сделано из гипоаллергенной стали."
 	icon_state = "zippo_cmo"
 	item_state = "bluezippo"
 	icon_on = "zippo_cmo_on"
@@ -250,7 +250,7 @@
 
 /obj/item/lighter/zippo/ce
 	name = "Chief Engineer zippo"
-	desc = "A limited edition Zippo for NT Heads. Somebody've tried to repair cover with blue tape."
+	desc = "Ограниченная серия Zippo для глав станций НаноТрейзен. Оформленно в виде кристала суперматерии."
 	icon_state = "zippo_ce"
 	item_state = "cezippo"
 	icon_on = "zippo_ce_on"
@@ -258,7 +258,7 @@
 
 /obj/item/lighter/zippo/rd
 	name = "Research Director zippo"
-	desc = "A limited edition Zippo for NT Heads. Uses advanced tech to make fire from plasma."
+	desc = "Ограниченная серия Zippo для глав станций НаноТрейзен. Работает на жидкой плазме."
 	icon_state = "zippo_rd"
 	item_state = "rdzippo"
 	icon_on = "zippo_rd_on"
@@ -266,7 +266,7 @@
 
 /obj/item/lighter/zippo/qm
 	name = "Quartermaster Lighter"
-	desc = "It costs 400.000 credits to fire this lighter for 12 seconds."
+	desc = "Нужно 400.000 кредитов чтобы держать эту зажигалку включенной 12 секунд."
 	icon_state = "zippo_qm"
 	item_state = "qmzippo"
 	icon_on = "zippo_qm_on"
@@ -290,7 +290,7 @@
 
 /obj/item/lighter/zippo/contractor
 	name = "contractor zippo lighter"
-	desc = "An unique black and gold zippo commonly carried by elite Syndicate agents."
+	desc = "Уникальная чёрная Zippo с золотыми вкраплениями. Такие обычно достаются элите агентуры Синдиката.."
 	icon_state = "contractorzippo"
 	item_state = "contractorzippo"
 	icon_on = "contractorzippoon"
@@ -299,7 +299,7 @@
 //Ninja-Zippo//
 /obj/item/lighter/zippo/ninja
 	name = "\"Shinobi on a rice field\" zippo"
-	desc = "A custom made Zippo. It looks almost like a bag of noodles. There is a blood stain on it, and it smells like burnt rice..."
+	desc = "Zippo, сделанная на заказ. Она выглядит практически как упаковка китайской лапши. На ней есть пятно крови, и от неё несёт горелым рисом..."
 	icon = 'icons/obj/ninjaobjects.dmi'
 	lefthand_file = 'icons/mob/inhands/antag/ninja_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/antag/ninja_righthand.dmi'
