@@ -1200,7 +1200,7 @@
  * Reloads the titlescreen if it is bugged for someone.
  */
 /client/verb/fix_title_screen()
-	set name = "Починить заставку"
+	set name = "Починить меню лобби"
 	set desc = "Lobbyscreen broke? Press this."
 	set category = STATPANEL_SPECIALVERBS
 
