@@ -112,11 +112,11 @@
 	qdel(src)
 
 /datum/drop_lightning_bolt_ui/Destroy(force)
-	. = ..()
 
 	client = null
 	victim_mob = null
 	victim_turf = null
+	. = ..()
 
 /datum/drop_lightning_bolt_ui/proc/prepare_bolt()
 	if((!victim_mob && !victim_turf) || !mode)
