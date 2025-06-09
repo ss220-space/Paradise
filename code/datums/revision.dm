@@ -41,7 +41,7 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	log_runtime_summary(logmsg)
 
 /client/verb/get_revision_info()
-	set name = "Информация о сборке"
+	set name = "Get Revision Info"
 	set category = "OOC"
 	set desc = "Retrieve technical information about the server"
 

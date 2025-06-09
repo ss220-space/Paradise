@@ -311,8 +311,8 @@
 
 
 /obj/item/card/id/verb/remove_guest_pass()
-	set name = "Убрать гостевой пропуск"
-	set category = "Объекты"
+	set name = "Remove Guest Pass"
+	set category = "Object"
 	set src in range(0)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

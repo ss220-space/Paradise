@@ -76,8 +76,8 @@
 
 
 /obj/structure/chair/e_chair/verb/activate_e_chair()
-	set name = "Активировать электрический стул"
-	set category = "Объекты"
+	set name = "Activate Electric Chair"
+	set category = "Object"
 	set src in oview(1)
 
 	shock(usr)
