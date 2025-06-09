@@ -167,7 +167,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src]."))
+				to_chat(user, span_warning("You must hold \the [P] steady to burn \the [src]."))
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()

@@ -148,8 +148,8 @@
 	var/armor_block = D.run_armor_check(affecting, "melee")
 
 	playsound(D.loc, attack.attack_sound, 25, 1, -1)
-	D.visible_message("<span class='danger'>[A] has [atk_verb] [D]!</span>", \
-								"<span class='userdanger'>[A] has [atk_verb] [D]!"))
+	D.visible_message(span_danger("[A] has [atk_verb] [D]!"), \
+								span_userdanger("[A] has [atk_verb] [D]!"))
 
 	D.apply_damage(damage, BRUTE, affecting, armor_block)
 	objective_damage(A, D, damage, BRUTE)
@@ -157,8 +157,8 @@
 	add_attack_logs(A, D, "Melee attacked with martial-art [src]", (damage > 0) ? null : ATKLOG_ALL)
 
 	if((D.stat != DEAD) && damage >= (A.dna.species.punchstunthreshold + A.physiology.punch_stun_threshold))
-		D.visible_message("<span class='danger'>[A] has weakened [D]!!</span>", \
-								"<span class='userdanger'>[A] has weakened [D]!"))
+		D.visible_message(span_danger("[A] has weakened [D]!!"), \
+								span_userdanger("[A] has weakened [D]!"))
 		D.apply_effect(4 SECONDS, WEAKEN, armor_block)
 		D.forcesay(GLOB.hit_appends)
 	else if(D.body_position == LYING_DOWN)

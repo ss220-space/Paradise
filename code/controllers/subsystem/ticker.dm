@@ -271,8 +271,8 @@ SUBSYSTEM_DEF(ticker)
 		for(var/datum/game_mode/M in runnable_modes)
 			modes += M.name
 		modes = sortList(modes)
-		to_chat(world, "<b>The current game mode is - Secret!</b>")
-		to_chat(world, "<b>Possibilities:</b> [english_list(modes)]")
+		to_chat(world, "<b>Текущий режим игры – Секрет!</b>")
+		to_chat(world, "<b>Возможные варианты:</b> [russian_list(modes)]")
 	else
 		mode.announce()
 
@@ -345,7 +345,7 @@ SUBSYSTEM_DEF(ticker)
 			qdel(S)
 
 	SSdbcore.SetRoundStart()
-	to_chat(world, span_darkmblue("<b>Enjoy the game!</b>"))
+	to_chat(world, span_darkmblue("<b>Приятной игры!</b>"))
 	SEND_SOUND(world, sound('sound/AI/welcome.ogg'))
 
 	if(SSholiday.holidays)

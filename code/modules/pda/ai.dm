@@ -103,6 +103,6 @@
 	if(!istype(pAI))
 		return FALSE
 	if(!pAI.installed_software["messenger"])
-		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!"))
+		to_chat(usr, span_warning("You have not purchased the digital messenger!"))
 		return FALSE
 	return ..() && !pAI.silence_time
