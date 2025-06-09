@@ -46,7 +46,7 @@
 	ai_controller = /datum/ai_controller/dog
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
-	set name = "Chase your tail"
+	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
 	set category = STATPANEL_DOG
 

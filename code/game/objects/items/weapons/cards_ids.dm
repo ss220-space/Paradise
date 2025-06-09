@@ -321,7 +321,7 @@
 
 
 /obj/item/card/id/verb/remove_guest_pass()
-	set name = "Remove Guest Pass"
+	set name = "Убрать гостевой пропуск"
 	set category = STATPANEL_OBJECT
 	set src in range(0)
 

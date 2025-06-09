@@ -168,7 +168,7 @@
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/verb/drop_item_gripped()
-	set name = "Drop Gripped Item"
+	set name = "Выкинуть предмет"
 	set desc = "Release an item from your magnetic gripper."
 	set category = STATPANEL_DRONE
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -179,7 +179,7 @@
 	if(gripped_item)
 		gripped_item.attack_self(user)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		to_chat(user, span_warning("[src] is empty."))
 
 /obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
 	if(!gripped_item)
@@ -213,7 +213,7 @@
 	if(!gripped_item)
 		return
 	if(!silent)
-		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+		to_chat(loc, span_warning("You drop [gripped_item]."))
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
@@ -323,16 +323,16 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
+		to_chat(user, span_notice("You deploy your decompiler and clear out the contents of \the [T]."))
 	else
-		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
+		to_chat(user, span_warning("Nothing on \the [T] is useful to you."))
 	return
 
 //PRETTIER TOOL LIST.
 /mob/living/silicon/robot/drone/installed_modules()
 
 	if(weapon_lock)
-		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
+		to_chat(src, span_warning("Weapon lock active, unable to use modules! Count:[weaponlock_time]"))
 		return
 
 	if(!module)

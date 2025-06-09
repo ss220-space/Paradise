@@ -126,7 +126,7 @@
 // Return to the Core.
 /mob/living/silicon/ai/proc/core()
 	set category = STATPANEL_AICOMMANDS
-	set name = "AI Core"
+	set name = "К ядру ИИ"
 
 	view_core()
 
@@ -155,7 +155,7 @@
 
 /mob/living/silicon/ai/proc/toggle_acceleration()
 	set category = STATPANEL_AICOMMANDS
-	set name = "Toggle Camera Acceleration"
+	set name = "Ускорение камеры"
 
 	if(usr.stat == 2)
 		return //won't work if dead

@@ -576,7 +576,7 @@
 	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
-	set name = "Switch Gathering Method"
+	set name = "Режим сбора"
 	set category = STATPANEL_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
@@ -587,7 +587,7 @@
 			to_chat(usr, "[src] now picks up one item at a time.")
 
 /obj/item/storage/verb/quick_empty()
-	set name = "Empty Contents"
+	set name = "Выбросить содержимое"
 	set category = STATPANEL_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

@@ -135,7 +135,7 @@
 
 /obj/machinery/juicer/verb/detach()
 	set category = STATPANEL_OBJECT
-	set name = "Detach Beaker from the juicer"
+	set name = "Извлечь ёмкость"
 	set src in oview(1)
 	if(usr.stat != 0)
 		return

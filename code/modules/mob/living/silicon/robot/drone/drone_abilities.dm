@@ -10,18 +10,18 @@
 		mail_destination = 0
 		return
 
-	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
+	to_chat(src, span_notice("You configure your internal beacon, tagging yourself for delivery to '[tag]'."))
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
-		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
+		to_chat(src, span_notice("\The [D] acknowledges your signal."))
 		D.flush_count = D.flush_every_ticks
 
 
 /mob/living/silicon/robot/drone/verb/hide()
-	set name = "Hide"
+	set name = "Спрятаться"
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
 	set category = STATPANEL_DRONE
 
@@ -33,7 +33,7 @@
 
 
 /mob/living/silicon/robot/drone/verb/light()
-	set name = "Light On/Off"
+	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
 	set category = STATPANEL_DRONE
 
@@ -49,7 +49,7 @@
 		..()
 
 /mob/living/silicon/robot/drone/verb/customize()
-	set name = "Customize Chassis"
+	set name = "Настройка шасси"
 	set desc = "Reconfigure your chassis into a customized version."
 	set category = STATPANEL_DRONE
 
@@ -70,11 +70,11 @@
 				custom_sprite = 1  // option is given in hologram menu
 
 	if(!custom_sprite)
-		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
+		to_chat(src, span_warning("Error 404: Custom chassis not found. Revoking customization option."))
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"
-		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
+		to_chat(src, span_notice("You reconfigure your chassis and improve the station through your new aesthetics."))
 	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)

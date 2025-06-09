@@ -698,7 +698,7 @@
 	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
-	set name = "Eject Suit Storage Unit"
+	set name = "Извлечь находящегося внутри"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
@@ -711,7 +711,7 @@
 	return
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
-	set name = "Hide in Suit Storage Unit"
+	set name = "Спрятаться внутри"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 

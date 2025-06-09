@@ -149,7 +149,7 @@
 
 
 /obj/item/gun/throw/crossbow/verb/set_tension()
-	set name = "Adjust Tension"
+	set name = "Регулировка натяжения"
 	set category = STATPANEL_OBJECT
 	set src in usr
 

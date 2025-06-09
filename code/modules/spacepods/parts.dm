@@ -100,7 +100,7 @@
 
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
-	set name = "Rotate Frame"
+	set name = "Повернуть каркас"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 

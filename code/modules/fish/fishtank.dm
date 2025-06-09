@@ -97,14 +97,14 @@
 
 
 /obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Toggle Tank Lid"
+	set name = "Крышка аквариума"
 	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_lid(usr)
 
 
 /obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Toggle Tank Light"
+	set name = "Освещение аквариума"
 	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_light(usr)

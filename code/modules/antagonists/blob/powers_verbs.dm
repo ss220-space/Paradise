@@ -1,7 +1,7 @@
 /** Toggles requiring nodes */
 /mob/camera/blob/verb/toggle_node_req()
 	set category = STATPANEL_BLOB
-	set name = "Переключить требование узла"
+	set name = "Требование узла"
 	set desc = "Переключить требование узла для размещения ресурсной плитки и фабрики."
 
 	nodes_required = !nodes_required

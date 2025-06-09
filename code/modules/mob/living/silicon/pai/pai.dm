@@ -305,7 +305,7 @@
 
 /mob/living/silicon/pai/verb/fold_out()
 	set category = STATPANEL_PAICOMMANDS
-	set name = "Unfold Chassis"
+	set name = "В мобильную форму"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -341,7 +341,7 @@
 
 /mob/living/silicon/pai/verb/fold_up()
 	set category = STATPANEL_PAICOMMANDS
-	set name = "Collapse Chassis"
+	set name = "Из мобильной формы"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -358,7 +358,7 @@
 
 /mob/living/silicon/pai/proc/choose_chassis()
 	set category = STATPANEL_PAICOMMANDS
-	set name = "Choose Chassis"
+	set name = "Мобильные формы"
 
 	var/list/my_choices = list()
 
@@ -406,7 +406,7 @@
 
 /mob/living/silicon/pai/proc/choose_verbs()
 	set category = STATPANEL_PAICOMMANDS
-	set name = "Choose Speech Verbs"
+	set name = "Модуляция речи"
 
 	var/choice = tgui_input_list(usr, "Какой тип модуляции речи вы бы хотели использовать? Этот выбор можно сделать лишь единожды.", "Модуляция речи", possible_say_verbs)
 	if(!choice) return
@@ -420,7 +420,7 @@
 
 
 /mob/living/silicon/pai/proc/pai_change_voice()
-	set name = "Change Voice"
+	set name = "Сменить голос"
 	set desc = "Express yourself!"
 	set category = STATPANEL_PAICOMMANDS
 	change_voice()
@@ -441,7 +441,7 @@
 
 /mob/living/silicon/pai/verb/pAI_suicide()
 	set category = STATPANEL_PAICOMMANDS
-	set name = "pAI Suicide"
+	set name = "Выгрузить личность"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")

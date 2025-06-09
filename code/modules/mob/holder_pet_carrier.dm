@@ -209,7 +209,7 @@
 
 
 /obj/item/pet_carrier/verb/open_close()
-	set name = "Открыть/закрыть переноску"
+	set name = "Откр/закр переноску"
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
 	set category = STATPANEL_OBJECT
 

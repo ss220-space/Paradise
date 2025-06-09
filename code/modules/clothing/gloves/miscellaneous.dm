@@ -261,7 +261,7 @@
 	. = ..()
 
 /obj/item/clothing/gloves/fingerless/rapid/proc/dirslash_enabling()
-	set name = "Enable/Disable direction slash"
+	set name = "Атака по направлению"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
 	set category = STATPANEL_OBJECT
 	var/mob/living/L = usr

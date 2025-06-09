@@ -191,7 +191,7 @@
 
 
 /obj/machinery/recycler/verb/rotate()
-	set name = "Rotate Clockwise"
+	set name = "Повернуть по часовой"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
@@ -207,7 +207,7 @@
 	return 1
 
 /obj/machinery/recycler/verb/rotateccw()
-	set name = "Rotate Counter Clockwise"
+	set name = "Повернуть против часовой"
 	set category = STATPANEL_OBJECT
 	set src in oview(1)
 

@@ -73,7 +73,7 @@
 ********************/
 /mob/living/silicon/proc/subsystem_atmos_control()
 	set category = STATPANEL_SUBSYSTEMS
-	set name = "Atmospherics Control"
+	set name = "Контроль атмосферы"
 
 	atmos_control.ui_interact(usr)
 
@@ -82,14 +82,14 @@
 ********************/
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = STATPANEL_SUBSYSTEMS
-	set name = "Crew Monitor"
+	set name = "Манифест экипажа"
 	crew_monitor.ui_interact(usr)
 
 /****************
 *	Law Manager	*
 ****************/
 /mob/living/silicon/proc/subsystem_law_manager()
-	set name = "Law Manager"
+	set name = "Диспетчер законов"
 	set category = STATPANEL_SUBSYSTEMS
 
 	law_manager.ui_interact(usr)
@@ -99,7 +99,7 @@
 ********************/
 /mob/living/silicon/proc/subsystem_power_monitor()
 	set category = STATPANEL_SUBSYSTEMS
-	set name = "Power Monitor"
+	set name = "Монитор мощности"
 
 	power_monitor.ui_interact(usr)
 
@@ -116,17 +116,17 @@
 *	Blueprints	*
 ********************/
 /mob/living/silicon/proc/subsystem_blueprints()
-	set name = "Station Blueprints"
+	set name = "Чертежи станции"
 	set category = STATPANEL_SUBSYSTEMS
 
 	blueprints.interact_prints(src)
 
 /mob/living/silicon/robot/proc/self_diagnosis()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Self Diagnosis"
+	set name = "Самодиагностика"
 
 	if(!is_component_functioning("diagnosis unit"))
-		to_chat(src, "<span class='warning'>Your self-diagnosis component isn't functioning.</span>")
+		to_chat(src, span_warning("Your self-diagnosis component isn't functioning."))
 		return
 
 	self_diagnosis.ui_interact(src)

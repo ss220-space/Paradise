@@ -136,8 +136,8 @@ menu "menu"
 		command = ""
 		saved-params = "is-checked"
 	elem
-		name = "&Открыть микшер громкости"
-		command = "Открыть-микшер-громкости"
+		name = "&Микшер громкости"
+		command = "Микшер-громкости"
 		category = "&Опции"
 		saved-params = "is-checked"
 	elem "statusbar"
@@ -311,7 +311,7 @@ window "infobuttons"
 		anchor2 = 13,100
 		saved-params = "is-checked"
 		text = "Полный экран"
-		command = "fullscreen"
+		command = "На весь экран"
 
 	elem "textb"
 		type = BUTTON

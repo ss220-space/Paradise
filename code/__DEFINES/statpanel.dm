@@ -4,11 +4,10 @@
 
 // NAME
 
-
 // CATEGOTY
 #define STATPANEL_OOC "OOC"
 #define STATPANEL_IC "IC"
-#define STATPANEL_OBJECT "Объекты"
+#define STATPANEL_OBJECT "Объекты" //todo
 #define STATPANEL_AICOMMANDS "ИИ команды"
 #define STATPANEL_SPECIALVERBS "Спецкоманды"
 #define STATPANEL_MARTIALARTS "Боевые искусства"

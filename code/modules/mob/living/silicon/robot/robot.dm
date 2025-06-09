@@ -287,7 +287,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_self(braintype, 1)
 
 /mob/living/silicon/robot/verb/Change_Voice()
-	set name = "Change Voice"
+	set name = "Сменить голос"
 	set desc = "Express yourself!"
 	set category = STATPANEL_ROBOTCOMMANDS
 	change_voice()
@@ -526,12 +526,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Show Station Manifest"
+	set name = "Манифест экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Toggle Component"
+	set name = "Компоненты"
 	set desc = "Toggle a component, conserving power."
 
 	var/list/installed_components = list()
@@ -550,7 +550,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, span_warning("You [C.toggled ? "enable" : "disable"] [C.name]."))
 
 /mob/living/silicon/robot/proc/sensor_mode()
-	set name = "Set Sensor Augmentation"
+	set name = "Сенсоры камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
 	set category = STATPANEL_ROBOTCOMMANDS
 	toggle_sensor_mode()
@@ -565,7 +565,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Show Alerts"
+	set name = "Список тревог"
 
 	if(usr.stat == DEAD)
 		to_chat(src, span_userdanger("Alert: You are dead."))
@@ -651,7 +651,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
-	return list("Charge Left:", cell ? "[cell.charge]/[cell.maxcharge]" : "No Cell Inserted!")
+	return list("Заряд:", cell ? "[cell.charge]/[cell.maxcharge]" : "Батарея не обнаружена!")
 
 
 /mob/living/silicon/robot/proc/show_gps_coords()
@@ -1223,7 +1223,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Toggle Cover"
+	set name = "Блокировку панели"
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
@@ -1644,8 +1644,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Reset Identity Codes"
-	set desc = "Scrambles your security and identification codes and resets your current buffers. Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
+	set name = "Сброс кодов идентификации"
+	set desc = "Scrambles your security and identification codes and resets your current buffers. \
+				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
 	var/mob/living/silicon/robot/R = src
 
@@ -2122,7 +2123,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/verb/powerwarn()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Power Warning"
+	set name = "Состояние заряда"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))

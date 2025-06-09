@@ -462,7 +462,7 @@
 
 
 /obj/item/gun/proc/toggle_gunlight_verb()
-	set name = "Toggle Gun Light"
+	set name = "Оружейный фонарик"
 	set category = STATPANEL_OBJECT
 	set desc = "Click to toggle your weapon's attached flashlight."
 

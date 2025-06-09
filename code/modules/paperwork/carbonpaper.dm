@@ -25,7 +25,7 @@
 
 
 /obj/item/paper/carbon/verb/removecopy()
-	set name = "Remove carbon-copy"
+	set name = "Удалить копию"
 	set category = STATPANEL_OBJECT
 	set src in usr
 

@@ -222,7 +222,7 @@
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
 	set category = STATPANEL_OBJECT
-	set name = "Remove knife"
+	set name = "Достать нож"
 	set src in usr
 	remove_knife(usr)
 

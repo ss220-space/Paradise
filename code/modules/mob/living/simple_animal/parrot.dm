@@ -26,7 +26,7 @@
 
 
 /mob/living/simple_animal/parrot
-	name = STATPANEL_PARROT
+	name = "parrot"
 	desc = "The parrot squawks, \"It's a parrot! BAWWK!\""
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "parrot_fly"
@@ -525,7 +525,7 @@
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
 /mob/living/simple_animal/parrot/proc/steal_from_ground()
-	set name = "Steal from ground"
+	set name = "Схватить предмет"
 	set category = STATPANEL_PARROT
 	set desc = "Grabs a nearby item."
 
@@ -556,7 +556,7 @@
 
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
-	set name = "Steal from mob"
+	set name = "Украсть из рук"
 	set category = STATPANEL_PARROT
 	set desc = "Steals an item right out of a person's hand!"
 
@@ -588,7 +588,7 @@
 
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
-	set name = "Drop held item"
+	set name = "Выбросить предмет"
 	set category = STATPANEL_PARROT
 	set desc = "Drop the item you're holding."
 
@@ -599,7 +599,7 @@
 
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
-	set name = "Drop held item"
+	set name = "Выбросить предмет"
 	set category = STATPANEL_PARROT
 	set desc = "Drop the item you're holding."
 
@@ -631,7 +631,7 @@
 
 
 /mob/living/simple_animal/parrot/proc/perch_player()
-	set name = "Sit"
+	set name = "Присесть"
 	set category = STATPANEL_PARROT
 	set desc = "Sit on a nice comfy perch."
 

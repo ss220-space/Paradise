@@ -441,7 +441,7 @@
 
 
 /obj/item/tape/verb/wipe()
-	set name = "Wipe Tape"
+	set name = "Стереть плёнку"
 	set category = STATPANEL_OBJECT
 	set src in view(1)
 

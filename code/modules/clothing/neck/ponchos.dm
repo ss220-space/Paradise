@@ -37,7 +37,7 @@
 
 
 /obj/item/clothing/neck/poncho/verb/flip_poncho()
-	set name = "Flip poncho"
+	set name = "Перекинуть пончо"
 	set category = STATPANEL_OBJECT
 	set desc = "Flip poncho behind your back"
 	set src in usr

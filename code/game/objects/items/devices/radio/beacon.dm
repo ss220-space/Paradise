@@ -36,7 +36,7 @@
 	return null
 
 /obj/item/radio/beacon/verb/alter_signal(t as text)
-	set name = "Alter Beacon's Signal"
+	set name = "Изменить сигнал маяка"
 	set category = STATPANEL_OBJECT
 	set src in usr
 

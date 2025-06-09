@@ -278,7 +278,7 @@
 	return
 
 /mob/living/silicon/robot/cogscarab/verb/light()
-	set name = "Light On/Off"
+	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
 	set category = STATPANEL_COGSCARAB
 

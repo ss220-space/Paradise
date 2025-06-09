@@ -84,7 +84,7 @@ SUBSYSTEM_DEF(ticker)
 	login_music = choose_lobby_music()
 
 	if(!login_music)
-		to_chat(world, span_boldwarning("Could not load lobby music.")) //yogs end
+		to_chat(world, span_boldwarning("Не удалось загрузить музыку из лобби.")) //yogs end
 
 	randomtips = file2list("strings/tips.txt")
 	memetips = file2list("strings/sillytips.txt")
@@ -96,8 +96,8 @@ SUBSYSTEM_DEF(ticker)
 		if(GAME_STATE_STARTUP)
 			// This is ran as soon as the MC starts firing, and should only run ONCE, unless startup fails
 			round_start_time = world.time + (CONFIG_GET(number/pregame_timestart) SECONDS)
-			to_chat(world, span_darkmblue("<b>Welcome to the pre-game lobby!</b>"))
-			to_chat(world, "Please, setup your character and select ready. Game will start in [CONFIG_GET(number/pregame_timestart)] seconds")
+			to_chat(world, span_darkmblue("<b>Добро пожаловать в предыгровое лобби!</b>"))
+			to_chat(world, "Пожалуйста, настройте своего персонажа и выберите опцию <b>\"Готово\"</b>. Игра начнётся через [CONFIG_GET(number/pregame_timestart)] секунд.")
 			change_state(GAME_STATE_PREGAME)
 			fire() // TG says this is a good idea
 		if(GAME_STATE_PREGAME)
@@ -167,7 +167,7 @@ SUBSYSTEM_DEF(ticker)
 					else
 						SSmapping.next_map = SSmapping.map_datum
 			if(SSmapping.next_map)
-				to_chat(world, "<b>The next map is - [SSmapping.next_map.name]!</b>")
+				to_chat(world, "<b>Следующая карта – [SSmapping.next_map.name]!</b>")
 
 
 /datum/controller/subsystem/ticker/proc/call_reboot()

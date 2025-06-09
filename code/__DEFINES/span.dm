@@ -169,6 +169,7 @@
 #define span_energeticanomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
 #define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
 #define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
+#define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically
