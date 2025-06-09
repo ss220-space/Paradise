@@ -2,7 +2,7 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
-/mob/proc/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/proc/say(message, verb = "сказать", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
 /mob/verb/whisper(message as text)
@@ -10,7 +10,7 @@
 	set category = STATPANEL_IC
 	return
 
-/mob/proc/whisper_say(list/message_pieces, verb = "whispers")
+/mob/proc/whisper_say(list/message_pieces, verb = "шептать")
 	return
 
 /mob/verb/say_verb(message as text)

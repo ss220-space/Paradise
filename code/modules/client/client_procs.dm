@@ -1082,7 +1082,7 @@
 #undef SSD_WARNING_TIMER
 
 /client/verb/toggle_fullscreen()
-	set name = "На весь экран"
+	set name = "Полный экран"
 	set category = STATPANEL_OOC
 
 	fullscreen = !fullscreen

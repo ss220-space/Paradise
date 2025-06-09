@@ -22,8 +22,8 @@ SUBSYSTEM_DEF(tickets)
 	flags = SS_BACKGROUND
 	ss_id = "admin_tickets"
 	var/span_class = "adminticket"
-	var/ticket_system_name = "Admin Tickets"
-	var/ticket_name = "Admin Ticket"
+	var/ticket_system_name = "Запросы администрации"
+	var/ticket_name = "Запрос администрации"
 	var/close_rights = R_ADMIN
 	var/rights_needed = R_ADMIN|R_MOD
 
@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(tickets)
 	T.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
-	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят.</span>", confidential=TRUE)
+	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят!</span>", confidential=TRUE)
 	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
 	SEND_SOUND(C, ticket_open_sound)
 

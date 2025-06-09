@@ -157,7 +157,7 @@ menu "menu"
 		command = ""
 		saved-params = "is-checked"
 	elem
-		name = "&Помощь администрации"
+		name = "&Запрос помощи"
 		command = "Запрос-помощи"
 		category = "&Помощь"
 		saved-params = "is-checked"
@@ -311,7 +311,7 @@ window "infobuttons"
 		anchor2 = 13,100
 		saved-params = "is-checked"
 		text = "Полный экран"
-		command = "На весь экран"
+		command = "Полный-экран"
 
 	elem "textb"
 		type = BUTTON

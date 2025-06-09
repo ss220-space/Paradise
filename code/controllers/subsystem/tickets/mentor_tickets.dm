@@ -8,8 +8,8 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 /datum/controller/subsystem/tickets/mentor_tickets
 	name = "Mentor Tickets"
 	offline_implications = "Mentor tickets will no longer be marked as stale. No immediate action is needed."
-	ticket_system_name = "Mentor Tickets"
-	ticket_name = "Mentor Ticket"
+	ticket_system_name = "Запросы менторов"
+	ticket_name = "Запрос менторов"
 	span_class = "mentorhelp"
 	anchor_link_extra = ";is_mhelp=1"
 	ticket_help_type = "Mentorhelp"

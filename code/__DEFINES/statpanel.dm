@@ -33,4 +33,4 @@
 
 // Admin Category
 
-#define STATPANEL_ADMINTICKETS "Admin.Запросы админам"
+#define STATPANEL_ADMINTICKETS "Admin.Запросы помощи"
