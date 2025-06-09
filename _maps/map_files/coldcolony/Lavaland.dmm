@@ -3231,6 +3231,9 @@
 "Hy" = (
 /obj/structure/table,
 /obj/item/storage/firstaid/adv,
+/obj/machinery/computer/cryopod{
+	pixel_x = 32
+	},
 /turf/simulated/floor/plating,
 /area/mine/living_quarters)
 "Hz" = (

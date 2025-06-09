@@ -4,6 +4,7 @@
  * @license MIT
  */
 
+import { storage } from 'common/storage';
 import {
   addHighlightSetting,
   changeSettingsTab,
@@ -16,7 +17,6 @@ import {
   updateSettings,
 } from './actions';
 import { FONTS, SETTINGS_TABS } from './constants';
-import { storage } from 'common/storage';
 import { createDefaultHighlightSetting } from './model';
 
 const defaultHighlightSetting = createDefaultHighlightSetting();
@@ -45,7 +45,7 @@ const initialState = {
   statFontSize: 12,
   statFontFamily: FONTS[0],
   statTabsStyle: 'default',
-  // Chat persistence setting - default is false, but use stored value if available
+  // Chat persistence setting - default is true. False break chat for new 516 users
   chatSaving: (await storage.get('chat-saving-enabled')) === true,
 } as const;
 

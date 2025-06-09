@@ -582,3 +582,11 @@
 	to_chat(user, span_danger("Вы [user.attack_verb_simple] [src]!"))
 	add_attack_logs(user, src, "атаковал")
 	return TRUE
+
+/mob/living/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	. = ..()
+	fire.set_on_fire(src)
+
+/mob/living/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	. = ..()
+	fire.set_on_fire(src)

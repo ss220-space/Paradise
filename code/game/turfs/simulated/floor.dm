@@ -398,3 +398,8 @@ GLOBAL_LIST_INIT(icons_to_ignore_at_floor_init, list("damaged1","damaged2","dama
 			playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 			return RCD_ACT_FAILED
 	return RCD_NO_ACT
+
+/turf/simulated/floor/flamer_fire_act(danage)
+	if(pick(60))
+		return
+	break_tile()

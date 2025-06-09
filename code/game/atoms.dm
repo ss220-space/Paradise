@@ -1844,3 +1844,13 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	ignored_gravity_sources[id]--
 	if(!ignored_gravity_sources[id])
 		ignored_gravity_sources.Remove(id)
+
+//Generalized Fire Proc.
+/atom/proc/flamer_fire_act(damage = BURN_LEVEL_TIER_1)
+	fire_act(exposed_temperature = 50 * damage, exposed_volume = 2 * damage)
+
+/atom/proc/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	return
+
+/atom/proc/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return
