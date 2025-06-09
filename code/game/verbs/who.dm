@@ -67,8 +67,8 @@
 	to_chat(src, msg)
 
 /client/verb/adminwho()
-	set category = "Admin.Admin Tickets"
-	set name = "Adminwho"
+	set category = STATPANEL_ADMINTICKETS
+	set name = "Админы онлайн"
 
 	var/msg = ""
 	var/modmsg = ""
@@ -97,7 +97,7 @@
 					msg += " - Играет"
 
 				if(C.is_afk())
-					msg += " (АФК)"
+					msg += " (Отошёл)"
 				msg += "<br>"
 
 				num_admins_online++
@@ -113,7 +113,7 @@
 					modmsg += " - Играет"
 
 				if(C.is_afk())
-					modmsg += " (АФК)"
+					modmsg += " (Отошёл)"
 				modmsg += "<br>"
 				num_mods_online++
 	else

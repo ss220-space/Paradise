@@ -1,10 +1,10 @@
-// THE MAX LENGHT IS 17 SYMBOLS!!!
-// TABS
+// The max lenght is 17 symbols!!!
+// Tabs
+
 #define STATPANEL_STATUS "Статус"
 
-// NAME
+// Category
 
-// CATEGOTY
 #define STATPANEL_OOC "OOC"
 #define STATPANEL_IC "IC"
 #define STATPANEL_OBJECT "Объекты" //todo
@@ -30,3 +30,7 @@
 #define STATPANEL_SWARMER "Свармер"
 #define STATPANEL_DOG "Пёс"
 #define STATPANEL_ANIMAL "Животное"
+
+// Admin Category
+
+#define STATPANEL_ADMINTICKETS "Admin.Запросы админам"

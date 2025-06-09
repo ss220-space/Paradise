@@ -251,8 +251,8 @@
 			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> [span_notice(msg)]</span>", confidential=TRUE)
 
 /client/verb/open_pms_ui()
-	set name = "My PMs"
-	set category = "Admin.Admin Tickets"
+	set name = "ЛС"
+	set category = STATPANEL_ADMINTICKETS
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

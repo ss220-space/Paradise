@@ -2,8 +2,8 @@
 GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of", "monkey", "alien", "as"))
 
 /client/verb/adminhelp()
-	set category = "Admin.Admin Tickets"
-	set name = "Adminhelp"
+	set category = STATPANEL_ADMINTICKETS
+	set name = "Запрос помощи"
 
 	//handle muting and automuting
 	if(check_mute(ckey, MUTE_ADMINHELP))
@@ -13,8 +13,8 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
 
 	var/msg
-	var/list/type = list("Mentorhelp", "Adminhelp")
-	var/selected_type = tgui_input_list(src, "Pick a category.", "Admin Help", type)
+	var/list/type = list("Менторы", "Администраторы")
+	var/selected_type = tgui_input_list(src, "Выберите, чья помощь вам необходима", "Запрос помощи", type)
 	if(selected_type)
 		msg = tgui_input_text(src, "Please enter your message.", selected_type, multiline = TRUE, encode = FALSE)
 
