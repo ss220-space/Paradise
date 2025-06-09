@@ -193,7 +193,7 @@
 
 /obj/item/assembly/infra/verb/rotate_verb()
 	set name = "Rotate Infrared Laser"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	rotate(usr)

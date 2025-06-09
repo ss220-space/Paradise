@@ -101,7 +101,7 @@
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
 	set name = "Rotate Frame"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

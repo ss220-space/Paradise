@@ -171,7 +171,7 @@
 		feedinTopanim()
 
 /obj/machinery/gibber/verb/eject()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Empty Gibber"
 	set src in oview(1)
 

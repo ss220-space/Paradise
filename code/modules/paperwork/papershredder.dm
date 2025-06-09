@@ -70,7 +70,7 @@
 
 /obj/machinery/papershredder/verb/empty_contents()
 	set name = "Empty bin"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in range(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

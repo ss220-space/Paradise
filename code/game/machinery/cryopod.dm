@@ -622,7 +622,7 @@
 
 /obj/machinery/cryopod/verb/eject()
 	set name = "Eject Pod"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -647,7 +647,7 @@
 
 /obj/machinery/cryopod/verb/move_inside()
 	set name = "Enter Pod"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))

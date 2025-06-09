@@ -397,7 +397,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/restart()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set name = "Restart"
 	set desc = "Restarts the world."
 
@@ -445,7 +445,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 
 /datum/admins/proc/end_round()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set name = "End Round"
 	set desc = "Instantly ends the round and brings up the scoreboard, like shadowlings or wizards dying."
 
@@ -561,7 +561,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle OOC Emoji")
 
 /datum/admins/proc/startnow()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set desc="Start the round RIGHT NOW"
 	set name="Start Now"
 
@@ -590,7 +590,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 /datum/admins/proc/toggleenter()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set desc="People can't enter"
 	set name="Toggle Entering"
 
@@ -641,7 +641,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Toggle Respawn") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/delay()
-	set category = "Server"
+	set category = STATPANEL_SERVER
 	set desc="Delay the game start/end"
 	set name="Delay"
 

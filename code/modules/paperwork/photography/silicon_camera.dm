@@ -107,7 +107,7 @@
 	injectmasteralbum(P)
 
 /obj/item/camera/siliconcam/ai_camera/verb/take_image()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Take Image"
 	set desc = "Takes an image"
 	set src in usr
@@ -115,7 +115,7 @@
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "View Images"
 	set desc = "View images"
 	set src in usr
@@ -123,7 +123,7 @@
 	viewpictures()
 
 /obj/item/camera/siliconcam/ai_camera/verb/delete_images()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Delete Image"
 	set desc = "Delete image"
 	set src in usr
@@ -131,7 +131,7 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Toggle camera flashing"
 	set desc = "Toggle camera flashing"
 	set src in usr
@@ -155,7 +155,7 @@
 	viewpictures()
 
 /obj/item/camera/siliconcam/robot_camera/verb/delete_images()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Delete Image"
 	set desc = "Delete a local image"
 	set src in usr
@@ -164,7 +164,7 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Toggle camera flash"
 	set desc = "Toggle camera flash"
 	set src in usr

@@ -77,7 +77,7 @@
 
 /obj/structure/chair/e_chair/verb/activate_e_chair()
 	set name = "Activate Electric Chair"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	shock(usr)

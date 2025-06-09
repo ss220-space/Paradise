@@ -92,7 +92,7 @@
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
 	set name = "Установить блюспейс маяк"
-	set category = "Guardian"
+	set category = STATPANEL_GUARDIAN
 	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)

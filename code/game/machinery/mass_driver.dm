@@ -225,7 +225,7 @@
 
 
 /obj/machinery/mass_driver_frame/verb/rotate()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Rotate Frame"
 	set src in view(1)
 

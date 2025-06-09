@@ -129,8 +129,8 @@
  * tab when walking nearby "Object"-verbed things
  */
 /mob/verb/pointed(atom/target as mob|obj|turf in view(client.view, src))
-	set name = "Point To"
-	set category = "IC"
+	set name = "Указать на"
+	set category = STATPANEL_IC
 
 	if(next_move >= world.time || !Master.current_runlevel) //No usage until subsystems initialized properly.
 		return

@@ -1,8 +1,8 @@
 GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 /mob/living/silicon/ai/verb/wipe_core()
-	set name = "Wipe Core"
-	set category = "OOC"
+	set name = "Выгрузить ядро ИИ"
+	set category = STATPANEL_OOC
 	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
 
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally

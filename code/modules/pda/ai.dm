@@ -18,7 +18,7 @@
 
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
-	set category = "AI IM"
+	set category = STATPANEL_AIIM
 	set name = "Send PDA Message"
 	set src in usr
 
@@ -36,7 +36,7 @@
 		M.create_message(usr, selected)
 
 /obj/item/pda/silicon/verb/cmd_show_message_log()
-	set category = "AI IM"
+	set category = STATPANEL_AIIM
 	set name = "Show Message Log"
 	set src in usr
 
@@ -55,7 +55,7 @@
 	popup.open(FALSE)
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
-	set category = "AI IM"
+	set category = STATPANEL_AIIM
 	set name = "Toggle Sender/Receiver"
 	set src in usr
 
@@ -67,7 +67,7 @@
 
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
-	set category = "AI IM"
+	set category = STATPANEL_AIIM
 	set name = "Toggle Ringer"
 	set src in usr
 

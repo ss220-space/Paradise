@@ -577,7 +577,7 @@
 
 /obj/item/storage/verb/toggle_gathering_mode()
 	set name = "Switch Gathering Method"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -588,7 +588,7 @@
 
 /obj/item/storage/verb/quick_empty()
 	set name = "Empty Contents"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

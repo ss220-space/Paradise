@@ -501,8 +501,8 @@
 	return list("name" = name, "voice" = voice, "selected" = selected, "id" = UID())
 
 /mob/living/carbon/human/proc/mimicking(var/mob/living/carbon/human/H)
-	set name = "Mimic voice"
-	set category = "IC"
+	set name = "Имитировать голос"
+	set category = STATPANEL_IC
 	if(!H)
 		to_chat(usr, span_notice("Use right click to choose target correctly."))
 	var/datum/action/innate/mimicking/mimic = locate(/datum/action/innate/mimicking) in usr.actions

@@ -1,6 +1,6 @@
 /client/verb/setup_character()
 	set name = "Game Preferences"
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
@@ -281,7 +281,7 @@
 
 /client/verb/silence_current_midi()
 	set name = "Silence Current Midi"
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "The current admin midi has been silenced")

@@ -179,7 +179,7 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Rotate Pipe"
 	set src in view(1)
 
@@ -196,7 +196,7 @@
 
 
 /obj/item/pipe/verb/flip()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Flip Pipe"
 	set src in view(1)
 

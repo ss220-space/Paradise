@@ -411,7 +411,7 @@
 
 /mob/living/simple_animal/bot/secbot/verb/toggle_flashing_lights()
 	set name = "Toggle Flashing Lights"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src = usr
 
 	flashing_lights = !flashing_lights

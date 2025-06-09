@@ -313,7 +313,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/glasses/verb/adjust_eyewear() //Adjust eyewear to be worn above or below the mask.
 	set name = "Adjust Eyewear"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set desc = "Adjust your eyewear to be worn over or under a mask."
 	set src in usr
 
@@ -501,7 +501,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/verb/toggle()
 	set name = "Переключение датчиков костюма"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 	set_sensors(usr)
 
@@ -1198,7 +1198,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/verb/removetie()
 	set name = "Remove Accessory"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 	handle_accessories_removal(usr)
 
@@ -1248,7 +1248,7 @@ BLIND     // can't see anything
 
 /obj/item/clothing/under/verb/rollsuit()
 	set name = "Adjust suit style"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(!ishuman(usr))

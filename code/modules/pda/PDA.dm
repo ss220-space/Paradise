@@ -215,7 +215,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/verb/verb_reset_pda()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Reset PDA"
 	set src in usr
 
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 
 /obj/item/pda/verb/verb_remove_id()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Remove id"
 	set src in usr
 
@@ -281,7 +281,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
 
 /obj/item/pda/verb/verb_remove_pen()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Remove pen"
 	set src in usr
 	remove_pen(usr)

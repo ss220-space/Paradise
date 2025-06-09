@@ -228,7 +228,7 @@
 /mob/living/carbon/human/proc/martial_arts_help()
 	set name = "Show Info"
 	set desc = "Gives information about the martial arts you know."
-	set category = "Martial Arts"
+	set category = STATPANEL_MARTIALARTS
 	var/mob/living/carbon/human/H = usr
 	if(!istype(H))
 		to_chat(usr, "<span class='warning'>You shouldn't have access to this verb. Report this as a bug to the github please.</span>")
@@ -238,7 +238,7 @@
 /mob/living/carbon/human/proc/dirslash_enabling()
 	set name = "Enable/Disable direction slash"
 	set desc = "If direction slash is enabled, you can attack mobs, by clicking behind their backs"
-	set category = "Martial Arts"
+	set category = STATPANEL_MARTIALARTS
 	dirslash_enabled = !dirslash_enabled
 	to_chat(src, span_notice("Directrion slash is [dirslash_enabled? "enabled" : "disabled"] now."))
 

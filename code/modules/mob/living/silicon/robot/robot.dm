@@ -275,7 +275,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return "[modtype] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 
 	if(custom_name)
 		return FALSE
@@ -289,7 +289,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/verb/Change_Voice()
 	set name = "Change Voice"
 	set desc = "Express yourself!"
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -525,12 +525,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Show Station Manifest"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Toggle Component"
 	set desc = "Toggle a component, conserving power."
 
@@ -552,7 +552,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/sensor_mode()
 	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
@@ -564,7 +564,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Show Alerts"
 
 	if(usr.stat == DEAD)
@@ -1222,7 +1222,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	laws = new /datum/ai_laws/ratvar
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Toggle Cover"
 	set desc = "Toggles the lock on your cover."
 
@@ -1643,7 +1643,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Reset Identity Codes"
 	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
@@ -1655,8 +1655,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set name = "Activate Held Object"
-	set category = "IC"
+	set name = "Акт. предмет"
+	set desc = "Активирует удерживаемый предмет."
+	set category = STATPANEL_IC
 	set src = usr
 
 	var/obj/item/W = get_active_hand()
@@ -2120,7 +2121,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/verb/powerwarn()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Power Warning"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)

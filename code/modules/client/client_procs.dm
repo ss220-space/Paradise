@@ -1082,8 +1082,8 @@
 #undef SSD_WARNING_TIMER
 
 /client/verb/toggle_fullscreen()
-	set name = "Toggle Fullscreen"
-	set category = "OOC"
+	set name = "На весь экран"
+	set category = STATPANEL_OOC
 
 	fullscreen = !fullscreen
 
@@ -1132,7 +1132,7 @@
 /client/verb/fit_viewport()
 	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1202,7 +1202,7 @@
 /client/verb/fix_title_screen()
 	set name = "Fix Lobby Screen"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1215,7 +1215,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

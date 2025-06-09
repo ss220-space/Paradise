@@ -170,7 +170,7 @@
 /obj/item/assembly/mousetrap/verb/hide_under_verb()
 	set src in oview(1)
 	set name = "Hide"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	hide_under(usr)
 

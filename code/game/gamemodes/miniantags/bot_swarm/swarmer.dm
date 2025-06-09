@@ -59,17 +59,17 @@
 ////The Mob itself////
 
 /mob/living/simple_animal/hostile/swarmer
-	name = "Swarmer"
-	real_name = "Swarmer"
+	name = STATPANEL_SWARMER
+	real_name = STATPANEL_SWARMER
 	icon = 'icons/mob/swarmer.dmi'
 	desc = "Robotic constructs of unknown design, swarmers seek only to consume materials and replicate themselves indefinitely."
 	speak_emote = list("tones")
-	bubble_icon = "swarmer"
+	bubble_icon = STATPANEL_SWARMER
 	health = 35
 	maxHealth = 35
 	status_flags = CANPUSH
-	icon_state = "swarmer"
-	icon_living = "swarmer"
+	icon_state = STATPANEL_SWARMER
+	icon_living = STATPANEL_SWARMER
 	icon_dead = "swarmer_unactivated"
 	icon_gib = null
 	wander = 0
@@ -89,7 +89,7 @@
 	speed = 0
 	a_intent = INTENT_HARM
 	can_change_intents = 0
-	faction = list("swarmer")
+	faction = list(STATPANEL_SWARMER)
 	AIStatus = AI_OFF
 	pass_flags = PASSTABLE
 	mob_size = MOB_SIZE_SMALL
@@ -683,7 +683,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
 	set name = "Create trap"
-	set category = "Swarmer"
+	set category = STATPANEL_SWARMER
 	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
 	if(locate(/obj/structure/swarmer/trap) in loc)
 		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
@@ -693,7 +693,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
 	set name = "Create barricade"
-	set category = "Swarmer"
+	set category = STATPANEL_SWARMER
 	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
 	if(locate(/obj/structure/swarmer/blockade) in loc)
 		to_chat(src, "<span class='warning'>There is already a blockade here. Aborting.</span>")
@@ -721,7 +721,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
 	set name = "Replicate"
-	set category = "Swarmer"
+	set category = STATPANEL_SWARMER
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
 	to_chat(src, "<span class='info'>We are attempting to replicate ourselves. We will need to stand still until the process is complete.</span>")
 	if(resources < 100)
@@ -742,7 +742,7 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
 	set name = "Self Repair"
-	set category = "Swarmer"
+	set category = STATPANEL_SWARMER
 	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return

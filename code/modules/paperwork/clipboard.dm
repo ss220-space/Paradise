@@ -28,7 +28,7 @@
 
 
 /obj/item/clipboard/verb/removePen()
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Remove clipboard pen"
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

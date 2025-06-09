@@ -170,7 +170,7 @@
 /obj/item/gripper/verb/drop_item_gripped()
 	set name = "Drop Gripped Item"
 	set desc = "Release an item from your magnetic gripper."
-	set category = "Drone"
+	set category = STATPANEL_DRONE
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	drop_gripped_item()

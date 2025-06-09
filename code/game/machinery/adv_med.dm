@@ -207,7 +207,7 @@
 
 /obj/machinery/bodyscanner/verb/eject()
 	set src in oview(1)
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set name = "Извлечь пациента"
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

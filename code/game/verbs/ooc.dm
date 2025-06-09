@@ -6,7 +6,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 /client/verb/ooc(msg = "" as text)
 	set name = "OOC"
-	set category = "OOC"
+	set category = STATPANEL_OOC
 
 	if(!mob)
 		return
@@ -117,7 +117,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 /client/verb/looc(msg = "" as text)
 	set name = "LOOC"
 	set desc = "Local OOC, seen only by those in view."
-	set category = "OOC"
+	set category = STATPANEL_OOC
 
 	if(!mob)
 		return

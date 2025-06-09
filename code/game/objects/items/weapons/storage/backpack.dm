@@ -460,7 +460,7 @@
 
 /obj/item/storage/backpack/satchel/verb/switch_strap()
 	set name = "Switch Strap Side"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

@@ -442,7 +442,7 @@
 
 /obj/item/tape/verb/wipe()
 	set name = "Wipe Tape"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr

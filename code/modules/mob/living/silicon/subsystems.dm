@@ -72,7 +72,7 @@
 *	Atmos Control	*
 ********************/
 /mob/living/silicon/proc/subsystem_atmos_control()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Atmospherics Control"
 
 	atmos_control.ui_interact(usr)
@@ -81,7 +81,7 @@
 *	Crew Monitor	*
 ********************/
 /mob/living/silicon/proc/subsystem_crew_monitor()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Crew Monitor"
 	crew_monitor.ui_interact(usr)
 
@@ -90,7 +90,7 @@
 ****************/
 /mob/living/silicon/proc/subsystem_law_manager()
 	set name = "Law Manager"
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 
 	law_manager.ui_interact(usr)
 
@@ -98,7 +98,7 @@
 *	Power Monitor	*
 ********************/
 /mob/living/silicon/proc/subsystem_power_monitor()
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 	set name = "Power Monitor"
 
 	power_monitor.ui_interact(usr)
@@ -108,7 +108,7 @@
 ********************/
 /mob/living/silicon/proc/subsystem_open_gps()
 	set name = "GPS"
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 
 	gps.ui_interact(src)
 
@@ -117,12 +117,12 @@
 ********************/
 /mob/living/silicon/proc/subsystem_blueprints()
 	set name = "Station Blueprints"
-	set category = "Subsystems"
+	set category = STATPANEL_SUBSYSTEMS
 
 	blueprints.interact_prints(src)
 
 /mob/living/silicon/robot/proc/self_diagnosis()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Self Diagnosis"
 
 	if(!is_component_functioning("diagnosis unit"))

@@ -317,7 +317,7 @@
 
 /obj/machinery/computer/id_upgrader/ussp/verb/set_name()
 	set name = "Enter name"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

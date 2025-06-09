@@ -24,15 +24,15 @@
 	Moved(oldloc, NONE)
 
 /mob/camera/move_up()
-	set name = "Move Upwards"
-	set category = "IC"
+	set name = "Подняться"
+	set category = STATPANEL_IC
 
 	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/camera/move_down()
-	set name = "Move Down"
-	set category = "IC"
+	set name = "Опуститься"
+	set category = STATPANEL_IC
 
 	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move down."))

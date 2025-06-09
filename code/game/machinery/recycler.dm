@@ -192,7 +192,7 @@
 
 /obj/machinery/recycler/verb/rotate()
 	set name = "Rotate Clockwise"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	var/mob/living/user = usr
@@ -208,7 +208,7 @@
 
 /obj/machinery/recycler/verb/rotateccw()
 	set name = "Rotate Counter Clockwise"
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	var/mob/living/user = usr
