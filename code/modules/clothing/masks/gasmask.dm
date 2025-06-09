@@ -584,6 +584,7 @@
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
+	adjusted_flags_inv = HIDENAME
 	clothing_traits = list(TRAIT_SECDEATH)
 	var/phrase = 1
 	var/aggressiveness = 1
