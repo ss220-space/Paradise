@@ -9,7 +9,7 @@
  * tgui panel / chat troubleshooting verb
  */
 /client/verb/fix_tgui_panel()
-	set name = "Fix chat"
+	set name = "Починить чат"
 	set category = STATPANEL_SPECIALVERBS
 	var/action
 	log_tgui(src, "Started fixing.")
@@ -34,7 +34,7 @@
 	winset(src, "output_selector.legacy_output_selector", "left=output_browser")
 
 /client/verb/refresh_tgui()
-	set name = "Refresh TGUI"
+	set name = "Обновить TGUI"
 	set category = STATPANEL_SPECIALVERBS
 
 	var/choice = alert(usr,

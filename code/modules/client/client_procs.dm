@@ -1130,7 +1130,7 @@
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
-	set name = "Fit Viewport"
+	set name = "Подгонка области видимости"
 	set desc = "Fit the size of the map window to match the viewport."
 	set category = STATPANEL_SPECIALVERBS
 

@@ -373,7 +373,7 @@
 
 
 /mob/verb/mode()
-	set name = "Activate Held Object"
+	set name = "Использовать объект"
 	set src = usr
 
 	if(ismecha(loc))

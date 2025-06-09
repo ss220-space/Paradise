@@ -535,7 +535,7 @@ SUBSYSTEM_DEF(ticker)
 			m = pick(memetips)
 
 	if(m)
-		to_chat(world, span_purple("<b>Совет раунда: </b>[html_encode(m)]"))
+		to_chat(world, span_purple(chat_box_purple("<b>Совет раунда: </b>[html_encode(m)]")))
 
 
 /datum/controller/subsystem/ticker/proc/declare_completion()

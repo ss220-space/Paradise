@@ -416,7 +416,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_character(real_name, get_default_name())
 	choose_icon()
 
-	if(client.stat_tab == "Status")
+	if(client.stat_tab == STATPANEL_STATUS)
 		SSstatpanels.set_status_tab(client)
 
 	if(!static_radio_channels)
@@ -1656,7 +1656,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/mode()
 	set category = STATPANEL_IC
-	set name = STATPANEL_ACTIVE_HELD_OBJECT
+	set name = "Использовать объект"
+	set desc = "Использовать удерживаемый объект."
 	set src = usr
 
 	var/obj/item/W = get_active_hand()

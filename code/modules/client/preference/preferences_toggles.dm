@@ -1,5 +1,5 @@
 /client/verb/setup_character()
-	set name = "Game Preferences"
+	set name = "Игровые предпочтения"
 	set category = STATPANEL_SPECIALVERBS
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1

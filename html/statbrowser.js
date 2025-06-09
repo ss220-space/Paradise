@@ -22,9 +22,9 @@ function log_debug(data) {
 }
 
 // Status panel implementation ------------------------------------------------
-var status_tab_parts = [['Loading...', '']];
+var status_tab_parts = [['Загрузка...', '']];
 var current_tab = null;
-var mc_tab_parts = [['Loading...', '']];
+var mc_tab_parts = [['Загрузка...', '']];
 var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
@@ -77,8 +77,8 @@ function createStatusTab(name) {
 	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
 	button.style.order = name.charCodeAt(0);
-	if (name == 'Status' || name == 'MC') {
-		button.style.order = name == 'Status' ? 1 : 2;
+	if (name == 'Статус' || name == 'MC') {
+		button.style.order = name == 'Статус' ? 1 : 2;
 	}
 	//END ORDERING
 	button.appendChild(button_text);
@@ -184,7 +184,7 @@ function verbs_cat_check(cat) {
 	}
 	if (verbs_in_cat != 1) {
 		removeStatusTab(tabCat);
-		if (current_tab == tabCat) tab_change('Status');
+		if (current_tab == tabCat) tab_change('Статус');
 	}
 }
 
@@ -231,7 +231,7 @@ function tab_change(tab) {
 	if (document.getElementById(tab))
 		document.getElementById(tab).className = 'button active'; // make current button active
 	var verb_tabs_thingy = verb_tabs.includes(tab);
-	if (tab == 'Status') {
+	if (tab == 'Статус') {
 		draw_status();
 	} else if (tab == 'MC') {
 		draw_mc();
@@ -244,7 +244,7 @@ function tab_change(tab) {
 	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
-		statcontentdiv.textContext = 'Loading...';
+		statcontentdiv.textContext = 'Загрузка...';
 	}
 	Byond.winset(Byond.windowId, {
 		'is-visible': true,
@@ -331,9 +331,9 @@ function draw_debug() {
 	document.getElementById('statcontent').appendChild(table3);
 }
 function draw_status() {
-	if (!document.getElementById('Status')) {
-		createStatusTab('Status');
-		current_tab = 'Status';
+	if (!document.getElementById('Статус')) {
+		createStatusTab('Статус');
+		current_tab = 'Статус';
 	}
 
 	statcontentdiv.textContent = '';
@@ -643,7 +643,7 @@ function remove_listedturf() {
 	removePermanentTab(turfname);
 	checkStatusTab();
 	if (current_tab == turfname) {
-		tab_change('Status');
+		tab_change('Статус');
 	}
 	if (document.getElementById('listedturf_div')) {
 		document.getElementById('listedturf_div').remove();
@@ -658,7 +658,7 @@ function remove_listedturf() {
 function remove_mc() {
 	removePermanentTab('MC');
 	if (current_tab == 'MC') {
-		tab_change('Status');
+		tab_change('Статус');
 	}
 }
 
@@ -666,7 +666,7 @@ function remove_sdql2() {
 	if (sdql2) {
 		sdql2 = [];
 		removePermanentTab('SDQL2');
-		if (current_tab == 'SDQL2') tab_change('Status');
+		if (current_tab == 'SDQL2') tab_change('Статус');
 	}
 	checkStatusTab();
 }
@@ -861,8 +861,8 @@ document.addEventListener('mouseup', restoreFocus);
 document.addEventListener('keyup', restoreFocus);
 
 if (!current_tab) {
-	addPermanentTab('Status');
-	tab_change('Status');
+	addPermanentTab('Статус');
+	tab_change('Статус');
 }
 
 window.onload = function () {
@@ -931,7 +931,7 @@ Byond.subscribeTo('update_stat', function (payload) {
 		}
 	}
 
-	if (current_tab == 'Status') {
+	if (current_tab == 'Статус') {
 		draw_status();
 	} else if (current_tab == 'Debug Stat Panel') {
 		draw_debug();
