@@ -1645,7 +1645,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
 	set category = STATPANEL_ROBOTCOMMANDS
 	set name = "Reset Identity Codes"
-	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
+	set desc = "Scrambles your security and identification codes and resets your current buffers. Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
 	var/mob/living/silicon/robot/R = src
 
@@ -1655,9 +1655,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set name = "Акт. предмет"
-	set desc = "Активирует удерживаемый предмет."
 	set category = STATPANEL_IC
+	set name = STATPANEL_ACTIVE_HELD_OBJECT
 	set src = usr
 
 	var/obj/item/W = get_active_hand()

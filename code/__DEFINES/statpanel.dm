@@ -3,6 +3,7 @@
 #define STATPANEL_STATUS "Статус"
 
 // NAME
+#define STATPANEL_ACTIVE_HELD_OBJECT "Использовать объект"
 
 // CATEGOTY
 #define STATPANEL_OOC "OOC"
