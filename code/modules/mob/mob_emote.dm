@@ -60,7 +60,7 @@
 	else
 		input = message
 
-	emote("эмоция", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
+	emote("me", m_type, input, intentional, ignore_cooldowns = ignore_cooldowns)
 
 
 /**

@@ -2,19 +2,19 @@
 #define ILLEGAL_CHARACTERS_LIST list("<" = "", ">" = "", \
 	"\[" = "", "]" = "", "{" = "", "}" = "")
 
-/mob/proc/say(message, verb = "сказать", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
+/mob/proc/say(message, verb = "says", sanitize = TRUE, ignore_speech_problems = FALSE, ignore_atmospherics = FALSE, ignore_languages = FALSE)
 	return
 
 /mob/verb/whisper(message as text)
-	set name = "Шептать"
+	set name = "Whisper"
 	set category = STATPANEL_IC
 	return
 
-/mob/proc/whisper_say(list/message_pieces, verb = "шептать")
+/mob/proc/whisper_say(list/message_pieces, verb = "whispers")
 	return
 
 /mob/verb/say_verb(message as text)
-	set name = "Сказать"
+	set name = "Say"
 	set category = STATPANEL_IC
 
 	//Let's try to make users fix their errors - we try to detect single, out-of-place letters and 'unintended' words
@@ -39,7 +39,7 @@
 
 
 /mob/verb/me_verb(message as text)
-	set name = "Эмоция"
+	set name = "Me"
 	set category = STATPANEL_IC
 
 	message = strip_html_properly(message)
