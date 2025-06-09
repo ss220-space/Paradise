@@ -94,7 +94,7 @@
 
 
 /client/verb/volume_mixer()
-	set name = "Open Volume Mixer"
+	set name = "Открыть микшер громкости"
 	set category = STATPANEL_SPECIALVERBS
 
 	var/datum/ui_module/volume_mixer/VM = new()

@@ -148,8 +148,8 @@ menu "menu"
 		can-check = true
 		saved-params = "is-checked"
 	elem
-		name = "&Игровые предпочтения"
-		command = "Игровые-предпочтения"
+		name = "&Игровые настройки"
+		command = "Игровые-настройки"
 		category = "&Опции"
 		saved-params = "is-checked"
 	elem

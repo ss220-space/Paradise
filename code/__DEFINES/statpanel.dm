@@ -10,7 +10,6 @@
 #define STATPANEL_IC "IC"
 #define STATPANEL_OBJECT "Объекты"
 #define STATPANEL_AICOMMANDS "ИИ команды"
-#define STATPANEL_SERVER "Сервер"
 #define STATPANEL_SPECIALVERBS "Спецкоманды"
 #define STATPANEL_MARTIALARTS "Боевые искусства"
 #define STATPANEL_GHOST "Призрак"
