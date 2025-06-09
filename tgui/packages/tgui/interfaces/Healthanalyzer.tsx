@@ -41,6 +41,7 @@ type ScanData = {
   bodyTemperatureC: number;
   bodyTemperatureF: number;
   pulse: number;
+  pulse_status: number;
   bloodData: BloodData;
   genes: number;
   timetodefib: number;
@@ -292,8 +293,13 @@ export const Healthanalyzer = (props: unknown) => {
                     )}
 
                     <LabeledList.Item label="Пульс">
-                      <span style={{ color: scan_data.pulse_status == 2 ? '0080ff' : 'red' }}>
-                          {scan_data.pulse} уд/мин
+                      <span
+                        style={{
+                          color:
+                            scan_data.pulse_status === 2 ? '0080ff' : 'red',
+                        }}
+                      >
+                        {scan_data.pulse} уд/мин
                       </span>
                     </LabeledList.Item>
 
