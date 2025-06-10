@@ -1,6 +1,14 @@
 /obj/machinery/drone_fabricator
 	name = "drone fabricator"
-	desc = "A large automated factory for producing maintenance drones."
+	ru_names = list(
+		NOMINATIVE = "фабрикатор дронов",
+		GENITIVE = "фабрикатора дронов",
+		DATIVE = "фабрикатору дронов",
+		ACCUSATIVE = "фабрикатор дронов",
+		INSTRUMENTAL = "фабрикатором дронов",
+		PREPOSITIONAL = "фабрикаторе дронов"
+	)
+	desc = "Большая автоматизированная фабрика для производства дронов обслуживания."
 	icon = 'icons/obj/machines/drone_fab.dmi'
 	icon_state = "drone_fab_idle"
 	density = TRUE
@@ -50,12 +58,12 @@
 	drone_progress = round((elapsed/CONFIG_GET(number/drone_build_time))*100)
 
 	if(drone_progress >= 100)
-		visible_message("\The [src] voices a strident beep, indicating a drone chassis is prepared.")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] издаёт резкий звуковой сигнал, указывая на готовность шасси дрона.")
 
 /obj/machinery/drone_fabricator/examine(mob/user)
 	. = ..()
 	if(produce_drones && drone_progress >= 100 && istype(user,/mob/dead) && CONFIG_GET(flag/allow_drone_spawn) && count_drones() < CONFIG_GET(number/max_maint_drones))
-		. += "<span class='info'><br><b>A drone is prepared. Select 'Join As Drone' from the Ghost tab to spawn as a maintenance drone.</b></span>"
+		. += span_info("<br><b>Дрон готов. Выберите 'Присоединиться как дрон' во вкладке Ghost, чтобы появиться как дрон обслуживания.</b>")
 
 /obj/machinery/drone_fabricator/proc/count_drones()
 	var/drones = 0
@@ -75,7 +83,7 @@
 	if(!player || !istype(player.mob,/mob/dead))
 		return
 
-	visible_message("\The [src] churns and grinds as it lurches into motion, disgorging a shiny new drone after a few moments.")
+	visible_message("[capitalize(declent_ru(NOMINATIVE))] гудит и скрипит, начиная движение, и через несколько мгновений выпускает нового блестящего дрона.")
 	flick("h_lathe_leave",src)
 
 	time_last_drone = world.time
@@ -95,7 +103,7 @@
 
 /mob/dead/proc/become_drone(mob/user)
 	if(!(CONFIG_GET(flag/allow_drone_spawn)))
-		to_chat(src, "<span class='warning'>That action is not currently permitted.</span>")
+		to_chat(src, span_warning("Это действие сейчас запрещено."))
 		return
 
 	if(!src.stat)
@@ -105,23 +113,23 @@
 		return 0 //something is terribly wrong
 
 	if(jobban_isbanned(src,"nonhumandept") || jobban_isbanned(src,"Drone"))
-		to_chat(usr, "<span class='warning'>You are banned from playing drones and cannot spawn as a drone.</span>")
+		to_chat(usr, span_warning("Вам запрещено играть за дронов, и вы не можете появиться как дрон."))
 		return
 
 	if(!SSticker || SSticker.current_state < 3)
-		to_chat(src, "<span class='warning'>You can't join as a drone before the game starts!</span>")
+		to_chat(src, span_warning("Вы не можете присоединиться как дрон до начала игры!"))
 		return
 
 	var/drone_age = 14 // 14 days to play as a drone
 	var/player_age_check = check_client_age(usr.client, drone_age)
 	if(player_age_check && CONFIG_GET(flag/use_age_restriction_for_antags))
-		to_chat(usr, "<span class='warning'>This role is not yet available to you. You need to wait another [player_age_check] days.</span>")
+		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Вам нужно подождать ещё [player_age_check] [declension_ru(player_age_check,"день","дня","дней")]."))
 		return
 
 	var/pt_req = role_available_in_playtime(client, ROLE_DRONE)
 	if(pt_req)
 		var/pt_req_string = get_exp_format(pt_req)
-		to_chat(usr, "<span class='warning'>This role is not yet available to you. Play another [pt_req_string] to unlock it.</span>")
+		to_chat(usr, span_warning("Эта роль пока недоступна для вас. Сыграйте ещё [pt_req_string], чтобы разблокировать её."))
 		return
 
 	var/deathtime = world.time - src.timeofdeath
@@ -129,27 +137,25 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
-			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(usr, span_warning("Используя antagHUD, вы отказались от возможности присоединиться к раунду."))
 			return
 		if(G.started_as_observer == 1)
 			joinedasobserver = 1
 
 	var/deathtimeminutes = round(deathtime / 600)
-	var/pluralcheck = "minute"
+	var/pluralcheck = "мин"
 	if(deathtimeminutes == 0)
 		pluralcheck = ""
-	else if(deathtimeminutes == 1)
-		pluralcheck = " [deathtimeminutes] minute and"
-	else if(deathtimeminutes > 1)
-		pluralcheck = " [deathtimeminutes] minutes and"
+	else if(deathtimeminutes > 0)
+		pluralcheck = " [deathtimeminutes] мин. и"
 	var/deathtimeseconds = round((deathtime - deathtimeminutes * 600) / 10,1)
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay_drone) && joinedasobserver == 0)
-		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay_drone)] minutes to respawn as a drone!</span>")
+		to_chat(usr, "Вы были мертвы в течении[pluralcheck] [deathtimeseconds] секунд.")
+		to_chat(usr, span_warning("Вы должны подождать [CONFIG_GET(number/respawn_delay_drone)] минут[declension_ru(CONFIG_GET(number/respawn_delay_drone), "у", "ы", "")], чтобы возродиться как дрон!"))
 		return
 
-	if(tgui_alert(usr, "Are you sure you want to respawn as a drone?", "Are you sure?", list("Yes", "No")) != "Yes")
+	if(tgui_alert(usr, "Вы уверены, что хотите возродиться как дрон?", "Вы уверены?", list("Да", "Нет")) != "Да")
 		return
 
 	for(var/obj/machinery/drone_fabricator/DF in GLOB.machines)
@@ -157,11 +163,11 @@
 			continue
 
 		if(DF.count_drones() >= CONFIG_GET(number/max_maint_drones))
-			to_chat(src, "<span class='warning'>There are too many active drones in the world for you to spawn.</span>")
+			to_chat(src, span_warning("В мире слишком много активных дронов, чтобы вы могли появиться."))
 			return
 
 		if(DF.drone_progress >= 100)
 			DF.create_drone(src.client)
 			return
 
-	to_chat(src, "<span class='warning'>There are no available drone spawn points, sorry.</span>")
+	to_chat(src, span_warning("Нет доступных точек спавна для дронов, извините."))

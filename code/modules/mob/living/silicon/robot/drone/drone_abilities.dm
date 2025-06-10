@@ -1,16 +1,16 @@
 // DRONE ABILITIES
 /mob/living/silicon/robot/drone/verb/set_mail_tag()
-	set name = "Set Mail Tag"
+	set name = "Почтовый адрес"
 	set desc = "Tag yourself for delivery through the disposals system."
 	set category = STATPANEL_DRONE
 
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
+	var/tag = input("Выберите желаемое место назначения.", "Установка почтового адреса", null) as null|anything in GLOB.TAGGERLOCATIONS
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
 		return
 
-	to_chat(src, span_notice("You configure your internal beacon, tagging yourself for delivery to '[tag]'."))
+	to_chat(src, span_notice("Вы настраиваете внутренний маячок, помечая себя для доставки в \"[tag]\"."))
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
@@ -70,11 +70,11 @@
 				custom_sprite = 1  // option is given in hologram menu
 
 	if(!custom_sprite)
-		to_chat(src, span_warning("Error 404: Custom chassis not found. Revoking customization option."))
+		to_chat(src, span_warning("Ошибка 404: Настраиваемое шасси не найдено. Отмена опции настройки."))
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"
-		to_chat(src, span_notice("You reconfigure your chassis and improve the station through your new aesthetics."))
+		to_chat(src, span_notice("Вы переконфигурируете своё шасси и улучшаете станцию своими новыми эстетическими изменениями."))
 	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
