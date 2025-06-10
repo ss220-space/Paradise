@@ -21,7 +21,7 @@
 
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
@@ -32,7 +32,7 @@
 	var/species_names = target.dna.species.name
 	if(head.undisfigure())
 		user.visible_message(
-			span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
+			span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы восстанавливаете внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
