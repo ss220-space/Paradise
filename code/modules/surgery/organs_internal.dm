@@ -480,15 +480,14 @@
 /datum/surgery_step/internal/manipulate_organs/mend/proc/get_tool_name(obj/item/tool)
 	var/tool_name = "[tool.declent_ru(ACCUSATIVE)]"
 	if(istype(tool, /obj/item/stack/medical/bruise_pack))
-		tool_name = "пластырь"
+		tool_name = "лечебный пластырь"
 	if(istype(tool, /obj/item/stack/medical/bruise_pack/advanced) || istype(tool, /obj/item/stack/medical/bruise_pack/extended))
-		tool_name = "регенеративную мембрану"
-	else if(istype(tool, /obj/item/stack/nanopaste))
-		tool_name = "[tool.declent_ru(ACCUSATIVE)]" //what else do you call nanopaste medically?
+		tool_name = "заживляющую мембрану"
 
 	return tool_name
 
 /datum/surgery_step/internal/manipulate_organs/mend/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!hasorgans(target))
@@ -509,8 +508,8 @@
 				user.balloon_alert(user, "нельзя заживить мёртвый орган!")
 				continue
 			user.visible_message(
-				span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы начинаете восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
+				span_notice("Вы начинаете восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 			)
 			if(can_treat_organic && !organ.sterile)
 				spread_germs_to_organ(organ, user, tool)
@@ -528,6 +527,7 @@
 	return ..()
 
 /datum/surgery_step/internal/manipulate_organs/mend/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/tool_name = get_tool_name(tool)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!hasorgans(target))
 		return SURGERY_STEP_INCOMPLETE
@@ -539,8 +539,8 @@
 			if(organ.is_dead())
 				continue
 			user.visible_message(
-				span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+				span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
+				span_notice("Вы восстаналиваете [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
 			)
 			organ.damage = 0
 			organ.surgeryize()
