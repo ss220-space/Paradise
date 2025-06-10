@@ -378,35 +378,35 @@
 
 /datum/action/item_action/toggle/New(Target)
 	..()
-	name = "Переключить [target.name]"
+	name = "Переключить [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/openclose
 
 /datum/action/item_action/openclose/New(Target)
 	..()
-	name = "Открыть/Закрыть [target.name]"
+	name = "Открыть/Закрыть [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/button
 
 /datum/action/item_action/button/New(Target)
 	..()
-	name = "Застегнуть/расстегнуть [target.name]"
+	name = "Застегнуть/Расстегнуть [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/zipper
 
 /datum/action/item_action/zipper/New(Target)
 	..()
-	name = "Застегнуть/расстегнуть [target.name]"
+	name = "Застегнуть/Расстегнуть [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/activate
 
 /datum/action/item_action/activate/New(Target)
 	..()
-	name = "Активировать [target.name]"
+	name = "Активировать [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/activate/enchant
@@ -445,7 +445,7 @@
 
 /datum/action/item_action/adjust/New(Target)
 	..()
-	name = "Поднять/Опустить [target.name]"
+	name = "Поднять/Опустить [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/pontificate
@@ -653,12 +653,12 @@
 
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
-	name = "Переключить [target.name]"
+	name = "Переключить [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
-	name = "Использовать [target.name]"
+	name = "Использовать [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/voice_changer/toggle

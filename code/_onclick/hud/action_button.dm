@@ -116,7 +116,8 @@
 //Hide/Show Action Buttons ... Button
 /atom/movable/screen/movable/action_button/hide_toggle
 	name = "Скрыть кнопки"
-	desc = "Shift+ЛКМ — сбросить позицию кнопки, Ctrl+ЛКМ — заблокировать/разблокировать. \
+	desc = "Shift+ЛКМ — сбросить позицию кнопки.\
+			<br> Ctrl+ЛКМ — заблокировать/разблокировать. \
 			<br> Alt+ЛКМ на этой кнопке — сбросить ВСЕ кнопки в стандартные позиции. \
 			<br> Ctrl+Shift+ЛКМ — назначить горячую клавишу."
 	icon = 'icons/mob/actions/actions.dmi'
@@ -201,7 +202,7 @@
 		else
 			var/list/desc_information = list()
 			desc_information += desc
-			desc_information += "Сейчас привязано к клавише [linked_keybind.binded_to]."
+			desc_information += "Сейчас привязано к клавише \"[linked_keybind.binded_to]\""
 			desc_information = desc_information.Join(" ")
 			openToolTip(usr, src, params, title = name, content = desc_information, theme = actiontooltipstyle)
 

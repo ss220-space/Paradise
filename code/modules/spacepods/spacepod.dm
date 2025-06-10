@@ -8,8 +8,8 @@
 #define NO_GRAVITY_SPEED (0.15 SECONDS)
 #define GRAVITY_SPEED (0.4 SECONDS)
 
-#define POD_MISC_LOCK_DOOR 		"Заблокировать двери"
-#define POD_MISC_POD_DOORS 		"Шлюз отсека отсека"
+#define POD_MISC_LOCK_DOOR 		"Блокировка дверей"
+#define POD_MISC_POD_DOORS 		"Шлюз отсека"
 #define POD_MISC_UNLOAD_CARGO 	"Сбросить груз"
 #define POD_MISC_CHECK_SEAT		"Проверить под сиденьем"
 #define POD_MISC_LOCATOR_SKAN   "Сканировать сектор"
@@ -1126,6 +1126,7 @@
 /datum/action/innate/pod/pod_toggle_internals
 	name = "Переключить баллон"
 	desc = "Переключает подачу воздуха из внутреннего баллона, защищая от вакуума и разреженной атмосферы."
+	button_icon_state = "mech_internals_off"
 
 /datum/action/innate/pod/pod_toggle_internals/Activate()
 	if(!owner || !pod || pod.pilot != owner)

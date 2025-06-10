@@ -41,7 +41,7 @@
 		AI.toggle_camera_light()
 
 /atom/movable/screen/ai/crew_monitor
-	name = "Мониторинг Экипажа"
+	name = "Мониторинг экипажа"
 	icon_state = "crew_monitor"
 
 /atom/movable/screen/ai/crew_monitor/Click()
@@ -50,7 +50,7 @@
 		AI.subsystem_crew_monitor()
 
 /atom/movable/screen/ai/crew_manifest
-	name = "Список Экипажа"
+	name = "Манифест экипажа"
 	icon_state = "manifest"
 
 /atom/movable/screen/ai/crew_manifest/Click()
@@ -59,7 +59,7 @@
 		AI.ai_roster()
 
 /atom/movable/screen/ai/alerts
-	name = "Показать Тревоги"
+	name = "Показать тревоги"
 	icon_state = "alerts"
 
 /atom/movable/screen/ai/alerts/Click()
@@ -68,7 +68,7 @@
 		AI.ai_alerts()
 
 /atom/movable/screen/ai/announcement
-	name = "Сделать Объявление"
+	name = "Сделать объявление"
 	icon_state = "announcement"
 
 /atom/movable/screen/ai/announcement/Click()
@@ -143,7 +143,7 @@
 		borg.sensor_mode()
 
 /atom/movable/screen/ai/move_up
-	name = "Подняться на этаж выше"
+	name = "На этаж выше"
 	icon_state = "move_up"
 
 /atom/movable/screen/ai/move_up/Click()
@@ -152,7 +152,7 @@
 		AI.move_up()
 
 /atom/movable/screen/ai/move_down
-	name = "Спуститься на этаж ниже"
+	name = "На этаж ниже"
 	icon_state = "move_down"
 
 /atom/movable/screen/ai/move_down/Click()
