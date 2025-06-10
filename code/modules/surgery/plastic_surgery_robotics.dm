@@ -62,7 +62,7 @@
 			for(var/i in 1 to list_size)
 				names += "Субъект [target.gender == MALE ? "I" : "O"]-[pick("A", "B", "C", "D", "E")]-[rand(10000, 99999)]"
 			names += random_name(target.gender, species_names) //give one normal name in case they want to do regular plastic surgery
-		var/chosen_name = tgui_input_list(user, "Выберите новое имя для субъекта", "Смена имени", names)
+		var/chosen_name = tgui_input_list(user, "Выберите новое имя для субъекта.", "Смена имени", names)
 		if(!chosen_name)
 			return
 		var/oldname = target.real_name
