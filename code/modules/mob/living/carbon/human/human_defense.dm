@@ -496,7 +496,7 @@ emp_act
 		return .
 
 	var/hit_area = affecting.limb_zone
-	var/hit_area_name = parse_zone(hit_area, TRUE)
+	var/hit_area_name = parse_zone(hit_area)
 
 	var/armor = run_armor_check(affecting, MELEE, span_warning("Ваша броня защитила [hit_area_name], полностью поглотив удар."), span_warning("Ваша броня защитила [hit_area_name], смягчив удар."), armour_penetration = I.armour_penetration)
 	if(armor >= 100)
@@ -584,7 +584,7 @@ emp_act
 
 	if(!I.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src.declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
 			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
 			ignored_mobs = user,
 		)
@@ -596,7 +596,7 @@ emp_act
 		message_verb = "[pick(I.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src.declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
+		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
 		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
 		ignored_mobs = user,
 	)

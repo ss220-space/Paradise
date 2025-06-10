@@ -76,7 +76,7 @@
 		DATIVE = "фрагменту роя",
 		ACCUSATIVE = "фрагмент роя",
 		INSTRUMENTAL = "фрагментом роя",
-		PREPOSITIONAL = "о фрагменте роя"
+		PREPOSITIONAL = "фрагменте роя"
 	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Hivelordbrood"

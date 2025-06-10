@@ -191,7 +191,7 @@
 		DATIVE = "червожору",
 		ACCUSATIVE = "червожора",
 		INSTRUMENTAL = "червожором",
-		PREPOSITIONAL = "о червожоре"
+		PREPOSITIONAL = "червожоре"
 	)
 	wanted_objects = list() //They don't eat.
 	gold_core_spawnable = NO_SPAWN

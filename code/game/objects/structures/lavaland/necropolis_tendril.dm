@@ -8,7 +8,7 @@
 		DATIVE = "щупальцу некрополя",
 		ACCUSATIVE = "щупальце некрополя",
 		INSTRUMENTAL = "щупальцем некрополя",
-		PREPOSITIONAL = "о щупальце некрополя"
+		PREPOSITIONAL = "щупальце некрополя"
 	)
 
 	icon = 'icons/mob/nest.dmi'
@@ -118,7 +118,7 @@ GLOBAL_LIST_INIT(tendrils, list())
 		DATIVE = "разрушающемуся щупальцу некрополя",
 		ACCUSATIVE = "разрушающееся щупальце некрополя",
 		INSTRUMENTAL = "разрушающимся щупальцем некрополя",
-		PREPOSITIONAL = "о разрушающемся щупальце некрополя"
+		PREPOSITIONAL = "разрушающемся щупальце некрополя"
 	)
 	layer = TABLE_LAYER
 	icon = 'icons/mob/nest.dmi'
