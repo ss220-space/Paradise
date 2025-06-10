@@ -744,7 +744,7 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 /mob/dead/observer/verb/toggle_ghostsee()
 	set name = "Призрачное зрение"
 	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
-	set category = "Ghost"
+	set category = STATPANEL_GHOST
 
 	ghostvision = !(ghostvision)
 	update_sight()
