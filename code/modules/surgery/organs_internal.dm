@@ -615,7 +615,6 @@
 			span_notice("Вы начинаете извлекать [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		)
 		var/mob/living/carbon/human/H = target
-		var/obj/item/organ/affected = H.get_organ(user.zone_selected)
 		if(H && affected)
 			H.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
 	else
