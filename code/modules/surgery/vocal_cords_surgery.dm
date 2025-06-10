@@ -5,7 +5,7 @@
 
 //Surgery for organics
 /datum/surgery/vocal_cords_surgery
-	name = "Vocal Cords Tuning Surgery"
+	name = "Изменение голоса"
 	steps = list(
 		/datum/surgery_step/generic/cut_open,
 		/datum/surgery_step/generic/retract_skin,
@@ -24,34 +24,41 @@
 		return FALSE
 
 /datum/surgery_step/tune_vocal_cords
-	name = "tune vocal cords"
+	name = "изменение голосовых связок"
 	begin_sound = 'sound/surgery/scalpel1.ogg'
 	end_sound = 'sound/surgery/scalpel2.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
 	allowed_tools = list(TOOL_SCALPEL = 100, /obj/item/kitchen/knife = 50, /obj/item/wirecutters = 35)
 	time = 6.4 SECONDS
-	var/target_vocal = "vocal cords"
 
 /datum/surgery_step/tune_vocal_cords/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
-	user.visible_message("[user] begins to tune [target]'s vocals.", span_notice("You begin to tune [target]'s vocals..."))
+	user.visible_message(
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете изменять голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)].")
+	)
 	..()
 
 /datum/surgery_step/tune_vocal_cords/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	target.change_voice(user, TRUE)
-	user.visible_message("[user] tunes [target]'s vocals completely!", span_notice("You tune [target]'s vocals completely."))
+	user.visible_message(
+		span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы изменяете голосовые связки [target], используя [tool.declent_ru(ACCUSATIVE)].")
+	)
 	return TRUE
 
 /datum/surgery_step/tune_vocal_cords/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
-	user.visible_message(span_warning("[user]'s hand slips, tearing [target_vocal] in [target]'s throat with [tool]!"), \
-						 span_warning("Your hand slips, tearing [target_vocal] in [target]'s throat with [tool]!"))
+	user.visible_message(
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] голосовые связки [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] голосовые связки [target]!")
+	)
 	target.tts_seed = SStts.get_random_seed(target)
 	target.apply_damage(10, BRUTE, head, sharp = TRUE)
 	return FALSE
 
 //Surgery for IPC
 /datum/surgery/vocal_cords_surgery/ipc
-	name = "Microphone Setup Operation"
+	name = "Изменение конфигурации микрофона"
 	steps = list(
 		/datum/surgery_step/robotics/external/unscrew_hatch,
 		/datum/surgery_step/robotics/external/open_hatch,
@@ -61,8 +68,32 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/tune_vocal_cords/ipc
-	name = "microphone setup"
+	name = "калибровка микрофона"
 	begin_sound = 'sound/items/taperecorder/taperecorder_open.ogg'
 	end_sound = 'sound/items/taperecorder/taperecorder_close.ogg'
 	allowed_tools = list(/obj/item/multitool = 100, /obj/item/screwdriver = 55, /obj/item/kitchen/knife = 20, TOOL_SCALPEL = 25)
-	target_vocal = "microphone"
+
+/datum/surgery_step/tune_vocal_cords/ipc/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	user.visible_message(
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] настраивать микрофон [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете настраивать микрофон [target], используя [tool.declent_ru(ACCUSATIVE)].")
+	)
+	..()
+
+/datum/surgery_step/tune_vocal_cords/ipc/end_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	target.change_voice(user, TRUE)
+	user.visible_message(
+		span_notice("[user] настраива[pluralize_ru(user.gender, "ет", "ют")] микрофон [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы настраиваете микрофон [target], используя [tool.declent_ru(ACCUSATIVE)].")
+	)
+	return TRUE
+
+/datum/surgery_step/tune_vocal_cords/ipc/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
+	var/obj/item/organ/external/head/head = target.get_organ(target_zone)
+	user.visible_message(
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] микрофон [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [tool.declent_ru(INSTRUMENTAL)] микрофон [target]!")
+	)
+	target.tts_seed = SStts.get_random_seed(target)
+	target.apply_damage(10, BRUTE, head, sharp = TRUE)
+	return FALSE
