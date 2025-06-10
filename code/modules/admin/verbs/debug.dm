@@ -430,7 +430,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 	log_and_message_admins(span_notice("has granted [M.key] full access."))
 
 /client/proc/cmd_assume_direct_control(var/mob/M in GLOB.mob_list)
-	set category = STATPANEL_ADMIN_DEB
+	set category = STATPANEL_ADMIN_DEBUG
 	set name = "\[Admind\] Assume direct control"
 	set desc = "Direct intervention"
 
