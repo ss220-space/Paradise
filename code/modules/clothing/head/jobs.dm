@@ -711,3 +711,4 @@
 	item_state = "prison_hat"
 	icon_state = "prison_hat"
 	
+	
