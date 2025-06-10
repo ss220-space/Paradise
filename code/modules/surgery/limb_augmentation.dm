@@ -54,8 +54,8 @@
 	var/obj/item/robot_parts/L = tool
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] заверша[pluralize_ru(user.gender, "ет", "ют")] аугментацию [affected.declent_ru(ACCUSATIVE)] [target]."),
-		span_notice("Вы завершаете аугментацию [affected.declent_ru(ACCUSATIVE)] [target]."),
+		span_notice("[user] заверша[pluralize_ru(user.gender, "ет", "ют")] аугментацию [affected.declent_ru(GENITIVE)] [target]."),
+		span_notice("Вы завершаете аугментацию [affected.declent_ru(GENITIVE)] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
