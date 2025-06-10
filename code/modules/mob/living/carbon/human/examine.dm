@@ -365,18 +365,18 @@
 		msg += "[p_they(TRUE)] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
 
 	if(decaylevel == 1)
-		msg += "[p_they(TRUE)] [p_are()] начинает пахнуть.\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] начал[genderize_ru(user.gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[p_they(TRUE)] [p_are()] раздулось и воняет.\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] раздут[genderize_ru(user.gender, "", "а", "о", "ы")] и отвратительно пахнет[genderize_ru(user.gender, "ет", "ет", "ет", "ут")].\n"
 	if(decaylevel == 3)
-		msg += "[p_they(TRUE)] [p_are()] гниет и чернеет, кожа шелушится. Отвратительный запах.\n"
+		msg += "[genderize_ru(user.gender, "Он почернел", "Она почернела", "Оно почернело", "Они почернели")] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)
-		msg += "[p_they(TRUE)] [p_are()] почти полностью высохло и остались только кости.\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти полностью разложил[genderize_ru(user.gender, "ся", "ась", "ось", "ись")]. От [genderize_ru(user.gender, "него", "неё", "него", "них")] остался лишь скелет.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(add_id_name = FALSE)
-		var/criminal = "Нет"
-		var/commentLatest = "ОШИБКА: Не удалось найти информацию об этом существе." //If there is no datacore present, give this
+		var/criminal = "None"
+		var/commentLatest = "ОШИБКА: Не удалось найти запись в базе данных о данном лице." //If there is no datacore present, give this
 
 		if(perpname)
 			for(var/datum/data/record/E in GLOB.data_core.general)
