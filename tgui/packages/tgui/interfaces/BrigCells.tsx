@@ -38,23 +38,29 @@ const BrigCellsTableRow = ({ cell }: CellData) => {
   }
 
   const release = () => {
-    act('release', { ref });
+    act('release', { ref, occupant });
+  };
+
+  const minsec = (seconds: number): string => {
+    const mins = Math.floor(seconds / 60);
+    const secs = Math.floor(seconds % 60);
+    return `${String(mins).padStart(2, '0')}:${String(secs).padStart(2, '0')}`;
   };
 
   return (
     <Table.Row className={className}>
-      <Table.Cell>{cell_id}</Table.Cell>
-      <Table.Cell>{occupant}</Table.Cell>
-      <Table.Cell>{crimes}</Table.Cell>
-      <Table.Cell>{brigged_by}</Table.Cell>
-      <Table.Cell>
-        <TimeDisplay value={time_set_seconds} />
+      <Table.Cell style={{ textAlign: 'center' }}>{cell_id}</Table.Cell>
+      <Table.Cell style={{ textAlign: 'center' }}>{occupant}</Table.Cell>
+      <Table.Cell style={{ textAlign: 'center' }}>{crimes}</Table.Cell>
+      <Table.Cell style={{ textAlign: 'center' }}>{brigged_by}</Table.Cell>
+      <Table.Cell style={{ textAlign: 'center' }}>
+        {minsec(time_set_seconds)}
       </Table.Cell>
-      <Table.Cell>
-        <TimeDisplay value={time_left_seconds} />
+      <Table.Cell style={{ textAlign: 'center' }}>
+        {minsec(time_left_seconds)}
       </Table.Cell>
-      <Table.Cell>
-        <Button onClick={release}>Release</Button>
+      <Table.Cell style={{ textAlign: 'center' }}>
+        <Button onClick={release}>Выпустить</Button>
       </Table.Cell>
     </Table.Row>
   );
@@ -64,18 +70,31 @@ const BrigCellsTable = ({ cells }: CellsData) => (
   <Table
     className="BrigCells__list"
     style={{
-      borderCollapse: 'separate',
-      borderSpacing: '0 5px',
+      borderCollapse: 'collapse',
     }}
   >
     <Table.Row>
-      <Table.Cell header>Cell</Table.Cell>
-      <Table.Cell header>Occupant</Table.Cell>
-      <Table.Cell header>Crimes</Table.Cell>
-      <Table.Cell header>Brigged By</Table.Cell>
-      <Table.Cell header>Time Brigged For</Table.Cell>
-      <Table.Cell header>Time Left</Table.Cell>
-      <Table.Cell header>Release</Table.Cell>
+      <Table.Cell header style={{ width: '100px', textAlign: 'center' }}>
+        Камера
+      </Table.Cell>
+      <Table.Cell header style={{ width: '150px', textAlign: 'center' }}>
+        Заключённый
+      </Table.Cell>
+      <Table.Cell header style={{ width: '200px', textAlign: 'center' }}>
+        Обвинения
+      </Table.Cell>
+      <Table.Cell header style={{ width: '180px', textAlign: 'center' }}>
+        Произвёл заключение
+      </Table.Cell>
+      <Table.Cell header style={{ width: '80px', textAlign: 'center' }}>
+        Срок
+      </Table.Cell>
+      <Table.Cell header style={{ width: '80px', textAlign: 'center' }}>
+        Осталось
+      </Table.Cell>
+      <Table.Cell header style={{ width: '100px', textAlign: 'center' }}>
+        Выпустить
+      </Table.Cell>
     </Table.Row>
     {cells.map((cell) => (
       <BrigCellsTableRow key={cell.ref} cell={cell} />
@@ -85,14 +104,16 @@ const BrigCellsTable = ({ cells }: CellsData) => (
 
 export const BrigCells = (properties) => {
   const { data } = useBackend<CellsData>();
-  const { cells } = data;
+  const uniqueCells: Cell[] = Array.from(
+    new Map(data.cells.map((cell: Cell) => [cell.cell_id, cell])).values()
+  );
 
   return (
-    <Window theme="security" width={800} height={400}>
+    <Window theme="security" width={800} height={150}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>
-            <BrigCellsTable cells={cells} />
+            <BrigCellsTable cells={uniqueCells} />
           </Section>
         </Stack>
       </Window.Content>

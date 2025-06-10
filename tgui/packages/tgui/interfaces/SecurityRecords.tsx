@@ -27,14 +27,14 @@ import {
 } from './MedicalRecords';
 
 const statusStyles = {
-  '*Execute*': 'execute',
-  '*Arrest*': 'arrest',
-  'Incarcerated': 'incarcerated',
-  'Parolled': 'parolled',
-  'Released': 'released',
-  'Demote': 'demote',
-  'Search': 'search',
-  'Monitor': 'monitor',
+  '*Казнь*': 'execute',
+  '*Арест*': 'arrest',
+  'Заключённый': 'incarcerated',
+  'Условно-досрочно освобождён': 'parolled',
+  'Освобождённый': 'released',
+  'Понижение': 'demote',
+  'Обыск': 'search',
+  'Контролировать': 'monitor',
 };
 
 const doEdit = (field: Field) => {
@@ -116,14 +116,14 @@ const SecurityRecordsNavigation = (_properties) => {
         onClick={() => act('page', { page: 1 })}
       >
         <Icon name="list" />
-        List Records
+        Просмотр Записей
       </Tabs.Tab>
       <Tabs.Tab
         selected={currentPage === 2}
         onClick={() => act('page', { page: 2 })}
       >
         <Icon name="wrench" />
-        Record Maintenance
+        Обслуживание Записей
       </Tabs.Tab>
       {currentPage === 3 && general && !general.empty && (
         <Tabs.Tab selected={currentPage === 3}>
@@ -163,7 +163,7 @@ const SecurityRecordsPageList = (_properties) => {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
               >
-                Name
+                Имя
               </SortButton>
               <SortButton
                 id="id"
@@ -181,7 +181,7 @@ const SecurityRecordsPageList = (_properties) => {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
               >
-                Assignment
+                Должность
               </SortButton>
               <SortButton
                 id="fingerprint"
@@ -190,7 +190,7 @@ const SecurityRecordsPageList = (_properties) => {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
               >
-                Fingerprint
+                Отпечатки пальцев
               </SortButton>
               <SortButton
                 id="status"
@@ -199,7 +199,7 @@ const SecurityRecordsPageList = (_properties) => {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
               >
-                Criminal Status
+                Стаутс
               </SortButton>
             </Table.Row>
             {records
@@ -260,7 +260,7 @@ const SecurityRecordsActions = (properties: SearchTextProps) => {
     <Stack fill>
       <Stack.Item>
         <Button ml="0.25rem" icon="plus" onClick={() => act('new_general')}>
-          New Record
+          Новая Запись
         </Button>
       </Stack.Item>
       <Stack.Item>
@@ -270,12 +270,12 @@ const SecurityRecordsActions = (properties: SearchTextProps) => {
           iconSpin={!!isPrinting}
           onClick={() => modalOpen('print_cell_log')}
         >
-          Print Cell Log
+          Распечатать Запись Камеры Заключения
         </Button>
       </Stack.Item>
       <Stack.Item grow>
         <Input
-          placeholder="Search by Name, ID, Assignment, Fingerprint, Status"
+          placeholder="Поиск по имени, профессии, отпечаткам пальцев, статусу.."
           fluid
           onInput={(e, value) => setSearchText(value)}
         />
@@ -290,37 +290,33 @@ const SecurityRecordsPageMaintenance = (_properties) => {
       <Button
         disabled
         icon="download"
-        tooltip="This feature is not available."
+        tooltip="Эта функция недоступна."
         tooltipPosition="right"
       >
-        Backup to Disk
+        Выгрузить На Диск
       </Button>
       <br />
       <Button
         disabled
         icon="upload"
-        tooltip="This feature is not available."
+        tooltip="Эта функция недоступна."
         tooltipPosition="right"
         my="0.5rem"
       >
-        Upload from Disk
+        Загрузить С Диска
       </Button>
       <br />
       <Button.Confirm
         disabled
         icon="trash"
-        tooltip="This feature is not available."
+        tooltip="Эта функция недоступна."
         mb="0.5rem"
       >
-        Delete All Security Records
+        Удалить ВСЕ Записи Службы Безопасности
       </Button.Confirm>
       <br />
-      <Button.Confirm
-        disabled
-        icon="trash"
-        tooltip="This feature is not available."
-      >
-        Delete All Cell Logs
+      <Button.Confirm disabled icon="trash" tooltip="Эта функция недоступна.">
+        Удалить ВСЕ Записи Камер Заключения
       </Button.Confirm>
     </Box>
   );
@@ -330,7 +326,7 @@ const SecurityRecordsPageView = (_properties) => {
   const { act, data } = useBackend<SecurityRecordsData>();
   const { isPrinting, general, security } = data;
   if (!general || !general.fields) {
-    return <Box color="bad">General records lost!</Box>;
+    return <Box color="bad">Общие записи утеряны!</Box>;
   }
   return (
     <>
@@ -353,8 +349,8 @@ const SecurityRecordsPageView = (_properties) => {
               <Button.Confirm
                 icon="trash"
                 tooltip={
-                  'WARNING: This will also delete the Security ' +
-                  'and Medical records associated with this crew member!'
+                  'ВНИМАНИЕ: Это безвозвратно удалит записи безопасности ' +
+                  'и медицинские записи, связанные с этим членом экипажа!'
                 }
                 tooltipPosition="bottom-start"
                 onClick={() => act('delete_general')}
@@ -374,7 +370,7 @@ const SecurityRecordsPageView = (_properties) => {
             title="Security Data"
             buttons={
               <Button icon="pen" onClick={() => act('new_security')}>
-                Create New Record
+                Создать Новую Запись
               </Button>
             }
           >
@@ -392,7 +388,7 @@ const SecurityRecordsPageView = (_properties) => {
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
                 <br />
-                Security records lost!
+                Запись Службы Безопасности утеряна!
               </Stack.Item>
             </Stack>
           </Section>
@@ -410,7 +406,7 @@ const SecurityRecordsPageView = (_properties) => {
                   disabled={security.empty}
                   onClick={() => act('delete_security')}
                 >
-                  Delete Record
+                  Удалить Запись
                 </Button.Confirm>
               }
             >
@@ -447,7 +443,7 @@ const SecurityRecordsViewGeneral = (_properties) => {
     return (
       <Stack fill vertical>
         <Stack.Item grow color="bad">
-          <Section fill>General records lost!</Section>
+          <Section fill>Записи утеряны!</Section>
         </Stack.Item>
       </Stack>
     );
@@ -501,12 +497,12 @@ const SecurityRecordsViewSecurity = (_properties) => {
         title="Comments/Log"
         buttons={
           <Button icon="comment" onClick={() => modalOpen('comment_add')}>
-            Add Entry
+            Добавить Запись
           </Button>
         }
       >
         {security.comments.length === 0 ? (
-          <Box color="label">No comments found.</Box>
+          <Box color="label">Комментариев не найдено.</Box>
         ) : (
           security.comments.map((comment, i) => (
             <Box key={i} preserveWhitespace>

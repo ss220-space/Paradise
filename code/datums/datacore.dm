@@ -195,12 +195,12 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/datum/data/record/S = new()
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "None"
-		S.fields["mi_crim"]		= "None"
-		S.fields["mi_crim_d"]	= "No minor crime convictions."
-		S.fields["ma_crim"]		= "None"
-		S.fields["ma_crim_d"]	= "No major crime convictions."
-		S.fields["notes"]		= "No notes."
+		S.fields["criminal"]	= "Нет"
+		S.fields["mi_crim"]		= "Нет"
+		S.fields["mi_crim_d"]	= "Отсутствие судимостей за малозначительные преступления."
+		S.fields["ma_crim"]		= "Нет"
+		S.fields["ma_crim_d"]	= "Отсутствие судимостей за тяжкие преступления."
+		S.fields["notes"]		= "Дополнительная информация отсутствует."
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else

@@ -4,11 +4,11 @@
 	var/icon/front = new(get_id_photo(dummy), dir = SOUTH)
 	var/icon/side = new(get_id_photo(dummy), dir = WEST)
 	var/datum/data/record/G = new /datum/data/record()
-	G.fields["name"] = "New Record"
+	G.fields["name"] = "Новая Запись"
 	G.fields["id"] = text("[]", add_zero(num2hex(rand(1, 1.6777215E7), 2), 6))
-	G.fields["rank"] = "Unassigned"
-	G.fields["real_rank"] = "Unassigned"
-	G.fields["sex"] = "Male"
+	G.fields["rank"] = "Не Присвоено"
+	G.fields["real_rank"] = "Не Присвоено"
+	G.fields["sex"] = "Мужской"
 	G.fields["age"] = "Unknown"
 	G.fields["fingerprint"] = "Unknown"
 	G.fields["p_stat"] = "Active"
@@ -30,12 +30,12 @@
 	R.fields["name"] = name
 	R.fields["id"] = id
 	R.name = text("Security Record #[id]")
-	R.fields["criminal"] = "None"
-	R.fields["mi_crim"] = "None"
-	R.fields["mi_crim_d"] = "No minor crime convictions."
-	R.fields["ma_crim"] = "None"
-	R.fields["ma_crim_d"] = "No major crime convictions."
-	R.fields["notes"] = "No notes."
+	R.fields["criminal"] = "Нет"
+	R.fields["mi_crim"] = "Нет"
+	R.fields["mi_crim_d"] = "Отсутствие судимостей за Малозначительные преступления."
+	R.fields["ma_crim"] = "Нет"
+	R.fields["ma_crim_d"] = "Отсутствие судимостей за тяжкие преступления."
+	R.fields["notes"] = "Нет примечаний."
 	GLOB.data_core.security += R
 	return R
 

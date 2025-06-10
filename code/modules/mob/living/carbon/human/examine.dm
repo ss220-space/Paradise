@@ -351,7 +351,7 @@
 			msg += "[p_they(TRUE)] [p_are()] moving [p_their()] body in an unnatural and blatantly inhuman manner.\n"
 
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
-		msg += "Their features seem unnaturally tight and drawn.\n"
+		msg += "Их черты лица кажутся неестественно напряженными и вытянутыми.\n"
 
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
@@ -365,18 +365,18 @@
 		msg += "[p_they(TRUE)] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
 
 	if(decaylevel == 1)
-		msg += "[p_they(TRUE)] [p_are()] starting to smell.\n"
+		msg += "[p_they(TRUE)] [p_are()] начинает пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[p_they(TRUE)] [p_are()] bloated and smells disgusting.\n"
+		msg += "[p_they(TRUE)] [p_are()] раздулось и воняет.\n"
 	if(decaylevel == 3)
-		msg += "[p_they(TRUE)] [p_are()] rotting and blackened, the skin sloughing off. The smell is indescribably foul.\n"
+		msg += "[p_they(TRUE)] [p_are()] гниет и чернеет, кожа шелушится. Отвратительный запах.\n"
 	if(decaylevel == 4)
-		msg += "[p_they(TRUE)] [p_are()] mostly desiccated now, with only bones remaining of what used to be a person.\n"
+		msg += "[p_they(TRUE)] [p_are()] почти полностью высохло и остались только кости.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(add_id_name = FALSE)
-		var/criminal = "None"
-		var/commentLatest = "ERROR: Unable to locate a data core entry for this person." //If there is no datacore present, give this
+		var/criminal = "Нет"
+		var/commentLatest = "ОШИБКА: Не удалось найти информацию об этом существе." //If there is no datacore present, give this
 
 		if(perpname)
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -388,12 +388,12 @@
 								var/list/comments = R.fields["comments"]
 								commentLatest = LAZYACCESS(comments, comments.len) //get the latest entry from the comment log
 							else
-								commentLatest = "No entries." //If present but without entries (=target is recognized crew)
+								commentLatest = "Отсутствует." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += "<span class = 'deptradio'>Criminal status:</span> [criminal_status]\n"
-			msg += "<span class = 'deptradio'>Security records:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[View comment log\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Add comment\]</a>\n"
-			msg += "<span class = 'deptradio'>Latest entry:</span> [commentLatest]\n"
+			msg += "<span class = 'deptradio'>Криминальный статус:</span> [criminal_status]\n"
+			msg += "<span class = 'deptradio'>Охранные записи:</span> <a href='byond://?src=[UID()];secrecordComment=`'>\[Посмотреть список комментариев\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Добавить комментарий\]</a>\n"
+			msg += "<span class = 'deptradio'>Последняя запись:</span> [commentLatest]\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SKILLS))
 		var/perpname = get_visible_name(add_id_name = FALSE)
@@ -406,14 +406,14 @@
 			if(skills)
 				var/char_limit = 40
 				if(length(skills) <= char_limit)
-					msg += "<span class='deptradio'>Employment records:</span> [skills]\n"
+					msg += "<span class='deptradio'>Записи о трудоустройстве:</span> [skills]\n"
 				else
-					msg += "<span class='deptradio'>Employment records: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
+					msg += "<span class='deptradio'>Записи о трудоустройстве: [copytext_preserve_html(skills, 1, char_limit-3)]...</span><a href='byond://?src=[UID()];employment_more=1'>More...</a>\n"
 
 
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
 		var/perpname = get_visible_name(add_id_name = FALSE)
-		var/medical = "None"
+		var/medical = "Нет"
 
 		for(var/datum/data/record/E in GLOB.data_core.general)
 			if(E.fields["name"] == perpname)
@@ -422,7 +422,7 @@
 						medical = R.fields["p_stat"]
 
 		msg += "<span class = 'deptradio'>Physical status:</span> <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
-		msg += "<span class = 'deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Add comment\]</a>\n"
+		msg += "<span class = 'deptradio'>Medical records:</span> <a href='byond://?src=[UID()];medrecord=`'>\[Посмотреть\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(print_flavor_text() && !skipface && !head_organ?.is_disfigured())

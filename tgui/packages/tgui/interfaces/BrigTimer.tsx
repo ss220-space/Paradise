@@ -22,7 +22,7 @@ type BrigTimerData = {
 
 export const BrigTimer = (props: unknown) => {
   const { act, data } = useBackend<BrigTimerData>();
-  data.nameText = data.occupant;
+  data.nameText = data.occupant || '---';
   if (data.timing) {
     if (data.prisoner_hasrec) {
       data.nameText = <Box color="green">{data.occupant}</Box>;
@@ -42,62 +42,62 @@ export const BrigTimer = (props: unknown) => {
     nameOptions.push(data.spns[i]);
   }
   return (
-    <Window width={500} height={!data.timing ? 405 : 245}>
+    <Window width={500} height={!data.timing ? 430 : 280}>
       <Window.Content>
-        <Section title="Cell Information">
+        <Section title="Информация о камере">
           <LabeledList>
-            <LabeledList.Item label="Cell ID">{data.cell_id}</LabeledList.Item>
-            <LabeledList.Item label="Occupant">
+            <LabeledList.Item label="Камера">{data.cell_id}</LabeledList.Item>
+            <LabeledList.Item label="Заключённый">
               {data.nameText}
             </LabeledList.Item>
-            <LabeledList.Item label="Crimes">{data.crimes}</LabeledList.Item>
-            <LabeledList.Item label="Brigged By">
+            <LabeledList.Item label="Обвинения">{data.crimes}</LabeledList.Item>
+            <LabeledList.Item label="Заключил">
               {data.brigged_by}
             </LabeledList.Item>
-            <LabeledList.Item label="Time Brigged For">
+            <LabeledList.Item label="Время заключения">
               {data.time_set}
             </LabeledList.Item>
-            <LabeledList.Item label="Time Left">
+            <LabeledList.Item label="Оставшееся время">
               {data.time_left}
             </LabeledList.Item>
-            <LabeledList.Item label="Actions">
+            <LabeledList.Item label="Действия">
               <>
                 <Button
                   icon="lightbulb-o"
                   disabled={!data.isAllowed}
                   onClick={() => act('flash')}
                 >
-                  Flash
+                  Ослепить Флешером
                 </Button>
                 <Button
                   icon="angle-up"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('add_timer')}
                 >
-                  Add Timer
+                  Добавить Время
                 </Button>
                 <Button
                   icon="sync"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('restart_timer')}
                 >
-                  Reset Timer
+                  Перезапустить Таймер
                 </Button>
                 <Button
                   icon="eject"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('stop')}
                 >
-                  Release Prisoner
+                  Освободить Заключённого
                 </Button>
               </>
             </LabeledList.Item>
           </LabeledList>
         </Section>
         {!data.timing && (
-          <Section title="New Prisoner">
+          <Section title="Новый заключённый">
             <LabeledList>
-              <LabeledList.Item label="Prisoner Name">
+              <LabeledList.Item label="Имя Заключённого">
                 <Button
                   icon={nameIcon}
                   disabled={!data.isAllowed}
@@ -119,7 +119,7 @@ export const BrigTimer = (props: unknown) => {
                   />
                 )}
               </LabeledList.Item>
-              <LabeledList.Item label="Prisoner Crimes">
+              <LabeledList.Item label="Обвинения">
                 <Button
                   icon="pencil-alt"
                   disabled={!data.isAllowed}
@@ -128,7 +128,7 @@ export const BrigTimer = (props: unknown) => {
                   {data.prisoner_charge ? data.prisoner_charge : '-----'}
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="Prisoner Time">
+              <LabeledList.Item label="Время Заключения">
                 <Button
                   icon="pencil-alt"
                   disabled={!data.isAllowed}
@@ -137,7 +137,7 @@ export const BrigTimer = (props: unknown) => {
                   {data.prisoner_time ? data.prisoner_time : '-----'}
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="Start">
+              <LabeledList.Item label="Приговорить">
                 <Button
                   icon="gavel"
                   disabled={
@@ -150,7 +150,7 @@ export const BrigTimer = (props: unknown) => {
                   }
                   onClick={() => act('start')}
                 >
-                  Start Sentence
+                  Приговорить
                 </Button>
               </LabeledList.Item>
             </LabeledList>

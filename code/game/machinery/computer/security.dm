@@ -35,22 +35,22 @@
 	if(!field_edit_questions)
 		field_edit_questions = list(
 			// General
-			"name" = "Please input new name:",
-			"id" = "Please input new ID:",
-			"sex" = "Please select new sex:",
-			"age" = "Please input new age:",
-			"fingerprint" = "Please input new fingerprint hash:",
+			"name" = "Введите новое имя:",
+			"id" = "Выберите новый ID:",
+			"sex" = "Выберите новый пол:",
+			"age" = "Введите новый возраст:",
+			"fingerprint" = "Введите новый хеш отпечатков пальцев:",
 			// Security
-			"criminal" = "Please select new criminal status:",
-			"mi_crim" = "Please input new minor crimes:",
-			"mi_crim_d" = "Please summarize minor crimes:",
-			"ma_crim" = "Please input new major crimes:",
-			"ma_crim_d" = "Please summarize major crimes:",
-			"notes" = "Please input new important notes:",
+			"criminal" = "Выберите новый статус:",
+			"mi_crim" = "Введите новые Малозначительные преступления:",
+			"mi_crim_d" = "Введите детали мелких преступлений:",
+			"ma_crim" = "Введите новые тяжкие преступления:",
+			"ma_crim_d" = "Введите детали тяжких преступлений:",
+			"notes" = "Введите новые причечания:",
 		)
 		field_edit_choices = list(
 			// General
-			"sex" = list("Male", "Female"),
+			"sex" = list("Мужской", "Женский"),
 			// Security
 			"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
 		)
@@ -76,7 +76,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, span_danger("Unable to establish a connection") + ": You're too far away from the station!")
+		to_chat(user, span_danger("Не удалось установить соединение") + ": Вы слишком далеко от станции!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -121,15 +121,15 @@
 				if(record_general && GLOB.data_core.general.Find(record_general))
 					var/list/gen_fields = record_general.fields
 					general["fields"] = list(
-						SEC_FIELD("Name", 				gen_fields["name"], 		"name",			FALSE),
+						SEC_FIELD("Имя", 				gen_fields["name"], 		"name",			FALSE),
 						SEC_FIELD("ID", 				gen_fields["id"], 			"id",			TRUE),
-						SEC_FIELD("Sex", 				gen_fields["sex"], 			"sex",			FALSE),
-						SEC_FIELD("Age", 				gen_fields["age"], 			"age",			TRUE),
-						SEC_FIELD("Assignment", 		gen_fields["rank"], 		null,			FALSE),
-						SEC_FIELD("Fingerprint", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
-						SEC_FIELD("Physical Status", 	gen_fields["p_stat"], 		null,			FALSE),
-						SEC_FIELD("Mental Status", 		gen_fields["m_stat"], 		null,			TRUE),
-						SEC_FIELD("Important Notes", 	gen_fields["notes"], 		null,			FALSE),
+						SEC_FIELD("Пол", 				gen_fields["sex"], 			"sex",			FALSE),
+						SEC_FIELD("Возраст", 				gen_fields["age"], 			"age",			TRUE),
+						SEC_FIELD("Должность", 		gen_fields["rank"], 		null,			FALSE),
+						SEC_FIELD("Отпечатки пальцев", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
+						SEC_FIELD("Физическое состояние", 	gen_fields["p_stat"], 		null,			FALSE),
+						SEC_FIELD("Психологическое состояние", 		gen_fields["m_stat"], 		null,			TRUE),
+						SEC_FIELD("Важные примечания", 	gen_fields["notes"], 		null,			FALSE),
 					)
 					general["photos"] = list(
 						gen_fields["photo-south"],
@@ -145,12 +145,12 @@
 				if(record_security && GLOB.data_core.security.Find(record_security))
 					var/list/sec_fields = record_security.fields
 					security["fields"] = list(
-						SEC_FIELD("Criminal Status", 	sec_fields["criminal"], 	"criminal", 	TRUE),
-						SEC_FIELD("Minor Crimes", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
-						SEC_FIELD("Major Crimes", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
-						SEC_FIELD("Details", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
-						SEC_FIELD("Important Notes", 	sec_fields["notes"], 		null, 			FALSE),
+						SEC_FIELD("Статус", 	sec_fields["criminal"], 	"criminal", 	TRUE),
+						SEC_FIELD("Малозначительные преступления", 		sec_fields["mi_crim"], 		"mi_crim", 		FALSE),
+						SEC_FIELD("Детали", 			sec_fields["mi_crim_d"], 	"mi_crim_d", 	TRUE),
+						SEC_FIELD("Тяжкие преступления", 		sec_fields["ma_crim"], 		"ma_crim", 		FALSE),
+						SEC_FIELD("Детали", 			sec_fields["ma_crim_d"], 	"ma_crim_d", 	TRUE),
+						SEC_FIELD("Важные примечания", 	sec_fields["notes"], 		null, 			FALSE),
 					)
 					if(!islist(sec_fields["comments"]))
 						sec_fields["comments"] = list()
@@ -188,7 +188,7 @@
 			var/datum/data/record/G = locateUID(params["uid_gen"])
 			var/datum/data/record/S = locateUID(params["uid_sec"])
 			if(!istype(G)) // No general record!
-				set_temp("General record not found!", "danger")
+				set_temp("Запись не найдена!", "danger")
 				return
 			if(istype(S) && !(G.fields["name"] == S.fields["name"] && G.fields["id"] == S.fields["id"])) // General and security records don't match!
 				S = null
@@ -201,17 +201,17 @@
 			if(record_general)
 				return
 			var/datum/data/record/G = new /datum/data/record()
-			G.fields["name"] = "New Record"
+			G.fields["name"] = "Новая Запись"
 			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
-			G.fields["rank"] = "Unassigned"
-			G.fields["real_rank"] = "Unassigned"
-			G.fields["sex"] = "Male"
+			G.fields["rank"] = "Не Присвоено"
+			G.fields["real_rank"] = "Не Присвоено"
+			G.fields["sex"] = "Мужской"
 			G.fields["age"] = "Unknown"
 			G.fields["fingerprint"] = "Unknown"
-			G.fields["p_stat"] = "Active"
-			G.fields["m_stat"] = "Stable"
+			G.fields["p_stat"] = "Активный"
+			G.fields["m_stat"] = "Стабильный"
 			G.fields["species"] = SPECIES_HUMAN
-			G.fields["notes"] = "No notes."
+			G.fields["notes"] = "Нет примечаний."
 			GLOB.data_core.general += G
 			record_general = G
 			record_security = null
@@ -224,13 +224,13 @@
 			var/datum/data/record/S = new /datum/data/record()
 			S.fields["name"] = record_general.fields["name"]
 			S.fields["id"] = record_general.fields["id"]
-			S.name = "Security Record #[S.fields["id"]]"
+			S.name = "Запись безопасности #[S.fields["id"]]"
 			S.fields["criminal"] = SEC_RECORD_STATUS_NONE
-			S.fields["mi_crim"] = "None"
-			S.fields["mi_crim_d"] = "No minor crime convictions."
-			S.fields["ma_crim"] = "None"
-			S.fields["ma_crim_d"] = "No major crime convictions."
-			S.fields["notes"] = "No notes."
+			S.fields["mi_crim"] = "Нет"
+			S.fields["mi_crim_d"] = "Отсутствие судимостей за Малозначительные преступления."
+			S.fields["ma_crim"] = "Нет"
+			S.fields["ma_crim_d"] = "Отсутствие судимостей за тяжкие преступления."
+			S.fields["notes"] = "Нет примечаний."
 			GLOB.data_core.security += S
 			record_security = S
 			update_all_mob_security_hud()
@@ -239,9 +239,9 @@
 				return
 			if(!record_general)
 				return
-			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted [record_general.fields["name"]]'s general, security and medical records at [ADMIN_COORDJMP(usr)]")
-			add_misc_logs(usr, "deleted [record_general.fields["name"]]'s general, security and medical records")
-			usr.investigate_log("deleted [record_general.fields["name"]]'s general, security and medical records", INVESTIGATE_RECORDS)
+			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил [record_general.fields["name"]] общие, медицинские и записи безопасности в [ADMIN_COORDJMP(usr)]")
+			add_misc_logs(usr, "удалил [record_general.fields["name"]] общие, медицинские и записи безопасности")
+			usr.investigate_log("удалил [record_general.fields["name"]] общие, медицинские и записи безопасности", INVESTIGATE_RECORDS)
 			for(var/datum/data/record/M in GLOB.data_core.medical)
 				if(M.fields["name"] == record_general.fields["name"] && M.fields["id"] == record_general.fields["id"])
 					qdel(M)
@@ -249,39 +249,39 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			current_page = SEC_DATA_R_LIST
-			set_temp("General, Security and Medical records deleted.")
+			set_temp("Общие, медицинские и записи безопасности удалены.")
 		if("delete_security") // Delete Security Record
 			if(!logged_in)
 				return
 			if(!record_security)
 				return
-			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted [record_security.fields["name"]]'s security record at [ADMIN_COORDJMP(usr)]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил [record_security.fields["name"]] запись безопасности в [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "deleted [record_security.fields["name"]]'s security record")
 			usr.investigate_log("deleted [record_security.fields["name"]]'s security record", INVESTIGATE_RECORDS)
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
-			set_temp("Security record deleted.")
+			set_temp("Запись удалена.")
 		if("delete_security_all") // Delete All Security Records
 			if(!logged_in)
 				return
 			for(var/datum/data/record/S in GLOB.data_core.security)
 				qdel(S)
-			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all security records at [ADMIN_COORDJMP(usr)]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил все записи службы безопасности [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "deleted all security records")
 			usr.investigate_log("deleted all security records", INVESTIGATE_RECORDS)
 			update_all_mob_security_hud()
-			set_temp("All security records deleted.")
+			set_temp("Все записи службы безопасности удалены.")
 		if("delete_cell_logs") // Delete All Cell Logs
 			if(!logged_in)
 				return
 			if(!length(GLOB.cell_logs))
-				set_temp("There are no cell logs to delete.")
+				set_temp("Нет записей камер заключения для удаления.")
 				return
-			message_admins("[ADMIN_LOOKUPFLW(usr)] has deleted all cell logs at [ADMIN_COORDJMP(usr)]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил все записи камер заключения в [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "deleted all cell logs")
 			usr.investigate_log("deleted all cell logs", INVESTIGATE_RECORDS)
 			GLOB.cell_logs.Cut()
-			set_temp("All cell logs deleted.")
+			set_temp("Все записи камер заключения удалены.")
 		if("comment_delete") // Delete Comment
 			if(!logged_in)
 				return
@@ -334,12 +334,12 @@
 					else
 						ui_modal_input(src, id, question, arguments = arguments, value = arguments["value"])
 				if("comment_add")
-					ui_modal_input(src, id, "Please enter your message:")
+					ui_modal_input(src, id, "Введите комментарий:")
 				if("print_cell_log")
 					if(is_printing)
 						return
 					if(!length(GLOB.cell_logs))
-						set_temp("There are no cell logs available to print.")
+						set_temp("Нет доступных записей для печати.")
 						return
 					var/list/choices = list()
 					var/list/already_in = list()
@@ -349,7 +349,7 @@
 							continue
 						choices += P.name
 						already_in[P.name] = TRUE
-					ui_modal_choice(src, id, "Please select the cell log you would like printed:", choices = choices)
+					ui_modal_choice(src, id, "Выберите, что вы хотите распечатать:", choices = choices)
 				else
 					return FALSE
 		if(UI_MODAL_ANSWER)
@@ -371,17 +371,17 @@
 						var/new_age = text2num(answer)
 						var/age_limits = get_age_limits(species, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
 						if(new_age < age_limits[SPECIES_AGE_MIN] || new_age > age_limits[SPECIES_AGE_MAX])
-							set_temp("Invalid age. It must be between [age_limits[SPECIES_AGE_MIN]] and [age_limits[SPECIES_AGE_MAX]].", "danger")
+							set_temp("Неверный возраст. Он должен быть между [age_limits[SPECIES_AGE_MIN]] и [age_limits[SPECIES_AGE_MAX]].", "danger")
 							return
 
 						answer = new_age
 
 					if(field == "criminal")
-						var/text = "Please enter a reason for the status change to [answer]:"
+						var/text = "Укажите причину изменения статуса [answer]:"
 						if(answer == SEC_RECORD_STATUS_EXECUTE)
-							text = "Please explain why they are being executed. Include a list of their crimes, and victims."
+							text = "Укажите причину казни."
 						else if(answer == SEC_RECORD_STATUS_DEMOTE)
-							text = "Please explain why they are being demoted. Include a list of their offenses."
+							text = "Укажите причину понижения в должности."
 						ui_modal_input(src, "criminal_reason", text, arguments = list("status" = answer))
 						return
 
@@ -394,17 +394,17 @@
 					if(!record_security || !(status in field_edit_choices["criminal"]))
 						return
 					if((status in list(SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_DEMOTE)) && !length(answer))
-						set_temp("A valid reason must be provided for this status.", "danger")
+						set_temp("Должна быть указана причина.", "danger")
 						return
 					var/datum/ui_login/state = ui_login_get()
 					if(!set_criminal_status(usr, record_security, status, answer, state.rank, state.access, state.name))
-						set_temp("Required permissions to set this criminal status not found!", "danger")
+						set_temp("Не обнаружен необходимый доступ для установки этого статуса!", "danger")
 				if("comment_add")
 					var/datum/ui_login/state = ui_login_get()
 					if(!length(answer) || !record_security || !length(state.name))
 						return
 					record_security.fields["comments"] += list(list(
-						header = "Made by [state.name] ([state.rank]) on [GLOB.current_date_string] [station_time_timestamp()]",
+						header = "Создано [state.name] ([state.rank]) в [GLOB.current_date_string] [station_time_timestamp()]",
 						text = answer
 					))
 				if("print_cell_log")
@@ -451,18 +451,18 @@
 	else
 		P.info += "<b>General Record Lost!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))
-		P.info += {"<br>\n<center><b>Security Data</b></center>
-		<br>\nCriminal Status: [record_security.fields["criminal"]]<br>\n
-		<br>\nMinor Crimes: [record_security.fields["mi_crim"]]
-		<br>\nDetails: [record_security.fields["mi_crim_d"]]<br>\n
-		<br>\nMajor Crimes: [record_security.fields["ma_crim"]]
-		<br>\nDetails: [record_security.fields["ma_crim_d"]]<br>\n
-		<br>\nImportant Notes:
-		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"}
+		P.info += {"<br>\n<center><b>Данные Службы Безопасности</b></center>
+		<br>\nСтатус: [record_security.fields["criminal"]]<br>\n
+		<br>\nМалозначительные преступления: [record_security.fields["mi_crim"]]
+		<br>\nДетали: [record_security.fields["mi_crim_d"]]<br>\n
+		<br>\nТяжкие преступления: [record_security.fields["ma_crim"]]
+		<br>\nДетали: [record_security.fields["ma_crim_d"]]<br>\n
+		<br>\nВажные примечания:
+		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Log</b></center><br>"}
 		for(var/c in record_security.fields["comments"])
 			P.info += "[c]<br>"
 	else
-		P.info += "<b>Security Record Lost!</b><br>"
+		P.info += "<b>Запись Службы Безопасности утеряна!</b><br>"
 	is_printing = FALSE
 	SStgui.update_uis(src)
 
@@ -487,15 +487,15 @@
 				if(1)
 					R.fields["name"] = pick("[pick(GLOB.first_names_male)] [pick(GLOB.last_names)]", "[pick(GLOB.first_names_female)] [pick(GLOB.last_names_female)]")
 				if(2)
-					R.fields["sex"] = pick("Male", "Female")
+					R.fields["sex"] = pick("Мужской", "Женский")
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
 					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 				if(5)
-					R.fields["p_stat"] = pick("*Unconcious*", "Active", "Physically Unfit")
+					R.fields["p_stat"] = pick("*Без сознания*", "Активен", "Физически непригоден")
 				if(6)
-					R.fields["m_stat"] = pick("*Insane*", "*Unstable*", "*Watch*", "Stable")
+					R.fields["m_stat"] = pick("*Безумец*", "*Нестабильный*", "*Наблюдать*", "Стабильный")
 			continue
 
 		else if(prob(1))

@@ -11,7 +11,7 @@
  */
 /obj/structure/filingcabinet
 	name = "filing cabinet"
-	desc = "A large cabinet with drawers."
+	desc = "Большой шкаф с ящиками."
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "filingcabinet"
 	density = TRUE
@@ -25,7 +25,7 @@
 
 /obj/structure/filingcabinet/chestdrawer/autopsy
 	name = "autopsy reports drawer"
-	desc = "A large drawer for holding autopsy reports."
+	desc = "Большой ящик для хранения отчетов о вскрытии."
 
 /obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
 	icon_state = "tallcabinet"
@@ -57,7 +57,7 @@
 	if(is_type_in_typecache(I, allowed_to_store))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You put [I] into [src]."))
+		to_chat(user, span_notice("Вы положили [I] в [src]."))
 		opened = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		sleep(0.5 SECONDS)
@@ -66,7 +66,7 @@
 		updateUsrDialog()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	to_chat(user, span_warning("You cannot put [I] into [src]!"))
+	to_chat(user, span_warning("Вы не можете положить [I] в [src]!"))
 	return ATTACK_CHAIN_PROCEED
 
 
@@ -83,7 +83,7 @@
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
 	if(!length(contents))
-		to_chat(user, "<span class='notice'>[src] is empty.</span>")
+		to_chat(user, "<span class='notice'>[src] пуст.</span>")
 		return
 
 	add_fingerprint(user)
@@ -111,9 +111,9 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			to_chat(user, "<span class='notice'>You pull \a [I] out of [src] at random.</span>")
+			to_chat(user, "<span class='notice'>Вы наугад вытаскиваете \a [I] из [src]</span>")
 			return
-	to_chat(user, "<span class='notice'>You find nothing in [src].</span>")
+	to_chat(user, "<span class='notice'>Вы ничего не нашли в [src].</span>")
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])
@@ -148,9 +148,9 @@
 					S = R
 					break
 			var/obj/item/paper/P = new /obj/item/paper(src)
-			P.info = "<center><b>Security Record</b></center><br>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<br>\nSex: [G.fields["sex"]]<br>\nAge: [G.fields["age"]]<br>\nFingerprint: [G.fields["fingerprint"]]<br>\nPhysical Status: [G.fields["p_stat"]]<br>\nMental Status: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Security Data</b></center><br>\nCriminal Status: [S.fields["criminal"]]<br>\n<br>\nMinor Crimes: [S.fields["mi_crim"]]<br>\nDetails: [S.fields["mi_crim_d"]]<br>\n<br>\nMajor Crimes: [S.fields["ma_crim"]]<br>\nDetails: [S.fields["ma_crim_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[S.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
+			P.info = "<center><b>Запись Службы Безопасности</b></center><br>"
+			P.info += "Имя: [G.fields["name"]] ID: [G.fields["id"]]<br>\nПол: [G.fields["sex"]]<br>\nВозраст: [G.fields["age"]]<br>\nОтпечатки пальцев: [G.fields["fingerprint"]]<br>\nФизическое состояние: [G.fields["p_stat"]]<br>\nПсихологическое состояние: [G.fields["m_stat"]]<br>"
+			P.info += "<br>\n<center><b>Данные Службы Безопасности</b></center><br>\nСтатус: [S.fields["criminal"]]<br>\n<br>\nМалозначительные преступления: [S.fields["mi_crim"]]<br>\nДетали: [S.fields["mi_crim_d"]]<br>\n<br>\nТяжкие преступления: [S.fields["ma_crim"]]<br>\nДетали: [S.fields["ma_crim_d"]]<br>\n<br>\nВажные примечания:<br>\n\t[S.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Log</b></center><br>"
 			for(var/c in S.fields["comments"])
 				P.info += "[c]<br>"
 			P.name = "paper - '[G.fields["name"]]'"
@@ -180,9 +180,9 @@
 					M = R
 					break
 			var/obj/item/paper/P = new /obj/item/paper(src)
-			P.info = "<center><b>Medical Record</b></center><br>"
-			P.info += "Name: [G.fields["name"]] ID: [G.fields["id"]]<br>\nSex: [G.fields["sex"]]<br>\nAge: [G.fields["age"]]<br>\nFingerprint: [G.fields["fingerprint"]]<br>\nPhysical Status: [G.fields["p_stat"]]<br>\nMental Status: [G.fields["m_stat"]]<br>"
-			P.info += "<br>\n<center><b>Medical Data</b></center><br>\nBlood Type: [M.fields["b_type"]]<br>\nDNA: [M.fields["b_dna"]]<br>\n<br>\nMinor Disabilities: [M.fields["mi_dis"]]<br>\nDetails: [M.fields["mi_dis_d"]]<br>\n<br>\nMajor Disabilities: [M.fields["ma_dis"]]<br>\nDetails: [M.fields["ma_dis_d"]]<br>\n<br>\nAllergies: [M.fields["alg"]]<br>\nDetails: [M.fields["alg_d"]]<br>\n<br>\nCurrent Diseases: [M.fields["cdi"]] (per disease info placed in log/comment section)<br>\nDetails: [M.fields["cdi_d"]]<br>\n<br>\nImportant Notes:<br>\n\t[M.fields["notes"]]<br>\n<br>\n<center><b>Comments/Log</b></center><br>"
+			P.info = "<center><b>Медицинские Записи</b></center><br>"
+			P.info += "<br>\n<center><b>Медицинская Информация</b></center><br>\nГруппа крови: [M.fields["b_type"]]<br>\nДНК: [M.fields["b_dna"]]<br>\n<br>\nНезначительные отклонения: [M.fields["mi_dis"]]<br>\nДетали: [M.fields["mi_dis_d"]]<br>\n<br>\nИнвалидности: [M.fields["ma_dis"]]<br>\nДетали: [M.fields["ma_dis_d"]]<br>\n<br>\nАллергии: [M.fields["alg"]]<br>\nДетали: [M.fields["alg_d"]]<br>\n<br>\nТекущие заболевания: [M.fields["cdi"]] (информация о заболевании, размещенная в разделе комментария)<br>\nДетали: [M.fields["cdi_d"]]<br>\n<br>\nВажные примечания:<br>\n\t[M.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Записи</b></center><br>"
+			P.info += "Имя: [G.fields["name"]] ID: [G.fields["id"]]<br>\nПол: [G.fields["sex"]]<br>\nВозраст: [G.fields["age"]]<br>\nОтпечатки пальцев: [G.fields["fingerprint"]]<br>\nФизическое состояние: [G.fields["p_stat"]]<br>\nПсихологическое состояние: [G.fields["m_stat"]]<br>"
 			for(var/c in M.fields["comments"])
 				P.info += "[c]<br>"
 			P.name = "paper - '[G.fields["name"]]'"
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment/attack_hand(mob/user)
 	if(cooldown)
-		to_chat(user, "<span class='warning'>[src] is jammed, give it a few seconds.</span>")
+		to_chat(user, "<span class='warning'>[src] заклинило. Подождите немного.</span>")
 	else
 		if(!populated)
 			add_fingerprint(user)

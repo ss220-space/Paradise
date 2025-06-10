@@ -30,7 +30,7 @@
 /obj/machinery/computer/brigcells/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BrigCells", "Brig Cell Management")
+		ui = new(user, src, "BrigCells", "Управление Камерами Заключения")
 		ui.open()
 
 /obj/machinery/computer/brigcells/ui_data(mob/user)
@@ -42,8 +42,8 @@
 		timer["occupant"] = T.occupant
 		timer["crimes"] = T.crimes
 		timer["brigged_by"] = T.officer
-		timer["time_set_seconds"] = round(T.timetoset / 10, 1)
-		timer["time_left_seconds"] = round(T.timeleft(), 1)
+		timer["time_set_seconds"] = round(T.timetoset / 10)
+		timer["time_left_seconds"] = round(T.timeleft())
 		timer["ref"] = "\ref[T]"
 		timers[++timers.len] += timer
 	timers = sortByKey(timers, "cell_id")
@@ -64,7 +64,7 @@
 		var/obj/machinery/door_timer/T = locate(ref)
 		if (T)
 			T.timer_end()
-			T.Radio.autosay("Timer stopped manually from a cell management console.", T.name, SEC_FREQ, list(z))
+			T.Radio.autosay("Таймер был остановлен через консоль управления камерами. Остановивший: [usr.name]", T.name, SEC_FREQ_NAME)
 		return TRUE
 
 	return FALSE

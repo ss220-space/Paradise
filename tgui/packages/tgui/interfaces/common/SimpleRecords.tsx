@@ -110,7 +110,7 @@ const SelectionView = (props: SelectionViewProps) => {
       <Input
         fluid
         mb={1}
-        placeholder="Search records..."
+        placeholder="Поиск записей..."
         onInput={(e, value) => setSearchText(value)}
       />
       {formattedRecords.map((r) => (
@@ -142,43 +142,43 @@ const RecordView = (props: RecordViewProps) => {
   switch (props.recordType) {
     case 'MED':
       secondaryRecord = (
-        <Section title="Medical Data">
+        <Section title="Медицинская Информация">
           {medical ? (
             <LabeledList>
-              <LabeledList.Item label="Blood Type">
+              <LabeledList.Item label="Группа Крови">
                 {medical.blood_type}
               </LabeledList.Item>
-              <LabeledList.Item label="Minor Disabilities">
+              <LabeledList.Item label="Незначительные Отклонения">
                 {medical.mi_dis}
               </LabeledList.Item>
-              <LabeledList.Item label="Details">
+              <LabeledList.Item label="Детали">
                 {medical.mi_dis_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Major Disabilities">
+              <LabeledList.Item label="Инвалидности">
                 {medical.ma_dis}
               </LabeledList.Item>
-              <LabeledList.Item label="Details">
+              <LabeledList.Item label="Детали">
                 {medical.ma_dis_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Allergies">
+              <LabeledList.Item label="Аллергии">
                 {medical.alg}
               </LabeledList.Item>
-              <LabeledList.Item label="Details">
+              <LabeledList.Item label="Делтали">
                 {medical.alg_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Current Diseases">
+              <LabeledList.Item label="Текущие Заболевания">
                 {medical.cdi}
               </LabeledList.Item>
-              <LabeledList.Item label="Details">
+              <LabeledList.Item label="Детали">
                 {medical.cdi_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Important Notes">
+              <LabeledList.Item label="Важные Примечания">
                 {medical.notes}
               </LabeledList.Item>
             </LabeledList>
           ) : (
             <Box color="red" bold>
-              {'Medical record lost!'}
+              {'Медицинская запись утеряна!'}
             </Box>
           )}
         </Section>
@@ -186,31 +186,31 @@ const RecordView = (props: RecordViewProps) => {
       break;
     case 'SEC':
       secondaryRecord = (
-        <Section title="Security Data">
+        <Section title="Данные Службы Безопасности">
           {security ? (
             <LabeledList>
-              <LabeledList.Item label="Criminal Status">
+              <LabeledList.Item label="Статус">
                 {security.criminal}
               </LabeledList.Item>
-              <LabeledList.Item label="Minor Crimes">
+              <LabeledList.Item label="Малозначительные преступления">
                 {security.mi_crim}
               </LabeledList.Item>
-              <LabeledList.Item label="Details">
+              <LabeledList.Item label="Детали">
                 {security.mi_crim_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Major Crimes">
+              <LabeledList.Item label="Тяжкие преступления">
                 {security.ma_crim}
               </LabeledList.Item>
-              <LabeledList.Item label="Details">
+              <LabeledList.Item label="Детали">
                 {security.ma_crim_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Important Notes">
+              <LabeledList.Item label="Важные Примечания:">
                 {security.notes}
               </LabeledList.Item>
             </LabeledList>
           ) : (
             <Box color="red" bold>
-              {'Security record lost!'}
+              {'Запись службы безопасности утеряна!'}
             </Box>
           )}
         </Section>
@@ -220,23 +220,23 @@ const RecordView = (props: RecordViewProps) => {
 
   return (
     <Box>
-      <Section title="General Data">
+      <Section title="Общая Информация">
         {general ? (
           <LabeledList>
-            <LabeledList.Item label="Name">{general.name}</LabeledList.Item>
-            <LabeledList.Item label="Sex">{general.sex}</LabeledList.Item>
-            <LabeledList.Item label="Species">
-              {general.species}
+            <LabeledList.Item label="Имя">{general.name}</LabeledList.Item>
+            <LabeledList.Item label="Пол">{general.sex}</LabeledList.Item>
+            <LabeledList.Item label="Раса">{general.species}</LabeledList.Item>
+            <LabeledList.Item label="Возраст">{general.age}</LabeledList.Item>
+            <LabeledList.Item label="Должность">
+              {general.rank}
             </LabeledList.Item>
-            <LabeledList.Item label="Age">{general.age}</LabeledList.Item>
-            <LabeledList.Item label="Rank">{general.rank}</LabeledList.Item>
-            <LabeledList.Item label="Fingerprint">
+            <LabeledList.Item label="Отпечатки пальцев">
               {general.fingerprint}
             </LabeledList.Item>
-            <LabeledList.Item label="Physical Status">
+            <LabeledList.Item label="Физическое состояние">
               {general.p_stat}
             </LabeledList.Item>
-            <LabeledList.Item label="Mental Status">
+            <LabeledList.Item label="Психологическое состояние">
               {general.m_stat}
             </LabeledList.Item>
           </LabeledList>
