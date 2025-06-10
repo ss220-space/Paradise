@@ -22,7 +22,7 @@
 /datum/surgery_step/reshape_face/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	user.visible_message(
 		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы начинаете изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
+		span_notice("Вы начинаете изменять внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
@@ -33,7 +33,7 @@
 	if(head.undisfigure())
 		user.visible_message(
 			span_notice("[user] восстанавлива[pluralize_ru(user.gender, "ет", "ют")] внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы восстанавливаете внешность [target], используя [tool.declent_ru(ACCUSATIVE)].")
+			span_notice("Вы восстанавливаете внешность [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	else
@@ -75,8 +75,8 @@
 		target.real_name = chosen_name
 		var/newname = target.real_name	//something about how the code handles names required that I use this instead of target.real_name
 		user.visible_message(
-			span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname].")
-			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname].")
+			span_notice("[user] изменя[pluralize_ru(user.gender, "ет", "ют")] внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname]."),
+			span_notice("Вы изменяете внешность [oldname], используя [tool.declent_ru(ACCUSATIVE)]. Теперь [genderize_ru(target.gender, "его", "её", "его", "их")] зовут [newname]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	target.sec_hud_set_ID()
