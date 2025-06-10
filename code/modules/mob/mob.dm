@@ -704,7 +704,7 @@
 	return
 
 /mob/dead/observer/verb/respawn()
-	set name = "Respawn as NPC"
+	set name = "Играть за НИП"
 	set category = STATPANEL_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
