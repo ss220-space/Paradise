@@ -185,7 +185,7 @@
 
 /obj/item/clothing/shoes/prison
 	name = "prison boots"
-	desc = "Твердая и не удобная обувь сделанная другими заключенными."
+	desc = "Твердая и неудобная обувь, сделанная другими заключенными."
 	ru_names = list(
 		NOMINATIVE = "тюремные башмаки",
 		GENITIVE = "тюремные башмаки",
