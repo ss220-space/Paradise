@@ -682,20 +682,6 @@
 	)
 	icon_state = "surgcap_brown"
 
-//Mining medic
-/obj/item/clothing/head/beret/mining_medic
-	name = "mining medic's beret"
-	desc = "Коричневый берет с вышитым на нём белым крестом. Такой обычно носит шахтёрский врач."
-	ru_names = list(
-		NOMINATIVE = "берет шахтёрского врача",
-		GENITIVE = "берета шахтёрского врача",
-		DATIVE = "берету шахтёрского врача",
-		ACCUSATIVE = "берет шахтёрского врача",
-		INSTRUMENTAL = "беретом шахтёрского врача",
-		PREPOSITIONAL = "берете шахтёрского врача"
-	)
-	icon_state = "beret_minmed"
-
 //prison
 /obj/item/clothing/head/prison
 	name = "prison hat"
@@ -710,5 +696,18 @@
 	)
 	item_state = "prison_hat"
 	icon_state = "prison_hat"
-	
-	
+
+//Mining medic
+/obj/item/clothing/head/beret/mining_medic
+	name = "mining medic's beret"
+	desc = "Коричневый берет с вышитым на нём белым крестом. Такой обычно носит шахтёрский врач."
+	ru_names = list(
+		NOMINATIVE = "берет шахтёрского врача",
+		GENITIVE = "берета шахтёрского врача",
+		DATIVE = "берету шахтёрского врача",
+		ACCUSATIVE = "берет шахтёрского врача",
+		INSTRUMENTAL = "беретом шахтёрского врача",
+		PREPOSITIONAL = "берете шахтёрского врача"
+	)
+	icon_state = "beret_minmed"
+
