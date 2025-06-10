@@ -1,5 +1,13 @@
 /obj/projectile/beam
 	name = "laser"
+	ru_names = list(
+		NOMINATIVE = "лазер",
+		GENITIVE = "лазера",
+		DATIVE = "лазеру",
+		ACCUSATIVE = "лазер",
+		INSTRUMENTAL = "лазером",
+		PREPOSITIONAL = "лазере"
+	)
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
 	damage = 20
@@ -24,22 +32,54 @@
 
 /obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
+	ru_names = list(
+		NOMINATIVE = "мощный лазер",
+		GENITIVE = "мощного лазера",
+		DATIVE = "мощному лазеру",
+		ACCUSATIVE = "мощный лазер",
+		INSTRUMENTAL = "мощным лазером",
+		PREPOSITIONAL = "мощном лазере"
+	)
 	icon_state = "heavylaser"
 	damage = 50
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
 /obj/projectile/beam/laser/slug
 	name = "laser slug beam"
+	ru_names = list(
+		NOMINATIVE = "лазерная пуля",
+		GENITIVE = "лазерной пули",
+		DATIVE = "лазерной пуле",
+		ACCUSATIVE = "лазерную пулю",
+		INSTRUMENTAL = "лазерной пулей",
+		PREPOSITIONAL = "лазерной пуле"
+	)
 	damage = 50
 	stamina = 33
 
 /obj/projectile/beam/laser/shot
 	name = "laser shot beam"
+	ru_names = list(
+		NOMINATIVE = "лазерная дробь",
+		GENITIVE = "лазерной дроби",
+		DATIVE = "лазерной дроби",
+		ACCUSATIVE = "лазерную дробь",
+		INSTRUMENTAL = "лазерной дробью",
+		PREPOSITIONAL = "лазерной дроби"
+	)
 	icon_state = "lasershot"
 	damage = 15
 
 /obj/projectile/beam/practice
 	name = "practice laser"
+	ru_names = list(
+		NOMINATIVE = "безвредный лазер",
+		GENITIVE = "безвредного лазера",
+		DATIVE = "безвредному лазеру",
+		ACCUSATIVE = "безвредный лазер",
+		INSTRUMENTAL = "безвредным лазером",
+		PREPOSITIONAL = "безвредном лазере"
+	)
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = TRUE
@@ -47,11 +87,27 @@
 
 /obj/projectile/beam/scatter
 	name = "laser pellet"
+	ru_names = list(
+		NOMINATIVE = "лазерная гранула",
+		GENITIVE = "лазерной гранулы",
+		DATIVE = "лазерной грануле",
+		ACCUSATIVE = "лазерную гранулу",
+		INSTRUMENTAL = "лазерной гранулой",
+		PREPOSITIONAL = "лазерной грануле"
+	)
 	icon_state = "scatterlaser"
 	damage = 5
 
 /obj/projectile/beam/xray
 	name = "x-ray beam"
+	ru_names = list(
+		NOMINATIVE = "рентгеновский луч",
+		GENITIVE = "рентгеновского луча",
+		DATIVE = "рентгеновскому лучу",
+		ACCUSATIVE = "рентгеновский луч",
+		INSTRUMENTAL = "рентгеновским лучом",
+		PREPOSITIONAL = "рентгеновском луче"
+	)
 	icon_state = "xray"
 	damage = 10
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
@@ -64,6 +120,14 @@
 
 /obj/projectile/beam/disabler
 	name = "disabler beam"
+	ru_names = list(
+		NOMINATIVE = "дизейблер",
+		GENITIVE = "дизейблера",
+		DATIVE = "дизейблеру",
+		ACCUSATIVE = "дизейблер",
+		INSTRUMENTAL = "дизейблером",
+		PREPOSITIONAL = "дизейблере"
+	)
 	icon_state = "omnilaser"
 	damage = 25
 	shockbull = TRUE
@@ -97,6 +161,14 @@
 
 /obj/projectile/beam/pulse
 	name = "pulse"
+	ru_names = list(
+		NOMINATIVE = "импульсный луч",
+		GENITIVE = "импульсного луча",
+		DATIVE = "импульсному лучу",
+		ACCUSATIVE = "импульсный луч",
+		INSTRUMENTAL = "импульсным лучом",
+		PREPOSITIONAL = "импульсном луче"
+	)
 	icon_state = "u_laser"
 	damage = 50
 	var/gib_allowed = TRUE
@@ -115,7 +187,7 @@
 	if(gib_allowed && isliving(target))
 		var/mob/living/L = target
 		if(L.health <= -200)
-			L.visible_message(span_danger("[L] has been terminated!"))
+			L.visible_message(span_danger("Импульсный луч превращает [L] в облако пепла!"))
 			L.dust()
 
 /obj/projectile/beam/pulse/shot
@@ -124,6 +196,14 @@
 
 /obj/projectile/beam/emitter
 	name = "emitter beam"
+	ru_names = list(
+		NOMINATIVE = "луч излучателя",
+		GENITIVE = "луча излучателя",
+		DATIVE = "лучу излучателя",
+		ACCUSATIVE = "луч излучателя",
+		INSTRUMENTAL = "лучом излучателя",
+		PREPOSITIONAL = "луче излучателя"
+	)
 	icon_state = "emitter"
 	damage = 30
 	hitsound = 'sound/weapons/resonator_blast.ogg'
@@ -135,6 +215,14 @@
 
 /obj/projectile/beam/lasertag
 	name = "laser tag beam"
+	ru_names = list(
+		NOMINATIVE = "лазертаг",
+		GENITIVE = "лазертага",
+		DATIVE = "лазертагу",
+		ACCUSATIVE = "лазертаг",
+		INSTRUMENTAL = "лазертагом",
+		PREPOSITIONAL = "лазертаге"
+	)
 	icon_state = "omnilaser"
 	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = TRUE
@@ -157,6 +245,14 @@
 
 /obj/projectile/beam/lasertag/omni
 	name = "laser tag beam"
+	ru_names = list(
+		NOMINATIVE = "лазертаг",
+		GENITIVE = "лазертага",
+		DATIVE = "лазертагу",
+		ACCUSATIVE = "лазертаг",
+		INSTRUMENTAL = "лазертагом",
+		PREPOSITIONAL = "лазертаге"
+	)
 	icon_state = "omnilaser"
 
 /obj/projectile/beam/lasertag/redtag
@@ -172,6 +268,14 @@
 
 /obj/projectile/beam/sniper
 	name = "sniper beam"
+	ru_names = list(
+		NOMINATIVE = "снайперский луч",
+		GENITIVE = "снайперского луча",
+		DATIVE = "снайперскому лучу",
+		ACCUSATIVE = "снайперский луч",
+		INSTRUMENTAL = "снайперским лучом",
+		PREPOSITIONAL = "снайперском луче"
+	)
 	icon_state = "sniperlaser"
 	//speed = 0.75
 	//range = 100
@@ -186,6 +290,14 @@
 
 /obj/projectile/beam/podsniper/disabler
 	name = "sniper disabler beam"
+	ru_names = list(
+		NOMINATIVE = "лазер снайперского дизейблера",
+		GENITIVE = "лазера снайперского дизейблера",
+		DATIVE = "лазеру снайперского дизейблера",
+		ACCUSATIVE = "лазер снайперского дизейблера",
+		INSTRUMENTAL = "лазером снайперского дизейблера",
+		PREPOSITIONAL = "лазере снайперского дизейблера"
+	)
 	icon_state = "LSR_disabler"
 	damage = 40
 	damage_type = STAMINA
@@ -197,6 +309,14 @@
 
 /obj/projectile/beam/podsniper/laser
 	name = "sniper laser beam"
+	ru_names = list(
+		NOMINATIVE = "снайперский лазер",
+		GENITIVE = "снайперского лазера",
+		DATIVE = "снайперскому лазеру",
+		ACCUSATIVE = "снайперский лазер",
+		INSTRUMENTAL = "снайперским лазером",
+		PREPOSITIONAL = "снайперском лазере"
+	)
 	icon_state = "LSR_kill"
 	damage = 45
 	damage_type = BURN
@@ -208,20 +328,52 @@
 
 /obj/projectile/beam/immolator
 	name = "immolation beam"
+	ru_names = list(
+		NOMINATIVE = "луч иммолятора",
+		GENITIVE = "луча иммолятора",
+		DATIVE = "лучу иммолятора",
+		ACCUSATIVE = "луч иммолятора",
+		INSTRUMENTAL = "лучом иммолятора",
+		PREPOSITIONAL = "луче иммолятора"
+	)
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 
 /obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
+	ru_names = list(
+		NOMINATIVE = "мощный луч иммолятора",
+		GENITIVE = "мощного луча иммолятора",
+		DATIVE = "мощному лучу иммолятора",
+		ACCUSATIVE = "мощный луч иммолятора",
+		INSTRUMENTAL = "мощным лучом иммолятора",
+		PREPOSITIONAL = "мощном луче иммолятора"
+	)
 	damage = 45
 	icon_state = "heavylaser"
 
 /obj/projectile/beam/immolator/weak
 	name = "light immolation beam"
+	ru_names = list(
+		NOMINATIVE = "лёгкий луч иммолятора",
+		GENITIVE = "лёгкого луча иммолятора",
+		DATIVE = "лёгкому лучу иммолятора",
+		ACCUSATIVE = "лёгкий луч иммолятора",
+		INSTRUMENTAL = "лёгким лучом иммолятора",
+		PREPOSITIONAL = "лёгком луче иммолятора"
+	)
 	damage = 8
 	icon_state = "scatterlaser"
 
 /obj/projectile/beam/immolator/mech
 	name = "mecha immolation beam"
+	ru_names = list(
+		NOMINATIVE = "луч иммолятора меха",
+		GENITIVE = "луча иммолятора меха",
+		DATIVE = "лучу иммолятора меха",
+		ACCUSATIVE = "луч иммолятора меха",
+		INSTRUMENTAL = "лучом иммолятора меха",
+		PREPOSITIONAL = "луче иммолятора меха"
+	)
 	damage = 15
 
 /obj/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
@@ -233,6 +385,14 @@
 
 /obj/projectile/beam/instakill
 	name = "instagib laser"
+	ru_names = list(
+		NOMINATIVE = "инстагиб лазер",
+		GENITIVE = "инстагиб лазера",
+		DATIVE = "инстагиб лазеру",
+		ACCUSATIVE = "инстагиб лазер",
+		INSTRUMENTAL = "инстагиб лазером",
+		PREPOSITIONAL = "инстагиб лазере"
+	)
 	icon_state = "purple_laser"
 	damage = 200
 	hitsound = 'sound/weapons/resonator_blast.ogg'
@@ -254,7 +414,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.visible_message("<span class='danger'>[L] explodes!</span>")
+		L.visible_message(span_danger("[capitalize(L.declent_ru(NOMINATIVE))] взрывается!"))
 		L.gib()
 
 /obj/projectile/beam/dominator/eliminator
@@ -264,6 +424,14 @@
 
 /obj/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"
+	ru_names = list(
+		NOMINATIVE = "луч казни",
+		GENITIVE = "луча казни",
+		DATIVE = "лучу казни",
+		ACCUSATIVE = "луч казни",
+		INSTRUMENTAL = "лучом казни",
+		PREPOSITIONAL = "луче казни"
+	)
 	icon_state = "blue_laser"
 	damage = 50
 	stamina = 33
@@ -275,6 +443,14 @@
 
 /obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
+	ru_names = list(
+		NOMINATIVE = "дизейблер",
+		GENITIVE = "дизейблера",
+		DATIVE = "дизейблеру",
+		ACCUSATIVE = "дизейблер",
+		INSTRUMENTAL = "дизейблером",
+		PREPOSITIONAL = "дизейблере"
+	)
 	icon_state = "omnilaser"
 	damage = 25
 	shockbull = TRUE
