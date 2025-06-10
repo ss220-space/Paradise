@@ -429,7 +429,7 @@ UI STUFF
 
 	dat += "</table>"
 	dat += "<h1>Resolve All</h1>"
-	if(ticket_system_name == "Mentor Tickets")
+	if(ticket_system_name == "Запросы менторов")
 		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
 	else
 		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
@@ -597,7 +597,7 @@ UI STUFF
 		convert_to_other_ticket(indexNum)
 
 	if(href_list["resolveall"])
-		if(ticket_system_name == "Mentor Tickets")
+		if(ticket_system_name == "Запросы менторов")
 			usr.client.resolveAllMentorTickets()
 		else
 			usr.client.resolveAllAdminTickets()
