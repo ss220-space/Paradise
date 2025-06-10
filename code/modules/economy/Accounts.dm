@@ -22,7 +22,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		GLOB.next_account_number = rand(111111, 999999)
 
 		GLOB.CC_account = new()
-		GLOB.CC_account.owner_name = "Account of the personnel department of the Central Command"
+		GLOB.CC_account.owner_name = "Аккаунт отдела кадров Центрального Командования"
 		GLOB.CC_account.account_number = rand(111111, 999999)
 		GLOB.CC_account.remote_access_pin = rand(111111, 999999)
 		GLOB.CC_account.money = INFINITY
@@ -79,7 +79,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	//create an entry in the account transaction log for when it was created
 	var/datum/transaction/T = new()
 	T.target_name = new_owner_name
-	T.purpose = "Account creation"
+	T.purpose = "Аккаунт создан"
 	T.amount = starting_funds
 	if(!source_db)
 		//set a random date, time and location some time over the past few decades
@@ -111,17 +111,17 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		var/datum/ui_login/L = source_db.ui_login_get()
 		if(L.id)
 			overseer = L.id.registered_name
-		R.info = {"<b>Account details (confidential)</b><br><hr><br>
-			<i>Account holder:</i> [M.owner_name]<br>
-			<i>Account number:</i> [M.account_number]<br>
-			<i>Account pin:</i> [M.remote_access_pin]<br>
-			<i>Starting balance:</i> $[M.money]<br>
-			<i>Date and time:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
-			<i>Creation terminal ID:</i> [source_db.machine_id]<br>
-			<i>Authorised NT officer overseeing creation:</i> [overseer]<br>"}
+		R.info = {"<b>Детали аккунта (конфиденциально)</b><br><hr><br>
+			<i>Владелец аккаунта:</i> [M.owner_name]<br>
+			<i>Номер аккаунта:</i> [M.account_number]<br>
+			<i>Пин-код аккаунта:</i> [M.remote_access_pin]<br>
+			<i>Начальный баланс:</i> $[M.money]<br>
+			<i>Дата и время:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
+			<i>Терминал создания аккаунта:</i> [source_db.machine_id]<br>
+			<i>Уполномоченное на создание аккаунта лицо:</i> [overseer]<br>"}
 
 		//stamp the paper
-		R.stamp(/obj/item/stamp, TRUE, "<i>This paper has been stamped by the Accounts Database.</i>", "stamp-cent")
+		R.stamp(/obj/item/stamp, TRUE, "<i>На этой бумаге стоит печать базы данных аккаунтов.</i>", "stamp-cent")
 
 	//add the account
 	M.transaction_log.Add(T)
@@ -175,7 +175,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		return 0
 	for(var/datum/money_account/D in GLOB.all_money_accounts)
 		if(D.account_number == attempt_account_number && !D.suspended)
-			source.charge(amount, D, purpose, terminal_id, "Account #[D.account_number]", "Transfer from [source.owner_name]",
+			source.charge(amount, D, purpose, terminal_id, "Аккаунт #[D.account_number]", "Перевод от [source.owner_name]",
 			"[D.owner_name]")
 			return 1
 

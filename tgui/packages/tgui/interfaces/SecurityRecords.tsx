@@ -335,7 +335,7 @@ const SecurityRecordsPageView = (_properties) => {
           fill
           scrollable
           mt="-6px"
-          title="General Data"
+          title="Общая Информация"
           buttons={
             <>
               <Button
@@ -344,7 +344,7 @@ const SecurityRecordsPageView = (_properties) => {
                 iconSpin={!!isPrinting}
                 onClick={() => act('print_record')}
               >
-                Print Record
+                Распечатать Запись
               </Button>
               <Button.Confirm
                 icon="trash"
@@ -355,7 +355,7 @@ const SecurityRecordsPageView = (_properties) => {
                 tooltipPosition="bottom-start"
                 onClick={() => act('delete_general')}
               >
-                Delete Record
+                Удалить Запись
               </Button.Confirm>
             </>
           }
@@ -367,7 +367,7 @@ const SecurityRecordsPageView = (_properties) => {
         <Stack.Item grow color="bad">
           <Section
             fill
-            title="Security Data"
+            title="Данные Службы Безопасности"
             buttons={
               <Button icon="pen" onClick={() => act('new_security')}>
                 Создать Новую Запись
@@ -388,7 +388,7 @@ const SecurityRecordsPageView = (_properties) => {
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
                 <br />
-                Запись Службы Безопасности утеряна!
+                Запись Службы Безопасности отсутствует!
               </Stack.Item>
             </Stack>
           </Section>
@@ -399,7 +399,7 @@ const SecurityRecordsPageView = (_properties) => {
             <Section
               fill
               scrollable
-              title="Security Data"
+              title="Данные Службы Безопасности"
               buttons={
                 <Button.Confirm
                   icon="trash"
@@ -494,10 +494,10 @@ const SecurityRecordsViewSecurity = (_properties) => {
       <Section
         fill
         scrollable
-        title="Comments/Log"
+        title="Комментарии/Записи"
         buttons={
           <Button icon="comment" onClick={() => modalOpen('comment_add')}>
-            Добавить Запись
+            Добавить Комментарий
           </Button>
         }
       >

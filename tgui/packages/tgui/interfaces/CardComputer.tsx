@@ -37,14 +37,14 @@ export const CardComputerLoginWarning = () => (
           />
         </Icon.Stack>
         <br />
-        Not logged in
+        Не авторизован
       </Stack.Item>
     </Stack>
   </Section>
 );
 
 export const CardComputerNoCard = () => (
-  <Section fill title="Card Missing">
+  <Section fill title="Отсутствует ID Карта">
     <Stack fill>
       <Stack.Item
         bold
@@ -64,14 +64,14 @@ export const CardComputerNoCard = () => (
           />
         </Icon.Stack>
         <br />
-        No card to modify
+        Нет карты для изменения
       </Stack.Item>
     </Stack>
   </Section>
 );
 
 export const CardComputerNoRecords = () => (
-  <Section fill title="Records">
+  <Section fill title="Записи">
     <Stack fill>
       <Stack.Item
         bold
@@ -86,7 +86,7 @@ export const CardComputerNoRecords = () => (
           <Icon name="slash" size={5} color="red" />
         </Icon.Stack>
         <br />
-        No records
+        Нет записей
       </Stack.Item>
     </Stack>
   </Section>
@@ -173,7 +173,7 @@ export const CardComputer = (props: unknown) => {
         selected={data.mode === 0}
         onClick={() => act('mode', { mode: 0 })}
       >
-        Job Transfers
+        Смена Должности
       </Tabs.Tab>
       {!data.target_dept && (
         <Tabs.Tab
@@ -181,7 +181,7 @@ export const CardComputer = (props: unknown) => {
           selected={data.mode === 2}
           onClick={() => act('mode', { mode: 2 })}
         >
-          Access Modification
+          Изменение Доступа
         </Tabs.Tab>
       )}
       <Tabs.Tab
@@ -189,44 +189,44 @@ export const CardComputer = (props: unknown) => {
         selected={data.mode === 1}
         onClick={() => act('mode', { mode: 1 })}
       >
-        Job Management
+        Управление Кадрами
       </Tabs.Tab>
       <Tabs.Tab
         icon="scroll"
         selected={data.mode === 3}
         onClick={() => act('mode', { mode: 3 })}
       >
-        Records
+        Записи
       </Tabs.Tab>
       <Tabs.Tab
         icon="users"
         selected={data.mode === 4}
         onClick={() => act('mode', { mode: 4 })}
       >
-        Department
+        Департамент
       </Tabs.Tab>
     </Tabs>
   );
 
   let authBlock = (
-    <Section title="Authentication">
+    <Section title="Аутентификация">
       <LabeledList>
-        <LabeledList.Item label="Login/Logout">
+        <LabeledList.Item label="Основная карта">
           <Button
             icon={data.scan_name ? 'sign-out-alt' : 'id-card'}
             selected={!!data.scan_name}
             onClick={() => act('scan')}
           >
-            {data.scan_name ? 'Log Out: ' + data.scan_name : '-----'}
+            {data.scan_name ? 'Вытащить: ' + data.scan_name : '-----'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Card To Modify">
+        <LabeledList.Item label="Карта для изменений">
           <Button
             icon={data.modify_name ? 'eject' : 'id-card'}
             selected={!!data.modify_name}
             onClick={() => act('modify')}
           >
-            {data.modify_name ? 'Remove Card: ' + data.modify_name : '-----'}
+            {data.modify_name ? 'Вытащить: ' + data.modify_name : '-----'}
           </Button>
         </LabeledList.Item>
       </LabeledList>
@@ -244,10 +244,10 @@ export const CardComputer = (props: unknown) => {
       } else {
         bodyBlock = (
           <>
-            <Section title="Card Information">
+            <Section title="Информация о карте">
               {!data.target_dept && (
                 <>
-                  <LabeledList.Item label="Registered Name">
+                  <LabeledList.Item label="Имя">
                     <Button
                       icon={
                         !data.modify_owner || data.modify_owner === 'Unknown'
@@ -260,7 +260,7 @@ export const CardComputer = (props: unknown) => {
                       {data.modify_owner}
                     </Button>
                   </LabeledList.Item>
-                  <LabeledList.Item label="Account Number">
+                  <LabeledList.Item label="Номер аккаунта">
                     <Button
                       icon={
                         data.account_number
@@ -275,18 +275,18 @@ export const CardComputer = (props: unknown) => {
                   </LabeledList.Item>
                 </>
               )}
-              <LabeledList.Item label="Latest Transfer">
+              <LabeledList.Item label="Последнее изменение">
                 {data.modify_lastlog || '---'}
               </LabeledList.Item>
             </Section>
             <Section
               title={
-                data.target_dept ? 'Department Job Transfer' : 'Job Transfer'
+                data.target_dept ? 'Смена Должности Отдела' : 'Смена Должности'
               }
             >
               <LabeledList>
                 {data.target_dept ? (
-                  <LabeledList.Item label="Department">
+                  <LabeledList.Item label="Отдел">
                     {data.jobs_dept.map((v) => (
                       <Button
                         selected={data.modify_rank === v}
@@ -300,7 +300,7 @@ export const CardComputer = (props: unknown) => {
                   </LabeledList.Item>
                 ) : (
                   <>
-                    <LabeledList.Item label="Special">
+                    <LabeledList.Item label="Специальные">
                       {data.jobs_top.map((v) => (
                         <Button
                           selected={data.modify_rank === v}
@@ -313,7 +313,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Engineering"
+                      label="Инженерные"
                       labelColor={deptCols.engineering}
                     >
                       {data.jobs_engineering.map((v) => (
@@ -328,7 +328,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Medical"
+                      label="Медицинские"
                       labelColor={deptCols.medical}
                     >
                       {data.jobs_medical.map((v) => (
@@ -343,7 +343,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Science"
+                      label="Научные"
                       labelColor={deptCols.science}
                     >
                       {data.jobs_science.map((v) => (
@@ -358,7 +358,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Security"
+                      label="Охранные"
                       labelColor={deptCols.security}
                     >
                       {data.jobs_security.map((v) => (
@@ -373,7 +373,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Service"
+                      label="Сервисные"
                       labelColor={deptCols.service}
                     >
                       {data.jobs_service.map((v) => (
@@ -388,7 +388,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Supply"
+                      label="Снабжения"
                       labelColor={deptCols.supply}
                     >
                       {data.jobs_supply.map((v) => (
@@ -403,7 +403,7 @@ export const CardComputer = (props: unknown) => {
                       ))}
                     </LabeledList.Item>
                     <LabeledList.Item
-                      label="Restricted"
+                      label="Ограниченные"
                       labelColor={deptCols.procedure}
                     >
                       {data.jobs_karma.map((v) => (
@@ -419,7 +419,7 @@ export const CardComputer = (props: unknown) => {
                     </LabeledList.Item>
                   </>
                 )}
-                <LabeledList.Item label="Civilian">
+                <LabeledList.Item label="Гражданские">
                   {data.jobs_civilian.map((v) => (
                     <Button
                       selected={data.modify_rank === v}
@@ -450,39 +450,39 @@ export const CardComputer = (props: unknown) => {
                     ))}
                   </LabeledList.Item>
                 )}
-                <LabeledList.Item label="Demotion">
+                <LabeledList.Item label="Понижение">
                   <Button
                     disabled={
-                      data.modify_assignment === 'Demoted' ||
-                      data.modify_assignment === 'Terminated'
+                      data.modify_assignment === 'Понижен' ||
+                      data.modify_assignment === 'Расторгнут'
                     }
-                    key="Demoted"
-                    tooltip="Assistant access, 'demoted' title."
+                    key="Понизить"
+                    tooltip="Доступ ассистента, должность Demoted"
                     color="red"
                     icon="times"
                     onClick={() => act('demote')}
                   >
-                    Demoted
+                    Понизить
                   </Button>
                 </LabeledList.Item>
                 {!!data.canterminate && (
-                  <LabeledList.Item label="Non-Crew">
+                  <LabeledList.Item label="Расторгнуть">
                     <Button
                       disabled={data.modify_assignment === 'Terminated'}
-                      key="Terminate"
-                      tooltip="Zero access. Not crew."
+                      key="Расторгнуть"
+                      tooltip="Нет доступа. Не член экипажа."
                       color="red"
                       icon="eraser"
                       onClick={() => act('terminate')}
                     >
-                      Terminated
+                      Расторгнуть
                     </Button>
                   </LabeledList.Item>
                 )}
               </LabeledList>
             </Section>
             {!data.target_dept && (
-              <Section title="Card Skins">
+              <Section title="Внешний вид карты">
                 {data.card_skins.map((v) => (
                   <Button
                     selected={data.current_skin === v.skin}
@@ -519,32 +519,32 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = (
           <Stack fill vertical>
             <Section color={data.cooldown_time ? 'red' : ''}>
-              Next Change Available:
-              {data.cooldown_time ? data.cooldown_time : 'Now'}
+              Возможность изменить появится через:
+              {data.cooldown_time ? data.cooldown_time : ' Now'}
             </Section>
-            <Section fill scrollable title="Job Slots">
+            <Section fill scrollable title="Управление Слотами">
               <Table>
                 <Table.Row height={2}>
                   <Table.Cell bold textAlign="center">
-                    Title
+                    Должность
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Used Slots
+                    Занято слотов
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Total Slots
+                    Всего слотов
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Free Slots
+                    Свободно слотов
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Close Slot
+                    Убавить слоты
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Open Slot
+                    Прибавить слоты
                   </Table.Cell>
                   <Table.Cell bold textAlign="center">
-                    Priority
+                    Приоритет?
                   </Table.Cell>
                 </Table.Row>
                 {data.job_slots.map((slotData) => (
@@ -597,7 +597,7 @@ export const CardComputer = (props: unknown) => {
                       {(data.target_dept && (
                         <Box color="green">
                           {data.priority_jobs.indexOf(slotData.title) > -1
-                            ? 'Yes'
+                            ? 'Да'
                             : ''}
                         </Box>
                       )) || (
@@ -610,7 +610,7 @@ export const CardComputer = (props: unknown) => {
                             act('prioritize_job', { job: slotData.title })
                           }
                         >
-                          {slotData.is_priority ? 'Yes' : 'No'}
+                          {slotData.is_priority ? 'Да' : 'Нет'}
                         </Button>
                       )}
                     </Table.Cell>
@@ -663,7 +663,7 @@ export const CardComputer = (props: unknown) => {
           <Section
             fill
             scrollable
-            title="Records"
+            title="Записи"
             buttons={
               <Button
                 icon="times"
@@ -674,19 +674,19 @@ export const CardComputer = (props: unknown) => {
                 }
                 onClick={() => act('wipe_all_logs')}
               >
-                Delete All Records
+                Удалить ВСЕ записи
               </Button>
             }
           >
             <Table>
               <Table.Row height={2}>
-                <Table.Cell bold>Crewman</Table.Cell>
-                <Table.Cell bold>Old Rank</Table.Cell>
-                <Table.Cell bold>New Rank</Table.Cell>
-                <Table.Cell bold>Authorized By</Table.Cell>
-                <Table.Cell bold>Time</Table.Cell>
-                <Table.Cell bold>Reason</Table.Cell>
-                {!!data.iscentcom && <Table.Cell bold>Deleted By</Table.Cell>}
+                <Table.Cell bold>Сотрудник</Table.Cell>
+                <Table.Cell bold>Старая должность</Table.Cell>
+                <Table.Cell bold>Новая должность</Table.Cell>
+                <Table.Cell bold>Уполномоченное лицо</Table.Cell>
+                <Table.Cell bold>Время</Table.Cell>
+                <Table.Cell bold>Причина</Table.Cell>
+                {!!data.iscentcom && <Table.Cell bold>Удалено</Table.Cell>}
               </Table.Row>
               {data.records.map((record) => (
                 <Table.Row key={record.timestamp} height={2}>
@@ -710,7 +710,7 @@ export const CardComputer = (props: unknown) => {
                   disabled={!data.authenticated || data.records.length === 0}
                   onClick={() => act('wipe_my_logs')}
                 >
-                  Delete MY Records
+                  Удалить МОИ Записи
                 </Button>
               </Box>
             )}
@@ -723,13 +723,13 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = <CardComputerLoginWarning />;
       } else {
         bodyBlock = (
-          <Section fill scrollable title="Your Team">
+          <Section fill scrollable title="Ваш Отдел">
             <Table>
               <Table.Row height={2}>
-                <Table.Cell bold>Name</Table.Cell>
-                <Table.Cell bold>Rank</Table.Cell>
-                <Table.Cell bold>Sec Status</Table.Cell>
-                <Table.Cell bold>Actions</Table.Cell>
+                <Table.Cell bold>Имя</Table.Cell>
+                <Table.Cell bold>Должность</Table.Cell>
+                <Table.Cell bold>Статус</Table.Cell>
+                <Table.Cell bold>Действия</Table.Cell>
               </Table.Row>
               {data.people_dept.map((record) => (
                 <Table.Row key={record.title} height={2}>
@@ -756,7 +756,7 @@ export const CardComputer = (props: unknown) => {
     default:
       bodyBlock = (
         <Section title="Warning" color="red">
-          ERROR: Unknown Mode.
+          ОШИБКА: Неизвестный режим.
         </Section>
       );
   }

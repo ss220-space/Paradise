@@ -475,9 +475,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
 					modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"."
 					modify.assignment = temp_t
-					add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\".", usr)
-					investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"." , INVESTIGATE_ACCESSCHANGES)
-					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[oldrank]\" to \"[temp_t]\".")
+					add_game_logs("([scan.assignment]) \"[modify.registered_name]\" изменил должность с \"[oldrank]\" на \"[temp_t]\".", usr)
+					investigate_log("[key_name_log(usr)] ([scan.assignment]) изменил должность \"[modify.registered_name]\" с \"[oldrank]\" на \"[temp_t]\"." , INVESTIGATE_ACCESSCHANGES)
+					SSjobs.notify_dept_head(modify.rank, "[scan.registered_name] перевёл \"[modify.registered_name]\" с \"[oldrank]\" на \"[temp_t]\".")
 			else
 				var/list/access = list()
 				if(is_centcom() && islist(get_centcom_access(t1)))
@@ -506,12 +506,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 				var/jobnamedata = modify.getRankAndAssignment()
 				add_game_logs("([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", usr)
-				investigate_log("[key_name_log(usr)] ([scan.assignment]) has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
+				investigate_log("[key_name_log(usr)] ([scan.assignment]) изменил должность \"[modify.registered_name]\" с \"[jobnamedata]\" на \"[assignment]\".", INVESTIGATE_ACCESSCHANGES)
 				if(t1 == JOB_TITLE_CIVILIAN)
 					message_admins("[key_name_admin(usr)] has reassigned \"[modify.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\".")
 
 				SSjobs.log_job_transfer(modify.registered_name, jobnamedata, t1, scan.registered_name, null)
-				modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[jobnamedata]\" to \"[assignment]\"."
+				modify.lastlog = "[station_time_timestamp()]: \"[scan.registered_name]\" изменил должность с \"[jobnamedata]\" на \"[assignment]\"."
 				SSjobs.notify_dept_head(t1, "[scan.registered_name] has transferred \"[modify.registered_name]\" the \"[jobnamedata]\" to \"[assignment]\".")
 				if(modify.owner_uid)
 					SSjobs.slot_job_transfer(modify.rank, t1)

@@ -208,8 +208,8 @@
 			G.fields["sex"] = "Мужской"
 			G.fields["age"] = "Unknown"
 			G.fields["fingerprint"] = "Unknown"
-			G.fields["p_stat"] = "Активный"
-			G.fields["m_stat"] = "Стабильный"
+			G.fields["p_stat"] = "Активное"
+			G.fields["m_stat"] = "Стабильное"
 			G.fields["species"] = SPECIES_HUMAN
 			G.fields["notes"] = "Нет примечаний."
 			GLOB.data_core.general += G
@@ -249,7 +249,7 @@
 			QDEL_NULL(record_security)
 			update_all_mob_security_hud()
 			current_page = SEC_DATA_R_LIST
-			set_temp("Общие, медицинские и записи безопасности удалены.")
+			set_temp("ВСЕ записи удалены.")
 		if("delete_security") // Delete Security Record
 			if(!logged_in)
 				return
@@ -462,7 +462,7 @@
 		for(var/c in record_security.fields["comments"])
 			P.info += "[c]<br>"
 	else
-		P.info += "<b>Запись Службы Безопасности утеряна!</b><br>"
+		P.info += "<b>Запись Службы Безопасности отсутствует!</b><br>"
 	is_printing = FALSE
 	SStgui.update_uis(src)
 
@@ -495,7 +495,7 @@
 				if(5)
 					R.fields["p_stat"] = pick("*Без сознания*", "Активен", "Физически непригоден")
 				if(6)
-					R.fields["m_stat"] = pick("*Безумец*", "*Нестабильный*", "*Наблюдать*", "Стабильный")
+					R.fields["m_stat"] = pick("*Невменяемость*", "*Нестабильное*", "*Рекомендуется наблюдение*", "Стабильное")
 			continue
 
 		else if(prob(1))

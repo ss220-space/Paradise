@@ -178,7 +178,7 @@ const RecordView = (props: RecordViewProps) => {
             </LabeledList>
           ) : (
             <Box color="red" bold>
-              {'Медицинская запись утеряна!'}
+              {'Медицинская запись отсутствует!'}
             </Box>
           )}
         </Section>
@@ -210,7 +210,7 @@ const RecordView = (props: RecordViewProps) => {
             </LabeledList>
           ) : (
             <Box color="red" bold>
-              {'Запись службы безопасности утеряна!'}
+              {'Запись службы безопасности отсутствует!'}
             </Box>
           )}
         </Section>

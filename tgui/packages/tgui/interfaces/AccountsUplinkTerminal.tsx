@@ -97,7 +97,7 @@ const AccountsRecordList = (_properties) => {
                 setSortOrder={setSortOrder}
                 id="owner_name"
               >
-                Account Holder
+                Владелец Аккаунта
               </SortButton>
               <SortButton
                 sortId={sortId}
@@ -106,7 +106,7 @@ const AccountsRecordList = (_properties) => {
                 setSortOrder={setSortOrder}
                 id="account_number"
               >
-                Account Number
+                Номер Аккаунта
               </SortButton>
               <SortButton
                 sortId={sortId}
@@ -115,7 +115,7 @@ const AccountsRecordList = (_properties) => {
                 setSortOrder={setSortOrder}
                 id="suspended"
               >
-                Account Status
+                Статус Аккаунта
               </SortButton>
               <SortButton
                 sortId={sortId}
@@ -124,7 +124,7 @@ const AccountsRecordList = (_properties) => {
                 setSortOrder={setSortOrder}
                 id="money"
               >
-                Account Balance
+                Баланс Аккаунта
               </SortButton>
             </Table.Row>
             {accounts
@@ -214,7 +214,7 @@ const AccountsActions = (properties: AccountsActionsProps) => {
     <Stack>
       <Stack.Item>
         <Button icon="plus" onClick={() => act('create_new_account')}>
-          New Account
+          Новый Аккаунт
         </Button>
         <Button
           icon="print"
@@ -222,12 +222,12 @@ const AccountsActions = (properties: AccountsActionsProps) => {
           ml="0.25rem"
           onClick={() => act('print_records')}
         >
-          Print Account List
+          Распечатать Список Аккаунтов
         </Button>
       </Stack.Item>
       <Stack.Item grow>
         <Input
-          placeholder="Search by account holder, number, status"
+          placeholder="Поиск по владельцу аккаунта, номеру, статусу.."
           width="100%"
           onInput={(e, value) => setSearchText(value)}
         />
@@ -246,42 +246,42 @@ const DetailedAccountInfo = (_properties) => {
           title={'#' + account_number + ' / ' + owner_name}
           buttons={
             <Button icon="arrow-left" onClick={() => act('back')}>
-              Back
+              Назад
             </Button>
           }
         >
           <LabeledList>
-            <LabeledList.Item label="Account Number">
+            <LabeledList.Item label="Номер аккаунта">
               #{account_number}
             </LabeledList.Item>
-            <LabeledList.Item label="Account Holder">
+            <LabeledList.Item label="Владелец аккаунта">
               {owner_name}
             </LabeledList.Item>
-            <LabeledList.Item label="Account Balance">{money}</LabeledList.Item>
+            <LabeledList.Item label="Баланс аккаунта">{money}</LabeledList.Item>
             <LabeledList.Item
-              label="Account Status"
+              label="Статус аккаунта"
               color={suspended ? 'red' : 'green'}
             >
-              {suspended ? 'Suspended' : 'Active'}
+              {suspended ? 'Неактивен' : 'Активен'}
               <Button
                 ml={1}
                 icon={suspended ? 'unlock' : 'lock'}
                 onClick={() => act('toggle_suspension')}
               >
-                {suspended ? 'Unsuspend' : 'Suspend'}
+                {suspended ? 'Возобновить' : 'Приостановить'}
               </Button>
             </LabeledList.Item>
           </LabeledList>
         </Section>
       </Stack.Item>
       <Stack.Item>
-        <Section fill title="Transactions">
+        <Section fill title="Транзакции">
           <Table>
             <Table.Row header>
-              <Table.Cell>Timestamp</Table.Cell>
-              <Table.Cell>Reason</Table.Cell>
-              <Table.Cell>Value</Table.Cell>
-              <Table.Cell>Terminal</Table.Cell>
+              <Table.Cell>Время</Table.Cell>
+              <Table.Cell>Причина</Table.Cell>
+              <Table.Cell>Сумма</Table.Cell>
+              <Table.Cell>Терминал</Table.Cell>
             </Table.Row>
             {transactions.map((t) => (
               <Table.Row key={t}>
@@ -306,21 +306,21 @@ const CreateAccount = (properties) => {
   const [accDeposit, setAccDeposit] = useState('');
   return (
     <Section
-      title="Create Account"
+      title="Создать Аккаунт"
       buttons={
         <Button icon="arrow-left" onClick={() => act('back')}>
-          Back
+          Назад
         </Button>
       }
     >
       <LabeledList>
-        <LabeledList.Item label="Account Holder">
+        <LabeledList.Item label="Владелец Аккаунта">
           <Input
-            placeholder="Name Here"
+            placeholder="Имя:"
             onChange={(e, value) => setAccName(value)}
           />
         </LabeledList.Item>
-        <LabeledList.Item label="Initial Deposit">
+        <LabeledList.Item label="Первоначальная Сумма">
           <Input
             placeholder="0"
             onChange={(e, value) => setAccDeposit(value)}
@@ -337,7 +337,7 @@ const CreateAccount = (properties) => {
           })
         }
       >
-        Create Account
+        Создать Аккаунт
       </Button>
     </Section>
   );
