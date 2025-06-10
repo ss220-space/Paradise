@@ -7,7 +7,7 @@
 	return dna.species.handle_autohiss(message, L, client.prefs.autohiss_mode)
 
 /client/verb/toggle_autohiss()
-	set name = "Переключить авто-акцент"
+	set name = "Авто-акцент"
 	set desc = "Переключает автоматический акцент вашей расы при общении."
 	set category = "OOC"
 
