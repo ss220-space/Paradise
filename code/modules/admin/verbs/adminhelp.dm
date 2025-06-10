@@ -2,7 +2,7 @@
 GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of", "monkey", "alien", "as"))
 
 /client/verb/adminhelp()
-	set category = STATPANEL_ADMINTICKETS
+	set category = STATPANEL_ADMIN_TICKETS
 	set name = "Запрос помощи"
 
 	//handle muting and automuting

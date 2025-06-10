@@ -1,7 +1,7 @@
 
 /client/proc/forceEvent()
 	set name = "Trigger Event"
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 
 	if(!check_rights(R_EVENT))
 		return
@@ -12,7 +12,7 @@
 
 /client/proc/event_manager_panel()
 	set name = "Event Manager Panel"
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	if(SSevents)
 		SSevents.Interact(usr)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Event Manager") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!

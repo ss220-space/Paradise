@@ -387,7 +387,7 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/returnUI(tab = TICKET_OPEN)
 	set name = "Open Ticket Interface"
-	set category = STATPANEL_ADMINTICKETS
+	set category = STATPANEL_ADMIN_TICKETS
 
 //dat
 	var/trStyle = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"

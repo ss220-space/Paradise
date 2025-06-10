@@ -67,8 +67,8 @@
 	to_chat(src, msg)
 
 /client/verb/adminwho()
-	set category = STATPANEL_ADMINTICKETS
-	set name = "Админы онлайн"
+	set category = STATPANEL_ADMIN_TICKETS
+	set name = "Штат онлайн"
 
 	var/msg = ""
 	var/modmsg = ""

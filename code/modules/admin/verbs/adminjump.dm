@@ -1,7 +1,7 @@
 /client/proc/jump_to()
 	set name = "Jump to..."
 	set desc = "Area, Mob, Key or Coordinate"
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	var/list/choices = list("Area", "Mob", "Key", "Coordinates")
 
 	if(!check_rights(R_ADMIN))
@@ -78,7 +78,7 @@
 
 	if(!isobserver(usr))
 		message_admins("[key_name_admin(usr)] jumped to [COORD(T)] in [T.loc]")
-		
+
 	admin_forcemove(usr, T)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Jump To Turf") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
@@ -181,7 +181,7 @@
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Get Key") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/sendmob(mob/M in GLOB.mob_list)
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Send Mob"
 
 	if(!check_rights(R_ADMIN))

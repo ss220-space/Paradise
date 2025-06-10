@@ -11,7 +11,7 @@
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Admin PM Name"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -35,7 +35,7 @@
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_by_key_panel()
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Admin PM Key"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -252,7 +252,7 @@
 
 /client/verb/open_pms_ui()
 	set name = "ЛС"
-	set category = STATPANEL_ADMINTICKETS
+	set category = STATPANEL_ADMIN_TICKETS
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

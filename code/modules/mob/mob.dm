@@ -99,7 +99,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set hidden = 1
 
 	if(!loc) return 0

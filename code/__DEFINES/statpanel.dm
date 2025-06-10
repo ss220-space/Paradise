@@ -33,4 +33,12 @@
 
 // Admin Category
 
-#define STATPANEL_ADMINTICKETS "Admin.Запросы помощи"
+#define STATPANEL_ADMIN_TICKETS "Админ.Админская и менторская помощь" // So that the subcategory is somewhere at the top
+#define STATPANEL_ADMIN_ADMIN "Админ.Админ"
+#define STATPANEL_ADMIN_TOGGLES "Админ.Переключаемое"
+#define STATPANEL_ADMIN_BAN "Админ.Бан"
+#define STATPANEL_ADMIN_EVENT "Админ.Ивент"
+#define STATPANEL_ADMIN_FUN "Админ.Веселье"
+#define STATPANEL_ADMIN_SOUNDS "Админ.Звуки"
+#define STATPANEL_ADMIN_DEBUG "Админ.Отладка"
+#define STATPANEL_SERVER "Сервер"
