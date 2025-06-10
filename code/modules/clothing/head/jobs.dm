@@ -695,3 +695,19 @@
 		PREPOSITIONAL = "берете шахтёрского врача"
 	)
 	icon_state = "beret_minmed"
+
+//prison
+/obj/item/clothing/head/prison
+	name = "prison hat"
+	desc = "Тюремная шапка, должна предотвращать распространение космо вшей... По крайней мере так задумывалось."
+	ru_names = list(
+		NOMINATIVE = "тюремная шапка",
+		GENITIVE = "тюремную шапкапу",
+		DATIVE = "тюремной шапке",
+		ACCUSATIVE = "тюремную шапку",
+		INSTRUMENTAL = "тюремной шапкой",
+		PREPOSITIONAL = "тюремной шапке"
+	)
+	item_state = "prison_hat"
+	icon_state = "prison_hat"
+	
