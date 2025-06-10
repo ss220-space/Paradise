@@ -6,8 +6,19 @@
   * Relays themselves dont do any processing, they just tell the core that this z-level is available in the tcomms network.
   */
 /obj/machinery/tcomms/relay
-	name = "Telecommunications Relay"
-	desc = "A large device with several radio antennas on it."
+	name = "telecommunications relay"
+	desc = "Реле телекоммуникационной системы - узел маршрутизации сигнала, обеспечивающий связь на объекте посредством подключения к удалённому ядру телекоммуникаций. \
+			Представляет собой массивное устройство с металлическим корпусом, оснащённым защитой от электромагнитных помех, \
+			антеннами для передачи сигнала, а также дисплеем, отображающим данные о текущих подключениях и конфигурации системы."
+	ru_names = list(
+		NOMINATIVE = "реле телекоммуникаций",
+		GENITIVE = "реле телекоммуникаций",
+		DATIVE = "реле телекоммуникаций",
+		ACCUSATIVE = "реле телекоммуникаций",
+		INSTRUMENTAL = "реле телекоммуникаций",
+		PREPOSITIONAL = "реле телекоммуникаций"
+	)
+	gender = NEUTER
 	icon_state = "relay"
 	// This starts as off so you cant make cores as hot spares
 	active = FALSE
@@ -31,7 +42,7 @@
 	if(check_power_on())
 		active = TRUE
 	else
-		visible_message(span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
+		visible_message(span_warning("Ошибка: в секторе уже имеется работающее реле телекоммуникаций. Процесс активации отменён во избежание возможных помех."))
 	update_icon(UPDATE_ICON_STATE)
 	if(mapload && autolink_id)
 		return INITIALIZE_HINT_LATELOAD
@@ -140,7 +151,7 @@
 /obj/machinery/tcomms/relay/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "TcommsRelay", name)
+		ui = new(user, src, "TcommsRelay", capitalize(declent_ru(NOMINATIVE)))
 		ui.open()
 
 /obj/machinery/tcomms/relay/ui_data(mob/user)
@@ -181,13 +192,15 @@
 				if(linked_core)
 					linked_core.refresh_zlevels()
 			else
-				to_chat(usr, span_warning("Error: Another relay is already active in this sector. Power-up cancelled due to radio interference."))
+				to_chat(usr, span_warning("Ошибка: в секторе уже имеется работающее реле телекоммуникаций. Процесс активации отменён во избежание возможных помех."))
 
 		// Set network ID
 		if("network_id")
-			var/new_id = input(usr, "Please enter a new network ID", "Network ID", network_id)
-			log_action(usr, "renamed core with ID [network_id] to [new_id]")
-			to_chat(usr, span_notice("Device ID changed from <b>[network_id]</b> to <b>[new_id]</b>."))
+			var/new_id = tgui_input_text(usr, "Введите новый сетевой идентификатор", "Сетевой идентификатор", network_id)
+			if(!new_id)
+				return
+			log_action(usr, "renamed relay with ID [network_id] to [new_id]")
+			to_chat(usr, span_notice("Вы меняете сетевой идентификатор устройства с <b>[network_id]</b> на <b>[new_id]</b>."))
 			network_id = new_id
 
 		// Only do these hrefs if we are linked to prevent bugs/exploits
@@ -200,8 +213,8 @@
 		if("unlink")
 			if(!linked)
 				return
-			var/choice = tgui_alert(usr, "Are you SURE you want to unlink this relay?\nYou wont be able to re-link without the core password", "Unlink", list("Yes", "No"))
-			if(choice == "Yes")
+			var/confirm = tgui_alert(usr, "Вы хотите отвязать это реле? Для обратной привязки вам потребуется ввести пароль.", "Отвязка реле", list("Да", "Нет"))
+			if(confirm == "Да")
 				log_action(usr, "Unlinked [network_id] from [linked_core.network_id]")
 				Reset()
 
@@ -211,14 +224,12 @@
 				return
 			var/obj/machinery/tcomms/core/C = locate(params["addr"])
 			if(istype(C, /obj/machinery/tcomms/core))
-				var/user_pass = input(usr, "Please enter core password","Password Entry")
+				var/user_pass = input(usr, "Введите пароль для привязки к ядру","Ввод пароля")
 				// Check the password
 				if(user_pass == C.link_password)
 					AddLink(C)
-					to_chat(usr, span_notice("Successfully linked to <b>[C.network_id]</b>."))
+					to_chat(usr, span_notice("Вы привязываете [declent_ru(ACCUSATIVE)] к <b>[C.network_id]</b>."))
 				else
-					to_chat(usr, span_alert("<b>ERROR:</b> Password incorrect."))
+					to_chat(usr, span_alert("<b>ОШИБКА:</b> Неправильный пароль."))
 			else
-				to_chat(usr, span_alert("<b>ERROR:</b> Core not found. Please file an issue report."))
-
-
+				to_chat(usr, span_alert("<b>ОШИБКА:</b> Ядро не обнаружено. Сообщите об этом в #баг-репорты-v2"))

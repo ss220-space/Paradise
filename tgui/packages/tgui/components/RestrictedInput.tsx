@@ -67,20 +67,17 @@ export class RestrictedInput extends Component<Props, State> {
   }
 
   handleBlur = (e: FocusEvent<HTMLInputElement>) => {
-    if (this.state.editing) {
-      this.setEditing(false);
-    }
-  };
-
-  handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { maxValue, minValue, onChange, allowFloats } = this.props;
+    const { maxValue, minValue, allowFloats, onChange } = this.props;
     e.target.value = getClampedNumber(
       e.target.value,
       minValue,
       maxValue,
       allowFloats
     );
-    onChange?.(e, +e.target.value);
+    onChange(e as any, Number(e.target.value));
+    if (this.state.editing) {
+      this.setEditing(false);
+    }
   };
 
   handleFocus = (e: FocusEvent<HTMLInputElement>) => {
@@ -203,7 +200,6 @@ export class RestrictedInput extends Component<Props, State> {
         <div className="Input__baseline">.</div>
         <input
           className="Input__input"
-          onChange={this.handleChange}
           onInput={this.handleInput}
           onFocus={this.handleFocus}
           onBlur={this.handleBlur}

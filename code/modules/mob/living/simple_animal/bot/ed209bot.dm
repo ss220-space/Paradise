@@ -23,7 +23,7 @@
 	environment_smash = ENVIRONMENT_SMASH_WALLS //Walls can't stop THE LAW
 	mob_size = MOB_SIZE_LARGE
 
-	radio_channel = "Security"
+	radio_channel = SEC_FREQ_NAME
 	bot_type = SEC_BOT
 	bot_filter = RADIO_SECBOT
 	model = "ED-209"

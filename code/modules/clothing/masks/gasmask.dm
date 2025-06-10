@@ -168,6 +168,9 @@
 	item_state = "gas_mask"
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 2, "energy" = 2, "bomb" = 0, "bio" = 75, "rad" = 0, "fire" = 0, "acid" = 0)
 
+/obj/item/clothing/mask/gas/plaguedoctor/armoured
+	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
+
 /obj/item/clothing/mask/gas/swat
 	name = "\improper SWAT mask"
 	desc = "Плотно прилегающая к коже тактическая маска, которую можно подключить к системе подачи воздуха."
@@ -213,19 +216,21 @@
 	icon_state = "clown"
 	item_state = "clown_hat"
 	flags_inv = parent_type::flags_inv|HIDEHAIR
+
+	var/static/list/mask_type = list("Истинная форма" = /obj/item/clothing/mask/gas/clown_hat,
+							"Женственная форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
+							"Безумная форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
+							"Радужная форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
+	var/static/list/mask_icons = list("Истинная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
+							"Женственная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
+							"Безумная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
+							"Радужная форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
+
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 	dog_fashion = /datum/dog_fashion/head/clown
 
-/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/living/user)
-	var/list/mask_type = list("Истинная Форма" = /obj/item/clothing/mask/gas/clown_hat,
-							"Женственная Форма" = /obj/item/clothing/mask/gas/clown_hat/sexy,
-							"Безумная Форма" = /obj/item/clothing/mask/gas/clown_hat/joker,
-							"Радужная Форма" = /obj/item/clothing/mask/gas/clown_hat/rainbow)
-	var/list/mask_icons = list("Истинная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "clown"),
-							"Женственная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexyclown"),
-							"Безумная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "joker"),
-							"Радужная Форма" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "rainbow"))
+/obj/item/clothing/mask/gas/clown_hat/proc/mask_action(mob/user)
 	var/mask_choice = show_radial_menu(user, src, mask_icons)
 	var/picked_mask = mask_type[mask_choice]
 
@@ -235,9 +240,18 @@
 		return
 	var/obj/item/clothing/mask/gas/clown_hat/new_mask = new picked_mask(get_turf(user))
 	qdel(src)
-	user.put_in_active_hand(new_mask)
-	balloon_alert(user, "внешний вид изменён!")
+	var/obj/item/clothing/weared_mask = user.get_item_by_slot(ITEM_SLOT_MASK)
+	if(user.wear_mask)
+		user.drop_item_ground(weared_mask)
+	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
+	user.balloon_alert(user, "внешний вид изменён!")
 	return TRUE
+
+/obj/item/clothing/mask/gas/clown_hat/attack_self(mob/user)
+	mask_action(user)
+
+/obj/item/clothing/mask/gas/clown_hat/click_alt(mob/user)
+	mask_action(user)
 
 /obj/item/clothing/mask/gas/clown_hat/sexy
 	name = "sexy-clown wig and mask"
@@ -312,22 +326,58 @@
 
 
 /obj/item/clothing/mask/gas/mime
-	name = "mime mask"
-	desc = "Классическая маска мима. У неё жутковатое выражение лица."
+	name = "happy mime mask"
+	desc = "Классическая театральная маска, для мастеров пантомимы."
 	ru_names = list(
-		NOMINATIVE = "маска мима",
-		GENITIVE = "маски мима",
-		DATIVE = "маске мима",
-		ACCUSATIVE = "маску мима",
-		INSTRUMENTAL = "маской мима",
-		PREPOSITIONAL = "маске мима"
+		NOMINATIVE = "счастливая маска мима",
+		GENITIVE = "счастливой маски мима",
+		DATIVE = "счастливой маске мима",
+		ACCUSATIVE = "счастливую маску мима",
+		INSTRUMENTAL = "счастливой маской мима",
+		PREPOSITIONAL = "счастливой маске мима"
 	)
 	gender = FEMALE
-	icon_state = "mime"
+	icon_state = "happymask"
 	item_state = "mime"
+
+	var/static/list/mask_type = list("Счастливая маска" = /obj/item/clothing/mask/gas/mime,
+							"Печальная маска" = /obj/item/clothing/mask/gas/mime/sad,
+							"Злобная маска" = /obj/item/clothing/mask/gas/mime/angry,
+							"Равнодушная маска" = /obj/item/clothing/mask/gas/mime/clueless,
+							"Маска Трагика" = /obj/item/clothing/mask/gas/mime/morutopia,
+							"Сексуальная маска" = /obj/item/clothing/mask/gas/mime/sexy)
+	var/static/list/mask_icons = list("Счастливая маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "happymask"),
+							"Печальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sadmask"),
+							"Злобная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "angrymask"),
+							"Равнодушная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "cluelessmask"),
+							"Маска Трагика" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "morutopia"),
+							"Сексуальная маска" = image(icon = 'icons/obj/clothing/masks.dmi', icon_state = "sexymime"))
+
 	flags_cover = MASKCOVERSEYES
 	resistance_flags = FLAMMABLE
 
+/obj/item/clothing/mask/gas/mime/proc/mask_action(mob/user)
+	var/mask_choice = show_radial_menu(user, src, mask_icons)
+	var/picked_mask = mask_type[mask_choice]
+
+	if(QDELETED(src) || !picked_mask)
+		return
+	if(user.stat || !in_range(user, src))
+		return
+	var/obj/item/clothing/mask/gas/mime/new_mask = new picked_mask(get_turf(user))
+	qdel(src)
+	var/obj/item/clothing/weared_mask = user.get_item_by_slot(ITEM_SLOT_MASK)
+	if(user.wear_mask)
+		user.drop_item_ground(weared_mask)
+	user.equip_to_slot(new_mask, ITEM_SLOT_MASK)
+	user.balloon_alert(user, "внешний вид изменён!")
+	return TRUE
+
+/obj/item/clothing/mask/gas/mime/attack_self(mob/user)
+	mask_action(user)
+
+/obj/item/clothing/mask/gas/mime/click_alt(mob/user)
+	mask_action(user)
 
 /obj/item/clothing/mask/gas/mime/equipped(mob/user, slot, initial)
 	. = ..()
@@ -368,6 +418,53 @@
 		spell.cast(list(user))
 	user.mind.RemoveSpell(spell)
 
+/obj/item/clothing/mask/gas/mime/sad
+	name = "sad mime mask"
+	ru_names = list(
+		NOMINATIVE = "печальная маска мима",
+		GENITIVE = "печальной маски мима",
+		DATIVE = "печальной маске мима",
+		ACCUSATIVE = "печальную маску мима",
+		INSTRUMENTAL = "печальной маской мима",
+		PREPOSITIONAL = "печальной маске мима"
+	)
+	icon_state = "sadmask"
+
+/obj/item/clothing/mask/gas/mime/angry
+	name = "angry mime mask"
+	ru_names = list(
+		NOMINATIVE = "злобная маска мима",
+		GENITIVE = "злобной маски мима",
+		DATIVE = "злобной маске мима",
+		ACCUSATIVE = "злобную маску мима",
+		INSTRUMENTAL = "злобной маской мима",
+		PREPOSITIONAL = "злобной маске мима"
+	)
+	icon_state = "angrymask"
+
+/obj/item/clothing/mask/gas/mime/clueless
+	name = "clueless mime mask"
+	ru_names = list(
+		NOMINATIVE = "равнодушная маска мима",
+		GENITIVE = "равнодушной маски мима",
+		DATIVE = "равнодушной маске мима",
+		ACCUSATIVE = "равнодушную маску мима",
+		INSTRUMENTAL = "равнодушной маской мима",
+		PREPOSITIONAL = "равнодушной маске мима"
+	)
+	icon_state = "cluelessmask"
+
+/obj/item/clothing/mask/gas/mime/morutopia
+	name = "Tragedian mask"
+	ru_names = list(
+		NOMINATIVE = "маска Трагика",
+		GENITIVE = "маски Трагика",
+		DATIVE = "маске Трагика",
+		ACCUSATIVE = "маску Трагика",
+		INSTRUMENTAL = "маской Трагика",
+		PREPOSITIONAL = "маске Трагика"
+	)
+	icon_state = "morutopia"
 
 /obj/item/clothing/mask/gas/mime/wizard
 	name = "magical mime mask"
@@ -490,6 +587,7 @@
 	armor = list("melee" = 5, "bullet" = 5, "laser" = 5, "energy" = 5, "bomb" = 0, "bio" = 10, "rad" = 0, "fire" = 10, "acid" = 10)
 	flags_inv = HIDENAME
 	flags_cover = MASKCOVERSMOUTH
+	adjusted_flags_inv = HIDENAME
 	clothing_traits = list(TRAIT_SECDEATH)
 	var/phrase = 1
 	var/aggressiveness = 1

@@ -58,11 +58,11 @@
 	gender = PLURAL
 	icon = 'icons/obj/species_organs/wryn.dmi'
 	icon_state = "waxsac"
+	item_state = "waxsac"
 	parent_organ_zone = BODY_ZONE_PRECISE_MOUTH
 	slot = INTERNAL_ORGAN_WAX_GLANDS
-	var/datum/action/innate/honeycomb/honeycomb = new
-	var/datum/action/innate/honeyfloor/honeyfloor = new
-	var/datum/action/innate/toggle_producing/toggle_producing = new
+	var/datum/action/innate/wryn/build_wax/build_wax = new
+	var/datum/action/innate/wryn/toggle_producing/toggle_producing = new
 	var/wax = 25
 	var/producing = FALSE
 
@@ -77,71 +77,44 @@
 
 /obj/item/organ/internal/wryn/glands/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	..()
-	honeycomb.Grant(M)
-	honeyfloor.Grant(M)
+	build_wax.Grant(M)
 	toggle_producing.Grant(M)
 
 /obj/item/organ/internal/wryn/glands/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
-	honeycomb.Remove(M)
-	honeyfloor.Remove(M)
+	build_wax.Remove(M)
 	toggle_producing.Remove(M)
 	. = ..()
 
-/datum/action/innate/honeycomb
-	name = "Секреция воска"
-	desc = "Выделите воск для строительства."
-	button_icon_state = "wax_wall"
 
-/datum/action/innate/honeycomb/Activate()
+/datum/action/innate/wryn/build_wax
+	name = "Строительство из воска"
+	desc = "Выделите воск для строительства"
+	button_icon_state = "build"
+	var/static/list/actions = list()
+
+/datum/action/innate/wryn/build_wax/New(Target)
+	. = ..()
+	if(LAZYLEN(actions))
+		return .
+	for(var/name in GLOB.wryn_structures)
+		var/datum/wryn_building/datum = GLOB.wryn_structures[name]
+		actions[name] = image(datum.icon_file, datum.icon_state)
+
+/datum/action/innate/wryn/build_wax/Activate()
 	var/mob/living/carbon/human/wryn/host = owner
 
-	if(host.getWax() >= 50)
-		var/choice = input("Доступно для постройки:", "Строительство") as null|anything in list("соты", "прозрачные соты")
+	var/choosen_type = show_radial_menu(host, host, actions, radius = 40)
+	if(!choosen_type)
+		return
+	var/datum/wryn_building/structure = GLOB.wryn_structures[choosen_type]
+	structure.wax_build(host, structure.wax_amount, structure.structure)
 
-		if(!choice || host.getWax() < 50)	return
 
-		if(do_after(usr, 5 SECONDS, usr))
-			if(locate(/obj/structure/wryn/wax) in get_turf(owner))
-				owner.balloon_alert(owner, "место уже занято!")
-				return
-			host.adjustWax(-50)
-			host.visible_message(("[host] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё [choice]."))
-			switch(choice)
-				if("соты")
-					new /obj/structure/wryn/wax/wall(host.loc)
-				if("прозрачные соты")
-					new /obj/structure/wryn/wax/window(host.loc)
-
-	else
-		owner.balloon_alert(owner, "недостаточно воска!")
-
-	return
-
-/datum/action/innate/honeyfloor
-	name = "Восковой пол"
-	desc = "Покрывает поверхность под вами воском."
-	button_icon_state = "wax_floor"
-
-/datum/action/innate/honeyfloor/Activate()
-	var/mob/living/carbon/human/wryn/host = owner
-
-	if(host.getWax() >= 25)
-		if(do_after(usr, 1 SECONDS, usr))
-			if(locate(/obj/structure/wryn/floor) in get_turf(owner))
-				owner.balloon_alert(owner, "уже покрыто воском!")
-				return
-			host.adjustWax(-25)
-			host.visible_message(span_alert("[owner] выделя[pluralize_ru(host.gender, "ет", "ют")] кучу воска и формиру[pluralize_ru(host.gender, "ет", "ют")] из неё пол!"))
-			new /obj/structure/wryn/floor(owner.loc)
-	else
-		owner.balloon_alert(owner, "недостаточно воска!")
-	return
-
-/datum/action/innate/toggle_producing
+/datum/action/innate/wryn/toggle_producing
 	name = "Переключить секрецию воска"
-	button_icon_state = "wrynglands"
+	button_icon_state = "glands"
 
-/datum/action/innate/toggle_producing/Activate()
+/datum/action/innate/wryn/toggle_producing/Activate()
 	var/mob/living/carbon/human/host = owner
 	host.toggle_producing()
 
@@ -155,6 +128,11 @@
 		INSTRUMENTAL = "мозгом врина",
 		PREPOSITIONAL = "мозге врина"
 	)
+	icon = 'icons/obj/species_organs/wryn.dmi'
+	icon_state = "brain2"
+	item_state = "wryn_brain"
+	mmi_icon = 'icons/obj/species_organs/wryn.dmi'
+	mmi_icon_state = "mmi_full"
 
 /obj/item/organ/internal/heart/wryn
 	species_type = /datum/species/wryn
@@ -168,6 +146,9 @@
 		INSTRUMENTAL = "сердцем врина",
 		PREPOSITIONAL = "сердце врина"
 	)
+	icon = 'icons/obj/species_organs/wryn.dmi'
+	item_state = "wryn_heart-on"
+	item_base = "wryn_heart"
 
 /obj/item/organ/internal/eyes/wryn
 	species_type = /datum/species/wryn
@@ -181,6 +162,8 @@
 		INSTRUMENTAL = "глазами врина",
 		PREPOSITIONAL = "глазах врина"
 	)
+	icon = 'icons/obj/species_organs/wryn.dmi'
+	item_state = "wryn_eyes"
 	see_in_dark = 3
 
 /obj/item/organ/internal/ears/wryn

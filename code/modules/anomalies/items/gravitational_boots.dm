@@ -102,13 +102,12 @@
 	if(!item.use_tool(src, user, volume = item.tool_volume))
 		return
 
-	cell.forceMove_turf()
-	if(!user.put_in_hands(core))
-		core.forceMove(get_turf(user))
+	if(!user.put_in_hands(cell))
+		cell.forceMove(get_turf(user))
 
 	to_chat(user, span_notice("Вы достали [cell.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
-	cell.update_icon()
 	cell = null
+	cell.update_icon()
 	update_icon()
 
 

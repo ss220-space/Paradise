@@ -48,13 +48,13 @@
 		return
 	handle_fire()
 	return ..()
-	
+
 /obj/item/mortar_shell/flamer_fire_act(damage)
 	if(sended)
 		return
 	handle_fire()
 	return ..()
-	
+
 
 /obj/item/mortar_shell/he
 	name = "\improper 80mm high explosive mortar shell"
@@ -112,7 +112,7 @@
 	desc = "An 80mm mortar shell."
 	icon_state = "mortar_ammo_custom"
 	item_state = "mortar_ammo_custom_locked"
-	
+
 	materials = list(METAL = 18750) //5 sheets
 	var/obj/item/warhead/mortar/warhead
 	var/obj/item/reagent_containers/glass/beaker/fuel
@@ -156,7 +156,7 @@
 	if(!warhead)
 		icon_state = initial(icon_state)
 		return
-		
+
 	if(!(fuel && fuel.reagents.get_reagent_amount(fuel_type) >= fuel_requirement))
 		icon_state = initial(icon_state) + "_no_fuel"
 		return
@@ -164,7 +164,7 @@
 	if(!locked)
 		icon_state = initial(icon_state) + "_unlocked"
 		return
-		
+
 	icon_state = initial(icon_state) + "_locked"
 
 /obj/item/mortar_shell/custom/screwdriver_act(mob/living/user, obj/item/I)
@@ -184,7 +184,7 @@
 	playsound(loc, 'sound/items/Screwdriver.ogg', 25, 0, 6)
 	update_icon(UPDATE_ICON_STATE)
 	. = ..()
-	
+
 
 /obj/item/mortar_shell/custom/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/reagent_containers/glass) && !locked)
@@ -303,6 +303,7 @@
 	new /obj/item/mortar_shell/frag(src)
 	new /obj/item/mortar_shell/frag(src)
 	new /obj/item/mortar_shell/incendiary(src)
+	new /obj/item/wrench(src)
 
 /obj/structure/closet/crate/secure/mortar/mortar_shells
 	name = "mortar kit crate"
