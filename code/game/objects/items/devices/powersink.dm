@@ -152,6 +152,9 @@
 		explosion(src.loc, 4,8,16,32, cause = "Power sink overload")
 		qdel(src)
 
+/obj/item/powersink/compact
+	w_class = WEIGHT_CLASS_NORMAL
+
 #undef DISCONNECTED
 #undef CLAMPED_OFF
 #undef OPERATING

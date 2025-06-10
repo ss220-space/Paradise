@@ -130,3 +130,29 @@
 /obj/effect/temp_visual/electricity
 	icon_state = "electricity3"
 	duration = 0.5 SECONDS
+
+/obj/effect/temp_visual/flash
+	icon = 'icons/effects/light_overlays/light_128.dmi'
+	icon_state = "light"
+	pixel_w = -64
+	pixel_z = -64
+	blend_mode = BLEND_OVERLAY
+
+/obj/effect/temp_visual/flash/Initialize(mapload)
+	. = ..()
+	set_light(7, 99, "#C5C5FF")
+
+/obj/effect/temp_visual/thunderbolt/fancy
+
+/obj/effect/temp_visual/thunderbolt/fancy/Initialize(mapload, harmless = FALSE)
+	new /obj/effect/temp_visual/flash(src)
+	// BOOM
+	playsound(src, 'sound/effects/lightning_bolt.ogg', 100, TRUE, 15, 1.2)
+
+	for(var/mob/to_shake in range(5, src))
+		shake_camera(to_shake, 10, 1)
+
+	if(!harmless)
+		explosion(src, -1, -1, light_impact_range = 1, flame_range =  2, silent = TRUE)
+	. = ..()
+	do_sparks(15, TRUE, src)

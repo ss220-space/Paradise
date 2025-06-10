@@ -97,6 +97,7 @@ GLOBAL_LIST_INIT(admin_verbs_event, list(
 	/client/proc/cmd_admin_dress,
 	/client/proc/cmd_admin_gib_self,
 	/client/proc/drop_bomb,
+	/client/proc/drop_lightning_bolt,
 	/client/proc/cinematic,
 	/client/proc/one_click_antag,
 	/client/proc/cmd_admin_add_freeform_ai_law,

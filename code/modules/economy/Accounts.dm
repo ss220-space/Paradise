@@ -36,7 +36,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 		GLOB.station_account.owner_name = "[station_name()] Station Account"
 		GLOB.station_account.account_number = rand(111111, 999999)
 		GLOB.station_account.remote_access_pin = rand(111111, 999999)
-		GLOB.station_account.money = STATION_START_CASH
+		GLOB.station_account.money = STATION_START_CASH * 2
 
 		//create an entry in the account transaction log for when it was created
 		GLOB.station_account.makeTransactionLog(STATION_START_CASH, "Account Creation", STATION_SOURCE_TERMINAL, GLOB.station_account.owner_name, FALSE,

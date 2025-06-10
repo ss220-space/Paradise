@@ -1,5 +1,79 @@
 //Largely beneficial effects go here, even if they have drawbacks. An example is provided in Shadow Mend.
 
+/datum/status_effect/his_grace
+	id = "his_grace"
+	duration = -1
+	tick_interval = 0.4 SECONDS
+	alert_type = /atom/movable/screen/alert/status_effect/his_grace
+	var/bloodlust = 0
+	var/mend_fractures_chance = 3
+	var/regenerate_limbs_chance = 1
+
+/atom/movable/screen/alert/status_effect/his_grace
+	name = "Его Светлость"
+	desc = "Его Светлость голоден, и вы обязаны Его насытить."
+	icon_state = "his_grace"
+	alerttooltipstyle = "hisgrace"
+
+/atom/movable/screen/alert/status_effect/his_grace/MouseEntered(location,control,params)
+	desc = initial(desc)
+	var/datum/status_effect/his_grace/HG = attached_effect
+	desc += "[span_fontsize3("<br><b>Текущая кровожадность: [HG.bloodlust]</b>")]\
+	<br>Поглотит тебя на уровне кровожадности: [span_boldwarning("[HIS_GRACE_CONSUME_OWNER]")]"
+	return ..()
+
+/datum/status_effect/his_grace/on_apply()
+	owner.add_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+	return ..()
+
+/datum/status_effect/his_grace/on_remove()
+	owner.remove_status_effect_absorption(source = id, effect_type = list(STUN, WEAKEN, STAMCRIT, PARALYZE, KNOCKDOWN))
+
+/datum/status_effect/his_grace/tick(seconds_between_ticks)
+	var/mob/living/carbon/human/human = owner
+	bloodlust = 0
+	var/graces = 0
+	var/obj/item/his_grace/HG = human.find_item(/obj/item/his_grace)
+	if(HG)
+		if(HG.bloodthirst > bloodlust)
+			bloodlust = HG.bloodthirst
+		if(HG.awakened)
+			graces++
+	if(!graces)
+		human.apply_status_effect(/datum/status_effect/his_wrath)
+		qdel(src)
+		return
+	var/update = NONE
+	update |= human.heal_overall_damage(2.5, 2.5, updating_health = FALSE, affect_robotic = TRUE)
+	update |= human.heal_damages(tox = 2, oxy = 5, updating_health = FALSE)
+	update |= human.adjustCloneLoss(-2.5, FALSE)
+	update |= human.setStaminaLoss(0, FALSE)
+	if(update)
+		human.updatehealth()
+	remove_debuffs(human)
+	heal_bones(human)
+	regenerate_limbs(human)
+
+/datum/status_effect/his_grace/proc/remove_debuffs(mob/living/carbon/human/owner)
+	owner.AdjustDizzy(-20 SECONDS)
+	owner.AdjustDrowsy(-20 SECONDS)
+	owner.SetSleeping(0)
+	owner.SetSlowed(0)
+	owner.SetConfused(0)
+
+/datum/status_effect/his_grace/proc/heal_bones(mob/living/carbon/human/owner)
+	if(prob(100-mend_fractures_chance))
+		return
+
+	var/obj/item/organ/external/bodypart = safepick(owner.check_fractures())
+	bodypart?.mend_fracture()
+
+/datum/status_effect/his_grace/proc/regenerate_limbs(mob/living/carbon/human/owner)
+	if(prob(100-regenerate_limbs_chance))
+		return
+
+	owner.check_and_regenerate_organs()
+
 /datum/status_effect/shadow_mend
 	id = "shadow_mend"
 	duration = 30
