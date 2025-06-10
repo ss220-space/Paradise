@@ -580,7 +580,7 @@ emp_act
 
 	var/message_hit_area = ""	// only humans have def zones, so we need an override
 	if(def_zone)
-		message_hit_area = "в [parse_zone(def_zone, TRUE)]"
+		message_hit_area = "в [parse_zone(def_zone)]"
 
 	if(!I.force)
 		visible_message(
