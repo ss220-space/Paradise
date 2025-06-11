@@ -240,6 +240,7 @@
 			if(!src)
 				return
 
+			SM.mind.madeby_sentience_potion = TRUE
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user

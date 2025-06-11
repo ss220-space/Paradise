@@ -218,6 +218,9 @@
 	toolspeed = 0.0 //the epitome of powertools, literally instant
 	var/wall_toolspeed = 0.1 //instant wall breaking is bad.
 
+/obj/item/pickaxe/drill/jackhammer/phantom
+	w_class = WEIGHT_CLASS_NORMAL
+
 /obj/item/shovel
 	name = "shovel"
 	desc = "Массивный инструмент для вскапывания и перемещения земли."

@@ -135,8 +135,6 @@
 
 
 /datum/species/unathi/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
 	..()
 	if(H.reagents.get_reagent_amount("zessulblood") < 5)	//unique unathi chemical, heals over time and increases shock reduction for 20
 		H.reagents.add_reagent("zessulblood", 1)
@@ -355,25 +353,30 @@ They're basically just lizards with all-around marginally better stats and fire 
 	name = "Помощь некрополя"
 	desc = "Вы используете силу Некрополя, чтобы узнать примерное местоположение точек интереса."
 	icon_icon = 'icons/mob/actions/actions_clockwork.dmi'
-	button_icon_state = "stun" //better than nothing
+	button_icon_state = "stun"
 
 /datum/action/innate/shaman_gps/Activate()
-	var/list/list_of_points = GLOB.lavaland_points_of_interest
-	if(list_of_points)
-		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", list_of_points)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
-							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
-	else
+	if(!LAZYLEN(GLOB.lavaland_points_of_interest))
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
+		return
+
+	var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "точки интереса", GLOB.lavaland_points_of_interest)
+
+	if(!selected_poi)
+		return
+
+	addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
+							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
 
 /datum/action/innate/shaman_gps/proc/get_direction(obj/structure/selected_poi)
 	if(!selected_poi)
-		. = "уничтожен."
-		return
-	var/turf/T = get_turf(selected_poi)
-	if(owner.z == T.z) //"кузница находится где-то на северо-востоке" or whatever
-		. = "находится где-то на "
-		. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
-		. += "e."
-	else
-		. = "находится где-то далеко отсюда."
+		return "уничтожен."
+
+	var/turf/turf = get_turf(selected_poi)
+	
+	if(owner.z != turf.z)
+		return "находится где-то далеко отсюда."
+	
+	. = "находится где-то на "
+	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
+	. += "e."

@@ -229,6 +229,13 @@
 		return r_hand
 	return null
 
+/mob/proc/is_in_hands_to_flag(obj/item/I)
+	if(I == l_hand)
+		return ITEM_SLOT_HAND_LEFT
+	if(I == r_hand)
+		return ITEM_SLOT_HAND_RIGHT
+	return NONE
+
 /**
  * Returns `TRUE` if mob's hands free
  */
@@ -253,7 +260,6 @@
 
 	return item_to_test && item_to_test.is_equivalent(I)
 
-
 /**
  * Check used for telekinesis grabs
  */
@@ -270,6 +276,11 @@
 	else
 		return r_hand
 
+//Returns the flag of the selected hand
+/mob/proc/get_active_item_slot_gand()
+	if(hand)
+		return ITEM_SLOT_HAND_LEFT
+	return ITEM_SLOT_HAND_RIGHT
 
 /**
  * Returns the thing in our inactive hand
