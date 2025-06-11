@@ -592,8 +592,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/shattle_start()
 	set category = "Server"
-	set desc= "Установить место появления всех членов экипажа в начале смены на шаттле."
-	set name= "Старт с шаттла"
+	set desc = "Установить место появления всех членов экипажа в начале смены на шаттле."
+	set name = "Старт с шаттла"
 
 	if(!check_rights(R_SERVER))
 		return FALSE
