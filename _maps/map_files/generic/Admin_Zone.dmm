@@ -4,7 +4,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "ac" = (
-/turf/simulated/wall/indestructible/necropolis,
+/turf/simulated/wall/indestructible/mineral_rock,
 /area/tdome/newtdome)
 "ad" = (
 /obj/machinery/door/poddoor/shutters/invincible{
@@ -122,9 +122,6 @@
 	icon_state = "hierophant1"
 	},
 /area/admin)
-"bm" = (
-/turf/simulated/wall/indestructible/mineral_rock,
-/area/tdome/newtdome)
 "bn" = (
 /obj/structure/rack,
 /obj/item/melee/baseball_bat/ablative,
@@ -198,9 +195,6 @@
 	tag = "icon-carpet5-0 (EAST)"
 	},
 /area/holodeck/source_meetinghall)
-"bP" = (
-/turf/simulated/floor/indestructible/necropolis/air,
-/area/tdome/newtdome)
 "bU" = (
 /obj/structure/rack,
 /obj/item/tank/jetpack/oxygen,
@@ -342,6 +336,9 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
+"dp" = (
+/turf/simulated/floor/lava,
+/area/tdome/newtdome)
 "dq" = (
 /obj/structure/holohoop,
 /turf/simulated/floor/holofloor{
@@ -1124,6 +1121,9 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena_source)
+"kw" = (
+/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
+/area/tdome/newtdome)
 "kA" = (
 /obj/structure/rack,
 /obj/item/clothing/shoes/brown,
@@ -1155,12 +1155,6 @@
 	icon_state = "vault"
 	},
 /area/tdome/arena)
-"kF" = (
-/obj/machinery/door/poddoor/shutters/invincible{
-	id_tag = "TD_CloseCombat"
-	},
-/turf/simulated/wall/indestructible/sandstone,
-/area/tdome/newtdome)
 "kL" = (
 /obj/item/storage/box/syringes,
 /obj/item/assembly/igniter,
@@ -1669,9 +1663,6 @@
 	icon_state = "green"
 	},
 /area/holodeck/source_emptycourt)
-"rS" = (
-/turf/simulated/floor/lava,
-/area/tdome/newtdome)
 "sk" = (
 /obj/structure/table/wood,
 /obj/item/twohanded/bostaff,
@@ -1737,9 +1728,6 @@
 	icon_state = "dark"
 	},
 /area/tdome/arena)
-"ty" = (
-/turf/simulated/floor/chasm/straight_down/lava_land_surface/normal_air,
-/area/tdome/newtdome)
 "tG" = (
 /obj/structure/table/wood,
 /obj/item/gun/magic/staff/slipping/honkmother,
@@ -2496,13 +2484,16 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "BI" = (
-/turf/simulated/wall/indestructible/rock,
-/area/space)
+/turf/simulated/floor/indestructible/necropolis,
+/area/tdome/newtdome)
 "BN" = (
 /obj/structure/table/wood,
 /obj/item/gun/projectile/automatic/sniper_rifle/syndicate/penetrator,
 /turf/simulated/floor/wood,
 /area/admin)
+"BT" = (
+/turf/simulated/wall/indestructible/rock,
+/area/space)
 "BU" = (
 /turf/simulated/floor/holofloor{
 	icon_state = "redbluefull"
@@ -2846,6 +2837,9 @@
 /obj/item/clothing/glasses/sunglasses_fake/holo,
 /turf/simulated/floor/beach/sand,
 /area/holodeck/source_beach)
+"GP" = (
+/turf/simulated/wall/indestructible/necropolis,
+/area/tdome/newtdome)
 "GQ" = (
 /obj/item/toy/prize/honk,
 /turf/simulated/floor/plasteel{
@@ -58896,33 +58890,33 @@ Yq
 Yq
 Yq
 Yq
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 Yq
 Yq
 Yq
@@ -59153,12 +59147,12 @@ Yq
 Yq
 Yq
 Yq
+BT
+To
 BI
 To
-bP
 To
 To
-To
 Du
 Du
 Du
@@ -59168,8 +59162,8 @@ Du
 Du
 Du
 Du
-bm
-bm
+ac
+ac
 Du
 Du
 Du
@@ -59179,7 +59173,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -59410,18 +59404,18 @@ Yq
 Yq
 Yq
 Yq
+BT
 BI
-bP
-ty
-bP
+kw
+BI
 To
+GP
+Du
+Du
 ac
 Du
 Du
-bm
-Du
-Du
-bm
+ac
 Du
 Du
 Du
@@ -59430,13 +59424,13 @@ Du
 Du
 Du
 Du
-bm
+ac
 Du
 Du
 Du
-bm
+ac
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -59667,11 +59661,11 @@ Yq
 Yq
 Yq
 Yq
+BT
+To
 BI
 To
-bP
-To
-ac
+GP
 Du
 Du
 Du
@@ -59693,7 +59687,7 @@ Yz
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -59924,10 +59918,10 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 To
 To
-ac
+GP
 Du
 Yz
 Du
@@ -59950,7 +59944,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -60181,9 +60175,9 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 To
-ac
+GP
 Du
 Du
 Du
@@ -60207,7 +60201,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -60438,7 +60432,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -60463,8 +60457,8 @@ Du
 Du
 Du
 Du
-bm
-BI
+ac
+BT
 Yq
 Yq
 Yq
@@ -60695,7 +60689,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -60721,7 +60715,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -60952,8 +60946,8 @@ Yq
 Yq
 Yq
 Yq
-BI
-bm
+BT
+ac
 Du
 Du
 Du
@@ -60978,7 +60972,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -61209,7 +61203,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -61235,7 +61229,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -61466,7 +61460,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -61489,10 +61483,10 @@ yQ
 ad
 Yz
 Du
-bm
+ac
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -61723,10 +61717,10 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
-bm
-bm
+ac
+ac
 Du
 Du
 ad
@@ -61747,9 +61741,9 @@ ad
 Du
 Du
 Du
-bm
+ac
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -61980,7 +61974,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -62006,7 +62000,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -62237,7 +62231,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -62263,7 +62257,7 @@ Yz
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -62494,11 +62488,11 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
-bm
+ac
 Du
 ad
 yQ
@@ -62520,7 +62514,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -62751,9 +62745,9 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
-bm
+ac
 Du
 Du
 Du
@@ -62775,9 +62769,9 @@ ad
 Du
 Du
 Du
-bm
+ac
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -63008,9 +63002,9 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
-bm
+ac
 Du
 Du
 Du
@@ -63034,7 +63028,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -63265,7 +63259,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -63291,7 +63285,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -63522,7 +63516,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -63547,8 +63541,8 @@ Du
 Du
 Du
 Du
-bm
-BI
+ac
+BT
 Yq
 Yq
 Yq
@@ -63779,7 +63773,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -63805,7 +63799,7 @@ Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -64036,7 +64030,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -64054,15 +64048,15 @@ ad
 ad
 ad
 ad
-kF
 ad
 ad
+ad
 Du
 Du
 Du
 Du
 Du
-BI
+BT
 Yq
 Yq
 Yq
@@ -64293,7 +64287,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -64317,9 +64311,9 @@ Du
 Du
 Du
 Du
-ac
+GP
 To
-BI
+BT
 Yq
 Yq
 Yq
@@ -64550,33 +64544,33 @@ Yq
 Yq
 Yq
 Yq
-BI
-Du
-bm
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
-Du
-Du
-Du
-Du
-Du
-Du
-Du
-Yz
+BT
 Du
 ac
+Du
+Du
+Yz
+Du
+Du
+Du
+Du
+Du
+Du
+Du
+Yz
+Du
+Du
+Du
+Du
+Du
+Du
+Du
+Yz
+Du
+GP
 To
 To
-BI
+BT
 Yq
 Yq
 Yq
@@ -64807,7 +64801,7 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
@@ -64829,11 +64823,11 @@ Du
 Du
 Du
 Du
-ac
-To
-bP
+GP
 To
 BI
+To
+BT
 Yq
 Yq
 Yq
@@ -65064,21 +65058,14 @@ Yq
 Yq
 Yq
 Yq
-BI
-bm
-bm
+BT
+ac
+ac
 Du
 Du
 Du
 Du
-bm
-Du
-Du
-Du
-Du
-Du
-Du
-bm
+ac
 Du
 Du
 Du
@@ -65086,11 +65073,18 @@ Du
 Du
 Du
 ac
+Du
+Du
+Du
+Du
+Du
+Du
+GP
 To
-bP
-rS
-bP
 BI
+dp
+BI
+BT
 Yq
 Yq
 Yq
@@ -65321,14 +65315,14 @@ Yq
 Yq
 Yq
 Yq
-BI
+BT
 Du
 Du
 Du
 Du
 Du
 Du
-bm
+ac
 Du
 Du
 Du
@@ -65339,15 +65333,15 @@ Du
 Du
 Du
 Du
-bm
+ac
 Du
 Du
 To
 To
-To
-bP
 To
 BI
+To
+BT
 Yq
 Yq
 Yq
@@ -65578,33 +65572,33 @@ Yq
 Yq
 Yq
 Yq
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
-BI
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
+BT
 Yq
 Yq
 Yq
