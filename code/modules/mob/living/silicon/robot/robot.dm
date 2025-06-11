@@ -276,6 +276,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/verb/Namepick()
 	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Сменить имя"
 
 	if(custom_name)
 		return FALSE
@@ -526,7 +527,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Манифест экипажа"
+	set name = "Монитор экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
