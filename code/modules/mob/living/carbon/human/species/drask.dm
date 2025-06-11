@@ -115,9 +115,6 @@
 /datum/species/drask/handle_life(mob/living/carbon/human/human)
 	. = ..()
 
-	if(human.stat == DEAD)
-		return
-
 	if(human.bodytemperature < TCRYO)
 		var/update = NONE
 		update |= human.heal_overall_damage(2, 4, updating_health = FALSE)

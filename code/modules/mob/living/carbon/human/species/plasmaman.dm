@@ -243,8 +243,6 @@
 				P.Extinguish(H)
 	H.update_fire()
 	..()
-	if(H.stat == DEAD)
-		return
 	if(H.reagents.get_reagent_amount("pure_plasma") < 5) //increasing chock_reduction by 20
 		H.reagents.add_reagent("pure_plasma", 5)
 

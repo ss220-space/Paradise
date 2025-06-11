@@ -91,7 +91,7 @@ SUBSYSTEM_DEF(capitalism)
 
 /datum/controller/subsystem/capitalism/proc/salary_account_init()
 	base_account = GLOB.station_account		//The account that the bounty goes to, the money for the goal and the money from the machines.
-	payment_account = GLOB.CC_account 	//GLOB.CC_account 	//This is the account from which money is debited for salary. Made for catsmile tests
+	payment_account = GLOB.station_account 	//GLOB.CC_account 	//This is the account from which money is debited for salary. Made for catsmile tests
 
 	if(!GLOB.vendor_account)
 		GLOB.vendor_account = base_account //:catsmile:

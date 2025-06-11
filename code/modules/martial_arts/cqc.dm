@@ -15,7 +15,10 @@
 														/area/crew_quarters/cafeteria,
 														/area/crew_quarters/bar,
 														/area/syndicate/unpowered/syndicate_space_base/bar,
-														/area/syndicate/unpowered/syndicate_space_base/kitchen
+														/area/syndicate/unpowered/syndicate_space_base/kitchen,
+														/area/coldcolony/malta/resid_serv/kitchen,
+														/area/coldcolony/malta/resid_serv/bar/atrium,
+														/area/coldcolony/malta/resid_serv/bar
 														))
 
 /datum/martial_art/cqc/under_siege

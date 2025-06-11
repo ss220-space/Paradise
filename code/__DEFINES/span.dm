@@ -63,7 +63,7 @@
 #define span_hierophant(str) ("<span class='hierophant'>" + str + "</span>")
 #define span_hierophant_warning(str) ("<span class='hierophant_warning'>" + str + "</span>")
 #define span_highlight(str) ("<span class='highlight'>" + str + "</span>")
-//#define span_his_grace(str) ("<span class='his_grace'>" + str + "</span>")
+#define span_his_grace(str) ("<span class='his_grace'>" + str + "</span>")
 #define span_holoparasite(str) ("<span class='holoparasite'>" + str + "</span>")
 //#define span_hypnophrase(str) ("<span class='hypnophrase'>" + str + "</span>")
 //#define span_icon(str) ("<span class='icon'>" + str + "</span>")
@@ -175,6 +175,7 @@
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
 
 // Font size spans
+
 #define span_fontsize1(str) ("<span style='font-size: 10px;'>" + str + "</span>")
 #define span_fontsize2(str) ("<span style='font-size: 13px;'>" + str + "</span>")
 #define span_fontsize3(str) ("<span style='font-size: 16px;'>" + str + "</span>")
@@ -182,4 +183,7 @@
 #define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
 #define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
 #define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
+
+// Font color spans
 #define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")
+#define span_fontcolor_purple(str) ("<span style='color: purple;'>" + str + "</span>")
