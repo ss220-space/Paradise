@@ -33,7 +33,7 @@
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "Сначала уберите [target.declent_ru(ACCUSATIVE)]!")
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
-		user.visible_message("<span class='warning'>[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)].</span>")
+		user.visible_message("<span class='warning'>[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(GENITIVE)].</span>")
 		if(do_after(user, cleanspeed, target) && target)
 			to_chat(user, "<span class='notice'>Вы оттёрли [target.declent_ru(GENITIVE)].</span>")
 			if(issimulatedturf(target.loc))
@@ -41,12 +41,12 @@
 				return
 			qdel(target)
 	else if(issimulatedturf(target))
-		user.visible_message("<span class='warning'>[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)].</span>")
+		user.visible_message("<span class='warning'>[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(GENITIVE)].</span>")
 		if(do_after(user, cleanspeed, target))
 			to_chat(user, "<span class='notice'>Вы оттёрли [target.declent_ru(ACCUSATIVE)].</span>")
 			clean_turf(target)
 	else
-		user.visible_message("<span class='warning'>[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)].</span>")
+		user.visible_message("<span class='warning'>[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(GENITIVE)].</span>")
 		if(do_after(user, cleanspeed, target))
 			to_chat(user, "<span class='notice'>Вы оттёрли [target.declent_ru(ACCUSATIVE)].</span>")
 			var/obj/effect/decal/cleanable/C = locate() in target
@@ -201,7 +201,7 @@
 	else
 		user.visible_message("<span class='warning'>[user] начинает размазывать [src.declent_ru(ACCUSATIVE)] по [target.declent_ru(DATIVE)].</span>")
 		if(do_after(user, cleanspeed, target))
-			to_chat(user, "<span class='notice'>Вы ["моете"] [target.declent_ru(ACCUSATIVE)].</span>")
+			to_chat(user, "<span class='notice'>Вы \"моете\" [target.declent_ru(ACCUSATIVE)].</span>")
 			if(issimulatedturf(target))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(iscarbon(target))
@@ -215,8 +215,7 @@
 	return
 
 /obj/item/soap/deluxe
-	desc = "A deluxe Waffle Co. brand bar of soap. Smells of comdoms."
-	"Раскошный кусок мыла производства Waffle Co. Пахнет важностью и тщеславием."
+	desc = "Раскошный кусок мыла производства Waffle Co. Пахнет важностью и тщеславием."
 	icon_state = "soapdeluxe"
 	cleanspeed = 40 //slightly better because deluxe -- captain gets one of these
 
