@@ -592,8 +592,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/shattle_start()
 	set category = "Server"
-	set desc= "Установить место появления всех членов экипажа в начале смены на шатле."
-	set name= "Старт с шатла"
+	set desc= "Установить место появления всех членов экипажа в начале смены на шаттле."
+	set name= "Старт с шаттла"
 
 	if(!check_rights(R_SERVER))
 		return FALSE
@@ -603,14 +603,14 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
-		to_chat(usr, span_red("Ошибка: Старт с шатла: Игра уже началась."), confidential=TRUE)
+		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential=TRUE)
 		return FALSE
 
 	SSticker.shattle_start = !SSticker.shattle_start
-	var/msg = "[usr.key] [SSticker.shattle_start ? "включил" : "выключил"] гарантированный старт с шатла."
+	var/msg = "[usr.key] [SSticker.shattle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Старт с шатла") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, "Старт с шаттла") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return TRUE
 
 
