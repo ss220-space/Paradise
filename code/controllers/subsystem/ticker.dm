@@ -296,7 +296,7 @@ SUBSYSTEM_DEF(ticker)
 
 	watch = start_watch()
 	if(prob(5))
-		SSticker.shattle_start = TRUE
+		SSticker.shuttle_start = TRUE
 
 	equip_characters() // Apply outfits and loadouts to the characters
 	log_debug("Equipping characters took [stop_watch(watch)]s")
