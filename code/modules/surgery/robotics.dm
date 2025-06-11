@@ -550,7 +550,7 @@
 				continue
 			O.on_find(user)
 			organs -= O
-			organs[O.name] = O
+			organs[O.declent_ru(NOMINATIVE)] = O
 
 		I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечения органа", organs)
 		if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
