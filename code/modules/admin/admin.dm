@@ -603,7 +603,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
-		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential=TRUE)
+		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential = TRUE)
 		return FALSE
 
 	SSticker.shattle_start = !SSticker.shattle_start
