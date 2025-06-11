@@ -3129,7 +3129,7 @@
 		return FALSE
 	if(!hasSoul)
 		return FALSE
-	if(!soulOwner != src)
+	if(soulOwner != src)
 		return FALSE
 	return TRUE
 
