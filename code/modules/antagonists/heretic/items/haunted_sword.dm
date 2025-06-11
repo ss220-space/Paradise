@@ -12,8 +12,8 @@
 	force = 30
 	throwforce = 25
 	block_chance = 55
-	wound_bonus = -25
-	bare_wound_bonus = 30
+	//wound_bonus = -25
+	//bare_wound_bonus = 30
 	free_use = TRUE
 	light_color = COLOR_HERETIC_GREEN
 	light_range = 3
@@ -148,7 +148,7 @@
 	if(!do_after(user, 6 SECONDS, src))
 		to_chat(user, span_notice("You were interrupted!"))
 		return
-	playsound(user, 'sound/items/weapons/slice.ogg', 30, TRUE)
+	playsound(user, 'sound/weapons/slice.ogg', 30, TRUE)
 	return TRUE
 
 /obj/item/melee/cultblade/haunted/proc/on_heresy_handle(mob/living/user, actiontype)
@@ -222,7 +222,7 @@
 		wielder_spell.Remove(user)
 	trapped_entity.update_mob_action_buttons()
 
-	playsound(src ,'sound/effects/hallucinations/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
+	playsound(src ,'sound/effects/wail.ogg', 20, TRUE)	// add BOUND alert and UNBOUND
 	binding_filters_update()
 
 /obj/item/melee/cultblade/haunted/Initialize(mapload, mob/soul_to_bind, mob/awakener, do_bind = TRUE)
@@ -254,7 +254,7 @@
 	// Get the heretic's new body and antag datum.
 	trapped_entity = trapped_mind?.current
 	trapped_entity.PossessByPlayer(trapped_mind?.key)
-	var/datum/antagonist/heretic/heretic_holder = GET_HERETIC(trapped_entity)
+	var/datum/antagonist/heretic/heretic_holder = trapped_entity.has_antag_datum(/datum/antagonist/heretic)
 	if(!heretic_holder)
 		stack_trace("[soul_to_bind] in but not a heretic on the heretic soul blade.")
 

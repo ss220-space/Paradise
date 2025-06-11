@@ -24,7 +24,7 @@
 /datum/action/innate/pointed/apetra_vulnera/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 
-	if(isheretic_OR_MONSTER(cast_on))
+	if(IS_HERETIC_OR_MONSTER(cast_on))
 		return FALSE
 
 	if(!cast_on.blood_volume)

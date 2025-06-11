@@ -3,8 +3,8 @@
 	real_name = "slaughter demon"
 	desc = "A large, menacing creature covered in armored black scales. You should run."
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
-	icon = 'icons/mob/mob.dmi'
-	icon_state = "daemon"
+	icon = 'icons/mob/demon.dmi'
+	icon_state = "slaughter_demon"
 	icon_living = "daemon"
 	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
@@ -80,6 +80,7 @@
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
 	desc = "An awful creature from beyond the realms of madness."
+	icon_state = "demon"
 	maxHealth = 500
 	health = 500
 	melee_damage_upper = 60
@@ -212,6 +213,7 @@
 	desc = "A large, adorable creature covered in armor with pink bows."
 	speak_emote = list("giggles", "titters", "chuckles")
 	emote_hear = list("gaffaws", "laughs")
+	icon_state = "honk_demon"
 	response_help  = "hugs"
 	attacktext = "неистово щекочет"
 	maxHealth = 175
@@ -223,7 +225,6 @@
 	feast_sound = 'sound/spookoween/scary_horn2.ogg'
 	death_sound = 'sound/misc/sadtrombone.ogg'
 
-	icon_state = "bowmon"
 	icon_living = "bowmon"
 	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})

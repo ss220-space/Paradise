@@ -34,7 +34,7 @@
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
-	var/turf/open/our_turf = loc
+	var/turf/spaceour_turf = loc
 	if(our_turf.GetTemperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
@@ -194,7 +194,7 @@
 		loc.balloon_alert(user, "ritual failed, invalid location!")
 		return FALSE
 
-	var/turf/open/our_turf = loc
+	var/turf/spaceour_turf = loc
 	if(our_turf.GetTemperature() > T0C)
 		loc.balloon_alert(user, "ritual failed, not cold enough!")
 		return FALSE
@@ -234,7 +234,7 @@
 	for(var/atom/thing_in_range as anything in range(10, source))
 		if(iscarbon(thing_in_range))
 			var/mob/living/carbon/close_carbon = thing_in_range
-			if(isheretic_OR_MONSTER(close_carbon))
+			if(IS_HERETIC_OR_MONSTER(close_carbon))
 				close_carbon.apply_status_effect(/datum/status_effect/void_conduit)
 				continue
 			close_carbon.adjust_silence_up_to(2 SECONDS, 20 SECONDS)

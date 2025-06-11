@@ -56,7 +56,7 @@
 		to_chat(user, span_hypnophrase("There's an itch in your brain. It's laughing at you..."))
 
 	qdel(src)
-	return ITEM_INTERACT_SUCCESS
+	return ATTACK_CHAIN_SUCCESS
 
 // On examine eldritch paintings give a trait so their effects can not be spammed
 /obj/structure/sign/painting/eldritch/examine(mob/user)

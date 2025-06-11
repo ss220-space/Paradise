@@ -96,7 +96,7 @@
 		var/datum/browser/popup = new(src, "player_age_check", "Player Age Check")
 		popup.set_content(msg)
 		popup.open(FALSE)
-		
+
 	else
 		to_chat(src, "No matches for that age range found.", confidential=TRUE)
 
@@ -1140,7 +1140,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	var/datum/browser/popup = new(src, "player_ssd_afk_check", "SSD & AFK Report", 600, 300)
 	popup.set_content(msg)
 	popup.open(FALSE)
-	
+
 
 /client/proc/toggle_ert_calling()
 	set category = "Admin.Toggles"
@@ -1291,7 +1291,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			continue
 
 		M.audible_message(span_italics("...ваббаджек...ваббаджек..."))
-		playsound(M.loc, 'sound/magic/Staff_Change.ogg', 50, 1, -1)
+		playsound(M.loc, 'sound/effects/magic/Staff_Change.ogg', 50, 1, -1)
 		var/name = M.name
 		var/real_name = M.real_name
 

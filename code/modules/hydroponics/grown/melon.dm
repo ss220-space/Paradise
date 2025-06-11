@@ -44,13 +44,14 @@
 	plantname = "Holy Melon Vines"
 	product = /obj/item/reagent_containers/food/snacks/grown/holymelon
 	mutatelist = list()
+	genes = list(/datum/plant_gene/trait/glow/yellow, /datum/plant_gene/trait/anti_magic, /datum/plant_gene/trait/repeated_harvest)
 	reagents_add = list("holywater" = 0.2, "vitamin" = 0.04, "nutriment" = 0.1)
 	rarity = 20
 
 /obj/item/reagent_containers/food/snacks/grown/holymelon
 	seed = /obj/item/seeds/watermelon/holy
 	name = "holymelon"
-	desc = "The water within this melon has been blessed by some deity that's particularly fond of watermelon."
+	desc = "Вода внутри этой дыни была благословлена ​​каким-то божеством, которое думало что это арбуз."
 	icon_state = "holymelon" // Sprite created by https://github.com/binarysudoku for Goonstation, They have relicensed it for our use.
 	filling_color = "#FFD700"
 	dried_type = null

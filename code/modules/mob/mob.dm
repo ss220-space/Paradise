@@ -1304,16 +1304,24 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 	var/list/antimagic_sources = list()
 	var/is_magic_blocked = FALSE
 
-	if(can_block_magic())
+	if(SEND_SIGNAL(src, COMSIG_MOB_RECEIVE_MAGIC, casted_magic_flags, charge_cost, antimagic_sources) & COMPONENT_MAGIC_BLOCKED)
 		is_magic_blocked = TRUE
 
-	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && src.mind.isholy)
+	if((casted_magic_flags & MAGIC_RESISTANCE_HOLY) && mind.isholy)
 		is_magic_blocked = TRUE
 
 	if(is_magic_blocked && charge_cost > 0 && !HAS_TRAIT(src, TRAIT_RECENTLY_BLOCKED_MAGIC))
 		on_block_magic_effects(casted_magic_flags, antimagic_sources)
 
 	return is_magic_blocked
+
+
+/mob/proc/can_cast_magic(magic_flags = MAGIC_RESISTANCE)
+	if(magic_flags == NONE) // magic with the NONE flag can always be cast
+		return TRUE
+
+	var/restrict_magic_flags = SEND_SIGNAL(src, COMSIG_MOB_RESTRICT_MAGIC, magic_flags)
+	return restrict_magic_flags == NONE
 
 
 /// Called whenever a magic effect with a charge cost is blocked and we haven't recently blocked magic.

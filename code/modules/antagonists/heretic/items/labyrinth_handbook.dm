@@ -6,7 +6,7 @@
 
 /obj/effect/forcefield/wizard/heretic/Bumped(mob/living/bumpee)
 	. = ..()
-	if(!istype(bumpee) || isheretic_OR_MONSTER(bumpee))
+	if(!istype(bumpee) || IS_HERETIC_OR_MONSTER(bumpee))
 		return
 	var/throwtarget = get_edge_target_turf(loc, get_dir(loc, get_step_away(bumpee, loc)))
 	bumpee.safe_throw_at(throwtarget, 10, 1, force = MOVE_FORCE_EXTREMELY_STRONG)
@@ -36,7 +36,7 @@
 
 /obj/item/heretic_labyrinth_handbook/examine(mob/user)
 	. = ..()
-	if(!isheretic_OR_MONSTER(user))
+	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 	. += span_hypnophrase("Materializes a barrier upon any tile in sight, which only you can pass through. Lasts 8 seconds.")
 	. += span_hypnophrase("It has <b>[uses]</b> uses left.")
@@ -53,18 +53,18 @@
 			to_chat(human_user, span_userdanger("Your mind burns as you stare deep into the book, a headache setting in like your brain is on fire!"))
 			human_user.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 30, 190)
 			human_user.dropItemToGround(src)
-		return ITEM_INTERACT_BLOCKING
+		return ATTACK_CHAIN_BLOCKED
 
 	var/turf/turf_target = get_turf(interacting_with)
 	if(locate(barrier_type) in turf_target)
 		user.balloon_alert(user, "already occupied!")
-		return ITEM_INTERACT_BLOCKING
+		return ATTACK_CHAIN_BLOCKED
 	turf_target.visible_message(span_warning("A storm of paper materializes!"))
 	new /obj/effect/temp_visual/paper_scatter(turf_target)
-	playsound(turf_target, 'sound/magic/smoke.ogg', 30)
+	playsound(turf_target, 'sound/effects/magic/smoke.ogg', 30)
 	new barrier_type(turf_target, user)
 	uses--
 	if(uses <= 0)
 		to_chat(user, span_warning("[src] falls apart, turning into ash and dust!"))
 		qdel(src)
-	return ITEM_INTERACT_SUCCESS
+	return ATTACK_CHAIN_SUCCESS

@@ -1874,9 +1874,9 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 
 ///wrapper proc that passes our mob's rust_strength to the target we are rusting
 /mob/living/proc/do_rust_heretic_act(atom/target)
-	var/datum/antagonist/heretic/heretic_data = GET_HERETIC(src)
+	var/datum/antagonist/heretic/heretic_data = mind.has_antag_datum(/datum/antagonist/heretic)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
 
-/mob/living/basic/heretic_summon/rust_walker/do_rust_heretic_act(atom/target)
+/mob/living/simple_animal/heretic_summon/rust_walker/do_rust_heretic_act(atom/target)
 	target.rust_heretic_act(4)

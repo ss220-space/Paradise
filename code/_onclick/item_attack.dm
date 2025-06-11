@@ -80,6 +80,7 @@
 	. = ATTACK_CHAIN_PROCEED
 	if(!tool_behaviour)
 		return .
+
 	if(target.tool_act(user, src, tool_behaviour))
 		return ATTACK_CHAIN_BLOCKED
 
@@ -89,8 +90,10 @@
 	var/signal_ret = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK_SELF, user)
 	if(signal_ret & COMPONENT_NO_INTERACT)
 		return FALSE
+
 	if(signal_ret & COMPONENT_CANCEL_ATTACK_CHAIN)
 		return TRUE
+
 	SSdemo.mark_dirty(src)
 
 
@@ -149,14 +152,19 @@
 	. |= I.attack_obj(src, user, params)
 
 
-/mob/living/attackby(obj/item/I, mob/living/user, params)
+/mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
+	if(check_block(attacking_item, attacking_item.force, pick(attacking_item.attack_verb), ITEM_ATTACK, attacking_item.armour_penetration, attacking_item.damtype))
+		return ATTACK_CHAIN_BLOCKED
+
 	. = ..()
 	if(ATTACK_CHAIN_CANCEL_CHECK(.))
 		return .
-	if(attempt_harvest(I, user))
+
+	if(attempt_harvest(attacking_item, user))
 		return .|ATTACK_CHAIN_BLOCKED_ALL
-	user.changeNext_move(I.attack_speed)
-	. |= I.attack(src, user, params, user.zone_selected)
+
+	user.changeNext_move(attacking_item.attack_speed)
+	. |= attacking_item.attack(src, user, params, user.zone_selected)
 
 
 /**

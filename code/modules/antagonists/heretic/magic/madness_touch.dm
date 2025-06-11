@@ -17,7 +17,7 @@
 	if(!ishuman(cast_on))
 		return FALSE
 	var/mob/living/carbon/human/human_cast_on = cast_on
-	if(!human_cast_on.mind || isheretic_OR_MONSTER(human_cast_on))
+	if(!human_cast_on.mind || IS_HERETIC_OR_MONSTER(human_cast_on))
 		return FALSE
 	return TRUE
 

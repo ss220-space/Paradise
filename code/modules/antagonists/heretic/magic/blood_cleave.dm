@@ -27,7 +27,7 @@
 /datum/action/innate/pointed/cleave/cast(mob/living/carbon/human/cast_on)
 	. = ..()
 	for(var/mob/living/carbon/human/victim in range(cleave_radius, cast_on))
-		if(victim == owner || isheretic_OR_MONSTER(victim))
+		if(victim == owner || IS_HERETIC_OR_MONSTER(victim))
 			continue
 		if(victim.can_block_magic(antimagic_flags))
 			victim.visible_message(
@@ -47,7 +47,7 @@
 		var/obj/item/organ/external/bodypart = pick(victim.bodyparts)
 		var/datum/wound/slash/flesh/crit_wound = new wound_type()
 		crit_wound.apply_wound(bodypart)
-		victim.apply_damage(20, BURN, wound_bonus = CANT_WOUND)
+		victim.apply_damage(20, BURN/*, wound_bonus = CANT_WOUND*/)
 
 		new /obj/effect/temp_visual/cleave(get_turf(victim))
 

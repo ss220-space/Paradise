@@ -34,7 +34,6 @@
 	grant_abilities()
 	ADD_TRAIT(src, TRAIT_MANSUS_TOUCHED, REF(src))
 	add_filter("rusted_harvester", 3, list("type" = "outline", "color" = COLOR_GREEN, "size" = 2, "alpha" = 40))
-	RegisterSignal(src, COMSIG_MIND_TRANSFERRED, TYPE_PROC_REF(/datum/mind, enslave_mind_to_creator))
 	RegisterSignal(src, COMSIG_MOB_ENSLAVED_TO, PROC_REF(link_master))
 
 

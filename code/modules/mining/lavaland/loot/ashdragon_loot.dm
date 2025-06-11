@@ -253,7 +253,7 @@
 			user.visible_message(span_danger("[user] turns \the [T] into [reset_string]!"))
 			T.ChangeTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
-		playsound(T,'sound/magic/fireball.ogg', 200, 1)
+		playsound(T,'sound/effects/magic/fireball.ogg', 200, 1)
 
 /obj/effect/temp_visual/lavastaff
 	icon_state = "lavastaff_warn"

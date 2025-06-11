@@ -562,6 +562,7 @@
 	else
 		return
 
+	SEND_SIGNAL(A, COMSIG_ATOM_EXPOSE_REAGENTS, src, method, volume_modifier, show_message)
 	if(react_type == "LIVING" && ishuman(A))
 		var/mob/living/carbon/human/H = A
 		if(method == REAGENT_TOUCH)

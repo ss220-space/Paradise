@@ -161,7 +161,7 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	// Make it the living heart
 	our_new_heart.AddComponent(/datum/component/living_heart)
 	to_chat(user, span_warning("You feel your [our_new_heart.name] begin pulse faster and faster as it awakens!"))
-	playsound(user, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	playsound(user, 'sound/effects/magic/demon_consume.ogg', 50, TRUE)
 	return TRUE
 
 /// Checks if the passed heart is a valid heart to become a living heart
@@ -205,18 +205,18 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	is_starting_knowledge = TRUE
 
 /**
- * Codex Cicatrixi is available at the start:
+ * Кодекс Истезанияi is available at the start:
  * This allows heretics to choose if they want to rush all the influences and take them stealthily, or
  * Construct a codex and take what's left with more points.
  * Another downside to having the book is strip searches, which means that it's not just a free nab, at least until you get exposed - and when you do, you'll probably need the faster drawing speed.
  * Overall, it's a tradeoff between speed and stealth or power.
  */
 /datum/heretic_knowledge/codex_cicatrix
-	name = "Codex Cicatrix"
-	desc = "Allows you to transmute a book, any unique pen (anything but generic pens), and your pick from any carcass (animal or human), leather, or hide to create a Codex Cicatrix. \
-		The Codex Cicatrix can be used when draining influences to gain additional knowledge, but comes at greater risk of being noticed. \
+	name = "Кодекс Истезания"
+	desc = "Allows you to transmute a book, any unique pen (anything but generic pens), and your pick from any carcass (animal or human), leather, or hide to create a Кодекс Истезания. \
+		The Кодекс Истезания can be used when draining influences to gain additional knowledge, but comes at greater risk of being noticed. \
 		It can also be used to draw and remove transmutation runes easier, and as a spell focus in a pinch."
-	gain_text = "The occult leaves fragments of knowledge and power anywhere and everywhere. The Codex Cicatrix is one such example. \
+	gain_text = "The occult leaves fragments of knowledge and power anywhere and everywhere. The Кодекс Истезания is one such example. \
 		Within the leather-bound faces and age old pages, a path into the Mansus is revealed."
 	required_atoms = list(
 		list(/obj/item/toy/eldritch_book, /obj/item/book) = 1,
@@ -276,13 +276,13 @@ GLOBAL_LIST_INIT(heretic_start_knowledge, initialize_starting_knowledge())
 	else
 		body.apply_damage(25, BRUTE, sharpness = SHARP_EDGED)
 		// If it is not a carbon mob, we will just check biotypes and damage it directly.
-		if(body.mob_biotypes & (MOB_MINERAL|MOB_ROBOTIC))
-			exterior_text = "exterior"
+		//if(body.mob_biotypes & (MOB_MINERAL|MOB_ROBOTIC))
+		//	exterior_text = "exterior"
 
 	// Procure book for flavor text. This is why we call parent at the end.
 	var/obj/item/book/le_book = locate() in selected_atoms
 	if(!le_book)
-		stack_trace("Somehow, no book in codex cicatrix selected atoms! [english_list(selected_atoms)]")
+		stack_trace("Somehow, no book in Кодекс Истезания selected atoms! [english_list(selected_atoms)]")
 	playsound(body, 'sound/items/poster/poster_ripped.ogg', 100, TRUE)
 	body.do_jitter_animation()
 	body.visible_message(span_danger("An awful ripping sound is heard as [ripped_thing]'s [exterior_text] is ripped straight out, wrapping around [le_book || "the book"], turning into an eldritch shade of blue!"))

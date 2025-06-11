@@ -7,7 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "furious_steel"
-	sound = 'sound/items/weapons/guillotine.ogg'
+	sound = 'sound/weapons/guillotine.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 60 SECONDS
@@ -122,7 +122,7 @@
 	damage = 25
 	armour_penetration = 100
 	sharpness = SHARP_EDGED
-	wound_bonus = 15
+	//wound_bonus = 15
 	pass_flags = PASSTABLE | PASSFLAPS
 	/// Color applied as an outline filter on init
 	var/outline_color = "#f8f8ff"
@@ -154,7 +154,7 @@
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "render"
 	damage = 35
-	wound_bonus = 25
+	//wound_bonus = 25
 	outline_color = "#D7CBCA"
 
 /datum/action/innate/pointed/projectile/furious_steel/solo
@@ -173,7 +173,7 @@
 	overlay_icon_state = "bg_cult_border"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "cursed_steel"
-	sound = 'sound/items/weapons/guillotine.ogg'
+	sound = 'sound/weapons/guillotine.ogg'
 
 	cooldown_time = 40 SECONDS
 	invocation = "IA!"

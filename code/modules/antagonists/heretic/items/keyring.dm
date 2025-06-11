@@ -60,13 +60,13 @@
 		return
 
 	//get it?
-	var/obj/machinery/door/doorstination = (inverted ? !isheretic_OR_MONSTER(teleportee) : isheretic_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
+	var/obj/machinery/door/doorstination = (inverted ? !IS_HERETIC_OR_MONSTER(teleportee) : IS_HERETIC_OR_MONSTER(teleportee)) ? destination.our_airlock : find_random_airlock()
 	if(!do_teleport(teleportee, get_turf(doorstination), channel = TELEPORT_CHANNEL_MAGIC))
 		return
 
 	teleportee.client?.move_delay = 0 //make moving through smoother
 
-	if(!isheretic_OR_MONSTER(teleportee))
+	if(!IS_HERETIC_OR_MONSTER(teleportee))
 		teleportee.apply_damage(20, BRUTE) //so they dont roll it like a jackpot machine to see if they can land in the armory
 		to_chat(teleportee, span_userdanger("You stumble through [src], battered by forces beyond your comprehension, landing anywhere but where you thought you were going."))
 
@@ -108,7 +108,7 @@
 
 /obj/item/card/id/advanced/heretic/examine(mob/user)
 	. = ..()
-	if(!isheretic_OR_MONSTER(user))
+	if(!IS_HERETIC_OR_MONSTER(user))
 		return
 	. += span_hypnophrase("Enchanted by the Mansus!")
 	. += span_hypnophrase("Using an ID on this or using this ID on another ID will consume it and allow you to copy its accesses.")
@@ -174,15 +174,17 @@
 	portal_two.destination = portal_one
 	balloon_alert(user, "[message]")
 
-/obj/item/card/id/advanced/heretic/item_interaction(mob/living/user, obj/item/tool, list/modifiers)
-	if(!istype(tool, /obj/item/card/id/advanced) || !isheretic(user))
+/obj/item/card/id/advanced/heretic/afterattack(atom/target, mob/user, proximity, params)
+	if(!istype(target, /obj/item/card/id/advanced) || !isheretic(user))
 		return ..()
-	eat_card(tool, user)
-	return ITEM_INTERACT_SUCCESS
+
+	eat_card(target, user)
+	return ATTACK_CHAIN_SUCCESS
 
 /obj/item/card/id/advanced/heretic/proc/eat_card(obj/item/card/id/card, mob/user)
 	if(card == src)
 		return //no self vore
+
 	fused_ids[card.name] = card
 	card.moveToNullspace()
 	access |= card.access
@@ -195,17 +197,17 @@
 		return NONE
 	if(istype(target, /obj/item/card/id/advanced))
 		eat_card(target, user)
-		return ITEM_INTERACT_SUCCESS
+		return ATTACK_CHAIN_SUCCESS
 	if(istype(target, /obj/effect/lock_portal))
 		clear_portals()
-		return ITEM_INTERACT_SUCCESS
+		return ATTACK_CHAIN_SUCCESS
 	if(!istype(target, /obj/machinery/door))
 		return NONE
 	if(SSmapping.level_trait(target.z, ZTRAIT_NOPHASE))
 		return NONE
 	var/reference_resolved = link?.resolve()
 	if(reference_resolved == target)
-		return ITEM_INTERACT_BLOCKING
+		return ATTACK_CHAIN_BLOCKED
 
 	if(reference_resolved)
 		make_portal(user, reference_resolved, target)
@@ -215,7 +217,7 @@
 	else
 		link = WEAKREF(target)
 		balloon_alert(user, "link 1/2")
-	return ITEM_INTERACT_SUCCESS
+	return ATTACK_CHAIN_SUCCESS
 
 /obj/item/card/id/advanced/heretic/Destroy()
 	QDEL_LIST_ASSOC_VAL(fused_ids)

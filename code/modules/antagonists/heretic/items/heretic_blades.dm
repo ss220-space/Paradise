@@ -5,7 +5,6 @@
 	icon = 'icons/obj/weapons/khopesh.dmi'
 	icon_state = "eldritch_blade"
 	inhand_icon_state = "eldritch_blade"
-	icon_angle = -45
 	lefthand_file = 'icons/mob/inhands/64x64_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/64x64_righthand.dmi'
 	inhand_x_dimension = 64
@@ -16,11 +15,11 @@
 	w_class = WEIGHT_CLASS_NORMAL
 	force = 20
 	throwforce = 10
-	wound_bonus = 5
-	bare_wound_bonus = 15
+	//wound_bonus = 5
+	//bare_wound_bonus = 15
 	toolspeed = 0.375
 	demolition_mod = 0.8
-	hitsound = 'sound/items/weapons/bladeslice.ogg'
+	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
 	attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
 	attack_verb_simple = list("attack", "slash", "slice", "tear", "lacerate", "rip", "dice", "rend")
@@ -39,7 +38,7 @@
 
 /// Checks if the passed mob can use this blade without being stunned
 /obj/item/melee/sickly_blade/proc/check_usability(mob/living/user)
-	return isheretic_OR_MONSTER(user)
+	return IS_HERETIC_OR_MONSTER(user)
 
 /obj/item/melee/sickly_blade/pre_attack(atom/target, mob/living/user, list/modifiers, list/attack_modifiers)
 	. = ..()
@@ -94,7 +93,7 @@
 
 /obj/item/melee/sickly_blade/ranged_interact_with_atom(atom/interacting_with, mob/living/user, list/modifiers)
 	SEND_SIGNAL(user, COMSIG_HERETIC_RANGED_BLADE_ATTACK, interacting_with, src)
-	return ITEM_INTERACT_BLOCKING
+	return ATTACK_CHAIN_BLOCKED
 
 // Path of Rust's blade
 /obj/item/melee/sickly_blade/rust
@@ -186,9 +185,9 @@
 		return
 	// We're officially behind them, apply effects
 	living_target.AdjustParalyzed(1.5 SECONDS)
-	living_target.apply_damage(10, BRUTE, wound_bonus = CANT_WOUND)
+	living_target.apply_damage(10, BRUTE/*, wound_bonus = CANT_WOUND*/)
 	living_target.balloon_alert(user, "backstab!")
-	playsound(living_target, 'sound/items/weapons/guillotine.ogg', 100, TRUE)
+	playsound(living_target, 'sound/weapons/guillotine.ogg', 100, TRUE)
 
 /obj/item/melee/sickly_blade/dark/dropped(mob/user, silent)
 	. = ..()
@@ -244,8 +243,8 @@
 	force = 25
 	throwforce = 15
 	block_chance = 35
-	wound_bonus = 25
-	bare_wound_bonus = 15
+	//wound_bonus = 25
+	//bare_wound_bonus = 15
 	armour_penetration = 35
 	icon_state = "cursed_blade"
 	inhand_icon_state = "cursed_blade"
@@ -269,7 +268,7 @@
 	return ..()
 
 /obj/item/melee/sickly_blade/cursed/check_usability(mob/living/user)
-	if(isheretic_OR_MONSTER(user) || iscultist(user))
+	if(IS_HERETIC_OR_MONSTER(user) || iscultist(user))
 		return TRUE
 	if(prob(15))
 		to_chat(user, span_cultlarge(pick("\"An untouched mind? Amusing.\"", "\" I suppose it isn't worth the effort to stop you.\"", "\"Go ahead. I don't care.\"", "\"You'll be mine soon enough.\"")))
@@ -284,7 +283,7 @@
 
 /obj/item/melee/sickly_blade/cursed/equipped(mob/user, slot)
 	. = ..()
-	if(isheretic_OR_MONSTER(user))
+	if(IS_HERETIC_OR_MONSTER(user))
 		after_use_message = "The Mansus hears your call..."
 	else if(iscultist(user))
 		after_use_message = "Nar'Sie hears your call..."
@@ -301,7 +300,7 @@
 	// Can only carve runes with it if off combat mode.
 	if(is_space_or_openspace(target) && !user.combat_mode)
 		heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS) // Faster than pen, slower than cicatrix
-		return ITEM_INTERACT_BLOCKING
+		return ATTACK_CHAIN_BLOCKED
 	return NONE
 
 // Weaker blade variant given to people so they can participate in the heretic arena spell

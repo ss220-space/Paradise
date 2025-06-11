@@ -201,7 +201,7 @@
 		return .
 
 	charge = 0
-	playsound(loc, 'sound/magic/lightningbolt.ogg', 5, TRUE)
+	playsound(loc, 'sound/effects/magic/lightningbolt.ogg', 5, TRUE)
 	user.visible_message(
 		span_danger("[user] slams the charged axe into [target.name] with all [user.p_their()] might!"),
 		span_warning("You have slammed the charged axe into [target.name] with all your might!"),
@@ -946,7 +946,7 @@
 	if(iswallturf(target))
 		var/turf/simulated/wall/W = target
 		user.visible_message(span_danger("[user] blasts \the [target] with \the [src]!"))
-		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		playsound(target, 'sound/effects/magic/Disintegrate.ogg', 100, 1)
 		W.devastate_wall(TRUE)
 		return TRUE
 	..()

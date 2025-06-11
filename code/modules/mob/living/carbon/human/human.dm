@@ -390,10 +390,16 @@
 /mob/living/carbon/human/get_visible_name(add_id_name = TRUE)
 	if(name_override)
 		return name_override
+
 	if(wear_mask && (wear_mask.flags_inv & HIDENAME))	//Wearing a mask which hides our face, use id-name if possible
 		return get_id_name("Unknown")
+
 	if(head && (head.flags_inv & HIDENAME))
 		return get_id_name("Unknown")		//Likewise for hats
+
+	if(HAS_TRAIT(src, TRAIT_UNKNOWN))
+		return get_id_name("Unknown")
+
 	var/face_name = get_face_name()
 	var/id_name = get_id_name("")
 	if(add_id_name && id_name && (id_name != face_name))

@@ -12,7 +12,7 @@
 
 /datum/status_effect/shadow_mend/on_apply()
 	owner.visible_message("<span class='notice'>Violet light wraps around [owner]'s body!</span>", "<span class='notice'>Violet light wraps around your body!</span>")
-	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
+	playsound(owner, 'sound/effects/magic/teleport_app.ogg', 50, 1)
 	return ..()
 
 /datum/status_effect/shadow_mend/tick(seconds_between_ticks)
@@ -20,7 +20,7 @@
 
 /datum/status_effect/shadow_mend/on_remove()
 	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
-	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
+	playsound(owner, 'sound/effects/magic/teleport_diss.ogg', 50, 1)
 	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
 /datum/status_effect/shadow_empower
@@ -34,7 +34,7 @@
 
 /datum/status_effect/shadow_empower/on_apply()
 	to_chat(owner, span_revenbignotice("You feel empowered with darkness!"))
-	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
+	playsound(owner, 'sound/effects/magic/teleport_app.ogg', 50, 1)
 	return TRUE
 
 /datum/status_effect/shadow_empower/tick(seconds_between_ticks)
@@ -53,7 +53,7 @@
 
 /datum/status_effect/shadow_empower/on_remove()
 	to_chat(owner, span_revenbignotice("You feel exhausted! Darkness no longer supports you!"))
-	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
+	playsound(owner, 'sound/effects/magic/teleport_diss.ogg', 50, 1)
 
 /datum/status_effect/void_price
 	id = "void_price"

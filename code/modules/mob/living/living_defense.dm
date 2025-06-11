@@ -116,6 +116,9 @@
 		playsound(loc, 'sound/weapons/genhit.ogg', 50, TRUE, -1) //Item sounds are handled in the item itself
 		return ..()
 
+	if(check_block(AM, 30, "hit by", THROWN_PROJECTILE_ATTACK, 0, BRUTE))
+		return ATTACK_CHAIN_BLOCKED
+
 	var/obj/item/thrown_item = AM
 	var/zone = ran_zone(BODY_ZONE_CHEST, 65)//Hits a random part of the body, geared towards the chest
 	var/nosell_hit = SEND_SIGNAL(thrown_item, COMSIG_MOVABLE_IMPACT_ZONE, src, zone, throwingdatum) // TODO: find a better way to handle hitpush and skipcatch for humans

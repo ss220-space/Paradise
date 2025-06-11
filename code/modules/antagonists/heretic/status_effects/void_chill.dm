@@ -8,7 +8,6 @@
 	alert_type = /atom/movable/screen/alert/status_effect/void_chill
 	status_type = STATUS_EFFECT_REFRESH //Custom code
 	on_remove_on_mob_delete = TRUE
-	remove_on_fullheal = TRUE
 	///Current amount of stacks we have
 	var/stacks
 	///Maximum of stacks that we could possibly get
@@ -26,6 +25,7 @@
 /datum/status_effect/void_chill/on_apply()
 	if(issilicon(owner))
 		return FALSE
+
 	return TRUE
 
 /datum/status_effect/void_chill/on_remove()
@@ -56,6 +56,7 @@
 	stacks_overlay = image('icons/effects/effects.dmi', owner, "void_chill_partial")
 	if(stacks >= 5)
 		stacks_overlay = image('icons/effects/effects.dmi', owner, "void_chill_oh_fuck")
+
 	owner.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/heretic, "heretic_status", stacks_overlay, NONE)
 
 /**
@@ -92,14 +93,15 @@
 
 //---- Screen alert
 /atom/movable/screen/alert/status_effect/void_chill
-	name = "Void Chill"
-	desc = "There's something freezing you from within and without. You've never felt cold this oppressive before..."
+	name = "Холод Пустоты"
+	desc = "Что-то охлаждает вас изнутри и снаружи..."
 	icon_state = "void_chill_minor"
 
 /atom/movable/screen/alert/status_effect/void_chill/update_icon_state()
 	. = ..()
 	if(!istype(attached_effect, /datum/status_effect/void_chill))
 		return
+
 	var/datum/status_effect/void_chill/chill_effect = attached_effect
 	if(chill_effect.stacks >= 5)
 		icon_state = "void_chill_oh_fuck"
@@ -108,6 +110,7 @@
 	. = ..()
 	if(!istype(attached_effect, /datum/status_effect/void_chill))
 		return
+
 	var/datum/status_effect/void_chill/chill_effect = attached_effect
 	if(chill_effect.stacks >= 5)
-		desc = "You had your chance to run, now it's too late. You may never feel warmth again..."
+		desc = "У вас был шанс бежать, но теперь слишком поздно. Вы можете больше никогда не почувствовать тепла..."

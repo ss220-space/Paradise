@@ -1345,6 +1345,8 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_fullscreen), "flash", 25), 25)
 		return TRUE
 
+/mob/living/proc/is_blind()
+	return HAS_TRAIT(src, TRAIT_BLIND)
 
 /mob/living/proc/check_eye_prot()
 	var/eye_prot = FLASH_PROTECTION_NONE
@@ -2379,3 +2381,9 @@
 						  "[capitalize(declent_ru(NOMINATIVE))] сбивает [target]!", \
 						  "[capitalize(declent_ru(NOMINATIVE))] влетает в [target], заставляя [genderize_ru(target.gender, "его", "её", "его", "их")] упасть!", \
 						  "[capitalize(declent_ru(NOMINATIVE))] опрокидывает [target]!")]"))
+
+/mob/living/proc/check_block(atom/hit_by, damage, attack_text = "the attack", attack_type = ITEM_ATTACK, armour_penetration = 0, damage_type = BRUTE)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_CHECK_BLOCK, hit_by, damage, attack_text, attack_type, armour_penetration, damage_type) & SUCCESSFUL_BLOCK)
+		return SUCCESSFUL_BLOCK
+
+	return FAILED_BLOCK

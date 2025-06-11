@@ -496,3 +496,45 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 		var/t_loc = get_turf(O)
 		qdel(O)
 		new /obj/item/clothing/shoes/galoshes/dry(t_loc)
+
+
+// unholy water, but for heretics.
+// why couldn't they have both just used the same reagent?
+// who knows.
+// maybe nar'sie is considered to be too "mainstream" of a god to worship in the heretic community.
+/datum/reagent/eldritch
+	name = "Сущность ужаса"
+	description = "Странная жидкость, бросающая вызов законам физики. \
+					Она исцеляет, но только тех, кто может видеть дальше границ этой хрупкой реальности. \
+					Невероятно вредна для людей с ограниченным мышлением. Эта жидкость очень быстро метаболизируется."
+	taste_description = "Ag'hsj'saje'sh"
+	color = "#1f8016"
+	metabolization_rate = 2.5 * REAGENTS_METABOLISM  //0.5u/second
+	process_flags = ORGANIC | SYNTHETIC // Magical, so works on not organic drinkers.
+
+/datum/reagent/eldritch/on_mob_life(mob/living/carbon/drinker, seconds_per_tick, times_fired)
+	. = ..()
+	var/need_mob_update = FALSE
+	if(IS_HERETIC_OR_MONSTER(drinker))
+		drinker.Drowsy(-10 * REM * seconds_per_tick)
+		drinker.AdjustAllImmobility(-40 * REM * seconds_per_tick)
+		need_mob_update += drinker.adjustStaminaLoss(-10 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustToxLoss(-2 * REM * seconds_per_tick, updating_health = FALSE, forced = TRUE)
+		need_mob_update += drinker.adjustOxyLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustBruteLoss(-2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustFireLoss(-2 * REM * seconds_per_tick)
+		if(drinker.blood_volume < BLOOD_VOLUME_NORMAL)
+			drinker.blood_volume += 3 * REM * seconds_per_tick
+	else
+		need_mob_update = drinker.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 3 * REM * seconds_per_tick, 150)
+		need_mob_update += drinker.adjustToxLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustFireLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustOxyLoss(2 * REM * seconds_per_tick, updating_health = FALSE)
+		need_mob_update += drinker.adjustBruteLoss(2 * REM * seconds_per_tick)
+
+/datum/reagent/eldritch/reaction_turf(turf/exposed_turf, reac_volume, color)
+	. = ..()
+	if (!(reac_volume >= 1.5 || isplatingturf(exposed_turf)) || HAS_TRAIT(exposed_turf, TRAIT_RUSTY))
+		return
+
+	exposed_turf.rust_turf()

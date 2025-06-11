@@ -28,7 +28,7 @@
 		var/datum/action/innate/cult/blood_magic/magic_holder = locate() in user.actions
 		team_color = COLOR_CULT_RED
 		magic_holder.magic_enhanced = TRUE
-	else if(isheretic_OR_MONSTER(user) && !active)
+	else if(IS_HERETIC_OR_MONSTER(user) && !active)
 		for(var/datum/action/innate/spell_action in user.actions)
 			spell_action.cooldown_time *= 0.5
 			active = TRUE
@@ -60,7 +60,7 @@
 	if(HAS_TRAIT_FROM(user, TRAIT_MANSUS_TOUCHED, REF(src)))
 		to_chat(user, span_notice("Your heart and blood return to their regular old rhythm and flow."))
 
-	if(isheretic_OR_MONSTER(user) && active)
+	if(IS_HERETIC_OR_MONSTER(user) && active)
 		for(var/datum/action/innate/spell_action in user.actions)
 			spell_action.cooldown_time *= 2
 			active = FALSE
@@ -97,7 +97,7 @@
 	if(iscultist(user))
 		. += span_cultbold("This focus will allow you to store one extra spell and halve the empowering time, alongside providing a small regenerative effect.")
 		magic_dude = TRUE
-	if(isheretic_OR_MONSTER(user))
+	if(IS_HERETIC_OR_MONSTER(user))
 		. += span_notice("This focus will halve your spell cooldowns, alongside granting a small regenerative effect to any nearby heretics or monsters, including you.")
 		magic_dude = TRUE
 
@@ -122,7 +122,7 @@
 	. = ..()
 	if(!(slot & ITEM_SLOT_NECK))
 		return
-	if(!ishuman(user) || !isheretic_OR_MONSTER(user))
+	if(!ishuman(user) || !IS_HERETIC_OR_MONSTER(user))
 		return
 
 	ADD_TRAIT(user, heretic_only_trait, "[CLOTHING_TRAIT]_[REF(src)]")
@@ -159,7 +159,7 @@
 
 /obj/item/clothing/neck/heretic_focus/moon_amulet/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	var/mob/living/carbon/human/hit = target
-	if(!isheretic_OR_MONSTER(user))
+	if(!IS_HERETIC_OR_MONSTER(user))
 		user.balloon_alert(user, "you feel a presence watching you")
 		return
 

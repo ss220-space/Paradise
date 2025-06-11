@@ -111,8 +111,8 @@
 	color = "#001aff"
 	hitsound = SFX_SHATTER
 	force = 16
-	wound_bonus = -30
-	bare_wound_bonus = 15
+	//wound_bonus = -30
+	//bare_wound_bonus = 15
 	demolition_mod = 1.5
 	sharpness = SHARP_EDGED
 
@@ -153,6 +153,6 @@
 	)
 	cost = 1
 
-	mob_to_summon = /mob/living/basic/heretic_summon/maid_in_the_mirror
+	mob_to_summon = /mob/living/simple_animal/heretic_summon/maid_in_the_mirror
 	poll_ignore_define = POLL_IGNORE_MAID_IN_MIRROR
 

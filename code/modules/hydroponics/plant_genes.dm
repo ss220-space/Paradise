@@ -579,3 +579,36 @@
 
 	target.audible_message(span_notice("[our_plant] lets out burst of laughter."))
 	playsound(our_plant, pick(sounds), 100, FALSE, SHORT_RANGE_SOUND_EXTRARANGE)
+
+
+/// Holymelon's anti-magic trait. Charges based on potency.
+/datum/plant_gene/trait/anti_magic
+	name = "Антимагические вакуоли"
+	/// The amount of anti-magic blocking uses we have.
+	var/shield_uses = 1
+
+/datum/plant_gene/trait/anti_magic/on_new(obj/item/reagent_containers/food/snacks/grown/our_plant, newloc)
+	. = ..()
+	if(!.)
+		return
+
+	var/obj/item/seeds/our_seed = our_plant.seed
+	shield_uses = round(our_seed.potency / 20)
+	//deliver us from evil o melon god
+	our_plant.AddComponent(/datum/component/anti_magic, \
+		antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY, \
+		inventory_flags = ITEM_SLOT_HANDS, \
+		charges = shield_uses, \
+		drain_antimagic = CALLBACK(src, PROC_REF(drain_antimagic)), \
+		expiration = CALLBACK(src, PROC_REF(expire)), \
+	)
+
+/// When the plant our gene is hosted in is drained of an anti-magic charge.
+/datum/plant_gene/trait/anti_magic/proc/drain_antimagic(mob/user, obj/item/our_plant)
+	to_chat(user, span_warning("[our_plant.declent_ru(NOMINATIVE)] слегка гудит и, кажется, слегка блекнет."))
+
+/// When the plant our gene is hosted in is drained of all of its anti-magic charges.
+/datum/plant_gene/trait/anti_magic/proc/expire(mob/user, obj/item/our_plant)
+	to_chat(user, span_warning("[our_plant.declent_ru(NOMINATIVE)] внезапно превращается в пепел!"))
+	new /obj/effect/decal/cleanable/ash(our_plant.drop_location())
+	qdel(our_plant)

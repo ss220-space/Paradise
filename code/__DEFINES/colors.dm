@@ -147,7 +147,7 @@
 #define COLOR_CARGO_BROWN "#B18644"
 #define COLOR_SOFT_RED "#FA8282"
 #define COLOR_VIVID_RED "#FF3232"
-
+#define COLOR_VOID_PURPLE "#53277E"
 
 // Color matrix utilities
 #define COLOR_MATRIX_ADD(C) list(COLOR_RED, COLOR_GREEN, COLOR_BLUE, C)

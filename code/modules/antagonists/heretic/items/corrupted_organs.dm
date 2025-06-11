@@ -100,7 +100,7 @@
 	UnregisterSignal(organ_owner, COMSIG_ATOM_EXPOSE_REAGENTS)
 
 /// If we drank something, add a little extra
-/obj/item/organ/internal/liver/corrupt/proc/on_drank(mob/living/carbon/human, list/reagents, datum/reagents/source_reagents, methods)
+/obj/item/organ/internal/liver/corrupt/proc/on_drank(mob/living/carbon/human, list/reagents, methods)
 	SIGNAL_HANDLER
 	if (!(methods & INGEST))
 		return
@@ -139,7 +139,7 @@
 	UnregisterSignal(organ_owner, COMSIG_ATOM_EXPOSE_REAGENTS)
 
 /// Check if we drank a little blood
-/obj/item/organ/internal/stomach/corrupt/proc/on_drank(atom/source, list/reagents, datum/reagents/source_reagents, methods)
+/obj/item/organ/internal/stomach/corrupt/proc/on_drank(atom/source, list/reagents, methods)
 	SIGNAL_HANDLER
 	if (!(methods & INGEST))
 		return
@@ -224,13 +224,13 @@
 	if (!. || IS_IN_MANSUS(owner) || breather.has_reagent(/datum/reagent/water/holywater) || !prob(cough_chance))
 		return
 	breather.emote("cough");
-	var/chosen_gas = pick_weight(gas_types)
+	var/chosen_gas = pick_weight_classic(gas_types)
 	var/datum/gas_mixture/mix_to_spawn = new()
 	mix_to_spawn.add_gas(pick(chosen_gas))
 	mix_to_spawn.gases[chosen_gas][MOLES] = gas_amount
 	mix_to_spawn.temperature = breather.bodytemperature
 	log_atmos("[owner] coughed some gas into the air due to their corrupted lungs.", mix_to_spawn)
-	var/turf/open/our_turf = get_turf(breather)
+	var/turf/spaceour_turf = get_turf(breather)
 	our_turf.assume_air(mix_to_spawn)
 
 

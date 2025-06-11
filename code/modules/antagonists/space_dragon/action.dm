@@ -207,8 +207,8 @@
 
 	var/turf/destination = pick(exit_locs)
 	do_teleport(entered_atom, destination)
-	playsound(src, 'sound/magic/wand_teleport.ogg', 50)
-	playsound(destination, 'sound/magic/wand_teleport.ogg', 50)
+	playsound(src, 'sound/effects/magic/wand_teleport.ogg', 50)
+	playsound(destination, 'sound/effects/magic/wand_teleport.ogg', 50)
 
 
 /// Doesn't actually do anything, just a visual marker

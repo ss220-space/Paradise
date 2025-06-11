@@ -20,11 +20,13 @@
 	return ..()
 
 /datum/status_effect/eldritch/on_apply()
-	if(owner.mob_size >= MOB_SIZE_HUMAN)
-		RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_underlay))
-		owner.update_icon(UPDATE_OVERLAYS)
-		return TRUE
-	return FALSE
+	if(owner.mob_size < MOB_SIZE_HUMAN)
+		return FALSE
+
+	RegisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS, PROC_REF(update_owner_underlay))
+	owner.update_icon(UPDATE_OVERLAYS)
+	return TRUE
+
 
 /datum/status_effect/eldritch/on_remove()
 	UnregisterSignal(owner, COMSIG_ATOM_UPDATE_OVERLAYS)
@@ -51,7 +53,7 @@
 /datum/status_effect/eldritch/proc/on_effect()
 	SHOULD_CALL_PARENT(TRUE)
 
-	playsound(owner, 'sound/magic/repulse.ogg', 75, TRUE)
+	playsound(owner, 'sound/effects/magic/repulse.ogg', 75, TRUE)
 	qdel(src) //what happens when this is procced.
 
 //Each mark has different effects when it is destroyed that combine with the mansus grasp effect.
@@ -65,7 +67,7 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/human_owner = owner
 		var/obj/item/organ/external/bodypart = pick(human_owner.bodyparts)
-		human_owner.cause_wound_of_type_and_severity(WOUND_SLASH, bodypart, WOUND_SEVERITY_SEVERE)
+		bodypart.fracture() // IDK what is "SLASH" in tg, so let's it will be fracture.
 
 	return ..()
 
@@ -88,6 +90,7 @@
 		for(var/mob/living/carbon/victim in shuffle(range(1, carbon_owner)))
 			if(isheretic(victim) || victim == carbon_owner)
 				continue
+
 			victim.apply_status_effect(type, repetitions - 1)
 			break
 
@@ -99,8 +102,8 @@
 	effect_icon_state = "emark3"
 
 /datum/status_effect/eldritch/rust/on_effect()
-	owner.adjust_disgust(100)
-	owner.adjust_confusion(10 SECONDS)
+	owner.Disgust(100)
+	owner.Confused(10 SECONDS)
 	return ..()
 
 // MARK OF VOID
@@ -110,7 +113,7 @@
 
 /datum/status_effect/eldritch/void/on_effect()
 	owner.apply_status_effect(/datum/status_effect/void_chill, 3)
-	owner.adjust_silence(10 SECONDS)
+	owner.Silence(10 SECONDS)
 	return ..()
 
 // MARK OF BLADES
@@ -166,9 +169,9 @@
 
 	var/mob/thrower = throw_args[4]
 	if(istype(thrower))
-		to_chat(thrower, span_hypnophrase("An otherworldly force prevents you from throwing [source] out of [get_area_name(locked_to)]!"))
+		to_chat(thrower, span_hypnophrase("Потусторонняя сила не позволяет вам выбросить [source.declent_ru(ACCUSATIVE)] из [get_area_name(locked_to)]!"))
 
-	to_chat(source, span_hypnophrase("An otherworldly force prevents you from being thrown out of [get_area_name(locked_to)]!"))
+	to_chat(source, span_hypnophrase("Потусторонняя сила не даёт вам вылететь из [get_area_name(locked_to)]!"))
 
 	return COMPONENT_CANCEL_THROW
 
@@ -179,8 +182,7 @@
 	if(!is_escaping_locked_area(source, destination))
 		return
 
-	to_chat(source, span_hypnophrase("An otherworldly force prevents your escape from [get_area_name(locked_to)]!"))
-
+	to_chat(source, span_hypnophrase("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
 	source.Stun(1 SECONDS)
 	return TRUE
 
@@ -196,12 +198,12 @@
 	if(forced || !is_escaping_locked_area(old_loc, source))
 		return
 
-	to_chat(source, span_hypnophrase("An otherworldly force prevents your escape from [get_area_name(locked_to)]!"))
+	to_chat(source, span_hypnophrase("Потусторонняя сила не дает вам сбежать из [get_area_name(locked_to)]!"))
 
 	var/turf/further_behind_old_loc = get_edge_target_turf(old_loc, REVERSE_DIR(movement_dir))
 
 	source.Stun(1 SECONDS)
-	source.throw_at(further_behind_old_loc, 3, 1, gentle = TRUE) // Keeping this gentle so they don't smack into the heretic max speed
+	source.throw_at(further_behind_old_loc, 3, 1/*, gentle = TRUE*/)
 
 /datum/status_effect/eldritch/cosmic
 	effect_icon_state = "emark6"
@@ -224,11 +226,11 @@
 	do_teleport(
 		owner,
 		get_turf(cosmic_diamond),
-		no_effects = TRUE,
-		channel = TELEPORT_CHANNEL_MAGIC,
+		/*no_effects = TRUE,
+		channel = TELEPORT_CHANNEL_MAGIC,*/
 	)
 	new teleport_effect(get_turf(owner))
-	owner.Paralyze(2 SECONDS)
+	owner.Paralyse(2 SECONDS)
 	return ..()
 
 // MARK OF LOCK
@@ -260,9 +262,10 @@
 	. = ..()
 	if(owner.can_block_magic(MAGIC_RESISTANCE_MIND))
 		return FALSE
+
 	ADD_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
 	owner.emote(pick("giggle", "laugh"))
-	owner.balloon_alert(owner, "you feel unable to hurt a soul!")
+	to_chat(owner, span_notice("Вы чувствуете что не можете причинить вред кому-бы то нибыло..."))
 	RegisterSignal (owner, COMSIG_MOB_APPLY_DAMAGE, PROC_REF(on_damaged))
 	return TRUE
 
@@ -281,10 +284,10 @@
 
 	// Removes the trait in here since we don't wanna destroy the mark before its detonated or allow detonation triggers with other weapons
 	REMOVE_TRAIT(owner, TRAIT_PACIFISM, TRAIT_STATUS_EFFECT(id))
-	owner.balloon_alert(owner, "you feel able to once again strike!")
+	to_chat(owner, span_notice("Вы чувствуете что снова можете причинять вред..."))
 
 /datum/status_effect/eldritch/moon/on_effect()
-	owner.adjust_confusion(30 SECONDS)
+	owner.Confused(30 SECONDS)
 	owner.adjustOrganLoss(INTERNAL_ORGAN_BRAIN, 25, 160)
 	owner.emote(pick("giggle", "laugh"))
 	return ..()

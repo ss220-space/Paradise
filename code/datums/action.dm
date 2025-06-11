@@ -243,9 +243,16 @@
 /datum/action/item_action/Trigger(left_click = TRUE)
 	if(!..())
 		return FALSE
-	if(target && attack_self)
-		var/obj/item/I = target
-		I.ui_action_click(owner, src, left_click)
+
+	return do_effect(left_click)
+
+
+/datum/action/item_action/proc/do_effect(left_click = TRUE)
+	if(!target)
+		return FALSE
+
+	var/obj/item/item_target = target
+	item_target.ui_action_click(owner, src, left_click)
 	return TRUE
 
 

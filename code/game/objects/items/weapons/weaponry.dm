@@ -279,7 +279,7 @@
 		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
 		return ..()
 	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
-	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
+	playsound(get_turf(src), 'sound/effects/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 9 SECONDS, user))
 		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
 		homerun_ready = 1

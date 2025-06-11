@@ -71,6 +71,9 @@
 /// This should be used for checking if an item CAN be equipped.
 /// It should not perform the equipping itself.
 /datum/strippable_item/proc/try_equip(atom/source, obj/item/equipping, mob/user)
+	if(SEND_SIGNAL(source, COMSIG_BEING_STRIPPED, user, equipping) & COMPONENT_CANT_STRIP)
+		return FALSE
+
 	if(HAS_TRAIT(equipping, TRAIT_NODROP) )
 		to_chat(user, span_warning("You can't put [equipping] on [source], it's stuck to your hand!"))
 		return FALSE
@@ -116,10 +119,15 @@
 	if(isnull(item))
 		return FALSE
 
-	if(ismob(source))
-		var/mob/mob_source = source
-		if(!item.canStrip(user, mob_source))
-			return FALSE
+	if(!ismob(source))
+		return TRUE
+
+	var/mob/mob_source = source
+	if(SEND_SIGNAL(source, COMSIG_BEING_STRIPPED, user, item) & COMPONENT_CANT_STRIP)
+		return FALSE
+
+	if(!item.canStrip(user, mob_source))
+		return FALSE
 
 	return TRUE
 

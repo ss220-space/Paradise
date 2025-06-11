@@ -9,10 +9,10 @@
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "lock_ascension"
 	possible_shapes = list(
-		/mob/living/basic/heretic_summon/ash_spirit,
-		/mob/living/basic/heretic_summon/raw_prophet/ascended,
-		/mob/living/basic/heretic_summon/rust_walker,
-		/mob/living/basic/heretic_summon/stalker,
+		/mob/living/simple_animal/heretic_summon/ash_spirit,
+		/mob/living/simple_animal/heretic_summon/raw_prophet/ascended,
+		/mob/living/simple_animal/heretic_summon/rust_walker,
+		/mob/living/simple_animal/heretic_summon/stalker,
 	)
 
 /datum/action/innate/shapeshift/eldritch/ascension/do_shapeshift(mob/living/caster)
@@ -20,7 +20,7 @@
 	if(!.)
 		return
 	//buff our forms so this ascension ability isnt shit
-	playsound(caster, 'sound/magic/demon_consume.ogg', 50, TRUE)
+	playsound(caster, 'sound/effects/magic/demon_consume.ogg', 50, TRUE)
 	var/mob/living/monster = .
 	monster.AddComponent(/datum/component/seethrough_mob)
 	monster.maxHealth *= 1.5

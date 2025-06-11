@@ -194,6 +194,10 @@
 	SEND_SIGNAL(src, COMSIG_MIND_TRANSER_TO, new_character)
 	SEND_SIGNAL(new_character, COMSIG_BODY_TRANSFER_TO)
 
+	SEND_SIGNAL(current, COMSIG_MOB_MIND_TRANSFERRED_INTO, old_current)
+	if(!isnull(old_current))
+		SEND_SIGNAL(old_current, COMSIG_MOB_MIND_TRANSFERRED_OUT_OF, current)
+
 
 /datum/mind/proc/store_memory(new_text)
 	memory += "[new_text]<br>"
@@ -1906,7 +1910,7 @@
 					return
 
 				add_antag_datum(new /datum/antagonist/space_dragon)
-				playsound(current, 'sound/magic/ethereal_exit.ogg', 50, TRUE, -1)
+				playsound(current, 'sound/effects/magic/ethereal_exit.ogg', 50, TRUE, -1)
 				log_admin("[key_name(usr)] has added space dragon role to [key_name(current)]")
 				message_admins("[key_name_admin(usr)] has added space dragon role to [key_name_admin(current)]")
 
@@ -3004,6 +3008,10 @@
 /datum/mind/proc/AddSpell(obj/effect/proc_holder/spell/spell)
 	if(!istype(spell))
 		return
+
+	if(!spell.can_add(current))
+		return
+
 	LAZYADD(spell_list, spell)
 	spell.action.Grant(current)
 	spell.on_spell_gain(current)

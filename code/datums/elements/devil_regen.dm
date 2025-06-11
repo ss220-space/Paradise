@@ -2,8 +2,8 @@
 	element_flags = ELEMENT_DETACH_ON_HOST_DESTROY|ELEMENT_BESPOKE
 	id_arg_index = 2
 
-	var/linked_timer    
-	var/list/sounds = list('sound/magic/demon_consume.ogg', 'sound/effects/attackblob.ogg')    
+	var/linked_timer
+	var/list/sounds = list('sound/effects/magic/demon_consume.ogg', 'sound/effects/attackblob.ogg')
 
 /datum/element/devil_regeneration/Attach(datum/target)
     . = ..()
@@ -16,7 +16,7 @@
     RegisterSignal(human, COMSIG_LIVING_EARLY_DEATH, PROC_REF(pre_death))
 
     var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-    brain?.decoy_brain = TRUE	
+    brain?.decoy_brain = TRUE
 
 /datum/element/devil_regeneration/Detach(datum/target)
     . = ..()
@@ -30,7 +30,7 @@
     var/mob/living/carbon/carbon = target
     var/obj/item/organ/internal/brain/brain = carbon.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 
-    brain?.decoy_brain = FALSE	
+    brain?.decoy_brain = FALSE
 
 /datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ/organ)
     SIGNAL_HANDLER
@@ -38,7 +38,7 @@
     var/obj/item/organ/external/external = organ
     if(!istype(external))
         return
-    
+
     var/mob/living/carbon/human = source
     var/datum/antagonist/devil/devil = human?.mind?.has_antag_datum(/datum/antagonist/devil)
 
@@ -71,8 +71,8 @@
         return
 
     to_chat(human, span_revenbignotice("Сверхъестественные силы предотвращают вашу смерть."))
-    playsound(get_turf(human), 'sound/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
-    
+    playsound(get_turf(human), 'sound/effects/magic/vampire_anabiosis.ogg', 50, 0, TRUE)
+
     linked_timer = addtimer(CALLBACK(src, PROC_REF(apply_regeneration), human, devil), devil.rank.regen_threshold, TIMER_LOOP | TIMER_STOPPABLE | TIMER_DELETE_ME)
 
 /datum/element/devil_regeneration/proc/on_revive()
@@ -88,7 +88,7 @@
 
     human.setOxyLoss(0)
     human.heal_damages(
-        devil.rank.regen_amount, 
+        devil.rank.regen_amount,
         devil.rank.regen_amount,
         devil.rank.regen_amount,
         devil.rank.regen_amount,
@@ -109,5 +109,5 @@
     update_status(human)
 
 /datum/element/devil_regeneration/proc/update_status(mob/living/carbon/human)
-    human.updatehealth()	
+    human.updatehealth()
     human.UpdateDamageIcon()

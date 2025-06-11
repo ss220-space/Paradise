@@ -36,12 +36,14 @@
 	. = ..()
 
 	if(master_mind)
-		linked_alert.desc += " You are an eldritch monster reanimated to serve its master, [master_mind]."
-	if(isnum(new_max_health))
-		if(new_max_health > initial(new_owner.maxHealth))
-			linked_alert.desc += " You are stronger in this form."
-		else
-			linked_alert.desc += " You are more fragile in this form."
+		linked_alert.desc += " Вы — жуткое чудовище, созданное, чтобы служить своему хозяину, [master_mind]."
+	if(!isnum(new_max_health))
+		return
+
+	if(new_max_health > initial(new_owner.maxHealth))
+		linked_alert.desc += " В этой форме вы сильнее."
+	else
+		linked_alert.desc += " В этой форме вы хрупки."
 
 /datum/status_effect/ghoul/on_apply()
 	if(!ishuman(owner))
@@ -50,26 +52,28 @@
 	var/mob/living/carbon/human/human_target = owner
 
 	RegisterSignal(human_target, COMSIG_LIVING_DEATH, PROC_REF(remove_ghoul_status))
-	human_target.revive(ADMIN_HEAL_ALL) // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
+	human_target.revive() // Have to do an admin heal here, otherwise they'll likely just die due to missing organs or limbs
 
 	if(new_max_health)
 		if(new_max_health < human_target.maxHealth)
 			stamina_mod_applied = (new_max_health / human_target.maxHealth)
 			human_target.physiology.stamina_mod *= stamina_mod_applied
+
 		human_target.setMaxHealth(new_max_health)
 		human_target.health = new_max_health
 
 	on_made_callback?.Invoke(human_target)
 	ADD_TRAIT(human_target, TRAIT_FAKEDEATH, TRAIT_STATUS_EFFECT(id))
 	ADD_TRAIT(human_target, TRAIT_HERETIC_SUMMON, TRAIT_STATUS_EFFECT(id))
-	human_target.become_husk(TRAIT_STATUS_EFFECT(id))
+	human_target.ChangeToHusk()
 	human_target.faction |= FACTION_HERETIC
 
-	if(human_target.mind)
-		var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
-		heretic_monster.set_owner(master_mind)
-		human_target.mind.remove_antag_datum(/datum/antagonist/cult)
+	if(!human_target.mind)
+		return TRUE
 
+	var/datum/antagonist/heretic_monster/heretic_monster = human_target.mind.add_antag_datum(/datum/antagonist/heretic_monster)
+	heretic_monster.set_owner(master_mind)
+	human_target.mind.remove_cult_role()
 	return TRUE
 
 /datum/status_effect/ghoul/on_remove()
@@ -82,11 +86,13 @@
 
 	if(!ishuman(owner))
 		return
+
 	var/mob/living/carbon/human/human_target = owner
 
 	if(new_max_health)
 		if(isnum(stamina_mod_applied))
 			human_target.physiology.stamina_mod /= stamina_mod_applied
+
 		human_target.setMaxHealth(initial(human_target.maxHealth))
 
 	on_lost_callback?.Invoke(human_target)
@@ -101,6 +107,6 @@
 		qdel(src)
 
 /atom/movable/screen/alert/status_effect/ghoul
-	name = "Flesh Servant"
-	desc = "You are a Ghoul!"
-	icon_state = ALERT_MIND_CONTROL
+	name = "Слуга плоти"
+	desc = "Вы Гуль!"
+	icon_state = "mind_control"

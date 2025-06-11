@@ -30,12 +30,16 @@
 
 /obj/item/nullrod/Initialize(mapload)
 	. = ..()
-	if(!length(variant_names))
-		for(var/I in typesof(/obj/item/nullrod))
-			var/obj/item/nullrod/rod = I
-			if(initial(rod.reskin_selectable))
-				variant_names[initial(rod.name)] = rod
-				variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
+	AddComponent(/datum/component/anti_magic, MAGIC_RESISTANCE|MAGIC_RESISTANCE_HOLY)
+
+	if(length(variant_names))
+		return
+
+	for(var/I in typesof(/obj/item/nullrod))
+		var/obj/item/nullrod/rod = I
+		if(initial(rod.reskin_selectable))
+			variant_names[initial(rod.name)] = rod
+			variant_icons += list(initial(rod.name) = image(icon = initial(rod.icon), icon_state = initial(rod.icon_state)))
 
 /obj/item/nullrod/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is killing [user.p_them()]self with \the [src.name]! It looks like [user.p_theyre()] trying to get closer to god!</span>")

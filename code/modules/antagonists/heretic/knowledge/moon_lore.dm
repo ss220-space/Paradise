@@ -197,7 +197,7 @@
 
 	for(var/mob/living/carbon/human/crewmate as anything in lunatic_candidates)
 		// Heretics, lunatics and monsters shouldn't become lunatics because they either have a master or have a mansus grasp
-		if(isheretic_OR_MONSTER(crewmate))
+		if(IS_HERETIC_OR_MONSTER(crewmate))
 			to_chat(crewmate, span_boldwarning("[user]'s rise is influencing those who are weak willed. Their minds shall rend." ))
 			continue
 		// Mindshielded and anti-magic folks are immune against this effect because this is a magical mind effect
@@ -234,7 +234,7 @@
 	for(var/mob/living/carbon/carbon_view in view(5, source))
 		if(carbon_view.stat != CONSCIOUS)
 			continue
-		if(isheretic_OR_MONSTER(carbon_view))
+		if(IS_HERETIC_OR_MONSTER(carbon_view))
 			continue
 		if(carbon_view.can_block_magic(MAGIC_RESISTANCE_MIND)) //Somehow a shitty piece of tinfoil is STILL able to hold out against the power of an ascended heretic.
 			continue

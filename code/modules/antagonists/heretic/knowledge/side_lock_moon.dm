@@ -111,7 +111,7 @@
  */
 /datum/heretic_knowledge/codex_morbus
 	name = "Codex Morbus"
-	desc = "Allows you to to combine a codex cicatrix, and a body into a Codex Morbus. \
+	desc = "Allows you to to combine a Кодекс Истезания, and a body into a Codex Morbus. \
 		It draws runes and siphons essences a bit faster. \
 		Right Click on a rune to curse crewmembers, the target's blood is required in your off hand for a curse to take effect (Best combined with Phylactery Of Damnation)."
 	gain_text = "The spine of this leather-bound tome creaks with an eerily pained sigh. \

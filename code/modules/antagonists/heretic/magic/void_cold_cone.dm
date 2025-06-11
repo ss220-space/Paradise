@@ -30,7 +30,7 @@
 	unfreeze_object_duration = 30 SECONDS
 
 /datum/action/innate/cone/staggered/cone_of_cold/void/do_mob_cone_effect(mob/living/target_mob, atom/caster, level)
-	if(isheretic_OR_MONSTER(target_mob))
+	if(IS_HERETIC_OR_MONSTER(target_mob))
 		return
 
 	return ..()

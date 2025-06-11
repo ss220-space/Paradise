@@ -6,7 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "voidpull"
-	sound = 'sound/magic/voidblink.ogg'
+	sound = 'sound/effects/magic/voidblink.ogg'
 
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 30 SECONDS
@@ -31,7 +31,7 @@
 
 	// Before we cast the actual effects, deal AOE damage to anyone adjacent to us
 	for(var/mob/living/nearby_living as anything in get_things_to_cast_on(cast_on, damage_radius))
-		nearby_living.apply_damage(30, BRUTE, wound_bonus = CANT_WOUND)
+		nearby_living.apply_damage(30, BRUTE/*, wound_bonus = CANT_WOUND*/)
 		nearby_living.apply_status_effect(/datum/status_effect/void_chill, 1)
 
 /datum/action/innate/aoe/void_pull/get_things_to_cast_on(atom/center, radius_override = 1)
@@ -42,7 +42,7 @@
 		// Don't grab people who are tucked away or something
 		if(!isturf(nearby_mob.loc))
 			continue
-		if(isheretic_OR_MONSTER(nearby_mob))
+		if(IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
 		if(nearby_mob.can_block_magic(antimagic_flags))
 			continue

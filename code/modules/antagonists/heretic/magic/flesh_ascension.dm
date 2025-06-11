@@ -14,7 +14,7 @@
 	spell_requirements = NONE
 
 	convert_damage = FALSE // Functionally meaningless on Armsy, we track how many segments it had instead
-	possible_shapes = list(/mob/living/basic/heretic_summon/armsy)
+	possible_shapes = list(/mob/living/simple_animal/heretic_summon/armsy)
 
 	/// The length of our new wormy when we shed.
 	var/segment_length = 10
@@ -24,7 +24,7 @@
 /datum/action/innate/shapeshift/shed_human_form/do_shapeshift(mob/living/caster)
 	// When we transform into the worm, everyone nearby gets freaked out
 	for(var/mob/living/carbon/human/nearby_human in view(scare_radius, caster))
-		if(isheretic_OR_MONSTER(nearby_human) || nearby_human == caster)
+		if(IS_HERETIC_OR_MONSTER(nearby_human) || nearby_human == caster)
 			continue
 
 		// 25% chance to cause a trauma

@@ -28,11 +28,9 @@
  */
 /datum/antagonist/heretic_monster/proc/set_owner(datum/mind/master)
 	src.master = master
-	owner.enslave_mind_to_creator(master.current)
-
 	var/datum/objective/master_obj = new()
 	master_obj.owner = owner
-	master_obj.explanation_text = "Помогайте своему мастеру."
+	master_obj.explanation_text = "Ваш мастер - [master.current.real_name]. Помогайте ему во всем."
 	master_obj.completed = TRUE
 
 	objectives += master_obj

@@ -367,7 +367,7 @@
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	rightandwrong(SUMMON_GUNS, user, 10)
 	active = TRUE
-	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/effects/magic/castsummon.ogg', 50, TRUE)
 	to_chat(user, "<span class='notice'>You have cast summon guns!</span>")
 	return TRUE
 
@@ -380,7 +380,7 @@
 	SSblackbox.record_feedback("tally", "wizard_spell_learned", 1, name)
 	rightandwrong(SUMMON_MAGIC, user, 10)
 	active = TRUE
-	playsound(get_turf(user), 'sound/magic/castsummon.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/effects/magic/castsummon.ogg', 50, TRUE)
 	to_chat(user, "<span class='notice'>You have cast summon magic!</span>")
 	return TRUE
 

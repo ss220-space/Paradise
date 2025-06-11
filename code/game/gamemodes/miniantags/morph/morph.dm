@@ -379,7 +379,7 @@
 	messages.Add(span_specialnotice("Finally, you can attack any item or dead creature to consume it - creatures will restore 1/3 of your max health and will add to your stored food while eating items will reduce your stored food."))
 	messages.Add(span_motd("С полной информацией вы можете ознакомиться на вики: <a href=\"[CONFIG_GET(string/wikiurl)]/index.php/Morph\">Морф</a>"))
 
-	SEND_SOUND(src, sound('sound/magic/mutate.ogg'))
+	SEND_SOUND(src, sound('sound/effects/magic/mutate.ogg'))
 	if(give_default_objectives)
 		var/datum/objective/eat = new /datum/objective
 		eat.owner = mind

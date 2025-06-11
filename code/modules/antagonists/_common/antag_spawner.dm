@@ -301,7 +301,7 @@
 	M.mind.objectives += KillDaCrew
 	var/list/messages = M.mind.prepare_announce_objectives()
 	to_chat(M, chat_box_red(messages.Join("<br>")))
-	M << 'sound/magic/mutate.ogg'
+	M << 'sound/effects/magic/mutate.ogg'
 
 
 ///////////Pulse Demon

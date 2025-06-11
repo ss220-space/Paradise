@@ -43,7 +43,7 @@
 	atom/movable/hitby,
 	damage = 0,
 	attack_text = "the attack",
-	attack_type = MELEE_ATTACK,
+	attack_type = ITEM_ATTACK,
 	armour_penetration = 0,
 	damage_type = BRUTE,
 )

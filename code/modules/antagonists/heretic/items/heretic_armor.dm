@@ -149,7 +149,7 @@
 	if(!isliving(loc))
 		CRASH("[src] attempted to make a hood on a non-living thing: [loc]")
 	var/mob/living/wearer = loc
-	if(isheretic_OR_MONSTER(wearer))
+	if(IS_HERETIC_OR_MONSTER(wearer))
 		return TRUE
 
 	loc.balloon_alert(loc, "can't get the hood up!")

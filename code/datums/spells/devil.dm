@@ -342,7 +342,7 @@
 		new /obj/effect/hotspot(turf)
 		turf.hotspot_expose(2000, 50, 1)
 
-	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
+	playsound(get_turf(user), 'sound/effects/magic/blind.ogg', 50, TRUE)
 
 /obj/effect/proc_holder/spell/dark_conversion
 	name = "Dark conversion"
@@ -378,7 +378,7 @@
 	var/datum/antagonist/devil/devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
 	carbon.say("INF' [devil.info.truename] NO")
-	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
+	playsound(get_turf(carbon), 'sound/effects/magic/narsie_attack.ogg', 100, TRUE)
 
 	human.Knockdown(0.1 SECONDS)
 
@@ -400,7 +400,7 @@
 	LAZYADD(human.faction, "hell")
 
 	human.mind.prepare_announce_objectives()
-	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)
+	playsound(human, 'sound/effects/magic/mutate.ogg', 100, TRUE)
 
 /obj/effect/proc_holder/spell/sacrifice_circle
 	name = "Create sacrifice circle"
@@ -423,7 +423,7 @@
 	return devil
 
 /obj/effect/proc_holder/spell/sacrifice_circle/cast(list/targets, mob/user = usr)
-	playsound(get_turf(user), 'sound/magic/cult_spell.ogg', 100, TRUE)
+	playsound(get_turf(user), 'sound/effects/magic/cult_spell.ogg', 100, TRUE)
 
 	if(!do_after(user, cast_time, user, NONE))
 		revert_cast(user)
@@ -439,7 +439,7 @@
 		return
 
 	var/obj/effect/decal/cleanable/devil/devil_rune = new(get_turf(carbon))
-	playsound(get_turf(carbon), 'sound/magic/invoke_general.ogg', 100, TRUE)
+	playsound(get_turf(carbon), 'sound/effects/magic/invoke_general.ogg', 100, TRUE)
 
 	devil_rune.AddComponent( \
 		/datum/component/ritual_object, \

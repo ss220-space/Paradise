@@ -2,18 +2,25 @@
 /obj/var/check_one_access = TRUE
 
 //returns 1 if this mob has sufficient access to use this object
-/obj/proc/allowed(mob/M)
+/obj/proc/allowed(mob/accessor)
 	//check if we don't require any access at all
 	if(check_access())
-		return 1
+		return TRUE
 
-	if(!M)
-		return 0
+	if(!accessor)
+		return FALSE
 
-	var/acc = M.get_access() //see mob.dm
+	var/attempted_access = SEND_SIGNAL(accessor, COMSIG_MOB_TRIED_ACCESS, src)
+	if(attempted_access & ACCESS_ALLOWED)
+		return TRUE
 
-	if(acc == IGNORE_ACCESS || M.can_admin_interact())
-		return 1 //Mob ignores access
+	if(attempted_access & ACCESS_DISALLOWED)
+		return FALSE
+
+	var/acc = accessor.get_access() //see mob.dm
+
+	if(acc == IGNORE_ACCESS || accessor.can_admin_interact())
+		return TRUE //Mob ignores access
 
 	else
 		return check_access_list(acc)

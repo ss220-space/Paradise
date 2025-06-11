@@ -52,7 +52,7 @@
 /datum/heretic_knowledge/rust_fist/proc/on_mansus_grasp(mob/living/source, mob/living/target)
 	SIGNAL_HANDLER
 
-	if(!issilicon(target) && !(target.mob_biotypes & MOB_ROBOTIC))
+	if(!issilicon(target)/* && !(target.mob_biotypes & MOB_ROBOTIC)*/)
 		return
 
 	source.do_rust_heretic_act(target)

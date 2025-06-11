@@ -31,7 +31,7 @@
 		if(nearby_mob.stat == DEAD)
 			continue
 
-		if(isheretic_OR_MONSTER(nearby_mob))
+		if(IS_HERETIC_OR_MONSTER(nearby_mob))
 			continue
 
 		if(nearby_mob.can_block_magic(antimagic_flags))

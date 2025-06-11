@@ -326,7 +326,7 @@
 		return NONE
 
 	try_draw_rune(source, target, additional_checks = CALLBACK(src, PROC_REF(check_mansus_grasp_offhand), source))
-	//return ITEM_INTERACT_SUCCESS
+	//return ATTACK_CHAIN_SUCCESS
 
 /**
  * Attempt to draw a rune on [target_turf].
@@ -446,7 +446,7 @@
 		if(!mind.current)
 			continue
 
-		SEND_SOUND(mind.current, 'sound/magic/clockwork/narsie_attack.ogg')
+		SEND_SOUND(mind.current, 'sound/effects/magic/clockwork/narsie_attack.ogg')
 		to_chat(mind.current, span_cultlarge(span_warning("Тайные и запретные знания заполонили ваши кузницы и архивы. Культ научился создавать ")) + span_cultlarge(span_hypnophrase("[result]!")))
 */
 	return SILENCE_SACRIFICE_MESSAGE|DUST_SACRIFICE

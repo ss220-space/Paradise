@@ -38,7 +38,7 @@
 	speed = 2
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
-	death_sound = 'sound/magic/repulse.ogg'
+	death_sound = 'sound/effects/magic/repulse.ogg'
 	deathmessage = "'s lights flicker, before its top part falls down."
 	loot_drop = /obj/item/clothing/accessory/necklace/pandora_hope
 	tts_seed = "Zyra"

@@ -194,7 +194,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 	var/static/list/spell_handlers = list()
 	/// Handles a given spells cooldowns. Tracks the time until its off cooldown.
 	var/datum/spell_cooldown/cooldown_handler
-
+	/// Flag for certain states that the spell requires the user be in to cast. TG
+	var/spell_requirements = SPELL_REQUIRES_WIZARD_GARB|SPELL_REQUIRES_NO_ANTIMAGIC
+	/// This determines what type of antimagic is needed to block the spell.
+	/// (MAGIC_RESISTANCE, MAGIC_RESISTANCE_MIND, MAGIC_RESISTANCE_HOLY)
+	/// If SPELL_REQUIRES_NO_ANTIMAGIC is set in Spell requirements,
+	/// The spell cannot be cast if the caster has any of the antimagic flags set.
+	var/antimagic_flags = MAGIC_RESISTANCE
 
 /**
  * Checks if the user can cast the spell
@@ -594,6 +600,13 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 			to_chat(user, span_warning("You shouldn't have this spell! Something's wrong."))
 		return FALSE
 
+	if((spell_requirements & SPELL_REQUIRES_NO_ANTIMAGIC) && !user.can_cast_magic(antimagic_flags))
+		if(!show_message)
+			return FALSE
+
+		to_chat(user, span_warning("Что-то мешает вам использовать [declent_ru(ACCUSATIVE)]!"))
+		return FALSE
+
 	if(HAS_TRAIT(user, TRAIT_NO_SPELLS))
 		return FALSE
 
@@ -697,3 +710,6 @@ GLOBAL_LIST_INIT(spells, typesof(/obj/effect/proc_holder/spell))
 /// Called when a spell is added
 /obj/effect/proc_holder/spell/proc/on_spell_gain(mob/user = usr)
 	return
+
+/obj/effect/proc_holder/spell/proc/can_add(mob/granted)
+	return TRUE

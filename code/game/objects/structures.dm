@@ -12,6 +12,8 @@
 	/// Amount of timer ticks that an extinguished structure has been lit up
 	var/light_process = 0
 	var/extinguish_timer_id
+	var/break_sound
+	var/break_message
 
 /obj/structure/New()
 	..()
@@ -35,14 +37,24 @@
 /obj/structure/Destroy(force)
 	if(SSticker)
 		GLOB.cameranet.updateVisibility(src)
+
 	if(smooth)
 		var/turf/T = get_turf(src)
 		spawn(0)
 			queue_smooth_neighbors(T)
+
 	if(creates_cover && isturf(loc))
 		REMOVE_TRAIT(loc, TRAIT_TURF_COVERED, UNIQUE_TRAIT_SOURCE(src))
+
 	if(isprocessing)
 		STOP_PROCESSING(SSobj, src)
+
+	if(break_sound)
+		playsound(get_turf(src), break_sound, 25, TRUE)
+
+	if(break_message)
+		visible_message(break_message)
+
 	return ..()
 
 

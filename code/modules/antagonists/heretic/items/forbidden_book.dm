@@ -1,6 +1,6 @@
-// Ye old forbidden book, the Codex Cicatrix.
+// Ye old forbidden book, the Кодекс Истезания.
 /obj/item/codex_cicatrix
-	name = "Codex Cicatrix"
+	name = "Кодекс Истезания"
 	desc = "This heavy tome is full of cryptic scribbles and impossible diagrams. \
 	According to legend, it can be deciphered to reveal the secrets of the veil between worlds."
 	icon = 'icons/obj/eldritch.dmi'
@@ -58,7 +58,7 @@
 		var/obj/effect/heretic_influence/influence = locate(/obj/effect/heretic_influence) in interacting_with
 		if(!influence?.drain_influence_with_codex(user, src))
 			heretic_datum.try_draw_rune(user, interacting_with, drawing_time = draw_speed)
-		return ITEM_INTERACT_BLOCKING
+		return ATTACK_CHAIN_BLOCKED
 	return NONE
 
 /// Plays a little animation that shows the book opening and closing.
@@ -73,7 +73,7 @@
 	flick("[base_icon_state]_closing", src)
 	book_open = FALSE
 
-// Upgraded version of the codex cicatrix that allows us to cast curses
+// Upgraded version of the Кодекс Истезания that allows us to cast curses
 /obj/item/codex_cicatrix/morbus // I'm morbing all over
 	name = "Codex Morbus"
 	desc = "A hideous, ragged book covered in separately-blinking eyes, all of them staring at you. You have no idea how to hold this thing, and to be honest you're not sure if you want to."
@@ -126,13 +126,13 @@
 		blood_samples += usable_reagent.data["blood_DNA"]
 	if(isnull(blood_samples))
 		user.balloon_alert(user, "no blood!")
-		return ITEM_INTERACT_BLOCKING
+		return ATTACK_CHAIN_BLOCKED
 
 	var/curse_type = curse_list[selected_curse]
 	var/datum/heretic_knowledge/curse/to_cast = new curse_type
 	to_cast.recipe_snowflake_check(user, list(held_offhand), loc = get_turf(user))
 	to_cast.on_finished_recipe(user, list(src, held_offhand), loc = get_turf(user))
-	return ITEM_INTERACT_SUCCESS
+	return ATTACK_CHAIN_SUCCESS
 
 /obj/item/codex_cicatrix/morbus/atom_destruction(damage_flag)
 	for(var/datum/weakref/to_uncurse_ref as anything in transmuted_victims)

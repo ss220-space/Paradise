@@ -9,7 +9,7 @@
 	cooldown_time = 45 SECONDS
 
 /obj/effect/proc_holder/spell/mob_cooldown/charge/rust/Activate(atom/target_atom)
-	var/turf/open/start_turf = get_turf(owner)
+	var/turf/spacestart_turf = get_turf(owner)
 	if(!istype(start_turf) || !HAS_TRAIT(start_turf, TRAIT_RUSTY))
 		return FALSE
 	StartCooldown(135 SECONDS, 135 SECONDS)

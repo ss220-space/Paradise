@@ -114,8 +114,8 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 	if(transfer_overlays)
 		I.copy_overlays(target)
 
-	add_atom_to_hud(target)
-	target.set_hud_image_active(appearance_key, exclusive_hud = src)
+	add_to_hud(target)
+	//target.set_hud_image_active(appearance_key, exclusive_hud = src)
 
 	if((options & AA_TARGET_SEE_APPEARANCE) && ismob(target))
 		add_hud_to(target)
@@ -136,7 +136,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/basic/track_mob(mob/new_viewer)
 	RegisterSignal(new_viewer, list(
 		COMSIG_MOB_ANTAGONIST_REMOVED,
-		COMSIG_MOB_GHOSTIZED,
+		COMSIG_MOB_GHOSTIZE,
 		COMSIG_MOB_MIND_TRANSFERRED_INTO,
 		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
 	), PROC_REF(check_hud), override = TRUE)
@@ -144,12 +144,12 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/basic/untrack_mob(mob/former_viewer)
 	UnregisterSignal(former_viewer, list(
 		COMSIG_MOB_ANTAGONIST_REMOVED,
-		COMSIG_MOB_GHOSTIZED,
+		COMSIG_MOB_GHOSTIZE,
 		COMSIG_MOB_MIND_TRANSFERRED_INTO,
 		COMSIG_MOB_MIND_TRANSFERRED_OUT_OF,
 	))
 
-/datum/atom_hud/alternate_appearance/basic/add_atom_to_hud(atom/A)
+/datum/atom_hud/alternate_appearance/basic/add_to_hud(atom/A)
 	LAZYINITLIST(A.hud_list)
 	A.hud_list[appearance_key] = image
 	. = ..()
@@ -157,7 +157,7 @@ GLOBAL_LIST_EMPTY(active_alternate_appearances)
 /datum/atom_hud/alternate_appearance/basic/remove_hud_from(atom/A)
 	. = ..()
 	LAZYREMOVE(A.hud_list, appearance_key)
-	A.set_hud_image_inactive(appearance_key)
+	//A.set_hud_image_inactive(appearance_key)
 	if(. && !QDELETED(src))
 		qdel(src)
 

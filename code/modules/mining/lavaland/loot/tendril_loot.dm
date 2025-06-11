@@ -500,6 +500,9 @@
 /datum/action/item_action/immortality
 	name = "Immortality"
 
+/obj/item/immortality_talisman/Initialize(mapload)
+	. = ..()
+	AddComponent(/datum/component/anti_magic, ALL)
 
 /obj/item/immortality_talisman/Destroy(force)
 	if(force)

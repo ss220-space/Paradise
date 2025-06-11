@@ -161,6 +161,8 @@ GLOBAL_LIST_INIT(glass_sheet_types, typecacheof(list(
 
 #define iswallturf(A) istype(A, /turf/simulated/wall)
 
+#define isplatingturf(A) istype(A, /turf/simulated/floor/plating)
+
 #define isreinforcedwallturf(A) istype(A, /turf/simulated/wall/r_wall)
 
 #define ismineralturf(A) istype(A, /turf/simulated/mineral)
@@ -194,3 +196,12 @@ GLOBAL_LIST_INIT(turfs_without_ground, typecacheof(list(
 #define is_ventcrawler(A) (HAS_TRAIT(A, TRAIT_VENTCRAWLER_NUDE) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALWAYS) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ITEM_BASED) || HAS_TRAIT(A, TRAIT_VENTCRAWLER_ALIEN))
 
 #define is_multi_tile_object(atom) (atom.bound_width > world.icon_size || atom.bound_height > world.icon_size)
+
+/// Check if the given mob is a  lunatic
+#define IS_LUNATIC(mob) (mob.mind?.has_antag_datum(/datum/antagonist/lunatic))
+/// Checks if the given mob is either a heretic, heretic monster or a lunatic.
+#define IS_HERETIC_OR_MONSTER(mob) (isheretic(mob) || HAS_TRAIT(mob, TRAIT_HERETIC_SUMMON) || IS_LUNATIC(mob))
+
+#define isspacecola(A)		(istype((A), /datum/reagent/consumable/drink/cold/space_cola))
+
+#define isacid(A)			(istype(A, /datum/reagent/acid))

@@ -31,6 +31,9 @@
 
 /// Simple helper used to equip passed item to the predefined slots.
 /mob/living/carbon/proc/apply_restraints(cuffs, slot_flag, qdel_on_fail = FALSE, silent = FALSE)
+	if(SEND_SIGNAL(src, COMSIG_CARBON_CUFF_ATTEMPTED, null) & COMSIG_CARBON_CUFF_PREVENT)
+		return
+
 	if(!isitem(cuffs))
 		CRASH("Wrong object ([cuffs]) passed as argument")
 	switch(slot_flag)

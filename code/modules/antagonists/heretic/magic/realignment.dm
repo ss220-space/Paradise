@@ -7,7 +7,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/hud/implants.dmi'
 	button_icon_state = "adrenal"
-	// sound = 'sound/magic/whistlereset.ogg' I have no idea why this was commented out
+	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	school = SCHOOL_FORBIDDEN
 	cooldown_time = 6 SECONDS
@@ -53,7 +53,7 @@
 	duration = 8 SECONDS
 	alert_type = /atom/movable/screen/alert/status_effect/realignment
 	tick_interval = 0.2 SECONDS
-	show_duration = TRUE
+	//show_duration = TRUE
 	///Traits to add/remove
 	var/list/realignment_traits = list(TRAIT_BATON_RESISTANCE, TRAIT_PACIFISM)
 
