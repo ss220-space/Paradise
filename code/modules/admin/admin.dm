@@ -590,30 +590,6 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 
-/datum/admins/proc/shattle_start()
-	set category = "Server"
-	set desc= "Установить место появления всех членов экипажа в начале смены на шаттле."
-	set name= "Старт с шаттла"
-
-	if(!check_rights(R_SERVER))
-		return FALSE
-
-	if(!SSticker)
-		tgui_alert(usr, "Пожалуйста подождите, необходимая подсистема еще не была запущенна.")
-		return
-
-	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
-		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential=TRUE)
-		return FALSE
-
-	SSticker.shattle_start = !SSticker.shattle_start
-	var/msg = "[usr.key] [SSticker.shattle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
-	log_admin(msg)
-	message_admins(span_darkmblue(msg))
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Старт с шаттла") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
-	return TRUE
-
-
 /datum/admins/proc/toggleenter()
 	set category = "Server"
 	set desc="People can't enter"
