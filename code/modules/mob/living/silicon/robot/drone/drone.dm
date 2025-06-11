@@ -1,8 +1,16 @@
 #define EMAG_TIMER 3000
 /mob/living/silicon/robot/drone
 	name = "drone"
+	ru_names = list(
+		NOMINATIVE = "дрон",
+		GENITIVE = "дрона",
+		DATIVE = "дрону",
+		ACCUSATIVE = "дрона",
+		INSTRUMENTAL = "дроном",
+		PREPOSITIONAL = "дроне"
+	)
 	real_name = "drone"
-	desc = "It's a tiny little repair drone. The casing is stamped with an NT logo and the subscript: 'Nanotrasen Recursive Repair Systems: Fixing Tomorrow's Problem, Today!'"
+	desc = "Это крошечный ремонтный дрон. На корпусе выбит логотип НТ и надпись: \"Системы рекурсивного ремонта НаноТрейзен: Решаем проблемы завтрашнего дня уже сегодня!\"."
 	icon = 'icons/mob/robots.dmi'
 	icon_state = "repairbot"
 	maxHealth = 35
@@ -182,26 +190,26 @@
 
 	if(istype(I, /obj/item/borg/upgrade))
 		add_fingerprint(user)
-		to_chat(user, span_warning("The maintenance drone chassis not compatible with [I]!"))
+		to_chat(user, span_warning("Шасси дрона обслуживания несовместимо с [I.declent_ru(PREPOSITIONAL)]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	if(I.GetID())
 		add_fingerprint(user)
 		if(stat == DEAD)
 			if(!CONFIG_GET(flag/allow_drone_spawn) || emagged || health < -35) //It's dead, Dave.
-				to_chat(user, span_warning("The interface is fried, and a distressing burned smell wafts from the robot's interior. You're not rebooting this one."))
+				to_chat(user, span_warning("Интерфейс перегорел, и изнутри робота доносится тревожный запах гари. Вы не сможете перезагрузить его."))
 				return ATTACK_CHAIN_PROCEED
 			if(!allowed(I))
-				to_chat(user, span_warning("Access denied."))
+				balloon_alert(user, "доступ запрещён!")
 				return ATTACK_CHAIN_PROCEED
 			var/delta = (world.time / 10) - last_reboot
 			if(reboot_cooldown > delta)
 				var/cooldown_time = round(reboot_cooldown - ((world.time / 10) - last_reboot), 1)
-				to_chat(user, span_warning("The reboot system is currently offline. Please wait another [cooldown_time] second\s."))
+				to_chat(user, span_warning("Система перезагрузки в настоящее время отключена. Пожалуйста, подождите ещё [cooldown_time] секунд[declension_ru(cooldown_time, "у", "ы", "")]."))
 				return ATTACK_CHAIN_PROCEED
 			user.visible_message(
-				span_warning("[user] has swiped [user.p_their()] ID card through [src], attempting to reboot it."),
-				span_notice("You have swiped your ID card through [src], attempting to reboot it."),
+				span_warning("[user] провёл[genderize_ru(user.gender,"","а","о","и")] ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
+				span_notice("Вы провели своей ID-картой по [declent_ru(DATIVE)], пытаясь перезагрузить его."),
 			)
 			last_reboot = world.time / 10
 			var/drones = 0
@@ -213,17 +221,17 @@
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(emagged)
-			to_chat(user, span_danger("The interface seems slightly damaged and refuses the ID card!"))
+			to_chat(user, span_danger("Интерфейс слегка повреждён и отвергает ID-карту!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!allowed(I))
 			to_chat(user, span_warning("Access denied."))
 			return ATTACK_CHAIN_PROCEED
-		var/confirm = tgui_alert(user, "Using your ID on a Maintenance Drone will shut it down, are you sure you want to do this?", "Disable Drone", list("Yes", "No"))
-		if(confirm != "Yes" || !Adjacent(user) || QDELETED(I) || I.loc != user)
+		var/confirm = tgui_alert(user, "Использование вашей ID-карты на дроне обслуживания выключит его. Вы уверены, что хотите это сделать?", "Отключить дрона", list("Да", "Нет"))
+		if(confirm != "Да" || !Adjacent(user) || QDELETED(I) || I.loc != user)
 			return ATTACK_CHAIN_PROCEED
 		user.visible_message(
-			span_warning("[user] has swiped [user.p_their()] ID card through [src], attempting to shut it down."),
-			span_notice("You have swiped your ID card through [src], attempting to shut it down."),
+			span_warning("[user] провёл[genderize_ru(user.gender,"","а","о","и")] ID-картой по [declent_ru(DATIVE)], пытаясь выключить его."),
+			span_notice("Вы провели своей ID-картой по [declent_ru(DATIVE)], пытаясь выключить его."),
 		)
 		shut_down()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -234,13 +242,13 @@
 /mob/living/silicon/robot/drone/crowbar_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
 		return FALSE
-	to_chat(user, span_warning("The machine is hermetically sealed. You cannot open the case."))
+	to_chat(user, span_warning("Дрон герметично запечатан. Вы не можете открыть корпус."))
 	return TRUE
 
 
 /mob/living/silicon/robot/drone/emag_act(mob/user)
 	if(!client || stat == DEAD)
-		to_chat(user, "<span class='warning'>There's not much point subverting this heap of junk.</span>")
+		to_chat(user, span_warning("Нет смысла подчинять эту кучу хлама."))
 		return
 
 	if(!ishuman(user))
@@ -248,16 +256,16 @@
 	var/mob/living/carbon/human/H = user
 
 	if(emagged)
-		to_chat(src, "<span class='warning'>[user] attempts to load subversive software into you, but your hacked subroutined ignore the attempt.</span>")
-		to_chat(user, "<span class='warning'>You attempt to subvert [src], but the sequencer has no effect.</span>")
+		to_chat(src, span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся загрузить вредоносное ПО в вас, но ваши взломанные подпрограммы игнорируют попытку."))
+		to_chat(user, span_warning("Вы пытаетесь подчинить [declent_ru(GENITIVE)], но секвенсор не оказывает эффекта."))
 		return
 
-	to_chat(user, "<span class='warning'>You swipe the sequencer across [src]'s interface and watch its eyes flicker.</span>")
+	to_chat(user, span_warning("Вы проводите секвенсором по интерфейсу [declent_ru(GENITIVE)] и наблюдаете, как его глаза мерцают."))
 
 	if(jobban_isbanned(src, ROLE_SYNDICATE))
 		SSticker.mode.replace_jobbanned_player(src, ROLE_SYNDICATE)
 
-	to_chat(src, "<span class='warning'>You feel a sudden burst of malware loaded into your execute-as-root buffer. Your tiny brain methodically parses, loads and executes the script. You sense you have five minutes before the drone server detects this and automatically shuts you down.</span>")
+	to_chat(src, span_warning("Вы чувствуете внезапный всплеск вредоносного ПО, загруженного в ваш буфер исполнения. Ваш крошечный мозг методично анализирует, загружает и выполняет скрипт. Вы понимаете, что у вас есть пять минут, прежде чем сервер дронов обнаружит это и автоматически выключит вас."))
 
 	message_admins("[ADMIN_LOOKUPFLW(H)] emagged drone [key_name_admin(src)].  Laws overridden.")
 	add_attack_logs(user, src, "emagged")
@@ -277,12 +285,12 @@
 	clear_supplied_laws()
 	clear_inherent_laws()
 	laws = new /datum/ai_laws/syndicate_override
-	set_zeroth_law("Only [H.real_name] and people [H.real_name] designates as being such are Syndicate Agents.")
+	set_zeroth_law("Только [H.real_name] и люди, которых [H.real_name] обозначит, являются агентами Синдиката.")
 	SSticker?.score?.save_silicon_laws(src, user, "EMAG act", log_all_laws = TRUE)
 
-	to_chat(src, "<b>Obey these laws:</b>")
+	to_chat(src, "<b>Соблюдайте эти законы:</b>")
 	laws.show_laws(src)
-	to_chat(src, "<span class='boldwarning'>ALERT: [H.real_name] is your new master. Obey your new laws and [H.real_name]'s commands.</span>")
+	to_chat(src, span_boldwarning("ВНИМАНИЕ: [H.real_name] теперь ваш новый хозяин. Соблюдайте новые законы и команды [H.real_name]."))
 	return
 
 /mob/living/silicon/robot/drone/ratvar_act(weak)
@@ -315,9 +323,9 @@
 /mob/living/silicon/robot/drone/proc/law_resync()
 	if(stat != DEAD)
 		if(emagged)
-			to_chat(src, "<span class='warning'>You feel something attempting to modify your programming, but your hacked subroutines are unaffected.</span>")
+			to_chat(src, span_warning("Вы чувствуете, что что-то пытается изменить ваше программирование, но ваши взломанные подпрограммы остаются нетронутыми."))
 		else
-			to_chat(src, "<span class='warning'>A reset-to-factory directive packet filters through your data connection, and you obediently modify your programming to suit it.</span>")
+			to_chat(src, span_warning("Пакет сброса к заводским настройкам проходит через ваше соединение, и вы послушно изменяете своё программирование в соответствии с ним."))
 			full_law_reset()
 			show_laws()
 
@@ -326,10 +334,10 @@
 		return
 
 	if(emagged && !force)
-		to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, but it doesn't seem like a good idea to you.</span>")
+		to_chat(src, span_warning("Вы чувствуете, как через ваш крошечный мозг проходит приказ о самоуничтожении, но это не кажется вам хорошей идеей."))
 		return
 
-	to_chat(src, "<span class='warning'>You feel a system kill order percolate through your tiny brain, and you obediently destroy yourself.</span>")
+	to_chat(src, span_warning("Вы чувствуете, как через ваш крошечный мозг проходит приказ о самоуничтожении, и вы послушно уничтожаете себя."))
 	death()
 
 /mob/living/silicon/robot/drone/proc/full_law_reset()
@@ -353,10 +361,10 @@
 /mob/living/silicon/robot/drone/proc/question(var/client/C,var/mob/M)
 	spawn(0)
 		if(!C || !M || jobban_isbanned(M,"nonhumandept") || jobban_isbanned(M,"Drone"))	return
-		var/response = tgui_alert(C, "Someone is attempting to reboot a maintenance drone. Would you like to play as one?", "Maintenance drone reboot", list("Yes", "No"))
+		var/response = tgui_alert(C, "Кто-то пытается перезагрузить дрона обслуживания. Хотите сыграть за него?", "Перезагрузка дрона обслуживания", list("Да", "Нет"))
 		if(!C || ckey)
 			return
-		if(response == "Yes")
+		if(response == "Да")
 			transfer_personality(C)
 
 /mob/living/silicon/robot/drone/proc/transfer_personality(var/client/player)
@@ -372,14 +380,14 @@
 	key = player.key
 
 	lawupdate = 0
-	to_chat(src, "<b>Systems rebooted</b>. Loading base pattern maintenance protocol... <b>loaded</b>.")
+	to_chat(src, "<b>Перезагрузка завершена</b>. Активирован базовый сервисный протокол... <b>Готово</b>.")
 	full_law_reset()
-	to_chat(src, "<br><b>You are a maintenance drone, a tiny-brained robotic repair machine</b>.")
-	to_chat(src, "You have no individual will, no personality, and no drives or urges other than your laws.")
-	to_chat(src, "Use <b>'[get_language_prefix(LANGUAGE_DRONE_BINARY)]'</b> to talk to other drones, and <b>say</b> to speak silently in a language only your fellows understand.")
-	to_chat(src, "Remember, you are <b>lawed against interference with the crew</b>. Also remember, <b>you DO NOT take orders from the AI.</b>")
-	to_chat(src, "<b>Don't invade their worksites, don't steal their resources, don't tell them about the changeling in the toilets.</b>")
-	to_chat(src, "<b>Make sure crew members do not notice you.</b>.")
+	to_chat(src, "<br><b>Вы — сервисный дрон, компактный ремонтный модуль</b>.")
+	to_chat(src, "У вас нет индивидуальной воли, личности, желаний или побуждений, кроме ваших законов.")
+	to_chat(src, "Для связи с другими дронами используйте <b>'[get_language_prefix(LANGUAGE_DRONE_BINARY)]'</b>. Вы так-же можете тихо говорить на языке, понятном только вашим собратьям.")
+	to_chat(src, "Помните, вам <b>запрещено вмешиваться в дела экипажа</b>. Также помните, <b>вы НЕ подчиняетесь приказам ИИ.</b>")
+	to_chat(src, "<b>Не вторгайтесь на их рабочие места, не крадите их ресурсы. Не рассказывайте им о генокраде в туалетах!</b>")
+	to_chat(src, "<b>Убедитесь, что члены экипажа не замечают вас.</b>")
 
 
 /mob/living/silicon/robot/drone/Bump(atom/bumped_atom)
@@ -396,12 +404,12 @@
 		var/obj/item/pulled_item = pulled_atom
 		if(pulled_item.w_class > WEIGHT_CLASS_SMALL)
 			if(!supress_message)
-				to_chat(src, span_warning("You are too small to pull that."))
+				balloon_alert(src, "вы слишком малы!")
 			return FALSE
 		return ..()
 
 	if(!supress_message)
-		to_chat(src, span_warning("You are too small to pull that."))
+		balloon_alert(src, "вы слишком малы!")
 	return FALSE
 
 /mob/living/silicon/robot/drone/add_robot_verbs()
@@ -416,13 +424,14 @@
 
 /mob/living/silicon/robot/drone/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(!client && isdrone(user))
-		to_chat(user, "<span class='warning'>You begin decompiling the other drone.</span>")
+		balloon_alert(user, "разбор дрона...")
 		if(!do_after(user, 5 SECONDS, loc))
-			to_chat(user, "<span class='warning'>You need to remain still while decompiling such a large object.</span>")
+			balloon_alert(user, "не двигайтесь!")
 			return
 		if(QDELETED(src) || QDELETED(user))
 			return ..()
-		to_chat(user, "<span class='warning'>You carefully and thoroughly decompile your downed fellow, storing as much of its resources as you can within yourself.</span>")
+		to_chat(user, span_warning("Вы аккуратно и тщательно разбираете своего павшего собрата, сохраняя как можно больше его ресурсов внутри себя."))
+		balloon_alert(user, "дрон разобран")
 		new/obj/effect/decal/cleanable/blood/oil(get_turf(src))
 		C.stored_comms["metal"] += 15
 		C.stored_comms["glass"] += 15

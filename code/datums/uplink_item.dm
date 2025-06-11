@@ -612,6 +612,13 @@
 	surplus = 0
 	can_discount = FALSE
 
+/datum/uplink_item/jobspecific/death_book
+	name = "Летопись вашей погибели"
+	desc = "Магический артефакт, захваченный синдикатом для своих агентов. Эта книга рассказывает о том, как погибали целые миры, и тот, кто её прочтёт, сможет на время ощутить себя одним из тех, кто несёт ответственность за эти события."
+	item = /obj/item/death_book
+	cost = 60
+	job = list(JOB_TITLE_LIBRARIAN)
+
 //Botanist
 
 /datum/uplink_item/jobspecific/ambrosiacruciatus
@@ -1126,7 +1133,7 @@
 
 /datum/uplink_item/ammo/uzi_ammobag
 	name = "Пистолет-пулемёт Uzi — сумка с магазинами 9 мм"
-	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Молоко для детей с Зелёной улицы."
+	desc = "Сумка, содержащая 10 магазинов на 30 патронов калибра 9 мм. Для тех, кто идёт на серьёзное дело."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/uzi
 	cost = 70 // normally 100
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)
@@ -1178,7 +1185,7 @@
 
 /datum/uplink_item/ammo/LMG_ammobag
 	name = "Ручной пулемёт L6 SAW — сумка с магазинами 5.56x45 мм"
-	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова по-неорусски!"
+	desc = "Сумка, содержащая 5 магазинов на 50 патронов калибра 5.56x45 мм. И помните, ни слова на общесолнечном."
 	item = /obj/item/storage/backpack/duffel/syndie/ammo/lmg
 	cost = 200 // normally 250
 	uplinktypes = list(UPLINK_TYPE_NUCLEAR, UPLINK_TYPE_SST)

@@ -149,10 +149,20 @@
 
 /obj/item/card/id/Initialize(mapload)
 	. = ..()
+	RegisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT, PROC_REF(freeze_linked_account))
 	spawn(30)
 		if(ishuman(loc) && blood_type == "\[UNSET\]")
 			var/mob/living/carbon/human/H = loc
 			SetOwnerInfo(H)
+
+/obj/item/card/id/Destroy()
+	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
+	. = ..()
+	
+/obj/item/card/id/proc/freeze_linked_account(datum/source)
+	SIGNAL_HANDLER
+	var/datum/money_account/acc = get_money_account(associated_account_number)
+	acc.suspended = TRUE
 
 /obj/item/card/id/examine(mob/user)
 	. = ..()
