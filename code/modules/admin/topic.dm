@@ -4171,12 +4171,9 @@
 	log_and_message_admins("Initiated mass mindswap")
 
 /datum/admins/proc/shuttle_start()
-	if(!check_rights(R_SERVER))
-		return FALSE
-
 	if(!SSticker)
 		tgui_alert(usr, "Пожалуйста подождите, необходимая подсистема еще не была запущенна.")
-		return
+		return FALSE
 
 	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
 		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential=TRUE)
