@@ -3705,8 +3705,8 @@
 					return
 				create_cargo_crate()
 
-			if("shattle_start")
-				shattle_start()
+			if("shuttle_start")
+				shuttle_start()
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
@@ -4170,7 +4170,7 @@
 
 	log_and_message_admins("Initiated mass mindswap")
 
-/datum/admins/proc/shattle_start()
+/datum/admins/proc/shuttle_start()
 	if(!check_rights(R_SERVER))
 		return FALSE
 
@@ -4182,8 +4182,8 @@
 		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential=TRUE)
 		return FALSE
 
-	SSticker.shattle_start = !SSticker.shattle_start
-	var/msg = "[usr.key] [SSticker.shattle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
+	SSticker.shuttle_start = !SSticker.shuttle_start
+	var/msg = "[usr.key] [SSticker.shuttle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
 	return TRUE
