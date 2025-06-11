@@ -624,6 +624,14 @@ SKILLS
 /obj/item/clothing/glasses/hud/blueshield/cap
 	name = "\improper Gold multi-mod HUD glasses"
 	desc = "Солнечные очки с многорежимным проекционным дисплеем в золотых цветах."
+	ru_names = list(
+		NOMINATIVE = "золотые много-режимные HUD-очки",
+		GENITIVE = "золотых много-режимных HUD-очков",
+		DATIVE = "золотым много-режимным HUD-очкам",
+		ACCUSATIVE = "золотые много-режимные HUD-очки",
+		INSTRUMENTAL = "золотыми много-режимными HUD-очками",
+		PREPOSITIONAL = "золотых много-режимных HUD-очках"
+	)
 	icon_state = "sunhudcap"
 	item_state = "sunhudcap"
 	sprite_sheets = list(
