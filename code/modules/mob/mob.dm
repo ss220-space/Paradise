@@ -708,15 +708,15 @@
 	set category = "Ghost"
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
-		to_chat(usr, span_warning("You are banned from playing as sentient animals."))
+		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
 		return
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, span_warning("You can't respawn as an NPC before the game starts!"))
+		to_chat(src, span_warning("Вы не можете возродиться как НИП до начала игры!"))
 		return
 
 	if(stat != DEAD && !isobserver(usr))
-		to_chat(usr, span_warning("You are not dead or you have given up your right to be respawned!"))
+		to_chat(usr, span_warning("Вы не мертвы или отказались от права на возрождение!"))
 		return
 
 	var/list/allowed_creatures = list()
@@ -727,7 +727,7 @@
 
 	allowed_creatures.Insert(1, "Mouse")
 
-	var/mob/living/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
+	var/mob/living/picked = tgui_input_list(usr, "Пожалуйста, выберите НИП для возрождения", "Возродиться как НИП", allowed_creatures)
 	if(!picked)
 		return
 
@@ -739,7 +739,7 @@
 	var/message = picked_mob.get_npc_respawn_message()
 
 	if(QDELETED(picked_mob) || picked_mob.key || picked_mob.stat == DEAD)
-		to_chat(usr, span_warning("[capitalize(picked_mob)] is no longer available to respawn!"))
+		to_chat(usr, span_warning("[capitalize(picked_mob)] больше недоступен для возрождения!"))
 		return
 
 	if(istype(picked_mob, /mob/living/simple_animal/borer))

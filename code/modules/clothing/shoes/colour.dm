@@ -155,6 +155,21 @@
 	return ..()
 
 
+/obj/item/clothing/shoes/prison
+	name = "prison boots"
+	desc = "Твердая и неудобная обувь, сделанная другими заключенными."
+	ru_names = list(
+		NOMINATIVE = "тюремные башмаки",
+		GENITIVE = "тюремные башмаки",
+		DATIVE = "тюремным башмакам",
+		ACCUSATIVE = "тюремные башмаки",
+		INSTRUMENTAL = "тюремныим башмаками",
+		PREPOSITIONAL = "тюремных башмаках"
+	)
+	icon_state = "prison_boots"
+	item_state = "prison_boots"
+	
+	
 /obj/item/clothing/shoes/convers
 	name = "black convers"
 	desc = "Пара высоких чёрных кед, сделанных по последнему писку моды. Выглядят просто отпадно."
@@ -182,4 +197,5 @@
 	)
 	icon_state = "redconvers"
 	item_state = "redconvers"
+
 

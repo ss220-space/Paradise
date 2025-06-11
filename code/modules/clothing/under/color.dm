@@ -11,6 +11,7 @@
 		/obj/item/clothing/under/color/blackf,
 		/obj/item/clothing/under/color/blue/dodgeball,
 		/obj/item/clothing/under/color/orange/prison,
+		/obj/item/clothing/under/prison,
 		/obj/item/clothing/under/color/red/dodgeball,
 		/obj/item/clothing/under/color/red/jersey,
 		/obj/item/clothing/under/color/blue/jersey,
@@ -88,12 +89,37 @@
 	item_state = "o_suit"
 	item_color = "orange"
 
-/obj/item/clothing/under/color/orange/prison
-	name = "orange jumpsuit"
-	desc = "It's standardised Nanotrasen prisoner-wear. Its suit sensors are stuck in the \"Fully On\" position."
+/obj/item/clothing/under/color/orange/prison 
+	name = "old prison jumpsuit"
+	ru_names = list(
+		NOMINATIVE = "старый тюремный комбинезон",
+		GENITIVE = "старый тюремный комбинезон",
+		DATIVE = "старому тюремному комбинезону",
+		ACCUSATIVE = "старый тюремный комбинезон",
+		INSTRUMENTAL = "старым тюремным комбинезоном",
+		PREPOSITIONAL = "старом тюремном комбинезоне"
+	)
+	desc = "Старая одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания." 
 	icon_state = "orange"
 	item_state = "o_suit"
 	item_color = "orange"
+	has_sensor = 2
+	sensor_mode = 3
+
+/obj/item/clothing/under/prison
+	name = "prison jumpsuit"
+	ru_names = list(
+		NOMINATIVE = "тюремный комбинезон",
+		GENITIVE = "тюремный комбинезон",
+		DATIVE = "тюремному комбинезону",
+		ACCUSATIVE = "тюремный комбинезон",
+		INSTRUMENTAL = "тюремным комбинезоном",
+		PREPOSITIONAL = "тюремном комбинезоне"
+	)
+	desc = "Cтандартная одежда заключенных из Нанотрейзен. Датчики костюма заблокированы в максимальном режиме отслеживания."
+	icon_state = "prison"
+	item_state = "prison"
+	item_color = "prison"
 	has_sensor = 2
 	sensor_mode = 3
 

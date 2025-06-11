@@ -43,7 +43,36 @@
 	key = "airguitar"
 	message = "дела%(ет,ют)% невероятный запил на воображаемой гитаре!"
 	hands_use_check = TRUE
+	emote_type = EMOTE_AUDIBLE
+	cooldown = 60 SECONDS
+	vary = TRUE
+	sound = list(
+		'sound/misc/guitar_rifs/guitar_riff_1.ogg', // audio file from the suggestion
+		'sound/misc/guitar_rifs/guitar_riff_2.ogg', // found all the rest on the free site samplefocus
+		'sound/misc/guitar_rifs/guitar_riff_3.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_4.ogg',
+		'sound/misc/guitar_rifs/guitar_riff_5.ogg',
+	)
 
+/datum/emote/living/carbon/human/airguitar/run_emote(mob/living/carbon/human/user, params, type_override, intentional)
+	// check hands status
+	var/obj/item/organ/external/left_arm = user.bodyparts_by_name[BODY_ZONE_L_ARM]
+	var/obj/item/organ/external/right_arm = user.bodyparts_by_name[BODY_ZONE_R_ARM]
+	var/can_play = TRUE
+
+	if(!right_arm || right_arm.has_fracture_or_splint() || !left_arm || left_arm.has_fracture_or_splint())
+		can_play = FALSE
+
+	if(!can_play)
+		to_chat(user, span_warning("Я не могу играть! С моими руками что-то не то!"))
+		return TRUE
+
+	. = ..()
+
+	if(!. || !intentional || !istype(user))
+		return
+
+	return TRUE
 
 /datum/emote/living/carbon/human/clap
 	key = "clap"
