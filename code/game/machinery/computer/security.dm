@@ -42,11 +42,11 @@
 			"fingerprint" = "Введите новый хеш отпечатков пальцев:",
 			// Security
 			"criminal" = "Выберите новый статус:",
-			"mi_crim" = "Введите новые Малозначительные преступления:",
+			"mi_crim" = "Введите новые малозначительные преступления:",
 			"mi_crim_d" = "Введите детали мелких преступлений:",
 			"ma_crim" = "Введите новые тяжкие преступления:",
 			"ma_crim_d" = "Введите детали тяжких преступлений:",
-			"notes" = "Введите новые причечания:",
+			"notes" = "Введите новые примечания:",
 		)
 		field_edit_choices = list(
 			// General
@@ -239,7 +239,7 @@
 				return
 			if(!record_general)
 				return
-			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил [record_general.fields["name"]] общие, медицинские и записи безопасности в [ADMIN_COORDJMP(usr)]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил общие, медицинские и охранные записи [record_general.fields["name"]] в [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "удалил [record_general.fields["name"]] общие, медицинские и записи безопасности")
 			usr.investigate_log("удалил [record_general.fields["name"]] общие, медицинские и записи безопасности", INVESTIGATE_RECORDS)
 			for(var/datum/data/record/M in GLOB.data_core.medical)
@@ -255,7 +255,7 @@
 				return
 			if(!record_security)
 				return
-			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил [record_security.fields["name"]] запись безопасности в [ADMIN_COORDJMP(usr)]")
+			message_admins("[ADMIN_LOOKUPFLW(usr)] удалил запись безопасности [record_security.fields["name"]] в [ADMIN_COORDJMP(usr)]")
 			add_misc_logs(usr, "deleted [record_security.fields["name"]]'s security record")
 			usr.investigate_log("deleted [record_security.fields["name"]]'s security record", INVESTIGATE_RECORDS)
 			QDEL_NULL(record_security)
@@ -377,7 +377,7 @@
 						answer = new_age
 
 					if(field == "criminal")
-						var/text = "Укажите причину изменения статуса [answer]:"
+						var/text = "Укажите причину изменения статуса на [answer]:"
 						if(answer == SEC_RECORD_STATUS_EXECUTE)
 							text = "Укажите причину казни."
 						else if(answer == SEC_RECORD_STATUS_DEMOTE)

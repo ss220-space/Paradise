@@ -79,7 +79,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 	//create an entry in the account transaction log for when it was created
 	var/datum/transaction/T = new()
 	T.target_name = new_owner_name
-	T.purpose = "Аккаунт создан"
+	T.purpose = "Создание аккаунта"
 	T.amount = starting_funds
 	if(!source_db)
 		//set a random date, time and location some time over the past few decades
@@ -118,7 +118,7 @@ GLOBAL_DATUM(CC_account, /datum/money_account)
 			<i>Начальный баланс:</i> $[M.money]<br>
 			<i>Дата и время:</i> [station_time_timestamp()], [GLOB.current_date_string]<br><br>
 			<i>Терминал создания аккаунта:</i> [source_db.machine_id]<br>
-			<i>Уполномоченное на создание аккаунта лицо:</i> [overseer]<br>"}
+			<i>Уполномоченный сотрудник NT, курирующий создание аккаунта:</i> [overseer]<br>"}
 
 		//stamp the paper
 		R.stamp(/obj/item/stamp, TRUE, "<i>На этой бумаге стоит печать базы данных аккаунтов.</i>", "stamp-cent")

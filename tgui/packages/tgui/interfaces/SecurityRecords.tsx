@@ -29,12 +29,12 @@ import {
 const statusStyles = {
   '*Казнь*': 'execute',
   '*Арест*': 'arrest',
-  'Заключённый': 'incarcerated',
+  'Заключён': 'incarcerated',
   'Условно-досрочно освобождён': 'parolled',
-  'Освобождённый': 'released',
+  'Освобождён': 'released',
   'Понижение': 'demote',
   'Обыск': 'search',
-  'Контролировать': 'monitor',
+  'Под наблюдением': 'monitor',
 };
 
 const doEdit = (field: Field) => {
@@ -199,7 +199,7 @@ const SecurityRecordsPageList = (_properties) => {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
               >
-                Стаутс
+                Статус
               </SortButton>
             </Table.Row>
             {records
@@ -349,7 +349,7 @@ const SecurityRecordsPageView = (_properties) => {
               <Button.Confirm
                 icon="trash"
                 tooltip={
-                  'ВНИМАНИЕ: Это безвозвратно удалит записи безопасности ' +
+                  'ВНИМАНИЕ: Это безвозвратно удалит охранные' +
                   'и медицинские записи, связанные с этим членом экипажа!'
                 }
                 tooltipPosition="bottom-start"

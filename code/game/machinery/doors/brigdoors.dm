@@ -101,7 +101,7 @@
 		P.info += {"<center>[station_name()] - Отдел Защиты Активов</center><br>
 						<center><small><b>Данные:</b></small></center><br>
 						<small><b>Сгенерировано в:</b>		[station_time_timestamp()]<br>
-						<b>Заключёный:</b>		[occupant]<br>
+						<b>Заключённый:</b>		[occupant]<br>
 						<b>Срок:</b>		[seconds_to_time(timetoset / 10)]<br>
 						<b>Обвинения:</b>	[crimes]<br>
 						<b>Заключил:</b>		[usr.name]<br><hr><br>
@@ -127,7 +127,7 @@
 
 	// Notify the actual criminal being brigged. This is a QOL thing to ensure they always know the charges against them.
 	// Announcing it on radio isn't enough, as they're unlikely to have sec radio.
-	notify_prisoner("Вы были заключёны на [timetext]. Обвинения: [crimes]")
+	notify_prisoner("Вы были заключены на [timetext]. Обвинения: [crimes]")
 
 	if(prisoner_trank != "unknown" && prisoner_trank != "Civilian")
 		SSjobs.notify_dept_head(prisoner_trank, announcetext)
@@ -386,7 +386,7 @@
 			if(params["prisoner_name"])
 				prisoner_name = params["prisoner_name"]
 			else
-				var/new_name = tgui_input_text(usr, "Заключённый:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
+				var/new_name = tgui_input_text(usr, "Имя заключённого:", name, prisoner_name, MAX_NAME_LEN, encode = FALSE)
 				if(isnull(new_name))
 					return
 				prisoner_name = new_name
@@ -402,7 +402,7 @@
 				return
 			prisoner_charge = new_charge
 		if("prisoner_time")
-			var/new_time = tgui_input_number(usr, "Срок:", name, prisoner_time, PERMABRIG_TIME)
+			var/new_time = tgui_input_number(usr, "Срок (в минутах):", name, prisoner_time, PERMABRIG_TIME)
 			if(isnull(new_time))
 				return
 			prisoner_time = new_time

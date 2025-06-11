@@ -478,7 +478,7 @@
 			forcesay()
 		if(undergoing_cardiac_arrest() && (shock_damage * siemens_coeff >= 1) && prob(25))
 			if(set_heartattack(FALSE) && stat == CONSCIOUS)
-				to_chat(src, span_notice("Вы снова чувствуете, как ваше сердце бьется!"))
+				to_chat(src, span_notice("Вы чувствуете, что ваше сердце начинает снова биться!"))
 
 	dna.species.spec_electrocute_act(src, shock_damage, source, siemens_coeff, flags, jitter_time, stutter_time, stun_duration)
 
@@ -528,7 +528,7 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = tgui_input_list(usr, "Установите криминалый статус:", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
+								var/setcriminal = tgui_input_list(usr, "Установите криминальный статус:", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
 								var/t1 = copytext(trim(sanitize(input("Введите причину:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
@@ -555,7 +555,7 @@
 							break // Git out of the general records
 
 			if(!found_record)
-				to_chat(usr, "<span class='warning'>Не удалось найти информацию об этом существе.</span>")
+				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -579,7 +579,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти информацию об этом существе.</span>")
+				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -603,7 +603,7 @@
 									to_chat(usr, "<a href='byond://?src=[UID()];secrecordadd=`'>\[Добавить комментарий\]</a>")
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти информацию об этом существе.</span>")
+				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
 
 	if(href_list["secrecordadd"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -625,7 +625,7 @@
 				if(E.fields["name"] == perpname)
 					for(var/datum/data/record/R in GLOB.data_core.general)
 						if(R.fields["id"] == E.fields["id"])
-							var/setmedical = input(usr, "Укажите новый медицинский статус для этого существа.", "Medical HUD", R.fields["p_stat"]) in list("*КРС*", "*Мёртв*", "Физически непригоден", "Активный", "Disabled", "Отменить")
+							var/setmedical = input(usr, "Укажите новый медицинский статус для этого субъекта.", "Medical HUD", R.fields["p_stat"]) in list("*КРС*", "*Мёртв*", "Физически непригоден", "Активен", "Disabled", "Отменить")
 
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								if(setmedical != "Cancel")
@@ -638,7 +638,7 @@
 										sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "<span class='warning'>Не удалось найти информацию об этом существе.</span>")
+				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -663,7 +663,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти информацию об этом существе.</span>")
+				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -686,7 +686,7 @@
 								to_chat(usr, "<a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>")
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти информацию об этом существе.</span>")
+				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
 
 	if(href_list["medrecordadd"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -1497,7 +1497,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.AdjustParalysis(-2 SECONDS)
 			visible_message("<span class='danger'>[src] проводит СЛР [H.name]!</span>", "<span class='notice'>Вы проводите СЛР [H.name].</span>")
 
-			to_chat(H, "<span class='notice'>Вы чувствуете, как глоток свежего воздуха входит в ваши легкие. Это приятно.</span>")
+			to_chat(H, span_notice("Вы чувствуете, как глоток свежего воздуха входит в ваши легкие. Это облегчает")
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return TRUE

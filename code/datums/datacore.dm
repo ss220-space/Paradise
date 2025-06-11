@@ -195,7 +195,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		var/datum/data/record/S = new()
 		S.fields["id"]			= id
 		S.fields["name"]		= H.real_name
-		S.fields["criminal"]	= "Нет"
+		S.fields["criminal"]	= "Отсутствует"
 		S.fields["mi_crim"]		= "Нет"
 		S.fields["mi_crim_d"]	= "Отсутствие судимостей за малозначительные преступления."
 		S.fields["ma_crim"]		= "Нет"
