@@ -507,7 +507,7 @@ SUBSYSTEM_DEF(jobs)
 			log_runtime(EXCEPTION("No landmark start for [rank]."))
 			mark_spawn = pick(GLOB.latejoin)
 
-		if(!mark_spawn || SSticker.shattle_start) // still no spawn, fall back to the arrivals shuttle
+		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
 			var/list/turf/possible_turfs = list()
 			var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
 			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
