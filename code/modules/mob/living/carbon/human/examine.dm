@@ -129,9 +129,9 @@
 		//suit/armour storage
 		if(s_store && !skipsuitstorage)
 			if(s_store.blood_DNA)
-				msg += span_warning("На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
+				msg += span_warning("На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)] [s_store.blood_color != "#030303" ? "со следами крови":"со следами масла"]!\n")
 			else
-				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [s_store.declent_ru(NOMINATIVE)].\n"
+				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] [bicon(wear_suit)] [wear_suit.declent_ru(PREPOSITIONAL)] вис[pluralize_ru(s_store.gender, "ит", "ят")] [bicon(s_store)] [s_store.declent_ru(NOMINATIVE)].\n"
 
 	//back
 	if(back && !(back.item_flags & ABSTRACT))
