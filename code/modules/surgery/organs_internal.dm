@@ -603,9 +603,9 @@
 			continue
 		organ.on_find(user)
 		organs -= organ
-		organs[organ.declent_ru(NOMINATIVE)] = organ
+		organs[organ.name] = organ
 
-	var/obj/item/organ/internal/I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечения органа", organs)
+	var/obj/item/organ/internal/I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечение органа", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
 		extracting = organs[I]
 		if(!extracting)

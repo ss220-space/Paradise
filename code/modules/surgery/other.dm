@@ -160,7 +160,7 @@
 
 
 /datum/surgery_step/fix_vein
-	name = "заживить кровеносные сосуды"
+	name = "заживление кровеносных сосудов"
 	begin_sound = 'sound/surgery/fixovein1.ogg'
 	end_sound = 'sound/surgery/hemostat1.ogg'
 	fail_sound = 'sound/effects/meatslap.ogg'
@@ -425,7 +425,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(isshadowlinglesser(target)) //Empowered thralls cannot be deconverted
-		to_chat(target, span_shadowling("<b><i>ТАК ПРОСТО ЭТО НЕ ЗАКОНЧИТСЯ!</i></b>"))
+		to_chat(target, span_shadowling("<b><i>ВОТ ТАК ПРОСТО?! НУ УЖ НЕТ!</i></b>"))
 
 		user.visible_message(
 			span_warning("[target] резко выгиба[pluralize_ru(target.gender, "ет", "ют")]ся, сбивая с ног [user]!"), \
@@ -450,8 +450,6 @@
 			S.apply_damage(20, BRUTE)
 			playsound(S, 'sound/effects/bang.ogg', 50, 1)
 		return SURGERY_STEP_INCOMPLETE
-	var/obj/item/organ/internal/brain/B = target.get_int_organ(/obj/item/organ/internal/brain)
-	var/obj/item/organ/external/E = target.get_organ(check_zone(B.parent_organ_zone))
 
 	user.visible_message(
 		span_warning("[user] свет[pluralize_ru(user.gender, "ит", "ят")] [tool.declent_ru(INSTRUMENTAL)] прямо на опухоль в [affected.declent_ru(PREPOSITIONAL)] [target]."),
