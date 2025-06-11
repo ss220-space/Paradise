@@ -527,7 +527,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
 	set category = STATPANEL_ROBOTCOMMANDS
-	set name = "Монитор экипажа"
+	set name = "Манифест экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()

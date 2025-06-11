@@ -82,7 +82,7 @@
 ********************/
 /mob/living/silicon/proc/subsystem_crew_monitor()
 	set category = STATPANEL_SUBSYSTEMS
-	set name = "Манифест экипажа"
+	set name = "Монитор экипажа"
 	crew_monitor.ui_interact(usr)
 
 /****************
