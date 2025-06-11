@@ -606,8 +606,8 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential = TRUE)
 		return FALSE
 
-	SSticker.shattle_start = !SSticker.shattle_start
-	var/msg = "[usr.key] [SSticker.shattle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
+	SSticker.shuttle_start = !SSticker.shuttle_start
+	var/msg = "[usr.key] [SSticker.shuttle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
 	log_admin(msg)
 	message_admins(span_darkmblue(msg))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Старт с шаттла") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
