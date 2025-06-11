@@ -93,7 +93,6 @@
 	if(victim.stat != DEAD)
 		return .
 	var/mob/dead/observer/ghost = victim.get_ghost(TRUE)
-	var/offer_target = victim
 	var/response
 	if(ghost)
 		if(!ghost.client)
@@ -106,6 +105,7 @@
 			ghost.reenter_corpse()
 	else
 		response = tgui_alert(target.current, "Дьявол предлагает тебе воскрешение, в обмен на твою душу. Ты принимаешь предложение?", "Адское Воскрешение", list("Да", "Нет"))
+
 	if(response == "Да")
 		. |= ATTACK_CHAIN_SUCCESS
 		victim.revive()

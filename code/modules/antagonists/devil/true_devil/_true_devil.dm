@@ -22,26 +22,38 @@
 	var/ascended = FALSE
 	var/list/devil_overlays[DEVIL_TOTAL_LAYERS]
 	hud_type = /datum/hud/devil
+	tts_seed = "Mannoroth"
+
 
 /mob/living/carbon/true_devil/ascended
 	name = "Arch Devil"
 	desc = "Сгусток адской энергии, смутно напоминающий гуманоида. Кажется оно достигло пика своего могущества"
-	maxHealth = 500 // not an IMPOSSIBLE amount, but still near impossible.
+	maxHealth = 1000 // not an IMPOSSIBLE amount, but still near impossible.
 	ascended = TRUE
-	health = 500
+	health = 1000
 	icon_state = "arch_devil"
+	tts_seed = "Dread_bm"
+
+/mob/living/carbon/true_devil/ascended/ex_act(severity, ex_target)
+	return FALSE
+
+/mob/living/carbon/true_devil/ascended/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
+	return FALSE
+
+/mob/living/carbon/true_devil/ascended/flamer_fire_act(damage)
+	return FALSE
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()
 	else
 		dna = new
-	devilinfo = mind?.has_antag_datum(/datum/antagonist/devil)
 	grant_all_babel_languages()
 	prepare_huds()
 	new /obj/item/organ/internal/brain(src)
 	new /obj/item/organ/internal/eyes(src)
 	new /obj/item/organ/internal/ears/invincible(src)
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
 	. = ..()
 
 // Determines if mob has and can use his hands like a human
@@ -49,6 +61,8 @@
 	return TRUE
 
 /mob/living/carbon/true_devil/set_name()
+	if(!devilinfo)
+		devilinfo = mind?.has_antag_datum(/datum/antagonist/devil)
 	name = devilinfo.info.truename
 	real_name = name
 
@@ -127,11 +141,8 @@
 /mob/living/carbon/true_devil/resist_fire()
 	return
 
-/mob/living/carbon/true_devil/soundbang_act()
-	return FALSE
-
-/mob/living/carbon/true_devil/get_ear_protection()
-	return 2
+/mob/living/carbon/true_devil/check_ear_prot()
+	return HEARING_PROTECTION_TOTAL
 
 /mob/living/carbon/true_devil/singularity_act()
 	if(ascended)
@@ -139,36 +150,46 @@
 	return ..()
 
 /mob/living/carbon/true_devil/attack_hand(mob/living/carbon/human/M)
-	if(..())
-		switch(M.a_intent)
-			if(INTENT_HARM)
-				var/damage = rand(1, 5)
-				playsound(loc, "punch", 25, 1, -1)
-				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
-						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
-				adjustBruteLoss(damage)
-				add_attack_logs(M, src, "attacked")
-			if(INTENT_DISARM)
-				if(body_position == STANDING_UP) //No stealing the arch devil's pitchfork.
-					if(prob(5))
-						// Weaken knocks people over
-						// Paralyse knocks people out
-						// It's Paralyse for parity though
-						// Weaken(4 SECONDS)
-						Paralyse(4 SECONDS)
-						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-						add_attack_logs(M, src, "pushed")
-						visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"))
-					else
-						if(prob(25))
-							drop_from_active_hand()
-							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"), \
-							span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"))
-						else
-							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-							visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "попытался", "попыталась", "попыталось", "попытались")] обезоружить [declent_ru(ACCUSATIVE)]!"))
+	. = ..()
+	if(!.)
+		return .
+
+	switch(M.a_intent)
+		if(INTENT_HARM)
+			var/damage = rand(1, 5)
+			playsound(loc, "punch", 25, 1, -1)
+			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"), \
+					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "ударил", "ударила", "ударило", "ударили")] [declent_ru(ACCUSATIVE)]!"))
+			adjustBruteLoss(damage)
+			add_attack_logs(M, src, "attacked")
+
+		if(INTENT_DISARM)
+
+			if(body_position != STANDING_UP) //No stealing the arch devil's pitchfork.
+				return FALSE
+
+			if(prob(5))
+				// Weaken knocks people over
+				// Paralyse knocks people out
+				// It's Paralyse for parity though
+				// Weaken(4 SECONDS)
+				Paralyse(4 SECONDS)
+				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+				add_attack_logs(M, src, "pushed")
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"), \
+						span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "повалил", "повалила", "повалило", "повалили")] [declent_ru(ACCUSATIVE)]!"))
+				return FALSE
+
+			if(!prob(25))
+				playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
+				visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "попытался", "попыталась", "попыталось", "попытались")] обезоружить [declent_ru(ACCUSATIVE)]!"))
+				return FALSE
+
+			drop_from_active_hand()
+			playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
+			visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"), \
+			span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [genderize_ru(M.gender, "обезоружил", "обезоружила", "обезоружило", "обезоружили")] [declent_ru(ACCUSATIVE)]!"))
+
 
 /mob/living/carbon/true_devil/handle_breathing()
 	return

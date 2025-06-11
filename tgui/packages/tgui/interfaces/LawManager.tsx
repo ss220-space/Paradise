@@ -6,6 +6,7 @@ import {
   Section,
   NoticeBox,
   Table,
+  Tabs,
 } from '../components';
 import { Window } from '../layouts';
 
@@ -19,6 +20,7 @@ type LawManagerData = {
   channels: Channel[];
   channel: string;
   zeroth_law: string;
+  devil_law: string;
   ion_law: string;
   inherent_law: string;
   supplied_law: string;
@@ -36,6 +38,8 @@ type Lawset = {
 type Laws = {
   has_zeroth_laws: boolean;
   zeroth_laws: Law[];
+  has_devil_laws: boolean;
+  devil_laws: Law[];
   has_ion_laws: boolean;
   ion_laws: Law[];
   has_inherent_laws: boolean;
@@ -62,27 +66,27 @@ export const LawManager = (props: unknown) => {
   return (
     <Window width={800} height={isMalf ? 620 : 365}>
       <Window.Content scrollable>
-        {!!(isAdmin && isSlaved) && (
-          <NoticeBox>This unit is slaved to {isSlaved}.</NoticeBox>
-        )}
         {!!(isMalf || isAIMalf) && (
-          <Box>
-            <Button
-              selected={view}
+          <Tabs>
+            <Tabs.Tab
+              selected={!view}
               onClick={() => act('set_view', { set_view: 0 })}
             >
               Law Management
-            </Button>
-            <Button
+            </Tabs.Tab>
+            <Tabs.Tab
               selected={view}
               onClick={() => act('set_view', { set_view: 1 })}
             >
               Lawsets
-            </Button>
-          </Box>
+            </Tabs.Tab>
+          </Tabs>
+        )}
+        {!!(isAdmin && isSlaved) && (
+          <NoticeBox>This unit is slaved to {isSlaved}.</NoticeBox>
         )}
         {!view && <LawManagementView />}
-        {view && <LawsetsView />}
+        {!!view && <LawsetsView />}
       </Window.Content>
     </Window>
   );
@@ -93,6 +97,8 @@ const LawManagementView = (_props: unknown) => {
   const {
     has_zeroth_laws,
     zeroth_laws,
+    has_devil_laws,
+    devil_laws,
     has_ion_laws,
     ion_laws,
     ion_law_nr,
@@ -107,6 +113,7 @@ const LawManagementView = (_props: unknown) => {
     zeroth_law,
     ion_law,
     inherent_law,
+    devil_law,
     supplied_law,
     supplied_law_position,
   } = data;
@@ -115,6 +122,7 @@ const LawManagementView = (_props: unknown) => {
       {!!has_zeroth_laws && (
         <LawTable title="ERR_NULL_VALUE" laws={zeroth_laws} />
       )}
+      {!!has_devil_laws && <LawTable title="666" laws={devil_laws} />}
       {!!has_ion_laws && <LawTable title={ion_law_nr} laws={ion_laws} />}
       {!!has_inherent_laws && (
         <LawTable title="Inherent" laws={inherent_laws} />
@@ -170,6 +178,22 @@ const LawManagementView = (_props: unknown) => {
                 </Table.Cell>
               </Table.Row>
             )}
+            <Table.Row>
+              <Table.Cell>666</Table.Cell>
+              <Table.Cell>{devil_law}</Table.Cell>
+              <Table.Cell>N/A</Table.Cell>
+              <Table.Cell>
+                <Button
+                  icon="pencil-alt"
+                  onClick={() => act('change_devil_law')}
+                >
+                  Edit
+                </Button>
+                <Button icon="plus" onClick={() => act('add_devil_law')}>
+                  Add
+                </Button>
+              </Table.Cell>
+            </Table.Row>
             <Table.Row>
               <Table.Cell>Ion</Table.Cell>
               <Table.Cell>{ion_law}</Table.Cell>
@@ -249,6 +273,12 @@ const LawsetsView = (_props: unknown) => {
               l.laws.ion_laws.map((il) => (
                 <LabeledList.Item key={il.index} label={il.index}>
                   {il.law}
+                </LabeledList.Item>
+              ))}
+            {!!l.laws.has_devil_laws &&
+              l.laws.devil_laws.map((dl) => (
+                <LabeledList.Item key={dl.index} label={dl.index}>
+                  {dl.law}
                 </LabeledList.Item>
               ))}
             {!!l.laws.has_zeroth_laws &&

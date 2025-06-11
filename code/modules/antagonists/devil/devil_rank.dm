@@ -8,7 +8,7 @@
 	var/regen_threshold
 	var/regen_amount
 	/// just OOP thing. Ranks without this designated as last rank.
-	var/next_rank_type
+	var/datum/devil_rank/next_rank_type
 	/// How many souls we need to ascend to next rank.
 	var/required_souls
 	/// How many sacrifices we need to ascend to next rank.
@@ -57,7 +57,12 @@
 	next_rank_type = ENRAGED_DEVIL_RANK
 	required_souls = ENRAGED_THRESHOLD
 
-	rank_spells = list(/obj/effect/proc_holder/spell/sacrifice_circle)
+	rank_spells = list(
+		/obj/effect/proc_holder/spell/devil_panel,
+		/obj/effect/proc_holder/spell/sacrifice_circle,
+		/obj/effect/proc_holder/spell/summon_contract,
+		/obj/effect/proc_holder/spell/return_soul
+	)
 
 /datum/devil_rank/enraged_devil
 	name = "Злой дьявол"
@@ -69,7 +74,10 @@
 	required_sacrifice = BLOOD_SACRIFICE
 
 	rank_spells = list(
+		/obj/effect/proc_holder/spell/devil_panel,
 		/obj/effect/proc_holder/spell/sacrifice_circle,
+		/obj/effect/proc_holder/spell/summon_contract,
+		/obj/effect/proc_holder/spell/return_soul,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/dark_conversion
@@ -86,7 +94,10 @@
 	required_sacrifice = TRUE_SACRIFICE
 
 	rank_spells = list(
+		/obj/effect/proc_holder/spell/devil_panel,
 		/obj/effect/proc_holder/spell/sacrifice_circle,
+		/obj/effect/proc_holder/spell/summon_contract,
+		/obj/effect/proc_holder/spell/return_soul,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork,
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
@@ -121,7 +132,10 @@
 	ritual_required = TRUE
 
 	rank_spells = list(
+		/obj/effect/proc_holder/spell/devil_panel,
 		/obj/effect/proc_holder/spell/sacrifice_circle,
+		/obj/effect/proc_holder/spell/summon_contract,
+		/obj/effect/proc_holder/spell/return_soul,
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork/greater,
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
@@ -139,8 +153,6 @@
 	if(isdevil(devil_mob))
 		to_chat(devil_mob, span_revenbignotice("Вы чувствуете, как ваше тело меняется."))
 		true_devil = devil_mob
-		true_devil.devilinfo = devil.owner.has_antag_datum(/datum/antagonist/devil)
-		true_devil.set_name()
 		return FALSE
 	true_devil = new (get_turf(devil_mob))
 	ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
@@ -159,9 +171,8 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/sintouch/ascended,
-		/obj/effect/proc_holder/spell/dark_conversion,
-		/obj/effect/proc_holder/spell/aoe/devil_fire
+		/obj/effect/proc_holder/spell/aoe/devil_fire,
+		/obj/effect/proc_holder/spell/devil_broadcast
 	)
 
 /datum/devil_rank/ascend/apply_rank()

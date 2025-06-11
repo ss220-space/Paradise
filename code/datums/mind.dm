@@ -508,9 +508,10 @@
 		if(!devilinfo)
 			. += "<b>No devilinfo found! Yell at a coder!</b>"
 		else
-			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+			. += "<br><a href='byond://?src=[UID()];devil=panel'>devil panel</a>"
 	else if(src in SSticker.mode.sintouched)
-		. += "devil|<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else
 		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
 
@@ -1947,6 +1948,14 @@
 				add_antag_datum(/datum/antagonist/sintouched)
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 				log_admin("[key_name(usr)] has sintouch'ed [current].")
+
+			if("panel")
+				var/datum/antagonist/devil/devil = has_antag_datum(/datum/antagonist/devil)
+
+				if(!devil)
+					return
+
+				devil.ui_interact(usr)
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])

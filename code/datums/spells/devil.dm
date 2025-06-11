@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/conjure_item/pitchfork
 	name = "Summon Pitchfork"
-	desc = "A devil's weapon of choice.  Use this to summon/unsummon your pitchfork."
+	desc = "A devil's weapon of choice. Use this to summon/unsummon your pitchfork."
 
 	item_type = /obj/item/twohanded/pitchfork/demonic
 
@@ -19,13 +19,13 @@
 
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Summon golden violin"
-	desc = "A devil's instrument of choice.  Use this to summon/unsummon your golden violin."
+	desc = "A devil's instrument of choice. Use this to summon/unsummon your golden violin."
 
 	item_type = /obj/item/instrument/violin/golden
 
 	invocation_type = "whisper"
 	human_req = FALSE
-	invocation = "I ain't have this much fun since Georgia."
+	invocation = "Non multum gaudeo cum Georgia."
 
 	action_icon_state = "golden_violin"
 	action_background_icon_state = "bg_demon"
@@ -36,7 +36,7 @@
 	desc = "Skip making a contract by hand, just do it by magic."
 
 	invocation_type = "whisper"
-	invocation = "Just sign on the dotted line."
+	invocation = "Iustus signum in linea punctata."
 
 	selection_activated_message = span_notice("You prepare a detailed contract. Click on a target to summon the contract in his hands.")
 	selection_deactivated_message = span_notice("You archive the contract for later use.")
@@ -86,6 +86,74 @@
 			C.put_in_hands(contract)
 
 
+/obj/effect/proc_holder/spell/take_soul
+	name = "Забрать душу"
+	desc = "Это заклинание забирает душу у выбраной цели."
+
+	invocation_type = "shout"
+	invocation = "Ille porcus est meus!"
+
+	selection_activated_message = span_notice("Вы готовы забрать душу. Просто клините на свою жертву.")
+	selection_deactivated_message = span_notice("Вы передумали забирать чью-то душу.")
+
+	clothes_req = FALSE
+	human_req = FALSE
+
+	school = "conjuration"
+
+	action_icon_state = "spell_default"
+	action_background_icon_state = "bg_demon"
+	need_active_overlay = TRUE
+
+/obj/effect/proc_holder/spell/take_soul/create_new_targeting()
+	var/datum/spell_targeting/click/T = new()
+	T.try_auto_target = FALSE
+	T.range = 5
+	T.click_radius = -1
+	T.allowed_type = /mob/living/carbon
+	return T
+
+
+/obj/effect/proc_holder/spell/take_soul/valid_target(mob/living/carbon/target, mob/user)
+	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind)
+
+/obj/effect/proc_holder/spell/take_soul/cast(list/targets, mob/user = usr)
+	var/mob/living/carbon/human/human = targets[1]
+	var/datum/antagonist/devil/devil = user.mind?.has_antag_datum(/datum/antagonist/devil)
+	devil.add_soul(human?.mind)
+
+/obj/effect/proc_holder/spell/return_soul
+	name = "Вернуть душу"
+	desc = "Это заклинание возвращает душу выбраному существу."
+
+	invocation_type = "whisper"
+	invocation = "Et resuscita me; et retribuam eis!"
+
+	clothes_req = FALSE
+	human_req = FALSE
+
+	school = "conjuration"
+
+	action_icon_state = "spell_default"
+	action_background_icon_state = "bg_demon"
+
+/obj/effect/proc_holder/spell/return_soul/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/return_soul/cast(list/targets, mob/user = usr)
+	var/datum/antagonist/devil/devil = user.mind?.has_antag_datum(/datum/antagonist/devil)
+	var/list/mobs
+	for(var/datum/mind/mind in devil.soulsOwned - devil.ritualSouls)
+		if(!mind.current)
+			continue
+		LAZYADDASSOC(mobs, mind.current.real_name, mind)
+	var/datum/mind/soul = mobs[tgui_input_list(user, "Кому вы хотите вернуть душу?", "Вернуть душу", mobs)]
+
+	if(!soul)
+		return
+
+	devil.remove_soul(soul)
+
 /obj/effect/proc_holder/spell/fireball/hellish
 	name = "Hellfire"
 	desc = "This spell launches hellfire at the target."
@@ -96,7 +164,7 @@
 	clothes_req = FALSE
 	human_req = FALSE
 
-	invocation = "Your very soul will catch fire!"
+	invocation = "Quaeso, quemdam inter vos quaero!"
 	invocation_type = "shout"
 
 	fireball_type = /obj/projectile/magic/fireball/infernal
@@ -208,7 +276,7 @@
 	action_icon_state = "sintouch"
 	action_background_icon_state = "bg_demon"
 
-	invocation = "TASTE SIN AND INDULGE!!"
+	invocation = "PERVENIRE ET THESAUROS REPERIRE!"
 	invocation_type = "shout"
 
 	var/max_targets = 3
@@ -255,6 +323,8 @@
 	cooldown_min = 5 SECONDS // 5 seconds, so the smoke can't be spammed
 	action_icon_state = "funk"
 	action_background_icon_state = "bg_demon"
+	invocation = "Saltare, peccatores, saltare!"
+	invocation_type = "shout"
 
 	var/list/dancefloor_turfs
 	var/list/dancefloor_turfs_types
@@ -300,6 +370,8 @@
 
 	base_cooldown = 60 SECONDS
 	aoe_range = 10
+	invocation = "Che? non ' stimiti te faccende del inferno!"
+	invocation_type = "shout"
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -338,6 +410,7 @@
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "horror"
 
+
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
 
@@ -373,13 +446,18 @@
 		revert_cast(user)
 		return
 
-	make_shadow(human)
+	make_shadow(human, )
 
-/obj/effect/proc_holder/spell/dark_conversion/proc/make_shadow(mob/living/carbon/human/human)
+/datum/objective/assassinate/shadow_kill
+	antag_menu_name = "Убить по воле проклятия"
+
+/obj/effect/proc_holder/spell/dark_conversion/proc/make_shadow(mob/living/carbon/human/human, datum/antagonist/devil/devil)
 	human.set_species(/datum/species/shadow)
-	human.store_memory("Вы - создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои задания.", TRUE)
+	var/text = "Вы - создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
+	human.store_memory(text, TRUE)
+	to_chat(human, chat_box_red(text))
 
-	var/datum/objective/assassinate/kill = new
+	var/datum/objective/assassinate/shadow_kill/kill = new
 	kill.owner = human.mind
 	kill.find_target()
 
@@ -387,6 +465,7 @@
 	LAZYADD(human.faction, "hell")
 
 	human.mind.prepare_announce_objectives()
+	LAZYOR(devil.shadows, human.mind)
 	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)
 
 /obj/effect/proc_holder/spell/sacrifice_circle
@@ -438,3 +517,45 @@
 	devil_rune.update_appearance(UPDATE_DESC)
 
 	return
+
+
+
+/obj/effect/proc_holder/spell/devil_panel
+	name = "Информация о дьяволе"
+	desc = "Позволяет вам узнать о своих слабостях, а так же о вашем прогрессе в повышении ранга."
+
+	action_icon = 'icons/obj/library.dmi'
+	action_icon_state = "demonomicon"
+
+	clothes_req = FALSE
+	human_req = FALSE
+
+/obj/effect/proc_holder/spell/devil_panel/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/devil_panel/cast(list/targets, mob/user)
+	var/datum/antagonist/devil/devil = user?.mind?.has_antag_datum(/datum/antagonist/devil)
+	devil?.ui_interact(user)
+
+/obj/effect/proc_holder/spell/devil_broadcast
+	name = "Сказать всем"
+	desc = "Скажите что-нибудь миру, который собираетесь разрушить."
+
+	action_icon = 'icons/mob/actions/actions_cult.dmi'
+	action_icon_state = "cult_comms"
+
+	clothes_req = FALSE
+	human_req = FALSE
+
+/obj/effect/proc_holder/spell/devil_broadcast/create_new_targeting()
+	return new /datum/spell_targeting/self
+
+/obj/effect/proc_holder/spell/devil_broadcast/cast(list/targets, mob/user)
+	var/text = tgui_input_text(user, "Что вы хотите сказать?", "Сказать")
+	var/message = span_danger(span_fontsize5(text))
+	for(var/mob/player_mob in GLOB.player_list)
+		if(isnewplayer(player_mob) || !player_mob.client)
+			continue
+		to_chat(player_mob, message)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, user, player_mob, message, user.tts_seed, TRUE)
+

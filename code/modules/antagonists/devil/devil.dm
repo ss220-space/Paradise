@@ -13,9 +13,9 @@
 	var/sacrifice_count
 	var/datum/devil_rank/rank
 	var/tmp/list/devil_targets
+	var/list/shadows
 
-	var/const/sacrifice_need = 13
-	var/const/contracts_need = 6
+	var/const/sacrifice_need = BLOOD_SACRIFICE + TRUE_SACRIFICE
 
 /datum/antagonist/devil/can_be_owned(datum/mind/new_owner)
 	. = ..()
@@ -39,8 +39,7 @@
 	if((!istype(soul)) || (LAZYIN(soulsOwned, soul)))
 		return
 
-	LAZYADD(soulsOwned, soul)
-	LAZYADD(ritualSouls, soul)
+	LAZYOR(soulsOwned, soul)
 	to_chat(owner.current, span_warning("Вы поглощаете душу и насыщаетесь ею."))
 
 	owner.current.set_nutrition(NUTRITION_LEVEL_FULL)
@@ -49,6 +48,7 @@
 
 	try_update_rank()
 	update_hud()
+	SStgui.update_uis(src)
 
 /datum/antagonist/devil/proc/sacrifice_soul(datum/mind/soul)
 	if((!istype(soul)) || (LAZYIN(soulsOwned, soul)))
@@ -58,17 +58,24 @@
 	soul.hasSoul = FALSE
 	soul.soulOwner = owner
 	sacrifice_count += 1
+	LAZYOR(ritualSouls, soul)
+	LAZYOR(soulsOwned, soul)
 	try_update_rank()
+	SStgui.update_uis(src)
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
 	LAZYREMOVE(soulsOwned, soul)
+	soul.hasSoul = TRUE
+	soul.soulOwner = soul
+	soul.damnation_type = null
 	to_chat(owner.current, span_warning("Вы чувствуете, как часть ваших сил угасает"))
 	update_hud()
+	SStgui.update_uis(src)
 
 /datum/antagonist/devil/proc/try_update_rank(is_ritual = FALSE)
 	if(!rank.required_souls || !rank.next_rank_type)
 		return FALSE
-	
+
 	if(rank.ritual_required && !is_ritual)
 		return FALSE
 
@@ -99,7 +106,7 @@
 		return TRUE
 
 	rank.give_spells()
-
+	SStgui.update_uis(src)
 	return TRUE
 
 /datum/antagonist/devil/proc/remove_spells()
@@ -186,20 +193,12 @@
 
 /datum/antagonist/devil/proc/forge_sacrifice_objective()
 
-	var/command_target_count = ceil(sacrifice_need / 12)
-	var/security_target_count = floor(sacrifice_need / 4)
-	var/other_target_count = sacrifice_need - command_target_count - security_target_count
-
-	for(var/i in 1 to command_target_count)
+	for(var/i in 1 to BLOOD_SACRIFICE)
 		var/datum/objective/devil/sacrifice/command/sacrifice = new
 		add_objective(sacrifice)
 
-	for(var/i in 1 to security_target_count)
+	for(var/i in 1 to TRUE_SACRIFICE + ASCEND_SACRIFICE)
 		var/datum/objective/devil/sacrifice/security/sacrifice = new
-		add_objective(sacrifice)
-
-	for(var/i in 1 to other_target_count)
-		var/datum/objective/devil/sacrifice/other/sacrifice = new
 		add_objective(sacrifice)
 
 /datum/antagonist/devil/add_owner_to_gamemode()
@@ -216,6 +215,7 @@
 	owner.current.AddElement(/datum/element/devil_regeneration)
 	owner.current.AddElement(/datum/element/devil_banishment) // handles devil banishes
 	ADD_TRAIT(owner.current, TRAIT_ABSOLUTE_VIRUSIMMUNE, DEVIL_TRAIT)
+	ADD_TRAIT(owner.current, TRAIT_HEALS_FROM_HELL_RIFTS, DEVIL_TRAIT)
 
 	init_new_rank()
 	init_bane()
@@ -234,6 +234,7 @@
 	owner.current.RemoveElement(/datum/element/devil_regeneration)
 	owner.current.RemoveElement(/datum/element/devil_banishment)
 	REMOVE_TRAIT(owner.current, TRAIT_ABSOLUTE_VIRUSIMMUNE, DEVIL_TRAIT)
+	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_HELL_RIFTS, DEVIL_TRAIT)
 
 	remove_spells()
 	remove_hud()
@@ -246,3 +247,32 @@
 
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
+
+/datum/antagonist/devil/ui_interact(mob/user, datum/tgui/ui)
+	ui = SStgui.try_update_ui(user, src, ui)
+	if(!ui)
+		// Open UI
+		ui = new(user, src, "DevilInfo")
+		ui.open()
+
+
+/datum/antagonist/devil/ui_status(mob/user, datum/ui_state/state)
+	return UI_INTERACTIVE
+
+/datum/antagonist/devil/ui_data()
+	var/list/data = list()
+	data["true_name"] = info.truename
+	data["ban"] = info.ban.law
+	data["obligation"] = info.obligation.law
+	data["banish"] = info.banish.law
+	data["bane"] = info.bane.law
+	data["souls_count"] = LAZYLEN(soulsOwned)
+	data["sacrifice_count"] = LAZYLEN(ritualSouls)
+	data["rank"] = rank.name
+	data["next_rank"] = rank.next_rank_type?.name
+	data["required_souls"] = rank.required_souls
+	data["sacrifice_required"] = !!rank.required_sacrifice
+	data["ritual_required"] = rank.ritual_required
+
+	return data
+

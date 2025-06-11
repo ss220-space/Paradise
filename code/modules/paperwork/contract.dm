@@ -46,8 +46,8 @@
 	icon_state = "evil_contract"
 	joinable = FALSE
 
-/obj/item/paper/contract/infernal/New(atom/loc, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
-	..()
+/obj/item/paper/contract/infernal/Initialize(atom/mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
+	. = ..()
 	devilinfo = nOwner.has_antag_datum(/datum/antagonist/devil)
 	owner = nOwner
 	target = nTarget
@@ -109,7 +109,7 @@
 /obj/item/paper/contract/infernal/Topic(href, href_list)
 	if(href_list["sign_contract"])
 		if(tgui_alert(usr, "Вы действительно хотите подписать контракт?", "Подтверждение", list("Да", "Нет")) != "Да")
-			usr << browse(null, "window=Paper[UID()]")
+			close_window(usr, "Paper[UID()]")
 			balloon_alert(owner.current, "контракт не подписан!")
 			return
 		if(do_after(usr, 1 SECONDS, src, DA_IGNORE_LYING) && usr.mind == target \
@@ -122,10 +122,10 @@
 			if(ishuman(usr))
 				var/mob/living/carbon/human/human = usr
 				human.AdjustBlood(-100)
-			usr << browse(null, "window=Paper[UID()]")
+			close_window(usr, "Paper[UID()]")
 			return
 	if(href_list["close_contract"])
-		usr << browse(null, "window=Paper[UID()]")
+		close_window(usr, "Paper[UID()]")
 		balloon_alert(owner.current, "контракт не подписан!")
 		return
 	. = ..()
@@ -147,6 +147,8 @@
 
 	return ..()
 
+/obj/item/paper/contract/infernal/stamp(obj/item/stamp/stamp, no_pixel_shift, special_stamped, special_icon_state)
+	return FALSE
 
 /obj/item/paper/contract/infernal/attack(mob/living/victim, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()

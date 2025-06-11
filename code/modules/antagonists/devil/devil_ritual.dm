@@ -66,7 +66,7 @@
 
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
-	if(!human.stat != DEAD)
+	if(human.stat != DEAD)
 		ritual_object.balloon_alert(invoker, "жертва не мертва!")
 		return FALSE
 
@@ -142,7 +142,7 @@
 		return FALSE
 
 	if(devil.rank.type == TRUE_DEVIL_RANK)
-		ritual_object.balloon_alert(invoker, "у вас неподходящий ранг!")
+		ritual_object.balloon_alert(invoker, "вы слишком слабы!")
 		return FALSE
 
 	var/count
@@ -225,13 +225,13 @@
 			var/message = span_reallybig("<i><b>Д--</b></i>")
 			to_chat(invoker, message)
 			invoker.say(message)
-			send_to_playing_players(span_danger("<span style='font-size: 5;'><b>\"ЛЕНЬ, ГНЕВ, ОБЖОРСТВО, УНЫНИЕ, ЗАВИСТЬ, ЖАДНОСТЬ, ГОРДЫНЯ! ОГНИ АДА ПРОСЫПАЮТСЯ!!\"</span>"))
+			send_to_playing_players(span_danger(span_fontsize5("<b>\"ЛЕНЬ, ГНЕВ, ОБЖОРСТВО, УНЫНИЕ, ЗАВИСТЬ, ЖАДНОСТЬ, ГОРДЫНЯ! ОГНИ АДА ПРОСЫПАЮТСЯ!!\"")))
 			sound_to_playing_players('sound/hallucinations/veryfar_noise.ogg')
 			stage = SEVENTH_DEVIL_ASCEND_STAGE
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
 			devil.try_update_rank(TRUE)
-			GLOB.command_announcement.Announce("Обнаружено возвышение тёмной сущности известной как [devil.info.truename]. Зафиксировано критическое истончение завесы между мирами. Проникновение темных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.command_announcement.Announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности известной как [devil.info.truename]. Проникновение темных сущностей различного ранга обнаружено на борт станции [station_name()] неизбежно. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 			var/area/area = get_area(invoker)
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
@@ -239,5 +239,8 @@
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
 			SSweather.run_weather(/datum/weather/hell)
+
+		else
+			return
 
 	addtimer(CALLBACK(src, PROC_REF(hell_coming), invoker, devil, stage), timers_list[stage])

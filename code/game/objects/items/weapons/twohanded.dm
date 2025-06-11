@@ -887,15 +887,15 @@
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
-	desc = "Красные вилы, похоже, это работа дьявола."
-	ru_names = list(  
-		NOMINATIVE = "демонические вилы",  
-		GENITIVE = "демонических вил",  
-		DATIVE = "демоническим вилам",  
-		ACCUSATIVE = "демонические вилы",  
-		INSTRUMENTAL = "демоническими вилами",  
-		PREPOSITIONAL = "демонических вилах"  
-	)  
+	desc = "Красные вилы, похоже, это рабочий инструмент дьявола."
+	ru_names = list(
+		NOMINATIVE = "демонические вилы",
+		GENITIVE = "демонических вил",
+		DATIVE = "демоническим вилам",
+		ACCUSATIVE = "демонические вилы",
+		INSTRUMENTAL = "демоническими вилами",
+		PREPOSITIONAL = "демонических вилах"
+	)
 	force = 19
 	throwforce = 24
 	force_unwielded = 19
@@ -921,7 +921,7 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронзает [genderize_ru(user.gender, 'свой', 'свою', 'своё', 'свои')] живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, 'он', 'она', 'оно', 'они')] пытается покончить с собой..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронзает [genderize_ru(user.gender, "свой", "свою", "своё", "свои")] живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
@@ -929,7 +929,7 @@
 	if(isliving(user))
 		var/mob/living/U = user
 		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message(span_warning("Когда [U.declent_ru(NOMINATIVE)] поднимает [declent_ru(ACCUSATIVE)], [genderize_ru(U.gender, 'его', 'её', 'его', 'их')] руки на мгновение загораются."), \
+			U.visible_message(span_warning("Когда [U.declent_ru(NOMINATIVE)] поднимает [declent_ru(ACCUSATIVE)], [genderize_ru(U.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
 							span_warning("\"Когда ты поднимаешь [declent_ru(ACCUSATIVE)], твои руки воспламеняются, напоминая тебе обо всех твоих прошлых грехах.\""))
 			if(ishuman(U))
 				var/mob/living/carbon/human/H = U
@@ -969,7 +969,7 @@
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
 		mineral.gets_drilled(user)
 		return TRUE
-		
+
 	..()
 
 /obj/item/twohanded/bamboospear
