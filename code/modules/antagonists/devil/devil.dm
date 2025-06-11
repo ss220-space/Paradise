@@ -51,7 +51,7 @@
 	SStgui.update_uis(src)
 
 /datum/antagonist/devil/proc/sacrifice_soul(datum/mind/soul)
-	if((!istype(soul)) || (LAZYIN(soulsOwned, soul)))
+	if(!istype(soul) || LAZYIN(soulsOwned, soul))
 		return
 
 	to_chat(owner.current, span_warning("Вы приносите душу в жертву."))
