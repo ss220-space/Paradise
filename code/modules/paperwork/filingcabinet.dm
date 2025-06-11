@@ -83,7 +83,7 @@
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
 	if(!length(contents))
-		to_chat(user, "<span class='notice'>[src] пуст.</span>")
+		to_chat(user, span_notice("[src] пуст."))
 		return
 
 	add_fingerprint(user)
@@ -111,9 +111,9 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			to_chat(user, "<span class='notice'>Вы наугад вытаскиваете \a [I] из [src]</span>")
+			to_chat(user, span_notice("Вы наугад вытаскиваете [I] из [src]"))
 			return
-	to_chat(user, "<span class='notice'>Вы ничего не нашли в [src].</span>")
+	to_chat(user, span_notice("Вы ничего не нашли в [src]"))
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment/attack_hand(mob/user)
 	if(cooldown)
-		to_chat(user, "<span class='warning'>[src] заклинило. Подождите немного.</span>")
+		to_chat(user, span_warning("[src] заклинило. Подождите немного."))
 	else
 		if(!populated)
 			add_fingerprint(user)
