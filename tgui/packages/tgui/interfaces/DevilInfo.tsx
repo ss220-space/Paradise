@@ -77,7 +77,7 @@ export const DevilInfo = (_props: unknown) => {
               Необходимо жертв:<b>{sacrifice_required}</b>
             </Stack.Item>
             <Stack.Item p={1}>
-              Нужна ритуал возвышения:{' '}
+              Нужен ритуал возвышения:{' '}
               <span style={{ color: ritual_required ? 'green' : 'red' }}>
                 <b>{ritual_required ? 'Да' : 'Нет'}</b>
               </span>

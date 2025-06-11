@@ -10,8 +10,8 @@ body{
 	color: #600A0A;
 	padding: 20px;
 	text-align: center;
-	width: 100vw;
-	height: 100vh;
+	width: 100%;
+	height: 43.75em;
 	margin: 0;
 	box-sizing: border-box;
 }

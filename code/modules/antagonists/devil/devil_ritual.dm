@@ -19,7 +19,7 @@
 
 	return
 
-/datum/ritual/devil/imp/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/devil/imp/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите сыграть за беса?", SPECIAL_ROLE_DEVIL_PAWN, TRUE)
 
 	if(!LAZYLEN(candidates))
@@ -35,7 +35,7 @@
 
 	return RITUAL_SUCCESSFUL
 
-/datum/ritual/devil/imp/proc/improve_imp(mob/living/simple_animal/imp/imp, mob/living/carbon/human/invoker)
+/datum/ritual/devil/imp/proc/improve_imp(mob/living/simple_animal/imp/imp, mob/living/carbon/invoker)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
 	imp.universal_speak = TRUE
@@ -56,7 +56,7 @@
 	things["жертва"] = 1
 	return things
 
-/datum/ritual/devil/sacrifice/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/devil/sacrifice/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -80,7 +80,7 @@
 
 	return TRUE
 
-/datum/ritual/devil/sacrifice/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/devil/sacrifice/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/mob/living/carbon/human/human = locate() in used_things
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
@@ -123,7 +123,7 @@
 	things["жертва"] = 2
 	return things
 
-/datum/ritual/devil/ascendetion/check_contents(mob/living/carbon/human/invoker, list/used_things)
+/datum/ritual/devil/ascendetion/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
 	if(!.)
@@ -141,14 +141,14 @@
 		ritual_object.balloon_alert(invoker, "у вас недостаточно душ!")
 		return FALSE
 
-	if(devil.rank.type == TRUE_DEVIL_RANK)
+	if(devil.rank.type != TRUE_DEVIL_RANK)
 		ritual_object.balloon_alert(invoker, "вы слишком слабы!")
 		return FALSE
 
 	var/count
 
 	for(var/mob/living/carbon/human/human in used_things)
-		if(!human.stat != DEAD)
+		if(human.stat != DEAD)
 			ritual_object.balloon_alert(invoker, "одна из жертв не мертва!")
 			return FALSE
 
@@ -159,6 +159,7 @@
 		if(!(SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE_CHECK) & COMPONENT_SACRIFICE_VALID))
 			ritual_object.balloon_alert(invoker, "одна из жертв не имеет ценности!")
 			return FALSE
+
 		count += 1
 
 	if(count < required_things[/mob/living/carbon/human])
@@ -167,7 +168,7 @@
 
 	return TRUE
 
-/datum/ritual/devil/ascendetion/do_ritual(mob/living/carbon/human/invoker, list/invokers, list/used_things)
+/datum/ritual/devil/ascendetion/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
 	if(!devil)
@@ -181,15 +182,17 @@
 		SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE)
 	if(count < required_things[/mob/living/carbon/human])
 		return RITUAL_FAILED_ON_PROCEED
-
+		
+	hell_coming(invoker, devil)
 	return RITUAL_SUCCESSFUL
 
 /datum/ritual/devil/ascendetion/proc/hell_coming(mob/living/carbon/human/invoker, datum/antagonist/devil/devil, stage = DEVIL_ASCEND_START_STAGE)
-	if(!invoker)
+	if(QDELETED(invoker))
 		return
 
 	switch(stage)
 		if(DEVIL_ASCEND_START_STAGE)
+			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
 			to_chat(invoker, span_warning("Ты чувствуешь, будто вот-вот возвысишься."))
 			GLOB.command_announcement.Announce("Тёмная сушность, известная как [devil.info.truename], из изменерния известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 			stage = FIRST_DEVIL_ASCEND_STAGE
@@ -239,8 +242,6 @@
 
 		if(EIGHTH_DEVIL_ASCEND_STAGE)
 			SSweather.run_weather(/datum/weather/hell)
-
-		else
 			return
 
 	addtimer(CALLBACK(src, PROC_REF(hell_coming), invoker, devil, stage), timers_list[stage])

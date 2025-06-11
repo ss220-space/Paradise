@@ -71,7 +71,7 @@
 	LAZYOR(new_mob.faction, "hell")
 	new_mob.key = mob.key
 	mob.dust()
-	new_mob.mind.add_antag_datum(/datum/antagonist/imp/demon)
+	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon)
 
 /datum/weather/hell/proc/transform_imps(list/devils)
 	for(var/datum/antagonist/devil/devil as anything in devils)
@@ -79,7 +79,7 @@
 			if(!soul.current || soul.current.stat == DEAD)
 				continue
 			var/mob/mob = soul.current
-			to_chat(soul, span_warning("Ваша проданная душа взывает к вам. Вы вынуждены повиноваться ее воле. Вы чувствуете серьезные изменения в своем теле."))
+			to_chat(mob, span_warning("Ваша проданная душа взывает к вам. Вы вынуждены повиноваться ее воле. Вы чувствуете серьезные изменения в своем теле."))
 			addtimer(CALLBACK(src, PROC_REF(transform_imp), mob), TELEGRAPH_TIME)
 
 
@@ -90,7 +90,7 @@
 	LAZYOR(new_mob.faction, "hell")
 	new_mob.key = mob.key
 	mob.dust()
-	new_mob.mind.add_antag_datum(/datum/antagonist/imp/from_soul)
+	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/from_soul)
 
 /datum/weather/hell/proc/transform_shadows(list/devils)
 	for(var/datum/antagonist/devil/devil as anything in devils)
@@ -99,10 +99,12 @@
 				continue
 			var/datum/objective/objective = locate(/datum/objective/assassinate/shadow_kill) in soul.objectives
 			var/objective_check = objective?.check_completion()
+			var/mob/mob = soul.current
 			if(objective_check)
-				to_chat(soul, span_warning("Вы выполнили свою цель и готовы к возвышению в нечто более могущественное. Вы чувствуете первые изменения."))
+				to_chat(soul.current, span_warning("Вы выполнили свою цель и готовы к возвышению в нечто более могущественное. Вы чувствуете первые изменения."))
 			else
-				to_chat(soul, span_warning("Вы не выполнили свою цель. Поток силы, сочащейся из адского измерения неизбежно испепелит вас."))
+				to_chat(soul.current, span_warning("Вы не выполнили свою цель. Поток силы, сочащейся из адского измерения неизбежно испепелит вас."))
+			addtimer(CALLBACK(src, PROC_REF(transform_shadow), mob, objective_check), TELEGRAPH_TIME)
 
 /datum/weather/hell/proc/transform_shadow(mob/mob, objective_check)
 	if(QDELETED(src))
@@ -116,7 +118,7 @@
 	LAZYOR(new_mob.faction, "hell")
 	new_mob.key = mob.key
 	mob.dust()
-	new_mob.mind.add_antag_datum(/datum/antagonist/imp/demon/shadow)
+	new_mob.mind?.add_antag_datum(/datum/antagonist/imp/demon/shadow)
 
 /datum/weather/hell/start()
 	. = ..()

@@ -966,7 +966,7 @@
 		var/turf/simulated/wall/wall = target
 		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
-		wall.devastate_wall(TRUE)
+		wall.dismantle_wall(TRUE)
 		return TRUE
 
 	if(ismineralturf(target))

@@ -43,6 +43,13 @@
 /mob/living/carbon/true_devil/ascended/flamer_fire_act(damage)
 	return FALSE
 
+/mob/living/carbon/true_devil/ascended/handle_flamer_fire(obj/flamer_fire/fire, damage, delta_time)
+	return FALSE
+
+/mob/living/carbon/true_devil/ascended/handle_flamer_fire_crossed(obj/flamer_fire/fire)
+	return FALSE
+	
+
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)
 		dna = dna_source.dna.Clone()

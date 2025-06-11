@@ -2614,11 +2614,12 @@
 
 	antag.owner = src
 	LAZYADD(antag_datums, antag)
-
-	antag.create_team(team)
-	var/datum/team/antag_team = antag.get_team()
-	if(antag_team)
-		antag_team.add_member(src)
+	
+	if(team)
+		antag.create_team(team)
+		var/datum/team/antag_team = antag.get_team()
+		if(antag_team)
+			antag_team.add_member(src)
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()

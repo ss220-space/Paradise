@@ -102,8 +102,7 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/dark_conversion,
-		/obj/effect/proc_holder/spell/aoe/devil_fire
+		/obj/effect/proc_holder/spell/dark_conversion
 	)
 
 /datum/devil_rank/blood_lizard/apply_rank()
@@ -129,6 +128,7 @@
 	regen_amount = TRUE_DEVIL_REGEN_AMOUNT
 
 	next_rank_type = ASCEND_DEVIL_RANK
+	required_souls = ASCEND_THRESHOLD
 	ritual_required = TRUE
 
 	rank_spells = list(
@@ -141,8 +141,7 @@
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 		/obj/effect/proc_holder/spell/sintouch,
-		/obj/effect/proc_holder/spell/dark_conversion,
-		/obj/effect/proc_holder/spell/aoe/devil_fire
+		/obj/effect/proc_holder/spell/dark_conversion
 	)
 
 /datum/devil_rank/true_devil/apply_rank()
@@ -171,7 +170,6 @@
 		/obj/effect/proc_holder/spell/fireball/hellish,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
-		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/devil_broadcast
 	)
 
@@ -189,7 +187,9 @@
 	if(isdevil(devil_mob))
 		var/mob/living/carbon/true_devil/old_devil = devil_mob
 		old_devil.oldform?.forceMove(true_devil)
+		true_devil.oldform = old_devil.oldform
 		old_devil.oldform = null
+		qdel(old_devil)
 	else
 		ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
 		devil_mob.forceMove(true_devil)

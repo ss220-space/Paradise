@@ -61,6 +61,7 @@
 	LAZYOR(ritualSouls, soul)
 	LAZYOR(soulsOwned, soul)
 	try_update_rank()
+	update_hud()
 	SStgui.update_uis(src)
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
@@ -197,7 +198,7 @@
 		var/datum/objective/devil/sacrifice/command/sacrifice = new
 		add_objective(sacrifice)
 
-	for(var/i in 1 to TRUE_SACRIFICE + ASCEND_SACRIFICE)
+	for(var/i in 1 to (TRUE_SACRIFICE + ASCEND_SACRIFICE - BLOOD_SACRIFICE))
 		var/datum/objective/devil/sacrifice/security/sacrifice = new
 		add_objective(sacrifice)
 
@@ -270,8 +271,8 @@
 	data["sacrifice_count"] = LAZYLEN(ritualSouls)
 	data["rank"] = rank.name
 	data["next_rank"] = rank.next_rank_type?.name
-	data["required_souls"] = rank.required_souls
-	data["sacrifice_required"] = !!rank.required_sacrifice
+	data["required_souls"] = rank.required_souls || 0
+	data["sacrifice_required"] = rank.required_sacrifice || 0
 	data["ritual_required"] = rank.ritual_required
 
 	return data

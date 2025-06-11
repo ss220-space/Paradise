@@ -302,9 +302,12 @@
 	return targeting
 
 
-/obj/effect/proc_holder/spell/sintouch/sintouch/cast(list/targets, mob/living/user = usr)
+/obj/effect/proc_holder/spell/sintouch/cast(list/targets, mob/living/user = usr)
 	for(var/mob/living/carbon/human/human in targets)
 		if(!human.mind)
+			continue
+		
+		if(!human.mind.hasSoul)
 			continue
 
 		if(human.mind.has_antag_datum(/datum/antagonist/sintouched))
@@ -446,7 +449,7 @@
 		revert_cast(user)
 		return
 
-	make_shadow(human, )
+	make_shadow(human, devil)
 
 /datum/objective/assassinate/shadow_kill
 	antag_menu_name = "Убить по воле проклятия"
