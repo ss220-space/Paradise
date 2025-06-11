@@ -590,7 +590,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		return
 
 
-/datum/admins/proc/shattle_start()
+/datum/admins/proc/shuttle_start()
 	set category = "Server"
 	set desc = "Установить место появления всех членов экипажа в начале смены на шаттле."
 	set name = "Старт с шаттла"
