@@ -20,7 +20,7 @@ SUBSYSTEM_DEF(ticker)
 	/// Do we want to force-start as soon as we can
 	var/force_start = FALSE
 	/// Do we want to crew members to start on the shuttle?
-	var/shattle_start = FALSE
+	var/shuttle_start = FALSE
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -296,7 +296,7 @@ SUBSYSTEM_DEF(ticker)
 
 	watch = start_watch()
 	if(prob(5))
-		SSticker.shattle_start = TRUE
+		SSticker.shuttle_start = TRUE
 
 	equip_characters() // Apply outfits and loadouts to the characters
 	log_debug("Equipping characters took [stop_watch(watch)]s")
