@@ -225,7 +225,18 @@
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
-	desc = "A sterile mask designed to help prevent the spread of diseases."
+	desc = "Одноразовая стерильная маска, изготовленная из многослойного нетканого полимерного материала. \
+			Предназначена для предотвращения распространения воздушно-капельных инфекций и обеспечивает защиту от биологического загрязнения. \
+			Обладает высокой степенью проницаемости газов и практически не пропускает вредные вещества. \
+			Ношение в течении долгого времени не рекомендуется."
+	ru_names = list(
+		NOMINATIVE = "стерильная маска",
+		GENITIVE = "стерильной маски",
+		DATIVE = "стерильной маске",
+		ACCUSATIVE = "стерильную маску",
+		INSTRUMENTAL = "стерильной маской",
+		PREPOSITIONAL = "стерильной маске"
+	)
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
