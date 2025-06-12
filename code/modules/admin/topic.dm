@@ -3705,6 +3705,9 @@
 					return
 				create_cargo_crate()
 
+			if("shuttle_start")
+				shuttle_start()
+
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
 			if(ok)
@@ -4166,3 +4169,18 @@
 		/obj/effect/proc_holder/spell/mind_transfer::cast(list(target), human)
 
 	log_and_message_admins("Initiated mass mindswap")
+
+/datum/admins/proc/shuttle_start()
+	if(!SSticker)
+		tgui_alert(usr, "Пожалуйста подождите, необходимая подсистема еще не была запущенна.")
+		return FALSE
+
+	if(SSticker.current_state != GAME_STATE_PREGAME && SSticker.current_state != GAME_STATE_STARTUP)
+		to_chat(usr, span_red("Ошибка: Старт с шаттла: Игра уже началась."), confidential=TRUE)
+		return FALSE
+
+	SSticker.shuttle_start = !SSticker.shuttle_start
+	var/msg = "[usr.key] [SSticker.shuttle_start ? "включил" : "выключил"] гарантированный старт с шаттла."
+	log_admin(msg)
+	message_admins(span_darkmblue(msg))
+	return TRUE
