@@ -1,21 +1,24 @@
 #!/bin/bash
-set -eo pipefail
+set -euo pipefail
 
-source _build_dependencies.sh
+if [ -z "${BYOND_MAJOR+x}" ]; thenAdd commentMore actions
+  source _build_dependencies.sh
+  # if some other build step hasn't specified the specific BYOND version we're not
+  # gonna get it straight from _build_dependencies.sh so one more fallback here
+  BYOND_MAJOR=$STABLE_BYOND_MAJOR
+  BYOND_MINOR=$STABLE_BYOND_MINOR
 
-TARGET_MAJOR=$STABLE_BYOND_MAJOR
-TARGET_MINOR=$STABLE_BYOND_MINOR
-
-if [ -z "$1" ]; then
-	echo "No arg specified. Assuming STABLE."
-else
-	if [ "$1" == "BETA" ]; then
-		TARGET_MAJOR=$BETA_BYOND_MAJOR
-		TARGET_MINOR=$BETA_BYOND_MINOR
-	fi
+  if [ -z "$1" ]; then
+    echo "No arg specified. Assuming STABLE."
+  else
+    if [ "$1" == "BETA" ]; then
+      BYOND_MAJOR=$BETA_BYOND_MAJOR
+      BYOND_MINOR=$BETA_BYOND_MINOR
+    fi
+  fi
 fi
 
-if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${TARGET_MAJOR}.${TARGET_MINOR}" $HOME/BYOND/version.txt;
+if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}" $HOME/BYOND/version.txt;
 then
   echo "Using cached directory."
 else
@@ -25,7 +28,7 @@ else
   cd "$HOME/BYOND"
 
   if ! curl -L --fail --retry 3 \
-  	-A "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36" \
+  	-H "User-Agent: ParadiseSS1984/Paradise CI" \
     "http://www.byond.com/download/build/${TARGET_MAJOR}/${TARGET_MAJOR}.${TARGET_MINOR}_byond_linux.zip" \
     -o byond.zip; then
     echo "Failed to download BYOND!"
@@ -49,6 +52,6 @@ else
   rm byond.zip
   cd byond
   make here
-  echo "$TARGET_MAJOR.$TARGET_MINOR" > "$HOME/BYOND/version.txt"
+  echo "$BYOND_MAJOR.$BYOND_MINOR" > "$HOME/BYOND/version.txt"
   cd ~/
 fi

@@ -37,7 +37,7 @@ function Remove-Quiet {
 }
 
 function task-install {
-  yarn install
+  yarn install --network-timeout 100000 --httpRetry 5
 }
 
 ## Runs webpack
