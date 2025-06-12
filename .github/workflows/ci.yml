@@ -62,6 +62,10 @@ jobs:
   compile_all_maps:
     name: Compile All Maps
     runs-on: ubuntu-22.04
+    strategy:
+      fail-fast: false
+      matrix:
+        byondtype: ['STABLE']
     steps:
       - uses: actions/checkout@v4
       - name: Restore BYOND from Cache
