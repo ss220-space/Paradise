@@ -47,12 +47,12 @@
 /obj/projectile/beam/laser/slug
 	name = "laser slug beam"
 	ru_names = list(
-		NOMINATIVE = "лазерная пуля",
-		GENITIVE = "лазерной пули",
-		DATIVE = "лазерной пуле",
-		ACCUSATIVE = "лазерную пулю",
-		INSTRUMENTAL = "лазерной пулей",
-		PREPOSITIONAL = "лазерной пуле"
+		NOMINATIVE = "лазерный импульс",
+		GENITIVE = "лазерного импульса",
+		DATIVE = "лазерному импульсу",
+		ACCUSATIVE = "лазерный импульс",
+		INSTRUMENTAL = "лазерным импульсом",
+		PREPOSITIONAL = "лазерном импульсе"
 	)
 	damage = 50
 	stamina = 33
@@ -162,12 +162,12 @@
 /obj/projectile/beam/pulse
 	name = "pulse"
 	ru_names = list(
-		NOMINATIVE = "импульсный луч",
-		GENITIVE = "импульсного луча",
-		DATIVE = "импульсному лучу",
-		ACCUSATIVE = "импульсный луч",
-		INSTRUMENTAL = "импульсным лучом",
-		PREPOSITIONAL = "импульсном луче"
+		NOMINATIVE = "импульс",
+		GENITIVE = "импульса",
+		DATIVE = "импульсу",
+		ACCUSATIVE = "импульс",
+		INSTRUMENTAL = "импульсом",
+		PREPOSITIONAL = "импульсе"
 	)
 	icon_state = "u_laser"
 	damage = 50
@@ -197,12 +197,12 @@
 /obj/projectile/beam/emitter
 	name = "emitter beam"
 	ru_names = list(
-		NOMINATIVE = "луч излучателя",
-		GENITIVE = "луча излучателя",
-		DATIVE = "лучу излучателя",
-		ACCUSATIVE = "луч излучателя",
-		INSTRUMENTAL = "лучом излучателя",
-		PREPOSITIONAL = "луче излучателя"
+		NOMINATIVE = "импульс излучателя",
+		GENITIVE = "импульса излучателя",
+		DATIVE = "импульсу излучателя",
+		ACCUSATIVE = "импульс излучателя",
+		INSTRUMENTAL = "импульсом излучателя",
+		PREPOSITIONAL = "импульсе излучателя"
 	)
 	icon_state = "emitter"
 	damage = 30
@@ -291,12 +291,12 @@
 /obj/projectile/beam/podsniper/disabler
 	name = "sniper disabler beam"
 	ru_names = list(
-		NOMINATIVE = "лазер снайперского дизейблера",
-		GENITIVE = "лазера снайперского дизейблера",
-		DATIVE = "лазеру снайперского дизейблера",
-		ACCUSATIVE = "лазер снайперского дизейблера",
-		INSTRUMENTAL = "лазером снайперского дизейблера",
-		PREPOSITIONAL = "лазере снайперского дизейблера"
+		NOMINATIVE = "луч снайперского дизейблера",
+		GENITIVE = "луча снайперского дизейблера",
+		DATIVE = "лучу снайперского дизейблера",
+		ACCUSATIVE = "луч снайперского дизейблера",
+		INSTRUMENTAL = "лучом снайперского дизейблера",
+		PREPOSITIONAL = "луче снайперского дизейблера"
 	)
 	icon_state = "LSR_disabler"
 	damage = 40
@@ -329,24 +329,24 @@
 /obj/projectile/beam/immolator
 	name = "immolation beam"
 	ru_names = list(
-		NOMINATIVE = "луч иммолятора",
-		GENITIVE = "луча иммолятора",
-		DATIVE = "лучу иммолятора",
-		ACCUSATIVE = "луч иммолятора",
-		INSTRUMENTAL = "лучом иммолятора",
-		PREPOSITIONAL = "луче иммолятора"
+		NOMINATIVE = "импульс иммолятора",
+		GENITIVE = "импульса иммолятора",
+		DATIVE = "импульсу иммолятора",
+		ACCUSATIVE = "импульс иммолятора",
+		INSTRUMENTAL = "импульсом иммолятора",
+		PREPOSITIONAL = "импульсе иммолятора"
 	)
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 
 /obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
 	ru_names = list(
-		NOMINATIVE = "мощный луч иммолятора",
-		GENITIVE = "мощного луча иммолятора",
-		DATIVE = "мощному лучу иммолятора",
-		ACCUSATIVE = "мощный луч иммолятора",
-		INSTRUMENTAL = "мощным лучом иммолятора",
-		PREPOSITIONAL = "мощном луче иммолятора"
+		NOMINATIVE = "мощный импульс иммолятора",
+		GENITIVE = "мощного импульса иммолятора",
+		DATIVE = "мощному импульсу иммолятора",
+		ACCUSATIVE = "мощный импульс иммолятора",
+		INSTRUMENTAL = "мощным импульсом иммолятора",
+		PREPOSITIONAL = "мощном импульсе иммолятора"
 	)
 	damage = 45
 	icon_state = "heavylaser"
@@ -354,12 +354,12 @@
 /obj/projectile/beam/immolator/weak
 	name = "light immolation beam"
 	ru_names = list(
-		NOMINATIVE = "лёгкий луч иммолятора",
-		GENITIVE = "лёгкого луча иммолятора",
-		DATIVE = "лёгкому лучу иммолятора",
-		ACCUSATIVE = "лёгкий луч иммолятора",
-		INSTRUMENTAL = "лёгким лучом иммолятора",
-		PREPOSITIONAL = "лёгком луче иммолятора"
+		NOMINATIVE = "лёгкий импульс иммолятора",
+		GENITIVE = "лёгкого импульса иммолятора",
+		DATIVE = "лёгкому импульсу иммолятора",
+		ACCUSATIVE = "лёгкий импульс иммолятора",
+		INSTRUMENTAL = "лёгким импульсом иммолятора",
+		PREPOSITIONAL = "лёгком импульсе иммолятора"
 	)
 	damage = 8
 	icon_state = "scatterlaser"
@@ -367,12 +367,12 @@
 /obj/projectile/beam/immolator/mech
 	name = "mecha immolation beam"
 	ru_names = list(
-		NOMINATIVE = "луч иммолятора меха",
-		GENITIVE = "луча иммолятора меха",
-		DATIVE = "лучу иммолятора меха",
-		ACCUSATIVE = "луч иммолятора меха",
-		INSTRUMENTAL = "лучом иммолятора меха",
-		PREPOSITIONAL = "луче иммолятора меха"
+		NOMINATIVE = "импульс иммолятора меха",
+		GENITIVE = "импульса иммолятора меха",
+		DATIVE = "импульсу иммолятора меха",
+		ACCUSATIVE = "импульс иммолятора меха",
+		INSTRUMENTAL = "импульсом иммолятора меха",
+		PREPOSITIONAL = "импульсе иммолятора меха"
 	)
 	damage = 15
 
