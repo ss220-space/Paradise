@@ -43,7 +43,7 @@ fi
 task-install() {
   cd "${base_dir}"
   yarn install
-}
+ }
 
 ## Runs webpack
 task-webpack() {
