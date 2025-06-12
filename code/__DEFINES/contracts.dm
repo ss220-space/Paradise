@@ -4,7 +4,7 @@
 #define CONTRACT_MAGIC "Магия"
 #define CONTRACT_REVIVE "Воскрешение"
 #define CONTRACT_KNOWLEDGE "Знание"
-#define CONTRACT_UNWILLING "Безвозмездно"
+#define CONTRACT_UNWILLING "Безвозмездный контракт"
 #define CONTRACT_FRIENDSHIP "Дружба"
 #define CONTRACT_YOUTH "Вечная молодость"
 // FIXME: Implement these
