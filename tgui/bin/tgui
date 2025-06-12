@@ -42,7 +42,7 @@ fi
 ## Installs node modules
 task-install() {
   cd "${base_dir}"
-  yarn install
+  yarn install --network-timeout 100000 --httpRetry 5
 }
 
 ## Runs webpack
