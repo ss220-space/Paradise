@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Restore BYOND from CacheAdd commentMore actions
+      - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
           release: ${{ matrix.byondtype }}
@@ -100,7 +100,7 @@ jobs:
         options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
-      - name: Restore BYOND from CacheAdd commentMore actions
+      - name: Restore BYOND from Cache
         uses: ./.github/actions/restore_or_install_byond
         with:
           release: ${{ matrix.byondtype }}
