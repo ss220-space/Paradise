@@ -6,6 +6,7 @@
 #define CONTRACT_KNOWLEDGE "Знание"
 #define CONTRACT_UNWILLING "Безвозмездно"
 #define CONTRACT_FRIENDSHIP "Дружба"
+#define CONTRACT_YOUTH "Вечная молодость"
 // FIXME: Implement these
 #define CONTRACT_ETALENT "Engineering Talent"
 #define CONTRACT_CTALENT "Chemistry Talent"
@@ -15,7 +16,6 @@
 #define CONTRACT_ECHANCE "An Extra Chance"
 #define CONTRACT_ATECH "Advanced Technology"
 #define CONTRACT_DEVILSMACHINE "Devil's Machinery"
-#define CONTRACT_YOUTH "Eternal Youth"
 #define CONTRACT_FOOD "Food"
 #define CONTRACT_SPACE "Space Gear"
 #define CONTRACT_CALAMITY "Calamity"

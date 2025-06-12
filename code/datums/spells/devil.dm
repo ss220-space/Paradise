@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/conjure_item/pitchfork
-	name = "Summon Pitchfork"
-	desc = "A devil's weapon of choice. Use this to summon/unsummon your pitchfork."
+	name = "Призвать вилы"
+	desc = "Дьявольский призыв инструмента. Этот призывает/отзывает ваши вилы."
 
 	item_type = /obj/item/twohanded/pitchfork/demonic
 
@@ -18,8 +18,8 @@
 
 
 /obj/effect/proc_holder/spell/conjure_item/violin
-	name = "Summon golden violin"
-	desc = "A devil's instrument of choice. Use this to summon/unsummon your golden violin."
+	name = "Призвать золотую скрипку"
+	desc = "Дьявольский призыв инструмента. Этот призывает/отзывает вашу золотую скрипку."
 
 	item_type = /obj/item/instrument/violin/golden
 
@@ -32,14 +32,14 @@
 
 
 /obj/effect/proc_holder/spell/summon_contract
-	name = "Summon infernal contract"
-	desc = "Skip making a contract by hand, just do it by magic."
+	name = "Призвать адский контракт"
+	desc = "Зачем составлять контракт вручную, если можно сделать это с помощью магии?"
 
 	invocation_type = "whisper"
 	invocation = "Iustus signum in linea punctata."
 
-	selection_activated_message = span_notice("You prepare a detailed contract. Click on a target to summon the contract in his hands.")
-	selection_deactivated_message = span_notice("You archive the contract for later use.")
+	selection_activated_message = span_notice("Вы приготавливаете подробный контракт. ЛКМ по цели, чтобы призвать контракт ей в руку.")
+	selection_deactivated_message = span_notice("Вы архивируете контракт до лучших времен.")
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -70,7 +70,7 @@
 	for(var/target in targets)
 		var/mob/living/carbon/C = target
 		if(!C.mind || !user.mind)
-			to_chat(user, span_notice("[C] seems to not be sentient. You are unable to summon a contract for them."))
+			to_chat(user, span_notice("[capitalize(C.declent_ru(NOMINATIVE))] не выглядит разумным. Он не сможет подписать контракт."))
 			continue
 
 		if(C.stat == DEAD)
@@ -80,7 +80,7 @@
 			var/obj/item/paper/contract/infernal/contract = new(user.loc, C.mind, user.mind, GLOB.devil_contracts[CONTRACT_REVIVE])
 			user.put_in_hands(contract)
 		else
-			var/contract_type_name = tgui_input_list(user, "What type of contract?", "Contract Type", list(CONTRACT_POWER, CONTRACT_WEALTH, CONTRACT_PRESTIGE, CONTRACT_MAGIC, CONTRACT_KNOWLEDGE, CONTRACT_FRIENDSHIP))
+			var/contract_type_name = tgui_input_list(user, "Какой тип контракта?", "Тип контракта", GLOB.devil_contracts)
 
 			var/obj/item/paper/contract/infernal/contract = new(C.loc, C.mind, user.mind, GLOB.devil_contracts[contract_type_name])
 			C.put_in_hands(contract)
@@ -155,8 +155,8 @@
 	devil.remove_soul(soul)
 
 /obj/effect/proc_holder/spell/fireball/hellish
-	name = "Hellfire"
-	desc = "This spell launches hellfire at the target."
+	name = "Адское пламя"
+	desc = "Это заклинание запускает сгусток адского пламени в цель."
 
 	school = "evocation"
 	base_cooldown = 8 SECONDS
@@ -172,8 +172,8 @@
 
 
 /obj/effect/proc_holder/spell/infernal_jaunt
-	name = "Infernal Jaunt"
-	desc = "Use hellfire to phase out of existence."
+	name = "Адский Скачок"
+	desc = "Используй адское пламя, чтобы выйти за границу материального мира."
 
 	base_cooldown = 20 SECONDS
 	cooldown_min = 0
@@ -210,22 +210,22 @@
 					continuing = TRUE
 					break
 		if(continuing)
-			to_chat(user, span_warning("You are now phasing in."))
+			to_chat(user, span_warning("Вы возвращаетесь в материальный мир."))
 			if(do_after(user, 15 SECONDS, user, NONE))
 				user.infernalphasein(src)
 		else
-			to_chat(user, span_warning("You can only re-appear near a potential signer or on a shuttle."))
+			to_chat(user, span_warning("Вы можете материализоваться только рядом с потенциальным подписантом или на шаттле."))
 			revert_cast()
 			return ..()
 
 	else
 		user.fakefire()
-		to_chat(user, span_warning("You begin to phase back into sinful flames."))
+		to_chat(user, span_warning("Адское пламя выплёскивает вас обратно в реальность."))
 		if(do_after(user, 15 SECONDS, user, NONE))
 			ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 			user.infernalphaseout(src)
 		else
-			to_chat(user, span_warning("You must remain still while exiting."))
+			to_chat(user, span_warning("Вы должны оставаться неподвижным во время возвращения."))
 			user.ExtinguishMob()
 
 	cooldown_handler.start_recharge()
@@ -234,7 +234,7 @@
 /mob/living/proc/infernalphaseout(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	dust_animation()
 
-	visible_message(span_warning("[src] disappears in a flashfire!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает в огненной вспышке!"))
 	playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, 1, -1)
 
 	var/obj/effect/dummy/slaughter/s_holder = new(loc)
@@ -250,21 +250,21 @@
 
 /mob/living/proc/infernalphasein(obj/effect/proc_holder/spell/infernal_jaunt/spell)
 	if(HAS_TRAIT(src, TRAIT_NO_TRANSFORM))
-		to_chat(src, span_warning("You're too busy to jaunt in."))
+		to_chat(src, span_warning("Вы слишком заняты, чтобы совершить прыжок."))
 		return FALSE
 
 	fakefire()
 	forceMove(get_turf(src))
 
-	visible_message(span_warning("<b>[src] appears in a firey blaze!</b>"))
+	visible_message(span_warning("<b>[capitalize(declent_ru(NOMINATIVE))] появляется в огненной вспышке!</b>"))
 	playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, 1, -1)
 
 	addtimer(CALLBACK(src, PROC_REF(fakefireextinguish), TRUE), 1.5 SECONDS)
 
 
 /obj/effect/proc_holder/spell/sintouch
-	name = "Sin Touch"
-	desc = "Subtly encourage someone to sin."
+	name = "Прикосновение греха"
+	desc = "Данное заклинание тонко подталкивает смертных к греху."
 
 	base_cooldown = 180 SECONDS
 	cooldown_min = 0
@@ -283,7 +283,7 @@
 
 
 /obj/effect/proc_holder/spell/sintouch/ascended
-	name = "Greater sin touch"
+	name = "Великое прикосновение греха"
 	base_cooldown = 10 SECONDS
 	max_targets = 10
 
@@ -306,7 +306,7 @@
 	for(var/mob/living/carbon/human/human in targets)
 		if(!human.mind)
 			continue
-		
+
 		if(!human.mind.hasSoul)
 			continue
 
@@ -317,8 +317,8 @@
 		human.Weaken(4 SECONDS)
 
 /obj/effect/proc_holder/spell/summon_dancefloor
-	name = "Summon Dancefloor"
-	desc = "When what a Devil really needs is funk."
+	name = "Призвать танцпол"
+	desc = "Когда Дьяволу действительно нужен фанк."
 	clothes_req = FALSE
 	human_req = FALSE
 	school = "conjuration"
@@ -350,7 +350,7 @@
 		var/list/funky_turfs = RANGE_TURFS(1, user)
 		for(var/turf/T in funky_turfs)
 			if(T.density)
-				to_chat(user, span_warning("You're too close to a wall."))
+				to_chat(user, span_warning("Вы находитесь слишком близко к стене."))
 				return
 
 		dancefloor_exists = TRUE
@@ -367,7 +367,7 @@
 			i++
 
 /obj/effect/proc_holder/spell/aoe/devil_fire
-	name = "Devil fire"
+	name = "Дьявольский огонь"
 	desc = "Призывает огненные волны в радиусе заклинания."
 	action_icon_state = "explosion_old"
 
@@ -472,7 +472,7 @@
 	playsound(human, 'sound/magic/mutate.ogg', 100, TRUE)
 
 /obj/effect/proc_holder/spell/sacrifice_circle
-	name = "Create sacrifice circle"
+	name = "Создать жертвенный круг"
 	desc = "Создает руну для жертвоприношений."
 
 	action_icon = 'icons/mob/actions/actions_cult.dmi'

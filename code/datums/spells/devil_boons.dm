@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/summon_wealth
-	name = "Summon wealth"
-	desc = "The reward for selling your soul."
+	name = "Призвать богатство"
+	desc = "Ваша награда за продажу души."
 	school = "conjuration"
 	clothes_req = FALSE
 	base_cooldown = 10 SECONDS
@@ -30,7 +30,7 @@
 
 /obj/effect/proc_holder/spell/view_range
 	name = "Distant vision"
-	desc = "The reward for selling your soul."
+	desc = "Ваша награда за продажу души."
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
 	cooldown_min = 1 SECONDS
@@ -70,7 +70,7 @@
 	RegisterSignal(user, COMSIG_LIVING_DEATH, TYPE_PROC_REF(/obj/effect/proc_holder/spell/view_range, make_view_normal))
 
 /obj/effect/proc_holder/spell/view_range/cast(list/targets, mob/user = usr)
-	var/new_view = tgui_input_list(user, "Select view range:", "View", view_ranges, "default")
+	var/new_view = tgui_input_list(user, "Выберите область видимости:", "Видимость", view_ranges, "default")
 	if(isnull(new_view) || !user.client)
 		return
 	if(new_view == "default")
@@ -80,11 +80,11 @@
 
 
 /obj/effect/proc_holder/spell/view_range/genetic
-	desc = "Allows you to choose how far you can see."
+	desc = "Позволяет вам выбрать, как далеко вы будете видеть."
 
 /obj/effect/proc_holder/spell/summon_friend
-	name = "Summon Friend"
-	desc = "The reward for selling your soul."
+	name = "Призвать друга"
+	desc = "Ваша награда за продажу души."
 	action_icon_state = "sacredflame"
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
@@ -99,8 +99,8 @@
 
 /obj/effect/proc_holder/spell/summon_friend/cast(list/targets, mob/user = usr)
 	if(!QDELETED(friend))
-		to_chat(friend, "<span class='userdanger'>Your master has deemed you a poor friend. Your durance in hell will now resume.</span>")
-		to_chat(user, "<span class='notice'>You banish your friend back to whence [friend.p_they()] came.</span>")
+		to_chat(friend, span_userdanger("Твой хозяин посчитал тебя плохим другом. Тебе пора обратно в ад."))
+		to_chat(user, span_notice("Вы изгоняете вашего друга туда, откуда [genderize_ru(friend.gender, "он пришел", "она пришла", "оно пришло", "они пришли")]."))
 		friend.dust()
 		QDEL_NULL(friendShell)
 		return

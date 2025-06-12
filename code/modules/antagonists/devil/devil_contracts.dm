@@ -1,3 +1,4 @@
+#define MAGIC_SPELLS_COUNT 3
 /datum/devil_contract
 	var/name = "Ошибка"
 	var/contract_type = 0
@@ -74,12 +75,38 @@
 	contract_type = CONTRACT_MAGIC
 	contract_subject = "магии"
 	contract_subject_text = ", в обмен на запретные магические способности, выходящие за пределы человеческих возможностей"
+	var/static/list/possible_magic = list(
+		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/fireball,
+		/obj/effect/proc_holder/spell/smoke,
+		/obj/effect/proc_holder/spell/emplosion,
+		/obj/effect/proc_holder/spell/turf_teleport/blink,
+		/obj/effect/proc_holder/spell/area_teleport/teleport,
+		/obj/effect/proc_holder/spell/forcewall,
+		/obj/effect/proc_holder/spell/forcewall/greater,
+		/obj/effect/proc_holder/spell/aoe/conjure/timestop,
+		/obj/effect/proc_holder/spell/aoe/conjure/carp,
+		/obj/effect/proc_holder/spell/projectile/magic_missile,
+		/obj/effect/proc_holder/spell/projectile/honk_missile,
+		/obj/effect/proc_holder/spell/aoe/conjure/construct,
+		/obj/effect/proc_holder/spell/aoe/conjure/creature,
+		/obj/effect/proc_holder/spell/trigger/blind,
+		/obj/effect/proc_holder/spell/aoe/repulse,
+		/obj/effect/proc_holder/spell/sacred_flame,
+		/obj/effect/proc_holder/spell/charge_up/bounce/lightning,
+		/obj/effect/proc_holder/spell/summonitem,
+		/obj/effect/proc_holder/spell/aoe/knock,
+	)
 
 /datum/devil_contract/magic/fulfill_contract(mob/living/carbon/human/user)
 	if(!istype(user) || !user.mind)
 		return FALSE
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/fireball/hellish(null))
-	user.mind.AddSpell(new /obj/effect/proc_holder/spell/aoe/knock(null))
+	var/list/spell_list = possible_magic.Copy()
+	for(var/i = 1; i <= MAGIC_SPELLS_COUNT; i++)
+		var/spell_type = pick_n_take(spell_list)
+		var/obj/effect/proc_holder/spell/spell = new spell_type(null)
+		spell.clothes_req = FALSE
+		user.mind.AddSpell(spell)
 	return ..()
 
 /datum/devil_contract/revive
@@ -148,3 +175,17 @@
 	contract_type = CONTRACT_UNWILLING
 	contract_subject = "рабства"
 	contract_subject_text = ""
+
+/datum/devil_contract/youth
+	name = "контракт вечной молодости"
+	contract_type = CONTRACT_YOUTH
+	contract_subject = "вечной молодости"
+	contract_subject_text = ", в обмен на вечную молодость и красоту"
+
+/datum/devil_contract/youth/fulfill_contract(mob/living/carbon/human/user)
+	if(!istype(user) || !user.mind)
+		return FALSE
+	user.mind.add_antag_datum(/datum/antagonist/vampire/devil_vampire)
+	return ..()
+
+#undef MAGIC_SPELLS_COUNT
