@@ -84,7 +84,7 @@
 	icon_aggro = "watcher"
 	icon_dead = "watcher_dead"
 	pixel_x = -10
-	throw_message = "рикошетит от"
+	throw_message = "отскакивает от"
 	melee_damage_lower = 15
 	melee_damage_upper = 15
 	attacktext = "пронзает"

@@ -33,7 +33,7 @@
 	melee_damage_upper = 25
 	attacktext = "сокрушает"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	throw_message = "ничего не делает с прочной шкурой"
+	throw_message = "не наносит вреда его прочной шкуре"
 	vision_range = 5
 	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
@@ -55,8 +55,8 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/projectile/P)
 	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
-		visible_message(span_danger("[P.name] отскакивает от каменистой шкуры [src.declent_ru(GENITIVE)]!"), \
-               		span_userdanger("[P.name] отскакивает от каменистой шкуры [src.declent_ru(GENITIVE)]!"),\
+		visible_message(span_danger("[P.name] отскакивает от крепкой шкуры [src.declent_ru(GENITIVE)]!"), \
+               		span_userdanger("[P.name] отскакивает от крепой шкуры [src.declent_ru(GENITIVE)]!"),\
 			   		projectile_message = TRUE)
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
@@ -235,7 +235,7 @@
 	icon_living = "goliath"
 	icon_aggro = "goliath"
 	icon_dead = "goliath_dead"
-	throw_message = "ничего не делает с прочной шкурой"
+	throw_message = "не наносит вреда его прочной шкуре"
 	pre_attack_icon = "goliath2"
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
@@ -268,7 +268,7 @@
 	health = 400
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
-	throw_message = "ничего не делает с прочной шкурой"
+	throw_message = "не наносит вреда его прочной шкуре"
 	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30

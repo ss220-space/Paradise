@@ -29,7 +29,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum
 	name = "bubblegum"
-	desc = "В иерархии демонов резни этот – король."
+	desc = "В иерархии демонов резни, он – король."
 	ru_names = list(
 		NOMINATIVE = "Бубльгум",
 		GENITIVE = "Бубльгума",
@@ -624,7 +624,7 @@ Difficulty: Hard
 		return .
 	var/mob/living/bumped_living = bumped_atom
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message(span_danger("[src.declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[src.declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
+	bumped_living.visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] втаптывает вас в землю!"))
 	forceMove(living_turf)
 	bumped_living.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -754,5 +754,5 @@ Difficulty: Hard
 		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
-		to_chat(H, span_colossus("<b>МОИ РУКИ НАСЛАДЯТСЯ, РАЗРЫВАЯ ТЕБЯ... ПРЯМО СЕЙЧАС И ЗДЕСЬ!</b>"))
+		to_chat(H, span_colossus("<b>МОИ РУКИ НАСЛАДЯТСЯ, РАЗРЫВАЯ ТЕБЯ... ПРЯМО ЗДЕСЬ И СЕЙЧАС!</b>"))
 		FindTarget(list(H))

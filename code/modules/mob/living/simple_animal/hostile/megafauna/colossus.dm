@@ -1,6 +1,6 @@
-#define RANDOM_SHOTS "Гнев."
-#define BLAST "Возмездие."
-#define DIR_SHOTS "Плач."
+#define RANDOM_SHOTS "Гнев"
+#define BLAST "Возмездие"
+#define DIR_SHOTS "Плач"
 /*
 
 COLOSSUS
@@ -193,13 +193,13 @@ Difficulty: Very Hard
 	telegraph()
 	if(health < maxHealth/3)
 		return double_spiral()
-	say("Суд.")
+	say("Суд")
 	telegraph()
 	SLEEP_CHECK_DEATH(src, 3.5 SECONDS)
 	return spiral_shoot()
 
 /mob/living/simple_animal/hostile/megafauna/colossus/proc/double_spiral()
-	say("Умри.")
+	say("Умри")
 	telegraph()
 	SLEEP_CHECK_DEATH(src, 3.5 SECONDS)
 	INVOKE_ASYNC(src, PROC_REF(spiral_shoot), FALSE)
@@ -322,7 +322,7 @@ Difficulty: Very Hard
 	L.dust()
 
 /obj/effect/temp_visual/at_shield
-	name = "анти-тулбоксовое поле"
+	name = "anti-toolbox field"
 	desc = "Мерцающее силовое поле, защищающее колосса."
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "at_shield2"
@@ -349,6 +349,14 @@ Difficulty: Very Hard
 
 /obj/projectile/colossus
 	name = "смертоносный заряд"
+	ru_names = list(
+		NOMINATIVE = "смертоносный заряд",
+		GENITIVE = "смертоносного заряда",
+		DATIVE = "смертоносному заряду",
+		ACCUSATIVE = "смертоносный заряд",
+		INSTRUMENTAL = "смертоносным зарядом",
+		PREPOSITIONAL = "смертоносном заряде"
+	)
 	icon_state= "chronobolt"
 	damage = 25
 	armour_penetration = 100

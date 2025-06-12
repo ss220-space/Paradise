@@ -18,7 +18,15 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald
 	name = "herald"
-	desc = "A monstrous beast which fires deadly projectiles at threats and prey."
+	desc = "Чудовищный зверь, поражающий угрозы и добычу смертоносными снарядами."
+	ru_names = list(
+		NOMINATIVE = "вестник",
+		GENITIVE = "вестника",
+		DATIVE = "вестнику",
+		ACCUSATIVE = "вестника",
+		INSTRUMENTAL = "вестником",
+		PREPOSITIONAL = "вестнике"
+	)
 	icon_state = "herald"
 	icon_living = "herald"
 	icon_aggro = "herald"
@@ -32,14 +40,14 @@
 	light_power = 5
 	light_range = 2
 	light_color = "#FF0000"
-	attacktext = "preaches to"
+	attacktext = "проповедует"
 	attack_sound = 'sound/effects/hit_punch.ogg'
-	throw_message = "doesn't affect the purity of"
+	throw_message = "не наносит вреда"
 	speed = 1.4
 	move_to_delay = 10
 	mouse_opacity = MOUSE_OPACITY_ICON
 	death_sound = 'sound/misc/demon_dies.ogg'
-	deathmessage = "begins to shudder as it becomes transparent..."
+	deathmessage = "начинает дрожать и становится прозрачным..."
 	loot_drop = /obj/item/clothing/accessory/necklace/herald_cloak
 	tts_seed = "Abathur"
 
@@ -72,27 +80,27 @@
 	playsound(get_turf(src), 'sound/magic/clockwork/invoke_general.ogg', 20, TRUE)
 
 /datum/action/innate/elite_attack/herald_trishot
-	name = "Triple Shot"
+	name = "Тройной залп"
 	button_icon_state = "herald_trishot"
-	chosen_message = "<span class='boldwarning'>You are now firing three shots in your chosen direction.</span>"
+	chosen_message = span_boldwarning("Теперь вы выпускаете три снаряда в выбранном направлении.")
 	chosen_attack_num = HERALD_TRISHOT
 
 /datum/action/innate/elite_attack/herald_directionalshot
-	name = "Circular Shot"
+	name = "Круговой залп"
 	button_icon_state = "herald_directionalshot"
-	chosen_message = "<span class='boldwarning'>You are firing projectiles in all directions.</span>"
+	chosen_message = span_boldwarning("Вы выпускаете снаряды во всех направлениях.")
 	chosen_attack_num = HERALD_DIRECTIONALSHOT
 
 /datum/action/innate/elite_attack/herald_teleshot
-	name = "Teleport Shot"
+	name = "Телепортирующий выстрел"
 	button_icon_state = "herald_teleshot"
-	chosen_message = "<span class='boldwarning'>You will now fire a shot which teleports you where it lands.</span>"
+	chosen_message = span_boldwarning("Следующий снаряд телепортирует вас к месту попадания.")
 	chosen_attack_num = HERALD_TELESHOT
 
 /datum/action/innate/elite_attack/herald_mirror
-	name = "Summon Mirror"
+	name = "Призыв зеркала"
 	button_icon_state = "herald_mirror"
-	chosen_message = "<span class='boldwarning'>You will spawn a mirror which duplicates your attacks.</span>"
+	chosen_message = span_boldwarning("Вы создадите зеркало, дублирующее ваши атаки.")
 	chosen_attack_num = HERALD_MIRROR
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/OpenFire()
@@ -202,12 +210,20 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/herald/mirror
 	name = "herald's mirror"
-	desc = "This fiendish work of magic copies the herald's attacks.  Seems logical to smash it."
+	desc = "Демоническое творение магии, копирующее атаки Вестника. Логично было бы разбить его."
+	ru_names = list(
+		NOMINATIVE = "зеркало вестника",
+		GENITIVE = "зеркала вестника",
+		DATIVE = "зеркалу вестника",
+		ACCUSATIVE = "зеркало вестника",
+		INSTRUMENTAL = "зеркалом вестника",
+		PREPOSITIONAL = "зеркале вестника"
+	)
 	health = 170
 	maxHealth = 170
 	icon_state = "herald_mirror"
 	icon_aggro = "herald_mirror"
-	deathmessage = "shatters violently!"
+	deathmessage = "разбивается вдребезги!"
 	death_sound = 'sound/effects/glassbr1.ogg'
 	del_on_death = TRUE
 	is_mirror = TRUE
@@ -226,6 +242,14 @@
 
 /obj/projectile/herald
 	name = "death bolt"
+	ru_names = list(
+		NOMINATIVE = "смертоносный заряд",
+		GENITIVE = "смертоносного заряда",
+		DATIVE = "смертоносному заряду",
+		ACCUSATIVE = "смертоносный заряд",
+		INSTRUMENTAL = "смертоносным зарядом",
+		PREPOSITIONAL = "смертоносном заряде"
+	)
 	icon_state = "chronobolt"
 	damage = 15
 	armour_penetration = 35
@@ -233,6 +257,14 @@
 
 /obj/projectile/herald/teleshot
 	name = "golden bolt"
+	ru_names = list(
+		NOMINATIVE = "золотой заряд",
+		GENITIVE = "золотого заряда",
+		DATIVE = "золотому заряду",
+		ACCUSATIVE = "золотой заряд",
+		INSTRUMENTAL = "золотым зарядом",
+		PREPOSITIONAL = "золотом заряде"
+	)
 	damage = 25
 	color = rgb(255,255,102)
 
@@ -262,7 +294,15 @@
 
 /obj/item/clothing/accessory/necklace/herald_cloak
 	name = "cloak of the prophet"
-	desc = "A cloak which lts you travel through a perfect reflection of the world."
+	ru_names = list(
+		NOMINATIVE = "плащ пророка",
+		GENITIVE = "плаща пророка",
+		DATIVE = "плащу пророка",
+		ACCUSATIVE = "плащ пророка",
+		INSTRUMENTAL = "плащом пророка",
+		PREPOSITIONAL = "плаще пророка"
+	)
+	desc = "Плащ, позволяющий путешествовать через идеальное отражение мира."
 	icon = 'icons/obj/lavaland/elite_trophies.dmi'
 	icon_state = "herald_cloak"
 	item_state = "herald_cloak"
@@ -304,23 +344,20 @@
 		starting_mirror = i
 
 	if(!found_mirror)
-		to_chat(usr, "<span class='warning'>You are not close enough to a working mirror to teleport!</span>")
+		to_chat(usr, span_warning("Вы недостаточно близко к рабочему зеркалу для телепортации!"))
 		return
-	var/input_mirror = tgui_input_list(usr, "Choose a mirror to teleport to", "Mirror to Teleport to", mirrors_to_use)
+	var/input_mirror = tgui_input_list(usr, "Выберите зеркало для телепортации", "Телепортация к зеркалу", mirrors_to_use)
 	var/obj/chosen = mirrors_to_use[input_mirror]
 	if(chosen == null)
 		return
-	usr.visible_message("<span class='warning'>[usr] starts to crawl into [starting_mirror]...</span>", \
-			"<span class='notice'>You start to crawl into the [starting_mirror]...</span>")
+	usr.visible_message(span_warning("[usr] начина[pluralize_ru(usr.gender,"ет","ют")] пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете пролезать в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 	if(do_after(usr, 2 SECONDS, usr))
 		var/turf/destination = get_turf(chosen)
 		if(QDELETED(chosen) || !usr|| usr.incapacitated() || !chosen || (get_dist(src, starting_mirror) > 1 || destination.z != usr.z))
 			return
-		usr.visible_message("<span class='warning'>[usr] crawls into the [starting_mirror], and [usr.p_they()] disappear into it!</span>", \
-			"<span class='notice'>You crawl into the [starting_mirror]...</span>")
+		usr.visible_message(span_warning("[usr] пролеза[pluralize_ru(usr.gender,"ет","ют")] в [starting_mirror.declent_ru(ACCUSATIVE)], и исчеза[pluralize_ru(usr.gender,"ет","ют")] в нём!"), span_notice("Вы пролезаете в [starting_mirror.declent_ru(ACCUSATIVE)]..."))
 		usr.forceMove(destination)
-		usr.visible_message("<span class='warning'>[usr] crawls out of [chosen], causing it to shatter!</span>", \
-			"<span class='warning'>You crawl out of your own reflection, shattering the mirror!</span>")
+		usr.visible_message(span_warning("[usr] вылеза[pluralize_ru(usr.gender,"ет","ют")] из [chosen.declent_ru(ACCUSATIVE)], разбивая его!"), span_warning("Вы вылезаете из собственного отражения, разбивая зеркало!"))
 		if(istype(chosen, /obj/structure/mirror))
 			var/obj/structure/mirror/M = chosen
 			M.obj_break("brute")

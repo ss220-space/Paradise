@@ -61,7 +61,7 @@ Difficulty: Medium
 	var/dash_cooldown_to_use = 1.5 SECONDS
 	var/guidance = FALSE
 	var/transform_stop_attack = FALSE // stops the blood drunk miner from attacking after transforming his weapon until the next attack chain
-	deathmessage = "падает на землю, распадаясь на светящиеся частицы."
+	deathmessage = "падает на землю, обращаясь в пыль."
 	death_sound = "bodyfall"
 	footstep_type = FOOTSTEP_MOB_HEAVY
 	enraged_loot = /obj/item/disk/fauna_research/blood_drunk_miner

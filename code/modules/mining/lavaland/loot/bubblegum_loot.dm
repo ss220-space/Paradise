@@ -104,7 +104,7 @@
 	for(var/mob/living/M in targets_to_fuck_up)
 		var/turf/T = get_turf(M)
 		M.Immobilize(1 SECONDS)
-		to_chat(M, "<span class='colossus'><b>NO! I REFUSE TO LET YOU THINK YOU HAVE WON. I SHALL END YOUR INSIGNIFICANT LIFE!</b></span>")
+		to_chat(M, span_colossus("<b>НЕТ! Я НЕ ПОЗВОЛЮ ТЕБЕ ДУМАТЬ, ЧТО ТЫ ПОБЕДИЛ! Я ПОЛОЖУ КОНЕЦ ТВОЕЙ ЖАЛКОЙ ЖИЗНИ!</b>"))
 		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(T)
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 		sleep(8)
