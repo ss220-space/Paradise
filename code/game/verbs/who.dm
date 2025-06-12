@@ -68,7 +68,7 @@
 
 /client/verb/adminwho()
 	set category = STATPANEL_ADMIN_TICKETS
-	set name = "Штат онлайн"
+	set name = "В сети"
 
 	var/msg = ""
 	var/modmsg = ""
