@@ -460,20 +460,20 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		add_fingerprint(user)
 		var/obj/item/card/id/id_card = I
 		if(!id_card.registered_name)
-			to_chat(user, span_warning("The PDA rejects empty ID card."))
+			to_chat(user, span_warning("КПК отклоняет пустые ID-карты."))
 			return ATTACK_CHAIN_PROCEED
 		if(!owner)
 			update_owner_name(id_card.registered_name)
 			ownjob = id_card.assignment
 			ownrank = id_card.rank
 			update_appearance(UPDATE_NAME)
-			to_chat(user, span_notice("The ID card has been scanned."))
+			to_chat(user, span_notice("ID-карта отсканирована."))
 			SStgui.update_uis(src)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		if(!can_use(user))
 			return ATTACK_CHAIN_PROCEED
 		if(id_check(user, in_pda_usage = FALSE))
-			to_chat(user, span_notice("You have put the ID card into the PDA.<br>You can remove it with <b>ALT-click</b>."))
+			to_chat(user, span_notice("Вы поместили ID-карту в КПК.<br>Вы можете вытащить её используя <b>АЛЬТ-клик</b>."))
 			SStgui.update_uis(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
@@ -529,7 +529,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Your [src] explodes!</span>", 1)
+		M.show_message("<span class='danger'>Ваш [src] взрывается!</span>", 1)
 
 	if(T)
 		T.hotspot_expose(700,125)
@@ -557,11 +557,11 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		O.show_message(text("[bicon(src)] *[ttone]*"))
 
 /obj/item/pda/proc/set_ringtone(mob/user)
-	var/new_tone = tgui_input_text(user, "Please enter new ringtone", name, ttone, max_length = 20, encode = FALSE)
+	var/new_tone = tgui_input_text(user, "Введите новый рингтон", name, ttone, max_length = 20, encode = FALSE)
 	if(in_range(src, usr) && loc == usr)
 		if(new_tone)
 			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
-				to_chat(usr, "The PDA softly beeps.")
+				to_chat(usr, "КПК тихо пищит.")
 				close(usr)
 			else
 				ttone = new_tone

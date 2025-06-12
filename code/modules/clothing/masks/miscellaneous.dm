@@ -46,16 +46,16 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>The lock vibrates as the card forces its locking system open.</span>")
+		to_chat(user, "<span class='warning'>Замок вибрирует, когда карта открывает его.</span>")
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		to_chat(user, "<span class='warning'>The muzzle unlocks with a click.</span>")
+		to_chat(user, "<span class='warning'>Намордник открывается с характерным щелчком.</span>")
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 
-	to_chat(user, "<span class='warning'>You must be wearing a security ID card or have one in your inactive hand to remove the muzzle.</span>")
+	to_chat(user, "<span class='warning'>Чтобы снять намордник, необходимо иметь при себе ID-карту сотрудника службы безопасности.</span>")
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -146,7 +146,7 @@
 
 /obj/item/clothing/mask/muzzle/safety/shock
 	name = "shock muzzle"
-	desc = "A muzzle designed to prevent biting.  This one is fitted with a behavior correction system."
+	desc = "Намордник, предназначенный для предотвращения укусов. Оснащен системой коррекции поведения."
 	var/obj/item/assembly/trigger = null
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
@@ -156,7 +156,7 @@
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
 		add_fingerprint(user)
 		if(trigger)
-			to_chat(user, span_warning("The [name] already has [trigger] attached."))
+			to_chat(user, span_warning("[name] уже имеет [trigger]."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -164,12 +164,12 @@
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
-		to_chat(user, span_notice("You have attached [I] to [src]."))
+		to_chat(user, span_notice("Вы прикрепили [I] к [src]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(isassembly(I))
 		add_fingerprint(user)
-		to_chat(user, span_notice("The [I.name] will not fit in [src]. Perhaps a signaler or voice analyzer would?"))
+		to_chat(user, span_notice("[I.name] не влезет в [src]. Возможно, сигнализатор или анализатор голоса сможет?"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -181,7 +181,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>You remove [trigger] from [src].</span>")
+	to_chat(user, "<span class='notice'>Вы вытаскиваете [trigger] из [src].</span>")
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null
@@ -201,7 +201,7 @@
 	var/mob/living/L = can_shock(loc)
 	if(!L)
 		return
-	to_chat(L, "<span class='danger'>You feel a sharp shock!</span>")
+	to_chat(L, "<span class='danger'>Вы чувствуете резкий удар!</span>")
 	do_sparks(3, 1, L)
 
 	L.Weaken(10 SECONDS)
@@ -225,7 +225,7 @@
 
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
-	desc = "A sterile mask designed to help prevent the spread of diseases."
+	desc = "Стерильная маска, предназначенная для предотвращения распространения заболеваний."
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
@@ -260,7 +260,7 @@
 
 /obj/item/clothing/mask/fakemoustache
 	name = "completely real moustache"
-	desc = "moustache is totally real."
+	desc = "самые настоящие усы."
 	icon_state = "fake-moustache"
 	flags_inv = HIDENAME
 	actions_types = list(/datum/action/item_action/pontificate)
@@ -291,7 +291,7 @@
 		return TRUE
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] twirls [user.p_their()] moustache and laughs [pick("fiendishly","maniacally","diabolically","evilly")]!</span>")
+	user.visible_message("<span class='danger'>\ [user] наматывает свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!</span>")
 
 //scarves (fit in in mask slot)
 

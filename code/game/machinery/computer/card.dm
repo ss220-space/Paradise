@@ -126,28 +126,28 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	return formatted
 
 /obj/machinery/computer/card/verb/eject_id()
-	set name = "Eject ID Card"
+	set name = "Вытащить ID-карту"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(scan)
-		to_chat(usr, "You remove \the [scan] from \the [src].")
+		to_chat(usr, "Вы вытаскиваете \the [scan] из \the [src].")
 		scan.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(modify)
-		to_chat(usr, "You remove \the [modify] from \the [src].")
+		to_chat(usr, "Вы вытаскиваете \the [modify] из \the [src].")
 		modify.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(modify, ignore_anim = FALSE)
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else
-		to_chat(usr, "There is nothing to remove from the console.")
+		to_chat(usr, "Нечего вытаскивать из этой консоли.")
 
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
@@ -385,7 +385,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = "[modify.registered_name]'s ID Card ([modify.assignment])"
+		modify.name = "[modify.registered_name]'s ID-карта ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())

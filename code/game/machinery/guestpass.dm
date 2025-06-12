@@ -3,7 +3,7 @@
 /////////////////////////////////////////////
 /obj/item/card/id/guest
 	name = "guest pass"
-	desc = "Allows temporary access to station areas."
+	desc = "Предоставляет временный доступ в определённые места на станции."
 	icon_state = "guest"
 	item_state = "guestpass-id"
 
@@ -20,13 +20,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += span_notice("This pass expires at [station_time_timestamp("hh:mm:ss", expiration_time)].")
+		. += span_notice("Пропуск истекает в [station_time_timestamp("hh:mm:ss", expiration_time)].")
 	else
-		. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", expiration_time)].")
-	. += span_notice("It grants access to following areas:")
+		. += span_warning("Пропуск истекает в [station_time_timestamp("hh:mm:ss", expiration_time)].")
+	. += span_notice("Даёт доступ к следующим местам:")
 	for(var/A in temp_access)
 		. += span_notice("[get_access_desc(A)].")
-	. += span_notice("Issuing reason: [reason].")
+	. += span_notice("Причина создания: [reason].")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////
@@ -57,7 +57,7 @@
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(giver)
-			to_chat(user, span_warning("There is already ID card inside."))
+			to_chat(user, span_warning("Внутри уже есть ID-карта."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -83,26 +83,26 @@
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 	if(mode == 1) //Logs
-		dat += "<h3>Activity log</h3><br>"
+		dat += "<h3>История активности</h3><br>"
 		for(var/entry in internal_log)
 			dat += "[entry]<br><hr>"
-		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
-		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
+		dat += "<a href='byond://?src=[UID()];action=print'>Распечатать</a><br>"
+		dat += "<a href='byond://?src=[UID()];mode=0'>Назад</a><br>"
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
-		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
-		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
-		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
-		dat += "Reason:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
-		dat += "Duration (minutes):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
-		dat += "Access to areas:<br>"
+		dat += "<h3>Терминал гостевых пропусков #[uid]</h3><br>"
+		dat += "<a href='byond://?src=[UID()];mode=1'>Посмотреть историю активности</a><br><br>"
+		dat += "Основная ID-карта: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
+		dat += "Создаётся для: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
+		dat += "Причина:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
+		dat += "Длительность действия (в минутах):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
+		dat += "Доступ к:<br>"
 		if(giver && giver.access)
 			for(var/A in get_changeable_accesses())
 				var/area = get_access_desc(A)
 				if(A in accesses)
 					area = "<b>[area]</b>"
 				dat += "<a href='byond://?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
-		dat += "<br><a href='byond://?src=[UID()];action=issue'>Issue pass</a><br>"
+		dat += "<br><a href='byond://?src=[UID()];action=issue'>Создать пропуск</a><br>"
 
 	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
 	popup.set_content(dat)
@@ -120,20 +120,20 @@
 	if(href_list["choice"])
 		switch(href_list["choice"])
 			if("giv_name")
-				var/nam = strip_html_simple(input("Person pass is issued to", "Name", giv_name) as text|null)
+				var/nam = strip_html_simple(input("Гостевой пропуск создан на имя", "Имя", giv_name) as text|null)
 				if(nam)
 					giv_name = nam
 			if("reason")
-				var/reas = strip_html_simple(input("Reason why pass is issued", "Reason", reason) as text|null)
+				var/reas = strip_html_simple(input("Причина создания", "Причина", reason) as text|null)
 				if(reas)
 					reason = reas
 			if("duration")
-				var/dur = input("Duration (in minutes) during which pass is valid (up to 30 minutes).", "Duration") as num|null
+				var/dur = input("Длительность действия (до 30 минут).", "Длительность") as num|null
 				if(dur)
 					if(dur > 0 && dur <= 30)
 						duration = dur
 					else
-						to_chat(usr, span_warning("Invalid duration."))
+						to_chat(usr, span_warning("Недопустимая длительность."))
 			if("access")
 				var/A = text2num(href_list["access"])
 				if(A in accesses)
@@ -163,7 +163,7 @@
 				updateUsrDialog()
 
 			if("print")
-				var/dat = "<h3>Activity log of guest pass terminal #[uid]</h3><br>"
+				var/dat = "<h3>История активности терминала гостевых пропусков #[uid]</h3><br>"
 				for(var/entry in internal_log)
 					dat += "[entry]<br><hr>"
 //				to_chat(usr, "Printing the log, standby...")
@@ -176,13 +176,13 @@
 			if("issue")
 				if(giver)
 					var/number = add_zero("[rand(0,9999)]", 4)
-					var/entry = "\[[station_time()]\] Pass #[number] issued by [giver.registered_name] ([giver.assignment]) to [giv_name]. Reason: [reason]. Grants access to following areas: "
+					var/entry = "\[[station_time()]\] [giver.registered_name] создал пропуск #[number] ([giver.assignment]) для [giv_name]. Причина: [reason]. Даёт доступ в следующие места: "
 					for(var/i=1 to accesses.len)
 						var/A = accesses[i]
 						if(A)
 							var/area = get_access_desc(A)
 							entry += "[i > 1 ? ", [area]" : "[area]"]"
-					entry += ". Expires at [station_time(world.time + duration*10*60)]."
+					entry += ". Истекает в [station_time(world.time + duration*10*60)]."
 					internal_log.Add(entry)
 
 					var/obj/item/card/id/guest/pass = new(src.loc)
@@ -190,14 +190,14 @@
 					pass.registered_name = giv_name
 					pass.expiration_time = world.time + duration*10*60
 					pass.reason = reason
-					pass.name = "guest pass #[number]"
+					pass.name = "гостевой пропуск #[number]"
 				else
-					to_chat(usr, span_warning("Cannot issue pass without issuing ID."))
+					to_chat(usr, span_warning("Невозможно выписать гостевой пропуск без основной ID-карты."))
 	updateUsrDialog()
 	return
 
 /obj/machinery/computer/guestpass/hop
-	name = "\improper HoP guest pass terminal"
+	name = "\improper терминал гостевых пропусков ГП"
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
@@ -205,7 +205,7 @@
 		return get_all_accesses()
 
 /obj/machinery/computer/guestpass/syndicate
-	name = "\improper Syndicate guest pass terminal"
+	name = "\improper терминал гостевых пропусков Синдиката"
 
 /obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
 	. = ..()
@@ -220,26 +220,26 @@
 	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
 
 	if(mode == 1) //Logs
-		dat += "<h3>Activity log</h3><br>"
+		dat += "<h3>История активности</h3><br>"
 		for(var/entry in internal_log)
 			dat += "[entry]<br><hr>"
-		dat += "<a href='byond://?src=[UID()];action=print'>Print</a><br>"
-		dat += "<a href='byond://?src=[UID()];mode=0'>Back</a><br>"
+		dat += "<a href='byond://?src=[UID()];action=print'>Распечатать</a><br>"
+		dat += "<a href='byond://?src=[UID()];mode=0'>Назад</a><br>"
 	else
-		dat += "<h3>Guest pass terminal #[uid]</h3><br>"
-		dat += "<a href='byond://?src=[UID()];mode=1'>View activity log</a><br><br>"
-		dat += "Issuing ID: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
-		dat += "Issued to: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
-		dat += "Reason:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
-		dat += "Duration (minutes):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
-		dat += "Access to areas:<br>"
+		dat += "<h3>Терминал гостевых пропусков #[uid]</h3><br>"
+		dat += "<a href='byond://?src=[UID()];mode=1'>Посмотреть историю активности</a><br><br>"
+		dat += "Основная ID-карта: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
+		dat += "Создаётся для: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
+		dat += "Причина:  <a href='byond://?src=[UID()];choice=reason'>[reason]</a><br>"
+		dat += "Длительность действия (в минутах):  <a href='byond://?src=[UID()];choice=duration'>[duration] m</a><br>"
+		dat += "Доступ к:<br>"
 		if(giver && giver.access)
 			for(var/A in get_changeable_accesses())
 				var/area = get_syndicate_access_desc(A)
 				if(A in accesses)
 					area = "<b>[area]</b>"
 				dat += "<a href='byond://?src=[UID()];choice=access;access=[A]'>[area]</a><br>"
-		dat += "<br><a href='byond://?src=[UID()];action=issue'>Issue pass</a><br>"
+		dat += "<br><a href='byond://?src=[UID()];action=issue'>Создать пропуск</a><br>"
 
 	var/datum/browser/popup = new(user, "guestpass", name, 400, 520)
 	popup.set_content(dat)

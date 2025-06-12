@@ -32,8 +32,7 @@
 	var/species_names = target.dna.species.name
 	if(head.undisfigure())
 		user.visible_message(
-			"[user] successfully restores [target]'s appearance!",
-			span_notice("You successfully restore [target]'s appearance."),
+			span_notice("Вы успешно восстановили внешний вид [target]."),
 			chat_message_type = MESSAGE_TYPE_COMBAT
 		)
 	else

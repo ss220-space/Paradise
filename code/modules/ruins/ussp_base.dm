@@ -23,8 +23,8 @@
 	outfit = /datum/outfit/ussp_general
 
 /obj/item/card/id/ussp_general
-	name = "USSP general ID card"
-	desc = "An ID straight from USSP."
+	name = "ID-карта генерала СССП"
+	desc = "ID-карта СССП"
 	icon_state = "centcom"
 	item_state = "centcomm-id"
 	registered_name = "Soviet General"
@@ -75,8 +75,8 @@
 	outfit = /datum/outfit/ussp_engineer
 
 /obj/item/card/id/ussp_engineer
-	name = "USSP engineer ID card"
-	desc = "An ID straight from USSP."
+	name = "ID-карта инженера СССП"
+	desc = "ID-карта СССП"
 	icon_state = "ussp"
 	item_state = "ussp"
 	registered_name = "Soviet Engineer"
@@ -126,8 +126,8 @@
 	outfit = /datum/outfit/ussp_security
 
 /obj/item/card/id/ussp_security
-	name = "USSP security ID card"
-	desc = "An ID straight from USSP."
+	name = "ID-карта охраны СССП"
+	desc = "ID-карта СССП"
 	icon_state = "ussp"
 	item_state = "ussp"
 	registered_name = "Soviet Soldier"
@@ -208,8 +208,8 @@
 		H.sec_hud_set_ID()
 
 /obj/item/card/id/ussp_scientist
-	name = "USSP scientist ID card"
-	desc = "An ID straight from USSP."
+	name = "ID-карта учёного СССП"
+	desc = "ID-карта СССП"
 	icon_state = "ussp"
 	item_state = "ussp"
 	registered_name = "Central Command"
