@@ -21,18 +21,18 @@
 
 // Hullucigen
 /datum/disease/virus/advance/preset/hullucigen
-	name = "Нарушение реальности"
+	name = "Нарушение сознания"
 	symptoms = list(new/datum/symptom/hallucigen)
 	possible_mutations = list(/datum/disease/virus/brainrot, /datum/disease/virus/advance/preset/sensory_restoration)
 
 // Sensory Restoration
 /datum/disease/virus/advance/preset/sensory_restoration
-	name = "Усилитель реальности"
+	name = "Усилитель сознания"
 	symptoms = list(new/datum/symptom/sensory_restoration)
 
 // Mind Restoration
 /datum/disease/virus/advance/preset/mind_restoration
-	name = "Очиститель реальности"
+	name = "Очиститель сознания"
 	symptoms = list(new/datum/symptom/mind_restoration)
 
 // Toxic Filter + Toxic Compensation + Viral Evolutionary Acceleration
