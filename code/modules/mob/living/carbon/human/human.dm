@@ -1780,14 +1780,12 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 
 /mob/living/carbon/human/fakefire()
-	if(!overlays_standing[FIRE_LAYER])
-		overlays_standing[FIRE_LAYER] = image(FIRE_DMI(src), icon_state = "Generic_mob_burning")
-		update_icons()
+	ADD_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
+	update_fire()
 
 /mob/living/carbon/human/fakefireextinguish()
-	overlays_standing[FIRE_LAYER] = null
-	update_icons()
-
+	REMOVE_TRAIT(src, TRAIT_FAKE_FIRE, FAKEFIRE_TRAIT)
+	update_fire()
 
 /mob/living/carbon/human/proc/cleanSE()	//remove all disabilities/powers
 	for(var/block = 1; block <= DNA_SE_LENGTH; block++)

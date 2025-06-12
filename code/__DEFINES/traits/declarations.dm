@@ -323,3 +323,7 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_TEMPERATURE_MOVEMENT "temperature_movement"
 /// when pulling you keep your speed same
 #define TRAIT_STRONG_PULLING "strong_pulling"
+
+
+/// when pulling you keep your speed same
+#define TRAIT_FAKE_FIRE "fake_fire"

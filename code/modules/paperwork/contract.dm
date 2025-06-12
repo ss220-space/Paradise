@@ -187,15 +187,21 @@
 
 	to_chat(user,"<span class='notice'>You quickly scrawl your name on the contract</span>")
 
-	if(fulfill_contract(target.current) <= 0)
+	if(check_contract(target.current) <= 0)
 		to_chat(user,"<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
+
+	fulfill_contract(target.current)
+
 	return TRUE
+
+/obj/item/paper/contract/infernal/proc/check_contract(mob/living/carbon/human/user = target.current)
+	if(!user.mind)
+		return FALSE
+
+	return contract.check_contract(user)
 
 /obj/item/paper/contract/infernal/proc/fulfill_contract(mob/living/carbon/human/user = target.current)
 	signed = TRUE
-
-	if(!user.mind)
-		return FALSE
 
 	user.mind.soulOwner = owner
 	user.mind.damnation_type = contract.contract_type
@@ -206,4 +212,4 @@
 	to_chat(user, span_notice("A profound emptiness washes over you as you lose ownership of your soul."))
 	to_chat(user, span_boldnotice("This does NOT make you an antagonist if you were not already."))
 
-	return contract.fulfill_contract(user)
+	contract.fulfill_contract(user)
