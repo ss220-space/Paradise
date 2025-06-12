@@ -2,7 +2,7 @@
 	name = "ГБС"
 	agent = "Гравитокинетический Бипотенциальный SADS+"
 	spread_flags = CONTACT
-	cures = list("diphenhydramine","sulfur")
+	cures = list("diphenhydramine", "sulfur")
 	cure_prob = 15
 	severity = BIOHAZARD
 
@@ -45,7 +45,7 @@
 	desc = "Если не лечить, наступит смерть."
 	agent = "Гравитокинетический Бипотенциальный SADS-"
 	spread_flags = CONTACT
-	cures = list("diphenhydramine","sulfur")
+	cures = list("diphenhydramine", "sulfur")
 	cure_prob = 15
 	severity = BIOHAZARD
 

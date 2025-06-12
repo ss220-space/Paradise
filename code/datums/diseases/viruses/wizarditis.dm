@@ -35,13 +35,13 @@ STI KALY - blind
 
 		if(3)
 			if(prob(2))
-				affected_mob.say(pick("NEC CANTIO!","CLANG!", "STI KALY!", "TARCOL MINTI ZHERI!"))
+				affected_mob.say(pick("NEC CANTIO!", "CLANG!", "STI KALY!", "TARCOL MINTI ZHERI!"))
 			if(prob(6))
 				to_chat(affected_mob, span_danger("Вы чувствуете, как [pick("магия бурлит в ваших жилах", "это место даёт вам +1 к интеллекту", "вам нужно срочно выучить новое заклинание")]."))
 
 		if(4)
 			if(prob(3))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","DIRI CEL!","EI NATH!"))
+				affected_mob.say(pick("NEC CANTIO!", "AULIE OXIN FIERA!", "DIRI CEL!", "EI NATH!"))
 			if(prob(1))
 				to_chat(affected_mob, span_danger("Вы чувствуете, как [pick("прилив чистой силы нарастает внутри вас", "это место даёт вам +2 к интеллекту и +1 к мудрости", "вам хочется телепортироваться")]."))
 				spawn_wizard_clothes()

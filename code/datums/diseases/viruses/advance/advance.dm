@@ -92,8 +92,8 @@ GLOBAL_LIST_EMPTY(archive_diseases)
 /datum/disease/virus/advance/Copy()
 	var/datum/disease/virus/advance/copy = new
 	var/list/required_vars = list(
-		"name","severity","id","visibility_flags","spread_flags", "additional_info", "stage_prob", "cures",
-		"cure_prob","cure_text", "permeability_mod", "mutation_chance", "mutation_reagents", "possible_mutations")
+		"name", "severity", "id", "visibility_flags", "spread_flags", "additional_info", "stage_prob", "cures",
+		"cure_prob", "cure_text", "permeability_mod", "mutation_chance", "mutation_reagents", "possible_mutations")
 	for(var/V in required_vars)
 		if(istype(vars[V], /list))
 			var/list/L = vars[V]

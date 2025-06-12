@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/confusion
 
-	name = "Топографическая дезориентация"
+	name = "Топографический кретинизм"
 	id = "confusion"
 	stealth = -1
 	resistance = 1
@@ -33,7 +33,7 @@ Bonus
 	switch(A.stage)
 		if(1, 2, 3, 4)
 			if(prob(SYMPTOM_ACTIVATION_PROB))
-				to_chat(M, span_warning(pick("У вас болит голова.","Ваше сознание на мгновение отключается.")))
+				to_chat(M, span_warning(pick("У вас болит голова.", "Ваше сознание на мгновение отключается.")))
 		else
 			if(prob(SYMPTOM_ACTIVATION_PROB * 3))
 				to_chat(M, span_userdanger("Вы не можете ясно мыслить!"))

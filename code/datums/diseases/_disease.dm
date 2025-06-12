@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Immunity to Anti-Bodies Metabolism symptom
 	var/virus_heal_resistant = FALSE
 	/// Message when cured
-	var/cured_message = "Вы чувствуете себя лучше.."
+	var/cured_message = "Вы чувствуете себя лучше."
 
 	//Mutations
 

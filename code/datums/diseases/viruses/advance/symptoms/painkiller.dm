@@ -34,10 +34,10 @@ Bonus
 			if(2, 3)
 				M.Slowed(40 SECONDS)
 				M.Confused(80 SECONDS)
-				to_chat(M, span_danger(pick("Вы чувствуете, что с вашим телом что-то очень не так.","Вам трудно контролировать собственное тело.","Вы не чувствуете своё тело.")))
+				to_chat(M, span_danger(pick("Вы чувствуете, что с вашим телом что-то очень не так.", "Вам трудно контролировать собственное тело.", "Вы не чувствуете своё тело.")))
 			if(4, 5)
 				if(prob(10))
-					to_chat(M, span_notice(pick("Ваше тело онемело.","Вы понимаете, что не чувствуете ничего.","Вы не чувствуете своё тело.")))
+					to_chat(M, span_notice(pick("Ваше тело онемело.", "Вы понимаете, что не чувствуете ничего.", "Вы не чувствуете своё тело.")))
 	if(M.reagents.get_reagent_amount("hydrocodone") < 2 && M.getToxLoss() < 13 && A.stage > 4)
 		M.reagents.add_reagent("hydrocodone", 0.5)
 	return

@@ -321,7 +321,7 @@
 		owner.emote("sneeze")
 
 /atom/movable/screen/alert/status_effect/lavaland_tail_o_dead
-	name = "Хвост мёртвеца"
+	name = "Хвост мертвеца"
 	desc = "Поедание человеческих конечностей себя оправдало!"
 	icon_state = "tail_o_dead"
 

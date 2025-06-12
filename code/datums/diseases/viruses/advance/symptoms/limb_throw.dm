@@ -38,7 +38,7 @@ Limb Rejection
 	need_active_overlay = TRUE
 	invocation = ""
 
-	selection_activated_message		= span_notice("Вы готовитесь бросить конечность!! <B>Левый клик, чтобы бросить в цель!</B>")
+	selection_activated_message		= span_notice("Вы готовитесь бросить конечность!! <b>ЛКМ, чтобы бросить в цель!</b>")
 	selection_deactivated_message	= span_notice("Вы решили не бросать конечность... пока что.")
 
 	action_icon_state = "limb_throw"
@@ -66,12 +66,12 @@ Limb Rejection
 		return FALSE
 
 	if(limb.vital)
-		to_chat(H, span_alert("Вам всё ещё нужна [limb]!"))
+		to_chat(H, span_alert("Вам всё ещё нужна [limb.declent_ru(NOMINATIVE)]!"))
 		return FALSE
 
 	for(var/obj/item/organ/internal/organ as anything in limb.internal_organs)
 		if(organ.vital)
-			to_chat(H, span_alert("Вам всё ещё нужен [organ]!"))
+			to_chat(H, span_alert("Вам всё ещё нужен [organ.declent_ru(NOMINATIVE)]!"))
 			return FALSE
 
 	var/obj/projectile/limb/limb_projectile = new(user.loc, limb)

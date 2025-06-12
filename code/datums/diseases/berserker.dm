@@ -1,6 +1,6 @@
 /datum/disease/berserker
 	name = "Берсерк"
-	desc = "Ругань, крики, неконтролируемые атаки на ближайших членов экипажа."
+	desc = "Ругань, крики, неконтролируемые нападения на окружающих членов экипажа."
 	agent = "Зубчатые кристаллы"
 	cure_text = "Галоперидол"
 	max_stages = 2
@@ -33,22 +33,22 @@
 				var/speak = pick("ААААРГХ!!!!", "ГРРР!!!", "ЕБАТЬ!! БЛЯТЬ!!!", "ЁБАННЫЙ, СУКА!!", "ВРОООАААГХ!!")
 				affected_mob.say(speak)
 			if(prob(15))
-				affected_mob.visible_message(span_danger("[affected_mob] дёргается в конвульсиях!"))
+				affected_mob.visible_message(span_danger("[affected_mob] дёрга[pluralize_ru(affected_mob.gender,"ется", "ются")] в конвульсиях!"))
 				affected_mob.drop_l_hand()
 				affected_mob.drop_r_hand()
 			if(prob(33))
 				if(affected_mob.incapacitated())
-					affected_mob.visible_message(span_danger("[affected_mob] бьётся в судорогах и дёргается!"))
+					affected_mob.visible_message(span_danger("[affected_mob] бьётся в судорогах и дёрга[pluralize_ru(affected_mob.gender,"ется", "ются")]!"))
 					return
-				affected_mob.visible_message(span_danger("[affected_mob] яростно мечется!"))
+				affected_mob.visible_message(span_danger("[affected_mob] яростно меч[pluralize_ru(affected_mob.gender,"ется", "ются")]!"))
 				for(var/mob/living/carbon/M in range(1, affected_mob))
 					if(M == affected_mob)
 						continue
 					var/damage = rand(1, 5)
 					if(prob(80))
 						playsound(affected_mob.loc, "punch", 25, 1, -1)
-						affected_mob.visible_message(span_danger("[affected_mob] ударяет [M] своими конвульсиями!"))
+						affected_mob.visible_message(span_danger("[affected_mob] ударя[pluralize_ru(affected_mob.gender,"ет", "ют")] [M.declent_ru(ACCUSATIVE)] своими конвульсиями!"))
 						M.adjustBruteLoss(damage)
 					else
 						playsound(affected_mob.loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-						affected_mob.visible_message(span_danger("[affected_mob] не попадает по [M] своими конвульсиями!"))
+						affected_mob.visible_message(span_danger("[affected_mob] не попада[pluralize_ru(affected_mob.gender,"ет", "ют")] по [M.declent_ru(ACCUSATIVE)] своими конвульсиями!"))

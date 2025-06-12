@@ -33,5 +33,5 @@ Bonus
 				M.reagents.add_reagent(pick("rum", "vodka", "whiskey", "ale", "cider", "mead", "tequila", "wine", "beer"), 5) //somewhat safe drinks
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, span_notice(pick("Вы чувствуете тепло.","Вы чувствуете радость.","Вы расслабляетесь на мгновение.")))
+					to_chat(M, span_notice(pick("Вы чувствуете тепло.", "Вы чувствуете радость.", "Вы расслабляетесь на мгновение.")))
 	return

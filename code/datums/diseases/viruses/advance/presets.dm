@@ -10,34 +10,34 @@
 
 // Voice Changing
 /datum/disease/virus/advance/preset/voice_change
-	name = "Мутация Надгортанника"
+	name = "Мутация надгортанника"
 	symptoms = list(new/datum/symptom/voice_change)
 
 // Toxin Filter
 /datum/disease/virus/advance/preset/heal
-	name = "Усилитель Печени"
+	name = "Усилитель печени"
 	symptoms = list(new/datum/symptom/heal)
 	possible_mutations = list(/datum/disease/virus/advance/preset/advanced_regeneration, /datum/disease/virus/advance/preset/sneezing)
 
 // Hullucigen
 /datum/disease/virus/advance/preset/hullucigen
-	name = "Нарушение Реальности"
+	name = "Нарушение реальности"
 	symptoms = list(new/datum/symptom/hallucigen)
 	possible_mutations = list(/datum/disease/virus/brainrot, /datum/disease/virus/advance/preset/sensory_restoration)
 
 // Sensory Restoration
 /datum/disease/virus/advance/preset/sensory_restoration
-	name = "Усилитель Реальности"
+	name = "Усилитель реальности"
 	symptoms = list(new/datum/symptom/sensory_restoration)
 
 // Mind Restoration
 /datum/disease/virus/advance/preset/mind_restoration
-	name = "Очиститель Реальности"
+	name = "Очиститель реальности"
 	symptoms = list(new/datum/symptom/mind_restoration)
 
 // Toxic Filter + Toxic Compensation + Viral Evolutionary Acceleration
 /datum/disease/virus/advance/preset/advanced_regeneration
-	name = "Продвинутый Неогенез"
+	name = "Улучшенный неогенез"
 	symptoms = list(new/datum/symptom/heal, new/datum/symptom/damage_converter, new/datum/symptom/viralevolution)
 
 // Necrotizing Fasciitis + Viral Self-Adaptation + Eternal Youth + Dizziness
@@ -49,7 +49,7 @@
 
 //Facial Hypertrichosis + Voice Change + Itching
 /datum/disease/virus/advance/preset/pre_kingstons
-	name = "Вечный Чужак"
+	name = "Вечный чужак"
 	symptoms = list(new/datum/symptom/beard, new/datum/symptom/voice_change, new/datum/symptom/itching)
 	mutation_reagents = list("mutagen", "radium")
 	possible_mutations = list(/datum/disease/virus/kingstons)
@@ -61,12 +61,12 @@
 
 //Uncontrollable Aggression
 /datum/disease/virus/advance/preset/aggression
-	name = "Неконтролиемая агрессия"
+	name = "Неконтролируемая агрессия"
 	symptoms = list(new/datum/symptom/aggression)
 
 //Uncontrollable Actions
 /datum/disease/virus/advance/preset/obsession
-	name = "Неконтролиемая активность"
+	name = "Неконтролируемая активность"
 	symptoms = list(new/datum/symptom/obsession)
 
 //Topographical Cretinism
@@ -101,7 +101,7 @@
 
 // Uncontrolled Laughter Effect + Groaning Syndrome + Hullucigen
 /datum/disease/virus/advance/preset/pre_loyalty
-	name = "Весёлый Страдалец"
+	name = "Весёлый страдалец"
 	symptoms = list(new/datum/symptom/laugh, new/datum/symptom/moan, new/datum/symptom/hallucigen)
 	mutation_reagents = list("love")
 	possible_mutations = list(/datum/disease/virus/loyalty)

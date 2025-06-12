@@ -31,7 +31,7 @@ Bonus
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/carbon/M = A.affected_mob
-		to_chat(M, span_warning(pick("Вам стало жарко.","Вам кажется, что вы горите.")))
+		to_chat(M, span_warning(pick("Вам стало жарко.", "Вам кажется, что вы горите.")))
 		if(M.bodytemperature < BODYTEMP_HEAT_DAMAGE_LIMIT)
 			var/get_heat = (sqrtor0(21+A.totalTransmittable()*2))+(sqrtor0(20+A.totalStageSpeed()*3))
 			M.adjust_bodytemperature(get_heat * A.stage)

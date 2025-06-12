@@ -1,6 +1,7 @@
 //Malfunctioning cryostasis sleepers: Spawns in makeshift shelters in lavaland. Ghosts become hermits with knowledge of how they got to where they are now.
 /obj/effect/mob_spawn/human/hermit
-	name = "Malfunctioning cryostasis sleeper"
+	name = "malfunctioning cryostasis sleeper"
+	desc = "Гудящая криокапсула с силуэтом гуманоида внутри. Функция стазиса сломана, и, вероятно, её используют как кровать."
 	ru_names = list(
 		NOMINATIVE = "неисправная криокапсула",
 		GENITIVE = "неисправной криокапсулы",
@@ -9,7 +10,6 @@
 		INSTRUMENTAL = "неисправной криокапсулой",
 		PREPOSITIONAL = "неисправной криокапсуле"
 	)
-	desc = "Гудящая криокапсула с силуэтом гуманоида внутри. Функция стазиса сломана, и, вероятно, её используют как кровать."
 	mob_name = "a stranded hermit"
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "cryostasis_sleeper"

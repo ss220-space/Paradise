@@ -42,7 +42,7 @@
 				H.adjustStaminaLoss(70)
 			if(prob(10))
 				H.adjustStaminaLoss(100)
-				H.visible_message(span_warning("[H] падает в обморок!"), span_userdanger("Вы сдаётесь и чувствуете покой..."))
+				H.visible_message(span_warning("[H.declent_ru(NOMINATIVE)] падает в обморок!"), span_userdanger("Вы сдаётесь и чувствуете покой..."))
 				H.AdjustSleeping(10 SECONDS)
 			if(prob(2))
 				to_chat(H, span_userdanger("Вы чувствуете, как ваш разум расслабляется, а мысли уплывают!"))

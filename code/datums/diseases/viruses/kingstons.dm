@@ -66,8 +66,8 @@
 	cure_prob = 50
 	permeability_mod = 0.75
 	severity = BIOHAZARD
-	var/list/virspecies = list("Человеческий", "Вокский", "Унатхский", "Таяранский", "Скрелловый", "Вульпканинский", "Дионейский")
-	var/list/virsuffix = list("грипп", "кашель", "вирус", "синдром", "мор", "хворь", "туберкулёз", "тиф")
+	var/list/virspecies = list(/datum/species/human, /datum/species/tajaran, /datum/species/unathi, /datum/species/skrell, /datum/species/vulpkanin, /datum/species/diona)
+	var/list/virsuffix = list("pox", "rot", "flu", "cough", "-gitis", "cold", "rash", "itch", "decay")
 	var/datum/species/chosentype
 	var/chosensuff
 	possible_mutations = null
@@ -110,11 +110,12 @@
 					if(prob(30))
 						make_sound(H)
 					if(prob(5))
-						H.visible_message(span_danger("Кожа [H] трескается, и его форма искажается!"), span_userdanger("Ваше тело мутирует в [initial(chosentype.name)]!"))
+						var/bodyname_ru = list(SPECIES_HUMAN = "человека", SPECIES_TAJARAN = "таярана", SPECIES_UNATHI = "унатха", SPECIES_SKRELL = "скрелла", SPECIES_VULPKANIN = "вульпканина", SPECIES_DIONA = "диону")
+						H.visible_message(span_danger("Кожа [H.declent_ru(ACCUSATIVE)] трескается, и его форма искажается!"), span_userdanger("Ваше тело мутирует в [bodyname_ru[initial(chosentype.name)]]!"))
 						H.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 				else
 					if(prob(5))
-						H.visible_message(span_danger("[H] царапает свою кожу!"), span_userdanger("Вы царапаете свою кожу, чтобы избавиться от зуда!"))
+						H.visible_message(span_danger("[H.declent_ru(ACCUSATIVE)] царапает свою кожу!"), span_userdanger("Вы царапаете свою кожу, чтобы избавиться от зуда!"))
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
 

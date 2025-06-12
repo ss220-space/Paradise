@@ -18,7 +18,7 @@
 	var/stuntime = stage * 2
 
 	if(prob(10))
-		affected_mob.emote(pick("cough","groan", "gasp"))
+		affected_mob.emote(pick("cough", "groan", "gasp"))
 		affected_mob.AdjustLoseBreath(2 SECONDS)
 
 	if(prob(15))

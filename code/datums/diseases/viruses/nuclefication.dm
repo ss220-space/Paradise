@@ -1,5 +1,5 @@
 /datum/disease/virus/nuclefication // YOU WILL NEVER ESCAPE
-	name = "Синдром Дисплазии Суперматерии"
+	name = "Синдром дисплазии суперматерии"
 	agent = "Мутировавшие клетки мозга"
 	desc = "О нет..."
 	max_stages = 5
@@ -62,7 +62,7 @@
 			radiate(H, 6, 93)
 
 		if(5)
-			H.visible_message(span_danger("[H] превращается в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
+			H.visible_message(span_danger("[H.declent_ru(NOMINATIVE)] превраща[pluralize_ru(affected_mob.gender,"ется","ются")] в нуклеацию!"), span_userdanger("ВЫ ПРЕВРАЩАЕТЕСЬ В НУКЛЕАЦИЮ. ОПЯТЬ!"))
 			H.setOxyLoss(0)
 			H.SetJitter(0)
 			var/mob/living/carbon/human/nucleat = H
@@ -96,7 +96,7 @@
 		if(rad_block >= 100)
 			continue
 		if(!rad_block)
-			to_chat(L, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [H]."))
+			to_chat(L, span_danger("Вас окутывает мягкое зелёное свечение, исходящее от [H.declent_ru(GENITIVE)]."))
 		L.apply_effect(rad_ammount, IRRADIATE, rad_block)
 
 /datum/disease/virus/nuclefication/proc/destiny(mob/living/carbon/H, silenced = FALSE)

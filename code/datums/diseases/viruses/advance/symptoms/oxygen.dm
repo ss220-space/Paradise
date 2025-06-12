@@ -35,5 +35,5 @@ Bonus
 					M.reagents.add_reagent("salbutamol", 20)
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, span_notice(pick("Ваши лёгкие чувствуют себя прекрасно.","Вы понимаете, что не дышали.","Вы не чувствуете необходимости дышать.")))
+					to_chat(M, span_notice(pick("Ваши лёгкие чувствуют себя прекрасно.", "Вы понимаете, что не дышали.", "Вы не чувствуете необходимости дышать.")))
 	return

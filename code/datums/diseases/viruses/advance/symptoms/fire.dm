@@ -32,7 +32,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3)
-				to_chat(M, span_warning(pick("Вам стало жарко.","Вы слышите треск.","Вы чувствуете запах дыма.")))
+				to_chat(M, span_warning(pick("Вам стало жарко.", "Вы слышите треск.", "Вы чувствуете запах дыма.")))
 			if(4)
 				Firestacks_stage_4(M, A)
 				M.IgniteMob()

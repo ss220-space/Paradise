@@ -23,7 +23,7 @@ Uncontrolled Laughter Effect
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3)
-				to_chat(M, span_notice(pick("Хе-хе, забавное зрелище.","Вам хочется смеяться.","Вы пошутили у себя в голове!","О, да! Этот шутка!")))
+				to_chat(M, span_notice(pick("Хе-хе, забавное зрелище.", "Вам хочется смеяться.", "Вы пошутили у себя в голове!", "О, да! Эта шутка!")))
 			else
 				M.emote(pick("laugh", "giggle"))
 				var/obj/item/I = M.get_active_hand()

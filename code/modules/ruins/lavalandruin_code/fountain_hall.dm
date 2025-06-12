@@ -1,5 +1,6 @@
 /obj/structure/sacrificealtar
 	name = "sacrificial altar"
+	desc = "Алтарь, предназначенный для совершения кровавых жертвоприношений во имя божества."
 	ru_names = list(
 		NOMINATIVE = "жертвенный алтарь",
 		GENITIVE = "жертвенного алтаря",
@@ -8,7 +9,6 @@
 		INSTRUMENTAL = "жертвенным алтарем",
 		PREPOSITIONAL = "жертвенном алтаре"
 	)
-	desc = "Алтарь, предназначенный для совершения кровавых жертвоприношений во имя божества."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "sacrificealtar"
 	anchored = TRUE
@@ -24,12 +24,13 @@
 	if(!L)
 		return
 	add_fingerprint(user)
-	to_chat(user, span_notice("Вы пытаетесь принести [L] в жертву, проводя ритуал жертвоприношения."))
+	to_chat(user, span_notice("Вы пытаетесь принести [L.declent_ru(ACCUSATIVE)] в жертву, проводя ритуал жертвоприношения."))
 	L.gib()
 	message_admins("[ADMIN_LOOKUPFLW(user)] has sacrificed [key_name_admin(L)] on the sacrificial altar at [AREACOORD(src)].")
 
 /obj/structure/healingfountain
 	name = "healing fountain"
+	desc = "Фонтан, содержащий воды жизни."
 	ru_names = list(
 		NOMINATIVE = "целебный фонтан",
 		GENITIVE = "целебного фонтана",
@@ -38,7 +39,6 @@
 		INSTRUMENTAL = "целебным фонтаном",
 		PREPOSITIONAL = "целебном фонтане"
 	)
-	desc = "Фонтан, содержащий воды жизни."
 	icon = 'icons/obj/hand_of_god_structures.dmi'
 	icon_state = "fountain"
 	anchored = TRUE

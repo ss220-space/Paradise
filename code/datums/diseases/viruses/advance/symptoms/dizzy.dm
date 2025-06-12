@@ -32,7 +32,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, span_warning(pick("Вы чувствуете головокружение.","У вас кружится голова.")));
+				to_chat(M, span_warning(pick("Вы чувствуете головокружение.", "У вас кружится голова.")));
 			else
 				to_chat(M, span_userdanger("Волна головокружения накатывает на вас!"))
 				M.Dizzy(15 SECONDS)

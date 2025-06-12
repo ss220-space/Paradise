@@ -14,7 +14,7 @@
 
 /datum/disease/virus/dna_retrovirus/New()
 	..()
-	agent = "Вирус класса [pick("A","B","C","D","E","F")][pick("A","B","C","D","E","F")]-[rand(50,300)]"
+	agent = "Вирус класса [pick("A", "B", "C", "D", "E", "F")][pick("A", "B", "C", "D", "E", "F")]-[rand(50,300)]"
 	//else cure is rest
 	if(prob(40))
 		cures = list("mutadone")

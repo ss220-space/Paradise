@@ -31,7 +31,7 @@ Toxification syndrome
 	if(prob(SYMPTOM_ACTIVATION_PROB*3))
 		switch(A.stage)
 			if(3, 4, 5)
-				to_chat(M, span_warning(pick("Вы чувствуете, что внутри вас что-то не так.","Почему у меня начало болеть внутри?","Откуда взялась эта боль?","Я ужасно пахну.")))
+				to_chat(M, span_warning(pick("Вы чувствуете, что внутри вас что-то не так.", "Почему у меня начало болеть внутри?", "Откуда взялась эта боль?", "Я ужасно пахну.")))
 				if(prob(10))
 					M.emote("groan", "pale")
 	if(prob((A.stage - 2) - M.count_infected_organs() / 4))

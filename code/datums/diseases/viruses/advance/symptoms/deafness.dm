@@ -32,7 +32,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3, 4)
-				to_chat(M, span_warning(pick("Вы слышите звон в ушах.","У вас заложило уши.")))
+				to_chat(M, span_warning(pick("Вы слышите звон в ушах.", "У вас заложило уши.")))
 			if(5)
-				to_chat(M, span_userdanger("У вас заложило уши, и они начали громко звенеть!"))
+				to_chat(M, span_userdanger("Ваши уши заложило, и в них появился громкий звон!"))
 				M.Deaf(40 SECONDS)
