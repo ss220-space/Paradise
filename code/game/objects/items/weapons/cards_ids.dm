@@ -573,7 +573,7 @@
 			to_chat(registered_user, span_notice("Вы успешно загрузили данные карты из слота [params["slot"]]."))
 		if("clear_slot")
 			clear_slot(params["slot"])
-			to_chat(registered_user, span_notice("Вы успешно очистили слот [params["slot"]].")
+			to_chat(registered_user, span_notice("Вы успешно очистили слот [params["slot"]]."))
 		if("clear_access")
 			var/response = tgui_alert(registered_user, "Вы уверены, что хотите сбросить доступ, сохраненный на карте?", "Сброс доступа", list("Нет", "Да"))
 			if(response == "Да")
