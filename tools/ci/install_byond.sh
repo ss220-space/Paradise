@@ -20,7 +20,7 @@ if [ -z "${BYOND_MAJOR+x}" ]; then
 
 fi
 
-if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}" $HOME/BYOND/version.txt;
+if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${BYOND_MAJOR}.${BYOND_MINOR}" $HOME/BYOND/version.txt;
 then
   echo "Using cached directory."
 else
