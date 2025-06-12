@@ -7,13 +7,13 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 
 	//handle muting and automuting
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+		to_chat(src, span_fontcolor_red("Error: Admin-PM: You cannot send adminhelps (Muted)."), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 		return
 
 	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
 
 	var/msg
-	var/list/type = list("Менторы", "Администраторы")
+	var/list/type = list("Mentorhelp", "Adminhelp")
 	var/selected_type = tgui_input_list(src, "Выберите, чья помощь вам необходима", "Запрос помощи", type)
 	if(selected_type)
 		msg = tgui_input_text(src, "Please enter your message.", selected_type, multiline = TRUE, encode = FALSE)

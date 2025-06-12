@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(tickets)
 	/// Text that will be added to the anchor link
 	var/anchor_link_extra = ""
 
-	var/ticket_help_type = "Админ-помощь"
+	var/ticket_help_type = "Adminhelp"
 	var/ticket_help_span = "adminhelp"
 	/// The name of the other ticket type to convert to
 	var/other_ticket_name = "Ментор"
