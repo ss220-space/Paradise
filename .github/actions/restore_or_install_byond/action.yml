@@ -1,4 +1,4 @@
-# This action attempts to restore BYOND from a cache, or to install it otherwise.Add commentMore actions
+# This action attempts to restore BYOND from a cache, or to install it otherwise.
 name: Restore or Install BYOND
 description: Attempts to restore a specified BYOND version from cache; if it can't, it installs it.
 
@@ -37,5 +37,5 @@ runs:
       if: ${{ !steps.restore_byond_cache.outputs.cache-hit }}
       uses: actions/cache/save@v4
       with:
-        path: ~/BYONDAdd commentMore actions
+        path: ~/BYOND
         key: ${{ steps.restore_byond_cache.outputs.cache-primary-key }}

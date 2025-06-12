@@ -1,7 +1,7 @@
 #!/bin/bash
 set -euo pipefail
 
-if [ -z "${BYOND_MAJOR+x}" ]; thenAdd commentMore actions
+if [ -z "${BYOND_MAJOR+x}" ]; then
   source _build_dependencies.sh
   # if some other build step hasn't specified the specific BYOND version we're not
   # gonna get it straight from _build_dependencies.sh so one more fallback here
@@ -16,6 +16,8 @@ if [ -z "${BYOND_MAJOR+x}" ]; thenAdd commentMore actions
       BYOND_MINOR=$BETA_BYOND_MINOR
     fi
   fi
+
+
 fi
 
 if [ -d "$HOME/BYOND/byond/bin" ] && grep -Fxq "${BYOND_MAJOR}/${BYOND_MAJOR}.${BYOND_MINOR}" $HOME/BYOND/version.txt;
