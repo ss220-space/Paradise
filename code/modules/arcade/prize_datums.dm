@@ -89,7 +89,7 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/wallet
 	name = "Colored Wallet"
-	desc = "Стильный цветной кошелек для хранения вашей ID карты."
+	desc = "Стильный цветной кошелек для хранения вашей ID-карты."
 	typepath = /obj/item/storage/wallet/color
 	cost = 50
 
@@ -101,22 +101,22 @@ GLOBAL_DATUM_INIT(global_prizes, /datum/prizes, new())
 
 /datum/prize_item/id_sticker/silver
 	name = "Silver ID Sticker"
-	desc = "Наклейка, которая сделает любую ID серебряной."
+	desc = "Наклейка, которая сделает любую ID-карту серебряной."
 	typepath = /obj/item/id_decal/silver
 
 /datum/prize_item/id_sticker/gold
 	name = "Gold ID Sticker"
-	desc = "Наклейка, которая сделает любую ID золотой."
+	desc = "Наклейка, которая сделает любую ID-карту золотой."
 	typepath = /obj/item/id_decal/gold
 
 /datum/prize_item/id_sticker/centcom
 	name = "Centcomm ID Sticker"
-	desc = "Наклейка, которая сделает любую ID карту похожей на ID Центрального командования."
+	desc = "Наклейка, которая сделает любую ID-карту похожей на ID-карту Центрального командования."
 	typepath = /obj/item/id_decal/centcom
 
 /datum/prize_item/id_sticker/emag
 	name = "Suspicious ID Sticker"
-	desc = "Наклейка, которая превращает вашу ID карту в нечто подозрительное..."
+	desc = "Наклейка, которая превращает вашу ID-карту в нечто подозрительное..."
 	typepath = /obj/item/id_decal/emag
 
 /datum/prize_item/flash

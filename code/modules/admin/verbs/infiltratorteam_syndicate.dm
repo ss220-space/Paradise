@@ -79,7 +79,7 @@ GLOBAL_VAR_INIT(sent_syndicate_infiltration_team, 0)
 		to_chat(new_syndicate_infiltrator, span_notice("В ваших заметках хранится ещё больше полезной информации."))
 		new_syndicate_infiltrator.mind.store_memory("<b>Миссия:</b> [input] ")
 		new_syndicate_infiltrator.mind.store_memory("<b>Лидер:</b> [team_leader] ")
-		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник синдиката ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
+		new_syndicate_infiltrator.mind.store_memory("<b>Стартовое снаряжение:</b> <br>- Наушник синдиката ((:t для вашего канала))<br>- Хамелион-комбинезон ((правый щелчок мыши для смены цвета))<br> - ID-карта агента ((Может изменять должность и другие данные))<br> - Имплант аплинка ((в левом верхнем углу экрана)) <br> - Имплант распыления ((превращает тело при смерти в пыль)) <br> - Боевые перчатки ((изолированы, замаскированны под черные перчатки)) <br> - Все, что куплено с помощью вашего импланта аплинка")
 		var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 		opshud.join_hud(new_syndicate_infiltrator.mind.current)
 		set_antag_hud(new_syndicate_infiltrator.mind.current, "hudoperative")

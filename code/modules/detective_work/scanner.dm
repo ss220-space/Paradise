@@ -4,7 +4,7 @@
 
 /obj/item/detective_scanner
 	name = "Ручной детективный анализатор"
-	desc = "Анализатор, способный выдать отчет по человеку, исходя из имени, ДНК или отпечатков пальцев."
+	desc = "Анализатор, способный выдать отчет по человеку, исходя из имени, хэша ДНК или хэша отпечатков пальцев."
 	icon = 'icons/goonstation/objects/objects.dmi'
 	icon_state = "detscanner"
 	w_class = WEIGHT_CLASS_NORMAL
@@ -18,7 +18,7 @@
 	actions_types = list(/datum/action/item_action/print_forensic_report, /datum/action/item_action/clear_records)
 
 /obj/item/detective_scanner/attack_self(mob/user)
-	var/search = input(user, "Введите имя, отпечатки пальцев или код ДНК.", "Найти запись", "")
+	var/search = input(user, "Введите имя, хэш отпечатков пальцев или хэш ДНК.", "Найти запись", "")
 
 	if(!search || user.stat || user.incapacitated())
 		return
@@ -55,8 +55,8 @@
 
 	if(name)
 		to_chat(user, "<span class='notice'>Совпадение найдено в записях станции: <b>[name]</b></span><br>\
-		<i>Отпечатки пальцев:</i><span class='notice'> [fingerprint]</span><br>\
-		<i>ДНК:</i><span class='notice'> [dna]</span>")
+		<i>Хэш отпечатков пальцев:</i><span class='notice'> [fingerprint]</span><br>\
+		<i>Хэш ДНК:</i><span class='notice'> [dna]</span>")
 	else
 		to_chat(user, "<span class='warning'>В записях станции не найдено совпадений.</span>")
 

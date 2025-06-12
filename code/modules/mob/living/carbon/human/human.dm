@@ -528,7 +528,7 @@
 						for(var/datum/data/record/R in GLOB.data_core.security)
 							if(R.fields["id"] == E.fields["id"])
 
-								var/setcriminal = tgui_input_list(usr, "Установите криминальный статус:", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
+								var/setcriminal = tgui_input_list(usr, "Установите криминальный статус:", "Security HUD", list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED), R.fields["criminal"])
 								if(!setcriminal)
 									return
 								var/t1 = copytext(trim(sanitize(input("Введите причину:", "Security HUD", null, null) as text)), 1, MAX_MESSAGE_LEN)
@@ -653,7 +653,7 @@
 						if(R.fields["id"] == E.fields["id"])
 							if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
 								to_chat(usr, "<b>Имя:</b> [R.fields["name"]]	<b>Группа крови:</b> [R.fields["b_type"]]")
-								to_chat(usr, "<b>ДНК:</b> [R.fields["b_dna"]]")
+								to_chat(usr, "<b>Хэш ДНК:</b> [R.fields["b_dna"]]")
 								to_chat(usr, "<b>Незначительные отклонения:</b> [R.fields["mi_dis"]]")
 								to_chat(usr, "<b>Детали:</b> [R.fields["mi_dis_d"]]")
 								to_chat(usr, "<b>Инвалидности:</b> [R.fields["ma_dis"]]")
@@ -1496,14 +1496,13 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-2 SECONDS)
 			visible_message("<span class='danger'>[src] проводит СЛР [H.name]!</span>", "<span class='notice'>Вы проводите СЛР [H.name].</span>")
-
-			to_chat(H, span_notice("Вы чувствуете, как глоток свежего воздуха входит в ваши легкие. Это облегчает")
+			to_chat(H, span_notice("Вы чувствуете, как глоток свежего воздуха входит в ваши легкие. Это облегчает"))
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)
 			return TRUE
 	else
 		H.receiving_cpr = FALSE
-		to_chat(src, "<span class='danger'>Во время проведения СЛР необходимо оставаться на месте!</span>")
+		to_chat(src, span_danger("Во время проведения СЛР необходимо оставаться на месте!"))
 
 
 /mob/living/carbon/human/has_mutated_organs()

@@ -714,7 +714,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 	if(target && target.current)
 		target_real_name = target.current.real_name
-		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [genderize_ru(target.current.gender, "его", "её", "его", "их")] ID карту."
+		explanation_text = "Сбегите на шаттле или эвакуационном поде под личностью [target_real_name], [target.assigned_role], нося на себе [genderize_ru(target.current.gender, "его", "её", "его", "их")] ID-карту."
 	else
 		explanation_text = "Свободная цель"
 

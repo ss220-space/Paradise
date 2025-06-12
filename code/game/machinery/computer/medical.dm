@@ -128,7 +128,7 @@
 					fields[++fields.len] = FIELD("ID", active1.fields["id"], null)
 					fields[++fields.len] = FIELD("Пол", active1.fields["sex"], "sex")
 					fields[++fields.len] = FIELD("Возраст", active1.fields["age"], "age")
-					fields[++fields.len] = FIELD("Отпечатки пальцев", active1.fields["fingerprint"], "fingerprint")
+					fields[++fields.len] = FIELD("Хэш отпечатков пальцев", active1.fields["fingerprint"], "fingerprint")
 					fields[++fields.len] = FIELD("Физическое состояние", active1.fields["p_stat"], "p_stat")
 					fields[++fields.len] = FIELD("Психологическое состояние", active1.fields["m_stat"], "m_stat")
 					var/list/photos = list()
@@ -394,7 +394,7 @@
 		<br>ID: [active1.fields["id"]]
 		<br>\nПол: [active1.fields["sex"]]
 		<br>\nВозраст: [active1.fields["age"]]
-		<br>\nОтпечатки пальцев: [active1.fields["fingerprint"]]
+		<br>\nХэш отпечатков пальцев: [active1.fields["fingerprint"]]
 		<br>\nФизическое состояние: [active1.fields["p_stat"]]
 		<br>\nПсихологическое состояние: [active1.fields["m_stat"]]<br>"}
 	else

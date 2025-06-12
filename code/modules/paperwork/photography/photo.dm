@@ -17,9 +17,9 @@
 	. = ..()
 	if(in_range(user, src) || isobserver(user))
 		show(user)
-		. += span_notice("Alt-Click to rename photo.")
+		. += span_notice("Альт-Клик чтобы переименовать фото.")
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += "<span class='notice'>Слишком далеко чтобы разглядеть</span>"
 
 /obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
@@ -28,9 +28,9 @@
 	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		if(!user.is_literate())
-			to_chat(user, span_warning("You don't know how to write!"))
+			to_chat(user, span_warning("Вы не знаете как писать!"))
 			return ATTACK_CHAIN_PROCEED
-		var/txt = tgui_input_text(user, "What would you like to write on the back?", "Photo Writing")
+		var/txt = tgui_input_text(user, "Что вы хотите написать на обратной стороне фото?", "Писать на фотографии")
 		if(!txt || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 			return ATTACK_CHAIN_PROCEED
 		scribble = txt
@@ -46,7 +46,7 @@
 	if(user.incapacitated() || !isAI(usr) && HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return NONE
 
-	var/n_name = tgui_input_text(user, "What would you like to label the photo?", "Photo Labelling", name)
+	var/n_name = tgui_input_text(user, "Как вы хотите подписать фото?", "Подписать фотографию", name)
 	if(!n_name)
 		return CLICK_ACTION_BLOCKING
 	//loc.loc check is for making possible renaming photos in clipboards
@@ -62,13 +62,13 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!", \
-		"[class]You hold [P] up to [src], burning it slowly.")
+		user.visible_message("[class][user] держит \the [P] над \the [src], похоже, что [user.p_theyre()] пытается её сжечь!", \
+		"[class]Вы держите [P] над [src], медленно её сжигая.")
 
 		spawn(20)
 			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
+				user.visible_message("[class][user] сжигает \the [src], превращая в пыль. Она немного летает в воздухе, прежде чем упасть на пол..", \
+				"[class]Вы сожгли \the [src], превратив в пыль. Она немного пролетела в воздухе, прежде чем упасть на пол.")
 
 				if(user.is_in_inactive_hand(src))
 					user.temporarily_remove_item_from_inventory(src)
@@ -77,7 +77,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+				to_chat(user, "<span class='warning'>Вы должны держать \the [P] неподвижно, чтобы поджечь \the [src].</span>")
 
 /obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)
@@ -90,10 +90,10 @@
 			colormatrix[7], colormatrix[8], colormatrix[9],
 		)
 	usr << browse_rsc(img_shown, "tmp_photo.png")
-	var/datum/browser/popup = new(usr, "Photo[UID()]", null, 64 * photo_size, scribble ? 400 : 64 * photo_size)
+	var/datum/browser/popup = new(usr, "Фото[UID()]", null, 64 * photo_size, scribble ? 400 : 64 * photo_size)
 	popup.set_content("<div class='photo-container' style='width: [64*photo_size]px; height: [64*photo_size]px;'> \
 	<img src='tmp_photo.png' width='100%' height='100%'  /> \
-	[scribble ? "<p>Written on the back:<br><i>[scribble]</i></p>" : ""] \
+	[scribble ? "<p>Надпись сзади:<br><i>[scribble]</i></p>" : ""] \
 	</div>")
 	popup.add_stylesheet("photo", 'html/css/photo.css')
 	popup.open(TRUE)

@@ -106,7 +106,7 @@
 
 /obj/item/card/id
 	name = "identification card"
-	desc = "A card used to provide ID and determine access across the station."
+	desc = "Карта, используемая для удостоверения личности и определения доступа владельца на станции."
 	icon_state = "id"
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
@@ -158,7 +158,7 @@
 /obj/item/card/id/Destroy()
 	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
 	. = ..()
-	
+
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
 	var/datum/money_account/acc = get_money_account(associated_account_number)
@@ -169,17 +169,17 @@
 	if(in_range(user, src))
 		show(usr)
 	else
-		. += "<span class='warning'>It is too far away.</span>"
+		. += to_chat(user, span_warning("Слишком далеко чтобы разглядеть"))
 	if(guest_pass)
-		. += "<span class='notice'>There is a guest pass attached to this ID card</span>"
+		. += to_chat(user, span_notice("К этой ID-карте относится гостевой пропуск"))
 		if(world.time < guest_pass.expiration_time)
-			. += "<span class='notice'>It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
+			. += to_chat(user, span_notice("Срок действия истекает в [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)]"))
 		else
-			. += "<span class='warning'>It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].</span>"
-		. += "<span class='notice'>It grants access to following areas:</span>"
+			. += to_chat(user, span_warning("Срок действия истекает в [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)]"))
+		. += to_chat(user, span_notice("Даёт доступ к следующим местам:"))
 		for(var/A in guest_pass.temp_access)
-			. += "<span class='notice'>[get_access_desc(A)].</span>"
-		. += "<span class='notice'>Issuing reason: [guest_pass.reason].</span>"
+			. += to_chat(user, span_notice("[get_access_desc(A)]."))
+		. += to_chat(user, span_notice("Причина создания: [guest_pass.reason]."))
 
 /obj/item/card/id/proc/show(mob/user as mob)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
@@ -190,15 +190,15 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
-	user.visible_message("[user] shows you: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]",\
-		"You flash your ID card: [bicon(src)] [src.name]. The assignment on the card: [src.assignment]")
+	user.visible_message("[user] показывает вам: [bicon(src)] [src.name]. Должность: [src.assignment]",\
+		"Вы показываете свою ID-карту: [bicon(src)] [src.name]. Должность: [src.assignment]")
 	if(mining_points)
-		to_chat(user, "There's <b>[mining_points] Mining Points</b> loaded onto this card. This card has earned <b>[total_mining_points] Mining Points</b> this Shift!")
+		to_chat(user, "На этой карте загружено <b>[mining_points] очков добычи</b>. Эта карта заработала <b>[total_mining_points] очков добычи</b> за смену!")
 	src.add_fingerprint(user)
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name]'s ID Card ([src.assignment])"
+	name = "[src.registered_name]'s ID-карта ([src.assignment])"
 
 /obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -217,14 +217,14 @@
 	var/photo_side = "'data:image/png;base64,[icon2base64(icon(photo, dir = WEST))]'"
 
 	dat = {"<table><tr><td>
-	Name: [registered_name]</a><br>
-	Sex: [sex]</a><br>
-	Age: [age]</a><br>
-	Rank: [assignment]</a><br>
-	Fingerprint: [fingerprint_hash]</a><br>
-	Blood Type: [blood_type]<br>
-	DNA Hash: [dna_hash]<br><br>
-	<td align = center valign = top>Photo:<br><img src=[photo_front] height=80 width=80 border=4>
+	Имя: [registered_name]</a><br>
+	Пол: [sex]</a><br>
+	Возраст: [age]</a><br>
+	Должность: [assignment]</a><br>
+	Хэш отпечатков пальцев: [fingerprint_hash]</a><br>
+	Группа крови: [blood_type]<br>
+	Хэш ДНК: [dna_hash]<br><br>
+	<td align = center valign = top>Фото:<br><img src=[photo_front] height=80 width=80 border=4>
 	<img src=[photo_side] height=80 width=80 border=4></td></tr></table>"}
 
 /obj/item/card/id/GetAccess()
@@ -266,10 +266,10 @@
 
 /obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID Card"][(!newjob) ? "" : " ([newjob])"]"
+		name = "[(!newname)	? "identification card"	: "[newname]'s ID-карта"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID Card"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID-карта"][(!assignment) ? "" : " ([assignment])"]"
 
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
@@ -278,7 +278,7 @@
 		var/obj/item/id_decal/decal = I
 		if(!user.drop_transfer_item_to_loc(decal, src))
 			return ..()
-		to_chat(user, span_notice("You apply [decal] to [src]."))
+		to_chat(user, span_notice("Вы наклеили [decal] на [src]."))
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
@@ -290,27 +290,27 @@
 	if(istype(I, /obj/item/stamp))
 		add_fingerprint(user)
 		if(stamped)
-			to_chat(user, span_warning("This ID has already been stamped."))
+			to_chat(user, span_warning("На этой ID-карте уже стоит печать."))
 			return ATTACK_CHAIN_PROCEED
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
-		to_chat(user, span_notice("You stamp the ID card!"))
+		to_chat(user, span_notice("Вы поставили печать на ID-карту!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))
 		add_fingerprint(user)
 		if(istype(src, /obj/item/card/id/guest))
-			to_chat(user, span_warning("Applying one guest card to another provides nothing."))
+			to_chat(user, span_warning("Применение одной гостевой карты к другой ничего не дает."))
 			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
-			to_chat(user, span_warning("There's already a guest pass attached to this ID."))
+			to_chat(user, span_warning("К этой ID-карте уже относится какой-то гостевой пропуск."))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/card/id/guest/guest_id = I
 		if(world.time > guest_id.expiration_time)
-			to_chat(user, span_warning("There's no point, the guest pass has expired."))
+			to_chat(user, span_warning("Срок действия гостевой карты истек."))
 			return ATTACK_CHAIN_PROCEED
 		if(guest_id.registered_name != registered_name && guest_id.registered_name != "NOT SPECIFIED")
-			to_chat(user, span_warning("The guest pass cannot be attached to this ID"))
+			to_chat(user, span_warning("Гостевой пропуск не может быть прикреплён к этой ID-карте."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
 			return ..()
@@ -329,11 +329,11 @@
 		return
 
 	if(guest_pass)
-		to_chat(usr, "<span class='notice'>You remove the guest pass from this ID.</span>")
+		to_chat(usr, span_notice("Вы удалили гостевую карту, связанную с этой ID-картой."))
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, "<span class='warning'>There is no guest pass attached to this ID.</span>")
+		to_chat(usr, span_warning(">К этой ID-карте уже относится какой-то гостевой пропуск."))
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -372,13 +372,13 @@
 
 /obj/item/card/id/silver
 	name = "identification card"
-	desc = "A silver card which shows honour and dedication."
+	desc = "Серебряная карта, символизирующая честь и преданность."
 	icon_state = "silver"
 	item_state = "silver-id"
 
 /obj/item/card/id/gold
 	name = "identification card"
-	desc = "A golden card which shows power and might."
+	desc = "Золотая карта, символизирующая силу и мощь."
 	icon_state = "gold"
 	item_state = "gold-id"
 
@@ -538,7 +538,7 @@
 		var/obj/item/card/id/I = O.GetID()
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
-				to_chat(usr, "<span class='notice'>The card's microscanners activate as you pass it over \the [I], copying its access.</span>")
+				to_chat(usr, span_notice("Микросканеры карты активируются, когда вы проводите её над [I], копируя доступ."))
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -549,8 +549,8 @@
 	. = TRUE
 	switch(action)
 		if("delete_info")
-			var/response = tgui_alert(registered_user, "Are you sure you want to delete all information saved on the card?", "Delete Card Information", list("No", "Yes"))
-			if(response == "Yes")
+			var/response = tgui_alert(registered_user, "Вы уверены, что хотите удалить всю информацию, сохраненную на карте?", "Удалить информацию с карты", list("Нет", "Да"))
+			if(response == "Да")
 				name = initial(name)
 				registered_name = initial(registered_name)
 				icon_state = initial(icon_state)
@@ -565,30 +565,30 @@
 				registered_user = null
 		if("save_slot")
 			save_slot(params["slot"])
-			to_chat(registered_user, "<span class='notice'>You have successfully saved the card data to slot [params["slot"]].</span>")
+			to_chat(registered_user, span_notice("Вы успешно сохранили данные карты в слот [params["slot"]]."))
 		if("load_slot")
 			load_slot(params["slot"])
 			UpdateName()
 			registered_user.sec_hud_set_ID()
-			to_chat(registered_user, "<span class='notice'>You have successfully loaded the card data from slot [params["slot"]].</span>")
+			to_chat(registered_user, span_notice("Вы успешно загрузили данные карты из слота [params["slot"]]."))
 		if("clear_slot")
 			clear_slot(params["slot"])
-			to_chat(registered_user, "<span class='notice'>You have successfully cleared slot [params["slot"]].</span>")
+			to_chat(registered_user, span_notice("Вы успешно очистили слот [params["slot"]].")
 		if("clear_access")
-			var/response = tgui_alert(registered_user, "Are you sure you want to reset access saved on the card?", "Reset Access", list("No", "Yes"))
-			if(response == "Yes")
+			var/response = tgui_alert(registered_user, "Вы уверены, что хотите сбросить доступ, сохраненный на карте?", "Сброс доступа", list("Нет", "Да"))
+			if(response == "Да")
 				access = initial_access.Copy() // Initial() doesn't work on lists
-				to_chat(registered_user, "<span class='notice'>Card access reset.</span>")
+				to_chat(registered_user, span_notice("Доступ карты сброшен."))
 		if("change_ai_tracking")
 			untrackable = !untrackable
-			to_chat(registered_user, "<span class='notice'>This ID card is now [untrackable ? "untrackable" : "trackable"] by the AI's.</span>")
+			to_chat(registered_user, span_notice("Эта ID-карта теперь [untrackable ? "неотслеживаемая" : "отслеживаемая"] ИИ."))
 		if("change_name")
-			var/new_name = reject_bad_name(tgui_input_text(registered_user, "What name would you like to use on this card?", "Agent Card name", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
+			var/new_name = reject_bad_name(tgui_input_text(registered_user, "Какое имя вы хотите использовать на этой карте?", "Имя агентской карты", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
 			if(!Adjacent(registered_user) || isnull(new_name))
 				return
 			registered_name = new_name
 			UpdateName()
-			to_chat(registered_user, "<span class='notice'>Name changed to [new_name].</span>")
+			to_chat(registered_user, span_notice("Имя изменено на [new_name]."))
 		if("change_photo")
 			if(!Adjacent(registered_user))
 				return
@@ -599,9 +599,9 @@
 			if(!newphoto)
 				return
 			photo = newphoto
-			to_chat(registered_user, span_notice("Photo changed. Select another occupation and take a new photo if you wish to appear with different clothes."))
+			to_chat(registered_user, span_notice("Фото изменено. Выберите другую профессию и сделайте новое фото, если хотите сменить одежду."))
 		if("change_appearance")
-			var/choice = tgui_input_list(registered_user, "Select the appearance for this card.", "Agent Card Appearance", appearances)
+			var/choice = tgui_input_list(registered_user, "Выберите внешний вид для этой карты.", "Внешний вид агентской карты", appearances)
 			if(!Adjacent(registered_user))
 				return
 			if(!choice)
@@ -609,40 +609,40 @@
 			icon_state = choice
 			switch(choice)
 				if("silver")
-					desc = "A silver card which shows honour and dedication."
+					desc = "Серебряная карта, символизирующая честь и преданность."
 				if("gold")
-					desc = "A golden card which shows power and might."
+					desc = "Золотая карта, символизирующая силу и мощь."
 				if("clown")
-					desc = "Even looking at the card strikes you with deep fear."
+					desc = "Взгляд на эту карту вызывает у вас глубокий страх."
 				if("mime")
 					desc = "..."
 				if("prisoner")
-					desc = "You are a number, you are not a free man."
+					desc = "Вы не свободны. Вы - просто номер."
 				if("centcom")
-					desc = "An ID straight from Central Command."
+					desc = "ID-карта Центрального Командования."
 				else
-					desc = "A card used to provide ID and determine access across the station."
-			to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+					desc = "Карта, используемая для удостоверения личности и определения доступа владельца на станции."
+			to_chat(usr, span_notice("Внешний вид изменен на [choice]."))
 		if("change_appearance_new")
 			var/choice = params["new_appearance"]
 			icon_state = choice
-			to_chat(usr, "<span class='notice'>Appearance changed to [choice].</span>")
+			to_chat(usr, span_notice("Внешний вид изменен на [choice]."))
 		if("change_sex")
-			var/new_sex = tgui_input_text(registered_user,"What sex would you like to put on this card?", "Agent Card Sex", ishuman(registered_user) ? capitalize(registered_user.gender) : "Male")
+			var/new_sex = tgui_input_text(registered_user,"Какой пол вы хотите указать на этой карте?", "Пол агентской карты", ishuman(registered_user) ? capitalize(registered_user.gender) : "Мужской")
 			if(!Adjacent(registered_user) || isnull(new_sex))
 				return
 			sex = new_sex
-			to_chat(registered_user, "<span class='notice'>Sex changed to [new_sex].</span>")
+			to_chat(registered_user, span_notice("Пол изменен на [new_sex]."))
 		if("change_age")
 			var/default = "21"
 			if(ishuman(registered_user))
 				var/mob/living/carbon/human/H = registered_user
 				default = H.age
-			var/new_age = tgui_input_number(registered_user, "What age would you like to be written on this card?", "Agent Card Age", default, 300, 17)
+			var/new_age = tgui_input_number(registered_user, "Какой возраст вы хотите указать на этой карте?", "Возраст агентской карты", default, 300, 17)
 			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age
-			to_chat(registered_user, "<span class='notice'>Age changed to [new_age].</span>")
+			to_chat(registered_user, span_notice("Возраст изменен на [new_age]."))
 		if("change_occupation")
 			var/list/departments =list(
 				"Civilian",
@@ -656,61 +656,61 @@
 				"Custom",
 			)
 
-			var/department = tgui_input_list(registered_user, "What job would you like to put on this card?\nChoose a department or a custom job title.\nChanging occupation will not grant or remove any access levels.", "Agent Card Occupation", departments)
+			var/department = tgui_input_list(registered_user, "Какую должность вы хотите указать на этой карте?\nВыберите отдел или укажите название должности.\nИзменение профессии не даст и не уберет уровни доступа.", "Профессия агентской карты", departments)
 			var/new_job = JOB_TITLE_CIVILIAN
 			var/new_rank = JOB_TITLE_CIVILIAN
 
 			if(department == "Custom")
-				new_job = tgui_input_text(registered_user, "Choose a custom job title:", "Agent Card Occupation", "Assistant")
-				var/department_icon = tgui_input_list(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation", departments)
+				new_job = tgui_input_text(registered_user, "Выберите индивидуальное название должности:", "Профессия агентской карты", "Assistant")
+				var/department_icon = tgui_input_list(registered_user, "Какую профессию вы хотите указать на этой карте (для SecHUDs)?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты", departments)
 				switch(department_icon)
 					if("Engineering")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.engineering_positions
 					if("Medical")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.medical_positions
 					if("Science")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.science_positions
 					if("Security")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.security_positions
 					if("Support")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.support_positions
 					if("Command")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.command_positions
 					if("Special")
-						new_rank = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 					if("Custom")
 						new_rank = null
 			else if(department != "Civilian")
 				switch(department)
 					if("Engineering")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.engineering_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.engineering_positions
 					if("Medical")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.medical_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.medical_positions
 					if("Science")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.science_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.science_positions
 					if("Security")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.security_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.security_positions
 					if("Support")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.support_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.support_positions
 					if("Command")
-						new_job = input(registered_user, "What job would you like to put on this card?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in GLOB.command_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.command_positions
 					if("Special")
-						new_job = input(registered_user, "What job would you like to be shown on this card (for SecHUDs)?\nChanging occupation will not grant or remove any access levels.","Agent Card Occupation") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 				new_rank = new_job
 
 			if(!Adjacent(registered_user) || isnull(new_job))
 				return
 			assignment = new_job
 			rank = new_rank
-			to_chat(registered_user, "<span class='notice'>Occupation changed to [new_job].</span>")
+			to_chat(registered_user, span_notice("Должность изменена на [new_job].<"))
 			UpdateName()
 			registered_user.sec_hud_set_ID()
 		if("change_money_account")
-			var/new_account = tgui_input_number(registered_user, "What money account would you like to link to this card?", "Agent Card Account", 12345, 9999999)
+			var/new_account = tgui_input_number(registered_user, "Какой номер аккаунта вы хотите привязать к этой картой?", "Номер акканта агентской карты", 12345, 9999999)
 			if(!Adjacent(registered_user) || !isnull(new_account))
 				return
 			associated_account_number = new_account
-			to_chat(registered_user, "<span class='notice'>Linked money account changed to [new_account].</span>")
+			to_chat(registered_user, span_notice("Привязанный номер аккаунта изменен на [new_account]."))
 		if("change_blood_type")
 			var/default = "\[UNSET\]"
 			if(ishuman(registered_user))
@@ -718,11 +718,11 @@
 				if(H.dna)
 					default = H.dna.blood_type
 
-			var/new_blood_type = tgui_input_text(registered_user, "What blood type would you like to be written on this card?", "Agent Card Blood Type", default)
+			var/new_blood_type = tgui_input_text(registered_user, "Какую группу крови вы хотите указать на этой карте?", "Группа крови агентской карты", default)
 			if(!Adjacent(registered_user) || !new_blood_type)
 				return
 			blood_type = new_blood_type
-			to_chat(registered_user, "<span class='notice'>Blood type changed to [new_blood_type].</span>")
+			to_chat(registered_user, span_notice("Группа крови изменена на [new_blood_type]."))
 		if("change_dna_hash")
 			var/default = "\[UNSET\]"
 			if(ishuman(registered_user))
@@ -730,11 +730,11 @@
 				if(H.dna)
 					default = H.dna.unique_enzymes
 
-			var/new_dna_hash = tgui_input_text(registered_user, "What DNA hash would you like to be written on this card?", "Agent Card DNA Hash", default)
+			var/new_dna_hash = tgui_input_text(registered_user, "Какой хэш ДНК вы хотите указать на этой карте?", "Хэш ДНК агентской карты", default)
 			if(!Adjacent(registered_user) || !new_dna_hash)
 				return
 			dna_hash = new_dna_hash
-			to_chat(registered_user, "<span class='notice'>DNA hash changed to [new_dna_hash].</span>")
+			to_chat(registered_user, span_notice("Хэш ДНК изменён на [new_dna_hash]."))
 		if("change_fingerprints")
 			var/default = "\[UNSET\]"
 			if(ishuman(registered_user))
@@ -742,11 +742,11 @@
 				if(H.dna)
 					default = md5(H.dna.uni_identity)
 
-			var/new_fingerprint_hash = tgui_input_text(registered_user, "What fingerprint hash would you like to be written on this card?", "Agent Card Fingerprint Hash", default)
+			var/new_fingerprint_hash = tgui_input_text(registered_user, "Какой хэш отпечатков пальцев вы хотите указать на этой карте?", "Хэш отпечатков пальцев агентской карты", default)
 			if(!Adjacent(registered_user) || !new_fingerprint_hash)
 				return
 			fingerprint_hash = new_fingerprint_hash
-			to_chat(registered_user, "<span class='notice'>Fingerprint hash changed to [new_fingerprint_hash].</span>")
+			to_chat(registered_user, span_notice("Хэш отпечатков пальцев изменён на [new_fingerprint_hash]."))
 	RebuildHTML()
 
 /obj/item/card/id/syndicate/ui_data(mob/user)
@@ -788,10 +788,10 @@
 	if(!anyone)
 		if(user != registered_user)
 			return ..()
-	switch(tgui_alert(user, "Would you like to display [src] or edit it?", "Choose", list("Show", "Edit")))
-		if("Show")
+	switch(tgui_alert(user, "Вы хотите показать [src] или редактировать её?", "Выбор", list("Показать", "Редактировать")))
+		if("Показать")
 			return ..()
-		if("Edit")
+		if("Редактировать")
 			ui_interact(user)
 			return
 
@@ -834,7 +834,7 @@
 
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"
-	desc = "An ID straight from the Syndicate."
+	desc = "ID-карта Синдиката."
 	registered_name = "Syndicate"
 	icon_state = "syndie"
 	item_state = "syndieofficer-id"
@@ -844,7 +844,7 @@
 
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
-	desc = "The spare ID of the captain."
+	desc = "Запасная ID-карта капитана."
 	icon_state = "gold"
 	item_state = "gold-id"
 	registered_name = "Captain"
@@ -870,7 +870,7 @@
 
 /obj/item/card/id/centcom
 	name = "central command ID card"
-	desc = "An ID straight from Central Command."
+	desc = "ID-карта Центрального Командования."
 	icon_state = "centcom"
 	item_state = "centcomm-id"
 	registered_name = "Central Command"
@@ -887,7 +887,7 @@
 
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
-	desc = "You are a number, you are not a free man."
+	desc = "Вы не свободны. Вы - просто номер."
 	icon_state = "prisoner"
 	item_state = "orange-id"
 	assignment = "Prisoner"
@@ -896,7 +896,7 @@
 	var/points = 0
 
 /obj/item/card/id/prisoner/attack_self(mob/user as mob)
-	to_chat(usr, "You have accumulated [points] out of the [goal] points you need for freedom.")
+	to_chat(usr, "Вы добыли [points] очков из необходимых [goal] для освобождения.")
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -1044,7 +1044,7 @@
 	registered_name = "HONK!"
 	icon_state = "clown"
 	item_state = "clown-id"
-	desc = "Even looking at the card strikes you with deep fear."
+	desc = "Взгляд на эту карту вызывает у вас глубокий страх."
 	access = list(ACCESS_CLOWN, ACCESS_THEATRE, ACCESS_MAINT_TUNNELS)
 
 /obj/item/card/id/mime
@@ -1174,13 +1174,13 @@
 		RebuildHTML()
 		UpdateName()
 		registered = TRUE
-		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+		to_chat(user, span_notice("Карта теперь привязана к вам."))
 	else
 		..()
 
 /obj/item/card/id/golem
 	name = "Free Golem ID"
-	desc = "A card used to claim mining points and buy gear. Use it to mark it as yours."
+	desc = "Карта, используемая для сбора очков добычи и покупки снаряжения. Используйте, чтобы привязать к себе."
 	icon_state = "research"
 	access = list(ACCESS_FREE_GOLEMS, ACCESS_ROBOTICS, ACCESS_CLOWN, ACCESS_MIME) //access to robots/mechs
 
@@ -1191,9 +1191,9 @@
 		assignment = "Free Golem"
 		RebuildHTML()
 		UpdateName()
-		desc = "A card used to claim mining points and buy gear."
+		desc = "Карта, используемая для сбора очков добычи и покупки снаряжения."
 		registered = TRUE
-		to_chat(user, "<span class='notice'>The ID is now registered as yours.</span>")
+		to_chat(user, span_notice("Карта теперь привязана к вам."))
 	else
 		..()
 
@@ -1204,7 +1204,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "id_decal"
 	var/decal_name = "identification card"
-	var/decal_desc = "A card used to provide ID and determine access across the station."
+	var/decal_desc = "Карта, используемая для удостоверения личности и определения доступа владельца на станции."
 	var/decal_icon_state = "id"
 	var/decal_item_state = "card-id"
 	var/override_name = 0
@@ -1213,7 +1213,7 @@
 	name = "gold ID card decal"
 	icon_state = "id_decal_gold"
 	desc = "Make your ID look like the Captain's or a self-centered HOP's. Applies to any ID."
-	decal_desc = "A golden card which shows power and might."
+	decal_desc = "Золотая карта, символизирующая силу и мощь."
 	decal_icon_state = "gold"
 	decal_item_state = "gold-id"
 
@@ -1221,7 +1221,7 @@
 	name = "silver ID card decal"
 	icon_state = "id_decal_silver"
 	desc = "Make your ID look like HOP's because they wouldn't change it officially. Applies to any ID."
-	decal_desc = "A silver card which shows honour and dedication."
+	decal_desc = "Серебряная карта, символизирующая честь и преданность."
 	decal_icon_state = "silver"
 	decal_item_state = "silver-id"
 
@@ -1229,7 +1229,7 @@
 	name = "prisoner ID card decal"
 	icon_state = "id_decal_prisoner"
 	desc = "All the cool kids have an ID that's this color. Applies to any ID."
-	decal_desc = "You are a number, you are not a free man."
+	decal_desc = "Вы не свободны. Вы - просто номер."
 	decal_icon_state = "prisoner"
 	decal_item_state = "orange-id"
 

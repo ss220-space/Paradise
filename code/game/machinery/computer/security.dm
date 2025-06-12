@@ -52,7 +52,7 @@
 			// General
 			"sex" = list("Мужской", "Женский"),
 			// Security
-			"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
+			"criminal" = list(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_EXECUTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_RELEASED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR),
 		)
 
 /obj/machinery/computer/secure_data/Destroy()
@@ -126,7 +126,7 @@
 						SEC_FIELD("Пол", 				gen_fields["sex"], 			"sex",			FALSE),
 						SEC_FIELD("Возраст", 				gen_fields["age"], 			"age",			TRUE),
 						SEC_FIELD("Должность", 		gen_fields["rank"], 		null,			FALSE),
-						SEC_FIELD("Отпечатки пальцев", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
+						SEC_FIELD("Хэш отпечатков пальцев", 		gen_fields["fingerprint"], 	"fingerprint",	TRUE),
 						SEC_FIELD("Физическое состояние", 	gen_fields["p_stat"], 		null,			FALSE),
 						SEC_FIELD("Психологическое состояние", 		gen_fields["m_stat"], 		null,			TRUE),
 						SEC_FIELD("Важные примечания", 	gen_fields["notes"], 		null,			FALSE),
@@ -491,7 +491,7 @@
 				if(3)
 					R.fields["age"] = rand(5, 85)
 				if(4)
-					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_DEMOTE, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
+					R.fields["criminal"] = pick(SEC_RECORD_STATUS_NONE, SEC_RECORD_STATUS_ARREST, SEC_RECORD_STATUS_SEARCH, SEC_RECORD_STATUS_MONITOR, SEC_RECORD_STATUS_INCARCERATED, SEC_RECORD_STATUS_PAROLLED, SEC_RECORD_STATUS_RELEASED)
 				if(5)
 					R.fields["p_stat"] = pick("*Без сознания*", "Активен", "Физически непригоден")
 				if(6)

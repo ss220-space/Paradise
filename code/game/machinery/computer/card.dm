@@ -276,12 +276,12 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				var/buttontext
 				var/isdemotable = FALSE
 				if(status_valid_for_demotion(E.fields["criminal"]))
-					buttontext = "Demote"
+					buttontext = "Понизить"
 					isdemotable = TRUE
 				else if(E.fields["criminal"] == SEC_RECORD_STATUS_DEMOTE)
-					buttontext = "Pending Demotion"
+					buttontext = "Ожидает понижения"
 				else
-					buttontext = "Ineligible"
+					buttontext = "Не подходит"
 				names_returned.Add(list(list(
 					"name" = E.fields["name"],
 					"crimstat" = E.fields["criminal"],
@@ -457,23 +457,23 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			var/t1 = params["assign_target"]
 			var/assignment = t1 // для имени профессии
 			if(target_dept)
-				if(modify.assignment == "Demoted" || modify.assignment == "Terminated")
+				if(modify.assignment == "Понижен" || modify.assignment == "Уволен")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					visible_message(span_warning("[src]: Reassigning a demoted or terminated individual requires a full ID computer."))
+					visible_message(span_warning("[src]: Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), CONFIG_GET(flag/allow_head_of_departaments_assign_civilian)))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					visible_message(span_warning("[src]: Reassigning someone outside your department requires a full ID computer."))
+					visible_message(span_warning("[src]: Для повторного назначения сотрудника за пределами вашего отдела требуется ID компьютер."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
 			if(t1 == "Custom")
-				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Enter a custom job assignment.", "Assignment"), 1, MAX_MESSAGE_LEN), TRUE))
+				var/temp_t = sanitize(reject_bad_name(copytext_char(input("Введите индивидуальное название должности.", "Название"), 1, MAX_MESSAGE_LEN), TRUE))
 				//let custom jobs function as an impromptu alt title, mainly for sechuds
 				if(temp_t && scan && modify)
 					var/oldrank = modify.getRankAndAssignment()
 					SSjobs.log_job_transfer(modify.registered_name, oldrank, temp_t, scan.registered_name, null)
-					modify.lastlog = "[station_time_timestamp()]: Reassigned by \"[scan.registered_name]\" from \"[oldrank]\" to \"[temp_t]\"."
+					modify.lastlog = "[station_time_timestamp()]: \"[scan.registered_name]\" переведён с \"[oldrank]\" на \"[temp_t]\"."
 					modify.assignment = temp_t
 					add_game_logs("([scan.assignment]) \"[modify.registered_name]\" изменил должность с \"[oldrank]\" на \"[temp_t]\".", usr)
 					investigate_log("[key_name_log(usr)] ([scan.assignment]) изменил должность \"[modify.registered_name]\" с \"[oldrank]\" на \"[temp_t]\"." , INVESTIGATE_ACCESSCHANGES)
@@ -535,13 +535,13 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("demote")
 			if(modify.assignment == "Demoted")
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src]: Demoted crew cannot be demoted any further. If further action is warranted, ask the Captain about Termination."))
+				visible_message(span_warning("[src]: член экипажа уже понижен."))
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src]: Heads may only demote members of their own department."))
+				visible_message(span_warning("[src]: Руководитель может понижать только сотрудников своего отдела."))
 				return FALSE
-			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			var/reason = sanitize(copytext(input("Введите причину понижения. Оставьте пустым для отмены.","Понижение"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
 				return FALSE
 			var/list/access = list()
@@ -567,10 +567,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src]: Only the Captain or HOP may completely terminate the employment of a crew member."))
+				visible_message(span_warning("[src]: Только капитан или глава персонала могут полностью уволить члена экипажа."))
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
-			var/reason = sanitize(copytext(input("Enter legal reason for termination. Enter nothing to cancel.", "Employment Termination"), 1, MAX_MESSAGE_LEN))
+			var/reason = sanitize(copytext(input("Введите причину увольнения. Оставьте пустым для отмены.", "Увольнение"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !has_idchange_access() || !modify)
 				return FALSE
 			var/m_ckey = modify.getPlayerCkey()
@@ -626,7 +626,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			message_admins("[key_name_admin(usr)] has closed a job slot for job \"[j.title]\".")
 			return
 		if("remote_demote")
-			var/reason = sanitize(copytext(input("Enter legal reason for demotion. Enter nothing to cancel.","Legal Demotion"), 1, MAX_MESSAGE_LEN))
+			var/reason = sanitize(copytext(input("Введите причину понижения. Оставьте пустым для отмены.","Понижение"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !scan)
 				return FALSE
 			for(var/datum/data/record/E in GLOB.data_core.general)
@@ -635,10 +635,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/tempname = params["remote_demote"]
 					var/temprank = E.fields["real_rank"]
 					if(!j)
-						visible_message(span_warning("[src]: This employee has either no job, or a customized job ([temprank])."))
+						visible_message(span_warning("[src]: У этого сотрудника либо нет работы, либо она индивидуальна - ([temprank])."))
 						return FALSE
 					if(!job_in_department(j, FALSE))
-						visible_message(span_warning("[src]: Only the head of this employee may demote them."))
+						visible_message(span_warning("[src]: Только руководитель отдела может уволить этого сотрудника."))
 						return FALSE
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
@@ -651,7 +651,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
 								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-								to_chat(usr, span_warning("[src]: Cannot demote, due to their current security status."))
+								to_chat(usr, span_warning("[src]: Невозможно понизить из-за текущего статуса безопасности."))
 								return FALSE
 							return
 			return
@@ -659,14 +659,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Everything below here requires a full ID computer (dept consoles do not qualify)
 	if(target_dept)
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-		to_chat(usr, span_warning("This function is not available on department-level consoles."))
+		to_chat(usr, span_warning("Эта функция недоступна на уровне консоли отдела."))
 		return
 
 	// 3rd, handle the functions that require a full ID computer
 	switch(action)
 		// Changing basic card info
 		if("reg") // registered name on card
-			var/temp_name = reject_bad_name(input(usr, "Who is this ID for?", "ID Card Renaming", modify.registered_name), TRUE)
+			var/temp_name = reject_bad_name(input(usr, "Для кого эта ID-карта?", "Переименовать карту", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
 				visible_message(span_warning("[src] buzzes rudely."))
@@ -675,7 +675,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			regenerate_id_name()
 			return
 		if("account") // card account number
-			var/account_num = tgui_input_number(usr, "Account Number", "Input Number", modify.associated_account_number, 999999, 100000)
+			var/account_num = tgui_input_number(usr, "Номер аккаунта", "Введите номер", modify.associated_account_number, 999999, 100000)
 			if(isnull(account_num) || !scan || !modify)
 				return FALSE
 			modify.associated_account_number = clamp(round(account_num), 0, 999999)

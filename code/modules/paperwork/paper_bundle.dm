@@ -175,9 +175,9 @@
 		if(user.is_literate())
 			show_content(user)
 		else
-			. += "<span class='notice'>You don't know how to read.</span>"
+			. += "<span class='notice'>Вы не умеете читать</span>"
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += "<span class='notice'>Слишком далеко чтобы прочитать</span>"
 
 /obj/item/paper_bundle/proc/show_content(mob/user)
 	var/dat = ""
@@ -185,15 +185,15 @@
 	switch(screen)
 		if(0)
 			dat+= "<div style='float:left; text-align:left; width:33.33333%'></div>"
-			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
-			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Убрать [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
+			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Следующая страница</a></div><br><hr>"
 		if(1)
-			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
-			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
-			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Next Page</a></div><br><hr>"
+			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Предыдущая страница</a></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Убрать [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div>"
+			dat+= "<div style='float:left; text-align:right; width:33.33333%'><a href='byond://?src=[UID()];next_page=1'>Следующая страница</a></div><br><hr>"
 		if(2)
-			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Previous Page</a></div>"
-			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Remove [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div><br><hr>"
+			dat+= "<div style='float:left; text-align:left; width:33.33333%'><a href='byond://?src=[UID()];prev_page=1'>Предыдущая страница</a></div>"
+			dat+= "<div style='float:left; text-align:center; width:33.33333%'><a href='byond://?src=[UID()];remove=1'>Убрать [(istype(W, /obj/item/paper)) ? "paper" : "photo"]</a></div><br><hr>"
 			dat+= "<div style='float;left; text-align:right; with:33.33333%'></div>"
 	if(istype(papers[page], /obj/item/paper))
 		var/obj/item/paper/P = W
@@ -245,7 +245,7 @@
 			papers -= W
 			W.forceMove_turf()
 			usr.put_in_hands(W, ignore_anim = FALSE)
-			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
+			to_chat(usr, "<span class='notice'>Вы вытаскиваете [W.name] из стопки бумаги.</span>")
 			if(amount == 1)
 				var/obj/item/paper/P = papers[1]
 				papers -= P
@@ -262,7 +262,7 @@
 			amount--
 			update_appearance(UPDATE_ICON|UPDATE_DESC)
 	else
-		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
+		to_chat(usr, "<span class='notice'>Необходимо держать в руках чтобы листать.</span>")
 	if(!QDELETED(src) && ismob(loc))
 		attack_self(loc)
 		updateUsrDialog()
@@ -301,14 +301,14 @@
 /obj/item/paper_bundle/update_desc(updates = ALL)
 	. = ..()
 	if(amount == (photos - 1))
-		desc = "[photos] photos clipped together." // In case you clip 2 photos together and remove the paper
+		desc = "[photos] скреплены вместе" // In case you clip 2 photos together and remove the paper
 		return
 
 	else if(((amount + 1) - photos) >= 2) // extra papers + original paper - photos
-		desc = "[(amount + 1) - photos] papers clipped to each other."
+		desc = "[(amount + 1) - photos] листа скреплены друг с другом."
 
 	else
-		desc = "A single sheet of paper."
+		desc = "Лист бумаги."
 	if(photos)
 		desc += "\nThere [photos == 1 ? "is a photo" : "are [photos] photos"] attached to it."
 

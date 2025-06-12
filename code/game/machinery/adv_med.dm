@@ -193,7 +193,7 @@
 /obj/machinery/bodyscanner/attackby(obj/item/I, mob/user)
 	if(istype(I, /obj/item/card/id))
 		if(inserted_id)
-			balloon_alert(user, "слот ID карты занят")
+			balloon_alert(user, "слот ID-карты занят")
 		else if(user.drop_transfer_item_to_loc(I, src))
 			inserted_id = I
 			balloon_alert(user, "карта вставлена")

@@ -270,7 +270,7 @@
 			if(params["id"] == "del_rec" && active_record)
 				var/obj/item/C = usr.get_active_hand()
 				if(!istype(C) || !C.GetID())
-					set_temp("ID карта не предъявлена.", "danger")
+					set_temp("ID-карта не предъявлена.", "danger")
 					return
 				if(check_access(C.GetID()))
 					records.Remove(active_record)
