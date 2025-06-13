@@ -6,7 +6,6 @@
 /obj/item/stack/sheet/animalhide/human
 	name = "human skin"
 	desc = "The by-product of human farming."
-	singular_name = "human skin piece"
 	icon_state = "sheet-hide"
 
 GLOBAL_LIST_INIT(human_recipes, list( \
@@ -21,55 +20,46 @@ GLOBAL_LIST_INIT(human_recipes, list( \
 /obj/item/stack/sheet/animalhide/generic
 	name = "generic skin"
 	desc = "A piece of generic skin."
-	singular_name = "generic skin piece"
 	icon_state = "sheet-hide"
 
 /obj/item/stack/sheet/animalhide/corgi
 	name = "corgi hide"
 	desc = "The by-product of corgi farming."
-	singular_name = "corgi hide piece"
 	icon_state = "sheet-corgi"
 
 /obj/item/stack/sheet/animalhide/cat
 	name = "cat hide"
 	desc = "The by-product of cat farming."
-	singular_name = "cat hide piece"
 	icon_state = "sheet-cat"
 
 /obj/item/stack/sheet/animalhide/monkey
 	name = "monkey hide"
 	desc = "The by-product of monkey farming."
-	singular_name = "monkey hide piece"
 	icon_state = "sheet-monkey"
 
 /obj/item/stack/sheet/animalhide/wolpin
 	name = "wolpin hide"
 	desc = "The by-product of wolpin farming."
-	singular_name = "wolpin hide piece"
 	icon_state = "sheet-wolpin"
 
 /obj/item/stack/sheet/animalhide/stok
 	name = "stok hide"
 	desc = "The by-product of stok farming."
-	singular_name = "stok hide piece"
 	icon_state = "sheet-lizzard"
 
 /obj/item/stack/sheet/animalhide/neara
 	name = "neara hide"
 	desc = "The by-product of neara farming."
-	singular_name = "neara hide piece"
 	icon_state = "sheet-neara"
 
 /obj/item/stack/sheet/animalhide/farwa
 	name = "farwa hide"
 	desc = "The by-product of farwa farming."
-	singular_name = "farwa hide piece"
 	icon_state = "sheet-farwa"
 
 /obj/item/stack/sheet/animalhide/lizard
 	name = "lizard skin"
 	desc = "Sssssss..."
-	singular_name = "lizard skin piece"
 	icon_state = "sheet-lizard"
 
 GLOBAL_LIST_INIT(lizard_recipes, list(new/datum/stack_recipe("lizard skin handbag", /obj/item/storage/backpack/satchel_lizard, 5, on_floor = TRUE), new/datum/stack_recipe("lizard skin backpack",  /obj/item/storage/backpack/lizard, 5, on_floor = TRUE)))
@@ -81,7 +71,6 @@ GLOBAL_LIST_INIT(lizard_recipes, list(new/datum/stack_recipe("lizard skin handba
 /obj/item/stack/sheet/animalhide/xeno
 	name = "alien hide"
 	desc = "The skin of a terrible creature."
-	singular_name = "alien hide piece"
 	icon_state = "sheet-xeno"
 
 GLOBAL_LIST_INIT(xeno_recipes, list (
@@ -96,7 +85,6 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 /obj/item/stack/sheet/xenochitin
 	name = "alien chitin"
 	desc = "A piece of the hide of a terrible creature."
-	singular_name = "alien hide piece"
 	icon = 'icons/mob/alien.dmi'
 	icon_state = "chitin"
 	origin_tech = ""
@@ -118,14 +106,12 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 /obj/item/stack/sheet/hairlesshide
 	name = "hairless hide"
 	desc = "This hide was stripped of it's hair, but still needs tanning."
-	singular_name = "hairless hide piece"
 	icon_state = "sheet-hairlesshide"
 	origin_tech = ""
 
 /obj/item/stack/sheet/wetleather
 	name = "wet leather"
 	desc = "This leather has been cleaned but still needs to be dried."
-	singular_name = "wet leather piece"
 	icon_state = "sheet-wetleather"
 	origin_tech = ""
 	var/wetness = 30 //Reduced when exposed to high temperautres
@@ -134,7 +120,6 @@ GLOBAL_LIST_INIT(xeno_recipes, list (
 /obj/item/stack/sheet/leather
 	name = "leather"
 	desc = "The by-product of mob grinding."
-	singular_name = "leather piece"
 	icon_state = "sheet-leather"
 	origin_tech = "materials=2"
 
@@ -162,7 +147,6 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	name = "watcher sinew"
 	icon = 'icons/obj/mining.dmi'
 	desc = "Long stringy filaments which presumably came from a watcher's wings."
-	singular_name = "watcher sinew"
 	icon_state = "sinew"
 	origin_tech = "biotech=4"
 
@@ -182,7 +166,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "goliath_hide"
-	singular_name = "hide plate"
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
@@ -255,7 +238,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "Сделанный на коленке из плит брони для мехов, этот кусок металла можно налепить на сам мех, усиливая его защитные характеристики. К сожалению, выемки под такую броню есть только у мехов рабочего класса."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "armour_plate"
-	singular_name = "armour plate"
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
@@ -294,7 +276,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "thick_cartilage_plate"
-	singular_name = "cartilage plate"
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
@@ -304,7 +285,6 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	desc = "The strong, scaled hide of an ash drake."
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "dragon_hide"
-	singular_name = "drake plate"
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER

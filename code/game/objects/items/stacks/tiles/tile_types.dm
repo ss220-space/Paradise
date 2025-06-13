@@ -1,6 +1,5 @@
 /obj/item/stack/tile
 	name = "broken tile"
-	singular_name = "broken tile"
 	desc = "A broken tile. This should not exist."
 	icon = 'icons/obj/tiles.dmi'
 	icon_state = "tile"
@@ -52,7 +51,6 @@
 /obj/item/stack/tile/grass
 	name = "grass tiles"
 	gender = PLURAL
-	singular_name = "grass floor tile"
 	desc = "A patch of grass like they often use on golf courses"
 	icon_state = "tile_grass"
 	origin_tech = "biotech=1"
@@ -63,7 +61,6 @@
 /obj/item/stack/tile/wood
 	name = "wood floor tiles"
 	gender = PLURAL
-	singular_name = "wood floor tile"
 	desc = "an easy to fit wood floor tile"
 	icon_state = "tile-wood"
 	origin_tech = "biotech=1"
@@ -74,56 +71,47 @@
 
 /obj/item/stack/tile/wood/dark
 	name = "dark wood floor tiles"
-	singular_name = "dark wood floor tile"
 	icon_state = "tile-wood-dark"
 	turf_type = /turf/simulated/floor/wood/dark
 
 /obj/item/stack/tile/wood/oak
 	name = "oak wood floor tiles"
-	singular_name = "oak wood floor tile"
 	icon_state = "tile-wood-oak"
 	turf_type = /turf/simulated/floor/wood/oak
 
 /obj/item/stack/tile/wood/birch
 	name = "birch wood floor tiles"
-	singular_name = "birch wood floor tile"
 	icon_state = "tile-wood-birch"
 	turf_type = /turf/simulated/floor/wood/birch
 
 /obj/item/stack/tile/wood/cherry
 	name = "cherry wood floor tiles"
-	singular_name = "cherry wood floor tile"
 	icon_state = "tile-wood-cherry"
 	turf_type = /turf/simulated/floor/wood/cherry
 
 /obj/item/stack/tile/wood/fancy/oak
 	name = "fancy oak wood floor tiles"
-	singular_name = "fancy oak wood floor tile"
 	icon_state = "tile-wood-fancy-oak"
 	turf_type = /turf/simulated/floor/wood/fancy/oak
 
 /obj/item/stack/tile/wood/fancy/birch
 	name = "fancy birch wood floor tiles"
-	singular_name = "fancy birch wood floor tile"
 	icon_state = "tile-wood-fancy-birch"
 	turf_type = /turf/simulated/floor/wood/fancy/birch
 
 /obj/item/stack/tile/wood/fancy/cherry
 	name = "fancy cherry wood floor tiles"
-	singular_name = "fancy cherry wood floor tile"
 	icon_state = "tile-wood-fancy-cherry"
 	turf_type = /turf/simulated/floor/wood/fancy/cherry
 
 /obj/item/stack/tile/wood/fancy/light
 	name = "fancy light oak wood floor tiles"
-	singular_name = "fancy light oak wood floor tile"
 	icon_state = "tile-wood-fancy-light"
 	turf_type = /turf/simulated/floor/wood/fancy/light
 
 // CARPETS
 /obj/item/stack/tile/carpet
 	name = "carpet"
-	singular_name = "carpet"
 	desc = "A piece of carpet. It is the same size as a floor tile"
 	icon_state = "tile-carpet"
 	turf_type = /turf/simulated/floor/carpet
@@ -224,7 +212,6 @@
 /obj/item/stack/tile/plasteel
 	name = "floor tiles"
 	gender = PLURAL
-	singular_name = "floor tile"
 	desc = "Those could work as a pretty decent throwing weapon."
 	icon_state = "tile"
 	force = 6
@@ -243,7 +230,6 @@
 /obj/item/stack/tile/light
 	name = "light tiles"
 	gender = PLURAL
-	singular_name = "light floor tile"
 	desc = "A floor tile, made out off glass. Use a multitool on it to change its color."
 	icon_state = "tile_light blue"
 	force = 3
@@ -254,7 +240,6 @@
 // FAKESPACE
 /obj/item/stack/tile/fakespace
 	name = "astral carpet"
-	singular_name = "astral carpet"
 	desc = "A piece of carpet with a convincing star pattern."
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/fakespace
@@ -267,7 +252,6 @@
 //High-traction
 /obj/item/stack/tile/noslip
 	name = "high-traction floor tile"
-	singular_name = "high-traction floor tile"
 	desc = "A high-traction floor tile. It feels rubbery in your hand."
 	icon_state = "tile_noslip"
 	turf_type = /turf/simulated/floor/noslip
@@ -280,28 +264,24 @@
 //Pod floor
 /obj/item/stack/tile/pod
 	name = "pod floor tile"
-	singular_name = "pod floor tile"
 	desc = "A grooved floor tile."
 	icon_state = "tile_pod"
 	turf_type = /turf/simulated/floor/pod
 
 /obj/item/stack/tile/pod/light
 	name = "light pod floor tile"
-	singular_name = "light pod floor tile"
 	desc = "A lightly colored grooved floor tile."
 	icon_state = "tile_podlight"
 	turf_type = /turf/simulated/floor/pod
 
 /obj/item/stack/tile/pod/dark
 	name = "dark pod floor tile"
-	singular_name = "dark pod floor tile"
 	desc = "A darkly colored grooved floor tile."
 	icon_state = "tile_poddark"
 	turf_type = /turf/simulated/floor/pod/dark
 
 /obj/item/stack/tile/arcade_carpet
 	name = "arcade carpet"
-	singular_name = "arcade carpet"
 	desc= "A piece of carpet with a retro spaceship pattern."
 	icon_state = "tile_space"
 	turf_type = /turf/simulated/floor/carpet/arcade
@@ -314,7 +294,6 @@
 //Cult tiles
 /obj/item/stack/tile/clockwork
 	name = "clockwork floor tile"
-	singular_name = "clockwork floor tile"
 	desc = "Tightly-pressed brass tiles. They emit minute vibration in your hand."
 	icon_state = "tile_goldfancy"
 	turf_type = /turf/simulated/floor/clockwork
@@ -323,7 +302,6 @@
 
 /obj/item/stack/tile/harsie
 	name = "engraved floor tile"
-	singular_name = "engraved floor tile"
 	desc = "dark tiles. You dont feel good about this."
 	icon_state = "tile_basalt"
 	turf_type = /turf/simulated/floor/engine/cult

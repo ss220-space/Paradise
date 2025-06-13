@@ -97,7 +97,7 @@
 	if(inserted)
 		if(isstack(I))
 			var/obj/item/stack/S = I
-			to_chat(user, "<span class='notice'>You insert [inserted] [S.singular_name][inserted>1 ? "s" : ""] into [parent].</span>")
+			to_chat(user, "<span class='notice'>You insert [inserted] [S][inserted>1 ? "s" : ""] into [parent].</span>")
 			if(!QDELETED(I) && !user.put_in_hands(I))
 				stack_trace("Warning: User could not put object back in hand during material container insertion, line [__LINE__]! This can lead to issues.")
 				I.forceMove(user.drop_location())

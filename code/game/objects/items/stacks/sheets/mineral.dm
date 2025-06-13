@@ -131,7 +131,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 /obj/item/stack/sheet/mineral/sandstone
 	name = "sandstone brick"
 	desc = "This appears to be a combination of both sand and stone."
-	singular_name = "sandstone brick"
 	icon_state = "sheet-sandstone"
 	throw_range = 5
 	origin_tech = "materials=1"
@@ -152,7 +151,6 @@ GLOBAL_LIST_INIT(snow_recipes, list(
 /obj/item/stack/sheet/mineral/sandbags
 	name = "sandbags"
 	icon_state = "sandbags"
-	singular_name = "sandbag"
 	layer = LOW_ITEM_LAYER
 	merge_type = /obj/item/stack/sheet/mineral/sandbags
 
@@ -194,7 +192,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "diamond"
 	icon_state = "sheet-diamond"
 	item_state = "sheet-diamond"
-	singular_name = "diamond"
 	origin_tech = "materials=6"
 	sheettype = "diamond"
 	merge_type = /obj/item/stack/sheet/mineral/diamond
@@ -212,7 +209,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "uranium"
 	icon_state = "sheet-uranium"
 	item_state = "sheet-uranium"
-	singular_name = "uranium sheet"
 	origin_tech = "materials=5"
 	sheettype = "uranium"
 	merge_type = /obj/item/stack/sheet/mineral/uranium
@@ -230,7 +226,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "solid plasma"
 	icon_state = "sheet-plasma"
 	item_state = "sheet-plasma"
-	singular_name = "plasma sheet"
 	origin_tech = "plasmatech=2;materials=2"
 	sheettype = "plasma"
 	merge_type = /obj/item/stack/sheet/mineral/plasma
@@ -273,7 +268,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "gold"
 	icon_state = "sheet-gold"
 	item_state = "sheet-gold"
-	singular_name = "gold bar"
 	origin_tech = "materials=4"
 	sheettype = "gold"
 	merge_type = /obj/item/stack/sheet/mineral/gold
@@ -291,7 +285,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "silver"
 	icon_state = "sheet-silver"
 	item_state = "sheet-silver"
-	singular_name = "silver bar"
 	origin_tech = "materials=4"
 	sheettype = "silver"
 	merge_type = /obj/item/stack/sheet/mineral/silver
@@ -308,7 +301,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/bananium
 	name = "bananium"
 	icon_state = "sheet-clown"
-	singular_name = "bananium sheet"
 	origin_tech = "materials=4"
 	sheettype = "bananium"
 	merge_type = /obj/item/stack/sheet/mineral/bananium
@@ -325,7 +317,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 /obj/item/stack/sheet/mineral/tranquillite
 	name = "tranquillite"
 	icon_state = "sheet-mime"
-	singular_name = "beret"
 	origin_tech = "materials=4"
 	sheettype = "tranquillite"
 	merge_type = /obj/item/stack/sheet/mineral/tranquillite
@@ -347,7 +338,6 @@ GLOBAL_LIST_INIT(sandbag_recipes, list ( \
 	name = "titanium"
 	icon_state = "sheet-titanium"
 	item_state = "sheet-titanium"
-	singular_name = "titanium sheet"
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -378,7 +368,6 @@ GLOBAL_LIST_INIT(titanium_recipes, list(
 	name = "plastitanium"
 	icon_state = "sheet-plastitanium"
 	item_state = "sheet-plastitanium"
-	singular_name = "plastitanium sheet"
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -442,7 +431,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "sheet-abductor"
 	item_state = "sheet-abductor"
-	singular_name = "alien alloy sheet"
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
@@ -463,7 +451,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	desc = "A strange mineral used in the construction of sentient golems."
 	icon_state = "sheet-adamantine"
 	item_state = "sheet-adamantine"
-	singular_name = "adamantine sheet"
 	origin_tech = "materials=5"
 	merge_type = /obj/item/stack/sheet/mineral/adamantine
 	wall_allowed = FALSE
@@ -483,7 +470,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	desc = "A rare mineral used in construction of chitin armor."
 	icon_state = "sheet-mythril"
 	//item_state = "sheet-mythril"
-	singular_name = "mythril sheet"
 	origin_tech = "materials=7"
 	merge_type = /obj/item/stack/sheet/mineral/mythril
 	wall_allowed = FALSE
@@ -498,7 +484,6 @@ GLOBAL_LIST_INIT(plastitanium_recipes, list(
 	name = "snow"
 	icon_state = "sheet-snow"
 	//item_state = "sheet-snow"
-	singular_name = "snow block"
 	force = 1
 	throwforce = 2
 	merge_type = /obj/item/stack/sheet/mineral/snow

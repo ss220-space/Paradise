@@ -135,7 +135,6 @@ GLOBAL_VAR_INIT(totaltribbles, 0)   //global variable so it updates for all trib
 /obj/item/stack/sheet/fur //basic fur sheets (very lumpy furry piles of sheets)
 	name = "pile of fur"
 	desc = "The by-product of tribbles."
-	singular_name = "fur piece"
 	icon = 'icons/mob/tribbles.dmi'
 	icon_state = "sheet-fur"
 	origin_tech = "materials=2"

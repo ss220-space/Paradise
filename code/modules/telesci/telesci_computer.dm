@@ -57,13 +57,13 @@
 			to_chat(user, span_warning("There are not enough crystal slots."))
 			return ATTACK_CHAIN_PROCEED
 		if(!crystal.use(1))
-			to_chat(user, span_warning("You need at least one [crystal.singular_name] to proceed."))
+			to_chat(user, span_warning("You need at least one [crystal] to proceed."))
 			return ATTACK_CHAIN_PROCEED
 		crystals++
 		updateUsrDialog()
 		user.visible_message(
-			span_notice("[user] has inserted a [crystal.singular_name] into [src]'s crystal slot."),
-			span_notice("You have inserted a [crystal.singular_name] into [src]'s crystal slot."),
+			span_notice("[user] has inserted a [crystal] into [src]'s crystal slot."),
+			span_notice("You have inserted a [crystal] into [src]'s crystal slot."),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 

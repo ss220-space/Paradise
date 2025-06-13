@@ -66,7 +66,6 @@
 /obj/item/stack/tickets
 	name = "prize ticket"
 	desc = "Prize tickets from the arcade. Exchange them for fabulous prizes!"
-	singular_name = "prize ticket"
 	icon = 'icons/obj/machines/arcade.dmi'
 	icon_state = "tickets_1"
 	force = 0

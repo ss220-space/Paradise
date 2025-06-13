@@ -220,7 +220,7 @@
 			sheets_needed += 1
 		sheets_to_use = min(sheets_needed, S.amount)
 	if(missing)
-		visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [S.singular_name]\s into new [con_type]s.</span>")
+		visible_message("<span class='notice'>[src] shudders as it converts [sheets_to_use] [S]\s into new [con_type]s.</span>")
 		containers[con_type] += sheets_to_use * mat_ratio
 		containers[con_type] = min(containers[con_type], max_define)
 		S.use(sheets_to_use)

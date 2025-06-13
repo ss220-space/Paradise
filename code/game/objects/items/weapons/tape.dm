@@ -3,7 +3,6 @@
 	desc = "A roll of sticky tape. Possibly for taping ducks... or was that ducts?"
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "taperoll"
-	singular_name = "tape roll"
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	amount = 25
@@ -71,7 +70,6 @@
 	name = "incredibly thick tape roll"
 	desc = "Incredibly thick duct tape, suspiciously black in appearance. It is quite uncomfortable to hold it as it sticks to your hands."
 	icon_state = "thick_taperoll"
-	singular_name = "incridibly dence tape roll"
 	amount = 40
 	max_amount = 40
 	apply_tape_delay = 1 SECONDS

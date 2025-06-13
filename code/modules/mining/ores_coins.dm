@@ -11,7 +11,6 @@
 	icon_state = "ore"
 	max_amount = 50
 	full_w_class = WEIGHT_CLASS_BULKY
-	singular_name = "ore chunk"
 	var/points = 0 //How many points this ore gets you from the ore redemption machine
 	var/refined_type = null //What this ore defaults to being refined into
 	var/list/stack_overlays
@@ -94,7 +93,6 @@
 	name = "uranium ore"
 	icon_state = "Uranium ore"
 	origin_tech = "materials=5"
-	singular_name = "uranium ore chunk"
 	points = 30
 	refined_type = /obj/item/stack/sheet/mineral/uranium
 	materials = list(MAT_URANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -103,7 +101,6 @@
 	name = "iron ore"
 	icon_state = "Iron ore"
 	origin_tech = "materials=1"
-	singular_name = "iron ore chunk"
 	points = 1
 	refined_type = /obj/item/stack/sheet/metal
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
@@ -112,7 +109,6 @@
 	name = "sand pile"
 	icon_state = "Glass ore"
 	origin_tech = "materials=1"
-	singular_name = "sand pile"
 	points = 1
 	refined_type = /obj/item/stack/sheet/glass
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -155,20 +151,17 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "volcanic ash"
 	icon_state = "volcanic_sand"
 	icon_state = "volcanic_sand"
-	singular_name = "volcanic ash pile"
 	desc = "Looks like you could shove some on a girder to make a false rock wall"
 
 /obj/item/stack/ore/glass/basalt/ancient
 	name = "ancient sand"
 	icon_state = "volcanic_sand"
 	item_state = "volcanic_sand"
-	singular_name = "ancient sand pile"
 
 /obj/item/stack/ore/plasma
 	name = "plasma ore"
 	icon_state = "Plasma ore"
 	origin_tech = "plasmatech=2;materials=2"
-	singular_name = "plasma ore chunk"
 	points = 15
 	refined_type = /obj/item/stack/sheet/mineral/plasma
 	materials = list(MAT_PLASMA=MINERAL_MATERIAL_AMOUNT)
@@ -177,7 +170,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "silver ore"
 	icon_state = "Silver ore"
 	origin_tech = "materials=3"
-	singular_name = "silver ore chunk"
 	points = 16
 	refined_type = /obj/item/stack/sheet/mineral/silver
 	materials = list(MAT_SILVER=MINERAL_MATERIAL_AMOUNT)
@@ -186,7 +178,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "gold ore"
 	icon_state = "Gold ore"
 	origin_tech = "materials=4"
-	singular_name = "gold ore chunk"
 	points = 18
 	refined_type = /obj/item/stack/sheet/mineral/gold
 	materials = list(MAT_GOLD=MINERAL_MATERIAL_AMOUNT)
@@ -195,7 +186,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "diamond ore"
 	icon_state = "Diamond ore"
 	origin_tech = "materials=6"
-	singular_name = "diamond ore chunk"
 	points = 50
 	refined_type = /obj/item/stack/sheet/mineral/diamond
 	materials = list(MAT_DIAMOND=MINERAL_MATERIAL_AMOUNT)
@@ -204,7 +194,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "bananium ore"
 	icon_state = "Clown ore"
 	origin_tech = "materials=4"
-	singular_name = "bananium ore chunk"
 	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/bananium
 	materials = list(MAT_BANANIUM=MINERAL_MATERIAL_AMOUNT)
@@ -213,7 +202,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "tranquillite ore"
 	icon_state = "Mime ore"
 	origin_tech = "materials=4"
-	singular_name = "transquillite ore chunk"
 	points = 60
 	refined_type = /obj/item/stack/sheet/mineral/tranquillite
 	materials = list(MAT_TRANQUILLITE=MINERAL_MATERIAL_AMOUNT)
@@ -221,7 +209,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 /obj/item/stack/ore/titanium
 	name = "titanium ore"
 	icon_state = "Titanium ore"
-	singular_name = "titanium ore chunk"
 	points = 50
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT)
 	refined_type = /obj/item/stack/sheet/mineral/titanium
@@ -230,7 +217,6 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 	name = "slag"
 	desc = "Completely useless"
 	icon_state = "slag"
-	singular_name = "slag chunk"
 
 /obj/item/twohanded/required/gibtonite
 	name = "gibtonite ore"

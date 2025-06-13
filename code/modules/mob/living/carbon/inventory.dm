@@ -273,7 +273,7 @@
 				if(!ignore_anim)
 					I.do_pickup_animation(src)
 				if(item_stack.merge(active_stack))
-					to_chat(src, span_notice("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.singular_name]\s."))
+					to_chat(src, span_notice("Your [active_stack.name] stack now contains [active_stack.get_amount()] [active_stack.name]\s."))
 					return TRUE
 			else
 				var/obj/item/stack/inactive_stack = get_inactive_hand()
@@ -281,7 +281,7 @@
 					if(!ignore_anim)
 						I.do_pickup_animation(src)
 					if(item_stack.merge(inactive_stack))
-						to_chat(src, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.singular_name]\s."))
+						to_chat(src, span_notice("Your [inactive_stack.name] stack now contains [inactive_stack.get_amount()] [inactive_stack.name]\s."))
 						return TRUE
 
 	if(put_in_active_hand(I, force, ignore_anim, silent))

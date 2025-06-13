@@ -28,7 +28,6 @@ GLOBAL_LIST_INIT(glass_recipes, list(
 /obj/item/stack/sheet/glass
 	name = "glass"
 	desc = "HOLY SHEET! That is a lot of glass."
-	singular_name = "glass sheet"
 	icon_state = "sheet-glass"
 	item_state = "sheet-glass"
 	materials = list(MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -107,7 +106,6 @@ GLOBAL_LIST_INIT(reinforced_glass_recipes, list ( \
 /obj/item/stack/sheet/rglass
 	name = "reinforced glass"
 	desc = "Glass which seems to have rods or something stuck in them."
-	singular_name = "reinforced glass sheet"
 	icon_state = "sheet-rglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 70, "acid" = 100)
@@ -155,7 +153,6 @@ GLOBAL_LIST_INIT(pglass_recipes, list ( \
 /obj/item/stack/sheet/plasmaglass
 	name = "plasma glass"
 	desc = "A very strong and very resistant sheet of a plasma-glass alloy."
-	singular_name = "glass sheet"
 	icon_state = "sheet-plasmaglass"
 	item_state = "sheet-pglass"
 	materials = list(MAT_PLASMA = MINERAL_MATERIAL_AMOUNT, MAT_GLASS = MINERAL_MATERIAL_AMOUNT)
@@ -207,7 +204,6 @@ GLOBAL_LIST_INIT(prglass_recipes, list ( \
 /obj/item/stack/sheet/plasmarglass
 	name = "reinforced plasma glass"
 	desc = "Plasma glass which seems to have rods or something stuck in them."
-	singular_name = "reinforced plasma glass sheet"
 	icon_state = "sheet-plasmarglass"
 	item_state = "sheet-prglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)
@@ -232,7 +228,6 @@ GLOBAL_LIST_INIT(titaniumglass_recipes, list(
 /obj/item/stack/sheet/titaniumglass
 	name = "titanium glass"
 	desc = "A glass sheet made out of a titanium-silicate alloy."
-	singular_name = "titanium glass sheet"
 	icon_state = "sheet-titaniumglass"
 	item_state = "sheet-rglass"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -255,7 +250,6 @@ GLOBAL_LIST_INIT(plastitaniumglass_recipes, list(
 /obj/item/stack/sheet/plastitaniumglass
 	name = "plastitanium glass"
 	desc = "A glass sheet made out of a plasma-titanium-silicate alloy."
-	singular_name = "plastitanium glass sheet"
 	icon_state = "sheet-plastitaniumglass"
 	item_state = "sheet-rglass"
 	materials = list(MAT_TITANIUM=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA=MINERAL_MATERIAL_AMOUNT, MAT_GLASS=MINERAL_MATERIAL_AMOUNT)
@@ -279,7 +273,6 @@ GLOBAL_LIST_INIT(alglass_recipes, list ( \
 /obj/item/stack/sheet/abductorglass
 	name = "alien glass"
 	desc = "Alien glass which seems to vibrate every second."
-	singular_name = "alien plasma glass sheet"
 	icon_state = "sheet-alienglass"
 	item_state = "sheet-alienglass"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT/2, MAT_GLASS=MINERAL_MATERIAL_AMOUNT, MAT_PLASMA = MINERAL_MATERIAL_AMOUNT)

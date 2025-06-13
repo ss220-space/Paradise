@@ -113,7 +113,6 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 /obj/item/stack/sheet/metal
 	name = "metal"
 	desc = "Sheets made out of metal."
-	singular_name = "metal sheet"
 	icon_state = "sheet-metal"
 	materials = list(MAT_METAL=MINERAL_MATERIAL_AMOUNT)
 	throwforce = 10.0
@@ -163,7 +162,6 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 
 /obj/item/stack/sheet/plasteel
 	name = "plasteel"
-	singular_name = "plasteel sheet"
 	desc = "This sheet is an alloy of iron and plasma."
 	icon_state = "sheet-plasteel"
 	item_state = "sheet-plasteel"
@@ -251,7 +249,6 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	name = "wooden planks"
 	desc = "One can only guess that this is a bunch of wood."
 	gender = PLURAL
-	singular_name = "wood plank"
 	icon_state = "sheet-wood"
 	item_state = "sheet-wood"
 	sheettype = "wood"
@@ -315,7 +312,6 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 /obj/item/stack/sheet/cloth
 	name = "cloth"
 	desc = "Is it cotton? Linen? Denim? Burlap? Canvas? You can't tell."
-	singular_name = "cloth roll"
 	icon_state = "sheet-cloth"
 	origin_tech = "materials=2"
 	resistance_flags = FLAMMABLE
@@ -347,7 +343,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 /obj/item/stack/sheet/durathread
 	name = "durathread"
 	desc = "A fabric sown from incredibly durable threads, known for its usefulness in armor production."
-	singular_name = "durathread roll"
 	icon_state = "sheet-durathread"
 	//item_state = "sheet-cloth"
 	resistance_flags = FLAMMABLE
@@ -364,7 +359,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 /obj/item/stack/sheet/cotton
 	name = "raw cotton bundle"
 	desc = "A bundle of raw cotton ready to be spun on the loom."
-	singular_name = "raw cotton ball"
 	icon_state = "sheet-cotton"
 	resistance_flags = FLAMMABLE
 	force = 0
@@ -376,7 +370,6 @@ GLOBAL_LIST_INIT(durathread_recipes, list(
 /obj/item/stack/sheet/cotton/durathread
 	name = "raw durathread bundle"
 	desc = "A bundle of raw durathread ready to be spun on the loom."
-	singular_name = "raw durathread ball"
 	icon_state = "sheet-durathreadraw"
 	merge_type = /obj/item/stack/sheet/cotton/durathread
 	pull_effort = 70
@@ -430,7 +423,6 @@ GLOBAL_LIST_INIT(cardboard_recipes, list(
 /obj/item/stack/sheet/cardboard	//BubbleWrap
 	name = "cardboard"
 	desc = "Large sheets of card, like boxes folded flat."
-	singular_name = "cardboard sheet"
 	icon_state = "sheet-card"
 	item_state = "sheet-card"
 	origin_tech = "materials=1"
@@ -466,7 +458,6 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 /obj/item/stack/sheet/runed_metal
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them."
-	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
 	item_state = "sheet-runed"
 	sheettype = "runed"
@@ -475,7 +466,6 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 /obj/item/stack/sheet/runed_metal_fake
 	name = "runed metal"
 	desc = "Sheets of cold metal with shifting inscriptions writ upon them. is that math formulas?"
-	singular_name = "runed metal sheet"
 	icon_state = "sheet-runed"
 	item_state = "sheet-runed"
 	sheettype = "runed"
@@ -576,7 +566,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 /obj/item/stack/sheet/brass
 	name = "brass"
 	desc = "Specially hand-crafted sheets of brass."
-	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
 	icon = 'icons/obj/items.dmi'
@@ -628,7 +617,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 /obj/item/stack/sheet/brass_fake
 	name = "brass"
 	desc = "Specially hand-crafted sheets of brass. These ones look tarnished. "
-	singular_name = "brass sheet"
 	icon_state = "sheet-brass"
 	item_state = "sheet-brass"
 	icon = 'icons/obj/items.dmi'
@@ -668,7 +656,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	name = "bones"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "bone"
-	singular_name = "bone"
 	desc = "Someone's been drinking their milk."
 	force = 7
 	throwforce = 5
@@ -694,7 +681,6 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
 	item_state = "razor_sharp_teeth"
-	singular_name = "razor sharp tooth"
 	w_class = WEIGHT_CLASS_NORMAL
 	throw_speed = 1
 	throw_range = 7
@@ -779,7 +765,6 @@ GLOBAL_LIST_INIT(plastic_recipes, list(
 /obj/item/stack/sheet/plastic
 	name = "plastic"
 	desc = "Compress dinosaur over millions of years, then refine, split and mold, and voila! You have plastic."
-	singular_name = "plastic sheet"
 	icon_state = "sheet-plastic"
 	item_state = "sheet-plastic"
 	throwforce = 7
@@ -810,7 +795,6 @@ GLOBAL_LIST_INIT(bamboo_recipes, list(
 /obj/item/stack/sheet/bamboo
 	name = "bamboo cuttings"
 	desc = "Finely cut bamboo sticks."
-	singular_name = "cut bamboo"
 	icon_state = "sheet-bamboo"
 	//item_state = "sheet-bamboo"
 	icon = 'icons/obj/items.dmi'
@@ -840,7 +824,6 @@ GLOBAL_LIST_INIT(cheese_recipes, list(
 	icon_state = "sheet-cheese"
 	//item_state = "sheet-cheese"
 	icon = 'icons/obj/items.dmi'
-	singular_name = "reinforced cheese block"
 	sheettype = "cheese"
 	force = 5
 	throwforce = 5
@@ -871,7 +854,6 @@ GLOBAL_LIST_INIT(gingerbread_recipes, list(
 	desc = "A brick of gingerbread that seems sturdier than regular one."
 	icon_state = "sheet-gingerbread"
 	//item_state = "sheet-gingerbread"
-	singular_name = "gingerbread block"
 	icon = 'icons/obj/items.dmi'
 	sheettype = "gingerbread"
 	force = 1

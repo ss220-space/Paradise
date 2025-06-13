@@ -27,9 +27,9 @@
 		if(use(1))
 			blink_mob(bs_user)
 			bs_user.adjustStaminaLoss(33) // same as taser ; balance ideas - increase staminoloss / time to crush, move staminaLoss before blink or even do_after, replace if(do_after...) and if(use(1))
-			bs_user.visible_message("<span class='notice'>[bs_user] crushes a [singular_name]!</span>")
+			bs_user.visible_message("<span class='notice'>[bs_user] crushes a [src]!</span>")
 	else
-		to_chat(user, "<span class='notice'>You need to hold still to crush [singular_name].</span>")
+		to_chat(user, "<span class='notice'>You need to hold still to crush [src].</span>")
 
 /obj/item/stack/ore/bluespace_crystal/proc/blink_mob(var/mob/living/L)
 	if(!is_teleport_allowed(L.z))
@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("блюспейс полиударил", "блюспейс полиогрел", "блюспейс полистукнул", "блюспейс полисокрушил")
+	attack_verb = list("блюспейс-полиударил", "блюспейс-полиогрел", "блюспейс-полистукнул", "блюспейс-полисокрушил")
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	point_value = 30

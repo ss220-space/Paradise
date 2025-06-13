@@ -10,7 +10,6 @@
 	throw_range = 7
 	w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-	singular_name = "chip"
 	max_amount = 1000000
 	merge_type = /obj/item/stack/spacechips
 

@@ -16,7 +16,6 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon
 	name = "marker beacon"
-	singular_name = "marker beacon"
 	desc = "Prism-brand path illumination devices. Used by miners to mark paths and warn of danger."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "marker"
@@ -38,7 +37,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
+	. += "<span class='notice'>Use in-hand to place a [name].</span>"
 	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
 
 /obj/item/stack/marker_beacon/update_icon_state()
@@ -46,13 +45,13 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to place a [singular_name] here.</span>")
+		to_chat(user, "<span class='warning'>You need more space to place a [name] here.</span>")
 		return
 	if(locate(/obj/structure/marker_beacon) in user.loc)
-		to_chat(user, "<span class='warning'>There is already a [singular_name] here.</span>")
+		to_chat(user, "<span class='warning'>There is already a [name] here.</span>")
 		return
 	if(use(1))
-		to_chat(user, "<span class='notice'>You activate and anchor [amount ? "a":"the"] [singular_name] in place.</span>")
+		to_chat(user, "<span class='notice'>You activate and anchor [amount ? "a":"the"] [name] in place.</span>")
 		playsound(user, 'sound/machines/click.ogg', 50, 1)
 		var/obj/structure/marker_beacon/M = new(user.loc, picked_color)
 		transfer_fingerprints_to(M)

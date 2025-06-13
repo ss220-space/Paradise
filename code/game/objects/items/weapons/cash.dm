@@ -18,7 +18,6 @@
 	w_class = WEIGHT_CLASS_TINY
 	full_w_class = WEIGHT_CLASS_TINY
 	resistance_flags = FLAMMABLE
-	singular_name = "credit"
 	max_amount = CASHMAX
 	merge_type = /obj/item/stack/spacecash
 
@@ -101,7 +100,6 @@
 	name = "1 Soviet Credit"
 	desc = "An old shabby paper Soviet Credit."
 	icon_state = "usspcash"
-	singular_name = "Stovpira"
 	merge_type = /obj/item/stack/spacecash/ussp
 
 /obj/item/stack/spacecash/ussp/c10

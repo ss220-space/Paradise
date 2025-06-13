@@ -11,7 +11,6 @@
 	)
 	gender = MALE
 	description_antag = "Телекристалл можно активировать, используя на устройствах с активным аплинком."
-	singular_name = "telecrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"
 	w_class = WEIGHT_CLASS_TINY
@@ -43,7 +42,7 @@
 	else if(istype(I, /obj/item/cartridge/frame))
 		var/obj/item/cartridge/frame/cart = I
 		if(!cart.charges)
-			balloon_alert(user, "заряды кончился!")
+			balloon_alert(user, "заряд кончился!")
 			return
 		cart.telecrystals += amount
 		use(amount)

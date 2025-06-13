@@ -2,7 +2,6 @@
 #define MAXCABLEPERHEAL 8
 /obj/item/stack/cable_coil
 	name = "cable coil"
-	singular_name = "cable"
 	icon = 'icons/obj/engines_and_power/power.dmi'
 	icon_state = "coil"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'

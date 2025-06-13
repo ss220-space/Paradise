@@ -120,7 +120,6 @@
 	desc = "You can use this to wrap items in."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "wrap_paper"
-	singular_name = "wrapping paper"
 	item_flags = NOBLUDGEON
 	amount = 25
 	max_amount = 25

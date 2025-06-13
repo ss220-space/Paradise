@@ -1,6 +1,5 @@
 /obj/item/stack/nanopaste
 	name = "nanopaste"
-	singular_name = "nanite swarm"
 	desc = "A tube of paste containing swarms of repair nanites. Very effective in repairing robotic machinery."
 	icon = 'icons/obj/nanopaste.dmi'
 	icon_state = "tube"
@@ -12,6 +11,7 @@
 	toolspeed = 1
 	energy_type = /datum/robot_energy_storage/nanopaste
 	cost = 1
+	material_stack = FALSE
 
 
 /obj/item/stack/nanopaste/cyborg/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

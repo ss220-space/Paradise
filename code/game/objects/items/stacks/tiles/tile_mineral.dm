@@ -1,6 +1,5 @@
 /obj/item/stack/tile/mineral/plasma
 	name = "plasma tile"
-	singular_name = "plasma floor tile"
 	desc = "A tile made out of highly flammable plasma. This can only end well."
 	icon_state = "tile_plasma"
 	origin_tech = "plasmatech=1"
@@ -19,7 +18,6 @@
 
 /obj/item/stack/tile/mineral/uranium
 	name = "uranium tile"
-	singular_name = "uranium floor tile"
 	desc = "A tile made out of uranium. You feel a bit woozy."
 	icon_state = "tile_uranium"
 	turf_type = /turf/simulated/floor/mineral/uranium
@@ -32,7 +30,6 @@ GLOBAL_LIST_INIT(gold_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/gold
 	name = "gold tile"
-	singular_name = "gold floor tile"
 	desc = "A tile made out of gold, the swag seems strong here."
 	icon_state = "tile_gold"
 	turf_type = /turf/simulated/floor/mineral/gold
@@ -61,7 +58,6 @@ GLOBAL_LIST_INIT(silver_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/silver
 	name = "silver tile"
-	singular_name = "silver floor tile"
 	desc = "A tile made out of silver, the light shining from it is blinding."
 	icon_state = "tile_silver"
 	turf_type = /turf/simulated/floor/mineral/silver
@@ -86,7 +82,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/diamond
 	name = "diamond tile"
-	singular_name = "diamond floor tile"
 	desc = "A tile made out of diamond. Wow, just, wow."
 	icon_state = "tile_diamond"
 	origin_tech = "materials=2"
@@ -96,7 +91,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/bananium
 	name = "bananium tile"
-	singular_name = "bananium floor tile"
 	desc = "A tile made out of bananium, HOOOOOOOOONK!"
 	icon_state = "tile_bananium"
 	turf_type = /turf/simulated/floor/mineral/bananium
@@ -105,7 +99,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/tranquillite
 	name = "silent tile"
-	singular_name = "silent floor tile"
 	desc = "A tile made out of tranquillite, SHHHHHHHHH!"
 	icon_state = "tile_tranquillite"
 	turf_type = /turf/simulated/floor/mineral/tranquillite
@@ -114,7 +107,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/abductor
 	name = "alien floor tile"
-	singular_name = "alien floor tile"
 	desc = "A tile made out of alien alloy."
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "tile_abductor"
@@ -124,7 +116,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/titanium
 	name = "titanium tile"
-	singular_name = "titanium floor tile"
 	desc = "A tile made of titanium, used for shuttles."
 	icon_state = "tile_shuttle"
 	turf_type = /turf/simulated/floor/mineral/titanium
@@ -137,7 +128,6 @@ GLOBAL_LIST_INIT(silverfancy_tile_recipes, list ( \
 
 /obj/item/stack/tile/mineral/plastitanium
 	name = "plas-titanium tile"
-	singular_name = "plas-titanium floor tile"
 	desc = "A tile made of plas-titanium, used for very evil shuttles."
 	icon_state = "tile_darkshuttle"
 	turf_type = /turf/simulated/floor/mineral/plastitanium
