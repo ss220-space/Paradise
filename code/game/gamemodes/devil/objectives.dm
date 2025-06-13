@@ -55,7 +55,8 @@
 	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 
 /datum/objective/devil/sacrifice/Destroy(force)
-	UnregisterSignal(target, list(COMSIG_DEVIL_SACRIFICE_CHECK, COMSIG_DEVIL_SACRIFICE))
+	if(target)
+		UnregisterSignal(target, list(COMSIG_DEVIL_SACRIFICE_CHECK, COMSIG_DEVIL_SACRIFICE))
 	. = ..()
 
 /datum/objective/devil/sacrifice/proc/on_devil_sacrifice_check()
