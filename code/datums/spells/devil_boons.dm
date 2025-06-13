@@ -1,3 +1,5 @@
+#define REVIVE_SPELL_TIME 5 MINUTES
+
 /obj/effect/proc_holder/spell/summon_wealth
 	name = "Призвать богатство"
 	desc = "Ваша награда за продажу души."
@@ -111,3 +113,59 @@
 		var/mob/living/L = C
 		friendShell = new /obj/effect/mob_spawn/human/demonic_friend(L.loc, L.mind, src)
 
+
+/obj/effect/proc_holder/spell/touch/revive_touch
+	name = "Воскрешающее косание"
+	desc = "Чрезвычайно могущественное некромантическое заклинание"
+	hand_path = /obj/item/melee/touch_attack/revive_touch
+	school = "transmutation"
+
+	base_cooldown = 1 MINUTES
+	clothes_req = FALSE
+	cooldown_min = 10 SECONDS //50 deciseconds reduction per rank
+	action_icon_state = "revive"
+
+
+/obj/item/melee/touch_attack/revive_touch
+	name = "воскрешающее косание"
+	ru_names = list(
+        NOMINATIVE = "воскрешающее касание",
+        GENITIVE = "воскрешающего касания",
+        DATIVE = "воскрешающему касанию",
+        ACCUSATIVE = "воскрешающее касание",
+        INSTRUMENTAL = "воскрешающим касанием",
+        PREPOSITIONAL = "воскрешающем касании"
+	)
+	desc = "Воскрешает тело умершего на определенное время."
+	catchphrase = "Surge e lecto"
+	on_use_sound = 'sound/magic/staff_healing.ogg'
+	icon_state = "disintegrate"
+	color = "#acb78e"
+
+
+/obj/item/melee/touch_attack/revive_touch/afterattack(atom/target, mob/living/carbon/user, proximity, params)
+	. = ..()
+
+	if(!isliving(target))
+		return .
+
+	var/mob/living/mob = target
+
+	if(mob.stat != DEAD)
+		return .
+
+	mob.revive()
+
+	addtimer(CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(late_death), mob), REVIVE_SPELL_TIME)
+
+/proc/late_death(mob/living/mob)
+	mob.death()
+
+	if(!iscarbon(mob))
+		return
+
+	var/mob/living/carbon/carbon = mob
+	for(var/obj/item/organ/organ as anything in carbon.internal_organs)
+		organ.necrotize(TRUE)
+
+#undef REVIVE_SPELL_TIME

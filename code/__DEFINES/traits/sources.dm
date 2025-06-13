@@ -175,3 +175,5 @@
 #define GRAVITATION_TRAIT	"gravitation"
 
 #define FAKEFIRE_TRAIT "fakefire"
+
+#define DEVIL_CONTRACT_TRAIT "devil_contract"

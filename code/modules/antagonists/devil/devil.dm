@@ -64,14 +64,18 @@
 	update_hud()
 	SStgui.update_uis(src)
 
-/datum/antagonist/devil/proc/remove_soul(datum/mind/soul)
+/datum/antagonist/devil/proc/remove_soul(datum/mind/soul, return_to_owner = TRUE)
 	LAZYREMOVE(soulsOwned, soul)
-	soul.hasSoul = TRUE
-	soul.soulOwner = soul
-	soul.damnation_type = null
 	to_chat(owner.current, span_warning("Вы чувствуете, как часть ваших сил угасает"))
 	update_hud()
 	SStgui.update_uis(src)
+
+	if(!return_to_owner)
+		return
+
+	soul.hasSoul = TRUE
+	soul.soulOwner = soul
+	soul.damnation_type = null
 
 /datum/antagonist/devil/proc/try_update_rank(is_ritual = FALSE)
 	if(!rank.required_souls || !rank.next_rank_type)

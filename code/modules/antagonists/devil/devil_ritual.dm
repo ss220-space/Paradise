@@ -6,6 +6,7 @@
 
 /datum/ritual/devil/imp
 	name = "Ритуал призыва беса"
+	description = "Призывает беса, который будет обязан вам подчиняться"
 	required_things = list(
 		/obj/item/wirecutters = 3,
 		/obj/item/organ/internal/kidneys = 2,
@@ -46,6 +47,7 @@
 
 /datum/ritual/devil/sacrifice
 	name = "Ритуал жертвоприношения"
+	description = "Позволяет вам принести нужного вам гуманоида в жертву и получить его душу."
 	ritual_should_del_things = FALSE
 	required_things = list(
 		/mob/living/carbon/human = 1
@@ -96,6 +98,7 @@
 
 /datum/ritual/devil/ascendetion
 	name = "Ритуал возвышения"
+	description = "Представляет собой улучшенный ритуал жертвоприношения, необходимый дьяволу, чтобы возвыситься до архидьявола."
 	ritual_should_del_things = FALSE
 	required_things = list(
 		/mob/living/carbon/human = 2
@@ -172,7 +175,9 @@
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
 
 	if(!devil)
+		ritual_object.balloon_alert(invoker, "вы не дьявол!")
 		return RITUAL_FAILED_ON_PROCEED
+
 	var/count
 	for(var/mob/living/carbon/human/human in used_things)
 		if(!human.mind)
@@ -182,7 +187,7 @@
 		SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE)
 	if(count < required_things[/mob/living/carbon/human])
 		return RITUAL_FAILED_ON_PROCEED
-		
+
 	hell_coming(invoker, devil)
 	return RITUAL_SUCCESSFUL
 
@@ -245,3 +250,99 @@
 			return
 
 	addtimer(CALLBACK(src, PROC_REF(hell_coming), invoker, devil, stage), timers_list[stage])
+
+/datum/ritual/devil/clown
+	name = "Ритуал клоунификации"
+	description = "Заставляет офицеров службы безопасности с ЦК показать свою истинную натуру."
+	required_things = list(
+		/obj/item/stack/sheet/mineral/bananium = 1,
+		/obj/item/clothing/head/helmet = 1,
+		/obj/item/organ/internal/heart = 1,
+		/obj/item/bikehorn = 1,
+		/obj/item/clothing/shoes/clown_shoes= 1
+	)
+	var/static/sound/honk_sound = sound('sound/items/AirHorn.ogg')
+
+/datum/ritual/devil/clown/del_things(list/used_things)
+	for(var/obj/obj in used_things) // no type ignore for future.
+		if(!isstack(obj))
+			qdel(obj)
+			continue
+
+		var/obj/item/stack/stack = obj
+		stack.use(required_things[stack.type])
+
+	return
+
+/datum/ritual/devil/clown/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	for(var/datum/mind/possible_target in SSticker.minds)
+
+		if(!(LAZYIN(GLOB.security_positions, possible_target.assigned_role)))
+			continue
+
+		if(!possible_target.current || possible_target.current.stat == DEAD)
+			continue
+
+		if(!ishuman(possible_target.current ))
+			continue
+
+		var/mob/living/carbon/human/human_target = possible_target.current
+		human_target.bananatouched()
+		playsound(human_target, honk_sound)
+
+	return RITUAL_SUCCESSFUL
+
+/datum/ritual/devil/change
+	name = "Ритуал замены"
+	description = "Позволяет заменить одну из целей на жертвоприношение."
+	var/static/sound/honk_sound = sound('sound/items/AirHorn.ogg')
+
+/datum/ritual/devil/change/check_contents(mob/living/carbon/invoker, list/used_things)
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	if(!devil)
+		ritual_object.balloon_alert(invoker, "вы не дьявол!")
+		return FALSE
+
+	if(!LAZYLEN(devil.soulsOwned))
+		ritual_object.balloon_alert(invoker, "у вас нет душ!")
+		return FALSE
+
+	return TRUE
+
+/datum/ritual/devil/change/get_ui_things()
+	var/list/things = list()
+	things["душа"] = 1
+	return things
+
+/datum/ritual/devil/change/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	if(!devil)
+		ritual_object.balloon_alert(invoker, "вы не дьявол!")
+		return RITUAL_FAILED_ON_PROCEED
+
+	var/list/target_list = list()
+
+	for(var/datum/objective/devil/sacrifice/objective in devil.objectives)
+		if(objective.completed)
+			continue
+
+		target_list[objective.target.name] = objective
+
+	if(!LAZYLEN(target_list))
+		ritual_object.balloon_alert(invoker, "у вас нет подходящих целей для замены!")
+		return RITUAL_FAILED_ON_PROCEED
+
+	var/target = tgui_input_list(invoker, "Какую цель вы хотите заменить?", "Заменить цель", target_list)
+
+	if(!target)
+		ritual_object.balloon_alert(invoker, "цель для замены не выбрана!")
+		return RITUAL_FAILED_ON_PROCEED
+
+	var/datum/objective/devil/sacrifice/objective = target_list[target]
+	objective.find_target()
+	devil.remove_soul(safepick(devil.soulsOwned), FALSE)
+
+	return RITUAL_SUCCESSFUL
+

@@ -85,6 +85,29 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define BANISH_DESTRUCTION "destruction"
 #define BANISH_FUNERAL_GARB "funeral"
 
+#define CONTRACT_POWER "Сила"
+#define CONTRACT_WEALTH "Богатство"
+#define CONTRACT_PRESTIGE "Престиж"
+#define CONTRACT_MAGIC "Магия"
+#define CONTRACT_REVIVE "Воскрешение"
+#define CONTRACT_KNOWLEDGE "Знание"
+#define CONTRACT_UNWILLING "Безвозмездный контракт"
+#define CONTRACT_FRIENDSHIP "Дружба"
+#define CONTRACT_YOUTH "Вечная молодость"
+#define CONTRACT_ETALENT "Инженерный талант"
+#define CONTRACT_RETURNDEAD "Воскрешение мертвых"
+// FIXME: Implement these
+#define CONTRACT_CTALENT "Chemistry Talent"
+#define CONTRACT_AUGMENT "Cybernetic Augmentations"
+#define CONTRACT_CANDY "Endless Candy"
+#define CONTRACT_ECHANCE "An Extra Chance"
+#define CONTRACT_ATECH "Advanced Technology"
+#define CONTRACT_DEVILSMACHINE "Devil's Machinery"
+#define CONTRACT_FOOD "Food"
+#define CONTRACT_SPACE "Space Gear"
+#define CONTRACT_CALAMITY "Calamity"
+
+
 #define BANE_TOOLBOX_DAMAGE_MODIFIER 	2.5
 #define BANE_HARVEST_DAMAGE_MULTIPLIER 	2
 

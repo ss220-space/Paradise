@@ -1,4 +1,5 @@
 #define MAGIC_SPELLS_COUNT 3
+#define HULK_COOLDOWN 10 MINUTES
 /datum/devil_contract
 	var/name = "Ошибка"
 	var/contract_type = 0
@@ -26,11 +27,12 @@
 	return TRUE
 
 /datum/devil_contract/power/fulfill_contract(mob/living/carbon/human/user)
-	user.force_gene_block(GLOB.hulkblock, TRUE)
-	// Demonic power gives you consequenceless hulk
-	user.gene_stability += GENE_INSTABILITY_MAJOR
-	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/hulk_transform/contract(null))
+	var/obj/item/organ/internal/regenerative_core/organ = new /obj/item/organ/internal/regenerative_core/cooldown
 	organ.insert(user)
+
+/obj/effect/proc_holder/spell/hulk_transform/contract
+	base_cooldown = HULK_COOLDOWN
 
 /datum/devil_contract/wealth
 	name = "контракт богатства"
@@ -204,5 +206,30 @@
 
 /datum/devil_contract/youth/fulfill_contract(mob/living/carbon/human/user)
 	user.mind.add_antag_datum(/datum/antagonist/vampire/devil_vampire)
+
+/datum/devil_contract/etalent
+	name = "контракт инженерного таланта"
+	contract_type = CONTRACT_ETALENT
+	contract_subject = "инженерного таланта"
+	contract_subject_text = ", в обмен на опыт и знания в  инженерном деле"
+
+/datum/devil_contract/etalent/fulfill_contract(mob/living/carbon/human/user)
+	user.add_actionspeed_modifier(/datum/actionspeed_modifier/devil_etalent)
+	ADD_TRAIT(user, TRAIT_CAN_SEE_WIRES, DEVIL_CONTRACT_TRAIT)
+
+/datum/devil_contract/return_dead
+	name = "контракт воскрешения мертвых"
+	contract_type = CONTRACT_RETURNDEAD
+	contract_subject = "воскрешения мертвых"
+	contract_subject_text = ", в обмен на власть над жизнью и смертью"
+
+/datum/devil_contract/return_dead/check_contract(mob/living/carbon/human/user)
+	if(!istype(user) || !user.mind)
+		return FALSE
+	return TRUE
+
+/datum/devil_contract/return_dead/fulfill_contract(mob/living/carbon/human/user)
+	user.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/revive_touch(null))
+	/obj/effect/proc_holder/spell/lichdom::create_lich(user)
 
 #undef MAGIC_SPELLS_COUNT
