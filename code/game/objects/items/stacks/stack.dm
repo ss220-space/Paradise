@@ -22,8 +22,6 @@
 	var/cost = 1
 	/// A list of recipes buildable with this stack.
 	var/list/recipes = list()
-	/// The singular name of this stack.
-	var/singular_name
 	/// The current amount of this stack.
 	var/amount = 1
 	var/to_transfer = 0
@@ -37,6 +35,8 @@
 	var/parent_stack = FALSE
 	/// The weight class the stack has at amount > 2/3rds of max_amount
 	var/full_w_class = WEIGHT_CLASS_NORMAL
+	/// Whether this is a stack of materials (like metal sheets) or usable item with limited usages (like medical stuff).
+	var/material_stack = TRUE
 
 /obj/item/stack/Initialize(mapload, new_amount, merge = TRUE)
 
@@ -81,15 +81,20 @@
 		return
 
 	if(is_cyborg)
-		if(singular_name)
-			. += "There is enough energy for [get_amount()] [singular_name]\s."
+		if(material_stack)
+			. += span_notice("Энергии достаточно для печати <b>[get_amount()]</b> единиц[declension_ru(get_amount(), "ы", "", "")].")
+			return
+		else
+			. += span_notice("Энергии достаточно для <b>[get_amount()]</b> использовани[declension_ru(get_amount(), "я", "й", "й")].")
 			return
 
-		. += "There is enough energy for [get_amount()]."
-		return
-
-	. += "There are [amount] [singular_name? singular_name : name]\s in the stack."
-	. += span_notice("Alt-click to take a custom amount.")
+	if(material_stack)
+		. += span_notice("Насчитывает <b>[amount]</b> единиц[declension_ru(amount, "у", "ы", "")].")
+	else
+		. += span_notice("Хватит на <b>[amount]</b> использовани[declension_ru(amount, "е", "я", "й")].")
+	if(recipes)
+		. += span_info("Используйте в руке, чтобы открыть меню рецептов.")
+	. += span_info("Используйте <b>Alt+ЛКМ</b>, чтобы отделить произвольное количество.")
 
 /obj/item/stack/proc/add(newamount)
 	if(is_cyborg)
@@ -126,7 +131,7 @@
 		if(!holder)
 			continue
 
-		to_chat(holder, span_warning("[item_stack] exceeds [src] weight limits and drops to [drop_loc]"))
+		holder.balloon_alert(holder, "излишки выброшены!")
 
 /** Checks whether this stack can merge itself into another stack.
  *
@@ -155,10 +160,12 @@
 	return TRUE
 
 /obj/item/stack/attack_self(mob/user)
-	ui_interact(user)
+	if(recipes)
+		ui_interact(user)
 
 /obj/item/stack/attack_self_tk(mob/user)
-	ui_interact(user)
+	if(recipes)
+		ui_interact(user)
 
 /obj/item/stack/attack_tk(mob/user)
 	if(user.stat || !isturf(loc))
@@ -171,7 +178,8 @@
 	var/obj/item/stack/material = split(user, 1)
 	material.attack_tk(user)
 	if(src && user.machine == src)
-		ui_interact(user)
+		if(recipes)
+			ui_interact(user)
 
 /obj/item/stack/attack_hand(mob/user)
 	if(!user.is_in_inactive_hand(src) && get_amount() > 1)
@@ -180,7 +188,8 @@
 
 	change_stack(user, 1)
 	if(src && user.machine == src)
-		ui_interact(user)
+		if(recipes)
+			ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
 	if(!can_merge(thing, TRUE))
@@ -190,7 +199,7 @@
 	do_pickup_animation(user)
 	if(!merge(material))
 		return ..()
-	to_chat(user, span_notice("Your [material.name] stack now contains [material.get_amount()] [material.singular_name]\s."))
+	user.balloon_alert(user, "соединено в [material.get_amount()] единиц[declension_ru(material.get_amount(), "у", "ы", "")]")
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 /obj/item/stack/use(used, check = TRUE)
@@ -226,16 +235,16 @@
 
 /obj/item/stack/click_alt(mob/user)
 	if(!istype(user) || user.incapacitated())
-		to_chat(user, span_warning("You can't do that right now!"))
+		user.balloon_alert(user, "руки заблокированы!")
 		return NONE
 
 	if(!in_range(src, user) || !ishuman(usr) || amount < 1 || is_cyborg)
 		return NONE
 
 	// Get amount from user
-	var/min = 0
+	var/min = 1
 	var/max = get_amount()
-	var/stackmaterial = tgui_input_number(user, "How many sheets do you wish to take out of this stack? (Max: [max])", "Stack Split", max_value = max, min_value = min)
+	var/stackmaterial = tgui_input_number(user, "Сколько единиц вы хотите отделить? (Максимум: [max])", "Разделение [declent_ru(GENITIVE)]", max_value = max, min_value = min)
 	if(isnull(stackmaterial))
 		return CLICK_ACTION_BLOCKING
 
@@ -243,7 +252,7 @@
 		return CLICK_ACTION_BLOCKING
 
 	change_stack(user, stackmaterial)
-	to_chat(user, span_notice("You take [stackmaterial] sheets out of the stack."))
+	user.balloon_alert(user, "отделен[declension_ru(stackmaterial, "а", "ы", "о")] [stackmaterial] единиц[declension_ru(stackmaterial, "а", "", "")]")
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/stack/ui_state(mob/user)
@@ -252,7 +261,7 @@
 /obj/item/stack/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "StackCraft", name)
+		ui = new(user, src, "StackCraft", capitalize(declent_ru(NOMINATIVE)))
 		ui.set_autoupdate(FALSE)
 		ui.open()
 
