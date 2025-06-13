@@ -15,8 +15,7 @@
 	RegisterSignal(human, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
 	RegisterSignal(human, COMSIG_LIVING_EARLY_DEATH, PROC_REF(pre_death))
 
-	var/obj/item/organ/internal/brain/brain = human.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-	brain?.decoy_brain = TRUE
+	ADD_TRAIT(human, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
 
 /datum/element/devil_regeneration/Detach(datum/target)
 	. = ..()
@@ -28,9 +27,7 @@
 		return
 
 	var/mob/living/carbon/carbon = target
-	var/obj/item/organ/internal/brain/brain = carbon.get_organ_slot(INTERNAL_ORGAN_BRAIN)
-
-	brain?.decoy_brain = FALSE
+	REMOVE_TRAIT(carbon, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
 
 /datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ/organ)
 	SIGNAL_HANDLER
@@ -54,8 +51,6 @@
 	)
 	external = new external(human)
 	human.heal_overall_damage(devil.rank.regen_amount, devil.rank.regen_amount)
-	external.stop_internal_bleeding()
-	external.mend_fracture()
 
 	playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
 	update_status(human)
@@ -105,6 +100,10 @@
 
 	apply_status_effects(human, devil)
 	apply_cure(human, devil)
+	var/obj/item/implant/exile = locate(/obj/item/implant) in human.contents
+
+	if(exile)
+		qdel(exile)
 
 	if(ishuman(human))
 		var/mob/living/carbon/human/mob = human
@@ -114,6 +113,11 @@
 		mob.decaylevel = 0
 		mob.remove_all_embedded_objects()
 		mob.remove_all_parasites()
+		for(var/obj/item/organ/external/organ as anything in mob.bodyparts)
+			organ.stop_internal_bleeding()
+			organ.mend_fracture()
+
+
 
 	playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
 	update_status(human)

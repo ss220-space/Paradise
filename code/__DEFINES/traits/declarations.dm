@@ -328,3 +328,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_FAKE_FIRE "fake_fire"
 
 #define TRAIT_CAN_SEE_WIRES "can_see_wires"
+
+#define TRAIT_DECOY_BRAIN "decoy_brain"
