@@ -92,7 +92,7 @@
 		. += span_notice("Насчитывает <b>[amount]</b> единиц[declension_ru(amount, "у", "ы", "")].")
 	else
 		. += span_notice("Хватит на <b>[amount]</b> использовани[declension_ru(amount, "е", "я", "й")].")
-	if(recipes)
+	if(length(recipes))
 		. += span_info("Используйте в руке, чтобы открыть меню рецептов.")
 	. += span_info("Используйте <b>Alt+ЛКМ</b>, чтобы отделить произвольное количество.")
 
@@ -160,11 +160,11 @@
 	return TRUE
 
 /obj/item/stack/attack_self(mob/user)
-	if(recipes)
+	if(length(recipes))
 		ui_interact(user)
 
 /obj/item/stack/attack_self_tk(mob/user)
-	if(recipes)
+	if(length(recipes))
 		ui_interact(user)
 
 /obj/item/stack/attack_tk(mob/user)
@@ -178,7 +178,7 @@
 	var/obj/item/stack/material = split(user, 1)
 	material.attack_tk(user)
 	if(src && user.machine == src)
-		if(recipes)
+		if(length(recipes))
 			ui_interact(user)
 
 /obj/item/stack/attack_hand(mob/user)
@@ -188,7 +188,7 @@
 
 	change_stack(user, 1)
 	if(src && user.machine == src)
-		if(recipes)
+		if(length(recipes))
 			ui_interact(user)
 
 /obj/item/stack/attackby(obj/item/thing, mob/user, params)
