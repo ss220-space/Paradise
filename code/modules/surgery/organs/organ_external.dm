@@ -987,9 +987,6 @@ Note that amputating the affected organ does in fact remove the infection from t
 /obj/item/organ/external/proc/apply_splint()
 	if(is_splinted())
 		return FALSE
-	if(!has_fracture())
-		return FALSE
-
 	status |= ORGAN_SPLINTED
 	if(owner)
 		LAZYOR(owner.splinted_limbs, src)
