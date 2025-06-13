@@ -493,30 +493,49 @@ SUBSYSTEM_DEF(jobs)
 		for(var/obj/effect/landmark/start/sloc in GLOB.landmarks_list)
 			if(sloc.name != rank)
 				continue
+
 			if(locate(/mob/living) in sloc.loc)
 				continue
+
 			mark_spawn = sloc
 			break
+
 		if(!mark_spawn)
 			mark_spawn = locate("start*[rank]") // use old stype
+
 		if(!mark_spawn) // No spawn, then spawn on latejoin mark
 			log_runtime(EXCEPTION("No landmark start for [rank]."))
 			mark_spawn = pick(GLOB.latejoin)
-		if(!mark_spawn) // still no spawn, fall back to the arrivals shuttle
+
+		if(!mark_spawn || SSticker.shuttle_start) // still no spawn, fall back to the arrivals shuttle
 			var/list/turf/possible_turfs = list()
+			var/list/turf/possible_but_bad_turfs = list() // Used if too many people for shattle.
 			for(var/turf/TS in get_area_turfs(/area/shuttle/arrival/station))
 				if(TS.density)
 					continue
+
+				var/bad_turf = FALSE
 				for(var/obj/O in TS)
-					if(O.density)
+					if(!O.density)
 						continue
+
+					bad_turf = TRUE
+					possible_but_bad_turfs += TS
+					break
+
+				if(bad_turf)
+					continue
+
 				possible_turfs += TS
-			mark_spawn = pick(possible_turfs)
+
+			mark_spawn = possible_turfs.len ? pick(possible_turfs) : pick(possible_but_bad_turfs)
 
 		if(isturf(mark_spawn))
 			turf_spawn = mark_spawn
+
 		else if(istype(mark_spawn, /obj/effect/landmark/start) && isturf(mark_spawn.loc))
 			turf_spawn = mark_spawn.loc
+
 		else
 			message_admins("Couldn't find spawnpoint for [H] [ADMIN_COORDJMP(H)]. Notify mapper about it.")
 

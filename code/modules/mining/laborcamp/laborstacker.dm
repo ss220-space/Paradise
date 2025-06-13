@@ -128,7 +128,7 @@
 					else
 						if(!emagged)
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
-							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ)
+							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ_NAME)
 						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
 						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 

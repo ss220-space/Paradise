@@ -6,10 +6,10 @@
 	implants = list(
 		/obj/item/implant/postponed_death
 	)
-	uniform = /obj/item/clothing/under/misc/durathread
-	shoes = /obj/item/clothing/shoes/combat
+	uniform = /obj/item/clothing/under/redhawaiianshirt
+	shoes = /obj/item/clothing/shoes/sandal
 	back = /obj/item/storage/backpack/thunderdome_infinite
-	head = /obj/item/clothing/head/helmet/space/santahat
+	head = /obj/item/clothing/head/sunflower_crown
 
 /datum/outfit/thunderdome/cqc
 	name = "Fighter"
