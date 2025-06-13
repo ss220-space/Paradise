@@ -309,7 +309,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 		if(WEIGHT_CLASS_GIGANTIC)
 			size = "гигантского"
 
-	. = ..(user, "", "Это предмет [size] размера.")
+	. = ..(user, "", "Предмет [size] размера.")
 
 	if(user.research_scanner || user.check_smart_brain()) //Mob has a research scanner active.
 		var/msg = "*--------* <br>"
