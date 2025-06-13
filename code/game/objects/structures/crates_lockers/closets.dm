@@ -221,7 +221,9 @@ GLOBAL_LIST_EMPTY(closets)
 	. = TRUE
 	if(!(opened ? close() : open()))
 		. = FALSE
-		to_chat(user, span_notice("It won't budge!"))
+		user.balloon_alert(user, "не поддаётся!")
+	else
+		user.balloon_alert(user, "[opened ? "открыто" : "закрыто"]")
 
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
