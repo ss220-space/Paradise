@@ -64,11 +64,10 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          release: 'STABLE'
       - name: Compile All Maps
         run: |
           tools/ci/install_byond.sh
@@ -101,11 +100,10 @@ jobs:
         options: --health-cmd "mariadb-admin ping" --health-interval 10s --health-timeout 5s --health-retries 10
     steps:
       - uses: actions/checkout@v4
-      - name: Setup Cache
-        uses: actions/cache@v4
+      - name: Restore BYOND from Cache
+        uses: ./.github/actions/restore_or_install_byond
         with:
-          path: $HOME/BYOND
-          key: ${{ runner.os }}-byond
+          release: ${{ matrix.byondtype }}
       - name: Setup & Validate DB
         run: |
           sudo systemctl start mysql
