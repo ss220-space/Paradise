@@ -230,9 +230,16 @@
 
 	update_hud()
 	info.banish.link_banish(owner.current)
-
 	LAZYADD(owner.current.faction, "hell")
 	ADD_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
+	var/mob/living/user = .
+	var/mob/living/carbon/carbon_user = user
+
+	if(!istype(carbon_user))
+		return
+
+	var/obj/item/organ/internal/brain/devil_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+	devil_brain?.decoy_brain = TRUE
 
 /datum/antagonist/devil/remove_innate_effects()
 	. = ..()
@@ -252,6 +259,14 @@
 
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))
+	var/mob/living/user = .
+	var/mob/living/carbon/carbon_user = user
+
+	if(!istype(carbon_user))
+		return
+
+	var/obj/item/organ/internal/brain/devil_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
+	devil_brain?.decoy_brain = FALSE
 
 /datum/antagonist/devil/ui_interact(mob/user, datum/tgui/ui)
 	ui = SStgui.try_update_ui(user, src, ui)

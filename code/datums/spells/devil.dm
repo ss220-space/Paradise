@@ -80,7 +80,10 @@
 			var/obj/item/paper/contract/infernal/contract = new(user.loc, C.mind, user.mind, GLOB.devil_contracts[CONTRACT_REVIVE])
 			user.put_in_hands(contract)
 		else
-			var/contract_type_name = tgui_input_list(user, "Какой тип контракта?", "Тип контракта", GLOB.devil_contracts)
+			var/contract_type_name = tgui_input_list(user, "Какой тип контракта?", "Тип контракта", GLOB.devil_contracts - CONTRACT_REVIVE)
+
+			if(!contract_type_name)
+				return
 
 			var/obj/item/paper/contract/infernal/contract = new(C.loc, C.mind, user.mind, GLOB.devil_contracts[contract_type_name])
 			C.put_in_hands(contract)

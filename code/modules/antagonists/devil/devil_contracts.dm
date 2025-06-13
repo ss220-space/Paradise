@@ -200,7 +200,7 @@
 	contract_subject_text = ", в обмен на вечную молодость и красоту"
 
 /datum/devil_contract/youth/check_contract(mob/living/carbon/human/user)
-	if(!istype(user) || !user.mind || isvampire(user))
+	if(!istype(user) || !user.mind || isvampire(user) || ismachineperson(user))
 		return FALSE
 	return TRUE
 
@@ -230,6 +230,8 @@
 
 /datum/devil_contract/return_dead/fulfill_contract(mob/living/carbon/human/user)
 	user.mind.AddSpell(new /obj/effect/proc_holder/spell/touch/revive_touch(null))
-	/obj/effect/proc_holder/spell/lichdom::create_lich(user)
+	var/obj/effect/proc_holder/spell/lichdom/spell = new(null)
+	spell.create_lich(user)
+	qdel(spell)
 
 #undef MAGIC_SPELLS_COUNT
