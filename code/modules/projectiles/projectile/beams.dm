@@ -162,12 +162,12 @@
 /obj/projectile/beam/pulse
 	name = "pulse"
 	ru_names = list(
-		NOMINATIVE = "импульс",
-		GENITIVE = "импульса",
-		DATIVE = "импульсу",
-		ACCUSATIVE = "импульс",
-		INSTRUMENTAL = "импульсом",
-		PREPOSITIONAL = "импульсе"
+		NOMINATIVE = "импульсный заряд",
+		GENITIVE = "импульсного заряда",
+		DATIVE = "импульсному заряду",
+		ACCUSATIVE = "импульсный заряд",
+		INSTRUMENTAL = "импульсным зарядом",
+		PREPOSITIONAL = "импульсном заряде"
 	)
 	icon_state = "u_laser"
 	damage = 50
@@ -187,7 +187,7 @@
 	if(gib_allowed && isliving(target))
 		var/mob/living/L = target
 		if(L.health <= -200)
-			L.visible_message(span_danger("Импульсный луч превращает [L] в облако пепла!"))
+			L.visible_message(span_danger("Импульсный заряд превращает [L.declent_ru(ACCUSATIVE)] в облако пепла!"))
 			L.dust()
 
 /obj/projectile/beam/pulse/shot

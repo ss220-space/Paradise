@@ -147,12 +147,12 @@
 /obj/projectile/energy/shock_revolver
 	name = "shock bolt"
 	ru_names = list(
-		NOMINATIVE = "шоковый болт",
-		GENITIVE = "шокового болта",
-		DATIVE = "шоковому болту",
-		ACCUSATIVE = "шоковый болт",
-		INSTRUMENTAL = "шоковым болтом",
-		PREPOSITIONAL = "шоковом болте"
+		NOMINATIVE = "шоковый заряд",
+		GENITIVE = "шокового заряда",
+		DATIVE = "шоковому заряду",
+		ACCUSATIVE = "шоковый заряд",
+		INSTRUMENTAL = "шоковым зарядом",
+		PREPOSITIONAL = "шоковом заряде"
 	)
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
@@ -172,12 +172,12 @@
 /obj/projectile/energy/toxplasma
 	name = "toxin bolt"
 	ru_names = list(
-		NOMINATIVE = "токсичный болт",
-		GENITIVE = "токсичного болта",
-		DATIVE = "токсичному болту",
-		ACCUSATIVE = "токсичный болт",
-		INSTRUMENTAL = "токсичным болтом",
-		PREPOSITIONAL = "токсичном болте"
+		NOMINATIVE = "токсичный заряд",
+		GENITIVE = "токсичного заряда",
+		DATIVE = "токсичному заряду",
+		ACCUSATIVE = "токсичный заряд",
+		INSTRUMENTAL = "токсичным зарядом",
+		PREPOSITIONAL = "токсичном заряде"
 	)
 	icon_state = "energy"
 	damage = 20
@@ -188,12 +188,12 @@
 /obj/projectile/energy/weak_plasma
 	name = "plasma bolt"
 	ru_names = list(
-		NOMINATIVE = "плазменный болт",
-		GENITIVE = "плазменного болта",
-		DATIVE = "плазменному болту",
-		ACCUSATIVE = "плазменный болт",
-		INSTRUMENTAL = "плазменным болтом",
-		PREPOSITIONAL = "плазменном болте"
+		NOMINATIVE = "плазменный импульс",
+		GENITIVE = "плазменного импульса",
+		DATIVE = "плазменному импульсу",
+		ACCUSATIVE = "плазменный импульс",
+		INSTRUMENTAL = "плазменным импульсом",
+		PREPOSITIONAL = "плазменном импульсе"
 	)
 	icon_state = "plasma_light"
 	damage = 20
@@ -202,12 +202,12 @@
 /obj/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
 	ru_names = list(
-		NOMINATIVE = "заряженный плазменный болт",
-		GENITIVE = "заряженного плазменного болта",
-		DATIVE = "заряженному плазменному болту",
-		ACCUSATIVE = "заряженный плазменный болт",
-		INSTRUMENTAL = "заряженным плазменным болтом",
-		PREPOSITIONAL = "заряженном плазменном болте"
+		NOMINATIVE = "заряженный плазменный импульс",
+		GENITIVE = "заряженного плазменного импульса",
+		DATIVE = "заряженному плазменному импульсу",
+		ACCUSATIVE = "заряженный плазменный импульс",
+		INSTRUMENTAL = "заряженным плазменным импульсом",
+		PREPOSITIONAL = "заряженном плазменном импульсе"
 	)
 	icon_state = "plasma_heavy"
 	damage = 50
