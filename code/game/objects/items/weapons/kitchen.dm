@@ -243,6 +243,13 @@
 	attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 	w_class = WEIGHT_CLASS_NORMAL
 
+/obj/item/kitchen/knife/butcher/sharped
+	desc = "Огромный мясницкий тесак, предназначенный для измельчения мяса. В том числе и клоунов и их субпродуктов. Блестит от заточки."
+
+/obj/item/kitchen/knife/butcher/sharped/Initialize(mapload)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
+
 /obj/item/kitchen/knife/butcher/meatcleaver
 	name = "meat cleaver"
 	ru_names = list(

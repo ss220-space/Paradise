@@ -445,14 +445,14 @@
 
 
 //Regenerates because self-repairing super-advanced alien tech
-/datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
+/datum/species/golem/alloy/handle_life(mob/living/carbon/human/human)
 	var/update = NONE
-	update |= H.heal_overall_damage(2, 2, updating_health = FALSE)
-	update |= H.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+
+	update |= human.heal_overall_damage(2, 2, updating_health = FALSE)
+	update |= human.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+
 	if(update)
-		H.updatehealth()
+		human.updatehealth()
 
 
 /datum/species/golem/alloy/can_understand(mob/other) //Can understand everyone, but they can only speak over their mindlink
@@ -505,8 +505,6 @@
 	special_name_chance = 100
 
 /datum/species/golem/wood/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light

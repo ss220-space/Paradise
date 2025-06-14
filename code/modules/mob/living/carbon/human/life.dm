@@ -14,11 +14,11 @@
 	voice = GetVoice()
 	tts_seed = GetTTSVoice()
 
-	if(.) //not dead
-
+	if(.) // not dead
 		handle_pain()
 		handle_heartbeat()
 		dna.species.handle_life(src)
+		
 		if(!client)
 			dna.species.handle_npc(src)
 

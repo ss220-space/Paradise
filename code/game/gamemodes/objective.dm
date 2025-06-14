@@ -1820,3 +1820,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(!resolved_overmind)
 		return FALSE
 	return resolved_overmind.stat != DEAD
+
+/datum/objective/xeno_genocide
+	name = "Геноцид разумной жизни"
+	needs_target = FALSE
+	explanation_text = "Убивайте всех, кто не является ксеноморфом. Утопите станцию в крови!"

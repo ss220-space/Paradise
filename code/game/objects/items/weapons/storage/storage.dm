@@ -602,6 +602,11 @@
 		remove_from_storage(I, T)
 		CHECK_TICK
 
+/obj/item/storage/proc/force_drop_inventory()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, T)
+
 /**
   * Populates the container with items
   *

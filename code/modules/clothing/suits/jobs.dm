@@ -157,6 +157,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
+		armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+		hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
+
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
 	name = "dark hoodie"
 	desc = "A dark robe made of thick fabric that looks intimidating"
