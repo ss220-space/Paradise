@@ -1,17 +1,17 @@
-/* Beds... get your mind out of the gutter, they're for sleeping!
- * Contains:
- * 		Beds
- *		Roller beds
- *		Dog Beds
- */
-
-/*
- * Beds
- */
+///Beds
 
 /obj/structure/bed
 	name = "bed"
-	desc = "This is used to lie in, sleep in or strap on."
+	desc = "Стандартная кровать, предназначенная для сна, отдыха или фиксации кого-либо. \
+			Изготовлена из металлической рамы и мягкой обивки. Достаточно комфортная."
+	ru_names = list(
+		NOMINATIVE = "кровать",
+		GENITIVE = "кровати",
+		DATIVE = "кровати",
+		ACCUSATIVE = "кровать",
+		INSTRUMENTAL = "кроватью",
+		PREPOSITIONAL = "кровати"
+	)
 	gender = FEMALE
 	icon = 'icons/obj/objects.dmi'
 	icon_state = "bed"
@@ -29,19 +29,48 @@
 
 /obj/structure/bed/psych
 	name = "psych bed"
-	desc = "For prime comfort during psychiatric evaluations."
+	desc = "Специализированная кровать, предназначенная для использования во время психиатрического обследования. \
+			Изготовлена из металлической рамы и мягкой обивки. Достаточно комфортная."
+	ru_names = list(
+		NOMINATIVE = "психиатрическая кровать",
+		GENITIVE = "психиатрической кровати",
+		DATIVE = "психиатрической кровати",
+		ACCUSATIVE = "психиатрическую кровать",
+		INSTRUMENTAL = "психиатрической кроватью",
+		PREPOSITIONAL = "психиатрической кровати"
+	)
 	icon_state = "psychbed"
 	buildstackamount = 5
 
 /obj/structure/bed/alien
 	name = "resting contraption"
-	desc = "This looks similar to contraptions from Earth. Could aliens be stealing our technology?"
+	desc = "Необычная приспособление, напоминающее кровать. \
+			Выполнено из неизвестного сплава. Выглядит ужасно некомфортно. \
+			Судя по всему, это продукт неизвестной галактическому сообществу разумной цивилизации."
+	ru_names = list(
+		NOMINATIVE = "устройство для отдыха",
+		GENITIVE = "устройства для отдыха",
+		DATIVE = "устройству для отдыха",
+		ACCUSATIVE = "устройство для отдыха",
+		INSTRUMENTAL = "устройством для отдыха",
+		PREPOSITIONAL = "устройстве для отдыха"
+	)
+	gender = NEUTER
 	icon_state = "abed"
 	comfort = 0.3
 
 /obj/structure/bed/sandstone
 	name = "sandstone plate"
-	desc = "This is used to lie on, feels farm."
+	desc = "Массивная плита из песчаника, установленная горизонтально для использования в качестве ложа. \
+			Достаточно комфортная, хотя таковой совершенно не кажется. Интересно, кто вообще спит на таких?"
+	ru_names = list(
+		NOMINATIVE = "плита из песчаника",
+		GENITIVE = "плити из песчаника",
+		DATIVE = "плите из песчаника",
+		ACCUSATIVE = "плиту из песчаника",
+		INSTRUMENTAL = "плитой из песчаника",
+		PREPOSITIONAL = "плите из песчаника"
+	)
 	icon_state = "bed_sand"
 	resistance_flags = FIRE_PROOF
 	max_integrity = 200
@@ -50,13 +79,22 @@
 
 /obj/structure/bed/old
 	name = "old bed"
-	desc = "This is a very old spring bed, it looks extremely UNCOMFORTABLE, you would not lie on it for anything in your life."
+	desc = "Старая кровать. Судя по внешнему виду, ей не один десяток лет. От одного только взгляда на торчащие из неё пружины начинает ныть спина..."
+	ru_names = list(
+		NOMINATIVE = "старая кровать",
+		GENITIVE = "старой кровати",
+		DATIVE = "старой кровати",
+		ACCUSATIVE = "старую кровать",
+		INSTRUMENTAL = "старой кроватью",
+		PREPOSITIONAL = "старой кровати"
+	)
 	icon_state = "catwalkcouch1"
 	comfort = 0
 
 /obj/structure/bed/wicker
 	name = "wicker bed"
-	desc = "Большая кровать, сотканная из чего-то, напоминающего ткань. Выглядит достаточно удобно."
+	desc = "Большая кровать, сотканная из плотного переплетённого материала. \
+			Относительно комфортная, хотя и значительно отстаёт от своих современных аналогов."
 	ru_names = list(
 		NOMINATIVE = "плетёная кровать",
 		GENITIVE = "плетёной кровати",
@@ -72,7 +110,8 @@
 
 /obj/structure/bed/leather
 	name = "leather bed"
-	desc = "Куски кожи, грубо сшитые друг с другом и прикреплённые к деревянной раме. Не самое удобное место для лежания."
+	desc = "Куски кожи, грубо сшитые друг с другом и прикреплённые к деревянной раме. \
+			Не очень то и комфортная, но всё ещё лучше, чем ничего."
 	ru_names = list(
 		NOMINATIVE = "кровать из кожи",
 		GENITIVE = "кровати из кожи",
@@ -88,7 +127,9 @@
 
 /obj/structure/bed/wooden
 	name = "wooden bed"
-	desc = "Кровать, сделанная из качественной древесины. Выглядит очень мило и уютно."
+	desc = "Кровать, выполненная из натурального дерева с аккуратной отделкой. \
+			в плане комфорта и удобства превосходит современные аналоги с металлическим каркасом. \
+			От неё веет каким-то домашнию уютом..."
 	ru_names = list(
 		NOMINATIVE = "деревянная кровать",
 		GENITIVE = "деревянной кровати",
@@ -108,7 +149,7 @@
 /obj/structure/bed/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, "<span class='warning'>You can't figure out how to deconstruct [src]!</span>")
+		user.balloon_alert(user, "невозможно разобрать!")
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -120,13 +161,20 @@
 			new buildstacktype(loc, buildstackamount)
 	..()
 
-
-/*
- * Roller beds
- */
+/// Roller beds
 
 /obj/structure/bed/roller
 	name = "roller bed"
+	desc = "Стандартная медицинская каталка, предназначенная для перемещения пациентов. \
+			Может быть сложена для удобной транспортировки."
+	ru_names = list(
+		NOMINATIVE = "каталка",
+		GENITIVE = "каталки",
+		DATIVE = "каталке",
+		ACCUSATIVE = "каталку",
+		INSTRUMENTAL = "каталкой",
+		PREPOSITIONAL = "каталке"
+	)
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "down"
 	resistance_flags = NONE
@@ -148,17 +196,11 @@
 			add_fingerprint(user)
 			if(buckled_mobs > 1)
 				unbuckle_all_mobs()
-				user.visible_message(
-					span_notice("[user] unbuckles all creatures from [src]."),
-					span_notice("You unbuckle all creatures from [src]."),
-				)
+				user.balloon_alert(user, "пациент отцеплен")
 			else
 				user_unbuckle_mob(buckled_mobs[1], user)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
-		user.visible_message(
-			span_notice("[user] collapses [src]."),
-			span_notice("You collapse [src]."),
-		)
+		user.balloon_alert(user, "сложено")
 		var/obj/item/folded_item = new folded(drop_location())
 		transfer_fingerprints_to(folded_item)
 		folded_item.add_fingerprint(user)
@@ -186,6 +228,18 @@
 
 /obj/structure/bed/roller/holo
 	name = "holo stretcher"
+	desc = "Голографическая медицинская каталка, \
+			созданная на основе технологии твёрдого света. \
+			Предназначена для перемещения пациентов. \
+			Может быть сложена для удобной транспортировки."
+	ru_names = list(
+		NOMINATIVE = "голо-каталка",
+		GENITIVE = "голо-каталки",
+		DATIVE = "голо-каталке",
+		ACCUSATIVE = "голо-каталку",
+		INSTRUMENTAL = "голо-каталкой",
+		PREPOSITIONAL = "голо-каталке"
+	)
 	icon_state = "holo_down"
 	icon_up = "holo_up"
 	icon_down = "holo_down"
@@ -193,7 +247,17 @@
 
 /obj/item/roller
 	name = "roller bed"
-	desc = "A collapsed roller bed that can be carried around."
+	desc = "Стандартная медицинская каталка, предназначенная для перемещения пациентов. \
+			Может быть сложена для удобной транспортировки."
+	ru_names = list(
+		NOMINATIVE = "каталка",
+		GENITIVE = "каталки",
+		DATIVE = "каталке",
+		ACCUSATIVE = "каталку",
+		INSTRUMENTAL = "каталкой",
+		PREPOSITIONAL = "каталке"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	/// Whether it can be picked up by roller holder
@@ -203,6 +267,7 @@
 
 
 /obj/item/roller/attack_self(mob/user)
+	user.balloon_alert(user, "разложено")
 	var/obj/structure/bed/roller/R = new extended(drop_location())
 	R.add_fingerprint(user)
 	qdel(src)
@@ -215,17 +280,15 @@
 	if(istype(I, /obj/item/roller_holder))
 		var/obj/item/roller_holder/roller = I
 		if(roller.held)
-			to_chat(user, span_warning("The [roller.name] already contains [roller.held]."))
+			user.balloon_alert(user, "уже имеется!")
 			return ATTACK_CHAIN_PROCEED
 		if(!collectable)
-			to_chat(user, span_warning("You cannot collect this type of roller."))
+			user.balloon_alert(user, "неподходящая каталка!")
 			return ATTACK_CHAIN_PROCEED
 		if(loc == user && !user.can_unEquip(src))
 			return ..()
-		user.visible_message(
-			span_notice("[user] collects [src]."),
-			span_notice("You collect [src]."),
-		)
+		user.balloon_alert(user, "прикреплено к стойке")
+		user.visible_message(span_notice("[user] веша[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] на [I.declent_ru(ACCUSATIVE)]."))
 		if(loc == user)
 			user.transfer_item_to_loc(src, roller)
 		else
@@ -237,11 +300,12 @@
 
 
 /obj/structure/bed/roller/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
-	if(!has_buckled_mobs() && over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && usr.Adjacent(src))
-		usr.visible_message(
-			span_notice("[usr] collapses [src]."),
-			span_notice("You collapse [src]."),
-		)
+	var/mob/user = usr
+	if(has_buckled_mobs())
+		user.balloon_alert(user, "сначала отцепите пациента!")
+		return FALSE
+	if(over_object == usr && ishuman(usr) && !usr.incapacitated() && !HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) && usr.Adjacent(src))
+		user.balloon_alert(user, "сложено")
 		var/obj/item/folded_item = new folded(drop_location())
 		folded_item.add_fingerprint(usr)
 		qdel(src)
@@ -251,7 +315,18 @@
 
 /obj/item/roller/holo
 	name = "holo stretcher"
-	desc = "A retracted hardlight stretcher that can be carried around."
+	desc = "Голографическая медицинская каталка, \
+			созданная на основе технологии твёрдого света. \
+			Предназначена для перемещения пациентов. \
+			Может быть сложена для удобной транспортировки."
+	ru_names = list(
+		NOMINATIVE = "голо-каталка",
+		GENITIVE = "голо-каталки",
+		DATIVE = "голо-каталке",
+		ACCUSATIVE = "голо-каталку",
+		INSTRUMENTAL = "голо-каталкой",
+		PREPOSITIONAL = "голо-каталке"
+	)
 	icon_state = "holo_retracted"
 	w_class = WEIGHT_CLASS_SMALL
 	origin_tech = "magnets=3;biotech=4;powerstorage=3"
@@ -261,7 +336,16 @@
 
 /obj/item/roller_holder
 	name = "roller bed rack"
-	desc = "A rack for carrying a collapsed roller bed."
+	desc = "Стойка, предназначенная для крепления и транспортировки медицинской каталки."
+	ru_names = list(
+		NOMINATIVE = "стойка для каталки",
+		GENITIVE = "стойки для каталки",
+		DATIVE = "стойке для каталки",
+		ACCUSATIVE = "стойку для каталки",
+		INSTRUMENTAL = "стойкой для каталки",
+		PREPOSITIONAL = "стойке для каталки"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/rollerbed.dmi'
 	icon_state = "folded"
 	var/obj/item/roller/held = /obj/item/roller
@@ -280,10 +364,10 @@
 
 /obj/item/roller_holder/attack_self(mob/user)
 	if(!held)
-		to_chat(user, span_warning("The rack is empty."))
+		user.balloon_alert(user, "пусто!")
 		return
 
-	to_chat(user, span_notice("You deploy the roller bed."))
+	user.balloon_alert(user, "каталка размещена")
 	var/obj/structure/bed/roller/roller = new held.extended(drop_location())
 	roller.add_fingerprint(user)
 	QDEL_NULL(held)
