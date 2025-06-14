@@ -305,6 +305,14 @@
 /obj/item/ammo_box/specter/laser
 	name = "коробка патронов (спектр лазер)"
 	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Спектр\"."
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (Спектр лазер)",
+		GENITIVE = "коробка патронов (Спектр лазер)",
+		DATIVE = "коробка патронов (Спектр лазер)",
+		ACCUSATIVE = "коробка патронов (Спектр лазер)",
+		INSTRUMENTAL = "коробка патронов (Спектр лазер)",
+		PREPOSITIONAL = "коробка патронов (Спектр лазер)"
+	)
 	icon_state = "speclaser"
 	ammo_type = /obj/item/ammo_casing/specter/laser
 
@@ -312,6 +320,14 @@
 /obj/item/ammo_box/specter/disabler
 	name = "коробка патронов (спектр дизейблер)"
 	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Спектр\"."
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (Спектр дизейблер)",
+		GENITIVE = "коробка патронов (Спектр дизейблер)",
+		DATIVE = "коробке патронов (Спектр дизейблер)",
+		ACCUSATIVE = "коробку патронов (Спектр дизейблер)",
+		INSTRUMENTAL = "коробкой патронов (Спектр дизейблер)",
+		PREPOSITIONAL = "коробке патронов (Спектр дизейблер)"
+	)
 	icon_state = "specstamina"
 	ammo_type = /obj/item/ammo_casing/specter/disable
 

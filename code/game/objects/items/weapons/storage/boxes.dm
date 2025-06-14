@@ -1500,8 +1500,15 @@
 /obj/item/storage/box/specter_kit
 	name = "Набор Спектр"
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 обоймы парализующих патронов."
+	ru_names = list(
+		NOMINATIVE = "набор Спектр",
+		GENITIVE = "набора Спектр",
+		DATIVE = "набору Спектр",
+		ACCUSATIVE = "набор Спектр",
+		INSTRUMENTAL = "набором Спектр",
+		PREPOSITIONAL = "наборе Спектр"
+	)
 	icon_state = "box_specter"
-
 
 /obj/item/storage/box/specter_kit/populate_contents()
 	new /obj/item/gun/projectile/automatic/pistol/specter(src)
