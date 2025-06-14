@@ -491,7 +491,14 @@
 /obj/item/match/update_name(updates = ALL)
 	. = ..()
 	var/init_name = declent_ru(NOMINATIVE)
-	name = lit ? "зажённая [init_name]" : burnt ? "сгоревшая [init_name]" : initial(name)
+	name = lit ? "lit [init_name]" : burnt ? "burnt [init_name]" : initial(name)
+	if(ru_names)
+		ru_names[1] = "прикуренная " + ru_names[1]
+		ru_names[2] = "прикуренной " + ru_names[2]
+		ru_names[3] = "прикуренной " + ru_names[3]
+		ru_names[4] = "прикуренную " + ru_names[4]
+		ru_names[5] = "тприкуренной " + ru_names[5]
+		ru_names[6] = "прикуренной " + ru_names[6]
 
 
 /obj/item/match/update_desc(updates = ALL)

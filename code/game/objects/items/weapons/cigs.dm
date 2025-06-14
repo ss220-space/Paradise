@@ -233,6 +233,13 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/cigarette/update_name(updates = ALL)
 	. = ..()
 	name = lit ? "прикуренная [declent_ru(NOMINATIVE)]" : declent_ru(NOMINATIVE)
+	if(ru_names)
+		ru_names[1] = "прикуренная " + ru_names[1]
+		ru_names[2] = "прикуренной " + ru_names[2]
+		ru_names[3] = "прикуренной " + ru_names[3]
+		ru_names[4] = "прикуренную " + ru_names[4]
+		ru_names[5] = "тприкуренной " + ru_names[5]
+		ru_names[6] = "прикуренной " + ru_names[6]
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
