@@ -76,3 +76,5 @@ GLOBAL_PROTECT(active_polls)
 ///All poll option datums of running polls
 GLOBAL_LIST_EMPTY(poll_options)
 GLOBAL_PROTECT(poll_options)
+
+GLOBAL_VAR_INIT(all_robot_skins_permited, FALSE)
