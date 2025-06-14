@@ -237,7 +237,7 @@
 
 /mob/living/simple_animal/hostile/morph/proc/perfect_ambush()
 	mimic_spell.perfect_disguise = TRUE // Reset the perfect disguise
-	to_chat(src, span_sinister("Ты стал совершенной копией... Они даже не заподозрят подмену."))
+	to_chat(src, span_sinister("Вы стали совершенной копией... Они даже не заподозрят подмену."))
 
 
 /mob/living/simple_animal/hostile/morph/proc/on_move()

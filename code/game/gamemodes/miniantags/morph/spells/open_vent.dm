@@ -25,7 +25,7 @@
 
 /obj/effect/proc_holder/spell/morph_spell/open_vent/cast(list/targets, mob/user)
 	if(!length(targets))
-		user.balloon_alert(user, "рядом нет заваренной вентиляции!")
+		user.balloon_alert(user, "рядом нет вентиляции!")
 		revert_cast(user)
 		return
 	to_chat(user, span_sinister("Вы начинаете изрыгать кислотную рвоту!"))

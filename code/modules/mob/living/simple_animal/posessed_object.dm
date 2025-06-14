@@ -36,7 +36,7 @@
 	if(health > (maxHealth / 30))
 		. += span_notice("Похоже оно одержимо, и парит в воздухе!")
 	else
-		. += span_warning("Похоже, оно одержимо, но ему трудно удержаться на плаву!")
+		. += span_warning("Похоже оно одержимо, но ему трудно удержаться на плаву!")
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
@@ -104,7 +104,7 @@
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
-	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя - почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
+	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)

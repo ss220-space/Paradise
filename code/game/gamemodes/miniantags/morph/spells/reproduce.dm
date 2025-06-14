@@ -33,7 +33,7 @@
 		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, span_warning("только на полу!"))
+			to_chat(user, span_warning("нужна поверхность!"))
 		return FALSE
 
 
