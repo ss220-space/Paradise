@@ -3,7 +3,7 @@
 
 	if(can_buckle && has_buckled_mobs())
 		if(length(buckled_mobs) > 1)
-			var/mob/living/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle", sort_names(buckled_mobs))
+			var/mob/living/unbuckled = tgui_input_list(user, "Кого вы хотите отцепить?", "Отцепление", sort_names(buckled_mobs))
 			if(isnull(unbuckled))
 				return .
 			if(user_unbuckle_mob(unbuckled, user))
@@ -23,7 +23,7 @@
 
 	if(can_buckle && has_buckled_mobs() && Adjacent(user))
 		if(length(buckled_mobs) > 1)
-			var/mob/living/unbuckled = tgui_input_list(user, "Who do you wish to unbuckle?", "Unbuckle", sort_names(buckled_mobs))
+			var/mob/living/unbuckled = tgui_input_list(user, "Кого вы хотите отцепить?", "Отцепление", sort_names(buckled_mobs))
 			if(isnull(unbuckled))
 				return .
 			if(user_unbuckle_mob(unbuckled, user))
@@ -304,12 +304,12 @@
 
 	if(target != user) // Cheks if user interacts with himself
 		target.visible_message(
-			span_warning("[user] is trying to buckle [target] to [src]!"),
-			span_userdanger("[user] is trying to buckle you to [src]!"),
-			span_italics("You hear metal clanking."),
+			span_warning("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся прицепить [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."),
+			span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся прицепить вас к [declent_ru(DATIVE)]."),
+			span_italics("Вы слышите скрип и звук сцепления."),
 		)
 		if(!do_after(user, 0.7 SECONDS, target, NONE))
-			to_chat(user, span_warning("You failed to buckle [target]."))
+			user.balloon_alert(user, "не удалось прицепить!")
 			return FALSE
 
 		// Sanity check before we attempt to buckle. Is everything still in a kosher state for buckling after the delay?
@@ -321,15 +321,15 @@
 	if(.)
 		if(target == user)
 			target.visible_message(
-				span_notice("[target] buckles [target.p_them()]self to [src]."),
-				span_notice("You buckle yourself to [src]."),
-				span_italics("You hear metal clanking."),
+				span_notice("[target] прицепля[pluralize_ru(target.gender, "ет", "ют")] себя к [declent_ru(DATIVE)]."),
+				span_notice("Вы прицепляете себя к [declent_ru(DATIVE)]."),
+				span_italics("Вы слышите скрип и звук сцепления."),
 			)
 		else
 			target.visible_message(
-				span_warning("[user] buckles [target] to [src]!"),
-				span_warning("[user] buckles you to [src]!"),
-				span_italics("You hear metal clanking."),
+				span_warning("[user] прицепля[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."),
+				span_warning("[user] прицепля[pluralize_ru(user.gender, "ет", "ют")] вас к [declent_ru(DATIVE)]."),
+				span_italics("Вы слышите скрип и звук сцепления."),
 			)
 
 
@@ -349,15 +349,15 @@
 	if(buckled_mob)
 		if(buckled_mob != user)
 			buckled_mob.visible_message(
-				span_notice("[user] unbuckles [buckled_mob] from [src]."),
-				span_notice("[user] unbuckles you from [src]."),
-				span_italics("You hear metal clanking."),
+				span_notice("[user] отцепля[pluralize_ru(user.gender, "ет", "ют")] [buckled_mob.declent_ru(ACCUSATIVE)] от [declent_ru(GENITIVE)]."),
+				span_notice("[user] отцепля[pluralize_ru(user.gender, "ет", "ют")] вас от [declent_ru(GENITIVE)]."),
+				span_italics("Вы слышите скрип и звук отцепления."),
 			)
 		else
 			buckled_mob.visible_message(
-				span_notice("[buckled_mob] unbuckles [buckled_mob.p_them()]self from [src]."),
-				span_notice("You unbuckle yourself from [src]."),
-				span_italics("You hear metal clanking."),
+				span_notice("[buckled_mob] отцепля[pluralize_ru(buckled_mob.gender, "ет", "ют")] себя от [declent_ru(GENITIVE)]."),
+				span_notice("Вы отцепляете вас от [declent_ru(GENITIVE)]."),
+				span_italics("Вы слышите скрип."),
 			)
 		add_fingerprint(user)
 		if(isliving(buckled_mob.pulledby))
