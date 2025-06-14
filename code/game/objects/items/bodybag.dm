@@ -241,7 +241,6 @@
 /obj/item/bodybag/bluespace/examine(mob/user)
 	. = ..()
 	if(contents.len)
-		var/s = contents.len == 1 ? "" : "s"
 		. += span_notice("Судя по форме мешка, внутри наход[declension_ru(contents.len, "ит", "ят", "ит")]ся <b>[contents.len]</b> объект[declension_ru(contents.len, "", "а", "ов")].")
 
 /obj/item/bodybag/bluespace/Destroy()
