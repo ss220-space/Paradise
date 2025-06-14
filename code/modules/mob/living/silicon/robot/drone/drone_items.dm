@@ -2,7 +2,15 @@
 //Limited use.
 /obj/item/gripper
 	name = "magnetic gripper"
-	desc = "A simple grasping tool for synthetic assets."
+	ru_names = list(
+		NOMINATIVE = "магнитный захват",
+		GENITIVE = "магнитного захвата",
+		DATIVE = "магнитному захвату",
+		ACCUSATIVE = "магнитный захват",
+		INSTRUMENTAL = "магнитным захватом",
+		PREPOSITIONAL = "магнитном захвате"
+	)
+	desc = "Простой захватывающий инструмент для синтетических материалов."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "gripper"
 
@@ -41,7 +49,15 @@
 
 /obj/item/gripper/medical
 	name = "medical gripper"
-	desc = "A grasping tool used to hold organs and help patients up once surgery is complete."
+	ru_names = list(
+		NOMINATIVE = "медицинский захват",
+		GENITIVE = "медицинского захвата",
+		DATIVE = "медицинскому захвату",
+		ACCUSATIVE = "медицинский захват",
+		INSTRUMENTAL = "медицинским захватом",
+		PREPOSITIONAL = "медицинском захвате"
+	)
+	desc = "Захватывающий инструмент, используемый для удержания органов и помощи пациентам после завершения операции."
 	can_hold = list(/obj/item/organ,
 					/obj/item/reagent_containers/iv_bag,
 					/obj/item/robot_parts/head,
@@ -67,8 +83,8 @@
 				H.set_resting(FALSE, instant = TRUE)
 			playsound(user.loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 			user.visible_message( \
-				span_notice("[user] shakes [H] trying to wake [H.p_them()] up!"),\
-				span_notice("You shake [H] trying to wake [H.p_them()] up!"),\
+				span_notice("[user] тряс[pluralize_ru(user.gender,"ет","ут")] [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
+				span_notice("Вы трясёте [H] пытаясь разбудить [genderize_ru(H.gender,"его","её","его","их")]!"),\
 				)
 			user.changeNext_move(CLICK_CD_MELEE)
 		return
@@ -79,7 +95,15 @@
 
 /obj/item/gripper/service
 	name = "Card gripper"
-	desc = "A grasping tool used to take IDs for paying taxes and waking up drunken crewmates"
+	ru_names = list(
+		NOMINATIVE = "карточный захват",
+		GENITIVE = "карточного захвата",
+		DATIVE = "карточному захвату",
+		ACCUSATIVE = "карточный захват",
+		INSTRUMENTAL = "карточным захватом",
+		PREPOSITIONAL = "карточном захвате"
+	)
+	desc = "Захватывающий инструмент, используемый для изъятия ID-карт, для уплаты налогов, и пробуждения пьяных членов экипажа."
 	can_hold = list(/obj/item/card,
 					/obj/item/camera_film,
 					/obj/item/paper,
@@ -95,7 +119,15 @@
 
 /obj/item/gripper/cogscarab
 	name = "ancient gripper"
-	desc = "A brass grasping tool for supporting workmates."
+	ru_names = list(
+		NOMINATIVE = "древний захват",
+		GENITIVE = "древнего захвата",
+		DATIVE = "древнему захвату",
+		ACCUSATIVE = "древний захват",
+		INSTRUMENTAL = "древним захватом",
+		PREPOSITIONAL = "древнем захвате"
+	)
+	desc = "Латунный захватывающий инструмент для поддержки коллег."
 	icon = 'icons/obj/device.dmi'
 	icon_state = "clock_gripper"
 
@@ -111,6 +143,14 @@
 
 /obj/item/gripper/universal
 	name = "Universal gripper"
+	ru_names = list(
+		NOMINATIVE = "универсальный захват",
+		GENITIVE = "универсального захвата",
+		DATIVE = "универсальному захвату",
+		ACCUSATIVE = "универсальный захват",
+		INSTRUMENTAL = "универсальным захватом",
+		PREPOSITIONAL = "универсальном захвате"
+	)
 	desc = "Универсальный захватывающий инструмент, используемый для выполнения сверх секретных заданий клана паука."
 	icon_state = "diskgripper"
 	can_hold = list(/obj/item/firealarm_electronics,
@@ -159,7 +199,15 @@
 
 /obj/item/gripper/nuclear
 	name = "Nuclear gripper"
-	desc = "Designed for all your nuclear needs."
+	ru_names = list(
+		NOMINATIVE = "ядерный захват",
+		GENITIVE = "ядерного захвата",
+		DATIVE = "ядерному захвату",
+		ACCUSATIVE = "ядерный захват",
+		INSTRUMENTAL = "ядерным захватом",
+		PREPOSITIONAL = "ядерном захвате"
+	)
+	desc = "Создан для всех ваших ядерных нужд."
 	icon_state = "diskgripper"
 	can_hold = list(/obj/item/disk/nuclear)
 
@@ -179,7 +227,7 @@
 	if(gripped_item)
 		gripped_item.attack_self(user)
 	else
-		to_chat(user, "<span class='warning'>[src] is empty.</span>")
+		balloon_alert(user, "клешня пуста!")
 
 /obj/item/gripper/tool_act(mob/living/user, obj/item/tool, tool_type)
 	if(!gripped_item)
@@ -213,7 +261,7 @@
 	if(!gripped_item)
 		return
 	if(!silent)
-		to_chat(loc, "<span class='warning'>You drop [gripped_item].</span>")
+		balloon_alert(loc, "предмет выброшен")
 	gripped_item.forceMove(get_turf(src))
 	gripped_item = null
 
@@ -251,7 +299,7 @@
 		var/obj/item/I = target
 		if(is_type_in_typecache(I, can_hold)) // Make sure the item is something the gripper can hold
 			. |= ATTACK_CHAIN_SUCCESS
-			to_chat(user, span_notice("You collect [I]."))
+			balloon_alert(user, "подобрано")
 			I.forceMove(src)
 			gripped_item = I
 			I.update_icon(UPDATE_OVERLAYS) //Some items change their appearance upon being pulled (IV drip as an example)
@@ -259,7 +307,7 @@
 			RegisterSignal(I, list(COMSIG_MOVABLE_MOVED, COMSIG_QDELETING), PROC_REF(handle_item_moving))
 			RegisterSignal(I, list(COMSIG_ATOM_UPDATED_ICON), PROC_REF(handle_item_icon_update))
 		else
-			to_chat(user, span_warning("Your gripper cannot hold [target]."))
+			balloon_alert(user, "невозможно взять!")
 
 	else //We are empty and trying to attack something else
 		target.attack_hand(user)
@@ -291,7 +339,15 @@
 /obj/item/matter_decompiler
 
 	name = "matter decompiler"
-	desc = "Eating trash, bits of glass, or other debris will replenish your stores."
+	ru_names = list(
+		NOMINATIVE = "декомпилятор материи",
+		GENITIVE = "декомпилятора материи",
+		DATIVE = "декомпилятору материи",
+		ACCUSATIVE = "декомпилятор материи",
+		INSTRUMENTAL = "декомпилятором материи",
+		PREPOSITIONAL = "декомпиляторе материи"
+	)
+	desc = "Поедание мусора, осколков стекла или другого мусора пополнит ваши запасы."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
 
@@ -323,47 +379,47 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, "<span class='notice'>You deploy your decompiler and clear out the contents of \the [T].</span>")
+		to_chat(user, span_notice("Вы разворачиваете декомпилятор и забираете предметы с [T.declent_ru(PREPOSITIONAL)]."))
 	else
-		to_chat(user, "<span class='warning'>Nothing on \the [T] is useful to you.</span>")
+		to_chat(user, span_warning("На [T.declent_ru(PREPOSITIONAL)] ничего полезного для вас нет."))
 	return
 
 //PRETTIER TOOL LIST.
 /mob/living/silicon/robot/drone/installed_modules()
 
 	if(weapon_lock)
-		to_chat(src, "<span class='warning'>Weapon lock active, unable to use modules! Count:[weaponlock_time]</span>")
+		to_chat(src, span_warning("Активна блокировка оружия, невозможно использовать модули! Счётчик: [weaponlock_time]"))
 		return
 
 	if(!module)
 		module = new /obj/item/robot_module/drone(src)
 
-	var/dat = ""
-	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Close</a>
+	var/dat = {"<meta charset="UTF-8"><head><title>Модули дрона</title><meta HTTP-EQUIV='Refresh' CONTENT='10'></head><body>\n"}
+	dat += {"<a href='byond://?src=[UID()];mach_close=robotmod'>Закрыть</a>
 	<br>
 	<br>
-	<b>Activated Modules</b>
+	<b>Активированные модули</b>
 	<br>
-	Module 1: [module_state_1 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_1]'>[module_state_1]</a>" : "No Module"]<br>
-	Module 2: [module_state_2 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_2]'>[module_state_2]</a>" : "No Module"]<br>
-	Module 3: [module_state_3 ? "<a href='byond://?src=[UID()];mod=\ref[module_state_3]'>[module_state_3]</a>" : "No Module"]<br>
+	Модуль 1: [module_state_1 ? "<a href=?src=[UID()];mod=\ref[module_state_1]>[module_state_1]<a>" : "Нет модуля"]<br>
+	Модуль 2: [module_state_2 ? "<a href=?src=[UID()];mod=\ref[module_state_2]>[module_state_2]<a>" : "Нет модуля"]<br>
+	Модуль 3: [module_state_3 ? "<a href=?src=[UID()];mod=\ref[module_state_3]>[module_state_3]<a>" : "Нет модуля"]<br>
 	<br>
-	<b>Installed Modules</b><br><br>"}
+	<b>Установленные модули</b><br><br>"}
 
 
-	var/tools = "<b>Tools and devices</b><br>"
-	var/resources = "<br><b>Resources</b><br>"
+	var/tools = "<b>Инструменты и устройства</b><br>"
+	var/resources = "<br><b>Рекурсы</b><br>"
 
 	for(var/O in module.modules)
 
 		var/module_string = ""
 
 		if(!O)
-			module_string += "<b>Resource depleted</b><br>"
+			module_string += text("<b>Ресурсы исчерпаны</b><br>")
 		else if(activated(O))
-			module_string += "[O]: <b>Activated</b><br>"
+			module_string += text("[O]: <b>Активирован</b><br>")
 		else
-			module_string += "[O]: <a href='byond://?src=[UID()];act=\ref[O]'>Activate</a><br>"
+			module_string += text("[O]: <a href=?src=[UID()];act=\ref[O]>Активировать</a><br>")
 
 		if(isitem(O) && !(istype(O,/obj/item/stack/cable_coil)))
 			tools += module_string
@@ -374,11 +430,11 @@
 
 	if(emagged)
 		if(!module.emag)
-			dat += "<b>Resource depleted</b><br>"
+			dat += text("<b>Ресурсы исчерпаны</b><br>")
 		else if(activated(module.emag))
-			dat += "[module.emag]: <b>Activated</b><br>"
+			dat += text("[module.emag]: <b>Активирован</b><br>")
 		else
-			dat += "[module.emag]: <a href='byond://?src=[UID()];act=\ref[module.emag]'>Activate</a><br>"
+			dat += text("[module.emag]: <a href=?src=[UID()];act=\ref[module.emag]>Активировать</a><br>")
 
 	dat += resources
 

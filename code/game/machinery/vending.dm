@@ -2194,6 +2194,7 @@
 		var/static/list/available_kits = list(
 			"Dominator Kit" = /obj/item/storage/box/dominator_kit,
 			"Enforcer Kit" = /obj/item/storage/box/enforcer_kit,
+			"Specter kit" = /obj/item/storage/box/specter_kit,
 		)
 		var/weapon_kit = tgui_input_list(user, "Select a weaponary kit:", "Weapon kits", available_kits)
 		if(!weapon_kit || !Adjacent(user) || QDELETED(I) || I.loc != user)
