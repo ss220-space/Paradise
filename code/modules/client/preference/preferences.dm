@@ -618,7 +618,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		if(TAB_SPEC) // Antagonist's Preferences
 			dat += "<table><tr><td width='340px' height='300px' valign='top'>"
-			dat += "<h2>Настройки специальных ролей</h2>"
+			dat += "<h2>Выбор желаемых специальных ролей</h2>"
 			if(jobban_isbanned(user, "Syndicate"))
 				dat += "<b>Специальные роли для вас запрещены.</b>"
 				be_special = list()
@@ -626,19 +626,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/static/last_left = round(GLOB.special_roles.len / 2)
 				for(var/i in GLOB.special_roles)
 					if(jobban_isbanned(user, i))
-						dat += "<b>Быть [capitalize(i)]:</b> <font color=red><b> \[ЗАБАНЕНО]</b></font><br>"
+						dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЗАБАНЕНО]</b></font><br>"
 					else if(!player_old_enough_antag(user.client, i))
 						var/available_in_days_antag = available_in_days_antag(user.client, i)
 						var/role_available_in_playtime = get_exp_format(role_available_in_playtime(user.client, i))
 						if(available_in_days_antag)
-							dat += "<b>Быть [capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(available_in_days_antag)] [(declension_ru(available_in_days_antag, "день", "дня", "дней"))]]</b></font><br>"
+							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(available_in_days_antag)] [(declension_ru(available_in_days_antag, "день", "дня", "дней"))]]</b></font><br>"
 						else if(role_available_in_playtime)
-							dat += "<b>Быть [capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(role_available_in_playtime)]]</b></font><br>"
+							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ЧЕРЕЗ [(role_available_in_playtime)]]</b></font><br>"
 						else
-							dat += "<b>Быть [capitalize(i)]:</b> <font color=red><b> \[ОШИБКА]</b></font><br>"
+							dat += "<b>[capitalize(i)]:</b> <font color=red><b> \[ОШИБКА]</b></font><br>"
 					else
 						var/is_special = (i in src.be_special)
-						dat += "<b>Быть [capitalize(i)]:</b><a href='byond://?_src_=prefs;preference=be_special;role=[i]' style='background-color: [is_special ? "#3b7502" : "#bd0802"]'<b>[(is_special) ? "Да" : "Нет"]</b></a><br>"
+						dat += "<b>[capitalize(i)]: </b><a href='byond://?_src_=prefs;preference=be_special;role=[i]' style='background-color: [is_special ? "#3b7502" : "#bd0802"]'<b>[(is_special) ? "Да" : "Нет"]</b></a><br>"
 					if(GLOB.special_roles[last_left] == i)
 						dat += "<h2>Проведено времени в игре:</h2>"
 						if(!CONFIG_GET(flag/use_exp_tracking))
@@ -1593,7 +1593,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							real_name = new_name
 							user.client << output(real_name, "title_browser:update_current_character")
 						else
-							to_chat(user, "<font color='red'>Недопустимое имя. Имя персонажа должно быть длиной от 2 до [MAX_NAME_LEN] символ[declension_ru(MAX_NAME_LEN, "а", "ов", "ов")]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и .</font>")
+							to_chat(user, "<font color='red'>Недопустимое имя. Имя персонажа должно длиной от 2 до [MAX_NAME_LEN] символ[declension_ru(MAX_NAME_LEN, "а", "ов", "ов")]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и .</font>")
 
 				if("age")
 					var/list/age_list = get_age_limits(S, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
