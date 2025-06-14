@@ -121,10 +121,10 @@ export const ColorSelector = ({
           </Stack.Item>
           <Stack.Item>
             <Box inline width="100px" height="20px" textAlign="center">
-              Текущий
+              Current
             </Box>
             <Box inline width="100px" height="20px" textAlign="center">
-              Предыдущий
+              Previous
             </Box>
             <br />
             <Tooltip content={hexColor} position="bottom">
@@ -151,7 +151,7 @@ export const ColorSelector = ({
           <Stack.Item>
             <Stack>
               <Stack.Item>
-                <Box textColor="label">Hex-код:</Box>
+                <Box textColor="label">Hex:</Box>
               </Stack.Item>
               <Stack.Item grow height="24px">
                 <HexColorInput
