@@ -596,7 +596,7 @@
 
 /datum/action/item_action/instrument
 	name = "Использовать инструмент"
-	desc = "Используйте указанный инструмент."
+	desc = "Использовать указанный инструмент."
 
 /datum/action/item_action/instrument/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/instrument))
@@ -612,13 +612,13 @@
 // Jump boots
 /datum/action/item_action/bhop
 	name = "Активировать прыжковые ботинки"
-	desc = "Активирует систему прыжков, позволяя преодолевать препятствия шириной до 4 метров."
+	desc = "Активирует систему прыжков, позволяя преодолевать препятствия шириной до 4 тайлов."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
 /datum/action/item_action/bhop/clown
 	name = "Активировать хонк-ботинки"
-	desc = "Активирует хонк-систему, позволяя перепрыгивать препятствия шириной до 6 метров."
+	desc = "Активирует хонк-систему, позволяя перепрыгивать препятствия шириной до 6 тайлов."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "clown"
 

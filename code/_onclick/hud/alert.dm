@@ -172,13 +172,13 @@
 	icon_state = "gross"
 
 /atom/movable/screen/alert/verygross
-	name = "Очень отвратительно"
+	name = "Сильное отвращение"
 	desc = "Мне нехорошо..."
 	icon_state = "gross2"
 
 /atom/movable/screen/alert/disgusted
 	name = "МЕРЗОСТЬ"
-	desc = "АБСОЛЮТНАЯ МЕРЗОСТЬ"
+	desc = "АБСОЛЮТНАЯ МЕРЗОСТЬ!"
 	icon_state = "gross3"
 
 // Hunger alerts
@@ -187,27 +187,27 @@
 	icon = 'icons/mob/screen_hunger.dmi'
 
 /atom/movable/screen/alert/hunger/fat
-	name = "Переел"
+	name = "Переедание"
 	desc = "Вы объелись. Бегайте по станции и сбрасывайте вес."
 	icon_state = "fat"
 
 /atom/movable/screen/alert/hunger/full
-	name = "Сыт"
+	name = "Сытость"
 	desc = "Вы сыты и довольны, но лучше больше не есть."
 	icon_state = "full"
 
 /atom/movable/screen/alert/hunger/well_fed
-	name = "Хорошо накормлен"
+	name = "Полное насыщение"
 	desc = "Вы вполне сыты, но ещё немного влезет."
 	icon_state = "well_fed"
 
 /atom/movable/screen/alert/hunger/fed
-	name = "Накормлен"
+	name = "Насыщение"
 	desc = "Вы умеренно сыты, но перекусить не помешает."
 	icon_state = "fed"
 
 /atom/movable/screen/alert/hunger/hungry
-	name = "Голоден"
+	name = "Лёгкий голод"
 	desc = "Сейчас бы перекусить..."
 	icon_state = "hungry"
 
@@ -341,7 +341,7 @@
 
 /atom/movable/screen/alert/asleep
 	name = "Сон"
-	desc = "Вы уснули. Подождите немного, и проснётесь.<br>Если, конечно, не умрёте — ведь вы беспомощны."
+	desc = "Вы уснули. Подождите немного, скоро вы проснётесь.<br>Если, конечно, не умрёте — ведь вы беспомощны."
 	icon_state = "asleep"
 
 
@@ -371,7 +371,7 @@
 
 /atom/movable/screen/alert/fire
 	name = "В огне"
-	desc = "Вы горите!<br>Падайте, катайтесь или бегите в вакуум, чтобы потушить пламя."
+	desc = "Вы горите!<br>Падайте, катайтесь или бегите в зону без кислорода, чтобы потушить пламя."
 	icon_state = "fire"
 
 
@@ -419,7 +419,7 @@
 /atom/movable/screen/alert/alien_fire
 // This alert is temporarily gonna be thrown for all hot air but one day it will be used for literally being on fire
 	name = "Перегрев"
-	desc = "Слишком жарко! Бегите в космос или хотя бы подальше от огня.<br>Нахождение на траве восстановит ваше здоровье."
+	desc = "Слишком жарко! Бегите в космос или хотя бы подальше от огня.<br>Нахождение на чёрной смоле восстановит ваше здоровье."
 	icon_state = "alien_fire"
 	alerttooltipstyle = "alien"
 
@@ -446,12 +446,12 @@
 
 /atom/movable/screen/alert/emptycell
 	name = "Разряжено"
-	desc = "Батарея полностью разряжена. Модули недоступны до подзарядки.<br>Зарядные станции есть в робототехнике, дормиториях и на спутнике ИИ."
+	desc = "Батарея полностью разряжена. Модули недоступны до подзарядки.<br>Используйте любую доступную зарядную станцию."
 	icon_state = "emptycell"
 
 /atom/movable/screen/alert/lowcell
 	name = "Низкий заряд"
-	desc = "Батарея почти разряжена.<br>Зарядные станции есть в робототехнике, дормиториях и на спутнике ИИ."
+	desc = "Батарея почти разряжена.<br>Используйте любую доступную зарядную станцию.."
 	icon_state = "lowcell"
 
 //Diona Nymph
@@ -527,9 +527,9 @@
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
-		to_chat(usr, span_notice("[M] подключается к порту."))
+		balloon_alert(usr, "подключение к порту")
 	else
-		to_chat(usr, span_notice("[M] не удалось подключиться к порту."))
+		balloon_alert(usr, "ошибка подключения")
 
 /atom/movable/screen/alert/mech_port_disconnect
 	name = "Отключиться от порта"
@@ -543,9 +543,9 @@
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
-		to_chat(usr, span_notice("[M] отключается от порта."))
+		balloon_alert(usr, "отключение от порта")
 	else
-		to_chat(usr, span_notice("[M] не подключён к порту."))
+		balloon_alert(usr, "не подключен")
 
 /atom/movable/screen/alert/mech_nocell
 	name = "Нет батареи"
@@ -613,13 +613,13 @@
 
 /atom/movable/screen/alert/canstealth
 	name = "Маскировка готова"
-	desc = "Вы готовы активировать режим невидимости!"
+	desc = "Вы готовы активировать режим маскировки!"
 	icon_state = "guardian_canstealth"
 	alerttooltipstyle = "parasite"
 
 /atom/movable/screen/alert/instealth
-	name = "Невидим"
-	desc = "Вы невидимы, и ваша следующая атака нанесёт дополнительный урон!"
+	name = "Маскировка"
+	desc = "Вы замаскированны, и ваша следующая атака нанесёт дополнительный урон!"
 	icon_state = "guardian_instealth"
 	alerttooltipstyle = "parasite"
 
@@ -824,7 +824,7 @@
 
 /atom/movable/screen/alert/restrained/legcuffed
 	name = "Ноги скованы"
-	desc = "Ваши ноги скованы и сильно замедлены.<br>Нажмите на уведомление, чтобы освободиться."
+	desc = "Ваши ноги скованы и это вас замедляет.<br>Нажмите на уведомление, чтобы освободиться."
 
 /atom/movable/screen/alert/restrained/Click()
 	if(isliving(usr))
@@ -893,7 +893,7 @@
 
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "[span_boldnotice(name)] - [span_info(desc)]")
+		to_chat(usr, "[span_boldnotice(name)] – [span_info(desc)]")
 		return FALSE
 
 	if(master)

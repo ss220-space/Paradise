@@ -32,6 +32,7 @@
 
 /obj/spacepod
 	name = "\improper space pod"
+	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
 	ru_names = list(
 		NOMINATIVE = "космический челнок",
 		GENITIVE = "космического челнока",
@@ -40,7 +41,6 @@
 		INSTRUMENTAL = "космическим челноком",
 		PREPOSITIONAL = "космическом челноке"
 	)
-	desc = "Космический челнок, предназначенный для путешествий в открытом космосе."
 	icon = 'icons/goonstation/48x48/pods.dmi'
 	density = TRUE //Dense. To raise the heat.
 	opacity = FALSE
@@ -265,7 +265,7 @@
 	else
 		var/damage = rand(user.melee_damage_lower, user.melee_damage_upper)
 		deal_damage(damage)
-		visible_message(span_danger("[user] [user.attacktext] [src]!"))
+		visible_message("[span_danger(user)] [user.attacktext] [src]!")
 		add_attack_logs(user, src, "attacked")
 		return TRUE
 
@@ -377,15 +377,15 @@
 	if(iscell(I))
 		add_fingerprint(user)
 		if(!hatch_open)
-			to_chat(user, span_warning("Технический люк закрыт."))
+			balloon_alert(user, "технический люк закрыт!")
 			return ATTACK_CHAIN_PROCEED
 		if(battery)
-			to_chat(user, span_warning("В челноке уже установлена батарея."))
+			balloon_alert(user, "нет места!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		battery = I
-		to_chat(user, span_notice("Вы установили новую батарею в челнок."))
+		balloon_alert(user, "установлено!")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/spacepod_equipment/key))
@@ -394,11 +394,11 @@
 			to_chat(user, span_warning("Ошибка конфигурации оборудования. Сообщите об этом в баг-репорт в Discord."))
 			return ATTACK_CHAIN_PROCEED
 		if(!istype(equipment_system.lock_system, /obj/item/spacepod_equipment/lock/keyed))
-			to_chat(user, span_warning("В челноке нет замка."))
+			balloon_alert(user, "нет замка!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/spacepod_equipment/key/key = I
 		if(key.id != equipment_system.lock_system.id)
-			to_chat(user, span_warning("Неправильный ключ."))
+			balloon_alert(user, "неправильный ключа!")
 			return ATTACK_CHAIN_PROCEED
 		lock_pod(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
@@ -406,7 +406,7 @@
 	if(istype(I, /obj/item/spacepod_equipment))
 		add_fingerprint(user)
 		if(!hatch_open)
-			to_chat(user, span_warning("Технический люк закрыт."))
+			balloon_alert(user, "технический люк закрыт!")
 			return ATTACK_CHAIN_PROCEED
 		if(!equipment_system)
 			to_chat(user, span_warning("Ошибка конфигурации оборудования. Сообщите об этом в баг-репорт в Discord."))
@@ -433,7 +433,7 @@
 	if(istype(I, /obj/item/lock_buster))
 		var/obj/item/lock_buster/buster = I
 		if(!buster.on)
-			to_chat(user, span_warning("Сначала включите [buster]."))
+			to_chat(user, span_warning("Сначала включите [buster.declent_ru(ACCUSATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		if(equipment_system.lock_system)
 			user.visible_message(
@@ -484,7 +484,7 @@
 		return
 	. = TRUE
 	if(!hatch_open)
-		to_chat(user, span_warning("Сначала откройте технический люк!"))
+		balloon_alert(user, "откройте технический люк!")
 		return
 	if(health >= initial(health))
 		to_chat(user, span_boldnotice("[capitalize(src.declent_ru(NOMINATIVE))] полностью отремонтирован!"))
@@ -670,6 +670,7 @@
 
 /obj/spacepod/sec
 	name = "\improper security spacepod"
+	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
 	ru_names = list(
 		NOMINATIVE = "космический челнок охраны",
 		GENITIVE = "космического челнока охраны",
@@ -678,12 +679,12 @@
 		INSTRUMENTAL = "космическим челноком охраны",
 		PREPOSITIONAL = "космическом челноке охраны"
 	)
-	desc = "Бронированный челнок службы безопасности с усиленной бронёй."
 	icon_state = "pod_dece"
 	health = 600
 
 /obj/spacepod/syndi
 	name = "syndicate spacepod"
+	desc = "Челнок, окрашенный в цвета Синдиката."
 	ru_names = list(
 		NOMINATIVE = "космический челнок Синдиката",
 		GENITIVE = "космического челнока Синдиката",
@@ -692,7 +693,6 @@
 		INSTRUMENTAL = "космическим челноком Синдиката",
 		PREPOSITIONAL = "космическом челноке Синдиката"
 	)
-	desc = "Челнок, окрашенный в цвета Синдиката."
 	icon_state = "pod_synd"
 	health = 400
 	unlocked = FALSE
@@ -736,11 +736,11 @@
 		if("pod_black")
 			desc = "Чёрный челнок без опознавательных знаков."
 		if("pod_mil")
-			desc = "Тёмно-серый челнок с эмблемой военного подразделения Nanotrasen."
+			desc = "Тёмно-серый челнок с эмблемой военного подразделения НаноТрейзен."
 		if("pod_synd")
-			desc = "Грозный военный челнок с надписью 'Нахуй НТ' на борту."
+			desc = "Грозный военный челнок с надписью \"Нахуй НТ\" на борту."
 		if("pod_gold")
-			desc = "Позолоченный челнок - явно стоил кому-то целого состояния."
+			desc = "Позолоченный челнок – явно стоил кому-то целого состояния."
 		if("pod_industrial")
 			desc = "Промышленный челнок с усиленной конструкцией."
 	update_icons()
@@ -826,7 +826,7 @@
 				to_chat(user, span_danger("<b>Этот человек не может управлять челноком!</b>"))
 				return .
 			if(passengers.len < max_passengers)
-				visible_message(span_danger("[user.name] начинает загрузку [dropping.name] в челнок!"))
+				visible_message(span_danger("[user.name] начина[pluralize_ru(user.gender,"ет","ют")] загрузку [dropping.declent_ru(GENITIVE)] в челнок!"))
 				if(do_after(user, 5 SECONDS, dropping))
 					moved_other_inside(dropping)
 			return .
@@ -1053,7 +1053,6 @@
 		return
 
 	to_chat(user, span_notice("Вы начинаете искать потерянные вещи под сиденьем."))
-	balloon_alert(user, "поиск...")
 	if(do_after(user, 4 SECONDS, src))
 		var/obj/badlist = list(internal_tank, cargo_hold, pilot, battery) + passengers + equipment_system.installed_modules
 		var/list/true_contents = contents - badlist
@@ -1069,7 +1068,6 @@
 			balloon_alert(user, "пусто!")
 	else
 		to_chat(user, span_notice("Вы решаете не обыскивать [src.declent_ru(ACCUSATIVE)]."))
-		balloon_alert(user, "поиск отменён.")
 
 /obj/spacepod/proc/startScan(mob/user)
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

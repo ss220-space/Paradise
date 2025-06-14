@@ -5,7 +5,7 @@
 	flick(icon_state + "_anim", src)
 
 /atom/movable/screen/ghost/jumptomob
-	name = "Телепорт к мобу"
+	name = "К существу"
 	icon_state = "jumptomob"
 
 /atom/movable/screen/ghost/jumptomob/Click()
@@ -13,7 +13,7 @@
 	G.jumptomob()
 
 /atom/movable/screen/ghost/orbit
-	name = "Следить"
+	name = "Следовать за"
 	icon_state = "orbit"
 
 /atom/movable/screen/ghost/orbit/Click()
@@ -29,7 +29,7 @@
 	G.reenter_corpse()
 
 /atom/movable/screen/ghost/teleport
-	name = "Телепорт"
+	name = "Телепортация"
 	icon_state = "teleport"
 
 /atom/movable/screen/ghost/teleport/Click()
@@ -37,7 +37,7 @@
 	G.dead_tele()
 
 /atom/movable/screen/ghost/respawn_list
-	name = "Роли для призраков"
+	name = "Роли призраков"
 	icon = 'icons/mob/screen_midnight.dmi'
 	icon_state = "template"
 
@@ -64,7 +64,7 @@
 	add_overlay(img)
 
 /atom/movable/screen/ghost/respawn_mob
-	name = "Спавн меню"
+	name = "Роли призраков"
 	icon_state = "mob_spawner"
 
 /atom/movable/screen/ghost/respawn_mob/Click()
@@ -80,13 +80,13 @@
 	G.open_minigames_menu()
 
 /atom/movable/screen/ghost/respawn_pai
-	name = "Настроить пИИ"
+	name = "Настроить ПИИ"
 	icon_state = "pai"
 
 /atom/movable/screen/ghost/respawn_pai/Click()
 	var/mob/dead/observer/G = usr
 	if(!GLOB.paiController.check_recruit(G))
-		to_chat(G, span_warning("Вы не имеете права стать пИИ."))
+		to_chat(G, span_warning("Вам не доступна роль ПИИ."))
 		return
 	GLOB.paiController.recruitWindow(G)
 

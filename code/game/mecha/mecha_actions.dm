@@ -126,13 +126,13 @@
 	button_icon_state = "mech_defense_mode_[chassis.defence_mode ? "on" : "off"]"
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
-		chassis.occupant_message(span_notice("[chassis] режим защиты активирован."))
+		chassis.occupant_message(span_notice("[chassis.declent_ru(NOMINATIVE)]: Режим защиты активирован."))
 		chassis.set_anchored(TRUE)
 		RegisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(Activate))
 	else
 		UnregisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED)
 		chassis.deflect_chance = initial(chassis.deflect_chance)
-		chassis.occupant_message(span_danger("[chassis] режим защиты деактивирован."))
+		chassis.occupant_message(span_danger("[chassis.declent_ru(NOMINATIVE)]: Режим защиты деактивирован."))
 		chassis.set_anchored(FALSE)
 	chassis.log_message("Переключение режима защиты.")
 	UpdateButtonIcon()
@@ -159,13 +159,13 @@
 		// chassis.bumpsmash = 1
 		chassis.step_in = min(1, round(chassis.step_in / 2))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min, chassis.step_energy_drain * chassis.leg_overload_coeff)
-		chassis.occupant_message(span_danger("Режим перегрузки включен."))
+		chassis.occupant_message(span_danger("[chassis.declent_ru(NOMINATIVE)]: Режим перегрузки включен."))
 	else
 		chassis.leg_overload_mode = 0
 		// chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message(span_notice("Режим перегрузки выключен."))
+		chassis.occupant_message(span_notice("[chassis.declent_ru(NOMINATIVE)]: Режим перегрузки выключен."))
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_thrusters
@@ -322,7 +322,7 @@
 	if(!_equipment)
 		return FALSE
 	equipment = _equipment
-	name = "Переключить модуль на [equipment.name]"
+	name = "Переключить модуль на [equipment.declent_ru(ACCUSATIVE)]"
 	icon_icon = equipment.icon
 	button_icon_state = equipment.icon_state
 	. = ..()
@@ -338,7 +338,7 @@
 	if(!_equipment)
 		return FALSE
 	equipment = _equipment
-	name = "Переключить модуль [equipment.name]"
+	name = "Переключить модуль [equipment.declent_ru(ACCUSATIVE)]"
 	icon_icon = equipment.icon
 	button_icon_state = equipment.icon_state
 	. = ..()

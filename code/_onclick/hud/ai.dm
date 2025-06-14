@@ -32,7 +32,7 @@
 			AI.ai_camera_track(target_name)
 
 /atom/movable/screen/ai/camera_light
-	name = "Переключить свет камеры"
+	name = "Переключить освещение камеры"
 	icon_state = "camera_light"
 
 /atom/movable/screen/ai/camera_light/Click()

@@ -148,7 +148,7 @@
 
 /// If you touch the entrance you are teleported to the exit, exit doesn't do anything
 /obj/effect/temp_visual/lesser_carp_rift
-	name = "Малый разлом карпов"
+	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "carp_rift"
 	duration = 5 SECONDS
@@ -218,7 +218,7 @@
 
 /// Just an animation
 /obj/effect/temp_visual/lesser_carp_rift_dissipating
-	name = "Малый разлом карпов"
+	name = "малый разлом карпов"
 	icon = 'icons/obj/biomass.dmi'
 	icon_state = "rift"
 	duration = 1 SECONDS

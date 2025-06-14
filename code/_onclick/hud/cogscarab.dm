@@ -7,4 +7,4 @@
 /atom/movable/screen/wind_up_timer/examine(mob/user, infix, suffix)
 	. = ..()
 	var/mob/living/silicon/robot/cogscarab/cog = user
-	. += "<span class='notice'>Осталось времени: [cog.wind_up_timer].</span><br>"
+	. += span_notice("Осталось времени: [cog.wind_up_timer].<br>")

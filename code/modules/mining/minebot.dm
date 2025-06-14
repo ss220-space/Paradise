@@ -277,7 +277,7 @@
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
 /datum/action/innate/minedrone/toggle_mode
-	name = "Переключить режить"
+	name = "Переключить режим"
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/minedrone/toggle_mode/Activate()
