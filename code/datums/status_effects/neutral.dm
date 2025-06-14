@@ -368,8 +368,8 @@
 
 
 /atom/movable/screen/alert/status_effect/leaning
-	name = "Прислонившись"
-	desc = "Вы прислонились к чему-то."
+	name = "Облокотился"
+	desc = "Вы на что-то облокотились."
 	icon_state = "buckled"
 
 /atom/movable/screen/alert/status_effect/leaning/Click()
