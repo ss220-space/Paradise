@@ -724,3 +724,56 @@
 	desc = "Похоже, этот расширенный магазин может принять в себя любые патроны 12-о калибра."
 	icon_state = "cats_mag_large"
 	max_ammo = 14
+
+/obj/item/ammo_box/magazine/specter
+	name = "magazine Specter (disabler)"
+	desc = "Магазин пистолета \"Спектр\", предназначенный для парализующих патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин Спектр (парализующий)",
+		GENITIVE = "магазин Спектр (парализующий)",
+		DATIVE = "магазин Спектр (парализующий)",
+		ACCUSATIVE = "магазин Спектр (парализующий)",
+		INSTRUMENTAL = "магазин Спектр (парализующий)",
+		PREPOSITIONAL = "магазин Спектр (парализующий)"
+	)
+	icon_state = "specmag"
+	ammo_type = /obj/item/ammo_casing/specter/disable
+	max_ammo = 8
+	multiple_sprites = 1
+	caliber = "specter"
+	materials = list(MAT_METAL = 3000)
+
+
+/obj/item/ammo_box/magazine/specter/update_overlays()
+	. = ..()
+	if(ammo_count() && is_disable())
+		. += image('icons/obj/weapons/ammo.dmi', icon_state = "specter-d")
+
+
+/obj/item/ammo_box/magazine/specter/examine(mob/user)
+	. = ..()
+	if(get_dist(user, src) > 2)
+		return
+	. += span_notice("Похоже, что он заряжен [is_disable() ? "парализующими" : "лазерными"] патронами.")
+
+/obj/item/ammo_box/magazine/specter/proc/is_disable()
+	var/ammo = ammo_count()
+	if(!ammo)
+		return FALSE
+	if(istype(contents[contents.len], /obj/item/ammo_casing/specter/disable))
+		return TRUE
+	return FALSE
+
+/obj/item/ammo_box/magazine/specter/laser
+	name = "magazine Specter (laser)"
+	desc = "Магазин пистолета \"Спектр\", предназначенный для лазерных патронов."
+	ru_names = list(
+		NOMINATIVE = "магазин Спектр (лазерный)",
+		GENITIVE = "магазин Спектр (лазерный)",
+		DATIVE = "магазин Спектр (лазерный)",
+		ACCUSATIVE = "магазин Спектр (лазерный)",
+		INSTRUMENTAL = "магазин Спектр (лазерный)",
+		PREPOSITIONAL = "магазин Спектр (лазерный)"
+	)
+	ammo_type = /obj/item/ammo_casing/specter/laser
+	materials = list(MAT_METAL = 5000)
