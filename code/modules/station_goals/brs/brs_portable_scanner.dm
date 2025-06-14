@@ -9,7 +9,7 @@
 
 /obj/item/circuitboard/brs_portable_scanner
 	board_name = "Портативный сканер разлома"
-	desc = "Плата портативного сканера блюспейс-разлома."
+	desc = "Плата портативного сканера блюспейс разлома."
 	build_path = /obj/machinery/brs_portable_scanner
 	icon_state = "scannerplat"
 	board_type = "machine"
@@ -23,7 +23,7 @@
 	)
 
 /obj/machinery/brs_portable_scanner
-	name = "Портативный сканер блюспейс-разлома"
+	name = "Портативный сканер блюспейс разлома"
 	icon = 'icons/obj/machines/BRS/scanner_dynamic.dmi'
 	icon_state = "scanner"
 	anchored = FALSE

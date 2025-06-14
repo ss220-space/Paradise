@@ -9,7 +9,7 @@
 		to_chat(usr, span_warning("Это можно использовать только на объектах типа /mob/living"), confidential = TRUE)
 		return
 
-	if(tgui_alert(usr, "Вы уверены, что хотите выстрелить по [key_name(target)] из Блюспейс-Артиллерии?",  "Подтверждение выстрела?" , list("Да" , "Нет")) != "Да")
+	if(tgui_alert(usr, "Вы уверены, что хотите выстрелить по [key_name(target)] из Блюспейс Артиллерии?",  "Подтверждение выстрела?" , list("Да" , "Нет")) != "Да")
 		return
 
 	if(GLOB.BSACooldown)
@@ -20,7 +20,7 @@
 	spawn(50)
 		GLOB.BSACooldown = 0
 
-	to_chat(target, "По вам попала блюспейс-артиллерия!")
+	to_chat(target, "По вам попала блюспейс артиллерия!")
 	log_admin("[key_name(target)] has been hit by Bluespace Artillery fired by [key_name(usr)]")
 	message_admins("[key_name_admin(target)] has been hit by Bluespace Artillery fired by [key_name_admin(usr)]")
 

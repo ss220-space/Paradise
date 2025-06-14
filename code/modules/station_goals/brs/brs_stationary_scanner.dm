@@ -9,7 +9,7 @@
 
 /obj/item/circuitboard/brs_stationary_scanner
 	board_name = "Стационарный сканер разлома"
-	desc = "Плата стационарного сканера блюспейс-разлома."
+	desc = "Плата стационарного сканера блюспейс разлома."
 	build_path = /obj/machinery/power/brs_stationary_scanner
 	icon_state = "bluespace_scannerplat"
 	board_type = "machine"
@@ -23,7 +23,7 @@
 	)
 
 /obj/machinery/power/brs_stationary_scanner
-	name = "Стационарный сканер блюспейс-разлома"
+	name = "Стационарный сканер блюспейс разлома"
 	icon = 'icons/obj/machines/BRS/scanner_static.dmi'
 	icon_state = "scanner"
 	pixel_x = -32

@@ -203,12 +203,12 @@
 	name = "bluespace cleaner"
 	desc = "Распылитель с увеличенным объёмом, изготовленный с использованием блюспейс-технологий. Оно точно того стоило?"
 	ru_names = list(
-		NOMINATIVE = "блюспейс-распылитель",
-		GENITIVE = "блюспейс-распылителя",
-		DATIVE = "блюспейс-распылителю",
-		ACCUSATIVE = "блюспейс-распылитель",
-		INSTRUMENTAL = "блюспейс-распылителем",
-		PREPOSITIONAL = "блюспейс-распылителе"
+		NOMINATIVE = "блюспейс распылитель",
+		GENITIVE = "блюспейс распылителя",
+		DATIVE = "блюспейс распылителю",
+		ACCUSATIVE = "блюспейс распылитель",
+		INSTRUMENTAL = "блюспейс распылителем",
+		PREPOSITIONAL = "блюспейс распылителе"
 	)
 	icon_state = "cleaner_bluespace"
 	item_state = "cleaner_bs"

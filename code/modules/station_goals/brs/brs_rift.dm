@@ -1,5 +1,5 @@
 /datum/bluespace_rift
-	var/name = "Блюспейс-Разлом"
+	var/name = "Блюспейс Разлом"
 	var/effect_type = /obj/effect/abstract/bluespace_rift
 	var/rift_count = 1
 	var/rift_size = 5
@@ -42,7 +42,7 @@
 	// Process rift objects
 	for(var/obj/effect/abstract/bluespace_rift/rift as anything in rift_objects)
 		rift.move()
-
+	
 	// Process events
 
 	// Spawn events only when they are scanning
@@ -54,8 +54,8 @@
 
 	times_rift_scanned = 0
 	events_mined = 0
-
-	// Process events spawn
+	
+	// Process events spawn 
 	events.process()
 
 /datum/bluespace_rift/proc/probe(successful = FALSE)
@@ -71,13 +71,13 @@
 	new /obj/effect/spawner/lootdrop/bluespace_rift/goal_complete(get_turf(picked_rift_obj))
 
 /datum/bluespace_rift/big
-	name = "Большой Блюспейс-Разлом"
+	name = "Большой Блюспейс Разлом"
 	rift_count = 1
 	rift_size = 7
 	time_per_tile = 14 SECONDS
 
 /datum/bluespace_rift/fog
-	name = "Блюспейс-Туманность"
+	name = "Блюспейс Туманность"
 	rift_count = 1
 	rift_size = 9
 	time_per_tile = 18 SECONDS
@@ -89,7 +89,7 @@
 	time_per_tile = 8 SECONDS
 
 /datum/bluespace_rift/crack
-	name = "Блюспейс-Трещина"
+	name = "Блюспейс Трещина"
 	rift_count = 5
 	rift_size = 1
 	time_per_tile = 6 SECONDS

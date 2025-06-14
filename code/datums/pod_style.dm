@@ -35,17 +35,17 @@
 /datum/pod_style/advanced
 	name = "bluespace supply pod"
 	ui_name = "Продвинутая"
-	desc = "Блюспейс-капсула снабжения Nanotrasen. После доставки телепортируется обратно."
+	desc = "Блюспейс капсула снабжения Nanotrasen. После доставки телепортируется обратно."
 	decal_icon = "bluespace"
 	glow_color = "blue"
 	id = "bluespace"
 	ru_names = list(
-		NOMINATIVE = "блюспейс-капсула снабжения",
-		GENITIVE = "блюспейс-капсулы снабжения",
-		DATIVE = "блюспейс-капсуле снабжения",
-		ACCUSATIVE = "блюспейс-капсулу снабжения",
-		INSTRUMENTAL = "блюспейс-капсулой снабжения",
-		PREPOSITIONAL = "блюспейс-капсуле снабжения"
+		NOMINATIVE = "блюспейс капсула снабжения",
+		GENITIVE = "блюспейс капсулы снабжения",
+		DATIVE = "блюспейс капсуле снабжения",
+		ACCUSATIVE = "блюспейс капсулу снабжения",
+		INSTRUMENTAL = "блюспейс капсулой снабжения",
+		PREPOSITIONAL = "блюспейс капсуле снабжения"
 	)
 
 /datum/pod_style/centcom

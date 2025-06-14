@@ -6,7 +6,7 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 // BRS - Bluespace Rift Scan
 // The goal is to research the anomalous bluespace rift.
 /datum/station_goal/bluespace_rift
-	name = "Сканирование блюспейс-разлома"
+	name = "Сканирование блюспейс разлома"
 	var/target_research_points = 25000
 	var/reward_given = FALSE
 	var/datum/bluespace_rift/rift
@@ -20,9 +20,9 @@ GLOBAL_LIST_EMPTY(bluespace_rifts_scanner_list)
 	. = ..()
 
 /datum/station_goal/bluespace_rift/get_report()
-	return {"<b>Сканирование блюспейс-разлома</b>
+	return {"<b>Сканирование блюспейс разлома</b>
 	<br><br>
-	По нашим данным, в непосредственной близости от станции образовалось редкое аномальное явление — блюспейс-разлом.
+	По нашим данным, в непосредственной близости от станции образовалось редкое аномальное явление — блюспейс разлом.
 	Порождённые им объекты в настоящий момент дрейфуют по отсекам станции.
 	<br><br>
 	Обнаруженный разлом был классифицирован как [rift.name],<br>

@@ -810,7 +810,7 @@
 	UpdateButtonIcon() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
-	attack_verb = list("блюспейс-ударил")
+	attack_verb = list("блюспейс ударил")
 	attack_sound = 'sound/effects/phasein.ogg'
 
 //honk

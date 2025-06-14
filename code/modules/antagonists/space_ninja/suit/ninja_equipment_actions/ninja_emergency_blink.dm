@@ -11,7 +11,7 @@
 	background_icon_state = "background_green"
 	action_initialisation_text = "Void-Shift - Emergency Blink System"
 
-//Наглейший копипаст из кода блюспейс-кристаллов ^v^
+//Наглейший копипаст из кода блюспейс кристаллов ^v^
 /obj/item/clothing/suit/space/space_ninja/proc/emergency_blink()
 	var/mob/living/carbon/human/ninja = affecting
 	if(!is_teleport_allowed(ninja.z))

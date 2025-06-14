@@ -302,7 +302,7 @@
 	else if(!ismob(contract.target.current))
 		invalidate()
 		return
-	U.message_holder("Агент, мы получили сигнал эвакуации. Системы помех блюспейс-транспорту на борту НСС [SSmapping.map_datum.station_name], были саботированы. "\
+	U.message_holder("Агент, мы получили сигнал эвакуации. Системы помех блюспейс транспорту на борту НСС [SSmapping.map_datum.station_name], были саботированы. "\
 			 	   + "Мы открыли временный портал на месте вашей сигнальной ракеты. Поместите цель в портал, чтобы завершить процесс эвакуации.", 'sound/effects/confirmdropoff.ogg')
 	// Open a portal
 	var/obj/effect/portal/redspace/contractor/P = new(get_turf(F), pick(GLOB.syndieprisonwarp), F, 0, M)

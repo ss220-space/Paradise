@@ -1,5 +1,5 @@
 /obj/effect/abstract/bluespace_rift
-	name = "Неопознанный блюспейс-разлом"
+	name = "Неопознанный блюспейс разлом"
 	desc = "Аномальное образование с неизвестными свойствами."
 	icon = 'icons/obj/engines_and_power/singularity.dmi'
 	icon_state = "singularity_fog"
@@ -59,7 +59,7 @@
 	color = rand_hex_color()
 
 	// assign a name
-	name = "Блюспейс-разлом [pick(GLOB.greek_letters)] [pick(GLOB.greek_letters)] \Roman[rand(1,10)]"
+	name = "Блюспейс разлом [pick(GLOB.greek_letters)] [pick(GLOB.greek_letters)] \Roman[rand(1,10)]"
 
 /obj/effect/abstract/bluespace_rift/Destroy()
 	GLOB.poi_list.Remove(src)

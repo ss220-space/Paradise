@@ -118,7 +118,7 @@
 /datum/anomaly_gen_datum/tier2/bluespace
 	anomaly_type = "блюспейс"
 	anomaly = /obj/effect/anomaly/bluespace/tier2
-	req_item = "Ядро малой блюспейс-аномалии"
+	req_item = "Ядро малой блюспейс аномалии"
 
 /datum/anomaly_gen_datum/tier2/bluespace/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/bluespace/tier1)
@@ -175,7 +175,7 @@
 /datum/anomaly_gen_datum/tier3/bluespace
 	anomaly_type = "большая блюспейс"
 	anomaly = /obj/effect/anomaly/bluespace/tier3
-	req_item = "Два ядра блюспейс-аномалий"
+	req_item = "Два ядра блюспейс аномалий"
 
 /datum/anomaly_gen_datum/tier3/bluespace/is_req_item(obj/item/item)
 	return istype(item, /obj/item/assembly/signaler/core/bluespace/tier2)

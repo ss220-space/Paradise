@@ -1,6 +1,6 @@
 /obj/item/gun/energy/bsg
 	name = "Б.С.П." // No \improper because it's russian name. "The Б.С.П." is worse than just "Б.С.П.".
-	desc = "БОЛЬШАЯ СУКА ПУШКА. Использует ядро энергетической аномалии и блюспейс-кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
+	desc = "Большая С*** Пушка. Использует ядро энергетической аномалии и блюспейс кристалл для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
 	icon_state = "bsg"
 	item_state = "bsg"
 	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
@@ -91,7 +91,7 @@
 
 /obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
 	if(!has_bluespace_crystal)
-		balloon_alert(user, "нужен блюспейс-кристалл")
+		balloon_alert(user, "нужен блюспейс кристалл")
 		return
 
 	if(!core)

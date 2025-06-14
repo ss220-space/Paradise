@@ -3149,7 +3149,7 @@
 					"color" = list("desc" = "Цвет портала", "type" = "color", "value" = "#00FF00"),
 					"playlightning" = list("desc" = "Проигрывать звук молнии при оповещении", "type" = "boolean", "value" = "Да"),
 					"announce_players" = list("desc" = "Делать оповещении", "type" = "boolean", "value" = "Да"),
-					"announcement" = list("desc" = "Оповещение", "type" = "string", "value" = "Массивная блюспейс-аномалия зафиксирована вблизи станции %STATION%. Готовьтесь к худшему."),
+					"announcement" = list("desc" = "Оповещение", "type" = "string", "value" = "Массивная блюспейс аномалия зафиксирована вблизи станции %STATION%. Готовьтесь к худшему."),
 					)
 				)
 

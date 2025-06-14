@@ -54,14 +54,14 @@
 	. = ..()
 
 /obj/effect/anomaly/bluespace/tier1
-	name = "малая блюспейс-аномалия"
+	name = "малая блюспейс аномалия"
 	ru_names = list(
-		NOMINATIVE = "малая ​​блюспейс-аномалия", \
-		GENITIVE = "малой ​​блюспейс-аномалии", \
-		DATIVE = "малой ​​блюспейс-аномалии", \
-		ACCUSATIVE = "малую ​​блюспейс-аномалию", \
-		INSTRUMENTAL = "малой ​​блюспейс-аномалией", \
-		PREPOSITIONAL = "малой ​​блюспейс-аномалии"
+		NOMINATIVE = "малая ​​блюспейс аномалия", \
+		GENITIVE = "малой ​​блюспейс аномалии", \
+		DATIVE = "малой ​​блюспейс аномалии", \
+		ACCUSATIVE = "малую ​​блюспейс аномалию", \
+		INSTRUMENTAL = "малой ​​блюспейс аномалией", \
+		PREPOSITIONAL = "малой ​​блюспейс аномалии"
 	)
 	icon_state = "bluespace1"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier1
@@ -81,14 +81,14 @@
 	return FALSE
 
 /obj/effect/anomaly/bluespace/tier2
-	name = "блюспейс-аномалия"
+	name = "блюспейс аномалия"
 	ru_names = list(
-		NOMINATIVE = "​​блюспейс-аномалия", \
-		GENITIVE = "​​блюспейс-аномалии", \
-		DATIVE = "​​блюспейс-аномалии", \
-		ACCUSATIVE = "​​блюспейс-аномалию", \
-		INSTRUMENTAL = "​​блюспейс-аномалией", \
-		PREPOSITIONAL = "​​блюспейс-аномалии"
+		NOMINATIVE = "​​блюспейс аномалия", \
+		GENITIVE = "​​блюспейс аномалии", \
+		DATIVE = "​​блюспейс аномалии", \
+		ACCUSATIVE = "​​блюспейс аномалию", \
+		INSTRUMENTAL = "​​блюспейс аномалией", \
+		PREPOSITIONAL = "​​блюспейс аномалии"
 	)
 	icon_state = "bluespace2"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier2
@@ -107,14 +107,14 @@
 	collapse_tp_radius = 50
 
 /obj/effect/anomaly/bluespace/tier3
-	name = "большая блюспейс-аномалия"
+	name = "большая блюспейс аномалия"
 	ru_names = list(
-		NOMINATIVE = "большая ​​блюспейс-аномалия", \
-		GENITIVE = "большой ​​блюспейс-аномалии", \
-		DATIVE = "большой ​​блюспейс-аномалии", \
-		ACCUSATIVE = "большую ​​блюспейс-аномалию", \
-		INSTRUMENTAL = "большой ​​блюспейс-аномалией", \
-		PREPOSITIONAL = "большой ​​блюспейс-аномалии"
+		NOMINATIVE = "большая ​​блюспейс аномалия", \
+		GENITIVE = "большой ​​блюспейс аномалии", \
+		DATIVE = "большой ​​блюспейс аномалии", \
+		ACCUSATIVE = "большую ​​блюспейс аномалию", \
+		INSTRUMENTAL = "большой ​​блюспейс аномалией", \
+		PREPOSITIONAL = "большой ​​блюспейс аномалии"
 	)
 	icon_state = "bluespace3"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier3
@@ -154,14 +154,14 @@
 //		TIER 4 ANOMALY | ADMIN SPAWN ONLY!
 
 /obj/effect/anomaly/bluespace/tier4
-	name = "колоссальная блюспейс-аномалия"
+	name = "колоссальная блюспейс аномалия"
 	ru_names = list(
-		NOMINATIVE = "колоссальная ​​блюспейс-аномалия", \
-		GENITIVE = "колоссальной ​​блюспейс-аномалии", \
-		DATIVE = "колоссальной ​​блюспейс-аномалии", \
-		ACCUSATIVE = "колоссальную ​​блюспейс-аномалию", \
-		INSTRUMENTAL = "колоссальной ​​блюспейс-аномалией", \
-		PREPOSITIONAL = "колоссальной ​​блюспейс-аномалии"
+		NOMINATIVE = "колоссальная ​​блюспейс аномалия", \
+		GENITIVE = "колоссальной ​​блюспейс аномалии", \
+		DATIVE = "колоссальной ​​блюспейс аномалии", \
+		ACCUSATIVE = "колоссальную ​​блюспейс аномалию", \
+		INSTRUMENTAL = "колоссальной ​​блюспейс аномалией", \
+		PREPOSITIONAL = "колоссальной ​​блюспейс аномалии"
 	)
 	icon_state = "bluespace3"
 	core_type = /obj/item/assembly/signaler/core/bluespace/tier3/tier4
