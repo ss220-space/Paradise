@@ -92,7 +92,7 @@
 	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
-	to_chat(user, "<span class='notice'>Вы затушили [src.declent_ru(ACCUSATIVE)].")
+	to_chat(user, span_notice("Вы затушили [src.declent_ru(ACCUSATIVE)]."))
 	if(world.time > next_off_message)
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
@@ -113,7 +113,7 @@
 
 	var/obj/item/clothing/mask/cigarette/cig = target.wear_mask
 	if(cig.lit)
-		user.balloon_alert(user, "[cig] уже зажжена!")
+		user.balloon_alert(user, "[cig.declent_ru(NOMINATIVE)] уже зажжена!")
 		return return_flags
 
 	if(target == user)
@@ -123,7 +123,7 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] достает [name] и держит его у [target]. Рука [user.declent_ru(GENITIVE)] тверда, как негасимое пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_rose("[user] достает [declent_ru(ACCUSATIVE)] и держит его у [target.declent_ru(GENITIVE)]. Рука [user.declent_ru(GENITIVE)] тверда, как негасимое пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
 	else
 		cig.light(span_notice("[user] держит [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
@@ -159,7 +159,7 @@
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		user.balloon_alert(user, "Потушите зажигалку!")
+		user.balloon_alert(user, "потушите зажигалку!")
 		return FALSE
 	else
 		return TRUE
@@ -167,11 +167,11 @@
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
 	if(world.time > next_on_message)
-		user.visible_message("<span class='rose'>Не отвлекаясь от дела, [user] одним плавным движением открывает и зажигает [src.declent_ru(ACCUSATIVE)].</span>")
+		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открывает и зажигает [src.declent_ru(ACCUSATIVE)]."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>Вы зажигаете [src.declent_ru(ACCUSATIVE)].</span>")
+		to_chat(user, span_notice("Вы зажигаете [src.declent_ru(ACCUSATIVE)]"))
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
@@ -179,11 +179,11 @@
 		return
 
 	if(world.time > next_off_message)
-		user.visible_message("<span class='rose'>Вы слышите тихий щелчок, когда [user] закрывает [src.declent_ru(ACCUSATIVE)], даже не обращая внимания на то, что дела[pluralize_ru(user.gender, "ет", "ют")]. Во даёт!")
+		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрывает [src.declent_ru(ACCUSATIVE)], даже не обращая внимания на то, что дела[pluralize_ru(user.gender, "ет", "ют")]. Во даёт!"))
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>Вы закрываете [src.declent_ru(ACCUSATIVE)].")
+		to_chat(user, span_notice("Вы закрываете [src.declent_ru(ACCUSATIVE)]."))
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return
@@ -452,6 +452,7 @@
 	)
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "match_unlit"
+	item_state = "match_unlit"
 	var/lit = FALSE
 	var/burnt = FALSE
 	var/smoketime = 5
@@ -484,19 +485,19 @@
 
 /obj/item/match/update_icon_state()
 	icon_state = lit ? "match_lit" : "match_burnt"
-	item_state = lit ? "cigon" : "cigoff"
+	item_state = lit ? "match_lit" : "match_burnt"
 
 
 /obj/item/match/update_name(updates = ALL)
 	. = ..()
-	var/init_name = initial(name)
+	var/init_name = declent_ru(NOMINATIVE)
 	name = lit ? "зажённая [init_name]" : burnt ? "сгоревшая [init_name]" : initial(name)
 
 
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
-	var/init_name = initial(name)
-	desc = lit ? "[init_name]. Её подожгли." : burnt ? "[init_name]. Повидала всякое." : initial(desc)
+	var/init_name = declent_ru(NOMINATIVE)
+	desc = lit ? "Это [init_name], охваченная пламенем." : burnt ? "Это [init_name]. Повидала всякое." : initial(desc)
 
 /obj/item/match/get_heat()
 	return lit * 1000
@@ -545,7 +546,7 @@
 		return ..() | return_flags
 
 	if(cig.lit)
-		user.balloon_alert(user, "[cig] уже зажжена!")
+		user.balloon_alert(user, "[cig.declent_ru(NOMINATIVE)] уже зажжена!")
 		return return_flags
 
 	if(target == user)

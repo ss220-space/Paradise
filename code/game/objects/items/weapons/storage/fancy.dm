@@ -270,7 +270,7 @@
 	. = ATTACK_CHAIN_PROCEED
 	var/obj/item/clothing/mask/cigarette/cigar = locate() in src
 	if(!cigar)
-		user.balloon_alert(user, "Сигареты кончились!")
+		user.balloon_alert(user, "сигареты кончились!")
 		return .
 
 	if(target.equip_to_slot_if_possible(cigar, ITEM_SLOT_MASK, disable_warning = TRUE))
@@ -280,18 +280,19 @@
 		to_chat(user, span_warning("Что-то  [target]'s mouth!"))
 
 
-/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/W , stop_messages = 0)
+/obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/item , stop_messages = 0)
 	if(istype(W, /obj/item/match))
-		var/obj/item/match/match = W
+		var/obj/item/match/match = item
 		if(match.lit)
 			if(!stop_messages)
-				to_chat(usr, span_notice("Putting a lit [W] in [src] probably isn't a good idea."))
+				to_chat(usr, span_notice("Класть зажённ[genderize_ru(item.gender, "ый", "ую", "ый", "ые")] [item.declent_ru(NOMINATIVE)] в [src.declent_ru(ACCUSATIVE)] не лучшая идея."))
 			return FALSE
 	if(istype(W, /obj/item/lighter))
-		var/obj/item/lighter/lighter = W
+		var/obj/item/lighter/lighter = item
 		if(lighter.lit)
 			if(!stop_messages)
 				to_chat(usr, span_notice("Putting [W] in [src] while lit probably isn't a good idea."))
+				("Класть [item.declent_ru(NOMINATIVE)] в [src.declent_ru(ACCUSATIVE)], пока [genderize_ru(item.gender, "он", "она", "оно", "они")] горит - не лучшая идея.")
 			return FALSE
 	return ..()
 
@@ -377,7 +378,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
 	name = "\improper Richard & Co cigarettes"
-	desc = "Курят только отчаянные."
+	desc = "Курево для самых отчаяных."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
 		GENITIVE = "пачки сигарет \"Ричард и Компания\"",
@@ -450,14 +451,14 @@
 	desc = "Теряете в весе? \
 	Не можете поспевать за коллегами, убегая от Сингулярности? \
 	Продолжаете набивать рот, не смотря ни на что? \
-	Курите утонщающие сигареты от Ромы Тенька и жир пропадёт у вас на глазах. Гарантированный результат!"
+	Курите утонщающие сигареты от Шейди Джима и жир пропадёт у вас на глазах. Гарантированный результат!"
 	ru_names = list(
-		NOMINATIVE = "пачка сигарет от Ромы Тенька",
-		GENITIVE = "пачки сигарет от Ромы Тенька",
-		DATIVE = "пачке сигарет от Ромы Тенька",
-		ACCUSATIVE = "пачку сигарет от Ромы Тенька",
-		INSTRUMENTAL = "пачкой сигарет от Ромы Тенька",
-		PREPOSITIONAL = "пачке сигарет от Ромы Тенька"
+		NOMINATIVE = "пачка сигарет от Шейди Джима ",
+		GENITIVE = "пачки сигарет от Шейди Джима",
+		DATIVE = "пачке сигарет от Шейди Джима",
+		ACCUSATIVE = "пачку сигарет от Шейди Джима",
+		INSTRUMENTAL = "пачкой сигарет от Шейди Джима",
+		PREPOSITIONAL = "пачке сигарет от Шейди Джима"
 	)
 	icon_state = "shadyjimpacket"
 	item_state = "shadyjimpacket"
@@ -518,6 +519,7 @@
 
 /obj/item/storage/fancy/cigcase
 	name = "Cigar Case"
+	desc = "Делового вида футляр, в котором держа дорогие сигары."
 	icon = 'icons/obj/cigarettes.dmi'
 	ru_names = list(
 		NOMINATIVE = "портсигар",
@@ -529,6 +531,7 @@
 	)
 	icon_state = "cigarcase"
 	icon_type = "cigar"
+	item_state = "cigarcase"
 	storage_slots = 7
 	can_hold = list(/obj/item/clothing/mask/cigarette/cigar)
 
