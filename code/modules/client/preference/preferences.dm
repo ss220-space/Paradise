@@ -210,7 +210,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 	var/nanotrasen_relation = "Нейтральность"
 
-	// 0 = Персонаж, 1 = Игровые предпочтения
+	// 0 = Персонаж, 1 = Игровые настройки
 	var/current_tab = TAB_CHAR
 
 	// OOC Metadata:
@@ -314,10 +314,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += {"<meta charset="UTF-8">"}
 	dat += "<center>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_CHAR]' [current_tab == TAB_CHAR ? "class='linkOn'" : ""]>Персонаж</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Игровые предпочтения</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_GAME]' [current_tab == TAB_GAME ? "class='linkOn'" : ""]>Игровые настройки</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_SPEC]' [current_tab == TAB_SPEC ? "class='linkOn'" : ""]>Специальные роли</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Привязка клавиш</a>"
-	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>Основные предпочтения</a>"
+	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>Основные настройки</a>"
 	dat += "</center>"
 	dat += "<hr>"
 
