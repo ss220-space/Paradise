@@ -18,7 +18,7 @@ Bonus
 
 /datum/symptom/weight_loss
 
-	name = "Потеря Веса"
+	name = "Потеря веса"
 	id = "weight_loss"
 	stealth = -3
 	resistance = -2

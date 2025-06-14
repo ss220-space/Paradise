@@ -170,8 +170,8 @@
 	stage2 = list("Ваше горло першит.", span_danger("Убить..."))
 	stage3 = list(span_danger("Ваше горло сильно першит."), "Ваша кожа кажется тугой.", span_danger("Вы чувствуете, как что-то движется... внутри."))
 	stage4 = list(span_danger("Ваша кожа кажется очень тугой."), span_danger("Ваша кровь кипит!"), span_danger("Вы чувствуете... что-то... внутри вас."))
-	transform_message = list(span_danger("<font size=5><b>Теперь вы ксеноморф.</b></font></span>\n\
-	<b>Вы чувствуете боль от превращения! Вы желаете укусить того, кто с вами это сделал, благо, память вас не покинула и вы всё помните.</b>"))
+	transform_message = list(span_danger(span_fontsize5("<b>Теперь вы ксеноморф.</b>") + "\n\
+		<b>Вы чувствуете боль от превращения! Вы желаете укусить того, кто с вами это сделал, благо, память вас не покинула и вы всё помните.</b>"))
 	new_form = null
 
 /datum/disease/virus/transformation/xeno/New()
@@ -273,7 +273,7 @@
 	stage2 = list(span_notice("Ваша кожа кажется обвисшей."))
 	stage3 = list(span_danger("Ваши конечности тают."), span_danger("Ваши конечности начинают терять форму."))
 	stage4 = list(span_danger("Вы ненасытны!"))
-	transform_message = list(span_danger("<font size=5><b>ТЕПЕРЬ ВЫ МОРФ!</b></font></span> \n \
+	transform_message = list(span_danger(span_fontsize5("<b>ТЕПЕРЬ ВЫ МОРФ!</b>") + "\n\
 	Хоть Вы и трансформировались в отвратительную зелёную жижу, но это не повлияло на Ваше сознание \
 	и память. Вы не являетесь антагонистом."))
 	new_form = /mob/living/simple_animal/hostile/morph

@@ -66,7 +66,7 @@
 
 //Uncontrollable Actions
 /datum/disease/virus/advance/preset/obsession
-	name = "Неконтролируемая активность"
+	name = "Неконтролируемые действия"
 	symptoms = list(new/datum/symptom/obsession)
 
 //Topographical Cretinism

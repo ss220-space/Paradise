@@ -93,7 +93,7 @@ Uncontrollable Actions
 
 /datum/symptom/obsession
 
-	name = "Неконтролиемая активность"
+	name = "Неконтролируемые действия"
 	id = "obsession"
 	stealth = -4
 	resistance = 1
