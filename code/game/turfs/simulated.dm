@@ -183,7 +183,7 @@
 		slipper.Immobilize(1 SECONDS)
 	else
 		slipper.stop_pulling()
-		slipper.Weaken(weaken_amount)
+		slipper.Knockdown(weaken_amount)
 
 	if(buckled_obj)
 		buckled_obj.unbuckle_mob(slipper)
