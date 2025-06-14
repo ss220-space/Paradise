@@ -2546,7 +2546,7 @@
 /turf/simulated/floor/wood,
 /area/admin)
 "BI" = (
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/turf/simulated/floor/plating/asteroid/basalt/lava,
 /area/tdome/newtdome)
 "BN" = (
 /obj/structure/table/wood,
