@@ -46,7 +46,7 @@
 		SPECIES_GOLEM_PLASMA = "плазменный голем",
 		SPECIES_GOLEM_DIAMOND = "алмазный голем",
 		SPECIES_GOLEM_GOLD = "золотой голем",
-		SPECIES_GOLEM_SILVER = "серебрянный голем",
+		SPECIES_GOLEM_SILVER = "серебряный голем",
 		SPECIES_GOLEM_PLASTEEL = "пласталевый голем",
 		SPECIES_GOLEM_TITANIUM = "титановый голем",
 		SPECIES_GOLEM_PLASTITANIUM = "пластитановый голем",
@@ -162,7 +162,7 @@
 			else
 				msg += "На [genderize_ru(gender, "его", "её", "его", "их")] руках [bicon(gloves)] [gloves.declent_ru(NOMINATIVE)].\n"
 		else if(blood_DNA)
-			msg += span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] руки [hand_blood_color != "#030303" ? "измазаны в крови":"измазаны в масле"]!\n")
+			msg += span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] руки [hand_blood_color != "#030303" ? "измазаны кровью":"измазаны маслом"]!\n")
 		else if(isclocker(src) && HAS_TRAIT(src, CLOCK_HANDS))
 			msg += span_clockitalic("[genderize_ru(gender, "Его", "Её", "Его", "Их")] руки сверкают янтарём!\n")
 
@@ -235,7 +235,7 @@
 		appears_dead = TRUE
 		if(suiciding)
 			msg += span_warning("Выгляд[pluralize_ru(gender, "ит", "ят")] так, будто [genderize_ru(gender, "он", "она", "оно", "они")] покончил[genderize_ru(gender, "", "а", "о", "и")] с собой... надежды на восстановление нет.\n")
-		msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] [genderize_ru(gender, "безжизнен и не реагирует", "безжизненна и не реагирует", "безжизненно и не реагирует", "безжизненны и не реагируют")]. Нет никаких признаков жизни")
+		msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] безжизнен[genderize_ru(gender, "", "на", "но", "ны")] и не реагиру[pluralize_ru(gender,"ет","ют")]. Нет никаких признаков жизни.")
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
 				var/foundghost = FALSE
@@ -247,13 +247,11 @@
 								foundghost = FALSE
 							break
 				if(!foundghost)
-					msg += " [genderize_ru(gender, "Его", "Её", "Его", "Их")] душа покинула тело"
-		msg += "...\n"
+					msg += span_deadsay(" [genderize_ru(gender, "Его", "Её", "Его", "Их")] душа покинула тело")
+		msg += span_deadsay("...\n")
 
 	if(!get_int_organ(/obj/item/organ/internal/brain))
-		msg += span_deadsay("Кажется, что у [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует мозг...\n")
-
-	msg += span_warning("")
+		msg += span_warning("Кажется, у [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует мозг...\n")
 
 	var/list/wound_flavor_text = list()
 	for(var/limb_zone in dna.species.has_limbs)
@@ -276,26 +274,26 @@
 		var/obj/item/organ/external/bodypart = bodyparts_by_name[limb_zone]
 
 		if(!bodypart)
-			wound_flavor_text[limb_zone] = "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует [organ_descriptor]!</b>\n"
+			wound_flavor_text[limb_zone] = span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] отсутствует [organ_descriptor]!</b>\n")
 		else
 			if(!ismachineperson(src) && !skipprostheses)
 				if(bodypart.is_robotic())
-					wound_flavor_text[limb_zone] = "[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] роботизированная.\n"
+					wound_flavor_text[limb_zone] = span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] роботизированная.\n")
 
 				else if(bodypart.is_splinted())
-					wound_flavor_text[limb_zone] = "У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [organ_descriptor]!\n"
+					wound_flavor_text[limb_zone] = span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] наложена шина на [organ_descriptor]!\n")
 
 				else if(!bodypart.properly_attached)
-					wound_flavor_text[limb_zone] = "[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] едва держится!\n"
+					wound_flavor_text[limb_zone] = span_warning("[genderize_ru(gender, "Его", "Её", "Его", "Их")] [organ_descriptor] едва держится!\n")
 
 			if(bodypart.open)
 				if(bodypart.is_robotic())
-					msg += "<b>Технический люк на [ignore_limb_branding(limb_zone)] открыт.</b>\n"
+					msg += span_warning("<b>Технический люк на [ignore_limb_branding(limb_zone)] открыт.</b>\n")
 				else
-					msg += "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] открытый разрез на [ignore_limb_branding(limb_zone)].</b>\n"
+					msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] открытый разрез на [ignore_limb_branding(limb_zone)].</b>\n")
 
 			for(var/obj/item/embed in bodypart.embedded_objects)
-				msg += "<b>В [genderize_ru(gender, "его", "её", "его", "их")] [ignore_limb_branding(limb_zone)] застрял [bicon(embed)] [embed]!</b>\n"
+				msg += span_warning("<b>В [genderize_ru(gender, "его", "её", "его", "их")] [ignore_limb_branding(limb_zone)] застрял [bicon(embed)] [embed]!</b>\n")
 
 	//Handles the text strings being added to the actual description.
 	//If they have something that covers the limb, and it is not missing, put flavortext.  If it is covered but bleeding, add other flavortext.
@@ -327,77 +325,75 @@
 	if(damage)
 		var/brute_message = !ismachineperson(src) ? "ушибы" : "вмятины"
 		if(damage < 60)
-			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] [brute_message].\n"
+			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] [brute_message].\n")
 		else
-			msg += "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзные [brute_message]!</b>\n"
+			msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзные [brute_message]!</b>\n")
 
 	damage = getFireLoss()
 	if(damage)
 		if(damage < 60)
-			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] ожоги.\n"
+			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительные" : "умеренные"] ожоги.\n")
 		else
-			msg += "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзные ожоги!</b>\n"
+			msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзные ожоги!</b>\n")
 	damage = getCloneLoss()
 	if(damage)
 		if(damage < 60)
-			msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительное" : "умеренное"] клеточное повреждение.\n"
+			msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] [damage < 30 ? "незначительное" : "умеренное"] клеточное повреждение.\n")
 		else
-			msg += "<b>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзное клеточное повреждение.</b>\n"
+			msg += span_warning("<b>У [genderize_ru(gender, "него", "неё", "него", "них")] серьёзное клеточное повреждение.</b>\n")
 
 
 	if(fire_stacks > 0)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] [genderize_ru(gender, "покрыт", "покрыта", "покрыто", "покрыты")] чем-то легковоспламеняющимся.\n"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] [genderize_ru(gender, "покрыт", "покрыта", "покрыто", "покрыты")] чем-то легковоспламеняющимся.\n")
 	if(fire_stacks < 0)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выглядит немного мокрым.\n"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выглядит немного мокрым.\n")
 
 	switch(wetlevel)
 		if(1)
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] слегка влажным.\n"
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] слегка влажным.\n")
 		if(2)
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] чуть мокрым.\n"
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] чуть мокрым.\n")
 		if(3)
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] мокрым.\n"
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] мокрым.\n")
 		if(4)
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] очень мокрым.\n"
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] очень мокрым.\n")
 		if(5)
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] полностью промокшим.\n"
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] полностью промокшим.\n")
 
 	if(nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] сильно истощён[genderize_ru(gender, "", "а", "о", "ы")].\n"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] сильно истощён[genderize_ru(gender, "", "а", "о", "ы")].\n")
 
 	if(HAS_TRAIT(src, TRAIT_FAT))
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] страда[genderize_ru(gender, "ет", "ет", "ет", "ют")] болезненным ожирением.\n"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] страда[pluralize_ru(gender, "ет", "ют")] болезненным ожирением.\n")
 		if(user.nutrition < NUTRITION_LEVEL_HYPOGLYCEMIA)
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] пухлым и аппетитным — как маленький поросёнок. Вкусный поросёнок.\n"
+			msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] пухлым и аппетитным — как маленький поросёнок. Вкусный поросёнок.\n")
 
 	else if(nutrition >= NUTRITION_LEVEL_FAT)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[genderize_ru(gender, "ит", "ит", "ит", "ят")] довольно полным.\n"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] выгляд[pluralize_ru(gender, "ит", "ят")] довольно полным.\n")
 
 	if(dna.species.can_be_pale && blood_volume < BLOOD_VOLUME_PALE && ((get_covered_bodyparts() & FULL_BODY) != FULL_BODY))
-		msg += "У [genderize_ru(gender, "него", "неё", "него", "них")] бледная кожа.\n"
+		msg += span_warning("У [genderize_ru(gender, "него", "неё", "него", "них")] бледная кожа.\n")
 
 	var/datum/antagonist/vampire/vampire_datum = mind?.has_antag_datum(/datum/antagonist/vampire)
 	if(istype(vampire_datum) && vampire_datum.draining)
-		msg += "<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] впил[genderize_ru(gender, "ся", "ась", "ось", "ись")] своими клыками в шею [vampire_datum.draining].\n</b>"
+		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] впил[genderize_ru(gender, "ся", "ась", "ось", "ись")] своими клыками в шею [vampire_datum.draining].\n</b>")
 
 	if(bleedsuppress)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] перевязан[genderize_ru(gender, "", "а", "о", "ы")] чем-то.\n")
 	else if(bleed_rate)
-		msg += "<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] кровоточ[genderize_ru(gender, "ит", "ит", "ит", "ат")]!</b>\n"
+		msg += span_warning("<b>[genderize_ru(gender, "Он", "Она", "Оно", "Они")] кровоточ[pluralize_ru(gender, "ит", "ат")]!</b>\n")
 
 	if(reagents.has_reagent("teslium"))
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] излуча[genderize_ru(gender, "ет", "ет", "ет", "ют")] мягкое голубое свечение!\n"
-
-	msg += "</span>"
+		msg += span_warning("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] излуча[pluralize_ru(gender, "ет", "ют")] мягкое голубое свечение!\n")
 
 	if(!appears_dead)
 		if(stat == UNCONSCIOUS)
-			msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не реагиру[genderize_ru(user.gender, "ет", "ет", "ет", "ют")] на происходящее вокруг и, кажется, сп[genderize_ru(user.gender, "ит", "ит", "ит", "ят")].\n"
+			msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не реагиру[pluralize_ru(gender, "ет", "ют")] на происходящее вокруг и, кажется, сп[pluralize_ru(gender, "ит", "ят")].\n"
 		if(stat == CONSCIOUS)
 			if(getBrainLoss() >= 60)
 				msg += "На [genderize_ru(user.gender, "его", "её", "его", "их")] лице застыло глупое выражение.\n"
 			if(health < HEALTH_THRESHOLD_CRIT && health > HEALTH_THRESHOLD_DEAD)
-				msg += span_warning("[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n")
+				msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти без сознания.\n"
 
 
 		if(get_int_organ(/obj/item/organ/internal/brain))
@@ -405,21 +401,21 @@
 				if(!key)
 					msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] в полной кататонии. Должно быть, тяготы жизни в глубоком космосе оказались непосильны для [genderize_ru(gender, "него", "неё", "него", "них")]. Шансы на восстановление ничтожны.\n")
 				else if(!client)
-					msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] внезапно заснул[genderize_ru(gender, "", "а", "о", "и")]. [genderize_ru(gender, "Он", "Она", "Оно", "Они")] может скоро проснуться.\n"
+					msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] внезапно заснул[genderize_ru(gender, "", "а", "о", "и")]. [genderize_ru(gender, "Он", "Она", "Оно", "Они")] может скоро проснуться.\n")
 
 		if(HAS_TRAIT_FROM(src, TRAIT_AI_UNTRACKABLE, CHANGELING_TRAIT))
-			msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] двигает своё тело неестественно и откровенно нечеловеческим образом.\n"
+			msg += span_italics("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] двигает своё тело неестественно и откровенно нечеловеческим образом.\n")
 
 	if(!(skipface || ( wear_mask && ( wear_mask.flags_inv & HIDENAME || wear_mask.flags_cover & MASKCOVERSMOUTH) ) ) && is_thrall(src) && in_range(user,src))
-		msg += "[genderize_ru(gender, "Его", "Её", "Их", "Их")] черты лица выглядят неестественно напряжёнными и застывшими.\n"
+		msg += span_italics("[genderize_ru(gender, "Его", "Её", "Их", "Их")] черты лица выглядят неестественно напряжёнными и застывшими.\n")
 
 	var/obj/item/organ/internal/cyberimp/tail/blade/implant = get_organ_slot(INTERNAL_ORGAN_TAIL_DEVICE)
 	if(istype(implant) && implant.activated)
-		msg += "Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [genderize_ru(gender, "его", "её", "его", "их")] хвосте.\n"
+		msg += span_italics("Вы замечаете странный [implant.biological ? "нарост" : "блеск"] на [genderize_ru(gender, "его", "её", "его", "их")] хвосте.\n")
 
 
 	if(get_gravity(src) < -NO_GRAVITY && !buckled)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] наход[genderize_ru(user.gender, "и", "и", "и", "я")]тся на потолке."
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] наход[pluralize_ru(gender, "и", "я")]тся на потолке."
 
 	if(user.no_gravity() && !buckled)
 		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
@@ -427,7 +423,7 @@
 	if(decaylevel == 1)
 		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] начал[genderize_ru(user.gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] раздут[genderize_ru(user.gender, "", "а", "о", "ы")] и отвратительно пахнет[genderize_ru(user.gender, "ет", "ет", "ет", "ут")].\n"
+		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] раздут[genderize_ru(user.gender, "", "а", "о", "ы")] и отвратительно пахнет[pluralize_ru(gender, "ет", "ют")].\n"
 	if(decaylevel == 3)
 		msg += "[genderize_ru(user.gender, "Он почернел", "Она почернела", "Оно почернело", "Они почернели")] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)
@@ -451,9 +447,9 @@
 								commentLatest = "Нет записей." //If present but without entries (=target is recognized crew)
 
 			var/criminal_status = hasHUD(user, EXAMINE_HUD_SECURITY_WRITE) ? "<a href='byond://?src=[UID()];criminal=1'>\[[criminal]\]</a>" : "\[[criminal]\]"
-			msg += span_deptradio("Криминальный статус: [criminal_status]\n")
-			msg += span_deptradio("Записи службы безопасности: <a href='byond://?src=[UID()];secrecordComment=`'>\[Посмотреть записи\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Добавить комментарий\]</a>\n")
-			msg += span_deptradio("Последние данные: [commentLatest]\n")
+			msg += "[span_deptradio("Криминальный статус:")] [criminal_status]\n"
+			msg += "[span_deptradio("Записи службы безопасности:")] <a href='byond://?src=[UID()];secrecordComment=`'>\[Посмотреть записи\]</a> <a href='byond://?src=[UID()];secrecordadd=`'>\[Добавить комментарий\]</a>\n"
+			msg += "[span_deptradio("Последние данные:")] [commentLatest]\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SKILLS))
 		var/perpname = get_visible_name(add_id_name = FALSE)
@@ -466,9 +462,9 @@
 			if(skills)
 				var/char_limit = 40
 				if(length(skills) <= char_limit)
-					msg += span_deptradio("Личное дело: [skills]\n")
+					msg += "[span_deptradio("Личное дело:")] [skills]\n"
 				else
-					msg += span_deptradio("Личное дело: [copytext_preserve_html(skills, 1, char_limit-3)]...<a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n")
+					msg += "[span_deptradio("Личное дело:")] [copytext_preserve_html(skills, 1, char_limit-3)]...<a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n"
 
 
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))
@@ -481,8 +477,8 @@
 					if(R.fields["id"] == E.fields["id"])
 						medical = R.fields["p_stat"]
 
-		msg += span_deptradio("Психологический статус: <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n")
-		msg += span_deptradio("Медицинские записи: <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n")
+		msg += "[span_deptradio("Психологический статус:")] <a href='byond://?src=[UID()];medical=1'>\[[medical]\]</a>\n"
+		msg += "[span_deptradio("Медицинские записи:")] <a href='byond://?src=[UID()];medrecord=`'>\[View\]</a> <a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>\n"
 
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(print_flavor_text() && !skipface && !head_organ?.is_disfigured())
