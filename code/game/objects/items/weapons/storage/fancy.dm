@@ -281,17 +281,17 @@
 
 
 /obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/item , stop_messages = 0)
-	if(istype(W, /obj/item/match))
+	if(istype(item, /obj/item/match))
 		var/obj/item/match/match = item
 		if(match.lit)
 			if(!stop_messages)
 				to_chat(usr, span_notice("Класть зажённ[genderize_ru(item.gender, "ый", "ую", "ый", "ые")] [item.declent_ru(NOMINATIVE)] в [src.declent_ru(ACCUSATIVE)] не лучшая идея."))
 			return FALSE
-	if(istype(W, /obj/item/lighter))
+	if(istype(item, /obj/item/lighter))
 		var/obj/item/lighter/lighter = item
 		if(lighter.lit)
 			if(!stop_messages)
-				to_chat(usr, span_notice("Putting [W] in [src] while lit probably isn't a good idea."))
+				to_chat(usr, span_notice("Putting [item] in [src] while lit probably isn't a good idea."))
 				("Класть [item.declent_ru(NOMINATIVE)] в [src.declent_ru(ACCUSATIVE)], пока [genderize_ru(item.gender, "он", "она", "оно", "они")] горит - не лучшая идея.")
 			return FALSE
 	return ..()
