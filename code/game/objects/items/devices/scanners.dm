@@ -847,7 +847,7 @@ REAGENT SCANNER
 			if(H.reagents.addiction_list.len)
 				scan_data += span_danger("Обнаружены зависимости от реагентов:")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
-					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5<")
+					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5")
 			else
 				scan_data += "Зависимости от реагентов не обнаружены."
 	for(var/thing in H.diseases)
