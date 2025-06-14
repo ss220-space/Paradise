@@ -589,6 +589,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
 		return
 
+
 /datum/admins/proc/toggleenter()
 	set category = "Server"
 	set desc="People can't enter"
