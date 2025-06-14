@@ -298,9 +298,10 @@
 		return NONE
 
 	// Can only carve runes with it if off combat mode.
-	if(is_space_or_openspace(target) && !user.combat_mode)
+	if(is_space_or_openspace(target) && user.a_intent != INTENT_HARM)
 		heretic_datum.try_draw_rune(user, target, drawing_time = 14 SECONDS) // Faster than pen, slower than cicatrix
 		return ATTACK_CHAIN_BLOCKED
+
 	return NONE
 
 // Weaker blade variant given to people so they can participate in the heretic arena spell

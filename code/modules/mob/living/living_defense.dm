@@ -157,39 +157,43 @@
 	return FALSE
 
 
-/mob/living/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("[pluralize_ru(M.occupant.gender,"Ты не хочешь","Вы не хотите")] навредить живым существам!"))
+/mob/living/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
+	if(mecha.occupant.a_intent == INTENT_HARM)
+		if(HAS_TRAIT(mecha.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+			to_chat(mecha.occupant, span_warning("[pluralize_ru(mecha.occupant.gender,"Ты не хочешь","Вы не хотите")] навредить живым существам!"))
 			return
-		M.do_attack_animation(src)
-		if(M.damtype == "brute" && !is_strong())
-			step_away(src,M,15)
-		switch(M.damtype)
+
+		mecha.do_attack_animation(src)
+		if(mecha.damtype == "brute" && !is_strong())
+			step_away(src,mecha,15)
+
+		switch(mecha.damtype)
 			if("brute")
 				if(!is_strong())
 					Paralyse(2 SECONDS)
-				take_overall_damage(rand(M.force/2, M.force))
+				take_overall_damage(rand(mecha.force/2, mecha.force))
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if("fire")
-				take_overall_damage(0, rand(M.force/2, M.force))
+				take_overall_damage(0, rand(mecha.force/2, mecha.force))
 				playsound(src, 'sound/items/welder.ogg', 50, TRUE)
 			if("tox")
-				M.mech_toxin_damage(src)
+				mecha.mech_toxin_damage(src)
 			else
 				return
-		M.occupant_message(span_danger("[pluralize_ru(M.occupant.gender,"Ты","Вы")] ударяе[pluralize_ru(M.occupant.gender,"шь","те")] [src.declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] ударя[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!"))
-		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
+		mecha.occupant_message(span_danger("[pluralize_ru(mecha.occupant.gender,"Ты","Вы")] ударяе[pluralize_ru(mecha.occupant.gender,"шь","те")] [src.declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[capitalize(mecha.declent_ru(NOMINATIVE))] ударя[pluralize_ru(mecha.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(mecha.declent_ru(NOMINATIVE))] ударя[pluralize_ru(mecha.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!"))
+		add_attack_logs(mecha.occupant, src, "Mecha-meleed with [mecha]")
+		return
+
+	if(!is_strong())
+		step_away(src,mecha)
+		add_attack_logs(mecha.occupant, src, "Mecha-pushed with [mecha]", ATKLOG_ALL)
+		mecha.occupant_message(span_warning("[pluralize_ru(mecha.occupant.gender,"Ты толкаешь","Вы толкаете")] [src.declent_ru(ACCUSATIVE)] в сторону."))
+		visible_message(span_warning("[capitalize(mecha.declent_ru(NOMINATIVE))] отталкива[pluralize_ru(mecha.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] в сторону."))
 	else
-		if(!is_strong())
-			step_away(src,M)
-			add_attack_logs(M.occupant, src, "Mecha-pushed with [M]", ATKLOG_ALL)
-			M.occupant_message(span_warning("[pluralize_ru(M.occupant.gender,"Ты толкаешь","Вы толкаете")] [src.declent_ru(ACCUSATIVE)] в сторону."))
-			visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] отталкива[pluralize_ru(M.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)] в сторону."))
-		else
-			M.occupant_message(span_warning("[pluralize_ru(M.occupant.gender,"Ты пытаешься оттолкнуть","Вы пытаетесь оттолкнуть")] [src.declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает."))
-			visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] безуспешно пытается оттолкнуть [src.declent_ru(ACCUSATIVE)] в сторону."))
+		mecha.occupant_message(span_warning("[pluralize_ru(mecha.occupant.gender,"Ты пытаешься оттолкнуть","Вы пытаетесь оттолкнуть")] [src.declent_ru(ACCUSATIVE)] в сторону, но это не срабатывает."))
+		visible_message(span_warning("[capitalize(mecha.declent_ru(NOMINATIVE))] безуспешно пытается оттолкнуть [src.declent_ru(ACCUSATIVE)] в сторону."))
 
 //Mobs on Fire
 /mob/living/proc/IgniteMob()

@@ -13,6 +13,7 @@
 		current_movement_target,
 		delay,
 		repath_delay = 2 SECONDS,
+		simulated_only = !HAS_TRAIT(controller.pawn, TRAIT_SPACEWALK),
 		max_path_length = AI_MAX_PATH_LENGTH,
 		minimum_distance = controller.get_minimum_distance(),
 		subsystem = SSai_movement,

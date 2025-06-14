@@ -153,6 +153,6 @@
 	)
 	cost = 1
 
-	mob_to_summon = /mob/living/simple_animal/heretic_summon/maid_in_the_mirror
+	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
 	poll_ignore_define = POLL_IGNORE_MAID_IN_MIRROR
 

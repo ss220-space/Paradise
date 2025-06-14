@@ -215,6 +215,7 @@
 
 	add_fingerprint(user)
 	. |= target.proceed_attack_results(src, user, params, def_zone)
+	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, params)
 
 
 /// The equivalent of the standard version of [/obj/item/proc/attack] but for object targets.

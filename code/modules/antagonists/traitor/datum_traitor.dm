@@ -155,20 +155,20 @@
  * Assigning exchange role.
  */
 /datum/antagonist/traitor/proc/assign_exchange_role(datum/mind/exchange_role)
-	//set faction
-	var/faction = "red"
+	//set faction_local
+	var/faction_local = "red"
 	if(exchange_role == SSticker.mode.exchange_blue)
-		faction = "blue"
+		faction_local = "blue"
 
 	//Assign objectives
 	var/datum/objective/steal/exchange/exchange_objective = new
-	exchange_objective.set_faction(faction, ((faction == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
+	exchange_objective.set_faction(faction_local, ((faction_local == "red") ? SSticker.mode.exchange_blue : SSticker.mode.exchange_red))
 	exchange_objective.owner = owner
 	objectives += exchange_objective
 
 	if(prob(20))
 		var/datum/objective/steal/exchange/backstab/backstab_objective = new
-		backstab_objective.set_faction(faction)
+		backstab_objective.set_faction(faction_local)
 		backstab_objective.owner = owner
 		objectives += backstab_objective
 

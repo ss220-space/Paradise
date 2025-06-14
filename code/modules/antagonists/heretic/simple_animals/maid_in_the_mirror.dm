@@ -1,5 +1,5 @@
 /// Scout and assassin who can appear and disappear from glass surfaces. Damaged by being examined.
-/mob/living/simple_animal/heretic_summon/maid_in_the_mirror
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror
 	name = "\improper Maid in the Mirror"
 	real_name = "Maid in the Mirror"
 	desc = "A floating and flowing wisp of chilled air. Glancing at it causes it to shimmer slightly."
@@ -23,7 +23,7 @@
 	/// A list of REFs to people who recently examined us
 	var/list/recent_examiner_refs = list()
 
-/mob/living/simple_animal/heretic_summon/maid_in_the_mirror/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/Initialize(mapload)
 	. = ..()
 	var/static/list/loot = list(
 		/obj/effect/decal/cleanable/ash,
@@ -34,13 +34,13 @@
 	AddElement(/datum/element/death_drops, loot)
 	GRANT_ACTION(/obj/effect/proc_holder/spell/jaunt/mirror_walk)
 
-/mob/living/simple_animal/heretic_summon/maid_in_the_mirror/death(gibbed)
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/death(gibbed)
 	var/turf/death_turf = get_turf(src)
 	death_turf.TakeTemperature(-40) // Spooky
 	return ..()
 
 // Examining them will harm them, on a cooldown.
-/mob/living/simple_animal/heretic_summon/maid_in_the_mirror/examine(mob/user)
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/examine(mob/user)
 	. = ..()
 	if(!harmed_by_examine || user == src || user.stat == DEAD || !isliving(user) || IS_HERETIC_OR_MONSTER(user))
 		return
@@ -72,7 +72,7 @@
 
 		death()
 
-/mob/living/simple_animal/heretic_summon/maid_in_the_mirror/proc/clear_recent_examiner(mob_ref)
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/proc/clear_recent_examiner(mob_ref)
 	if(!(mob_ref in recent_examiner_refs))
 		return
 

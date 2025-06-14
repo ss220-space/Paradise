@@ -13,10 +13,10 @@
 
 	// Boy this sure is a lot of ways to tell us that someone tried to attack us
 	RegisterSignal(target, COMSIG_ATOM_AFTER_ATTACKEDBY, PROC_REF(after_attackby))
-	RegisterSignals(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_MOB_ATTACK_ALIEN), PROC_REF(on_attack_generic))
-	RegisterSignals(target, list(COMSIG_ATOM_ATTACK_BASIC_MOB, COMSIG_ATOM_ATTACK_ANIMAL), PROC_REF(on_attack_npc))
+	RegisterSignal(target, list(COMSIG_ATOM_ATTACK_HAND, COMSIG_ATOM_ATTACK_PAW, COMSIG_MOB_ATTACK_ALIEN), PROC_REF(on_attack_generic))
+	RegisterSignal(target, list(COMSIG_ATOM_ATTACK_BASIC_MOB, COMSIG_ATOM_ATTACK_ANIMAL), PROC_REF(on_attack_npc))
 	RegisterSignal(target, COMSIG_PROJECTILE_PREHIT, PROC_REF(on_bullet_act))
-	RegisterSignal(target, COMSIG_ATOM_PREHITBY, PROC_REF(on_hitby))
+	RegisterSignal(target, COMSIG_ATOM_HITBY, PROC_REF(on_hitby))
 	RegisterSignal(target, COMSIG_ATOM_HULK_ATTACK, PROC_REF(on_attack_hulk))
 	RegisterSignal(target, COMSIG_ATOM_ATTACK_MECH, PROC_REF(on_attack_mech))
 	ADD_TRAIT(target, TRAIT_RELAYING_ATTACKER, REF(src))
@@ -31,7 +31,7 @@
 		COMSIG_ATOM_ATTACK_ANIMAL,
 		COMSIG_MOB_ATTACK_ALIEN,
 		COMSIG_PROJECTILE_PREHIT,
-		COMSIG_ATOM_PREHITBY,
+		COMSIG_ATOM_HITBY,
 		COMSIG_ATOM_HULK_ATTACK,
 		COMSIG_ATOM_ATTACK_MECH,
 	))
@@ -53,14 +53,14 @@
 		return
 
 	// Else check for combat mode.
-	if(attacker.combat_mode)
+	if(attacker.a_intent == INTENT_HARM)
 		relay_attacker(target, attacker, ATTACKER_DAMAGING_ATTACK)
 		return
 
 /datum/element/relay_attackers/proc/on_attack_npc(atom/target, mob/living/attacker)
 	SIGNAL_HANDLER
-	if(attacker.melee_damage_upper > 0)
-		relay_attacker(target, attacker, ATTACKER_DAMAGING_ATTACK)
+	//if(attacker.melee_damage_upper > 0)
+	relay_attacker(target, attacker, ATTACKER_DAMAGING_ATTACK)
 
 /// Even if another component blocked this hit, someone still shot at us
 /datum/element/relay_attackers/proc/on_bullet_act(atom/target, obj/projectile/hit_projectile)
@@ -93,7 +93,7 @@
 	SIGNAL_HANDLER
 	relay_attacker(target, attacker, ATTACKER_DAMAGING_ATTACK)
 
-/datum/element/relay_attackers/proc/on_attack_mech(atom/target, obj/vehicle/sealed/mecha/mecha_attacker, mob/living/pilot, mecha_attack_cooldown)
+/datum/element/relay_attackers/proc/on_attack_mech(atom/target, obj/mecha/mecha_attacker, mob/living/pilot, mecha_attack_cooldown)
 	SIGNAL_HANDLER
 	relay_attacker(target, mecha_attacker, ATTACKER_DAMAGING_ATTACK)
 

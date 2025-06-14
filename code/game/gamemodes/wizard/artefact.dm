@@ -133,7 +133,7 @@ GLOBAL_LIST_EMPTY(multiverse)
 	sharp = 1
 	w_class = WEIGHT_CLASS_SMALL
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
-	var/faction = list("unassigned")
+	faction = list("unassigned")
 	var/cooldown = 0
 	var/cooldown_between_uses = 400 //time in deciseconds between uses--default of 40 seconds.
 	var/assigned = "unassigned"

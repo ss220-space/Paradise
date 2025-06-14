@@ -32,7 +32,6 @@
 	var/ailock = FALSE 	//Silicons cannot use this
 
 	var/syndicate = FALSE
-	var/faction = "" // Turret controls can only access turrets that are in the same faction
 
 	req_access = list(ACCESS_AI_UPLOAD)
 

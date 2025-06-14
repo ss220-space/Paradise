@@ -1,4 +1,5 @@
 #define GET_AI_BEHAVIOR(behavior_type) SSai_behaviors.ai_behaviors[behavior_type]
+#define GET_TARGETING_STRATEGY(targeting_type) SSai_behaviors.targeting_strategies[targeting_type]
 #define HAS_AI_CONTROLLER_TYPE(thing, type) istype(thing?.ai_controller, type)
 
 #define AI_STATUS_ON 1
@@ -171,6 +172,16 @@
 //yep thats it
 
 
+//Return flags for ai_behavior/perform()
+///Update this behavior's cooldown
+#define AI_BEHAVIOR_DELAY (1<<0)
+///Finish the behavior successfully
+#define AI_BEHAVIOR_SUCCEEDED (1<<1)
+///Finish the behavior unsuccessfully
+#define AI_BEHAVIOR_FAILED (1<<2)
+
+#define AI_BEHAVIOR_INSTANT (NONE)
+
 //Hunting defines
 #define SUCCESSFUL_HUNT_COOLDOWN 5 SECONDS
 
@@ -181,7 +192,27 @@
 
 ///Basic Mob Keys
 
-///Targetting subtrees
+///Targeting subtrees
 #define BB_BASIC_MOB_CURRENT_TARGET "BB_basic_current_target"
 #define BB_BASIC_MOB_CURRENT_TARGET_HIDING_LOCATION "BB_basic_current_target_hiding_location"
-#define BB_TARGETTING_DATUM "targetting_datum"
+#define BB_TARGETING_STRATEGY "targeting_strategy"
+///some behaviors that check current_target also set this on deep crit mobs
+#define BB_BASIC_MOB_EXECUTION_TARGET "BB_basic_execution_target"
+///Blackboard key for a whitelist typecache of "things we can target while trying to move"
+#define BB_OBSTACLE_TARGETING_WHITELIST "BB_targeting_whitelist"
+/// Key for the minimum status at which we want to target mobs (does not need to be specified if CONSCIOUS)
+#define BB_TARGET_MINIMUM_STAT "BB_target_minimum_stat"
+/// Flag for whether to target only wounded mobs
+#define BB_TARGET_WOUNDED_ONLY "BB_target_wounded_only"
+/// What typepath the holding object targeting strategy should look for
+#define BB_TARGET_HELD_ITEM "BB_target_held_item"
+/// How likely is this mob to move when idle per tick?
+#define BB_BASIC_MOB_IDLE_WALK_CHANCE "BB_basic_idle_walk_chance"
+
+///should we skip the faction check for the targeting strategy?
+#define BB_ALWAYS_IGNORE_FACTION "BB_always_ignore_factions"
+///are we in some kind of temporary state of ignoring factions when targeting? can result in volatile results if multiple behaviours touch this
+#define BB_TEMPORARILY_IGNORE_FACTION "BB_temporarily_ignore_factions"
+
+///Only target mobs with these traits
+#define BB_TARGET_ONLY_WITH_TRAITS "BB_target_only_with_traits"

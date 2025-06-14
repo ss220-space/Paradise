@@ -233,7 +233,6 @@
 	icon_state = "spawner_mine"
 	var/id = null
 	var/triggered = FALSE
-	var/faction = null
 	var/safety_z_check = TRUE
 
 

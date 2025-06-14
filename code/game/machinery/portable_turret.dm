@@ -72,7 +72,6 @@
 	var/region_max = REGION_COMMAND
 
 	var/syndicate = FALSE		//is the turret a syndicate turret?
-	var/faction = ""
 	var/emp_vulnerable = TRUE // Can be empd
 	var/scan_range = 7
 	var/always_up = FALSE		//Will stay active

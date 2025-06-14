@@ -47,7 +47,8 @@
 /turf/simulated/wall/shuttle/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/wall/shuttle/mech_melee_attack(obj/mecha/M)
+/turf/simulated/wall/shuttle/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
 	return
 
 /turf/simulated/wall/shuttle/rpd_act()

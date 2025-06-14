@@ -1020,7 +1020,8 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	return FALSE
 
 
-/obj/item/mech_melee_attack(obj/mecha/M)
+/obj/item/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
 	return FALSE
 
 

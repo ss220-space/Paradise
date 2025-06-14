@@ -798,39 +798,42 @@ emp_act
 						armor_block = 0
 					objective.take_damage(damage * armor_block, BRUTE)
 
-/mob/living/carbon/human/mech_melee_attack(obj/mecha/M)
-	if(M.occupant.a_intent == INTENT_HARM)
-		if(HAS_TRAIT(M.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-			to_chat(M.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
-			return
-		M.do_attack_animation(src)
-		if(M.damtype == "brute")
-			step_away(src,M,15)
-		var/obj/item/organ/external/affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
-		if(affecting)
-			var/dmg = rand(M.force/2, M.force)
-			switch(M.damtype)
-				if(BRUTE)
-					if(M.force > 35) // durand and other heavy mechas
-						Paralyse(2 SECONDS)
-					else if(M.force > 20 && !IsWeakened()) // lightweight mechas like gygax
-						Weaken(4 SECONDS)
-					apply_damage(dmg, BRUTE, def_zone = affecting)
-					playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-				if(BURN)
-					apply_damage(dmg, BURN, def_zone = affecting)
-					playsound(src, 'sound/items/welder.ogg', 50, TRUE)
-				if(TOX)
-					M.mech_toxin_damage(src)
-				else
-					return
+/mob/living/carbon/human/mech_melee_attack(obj/mecha/mecha)
+	if(mecha.occupant.a_intent != INTENT_HARM)
+		return ..()
 
-		M.occupant_message(span_danger("Вы ударили [src]."))
-		visible_message(span_danger("[M.name] ударил [src]!"), span_userdanger("[M.name] ударил вас!"))
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
+	if(HAS_TRAIT(mecha.occupant, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(mecha.occupant, span_warning("Вы не хотите причинять кому-либо вред!"))
+		return
 
-		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
-	else
-		..()
+	mecha.do_attack_animation(src)
+	if(mecha.damtype == "brute")
+		step_away(src,mecha,15)
+
+	var/obj/item/organ/external/affecting = get_organ(pick(BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_CHEST, BODY_ZONE_HEAD))
+	if(affecting)
+		var/dmg = rand(mecha.force/2, mecha.force)
+		switch(mecha.damtype)
+			if(BRUTE)
+				if(mecha.force > 35) // durand and other heavy mechas
+					Paralyse(2 SECONDS)
+				else if(mecha.force > 20 && !IsWeakened()) // lightweight mechas like gygax
+					Weaken(4 SECONDS)
+				apply_damage(dmg, BRUTE, def_zone = affecting)
+				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
+			if(BURN)
+				apply_damage(dmg, BURN, def_zone = affecting)
+				playsound(src, 'sound/items/welder.ogg', 50, TRUE)
+			if(TOX)
+				mecha.mech_toxin_damage(src)
+			else
+				return
+
+	mecha.occupant_message(span_danger("Вы ударили [src]."))
+	visible_message(span_danger("[mecha.name] ударил [src]!"), span_userdanger("[mecha.name] ударил вас!"))
+
+	add_attack_logs(mecha.occupant, src, "Mecha-meleed with [mecha]")
 
 
 /mob/living/carbon/human/water_act(volume, temperature, source, method = REAGENT_TOUCH)

@@ -1,4 +1,4 @@
-/mob/living/simple_animal/heretic_summon/fire_shark
+/mob/living/simple_animal/hostile/heretic_summon/fire_shark
 	name = "\improper Fire Shark"
 	real_name = "Fire Shark"
 	desc = "It is a eldritch dwarf space shark, also known as a fire shark."
@@ -24,7 +24,7 @@
 	ai_controller = /datum/ai_controller/basic_controller/simple/simple_hostile_obstacles
 	initial_language_holder = /datum/language_holder/carp/hear_common
 
-/mob/living/simple_animal/heretic_summon/fire_shark/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/fire_shark/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/death_gases, /datum/gas/plasma, 40)
 	AddElement(/datum/element/simple_flying)
@@ -35,5 +35,5 @@
 	ADD_TRAIT(src, TRAIT_FREE_HYPERSPACE_MOVEMENT, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)
 
-/mob/living/simple_animal/heretic_summon/fire_shark/wild
+/mob/living/simple_animal/hostile/heretic_summon/fire_shark/wild
 	faction = list(FACTION_HOSTILE)

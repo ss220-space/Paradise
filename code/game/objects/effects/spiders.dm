@@ -65,7 +65,7 @@
 	var/amount_grown = 0
 	var/grown_tick_count = 100
 	var/player_spiders = 0
-	var/list/faction = list("spiders")
+	faction = list("spiders")
 
 /obj/structure/spider/eggcluster/Initialize(mapload)
 	. = ..()
@@ -101,7 +101,7 @@
 	var/obj/machinery/atmospherics/unary/vent_pump/entry_vent
 	var/travelling_in_vent = 0
 	var/player_spiders = 0
-	var/list/faction = list("spiders")
+	faction = list("spiders")
 	var/selecting_player = 0
 	///Is this spiderling created from a xenobiology mob?
 	var/xenobiology_spawned = FALSE

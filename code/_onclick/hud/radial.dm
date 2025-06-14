@@ -315,4 +315,21 @@ GLOBAL_LIST_EMPTY(radial_menus)
 	GLOB.radial_menus -= uniqueid
 	return answer
 
+
+/// Can be provided to choices in radial menus if you want to provide more information
+/datum/radial_menu_choice
+	/// Required -- what to display for this button
+	var/image
+
+	/// If provided, this will be the name the radial slice hud button. This has priority over everything else.
+	var/name
+
+	/// If provided, will display an info button that will put this text in your chat
+	var/info
+
+/datum/radial_menu_choice/Destroy(force)
+	. = ..()
+	QDEL_NULL(image)
+
+
 #undef ANIM_SPEED

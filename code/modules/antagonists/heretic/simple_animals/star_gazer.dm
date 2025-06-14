@@ -1,4 +1,4 @@
-/mob/living/simple_animal/heretic_summon/star_gazer
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer
 	name = "Звездный наблюдатель"
 	ru_names = list(
 		NOMINATIVE = "Звездный наблюдатель",
@@ -25,7 +25,7 @@
 	melee_damage_lower = 40
 	melee_damage_upper = 40
 	sentience_type = SENTIENCE_BOSS
-	attacktext = "опустошает"
+	attacktext = "бьет"
 	//attack_vis_effect = ATTACK_EFFECT_SLASH
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	Atkcool = 0.6 SECONDS
@@ -43,7 +43,7 @@
 
 	ai_controller = /datum/ai_controller/basic_controller/star_gazer
 
-/mob/living/simple_animal/heretic_summon/star_gazer/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/Initialize(mapload)
 	. = ..()
 	var/static/list/death_loot = list(/obj/effect/temp_visual/cosmic_domain)
 	AddElement(/datum/element/death_drops, death_loot)
@@ -57,34 +57,34 @@
 	ADD_TRAIT(src, TRAIT_SPACEWALK, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_LAVA_IMMUNE, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_ASHSTORM_IMMUNE, INNATE_TRAIT)
-	ADD_TRAIT(src, TRAIT_NO_TELEPORT, MEGAFAUNA_TRAIT)
-	ADD_TRAIT(src, TRAIT_MARTIAL_ARTS_IMMUNE, MEGAFAUNA_TRAIT)
+	ADD_TRAIT(src, TRAIT_NO_TELEPORT, INNATE_TRAIT)
 	ADD_TRAIT(src, TRAIT_NO_FLOATING_ANIM, INNATE_TRAIT)
 	set_light(4, l_color = "#dcaa5b")
 
 // Star gazer attacks everything around itself applies a spooky mark
-/mob/living/simple_animal/heretic_summon/star_gazer/melee_attack(mob/living/target, list/modifiers, ignore_cooldown)
+/mob/living/simple_animal/hostile/heretic_summon/star_gazer/AttackingTarget()
 	. = ..()
 	if (!. || !isliving(target))
 		return
 
-	target.apply_status_effect(/datum/status_effect/star_mark)
-	target.apply_damage(damage = 5, damagetype = BURN)
-	var/datum/targeting_strategy/target_confirmer = GET_TARGETING_STRATEGY(ai_controller.blackboard[BB_TARGETING_STRATEGY])
+	var/mob/living/liv_target = target
+	liv_target.apply_status_effect(/datum/status_effect/star_mark)
+	liv_target.apply_damage(damage = 5, damagetype = BURN)
 	for(var/mob/living/nearby_mob in range(1, src))
-		if(target == nearby_mob || !target_confirmer?.can_attack(src, nearby_mob))
+		if(target == nearby_mob || !CanAttack(src, nearby_mob))
 			continue
+
 		nearby_mob.apply_status_effect(/datum/status_effect/star_mark)
 		nearby_mob.apply_damage(10)
-		to_chat(nearby_mob, span_userdanger("\The [src] [attack_verb_continuous] you!"))
+		to_chat(nearby_mob, span_userdanger("[declent_ru(NOMINATIVE)] [attacktext] вас!"))
 		do_attack_animation(nearby_mob, ATTACK_EFFECT_SLASH)
-		log_combat(src, nearby_mob, "slashed")
+
 
 /datum/ai_controller/basic_controller/star_gazer
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
-		BB_TARGET_MINIMUM_STAT = HARD_CRIT,
-		BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends/attack_everything,
+		//BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
+		//BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends/attack_everything,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -109,8 +109,8 @@
 	can_attack_dense_objects = TRUE
 
 /datum/pet_command/attack/star_gazer
-	speech_commands = list("attack", "sic", "kill", "slash them")
-	command_feedback = "stares!"
-	pointed_reaction = "stares intensely!"
+	speech_commands = list("атакуй", "фас", "убей", "в атаку", "бей")
+	command_feedback = "наблюдает!"
+	pointed_reaction = "пристально наблюдает!"
 	refuse_reaction = "..."
 	attack_behaviour = /datum/ai_behavior/basic_melee_attack

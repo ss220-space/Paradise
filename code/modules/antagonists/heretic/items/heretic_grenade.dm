@@ -65,7 +65,7 @@
 /datum/reagent/heretic_rust/expose_atom(atom/exposed_atom, reac_volume)
 	. = ..()
 	if(ismecha(exposed_atom))
-		var/obj/vehicle/sealed/mecha/to_wreck = exposed_atom
+		var/obj/mecha/to_wreck = exposed_atom
 		to_wreck.take_damage(300, BURN)
 
 /datum/reagent/heretic_rust/expose_mob(mob/living/exposed_mob, methods=TOUCH, reac_volume)

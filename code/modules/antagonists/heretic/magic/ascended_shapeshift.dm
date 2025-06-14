@@ -9,10 +9,10 @@
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "lock_ascension"
 	possible_shapes = list(
-		/mob/living/simple_animal/heretic_summon/ash_spirit,
-		/mob/living/simple_animal/heretic_summon/raw_prophet/ascended,
-		/mob/living/simple_animal/heretic_summon/rust_walker,
-		/mob/living/simple_animal/heretic_summon/stalker,
+		/mob/living/simple_animal/hostile/heretic_summon/ash_spirit,
+		/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ascended,
+		/mob/living/simple_animal/hostile/heretic_summon/rust_walker,
+		/mob/living/simple_animal/hostile/heretic_summon/stalker,
 	)
 
 /datum/action/innate/shapeshift/eldritch/ascension/do_shapeshift(mob/living/caster)

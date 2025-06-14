@@ -1,7 +1,7 @@
 /**
  * Player-only mob which is fast, can jaunt a short distance, and is dangerous at close range
  */
-/mob/living/simple_animal/heretic_summon/ash_spirit
+/mob/living/simple_animal/hostile/heretic_summon/ash_spirit
 	name = "\improper Ash Spirit"
 	real_name = "Ashy"
 	desc = "A manifestation of ash, trailing a perpetual cloud of short-lived cinders."
@@ -13,7 +13,7 @@
 	melee_damage_upper = 20
 	sight = SEE_TURFS
 
-/mob/living/simple_animal/heretic_summon/ash_spirit/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/ash_spirit/Initialize(mapload)
 	. = ..()
 	var/static/list/actions_to_add = list(
 		/obj/effect/proc_holder/spell/fire_sworn,

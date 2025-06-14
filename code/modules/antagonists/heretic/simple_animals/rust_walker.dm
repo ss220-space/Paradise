@@ -1,5 +1,5 @@
 /// Pretty simple mob which creates areas of rust and has a rust-creating projectile spell
-/mob/living/simple_animal/heretic_summon/rust_walker
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker
 	name = "\improper Rust Walker"
 	real_name = "Rusty"
 	desc = "A grinding, clanking construct which leaches life from its surroundings with every armoured step."
@@ -14,7 +14,7 @@
 	speed = 1
 	ai_controller = /datum/ai_controller/basic_controller/rust_walker
 
-/mob/living/simple_animal/heretic_summon/rust_walker/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/footstep, FOOTSTEP_MOB_RUST)
 
@@ -24,11 +24,11 @@
 	)
 	grant_actions_by_list(grantable_spells)
 
-/mob/living/simple_animal/heretic_summon/rust_walker/setDir(newdir)
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/setDir(newdir)
 	. = ..()
 	update_appearance(UPDATE_ICON_STATE)
 
-/mob/living/simple_animal/heretic_summon/rust_walker/update_icon_state()
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/update_icon_state()
 	. = ..()
 	if(stat == DEAD) // We usually delete on death but just in case
 		return
@@ -38,7 +38,7 @@
 		icon_state = "[base_icon_state]_s"
 	icon_living = icon_state
 
-/mob/living/simple_animal/heretic_summon/rust_walker/Life(seconds_per_tick = SSMOBS_DT, times_fired)
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/Life(seconds_per_tick = SSMOBS_DT, times_fired)
 	. = ..()
 	if(!.) //dead or deleted
 		return

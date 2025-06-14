@@ -1,4 +1,4 @@
-/mob/living/simple_animal/heretic_summon
+/mob/living/simple_animal/hostile/heretic_summon
 	name = "Eldritch Demon"
 	real_name = "Eldritch Demon"
 	desc = "A horror from beyond this realm, summoned by bad code."
@@ -24,12 +24,12 @@
 	speak_emote = list("кричит")
 	gold_core_spawnable = NO_SPAWN
 
-/mob/living/simple_animal/heretic_summon/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/Initialize(mapload)
 	. = ..()
 
 	AddElement(/datum/element/death_drops, string_list(list(/obj/effect/gibspawner/generic)))
 	ADD_TRAIT(src, TRAIT_HERETIC_SUMMON, INNATE_TRAIT)
 
-/mob/living/simple_animal/heretic_summon/death(gibbed)
+/mob/living/simple_animal/hostile/heretic_summon/death(gibbed)
 	. = ..()
 	qdel(src)

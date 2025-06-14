@@ -510,3 +510,20 @@
 	if(reflectability < desired_reflectability_level)
 		return FALSE
 	return TRUE
+
+/**
+ * Is this projectile considered "hostile"?
+ *
+ * By default all projectiles which deal damage or impart crowd control effects (including stamina) are hostile
+ *
+ * This is NOT used for pacifist checks, that's handled by [/obj/item/ammo_casing/var/harmful]
+ * This is used in places such as AI responses to determine if they're being threatened or not (among other places)
+ */
+/obj/projectile/proc/is_hostile_projectile()
+	if(damage > 0 || stamina > 0)
+		return TRUE
+
+	if(weaken + paralyze + irradiate + knockdown > 0 SECONDS)
+		return TRUE
+
+	return FALSE

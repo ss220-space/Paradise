@@ -1,5 +1,5 @@
 /// Durable ambush mob with an EMP ability
-/mob/living/simple_animal/heretic_summon/stalker
+/mob/living/simple_animal/hostile/heretic_summon/stalker
 	name = "\improper Flesh Stalker"
 	real_name = "Flesh Stalker"
 	desc = "An abomination cobbled together from varied remains. Its appearance changes slightly every time you blink."
@@ -18,7 +18,7 @@
 		/obj/effect/proc_holder/spell/shapeshift/eldritch = BB_SHAPESHIFT_ACTION,
 	)
 
-/mob/living/simple_animal/heretic_summon/stalker/Initialize(mapload)
+/mob/living/simple_animal/hostile/heretic_summon/stalker/Initialize(mapload)
 	. = ..()
 	AddComponent(/datum/component/ai_target_timer)
 	grant_actions_by_list(actions_to_add)

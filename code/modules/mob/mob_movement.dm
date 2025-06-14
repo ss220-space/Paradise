@@ -252,8 +252,8 @@
  */
 /mob/Process_Spacemove(movement_dir = NONE, continuous_move = FALSE)
 	. = ..()
-	if(.)
-		return .
+	if(. || HAS_TRAIT(src, TRAIT_SPACEWALK))
+		return TRUE
 
 	if(buckled)
 		return TRUE

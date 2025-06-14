@@ -26,8 +26,9 @@
 /obj/effect/proc/is_cleanable() //Called when you want to clean something, and usualy delete it after
 	return HAS_TRAIT(src, TRAIT_MOPABLE)
 
-/obj/effect/mech_melee_attack(obj/mecha/M)
-	return 0
+/obj/effect/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
+	return FALSE
 
 /obj/effect/blob_act(obj/structure/blob/B)
 	return

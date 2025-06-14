@@ -23,7 +23,7 @@
 		/obj/item/organ/internal/liver = 1,
 		/obj/item/stack/sheet/mineral/plasma = 1,
 	)
-	mob_to_summon = /mob/living/simple_animal/heretic_summon/fire_shark
+	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/fire_shark
 	cost = 1
 
 	poll_ignore_define = POLL_IGNORE_FIRE_SHARK

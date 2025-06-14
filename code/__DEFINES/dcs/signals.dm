@@ -1442,3 +1442,9 @@
 #define ATTACKER_SHOVING (1<<1)
 /// The attack is a damaging-type attack
 #define ATTACKER_DAMAGING_ATTACK (1<<2)
+/// From [/item/attack()], sent by an atom which was just attacked by an item: (/obj/item/weapon, /mob/user, list/modifiers)
+#define COMSIG_ATOM_AFTER_ATTACKEDBY "atom_after_attackby"
+///from base of atom/mech_melee_attack(): (obj/vehicle/sealed/mecha/mecha_attacker, mob/living/user)
+#define COMSIG_ATOM_ATTACK_MECH "atom_attack_mech"
+/// From the base of /datum/component/callouts/proc/callout_picker(mob/user, atom/clicked_atom): (datum/callout_option/callout, atom/target)
+#define COMSIG_MOB_CREATED_CALLOUT "mob_created_callout"

@@ -48,6 +48,7 @@
 #define COLOR_RED_LIGHT        "#ff3333"
 #define COLOR_BEIGE            "#ceb689"
 #define COLOR_BABY_BLUE        "#89cff0"
+#define COLOR_PALE_GREEN "#20e28e"
 #define COLOR_PALE_GREEN_GRAY  "#aed18b"
 #define COLOR_PALE_RED_GRAY    "#cc9090"
 #define COLOR_PALE_PURPLE_GRAY "#bda2ba"

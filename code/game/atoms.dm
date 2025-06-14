@@ -294,7 +294,8 @@
 			pixel_x = pixel_west
 
 ///Handle melee attack by a mech
-/atom/proc/mech_melee_attack(obj/mecha/M)
+/atom/proc/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
 	return
 
 /atom/proc/CheckParts(list/parts_list)
@@ -1878,5 +1879,5 @@ GLOBAL_LIST_EMPTY(blood_splatter_icons)
 	target.rust_heretic_act(heretic_data?.rust_strength)
 
 
-/mob/living/simple_animal/heretic_summon/rust_walker/do_rust_heretic_act(atom/target)
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/do_rust_heretic_act(atom/target)
 	target.rust_heretic_act(4)

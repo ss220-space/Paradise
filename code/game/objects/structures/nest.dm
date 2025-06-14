@@ -17,7 +17,7 @@
 	anchored = TRUE
 	density = FALSE
 
-	var/faction = list("hostile")	// If you spawn auto-attacking mobs, make sure that their faction and the nest's is the same
+	faction = list("hostile")	// If you spawn auto-attacking mobs, make sure that their faction and the nest's is the same
 	var/spawn_byproduct = list(/obj/item/stack/ore/glass, /obj/item/stack/ore/iron)	// When mobs spawn, these items also spawn on top of the tunnel
 	var/spawn_byproduct_max = 3		// Maximum number of item spawns
 	var/spawn_is_triggered = FALSE	// This is set to TRUE once the nest is triggered, preventing multiple triggers; set it to FALSE to re-activate it

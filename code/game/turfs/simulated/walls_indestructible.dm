@@ -49,7 +49,8 @@
 /turf/simulated/wall/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/M)
+/turf/simulated/wall/indestructible/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
 	return
 
 /turf/simulated/wall/indestructible/rpd_act()

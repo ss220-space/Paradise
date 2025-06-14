@@ -21,7 +21,7 @@
 	resistance_flags = FIRE_PROOF | LAVA_PROOF
 	max_integrity = 200
 
-	var/faction = list("ashwalker")
+	faction = list("ashwalker")
 	var/meat_counter = 6
 
 /obj/structure/lavaland/ash_walker/Initialize()

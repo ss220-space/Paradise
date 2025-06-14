@@ -220,13 +220,14 @@
 	playsound(get_turf(our_rcd), 'sound/machines/click.ogg', 50, 1)
 	return RCD_ACT_FAILED
 
-/turf/simulated/wall/mech_melee_attack(obj/mecha/M)
-	M.do_attack_animation(src)
-	switch(M.damtype)
+/turf/simulated/wall/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
+	mecha.do_attack_animation(src)
+	switch(mecha.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
-			if(prob(hardness + M.force) && M.force > 20)
+			mecha.visible_message(span_danger("[mecha.name] hits [src]!"), span_danger("You hit [src]!"))
+			if(prob(hardness + mecha.force) && mecha.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 			else

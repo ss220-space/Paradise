@@ -79,7 +79,7 @@
 		/obj/item/stack/sheet/iron = 10,
 		/obj/item/stack/cable_coil = 15,
 	)
-	mob_to_summon = /mob/living/simple_animal/heretic_summon/rust_walker
+	mob_to_summon = /mob/living/simple_animal/hostile/heretic_summon/rust_walker
 	cost = 1
 
 	poll_ignore_define = POLL_IGNORE_RUST_SPIRIT

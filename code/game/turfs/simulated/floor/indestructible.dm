@@ -33,8 +33,8 @@
 /turf/simulated/floor/indestructible/attack_animal(mob/living/simple_animal/M)
 	return
 
-/turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/M)
-	return
+/turf/simulated/floor/indestructible/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
 
 /turf/simulated/floor/indestructible/crowbar_act(mob/user, obj/item/I)
 	return

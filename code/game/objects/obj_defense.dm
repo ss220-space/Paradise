@@ -180,15 +180,16 @@
 		return
 	attack_generic(user, rand(5 + user.age_state.damage, 10 + user.age_state.damage), BRUTE, "melee", 1)
 
-/obj/mech_melee_attack(obj/mecha/M)
-	M.do_attack_animation(src)
+/obj/mech_melee_attack(obj/mecha/mecha)
+	SEND_SIGNAL(src, COMSIG_ATOM_ATTACK_MECH, mecha, mecha.occupant)
+	mecha.do_attack_animation(src)
 	var/play_soundeffect = 0
-	var/mech_damtype = M.damtype
-	if(M.selected)
-		mech_damtype = M.selected.damtype
+	var/mech_damtype = mecha.damtype
+	if(mecha.selected)
+		mech_damtype = mecha.selected.damtype
 		play_soundeffect = 1
 	else
-		switch(M.damtype)
+		switch(mecha.damtype)
 			if(BRUTE)
 				playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
 			if(BURN)
@@ -198,8 +199,9 @@
 				return 0
 			else
 				return 0
-	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
-	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
+
+	mecha.visible_message(span_danger("[mecha.name] hits [src]!"), span_danger("You hit [src]!"))
+	return take_damage(mecha.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, mecha)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
 	ex_act(EXPLODE_DEVASTATE)
@@ -332,6 +334,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/flamer_fire_act(damage)
 	if(resistance_flags & FIRE_PROOF)
 		resistance_flags &= ~FIRE_PROOF
-	if(armor.getRating(FIRE) > 50) 
+	if(armor.getRating(FIRE) > 50)
 		armor = armor.setRating(fire_value = 50)
 	return ..()
