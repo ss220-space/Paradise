@@ -726,15 +726,15 @@
 	max_ammo = 14
 
 /obj/item/ammo_box/magazine/specter
-	name = "магазин спектр (дизейблер)"
+	name = "magazine Specter (disabler)"
 	desc = "Магазин пистолета \"Спектр\", предназначенный для парализующих патронов."
 	ru_names = list(
-		NOMINATIVE = "магазин Спектр (дизейблер)",
-		GENITIVE = "магазин Спектр (дизейблер)",
-		DATIVE = "магазин Спектр (дизейблер)",
-		ACCUSATIVE = "магазин Спектр (дизейблер)",
-		INSTRUMENTAL = "магазин Спектр (дизейблер)",
-		PREPOSITIONAL = "магазин Спектр (дизейблер)"
+		NOMINATIVE = "магазин Спектр (парализующий)",
+		GENITIVE = "магазин Спектр (парализующий)",
+		DATIVE = "магазин Спектр (парализующий)",
+		ACCUSATIVE = "магазин Спектр (парализующий)",
+		INSTRUMENTAL = "магазин Спектр (парализующий)",
+		PREPOSITIONAL = "магазин Спектр (парализующий)"
 	)
 	icon_state = "specmag"
 	ammo_type = /obj/item/ammo_casing/specter/disable
@@ -765,15 +765,15 @@
 	return FALSE
 
 /obj/item/ammo_box/magazine/specter/laser
-	name = "магазин спектр (лазер)"
+	name = "magazine Specter (laser)"
 	desc = "Магазин пистолета \"Спектр\", предназначенный для лазерных патронов."
 	ru_names = list(
-		NOMINATIVE = "магазин Спектр (лазер)",
-		GENITIVE = "магазин Спектр (лазер)",
-		DATIVE = "магазин Спектр (лазер)",
-		ACCUSATIVE = "магазин Спектр (лазер)",
-		INSTRUMENTAL = "магазин Спектр (лазер)",
-		PREPOSITIONAL = "магазин Спектр (лазер)"
+		NOMINATIVE = "магазин Спектр (лазерный)",
+		GENITIVE = "магазин Спектр (лазерный)",
+		DATIVE = "магазин Спектр (лазерный)",
+		ACCUSATIVE = "магазин Спектр (лазерный)",
+		INSTRUMENTAL = "магазин Спектр (лазерный)",
+		PREPOSITIONAL = "магазин Спектр (лазерный)"
 	)
 	ammo_type = /obj/item/ammo_casing/specter/laser
 	materials = list(MAT_METAL = 5000)

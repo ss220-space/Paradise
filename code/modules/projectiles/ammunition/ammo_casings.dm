@@ -375,7 +375,7 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
 /obj/item/ammo_casing/specter/laser
-	desc = "Гильза от пистолета Спектр."
+	desc = "Лазерный патрон для пистолета \"Спектр\"."
 	icon_state = "laser-casing"
 	caliber = "specter"
 	materials = list(MAT_METAL = 1000)
@@ -385,7 +385,7 @@
 	muzzle_flash_color = LIGHT_COLOR_DARKRED
 
 /obj/item/ammo_casing/specter/disable
-	desc = "Гильза от пистолета Спектр."
+	desc = "Парализующий патрон для пистолета \"Спектр\"."
 	icon_state = "stam-casing"
 	caliber = "specter"
 	materials = list(MAT_METAL = 800)

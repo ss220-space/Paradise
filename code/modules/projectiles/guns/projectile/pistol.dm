@@ -33,15 +33,15 @@
 
 //Specter//
 /obj/item/gun/projectile/automatic/pistol/specter
-	name = "спектр"
+	name = "Specter"
 	desc = "Современный пистолет \"Спектр\", модернизирован для возможности стрельбы лазерными патронами. Поставляется только силовым структурам Нанотрейзен."
 	ru_names = list(
-	NOMINATIVE = "спектр",
-	GENITIVE = "спектра",
-	DATIVE = "спектру",
-	ACCUSATIVE = "спектр",
-	INSTRUMENTAL = "спектром",
-	PREPOSITIONAL = "спектре"
+		NOMINATIVE = "Спектр",
+		GENITIVE = "Спектра",
+		DATIVE = "Спектру",
+		ACCUSATIVE = "Спектр",
+		INSTRUMENTAL = "Спектром",
+		PREPOSITIONAL = "Спектре"
 	)
 	icon_state = "specter"
 	item_state = "specter"

@@ -303,7 +303,7 @@
 	max_ammo = 30
 
 /obj/item/ammo_box/specter/laser
-	name = "коробка патронов (спектр лазер)"
+	name = "ammo box (Specter laser)"
 	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Спектр\"."
 	ru_names = list(
 		NOMINATIVE = "коробка патронов (Спектр лазер)",
@@ -318,15 +318,15 @@
 
 
 /obj/item/ammo_box/specter/disabler
-	name = "коробка патронов (спектр дизейблер)"
+	name = "ammo box (Specter disabler)"
 	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Спектр\"."
 	ru_names = list(
-		NOMINATIVE = "коробка патронов (Спектр дизейблер)",
-		GENITIVE = "коробка патронов (Спектр дизейблер)",
-		DATIVE = "коробке патронов (Спектр дизейблер)",
-		ACCUSATIVE = "коробку патронов (Спектр дизейблер)",
-		INSTRUMENTAL = "коробкой патронов (Спектр дизейблер)",
-		PREPOSITIONAL = "коробке патронов (Спектр дизейблер)"
+		NOMINATIVE = "коробка патронов (Спектр парализующие)",
+		GENITIVE = "коробка патронов (Спектр парализующие)",
+		DATIVE = "коробке патронов (Спектр парализующие)",
+		ACCUSATIVE = "коробку патронов (Спектр парализующие)",
+		INSTRUMENTAL = "коробкой патронов (Спектр парализующие)",
+		PREPOSITIONAL = "коробке патронов (Спектр парализующие)"
 	)
 	icon_state = "specstamina"
 	ammo_type = /obj/item/ammo_casing/specter/disable
