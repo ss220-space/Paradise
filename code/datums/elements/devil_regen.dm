@@ -113,6 +113,12 @@
 		mob.decaylevel = 0
 		mob.remove_all_embedded_objects()
 		mob.remove_all_parasites()
+		for(var/datum/dna/gene/gene as anything in GLOB.dna_genes)
+			if(LAZYIN(mob.dna.default_blocks, gene.block))
+				continue
+			mob.force_gene_block(gene.block, FALSE)
+
+		mob.dna.struc_enzymes = mob.dna.struc_enzymes_original
 		for(var/obj/item/organ/external/organ as anything in mob.bodyparts)
 			organ.stop_internal_bleeding()
 			organ.mend_fracture()
