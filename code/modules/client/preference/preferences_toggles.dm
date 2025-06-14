@@ -1,9 +1,7 @@
 /client/verb/setup_character()
 	set name = "Игровые предпочтения"
-	set name = "Игровые предпочтения"
 	set category = "Special Verbs"
-	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения - незамедлительно."
-	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения - незамедлительно."
+	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения – незамедлительно."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
 
@@ -37,64 +35,52 @@
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
 			to_chat(user, span_notice("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
-			to_chat(user, span_notice("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
-			to_chat(user, span_notice("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
 			to_chat(user, span_notice("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 		if(PREFTOGGLE_TOGGLE3)
 			our_prefs.toggles3 ^= preftoggle_bitflag
 			to_chat(user, span_notice("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
-			to_chat(user, span_notice("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
-			to_chat(user, span_notice("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 			to_chat(user, span_notice("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
 
 /datum/preference_toggle/toggle_ghost_ears
-	name = "Слышимость речи - Призрак"
+	name = "Слышимость речи – Призрак"
 	description = "Переключает слышимость речи существ во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTEARS
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
 	enable_message = "Будучи призраком, теперь вы будете слышать речь существ только в пределах видимости."
 	disable_message = "Будучи призраком, теперь вы будете слышать речь существ во всём мире."
-	enable_message = "Будучи призраком, теперь вы будете слышать речь существ только в пределах видимости."
-	disable_message = "Будучи призраком, теперь вы будете слышать речь существ во всём мире."
 	blackbox_message = "Toggle GhostEars"
 
 /datum/preference_toggle/toggle_ghost_sight
-	name = "Видимость эмоций - Призрак"
+	name = "Видимость эмоций – Призрак"
 	description = "Переключает видимость эмоций существ во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTSIGHT
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_GHOST
 	enable_message = "Будучи призраком, теперь вы будете видеть эмоции существ только в пределах видимости."
 	disable_message = "Будучи призраком, теперь вы будете видеть эмоции существ во всём мире."
-	enable_message = "Будучи призраком, теперь вы будете видеть эмоции существ только в пределах видимости."
-	disable_message = "Будучи призраком, теперь вы будете видеть эмоции существ во всём мире."
 	blackbox_message = "Toggle GhostSight"
 
 /datum/preference_toggle/toggle_ghost_radio
-	name = "Слышимость речи - Призрак"
+	name = "Слышимость речи – Призрак"
 	description = "Переключает слышимость радиосообщений во всём мире или только в пределах видимости."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTRADIO
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	enable_message = "Будучи призраком, теперь вы будете слышать радиосообщения только в пределах видимости."
 	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
-	enable_message = "Будучи призраком, теперь вы будете слышать радиосообщения только в пределах видимости."
-	disable_message = "Будучи призраком, теперь вы будете слышать радиосообщения во всём мире."
 	blackbox_message = "Toggle GhostRadio"
 
 /datum/preference_toggle/toggle_admin_radio
-	name = "Админ-радио"
-	description = "Включает слышимость всех радиосообщений."
 	name = "Админ-радио"
 	description = "Включает слышимость всех радиосообщений."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_RADIO
@@ -103,13 +89,9 @@
 	rights_required = R_ADMIN
 	enable_message = "Теперь вы не будете слышать все радиосообщения."
 	disable_message = "Теперь вы будете слышать все радиосообщения."
-	enable_message = "Теперь вы не будете слышать все радиосообщения."
-	disable_message = "Теперь вы будете слышать все радиосообщения."
 	blackbox_message = "Toggle RadioChatter"
 
 /datum/preference_toggle/toggle_ai_voice_annoucements
-	name = "Слышимость аудио-оповещений ИИ"
-	description = "Включает слышимость звуковых оповещений ИИ."
 	name = "Слышимость аудио-оповещений ИИ"
 	description = "Включает слышимость звуковых оповещений ИИ."
 	preftoggle_bitflag = SOUND_AI_VOICE
@@ -117,13 +99,9 @@
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
 	enable_message = "Теперь вы будете слышать звуковые оповещения ИИ."
 	disable_message = "Теперь вы не будете слышать звуковые оповещения ИИ."
-	enable_message = "Теперь вы будете слышать звуковые оповещения ИИ."
-	disable_message = "Теперь вы не будете слышать звуковые оповещения ИИ."
 	blackbox_message = "Toggle AI Voice"
 
 /datum/preference_toggle/toggle_admin_pm_sound
-	name = "Звук ЛС от администрации"
-	description = "Включает звуковое оповещения при личном сообщении от администрации."
 	name = "Звук ЛС от администрации"
 	description = "Включает звуковое оповещения при личном сообщении от администрации."
 	preftoggle_bitflag = SOUND_ADMINHELP
@@ -132,13 +110,9 @@
 	rights_required = R_ADMIN
 	enable_message = "Теперь вы будете слышать звуковое оповещение при получении личного сообщения от администрации."
 	disable_message = "Теперь вы не будете слышать звуковое оповещение при получении личного сообщения от администрации."
-	enable_message = "Теперь вы будете слышать звуковое оповещение при получении личного сообщения от администрации."
-	disable_message = "Теперь вы не будете слышать звуковое оповещение при получении личного сообщения от администрации."
 	blackbox_message = "Toggle Admin Bwoinks"
 
 /datum/preference_toggle/toggle_mentor_pm_sound
-	name = "Звук ЛС от менторов"
-	description = "Включает звуковое оповещения при личном сообщении от менторов."
 	name = "Звук ЛС от менторов"
 	description = "Включает звуковое оповещения при личном сообщении от менторов."
 	preftoggle_bitflag = SOUND_MENTORHELP
@@ -147,20 +121,14 @@
 	rights_required = R_MENTOR
 	enable_message = "Теперь вы будете слышать звуковое оповещение при получении личного сообщения от менторов."
 	disable_message = "Теперь вы не будете слышать звуковое оповещение при получении личного сообщения от менторов."
-	enable_message = "Теперь вы будете слышать звуковое оповещение при получении личного сообщения от менторов."
-	disable_message = "Теперь вы не будете слышать звуковое оповещение при получении личного сообщения от менторов."
 	blackbox_message = "Toggle Mentor Bwoinks"
 
 /datum/preference_toggle/toggle_deadchat_visibility
 	name = "Видимость призрак-чата"
 	description = "Включить видимость чата для призраков."
-	name = "Видимость призрак-чата"
-	description = "Включить видимость чата для призраков."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_DEAD
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
 	preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
-	enable_message = "Теперь вы будете видеть призрак-чат."
-	disable_message = "Теперь вы не будете видеть призрак-чат."
 	enable_message = "Теперь вы будете видеть призрак-чат."
 	disable_message = "Теперь вы не будете видеть призрак-чат."
 	blackbox_message = "Toggle Deadchat"
@@ -301,7 +269,7 @@
 		usr.stop_sound_channel(CHANNEL_JUKEBOX)
 
 /datum/preference_toggle/toggle_ghost_pda
-	name = "Сообщения на КПК - Призрак"
+	name = "Сообщения на КПК – Призрак"
 	description = "Переключает видимость КПК-сообщений."
 	preftoggle_bitflag = PREFTOGGLE_CHAT_GHOSTPDA
 	preftoggle_toggle = PREFTOGGLE_TOGGLE1
@@ -328,7 +296,7 @@
 	blackbox_message = "Toggle Runechat"
 
 /datum/preference_toggle/toggle_ghost_death_notifs
-	name = "Уведомление о смерти - Призрак"
+	name = "Уведомление о смерти – Призрак"
 	description = "Включает уведомления о смерти игроков."
 	preftoggle_bitflag = PREFTOGGLE_2_DEATHMESSAGE
 	preftoggle_toggle = PREFTOGGLE_TOGGLE2
@@ -486,7 +454,7 @@
 	var/new_ooccolor = tgui_input_color(usr, "Выберите цвет ваших сообщений в OOC-чате.", "Цвет OOC-сообщений", user.prefs.ooccolor)
 	if(!isnull(new_ooccolor))
 		user.prefs.ooccolor = new_ooccolor
-		to_chat(usr, "Выбранный цвет OOC-сообщений - [new_ooccolor].")
+		to_chat(usr, "Выбранный цвет OOC-сообщений – [new_ooccolor].")
 	else
 		user.prefs.ooccolor = initial(user.prefs.ooccolor)
 		to_chat(usr, "Цвет OOC-сообщений был сброшен.")
@@ -642,7 +610,7 @@
 
 /datum/preference_toggle/toggle_facing_to_mouse
     name = "Следовать за курсором мыши"
-    description = "Когда включено - при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
+    description = "Когда включено – при выбранном намерении ВРЕД ваш персонаж будет поворачиваться в сторону курсора."
     preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
     preftoggle_toggle = PREFTOGGLE_TOGGLE3
     preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
