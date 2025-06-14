@@ -7284,7 +7284,7 @@
 /area/hallway/secondary/entry)
 "bgD" = (
 /mob/living/simple_animal/pet/dog/corgi/Ian,
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /obj/machinery/alarm{
 	dir = 8;
 	pixel_x = 24
@@ -13179,7 +13179,7 @@
 /turf/simulated/floor/bluegrid,
 /area/turret_protected/ai_upload)
 "bKP" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "fox box"
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
@@ -17252,7 +17252,7 @@
 	},
 /area/janitor)
 "cdK" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /mob/living/simple_animal/pet/cat/floppa,
@@ -53960,7 +53960,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/computer/guestpass{
 	pixel_x = 30
@@ -77405,7 +77405,7 @@
 /area/bridge)
 "nXK" = (
 /mob/living/simple_animal/pet/dog/security,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -79654,7 +79654,7 @@
 /obj/machinery/firealarm{
 	pixel_y = -26
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "spider bed"
 	},
@@ -102516,7 +102516,7 @@
 	dir = 4;
 	pixel_x = -23
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /mob/living/simple_animal/pet/cat/Runtime,
@@ -105687,7 +105687,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkredcorners"
@@ -109514,7 +109514,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint)
 "wwg" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /obj/structure/cable{
 	icon_state = "4-8"
 	},

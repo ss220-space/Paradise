@@ -15300,7 +15300,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security/warden,
 /obj/machinery/light{
 	dir = 8
@@ -19941,7 +19941,7 @@
 	},
 /area/hallway/secondary/exit)
 "cRk" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security/detective,
 /obj/machinery/light,
 /turf/simulated/floor/wood,
@@ -30714,7 +30714,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/possum/Poppy,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "ewG" = (
@@ -38518,7 +38518,7 @@
 /turf/simulated/floor/plasteel,
 /area/hallway/secondary/exit)
 "fCC" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /mob/living/simple_animal/pet/cat/floppa,
@@ -69717,7 +69717,7 @@
 	name = "north fire alarm";
 	pixel_y = 24
 	},
-/obj/structure/bed/dogbed/runtime,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/Runtime,
 /turf/simulated/floor/wood,
 /area/medical/cmo)
@@ -74259,7 +74259,7 @@
 	},
 /area/crew_quarters/kitchen)
 "kWF" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
 /obj/structure/cable{
 	d2 = 8;
@@ -84882,7 +84882,7 @@
 	dir = 1
 	},
 /mob/living/simple_animal/pet/dog/corgi/Ian,
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -95684,7 +95684,7 @@
 	},
 /area/security/brigstaff)
 "oeE" = (
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/white/Penny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutral"
@@ -98795,7 +98795,7 @@
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "fox box"
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
@@ -129973,7 +129973,7 @@
 	},
 /area/security/evidence)
 "tco" = (
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/brittany/Psycho,
 /obj/machinery/camera{
 	c_tag = "Psychiatrist";
@@ -130098,7 +130098,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/starboard)
 "tdg" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/sloth/paperwork,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -137826,7 +137826,7 @@
 /turf/simulated/floor/plasteel/dark,
 /area/maintenance/starboardaux)
 "ufV" = (
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/slugcat,
 /turf/simulated/floor/plasteel{
 	dir = 8;
@@ -153356,7 +153356,7 @@
 	},
 /area/medical/morgue)
 "wwv" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "spider bed"
 	},
@@ -154528,7 +154528,7 @@
 /obj/machinery/firealarm{
 	pixel_y = 25
 	},
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/bullterrier/Genn,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"

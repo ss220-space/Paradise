@@ -6580,7 +6580,7 @@
 	},
 /area/centcom/zone1)
 "fcB" = (
-/obj/structure/bed/dogbed/ian{
+/obj/structure/bed/petbed{
 	name = "Lounger"
 	},
 /obj/machinery/door_control{
@@ -13125,7 +13125,7 @@
 /obj/structure/sign/poster/contraband/random{
 	pixel_x = 30
 	},
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/fox/Syndifox,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"
@@ -31684,7 +31684,7 @@
 /obj/structure/sign/poster/contraband/c20r{
 	pixel_x = 32
 	},
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/Syndi,
 /turf/simulated/floor/indestructible{
 	icon_state = "wood"

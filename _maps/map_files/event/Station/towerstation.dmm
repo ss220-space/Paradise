@@ -2659,7 +2659,7 @@
 /area/hallway/secondary/entry)
 "bLQ" = (
 /mob/living/simple_animal/pet/dog/bullterrier/Genn,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /obj/machinery/newscaster{
 	pixel_x = -32
 	},
@@ -2727,7 +2727,7 @@
 /obj/item/radio/intercom{
 	pixel_y = -32
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security,
 /turf/simulated/floor/plasteel,
 /area/security/brig)
@@ -12336,7 +12336,7 @@
 /area/toxins/xenobiology)
 "hTG" = (
 /obj/machinery/atmospherics/unary/vent_pump/on,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/brittany/Psycho,
 /obj/machinery/alarm{
 	pixel_y = 24
@@ -12792,7 +12792,7 @@
 	},
 /area/crew_quarters/bar/atrium)
 "ijz" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
 /turf/simulated/floor/wood/fancy/light,
 /area/blueshield)
@@ -19208,7 +19208,7 @@
 	},
 /area/toxins/mixing)
 "mqd" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /mob/living/simple_animal/pet/cat/floppa,
@@ -23345,7 +23345,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 1
 	},
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/item/toy/figure/ian,
 /turf/simulated/floor/plasteel{
@@ -27977,7 +27977,7 @@
 /turf/simulated/floor/engine,
 /area/engineering/engine)
 "rWr" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/Runtime,
 /obj/item/radio/intercom{
 	pixel_y = -32
@@ -28318,7 +28318,7 @@
 	pixel_x = -32
 	},
 /mob/living/simple_animal/pet/dog/security/warden,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -33702,7 +33702,7 @@
 /obj/structure/cable{
 	icon_state = "4-8"
 	},
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/slugcat/monk,
 /turf/simulated/floor/plasteel{
 	icon_state = "white"
@@ -34150,7 +34150,7 @@
 /obj/structure/window/reinforced{
 	dir = 8
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/fox/Renault,
 /turf/simulated/floor/carpet/royalblue,
 /area/crew_quarters/captain/bedroom)
@@ -36015,7 +36015,7 @@
 "wWq" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/turf_decal/bot,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel{
 	dir = 5;

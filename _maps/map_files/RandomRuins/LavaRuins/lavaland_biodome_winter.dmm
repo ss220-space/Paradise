@@ -179,7 +179,7 @@
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aN" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/wood,
 /area/ruin/powered/snow_cabin)
 "aO" = (

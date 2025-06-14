@@ -17445,7 +17445,7 @@
 	dir = 8;
 	pixel_x = 30
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	desc = "A comfy-looking snake bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "Snake bed"
 	},

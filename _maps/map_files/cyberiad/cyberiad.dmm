@@ -3372,7 +3372,7 @@
 /area/security/main)
 "aoH" = (
 /mob/living/simple_animal/pet/dog/security,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel,
 /area/security/main)
 "aoL" = (
@@ -7242,7 +7242,7 @@
 	pixel_x = -24;
 	pixel_y = 25
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "spider bed"
 	},
@@ -36658,7 +36658,7 @@
 	dir = 8;
 	pixel_x = 24
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /turf/simulated/floor/wood,
@@ -75073,7 +75073,7 @@
 /obj/machinery/light{
 	dir = 4
 	},
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/wood,
 /area/crew_quarters/heads)
 "qoT" = (
@@ -79825,7 +79825,7 @@
 	name = "east fire alarm";
 	pixel_x = 24
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/wood,
 /area/medical/psych)
 "tin" = (
@@ -87902,7 +87902,7 @@
 /area/maintenance/fsmaint2)
 "yjl" = (
 /mob/living/simple_animal/pet/dog/security/warden,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /obj/machinery/alarm{
 	pixel_y = 24
 	},

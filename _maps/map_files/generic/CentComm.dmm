@@ -48,14 +48,14 @@
 	},
 /obj/effect/decal/cleanable/dirt,
 /obj/effect/decal/cleanable/dirt,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/fox/Syndifox,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
 	},
 /area/syndicate_mothership)
 "aaf" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/Syndi,
 /turf/simulated/floor/wood{
 	icon_state = "fancy-wood-oak"
@@ -28034,7 +28034,7 @@
 	},
 /area/shuttle/trade/sol)
 "nfR" = (
-/obj/structure/bed/dogbed/ian{
+/obj/structure/bed/petbed{
 	name = "Lounger";
 	pixel_x = -2
 	},

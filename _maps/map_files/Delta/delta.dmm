@@ -49,7 +49,7 @@
 	name = "Quartermaster Requests Console";
 	pixel_y = -30
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/sloth/paperwork,
 /turf/simulated/floor/plasteel{
 	dir = 6;
@@ -172,7 +172,7 @@
 	},
 /area/space)
 "aat" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /obj/machinery/flasher_button{
 	id = "visiting room flash";
 	name = "visiting room flasher button";
@@ -263,7 +263,7 @@
 	},
 /area/medical/reception)
 "aaF" = (
-/obj/structure/bed/dogbed/runtime,
+/obj/structure/bed/petbed,
 /obj/machinery/alarm{
 	dir = 4;
 	pixel_x = -22
@@ -21919,7 +21919,7 @@
 /turf/simulated/floor/plasteel,
 /area/gateway)
 "czP" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "fox box"
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
@@ -29399,7 +29399,7 @@
 /area/maintenance/electrical)
 "dgb" = (
 /mob/living/simple_animal/goose/Scientist,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -34309,7 +34309,7 @@
 	},
 /area/hallway/primary/central/south)
 "dCb" = (
-/obj/structure/bed/dogbed/ian,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/machinery/light{
 	dir = 8
@@ -43388,7 +43388,7 @@
 /turf/simulated/floor/plating,
 /area/crew_quarters/locker)
 "eMZ" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security/detective,
 /turf/simulated/floor/wood,
 /area/security/detectives_office)
@@ -54538,7 +54538,7 @@
 /area/toxins/xenobiology)
 "htF" = (
 /mob/living/simple_animal/pet/dog/bullterrier/Genn,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /obj/machinery/computer/security/telescreen/entertainment{
 	pixel_x = -32
 	},
@@ -54986,7 +54986,7 @@
 /obj/structure/cable{
 	icon_state = "2-8"
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
 /turf/simulated/floor/carpet,
 /area/magistrateoffice)
@@ -59982,7 +59982,7 @@
 /turf/simulated/floor/plating,
 /area/maintenance/asmaint4)
 "iLo" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /mob/living/simple_animal/pet/cat/floppa,
@@ -61774,7 +61774,7 @@
 /area/maintenance/engineering)
 "jiK" = (
 /mob/living/simple_animal/pet/dog/brittany/Psycho,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/carpet,
 /area/medical/psych)
 "jiL" = (
@@ -63990,7 +63990,7 @@
 	},
 /area/security/prisonershuttle)
 "jHS" = (
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/white/Penny,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralcorner"
@@ -81986,7 +81986,7 @@
 	pixel_x = 58;
 	pixel_y = 30
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -93076,7 +93076,7 @@
 	icon_state = "0-4"
 	},
 /mob/living/simple_animal/pet/slugcat/monk,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "whitepurple"
@@ -106581,7 +106581,7 @@
 	dir = 8
 	},
 /mob/living/simple_animal/possum/Poppy,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel,
 /area/engineering/engine)
 "tDv" = (
@@ -115351,7 +115351,7 @@
 /area/security/prison/cell_block/A)
 "vBG" = (
 /mob/living/simple_animal/hostile/retaliate/araneus,
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "spider bed"
 	},

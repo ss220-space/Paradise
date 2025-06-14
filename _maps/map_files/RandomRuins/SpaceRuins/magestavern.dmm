@@ -1108,7 +1108,7 @@
 	melee_damage_upper = 20;
 	melee_damage_lower = 20
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/wood,
 /area/ruin/unpowered)
 "Zx" = (

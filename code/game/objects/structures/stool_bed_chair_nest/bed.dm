@@ -372,37 +372,22 @@
 	roller.add_fingerprint(user)
 	QDEL_NULL(held)
 
+/// Pet bed
 
-
-/*
- * Dog beds
- */
-
-/obj/structure/bed/dogbed
-	name = "dog bed"
-	icon_state = "dogbed"
-	desc = "A comfy-looking dog bed. You can even strap your pet in, just in case the gravity turns off."
+/obj/structure/bed/petbed
+	name = "pet bed"
+	desc = "Удобная лежанка, представляющая собой деревянный каркас с мягкой обивкой. \
+			В такой обычно лежат питомцы, как не трудно догадаться."
+	ru_names = list(
+		NOMINATIVE = "лежанка для питомцев",
+		GENITIVE = "лежанки для питомцев",
+		DATIVE = "лежанке для питомцев",
+		ACCUSATIVE = "лежанку для питомцев",
+		INSTRUMENTAL = "лежанкой для питомцев",
+		PREPOSITIONAL = "лежанке для питомцев"
+	)
+	icon_state = "petbed"
 	anchored = FALSE
 	buildstackamount = 10
 	buildstacktype = /obj/item/stack/sheet/wood
 	comfort = 0.5
-
-/obj/structure/bed/dogbed/ian
-	name = "Ian's bed"
-	desc = "Ian's bed! Looks comfy."
-	anchored = TRUE
-
-/obj/structure/bed/dogbed/renault
-	desc = "Renault's bed! Looks comfy. A foxy person needs a foxy pet."
-	name = "Renault's bed"
-	anchored = TRUE
-
-/obj/structure/bed/dogbed/runtime
-	desc = "A comfy-looking cat bed. You can even strap your pet in, in case the gravity turns off."
-	name = "Runtime's bed"
-	anchored = TRUE
-
-/obj/structure/bed/dogbed/pet
-	name = "Удобная лежанка"
-	desc = "Комфортная лежанка для любимейшего питомца отдела."
-	anchored = TRUE

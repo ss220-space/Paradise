@@ -9097,7 +9097,7 @@
 	},
 /area/hallway/primary/fore)
 "bqZ" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/corgi/Ian,
 /obj/machinery/light{
 	dir = 8
@@ -20494,7 +20494,7 @@
 /area/teleporter/quantum/service)
 "cKR" = (
 /mob/living/simple_animal/pet/dog/fox/fennec/Fenya,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /obj/structure/cable/orange{
 	icon_state = "2-4"
 	},
@@ -22436,7 +22436,7 @@
 	},
 /area/medical/research)
 "cXk" = (
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/cat/white/Penny,
 /obj/machinery/alarm{
 	dir = 8;
@@ -24998,7 +24998,7 @@
 /turf/simulated/floor/plasteel,
 /area/janitor)
 "duG" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	desc = "A comfy-looking spider bed. You can even strap your pet in, just in case the gravity turns off.";
 	name = "spider bed"
 	},
@@ -33135,7 +33135,7 @@
 /area/engineering/engine)
 "eZR" = (
 /mob/living/simple_animal/pet/cat/Runtime,
-/obj/structure/bed/dogbed/runtime,
+/obj/structure/bed/petbed,
 /obj/structure/cable/orange{
 	icon_state = "1-4"
 	},
@@ -50397,7 +50397,7 @@
 	pixel_y = 26
 	},
 /mob/living/simple_animal/pet/dog/fox/Renault,
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "fox box"
 	},
 /turf/simulated/floor/carpet/black,
@@ -56206,7 +56206,7 @@
 	},
 /area/engineering/gravitygenerator)
 "jrC" = (
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/security/warden,
 /turf/simulated/floor/plasteel{
 	dir = 10;
@@ -61758,7 +61758,7 @@
 	},
 /area/security/main)
 "kvs" = (
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/slugcat/monk,
 /obj/machinery/power/apc{
 	dir = 8;
@@ -73097,7 +73097,7 @@
 /area/maintenance/portsolar)
 "mHB" = (
 /mob/living/simple_animal/pet/dog/brittany/Psycho,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/wood/fancy/light,
 /area/medical/psych)
 "mHE" = (
@@ -84859,7 +84859,7 @@
 /obj/machinery/newscaster{
 	pixel_y = -32
 	},
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	name = "kitty basket"
 	},
 /mob/living/simple_animal/pet/cat/floppa,
@@ -89373,7 +89373,7 @@
 	},
 /area/crew_quarters/locker)
 "pNP" = (
-/obj/structure/bed/dogbed{
+/obj/structure/bed/petbed{
 	pixel_x = 2
 	},
 /mob/living/simple_animal/pet/dog/security/detective{
@@ -112985,7 +112985,7 @@
 /area/solar/west)
 "urm" = (
 /mob/living/simple_animal/pet/dog/security,
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/plasteel{
 	dir = 1;
 	icon_state = "red"
@@ -116060,7 +116060,7 @@
 /area/quartermaster/storage)
 "uVC" = (
 /mob/living/simple_animal/pet/dog/bullterrier/Genn,
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /turf/simulated/floor/wood/fancy/light,
 /area/library)
 "uVK" = (
@@ -118626,7 +118626,7 @@
 /obj/machinery/light{
 	dir = 1
 	},
-/obj/structure/bed/dogbed,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/pet/dog/corgi/borgi,
 /turf/simulated/floor/plasteel{
 	dir = 1;
@@ -131452,7 +131452,7 @@
 /obj/machinery/power/apc{
 	pixel_y = -28
 	},
-/obj/structure/bed/dogbed/pet,
+/obj/structure/bed/petbed,
 /mob/living/simple_animal/possum/Poppy,
 /turf/simulated/floor/plasteel{
 	icon_state = "darkyellow"
