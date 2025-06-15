@@ -921,7 +921,6 @@
 			/datum/robot_skin/ertgamma,
 			/datum/robot_skin/women/combat,
 			/datum/robot_skin/women/combat_alt,
-			/datum/robot_skin/paladin/combat,
 			/datum/robot_skin/protectron/combat,
 			/datum/robot_skin/coffin/combat,
 			/datum/robot_skin/burger/combat,
