@@ -211,5 +211,19 @@
 				borg.lawsync()
 				if(borg.connected_ai?.laws)
 					SSticker?.score?.save_silicon_laws(borg, usr, "laws sync with AI", log_all_laws = TRUE)
+		if("set_skin_permission")
+			if(!borg?.mmi)
+				return
+
+			var/permissions = borg?.mmi?.skin_permissions.len? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
+
+			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions)
+
+			borg?.mmi?.skin_permissions = new_permissions
+			log_and_message_admins("set skin permissions to [key_name(borg)].")
+
+		if("allow_set_skin")
+			borg?.choose_icon()
+			log_and_message_admins("allowed skin selection to [key_name(borg)].")
 
 	. = TRUE
