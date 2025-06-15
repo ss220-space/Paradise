@@ -112,7 +112,7 @@
 //#define span_singing(str) ("<span class='singing'>" + str + "</span>")
 #define span_sinister(str) ("<span class='sinister'>" + str + "</span>")
 #define span_slime(str) ("<span class='slime'>" + str + "</span>")
-//#define span_small(str) ("<span class='small'>" + str + "</span>")
+#define span_small(str) ("<span class='small'>" + str + "</span>")
 //#define span_smallnotice(str) ("<span class='smallnotice'>" + str + "</span>")
 //#define span_smallnoticeital(str) ("<span class='smallnoticeital'>" + str + "</span>")
 //#define span_spider(str) ("<span class='spider'>" + str + "</span>")

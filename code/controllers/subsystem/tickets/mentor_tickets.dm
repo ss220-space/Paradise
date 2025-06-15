@@ -12,7 +12,7 @@ GLOBAL_REAL(SSmentor_tickets, /datum/controller/subsystem/tickets/mentor_tickets
 	ticket_name = "Запрос менторов"
 	span_class = "mentorhelp"
 	anchor_link_extra = ";is_mhelp=1"
-	ticket_help_type = "Mentorhelp"
+	ticket_help_type = MENTORHELP
 	ticket_help_span = "mentorhelp"
 	other_ticket_name = "Админ"
 	other_ticket_permission = R_ADMIN

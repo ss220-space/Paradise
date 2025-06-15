@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(tickets)
 	/// Text that will be added to the anchor link
 	var/anchor_link_extra = ""
 
-	var/ticket_help_type = "Adminhelp"
+	var/ticket_help_type = ADMINHELP
 	var/ticket_help_span = "adminhelp"
 	/// The name of the other ticket type to convert to
 	var/other_ticket_name = "Ментор"
@@ -245,7 +245,7 @@ SUBSYSTEM_DEF(tickets)
 			resolveTicket(N)
 			message_staff("[C] отправил автоматический ответ на тикет [ticket_owner] сообщением:<span class='adminticketalt'> [message_key]</span>")
 			add_game_logs("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
-		if("Mentorhelp")
+		if(MENTORHELP)
 			convert_ticket(T)
 		else
 			var/msg_sound = sound('sound/effects/adminhelp.ogg')

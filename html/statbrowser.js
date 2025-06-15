@@ -55,7 +55,7 @@ function run_after_focus(callback) {
 function createStatusTab(name) {
 	if (name.indexOf('.') != -1) {
 		var splitName = name.split('.');
-		if (split_admin_tabs && splitName[0] === 'Admin') name = splitName[1];
+		if (split_admin_tabs && splitName[0] === 'Админ') name = splitName[1];
 		else name = splitName[0];
 	}
 	if (document.getElementById(name) || name.trim() == '') {
@@ -158,7 +158,7 @@ function verbs_cat_check(cat) {
 	var tabCat = cat;
 	if (cat.indexOf('.') != -1) {
 		var splitName = cat.split('.');
-		if (split_admin_tabs && splitName[0] === 'Admin') tabCat = splitName[1];
+		if (split_admin_tabs && splitName[0] === 'Админ') tabCat = splitName[1];
 		else tabCat = splitName[0];
 	}
 	var verbs_in_cat = 0;
@@ -172,7 +172,7 @@ function verbs_cat_check(cat) {
 		verbcat = part[0];
 		if (verbcat.indexOf('.') != -1) {
 			var splitName = verbcat.split('.');
-			if (split_admin_tabs && splitName[0] === 'Admin') verbcat = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Админ') verbcat = splitName[1];
 			else verbcat = splitName[0];
 		}
 		if (verbcat != tabCat || verbcat.trim() == '') {
@@ -282,7 +282,7 @@ function draw_debug() {
 		// Hide subgroups except admin subgroups if they are split
 		if (verb_tabs[i].lastIndexOf('.') != -1) {
 			var splitName = verb_tabs[i].split('.');
-			if (split_admin_tabs && splitName[0] === 'Admin') part = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Админ') part = splitName[1];
 			else continue;
 		}
 		var tr = document.createElement('tr');
@@ -693,7 +693,7 @@ function draw_verbs(cat) {
 	sortVerbs();
 	if (split_admin_tabs && cat.lastIndexOf('.') != -1) {
 		var splitName = cat.split('.');
-		if (splitName[0] === 'Admin') cat = splitName[1];
+		if (splitName[0] === 'Админ') cat = splitName[1];
 	}
 	verbs.reverse(); // sort verbs backwards before we draw
 	for (var i = 0; i < verbs.length; ++i) {
@@ -701,7 +701,7 @@ function draw_verbs(cat) {
 		var name = part[0];
 		if (split_admin_tabs && name.lastIndexOf('.') != -1) {
 			var splitName = name.split('.');
-			if (splitName[0] === 'Admin') name = splitName[1];
+			if (splitName[0] === 'Админ') name = splitName[1];
 		}
 		var command = part[1];
 
@@ -840,7 +840,7 @@ function add_verb_list(payload) {
 		var category = part[0];
 		if (category.indexOf('.') != -1) {
 			var splitName = category.split('.');
-			if (split_admin_tabs && splitName[0] === 'Admin') category = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Админ') category = splitName[1];
 			else category = splitName[0];
 		}
 		if (findVerbindex(part[1], verbs)) continue;
@@ -997,7 +997,7 @@ Byond.subscribeTo('update_listedturf', function (TC) {
 
 Byond.subscribeTo('update_interviews', function (I) {
 	interviewManager = I;
-	if (current_tab == 'Tickets') {
+	if (current_tab == 'Админ') {
 		//draw_interviews(); //not exist
 	}
 });
@@ -1007,9 +1007,9 @@ Byond.subscribeTo('update_split_admin_tabs', function (status) {
 
 	if (split_admin_tabs !== status) {
 		if (split_admin_tabs === true) {
-			removeStatusTab('Events');
-			removeStatusTab('Fun');
-			removeStatusTab('Game');
+			removeStatusTab('Ивент');
+			removeStatusTab('Веселье');
+			removeStatusTab('Админская и менторская помощь');
 		}
 		update_verbs();
 	}

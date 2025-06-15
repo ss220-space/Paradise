@@ -42,3 +42,8 @@
 #define STATPANEL_ADMIN_SOUNDS "Админ.Звуки"
 #define STATPANEL_ADMIN_DEBUG "Админ.Отладка"
 #define STATPANEL_SERVER "Сервер"
+
+// Admin and Mentor PM's
+
+#define MENTORHELP "Ментор помощь"
+#define ADMINHELP "Админ помощь"
