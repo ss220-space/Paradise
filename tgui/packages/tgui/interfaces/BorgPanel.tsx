@@ -141,7 +141,7 @@ export const BorgPanel = (props: unknown) => {
                   selected={borg.active_module === module.name}
                   onClick={() =>
                     act('setmodule', {
-                      module: module.name,
+                      module: module.type,
                     })
                   }
                 >

@@ -20,7 +20,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/sight_mode = 0
 	var/custom_name = ""
-	var/custom_sprite = 0 //Due to all the sprites involved, a var for our custom borgs may be best
 
 	//Hud stuff
 	var/atom/movable/screen/inv1 = null
@@ -57,8 +56,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	var/opened = FALSE
 	var/custom_panel = null
-	var/list/custom_panel_names = list("Cricket")
-	var/list/custom_eye_names = list("Robot","Cricket","Noble","Standard")
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = FLASH_PROTECTION_NONE
@@ -83,7 +80,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/ident = 0
 	//var/list/laws = list()
 	var/viewalerts = 0
-	var/modtype = "Default"
+	var/obj/item/robot_module/modtype = /obj/item/robot_module/standard
 	var/datum/effect_system/spark_spread/spark_system //So they can initialize sparks whenever/N
 	var/low_power_mode = 0 //whether the robot has no charge left.
 	var/weapon_lock = 0
@@ -124,6 +121,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/list/module_actions = list()
 
 	var/see_reagents = FALSE // Determines if the cyborg can see reagents
+
+	var/datum/robot_skin/selected_skin
 
 /mob/living/silicon/robot/get_cell()
 	return cell
@@ -235,23 +234,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		if(camera)
 			camera.c_tag = newname
 
-		//Check for custom sprite
-		if(!custom_sprite)
-			var/file = file2text("config/custom_sprites.txt")
-			var/lines = splittext(file, "\n")
-
-			for(var/line in lines)
-			// split & clean up
-				var/list/Entry = splittext(line, ":")
-				for(var/i = 1 to Entry.len)
-					Entry[i] = trim(Entry[i])
-
-				if(Entry.len < 2 || Entry[1] != "cyborg")		//ignore incorrectly formatted entries or entries that aren't marked for cyborg
-					continue
-
-				if(Entry[2] == ckey)	//They're in the list? Custom sprite time, var and icon change required
-					custom_sprite = 1
-
 	if(mmi && mmi.brainmob)
 		mmi.brainmob.name = newname
 
@@ -259,8 +241,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/proc/get_default_name(var/prefix as text)
-	if(prefix)
-		modtype = prefix
 	if(mmi)
 		if(istype(mmi, /obj/item/mmi/robotic_brain))
 			braintype = "Android"
@@ -272,7 +252,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(custom_name)
 		return custom_name
 	else
-		return "[modtype] [braintype]-[num2text(ident)]"
+		return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
 	set category = "Robot Commands"
@@ -356,46 +336,53 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(module)
 		return
 
-	var/list/modules = list("Generalist", "Engineering", "Medical", "Miner", "Janitor", "Service", "Security")
+	if(forced_module && !ispath(forced_module))
+		forced_module = text2path(forced_module)
+
+	var/list/modules = list(
+		"Generalist" = /obj/item/robot_module/standard,
+		"Engineering" = /obj/item/robot_module/engineering,
+		"Medical" = /obj/item/robot_module/medical,
+		"Miner" = /obj/item/robot_module/miner,
+		"Janitor" = /obj/item/robot_module/janitor,
+		"Service" = /obj/item/robot_module/butler,
+		"Security" = /obj/item/robot_module/security)
 
 	if(islist(limited_modules) && LAZYLEN(limited_modules))
 		modules = limited_modules.Copy()
 
 	if(mmi?.alien)
-		forced_module = "Hunter"
+		forced_module = /obj/item/robot_module/hunter
 
 	if(mmi?.syndicate)
-		modules = list("Syndicate Saboteur", "Syndicate Medical", "Syndicate Bloodhound")
+		modules = list(
+			"Syndicate Saboteur" = /obj/item/robot_module/syndicate_saboteur,
+			"Syndicate Medical" = /obj/item/robot_module/syndicate_medical,
+			"Syndicate Bloodhound" = /obj/item/robot_module/syndicate)
 
 	if(mmi?.ninja)
-		forced_module = "Ninja"
+		forced_module = /obj/item/robot_module/ninja
 
 	if(mmi?.clock || isclocker(src))
-		forced_module = "Clockwork"
+		forced_module = /obj/item/robot_module/clockwork
 
 	if(forced_module)
 		modtype = forced_module
 
 	else
-		modtype = input("Please, select a module!", "Robot", null, null) as null|anything in modules
+		modtype = tgui_input_list(usr, "Please, select a module!", "Robot", modules)
+		modtype = modules[modtype]
 
 	if(!modtype)
 		robot_module_hat_offset(icon_state)
 		return
 
-	designation = modtype
+	designation = modtype.name
 
 	if(module)
 		return
 
-	for(var/obj/item/robot_module/r_module as anything in subtypesof(/obj/item/robot_module))
-		if(modtype != r_module.name)
-			continue
-
-		module = r_module
-		break
-
-	module = new module(src)
+	module = new modtype(src)
 
 	if(!module)
 		CRASH("[key_name_log(src)] tried to choose non-existent '[modtype]' module!")
@@ -404,13 +391,17 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	if(!module.on_apply(src))
 		module = initial(module)
 		return
+
+	if(QDELETED(src))
+		return
+
 	/// languages
-	module.add_languages(src)
+	module?.add_languages(src)
 	/// subsystems
-	module.add_subsystems_and_actions(src)
+	module?.add_subsystems_and_actions(src)
 
 
-	hands.icon_state = lowertext(module.module_type)
+	hands.icon_state = lowertext(module?.module_type)
 	SSblackbox.record_feedback("tally", "cyborg_modtype", 1, "[lowertext(modtype)]")
 
 	rename_character(real_name, get_default_name())
@@ -420,7 +411,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		SSstatpanels.set_status_tab(client)
 
 	if(!static_radio_channels)
-		radio.config(module.channels)
+		radio.config(module?.channels)
 
 	notify_ai(ROBOT_NOTIFY_AI_MODULE)
 
@@ -1272,11 +1263,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(opened)
 		var/panelprefix = "ov"
-		if(custom_sprite) //Custom borgs also have custom panels, heh
-			panelprefix = "[ckey]"
-
-		if(custom_panel in custom_panel_names) //For default borgs with different panels
-			panelprefix = custom_panel
+		if(selected_skin)
+			panelprefix = selected_skin.panelprefix
 
 		if(wiresexposed)
 			add_overlay("[panelprefix]-openpanel +w")
@@ -1320,12 +1308,12 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/eyes_overlays() // Exists so that robot/destroyer can override it
 	if(stat != DEAD && !HAS_TRAIT(src, TRAIT_INCAPACITATED) && !low_power_mode) //Not dead, not stunned.
 		var/eyes_olay
-		if(custom_panel in custom_eye_names)
+		if(selected_skin)
 			if(isclocker(src) && SSticker.mode.power_reveal)
-				eyes_olay = "eyes-[custom_panel]-clocked"
+				eyes_olay = "eyes-[selected_skin.eye_prefix]-clocked"
 
 			else
-				eyes_olay = "eyes-[custom_panel]"
+				eyes_olay = "eyes-[selected_skin.eye_prefix]"
 
 		else
 			if(isclocker(src) && SSticker.mode.power_reveal)
@@ -1509,7 +1497,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 /mob/living/silicon/robot/proc/deconstruct()
 	var/turf/T = get_turf(src)
 
-	if((modtype != "Clockwork" || !mmi.clock) && isclocker(src))
+	if((modtype != /obj/item/robot_module/clockwork || !mmi.clock) && isclocker(src))
 		to_chat(src, span_warning("With body torn into pieces, your mind got free from evil cult!"))
 		SSticker.mode.remove_clocker(mind, FALSE)
 
@@ -1703,30 +1691,34 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()
-	if(custom_sprite && check_sprite("[ckey]-[modtype]"))
-		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		icon_state =  "[src.ckey]-[modtype]"
-		return
 
 	var/list/choices = list()
 	var/choice
 
+	var/list/temp_list = list()
+
 	if(length(module?.borg_skins) > 1)
 		for(var/skin in module.borg_skins)
-			var/image/skin_image = image(icon = icon, icon_state = module.borg_skins[skin])
-			skin_image.add_overlay("eyes-[module.borg_skins[skin]]")
-			choices[skin] = skin_image
+			var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
+			if(new_skin.required_permit && !(new_skin.required_permit in mmi?.skin_permissions) \
+				&& !GLOB.all_robot_skins_permited)
+				continue
+			if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
+				&& !GLOB.all_robot_skins_permited)
+				continue
+			var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
+			skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
+			choices[new_skin.name] = skin_image
+			temp_list[new_skin.name] = new_skin
 		choice = show_radial_menu(src, src, choices, require_near = TRUE)
 
 	cut_overlays()
 
-	if(choice)
-		icon_state = module.borg_skins[choice]
-		transform_animation(module.borg_skins[choice])
-
-	else
-		icon_state = module.default_skin
-		transform_animation(module.default_skin, TRUE)
+	var/datum/robot_skin/skin = (choice)? temp_list[choice] : GLOB.robot_skins["[module?.default_skin]"]
+	icon = skin.icon_file
+	icon_state = skin.icon_base_prefix
+	transform_animation(skin.icon_base_prefix, !!choice)
+	selected_skin = skin
 
 	var/list/names = splittext(icon_state, "-")
 	custom_panel = trim(names[1])
@@ -1839,7 +1831,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	burn_mod = 0.5 // Забавно, у киборга отряда смерти отражение лазерных снарядов, впрочем все ещё снижает урон от взрывов, и позволяет пережить более чем одну ракету из SRM8.
 	emp_protection = TRUE // Это киборг отряда смерти, он не должен быть остановим обычной импульсной винтовкой.
 	allow_rename = FALSE
-	modtype = "Commando"
+	modtype = /obj/item/robot_module/deathsquad
 	faction = list("nanotrasen")
 	is_emaggable = FALSE
 	can_lock_cover = TRUE
@@ -1932,7 +1924,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// admin-only borg, the seraph / special ops officer of borgs
 	base_icon = "droidcombat"
 	icon_state = "droidcombat"
-	modtype = "Destroyer"
+	modtype = /obj/item/robot_module/destroyer
 	designation = "Destroyer"
 	lawupdate = FALSE
 	scrambledcodes = TRUE

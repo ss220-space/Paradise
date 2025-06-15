@@ -28,6 +28,8 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
+	var/list/skin_permissions = list()
+
 
 /obj/item/mmi/update_icon_state()
 	if(held_brain)

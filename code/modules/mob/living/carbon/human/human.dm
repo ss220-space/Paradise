@@ -546,7 +546,7 @@
 											rank = U.get_assignment()
 										else if(isrobot(usr))
 											var/mob/living/silicon/robot/U = usr
-											rank = "[U.modtype] [U.braintype]"
+											rank = "[U.modtype?.name] [U.braintype]"
 										else if(isAI(usr))
 											rank = JOB_TITLE_AI
 										set_criminal_status(usr, R, setcriminal, t1, rank)
