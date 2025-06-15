@@ -49,11 +49,6 @@
 #define HEAL_HEART_PULSE 2
 #define STUN_HEART_PULSE 3
 
-//heart
-#define EMP_HEART_PULSE 1
-#define HEAL_HEART_PULSE 2
-#define STUN_HEART_PULSE 3
-
 // spell_enchant(name, type_SPELL, cost, time SECONDS(def 3), action needs)
 GLOBAL_LIST_INIT(clockslab_spells, list(
 	new /datum/spell_enchant("Stun", STUN_SPELL, 125, 8),
