@@ -46,8 +46,8 @@
 
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
-				span_warning("[user] accidentally ignites [user.p_them()]self!"),
-				span_userdanger("You miss the paper and accidentally light yourself on fire!"),
+				span_warning("[user] случайно [genderize_ru(user.gender, "поджёг", "подожгла", "подожгло", "подожгли")] [user.p_them()] себя!"),
+				span_userdanger("Вы промахнулись мимо бумаги и случайно подожгли себя!"),
 			)
 			user.drop_item_ground(I)
 			user.adjust_fire_stacks(1)
@@ -56,8 +56,8 @@
 
 		user.drop_item_ground(src)
 		user.visible_message(
-			span_danger("[user] lights [src] ablaze with [I]!"),
-			span_danger("You light [src] on fire!"),
+			span_danger("[user] [genderize_ru(user.gender, "поджёг", "подожгла", "подожгло", "подожгли")] [src] с помощью [I]!"),
+			span_danger("Вы подожгли [src]!"),
 		)
 		fire_act()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -68,7 +68,7 @@
 		if(!istype(paper))	// photo
 			return ATTACK_CHAIN_PROCEED
 		if(!user.is_literate())
-			to_chat(user, span_warning("You don't know how to write!"))
+			to_chat(user, span_warning("Вы не умеете писать!"))
 			return ATTACK_CHAIN_PROCEED
 		close_window(user, "PaperBundle[UID()]") //Closes the dialog
 		paper.show_content(user, infolinks = TRUE)
@@ -79,7 +79,7 @@
 		if(istype(I, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/carbon_paper = I
 			if(!carbon_paper.iscopy && !carbon_paper.copied)
-				to_chat(user, span_notice("Take off the carbon copy first."))
+				to_chat(user, span_notice("Сначала снимите копию."))
 				return .
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -167,7 +167,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+				to_chat(user, span_warning("You must hold \the [P] steady to burn \the [src]."))
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
@@ -175,9 +175,9 @@
 		if(user.is_literate())
 			show_content(user)
 		else
-			. += "<span class='notice'>Вы не умеете читать</span>"
+			. += span_notice("Вы не умеете читать")
 	else
-		. += "<span class='notice'>Слишком далеко чтобы прочитать</span>"
+		. += span_notice("Слишком далеко чтобы прочитать")
 
 /obj/item/paper_bundle/proc/show_content(mob/user)
 	var/dat = ""
@@ -245,7 +245,7 @@
 			papers -= W
 			W.forceMove_turf()
 			usr.put_in_hands(W, ignore_anim = FALSE)
-			to_chat(usr, "<span class='notice'>Вы вытаскиваете [W.name] из стопки бумаги.</span>")
+			to_chat(usr, span_notice("Вы вытаскиваете [W.name] из стопки бумаги."))
 			if(amount == 1)
 				var/obj/item/paper/P = papers[1]
 				papers -= P
@@ -262,7 +262,7 @@
 			amount--
 			update_appearance(UPDATE_ICON|UPDATE_DESC)
 	else
-		to_chat(usr, "<span class='notice'>Необходимо держать в руках чтобы листать.</span>")
+		to_chat(usr, span_notice("Необходимо держать в руках чтобы листать."))
 	if(!QDELETED(src) && ismob(loc))
 		attack_self(loc)
 		updateUsrDialog()
@@ -287,7 +287,7 @@
 	set category = "Object"
 	set src in usr
 
-	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+	to_chat(usr, span_notice("You loosen the bundle."))
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)

@@ -29,8 +29,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message("<span class='danger'>[user] unlocks [user.p_their()] [src.name].</span>", \
-								"<span class='userdanger'>[user] unlocks [user.p_their()] [src.name].</span>")
+			visible_message(span_danger("[user] unlocks [user.p_their()] [src.name]."), \
+								span_userdanger("[user] unlocks [user.p_their()] [src.name]."))
 	..()
 	return 1
 
@@ -189,7 +189,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "<span class='notice'>Вы вытаскиваете [trigger] из [src].</span>")
+	to_chat(user, span_notice("Вы вытаскиваете [trigger] из [src]."))
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null
@@ -209,7 +209,7 @@
 	var/mob/living/L = can_shock(loc)
 	if(!L)
 		return
-	to_chat(L, "<span class='danger'>Вы чувствуете резкий удар!</span>")
+	to_chat(L, span_danger("Вы чувствуете резкий удар!"))
 	do_sparks(3, 1, L)
 
 	L.Weaken(10 SECONDS)
@@ -299,7 +299,7 @@
 		return TRUE
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message("<span class='danger'>\ [user] наматывает свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!</span>")
+	user.visible_message(span_danger("\ [user] наматывает свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!"))
 
 //scarves (fit in in mask slot)
 
@@ -654,12 +654,12 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == ITEM_SLOT_MASK)
-		to_chat(H, "<span class='danger'>[src] grips your face!</span>")
+		to_chat(H, span_danger("[src] grips your face!"))
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message("<span class='danger'>[user] gazes into the eyes of [src]. [src] gazes back!</span>")
+	user.visible_message(span_danger("[user] gazes into the eyes of [src]. [src] gazes back!"))
 	spawn(10)
 		if(user)
 			user.gib()

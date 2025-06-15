@@ -19,7 +19,7 @@
 		show(user)
 		. += span_notice("Альт-Клик чтобы переименовать фото.")
 	else
-		. += "<span class='notice'>Слишком далеко чтобы разглядеть</span>"
+		. += span_notice("Слишком далеко чтобы разглядеть")
 
 /obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
@@ -28,7 +28,7 @@
 	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		if(!user.is_literate())
-			to_chat(user, span_warning("Вы не знаете как писать!"))
+			to_chat(user, span_warning("Вы не умеете писать!"))
 			return ATTACK_CHAIN_PROCEED
 		var/txt = tgui_input_text(user, "Что вы хотите написать на обратной стороне фото?", "Писать на фотографии")
 		if(!txt || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
@@ -77,7 +77,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>Вы должны держать \the [P] неподвижно, чтобы поджечь \the [src].</span>")
+				to_chat(user, span_warning("Вы должны держать \the [P] неподвижно, чтобы поджечь \the [src]."))
 
 /obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)

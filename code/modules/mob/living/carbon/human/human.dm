@@ -538,7 +538,7 @@
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE) && setcriminal != "Cancel")
 									found_record = 1
 									if(R.fields["criminal"] == SEC_RECORD_STATUS_EXECUTE)
-										to_chat(usr, "<span class='warning'>Невозможно изменить статус, пока установлен статус казни. Используйте консоль.</span>")
+										to_chat(usr, span_warning("Невозможно изменить статус, пока установлен статус казни. Используйте консоль."))
 									else
 										var/rank
 										if(ishuman(usr))
@@ -555,7 +555,7 @@
 							break // Git out of the general records
 
 			if(!found_record)
-				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
+				to_chat(usr, span_warning("Не удалось найти запись в ядре данных для этого субъекта."))
 
 	if(href_list["secrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -579,7 +579,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
+				to_chat(usr, span_warning("Не удалось найти запись в ядре данных для этого субъекта."))
 
 	if(href_list["secrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_SECURITY_READ))
@@ -598,12 +598,12 @@
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
-									to_chat(usr, "<span class='warning'>Коммментариев не обнаружено</span>")
+									to_chat(usr, span_warning("Коммментариев не обнаружено"))
 								if(hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
 									to_chat(usr, "<a href='byond://?src=[UID()];secrecordadd=`'>\[Добавить комментарий\]</a>")
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
+				to_chat(usr, span_warning("Не удалось найти запись в ядре данных для этого субъекта."))
 
 	if(href_list["secrecordadd"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_SECURITY_WRITE))
@@ -638,7 +638,7 @@
 										sec_hud_set_security_status()
 
 			if(!modified)
-				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
+				to_chat(usr, span_warning("Не удалось найти запись в ядре данных для этого субъекта."))
 
 	if(href_list["medrecord"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -663,7 +663,7 @@
 								read = 1
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
+				to_chat(usr, span_warning("Не удалось найти запись в ядре данных для этого субъекта."))
 
 	if(href_list["medrecordComment"])
 		if(hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -682,11 +682,11 @@
 									for(var/c in R.fields["comments"])
 										to_chat(usr, c)
 								else
-									to_chat(usr, "<span class='warning'>Комментариев не обнаружено.</span>")
+									to_chat(usr, span_warning("Комментариев не обнаружено."))
 								to_chat(usr, "<a href='byond://?src=[UID()];medrecordadd=`'>\[Добавить комментарий\]</a>")
 
 			if(!read)
-				to_chat(usr, "<span class='warning'>Не удалось найти запись в ядре данных для этого субъекта.</span>")
+				to_chat(usr, span_warning("Не удалось найти запись в ядре данных для этого субъекта."))
 
 	if(href_list["medrecordadd"])
 		if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !hasHUD(usr, EXAMINE_HUD_MEDICAL))
@@ -779,7 +779,7 @@
 
 /mob/living/carbon/human/proc/play_xylophone()
 	if(!src.xylophone)
-		visible_message("<span class='warning'>[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky.</span>","<span class='notice'>You begin to play a spooky refrain on your ribcage.</span>","<span class='warning'>You hear a spooky xylophone melody.</span>")
+		visible_message(span_warning("[src] begins playing [p_their()] ribcage like a xylophone. It's quite spooky."), span_notice("You begin to play a spooky refrain on your ribcage."), span_warning("You hear a spooky xylophone melody."))
 		var/song = pick('sound/effects/xylophone1.ogg','sound/effects/xylophone2.ogg','sound/effects/xylophone3.ogg')
 		playsound(loc, song, 50, 1, -1)
 		xylophone = 1
@@ -813,7 +813,7 @@
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == BODY_ZONE_HEAD ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
-		to_chat(user, "<span class='alert'>[fail_msg]</span>")
+		to_chat(user, span_alert("[fail_msg]"))
 
 
 /mob/living/carbon/human/check_obscured_slots(check_transparent)
@@ -961,16 +961,16 @@
 	if(usr == src)
 		self = 1
 	if(!self)
-		usr.visible_message("<span class='notice'>[usr] kneels down, puts [usr.p_their()] hand on [src]'s wrist and begins counting [p_their()] pulse.</span>",\
+		usr.visible_message(span_notice("[usr] kneels down, puts [usr.p_their()] hand on [src]'s wrist and begins counting [p_their()] pulse."),\
 		"You begin counting [src]'s pulse")
 	else
-		usr.visible_message("<span class='notice'>[usr] begins counting [p_their()] pulse.</span>",\
+		usr.visible_message(span_notice("[usr] begins counting [p_their()] pulse."),\
 		"You begin counting your pulse.")
 
 	if(src.pulse)
-		to_chat(usr, "<span class='notice'>[self ? "You have a" : "[src] has a"] pulse! Counting...</span>")
+		to_chat(usr, span_notice("[self ? "You have a" : "[src] has a"] pulse! Counting..."))
 	else
-		to_chat(usr, "<span class='warning'>[src] has no pulse!</span>")//it is REALLY UNLIKELY that a dead person would check his own pulse
+		to_chat(usr, span_warning("[src] has no pulse!")) //it is REALLY UNLIKELY that a dead person would check his own pulse
 
 		return
 
@@ -980,7 +980,7 @@
 	if(usr.l_move_time >= time)	//checks if our mob has moved during the sleep()
 		to_chat(usr, "You moved while counting. Try again.")
 	else
-		to_chat(usr, "<span class='notice'>[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)].</span>")
+		to_chat(usr, span_notice("[self ? "Your" : "[src]'s"] pulse is [src.get_pulse(GETPULSE_HAND)]."))
 
 
 /**
@@ -1272,18 +1272,18 @@
 	if(usr != src)
 		return 0 //something is terribly wrong
 	if(incapacitated())
-		to_chat(src, "<span class='warning'>Сейчас вы не можете писать на полу!</span>")
+		to_chat(src, span_warning("Сейчас вы не можете писать на полу!"))
 		return
 	if(!bloody_hands)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
-		to_chat(src, "<span class='warning'>[gloves] мешают вам писать!</span>")
+		to_chat(src, span_warning("[gloves] мешают вам писать!"))
 		return
 
 	var/turf/simulated/T = loc
 	if(!istype(T)) //to prevent doodling out of mechs and lockers
-		to_chat(src, "<span class='warning'>Вы не можете дотянутся до пола.</span>")
+		to_chat(src, span_warning("Вы не можете дотянутся до пола."))
 		return
 
 	var/turf/origin = T
@@ -1291,21 +1291,21 @@
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
-		to_chat(src, "<span class='warning'>Тут нельзя рисовать.</span>")
+		to_chat(src, span_warning("Тут нельзя рисовать."))
 		return
 
 	var/num_doodles = 0
 	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
 	if(num_doodles > 4)
-		to_chat(src, "<span class='warning'>Нет места для рисунков!</span>")
+		to_chat(src, span_warning("Нет места для рисунков!"))
 		return
 
 	var/max_length = bloody_hands * 30 //tweeter style
 
 	var/message = tgui_input_text(src, "Напишите сообщение. Оно не может быть длиннее, чем [max_length] символов.", "Писать кровью", max_length = max_length)
 	if(origin != loc)
-		to_chat(src, "<span class='notice'>Стойте на месте пока пишете!</span>")
+		to_chat(src, span_notice("Стойте на месте пока пишете!"))
 		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
@@ -1315,7 +1315,7 @@
 			message += "-"
 			to_chat(src, "<span class='warning'Чтобы продолжить писать нужно больше крови!</span>")
 		else
-			to_chat(src, "<span class='notice'>Вы пишете '[message]' на [T] блестящими красными буквами.</span>")
+			to_chat(src, span_notice("Вы пишете '[message]' на [T] блестящими красными буквами."))
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
 		W.message = message
 		W.add_fingerprint(src)
@@ -1451,7 +1451,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		for(var/obj/item/hand in handlist)
 			if(prob(current_size * 5) && hand.w_class >= ((11-current_size)/2)	&& drop_item_ground(hand))
 				step_towards(hand, src)
-				to_chat(src, "<span class='warning'>\The [S] pulls \the [hand] from your grip!</span>")
+				to_chat(src, span_warning("[S] вырывает [hand] из твоей хватки!"))
 	apply_effect(current_size * 3, IRRADIATE)
 
 /mob/living/carbon/human/narsie_act(obj/singularity/god/narsie/narsie)
@@ -1468,34 +1468,34 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
-		to_chat(src, "<span class='warning'>Вы не можете провести СЛР самому себе!</span>")
+		to_chat(src, span_warning("Вы не можете провести СЛР самому себе!"))
 		return
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		to_chat(src, "<span class='warning'>Цель мертва!</span>")
+		to_chat(src, span_warning("Цель мертва!"))
 		return
 	if(!check_has_mouth())
-		to_chat(src, "<span class='danger'>Вы не можете провести СЛР: у вас нет рта!</span>")
+		to_chat(src, span_danger("Вы не можете провести СЛР: у вас нет рта!"))
 		return
 	if(!H.check_has_mouth())
-		to_chat(src, "<span class='danger'>Вы не можете провести СЛР: у цели нет рта!</span>")
+		to_chat(src, span_danger("Вы не можете провести СЛР: у цели нет рта!"))
 		return
 	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.up))
-		to_chat(src, "<span class='warning'>Снимите вашу маску!</span>")
+		to_chat(src, span_warning("Снимите вашу маску!"))
 		return
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.up))
-		to_chat(src, "<span class='warning'>Для начала снимите маску с цели!</span>")
+		to_chat(src, span_warning("Для начала снимите маску с цели!"))
 		return
 	if(H.receiving_cpr) // To prevent spam stacking
-		to_chat(src, "<span class='warning'>Уже проводится СЛР!</span>")
+		to_chat(src, span_warning("Уже проводится СЛР!"))
 		return
-	visible_message("<span class='danger'>[src] пытается провести СЛР [H.name]!</span>", "<span class='danger'>Вы пытаетесь провести СЛР [H.name]!</span>")
+	visible_message(span_danger("[src] пытается провести СЛР [H.name]!"), span_danger("Вы пытаетесь провести СЛР [H.name]!"))
 	H.receiving_cpr = TRUE
 	if(do_after(src, 4 SECONDS, H, NONE))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.heal_damage_type(15, OXY)
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-2 SECONDS)
-			visible_message("<span class='danger'>[src] проводит СЛР [H.name]!</span>", "<span class='notice'>Вы проводите СЛР [H.name].</span>")
+			visible_message(span_danger("[src] проводит СЛР [H.name]!"), span_notice("Вы проводите СЛР [H.name]."))
 			to_chat(H, span_notice("Вы чувствуете, как глоток свежего воздуха входит в ваши легкие. Это облегчает"))
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)

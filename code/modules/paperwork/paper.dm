@@ -75,14 +75,14 @@
 
 /obj/item/paper/examine(mob/user)
 	. = ..()
-	. += "<span class='info'><b>Alt-Click</b> the [initial(name)] with a pen in hand to rename it.</span>"
+	. += span_info("Нажмите Alt-клик ручкой по [initial(name)] чтобы переименовать.")
 	if(user.is_literate())
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			show_content(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("Вам нужно быть ближе, чтобы прочитать")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("Вы не умеете читать.")
 
 
 /obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
@@ -124,10 +124,10 @@
 
 /obj/item/paper/proc/rename(mob/user)
 	if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
-		to_chat(user, "<span class='warning'>You cut yourself on the paper.</span>")
+		to_chat(user, span_warning("Вы порезались бумагой."))
 		return
 	if(!user.is_literate())
-		to_chat(user, "<span class='notice'>You don't know how to read.</span>")
+		to_chat(user, span_notice("Вы не умеете читать."))
 		return
 	var/n_name = rename_interactive(user)
 	if(isnull(n_name))
@@ -167,31 +167,31 @@
 	switch(user.zone_selected)
 		if(BODY_ZONE_PRECISE_EYES)
 			user.visible_message(
-				span_warning("[user] is trying to show the paper to [target]."),
-				span_notice("You hold up a paper and try to show it to [target]."),
+				span_warning("[user] пытается показать лист [target]."),
+				span_notice("Вы держите лист и пытаетесь показать его [target]."),
 			)
 			if(!do_after(user, 0.7 SECONDS, target, NONE))
-				to_chat(user, span_warning("You fail to show the paper to [target]."))
+				to_chat(user, span_warning("У вас не получилось показать лист [target]."))
 				return .
 			user.visible_message(
-				span_notice("[user] shows the paper to [target]."),
-				span_notice("You hold up a paper and show it to [target]."),
+				span_notice("[user] показывает лист [target]."),
+				span_notice("Вы дежрите лист и показываете его [target]."),
 			)
 			target.examinate(src)
 
 		if(BODY_ZONE_PRECISE_MOUTH)
 			if(target == user)
-				to_chat(user, span_notice("You wipe off your face with [src]."))
+				to_chat(user, span_notice("Вы протираете лицо с помощью[src]."))
 			else
 				user.visible_message(
-					span_warning("[user] starts to wipe [target]'s face clean with [src]."),
-					span_notice("You start to wipe off [target]'s face."),
+					span_warning("[user] начинает протирать лицо [target] с помощью [src]."),
+					span_notice("Вы начали протирать лицо [target] ."),
 				)
 				if(!do_after(user, 1 SECONDS, target))
 					return .
 				user.visible_message(
-					span_notice("[user] wipes [target]'s face clean with [src]."),
-					span_notice("You wipe off [target]'s face."),
+					span_notice("[user] протёр [target] лицо с помощью [src]."),
+					span_notice("Вы протёрли лицо [target]."),
 				)
 			target.lip_style = null
 			target.lip_color = null
@@ -203,20 +203,20 @@
 		return
 	doggo.changeNext_move(CLICK_CD_MELEE)
 	if(world.time < doggo.last_eaten + 30 SECONDS)
-		to_chat(doggo, span_warning("You are too full to try eating [src] now."))
+		to_chat(doggo, span_warning("Вы слишком сыты, чтобы съесть [src] сейчас."))
 		return
 
 	doggo.visible_message(
-		span_warning("[doggo] starts chewing the corner of [src]!"),
-		span_notice("You start chewing the corner of [src]."),
-		span_warning("You hear a quiet gnawing, and the sound of paper rustling.")
+		span_warning("[doggo] начинает жевать уголок [src]!"),
+		span_notice("Вы начали жевать уголок [src]."),
+		span_warning("Вы слышите надкусывания и шелест бумаги.")
 	)
 	playsound(src, 'sound/effects/pageturn2.ogg', 100, TRUE)
 	if(!do_after(doggo, 10 SECONDS, src, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
-		to_chat(doggo, span_warning("You are too full to try eating [src] now."))
+		to_chat(doggo, span_warning("Вы слишком сыты, чтобы съесть [src] сейчас."))
 		return
 	doggo.last_eaten = world.time
 
@@ -226,22 +226,22 @@
 		var/obj/item/paper/crumpled/crumped = new(loc)
 		crumped.name = name
 		if(info) // Something written on the paper.
-			crumped.info = "<i>Whatever was once written here has been made completely illegible by a combination of chew marks and saliva.</i>"
-			message_ending = ", the drool making it an unreadable mess!"
+			crumped.info = "<i>Здесь что-то было написано, но текст стал совершенно неразборчивым из-за следов жевания и слюны.</i>"
+			message_ending = ", сделав текст нечитаемым из-за слюны!"
 		crumped.update_icon()
 		qdel(src)
 
 		doggo.visible_message(
-			span_warning("[doggo] finishes eating [src][message_ending]"),
-			span_notice("You finish eating [src][message_ending]")
+			span_warning("[doggo] закончил есть [src][message_ending]"),
+			span_notice("Вы закончили есть [src][message_ending]")
 		)
 		doggo.emote("bark")
 
 	// 10% chance of the paper just being eaten entirely.
 	else
 		doggo.visible_message(
-			span_warning("[doggo] swallows [src] whole!"),
-			span_notice("You swallow [src] whole. Tasty!")
+			span_warning("[doggo] глотает [src] целиком!"),
+			span_notice("Вы полностью глотаете [src]. Вкуснятина!")
 		)
 		playsound(doggo, 'sound/items/eatfood.ogg', 50, TRUE)
 		qdel(src)
@@ -442,7 +442,7 @@
 
 	if(href_list["write"] )
 		var/id = href_list["write"]																			/* Becаuse HTML */
-		var/input_element = tgui_input_text(usr, "Enter what you want to write:", "Write", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
+		var/input_element = tgui_input_text(usr, "Введите то, что вы хотите написать:", "Писать", multiline = TRUE, max_length = 3000, encode = FALSE, trim = FALSE)
 
 		topic_href_write(usr, id, input_element)
 
@@ -458,8 +458,8 @@
 		add_fingerprint(user)
 		if(HAS_TRAIT(user, TRAIT_CLUMSY) && prob(10))
 			user.visible_message(
-				span_warning("[user] accidentally ignites [user.p_them()]self!"),
-				span_userdanger("You miss the paper and accidentally light yourself on fire!"),
+				span_warning("[user] случайно [genderize_ru(user.gender, "поджёг", "подожгла", "подожгло", "подожгли")] себя!"),
+				span_userdanger("Вы промахнулись мимо бумаги и случайно подожгли себя!"),
 			)
 			user.drop_item_ground(I)
 			user.adjust_fire_stacks(1)
@@ -468,8 +468,8 @@
 
 		user.drop_item_ground(src)
 		user.visible_message(
-			span_danger("[user] lights [src] ablaze with [I]!"),
-			span_danger("You light [src] on fire!"),
+			span_danger("[user] [genderize_ru(user.gender, "поджёг", "подожгла", "подожгло", "подожгли")] [src] с помощью [I]!"),
+			span_danger("Вы подожгли [src]!"),
 		)
 		fire_act()
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -477,7 +477,7 @@
 	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		if(!user.is_literate())
-			to_chat(user, span_warning("You don't know how to write!"))
+			to_chat(user, span_warning("Вы не умеете писать!"))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/pen/multi/robopen/robopen = I
 		if(istype(I, /obj/item/pen/multi/robopen) && robopen.mode == 2)
@@ -491,10 +491,10 @@
 			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
-			to_chat(user, span_userdanger("You are totally unable to use the stamp. HONK!"))
+			to_chat(user, span_userdanger("Вы не можете использовать эту печать. ХОНК!"))
 			return ATTACK_CHAIN_PROCEED
 		stamp(I)
-		to_chat(user, span_notice("You have stamped the paper with [I]."))
+		to_chat(user, span_notice("Вы поставили печать [I] на лист бумаги."))
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
@@ -506,7 +506,7 @@
 	if(istype(I, /obj/item/paper/carbon))
 		var/obj/item/paper/carbon/carbon_paper = I
 		if(!carbon_paper.iscopy && !carbon_paper.copied)
-			to_chat(user, span_notice("Take off the carbon copy first."))
+			to_chat(user, span_notice("Сначала снимите копию."))
 			return .
 
 	if(loc == user && !user.can_unEquip(src))
@@ -547,7 +547,7 @@
 /obj/item/paper/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
-		info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
+		info = "<i>Загнутые от огня углы и закопченные слова мало что говорят. Все, что было написано на этой странице, стало неразборчивым из-за огня.</i>"
 
 
 /obj/item/paper/proc/stamp(obj/item/stamp/stamp, no_pixel_shift = FALSE, special_stamped, special_icon_state)
@@ -867,7 +867,7 @@
 			evilpaper_selfdestruct()
 	else
 		if(mytarget)
-			to_chat(user,"<span class='notice'>This page appears to be covered in some sort of bizzare code. The only bit you recognize is the name of [mytarget]. Perhaps [mytarget] can make sense of it?</span>")
+			to_chat(user,span_notice("Этот лист, похоже, покрыт каким-то странным кодом. Единственное, что вы узнаете из текста, это имя  [mytarget]. Возможно [mytarget] сможет понять, что здесь написано?"))
 		else
 			evilpaper_selfdestruct()
 
@@ -907,30 +907,30 @@
 
 	var/obj/machinery/photocopier/faxmachine/fax = locateUID(faxmachineid)
 	if(myeffect == "Borgification")
-		to_chat(target,"<span class='userdanger'>You seem to comprehend the AI a little better. Why are your muscles so stiff?</span>")
+		to_chat(target,span_userdanger("You seem to comprehend the AI a little better. Why are your muscles so stiff?"))
 		var/datum/disease/virus/transformation/robot/D = new
 		D.Contract(target)
 	else if(myeffect == "Corgification")
-		to_chat(target,"<span class='userdanger'>You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!</span>")
+		to_chat(target,span_userdanger("You hear distant howling as the world seems to grow bigger around you. Boy, that itch sure is getting worse!"))
 		var/datum/disease/virus/transformation/corgi/D = new
 		D.Contract(target)
 	else if(myeffect == "Death By Fire")
-		to_chat(target,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+		to_chat(target,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
 		var/turf/simulated/T = get_turf(target)
 		new /obj/effect/hotspot(T)
 		target.adjustFireLoss(150) // hard crit, the burning takes care of the rest.
 	else if(myeffect == "Total Brain Death")
-		to_chat(target,"<span class='userdanger'>You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b></span>")
+		to_chat(target,span_userdanger("You see a message appear in front of you in bright red letters: <b>YHWH-3 ACTIVATED. TERMINATION IN 3 SECONDS</b>"))
 		ADD_TRAIT(target, TRAIT_NO_CLONE, EVIL_FAX_TRAIT)
 		target.adjustBrainLoss(125)
 	else if(myeffect == "Honk Tumor")
 		if(!target.get_int_organ(/obj/item/organ/internal/honktumor))
 			new /obj/item/organ/internal/honktumor(target)
-			to_chat(target,"<span class='userdanger'>Life seems funnier, somehow.</span>")
+			to_chat(target,span_userdanger("Life seems funnier, somehow."))
 	else if(myeffect == "Cluwne")
 		if(ishuman(target))
 			var/mob/living/carbon/human/H = target
-			to_chat(H, "<span class='userdanger'>You feel surrounded by sadness. Sadness... and HONKS!</span>")
+			to_chat(H, span_userdanger("You feel surrounded by sadness. Sadness... and HONKS!"))
 			H.makeCluwne()
 	else if(myeffect == "Demote")
 		GLOB.event_announcement.Announce("[target.real_name] настоящим приказом был понижен до Гражданского. Немедленно обработайте этот запрос. Невыполнение этих распоряжений является основанием для расторжения контракта.","ВНИМАНИЕ: Приказ ЦК о понижении в должности.")
@@ -965,7 +965,7 @@
 
 
 /obj/item/paper/evilfax/proc/evilpaper_selfdestruct()
-	visible_message("<span class='danger'>[src] spontaneously catches fire, and burns up!</span>")
+	visible_message(span_danger("[src] spontaneously catches fire, and burns up!"))
 	qdel(src)
 
 
