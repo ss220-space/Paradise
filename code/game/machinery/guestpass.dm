@@ -4,6 +4,14 @@
 /obj/item/card/id/guest
 	name = "guest pass"
 	desc = "Предоставляет временный доступ в определённые места на станции."
+	ru_names = list(
+            NOMINATIVE = "гостевой пропуск",
+            GENITIVE = "гостевого пропуска",
+            DATIVE = "гостевому пропуску",
+            ACCUSATIVE = "гостевой пропуск",
+            INSTRUMENTAL = "гостевым пропуском",
+            PREPOSITIONAL = "гостевом пропуске"
+        )
 	icon_state = "guest"
 	item_state = "guestpass-id"
 

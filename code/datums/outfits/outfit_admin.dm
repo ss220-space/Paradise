@@ -18,7 +18,7 @@
 	I.assignment = rank
 	I.sex = capitalize(H.gender)
 	I.age = H.age
-	I.name = "[I.registered_name]'s ID-карта ([I.assignment])"
+	I.name = "[I.registered_name] ID-карта ([I.assignment])"
 	I.photo = get_id_photo(H)
 
 	if(special_icon)
@@ -162,7 +162,7 @@
 	..()
 	var/obj/item/card/id/syndicate/I = H.wear_id
 	I.icon_state = "syndie"
-	I.name = "[H.real_name]'s ID-карта"
+	I.name = "[H.real_name] ID-карта"
 	I.assignment = "Syndicate Commando"
 	I.access += get_syndicate_access(I.assignment)
 	I.registered_name = H.real_name

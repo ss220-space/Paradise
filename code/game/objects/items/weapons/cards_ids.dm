@@ -107,6 +107,14 @@
 /obj/item/card/id
 	name = "identification card"
 	desc = "Карта, используемая для удостоверения личности и определения доступа владельца на станции."
+	ru_names = list(
+            NOMINATIVE = "идентификационная карта",
+            GENITIVE = "идентификационной карты",
+            DATIVE = "идентификационной карте",
+            ACCUSATIVE = "идентификационную карту",
+            INSTRUMENTAL = "идентификационной картой",
+            PREPOSITIONAL = "идентификационной карте"
+        )
 	icon_state = "id"
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
@@ -171,7 +179,7 @@
 	else
 		. += to_chat(user, span_warning("Слишком далеко чтобы разглядеть"))
 	if(guest_pass)
-		. += to_chat(user, span_notice("К этой ID-карте относится гостевой пропуск"))
+		. += to_chat(user, span_notice("К этой ID-карте прикреплён гостевой пропуск"))
 		if(world.time < guest_pass.expiration_time)
 			. += to_chat(user, span_notice("Срок действия истекает в [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)]"))
 		else
@@ -190,6 +198,7 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
+	name = "[src.registered_name] ID-карта ([src.assignment])"
 	user.visible_message("[user] показывает вам: [bicon(src)] [src.name]. Должность: [src.assignment]",\
 		"Вы показываете свою ID-карту: [bicon(src)] [src.name]. Должность: [src.assignment]")
 	if(mining_points)
@@ -198,7 +207,7 @@
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name]'s ID-карта ([src.assignment])"
+	name = "[src.registered_name] ID-карта ([src.assignment])"
 
 /obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -266,11 +275,10 @@
 
 /obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname]'s ID-карта"][(!newjob) ? "" : " ([newjob])"]"
+		name = "[(!newname)	? "identification card"	: "[newname] ID-карта"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name]'s ID-карта"][(!assignment) ? "" : " ([assignment])"]"
-
+	name = "[(!registered_name)	? "identification card"	: "[registered_name] ID-карта"][(!assignment) ? "" : " ([assignment])"]"
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/id_decal))
@@ -303,7 +311,7 @@
 			to_chat(user, span_warning("Применение одной гостевой карты к другой ничего не дает."))
 			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
-			to_chat(user, span_warning("К этой ID-карте уже относится какой-то гостевой пропуск."))
+			to_chat(user, span_warning("К этой ID-карте уже прикреплён какой-то гостевой пропуск."))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/card/id/guest/guest_id = I
 		if(world.time > guest_id.expiration_time)
@@ -333,7 +341,7 @@
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, span_warning(">К этой ID-карте уже относится какой-то гостевой пропуск."))
+		to_chat(usr, span_warning(">К этой ID-карте уже прикреплён какой-то гостевой пропуск."))
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -788,7 +796,8 @@
 	if(!anyone)
 		if(user != registered_user)
 			return ..()
-	switch(tgui_alert(user, "Вы хотите показать [src] или редактировать её?", "Выбор", list("Показать", "Редактировать")))
+	switch(tgui_alert(user, "Вы хотите показать [src.declent_ru("ACCUSATIVE")] или редактировать её?", "Выбор", list("Показать", "Редактировать")))
+
 		if("Показать")
 			return ..()
 		if("Редактировать")
@@ -835,6 +844,14 @@
 /obj/item/card/id/syndicate_command
 	name = "syndicate ID card"
 	desc = "ID-карта Синдиката."
+	ru_names = list(
+    NOMINATIVE = "ID-карта Синдиката",
+    GENITIVE = "ID-карты Синдиката",
+    DATIVE = "ID-карте Синдиката",
+    ACCUSATIVE = "ID-карту Синдиката",
+    INSTRUMENTAL = "ID-картой Синдиката",
+    PREPOSITIONAL = "ID-карте Синдиката"
+)
 	registered_name = "Syndicate"
 	icon_state = "syndie"
 	item_state = "syndieofficer-id"
@@ -845,6 +862,14 @@
 /obj/item/card/id/captains_spare
 	name = "captain's spare ID"
 	desc = "Запасная ID-карта капитана."
+	ru_names = list(
+    NOMINATIVE = "запасная ID-карта капитана",
+    GENITIVE = "запасной ID-карты капитана",
+    DATIVE = "запасной ID-карте капитана",
+    ACCUSATIVE = "запасную ID-карту капитана",
+    INSTRUMENTAL = "запасной ID-картой капитана",
+    PREPOSITIONAL = "запасной ID-карте капитана"
+)
 	icon_state = "gold"
 	item_state = "gold-id"
 	registered_name = "Captain"

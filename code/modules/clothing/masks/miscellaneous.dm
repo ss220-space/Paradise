@@ -46,16 +46,16 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		to_chat(user, "<span class='warning'>Замок вибрирует, когда карта открывает его.</span>")
+		to_chat(user, span_warning("Замок вибрирует, когда карта открывает его."))
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		to_chat(user, "<span class='warning'>Намордник открывается с характерным щелчком.</span>")
+		to_chat(user, span_warning("Намордник открывается с характерным щелчком."))
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 
-	to_chat(user, "<span class='warning'>Чтобы снять намордник, необходимо иметь при себе ID-карту сотрудника службы безопасности.</span>")
+	to_chat(user, span_warning("Чтобы снять намордник, необходимо иметь при себе ID-карту сотрудника службы безопасности."))
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -147,6 +147,14 @@
 /obj/item/clothing/mask/muzzle/safety/shock
 	name = "shock muzzle"
 	desc = "Намордник, предназначенный для предотвращения укусов. Оснащен системой коррекции поведения."
+	ru_names = list(
+    NOMINATIVE = "электрошоковый намордник",
+    GENITIVE = "электрошокового намордника",
+    DATIVE = "электрошоковому наморднику",
+    ACCUSATIVE = "электрошоковый намордник",
+    INSTRUMENTAL = "электрошоковым намордником",
+    PREPOSITIONAL = "электрошоковом наморднике"
+)
 	var/obj/item/assembly/trigger = null
 	origin_tech = "materials=1;engineering=1"
 	materials = list(MAT_METAL=500, MAT_GLASS=50)
@@ -156,7 +164,7 @@
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
 		add_fingerprint(user)
 		if(trigger)
-			to_chat(user, span_warning("[name] уже имеет [trigger]."))
+			to_chat(user, span_warning("[name] уже имеет [trigger.declent_ru(ACCUSATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -164,7 +172,7 @@
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
-		to_chat(user, span_notice("Вы прикрепили [I] к [src]."))
+		to_chat(user, span_notice("Вы прикрепили [I] к [src.declent_ru(DATIVE)]."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(isassembly(I))

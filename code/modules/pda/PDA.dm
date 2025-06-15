@@ -414,26 +414,26 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(istype(I, /obj/item/pda_case))
 		add_fingerprint(user)
 		if(current_case)
-			if(alert("There is already [current_case.name] installed, [I.name] will replace it.", "Are you sure?", "Yes", "No") != "Yes")
+			if(alert("[current_case.name] уже установлен, [I.name] заменит его.", "Вы уверены?", "Да", "Нет") != "Да")
 				return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ATTACK_CHAIN_PROCEED
 		remove_pda_case()
 		apply_pda_case(I)
-		to_chat(user, span_notice("You have put [I] onto the PDA."))
+		to_chat(user, span_notice("Вы поместили [I] на КПК."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/cartridge/request_console))
 		add_fingerprint(user)
 		if(request_cartridge)
-			to_chat(user, span_warning("The PDA is already holding another request cartridge."))
+			to_chat(user, span_warning("В КПК уже есть картридж запросов."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		request_cartridge = I
 		request_cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, span_notice("You have inserted [I] into the PDA."))
+		to_chat(user, span_notice("Вы вставили [I] в КПК."))
 		SStgui.update_uis(src)
 		if(request_cartridge.radio)
 			request_cartridge.radio.hostpda = src
@@ -443,14 +443,14 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		add_fingerprint(user)
 
 		if(cartridge)
-			to_chat(user, span_warning("The PDA is already holding another cartridge."))
+			to_chat(user, span_warning("В КПК уже есть картридж."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		cartridge = I
 		cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, span_notice("You have inserted [I] into the PDA."))
+		to_chat(user, span_notice("Вы вставили [I] в КПК."))
 		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
@@ -473,7 +473,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(!can_use(user))
 			return ATTACK_CHAIN_PROCEED
 		if(id_check(user, in_pda_usage = FALSE))
-			to_chat(user, span_notice("Вы поместили ID-карту в КПК.<br>Вы можете вытащить её используя <b>АЛЬТ-клик</b>."))
+			to_chat(user, span_notice("Вы поместили ID-карту в КПК.<br>Вы можете вытащить её используя <b>Alt-клик</b>."))
 			SStgui.update_uis(src)
 			return ATTACK_CHAIN_BLOCKED_ALL
 		return ATTACK_CHAIN_PROCEED
@@ -481,12 +481,12 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(istype(I, /obj/item/paicard))
 		add_fingerprint(user)
 		if(pai)
-			to_chat(user, span_warning("The PDA is already holding another pAI card."))
+			to_chat(user, span_warning("КПК уже содержит карту пИИ."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		pai = I
-		to_chat(user, span_notice("You have inserted the pAI card into the PDA."))
+		to_chat(user, span_notice("Вы вставили карту пИИ в КПК."))
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -494,11 +494,11 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		add_fingerprint(user)
 		var/obj/item/pen/holded_pen = locate() in src
 		if(holded_pen)
-			to_chat(user, span_warning("The PDA is already holding another pen.<br>You can remove it with <b>Ctrl-click</b>."))
+			to_chat(user, span_warning("В КПК уже есть ручка.<br>Вы можете достать её, используя <b>Ctrl-клик</b>."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You have slided [I] into the PDA.<br>You can remove it with <b>Ctrl-click</b>."))
+		to_chat(user, span_notice("Вы прикрепили [I] к КПК.<br>Вы можете достать её, используя <b>Ctrl-клик</b>."))
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/stamp))
@@ -529,7 +529,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 	if(ismob(loc))
 		var/mob/M = loc
-		M.show_message("<span class='danger'>Ваш [src] взрывается!</span>", 1)
+		to_chat(M, span_danger("Ваш [src] взрывается!"))
 
 	if(T)
 		T.hotspot_expose(700,125)

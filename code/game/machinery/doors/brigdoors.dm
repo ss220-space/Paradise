@@ -120,8 +120,8 @@
 			prisoner_trank = G.fields["real_rank"]
 
 	var/datum/data/record/R = find_security_record("name", occupant)
-
-	var/timetext = seconds_to_time_ru(timetoset / 10)
+	var/num_minutes = timetoset / 10 / 60
+	var/timetext = "[num_minutes] [declension_ru(num_minutes, "минуту", "минуты", "минут")]"
 	var/announcetext = "[occupant] ([prisoner_drank]) заключён на [timetext] сотрудником [usr.name]. Обвинения: [crimes]"
 	Radio.autosay(announcetext, name, SEC_FREQ_NAME)
 
@@ -433,7 +433,8 @@
 					return FALSE
 				timetoset = timetoset + prisoner_time_add
 				releasetime = releasetime + prisoner_time_add
-				var/time_string = seconds_to_time_ru(prisoner_time_add / 10)
+				var/minutes = prisoner_time_add / 10 / 60
+				var/time_string = "[minutes] [declension_ru(minutes, "минуту", "минуты", "минут")]"
 				Radio.autosay("Таймер заключённого [occupant] был увеличен на [time_string] решением [usr.name]. Причина: [add_reason]", name, SEC_FREQ_NAME)
 				notify_prisoner("Таймер был увеличен на [time_string]. Причина: [add_reason]")
 				var/datum/data/record/R = find_security_record("name", occupant)

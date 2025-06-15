@@ -133,14 +133,14 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 
 	if(scan)
-		to_chat(usr, "Вы вытаскиваете \the [scan] из \the [src].")
+		to_chat(usr, "Вы вытаскиваете [scan.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)].")
 		scan.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(modify)
-		to_chat(usr, "Вы вытаскиваете \the [modify] из \the [src].")
+		to_chat(usr, "Вы вытаскиваете [modify.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)].")
 		modify.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(modify, ignore_anim = FALSE)
@@ -385,7 +385,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = "[modify.registered_name]'s ID-карта ([modify.assignment])"
+		modify.name = "[modify.registered_name] ID-карта ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())
@@ -459,7 +459,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(target_dept)
 				if(modify.assignment == "Понижен" || modify.assignment == "Уволен")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					visible_message(span_warning("[src]: Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер."))
+					visible_message(span_warning("[src.declent_ru("NOMINATIVE")]: Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер."))
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), CONFIG_GET(flag/allow_head_of_departaments_assign_civilian)))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)

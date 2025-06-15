@@ -127,18 +127,6 @@
 	var/numMinutes = (seconds - numSeconds) / 60
 	return "[numMinutes] [numMinutes > 1 ? "minutes" : "minute"] and [numSeconds] seconds"
 
-/proc/seconds_to_time_ru(var/seconds as num)
-	var/numMinutes = round(seconds / 60.0)
-	var/minute_text = "минут"
-
-	if ((numMinutes % 10) == 1 && (numMinutes % 100) != 11)
-		minute_text = "минуту"
-	else if ((numMinutes % 10) in list(2, 3, 4) && !((numMinutes % 100) in list(12, 13, 14)))
-		minute_text = "минуты"
-	else
-		minute_text = "минут"
-
-	return "[numMinutes] [minute_text]"
 
 //Take a value in seconds and makes it display like a clock
 /proc/seconds_to_clock(var/seconds as num)
