@@ -52,7 +52,7 @@
 
 /mob/living/silicon/robot/syndicate/Login()
 	. = ..()
-	if(length(module?.borg_skins) > 1)
+	if(length(module?.borg_skins) > 1 && !selected_skin)
 		addtimer(CALLBACK(src, PROC_REF(choose_icon), 0.5 SECONDS))
 
 /mob/living/silicon/robot/syndicate/reset_module()
