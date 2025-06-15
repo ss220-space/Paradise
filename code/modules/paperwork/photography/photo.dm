@@ -62,13 +62,13 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] держит \the [P] над \the [src], похоже, что [user.p_theyre()] пытается её сжечь!", \
+		user.visible_message("[class][user] [genderize_ru(user.gender, "держит", "держит", "держит", "держут")] [P] над [src], похоже, что [user] [genderize_ru(user.gender, "пытается", "пытается", "пытается", "пытаются")] её сжечь!", \
 		"[class]Вы держите [P] над [src], медленно её сжигая.")
 
 		spawn(20)
 			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] сжигает \the [src], превращая в пыль. Она немного летает в воздухе, прежде чем упасть на пол..", \
-				"[class]Вы сожгли \the [src], превратив в пыль. Она немного пролетела в воздухе, прежде чем упасть на пол.")
+				user.visible_message("[class][user] [genderize_ru(user.gender, "сжигает", "сжигает", "сжигает", "сжигают")] [src], превращая [src] в пыль. Она немного летает в воздухе, прежде чем упасть на пол..", \
+				"[class]Вы сожгли  [src], превратив в пыль. Она немного пролетела в воздухе, прежде чем упасть на пол.")
 
 				if(user.is_in_inactive_hand(src))
 					user.temporarily_remove_item_from_inventory(src)
@@ -77,7 +77,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, span_warning("Вы должны держать \the [P] неподвижно, чтобы поджечь \the [src]."))
+				to_chat(user, span_warning("Вы должны держать [P] неподвижно, чтобы поджечь [src]."))
 
 /obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)

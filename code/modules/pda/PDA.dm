@@ -226,17 +226,17 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
 		update_icon(UPDATE_OVERLAYS)
-		to_chat(usr, span_notice("You press the reset button on \the [src]."))
+		to_chat(usr, span_notice("Вы нажали на кнопку сброса [src]."))
 		SStgui.update_uis(src)
 	else
-		to_chat(usr, span_notice("You cannot do this while restrained."))
+		to_chat(usr, span_notice("Вы не можете это сделать сейчас."))
 
 /obj/item/pda/click_alt(mob/living/user)
 	if(can_use(user))
 		if(id)
 			remove_id(user)
 		else
-			to_chat(user, span_warning("This PDA does not have an ID in it!"))
+			to_chat(user, span_warning("К этом КПК нет ID-карты."))
 	return CLICK_ACTION_SUCCESS
 
 
@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(id)
-		to_chat(user, span_notice("You remove the ID from the [name]."))
+		to_chat(user, span_notice("Вы достали ID-карту из [name]."))
 		SStgui.update_uis(src)
 	id = null
 	cartridge?.on_id_updated()
@@ -276,9 +276,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(id)
 			remove_id(usr)
 		else
-			to_chat(usr, span_notice("This PDA does not have an ID in it."))
+			to_chat(usr, span_notice("В этом КПК нет ID-карты."))
 	else
-		to_chat(usr, span_notice("You cannot do this while restrained."))
+		to_chat(usr, span_notice("Вы не можете сделать это сейчас."))
 
 /obj/item/pda/verb/verb_remove_pen()
 	set category = "Object"
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if( can_use(user) )
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, span_notice("You remove \the [O] from [src]."))
+			to_chat(user, span_notice("Вы вытащили [O] из [src]."))
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
@@ -302,9 +302,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 					return
 			O.forceMove(get_turf(src))
 		else
-			to_chat(user, span_warning("This PDA does not have a pen in it."))
+			to_chat(user, span_warning("В этом КПК нет ручки."))
 	else
-		to_chat(user, span_notice("You cannot do this while restrained."))
+		to_chat(user, span_notice("Вы не можете это сделать сейчас."))
 
 
 /obj/item/pda/proc/id_check(mob/user, in_pda_usage)

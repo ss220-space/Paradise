@@ -79,7 +79,7 @@
 		if(istype(I, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/carbon_paper = I
 			if(!carbon_paper.iscopy && !carbon_paper.copied)
-				to_chat(user, span_notice("Сначала снимите копию."))
+				to_chat(user, span_notice("Сначала уберите копию."))
 				return .
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -88,7 +88,7 @@
 		if(screen == 2)
 			screen = 1
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
-		to_chat(user, span_notice("You add [(I.name == "paper") ? "the paper" : I.name] to [(name == "paper bundle") ? "the paper bundle" : name]."))
+		to_chat(user, span_notice("Вы вложили [(I.name == "paper") ? "the paper" : I.name] в [(name == "paper bundle") ? "the paper bundle" : name]."))
 		if(winget(user, "PaperBundle[UID()]", "is-visible") == "true") // NOT MY FAULT IT IS A BUILT IN PROC PLEASE DO NOT HIT ME
 			attack_self(user) //Update the browsed page.
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -103,7 +103,7 @@
 		if(screen == 2)
 			screen = 1
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
-		to_chat(user, span_notice("You add [(I.name == "photo") ? "the photo" : I.name] to [(name == "paper bundle") ? "the paper bundle" : name]."))
+		to_chat(user, span_notice("Вы вложили [(I.name == "photo") ? "the photo" : I.name] в [(name == "paper bundle") ? "the paper bundle" : name]."))
 		if(winget(user, "PaperBundle[UID()]", "is-visible") == "true")
 			attack_self(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -126,7 +126,7 @@
 				screen = 1
 		bundle.papers.Cut()
 		update_appearance(UPDATE_ICON|UPDATE_DESC)
-		to_chat(user, span_notice("You add the [I.name] to [(name == "paper bundle") ? "the paper bundle" : name]."))
+		to_chat(user, span_notice("Вы вложили [I.name] в [(name == "paper bundle") ? "the paper bundle" : name]."))
 		if(winget(user, "PaperBundle[UID()]", "is-visible") == "true")
 			attack_self(user)
 		qdel(bundle)
@@ -139,7 +139,7 @@
 	..()
 	if(!(resistance_flags & FIRE_PROOF))
 		for(var/obj/item/paper/paper in papers)
-			paper.info = "<i>Heat-curled corners and sooty words offer little insight. Whatever was once written on this page has been rendered illegible through fire.</i>"
+			paper.info = "<i>Загнутые от огня углы и закопченные слова мало что говорят. Все, что было написано на этой странице, стало неразборчивым из-за огня.</i>"
 
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
@@ -152,14 +152,13 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!", \
-		"[class]You hold [P] up to [src], burning it slowly.")
+		user.visible_message("[class][user] [genderize_ru(user.gender, "держит", "держит", "держит", "держут")] [P] над [src], похоже, что [genderize_ru(user.gender, "пытается", "пытается", "пытается", "пытаются")] её сжечь!", \
+		"[class]Вы держите [P] над [src], медленно её сжигая.")
 
 		spawn(20)
 			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] burns right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.", \
-				"[class]You burn right through \the [src], turning it to ash. It flutters through the air before settling on the floor in a heap.")
-
+				user.visible_message("[class][user] [genderize_ru(user.gender, "сжигает", "сжигает", "сжигает", "сжигают")] [src], превращая [src] в пыль. Она немного летает в воздухе, прежде чем упасть на пол..", \
+				"[class]Вы сожгли [src], превратив в пыль. Она немного пролетела в воздухе, прежде чем упасть на пол.")
 				if(user.is_in_inactive_hand(src))
 					user.temporarily_remove_item_from_inventory(src)
 
@@ -167,7 +166,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, span_warning("You must hold \the [P] steady to burn \the [src]."))
+				to_chat(user, span_warning("Вы должны держать [P] неподвижно, чтобы поджечь [src]."))
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()

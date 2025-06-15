@@ -299,7 +299,7 @@
 		return TRUE
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message(span_danger("\ [user] наматывает свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!"))
+	user.visible_message(span_danger("\ [user] [genderize_ru(user.gender, "наматывает", "наматывает", "наматывает", "наматывают")] свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!"))
 
 //scarves (fit in in mask slot)
 

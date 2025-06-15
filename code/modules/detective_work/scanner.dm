@@ -26,8 +26,8 @@
 	search = lowertext(search) //This is here so that it doesn't run 'lowertext()' until the checks have passed.
 
 	var/name
-	var/fingerprint = "ОТПЕЧАТКИ НЕ НАЙДЕНЫ"
-	var/dna = "ДНК НЕ НАЙДЕНО"
+	var/fingerprint = "ХЭШ ОТПЕЧАТКОВ НЕ НАЙДЕН"
+	var/dna = "ХЭШ ДНК НЕ НАЙДЕН"
 
 	// I really, really wish I didn't have to split this into two seperate loops. But the datacore is awful.
 
@@ -43,7 +43,7 @@
 		if(M && (search == lowertext(M.fields["b_dna"]) || name == M.fields["name"])) // Get Blood DNA
 			dna = M.fields["b_dna"]
 
-			if(fingerprint == "ОТПЕЧАТКИ НЕ НАЙДЕНЫ") // We have searched for DNA, and so do not have the relevant information from the fingerprint records.
+			if(fingerprint == "ХЭШ ОТПЕЧАТКОВ НЕ НАЙДЕН") // We have searched for DNA, and so do not have the relevant information from the fingerprint records.
 				name = M.fields["name"]
 				for(var/gen_record in GLOB.data_core.general)
 					var/datum/data/record/S = gen_record
@@ -69,7 +69,7 @@
 /obj/item/detective_scanner/proc/print_scanner_report()
 	if(length(log) && !scanning)
 		scanning = TRUE
-		to_chat(usr, span_notice("Printing report, please wait..."))
+		to_chat(usr, span_notice("Печать отчёта, подождите..."))
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		flick("Detective_anim", src)
 		sleep(3 SECONDS)
@@ -77,29 +77,29 @@
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
-		to_chat(usr, span_warning("The scanner has no logs or is in use."))
+		to_chat(usr, span_warning("Нет отчётов для печати."))
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(drop_location())
-	P.name = "paper- 'Scanner Report'"
-	P.info = "<center><font size='6'><b>Scanner Report</b></font></center><hr><br>"
+	P.name = "paper- 'Отчёт Сканера'"
+	P.info = "<center><font size='6'><b>Отчёт Сканера</b></font></center><hr><br>"
 	P.info += jointext(log, "<br>")
-	P.info += "<hr><b>Notes:</b><br>"
+	P.info += "<hr><b>Примечания:</b><br>"
 	P.info_links = P.info
 
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(P, ignore_anim = FALSE)
-		to_chat(M, span_notice("Report printed. Log cleared."))
+		to_chat(M, span_notice("Отчёт распечатан. Буффер очищен."))
 
 
 /obj/item/detective_scanner/proc/clear_scanner()
 	if(length(log) && !scanning)
 		log = list()
 		playsound(loc, 'sound/machines/ding.ogg', 40)
-		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, usr, span_notice("Scanner logs cleared.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
+		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, usr, span_notice("Буффер очищен.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
-		to_chat(usr, span_warning("The scanner has no logs or is in use."))
+		to_chat(usr, span_warning("Нет отчётов для печати."))
 
 
 /obj/item/detective_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
@@ -120,8 +120,8 @@
 
 		scanning = TRUE
 
-		user.visible_message("[user] points [src] at [scan_atom] and performs a forensic scan.",
-		span_notice("You scan [scan_atom]. The scanner is now analysing the results..."))
+		user.visible_message("[user] [genderize_ru(user.gender, "указывает", "указывает", "указывает", "указывают")] [src] на [scan_atom] и [genderize_ru(user.gender, "начинает", "начинает", "начинает", "начинают")] сканирование.",
+		span_notice("Вы отсканировали [scan_atom]. Сканер анализирует результаты...."))
 
 
 		// GATHER INFORMATION
@@ -180,7 +180,7 @@
 		// Fingerprints
 		if(length(fingerprints))
 			sleep(30)
-			add_log(span_info("<b>Prints:</b>"))
+			add_log(span_info("<b>Хэш отпечатков:</b>"))
 			for(var/finger in fingerprints)
 				add_log("[finger]")
 			found_something = TRUE
@@ -188,15 +188,15 @@
 		// Blood
 		if(length(blood))
 			sleep(30)
-			add_log(span_info("<b>Blood:</b>"))
+			add_log(span_info("<b>Кровь:</b>"))
 			found_something = TRUE
 			for(var/B in blood)
-				add_log("Type: <font color='red'>[blood[B]]</font> DNA: <font color='red'>[B]</font>")
+				add_log("Type: <font color='red'>[blood[B]]</font> Хэш ДНК: <font color='red'>[B]</font>")
 
 		//Fibers
 		if(length(fibers))
 			sleep(30)
-			add_log(span_info("<b>Fibers:</b>"))
+			add_log(span_info("<b>Волокна:</b>"))
 			for(var/fiber in fibers)
 				add_log("[fiber]")
 			found_something = TRUE
@@ -204,9 +204,9 @@
 		//Reagents
 		if(length(reagents))
 			sleep(30)
-			add_log(span_info("<b>Reagents:</b>"))
+			add_log(span_info("<b>Реагенты:</b>"))
 			for(var/R in reagents)
-				add_log("Reagent: <font color='red'>[R]</font> Volume: <font color='red'>[reagents[R]]</font>")
+				add_log("Reagent: <font color='red'>[R]</font> Объём: <font color='red'>[reagents[R]]</font>")
 			found_something = TRUE
 
 		if(found_spy_device)
@@ -221,12 +221,12 @@
 			holder = loc
 
 		if(!found_something)
-			add_log("<i># No forensic traces found #</i>", FALSE) // Don't display this to the holder user
+			add_log("<i># Следов не обнаружено #</i>", FALSE) // Don't display this to the holder user
 			if(holder)
-				to_chat(holder, span_notice("Unable to locate any fingerprints, materials, fibers, or blood on [scan_atom]!"))
+				to_chat(holder, span_notice("Не удалось обнаружить никаких следов на [scan_atom]!"))
 		else
 			if(holder)
-				to_chat(holder, span_notice("You finish scanning [scan_atom]."))
+				to_chat(holder, span_notice("Вы завершили сканирование [scan_atom]."))
 
 		add_log("---------------------------------------------------------", FALSE)
 		scanning = FALSE

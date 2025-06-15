@@ -167,30 +167,30 @@
 	switch(user.zone_selected)
 		if(BODY_ZONE_PRECISE_EYES)
 			user.visible_message(
-				span_warning("[user] пытается показать лист [target]."),
+				span_warning("[user] [genderize_ru(user.gender, "пытается", "пытается", "пытается", "пытаются")] показать лист [target]."),
 				span_notice("Вы держите лист и пытаетесь показать его [target]."),
 			)
 			if(!do_after(user, 0.7 SECONDS, target, NONE))
 				to_chat(user, span_warning("У вас не получилось показать лист [target]."))
 				return .
 			user.visible_message(
-				span_notice("[user] показывает лист [target]."),
+				span_notice("[user] [genderize_ru(user.gender, "показывает", "показывает", "показывает", "показывают")] лист [target]."),
 				span_notice("Вы дежрите лист и показываете его [target]."),
 			)
 			target.examinate(src)
 
 		if(BODY_ZONE_PRECISE_MOUTH)
 			if(target == user)
-				to_chat(user, span_notice("Вы протираете лицо с помощью[src]."))
+				to_chat(user, span_notice("Вы протираете своё лицо с помощью[src]."))
 			else
 				user.visible_message(
-					span_warning("[user] начинает протирать лицо [target] с помощью [src]."),
+					span_warning("[user] [genderize_ru(user.gender, "начинаетает", "начинает", "начинает", "начинают")] протирать лицо [target] с помощью [src]."),
 					span_notice("Вы начали протирать лицо [target] ."),
 				)
 				if(!do_after(user, 1 SECONDS, target))
 					return .
 				user.visible_message(
-					span_notice("[user] протёр [target] лицо с помощью [src]."),
+					span_notice("[user] [genderize_ru(user.gender, "протёр", "протёрла", "протёрло", "протёрли")] лицо [target] с помощью [src]."),
 					span_notice("Вы протёрли лицо [target]."),
 				)
 			target.lip_style = null
@@ -506,7 +506,7 @@
 	if(istype(I, /obj/item/paper/carbon))
 		var/obj/item/paper/carbon/carbon_paper = I
 		if(!carbon_paper.iscopy && !carbon_paper.copied)
-			to_chat(user, span_notice("Сначала снимите копию."))
+			to_chat(user, span_notice("Сначала уберите копию."))
 			return .
 
 	if(loc == user && !user.can_unEquip(src))
