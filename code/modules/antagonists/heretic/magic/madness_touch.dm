@@ -8,7 +8,7 @@
 	button_icon_state = "mad_touch"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	base_cooldown = 15 SECONDS
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND

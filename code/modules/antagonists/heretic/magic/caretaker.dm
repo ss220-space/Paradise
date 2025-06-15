@@ -11,7 +11,7 @@
 	sound = 'sound/effects/curse/curse2.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 1 MINUTES
+	base_cooldown = 1 MINUTES
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE

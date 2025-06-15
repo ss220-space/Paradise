@@ -8,7 +8,7 @@
 
 	sound = 'sound/effects/magic/cosmic_energy.ogg'
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	base_cooldown = 20 SECONDS
 
 	invocation = "R'T'T' ST'R!"
 	invocation_type = INVOCATION_SHOUT

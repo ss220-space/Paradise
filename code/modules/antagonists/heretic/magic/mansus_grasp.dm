@@ -8,7 +8,7 @@
 	sound = 'sound/items/tools/welder.ogg'
 
 	school = SCHOOL_EVOCATION
-	cooldown_time = 10 SECONDS
+	base_cooldown = 10 SECONDS
 
 	invocation = "R'CH T'H TR'TH!"
 	invocation_type = INVOCATION_SHOUT

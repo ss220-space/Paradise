@@ -14,7 +14,7 @@
 	button_icon_state = "among_sheep"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 5 MINUTES
+	base_cooldown = 5 MINUTES
 
 	invocation = "D'M'N XP'NS'N!"
 	invocation_type = INVOCATION_SHOUT
@@ -77,7 +77,7 @@
 		if(is_space_or_openspace(target))
 			var/turf_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena", image('icons/turf/floors/rose_stone_turf.dmi', target, turf_icon, layer = ABOVE_OPEN_TURF_LAYER))
-		else if(isclosedturf(target))
+		else if(iswallturf(target))
 			var/wall_icon = "rose_stone_" + "[pick(1, 2, 3, 4, 5, 6, 7, 8)]"
 			target.add_alt_appearance(/datum/atom_hud/alternate_appearance/basic/everyone, "heretic_arena", image('icons/turf/walls/rose_stone_wall.dmi', target, wall_icon, layer = ABOVE_OPEN_TURF_LAYER))
 

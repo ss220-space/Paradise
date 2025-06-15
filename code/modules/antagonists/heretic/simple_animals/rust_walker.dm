@@ -20,7 +20,7 @@
 
 	var/static/list/grantable_spells = list(
 		/obj/effect/proc_holder/spell/aoe/rust_conversion = BB_GENERIC_ACTION,
-		/obj/effect/proc_holder/spell/basic_projectile/rust_wave/short = BB_TARGETED_ACTION,
+		/obj/effect/proc_holder/spell/fireball/rust_wave/short = BB_TARGETED_ACTION,
 	)
 	grant_actions_by_list(grantable_spells)
 
@@ -32,26 +32,31 @@
 	. = ..()
 	if(stat == DEAD) // We usually delete on death but just in case
 		return
+
 	if(dir & NORTH)
 		icon_state = "[base_icon_state]_n"
+
 	else if(dir & SOUTH)
 		icon_state = "[base_icon_state]_s"
+
 	icon_living = icon_state
 
-/mob/living/simple_animal/hostile/heretic_summon/rust_walker/Life(seconds_per_tick = SSMOBS_DT, times_fired)
+/mob/living/simple_animal/hostile/heretic_summon/rust_walker/Life(seconds_per_tick, times_fired)
 	. = ..()
 	if(!.) //dead or deleted
 		return
-	var/turf/our_turf = get_turf(src)
-	if(HAS_TRAIT(our_turf, TRAIT_RUSTY))
-		adjustBruteLoss(-3 * seconds_per_tick)
 
+	var/turf/our_turf = get_turf(src)
+	if(!HAS_TRAIT(our_turf, TRAIT_RUSTY))
+		return ..()
+
+	adjustBruteLoss(-3 * seconds_per_tick)
 	return ..()
 
 /// Converts unconverted terrain, sprays pocket sand around
 /datum/ai_controller/basic_controller/rust_walker
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targetting_datum/basic,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -75,6 +80,7 @@
 		walk_chance = (our_mob.health < our_mob.maxHealth) ? 10 : 50
 	else
 		walk_chance = (our_mob.health < our_mob.maxHealth) ? 50 : 10
+
 	return ..()
 
 /// Use if we're not stood on rust right now
@@ -84,4 +90,5 @@
 	var/turf/our_turf = get_turf(controller.pawn)
 	if (HAS_TRAIT(our_turf, TRAIT_RUSTY))
 		return
+
 	return ..()

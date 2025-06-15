@@ -10,7 +10,7 @@
 	sound = 'sound/effects/curse/curse2.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 6 SECONDS
+	base_cooldown = 6 SECONDS
 
 	invocation_type = INVOCATION_NONE
 	spell_requirements = NONE
@@ -49,7 +49,7 @@
 /datum/action/innate/shadow_cloak/cast(mob/living/cast_on)
 	. = ..()
 	if(active_cloak)
-		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, cooldown_time)
+		var/new_cd = max((uncloak_time - timeleft(uncloak_timer)) / 3, base_cooldown)
 		uncloak_mob(cast_on)
 		StartCooldown(new_cd)
 

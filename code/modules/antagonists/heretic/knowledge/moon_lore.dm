@@ -201,9 +201,9 @@
 			to_chat(crewmate, span_boldwarning("[user]'s rise is influencing those who are weak willed. Their minds shall rend." ))
 			continue
 		// Mindshielded and anti-magic folks are immune against this effect because this is a magical mind effect
-		if(HAS_MIND_TRAIT(crewmate, TRAIT_UNCONVERTABLE) || crewmate.can_block_magic(MAGIC_RESISTANCE))
-			to_chat(crewmate, span_boldwarning("You feel shielded from something." ))
-			continue
+		//if(HAS_MIND_TRAIT(crewmate, TRAIT_UNCONVERTABLE) || crewmate.can_block_magic(MAGIC_RESISTANCE))
+		//	to_chat(crewmate, span_boldwarning("You feel shielded from something." ))
+		//	continue
 		if(amount_of_lunatics > max_lunatics)
 			to_chat(crewmate, span_boldwarning("You feel uneasy, as if for a brief moment something was gazing at you."))
 			continue

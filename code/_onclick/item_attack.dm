@@ -198,12 +198,12 @@
 		to_chat(user, span_warning("Вы не хотите причинять кому-либо вред!"))
 		return .
 
+	var/final_force = CALCULATE_FORCE(src, attack_modifiers)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, params, def_zone)
-
-	if(!force)
+	if(!final_force)
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
-		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [force])", (target.ckey && force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
+		add_attack_logs(user, target, "Attacked with [name] ([uppertext(user.a_intent)]) ([uppertext(damtype)]), DMG: [final_force])", (target.ckey && final_force > 0 && damtype != STAMINA) ? null : ATKLOG_ALMOSTALL)
 		if(hitsound)
 			playsound(target.loc, hitsound, get_clamped_volume(), TRUE, -1)
 
@@ -276,10 +276,11 @@
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
 	send_item_attack_message(I, user, def_zone)
-	if(!I.force)
+	var/final_force = CALCULATE_FORCE(src, attack_modifiers)
+	if(!I.final_force)
 		return .
 
-	var/apply_damage_result = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	var/apply_damage_result = apply_damage(I.final_force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
 	if(apply_damage_result && I.damtype == BRUTE && prob(33))
 		I.add_mob_blood(src)

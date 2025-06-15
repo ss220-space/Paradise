@@ -9,7 +9,7 @@
 	sound = 'sound/effects/magic/swap.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 5 MINUTES
+	base_cooldown = 5 MINUTES
 
 	invocation = "F'K 'FF."
 	invocation_type = INVOCATION_WHISPER

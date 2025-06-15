@@ -17,8 +17,8 @@
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	/// List of innate abilities we have to add.
 	var/static/list/innate_abilities = list(
-		/obj/effect/proc_holder/spell/jaunt/ethereal_jaunt/ash/long = null,
-		/obj/effect/proc_holder/spell/list_target/telepathy/eldritch = null,
+		/datum/action/innate/ethereal_jaunt/ash/long = null,
+		/obj/effect/proc_holder/spell/remotetalk/eldritch = null,
 		/datum/action/innate/expand_sight = null,
 	)
 
@@ -79,13 +79,13 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins/get_innate_abilities()
 	var/list/returnable_list = innate_abilities.Copy()
-	returnable_list += list(/datum/action/cooldown/mob_cooldown/watcher_gaze = BB_TARGETED_ACTION)
+	returnable_list += list(/obj/effect/proc_holder/spell/mob_cooldown/watcher_gaze = BB_TARGETED_ACTION)
 	return returnable_list
 
 /// Walk and attack people, blind them when we can
 /datum/ai_controller/basic_controller/raw_prophet
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targetting_datum/basic,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance

@@ -12,7 +12,7 @@
 
 	sound = 'sound/items/tools/welder.ogg'
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	base_cooldown = 15 SECONDS
 	invocation = "ST'R 'N'RG'!"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE

@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/action/innate/list_target/telepathy/eldritch
+/obj/effect/proc_holder/spell/remotetalk/eldritch
 	name = "Eldritch Telepathy"
 	school = SCHOOL_FORBIDDEN
 	background_icon_state = "bg_heretic"

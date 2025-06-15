@@ -14,7 +14,7 @@
 	/// Actions to grant on spawn
 	var/static/list/actions_to_add = list(
 		/obj/effect/proc_holder/spell/emp/eldritch = BB_GENERIC_ACTION,
-		/obj/effect/proc_holder/spell/jaunt/ethereal_jaunt/ash = null,
+		/datum/action/innate/ethereal_jaunt/ash = null,
 		/obj/effect/proc_holder/spell/shapeshift/eldritch = BB_SHAPESHIFT_ACTION,
 	)
 
@@ -27,7 +27,7 @@
 /datum/ai_controller/basic_controller/stalker
 	ai_traits = CAN_ACT_IN_STASIS
 	blackboard = list(
-		BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targetting_datum/basic,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance

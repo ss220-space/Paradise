@@ -8,7 +8,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 45 SECONDS
+	base_cooldown = 45 SECONDS
 
 	invocation = "CL'VE!"
 	invocation_type = INVOCATION_WHISPER
@@ -55,7 +55,7 @@
 
 /datum/action/innate/pointed/cleave/long
 	name = "Lesser Cleave"
-	cooldown_time = 60 SECONDS
+	base_cooldown = 60 SECONDS
 	wound_type = /datum/wound/slash/flesh/severe
 
 /obj/effect/temp_visual/cleave

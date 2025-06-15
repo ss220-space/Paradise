@@ -9,7 +9,7 @@
 
 	sound = 'sound/effects/magic/curse.ogg'
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	base_cooldown = 20 SECONDS
 
 	invocation = "Op'n y'r m'd."
 	invocation_type = INVOCATION_WHISPER

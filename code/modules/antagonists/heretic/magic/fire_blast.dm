@@ -10,7 +10,7 @@
 	sound = 'sound/effects/magic/fireball.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 45 SECONDS
+	base_cooldown = 45 SECONDS
 
 	invocation = "V'LC'N!"
 	invocation_type = INVOCATION_SHOUT

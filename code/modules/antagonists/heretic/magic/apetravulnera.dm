@@ -8,7 +8,7 @@
 	button_icon_state = "apetra_vulnera"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 45 SECONDS
+	base_cooldown = 45 SECONDS
 
 	invocation = "AP'TRA VULN'RA!"
 	invocation_type = INVOCATION_WHISPER

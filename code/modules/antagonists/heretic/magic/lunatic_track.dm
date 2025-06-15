@@ -6,7 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 	button_icon = 'icons/mob/actions/actions_ecult.dmi'
 	button_icon_state = "moon_smile"
-	cooldown_time = 4 SECONDS
+	base_cooldown = 4 SECONDS
 
 /obj/effect/proc_holder/spell/lunatic_track/Grant(mob/granted)
 	if(!IS_LUNATIC(granted))

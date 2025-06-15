@@ -8,7 +8,7 @@
 	button_icon_state = "fire_ring"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 70 SECONDS
+	base_cooldown = 70 SECONDS
 
 	invocation = "FL'MS."
 	invocation_type = INVOCATION_WHISPER
@@ -70,7 +70,7 @@
 	sound = 'sound/items/tools/welder.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	base_cooldown = 30 SECONDS
 
 	invocation = "C'SC'D."
 	invocation_type = INVOCATION_WHISPER
@@ -110,7 +110,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 300
+	base_cooldown = 300
 
 	invocation = "F'R."
 	invocation_type = INVOCATION_WHISPER
@@ -144,7 +144,7 @@
 /datum/action/innate/pointed/ash_beams/proc/fire_line(atom/source, list/turfs)
 	var/list/hit_list = list()
 	for(var/turf/T in turfs)
-		if(isclosedturf(T))
+		if(iswallturf(T))
 			break
 
 		for(var/mob/living/L in T.contents)

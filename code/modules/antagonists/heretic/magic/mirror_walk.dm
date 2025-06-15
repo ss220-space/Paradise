@@ -8,7 +8,7 @@
 	button_icon = 'icons/mob/actions/actions_minor_antag.dmi'
 	button_icon_state = "ninja_cloak"
 
-	cooldown_time = 6 SECONDS
+	base_cooldown = 6 SECONDS
 	jaunt_type = /obj/effect/dummy/phased_mob/mirror_walk
 	spell_requirements = NONE
 

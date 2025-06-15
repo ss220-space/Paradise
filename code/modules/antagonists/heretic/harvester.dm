@@ -13,7 +13,7 @@
 	icon_state = "harvester"
 	icon_living = "harvester"
 	construct_spells = list(
-		/datum/action/innate/aoe/rust_conversion,
+		/obj/effect/proc_holder/spell/aoe/rust_conversion,
 		/datum/action/innate/pointed/rust_construction,
 	)
 	can_repair = FALSE

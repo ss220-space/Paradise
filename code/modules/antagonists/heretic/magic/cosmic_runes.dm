@@ -9,7 +9,7 @@
 
 	sound = 'sound/effects/magic/forcewall.ogg'
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 15 SECONDS
+	base_cooldown = 15 SECONDS
 
 	invocation = "ST'R R'N."
 	invocation_type = INVOCATION_WHISPER

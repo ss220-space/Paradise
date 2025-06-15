@@ -29,6 +29,8 @@
 	else
 		to_chat(target, span_notice("Your mind feels hardened - more resistant to brainwashing."))
 
+	SEND_SIGNAL(target.mind, COMSIG_MINDSHIELD_IMPLANTED, user)
+
 
 /obj/item/implant/mindshield/removed(mob/target, silent = FALSE)
 	. = ..()

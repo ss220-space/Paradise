@@ -30,7 +30,7 @@
 		magic_holder.magic_enhanced = TRUE
 	else if(IS_HERETIC_OR_MONSTER(user) && !active)
 		for(var/datum/action/innate/spell_action in user.actions)
-			spell_action.cooldown_time *= 0.5
+			spell_action.base_cooldown *= 0.5
 			active = TRUE
 		team_color = COLOR_GREEN
 	else
@@ -62,7 +62,7 @@
 
 	if(IS_HERETIC_OR_MONSTER(user) && active)
 		for(var/datum/action/innate/spell_action in user.actions)
-			spell_action.cooldown_time *= 2
+			spell_action.base_cooldown *= 2
 			active = FALSE
 	QDEL_NULL(component)
 	user.remove_traits(list(TRAIT_MANSUS_TOUCHED, TRAIT_BLOODY_MESS), REF(src))

@@ -10,7 +10,7 @@
 	sound = null
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	invocation = "CL'M M'N!" // "CLAIM MINE", but also almost "KALI MA"
 	invocation_type = INVOCATION_SHOUT
 	spell_requirements = NONE

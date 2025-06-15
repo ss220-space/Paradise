@@ -14,7 +14,6 @@
 	///Damage under this value will be completely ignored
 	var/damage_deflection = 0
 
-	var/resistance_flags = NONE // INDESTRUCTIBLE
 	/// Update_fire_overlay will check if a different icon state should be used
 	var/custom_fire_overlay
 

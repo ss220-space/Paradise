@@ -82,9 +82,9 @@
 
 /datum/ai_controller/basic_controller/star_gazer
 	blackboard = list(
-		//BB_TARGETING_STRATEGY = /datum/targeting_strategy/basic,
+		BB_TARGETING_STRATEGY = /datum/targetting_datum/basic,
 		BB_TARGET_MINIMUM_STAT = UNCONSCIOUS,
-		//BB_PET_TARGETING_STRATEGY = /datum/targeting_strategy/basic/not_friends/attack_everything,
+		BB_PET_TARGETING_STRATEGY = /datum/targetting_datum/basic/not_friends/attack_everything,
 	)
 
 	ai_movement = /datum/ai_movement/basic_avoidance

@@ -10,7 +10,7 @@
 	sound = 'sound/weapons/guillotine.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 60 SECONDS
+	base_cooldown = 60 SECONDS
 	invocation = "F'LSH'NG S'LV'R!"
 	invocation_type = INVOCATION_SHOUT
 
@@ -159,7 +159,7 @@
 
 /datum/action/innate/pointed/projectile/furious_steel/solo
 	name = "Lesser Furious Steel"
-	cooldown_time = 20 SECONDS
+	base_cooldown = 20 SECONDS
 	projectile_amount = 1
 	active_msg = "You summon forth a blade of furious silver."
 	deactive_msg = "You conceal the blade of furious silver."
@@ -175,7 +175,7 @@
 	button_icon_state = "cursed_steel"
 	sound = 'sound/weapons/guillotine.ogg'
 
-	cooldown_time = 40 SECONDS
+	base_cooldown = 40 SECONDS
 	invocation = "IA!"
 	invocation_type = INVOCATION_SHOUT
 

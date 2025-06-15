@@ -10,7 +10,7 @@
 	ranged_mousepointer = 'icons/effects/mouse_pointers/throw_target.dmi'
 	sound = 'sound/effects/magic/voidblink.ogg'
 
-	cooldown_time = 1 MINUTES
+	base_cooldown = 1 MINUTES
 	cast_range = 3
 
 	sound = null

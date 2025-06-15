@@ -51,7 +51,7 @@
 
 /datum/ai_controller/basic_controller/cockroach
 	blackboard = list(
-		BB_TARGETTING_DATUM = new /datum/targetting_datum/basic()
+		BB_TARGETING_STRATEGY = new /datum/targetting_datum/basic()
 	)
 	ai_traits = STOP_MOVING_WHEN_PULLED
 	ai_movement = /datum/ai_movement/basic_avoidance
@@ -119,7 +119,7 @@
 	icon_state = "hauberoach"
 	attack_verb_continuous = "тыкает своим шлемом"
 	attack_verb_simple = "тыкаете своим шлемом"
-	melee_damage = 5
+	melee_damage_lower = 5
 	obj_damage = 8
 	gold_core_spawnable = HOSTILE_SPAWN
 	attack_sound = 'sound/weapons/bladeslice.ogg'

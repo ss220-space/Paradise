@@ -8,7 +8,7 @@
 	check_flags = AB_CHECK_INCAPACITATED|AB_CHECK_CONSCIOUS|AB_CHECK_HANDS_BLOCKED
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 8 SECONDS
+	base_cooldown = 8 SECONDS
 
 	// Both of these are changed in before_cast
 	invocation = "Someone raises a wall of rust."
@@ -53,7 +53,7 @@
 	var/rises_message = "rises out of [cast_on]"
 
 	// If we casted at a wall we'll try to rust it. In the case of an enchanted wall it'll deconstruct it
-	if(isclosedturf(cast_on))
+	if(iswallturf(cast_on))
 		cast_on.visible_message(span_warning("\The [cast_on] quakes as the rust causes it to crumble!"))
 		var/mob/living/living_owner = owner
 		living_owner?.do_rust_heretic_act(cast_on)

@@ -10,7 +10,7 @@
 	// sound = 'sound/effects/magic/whistlereset.ogg' I have no idea why this was commented out
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 6 SECONDS
+	base_cooldown = 6 SECONDS
 	cooldown_reduction_per_rank = -6 SECONDS // we're not a wizard spell but we use the levelling mechanic
 	spell_max_level = 10 // we can get up to / over a minute duration cd time
 
@@ -31,7 +31,7 @@
 	// With every cast, our spell level increases for a short time, which goes back down after a period
 	// and with every spell level, the cooldown duration of the spell goes up
 	if(level_spell())
-		var/reduction_timer = max(cooldown_time * spell_max_level * 0.5, 1.5 MINUTES)
+		var/reduction_timer = max(base_cooldown * spell_max_level * 0.5, 1.5 MINUTES)
 		addtimer(CALLBACK(src, PROC_REF(delevel_spell)), reduction_timer)
 
 /datum/action/innate/realignment/get_spell_title()

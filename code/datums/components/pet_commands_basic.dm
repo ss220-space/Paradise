@@ -133,7 +133,7 @@
 	var/ability_key
 
 /datum/pet_command/untargeted_ability/execute_action(datum/ai_controller/controller)
-	var/datum/action/cooldown/ability = controller.blackboard[ability_key]
+	var/obj/effect/proc_holder/spell/ability = controller.blackboard[ability_key]
 	if(!ability?.IsAvailable())
 		return
 
@@ -172,7 +172,7 @@
 	if (!living_parent.ai_controller)
 		return FALSE
 
-	var/datum/targeting_strategy/targeter = GET_TARGETING_STRATEGY(living_parent.ai_controller.blackboard[targeting_strategy_key])
+	var/datum/targetting_datum/targeter = GET_TARGETING_STRATEGY(living_parent.ai_controller.blackboard[targeting_strategy_key])
 	if (!targeter)
 		return FALSE
 
@@ -256,7 +256,7 @@
 	if (!pet_ability_key)
 		return
 
-	var/datum/action/cooldown/using_action = controller.blackboard[pet_ability_key]
+	var/obj/effect/proc_holder/spell/using_action = controller.blackboard[pet_ability_key]
 	if (QDELETED(using_action))
 		return
 
@@ -321,7 +321,7 @@
 
 		COOLDOWN_START(src, self_harm_message_cooldown, 5 SECONDS)
 		var/chosen_statement = pick(interventions)
-		INVOKE_ASYNC(owner, TYPE_PROC_REF(/atom/movable, say), chosen_statement)
+		INVOKE_ASYNC(owner, TYPE_PROC_REF(/mob, say), chosen_statement)
 		return
 
 	var/mob/living/current_target = owner.ai_controller?.blackboard[BB_CURRENT_PET_TARGET]

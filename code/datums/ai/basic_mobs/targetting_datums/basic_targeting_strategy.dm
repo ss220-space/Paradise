@@ -1,4 +1,4 @@
-/datum/targeting_strategy/basic
+/datum/targetting_datum/basic
 	/// When we do our basic faction check, do we look for exact faction matches?
 	var/check_factions_exactly = FALSE
 	/// Whether we care for seeing the target or not
@@ -8,7 +8,7 @@
 	/// If this blackboard key is TRUE, makes us only target wounded mobs
 	var/target_wounded_key
 
-/datum/targeting_strategy/basic/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+/datum/targetting_datum/basic/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	var/datum/ai_controller/basic_controller/our_controller = living_mob.ai_controller
 
 	if(isnull(our_controller))
@@ -25,6 +25,7 @@
 	if(ismob(the_target)) //Target is in godmode, ignore it.
 		if(living_mob.loc == the_target)
 			return FALSE // We've either been eaten or are shapeshifted, let's assume the latter because we're still alive
+
 		if(HAS_TRAIT(the_target, TRAIT_GODMODE))
 			return FALSE
 
@@ -80,7 +81,7 @@
 	return FALSE
 
 /// Returns true if the mob and target share factions
-/datum/targeting_strategy/basic/proc/faction_check(datum/ai_controller/controller, mob/living/living_mob, mob/living/the_target)
+/datum/targetting_datum/basic/proc/faction_check(datum/ai_controller/controller, mob/living/living_mob, mob/living/the_target)
 	if(controller.blackboard[BB_ALWAYS_IGNORE_FACTION] || controller.blackboard[BB_TEMPORARILY_IGNORE_FACTION])
 		return FALSE
 
@@ -88,17 +89,17 @@
 
 /// Subtype more forgiving for items.
 /// Careful, this can go wrong and keep a mob hyper-focused on an item it can't lose aggro on
-/datum/targeting_strategy/basic/allow_items
+/datum/targetting_datum/basic/allow_items
 
-/datum/targeting_strategy/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+/datum/targetting_datum/basic/allow_items/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	. = ..()
 	if(isitem(the_target))
 		// trust fall exercise
 		return TRUE
 
-/datum/targeting_strategy/basic/require_traits
+/datum/targetting_datum/basic/require_traits
 
-/datum/targeting_strategy/basic/require_traits/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+/datum/targetting_datum/basic/require_traits/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	. = ..()
 	if(!.)
 		return FALSE
@@ -116,13 +117,13 @@
 	return FALSE
 
 /// Subtype which searches for mobs of a size relative to ours
-/datum/targeting_strategy/basic/of_size
+/datum/targetting_datum/basic/of_size
 	/// If true, we will return mobs which are smaller than us. If false, larger.
 	var/find_smaller = TRUE
 	/// If true, we will return mobs which are the same size as us.
 	var/inclusive = TRUE
 
-/datum/targeting_strategy/basic/of_size/can_attack(mob/living/owner, atom/target, vision_range)
+/datum/targetting_datum/basic/of_size/can_attack(mob/living/owner, atom/target, vision_range)
 	if(!isliving(target))
 		return FALSE
 
@@ -140,34 +141,34 @@
 	return !find_smaller
 
 // This is just using the default values but the subtype makes it clearer
-/datum/targeting_strategy/basic/of_size/ours_or_smaller
+/datum/targetting_datum/basic/of_size/ours_or_smaller
 
-/datum/targeting_strategy/basic/of_size/larger
+/datum/targetting_datum/basic/of_size/larger
 	find_smaller = FALSE
 	inclusive = FALSE
 
 
-/datum/targeting_strategy/basic/of_size/smaller
+/datum/targetting_datum/basic/of_size/smaller
 	inclusive = FALSE
 
 /// Makes the mob only attack their own faction. Useful mostly if their attacks do something helpful (e.g. healing touch).
-/datum/targeting_strategy/basic/same_faction
+/datum/targetting_datum/basic/same_faction
 
-/datum/targeting_strategy/basic/same_faction/faction_check(mob/living/living_mob, mob/living/the_target)
+/datum/targetting_datum/basic/same_faction/faction_check(mob/living/living_mob, mob/living/the_target)
 	return !..() // inverts logic to ONLY target mobs that share a faction
 
-/datum/targeting_strategy/basic/allow_turfs
+/datum/targetting_datum/basic/allow_turfs
 
-/datum/targeting_strategy/basic/allow_turfs/can_attack(mob/living/living_mob, atom/the_target, vision_range)
+/datum/targetting_datum/basic/allow_turfs/can_attack(mob/living/living_mob, atom/the_target, vision_range)
 	if(isturf(the_target))
 		return TRUE
 
 	return ..()
 
 /// Subtype which searches for mobs that havent been gutted by megafauna
-/datum/targeting_strategy/basic/no_gutted_mobs
+/datum/targetting_datum/basic/no_gutted_mobs
 
-/datum/targeting_strategy/basic/no_gutted_mobs/can_attack(mob/living/owner, mob/living/target, vision_range)
+/datum/targetting_datum/basic/no_gutted_mobs/can_attack(mob/living/owner, mob/living/target, vision_range)
 	if(!istype(target) || target.has_status_effect(/datum/status_effect/gutted))
 		return FALSE
 

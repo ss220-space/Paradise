@@ -7,7 +7,7 @@
 	button_icon_state = "burglarsfinesse"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 40 SECONDS
+	base_cooldown = 40 SECONDS
 
 	invocation = "Y'O'K!"
 	invocation_type = INVOCATION_WHISPER

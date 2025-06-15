@@ -27,6 +27,6 @@ PROCESSING_SUBSYSTEM_DEF(ai_behaviors)
 
 /datum/controller/subsystem/processing/ai_behaviors/proc/SetupTargetingStrats()
 	targeting_strategies = list()
-	for(var/target_type in subtypesof(/datum/targeting_strategy))
-		var/datum/targeting_strategy/target_start = new target_type
+	for(var/target_type in subtypesof(/datum/targetting_datum))
+		var/datum/targetting_datum/target_start = new target_type
 		targeting_strategies[target_type] = target_start

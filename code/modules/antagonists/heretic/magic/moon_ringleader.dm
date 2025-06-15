@@ -10,7 +10,7 @@
 	sound = 'sound/effects/moon_parade.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 1 MINUTES
+	base_cooldown = 1 MINUTES
 	antimagic_flags = MAGIC_RESISTANCE|MAGIC_RESISTANCE_MIND
 	invocation = "R'S 'E!"
 	invocation_type = INVOCATION_SHOUT

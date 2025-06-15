@@ -17,7 +17,7 @@
 	. = ..()
 	var/static/list/actions_to_add = list(
 		/obj/effect/proc_holder/spell/fire_sworn,
-		/obj/effect/proc_holder/spell/jaunt/ethereal_jaunt/ash,
+		/datum/action/innate/ethereal_jaunt/ash,
 		/obj/effect/proc_holder/spell/pointed/cleave,
 	)
 	grant_actions_by_list(actions_to_add)

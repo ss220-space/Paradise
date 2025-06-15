@@ -6,7 +6,7 @@
 	overlay_icon_state = "bg_heretic_border"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	base_cooldown = 30 SECONDS
 
 	invocation = "E'P."
 	invocation_type = INVOCATION_WHISPER

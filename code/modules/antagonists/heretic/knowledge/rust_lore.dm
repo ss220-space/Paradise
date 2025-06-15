@@ -112,7 +112,7 @@
 	desc = "Grants you Aggressive Spread, a spell that spreads rust to nearby surfaces. \
 		Already rusted surfaces are destroyed \ Also improves the rusting abilities of non rust-heretics."
 	gain_text = "All wise men know well not to visit the Rusted Hills... Yet the Blacksmith's tale was inspiring."
-	action_to_add = /datum/action/innate/aoe/rust_conversion
+	action_to_add = /obj/effect/proc_holder/spell/aoe/rust_conversion
 	cost = 1
 	research_tree_icon_frame = 5
 
@@ -214,8 +214,8 @@
 	RegisterSignal(user, COMSIG_MOVABLE_MOVED, PROC_REF(on_move))
 	RegisterSignal(user, COMSIG_LIVING_LIFE, PROC_REF(on_life))
 	user.client?.give_award(/datum/award/achievement/misc/rust_ascension, user)
-	var/datum/action/innate/aoe/rust_conversion/rust_spread_spell = locate() in user.actions
-	rust_spread_spell?.cooldown_time /= 2
+	var/obj/effect/proc_holder/spell/aoe/rust_spread_spell = locate() in user.actions
+	rust_spread_spell?.base_cooldown /= 2
 
 // I sure hope this doesn't have performance implications
 /datum/heretic_knowledge/ultimate/rust_final/proc/trigger(turf/center)

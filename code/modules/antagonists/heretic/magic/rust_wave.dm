@@ -11,7 +11,7 @@
 	sound = 'sound/effects/magic/forcewall.ogg'
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 30 SECONDS
+	base_cooldown = 30 SECONDS
 
 	invocation = "'NTR'P'C PL'M!"
 	invocation_type = INVOCATION_WHISPER
@@ -67,7 +67,7 @@
 			pixel_x = -128
 
 // Shoots a straight line of rusty stuff ahead of the caster, what rust monsters get
-/datum/action/innate/basic_projectile/rust_wave
+/obj/effect/proc_holder/spell/fireball/rust_wave
 	name = "Patron's Reach"
 	desc = "Channels energy into your hands to release a wave of rust."
 	background_icon_state = "bg_heretic"
@@ -76,7 +76,7 @@
 	button_icon_state = "rust_wave"
 
 	school = SCHOOL_FORBIDDEN
-	cooldown_time = 35 SECONDS
+	base_cooldown = 35 SECONDS
 
 	invocation = "SPR'D TH' W'D."
 	invocation_type = INVOCATION_WHISPER
@@ -113,7 +113,7 @@
 			continue
 		T.rust_heretic_act()
 
-/datum/action/innate/basic_projectile/rust_wave/short
+/obj/effect/proc_holder/spell/fireball/rust_wave/short
 	name = "Lesser Patron's Reach"
 	projectile_type = /obj/projectile/magic/aoe/rust_wave/short
 
