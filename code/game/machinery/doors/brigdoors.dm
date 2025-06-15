@@ -150,7 +150,7 @@
 /obj/machinery/door_timer/proc/notify_prisoner(notifytext)
 	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
 		if(occupant == H.name)
-			to_chat(viewers(src), "[src.name] пищит: [notifytext]")
+			to_chat(H, "[src.name] пищит: [notifytext]")
 			return
 	atom_say("[occupant]: [notifytext]")
 
