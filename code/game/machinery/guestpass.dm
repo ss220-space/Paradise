@@ -65,7 +65,7 @@
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(giver)
-			to_chat(user, span_warning("Внутри уже есть ID-карта."))
+			balloon_alert(user, "внутри уже есть ID-карта.")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -141,7 +141,7 @@
 					if(dur > 0 && dur <= 30)
 						duration = dur
 					else
-						to_chat(usr, span_warning("Недопустимая длительность."))
+						balloon_alert(usr, "Недопустимая длительность.")
 			if("access")
 				var/A = text2num(href_list["access"])
 				if(A in accesses)
@@ -200,7 +200,7 @@
 					pass.reason = reason
 					pass.name = "гостевой пропуск #[number]"
 				else
-					to_chat(usr, span_warning("Невозможно выписать гостевой пропуск без основной ID-карты."))
+					balloon_alert(usr, "Невозможно выписать без основной ID-карты.")
 	updateUsrDialog()
 	return
 

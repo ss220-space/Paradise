@@ -46,16 +46,16 @@
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		to_chat(user, span_warning("Замок вибрирует, когда карта открывает его."))
+		balloon_alert(user, "Замок начинает дымится и открывается.")
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		to_chat(user, span_warning("Намордник открывается с характерным щелчком."))
+		balloon_alert(user, "Намордник открывается с характерным щелчком.")
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 
-	to_chat(user, span_warning("Чтобы снять намордник, необходимо иметь при себе ID-карту сотрудника службы безопасности."))
+	balloon_alert(user, "Чтобы снять намордник, необходимо иметь ID-карту сотрудника службы безопасности.")
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -164,7 +164,7 @@
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
 		add_fingerprint(user)
 		if(trigger)
-			to_chat(user, span_warning("[name] уже имеет [trigger.declent_ru(ACCUSATIVE)]."))
+			balloon_alert(user, "[name] уже имеет [trigger.declent_ru(ACCUSATIVE)].")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -172,12 +172,12 @@
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
-		to_chat(user, span_notice("Вы прикрепили [I] к [src.declent_ru(DATIVE)]."))
+		balloon_alert(user, "Вы прикрепили [I] к [src.declent_ru(DATIVE)].")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(isassembly(I))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[I.name] не влезет в [src]. Возможно, сигнализатор или анализатор голоса сможет?"))
+		balloon_alert(user, "[I.name] не влезет в [src]. Возможно, сигнализатор или анализатор голоса влезет?")
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -189,7 +189,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, span_notice("Вы вытаскиваете [trigger] из [src]."))
+	balloon_alert(user, "Вы вытаскиваете [trigger] из [src].")
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null
@@ -654,12 +654,12 @@
 
 	var/mob/living/carbon/human/H = user
 	if(istype(H) && slot == ITEM_SLOT_MASK)
-		to_chat(H, span_danger("[src] grips your face!"))
+		balloon_alert(H, "[src] впивается в ваше лицо!")
 		if(H.mind && H.mind.assigned_role != "Cluwne")
 			H.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message(span_danger("[user] gazes into the eyes of [src]. [src] gazes back!"))
+	user.visible_message(span_danger("[user] [genderize_ru(user.gender, "смотрит", "смотрит", "смотрит", "смотрят")] [src] в глаза. [src] смотрит в ответ!"))
 	spawn(10)
 		if(user)
 			user.gib()

@@ -420,12 +420,12 @@
 			if(timing)
 				var/add_reason = sanitize(copytext(input(usr, "Причина:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!add_reason)
-					to_chat(usr, span_warning("Укажите причину!"))
+					balloon_alert(usr, "Укажите причину!")
 					return FALSE
 				prisoner_time_add = input(usr, "Сколько минут добавить:", name, prisoner_time_add) as num|null
 				prisoner_time_add = min(max(round(prisoner_time_add), 0), PERMABRIG_TIME)
 				if(!prisoner_time_add)
-					to_chat(usr, span_warning("Необходимо указать число!"))
+					balloon_alert(usr, "Необходимо указать число!")
 					return FALSE
 				prisoner_time_add = prisoner_time_add MINUTES
 				if(timetoset + prisoner_time_add >= PERMABRIG_TIME MINUTES)
@@ -447,7 +447,7 @@
 			if(timing)
 				var/reset_reason = tgui_input_text(usr, "Причина перезапуска:", name)
 				if(!reset_reason)
-					to_chat(usr, span_warning("Укажите причину!"))
+					balloon_alert(usr, "Укажите причину!")
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				Radio.autosay("Таймер заключённого [occupant] был перезапущен решением [usr.name]. Причина: [reset_reason].", name, SEC_FREQ_NAME)
@@ -467,7 +467,7 @@
 		if("flash")
 			for(var/obj/machinery/flasher/flasher in targets)
 				if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
-					to_chat(usr, span_warning("Флешер перезаряжается!"))
+					balloon_alert(usr, "Флешер перезаряжается!")
 				else
 					flasher.flash()
 		else

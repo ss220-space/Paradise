@@ -107,7 +107,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		explode()
 	else
 		hidden_uplink.trigger(user)
-		to_chat(usr, "The PDA softly beeps.")
+		balloon_alert(usr, "КПК тихо пищит.")
 		close(usr)
 
 /*
@@ -226,17 +226,17 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
 		update_icon(UPDATE_OVERLAYS)
-		to_chat(usr, span_notice("Вы нажали на кнопку сброса [src]."))
+		balloon_alert(usr, "вы нажали на кнопку сброса [src].")
 		SStgui.update_uis(src)
 	else
-		to_chat(usr, span_notice("Вы не можете это сделать сейчас."))
+		balloon_alert(usr, "вы не можете это сделать сейчас.")
 
 /obj/item/pda/click_alt(mob/living/user)
 	if(can_use(user))
 		if(id)
 			remove_id(user)
 		else
-			to_chat(user, span_warning("К этом КПК нет ID-карты."))
+			balloon_alert(user, "в этом КПК нет ID-карты.")
 	return CLICK_ACTION_SUCCESS
 
 
@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(id)
-		to_chat(user, span_notice("Вы достали ID-карту из [name]."))
+		balloon_alert(user, "вы достали ID-карту.")
 		SStgui.update_uis(src)
 	id = null
 	cartridge?.on_id_updated()
@@ -276,9 +276,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(id)
 			remove_id(usr)
 		else
-			to_chat(usr, span_notice("В этом КПК нет ID-карты."))
+			balloon_alert(usr, "в этом КПК нет ID-карты.")
 	else
-		to_chat(usr, span_notice("Вы не можете сделать это сейчас."))
+		balloon_alert(usr, "вы не можете сделать это сейчас.")
 
 /obj/item/pda/verb/verb_remove_pen()
 	set category = "Object"
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if( can_use(user) )
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, span_notice("Вы вытащили [O] из [src]."))
+			balloon_alert(user, "вы вытащили [O] из [src].")
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
@@ -302,9 +302,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 					return
 			O.forceMove(get_turf(src))
 		else
-			to_chat(user, span_warning("В этом КПК нет ручки."))
+			balloon_alert(user, "в этом КПК нет ручки.")
 	else
-		to_chat(user, span_notice("Вы не можете это сделать сейчас."))
+		balloon_alert(user, "вы не можете это сделать сейчас.")
 
 
 /obj/item/pda/proc/id_check(mob/user, in_pda_usage)
@@ -420,20 +420,20 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 			return ATTACK_CHAIN_PROCEED
 		remove_pda_case()
 		apply_pda_case(I)
-		to_chat(user, span_notice("Вы поместили [I] на КПК."))
+		balloon_alert(user, "вы поместили [I] на КПК.")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(istype(I, /obj/item/cartridge/request_console))
 		add_fingerprint(user)
 		if(request_cartridge)
-			to_chat(user, span_warning("В КПК уже есть картридж запросов."))
+			balloon_alert(user, "в КПК уже есть картридж запросов.")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		request_cartridge = I
 		request_cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, span_notice("Вы вставили [I] в КПК."))
+		balloon_alert(user, "вы вставили [I] в КПК.")
 		SStgui.update_uis(src)
 		if(request_cartridge.radio)
 			request_cartridge.radio.hostpda = src
@@ -443,14 +443,14 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		add_fingerprint(user)
 
 		if(cartridge)
-			to_chat(user, span_warning("В КПК уже есть картридж."))
+			balloon_alert(user, "в КПК уже есть картридж.")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		cartridge = I
 		cartridge.update_programs(src)
 		update_shortcuts()
-		to_chat(user, span_notice("Вы вставили [I] в КПК."))
+		balloon_alert(user, "вы вставили [I] в КПК.")
 		SStgui.update_uis(src)
 		if(cartridge.radio)
 			cartridge.radio.hostpda = src
@@ -460,14 +460,14 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		add_fingerprint(user)
 		var/obj/item/card/id/id_card = I
 		if(!id_card.registered_name)
-			to_chat(user, span_warning("КПК отклоняет пустые ID-карты."))
+			balloon_alert(user, "КПК отклоняет пустые ID-карты.")
 			return ATTACK_CHAIN_PROCEED
 		if(!owner)
 			update_owner_name(id_card.registered_name)
 			ownjob = id_card.assignment
 			ownrank = id_card.rank
 			update_appearance(UPDATE_NAME)
-			to_chat(user, span_notice("ID-карта отсканирована."))
+			balloon_alert(user, "ID-карта отсканирована.")
 			SStgui.update_uis(src)
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		if(!can_use(user))
@@ -481,12 +481,12 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(istype(I, /obj/item/paicard))
 		add_fingerprint(user)
 		if(pai)
-			to_chat(user, span_warning("КПК уже содержит карту пИИ."))
+			balloon_alert(user, "КПК уже содержит карту пИИ.")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		pai = I
-		to_chat(user, span_notice("Вы вставили карту пИИ в КПК."))
+		balloon_alert(user, "вы вставили карту пИИ в КПК.")
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -561,7 +561,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(in_range(src, usr) && loc == usr)
 		if(new_tone)
 			if(hidden_uplink && hidden_uplink.check_trigger(usr, trim(lowertext(new_tone)), lowertext(lock_code)))
-				to_chat(usr, "КПК тихо пищит.")
+				balloon_alert(usr, "КПК тихо пищит.")
 				close(usr)
 			else
 				ttone = new_tone

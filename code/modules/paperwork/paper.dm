@@ -127,7 +127,7 @@
 		to_chat(user, span_warning("Вы порезались бумагой."))
 		return
 	if(!user.is_literate())
-		to_chat(user, span_notice("Вы не умеете читать."))
+		balloon_alert(user, "вы не умеете читать.")
 		return
 	var/n_name = rename_interactive(user)
 	if(isnull(n_name))
@@ -203,7 +203,7 @@
 		return
 	doggo.changeNext_move(CLICK_CD_MELEE)
 	if(world.time < doggo.last_eaten + 30 SECONDS)
-		to_chat(doggo, span_warning("Вы слишком сыты, чтобы съесть [src] сейчас."))
+		balloon_alert(doggo, "вы сыты.")
 		return
 
 	doggo.visible_message(
@@ -216,7 +216,7 @@
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
-		to_chat(doggo, span_warning("Вы слишком сыты, чтобы съесть [src] сейчас."))
+		balloon_alert(doggo, "вы сыты.")
 		return
 	doggo.last_eaten = world.time
 
@@ -477,7 +477,7 @@
 	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		if(!user.is_literate())
-			to_chat(user, span_warning("Вы не умеете писать!"))
+			balloon_alert(user, "вы не умеете писать!")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/pen/multi/robopen/robopen = I
 		if(istype(I, /obj/item/pen/multi/robopen) && robopen.mode == 2)
@@ -491,10 +491,10 @@
 			return ATTACK_CHAIN_PROCEED
 		add_fingerprint(user)
 		if(istype(I, /obj/item/stamp/clown) && (user.mind && (user.mind.assigned_role != JOB_TITLE_CLOWN)))
-			to_chat(user, span_userdanger("Вы не можете использовать эту печать. ХОНК!"))
+			to_chat(user, span_userdanger("вы не можете использовать эту печать. ХОНК!"))
 			return ATTACK_CHAIN_PROCEED
 		stamp(I)
-		to_chat(user, span_notice("Вы поставили печать [I] на лист бумаги."))
+		balloon_alert(user, "вы поставили печать на лист бумаги.")
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
@@ -506,7 +506,7 @@
 	if(istype(I, /obj/item/paper/carbon))
 		var/obj/item/paper/carbon/carbon_paper = I
 		if(!carbon_paper.iscopy && !carbon_paper.copied)
-			to_chat(user, span_notice("Сначала уберите копию."))
+			balloon_alert(user, "сначала уберите копию.")
 			return .
 
 	if(loc == user && !user.can_unEquip(src))
@@ -526,7 +526,7 @@
 	else if(I.name != "paper" && I.name != "photo")
 		bundle.name = I.name
 
-	to_chat(user, span_notice("You clip the [I.name] to [(name == "paper") ? "the paper" : name]."))
+	to_chat(user, span_notice("Вы вложили[I.name] в [(name == "paper") ? "the paper" : name]."))
 
 	if(loc == user)
 		user.transfer_item_to_loc(src, bundle, silent = TRUE)

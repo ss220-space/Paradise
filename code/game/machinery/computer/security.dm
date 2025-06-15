@@ -76,7 +76,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		to_chat(user, span_danger("Не удалось установить соединение") + ": Вы слишком далеко от станции!")
+		balloon_alert(user, "Не удалось установить соединение: вы слишком далеко от станции!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)

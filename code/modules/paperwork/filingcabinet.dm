@@ -57,7 +57,7 @@
 	if(is_type_in_typecache(I, allowed_to_store))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы положили [I] в [src]."))
+		balloon_alert(user, "вы положили [I] в [src].")
 		opened = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		sleep(0.5 SECONDS)
@@ -66,7 +66,7 @@
 		updateUsrDialog()
 		return ATTACK_CHAIN_BLOCKED_ALL
 
-	to_chat(user, span_warning("Вы не можете положить [I] в [src]!"))
+	balloon_alert(user, "вы не можете положить [I] в [src]!")
 	return ATTACK_CHAIN_PROCEED
 
 
@@ -83,7 +83,7 @@
 
 /obj/structure/filingcabinet/attack_hand(mob/user)
 	if(!length(contents))
-		to_chat(user, span_notice("[src] пуст."))
+		balloon_alert(user, "пусто")
 		return
 
 	add_fingerprint(user)
@@ -111,9 +111,9 @@
 			I.loc = loc
 			if(prob(25))
 				step_rand(I)
-			to_chat(user, span_notice("Вы наугад вытаскиваете [I] из [src]"))
+			balloon_alert(user, "вы наугад вытащили [I]")
 			return
-	to_chat(user, span_notice("Вы ничего не нашли в [src]"))
+	balloon_alert(user, "вы ничего не нашли")
 
 /obj/structure/filingcabinet/Topic(href, href_list)
 	if(href_list["retrieve"])
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment/attack_hand(mob/user)
 	if(cooldown)
-		to_chat(user, span_warning("[src] заклинило. Подождите немного."))
+		balloon_alert(user, "заклинило, подождите.")
 	else
 		if(!populated)
 			add_fingerprint(user)

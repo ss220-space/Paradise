@@ -1272,18 +1272,18 @@
 	if(usr != src)
 		return 0 //something is terribly wrong
 	if(incapacitated())
-		to_chat(src, span_warning("Сейчас вы не можете писать на полу!"))
+		balloon_alert(src, "сейчас вы не можете писать на полу!")
 		return
 	if(!bloody_hands)
 		remove_verb(src, /mob/living/carbon/human/proc/bloody_doodle)
 
 	if(gloves)
-		to_chat(src, span_warning("[gloves] мешают вам писать!"))
+		balloon_alert(src, "[gloves] мешают вам писать!")
 		return
 
 	var/turf/simulated/T = loc
 	if(!istype(T)) //to prevent doodling out of mechs and lockers
-		to_chat(src, span_warning("Вы не можете дотянутся до пола."))
+		balloon_alert(src, "вы не можете дотянутся до пола.")
 		return
 
 	var/turf/origin = T
@@ -1291,21 +1291,21 @@
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
-		to_chat(src, span_warning("Тут нельзя рисовать."))
+		balloon_alert(src, "тут нельзя рисовать.")
 		return
 
 	var/num_doodles = 0
 	for(var/obj/effect/decal/cleanable/blood/writing/W in T)
 		num_doodles++
 	if(num_doodles > 4)
-		to_chat(src, span_warning("Нет места для рисунков!"))
+		balloon_alert(src, "нет места для рисунков!")
 		return
 
 	var/max_length = bloody_hands * 30 //tweeter style
 
 	var/message = tgui_input_text(src, "Напишите сообщение. Оно не может быть длиннее, чем [max_length] символов.", "Писать кровью", max_length = max_length)
 	if(origin != loc)
-		to_chat(src, span_notice("Стойте на месте пока пишете!"))
+		balloon_alert(src, "стойте на месте пока пишете!")
 		return
 	if(message)
 		var/used_blood_amount = round(length(message) / 30, 1)
@@ -1313,7 +1313,7 @@
 
 		if(length(message) > max_length)
 			message += "-"
-			to_chat(src, "<span class='warning'Чтобы продолжить писать нужно больше крови!</span>")
+			balloon_alert(src, "чтобы продолжить писать нужно больше крови!")
 		else
 			to_chat(src, span_notice("Вы пишете '[message]' на [T] блестящими красными буквами."))
 		var/obj/effect/decal/cleanable/blood/writing/W = new(T)
@@ -1468,25 +1468,25 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 
 /mob/living/carbon/human/proc/do_cpr(mob/living/carbon/human/H)
 	if(H == src)
-		to_chat(src, span_warning("Вы не можете провести СЛР самому себе!"))
+		balloon_alert(src, "нельзя самому себе!")
 		return
 	if(H.stat == DEAD || HAS_TRAIT(H, TRAIT_FAKEDEATH))
-		to_chat(src, span_warning("Цель мертва!"))
+		balloon_alert(src, "цель мертва!")
 		return
 	if(!check_has_mouth())
-		to_chat(src, span_danger("Вы не можете провести СЛР: у вас нет рта!"))
+		balloon_alert(src, "у вас нет рта!")
 		return
 	if(!H.check_has_mouth())
-		to_chat(src, span_danger("Вы не можете провести СЛР: у цели нет рта!"))
+		balloon_alert(src, "у цели нет рта!")
 		return
 	if((head && (head.flags_cover & HEADCOVERSMOUTH)) || (wear_mask && (wear_mask.flags_cover & MASKCOVERSMOUTH) && !wear_mask.up))
-		to_chat(src, span_warning("Снимите вашу маску!"))
+		balloon_alert(src, "снимите свою маску!")
 		return
 	if((H.head && (H.head.flags_cover & HEADCOVERSMOUTH)) || (H.wear_mask && (H.wear_mask.flags_cover & MASKCOVERSMOUTH) && !H.wear_mask.up))
-		to_chat(src, span_warning("Для начала снимите маску с цели!"))
+		balloon_alert(src, "снимите маску с цели!")
 		return
 	if(H.receiving_cpr) // To prevent spam stacking
-		to_chat(src, span_warning("Уже проводится СЛР!"))
+		balloon_alert(src, "уже проводится СЛР!")
 		return
 	visible_message(span_danger("[src] [genderize_ru(H.gender, "пытается", "пытается", "пытается", "пытаются")] провести СЛР [H.name]!"), span_danger("Вы пытаетесь провести СЛР [H.name]!"))
 	H.receiving_cpr = TRUE
@@ -1502,7 +1502,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 			return TRUE
 	else
 		H.receiving_cpr = FALSE
-		to_chat(src, span_danger("Во время проведения СЛР необходимо оставаться на месте!"))
+		balloon_alert(src, "стойте на месте!")
 
 
 /mob/living/carbon/human/has_mutated_organs()
@@ -1897,7 +1897,7 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 		if(!active_hand_available && !inactive_hand_available)
 			return
 		if(!active_hand_available && !swap_hand())
-			to_chat(user, span_warning("освободи одну из рук!"))
+			balloon_alert(user, "освободите одну из рук!")
 			return FALSE
 		fireman_carry(M)
 		return TRUE

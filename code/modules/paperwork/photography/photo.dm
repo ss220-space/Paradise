@@ -28,7 +28,7 @@
 	if(is_pen(I) || istype(I, /obj/item/toy/crayon))
 		add_fingerprint(user)
 		if(!user.is_literate())
-			to_chat(user, span_warning("Вы не умеете писать!"))
+			balloon_alert(user, "вы не умеете писать!")
 			return ATTACK_CHAIN_PROCEED
 		var/txt = tgui_input_text(user, "Что вы хотите написать на обратной стороне фото?", "Писать на фотографии")
 		if(!txt || !Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))

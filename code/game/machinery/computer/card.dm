@@ -412,7 +412,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 				if(istype(I, /obj/item/card/id))
 					if(!check_access(I))
 						playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-						to_chat(usr, span_warning("This card does not have access."))
+						to_chat(usr, span_warning("У этой ID-карты нет доступа."))
 						return FALSE
 					usr.drop_transfer_item_to_loc(I, src)
 					scan = I
@@ -446,7 +446,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	// Everything below HERE requires auth
 	if(!is_authenticated(usr))
 		playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-		to_chat(usr, span_warning("This function is not available unless you are logged in."))
+		to_chat(usr, span_warning("Эта функция недоступна, пока вы не войдёте в систему."))
 		return FALSE
 
 	// 2nd, handle the functions that are available to head-level consoles (department consoles)
@@ -651,7 +651,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 								SSjobs.notify_by_name(tempname, "[scan.registered_name] ([scan.assignment]) has ordered your demotion. Report to their office, or the HOP. Reason given: \"[reason]\"")
 							else
 								playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-								to_chat(usr, span_warning("[src]: Невозможно понизить из-за текущего статуса безопасности."))
+								to_chat(usr, span_warning("[src]: Невозможно понизить из-за текущего статуса от службы безопасности."))
 								return FALSE
 							return
 			return

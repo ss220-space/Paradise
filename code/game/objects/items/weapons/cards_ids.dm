@@ -286,7 +286,7 @@
 		var/obj/item/id_decal/decal = I
 		if(!user.drop_transfer_item_to_loc(decal, src))
 			return ..()
-		to_chat(user, span_notice("Вы наклеили [decal] на [src]."))
+		balloon_alert(user, "Вы наклеили [decal] на [src].")
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
@@ -298,27 +298,27 @@
 	if(istype(I, /obj/item/stamp))
 		add_fingerprint(user)
 		if(stamped)
-			to_chat(user, span_warning("На этой ID-карте уже стоит печать."))
+			balloon_alert(user, "Тут уже стоит печать.")
 			return ATTACK_CHAIN_PROCEED
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
-		to_chat(user, span_notice("Вы поставили печать на ID-карту!"))
+		balloon_alert(user, "Вы поставили печать!")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))
 		add_fingerprint(user)
 		if(istype(src, /obj/item/card/id/guest))
-			to_chat(user, span_warning("Применение одной гостевой карты к другой ничего не дает."))
+			balloon_alert(user, "Применение одной гостевой карты к другой ничего не дает.")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
-			to_chat(user, span_warning("К этой ID-карте уже прикреплён какой-то гостевой пропуск."))
+			balloon_alert(user, "К этой ID-карте уже прикреплён какой-то гостевой пропуск.")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/card/id/guest/guest_id = I
 		if(world.time > guest_id.expiration_time)
-			to_chat(user, span_warning("Срок действия гостевой карты истек."))
+			balloon_alert(user, "Срок действия гостевой карты истек.")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_id.registered_name != registered_name && guest_id.registered_name != "NOT SPECIFIED")
-			to_chat(user, span_warning("Гостевой пропуск не может быть прикреплён к этой ID-карте."))
+			balloon_alert(user, "Гостевой пропуск не может быть прикреплён к этой ID-карте.")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
 			return ..()
@@ -337,11 +337,11 @@
 		return
 
 	if(guest_pass)
-		to_chat(usr, span_notice("Вы удалили гостевую карту, связанную с этой ID-картой."))
+		balloon_alert(usr, "Вы удалили гостевую карту, связанную с этой ID-картой.")
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		to_chat(usr, span_warning(">К этой ID-карте уже прикреплён какой-то гостевой пропуск."))
+		balloon_alert(usr, "К этой ID-карте уже прикреплён какой-то гостевой пропуск.")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -546,7 +546,7 @@
 		var/obj/item/card/id/I = O.GetID()
 		if(isliving(user) && user.mind)
 			if(user.mind.special_role || anyone)
-				to_chat(usr, span_notice("Микросканеры карты активируются, когда вы проводите её над [I], копируя доступ."))
+				balloon_alert(usr, "Микросканеры карты активируются, когда вы проводите её над [I], копируя доступ.")
 				src.access |= I.access //Don't copy access if user isn't an antag -- to prevent metagaming
 
 /obj/item/card/id/syndicate/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -1218,7 +1218,7 @@
 		UpdateName()
 		desc = "Карта, используемая для сбора очков добычи и покупки снаряжения."
 		registered = TRUE
-		to_chat(user, span_notice("Карта теперь привязана к вам."))
+		balloon_alert(user, "Карта теперь привязана к вам.")
 	else
 		..()
 

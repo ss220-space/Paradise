@@ -68,7 +68,7 @@
 		if(!istype(paper))	// photo
 			return ATTACK_CHAIN_PROCEED
 		if(!user.is_literate())
-			to_chat(user, span_warning("Вы не умеете писать!"))
+			balloon_alert(user, "вы не умеете писать!")
 			return ATTACK_CHAIN_PROCEED
 		close_window(user, "PaperBundle[UID()]") //Closes the dialog
 		paper.show_content(user, infolinks = TRUE)
@@ -79,7 +79,7 @@
 		if(istype(I, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/carbon_paper = I
 			if(!carbon_paper.iscopy && !carbon_paper.copied)
-				to_chat(user, span_notice("Сначала уберите копию."))
+				balloon_alert(user, "сначала уберите копию.")
 				return .
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
