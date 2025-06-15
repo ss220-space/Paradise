@@ -9,7 +9,7 @@
 	faction = list("syndicate")
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
-	modtype = "Syndicate"
+	modtype = /obj/item/robot_module/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	damage_protection = 5
@@ -50,6 +50,11 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
+/mob/living/silicon/robot/syndicate/Login()
+	. = ..()
+	if(length(module?.borg_skins) > 1)
+		addtimer(CALLBACK(src, PROC_REF(choose_icon), 0.5 SECONDS))
+
 /mob/living/silicon/robot/syndicate/reset_module()
 	..()
 	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
@@ -58,7 +63,7 @@
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
 	has_transform_animation = TRUE
-	modtype = "Syndicate Medical"
+	modtype = /obj/item/robot_module/syndicate_medical
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
 	burn_mod = 0.8
@@ -80,7 +85,7 @@
 	base_icon = "syndi-engi"
 	icon_state = "syndi-engi"
 	has_transform_animation = TRUE
-	modtype = "Syndicate Saboteur"
+	modtype = /obj/item/robot_module/syndicate_saboteur
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
 	burn_mod = 0.8
@@ -101,6 +106,7 @@
 	..()
 	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
+
 
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
 	SR.action(src)
@@ -179,7 +185,7 @@
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-		
+
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()

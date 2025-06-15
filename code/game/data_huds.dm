@@ -548,7 +548,7 @@
 		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
-		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
+		commenter_display = "[U.name] ([U.modtype?.name] [U.braintype])"
 	else if(isAI(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"
