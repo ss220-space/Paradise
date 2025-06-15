@@ -1498,7 +1498,7 @@
 	new /obj/item/clothing/accessory/holster(src)
 
 /obj/item/storage/box/specter_kit
-	name = "набор Спектр"
+	name = "Набор Спектр"
 	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 обоймы парализующих патронов."
 	ru_names = list(
 		NOMINATIVE = "набор Спектр",
