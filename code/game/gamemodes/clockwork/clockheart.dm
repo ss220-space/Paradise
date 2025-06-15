@@ -114,15 +114,38 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 
 /obj/structure/clockwork/functional/heart/Destroy(force)
 	for(var/turf/tile in orange(1, src))
-		new /obj/effect/decal/cleanable/blood/gibs/clock(tile)
+		new /obj/effect/gibspawner/clock(tile)
 	playsound(src, 'sound/effects/forge_destroy.ogg', 50, TRUE)
 	QDEL_LIST(fillers)
 	. = ..()
 
 /obj/structure/clockwork/functional/heart/MouseDrop_T(atom/movable/dropping, mob/user, params)
+	if(!isclocker(user))
+		return
 	if(istype(dropping, /obj/structure/part1))
-		curse_dial = FALSE
+		if(curse_dial)
+			if(do_after(user, 5 SECONDS, src))
+				curse_dial = FALSE
+				qdel(dropping)
+				update_icon(UPDATE_OVERLAYS)
+
+/obj/structure/clockwork/functional/heart/attackby(obj/item/I, mob/user, params)
+	if(istype(I, /obj/item/part2))
+		if(curse_upper)
+			if(do_after(user, 5 SECONDS, src))
+				curse_upper = FALSE
+				qdel(I)
+				update_icon(UPDATE_OVERLAYS)
+				return
+	if(istype(I, /obj/item/part3))
+		if(curse_lower)
+			if(do_after(user, 5 SECONDS, src))
+				curse_lower = FALSE
+				qdel(I)
+				update_icon(UPDATE_OVERLAYS)
+				return
 	. = ..()
+
 
 /obj/structure/heart_filler
 	name = "The heart of Ratvar"
@@ -251,6 +274,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 			new /obj/effect/decal/cleanable/ash(loc)
+
 	return
 
 /obj/item/part3
