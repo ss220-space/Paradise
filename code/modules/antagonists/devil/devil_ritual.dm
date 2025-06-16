@@ -43,7 +43,7 @@
 	imp.sentience_act()
 
 	imp.mind.store_memory("Я подчиняюсь призывателю [imp.master_commander.name], также известному как [devil.info.truename].")
-	imp.mind.add_antag_datum(/datum/antagonist/devil_pawn)
+	imp.mind.add_antag_datum(/datum/antagonist/imp)
 
 /datum/ritual/devil/sacrifice
 	name = "Ритуал жертвоприношения"
@@ -294,8 +294,8 @@
 
 /datum/ritual/devil/change
 	name = "Ритуал замены"
-	description = "Позволяет заменить одну из целей на жертвоприношение."
-	var/static/sound/honk_sound = sound('sound/items/AirHorn.ogg')
+	description = "Позволяет заменить одну из целей на жертвоприношение ценой души."
+
 
 /datum/ritual/devil/change/check_contents(mob/living/carbon/invoker, list/used_things)
 	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
@@ -346,3 +346,61 @@
 
 	return RITUAL_SUCCESSFUL
 
+
+/datum/ritual/devil/slave
+	name = "Ритуал порабощения"
+	description = "Воскрешает труп и подчиняет его вашей воле."
+	required_things = list(
+		/mob/living/carbon/human = 1,
+		/obj/item/organ/internal/heart = 1,
+		/obj/item/organ/internal/brain = 1,
+	)
+
+/datum/ritual/devil/slave/get_ui_things()
+	var/list/things = ..()
+	things["душа"] = 1
+	return things
+
+/datum/ritual/devil/slave/check_contents(mob/living/carbon/invoker, list/used_things)
+	. = ..()
+
+	if(!.)
+		return FALSE
+
+	var/mob/living/carbon/human/human = locate() in used_things
+
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	if(human.stat != DEAD)
+		ritual_object.balloon_alert(invoker, "цель не мертва!")
+		return FALSE
+
+	if(!human.mind || !(human.mind.hasSoul || LAZYIN(devil.soulsOwned, human.mind)))
+		ritual_object.balloon_alert(invoker, "цель без души!")
+		return FALSE
+
+	if(!LAZYLEN(devil.soulsOwned))
+		ritual_object.balloon_alert(invoker, "у вас нет душ!")
+		return FALSE
+
+	return TRUE
+
+
+/datum/ritual/devil/slave/do_ritual(mob/living/carbon/invoker, list/invokers, list/used_things)
+	var/datum/antagonist/devil/devil = invoker.mind?.has_antag_datum(/datum/antagonist/devil)
+
+	if(!devil)
+		ritual_object.balloon_alert(invoker, "вы не дьявол!")
+		return RITUAL_FAILED_ON_PROCEED
+
+	var/mob/living/carbon/human/human = locate(/mob/living/carbon/human) in used_things
+
+	human.mind.hasSoul = FALSE
+	human.mind.soulOwner = src
+	human.mind.damnation_type = 666
+	human.revive()
+	var/datum/antagonist/mindslave/devil_pawn/pawn = new(invoker.mind)
+
+	devil.remove_soul(safepick(devil.soulsOwned), FALSE)
+
+	return RITUAL_SUCCESSFUL
