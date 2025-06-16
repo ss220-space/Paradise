@@ -9,7 +9,7 @@
 		INSTRUMENTAL = "мылом",
 		PREPOSITIONAL = "мыле"
 	)
-	gender = PLURAL
+	gender = NEUTER
 	icon = 'icons/obj/janitor.dmi'
 	icon_state = "soap"
 	belt_icon = "soap"
@@ -32,24 +32,24 @@
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
-		user.balloon_alert(user, "сначала уберите [target.declent_ru(ACCUSATIVE)]!")
+		user.balloon_alert(user, "сначала снимите с себя [target.declent_ru(ACCUSATIVE)]!")
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
-		user.visible_message(span_warning("[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(GENITIVE)]"))
+		user.balloon_alert(user, "чистка...")
 		if(do_after(user, cleanspeed, target) && target)
-			to_chat(user, span_notice("Вы оттёрли [target.declent_ru(GENITIVE)]."))
+			user.balloon_alert(user, "очищено")
 			if(issimulatedturf(target.loc))
 				clean_turf(target.loc)
 				return
 			qdel(target)
 	else if(issimulatedturf(target))
-		user.visible_message(span_warning("[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(GENITIVE)]."))
+		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)]."))
 		if(do_after(user, cleanspeed, target))
-			to_chat(user, span_notice("Вы оттёрли [target.declent_ru(ACCUSATIVE)]."))
+			user.balloon_alert(user, "очищено")
 			clean_turf(target)
 	else
-		user.visible_message(span_warning("[user] начинает оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(GENITIVE)]."))
+		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)]."))
 		if(do_after(user, cleanspeed, target))
-			to_chat(user, span_notice("Вы оттёрли [target.declent_ru(ACCUSATIVE)]."))
+			user.balloon_alert(user, "очищено")
 			var/obj/effect/decal/cleanable/C = locate() in target
 			qdel(C)
 			target.clean_blood()
@@ -64,8 +64,8 @@
 /obj/item/soap/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(ishuman(target) && ishuman(user) && !target.stat && !user.stat && user.zone_selected == BODY_ZONE_PRECISE_MOUTH)
 		user.visible_message(
-			span_warning("[user] моет рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
-			span_notice("Вы отмыли рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
+			span_warning("[user] мо[pluralize_ru(user.gender, "ет", "ют")] рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
+			span_notice("Вы моете рот [target.declent_ru(GENITIVE)] с [declent_ru(INSTRUMENTAL)]!"),
 		)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
@@ -222,9 +222,9 @@
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
-		user.balloon_alert(user, "сначала уберите [target.declent_ru(ACCUSATIVE)]!")
+		user.balloon_alert(user, "сначала снимите с себя [target.declent_ru(ACCUSATIVE)]!")
 	else
-		user.visible_message(span_warning("[user] начинает размазывать [src.declent_ru(ACCUSATIVE)] по [target.declent_ru(DATIVE)]."))
+		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] размазывать [src.declent_ru(ACCUSATIVE)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
 			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)]."))
 			if(issimulatedturf(target))

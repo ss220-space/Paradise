@@ -285,14 +285,13 @@
 		var/obj/item/match/match = item
 		if(match.lit)
 			if(!stop_messages)
-				to_chat(usr, span_notice("Класть зажённ[genderize_ru(item.gender, "ый", "ую", "ый", "ые")] [item.declent_ru(NOMINATIVE)] в [src.declent_ru(ACCUSATIVE)] не лучшая идея."))
+				usr.balloon_alert(usr, "сначала потушите!")
 			return FALSE
 	if(istype(item, /obj/item/lighter))
 		var/obj/item/lighter/lighter = item
 		if(lighter.lit)
 			if(!stop_messages)
-				to_chat(usr, span_notice("Putting [item] in [src] while lit probably isn't a good idea."))
-				("Класть [item.declent_ru(NOMINATIVE)] в [src.declent_ru(ACCUSATIVE)], пока [genderize_ru(item.gender, "он", "она", "оно", "они")] горит - не лучшая идея.")
+				usr.balloon_alert(usr, "сначала выключите!")
 			return FALSE
 	return ..()
 
@@ -306,7 +305,7 @@
 
 /obj/item/storage/fancy/cigarettes/dromedaryco
 	name = "\improper DromedaryCo packet"
-	desc = "Упаковка 20 сижек Марсианский Табак. Надпись на упаковке гласит: \"Разве медленная смерть сможет хоть что-то поменяет?\""
+	desc = "Упаковка 20 сигарет \"Марсианский Табак\". Надпись на упаковке гласит: \"Быстрее или медленнее – всё равно смерть вас настигнет.\""
 	ru_names = list(
 		NOMINATIVE = "пачка \"Марсианский Табак\"",
 		GENITIVE = "пачки \"Марсианский Табак\"",
@@ -321,7 +320,7 @@
 
 /obj/item/storage/fancy/cigarettes/syndicate
 	name = "\improper Syndicate Cigarettes"
-	desc = "Упаковка двадцати зловещих сигарет. Надпись на упаковке гласит: \"Вкусно и Пончик\""
+	desc = "Упаковка двадцати зловещих сигарет. Надпись на упаковке гласит: \"Вкусно и Пончик\"."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет Синдиката",
 		GENITIVE = "пачки сигарет Синдиката",
@@ -332,11 +331,6 @@
 	)
 	icon_state = "robustpacket"
 	item_state = "robustpacket"
-
-/obj/item/storage/fancy/cigarettes/syndicate/New()
-	..()
-	var/new_name = pick("злобная", "подозрительная", "грозная", "со вкусом Донка", "робастная", "скрытная")
-	name = "[new_name] пачка сигарет синдиката"
 
 /obj/item/storage/fancy/cigarettes/cigpack_syndicate
 	name = "cigarette packet"
@@ -349,12 +343,12 @@
 	name = "Medical Marijuana Packet"
 	desc = "Упаковка 20 медицинских сигарет, выпускаемых по рецепту. Содержат марихуану."
 	ru_names = list(
-		NOMINATIVE = "пачка сигарет \"Доктор Зюзя\"",
-		GENITIVE = "пачки сигарет \"Доктор Зюзя\"",
-		DATIVE = "пачке сигарет \"Доктор Зюзя\"",
-		ACCUSATIVE = "пачку сигарет \"Доктор Зюзя\"",
-		INSTRUMENTAL = "пачкой сигарет \"Доктор Зюзя\"",
-		PREPOSITIONAL = "пачке сигарет \"Доктор Зюзя\""
+		NOMINATIVE = "пачка сигарет с марихуаной",
+		GENITIVE = "пачки сигарет с марихуаной",
+		DATIVE = "пачке сигарет с марихуаной",
+		ACCUSATIVE = "пачку сигарет с марихуаной",
+		INSTRUMENTAL = "пачкой сигарет с марихуаной",
+		PREPOSITIONAL = "пачке сигарет с марихуаной"
 	)
 	icon_state = "medpacket"
 	item_state = "medpacket"
@@ -363,7 +357,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_uplift
 	name = "\improper Uplift Smooth packet"
-	desc = "Ваши любимые сигареты, теперь со вкусом ментола."
+	desc = "Упаковка 20 сигарет \"Лёгкие на подъём\" со вкусом ментола."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Лёгкие на подъём\"",
 		GENITIVE = "пачки сигарет \"Лёгкие на подъём\"",
@@ -378,7 +372,8 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
 	name = "\improper Richard & Co cigarettes"
-	desc = "Курево для самых отчаяных."
+	desc = "Упаковка 20 сигарет \"Ричард и Компания\". Курево для самых отчаяных.""
+
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
 		GENITIVE = "пачки сигарет \"Ричард и Компания\"",
@@ -391,7 +386,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_robust
 	name = "\improper Robust packet"
-	desc = "Сигареты, популярные у безработных ассистентов."
+	desc = "Упаковка 20 сигарет \"Робаст\", популярных у безработных ассистентов."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Робаст\"",
 		GENITIVE = "пачки сигарет \"Робаст\"",
@@ -405,7 +400,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_robustgold
 	name = "\improper Robust Gold packet"
-	desc = "Курево для настоящих робастов."
+	desc = "Упаковка 20 сигарет \"Золотой Робаст\". Курево для настоящих мужиков."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Золотой Робаст\"",
 		GENITIVE = "пачки сигарет \"Золотой Робаст\"",
@@ -420,21 +415,21 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_carp
 	name = "\improper Carp Classic packet"
-	desc = "Дарим клиентам рак лёгких с 2313 года."
+	desc = "Упаковка 20 сигарет \"Золотой Робаст\". Надпись на упаковке гласит: \"Дарим клиентам рак лёгких с 2313 года\"."
 	ru_names = list(
-		NOMINATIVE = "классическая пачка \"Дымящий Карп\"",
-		GENITIVE = "классической пачки \"Дымящий Карп\"",
-		DATIVE = "классической пачке \"Дымящий Карп\"",
-		ACCUSATIVE = "классическую пачку \"Дымящий Карп\"",
-		INSTRUMENTAL = "классической пачкой\"Дымящий Карп\"",
-		PREPOSITIONAL = "классической пачке \"Дымящий Карп\""
+		NOMINATIVE = "Пачка сигарет \"Дымящий Карп\"",
+		GENITIVE = "пачки сигарет \"Дымящий Карп\"",
+		DATIVE = "пачке сигарет \"Дымящий Карп\"",
+		ACCUSATIVE = "пачку сигарет \"Дымящий Карп\"",
+		INSTRUMENTAL = "пачкой сигарет\"Дымящий Карп\"",
+		PREPOSITIONAL = "пачке сигарет \"Дымящий Карп\""
 	)
 	icon_state = "carppacket"
 	item_state = "carppacket"
 
 /obj/item/storage/fancy/cigarettes/cigpack_midori
 	name = "\improper Midori Tabako packet"
-	desc = "Вы не понимаете, что тут написано, но пахнет прикольно."
+	desc = "Упаковка 20 сигарет \"Золотой Робаст\". Вы не понимаете, что написано на упаковке, но пахнет прикольно."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Табак Мидори\"",
 		GENITIVE = "пачки сигарет \"Табак Мидори\"",
@@ -448,10 +443,11 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_shadyjims
 	name ="\improper Shady Jim's Super Slims"
-	desc = "Теряете в весе? \
-	Не можете поспевать за коллегами, убегая от Сингулярности? \
-	Продолжаете набивать рот, не смотря ни на что? \
-	Курите утонщающие сигареты от Шейди Джима и жир пропадёт у вас на глазах. Гарантированный результат!"
+	desc = "Упаковка 20 сигарет \"от Шейди Джима\". Надпись на упаковке гласит: \
+		\"Теряете в весе? \
+		Не можете поспевать за коллегами, убегая от Сингулярности? \
+		Продолжаете набивать рот, не смотря ни на что? \
+		Курите утонщающие сигареты от Шейди Джима и жир пропадёт у вас на глазах. Гарантированный результат!\""
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет от Шейди Джима ",
 		GENITIVE = "пачки сигарет от Шейди Джима",
@@ -466,7 +462,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_random
 	name ="\improper Embellished Enigma packet"
-	desc = "Для истинных ценителей экзотики."
+	desc = "Упаковка 20 сигарет \"Энигма\". Для истинных ценителей экзотики."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Энигма\"",
 		GENITIVE = "пачки сигарет \"Энигма\"",
@@ -490,6 +486,7 @@
 		INSTRUMENTAL = "упаковкой рулонной бумаги",
 		PREPOSITIONAL = "упаковке рулонной бумаги"
 	)
+	gender = FEMALE
 	w_class = WEIGHT_CLASS_TINY
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cig_paper_pack"
@@ -519,7 +516,7 @@
 
 /obj/item/storage/fancy/cigcase
 	name = "Cigar Case"
-	desc = "Делового вида футляр, в котором держа дорогие сигары."
+	desc = "Делового вида футляр, в котором держат дорогие сигары."
 	icon = 'icons/obj/cigarettes.dmi'
 	ru_names = list(
 		NOMINATIVE = "портсигар",
@@ -529,6 +526,7 @@
 		INSTRUMENTAL = "портсигаром",
 		PREPOSITIONAL = "портсигаре"
 	)
+	gender = MALE
 	icon_state = "cigarcase"
 	icon_type = "cigar"
 	item_state = "cigarcase"
