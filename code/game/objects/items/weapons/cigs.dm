@@ -716,9 +716,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar/examine(mob/user)
 	. = ..()
 	if(enabled)
-		. += span_notice("Включена и синтезирует никотин.")
+		. += span_boldnotice("Включена и синтезирует никотин.")
 	else
-		. += span_notice("Выключена.")
+		. += span_boldnotice("Выключена.")
 
 /obj/item/clothing/mask/holo_cigar/process()
 	if(!iscarbon(loc))

@@ -515,6 +515,8 @@
 			ru_names[4] = "сгоревшую " + ru_names[4]
 			ru_names[5] = "сгоревшей " + ru_names[5]
 			ru_names[6] = "сгоревшей " + ru_names[6]
+		if(!lit && !burnt)
+			ru_names = initial(ru_names)
 
 
 /obj/item/match/update_desc(updates = ALL)
@@ -579,7 +581,7 @@
 
 	if(istype(src, /obj/item/match/unathi))
 		if(prob(50))
-			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [genderize_ru()] лицо!"))
+			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив своё лицо!"))
 			matchburnout()
 		else
 			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] , опаливая своё лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))
