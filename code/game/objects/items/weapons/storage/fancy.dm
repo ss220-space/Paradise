@@ -222,6 +222,7 @@
 		INSTRUMENTAL = "пачкой сигарет",
 		PREPOSITIONAL = "пачке сигарет"
 	)
+	gender = FEMALE
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "cigpacket"
 	item_state = "cigpacket"
@@ -275,7 +276,7 @@
 
 	if(target.equip_to_slot_if_possible(cigar, ITEM_SLOT_MASK, disable_warning = TRUE))
 		. |= ATTACK_CHAIN_SUCCESS
-		to_chat(user, span_notice("Вы взяли [cigar.declent_ru(ACCUSATIVE)] из пачки[target != user ? " и ловко кладёте её в рот [target.declent_ru(GENITIVE)]" : ""]."))
+		to_chat(user, span_notice("Вы берёте [cigar.declent_ru(ACCUSATIVE)] из пачки[target != user ? " и ловко кладёте её в рот [target.declent_ru(GENITIVE)]" : ""]."))
 	else
 		user.balloon_alert(user, "место занято!")
 
@@ -372,8 +373,7 @@
 
 /obj/item/storage/fancy/cigarettes/cigpack_richard
 	name = "\improper Richard & Co cigarettes"
-	desc = "Упаковка 20 сигарет \"Ричард и Компания\". Курево для самых отчаяных.""
-
+	desc = "Упаковка 20 сигарет \"Ричард и Компания\". Курево для самых отчаяных."
 	ru_names = list(
 		NOMINATIVE = "пачка сигарет \"Ричард и Компания\"",
 		GENITIVE = "пачки сигарет \"Ричард и Компания\"",

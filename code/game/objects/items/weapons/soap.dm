@@ -214,7 +214,16 @@
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
 /obj/item/soap/ducttape
+	name = "duct-taped soap"
 	desc = "Домашний кусок мыла. Он похож на заклееные изолентой ошмётки... Оно точно сможет что-то отмыть?"
+	ru_names = list(
+		NOMINATIVE = "мыло в изоленте",
+		GENITIVE = "мыла в изоленте",
+		DATIVE = "мылу в изоленте",
+		ACCUSATIVE = "мыло в изоленте",
+		INSTRUMENTAL = "мылом в изоленте",
+		PREPOSITIONAL = "мыле в изоленте"
+	)
 	icon_state = "soapgibs"
 	item_state = "soapgibs"
 
@@ -224,9 +233,9 @@
 	if(user.client && (target in user.client.screen))
 		user.balloon_alert(user, "сначала снимите с себя [target.declent_ru(ACCUSATIVE)]!")
 	else
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] размазывать [src.declent_ru(ACCUSATIVE)] по [target.declent_ru(DATIVE)]."))
+		user.visible_message(span_warning("[user] начинает возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
-			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы \"моете\" [target.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."))
 			if(issimulatedturf(target))
 				new /obj/effect/decal/cleanable/blood/gibs/cleangibs(target)
 			else if(iscarbon(target))

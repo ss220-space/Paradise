@@ -515,7 +515,7 @@
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
 	var/init_name = initial(name)
-	desc = lit ? "Это [declent_ru(NOMINATIVE)], охваченная пламенем." : burnt ? "Это [Это [declent_ru(NOMINATIVE)]. Повидала всякое." : initial(desc)
+	desc = lit ? "Это [declent_ru(NOMINATIVE)], охваченная пламенем." : burnt ? "Это [declent_ru(NOMINATIVE)]. Повидала всякое." : initial(desc)
 
 /obj/item/match/get_heat()
 	return lit * 1000
