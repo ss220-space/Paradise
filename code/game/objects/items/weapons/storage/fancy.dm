@@ -277,7 +277,7 @@
 		. |= ATTACK_CHAIN_SUCCESS
 		to_chat(user, span_notice("Вы взяли [cigar.declent_ru(ACCUSATIVE)] из пачки[target != user ? " и ловко кладёте её в рот [target.declent_ru(GENITIVE)]" : ""]."))
 	else
-		to_chat(user, span_warning("Что-то  [target]'s mouth!"))
+		user.balloon_alert(user, "место занято!")
 
 
 /obj/item/storage/fancy/cigarettes/can_be_inserted(obj/item/item , stop_messages = 0)
