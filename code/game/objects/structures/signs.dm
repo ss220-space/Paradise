@@ -43,7 +43,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	to_chat(user, "You unfasten the sign with [I].")
+	balloon_alert(user, "откручено")
 	var/obj/item/sign/S = new(src.loc)
 	S.name = name
 	S.desc = desc
@@ -57,6 +57,14 @@
 /obj/item/sign
 	name = "sign"
 	desc = ""
+	ru_names = list(
+		NOMINATIVE = "табличка",
+		GENITIVE = "таблички",
+		DATIVE = "табличке",
+		ACCUSATIVE = "табличку",
+		INSTRUMENTAL = "табличкой",
+		PREPOSITIONAL = "табличке"
+	)
 	icon = 'icons/obj/decals.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	resistance_flags = FLAMMABLE
@@ -67,35 +75,43 @@
 	if(!isturf(loc))
 		return
 
-	var/direction = input("In which direction?", "Select direction.") in list("North", "East", "South", "West", "Cancel")
-	if(direction == "Cancel")
+	var/direction = input("В каком направлении?", "Выбор направления") in list("Север", "Восток", "Юг", "Запад", "Отмена")
+	if(direction == "Отмена")
 		return TRUE // These gotta be true or we stab the sign
 	if(QDELETED(src))
 		return TRUE // Unsure about this, but stabbing something that doesnt exist seems like a bad idea
 
 	var/obj/structure/sign/sign = new(loc)
 	switch(direction)
-		if("North")
+		if("Север")
 			sign.pixel_y = 32
-		if("East")
+		if("Восток")
 			sign.pixel_x = 32
-		if("South")
+		if("Юг")
 			sign.pixel_y = -32
-		if("West")
+		if("Запад")
 			sign.pixel_x = -32
 		else
 			return TRUE // We dont want to stab it or place it, so we return
 	sign.name = name
 	sign.desc = desc
 	sign.icon_state = sign_state
-	to_chat(user, span_notice("You fasten [sign] with your [I]."))
+	balloon_alert(user, "прикручено")
 	qdel(src)
 	return TRUE
 
 
 /obj/structure/sign/double/map
 	name = "station map"
-	desc = "A framed picture of the station."
+	desc = "Фотография станции в рамке."
+	ru_names = list(
+		NOMINATIVE = "карта станции",
+		GENITIVE = "карты станции",
+		DATIVE = "карте станции",
+		ACCUSATIVE = "карту станции",
+		INSTRUMENTAL = "картой станции",
+		PREPOSITIONAL = "карте станции"
+	)
 	max_integrity = 500
 
 /obj/structure/sign/double/map/left
@@ -105,8 +121,8 @@
 	icon_state = "map-right"
 
 /obj/structure/sign/double/no_idiots
-	name = "Counting sign"
-	desc = "Indicates how many days the station operates without idiots at the SuperMatter crystal control panel"
+	name = "Счетный знак"
+	desc = "Показывает, сколько дней станция работает без идиотов на панели управления кристаллом СуперМатерии."
 
 /obj/structure/sign/double/no_idiots/left
 	icon_state = "no_idiots_left"
@@ -116,288 +132,288 @@
 	icon_state = "no_idiots_right"
 
 /obj/structure/sign/securearea
-	name = "\improper SECURE AREA"
-	desc = "A warning sign which reads 'SECURE AREA'"
+	name = "ЗАКРЫТАЯ ЗОНА"
+	desc = "Предупреждающий знак с надписью \"ЗАКРЫТАЯ ЗОНА\""
 	icon_state = "securearea"
 
 /obj/structure/sign/biohazard
-	name = "\improper BIOHAZARD"
-	desc = "A warning sign which reads 'BIOHAZARD'"
+	name = "БИОЛОГИЧЕСКАЯ ОПАСНОСТЬ"
+	desc = "Предупреждающий знак с надписью \"БИОЛОГИЧЕСКАЯ ОПАСНОСТЬ\""
 	icon_state = "bio"
 
 /obj/structure/sign/electricshock
-	name = "\improper HIGH VOLTAGE"
-	desc = "A warning sign which reads 'HIGH VOLTAGE'"
+	name = "ВЫСОКОЕ НАПРЯЖЕНИЕ"
+	desc = "Предупреждающий знак с надписью \"ВЫСОКОЕ НАПРЯЖЕНИЕ\""
 	icon_state = "shock"
 
 /obj/structure/sign/examroom
-	name = "\improper EXAM"
-	desc = "A guidance sign which reads 'EXAM ROOM'"
+	name = "ЭКЗАМЕН"
+	desc = "Указательный знак с надписью \"ЭКЗАМЕНАЦИОННАЯ КОМНАТА\""
 	icon_state = "examroom"
 
 /obj/structure/sign/vacuum
-	name = "\improper HARD VACUUM AHEAD"
-	desc = "A warning sign which reads 'HARD VACUUM AHEAD'"
+	name = "ВПЕРЕДИ ЖЕСТКИЙ ВАКУУМ"
+	desc = "Предупреждающий знак с надписью \"ВПЕРЕДИ ЖЕСТКИЙ ВАКУУМ\""
 	icon_state = "space"
 
 /obj/structure/sign/vacuum/external
-	name = "\improper EXTERNAL AIRLOCK"
-	desc = "A warning sign which reads 'EXTERNAL AIRLOCK'."
+	name = "ВНЕШНИЙ ШЛЮЗ"
+	desc = "Предупреждающий знак с надписью \"ВНЕШНИЙ ШЛЮЗ\""
 	layer = MOB_LAYER
 
 /obj/structure/sign/deathsposal
-	name = "\improper DISPOSAL LEADS TO SPACE"
-	desc = "A warning sign which reads 'DISPOSAL LEADS TO SPACE'"
+	name = "УТИЛИЗАЦИЯ ВЕДЕТ В КОСМОС"
+	desc = "Предупреждающий знак с надписью \"УТИЛИЗАЦИЯ ВЕДЕТ В КОСМОС\""
 	icon_state = "deathsposal"
 
 /obj/structure/sign/pods
-	name = "\improper ESCAPE PODS"
-	desc = "A warning sign which reads 'ESCAPE PODS'"
+	name = "СПАСАТЕЛЬНЫЕ КАПСУЛЫ"
+	desc = "Предупреждающий знак с надписью \"СПАСАТЕЛЬНЫЕ КАПСУЛЫ\""
 	icon_state = "pods"
 
 /obj/structure/sign/fire
-	name = "\improper DANGER: FIRE"
-	desc = "A warning sign which reads 'DANGER: FIRE'"
+	name = "ОПАСНОСТЬ: ОГОНЬ"
+	desc = "Предупреждающий знак с надписью \"ОПАСНОСТЬ: ОГОНЬ\""
 	icon_state = "fire"
 	resistance_flags = FIRE_PROOF
 
 /obj/structure/sign/nosmoking_1
-	name = "\improper NO SMOKING"
-	desc = "A warning sign which reads 'NO SMOKING'"
+	name = "КУРЕНИЕ ЗАПРЕЩЕНО"
+	desc = "Предупреждающий знак с надписью \"КУРЕНИЕ ЗАПРЕЩЕНО\""
 	icon_state = "nosmoking"
 	resistance_flags = FLAMMABLE
 
 /obj/structure/sign/nosmoking_2
-	name = "\improper NO SMOKING"
-	desc = "A warning sign which reads 'NO SMOKING'"
+	name = "КУРЕНИЕ ЗАПРЕЩЕНО"
+	desc = "Предупреждающий знак с надписью \"КУРЕНИЕ ЗАПРЕЩЕНО\""
 	icon_state = "nosmoking2"
 
 /obj/structure/sign/radiation
-	name = "\improper HAZARDOUS RADIATION"
-	desc = "A warning sign alerting the user of potential radiation hazards."
+	name = "РАДИАЦИОННАЯ ОПАСНОСТЬ"
+	desc = "Предупреждающий знак, предупреждающий о потенциальной радиационной опасности."
 	icon_state = "radiation"
 
 /obj/structure/sign/radiation/rad_area
-	name = "\improper RADIOACTIVE AREA"
-	desc = "A warning sign which reads 'RADIOACTIVE AREA'."
+	name = "РАДИОАКТИВНАЯ ЗОНА"
+	desc = "Предупреждающий знак с надписью \"РАДИОАКТИВНАЯ ЗОНА\""
 
 /obj/structure/sign/xeno_warning_mining
-	name = "DANGEROUS ALIEN LIFE"
-	desc = "A sign that warns would be travellers of hostile alien life in the vicinity."
+	name = "ОПАСНАЯ ИНОПЛАНЕТНАЯ ЖИЗНЬ"
+	desc = "Знак, предупреждающий о враждебной инопланетной жизни поблизости"
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "xeno_warning"
 
 /obj/structure/sign/redcross
-	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	name = "медбэй"
+	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
 	icon_state = "redcross"
 
 /obj/structure/sign/greencross
-	name = "medbay"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here.'"
+	name = "медбэй"
+	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
 	icon_state = "greencross"
 
 /obj/structure/sign/goldenplaque
-	name = "The Most Robust Men Award for Robustness"
-	desc = "To be Robust is not an action or a way of life, but a mental state. Only those with the force of Will strong enough to act during a crisis, saving friend from foe, are truly Robust. Stay Robust my friends."
+	name = "награда \"Самый робастный мужчина\""
+	desc = "Робаст – это не действие или образ жизни, а состояние ума. Лишь те, чья воля крепка настолько, чтобы в час кризиса спасти друга от врага познали истинную суть робаста. Оставайтесь сильными, друзья."
 	icon_state = "goldenplaque"
 
 /obj/structure/sign/kiddieplaque
-	name = "AI developers plaque"
-	desc = "Next to the extremely long list of names and job titles, there is a drawing of a little child. The child's eyes are crossed, and is drooling. Beneath the image, someone has scratched the word \"PACKETS\"."
+	name = "табличка разработчиков ИИ"
+	desc = "Рядом с очень длинным списком имен и должностей есть рисунок маленького ребенка. У ребенка глаза косят, и он пускает слюни. Под изображением кто-то выцарапал слово \"ПАКЕТЫ\""
 	icon_state = "kiddieplaque"
 
 /obj/structure/sign/atmosplaque
-	name = "\improper ZAS Atmospherics Division plaque"
-	desc = "This plaque commemorates the fall of the Atmos ZAS division. For all the charred, dizzy, and brittle men who have died in its horrible hands."
+	name = "мемориальная доска отдела \"ZAS\""
+	desc = "Эта табличка установлена в память погибших атмосферников. Здесь увековечены те, кто пал жертвой неукротимой стихии – сгоревшие заживо, отравленные газами и раздавленные разгерметизацией. \"Они знали, на что шли\""
 	icon_state = "atmosplaque"
 
 /obj/structure/sign/beautyplaque
-	name = "The Most Beautiful Woman Award for Beauty"
-	desc = "Don't think, feel! It's like pointing your finger at the singularity. Don't concentrate on your finger, or you'll miss this divine beauty."
+	name = "награда \"Божественная Грация\""
+	desc = "Истинная красота не требует анализа! Позвольте чувствам вести вас — подобно тому, как частицы устремляются к сингулярности, не задумываясь о пути. Прекрасное познаётся сердцем, а не разумом"
 	icon_state = "beautyplaque"
 
 /obj/structure/sign/kidanplaque
-	name = "Kidan wall trophy"
-	desc = "A dead and stuffed Diona nymph, mounted on a board."
+	name = "трофей кидана"
+	desc = "Мертвая нимфа Дионы, прибитая к доске."
 	icon_state = "kidanplaque"
 
 /obj/structure/sign/tajarplaque
-	name = "Tajaran wall plaque"
-	desc = "A nice tajaran photo, mounted on a board."
+	name = "фотография таяры"
+	desc = "Красивая фотография таяры, закрепленная на доске."
 	icon_state = "tajarplaque"
 
 /obj/structure/sign/mech
-	name = "\improper mech painting"
-	desc = "A painting of a mech"
+	name = "картина меха"
+	desc = "Картина бота ED-209."
 	icon_state = "mech"
 
 /obj/structure/sign/nuke
-	name = "\improper nuke painting"
-	desc = "A painting of a nuke"
+	name = "картина ядерной боеголовки"
+	desc = "Просто картина ядерной боеголовки, ничего лишнего."
 	icon_state = "nuke"
 
 /obj/structure/sign/clown
-	name = "\improper clown painting"
-	desc = "A painting of the clown and mime. Awwww."
+	name = "рисунок клоуна"
+	desc = "Рисунок клоуна и мима. Уфффф..."
 	icon_state = "clown"
 
 /obj/structure/sign/bobross
-	name = "\improper calming painting"
-	desc = "We don't make mistakes, just happy little accidents."
+	name = "успокаивающая картина"
+	desc = "Мы не совершаем ошибок, только счастливые маленькие случайности."
 	icon_state = "bob"
 
 /obj/structure/sign/singulo
-	name = "\improper singulo painting"
-	desc = "A mesmerizing painting of a singularity. It seems to suck you in..."
+	name = "картина сингулярности"
+	desc = "Завораживающая картина сингулярности. Кажется, она засасывает вас..."
 	icon_state = "singulo"
 
 /obj/structure/sign/barber
-	name = "\improper barber shop sign"
-	desc = "A spinning sign indicating a barbershop is near."
+	name = "знак парикмахерской"
+	desc = "Вращающаяся вывеска, указывающая на близость парикмахерской."
 	icon_state = "barber"
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
 /obj/structure/sign/chinese
-	name = "\improper chinese restaurant sign"
-	desc = "A glowing dragon invites you in."
+	name = "знак китайского ресторана"
+	desc = "Светящийся дракон приглашает вас внутрь."
 	icon_state = "chinese"
 	does_emissive = TRUE
 	blocks_emissive = FALSE
 
 /obj/structure/sign/bathhouse
-	name = "\improper bathhouse sign"
+	name = "знак бани"
 	desc = "Старая но рабочая табличка. Здесь изображён банный инвентарь."
 	icon_state = "banya"
 
 /obj/structure/sign/science
-	name = "\improper SCIENCE!"
-	desc = "A warning sign which reads 'SCIENCE!'"
+	name = "НАУКА!"
+	desc = "Предупреждающий знак с надписью \"НАУКА!\""
 	icon_state = "science1"
 
 /obj/structure/sign/chemistry
-	name = "\improper CHEMISTRY"
-	desc = "A warning sign which reads 'CHEMISTRY'"
+	name = "ХИМИЯ"
+	desc = "Предупреждающий знак с надписью \"ХИМИЯ\""
 	icon_state = "chemistry1"
 
 /obj/structure/sign/botany
-	name = "\improper HYDROPONICS"
-	desc = "A warning sign which reads 'HYDROPONICS'"
+	name = "ГИДРОПОНИКА"
+	desc = "Предупреждающий знак с надписью \"ГИДРОПОНИКА\""
 	icon_state = "hydro1"
 
 /obj/structure/sign/xenobio
-	name = "\improper XENOBIOLOGY"
-	desc = "A sign labelling an area as a place where xenobiological entities are researched."
+	name = "КСЕНОБИОЛОГИЯ"
+	desc = "Знак, обозначающий область, где исследуются ксенобиологические существа."
 	icon_state = "xenobio"
 
 /obj/structure/sign/evac
-	name = "\improper EVACUATION"
-	desc = "A sign labelling an area where evacuation procedures take place."
+	name = "ЭВАКУАЦИЯ"
+	desc = "Знак, обозначающий область, где проводятся процедуры эвакуации."
 	icon_state = "evac"
 
 /obj/structure/sign/drop
-	name = "\improper DROP PODS"
-	desc = "A sign labelling an area where drop pod loading procedures take place."
+	name = "ДЕСАНТНЫЕ КАПСУЛЫ"
+	desc = "Знак, обозначающий область, где проводятся процедуры загрузки десантных капсул."
 	icon_state = "drop"
 
 /obj/structure/sign/custodian
-	name = "\improper CUSTODIAN"
-	desc = "A sign labelling an area where the custodian works."
+	name = "УБОРЩИК"
+	desc = "Знак, обозначающий область, где работает уборщик."
 	icon_state = "custodian"
 
 /obj/structure/sign/engineering
-	name = "\improper ENGINEERING"
-	desc = "A sign labelling an area where engineers work."
+	name = "ИНЖЕНЕРИЯ"
+	desc = "Знак, обозначающий область, где работают инженеры."
 	icon_state = "engine"
 
 /obj/structure/sign/cargo
-	name = "\improper CARGO"
-	desc = "A sign labelling an area where cargo ships dock."
+	name = "КАРГО"
+	desc = "Знак, обозначающий зону стыковки грузовых кораблей."
 	icon_state = "cargo"
 
 /obj/structure/sign/med
-	name = "\improper MEDBAY"
-	desc = "A sign labelling an area where heal is real."
+	name = "МЕДБЭЙ"
+	desc = "Знак, обозначающий область, где исцеление реально."
 	icon_state = "med"
 
 /obj/structure/sign/comand
-	name = "\improper BRIDGE"
-	desc = "A sign labelling an area where all heads drinks."
+	name = "МОСТИК"
+	desc = "Знак, обозначающий место, где бухает всё начальство."
 	icon_state = "comand"
 
 /obj/structure/sign/security
-	name = "\improper SECURITY"
-	desc = "A sign labelling an area where the law is law."
+	name = "БЕЗОПАСНОСТЬ"
+	desc = "В этой зоне закон не просто исполняется — он дышит вам в затылок."
 	icon_state = "security"
 
 /obj/structure/sign/holy
-	name = "\improper HOLY"
-	desc = "A sign labelling a religious area."
+	name = "СВЯТЫНЯ"
+	desc = "Здесь обитают боги — или те, кто называет себя богами."
 	icon_state = "holy"
 
 /obj/structure/sign/restroom
-	name = "\improper RESTROOM"
-	desc = "A sign labelling a restroom."
+	name = "ТУАЛЕТ"
+	desc = "Тот самый знак, который все ищут в критический момент."
 	icon_state = "restroom"
 
 /obj/structure/sign/medbay
-	name = "\improper MEDBAY"
-	desc = "The Intergalactic symbol of Medical institutions. You'll probably get help here."
+	name = "МЕДБЭЙ"
+	desc = "Межгалактический символ медицинских учреждений. Здесь, вероятно, вам окажут помощь."
 	icon_state = "bluecross"
 
 /obj/structure/sign/medbay/alt
 	icon_state = "bluecross2"
 
 /obj/structure/sign/directions/floor
-	name = "\improper Floor"
-	desc = "A direction sign, pointing out which floor you are."
+	name = "Этаж"
+	desc = "Указательный знак, указывающий, на каком этаже вы находитесь."
 	icon_state = "level"
 
 /obj/structure/sign/directions/floor/alt
 	icon_state = "level_alt"
 
 /obj/structure/sign/directions/science
-	name = "\improper Research Division"
-	desc = "A direction sign, pointing out which way the Research Division is."
+	name = "Исследовательский отдел"
+	desc = "Указательный знак, указывающий, в каком направлении находится исследовательский отдел."
 	icon_state = "direction_sci"
 
 /obj/structure/sign/directions/engineering
-	name = "\improper Engineering Department"
-	desc = "A direction sign, pointing out which way the Engineering Department is."
+	name = "Инженерный отдел"
+	desc = "Указательный знак, указывающий, в каком направлении находится инженерный отдел."
 	icon_state = "direction_eng"
 
 /obj/structure/sign/directions/security
-	name = "\improper Security Department"
-	desc = "A direction sign, pointing out which way the Security Department is."
+	name = "Служба безопасности"
+	desc = "Указательный знак, указывающий, в каком направлении находится служба безопасности."
 	icon_state = "direction_sec"
 
 /obj/structure/sign/directions/medical
-	name = "\improper Medical Bay"
-	desc = "A direction sign, pointing out which way Medical Bay is."
+	name = "Медицинский блок"
+	desc = "Указательный знак, указывающий, в каком направлении находится медицинский блок."
 	icon_state = "direction_med"
 
 /obj/structure/sign/directions/evac
-	name = "\improper Escape Arm"
-	desc = "A direction sign, pointing out which way Escape Shuttle Dock is."
+	name = "Эвакуация"
+	desc = "Указательный знак, указывающий, в каком направлении находится шаттл эвакуации."
 	icon_state = "direction_evac"
 
 /obj/structure/sign/directions/cargo
-	name = "\improper Cargo Department"
-	desc = "A direction sign, pointing out which way the Cargo Department is."
+	name = "Отдел карго"
+	desc = "Указательный знак, указывающий, в каком направлении находится отдел карго."
 	icon_state = "direction_supply"
 
 /obj/structure/sign/explosives
-	name = "\improper HIGH EXPLOSIVES"
-	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
+	name = "ВЗРЫВЧАТЫЕ ВЕЩЕСТВА"
+	desc = "Предупреждающий знак с надписью \"ВЗРЫВЧАТЫЕ ВЕЩЕСТВА\""
 	icon_state = "explosives"
 
 /obj/structure/sign/explosives/alt
-	name = "\improper HIGH EXPLOSIVES"
-	desc = "A warning sign which reads 'HIGH EXPLOSIVES'."
+	name = "ВЗРЫВЧАТЫЕ ВЕЩЕСТВА"
+	desc = "Предупреждающий знак с надписью \"ВЗРЫВЧАТЫЕ ВЕЩЕСТВА\""
 	icon_state = "explosives2"
 
 /obj/structure/sign/cave
-	name = "\improper Cave Johnson portrait"
-	desc = "The beAn couNters tolD me we liteRally could not afford to buy sEven dollars worth of plasma rocks, much less seventY million. Bought 'em anyway. Engineers said the plasma rocks were too volatile to experiment on. Tested on 'em anyway. Ground 'em up, mixed em into a gel. And guess what? Ground up plasma rocks are pure poison. I am deathly ill. Still, it turns out they're a great fire hazard. We're done here."
+	name = "портрет Кейва Джонсона"
+	desc = "Когда вселенная швыряет в вас камни из плазмы — вы не \"изучаете их свойства\"! Вы берете эти камни, перемалываете в токсичную пыль и запускаете ей в лицо всем скептикам! Руководство ноет о \"технике безопасности\"? ПЛЕВАТЬ НА НИХ! Найдите ассистентов, которые не побоятся взорвать эту смесь в своих руках, во благо науки!"
 	icon_state = "cave"

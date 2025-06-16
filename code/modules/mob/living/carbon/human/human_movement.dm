@@ -256,12 +256,12 @@
 	return ..()
 
 /mob/living/carbon/human/update_pull_movespeed()
-	if(!pulling && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+	if(!pulling || !HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 		return ..()
 	remove_movespeed_modifier(/datum/movespeed_modifier/bulky_drag)
 
 /mob/living/carbon/human/update_push_movespeed()
-	if(!now_pushing && HAS_TRAIT(src, TRAIT_STRONG_PULLING))
+	if(!now_pushing || !HAS_TRAIT(src, TRAIT_STRONG_PULLING))
 		return ..()
 	remove_movespeed_modifier(/datum/movespeed_modifier/bulky_push)
 

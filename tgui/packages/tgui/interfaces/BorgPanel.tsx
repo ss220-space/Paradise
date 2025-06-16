@@ -89,6 +89,12 @@ export const BorgPanel = (props: unknown) => {
                 Scrambled Codes
               </Button>
               <Button onClick={() => act('reset_module')}>Reset Module</Button>
+              <Button onClick={() => act('set_skin_permission')}>
+                Skin Permission
+              </Button>
+              <Button onClick={() => act('allow_set_skin')}>
+                Allow change skin
+              </Button>
             </LabeledList.Item>
             <LabeledList.Item label="Charge">
               {!cell.missing ? (
@@ -141,7 +147,7 @@ export const BorgPanel = (props: unknown) => {
                   selected={borg.active_module === module.name}
                   onClick={() =>
                     act('setmodule', {
-                      module: module.name,
+                      module: module.type,
                     })
                   }
                 >

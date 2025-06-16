@@ -1,7 +1,7 @@
 GLOBAL_LIST_INIT(open_logging_views, list())
 
 /client/proc/cmd_admin_open_logging_view()
-	set category = "Admin.Admin Tickets"
+	set category = STATPANEL_ADMIN_TICKETS
 	set name = "Logging View"
 	set desc = "Opens the detailed logging viewer"
 	open_logging_view()
@@ -18,4 +18,4 @@ GLOBAL_LIST_INIT(open_logging_views, list())
 		cur_view.add_mobs(mobs_to_add)
 
 	cur_view.show_ui(usr)
-	
+

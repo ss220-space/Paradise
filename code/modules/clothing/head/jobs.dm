@@ -171,6 +171,9 @@
 	icon_state = "chaplain_hood"
 	flags_cover = HEADCOVERSEYES
 
+/obj/item/clothing/head/hooded/chaplain_hood/armoured
+	armor = list("melee" = 35, "bullet" = 30, "laser" = 30,"energy" = 10, "bomb" = 25, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+
 /obj/item/clothing/head/hooded/chaplain_hood/no_name
 	name = "dark robe's hood"
 	desc = "Капюшон, покрывающий голову. Позволяет сохранить тепло во время космической зимы."
@@ -679,6 +682,21 @@
 	)
 	icon_state = "surgcap_brown"
 
+//prison
+/obj/item/clothing/head/prison
+	name = "prison hat"
+	desc = "Тюремная шапка, которая должна предотвращать распространение космо вшей... По крайней мере так задумывалось."
+	ru_names = list(
+		NOMINATIVE = "тюремная шапка",
+		GENITIVE = "тюремную шапкапу",
+		DATIVE = "тюремной шапке",
+		ACCUSATIVE = "тюремную шапку",
+		INSTRUMENTAL = "тюремной шапкой",
+		PREPOSITIONAL = "тюремной шапке"
+	)
+	item_state = "prison_hat"
+	icon_state = "prison_hat"
+
 //Mining medic
 /obj/item/clothing/head/beret/mining_medic
 	name = "mining medic's beret"
@@ -692,3 +710,4 @@
 		PREPOSITIONAL = "берете шахтёрского врача"
 	)
 	icon_state = "beret_minmed"
+

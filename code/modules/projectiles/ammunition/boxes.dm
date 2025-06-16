@@ -298,6 +298,39 @@
 	icon_state = "ammobox_10incendiary"
 	ammo_type = /obj/item/ammo_casing/c10mm/fire
 
+/obj/item/ammo_box/specter
+	origin_tech = "combat=2"
+	max_ammo = 30
+
+/obj/item/ammo_box/specter/laser
+	name = "ammo box (Specter laser)"
+	desc = "Коробка, содержащая 30 лазерных патронов для пистолета \"Спектр\"."
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (Спектр лазерные)",
+		GENITIVE = "коробка патронов (Спектр лазерные)",
+		DATIVE = "коробка патронов (Спектр лазерные)",
+		ACCUSATIVE = "коробка патронов (Спектр лазерные)",
+		INSTRUMENTAL = "коробка патронов (Спектр лазерные)",
+		PREPOSITIONAL = "коробка патронов (Спектр лазерные)"
+	)
+	icon_state = "speclaser"
+	ammo_type = /obj/item/ammo_casing/specter/laser
+
+
+/obj/item/ammo_box/specter/disabler
+	name = "ammo box (Specter disabler)"
+	desc = "Коробка, содержащая 30 парализующих патронов для пистолета \"Спектр\"."
+	ru_names = list(
+		NOMINATIVE = "коробка патронов (Спектр парализующие)",
+		GENITIVE = "коробка патронов (Спектр парализующие)",
+		DATIVE = "коробке патронов (Спектр парализующие)",
+		ACCUSATIVE = "коробку патронов (Спектр парализующие)",
+		INSTRUMENTAL = "коробкой патронов (Спектр парализующие)",
+		PREPOSITIONAL = "коробке патронов (Спектр парализующие)"
+	)
+	icon_state = "specstamina"
+	ammo_type = /obj/item/ammo_casing/specter/disable
+
 /**
  * SPEEDLOADER
  */

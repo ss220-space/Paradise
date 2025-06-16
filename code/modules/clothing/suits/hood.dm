@@ -25,7 +25,11 @@
 	RegisterSignal(hood, COMSIG_ITEM_DROPPED, PROC_REF(on_hood_dropped))
 	RegisterSignal(hood, COMSIG_ITEM_EQUIPPED, PROC_REF(on_hood_equipped))
 	RegisterSignal(hood, COMSIG_QDELETING, PROC_REF(on_hood_destroyed))
+	RegisterSignal(src, COMSIG_EQUIP_HOOD, PROC_REF(hood_equip))
 
+/obj/item/clothing/suit/hooded/proc/hood_equip()
+	SIGNAL_HANDLER
+	EngageHood()
 
 /obj/item/clothing/suit/hooded/proc/on_hood_dropped()
 	SIGNAL_HANDLER

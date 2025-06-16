@@ -90,8 +90,9 @@
 					<a href='byond://?src=[UID()];secretsfun=reset_station_name'>Reset Station Name</a><br>
 					<a href='byond://?src=[UID()];secretsfun=set_centcomm_name'>Rename Central Comand</a><br>
 					<br>
-					<b>Spawns</b><br>
+					<b>Другое</b><br>
 					<a href='byond://?src=[UID()];secretsfun=spawn_cargo_crate'>Spawn Cargo Crate</a><br>
+					<a href='byond://?src=[UID()];secretsfun=shuttle_start'>Переключить старт с шаттла</a><br>
 					</center>"}
 		if(2)
 			if(check_rights((R_SERVER|R_EVENT),0))
@@ -128,6 +129,7 @@
 					<a href='byond://?src=[UID()];secretsfun=customportal'>Spawn a custom portal storm</a><br>
 					<a href='byond://?src=[UID()];secretsfun=mass_mindswap'>Mass mindswap</a><br>
 					<b>Misc</b><br>
+					<a href='byond://?src=[UID()];secretsfun=borg_skins'>Toggle global borg skin permision(now [GLOB.all_robot_skins_permited? "ON":"OFF"])</a><br>
 					<a href='byond://?src=[UID()];secretsfun=sec_classic1'>Remove firesuits, grilles, and pods</a>&nbsp;&nbsp;
 					<a href='byond://?src=[UID()];secretsfun=tripleAI'>Triple AI mode (needs to be used in the lobby)</a><br>
 					<a href='byond://?src=[UID()];secretsfun=flicklights'>Ghost Mode</a>&nbsp;&nbsp;
@@ -137,8 +139,6 @@
 					<a href='byond://?src=[UID()];secretsfun=magic'>Summon Magic</a>
 					<br>
 					<a href='byond://?src=[UID()];secretsfun=rolldice'>Roll the Dice</a><br>
-					<br>
-					<br>
 					<a href='byond://?src=[UID()];secretsfun=moveferry'>Move Ferry</a><br>
 					<a href='byond://?src=[UID()];secretsfun=moveminingshuttle'>Move Mining Shuttle</a><br>
 					<a href='byond://?src=[UID()];secretsfun=movelaborshuttle'>Move Labor Shuttle</a><br>

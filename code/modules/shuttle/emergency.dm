@@ -158,6 +158,8 @@
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
 			continue
+		if(isbrain(player))
+			continue
 		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
 			var/mob/living/carbon/human/H = player
 			if(!H.check_death_method() && H.health <= HEALTH_THRESHOLD_DEAD) //new crit users who are in hard crit are considered dead
@@ -228,7 +230,7 @@
 				GLOB.priority_announcement.Announce("Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
-				
+
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
 				GLOB.priority_announcement.Announce("Шаттл заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.")
 				sound_played = 0

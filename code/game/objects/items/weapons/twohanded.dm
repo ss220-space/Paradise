@@ -165,6 +165,12 @@
 /obj/item/twohanded/fireaxe/boneaxe/guillotine/update_icon_state()
 	icon_state = "guillotine[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped
+	desc = "Массивный, грозно выглядящий пилотопор, созданный с использованием костяного нароста ослеплённого жнеца. Идеален для убийства и последующей разделки чудовищ. Выглядит острее обычного"
+
+/obj/item/twohanded/fireaxe/boneaxe/guillotine/sharped/Initialize(mapload)
+	. = ..()
+	SEND_SIGNAL(src, COMSIG_ITEM_SHARPEN_ACT, 4, 30)
 
 /obj/item/twohanded/fireaxe/energized
 	desc = "Someone with a love for fire axes decided to turn this one into a high-powered energy weapon. Seems excessive."

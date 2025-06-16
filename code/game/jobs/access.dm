@@ -14,7 +14,6 @@
 
 	if(acc == IGNORE_ACCESS || M.can_admin_interact())
 		return 1 //Mob ignores access
-
 	else
 		return check_access_list(acc)
 

@@ -1,6 +1,6 @@
 // verb for admins to set custom event
 /client/proc/cmd_admin_change_custom_event()
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Change Custom Event"
 
 	if(!check_rights(R_EVENT))
@@ -25,8 +25,8 @@
 
 // normal verb for players to view info
 /client/verb/cmd_view_custom_event()
-	set category = "OOC"
-	set name = "Custom Event Info"
+	set category = STATPANEL_OOC
+	set name = "Специальный ивент"
 
 	var/list/custom_event_information = list()
 	if(!GLOB.custom_event_msg || GLOB.custom_event_msg == "")

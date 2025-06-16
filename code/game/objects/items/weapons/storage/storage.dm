@@ -576,8 +576,8 @@
 	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
-	set name = "Switch Gathering Method"
-	set category = "Object"
+	set name = "Режим сбора"
+	set category = STATPANEL_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -587,8 +587,8 @@
 			to_chat(usr, "[src] now picks up one item at a time.")
 
 /obj/item/storage/verb/quick_empty()
-	set name = "Empty Contents"
-	set category = "Object"
+	set name = "Выбросить содержимое"
+	set category = STATPANEL_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -601,6 +601,11 @@
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
+
+/obj/item/storage/proc/force_drop_inventory()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, T)
 
 /**
   * Populates the container with items

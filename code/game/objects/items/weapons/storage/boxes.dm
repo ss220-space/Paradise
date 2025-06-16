@@ -1497,6 +1497,25 @@
 	new /obj/item/ammo_box/magazine/enforcer(src)
 	new /obj/item/clothing/accessory/holster(src)
 
+/obj/item/storage/box/specter_kit
+	name = "набор Спектр"
+	desc = "Коробка, содержащая пистолет \"Спектр\", кобуру и 2 обоймы парализующих патронов."
+	ru_names = list(
+		NOMINATIVE = "набор Спектр",
+		GENITIVE = "набора Спектр",
+		DATIVE = "набору Спектр",
+		ACCUSATIVE = "набор Спектр",
+		INSTRUMENTAL = "набором Спектр",
+		PREPOSITIONAL = "наборе Спектр"
+	)
+	icon_state = "box_specter"
+
+/obj/item/storage/box/specter_kit/populate_contents()
+	new /obj/item/gun/projectile/automatic/pistol/specter(src)
+	new /obj/item/clothing/accessory/holster(src)
+	new /obj/item/ammo_box/magazine/specter(src)
+	new /obj/item/ammo_box/magazine/specter(src)
+
 /obj/item/storage/box/revolver_kit
 	name = "Revolver kit"
 	icon_state = "box_revolver"

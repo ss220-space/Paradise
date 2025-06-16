@@ -29,12 +29,12 @@
 	if(C.connected_ai)
 		var/mob/A = P.fields["author"]
 		C.connected_ai.aiCamera.injectaialbum(P, " (taken by [A.name])")
-		to_chat(C.connected_ai, "<span class='unconscious'>Image recorded and saved by [name]</span>")
-		to_chat(usr, "<span class='unconscious'>Image recorded and saved to remote database</span>")//feedback to the Cyborg player that the picture was taken
+		to_chat(C.connected_ai, span_unconscious("Image recorded and saved by [name]"))
+		to_chat(usr, span_unconscious("Image recorded and saved to remote database"))//feedback to the Cyborg player that the picture was taken
 
 	else
 		injectaialbum(P)
-		to_chat(usr, "<span class='unconscious'>Image recorded</span>")
+		to_chat(usr, span_unconscious("Image recorded"))
 
 /obj/item/camera/siliconcam/proc/selectpicture(obj/item/camera/siliconcam/cam)
 	if(!cam)
@@ -43,7 +43,7 @@
 	var/list/nametemp = list()
 	var/find
 	if(cam.aipictures.len == 0)
-		to_chat(usr, "<span class='userdanger'>No images saved</span>")
+		to_chat(usr, span_userdanger("No images saved"))
 		return
 	for(var/datum/picture/t in cam.aipictures)
 		nametemp += t.fields["name"]
@@ -75,7 +75,7 @@
 		return
 
 	cam.aipictures -= selection
-	to_chat(usr, "<span class='unconscious'>Image deleted</span>")
+	to_chat(usr, span_unconscious("Image deleted"))
 
 /obj/item/camera/siliconcam/ai_camera/can_capture_turf(turf/T, mob/user)
 	var/mob/living/silicon/ai = user
@@ -101,62 +101,62 @@
 
 /obj/item/camera/siliconcam/ai_camera/printpicture(mob/user, datum/picture/P)
 	injectaialbum(P)
-	to_chat(usr, "<span class='unconscious'>Image recorded</span>")
+	to_chat(usr, span_unconscious("Image recorded"))
 
 /obj/item/camera/siliconcam/robot_camera/printpicture(mob/user, datum/picture/P)
 	injectmasteralbum(P)
 
 /obj/item/camera/siliconcam/ai_camera/verb/take_image()
-	set category = "Subsystems"
-	set name = "Take Image"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Сделать фото"
 	set desc = "Takes an image"
 	set src in usr
 
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/ai_camera/verb/view_images()
-	set category = "Subsystems"
-	set name = "View Images"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Посмотреть фото"
 	set desc = "View images"
 	set src in usr
 
 	viewpictures()
 
 /obj/item/camera/siliconcam/ai_camera/verb/delete_images()
-	set category = "Subsystems"
-	set name = "Delete Image"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Удалить фото"
 	set desc = "Delete image"
 	set src in usr
 
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/ai_camera/verb/toggle_camera_flash_verb()
-	set category = "Subsystems"
-	set name = "Toggle camera flashing"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Вспышка камеры"
 	set desc = "Toggle camera flashing"
 	set src in usr
 
 	toggle_camera_flash(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/take_image()
-	set category ="Subsystems"
-	set name = "Take Image"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Сделать фото"
 	set desc = "Takes an image"
 	set src in usr
 
 	toggle_camera_mode()
 
 /obj/item/camera/siliconcam/robot_camera/verb/view_images()
-	set category ="Subsystems"
-	set name = "View Images"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Посмотреть фото"
 	set desc = "View images"
 	set src in usr
 
 	viewpictures()
 
 /obj/item/camera/siliconcam/robot_camera/verb/delete_images()
-	set category = "Subsystems"
-	set name = "Delete Image"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Удалить фото"
 	set desc = "Delete a local image"
 	set src in usr
 
@@ -164,8 +164,8 @@
 	deletepicture(src)
 
 /obj/item/camera/siliconcam/robot_camera/verb/toggle_camera_flash_verb()
-	set category = "Subsystems"
-	set name = "Toggle camera flash"
+	set category = STATPANEL_SUBSYSTEMS
+	set name = "Вспышка камеры"
 	set desc = "Toggle camera flash"
 	set src in usr
 

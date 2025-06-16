@@ -99,7 +99,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin.Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 	set hidden = 1
 
 	if(!loc) return 0
@@ -360,8 +360,8 @@
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
-	set name = "Examine"
-	set category = "IC"
+	set name = "Осмотреть"
+	set category = STATPANEL_IC
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
@@ -373,7 +373,7 @@
 
 
 /mob/verb/mode()
-	set name = "Activate Held Object"
+	set name = "Использовать объект"
 	set src = usr
 
 	if(ismecha(loc))
@@ -412,16 +412,16 @@
 	GLOB.left_player_list |= src
 
 /mob/verb/memory()
-	set name = "Notes"
-	set category = "IC"
+	set name = "Заметки"
+	set category = STATPANEL_IC
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
 /mob/verb/add_memory(msg as message)
-	set name = "Add Note"
-	set category = "IC"
+	set name = "Добавить заметку"
+	set category = STATPANEL_IC
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
@@ -475,8 +475,8 @@
 	var/newPlayerType = /mob/new_player
 
 /mob/verb/abandon_mob()
-	set name = "Respawn"
-	set category = "OOC"
+	set name = "Возродиться"
+	set category = STATPANEL_OOC
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
@@ -544,8 +544,8 @@
 	return stat == DEAD
 
 /mob/verb/cancel_camera()
-	set name = "Cancel Camera View"
-	set category = "OOC"
+	set name = "Сбросить позицию камеры"
+	set category = STATPANEL_OOC
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -704,19 +704,19 @@
 	return
 
 /mob/dead/observer/verb/respawn()
-	set name = "Respawn as NPC"
-	set category = "Ghost"
+	set name = "Играть за НИП"
+	set category = STATPANEL_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
-		to_chat(usr, span_warning("You are banned from playing as sentient animals."))
+		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
 		return
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, span_warning("You can't respawn as an NPC before the game starts!"))
+		to_chat(src, span_warning("Вы не можете возродиться как НИП до начала игры!"))
 		return
 
 	if(stat != DEAD && !isobserver(usr))
-		to_chat(usr, span_warning("You are not dead or you have given up your right to be respawned!"))
+		to_chat(usr, span_warning("Вы не мертвы или отказались от права на возрождение!"))
 		return
 
 	var/list/allowed_creatures = list()
@@ -727,7 +727,7 @@
 
 	allowed_creatures.Insert(1, "Mouse")
 
-	var/mob/living/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
+	var/mob/living/picked = tgui_input_list(usr, "Пожалуйста, выберите НИП для возрождения", "Возродиться как НИП", allowed_creatures)
 	if(!picked)
 		return
 
@@ -739,7 +739,7 @@
 	var/message = picked_mob.get_npc_respawn_message()
 
 	if(QDELETED(picked_mob) || picked_mob.key || picked_mob.stat == DEAD)
-		to_chat(usr, span_warning("[capitalize(picked_mob)] is no longer available to respawn!"))
+		to_chat(usr, span_warning("[capitalize(picked_mob)] больше недоступен для возрождения!"))
 		return
 
 	if(istype(picked_mob, /mob/living/simple_animal/borer))
