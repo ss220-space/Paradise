@@ -1272,7 +1272,7 @@
 
 /obj/item/clothing/under/martialsuit/masterdragon
 	name = "Gold dragon master clothes"
-	desc = "Красная одежда с золотистым узором, которую носят мастера боевых искусств"
+	desc = "Красная одежда с золотистыми узорами, которую носят мастера боевых искусств."
 	ru_names = list(
 		NOMINATIVE = "костюм мастера Золотого дракона",
 		GENITIVE = "костюма мастера Золотого дракона",
