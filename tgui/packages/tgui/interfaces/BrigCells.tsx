@@ -109,7 +109,7 @@ export const BrigCells = (properties) => {
   );
 
   return (
-    <Window theme="security" width={800} height={150}>
+    <Window theme="security" width={800} height={330}>
       <Window.Content>
         <Stack fill vertical>
           <Section fill scrollable>

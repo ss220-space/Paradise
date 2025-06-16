@@ -94,7 +94,7 @@ export const AccessList = (props: AccessListProps) => {
     <Section
       fill
       scrollable
-      title="Access"
+      title="Доступ"
       buttons={
         <>
           <Button icon="check-double" color="good" onClick={() => grantAll()}>

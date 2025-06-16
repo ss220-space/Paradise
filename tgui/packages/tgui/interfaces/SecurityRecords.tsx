@@ -128,7 +128,7 @@ const SecurityRecordsNavigation = (_properties) => {
       {currentPage === 3 && general && !general.empty && (
         <Tabs.Tab selected={currentPage === 3}>
           <Icon name="file" />
-          Record: {general.fields[0].value}
+          Запись: {general.fields[0].value}
         </Tabs.Tab>
       )}
     </Tabs>
