@@ -568,8 +568,8 @@
 
 
 /mob/living/verb/stop_pulling1()
-	set name = "Stop Pulling"
-	set category = "IC"
+	set name = "Прекратить тащить"
+	set category = STATPANEL_IC
 	stop_pulling()
 
 //same as above
@@ -883,8 +883,8 @@
 
 
 /mob/living/proc/Examine_OOC()
-	set name = "Examine Meta-Info (OOC)"
-	set category = "OOC"
+	set name = "Мета-инфа (OOC)"
+	set category = STATPANEL_OOC
 	set src in view()
 
 	if(CONFIG_GET(flag/allow_metadata))
@@ -1048,8 +1048,8 @@
 
 
 /mob/living/verb/resist()
-	set name = "Resist"
-	set category = "IC"
+	set name = "Сопротивляться"
+	set category = STATPANEL_IC
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_resist)))
 
@@ -2081,8 +2081,8 @@
 
 
 /mob/living/proc/toggle_resting()
-	set name = "Rest"
-	set category = "IC"
+	set name = "Лечь"
+	set category = STATPANEL_IC
 
 	set_resting(!resting, silent = FALSE)
 

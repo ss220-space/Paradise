@@ -1075,8 +1075,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				var/mob/dead/observer/fakemob = pick(dead_people)
 				if(fakemob)
 					sleep(rand(30, 60))
-					to_chat(src, "<span class='deadsay'><span class='name'>[fakemob.name]</span>(FOLLOW) [pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[pick("мёртв","привет [name]","ты тоже?","ИИ взломан?",\
-					 "я[prob(50)?", блять,":""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"</span></span>")
+					to_chat(src, span_deadsay("[span_name(fakemob.name)](FOLLOW) [pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \
+					[span_message("\"[pick("мёртв", "привет [name]", "ты тоже?", "ИИ взломан?", "я[prob(50)?", блять,": ""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"")]"))
 			sleep(rand(50,70))
 			hal_screwyhud = SCREWYHUD_NONE
 			SetSleeping(0)

@@ -125,15 +125,15 @@
 
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
-	set name = "Modify Name"
+	set name = "Изменить имя"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
-	set category = "Saboteur"
+	set category = STATPANEL_SABOTEUR
 	rename_self(braintype, TRUE, TRUE)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/toggle_chameleon()
-	set name = "Toggle Chameleon Projector"
+	set name = "Маскировка"
 	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
-	set category = "Saboteur"
+	set category = STATPANEL_SABOTEUR
 
 	if(!cham_proj)
 		for(var/obj/item/borg_chameleon/C in contents)
@@ -143,15 +143,15 @@
 			cham_proj = C
 
 		if(!cham_proj)
-			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
+			to_chat(src, span_warning("Error : No chameleon projector system found."))
 			return
 
 	cham_proj.attack_self(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
-	set name = "Set Mail Tag"
+	set name = "Почтовый адрес"
 	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Saboteur"
+	set category = STATPANEL_SABOTEUR
 
 	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
 

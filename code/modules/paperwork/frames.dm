@@ -338,15 +338,15 @@
 		explode()
 
 /obj/structure/sign/picture_frame/proc/tilt()
-	set name = "Tilt Picture"
-	set category = "Object"
+	set name = "Наклонить картинку"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	toggle_tilt(usr)
 
 /obj/structure/sign/picture_frame/proc/untilt()
-	set name = "Straighten Picture"
-	set category = "Object"
+	set name = "Выпрямить картинку"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	toggle_tilt(usr)

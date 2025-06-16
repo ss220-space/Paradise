@@ -22,12 +22,6 @@
 	name = "Male Meka"
 	required_permit = MMEKA_PERMISSION
 
-/datum/robot_skin/women
-	name = "Women"
-	panelprefix = "woman"
-	eye_prefix = ""
-	required_permit = WOMEN_PERMISSION
-
 /datum/robot_skin/paladin
 	name = "Paladin"
 	panelprefix = "paladin"
@@ -44,7 +38,7 @@
 	name = "Protectron"
 	panelprefix = "protectron"
 	eye_prefix = ""
-	required_permit = PROTECTRON_PERMISSION
+	required_permit = FALLOUT_PERMISSION
 
 /datum/robot_skin/coffin
 	name = "Coffin"
@@ -83,6 +77,26 @@
 	name = "Eyebot"
 	required_permit = EYEBOT_PERMISSION
 
+/datum/robot_skin/seek
+	name = "Seek"
+	required_permit = SEEK_PERMISSION
+
+/datum/robot_skin/noble_h
+	panelprefix = "Noble"
+	eye_prefix = "Noble-H"
+	required_permit = SEEK_PERMISSION
+
+/datum/robot_skin/mech
+	name = "Mech"
+	required_permit = MECH_PERMISSION
+
+/datum/robot_skin/heavy
+	name = "Heavy"
+	required_permit = HEAVY_PERMISSION
+
+/datum/robot_skin/spider
+	name = "Spider"
+	required_permit = SPIDER_PERMISSION
 
 /datum/robot_skin/robot
 	name = "Robot"
@@ -115,9 +129,6 @@
 /datum/robot_skin/noble/std
 	name = "Noble-STD"
 	icon_base_prefix = "Noble-STD"
-
-/datum/robot_skin/women/std
-	icon_base_prefix = "woman-Standard"
 
 /datum/robot_skin/paladin/std
 	icon_base_prefix = "paladin-Standard"
@@ -153,6 +164,21 @@
 	icon_base_prefix = "eyebotsd"
 	eye_prefix = "eyebotsd"
 
+/datum/robot_skin/seek/std
+	icon_base_prefix = "sleekstandard"
+	eye_prefix = "sleekstandard"
+
+/datum/robot_skin/noble_h/std
+	icon_base_prefix = "Noble-STD-H"
+
+/datum/robot_skin/mech/std
+	icon_base_prefix = "durin"
+	eye_prefix = "durin"
+
+/datum/robot_skin/heavy/std
+	icon_base_prefix = "heavysd"
+	eye_prefix = "heavysd"
+
 /datum/robot_skin/android
 	name = "Android"
 	icon_base_prefix = "droid"
@@ -186,9 +212,6 @@
 	eye_prefix = "mmekamed"
 	panelprefix = "ov-med"
 
-/datum/robot_skin/women/medical
-	icon_base_prefix = "woman-Medical"
-
 /datum/robot_skin/paladin/medical
 	icon_base_prefix = "paladin-Medical"
 	eye_prefix = "paladin-Medical"
@@ -219,6 +242,27 @@
 /datum/robot_skin/eyebot/medical
 	icon_base_prefix = "eyebotmed"
 	eye_prefix = "eyebotmed"
+
+/datum/robot_skin/seek/medical
+	icon_base_prefix = "sleekmedic"
+	eye_prefix = "sleekmedic"
+
+/datum/robot_skin/noble_h/medical
+	icon_base_prefix = "Noble-MED-H"
+
+/datum/robot_skin/mech/medical
+	icon_base_prefix = "gibbs"
+	eye_prefix = "gibbs"
+
+/datum/robot_skin/heavy/medical
+	icon_base_prefix = "heavymed"
+	eye_prefix = "heavymed"
+
+/datum/robot_skin/walla
+	name = "Wall-a"
+	icon_base_prefix = "wall-a"
+	eye_prefix = "wall-a"
+	required_permit = WALLE_PERMISSION
 
 /datum/robot_skin/surgeon
 	name = "Surgeon"
@@ -267,9 +311,6 @@
 	eye_prefix = "mmekaeng"
 	panelprefix = "ov-engi"
 
-/datum/robot_skin/women/eng
-	icon_base_prefix = "woman-Engineering"
-
 /datum/robot_skin/paladin/eng
 	icon_base_prefix = "paladin-Engineering"
 	eye_prefix = "paladin-Engineering"
@@ -303,6 +344,31 @@
 /datum/robot_skin/eyebot/eng
 	icon_base_prefix = "eyeboteng"
 	eye_prefix = "eyeboteng"
+
+/datum/robot_skin/seek/eng
+	icon_base_prefix = "sleekengineer"
+	eye_prefix = "sleekengineer"
+
+/datum/robot_skin/noble_h/eng
+	icon_base_prefix = "Noble-ENG-H"
+
+/datum/robot_skin/mech/eng
+	icon_base_prefix = "conagher"
+	eye_prefix = "conagher"
+
+/datum/robot_skin/heavy/eng
+	icon_base_prefix = "heavyeng"
+	eye_prefix = "heavyeng"
+
+/datum/robot_skin/spider/eng
+	icon_base_prefix = "spidereng"
+	eye_prefix = "spidereng"
+
+/datum/robot_skin/handy_eng
+	name = "Mr Handy"
+	icon_base_prefix = "handyeng"
+	eye_prefix = "handyeng"
+	required_permit = FALLOUT_PERMISSION
 
 /datum/robot_skin/basic/antique
 	name = "Antique"
@@ -346,12 +412,6 @@
 	eye_prefix = "mmekasec"
 	panelprefix = "ov-sec"
 
-/datum/robot_skin/women/sec
-	icon_base_prefix = "woman-Security"
-
-/datum/robot_skin/women/sec_alt
-	icon_base_prefix = "woman-Security_alt"
-
 /datum/robot_skin/paladin/sec
 	icon_base_prefix = "paladin-Security"
 	eye_prefix = "paladin-Security"
@@ -385,6 +445,37 @@
 /datum/robot_skin/eyebot/sec
 	icon_base_prefix = "eyebotsec"
 	eye_prefix = "eyebotsec"
+
+/datum/robot_skin/seek/std
+	icon_base_prefix = "sleeksecurity"
+	eye_prefix = "sleeksecurity"
+
+/datum/robot_skin/noble_h/std
+	icon_base_prefix = "Noble-SEC-H"
+
+/datum/robot_skin/mech/std
+	icon_base_prefix = "woody"
+	eye_prefix = "woody"
+
+/datum/robot_skin/heavy/std
+	icon_base_prefix = "heavysec"
+	eye_prefix = "heavysec"
+
+/datum/robot_skin/spider/std
+	icon_base_prefix = "spidersec"
+	eye_prefix = "spidersec"
+
+/datum/robot_skin/securitron
+	name = "Securitron"
+	icon_base_prefix = "securitron"
+	eye_prefix = "securitron"
+	required_permit = FALLOUT_PERMISSION
+
+/datum/robot_skin/eve
+	name = "Eve"
+	icon_base_prefix = "eve"
+	eye_prefix = "eve"
+	required_permit = WALLE_PERMISSION
 
 /datum/robot_skin/redknight
 	name = "Red Knight"
@@ -429,9 +520,6 @@
 	eye_prefix = "mmekajani"
 	panelprefix = "ov-jani"
 
-/datum/robot_skin/women/jan
-	icon_base_prefix = "woman-Janitor"
-
 /datum/robot_skin/paladin/jan
 	icon_base_prefix = "paladin-Janitor"
 	eye_prefix = "paladin-Janitor"
@@ -462,6 +550,21 @@
 /datum/robot_skin/eyebot/jan
 	icon_base_prefix = "eyebotjani"
 	eye_prefix = "eyebotjani"
+
+/datum/robot_skin/seek/jan
+	icon_base_prefix = "sleekjanitor"
+	eye_prefix = "sleekjanitor"
+
+/datum/robot_skin/noble_h/jan
+	icon_base_prefix = "Noble-JAN-H"
+
+/datum/robot_skin/mech/jan
+	icon_base_prefix = "flynn"
+	eye_prefix = "flynn"
+
+/datum/robot_skin/heavy/jan
+	icon_base_prefix = "heavyres"
+	eye_prefix = "heavyres"
 
 /datum/robot_skin/basic/mopbot
 	name = "Mopbot"
@@ -506,9 +609,6 @@
 	eye_prefix = "mmekaserv"
 	panelprefix = "ov-serve"
 
-/datum/robot_skin/women/srv
-	icon_base_prefix = "woman-Service"
-
 /datum/robot_skin/paladin/srv
 	icon_base_prefix = "paladin-Service"
 	eye_prefix = "paladin-Service"
@@ -535,6 +635,24 @@
 /datum/robot_skin/mine/srv
 	icon_base_prefix = "mine_green"
 	eye_prefix = "mine_green"
+
+/datum/robot_skin/seek/srv
+	icon_base_prefix = "sleekservice"
+	eye_prefix = "sleekservice"
+
+/datum/robot_skin/mech/srv
+	icon_base_prefix = "lloyd"
+	eye_prefix = "lloyd"
+
+/datum/robot_skin/heavy/srv
+	icon_base_prefix = "heavyserv"
+	eye_prefix = "heavyserv"
+
+/datum/robot_skin/handy_serv
+	name = "Mr Handy"
+	icon_base_prefix = "handy-service"
+	eye_prefix = "handy-service"
+	required_permit = FALLOUT_PERMISSION
 
 /datum/robot_skin/basic/waitress
 	name = "Waitress"
@@ -582,9 +700,6 @@
 	eye_prefix = "mmekamine"
 	panelprefix = "ov-mine"
 
-/datum/robot_skin/women/mnr
-	icon_base_prefix = "woman-Miner"
-
 /datum/robot_skin/paladin/mnr
 	icon_base_prefix = "paladin-Miner"
 	eye_prefix = "paladin-Miner"
@@ -611,6 +726,31 @@
 /datum/robot_skin/mine/mnr
 	icon_base_prefix = "mine_miner"
 	eye_prefix = "mine_miner"
+
+/datum/robot_skin/seek/mnr
+	icon_base_prefix = "sleekminer"
+	eye_prefix = "sleekminer"
+
+/datum/robot_skin/noble_h/mnr
+	icon_base_prefix = "Noble-SUP-H"
+
+/datum/robot_skin/mech/mnr
+	icon_base_prefix = "ishimura"
+	eye_prefix = "ishimura"
+
+/datum/robot_skin/heavy/mnr
+	icon_base_prefix = "heavymin"
+	eye_prefix = "heavymin"
+
+/datum/robot_skin/spider/mnr
+	icon_base_prefix = "spidermin"
+	eye_prefix = "spidermin"
+
+/datum/robot_skin/walle
+	name = "Wall-e"
+	icon_base_prefix = "wall-e"
+	eye_prefix = "wall-e"
+	required_permit = WALLE_PERMISSION
 
 /datum/robot_skin/droid_miner
 	name = "Advanced Droid"
@@ -662,6 +802,14 @@
 	eye_prefix = "mmekasyndi"
 	panelprefix = "ov-syndi"
 
+/datum/robot_skin/heavy/syndi
+	icon_base_prefix = "syndieheavy"
+	eye_prefix = "syndieheavy"
+
+/datum/robot_skin/spider/syndi
+	icon_base_prefix = "spidersyndi"
+	eye_prefix = "spidersyndi"
+
 /datum/robot_skin/droidcombat
 	name = "Destroyer"
 	icon_base_prefix = "droidcombat"
@@ -671,12 +819,6 @@
 	name = "ERT-GAMMA"
 	icon_base_prefix = "ertgamma"
 	eye_prefix = "ertgamma"
-
-/datum/robot_skin/women/combat
-	icon_base_prefix = "woman-Combat"
-
-/datum/robot_skin/women/combat_alt
-	icon_base_prefix = "woman-Combat_alt"
 
 /datum/robot_skin/paladin/combat
 	icon_base_prefix = "paladin-Combat"
@@ -697,6 +839,20 @@
 /datum/robot_skin/buddy/combat
 	icon_base_prefix = "buddy-Combat"
 	eye_prefix = "buddy-Combat"
+
+/datum/robot_skin/seek/combat
+	icon_base_prefix = "sleekcombat"
+	eye_prefix = "sleekcombat"
+
+/datum/robot_skin/mech/combat
+	icon_base_prefix = "chesty"
+	eye_prefix = "chesty"
+
+/datum/robot_skin/mrgutsy
+	name = "Mr Gutsy"
+	icon_base_prefix = "mrgutsy"
+	eye_prefix = "mrgutsy"
+	required_permit = FALLOUT_PERMISSION
 
 /datum/robot_skin/xenoborg
 	name = "Xenoborg"
@@ -728,3 +884,29 @@
 	icon_base_prefix = "mmekaninja"
 	eye_prefix = "mmekaninja"
 	panelprefix = "ov-ninja"
+
+/datum/robot_skin/heavy/ninja
+	icon_base_prefix = "ninjaheavy"
+	eye_prefix = "ninjaheavy"
+
+/datum/robot_skin/spider/ninja
+	icon_base_prefix = "ninjaspider"
+	eye_prefix = "ninjaspider"
+
+/datum/robot_skin/ninja_sec
+	name = "Ninja sec"
+	icon_base_prefix = "ninja_sec"
+	eye_prefix = "ninja_sec"
+	required_permit = NINJA_ALT_PERMISSION
+
+/datum/robot_skin/ninja_engi
+	name = "Ninja engi"
+	icon_base_prefix = "ninja_engi"
+	eye_prefix = "ninja_engi"
+	required_permit = NINJA_ALT_PERMISSION
+
+/datum/robot_skin/ninja_medical
+	name = "Ninja medical"
+	icon_base_prefix = "ninja_medical"
+	eye_prefix = "ninja_medical"
+	required_permit = NINJA_ALT_PERMISSION

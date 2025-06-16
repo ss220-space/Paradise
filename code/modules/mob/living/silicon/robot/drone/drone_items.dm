@@ -216,9 +216,9 @@
 	can_hold = typecacheof(can_hold)
 
 /obj/item/gripper/verb/drop_item_gripped()
-	set name = "Drop Gripped Item"
+	set name = "Выкинуть предмет"
 	set desc = "Release an item from your magnetic gripper."
-	set category = "Drone"
+	set category = STATPANEL_DRONE
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 	drop_gripped_item()
@@ -379,7 +379,7 @@
 			grabbed_something = TRUE
 
 	if(grabbed_something)
-		to_chat(user, span_notice("Вы разворачиваете декомпилятор и забираете предметы с [T.declent_ru(PREPOSITIONAL)]."))
+		to_chat(user, span_notice("Вы разворачиваете декомпилятор и забираете предметы с [T.declent_ru(GENITIVE)]."))
 	else
 		to_chat(user, span_warning("На [T.declent_ru(PREPOSITIONAL)] ничего полезного для вас нет."))
 	return
