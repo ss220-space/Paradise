@@ -80,7 +80,7 @@
 
 	owner.apply_damage(bonus_damage * (item.force * (GLOB.whiteness[uniform.type] + 1)))
 	item.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))] кажется получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
-	span_notice("Незапятнанная белая одежда разрушает форму [owner.declent_ru(GENITIVE)]."))
+	span_notice("Незапятнанная белая одежда вредит [owner.declent_ru(GENITIVE)]."))
 
 /datum/devil_bane/harvest
 	name = BANE_HARVEST
