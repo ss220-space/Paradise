@@ -112,7 +112,7 @@ Made by Xhuis
 		var/list/messages = list()
 		spawn(rand(10,100))
 			messages.Add("<br>")
-			messages.Add("<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
+			messages.Add(span_deadsay("<b><font size=3>You are a shadowling!</font></b>"))
 			messages.Add(greet_shadow(shadow))
 			messages.Add(process_shadow_objectives(shadow))
 			finalize_shadowling(shadow)
@@ -146,7 +146,7 @@ Made by Xhuis
 		shadow_mind.current.add_language(LANGUAGE_HIVE_SHADOWLING)
 		update_shadow_icons_added(shadow_mind)
 		if(shadow_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(S, "<span class='notice'>Твоя натура позволяет тебе преодолеть твою клоунаду.</span>")
+			to_chat(S, span_notice("Твоя натура позволяет тебе преодолеть твою клоунаду."))
 			S.force_gene_block(GLOB.clumsyblock, FALSE)
 
 
@@ -181,13 +181,13 @@ Made by Xhuis
 				if(!is_shadow(shadowling))
 					continue
 
-				to_chat(shadowling, "<span class='shadowling'>Ты чувствуешь нового раба под твоей волей. Тебе нужно [victory_threshold] рабов, но у тебя есть только [thralls] живых рабов.</span>")
+				to_chat(shadowling, span_shadowling("Ты чувствуешь нового раба под твоей волей. Тебе нужно [victory_threshold] рабов, но у тебя есть только [thralls] живых рабов."))
 
 		else if(thralls >= victory_threshold)
 			for(var/mob/shadowling in GLOB.alive_mob_list)
 				if(!is_shadow(shadowling))
 					continue
-				to_chat(shadowling, "<span class='shadowling'><b>Тебе хватает сил для трансформации в истинную форму.</b></span>")
+				to_chat(shadowling, span_shadowling("<b>Тебе хватает сил для трансформации в истинную форму.</b>"))
 
 		if(!victory_warning_announced && (length(shadowling_thralls) >= warning_threshold))//are the slings very close to winning?
 			victory_warning_announced = TRUE	//then let's give the station a warning
@@ -208,17 +208,17 @@ Made by Xhuis
 	thrall_mind.current.remove_language(LANGUAGE_HIVE_SHADOWLING)
 	if(kill && ishuman(thrall_mind.current)) //If dethrallization surgery fails, kill the mob as well as dethralling them
 		var/mob/living/carbon/human/H = thrall_mind.current
-		H.visible_message("<span class='warning'>[H] резко дергается и падает неподвижно.</span>", \
-							"<span class='userdanger'>Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом.</span>")
+		H.visible_message(span_warning("[H] резко дергается и падает неподвижно."), \
+							span_userdanger("Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом."))
 		H.death()
 		return 1
 	var/mob/living/M = thrall_mind.current
 	if(issilicon(M))
-		M.audible_message("<span class='notice'>[M] издает короткий сигнал.</span>")
-		to_chat(M, "<span class='userdanger'>Тебя превратили в робота! Ты больше не раб! Как бы ты ни старался, ты не можешь вспомнить ничего о том, как был рабом.</span>")
+		M.audible_message(span_notice("[M] издает короткий сигнал."))
+		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не раб! Как бы ты ни старался, ты не можешь вспомнить ничего о том, как был рабом."))
 	else
-		M.visible_message("<span class='big'>[M] looks like [M.p_their()] mind is [M.p_their()] own again!</span>", \
-						"<span class='userdanger'>Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом.</span>")
+		M.visible_message(span_big("[M] looks like [M.p_their()] mind is [M.p_their()] own again!"), \
+						span_userdanger("Пронзительный белый свет заполняет твой разум, ты забываешь, как был рабом."))
 	return 1
 
 
@@ -243,7 +243,7 @@ Made by Xhuis
 						if(prob(20) && hatch_ability.cycles_unused > CONFIG_GET(number/shadowling_max_age))
 							var/shadow_nag_messages = list("Ты едва можешь терпеть эту низшую форму!», «Желание стать чем-то большим непреодолимо!», «Ты чувствуешь жгучую страсть освободиться от этой оболочки и обрести божественность».!")
 							H.take_overall_damage(0, 3)
-							to_chat(H, "<span class='userdanger'>[pick(shadow_nag_messages)]</span>")
+							to_chat(H, span_userdanger("[pick(shadow_nag_messages)]"))
 							H << 'sound/weapons/sear.ogg'
 
 	if(shadows_alive)
@@ -262,16 +262,16 @@ Made by Xhuis
 		ling_mind.RemoveSpell(spell)
 	var/mob/living/M = ling_mind.current
 	if(issilicon(M))
-		M.audible_message("<span class='notice'>[M] lets out a short blip.</span>")
-		to_chat(M, "<span class='userdanger'>Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им...</span>")
+		M.audible_message(span_notice("[M] lets out a short blip."))
+		to_chat(M, span_userdanger("Тебя превратили в робота! Ты больше не теньлинг! Как бы ты ни старался, ты не можешь вспомнить ничего о том времени, когда ты был им..."))
 	else
-		M.visible_message("<span class='big'>[M] кричит и корчится!</span>", \
-						  "<span class='userdanger'>СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i></span>")
+		M.visible_message(span_big("[M] кричит и корчится!"), \
+						  span_userdanger("СВЕТ-- ТВОЙ РАЗУМ-- <i>ГОРИТ--</i>"))
 		spawn(30)
 			if(!M || QDELETED(M))
 				return
-			M.visible_message("<span class='warning'>[M] внезапно раздувается и взрывается!</span>", \
-							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")
+			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
+							  span_warning("<b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font>"))
 			playsound(M, 'sound/magic/disintegrate.ogg', 100, 1)
 			M.gib()
 
@@ -285,20 +285,20 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "Победа тенелингов - тенелинги возвысились"
-		to_chat(world, span_fontsize3("<b>Победа тенелингов</b>"))
-		to_chat(world, "<span class='greentext'><b>Тенелинги возвысились и полностью захватили станцию!</b></span>")
+		to_chat(world, span_fontsize_16px("<b>Победа тенелингов</b>"))
+		to_chat(world, span_greentext("<b>Тенелинги возвысились и полностью захватили станцию!</b>"))
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		SSticker.mode_result = "Тенелинги проиграли - тенелинги погибли"
-		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
-		to_chat(world, "<span class='redtext'><b>Тенелинги были убиты экипажем!</b></span>")
+		to_chat(world, span_fontsize_16px("<b>Крупная победа экипажа</b>"))
+		to_chat(world, span_redtext("<b>Тенелинги были убиты экипажем!</b>"))
 	else if(!check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED)
 		SSticker.mode_result = "Тенелинги проиграли - экипаж сбежал"
-		to_chat(world, span_fontsize3("<b>Мелкая победа экипажа</b>"))
-		to_chat(world, "<span class='redtext'><b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b></span>")
+		to_chat(world, span_fontsize_16px("<b>Мелкая победа экипажа</b>"))
+		to_chat(world, span_redtext("<b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b>"))
 	else
 		SSticker.mode_result = "Тенелинги проиграли - тенелинги не справились"
-		to_chat(world, span_fontsize3("<b>Крупная победа экипажа</b>"))
-		to_chat(world, "<span class='redtext'><b>Тенелинги не смогли возвыситься!</b></span>")
+		to_chat(world, span_fontsize_16px("<b>Крупная победа экипажа</b>"))
+		to_chat(world, span_redtext("<b>Тенелинги не смогли возвыситься!</b>"))
 	..()
 	return 1
 

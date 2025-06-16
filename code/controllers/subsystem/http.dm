@@ -136,5 +136,5 @@ SUBSYSTEM_DEF(http)
 	SShttp.create_async_request(RUSTG_HTTP_METHOD_GET, "http://site.domain/page.html", proc_callback=cb)
 
 /client/proc/response(mob/user, datum/http_response/response)
-	to_chat(user, "<span class='notice'>Code: [response.status_code] | Content: [response.body]")
+	to_chat(user, span_notice("Code: [response.status_code] | Content: [response.body]")
 */

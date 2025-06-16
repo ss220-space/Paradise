@@ -65,7 +65,7 @@
 
 	var/text_for_screentip = position_to_name["[icon_x]:[icon_y]"]
 
-	used_base_map.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align: center'>[text_for_screentip]</span>")
+	used_base_map.maptext = MAPTEXT_TINY_UNICODE("<span style='text-align: center'>[text_for_screentip]"))
 	used_base_map.maptext_x = icon_x
 	used_base_map.maptext_y = icon_y
 	used_base_map.maptext_width = 96

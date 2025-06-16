@@ -52,10 +52,10 @@
 	var/mob/living/carbon/human/human = owner
 	if(!human.vision_type)
 		human.set_vision_override(/datum/vision_override/nightvision)
-		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы видеть сквозь тьму.</span>")
+		to_chat(human, span_notice("Вы изменяете свой взор, чтобы видеть сквозь тьму."))
 	else
 		human.set_vision_override(null)
-		to_chat(human, "<span class='notice'>Вы изменяете свой взор, чтобы вновь различать свет и тени.</span>")
+		to_chat(human, span_notice("Вы изменяете свой взор, чтобы вновь различать свет и тени."))
 
 /datum/species/shadow/on_species_gain(mob/living/carbon/human/human)
 	. = ..()

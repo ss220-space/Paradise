@@ -300,13 +300,13 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	var/new_style = input("Please select hair style", "Character Generation", head_organ.h_style) as null|anything in valid_hairstyles
 	if(new_style)
-		H.visible_message("<span class='notice'>Волосы на голове [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей прическе.</span>")
+		H.visible_message(span_notice("Волосы на голове [H] начинают шевелиться!."), span_notice("Вы концентрируетесь на своей прическе."))
 		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, H))
 			H.change_hair(new_style)
 			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
-			H.visible_message("<span class='notice'>[H] изменил свою прическу.</span>", "<span class='notice'>Вы изменили свою прическу.</span>")
+			H.visible_message(span_notice("[H] изменил свою прическу."), span_notice("Вы изменили свою прическу."))
 		else
-			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
+			to_chat(H, span_warning("Вы теряете концентрацию."))
 
 /datum/action/innate/slimebeard
 	name = "Change Beard"
@@ -319,17 +319,17 @@
 	var/list/valid_facial_hairstyles = H.generate_valid_facial_hairstyles()
 	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 	if(H.gender == FEMALE)
-		to_chat(H, "<span class='warning'> Вы не можете изменить бороду.</span>")
+		to_chat(H, span_warning(" Вы не можете изменить бороду."))
 		return
 	var/new_style = input("Please select facial style", "Character Generation", head_organ.f_style) as null|anything in valid_facial_hairstyles
 	if(new_style)
-		H.visible_message("<span class='notice'>Волосы на лице [H] начинают шевелиться!.</span>", "<span class='notice'>Вы концентрируетесь на своей бороде.</span>")
+		H.visible_message(span_notice("Волосы на лице [H] начинают шевелиться!."), span_notice("Вы концентрируетесь на своей бороде."))
 		if(do_after(H, SLIMEPERSON_HAIRGROWTHDELAY, H))
 			H.change_facial_hair(new_style)
 			H.adjust_nutrition(-SLIMEPERSON_HAIRGROWTHCOST)
-			H.visible_message("<span class='notice'>[H] изменил свою бороду.</span>", "<span class='notice'>Вы изменили свою бороду.</span>")
+			H.visible_message(span_notice("[H] изменил свою бороду."), span_notice("Вы изменили свою бороду."))
 		else
-			to_chat(H, "<span class='warning'>Вы теряете концентрацию.</span>")
+			to_chat(H, span_warning("Вы теряете концентрацию."))
 
 #undef SLIMEPERSON_COLOR_SHIFT_TRIGGER
 #undef SLIMEPERSON_ICON_UPDATE_PERIOD

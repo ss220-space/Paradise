@@ -102,7 +102,7 @@
 				var/datum/ai_law/AL = locate(params["edit_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to edit their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
+					to_chat(usr, span_warning("You cant edit that law."))
 					return
 				if(AL)
 					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law, encode = FALSE)
@@ -117,7 +117,7 @@
 				var/datum/ai_law/AL = locate(params["delete_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to delete their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant delete that law.</span>")
+					to_chat(usr, span_warning("You cant delete that law."))
 					return
 				if(AL && is_malf(usr))
 					var/old_law = AL.law
@@ -142,15 +142,15 @@
 					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
 
 		if("notify_laws")
-			to_chat(owner, "<span class='danger'>Law Notice</span>")
+			to_chat(owner, span_danger("Law Notice"))
 			owner.laws.show_laws(owner)
 			if(isAI(owner))
 				var/mob/living/silicon/ai/AI = owner
 				for(var/mob/living/silicon/robot/R in AI.connected_robots)
-					to_chat(R, "<span class='danger'>Law Notice</span>")
+					to_chat(R, span_danger("Law Notice"))
 					R.laws.show_laws(R)
 			if(usr != owner)
-				to_chat(usr, "<span class='notice'>Laws displayed.</span>")
+				to_chat(usr, span_notice("Laws displayed."))
 
 /datum/ui_module/law_manager/ui_state(mob/user)
 	if(check_rights(R_ADMIN, FALSE))

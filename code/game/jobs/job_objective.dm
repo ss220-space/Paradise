@@ -97,9 +97,9 @@
 							break
 			while(counter > 1)
 
-			to_chat(usr, "<span class='notice'>У вас появилась новая амбиция: [objective.description].</span>")
+			to_chat(usr, span_notice("У вас появилась новая амбиция: [objective.description]."))
 		else
-			to_chat(usr, "<span class='warning'>Количество амбиций переполнено, избавьтесь от неосуществимых.</span>")
+			to_chat(usr, span_warning("Количество амбиций переполнено, избавьтесь от неосуществимых."))
 		add_misc_logs(usr, "has added [key_name(current)]'s ambition.")
 
 
@@ -121,9 +121,9 @@
 		objective.completed = !objective.completed
 
 		if (objective.completed)
-			to_chat(usr, "<span class='warning'>[pluralize_ru(usr.gender,"Моя","Наша")] амбиция выполнена. [pluralize_ru(usr.gender,"Поздравляю сам себя","Поздравим же нас")]!</span>")
+			to_chat(usr, span_warning("[pluralize_ru(usr.gender,"Моя","Наша")] амбиция выполнена. [pluralize_ru(usr.gender,"Поздравляю сам себя","Поздравим же нас")]!"))
 		else
-			to_chat(usr, "<span class='warning'>Пожалуй [pluralize_ru(usr.gender,"моя","наша")] амбиция ещё не выполнена. Но у [pluralize_ru(usr.gender,"меня","нас")] ещё будут возможности!</span>")
+			to_chat(usr, span_warning("Пожалуй [pluralize_ru(usr.gender,"моя","наша")] амбиция ещё не выполнена. Но у [pluralize_ru(usr.gender,"меня","нас")] ещё будут возможности!"))
 		add_misc_logs(usr, "[key_name(usr)] has toggled the completion of one of [key_name(current)]'s ambitions")
 
 	// Обновляем открытую память

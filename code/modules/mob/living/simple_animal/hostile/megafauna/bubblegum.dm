@@ -99,28 +99,28 @@ Difficulty: Hard
 	name = "Triple Charge"
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "sniper_zoom"
-	chosen_message = "<span class='colossus'>You are now triple charging at the target you click on.</span>"
+	chosen_message = span_colossus("You are now triple charging at the target you click on.")
 	chosen_attack_num = 1
 
 /datum/action/innate/megafauna_attack/hallucination_charge
 	name = "Hallucination Charge"
 	icon_icon = 'icons/effects/bubblegum.dmi'
 	button_icon_state = "smack ya one"
-	chosen_message = "<span class='colossus'>You are now charging with hallucinations at the target you click on.</span>"
+	chosen_message = span_colossus("You are now charging with hallucinations at the target you click on.")
 	chosen_attack_num = 2
 
 /datum/action/innate/megafauna_attack/hallucination_surround
 	name = "Surround Target"
 	icon_icon = 'icons/turf/walls/wall.dmi'
 	button_icon_state = "wall"
-	chosen_message = "<span class='colossus'>You are now surrounding the target you click on with hallucinations.</span>"
+	chosen_message = span_colossus("You are now surrounding the target you click on with hallucinations.")
 	chosen_attack_num = 3
 
 /datum/action/innate/megafauna_attack/blood_warp
 	name = "Blood Warp"
 	icon_icon = 'icons/effects/blood.dmi'
 	button_icon_state = "floor1"
-	chosen_message = "<span class='colossus'>You are now warping to blood around your clicked position.</span>"
+	chosen_message = span_colossus("You are now warping to blood around your clicked position.")
 	chosen_attack_num = 4
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/enrage()
@@ -136,7 +136,7 @@ Difficulty: Hard
 	crusher_loot = list(/obj/effect/decal/cleanable/blood/gibs/bubblegum)
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(18)) //suprise motherfucker bubblegum wakes up fast
-		to_chat(H, "<span class='colossus'><b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b></span>")
+		to_chat(H, span_colossus("<b>You DARE to insult my body with these constructs? I curse you as you curse ME!</b>"))
 		FindTarget(list(H)) //From down town with the pile driver
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/unrage()
@@ -161,7 +161,7 @@ Difficulty: Hard
 	if(second_life)
 		var/area/A = get_area(src)
 		for(var/mob/M in A)
-			to_chat(M, "<span class='colossus'><b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b></span>")
+			to_chat(M, span_colossus("<b>YOU FUCK... I... I'll... get you later. Enjoy the last few days of your life...</b>"))
 		new /obj/effect/bubblegum_exit(get_turf(src))
 	return ..()
 
@@ -354,7 +354,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 4)
 	for(var/mob/living/L in T)
 		if(!faction_check_mob(L))
-			to_chat(L, "<span class='userdanger'>[src] rends you!</span>")
+			to_chat(L, span_userdanger("[src] rends you!"))
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
 			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
@@ -371,7 +371,7 @@ Difficulty: Hard
 	for(var/mob/living/L in T)
 		if(!faction_check_mob(L))
 			if(L.stat != CONSCIOUS)
-				to_chat(L, "<span class='userdanger'>[src] drags you through the blood!</span>")
+				to_chat(L, span_userdanger("[src] drags you through the blood!"))
 				playsound(T, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 				var/turf/targetturf = get_step(src, dir)
 				L.forceMove(targetturf)
@@ -381,7 +381,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
 	SetRecoveryTime(20)
-	visible_message("<span class='colossus'><b>[pick("[SSticker.cultdat.entity_name], I call on YOU for one of MY favours you owe me!", "[SSticker.cultdat.entity_title1], I call on you for some support...", "Let us see how you like the minions of [SSticker.cultdat.entity_title2]!", "Oh, [SSticker.cultdat.entity_title3] join me in RENDING THIS WHELP APART!")]</b></span>")
+	visible_message(span_colossus("<b>[pick("[SSticker.cultdat.entity_name], I call on YOU for one of MY favours you owe me!", "[SSticker.cultdat.entity_title1], I call on you for some support...", "Let us see how you like the minions of [SSticker.cultdat.entity_title2]!", "Oh, [SSticker.cultdat.entity_title3] join me in RENDING THIS WHELP APART!")]</b>"))
 	var/list/turfs = list()
 	var/constructs = 0
 	for(var/turf/T in view(6, target))
@@ -428,11 +428,11 @@ Difficulty: Hard
 		shuffle_inplace(pools)
 		found_bloodpool = pick(pools)
 	if(found_bloodpool)
-		visible_message("<span class='danger'>[src] sinks into the blood...</span>")
+		visible_message(span_danger("[src] sinks into the blood..."))
 		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 		forceMove(get_turf(found_bloodpool))
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
-		visible_message("<span class='danger'>And springs back out!</span>")
+		visible_message(span_danger("And springs back out!"))
 		blood_enrage()
 		return TRUE
 	return FALSE
@@ -607,7 +607,7 @@ Difficulty: Hard
 		return .
 	var/mob/living/bumped_living = bumped_atom
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+	bumped_living.visible_message(span_danger("[src] slams into [bumped_living]!"), span_userdanger("[src] tramples you into the ground!"))
 	forceMove(living_turf)
 	bumped_living.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -729,5 +729,5 @@ Difficulty: Hard
 		break
 	RegisterSignal(src, COMSIG_HOSTILE_FOUND_TARGET, PROC_REF(i_see_you))
 	for(var/mob/living/carbon/human/H in range(20))
-		to_chat(H, "<span class='colossus'><b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b></span>")
+		to_chat(H, span_colossus("<b>MY HANDS WILL RELISH ENDING YOU... HERE AND NOW!</b>"))
 		FindTarget(list(H))

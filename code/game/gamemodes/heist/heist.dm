@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		else
 			win_msg += "<b>The Vox Raiders were repelled!</b>"
 
-	to_chat(world, span_warning(span_fontsize3("<b>[win_type] [win_group] victory!</b>")))
+	to_chat(world, span_warning(span_fontsize_16px("<b>[win_type] [win_group] victory!</b>")))
 	to_chat(world, "[win_msg]")
 	SSticker.mode_result = "heist - [win_type] [win_group]"
 
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)
 			check_return = 1
-		var/text = "<span style='font-size: 2;'><b>The Vox raiders were:</b></span>"
+		var/text = span_fontsize_13px("<b>The Vox raiders were:</b>")
 
 		for(var/datum/mind/vox in raiders)
 			text += "<br>[vox.get_display_key()] was [vox.name] ("
@@ -293,7 +293,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 
 /obj/machinery/vox_win_button/attack_hand(mob/user)
 	if(!GAMEMODE_IS_HEIST || (world.time < 10 MINUTES)) //has to be heist, and at least ten minutes into the round
-		to_chat(user, "<span class='warning'>\The [src] does not appear to have a connection.</span>")
+		to_chat(user, span_warning("\The [src] does not appear to have a connection."))
 		return 0
 
 	if(alert(user, "Warning: This will end the round. Are you sure you wish to end the round?", "Vox End", "Yes", "No") == "No")

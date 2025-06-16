@@ -30,7 +30,7 @@
 			var/honorific = "Mr."
 			if(user.gender == FEMALE)
 				honorific = "Ms."
-			dat += "<span style='color: red;'><i>Identity not found in operative database. What can the Syndicate do for you today, [honorific] [user.name]?</i></span><br>"
+			dat += span_fontcolor_red("<i>Identity not found in operative database. What can the Syndicate do for you today, [honorific] [user.name]?</i></span><br>"
 			if(!selfdestructing)
 				dat += "<br><br><a href='byond://?src=[UID()];betraitor=1;traitormob=\ref[user]'>\"[pick("I want to switch teams.", "I want to work for you.", "Let me join you.", "I can be of use to you.", "You want me working for you, and here's why...", "Give me an objective.", "How's the 401k over at the Syndicate?")]\"</a><br>"
 	dat += temptext
@@ -53,7 +53,7 @@
 			return
 		charges -= 1
 		if(prob(50))
-			temptext = "<span style='color: red;'><i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
+			temptext = span_fontcolor_red("<i><b>Двойной агент. Ты планировал предать нас с самого начала. Позвольте нам отплатить за услугу тем же.</b></i></span>"
 			src.updateUsrDialog()
 			spawn(rand(50,200)) selfdestruct()
 			return

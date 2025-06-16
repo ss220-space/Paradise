@@ -38,21 +38,21 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/item/stack/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Use in-hand to place a [singular_name].</span>"
-	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+	. += span_notice("Use in-hand to place a [singular_name].")
+	. += span_notice("Alt-click to select a color. Current color is [picked_color].")
 
 /obj/item/stack/marker_beacon/update_icon_state()
 	icon_state = "[initial(icon_state)][lowertext(picked_color)]"
 
 /obj/item/stack/marker_beacon/attack_self(mob/user)
 	if(!isturf(user.loc))
-		to_chat(user, "<span class='warning'>You need more space to place a [singular_name] here.</span>")
+		to_chat(user, span_warning("You need more space to place a [singular_name] here."))
 		return
 	if(locate(/obj/structure/marker_beacon) in user.loc)
-		to_chat(user, "<span class='warning'>There is already a [singular_name] here.</span>")
+		to_chat(user, span_warning("There is already a [singular_name] here."))
 		return
 	if(use(1))
-		to_chat(user, "<span class='notice'>You activate and anchor [amount ? "a":"the"] [singular_name] in place.</span>")
+		to_chat(user, span_notice("You activate and anchor [amount ? "a":"the"] [singular_name] in place."))
 		playsound(user, 'sound/machines/click.ogg', 50, 1)
 		var/obj/structure/marker_beacon/M = new(user.loc, picked_color)
 		transfer_fingerprints_to(M)
@@ -96,7 +96,7 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 
 /obj/structure/marker_beacon/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>Alt-click to select a color. Current color is [picked_color].</span>"
+	. += span_notice("Alt-click to select a color. Current color is [picked_color].")
 
 
 /obj/structure/marker_beacon/update_icon_state()
@@ -115,9 +115,9 @@ GLOBAL_LIST_INIT(marker_beacon_colors, list(
 	if(.)
 		return
 	if(user.incapacitated())
-		to_chat(user, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(user, span_warning("You can't do that right now!"))
 		return
-	to_chat(user, "<span class='notice'>You start picking [src] up...</span>")
+	to_chat(user, span_notice("You start picking [src] up..."))
 	if(do_after(user, remove_speed, src))
 		var/obj/item/stack/marker_beacon/M = new(drop_location())
 		M.picked_color = picked_color

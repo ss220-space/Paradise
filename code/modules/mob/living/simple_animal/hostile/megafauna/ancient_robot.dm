@@ -256,7 +256,7 @@ Difficulty: Very Hard
 		return
 	if(mode == BLUESPACE || (enraged && prob(13)))
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
-		src.visible_message("<span class='danger'>[src] teleports somewhere nearby!</span>")
+		src.visible_message(span_danger("[src] teleports somewhere nearby!"))
 		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg') //Teleport within 7 tiles of the target
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 
@@ -297,7 +297,7 @@ Difficulty: Very Hard
 	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+	bumped_living.visible_message(span_danger("[src] slams into [bumped_living]!"), span_userdanger("[src] tramples you into the ground!"))
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 	bumped_living.apply_damage(25, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
@@ -311,11 +311,11 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/body_shield()
 	body_shield_enabled = TRUE
-	visible_message("<span class='danger'>[src] creates some sort of energy shield!</span>")
+	visible_message(span_danger("[src] creates some sort of energy shield!"))
 	add_overlay("shield")
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
-	visible_message("<span class='danger'>[src]'s shield fails!</span>")
+	visible_message(span_danger("[src]'s shield fails!"))
 	cut_overlay("shield")
 	body_shield_enabled = FALSE
 	addtimer(CALLBACK(src, PROC_REF(body_shield)), BODY_SHIELD_COOLDOWN_TIME)
@@ -348,7 +348,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
-	visible_message("<span class='userdanger'>[src] disintigrates [L]!</span>","<span class='userdanger'>You analyse [L], restoring your health!</span>")
+	visible_message(span_userdanger("[src] disintigrates [L]!"),span_userdanger("You analyse [L], restoring your health!"))
 	if(client || !is_station_level(z))
 		adjustHealth(-maxHealth * 0.1)
 	L.dust()
@@ -359,10 +359,10 @@ Difficulty: Very Hard
 		if(BLUESPACE)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
-				to_chat(H, "<span class='danger'>[src] starts to slow time around you!</span>")
+				to_chat(H, span_danger("[src] starts to slow time around you!"))
 				H.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(GRAV)
-			visible_message("<span class='danger'>Debris from the battlefield begin to get compressed into rocks!</span>")
+			visible_message(span_danger("Debris from the battlefield begin to get compressed into rocks!"))
 			var/list/turfs = list()
 			var/rocks = 0
 			for(var/turf/T in view(4, target))
@@ -380,7 +380,7 @@ Difficulty: Very Hard
 				addtimer(CALLBACK(src, PROC_REF(throw_rock), spot, target), 2 SECONDS)
 				rocks++
 		if(PYRO)
-			visible_message("<span class='danger'>The ground begins to heat up around you!</span>")
+			visible_message(span_danger("The ground begins to heat up around you!"))
 			var/list/turfs = list()
 			var/volcanos = 0
 			for(var/turf/T in view(4, target))
@@ -410,7 +410,7 @@ Difficulty: Very Hard
 				O.xo = T.x - S.x
 				O.fire()
 		if(VORTEX)
-			visible_message("<span class='danger'>[src] begins vibrate rapidly. It's causing an earthquake!</span>")
+			visible_message(span_danger("[src] begins vibrate rapidly. It's causing an earthquake!"))
 			for(var/turf/turf in range(9,get_turf(target)))
 				if(prob(enraged ? 40 : 15))
 					new /obj/effect/temp_visual/target/ancient(turf)
@@ -474,7 +474,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
-	visible_message("<span class='biggerdanger'>[src] begins to overload it's core. It is going to explode!</span>")
+	visible_message(span_biggerdanger("[src] begins to overload it's core. It is going to explode!"))
 	SSmove_manager.stop_looping(src)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
@@ -699,9 +699,9 @@ Difficulty: Very Hard
 	fake_hp = clamp(fake_hp - amount, 0, fake_max_hp)
 	if(amount && ranged && fake_hp <= 200)
 		ranged = FALSE
-		visible_message("<span class='danger'>[src]'s turret breaks and pulls back into the leg!</span>")
+		visible_message(span_danger("[src]'s turret breaks and pulls back into the leg!"))
 	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
-		visible_message("<span class='danger'>[src] looks too damaged to hurt it much more!</span>")
+		visible_message(span_danger("[src] looks too damaged to hurt it much more!"))
 	health_and_snap_check(FALSE)
 
 
@@ -711,7 +711,7 @@ Difficulty: Very Hard
 	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
 	if(fake_hp >= 250 && !ranged)
 		ranged = TRUE
-		visible_message("<span class='danger'>[src]'s turret pops out of it!</span>")
+		visible_message(span_danger("[src]'s turret pops out of it!"))
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
@@ -727,7 +727,7 @@ Difficulty: Very Hard
 	if(!core.charging || istype(bumped_living, /mob/living/simple_animal/hostile/megafauna/ancient_robot) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message("<span class='danger'>[src] slams into [bumped_living]!</span>", "<span class='userdanger'>[src] tramples you into the ground!</span>")
+	bumped_living.visible_message(span_danger("[src] slams into [bumped_living]!"), span_userdanger("[src] tramples you into the ground!"))
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 	bumped_living.apply_damage(12.5, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
@@ -836,7 +836,7 @@ Difficulty: Very Hard
 		if(istype(L, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
 			continue
 		L.adjustBruteLoss(35)
-		to_chat(L, "<span class='userdanger'>You're hit by the falling rock!</span>")
+		to_chat(L, span_userdanger("You're hit by the falling rock!"))
 
 /obj/effect/temp_visual/fireball/rock
 	icon = 'icons/obj/meteor.dmi'

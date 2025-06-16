@@ -112,7 +112,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/text = "<span style='font-size: 2;'><b>The traitors were:</b></span><br>"
+		var/text = span_fontsize_13px("<b>The traitors were:</b><br>")
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor) + "<br>"
@@ -185,14 +185,14 @@
 				SSblackbox.record_feedback("tally", "traitor_success", 1, "FAIL")
 
 		if(length(SSticker.mode.implanted))
-			text += "<br><br><span style='font-size: 2;'><b>The mindslaves were:</b></span><br>"
+			text += span_fontsize_13px("<br><br><b>The mindslaves were:</b><br>")
 			for(var/datum/mind/mindslave in SSticker.mode.implanted)
 				text += printplayer(mindslave)
 				var/datum/mind/master_mind = SSticker.mode.implanted[mindslave]
 				text += " (slaved by: <b>[master_mind.current]</b>)<br>"
 
 		if(length(SSticker.mode.support))
-			text += "<br><br><span style='font-size: 2;'><b>The Contractor Support Units were:</b></span><br>"
+			text += span_fontsize_13px("<br><br><b>The Contractor Support Units were:</b><br>")
 			for(var/datum/mind/csu in SSticker.mode.support)
 				text += "[printplayer(csu)]<br>"
 

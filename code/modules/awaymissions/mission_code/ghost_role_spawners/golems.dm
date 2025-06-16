@@ -103,12 +103,12 @@
 	var/datum/species/golem/X = mob_species
 	to_chat(new_spawn, "[initial(X.info_text)]")
 	if(!owner)
-		to_chat(new_spawn, "<span class='notice'>It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
-		Adamantine golems are the only golems that can resonate to all golems.</span>")
+		to_chat(new_spawn, span_notice("It is common in free golem societies to respect Adamantine golems as elders, however you do not have to obey them. \
+		Adamantine golems are the only golems that can resonate to all golems."))
 		to_chat(new_spawn, "Build golem shells in the autolathe, and feed refined mineral sheets to the shells to bring them to life! You are generally a peaceful group unless provoked.")
-		to_chat(new_spawn, "<span class='warning'>You are not an antagonist, but you are not a crewmember either. \
+		to_chat(new_spawn, span_warning("You are not an antagonist, but you are not a crewmember either. \
 		You may interact or trade with crew you come across, aswell as defend yourself and your ship \
-		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers.</span>")
+		but avoid actively interfering with the station unless you have a valid roleplay reason to do so, such as an invitation by crewmembers."))
 	else
 		new_spawn.mind.store_memory("<b>Serve [owner.real_name], your creator.</b>")
 		add_game_logs("[key_name(new_spawn)] possessed a golem shell enslaved to [key_name(owner)].")
@@ -142,7 +142,7 @@
 		if(QDELETED(src) || uses <= 0)
 			return
 		add_game_logs("golem-swapped into [src]", user)
-		user.visible_message("<span class='notice'>A faint light leaves [user], moving to [src] and animating it!</span>","<span class='notice'>You leave your old body behind, and transfer into [src]!</span>")
+		user.visible_message(span_notice("A faint light leaves [user], moving to [src] and animating it!"),span_notice("You leave your old body behind, and transfer into [src]!"))
 		create(plr = user, name = user.real_name)
 		user.death()
 		return

@@ -64,7 +64,7 @@
 /obj/machinery/gibber/suicide_act(mob/living/user)
 	if(occupant || locked)
 		return FALSE
-	user.visible_message("<span class='danger'>[user] climbs into [src] and turns it on!</b></span>")
+	user.visible_message(span_danger("[user] climbs into [src] and turns it on!</b>"))
 	user.Stun(20 SECONDS)
 	user.forceMove(src)
 	occupant = user
@@ -85,11 +85,11 @@
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The gibber is locked and running, wait for it to finish.</span>")
+		to_chat(user, span_danger("The gibber is locked and running, wait for it to finish."))
 		return
 
 	if(locked)
-		to_chat(user, "<span class='warning'>Wait for [occupant.name] to finish being loaded!</span>")
+		to_chat(user, span_warning("Wait for [occupant.name] to finish being loaded!"))
 		return
 
 	add_fingerprint(user)
@@ -144,25 +144,25 @@
 
 /obj/machinery/gibber/proc/move_into_gibber(mob/user, mob/living/victim)
 	if(occupant)
-		to_chat(user, "<span class='danger'>The [src] is full, empty it first!</span>")
+		to_chat(user, span_danger("The [src] is full, empty it first!"))
 		return
 
 	if(operating)
-		to_chat(user, "<span class='danger'>The [src] is locked and running, wait for it to finish.</span>")
+		to_chat(user, span_danger("The [src] is locked and running, wait for it to finish."))
 		return
 
 	if(!ishuman(victim))
-		to_chat(user, "<span class='danger'>This is not suitable for the [src]!</span>")
+		to_chat(user, span_danger("This is not suitable for the [src]!"))
 		return
 
 	if(victim.abiotic(1))
-		to_chat(user, "<span class='danger'>Subject may not have abiotic items on.</span>")
+		to_chat(user, span_danger("Subject may not have abiotic items on."))
 		return
 
-	user.visible_message("<span class='danger'>[user] starts to put [victim] into the [src]!</span>")
+	user.visible_message(span_danger("[user] starts to put [victim] into the [src]!"))
 	add_fingerprint(user)
 	if(do_after(user, 3 SECONDS, victim) && user.Adjacent(src) && victim.Adjacent(user) && !occupant)
-		user.visible_message("<span class='danger'>[user] stuffs [victim] into the [src]!</span>")
+		user.visible_message(span_danger("[user] stuffs [victim] into the [src]!"))
 
 		victim.forceMove(src)
 		occupant = victim
@@ -255,11 +255,11 @@
 		return
 
 	if(!occupant)
-		visible_message("<span class='danger'>You hear a loud metallic grinding sound.</span>")
+		visible_message(span_danger("You hear a loud metallic grinding sound."))
 		return
 
 	use_power(1000)
-	visible_message("<span class='danger'>You hear a loud squelchy grinding sound.</span>")
+	visible_message(span_danger("You hear a loud squelchy grinding sound."))
 
 	operating = TRUE
 	update_icon(UPDATE_OVERLAYS)
@@ -357,7 +357,7 @@
 		victim_targets += H
 
 	if(victim_targets.len)
-		visible_message({"<span class='danger'>\The [src] states, "Food detected!"</span>"})
+		visible_message({span_danger("\The [src] states, "Food detected!"</span>"})
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there
@@ -373,7 +373,7 @@
 /obj/machinery/gibber/autogibber/proc/force_move_into_gibber(mob/living/carbon/human/victim)
 	if(!istype(victim))
 		return FALSE
-	visible_message("<span class='danger'>\The [victim.name] gets sucked into \the [src]!</span>")
+	visible_message(span_danger("\The [victim.name] gets sucked into \the [src]!"))
 
 	victim.forceMove(src)
 	occupant = victim
@@ -411,7 +411,7 @@
 		C.throw_at(get_edge_target_turf(src, gib_throw_dir), rand(1, 5), 15)
 		sleep(1)
 
-	visible_message("<span class='warning'>\The [src] spits out \the [H.name]'s possessions!")
+	visible_message(span_warning("\The [src] spits out \the [H.name]'s possessions!")
 
 /obj/machinery/gibber/autogibber/proc/cleanbay()
 	var/spats = 0 //keeps track of how many items get spit out. Don't show a message if none are found.
@@ -424,4 +424,4 @@
 			spats++
 			sleep(1)
 	if(spats)
-		visible_message("<span class='warning'>\The [src] spits out more possessions!</span>")
+		visible_message(span_warning("\The [src] spits out more possessions!"))

@@ -65,20 +65,20 @@
 	if(stat != DEAD)
 		var/list/msgs = list()
 		if(key)
-			msgs += "<span class='warning'>Its eyes have the spark of intelligence.</span>"
+			msgs += span_warning("Its eyes have the spark of intelligence.")
 		if(health > (maxHealth*0.95))
-			msgs += "<span class='notice'>It appears to be in excellent health.</span>"
+			msgs += span_notice("It appears to be in excellent health.")
 		else if(health > (maxHealth*0.75))
-			msgs += "<span class='notice'>It has a few injuries.</span>"
+			msgs += span_notice("It has a few injuries.")
 		else if(health > (maxHealth*0.55))
-			msgs += "<span class='warning'>It has many injuries.</span>"
+			msgs += span_warning("It has many injuries.")
 		else if(health > (maxHealth*0.25))
-			msgs += "<span class='warning'>It is covered in wounds!</span>"
+			msgs += span_warning("It is covered in wounds!</span>"
 		if(resting)
 			if(getBruteLoss() || getFireLoss())
-				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
+				msgs += span_warning("It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
-				msgs += "<span class='notice'>It is currently resting.</span>"
+				msgs += span_notice("It is currently resting.")
 		. += msgs.Join("<br>")
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
@@ -86,7 +86,7 @@
 	if(stat != DEAD && resting && (getBruteLoss() || getFireLoss()))
 		if(life_regen_cycles >= life_regen_cycle_trigger)
 			life_regen_cycles = 0
-			to_chat(src, "<span class='notice'>You lick your wounds, helping them close.</span>")
+			to_chat(src, span_notice("You lick your wounds, helping them close."))
 			heal_overall_damage(life_regen_amount, life_regen_amount)
 		else
 			life_regen_cycles++

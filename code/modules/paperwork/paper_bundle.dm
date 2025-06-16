@@ -143,14 +143,14 @@
 
 
 /obj/item/paper_bundle/proc/burnpaper(obj/item/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
+	var/class = span_warning(""
 
 	if(resistance_flags & FIRE_PROOF)
 		return
 
 	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
-			class = "<span class='rose'>"
+			class = span_rose(""
 
 		user.visible_message("[class][user] holds [P] up to [src], it looks like [user.p_theyre()] trying to burn it!", \
 		"[class]You hold [P] up to [src], burning it slowly.")

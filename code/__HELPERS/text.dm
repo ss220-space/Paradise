@@ -311,8 +311,8 @@
 /proc/trim(text, max_length)
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
-		
-	return trimtext(text) || "" 
+
+	return trimtext(text) || ""
 
 /// Returns a string that does not exceed max_length characters in size
 /proc/trim_length(text, max_length)
@@ -504,7 +504,7 @@
 	if(sign)
 		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
 	if(fields)
-		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
+		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\">"))
 	if(format)
 		text = replacetext(text, "\[h1\]",	"<h1>")
 		text = replacetext(text, "\[/h1\]",	"</h1>")
@@ -602,8 +602,8 @@
 	var/regex/R = new(@"\[(.*?) (.*?)\]", "ge")
 	text = R.Replace(text, /proc/convert_pencode_arg)
 
-	text = replacetext(text, "\[/class\]", "</span>")
-	text = replacetext(text, "\[/style\]", "</span>")
+	text = replacetext(text, "\[/class\]", ""))
+	text = replacetext(text, "\[/style\]", ""))
 	text = replacetext(text, "\[/img\]", "</img>")
 
 	return text
@@ -620,7 +620,7 @@
 	text = replacetext(text, "<u>",									"\[u\]")
 	text = replacetext(text, "</u>",								"\[/u\]")
 	text = replacetext(text, "<font size=\"4\">",					"\[large\]")
-	text = replacetext(text, "<span class=\"paper_field\"></span>",	"\[field\]")
+	text = replacetext(text, "<span class=\"paper_field\">"),	"\[field\]")
 
 	text = replacetext(text, "<h1>",	"\[h1\]")
 	text = replacetext(text, "</h1>",	"\[/h1\]")

@@ -31,7 +31,7 @@
 	if(!isliving(M))
 		return
 	if(listening)
-		if(findtext(msg, "</span>"))
+		if(findtext(msg, "")))
 			recorded = strip_html_properly(msg)
 		else
 			recorded = msg

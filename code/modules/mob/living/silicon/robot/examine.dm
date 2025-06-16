@@ -1,7 +1,7 @@
 /mob/living/silicon/robot/examine(mob/user)
 	. = ..()
 
-	var/msg = "<span class='notice'>"
+	var/msg = span_notice(""
 	if(module)
 		if(module.name_disguise)
 			msg += "It has loaded a [module.name_disguise].\n"
@@ -10,7 +10,7 @@
 	var/obj/act_module = get_active_hand()
 	if(act_module)
 		msg += "It is holding [bicon(act_module)] \a [act_module].\n"
-	msg += "<span class='warning'>"
+	msg += span_warning(""
 
 	//Status effects
 	var/list/status_examines = get_status_effect_examinations()
@@ -36,24 +36,24 @@
 	msg += "</span>"
 
 	if(opened)
-		msg += "<span class='warning'>Its cover is open and the power cell is [cell ? "installed" : "missing"].</span>\n"
+		msg += span_warning("Its cover is open and the power cell is [cell ? "installed" : "missing"].</span>\n"
 	else
 		msg += "Its cover is closed[locked ? "" : ", and looks unlocked"].\n"
 
 	if(cell && cell.charge <= 0)
-		msg += "<span class='warning'>Its battery indicator is blinking red!</span>\n"
+		msg += span_warning("Its battery indicator is blinking red!</span>\n"
 
 	switch(stat)
 		if(CONSCIOUS)
 			if(!client)
 				msg += "It appears to be in stand-by mode.\n" //afk
 		if(UNCONSCIOUS)
-			msg += "<span class='warning'>It doesn't seem to be responding.</span>\n"
+			msg += span_warning("It doesn't seem to be responding.</span>\n"
 		if(DEAD)
 			if(!suiciding)
-				msg += "<span class='deadsay'>It looks like its system is corrupted and requires a reset.</span>\n"
+				msg += span_deadsay("It looks like its system is corrupted and requires a reset.</span>\n"
 			else
-				msg += "<span class='warning'>It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
+				msg += span_warning("It looks like its system is corrupted beyond repair. There is no hope of recovery.</span>\n"
 	if(inventory_head)
 		msg += "\nНосит [bicon(inventory_head)] [inventory_head.name].\n"
 	msg += "</span>"

@@ -124,7 +124,7 @@
 		else
 			return
 	playsound(src, 'sound/effects/pop.ogg', 50, 0)
-	to_chat(user, "<span class='notice'>You change [src]'s mode to '[choice]'.</span>")
+	to_chat(user, span_notice("You change [src]'s mode to '[choice]'."))
 
 /obj/item/rcd/syndicate/combat
 	name = "Syndicate combat rapid-construction-device (RCD)"

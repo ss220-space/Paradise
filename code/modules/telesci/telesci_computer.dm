@@ -43,7 +43,7 @@
 
 /obj/machinery/computer/telescience/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.</span>"
+	. += span_notice("There are [crystals ? crystals : "no"] bluespace crystal\s in the crystal slots.")
 
 
 /obj/machinery/computer/telescience/attackby(obj/item/I, mob/user, params)
@@ -105,17 +105,17 @@
 /obj/machinery/computer/telescience/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			to_chat(user, "<span class='notice'>You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!</span>")
+			to_chat(user, span_notice("You scramble the Telescience authentication key to an unknown signal. You should be able to teleport to more places now!"))
 		emagged = 1
 	else if(user)
-		to_chat(user, "<span class='warning'>The machine seems unaffected by the card swipe...</span>")
+		to_chat(user, span_warning("The machine seems unaffected by the card swipe..."))
 
 /obj/machinery/computer/telescience/attack_ai(mob/user)
 	src.attack_hand(user)
 
 /obj/machinery/computer/telescience/attack_hand(mob/user)
 	if(isgolem(user)) //this is why we can't have nice things free golems
-		to_chat(user, "<span class='warning'>You can't make sense of the console or how to use it.</span>")
+		to_chat(user, span_warning("You can't make sense of the console or how to use it."))
 		return
 	if(..())
 		return
@@ -132,22 +132,22 @@
 			t += "<a href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</a>"
 			t += "<a href='byond://?src=[UID()];setMemory=1'>Set GPS memory</a>"
 		else
-			t += "<span class='linkOff'>Eject GPS</span>"
-			t += "<span class='linkOff'>Set GPS memory</span>"
+			t += span_linkOff("Eject GPS</span>"
+			t += span_linkOff("Set GPS memory</span>"
 		t += "<div class='statusDisplay'>[temp_msg]</div><br>"
 		t += "<a href='byond://?src=[UID()];setrotation=1'>Set Bearing</a>"
 		t += "<div class='statusDisplay'>[rotation] degrees</div>"
 		t += "<a href='byond://?src=[UID()];setangle=1'>Set Elevation</a>"
 		t += "<div class='statusDisplay'>[angle] degrees</div>"
-		t += "<span class='linkOn'>Set Power</span>"
+		t += span_linkOn("Set Power</span>"
 		t += "<div class='statusDisplay'>"
 
 		for(var/i = 1; i <= power_options.len; i++)
 			if(crystals + telepad.efficiency < i)
-				t += "<span class='linkOff'>[power_options[i]]</span>"
+				t += span_linkOff("[power_options[i]]</span>"
 				continue
 			if(power == power_options[i])
-				t += "<span class='linkOn'>[power_options[i]]</span>"
+				t += span_linkOn("[power_options[i]]</span>"
 				continue
 			t += "<a href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</a>"
 		t += "</div>"
@@ -182,7 +182,7 @@
 
 /obj/machinery/computer/telescience/proc/telefail()
 	sparks()
-	visible_message("<span class='warning'>The telepad weakly fizzles.</span>")
+	visible_message(span_warning("The telepad weakly fizzles."))
 	return
 
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)

@@ -37,13 +37,13 @@
 // check if you can put it in the machine
 /obj/machinery/cooker/proc/checkValid(obj/item/check, mob/user)
 	if(on)
-		to_chat(user, "<span class='notice'>[src] is still active!</span>")
+		to_chat(user, span_notice("[src] is still active!"))
 		return 0
 	if(istype(check, /obj/item/reagent_containers/food/snacks))
 		return 1
 	if(has_specials && checkSpecials(check))
 		return TRUE
-	to_chat(user, "<span class ='notice'>You can only process food!</span>")
+	to_chat(user, "<span class ='notice'>You can only process food!"))
 	return 0
 
 /obj/machinery/cooker/proc/setIcon(obj/item/copyme, obj/item/copyto)
@@ -89,7 +89,7 @@
 		return FALSE
 	. = TRUE
 	icon_state = onicon
-	to_chat(chef, "<span class='notice'>You put [tocook] into [src].</span>")
+	to_chat(chef, span_notice("You put [tocook] into [src]."))
 	on = 1
 
 

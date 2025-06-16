@@ -99,8 +99,8 @@
 
 /obj/effect/proc_holder/spell/summon_friend/cast(list/targets, mob/user = usr)
 	if(!QDELETED(friend))
-		to_chat(friend, "<span class='userdanger'>Your master has deemed you a poor friend. Your durance in hell will now resume.</span>")
-		to_chat(user, "<span class='notice'>You banish your friend back to whence [friend.p_they()] came.</span>")
+		to_chat(friend, span_userdanger("Your master has deemed you a poor friend. Your durance in hell will now resume."))
+		to_chat(user, span_notice("You banish your friend back to whence [friend.p_they()] came."))
 		friend.dust()
 		QDEL_NULL(friendShell)
 		return

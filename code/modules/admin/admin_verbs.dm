@@ -328,7 +328,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	))
 	add_verb(src, /client/proc/show_verbs)
 
-	to_chat(src, "<span class='interface'>Almost all of your adminverbs have been hidden.</span>", confidential=TRUE)
+	to_chat(src, span_interface("Almost all of your adminverbs have been hidden."), confidential=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Hide Admin Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	return
 
@@ -342,7 +342,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	remove_verb(src, /client/proc/show_verbs)
 	add_admin_verbs()
 
-	to_chat(src, "<span class='interface'>All of your adminverbs are now visible.</span>", confidential=TRUE)
+	to_chat(src, span_interface("All of your adminverbs are now visible."), confidential=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Show Admin Verbs") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/admin_ghost()
@@ -391,12 +391,12 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(mob.invisibility == INVISIBILITY_OBSERVER)
 		mob.invisibility = initial(mob.invisibility)
 		mob.add_to_all_human_data_huds()
-		to_chat(mob, "<span class='danger'>Invisimin off. Invisibility reset.</span>", confidential=TRUE)
+		to_chat(mob, span_danger("Invisimin off. Invisibility reset."), confidential=TRUE)
 		log_admin("[key_name(mob)] has turned Invisimin OFF")
 	else
 		mob.invisibility = INVISIBILITY_OBSERVER
 		mob.remove_from_all_data_huds()
-		to_chat(mob, "<span class='notice'>Invisimin on. You are now as invisible as a ghost.</span>", confidential=TRUE)
+		to_chat(mob, span_notice("Invisimin on. You are now as invisible as a ghost."), confidential=TRUE)
 		log_admin("[key_name(mob)] has turned Invisimin ON")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Invisimin")
 
@@ -584,7 +584,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				return
 			explosion(epicenter, devastation_range, heavy_impact_range, light_impact_range, flash_range, 1, 1, cause = "Admin Drop Bomb")
 	log_admin("[key_name(usr)] created an admin explosion at [epicenter.loc]")
-	message_admins("<span class='adminnotice'>[key_name_admin(usr)] created an admin explosion at [epicenter.loc]</span>")
+	message_admins(span_adminnotice("[key_name_admin(usr)] created an admin explosion at [epicenter.loc]"))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Drop Bomb") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/bless(mob/living/M as mob)
@@ -593,7 +593,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_EVENT))
 		return
 	if(!istype(M))
-		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>", confidential=TRUE)
+		to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
 		return
 	var/btypes = list("To Arrivals", "Moderate Heal")
 	var/mob/living/carbon/human/H
@@ -626,7 +626,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "spawn cookie."
 		if("To Arrivals")
 			M.forceMove(pick(GLOB.latejoin))
-			to_chat(M, "<span class='userdanger'>You are abruptly pulled through space!</span>", confidential=TRUE)
+			to_chat(M, span_userdanger("You are abruptly pulled through space!"), confidential=TRUE)
 			logmsg = "a teleport to arrivals."
 		if("Moderate Heal")
 			var/update = NONE
@@ -634,7 +634,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			update |= M.heal_damages(tox = 25, oxy = 25, updating_health = FALSE)
 			if(update)
 				M.updatehealth()
-			to_chat(M,"<span class='userdanger'>You feel invigorated!</span>", confidential=TRUE)
+			to_chat(M,span_userdanger("You feel invigorated!"), confidential=TRUE)
 			logmsg = "a moderate heal."
 		if("Heal Over Time")
 			H.reagents.add_reagent("salglu_solution", 30)
@@ -698,7 +698,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 							P.mind.name = newname
 				logmsg = "pet ([P])."
 			else
-				to_chat(usr, "<span class='warning'>WARNING: Nobody volunteered to play the special event pet.</span>", confidential=TRUE)
+				to_chat(usr, span_warning("WARNING: Nobody volunteered to play the special event pet."), confidential=TRUE)
 				logmsg = "pet (no volunteers)."
 		if("Human Protector")
 			usr.client.create_eventmob_for(H, 0)
@@ -712,7 +712,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 						// don't have it - add it
 						I.access |= this_access
 			else
-				to_chat(usr, "<span class='warning'>ERROR: [H] is not wearing an ID card.</span>", confidential=TRUE)
+				to_chat(usr, span_warning("ERROR: [H] is not wearing an ID card."), confidential=TRUE)
 			logmsg = "all access."
 	if(logmsg)
 		log_and_message_admins("blessed [key_name_log(M)] with: [logmsg]")
@@ -724,7 +724,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		return
 	var/mob/living/carbon/human/H
 	if(!istype(M))
-		to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living</span>", confidential=TRUE)
+		to_chat(usr, span_warning("This can only be used on instances of type /mob/living"), confidential=TRUE)
 		return
 	var/ptypes = list("Lightning bolt", "Fire Death", "Gib")
 	if(ishuman(M))
@@ -759,10 +759,10 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			playsound(get_turf(M), 'sound/magic/lightningshock.ogg', 50, 1, -1)
 			M.adjustFireLoss(75)
 			M.Weaken(10 SECONDS)
-			to_chat(M, "<span class='userdanger'>The gods have punished you for your sins!</span>")
+			to_chat(M, span_userdanger("The gods have punished you for your sins!"))
 			logmsg = "a lightning bolt."
 		if("Fire Death")
-			to_chat(M,"<span class='userdanger'>You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?</span>")
+			to_chat(M,span_userdanger("You feel hotter than usual. Maybe you should lowe-wait, is that your hand melting?"))
 			var/turf/simulated/T = get_turf(M)
 			new /obj/effect/hotspot(T)
 			M.adjustFireLoss(150)
@@ -778,7 +778,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 		if("Honk Tumor")
 			if(!H.get_int_organ(/obj/item/organ/internal/honktumor))
 				var/obj/item/organ/internal/organ = new /obj/item/organ/internal/honktumor
-				to_chat(H, "<span class='userdanger'>Life seems funnier, somehow.</span>")
+				to_chat(H, span_userdanger("Life seems funnier, somehow."))
 				organ.insert(H)
 			logmsg = "a honk tumor."
 		if("Hallucinate")
@@ -822,7 +822,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 			logmsg = "hunter."
 		if("Crew Traitor")
 			if(!H.mind)
-				to_chat(usr, "<span class='warning'>ERROR: This mob ([H]) has no mind!</span>", confidential=TRUE)
+				to_chat(usr, span_warning("ERROR: This mob ([H]) has no mind!"), confidential=TRUE)
 				return
 			var/list/possible_traitors = list()
 			for(var/mob/living/player in GLOB.alive_mob_list)
@@ -843,11 +843,11 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				newtraitormind.objectives += kill_objective
 				var/datum/antagonist/traitor/T = new()
 				T.give_objectives = FALSE
-				to_chat(newtraitormind.current, "<span class='danger'>ATTENTION:</span> It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitormind.current, span_danger("ATTENTION:</span> It is time to pay your debt to the Syndicate...")
 				to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
 				newtraitormind.add_antag_datum(T)
 			else
-				to_chat(usr, "<span class='warning'>ERROR: Unable to find any valid candidate to send after [H].</span>", confidential=TRUE)
+				to_chat(usr, span_warning("ERROR: Unable to find any valid candidate to send after [H]."), confidential=TRUE)
 				return
 			logmsg = "crew traitor."
 		if("Floor Cluwne")
@@ -1054,7 +1054,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	deadmin()
 	add_verb(src, /client/proc/readmin)
 	update_active_keybindings()
-	to_chat(src, "<span class='interface'>You are now a normal player.</span>", confidential=TRUE)
+	to_chat(src, span_interface("You are now a normal player."), confidential=TRUE)
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "De-admin") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /client/proc/readmin()

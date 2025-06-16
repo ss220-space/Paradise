@@ -45,10 +45,10 @@
 
 /obj/item/multitool/proc/set_multitool_buffer(mob/user, obj/machinery/M)	//Loads a machine into memory, returns TRUE if it does
 	if(!ismachinery(M))
-		to_chat(user, "<span class='warning'>That's not a machine!</span>")
+		to_chat(user, span_warning("That's not a machine!"))
 		return
 	buffer = M
-	to_chat(user, "<span class='notice'>You load [M] into [src]'s internal buffer.</span>")
+	to_chat(user, span_notice("You load [M] into [src]'s internal buffer."))
 	return TRUE
 
 /obj/item/multitool/attack_self(mob/user)

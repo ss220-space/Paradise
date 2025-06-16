@@ -57,7 +57,7 @@
 
 	var/hasContent = FALSE
 	var/components_len = length(req_components)
-	. = "<span class='notice'>Required components:"
+	. = span_notice("Required components:"
 	for(var/i = 1 to components_len)
 		var/tname = req_components[i]
 		var/amt = req_components[tname]
@@ -68,7 +68,7 @@
 		hasContent = TRUE
 
 	if(hasContent)
-		. += ".</span>"
+		. += ".")
 	else
 		. = span_notice("Does not require any more components.")
 

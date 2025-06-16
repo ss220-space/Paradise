@@ -19,21 +19,21 @@
 /obj/effect/proc_holder/spell/alien_spell/plant_weeds/cast(list/targets, mob/living/carbon/user)
 	var/turf/T = user.loc
 	if(locate(weed_type) in T)
-		to_chat(user, "<span class='noticealien'>There's already an [weed_name] here.</span>")
+		to_chat(user, span_noticealien("There's already an [weed_name] here."))
 		revert_cast()
 		return
 
 	if(isspaceturf(T))
-		to_chat(user, "<span class='noticealien'>You cannot plant [weed_name]s in space.</span>")
+		to_chat(user, span_noticealien("You cannot plant [weed_name]s in space."))
 		revert_cast()
 		return
 
 	if(!isturf(T))
-		to_chat(user, "<span class='noticealien'>You cannot plant [weed_name]s inside something!</span>")
+		to_chat(user, span_noticealien("You cannot plant [weed_name]s inside something!"))
 		revert_cast()
 		return
 
 	playsound_xenobuild(user)
-	user.visible_message("<span class='alertalien'>[user] has planted a [weed_name]!</span>")
+	user.visible_message(span_alertalien("[user] has planted a [weed_name]!"))
 	new weed_type(T)
 

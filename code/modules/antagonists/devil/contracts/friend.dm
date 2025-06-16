@@ -39,9 +39,9 @@
 		var/obj/item/card/id/id = worn.GetID()
 		id.registered_name = L.real_name
 		id.update_label()
-		to_chat(owner.current, "<span class='notice'>Your friend has arrived!</span>")
+		to_chat(owner.current, span_notice("Your friend has arrived!"))
 	else
-		to_chat(L, "<span class='userdanger'>Your owner is already dead! You will soon perish.</span>")
+		to_chat(L, span_userdanger("Your owner is already dead! You will soon perish."))
 		addtimer(CALLBACK(L, TYPE_PROC_REF(/mob, dust)), 150) //Give em a few seconds as a mercy.
 
 /datum/outfit/demonic_friend

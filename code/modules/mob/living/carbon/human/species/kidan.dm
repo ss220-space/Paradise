@@ -237,11 +237,11 @@
 			var/obj/effect/kidan_pheromones/pheromones_to_destroy = locate(/obj/effect/kidan_pheromones) in range(1, H)
 			// No pheromones nearby
 			if(!pheromones_to_destroy)
-				to_chat(H, "<span class='warning'>You cannot find any pheromones nearby.</span>")
+				to_chat(H, span_warning("You cannot find any pheromones nearby."))
 				return
 			// These are not ours, do not touch them
 			if(!(pheromones_to_destroy in active_pheromones_current))
-				to_chat(H, "<span class='warning'>These pheromones were created by someone else, you are unable to dissipate them.</span>")
+				to_chat(H, span_warning("These pheromones were created by someone else, you are unable to dissipate them."))
 				return
 			// These are ours and we now destroy them
 			if(do_after(H, 3 SECONDS, pheromones_to_destroy, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
@@ -249,35 +249,35 @@
 				H.create_log(MISC_LOG, "destroyed pheromones that had the message of \"[pheromones_to_destroy.encoded_message]\"")
 
 				// Destroy it; the pheromones remove themselves from our list via signals
-				to_chat(H, "<span class='notice'>You dissipate your old pheromones.</span>")
+				to_chat(H, span_notice("You dissipate your old pheromones."))
 				qdel(pheromones_to_destroy)
 
 		// We decide to produce new ones
 		if("Produce")
 			// Can we create more pheromones?
 			if(length(active_pheromones_current) >= active_pheromones_maximum)
-				to_chat(H, "<span class='warning'>You already have [length(active_pheromones_current)] sets of pheromones active and are unable to produce any more.</span>")
+				to_chat(H, span_warning("You already have [length(active_pheromones_current)] sets of pheromones active and are unable to produce any more."))
 				return
 
 			// Encode the message
 			var/message_to_encode = input(H, "What message do you wish to encode? (max. [maximum_message_length] characters) Leave it empty to cancel.", "Produce Pheromones")
 			if(!message_to_encode)
-				to_chat(H, "<span class='notice'>You decide against producing pheromones.</span>")
+				to_chat(H, span_notice("You decide against producing pheromones."))
 				return
 			if(length(message_to_encode) > maximum_message_length)
-				to_chat(H, "<span class='warning'>Your message was too long, the pheromones instantly dissipate.</span>")
+				to_chat(H, span_warning("Your message was too long, the pheromones instantly dissipate."))
 				return
 			// Strip the message now so it does not mess with the length
 			message_to_encode = strip_html(message_to_encode)
 
 			// One batch of pheromones per tile
 			if(locate(/obj/effect/kidan_pheromones) in get_turf(H))
-				to_chat(H, "<span class='warning'>There are pheromones here already!</span>")
+				to_chat(H, span_warning("There are pheromones here already!"))
 				return
 
 			// Create the pheromones
 			if(do_after(H, 3 SECONDS, H, DEFAULT_DOAFTER_IGNORE|DA_IGNORE_HELD_ITEM))
-				to_chat(H, "<span class='notice'>You produce new pheromones with the message of \"[message_to_encode]\".</span>")
+				to_chat(H, span_notice("You produce new pheromones with the message of \"[message_to_encode]\"."))
 				var/obj/effect/kidan_pheromones/pheromones_to_create = new get_turf(H)
 				pheromones_to_create.encoded_message = message_to_encode
 				LAZYADD(active_pheromones_current, pheromones_to_create)

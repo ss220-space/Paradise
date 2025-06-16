@@ -71,7 +71,7 @@
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
-		to_chat(world, span_warning(span_fontsize3("<b> Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!</b>")))
+		to_chat(world, span_warning(span_fontsize_16px("<b> Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!</b>")))
 	..()
 	return TRUE
 
@@ -106,10 +106,10 @@
 		var/ninjawin = TRUE
 		for(var/datum/objective/objective in ninja.get_all_objectives())
 			if(objective.check_completion())
-				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='green'><b>Успех!</b></font>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_fontcolor_green("Успех!")]"
 				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
-				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <font color='red'>Провал.</font>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_fontcolor_red("Провал!")]"
 				SSblackbox.record_feedback("nested tally", "ninja_objective", 1, list("[objective.type]", "FAIL"))
 				ninjawin = FALSE
 			count++

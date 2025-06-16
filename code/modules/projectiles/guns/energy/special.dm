@@ -170,7 +170,7 @@
 /obj/item/gun/energy/kinetic_accelerator/suicide_act(mob/user)
 	if(!suppressed)
 		playsound(loc, 'sound/weapons/kenetic_reload.ogg', 60, 1)
-	user.visible_message("<span class='suicide'>[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b></span>")
+	user.visible_message(span_suicide("[user] cocks the [name] and pretends to blow [user.p_their()] brains out! It looks like [user.p_theyre()] trying to commit suicide!</b>"))
 	shoot_live_shot(user, user, FALSE, FALSE)
 	return OXYLOSS
 
@@ -196,7 +196,7 @@
 /obj/item/gun/energy/plasmacutter/examine(mob/user)
 	. = ..()
 	if(cell)
-		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
+		. += span_notice("[src] is [round(cell.percent())]% charged.")
 
 /obj/item/gun/energy/plasmacutter/get_heat()
 	return 3800
@@ -468,7 +468,7 @@
 		add_attack_logs(user, src, "emagged")
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='caution'>You double the gun's temperature cap! Targets hit by searing beams will burst into flames!</span>")
+			to_chat(user, span_caution("You double the gun's temperature cap! Targets hit by searing beams will burst into flames!"))
 		desc = "A gun that changes the body temperature of its targets. Its temperature cap has been hacked."
 
 /obj/item/gun/energy/temperature/Topic(href, href_list)
@@ -539,10 +539,10 @@
 	dat = ""
 	dat += "Current output temperature: "
 	if(temperature > 500)
-		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
-		dat += "<span style='color: red;'><b> SEARING!</b></span>"
+		dat += span_fontcolor_red("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += span_fontcolor_red("<b> SEARING!</b></span>"
 	else if(temperature > (T0C + 50))
-		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += span_fontcolor_red("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else if(temperature > (T0C - 50))
 		dat += "<span style='color: black;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else
@@ -771,7 +771,7 @@
 	if(charging)
 		to_chat(user, span_warning("[src] is already charging!"))
 		return
-	to_chat(user, "<span class='notice'>You begin to overload [src].</span>")
+	to_chat(user, span_notice("You begin to overload [src]."))
 	charging = TRUE
 	if(do_after(user, 2 SECONDS, user, DA_IGNORE_USER_LOC_CHANGE|DA_IGNORE_LYING, max_interact_count = 1))
 		overload()
@@ -839,7 +839,7 @@
 	do_sparks(2, 1, src)
 	update_icon()
 	if(prob(40))
-		visible_message("<span class='danger'>[src] vents heated plasma!</span>")
+		visible_message(span_danger("[src] vents heated plasma!"))
 		var/turf/simulated/T = get_turf(src)
 		if(istype(T))
 			T.atmos_spawn_air(LINDA_SPAWN_TOXINS|LINDA_SPAWN_20C,15)
@@ -851,9 +851,9 @@
 		if(length(mob_targets))
 			var/mob/living/target = pick(mob_targets)
 			shootAt(target)
-			visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+			visible_message(span_danger("[src] discharges a plasma bolt!"))
 			return
-	visible_message("<span class='danger'>[src] discharges a plasma bolt!</span>")
+	visible_message(span_danger("[src] discharges a plasma bolt!"))
 	var/list/turf_targets = list()
 	for(var/turf/T in orange(get_turf(src), 7))
 		turf_targets += T

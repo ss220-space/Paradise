@@ -192,10 +192,10 @@
 /mob/living/simple_animal/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 		return
 	if(IsSleeping())
-		. += "<span class='notice'>Upon closer examination, [p_they()] appear[p_s()] to be asleep.</span>"
+		. += span_notice("Upon closer examination, [p_they()] appear[p_s()] to be asleep.")
 
 
 /mob/living/simple_animal/updatehealth(reason = "none given", should_log = FALSE)

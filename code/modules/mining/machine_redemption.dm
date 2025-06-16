@@ -161,7 +161,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
-		visible_message("<span class='notice'>The ID slot indicator light flickers on [src] as it spits out a card before powering down.</span>")
+		visible_message(span_notice("The ID slot indicator light flickers on [src] as it spits out a card before powering down."))
 		inserted_id.forceMove(get_turf(src))
 		inserted_id = null
 
@@ -246,7 +246,7 @@
 		return
 	input_dir = turn(input_dir, -90)
 	output_dir = turn(output_dir, -90)
-	to_chat(user, "<span class='notice'>You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)].</span>")
+	to_chat(user, span_notice("You change [src]'s I/O settings, setting the input to [dir2text(input_dir)] and the output to [dir2text(output_dir)]."))
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
@@ -324,13 +324,13 @@
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
 				inserted_id.total_mining_points += points
-				to_chat(usr, "<span class='notice'><b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!</span>")
+				to_chat(usr, span_notice("<b>[points] Mining Points</b> claimed. You have earned a total of <b>[inserted_id.total_mining_points] Mining Points</b> this Shift!"))
 				points = 0
 			else
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Required access not found."))
 		if("sheet", "alloy")
 			if(!(check_access(inserted_id) || allowed(usr)))
-				to_chat(usr, "<span class='warning'>Required access not found.</span>")
+				to_chat(usr, span_warning("Required access not found."))
 				return FALSE
 			var/id = params["id"]
 			var/amount = round(text2num(params["amount"]))
@@ -370,8 +370,8 @@
 			if(ishuman(usr))
 				inserted_id.forceMove_turf()
 				usr.put_in_hands(inserted_id, ignore_anim = FALSE)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_id] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_id] from [src].</span>")
+				usr.visible_message(span_notice("[usr] retrieves [inserted_id] from [src]."), \
+									span_notice("You retrieve [inserted_id] from [src]."))
 			else
 				inserted_id.forceMove(get_turf(src))
 			inserted_id = null
@@ -381,8 +381,8 @@
 			if(ishuman(usr))
 				inserted_disk.forceMove_turf()
 				usr.put_in_hands(inserted_disk, ignore_anim = FALSE)
-				usr.visible_message("<span class='notice'>[usr] retrieves [inserted_disk] from [src].</span>", \
-									"<span class='notice'>You retrieve [inserted_disk] from [src].</span>")
+				usr.visible_message(span_notice("[usr] retrieves [inserted_disk] from [src]."), \
+									span_notice("You retrieve [inserted_disk] from [src]."))
 			else
 				inserted_disk.forceMove(get_turf(src))
 			inserted_disk = null
@@ -505,15 +505,15 @@
 	if(!istype(I))
 		return
 	if(inserted_id)
-		to_chat(user, "<span class='warning'>There is already an ID inside!</span>")
+		to_chat(user, span_warning("There is already an ID inside!"))
 		return
 	if(!user.drop_transfer_item_to_loc(I, src))
 		return
 	inserted_id = I
 	SStgui.update_uis(src)
 	interact(user)
-	user.visible_message("<span class='notice'>[user] inserts [I] into [src].</span>", \
-							"<span class='notice'>You insert [I] into [src].</span>")
+	user.visible_message(span_notice("[user] inserts [I] into [src]."), \
+							span_notice("You insert [I] into [src]."))
 	return TRUE
 
 /**

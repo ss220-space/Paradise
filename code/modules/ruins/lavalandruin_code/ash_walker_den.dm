@@ -87,7 +87,7 @@
 			new /obj/effect/mob_spawn/human/ash_walker/shaman(get_step(loc, pick(GLOB.alldirs)))
 		else
 			new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
-		visible_message("<span class='danger'>Одно из яиц вырастает до огромных размеров и открепляется от щупальца. Оно готово к вылуплению!</span>")
+		visible_message(span_danger("Одно из яиц вырастает до огромных размеров и открепляется от щупальца. Оно готово к вылуплению!"))
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
 /obj/effect/mob_spawn/human/ash_walker

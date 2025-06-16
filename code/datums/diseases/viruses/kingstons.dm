@@ -117,7 +117,7 @@
 				else
 					if(prob(5))
 						H.visible_message(span_danger("[H] scratches at thier skin!"), \
-														span_userdanger("You scratch your skin to try not to itch!</span>"))
+														span_userdanger("You scratch your skin to try not to itch!")))
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
 

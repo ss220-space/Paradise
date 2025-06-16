@@ -343,23 +343,23 @@
 		// Its ok to move items to/from nullspace, since its not a player action
 		if(item_turf && storage_turf && !in_range(item_turf, storage_turf))
 			if(!stop_messages)
-				to_chat(usr, "<span class='warning'>[src] is too far from [W]!</span>")
+				to_chat(usr, span_warning("[src] is too far from [W]!"))
 			return FALSE
 
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
+			to_chat(usr, span_warning("[W] won't fit in [src], make some space!"))
 		return FALSE //Storage item is full
 
 	if(can_hold.len)
 		if(!is_type_in_typecache(W, can_hold))
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+				to_chat(usr, span_notice("[src] cannot hold [W]."))
 			return FALSE
 
 	if(is_type_in_typecache(W, cant_hold)) //Check for specific items which this container can't hold.
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] cannot hold [W].</span>")
+			to_chat(usr, span_notice("[src] cannot hold [W]."))
 		return FALSE
 
 	if(W.w_class > max_w_class)
@@ -367,7 +367,7 @@
 			return TRUE
 
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[W] is too big for [src].</span>")
+			to_chat(usr, span_notice("[W] is too big for [src]."))
 		return FALSE
 
 	if(W.w_class < min_w_class)
@@ -375,7 +375,7 @@
 			return TRUE
 
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[W] is too small for [src].</span>")
+			to_chat(usr, span_notice("[W] is too small for [src]."))
 		return FALSE
 
 	var/sum_w_class = W.w_class
@@ -384,17 +384,17 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
+			to_chat(usr, span_notice("[src] is full, make some space."))
 		return FALSE
 
 	if(W.w_class >= w_class && (isstorage(W)))
 		if(!istype(src, /obj/item/storage/backpack/holding))	//bohs should be able to hold backpacks again. The override for putting a boh in a boh is in backpack.dm.
 			if(!stop_messages)
-				to_chat(usr, "<span class='notice'>[src] cannot hold [W] as it's a storage item of the same size.</span>")
+				to_chat(usr, span_notice("[src] cannot hold [W] as it's a storage item of the same size."))
 			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
-		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
+		to_chat(usr, span_notice("\the [W] is stuck to your hand, you can't put it in \the [src]"))
 		return FALSE
 
 	// item unequip delay
@@ -454,11 +454,11 @@
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
 			for(var/mob/M in viewers(usr, null))
 				if(M == usr)
-					to_chat(usr, "<span class='notice'>You put [W] into [src].</span>")
+					to_chat(usr, span_notice("You put [W] into [src]."))
 				else if(M in range(1)) //If someone is standing close enough, they can tell what it is...
-					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
+					M.show_message(span_notice("[usr] puts [W] into [src]."))
 				else if(W && W.w_class >= WEIGHT_CLASS_NORMAL) //Otherwise they can only see large or normal items from a distance...
-					M.show_message("<span class='notice'>[usr] puts [W] into [src].</span>")
+					M.show_message(span_notice("[usr] puts [W] into [src]."))
 
 		orient2hud(usr)
 		if(usr.s_active)
@@ -641,7 +641,7 @@
 
 /obj/item/storage/proc/fold(mob/user)
 	if(length(contents))
-		to_chat(user, "<span class='warning'>You can't fold this [name] with items still inside!</span>")
+		to_chat(user, span_warning("You can't fold this [name] with items still inside!"))
 		return
 	if(!ispath(foldable))
 		return
@@ -655,7 +655,7 @@
 	if(!found)	// User is too far away
 		return
 
-	to_chat(user, "<span class='notice'>You fold [src] flat.</span>")
+	to_chat(user, span_notice("You fold [src] flat."))
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)

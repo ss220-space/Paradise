@@ -25,36 +25,36 @@
 		if(GAMEMODE_IS_BLOB)
 			SSticker.mode_result = "blob halfwin - nuke"
 			add_game_logs("Blob mode completed with a tie (station destroyed).")
-		to_chat(world, span_fontsize3("<br><b>Частичная победа блоба!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Частичная победа блоба!</b>"))
 		to_chat(world, "<b>Станция была уничтожена!</b>")
 		to_chat(world, "<b>Директива 7-12 успешно выполнена, предотвращая распространение блоба.</b>")
 	else if(blob_objective.check_completion())
 		if(GAMEMODE_IS_BLOB)
 			SSticker.mode_result = "blob win - blob took over"
 			add_game_logs("Blob mode completed with a blob victory.")
-		to_chat(world, span_fontsize3("<br><b>Полная победа блоба!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Полная победа блоба!</b>"))
 		to_chat(world, "<b>Блоб захватил станцию!</b>")
 		to_chat(world, "<b>Вся станция была поглощена блобом.</b>")
 	else if(!GLOB.blob_cores.len)
 		if(GAMEMODE_IS_BLOB)
 			add_game_logs("Blob mode completed with a crew victory.")
 			SSticker.mode_result = "blob loss - blob eliminated"
-		to_chat(world, span_fontsize3("<br><b>Полная победа персонала станции!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Полная победа персонала станции!</b>"))
 		to_chat(world, "<b>Экипаж защитил станцию от блоба!</b>")
 		to_chat(world, "<b>Инопланетный организм был истреблен.</b>")
 	else
 		if(GAMEMODE_IS_BLOB)
 			add_game_logs("Blob mode completed with a draw.")
 			SSticker.mode_result = "draw - the station was not destroyed, blob is alife "
-		to_chat(world, span_fontsize3("<br><b>Ничья!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Ничья!</b>"))
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Инопланетный организм не был истреблен.</b>")
 	to_chat(world, "<b>Целью блобов было:</b>")
 	if(blob_objective.check_completion() && (!station_was_nuked || blob_stage == BLOB_STAGE_POST_END))
-		to_chat(world, "<br/>[blob_objective.explanation_text] <font color='green'><b>Успех!</b></font>")
+		to_chat(world, "<br/>[blob_objective.explanation_text] <b>[span_fontcolor_green("Успех!")]</b>")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "SUCCESS"))
 	else
-		to_chat(world, "<br/>[blob_objective.explanation_text] <font color='red'>Провал.</font>")
+		to_chat(world, "<br/>[blob_objective.explanation_text] <b>[span_fontcolor_red("Провал!")]</b>")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[blob_objective.type]", "FAIL"))
 	return TRUE
 
@@ -65,18 +65,18 @@
 	var/list/minions = blobs["minions"]
 	if(blob_infected?.len)
 		declare_blob_completion()
-		var/text = "<br/><span style='font-size: 2;'><b>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</b></pan>"
+		var/text = span_fontsize_13px("<br/><b>Блоб[(blob_infected.len > 1 ? "ами были" : "ом был")]:</b>")
 
 		for(var/datum/mind/blob in blob_infected)
 			text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(blob_offsprings?.len)
-			text += "<br/><br/><span style='font-size: 2;'><b>Потомк[(blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</b></span>"
+			text += span_fontsize_13px("<br/><br/><b>Потомк[(blob_offsprings.len > 1 ? "ами блоба были" : "ом блоба был")]:</b>")
 			for(var/datum/mind/blob in blob_offsprings)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 
 		if(minions?.len)
-			text += "<br/><br/><span style='font-size: 2;'><b>Миньoн[(minions.len > 1 ? "ами были" : "ом был")]:</b></span>"
+			text += span_fontsize_13px("<br/><br/><b>Миньoн[(minions.len > 1 ? "ами были" : "ом был")]:</b>")
 			for(var/datum/mind/blob in minions)
 				text += "<br/><b>[blob.key]</b> был <b>[blob.name]</b>"
 

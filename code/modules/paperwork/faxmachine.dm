@@ -119,9 +119,9 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		emagged = 1
 		req_access = list()
 		if(user)
-			to_chat(user, "<span class='notice'>The transmitters realign to an unknown source!</span>")
+			to_chat(user, span_notice("The transmitters realign to an unknown source!"))
 	else if(user)
-		to_chat(user, "<span class='warning'>You swipe the card through [src], but nothing happens.</span>")
+		to_chat(user, span_warning("You swipe the card through [src], but nothing happens."))
 
 /obj/machinery/photocopier/faxmachine/proc/is_authenticated(mob/user)
 	if(authenticated)
@@ -181,13 +181,13 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 		if("auth") // log in/out
 			if(!is_authenticated && scan)
 				if(scan.registered_name in GLOB.fax_blacklist)
-					to_chat(usr, "<span class='warning'>Login rejected: individual is blacklisted from fax network.</span>")
+					to_chat(usr, span_warning("Login rejected: individual is blacklisted from fax network."))
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 				else if(check_access(scan))
 					authenticated = TRUE
 				else // ID doesn't have access to this machine
-					to_chat(usr, "<span class='warning'>Login rejected: ID card does not have required access.</span>")
+					to_chat(usr, span_warning("Login rejected: ID card does not have required access."))
 					playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
 					. = FALSE
 			else if(is_authenticated)
@@ -198,17 +198,17 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				if(ishuman(usr))
 					if(Adjacent(usr))
 						usr.put_in_hands(copyitem, ignore_anim = FALSE)
-				to_chat(usr, "<span class='notice'>You eject [copyitem] from [src].</span>")
+				to_chat(usr, span_notice("You eject [copyitem] from [src]."))
 				copyitem = null
 			else
 				var/obj/item/I = usr.get_active_hand()
 				if(istype(I, /obj/item/paper) || istype(I, /obj/item/photo) || istype(I, /obj/item/paper_bundle))
 					usr.drop_transfer_item_to_loc(I, src)
 					copyitem = I
-					to_chat(usr, "<span class='notice'>You insert [I] into [src].</span>")
+					to_chat(usr, span_notice("You insert [I] into [src]."))
 					flick(insert_anim, src)
 				else
-					to_chat(usr, "<span class='warning'>[src] only accepts paper, paper bundles, and photos.</span>")
+					to_chat(usr, span_warning("[src] only accepts paper, paper bundles, and photos."))
 					. = FALSE
 		if("rename") // rename the item that is currently in the fax machine
 			if(copyitem)
@@ -265,7 +265,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 			var/cooldown_seconds = cooldown_seconds()
 			if(cooldown_seconds > 0)
 				playsound(loc, 'sound/machines/buzz-sigh.ogg', 50, 0)
-				to_chat(usr, "<span class='warning'>[src] is not ready for another [cooldown_seconds] seconds.</span>")
+				to_chat(usr, span_warning("[src] is not ready for another [cooldown_seconds] seconds."))
 				return
 
 			if((destination in GLOB.admin_departments) || (destination in GLOB.hidden_admin_departments) || (destination in GLOB.hidden_ussp))
@@ -410,7 +410,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = span_boldnotice("<span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
@@ -464,7 +464,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	text = replacetext(text, "</i>", "*")
 	text = replacetext(text, "<u>", "__")
 	text = replacetext(text, "</u>", "__")
-	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
+	text = replacetext(text, "<span class=\"paper_field\">"), "`_FIELD_`")
 
 	text = replacetext(text, "<h1>", "# ")
 	text = replacetext(text, "<H2>", "## ")

@@ -17,7 +17,7 @@
 
 /obj/structure/fermenting_barrel/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."]</span>"
+	. += span_notice("It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."]</span>"
 
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/G)
 	if(G.reagents)
@@ -62,10 +62,10 @@
 	open = !open
 	if(open)
 		container_type = REFILLABLE | AMOUNT_VISIBLE
-		to_chat(user, "<span class='notice'>You open [src], letting you fill it.</span>")
+		to_chat(user, span_notice("You open [src], letting you fill it."))
 	else
 		container_type = DRAINABLE | AMOUNT_VISIBLE
-		to_chat(user, "<span class='notice'>You close [src], letting you draw from its tap.</span>")
+		to_chat(user, span_notice("You close [src], letting you draw from its tap."))
 	update_icon(UPDATE_ICON_STATE)
 
 /obj/structure/fermenting_barrel/crowbar_act(mob/living/user, obj/item/I)

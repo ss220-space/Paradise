@@ -38,7 +38,7 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 /datum/station_goal/bluespace_tap/print_result()
 	..()
 	var/highscore = get_highscore()
-	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? "<span class='greenannounce'>": "<span class='boldannounceooc'>"][highscore]</span>")
+	to_chat(world, "<b>Bluespace Harvester Highscore</b>: [highscore >= goal ? span_greenannounce("": span_boldannounceooc(""][highscore]"))
 
 
 //needed for the vending part of it
@@ -450,7 +450,7 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message(span_warning("[user] overrides the safety protocols of [src]."), span_warning("You override the safety protocols."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

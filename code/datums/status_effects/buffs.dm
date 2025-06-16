@@ -18,7 +18,7 @@
 /atom/movable/screen/alert/status_effect/his_grace/MouseEntered(location,control,params)
 	desc = initial(desc)
 	var/datum/status_effect/his_grace/HG = attached_effect
-	desc += "[span_fontsize3("<br><b>Текущая кровожадность: [HG.bloodlust]</b>")]\
+	desc += "[span_fontsize_16px("<br><b>Текущая кровожадность: [HG.bloodlust]</b>")]\
 	<br>Поглотит тебя на уровне кровожадности: [span_boldwarning("[HIS_GRACE_CONSUME_OWNER]")]"
 	return ..()
 
@@ -85,7 +85,7 @@
 	icon_state = "shadow_mend"
 
 /datum/status_effect/shadow_mend/on_apply()
-	owner.visible_message("<span class='notice'>Violet light wraps around [owner]'s body!</span>", "<span class='notice'>Violet light wraps around your body!</span>")
+	owner.visible_message(span_notice("Violet light wraps around [owner]'s body!"), span_notice("Violet light wraps around your body!"))
 	playsound(owner, 'sound/magic/teleport_app.ogg', 50, 1)
 	return ..()
 
@@ -93,7 +93,7 @@
 	owner.heal_overall_damage(15, 15)
 
 /datum/status_effect/shadow_mend/on_remove()
-	owner.visible_message("<span class='warning'>The violet light around [owner] glows black!</span>", "<span class='warning'>The tendrils around you cinch tightly and reap their toll...</span>")
+	owner.visible_message(span_warning("The violet light around [owner] glows black!"), span_warning("The tendrils around you cinch tightly and reap their toll..."))
 	playsound(owner, 'sound/magic/teleport_diss.ogg', 50, 1)
 	owner.apply_status_effect(STATUS_EFFECT_VOID_PRICE)
 
@@ -279,7 +279,7 @@
 	status_type = STATUS_EFFECT_UNIQUE
 	duration = -1
 	tick_interval = 25
-	examine_text = "<span class='notice'>They seem to have an aura of healing and helpfulness about them.</span>"
+	examine_text = span_notice("They seem to have an aura of healing and helpfulness about them.")
 	alert_type = null
 
 	var/datum/component/aura_healing/aura_healing
@@ -324,7 +324,7 @@
 		if(deathTick < 4)
 			deathTick += 1
 		else
-			owner.visible_message("<span class='notice'>[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty.</span>")
+			owner.visible_message(span_notice("[owner]'s soul is absorbed into the rod, relieving the previous snake of its duty."))
 			var/mob/living/simple_animal/hostile/retaliate/poison/snake/healSnake = new(owner.loc)
 			var/list/chems = list("bicaridine", "perfluorodecalin", "kelotane")
 			healSnake.poison_type = pick(chems)
@@ -344,25 +344,25 @@
 				if(hand)
 					itemUser.drop_l_hand(TRUE)
 					if(itemUser.put_in_l_hand(newRod, TRUE))
-						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+						to_chat(itemUser, span_notice("The Rod of Asclepius suddenly grows back out of your arm!"))
 					else
 						if(!itemUser.get_organ(BODY_ZONE_L_ARM))
 							new /obj/item/organ/external/arm(itemUser)
 						new /obj/item/organ/external/hand(itemUser)
 						itemUser.update_body()
 						itemUser.put_in_l_hand(newRod, TRUE)
-						to_chat(itemUser, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
+						to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 				else
 					itemUser.drop_r_hand(TRUE)
 					if(itemUser.put_in_r_hand(newRod, TRUE))
-						to_chat(itemUser, "<span class='notice'>The Rod of Asclepius suddenly grows back out of your arm!</span>")
+						to_chat(itemUser, span_notice("The Rod of Asclepius suddenly grows back out of your arm!"))
 					else
 						if(!itemUser.get_organ(BODY_ZONE_R_ARM))
 							new /obj/item/organ/external/arm/right(itemUser)
 						new /obj/item/organ/external/hand/right(itemUser)
 						itemUser.update_body()
 						itemUser.put_in_r_hand(newRod, TRUE)
-						to_chat(itemUser, "<span class='notice'>Your arm suddenly grows back with the Rod of Asclepius still attached!</span>")
+						to_chat(itemUser, span_notice("Your arm suddenly grows back with the Rod of Asclepius still attached!"))
 
 			//Because a servant of medicines stops at nothing to help others, lets keep them on their toes and give them an additional boost.
 			if(itemUser.health < itemUser.maxHealth)
@@ -399,7 +399,7 @@
 				bodypart.stop_internal_bleeding()
 				bodypart.mend_fracture()
 		else
-			to_chat(owner, "<span class='warning'>...But the core was weakened, it is not close enough to the rest of the legions of the necropolis.</span>")
+			to_chat(owner, span_warning("...But the core was weakened, it is not close enough to the rest of the legions of the necropolis."))
 	else
 		owner.set_bodytemperature(BODYTEMP_NORMAL)
 	return TRUE
@@ -609,9 +609,9 @@
 							"I bet a [pick("vox", "vulp", "nian", "tajaran", "baldie")] could do better than you!",
 							"You hear people making fun of you for getting robusted.")
 	if(prob(99))
-		to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+		to_chat(owner, span_notice("[pick(hope_messages)]"))
 	else
-		to_chat(owner, "<span class='cultitalic'>[pick(un_hopeful_messages)]</span>")
+		to_chat(owner, span_cultitalic("[pick(un_hopeful_messages)]"))
 
 
 /datum/status_effect/thrall_net
@@ -791,7 +791,7 @@
 							"You ARE robust, don't you dare die now!",
 							"Some stupid scars can't stop you!",
 							"You still have monsters to kill, don't die!")
-	to_chat(owner, "<span class='notice'>[pick(hope_messages)]</span>")
+	to_chat(owner, span_notice("[pick(hope_messages)]"))
 
 /datum/status_effect/dragon_strength/proc/war_message()
 	var/list/war_messages = list("You feel incredible strength in your heart.",
@@ -802,7 +802,7 @@
 							"No one can conquer you.",
 							"You can feel fire in your soul.",
 							"Don't forget how you got this amulet, hunter.")
-	to_chat(owner, "<span class='warning'>[pick(war_messages)]</span>")
+	to_chat(owner, span_warning("[pick(war_messages)]"))
 
 /atom/movable/screen/alert/status_effect/dash
 	name = "Dash"

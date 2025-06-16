@@ -144,11 +144,11 @@
 		if(mobref in faction)
 			faction -= mobref
 			friends -= mob
-			to_chat(src, "<span class='warning'>You removed [mob] from your friends list.</span>")
+			to_chat(src, span_warning("You removed [mob] from your friends list."))
 		else
 			faction += mobref
 			friends += mob
-			to_chat(src, "<span class='notice'>You added [mob] to your friends list.</span>")
+			to_chat(src, span_notice("You added [mob] to your friends list."))
 
 
 /*Basic setup for elite attacks, based on Whoneedspace's megafauna attack setup.
@@ -239,38 +239,38 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(TUMOR_PASSIVE)
 			// Prevents the user from being forcemoved back and forth between two elite arenas.
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
-				user.visible_message("<span class='warning'>[user] reaches for [src] with [user.p_their()] arm, but nothing happens.</span>",
-					"<span class='warning'>You reach for [src] with your arm... but nothing happens.</span>")
+				user.visible_message(span_warning("[user] reaches for [src] with [user.p_their()] arm, but nothing happens."),
+					span_warning("You reach for [src] with your arm... but nothing happens."))
 				return
 			activity = TUMOR_ACTIVE
-			user.visible_message("<span class='userdanger'>[src] convulses as [user]'s arm enters its radius.  Uh-oh...</span>",
-				"<span class='userdanger'>[src] convulses as your arm enters its radius.  Your instincts tell you to step back.</span>")
+			user.visible_message(span_userdanger("[src] convulses as [user]'s arm enters its radius.  Uh-oh..."),
+				span_userdanger("[src] convulses as your arm enters its radius.  Your instincts tell you to step back."))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				make_activator(fighter)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
-				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
+				to_chat(mychild, span_warning("Someone has activated your tumor.  You will be returned to fight shortly, get ready!"))
 			addtimer(CALLBACK(src, PROC_REF(return_elite)), 3 SECONDS)
 			INVOKE_ASYNC(src, PROC_REF(arena_checks))
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
-				user.visible_message("<span class='warning'>[user] reaches for [src] with [user.p_their()] arm, but nothing happens.</span>",
-					"<span class='warning'>You reach for [src] with your arm... but nothing happens.</span>")
+				user.visible_message(span_warning("[user] reaches for [src] with [user.p_their()] arm, but nothing happens."),
+					span_warning("You reach for [src] with your arm... but nothing happens."))
 				return
 			activity = TUMOR_ACTIVE
 			var/mob/dead/observer/elitemind = null
-			visible_message("<span class='userdanger'>[src] begins to convulse. Your instincts tell you to step back.</span>")
+			visible_message(span_userdanger("[src] begins to convulse. Your instincts tell you to step back."))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				make_activator(fighter)
 			if(!boosted)
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
 				return
-			visible_message("<span class='danger'>Something within [src] stirs...</span>")
+			visible_message(span_danger("Something within [src] stirs..."))
 			var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a lavaland elite?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
 			if(length(candidates))
-				audible_message("<span class='userdanger'>The stirring sounds increase in volume!</span>")
+				audible_message(span_userdanger("The stirring sounds increase in volume!"))
 				elitemind = pick(candidates)
 				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
 				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лаваленда.\nЧерез несколько секунд вы появитесь в виде сильного монстра, с целью убить призвавшего вас.\n\
@@ -281,7 +281,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite), elitemind), 10 SECONDS)
 			else
-				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
+				visible_message(span_warning("The stirring stops, and nothing emerges.  Perhaps try again later."))
 				activity = TUMOR_INACTIVE
 				for(var/mob/living/carbon/human/activator in activators)
 					clear_activator(activator)
@@ -290,7 +290,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
-	visible_message("<span class='userdanger'>[mychild] emerges from [src]!</span>")
+	visible_message(span_userdanger("[mychild] emerges from [src]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	if(boosted)
 		mychild.key = elitemind.key
@@ -302,7 +302,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
-	visible_message("<span class='userdanger'>[mychild] emerges from [src]!</span>")
+	visible_message(span_userdanger("[mychild] emerges from [src]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
@@ -420,21 +420,21 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		for(var/mob/living/carbon/human/activator in activators)
 			if(get_dist(src, activator) >= ARENA_RADIUS)
 				activator.forceMove(loc)
-				visible_message("<span class='warning'>[activator] suddenly reappears above [src]!</span>")
+				visible_message(span_warning("[activator] suddenly reappears above [src]!"))
 				playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
-		visible_message("<span class='warning'>[mychild] suddenly reappears above [src]!</span>")
+		visible_message(span_warning("[mychild] suddenly reappears above [src]!"))
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS, src.loc))
 		if(invader in activators)
 			continue
 		if(invader in invaders)
-			to_chat(invader, "<span class='colossus'><b>You dare to try to break the sanctity of our arena? SUFFER...</b></span>")
+			to_chat(invader, span_colossus("<b>You dare to try to break the sanctity of our arena? SUFFER...</b>"))
 			for(var/i in 1 to 4)
 				invader.apply_status_effect(STATUS_EFFECT_VOID_PRICE) /// Hey kids, want 60 brute damage, increased by 40 each time you do it? Well, here you go!
 		else
-			to_chat(invader, "<span class='userdanger'>Only spectators are allowed, while the arena is in combat...</span>")
+			to_chat(invader, span_userdanger("Only spectators are allowed, while the arena is in combat..."))
 			invaders += invader
 		var/list/valid_turfs = RANGE_EDGE_TURFS(ARENA_RADIUS + 2, src)
 		invader.forceMove(pick(valid_turfs)) //Doesn't check for lava. Don't cheese it.
@@ -442,13 +442,13 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
-	visible_message("<span class='warning'>[src] begins to convulse violently before beginning to dissipate.</span>")
-	visible_message("<span class='warning'>As [src] closes, something is forced up from down below.</span>")
+	visible_message(span_warning("[src] begins to convulse violently before beginning to dissipate."))
+	visible_message(span_warning("As [src] closes, something is forced up from down below."))
 	var/lootloc = loc
 	if(boosted)
 		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
 		new /obj/item/tumor_shard(lootloc)
-		to_chat(mychild, "<span class='warning'>Dont leave your body, if you want to be revived.</span>")
+		to_chat(mychild, span_warning("Dont leave your body, if you want to be revived."))
 		SSblackbox.record_feedback("tally", "Player controlled Elite loss", 1, mychild.name)
 	else
 		SSblackbox.record_feedback("tally", "AI controlled Elite loss", 1, mychild.name)
@@ -458,14 +458,14 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	qdel(src)
 
 /obj/structure/elite_tumor/proc/onEliteWon()
-	to_chat(mychild, "<span class='danger'>You have won the fight. Elite tumor has been defended once again.</span>")
+	to_chat(mychild, span_danger("You have won the fight. Elite tumor has been defended once again."))
 	activity = TUMOR_INACTIVE
 	icon_state = "tumor"
 	if(length(activators))
 		for(var/mob/living/carbon/human/activator in activators)
 			clear_activator(activator)
 	sleep(300)
-	to_chat(mychild, "<span class='danger'>You have fulfilled your role and are going to a well-deserved rest.</span>")
+	to_chat(mychild, span_danger("You have fulfilled your role and are going to a well-deserved rest."))
 	qdel(mychild)
 	var/obj/structure/elite_tumor/copy = new(loc)
 	if(boosted)
@@ -498,11 +498,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.friends += user
 		E.reviver = user
 		E.revive()
-		user.visible_message("<span class='notice'>[user] stabs [E] with [src], reviving it.</span>")
+		user.visible_message(span_notice("[user] stabs [E] with [src], reviving it."))
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
-		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
-		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
-		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!</span>")
+		to_chat(user, span_notice("Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам."))
+		to_chat(E, span_userdanger("Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск."))
+		to_chat(E, "<span class='big bold'>Помните, что вы разделяете интересы [user].  От вас ожидается не мешать союзникам хозяина, пока вам не прикажут!"))
 		E.mind.store_memory("Я теперь разделяю интересы [user].  От меня ожидается не мешать союзникам хозяина, пока вам не прикажут!")
 		if(user.mind.special_role)
 			E.setMaxHealth(initial(E.maxHealth) * REVIVE_HEALTH_MULT_ANTAG)
@@ -515,7 +515,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
 	else
-		to_chat(user, "<span class='notice'>[src] only works on the corpse of a sentient lavaland elite.</span>")
+		to_chat(user, span_notice("[src] only works on the corpse of a sentient lavaland elite."))
 
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"

@@ -43,20 +43,20 @@
 	var/health_text = ""
 	if(occupant)
 		if(occupant.stat == DEAD)
-			health_text = "<span style='color: red;'>Dead</span>"
+			health_text = span_fontcolor_red("Dead</span>"
 		else if(occupant.health < 0)
-			health_text = "<span style='color: red;'>[round(occupant.health, 0.1)]</span>"
+			health_text = span_fontcolor_red("[round(occupant.health, 0.1)]</span>"
 		else
 			health_text = "[round(occupant.health, 0.1)]"
 	var/dat = {"<b>Mindshield Implanter Machine</b><br>"}
-	dat +="<b>Current occupant:</b> [occupant ? "<br>Name: [occupant]<br>Health: [health_text]<br>" : "<span style='color: red;'>None</span>"]<br>"
+	dat +="<b>Current occupant:</b> [occupant ? "<br>Name: [occupant]<br>Health: [health_text]<br>" : span_fontcolor_red("None</span>"]<br>"
 	var/remaining_time = cooldown_timer ? round(timeleft(cooldown_timer) / 10) : 0
 	var/implants_length = LAZYLEN(implants_list)
 	if(implants_length)
-		dat += "<b>Status:</b> [cooldown_timer ? "<span style='color: red;'>Recharging... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
+		dat += "<b>Status:</b> [cooldown_timer ? span_fontcolor_red("Recharging... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
 	else
-		dat += "<b>Status:</b> [cooldown_timer ? "<span style='color: red;'>Replenishing... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
-	dat += "<b>Implants:</b> [implants_length ? "[implants_length]<br>" : cooldown_timer ? "<span style='color: red;'>0</span><br>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</a>"]<br>"
+		dat += "<b>Status:</b> [cooldown_timer ? span_fontcolor_red("Replenishing... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
+	dat += "<b>Implants:</b> [implants_length ? "[implants_length]<br>" : cooldown_timer ? span_fontcolor_red("0</span><br>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</a>"]<br>"
 	if(occupant)
 		if(locate(/obj/item/implant/mindshield) in occupant)
 			dat += "Occupant is already <span style='color: green;'>implanted</span><br>"

@@ -63,7 +63,7 @@ GLOBAL_LIST_EMPTY(GPS_list)
 
 /obj/item/gps/proc/toggle_gps(mob/living/user)
 	if(emped)
-		to_chat(user, "<span class='warning'>It's busted!</span>")
+		to_chat(user, span_warning("It's busted!"))
 		return
 
 	tracking = !tracking

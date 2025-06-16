@@ -132,18 +132,18 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		return
 	var/mob/living/carbon/human/C = hit_atom
 	if(C.head && C.head.flags_cover & HEADCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s headgear blocks the sand!</span>")
+		visible_message(span_danger("[C]'s headgear blocks the sand!"))
 		return
 	if(C.wear_mask && C.wear_mask.flags_cover & MASKCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s mask blocks the sand!</span>")
+		visible_message(span_danger("[C]'s mask blocks the sand!"))
 		return
 	if(C.glasses && C.glasses.flags_cover & GLASSESCOVERSEYES)
-		visible_message("<span class='danger'>[C]'s glasses block the sand!</span>")
+		visible_message(span_danger("[C]'s glasses block the sand!"))
 		return
 	C.EyeBlurry(12 SECONDS)
 	C.apply_damage(15, STAMINA)//the pain from your eyes burning does stamina damage
 	C.AdjustConfused(10 SECONDS)
-	to_chat(C, "<span class='userdanger'>[src] gets into your eyes! The pain, it burns!</span>")
+	to_chat(C, span_userdanger("[src] gets into your eyes! The pain, it burns!"))
 	qdel(src)
 
 /obj/item/stack/ore/glass/ex_act(severity)
@@ -390,7 +390,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		else if(triggered_by == 2)
 			add_game_logs("A signal has primed a [name] for detonation at [AREACOORD(bombturf)]). Igniter attacher: [key_name(attacher)].")
 		else
-			user.visible_message("<span class='warning'>[user] strikes \the [src], causing a chain reaction!</span>", "<span class='danger'>You strike \the [src], causing a chain reaction.</span>")
+			user.visible_message(span_warning("[user] strikes \the [src], causing a chain reaction!"), span_danger("You strike \the [src], causing a chain reaction."))
 			add_game_logs("has primed a [name] for detonation at [AREACOORD(bombturf)])", user)
 		spawn(det_time)
 		if(primed)
@@ -574,7 +574,7 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 						"uranium" = /obj/item/clothing/gloves/ring/uranium)
 	var/typekey = typelist[cmineral]
 	if(ispath(typekey))
-		to_chat(user, "<span class='notice'>You make [src] into a ring.</span>")
+		to_chat(user, span_notice("You make [src] into a ring."))
 		new typekey(get_turf(loc))
 		qdel(src)
 
@@ -587,9 +587,9 @@ GLOBAL_LIST_INIT(sand_recipes, list(\
 		icon_state = "coin_[cmineral]_[coinflip]"
 		playsound(user.loc, 'sound/items/coinflip.ogg', 50, 1)
 		if(do_after(user, 1.5 SECONDS, src))
-			user.visible_message("<span class='notice'>[user] has flipped [src]. It lands on [coinflip].</span>", \
-								 "<span class='notice'>You flip [src]. It lands on [coinflip].</span>", \
-								 "<span class='notice'>You hear the clattering of loose change.</span>")
+			user.visible_message(span_notice("[user] has flipped [src]. It lands on [coinflip]."), \
+								 span_notice("You flip [src]. It lands on [coinflip]."), \
+								 span_notice("You hear the clattering of loose change."))
 
 /obj/item/coin/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(istype(throwingdatum?.thrower?.mind?.martial_art, /datum/martial_art/mr_chang))

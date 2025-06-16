@@ -39,10 +39,10 @@
 
 	if(shield_on_icon == "shield-red")
 		shield_on_icon = "shield-old"
-		to_chat(user, "<span class='warning'>You roll back the hardsuit's software, changing the shield's color!</span>")
+		to_chat(user, span_warning("You roll back the hardsuit's software, changing the shield's color!"))
 	else
 		shield_on_icon = "shield-red"
-		to_chat(user, "<span class='warning'>You update the hardsuit's hardware, changing the shield's color to red.</span>")
+		to_chat(user, span_warning("You update the hardsuit's hardware, changing the shield's color to red."))
 	return TRUE
 
 /obj/item/storage/box/ert_hardsuit_shield_upgrade

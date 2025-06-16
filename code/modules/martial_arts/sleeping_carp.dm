@@ -33,8 +33,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	A.do_attack_animation(D, ATTACK_EFFECT_PUNCH)
 	var/atk_verb = pick("punches", "kicks", "chops", "hits", "slams")
-	D.visible_message("<span class='danger'>[A] [atk_verb] [D]!</span>", \
-					  "<span class='userdanger'>[A] [atk_verb] you!</span>")
+	D.visible_message(span_danger("[A] [atk_verb] [D]!"), \
+					  span_userdanger("[A] [atk_verb] you!"))
 
 	var/damage = rand(10,15)
 	D.apply_damage(damage, BRUTE)
@@ -44,7 +44,7 @@
 	if(prob(50))
 		A.say(pick("HUAH!", "HYA!", "CHOO!", "WUO!", "KYA!", "HUH!", "HIYOH!", "CARP STRIKE!", "CARP BITE!"))
 	if(prob(D.getBruteLoss()) && D.body_position != LYING_DOWN)
-		D.visible_message("<span class='warning'>[D] stumbles and falls!</span>", "<span class='userdanger'>The blow sends you to the ground!</span>")
+		D.visible_message(span_warning("[D] stumbles and falls!"), span_userdanger("The blow sends you to the ground!"))
 		D.Weaken(6 SECONDS)
 	add_attack_logs(A, D, "Melee attacked with martial-art [src] : Punched", ATKLOG_ALL)
 	return TRUE

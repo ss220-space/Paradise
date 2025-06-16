@@ -62,26 +62,26 @@
 /datum/action/innate/elite_attack/legionnaire_charge
 	name = "Legionnaire Charge"
 	button_icon_state = "legionnaire_charge"
-	chosen_message = "<span class='boldwarning'>You will attempt to grab your opponent and throw them.</span>"
+	chosen_message = span_boldwarning("You will attempt to grab your opponent and throw them.")
 	chosen_attack_num = LEGIONNAIRE_CHARGE
 
 /datum/action/innate/elite_attack/head_detach
 	name = "Release Head"
 	button_icon_state = "head_detach"
-	chosen_message = "<span class='boldwarning'>You will now detach your head or kill it if it is already released.</span>"
+	chosen_message = span_boldwarning("You will now detach your head or kill it if it is already released.")
 	chosen_attack_num = HEAD_DETACH
 
 /datum/action/innate/elite_attack/bonfire_teleport
 	name = "Bonfire Teleport"
 	button_icon_state = "bonfire_teleport"
-	chosen_message = "<span class='boldwarning'>You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.</span>"
+	chosen_message = span_boldwarning("You will leave a bonfire. Second use will let you swap positions with it indefintiely. Using this move on the same tile as your active bonfire removes it.")
 	chosen_attack_num = BONFIRE_TELEPORT
 
 /datum/action/innate/elite_attack/throw_bone
 	name = "Throw bone"
 	icon_icon = 'icons/obj/mining.dmi'
 	button_icon_state = "bone"
-	chosen_message = "<span class='boldwarning'>You throw a heavy bone.</span>"
+	chosen_message = span_boldwarning("You throw a heavy bone.")
 	chosen_attack_num = THROW_BONE
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/Destroy()
@@ -135,7 +135,7 @@
 		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
-	visible_message("<span class='danger'>[src] prepares to charge!</span>")
+	visible_message(span_danger("[src] prepares to charge!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
@@ -168,8 +168,8 @@
 	for(var/mob/living/L in T.contents - src)
 		if(faction_check_mob(L))
 			return
-		visible_message("<span class='danger'>[src] tramples and kicks [L]!</span>")
-		to_chat(L, "<span class='userdanger'>[src] tramples you and kicks you away!</span>")
+		visible_message(span_danger("[src] tramples and kicks [L]!"))
+		to_chat(L, span_userdanger("[src] tramples you and kicks you away!"))
 		if(L in hit_targets)
 			L.adjustBruteLoss(charge_damage)
 		else
@@ -191,7 +191,7 @@
 		icon_state = "legionnaire_headless"
 		icon_living = "legionnaire_headless"
 		icon_aggro = "legionnaire_headless"
-		visible_message("<span class='warning'>[src]'s head flies off!")
+		visible_message(span_warning("[src]'s head flies off!")
 		var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/newhead = new(loc)
 		newhead.GiveTarget(target)
 		newhead.faction = faction.Copy()
@@ -215,7 +215,7 @@
 	icon_state = "legionnaire"
 	icon_living = "legionnaire"
 	icon_aggro = "legionnaire"
-	visible_message("<span class='danger'>The top of [src]'s spine leaks a black liquid, forming into a skull!</span>")
+	visible_message(span_danger("The top of [src]'s spine leaks a black liquid, forming into a skull!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
 	ranged_cooldown = world.time + 2 SECONDS * revive_multiplier()
@@ -224,7 +224,7 @@
 		mypile = newpile
 		mypile.myowner = src
 		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, 1)
-		visible_message("<span class='warning'>[src] summons a bonfire on [get_turf(src)]!</span>")
+		visible_message(span_warning("[src] summons a bonfire on [get_turf(src)]!"))
 		return
 	else
 		var/turf/legionturf = get_turf(src)
@@ -234,9 +234,9 @@
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)
 		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, 1)
-		visible_message("<span class='danger'>[src] melts down into a burning pile of bones!</span>")
+		visible_message(span_danger("[src] melts down into a burning pile of bones!"))
 		forceMove(pileturf)
-		visible_message("<span class='danger'>[src] forms from the bonfire!</span>")
+		visible_message(span_danger("[src] forms from the bonfire!"))
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/throw_bone()

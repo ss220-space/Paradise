@@ -14,8 +14,8 @@
 	MARTIAL_ARTS_ACT_CHECK
 	if(!D.stat)//do not kill what is dead...
 		A.do_attack_animation(D)
-		D.visible_message("<span class='warning'>[A] manifests a large glowing toolbox and shoves it in [D]'s chest!</span>", \
-							"<spac class='userdanger'>[A] shoves a mystical toolbox in your chest!</span>")
+		D.visible_message(span_warning("[A] manifests a large glowing toolbox and shoves it in [D]'s chest!"), \
+							"<spac class='userdanger'>[A] shoves a mystical toolbox in your chest!"))
 		D.death()
 
 		return TRUE
@@ -36,9 +36,9 @@
 	return TRUE
 
 /datum/martial_art/adminfu/explaination_header(user)
-	to_chat(user, "<span class='notice'>Grab</span>: Automatic Neck Grab.")
-	to_chat(user, "<span class='notice'>Disarm</span>: Stun/weaken")
-	to_chat(user, "<span class='notice'>Harm</span>: Death.")
+	to_chat(user, span_notice("Grab</span>: Automatic Neck Grab.")
+	to_chat(user, span_notice("Disarm</span>: Stun/weaken")
+	to_chat(user, span_notice("Harm</span>: Death.")
 
 /obj/item/adminfu_scroll
 	name = "frayed scroll"

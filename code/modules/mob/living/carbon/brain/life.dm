@@ -2,18 +2,18 @@
 	if(radiation)
 		if(radiation > 100)
 			if(!container)
-				to_chat(src, "<span class='danger'>You feel weak.</span>")
+				to_chat(src, span_danger("You feel weak."))
 			else
-				to_chat(src, "<span class='danger'>STATUS: CRITICAL AMOUNTS OF RADIATION DETECTED.</span>")
+				to_chat(src, span_danger("STATUS: CRITICAL AMOUNTS OF RADIATION DETECTED."))
 
 		switch(radiation)
 
 			if(50 to 75)
 				if(prob(5))
 					if(!container)
-						to_chat(src, "<span class='danger'>You feel weak.</span>")
+						to_chat(src, span_danger("You feel weak."))
 					else
-						to_chat(src, "<span class='danger'>STATUS: DANGEROUS AMOUNTS OF RADIATION DETECTED.</span>")
+						to_chat(src, span_danger("STATUS: DANGEROUS AMOUNTS OF RADIATION DETECTED."))
 		..()
 
 /mob/living/carbon/brain/proc/handle_temperature_damage(body_part, exposed_temperature, exposed_intensity)

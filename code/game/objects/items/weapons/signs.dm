@@ -26,14 +26,14 @@
 
 /obj/item/picket_sign/attack_self(mob/living/carbon/human/user)
 	if(delayed)
-		user.show_message("<span class='warning'>Your arm is too tired to do that again so soon!</span>")
+		user.show_message(span_warning("Your arm is too tired to do that again so soon!"))
 		return
 
 	delayed = 1
 	if(label)
-		user.visible_message("<span class='notice'>[user] waves around \the \"[label]\" sign.</span>")
+		user.visible_message(span_notice("[user] waves around \the \"[label]\" sign."))
 	else
-		user.visible_message("<span class='notice'>[user] waves around blank sign.</span>")
+		user.visible_message(span_notice("[user] waves around blank sign."))
 	user.changeNext_move(CLICK_CD_MELEE)
 
 	sleep(8)

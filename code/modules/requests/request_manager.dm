@@ -140,13 +140,13 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 			if(tgui_alert(usr, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "Deny")
 				var/mob/living/carbon/human/H = request.owner?.mob
 				if(!istype(H))
-					to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+					to_chat(usr, span_warning("This can only be used on instances of type /mob/living/carbon/human"))
 					return
 				if(H.stat != 0)
-					to_chat(usr, "<span class='warning'>The person you are trying to contact is not conscious.</span>")
+					to_chat(usr, span_warning("The person you are trying to contact is not conscious."))
 					return
 				if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-					to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset</span>")
+					to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset"))
 					return
 
 				var/input = tgui_input_text(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", "", multiline = TRUE, encode = FALSE)
@@ -154,12 +154,12 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				GLOB.ert_request_answered = TRUE
 				to_chat(usr, "You sent [input] to [H] via a secure channel.")
 				log_admin("[usr] denied [key_name(H)]'s ERT request with the message [input].")
-				to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
+				to_chat(H, span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input]."))
 			else
 				usr.client.response_team()
 		if ("getcode")
 			if(request.req_type != REQUEST_NUKE)
-				to_chat(usr, "<span class='warning'>Warning! That this is a non-nuke-code-request request!</span>")
+				to_chat(usr, span_warning("Warning! That this is a non-nuke-code-request request!"))
 			to_chat(usr, "<b>The nuke code is: [get_nuke_code()]!</b>")
 			return TRUE
 

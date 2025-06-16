@@ -95,7 +95,7 @@
 	if(mymop)
 		mymop.forceMove_turf()
 		user.put_in_hands(mymop, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [mymop] from [src].</span>")
+		to_chat(user, span_notice("You take [mymop] from [src]."))
 		mymop = null
 		update_icon(UPDATE_OVERLAYS)
 

@@ -876,7 +876,7 @@
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
 	var/charge_counter = 0 //can only use if it equals "recharge" or "toggle_recharge", ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/starts_charged = TRUE //Does this action start ready to go?
-	var/still_recharging_msg = "<span class='notice'> action is still recharging.</span>"
+	var/still_recharging_msg = span_notice(" action is still recharging.")
 	//toggle and toggle_recharge stuff
 	var/action_ready = TRUE //Only for toggle and toggle_recharge charge_type. Toggle it via code yourself. Haha 'toggle', get it?
 	var/icon_state_active = "bg_default_on"	//What icon_state we switch to when we toggle action active in "toggle" actions
@@ -890,7 +890,7 @@
 
 /datum/action/item_action/advanced/New()
 	. = ..()
-	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	still_recharging_msg = span_notice("[name] is still recharging.")
 	icon_state_disabled = background_icon_state
 	last_use_time = world.time
 	if(charge_type == ADV_ACTION_TYPE_CHARGES)
@@ -970,11 +970,11 @@
 		if(ADV_ACTION_TYPE_CHARGES)
 			if(world.time < last_use_time + wait_time)
 				if(show_message)
-					to_chat(owner, "<span class='warning'>[name] is already being used.</span>")
+					to_chat(owner, span_warning("[name] is already being used."))
 				return FALSE
 			if(!charge_counter)
 				if(show_message)
-					to_chat(owner, "<span class='notice'>[name] has no charges left.</span>")
+					to_chat(owner, span_notice("[name] has no charges left."))
 				return FALSE
 	return TRUE
 

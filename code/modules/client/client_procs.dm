@@ -362,9 +362,9 @@
 	// Karma is disabled
 	/*
 	if(prefs.toggles & PREFTOGGLE_DISABLE_KARMA) // activates if karma is disabled
-		to_chat(src,"<span class='notice'>You have disabled karma gains.") // reminds those who have it disabled
+		to_chat(src,span_notice("You have disabled karma gains.") // reminds those who have it disabled
 	else
-		to_chat(src,"<span class='notice'>You have enabled karma gains.")
+		to_chat(src,span_notice("You have enabled karma gains.")
 	*/
 
 	if(show_update_prompt)

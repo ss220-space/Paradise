@@ -166,7 +166,7 @@
 	return FALSE
 
 /datum/multitool_menu/proc/service_message(txt, class="warning")
-	multitool?.visible_message("<span class=[class]>[multitool] beeps: [txt]</span>")
+	multitool?.visible_message("<span class=[class]>[multitool] beeps: [txt]"))
 
 ////////////////////////////////
 //	Multitool menu "tag_only"

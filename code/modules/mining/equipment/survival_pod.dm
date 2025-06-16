@@ -22,11 +22,11 @@
 /obj/item/survivalcapsule/emag_act(mob/user)
 	if(!emagged)
 		if(user)
-			to_chat(user, "<span class='warning'>You short out the safeties, allowing it to be placed in the station sector.</span>")
+			to_chat(user, span_warning("You short out the safeties, allowing it to be placed in the station sector."))
 		emagged = TRUE
 		return
 	if(user)
-		to_chat(user, "<span class='warning'>The safeties are already shorted out!</span>")
+		to_chat(user, span_warning("The safeties are already shorted out!"))
 
 /obj/item/survivalcapsule/proc/get_template()
 	if(template)
@@ -39,8 +39,8 @@
 /obj/item/survivalcapsule/examine(mob/user)
 	. = ..()
 	get_template()
-	. += "<span class='notice'>This capsule has the [template.name] stored.</span>"
-	. += "<span class='notice'>[template.description]</span>"
+	. += span_notice("This capsule has the [template.name] stored.")
+	. += span_notice("[template.description]</span>"
 
 /obj/item/survivalcapsule/attack_self(mob/user)
 	. = ..()
@@ -55,7 +55,7 @@
 		to_chat(user, span_notice("Error. Deployment was attempted on the station sector. Deployment aborted."))
 		playsound(user, 'sound/machines/buzz-sigh.ogg', 15, TRUE)
 		return
-	loc.visible_message("<span class='warning'>[src] begins to shake. Stand back!</span>")
+	loc.visible_message(span_warning("[src] begins to shake. Stand back!"))
 	used = TRUE
 	addtimer(CALLBACK(src, PROC_REF(expand), user), 5 SECONDS)
 	return TRUE

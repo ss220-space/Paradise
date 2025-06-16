@@ -224,7 +224,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 					sensor_part += "</table>"
 
 				else
-					sensor_part += "<span style='color: red;'>[long_name] can not be found!</span><br>"
+					sensor_part += span_fontcolor_red("[long_name] can not be found!</span><br>"
 				sensor_part += "</fieldset>"
 				sensor_data += sensor_part
 
@@ -388,7 +388,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 </fieldset>
 "}
 		else
-			output += "<span style='color: red;'>ERROR: Can not find input port</span> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</a><br>"
+			output += span_fontcolor_red("ERROR: Can not find input port</span> <a href='byond://?src=[UID()];in_refresh_status=1'>Search</a><br>"
 	if(output_tag)
 		if(output_info)
 			var/power = (output_info["power"])
@@ -409,7 +409,7 @@ GLOBAL_LIST_EMPTY(gas_sensors)
 </fieldset>
 "}
 		else
-			output += "<span style='color: red;'>ERROR: Can not find output port</span> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</a><br>"
+			output += span_fontcolor_red("ERROR: Can not find output port</span> <a href='byond://?src=[UID()];out_refresh_status=1'>Search</a><br>"
 
 	return output
 

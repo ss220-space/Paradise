@@ -35,7 +35,7 @@
 		if(SP.speaking)
 			piece = SP.speaking.format_message(piece, speaker)
 		else
-			piece = "<span class='message'><span class='body'>[piece]</span></span>"
+			piece = span_message("<span class='body'>[piece]</span></span>"
 		msg += (piece + " ")
 
 	if(msg == "")
@@ -235,7 +235,7 @@
 		if(prob(20))
 			to_chat(src, span_warning("Ваша гарнитура вибрирует, но вы не слышите ни звука!"))
 	else
-		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span></span>")
+		to_chat(src, "[part_a][track || speaker_name][part_b][message]</span>"))
 		if(client?.prefs.toggles2 & PREFTOGGLE_2_RUNECHAT)
 			create_chat_message(speaker, message_clean, list("radio"))
 		if(src != speaker || isrobot(src) || isAI(src))

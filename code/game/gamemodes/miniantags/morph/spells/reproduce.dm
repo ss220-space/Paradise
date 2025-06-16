@@ -29,20 +29,20 @@
 		return
 	if(!user.can_reproduce)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You dont know how to do reproduce!</span>")
+			to_chat(user, span_warning("You dont know how to do reproduce!"))
 		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only split while on flooring!</span>")
+			to_chat(user, span_warning("You can only split while on flooring!"))
 		return FALSE
 
 
 /obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
+	to_chat(user, span_sinister("You prepare to split in two, making you unable to vent crawl!"))
 	REMOVE_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// Temporarily disable it
 	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))
-		to_chat(user, "<span class='warning'>Your body refuses to split at the moment. Try again later.</span>")
+		to_chat(user, span_warning("Your body refuses to split at the moment. Try again later."))
 		revert_cast(user)
 		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// re enable the crawling
 		return

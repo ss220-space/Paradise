@@ -127,7 +127,7 @@
 
 /obj/item/eftpos/emag_act(mob/user)
 	emagged = TRUE
-	visible_message("<span class='warning'>[user] swipes a card through [src] and sparks fly out of it!</span>")
+	visible_message(span_warning("[user] swipes a card through [src] and sparks fly out of it!"))
 	do_sparks(1, TRUE, src)
 	get_sfx("sparks")
 	access_code = rand(1111,9999)
@@ -175,7 +175,7 @@
 	switch(action)
 		if("change_code")
 			if(world.timeofday < last_change + change_delay)
-				to_chat(user, "[bicon(src)]<span class='notice'> Wait before next access code change.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Wait before next access code change."))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
 			last_change = world.timeofday
@@ -184,7 +184,7 @@
 				if(!Adjacent(user))
 					return
 				if(attempt_code != access_code)
-					to_chat(user, "[bicon(src)]<span class='notice'> Incorrect code entered.</span>")
+					to_chat(user, "[bicon(src)]<span class='notice'> Incorrect code entered."))
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
 			var/trycode = tgui_input_number(user, "Enter a new access code for this device:", "Enter new EFTPOS code", max_value = 999999, min_value = 1000)
@@ -195,7 +195,7 @@
 		if("link_account")
 			if(duty_mode)
 				//prevents editing of this field on the service device
-				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device."))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
 			if(!linked_db)
@@ -210,11 +210,11 @@
 				linked_account = attempt_account_access(attempt_account_num, attempt_pin, 2)
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support."))
 				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
 		if("trans_purpose")
 			if (duty_mode)
-				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Feature not available on this device."))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 				return
 			var/purpose = tgui_input_text(user, "Enter reason for EFTPOS transaction", "Transaction purpose", transaction_purpose, encode = FALSE)
@@ -241,7 +241,7 @@
 				if(!Adjacent(user))
 					return
 				if(attempt_code != access_code)
-					to_chat(user, "[bicon(src)]<span class='notice'> That is not a valid code!</span>")
+					to_chat(user, "[bicon(src)]<span class='notice'> That is not a valid code!"))
 					playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 0)
 					return
 				transaction_locked = 0
@@ -259,7 +259,7 @@
 				transaction_locked = 1
 				playsound(src, 'sound/machines/terminal_prompt.ogg', 30, 0)
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'> Client Error #401 No Account Linked To Device.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'> Client Error #401 No Account Linked To Device."))
 				playsound(src, 'sound/machines/terminal_alert.ogg', 30, 0)
 		if("scan_card")
 			var/obj/item/active_hand = user.get_active_hand()
@@ -272,17 +272,17 @@
 			var/list/access = user.get_access()
 			if((ACCESS_CENT_COMMANDER in access)  || (ACCESS_CAPTAIN in access) || (ACCESS_HOP in access))
 				access_code = 0
-				to_chat(user, "[bicon(src)]<span class='notice'> Access code reset to 0.</span>")
+				to_chat(user, "[bicon(src)]<span class='notice'> Access code reset to 0."))
 				playsound(src, 'sound/machines/terminal_prompt_confirm.ogg', 30, 0)
 			else
-				to_chat(user, "[bicon(src)]<span class='warning'> Not allowed ID access.</span>")
+				to_chat(user, "[bicon(src)]<span class='warning'> Not allowed ID access."))
 				playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 
 /obj/item/eftpos/proc/scan_card(obj/item/card/id/id_card, mob/user)
-	visible_message("<span class='notice'>[user] swipes a card through [src].</span>")
+	visible_message(span_notice("[user] swipes a card through [src]."))
 
 	if(emagged)
-		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact NanoTrasen IT support.</span>")
+		to_chat(user, "[bicon(src)]<span class='warning'>  Client Error #423 Device Locked. Contact NanoTrasen IT support."))
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 1)
 		return
 
@@ -291,7 +291,7 @@
 	if(linked_db)
 		if(during_paid)
 			//This check is necessary to prevent multiple payment transactions when clicking
-			to_chat(user, "[bicon(src)]<span class='notice'> End the current operation first.</span>")
+			to_chat(user, "[bicon(src)]<span class='notice'> End the current operation first."))
 			playsound(src, 'sound/machines/terminal_prompt_deny.ogg', 30, 1)
 			return
 
@@ -312,12 +312,12 @@
 				return
 			card_account = attempt_account_access(id_card.associated_account_number, attempt_pin, 2)
 		if(!card_account || card_account.suspended)
-			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again.</span>")
+			to_chat(user, "[bicon(src)]<span class='warning'> Server Error #403 Unable To Access Account. Check security settings and try again."))
 			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 			return during_paid = FALSE
 
 		if(transaction_amount > card_account.money)
-			to_chat(user, "[bicon(src)]<span class='warning'> Client Error #402 Payment Was Declined. You don't have that much money.</span>")
+			to_chat(user, "[bicon(src)]<span class='warning'> Client Error #402 Payment Was Declined. You don't have that much money."))
 			playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)
 			return during_paid = FALSE
 
@@ -328,5 +328,5 @@
 			visible_message("[bicon(src)] The [src] chimes.")
 			playsound(src, 'sound/machines/chime.ogg', 50, 0)
 	else
-		to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support.</span>")
+		to_chat(user, "[bicon(src)]<span class='warning'> Server Error #523 Accounts Database Is Unreachable. Please retry and if the issue persists contact Nanotrasen IT support."))
 		playsound(src, 'sound/machines/terminal_alert.ogg', 50, 0)

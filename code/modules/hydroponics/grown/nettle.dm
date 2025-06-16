@@ -44,7 +44,7 @@
 	attack_verb = list("ужалил")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS|TOXLOSS
 
 /obj/item/grown/nettle/pickup(mob/living/user)
@@ -58,7 +58,7 @@
 	if(HAS_TRAIT(H, TRAIT_PIERCEIMMUNE))
 		return TRUE
 	H.apply_damage(force, BURN, def_zone = H.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
-	to_chat(H, "<span class='userdanger'>The nettle burns your bare hand!</span>")
+	to_chat(H, span_userdanger("The nettle burns your bare hand!"))
 	return TRUE
 
 /obj/item/grown/nettle/afterattack(atom/A, mob/user, proximity, params)

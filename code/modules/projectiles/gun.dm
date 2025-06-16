@@ -132,15 +132,15 @@
 /obj/item/gun/examine(mob/user)
 	. = ..()
 	if(unique_reskin)
-		. += "<span class='info'>Alt-click it to reskin it.</span>"
+		. += span_info("Alt-click it to reskin it.")
 	if(unique_rename)
-		. += "<span class='info'>Use a pen on it to rename it.</span>"
+		. += span_info("Use a pen on it to rename it.")
 	if(bayonet)
-		. += "<span class='notice'>It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.</span>"
+		. += span_notice("It has \a [bayonet] [can_bayonet ? "" : "permanently "]affixed to it.")
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
-			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
+			. += span_info("[bayonet] looks like it can be <b>unscrewed</b> from [src].")
 	else if(can_bayonet)
-		. += "<span class='notice'>It has a <b>bayonet</b> lug on it.</span>"
+		. += span_notice("It has a <b>bayonet</b> lug on it.")
 
 
 /obj/item/gun/proc/update_gun_skins()
@@ -195,7 +195,7 @@
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!", projectile_message = TRUE)
+				user.visible_message(span_danger("[user] fires [src]!"), span_danger("You fire [src]!"), "You hear \a [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -226,21 +226,21 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message("<span class='danger'>[user] blows smoke off of [src]'s barrel. What a badass.</span>")
+				user.visible_message(span_danger("[user] blows smoke off of [src]'s barrel. What a badass."))
 			else
 				handle_suicide(user, target, params)
 			return
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-		to_chat(user, "<span class='userdanger'>You shoot yourself in the foot with \the [src]!</span>")
+		to_chat(user, span_userdanger("You shoot yourself in the foot with \the [src]!"))
 		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 		process_fire(user, user, 0, params, zone_override = shot_leg)
 		user.drop_from_active_hand()
 		return
 
 	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
-		to_chat(user, "<span class='userdanger'>You need both hands free to fire \the [src]!</span>")
+		to_chat(user, span_userdanger("You need both hands free to fire \the [src]!"))
 		return
 
 	//DUAL WIELDING
@@ -614,26 +614,26 @@
 		return
 
 	if(user == target)
-		target.visible_message("<span class='warning'>[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>You stick [src] in your mouth, ready to pull the trigger...</span>")
+		target.visible_message(span_warning("[user] sticks [src] in [user.p_their()] mouth, ready to pull the trigger..."), \
+			span_userdanger("You stick [src] in your mouth, ready to pull the trigger..."))
 	else
-		target.visible_message("<span class='warning'>[user] points [src] at [target]'s head, ready to pull the trigger...</span>", \
-			"<span class='userdanger'>[user] points [src] at your head, ready to pull the trigger...</span>")
+		target.visible_message(span_warning("[user] points [src] at [target]'s head, ready to pull the trigger..."), \
+			span_userdanger("[user] points [src] at your head, ready to pull the trigger..."))
 
 	semicd = 1
 
 	if(!do_after(user, 12 SECONDS, target, NONE) || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
 		if(user)
 			if(user == target)
-				user.visible_message("<span class='notice'>[user] decided life was worth living.</span>")
+				user.visible_message(span_notice("[user] decided life was worth living."))
 			else if(target && target.Adjacent(user))
-				target.visible_message("<span class='notice'>[user] has decided to spare [target]'s life.</span>", "<span class='notice'>[user] has decided to spare your life!</span>")
+				target.visible_message(span_notice("[user] has decided to spare [target]'s life."), span_notice("[user] has decided to spare your life!"))
 		semicd = 0
 		return
 
 	semicd = 0
 
-	target.visible_message("<span class='warning'>[user] pulls the trigger!</span>", "<span class='userdanger'>[user] pulls the trigger!</span>")
+	target.visible_message(span_warning("[user] pulls the trigger!"), span_userdanger("[user] pulls the trigger!"))
 
 	if(chambered && chambered.BB)
 		chambered.BB.damage *= 15

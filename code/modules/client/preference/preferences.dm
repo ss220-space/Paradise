@@ -640,7 +640,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(GLOB.special_roles[last_left] == i)
 						dat += "<h2>Total Playtime:</h2>"
 						if(!CONFIG_GET(flag/use_exp_tracking))
-							dat += "<span class='warning'>Playtime tracking is not enabled.</span>"
+							dat += span_warning("Playtime tracking is not enabled.")
 						else
 							dat += "<b>Your [EXP_TYPE_CREW] playtime is [user.client.get_exp_type(EXP_TYPE_CREW)]</b><br>"
 						dat += "</td><td width='340px' height='300px' valign='top'><br/><br/>"
@@ -738,16 +738,16 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
 
 						if(PREFTOGGLE_TOGGLE1)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? span_good("Enabled</span>" : span_bad("Disabled</span>"]</a></td>"
 
 						if(PREFTOGGLE_TOGGLE2)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? span_good("Enabled</span>" : span_bad("Disabled</span>"]</a></td>"
 
 						if(PREFTOGGLE_TOGGLE3)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? span_good("Enabled</span>" : span_bad("Disabled</span>"]</a></td>"
 
 						if(PREFTOGGLE_SOUND)
-							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? span_good("Enabled</span>" : span_bad("Disabled</span>"]</a></td>"
 
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
@@ -1091,7 +1091,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		return
 
 	if(!isnum(desiredLvl))
-		to_chat(user, "<span class='warning'>UpdateJobPreference - desired level was not a number. Please notify coders!</span>")
+		to_chat(user, span_warning("UpdateJobPreference - desired level was not a number. Please notify coders!"))
 		ShowChoices(user)
 		return
 
@@ -1429,7 +1429,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					if(tgui_alert(user, "Would you like to open the Job selection info in your browser?", "Open Job Selection", list("Yes", "No")) == "Yes")
 						user << link("[CONFIG_GET(string/wikiurl)]/index.php/Job_Selection_and_Assignment")
 				else
-					to_chat(user, "<span class='danger'>The Wiki URL is not set in the server configuration.</span>")
+					to_chat(user, span_danger("The Wiki URL is not set in the server configuration."))
 			if("random")
 				if(alternate_option == GET_RANDOM_JOB || alternate_option == BE_ASSISTANT)
 					alternate_option += 1
@@ -1611,7 +1611,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/datum/species/NS = GLOB.all_species[species]
 					if(!istype(NS)) //The species was invalid. Notify the user and fail out.
 						species = prev_species
-						to_chat(user, "<span class='warning'>Invalid species, please pick something else.</span>")
+						to_chat(user, span_warning("Invalid species, please pick something else."))
 						return
 					if(prev_species != species)
 						if(NS.has_gender && gender == PLURAL)
@@ -2467,10 +2467,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("afk_watch")
 					if(!(toggles2 & PREFTOGGLE_2_AFKWATCH))
-						to_chat(user, "<span class='info'>You will now get put into cryo dorms after [CONFIG_GET(number/auto_cryo_afk)] minutes. \
-								Then after [CONFIG_GET(number/auto_despawn_afk)] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms.</span>")
+						to_chat(user, span_info("You will now get put into cryo dorms after [CONFIG_GET(number/auto_cryo_afk)] minutes. \
+								Then after [CONFIG_GET(number/auto_despawn_afk)] minutes you will be fully despawned. You will receive a visual and auditory warning before you will be put into cryodorms."))
 					else
-						to_chat(user, "<span class='info'>Automatic cryoing turned off.</span>")
+						to_chat(user, span_info("Automatic cryoing turned off."))
 					toggles2 ^= PREFTOGGLE_2_AFKWATCH
 
 				if("UIcolor")

@@ -75,7 +75,7 @@ SUBSYSTEM_DEF(events)
 	if(!report_at_round_end)
 		return
 
-	to_chat(world, "<br><br><br><b>[span_fontsize3("Random Events This Round:")]</b>")
+	to_chat(world, "<br><br><br><b>[span_fontsize_16px("Random Events This Round:")]</b>")
 	for(var/datum/event/E in active_events|finished_events)
 		var/datum/event_meta/EM = E.event_meta
 		if(EM.name == "Nothing")

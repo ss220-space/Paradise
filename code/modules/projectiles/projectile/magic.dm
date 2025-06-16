@@ -35,7 +35,7 @@
 		else
 			C.death()
 
-		visible_message("<span class='danger'>[C] topples backwards as the death bolt impacts [C.p_them()]!</span>")
+		visible_message(span_danger("[C] topples backwards as the death bolt impacts [C.p_them()]!"))
 
 /obj/projectile/magic/fireball/Range()
 	var/turf/T1 = get_step(src,turn(dir, -45))
@@ -87,9 +87,9 @@
 					ghost.reenter_corpse()
 					break
 		if(old_stat != DEAD)
-			to_chat(target, "<span class='notice'>You feel great!</span>")
+			to_chat(target, span_notice("You feel great!"))
 		else
-			to_chat(target, "<span class='notice'>You rise with a start, you're alive!!!</span>")
+			to_chat(target, span_notice("You rise with a start, you're alive!!!"))
 
 /obj/projectile/magic/teleport
 	name = "bolt of teleportation"

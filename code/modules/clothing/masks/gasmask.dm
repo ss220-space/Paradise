@@ -749,7 +749,7 @@
 		var/message = phrase_list[key]
 
 		if (!safety)
-			to_chat(user, "<span class='notice'>You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT.</span>")
+			to_chat(user, span_notice("You set the restrictor to: FUCK YOUR CUNT YOU SHIT EATING COCKSUCKER MAN EAT A DONG FUCKING ASS RAMMING SHIT FUCK EAT PENISES IN YOUR FUCK FACE AND SHIT OUT ABORTIONS OF FUCK AND DO SHIT IN YOUR ASS YOU COCK FUCK SHIT MONKEY FUCK ASS WANKER FROM THE DEPTHS OF SHIT."))
 			return
 
 		switch(aggressiveness)
@@ -757,24 +757,24 @@
 				phrase = (phrase < 6) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(2)
 				phrase = (phrase < 11 && phrase >= 7) ? (phrase + 1) : 7
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(3)
 				phrase = (phrase < 18 && phrase >= 12 ) ? (phrase + 1) : 12
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			if(4)
 				phrase = (phrase < 18 && phrase >= 1 ) ? (phrase + 1) : 1
 				key = phrase_list[phrase]
 				message = phrase_list[key]
-				to_chat(user,"<span class='notice'>You set the restrictor to: [message]</span>")
+				to_chat(user,span_notice("You set the restrictor to: [message]"))
 			else
-				to_chat(user, "<span class='notice'>It's broken.</span>")
+				to_chat(user, span_notice("It's broken."))
 
 		var/datum/action/item_action/halt/halt_action = locate() in actions
 		if(halt_action)
@@ -828,7 +828,7 @@
 	if(safety)
 		safety = 0
 		if(user)
-			to_chat(user, "<span class='warning'>You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+			to_chat(user, span_warning("You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
 	var/key = phrase_list[phrase]

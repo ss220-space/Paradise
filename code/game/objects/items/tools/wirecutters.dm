@@ -51,7 +51,7 @@
 
 
 /obj/item/wirecutters/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!</span>")
+	user.visible_message(span_suicide("[user] is cutting at [user.p_their()] arteries with [src]! It looks like [user.p_theyre()] trying to commit suicide!"))
 	playsound(loc, usesound, 50, 1, -1)
 	return BRUTELOSS
 
@@ -92,7 +92,7 @@
 	random_color = FALSE
 
 /obj/item/wirecutters/power/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!</span>")
+	user.visible_message(span_suicide("[user] is wrapping \the [src] around [user.p_their()] neck. It looks like [user.p_theyre()] trying to rip [user.p_their()] head off!"))
 	playsound(loc, 'sound/items/jaws_cut.ogg', 50, 1, -1)
 	if(ishuman(user))
 		var/mob/living/carbon/human/H = user
@@ -105,6 +105,6 @@
 /obj/item/wirecutters/power/attack_self(mob/user)
 	playsound(get_turf(user), 'sound/items/change_jaws.ogg', 50, 1)
 	var/obj/item/crowbar/power/pryjaws = new /obj/item/crowbar/power
-	to_chat(user, "<span class='notice'>You attach the pry jaws to [src].</span>")
+	to_chat(user, span_notice("You attach the pry jaws to [src]."))
 	qdel(src)
 	user.put_in_active_hand(pryjaws)

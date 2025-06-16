@@ -319,13 +319,13 @@ GLOBAL_LIST_EMPTY(firealarms)
 	. = ..()
 	switch(buildstage)
 		if(FIRE_ALARM_FRAME)
-			. += "<span class='notice'>It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.</span>"
+			. += span_notice("It's missing a <i>circuit board<i> and the <b>bolts</b> are exposed.")
 		if(FIRE_ALARM_UNWIRED)
-			. += "<span class='notice'>The control board needs <i>wiring</i> and can be <b>pried out</b>.</span>"
+			. += span_notice("The control board needs <i>wiring</i> and can be <b>pried out</b>.")
 		if(FIRE_ALARM_READY)
 			if(wiresexposed)
-				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
-				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
+				. += span_notice("The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.")
+				. += span_notice("The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.")
 
 	. += "It shows the alert level as: <b><u>[capitalize(get_security_level())]</u></b>."
 

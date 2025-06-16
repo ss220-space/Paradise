@@ -85,17 +85,17 @@
 			var/mob/living/carbon/human/H = M
 			if(foodtype & H.dna.species.toxic_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.toxic_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, HATE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, span_warning("[format_message(type_string, HATE_MESSAGES, H.dna.species)]"))
 
 				H.AdjustDisgust((25 + 30 * fraction) STATUS_EFFECT_CONSTANT)
 			if(foodtype & H.dna.species.disliked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.disliked_food)
-				to_chat(H, "<span class='warning'>[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, span_warning("[format_message(type_string, DISLIKE_MESSAGES, H.dna.species)]"))
 
 				H.AdjustDisgust((15 + 16 * fraction) STATUS_EFFECT_CONSTANT)
 			if(foodtype & H.dna.species.liked_food)
 				var/type_string = matched_food_type(foodtype & H.dna.species.liked_food)
-				to_chat(H, "<span class='notice'>[format_message(type_string, LOVE_MESSAGES, H.dna.species)]</span>")
+				to_chat(H, span_notice("[format_message(type_string, LOVE_MESSAGES, H.dna.species)]"))
 
 				H.AdjustDisgust((-12 + -8 * fraction) STATUS_EFFECT_CONSTANT)
 			last_check_time = world.time
@@ -144,31 +144,31 @@
 /obj/item/reagent_containers/food/examine(mob/user)
 	. = ..()
 	if(foodtype & MEAT)
-		. += "<span class='notice'>It contains meat.</span>"
+		. += span_notice("It contains meat.")
 	if(foodtype & VEGETABLES)
-		. += "<span class='notice'>It contains vegetables.</span>"
+		. += span_notice("It contains vegetables.")
 	if(foodtype & RAW)
-		. += "<span class='notice'>It is not properly cooked.</span>"
+		. += span_notice("It is not properly cooked.")
 	if(foodtype & JUNKFOOD)
-		. += "<span class='notice'>It is junkfood.</span>"
+		. += span_notice("It is junkfood.")
 	if(foodtype & GRAIN)
-		. += "<span class='notice'>It is made of grain.</span>"
+		. += span_notice("It is made of grain.")
 	if(foodtype & FRUIT)
-		. += "<span class='notice'>It contains fruits.</span>"
+		. += span_notice("It contains fruits.")
 	if(foodtype & DAIRY)
-		. += "<span class='notice'>It contains dairy.</span>"
+		. += span_notice("It contains dairy.")
 	if(foodtype & FRIED)
-		. += "<span class='notice'>It is fried.</span>"
+		. += span_notice("It is fried.")
 	if(foodtype & SUGAR)
-		. += "<span class='notice'>It is sugary.</span>"
+		. += span_notice("It is sugary.")
 	if(foodtype & EGG)
-		. += "<span class='notice'>It contains eggs.</span>"
+		. += span_notice("It contains eggs.")
 	if(foodtype & GROSS)
-		. += "<span class='notice'>This is pure garbage.</span>"
+		. += span_notice("This is pure garbage.")
 	if(foodtype & TOXIC)
-		. += "<span class='notice'>This is straight up poisonous.</span>"
+		. += span_notice("This is straight up poisonous.")
 	if(user.can_see_food()) //Show each individual reagent
-		. += "<span class='notice'>It contains:</span>"
+		. += span_notice("It contains:</span>"
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
-			. += "<span class='notice'>[R.volume] units of [R.name]</span>"
+			. += span_notice("[R.volume] units of [R.name]</span>"

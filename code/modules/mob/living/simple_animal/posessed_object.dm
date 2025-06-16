@@ -26,9 +26,9 @@
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += "<span class='notice'>[src] appears to be floating without any support!</span>"
+		. += span_notice("[src] appears to be floating without any support!</span>"
 	else
-		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
+		. += span_warning("[src] appears to be having trouble staying afloat!</span>"
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
@@ -84,7 +84,7 @@
 		drop_r_hand()
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
-		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
+		visible_message(span_notice("[src] refuses to be contained!"))
 		var/turf/source_turf = get_turf(src)
 		if(source_turf)
 			forceMove(source_turf)
@@ -96,20 +96,20 @@
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
-	to_chat(src, "<span class='shadowling'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
+	to_chat(src, span_shadowling("<b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn."))
 
 
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
 	..()
 
 	if(!isitem(loc)) // Some silly motherfucker spawned us directly via the game panel.
-		message_admins("<span class='adminnotice'>Posessed object improperly spawned, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(span_adminnotice("Posessed object improperly spawned, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] spawned manually, no object to assign attributes to."), src)
 		qdel(src)
 
 	var/turf/possessed_loc = get_turf(loc)
 	if(!istype(possessed_loc)) // Will this ever happen? Who goddamn knows.
-		message_admins("<span class='adminnotice'>Posessed object could not find turf, deleting.</span>") // So silly admins with debug off will see the message too and not spam these things.
+		message_admins(span_adminnotice("Posessed object could not find turf, deleting.")) // So silly admins with debug off will see the message too and not spam these things.
 		log_runtime(EXCEPTION("[src] attempted to find a turf to spawn on, and could not."), src)
 		qdel(src)
 
@@ -119,7 +119,7 @@
 
 	update_icon(1)
 
-	visible_message("<span class='shadowling'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
+	visible_message(span_shadowling("[src] rises into the air and begins to float!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
 

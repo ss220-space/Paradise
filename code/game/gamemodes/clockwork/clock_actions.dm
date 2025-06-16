@@ -29,8 +29,8 @@
 
 	var/prefix = ""
 	if(HAS_TRAIT(user, TRAIT_MUTE) || user.mind.miming) //Under vow of silence/mute?
-		user.visible_message("<span class='notice'>[user] appears to whisper to themselves.</span>",
-		"<span class='notice'>You begin to whisper to yourself.</span>") //Make them do *something* abnormal.
+		user.visible_message(span_notice("[user] appears to whisper to themselves."),
+		span_notice("You begin to whisper to yourself.")) //Make them do *something* abnormal.
 		sleep(10)
 	else if(!issilicon(user))
 		user.whisper("N`i th`e le-ing roc-cus!") // Otherwise book club sayings.
@@ -41,12 +41,12 @@
 		prefix = "Automaton"
 
 
-	var/my_message = "<span class='clockspeech'><b>[prefix] [user.real_name]:</b> [message]</span>"
+	var/my_message = span_clockspeech("<b>[prefix] [user.real_name]:</b> [message]</span>"
 	for(var/mob/M in GLOB.player_list)
 		if(isclocker(M))
 			to_chat(M, my_message)
 		else if((M in GLOB.dead_mob_list) && !isnewplayer(M))
-			to_chat(M, "<span class='clockspeech'> <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] </span>")
+			to_chat(M, span_clockspeech(" <a href='byond://?src=[M.UID()];follow=[user.UID()]'>(F)</a> [my_message] "))
 
 	add_say_logs(user, message, language = "CLOCKCULT")
 
@@ -68,4 +68,4 @@
 	if(SSticker?.mode)
 		SSticker.mode.clocker_objs.study(usr, TRUE)
 	else
-		to_chat(usr, "<span class='clockitalic'>You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)</span>")
+		to_chat(usr, span_clockitalic("You fail to study the Veil. (This should never happen, adminhelp and/or yell at a coder)"))

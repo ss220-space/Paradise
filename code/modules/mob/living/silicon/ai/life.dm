@@ -25,7 +25,7 @@
 		machine.check_eye(src)
 
 	if(malfhack && malfhack.aidisabled)
-		to_chat(src, "<span class='danger'>ERROR: APC access disabled, hack attempt canceled.</span>")
+		to_chat(src, span_danger("ERROR: APC access disabled, hack attempt canceled."))
 		deltimer(malfhacking)
 		// This proc handles cleanup of screen notifications and
 		// messenging the client
@@ -50,7 +50,7 @@
 				update_blind_effects()
 				aiRestorePowerRoutine = 1
 				update_sight()
-				to_chat(src, "<span class='danger'>You have lost power!</span>")
+				to_chat(src, span_danger("You have lost power!"))
 				if(!is_special_character(src))
 					set_zeroth_law("")
 					SSticker?.score?.save_silicon_laws(src, additional_info = "zero law was deleted due to power lost", log_all_laws = TRUE)

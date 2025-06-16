@@ -61,7 +61,7 @@
 		to_chat(owner.current, span_userdanger("Вы киборгизированы!"))
 		to_chat(owner.current, span_danger("Вы должны подчиняться своим законам и подчиняться мастеру ИИ. Ваши цели более недействительны."))
 	else
-		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</b></span>"))
+		to_chat(owner.current, span_fontsize_16px(span_fontcolor_red("<b>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</b>")))
 
 
 /datum/antagonist/thief/finalize_antag()

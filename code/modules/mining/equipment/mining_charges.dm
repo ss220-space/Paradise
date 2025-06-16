@@ -42,7 +42,7 @@
 /obj/item/grenade/plastic/miningcharge/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(ismineralturf(AM) || hacked)
 		if(isancientturf(AM) && !hacked)
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 			return
 		if(timer_off) //override original proc for plastic explosions
 			if(!flag)
@@ -204,9 +204,9 @@
 /obj/item/detonator/examine(mob/user)
 	. = ..()
 	if(bombs.len)
-		. += "<span class='notice'>List of synched bombs:</span>"
+		. += span_notice("List of synched bombs:</span>"
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += "<span class='notice'>[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
+			. += span_notice("[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
 
 
 /obj/item/detonator/update_icon_state()

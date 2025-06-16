@@ -42,7 +42,7 @@
 
 		overlay_icon.pixel_x = HOLOMAP_LEGEND_X
 		overlay_icon.pixel_y = legend_y
-		overlay_icon.maptext = MAPTEXT("<span style='font-size: 6px'>[overlay_name]</span>")
+		overlay_icon.maptext = MAPTEXT(span_fontsize_6px("[overlay_name]"))
 		overlay_icon.maptext_x = 10
 		overlay_icon.maptext_width = 64
 		base_map.add_overlay(overlay_icon)

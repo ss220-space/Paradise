@@ -33,7 +33,7 @@
 	. += deconstruction_hints(user)
 
 /obj/structure/lattice/proc/deconstruction_hints(mob/user)
-	return "<span class='notice'>The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.</span>"
+	return span_notice("The rods look like they could be <b>cut</b>. There's space for more <i>rods</i> or a <i>tile</i>.")
 
 /obj/structure/lattice/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
@@ -125,7 +125,7 @@
 	give_turf_traits = list(TRAIT_CHASM_STOPPED, TRAIT_TURF_IGNORE_SLOWDOWN)
 
 /obj/structure/lattice/catwalk/deconstruction_hints(mob/user)
-	to_chat(user, "<span class='notice'>The supporting rods look like they could be <b>cut</b>.</span>")
+	to_chat(user, span_notice("The supporting rods look like they could be <b>cut</b>."))
 
 /obj/structure/lattice/catwalk/Move(atom/newloc, direct = NONE, glide_size_override = 0, update_dir = TRUE)
 	var/turf/T = loc
@@ -172,11 +172,11 @@
 	max_integrity = 100
 
 /obj/structure/lattice/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 20, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленные прутья!</span>")
+	to_chat(user, span_notice("Вы срезали усиленные прутья!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 1)
 	deconstruct()
 
@@ -193,11 +193,11 @@
 
 
 /obj/structure/lattice/catwalk/fireproof/wirecutter_act(mob/living/user, obj/item/I)
-	to_chat(user, "<span class='notice'>Вы начали срезать усиленные прутья, это займёт некоторое время...</span>")
+	to_chat(user, span_notice("Вы начали срезать усиленные прутья, это займёт некоторое время..."))
 	if(!I.use_tool(src, user, 80, volume = I.tool_volume))
-		to_chat(user, "<span class='warning'>Вам необходимо не прерывать процесс.</span>")
+		to_chat(user, span_warning("Вам необходимо не прерывать процесс."))
 		return
-	to_chat(user, "<span class='notice'>Вы срезали усиленный мостик!</span>")
+	to_chat(user, span_notice("Вы срезали усиленный мостик!"))
 	new /obj/item/stack/fireproof_rods(get_turf(src), 3)
 	deconstruct()
 

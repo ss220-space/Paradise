@@ -130,7 +130,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/ranged_attack()
 	var/tturf = get_turf(target)
-	visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
+	visible_message(span_warning("[src] digs its tentacles under [target]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	if((stat == DEAD))
@@ -321,7 +321,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		visible_message(span_danger("[src] grabs hold of [L]!"))
 		if(!L.IsStunned())
 			L.Stun(10 SECONDS)
 			L.adjustBruteLoss(rand(10, 15))

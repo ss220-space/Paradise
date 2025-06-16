@@ -185,9 +185,9 @@
 
 
 /datum/supermatter_explosive_effects/proc/greet_sentient(var/mob/M)
-	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
+	to_chat(M, chat_box_green(span_userdanger("Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
 	 						human level intelligence and the ability to speak and understand \
-							human language!</span>"))
+							human language!")))
 
 //All seeds in sector will become strange-like
 /datum/supermatter_explosive_effects/proc/handle_seeds_mutation()

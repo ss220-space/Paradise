@@ -45,8 +45,8 @@
 #define DEFAULT_TOOLTIP "6:-29,5:-2"
 
 // Text
-#define CULT_GREETING "<span class='cultlarge'>You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. \
-						You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].</span>"
+#define CULT_GREETING span_cultlarge("You catch a glimpse of the Realm of [SSticker.cultdat.entity_name], [SSticker.cultdat.entity_title3]. \
+						You now see how flimsy the world is, you see that it should be open to the knowledge of [SSticker.cultdat.entity_name].")
 
 #define CULT_CURSES list("Заправщик шаттла только что перерезал себе горло и умолял о смерти.",\
 			"Навигационная программа шаттла была заменена файлом, содержащим два слова: «ОНО ИДЁТ».",\

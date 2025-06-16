@@ -81,7 +81,7 @@
 	var/static/cookieoffset = rand(1, 9999) //to force cookies to reset after the round.
 
 	if(!check_rights(R_ADMIN|R_VIEWRUNTIMES))
-		to_chat(usr, "<span class='warning'>You need to be an administrator to access this.</span>", confidential=TRUE)
+		to_chat(usr, span_warning("You need to be an administrator to access this."), confidential=TRUE)
 		return
 
 	if(!D)
@@ -1307,7 +1307,7 @@
 			return
 
 		to_chat(usr, "Changed voice from [old_tts_seed] to [new_tts_seed] for [H].", confidential=TRUE)
-		to_chat(H, "<span class='notice'>Your voice has been changed from [old_tts_seed] to [new_tts_seed].</span>", confidential=TRUE)
+		to_chat(H, span_notice("Your voice has been changed from [old_tts_seed] to [new_tts_seed]."), confidential=TRUE)
 		log_and_message_admins("has changed [key_name(H)]'s voice from [old_tts_seed] to [new_tts_seed]")
 
 	else if(href_list["addverb"])

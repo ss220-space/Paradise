@@ -29,11 +29,11 @@
 	. = ..()
 	var/num = get_part_rating()
 	if (num == INFINITY)
-		. += "<span class='notice'>It's sealed tight, completely full of supplies.</span>"
+		. += span_notice("It's sealed tight, completely full of supplies.")
 	else if (num == 0)
-		. += "<span class='notice'>It's empty!</span>"
+		. += span_notice("It's empty!</span>"
 	else
-		. += "<span class='notice'>It can restock [num] item\s.</span>"
+		. += span_notice("It can restock [num] item\s.")
 
 /obj/item/vending_refill/get_part_rating()
 	if (!products || !contraband || !premium)

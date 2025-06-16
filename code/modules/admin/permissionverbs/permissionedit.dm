@@ -94,7 +94,7 @@ td, th {
 		return
 
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Failed to establish database connection</span>")
+		to_chat(usr, span_warning("Failed to establish database connection"))
 		return
 
 	if(!adm_ckey || !new_rank)
@@ -144,7 +144,7 @@ td, th {
 			return
 		qdel(log_query)
 
-		to_chat(usr, "<span class='notice'>New admin added.</span>")
+		to_chat(usr, span_notice("New admin added."))
 	else
 		if(!isnull(admin_id) && isnum(admin_id))
 			var/datum/db_query/insert_query = SSdbcore.NewQuery("UPDATE [format_table_name("admin")] SET rank=:new_rank, flags=:new_flags WHERE id=:admin_id", list(
@@ -167,7 +167,7 @@ td, th {
 				qdel(log_query)
 				return
 			qdel(log_query)
-			to_chat(usr, "<span class='notice'>Admin rank changed.</span>")
+			to_chat(usr, span_notice("Admin rank changed."))
 
 /datum/admins/proc/log_admin_permission_modification(adm_ckey, new_permission)
 	if(IsAdminAdvancedProcCall())

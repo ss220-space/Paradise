@@ -968,7 +968,7 @@
 	target.vomit(0, VOMIT_BLOOD, distance = 2, message = FALSE)
 	playsound(user.loc, 'sound/hallucinations/veryfar_noise.ogg', 50, TRUE)
 	to_chat(user, span_shadowling("Вы мгновенно изменяете воспоминания <b>[target]</b>, превращая [genderize_ru(target.gender,"его","её","его","их")] в раба"))
-	to_chat(target, span_userdanger(span_fontsize3("Волна мучительной боли проникает в ваше сознание, и...")))
+	to_chat(target, span_userdanger(span_fontsize_16px("Волна мучительной боли проникает в ваше сознание, и...")))
 	SSticker.mode.add_thrall(target.mind)
 	target.mind.special_role = SPECIAL_ROLE_SHADOWLING_THRALL
 	target.add_language(LANGUAGE_HIVE_SHADOWLING)

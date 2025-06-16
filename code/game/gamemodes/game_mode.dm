@@ -489,7 +489,7 @@
  * Reports player logouts.
  */
 /proc/display_roundstart_logout_report()
-	var/msg = "<span class='notice'>Roundstart logout report</span>\n\n"
+	var/msg = span_notice("Roundstart logout report</span>\n\n"
 	for(var/mob/living/mob_living in GLOB.mob_list)
 
 		if(mob_living.ckey)
@@ -662,7 +662,7 @@
 		if(objective.check_completion())
 			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
 		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.")
 		count++
 
 	return objective_parts.Join("<br>")
@@ -775,7 +775,7 @@
 	if(!custom_name)
 		interceptname = "Директива 7-10"
 	if(!custom_text)
-		intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
+		intercepttext += span_fontsize_16px("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
 		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
 		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
 		intercepttext += " 1. Не покидать карантинную зону.<br>"

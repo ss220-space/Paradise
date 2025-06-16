@@ -83,7 +83,7 @@
 
 /obj/item/organ/internal/regenerative_core/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(inert)
-		to_chat(owner, "<span class='notice'>[src] breaks down as it tries to activate.</span>")
+		to_chat(owner, span_notice("[src] breaks down as it tries to activate."))
 	else
 		owner.revive()
 	qdel(src)
@@ -126,11 +126,11 @@
 	. = ..()
 	if(!preserved && !inert)
 		preserved(TRUE)
-		owner.visible_message("<span class='notice'>[src] stabilizes as it's inserted.</span>")
+		owner.visible_message(span_notice("[src] stabilizes as it's inserted."))
 
 /obj/item/organ/internal/regenerative_core/remove(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!inert && !special)
-		owner.visible_message("<span class='notice'>[src] rapidly decays as it's removed.</span>")
+		owner.visible_message(span_notice("[src] rapidly decays as it's removed."))
 		go_inert()
 	return ..()
 

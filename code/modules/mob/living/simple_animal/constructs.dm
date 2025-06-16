@@ -69,9 +69,9 @@
 
 	if(src.health < src.maxHealth)
 		if(src.health >= src.maxHealth/2)
-			. += "<span class='notice'>It looks slightly dented.</span>"
+			. += span_notice("It looks slightly dented.")
 		else
-			. += "<span class='warning'>It looks severely dented!</span>"
+			. += span_warning("It looks severely dented!</span>"
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))
@@ -79,16 +79,16 @@
 			adjustBruteLoss(-5)
 			if(src != M)
 				Beam(M,icon_state="sendbeam",time=4)
-				M.visible_message("<span class='danger'>[M] repairs some of \the <b>[src]'s</b> dents.</span>", \
-						   "<span class='cult'>You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health.</span>")
+				M.visible_message(span_danger("[M] repairs some of \the <b>[src]'s</b> dents."), \
+						   span_cult("You repair some of <b>[src]'s</b> dents, leaving <b>[src]</b> at <b>[health]/[maxHealth]</b> health."))
 			else
-				M.visible_message("<span class='danger'>[M] repairs some of its own dents.</span>", \
-						   "<span class='cult'>You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health.</span>")
+				M.visible_message(span_danger("[M] repairs some of its own dents."), \
+						   span_cult("You repair some of your own dents, leaving you at <b>[M.health]/[M.maxHealth]</b> health."))
 		else
 			if(src != M)
-				to_chat(M, "<span class='cult'>You cannot repair <b>[src]'s</b> dents, as it has none!</span>")
+				to_chat(M, span_cult("You cannot repair <b>[src]'s</b> dents, as it has none!"))
 			else
-				to_chat(M, "<span class='cult'>You cannot repair your own dents, as you have none!</span>")
+				to_chat(M, span_cult("You cannot repair your own dents, as you have none!"))
 	else if(src != M)
 		return ..()
 

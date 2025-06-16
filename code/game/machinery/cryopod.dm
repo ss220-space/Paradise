@@ -614,7 +614,7 @@
 		for(var/mob/dead/observer/Gh in GLOB.respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
 			if(Gh.key == FT)
 				if(Gh.client && Gh.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
-					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage.</span>")
+					to_chat(Gh, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered cryostorage."))
 	log_admin(span_notice("[key_name_log(E)] entered a stasis pod."))
 	message_admins("[key_name_admin(E)] entered a stasis pod. [ADMIN_JMP(src)]")
 	add_fingerprint(E)

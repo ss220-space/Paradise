@@ -226,7 +226,7 @@
 		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] дребезжит, после чего из окна печати выпадает лист бумаги."))
 		playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 
-		P.info = span_fontsize4("<u><b><center> Выпуск вируса </b></center></u>")
+		P.info = span_fontsize_18px("<u><b><center> Выпуск вируса </b></center></u>")
 		P.info += "<hr>"
 		P.info += "<u>Название вируса:</u> [D.name] <br>"
 		P.info += "<u>Симптомы:</u> [symtoms]<br>"

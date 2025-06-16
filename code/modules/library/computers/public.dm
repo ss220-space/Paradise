@@ -26,7 +26,7 @@
 				<a href='byond://?src=[UID()];search=1'>\[Start Search\]</a><br />"}
 		if(1)
 			if(!SSdbcore.IsConnected())
-				dat += "<span style='color: red;'><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span><br />"
+				dat += span_fontcolor_red("<b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span><br />"
 			else if(num_results == 0)
 				dat += "<em>No results found.</em>"
 			else

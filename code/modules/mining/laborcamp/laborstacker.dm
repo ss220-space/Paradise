@@ -116,20 +116,20 @@
 			to_chat(usr, "Points transferred.")
 		if("move_shuttle")
 			if(!alone_in_area(get_area(src), usr))
-				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+				to_chat(usr, span_warning("Prisoners are only allowed to be released while alone."))
 			else
 				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
 					if(1)
-						to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
+						to_chat(usr, span_notice("Shuttle not found."))
 					if(2)
-						to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
+						to_chat(usr, span_notice("Shuttle already at station."))
 					if(3)
-						to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+						to_chat(usr, span_notice("No permission to dock could be granted."))
 					else
 						if(!emagged)
 							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
 							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ_NAME)
-						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+						to_chat(usr, span_notice("Shuttle received message and will be sent shortly."))
 						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
@@ -143,7 +143,7 @@
 	if(!(emagged))
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+			to_chat(user, span_warning("PZZTTPFFFT"))
 
 
 /**********************Prisoner Collection Unit**************************/

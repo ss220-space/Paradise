@@ -254,7 +254,7 @@
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
-		L.visible_message("<span class='danger'>[L] explodes!</span>")
+		L.visible_message(span_danger("[L] explodes!"))
 		L.gib()
 
 /obj/projectile/beam/dominator/eliminator

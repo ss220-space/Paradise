@@ -126,7 +126,7 @@
 		message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
 		add_game_logs("increased PA Control Computer to [strength] in [COORD(src)]", usr)
 		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].</span>")
+		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength]."))
 
 		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 	strength_change()
@@ -142,7 +142,7 @@
 		message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
 		add_game_logs("decreased PA Control Computer to [strength] in [COORD(src)]", usr)
 		investigate_log("decreased to <span style='color: green;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-		use_log += text("\[[time_stamp()]\] <span style='color: orange;'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].</span>")
+		use_log += text("\[[time_stamp()]\] <span style='color: orange;'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength]."))
 
 	strength_change()
 
@@ -260,7 +260,7 @@
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
-	investigate_log("turned [active?"<span style='color: red;'>ON</span>":"<span style='color: green;'>OFF</span>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
+	investigate_log("turned [active?span_fontcolor_red("ON</span>":"<span style='color: green;'>OFF</span>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
 	if(active)
 		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
 		add_game_logs("turned ON PA Control Computer in [COORD(src)]", usr)
@@ -322,7 +322,7 @@
 		return
 
 	if(!interface_control)
-		to_chat(usr, "<span class='error'>ERROR: Request timed out. Check wire contacts.</span>")
+		to_chat(usr, span_error("ERROR: Request timed out. Check wire contacts."))
 		return
 
 	switch(action)

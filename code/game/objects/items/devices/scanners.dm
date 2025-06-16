@@ -245,17 +245,17 @@ REAGENT SCANNER
 		var/mob/living/carbon/human/H = M
 		if(H.reagents)
 			if(H.reagents.reagent_list.len)
-				to_chat(user, "<span class='notice'>Subject contains the following reagents:</span>")
+				to_chat(user, span_notice("Subject contains the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> - [span_boldannounceic("OVERDOSING")]" : ".</span>"]")
+					to_chat(user, span_notice("[R.volume]u of [R.name][R.overdosed ? "</span> - [span_boldannounceic("OVERDOSING")]" : ".")]")
 			else
-				to_chat(user, "<span class = 'notice'>Subject contains no reagents.</span>")
+				to_chat(user, "<span class = 'notice'>Subject contains no reagents."))
 			if(H.reagents.addiction_list.len)
-				to_chat(user, "<span class='danger'>Subject is addicted to the following reagents:</span>")
+				to_chat(user, span_danger("Subject is addicted to the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.addiction_list)
-					to_chat(user, "<span class='danger'>[R.name] Stage: [R.addiction_stage]/5</span>")
+					to_chat(user, span_danger("[R.name] Stage: [R.addiction_stage]/5"))
 			else
-				to_chat(user, "<span class='notice'>Subject is not addicted to any reagents.</span>")
+				to_chat(user, span_notice("Subject is not addicted to any reagents."))
 
 /obj/item/healthanalyzer
 	name = "health analyzer"
@@ -1094,7 +1094,7 @@ REAGENT SCANNER
 	if(user.stat)
 		return
 	if(!user.IsAdvancedToolUser())
-		to_chat(user, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(user, span_warning("You don't have the dexterity to do this!"))
 		return
 	if(!istype(O))
 		return
@@ -1113,13 +1113,13 @@ REAGENT SCANNER
 					blood_type = R.data["blood_type"]
 					dat += "<br>[TAB]<span class='notice'>[R][blood_type ? " [blood_type]" : ""][blood_species ? " [blood_species]" : ""][details ? ": [R.volume / one_percent]%" : ""]</span>"
 		if(dat)
-			to_chat(user, "<span class='notice'>Chemicals found: [dat]</span>")
+			to_chat(user, span_notice("Chemicals found: [dat]"))
 			datatoprint = dat
 			scanning = FALSE
 		else
-			to_chat(user, "<span class='notice'>No active chemical agents found in [O].</span>")
+			to_chat(user, span_notice("No active chemical agents found in [O]."))
 	else
-		to_chat(user, "<span class='notice'>No significant chemical agents found in [O].</span>")
+		to_chat(user, span_notice("No significant chemical agents found in [O]."))
 	return
 
 /obj/item/reagent_scanner/adv
@@ -1130,7 +1130,7 @@ REAGENT SCANNER
 
 /obj/item/reagent_scanner/proc/print_report()
 	if(!scanning)
-		usr.visible_message("<span class='warning'>[src] rattles and prints out a sheet of paper.</span>")
+		usr.visible_message(span_warning("[src] rattles and prints out a sheet of paper."))
 		playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 50, 1)
 		if(!details)
 			flick("spectrometer_anim", src)
@@ -1145,11 +1145,11 @@ REAGENT SCANNER
 		if(ismob(loc))
 			var/mob/M = loc
 			M.put_in_hands(P, ignore_anim = FALSE)
-			to_chat(M, "<span class='notice'>Report printed. Log cleared.</span>")
+			to_chat(M, span_notice("Report printed. Log cleared."))
 			datatoprint = ""
 			scanning = TRUE
 	else
-		to_chat(usr, "<span class='notice'>[src]  has no logs or is already in use.</span>")
+		to_chat(usr, span_notice("[src]  has no logs or is already in use."))
 
 /obj/item/reagent_scanner/ui_action_click(mob/user, datum/action/action, leftclick)
 	print_report()
@@ -1180,12 +1180,12 @@ REAGENT SCANNER
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
 	to_chat(user, "========================")
 	to_chat(user, "<b>Slime scan results:</b>")
-	to_chat(user, "<span class='notice'>[T.colour] [T.age_state.age] slime</span>")
+	to_chat(user, span_notice("[T.colour] [T.age_state.age] slime"))
 	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
 	if(T.nutrition < T.get_starve_nutrition())
-		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
+		to_chat(user, span_warning("Warning: slime is starving!"))
 	else if(T.nutrition < T.get_hunger_nutrition())
-		to_chat(user, "<span class='warning'>Warning: slime is hungry</span>")
+		to_chat(user, span_warning("Warning: slime is hungry"))
 	to_chat(user, "Electric change strength: [T.powerlevel]")
 	to_chat(user, "Health: [round(T.health/T.maxHealth,0.01)*100]%")
 	if(T.slime_mutation[4] == T.colour)
@@ -1207,8 +1207,8 @@ REAGENT SCANNER
 	to_chat(user, "Split progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown_for_split)]/[T.age_state.amount_grown_for_split]")
 	to_chat(user, "Evolve: preparing for [(T.amount_grown < T.age_state.amount_grown_for_split) ? (T.age_state.stat_text) : (T.age_state.age != SLIME_ELDER ? T.age_state.stat_text_evolve : T.age_state.stat_text)]")
 	if(T.effectmod)
-		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
-		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
+		to_chat(user, span_notice("Core mutation in progress: [T.effectmod]"))
+		to_chat(user, span_notice("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]"))
 	to_chat(user, "========================")
 
 /obj/item/bodyanalyzer
@@ -1342,14 +1342,14 @@ REAGENT SCANNER
 			addtimer(VARSET_CALLBACK(src, printing, FALSE), 1.4 SECONDS)
 			addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon), UPDATE_OVERLAYS), 1.5 SECONDS)
 	else if(iscorgi(M) && M.stat == DEAD)
-		to_chat(user, "<span class='notice'>You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b></span>") // :'(
+		to_chat(user, span_notice("You wonder if [M.p_they()] was a good dog. <b>[src] tells you they were the best...</b>")) // :'(
 		playsound(loc, 'sound/machines/ping.ogg', 50, 0)
 		ready = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/obj/item/bodyanalyzer, setReady)), scan_cd)
 		time_to_use = world.time + scan_cd
 	else
-		to_chat(user, "<span class='notice'>Scanning error detected. Invalid specimen.</span>")
+		to_chat(user, span_notice("Scanning error detected. Invalid specimen."))
 
 //Unashamedly ripped from adv_med.dm
 /obj/item/bodyanalyzer/proc/generate_printing_text(mob/living/M, mob/user)

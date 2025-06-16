@@ -87,7 +87,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit && !istype(S, /obj/item/storage/ashtray))
-		to_chat(user, "<span class='warning'>[S] can't hold [initial(name)] while it's lit!</span>") // initial(name) so it doesn't say "lit" twice in a row
+		to_chat(user, span_warning("[S] can't hold [initial(name)] while it's lit!")) // initial(name) so it doesn't say "lit" twice in a row
 		return FALSE
 	else
 		return TRUE
@@ -98,12 +98,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light("<span class='warning'>The [name] is lit by the flames!</span>")
+		light(span_warning("The [name] is lit by the flames!"))
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/I)
 	. = TRUE
 	if(I.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light("<span class='notice'>[user] casually lights the [name] with [I], what a badass.</span>")
+		light(span_notice("[user] casually lights the [name] with [I], what a badass."))
 
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/user, params)
@@ -207,12 +207,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(istype(glass))	//you can dip cigarettes into beakers
 		var/transfered = glass.reagents.trans_to(src, chem_volume)
 		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, "<span class='notice'>You dip \the [src] into \the [glass].</span>")
+			to_chat(user, span_notice("You dip \the [src] into \the [glass]."))
 		else			//if not, either the beaker was empty, or the cigarette was full
 			if(!glass.reagents.total_volume)
-				to_chat(user, "<span class='notice'>[glass] is empty.</span>")
+				to_chat(user, span_notice("[glass] is empty."))
 			else
-				to_chat(user, "<span class='notice'>[src] is full.</span>")
+				to_chat(user, span_notice("[src] is full."))
 
 
 /obj/item/clothing/mask/cigarette/update_icon_state()
@@ -289,7 +289,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
-		user.visible_message("<span class='notice'>[user] calmly drops and treads on the lit [src], putting it out instantly.</span>")
+		user.visible_message(span_notice("[user] calmly drops and treads on the lit [src], putting it out instantly."))
 		die()
 	return ..()
 
@@ -311,7 +311,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				to_chat(C, "<span class='notice'>Your [name] loses its flavor.</span>")
+				to_chat(C, span_notice("Your [name] loses its flavor."))
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 
@@ -321,7 +321,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transfer_fingerprints_to(butt)
 	if(ismob(loc))
 		var/mob/living/M = loc
-		to_chat(M, "<span class='notice'>Your [name] goes out.</span>")
+		to_chat(M, span_notice("Your [name] goes out."))
 		M.temporarily_remove_item_from_inventory(src, force = TRUE)		//Force the un-equip so the overlays update
 	STOP_PROCESSING(SSobj, src)
 	qdel(src)
@@ -497,20 +497,20 @@ LIGHTERS ARE IN LIGHTERS.DM
 		update_icon(UPDATE_ICON_STATE)
 		if(ismob(loc))
 			var/mob/living/M = loc
-			to_chat(M, "<span class='notice'>Your [name] goes out, and you empty the ash.</span>")
+			to_chat(M, span_notice("Your [name] goes out, and you empty the ash."))
 		STOP_PROCESSING(SSobj, src)
 		return
 	smoke()
 
 /obj/item/clothing/mask/cigarette/pipe/attack_self(mob/user) //Refills the pipe. Can be changed to an attackby later, if loose tobacco is added to vendors or something.
 	if(lit)
-		user.visible_message("<span class='notice'>[user] puts out [src].</span>")
+		user.visible_message(span_notice("[user] puts out [src]."))
 		lit = FALSE
 		update_icon(UPDATE_ICON_STATE)
 		STOP_PROCESSING(SSobj, src)
 		return
 	if(smoketime <= 0)
-		to_chat(user, "<span class='notice'>You refill the pipe with tobacco.</span>")
+		to_chat(user, span_notice("You refill the pipe with tobacco."))
 		reagents.add_reagent("nicotine", chem_volume)
 		smoketime = initial(smoketime)
 		first_puff = TRUE
@@ -581,12 +581,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 			R.chem_volume = target.reagents.total_volume
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)
-			to_chat(user, "<span class='notice'>You roll the [target.name] into a rolling paper.</span>")
+			to_chat(user, span_notice("You roll the [target.name] into a rolling paper."))
 			R.desc = "Dried [target.name] rolled up in a thin piece of paper."
 			qdel(target)
 			qdel(src)
 		else
-			to_chat(user, "<span class='warning'>You need to dry this first!</span>")
+			to_chat(user, span_warning("You need to dry this first!"))
 	else
 		..()
 

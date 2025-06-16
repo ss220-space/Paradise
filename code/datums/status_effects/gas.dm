@@ -16,7 +16,7 @@
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
 	RegisterSignal(owner, COMSIG_CARBON_APPLY_OVERLAY, PROC_REF(update_overlay))
 	if(!owner.stat)
-		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
+		to_chat(owner, span_userdanger("You become frozen in a cube!"))
 	cube = icon('icons/effects/freeze.dmi', ice_state)
 	update_overlay()
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))

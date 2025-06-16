@@ -26,7 +26,7 @@
 		var/message
 
 		if(!marked_item) //linking item to the spell
-			message = "<span class='notice'>"
+			message = span_notice(""
 			for(var/obj/item in hand_items)
 				if(istype(item, /obj/item/organ/internal/brain)) //Yeah, sadly this doesn't work due to the organ system.
 					break
@@ -37,7 +37,7 @@
 				if(HAS_TRAIT(item, TRAIT_NODROP))
 					message += "This feels very redundant, but you go through with it anyway.<br>"
 				marked_item = 		item
-				message += "You mark [item] for recall.</span>"
+				message += "You mark [item] for recall.")
 				name = "Recall [item]"
 				break
 

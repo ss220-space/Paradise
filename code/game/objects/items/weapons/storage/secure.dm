@@ -31,7 +31,7 @@
 /obj/item/storage/secure/examine(mob/user)
 	. = ..()
 	if(in_range(user, src))
-		. += "<span class='notice'>The service panel is [open ? "open" : "closed"].</span>"
+		. += span_notice("The service panel is [open ? "open" : "closed"].")
 
 
 /obj/item/storage/secure/update_overlays()
@@ -167,7 +167,7 @@
 		return
 
 	if(!usr.IsAdvancedToolUser() && !isobserver(usr))
-		to_chat(usr, "<span class='warning'>You are not able to operate [src].</span>")
+		to_chat(usr, span_warning("You are not able to operate [src]."))
 		return
 
 	. = TRUE
@@ -183,7 +183,7 @@
 					if(!l_set && (length(code) == 5) && (code != "ERROR"))
 						l_code = code
 						l_set = TRUE
-						to_chat(usr, "<span class = 'notice'>The code was set successfully.</span>")
+						to_chat(usr, "<span class = 'notice'>The code was set successfully."))
 					else if((code == l_code) && l_set)
 						locked = FALSE
 						code = null
@@ -201,7 +201,7 @@
 	if(!locked)
 		return ..()
 	if(!stop_messages)
-		to_chat(usr, "<span class='notice'>[src] is locked!</span>")
+		to_chat(usr, span_notice("[src] is locked!"))
 	return FALSE
 
 /obj/item/storage/secure/hear_talk(mob/living/M, list/message_pieces)
@@ -231,7 +231,7 @@
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user)
 	if((loc == user) && locked)
-		to_chat(usr, "<span class='warning'>[src] is locked and cannot be opened!</span>")
+		to_chat(usr, span_warning("[src] is locked and cannot be opened!"))
 	else if((loc == user) && !locked)
 		playsound(loc, "rustle", 50, 1, -5)
 		user.s_active?.close(user) //Close and re-open

@@ -58,7 +58,7 @@
 
 /obj/item/signmaker/attack_self(mob/user)
 	clear_holosign()
-	to_chat(user, "<span class='notice'>You clear active hologram.</span>")
+	to_chat(user, span_notice("You clear active hologram."))
 
 /obj/item/signmaker/afterattack(atom/target, mob/living/user, proximity, params)
 	laser_act(target, user, params)
@@ -155,7 +155,7 @@
 	var/obj/structure/holosign/found_holosoap = locate(holosign_type) in T
 	if(found_holosoap)
 		if(found_holosoap == sign)
-			to_chat(user, "<span class='notice'>You use [src] to deactivate [sign].</span>")
+			to_chat(user, span_notice("You use [src] to deactivate [sign]."))
 			clear_holosign()
 		return
 	if(T.is_blocked_turf(exclude_mobs = TRUE)) //can't put holograms on a tile that has dense stuff
@@ -164,7 +164,7 @@
 	playsound(src, 'sound/machines/click.ogg', 20, 1)
 	sign = new holosign_type(get_turf(target), src)
 	update_icon()
-	to_chat(user, "<span class='notice'>You create [sign.name] with [src].</span>")
+	to_chat(user, span_notice("You create [sign.name] with [src]."))
 
 /obj/structure/holosoap
 	name = "holographic soap"

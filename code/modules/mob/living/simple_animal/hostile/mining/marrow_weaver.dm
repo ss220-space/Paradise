@@ -84,7 +84,7 @@
 				src.visible_message(
 					span_danger("[src] drools some toxic goo into [L]'s innards..."),
 					span_danger("Before sucking out the slurry of bone marrow and flesh, healing itself!"),
-					"<span class-'userdanger>You liquefy [L]'s innards with your venom and suck out the resulting slurry, revitalizing yourself.</span>")
+					"<span class-'userdanger>You liquefy [L]'s innards with your venom and suck out the resulting slurry, revitalizing yourself."))
 				adjustBruteLoss(round(-H.maxHealth/2))
 			else
 				to_chat(src, span_warning("There are no organs left in this corpse."))

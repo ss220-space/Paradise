@@ -73,7 +73,7 @@
 		else //general one-round-only stuff
 			var/F = file("[GLOB.log_directory]/[selected].html")
 			if(!fexists(F))
-				to_chat(src, "<class span='danger'>No [selected] logfile was found.</span>")
+				to_chat(src, "<class span='danger'>No [selected] logfile was found."))
 				return
 			F = wrap_file2text(F)
 			var/datum/browser/popup = new(src, "investigate[selected]", capitalize("investigate[selected]"), 800, 300)

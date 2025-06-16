@@ -63,7 +63,7 @@
 	if(!length(goon_vampires))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>The vampires were:</b></span>"
+	var/text = span_fontsize_13px("<b>The vampires were:</b>")
 	for(var/datum/mind/vampire in goon_vampires)
 		var/traitorwin = TRUE
 		text += "<br>[vampire.get_display_key()] was [vampire.name] ("
@@ -118,7 +118,7 @@
 	if(!length(goon_vampire_enthralled))
 		return
 
-	var/text = "<span style='font-size: 2;'><b>The Enthralled were:</b></span>"
+	var/text = span_fontsize_13px("<b>The Enthralled were:</b>")
 	for(var/datum/mind/mind in goon_vampire_enthralled)
 		text += "<br>[mind.get_display_key()] was [mind.name] ("
 		if(mind.current)

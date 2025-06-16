@@ -87,7 +87,7 @@
 /mob/living/simple_animal/hostile/poison/bees/examine(mob/user)
 	. = ..()
 	if(!bee_syndicate && !beehome)
-		. += "<span class='warning'>This bee is homeless!</span>"
+		. += span_warning("This bee is homeless!</span>"
 
 
 /mob/living/simple_animal/hostile/poison/bees/ListTargets() // Bee processing is expessive, so we override them finding targets here.

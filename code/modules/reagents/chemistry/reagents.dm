@@ -239,7 +239,7 @@
 /datum/reagent/proc/addiction_act_stage2(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You briefly think about getting some more [name].</span>")
+			to_chat(M, span_notice("You briefly think about getting some more [name]."))
 	else
 		if(prob(8))
 			M.emote("shiver")
@@ -247,13 +247,13 @@
 		if(prob(8))
 			M.emote("sneeze")
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You feel a dull headache.</span>")
+			to_chat(M, span_notice("You feel a dull headache."))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage3(mob/living/M)
 	if(minor_addiction)
 		if(prob(4))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, span_notice("You could really go for some [name] right now."))
 	else
 		if(prob(8))
 			M.emote("twitch_s")
@@ -262,15 +262,15 @@
 			M.emote("shiver")
 			M.Jitter(120 SECONDS)
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head hurts.</span>")
+			to_chat(M, span_warning("Your head hurts."))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You begin craving [name]!</span>")
+			to_chat(M, span_warning("You begin craving [name]!"))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage4(mob/living/M)
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You could really go for some [name] right now.</span>")
+			to_chat(M, span_notice("You could really go for some [name] right now."))
 		if(prob(4))
 			M.emote("twitch")
 			M.Jitter(160 SECONDS)
@@ -279,35 +279,35 @@
 			M.emote("twitch")
 			M.Jitter(160 SECONDS)
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have a pounding headache.</span>")
+			to_chat(M, span_warning("You have a pounding headache."))
 		if(prob(4))
-			to_chat(M, "<span class='warning'>You have the strong urge for some [name]!</span>")
+			to_chat(M, span_warning("You have the strong urge for some [name]!"))
 		else if(prob(4))
-			to_chat(M, "<span class='warning'>You REALLY crave some [name]!</span>")
+			to_chat(M, span_warning("You REALLY crave some [name]!"))
 	return STATUS_UPDATE_NONE
 
 /datum/reagent/proc/addiction_act_stage5(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
 	if(minor_addiction)
 		if(prob(8))
-			to_chat(M, "<span class='notice'>You can't stop thinking about [name]...</span>")
+			to_chat(M, span_notice("You can't stop thinking about [name]..."))
 		if(prob(4))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
 			M.Jitter(160 SECONDS)
 	else
 		if(prob(6))
-			to_chat(M, "<span class='warning'>Your stomach lurches painfully!</span>")
-			M.visible_message("<span class='warning'>[M] gags and retches!</span>")
+			to_chat(M, span_warning("Your stomach lurches painfully!"))
+			M.visible_message(span_warning("[M] gags and retches!"))
 			M.Weaken(rand(4 SECONDS, 8 SECONDS))
 		if(prob(8))
 			M.emote(pick("twitch", "twitch_s", "shiver"))
 			M.Jitter(160 SECONDS)
 		if(prob(4))
-			to_chat(M, "<span class='warning'>Your head is killing you!</span>")
+			to_chat(M, span_warning("Your head is killing you!"))
 		if(prob(5))
-			to_chat(M, "<span class='warning'>You feel like you can't live without [name]!</span>")
+			to_chat(M, span_warning("You feel like you can't live without [name]!"))
 		else if(prob(5))
-			to_chat(M, "<span class='warning'>You would DIE for some [name] right now!</span>")
+			to_chat(M, span_warning("You would DIE for some [name] right now!"))
 	return update_flags
 
 

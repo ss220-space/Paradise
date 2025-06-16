@@ -2,7 +2,7 @@
 	name = "reflector frame"
 	icon = 'icons/obj/stock_parts.dmi'
 	icon_state = "box_0"
-	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.</span>"
+	desc = "A frame to create a reflector.\n<span class='notice'>Use <b>5</b> sheets of <b>glass</b> to create a 1 way reflector.\nUse <b>10</b> sheets of <b>reinforced glass</b> to create a 2 way reflector.\nUse <b>1 diamond</b> to create a reflector cube.")
 	anchored = FALSE
 	density = TRUE
 	layer = 3
@@ -128,10 +128,10 @@
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(usr, span_warning("You can't do that right now!"))
 		return FALSE
 	if(anchored)
-		to_chat(usr, "<span class='warning'>It is fastened to the floor!</span>")
+		to_chat(usr, span_warning("It is fastened to the floor!"))
 		return FALSE
 	setDir(turn(dir, 270))
 	return TRUE

@@ -16,7 +16,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/item/extraction_pack/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It has [uses_left] use\s remaining.</span>"
+	. += span_notice("It has [uses_left] use\s remaining.")
 
 /obj/item/extraction_pack/attack_self(mob/user)
 	var/list/possible_beacons = list()
@@ -66,7 +66,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 		return
 	else
 		if(!safe_for_living_creatures && check_for_living_mobs(A))
-			to_chat(user, "<span class='warning'>[src] is not safe for use with living creatures, they wouldn't survive the trip back!</span>")
+			to_chat(user, span_warning("[src] is not safe for use with living creatures, they wouldn't survive the trip back!"))
 			return
 		if(!isturf(A.loc)) // no extracting stuff inside other stuff
 			return
@@ -131,7 +131,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 					continue
 				flooring_near_beacon += floor
 			if(!length(flooring_near_beacon))
-				to_chat(user, "<span class='notice'>It is impossible to find a connected beacon. Your fulton pack brings you back.</span>")
+				to_chat(user, span_notice("It is impossible to find a connected beacon. Your fulton pack brings you back."))
 				flooring_near_beacon = get_turf(user)
 			holder_obj.forceMove(pick(flooring_near_beacon))
 			animate(holder_obj, pixel_z = 10, time = 50)

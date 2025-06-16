@@ -19,7 +19,7 @@
 		show(user)
 		. += span_notice("Alt-Click to rename photo.")
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += span_notice("It is too far away.")
 
 /obj/item/photo/attack_self(mob/user)
 	user.examinate(src)
@@ -56,11 +56,11 @@
 	return CLICK_ACTION_SUCCESS
 
 /obj/item/photo/proc/burnphoto(obj/item/lighter/P, mob/user)
-	var/class = "<span class='warning'>"
+	var/class = span_warning(""
 
 	if(P.lit && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		if(istype(P, /obj/item/lighter/zippo))
-			class = "<span class='rose'>"
+			class = span_rose(""
 
 		user.visible_message("[class][user] holds \the [P] up to \the [src], it looks like [user.p_theyre()] trying to burn it!", \
 		"[class]You hold [P] up to [src], burning it slowly.")
@@ -77,7 +77,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+				to_chat(user, span_warning("You must hold \the [P] steady to burn \the [src]."))
 
 /obj/item/photo/proc/show(mob/user)
 	var/icon/img_shown = new/icon(img)

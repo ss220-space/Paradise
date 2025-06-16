@@ -6,8 +6,8 @@
 /datum/martial_combo/sleeping_carp/elbow_drop/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/MA)
 	if(target.body_position == LYING_DOWN)
 		user.do_attack_animation(target, ATTACK_EFFECT_PUNCH)
-		target.visible_message("<span class='warning'>[user] elbow drops [target]!</span>", \
-						  "<span class='userdanger'>[user] piledrives you with [user.p_their()] elbow!</span>")
+		target.visible_message(span_warning("[user] elbow drops [target]!"), \
+						  span_userdanger("[user] piledrives you with [user.p_their()] elbow!"))
 		if(target.health <= HEALTH_THRESHOLD_CRIT)
 			target.death() //FINISH HIM!
 		target.apply_damage(50, BRUTE, "chest")

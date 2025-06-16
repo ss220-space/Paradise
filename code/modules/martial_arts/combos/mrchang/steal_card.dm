@@ -15,8 +15,8 @@
 		user.say(pick("Ваша бонусная карта!", "5000 баллов списано!", "Принимаем карты всех банков!", \
 						"Наше лучшее предложение!", "Безналичный рассчёт!", "Хватай! Бесплатно!!"))
 		var/attack_verb = pick("кэшбекнул", "уценил", "сторговал")
-		target.visible_message("<span class='warning'>[user] [attack_verb] [target]!</span>", \
-						"<span class='userdanger'>[user] [attack_verb] you!</span>")
+		target.visible_message(span_warning("[user] [attack_verb] [target]!"), \
+						span_userdanger("[user] [attack_verb] you!"))
 		var/sound = pick('sound/weapons/mr_chang/mr_chang_steal_card_1.mp3', 'sound/weapons/mr_chang/mr_chang_steal_card_2.mp3', \
 						'sound/weapons/mr_chang/mr_chang_steal_card_3.mp3', 'sound/weapons/mr_chang/mr_chang_steal_card_4.mp3')
 		playsound(get_turf(user), sound, 50, 1, -1)

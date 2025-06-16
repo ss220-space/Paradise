@@ -950,7 +950,7 @@ The _flatIcons list is a cache for generated icon files.
 			letter = lowertext(letter)
 
 	var/image/text_image = new(loc = A)
-	text_image.maptext = MAPTEXT("<span style='font-size: 24pt'>[letter]</span>")
+	text_image.maptext = MAPTEXT(span_fontsize_24px("[letter]"))
 	text_image.pixel_x = 7
 	text_image.pixel_y = 5
 	qdel(atom_icon)
@@ -1258,7 +1258,7 @@ GLOBAL_LIST_EMPTY(bicon_cache)
 /// (Generated names do not include file extention.)
 /proc/generate_asset_name(file)
 	return "asset.[md5(fcopy_rsc(file))]"
-	
+
 /**
  * generate an asset for the given icon or the icon of the given appearance for [thing], and send it to any clients in target.
  * Arguments:

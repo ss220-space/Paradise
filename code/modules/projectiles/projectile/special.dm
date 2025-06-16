@@ -296,7 +296,7 @@
 	. = ..()
 	if(ismineralturf(target))
 		if(isancientturf(target))
-			visible_message("<span class='notice'>This rock appears to be resistant to all mining tools except pickaxes!</span>")
+			visible_message(span_notice("This rock appears to be resistant to all mining tools except pickaxes!"))
 			forcedodge = 0
 			return
 		forcedodge = 1
@@ -458,7 +458,7 @@
 			S.throw_speed = 1
 			S.sharp = FALSE
 		else
-			to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
+			to_chat(H, span_warning("Shrapnel bounces off your armor!"))
 
 /obj/projectile/bullet/a84mm_he
 	name ="\improper HE missile"

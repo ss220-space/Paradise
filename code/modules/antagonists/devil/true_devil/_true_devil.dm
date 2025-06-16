@@ -39,7 +39,7 @@
 /mob/living/carbon/true_devil/Login()
 	..()
 	var/list/messages = list()
-	
+
 	LAZYADD(messages, devilinfo?.greet())
 	LAZYADD(messages, mind.prepare_announce_objectives())
 
@@ -58,28 +58,28 @@
 	//Left hand items
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += "<span class='warning'>It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!</span>\n"
+			msg += span_warning("It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!</span>\n"
 		else
 			msg += "It is holding [bicon(l_hand)] \a [l_hand] in its left hand.\n"
 
 	//Right hand items
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += "<span class='warning'>It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!</span>\n"
+			msg += span_warning("It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!</span>\n"
 		else
 			msg += "It is holding [bicon(r_hand)] \a [r_hand] in its right hand.\n"
 
 	//Braindead
 	if(!client && stat != DEAD)
-		msg += "<span class='deadsay'>The devil seems to be in deep contemplation.</span>\n"
+		msg += span_deadsay("The devil seems to be in deep contemplation.</span>\n"
 
 	//Damaged
 	if(stat == DEAD)
-		msg += "<span class='deadsay'>The hellfire seems to have been extinguished, for now at least.</span>\n"
+		msg += span_deadsay("The hellfire seems to have been extinguished, for now at least.</span>\n"
 	else if(health < (maxHealth/10))
-		msg += "<span class='warning'>You can see hellfire inside of it's gaping wounds.</span>\n"
+		msg += span_warning("You can see hellfire inside of it's gaping wounds.</span>\n"
 	else if(health < (maxHealth/2))
-		msg += "<span class='warning'>You can see hellfire inside of it's wounds.</span>\n"
+		msg += span_warning("You can see hellfire inside of it's wounds.</span>\n"
 
 	. = list(msg)
 
@@ -121,8 +121,8 @@
 			if(INTENT_HARM)
 				var/damage = rand(1, 5)
 				playsound(loc, "punch", 25, 1, -1)
-				visible_message("<span class='danger'>[M] has punched [src]!</span>", \
-						"<span class='userdanger'>[M] has punched [src]!</span>")
+				visible_message(span_danger("[M] has punched [src]!"), \
+						span_userdanger("[M] has punched [src]!"))
 				adjustBruteLoss(damage)
 				add_attack_logs(M, src, "attacked")
 			if(INTENT_DISARM)
@@ -135,17 +135,17 @@
 						Paralyse(4 SECONDS)
 						playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 						add_attack_logs(M, src, "pushed")
-						visible_message("<span class='danger'>[M] has pushed down [src]!</span>", \
-							"<span class='userdanger'>[M] has pushed down [src]!</span>")
+						visible_message(span_danger("[M] has pushed down [src]!"), \
+							span_userdanger("[M] has pushed down [src]!"))
 					else
 						if(prob(25))
 							drop_from_active_hand()
 							playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
-							visible_message("<span class='danger'>[M] has disarmed [src]!</span>", \
-							"<span class='userdanger'>[M] has disarmed [src]!</span>")
+							visible_message(span_danger("[M] has disarmed [src]!"), \
+							span_userdanger("[M] has disarmed [src]!"))
 						else
 							playsound(loc, 'sound/weapons/punchmiss.ogg', 25, 1, -1)
-							visible_message("<span class='danger'>[M] has attempted to disarm [src]!</span>")
+							visible_message(span_danger("[M] has attempted to disarm [src]!"))
 
 /mob/living/carbon/true_devil/handle_breathing()
 	// devils do not need to breathe

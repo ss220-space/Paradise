@@ -21,7 +21,7 @@
 	var/list/messages = list()
 	var/greet_text = "Контрактники отдают [CONTRACTOR_COST] телекристалл[declension_ru(CONTRACTOR_COST, "", "а", "ов")] за возможность выполнять контракты на похищение, получая за это выплаты в виде ТК и кредитов. Это позволяет заработать гораздо больше, чем они имели раньше.<br>" \
 					+ "Если вы заинтересованы, просто зайдите в аплинк и выберите вкладку \"Заключение контракта\" для получения дополнительной информации.<br>"
-	messages.Add(span_fontsize3(span_fontcolor_red("<b>Вам предложили стать Контрактником.</b><br>")))
+	messages.Add(span_fontsize_16px(span_fontcolor_red("<b>Вам предложили стать Контрактником.</b><br>")))
 	messages.Add(span_fontcolor_red("[greet_text]"))
 	if(!is_admin_forced)
 		messages.Add(span_fontcolor_red("<b><i>Не упустите возможность! Вы не единственный, кто получил это предложение. \

@@ -38,7 +38,7 @@
 		return
 	update_icon(UPDATE_ICON_STATE)
 	if(inserted_id && !powered())
-		visible_message("<span class='notice'>The ID slot indicator light flickers on \the [src] as it spits out a card before powering down.</span>")
+		visible_message(span_notice("The ID slot indicator light flickers on \the [src] as it spits out a card before powering down."))
 		remove_id()
 
 /obj/machinery/mineral/equipment_vendor/update_icon_state()
@@ -134,7 +134,7 @@
 				return
 			var/datum/data/mining_equipment/prize = prize_list[category][name]
 			if(prize.cost > inserted_id.mining_points) // shouldn't be able to access this since the button is greyed out, but..
-				to_chat(usr, "<span class='danger'>You have insufficient points.</span>")
+				to_chat(usr, span_danger("You have insufficient points."))
 				return
 
 			inserted_id.mining_points -= prize.cost
@@ -329,7 +329,7 @@
 
 /obj/item/card/mining_point_card/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There's [points] points on the card.</span>"
+	. += span_notice("There's [points] points on the card.")
 
 /*********************Jump Boots Implants********************/
 

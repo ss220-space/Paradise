@@ -160,7 +160,7 @@
 	var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 
 	if(!head_organ) //If the rock'em-sock'em robot's head came off during a fight, they shouldn't be able to change their screen/optics.
-		to_chat(H, "<span class='warning'>Куда делась голова? Невозможно сменить дисплей без неё.</span>")
+		to_chat(H, span_warning("Куда делась голова? Невозможно сменить дисплей без неё."))
 		return
 
 	var/datum/robolimb/robohead = GLOB.all_robolimbs[head_organ.model]
@@ -169,7 +169,7 @@
 	if(!robohead.is_monitor) //If they've got a prosthetic head and it isn't a monitor, they've no screen to adjust. Instead, let them change the colour of their optics!
 		var/optic_colour = tgui_input_color(H, "Select optic colour", H.m_colours["head"])
 		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
-			to_chat(H, "<span class='warning'>Ваша попытка сменить отображаемый цвет была прервана.</span>")
+			to_chat(H, span_warning("Ваша попытка сменить отображаемый цвет была прервана."))
 			return
 		if(!isnull(optic_colour))
 			H.change_markings(optic_colour, "head")
@@ -199,7 +199,7 @@
 		var/new_color = input("Please select hair color.", "Monitor Color", head_organ.hair_colour) as null|color
 
 		if(H.incapacitated(INC_IGNORE_RESTRAINED|INC_IGNORE_GRABBED))
-			to_chat(H, "<span class='warning'>Ваша попытка сменить изображения на дисплее была прервана.</span>")
+			to_chat(H, span_warning("Ваша попытка сменить изображения на дисплее была прервана."))
 			return
 
 		if(new_style)

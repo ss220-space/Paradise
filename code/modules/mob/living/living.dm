@@ -1188,7 +1188,7 @@
 *///////////////////////
 
 /mob/living/proc/Exhaust()
-	to_chat(src, "<span class='notice'>You're too exhausted to keep going...</span>")
+	to_chat(src, span_notice("You're too exhausted to keep going..."))
 	Weaken(10 SECONDS)
 
 
@@ -1489,7 +1489,7 @@
 
 /mob/living/proc/can_use_guns(var/obj/item/gun/G)
 	if(G.trigger_guard != TRIGGER_GUARD_ALLOW_ALL && !IsAdvancedToolUser() && !is_monkeybasic(src))
-		to_chat(src, "<span class='warning'>You don't have the dexterity to do this!</span>")
+		to_chat(src, span_warning("You don't have the dexterity to do this!"))
 		return 0
 	return 1
 

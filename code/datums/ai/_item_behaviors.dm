@@ -7,7 +7,7 @@
 	var/mob/item_holder = item_pawn.loc
 	if(!istype(item_holder))
 		finish_action(controller, FALSE) //We're no longer beind held. abort abort!!
-	item_pawn.visible_message("<span class='warning'>[item_pawn] slips out of the hands of [item_holder]!</span>")
+	item_pawn.visible_message(span_warning("[item_pawn] slips out of the hands of [item_holder]!"))
 	item_holder.drop_item_ground(item_pawn, TRUE)
 	finish_action(controller, TRUE)
 

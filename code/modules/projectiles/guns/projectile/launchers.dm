@@ -190,7 +190,7 @@
 
 
 /obj/item/gun/projectile/revolver/rocketlauncher/suicide_act(mob/user)
-	user.visible_message("<span class='warning'>[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
+	user.visible_message(span_warning("[user] aims [src] at the ground! It looks like [user.p_theyre()] performing a sick rocket jump!<span>")
 	if(can_shoot(user))
 		ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 		playsound(src, 'sound/weapons/rocketlaunch.ogg', 80, 1, 5)
@@ -207,6 +207,6 @@
 		sleep(0.5 SECONDS)
 		shoot_with_empty_chamber(user)
 		sleep(2 SECONDS)
-		user.visible_message("<span class='warning'>[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!<span>")
+		user.visible_message(span_warning("[user] looks about the room realizing [user.p_theyre()] still there. [user.p_they(TRUE)] proceed to shove [src] down their throat and choke [user.p_them()]self with it!<span>")
 		sleep(2 SECONDS)
 		return OXYLOSS

@@ -43,11 +43,11 @@
 	var/turf/simulated/floor/plasteel/F = A
 
 	if(F.icon_state == floor_state && F.dir == floor_dir)
-		to_chat(user, "<span class='notice'>This is already painted [floor_state] [dir2text(floor_dir)]!</span>")
+		to_chat(user, span_notice("This is already painted [floor_state] [dir2text(floor_dir)]!"))
 		return
 
 	if(!istype(F))
-		to_chat(user, "<span class='warning'>\The [src] can only be used on station flooring.</span>")
+		to_chat(user, span_warning("\The [src] can only be used on station flooring."))
 		return
 
 	playsound(loc, usesound, 30, TRUE)

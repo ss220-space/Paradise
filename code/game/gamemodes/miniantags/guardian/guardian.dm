@@ -96,7 +96,7 @@
 		if(get_dist(get_turf(summoner),get_turf(src)) <= range)
 			return
 		else
-			to_chat(src, "<span class='holoparasite'>Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!</span>")
+			to_chat(src, span_holoparasite("Вас откинуло назад, так как превышена дальность связи! Ваша дальность всего [range] метров от [summoner.real_name]!"))
 			visible_message(span_danger("\The [src] вернулся к носителю."))
 			if(iseffect(summoner.loc))
 				Recall(TRUE)
@@ -223,14 +223,14 @@
 		return
 
 	// Show the message to the host and to the guardian.
-	to_chat(summoner, "<span class='alien'><i>[src]:</i> [input]</span>")
-	to_chat(src, "<span class='alien'><i>[src]:</i> [input]</span>")
+	to_chat(summoner, span_alien("<i>[src]:</i> [input]"))
+	to_chat(src, span_alien("<i>[src]:</i> [input]"))
 	add_say_logs(src, input, summoner, "Guardian")
 
 	// Show the message to any ghosts/dead players.
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(M && M.client && M.stat == DEAD && !isnewplayer(M))
-			to_chat(M, "<span class='alien'><i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>")
+			to_chat(M, span_alien("<i>Guardian Communication from <b>[src]</b> ([ghost_follow_link(src, ghost=M)]): [input]</i>"))
 
 
 /mob/living/simple_animal/hostile/guardian/proc/ToggleMode()

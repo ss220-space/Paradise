@@ -53,7 +53,7 @@
 		if(H.hand)
 			temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		if(temp && !temp.is_usable())
-			to_chat(H, "<span class='notice'>You try to move your [temp.name], but cannot!")
+			to_chat(H, span_notice("You try to move your [temp.name], but cannot!")
 			return
 	if(amount >= 1)
 		amount--
@@ -78,9 +78,9 @@
 		if(in_range(user, src))
 			user.put_in_hands(P, ignore_anim = FALSE)
 			P.add_fingerprint(user)
-			to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+			to_chat(user, span_notice("You take [P] out of the [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 	add_fingerprint(user)
 	return
@@ -110,9 +110,9 @@
 	. = ..()
 	if(in_range(user, src))
 		if(amount)
-			. += "<span class='notice'>There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.</span>"
+			. += span_notice("There " + (amount > 1 ? "are [amount] papers" : "is one paper") + " in the bin.")
 		else
-			. += "<span class='notice'>There are no papers in the bin.</span>"
+			. += span_notice("There are no papers in the bin.")
 
 
 /obj/item/paper_bin/update_icon_state()
@@ -140,9 +140,9 @@
 		else
 			P = new /obj/item/paper/carbon(drop_location())
 		user.put_in_hands(P, ignore_anim = FALSE)
-		to_chat(user, "<span class='notice'>You take [P] out of the [src].</span>")
+		to_chat(user, span_notice("You take [P] out of the [src]."))
 	else
-		to_chat(user, "<span class='notice'>[src] is empty!</span>")
+		to_chat(user, span_notice("[src] is empty!"))
 
 	add_fingerprint(user)
 	return

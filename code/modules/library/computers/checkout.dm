@@ -44,7 +44,7 @@
 
 			if(src.arcanecheckout)
 				new /obj/item/melee/cultblade/dagger(src.loc)
-				to_chat(user, "<span class='warning'>Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from.</span>")
+				to_chat(user, span_warning("Your sanity barely endures the seconds spent in the vault's browsing window. The only thing to remind you of this when you stop browsing is a strange looking dagger sitting on the desk. You don't really remember where it came from."))
 				user.visible_message("[user] stares at the blank screen for a few moments, [user.p_their()] expression frozen in fear. When [user.p_they()] finally awaken[user.p_s()] from it, [user.p_they()] look[user.p_s()] a lot older.", 2)
 				src.arcanecheckout = 0
 		if(1)
@@ -65,7 +65,7 @@
 				//timedue *= 10
 				timedue /= 600
 				if(timedue <= 0)
-					timedue = "<span style='color: red;'><b>(OVERDUE)</b> [timedue]</span>"
+					timedue = span_fontcolor_red("<b>(OVERDUE)</b> [timedue]</span>"
 				else
 					timedue = round(timedue)
 
@@ -88,7 +88,7 @@
 		if(4)
 			dat += "<h3>External Archive</h3>"
 			if(!SSdbcore.IsConnected())
-				dat += "<span style='color: red;'<b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.</span>"
+				dat += "<span style='color: red;'><b>ERROR</b>: Unable to contact External Archive. Please contact your system administrator for assistance.")
 			else
 				num_results = src.get_num_results()
 				num_pages = CEILING(num_results/LIBRARY_BOOKS_PER_PAGE, 1)
@@ -142,9 +142,9 @@
 					scanner = S
 					break
 			if(!scanner)
-				dat += "<span style='color: red;'>No scanner found within wireless network range.</span><br>"
+				dat += span_fontcolor_red("No scanner found within wireless network range.</span><br>"
 			else if(!scanner.cache)
-				dat += "<span style='color: red;'>No data found in scanner memory.</span><br>"
+				dat += span_fontcolor_red("No data found in scanner memory.</span><br>"
 			else
 
 				dat += {"<tt>Data marked for upload...</tt><br>
@@ -195,7 +195,7 @@
 	if(density && !emagged)
 		emagged = 1
 		if(user)
-			to_chat(user, "<span class='notice'>You override the library computer's printing restrictions.</span>")
+			to_chat(user, span_notice("You override the library computer's printing restrictions."))
 
 
 /obj/machinery/computer/library/checkout/attackby(obj/item/I, mob/user, params)
@@ -293,7 +293,7 @@
 				return
 
 			if(query.affected == 0)
-				to_chat(usr, "<span class='danger'>Unable to find any matching rows.</span>")
+				to_chat(usr, span_danger("Unable to find any matching rows."))
 				qdel(query)
 				return
 			qdel(query)

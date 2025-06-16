@@ -57,7 +57,7 @@
 
 		if(INTENT_HELP)
 			if(health > 0)
-				visible_message("<span class='notice'>[M] [response_help] [src].</span>", "<span class='notice'>[M] [response_help] you.</span>")
+				visible_message(span_notice("[M] [response_help] [src]."), span_notice("[M] [response_help] you."))
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 
 		if(INTENT_GRAB)
@@ -67,10 +67,10 @@
 				grabbedby(M)
 		if(INTENT_HARM, INTENT_DISARM)
 			if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-				to_chat(M, "<span class='warning'>You don't want to hurt [src]!</span>")
+				to_chat(M, span_warning("You don't want to hurt [src]!"))
 				return
 			M.do_attack_animation(src, ATTACK_EFFECT_PUNCH)
-			visible_message("<span class='danger'>[M] [response_harm] [src]!</span>", "<span class='userdanger'>[M] [response_harm] you!</span>")
+			visible_message(span_danger("[M] [response_harm] [src]!"), span_userdanger("[M] [response_harm] you!"))
 			playsound(loc, attacked_sound, 25, 1, -1)
 			attack_threshold_check(harm_intent_damage)
 			add_attack_logs(M, src, "Melee attacked with fists")
@@ -80,12 +80,12 @@
 	if(..()) //if harm or disarm intent.
 		if(M.a_intent == INTENT_DISARM)
 			playsound(loc, 'sound/weapons/pierce.ogg', 25, TRUE, -1)
-			visible_message("<span class='danger'>[M] [response_disarm] [name]!</span>", "<span class='userdanger'>[M] [response_disarm] you!</span>")
+			visible_message(span_danger("[M] [response_disarm] [name]!"), span_userdanger("[M] [response_disarm] you!"))
 			add_attack_logs(M, src, "Alien disarmed")
 		else
 			var/damage = M.attack_damage
-			visible_message("<span class='danger'>[M] has slashed at [src]!</span>", \
-					"<span class='userdanger'>[M] has slashed at [src]!</span>")
+			visible_message(span_danger("[M] has slashed at [src]!"), \
+					span_userdanger("[M] has slashed at [src]!"))
 			playsound(loc, 'sound/weapons/slice.ogg', 25, 1, -1)
 			add_attack_logs(M, src, "Alien attacked")
 			attack_threshold_check(damage)
@@ -119,7 +119,7 @@
 		temp_damage *= damage_coeff[damagetype]
 
 	if(temp_damage >= 0 && temp_damage <= force_threshold)
-		visible_message("<span class='warning'>[src] looks unharmed.</span>")
+		visible_message(span_warning("[src] looks unharmed."))
 		return FALSE
 	else
 		apply_damage(damage, damagetype, null, getarmor(attack_flag = armorcheck))

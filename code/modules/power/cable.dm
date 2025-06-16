@@ -209,22 +209,22 @@ By design, d1 is the smallest direction and d2 is the highest
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(powernet && (powernet.avail > 0))		// is it powered?
-		to_chat(user, "<span class='danger'>Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]</span>")
+		to_chat(user, span_danger("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nExcess power: [DisplayPower(surplus())]"))
 	else
-		to_chat(user, "<span class='danger'>The cable is not powered.</span>")
+		to_chat(user, span_danger("The cable is not powered."))
 	shock(user, 5, 0.2)
 
 /obj/structure/cable/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
 	var/turf/T = get_turf(src)
 	if((T.transparent_floor == TURF_TRANSPARENT) || T.intact)
-		to_chat(user, "<span class='danger'>You can't interact with something that's under the floor!</span>")
+		to_chat(user, span_danger("You can't interact with something that's under the floor!"))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(shock(user, 50))
 		return
-	user.visible_message("[user] cuts the cable.", "<span class='notice'>You cut the cable.</span>")
+	user.visible_message("[user] cuts the cable.", span_notice("You cut the cable."))
 	investigate_log("was cut by [key_name_log(usr)] at [COORD(T)]", INVESTIGATE_WIRES)
 	deconstruct()
 

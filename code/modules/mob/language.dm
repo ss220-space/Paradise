@@ -117,7 +117,7 @@
 	return scrambled_text
 
 /datum/language/proc/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span></span>"
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -671,7 +671,7 @@
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
-		..(speaker,"<font size=3><b>[message]</b></font>", "<span class='shadowling'><font size=3>([speaker.mind.special_role]) [speaker]</font></span>")
+		..(speaker,"<font size=3><b>[message]</b></font>", span_shadowling("<font size=3>([speaker.mind.special_role]) [speaker]</font>"))
 	else if(speaker.mind && speaker.mind.special_role)
 		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
 	else
@@ -750,7 +750,7 @@
 	add_say_logs(speaker, message, language = "ROBOT")
 
 	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = "<span class='message'>[speaker.say_quote(message)]:</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/message_body = span_message("[speaker.say_quote(message)]:</i><span class='robot'>\"[message]\"</span></span></span>"
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
@@ -851,7 +851,7 @@
 
 
 /datum/language/angel/format_message(message, mob/speaker)
-	return "<span class='message'><span class='[get_spans(speaker)]'>[message]</span></span>"
+	return span_message("<span class='[get_spans(speaker)]'>[message]</span></span>"
 
 
 // Can we speak this language, as opposed to just understanding it?

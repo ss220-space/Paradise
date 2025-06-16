@@ -14,9 +14,9 @@
 		return
 
 	if(inUse)
-		to_chat(user,"<span class='notice'>Someone else is reading it.</span>")
+		to_chat(user,span_notice("Someone else is reading it."))
 		return
-		
+
 	if(!user.is_literate())
 		to_chat(user, span_notice("You don't know how to read."))
 		return
@@ -25,7 +25,7 @@
 		return
 
 	var/mob/living/carbon/human/human = user
-	
+
 	if(locate(/datum/objective/sintouched/acedia) in human.mind?.objectives)
 		to_chat(user, span_notice("None of this matters, why are you reading this? You put the [title] down."))
 		return
@@ -60,7 +60,7 @@
 		return
 
 	var/usedName = devilName
-			
+
 	if(!prob(correctness))
 		usedName += "x"
 

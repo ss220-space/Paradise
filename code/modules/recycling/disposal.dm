@@ -119,7 +119,7 @@
 		return FALSE //Means the item is already in the storage item
 	if(contents.len >= storage_slots)
 		if(!stop_messages)
-			to_chat(usr, "<span class='warning'>[W] won't fit in [src], make some space!</span>")
+			to_chat(usr, span_warning("[W] won't fit in [src], make some space!"))
 		return FALSE //Storage item is full
 
 	var/sum_w_class = W.w_class
@@ -128,11 +128,11 @@
 
 	if(sum_w_class > max_combined_w_class)
 		if(!stop_messages)
-			to_chat(usr, "<span class='notice'>[src] is full, make some space.</span>")
+			to_chat(usr, span_notice("[src] is full, make some space."))
 		return FALSE
 
 	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
-		to_chat(usr, "<span class='notice'>\the [W] is stuck to your hand, you can't put it in \the [src]</span>")
+		to_chat(usr, span_notice("\the [W] is stuck to your hand, you can't put it in \the [src]"))
 		return FALSE
 
 	return TRUE
@@ -360,7 +360,7 @@
 		return
 
 	if(user && user.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, span_warning("You cannot reach the controls from inside."))
 		return
 
 	// Clumsy folks can only flush it.
@@ -392,11 +392,11 @@
 	if(..())
 		return
 	if(usr.loc == src)
-		to_chat(usr, "<span class='warning'>You cannot reach the controls from inside.</span>")
+		to_chat(usr, span_warning("You cannot reach the controls from inside."))
 		return
 
 	if(mode == UNSCREWED && action != "eject") // If the mode is -1, only allow ejection
-		to_chat(usr, "<span class='warning'>The disposal units power is disabled.</span>")
+		to_chat(usr, span_warning("The disposal units power is disabled."))
 		return
 
 	if(stat & BROKEN)
@@ -650,8 +650,8 @@
 
 /obj/machinery/disposal/deliveryChute/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The chute is set to [to_waste ? "waste" : "cargo"] disposals.</span>"
-	. += "<span class='info'>Use a destination tagger to change the disposal destination.</span>"
+	. += span_notice("The chute is set to [to_waste ? "waste" : "cargo"] disposals.")
+	. += span_info("Use a destination tagger to change the disposal destination.")
 
 
 /obj/machinery/disposal/deliveryChute/interact()

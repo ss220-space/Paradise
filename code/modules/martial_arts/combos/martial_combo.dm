@@ -33,7 +33,7 @@
 	var/final_combo_text = combo_text_override
 	if(!final_combo_text)
 		final_combo_text = english_list(steps, and_text = " ", comma_text = " ")
-	to_chat(user, "<span class='notice'>[name]</span>: [final_combo_text]. [explaination_text]")
+	to_chat(user, span_notice("[name]</span>: [final_combo_text]. [explaination_text]")
 
 /datum/martial_combo/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()

@@ -5,7 +5,7 @@
 /mob/proc/change_mob_type(var/new_type = null, var/turf/location = null, var/new_name = null as text, var/delete_old_mob = 0 as num, var/forcekey = 0)
 
 	if(isnewplayer(src))
-		to_chat(usr, "<span class='warning'>cannot convert players who have not entered yet.</span>")
+		to_chat(usr, span_warning("cannot convert players who have not entered yet."))
 		return
 
 	if(!new_type)
@@ -19,7 +19,7 @@
 		return
 
 	if( new_type == /mob/new_player )
-		to_chat(usr, "<span class='warning'>cannot convert into a new_player mob type.</span>")
+		to_chat(usr, span_warning("cannot convert into a new_player mob type."))
 		return
 
 	var/mob/M
@@ -47,9 +47,9 @@
 		mind.transfer_to(M)
 	else
 		M.key = key
-		
+
 	SEND_SIGNAL(src, COMSIG_MOB_CHANGED_TYPE, M)
-	
+
 	if(delete_old_mob)
 		spawn(1)
 			qdel(src)

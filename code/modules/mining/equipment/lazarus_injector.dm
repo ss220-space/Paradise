@@ -43,7 +43,7 @@
 					else
 						H.attack_same = 0
 				loaded = FALSE
-				user.visible_message("<span class='notice'>[user] injects [M] with [src], reviving it.</span>")
+				user.visible_message(span_notice("[user] injects [M] with [src], reviving it."))
 				playsound(src,'sound/effects/refill.ogg',50,1)
 				update_icon(UPDATE_ICON_STATE)
 				return
@@ -68,9 +68,9 @@
 /obj/item/lazarus_injector/examine(mob/user)
 	. = ..()
 	if(!loaded)
-		. += "<span class='notice'>[src] is empty.</span>"
+		. += span_notice("[src] is empty.")
 	if(malfunctioning)
-		. += "<span class='notice'>The display on [src] seems to be flickering.</span>"
+		. += span_notice("The display on [src] seems to be flickering.")
 
 /*********************Mob Capsule*************************/
 
@@ -100,14 +100,14 @@
 
 /obj/item/mobcapsule/proc/capture(mob/living/simple_animal/S, mob/living/M)
 	if(captured)
-		to_chat(M, "<span class='notice'>Capture failed!</span>: The capsule already has a mob registered to it!")
+		to_chat(M, span_notice("Capture failed!</span>: The capsule already has a mob registered to it!")
 	else
 		if("neutral" in S.faction)
 			S.forceMove(src)
 			S.name = "[M.name]'s [initial(S.name)]"
 			S.cancel_camera()
 			name = "Lazarus Capsule: [initial(S.name)]"
-			to_chat(M, "<span class='notice'>You placed a [S.name] inside the Lazarus Capsule!</span>")
+			to_chat(M, span_notice("You placed a [S.name] inside the Lazarus Capsule!"))
 			captured = S
 		else
 			to_chat(M, "You can't capture that mob!")

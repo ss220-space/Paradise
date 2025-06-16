@@ -154,12 +154,12 @@
 
 /obj/structure/closet/crate/secure/loot/attack_hand(mob/user)
 	if(locked)
-		to_chat(user, "<span class='notice'>The crate is locked with a Deca-code lock.</span>")
+		to_chat(user, span_notice("The crate is locked with a Deca-code lock."))
 		var/input = clean_input("Enter [codelen] digits.", "Deca-Code Lock", "")
 		if(in_range(src, user))
 			if(input == code)
 				add_fingerprint(user)
-				to_chat(user, "<span class='notice'>The crate unlocks!</span>")
+				to_chat(user, span_notice("The crate unlocks!"))
 				locked = 0
 				cut_overlays()
 				add_overlay("securecrateg")
@@ -167,9 +167,9 @@
 					add_overlay(get_emissive_block())
 			else if(input == null || length(input) != codelen)
 				add_fingerprint(user)
-				to_chat(user, "<span class='notice'>You leave the crate alone.</span>")
+				to_chat(user, span_notice("You leave the crate alone."))
 			else
-				to_chat(user, "<span class='warning'>A red light flashes.</span>")
+				to_chat(user, span_warning("A red light flashes."))
 				lastattempt = input
 				attempts--
 				if(attempts == 0)

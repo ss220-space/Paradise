@@ -51,10 +51,10 @@ GLOBAL_DATUM_INIT(ghost_hud_panel, /datum/ui_module/ghost_hud_panel, new)
 
 		if("ahud_on")
 			if(!check_rights(R_ADMIN | R_MOD | R_MENTOR, FALSE))
-				to_chat(ghost, "<span class='warning'>You do not have enough rights to use this feature.</span>")
+				to_chat(ghost, span_warning("You do not have enough rights to use this feature."))
 				return FALSE
 			if(!CONFIG_GET(flag/allow_antag_hud) && !ghost.client.holder)
-				to_chat(ghost, "<span class='warning'>Admins have disabled this for this round.</span>")
+				to_chat(ghost, span_warning("Admins have disabled this for this round."))
 				return FALSE
 			// Check if this is the first time they're turning on Antag HUD.
 			if(check_rights(R_MENTOR, FALSE) && !check_rights(R_ADMIN | R_MOD, FALSE) && !ghost.has_enabled_antagHUD && CONFIG_GET(flag/antag_hud_restricted))

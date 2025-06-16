@@ -90,38 +90,38 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(!H.myseed)
 			return
 		if(!H.harvest)// So it's bit harder.
-			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
+			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.")) //Because space dna is actually magic
 			return
 		if(plants[H.myseed.type])
-			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
+			to_chat(user, span_notice("Plant data already present in local storage."))
 			return
 		plants[H.myseed.type] = 1
-		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
+		to_chat(user, span_notice("Plant data added to local storage."))
 
 	//animals
 	if(isanimal(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
-				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
+				to_chat(user, span_warning("No compatible DNA detected"))
 				return
 		if(animals[target.type])
-			to_chat(user, "<span class='notice'>Animal data already present in local storage.</span>")
+			to_chat(user, span_notice("Animal data already present in local storage."))
 			return
 		animals[target.type] = 1
-		to_chat(user, "<span class='notice'>Animal data added to local storage.</span>")
+		to_chat(user, span_notice("Animal data added to local storage."))
 
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(HAS_TRAIT(H, TRAIT_NO_DNA))
-			to_chat(user, "<span class='notice'>This humanoid doesn't have DNA.</span>")
+			to_chat(user, span_notice("This humanoid doesn't have DNA."))
 			return
 		if(dna[H.dna.uni_identity])
-			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")
+			to_chat(user, span_notice("Humanoid data already present in local storage."))
 			return
 		dna[H.dna.uni_identity] = 1
-		to_chat(user, "<span class='notice'>Humanoid data added to local storage.</span>")
+		to_chat(user, span_notice("Humanoid data added to local storage."))
 
 
 /obj/item/circuitboard/machine/dna_vault

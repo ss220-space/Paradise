@@ -84,7 +84,7 @@
 	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
-	to_chat(user, "<span class='notice'>You shut off [src].")
+	to_chat(user, span_notice("You shut off [src].")
 	if(world.time > next_off_message)
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
@@ -143,7 +143,7 @@
 
 /obj/item/lighter/can_enter_storage(obj/item/storage/S, mob/user)
 	if(lit)
-		to_chat(user, "<span class='warning'>[S] can't hold [src] while it's lit!</span>")
+		to_chat(user, span_warning("[S] can't hold [src] while it's lit!"))
 		return FALSE
 	else
 		return TRUE
@@ -151,11 +151,11 @@
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
 	if(world.time > next_on_message)
-		user.visible_message("<span class='rose'>Without even breaking stride, [user] flips open and lights [src] in one smooth movement.</span>")
+		user.visible_message(span_rose("Without even breaking stride, [user] flips open and lights [src] in one smooth movement."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You light [src].</span>")
+		to_chat(user, span_notice("You light [src]."))
 
 /obj/item/lighter/zippo/turn_off_lighter(mob/living/user)
 	. = ..()
@@ -163,11 +163,11 @@
 		return
 
 	if(world.time > next_off_message)
-		user.visible_message("<span class='rose'>You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
+		user.visible_message(span_rose("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
 	else
-		to_chat(user, "<span class='notice'>You shut off [src].")
+		to_chat(user, span_notice("You shut off [src].")
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return

@@ -9,6 +9,6 @@
 	if(!silero.is_enabled)
 		silero.is_enabled = TRUE
 		silero.failed_requests_limit += initial(silero.failed_requests_limit)
-		to_chat(world, "<span class='announce'>SERVER: провайдер Silero в подсистеме SStts принудительно включен!</span>")
+		to_chat(world, span_announce("SERVER: провайдер Silero в подсистеме SStts принудительно включен!"))
 		return json_encode(list("success" = "SStts\[Silero] was force enabled"))
 	return json_encode(list("error" = "SStts\[Silero] is already enabled"))

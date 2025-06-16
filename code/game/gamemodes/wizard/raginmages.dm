@@ -157,5 +157,5 @@
 /datum/game_mode/wizard/raginmages/declare_completion()
 	if(finished)
 		SSticker.mode_result = "raging wizard loss - wizard killed"
-		to_chat(world, span_warning(span_fontsize3("<b> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b>")))
+		to_chat(world, span_warning(span_fontsize_16px("<b> The crew has managed to hold off the Wizard attack! The Space Wizard Federation has been taught a lesson they will not soon forget!</b>")))
 	..(1)

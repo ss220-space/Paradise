@@ -106,13 +106,13 @@
 /obj/item/storage/ashtray/deconstruct()
 	var/obj/item/trash/broken_ashtray/shards = new(get_turf(src))
 	shards.icon_state = icon_broken
-	visible_message("<span class='warning'>Oops, [src] broke into a lot of pieces!</span>")
+	visible_message(span_warning("Oops, [src] broke into a lot of pieces!"))
 	return ..()
 
 
 /obj/item/storage/ashtray/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(length(contents))
-		visible_message("<span class='warning'>[src] slams into [hit_atom] spilling its contents!</span>")
+		visible_message(span_warning("[src] slams into [hit_atom] spilling its contents!"))
 	empty_tray()
 	if(rand(1,20) > max_integrity)
 		deconstruct()

@@ -61,7 +61,7 @@
 	. = ..()
 	var/len = LAZYLEN(orbiting_balls)
 	if(len)
-		. += "<span class='notice'>The amount of orbiting mini-balls is [len].</span>"
+		. += span_notice("The amount of orbiting mini-balls is [len].")
 
 
 /obj/singularity/energy_ball/proc/move_the_basket_ball(var/move_amount)
@@ -126,7 +126,7 @@
 /obj/singularity/energy_ball/attack_tk(mob/user)
 	if(iscarbon(user))
 		var/mob/living/carbon/C = user
-		to_chat(C, "<span class='userdanger'>That was a shockingly dumb idea.</span>")
+		to_chat(C, span_userdanger("That was a shockingly dumb idea."))
 		var/obj/item/organ/internal/brain/B = C.get_int_organ(/obj/item/organ/internal/brain)
 		C.ghostize(0)
 		if(B)

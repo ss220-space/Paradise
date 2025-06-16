@@ -106,14 +106,14 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t = "<span class='notice'>Coordinates: [x],[y] \n</span>"
-	t+= "<span class='warning'>Temperature: [environment.temperature] \n</span>"
-	t+= "<span class='notice'>Nitrogen: [environment.nitrogen] \n</span>"
-	t+= "<span class='notice'>Oxygen: [environment.oxygen] \n</span>"
-	t+= "<span class='notice'>Plasma : [environment.toxins] \n</span>"
-	t+= "<span class='notice'>Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= "<span class='notice'>N2O: [environment.sleeping_agent] \n</span>"
-	t+= "<span class='notice'>Agent B: [environment.agent_b] \n</span>"
+	var/t = span_notice("Coordinates: [x],[y] \n</span>"
+	t+= span_warning("Temperature: [environment.temperature] \n</span>"
+	t+= span_notice("Nitrogen: [environment.nitrogen] \n</span>"
+	t+= span_notice("Oxygen: [environment.oxygen] \n</span>"
+	t+= span_notice("Plasma : [environment.toxins] \n</span>"
+	t+= span_notice("Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
+	t+= span_notice("N2O: [environment.sleeping_agent] \n</span>"
+	t+= span_notice("Agent B: [environment.agent_b] \n</span>"
 
 	usr.show_message(t, 1)
 
@@ -458,7 +458,7 @@
 	if(isnull(msg))
 		return
 	if(stat)
-		to_chat(usr, "<span class='notice'>You have to be conscious to change your flavor text</span>")
+		to_chat(usr, span_notice("You have to be conscious to change your flavor text"))
 		return
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
 	flavor_text = msg
@@ -467,9 +467,9 @@
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
-			return "<span class='notice'>[msg]</span>" // There is already encoded by tgui_input
+			return span_notice("[msg]</span>" // There is already encoded by tgui_input
 		else
-			return "<span class='notice'>[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
 
 /mob
 	var/newPlayerType = /mob/new_player
@@ -479,11 +479,11 @@
 	set category = STATPANEL_OOC
 
 	if(!GLOB.abandon_allowed)
-		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
+		to_chat(usr, span_warning("Respawning is disabled."))
 		return
 
 	if(stat != DEAD || !SSticker)
-		to_chat(usr, "<span class='boldnotice'>You must be dead to use this!</span>")
+		to_chat(usr, span_boldnotice("You must be dead to use this!"))
 		return
 
 	if(!(usr in GLOB.respawnable_list))
@@ -494,7 +494,7 @@
 	if(istype(src,/mob/dead/observer))
 		var/mob/dead/observer/G = src
 		if(cannotPossess(G))
-			to_chat(usr, "<span class='warning'>Upon using the antagHUD you forfeited the ability to join the round.</span>")
+			to_chat(usr, span_warning("Upon using the antagHUD you forfeited the ability to join the round."))
 			return
 
 	var/deathtimeminutes = round(deathtime / 600)
@@ -509,7 +509,7 @@
 
 	if(deathtimeminutes < CONFIG_GET(number/respawn_delay))
 		to_chat(usr, "You have been dead for[pluralcheck] [deathtimeseconds] seconds.")
-		to_chat(usr, "<span class='warning'>You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!</span>")
+		to_chat(usr, span_warning("You must wait [CONFIG_GET(number/respawn_delay)] minutes to respawn!"))
 		return
 
 	if(alert("Are you sure you want to respawn?", "Are you sure?", "Yes", "No") != "Yes")
@@ -517,7 +517,7 @@
 
 	add_game_logs("has respawned.", usr)
 
-	to_chat(usr, "<span class='boldnotice'>Make sure to play a different character, and please roleplay correctly!</span>")
+	to_chat(usr, span_boldnotice("Make sure to play a different character, and please roleplay correctly!"))
 
 	if(!client)
 		add_game_logs("respawn failed due to disconnect.", usr)
@@ -756,7 +756,7 @@
 	var/timedifference = world.time - client.time_joined_as_mouse
 	if(client.time_joined_as_mouse && timedifference <= GLOB.mouse_respawn_time * 600)
 		var/timedifference_text = time2text(GLOB.mouse_respawn_time * 600 - timedifference,"mm:ss")
-		to_chat(src, "<span class='warning'>You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left.</span>")
+		to_chat(src, span_warning("You may only spawn again as a mouse more than [GLOB.mouse_respawn_time] minutes after last spawn. You have [timedifference_text] left."))
 		return
 
 	//find a viable mouse candidate
@@ -768,9 +768,9 @@
 		var/choosen_type = prob(90) ? /mob/living/simple_animal/mouse : /mob/living/simple_animal/mouse/rat
 		var/mob/living/simple_animal/mouse/host = new choosen_type(vent_found.loc)
 		host.ckey = src.ckey
-		to_chat(host, "<span class='info'>You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent.</span>")
+		to_chat(host, span_info("You are now a mouse. Try to avoid interaction with players, and do not give hints away that you are more than a simple rodent."))
 	else
-		to_chat(src, "<span class='warning'>Unable to find any unwelded vents to spawn mice at.</span>")
+		to_chat(src, span_warning("Unable to find any unwelded vents to spawn mice at."))
 
 /mob/proc/assess_threat() //For sec bot threat assessment
 	return 5
@@ -798,11 +798,11 @@
 	if(issimulatedturf(location))
 		if(green)
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] вырвало зелёной липкой массой!</span>","<span class='warning'>Вас вырвало зелёной липкой массой!</span>")
+				visible_message(span_warning("[src.name] вырвало зелёной липкой массой!"),span_warning("Вас вырвало зелёной липкой массой!"))
 			location.add_vomit_floor(FALSE, TRUE)
 		else
 			if(!no_text)
-				visible_message("<span class='warning'>[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!</span>","<span class='warning'>Вы наблевали на себя!</span>")
+				visible_message(span_warning("[src.name] наблевал[genderize_ru(src.gender,"","а","о","и")] на себя!"),span_warning("Вы наблевали на себя!"))
 			location.add_vomit_floor(TRUE)
 
 

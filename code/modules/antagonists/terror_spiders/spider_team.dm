@@ -190,37 +190,37 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 /datum/team/terror_spiders/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !terror_stage == TERROR_STAGE_POST_END)
-		to_chat(world, span_fontsize3("<br><b>Частичная победа Пауков Ужаса!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Частичная победа Пауков Ужаса!</b>"))
 		to_chat(world, "<b>Станция была уничтожена!</b>")
 		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Пауков Ужаса.</b>")
 	else if(protect_egg?.check_completion(src))
-		to_chat(world, span_fontsize3("<br><b>Полная победа Пауков Ужаса!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Полная победа Пауков Ужаса!</b>"))
 		to_chat(world, "<b>Пауки захватили станцию!</b>")
 		to_chat(world, "<b>Императрица Ужаса появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!check_main_spiders())
-		to_chat(world, span_fontsize3("<br><b>Полная победа персонала станции!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Полная победа персонала станции!</b>"))
 		to_chat(world, "<b>Экипаж защитил станцию от Пауков Ужаса!</b>")
 		to_chat(world, "<b>Пауки Ужаса были истреблены.</b>")
 	else
-		to_chat(world, span_fontsize3("<br><b>Ничья!</b>"))
+		to_chat(world, span_fontsize_16px("<br><b>Ничья!</b>"))
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Пауки Ужаса не были истреблены.</b>")
 	to_chat(world, "<b>Целями Пауков Ужаса было:</b>")
 	if(prince_target)
-		to_chat(world, "<br/>Цель Принца: [prince_target.explanation_text] [prince_target.completed?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Цель Принца: [prince_target.explanation_text] [prince_target.completed?"[span_fontcolor_green("Успех!")]": "[span_fontcolor_red("Провал!")]"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[prince_target.type]", prince_target.completed? "SUCCESS" : "FAIL"))
 	if(infect_target)
-		to_chat(world, "<br/>Цель Осквернителя: [infect_target.explanation_text] [infect_target.check_completion(src)?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Цель Осквернителя: [infect_target.explanation_text] [infect_target.check_completion(src)?"[span_fontcolor_green("Успех!")]": "[span_fontcolor_red("Провал!")]"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[infect_target.type]", infect_target.check_completion(src)? "SUCCESS" : "FAIL"))
 	if(lay_eggs_target)
-		to_chat(world, "<br/>Цель Принцессы/Королевы: [lay_eggs_target.explanation_text] [lay_eggs_target.check_completion(src)?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Цель Принцессы/Королевы: [lay_eggs_target.explanation_text] [lay_eggs_target.check_completion(src)?"[span_fontcolor_green("Успех!")]": "[span_fontcolor_red("Провал!")]"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[lay_eggs_target.type]", lay_eggs_target.check_completion(src)? "SUCCESS" : "FAIL"))
 	if(other_target)
-		to_chat(world, "<br/>Цель Пауков Ужаса: [other_target.explanation_text] [other_target.check_completion(src)?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Цель Пауков Ужаса: [other_target.explanation_text] [other_target.check_completion(src)?"[span_fontcolor_green("Успех!")]": "[span_fontcolor_red("Провал!")]"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[other_target.type]", other_target.check_completion(src)? "SUCCESS" : "FAIL"))
 	if(protect_egg)
 		var/completed = protect_egg.check_completion(src) && (!SSticker?.mode?.station_was_nuked || terror_stage == TERROR_STAGE_POST_END)
-		to_chat(world, "<br/>Защита яйца: [protect_egg.explanation_text] [completed ?"<font color='green'><b>Успех!</b></font>": "<font color='red'>Провал.</font>"]")
+		to_chat(world, "<br/>Защита яйца: [protect_egg.explanation_text] [completed ?"[span_fontcolor_green("Успех!")]": "[span_fontcolor_red("Провал!")]"]")
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_egg.type]", completed ? "SUCCESS" : "FAIL"))
 	return TRUE
 
@@ -233,25 +233,25 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 	if(terror_queens.len || terror_princes.len || terror_princesses.len || terror_defilers.len)
 		declare_results()
-		var/text = "<br/><span style='font-size: 2;'><b>Основа гнезда:</b></span>"
+		var/text = span_fontsize_13px("<br/><b>Основа гнезда:</b>")
 		if(terror_queens.len)
-			text += "<br/><span style='font-size: 1;'><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b></span>"
+			text += span_fontsize_10px("<br/><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_queens)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(terror_princes.len)
-			text += "<br/><span style='font-size: 1;'><b>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</b></span>"
+			text += span_fontsize_10px("<br/><b>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_princes)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(terror_princesses.len)
-			text += "<br/><span style='font-size: 1;'><b>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b></span>"
+			text += span_fontsize_10px("<br/><b>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_princesses)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(terror_defilers.len)
-			text += "<br/><span style='font-size: 1;'><b>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</b></span>"
+			text += span_fontsize_10px("<br/><b>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_defilers)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(members.len)
-			text += "<br/><span style='font-size: 2;'><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b></span>"
+			text += span_fontsize_13px("<br/><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b>")
 			for(var/datum/mind/spider in members)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		to_chat(world, text)

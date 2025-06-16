@@ -256,7 +256,7 @@
 /mob/living/simple_animal/hostile/gorilla/examine(mob/user)
 	. = ..()
 	if(LAZYLEN(crates_in_hand))
-		var/crate_text = "<span class='notice'>[p_theyre(TRUE)] carrying the following:\n"
+		var/crate_text = span_notice("[p_theyre(TRUE)] carrying the following:\n"
 		for(var/atom/movable/crate in crates_in_hand)
 			crate_text += " - [crate.name]\n"
 		crate_text += "</span>"

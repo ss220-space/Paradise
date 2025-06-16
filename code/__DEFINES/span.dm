@@ -1,8 +1,6 @@
 
-// Нагло скопировано мною с ТГ, то чего у нас в билде нету - закоменчено
-// Старые капсом написанные span_warning() и т.д. удалены и заменены в файлах где применялись, на аналоги ниже. без КАПСА!
-
-// Sorted alphabetically
+/* What is not in our build is commented out.
+   Not sorted alphabetically. */
 #define span_abductor(str) ("<span class='abductor'>" + str + "</span>")
 #define span_admin(str) ("<span class='admin'>" + str + "</span>")
 #define span_adminhelp(str) ("<span class='adminhelp'>" + str + "</span>")
@@ -42,7 +40,7 @@
 //#define span_cultbold(str) ("<span class='cultbold'>" + str + "</span>")
 //#define span_cultboldtalic(str) ("<span class='cultboldtalic'>" + str + "</span>")
 #define span_cultitalic(str) ("<span class='cultitalic'>" + str + "</span>")
-#define span_cultlarge(str) ("<span class='cultlarge'>" + str + "</span>")
+#define span_cultlarge(str) ("<span class='cultlarge'>" + str + "</span>") //дальше
 #define span_danger(str) ("<span class='danger'>" + str + "</span>")
 #define span_dangerbigger(str) ("<span class='biggerdanger'>" + str + "</span>")
 #define span_deadsay(str) ("<span class='deadsay'>" + str + "</span>")
@@ -122,7 +120,6 @@
 //#define span_tape_recorder(str) ("<span class='tape_recorder'>" + str + "</span>")
 //#define span_tinynotice(str) ("<span class='tinynotice'>" + str + "</span>")
 //#define span_tinynoticeital(str) ("<span class='tinynoticeital'>" + str + "</span>")
-//#define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 #define span_userdanger(str) ("<span class='userdanger'>" + str + "</span>")
 #define span_warning(str) ("<span class='warning'>" + str + "</span>")
 #define span_warningbig(str) ("<span class='warning big'>" + str + "</span>")
@@ -172,19 +169,22 @@
 #define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
-// Sorted alphabetically
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
 
 // Font size spans
-
-#define span_fontsize1(str) ("<span style='font-size: 10px;'>" + str + "</span>")
-#define span_fontsize2(str) ("<span style='font-size: 13px;'>" + str + "</span>")
-#define span_fontsize3(str) ("<span style='font-size: 16px;'>" + str + "</span>")
-#define span_fontsize4(str) ("<span style='font-size: 18px;'>" + str + "</span>")
-#define span_fontsize5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
-#define span_fontsize6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
-#define span_fontsize7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
+#define span_fontsize_6px(str) ("<span style='font-size: 6px;'>" + str + "</span>")
+#define span_fontsize_10px(str) ("<span style='font-size: 10px;'>" + str + "</span>")
+#define span_fontsize_13px(str) ("<span style='font-size: 13px;'>" + str + "</span>")
+#define span_fontsize_16px(str) ("<span style='font-size: 16px;'>" + str + "</span>")
+#define span_fontsize_18px(str) ("<span style='font-size: 18px;'>" + str + "</span>")
+#define span_fontsize_24px(str) ("<span style='font-size: 24px;'>" + str + "</span>")
+#define span_fontsize_32px(str) ("<span style='font-size: 32px;'>" + str + "</span>")
+#define span_fontsize_48px(str) ("<span style='font-size: 48px;'>" + str + "</span>")
 
 // Font color spans
 #define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")
 #define span_fontcolor_purple(str) ("<span style='color: purple;'>" + str + "</span>")
+#define span_fontcolor_orange(str) ("<span style='color: orange;'>" + str + "</span>")
+#define span_fontcolor_black(str) ("<span style='color: black;'>" + str + "</span>")
+#define span_fontcolor_blue(str) ("<span style='color: blue;'>" + str + "</span>")
+#define span_fontcolor_pink(str) ("<span style='color: pink;'>" + str + "</span>")

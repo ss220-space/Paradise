@@ -462,7 +462,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 	log_and_message_admins("has admin ended the round[announcement ? " with message: '[announcement]'" : ""]")
 	if(announcement)
-		to_chat(world, "<span class='warning'><big><b>[announcement]</b></big></span>")
+		to_chat(world, span_warning("<big><b>[announcement]</b></big>"))
 	SSticker.force_ending = TRUE
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "End Round") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 	SSticker.mode_result = "admin ended"
@@ -482,7 +482,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 			message = adminscrub(message,500)
 		message = handleDiscordEmojis(message)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
-		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
+		to_chat(world, chat_box_notice(span_notice("<b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p>")))
 		log_admin("Announce: [key_name(usr)] : [message]")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
@@ -582,11 +582,11 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		var/msg = ""
 		if(SSticker.current_state == GAME_STATE_STARTUP)
 			msg = " (The server is still setting up, but the round will be started as soon as possible.)"
-		message_admins("<span class='darkmblue'>[usr.key] has started the game.[msg]</span>")
+		message_admins(span_darkmblue("[usr.key] has started the game.[msg]"))
 		SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Game") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 		return 1
 	else
-		to_chat(usr, "<span style='color: red;'>Error: Start Now: Game has already started.</span>", confidential=TRUE)
+		to_chat(usr, span_fontcolor_red("Error: Start Now: Game has already started."), confidential=TRUE)
 		return
 
 

@@ -42,7 +42,7 @@
 
 /obj/machinery/recycler/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The power light is [(stat & NOPOWER) ? "<b>off</b>" : "<b>on</b>"]."
+	. += span_notice("The power light is [(stat & NOPOWER) ? "<b>off</b>" : "<b>on</b>"]."
 	. += "The operation light is [emergency_mode ? "<b>off</b>. [src] has detected a forbidden object with its sensors, and has shut down temporarily." : "<b>on</b>. [src] is active."]"
 	. += "The safety sensor light is [emagged ? "<b>off</b>!" : "<b>on</b>."]</span>"
 

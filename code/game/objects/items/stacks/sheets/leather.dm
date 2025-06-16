@@ -229,10 +229,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 					H.update_inv_head()
 					H.update_inv_wear_suit()
 
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, span_info("You strengthen [target], improving its resistance against melee attacks."))
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [C] any further!</span>")
+			to_chat(user, span_warning("You can't improve [C] any further!"))
 
 	else if(istype(target, /obj/mecha/working/ripley))
 		var/obj/mecha/working/ripley/D = target
@@ -241,11 +241,11 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating(MELEE) + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating(BULLET) + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating(LASER) + 5, 50))
-			to_chat(user, "<span class='info'>You strengthen [target], improving its resistance against melee attacks.</span>")
+			to_chat(user, span_info("You strengthen [target], improving its resistance against melee attacks."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
+			to_chat(user, span_warning("You can't improve [D] any further!"))
 
 /obj/item/stack/sheet/animalhide/goliath_hide/five
 	amount = 5
@@ -270,11 +270,11 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 			D.armor = D.armor.setRating(melee_value = min(D.armor.getRating("melee") + 10, 70))
 			D.armor = D.armor.setRating(bullet_value = min(D.armor.getRating("bullet") + 5, 50))
 			D.armor = D.armor.setRating(laser_value = min(D.armor.getRating("laser") + 5, 50))
-			to_chat(user, "<span class='info'>Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак.</span>")
+			to_chat(user, span_info("Вы нашли куда суется [name] и пихнули её на экзокостюм, усиливая защиту против атак."))
 			D.update_appearance(UPDATE_DESC|UPDATE_OVERLAYS)
 			use(1)
 		else
-			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
+			to_chat(user, span_warning("Вы больше не можете найти куда [name] пристраивается!"))
 
 /obj/item/stack/sheet/cartilage_plate
 	name = "thick cartilage plate"

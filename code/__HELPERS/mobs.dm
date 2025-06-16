@@ -262,8 +262,8 @@
 		if("execute", SEC_RECORD_STATUS_EXECUTE)
 			if((ACCESS_MAGISTRATE in authcard_access) || (ACCESS_ARMORY in authcard_access))
 				status = SEC_RECORD_STATUS_EXECUTE
-				message_admins("[ADMIN_FULLMONTY(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]")
-				usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>EXECUTION</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
+				message_admins("[ADMIN_FULLMONTY(usr)] authorized [span_warning("EXECUTION")] for [their_rank] [their_name], with comment: [comment]")
+				usr.investigate_log("[key_name_log(usr)] authorized [span_warning("EXECUTION")] for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			else
 				return 0
 		if("search", SEC_RECORD_STATUS_SEARCH)
@@ -271,8 +271,8 @@
 		if("monitor", SEC_RECORD_STATUS_MONITOR)
 			status = SEC_RECORD_STATUS_MONITOR
 		if("demote", SEC_RECORD_STATUS_DEMOTE)
-			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]")
-			usr.investigate_log("[key_name_log(usr)] authorized <span class='warning'>DEMOTE</span> for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
+			message_admins("[ADMIN_FULLMONTY(usr)] set criminal status to [span_warning("DEMOTE")] for [their_rank] [their_name], with comment: [comment]")
+			usr.investigate_log("[key_name_log(usr)] authorized [span_warning("DEMOTE")] for [their_rank] [their_name], with comment: [comment]", INVESTIGATE_RECORDS)
 			status = SEC_RECORD_STATUS_DEMOTE
 		if("incarcerated", SEC_RECORD_STATUS_INCARCERATED)
 			status = SEC_RECORD_STATUS_INCARCERATED
@@ -516,10 +516,10 @@
 		if(!.)
 			. = M
 		else
-			to_chat(user, "<span class='warning'>Multiple mobs in [A], using first mob found...</span>")
+			to_chat(user, span_warning("Multiple mobs in [A], using first mob found..."))
 			break
 	if(!.)
-		to_chat(user, "<span class='warning'>No mob located in [A].</span>")
+		to_chat(user, span_warning("No mob located in [A]."))
 
 // Gets the first mob contained in an atom but doesn't warn the user at all
 /proc/get_mob_in_atom_without_warning(atom/A)

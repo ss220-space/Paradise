@@ -107,8 +107,8 @@
 
 /obj/item/stack/medical/proc/human_heal(mob/living/carbon/human/H, mob/user)
 	var/obj/item/organ/external/affecting = H.get_organ(user.zone_selected)
-	user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [affecting.name].</span>", \
-						 "<span class='green'>You [healverb] the wounds on [H]'s [affecting.name].</span>" )
+	user.visible_message(span_green("[user] [healverb]s the wounds on [H]'s [affecting.name]."), \
+						 span_green("You [healverb] the wounds on [H]'s [affecting.name].") )
 
 	var/rembrute = max(0, heal_brute - affecting.brute_dam) // Maxed with 0 since heal_damage let you pass in a negative value
 	var/remburn = max(0, heal_burn - affecting.burn_dam) // And deduct it from their health (aka deal damage)
@@ -147,8 +147,8 @@
 			should_update_health = TRUE
 		rembrute = nrembrute
 		remburn = nremburn
-		user.visible_message("<span class='green'>[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication.</span>", \
-							 "<span class='green'>You [healverb] the wounds on [H]'s [E.name] with the remaining medication.</span>" )
+		user.visible_message(span_green("[user] [healverb]s the wounds on [H]'s [E.name] with the remaining medication."), \
+							 span_green("You [healverb] the wounds on [H]'s [E.name] with the remaining medication.") )
 	if(should_update_health)
 		H.updatehealth("[name] heal")
 	if(update_damage_icon)

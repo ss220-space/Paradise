@@ -59,9 +59,9 @@
 	if(!I.tool_use_check(user, 0))
 		return
 	playsound(loc, 'sound/machines/click.ogg', 50, 1)
-	user.visible_message("[user] begins to take the glass off the solar panel.", "<span class='notice'>You begin to take the glass off the solar panel...</span>")
+	user.visible_message("[user] begins to take the glass off the solar panel.", span_notice("You begin to take the glass off the solar panel..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		user.visible_message("[user] takes the glass off the solar panel.", "<span class='notice'>You take the glass off the solar panel.</span>")
+		user.visible_message("[user] takes the glass off the solar panel.", span_notice("You take the glass off the solar panel."))
 		deconstruct(TRUE)
 
 /obj/machinery/power/solar/play_attack_sound(damage_amount, damage_type = BRUTE, damage_flag = 0)
@@ -201,13 +201,13 @@
 
 /obj/item/solar_assembly/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.</span>"
+	. += span_notice("The solar assembly is <b>[anchored ? "wrenched into place" : "unwrenched"]</b>.")
 	if(tracker)
-		. += "<span class='notice'>The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.</span>"
+		. += span_notice("The solar assembly has a tracking circuit installed. It can be <b>pried out</b>.")
 	else
-		. += "<span class='notice'>The solar assembly has a slot for a <i>tracking circuit<i> board.</span>"
+		. += span_notice("The solar assembly has a slot for a <i>tracking circuit<i> board.")
 	if(anchored)
-		.+= "<span class='notice'>The solar assembly needs <i>glass<i> to be completed.</span>"
+		.+= span_notice("The solar assembly needs <i>glass<i> to be completed.")
 
 
 /obj/item/solar_assembly/attackby(obj/item/I, mob/user, params)
@@ -490,12 +490,12 @@
 	for(var/obj/C in src)
 		C.forceMove(loc)
 	if(stat & BROKEN)
-		to_chat(user, "<span class='notice'>The broken glass falls out.</span>")
+		to_chat(user, span_notice("The broken glass falls out."))
 		A.state = 4	// STATE_WIRES
 		var/obj/item/shard/shard = new(drop_location())
 		shard.add_fingerprint(user)
 	else
-		to_chat(user, "<span class='notice'>You disconnect the monitor.</span>")
+		to_chat(user, span_notice("You disconnect the monitor."))
 		A.state = 5	// STATE_GLASS
 	A.dir = dir
 	A.circuit = M

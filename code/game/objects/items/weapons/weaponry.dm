@@ -17,7 +17,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life.</span>")
+	to_chat(viewers(user), span_suicide("[user] is hitting [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to ban [user.p_them()]self from life."))
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 
@@ -41,8 +41,8 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/sord/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty.</span>", \
-	"<span class='suicide'>You try to impale yourself with [src], but it's USELESS...</span>")
+	user.visible_message(span_suicide("[user] is trying to impale [user.p_them()]self with [src]! It might be a suicide attempt if it weren't so shitty."), \
+	span_suicide("You try to impale yourself with [src], but it's USELESS..."))
 	return SHAME
 
 /obj/item/melee/claymore
@@ -68,7 +68,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/melee/claymore/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] is falling on the [name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS
 
 /obj/item/melee/claymore/ceremonial
@@ -100,7 +100,7 @@
 
 
 /obj/item/melee/katana/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku.</span>")
+	user.visible_message(span_suicide("[user] is slitting [user.p_their()] stomach open with [src]! It looks like [user.p_theyre()] trying to commit seppuku."))
 	return BRUTELOSS
 
 /obj/item/melee/katana/basalt
@@ -238,7 +238,7 @@
 	if(I.w_class <= WEIGHT_CLASS_NORMAL || istype(I, /obj/item/beach_ball)) // baseball bat deflecting
 		if(deflectmode)
 			if(prob(10))
-				visible_message("<span class='boldwarning'>[owner] Deflects [I] directly back at the thrower! It's a home run!</span>", "<span class='boldwarning'>You deflect the [I] directly back at the thrower! It's a home run!</span>")
+				visible_message(span_boldwarning("[owner] Deflects [I] directly back at the thrower! It's a home run!"), span_boldwarning("You deflect the [I] directly back at the thrower! It's a home run!"))
 				playsound(get_turf(owner), 'sound/weapons/homerun.ogg', 100, 1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(locateUID(I.thrownby), 20, 20, owner)
@@ -247,7 +247,7 @@
 					lastdeflect = world.time + 600
 				return TRUE
 			else if(prob(30))
-				visible_message("<span class='warning'>[owner] swings! And [p_they()] miss[p_es()]! How embarassing.</span>", "<span class='warning'>You swing! You miss! Oh no!</span>")
+				visible_message(span_warning("[owner] swings! And [p_they()] miss[p_es()]! How embarassing."), span_warning("You swing! You miss! Oh no!"))
 				playsound(get_turf(owner), 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				do_attack_animation(get_step(owner, pick(GLOB.alldirs)), ATTACK_EFFECT_DISARM)
 				deflectmode = FALSE
@@ -255,7 +255,7 @@
 					lastdeflect = world.time + 600
 				return FALSE
 			else
-				visible_message("<span class='warning'>[owner] swings and deflects [I]!</span>", "<span class='warning'>You swing and deflect the [I]!</span>")
+				visible_message(span_warning("[owner] swings and deflects [I]!"), span_warning("You swing and deflect the [I]!"))
 				playsound(get_turf(owner), 'sound/weapons/baseball_hit.ogg', 50, 1, -1)
 				do_attack_animation(I, ATTACK_EFFECT_DISARM)
 				I.throw_at(get_edge_target_turf(owner, pick(GLOB.cardinal)), rand(8,10), 14, owner)
@@ -267,21 +267,21 @@
 /obj/item/melee/baseball_bat/attack_self(mob/user)
 	if(!homerun_able && can_deflect)
 		if(!deflectmode && world.time >= lastdeflect)
-			to_chat(user, "<span class='notice'>You prepare to deflect objects thrown at you. You cannot attack during this time.</span>")
+			to_chat(user, span_notice("You prepare to deflect objects thrown at you. You cannot attack during this time."))
 			deflectmode = TRUE
 		else if(deflectmode && world.time >= lastdeflect)
-			to_chat(user, "<span class='notice'>You no longer deflect objects thrown at you. You can attack during this time</span>")
+			to_chat(user, span_notice("You no longer deflect objects thrown at you. You can attack during this time"))
 			deflectmode = FALSE
 		else
-			to_chat(user, "<span class='warning'>You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]</span>")
+			to_chat(user, span_warning("You need to wait until you can deflect again. The ability will be ready in [time2text(lastdeflect - world.time, "mm:ss")]"))
 		return ..()
 	if(homerun_ready)
-		to_chat(user, "<span class='notice'>You're already ready to do a home run!</span>")
+		to_chat(user, span_notice("You're already ready to do a home run!"))
 		return ..()
-	to_chat(user, "<span class='warning'>You begin gathering strength...</span>")
+	to_chat(user, span_warning("You begin gathering strength..."))
 	playsound(get_turf(src), 'sound/magic/lightning_chargeup.ogg', 65, 1)
 	if(do_after(user, 9 SECONDS, user))
-		to_chat(user, "<span class='userdanger'>You gather power! Time for a home run!</span>")
+		to_chat(user, span_userdanger("You gather power! Time for a home run!"))
 		homerun_ready = 1
 	..()
 
@@ -414,7 +414,7 @@
 	if(!(isertmindshielded(user)))
 		user.Weaken(10 SECONDS)
 		user.drop_item_ground(src, force = TRUE)
-		to_chat(user, "<span class='cultlarge'>\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\"</span>")
+		to_chat(user, span_cultlarge("\"Это - оружие истинного правосудия. Тебе не дано обуздать его мощь.\""))
 		if(ishuman(user))
 			var/mob/living/carbon/human/H = user
 			H.apply_damage(rand(force/2, force), BRUTE, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))

@@ -66,7 +66,7 @@
 		return 1
 	else
 		if(reagents.total_volume < 500)
-			to_chat(usr, "<span class='notice'>[src] vibrates for a moment, apparently accepting the unknown liquid.</span>")
+			to_chat(usr, span_notice("[src] vibrates for a moment, apparently accepting the unknown liquid."))
 			playsound(loc, 'sound/machines/twobeep.ogg', 10, 1)
 		return 1
 

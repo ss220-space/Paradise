@@ -62,8 +62,8 @@
 		gamemode.cult_objs.narsie_death()
 		for(var/datum/mind/cult_mind in SSticker.mode.cult)
 			if(cult_mind && cult_mind.current)
-				to_chat(cult_mind.current, "<span class='cultlarge'>RETRIBUTION!</span>")
-				to_chat(cult_mind.current, "<span class='cult'>Current goal: Slaughter the heretics!</span>")
+				to_chat(cult_mind.current, span_cultlarge("RETRIBUTION!"))
+				to_chat(cult_mind.current, span_cult("Current goal: Slaughter the heretics!"))
 	..()
 
 /obj/singularity/god/narsie/large/attack_ghost(mob/dead/observer/user)
@@ -104,7 +104,7 @@
 	for(var/mob/living/carbon/M in oviewers(8, src))
 		if(M.stat == CONSCIOUS)
 			if(!iscultist(M))
-				to_chat(M, "<span class='warning'>You feel your sanity crumble away in an instant as you gaze upon [src.name]...</span>")
+				to_chat(M, span_warning("You feel your sanity crumble away in an instant as you gaze upon [src.name]..."))
 				M.Stun(6 SECONDS)
 
 
@@ -156,12 +156,12 @@
 		return
 	if(!target)
 		return
-	to_chat(target, "<span class='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU</span>")
+	to_chat(target, span_cultlarge("[uppertext(SSticker.cultdat.entity_name)] HAS LOST INTEREST IN YOU"))
 	target = food
 	if(ishuman(target))
-		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HUNGERS FOR YOUR SOUL"))
 	else
-		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL</span>")
+		to_chat(target, "<span class ='cultlarge'>[uppertext(SSticker.cultdat.entity_name)] HAS CHOSEN YOU TO LEAD HER TO HER NEXT MEAL"))
 
 //Wizard narsie
 /obj/singularity/god/narsie/wizard

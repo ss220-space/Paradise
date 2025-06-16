@@ -3,7 +3,7 @@
 	set name = "Передать"
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
-		to_chat(usr, "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>")//cheesy messages ftw
+		to_chat(usr, span_danger("Wait a second... \the [target] HAS NO HANDS! AHH!"))//cheesy messages ftw
 		return
 
 	if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || target.client == null)
@@ -12,10 +12,10 @@
 	var/obj/item/I = get_active_hand()
 
 	if(!I)
-		to_chat(usr, "<span class='warning'> You don't have anything in your hand to give to [target.name]</span>")
+		to_chat(usr, span_warning(" You don't have anything in your hand to give to [target.name]"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-		to_chat(usr, "<span class='notice'>That's not exactly something you can give.</span>")
+		to_chat(usr, span_notice("That's not exactly something you can give."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
 		var/ans = alert(target,"[usr] wants to give you \a [I]?",,"Yes","No")
@@ -26,30 +26,30 @@
 				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))
-					to_chat(usr, "<span class='warning'> You need to stay in reaching distance while giving an object.</span>")
-					to_chat(target, "<span class='warning'> [usr.name] moved too far away.</span>")
+					to_chat(usr, span_warning(" You need to stay in reaching distance while giving an object."))
+					to_chat(target, span_warning(" [usr.name] moved too far away."))
 					return
 				if(HAS_TRAIT(I, TRAIT_NODROP) || (I.item_flags & ABSTRACT))
-					to_chat(usr, "<span class='warning'>[I] stays stuck to your hand when you try to give it!</span>")
-					to_chat(target, "<span class='warning'>[I] stays stuck to [usr.name]'s hand when you try to take it!</span>")
+					to_chat(usr, span_warning("[I] stays stuck to your hand when you try to give it!"))
+					to_chat(target, span_warning("[I] stays stuck to [usr.name]'s hand when you try to take it!"))
 					return
 				if(I != get_active_hand())
-					to_chat(usr, "<span class='warning'> You need to keep the item in your active hand.</span>")
-					to_chat(target, "<span class='warning'> [usr.name] seem to have given up on giving [I] to you.</span>")
+					to_chat(usr, span_warning(" You need to keep the item in your active hand."))
+					to_chat(target, span_warning(" [usr.name] seem to have given up on giving [I] to you."))
 					return
 				if(target.r_hand != null && target.l_hand != null)
-					to_chat(target, "<span class='warning'> Your hands are full.</span>")
-					to_chat(usr, "<span class='warning'> Their hands are full.</span>")
+					to_chat(target, span_warning(" Your hands are full."))
+					to_chat(usr, span_warning(" Their hands are full."))
 					return
 				usr.drop_item_ground(I)
 				target.put_in_hands(I, ignore_anim = FALSE)
 				I.add_fingerprint(target)
-				target.visible_message("<span class='notice'> [usr.name] handed [I] to [target.name].</span>")
+				target.visible_message(span_notice(" [usr.name] handed [I] to [target.name]."))
 				I.on_give(usr, target)
 			if("No")
-				target.visible_message("<span class='warning'> [usr.name] tried to hand [I] to [target.name] but [target.name] didn't want it.</span>")
+				target.visible_message(span_warning(" [usr.name] tried to hand [I] to [target.name] but [target.name] didn't want it."))
 	else
-		to_chat(usr, "<span class='warning'> [target.name]'s hands are full.</span>")
+		to_chat(usr, span_warning(" [target.name]'s hands are full."))
 
 /**
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
@@ -61,20 +61,20 @@
 	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return
 	if(has_status_effect(STATUS_EFFECT_OFFERING_ITEM))
-		to_chat(src, "<span class='warning'>You're already offering an item to someone!</span>")
+		to_chat(src, span_warning("You're already offering an item to someone!"))
 		return
 	if(istype(client.click_intercept, /datum/click_intercept/give))
 		QDEL_NULL(client.click_intercept)
 		return
 	var/obj/item/I = get_active_hand()
 	if(!I)
-		to_chat(src, "<span class='warning'>You don't have anything in your hand to give!</span>")
+		to_chat(src, span_warning("You don't have anything in your hand to give!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(src, "<span class='warning'>[I] is stuck to your hand, you can't give it away!</span>")
+		to_chat(src, span_warning("[I] is stuck to your hand, you can't give it away!"))
 		return
 	if(I.item_flags & ABSTRACT)
-		to_chat(src, "<span class='warning'>That's not exactly something you can give.</span>")
+		to_chat(src, span_warning("That's not exactly something you can give."))
 		return
 
 	new /datum/click_intercept/give(client)
@@ -109,8 +109,8 @@
 	var/mob/living/carbon/receiver = locateUID(receiver_UID)
 	var/mob/living/carbon/giver = attached_effect.owner
 	var/obj/item/I = locateUID(item_UID)
-	to_chat(giver, "<span class='info'>You decide against giving [I] to [receiver].</span>")
-	to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [I].</span>")
+	to_chat(giver, span_info("You decide against giving [I] to [receiver]."))
+	to_chat(receiver, span_warning("[giver] seems to have given up on giving you [I]."))
 	receiver.clear_alert("take item [item_UID]") // This cancels *everything* related to the giving/item offering.
 
 
@@ -205,8 +205,8 @@
 	SIGNAL_HANDLER
 	var/mob/living/giver = locateUID(giver_UID)
 	var/mob/living/receiver = locateUID(receiver_UID)
-	to_chat(giver, "<span class='warning'>You need to keep the item in your active hand if you want to hand it to someone!</span>")
-	to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [locateUID(item_UID)].</span>")
+	to_chat(giver, span_warning("You need to keep the item in your active hand if you want to hand it to someone!"))
+	to_chat(receiver, span_warning("[giver] seems to have given up on giving you [locateUID(item_UID)]."))
 	receiver.clear_alert("take item [item_UID]")
 
 
@@ -216,22 +216,22 @@
 		return
 	var/obj/item/I = locateUID(item_UID)
 	if(receiver.r_hand && receiver.l_hand)
-		to_chat(receiver, "<span class='warning'>You need to have your hands free to accept [I]!</span>")
+		to_chat(receiver, span_warning("You need to have your hands free to accept [I]!"))
 		return
 	var/mob/living/giver = locateUID(giver_UID)
 	if(!giver.Adjacent(receiver))
-		to_chat(receiver, "<span class='warning'>You need to stay in reaching distance of [giver] to take [I]!</span>")
+		to_chat(receiver, span_warning("You need to stay in reaching distance of [giver] to take [I]!"))
 		return
 	if(HAS_TRAIT(I, TRAIT_NODROP))
-		to_chat(giver, "<span class='warning'>[I] stays stuck to your hand when [receiver] tries to take it!</span>")
-		to_chat(receiver, "<span class='warning'>[I] stays stuck to [giver]'s hand when you try to take it!</span>")
+		to_chat(giver, span_warning("[I] stays stuck to your hand when [receiver] tries to take it!"))
+		to_chat(receiver, span_warning("[I] stays stuck to [giver]'s hand when you try to take it!"))
 		return
 	UnregisterSignal(I, list(COMSIG_ITEM_EQUIPPED, COMSIG_ITEM_DROPPED)) // We don't want these triggering `cancel_give` at this point, since the give is successful.
 	giver.drop_item_ground(I)
 	receiver.put_in_hands(I, ignore_anim = FALSE)
 	I.add_fingerprint(receiver)
 	I.on_give(giver, receiver)
-	receiver.visible_message("<span class='notice'>[giver] handed [I] to [receiver].</span>")
+	receiver.visible_message(span_notice("[giver] handed [I] to [receiver]."))
 	receiver.clear_alert("take item [item_UID]")
 
 
@@ -241,6 +241,6 @@
 	// Make sure we're still nearby. We don't want to show a message if the giver not near us.
 	if(giver in view(3, receiver))
 		var/obj/item/I = locateUID(item_UID)
-		to_chat(giver, "<span class='warning'>You tried to hand [I] to [receiver], but they didn't want it.</span>")
-		to_chat(receiver, "<span class='warning'>[giver] seems to have given up on giving you [I].</span>")
+		to_chat(giver, span_warning("You tried to hand [I] to [receiver], but they didn't want it."))
+		to_chat(receiver, span_warning("[giver] seems to have given up on giving you [I]."))
 	..()

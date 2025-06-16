@@ -19,8 +19,8 @@
 
 		C << 'sound/effects/adminhelp.ogg'
 
-		to_chat(C, span_fontsize4("<span style='color: red;'><b>- AdminHelp Rejected! -</b></span>"), confidential=TRUE)
-		to_chat(C, "<span style='color: red;'><b>Your admin help was rejected.</b></span>", confidential=TRUE)
+		to_chat(C, span_fontsize_18px(span_fontcolor_red("<b>- AdminHelp Rejected! -</b>")), confidential=TRUE)
+		to_chat(C, span_fontcolor_red("<b>Your admin help was rejected.</b>"), confidential=TRUE)
 		to_chat(C, "Please try to be calm, clear, and descriptive in admin helps, do not assume the admin has seen any related events, and clearly state the names of anybody you are reporting. If you asked a question, please ensure it was clear what you were asking.", confidential=TRUE)
 
 		message_admins("[key_name_admin(usr)] rejected [key_name_admin(C.mob)]'s admin help")
@@ -281,14 +281,14 @@
 			var/new_ckey = ckey(tgui_input_text(usr, "Сикей нового админа", "Добавление админа", null, encode=FALSE))
 			if(!new_ckey)	return
 			if(new_ckey in GLOB.admin_datums)
-				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': [new_ckey] уже админ!</span>", confidential=TRUE)
+				to_chat(usr, span_fontcolor_red("Ошибка: Topic 'editrights': [new_ckey] уже админ!"), confidential=TRUE)
 				return
 			adm_ckey = new_ckey
 			task = "rank"
 		else if(task != "show")
 			adm_ckey = ckey(href_list["ckey"])
 			if(!adm_ckey)
-				to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный сикей</span>", confidential=TRUE)
+				to_chat(usr, span_fontcolor_red("Ошибка: Topic 'editrights': Неверный сикей"), confidential=TRUE)
 				return
 
 		var/datum/admins/D = GLOB.admin_datums[adm_ckey]
@@ -319,7 +319,7 @@
 				if("*Новый Ранг*")
 					new_rank = tgui_input_text(usr, "Введите название нового ранга", "Новый Ранг", null, encode = FALSE)
 					if(!new_rank)
-						to_chat(usr, "<span style='color: red;'>Ошибка: Topic 'editrights': Неверный ранг</span>", confidential=TRUE)
+						to_chat(usr, span_fontcolor_red("Ошибка: Topic 'editrights': Неверный ранг"), confidential=TRUE)
 						return
 					if(new_rank in GLOB.admin_ranks)
 						rights = GLOB.admin_ranks[new_rank]		//we typed a rank which already exists, use its rights
@@ -1985,7 +1985,7 @@
 		var/mob/M = locateUID(href_list["observeinventory"])
 
 		if(!ismob(M))
-			to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob</span>")
+			to_chat(usr, span_warning("This can only be used on instances of type /mob"))
 			return
 		C.admin_observe_target(M, TRUE)
 
@@ -3384,20 +3384,20 @@
 								var/Message = rand(1,4)
 								switch(Message)
 									if(1)
-										M.show_message(text("<span class='notice'>You shudder as if cold...</span>"), 1)
+										M.show_message(text(span_notice("You shudder as if cold...")), 1)
 									if(2)
-										M.show_message(text("<span class='notice'>You feel something gliding across your back...</span>"), 1)
+										M.show_message(text(span_notice("You feel something gliding across your back...")), 1)
 									if(3)
-										M.show_message(text("<span class='notice'>Your eyes twitch, you feel like something you can't see is here...</span>"), 1)
+										M.show_message(text(span_notice("Your eyes twitch, you feel like something you can't see is here...")), 1)
 									if(4)
-										M.show_message(text("<span class='notice'>You notice something moving out of the corner of your eye, but nothing is there...</span>"), 1)
+										M.show_message(text(span_notice("You notice something moving out of the corner of your eye, but nothing is there...")), 1)
 								for(var/obj/W in orange(5,M))
 									if(prob(25) && !W.anchored)
 										step_rand(W)
 					sleep(rand(100,1000))
 				for(var/mob/M in GLOB.player_list)
 					if(M.stat != 2)
-						M.show_message(text("<span class='notice'>The chilling wind suddenly stops...</span>"), 1)
+						M.show_message(text(span_notice("The chilling wind suddenly stops...")), 1)
 			if("lightout")
 				if(!you_realy_want_do_this())
 					return

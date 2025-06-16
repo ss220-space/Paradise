@@ -205,7 +205,7 @@
 	if(activated)
 		return
 	if(!iscarbon(user))
-		to_chat(user, "<span class='warning'>The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath.</span>")
+		to_chat(user, span_warning("The snake carving seems to come alive, if only for a moment, before returning to its dormant state, almost as if it finds you incapable of holding its oath."))
 		return
 	var/mob/living/carbon/itemUser = user
 	if(itemUser.l_hand == src)
@@ -213,10 +213,10 @@
 	if(itemUser.r_hand == src)
 		usedHand = 0
 	if(itemUser.has_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH))
-		to_chat(user, "<span class='warning'>You can't possibly handle the responsibility of more than one rod!</span>")
+		to_chat(user, span_warning("You can't possibly handle the responsibility of more than one rod!"))
 		return
-	var/failText = "<span class='warning'>The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
-	to_chat(itemUser, "<span class='notice'>The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong...</span>")
+	var/failText = span_warning("The snake seems unsatisfied with your incomplete oath and returns to its previous place on the rod, returning to its dormant, wooden state. You must stand still while completing your oath!</span>"
+	to_chat(itemUser, span_notice("The wooden snake that was carved into the rod seems to suddenly come alive and begins to slither down your arm! The compulsion to help others grows abnormally strong..."))
 	if(do_after(itemUser, 4 SECONDS, itemUser, max_interact_count = 1))
 		itemUser.say("Клянусь Аполлоном врачом, Асклепием, всеми богами и богинями, беря их в свидетели, исполнять честно, соответственно моим силам и здравому смыслу, следующую клятву:")
 	else
@@ -252,7 +252,7 @@
 	else
 		to_chat(itemUser, failText)
 		return
-	to_chat(itemUser, "<span class='notice'>The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory...</span>")
+	to_chat(itemUser, span_notice("The snake, satisfied with your oath, attaches itself and the rod to your forearm with an inseparable grip. Your thoughts seem to only revolve around the core idea of helping others, and harm is nothing more than a distant, wicked memory..."))
 	var/datum/status_effect/hippocraticOath/effect = itemUser.apply_status_effect(STATUS_EFFECT_HIPPOCRATIC_OATH)
 	effect.hand = usedHand
 	activated()
@@ -446,7 +446,7 @@
 
 /obj/item/cursed_katana/examine(mob/user)
 	. = ..()
-	. += drew_blood ? ("<span class='notice'>It's sated... for now.</span>") : ("<span class='danger'>It will not be sated until it tastes blood.</span>")
+	. += drew_blood ? (span_notice("It's sated... for now.")) : (span_danger("It will not be sated until it tastes blood."))
 
 
 /obj/item/cursed_katana/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

@@ -193,5 +193,5 @@
 /mob/living/basic/examine(mob/user)
 	. = ..()
 	if(stat == DEAD)
-		. += "<span class='deadsay'>Upon closer examination, [p_they()] appear[p_s()] to be dead.</span>"
+		. += span_deadsay("Upon closer examination, [p_they()] appear[p_s()] to be dead.")
 		return

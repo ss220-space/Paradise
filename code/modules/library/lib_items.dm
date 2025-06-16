@@ -211,19 +211,19 @@
 		if(in_range(user, src) || istype(user, /mob/dead/observer))
 			attack_self(user)
 		else
-			. += "<span class='notice'>You have to go closer if you want to read it.</span>"
+			. += span_notice("You have to go closer if you want to read it.")
 	else
-		. += "<span class='notice'>You don't know how to read.</span>"
+		. += span_notice("You don't know how to read.")
 
 /obj/item/book/attack_self(mob/user)
 	if(carved)
 		if(store)
-			to_chat(user, "<span class='notice'>[store] falls out of [title]!</span>")
+			to_chat(user, span_notice("[store] falls out of [title]!"))
 			store.forceMove(get_turf(loc))
 			store = null
 			return
 		else
-			to_chat(user, "<span class='notice'>The pages of [title] have been cut out!</span>")
+			to_chat(user, span_notice("The pages of [title] have been cut out!"))
 			return
 	if(src.dat)
 		var/datum/browser/popup = new(user, "book", title)
