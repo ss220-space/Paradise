@@ -73,6 +73,7 @@
 		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
 		to_chat(user, span_notice("Вы зажгли [src.declent_ru(ACCUSATIVE)], но в процессе обожгли себе руку."))
 	if(world.time > next_on_message)
+		user.balloon_alert(user, "включено")
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
 		next_on_message = world.time + 5 SECONDS
 
@@ -170,6 +171,7 @@
 /obj/item/lighter/zippo/turn_on_lighter(mob/living/user)
 	. = ..()
 	if(world.time > next_on_message)
+		user.balloon_alert(user, "включено")
 		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[pluralize_ru(user.gender, "ет", "ют")] и зажига[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)]."))
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
@@ -182,7 +184,8 @@
 		return
 
 	if(world.time > next_off_message)
-		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], даже смотря в её сторону. Во даёт!"))
+		user.balloon_alert(user, "выключено")
+		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
 	else
@@ -309,7 +312,7 @@
 
 /obj/item/lighter/zippo/hos
 	name = "Head of Security zippo"
-	desc = "Ограниченная серия Зиппо для Глав станций НаноТрейзен. Она просто не может не работать на крови и слезах клоунов"
+	desc = "Ограниченная серия Зиппо для Глав станций НаноТрейзен. Она просто не может не работать на крови и слезах клоунов."
 	ru_names = list(
 		NOMINATIVE = "зажигалка Зиппо Главы Службы Безопасности",
 		GENITIVE = "зажигалки Зиппо Главы Службы Безопасности",
@@ -496,20 +499,22 @@
 	. = ..()
 	var/init_name = initial(name)
 	name = lit ? "lit [init_name]" : burnt ? "burnt [init_name]" : initial(name)
-	if(ru_names && lit)
-		ru_names[1] = "горящая " + ru_names[1]
-		ru_names[2] = "горящей " + ru_names[2]
-		ru_names[3] = "горящей " + ru_names[3]
-		ru_names[4] = "горящую " + ru_names[4]
-		ru_names[5] = "горящей " + ru_names[5]
-		ru_names[6] = "горящей " + ru_names[6]
-	if(ru_names && burnt)
-		ru_names[1] = "сгоревшая " + ru_names[1]
-		ru_names[2] = "сгоревшей " + ru_names[2]
-		ru_names[3] = "сгоревшей " + ru_names[3]
-		ru_names[4] = "сгоревшую " + ru_names[4]
-		ru_names[5] = "сгоревшей " + ru_names[5]
-		ru_names[6] = "сгоревшей " + ru_names[6]
+	if(ru_names)
+		if(lit)
+			ru_names[1] = "горящая " + ru_names[1]
+			ru_names[2] = "горящей " + ru_names[2]
+			ru_names[3] = "горящей " + ru_names[3]
+			ru_names[4] = "горящую " + ru_names[4]
+			ru_names[5] = "горящей " + ru_names[5]
+			ru_names[6] = "горящей " + ru_names[6]
+		if(burnt)
+			ru_names = initial(ru_names)
+			ru_names[1] = "сгоревшая " + ru_names[1]
+			ru_names[2] = "сгоревшей " + ru_names[2]
+			ru_names[3] = "сгоревшей " + ru_names[3]
+			ru_names[4] = "сгоревшую " + ru_names[4]
+			ru_names[5] = "сгоревшей " + ru_names[5]
+			ru_names[6] = "сгоревшей " + ru_names[6]
 
 
 /obj/item/match/update_desc(updates = ALL)
@@ -574,7 +579,7 @@
 
 	if(istype(src, /obj/item/match/unathi))
 		if(prob(50))
-			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив своё лицо!"))
+			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [genderize_ru()] лицо!"))
 			matchburnout()
 		else
 			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] , опаливая своё лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))

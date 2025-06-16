@@ -176,7 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(prob(50) || user.mind.assigned_role == "Wizard")
 			light(span_notice("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь свою [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"))
 		else
-			to_chat(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
+			to_chat(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не удалось зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
 			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 		wand.charges--
 		wand.update_icon(UPDATE_ICON_STATE)
@@ -716,9 +716,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 /obj/item/clothing/mask/holo_cigar/examine(mob/user)
 	. = ..()
 	if(enabled)
-		. += "[capitalize(declent_ru(NOMINATIVE))] тихо гудит, пока синтезирует никотин."
+		. += span_notice("Включена и синтезирует никотин.")
 	else
-		. += "[capitalize(declent_ru(NOMINATIVE))], по всей видимости, выключена."
+		. += span_notice("Выключена.")
 
 /obj/item/clothing/mask/holo_cigar/process()
 	if(!iscarbon(loc))

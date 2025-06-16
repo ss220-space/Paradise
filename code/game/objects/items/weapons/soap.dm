@@ -91,7 +91,7 @@
 /obj/item/soap/homemade_potato
 	desc = "Домашний кусок мыла. Обладает ароматом картошки."
 	icon_state = "soappotato"
-	item_state = "soappomato"
+	item_state = "soappotato"
 	cleanspeed = 45 // a little faster to reward chemists for going to the effort
 
 /obj/item/soap/homemade_pumpkin
@@ -231,7 +231,7 @@
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
-		user.balloon_alert(user, "сначала снимите с себя [target.declent_ru(ACCUSATIVE)]!")
+		user.balloon_alert(user, "сначала снимите это с себя!")
 	else
 		user.visible_message(span_warning("[user] начинает возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
