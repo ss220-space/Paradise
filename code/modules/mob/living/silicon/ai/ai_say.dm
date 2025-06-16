@@ -72,9 +72,9 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 #define VOX_PATH "sound/vox_fem/"
 
 /mob/living/silicon/ai/verb/announcement_help()
-	set name = "Памятка по оповещениям"
+	set name = "Announcement Help"
 	set desc = "Display a list of vocal words to announce to the crew."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 
 	var/list/dat = list()
 

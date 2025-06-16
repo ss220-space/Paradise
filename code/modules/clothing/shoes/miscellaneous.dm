@@ -221,8 +221,8 @@
 
 
 /obj/item/clothing/shoes/workboots/mining/verb/verb_remove_knife()
-	set category = "Объекты"
-	set name = "Достать нож"
+	set category = "Object"
+	set name = "Remove knife"
 	set src in usr
 	remove_knife(usr)
 

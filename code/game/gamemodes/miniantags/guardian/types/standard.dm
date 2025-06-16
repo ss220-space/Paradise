@@ -14,7 +14,7 @@
 
 /mob/living/simple_animal/hostile/guardian/punch/verb/Battlecry()
 	set name = "Боевой клич"
-	set category = "Страж"
+	set category = "Guardian"
 	set desc = "Выбери крик при ударе"
 	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Change Battlecry", battlecry, 8)
 	if(input)

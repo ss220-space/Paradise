@@ -1,16 +1,16 @@
 // DRONE ABILITIES
 /mob/living/silicon/robot/drone/verb/set_mail_tag()
-	set name = "Задать почтовый тег"
+	set name = "Set Mail Tag"
 	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Дрон"
+	set category = "Drone"
 
-	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
+	var/tag = input("Выберите желаемое место назначения.", "Установка почтового тега", null) as null|anything in GLOB.TAGGERLOCATIONS
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
 		return
 
-	to_chat(src, "<span class='notice'>You configure your internal beacon, tagging yourself for delivery to '[tag]'.</span>")
+	to_chat(src, span_notice("Вы настраиваете внутренний маячок, помечая себя для доставки в \"[tag]\"."))
 	mail_destination = GLOB.TAGGERLOCATIONS.Find(tag)
 
 	//Auto flush if we use this verb inside a disposal chute.
@@ -21,9 +21,9 @@
 
 
 /mob/living/silicon/robot/drone/verb/hide()
-	set name = "Спрятаться"
+	set name = "Hide"
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
-	set category = "Дрон"
+	set category = "Drone"
 
 	var/datum/action/innate/hide/drone/hide = locate() in actions
 	if(!hide)
@@ -33,9 +33,9 @@
 
 
 /mob/living/silicon/robot/drone/verb/light()
-	set name = "Переключить освещение"
+	set name = "Light On/Off"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = "Дрон"
+	set category = "Drone"
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
@@ -49,9 +49,9 @@
 		..()
 
 /mob/living/silicon/robot/drone/verb/customize()
-	set name = "Кастомизация шасси"
+	set name = "Customize Chassis"
 	set desc = "Reconfigure your chassis into a customized version."
-	set category = "Дрон"
+	set category = "Drone"
 
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
 		var/file = file2text("config/custom_sprites.txt")
@@ -70,11 +70,11 @@
 				custom_sprite = 1  // option is given in hologram menu
 
 	if(!custom_sprite)
-		to_chat(src, "<span class='warning'>Error 404: Custom chassis not found. Revoking customization option.</span>")
+		to_chat(src, span_warning("Ошибка 404: Кастомное шасси не найдено. Отмена опции настройки."))
 	else
 		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
 		icon_state = "[ckey]-drone"
-		to_chat(src, "<span class='notice'>You reconfigure your chassis and improve the station through your new aesthetics.</span>")
+		to_chat(src, span_notice("Вы переконфигурируете своё шасси и улучшаете станцию своими новыми эстетическими изменениями."))
 	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)

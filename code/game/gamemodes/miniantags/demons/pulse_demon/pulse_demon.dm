@@ -288,12 +288,12 @@
 /mob/living/simple_animal/demon/pulse_demon/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Заряд:", "[format_si_suffix(charge)]W")
-	status_tab_data[++status_tab_data.len] = list("Максимальный заряд:", "[format_si_suffix(maxcharge)]W")
-	status_tab_data[++status_tab_data.len] = list("Поглощённый заряд:", "[format_si_suffix(charge_drained)]W")
-	status_tab_data[++status_tab_data.len] = list("Взломано ЛКП:", "[length(hijacked_apcs)]")
-	status_tab_data[++status_tab_data.len] = list("Скорость поглощения:", "[format_si_suffix(power_drain_rate)]W")
-	status_tab_data[++status_tab_data.len] = list("Время взлома:", "[hijack_time / 10] секунд[declension_ru(hijack_time / 10, "а", "ы", "")]")
+	status_tab_data[++status_tab_data.len] = list("Charge:", "[format_si_suffix(charge)]W")
+	status_tab_data[++status_tab_data.len] = list("Maximum Charge:", "[format_si_suffix(maxcharge)]W")
+	status_tab_data[++status_tab_data.len] = list("Drained Charge:", "[format_si_suffix(charge_drained)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijacked APCs:", "[length(hijacked_apcs)]")
+	status_tab_data[++status_tab_data.len] = list("Drain Rate:", "[format_si_suffix(power_drain_rate)]W")
+	status_tab_data[++status_tab_data.len] = list("Hijack Time:", "[hijack_time / 10] seconds")
 
 /mob/living/simple_animal/demon/pulse_demon/dust()
 	return death()
@@ -418,7 +418,7 @@
 		update_controlling_area()
 
 /mob/living/simple_animal/demon/pulse_demon/move_up()
-	set name = "Подняться"
+	set name = "Move Upwards"
 	set category = "IC"
 
 	var/turf/current_turf = get_turf(src)
@@ -435,7 +435,7 @@
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/simple_animal/demon/pulse_demon/move_down()
-	set name = "Опуститься"
+	set name = "Move Down"
 	set category = "IC"
 
 	var/turf/current_turf = get_turf(src)

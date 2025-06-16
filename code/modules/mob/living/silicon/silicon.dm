@@ -240,7 +240,7 @@
 
 // this function shows the health of the pAI in the Status panel
 /mob/living/silicon/proc/show_system_integrity()
-	return list("Состояние системы:", stat ? "Не функционирует" : "[round((health / maxHealth) * 100)]%")
+	return list("System integrity:", stat ? "Nonfunctional" : "[round((health / maxHealth) * 100)]%")
 
 
 // This adds the basic clock, shuttle recall timer, and malf_ai info to all silicon lifeforms
@@ -292,14 +292,14 @@
 	return -10
 
 /mob/living/silicon/verb/pose()
-	set name = "Задать позу"
+	set name = "Set Pose"
 	set desc = "Sets a description which will be shown when someone examines you."
 	set category = "IC"
 
 	pose =  sanitize(copytext_char(input(usr, "This is [src]. It is...", "Pose", null)  as text, 1, MAX_MESSAGE_LEN))
 
 /mob/living/silicon/verb/set_flavor()
-	set name = "Задать описание внешности"
+	set name = "Set Flavour Text"
 	set desc = "Sets an extended description of your character's features."
 	set category = "IC"
 

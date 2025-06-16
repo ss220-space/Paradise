@@ -18,8 +18,8 @@
 
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
-	set category = "ИИ мессенджер"
-	set name = "Отправить сообщение на КПК"
+	set category = "AI IM"
+	set name = "Send PDA Message"
 	set src in usr
 
 	if(!can_use(usr))
@@ -36,8 +36,8 @@
 		M.create_message(usr, selected)
 
 /obj/item/pda/silicon/verb/cmd_show_message_log()
-	set category = "ИИ мессенджер"
-	set name = "Показать журнал сообщений"
+	set category = "AI IM"
+	set name = "Show Message Log"
 	set src in usr
 
 	if(!can_use(usr))
@@ -55,8 +55,8 @@
 	popup.open(FALSE)
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
-	set category = "ИИ мессенджер"
-	set name = "Переключить приём сообщений"
+	set category = "AI IM"
+	set name = "Toggle Sender/Receiver"
 	set src in usr
 
 	if(!can_use(usr))
@@ -67,8 +67,8 @@
 
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
-	set category = "ИИ мессенджер"
-	set name = "Переключить уведомления"
+	set category = "AI IM"
+	set name = "Toggle Ringer"
 	set src in usr
 
 	if(!can_use(usr))

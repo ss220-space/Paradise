@@ -239,19 +239,19 @@
 
 
 /obj/machinery/recharge_station/verb/move_eject()
-	set category = "Объекты"
+	set category = "Object"
 	set src in oview(1)
 	go_out(usr)
 
 
 /obj/machinery/recharge_station/verb/move_inside_verb()
-	set category = "Объекты"
+	set category = "Object"
 	set src in oview(1)
 	move_inside(usr)
 
 
 /obj/machinery/recharge_station/proc/move_inside(mob/user = usr)
-	set category = "Объекты"
+	set category = "Object"
 	set src in oview(1)
 	if(!user || !usr)
 		return

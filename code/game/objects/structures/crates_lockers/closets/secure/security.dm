@@ -256,8 +256,9 @@
 	var/id = null
 
 /obj/structure/closet/secure_closet/brig/populate_contents()
-	new /obj/item/clothing/under/color/orange/prison(src)
-	new /obj/item/clothing/shoes/orange(src)
+	new /obj/item/clothing/under/prison(src)
+	new /obj/item/clothing/head/prison(src)
+	new /obj/item/clothing/shoes/prison(src)
 	new /obj/item/card/id/prisoner/random(src)
 	new /obj/item/radio/headset(src)
 

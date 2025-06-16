@@ -340,6 +340,8 @@
 	for(var/T in preserve_items)
 		if(istype(I, T) && !(I.type in do_not_preserve_items))
 			return CRYO_PRESERVE
+	if(is_id_card(I))
+		SEND_SIGNAL(I, COMSIG_FREEZE_LINKED_ACCOUNT)
 	return CRYO_DESTROY
 
 /obj/machinery/cryopod/proc/handle_contents(obj/item/I)
@@ -619,8 +621,8 @@
 
 
 /obj/machinery/cryopod/verb/eject()
-	set name = "Вылезти"
-	set category = "Объекты"
+	set name = "Eject Pod"
+	set category = "Object"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -644,8 +646,8 @@
 	add_fingerprint(usr)
 
 /obj/machinery/cryopod/verb/move_inside()
-	set name = "Залезть внутрь"
-	set category = "Объекты"
+	set name = "Enter Pod"
+	set category = "Object"
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))

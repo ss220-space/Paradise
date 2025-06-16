@@ -462,8 +462,8 @@
 
 
 /obj/item/gun/proc/toggle_gunlight_verb()
-	set name = "Переключить оружейный фонарь"
-	set category = "Объекты"
+	set name = "Toggle Gun Light"
+	set category = "Object"
 	set desc = "Click to toggle your weapon's attached flashlight."
 
 	toggle_gunlight(usr)

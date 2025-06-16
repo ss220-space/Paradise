@@ -119,15 +119,15 @@
 
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
-	set name = "Модификация имени"
+	set name = "Modify Name"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
-	set category = "Саботажник"
+	set category = "Saboteur"
 	rename_self(braintype, TRUE, TRUE)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/toggle_chameleon()
-	set name = "Переключить маскировочный проектор"
+	set name = "Toggle Chameleon Projector"
 	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
-	set category = "Саботажник"
+	set category = "Saboteur"
 
 	if(!cham_proj)
 		for(var/obj/item/borg_chameleon/C in contents)
@@ -143,9 +143,9 @@
 	cham_proj.attack_self(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
-	set name = "Задать почтовый тег"
+	set name = "Set Mail Tag"
 	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Саботажник"
+	set category = "Saboteur"
 
 	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
 
@@ -179,7 +179,7 @@
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-
+		
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()

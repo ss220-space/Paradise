@@ -1,6 +1,6 @@
 /client/verb/vote()
 	set category = "OOC"
-	set name = "Голосование"
+	set name = "Vote"
 
 	if(SSvote.active_vote)
 		SSvote.active_vote.ui_interact(usr)

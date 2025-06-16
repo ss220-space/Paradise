@@ -125,7 +125,7 @@
 	. = status_tab_data
 	// Provides a status panel indicator, showing purples how long they can be away from their queen before their hivemind link breaks, and they die.
 	// Uses <font color='#X'> because the status panel does NOT accept <span class='X'>.
-	if(statpanel("Статус") && ckey && stat == CONSCIOUS)
+	if(statpanel("Status") && ckey && stat == CONSCIOUS)
 		if(spider_myqueen)
 			var/area/A = get_area(spider_myqueen)
 			if(degenerate)

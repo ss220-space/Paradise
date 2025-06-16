@@ -248,7 +248,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(stat)
-		status_tab_data[++status_tab_data.len] = list("Состояние системы:", "Не функциональна")
+		status_tab_data[++status_tab_data.len] = list("System status:", "Nonfunctional")
 		return
 	status_tab_data = show_borg_info(status_tab_data)
 
@@ -296,18 +296,18 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	popup.open(FALSE)
 
 /mob/living/silicon/ai/proc/show_borg_info(list/status_tab_data)
-	status_tab_data[++status_tab_data.len] = list("Количество подключённых роботов:", "[length(connected_robots)]")
+	status_tab_data[++status_tab_data.len] = list("Connected cyborg count:", "[length(connected_robots)]")
 	for(var/mob/living/silicon/robot/R in connected_robots)
-		var/robot_status = "В порядке"
+		var/robot_status = "Nominal"
 		if(R.stat || !R.client)
-			robot_status = "Вне сети"
+			robot_status = "OFFLINE"
 		else if(!R.cell || R.cell.charge <= 0)
-			robot_status = "Обесточен"
+			robot_status = "DEPOWERED"
 		// Name, Health, Battery, Module, Area, and Status! Everything an AI wants to know about its borgies!
 		var/area/A = get_area(R)
-		var/area_name = A ? sanitize(A.name) : "Неизвестно"
-		status_tab_data[++status_tab_data.len] = list("[R.name]:", "Прочность: [R.health]% | Заряд: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Батарея не обнаружена"] | \
-		Модуль: [R.designation] | Локация: [area_name] | Состояние: [robot_status]")
+		var/area_name = A ? sanitize(A.name) : "Unknown"
+		status_tab_data[++status_tab_data.len] = list("[R.name]:", "S.Integrity: [R.health]% | Cell: [R.cell ? "[R.cell.charge] / [R.cell.maxcharge]" : "Empty"] | \
+		Module: [R.designation] | Loc: [area_name] | Status: [robot_status]")
 	return status_tab_data
 
 /mob/living/silicon/ai/rename_character(oldname, newname)
@@ -372,8 +372,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		use_power = ACTIVE_POWER_USE
 
 /mob/living/silicon/ai/proc/pick_icon()
-	set category = "ИИ команды"
-	set name = "Задать дисплей ядра ИИ"
+	set category = "AI Commands"
+	set name = "Set AI Core Display"
 	if(stat || aiRestorePowerRoutine)
 		return
 	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
@@ -567,14 +567,14 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 // this verb lets the ai see the stations manifest
 /mob/living/silicon/ai/proc/ai_roster()
-	set name = "Манифест экипажа"
-	set category = "ИИ команды"
+	set name = "Show Crew Manifest"
+	set category = "AI Commands"
 	show_station_manifest()
 
 /mob/living/silicon/ai/var/message_cooldown = 0
 /mob/living/silicon/ai/proc/ai_announcement_text()
-	set category = "ИИ команды"
-	set name = "Сделать станционное объявление"
+	set category = "AI Commands"
+	set name = "Make Station Announcement"
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
@@ -596,8 +596,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		message_cooldown = 0
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
-	set name = "Вызвать эвакуационный шаттл"
-	set category = "ИИ команды"
+	set name = "Call Emergency Shuttle"
+	set category = "AI Commands"
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -614,8 +614,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return
 
 /mob/living/silicon/ai/proc/ai_cancel_call()
-	set name = "Отозвать эвакуационный шаттл"
-	set category = "ИИ команды"
+	set name = "Recall Emergency Shuttle"
+	set category = "AI Commands"
 
 	if(check_unable(AI_CHECK_WIRELESS))
 		return
@@ -632,8 +632,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	view_core()
 
 /mob/living/silicon/ai/verb/toggle_anchor()
-	set category = "ИИ команды"
-	set name = "Переключить болтирование к полу"
+	set category = "AI Commands"
+	set name = "Toggle Floor Bolts"
 
 	if(!isturf(loc)) // if their location isn't a turf
 		return // stop
@@ -647,9 +647,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 
 /mob/living/silicon/ai/proc/announcement()
-	set name = "Звуковое оповещение"
+	set name = "Announcement"
 	set desc = "Create a vocal announcement by typing in the available words to create a sentence."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
@@ -854,8 +854,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	SEND_SIGNAL(src, COMSIG_MOB_RESET_PERSPECTIVE)
 
 /mob/living/silicon/ai/proc/botcall()
-	set category = "ИИ команды"
-	set name = "Диспетчер роботов"
+	set category = "AI Commands"
+	set name = "Access Robot Control"
 	set desc = "Wirelessly control various automatic robots."
 	if(stat == 2)
 		to_chat(src, "<span class='danger'>Critical error. System offline.</span>")
@@ -964,8 +964,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 //Adds in /mob/living/silicon/ai/proc/ai_network_change() instead
 //Addition by Mord_Sith to define AI's network change ability
 /mob/living/silicon/ai/proc/ai_network_change()
-	set category = "ИИ команды"
-	set name = "Сменить сеть камер"
+	set category = "AI Commands"
+	set name = "Jump To Network"
 	unset_machine()
 	var/cameralist[0]
 
@@ -1009,8 +1009,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 //End of code by Mord_Sith
 
 /mob/living/silicon/ai/proc/ai_statuschange()
-	set category = "ИИ команды"
-	set name = "Выбрать статус ИИ"
+	set category = "AI Commands"
+	set name = "AI Status"
 
 	if(usr.stat == 2)
 		to_chat(usr, "You cannot change your emotional status because you are dead!")
@@ -1047,9 +1047,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 //I am the icon meister. Bow fefore me.	//>fefore
 /mob/living/silicon/ai/proc/ai_hologram_change()
-	set name = "Сменить голограмму"
+	set name = "Change Hologram"
 	set desc = "Change the default hologram available to AI to something else."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 
 	if(check_unable())
 		return
@@ -1196,9 +1196,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 
 //Toggles the luminosity and applies it by re-entereing the camera.
 /mob/living/silicon/ai/proc/toggle_camera_light()
-	set name = "Переключение подсветки камер"
+	set name = "Toggle Camera Lights"
 	set desc = "Toggles the lights on the cameras throughout the station."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 
 	if(stat != CONSCIOUS)
 		return
@@ -1223,28 +1223,28 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		aiRadio.make_syndie()
 
 /mob/living/silicon/ai/proc/sensor_mode()
-	set name = "Настроить HUD камеры"
+	set name = "Set Sensor Augmentation"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 	toggle_sensor_mode()
 
 /mob/living/silicon/ai/proc/ai_change_voice()
-	set name = "Сменить голос"
+	set name = "Change Voice"
 	set desc = "Express yourself!"
-	set category = "ИИ команды"
+	set category = "AI Commands"
 	change_voice()
 
 /mob/living/silicon/ai/proc/arrivals_announcement()
-	set name = "Переключить авто-оповещения о прибытии на станцию"
+	set name = "Toggle Arrivals Announcer"
 	set desc = "Change whether or not you wish to announce arrivals."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 	announce_arrivals = !announce_arrivals
 	to_chat(usr, "Arrivals announcement system [announce_arrivals ? "enabled" : "disabled"]")
 
 /mob/living/silicon/ai/proc/change_arrival_message()
-	set name = "Задать сообщение о прибытии на станцию"
+	set name = "Set Arrival Message"
 	set desc = "Change the message that's transmitted when a new crew member arrives on station."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 
 	var/newmsg = tgui_input_text(usr, "What would you like the arrival message to be? List of options: $name, $rank, $species, $gender, $age", "Change Arrival Message", arrivalmsg, encode = FALSE)
 	if(isnull(newmsg) || newmsg == arrivalmsg)
@@ -1298,9 +1298,9 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	return
 
 /mob/living/silicon/ai/proc/control_integrated_radio()
-	set name = "Настройка радиомодуля"
+	set name = "Radio Settings"
 	set desc = "Allows you to change settings of your radio."
-	set category = "ИИ команды"
+	set category = "AI Commands"
 
 	if(check_unable(AI_CHECK_RADIO))
 		return

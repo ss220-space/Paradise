@@ -475,7 +475,7 @@
 	return
 
 /mob/verb/move_up()
-	set name = "Подняться"
+	set name = "Move Upwards"
 	set category = "IC"
 
 	if(remote_control)
@@ -503,7 +503,7 @@
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/verb/move_down()
-	set name = "Опуститься"
+	set name = "Move Down"
 	set category = "IC"
 
 	if(remote_control)

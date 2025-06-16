@@ -1,3 +1,5 @@
+#define possible_spiders(spiders) (length(##spiders))? "Помогите вашему гнезду отложить яйцо Императрицы Ужаса. Это могут сделать: [##spiders.Join(", ")]. Защищайте их и помогите им набрать силу, чтобы они смогли это сделать." : "Вы остались без стаи и единой цели. Но вы знаете что вы созданы убивать и сеять хаос."
+
 /datum/objective/spider_protect
 	name = "Защищать гнездо"
 	needs_target = FALSE
@@ -9,13 +11,15 @@
 
 /datum/objective/spider_protect/proc/generate_text(datum/team/terror_spiders/spider_team)
 	var/list/possible_spiders = list()
-	var/list/spiders = spider_team.main_spiders
+
+	var/list/spiders = spider_team?.main_spiders
 	if(!spiders)
 		return
+
 	for(var/spiter_type in spiders)
 		if(spiter_type != TERROR_OTHER && LAZYLEN(spiders[spiter_type]))
 			possible_spiders += spiter_type
-	explanation_text = "Помогите вашему гнезду отложить яйцо Императрицы Ужаса. Это могут сделать: [possible_spiders.Join(", ")]. Защищайте их и помогите им набрать силу, чтобы они могли отложить яйцо."
+	explanation_text = possible_spiders(possible_spiders)
 
 /datum/objective/spider_protect/check_completion(datum/team/terror_spiders/spider_team)
 	. = ..()

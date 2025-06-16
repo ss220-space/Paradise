@@ -338,15 +338,15 @@
 		explode()
 
 /obj/structure/sign/picture_frame/proc/tilt()
-	set name = "Наклонить изображение"
-	set category = "Объекты"
+	set name = "Tilt Picture"
+	set category = "Object"
 	set src in oview(1)
 
 	toggle_tilt(usr)
 
 /obj/structure/sign/picture_frame/proc/untilt()
-	set name = "Выпрямить изображение"
-	set category = "Объекты"
+	set name = "Straighten Picture"
+	set category = "Object"
 	set src in oview(1)
 
 	toggle_tilt(usr)

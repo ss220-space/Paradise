@@ -1,6 +1,6 @@
 /mob/living/verb/pray(msg as text)
 	set category = "IC"
-	set name = "Молиться"
+	set name = "Pray"
 
 	msg = sanitize(copytext_char(msg, 1, MAX_MESSAGE_LEN))
 	if(!msg)

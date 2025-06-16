@@ -261,15 +261,15 @@
 	. = status_tab_data
 
 	if(!docile)
-		status_tab_data[++status_tab_data.len] = list("Сытость:", "[nutrition]/[get_max_nutrition()]")
+		status_tab_data[++status_tab_data.len] = list("Nutrition:", "[nutrition]/[get_max_nutrition()]")
 
 	if(amount_grown >= age_state.amount_grown_for_split)
-		status_tab_data[++status_tab_data.len] = list("Вы можете", "[age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
+		status_tab_data[++status_tab_data.len] = list("You can:", "[age_state.stat_text][amount_grown >= age_state.amount_grown ? " [age_state.stat_text_evolve]" : ""]!")
 
 	if(stat == UNCONSCIOUS)
-		status_tab_data[++status_tab_data.len] = list("Уровень заряда:", "Вы наполнены энергией!")
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "You are knocked out by high levels of BZ!")
 	else
-		status_tab_data[++status_tab_data.len] = list("Уровень заряда:", "[powerlevel]")
+		status_tab_data[++status_tab_data.len] = list("Power Level:", "[powerlevel]")
 
 
 /mob/living/simple_animal/slime/adjustFireLoss(

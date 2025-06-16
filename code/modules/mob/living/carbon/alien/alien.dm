@@ -106,10 +106,10 @@
 /mob/living/carbon/alien/get_status_tab_items()
 	var/list/status_tab_data = ..()
 	. = status_tab_data
-	status_tab_data[++status_tab_data.len] = list("Намерение:", "[a_intent]")
-	status_tab_data[++status_tab_data.len] = list("Режим передвижения:", "[m_intent]")
+	status_tab_data[++status_tab_data.len] = list("Intent:", "[a_intent]")
+	status_tab_data[++status_tab_data.len] = list("Move Mode:", "[m_intent]")
 	if(can_evolve)
-		status_tab_data[++status_tab_data.len] = list("Прогресс эволюции:", "[evolution_points]/[max_evolution_points]")
+		status_tab_data[++status_tab_data.len] = list("Evolution progress:", "[evolution_points]/[max_evolution_points]")
 
 
 /mob/living/carbon/alien/get_default_language()
@@ -247,7 +247,7 @@
 	return
 
 /mob/living/carbon/alien/verb/nightvisiontoggle()
-	set name = "Переключить зрение в темноте"
+	set name = "Toggle Night Vision"
 
 	if(!nightvision_enabled)
 		lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE

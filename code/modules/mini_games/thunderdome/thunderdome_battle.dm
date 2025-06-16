@@ -194,7 +194,7 @@ GLOBAL_VAR_INIT(tdome_arena_melee, locate(/area/tdome/newtdome/CQC))
 		mob.melt()
 
 	for(var/obj/A in zone)
-		if(istype(A, /obj/machinery/door/poddoor) || istype(A, /obj/minigame_anchor/thunderdome_poller))
+		if(istype(A, /obj/machinery/door/poddoor) || istype(A, /obj/minigame_anchor/thunderdome_poller) || istype(A, /obj/structure/sink/puddle) || istype(A, /obj/structure/table/reinforced))
 			continue
 		qdel(A)
 

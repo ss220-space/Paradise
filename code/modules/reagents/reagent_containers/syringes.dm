@@ -186,6 +186,11 @@
 		. += injoverlay
 		update_equipped_item(update_speedmods = FALSE)
 
+/obj/item/reagent_containers/syringe/traitor_random/Initialize(mapload)
+	list_reagents = list()
+	list_reagents[pick_list("chemistry_tools.json", "traitor_poison_bottle")] = volume
+	. = ..()
+	
 
 /obj/item/reagent_containers/syringe/antiviral
 	name = "Syringe (spaceacillin)"

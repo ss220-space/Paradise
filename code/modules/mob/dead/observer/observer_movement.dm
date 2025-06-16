@@ -1,12 +1,12 @@
 /mob/dead/observer/move_up()
-	set name = "Подняться"
+	set name = "Move Upwards"
 	set category = "IC"
 
 	if(zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, "<span class='notice'>You move upwards.</span>")
 
 /mob/dead/observer/move_down()
-	set name = "Опуститься"
+	set name = "Move Down"
 	set category = "IC"
 
 	if(zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))

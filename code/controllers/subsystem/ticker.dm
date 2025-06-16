@@ -19,6 +19,8 @@ SUBSYSTEM_DEF(ticker)
 	var/current_state = GAME_STATE_STARTUP
 	/// Do we want to force-start as soon as we can
 	var/force_start = FALSE
+	/// Do we want to crew members to start on the shuttle?
+	var/shuttle_start = FALSE
 	/// Do we want to force-end as soon as we can
 	var/force_ending = FALSE
 	/// Leave here at FALSE ! setup() will take care of it when needed for Secret mode -walter0o
@@ -287,10 +289,15 @@ SUBSYSTEM_DEF(ticker)
 
 	// Gather everyones minds
 	for(var/mob/living/player in GLOB.player_list)
-		if(player.mind)
-			minds += player.mind
+		if(!player.mind)
+			continue
+
+		minds += player.mind
 
 	watch = start_watch()
+	if(prob(5))
+		SSticker.shuttle_start = TRUE
+
 	equip_characters() // Apply outfits and loadouts to the characters
 	log_debug("Equipping characters took [stop_watch(watch)]s")
 

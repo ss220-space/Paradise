@@ -26,7 +26,7 @@
 // normal verb for players to view info
 /client/verb/cmd_view_custom_event()
 	set category = "OOC"
-	set name = "Информация об админ-ивенте"
+	set name = "Custom Event Info"
 
 	var/list/custom_event_information = list()
 	if(!GLOB.custom_event_msg || GLOB.custom_event_msg == "")

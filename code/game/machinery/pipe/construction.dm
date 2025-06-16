@@ -179,8 +179,8 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
-	set category = "Объекты"
-	set name = "Повернуть трубу"
+	set category = "Object"
+	set name = "Rotate Pipe"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -196,8 +196,8 @@
 
 
 /obj/item/pipe/verb/flip()
-	set category = "Объекты"
-	set name = "Перевернуть трубу"
+	set category = "Object"
+	set name = "Flip Pipe"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

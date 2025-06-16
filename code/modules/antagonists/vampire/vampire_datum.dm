@@ -301,7 +301,7 @@
 
 
 		if(target.stat < DEAD || target.has_status_effect(STATUS_EFFECT_RECENTLY_SUCCUMBED))
-			if(!mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
+			if(mind && !mind.madeby_sentience_potion && (target.get_real_ckey() || target.player_ghosted)) //Requires ckey regardless if monkey or humanoid, or the body has been ghosted before it died
 				blood = min(20, target.blood_volume)
 				adjust_blood(target, blood * BLOOD_GAINED_MODIFIER)
 				cur.adjustBruteLoss(-3)
@@ -319,7 +319,7 @@
 						bodypart.stop_internal_bleeding()
 
 				if(bloodtotal >= REQ_BLOOD_FOR_SUBCLASS_ACT)
-					subclass?.on_blood_sucking(owner)
+					subclass?.on_blood_sucking(cur)
 
 				to_chat(cur, span_boldnotice("Вы накопили [bloodtotal] единиц[declension_ru(bloodtotal, "у", "ы", "")] крови[bloodusable != old_bloodusable ? ", и теперь вам доступно [bloodusable] единиц[declension_ru(bloodusable, "а", "ы", "")] крови" : ""]."))
 
@@ -339,7 +339,7 @@
 			to_chat(cur, span_warning("Вы выпили свою жертву досуха!"))
 			break
 
-		if(!target.get_real_ckey() && !target.player_ghosted || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
+		if(!target.get_real_ckey() && !target.player_ghosted || !mind || mind.madeby_sentience_potion)//Only runs if there is no ckey and the body has not being ghosted while alive
 			to_chat(cur, span_boldnotice("Питьё крови у [target] насыщает вас, но доступной крови от этого вы не получаете."))
 			cur.set_nutrition(min(NUTRITION_LEVEL_WELL_FED, cur.nutrition + 5))
 

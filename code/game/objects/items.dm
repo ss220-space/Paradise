@@ -784,6 +784,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 	// if an item is already on user you cannot reequip it anywhere if it has NODROP trait
 	if(loc == user && HAS_TRAIT(src, TRAIT_NODROP))
 		if(!silent)
+			//cringe momemt
 			to_chat(user, span_warning("Неведомая сила не позволяет Вам надеть [name]."))
 		return FALSE
 	return TRUE
@@ -807,7 +808,7 @@ GLOBAL_DATUM_INIT(fire_overlay, /mutable_appearance, mutable_appearance('icons/g
 
 /obj/item/verb/verb_pickup()
 	set src in oview(1)
-	set name = "Поднять"
+	set name = "Pick up"
 
 	if(usr.incapacitated() || !isturf(loc) || !Adjacent(usr))
 		return

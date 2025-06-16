@@ -356,7 +356,7 @@
 
 
 /obj/structure/table/verb/do_flip()
-	set name = "Опрокинуть/поднять стол"
+	set name = "Flip/Unflip table"
 	set desc = "Flips or unflips a table"
 	set src in oview(1)
 	actual_flip(usr)

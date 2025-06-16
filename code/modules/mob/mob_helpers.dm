@@ -414,7 +414,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 
 
 /mob/living/verb/mob_sleep()
-	set name = "Спать"
+	set name = "Sleep"
 	set category = "IC"
 
 	if(IsSleeping())

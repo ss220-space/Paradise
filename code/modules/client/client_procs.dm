@@ -1082,7 +1082,7 @@
 #undef SSD_WARNING_TIMER
 
 /client/verb/toggle_fullscreen()
-	set name = "Полноэкранный режим"
+	set name = "Toggle Fullscreen"
 	set category = "OOC"
 
 	fullscreen = !fullscreen
@@ -1130,9 +1130,9 @@
 
 // Ported from /tg/, full credit to SpaceManiac and Timberpoes.
 /client/verb/fit_viewport()
-	set name = "Подгонка области видимости"
+	set name = "Fit Viewport"
 	set desc = "Fit the size of the map window to match the viewport."
-	set category = "Спецкоманды"
+	set category = "Special Verbs"
 
 	// Fetch aspect ratio
 	var/list/view_size = getviewsize(view)
@@ -1191,7 +1191,7 @@
 	winset(src, "mainwindow.mainvsplit", "splitter=[pct]")
 
 /client/verb/fix_stat_panel()
-	set name = "Починить статус-меню"
+	set name = "Fix Stat Panel"
 	set hidden = TRUE
 
 	init_verbs()
@@ -1200,9 +1200,9 @@
  * Reloads the titlescreen if it is bugged for someone.
  */
 /client/verb/fix_title_screen()
-	set name = "Починить заставку в лобби"
+	set name = "Fix Lobby Screen"
 	set desc = "Lobbyscreen broke? Press this."
-	set category = "Спецкоманды"
+	set category = "Special Verbs"
 
 	if(istype(mob, /mob/new_player))
 		SStitle.show_title_screen_to(src)
@@ -1215,7 +1215,7 @@
 
 /client/verb/link_discord_account()
 	set name = "Привязка Discord"
-	set category = "Спецкоманды"
+	set category = "Special Verbs"
 	set desc = "Привязать аккаунт Discord для удобного просмотра игровой статистики на нашем Discord-сервере."
 
 	if(!CONFIG_GET(string/discordurl))

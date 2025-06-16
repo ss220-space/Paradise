@@ -304,8 +304,8 @@
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
 /mob/living/silicon/pai/verb/fold_out()
-	set category = "ПИИ команды"
-	set name = "Перейти в мобильную форму"
+	set category = "pAI Commands"
+	set name = "Unfold Chassis"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -340,8 +340,8 @@
 	card.screen_loc = null
 
 /mob/living/silicon/pai/verb/fold_up()
-	set category = "ПИИ команды"
-	set name = "Выйти из мобильной формы"
+	set category = "pAI Commands"
+	set name = "Collapse Chassis"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -357,8 +357,8 @@
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
-	set category = "ПИИ команды"
-	set name = "Выбрать мобильную форму"
+	set category = "pAI Commands"
+	set name = "Choose Chassis"
 
 	var/list/my_choices = list()
 
@@ -405,8 +405,8 @@
 
 
 /mob/living/silicon/pai/proc/choose_verbs()
-	set category = "ПИИ команды"
-	set name = "Выбрать тип модуляции речи"
+	set category = "pAI Commands"
+	set name = "Choose Speech Verbs"
 
 	var/choice = tgui_input_list(usr, "Какой тип модуляции речи вы бы хотели использовать? Этот выбор можно сделать лишь единожды.", "Модуляция речи", possible_say_verbs)
 	if(!choice) return
@@ -420,9 +420,9 @@
 
 
 /mob/living/silicon/pai/proc/pai_change_voice()
-	set name = "Сменить голос"
+	set name = "Change Voice"
 	set desc = "Express yourself!"
-	set category = "ПИИ команды"
+	set category = "pAI Commands"
 	change_voice()
 
 
@@ -440,8 +440,8 @@
 
 
 /mob/living/silicon/pai/verb/pAI_suicide()
-	set category = "ПИИ команды"
-	set name = "Выгрузить личность"
+	set category = "pAI Commands"
+	set name = "pAI Suicide"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")

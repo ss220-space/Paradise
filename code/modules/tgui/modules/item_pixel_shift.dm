@@ -1,5 +1,5 @@
 /obj/item/verb/shift_position()
-	set name = "Настройка положения объекта"
+	set name = "Shift Item Pixel Position"
 	set src in oview(1)
 
 	if(!isturf(src.loc) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || src.anchored || src.density)
