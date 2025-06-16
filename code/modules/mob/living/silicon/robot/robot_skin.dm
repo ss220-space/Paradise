@@ -446,22 +446,22 @@
 	icon_base_prefix = "eyebotsec"
 	eye_prefix = "eyebotsec"
 
-/datum/robot_skin/seek/std
+/datum/robot_skin/seek/sec
 	icon_base_prefix = "sleeksecurity"
 	eye_prefix = "sleeksecurity"
 
-/datum/robot_skin/noble_h/std
+/datum/robot_skin/noble_h/sec
 	icon_base_prefix = "Noble-SEC-H"
 
-/datum/robot_skin/mech/std
+/datum/robot_skin/mech/sec
 	icon_base_prefix = "woody"
 	eye_prefix = "woody"
 
-/datum/robot_skin/heavy/std
+/datum/robot_skin/heavy/sec
 	icon_base_prefix = "heavysec"
 	eye_prefix = "heavysec"
 
-/datum/robot_skin/spider/std
+/datum/robot_skin/spider/sec
 	icon_base_prefix = "spidersec"
 	eye_prefix = "spidersec"
 
