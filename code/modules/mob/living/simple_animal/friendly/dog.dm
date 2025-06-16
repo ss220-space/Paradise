@@ -46,9 +46,9 @@
 	ai_controller = /datum/ai_controller/dog
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
-	set name = "Chase your tail"
+	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
-	set category = "Dog"
+	set category = STATPANEL_DOG
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)

@@ -215,8 +215,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/verb/verb_reset_pda()
-	set category = "Object"
-	set name = "Reset PDA"
+	set category = STATPANEL_OBJECT
+	set name = "Сброс КПК"
 	set src in usr
 
 	if(issilicon(usr))
@@ -265,8 +265,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 
 /obj/item/pda/verb/verb_remove_id()
-	set category = "Object"
-	set name = "Remove id"
+	set category = STATPANEL_OBJECT
+	set name = "Извлечь ID-карту"
 	set src in usr
 
 	if(issilicon(usr))
@@ -281,8 +281,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		balloon_alert(usr, "вы не можете сделать это сейчас.")
 
 /obj/item/pda/verb/verb_remove_pen()
-	set category = "Object"
-	set name = "Remove pen"
+	set category = STATPANEL_OBJECT
+	set name = "Извлечь ручку"
 	set src in usr
 	remove_pen(usr)
 

@@ -1,6 +1,6 @@
 /client/verb/vote()
-	set category = "OOC"
-	set name = "Vote"
+	set category = STATPANEL_OOC
+	set name = "Голосование"
 
 	if(SSvote.active_vote)
 		SSvote.active_vote.ui_interact(usr)
@@ -14,7 +14,7 @@
 		to_chat(src, "<b>Нет активного голосования!<b>")
 
 /client/proc/start_vote()
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Start Vote"
 	set desc = "Start a vote on the server"
 
@@ -64,7 +64,7 @@
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Start Vote") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/togglevotedead()
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 	set desc = "Toggle Dead Vote."
 	set name = "Toggle Dead Vote"
 

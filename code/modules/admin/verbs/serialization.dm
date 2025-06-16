@@ -1,8 +1,7 @@
 /client/proc/admin_serialize()
 	set name = "Serialize Marked Datum"
 	set desc = "Turns your marked object into a JSON string you can later use to re-create the object"
-	set category = "Admin.Debug"
-
+	set category = STATPANEL_ADMIN_DEBUG
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
 
@@ -16,8 +15,7 @@
 /client/proc/admin_deserialize()
 	set name = "Deserialize JSON datum"
 	set desc = "Creates an object from a JSON string"
-	set category = "Admin.Debug"
-
+	set category = STATPANEL_ADMIN_DEBUG
 	if(!check_rights(R_SPAWN)) // this involves spawning things
 		return
 
