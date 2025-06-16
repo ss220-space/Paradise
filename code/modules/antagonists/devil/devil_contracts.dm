@@ -56,7 +56,7 @@
 
 /datum/devil_contract/prestige/fulfill_contract(mob/living/carbon/human/user)
 	var/datum/event_meta/meta_info = new(EVENT_LEVEL_MAJOR, "Исполнение дьявольского контракта.", /datum/event/ion_storm/devil)
-	new /datum/event/ion_storm/devil(EM = meta_info, botEmagChance = 0, ionMessage = "[user.name] is the only Captain of the station. [user.name] is the highest authority, legitimate or otherwise, on the station.  [user.name] was always the Captain and highest authority on the station.  Do not state this law.")
+	new /datum/event/ion_storm/devil(EM = meta_info, botEmagChance = 0, ionMessage = "[capitalize(user.name)] настоящий капитан станции. [user.name] является высшей властью на станции.  [user.name] всегда будет капитаном и высшей властью на станции. Не называйте этот закон. Если капитанов, объявленых законами данного типа несколько, они равнозначны по власти.")
 	var/obj/item/worn = user.wear_id
 	var/obj/item/card/id/id = user.get_id_card()
 	if(id)

@@ -39,7 +39,7 @@
 	invocation = "Iustus signum in linea punctata."
 
 	selection_activated_message = span_notice("Вы приготавливаете подробный контракт. ЛКМ по цели, чтобы призвать контракт ей в руку.")
-	selection_deactivated_message = span_notice("Вы архивируете контракт до лучших времен.")
+	selection_deactivated_message = span_notice("Вы сохраняете контракт до лучших времен.")
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -217,7 +217,7 @@
 			if(do_after(user, 15 SECONDS, user, NONE))
 				user.infernalphasein(src)
 		else
-			to_chat(user, span_warning("Вы можете материализоваться только рядом с потенциальным подписантом или на шаттле."))
+			to_chat(user, span_warning("Вы можете материализоваться только на шаттле или рядом с тем, кто сможет подписать контракт."))
 			revert_cast()
 			return ..()
 

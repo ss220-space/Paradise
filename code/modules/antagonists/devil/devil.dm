@@ -161,7 +161,7 @@
 		return FALSE
 
 	var/mob/living/carbon/human/human = owner.current
-	human.store_memory("Твоё истинное имя — [info.truename]<br>[info.ban.law].<br>Ты не можешь сознательно и напрямую причинить физический вред другому дьяволу, за исключением себя самого.<br>[info.bane.law]<br>[info.obligation.law]<br>[info.banish.law]<br>")
+	human.store_memory("Ваше истинное имя — [info.truename]<br>[info.ban.law].<br>Вы не можете сознательно и напрямую причинить физический вред другому дьяволу, за исключением себя самого.<br>[info.bane.law]<br>[info.obligation.law]<br>[info.banish.law]<br>")
 
 	update_hud()
 
