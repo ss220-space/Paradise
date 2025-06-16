@@ -1252,3 +1252,82 @@
 		SPECIES_NEARA = 'icons/mob/clothing/species/monkey/uniform.dmi',
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
+
+/obj/item/clothing/under/martirialsuit/masterli
+	name = "Master Li clothes"
+	desc = "Черная одежда, которую носят мастера боевых искусств"
+	ru_names = list(
+		NOMINATIVE = "костюм Мастера Ли",
+		GENITIVE = "костюма Мастера Ли",
+		DATIVE = "костюму Мастера Ли",
+		ACCUSATIVE = "костюм Мастера Ли",
+		INSTRUMENTAL = "костюмом Мастера Ли",
+		PREPOSITIONAL = "костюме Мастера Ли"
+	)
+	over_shoes = FALSE
+	can_adjust = FALSE
+	icon_state = "masterli"
+	item_state = "masterli"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martirialsuit/masterdragon
+	name = "Gold dragon master clothes"
+	desc = "Красная одежда с золотистым узором, которую носят мастера боевых искусств"
+	ru_names = list(
+		NOMINATIVE = "костюм мастера золотого дракона",
+		GENITIVE = "костюма мастера золотого дракона",
+		DATIVE = "костюму мастера золотого дракона",
+		ACCUSATIVE = "костюм мастера золотого дракона",
+		INSTRUMENTAL = "костюмом мастера золотого дракона",
+		PREPOSITIONAL = "костюме мастера золотого дракона"
+	)
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "masterdragon"
+	item_state = "masterdragon"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martirialsuit/redkunoichi
+	name = "Red Kunoichi clothes"
+	desc = "Красный костюм с чёрными деталями"
+	ru_names = list(
+		NOMINATIVE = "красный костюм Куноичи",
+		GENITIVE = "красного костюма Куноичи",
+		DATIVE = "красному костюму Куноичи",
+		ACCUSATIVE = "красный костюм Куноичи",
+		INSTRUMENTAL = "красным костюмом Куноичи",
+		PREPOSITIONAL = "красном костюме Куноичи"
+	)
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "redkunoichi"
+	item_state = "redkunoichi"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martirialsuit/bluekunoichi
+	name = "Blue Kunoichi clothes"
+	desc = "Голубой костюм с белыми деталями"
+	ru_names = list(
+		NOMINATIVE = "голубой костюм Куноичи",
+		GENITIVE = "голубого костюма Куноичи",
+		DATIVE = "голубому костюму Куноичи",
+		ACCUSATIVE = "голубой костюм Куноичи",
+		INSTRUMENTAL = "голубым костюмом Куноичи",
+		PREPOSITIONAL = "голубом костюме Куноичи"
+	)
+	over_shoes = TRUE
+	can_adjust = FALSE
+	icon_state = "bluekunoichi"
+	item_state = "bluekunoichi"
+	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
+
+/obj/item/clothing/under/martirialsuit/random
+	name = "Random martirial arts suit"
+	icon_state = "masterli"
+
+/obj/item/clothing/under/martirialsuit/random/Initialize()
+	. = ..()
+	var/suit = pick(subtypesof(/obj/item/clothing/under/martirialsuit))
+	new suit(loc)
+	qdel(src)
+
