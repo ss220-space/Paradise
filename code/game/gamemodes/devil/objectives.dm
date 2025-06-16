@@ -79,7 +79,7 @@
 
 /datum/objective/devil/sintouch
 	needs_target = FALSE
-	explanation_text = "Вы не должны это видеть.  Error:DEVIL3"
+	explanation_text = "Вы не должны видеть этот текст.  Error: DEVIL3"
 	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
