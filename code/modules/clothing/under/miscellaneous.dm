@@ -1289,7 +1289,7 @@
 
 /obj/item/clothing/under/martialsuit/redkunoichi
 	name = "Red Kunoichi clothes"
-	desc = "Красный костюм с чёрными деталями"
+	desc = "Красный костюм с чёрными элементами."
 	ru_names = list(
 		NOMINATIVE = "красный костюм Куноичи",
 		GENITIVE = "красного костюма Куноичи",
