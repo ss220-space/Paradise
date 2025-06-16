@@ -176,7 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(prob(50) || user.mind.assigned_role == "Wizard")
 			light(span_notice("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь свою [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"))
 		else
-			to_chat(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не удалось зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
+			to_chat(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
 			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 		wand.charges--
 		wand.update_icon(UPDATE_ICON_STATE)
@@ -221,7 +221,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			if(!glass.reagents.total_volume)
 				user.balloon_alert(usr, "пусто!")
 			else
-				user.balloon_alert(usr, "нет места!")
+				user.balloon_alert(usr, "уже заполнено!")
 
 
 /obj/item/clothing/mask/cigarette/update_icon_state()
@@ -603,7 +603,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] просто [capitalize("отказыва[pluralize_ru(gender, "ет", "ют")]ся")] быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
@@ -676,11 +676,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)
 			user.balloon_alert(user, "закручено в самокрутку")
-			R.desc = "Высушенн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] [target.declent_ru(NOMINATIVE)], закрученн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] в рулонную бумажку."
+			R.desc = "Высушенн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] [target.declent_ru(NOMINATIVE)], закрученн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] в рулонную бумагу."
 			qdel(target)
 			qdel(src)
 		else
-			user.balloon_alert(user, "сначала высушите [target.declent_ru(ACCUSATIVE)]!")
+			user.balloon_alert(user, "сначала высушите!")
 	else
 		..()
 
