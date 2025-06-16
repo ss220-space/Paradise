@@ -55,7 +55,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/wires/robot/wires = null
 
 	var/opened = FALSE
-	var/custom_panel = null
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = FLASH_PROTECTION_NONE
@@ -255,7 +254,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		return "[prefix || modtype.name] [braintype]-[num2text(ident)]"
 
 /mob/living/silicon/robot/verb/Namepick()
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Сменить имя"
 
 	if(custom_name)
 		return FALSE
@@ -267,9 +267,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_self(braintype, 1)
 
 /mob/living/silicon/robot/verb/Change_Voice()
-	set name = "Change Voice"
+	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	change_voice()
 
 /mob/living/silicon/robot/proc/sync()
@@ -340,13 +340,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = text2path(forced_module)
 
 	var/list/modules = list(
-		"Generalist" = /obj/item/robot_module/standard,
-		"Engineering" = /obj/item/robot_module/engineering,
-		"Medical" = /obj/item/robot_module/medical,
-		"Miner" = /obj/item/robot_module/miner,
-		"Janitor" = /obj/item/robot_module/janitor,
-		"Service" = /obj/item/robot_module/butler,
-		"Security" = /obj/item/robot_module/security)
+			"Generalist" = /obj/item/robot_module/standard,
+			"Engineering" = /obj/item/robot_module/engineering,
+			"Medical" = /obj/item/robot_module/medical,
+			"Miner" = /obj/item/robot_module/miner,
+			"Janitor" = /obj/item/robot_module/janitor,
+			"Service" = /obj/item/robot_module/butler,
+			"Security" = /obj/item/robot_module/security
+		)
 
 	if(islist(limited_modules) && LAZYLEN(limited_modules))
 		modules = limited_modules.Copy()
@@ -356,9 +357,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(mmi?.syndicate)
 		modules = list(
-			"Syndicate Saboteur" = /obj/item/robot_module/syndicate_saboteur,
-			"Syndicate Medical" = /obj/item/robot_module/syndicate_medical,
-			"Syndicate Bloodhound" = /obj/item/robot_module/syndicate)
+				"Syndicate Saboteur" = /obj/item/robot_module/syndicate_saboteur,
+				"Syndicate Medical" = /obj/item/robot_module/syndicate_medical,
+				"Syndicate Bloodhound" = /obj/item/robot_module/syndicate
+			)
 
 	if(mmi?.ninja)
 		forced_module = /obj/item/robot_module/ninja
@@ -407,7 +409,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	rename_character(real_name, get_default_name())
 	choose_icon()
 
-	if(client.stat_tab == "Status")
+	if(client.stat_tab == STATPANEL_STATUS)
 		SSstatpanels.set_status_tab(client)
 
 	if(!static_radio_channels)
@@ -480,9 +482,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SStgui.close_user_uis(src)
 	sight_mode = null
 	update_sight()
+	selected_skin = null
 	hands.icon_state = "nomod"
+	icon = initial(icon)
 	icon_state = "robot"
-	custom_panel = null
+	base_icon = "robot"
 	module.remove_subsystems_and_actions(src)
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
@@ -516,13 +520,13 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this verb lets cyborgs see the stations manifest
 /mob/living/silicon/robot/verb/cmd_station_manifest()
-	set category = "Robot Commands"
-	set name = "Show Station Manifest"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Манифест экипажа"
 	show_station_manifest()
 
 /mob/living/silicon/robot/verb/toggle_component()
-	set category = "Robot Commands"
-	set name = "Toggle Component"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Компоненты"
 	set desc = "Toggle a component, conserving power."
 
 	var/list/installed_components = list()
@@ -541,9 +545,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	to_chat(src, span_warning("You [C.toggled ? "enable" : "disable"] [C.name]."))
 
 /mob/living/silicon/robot/proc/sensor_mode()
-	set name = "Set Sensor Augmentation"
+	set name = "Сенсоры камеры"
 	set desc = "Augment visual feed with internal sensor overlays."
-	set category = "Robot Commands"
+	set category = STATPANEL_ROBOTCOMMANDS
 	toggle_sensor_mode()
 
 /mob/living/silicon/robot/proc/add_robot_verbs()
@@ -555,8 +559,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/robot/verb/cmd_robot_alerts()
-	set category = "Robot Commands"
-	set name = "Show Alerts"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Список тревог"
 
 	if(usr.stat == DEAD)
 		to_chat(src, span_userdanger("Alert: You are dead."))
@@ -642,7 +646,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 // this function displays the cyborgs current cell charge in the stat panel
 /mob/living/silicon/robot/proc/show_cell_power()
-	return list("Charge Left:", cell ? "[cell.charge]/[cell.maxcharge]" : "No Cell Inserted!")
+	return list("Заряд:", cell ? "[cell.charge]/[cell.maxcharge]" : "Батарея не обнаружена!")
 
 
 /mob/living/silicon/robot/proc/show_gps_coords()
@@ -1213,8 +1217,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	laws = new /datum/ai_laws/ratvar
 
 /mob/living/silicon/robot/verb/toggle_own_cover()
-	set category = "Robot Commands"
-	set name = "Toggle Cover"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Блокировку панели"
 	set desc = "Toggles the lock on your cover."
 
 	if(can_lock_cover)
@@ -1631,9 +1635,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	// I could change the network to null but I don't know what would happen, and it seems too hacky for me.
 
 /mob/living/silicon/robot/proc/ResetSecurityCodes()
-	set category = "Robot Commands"
-	set name = "Reset Identity Codes"
-	set desc = "Scrambles your security and identification codes and resets your current buffers.  Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Сброс кодов идентификации"
+	set desc = "Scrambles your security and identification codes and resets your current buffers. \
+				Unlocks you and but permanently severs you from your AI and the robotics console and will deactivate your camera system."
 
 	var/mob/living/silicon/robot/R = src
 
@@ -1643,8 +1648,9 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		remove_verb(src, /mob/living/silicon/robot/proc/ResetSecurityCodes)
 
 /mob/living/silicon/robot/mode()
-	set name = "Activate Held Object"
-	set category = "IC"
+	set category = STATPANEL_IC
+	set name = "Использовать объект"
+	set desc = "Использовать удерживаемый объект."
 	set src = usr
 
 	var/obj/item/W = get_active_hand()
@@ -1691,38 +1697,50 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()
+	var/datum/robot_skin/skin = select_skin(module.borg_skins, module?.default_skin)
+	if(!skin)
+		return
+	set_skin(skin, TRUE, skin.type != module?.default_skin)
+	return
 
+/mob/living/silicon/robot/proc/select_skin(list/skins, default_skin_name)
 	var/list/choices = list()
 	var/choice
-
 	var/list/temp_list = list()
 
-	if(length(module?.borg_skins) > 1)
-		for(var/skin in module.borg_skins)
-			var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-			if(new_skin.required_permit && !(new_skin.required_permit in mmi?.skin_permissions) \
-				&& !GLOB.all_robot_skins_permited)
-				continue
-			if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
-				&& !GLOB.all_robot_skins_permited)
-				continue
-			var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
-			skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
-			choices[new_skin.name] = skin_image
-			temp_list[new_skin.name] = new_skin
-		choice = show_radial_menu(src, src, choices, require_near = TRUE)
+	if(length(skins) <= 1)
+		return GLOB.robot_skins["[default_skin_name]"]
 
+	for(var/skin in skins)
+		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
+		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit] ) \
+			&& !GLOB.all_robot_skins_permited)
+			continue
+		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
+			&& !GLOB.all_robot_skins_permited)
+			continue
+		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
+		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
+		choices[new_skin.name] = skin_image
+		temp_list[new_skin.name] = new_skin
+
+	if(choices.len <= 1)
+		return GLOB.robot_skins["[default_skin_name]"]
+
+	choice = show_radial_menu(src, src, choices, require_near = TRUE, radius = 60)
+
+	return (choice)? temp_list[choice] : GLOB.robot_skins["[default_skin_name]"]
+
+/mob/living/silicon/robot/proc/set_skin(datum/robot_skin/skin, use_transformation, default)
 	cut_overlays()
-
-	var/datum/robot_skin/skin = (choice)? temp_list[choice] : GLOB.robot_skins["[module?.default_skin]"]
 	icon = skin.icon_file
 	icon_state = skin.icon_base_prefix
-	transform_animation(skin.icon_base_prefix, !!choice)
+	base_icon = skin.icon_base_prefix
 	selected_skin = skin
-
-	var/list/names = splittext(icon_state, "-")
-	custom_panel = trim(names[1])
-	return
+	if(use_transformation)
+		transform_animation(skin.icon_base_prefix, default)
+		return
+	update_icons()
 
 /mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
 	Immobilize(5 SECONDS)
@@ -1868,7 +1886,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	limited_modules = list("Engineering", "Medical", "Security")
+	limited_modules = list(
+				"Engineering" = /obj/item/robot_module/engineering,
+				"Medical" = /obj/item/robot_module/medical,
+				"Security" = /obj/item/robot_module/security
+			)
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
@@ -1910,7 +1932,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	limited_modules = list("Combat", "Engineering", "Medical")
+	limited_modules = list("Combat" = /obj/item/robot_module/combat, "Engineering" = /obj/item/robot_module/engineering, "Medical" = /obj/item/robot_module/medical)
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 
@@ -2024,13 +2046,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
 
-/mob/living/silicon/robot/proc/check_sprite(spritename)
-	. = FALSE
-
-	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
-	if(spritename in all_borg_icon_states)
-		. = TRUE
-
 /mob/living/silicon/robot/check_eye_prot()
 	return eye_protection
 
@@ -2112,8 +2127,8 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 
 /mob/living/silicon/robot/verb/powerwarn()
-	set category = "Robot Commands"
-	set name = "Power Warning"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Состояние заряда"
 
 	if(!is_component_functioning("power cell") || !cell || !cell.charge)
 		if(!start_audio_emote_cooldown(TRUE, 10 SECONDS))

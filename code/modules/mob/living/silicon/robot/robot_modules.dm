@@ -151,6 +151,20 @@
 		/datum/robot_skin/default/std,
 		/datum/robot_skin/basic/std,
 		/datum/robot_skin/noble/std,
+		/datum/robot_skin/paladin/std,
+		/datum/robot_skin/robot_drone/std,
+		/datum/robot_skin/protectron/std,
+		/datum/robot_skin/coffin/std,
+		/datum/robot_skin/burger/std,
+		/datum/robot_skin/raptor/std,
+		/datum/robot_skin/doll/std,
+		/datum/robot_skin/buddy/std,
+		/datum/robot_skin/mine/std,
+		/datum/robot_skin/eyebot/std,
+		/datum/robot_skin/seek/std,
+		/datum/robot_skin/noble_h/std,
+		/datum/robot_skin/mech/std,
+		/datum/robot_skin/heavy/std,
 		/datum/robot_skin/android
 	)
 	has_transform_animation = TRUE
@@ -210,6 +224,20 @@
 		/datum/robot_skin/tall/meka/medical,
 		/datum/robot_skin/tall/fmeka/medical,
 		/datum/robot_skin/tall/mmeka/medical,
+		/datum/robot_skin/paladin/medical,
+		/datum/robot_skin/robot_drone/medical,
+		/datum/robot_skin/protectron/medical,
+		/datum/robot_skin/burger/medical,
+		/datum/robot_skin/raptor/medical,
+		/datum/robot_skin/doll/medical,
+		/datum/robot_skin/buddy/medical,
+		/datum/robot_skin/mine/medical,
+		/datum/robot_skin/eyebot/medical,
+		/datum/robot_skin/seek/medical,
+		/datum/robot_skin/noble_h/medical,
+		/datum/robot_skin/mech/medical,
+		/datum/robot_skin/heavy/medical,
+		/datum/robot_skin/walla,
 		/datum/robot_skin/surgeon,
 		/datum/robot_skin/chiefbot,
 		/datum/robot_skin/droid_medical,
@@ -303,6 +331,22 @@
 		/datum/robot_skin/tall/meka/eng,
 		/datum/robot_skin/tall/fmeka/eng,
 		/datum/robot_skin/tall/mmeka/eng,
+		/datum/robot_skin/paladin/eng,
+		/datum/robot_skin/robot_drone/eng,
+		/datum/robot_skin/protectron/eng,
+		/datum/robot_skin/coffin/eng,
+		/datum/robot_skin/burger/eng,
+		/datum/robot_skin/raptor/eng,
+		/datum/robot_skin/doll/eng,
+		/datum/robot_skin/buddy/eng,
+		/datum/robot_skin/mine/eng,
+		/datum/robot_skin/eyebot/eng,
+		/datum/robot_skin/seek/eng,
+		/datum/robot_skin/noble_h/eng,
+		/datum/robot_skin/mech/eng,
+		/datum/robot_skin/heavy/eng,
+		/datum/robot_skin/spider/eng,
+		/datum/robot_skin/handy_eng,
 		/datum/robot_skin/basic/antique,
 		/datum/robot_skin/landmate,
 		/datum/robot_skin/chiefmate
@@ -369,6 +413,22 @@
 		/datum/robot_skin/tall/meka/sec,
 		/datum/robot_skin/tall/fmeka/sec,
 		/datum/robot_skin/tall/mmeka/sec,
+		/datum/robot_skin/paladin/sec,
+		/datum/robot_skin/robot_drone/sec,
+		/datum/robot_skin/protectron/sec,
+		/datum/robot_skin/coffin/sec,
+		/datum/robot_skin/burger/sec,
+		/datum/robot_skin/raptor/sec,
+		/datum/robot_skin/doll/sec,
+		/datum/robot_skin/buddy/sec,
+		/datum/robot_skin/mine/sec,
+		/datum/robot_skin/eyebot/sec,
+		/datum/robot_skin/seek/sec,
+		/datum/robot_skin/noble_h/sec,
+		/datum/robot_skin/mech/sec,
+		/datum/robot_skin/heavy/sec,
+		/datum/robot_skin/spider/sec,
+		/datum/robot_skin/securitron,
 		/datum/robot_skin/redknight,
 		/datum/robot_skin/blackknight,
 		/datum/robot_skin/bloodhound
@@ -425,6 +485,19 @@
 		/datum/robot_skin/tall/meka/jan,
 		/datum/robot_skin/tall/fmeka/jan,
 		/datum/robot_skin/tall/mmeka/jan,
+		/datum/robot_skin/paladin/jan,
+		/datum/robot_skin/robot_drone/jan,
+		/datum/robot_skin/protectron/jan,
+		/datum/robot_skin/burger/jan,
+		/datum/robot_skin/raptor/jan,
+		/datum/robot_skin/doll/jan,
+		/datum/robot_skin/buddy/jan,
+		/datum/robot_skin/mine/jan,
+		/datum/robot_skin/eyebot/jan,
+		/datum/robot_skin/seek/jan,
+		/datum/robot_skin/noble_h/jan,
+		/datum/robot_skin/mech/jan,
+		/datum/robot_skin/heavy/jan,
 		/datum/robot_skin/basic/mopbot,
 		/datum/robot_skin/mopgearrex
 	)
@@ -461,6 +534,18 @@
 		/datum/robot_skin/tall/meka/srv_alt,
 		/datum/robot_skin/tall/fmeka/srv,
 		/datum/robot_skin/tall/mmeka/srv,
+		/datum/robot_skin/paladin/srv,
+		/datum/robot_skin/robot_drone/srv,
+		/datum/robot_skin/protectron/srv,
+		/datum/robot_skin/burger/srv,
+		/datum/robot_skin/raptor/srv,
+		/datum/robot_skin/doll/srv,
+		/datum/robot_skin/buddy/srv,
+		/datum/robot_skin/mine/srv,
+		/datum/robot_skin/seek/srv,
+		/datum/robot_skin/mech/srv,
+		/datum/robot_skin/heavy/srv,
+		/datum/robot_skin/handy_serv,
 		/datum/robot_skin/basic/waitress,
 		/datum/robot_skin/basic/bro,
 		/datum/robot_skin/toiletbot,
@@ -574,6 +659,20 @@
 		/datum/robot_skin/tall/meka/mnr,
 		/datum/robot_skin/tall/fmeka/mnr,
 		/datum/robot_skin/tall/mmeka/mnr,
+		/datum/robot_skin/paladin/mnr,
+		/datum/robot_skin/robot_drone/mnr,
+		/datum/robot_skin/protectron/mnr,
+		/datum/robot_skin/burger/mnr,
+		/datum/robot_skin/raptor/mnr,
+		/datum/robot_skin/doll/mnr,
+		/datum/robot_skin/buddy/mnr,
+		/datum/robot_skin/mine/mnr,
+		/datum/robot_skin/seek/mnr,
+		/datum/robot_skin/noble_h/mnr,
+		/datum/robot_skin/mech/mnr,
+		/datum/robot_skin/heavy/mnr,
+		/datum/robot_skin/spider/mnr,
+		/datum/robot_skin/walle,
 		/datum/robot_skin/droid_miner,
 		/datum/robot_skin/treadhead,
 		/datum/robot_skin/lavaland
@@ -672,6 +771,8 @@
 		/datum/robot_skin/tall/meka/syndi,
 		/datum/robot_skin/tall/fmeka/syndi,
 		/datum/robot_skin/tall/mmeka/syndi,
+		/datum/robot_skin/heavy/syndi,
+		/datum/robot_skin/spider/syndi,
 	)
 	has_transform_animation = TRUE
 
@@ -705,6 +806,8 @@
 		/datum/robot_skin/tall/meka/syndi,
 		/datum/robot_skin/tall/fmeka/syndi,
 		/datum/robot_skin/tall/mmeka/syndi,
+		/datum/robot_skin/heavy/syndi,
+		/datum/robot_skin/spider/syndi,
 	)
 	has_transform_animation = TRUE
 
@@ -762,6 +865,8 @@
 		/datum/robot_skin/tall/meka/syndi,
 		/datum/robot_skin/tall/fmeka/syndi,
 		/datum/robot_skin/tall/mmeka/syndi,
+		/datum/robot_skin/heavy/syndi,
+		/datum/robot_skin/spider/syndi,
 	)
 	has_transform_animation = TRUE
 
@@ -845,7 +950,17 @@
 	module_type = "Malf"
 	module_actions = list()
 	default_skin = /datum/robot_skin/ertgamma
-	borg_skins = list(/datum/robot_skin/ertgamma)
+	borg_skins = list(
+			/datum/robot_skin/ertgamma,
+			/datum/robot_skin/protectron/combat,
+			/datum/robot_skin/coffin/combat,
+			/datum/robot_skin/burger/combat,
+			/datum/robot_skin/raptor/combat,
+			/datum/robot_skin/buddy/combat,
+			/datum/robot_skin/seek/mnr,
+			/datum/robot_skin/mech/mnr,
+			/datum/robot_skin/mrgutsy,
+		)
 	has_transform_animation = TRUE
 
 /obj/item/robot_module/combat/on_apply(mob/living/silicon/robot/robot)
@@ -1058,6 +1173,11 @@
 		/datum/robot_skin/tall/meka/ninja,
 		/datum/robot_skin/tall/fmeka/ninja,
 		/datum/robot_skin/tall/mmeka/ninja,
+		/datum/robot_skin/heavy/ninja,
+		/datum/robot_skin/spider/ninja,
+		/datum/robot_skin/ninja_sec,
+		/datum/robot_skin/ninja_engi,
+		/datum/robot_skin/ninja_medical
 	)
 
 /obj/item/robot_module/ninja/on_apply(mob/living/silicon/robot/robot)

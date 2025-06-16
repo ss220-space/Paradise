@@ -95,8 +95,8 @@
 	to_chat(src, span_notice("[msg]"))
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/Snare()
-	set name = "Установить ловушку для слежки"
-	set category = "Guardian"
+	set name = "Установить ловушку"
+	set category = STATPANEL_GUARDIAN
 	set desc = "Установите невидимую ловушку, которая оповестит вас, когда по ней пройдут живые существа. Максимум 5"
 	if(snares.len <6)
 		var/turf/snare_loc = get_turf(loc)
@@ -108,9 +108,9 @@
 		to_chat(src, span_danger("У вас установлено слишком много ловушек. Сначала удалите некоторые."))
 
 /mob/living/simple_animal/hostile/guardian/ranged/verb/DisarmSnare()
-	set name = "Удалить ловушку для наблюдения"
-	set category = "Guardian"
-	set desc = "Обезвреживание нежелательных ловушек наблюдения."
+	set name = "Удалить ловушку"
+	set category = STATPANEL_GUARDIAN
+	set desc = "Обезвреживание нежелательных ловушек слежения."
 	var/picked_snare = input(src, "Выберите ловушку для обезвреживания", "Уничтожить ловушку") as null|anything in snares
 	if(picked_snare)
 		snares -= picked_snare

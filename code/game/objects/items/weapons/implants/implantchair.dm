@@ -178,15 +178,15 @@
 
 
 /obj/machinery/implantchair/verb/get_out()
-	set name = "Eject occupant"
-	set category = "Object"
+	set name = "Извлечь сидящего"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	go_out(usr)
 
 
 /obj/machinery/implantchair/verb/move_inside()
-	set name = "Move Inside"
-	set category = "Object"
+	set name = "Залезть внутрь"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	put_mob(usr, usr)
 
