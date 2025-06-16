@@ -1265,8 +1265,8 @@
 	return dna.species.default_language ? GLOB.all_languages[dna.species.default_language] : null
 
 /mob/living/carbon/human/proc/bloody_doodle()
-	set category = "IC"
-	set name = "Писать кровью"
+	set category = STATPANEL_IC
+	set name = "Рисовать кровью"
 	set desc = "Используйте свою кровь, чтобы написать короткое послание на полу или стене."
 
 	if(usr != src)
