@@ -3706,7 +3706,15 @@
 				create_cargo_crate()
 
 			if("shuttle_start")
+				if(!you_realy_want_do_this())
+					return
 				shuttle_start()
+
+			if("borg_skins")
+				if(!you_realy_want_do_this())
+					return
+				GLOB.all_robot_skins_permited = !GLOB.all_robot_skins_permited
+				log_and_message_admins("set global borg skin permission to [GLOB.all_robot_skins_permited? "ON":"OFF"]")
 
 		if(usr)
 			log_admin("[key_name(usr)] used secret [href_list["secretsfun"]]")
