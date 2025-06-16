@@ -72,8 +72,19 @@ export const CardComputerNoCard = () => (
 
 export const CardComputerNoRecords = () => (
   <Section fill title="Записи">
-    <Stack fill justify="center" align="center" style={{ position: 'relative', textAlign: 'center' }}>
-      <div style={{ position: 'absolute', top: '45%', transform: 'translateY(-100%)' }}>
+    <Stack
+      fill
+      justify="center"
+      align="center"
+      style={{ position: 'relative', textAlign: 'center' }}
+    >
+      <div
+        style={{
+          position: 'absolute',
+          top: '45%',
+          transform: 'translateY(-100%)',
+        }}
+      >
         <Stack.Item fontSize={1.75} bold color="label">
           Нет записей
         </Stack.Item>
@@ -97,7 +108,6 @@ export const CardComputerNoRecords = () => (
     </Stack>
   </Section>
 );
-
 
 type CardComputerData = {
   mode: number;
