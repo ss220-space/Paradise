@@ -524,8 +524,8 @@
 
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Holobadge"
-	set category = "Object"
+	set name = "Показать значок"
+	set category = STATPANEL_OBJECT
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
