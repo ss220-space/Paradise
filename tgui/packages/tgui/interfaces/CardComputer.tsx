@@ -72,25 +72,32 @@ export const CardComputerNoCard = () => (
 
 export const CardComputerNoRecords = () => (
   <Section fill title="Записи">
-    <Stack fill>
-      <Stack.Item
-        bold
-        grow
-        textAlign="center"
-        fontSize={1.75}
-        align="center"
-        color="label"
-      >
-        <Icon.Stack>
-          <Icon name="scroll" size={5} color="gray" />
-          <Icon name="slash" size={5} color="red" />
-        </Icon.Stack>
-        <br />
-        Нет записей
-      </Stack.Item>
+    <Stack fill justify="center" align="center" style={{ position: 'relative', textAlign: 'center' }}>
+      <div style={{ position: 'absolute', top: '45%', transform: 'translateY(-100%)' }}>
+        <Stack.Item fontSize={1.75} bold color="label">
+          Нет записей
+        </Stack.Item>
+      </div>
+      <div style={{ position: 'absolute', top: '50%' }}>
+        <div style={{ position: 'relative', width: '5em', height: '5em' }}>
+          <Icon
+            name="scroll"
+            size={5}
+            color="gray"
+            style={{ position: 'absolute', top: 0, left: 0 }}
+          />
+          <Icon
+            name="slash"
+            size={5}
+            color="red"
+            style={{ position: 'absolute', top: 0, left: 0 }}
+          />
+        </div>
+      </div>
     </Stack>
   </Section>
 );
+
 
 type CardComputerData = {
   mode: number;

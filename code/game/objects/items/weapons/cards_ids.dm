@@ -199,7 +199,7 @@
 
 /obj/item/card/id/attack_self(mob/user as mob)
 	name = "[src.registered_name] ID-карта ([src.assignment])"
-	user.visible_message("[user] [genderize_ru(user.gender, "показывает", "показывает", "показывает", "показывают")] вам: [bicon(src)] [src.name]. Должность: [src.assignment]",\
+	user.visible_message("[user] [pluralize_ru(user.gender, "показывает", "показывают")] вам: [bicon(src)] [src.name]. Должность: [src.assignment]",\
 		"Вы показываете свою ID-карту: [bicon(src)] [src.name]. Должность: [src.assignment]")
 	if(mining_points)
 		to_chat(user, "На этой карте сейчас <b>[mining_points] очков добычи</b>. Эта карта заработала <b>[total_mining_points] очков добычи</b> за смену!")

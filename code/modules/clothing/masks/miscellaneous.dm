@@ -299,7 +299,7 @@
 		return TRUE
 
 /obj/item/clothing/mask/fakemoustache/proc/pontificate(mob/user)
-	user.visible_message(span_danger("\ [user] [genderize_ru(user.gender, "наматывает", "наматывает", "наматывает", "наматывают")] свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!"))
+	user.visible_message(span_danger("\ [user] [pluralize_ru(user.gender, "накручивает", "накручивают")] свои усы и [pick("адски","неистово","дьявольски","зловеще")] смеётся!"))
 
 //scarves (fit in in mask slot)
 
@@ -659,7 +659,7 @@
 			H.makeCluwne()
 
 /obj/item/clothing/mask/cursedclown/suicide_act(mob/user)
-	user.visible_message(span_danger("[user] [genderize_ru(user.gender, "смотрит", "смотрит", "смотрит", "смотрят")] [src] в глаза. [src] смотрит в ответ!"))
+	user.visible_message(span_danger("[user] [pluralize_ru(user.gender, "смотрит", "смотрят")] [src] в глаза. [src] смотрит в ответ!"))
 	spawn(10)
 		if(user)
 			user.gib()

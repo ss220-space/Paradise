@@ -1488,14 +1488,14 @@ Eyes need to have significantly high darksight to shine unless the mob has the X
 	if(H.receiving_cpr) // To prevent spam stacking
 		balloon_alert(src, "уже проводится СЛР!")
 		return
-	visible_message(span_danger("[src] [genderize_ru(H.gender, "пытается", "пытается", "пытается", "пытаются")] провести СЛР [H.name]!"), span_danger("Вы пытаетесь провести СЛР [H.name]!"))
+	visible_message(span_danger("[src] [pluralize_ru(H.gender, "пытается", "пытаются")] провести СЛР [H.name]!"), span_danger("Вы пытаетесь провести СЛР [H.name]!"))
 	H.receiving_cpr = TRUE
 	if(do_after(src, 4 SECONDS, H, NONE))
 		if(H.health <= HEALTH_THRESHOLD_CRIT)
 			H.heal_damage_type(15, OXY)
 			H.SetLoseBreath(0)
 			H.AdjustParalysis(-2 SECONDS)
-			visible_message(span_danger("[src] [genderize_ru(H.gender, "проводит", "проводит", "проводит", "проводят")] СЛР [H.name]!"), span_notice("Вы проводите СЛР [H.name]."))
+			visible_message(span_danger("[src] [pluralize_ru(H.gender, "проводит", "проводят")] СЛР [H.name]!"), span_notice("Вы проводите СЛР [H.name]."))
 			to_chat(H, span_notice("Вы чувствуете, как глоток свежего воздуха входит в ваши легкие. Это облегчает"))
 			H.receiving_cpr = FALSE
 			add_attack_logs(src, H, "CPRed", ATKLOG_ALL)

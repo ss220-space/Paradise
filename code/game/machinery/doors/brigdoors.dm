@@ -31,6 +31,7 @@
 	maptext_width = 32
 	maptext_y = -1
 	var/occupant = CELL_NONE
+	var/occupant_name = null
 	var/crimes = CELL_NONE
 	var/time = 0
 	var/officer = CELL_NONE
@@ -152,7 +153,7 @@
 		if(occupant == H.name)
 			to_chat(H, "[src.name] пищит: [notifytext]")
 			return
-	atom_say("[occupant]: [notifytext]")
+	atom_say("[occupant_name]: [notifytext]")
 
 
 //Main door timer loop, if it's timing and time is >0 reduce time by 1.
@@ -410,6 +411,7 @@
 			if(!prisoner_name || !prisoner_charge || !prisoner_time)
 				return FALSE
 			timeset(prisoner_time * 60)
+			occupant_name = prisoner_name
 			occupant = prisoner_name
 			crimes = prisoner_charge
 			prisoner_name = null
@@ -460,7 +462,7 @@
 		if("stop")
 			if(timing)
 				timer_end()
-				Radio.autosay("Таймер заключённого [occupant] был остановлен вручную. Остановивший: [usr.name]", name, SEC_FREQ_NAME)
+				Radio.autosay("Таймер заключённого [occupant_name] был остановлен вручную. Остановивший: [usr.name]", name, SEC_FREQ_NAME)
 				notify_prisoner("Таймер остановлен")
 			else
 				. = FALSE

@@ -62,12 +62,12 @@
 		if(istype(P, /obj/item/lighter/zippo))
 			class = "<span class='rose'>"
 
-		user.visible_message("[class][user] [genderize_ru(user.gender, "держит", "держит", "держит", "держут")] [P] над [src], похоже, что [user] [genderize_ru(user.gender, "пытается", "пытается", "пытается", "пытаются")] её сжечь!", \
+		user.visible_message("[class][user] [pluralize_ru(user.gender, "держит", "держут")] [P] над [src], похоже, что [user] [pluralize_ru(user.gender, "пытается", "пытаются")] её сжечь!", \
 		"[class]Вы держите [P] над [src], медленно её сжигая.")
 
 		spawn(20)
 			if(get_dist(src, user) < 2 && user.get_active_hand() == P && P.lit)
-				user.visible_message("[class][user] [genderize_ru(user.gender, "сжигает", "сжигает", "сжигает", "сжигают")] [src], превращая [src] в пыль. Она немного летает в воздухе, прежде чем упасть на пол..", \
+				user.visible_message("[class][user] [pluralize_ru(user.gender, "сжигает", "сжигают")] [src], превращая [src] в пыль. Она немного летает в воздухе, прежде чем упасть на пол..", \
 				"[class]Вы сожгли  [src], превратив в пыль. Она немного пролетела в воздухе, прежде чем упасть на пол.")
 
 				if(user.is_in_inactive_hand(src))

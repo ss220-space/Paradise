@@ -460,11 +460,11 @@
 				if(E.fields["name"] == perpname)
 					skills = E.fields["notes"]
 			if(skills)
-				var/char_limit = 40
+				var/char_limit = 45
 				if(length(skills) <= char_limit)
 					msg += "[span_deptradio("Личное дело:")] [skills]\n"
 				else
-					msg += "[span_deptradio("Личное дело:")] [copytext_preserve_html(skills, 1, char_limit-3)]...<a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n"
+					msg += "[span_deptradio("Личное дело:")] [copytext_preserve_html(skills, 1, char_limit-3)]..<br><a href='byond://?src=[UID()];employment_more=1'>Подробнее...</a>\n"
 
 
 	if(hasHUD(user,EXAMINE_HUD_MEDICAL))

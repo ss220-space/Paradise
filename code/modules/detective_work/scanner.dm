@@ -120,7 +120,7 @@
 
 		scanning = TRUE
 
-		user.visible_message("[user] [genderize_ru(user.gender, "указывает", "указывает", "указывает", "указывают")] [src] на [scan_atom] и [genderize_ru(user.gender, "начинает", "начинает", "начинает", "начинают")] сканирование.",
+		user.visible_message("[user] [pluralize_ru(user.gender, "указывает", "указывают")] [src] на [scan_atom] и [pluralize_ru(user.gender, "начинает", "начинают")] сканирование.",
 		span_notice("Вы отсканировали [scan_atom]. Сканер анализирует результаты...."))
 
 
