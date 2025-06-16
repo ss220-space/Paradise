@@ -361,6 +361,12 @@
 	things["душа"] = 1
 	return things
 
+/datum/ritual/devil/slave/del_things(list/used_things)
+	for(var/thing in used_things)
+		if(ishuman(thing))
+			continue
+		qdel(thing)
+
 /datum/ritual/devil/slave/check_contents(mob/living/carbon/invoker, list/used_things)
 	. = ..()
 
@@ -377,6 +383,10 @@
 
 	if(!human.mind || !(human.mind.hasSoul || LAZYIN(devil.soulsOwned, human.mind)))
 		ritual_object.balloon_alert(invoker, "цель без души!")
+		return FALSE
+
+	if(ismindslave(human))
+		ritual_object.balloon_alert(invoker, "эта цель уже порабощена!")
 		return FALSE
 
 	if(!LAZYLEN(devil.soulsOwned))
@@ -400,6 +410,7 @@
 	human.mind.damnation_type = 666
 	human.revive()
 	var/datum/antagonist/mindslave/devil_pawn/pawn = new(invoker.mind)
+	human.mind.add_antag_datum(pawn)
 
 	devil.remove_soul(safepick(devil.soulsOwned), FALSE)
 
