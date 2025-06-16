@@ -1324,6 +1324,14 @@
 /obj/item/clothing/under/martirialsuit/random
 	name = "Random martirial arts suit"
 	icon_state = "masterli"
+	ru_names = list(
+		NOMINATIVE = "случайный костюм боевых искусств",
+		GENITIVE = "случайного костюма боевых искусств",
+		DATIVE = "случайному костюму боевых искусств",
+		ACCUSATIVE = "случайный костюм боевых искусств",
+		INSTRUMENTAL = "случайным костюмом боевых искусств",
+		PREPOSITIONAL = "случайном костюме боевых искусств"
+	)
 
 /obj/item/clothing/under/martirialsuit/random/Initialize()
 	. = ..()
