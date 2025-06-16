@@ -72,39 +72,40 @@ export const CardComputerNoCard = () => (
 
 export const CardComputerNoRecords = () => (
   <Section fill title="Записи">
-    <Stack
-      fill
-      justify="center"
-      align="center"
-      style={{ position: 'relative', textAlign: 'center' }}
-    >
-      <div
-        style={{
-          position: 'absolute',
-          top: '45%',
-          transform: 'translateY(-100%)',
-        }}
-      >
-        <Stack.Item fontSize={1.75} bold color="label">
-          Нет записей
-        </Stack.Item>
-      </div>
-      <div style={{ position: 'absolute', top: '50%' }}>
-        <div style={{ position: 'relative', width: '5em', height: '5em' }}>
+    <Stack fill justify="center" align="center" style={{ textAlign: 'center' }}>
+      <Stack.Item grow align="center">
+        <div
+          style={{
+            position: 'relative',
+            width: '6em',
+            height: '6em',
+            margin: '0 auto',
+          }}
+        >
           <Icon
             name="scroll"
-            size={5}
+            size={6}
             color="gray"
             style={{ position: 'absolute', top: 0, left: 0 }}
           />
           <Icon
             name="slash"
-            size={5}
+            size={6}
             color="red"
             style={{ position: 'absolute', top: 0, left: 0 }}
           />
         </div>
-      </div>
+        <div
+          style={{
+            marginTop: '1em',
+            fontSize: '1.5em',
+            fontWeight: 'bold',
+            color: '#91a7c2',
+          }}
+        >
+          Нет записей
+        </div>
+      </Stack.Item>
     </Stack>
   </Section>
 );
