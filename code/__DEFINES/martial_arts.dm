@@ -13,10 +13,10 @@
 #define MARTIAL_COMBO_STEP_HELP		"Help"
 
 GLOBAL_LIST_INIT(martial_combo_step_message, list(
-	MARTIAL_COMBO_STEP_HARM = 	"<span class='red'>Harm</span>",
-	MARTIAL_COMBO_STEP_DISARM = "<span class='blue'>Disarm</span>",
-	MARTIAL_COMBO_STEP_GRAB = 	"<span class='yellow'>Grab</span>",
-	MARTIAL_COMBO_STEP_HELP = 	"<span class='green'>Help</span>",
+	MARTIAL_COMBO_STEP_HARM = 	span_red("Harm"),
+	MARTIAL_COMBO_STEP_DISARM = span_blue("Disarm"),
+	MARTIAL_COMBO_STEP_GRAB = 	span_yellow("Grab"),
+	MARTIAL_COMBO_STEP_HELP = 	span_green("Help"),
 ))
 
 // A check used for all act types. Such as disarm_act
