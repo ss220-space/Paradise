@@ -1255,7 +1255,7 @@
 
 /obj/item/clothing/under/martialsuit/masterli
 	name = "Master Li clothes"
-	desc = "Черная одежда, которую носят мастера боевых искусств"
+	desc = "Чёрная одежда, которую носят мастера боевых искусств."
 	ru_names = list(
 		NOMINATIVE = "костюм Мастера Ли",
 		GENITIVE = "костюма Мастера Ли",
