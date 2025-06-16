@@ -38171,7 +38171,6 @@
 	dir = 1
 	},
 /obj/machinery/requests_console{
-	announcementConsole = 1;
 	department = "Chapel";
 	departmentType = 2;
 	name = "Chapel Requests Console";
