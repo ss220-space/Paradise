@@ -65,7 +65,7 @@
 
 /obj/effect/proc_holder/spell/mimic/proc/remember_form(atom/movable/A, mob/user)
 	if(A.name in available_forms)
-		to_chat(user, span_warning("[A.declent_ru(NOMINATIVE)] уже доступна как форма."))
+		to_chat(user, span_warning("[capitalize(A.declent_ru(NOMINATIVE))] уже доступна как форма."))
 		balloon_alert(user, "эта форма уже изучена!")
 		revert_cast(user)
 		return
@@ -181,7 +181,7 @@
 	examine_list.Cut()
 	examine_list += selected_form.examine_text
 	if(!perfect_disguise && get_dist(user, source) <= 3)
-		examine_list += span_warning("Это выглядит не совсем правильно...")
+		examine_list += span_warning("При ближайшем рассмотрении оно выглядит не совсем естественно...")
 
 
 /obj/effect/proc_holder/spell/mimic/proc/on_death(mob/user, gibbed)
