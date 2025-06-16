@@ -13,7 +13,13 @@
 // BEGIN_INCLUDE
 #include "_maps\__MAP_DEFINES.dm"
 #include "_maps\common.dm"
+#include "_maps\map_files\celestation\celestation.dmm"
+#include "_maps\map_files\celestation\Lavaland.dmm"
+#include "_maps\map_files\cerestation\cerestation.dmm"
+#include "_maps\map_files\cerestation\Lavaland.dmm"
+#include "_maps\map_files\cyberiad\cyberiad.dmm"
 #include "_maps\map_files\Delta\delta.dmm"
+#include "_maps\map_files\Delta\Lavaland.dmm"
 #include "_maps\map_files\nova\Lavaland.dmm"
 #include "_maps\map_files\nova\nova.dmm"
 #include "code\_compile_options.dm"
