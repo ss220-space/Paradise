@@ -5,13 +5,14 @@
 	name = "guest pass"
 	desc = "Предоставляет временный доступ в определённые места на станции."
 	ru_names = list(
-            NOMINATIVE = "гостевой пропуск",
-            GENITIVE = "гостевого пропуска",
-            DATIVE = "гостевому пропуску",
-            ACCUSATIVE = "гостевой пропуск",
-            INSTRUMENTAL = "гостевым пропуском",
-            PREPOSITIONAL = "гостевом пропуске"
-        )
+		NOMINATIVE = "гостевой пропуск",
+		GENITIVE = "гостевого пропуска",
+		DATIVE = "гостевому пропуску",
+		ACCUSATIVE = "гостевой пропуск",
+		INSTRUMENTAL = "гостевым пропуском",
+		PREPOSITIONAL = "гостевом пропуске"
+	)
+	gender = FEMALE
 	icon_state = "guest"
 	item_state = "guestpass-id"
 
@@ -28,13 +29,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += span_notice("Пропуск истекает в [station_time_timestamp("hh:mm:ss", expiration_time)].")
+		. += span_notice("Пропуск истекает в <b>[station_time_timestamp("hh:mm:ss", expiration_time)]<b>.")
 	else
-		. += span_warning("Пропуск истекает в [station_time_timestamp("hh:mm:ss", expiration_time)].")
-	. += span_notice("Даёт доступ к следующим местам:")
+		. += span_warning("Пропуск истекает в <b>[station_time_timestamp("hh:mm:ss", expiration_time)]<b>.")
+	. += span_notice("<b>Даёт доступ к следующим местам:<b>")
 	for(var/A in temp_access)
 		. += span_notice("[get_access_desc(A)].")
-	. += span_notice("Причина создания: [reason].")
+	. += span_notice("<b>Причина создания: [reason].<b>")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////
@@ -65,7 +66,7 @@
 	if(istype(I, /obj/item/card/id))
 		add_fingerprint(user)
 		if(giver)
-			balloon_alert(user, "внутри уже есть ID-карта.")
+			balloon_alert(user, "слот для ID-карты занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -141,7 +142,7 @@
 					if(dur > 0 && dur <= 30)
 						duration = dur
 					else
-						balloon_alert(usr, "Недопустимая длительность.")
+						to_chat(usr, span_warning("Недопустимая длительность."))
 			if("access")
 				var/A = text2num(href_list["access"])
 				if(A in accesses)
@@ -184,7 +185,7 @@
 			if("issue")
 				if(giver)
 					var/number = add_zero("[rand(0,9999)]", 4)
-					var/entry = "\[[station_time()]\] [giver.registered_name] создал пропуск #[number] ([giver.assignment]) для [giv_name]. Причина: [reason]. Даёт доступ в следующие места: "
+					var/entry = "\[[station_time()]\] [giver.registered_name] создал[genderize_ru(giver.gender, "", "а", "о", "и")] пропуск №[number] ([giver.assignment]) для [giv_name]. Причина: [reason]. Даёт доступ в следующие места: "
 					for(var/i=1 to accesses.len)
 						var/A = accesses[i]
 						if(A)
@@ -198,14 +199,22 @@
 					pass.registered_name = giv_name
 					pass.expiration_time = world.time + duration*10*60
 					pass.reason = reason
-					pass.name = "гостевой пропуск #[number]"
+					pass.name = "guest pass №[number]"
 				else
-					balloon_alert(usr, "Невозможно выписать без основной ID-карты.")
+					to_chat(usr, span_warning("Невозможно выписать без основной ID-карты."))
 	updateUsrDialog()
 	return
 
 /obj/machinery/computer/guestpass/hop
-	name = "\improper терминал гостевых пропусков ГП"
+	name = "\improper HoP guest pass terminal"
+	ru_names = list(
+		NOMINATIVE = "терминал гостевых пропусков ГП",
+		GENITIVE = "терминала гостевых пропусков ГП",
+		DATIVE = "терминалу гостевых пропусков ГП",
+		ACCUSATIVE = "терминал гостевых пропусков ГП",
+		INSTRUMENTAL = "терминалом гостевых пропусков ГП",
+		PREPOSITIONAL = "терминале гостевых пропусков ГП"
+	)
 
 /obj/machinery/computer/guestpass/hop/get_changeable_accesses()
 	. = ..()
@@ -213,7 +222,15 @@
 		return get_all_accesses()
 
 /obj/machinery/computer/guestpass/syndicate
-	name = "\improper терминал гостевых пропусков Синдиката"
+	name = "\improper Syndicate guest pass terminal"
+	ru_names = list(
+		NOMINATIVE = "терминал гостевых пропусков Синдиката",
+		GENITIVE = "терминала гостевых пропусков Синдиката",
+		DATIVE = "терминалу гостевых пропусков Синдиката",
+		ACCUSATIVE = "терминал гостевых пропусков Синдиката",
+		INSTRUMENTAL = "терминалом гостевых пропусков Синдиката",
+		PREPOSITIONAL = "терминале гостевых пропусков Синдиката"
+	)
 
 /obj/machinery/computer/guestpass/syndicate/get_changeable_accesses()
 	. = ..()
@@ -234,7 +251,7 @@
 		dat += "<a href='byond://?src=[UID()];action=print'>Распечатать</a><br>"
 		dat += "<a href='byond://?src=[UID()];mode=0'>Назад</a><br>"
 	else
-		dat += "<h3>Терминал гостевых пропусков #[uid]</h3><br>"
+		dat += "<h3>Терминал гостевых пропусков №[uid]</h3><br>"
 		dat += "<a href='byond://?src=[UID()];mode=1'>Посмотреть историю активности</a><br><br>"
 		dat += "Основная ID-карта: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
 		dat += "Создаётся для: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"

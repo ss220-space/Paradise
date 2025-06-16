@@ -7,6 +7,14 @@
 /obj/machinery/computer/secure_data
 	name = "security records"
 	desc = "Используется для просмотра и редактирования записей службы безопасности о персонале."
+	ru_names = list(
+		NOMINATIVE = "компьютер записей службы безопасности",
+		GENITIVE = "компьютера записей службы безопасности",
+		DATIVE = "компьютеру записей службы безопасности",
+		ACCUSATIVE = "компьютер записей службы безопасности",
+		INSTRUMENTAL = "компьютером записей службы безопасности",
+		PREPOSITIONAL = "компьютере записей службы безопасности"
+	)
 	icon_keyboard = "security_key"
 	icon_screen = "security"
 	circuit = /obj/item/circuitboard/secure_data
@@ -76,7 +84,7 @@
 	if(..())
 		return
 	if(is_away_level(z))
-		balloon_alert(user, "Не удалось установить соединение: вы слишком далеко от станции!")
+		balloon_alert(user, "вы слишком далеко от станции!")
 		return
 	add_fingerprint(user)
 	ui_interact(user)
@@ -203,11 +211,11 @@
 			var/datum/data/record/G = new /datum/data/record()
 			G.fields["name"] = "Новая Запись"
 			G.fields["id"] = "[add_zero(num2hex(rand(1, 1.6777215E7), 2), 6)]"
-			G.fields["rank"] = "Не Присвоено"
-			G.fields["real_rank"] = "Не Присвоено"
+			G.fields["rank"] = "Не присвоено"
+			G.fields["real_rank"] = "Не присвоено"
 			G.fields["sex"] = "Мужской"
-			G.fields["age"] = "Unknown"
-			G.fields["fingerprint"] = "Unknown"
+			G.fields["age"] = "Не указано"
+			G.fields["fingerprint"] = "Не указано"
 			G.fields["p_stat"] = "Активное"
 			G.fields["m_stat"] = "Стабильное"
 			G.fields["species"] = SPECIES_HUMAN
@@ -227,7 +235,7 @@
 			S.name = "Запись безопасности #[S.fields["id"]]"
 			S.fields["criminal"] = SEC_RECORD_STATUS_NONE
 			S.fields["mi_crim"] = "Нет"
-			S.fields["mi_crim_d"] = "Отсутствие судимостей за Малозначительные преступления."
+			S.fields["mi_crim_d"] = "Отсутствие судимостей за малозначительные преступления."
 			S.fields["ma_crim"] = "Нет"
 			S.fields["ma_crim_d"] = "Отсутствие судимостей за тяжкие преступления."
 			S.fields["notes"] = "Нет примечаний."
@@ -416,7 +424,7 @@
 							T = P
 							break
 					if(!T)
-						set_temp("Cell log not found!", "danger")
+						set_temp("Записи камер не найдены!", "danger")
 						return
 					is_printing = TRUE
 					playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, TRUE)
@@ -431,15 +439,15 @@
   */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
-	P.info = "<center><b>Security Record</b></center><br>"
+	P.info = "<center><b>Отдел Защиты Активов</b></center><br>"
 	if(record_general && GLOB.data_core.general.Find(record_general))
-		P.info += {"Name: [record_general.fields["name"]] ID: [record_general.fields["id"]]
-				<br>\nSex: [record_general.fields["sex"]]
-				<br>\nAge: [record_general.fields["age"]]
-				<br>\nFingerprint: [record_general.fields["fingerprint"]]
-				<br>\nPhysical Status: [record_general.fields["p_stat"]]
-				<br>\nMental Status: [record_general.fields["m_stat"]]<br>"}
-		P.name = "paper - 'Security Record: [record_general.fields["name"]]'"
+		P.info += {"Имя: [record_general.fields["name"]] ID: [record_general.fields["id"]]
+				<br>\nПол: [record_general.fields["sex"]]
+				<br>\nВозраст: [record_general.fields["age"]]
+				<br>\nХЭШ отпечатков пальцев: [record_general.fields["fingerprint"]]
+				<br>\nФизическое состояние: [record_general.fields["p_stat"]]
+				<br>\nПсихологическое состояние: [record_general.fields["m_stat"]]<br>"}
+		P.name = "paper - 'Запись службы безопасности: [record_general.fields["name"]]'"
 		var/obj/item/photo/photo = new(loc)
 		//photo.img = record_general.fields["photo"]
 		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
@@ -447,9 +455,9 @@
 		new_photo.Blend(icon(record_general.fields["photo"], dir = WEST), ICON_OVERLAY, 32)
 		new_photo.Scale(new_photo.Width() * 3, new_photo.Height() * 3)
 		photo.img = new_photo
-		photo.name = "photo - 'Security Record: [record_general.fields["name"]]'"
+		photo.name = "photo - 'Запись службы безопасности: [record_general.fields["name"]]'"
 	else
-		P.info += "<b>General Record Lost!</b><br>"
+		P.info += "<b>Общие записи утеряны!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))
 		P.info += {"<br>\n<center><b>Данные Службы Безопасности</b></center>
 		<br>\nСтатус: [record_security.fields["criminal"]]<br>\n
@@ -519,6 +527,14 @@
 /obj/machinery/computer/secure_data/laptop
 	name = "security laptop"
 	desc = "Ноутбук службы безопасности Nanotrasen. Привносим современные компактные компьютеры в наше столетие!"
+	ru_names = list(
+		NOMINATIVE = "ноутбук службы безопасности",
+		GENITIVE = "ноутбука службы безопасности",
+		DATIVE = "ноутбуку службы безопасности",
+		ACCUSATIVE = "ноутбук службы безопасности",
+		INSTRUMENTAL = "ноутбуком службы безопасности",
+		PREPOSITIONAL = "ноутбуке службы безопасности"
+	)
 	icon_state = "laptop"
 	icon_keyboard = "seclaptop_key"
 	icon_screen = "seclaptop"

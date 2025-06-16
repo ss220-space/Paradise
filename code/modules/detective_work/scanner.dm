@@ -77,7 +77,7 @@
 		log = list() // Clear the logs
 		scanning = FALSE
 	else
-		balloon_alert(usr, "нет отчётов для печати.")
+		balloon_alert(usr, "нет отчётов для печати")
 
 /obj/item/detective_scanner/proc/make_paper(log) // Moved to a proc because 'spawn()' is evil
 	var/obj/item/paper/P = new(drop_location())
@@ -90,7 +90,7 @@
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(P, ignore_anim = FALSE)
-		balloon_alert(M, "отчёт распечатан. Буффер очищен.")
+		balloon_alert(M, "отчёт распечатан, буффер очищен")
 
 
 /obj/item/detective_scanner/proc/clear_scanner()
@@ -99,7 +99,7 @@
 		playsound(loc, 'sound/machines/ding.ogg', 40)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, usr, span_notice("Буффер очищен.")), 1.5 SECONDS) //Timer so that it clears on the 'ding'
 	else
-		balloon_alert(usr, "нет отчётов для печати.")
+		balloon_alert(usr, "нет отчётов для печати")
 
 
 /obj/item/detective_scanner/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)

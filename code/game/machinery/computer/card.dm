@@ -133,21 +133,21 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		return
 
 	if(scan)
-		to_chat(usr, "Вы вытаскиваете [scan.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)].")
+		balloon_alert(usr, "ID-карта извлечена")
 		scan.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(scan, ignore_anim = FALSE)
 		scan = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else if(modify)
-		to_chat(usr, "Вы вытаскиваете [modify.declent_ru(ACCUSATIVE)] из [src.declent_ru(GENITIVE)].")
+		balloon_alert(usr, "ID-карта извлечена")
 		modify.forceMove(get_turf(src))
 		if(Adjacent(usr))
 			usr.put_in_hands(modify, ignore_anim = FALSE)
 		modify = null
 		playsound(src, 'sound/machines/terminal_insert_disc.ogg', 50, FALSE)
 	else
-		to_chat(usr, "Нечего вытаскивать из этой консоли.")
+		balloon_alert(usr, "нечего вытаскивать")
 
 
 /obj/machinery/computer/card/attackby(obj/item/card/id/id_card, mob/user, params)
@@ -385,7 +385,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 
 /obj/machinery/computer/card/proc/regenerate_id_name()
 	if(modify)
-		modify.name = "[modify.registered_name] ID-карта ([modify.assignment])"
+		modify.name = "[modify.registered_name] ID card ([modify.assignment])"
 
 /obj/machinery/computer/card/ui_act(action, params)
 	if(..())
@@ -459,11 +459,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 			if(target_dept)
 				if(modify.assignment == "Понижен" || modify.assignment == "Уволен")
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					visible_message(span_warning("[src.declent_ru("NOMINATIVE")]: Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер."))
+					atom_say("Для повторного назначения пониженного или уволенного сотрудника требуется ID компьютер.")
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(modify.rank), CONFIG_GET(flag/allow_head_of_departaments_assign_civilian)))
 					playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-					visible_message(span_warning("[src]: Для повторного назначения сотрудника за пределами вашего отдела требуется ID компьютер."))
+					atom_say("Для повторного назначения сотрудника за пределами вашего отдела требуется ID компьютер.")
 					return FALSE
 				if(!job_in_department(SSjobs.GetJob(t1)))
 					return FALSE
@@ -535,11 +535,11 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("demote")
 			if(modify.assignment == "Demoted")
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src]: член экипажа уже понижен."))
+				atom_say("Член экипажа уже понижен.")
 				return FALSE
 			if(!job_in_department(SSjobs.GetJob(modify.rank), FALSE))
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src]: Руководитель может понижать только сотрудников своего отдела."))
+				atom_say("Руководитель может понижать только сотрудников своего отдела.")
 				return FALSE
 			var/reason = sanitize(copytext(input("Введите причину понижения. Оставьте пустым для отмены.","Понижение"), 1, MAX_MESSAGE_LEN))
 			if(!reason || !is_authenticated(usr) || !modify)
@@ -567,7 +567,7 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 		if("terminate")
 			if(!has_idchange_access()) // because captain/HOP can use this even on dept consoles
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src]: Только капитан или глава персонала могут полностью уволить члена экипажа."))
+				atom_say("Только Капитан или Глава Персонала могут полностью уволить члена экипажа.")
 				return FALSE
 			var/jobnamedata = modify.getRankAndAssignment()
 			var/reason = sanitize(copytext(input("Введите причину увольнения. Оставьте пустым для отмены.", "Увольнение"), 1, MAX_MESSAGE_LEN))
@@ -635,10 +635,10 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 					var/tempname = params["remote_demote"]
 					var/temprank = E.fields["real_rank"]
 					if(!j)
-						visible_message(span_warning("[src]: У этого сотрудника либо нет работы, либо она индивидуальна - ([temprank])."))
+						atom_say("У этого сотрудника либо нет работы, либо она индивидуальна - ([temprank]).")
 						return FALSE
 					if(!job_in_department(j, FALSE))
-						visible_message(span_warning("[src]: Только руководитель отдела может уволить этого сотрудника."))
+						atom_say("Только руководитель отдела может уволить этого сотрудника.")
 						return FALSE
 					for(var/datum/data/record/R in GLOB.data_core.security)
 						if(R.fields["id"] == E.fields["id"])
@@ -666,10 +666,9 @@ GLOBAL_VAR_INIT(time_last_changed_position, 0)
 	switch(action)
 		// Changing basic card info
 		if("reg") // registered name on card
-			var/temp_name = reject_bad_name(input(usr, "Для кого эта ID-карта?", "Переименовать карту", modify.registered_name), TRUE)
+			var/temp_name = reject_bad_name(input(usr, "Указанное имя на ID-карте", "Имя на ID-карте", modify.registered_name), TRUE)
 			if(!modify || !temp_name)
 				playsound(get_turf(src), 'sound/machines/buzz-sigh.ogg', 50, FALSE)
-				visible_message(span_warning("[src] buzzes rudely."))
 				return FALSE
 			modify.registered_name = temp_name
 			regenerate_id_name()

@@ -1283,7 +1283,7 @@
 
 	var/turf/simulated/T = loc
 	if(!istype(T)) //to prevent doodling out of mechs and lockers
-		balloon_alert(src, "вы не можете дотянутся до пола.")
+		balloon_alert(src, "вы не можете дотянутся до пола")
 		return
 
 	var/turf/origin = T
@@ -1291,7 +1291,7 @@
 	if(direction != "Here")
 		T = get_step(T,text2dir(direction))
 	if(!istype(T))
-		balloon_alert(src, "тут нельзя рисовать.")
+		balloon_alert(src, "тут нельзя рисовать")
 		return
 
 	var/num_doodles = 0

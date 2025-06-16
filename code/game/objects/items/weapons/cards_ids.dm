@@ -106,15 +106,16 @@
 
 /obj/item/card/id
 	name = "identification card"
-	desc = "Карта, используемая для удостоверения личности и определения доступа владельца на станции."
+	desc = "Карта, используемая для удостоверения личности и определения доступа владельца на объекте."
 	ru_names = list(
-            NOMINATIVE = "идентификационная карта",
-            GENITIVE = "идентификационной карты",
-            DATIVE = "идентификационной карте",
-            ACCUSATIVE = "идентификационную карту",
-            INSTRUMENTAL = "идентификационной картой",
-            PREPOSITIONAL = "идентификационной карте"
-        )
+		NOMINATIVE = "идентификационная карта",
+		GENITIVE = "идентификационной карты",
+		DATIVE = "идентификационной карте",
+		ACCUSATIVE = "идентификационную карту",
+		INSTRUMENTAL = "идентификационной картой",
+		PREPOSITIONAL = "идентификационной карте"
+		)
+	gender = FEMALE
 	icon_state = "id"
 	item_state = "card-id"
 	lefthand_file = 'icons/mob/inhands/id_lefthand.dmi'
@@ -177,7 +178,7 @@
 	if(in_range(user, src))
 		show(usr)
 	else
-		. += to_chat(user, span_warning("Слишком далеко чтобы разглядеть"))
+		. += to_chat(user, span_warning("Слишком далеко, чтобы разглядеть!"))
 	if(guest_pass)
 		. += to_chat(user, span_notice("К этой ID-карте прикреплён гостевой пропуск"))
 		if(world.time < guest_pass.expiration_time)
@@ -198,16 +199,31 @@
 	popup.open()
 
 /obj/item/card/id/attack_self(mob/user as mob)
-	name = "[src.registered_name] ID-карта ([src.assignment])"
-	user.visible_message("[user] [pluralize_ru(user.gender, "показывает", "показывают")] вам: [bicon(src)] [src.name]. Должность: [src.assignment]",\
-		"Вы показываете свою ID-карту: [bicon(src)] [src.name]. Должность: [src.assignment]")
+	name = "[src.registered_name] ID Card ([src.assignment])"
+	user.visible_message("[user] показыва[pluralize_ru(user.gender, "ет", "ют")] вам: [bicon(src)] [declent_ru(ACCUSATIVE)]. Указанная должность: [src.assignment].",\
+		"Вы показываете свою ID-карту: [bicon(src)] [declent_ru(ACCUSATIVE)]. Указанная должность: [src.assignment].")
 	if(mining_points)
-		to_chat(user, "На этой карте сейчас <b>[mining_points] очков добычи</b>. Эта карта заработала <b>[total_mining_points] очков добычи</b> за смену!")
+		to_chat(user, "На этой карте зарегистрировано <b>[mining_points] очк[declension_ru(mining_points, "о", "а", "ов")] добычи</b>. Эта карта заработала <b>[total_mining_points] очк[declension_ru(total_mining_points, "о", "а", "ов")] добычи</b> за текущую смену.")
 	src.add_fingerprint(user)
 	return
 
 /obj/item/card/id/proc/UpdateName()
-	name = "[src.registered_name] ID-карта ([src.assignment])"
+	name = "[src.registered_name] ID card ([src.assignment])"
+	ru_names = list(
+		NOMINATIVE = "ID-карта",
+		GENITIVE = "ID-карты",
+		DATIVE = "ID-карте",
+		ACCUSATIVE = "ID-карту",
+		INSTRUMENTAL = "ID-картой",
+		PREPOSITIONAL = "ID-карте"
+	)
+	if (ru_names)
+		ru_names[1] = "[src.registered_name] " + ru_names[1]
+		ru_names[2] = "[src.registered_name] " + ru_names[2]
+		ru_names[3] = "[src.registered_name] " + ru_names[3]
+		ru_names[4] = "[src.registered_name] " + ru_names[4]
+		ru_names[5] = "[src.registered_name] " + ru_names[5]
+		ru_names[6] = "[src.registered_name] " + ru_names[6]
 
 /obj/item/card/id/proc/SetOwnerInfo(var/mob/living/carbon/human/H)
 	if(!H || !H.dna)
@@ -271,14 +287,14 @@
 		return H.ckey
 
 /obj/item/card/id/proc/is_untrackable()
-	return untrackable
+		return untrackable
 
 /obj/item/card/id/proc/update_label(newname, newjob)
 	if(newname || newjob)
-		name = "[(!newname)	? "identification card"	: "[newname] ID-карта"][(!newjob) ? "" : " ([newjob])"]"
+		name = "[(!newname)	? "identification card"	: "[newname] ID card"][(!newjob) ? "" : " ([newjob])"]"
 		return
 
-	name = "[(!registered_name)	? "identification card"	: "[registered_name] ID-карта"][(!assignment) ? "" : " ([assignment])"]"
+	name = "[(!registered_name)	? "identification card"	: "[registered_name] ID card"][(!assignment) ? "" : " ([assignment])"]"
 
 /obj/item/card/id/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/id_decal))
@@ -286,7 +302,7 @@
 		var/obj/item/id_decal/decal = I
 		if(!user.drop_transfer_item_to_loc(decal, src))
 			return ..()
-		balloon_alert(user, "Вы наклеили [decal] на [src].")
+		balloon_alert(user, "наклеено")
 		if(decal.override_name)
 			name = decal.decal_name
 		desc = decal.decal_desc
@@ -298,27 +314,27 @@
 	if(istype(I, /obj/item/stamp))
 		add_fingerprint(user)
 		if(stamped)
-			balloon_alert(user, "Тут уже стоит печать.")
+			balloon_alert(user, "печать уже стоит!")
 			return ATTACK_CHAIN_PROCEED
 		dat += "<img src=large_[I.icon_state].png>"
 		stamped = TRUE
-		balloon_alert(user, "Вы поставили печать!")
+		balloon_alert(user, "печать поставлена!")
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(I, /obj/item/card/id/guest))
 		add_fingerprint(user)
 		if(istype(src, /obj/item/card/id/guest))
-			balloon_alert(user, "Применение одной гостевой карты к другой ничего не дает.")
+			balloon_alert(user, "это бессмысленно")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_pass)
-			balloon_alert(user, "К этой ID-карте уже прикреплён какой-то гостевой пропуск.")
+			balloon_alert(user, "уже есть пропуск")
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/card/id/guest/guest_id = I
 		if(world.time > guest_id.expiration_time)
-			balloon_alert(user, "Срок действия гостевой карты истек.")
+			balloon_alert(user, "срок истёк")
 			return ATTACK_CHAIN_PROCEED
 		if(guest_id.registered_name != registered_name && guest_id.registered_name != "NOT SPECIFIED")
-			balloon_alert(user, "Гостевой пропуск не может быть прикреплён к этой ID-карте.")
+			balloon_alert(user, "нельзя прикрепить к этой ID-карте")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))
 			return ..()
@@ -337,11 +353,11 @@
 		return
 
 	if(guest_pass)
-		balloon_alert(usr, "Вы удалили гостевую карту, связанную с этой ID-картой.")
+		balloon_alert(usr, "пропуск удалён")
 		guest_pass.forceMove(get_turf(src))
 		guest_pass = null
 	else
-		balloon_alert(usr, "К этой ID-карте уже прикреплён какой-то гостевой пропуск.")
+		balloon_alert(usr, "пропуск уже прикреплён")
 
 /obj/item/card/id/serialize()
 	var/list/data = ..()
@@ -380,13 +396,13 @@
 
 /obj/item/card/id/silver
 	name = "identification card"
-	desc = "Серебряная карта, символизирующая честь и преданность."
+	desc = "Карта, используемая для удостоверения личности и определения доступа владельца на объекте. Символизирует честь и преданность."
 	icon_state = "silver"
 	item_state = "silver-id"
 
 /obj/item/card/id/gold
 	name = "identification card"
-	desc = "Золотая карта, символизирующая силу и мощь."
+	desc = "Карта, используемая для удостоверения личности и определения доступа владельца на объекте. Символизирует силу и мощь."
 	icon_state = "gold"
 	item_state = "gold-id"
 
@@ -583,15 +599,15 @@
 			clear_slot(params["slot"])
 			to_chat(registered_user, span_notice("Вы успешно очистили слот [params["slot"]]."))
 		if("clear_access")
-			var/response = tgui_alert(registered_user, "Вы уверены, что хотите сбросить доступ, сохраненный на карте?", "Сброс доступа", list("Нет", "Да"))
+			var/response = tgui_alert(registered_user, "Вы уверены, что хотите сбросить доступ, сохранённый на карте?", "Сброс доступа", list("Нет", "Да"))
 			if(response == "Да")
 				access = initial_access.Copy() // Initial() doesn't work on lists
 				to_chat(registered_user, span_notice("Доступ карты сброшен."))
 		if("change_ai_tracking")
 			untrackable = !untrackable
-			to_chat(registered_user, span_notice("Эта ID-карта теперь [untrackable ? "неотслеживаемая" : "отслеживаемая"] ИИ."))
+			to_chat(registered_user, span_notice("Эта ID-карта теперь [untrackable ? "не отслеживается" : "отслеживается"] ИИ."))
 		if("change_name")
-			var/new_name = reject_bad_name(tgui_input_text(registered_user, "Какое имя вы хотите использовать на этой карте?", "Имя агентской карты", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
+			var/new_name = reject_bad_name(tgui_input_text(registered_user, "Какое имя вы хотите использовать на этой карте?", "Имя", ishuman(registered_user) ? registered_user.real_name : registered_user.name), TRUE)
 			if(!Adjacent(registered_user) || isnull(new_name))
 				return
 			registered_name = new_name
@@ -607,7 +623,7 @@
 			if(!newphoto)
 				return
 			photo = newphoto
-			to_chat(registered_user, span_notice("Фото изменено. Выберите другую профессию и сделайте новое фото, если хотите сменить одежду."))
+			to_chat(registered_user, span_notice("Фото изменено. Выберите другую должность и сделайте новое фото, если хотите сменить одежду."))
 		if("change_appearance")
 			var/choice = tgui_input_list(registered_user, "Выберите внешний вид для этой карты.", "Внешний вид агентской карты", appearances)
 			if(!Adjacent(registered_user))
@@ -640,7 +656,7 @@
 			if(!Adjacent(registered_user) || isnull(new_sex))
 				return
 			sex = new_sex
-			to_chat(registered_user, span_notice("Пол изменен на [new_sex]."))
+			to_chat(registered_user, span_notice("Пол изменён на [new_sex]."))
 		if("change_age")
 			var/default = "21"
 			if(ishuman(registered_user))
@@ -650,7 +666,7 @@
 			if(!Adjacent(registered_user) || isnull(new_age))
 				return
 			age = new_age
-			to_chat(registered_user, span_notice("Возраст изменен на [new_age]."))
+			to_chat(registered_user, span_notice("Возраст изменён на [new_age]."))
 		if("change_occupation")
 			var/list/departments =list(
 				"Civilian",
@@ -664,46 +680,46 @@
 				"Custom",
 			)
 
-			var/department = tgui_input_list(registered_user, "Какую должность вы хотите указать на этой карте?\nВыберите отдел или укажите название должности.\nИзменение профессии не даст и не уберет уровни доступа.", "Профессия агентской карты", departments)
+			var/department = tgui_input_list(registered_user, "Какую должность вы хотите указать на этой карте?\nВыберите отдел или укажите название должности.\nИзменение должности не даст и не уберёт уровни доступа.", "Должность агентской карты", departments)
 			var/new_job = JOB_TITLE_CIVILIAN
 			var/new_rank = JOB_TITLE_CIVILIAN
 
 			if(department == "Custom")
-				new_job = tgui_input_text(registered_user, "Выберите индивидуальное название должности:", "Профессия агентской карты", "Assistant")
-				var/department_icon = tgui_input_list(registered_user, "Какую профессию вы хотите указать на этой карте (для SecHUDs)?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты", departments)
+				new_job = tgui_input_text(registered_user, "Выберите индивидуальное название должности:", "Должность агентской карты", "Assistant")
+				var/department_icon = tgui_input_list(registered_user, "Какую должность вы хотите указать на этой карте (для SecHUDs)?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты", departments)
 				switch(department_icon)
 					if("Engineering")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.engineering_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.engineering_positions
 					if("Medical")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.medical_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.medical_positions
 					if("Science")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.science_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.science_positions
 					if("Security")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.security_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.security_positions
 					if("Support")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.support_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.support_positions
 					if("Command")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.command_positions
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.command_positions
 					if("Special")
-						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_rank = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 					if("Custom")
 						new_rank = null
 			else if(department != "Civilian")
 				switch(department)
 					if("Engineering")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.engineering_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.engineering_positions
 					if("Medical")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.medical_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.medical_positions
 					if("Science")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.science_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.science_positions
 					if("Security")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.security_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.security_positions
 					if("Support")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.support_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.support_positions
 					if("Command")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in GLOB.command_positions
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in GLOB.command_positions
 					if("Special")
-						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение профессии не даст и не уберет уровни доступа.","Профессия агентской карты") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
+						new_job = input(registered_user, "Какую должность вы хотели бы видеть на этой карте?\nИзменение должности не даст и не уберет уровни доступа.","Должность агентской карты") in (get_all_solgov_jobs() + get_all_soviet_jobs() + get_all_centcom_jobs() + get_all_special_jobs())
 				new_rank = new_job
 
 			if(!Adjacent(registered_user) || isnull(new_job))
@@ -845,12 +861,12 @@
 	name = "syndicate ID card"
 	desc = "ID-карта Синдиката."
 	ru_names = list(
-    NOMINATIVE = "ID-карта Синдиката",
-    GENITIVE = "ID-карты Синдиката",
-    DATIVE = "ID-карте Синдиката",
-    ACCUSATIVE = "ID-карту Синдиката",
-    INSTRUMENTAL = "ID-картой Синдиката",
-    PREPOSITIONAL = "ID-карте Синдиката"
+		NOMINATIVE = "ID-карта Синдиката",
+		GENITIVE = "ID-карты Синдиката",
+		DATIVE = "ID-карте Синдиката",
+		ACCUSATIVE = "ID-карту Синдиката",
+		INSTRUMENTAL = "ID-картой Синдиката",
+		PREPOSITIONAL = "ID-карте Синдиката"
 )
 	registered_name = "Syndicate"
 	icon_state = "syndie"
@@ -863,12 +879,12 @@
 	name = "captain's spare ID"
 	desc = "Запасная ID-карта капитана."
 	ru_names = list(
-    NOMINATIVE = "запасная ID-карта капитана",
-    GENITIVE = "запасной ID-карты капитана",
-    DATIVE = "запасной ID-карте капитана",
-    ACCUSATIVE = "запасную ID-карту капитана",
-    INSTRUMENTAL = "запасной ID-картой капитана",
-    PREPOSITIONAL = "запасной ID-карте капитана"
+			NOMINATIVE = "запасная ID-карта капитана",
+			GENITIVE = "запасной ID-карты капитана",
+			DATIVE = "запасной ID-карте капитана",
+			ACCUSATIVE = "запасную ID-карту капитана",
+			INSTRUMENTAL = "запасной ID-картой капитана",
+			PREPOSITIONAL = "запасной ID-карте капитана"
 )
 	icon_state = "gold"
 	item_state = "gold-id"
@@ -896,6 +912,14 @@
 /obj/item/card/id/centcom
 	name = "central command ID card"
 	desc = "ID-карта Центрального Командования."
+	ru_names = list(
+		NOMINATIVE = "ID-карта Центрального Командования",
+		GENITIVE = "ID-карты Центрального Командования",
+		DATIVE = "ID-карте Центрального Командования",
+		ACCUSATIVE = "ID-карту Центрального Командования",
+		INSTRUMENTAL = "ID-картой Центрального Командования",
+		PREPOSITIONAL = "ID-карте Центрального Командования"
+	)
 	icon_state = "centcom"
 	item_state = "centcomm-id"
 	registered_name = "Central Command"
@@ -913,6 +937,14 @@
 /obj/item/card/id/prisoner
 	name = "prisoner ID card"
 	desc = "Вы не свободны. Вы - просто номер."
+	ru_names = list(
+		NOMINATIVE = "ID-карта заключённого",
+		GENITIVE = "ID-карты заключённого",
+		DATIVE = "ID-карте заключённого",
+		ACCUSATIVE = "ID-карту заключённого",
+		INSTRUMENTAL = "ID-картой заключённого",
+		PREPOSITIONAL = "ID-карте заключённого"
+	)
 	icon_state = "prisoner"
 	item_state = "orange-id"
 	assignment = "Prisoner"
@@ -921,7 +953,7 @@
 	var/points = 0
 
 /obj/item/card/id/prisoner/attack_self(mob/user as mob)
-	to_chat(usr, "Вы добыли [points] очков из необходимых [goal] для освобождения.")
+	to_chat(usr, "Вы добыли [points] очк[declension_ru(points, "о", "а", "ов")] добычи. Необходимо добыть для освобождения: [goal].")
 
 /obj/item/card/id/prisoner/one
 	name = "Prisoner #13-001"
@@ -1031,9 +1063,9 @@
 	icon_state = "HoS"
 	item_state = "hos-id"
 	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_BRIG, ACCESS_ARMORY, ACCESS_COURT,
-			            ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
-			            ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
-			            ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
+						ACCESS_FORENSICS_LOCKERS, ACCESS_PILOT, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_ALL_PERSONAL_LOCKERS,
+						ACCESS_RESEARCH, ACCESS_ENGINE, ACCESS_MINING, ACCESS_MEDICAL, ACCESS_CONSTRUCTION, ACCESS_MAILSORTING,
+						ACCESS_HEADS, ACCESS_HOS, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_GATEWAY, ACCESS_WEAPONS)
 
 /obj/item/card/id/cmo
 	name = "Chief Medical Officer ID"
@@ -1050,9 +1082,9 @@
 	icon_state = "RD"
 	item_state = "rd-id"
 	access = list(ACCESS_RD, ACCESS_HEADS, ACCESS_TOX, ACCESS_GENETICS, ACCESS_MORGUE,
-			            ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
-			            ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
-			            ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
+						ACCESS_TOX_STORAGE, ACCESS_TECH_STORAGE, ACCESS_TELEPORTER, ACCESS_SEC_DOORS,
+						ACCESS_RESEARCH, ACCESS_ROBOTICS, ACCESS_XENOBIOLOGY, ACCESS_AI_UPLOAD,
+						ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_GATEWAY, ACCESS_XENOARCH, ACCESS_MINISAT, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/ce
 	name = "Chief Engineer ID"
@@ -1060,9 +1092,9 @@
 	icon_state = "CE"
 	item_state = "ce-id"
 	access = list(ACCESS_ENGINE, ACCESS_ENGINE_EQUIP, ACCESS_TECH_STORAGE, ACCESS_MAINT_TUNNELS,
-			            ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
-			            ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
-			            ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
+						ACCESS_TELEPORTER, ACCESS_EXTERNAL_AIRLOCKS, ACCESS_ATMOSPHERICS, ACCESS_EMERGENCY_STORAGE, ACCESS_EVA,
+						ACCESS_HEADS, ACCESS_CONSTRUCTION, ACCESS_SEC_DOORS,
+						ACCESS_CE, ACCESS_RC_ANNOUNCE, ACCESS_KEYCARD_AUTH, ACCESS_TCOMSAT, ACCESS_MINISAT, ACCESS_MECHANIC, ACCESS_MINERAL_STOREROOM)
 
 /obj/item/card/id/clown
 	name = "Pink ID"
@@ -1218,7 +1250,7 @@
 		UpdateName()
 		desc = "Карта, используемая для сбора очков добычи и покупки снаряжения."
 		registered = TRUE
-		balloon_alert(user, "Карта теперь привязана к вам.")
+		balloon_alert(user, "карта привязана к вам")
 	else
 		..()
 

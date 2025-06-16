@@ -144,14 +144,14 @@
 				rank = I.assignment
 		if(!R.fields["comments"] || !islist(R.fields["comments"])) //copied from security computer code because apparently these need to be initialized
 			R.fields["comments"] = list()
-		R.fields["comments"] += "Автоматически сгенерировано [name] [GLOB.current_date_string] [station_time_timestamp()]<br>Заключён сотрудником [rank] [usr.name] на [timetext]. Обвинения: [crimes]"
+		R.fields["comments"] += "Автоматически сгенерировано [declent_ru(INSTRUMENTAL)] [GLOB.current_date_string] [station_time_timestamp()]<br>Заключён сотрудником [rank] [usr.name] на [timetext]. Обвинения: [crimes]"
 		update_all_mob_security_hud()
 	return 1
 
 /obj/machinery/door_timer/proc/notify_prisoner(notifytext)
 	for(var/mob/living/carbon/human/H in range(4, get_turf(src)))
 		if(occupant == H.name)
-			to_chat(H, "[src.name] пищит: [notifytext]")
+			atom_say(H, "[src.name] пищит: [notifytext]")
 			return
 	atom_say("[occupant_name]: [notifytext]")
 
@@ -168,7 +168,7 @@
 			timer_end()
 			return PROCESS_KILL
 		if(timeleft() <= 0)
-			Radio.autosay("Время вышло. Заключённый освобождён", name, SEC_FREQ_NAME)
+			Radio.autosay("Срок заключения окончен. Заключённый освобождён.", name, SEC_FREQ_NAME)
 			occupant = CELL_NONE
 			timer_end() // open doors, reset timer, clear status screen
 			return PROCESS_KILL
@@ -422,12 +422,12 @@
 			if(timing)
 				var/add_reason = sanitize(copytext(input(usr, "Причина:", name, "") as text|null, 1, MAX_MESSAGE_LEN))
 				if(!add_reason)
-					balloon_alert(usr, "Укажите причину!")
+					balloon_alert(usr, "укажите причину!")
 					return FALSE
 				prisoner_time_add = input(usr, "Сколько минут добавить:", name, prisoner_time_add) as num|null
 				prisoner_time_add = min(max(round(prisoner_time_add), 0), PERMABRIG_TIME)
 				if(!prisoner_time_add)
-					balloon_alert(usr, "Необходимо указать число!")
+					to_chat(usr, span_warning("Необходимо указать число!"))
 					return FALSE
 				prisoner_time_add = prisoner_time_add MINUTES
 				if(timetoset + prisoner_time_add >= PERMABRIG_TIME MINUTES)
@@ -441,7 +441,7 @@
 				notify_prisoner("Таймер был увеличен на [time_string]. Причина: [add_reason]")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
-					R.fields["comments"] += "Автоматически сгенерировано [name] [GLOB.current_date_string] [station_time_timestamp()]<br>Таймер был увеличен на [time_string]. Причина: [add_reason]"
+					R.fields["comments"] += "Автоматически сгенерировано [declent_ru(INSTRUMENTAL)] [GLOB.current_date_string] [station_time_timestamp()]<br>Таймер был увеличен на [time_string]. Причина: [add_reason]"
 			else
 				. = FALSE
 
@@ -449,14 +449,14 @@
 			if(timing)
 				var/reset_reason = tgui_input_text(usr, "Причина перезапуска:", name)
 				if(!reset_reason)
-					balloon_alert(usr, "Укажите причину!")
+					balloon_alert(usr, "укажите причину!")
 					return FALSE
 				releasetime = world.timeofday + timetoset
 				Radio.autosay("Таймер заключённого [occupant] был перезапущен решением [usr.name]. Причина: [reset_reason].", name, SEC_FREQ_NAME)
 				notify_prisoner("Таймер был перезапущен. Причина: [reset_reason]")
 				var/datum/data/record/R = find_security_record("name", occupant)
 				if(istype(R))
-					R.fields["comments"] += "Автоматически сгенерировано [name] [GLOB.current_date_string] [station_time_timestamp()]<br>Таймер заключения для [occupant] был перезапущен решением [usr.name]. Причина: [reset_reason]."
+					R.fields["comments"] += "Автоматически сгенерировано [declent_ru(INSTRUMENTAL)] [GLOB.current_date_string] [station_time_timestamp()]<br>Таймер заключения для [occupant] был перезапущен решением [usr.name]. Причина: [reset_reason]."
 			else
 				. = FALSE
 		if("stop")
@@ -469,7 +469,7 @@
 		if("flash")
 			for(var/obj/machinery/flasher/flasher in targets)
 				if(flasher.last_flash && (flasher.last_flash + 15 SECONDS) > world.time)
-					balloon_alert(usr, "Флешер перезаряжается!")
+					balloon_alert(usr, "флешер перезаряжается!")
 				else
 					flasher.flash()
 		else
@@ -484,32 +484,96 @@
 
 /obj/machinery/door_timer/cell_1
 	name = "Камера 1"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №1",
+		GENITIVE = "таймера заключения №1",
+		DATIVE = "таймеру заключения №1",
+		ACCUSATIVE = "таймер заключения №1",
+		INSTRUMENTAL = "таймером заключения №1",
+		PREPOSITIONAL = "таймере заключения №1"
+	)
 	id = "Cell 1"
 
 /obj/machinery/door_timer/cell_2
 	name = "Камера 2"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №2",
+		GENITIVE = "таймера заключения №2",
+		DATIVE = "таймеру заключения №2",
+		ACCUSATIVE = "таймер заключения №2",
+		INSTRUMENTAL = "таймером заключения №2",
+		PREPOSITIONAL = "таймере заключения №2"
+	)
 	id = "Cell 2"
 
 /obj/machinery/door_timer/cell_3
 	name = "Камера 3"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №3",
+		GENITIVE = "таймера заключения №3",
+		DATIVE = "таймеру заключения №3",
+		ACCUSATIVE = "таймер заключения №3",
+		INSTRUMENTAL = "таймером заключения №3",
+		PREPOSITIONAL = "таймере заключения №3"
+	)
 	id = "Cell 3"
 
 /obj/machinery/door_timer/cell_4
 	name = "Камера 4"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №4",
+		GENITIVE = "таймера заключения №4",
+		DATIVE = "таймеру заключения №4",
+		ACCUSATIVE = "таймер заключения №4",
+		INSTRUMENTAL = "таймером заключения №4",
+		PREPOSITIONAL = "таймере заключения №4"
+	)
 	id = "Cell 4"
 
 /obj/machinery/door_timer/cell_5
 	name = "Камера 5"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №5",
+		GENITIVE = "таймера заключения №5",
+		DATIVE = "таймеру заключения №5",
+		ACCUSATIVE = "таймер заключения №5",
+		INSTRUMENTAL = "таймером заключения №5",
+		PREPOSITIONAL = "таймере заключения №5"
+	)
 	id = "Cell 5"
 
 /obj/machinery/door_timer/cell_6
 	name = "Камера 6"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №6",
+		GENITIVE = "таймера заключения №6",
+		DATIVE = "таймеру заключения №6",
+		ACCUSATIVE = "таймер заключения №6",
+		INSTRUMENTAL = "таймером заключения №6",
+		PREPOSITIONAL = "таймере заключения №6"
+	)
 	id = "Cell 6"
 
 /obj/machinery/door_timer/cell_7
 	name = "Камера  7"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №7",
+		GENITIVE = "таймера заключения №7",
+		DATIVE = "таймеру заключения №7",
+		ACCUSATIVE = "таймер заключения №7",
+		INSTRUMENTAL = "таймером заключения №7",
+		PREPOSITIONAL = "таймере заключения №7"
+	)
 	id = "Cell 7"
 
 /obj/machinery/door_timer/cell_8
 	name = "Камера 8"
+	ru_names = list(
+		NOMINATIVE = "таймер заключения №8",
+		GENITIVE = "таймера заключения №8",
+		DATIVE = "таймеру заключения №8",
+		ACCUSATIVE = "таймер заключения №8",
+		INSTRUMENTAL = "таймером заключения №8",
+		PREPOSITIONAL = "таймере заключения №8"
+	)
 	id = "Cell 8"

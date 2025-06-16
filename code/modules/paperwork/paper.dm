@@ -127,7 +127,7 @@
 		to_chat(user, span_warning("Вы порезались бумагой."))
 		return
 	if(!user.is_literate())
-		balloon_alert(user, "вы не умеете читать.")
+		balloon_alert(user, "вы не умеете читать!")
 		return
 	var/n_name = rename_interactive(user)
 	if(isnull(n_name))
@@ -203,7 +203,7 @@
 		return
 	doggo.changeNext_move(CLICK_CD_MELEE)
 	if(world.time < doggo.last_eaten + 30 SECONDS)
-		balloon_alert(doggo, "вы сыты.")
+		balloon_alert(doggo, "вы сыты")
 		return
 
 	doggo.visible_message(
@@ -216,7 +216,7 @@
 		return
 
 	if(world.time < doggo.last_eaten + 30 SECONDS) // Check again to prevent eating multiple papers at once.
-		balloon_alert(doggo, "вы сыты.")
+		balloon_alert(doggo, "вы сыты")
 		return
 	doggo.last_eaten = world.time
 
@@ -494,7 +494,7 @@
 			to_chat(user, span_userdanger("вы не можете использовать эту печать. ХОНК!"))
 			return ATTACK_CHAIN_PROCEED
 		stamp(I)
-		balloon_alert(user, "вы поставили печать на лист бумаги.")
+		balloon_alert(user, "печать поставлена")
 		playsound(user, 'sound/items/handling/standard_stamp.ogg', 50, TRUE)
 		return ATTACK_CHAIN_PROCEED
 
@@ -506,7 +506,7 @@
 	if(istype(I, /obj/item/paper/carbon))
 		var/obj/item/paper/carbon/carbon_paper = I
 		if(!carbon_paper.iscopy && !carbon_paper.copied)
-			balloon_alert(user, "сначала уберите копию.")
+			balloon_alert(user, "сначала уберите копию")
 			return .
 
 	if(loc == user && !user.can_unEquip(src))

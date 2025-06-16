@@ -79,7 +79,7 @@
 		if(istype(I, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/carbon_paper = I
 			if(!carbon_paper.iscopy && !carbon_paper.copied)
-				balloon_alert(user, "сначала уберите копию.")
+				balloon_alert(user, "сначала уберите копию")
 				return .
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()

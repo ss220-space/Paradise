@@ -57,7 +57,7 @@
 	if(is_type_in_typecache(I, allowed_to_store))
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		balloon_alert(user, "вы положили [I] в [src].")
+		balloon_alert(user, "вы положили [I] в [src]")
 		opened = TRUE
 		update_icon(UPDATE_ICON_STATE)
 		sleep(0.5 SECONDS)
@@ -231,7 +231,7 @@ GLOBAL_LIST_EMPTY(employmentCabinets)
 
 /obj/structure/filingcabinet/employment/attack_hand(mob/user)
 	if(cooldown)
-		balloon_alert(user, "заклинило, подождите.")
+		balloon_alert(user, "заклинило, подождите!")
 	else
 		if(!populated)
 			add_fingerprint(user)

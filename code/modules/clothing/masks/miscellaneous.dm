@@ -1,6 +1,14 @@
 /obj/item/clothing/mask/muzzle
 	name = "muzzle"
-	desc = "To stop that awful noise."
+	desc = "Чтобы наконец-то стало тихо."
+	ru_names = list(
+		NOMINATIVE     = "намордник",
+		GENITIVE       = "намордника",
+		DATIVE         = "наморднику",
+		ACCUSATIVE     = "намордник",
+		INSTRUMENTAL   = "намордником",
+		PREPOSITIONAL  = "наморднике"
+	)
 	icon_state = "muzzle"
 	item_state = "muzzle"
 	flags_cover = MASKCOVERSMOUTH
@@ -29,8 +37,8 @@
 		return 0
 	else if(security_lock && locked)
 		if(do_unlock(user))
-			visible_message(span_danger("[user] unlocks [user.p_their()] [src.name]."), \
-								span_userdanger("[user] unlocks [user.p_their()] [src.name]."))
+			visible_message(span_danger("[user] открыва[pluralize_ru(user.gender, "ет", "ют")] [src.name]."))
+			balloon_alert(user, "разблокировано")
 	..()
 	return 1
 
@@ -39,23 +47,23 @@
 		security_lock = FALSE
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
-		desc += " This one appears to be broken."
+		desc += " Выглядит сломанным."
 		return TRUE
 	else
 		return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_unlock(mob/living/carbon/human/user)
 	if(istype(user.get_inactive_hand(), /obj/item/card/emag))
-		balloon_alert(user, "Замок начинает дымится и открывается.")
+		balloon_alert(user, "замок дымится и открывается")
 		do_break()
 		return TRUE
 	else if(ACCESS_BRIG in user.get_access())
-		balloon_alert(user, "Намордник открывается с характерным щелчком.")
+		balloon_alert(user, "намордник открылся с характерным щелчком")
 		locked = FALSE
 		REMOVE_TRAIT(src, TRAIT_NODROP, MUZZLE_TRAIT)
 		return TRUE
 
-	balloon_alert(user, "Чтобы снять намордник, необходимо иметь ID-карту сотрудника службы безопасности.")
+	to_chat(user, span_warning("Чтобы снять намордник, необходимо иметь ID-карту сотрудника службы безопасности."))
 	return FALSE
 
 /obj/item/clothing/mask/muzzle/proc/do_lock(mob/living/carbon/human/user)
@@ -67,7 +75,7 @@
 
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
-	desc = "MHPMHHH!"
+	desc = "МПХМФ!"
 	icon_state = "tapegag"
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
@@ -109,7 +117,7 @@
 
 /obj/item/clothing/mask/muzzle/tapegag/thick
 	name = "thick tape gag"
-	desc = "MHPMHHH!"
+	desc = "МПХМФ!"
 	icon_state = "thicktapegag"
 	resist_time = 15 SECONDS
 	mute = MUZZLE_MUTE_MUFFLE
@@ -118,7 +126,7 @@
 
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
-	desc = "A muzzle designed to prevent biting."
+	desc = "Намордник, предназначенный для предотвращения укусов."
 	icon_state = "muzzle_secure"
 	item_state = "muzzle_secure"
 	resist_time = 0
@@ -148,12 +156,12 @@
 	name = "shock muzzle"
 	desc = "Намордник, предназначенный для предотвращения укусов. Оснащен системой коррекции поведения."
 	ru_names = list(
-    NOMINATIVE = "электрошоковый намордник",
-    GENITIVE = "электрошокового намордника",
-    DATIVE = "электрошоковому наморднику",
-    ACCUSATIVE = "электрошоковый намордник",
-    INSTRUMENTAL = "электрошоковым намордником",
-    PREPOSITIONAL = "электрошоковом наморднике"
+		NOMINATIVE = "электрошоковый намордник",
+		GENITIVE = "электрошокового намордника",
+		DATIVE = "электрошоковому наморднику",
+		ACCUSATIVE = "электрошоковый намордник",
+		INSTRUMENTAL = "электрошоковым намордником",
+		PREPOSITIONAL = "электрошоковом наморднике"
 )
 	var/obj/item/assembly/trigger = null
 	origin_tech = "materials=1;engineering=1"
@@ -164,7 +172,7 @@
 	if(issignaler(I) || istype(I, /obj/item/assembly/voice))
 		add_fingerprint(user)
 		if(trigger)
-			balloon_alert(user, "[name] уже имеет [trigger.declent_ru(ACCUSATIVE)].")
+			balloon_alert(user, "уже в наморднике")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
@@ -172,12 +180,12 @@
 		trigger.master = src
 		trigger.holder = src
 		AddComponent(/datum/component/proximity_monitor)
-		balloon_alert(user, "Вы прикрепили [I] к [src.declent_ru(DATIVE)].")
+		balloon_alert(user, "намердник надет")
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(isassembly(I))
 		add_fingerprint(user)
-		balloon_alert(user, "[I.name] не влезет в [src]. Возможно, сигнализатор или анализатор голоса влезет?")
+		balloon_alert(user, "не влезает, попробуйте сигнализатор или анализатор голоса!")
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
@@ -189,7 +197,7 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	balloon_alert(user, "Вы вытаскиваете [trigger] из [src].")
+	balloon_alert(user, "[trigger] извлечён")
 	trigger.forceMove(get_turf(user))
 	trigger.master = null
 	trigger.holder = null

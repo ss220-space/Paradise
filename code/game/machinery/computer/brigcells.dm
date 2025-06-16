@@ -1,18 +1,26 @@
 /obj/machinery/computer/brigcells
-    name = "cell management computer"
-    desc = "Используется для управления тюремными камерами."
-    icon_keyboard = "security_key"
-    icon_screen = "cell_monitor"
-    use_power = IDLE_POWER_USE
-    idle_power_usage = 250
-    active_power_usage = 500
-    circuit = /obj/item/circuitboard/brigcells
-    light_color = LIGHT_COLOR_DARKRED
-    req_access = list(ACCESS_BRIG)
+	name = "cell management computer"
+	desc = "Используется для управления тюремными камерами."
+	ru_names = list(
+		NOMINATIVE = "консоль управления камерами заключения",
+		GENITIVE = "консоли управления камерами заключения",
+		DATIVE = "консоли управления камерами заключения",
+		ACCUSATIVE = "консоль управления камерами заключения",
+		INSTRUMENTAL = "консолью управления камерами заключения",
+		PREPOSITIONAL = "консоли управления камерами заключения"
+	)
+	icon_keyboard = "security_key"
+	icon_screen = "cell_monitor"
+	use_power = IDLE_POWER_USE
+	idle_power_usage = 250
+	active_power_usage = 500
+	circuit = /obj/item/circuitboard/brigcells
+	light_color = LIGHT_COLOR_DARKRED
+	req_access = list(ACCESS_BRIG)
 
 /obj/machinery/computer/brigcells/attack_ai(mob/user)
-    attack_hand(user)
-    ui_interact(user)
+	attack_hand(user)
+	ui_interact(user)
 
 /obj/machinery/computer/brigcells/attack_hand(mob/user)
 	if(stat & (BROKEN|NOPOWER))

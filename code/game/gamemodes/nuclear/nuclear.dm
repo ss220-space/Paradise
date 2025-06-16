@@ -201,7 +201,7 @@
 
 	if(LAZYLEN(found_ids))
 		for(var/obj/item/card/id/ID in found_ids)
-			ID.name = "[synd_mind.current.real_name] ID-карта"
+			ID.name = "[synd_mind.current.real_name] ID Card"
 			ID.registered_name = synd_mind.current.real_name
 			if(is_leader)
 				ID.access += ACCESS_SYNDICATE_LEADER
