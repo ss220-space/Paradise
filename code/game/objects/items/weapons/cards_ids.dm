@@ -333,7 +333,7 @@
 		if(world.time > guest_id.expiration_time)
 			balloon_alert(user, "срок истёк")
 			return ATTACK_CHAIN_PROCEED
-		if(guest_id.registered_name != registered_name && guest_id.registered_name != "NOT SPECIFIED")
+		if(guest_id.registered_name != registered_name && guest_id.registered_name != "НЕ УКАЗАНО")
 			balloon_alert(user, "нельзя прикрепить к этой ID-карте")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(guest_id, src))

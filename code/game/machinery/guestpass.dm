@@ -18,7 +18,7 @@
 
 	var/temp_access = list() //to prevent agent cards stealing access as permanent
 	var/expiration_time = 0
-	var/reason = "NOT SPECIFIED"
+	var/reason = "НЕ УКАЗАНА"
 
 /obj/item/card/id/guest/GetAccess()
 	if(world.time > expiration_time)
@@ -29,13 +29,13 @@
 /obj/item/card/id/guest/examine(mob/user)
 	. = ..()
 	if(world.time < expiration_time)
-		. += span_notice("Пропуск истекает в <b>[station_time_timestamp("hh:mm:ss", expiration_time)]<b>.")
+		. += span_notice("Пропуск истекает в <b>[station_time_timestamp("hh:mm:ss", expiration_time)]</b>.")
 	else
-		. += span_warning("Пропуск истекает в <b>[station_time_timestamp("hh:mm:ss", expiration_time)]<b>.")
-	. += span_notice("<b>Даёт доступ к следующим местам:<b>")
+		. += span_warning("Пропуск истекает в <b>[station_time_timestamp("hh:mm:ss", expiration_time)]</b>.")
+	. += span_notice("<b>Даёт доступ к следующим местам:</b>")
 	for(var/A in temp_access)
 		. += span_notice("[get_access_desc(A)].")
-	. += span_notice("<b>Причина создания: [reason].<b>")
+	. += span_notice("<b>Причина создания: [reason].</b>")
 
 /////////////////////////////////////////////
 //Guest pass terminal////////////////////////
@@ -51,8 +51,8 @@
 
 	var/obj/item/card/id/giver
 	var/list/accesses = list()
-	var/giv_name = "NOT SPECIFIED"
-	var/reason = "NOT SPECIFIED"
+	var/giv_name = "НЕ УКАЗАНО"
+	var/reason = "НЕ УКАЗАНА"
 	var/duration = 5
 
 	var/list/internal_log = list()
@@ -98,7 +98,7 @@
 		dat += "<a href='byond://?src=[UID()];action=print'>Распечатать</a><br>"
 		dat += "<a href='byond://?src=[UID()];mode=0'>Назад</a><br>"
 	else
-		dat += "<h3>Терминал гостевых пропусков #[uid]</h3><br>"
+		dat += "<h3>Терминал гостевых пропусков №[uid]</h3><br>"
 		dat += "<a href='byond://?src=[UID()];mode=1'>Посмотреть историю активности</a><br><br>"
 		dat += "Основная ID-карта: <a href='byond://?src=[UID()];action=id'>[giver]</a><br>"
 		dat += "Создаётся для: <a href='byond://?src=[UID()];choice=giv_name'>[giv_name]</a><br>"
@@ -185,7 +185,7 @@
 			if("issue")
 				if(giver)
 					var/number = add_zero("[rand(0,9999)]", 4)
-					var/entry = "\[[station_time()]\] [giver.registered_name] создал[genderize_ru(giver.gender, "", "а", "о", "и")] пропуск №[number] ([giver.assignment]) для [giv_name]. Причина: [reason]. Даёт доступ в следующие места: "
+					var/entry = "\[[station_time()]\] [giver.registered_name] ([giver.assignment]) создал[genderize_ru(giver.gender, "", "а", "о", "и")] пропуск №[number] для [giv_name]. Причина: [reason]. Даёт доступ в следующие места: "
 					for(var/i=1 to accesses.len)
 						var/A = accesses[i]
 						if(A)
@@ -201,7 +201,7 @@
 					pass.reason = reason
 					pass.name = "guest pass №[number]"
 				else
-					to_chat(usr, span_warning("Невозможно выписать без основной ID-карты."))
+					to_chat(usr, span_warning("Невозможно создать без основной ID-карты."))
 	updateUsrDialog()
 	return
 
