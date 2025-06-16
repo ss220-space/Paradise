@@ -55,7 +55,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	var/datum/wires/robot/wires = null
 
 	var/opened = FALSE
-	var/custom_panel = null
 	var/emagged = FALSE
 	var/is_emaggable = TRUE
 	var/eye_protection = FLASH_PROTECTION_NONE
@@ -340,13 +339,14 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 		forced_module = text2path(forced_module)
 
 	var/list/modules = list(
-		"Generalist" = /obj/item/robot_module/standard,
-		"Engineering" = /obj/item/robot_module/engineering,
-		"Medical" = /obj/item/robot_module/medical,
-		"Miner" = /obj/item/robot_module/miner,
-		"Janitor" = /obj/item/robot_module/janitor,
-		"Service" = /obj/item/robot_module/butler,
-		"Security" = /obj/item/robot_module/security)
+			"Generalist" = /obj/item/robot_module/standard,
+			"Engineering" = /obj/item/robot_module/engineering,
+			"Medical" = /obj/item/robot_module/medical,
+			"Miner" = /obj/item/robot_module/miner,
+			"Janitor" = /obj/item/robot_module/janitor,
+			"Service" = /obj/item/robot_module/butler,
+			"Security" = /obj/item/robot_module/security
+		)
 
 	if(islist(limited_modules) && LAZYLEN(limited_modules))
 		modules = limited_modules.Copy()
@@ -356,9 +356,10 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 	if(mmi?.syndicate)
 		modules = list(
-			"Syndicate Saboteur" = /obj/item/robot_module/syndicate_saboteur,
-			"Syndicate Medical" = /obj/item/robot_module/syndicate_medical,
-			"Syndicate Bloodhound" = /obj/item/robot_module/syndicate)
+				"Syndicate Saboteur" = /obj/item/robot_module/syndicate_saboteur,
+				"Syndicate Medical" = /obj/item/robot_module/syndicate_medical,
+				"Syndicate Bloodhound" = /obj/item/robot_module/syndicate
+			)
 
 	if(mmi?.ninja)
 		forced_module = /obj/item/robot_module/ninja
@@ -480,9 +481,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	SStgui.close_user_uis(src)
 	sight_mode = null
 	update_sight()
+	selected_skin = null
 	hands.icon_state = "nomod"
+	icon = initial(icon)
 	icon_state = "robot"
-	custom_panel = null
+	base_icon = "robot"
 	module.remove_subsystems_and_actions(src)
 
 	for(var/obj/item/borg/upgrade/upgrade in upgrades) //remove all upgrades, cuz we reseting
@@ -1691,38 +1694,50 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 // Proc that calls radial menu for borg to choose AFTER he chose his module.
 // In module there is borg_skins
 /mob/living/silicon/robot/proc/choose_icon()
+	var/datum/robot_skin/skin = select_skin(module.borg_skins, module?.default_skin)
+	if(!skin)
+		return
+	set_skin(skin, TRUE, skin.type != module?.default_skin)
+	return
 
+/mob/living/silicon/robot/proc/select_skin(list/skins, default_skin_name)
 	var/list/choices = list()
 	var/choice
-
 	var/list/temp_list = list()
 
-	if(length(module?.borg_skins) > 1)
-		for(var/skin in module.borg_skins)
-			var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
-			if(new_skin.required_permit && !(new_skin.required_permit in mmi?.skin_permissions) \
-				&& !GLOB.all_robot_skins_permited)
-				continue
-			if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
-				&& !GLOB.all_robot_skins_permited)
-				continue
-			var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
-			skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
-			choices[new_skin.name] = skin_image
-			temp_list[new_skin.name] = new_skin
-		choice = show_radial_menu(src, src, choices, require_near = TRUE)
+	if(length(skins) <= 1)
+		return GLOB.robot_skins["[default_skin_name]"]
 
+	for(var/skin in skins)
+		var/datum/robot_skin/new_skin = GLOB.robot_skins["[skin]"]
+		if(new_skin.required_permit && !(mmi?.skin_permissions[new_skin.required_permit] ) \
+			&& !GLOB.all_robot_skins_permited)
+			continue
+		if(new_skin.donator_tier && !(new_skin.donator_tier <= usr.client.donator_level) \
+			&& !GLOB.all_robot_skins_permited)
+			continue
+		var/image/skin_image = image(icon = new_skin.icon_file, icon_state = new_skin.icon_base_prefix)
+		skin_image.add_overlay("eyes-[new_skin.eye_prefix]")
+		choices[new_skin.name] = skin_image
+		temp_list[new_skin.name] = new_skin
+
+	if(choices.len <= 1)
+		return GLOB.robot_skins["[default_skin_name]"]
+
+	choice = show_radial_menu(src, src, choices, require_near = TRUE, radius = 60)
+
+	return (choice)? temp_list[choice] : GLOB.robot_skins["[default_skin_name]"]
+
+/mob/living/silicon/robot/proc/set_skin(datum/robot_skin/skin, use_transformation, default)
 	cut_overlays()
-
-	var/datum/robot_skin/skin = (choice)? temp_list[choice] : GLOB.robot_skins["[module?.default_skin]"]
 	icon = skin.icon_file
 	icon_state = skin.icon_base_prefix
-	transform_animation(skin.icon_base_prefix, !!choice)
+	base_icon = skin.icon_base_prefix
 	selected_skin = skin
-
-	var/list/names = splittext(icon_state, "-")
-	custom_panel = trim(names[1])
-	return
+	if(use_transformation)
+		transform_animation(skin.icon_base_prefix, default)
+		return
+	update_icons()
 
 /mob/living/silicon/robot/proc/transform_animation(var/animated_icon, var/default = FALSE)
 	Immobilize(5 SECONDS)
@@ -1868,7 +1883,11 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 	scrambledcodes = 1
 	req_access = list(ACCESS_CENT_SPECOPS)
 	ionpulse = 1
-	limited_modules = list("Engineering", "Medical", "Security")
+	limited_modules = list(
+				"Engineering" = /obj/item/robot_module/engineering,
+				"Medical" = /obj/item/robot_module/medical,
+				"Security" = /obj/item/robot_module/security
+			)
 	static_radio_channels = 1
 	allow_rename = FALSE
 	weapons_unlock = TRUE
@@ -1910,7 +1929,7 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 /mob/living/silicon/robot/ert/gamma
 	default_cell_type = /obj/item/stock_parts/cell/bluespace
-	limited_modules = list("Combat", "Engineering", "Medical")
+	limited_modules = list("Combat" = /obj/item/robot_module/combat, "Engineering" = /obj/item/robot_module/engineering, "Medical" = /obj/item/robot_module/medical)
 	damage_protection = 5 // Reduce all incoming damage by this number
 	eprefix = "Gamma"
 
@@ -2023,13 +2042,6 @@ GLOBAL_LIST_INIT(robot_verbs_default, list(
 
 		borked_part.heal_damage(brute,burn)
 		borked_part.install()
-
-/mob/living/silicon/robot/proc/check_sprite(spritename)
-	. = FALSE
-
-	var/static/all_borg_icon_states = icon_states('icons/mob/custom_synthetic/custom-synthetic.dmi')
-	if(spritename in all_borg_icon_states)
-		. = TRUE
 
 /mob/living/silicon/robot/check_eye_prot()
 	return eye_protection
