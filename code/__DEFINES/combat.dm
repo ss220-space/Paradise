@@ -212,21 +212,3 @@
 #define ATTACK_CHAIN_CANCEL_CHECK(bitflags) ((bitflags) & ATTACK_CHAIN_BLOCKED)
 /// Helper to check whether attack chain result wasn't blocked and was successful
 #define ATTACK_CHAIN_SUCCESS_CHECK(bitflags) ((!ATTACK_CHAIN_CANCEL_CHECK(bitflags) && ((bitflags) & ATTACK_CHAIN_SUCCESS)))
-
-// Attack chain attack_modifier modifiers
-/// Sets the weapon's base force to this. Use carefully (as multiple overrides may collide). Set via [SET_ATTACK_FORCE]
-#define FORCE_OVERRIDE "force_override"
-/// Flat addition or subtration to the weapon's force. Set via [MODIFY_ATTACK_FORCE]
-#define FORCE_MODIFIER "force_modifier"
-/// Multiplication of the weapon's force. Applied AFTER [FORCE_MODIFIER]. Set via [MODIFY_ATTACK_FORCE_MULTIPLIER]
-#define FORCE_MULTIPLIER "force_multiplier"
-
-/// Used in attack chain to add or remove force from the attack without changing the base force of the item.
-#define MODIFY_ATTACK_FORCE(atk_mods, amount) \
-	if(!islist(atk_mods)) { atk_mods = list() }; \
-	atk_mods[FORCE_MODIFIER] += amount;
-
-/// Calculates the final force of some item based on atk_mods
-/// Needs to have support for force overrides and multipliers of 0 (hence why we ternaries are used over 'or's)
-#define CALCULATE_FORCE(some_item, atk_mods) \
-	((((FORCE_OVERRIDE in atk_mods) ? atk_mods[FORCE_OVERRIDE] : some_item.force) + (atk_mods?[FORCE_MODIFIER] || 0)) * ((FORCE_MULTIPLIER in atk_mods) ? atk_mods[FORCE_MULTIPLIER] : 1))

@@ -33,7 +33,8 @@
 		mark_target(target)
 		return .
 
-	var/pre_attackby_result = pre_attackby(target, user, params)
+	var/list/attack_modifiers = list()
+	var/pre_attackby_result = pre_attackby(target, user, params, attack_modifiers)
 	if(!(pre_attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
 		mark_target(target)
 		CRASH("pre_attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
@@ -43,7 +44,7 @@
 		mark_target(target)
 		return .
 
-	var/attackby_result = target.attackby(src, user, params)
+	var/attackby_result = target.attackby(src, user, params, attack_modifiers)
 	if(!(attackby_result & ATTACK_CHAIN_CORE_RETURN_BITFLAGS))
 		mark_target(target)
 		CRASH("attackby() must return one of the core ATTACK_CHAIN_* bitflags, please consult code/__DEFINES/combat.dm; user = [user_type]; item = [item_type]; target = [target_type]")
@@ -111,9 +112,9 @@
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/obj/item/proc/pre_attackby(atom/target, mob/living/user, params)
+/obj/item/proc/pre_attackby(atom/target, mob/living/user, params, list/attack_modifiers)
 	. = ATTACK_CHAIN_PROCEED
-	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, target, user, params)
+	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_PRE_ATTACKBY, target, user, params, attack_modifiers)
 	if(signal_out & COMPONENT_NO_AFTERATTACK)
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
@@ -134,7 +135,7 @@
  *
  * See: [/obj/item/proc/melee_attack_chain]
  */
-/atom/proc/attackby(obj/item/I, mob/user, params)
+/atom/proc/attackby(obj/item/I, mob/user, params, list/attack_modifiers)
 	. = ATTACK_CHAIN_PROCEED
 	var/signal_out = SEND_SIGNAL(src, COMSIG_PARENT_ATTACKBY, I, user, params)
 	if(signal_out & COMPONENT_CANCEL_ATTACK_CHAIN)
@@ -152,7 +153,7 @@
 	. |= I.attack_obj(src, user, params)
 
 
-/mob/living/attackby(obj/item/attacking_item, mob/living/user, params)
+/mob/living/attackby(obj/item/attacking_item, mob/living/user, params, list/attack_modifiers)
 	if(check_block(attacking_item, attacking_item.force, pick(attacking_item.attack_verb), ITEM_ATTACK, attacking_item.armour_penetration, attacking_item.damtype))
 		return ATTACK_CHAIN_BLOCKED
 
@@ -164,7 +165,7 @@
 		return .|ATTACK_CHAIN_BLOCKED_ALL
 
 	user.changeNext_move(attacking_item.attack_speed)
-	. |= attacking_item.attack(src, user, params, user.zone_selected)
+	. |= attacking_item.attack(src, user, params, user.zone_selected, attack_modifiers)
 
 
 /**
@@ -177,7 +178,7 @@
  * * def_zone - Bodypart zone, targeted by the wielder of this item
  * * skip_attack_anim - If TRUE will not animate hitting mob's attack
  */
-/obj/item/proc/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+/obj/item/proc/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE, list/attack_modifiers)
 	. = ATTACK_CHAIN_PROCEED
 
 	var/signal_out = SEND_SIGNAL(src, COMSIG_ITEM_ATTACK, target, user, params, def_zone)
@@ -198,8 +199,11 @@
 		to_chat(user, span_warning("Вы не хотите причинять кому-либо вред!"))
 		return .
 
-	var/final_force = CALCULATE_FORCE(src, attack_modifiers)
 	SEND_SIGNAL(user, COMSIG_MOB_ITEM_ATTACK, target, params, def_zone)
+	var/final_force = force
+	for(var/mod as anything in attack_modifiers)
+		final_force += mod
+
 	if(!final_force)
 		playsound(target.loc, 'sound/weapons/tap.ogg', get_clamped_volume(), TRUE, -1)
 	else
@@ -214,7 +218,7 @@
 		user.do_attack_animation(target)
 
 	add_fingerprint(user)
-	. |= target.proceed_attack_results(src, user, params, def_zone)
+	. |= target.proceed_attack_results(src, user, params, def_zone, attack_modifiers)
 	SEND_SIGNAL(target, COMSIG_ATOM_AFTER_ATTACKEDBY, src, user, params)
 
 
@@ -255,7 +259,7 @@
 	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 
-/obj/proceed_attack_results(obj/item/I, mob/living/user, params)
+/obj/proceed_attack_results(obj/item/I, mob/living/user, params, list/attack_modifiers)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 	if(!I.force)
 		user.visible_message(
@@ -272,18 +276,21 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 
-/mob/living/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/mob/living/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone, list/attack_modifiers)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
-	send_item_attack_message(I, user, def_zone)
-	var/final_force = CALCULATE_FORCE(src, attack_modifiers)
-	if(!I.final_force)
+	send_item_attack_message(item, user, def_zone)
+	var/final_force = item.force
+	for(var/mod as anything in attack_modifiers)
+		final_force += mod
+
+	if(!final_force)
 		return .
 
-	var/apply_damage_result = apply_damage(I.final_force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	var/apply_damage_result = apply_damage(final_force, item.damtype, def_zone, sharp = is_sharp(item), used_weapon = item)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
-	if(apply_damage_result && I.damtype == BRUTE && prob(33))
-		I.add_mob_blood(src)
+	if(apply_damage_result && item.damtype == BRUTE && prob(33))
+		item.add_mob_blood(src)
 		add_splatter_floor()
 		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 			user.add_mob_blood(src)

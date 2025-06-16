@@ -59,7 +59,7 @@
 	SIGNAL_HANDLER
 	if (target == last_target)
 		current_gain += gain_per_attack
-		MODIFY_ATTACK_FORCE(attack_modifiers, current_gain)
+		attack_modifiers.Add(current_gain)
 		return
 
 	current_gain = 0
