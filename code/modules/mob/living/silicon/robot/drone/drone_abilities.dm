@@ -53,28 +53,7 @@
 	set desc = "Reconfigure your chassis into a customized version."
 	set category = "Drone"
 
-	if(!custom_sprite) //Check to see if custom sprite time, checking the appopriate file to change a var
-		var/file = file2text("config/custom_sprites.txt")
-		var/lines = splittext(file, "\n")
-
-		for(var/line in lines)
-		// split & clean up
-			var/list/Entry = splittext(line, ":")
-			for(var/i = 1 to Entry.len)
-				Entry[i] = trim(Entry[i])
-
-			if(Entry.len < 2 || Entry[1] != "drone")
-				continue
-
-			if (Entry[2] == ckey) //Custom holograms
-				custom_sprite = 1  // option is given in hologram menu
-
-	if(!custom_sprite)
-		to_chat(src, span_warning("Ошибка 404: Кастомное шасси не найдено. Отмена опции настройки."))
-	else
-		icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		icon_state = "[ckey]-drone"
-		to_chat(src, span_notice("Вы переконфигурируете своё шасси и улучшаете станцию своими новыми эстетическими изменениями."))
+	to_chat(src, span_warning("Ошибка 404: Кастомное шасси не найдено. Отмена опции настройки."))
 	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)
@@ -83,13 +62,7 @@
 		return
 	if(resting)
 		set_resting(FALSE, instant = TRUE)
-	if(custom_sprite)
-		H.icon = 'icons/mob/custom_synthetic/custom-synthetic.dmi'
-		H.onmob_sheets[ITEM_SLOT_HEAD_STRING] = 'icons/mob/custom_synthetic/custom_head.dmi'
-		H.lefthand_file = 'icons/mob/custom_synthetic/custom_lefthand.dmi'
-		H.righthand_file = 'icons/mob/custom_synthetic/custom_righthand.dmi'
-		H.item_state = "[icon_state]_hand"
-	else if(emagged)
+	if(emagged)
 		H.item_state = "drone-emagged"
 	else
 		H.item_state = "drone"
