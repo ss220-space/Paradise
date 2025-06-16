@@ -893,7 +893,7 @@
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
-	desc = "Красные вилы, похоже, это рабочий инструмент дьявола."
+	desc = "Красные вилы. Похоже, это инструмент дьявола."
 	ru_names = list(
 		NOMINATIVE = "демонические вилы",
 		GENITIVE = "демонических вил",
@@ -927,7 +927,7 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронзает [genderize_ru(user.gender, "свой", "свою", "своё", "свои")] живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[pluralize_ru(user.gender, "ет", "ют")] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)

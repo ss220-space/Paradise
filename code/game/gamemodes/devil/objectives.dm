@@ -79,7 +79,7 @@
 
 /datum/objective/devil/sintouch
 	needs_target = FALSE
-	explanation_text = "Вы не должны это видеть.  Error:DEVIL3"
+	explanation_text = "Вы не должны видеть этот текст.  Error: DEVIL3"
 	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
@@ -90,7 +90,7 @@
 	return target_amount <= SSticker.mode.sintouched.len
 
 /datum/objective/devil/ascend
-	explanation_text = "Возвыситься до архидьявола. Для этого вам понадобится 2 жертвы для ритуала возвышения(жертвовать эти 2 жертвы нужно именно во время ритуала возвышения). "
+	explanation_text = "Возвыситься до архидьявола. Для этого вам понадобится 2 жертвы для ритуала возвышения (жертвовать эти 2 жертвы нужно именно во время ритуала возвышения). "
 	needs_target = FALSE
 	antag_menu_name = "Возвыситься"
 

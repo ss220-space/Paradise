@@ -70,7 +70,7 @@
 	for(var/target in targets)
 		var/mob/living/carbon/C = target
 		if(!C.mind || !user.mind)
-			to_chat(user, span_notice("[capitalize(C.declent_ru(NOMINATIVE))] не выглядит разумным. Он не сможет подписать контракт."))
+			to_chat(user, span_notice("[capitalize(C.declent_ru(NOMINATIVE))] не выглядит разумным и не сможет подписать контракт."))
 			continue
 
 		if(C.stat == DEAD)

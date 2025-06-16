@@ -50,7 +50,7 @@
 	owner.apply_damage(item.force * bonus_damage)
 	item.visible_message(
 		span_warning("На этот раз [item.declent_ru(NOMINATIVE)] кажется необычайно робастным."),
-		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] [genderize_ru(item.gender, "уничтожает", "уничтожает", "уничтожает", "уничтожают")] [owner.declent_ru(ACCUSATIVE)]!"))
+		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] уничтожа[pluralize_ru(item.gender,"ет","ют")] [owner.declent_ru(ACCUSATIVE)]!"))
 
 /datum/devil_bane/whiteclothes
 	name = BANE_WHITECLOTHES
@@ -80,7 +80,7 @@
 
 	owner.apply_damage(bonus_damage * (item.force * (GLOB.whiteness[uniform.type] + 1)))
 	item.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))] кажется получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
-	span_notice("Незапятнанная белая одежда разрушает форму [owner.declent_ru(GENITIVE)]."))
+	span_notice("Незапятнанная белая одежда вредит [owner.declent_ru(GENITIVE)]."))
 
 /datum/devil_bane/harvest
 	name = BANE_HARVEST

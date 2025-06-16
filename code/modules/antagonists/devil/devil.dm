@@ -65,7 +65,7 @@
 
 /datum/antagonist/devil/proc/remove_soul(datum/mind/soul, return_to_owner = TRUE)
 	LAZYREMOVE(soulsOwned, soul)
-	to_chat(owner.current, span_warning("Вы чувствуете, как часть ваших сил угасает"))
+	to_chat(owner.current, span_warning("Вы чувствуете, как часть ваших сил угасает."))
 	update_hud()
 	SStgui.update_uis(src)
 
