@@ -45,7 +45,7 @@
 /proc/Centcomm_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_centcom(Sender.client, msg)
-	msg = span_boldnotice("<span style='color: orange;'>CENTCOMM: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]"
+	msg = span_boldnotice("[span_fontcolor_orange("CENTCOMM: ")][key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")])):</span> [msg]")
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
@@ -55,7 +55,7 @@
 /proc/Syndicate_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_syndicate(Sender.client, msg)
-	msg = span_boldnotice("<span style='color: #DC143C;'>SYNDICATE: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]"
+	msg = span_boldnotice("<span style='color: #DC143C;'>SYNDICATE: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_SYNDICATE_REPLY(Sender,"RPLY")]):</span> [msg]")
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)
@@ -65,7 +65,7 @@
 /proc/HONK_announce(var/text , var/mob/Sender)
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.message_honk(Sender.client, msg)
-	msg = span_boldnotice("<span style='color: pink;'>HONK: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</a>):</span> [msg]"
+	msg = span_boldnotice("[span_fontcolor_pink("HONK: ")][key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;HONKReply=[Sender.UID()]'>RPLY</a>):</span> [msg]")
 	for(var/client/X in GLOB.admins)
 		if(R_EVENT & X.holder.rights)
 			to_chat(X, msg)
@@ -81,7 +81,7 @@
 		"message" = msg))
 	GLOB.ert_request_messages.Insert(1, insert_this) // insert it to the top of the list
 	GLOB.requests.request_ert(Sender.client, msg)
-	msg = span_adminnotice("<b><span style='color: orange;'>ЗАПРОС ОБР: </span>[key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>ОТВЕТИТЬ</a>):</b> [msg]")
+	msg = span_adminnotice("<b>[span_fontcolor_orange("ЗАПРОС ОБР: ")][key_name(Sender, 1)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) (<a href='byond://?_src_=holder;ErtReply=[Sender.UID()]'>ОТВЕТИТЬ</a>):</b> [msg]")
 	if(repeat_warning)
 		msg += "<br>[span_adminnotice("<b>ВНИМАНИЕ: запрос ОБР не получил ответа в течении 15 минут!</b>")]"
 	for(var/client/X in GLOB.admins)
@@ -95,7 +95,7 @@
 	var/nuke_status = get_nuke_status()
 	var/msg = sanitize(copytext_char(text, 1, MAX_MESSAGE_LEN))
 	GLOB.requests.nuke_request(Sender.client, msg)
-	msg = span_adminnotice("<b><span style='color: orange;'>NUKE CODE REQUEST: </span>[key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]")
+	msg = span_adminnotice("<b>[span_fontcolor_orange("NUKE CODE REQUEST: ")][key_name(Sender)] ([ADMIN_PP(Sender,"PP")]) ([ADMIN_VV(Sender,"VV")]) ([ADMIN_TP(Sender,"TP")]) ([ADMIN_SM(Sender,"SM")]) ([admin_jump_link(Sender)]) ([ADMIN_BSA(Sender,"BSA")]) ([ADMIN_CENTCOM_REPLY(Sender,"RPLY")]):</b> [msg]")
 	for(var/client/X in GLOB.admins)
 		if(check_rights(R_EVENT,0,X.mob))
 			to_chat(X, msg)

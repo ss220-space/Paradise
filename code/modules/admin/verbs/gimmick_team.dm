@@ -85,7 +85,7 @@
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<br><span class='danger'><b>[themission]</b>"))
+		to_chat(H, span_danger("<br><b>[themission]</b>"))
 		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)

@@ -843,8 +843,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 				newtraitormind.objectives += kill_objective
 				var/datum/antagonist/traitor/T = new()
 				T.give_objectives = FALSE
-				to_chat(newtraitormind.current, span_danger("ATTENTION:</span> It is time to pay your debt to the Syndicate...")
-				to_chat(newtraitormind.current, "<b>Goal: <span class='danger'>KILL [H.real_name]</span>, currently in [get_area(H.loc)]</b>")
+				to_chat(newtraitormind.current, "[span_danger("ATTENTION:")] It is time to pay your debt to the Syndicate...")
+				to_chat(newtraitormind.current, "<b>Goal: [span_danger("KILL [H.real_name]")], currently in [get_area(H.loc)]</b>")
 				newtraitormind.add_antag_datum(T)
 			else
 				to_chat(usr, span_warning("ERROR: Unable to find any valid candidate to send after [H]."), confidential=TRUE)

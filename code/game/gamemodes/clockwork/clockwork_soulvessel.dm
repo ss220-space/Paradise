@@ -23,7 +23,7 @@
 	if(!chosen_ghost)
 		searching = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, span_clocklarge("<b>Capture failed!</b></span> The soul has already fled its mortal frame. You attempt to bring it back...")
+		to_chat(user, "[span_clocklarge("<b>Capture failed!</b>")] The soul has already fled its mortal frame. You attempt to bring it back...")
 		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
 		if(length(candidates))
 			chosen_ghost = pick(candidates)

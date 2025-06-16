@@ -81,7 +81,7 @@
 	var/mob/living/user = src.loc
 	if(F.gun)
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'><b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
+			to_chat(user, span_alert("<b>FAIL: <i>[F.captured]</i> already has an existing connection.</b>"))
 		src.field_disconnect(F)
 	else
 		startpos = get_turf(src)
@@ -97,7 +97,7 @@
 		if(F.gun == src)
 			F.gun = null
 		if(isliving(user) && F.captured)
-			to_chat(user, "<span class='alert'>Disconnected from target: <b>[F.captured]</b>"))
+			to_chat(user, span_alert("Disconnected from target: <b>[F.captured]</b>"))
 	field = null
 	startpos = null
 
@@ -177,7 +177,7 @@
 		mob_underlay = mutable_appearance(cached_icon, "frame1")
 		update_icon(UPDATE_ICON_STATE)
 
-		desc = initial(desc) + "<br><span class='info'>It appears to contain [target.name].")
+		desc = initial(desc) + span_info("<br>It appears to contain [target.name].")
 	START_PROCESSING(SSobj, src)
 	return ..()
 

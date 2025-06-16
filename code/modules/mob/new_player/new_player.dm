@@ -511,9 +511,9 @@
 	dat += "<b>Уровень угрозы на станции: [get_security_level_ru_colors()]</b><br>"
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		dat += span_fontcolor_red("<b>Станция была эвакуирована.</b></span><br>"
+		dat += span_fontcolor_red("<b>Станция была эвакуирована.</b><br>")
 	else if((SSshuttle.emergency.mode == SHUTTLE_CALL) || EMERGENCY_AT_LEAST_DOCKED)
-		dat += span_fontcolor_red("В настоящее время станция проходит процедуру эвакуации.</span><br>"
+		dat += span_fontcolor_red("В настоящее время станция проходит процедуру эвакуации.<br>")
 
 	if(length(SSjobs.prioritized_jobs))
 		dat += "<span style='color: lime;'>Станция отметила эти позиции как приоритетные: "

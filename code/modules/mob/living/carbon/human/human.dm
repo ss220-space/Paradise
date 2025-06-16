@@ -710,7 +710,7 @@
 						skills = E.fields["notes"]
 						break
 				if(skills)
-					to_chat(usr, span_deptradio("Employment records: [skills]</span>\n")
+					to_chat(usr, span_deptradio("Employment records: [skills]\n"))
 
 	if(href_list["lookitem"])
 		var/obj/item/I = locate(href_list["lookitem"])
@@ -813,7 +813,7 @@
 	if(!. && error_msg && user)
 		if(!fail_msg)
 			fail_msg = "There is no exposed flesh or thin material [target_zone == BODY_ZONE_HEAD ? "on [p_their()] head" : "on [p_their()] body"] to inject into."
-		to_chat(user, "<span class='alert'>[fail_msg]"))
+		to_chat(user, span_alert("[fail_msg]"))
 
 
 /mob/living/carbon/human/check_obscured_slots(check_transparent)

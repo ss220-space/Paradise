@@ -130,13 +130,13 @@
 		SStgui.close_uis(src)
 		qdel(src)
 	else
-		to_chat(user,"<span class = 'warning'>Вы не определили все предметы в коробке!"))
+		to_chat(user, span_warning("Вы не определили все предметы в коробке!"))
 
 /obj/item/thief_kit/proc/clearKit(var/mob/user)
 	for(var/datum/thief_kit/kit in choosen_kit_list)
 		undoKit(kit)
 	uses = 0
-	to_chat(user,"<span class = 'warning'>Вы очистили выбор! Наверное в коробке лежали другие наборы?"))
+	to_chat(user, span_warning("Вы очистили выбор! Наверное в коробке лежали другие наборы?"))
 
 /obj/item/thief_kit/proc/pickKit(var/kit_type)
 	if(uses >= possible_uses)
@@ -173,7 +173,7 @@
 	if(possible_kits)
 		pickKit(pick(possible_kits))
 	else
-		to_chat(usr,"<span class = 'warning'>Превышен допустимый лимит наборов!"))
+		to_chat(usr, span_warning("Превышен допустимый лимит наборов!"))
 
 /obj/item/thief_kit/proc/convert_kit_type(var/kit_type, var/list/kits_list)
 	if(istype(kit_type, /datum/thief_kit))

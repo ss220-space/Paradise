@@ -142,9 +142,9 @@
 					scanner = S
 					break
 			if(!scanner)
-				dat += span_fontcolor_red("No scanner found within wireless network range.</span><br>"
+				dat += span_fontcolor_red("No scanner found within wireless network range.<br>")
 			else if(!scanner.cache)
-				dat += span_fontcolor_red("No data found in scanner memory.</span><br>"
+				dat += span_fontcolor_red("No data found in scanner memory.<br>")
 			else
 
 				dat += {"<tt>Data marked for upload...</tt><br>

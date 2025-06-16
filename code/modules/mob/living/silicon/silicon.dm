@@ -200,7 +200,7 @@
 
 /mob/living/silicon/can_inject(mob/user, error_msg, target_zone, penetrate_thick, ignore_pierceimmune)
 	if(error_msg)
-		to_chat(user, "<span class='alert'>[p_their(TRUE)] outer shell is too tough."))
+		to_chat(user, span_alert("[p_their(TRUE)] outer shell is too tough."))
 	return FALSE
 
 /mob/living/silicon/IsAdvancedToolUser()

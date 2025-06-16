@@ -209,7 +209,7 @@
 					continue
 				to_chat(R, span_danger("Self-destruct command received."))
 				if(R.connected_ai)
-					to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+					to_chat(R.connected_ai, span_alert("<br><br>ALERT - Cyborg detonation detected: [R.name]<br>"))
 				R.self_destruct()
 			. = TRUE
 		if("killbot") // destroys one specific cyborg
@@ -226,7 +226,7 @@
 			add_game_logs("detonated [key_name_log(R)]!", usr)
 			to_chat(R, span_danger("Self-destruct command received."))
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "<br><br><span class='alert'>ALERT - Cyborg detonation detected: [R.name]</span><br>")
+				to_chat(R.connected_ai, span_alert("<br><br>ALERT - Cyborg detonation detected: [R.name]<br>"))
 			R.self_destruct()
 			. = TRUE
 		if("stopbot") // lock or unlock the borg
@@ -242,7 +242,7 @@
 			R.SetLockdown(!R.lockcharge)
 			to_chat(R, "[!R.lockcharge ? span_notice("Your lockdown has been lifted!") : span_alert("You have been locked down!")]")
 			if(R.connected_ai)
-				to_chat(R.connected_ai, "[!R.lockcharge ? span_notice("NOTICE - Cyborg lockdown lifted") : span_alert("ALERT - Cyborg lockdown detected")]: <a href='byond://?src=[R.connected_ai.UID()];track=[html_encode(R.name)]'>[R.name]</a></span><br>")
+				to_chat(R.connected_ai, "[!R.lockcharge ? span_notice("NOTICE - Cyborg lockdown lifted") : span_alert("ALERT - Cyborg lockdown detected")]: <a href='byond://?src=[R.connected_ai.UID()];track=[html_encode(R.name)]'>[R.name]</a><br>")
 			. = TRUE
 		if("hackbot") // AIs hacking/emagging a borg
 			var/mob/living/silicon/robot/R = locateUID(params["uid"])

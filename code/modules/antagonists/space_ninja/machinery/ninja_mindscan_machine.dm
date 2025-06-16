@@ -164,7 +164,7 @@
 		for(var/mob/dead/observer/ghost in GLOB.respawnable_list) //this may not be foolproof but it seemed like a better option than 'in world'
 			if(ghost.key == found_text)
 				if(ghost.client && ghost.client.holder) //just in case someone has a byond name with @ at the start, which I don't think is even possible but whatever
-					to_chat(ghost, "<span style='color: #800080;font-weight: bold;font-size:4;'>Warning: Your body has entered [src]."))
+					to_chat(ghost, span_fontcolor_purple(span_bold(span_fontsize_4("Warning: Your body has entered [src]."))))
 	add_fingerprint(possible_occupant)
 
 //Вытаскивание из машины

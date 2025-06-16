@@ -489,7 +489,7 @@
  * Reports player logouts.
  */
 /proc/display_roundstart_logout_report()
-	var/msg = span_notice("Roundstart logout report</span>\n\n"
+	var/msg = span_notice("Roundstart logout report\n\n")
 	for(var/mob/living/mob_living in GLOB.mob_list)
 
 		if(mob_living.ckey)
@@ -509,7 +509,7 @@
 
 			if(mob_living.stat)
 				if(mob_living.suiciding)	//Suicider
-					msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] (<font color='red'><b>Suicide</b></font>)\n"
+					msg += "<b>[mob_living.name]</b> ([mob_living.ckey]), the [mob_living.job] ([span_fontcolor_red("<b>Suicide</b>")])\n"
 					SSjobs.FreeRole(mob_living.job)
 					message_admins("<b>[key_name_admin(mob_living)]</b>, the [mob_living.job] has been freed due to (<font color='#ffcc00'><b>Early Round Suicide</b></font>)\n")
 					continue //Disconnected client
@@ -528,7 +528,7 @@
 			if(observer.mind && (observer.mind.is_original_mob(mob_living) || observer.mind.current == mob_living))
 				if(mob_living.stat == DEAD)
 					if(mob_living.suiciding)	//Suicider
-						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>Suicide</b></font>)\n"
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] ([span_fontcolor_red("<b>Suicide</b>")])\n"
 						continue //Disconnected client
 
 					else
@@ -537,11 +537,11 @@
 
 				else
 					if(observer.can_reenter_corpse)
-						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>This shouldn't appear.</b></font>)\n"
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] ([span_fontcolor_red("<b>This shouldn't appear.</b>")])\n"
 						continue //Lolwhat
 
 					else
-						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] (<font color='red'><b>Ghosted</b></font>)\n"
+						msg += "<b>[mob_living.name]</b> ([ckey(observer.mind.key)]), the [mob_living.job] ([span_fontcolor_red("<b>Ghosted</b>")])\n"
 						SSjobs.FreeRole(mob_living.job)
 						message_admins("<b>[key_name_admin(mob_living)]</b>, the [mob_living.job] has been freed due to (<font color='#ffcc00'><b>Early Round Ghosted While Alive</b></font>)\n")
 						continue //Ghosted while alive
@@ -624,7 +624,7 @@
 		if(flee_check)
 			var/turf/player_turf = get_turf(player.current)
 			if(!player_turf || !is_station_level(player_turf.z))
-				text += " while <span class='redtext'>fleeing the station")
+				text += span_redtext(" fleeing the station")
 
 		if(player.current.real_name != player.name)
 			text += " as <b>[player.current.real_name]</b>"

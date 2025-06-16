@@ -57,18 +57,18 @@
 
 	var/hasContent = FALSE
 	var/components_len = length(req_components)
-	. = span_notice("Required components:"
+	. = span_notice("Required components:")
 	for(var/i = 1 to components_len)
 		var/tname = req_components[i]
 		var/amt = req_components[tname]
 		if(!amt)
 			continue
 		var/use_and = (i == components_len)
-		. += "[(hasContent ? (use_and ? ", and" : ",") : "")] <b>[amt]</b> [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]"
+		. += span_notice("[(hasContent ? (use_and ? ", and" : ",") : "")] <b>[amt]</b> [amt == 1 ? req_component_names[tname] : "[req_component_names[tname]]\s"]")
 		hasContent = TRUE
 
 	if(hasContent)
-		. += ".")
+		. += span_notice(".")
 	else
 		. = span_notice("Does not require any more components.")
 

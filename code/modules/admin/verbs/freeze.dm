@@ -18,7 +18,7 @@ GLOBAL_LIST_EMPTY(frozen_atom_list) // A list of admin-frozen atoms.
 
 /// Created here as a base proc. Override as needed for any type of object or mob you want able to be frozen.
 /atom/movable/proc/admin_Freeze(client/admin)
-	to_chat(admin, span_warning("Freeze is not able to be called on this type of object.</span")
+	to_chat(admin, span_warning("Freeze is not able to be called on this type of object."))
 	return
 
 ///mob freeze procs

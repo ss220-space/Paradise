@@ -58,28 +58,28 @@
 	//Left hand items
 	if(l_hand && !(l_hand.item_flags & ABSTRACT))
 		if(l_hand.blood_DNA)
-			msg += span_warning("It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!</span>\n"
+			msg += span_warning("It is holding [bicon(l_hand)] [l_hand.gender == PLURAL? "some" : "a"] blood-stained [l_hand.name] in its left hand!\n")
 		else
 			msg += "It is holding [bicon(l_hand)] \a [l_hand] in its left hand.\n"
 
 	//Right hand items
 	if(r_hand && !(r_hand.item_flags & ABSTRACT))
 		if(r_hand.blood_DNA)
-			msg += span_warning("It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!</span>\n"
+			msg += span_warning("It is holding [bicon(r_hand)] [r_hand.gender == PLURAL? "some" : "a"] blood-stained [r_hand.name] in its right hand!\n")
 		else
 			msg += "It is holding [bicon(r_hand)] \a [r_hand] in its right hand.\n"
 
 	//Braindead
 	if(!client && stat != DEAD)
-		msg += span_deadsay("The devil seems to be in deep contemplation.</span>\n"
+		msg += span_deadsay("The devil seems to be in deep contemplation.\n")
 
 	//Damaged
 	if(stat == DEAD)
-		msg += span_deadsay("The hellfire seems to have been extinguished, for now at least.</span>\n"
+		msg += span_deadsay("The hellfire seems to have been extinguished, for now at least.\n")
 	else if(health < (maxHealth/10))
-		msg += span_warning("You can see hellfire inside of it's gaping wounds.</span>\n"
+		msg += span_warning("You can see hellfire inside of it's gaping wounds.\n")
 	else if(health < (maxHealth/2))
-		msg += span_warning("You can see hellfire inside of it's wounds.</span>\n"
+		msg += span_warning("You can see hellfire inside of it's wounds.\n")
 
 	. = list(msg)
 

@@ -1154,7 +1154,7 @@
 
 /obj/item/spellbook/oneuse/horsemask/recoil(mob/living/carbon/user)
 	if(ishuman(user))
-		to_chat(user, span_fontsize_7("<span style='color: red'><b>HOR-SIE HAS RISEN</b>")))
+		to_chat(user, span_fontsize_7(span_fontcolor_red("<b>HOR-SIE HAS RISEN</b>")))
 		var/obj/item/clothing/mask/horsehead/magichead = new /obj/item/clothing/mask/horsehead
 		ADD_TRAIT(magichead, TRAIT_NODROP, CURSED_ITEM_TRAIT(magichead.type))
 		magichead.item_flags |= DROPDEL	//curses!

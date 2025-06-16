@@ -24,9 +24,9 @@
 
 /obj/item/creeping_widow_injector/attack_self(mob/living/carbon/human/user as mob)
 	if(!used)
-		user.visible_message(span_warning("You stick the [src]'s needle into your arm and press the button.", \
-			  span_warning("[user] sticks the [src]'s needle [user.p_their()] arm and presses the button.")
-		to_chat(user, span_info("The nanomachines in the [src] flow through your bloodstream.")
+		user.visible_message(span_warning("You stick the [src]'s needle into your arm and press the button."), \
+							span_warning("[user] sticks the [src]'s needle [user.p_their()] arm and presses the button."))
+		to_chat(user, span_info("The nanomachines in the [src] flow through your bloodstream."))
 
 		var/datum/martial_art/ninja_martial_art/N = new/datum/martial_art/ninja_martial_art(null)
 		N.teach(user)

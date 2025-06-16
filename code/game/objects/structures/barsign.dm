@@ -56,10 +56,10 @@
 
 /obj/structure/sign/barsign/attack_hand(mob/user as mob)
 	if(!src.allowed(user))
-		to_chat(user, "<span class = 'info'>Access denied."))
+		to_chat(user, span_info("Access denied."))
 		return
 	if(broken || panel_open)
-		to_chat(user, "<span class ='danger'>The controls seem unresponsive."))
+		to_chat(user, span_danger("The controls seem unresponsive."))
 		return
 
 	add_fingerprint(user)

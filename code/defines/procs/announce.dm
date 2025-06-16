@@ -122,26 +122,26 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/proc/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h2 class='alert'>[message_title].</h2>"
+	formatted_message += "<h2 class='alert'>[message_title]</h2>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
-		formatted_message += "<br><span class='alert'> — [message_announcer]</span>"
+		formatted_message += span_alert(" — [message_announcer]")
 
 	return formatted_message
 
 /datum/announcement/minor/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<b><font size=3><font color=red>[message_title].</font color></font></b>"
-	formatted_message += "<br><b><font size=3>[message]</font size></font></b>"
+	formatted_message += span_fontcolor_red(span_fontsize_3("<b>[message_title]</b>"))
+	formatted_message += span_fontsize_3("<br><b>[message]</font></b>")
 
 	return formatted_message
 
 /datum/announcement/priority/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<h1 class='alert'>[message_title].</h1>"
+	formatted_message += "<h1 class='alert'>[message_title]</h1>"
 	formatted_message += "<br><span class='alert body'>[message]</span>"
 	if(message_announcer)
-		formatted_message += "<br><span class='alert'> — [message_announcer]</span>"
+		formatted_message += span_alert(" — [message_announcer]")
 	formatted_message += "<br>"
 
 	return formatted_message
@@ -151,15 +151,15 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	formatted_message += "<h1 class='alert'>[from]</h1>"
 	if(message_title)
 		formatted_message += "<br><h2 class='alert body'>[message_title]</h2>"
-	formatted_message += "<br><span class='alert'>[message]</span><br>"
+	formatted_message += span_alert("[message]<br>")
 	formatted_message += "<br>"
 
 	return formatted_message
 
 /datum/announcement/priority/security/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<font size=4 color='red'>[message_title]</font>"
-	formatted_message += "<br><font color='red'>[message]</font>"
+	formatted_message += span_fontsize_4(span_fontcolor_red("[message_title]"))
+	formatted_message += span_fontcolor_red("<br>[message]")
 
 	return formatted_message
 

@@ -158,7 +158,7 @@
 			QDEL_NULL(D)
 			eaten = TRUE
 	if(eaten)
-		to_chat(user, span_notice("[src] sucks up the loose pipes on [T].")
+		to_chat(user, span_notice("[src] sucks up the loose pipes on [T]."))
 		activate_rpd()
 	else
 		to_chat(user, span_notice("There were no loose pipes on [T]."))

@@ -104,7 +104,7 @@
 		if(user.hand)
 			temp = H.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		if(temp && !temp.is_usable())
-			to_chat(user, span_notice("You try to move your [temp.name], but cannot!")
+			to_chat(user, span_notice("You try to move your [temp.name], but cannot!"))
 			return
 	add_fingerprint(user)
 	if(has_extinguisher)

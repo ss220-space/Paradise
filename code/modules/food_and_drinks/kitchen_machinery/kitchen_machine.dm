@@ -514,7 +514,7 @@
 
 /obj/machinery/kitchen_machine/proc/muck_finish()
 	playsound(loc, 'sound/machines/ding.ogg', 50, 1)
-	visible_message("<span class='alert'>\The [src] gets covered in muck!"))
+	visible_message(span_alert("\The [src] gets covered in muck!"))
 	if(can_be_dirty) //this vars are much more easy than copy-paste all that code to tribal oven
 		dirty = MAX_DIRT // Make it dirty so it can't be used util cleaned
 	container_type = NONE
@@ -524,7 +524,7 @@
 
 /obj/machinery/kitchen_machine/proc/broke()
 	do_sparks(2, 1, src)
-	visible_message("<span class='alert'>The [src] breaks!")) //Let them know they're stupid
+	visible_message(span_alert("The [src] breaks!")) //Let them know they're stupid
 	if(can_broke)
 		broken = BROKEN_NEEDS_SCREWDRIVER // Make it broken so it can't be used util fixed
 	container_type = NONE

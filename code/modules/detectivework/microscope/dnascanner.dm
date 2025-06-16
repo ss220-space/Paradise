@@ -70,7 +70,7 @@
 		if(bloodswab.dna != null)
 			data = "Спектрометрический анализ на предоставленном образце определил наличие нитей ДНК в количестве [bloodswab.dna.len].<br><br>"
 			for(var/blood in bloodswab.dna)
-				data += span_notice("Группа крови: [bloodswab.dna[blood]]<br>\nДНК: [blood]</span><br><br>"
+				data += span_notice("Группа крови: [bloodswab.dna[blood]]<br>\nДНК: [blood]<br><br>")
 		else
 			data += "\nДНК не найдено.<br>"
 		report.info = "<b>Отчет №[report_num] по \n[src]</b><br>"

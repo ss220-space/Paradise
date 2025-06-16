@@ -183,7 +183,7 @@
 					if(!l_set && (length(code) == 5) && (code != "ERROR"))
 						l_code = code
 						l_set = TRUE
-						to_chat(usr, "<span class = 'notice'>The code was set successfully."))
+						to_chat(usr, span_notice("The code was set successfully."))
 					else if((code == l_code) && l_set)
 						locked = FALSE
 						code = null

@@ -29,10 +29,10 @@
 		if(choise == "Да")
 			if(health_threshold == 0 && auto_dust)
 				health_threshold = -90
-				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")]  в режим <span class='green'>\"Обнаружение смерти\""))
+				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")]  в режим [span_green("\"Обнаружение смерти\"")]")
 			else if(health_threshold == -90 && auto_dust)
 				health_threshold = 0
-				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")] в режим <span class='green'>\"Обнаружение критического состояния\""))
+				user.show_message("Вы переключили программу [span_warning("\"Автораспыления\"")] в режим [span_green("\"Обнаружение критического состояния\"")]")
 	else if(auto_dust)
 		auto_dust = FALSE
 		user.show_message("Вы выключили программу [span_warning("\"Автораспыления\"")]")
@@ -49,11 +49,7 @@
 	add_attack_logs(ninja, ninja, "Self-dusted")
 	ninja.visible_message(
 		span_warning("[ninja] мгновенно сгорает в ослепительной вспышке!"),
-		span_reallybig(
-			"Программа [span_warning("\"Автораспыления\"")] активирована!</span>\n\
-			[span_revenwarning("Стихли все звуки,\n\
-								Исчезли раздумия.\n\
-								Мир прощай бренный...\n")]")
+		span_reallybig("Программа [span_warning("\"Автораспыления\"")] активирована!\n[span_revenwarning("Стихли все звуки,\nИсчезли раздумия.\nМир прощай бренный...\n")]")
 	)
 
 	ninja.drop_ungibbable_items()

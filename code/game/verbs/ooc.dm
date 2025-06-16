@@ -98,7 +98,7 @@ GLOBAL_VAR_INIT(admin_ooc_colour, "#b82e00")
 
 			if(!CONFIG_GET(flag/disable_ooc_emoji))
 				msg = span_emojienabled("[msg]")
-			to_chat(C, span_ooc("<span style='color:[display_colour];'>[span_prefix("OOC: ")]<em>[display_name]:</em> [span_message(msg)]")))
+			to_chat(C, span_ooc("<span style='color:[display_colour];'>[span_prefix("OOC: ")]<em>[display_name]:</em> [span_message(msg)]"))
 /proc/toggle_ooc()
 	CONFIG_SET(flag/ooc_allowed, !CONFIG_GET(flag/ooc_allowed))
 	if(CONFIG_GET(flag/ooc_allowed))

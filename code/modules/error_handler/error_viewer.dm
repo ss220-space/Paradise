@@ -173,7 +173,7 @@ GLOBAL_DATUM(error_cache, /datum/error_viewer/error_cache)
 	if(istype(desclines))
 		for(var/line in desclines)
 			// There's probably a better way to do this than non-breaking spaces...
-			desc += "<span class='runtime_line'>[html_encode(line)]</span><br>"
+			desc += span_runtime_line("[html_encode(line)]<br>")
 
 	if(isdatum(e_src))
 		src_UID = e_src.UID()

@@ -828,7 +828,7 @@
 	if(safety)
 		safety = 0
 		if(user)
-			to_chat(user, span_warning("You silently fry [src]'s vocal circuit with the cryptographic sequencer.")
+			to_chat(user, span_warning("You silently fry [src]'s vocal circuit with the cryptographic sequencer."))
 
 /obj/item/clothing/mask/gas/sechailer/proc/halt()
 	var/key = phrase_list[phrase]

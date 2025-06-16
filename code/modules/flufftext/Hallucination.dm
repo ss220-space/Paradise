@@ -810,7 +810,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		span_warning("You feel a tiny prick!"),
 		"<b>[target]</b> sneezes.",
 		span_warning("You feel faint."),
-		span_noticealien("You hear a strange, alien voice in your head...</span> [pick("Hiss","Ssss")]",
+		"[span_noticealien("You hear a strange, alien voice in your head...")] [pick("Hiss","Ssss")]",
 		span_notice("You can see...everything!"))
 	to_chat(target, chosen)
 	qdel(src)
@@ -906,7 +906,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					to_chat(src, span_warning("You feel a tiny prick!"))
 				if(14)
 					to_chat(src, "<h1 class='alert'>Приоритетное оповещение.</h1>")
-					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
+					to_chat(src, span_alert("<br><br>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.<br><br>"))
 					playsound_local(null, 'sound/AI/shuttledock.ogg', 100)
 				if(15)
 					playsound_local(null, 'sound/items/welder.ogg', 15, 1)
@@ -925,7 +925,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 					playsound_local(null, 'sound/weapons/saberon.ogg', 35, 1)
 				if(18)
 					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: БИОЛОГИЧЕСКАЯ УГРОЗА.</h1>")
-					to_chat(src, "<br><br><span class='alert'>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.</span><br><br>")
+					to_chat(src, span_alert("<br><br>Вспышка биологической угрозы 5-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой!.<br><br>"))
 					playsound_local(null, 'sound/AI/outbreak5.ogg')
 				if(19) //Tesla loose!
 					playsound_local(null, 'sound/magic/lightningbolt.ogg', 35, 1)
@@ -934,7 +934,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 						playsound_local(null, 'sound/magic/lightningbolt.ogg', 65+(35*(i-1)), 1)	//65%, then 100% volume.
 				if(20) //AI is doomsdaying!
 					to_chat(src, "<h1 class='alert'>ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.</h1>")
-					to_chat(src, "<br><br><span class='alert'>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.</span><br><br>")
+					to_chat(src, span_alert("<br><br>Во всех системах станции обнаружены вредоносные процессы, пожалуйста, деактивируйте ваш ИИ, чтобы предотвратить возможное повреждение его ядра морали.<br><br>"))
 					playsound_local(null, 'sound/AI/aimalf.ogg')
 		if("hudscrew")
 			//Screwy HUD

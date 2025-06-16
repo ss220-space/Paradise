@@ -84,7 +84,7 @@
 	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
-	to_chat(user, span_notice("You shut off [src].")
+	to_chat(user, span_notice("You shut off [src]."))
 	if(world.time > next_off_message)
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
@@ -163,11 +163,11 @@
 		return
 
 	if(world.time > next_off_message)
-		user.visible_message(span_rose("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow.")
+		user.visible_message(span_rose("You hear a quiet click, as [user] shuts off [src] without even looking at what [user.p_theyre()] doing. Wow."))
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
 	else
-		to_chat(user, span_notice("You shut off [src].")
+		to_chat(user, span_notice("You shut off [src]."))
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return

@@ -22,7 +22,7 @@
 //#define span_binarysay(str) ("<span class='binarysay'>" + str + "</span>")
 //#define span_blue(str) ("<span class='blue'>" + str + "</span>")
 //#define span_blueteamradio(str) ("<span class='blueteamradio'>" + str + "</span>")
-//#define span_bold(str) ("<span class='bold'>" + str + "</span>")
+#define span_bold(str) ("<span class='bold'>" + str + "</span>")
 #define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
 #define span_boldannounceooc(str) ("<span class='boldannounceooc'>" + str + "</span>")
 #define span_bolddanger(str) ("<span class='bolddanger'>" + str + "</span>")
@@ -175,7 +175,7 @@
 #define span_coderesponses(str) ("<span class='coderesponses'>" + str + "</span>")
 #define span_bluetext(str) ("<span class='bluetext'>" + str + "</span>")
 #define span_dantalion(str) ("<span class='dantalion'>" + str + "</span>")
-#define span_paper_field(str) ("<span class='paper_field'>" + str + "</span>")
+#define span_runtime_line(str) ("<span class='runtime_line'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")

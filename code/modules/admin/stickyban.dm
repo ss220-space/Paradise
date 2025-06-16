@@ -110,7 +110,7 @@
 			var/ckey = data["ckey"]
 			var/ban = get_stickyban_from_ckey(ckey)
 			if(!ban)
-				to_chat(usr, span_adminnotice("Error: No sticky ban for [ckey] found!")
+				to_chat(usr, span_adminnotice("Error: No sticky ban for [ckey] found!"))
 				return
 			var/oldreason = ban["message"]
 			var/reason = tgui_input_text(usr, "Reason", "Reason", "[ban["message"]]")
