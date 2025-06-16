@@ -171,12 +171,12 @@
 	else
 		. += span_warning("It is too far away.")
 	if(guest_pass)
-		. += span_notice("There is a guest pass attached to this ID card</span>"
+		. += span_notice("There is a guest pass attached to this ID card")
 		if(world.time < guest_pass.expiration_time)
 			. += span_notice("It expires at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
 		else
 			. += span_warning("It expired at [station_time_timestamp("hh:mm:ss", guest_pass.expiration_time)].")
-		. += span_notice("It grants access to following areas:</span>"
+		. += span_notice("It grants access to following areas:")
 		for(var/A in guest_pass.temp_access)
 			. += span_notice("[get_access_desc(A)].")
 		. += span_notice("Issuing reason: [guest_pass.reason].")

@@ -178,9 +178,9 @@
 	H.cult_self_harm(initial(rune.scribe_damage))
 	var/others_message
 	if(!narsie_rune)
-		others_message = span_warning("[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!</span>"
+		others_message = span_warning("[user] cuts [user.p_their()] body and begins writing in [user.p_their()] own blood!")
 	else
-		others_message = span_biggerdanger("[user] cuts [user.p_their()] body and begins writing something particularly ominous in [user.p_their()] own blood!</span>"
+		others_message = span_biggerdanger("[user] cuts [user.p_their()] body and begins writing something particularly ominous in [user.p_their()] own blood!")
 	user.visible_message(others_message,
 		span_cultitalic("You slice open your body and begin drawing a sigil of [SSticker.cultdat.entity_title3]."))
 

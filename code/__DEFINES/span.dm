@@ -167,19 +167,29 @@
 #define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
 #define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
 #define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
+#define span_adminticketalt(str) ("<span class='adminticketalt'>" + str + "</span>")
+#define span_debug(str) ("<span class='debug'>" + str + "</span>")
+#define span_deadsay_italics_bold(str) ("<span class='deadsay italics bold'>" + str + "</span>")
+#define span_deadsay_bold(str) ("<span class='deadsay bold'>" + str + "</span>")
+#define span_codephrases(str) ("<span class='codephrases'>" + str + "</span>")
+#define span_coderesponses(str) ("<span class='coderesponses'>" + str + "</span>")
+#define span_bluetext(str) ("<span class='bluetext'>" + str + "</span>")
+#define span_dantalion(str) ("<span class='dantalion'>" + str + "</span>")
+#define span_paper_field(str) ("<span class='paper_field'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 #define span_tooltip(tip, main_text) ("<span data-component=\"Tooltip\" data-content=\"" + tip + "\" class=\"tooltip\">" + main_text + "</span>")
 
 // Font size spans
+#define span_fontsize_1(str) ("<span style='font-size: 10px;'>" + str + "</span>")
+#define span_fontsize_2(str) ("<span style='font-size: 13px;'>" + str + "</span>")
+#define span_fontsize_3(str) ("<span style='font-size: 16px;'>" + str + "</span>")
+#define span_fontsize_4(str) ("<span style='font-size: 18px;'>" + str + "</span>")
+#define span_fontsize_5(str) ("<span style='font-size: 24px;'>" + str + "</span>")
+#define span_fontsize_6(str) ("<span style='font-size: 32px;'>" + str + "</span>")
+#define span_fontsize_7(str) ("<span style='font-size: 48px;'>" + str + "</span>")
+// Custom font size spans
 #define span_fontsize_6px(str) ("<span style='font-size: 6px;'>" + str + "</span>")
-#define span_fontsize_10px(str) ("<span style='font-size: 10px;'>" + str + "</span>")
-#define span_fontsize_13px(str) ("<span style='font-size: 13px;'>" + str + "</span>")
-#define span_fontsize_16px(str) ("<span style='font-size: 16px;'>" + str + "</span>")
-#define span_fontsize_18px(str) ("<span style='font-size: 18px;'>" + str + "</span>")
-#define span_fontsize_24px(str) ("<span style='font-size: 24px;'>" + str + "</span>")
-#define span_fontsize_32px(str) ("<span style='font-size: 32px;'>" + str + "</span>")
-#define span_fontsize_48px(str) ("<span style='font-size: 48px;'>" + str + "</span>")
 
 // Font color spans
 #define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")
@@ -188,3 +198,5 @@
 #define span_fontcolor_black(str) ("<span style='color: black;'>" + str + "</span>")
 #define span_fontcolor_blue(str) ("<span style='color: blue;'>" + str + "</span>")
 #define span_fontcolor_pink(str) ("<span style='color: pink;'>" + str + "</span>")
+#define span_fontcolor_green(str) ("<span style='color: green;'>" + str + "</span>")
+#define span_fontcolor_lightblue(str) ("<span style='color: lightblue;'>" + str + "</span>")

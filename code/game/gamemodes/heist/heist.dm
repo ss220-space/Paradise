@@ -226,7 +226,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		else
 			win_msg += "<b>The Vox Raiders were repelled!</b>"
 
-	to_chat(world, span_warning(span_fontsize_16px("<b>[win_type] [win_group] victory!</b>")))
+	to_chat(world, span_warning(span_fontsize_3("<b>[win_type] [win_group] victory!</b>")))
 	to_chat(world, "[win_msg]")
 	SSticker.mode_result = "heist - [win_type] [win_group]"
 
@@ -247,7 +247,7 @@ GLOBAL_LIST_EMPTY(cortical_stacks) //Stacks for 'leave nobody behind' objective.
 		var/check_return = 0
 		if(GAMEMODE_IS_HEIST)
 			check_return = 1
-		var/text = span_fontsize_13px("<b>The Vox raiders were:</b>")
+		var/text = span_fontsize_2("<b>The Vox raiders were:</b>")
 
 		for(var/datum/mind/vox in raiders)
 			text += "<br>[vox.get_display_key()] was [vox.name] ("

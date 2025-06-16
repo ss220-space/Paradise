@@ -171,7 +171,7 @@
 	stage2 = list("Your throat feels scratchy.", span_danger("Kill..."))
 	stage3 = list(span_danger("Your throat feels very scratchy."), "Your skin feels tight.", span_danger("You can feel something move...inside."))
 	stage4 = list(span_danger("Your skin feels very tight."), span_danger("Your blood boils!"), span_danger("You can feel... something...inside you."))
-	transform_message = list(span_danger("<b>[span_fontsize_24px("Теперь вы ксеноморф!")]</b>\n\
+	transform_message = list(span_danger("<b>[span_fontsize_5("Теперь вы ксеноморф!")]</b>\n\
 	<b>Вы чувствуете боль от превращения! Вы желаете укусить того, кто с вами это сделал, благо, память вас не покинула и вы всё помните.</b>"))
 	new_form = null
 

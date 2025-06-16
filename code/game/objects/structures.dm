@@ -240,7 +240,7 @@
 	. = ..()
 	if(!(resistance_flags & INDESTRUCTIBLE))
 		if(resistance_flags & ON_FIRE)
-			. += span_warning("It's on fire!</span>"
+			. += span_warning("It's on fire!")
 		if(broken)
 			. += span_notice("It appears to be broken.")
 		var/examine_status = examine_status(user)
@@ -258,7 +258,7 @@
 			. += "It appears heavily damaged."
 		if(0 to 25)
 			if(!broken)
-				. += span_warning("It's falling apart!</span>"
+				. += span_warning("It's falling apart!")
 
 /obj/structure/proc/prevents_buckled_mobs_attacking()
 	return FALSE

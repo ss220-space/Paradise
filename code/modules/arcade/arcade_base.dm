@@ -24,16 +24,16 @@
 /obj/machinery/arcade/examine(mob/user)
 	. = ..()
 	if(freeplay)
-		. += span_notice("Someone enabled freeplay on this machine!</span>"
+		. += span_notice("Someone enabled freeplay on this machine!")
 	else
 		if(token_price)
 			. += span_notice("\The [src.name] costs [token_price] credits per play.")
 		if(!tokens)
-			. += span_notice("\The [src.name] has no available play credits. Better feed the machine!</span>"
+			. += span_notice("\The [src.name] has no available play credits. Better feed the machine!")
 		else if(tokens == 1)
-			. += span_notice("\The [src.name] has only 1 play credit left!</span>"
+			. += span_notice("\The [src.name] has only 1 play credit left!")
 		else
-			. += span_notice("\The [src.name] has [tokens] play credits!</span>"
+			. += span_notice("\The [src.name] has [tokens] play credits!")
 
 /obj/machinery/arcade/attack_hand(mob/user)
 	if(..())

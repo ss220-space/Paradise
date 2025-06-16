@@ -64,7 +64,7 @@
 
 
 /mob/living/simple_animal/ascendant_shadowling/proc/announce(text, size = 4, new_sound = null)
-	var/message = "<font size=[size]><span class='shadowling'><b>\"[text]\"</font></span>"
+	var/message = "<font size=[size]><b>\"[span_shadowling(text)]\"</font>"
 	for(var/mob/M in GLOB.player_list)
 		if(!isnewplayer(M) && M.client)
 			to_chat(M, message)

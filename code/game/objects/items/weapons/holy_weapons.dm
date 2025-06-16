@@ -81,7 +81,7 @@
 /obj/item/nullrod/examine(mob/living/user)
 	. = ..()
 	if(sanctify_force)
-		. += span_notice("It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'</span>"
+		. += span_notice("It bears the inscription: 'Sanctified weapon of the inquisitors. Only the worthy may wield. Nobody shall expect us.'")
 
 /obj/item/nullrod/proc/reskin_holy_weapon(mob/user)
 	if(!ishuman(user))

@@ -173,7 +173,7 @@
 	if(IsBroken())
 		. += span_warning("\The [src] seems to have broken down.")
 	if(overheating)
-		. += span_danger("\The [src] is overheating!</span>"
+		. += span_danger("\The [src] is overheating!")
 
 /obj/machinery/power/port_gen/pacman/HasFuel()
 	var/needed_sheets = power_output / time_per_sheet

@@ -73,10 +73,10 @@
 		else if(health > (maxHealth*0.55))
 			msgs += span_warning("It has many injuries.")
 		else if(health > (maxHealth*0.25))
-			msgs += span_warning("It is covered in wounds!</span>"
+			msgs += span_warning("It is covered in wounds!")
 		if(resting)
 			if(getBruteLoss() || getFireLoss())
-				msgs += span_warning("It is currently licking its wounds, regenerating the damage to its body!</span>"
+				msgs += span_warning("It is currently licking its wounds, regenerating the damage to its body!")
 			else
 				msgs += span_notice("It is currently resting.")
 		. += msgs.Join("<br>")

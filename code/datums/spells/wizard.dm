@@ -102,7 +102,7 @@
 	clothes_req = TRUE
 	invocation = "BIRUZ BENNAR"
 	invocation_type = "shout"
-	message = span_notice("You feel strong! You feel a pressure building behind your eyes!</span>"
+	message = span_notice("You feel strong! You feel a pressure building behind your eyes!")
 	centcom_cancast = FALSE
 
 	traits = list(TRAIT_LASEREYES)
@@ -316,7 +316,7 @@
 	human_req = FALSE
 	invocation = "STI KALY"
 	invocation_type = "whisper"
-	message = span_notice("Your eyes cry out in pain!</span>"
+	message = span_notice("Your eyes cry out in pain!")
 	base_cooldown = 30 SECONDS
 	cooldown_min = 5 SECONDS //12 deciseconds reduction per rank
 	need_active_overlay = TRUE
@@ -362,7 +362,7 @@
 	invocation = "ONI SOMA"
 	invocation_type = "shout"
 
-	selection_activated_message		= span_notice("Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b></span>"
+	selection_activated_message		= span_notice("Your prepare to cast your fireball spell! <b>Left-click to cast at a target!</b>")
 	selection_deactivated_message	= span_notice("You extinguish your fireball...for now.")
 
 	var/fireball_type = /obj/projectile/magic/fireball

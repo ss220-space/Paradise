@@ -417,7 +417,7 @@
 	var/intercepttext
 	var/interceptname
 	interceptname = "Секретное постановление [command_name()]"
-	intercepttext += span_fontsize_16px("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
+	intercepttext += span_fontsize_3("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
 	intercepttext += "Для [station_name()] была издана директива 7-12.<br>"
 	intercepttext += "Биологическая угроза вышла из-под контроля.<br>"
 	intercepttext += "Вам приказано следующее:<br>"

@@ -17,7 +17,7 @@
 
 /obj/structure/fermenting_barrel/examine(mob/user)
 	. = ..()
-	. += span_notice("It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."]</span>"
+	. += span_notice("It is currently [open ? "open, letting you pour liquids in." : "closed, letting you draw liquids from the tap."]")
 
 /obj/structure/fermenting_barrel/proc/makeWine(obj/item/reagent_containers/food/snacks/grown/G)
 	if(G.reagents)

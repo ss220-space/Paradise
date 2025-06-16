@@ -56,7 +56,7 @@
 			MK.loc = src.loc
 			playsound(loc, 'sound/goonstation/machines/printer_dotmatrix.ogg', 50, 1)
 			// Will help make emagging the console not so easy to get away with.
-			MK.info += "<br><br><span style='color: red;'>�%@%(*$%&(�&?*(%&�/{}</span>"
+			MK.info += span_fontcolor_red("<br><br>�%@%(*$%&(�&?*(%&�/{}")
 			update_icon()
 			spawn(100*length(src.linkedServer.decryptkey))
 				UnmagConsole()
@@ -92,14 +92,14 @@
 		message = rebootmsg
 	var/dat = ""
 	dat += "<center><h2>Message Monitor Console</h2></center><hr>"
-	dat += "<center><h4><span style='color: blue;'> [message]</span></h4></center>"
+	dat += "<center><h4> [span_fontcolor_blue(message)]</h4></center>"
 
 	if(auth)
-		dat += "<h4><a href='byond://?src=[UID()];auth=1'><span style='color: green;'>\[Authenticated\]</span></a>/"
-		dat += " Server Power: <a href='byond://?src=[UID()];active=1'>[src.linkedServer && src.linkedServer.active ? "<span style='color: green;'>\[On\]</span>":span_fontcolor_red("\[Off\]</span>"]</a></h4>"
+		dat += "<h4><a href='byond://?src=[UID()];auth=1'>[span_fontcolor_green("\[Authenticated\]")]</a>/"
+		dat += " Server Power: <a href='byond://?src=[UID()];active=1'>[src.linkedServer && src.linkedServer.active ? "[span_fontcolor_green("\[On\]")]":"[span_fontcolor_red("\[Off\]")]"]</a></h4>"
 	else
 		dat += "<h4><a href='byond://?src=[UID()];auth=1'><span style='color: red;'>\[Unauthenticated\]</span></a>/"
-		dat += " Server Power: <u>[src.linkedServer && src.linkedServer.active ? "<span style='color: green;'>\[On\]</span>":"<span style='color: green;'>\[Off\]</span>"]</u></h4>"
+		dat += " Server Power: <u>[src.linkedServer && src.linkedServer.active ? "[span_fontcolor_green("\[On\]")]":"[span_fontcolor_red("\[Off\]")]"]</u></h4>"
 
 	if(hacking || emag)
 		screen = 2

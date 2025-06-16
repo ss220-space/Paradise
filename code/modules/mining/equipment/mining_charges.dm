@@ -204,9 +204,9 @@
 /obj/item/detonator/examine(mob/user)
 	. = ..()
 	if(bombs.len)
-		. += span_notice("List of synched bombs:</span>"
+		. += span_notice("List of synched bombs:")
 		for(var/obj/item/grenade/plastic/miningcharge/charge in bombs)
-			. += span_notice("[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"]."
+			. += span_notice("[bicon(charge)] [charge]. Current status: [charge.installed ? "ready to detonate" : "ready to deploy"].")
 
 
 /obj/item/detonator/update_icon_state()

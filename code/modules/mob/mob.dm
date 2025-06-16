@@ -106,14 +106,14 @@
 
 	var/datum/gas_mixture/environment = loc.return_air()
 
-	var/t = span_notice("Coordinates: [x],[y] \n</span>"
-	t+= span_warning("Temperature: [environment.temperature] \n</span>"
-	t+= span_notice("Nitrogen: [environment.nitrogen] \n</span>"
-	t+= span_notice("Oxygen: [environment.oxygen] \n</span>"
-	t+= span_notice("Plasma : [environment.toxins] \n</span>"
-	t+= span_notice("Carbon Dioxide: [environment.carbon_dioxide] \n</span>"
-	t+= span_notice("N2O: [environment.sleeping_agent] \n</span>"
-	t+= span_notice("Agent B: [environment.agent_b] \n</span>"
+	var/t = span_notice("Coordinates: [x],[y] \n")
+	t+= span_warning("Temperature: [environment.temperature] \n")
+	t+= span_notice("Nitrogen: [environment.nitrogen] \n")
+	t+= span_notice("Oxygen: [environment.oxygen] \n")
+	t+= span_notice("Plasma : [environment.toxins] \n")
+	t+= span_notice("Carbon Dioxide: [environment.carbon_dioxide] \n")
+	t+= span_notice("N2O: [environment.sleeping_agent] \n")
+	t+= span_notice("Agent B: [environment.agent_b] \n")
 
 	usr.show_message(t, 1)
 
@@ -467,9 +467,9 @@
 	if(flavor_text && flavor_text != "")
 		var/msg = replacetext(flavor_text, "\n", " ")
 		if(length(msg) <= 60 || !shrink)
-			return span_notice("[msg]</span>" // There is already encoded by tgui_input
+			return span_notice("[msg]") // There is already encoded by tgui_input
 		else
-			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a></span>"
+			return span_notice("[copytext_preserve_html(msg, 1, 57)]... <a href='byond://?src=[UID()];flavor_more=1'>More...</a>")
 
 /mob
 	var/newPlayerType = /mob/new_player

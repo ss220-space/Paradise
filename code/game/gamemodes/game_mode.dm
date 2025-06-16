@@ -617,20 +617,20 @@
 	var/text = "<b>[player.get_display_key()]</b> was <b>[player.name]</b>[jobtext] and"
 	if(player.current)
 		if(player.current.stat == DEAD)
-			text += " <span class='redtext'>died</span>"
+			text += span_redtext(" died")
 		else
-			text += " <span class='greentext'>survived</span>"
+			text += span_greentext(" survived")
 
 		if(flee_check)
 			var/turf/player_turf = get_turf(player.current)
 			if(!player_turf || !is_station_level(player_turf.z))
-				text += " while <span class='redtext'>fleeing the station</span>"
+				text += " while <span class='redtext'>fleeing the station")
 
 		if(player.current.real_name != player.name)
 			text += " as <b>[player.current.real_name]</b>"
 
 	else
-		text += " <span class='redtext'>had [player.p_their()] body destroyed</span>"
+		text += span_redtext(" had [player.p_their()] body destroyed")
 
 	return text
 
@@ -660,9 +660,9 @@
 	var/count = 1
 	for(var/datum/objective/objective in player.get_all_objectives())
 		if(objective.check_completion())
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='greentext'>Success!</span>"
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_greentext("Успех!")]"
 		else
-			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] <span class='redtext'>Fail.")
+			objective_parts += "<b>Objective #[count]</b>: [objective.explanation_text] [span_redtext("Провал!")]"
 		count++
 
 	return objective_parts.Join("<br>")
@@ -775,7 +775,7 @@
 	if(!custom_name)
 		interceptname = "Директива 7-10"
 	if(!custom_text)
-		intercepttext += span_fontsize_16px("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
+		intercepttext += span_fontsize_3("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
 		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
 		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
 		intercepttext += " 1. Не покидать карантинную зону.<br>"

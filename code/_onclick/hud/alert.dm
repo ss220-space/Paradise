@@ -780,7 +780,7 @@ so as to remain in compliance with the most up-to-date laws."
 	if(stacks <= 1)
 		return
 	stacks_overlay = new
-	stacks_overlay.maptext = MAPTEXT("<span style='font-family: \"Small Fonts\"; font-size: 32px; color: yellow;'>[stacks]x"))
+	stacks_overlay.maptext = MAPTEXT("<span style='font-family: \"Small Fonts\"; font-size: 32px; color: yellow;'>[stacks]x</span>")
 	stacks_overlay.transform = stacks_overlay.transform.Translate(4, 2)
 	stacks_overlay.layer = FLOAT_LAYER_STACKS
 	add_overlay(stacks_overlay)

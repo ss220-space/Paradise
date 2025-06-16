@@ -67,7 +67,7 @@
 		if(gizmo && gizmo.marked)
 			dat += "<a href='byond://?src=[UID()];teleporter_retrieve=1'>Retrieve Mark</a><br>"
 		else
-			dat += span_linkOff("Retrieve Mark</span><br>"
+			dat += span_linkoff("Retrieve Mark</span><br>"
 	else
 		dat += span_bad("NO TELEPAD DETECTED</span></br>"
 
@@ -76,16 +76,16 @@
 		var/mode = vest.mode
 		if(mode == VEST_STEALTH)
 			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Combat</a>"
-			dat += span_linkOff("Stealth</span>"
+			dat += span_linkoff("Stealth")
 		else
-			dat += span_linkOff("Combat</span>"
+			dat += span_linkoff("Combat")
 			dat += "<a href='byond://?src=[UID()];flip_vest=1'>Stealth</a>"
 
 		dat+="<br>"
 		dat += "<a href='byond://?src=[UID()];select_disguise=1'>Select Agent Vest Disguise</a><br>"
 		dat += "<a href='byond://?src=[UID()];toggle_vest=1'>[HAS_TRAIT_FROM(vest, TRAIT_NODROP, ABDUCTOR_VEST_TRAIT) ? "Unlock" : "Lock"] Vest</a><br>"
 	else
-		dat += span_bad("NO AGENT VEST DETECTED</span>"
+		dat += span_bad("NO AGENT VEST DETECTED")
 	var/datum/browser/popup = new(user, "computer", "Abductor Console", 400, 500)
 	popup.set_content(dat)
 	popup.open()

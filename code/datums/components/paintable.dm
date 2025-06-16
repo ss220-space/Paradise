@@ -20,7 +20,7 @@
 		to_chat(user, span_warning("Take the cap off first!"))
 		return
 	if(spraycan.uses < 2)
-		to_chat(user, "<span class ='warning'>There is not enough paint in the can!")
+		to_chat(user, span_warning("There is not enough paint in the can!"))
 		return
 	RemoveCurrentCoat()
 	var/colour = spraycan.colour

@@ -31,7 +31,7 @@
 	if (num == INFINITY)
 		. += span_notice("It's sealed tight, completely full of supplies.")
 	else if (num == 0)
-		. += span_notice("It's empty!</span>"
+		. += span_notice("It's empty!")
 	else
 		. += span_notice("It can restock [num] item\s.")
 

@@ -1,10 +1,10 @@
 /mob/living/silicon/ai/examine(mob/user)
 	. = ..()
-	var/msg = span_notice(""
+	var/msg = "<span class='notice'>"
 	if(src.stat == DEAD)
-		msg += span_deadsay("It appears to be powered-down.</span>\n"
+		msg += span_deadsay("It appears to be powered-down.\n")
 	else
-		msg += span_warning(""
+		msg += "<span class='warning'>"
 		if(src.getBruteLoss())
 			if(src.getBruteLoss() < 30)
 				msg += "It looks slightly dented.\n"

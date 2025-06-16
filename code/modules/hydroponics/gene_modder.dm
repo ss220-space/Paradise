@@ -511,4 +511,4 @@
 		. += "The write-protect tab is set to [read_only ? "protected" : "unprotected"]."
 		return
 	if((user.mind.assigned_role == "Captain" || user.mind.special_role == SPECIAL_ROLE_NUKEOPS) && (user.Adjacent(src)))
-		. += span_warning("... Wait. This isn't the nuclear authentication disk! It's a clever forgery!</span>"
+		. += span_warning("... Wait. This isn't the nuclear authentication disk! It's a clever forgery!")

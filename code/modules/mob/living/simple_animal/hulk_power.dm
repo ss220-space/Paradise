@@ -16,12 +16,12 @@
 
 /obj/effect/proc_holder/spell/hulk_transform/cast(list/targets, mob/user = usr)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_warning("Not enough angry power.")
+		to_chat(user, span_warning("Not enough angry power."))
 		return
 	if(istype(user,/mob/living/simple_animal/hulk))
-		to_chat(user, span_warning("You are already hulk.")
+		to_chat(user, span_warning("You are already hulk."))
 		return
-	to_chat(user, "<span class='bold notice'>You can feel real POWER."))
+	to_chat(user, span_boldnotice("You can feel real POWER."))
 	if(istype(user.loc, /obj/machinery/dna_scannernew))
 		var/obj/machinery/dna_scannernew/DSN = loc
 		DSN.occupant = null
@@ -467,7 +467,7 @@
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	selection_activated_message	= span_notice("Your prepare to spit fire! <b>Left-click to spit at a target!</b></span>"
+	selection_activated_message	= span_notice("Your prepare to spit fire! <b>Left-click to spit at a target!</b>")
 	selection_deactivated_message = span_notice("You swallow your spit...for now.")
 	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
@@ -491,7 +491,7 @@
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	action_icon_state = "lazer_hulk"
-	selection_activated_message	= span_notice("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b></span>"
+	selection_activated_message	= span_notice("You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b>")
 	selection_deactivated_message = span_notice("You relax your eyes...for now.")
 	fireball_type = /obj/projectile/beam
 	base_cooldown = 7 SECONDS

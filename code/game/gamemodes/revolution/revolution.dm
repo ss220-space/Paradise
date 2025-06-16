@@ -67,7 +67,7 @@
 	log_admin("[key_name(usr)] attempted recruitment [key_name(recruit)] into the revolution.", usr)
 	to_chat(usr, span_info("<b>You are trying to recruit [recruit]: </b>"))
 	if(ismindshielded(recruit) || (recruit.mind in SSticker.mode.get_living_heads()))
-		to_chat(recruit, span_danger(span_fontsize_18px("You were asked to join the revolution, but for reasons you did not know, you refused.")))
+		to_chat(recruit, span_danger(span_fontsize_4("You were asked to join the revolution, but for reasons you did not know, you refused.")))
 		to_chat(usr, span_danger("\The [recruit] does not support the revolution!"))
 		return
 	var/choice = alert(recruit, "Do you want to join the revolution?", "Join the revolution", "Yes", "No")
@@ -228,7 +228,7 @@
 	if((rev_mind in revolutionaries) || (rev_mind in head_revolutionaries))
 		return 0
 	revolutionaries += rev_mind
-	to_chat(rev_mind.current, span_danger(span_fontsize_16px(" You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.")))
+	to_chat(rev_mind.current, span_danger(span_fontsize_3(" You are now a revolutionary! Follow orders given by revolution leaders. Do not harm your fellow freedom fighters. You can identify your comrades by the red \"R\" icons, and your leaders by the blue \"R\" icons.")))
 	add_conversion_logs(rev_mind.current, "recruited to the revolution")
 	rev_mind.special_role = SPECIAL_ROLE_REV
 	update_rev_icons_added(rev_mind)
@@ -253,10 +253,10 @@
 			qdel(C)
 		add_conversion_logs(rev_mind.current, "renounced the revolution")
 		if(beingborged)
-			to_chat(rev_mind.current, span_danger(span_fontsize_16px("The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who recruited you."]")))
+			to_chat(rev_mind.current, span_danger(span_fontsize_3("The frame's firmware detects and deletes your neural reprogramming! You remember nothing[remove_head ? "." : " but the name of the one who recruited you."]")))
 			message_admins("[ADMIN_LOOKUPFLW(rev_mind.current)] has been borged while being a [remove_head ? "leader" : " member"] of the revolution.")
 		else
-			to_chat(rev_mind.current, span_danger(span_fontsize_16px("You have been brainwashed! You are no longer a revolutionary!")))
+			to_chat(rev_mind.current, span_danger(span_fontsize_3("You have been brainwashed! You are no longer a revolutionary!")))
 
 		update_rev_icons_removed(rev_mind)
 

@@ -198,7 +198,7 @@
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
 	. = ..()
-	. += span_notice("It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
+	. += span_notice("It reads: <font color='[basecolor]'>\"[message]\"<font>")
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"

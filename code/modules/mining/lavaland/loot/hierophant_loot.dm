@@ -92,7 +92,7 @@
 				else
 					add_attack_logs(user, target, "Fired cardinal blast at [src]", ATKLOG_ALL)
 		else
-			to_chat(user, span_warning("That target is out of range!</span>" )
+			to_chat(user, span_warning("That target is out of range!"))
 			timer = world.time
 	INVOKE_ASYNC(src, PROC_REF(prepare_icon_update))
 

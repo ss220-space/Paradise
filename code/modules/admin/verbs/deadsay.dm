@@ -41,7 +41,7 @@
 	var/prefix = "[stafftype] ([src.key])"
 	if(holder.fakekey)
 		prefix = "Administrator"
-	say_dead_direct(span_name("[prefix]</span> says, <span class='message'>\"[msg]\""))
+	say_dead_direct("[span_name(prefix)] says, \"[span_message(msg)]\"")
 
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Dsay") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 

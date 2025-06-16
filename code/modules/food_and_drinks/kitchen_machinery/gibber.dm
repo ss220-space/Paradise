@@ -357,7 +357,7 @@
 		victim_targets += H
 
 	if(victim_targets.len)
-		visible_message({span_danger("\The [src] states, "Food detected!"</span>"})
+		visible_message(span_danger("\The [src] states, \"Food detected!\""))
 		sleep(consumption_delay)
 		for(var/mob/living/carbon/H in victim_targets)
 			if(H.loc == lturf) //still standing there

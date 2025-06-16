@@ -72,7 +72,7 @@
 
 /obj/item/lightreplacer/examine(mob/user)
 	. = ..()
-	. += span_notice("[status_string()]</span>"
+	. += span_notice("[status_string()]")
 
 
 /obj/item/lightreplacer/attackby(obj/item/I, mob/user, params)

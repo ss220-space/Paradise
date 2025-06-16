@@ -476,7 +476,7 @@
 	else
 		text += " normal"
 	text += " vine."
-	. += span_notice("[text]</span>"
+	. += span_notice("[text]")
 
 
 /obj/structure/spacevine/proc/wither()

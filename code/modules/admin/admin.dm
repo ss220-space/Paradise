@@ -3,7 +3,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 ////////////////////////////////
 /proc/message_admins(var/msg)
-	msg = "<span class=\"admin\"><span class=\"prefix\">ADMIN LOG:</span> <span class=\"message\">[msg]</span></span>"
+	msg = span_admin("[span_prefix("ADMIN LOG:")] [span_message(msg)]")
 	for(var/client/C in GLOB.admins)
 		if(R_ADMIN & C.holder.rights)
 			if(C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_ADMINLOGS))
@@ -11,7 +11,7 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /proc/msg_admin_attack(var/text, var/loglevel)
 	if(!GLOB.nologevent)
-		var/rendered = "<span class=\"admin\"><span class=\"prefix\">ATTACK:</span> <span class=\"message\">[text]</span></span>"
+		var/rendered = span_admin("[span_prefix("ATTACK:")] [span_message(text)]")
 		for(var/client/C in GLOB.admins)
 			if((C.holder.rights & R_ADMIN) && (C.prefs?.atklog <= loglevel))
 				to_chat(C, rendered, MESSAGE_TYPE_ATTACKLOG, confidential = TRUE)

@@ -18,7 +18,7 @@
 /atom/movable/screen/alert/status_effect/his_grace/MouseEntered(location,control,params)
 	desc = initial(desc)
 	var/datum/status_effect/his_grace/HG = attached_effect
-	desc += "[span_fontsize_16px("<br><b>Текущая кровожадность: [HG.bloodlust]</b>")]\
+	desc += "[span_fontsize_3("<br><b>Текущая кровожадность: [HG.bloodlust]</b>")]\
 	<br>Поглотит тебя на уровне кровожадности: [span_boldwarning("[HIS_GRACE_CONSUME_OWNER]")]"
 	return ..()
 

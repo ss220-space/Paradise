@@ -77,7 +77,7 @@
 		if(fibers.evidence)
 			report.info = "Молекулярный анализ на предоставленном образце определил наличие уникальных волоконных струн.<br><br>"
 			for(var/fiber in fibers.evidence)
-				report.info += span_notice("Наиболее вероятное совпадение: [fiber]</span><br><br>"
+				report.info += span_notice("Наиболее вероятное совпадение: [fiber]<br><br>")
 		else
 			report.info += "Волокна не найдены."
 	else if(istype(sample, /obj/item/sample/print))
@@ -87,7 +87,7 @@
 		if(card.evidence && card.evidence.len)
 			report.info += "<br>Поверхностный анализ определил следующие уникальные строки отпечатков пальцев:<br><br>"
 			for(var/prints in card.evidence)
-				report.info += span_notice("Строка отпечатков пальцев: </span>"
+				report.info += span_notice("Строка отпечатков пальцев: ")
 				if(!is_complete_print(prints))
 					report.info += "НЕПОЛНЫЙ ОТПЕЧАТОК"
 				else

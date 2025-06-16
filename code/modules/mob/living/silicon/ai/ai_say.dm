@@ -157,8 +157,8 @@ GLOBAL_VAR_INIT(announcing_vox, 0) // Stores the time of the last announcement
 /mob/living/silicon/ai/proc/ai_voice_announcement_to_text(words)
 	var/words_string = jointext(words, " ")
 	var/formatted_message = "<h1 class='alert'>A.I. Announcement</h1>"
-	formatted_message += "<br><span class='alert'>[words_string]</span>"
-	formatted_message += "<br><span class='alert'> -[src]</span>"
+	formatted_message += span_alert("<br>[words_string]")
+	formatted_message += span_alert("<br> – [src]")
 
 	for(var/player in GLOB.player_list)
 		var/mob/M = player

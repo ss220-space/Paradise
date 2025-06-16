@@ -43,11 +43,11 @@
 	var/mouthfree_p = !((P.head && (P.head.flags_cover & HEADCOVERSMOUTH)) || (P.wear_mask && (P.wear_mask.flags_cover & MASKCOVERSMOUTH)))
 
 
-	var/dat = span_fontsize_16px("<b><hr>[H.partner]</b><br><hr>")
+	var/dat = span_fontsize_3("<b><hr>[H.partner]</b><br><hr>")
 
 	dat +=  {"• <a href='byond://?src=[UID()];interaction=bow'>Отвесить поклон.</a><br>"}
 	if (hashands)
-		dat +=  span_fontsize_16px("<b>Руки:</b><br>")
+		dat +=  span_fontsize_3("<b>Руки:</b><br>")
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=wave'>Приветливо помахать.</a><br>"}
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=bow_affably'>Приветливо кивнуть.</a><br>"}
 		if (Adjacent(P))
@@ -70,7 +70,7 @@
 		dat +=  {"• <a href='byond://?src=[UID()];interaction=threaten'><span style='color: darkred;'>Погрозить кулаком.</span></a><br>"}
 
 	if (mouthfree && H.dna.species.name != SPECIES_DIONA)
-		dat += span_fontsize_16px("<b>Лицо:</b><br>")
+		dat += span_fontsize_3("<b>Лицо:</b><br>")
 		dat += {"• <a href='byond://?src=[UID()];interaction=kiss'>Поцеловать.</a><br>"}
 		if (Adjacent(P))
 			if (mouthfree_p)

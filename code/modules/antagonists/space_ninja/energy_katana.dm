@@ -137,9 +137,9 @@
 	if(user.put_in_active_hand(src))
 		msg = "Your Energy Katana teleports into your hand!"
 	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BELT, disable_warning = TRUE))
-		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!</span>"
+		msg = "Your Energy Katana teleports back to you, sheathing itself as it does so!" //span_?
 	else if(user.equip_to_slot_if_possible(src, ITEM_SLOT_BACK, disable_warning = TRUE))
-		msg = "Your Energy Katana teleports back to you, sheathing itself at your back as it does so!</span>"
+		msg = "Your Energy Katana teleports back to you, sheathing itself at your back as it does so!" //span_?
 	else
 		msg = "Your Energy Katana teleports to your location!"
 

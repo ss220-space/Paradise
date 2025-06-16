@@ -197,7 +197,7 @@
 /obj/machinery/power/generator/proc/get_menu(include_link = 1)
 	var/t = ""
 	if(!powernet)
-		t += span_bad("Unable to connect to the power network!</span>"
+		t += span_bad("Unable to connect to the power network!")
 		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
 	else if(cold_circ && hot_circ)
 		var/datum/gas_mixture/cold_circ_air1 = cold_circ.get_outlet_air()
@@ -211,17 +211,17 @@
 
 		t += "<br>"
 
-		t += "<b><font color='blue'>Cold loop</font></b><br>"
+		t += span_fontcolor_blue("<b>Cold loop</b><br>")
 		t += "Temperature Inlet: [round(cold_circ_air2.temperature, 0.1)] K / Outlet: [round(cold_circ_air1.temperature, 0.1)] K<br>"
 		t += "Pressure Inlet: [round(cold_circ_air2.return_pressure(), 0.1)] kPa /  Outlet: [round(cold_circ_air1.return_pressure(), 0.1)] kPa<br>"
 
-		t += "<b><font color='red'>Hot loop</font></b><br>"
+		t += span_fontcolor_red("<b>Hot loop</b><br>")
 		t += "Temperature Inlet: [round(hot_circ_air2.temperature, 0.1)] K / Outlet: [round(hot_circ_air1.temperature, 0.1)] K<br>"
 		t += "Pressure Inlet: [round(hot_circ_air2.return_pressure(), 0.1)] kPa / Outlet: [round(hot_circ_air1.return_pressure(), 0.1)] kPa<br>"
 
 		t += "</div>"
 	else
-		t += span_bad("Unable to locate all parts!</span>"
+		t += span_bad("Unable to locate all parts!")
 		t += "<br><a href='byond://?src=[UID()];check=1'>Retry</a>"
 	if(include_link)
 		t += "<br><a href='byond://?src=[UID()];close=1'>Close</a>"

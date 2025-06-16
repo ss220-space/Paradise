@@ -346,7 +346,7 @@
 	reagent_state = LIQUID
 	color = "#8BA6E9" // rgb: 139, 166, 233
 	process_flags = ORGANIC | SYNTHETIC
-	taste_description = "<font color='lightblue'>холода</span>"
+	taste_description = span_fontcolor_lightblue("холода")
 
 
 /datum/reagent/consumable/frostoil/on_mob_add(mob/living/user)

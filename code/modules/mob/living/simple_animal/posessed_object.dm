@@ -26,9 +26,9 @@
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += span_notice("[src] appears to be floating without any support!</span>"
+		. += span_notice("[src] appears to be floating without any support!")
 	else
-		. += span_warning("[src] appears to be having trouble staying afloat!</span>"
+		. += span_warning("[src] appears to be having trouble staying afloat!")
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)

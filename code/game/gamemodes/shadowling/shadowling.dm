@@ -285,19 +285,19 @@ Made by Xhuis
 /datum/game_mode/shadowling/declare_completion()
 	if(check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED) //Doesn't end instantly - this is hacky and I don't know of a better way ~X
 		SSticker.mode_result = "Победа тенелингов - тенелинги возвысились"
-		to_chat(world, span_fontsize_16px("<b>Победа тенелингов</b>"))
+		to_chat(world, span_fontsize_3("<b>Победа тенелингов</b>"))
 		to_chat(world, span_greentext("<b>Тенелинги возвысились и полностью захватили станцию!</b>"))
 	else if(shadowling_dead && !check_shadow_victory()) //If the shadowlings have ascended, they can not lose the round
 		SSticker.mode_result = "Тенелинги проиграли - тенелинги погибли"
-		to_chat(world, span_fontsize_16px("<b>Крупная победа экипажа</b>"))
+		to_chat(world, span_fontsize_3("<b>Крупная победа экипажа</b>"))
 		to_chat(world, span_redtext("<b>Тенелинги были убиты экипажем!</b>"))
 	else if(!check_shadow_victory() && EMERGENCY_ESCAPED_OR_ENDGAMED)
 		SSticker.mode_result = "Тенелинги проиграли - экипаж сбежал"
-		to_chat(world, span_fontsize_16px("<b>Мелкая победа экипажа</b>"))
+		to_chat(world, span_fontsize_3("<b>Мелкая победа экипажа</b>"))
 		to_chat(world, span_redtext("<b>Экипаж сбежал со станции до того, как тенелинги возвысились!</b>"))
 	else
 		SSticker.mode_result = "Тенелинги проиграли - тенелинги не справились"
-		to_chat(world, span_fontsize_16px("<b>Крупная победа экипажа</b>"))
+		to_chat(world, span_fontsize_3("<b>Крупная победа экипажа</b>"))
 		to_chat(world, span_redtext("<b>Тенелинги не смогли возвыситься!</b>"))
 	..()
 	return 1
@@ -306,7 +306,7 @@ Made by Xhuis
 /datum/game_mode/proc/auto_declare_completion_shadowling()
 	var/text = ""
 	if(shadows.len)
-		text += "<br><span class='big'><b>Тенелингами были:</b></span>"
+		text += span_big("<br><b>Тенелингами были:</b>")
 		for(var/datum/mind/shadow in shadows)
 			text += "<br>[shadow.get_display_key()] was [shadow.name] ("
 			if(shadow.current)
@@ -321,7 +321,7 @@ Made by Xhuis
 			text += ")"
 		text += "<br>"
 		if(shadowling_thralls.len)
-			text += "<br><span class='big'><b>Рабами были:</b></span>"
+			text += span_big("<br><b>Рабами были:</b>")
 			for(var/datum/mind/thrall in shadowling_thralls)
 				text += "<br>[thrall.get_display_key()] was [thrall.name] ("
 				if(thrall.current)

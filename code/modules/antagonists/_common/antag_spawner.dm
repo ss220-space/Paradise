@@ -161,10 +161,8 @@
 	desc = "A magically infused bottle of blood, distilled from countless murder victims. Used in unholy rituals to attract horrifying creatures."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vial"
-	var/shatter_msg = span_notice("You shatter the bottle, no \
-		turning back now!</span>"
-	var/veil_msg = span_warning("You sense a dark presence lurking \
-		just beyond the veil...")
+	var/shatter_msg = span_notice("You shatter the bottle, no turning back now!")
+	var/veil_msg = span_warning("You sense a dark presence lurking just beyond the veil...")
 	var/objective_verb = "Kill"
 	var/mob/living/demon_type = /mob/living/simple_animal/demon/slaughter
 
@@ -251,10 +249,8 @@
 	desc = "A magically infused bottle of ooze, distilled by methods rather not be spoken of. Used to awaken an all-consuming monstrosity."
 	icon = 'icons/obj/wizard.dmi'
 	icon_state = "vialooze"
-	var/shatter_msg = span_notice("You shatter the bottle, no \
-		turning back now!</span>"
-	var/veil_msg = span_warning("The sludge is awake and seeps \
-		away...")
+	var/shatter_msg = span_notice("You shatter the bottle, no turning back now!")
+	var/veil_msg = span_warning("The sludge is awake and seeps away...")
 	var/objective_verb = "Eat"
 	var/mob/living/morph_type = /mob/living/simple_animal/hostile/morph
 
@@ -311,7 +307,7 @@
 	desc = "A magically sealed lightbulb confining some manner of electricity based creature."
 	icon = 'icons/obj/lighting.dmi'
 	icon_state = "lbulb"
-	var/shatter_msg = span_notice("You shatter the bulb, no turning back now!</span>"
+	var/shatter_msg = span_notice("You shatter the bulb, no turning back now!")
 	var/veil_msg = span_warning("The creature sparks energetically and zips away...")
 	var/objective_verb = "Electrocute"
 	var/mob/living/demon_type = /mob/living/simple_animal/demon/pulse_demon

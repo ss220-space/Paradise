@@ -43,23 +43,23 @@
 	var/health_text = ""
 	if(occupant)
 		if(occupant.stat == DEAD)
-			health_text = span_fontcolor_red("Dead</span>"
+			health_text = span_fontcolor_red("Dead")
 		else if(occupant.health < 0)
-			health_text = span_fontcolor_red("[round(occupant.health, 0.1)]</span>"
+			health_text = span_fontcolor_red("[round(occupant.health, 0.1)]")
 		else
 			health_text = "[round(occupant.health, 0.1)]"
 	var/dat = {"<b>Mindshield Implanter Machine</b><br>"}
-	dat +="<b>Current occupant:</b> [occupant ? "<br>Name: [occupant]<br>Health: [health_text]<br>" : span_fontcolor_red("None</span>"]<br>"
+	dat +="<b>Current occupant:</b> [occupant ? "<br>Name: [occupant]<br>Health: [health_text]<br>" : "[span_fontcolor_red("None"]")]<br>"
 	var/remaining_time = cooldown_timer ? round(timeleft(cooldown_timer) / 10) : 0
 	var/implants_length = LAZYLEN(implants_list)
 	if(implants_length)
-		dat += "<b>Status:</b> [cooldown_timer ? span_fontcolor_red("Recharging... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
+		dat += "<b>Status:</b> [cooldown_timer ? "[span_fontcolor_red("Recharging... For <b>[remaining_time]</b> more seconds")]<br>" : "[span_fontcolor_green("<b>READY</b>")]"]<br>"
 	else
-		dat += "<b>Status:</b> [cooldown_timer ? span_fontcolor_red("Replenishing... For <b>[remaining_time]</b> more seconds</span><br>" : "<span style='color: green;'><b>READY</b></span>"]<br>"
-	dat += "<b>Implants:</b> [implants_length ? "[implants_length]<br>" : cooldown_timer ? span_fontcolor_red("0</span><br>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</a>"]<br>"
+		dat += "<b>Status:</b> [cooldown_timer ? "[span_fontcolor_red("Replenishing... For <b>[remaining_time]</b> more seconds")]<br>" : "[span_fontcolor_green("<b>READY</b>")]"]<br>"
+	dat += "<b>Implants:</b> [implants_length ? "[implants_length]<br>" : cooldown_timer ? "[span_fontcolor_red("0")]<br>" : "<a href='byond://?src=[UID()];replenish=1'>Replenish</a>"]<br>"
 	if(occupant)
 		if(locate(/obj/item/implant/mindshield) in occupant)
-			dat += "Occupant is already <span style='color: green;'>implanted</span><br>"
+			dat += "Occupant is already [span_fontcolor_green("implanted")]<br>"
 		if(!cooldown_timer && implants_length)
 			dat += "<a href='byond://?src=[UID()];implant=1'>Implant</a><br>"
 		dat += "<a href='byond://?src=[UID()];eject=1'>Eject Occupant</a><br>"

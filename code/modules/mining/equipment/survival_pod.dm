@@ -40,7 +40,7 @@
 	. = ..()
 	get_template()
 	. += span_notice("This capsule has the [template.name] stored.")
-	. += span_notice("[template.description]</span>"
+	. += span_notice("[template.description]")
 
 /obj/item/survivalcapsule/attack_self(mob/user)
 	. = ..()

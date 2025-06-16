@@ -225,7 +225,7 @@
 	. += span_notice("Its speaker is turned [silenced ? "off" : "on"].")
 	. = ..()
 
-	var/list/msg = list(span_notice("")
+	var/list/msg = list("<span class='notice'>")
 
 	if(brainmob && brainmob.key)
 		switch(brainmob.stat)
@@ -233,11 +233,11 @@
 				if(!brainmob.client)
 					msg += "It appears to be in stand-by mode.\n" //afk
 			if(UNCONSCIOUS)
-				msg += span_warning("It doesn't seem to be responsive.</span>\n"
+				msg += span_warning("It doesn't seem to be responsive.\n")
 			if(DEAD)
-				msg += span_deadsay("It appears to be completely inactive.</span>\n"
+				msg += span_deadsay("It appears to be completely inactive.\n")
 	else
-		msg += span_deadsay("It appears to be completely inactive.</span>\n"
+		msg += span_deadsay("It appears to be completely inactive.\n")
 	msg += "</span>"
 	. += msg.Join("")
 

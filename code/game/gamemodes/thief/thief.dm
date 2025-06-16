@@ -57,7 +57,7 @@
 	if(!length(thieves))
 		return
 
-	var/text = span_fontsize_13px("<b>Воры в розыске:</b><br>")
+	var/text = span_fontsize_2("<b>Воры в розыске:</b><br>")
 	for(var/datum/mind/thief in thieves)
 
 		text += printplayer(thief) + "<br>"

@@ -112,12 +112,12 @@
 						make_sound(H)
 					if(prob(5))
 						H.visible_message(span_danger("[H]'s skin splits and form contorts!"), \
-														span_userdanger("Your body mutates into a [initial(chosentype.name)]!"))
+											span_userdanger("Your body mutates into a [initial(chosentype.name)]!"))
 						H.set_species(chosentype, retain_damage = TRUE, keep_missing_bodyparts = TRUE)
 				else
 					if(prob(5))
 						H.visible_message(span_danger("[H] scratches at thier skin!"), \
-														span_userdanger("You scratch your skin to try not to itch!")))
+											span_userdanger("You scratch your skin to try not to itch!"))
 						H.adjustBruteLoss(5)
 						affected_mob.Stun(rand(2 SECONDS, 4 SECONDS))
 

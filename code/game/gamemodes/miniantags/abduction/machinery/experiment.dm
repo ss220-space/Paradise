@@ -79,7 +79,7 @@
 		dat += "<a href='byond://?src=[UID()];experiment=3'>Analyze</a><br>"
 		dat += "</td></tr></table>"
 	else
-		dat += span_linkOff("Experiment </span>"
+		dat += span_linkoff("Experiment ")
 
 	if(!occupant)
 		dat += "<h3>Machine Unoccupied</h3>"
@@ -88,11 +88,11 @@
 		dat += "[occupant.name] => "
 		switch(occupant.stat)
 			if(0)
-				dat += span_good("Conscious</span>"
+				dat += span_good("Conscious")
 			if(1)
-				dat += span_average("Unconscious</span>"
+				dat += span_average("Unconscious")
 			else
-				dat += span_bad("Deceased</span>"
+				dat += span_bad("Deceased")
 	dat += "<br>"
 	dat += "[flash]"
 	dat += "<br>"
@@ -129,7 +129,7 @@
 	var/obj/item/organ/internal/heart/gland/GlandTest = locate() in H.internal_organs
 	if(!GlandTest)
 		atom_say("Экспериментальная диссекция не обнаружена!")
-		return span_bad("No glands detected!</span>"
+		return span_bad("No glands detected!")
 	if(H.mind != null && H.ckey != null)
 		history += H
 		abductee_minds += H.mind

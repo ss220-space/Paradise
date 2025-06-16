@@ -63,11 +63,11 @@
 	. = ..()
 	if(get_dist(user, src) <= 2)
 		if(beakers.len)
-			. += span_notice("[src] contains:</span>"
+			. += span_notice("[src] contains:")
 			for(var/obj/item/reagent_containers/glass/beaker/B in beakers)
 				if(B.reagents && B.reagents.reagent_list.len)
 					for(var/datum/reagent/R in B.reagents.reagent_list)
-						. += span_notice("[R.volume] units of [R.name]</span>"
+						. += span_notice("[R.volume] units of [R.name]")
 
 
 /obj/item/gun/dartgun/attackby(obj/item/I, mob/user, params)
@@ -217,9 +217,9 @@
 				for(var/datum/reagent/R in B.reagents.reagent_list)
 					dat += "<br>    [R.volume] units of [R.name], "
 				if(check_beaker_mixing(B))
-					dat += text("<a href='byond://?src=[UID()];stop_mix=[i]'><span style='color: green;'>Mixing</span></a> ")
+					dat += text("<a href='byond://?src=[UID()];stop_mix=[i]'>[span_fontcolor_green("Mixing")]</a> ")
 				else
-					dat += text("<a href='byond://?src=[UID()];mix=[i]'><span style='color: red;'>Not mixing</span></a> ")
+					dat += text("<a href='byond://?src=[UID()];mix=[i]'>[span_fontcolor_red("Not mixing")]</a> ")
 			else
 				dat += "nothing."
 			dat += " \[<a href='byond://?src=[UID()];eject=[i]'>Eject</a>\]<br>"
@@ -231,7 +231,7 @@
 		if(cartridge.darts)
 			dat += "The dart cartridge has [cartridge.darts] shots remaining."
 		else
-			dat += "<span style='color: green;'>The dart cartridge is empty!</span>"
+			dat += span_fontcolor_green("The dart cartridge is empty!")
 		dat += " \[<a href='byond://?src=[UID()];eject_cart=1'>Eject</a>\]"
 
 	var/datum/browser/popup = new(user, "dartgun", "Dartgun")

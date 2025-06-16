@@ -158,19 +158,19 @@
 
 /datum/team/xenomorph/proc/declare_results()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
-		to_chat(world, span_fontsize_16px("<br><b>Частичная победа Ксеноморфов!</b>"))
+		to_chat(world, span_fontsize_3("<br><b>Частичная победа Ксеноморфов!</b>"))
 		to_chat(world, "<b>Станция была уничтожена!</b>")
 		to_chat(world, "<b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>")
 	else if(protect_cocon?.check_completion(src))
-		to_chat(world, span_fontsize_16px("<br><b>Полная победа Ксеноморфов!</b>"))
+		to_chat(world, span_fontsize_3("<br><b>Полная победа Ксеноморфов!</b>"))
 		to_chat(world, "<b>Ксеноморфы захватили станцию!</b>")
 		to_chat(world, "<b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>")
 	else if(!current_queen?.current || current_queen.current.stat == DEAD)
-		to_chat(world, span_fontsize_16px("<br><b>Полная победа персонала станции!</b>"))
+		to_chat(world, span_fontsize_3("<br><b>Полная победа персонала станции!</b>"))
 		to_chat(world, "<b>Экипаж защитил станцию от Ксеноморфов!</b>")
 		to_chat(world, "<b>Ксеноморфы были истреблены.</b>")
 	else
-		to_chat(world, span_fontsize_16px("<br><b>Ничья!</b>"))
+		to_chat(world, span_fontsize_3("<br><b>Ничья!</b>"))
 		to_chat(world, "<b>Экипаж эвакуирован!</b>")
 		to_chat(world, "<b>Ксеноморфы не были истреблены.</b>")
 
@@ -196,15 +196,15 @@
 		declare_results()
 		var/text = ""
 		if(queens?.len)
-			text += span_fontsize_13px("<br/><b>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</b>")
+			text += span_fontsize_2("<br/><b>Королев[(queens.len > 1 ? "ами были" : "ой была")]:</b>")
 			for(var/datum/mind/queen in queens)
 				text += "<br/><b>[queen.key]</b> был <b>[queen.name]</b>"
-		text += span_fontsize_13px("<br/><b>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</b>")
+		text += span_fontsize_2("<br/><b>Ксеноморф[(members?.len > 1 ? "ами были" : "ом был")]:</b>")
 		for(var/datum/mind/alien in members)
 			if(alien in facehuggers)
 				continue
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
-		text += span_fontsize_13px("<br/><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b>")
+		text += span_fontsize_2("<br/><b>Лицехват[(members?.len > 1 ? "ами были" : "ом был")]:</b>")
 		for(var/datum/mind/alien in facehuggers)
 			text += "<br/><b>[alien.key]</b> был <b>[alien.name]</b>"
 		to_chat(world, text)

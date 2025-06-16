@@ -950,7 +950,7 @@ The _flatIcons list is a cache for generated icon files.
 			letter = lowertext(letter)
 
 	var/image/text_image = new(loc = A)
-	text_image.maptext = MAPTEXT(span_fontsize_24px("[letter]"))
+	text_image.maptext = MAPTEXT(span_fontsize_5("[letter]"))
 	text_image.pixel_x = 7
 	text_image.pixel_y = 5
 	qdel(atom_icon)

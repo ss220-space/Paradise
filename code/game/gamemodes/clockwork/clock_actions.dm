@@ -41,7 +41,7 @@
 		prefix = "Automaton"
 
 
-	var/my_message = span_clockspeech("<b>[prefix] [user.real_name]:</b> [message]</span>"
+	var/my_message = span_clockspeech("<b>[prefix] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(isclocker(M))
 			to_chat(M, my_message)

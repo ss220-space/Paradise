@@ -103,11 +103,11 @@
 	if(in_range(user, src))
 		if(bitecount > 0)
 			if(bitecount==1)
-				. += span_notice("[src] was bitten by someone!</span>"
+				. += span_notice("[src] was bitten by someone!")
 			else if(bitecount<=3)
-				. += span_notice("[src] was bitten [bitecount] times!</span>"
+				. += span_notice("[src] was bitten [bitecount] times!")
 			else
-				. += span_notice("[src] was bitten multiple times!</span>"
+				. += span_notice("[src] was bitten multiple times!")
 
 
 /obj/item/reagent_containers/food/snacks/attackby(obj/item/I, mob/user, params)

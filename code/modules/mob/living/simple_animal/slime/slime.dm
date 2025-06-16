@@ -466,14 +466,14 @@
 
 /mob/living/simple_animal/slime/examine(mob/user)
 	. = ..()
-	. += span_notice("This is [bicon(src)] \a <em>[src]</em>!"
+	. += "<span class='notice'>This is [bicon(src)] \a <em>[src]</em>!"
 	if(stat == DEAD)
 		. += span_deadsay("It is limp and unresponsive.")
 	else
 		if(stat == UNCONSCIOUS) // Slime stasis
 			. += span_deadsay("It appears to be alive but unresponsive.")
 		if(getBruteLoss())
-			. += span_warning(""
+			. += "<span class='warning'>"
 			if (getBruteLoss() < 40)
 				. += "It has some punctures in its flesh!"
 			else
@@ -491,7 +491,7 @@
 				. += span_warning("It is glowing brightly with high levels of electrical activity.")
 
 			if(10)
-				. += span_warning("<b>It is radiating with massive levels of electrical activity!</b></span>"
+				. += span_warning("<b>It is radiating with massive levels of electrical activity!</b>")
 
 	. += "</span>"
 

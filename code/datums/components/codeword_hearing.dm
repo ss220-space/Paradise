@@ -36,7 +36,7 @@
 	if(!owner.can_hear())
 		return
 
-	var/message_check = replace_regex.Replace(message, "<span class='[span_class]'>$1"))
+	var/message_check = replace_regex.Replace(message, "<span class='[span_class]'>$1</span>")
 
 	return message_check
 

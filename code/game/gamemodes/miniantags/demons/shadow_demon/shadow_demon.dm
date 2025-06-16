@@ -247,7 +247,7 @@
 		return
 
 	var/list/messages = list()
-	messages.Add(span_fontsize_16px(span_red("<b>You are a Shadow Demon.<br></b>")))
+	messages.Add(span_fontsize_3(span_red("<b>You are a Shadow Demon.<br></b>")))
 	messages.Add("<b>You are a terrible creature from another existence. You have only two desires to survive and to lurk and ambush careless preys.</b>")
 	messages.Add("<b>You may use the Shadow Crawl ability when near the dark spots, appearing and dissapearing from the station at will.</b>")
 	messages.Add("<b>Your Shadow Grapple ability allows you to pull living preys or to push yourself to the other objects. Also extinguishes all light sources at the area of impact.</b>")

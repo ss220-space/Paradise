@@ -539,14 +539,14 @@
 	dat = ""
 	dat += "Current output temperature: "
 	if(temperature > 500)
-		dat += span_fontcolor_red("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
-		dat += span_fontcolor_red("<b> SEARING!</b></span>"
+		dat += span_fontcolor_red("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)")
+		dat += span_fontcolor_red("<b> SEARING!</b>")
 	else if(temperature > (T0C + 50))
-		dat += span_fontcolor_red("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += span_fontcolor_red("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)")
 	else if(temperature > (T0C - 50))
-		dat += "<span style='color: black;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += span_fontcolor_black("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)")
 	else
-		dat += "<span style='color: blue;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += span_fontcolor_blue("<b>[temperature]</b> ([round(temperature-T0C)]&deg;C)")
 	dat += "<br>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
 	dat += "<a href='byond://?src=[UID()];temp=-100'>-</a> "

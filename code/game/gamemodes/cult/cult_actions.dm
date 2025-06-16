@@ -42,9 +42,9 @@
 
 	var/my_message
 	if(istype(user, /mob/living/simple_animal/demon/slaughter/cult)) //Harbringers of the Slaughter
-		my_message = span_cultlarge("<b>Harbringer of the Slaughter:</b> [message]</span>"
+		my_message = span_cultlarge("<b>Harbringer of the Slaughter:</b> [message]")
 	else
-		my_message = span_cultspeech("<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]</span>"
+		my_message = span_cultspeech("<b>[(isconstruct(user) ? "Construct" : isshade(user) ? "" : "Acolyte")] [user.real_name]:</b> [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)
@@ -64,7 +64,7 @@
 	var/my_message
 	if(!message)
 		return
-	my_message = span_cultlarge("The [user.name]: [message]</span>"
+	my_message = span_cultlarge("The [user.name]: [message]")
 	for(var/mob/M in GLOB.player_list)
 		if(iscultist(M))
 			to_chat(M, my_message)

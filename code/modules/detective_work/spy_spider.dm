@@ -12,7 +12,7 @@
 
 /obj/item/radio/spy_spider/examine(mob/user)
 	. = ..()
-	. += span_notice("Сейчас он [broadcasting ? "включён" : "выключен"]</span>"
+	. += span_notice("Сейчас он [broadcasting ? "включён" : "выключен"]")
 
 /obj/item/radio/spy_spider/attack_self(mob/user)
 	broadcasting = !broadcasting

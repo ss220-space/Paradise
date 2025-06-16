@@ -65,7 +65,7 @@
 				//timedue *= 10
 				timedue /= 600
 				if(timedue <= 0)
-					timedue = span_fontcolor_red("<b>(OVERDUE)</b> [timedue]</span>"
+					timedue = span_fontcolor_red("<b>(OVERDUE)</b> [timedue]")
 				else
 					timedue = round(timedue)
 

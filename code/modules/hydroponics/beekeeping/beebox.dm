@@ -130,11 +130,11 @@
 	. = ..()
 
 	if(!queen_bee)
-		. += span_warning("There is no queen bee! There won't bee any honeycomb without a queen!</span>"
+		. += span_warning("There is no queen bee! There won't bee any honeycomb without a queen!")
 
 	var/half_bee = get_max_bees()*0.5
 	if(half_bee && (bees.len >= half_bee))
-		. += span_notice("This place is a BUZZ with activity... there are lots of bees!</span>"
+		. += span_notice("This place is a BUZZ with activity... there are lots of bees!")
 
 	. += span_notice("[bee_resources]/100 resource supply.")
 	. += span_notice("[bee_resources]% towards a new honeycomb.")
@@ -145,7 +145,7 @@
 		. += span_notice("There [plural? "are" : "is"] [honeycombs.len] uncollected honeycomb[plural ? "s":""] in the apiary.")
 
 	if(honeycombs.len >= get_max_honeycomb())
-		. += span_warning("there's no room for more honeycomb!</span>"
+		. += span_warning("there's no room for more honeycomb!")
 
 
 /obj/structure/beebox/attackby(obj/item/I, mob/user, params)

@@ -125,10 +125,10 @@
 	else
 		message_admins("PA Control Computer increased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
 		add_game_logs("increased PA Control Computer to [strength] in [COORD(src)]", usr)
-		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength]."))
+		investigate_log("increased to [span_fontcolor_red(strength)] by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+		use_log += text("\[[time_stamp()]\] [span_fontcolor_red("[usr.name] ([key_name(usr)]) has increased the PA Control Computer to [strength].")]")
 
-		investigate_log("increased to <span style='color: red;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+		investigate_log("increased to [span_fontcolor_red(strength)] by [key_name_log(usr)]", INVESTIGATE_ENGINE)
 	strength_change()
 
 /obj/machinery/particle_accelerator/control_box/proc/remove_strength(var/s)
@@ -141,8 +141,8 @@
 	else
 		message_admins("PA Control Computer decreased to [strength] by [key_name_admin(usr)] in [ADMIN_COORDJMP(src)]")
 		add_game_logs("decreased PA Control Computer to [strength] in [COORD(src)]", usr)
-		investigate_log("decreased to <span style='color: green;'>[strength]</span> by [key_name_log(usr)]", INVESTIGATE_ENGINE)
-		use_log += text("\[[time_stamp()]\] <span style='color: orange;'>[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength]."))
+		investigate_log("decreased to [span_fontcolor_green(strength)] by [key_name_log(usr)]", INVESTIGATE_ENGINE)
+		use_log += text("\[[time_stamp()]\] [span_fontcolor_orange("[usr.name] ([key_name(usr)]) has decreased the PA Control Computer to [strength].")]")
 
 	strength_change()
 
@@ -169,7 +169,7 @@
 		return
 	//a part is missing!
 	if(length(connected_parts) < 6)
-		investigate_log("lost a connected part; It <span style='color: red;>powered down</span>.", INVESTIGATE_ENGINE)
+		investigate_log("lost a connected part; It [span_fontcolor_red("powered down")].", INVESTIGATE_ENGINE)
 		toggle_power()
 		return
 	//emit some particles
@@ -260,11 +260,11 @@
 
 /obj/machinery/particle_accelerator/control_box/proc/toggle_power()
 	active = !active
-	investigate_log("turned [active?span_fontcolor_red("ON</span>":"<span style='color: green;'>OFF</span>"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
+	investigate_log("turned [active?"[span_fontcolor_red("ON")]":"[span_fontcolor_green("OFF")]"] by [usr ? key_name_log(usr) : "outside forces"]", INVESTIGATE_ENGINE)
 	if(active)
 		message_admins("PA Control Computer turned ON by [key_name_admin(usr)]", ATKLOG_FEW)
 		add_game_logs("turned ON PA Control Computer in [COORD(src)]", usr)
-		use_log += text("\[[time_stamp()]\] <span style='color: red;'>[key_name(usr)] has turned on the PA Control Computer.</pan>")
+		use_log += text("\[[time_stamp()]\] [span_fontcolor_red("[key_name(usr)] has turned on the PA Control Computer.")]")
 	if(active)
 		use_power = ACTIVE_POWER_USE
 		for(var/obj/structure/particle_accelerator/part in connected_parts)

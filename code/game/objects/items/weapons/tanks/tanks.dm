@@ -121,8 +121,8 @@
 	else
 		descriptive = "furiously hot"
 
-	. += span_notice("\The [bicon(icon)][src] feels [descriptive]</span>"
-	. += span_notice("The pressure gauge displays [round(air_contents.return_pressure())] kPa</span>"
+	. += span_notice("\The [bicon(icon)][src] feels [descriptive]")
+	. += span_notice("The pressure gauge displays [round(air_contents.return_pressure())] kPa")
 
 /obj/item/tank/blob_act(obj/structure/blob/B)
 	if(B && B.loc == loc && !QDELETED(src))

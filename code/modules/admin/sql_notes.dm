@@ -202,7 +202,7 @@
 			if(!linkless)
 				output += " <a href='byond://?_src_=holder;removenote=[id]'>\[Remove Note\]</a> <a href='byond://?_src_=holder;editnote=[id]'>\[Edit Note\]</a>"
 				if(last_editor)
-					output += span_fontsize_13px(" Last edit by [last_editor]")
+					output += span_fontsize_2(" Last edit by [last_editor]")
 			output += "<br>[notetext]<hr style='background:#000000; border:0; height:1px'>"
 		qdel(query_get_notes)
 	else if(index)

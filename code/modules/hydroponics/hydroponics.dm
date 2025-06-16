@@ -366,11 +366,11 @@
 			. += span_notice("It has <span class='name'>[myseed.plantname]</span> planted.")
 		if (hasHUD(user, EXAMINE_HUD_BOTANY) || isobserver(user))
 			. += myseed.get_analyzer_text()
-			. += span_notice("Weed: [weedlevel] / 10</span>"
-			. += span_notice("Pest: [pestlevel] / 10</span>"
-			. += span_notice("Toxicity: [toxic] / 100</span>"
+			. += span_notice("Weed: [weedlevel] / 10")
+			. += span_notice("Pest: [pestlevel] / 10")
+			. += span_notice("Toxicity: [toxic] / 100")
 		if (dead)
-			. += span_warning("It's dead!</span>"
+			. += span_warning("It's dead!")
 		else if (harvest)
 			. += span_notice("It's ready to harvest.")
 		else if (plant_health <= (myseed.endurance / 2))
@@ -379,8 +379,8 @@
 		. += span_notice("[src] is empty.")
 
 	if(!self_sustaining)
-		. += span_notice("Water: [waterlevel] / [maxwater]</span>"
-		. += span_notice("Nutrient: [nutrilevel] / [maxnutri]</span>"
+		. += span_notice("Water: [waterlevel] / [maxwater]")
+		. += span_notice("Nutrient: [nutrilevel] / [maxnutri]")
 		if(self_sufficiency_progress > 0)
 			var/percent_progress = round(self_sufficiency_progress * 100 / self_sufficiency_req)
 			. += span_notice("Treatment for self-sustenance are [percent_progress]% complete.")
@@ -388,9 +388,9 @@
 		. += span_notice("It doesn't require any water or nutrients.")
 
 	if(weedlevel >= 5)
-		. += span_warning("[src] is filled with weeds!</span>"
+		. += span_warning("[src] is filled with weeds!")
 	if(pestlevel >= 5)
-		. += span_warning("[src] is filled with tiny worms!</span>"
+		. += span_warning("[src] is filled with tiny worms!")
 	. += "" // Empty line for readability.
 
 
@@ -1139,17 +1139,17 @@
 	var/list/msg = list()
 	if(myseed)
 		msg += "*** <b>[myseed.plantname]</b> ***" //Carn: now reports the plants growing, not the seeds.
-		msg += "- Plant Age: <span class='notice'>[age]</span>"
+		msg += "- Plant Age: <span class='notice'>[age]")
 		var/list/text_string = myseed.get_analyzer_text()
 		if(text_string)
 			msg += text_string
 	else
 		msg += "<b>No plant found.</b>"
-	msg += "- Weed level: <span class='notice'>[weedlevel] / 10</span>"
-	msg += "- Pest level: <span class='notice'>[pestlevel] / 10</span>"
-	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
-	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
-	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
+	msg += "- Weed level: <span class='notice'>[weedlevel] / 10")
+	msg += "- Pest level: <span class='notice'>[pestlevel] / 10")
+	msg += "- Toxicity level: <span class='notice'>[toxic] / 100")
+	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]")
+	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]")
 	to_chat(user, msg.Join("\n"))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)

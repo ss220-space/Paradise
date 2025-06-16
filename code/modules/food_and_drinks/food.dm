@@ -168,7 +168,7 @@
 	if(foodtype & TOXIC)
 		. += span_notice("This is straight up poisonous.")
 	if(user.can_see_food()) //Show each individual reagent
-		. += span_notice("It contains:</span>"
+		. += span_notice("It contains:")
 		for(var/I in reagents.reagent_list)
 			var/datum/reagent/R = I
-			. += span_notice("[R.volume] units of [R.name]</span>"
+			. += span_notice("[R.volume] units of [R.name]")

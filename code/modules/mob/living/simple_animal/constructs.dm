@@ -71,7 +71,7 @@
 		if(src.health >= src.maxHealth/2)
 			. += span_notice("It looks slightly dented.")
 		else
-			. += span_warning("It looks severely dented!</span>"
+			. += span_warning("It looks severely dented!")
 
 /mob/living/simple_animal/hostile/construct/attack_animal(mob/living/simple_animal/M)
 	if(istype(M, /mob/living/simple_animal/hostile/construct/builder))

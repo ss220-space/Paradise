@@ -6,7 +6,7 @@
 	if(!dname)
 		dname = M
 
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "<b><span style='color: red;'> (PERMA) </b></span>" : ""][M.stat == 2 ? " <b><span style='color: red;'>(DEAD)</span></b>" : ""]</td>
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[M.UID()]'>[dname]</a><b>[caption]</b>[logout_status][istype(A, /area/security/permabrig) ? "[span_fontcolor_red("<b> (PERMA) </b>")]" : ""][M.stat == 2 ? " [span_fontcolor_red("<b>(DEAD)</b>")]" : ""]</td>
 		<td><a href='byond://?src=[usr.UID()];priv_msg=[M.client?.ckey]'>PM</a> [ADMIN_FLW(M, "FLW")] </td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_antagonists()
@@ -61,14 +61,14 @@
 						observers_connected++
 				else
 					other_players++
-		dat += "<br><b><span style='color: #9A67EA;'>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</span></b>"
-		dat += "<br><b><span style='color: green;'>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</span></b>"
-		dat += "<br><b><span style='color: red;'>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</span></b>"
+		dat += span_fontcolor_purple("<br><b>Players:|[connected_players - lobby_players] ingame|[connected_players] connected|[lobby_players] lobby|</b>") // The color was #9A67EA
+		dat += span_fontcolor_green("<br><b>Living Players:|[living_players_connected] active|[living_players - living_players_connected] disconnected|[living_players_antagonist] antagonists|</b>")
+		dat += span_fontcolor_red("<br><b>Dead/Observing players:|[observers_connected] active|[observers - observers_connected] disconnected|</b>")
 		if(other_players)
-			dat += "<br><span class='userdanger'>[other_players] players in invalid state or the statistics code is bugged!</span>"
+			dat += span_userdanger("<br>[other_players] players in invalid state or the statistics code is bugged!")
 		dat += "<br>"
-		dat +="<br><b>Code Phrases:</b> <span class='codephrases'>[GLOB.syndicate_code_phrase]</span>"
-		dat +="<br><b>Code Responses:</b> <span class='coderesponses'>[GLOB.syndicate_code_response]</span>"
+		dat +="<br><b>Code Phrases:</b> [span_codephrases(GLOB.syndicate_code_phrase)]"
+		dat +="<br><b>Code Responses:</b> [span_coderesponses(GLOB.syndicate_code_response)]"
 		dat += "<br><b>Antagonist Teams</b><br>"
 		dat += "<a href='byond://?src=[UID()];check_teams=1'>View Teams</a><br>"
 		if(SSticker.mode.syndicates.len)
@@ -334,7 +334,7 @@
 	var/logout_status = human.client ? "" : " <i>(logged out)</i>"
 	var/list/coords = ATOM_COORDS(human)
 	var/job = issilicon(human) ? "Cyborg" : human.job // || need because maybe ert robots with null in job
-	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " <b><span style='color: red;'>(Dead)</span></b>" : "<span style='color: green;'> [human.health]%</span>"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</a> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
+	return {"<tr><td><a href='byond://?src=[UID()];adminplayeropts=[human.UID()]'>[human.real_name]</a>[logout_status]</td><td>[job][human.stat == DEAD ? " [span_fontcolor_red("<b>(Dead)</b>")]" : "[span_fontcolor_green(" [human.health]%")]"] <b>[get_area_name(human)]</b> [coords[1]],[coords[2]],[coords[3]]</td><td><a href='byond://?src=[usr.UID()];priv_msg=[human.client?.ckey]'>PM</a> [ADMIN_FLW(human, "FLW")]</td>[close ? "</tr>" : ""]"}
 
 /datum/admins/proc/check_security()
 	if(!check_rights(R_ADMIN))

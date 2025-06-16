@@ -323,7 +323,7 @@
 	. = ..()
 	if(in_range(user, src))
 		if(stat & BROKEN)
-			. += span_warning("Looks broken</span>"
+			. += span_warning("Looks broken")
 		else if(opened)
 			if(has_electronics() && terminal)
 				. += span_notice("The cover is [opened == APC_COVER_OFF ?"removed":"open"] and the power cell is [ cell ? "installed" : "missing"].")
@@ -334,7 +334,7 @@
 			else /* if(!has_electronics && !terminal) */
 				. += span_notice("There are no electronics nor connected wires.")
 			if(user.Adjacent(src) && cog)
-				. += span_warning("[src]'s innards have been replaced by strange brass machinery!</span>"
+				. += span_warning("[src]'s innards have been replaced by strange brass machinery!")
 		else
 			if(stat & MAINT)
 				. += span_notice("The cover is closed. Something wrong with it: it doesn't work.")
@@ -343,7 +343,7 @@
 			else
 				. += span_notice("The cover is closed.")
 	if(cog && isclocker(user))
-		. += span_clock("There is an integration cog installed!</span>"
+		. += span_clock("There is an integration cog installed!")
 
 
 // update the APC icon to show the three base states

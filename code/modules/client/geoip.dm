@@ -39,9 +39,9 @@
 
 		if(proxy == "true")
 			if(proxy_whitelist_check(C.ckey))
-				proxy = "<span style='color: orange'>whitelisted</span>"
+				proxy = "[span_fontcolor_orange("whitelisted")]"
 			else
-				proxy = "<span style='color: red'>true</span>"
+				proxy = "[span_fontcolor_red("true")]"
 
 				if(CONFIG_GET(flag/proxy_autoban))
 					var/reason = "Ваш IP определяется как прокси. Прокси запрещены на сервере. Обратитесь к администрации за разрешением. Client ISP: ([isp])"
@@ -52,7 +52,7 @@
 					// 	del(C)
 					// 	return
 					AddBan(C.ckey, C.computer_id, reason, "SyndiCat", 0, 0, C.mob.lastKnownIP)
-					to_chat(C, span_danger("<BIG><b>You have been banned by SyndiCat.\nReason: [reason].</b></BIG>"))
+					to_chat(C, span_danger(span_big("<b>You have been banned by SyndiCat.\nReason: [reason].</b>")))
 					to_chat(C, span_red("This is a permanent ban."))
 					if(CONFIG_GET(string/banappeals))
 						to_chat(C, span_red("To try to resolve this matter head to [CONFIG_GET(string/banappeals)]"))

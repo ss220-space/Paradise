@@ -117,7 +117,7 @@
 	return scrambled_text
 
 /datum/language/proc/format_message(message, mob/speaker)
-	return span_message("<span class='[colour]'>[message]</span></span>"
+	return span_message("<span class='[colour]'>[message]</span>")
 
 /datum/language/proc/get_talkinto_msg_range(message)
 	// if you yell, you'll be heard from two tiles over instead of one
@@ -671,7 +671,7 @@
 
 /datum/language/shadowling/broadcast(mob/living/speaker, message, speaker_mask)
 	if(speaker.mind && speaker.mind.special_role == SPECIAL_ROLE_SHADOWLING)
-		..(speaker,"<font size=3><b>[message]</b></font>", span_shadowling("<font size=3>([speaker.mind.special_role]) [speaker]</font>"))
+		..(speaker,"<b>[span_fontsize_3(message)]</b>", span_shadowling(span_fontsize_3("([speaker.mind.special_role]) [speaker]")))
 	else if(speaker.mind && speaker.mind.special_role)
 		..(speaker, message, "([speaker.mind.special_role]) [speaker]")
 	else
@@ -749,19 +749,19 @@
 
 	add_say_logs(speaker, message, language = "ROBOT")
 
-	var/message_start = "<i><span class='game say'>[name], <span class='name'>[speaker.name]</span>"
-	var/message_body = span_message("[speaker.say_quote(message)]:</i><span class='robot'>\"[message]\"</span></span></span>"
+	var/message_start = span_gamesay("<i>[name], [span_name(speaker.name)]")
+	var/message_body = span_message("[speaker.say_quote(message)]:</i>\"[span_robot(message)]\"")
 
 	for(var/mob/M in GLOB.dead_mob_list)
 		if(!isnewplayer(M) && !isbrain(M))
-			var/message_start_dead = "<i><span class='game say'>[name], <span class='name'>[speaker.name] ([ghost_follow_link(speaker, ghost=M)])</span>"
+			var/message_start_dead = span_gamesay("<i>[name], [span_name("[speaker.name] ([ghost_follow_link(speaker, ghost=M)])")]")
 			M.show_message("[message_start_dead] [message_body]", 2)
 
 	for(var/mob/living/S in GLOB.alive_mob_list)
 		if(drone_only && !(isdrone(S)||iscogscarab(S)))
 			continue
 		else if(isAI(S))
-			message_start = "<i><span class='game say'>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'><span class='name'>[speaker.name]</span></a>"
+			message_start = span_gamesay("<i>[name], <a href='byond://?src=[S.UID()];track=\ref[speaker]'>[span_name(speaker.name)]</a>")
 		else if(!S.binarycheck())
 			continue
 
@@ -773,7 +773,7 @@
 	for(var/mob/living/M in listening)
 		if(issilicon(M) || M.binarycheck())
 			continue
-		M.show_message("<i><span class='game say'><span class='name'>синтезированный голос</span> <span class='message'>сообщает: \"бип бип бип\"</span></span></i>",2)
+		M.show_message(span_gamesay(span_name("<i>[span_name("синтезированный голос")] [span_message("сообщает: \"бип бип бип\"")]</i>")),2)
 
 /datum/language/binary/drone
 	name = LANGUAGE_DRONE_BINARY
@@ -851,7 +851,7 @@
 
 
 /datum/language/angel/format_message(message, mob/speaker)
-	return span_message("<span class='[get_spans(speaker)]'>[message]</span></span>"
+	return span_message("<span class='[get_spans(speaker)]'>[message]</span>")
 
 
 // Can we speak this language, as opposed to just understanding it?
@@ -872,14 +872,14 @@
 	. = ""
 
 	if(default_language)
-		. += "Текущий язык по умолчанию: [default_language] - <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br><br>"
+		. += "Текущий язык по умолчанию: [default_language] – <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br><br>"
 
 	for(var/datum/language/L in languages)
 		if(!(L.flags & NONGLOBAL))
 			if(L == default_language)
-				. += "<b>[L.name] (:[L.key])</b> - default - <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br>[L.desc]<br><br>"
+				. += "<b>[L.name] (:[L.key])</b> – default – <a href='byond://?src=[UID()];default_lang=reset'>Сброс</a><br>[L.desc]<br><br>"
 			else
-				. += "<b>[L.name] (:[L.key])</b> - <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
+				. += "<b>[L.name] (:[L.key])</b> – <a href=\"byond://?src=[UID()];default_lang=[L.name]\">По умолчанию</a><br>[L.desc]<br><br>"
 
 
 /mob/verb/check_languages()
