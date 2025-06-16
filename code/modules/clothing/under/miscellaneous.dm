@@ -1253,7 +1253,7 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/uniform.dmi'
 		)
 
-/obj/item/clothing/under/martirialsuit/masterli
+/obj/item/clothing/under/martialsuit/masterli
 	name = "Master Li clothes"
 	desc = "Черная одежда, которую носят мастера боевых искусств"
 	ru_names = list(
@@ -1270,7 +1270,7 @@
 	item_state = "masterli"
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
-/obj/item/clothing/under/martirialsuit/masterdragon
+/obj/item/clothing/under/martialsuit/masterdragon
 	name = "Gold dragon master clothes"
 	desc = "Красная одежда с золотистым узором, которую носят мастера боевых искусств"
 	ru_names = list(
@@ -1287,7 +1287,7 @@
 	item_state = "masterdragon"
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
-/obj/item/clothing/under/martirialsuit/redkunoichi
+/obj/item/clothing/under/martialsuit/redkunoichi
 	name = "Red Kunoichi clothes"
 	desc = "Красный костюм с чёрными деталями"
 	ru_names = list(
@@ -1304,7 +1304,7 @@
 	item_state = "redkunoichi"
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
-/obj/item/clothing/under/martirialsuit/bluekunoichi
+/obj/item/clothing/under/martialsuit/bluekunoichi
 	name = "Blue Kunoichi clothes"
 	desc = "Голубой костюм с белыми деталями"
 	ru_names = list(
@@ -1321,8 +1321,8 @@
 	item_state = "bluekunoichi"
 	species_restricted = list(SPECIES_HUMAN, SPECIES_MACNINEPERSON, SPECIES_SKRELL, SPECIES_SLIMEPERSON, SPECIES_TAJARAN, SPECIES_NUCLEATION)
 
-/obj/item/clothing/under/martirialsuit/random
-	name = "Random martirial arts suit"
+/obj/item/clothing/under/martialsuit/random
+	name = "Random martial arts suit"
 	icon_state = "masterli"
 	ru_names = list(
 		NOMINATIVE = "случайный костюм боевых искусств",
@@ -1333,9 +1333,9 @@
 		PREPOSITIONAL = "случайном костюме боевых искусств"
 	)
 
-/obj/item/clothing/under/martirialsuit/random/Initialize()
+/obj/item/clothing/under/martialsuit/random/Initialize()
 	. = ..()
-	var/suit = pick(subtypesof(/obj/item/clothing/under/martirialsuit))
+	var/suit = pick(subtypesof(/obj/item/clothing/under/martialsuit))
 	new suit(loc)
 	qdel(src)
 

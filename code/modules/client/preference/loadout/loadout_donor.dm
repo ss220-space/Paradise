@@ -566,22 +566,22 @@
 	donator_tier = 1
 	cost = 1
 	index_name = "master li clothes"
-	path = /obj/item/clothing/under/martirialsuit/masterli
+	path = /obj/item/clothing/under/martialsuit/masterli
 
 /datum/gear/donor/masterdragon
 	donator_tier = 1
 	cost = 1
 	index_name = "gold dragon master clothes"
-	path = /obj/item/clothing/under/martirialsuit/masterdragon
+	path = /obj/item/clothing/under/martialsuit/masterdragon
 
 /datum/gear/donor/redkunoichi
 	donator_tier = 1
 	cost = 1
 	index_name = "red kunoichi clothes"
-	path = /obj/item/clothing/under/martirialsuit/redkunoichi
+	path = /obj/item/clothing/under/martialsuit/redkunoichi
 
 /datum/gear/donor/bluekunoichi
 	donator_tier = 1
 	cost = 1
 	index_name = "blue kunoichi clothes"
-	path = /obj/item/clothing/under/martirialsuit/bluekunoichi
+	path = /obj/item/clothing/under/martialsuit/bluekunoichi
