@@ -893,7 +893,7 @@
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
-	desc = "Красные вилы, похоже, это рабочий инструмент дьявола."
+	desc = "Красные вилы. Похоже, это инструмент дьявола."
 	ru_names = list(
 		NOMINATIVE = "демонические вилы",
 		GENITIVE = "демонических вил",
