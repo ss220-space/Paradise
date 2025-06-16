@@ -178,18 +178,177 @@
 	var/active = FALSE
 	var/activationCost = 300
 	var/activationUpkeep = 50
-	var/last_disguise = ""
-	var/disguise = "landmate"
+	var/last_disguise
+	var/disguise = /datum/robot_skin/landmate
 	var/loaded_name_disguise = "Standard"
 	var/mob/living/silicon/robot/syndicate/saboteur/S
+	var/datum/robot_skin/real_skin
 	var/list/possible_disguises = list("Last One",
-										"Standard" = list("Robot-STD", "droid", "Standard", "Noble-STD"),
-										"Medical" = list("Standard-Medi", "Robot-MED", "surgeon", "chiefbot", "droid-medical", "Robot-SRG", "Noble-MED", "Cricket-MEDI"),
-										"Engineering" = list("Robot-ENG", "Robot-ENG2", "landmate", "chiefmate", "Standard-Engi", "Noble-ENG", "Cricket-ENGI"),
-										"Security" = list("Robot-SEC", "Security", "securityrobot", "bloodhound", "Standard-Secy", "Noble-SEC", "Cricket-SEC"),
-										"Service" = list("Robot-LDY", "toiletbot", "Robot-RLX", "maximillion", "Robot-MAN", "Standard-Serv", "Noble-SRV", "Cricket-SERV"),
-										"Miner" = list("Robot-MNR", "droid-miner", "Miner", "Standard-Mine", "Noble-DIG", "Cricket-MINE", "lavaland"),
-										"Syndicate" = list("syndie_bloodhound", "syndi-medi"))
+										"Standard" = list(
+											/datum/robot_skin/default/std,
+											/datum/robot_skin/basic/std,
+											/datum/robot_skin/noble/std,
+											/datum/robot_skin/women/std,
+											/datum/robot_skin/paladin/std,
+											/datum/robot_skin/robot_drone/std,
+											/datum/robot_skin/protectron/std,
+											/datum/robot_skin/coffin/std,
+											/datum/robot_skin/burger/std,
+											/datum/robot_skin/raptor/std,
+											/datum/robot_skin/doll/std,
+											/datum/robot_skin/buddy/std,
+											/datum/robot_skin/mine/std,
+											/datum/robot_skin/eyebot/std,
+											/datum/robot_skin/android
+										),
+										"Medical" = list(
+											/datum/robot_skin/default/medical,
+											/datum/robot_skin/basic/medical,
+											/datum/robot_skin/noble/medical,
+											/datum/robot_skin/cricket/medical,
+											/datum/robot_skin/tall/meka/medical,
+											/datum/robot_skin/tall/fmeka/medical,
+											/datum/robot_skin/tall/mmeka/medical,
+											/datum/robot_skin/women/medical,
+											/datum/robot_skin/paladin/medical,
+											/datum/robot_skin/robot_drone/medical,
+											/datum/robot_skin/protectron/medical,
+											/datum/robot_skin/burger/medical,
+											/datum/robot_skin/raptor/medical,
+											/datum/robot_skin/doll/medical,
+											/datum/robot_skin/buddy/medical,
+											/datum/robot_skin/mine/medical,
+											/datum/robot_skin/eyebot/medical,
+											/datum/robot_skin/surgeon,
+											/datum/robot_skin/chiefbot,
+											/datum/robot_skin/droid_medical,
+											/datum/robot_skin/basic/needles
+										),
+										"Engineering" = list(
+											/datum/robot_skin/default/eng,
+											/datum/robot_skin/basic/eng,
+											/datum/robot_skin/noble/eng,
+											/datum/robot_skin/cricket/eng,
+											/datum/robot_skin/tall/meka/eng,
+											/datum/robot_skin/tall/fmeka/eng,
+											/datum/robot_skin/tall/mmeka/eng,
+											/datum/robot_skin/women/eng,
+											/datum/robot_skin/paladin/eng,
+											/datum/robot_skin/robot_drone/eng,
+											/datum/robot_skin/protectron/eng,
+											/datum/robot_skin/coffin/eng,
+											/datum/robot_skin/burger/eng,
+											/datum/robot_skin/raptor/eng,
+											/datum/robot_skin/doll/eng,
+											/datum/robot_skin/buddy/eng,
+											/datum/robot_skin/mine/eng,
+											/datum/robot_skin/eyebot/eng,
+											/datum/robot_skin/basic/antique,
+											/datum/robot_skin/landmate,
+											/datum/robot_skin/chiefmate
+										),
+										"Security" = list(
+											/datum/robot_skin/default/sec,
+											/datum/robot_skin/basic/sec,
+											/datum/robot_skin/noble/sec,
+											/datum/robot_skin/cricket/sec,
+											/datum/robot_skin/tall/meka/sec,
+											/datum/robot_skin/tall/fmeka/sec,
+											/datum/robot_skin/tall/mmeka/sec,
+											/datum/robot_skin/women/sec,
+											/datum/robot_skin/women/sec_alt,
+											/datum/robot_skin/paladin/sec,
+											/datum/robot_skin/robot_drone/sec,
+											/datum/robot_skin/protectron/sec,
+											/datum/robot_skin/coffin/sec,
+											/datum/robot_skin/burger/sec,
+											/datum/robot_skin/raptor/sec,
+											/datum/robot_skin/doll/sec,
+											/datum/robot_skin/buddy/sec,
+											/datum/robot_skin/mine/sec,
+											/datum/robot_skin/eyebot/sec,
+											/datum/robot_skin/redknight,
+											/datum/robot_skin/blackknight,
+											/datum/robot_skin/bloodhound
+										),
+										"Service" = list(
+											/datum/robot_skin/default/srv,
+											/datum/robot_skin/basic/default,
+											/datum/robot_skin/noble/srv,
+											/datum/robot_skin/cricket/srv,
+											/datum/robot_skin/tall/meka/srv,
+											/datum/robot_skin/tall/meka/srv_alt,
+											/datum/robot_skin/tall/fmeka/srv,
+											/datum/robot_skin/tall/mmeka/srv,
+											/datum/robot_skin/women/srv,
+											/datum/robot_skin/paladin/srv,
+											/datum/robot_skin/robot_drone/srv,
+											/datum/robot_skin/protectron/srv,
+											/datum/robot_skin/burger/srv,
+											/datum/robot_skin/raptor/srv,
+											/datum/robot_skin/doll/srv,
+											/datum/robot_skin/buddy/srv,
+											/datum/robot_skin/mine/srv,
+											/datum/robot_skin/basic/waitress,
+											/datum/robot_skin/basic/bro,
+											/datum/robot_skin/toiletbot,
+											/datum/robot_skin/maximillion
+										),
+										"Janitor" = list(
+											/datum/robot_skin/default/jan,
+											/datum/robot_skin/basic/jan,
+											/datum/robot_skin/noble/jan,
+											/datum/robot_skin/cricket/jan,
+											/datum/robot_skin/tall/meka/jan,
+											/datum/robot_skin/tall/fmeka/jan,
+											/datum/robot_skin/tall/mmeka/jan,
+											/datum/robot_skin/women/jan,
+											/datum/robot_skin/paladin/jan,
+											/datum/robot_skin/robot_drone/jan,
+											/datum/robot_skin/protectron/jan,
+											/datum/robot_skin/burger/jan,
+											/datum/robot_skin/raptor/jan,
+											/datum/robot_skin/doll/jan,
+											/datum/robot_skin/buddy/jan,
+											/datum/robot_skin/mine/jan,
+											/datum/robot_skin/eyebot/jan,
+											/datum/robot_skin/basic/mopbot,
+											/datum/robot_skin/mopgearrex
+										),
+										"Miner" = list(
+											/datum/robot_skin/default/mnr,
+											/datum/robot_skin/basic/mnr,
+											/datum/robot_skin/noble/mnr,
+											/datum/robot_skin/cricket/mnr,
+											/datum/robot_skin/tall/meka/mnr,
+											/datum/robot_skin/tall/fmeka/mnr,
+											/datum/robot_skin/tall/mmeka/mnr,
+											/datum/robot_skin/women/mnr,
+											/datum/robot_skin/paladin/mnr,
+											/datum/robot_skin/robot_drone/mnr,
+											/datum/robot_skin/protectron/mnr,
+											/datum/robot_skin/burger/mnr,
+											/datum/robot_skin/raptor/mnr,
+											/datum/robot_skin/doll/mnr,
+											/datum/robot_skin/buddy/mnr,
+											/datum/robot_skin/mine/mnr,
+											/datum/robot_skin/droid_miner,
+											/datum/robot_skin/treadhead,
+											/datum/robot_skin/lavaland
+										),
+										"Syndicate" = list(
+											/datum/robot_skin/syndie_bloodhound,
+											/datum/robot_skin/syndie_medi,
+											/datum/robot_skin/syndi_engi,
+											/datum/robot_skin/tall/meka/syndi,
+											/datum/robot_skin/tall/fmeka/syndi,
+											/datum/robot_skin/tall/mmeka/syndi,
+										)
+	)
+
+/obj/item/borg_chameleon/Initialize(mapload)
+	. = ..()
+	disguise = GLOB.robot_skins["[disguise]"]
 
 /obj/item/borg_chameleon/Destroy()
 	if(S)
@@ -220,8 +379,7 @@
 		deactivate(user)
 	else
 		var/choice
-		var/new_disguise = input("Please, select a disguise!", "Robot", null, null) as null|anything in possible_disguises
-		var/list/module_disguises
+		var/new_disguise = tgui_input_list(usr, "Please, select a disguise!", "Robot", possible_disguises)
 		if(!new_disguise)
 			choice = disguise
 		else if(new_disguise == "Last One")
@@ -229,15 +387,9 @@
 				choice = disguise
 			choice = last_disguise
 		else
-			var/list/choices = list()
-			module_disguises = possible_disguises[new_disguise]
-			if(length(module_disguises) > 1)
-				for(var/skin in module_disguises)
-					var/image/skin_image = image(icon = user.icon, icon_state = skin)
-					skin_image.add_overlay("eyes-[skin]")
-					choices[skin] = skin_image
-			choice = show_radial_menu(user, user, choices, require_near = TRUE)
-			last_disguise = choice
+			var/datum/robot_skin/skin = user.select_skin(possible_disguises[new_disguise], initial(disguise))
+			choice = skin
+			last_disguise = skin
 			loaded_name_disguise = new_disguise
 		if(!choice)
 			if(!last_disguise)
@@ -281,29 +433,23 @@
 	else
 		return PROCESS_KILL
 
-/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user, new_disguise)
+/obj/item/borg_chameleon/proc/activate(mob/living/silicon/robot/syndicate/saboteur/user, datum/robot_skin/new_disguise)
 	START_PROCESSING(SSobj, src)
 	S = user
-	user.base_icon = new_disguise
-	user.icon_state = new_disguise
 	user.module.name_disguise = loaded_name_disguise
 	user.cham_proj = src
 	user.bubble_icon = "robot"
-	var/list/names = splittext(user.icon_state, "-")
-	user.custom_panel = trim(names[1])
 	active = TRUE
-	user.update_icons()
+	real_skin = user.selected_skin
+	user.set_skin(new_disguise)
 
 /obj/item/borg_chameleon/proc/deactivate(mob/living/silicon/robot/syndicate/saboteur/user)
 	STOP_PROCESSING(SSobj, src)
 	S = user
-	user.base_icon = initial(user.base_icon)
-	user.icon_state = initial(user.icon_state)
 	user.bubble_icon = "syndibot"
 	user.module.name_disguise = initial(user.module.name_disguise)
-	user.custom_panel = initial(user.custom_panel)
 	active = FALSE
-	user.update_icons()
+	user.set_skin(real_skin)
 
 /obj/item/borg_chameleon/proc/disrupt(mob/living/silicon/robot/syndicate/saboteur/user)
 	if(active)
