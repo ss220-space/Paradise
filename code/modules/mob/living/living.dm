@@ -608,7 +608,7 @@
 
 	if(istype(hand_item, /obj/item/toy/russian_revolver/trick_revolver) && target != hand_item)
 		var/obj/item/toy/russian_revolver/trick_revolver/trick = hand_item
-		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... и [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] направля[pluralize_ru(src.gender,"ет","ют")] [trick.declent_ru(INSTRUMENTAL)] на... [trick.declent_ru(NOMINATIVE)] срабатывает у [genderize_ru(gender, "него","неё","него","них")] в руках!"))
 		trick.shoot_gun(src)
 		add_emote_logs(src, "point to [key_name(target)] [COORD(target)]")
 		return TRUE

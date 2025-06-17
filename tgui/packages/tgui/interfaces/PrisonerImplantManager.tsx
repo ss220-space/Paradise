@@ -57,19 +57,27 @@ export const PrisonerImplantManager = (_props: unknown) => {
         <Stack fill vertical>
           <LoginInfo />
           <Stack.Item grow>
-            <Section fill scrollable title="Prisoner Points Manager System">
+            <Section
+              fill
+              scrollable
+              title="Система управления очками заключённых"
+            >
               <LabeledList>
-                <LabeledList.Item label="Prisoner">
+                <LabeledList.Item label="Заключённый">
                   <Button
                     icon={prisonerInfo.name ? 'eject' : 'id-card'}
                     selected={!!prisonerInfo.name}
-                    tooltip={prisonerInfo.name ? 'Eject ID' : 'Insert ID'}
+                    tooltip={
+                      prisonerInfo.name
+                        ? 'Вытащить ID-карту'
+                        : 'Вставить ID-карту'
+                    }
                     onClick={() => act('id_card')}
                   >
                     {prisonerInfo.name ? prisonerInfo.name : '-----'}
                   </Button>
                 </LabeledList.Item>
-                <LabeledList.Item label="Points">
+                <LabeledList.Item label="Очки">
                   {prisonerInfo.points !== null ? prisonerInfo.points : '-/-'}
                   <Button
                     ml={2}
@@ -77,10 +85,10 @@ export const PrisonerImplantManager = (_props: unknown) => {
                     disabled={prisonerInfo.points === null}
                     onClick={() => act('reset_points')}
                   >
-                    Reset
+                    Сбросить
                   </Button>
                 </LabeledList.Item>
-                <LabeledList.Item label="Point Goal">
+                <LabeledList.Item label="Цель">
                   {prisonerInfo.goal !== null ? prisonerInfo.goal : '-/-'}
                   <Button
                     ml={2}
@@ -88,25 +96,21 @@ export const PrisonerImplantManager = (_props: unknown) => {
                     disabled={prisonerInfo.goal === null}
                     onClick={() => modalOpen('set_points')}
                   >
-                    Edit
+                    Изменить
                   </Button>
                 </LabeledList.Item>
                 <LabeledList.Item>
                   {!!prisonerInfo.goal && (
                     <Box>
-                      1 minute of prison time should roughly equate to 150
-                      points.
+                      1 минута заключения эквивалентна 100 очкам
                       <br />
+                      Количество очков не должно привышать 6000
                       <br />
-                      Sentences should not exceed 5000 points.
+                      Вечным каторожникам не указывается количество очков
                       <br />
-                      <br />
-                      Permanent prisoners should not be given a point goal.
-                      <br />
-                      <br />
-                      Prisoners who meet their point goal will be able to
-                      automatically access their locker and return to the
-                      station using the shuttle.
+                      Заключённые, набравшие необходимое количество очков,
+                      смогут самостоятельно вернуться на станцию и получить
+                      доступ к своему шкафчику.
                     </Box>
                   )}
                 </LabeledList.Item>
@@ -114,32 +118,32 @@ export const PrisonerImplantManager = (_props: unknown) => {
             </Section>
           </Stack.Item>
           <Stack.Item grow>
-            <Section fill scrollable title="Tracking Implants">
+            <Section fill scrollable title="Отслеживающие импланты">
               {trackingInfo.map((implant) => (
                 <>
                   <Box p={1} backgroundColor={'rgba(255, 255, 255, 0.05)'}>
-                    <Box bold>Subject: {implant.subject}</Box>
+                    <Box bold>Субъект: {implant.subject}</Box>
                     <Box key={implant.subject}>
                       {' '}
                       <br />
                       <LabeledList>
-                        <LabeledList.Item label="Location">
+                        <LabeledList.Item label="Локация">
                           {implant.location}
                         </LabeledList.Item>
-                        <LabeledList.Item label="Health">
+                        <LabeledList.Item label="Состояние здоровья">
                           {implant.health}
                         </LabeledList.Item>
-                        <LabeledList.Item label="Prisoner">
+                        <LabeledList.Item label="Заключённый">
                           <Button
                             icon="exclamation-triangle"
-                            tooltip="Broadcast a message to this poor sod"
+                            tooltip="Передать сообщение"
                             onClick={() =>
                               modalOpen('warn', {
                                 uid: implant.uid,
                               })
                             }
                           >
-                            Warn
+                            Предупредить
                           </Button>
                         </LabeledList.Item>
                       </LabeledList>
@@ -151,16 +155,16 @@ export const PrisonerImplantManager = (_props: unknown) => {
             </Section>
           </Stack.Item>
           <Stack.Item grow>
-            <Section fill scrollable title="Chemical Implants">
+            <Section fill scrollable title="Химические импланты">
               {chemicalInfo.map((implant) => (
                 <>
                   <Box p={1} backgroundColor={'rgba(255, 255, 255, 0.05)'}>
-                    <Box bold>Subject: {implant.name}</Box>
+                    <Box bold>Субъект: {implant.name}</Box>
                     <Box key={implant.name}>
                       {' '}
                       <br />
                       <LabeledList>
-                        <LabeledList.Item label="Remaining Reagents">
+                        <LabeledList.Item label="Оставшиеся реагенты">
                           {implant.volume}
                         </LabeledList.Item>
                       </LabeledList>
@@ -176,7 +180,7 @@ export const PrisonerImplantManager = (_props: unknown) => {
                               amount: amount,
                             })
                           }
-                        >{`Inject ${amount}u`}</Button>
+                        >{`Ввести ${amount}u`}</Button>
                       ))}
                     </Box>
                   </Box>

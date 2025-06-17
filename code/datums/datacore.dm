@@ -154,8 +154,8 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		G.fields["rank"]		= assignment
 		G.fields["age"]			= H.age
 		G.fields["fingerprint"]	= md5(H.dna.uni_identity)
-		G.fields["p_stat"]		= "Активное"
-		G.fields["m_stat"]		= "Стабильное"
+		G.fields["p_stat"]		= "Активный"
+		G.fields["m_stat"]		= "Стабильный"
 		G.fields["sex"]			= capitalize(H.gender)
 		G.fields["species"]		= H.dna.species.name
 		G.fields["photo"]		= get_id_photo(H)
@@ -164,11 +164,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.gen_record && !jobban_isbanned(H, "Records"))
 			G.fields["notes"] = H.gen_record
 		else
-			G.fields["notes"] = "Дополнительная информация отсутствует."
+			G.fields["notes"] = "Дополнительная информация отсутствует"
 		if(H.exploit_record && !jobban_isbanned(H, "Records"))
 			G.fields["exploit_record"] = H.exploit_record
 		else
-			G.fields["exploit_record"] = "Дополнительная информация отсутствует."
+			G.fields["exploit_record"] = "Дополнительная информация отсутствует"
 		general += G
 
 		//Medical Record
@@ -188,7 +188,7 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		if(H.med_record && !jobban_isbanned(H, "Records"))
 			M.fields["notes"] = H.med_record
 		else
-			M.fields["notes"] = "Дополнительная информация отсутствует."
+			M.fields["notes"] = "Дополнительная информация отсутствует"
 		medical += M
 
 		//Security Record
@@ -200,11 +200,11 @@ GLOBAL_VAR_INIT(record_id_num, 1001)
 		S.fields["mi_crim_d"]	= "Отсутствие судимостей за малозначительные преступления."
 		S.fields["ma_crim"]		= "Нет"
 		S.fields["ma_crim_d"]	= "Отсутствие судимостей за тяжкие преступления."
-		S.fields["notes"]		= "Дополнительная информация отсутствует."
+		S.fields["notes"]		= "Дополнительная информация отсутствует"
 		if(H.sec_record && !jobban_isbanned(H, "Records"))
 			S.fields["notes"] = H.sec_record
 		else
-			S.fields["notes"] = "Дополнительная информация отсутствует."
+			S.fields["notes"] = "Дополнительная информация отсутствует"
 		LAZYINITLIST(S.fields["comments"])
 		security += S
 

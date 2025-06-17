@@ -50,14 +50,14 @@ const ShuttleControlSection = (props: unknown) => {
   } = data;
   const bad_progress = emagged ? 0 : 1;
   const completionStatus = emagged
-    ? 'ERR0R'
+    ? 'ОШИБКА'
     : can_go_home
-      ? 'Completed!'
-      : 'Insufficient';
+      ? 'Цель достигнута!'
+      : 'Недостаточно';
   return (
     <Section>
       <LabeledList>
-        <LabeledList.Item label="Status">
+        <LabeledList.Item label="Статус">
           {(!!id_inserted && (
             <ProgressBar
               value={id_points / id_goal}
@@ -69,28 +69,28 @@ const ShuttleControlSection = (props: unknown) => {
               {id_points + ' / ' + id_goal + ' ' + completionStatus}
             </ProgressBar>
           )) ||
-            (!!emagged && 'ERR0R COMPLETED?!@') ||
-            'No ID inserted'}
+            (!!emagged && 'ОШИБКА ЦЕЛЬ ДОСТИНГУТА?!@') ||
+            'Не вставлена ID-карта'}
         </LabeledList.Item>
-        <LabeledList.Item label="Shuttle controls">
+        <LabeledList.Item label="Управление шаттлом">
           <Button
             fluid
             disabled={!can_go_home}
             onClick={() => act('move_shuttle')}
           >
-            Move shuttle
+            Переместить шаттл
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Unclaimed points">
+        <LabeledList.Item label="Несобранные очки">
           <Button
             fluid
             disabled={!id_inserted || !unclaimed_points}
             onClick={() => act('claim_points')}
           >
-            {'Claim points (' + unclaimed_points + ')'}
+            {'Получить очки (' + unclaimed_points + ')'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Inserted ID">
+        <LabeledList.Item label="Вставленная ID-карта">
           <Button fluid onClick={() => act('handle_id')}>
             {id_inserted ? id_name : '-------------'}
           </Button>
@@ -104,12 +104,12 @@ const MaterialValuesSection = (props: unknown) => {
   const { data } = useBackend<LaborClaimData>();
   const { ores } = data;
   return (
-    <Section title="Material values">
+    <Section title="Ценность минералов (в очках)">
       <Table>
         <Table.Row header>
-          <Table.Cell>Material</Table.Cell>
+          <Table.Cell>Минерал</Table.Cell>
           <Table.Cell collapsing textAlign="right">
-            Value
+            Ценность
           </Table.Cell>
         </Table.Row>
         {ores.map((ore) => (

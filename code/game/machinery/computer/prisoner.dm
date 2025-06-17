@@ -2,6 +2,15 @@
 
 /obj/machinery/computer/prisoner
 	name = "labor camp points manager"
+	desc = "Консоль, используемая для управления очками, имплантами и отслеживания заключённых."
+	ru_names = list(
+		NOMINATIVE = "консоль управления заключёнными на каторге",
+		GENITIVE = "консоли управления заключёнными на каторге",
+		DATIVE = "консоли управления заключёнными на каторге",
+		ACCUSATIVE = "консоль управления заключёнными на каторге",
+		INSTRUMENTAL = "консолью управления заключёнными на каторге",
+		PREPOSITIONAL = "консоли управления заключёнными на каторге"
+	)
 	icon = 'icons/obj/machines/computer.dmi'
 	icon_keyboard = "security_key"
 	icon_screen = "explosive"
@@ -96,13 +105,13 @@
 		if(!check_implant(track_imp))
 			continue
 		var/mob/living/carbon/carrier = track_imp.imp_in
-		var/loc_display = "Unknown"
+		var/loc_display = "Неизвестный"
 		var/health_display = "OK"
 		var/total_loss = (carrier.maxHealth - carrier.health)
 		if(carrier.stat == DEAD)
-			health_display = "DEAD"
+			health_display = "УМЕР"
 		else if(total_loss)
-			health_display = "HURT ([total_loss])"
+			health_display = "РАНЕН ([total_loss])"
 		var/turf/implant_location = get_turf(track_imp)
 		if(!isspaceturf(implant_location))
 			loc_display = "[get_area(implant_location)]"
@@ -144,7 +153,7 @@
 			if(istype(card) && user.drop_transfer_item_to_loc(card, src))
 				inserted_id_uid = card.UID()
 			else
-				to_chat(user, span_warning("No valid ID."))
+				balloon_alert(user, ("не подходит"))
 
 		if("inject")
 			var/obj/item/implant/chem/implant = locateUID(params["uid"])
@@ -169,11 +178,11 @@
 		if(UI_MODAL_OPEN)
 			switch(id)
 				if("warn")
-					ui_modal_input(src, id, "Please enter your message:", null, arguments = list(
+					ui_modal_input(src, id, "Введите сообщение:", null, arguments = list(
 						"uid" = arguments["uid"],
 					))
 				if("set_points")
-					ui_modal_input(src, id, "Please enter the new point goal:", null, arguments)
+					ui_modal_input(src, id, "Введите новое целевое значение очков:", null, arguments)
 
 		if(UI_MODAL_ANSWER)
 			var/answer = params["answer"]
@@ -184,14 +193,14 @@
 						return
 
 					if(implant.warn_cooldown >= world.time)
-						to_chat(user, span_warning("The warning system for that bio-chip is still cooling down."))
+						to_chat(user, span_warning("Система оповещения этого биочипа остывает."))
 						return
 
 					implant.warn_cooldown = world.time + IMPLANT_WARN_COOLDOWN
 					if(implant.imp_in)
 						var/mob/living/carbon/implantee = implant.imp_in
 						var/warning = copytext_char(sanitize(answer), 1, MAX_MESSAGE_LEN)
-						to_chat(implantee, "[span_boldnotice("Your skull vibrates violently as a loud announcement is broadcasted to you: ")][span_userdanger("'[warning]'")]")
+						to_chat(implantee, "[span_boldnotice("Ваш череп начинает вибрировать и вы слышите сообщение: ")][span_userdanger("'[warning]'")]")
 
 				if("set_points")
 					if(isnull(text2num(answer)))

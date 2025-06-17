@@ -17,7 +17,7 @@ import { ReactNode } from 'react';
 const deptCols = COLORS.department;
 
 export const CardComputerLoginWarning = () => (
-  <Section fill title="Warning">
+  <Section fill title="Ошибка:">
     <Stack fill>
       <Stack.Item
         bold
@@ -44,7 +44,7 @@ export const CardComputerLoginWarning = () => (
 );
 
 export const CardComputerNoCard = () => (
-  <Section fill title="Отсутствует ID Карта">
+  <Section fill title="Ошибка:">
     <Stack fill>
       <Stack.Item
         bold
@@ -191,7 +191,7 @@ export const CardComputer = (props: unknown) => {
         selected={data.mode === 0}
         onClick={() => act('mode', { mode: 0 })}
       >
-        Смена Должности
+        Смена должности
       </Tabs.Tab>
       {!data.target_dept && (
         <Tabs.Tab
@@ -199,7 +199,7 @@ export const CardComputer = (props: unknown) => {
           selected={data.mode === 2}
           onClick={() => act('mode', { mode: 2 })}
         >
-          Изменение Доступа
+          Изменение доступа
         </Tabs.Tab>
       )}
       <Tabs.Tab
@@ -207,7 +207,7 @@ export const CardComputer = (props: unknown) => {
         selected={data.mode === 1}
         onClick={() => act('mode', { mode: 1 })}
       >
-        Управление Кадрами
+        Управление кадрами
       </Tabs.Tab>
       <Tabs.Tab
         icon="scroll"
@@ -299,7 +299,7 @@ export const CardComputer = (props: unknown) => {
             </Section>
             <Section
               title={
-                data.target_dept ? 'Смена Должности Отдела' : 'Смена Должности'
+                data.target_dept ? 'Смена должности отдела' : 'Смена должности'
               }
             >
               <LabeledList>
@@ -537,10 +537,16 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = (
           <Stack fill vertical>
             <Section color={data.cooldown_time ? 'red' : ''}>
-              Возможность изменить появится через:
-              {data.cooldown_time ? data.cooldown_time : ' Now'}
+              {data.cooldown_time ? (
+                <>
+                  Возможность изменять количество слотов и приоритет появится
+                  через: {data.cooldown_time}
+                </>
+              ) : (
+                <>Сейчас количество слотов и приоритет разрешено изменять</>
+              )}
             </Section>
-            <Section fill scrollable title="Управление Слотами">
+            <Section fill scrollable title="Управление слотами">
               <Table>
                 <Table.Row height={2}>
                   <Table.Cell bold textAlign="center">
@@ -741,7 +747,7 @@ export const CardComputer = (props: unknown) => {
         bodyBlock = <CardComputerLoginWarning />;
       } else {
         bodyBlock = (
-          <Section fill scrollable title="Ваш Отдел">
+          <Section fill scrollable title="Ваш отдел">
             <Table>
               <Table.Row height={2}>
                 <Table.Cell bold>Имя</Table.Cell>

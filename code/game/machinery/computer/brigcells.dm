@@ -38,7 +38,7 @@
 /obj/machinery/computer/brigcells/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "BrigCells", "Управление Камерами Заключения")
+		ui = new(user, src, "BrigCells", "Управление камерами заключения")
 		ui.open()
 
 /obj/machinery/computer/brigcells/ui_data(mob/user)

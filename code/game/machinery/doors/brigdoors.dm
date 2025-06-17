@@ -97,9 +97,9 @@
 
 	for(var/obj/machinery/computer/prisoner/C in GLOB.prisoncomputer_list)
 		var/obj/item/paper/P = new /obj/item/paper(C.loc)
-		P.name = "[id] log - [occupant] [station_time_timestamp()]"
+		P.name = "Заключённый: [occupant]. Время заключения: [station_time_timestamp()]"
 		P.info =  "<center><b>[id] - Запись</b></center><br><hr><br>"
-		P.info += {"<center>[station_name()] - Отдел Защиты Активов</center><br>
+		P.info += {"<center>[station_name()] - Отдел защиты активов</center><br>
 						<center><small><b>Данные:</b></small></center><br>
 						<small><b>Сгенерировано в:</b>		[station_time_timestamp()]<br>
 						<b>Заключённый:</b>		[occupant]<br>

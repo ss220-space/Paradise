@@ -142,13 +142,13 @@ const RecordView = (props: RecordViewProps) => {
   switch (props.recordType) {
     case 'MED':
       secondaryRecord = (
-        <Section title="Медицинская Информация">
+        <Section title="Медицинская информация">
           {medical ? (
             <LabeledList>
-              <LabeledList.Item label="Группа Крови">
+              <LabeledList.Item label="Группа крови">
                 {medical.blood_type}
               </LabeledList.Item>
-              <LabeledList.Item label="Незначительные Отклонения">
+              <LabeledList.Item label="Незначительные отклонения">
                 {medical.mi_dis}
               </LabeledList.Item>
               <LabeledList.Item label="Детали">
@@ -166,13 +166,13 @@ const RecordView = (props: RecordViewProps) => {
               <LabeledList.Item label="Делтали">
                 {medical.alg_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Текущие Заболевания">
+              <LabeledList.Item label="Текущие заболевания">
                 {medical.cdi}
               </LabeledList.Item>
               <LabeledList.Item label="Детали">
                 {medical.cdi_d}
               </LabeledList.Item>
-              <LabeledList.Item label="Важные Примечания">
+              <LabeledList.Item label="Важные примечания">
                 {medical.notes}
               </LabeledList.Item>
             </LabeledList>
@@ -230,7 +230,7 @@ const RecordView = (props: RecordViewProps) => {
             <LabeledList.Item label="Должность">
               {general.rank}
             </LabeledList.Item>
-            <LabeledList.Item label="Отпечатки пальцев">
+            <LabeledList.Item label="Хэш отпечатков пальцев">
               {general.fingerprint}
             </LabeledList.Item>
             <LabeledList.Item label="Физическое состояние">

@@ -28,7 +28,7 @@ import {
 
 const statusStyles = {
   '*Казнь*': 'execute',
-  '*Арест*': 'arrest',
+  'Арест': 'arrest',
   'Заключён': 'incarcerated',
   'Условно-досрочно освобождён': 'parolled',
   'Освобождён': 'released',
@@ -116,14 +116,14 @@ const SecurityRecordsNavigation = (_properties) => {
         onClick={() => act('page', { page: 1 })}
       >
         <Icon name="list" />
-        Просмотр Записей
+        Просмотр записей
       </Tabs.Tab>
       <Tabs.Tab
         selected={currentPage === 2}
         onClick={() => act('page', { page: 2 })}
       >
         <Icon name="wrench" />
-        Обслуживание Записей
+        Обслуживание записей
       </Tabs.Tab>
       {currentPage === 3 && general && !general.empty && (
         <Tabs.Tab selected={currentPage === 3}>
@@ -190,7 +190,7 @@ const SecurityRecordsPageList = (_properties) => {
                 sortOrder={sortOrder}
                 setSortOrder={setSortOrder}
               >
-                Отпечатки пальцев
+                Хэш отпечатков пальцев
               </SortButton>
               <SortButton
                 id="status"
@@ -260,7 +260,7 @@ const SecurityRecordsActions = (properties: SearchTextProps) => {
     <Stack fill>
       <Stack.Item>
         <Button ml="0.25rem" icon="plus" onClick={() => act('new_general')}>
-          Новая Запись
+          Новая запись
         </Button>
       </Stack.Item>
       <Stack.Item>
@@ -270,7 +270,7 @@ const SecurityRecordsActions = (properties: SearchTextProps) => {
           iconSpin={!!isPrinting}
           onClick={() => modalOpen('print_cell_log')}
         >
-          Распечатать Запись Камеры Заключения
+          Распечатать запись камеры заключения
         </Button>
       </Stack.Item>
       <Stack.Item grow>
@@ -293,7 +293,7 @@ const SecurityRecordsPageMaintenance = (_properties) => {
         tooltip="Эта функция недоступна."
         tooltipPosition="right"
       >
-        Выгрузить На Диск
+        Выгрузить на диск
       </Button>
       <br />
       <Button
@@ -303,7 +303,7 @@ const SecurityRecordsPageMaintenance = (_properties) => {
         tooltipPosition="right"
         my="0.5rem"
       >
-        Загрузить С Диска
+        Загрузить с диска
       </Button>
       <br />
       <Button.Confirm
@@ -312,11 +312,11 @@ const SecurityRecordsPageMaintenance = (_properties) => {
         tooltip="Эта функция недоступна."
         mb="0.5rem"
       >
-        Удалить ВСЕ Записи Службы Безопасности
+        Удалить все записи службы безопасности
       </Button.Confirm>
       <br />
       <Button.Confirm disabled icon="trash" tooltip="Эта функция недоступна.">
-        Удалить ВСЕ Записи Камер Заключения
+        Удалить все записи камер заключения
       </Button.Confirm>
     </Box>
   );
@@ -335,7 +335,7 @@ const SecurityRecordsPageView = (_properties) => {
           fill
           scrollable
           mt="-6px"
-          title="Общая Информация"
+          title="Общая информация"
           buttons={
             <>
               <Button
@@ -344,18 +344,17 @@ const SecurityRecordsPageView = (_properties) => {
                 iconSpin={!!isPrinting}
                 onClick={() => act('print_record')}
               >
-                Распечатать Запись
+                Распечатать запись
               </Button>
               <Button.Confirm
                 icon="trash"
                 tooltip={
-                  'ВНИМАНИЕ: Это безвозвратно удалит охранные' +
-                  'и медицинские записи, связанные с этим членом экипажа!'
+                  'ВНИМАНИЕ: Это безвозвратно удалит охранные и медицинские записи, связанные с этим членом экипажа!'
                 }
                 tooltipPosition="bottom-start"
                 onClick={() => act('delete_general')}
               >
-                Удалить Запись
+                Удалить запись
               </Button.Confirm>
             </>
           }
@@ -367,10 +366,10 @@ const SecurityRecordsPageView = (_properties) => {
         <Stack.Item grow color="bad">
           <Section
             fill
-            title="Данные Службы Безопасности"
+            title="Данные службы безопасности"
             buttons={
               <Button icon="pen" onClick={() => act('new_security')}>
-                Создать Новую Запись
+                Создать новую запись
               </Button>
             }
           >
@@ -388,7 +387,7 @@ const SecurityRecordsPageView = (_properties) => {
                   <Icon name="slash" size={5} color="red" />
                 </Icon.Stack>
                 <br />
-                Запись Службы Безопасности отсутствует!
+                Запись службы безопасности отсутствует!
               </Stack.Item>
             </Stack>
           </Section>
@@ -399,14 +398,14 @@ const SecurityRecordsPageView = (_properties) => {
             <Section
               fill
               scrollable
-              title="Данные Службы Безопасности"
+              title="Данные службы безопасности"
               buttons={
                 <Button.Confirm
                   icon="trash"
                   disabled={security.empty}
                   onClick={() => act('delete_security')}
                 >
-                  Удалить Запись
+                  Удалить запись
                 </Button.Confirm>
               }
             >
@@ -479,7 +478,7 @@ const SecurityRecordsViewGeneral = (_properties) => {
               }}
             />
             <br />
-            Photo #{i + 1}
+            Фото #{i + 1}
           </Stack.Item>
         ))}
     </Stack>
@@ -494,10 +493,10 @@ const SecurityRecordsViewSecurity = (_properties) => {
       <Section
         fill
         scrollable
-        title="Комментарии/Записи"
+        title="Комментарии"
         buttons={
           <Button icon="comment" onClick={() => modalOpen('comment_add')}>
-            Добавить Комментарий
+            Добавить комментарий
           </Button>
         }
       >

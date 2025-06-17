@@ -1,6 +1,14 @@
 /obj/item/clothing/accessory/holster
 	name = "shoulder holster"
-	desc = "A handgun holster."
+	desc = "Кобура для оружия."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 	icon_state = "holster"
 	slot = ACCESSORY_SLOT_UTILITY
 	pickup_sound = 'sound/items/handling/backpack_pickup.ogg'
@@ -45,19 +53,19 @@
 
 /obj/item/clothing/accessory/holster/proc/holster(obj/item/I, mob/user)
 	if(istype(I, /obj/item/clothing/accessory/holster))
-		to_chat(user, span_warning("Putting holster into another holster was pretty dumb idea!"))
+		balloon_alert(user, ("не помещается!"))
 		return FALSE
 
 	if(holstered.len >= max_content)
-		to_chat(user, span_warning("Holster is full!"))
+		balloon_alert(user, ("уже есть оружие"))
 		return FALSE
 
 	if(!can_holster(I))
-		to_chat(user, span_warning("The [I.name] won't fit in [src]!"))
+		balloon_alert(user, ("не подходит!"))
 		return FALSE
 
 	if(I.loc == user && !user.can_unEquip(I))
-		to_chat(user, span_warning("You cannnot let go of [I]!"))
+		balloon_alert(user, ("не получается!"))
 		return FALSE
 
 	. = TRUE
@@ -66,22 +74,22 @@
 		user.temporarily_remove_item_from_inventory(I)
 	I.forceMove(src)
 	I.add_fingerprint(user)
-	user.visible_message(span_notice("[user] holsters the [I]."), span_notice("You holster the [I]."))
+	user.visible_message(span_notice("[user] убрал[genderize_ru(user.gender, "", "а", "о", "и")] [I] в кобуру."), span_notice("Вы убрали [I] в кобуру."))
 	playsound(user.loc, sound_holster, 50, 1)
 
 /obj/item/clothing/accessory/holster/proc/unholster(mob/user)
 	if(!holstered.len)
-		to_chat(user, span_warning("Holster is empty!"))
+		balloon_alert(user, ("пусто"))
 		return
 
 	var/obj/item/next_item = holstered[holstered.len]
 
 	if(user.stat || HAS_TRAIT(user, TRAIT_INCAPACITATED))
-		to_chat(user, span_warning("You can't get [next_item] now!"))
+		balloon_alert(user, ("не получается!"))
 		return
 
 	if(istype(user.get_active_hand(), /obj) && istype(user.get_inactive_hand(), /obj))
-		to_chat(user, span_warning("You need an empty hand to draw the [next_item]!"))
+		balloon_alert(user, ("в руке уже что-то есть!"))
 	else
 		user.put_in_hands(next_item)
 		next_item.add_fingerprint(user)
@@ -91,11 +99,11 @@
 
 /obj/item/clothing/accessory/holster/proc/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		usr.visible_message(span_warning("[user] draws the [I], ready to shoot!"),
-							span_warning("You draw the [I], ready to shoot!"))
+		usr.visible_message(span_warning("[user] достал[genderize_ru(user.gender, "", "а", "о", "и")] [I], готовясь стрелять!"),
+							span_warning("Вы достали [I] и готовы стрелять!"))
 	else
-		user.visible_message(span_notice("[user] draws the [I], pointing it at the ground."),
-							span_notice("You draw the [I], pointing it at the ground."))
+		user.visible_message(span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [I], направив ствол вниз."),
+							span_notice("Вы достали [I], направив ствол вниз."))
 
 /obj/item/clothing/accessory/holster/attack_hand(mob/user)
 	if(has_suit)	//if we are part of a suit
@@ -121,9 +129,9 @@
 	. = ..(user)
 	if(holstered.len)
 		for(var/obj/item/I in holstered)
-			. += span_notice("A [I] is holstered here.")
+			. += span_notice("[I] находится в этой кобуре.")
 	else
-		. += span_notice("It is empty.")
+		. += span_notice("Кобура пуста.")
 
 
 /obj/item/clothing/accessory/holster/on_attached(obj/item/clothing/under/new_suit, mob/attacher)
@@ -164,36 +172,92 @@
 
 /obj/item/clothing/accessory/holster/armpit
 	name = "shoulder holster"
-	desc = "A worn-out handgun holster. Perfect for concealed carry"
+	desc = "Кобура для оружия. Идеально подходит для скрытого ношения."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 	holster_allow = /obj/item/gun/projectile
 
 /obj/item/clothing/accessory/holster/waist
 	name = "shoulder holster"
-	desc = "A handgun holster. Made of expensive leather."
+	desc = "Кобура для оружия. Сделана из дорогой кожи."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 
 /obj/item/clothing/accessory/holster/leg
 	name = "leg holster"
-	desc = "A handgun holster. This one for spies."
+	desc = "Кобура для оружия. Для настоящих шпионов."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 	icon_state = "leg_holster"
 
 /obj/item/clothing/accessory/holster/leg/black
 	name = "black leg holster"
-	desc = "A handgun holster. This one for spies. Comes in stealthy black."
+	desc = "Чёрная кобура для оружия. Для настоящих шпионов."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 	icon_state = "leg_holster_black"
 
 /obj/item/clothing/accessory/holster/belt
 	name = "belt holster"
-	desc = "A handgun holster. This one for security officers to remind some good ol' times."
+	desc = "Кобура для оружия. Напоминает сотрудникам службы безопасности и старых временах."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 	icon_state = "belt_holster"
 
 /obj/item/clothing/accessory/holster/belt/black
 	name = "black belt holster"
-	desc = "A handgun holster. This one for security officers to remind some good ol' times. Comes in black, just like in the America!"
+	desc = "Чёрная кобура для оружия. Напоминает сотрудникам службы безопасности и старых временах."
+	ru_names = list(
+		NOMINATIVE = "кобура для оружия",
+		GENITIVE = "кобуры для оружия",
+		DATIVE = "кобуре для оружия",
+		ACCUSATIVE = "кобуру для оружия",
+		INSTRUMENTAL = "кобурой для оружия",
+		PREPOSITIONAL = "кобуре для оружия"
+	)
 	icon_state = "belt_holster_black"
 
 /obj/item/clothing/accessory/holster/knives
 	name = "knife holster"
-	desc = "A bunch of straps connected into one holster. Has 7 special slots for holding knives."
+	desc = "Множестно ремней, соединенных в одну кобуру. Имеет 7 специальных слотов для хранения ножей."
+	ru_names = list(
+		NOMINATIVE = "кобура для ножей",
+		GENITIVE = "кобуры для ножей",
+		DATIVE = "кобуре для ножей",
+		ACCUSATIVE = "кобуру для ножей",
+		INSTRUMENTAL = "кобурой для ножей",
+		PREPOSITIONAL = "кобуре для ножей"
+	)
 	icon_state = "holsterknife"
 	holster_allow = list(
 		/obj/item/kitchen/knife,
@@ -212,11 +276,11 @@
 
 /obj/item/clothing/accessory/holster/knives/unholster_message(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
-		user.visible_message(span_warning("[user] takes the [I] out, ready to throw!"),
-			span_warning("You takes the [I] out, [holstered.len] knives left!"))
+		user.visible_message(span_warning("[user] достал[genderize_ru(user.gender, "", "а", "о", "и")] [I], готовясь метнуть!"),
+			span_warning("Вы достали [I]. Осталось [holstered.len] ножей."))
 	else
-		user.visible_message(span_notice("[user] takes the [I] out."),
-			span_notice("You takes the [I] out, [holstered.len] knives left"))
+		user.visible_message(span_notice("[user] достал[genderize_ru(user.gender, "", "а", "о", "и")] [I] ."),
+			span_notice("Вы достали [I]. Осталось [holstered.len] ножей."))
 
 /obj/item/clothing/accessory/holster/knives/can_holster(obj/item/I)
 	return is_type_in_list(I, holster_allow, FALSE)

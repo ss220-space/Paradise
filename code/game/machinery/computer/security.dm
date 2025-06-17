@@ -47,7 +47,7 @@
 			"id" = "Выберите новый ID:",
 			"sex" = "Выберите новый пол:",
 			"age" = "Введите новый возраст:",
-			"fingerprint" = "Введите новый хеш отпечатков пальцев:",
+			"fingerprint" = "Введите новый хэш отпечатков пальцев:",
 			// Security
 			"criminal" = "Выберите новый статус:",
 			"mi_crim" = "Введите новые малозначительные преступления:",
@@ -216,8 +216,8 @@
 			G.fields["sex"] = "Мужской"
 			G.fields["age"] = "Не указано"
 			G.fields["fingerprint"] = "Не указано"
-			G.fields["p_stat"] = "Активное"
-			G.fields["m_stat"] = "Стабильное"
+			G.fields["p_stat"] = "Активный"
+			G.fields["m_stat"] = "Стабильный"
 			G.fields["species"] = SPECIES_HUMAN
 			G.fields["notes"] = "Нет примечаний."
 			GLOB.data_core.general += G
@@ -439,12 +439,13 @@
   */
 /obj/machinery/computer/secure_data/proc/print_record_finish()
 	var/obj/item/paper/P = new(loc)
-	P.info = "<center><b>Отдел Защиты Активов</b></center><br>"
+	P.info = "<center><b>Отдел защиты активов</b></center><br>"
 	if(record_general && GLOB.data_core.general.Find(record_general))
-		P.info += {"Имя: [record_general.fields["name"]] ID: [record_general.fields["id"]]
+		P.info += {"Имя: [record_general.fields["name"]]
+				<br>\nID: [record_general.fields["id"]]
 				<br>\nПол: [record_general.fields["sex"]]
 				<br>\nВозраст: [record_general.fields["age"]]
-				<br>\nХЭШ отпечатков пальцев: [record_general.fields["fingerprint"]]
+				<br>\nХэш отпечатков пальцев: [record_general.fields["fingerprint"]]
 				<br>\nФизическое состояние: [record_general.fields["p_stat"]]
 				<br>\nПсихологическое состояние: [record_general.fields["m_stat"]]<br>"}
 		P.name = "paper - 'Запись службы безопасности: [record_general.fields["name"]]'"
@@ -453,24 +454,24 @@
 		var/icon/new_photo = icon('icons/effects/64x32.dmi', "records")
 		new_photo.Blend(icon(record_general.fields["photo"], dir = SOUTH), ICON_OVERLAY, 0)
 		new_photo.Blend(icon(record_general.fields["photo"], dir = WEST), ICON_OVERLAY, 32)
-		new_photo.Scale(new_photo.Width() * 3, new_photo.Height() * 3)
+		new_photo.Scale(new_photo.Width() * 5, new_photo.Height() * 5)
 		photo.img = new_photo
 		photo.name = "photo - 'Запись службы безопасности: [record_general.fields["name"]]'"
 	else
 		P.info += "<b>Общие записи утеряны!</b><br>"
 	if(record_security && GLOB.data_core.security.Find(record_security))
-		P.info += {"<br>\n<center><b>Данные Службы Безопасности</b></center>
+		P.info += {"<br>\n<center><b>Данные службы безопасности</b></center>
 		<br>\nСтатус: [record_security.fields["criminal"]]<br>\n
 		<br>\nМалозначительные преступления: [record_security.fields["mi_crim"]]
 		<br>\nДетали: [record_security.fields["mi_crim_d"]]<br>\n
 		<br>\nТяжкие преступления: [record_security.fields["ma_crim"]]
 		<br>\nДетали: [record_security.fields["ma_crim_d"]]<br>\n
 		<br>\nВажные примечания:
-		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Log</b></center><br>"}
+		<br>\n\t[record_security.fields["notes"]]<br>\n<br>\n<center><b>Комментарии:</b></center><br>"}
 		for(var/c in record_security.fields["comments"])
 			P.info += "[c]<br>"
 	else
-		P.info += "<b>Запись Службы Безопасности отсутствует!</b><br>"
+		P.info += "<b>Запись службы безопасности отсутствует!</b><br>"
 	is_printing = FALSE
 	SStgui.update_uis(src)
 

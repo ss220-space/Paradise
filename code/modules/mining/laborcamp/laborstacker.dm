@@ -2,7 +2,15 @@
 
 /obj/machinery/mineral/labor_claim_console
 	name = "point claim console"
-	desc = "A stacking console with an electromagnetic writer, used to track ore mined by prisoners."
+	desc = "Консоль, используемая для отслеживания руды, добытой заключенными и получения очков за неё."
+	ru_names = list(
+		NOMINATIVE = "консоль получения очков",
+		GENITIVE = "консоли получения очков",
+		DATIVE = "консоли получения очков",
+		ACCUSATIVE = "консоль получения очков",
+		INSTRUMENTAL = "консолью получения очков",
+		PREPOSITIONAL = "консоли получения очков"
+	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
@@ -43,12 +51,12 @@
 	if(istype(I, /obj/item/card/id/prisoner))
 		add_fingerprint(user)
 		if(inserted_id)
-			to_chat(user, span_warning("The [name] is already holding another ID-card."))
+			balloon_alert(user, ("уже есть ID-карта"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		inserted_id = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		balloon_alert(user, ("карта вставлена"))
 		SStgui.update_uis(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -113,23 +121,23 @@
 				return
 			inserted_id.mining_points += stacking_machine.points
 			stacking_machine.points = 0
-			to_chat(usr, "Points transferred.")
+			to_chat(usr, "Очки получены.")
 		if("move_shuttle")
 			if(!alone_in_area(get_area(src), usr))
-				to_chat(usr, "<span class='warning'>Prisoners are only allowed to be released while alone.</span>")
+				to_chat(usr, span_warning("Улететь можно только в одиночку!"))
 			else
 				switch(SSshuttle.moveShuttle("laborcamp", "laborcamp_home", TRUE, usr))
 					if(1)
-						to_chat(usr, "<span class='notice'>Shuttle not found.</span>")
+						to_chat(usr, span_notice("Шаттл не найден."))
 					if(2)
-						to_chat(usr, "<span class='notice'>Shuttle already at station.</span>")
+						to_chat(usr, span_notice("Шаттл уже на станции."))
 					if(3)
-						to_chat(usr, "<span class='notice'>No permission to dock could be granted.</span>")
+						to_chat(usr, span_notice("Отсутствует разрешение на стыковку."))
 					else
 						if(!emagged)
-							var/message = "[inserted_id.registered_name] has returned to the station. Minerals and Prisoner ID card ready for retrieval."
-							announcer.autosay(message, "Labor Camp Controller", SEC_FREQ_NAME)
-						to_chat(usr, "<span class='notice'>Shuttle received message and will be sent shortly.</span>")
+							var/message = "Заключённый [inserted_id.registered_name] вернулся на станцию и ожидает возвращения вещей и освобождения."
+							announcer.autosay(message, "Контролер каторги", SEC_FREQ_NAME)
+						to_chat(usr, span_notice("Шаттл получил сообщение и скоро направится к вам."))
 						add_misc_logs(usr, "used [src] to call the laborcamp shuttle")
 
 	return TRUE
@@ -143,7 +151,7 @@
 	if(!(emagged))
 		emagged = TRUE
 		if(user)
-			to_chat(user, "<span class='warning'>PZZTTPFFFT</span>")
+			balloon_alert(user, ("взломано"))
 
 
 /**********************Prisoner Collection Unit**************************/
@@ -172,7 +180,15 @@
 /**********************Point Lookup Console**************************/
 /obj/machinery/mineral/labor_points_checker
 	name = "points checking console"
-	desc = "A console used by prisoners to check the progress on their quotas. Simply swipe a prisoner ID."
+	desc = "Консоль, используемая заключенными для проверки прогресса. Просто проведите ID-картой."
+	ru_names = list(
+		NOMINATIVE = "консоль проверки очков",
+		GENITIVE = "консоли проверки очков",
+		DATIVE = "консоли проверки очков",
+		ACCUSATIVE = "консоль проверки очков",
+		INSTRUMENTAL = "консолью проверки очков",
+		PREPOSITIONAL = "консоли проверки очков"
+	)
 	icon = 'icons/obj/machines/mining_machines.dmi'
 	icon_state = "console"
 	density = FALSE
@@ -193,12 +209,12 @@
 	if(prisoner_id)
 		add_fingerprint(user)
 		if(!istype(prisoner_id, /obj/item/card/id/prisoner))
-			to_chat(user, span_warning("Error: Invalid ID."))
+			balloon_alert(user, ("неподходящая карта!"))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_info("<b>ID: [prisoner_id.registered_name]</b>"))
-		to_chat(user, span_info("Points Collected:[prisoner_id.mining_points]"))
-		to_chat(user, span_info("Point Quota: [prisoner_id.goal]"))
-		to_chat(user, span_info("Collect points by bringing smelted minerals to the Labor Shuttle stacking machine. Reach your quota to earn your release."))
+		to_chat(user, span_info("Очков добыто:[prisoner_id.mining_points]"))
+		to_chat(user, span_info("Необходимо: [prisoner_id.goal]"))
+		to_chat(user, span_info("Собирайте очки, принося переплавленные минералы в устройство на шаттле. Как только вы соберёте необходимое количество, вы будете свободны."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

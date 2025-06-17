@@ -67,28 +67,28 @@ export const BrigTimer = (props: unknown) => {
                   disabled={!data.isAllowed}
                   onClick={() => act('flash')}
                 >
-                  Ослепить Флешером
+                  Ослепить флешером
                 </Button>
                 <Button
                   icon="angle-up"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('add_timer')}
                 >
-                  Добавить Время
+                  Добавить время
                 </Button>
                 <Button
                   icon="sync"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('restart_timer')}
                 >
-                  Перезапустить Таймер
+                  Перезапустить таймер
                 </Button>
                 <Button
                   icon="eject"
                   disabled={!data.timing || !data.isAllowed}
                   onClick={() => act('stop')}
                 >
-                  Освободить Заключённого
+                  Освободить заключённого
                 </Button>
               </>
             </LabeledList.Item>
@@ -97,7 +97,7 @@ export const BrigTimer = (props: unknown) => {
         {!data.timing && (
           <Section title="Новый заключённый">
             <LabeledList>
-              <LabeledList.Item label="Имя Заключённого">
+              <LabeledList.Item label="Имя заключённого">
                 <Button
                   icon={nameIcon}
                   disabled={!data.isAllowed}
@@ -128,7 +128,7 @@ export const BrigTimer = (props: unknown) => {
                   {data.prisoner_charge ? data.prisoner_charge : '-----'}
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="Время Заключения">
+              <LabeledList.Item label="Время заключения">
                 <Button
                   icon="pencil-alt"
                   disabled={!data.isAllowed}
