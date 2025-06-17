@@ -98,7 +98,7 @@
 
 
 /datum/action/innate/lesser_carp_rift
-	name = "Малый разлом карпов"
+	name = "малый разлом карпов"
 	desc = "Открывает малый разлом карпов, который позволяет перемещаться на малое расстояние."
 	button_icon_state = "rift"
 	background_icon_state = "bg_alien"

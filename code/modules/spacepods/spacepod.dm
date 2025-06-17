@@ -398,7 +398,7 @@
 			return ATTACK_CHAIN_PROCEED
 		var/obj/item/spacepod_equipment/key/key = I
 		if(key.id != equipment_system.lock_system.id)
-			balloon_alert(user, "неправильный ключа!")
+			balloon_alert(user, "неправильный ключ!")
 			return ATTACK_CHAIN_PROCEED
 		lock_pod(user)
 		return ATTACK_CHAIN_PROCEED_SUCCESS
