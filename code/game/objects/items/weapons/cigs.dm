@@ -107,18 +107,18 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/catch_fire()
 	if(!lit)
-		light(span_warning("[capitalize(declent_ru(NOMINATIVE))] зажига[pluralize_ru(gender, "ет", "ют")]ся от огня!"))
+		light(span_warning("[capitalize(declent_ru(NOMINATIVE))] зажигается от огня!"))
 
 /obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/item)
 	. = TRUE
 	if(item.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."))
+		light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]!"))
 
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/weldingtool/sword))
 		if(item.tool_enabled)
-			light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."))
+			light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/lighter/zippo))
@@ -176,7 +176,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		if(prob(50) || user.mind.assigned_role == "Wizard")
 			light(span_notice("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь свою [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"))
 		else
-			to_chat(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
+			visible_message(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
 			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
 		wand.charges--
 		wand.update_icon(UPDATE_ICON_STATE)
@@ -187,7 +187,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		var/obj/item/flashlight/flare/flare = item
 		if(!flare.on || !flare.can_fire_cigs)
 			return ..()
-		light(span_notice("[user] не наход[pluralize_ru(user.gender, "ит", "ят")] ничего лучше [flare.declent_ru(GENITIVE)], чтобы прикурить [declent_ru(ACCUSATIVE)]. Бедолага."))
+		light(span_notice("[user] не наход[pluralize_ru(user.gender, "ит", "ят")] ничего лучше [flare.declent_ru(GENITIVE)], чтобы прикурить [declent_ru(ACCUSATIVE)]. Бедолага..."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	if(istype(item, /obj/item/candle))
@@ -327,7 +327,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 				reagents.trans_id_to(C, R.id, first_puff ? 1 : max(REAGENTS_METABOLISM / reagents.reagent_list.len, 0.1)) //transfer at least .1 of each chem
 			first_puff = FALSE
 			if(!reagents.total_volume) // There were reagents, but now they're gone
-				C.balloon_alert(C, "сигарета теряет свой вкус")
+				C.balloon_alert(C, "сигарета теряет вкус")
 		else // else just remove some of the reagents
 			reagents.remove_any(REAGENTS_METABOLISM)
 
@@ -371,7 +371,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/rollie
 	name = "rollie"
-	desc = "Руллон сушённых растений, завёрнутый в тонкую бумагу."
+	desc = "Рулон высушенных растений, аккуратно завёрнутый в тонкую бумагу."
 	ru_names = list(
 		NOMINATIVE = "самокрутка",
 		GENITIVE = "самокрутки",
@@ -395,7 +395,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/cigbutt/roach
 	name = "roach"
-	desc = "Вонючий старый бычок, или, для тех, кто не курит, - выкуренная самокрутка."
+	desc = "Вонючий старый бычок или, для тех, кто не курит, – выкуренная самокрутка."
 	icon_state = "roach"
 	item_state = "rolliebutt"
 
@@ -432,7 +432,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/cohiba
 	name = "Cohiba Robusto Cigar"
-	desc = "От сигары мало что ещё можно пожелать."
+	desc = "От сигары сложно ожидать чего-то большего."
 	ru_names = list(
 		NOMINATIVE = "Сигара Коиба Робусто",
 		GENITIVE = "Сигары Коиба Робусто",
@@ -447,14 +447,14 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/cigar/havana
 	name = "Premium Havanian Cigar"
-	desc = "Сигара премиального класса из глубин шахт Нового Ханаана."
+	desc = "Лучшая сигара в наблюдаемой Вселенной."
 	ru_names = list(
-		NOMINATIVE = "Ханаанская Сигара премиум-класса",
-		GENITIVE = "Ханаанская Сигары премиум-класса",
-		DATIVE = "Ханаанская Сигаре премиум-класса",
-		ACCUSATIVE = "Ханаанская Сигару премиум-класса",
-		INSTRUMENTAL = "Ханаанская Сигарой премиум-класса",
-		PREPOSITIONAL = "Ханаанская Сигаре премиум-класса"
+		NOMINATIVE = "Гаванская Сигара премиум-класса",
+		GENITIVE = "Гаванская Сигары премиум-класса",
+		DATIVE = "Гаванская Сигаре премиум-класса",
+		ACCUSATIVE = "Гаванская Сигару премиум-класса",
+		INSTRUMENTAL = "Гаванская Сигарой премиум-класса",
+		PREPOSITIONAL = "Гаванская Сигаре премиум-класса"
 	)
 	icon_state = "cigar2off"
 	icon_on = "cigar2on"
@@ -518,7 +518,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[name] просто [capitalize("отказыва[pluralize_ru(gender, "ет", "ют")]ся")] быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВА[pluralize_ru(gender, "ЕТ", "ЮТ")]СЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
@@ -603,7 +603,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return ..()
 	if(!is_type_in_typecache(item, acceptable_lighters))
 		add_fingerprint(user)
-		to_chat(user, span_notice("[declent_ru(NOMINATIVE)] просто [capitalize("отказыва[pluralize_ru(gender, "ет", "ют")]ся")] быть прикуренной столь нецивилизованными методами."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] просто ОТКАЗЫВАЕТСЯ быть прикуренной столь нецивилизованными методами."))
 		return ATTACK_CHAIN_PROCEED
 	return ..()
 
@@ -612,12 +612,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "corn cob pipe"
 	desc = "Система доставки никотина, популяризированная жителями провинций и пользующаяся популярностью и в наше время. В основном у разного рода хипстеров."
 	ru_names = list(
-		NOMINATIVE = "курительная трубка из кукурузы",
-		GENITIVE = "курительной трубки из кукурузы",
-		DATIVE = "курительной трубке из кукурузы",
-		ACCUSATIVE = "курительную трубку из кукурузы",
-		INSTRUMENTAL = "курительной трубкой из кукурузы",
-		PREPOSITIONAL = "курительной трубке из кукурузы"
+		NOMINATIVE = "кукурузная курительная трубка",
+		GENITIVE = "кукурузной курительной трубки",
+		DATIVE = "кукурузной курительной трубке",
+		ACCUSATIVE = "кукурузную курительную трубку",
+		INSTRUMENTAL = "кукурузной курительной трубкой",
+		PREPOSITIONAL = "кукурузной курительной трубке"
 	)
 	icon_state = "cobpipeoff"
 	item_state = "cobpipeoff"
@@ -628,7 +628,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/pipe/oldpipe
 	name = "robust smoking pipe"
-	desc = "Потрёпанная курительная трубка. Выглядит жёстко."
+	desc = "Потрёпанная курительная трубка. Выглядит жёстко!"
 	ru_names = list(
 		NOMINATIVE = "крепкая курительная трубка",
 		GENITIVE = "крепкой курительной трубки",
@@ -650,12 +650,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	name = "rolling paper"
 	desc = "Тонкий лист бумаги, используемый для изготовления сигарет."
 	ru_names = list(
-		NOMINATIVE = "рулонная бумага",
-		GENITIVE = "рулонной бумаги",
-		DATIVE = "рулонной бумаге",
-		ACCUSATIVE = "рулонная бумага",
-		INSTRUMENTAL = "рулонной бумагой",
-		PREPOSITIONAL = "рулонной бумаге"
+		NOMINATIVE = "папиросная бумага",
+		GENITIVE = "папиросной бумаги",
+		DATIVE = "папиросной бумаге",
+		ACCUSATIVE = "папиросная бумага",
+		INSTRUMENTAL = "папиросной бумагой",
+		PREPOSITIONAL = "папиросной бумаге"
 	)
 	gender = FEMALE
 	icon = 'icons/obj/cigarettes.dmi'
@@ -676,7 +676,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			target.reagents.trans_to(R, R.chem_volume)
 			user.put_in_active_hand(R)
 			user.balloon_alert(user, "закручено в самокрутку")
-			R.desc = "Высушенн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] [target.declent_ru(NOMINATIVE)], закрученн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] в рулонную бумагу."
+			R.desc = "Высушенн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] [target.declent_ru(NOMINATIVE)], закрученн[genderize_ru(target.gender, "ый", "ая", "ое", "ые")] в папиросную бумагу."
 			qdel(target)
 			qdel(src)
 		else

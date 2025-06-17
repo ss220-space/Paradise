@@ -96,7 +96,7 @@
 	turn_off_lighter()
 
 /obj/item/lighter/proc/show_off_message(mob/living/user)
-	to_chat(user, span_notice("Вы затушили [src.declent_ru(ACCUSATIVE)]."))
+	user.balloon_alert(user, "выключено")
 	if(world.time > next_off_message)
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
@@ -127,7 +127,7 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] доста[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(src.gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user.declent_ru(GENITIVE)] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_rose("[user] доста[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(src.gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
 	else
 		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
@@ -295,7 +295,7 @@
 	icon_off = "zippo_cap"
 
 /obj/item/lighter/zippo/hop
-	name = "Head of personnel zippo"
+	name = "Head of Personnel zippo"
 	desc = "Ограниченная серия Зиппо для Глав станций НаноТрейзен. Старается изо всех сил выглядеть как капитанская."
 	ru_names = list(
 		NOMINATIVE = "зажигалка Зиппо Главы Персонала",
@@ -447,7 +447,7 @@
 ///////////
 /obj/item/match
 	name = "match"
-	desc = "Простая спичка для зажигания курительных смесей."
+	desc = "Обычная спичка, предназначенная для поджигания курительных смесей."
 	ru_names = list(
 		NOMINATIVE = "спичка",
 		GENITIVE = "спички",
@@ -501,27 +501,27 @@
 	name = lit ? "lit [init_name]" : burnt ? "burnt [init_name]" : initial(name)
 	if(ru_names)
 		if(lit)
-			ru_names[1] = "горящая " + ru_names[1]
-			ru_names[2] = "горящей " + ru_names[2]
-			ru_names[3] = "горящей " + ru_names[3]
-			ru_names[4] = "горящую " + ru_names[4]
-			ru_names[5] = "горящей " + ru_names[5]
-			ru_names[6] = "горящей " + ru_names[6]
+			ru_names[1] = "горящая спичка"
+			ru_names[2] = "горящей спички"
+			ru_names[3] = "горящей спичке"
+			ru_names[4] = "горящую спичку"
+			ru_names[5] = "горящей спичкой"
+			ru_names[6] = "горящей спичке"
 		if(burnt)
-			ru_names = initial(ru_names)
-			ru_names[1] = "сгоревшая " + ru_names[1]
-			ru_names[2] = "сгоревшей " + ru_names[2]
-			ru_names[3] = "сгоревшей " + ru_names[3]
-			ru_names[4] = "сгоревшую " + ru_names[4]
-			ru_names[5] = "сгоревшей " + ru_names[5]
-			ru_names[6] = "сгоревшей " + ru_names[6]
+			ru_names[1] = "сгоревшая спичка"
+			ru_names[2] = "сгоревшей спички"
+			ru_names[3] = "сгоревшей спичке"
+			ru_names[4] = "сгоревшую спичку"
+			ru_names[5] = "сгоревшей спичкой"
+			ru_names[6] = "сгоревшей спичке"
 		if(!lit && !burnt)
 			ru_names = initial(ru_names)
 
 
+
 /obj/item/match/update_desc(updates = ALL)
 	. = ..()
-	desc = lit ? "Это [declent_ru(NOMINATIVE)], охваченная пламенем." : burnt ? "Это [declent_ru(NOMINATIVE)]. Повидала всякое." : initial(desc)
+	desc = lit ? "[capitalize(declent_ru(NOMINATIVE))], охваченная пламенем." : burnt ? "[capitalize(declent_ru(NOMINATIVE))]. Повидала всякое." : initial(desc)
 
 /obj/item/match/get_heat()
 	return lit * 1000
@@ -608,7 +608,7 @@
 
 /obj/item/match/firebrand
 	name = "firebrand"
-	desc = "Незажжённая лучина. Интересно, почему её не называют просто палкой?."
+	desc = "Незажжённая лучина. Интересно, почему её не называют просто палкой?"
 	ru_names = list(
 		NOMINATIVE = "лучина",
 		GENITIVE = "лучины",

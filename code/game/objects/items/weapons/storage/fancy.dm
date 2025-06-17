@@ -341,15 +341,15 @@
 	cigarette_type = /obj/item/clothing/mask/cigarette/syndicate
 
 /obj/item/storage/fancy/cigarettes/cigpack_med
-	name = "Medical Marijuana Packet"
+	name = "\"Dr. Zyuzya\" Marijuana Packet"
 	desc = "Упаковка 20 медицинских сигарет, выпускаемых по рецепту. Содержат марихуану."
 	ru_names = list(
-		NOMINATIVE = "пачка сигарет с марихуаной \"Доктор Зюзя\"",
-		GENITIVE = "пачки сигарет с марихуаной \"Доктор Зюзя\"",
-		DATIVE = "пачке сигарет с марихуаной \"Доктор Зюзя\"",
-		ACCUSATIVE = "пачку сигарет с марихуаной \"Доктор Зюзя\"",
-		INSTRUMENTAL = "пачкой сигарет с марихуаной \"Доктор Зюзя\"",
-		PREPOSITIONAL = "пачке сигарет с марихуаной \"Доктор Зюзя\""
+		NOMINATIVE = "пачка сигарет \"Доктор Зюзя\"",
+		GENITIVE = "пачки сигарет \"Доктор Зюзя\"",
+		DATIVE = "пачке сигарет \"Доктор Зюзя\"",
+		ACCUSATIVE = "пачку сигарет \"Доктор Зюзя\"",
+		INSTRUMENTAL = "пачкой сигарет \"Доктор Зюзя\"",
+		PREPOSITIONAL = "пачке сигарет \"Доктор Зюзя\""
 	)
 	icon_state = "medpacket"
 	item_state = "medpacket"

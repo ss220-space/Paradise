@@ -32,7 +32,7 @@
 	//I couldn't feasibly  fix the overlay bugs caused by cleaning items we are wearing.
 	//So this is a workaround. This also makes more sense from an IC standpoint. ~Carn
 	if(user.client && (target in user.client.screen))
-		user.balloon_alert(user, "сначала снимите с себя [target.declent_ru(ACCUSATIVE)]!")
+		user.balloon_alert(user, "снимите это с себя!")
 	else if(istype(target, /obj/effect/decal/cleanable) || istype(target, /obj/effect/rune))
 		user.balloon_alert(user, "чистка...")
 		if(do_after(user, cleanspeed, target) && target)
@@ -42,12 +42,12 @@
 				return
 			qdel(target)
 	else if(issimulatedturf(target))
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)]."))
+		user.balloon_alert(user, "чистка...")
 		if(do_after(user, cleanspeed, target))
 			user.balloon_alert(user, "очищено")
 			clean_turf(target)
 	else
-		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] оттирать [target.declent_ru(ACCUSATIVE)] с помощью [src.declent_ru(INSTRUMENTAL)]."))
+		user.balloon_alert(user, "чистка...")
 		if(do_after(user, cleanspeed, target))
 			user.balloon_alert(user, "очищено")
 			var/obj/effect/decal/cleanable/C = locate() in target
@@ -231,7 +231,7 @@
 	if(!proximity) return
 
 	if(user.client && (target in user.client.screen))
-		user.balloon_alert(user, "сначала снимите это с себя!")
+		user.balloon_alert(user, "снимите это с себя!")
 	else
 		user.visible_message(span_warning("[user] начина[pluralize_ru(user.gender, "ет", "ют")] возить [src.declent_ru(INSTRUMENTAL)] по [target.declent_ru(DATIVE)]."))
 		if(do_after(user, cleanspeed, target))
