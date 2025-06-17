@@ -1,6 +1,6 @@
 /datum/martial_combo/judo/goldenblast
 	// This is incredibly stupid. ~I~ Somebody from official Paradise love it.
-	name = "Золотая Молния"
+	name = "Золотая молния"
 	steps = list(MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
 	explaination_text = "Используя высший уровень Корпоративного Дзюдо, вы можете оглушить противника жизненной энергией или, если точнее, внезапным скачком напряжения перегруженных нанитов в поясе. Но лучше считать, что это именно жизненная энергия..."
 
