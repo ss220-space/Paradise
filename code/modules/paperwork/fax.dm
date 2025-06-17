@@ -23,7 +23,7 @@ GLOBAL_LIST_EMPTY(adminfaxes)
 // Fax panel - lets admins check all faxes sent during the round
 /client/proc/fax_panel()
 	set name = "Fax Panel"
-	set category = "Admin.Admin Tickets"
+	set category = STATPANEL_ADMIN_TICKETS
 	if(!check_rights(R_ADMIN))
 		return
 	if(holder)

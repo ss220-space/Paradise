@@ -99,7 +99,7 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)</span>")
+					to_chat(M, span_deadsay("<b>[mind.name]</b> умер в <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)"))
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
@@ -113,7 +113,7 @@
 	return TRUE
 
 /mob/living/proc/delayed_gib()
-	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
+	visible_message(span_danger("<b>[src]</b> starts convulsing violently!"), "You feel as if your body is tearing itself apart!")
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

@@ -18,8 +18,8 @@
 
 
 /obj/item/pda/silicon/verb/cmd_send_pdamesg()
-	set category = "AI IM"
-	set name = "Send PDA Message"
+	set category = STATPANEL_AIIM
+	set name = "Сообщение на КПК"
 	set src in usr
 
 	if(!can_use(usr))
@@ -36,8 +36,8 @@
 		M.create_message(usr, selected)
 
 /obj/item/pda/silicon/verb/cmd_show_message_log()
-	set category = "AI IM"
-	set name = "Show Message Log"
+	set category = STATPANEL_AIIM
+	set name = "Журнал сообщений"
 	set src in usr
 
 	if(!can_use(usr))
@@ -55,27 +55,27 @@
 	popup.open(FALSE)
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_receiver()
-	set category = "AI IM"
-	set name = "Toggle Sender/Receiver"
+	set category = STATPANEL_AIIM
+	set name = "Приём сообщений"
 	set src in usr
 
 	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	to_chat(usr, "<span class='notice'>PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!</span>")
+	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
 
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
-	set category = "AI IM"
-	set name = "Toggle Ringer"
+	set category = STATPANEL_AIIM
+	set name = "Беззвучный режим"
 	set src in usr
 
 	if(!can_use(usr))
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent
-	to_chat(usr, "<span class='notice'>PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!</span>")
+	to_chat(usr, span_notice("PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!"))
 
 /obj/item/pda/silicon/attack_self(mob/user as mob)
 	if((honkamt > 0) && (prob(60)))//For clown virus.
@@ -103,6 +103,6 @@
 	if(!istype(pAI))
 		return FALSE
 	if(!pAI.installed_software["messenger"])
-		to_chat(usr, "<span class='warning'>You have not purchased the digital messenger!</span>")
+		to_chat(usr, span_warning("You have not purchased the digital messenger!"))
 		return FALSE
 	return ..() && !pAI.silence_time

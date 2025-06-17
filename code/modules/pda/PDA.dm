@@ -215,8 +215,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	SStgui.close_uis(src)
 
 /obj/item/pda/verb/verb_reset_pda()
-	set category = "Object"
-	set name = "Reset PDA"
+	set category = STATPANEL_OBJECT
+	set name = "Сброс КПК"
 	set src in usr
 
 	if(issilicon(usr))
@@ -226,10 +226,10 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		start_program(find_program(/datum/data/pda/app/main_menu))
 		notifying_programs.Cut()
 		update_icon(UPDATE_OVERLAYS)
-		to_chat(usr, "<span class='notice'>You press the reset button on \the [src].</span>")
+		to_chat(usr, span_notice("You press the reset button on \the [src]."))
 		SStgui.update_uis(src)
 	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(usr, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/click_alt(mob/living/user)
 	if(can_use(user))
@@ -256,7 +256,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if(ismob(loc))
 		var/mob/M = loc
 		M.put_in_hands(id)
-		to_chat(user, "<span class='notice'>You remove the ID from the [name].</span>")
+		to_chat(user, span_notice("You remove the ID from the [name]."))
 		SStgui.update_uis(src)
 	id = null
 	cartridge?.on_id_updated()
@@ -265,8 +265,8 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 
 /obj/item/pda/verb/verb_remove_id()
-	set category = "Object"
-	set name = "Remove id"
+	set category = STATPANEL_OBJECT
+	set name = "Извлечь ID-карту"
 	set src in usr
 
 	if(issilicon(usr))
@@ -276,13 +276,13 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		if(id)
 			remove_id(usr)
 		else
-			to_chat(usr, "<span class='notice'>This PDA does not have an ID in it.</span>")
+			to_chat(usr, span_notice("This PDA does not have an ID in it."))
 	else
-		to_chat(usr, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(usr, span_notice("You cannot do this while restrained."))
 
 /obj/item/pda/verb/verb_remove_pen()
-	set category = "Object"
-	set name = "Remove pen"
+	set category = STATPANEL_OBJECT
+	set name = "Извлечь ручку"
 	set src in usr
 	remove_pen(usr)
 
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	if( can_use(user) )
 		var/obj/item/pen/O = locate() in src
 		if(O)
-			to_chat(user, "<span class='notice'>You remove \the [O] from [src].</span>")
+			to_chat(user, span_notice("You remove \the [O] from [src]."))
 			if(istype(loc, /mob))
 				var/mob/M = loc
 				if(M.get_active_hand() == null)
@@ -302,9 +302,9 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 					return
 			O.forceMove(get_turf(src))
 		else
-			to_chat(user, "<span class='warning'>This PDA does not have a pen in it.</span>")
+			to_chat(user, span_warning("This PDA does not have a pen in it."))
 	else
-		to_chat(user, "<span class='notice'>You cannot do this while restrained.</span>")
+		to_chat(user, span_notice("You cannot do this while restrained."))
 
 
 /obj/item/pda/proc/id_check(mob/user, in_pda_usage)

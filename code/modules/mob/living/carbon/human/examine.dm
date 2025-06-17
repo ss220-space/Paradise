@@ -415,19 +415,19 @@
 
 
 	if(get_gravity(src) < -NO_GRAVITY && !buckled)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] наход[pluralize_ru(gender, "и", "я")]тся на потолке."
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] наход[pluralize_ru(gender, "и", "я")]тся на потолке."
 
 	if(user.no_gravity() && !buckled)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] не подвержен[genderize_ru(user.gender, "", "а", "о", "ы")] действию гравитации."
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] не подвержен[genderize_ru(gender, "", "а", "о", "ы")] действию гравитации."
 
 	if(decaylevel == 1)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] начал[genderize_ru(user.gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] начал[genderize_ru(gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
 	if(decaylevel == 2)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] раздут[genderize_ru(user.gender, "", "а", "о", "ы")] и отвратительно пахнет[pluralize_ru(gender, "ет", "ют")].\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] раздут[genderize_ru(gender, "", "а", "о", "ы")] и отвратительно пахн[pluralize_ru(gender, "ет", "ют")].\n"
 	if(decaylevel == 3)
-		msg += "[genderize_ru(user.gender, "Он почернел", "Она почернела", "Оно почернело", "Они почернели")] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
+		msg += "[genderize_ru(gender, "Он почернел", "Она почернела", "Оно почернело", "Они почернели")] и гниёт, кожа слезает лоскутами. Зловоние неописуемо.\n"
 	if(decaylevel == 4)
-		msg += "[genderize_ru(user.gender, "Он", "Она", "Оно", "Они")] почти полностью разложил[genderize_ru(user.gender, "ся", "ась", "ось", "ись")]. От [genderize_ru(user.gender, "него", "неё", "него", "них")] остался лишь скелет.\n"
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] почти полностью разложил[genderize_ru(gender, "ся", "ась", "ось", "ись")]. От [genderize_ru(gender, "него", "неё", "него", "них")] остался лишь скелет.\n"
 
 	if(hasHUD(user, EXAMINE_HUD_SECURITY_READ))
 		var/perpname = get_visible_name(add_id_name = FALSE)
