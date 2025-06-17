@@ -107,6 +107,7 @@
 
 	to_chat(user, span_notice("Вы достали [cell.declent_ru(ACCUSATIVE)] из [declent_ru(GENITIVE)]."))
 	cell = null
+	update_style(user)
 	cell.update_icon()
 	update_icon()
 
@@ -124,6 +125,7 @@
 		to_chat(user, span_notice("Вы установили [item.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]."))
 		cell = item
 		update_icon()
+		update_style(user)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	if(!iscoregrav(item))
@@ -139,6 +141,7 @@
 
 	to_chat(user, span_notice("Вы установили [item.declent_ru(ACCUSATIVE)] в [declent_ru(NOMINATIVE)]. Они немного потеплели."))
 	core = item
+	update_style(user)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
 
@@ -155,11 +158,20 @@
 
 	core = null
 	user.balloon_alert(user, "ядро извлечено")
+	update_style(user)
 	if(!magpulse)
 		return
 
 	to_chat(user, span_warning("[declent_ru(NOMINATIVE)] отключились при извлечении ядра!"))
 	toggle_magpulse(user, silent = TRUE)
+
+/obj/item/clothing/shoes/magboots/gravity/proc/update_style(mob/user)
+	style.remove(user)
+	if(user.get_item_by_slot(ITEM_SLOT_FEET) != src || !cell || !core)
+		return
+
+	style.bonus_damage = 10 * core.get_strenght() / 150
+	style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
 	. = ..()
@@ -167,9 +179,7 @@
 	if(!ishuman(user))
 		return
 
-	if(slot == ITEM_SLOT_FEET && cell && core)
-		style.bonus_damage = 10 * core.get_strenght() / 150
-		style.teach(user, TRUE)
+	update_style(user)
 
 
 /obj/item/clothing/shoes/magboots/gravity/dropped(mob/living/carbon/human/user, slot, silent = FALSE)

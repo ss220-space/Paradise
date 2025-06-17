@@ -313,10 +313,13 @@
 		stabilyse()
 		return
 
-	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(get_strenght()))
+	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(max(10, get_strenght() * 2)))
 		return
 
 	if(normal_move())
+		after_move()
+
+	if(prob(5) && normal_move())
 		after_move()
 
 	if(has_warp)

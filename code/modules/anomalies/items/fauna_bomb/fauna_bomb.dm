@@ -112,12 +112,12 @@
 /obj/item/fauna_bomb/proc/update_core()
 	charge = 0
 	if(!core)
-		max_charge = 0
-		charge_speed = 0
-		used_charge = 0
 		for(var/mob/living/simple_animal/airmob in created_mobs)
 			airmob.death()
 
+		max_charge = 0
+		charge_speed = 0
+		used_charge = 0
 		use_charge(0) // Stop charging.
 		return
 

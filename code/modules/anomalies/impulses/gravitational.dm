@@ -16,19 +16,19 @@
 	period_low = 5 SECONDS
 	period_high = 10 SECONDS
 	effect_radius_low = 1
-	effect_radius_high = 2
+	effect_radius_high = 3
 
 /datum/anomaly_impulse/change_grav/tier2
 	period_low = 5 SECONDS
 	period_high = 10 SECONDS
-	effect_radius_low = 1
-	effect_radius_high = 3
+	effect_radius_low = 3
+	effect_radius_high = 5
 
 /datum/anomaly_impulse/change_grav/tier3
 	period_low = 5 SECONDS
-	period_high = 20 SECONDS
-	effect_radius_low = 2
-	effect_radius_high = 4
+	period_high = 10 SECONDS
+	effect_radius_low = 3
+	effect_radius_high = 5
 
 /datum/anomaly_impulse/change_grav/tier4
 	period_low = 5 SECONDS
@@ -76,7 +76,7 @@
 	throw_speed_high = 4
 
 /datum/anomaly_impulse/random_throws/tier2
-	period_low = 10 SECONDS
+	period_low = 5 SECONDS
 	period_high = 15 SECONDS
 	effect_radius_low = 1
 	effect_radius_high = 3
