@@ -1,8 +1,8 @@
 /datum/martial_combo/judo/wheelthrow
 	name = "Бросок через себя"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Перекиньте взятого на болевой противника через плечо или прижмите его к полу. \
-						Если противник недавно не был взят на болевой, этот прием не сработает!"
+	explaination_text = "Перекиньте взятого на болевой приём противника через плечо или прижмите его к полу. \
+						Если противник ранее не был взят на болевой, этот приём не сработает!"
 
 
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
