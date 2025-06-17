@@ -2,7 +2,7 @@
 	// This is incredibly stupid. ~I~ Somebody from official Paradise love it.
 	name = "Золотая Молния"
 	steps = list(MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_HELP)
-	explaination_text = "Используя вершину Корпоративного Дзюдо, вы можете оглушить противника жизненной энергией. Или перепадом напряжения перегруженных нанитов в поясе. Лучше считать что это жизненная энергия..."
+	explaination_text = "Используя высший уровень Корпоративного Дзюдо, вы можете оглушить противника жизненной энергией или, если точнее, внезапным скачком напряжения перегруженных нанитов в поясе. Но лучше считать, что это именно жизненная энергия..."
 
 
 /datum/martial_combo/judo/goldenblast/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
