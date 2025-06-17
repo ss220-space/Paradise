@@ -106,6 +106,10 @@
 	if(exile)
 		qdel(exile)
 
+	for(var/obj/item/organ/internal/organ as anything in human.internal_organs)
+		organ.unnecrotize()
+		organ.heal_internal_damage(devil.rank.regen_amount, robo_repair = organ.is_robotic())
+
 	if(ishuman(human))
 		var/mob/living/carbon/human/mob = human
 		mob.check_and_regenerate_organs()

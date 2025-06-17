@@ -315,17 +315,17 @@
 	else
 		text += "тело уничтожено"
 		traitorwin = FALSE
-	text += ")"
+	text += ")<br>"
 
 	text += "Запрет: [info?.ban?.law] <br>"
 	text += "Обязательство: [info?.obligation?.law] <br>"
 	text += "Слабость: [info?.ban?.law] <br>"
-	text += "Изгнание: [info?.bane?.law] <br>"
+	text += "Изгнание: [info?.banish?.law] <br>"
 	var/soul_count = soulsOwned?.len || 0
 	var/rituals_count = ritualSouls?.len || 0
-	text += "Куплено душ: [max(soul_count - rituals_count, 0)]"
-	text += "Принесено жертв: [rituals_count]"
-	text += "Наложено проклятий тени: [shadows?.len || 0]"
+	text += "Куплено душ: [max(soul_count - rituals_count, 0)]<br>"
+	text += "Принесено жертв: [rituals_count]<br>"
+	text += "Наложено проклятий тени: [shadows?.len || 0]<br>"
 
 	var/list/all_objectives = owner.get_all_objectives()
 
