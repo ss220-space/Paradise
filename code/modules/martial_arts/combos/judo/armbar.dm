@@ -8,8 +8,8 @@
 	if(!IS_HORIZONTAL(target))
 		return MARTIAL_COMBO_FAIL
 
-	target.visible_message(span_warning("[user] проворачивает прием, в результате которого [target] оказывается в болевом захвате!"), \
-							span_userdanger("[user] берет вас на болевой!"))
+	target.visible_message(span_warning("[user] проводит приём, в результате которого [target] оказывается в болевом захвате!"), \
+							span_userdanger("[user] берёт вас на болевой!"))
 
 	playsound(get_turf(user), 'sound/weapons/slashmiss.ogg', 40, TRUE, -1)
 	if(!IS_HORIZONTAL(user))
