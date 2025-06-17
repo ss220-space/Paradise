@@ -74,6 +74,27 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
+/obj/projectile/beam/specter/laser
+	name = "specter laser beam"
+	icon_state = "laser"
+	damage = 25
+	damage_type = BURN
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_DARKRED
+
+/obj/projectile/beam/specter/disabler
+	name = "specter paralyzer beam"
+	icon_state = "omnilaser"
+	damage = 30
+	shockbull = TRUE
+	damage_type = STAMINA
+	flag = "energy"
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	hitsound_wall = 'sound/weapons/sear.ogg'
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+
 /obj/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"

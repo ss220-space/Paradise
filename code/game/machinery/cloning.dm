@@ -244,7 +244,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 
 /obj/machinery/clonepod/proc/announce_radio_message(message)
 	if(radio_announce)
-		Radio.autosay(message, name, MED_FREQ, list(z))
+		Radio.autosay(message, name, MED_FREQ_NAME, list(z))
 
 /obj/machinery/clonepod/proc/spooky_devil_flavor()
 	playsound(loc, pick('sound/goonstation/voice/male_scream.ogg', 'sound/goonstation/voice/female_scream.ogg'), 100, 1)
