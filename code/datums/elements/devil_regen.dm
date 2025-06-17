@@ -51,7 +51,8 @@
 	)
 	external = new external(human)
 	human.heal_overall_damage(devil.rank.regen_amount, devil.rank.regen_amount)
-
+	human.CureBlind()
+	human.AdjustEyeBlind(-devil.rank.regen_amount)
 	playsound(get_turf(human), pick(sounds), 50, 0, TRUE)
 	update_status(human)
 

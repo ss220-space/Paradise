@@ -10,10 +10,12 @@
 	human_req = FALSE
 
 /obj/effect/proc_holder/spell/conjure_item/pitchfork/greater
+	name = "Призвать великие вилы"
 	item_type = /obj/item/twohanded/pitchfork/demonic/greater
 
 
 /obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended
+	name = "Призвать вилы Архидьявола"
 	item_type = /obj/item/twohanded/pitchfork/demonic/ascended
 
 
@@ -410,7 +412,7 @@
 	playsound(get_turf(user), 'sound/magic/blind.ogg', 50, TRUE)
 
 /obj/effect/proc_holder/spell/dark_conversion
-	name = "Dark conversion"
+	name = "Теневое искажение"
 	desc = "Превращает гуманоида в тенечеловека и искажает его восприятие реальности."
 
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
@@ -476,12 +478,12 @@
 
 /obj/effect/proc_holder/spell/sacrifice_circle
 	name = "Создать жертвенный круг"
-	desc = "Создает руну для жертвоприношений."
+	desc = "Создает руну для жертвоприношений и ритуалов."
 
 	action_icon = 'icons/mob/actions/actions_cult.dmi'
 	action_icon_state = "sintouch"
 
-	base_cooldown = 900 SECONDS
+	base_cooldown = 100 SECONDS
 	var/cast_time = 5 SECONDS
 
 	clothes_req = FALSE

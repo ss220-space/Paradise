@@ -6,6 +6,7 @@
 	special_role = ROLE_DEVIL
 	antag_hud_type = ANTAG_HUD_DEVIL
 	antag_hud_name = "huddevil"
+	russian_wiki_name = "Торговец_душ"
 
 	var/datum/devilinfo/info = new
 	var/list/soulsOwned
@@ -300,3 +301,52 @@
 		return FALSE
 
 	return mind_holder.mind.has_antag_datum(/datum/antagonist/devil)
+
+/datum/antagonist/devil/roundend_report()
+	var/text
+	var/traitorwin = TRUE
+	text += "<br>[owner.get_display_key()] был [owner.name], известный в аду как [info.truename]("
+	if(owner.current)
+		if(owner.current.stat == DEAD)
+			text += "умер"
+			traitorwin = FALSE
+		else
+			text += "жив"
+	else
+		text += "тело уничтожено"
+		traitorwin = FALSE
+	text += ")"
+
+	text += "Запрет: [info?.ban?.law] <br>"
+	text += "Обязательство: [info?.obligation?.law] <br>"
+	text += "Слабость: [info?.ban?.law] <br>"
+	text += "Изгнание: [info?.bane?.law] <br>"
+	var/soul_count = soulsOwned?.len || 0
+	var/rituals_count = ritualSouls?.len || 0
+	text += "Куплено душ: [max(soul_count - rituals_count, 0)]"
+	text += "Принесено жертв: [rituals_count]"
+	text += "Наложено проклятий тени: [shadows?.len || 0]"
+
+	var/list/all_objectives = owner.get_all_objectives()
+
+	if(length(all_objectives))
+		var/count = 1
+		for(var/datum/objective/objective in all_objectives)
+			if(objective.check_completion())
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <b>[span_fontcolor_green("Успех!")]</b>"
+				SSblackbox.record_feedback("nested tally", "devil_objective", 1, list("[objective.type]", "SUCCESS"))
+			else
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_fontcolor_red("Провал!")]"
+				SSblackbox.record_feedback("nested tally", "devil_objective", 1, list("[objective.type]", "FAIL"))
+				traitorwin = FALSE
+			count++
+
+	if(traitorwin)
+		text += span_fontcolor_green("<br><b>Дьявол был успешен!</b>")
+		SSblackbox.record_feedback("tally", "devil_success", 1, "SUCCESS")
+	else
+		text += span_fontcolor_red("<br><b>Дьявол провалился!</b>")
+		SSblackbox.record_feedback("tally", "devil_success", 1, "FAIL")
+
+	return text
+
