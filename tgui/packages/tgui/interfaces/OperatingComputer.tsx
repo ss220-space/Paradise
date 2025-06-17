@@ -87,7 +87,7 @@ export const OperatingComputer = (_props: unknown) => {
     body = <OperatingComputerOptions />;
   }
   return (
-    <Window width={650} height={500}>
+    <Window width={650} height={455}>
       <Window.Content>
         <Stack fill vertical>
           <Stack.Item>
