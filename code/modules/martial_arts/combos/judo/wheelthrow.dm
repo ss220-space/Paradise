@@ -15,8 +15,8 @@
 		playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 40, TRUE, -1)
 		target.SpinAnimation(10, 1)
 	else
-		target.visible_message(span_warning("[user] хватает [target], и прижимает к земле!"), \
-								span_userdanger("[user] хватает вас и прижимает к земле!"))
+		target.visible_message(span_warning("[user] хватает [target], и прижимает к полу!"), \
+								span_userdanger("[user] хватает вас и прижимает к полу!"))
 		playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 
 	target.apply_damage(120, STAMINA)
