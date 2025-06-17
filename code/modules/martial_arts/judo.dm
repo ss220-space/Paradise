@@ -1,5 +1,5 @@
 /datum/martial_art/judo
-	name = "Корпоративное дзюдо"
+	name = "Корпоративное Дзюдо"
 	has_explaination_verb = TRUE
 	no_baton = TRUE
 	combos = list(
