@@ -167,7 +167,7 @@
 				qdel(src)
 
 			else
-				to_chat(user, "<span class='warning'>You must hold \the [P] steady to burn \the [src].</span>")
+				to_chat(user, span_warning("You must hold \the [P] steady to burn \the [src]."))
 
 /obj/item/paper_bundle/examine(mob/user)
 	. = ..()
@@ -175,9 +175,9 @@
 		if(user.is_literate())
 			show_content(user)
 		else
-			. += "<span class='notice'>You don't know how to read.</span>"
+			. += span_notice("You don't know how to read.")
 	else
-		. += "<span class='notice'>It is too far away.</span>"
+		. += span_notice("It is too far away.")
 
 /obj/item/paper_bundle/proc/show_content(mob/user)
 	var/dat = ""
@@ -245,7 +245,7 @@
 			papers -= W
 			W.forceMove_turf()
 			usr.put_in_hands(W, ignore_anim = FALSE)
-			to_chat(usr, "<span class='notice'>You remove the [W.name] from the bundle.</span>")
+			to_chat(usr, span_notice("You remove the [W.name] from the bundle."))
 			if(amount == 1)
 				var/obj/item/paper/P = papers[1]
 				papers -= P
@@ -262,7 +262,7 @@
 			amount--
 			update_appearance(UPDATE_ICON|UPDATE_DESC)
 	else
-		to_chat(usr, "<span class='notice'>You need to hold it in your hands to change pages.</span>")
+		to_chat(usr, span_notice("You need to hold it in your hands to change pages."))
 	if(!QDELETED(src) && ismob(loc))
 		attack_self(loc)
 		updateUsrDialog()
@@ -270,8 +270,8 @@
 
 
 /obj/item/paper_bundle/verb/rename()
-	set name = "Rename bundle"
-	set category = "Object"
+	set name = "Переименовать пачку"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	var/n_name = tgui_input_text(usr, "What would you like to label the bundle?", "Bundle Labelling", name)
@@ -283,11 +283,11 @@
 
 
 /obj/item/paper_bundle/verb/remove_all()
-	set name = "Loose bundle"
-	set category = "Object"
+	set name = "Распустить пачку"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
-	to_chat(usr, "<span class='notice'>You loosen the bundle.</span>")
+	to_chat(usr, span_notice("You loosen the bundle."))
 	for(var/obj/O in src)
 		O.loc = usr.loc
 		O.layer = initial(O.layer)

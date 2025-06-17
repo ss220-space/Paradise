@@ -43,7 +43,7 @@
 	var/list/status_tab_data = ..()
 	. = status_tab_data
 	if(beacon_cooldown >= world.time)
-		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] секунд")
+		status_tab_data[++status_tab_data.len] = list("Перезарядка блюспейс маяка:", "[max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0)] секунд[declension_ru(max(round((beacon_cooldown - world.time) * 0.1, 0.1), 0), "а", "ы", "")]")
 
 /mob/living/simple_animal/hostile/guardian/healer/AttackingTarget()
 	. = ..()
@@ -91,8 +91,8 @@
 		to_chat(src, span_danger("Нужно быть в хозяине для переключения режимов!"))
 
 /mob/living/simple_animal/hostile/guardian/healer/verb/Beacon()
-	set name = "Установить блюспейс маяк"
-	set category = "Guardian"
+	set name = "Установить БС-маяк"
+	set category = STATPANEL_GUARDIAN
 	set desc = "Пометьте пол как ваш маяк, позволяя телепортировать цели на него. Ваш маяк не будет работать в небезопасных атмосферных условиях."
 	if(beacon_cooldown < world.time)
 		var/turf/beacon_loc = get_turf(loc)
