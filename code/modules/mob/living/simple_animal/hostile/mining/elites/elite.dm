@@ -247,7 +247,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				"<span class='userdanger'>[src] convulses as your arm enters its radius.  Your instincts tell you to step back.</span>")
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				make_activator(fighter)
+				if (fighter.stat != DEAD)
+					make_activator(fighter)
 			if(boosted)
 				mychild.playsound_local(get_turf(mychild), 'sound/magic/cult_spell.ogg', 40, 0)
 				to_chat(mychild, "<span class='warning'>Someone has activated your tumor.  You will be returned to fight shortly, get ready!</span>")
@@ -263,7 +264,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			visible_message("<span class='userdanger'>[src] begins to convulse. Your instincts tell you to step back.</span>")
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
-				make_activator(fighter)
+				if (fighter.stat != DEAD)
+					make_activator(fighter)
 			if(!boosted)
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
 				return
@@ -284,7 +286,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 				visible_message("<span class='warning'>The stirring stops, and nothing emerges.  Perhaps try again later.</span>")
 				activity = TUMOR_INACTIVE
 				for(var/mob/living/carbon/human/activator in activators)
-					clear_activator(activator)
+					if (activator.stat != DEAD)
+						clear_activator(activator)
 
 /obj/structure/elite_tumor/proc/spawn_elite(mob/dead/observer/elitemind)
 	var/selectedspawn = pick(potentialspawns)
