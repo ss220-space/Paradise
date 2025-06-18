@@ -66,6 +66,8 @@
 		id.registered_name = user.real_name
 	id.access = get_all_accesses() + get_all_centcom_access()
 	id.assignment = JOB_TITLE_CAPTAIN
+	id.rank = JOB_TITLE_CAPTAIN
+	SSjobs.account_job_transfer(id.registered_name, JOB_TITLE_CAPTAIN)
 	id.update_label()
 	if(!worn || worn == id)
 		return ..()
