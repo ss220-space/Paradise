@@ -288,12 +288,12 @@
 	if(head_revolutionaries.len || GAMEMODE_IS_REVOLUTION)
 		var/num_revs = 0
 		var/num_survivors = 0
-		for(var/mob/living/carbon/human/survivor in GLOB.player_list)
-			if(!istype(survivor) || survivor.stat == DEAD)
-				continue
-			num_survivors++
-			if(survivor.mind?.has_antag_datum(/datum/antagonist/rev))
-				num_revs++
+		for(var/mob/living/carbon/survivor in GLOB.alive_mob_list)
+			if(survivor.ckey)
+				num_survivors++
+				if(survivor.mind)
+					if((survivor.mind in head_revolutionaries) || (survivor.mind in revolutionaries))
+						num_revs++
 		if(num_survivors)
 			to_chat(world, "[TAB]Command's Approval Rating: <b>[100 - round((num_revs/num_survivors)*100, 0.1)]%</b>") // % of loyal crew
 		var/list/text = list("<br><font size=3><b>The head revolutionaries were:</b></font>")

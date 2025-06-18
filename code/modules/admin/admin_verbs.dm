@@ -1341,7 +1341,7 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(confirm == "Yes")
 		for(var/mob/T as mob in GLOB.mob_list)
 			to_chat(T, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
-			SEND_SOUND(sissy, manned_up_sound)
+			SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")

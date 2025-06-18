@@ -182,13 +182,6 @@
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a WGW-11 series e-reader."
 	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
 	silent = TRUE
-	default_pen = /obj/item/pen/multi
-
-/obj/item/pda/librarian/New()
-	..()
-	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
-	if(M)
-		M.notify_silent = 1 //Quiet in the library!
 
 /obj/item/pda/clear
 	icon_state = "pda-transp"

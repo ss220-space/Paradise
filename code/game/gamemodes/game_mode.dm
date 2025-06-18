@@ -734,16 +734,16 @@
 	. += auto_declare_completion_wizard()
 	. += auto_declare_completion_revolution()
 	. += auto_declare_completion_abduction()
-	. += auto_declare_completion_morph
-	. += auto_declare_completion_revenant
-	. += auto_declare_completion_honksquad
-	. += auto_declare_completion_deathsquad
-	. += auto_declare_completion_sst
-	. += auto_declare_completion_sit
-	. += auto_declare_completion_blob
-	. += auto_declare_completion_heist
-	. += auto_declare_completion_ninja
-	. += auto_declare_completion_thief
+	. += auto_declare_completion_morph()
+	. += auto_declare_completion_revenant()
+	. += auto_declare_completion_honksquad()
+	. += auto_declare_completion_deathsquad()
+	. += auto_declare_completion_sst()
+	. += auto_declare_completion_sit()
+	. += auto_declare_completion_blob()
+	. += auto_declare_completion_heist()
+	. += auto_declare_completion_ninja()
+	. += auto_declare_completion_thief()
 	listclearnulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
