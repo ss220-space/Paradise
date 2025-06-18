@@ -16,7 +16,7 @@ Bonus
 
 /datum/symptom/booze
 
-	name = "Alco-chlorians"
+	name = "Алко-хлорианы"
 	id = "booze"
 	stealth = -4
 	resistance = 4
@@ -33,5 +33,5 @@ Bonus
 				M.reagents.add_reagent(pick("rum", "vodka", "whiskey", "ale", "cider", "mead", "tequila", "wine", "beer"), 5) //somewhat safe drinks
 			else
 				if(prob(SYMPTOM_ACTIVATION_PROB * 5))
-					to_chat(M, span_notice(pick("You feel warmth.", "You feel joyful.", "You relax for a moment"))) //span class notice because this is a drunkeness. Epic mind games ensues
+					to_chat(M, span_notice(pick("Вы чувствуете тепло.", "Вы чувствуете радость.", "Вы расслабляетесь на мгновение.")))
 	return

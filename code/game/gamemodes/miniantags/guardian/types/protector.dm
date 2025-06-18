@@ -16,7 +16,7 @@
 	else
 		..()
 	if(toggle)
-		visible_message(span_danger("The explosion glances off [src]'s energy shielding!")) //FLEX
+		visible_message(span_danger("Взрыв отражается от энергетического щита [src]!")) //FLEX
 
 /mob/living/simple_animal/hostile/guardian/protector/New()
 	..()
@@ -54,12 +54,12 @@
 			return
 		else
 			if(istype(summoner.loc, /obj/effect))
-				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от [summoner.real_name]!"))
-				visible_message(span_danger("[src] jumps back to its user."))
+				to_chat(src, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[declension_ru(range,"","а","ов")] от [summoner.real_name]!"))
+				visible_message(span_danger("[src] возвращается к своему хозяину."))
 				Recall(TRUE)
 			else
-				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метров от <b>[src]</b>!"))
-				summoner.visible_message(span_danger("[summoner] jumps back to [summoner.p_their()] protector."))
+				to_chat(summoner, span_holoparasite("Вы вышли из дальности связи и вернулись обратно! Вы можете двигаться только в радиусе [range] метр[declension_ru(range,"","а","ов")] от <b>[src]</b>!"))
+				summoner.visible_message(span_danger("[summoner] отпрыгива[pluralize_ru(summoner.gender,"ет","ют")] назад к своему защитнику."))
 				new /obj/effect/temp_visual/guardian/phase/out(get_turf(summoner))
 				summoner.forceMove(get_turf(src))
 				new /obj/effect/temp_visual/guardian/phase(get_turf(summoner))//Protector
@@ -89,7 +89,7 @@
 	to_chat(summoner, span_danger("Ваш [name] под атакой! Вы получаете урон!"))
 	summoner.visible_message(span_danger("Кровь хлещет из [summoner] ибо [src] получает урон!"))
 	if(summoner.stat == UNCONSCIOUS)
-		to_chat(summoner, span_danger("Your body can't take the strain of sustaining [src] in this condition, it begins to fall apart!"))
+		to_chat(summoner, span_danger("Ваше тело не выдерживает нагрузки от поддержания [src] в таком состоянии, оно начинает разрушаться!"))
 		summoner.adjustCloneLoss(amount / 2)
 
 
