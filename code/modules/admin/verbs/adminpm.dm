@@ -60,7 +60,7 @@
 
 //takes input from cmd_admin_pm_context, cmd_admin_pm_panel or /client/Topic and sends them a PM.
 //Fetching a message if needed. src is the sender and C is the target client
-/client/proc/cmd_admin_pm(whom, msg, type = "PM")
+/client/proc/cmd_admin_pm(whom, msg, type = "PM", ticket_id = -1)
 	if(check_mute(ckey, MUTE_ADMINHELP))
 		to_chat(src, span_danger("Error: Private-Message: You are unable to use PM-s (muted)."), confidential=TRUE)
 		return
@@ -114,21 +114,29 @@
 	else
 		msg = admin_pencode_to_html(msg)
 
-	var/recieve_span = "playerreply"
+	var/send_span
+	var/recieve_span
 	var/send_pm_type = " "
 	var/recieve_pm_type = "Player"
+	var/message_type
+	var/datum/controller/subsystem/tickets/tickets_system
+	// We treat PMs as mentorhelps if we were explicitly so, or if neither
+	// party is an admin.
+	if(type == MENTORHELP || !(check_rights(R_ADMIN|R_MOD, 0, C.mob) || check_rights(R_ADMIN|R_MOD, 0, src.mob)))
+		send_span = "mentorhelp"
+		recieve_span = "mentorhelp"
+		message_type = MESSAGE_TYPE_MENTORPM
+		tickets_system = SSmentor_tickets
+	else
+		send_span = "adminhelp"
+		recieve_span = "adminhelp"
+		message_type = MESSAGE_TYPE_ADMINPM
+		tickets_system = SStickets
 
 
 	if(holder)
-		//mod PMs are maroon
-		//PMs sent from admins and mods display their rank
-		if(holder)
-			if(check_rights(R_MOD|R_MENTOR,0) && !check_rights(R_ADMIN,0))
-				recieve_span = "mentorhelp"
-			else
-				recieve_span = "adminhelp"
-			send_pm_type = holder.rank + " "
-			recieve_pm_type = holder.rank
+		send_pm_type = holder.rank + " "
+		recieve_pm_type = holder.rank
 
 	else if(!C.holder)
 		to_chat(src, span_danger("Error: Admin-PM: Non-admin to non-admin PM communication is forbidden."), confidential=TRUE)
@@ -158,22 +166,35 @@
 						adminhelp(reply)													//sender has left, adminhelp instead
 				return
 
+
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	if(ticket_id != -1)
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			window_link = "(<a href='?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
+		else
+			window_link = "(<a href='?_src_=holder;openticket=[ticket_id]'>TICKET</a>)"
+
 	var/emoji_msg = span_emojienabled("[msg]")
-	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>:<br><br>[emoji_msg]")
-	to_chat(C, recieve_message, confidential=TRUE)
-	var/observe_link = "([ADMIN_OBS(C.mob, "OBS")])"
+	recieve_message = "<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type, ticket_id = ticket_id) : key_name_hidden(src, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg][C.holder ? "<br>[ping_link] [window_link] [alert_link]" : ""]</span>"
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		recieve_message = chat_box_mhelp(recieve_message)
+	else
+		recieve_message = chat_box_ahelp(recieve_message)
+	to_chat(C, recieve_message)
 	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [window_link] [alert_link]"
 	if(message_type == MESSAGE_TYPE_MENTORPM)
 		send_message = chat_box_mhelp(send_message)
 	else
 		send_message = chat_box_ahelp(send_message)
 	to_chat(src, send_message)
-	
+
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)
-		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
 	else
-		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
@@ -192,32 +213,29 @@
 		if(X.key != key && X.key != C.key)
 			if(message_type == MESSAGE_TYPE_MENTORPM)
 				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
+					to_chat(X, third_party_message)
 			else
 				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
+					to_chat(X, third_party_message)
 
-	//Check if the mob being PM'd has any open admin tickets.
-	var/tickets = list()
-	if(type == MENTORHELP)
-		tickets = SSmentor_tickets.checkForTicket(C)
-	else
-		tickets = SStickets.checkForTicket(C)
-	if(tickets)
-		for(var/datum/ticket/i in tickets)
-			i.addResponse(src, msg) // Add this response to their open tickets.
+	//Check if the mob being PM'd has any open tickets.
+	var/list/tickets = tickets_system.checkForTicket(C, ticket_id)
+
+	if(length(tickets))
+		tickets_system.addResponse(tickets, src, msg)
 		return
-	if(type == MENTORHELP)
-		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+
+	// If we didn't find a specific ticket by the target mob, we check for
+	// tickets by the source mob.
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob))
 			tickets = SSmentor_tickets.checkForTicket(src)
-	else // Ahelp
-		if(check_rights(R_ADMIN|R_MOD, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
+	else
+		if(check_rights(R_ADMIN|R_MOD, 0, C.mob))
 			tickets = SStickets.checkForTicket(src)
 
-	if(tickets)
-		for(var/datum/ticket/i in tickets)
-			i.addResponse(src, msg)
-		return
+	if(length(tickets))
+		tickets_system.addResponse(tickets, src, msg)
 
 /client/proc/cmd_admin_discord_pm()
 	if(check_mute(ckey, MUTE_ADMINHELP))

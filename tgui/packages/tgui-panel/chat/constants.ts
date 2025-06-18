@@ -101,6 +101,12 @@ export const MESSAGE_TYPES = [
     selector: '.mentorpm, .mentorhelp',
   },
   {
+    type: MESSAGE_TYPE_MENTORPM,
+    name: 'Mentor PMs',
+    description: 'Messages to/from mentors (mentorhelp)',
+    selector: '.mentorpm, .mentorhelp',
+  },
+  {
     type: MESSAGE_TYPE_COMBAT,
     name: 'Combat Log',
     description: 'Urist McTraitor has stabbed you with a knife!',
