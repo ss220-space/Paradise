@@ -137,7 +137,7 @@
 
 	desc = "Похоже, серебро наносит этому дьяволу серьёзные раны."
 	law = "Серебро во всех его формах станет вашим падением."
-	bonus_damage = BANE_SILVER_DAMAGE_MODIFIER
+	bonus_damage = BANE_SILVER_DAMAGE_MULTIPLIER
 
 /datum/devil_bane/silver/init_bane()
 	RegisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
