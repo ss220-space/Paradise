@@ -1,3 +1,5 @@
+#define CORE_STRENGTH_TO_DAMAGE_MULT 1 / 15
+
 /obj/item/clothing/shoes/magboots/gravity
 	name = "gravitational boots"
 	ru_names = list(
@@ -170,7 +172,7 @@
 	if(user.get_item_by_slot(ITEM_SLOT_FEET) != src || !cell || !core)
 		return
 
-	style.bonus_damage = 10 * core.get_strenght() / 150
+	style.bonus_damage = core.get_strenght() * CORE_STRENGTH_TO_DAMAGE_MULT
 	style.teach(user, TRUE)
 
 /obj/item/clothing/shoes/magboots/gravity/equipped(mob/user, slot, initial)
@@ -266,3 +268,5 @@
 
 /obj/item/clothing/shoes/magboots/gravity/preloaded
 	core = new /obj/item/assembly/signaler/core/gravitational/tier2()
+
+#undef CORE_STRENGTH_TO_DAMAGE_MULT
