@@ -1,5 +1,5 @@
 /datum/data/pda/app/status_display
-	name = "Status Display"
+	name = "Дисплей статуса"
 	icon = "list-alt"
 	template = "pda_status_display"
 	category = "Utilities"
@@ -25,11 +25,11 @@
 				if("alert")
 					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 				if("setmsg1")
-					message1 = tgui_input_text(usr, "Line 1", "Enter Message Text", message1, encode = FALSE)
+					message1 = tgui_input_text(usr, "Строка 1", "Введите текст", message1, encode = FALSE)
 					if(isnull(message1))
 						return
 				if("setmsg2")
-					message2 = tgui_input_text(usr, "Line 2", "Enter Message Text", message2, encode = FALSE)
+					message2 = tgui_input_text(usr, "Строка 2", "Введите текст", message2, encode = FALSE)
 					if(isnull(message2))
 						return
 				else
@@ -37,7 +37,7 @@
 
 
 /datum/data/pda/app/signaller
-	name = "Signaler System"
+	name = "Система сигналов"
 	icon = "rss"
 	template = "pda_signaler"
 	category = "Utilities"
@@ -72,7 +72,7 @@
 				R.code = clamp(text2num(params["code"]), 1, 100)
 
 /datum/data/pda/app/power
-	name = "Power Monitor"
+	name = "Просмотр электропитания"
 	icon = "bolt"
 	template = "pda_power"
 	category = "Engineering"
@@ -133,7 +133,7 @@
 	has_back = TRUE
 
 /datum/data/pda/app/crew_records/medical
-	name = "Medical Records"
+	name = "Медицинские записи"
 	icon = "heartbeat"
 	template = "pda_medical"
 	category = "Medical"
@@ -159,7 +159,7 @@
 			break
 
 /datum/data/pda/app/crew_records/security
-	name = "Security Records"
+	name = "Записи службы безопасности"
 	icon = "id-badge"
 	template = "pda_security"
 	category = "Security"
@@ -185,7 +185,7 @@
 			break
 
 /datum/data/pda/app/secbot_control
-	name = "Security Bot Access"
+	name = "Управление ботами службы безопасности"
 	icon = "rss"
 	template = "pda_secbot"
 	category = "Security"
@@ -208,17 +208,17 @@
 			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
-					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
+					botsData[++botsData.len] = list("Имя" = sanitize(B.name), "Местоположение" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
 		if(!botsData.len)
-			botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
+			botsData[++botsData.len] = list("Имя" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
 
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = botsCount
 
 	else
 		beepskyData["active"] = 0
-		botsData[++botsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
+		botsData[++botsData.len] = list("Имя" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
 		beepskyData["botstatus"] = list("loca" = null, "mode" = null)
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = 0
@@ -264,7 +264,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "summon"))
 
 /datum/data/pda/app/mule_control
-	name = "Delivery Bot Control"
+	name = "Управление МУЛ-ботами"
 	icon = "truck"
 	template = "pda_mule"
 	category = "Quartermaster"
@@ -289,10 +289,10 @@
 		for(var/mob/living/simple_animal/bot/B in QC.botlist)
 			mulebotsCount++
 			if(B.loc)
-				mulebotsData[++mulebotsData.len] = list("Name" = sanitize(B.name), "Location" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
+				mulebotsData[++mulebotsData.len] = list("Имя" = sanitize(B.name), "Местоположение" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
 		if(!mulebotsData.len)
-			mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
+			mulebotsData[++mulebotsData.len] = list("Имя" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
 
 		muleData["bots"] = mulebotsData
 		muleData["count"] = mulebotsCount
@@ -300,7 +300,7 @@
 	else
 		muleData["botstatus"] =  list("loca" = null, "mode" = -1,"home"=null,"powr" = null,"retn" =null, "pick"=null, "load" = null, "dest" = null)
 		muleData["active"] = 0
-		mulebotsData[++mulebotsData.len] = list("Name" = "No bots found", "Location" = "Invalid", "uid"= null)
+		mulebotsData[++mulebotsData.len] = list("Имя" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
 		muleData["bots"] = mulebotsData
 		muleData["count"] = 0
 		has_back = 0
@@ -349,7 +349,7 @@
 				pda.cartridge.radio.Topic(null, list(op = "home"))
 
 /datum/data/pda/app/supply
-	name = "Supply Records"
+	name = "Записи снабжения"
 	icon = "archive"
 	template = "pda_supplyrecords"
 	category = "Quartermaster"
@@ -362,21 +362,21 @@
 		supplyData["shuttle_moving"] = 1
 
 	if(is_station_level(SSshuttle.supply.z))
-		supplyData["shuttle_loc"] = "Station"
+		supplyData["shuttle_loc"] = "Станция"
 	else
-		supplyData["shuttle_loc"] = "CentCom"
+		supplyData["shuttle_loc"] = "ЦентКом"
 
-	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] Mins)"
+	supplyData["shuttle_time"] = "([SSshuttle.supply.timeLeft(600)] минут)"
 
 	var/supplyOrderCount = 0
 	var/list/supplyOrderData = list()
 	for(var/S in SSshuttle.shoppinglist)
 		var/datum/supply_order/SO = S
 		supplyOrderCount++
-		supplyOrderData[++supplyOrderData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "ApprovedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+		supplyOrderData[++supplyOrderData.len] = list("Номер" = SO.ordernum, "Имя" = html_encode(SO.object.name), "Одобрил" = SO.orderedby, "Комментарий" = html_encode(SO.comment))
 
 	if(!supplyOrderData.len)
-		supplyOrderData[++supplyOrderData.len] = list("Number" = null, "Name" = null, "OrderedBy"=null)
+		supplyOrderData[++supplyOrderData.len] = list("Номер" = null, "Имя" = null, "Заказчик"=null)
 
 	supplyData["approved"] = supplyOrderData
 	supplyData["approved_count"] = supplyOrderCount
@@ -386,10 +386,10 @@
 	for(var/S in SSshuttle.requestlist)
 		var/datum/supply_order/SO = S
 		requestCount++
-		requestData[++requestData.len] = list("Number" = SO.ordernum, "Name" = html_encode(SO.object.name), "OrderedBy" = SO.orderedby, "Comment" = html_encode(SO.comment))
+		requestData[++requestData.len] = list("Номер" = SO.ordernum, "Имя" = html_encode(SO.object.name), "Заказчик" = SO.orderedby, "Комментарий" = html_encode(SO.comment))
 
 	if(!requestData.len)
-		requestData[++requestData.len] = list("Number" = null, "Name" = null, "orderedBy" = null, "Comment" = null)
+		requestData[++requestData.len] = list("Номер" = null, "Имя" = null, "Заказчик" = null, "Комментарий" = null)
 
 	supplyData["requests"] = requestData
 	supplyData["requests_count"] = requestCount
@@ -397,7 +397,7 @@
 	data["supply"] = supplyData
 
 /datum/data/pda/app/janitor
-	name = "Custodial Locator"
+	name = "Поиск имущества уборщика"
 	icon = "trash"
 	template = "pda_janitor"
 	category = "Utilities"
@@ -419,7 +419,7 @@
 			if(ml.z != cl.z)
 				continue
 			var/direction = get_dir(pda, M)
-			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Wet" : "Dry")
+			MopData[++MopData.len] = list ("x" = ml.x, "y" = ml.y, "dir" = uppertext(dir2text(direction)), "status" = M.reagents.total_volume ? "Мокрая" : "Сухая")
 
 	var/list/BucketData = list()
 	for(var/obj/structure/mopbucket/B in GLOB.janitorial_equipment)
@@ -437,7 +437,7 @@
 			if(bl.z != cl.z)
 				continue
 			var/direction = get_dir(pda,B)
-			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Online" : "Offline")
+			CbotData[++CbotData.len] = list("x" = bl.x, "y" = bl.y, "dir" = uppertext(dir2text(direction)), "status" = B.on ? "Работает" : "Выключен")
 
 	var/list/CartData = list()
 	for(var/obj/structure/janitorialcart/B in GLOB.janitorial_equipment)

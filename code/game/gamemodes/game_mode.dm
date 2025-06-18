@@ -151,7 +151,7 @@
 
 				if(objective.per_unit && objective.units_compensated < objective.units_completed)
 					var/newunits = objective.units_completed - objective.units_compensated
-					msg="We see that you completed [newunits] new unit[newunits > 1 ? "s" : ""] for Task #[count]! "
+					msg="Мы зафиксировали, что вы завершили [newunits] новы[newunits > 1 ? "е" : "й"] раздел[newunits > 1 ? "ы" : ""] задачи №[count]! "
 					pay=objective.completion_payment * newunits
 					objective.units_compensated += newunits
 					objective.is_completed() // So we don't get many messages regarding completion
@@ -159,21 +159,21 @@
 				else if(!objective.completed)
 					if(objective.is_completed())
 						pay = objective.completion_payment
-						msg = "Task #[count] completed! "
+						msg = "Задача #[count] выполнена! "
 
 				if(pay > 0)
 					if(player.mind.initial_account)
-						player.mind.initial_account.credit(pay, "Payment", "\[CLASSIFIED\] Terminal #[rand(111,333)]", "[command_name()] Payroll")
-						msg += "You have been sent the $[pay], as agreed."
+						player.mind.initial_account.credit(pay, "Платёж", "\[CLASSIFIED\] Терминал №[rand(111,333)]", "[command_name()] заработная плата")
+						msg += "Вам было отправлено $[pay], как и было указано."
 
 					else
-						msg += "However, we were unable to send you the $[pay] you're entitled."
+						msg += "Однако, мы не смогли отправить вам ваши $[pay]."
 
 					if(message_server && pda_owned)
-						message_server.send_pda_message("[pda_owned.owner]", "[command_name()] Payroll", msg)
+						message_server.send_pda_message("[pda_owned.owner]", "[command_name()] заработная плата", msg)
 
 						var/datum/data/pda/app/messenger/messenger = pda_owned.find_program(/datum/data/pda/app/messenger)
-						messenger.notify("<b>Message from [command_name()] (Payroll), </b>\"[msg]\" (<i>Unable to Reply</i>)", 0)
+						messenger.notify("<b>Сообщение от [command_name()] (Заработная плата), </b>\"[msg]\" (<i>Невозможно ответить</i>)", 0)
 					break
 
 

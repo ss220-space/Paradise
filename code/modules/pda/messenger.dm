@@ -1,8 +1,8 @@
 /datum/data/pda/app/messenger
-	name = "Messenger"
+	name = "Мессенджер"
 	icon = "comments-o"
 	notify_icon = "comments"
-	title = "SpaceMessenger V4.1.0"
+	title = "КосмоМессенджер V4.1.0"
 	template = "pda_messenger"
 
 	var/toff = 0 //If 1, messenger disabled
@@ -29,7 +29,7 @@
 		for(var/c in tnote)
 			if(c["target"] == active_conversation)
 				var/obj/item/pda/device = locateUID(c["target"])
-				data["convo_device"] = QDELETED(device) ? "Error#1133: Unable to find UserName." : "[device.owner] ([device.ownjob])"
+				data["convo_device"] = QDELETED(device) ? "Ошибка №1133: Невозможно найти имя пользователя." : "[device.owner] ([device.ownjob])"
 				break
 	else
 		var/list/convopdas = list()
@@ -41,9 +41,9 @@
 			if(!P.owner || PM.toff || P == pda || PM.m_hidden)
 				continue
 			if(conversations.Find("[P.UID()]"))
-				convopdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
+				convopdas.Add(list(list("Имя" = "[P]", "uid" = "[P.UID()]", "Взорвать" = "[P.detonate]", "inconvo" = "1")))
 			else
-				pdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "0")))
+				pdas.Add(list(list("Имя" = "[P]", "uid" = "[P.UID()]", "Взорвать" = "[P.detonate]", "inconvo" = "0")))
 
 		data["convopdas"] = convopdas
 		data["pdas"] = pdas
@@ -99,7 +99,7 @@
 
 			var/obj/item/pda/P = locateUID(params["target"])
 			if(!P)
-				to_chat(usr, "PDA not found.")
+				to_chat(usr, "КПК не найден.")
 
 			var/datum/data/pda/messenger_plugin/plugin = locateUID(params["plugin"])
 			if(plugin && (plugin in pda.cartridge.messenger_plugins))
@@ -109,7 +109,7 @@
 			active_conversation = null
 
 /datum/data/pda/app/messenger/proc/create_message(var/mob/living/U, var/obj/item/pda/P)
-	var/t = tgui_input_text(U, "Please enter your message", name)
+	var/t = tgui_input_text(U, "Введите сообщение", name)
 	if(!t || !istype(P))
 		return
 	if(!in_range(pda, U) && pda.loc != U)
@@ -149,11 +149,11 @@
 			break
 
 	if(!sendable) // Are we in the range of a reciever?
-		to_chat(U, "<span class='warning'>ERROR: No connection to server.</span>")
+		to_chat(U, span_warning("ОШИБКА: Отсутствует соединение с сервером."))
 		return
 
 	if(!receivable) // Is our recipient in the range of a reciever?
-		to_chat(U, "<span class='warning'>ERROR: No connection to recipient.</span>")
+		to_chat(U, span_warning("ОШИБКА: Отсутствует соединение с собеседником."))
 		return
 
 	if(useMS && sendable && receivable) // only send the message if its going to work
@@ -175,8 +175,8 @@
 			PM.conversations.Add("[pda.UID()]")
 
 		SStgui.update_uis(src)
-		PM.notify("<b>Message from [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='byond://?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Reply</a>)")
-		to_chat(U, "[bicon(pda)] <b>Message to [P.owner] ([P.ownjob]), </b>\"[t]\" (<a href='byond://?src=[UID()];choice=Message;target=[P.UID()]'>Send more</a>)")
+		PM.notify("<b>Сообщение от [pda.owner] ([pda.ownjob]), </b>\"[t]\" (<a href='byond://?src=[PM.UID()];choice=Message;target=[pda.UID()]'>Ответить</a>)")
+		to_chat(U, "[bicon(pda)] <b>Сообщение [P.owner] ([P.ownjob]) отправлено, </b>\"[t]\" (<a href='byond://?src=[UID()];choice=Message;target=[P.UID()]'>Отправить ещё</a>)")
 		log_pda("(PDA: [src.name]) sent \"[t]\" to [P.name]", U)
 		var/log_message = "sent PDA message \"[t]\" using [pda]"
 		var/receiver
@@ -188,7 +188,7 @@
 			log_message = "[log_message] (no holder)"
 		add_misc_logs(U, log_message, receiver)
 	else
-		to_chat(U, "<span class='notice'>ERROR: Messaging server is not responding.</span>")
+		to_chat(U, span_notice("ОШИБКА: Сервер сообщений не отвечает."))
 
 /datum/data/pda/app/messenger/proc/available_pdas()
 	var/list/names = list()
@@ -196,7 +196,7 @@
 	var/list/namecounts = list()
 
 	if(toff)
-		to_chat(usr, "Turn on your receiver in order to send messages.")
+		to_chat(usr, span_notice("Включите ваш передатчик для отправки сообщений."))
 		return
 
 	for(var/A in GLOB.PDAs)

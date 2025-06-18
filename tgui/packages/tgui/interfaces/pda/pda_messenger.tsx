@@ -65,7 +65,7 @@ export const ActiveConversation = (props: Conversation) => {
           <Button
             icon="eye"
             selected={clipboardMode}
-            tooltip="Enter Clipboard Mode"
+            tooltip="Войти в режим буфера обмена"
             tooltipPosition="bottom-start"
             onClick={() => setClipboardMode(!clipboardMode)}
           />
@@ -73,7 +73,7 @@ export const ActiveConversation = (props: Conversation) => {
             icon="comment"
             onClick={() => act('Message', { 'target': active_convo })}
           >
-            Reply
+            Ответить
           </Button>
         </>
       }
@@ -111,7 +111,7 @@ export const ActiveConversation = (props: Conversation) => {
               wordBreak: 'normal',
             }}
           >
-            {im.sent ? 'You:' : 'Them:'} {im.message}
+            {im.sent ? 'Вы:' : 'Them:'} {im.message}
           </Box>
         </Box>
       ))}
@@ -123,13 +123,13 @@ export const ActiveConversation = (props: Conversation) => {
       <Section
         fill
         scrollable
-        title={'Conversation with ' + convo_device + ' '}
+        title={'Диалог с ' + convo_device + ' '}
         buttons={
           <>
             <Button
               icon="eye"
               selected={clipboardMode}
-              tooltip="Exit Clipboard Mode"
+              tooltip="Выйти из режима буфера обмена"
               tooltipPosition="bottom-start"
               onClick={() => setClipboardMode(!clipboardMode)}
             />
@@ -137,7 +137,7 @@ export const ActiveConversation = (props: Conversation) => {
               icon="comment"
               onClick={() => act('Message', { 'target': active_convo })}
             >
-              Reply
+              Ответить
             </Button>
           </>
         }
@@ -150,7 +150,7 @@ export const ActiveConversation = (props: Conversation) => {
               wordBreak: 'normal',
             }}
           >
-            {im.sent ? 'You:' : 'Them:'} <Box inline>{im.message}</Box>
+            {im.sent ? 'Вы:' : 'Them:'} <Box inline>{im.message}</Box>
           </Box>
         ))}
       </Section>
@@ -161,14 +161,14 @@ export const ActiveConversation = (props: Conversation) => {
     <Stack fill vertical>
       <Stack.Item mb={0.5}>
         <LabeledList>
-          <LabeledList.Item label="Messenger Functions">
+          <LabeledList.Item label="Функции мессенджера">
             <Button.Confirm
-              confirmContent="Are you sure?"
+              confirmContent="Вы уверены?"
               icon="trash"
               confirmIcon="trash"
               onClick={() => act('Clear', { option: 'Convo' })}
             >
-              Delete Conversations
+              Удалить диалоги
             </Button.Confirm>
           </LabeledList.Item>
         </LabeledList>
@@ -198,30 +198,30 @@ export const MessengerList = (props: MessengerListProps) => {
     <Stack fill vertical>
       <Stack.Item mb={5}>
         <LabeledList>
-          <LabeledList.Item label="Messenger Functions">
+          <LabeledList.Item label="Функции мессенджера">
             <Button
               selected={!silent}
               icon={silent ? 'volume-mute' : 'volume-up'}
               onClick={() => act('Toggle Ringer')}
             >
-              Ringer: {silent ? 'Off' : 'On'}
+              Звук: {silent ? 'Выключить' : 'Включить'}
             </Button>
             <Button
               color={toff ? 'bad' : 'green'}
               icon="power-off"
               onClick={() => act('Toggle Messenger')}
             >
-              Messenger: {toff ? 'Off' : 'On'}
+              Мессенджер: {toff ? 'Выключить' : 'Включить'}
             </Button>
             <Button icon="bell" onClick={() => act('Ringtone')}>
-              Set Ringtone
+              Установить рингтон
             </Button>
             <Button
               icon="trash"
               color="bad"
               onClick={() => act('Clear', { option: 'All' })}
             >
-              Delete All Conversations
+              Удалить все диалоги
             </Button>
           </LabeledList.Item>
         </LabeledList>
@@ -230,17 +230,17 @@ export const MessengerList = (props: MessengerListProps) => {
             {!!charges && (
               <Box mt={0.5} mb={1}>
                 <LabeledList>
-                  <LabeledList.Item label="Cartridge Special Function">
-                    {charges} charges left.
+                  <LabeledList.Item label="Специальная функция картриджа">
+                    {charges} зарядов осталось.
                   </LabeledList.Item>
                 </LabeledList>
               </Box>
             )}
             {(!convopdas.length && !pdas.length && (
-              <Box>No current conversations</Box>
+              <Box>Диалоги отсутствуют</Box>
             )) || (
               <Box>
-                Search:{' '}
+                Поиск:{' '}
                 <Input
                   mt={0.5}
                   value={searchTerm}
@@ -251,17 +251,17 @@ export const MessengerList = (props: MessengerListProps) => {
               </Box>
             )}
           </Box>
-        )) || <Box color="bad">Messenger Offline.</Box>}
+        )) || <Box color="bad">Мессенджер отключен.</Box>}
       </Stack.Item>
       <PDAList
-        title="Current Conversations"
-        msgAct="Select Conversation"
+        title="Текущие диалоги"
+        msgAct="Выбрать диалог"
         searchTerm={searchTerm}
         pdas={convopdas}
       />
       <PDAList
-        title="Other PDAs"
-        msgAct="Message"
+        title="Другие КПК"
+        msgAct="Сообщение"
         pdas={pdas}
         searchTerm={searchTerm}
         charges={charges}
@@ -286,7 +286,7 @@ const PDAList = (props: PDAProps) => {
   const { pdas, title, msgAct, searchTerm, charges, plugins } = props;
 
   if (!pdas || !pdas.length) {
-    return <Section title={title}>No PDAs found.</Section>;
+    return <Section title={title}>КПК не найдены.</Section>;
   }
 
   return (

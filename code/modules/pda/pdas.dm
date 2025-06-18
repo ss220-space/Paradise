@@ -44,7 +44,15 @@
 /obj/item/pda/clown
 	default_cartridge = /obj/item/cartridge/clown
 	icon_state = "pda-clown"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. The surface is coated with polytetrafluoroethylene and banana drippings."
+	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Поверхность покрыта парафином и каплями банановой субстанции."
+	ru_names = list(
+		NOMINATIVE = "КПК клоуна",
+		GENITIVE = "КПК клоуна",
+		DATIVE = "КПК клоуна",
+		ACCUSATIVE = "КПК клоуна",
+		INSTRUMENTAL = "КПК клоуна",
+		PREPOSITIONAL = "КПК клоуна"
+	)
 	ttone = "honk"
 
 /obj/item/pda/clown/ComponentInitialize()
@@ -53,6 +61,7 @@
 /obj/item/pda/mime
 	default_cartridge = /obj/item/cartridge/mime
 	icon_state = "pda-mime"
+	desc = "..."
 	ttone = "silence"
 
 /obj/item/pda/mime/New()
@@ -184,7 +193,7 @@
 
 /obj/item/pda/librarian
 	icon_state = "pda-library"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a WGW-11 series e-reader."
+	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Данная модель представляет из себя электронную книгу серии WGW-11."
 	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
 
 /obj/item/pda/librarian/New()
@@ -195,8 +204,8 @@
 
 /obj/item/pda/clear
 	icon_state = "pda-transp"
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. This is model is a special edition with a transparent case."
-	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
+	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Эта модель — специальный выпуск с прозрачным корпусом."
+	model_name = "КПК PRO MAX DELUXE SPECIAL TURBO LIMITED EDITION"
 
 /obj/item/pda/chef
 	default_request_console_cartridge = /obj/item/cartridge/request_console/chef
@@ -235,7 +244,7 @@
 //Some spare PDAs in a box
 /obj/item/storage/box/PDAs
 	name = "spare PDAs"
-	desc = "A box of spare PDA microcomputers."
+	desc = "Коробка с запасными КПК."
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pdabox"
 

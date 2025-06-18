@@ -1,6 +1,14 @@
 /obj/machinery/camera
 	name = "security camera"
-	desc = "It's used to monitor rooms."
+	desc = "Используется для наблюдения за помещениями."
+	ru_names = list(
+		NOMINATIVE = "камера",
+		GENITIVE = "камеры",
+		DATIVE = "камере",
+		ACCUSATIVE = "камеру",
+		INSTRUMENTAL = "камерой",
+		PREPOSITIONAL = "камере"
+	)
 	icon = 'icons/obj/machines/monitors.dmi'
 	blocks_emissive = EMISSIVE_BLOCK_GENERIC
 	icon_state = "camera"
@@ -129,20 +137,20 @@
 
 	if(panel_open && is_type_in_list(I, assembly.possible_upgrades))
 		if(is_type_in_list(I, assembly.upgrades))
-			to_chat(user, span_notice("The camera already has that upgrade!"))
+			to_chat(user, span_notice("В камере уже есть это улучшение!"))
 			return ATTACK_CHAIN_PROCEED
 		if(isstack(I))
 			if(!I.use(1))
-				to_chat(user, span_warning("You need more of [I]."))
+				to_chat(user, span_warning("Вам нужно больше [I]."))
 				return ATTACK_CHAIN_PROCEED
 			var/obj/item/stack/new_stack = new(src, 1)
 			assembly.upgrades += new_stack
 			new_stack.camera_upgrade(src)
-			to_chat(user, span_notice("You attach [new_stack] into the assembly inner circuits."))
+			to_chat(user, span_notice("Вы прикрепляете [new_stack] во внутренний контур сборки."))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You attach [I] into the assembly inner circuits."))
+		to_chat(user, span_notice("Вы прикрепляете [I] во внутренний контур сборки."))
 		assembly.upgrades += I
 		I.camera_upgrade(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -151,7 +159,7 @@
 	var/is_paper = istype(I, /obj/item/paper)
 	if(is_paper || is_pda(I))
 		if(!can_use())
-			to_chat(user, span_warning("You can't show something to a disabled camera!"))
+			to_chat(user, span_warning("Вы не можете показать что-либо выключенной камере!"))
 			return ATTACK_CHAIN_PROCEED
 
 		var/itemname = ""
@@ -167,22 +175,22 @@
 			if(notekeeper)
 				info = notekeeper.note
 
-		to_chat(user, "You hold the [itemname] up to the camera ...")
+		to_chat(user, "Вы держите [itemname] перед камерой...")
 
 		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
 			if(user.name == "Unknown")
-				to_chat(AI, "<b>[user]</b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
+				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname]</a> у одной из ваших камер...")
 			else
-				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> holds <a href='byond://?_src_=usr;show_paper=1;'>the [itemname]</a> up to one of your cameras ...")
+				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname]</a> у одной из ваших камер...")
 			AI.last_paper_seen = "<tt>[info]</tt>"
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
 			for(var/uid_watcher as anything in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
-				to_chat(watcher, "[user] holds the [itemname] up to one of the cameras ...")
+				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ут")] [itemname] у одной из ваших камер...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
 				popup.include_default_stylesheet = FALSE
 				popup.set_content("<tt>[info]</tt>")
@@ -203,7 +211,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, span_notice("You screw [src]'s panel [panel_open ? "open" : "closed"]."))
+	to_chat(user, span_notice("Вы [panel_open ? "откручиваете" : "прикручиваете"] панель [src]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -227,8 +235,8 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] unwelds [src], leaving it as just a frame bolted to the wall."),
-						span_warning("You unweld [src], leaving it as just a frame bolted to the wall"))
+		visible_message(span_warning("[user] отвариварива[pluralize_ru(user.gender, "ет", "ют")] [src], оставив лишь раму, прикрученную к стене болтами.."),
+						span_warning("Вы отварили [src], оставив лишь раму, прикрученную к стене болтами."))
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
@@ -495,6 +503,6 @@
 
 /obj/machinery/camera/mortar/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay)
 	return
-	
+
 /obj/machinery/camera/mortar/flamer_fire_act(damage)
 	return

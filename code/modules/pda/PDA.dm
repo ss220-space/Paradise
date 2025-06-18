@@ -22,7 +22,19 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda
 	name = "PDA"
+<<<<<<< Updated upstream
 	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
+=======
+	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Функциональность определяется запрограммированным картриджем."
+	ru_names = list(
+		NOMINATIVE = "КПК",
+		GENITIVE = "КПК",
+		DATIVE = "КПК",
+		ACCUSATIVE = "КПК",
+		INSTRUMENTAL = "КПК",
+		PREPOSITIONAL = "КПК"
+	)
+>>>>>>> Stashed changes
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	lefthand_file = 'icons/mob/inhands/pda_lefthand.dmi'
@@ -344,7 +356,7 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 	else if(chameleon_skin)
 		name = initial(chameleon_skin.name)
 	else if(ownjob && owner)
-		name = "PDA-[owner] ([ownjob])"
+		name = "КПК - [owner] ([ownjob])"
 	else
 		name = initial(name)
 

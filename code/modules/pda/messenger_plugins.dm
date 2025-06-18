@@ -5,7 +5,7 @@
 
 
 /datum/data/pda/messenger_plugin/virus
-	name = "*Send Virus*"
+	name = "*Отправить вирус*"
 
 /datum/data/pda/messenger_plugin/virus/user_act(mob/user as mob, obj/item/pda/P)
 	var/datum/data/pda/app/messenger/M = P.find_program(/datum/data/pda/app/messenger)
@@ -22,7 +22,7 @@
 /datum/data/pda/messenger_plugin/virus/clown/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		user.show_message("<span class='notice'>Virus sent!</span>", 1)
+		user.show_message(span_notice("Вирус отправлен!"))
 		P.honkamt = (rand(15,20))
 		P.ttone = "honk"
 
@@ -33,7 +33,7 @@
 /datum/data/pda/messenger_plugin/virus/mime/user_act(mob/user as mob, obj/item/pda/P)
 	. = ..(user, P)
 	if(.)
-		user.show_message("<span class='notice'>Virus sent!</span>", 1)
+		user.show_message(span_notice("Вирус отправлен!"))
 		var/datum/data/pda/app/M = P.find_program(/datum/data/pda/app/messenger)
 		if(M)
 			M.notify_silent = 1
@@ -41,7 +41,7 @@
 
 
 /datum/data/pda/messenger_plugin/virus/detonate
-	name = "*Detonate*"
+	name = "*Взорвать*"
 	icon = "exclamation-circle"
 
 /datum/data/pda/messenger_plugin/virus/detonate/user_act(mob/user as mob, obj/item/pda/P)
@@ -55,18 +55,18 @@
 			difficulty += 2
 
 		if(!P.detonate || P.hidden_uplink)
-			user.show_message("<span class='warning'>The target PDA does not seem to respond to the detonation command.</span>", 1)
+			user.show_message(span_warning("Целевой КПК не реагирует на команду детонации."))
 			pda.cartridge.charges++
 		else if(prob(difficulty * 12))
-			user.show_message("<span class='warning'>An error flashes on your [pda].</span>", 1)
+			user.show_message(span_warning("На дисплее КПК мигает ошибка."))
 		else if(prob(difficulty * 3))
-			user.show_message("<span class='danger'>Energy feeds back into your [pda]!</span>", 1)
+			user.show_message(span_danger("Заряд возвращается обратно в КПК!"))
 			pda.close(user)
 			pda.explode()
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
 			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge but failed, blowing themselves up")
 		else
-			user.show_message("<span class='notice'>Success!</span>", 1)
+			user.show_message(span_notice("Success!"))
 			log_admin("[key_name(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
 			message_admins("[key_name_admin(user)] just attempted to blow up [P] with the Detomatix cartridge and succeded")
 			P.explode()
@@ -78,7 +78,7 @@
 	. = ..(user, P)
 	if(.)
 		var/lock_code = "[rand(100,999)] [pick("Alpha","Bravo","Charlie","Delta","Echo","Foxtrot","Golf","Hotel","India","Juliet","Kilo","Lima","Mike","November","Oscar","Papa","Quebec","Romeo","Sierra","Tango","Uniform","Victor","Whiskey","X-ray","Yankee","Zulu")]"
-		user.show_message("<span class='notice'>Virus Sent!  The unlock code to the target is: [lock_code]</span>")
+		user.show_message(span_notice("Вирус отправлен! Ключ разблокировки для этой цели: [lock_code]."))
 		if(!P.hidden_uplink)
 			var/obj/item/uplink/hidden/uplink = new(P)
 			P.hidden_uplink = uplink

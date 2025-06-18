@@ -50,7 +50,7 @@ export const PDA = (_props: unknown) => {
       <Window width={350} height={105}>
         <Window.Content scrollable>
           <Section title="Error">
-            No user data found. Please swipe an ID card.
+            Данные пользователя не найдены. Пожалуйста, проведите ID-картой.
           </Section>
         </Window.Content>
       </Window>
@@ -109,14 +109,14 @@ const PDAHeader = (_props: unknown) => {
           color="transparent"
           onClick={() => act('Authenticate')}
         >
-          {idInserted ? idLink : 'No ID Inserted'}
+          {idInserted ? idLink : 'Нет вставленной ID-карты'}
         </Button>
       </Stack.Item>
       <Stack.Item>
         <Button icon="sd-card" color="transparent" onClick={() => act('Eject')}>
           {cartridge_name
-            ? ['Eject ' + cartridge_name]
-            : 'No Cartridge Inserted'}
+            ? ['Вытащить ' + cartridge_name]
+            : 'Нет установленного картриджа'}
         </Button>
       </Stack.Item>
       <Stack.Item>
@@ -126,8 +126,8 @@ const PDAHeader = (_props: unknown) => {
           onClick={() => act('Eject_Request')}
         >
           {request_cartridge_name
-            ? ['Eject ' + request_cartridge_name]
-            : 'No Request Cartridge Inserted'}
+            ? ['Вытащить ' + request_cartridge_name]
+            : 'Нет установленного картриджа запроса'}
         </Button>
       </Stack.Item>
       <Stack.Item grow textAlign="right" bold mr={1} mt={0.5}>

@@ -87,26 +87,26 @@
 	name = "Utility"
 	icon = "gear"
 	size = 1
-	category = "Utilities"
+	category = "Утилиты"
 
 
 /datum/data/pda/utility/scanmode
 	var/base_name
-	category = "Scanners"
+	category = "Сканеры"
 
 /datum/data/pda/utility/scanmode/New(obj/item/cartridge/C)
 	..(C)
-	name = "Enable [base_name]"
+	name = "Включить [base_name]"
 
 /datum/data/pda/utility/scanmode/start()
 	if(pda.scanmode)
-		pda.scanmode.name = "Enable [pda.scanmode.base_name]"
+		pda.scanmode.name = "Включить [pda.scanmode.base_name]"
 
 	if(pda.scanmode == src)
 		pda.scanmode = null
 	else
 		pda.scanmode = src
-		name = "Disable [base_name]"
+		name = "Выключить [base_name]"
 
 	pda.update_shortcuts()
 	return TRUE

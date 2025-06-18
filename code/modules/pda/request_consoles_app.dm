@@ -1,9 +1,9 @@
 /datum/data/pda/app/request_console
-	name = "Request Consoles"
-	title = "Request Consoles"
+	name = "Консоли запроса"
+	title = "Консоли запроса"
 	icon = "archive"
 	template = "pda_request_console"
-	category = "Request Console"
+	category = "Консоли запроса"
 	update = PDA_APP_UPDATE
 	var/list/department_list
 	var/list/possible_consoles = list()
@@ -39,7 +39,7 @@
 	SIGNAL_HANDLER
 	if(isoremessage && source.department != ore_message_reciver_dep)
 		return
-	var/rendered_message = "Recieved on [source.name] : [message]"
+	var/rendered_message = "Отправитель [source.name] : [message]"
 	if(!QDELETED(pda) && !consoles_mute[source])
 		notify(rendered_message)
 

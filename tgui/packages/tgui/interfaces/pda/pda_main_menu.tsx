@@ -28,7 +28,7 @@ export const pda_main_menu = (props: unknown) => {
       <Stack.Item>
         <Section>
           <LabeledList>
-            <LabeledList.Item label="Owner" color="average">
+            <LabeledList.Item label="Владелец" color="average">
               {owner}, {ownjob}
             </LabeledList.Item>
             <LabeledList.Item label="ID">
@@ -37,14 +37,14 @@ export const pda_main_menu = (props: unknown) => {
                 disabled={!idInserted}
                 onClick={() => act('UpdateInfo')}
               >
-                Update PDA Info
+                Обновить информацию
               </Button>
             </LabeledList.Item>
           </LabeledList>
         </Section>
       </Stack.Item>
       <Stack.Item>
-        <Section title="Functions">
+        <Section title="Функции">
           <LabeledList>
             {categories.map((name) => {
               let apps: App[] = data.apps[name];
@@ -78,14 +78,14 @@ export const pda_main_menu = (props: unknown) => {
         {!!pai && (
           <Section title="pAI">
             <Button fluid icon="cog" onClick={() => act('pai', { option: 1 })}>
-              Configuration
+              Конфигурация
             </Button>
             <Button
               fluid
               icon="eject"
               onClick={() => act('pai', { option: 2 })}
             >
-              Eject pAI
+              Извлечь пИИ
             </Button>
           </Section>
         )}
