@@ -48,7 +48,7 @@
 		return
 
 	owner.apply_damage(item.force * bonus_damage)
-	item.visible_message(
+	attacker.visible_message(
 		span_warning("На этот раз [item.declent_ru(NOMINATIVE)] кажется необычайно робастным."),
 		span_notice("[capitalize(item.declent_ru(NOMINATIVE))] уничтожа[pluralize_ru(item.gender,"ет","ют")] [owner.declent_ru(ACCUSATIVE)]!"))
 
@@ -79,7 +79,7 @@
 		return
 
 	owner.apply_damage(bonus_damage * (item.force * (GLOB.whiteness[uniform.type] + 1)))
-	item.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))] кажется получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
+	attacker.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))] кажется получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
 	span_notice("Незапятнанная белая одежда вредит [owner.declent_ru(GENITIVE)]."))
 
 /datum/devil_bane/harvest
@@ -103,7 +103,7 @@
 		return
 
 	owner.apply_damage(item.force * bonus_damage)
-	item.visible_message(
+	attacker.visible_message(
 		span_warning("Духи урожая помогают в изгнании."),
 		span_notice("Духи урожая вредят [owner.declent_ru(DATIVE)]."))
 
@@ -137,12 +137,13 @@
 
 	desc = "Похоже, серебро наносит этому дьяволу серьёзные раны."
 	law = "Серебро во всех его формах станет вашим падением."
+	bonus_damage = BANE_SILVER_DAMAGE_MODIFIER
 
 /datum/devil_bane/silver/init_bane()
-	RegisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
+	RegisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))
 
 /datum/devil_bane/silver/remove_bane()
-	UnregisterSignal(owner, COMSIG_EARLY_REAGENT_ADDED)
+	UnregisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED)
 
 /datum/devil_bane/silver/proc/check_reagents(
 	datum/source,
@@ -166,7 +167,7 @@
 	desc = "Железо будет медленно ранить дьявола, пока оно не выйдет из его тела."
 	law = "Железо станет для вас ядом."
 
-	bonus_damage = 1
+	bonus_damage = BANE_IRON_DAMAGE_MODIFIER
 
 /datum/devil_bane/iron/init_bane()
 	RegisterSignal(owner.reagents, COMSIG_EARLY_REAGENT_ADDED, PROC_REF(check_reagents))

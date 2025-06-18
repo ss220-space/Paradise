@@ -30,7 +30,7 @@
 	law = "Если ваше тело наполнено святой водой, вы не сможете воскреснуть."
 
 /datum/devil_banish/water/check_banishment()
-	return owner.reagents?.has_reagent("holy water")
+	return owner.reagents?.has_reagent("holywater")
 
 /datum/devil_banish/coffin
 	name = BANISH_COFFIN
