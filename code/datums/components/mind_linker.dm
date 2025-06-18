@@ -227,7 +227,7 @@
 	button_icon_state = "link_speech"
 	button_icon = 'icons/mob/actions/actions_slime.dmi'
 	background_icon_state = "bg_alien"
-	overlay_icon_state = "bg_alien_border"
+	//overlay_icon_state = "bg_alien_border"
 
 /datum/action/innate/linked_speech/New(Target)
 	. = ..()
@@ -268,4 +268,4 @@
 		to_chat(recipient, formatted_message, type = MESSAGE_TYPE_RADIO, avoid_highlighting = avoid_highlighting)
 
 	for(var/mob/recipient as anything in GLOB.dead_mob_list)
-		to_chat(recipient, "[FOLLOW_LINK(recipient, owner)] [formatted_message]", type = MESSAGE_TYPE_RADIO)
+		to_chat(recipient, "[ghost_follow_link(recipient, owner)] [formatted_message]", type = MESSAGE_TYPE_RADIO)

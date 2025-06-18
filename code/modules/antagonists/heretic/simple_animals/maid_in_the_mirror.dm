@@ -23,6 +23,7 @@
 	/// A list of REFs to people who recently examined us
 	var/list/recent_examiner_refs = list()
 
+
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/Initialize(mapload)
 	. = ..()
 	var/static/list/loot = list(
@@ -34,10 +35,12 @@
 	AddElement(/datum/element/death_drops, loot)
 	GRANT_ACTION(/obj/effect/proc_holder/spell/jaunt/mirror_walk)
 
+
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/death(gibbed)
 	var/turf/death_turf = get_turf(src)
 	death_turf.TakeTemperature(-40) // Spooky
 	return ..()
+
 
 // Examining them will harm them, on a cooldown.
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/examine(mob/user)
@@ -62,15 +65,15 @@
 		addtimer(CALLBACK(src, PROC_REF(clear_recent_examiner), user_ref), recent_examine_damage_cooldown, TIMER_DELETE_ME)
 		animate(src, alpha = 120, time = 0.5 SECONDS, easing = ELASTIC_EASING, loop = 2, flags = ANIMATION_PARALLEL)
 		animate(alpha = 255, time = 0.5 SECONDS, easing = ELASTIC_EASING)
+		return
 
 	// If we're examined on low enough health we die straight up
-	else
-		visible_message(
-				span_danger("[src] vanishes from existence!"),
-				span_userdanger("[user]'s gaze shatters your form, destroying you!"),
-		)
+	visible_message(
+			span_danger("[src] vanishes from existence!"),
+			span_userdanger("[user]'s gaze shatters your form, destroying you!"),
+	)
+	death()
 
-		death()
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/proc/clear_recent_examiner(mob_ref)
 	if(!(mob_ref in recent_examiner_refs))
@@ -78,3 +81,11 @@
 
 	recent_examiner_refs -= mob_ref
 	heal_overall_damage(5)
+
+/mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/AttackingTarget()
+	attack_sound = pick(
+		'sound/effects/glass/glassbr1.ogg',
+		'sound/effects/glass/glassbr2.ogg',
+		'sound/effects/glass/glassbr3.ogg',
+	)
+	. = ..()

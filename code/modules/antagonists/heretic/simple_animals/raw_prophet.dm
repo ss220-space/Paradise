@@ -25,7 +25,7 @@
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/Initialize(mapload)
 	. = ..()
 	AddElement(/datum/element/wheel)
-	var/static/list/body_parts = list(/obj/effect/gibspawner/human, /obj/item/bodypart/arm/left, /obj/item/organ/eyes)
+	var/static/list/body_parts = list(/obj/effect/gibspawner/human, /obj/item/organ/external/arm, /obj/item/organ/internal/eyes)
 	AddElement(/datum/element/death_drops, body_parts)
 	AddComponent(/datum/component/focused_attacker)
 	var/on_link_message = "You feel something new enter your sphere of mind... \
@@ -60,12 +60,13 @@
 		return
 
 	INVOKE_ASYNC(unlinked_mob, TYPE_PROC_REF(/mob, emote), "scream")
-	unlinked_mob.AdjustParalyzed(0.5 SECONDS) //micro stun
+	unlinked_mob.AdjustParalysis(0.5 SECONDS) //micro stun
 
-/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+/mob/living/simple_animal/hostile/heretic_summon/raw_prophet/AttackingTarget()
 	SpinAnimation(speed = 5, loops = 1)
 	if (target == src)
 		return
+
 	return ..()
 
 /// Variant raw prophet used by eldritch transformation with more base attack power
@@ -79,7 +80,7 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/raw_prophet/ruins/get_innate_abilities()
 	var/list/returnable_list = innate_abilities.Copy()
-	returnable_list += list(/obj/effect/proc_holder/spell/mob_cooldown/watcher_gaze = BB_TARGETED_ACTION)
+	returnable_list += list(/obj/effect/proc_holder/spell/watchers_look = BB_TARGETED_ACTION)
 	return returnable_list
 
 /// Walk and attack people, blind them when we can

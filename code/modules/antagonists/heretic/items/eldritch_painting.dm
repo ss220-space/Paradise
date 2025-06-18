@@ -133,7 +133,7 @@
 		/obj/item/organ/internal/liver,
 		/obj/item/organ/internal/stomach,
 		/obj/item/organ/internal/appendix,
-		/obj/item/organ/external/arm/left,
+		/obj/item/organ/external/arm,
 		/obj/item/organ/external/arm/right,
 		/obj/item/organ/external/leg/left,
 		/obj/item/organ/external/leg/right
