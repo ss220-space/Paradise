@@ -14,6 +14,14 @@
 	icon = 'icons/obj/status_display.dmi'
 	icon_state = "frame"
 	desc = "Устройство для дистанционного управления камерой заключения."
+	ru_names = list(
+		NOMINATIVE = "таймер заключения",
+		GENITIVE = "таймера заключения",
+		DATIVE = "таймеру заключения",
+		ACCUSATIVE = "таймер заключения",
+		INSTRUMENTAL = "таймером заключения",
+		PREPOSITIONAL = "таймере заключения"
+	)
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE    		// can't pick it up
 	density = FALSE			// can walk through it.

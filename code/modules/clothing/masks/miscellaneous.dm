@@ -76,6 +76,14 @@
 /obj/item/clothing/mask/muzzle/tapegag
 	name = "tape gag"
 	desc = "МПХМФ!"
+	ru_names = list(
+		NOMINATIVE = "кляп из клейкой ленты",
+		GENITIVE = "кляпа из клейкой ленты",
+		DATIVE = "кляпу из клейкой ленты",
+		ACCUSATIVE = "кляп из клейкой ленты",
+		INSTRUMENTAL = "кляпом из клейкой ленты",
+		PREPOSITIONAL = "кляпе из клейкой ленты"
+	)
 	icon_state = "tapegag"
 	item_state = null
 	w_class = WEIGHT_CLASS_TINY
@@ -118,6 +126,14 @@
 /obj/item/clothing/mask/muzzle/tapegag/thick
 	name = "thick tape gag"
 	desc = "МПХМФ!"
+	ru_names = list(
+		NOMINATIVE = "кляп из плотной клейкой ленты",
+		GENITIVE = "кляпа из плотной клейкой ленты",
+		DATIVE = "кляпу из плотной клейкой ленты",
+		ACCUSATIVE = "кляп из плотной клейкой ленты",
+		INSTRUMENTAL = "кляпом из плотной клейкой ленты",
+		PREPOSITIONAL = "кляпе из плотной клейкой ленты"
+	)
 	icon_state = "thicktapegag"
 	resist_time = 15 SECONDS
 	mute = MUZZLE_MUTE_MUFFLE
@@ -127,6 +143,14 @@
 /obj/item/clothing/mask/muzzle/safety
 	name = "safety muzzle"
 	desc = "Намордник, предназначенный для предотвращения укусов."
+	ru_names = list(
+		NOMINATIVE = "защитный намордник",
+		GENITIVE = "защитного намордника",
+		DATIVE = "защитному наморднику",
+		ACCUSATIVE = "защитный намордник",
+		INSTRUMENTAL = "защитным намордником",
+		PREPOSITIONAL = "защитном наморднике"
+	)
 	icon_state = "muzzle_secure"
 	item_state = "muzzle_secure"
 	resist_time = 0
@@ -242,6 +266,14 @@
 /obj/item/clothing/mask/surgical
 	name = "sterile mask"
 	desc = "Стерильная маска, предназначенная для предотвращения распространения заболеваний."
+	ru_names = list(
+		NOMINATIVE = "медицинская маска",
+		GENITIVE = "медицинской маски",
+		DATIVE = "медицинской маске",
+		ACCUSATIVE = "медицинскую маску",
+		INSTRUMENTAL = "медицинской маской",
+		PREPOSITIONAL = "медицинской маске"
+	)
 	icon_state = "sterile"
 	item_state = "sterile"
 	w_class = WEIGHT_CLASS_TINY
@@ -277,6 +309,14 @@
 /obj/item/clothing/mask/fakemoustache
 	name = "completely real moustache"
 	desc = "самые настоящие усы."
+	ru_names = list(
+		NOMINATIVE = "усы",
+		GENITIVE = "усов",
+		DATIVE = "усам",
+		ACCUSATIVE = "усы",
+		INSTRUMENTAL = "усами",
+		PREPOSITIONAL = "усах"
+	)
 	icon_state = "fake-moustache"
 	flags_inv = HIDENAME
 	actions_types = list(/datum/action/item_action/pontificate)
@@ -313,7 +353,15 @@
 
 /obj/item/clothing/mask/bluescarf
 	name = "blue neck scarf"
-	desc = "A blue neck scarf."
+	desc = "Синий шарф."
+	ru_names = list(
+		NOMINATIVE = "синий шарф",
+		GENITIVE = "синего шарфа",
+		DATIVE = "синему шарфу",
+		ACCUSATIVE = "синий шарф",
+		INSTRUMENTAL = "синим шарфом",
+		PREPOSITIONAL = "синем шарфе"
+	)
 	icon_state = "blueneckscarf"
 	item_state = "blueneckscarf"
 	flags_cover = MASKCOVERSMOUTH
@@ -323,7 +371,15 @@
 
 /obj/item/clothing/mask/redscarf
 	name = "red scarf"
-	desc = "A red and white checkered neck scarf."
+	desc = "Красно-белый клетчатый шарф."
+	ru_names = list(
+		NOMINATIVE = "красно-белый шарф",
+		GENITIVE = "красно-белого шарфа",
+		DATIVE = "красно-белому шарфу",
+		ACCUSATIVE = "красно-белый шарф",
+		INSTRUMENTAL = "красно-белым шарфом",
+		PREPOSITIONAL = "красно-белом шарфе"
+	)
 	icon_state = "redwhite_scarf"
 	item_state = "redwhite_scarf"
 	flags_cover = MASKCOVERSMOUTH
@@ -332,7 +388,15 @@
 
 /obj/item/clothing/mask/greenscarf
 	name = "green scarf"
-	desc = "A green neck scarf."
+	desc = "Зелёный шарф."
+	ru_names = list(
+		NOMINATIVE = "зелёный шарф",
+		GENITIVE = "зелёного шарфа",
+		DATIVE = "зелёному шарфу",
+		ACCUSATIVE = "зелёный шарф",
+		INSTRUMENTAL = "зелёным шарфом",
+		PREPOSITIONAL = "зелёном шарфе"
+	)
 	icon_state = "green_scarf"
 	item_state = "green_scarf"
 	flags_cover = MASKCOVERSMOUTH
@@ -341,7 +405,15 @@
 
 /obj/item/clothing/mask/pig
 	name = "pig mask"
-	desc = "A rubber pig mask."
+	desc = "Резиновая маска свиньи."
+	ru_names = list(
+		NOMINATIVE = "резиновая маска свиньи",
+		GENITIVE = "резиновой маски свиньи",
+		DATIVE = "резиновой маске свиньи",
+		ACCUSATIVE = "резиновую маску свиньи",
+		INSTRUMENTAL = "резиновой маской свиньи",
+		PREPOSITIONAL = "резиновой маске свиньи"
+	)
 	icon_state = "pig"
 	item_state = "pig"
 	flags_inv = HIDENAME|HIDEHAIR
@@ -351,7 +423,15 @@
 
 /obj/item/clothing/mask/horsehead
 	name = "horse head mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a horse."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову лошади."
+	ru_names = list(
+		NOMINATIVE = "маска головы лошади",
+		GENITIVE = "маски головы лошади",
+		DATIVE = "маске головы лошади",
+		ACCUSATIVE = "маску головы лошади",
+		INSTRUMENTAL = "маской головы лошади",
+		PREPOSITIONAL = "маске головы лошади"
+	)
 	icon_state = "horsehead"
 	item_state = "horsehead"
 	flags_inv = HIDENAME|HIDEHAIR
@@ -406,7 +486,15 @@
 
 /obj/item/clothing/mask/face/rat
 	name = "rat mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a rat."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову крысы."
+	ru_names = list(
+		NOMINATIVE = "маска крысы",
+		GENITIVE = "маски крысы",
+		DATIVE = "маске крысы",
+		ACCUSATIVE = "маску крысы",
+		INSTRUMENTAL = "маской крысы",
+		PREPOSITIONAL = "маске крысы"
+	)
 	icon_state = "rat"
 	item_state = "rat"
 	sprite_sheets = list(
@@ -415,7 +503,15 @@
 
 /obj/item/clothing/mask/face/fox
 	name = "fox mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a fox."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову лисы."
+	ru_names = list(
+		NOMINATIVE = "маска лисы",
+		GENITIVE = "маски лисы",
+		DATIVE = "маске лисы",
+		ACCUSATIVE = "маску лисы",
+		INSTRUMENTAL = "маской лисы",
+		PREPOSITIONAL = "маске лисы"
+	)
 	icon_state = "fox"
 	item_state = "fox"
 	sprite_sheets = list(
@@ -424,7 +520,15 @@
 
 /obj/item/clothing/mask/face/bee
 	name = "bee mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a bee."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову пчелы."
+	ru_names = list(
+		NOMINATIVE = "маска пчелы",
+		GENITIVE = "маски пчелы",
+		DATIVE = "маске пчелы",
+		ACCUSATIVE = "маску пчелы",
+		INSTRUMENTAL = "маской пчелы",
+		PREPOSITIONAL = "маске пчелы"
+	)
 	icon_state = "bee"
 	item_state = "bee"
 	sprite_sheets = list(
@@ -433,7 +537,15 @@
 
 /obj/item/clothing/mask/face/bear
 	name = "bear mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a bear."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову медведя."
+	ru_names = list(
+		NOMINATIVE = "маска медведя",
+		GENITIVE = "маски медведя",
+		DATIVE = "маске медведя",
+		ACCUSATIVE = "маску медведя",
+		INSTRUMENTAL = "маской медведя",
+		PREPOSITIONAL = "маске медведя"
+	)
 	icon_state = "bear"
 	item_state = "bear"
 	sprite_sheets = list(
@@ -442,7 +554,15 @@
 
 /obj/item/clothing/mask/face/bat
 	name = "bat mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a bat."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову летучей мыши."
+	ru_names = list(
+		NOMINATIVE = "маска летучей мыши",
+		GENITIVE = "маски летучей мыши",
+		DATIVE = "маске летучей мыши",
+		ACCUSATIVE = "маску летучей мыши",
+		INSTRUMENTAL = "маской летучей мыши",
+		PREPOSITIONAL = "маске летучей мыши"
+	)
 	icon_state = "bat"
 	item_state = "bat"
 	sprite_sheets = list(
@@ -451,7 +571,15 @@
 
 /obj/item/clothing/mask/face/raven
 	name = "raven mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a raven."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову ворона."
+	ru_names = list(
+		NOMINATIVE = "маска ворона",
+		GENITIVE = "маски ворона",
+		DATIVE = "маске ворона",
+		ACCUSATIVE = "маску ворона",
+		INSTRUMENTAL = "маской ворона",
+		PREPOSITIONAL = "маске ворона"
+	)
 	icon_state = "raven"
 	item_state = "raven"
 	sprite_sheets = list(
@@ -460,7 +588,15 @@
 
 /obj/item/clothing/mask/face/jackal
 	name = "jackal mask"
-	desc = "A mask made of soft vinyl and latex, representing the head of a jackal."
+	desc = "Маска из мягкого винила и латекса, имитирующая голову шакала."
+	ru_names = list(
+		NOMINATIVE = "маска шакала",
+		GENITIVE = "маски шакала",
+		DATIVE = "маске шакала",
+		ACCUSATIVE = "маску шакала",
+		INSTRUMENTAL = "маской шакала",
+		PREPOSITIONAL = "маске шакала"
+	)
 	icon_state = "jackal"
 	item_state = "jackal"
 	sprite_sheets = list(
@@ -469,7 +605,15 @@
 
 /obj/item/clothing/mask/face/tribal
 	name = "tribal mask"
-	desc = "A mask carved out of wood, detailed carefully by hand."
+	desc = "Маска, вырезанная и детализированная вручную из дерева."
+	ru_names = list(
+		NOMINATIVE = "племенная маска",
+		GENITIVE = "племенной маски",
+		DATIVE = "племенной маске",
+		ACCUSATIVE = "племенную маску",
+		INSTRUMENTAL = "племенной маской",
+		PREPOSITIONAL = "племенной маске"
+	)
 	icon_state = "bumba"
 	item_state = "bumba"
 	sprite_sheets = list(
@@ -478,7 +622,15 @@
 
 /obj/item/clothing/mask/face/fawkes
 	name = "Guy Fawkes mask"
-	desc = "A mask designed to help you remember a specific date."
+	desc = "Маска, созданная, чтобы помочь запомнить конкретную дату."
+	ru_names = list(
+		NOMINATIVE = "маска Гая Фокса",
+		GENITIVE = "маски Гая Фокса",
+		DATIVE = "маске Гая Фокса",
+		ACCUSATIVE = "маску Гая Фокса",
+		INSTRUMENTAL = "маской Гая Фокса",
+		PREPOSITIONAL = "маске Гая Фокса"
+	)
 	icon_state = "fawkes"
 	item_state = "fawkes"
 	w_class = WEIGHT_CLASS_SMALL
@@ -487,8 +639,16 @@
 	)
 
 /obj/item/clothing/mask/gas/clown_hat/pennywise
-	name = "Pennywise Mask"
-	desc = "It's the eater of worlds, and of children."
+	name = "Pennywise mask"
+	desc = "Пожиратель миров и детей."
+	ru_names = list(
+		NOMINATIVE = "маска Пеннивайза",
+		GENITIVE = "маски Пеннивайза",
+		DATIVE = "маске Пеннивайза",
+		ACCUSATIVE = "маску Пеннивайза",
+		INSTRUMENTAL = "маской Пеннивайза",
+		PREPOSITIONAL = "маске Пеннивайза"
+	)
 	icon_state = "pennywise_mask"
 	item_state = "pennywise_mask"
 	sprite_sheets = list(
@@ -523,7 +683,15 @@
 
 /obj/item/clothing/mask/gas/clown_hat/rockso
 	name = "Rockso Mask"
-	desc = "THE ROCK AND ROLL CLOWN!"
+	desc = "РОК-Н-РОЛЛ КЛОУН!"
+	ru_names = list(
+		NOMINATIVE = "маска Роксо",
+		GENITIVE = "маски Роксо",
+		DATIVE = "маске Роксо",
+		ACCUSATIVE = "маску Роксо",
+		INSTRUMENTAL = "маской Роксо",
+		PREPOSITIONAL = "маске Роксо"
+	)
 	icon_state = "rocksomask"
 	item_state = "rocksomask"
 	sprite_sheets = list(
@@ -542,7 +710,15 @@
 // Bandanas
 /obj/item/clothing/mask/bandana
 	name = "bandana"
-	desc = "A colorful bandana."
+	desc = "Разноцветная бандана."
+	ru_names = list(
+		NOMINATIVE = "бандана",
+		GENITIVE = "банданы",
+		DATIVE = "бандане",
+		ACCUSATIVE = "бандану",
+		INSTRUMENTAL = "банданой",
+		PREPOSITIONAL = "бандане"
+	)
 	icon_state = "bandbotany"
 	w_class = WEIGHT_CLASS_TINY
 	flags_inv = HIDENAME|HIDEFACIALHAIR
@@ -581,64 +757,160 @@
 
 /obj/item/clothing/mask/bandana/red
 	name = "red bandana"
+	desc = "Красная бандана."
+	ru_names = list(
+		NOMINATIVE = "красная бандана",
+		GENITIVE = "красной банданы",
+		DATIVE = "красной бандане",
+		ACCUSATIVE = "красную бандану",
+		INSTRUMENTAL = "красной банданой",
+		PREPOSITIONAL = "красной бандане"
+	)
 	icon_state = "bandred"
 	item_color = "red"
 	desc = "It's a red bandana."
 
 /obj/item/clothing/mask/bandana/blue
 	name = "blue bandana"
+	desc = "Синяя бандана."
+	ru_names = list(
+		NOMINATIVE = "синяя бандана",
+		GENITIVE = "синей банданы",
+		DATIVE = "синей бандане",
+		ACCUSATIVE = "синюю бандану",
+		INSTRUMENTAL = "синей банданой",
+		PREPOSITIONAL = "синей бандане"
+	)
 	icon_state = "bandblue"
 	item_color = "blue"
 	desc = "It's a blue bandana."
 
 /obj/item/clothing/mask/bandana/gold
 	name = "gold bandana"
+	desc = "Жёлтая бандана."
+	ru_names = list(
+		NOMINATIVE = "жёлтая бандана",
+		GENITIVE = "жёлтой банданы",
+		DATIVE = "жёлтой бандане",
+		ACCUSATIVE = "жёлтую бандану",
+		INSTRUMENTAL = "жёлтой банданой",
+		PREPOSITIONAL = "жёлтой бандане"
+	)
 	icon_state = "bandgold"
 	item_color = "yellow"
 	desc = "It's a gold bandana."
 
 /obj/item/clothing/mask/bandana/green
 	name = "green bandana"
+	desc = "Зелёная бандана."
+	ru_names = list(
+		NOMINATIVE = "зелёная бандана",
+		GENITIVE = "зелёной банданы",
+		DATIVE = "зелёной бандане",
+		ACCUSATIVE = "зелёную бандану",
+		INSTRUMENTAL = "зелёной банданой",
+		PREPOSITIONAL = "зелёной бандане"
+	)
 	icon_state = "bandgreen"
 	item_color = "green"
 	desc = "It's a green bandana."
 
 /obj/item/clothing/mask/bandana/orange
 	name = "orange bandana"
+	desc = "Оранжевая бандана."
+	ru_names = list(
+		NOMINATIVE = "оранжевая бандана",
+		GENITIVE = "оранжевой банданы",
+		DATIVE = "оранжевой бандане",
+		ACCUSATIVE = "оранжевую бандану",
+		INSTRUMENTAL = "оранжевой банданой",
+		PREPOSITIONAL = "оранжевой бандане"
+	)
 	icon_state = "bandorange"
 	item_color = "orange"
 	desc = "It's an orange bandana."
 
 /obj/item/clothing/mask/bandana/purple
 	name = "purple bandana"
+	desc = "Фиолетовая бандана."
+	ru_names = list(
+		NOMINATIVE = "фиолетовая бандана",
+		GENITIVE = "фиолетовой банданы",
+		DATIVE = "фиолетовой бандане",
+		ACCUSATIVE = "фиолетовую бандану",
+		INSTRUMENTAL = "фиолетовой банданой",
+		PREPOSITIONAL = "фиолетовой бандане"
+	)
 	icon_state = "bandpurple"
 	item_color = "purple"
 	desc = "It's a purple bandana."
 
 /obj/item/clothing/mask/bandana/botany
 	name = "botany bandana"
-	desc = "It's a green bandana with some fine nanotech lining."
+	desc = "Зеленая бандана с тонкой подкладкой."
+	ru_names = list(
+		NOMINATIVE = "ботаническая бандана",
+		GENITIVE = "ботанической банданы",
+		DATIVE = "ботанической бандане",
+		ACCUSATIVE = "ботаническую бандану",
+		INSTRUMENTAL = "ботанической банданой",
+		PREPOSITIONAL = "ботанической бандане"
+	)
 	icon_state = "bandbotany"
 
 /obj/item/clothing/mask/bandana/skull
 	name = "skull bandana"
-	desc = "It's a black bandana with a skull pattern."
+	desc = "Чёрная бандана с рисунком черепа."
+	desc = "Бандана с изображением черепа."
+	ru_names = list(
+		NOMINATIVE = "бандана с черепом",
+		GENITIVE = "банданы с черепом",
+		DATIVE = "бандане с черепом",
+		ACCUSATIVE = "бандану с черепом",
+		INSTRUMENTAL = "банданой с черепом",
+		PREPOSITIONAL = "бандане с черепом"
+	)
 	icon_state = "bandskull"
 
 /obj/item/clothing/mask/bandana/black
 	name = "black bandana"
+	desc = "Чёрная бандана."
+	ru_names = list(
+		NOMINATIVE = "чёрная бандана",
+		GENITIVE = "чёрной банданы",
+		DATIVE = "чёрной бандане",
+		ACCUSATIVE = "чёрную бандану",
+		INSTRUMENTAL = "чёрной банданой",
+		PREPOSITIONAL = "чёрной бандане"
+	)
 	icon_state = "bandblack"
 	item_color = "black"
 	desc = "It's a black bandana."
 
 /obj/item/clothing/mask/bandana/durathread
 	name = "durathread bandana"
-	desc =  "A bandana made from durathread, you wish it would provide some protection to its wearer, but it's far too thin..."
+	desc =  "Бандана из дюроткани. На первый взгляд может показаться, что она защищает владельца, но это не так.."
+	ru_names = list(
+		NOMINATIVE = "бандана из дюроткани",
+		GENITIVE = "банданы из дюроткани",
+		DATIVE = "бандане из дюроткани",
+		ACCUSATIVE = "бандану из дюроткани",
+		INSTRUMENTAL = "банданой из дюроткани",
+		PREPOSITIONAL = "бандане из дюроткани"
+	)
 	icon_state = "banddurathread"
 
 /obj/item/clothing/mask/cursedclown
 	name = "cursed clown mask"
-	desc = "This is a very, very odd looking mask."
+	desc = "Очень, очень странная на вид маска."
+	ru_names = list(
+		NOMINATIVE = "проклятая клоунская маска",
+		GENITIVE = "проклятой клоунской маски",
+		DATIVE = "проклятой клоунской маске",
+		ACCUSATIVE = "проклятую клоунскую маску",
+		INSTRUMENTAL = "проклятой клоунской маской",
+		PREPOSITIONAL = "проклятой клоунской маске"
+	)
 	icon = 'icons/goonstation/objects/clothing/mask.dmi'
 	icon_state = "cursedclown"
 	item_state = "cclown_hat"
@@ -677,7 +949,15 @@
 
 /obj/item/clothing/mask/gas/voice_modulator
 	name = "modified gas mask"
-	desc = "The usual gas mask for firefighters with attached voice change sensor."
+	desc = "Противогаз с прикрепленным датчиком изменения голоса."
+	ru_names = list(
+		NOMINATIVE = "модифицированный противогаз",
+		GENITIVE = "модифицированного противогаза",
+		DATIVE = "модифицированному противогазу",
+		ACCUSATIVE = "модифицированный противогаз",
+		INSTRUMENTAL = "модифицированным противогазом",
+		PREPOSITIONAL = "модифицированном противогазе"
+	)
 	icon_state = "voice_modulator"
 	item_state = "voice_modulator"
 
@@ -693,13 +973,21 @@
 
 /obj/item/clothing/mask/gas/voice_modulator/change_speech_verb()
 	if(voice_modulator.active)
-		return pick("modulates", "drones", "hums", "buzzes")
+		return pick("модулирует", "мычит", "гудит", "жужжит")
 
 //sec scarf
 
 /obj/item/clothing/mask/secscarf
 	name = "security scarf"
-	desc = "Bleck security snood. Excellent replacement for a balaclava."
+	desc = "Черный защитный снуд. Отличная замена балаклаве."
+	ru_names = list(
+		NOMINATIVE = "защитный снуд",
+		GENITIVE = "защитного снуда",
+		DATIVE = "защитному снуду",
+		ACCUSATIVE = "защитный снуд",
+		INSTRUMENTAL = "защитным снудом",
+		PREPOSITIONAL = "защитном снуде"
+	)
 	icon_state = "secscarf"
 	item_state = "secscarf"
 	icon = 'icons/obj/clothing/masks.dmi'

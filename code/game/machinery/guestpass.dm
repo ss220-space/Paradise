@@ -43,6 +43,15 @@
 
 /obj/machinery/computer/guestpass
 	name = "guest pass terminal"
+	desc = "Терминал, используюемый для создания гостевых пропусков."
+	ru_names = list(
+		NOMINATIVE = "терминал гостевых пропусков",
+		GENITIVE = "терминала гостевых пропусков",
+		DATIVE = "терминалу гостевых пропусков",
+		ACCUSATIVE = "терминал гостевых пропусков",
+		INSTRUMENTAL = "терминалом гостевых пропусков",
+		PREPOSITIONAL = "терминале гостевых пропусков"
+	)
 	icon_state = "guest"
 	icon_screen = "pass"
 	icon_keyboard = null
@@ -207,6 +216,7 @@
 
 /obj/machinery/computer/guestpass/hop
 	name = "\improper HoP guest pass terminal"
+	desc = "Терминал Главы Персонала, используюемый для создания гостевых пропусков."
 	ru_names = list(
 		NOMINATIVE = "терминал гостевых пропусков ГП",
 		GENITIVE = "терминала гостевых пропусков ГП",
@@ -223,6 +233,7 @@
 
 /obj/machinery/computer/guestpass/syndicate
 	name = "\improper Syndicate guest pass terminal"
+	desc = "Терминал Синдиката, используюемый для создания гостевых пропусков."
 	ru_names = list(
 		NOMINATIVE = "терминал гостевых пропусков Синдиката",
 		GENITIVE = "терминала гостевых пропусков Синдиката",

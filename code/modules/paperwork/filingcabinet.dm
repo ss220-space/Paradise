@@ -11,7 +11,15 @@
  */
 /obj/structure/filingcabinet
 	name = "filing cabinet"
-	desc = "Большой шкаф с ящиками."
+	desc = "Высокий шкаф с ящиками."
+	ru_names = list(
+		NOMINATIVE = "высокий шкаф с ящиками",
+		GENITIVE = "высокого шкафа с ящиками",
+		DATIVE = "высокому шкафу с ящиками",
+		ACCUSATIVE = "высокий шкаф с ящиками",
+		INSTRUMENTAL = "высоким шкафом с ящиками",
+		PREPOSITIONAL = "высоком шкафе с ящиками"
+	)
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "filingcabinet"
 	density = TRUE
@@ -21,11 +29,28 @@
 
 /obj/structure/filingcabinet/chestdrawer
 	name = "chest drawer"
+	desc = "Шкаф с ящиками."
+	ru_names = list(
+		NOMINATIVE = "шкаф с ящиками",
+		GENITIVE = "шкафа с ящиками",
+		DATIVE = "шкафу с ящиками",
+		ACCUSATIVE = "шкаф с ящиками",
+		INSTRUMENTAL = "шкафом с ящиками",
+		PREPOSITIONAL = "шкафе с ящиками"
+	)
 	icon_state = "chestdrawer"
 
 /obj/structure/filingcabinet/chestdrawer/autopsy
 	name = "autopsy reports drawer"
 	desc = "Большой ящик для хранения отчетов о вскрытии."
+	ru_names = list(
+		NOMINATIVE = "ящик для хранения отчётов о вскрытиях",
+		GENITIVE = "ящика для хранения отчётов о вскрытиях",
+		DATIVE = "ящику для хранения отчётов о вскрытиях",
+		ACCUSATIVE = "ящик для хранения отчётов о вскрытиях",
+		INSTRUMENTAL = "ящиком для хранения отчётов о вскрытиях",
+		PREPOSITIONAL = "ящике для хранения отчётов о вскрытиях"
+	)
 
 /obj/structure/filingcabinet/filingcabinet	//not changing the path to avoid unecessary map issues, but please don't name stuff like this in the future -Pete
 	icon_state = "tallcabinet"
