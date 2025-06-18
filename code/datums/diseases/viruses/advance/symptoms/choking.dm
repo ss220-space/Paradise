@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/choking
 
-	name = "Choking"
+	name = "Асфиксия"
 	id = "choking"
 	stealth = -3
 	resistance = -2
@@ -32,13 +32,13 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, span_warning(pick("You're having difficulty breathing.", "Your breathing becomes heavy.")))
+				to_chat(M, span_warning(pick("Вам стало трудно дышать.", "Ваше дыхание становится тяжёлым.")))
 			if(3, 4)
-				to_chat(M, span_warning("<b>[pick("Your windpipe feels like a straw.", "Your breathing becomes tremendously difficult.")]</b>"))
+				to_chat(M, span_warning("<b>[pick("Ваше горло будто стало тонким, как соломинка.", "Дышать становится невыносимо трудно.")]</b>"))
 				Choke_stage_3_4(M, A)
 				M.emote("gasp")
 			else
-				to_chat(M, span_userdanger(pick("You're choking!", "You can't breathe!")))
+				to_chat(M, span_userdanger(pick("Вы задыхаетесь!", "Вы не можете дышать!")))
 				Choke(M, A)
 				M.emote("gasp")
 	return

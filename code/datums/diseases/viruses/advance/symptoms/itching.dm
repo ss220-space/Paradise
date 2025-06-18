@@ -18,7 +18,7 @@ BONUS
 
 /datum/symptom/itching
 
-	name = "Itching"
+	name = "Зуд"
 	id = "itching"
 	stealth = 0
 	resistance = 3
@@ -31,5 +31,5 @@ BONUS
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
-		to_chat(M, span_warning("Your [pick("back", "arm", "leg", "elbow", "head")] itches."))
+		to_chat(M, span_warning("Ваша [pick("спина", "рука", "нога", "голова")] чешется."))
 	return

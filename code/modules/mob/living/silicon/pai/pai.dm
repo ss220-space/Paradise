@@ -687,7 +687,7 @@
 	card.set_light_on(FALSE)
 
 /datum/action/innate/pai_soft
-	name = "PAI Software"
+	name = "Программное обеспечение"
 	desc = "Активация вашего внутреннего интерфейса для выбора программ."
 	icon_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
@@ -698,7 +698,7 @@
 	P.ui_interact(P)
 
 /datum/action/innate/pai_soft/pai_choose_chassis
-	name = "Choose Chassis"
+	name = "Изменить шасси"
 	desc = "Выбор внешности голографического каркаса"
 	button_icon_state = "pai-action3"
 
@@ -707,7 +707,7 @@
 	pai.choose_chassis()
 
 /datum/action/innate/pai_soft/pai_fold_out
-	name = "Unfold Chassis"
+	name = "Развернуть шасси"
 	desc = "Смена мобильной формы на форму голографического каркаса"
 	button_icon_state = "pai-action2"
 
@@ -716,7 +716,7 @@
 	pai.fold_out()
 
 /datum/action/innate/pai_soft/pai_fold_up
-	name = "Collapse Chassis"
+	name = "Собрать шасси"
 	desc = "Возврат в мобильную форму с каркаса"
 	button_icon_state = "pai-action5"
 
@@ -725,7 +725,7 @@
 	pai.fold_up()
 
 /datum/action/innate/pai_soft/pai_change_voice
-	name = "Change Voice"
+	name = "Изменить голос"
 	desc = "Изменение звука голосового модуля"
 	button_icon_state = "pai-action4"
 
@@ -734,7 +734,7 @@
 	pai.pai_change_voice()
 
 /datum/action/innate/pai_soft/pai_suicide
-	name = "PAI Suicide"
+	name = "Самоуничтожение"
 	desc = "Активация протокола самоуничтожения"
 	button_icon_state = "pai-action6"
 

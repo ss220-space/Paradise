@@ -1,8 +1,8 @@
 /datum/disease/virus/cadaver
-	name = "Cadaveric fever"
+	name = "Трупная лихорадка"
 	form = "Заболевание"
-	agent = "Cadaveric microbes"
-	desc = "A terrible disease caused by rotting corpses"
+	agent = "Трупные микробы"
+	desc = "Ужасная болезнь, вызванная разлагающимися трупами."
 	cures = list("calomel")
 	cure_prob = 6
 	stage_prob = 0.8
@@ -25,15 +25,15 @@
 				H.vomit(stun = 0.1 SECONDS)
 			if(prob(7))
 				H.adjust_bodytemperature(30, max_temp = H.dna.species.heat_level_1 + 10)
-				to_chat(H, span_warning("You feel hot!"))
+				to_chat(H, span_warning("Вам жарко!"))
 		if(3, 4)
 			if(prob(3))
 				H.vomit(stun = 0.1 SECONDS)
 			if(prob(7))
 				H.adjust_bodytemperature(30, max_temp = H.dna.species.heat_level_1 + 30)
-				to_chat(H, span_warning("You feel very hot!"))
+				to_chat(H, span_warning("Вам очень жарко!"))
 			if(prob(2))
-				to_chat(H, span_warning("You feel a stabbing pain!"))
+				to_chat(H, span_warning("Вы чувствуете острую боль!"))
 				H.emote("moan")
 				H.Stun(1 SECONDS)
 				H.Slowed(15 SECONDS, 5)
@@ -41,7 +41,7 @@
 				H.emote("moan")
 		if(5)
 			if(prob(4))
-				to_chat(H, span_warning("You feel a stabbing pain!"))
+				to_chat(H, span_warning("Вы чувствуете острую боль!"))
 				H.damageoverlaytemp = max(30, H.damageoverlaytemp)
 				H.emote("moan")
 				H.Stun(1 SECONDS)

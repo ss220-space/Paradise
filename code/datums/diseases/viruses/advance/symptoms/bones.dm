@@ -8,7 +8,7 @@ Fragile Bones Syndrome
 
 /datum/symptom/bones
 
-	name = "Fragile Bones Syndrome"
+	name = "Синдром ломких костей"
 	id = "bones"
 	stealth = -3
 	resistance = -4
@@ -26,34 +26,26 @@ Fragile Bones Syndrome
 	if(prob(SYMPTOM_ACTIVATION_PROB * 4))
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, span_warning(pick("You hear, that something crunches",\
-						"It seems that something crunched",\
-						"Some bad feeling in the [pick("leg","foot","arm","hand","shoulder","spine","neck")]",\
-						"It seems that my finger bent abnormally",\
-						span_italics("crunch..."))))
+				to_chat(M, span_warning(pick("Вы слышите, как что-то хрустнуло.", "Кажется, что-то хрустнуло.", "Какое-то неприятное ощущение в [pick("ноге", "стопе", "руке", "кисти", "плече", "позвоночнике", "шее")].", "Кажется, мой палец согнулся неестественно.", span_italics("хрусь..."))))
 
-			if(3,4)
+			if(3, 4)
 				switch(rand(1, 3))
 					if(1)
 						playsound(M, "bonebreak", 15, 1)
-						M.visible_message(span_warning("You seem to hear a crunching sound from [M]"),\
-								span_warning("You hear, that something crunches inside you!"))
+						M.visible_message(span_warning("Кажется, вы слышите хруст, исходящий от [M.declent_ru(GENITIVE)]."), span_warning("Вы слышите, как что-то хрустнуло внутри вас!"))
 					if(2)
-						to_chat(M, span_warning("You feel terrible pain in your [pick("leg","foot","arm","hand","shoulder","spine","neck")]"))
+						to_chat(M, span_warning("Вы чувствуете ужасную боль в [pick("ноге", "стопе", "руке", "кисти", "плече", "позвоночнике", "шее")]."))
 					if(3)
 						M.Slowed(1 SECONDS)
-						M.visible_message(span_warning("[M] is limping"), span_warning("Your leg doesn't hold its shape at all!"))
+						M.visible_message(span_warning("[capitalize(M.declent_ru(NOMINATIVE))] хрома[pluralize_ru(M.gender,"ет","ют")]."), span_warning("Ваша нога больше не держит форму!"))
 
 			if(5)
 				switch(rand(1, 2))
 					if(1)
-						to_chat(M, span_danger(pick("You feel like your body is crumbling!",\
-							"Something crunched loudly",\
-							"You feel terrible pain in your [pick("leg","foot","arm","hand","shoulder","spine","neck")]",\
-							"It's like you're spreading out on the floor")))
+						to_chat(M, span_danger(pick("Вы чувствуете, как ваше тело разрушается!", "Что-то громко хрустнуло.", "Вы чувствуете ужасную боль в [pick("ноге", "стопе", "руке", "кисти", "плече", "позвоночнике", "шее")].", "Такое ощущение, будто вы растекаетесь по полу.")))
 					if(2)
 						playsound(M, "bonebreak", 50, 1)
-						M.visible_message(span_userdanger(span_italics("CRUNCH")))
+						M.visible_message(span_userdanger(span_italics("ХРУСЬ")))
 
 				if(!done)
 					M.physiology.bone_fragility *= bonefragility_multiplier

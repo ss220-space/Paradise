@@ -58,7 +58,7 @@
 /obj/structure/lavaland/ash_walker/proc/consume()
 	for(var/mob/living/H in view(src, 1)) //Only for corpse right next to/on same tile
 		if(H.stat)
-			visible_message(span_warning("Шипастые усики жадно подтаскивают тело [H] и разрывают его на куски, окропляя кровью растущие яйца."))
+			visible_message(span_warning("Шипастые усики жадно подтаскивают тело [H.declent_ru(GENITIVE)] и разрывают его на куски, окропляя кровью растущие яйца."))
 			playsound(get_turf(src),'sound/magic/demon_consume.ogg', 100, 1)
 			for(var/obj/item/W in H)
 				if(!H.drop_item_ground(W))
@@ -87,11 +87,12 @@
 			new /obj/effect/mob_spawn/human/ash_walker/shaman(get_step(loc, pick(GLOB.alldirs)))
 		else
 			new /obj/effect/mob_spawn/human/ash_walker(get_step(loc, pick(GLOB.alldirs)))
-		visible_message("<span class='danger'>Одно из яиц вырастает до огромных размеров и открепляется от щупальца. Оно готово к вылуплению!</span>")
+		visible_message("<span class='danger'>Одно из яиц вырастает до огромных размеров и открепляется от щупальца. Оно готово к вылуплению!</span>")
 		meat_counter -= ASH_WALKER_SPAWN_THRESHOLD
 
 /obj/effect/mob_spawn/human/ash_walker
-	name = "ash walker egg"
+	name = "Ash walker egg"
+	desc = "Жёлтое яйцо размером с человека, порождённое каким-то непостижимым существом. Внутри проглядывает гуманоидный силуэт."
 	ru_names = list(
 		NOMINATIVE = "яйцо пеплоходца",
 		GENITIVE = "яйца пеплоходца",
@@ -100,7 +101,6 @@
 		INSTRUMENTAL = "яйцом пеплоходца",
 		PREPOSITIONAL = "яйце пеплоходца"
 	)
-	desc = "Жёлтое яйцо размером с человека, порождённое каким-то непостижимым существом. Внутри проглядывает гуманоидный силуэт."
 	mob_name = "an ash walker"
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "ashwalker_egg"
@@ -112,7 +112,7 @@
 	anchored = FALSE
 	move_resist = MOVE_FORCE_NORMAL
 	density = FALSE
-	important_info = "Не покидайте Лаваленд без разрешения администратора. Нападать на шахтёрский аванпост можно только в ответ на агрессию."
+	important_info = "Не покидайте Лаваленд без разрешения администратора. Нападать на шахтёрский аванпост можно только если щупальце в вашем гнезде разрушено."
 	description = "Вы — пеплоходец, дикарь из племени коренных обитателей Лаваленда. Выживайте, охотьтесь и защищайте своё гнездо. Пользуйтесь примитивными племенными технологиями. Скармливайте трупы щупальцу в гнезде, дабы оно порождало яйца новых пеплоходцев. Вам разрешено атаковать шахтёров и других чужаков."
 	flavour_text = "Ваше племя поклоняется Некрополю. Пустоши для вас — священные земли, а местные чудища — их щедрые дары умелым охотникам. \
 	Вы видели вдали огни… Они предвещают прибытие чужаков, желающих разорить ваши земли и даже сам Некрополь. Но для вас они — лишь очередные подношения для гнезда."
@@ -134,7 +134,7 @@
 
 //Ash walker shaman eggs: Spawns in ash walker dens in lavaland. Only one can exist at a time, they are squishier than regular ashwalkers, and have the sole purpose of keeping other ashwalkers alive.
 /obj/effect/mob_spawn/human/ash_walker/shaman
-	name = "ash walker shaman egg"
+	name = "Ash walker shaman egg"
 	ru_names = list(
 		NOMINATIVE = "яйцо шамана пеплоходцев",
 		GENITIVE = "яйца шамана пеплоходцев",
