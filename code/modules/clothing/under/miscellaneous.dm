@@ -1255,7 +1255,7 @@
 
 /obj/item/clothing/under/martialsuit/masterli
 	name = "Master Li clothes"
-	desc = "Чёрная одежда, которую носят мастера боевых искусств."
+	desc = "Одеяние великого воина — жаль, что это всего лишь копия. Оригинал хранится в одном из дворцов династии Чанг."
 	ru_names = list(
 		NOMINATIVE = "костюм Мастера Ли",
 		GENITIVE = "костюма Мастера Ли",
@@ -1272,7 +1272,7 @@
 
 /obj/item/clothing/under/martialsuit/masterdragon
 	name = "Gold dragon master clothes"
-	desc = "Красная одежда с золотистыми узорами, которую носят мастера боевых искусств."
+	desc = "Надевая этот костюм, вы чувствуете прилив социальных кредитов, вкус риса и родство с таярой."
 	ru_names = list(
 		NOMINATIVE = "костюм мастера Золотого дракона",
 		GENITIVE = "костюма мастера Золотого дракона",
@@ -1289,7 +1289,7 @@
 
 /obj/item/clothing/under/martialsuit/redkunoichi
 	name = "Red Kunoichi clothes"
-	desc = "Красный костюм с чёрными элементами."
+	desc = "Раньше этот костюм был синим, но теперь он приобрёл злодейский вид. Курьер прошёл долгий и кровавый путь, чтобы доставить его."
 	ru_names = list(
 		NOMINATIVE = "красный костюм Куноичи",
 		GENITIVE = "красного костюма Куноичи",
@@ -1306,7 +1306,7 @@
 
 /obj/item/clothing/under/martialsuit/bluekunoichi
 	name = "Blue Kunoichi clothes"
-	desc = "Голубой костюм с белыми элементами."
+	desc = "Костюм сделан из высококачественных нитей для лучшего контроля чакры! На бирке указано: \"Made in Chang\""
 	ru_names = list(
 		NOMINATIVE = "голубой костюм Куноичи",
 		GENITIVE = "голубого костюма Куноичи",
