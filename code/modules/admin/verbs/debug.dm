@@ -865,7 +865,7 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 
 		var/list/messages = list(
 			span_notice("Jumped to <b>[landmark.ruin_template.name]</b>:"),
-			span_notice("[landmark.ruin_template.description]")"
+			span_notice("[landmark.ruin_template.description]")
 		)
 		to_chat(usr, chat_box_examine(messages.Join("\n")))
 
