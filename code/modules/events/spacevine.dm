@@ -1,3 +1,4 @@
+#define SPACEVINE_SPAWN_THRESHOLD 5
 //Types of usual mutations
 #define	POSITIVE 			1
 #define	NEGATIVE			2
@@ -11,7 +12,20 @@
 	SC = null
 	return ..()
 
+
 /datum/event/spacevine/start()
+	var/player_count = num_station_players()
+	if(player_count >= SPACEVINE_SPAWN_THRESHOLD)
+		// It is necessary to wrap this to avoid the event triggering repeatedly.
+		INVOKE_ASYNC(src, PROC_REF(wrapped_start))
+		return
+
+	log_and_message_admins("Random event attempted to spawn a spacevine, but there were only [player_count]/[SPACEVINE_SPAWN_THRESHOLD] players.")
+	var/datum/event_container/event_container = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+	event_container.next_event_time = world.time + (60 * 10)
+
+
+/datum/event/spacevine/proc/wrapped_start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
 	var/obj/structure/spacevine/SV = new()
@@ -779,3 +793,5 @@
 		var/mob/living/M = A
 		if(("vines" in M.faction) || ("plants" in M.faction))
 			. = TRUE
+
+#undef SPACEVINE_SPAWN_THRESHOLD
