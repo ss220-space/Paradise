@@ -1,8 +1,8 @@
 /datum/martial_combo/judo/wheelthrow
 	name = "Бросок через себя"
 	steps = list(MARTIAL_COMBO_STEP_GRAB, MARTIAL_COMBO_STEP_DISARM, MARTIAL_COMBO_STEP_HARM)
-	explaination_text = "Перекиньте взятого на болевой противника через плечо или прижмите его к полу. \
-						Если противник недавно не был взят на болевой, этот прием не сработает!"
+	explaination_text = "Перекиньте взятого на болевой приём противника через плечо или прижмите его к полу. \
+						Если противник ранее не был взят на болевой, этот приём не сработает!"
 
 
 /datum/martial_combo/judo/wheelthrow/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
@@ -15,8 +15,8 @@
 		playsound(get_turf(user), 'sound/magic/tail_swing.ogg', 40, TRUE, -1)
 		target.SpinAnimation(10, 1)
 	else
-		target.visible_message(span_warning("[user] хватает [target], и прижимает к земле!"), \
-								span_userdanger("[user] хватает вас и прижимает к земле!"))
+		target.visible_message(span_warning("[user] хватает [target], и прижимает к полу!"), \
+								span_userdanger("[user] хватает вас и прижимает к полу!"))
 		playsound(get_turf(user), 'sound/weapons/slam.ogg', 40, TRUE, -1)
 
 	target.apply_damage(120, STAMINA)

@@ -5,8 +5,8 @@
 
 
 /datum/martial_combo/judo/eyepoke/perform_combo(mob/living/carbon/human/user, mob/living/target, datum/martial_art/martial_art)
-	target.visible_message(span_warning("[user] бьет [target] по глазам!"), \
-						span_userdanger("[user] бьет вас по глазам!"))
+	target.visible_message(span_warning("[user] бьёт [target] по глазам!"), \
+						span_userdanger("[user] бьёт вас по глазам!"))
 	playsound(get_turf(user), 'sound/weapons/whip.ogg', 40, TRUE, -1)
 	target.apply_damage(10, BRUTE)
 	target.AdjustEyeBlurry(50, 0, 30 SECONDS)
