@@ -59,7 +59,7 @@
 
 	style.teach(human, TRUE)
 	to_chat(human, span_userdanger("Наниты в поясе наделяют вас навыками Корпоративного Дзюдо!"))
-	to_chat(human, span_danger("Комбо смотрите во вкладке «Боевые искусства»."))
+	to_chat(human, span_danger("Вы можете найти комбинации во вкладке \"Боевые искусства\"."))
 
 
 /obj/item/storage/belt/security/judobelt/dropped(mob/user)
