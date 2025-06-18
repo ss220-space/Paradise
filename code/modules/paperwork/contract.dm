@@ -173,6 +173,10 @@
 		to_chat(user, span_notice("У вас нет души для продажи!"))
 		return FALSE
 
+	if(HAS_TRAIT(user.mind, TRAIT_BAD_SOUL))
+		to_chat(user, span_notice("Ваша душа искажена после возвращения и не может быть продана повторно!"))
+		return FALSE
+
 	if(user.mind.soulOwner == owner)
 		to_chat(user, "<span class='notice'>This devil already owns your soul, you may not sell it to them again.</span>")
 		return FALSE

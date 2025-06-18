@@ -319,7 +319,7 @@
 
 	text += "Запрет: [info?.ban?.law] <br>"
 	text += "Обязательство: [info?.obligation?.law] <br>"
-	text += "Слабость: [info?.ban?.law] <br>"
+	text += "Слабость: [info?.bane?.law] <br>"
 	text += "Изгнание: [info?.banish?.law] <br>"
 	var/soul_count = soulsOwned?.len || 0
 	var/rituals_count = ritualSouls?.len || 0

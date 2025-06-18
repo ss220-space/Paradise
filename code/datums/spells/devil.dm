@@ -65,7 +65,7 @@
 
 
 /obj/effect/proc_holder/spell/summon_contract/valid_target(mob/living/carbon/target, mob/user)
-	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind)
+	return target.mind && target.mind.hasSoul && (target.mind.soulOwner == target.mind) && !HAS_TRAIT(target.mind, TRAIT_BAD_SOUL)
 
 
 /obj/effect/proc_holder/spell/summon_contract/cast(list/targets, mob/user = usr)
@@ -156,6 +156,8 @@
 
 	if(!soul)
 		return
+
+	ADD_TRAIT(soul, TRAIT_BAD_SOUL, DEVIL_CONTRACT_TRAIT)
 
 	devil.remove_soul(soul)
 
