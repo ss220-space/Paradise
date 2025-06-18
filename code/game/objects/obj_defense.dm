@@ -104,7 +104,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger("[src] is hit by \a [P]!"), projectile_message = TRUE)
+	visible_message(span_danger("[src.declent_ru(NOMINATIVE)] поражён [P.declent_ru(INSTRUMENTAL)]!"), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -332,6 +332,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/flamer_fire_act(damage)
 	if(resistance_flags & FIRE_PROOF)
 		resistance_flags &= ~FIRE_PROOF
-	if(armor.getRating(FIRE) > 50) 
+	if(armor.getRating(FIRE) > 50)
 		armor = armor.setRating(fire_value = 50)
 	return ..()
