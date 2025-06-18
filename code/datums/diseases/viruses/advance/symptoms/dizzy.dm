@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/dizzy // Not the egg
 
-	name = "Dizziness"
+	name = "Головокружение"
 	id = "dizzy"
 	stealth = 2
 	resistance = -2
@@ -32,8 +32,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, span_warning(pick("You feel dizzy.", "Your head spins.")))
+				to_chat(M, span_warning(pick("Вы чувствуете головокружение.", "У вас кружится голова.")));
 			else
-				to_chat(M, span_userdanger("A wave of dizziness washes over you!"))
+				to_chat(M, span_userdanger("Волна головокружения накатывает на вас!"))
 				M.Dizzy(15 SECONDS)
 	return

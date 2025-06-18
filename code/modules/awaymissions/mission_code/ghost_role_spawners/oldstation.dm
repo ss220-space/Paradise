@@ -2,9 +2,17 @@
 
 /obj/effect/mob_spawn/human/oldstation
 	name = "old cryogenics pod"
+	ru_names = list(
+		NOMINATIVE = "старая криогенная капсула",
+		GENITIVE = "старой криогенной капсулы",
+		DATIVE = "старой криогенной капсуле",
+		ACCUSATIVE = "старую криогенную капсулу",
+		INSTRUMENTAL = "старой криогенной капсулой",
+		PREPOSITIONAL = "старой криогенной капсуле"
+	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	description = "Work as a team with your fellow survivors aboard a ruined, ancient space station."
+	description = "Работайте в команде с другими выжившими на борту древней разрушенной космической станции."
 	roundstart = FALSE
 	death = FALSE
 	allow_species_pick = TRUE
@@ -16,50 +24,66 @@
 	assignedrole = "Ancient Crew"
 
 /obj/effect/mob_spawn/human/oldstation/oldsec
-	desc = "A humming cryo pod. You can barely recognise a security uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	desc = "Гудящая криокапсула. Вы едва можете разглядеть форму службы безопасности под слоем намерзшего льда. Машина пытается разбудить своего пассажира."
 	mob_name = "a security officer"
 	outfit = /datum/outfit/oldstation/officer
 	important_info = ""
-	flavour_text = "You are a security officer working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
-	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
+	flavour_text = "Вы – офицер службы безопасности, работающий на НаноТрейзен, и находитесь на борту передовой исследовательской станции. Вы смутно помните, \
+	как бросились в криогенную капсулу из-за надвигающейся радиационной бури. Последнее, что вы помните, – это слова Искусственного Интеллекта станции о том, что вы \
+	проспите всего восемь часов. Когда вы открываете глаза, всё вокруг кажется ржавым и разрушенным, а в животе нарастает тёмное предчувствие, пока вы выбираетесь из капсулы."
 
 /obj/effect/mob_spawn/human/oldstation/oldmed
-	desc = "A humming cryo pod. You can barely recognise a medical uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	desc = "Гудящая криокапсула. Вы едва можете разглядеть медицинскую форму под слоем намерзшего льда. Машина пытается разбудить своего пассажира."
 	mob_name = "a medical doctor"
 	outfit = /datum/outfit/oldstation/medic
 	important_info = ""
-	flavour_text = "You are a medical doctor working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
-	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
+	flavour_text = "Вы – врач, работающий на НаноТрейзен, и находитесь на борту передовой исследовательской станции. Вы смутно помните, \
+	как бросились в криогенную капсулу из-за надвигающейся радиационной бури. Последнее, что вы помните, – это слова Искусственного Интеллекта станции о том, что вы \
+	проспите всего восемь часов. Когда вы открываете глаза, всё вокруг кажется ржавым и разрушенным, а в животе нарастает тёмное предчувствие, пока вы выбираетесь из капсулы."
 
 /obj/effect/mob_spawn/human/oldstation/oldeng
-	desc = "A humming cryo pod. You can barely recognise an engineering uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	desc = "Гудящая криокапсула. Вы едва можете разглядеть инженерную форму под слоем намерзшего льда. Машина пытается разбудить своего пассажира."
 	mob_name = "an engineer"
 	outfit = /datum/outfit/oldstation/engineer
 	important_info = ""
-	flavour_text = "You are an engineer working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
-	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
+	flavour_text = "Вы – инженер, работающий на НаноТрейзен, и находитесь на борту передовой исследовательской станции. Вы смутно помните, \
+	как бросились в криогенную капсулу из-за надвигающейся радиационной бури. Последнее, что вы помните, – это слова Искусственного Интеллекта станции о том, что вы \
+	проспите всего восемь часов. Когда вы открываете глаза, всё вокруг кажется ржавым и разрушенным, а в животе нарастает тёмное предчувствие, пока вы выбираетесь из капсулы."
 
 /obj/effect/mob_spawn/human/oldstation/oldsci
-	desc = "A humming cryo pod. You can barely recognise a science uniform underneath the built up ice. The machine is attempting to wake up its occupant."
+	desc = "Гудящая криокапсула. Вы едва можете разглядеть форму учёного под слоем намерзшего льда. Машина пытается разбудить своего пассажира."
 	mob_name = "a scientist"
 	outfit = /datum/outfit/oldstation/scientist
 	important_info = ""
-	flavour_text = "You are a scientist working for Nanotrasen, stationed onboard a state of the art research station. You vaguely recall rushing into a \
-	cryogenics pod due to an oncoming radiation storm. The last thing you remember is the station's Artificial Program telling you that you would only be asleep for eight hours. As you open \
-	your eyes, everything seems rusted and broken, a dark feeling swells in your gut as you climb out of your pod."
+	flavour_text = "Вы – учёный, работающий на НаноТрейзен, и находитесь на борту передовой исследовательской станции. Вы смутно помните, \
+	как бросились в криогенную капсулу из-за надвигающейся радиационной бури. Последнее, что вы помните, – это слова Искусственного Интеллекта станции о том, что вы \
+	проспите всего восемь часов. Когда вы открываете глаза, всё вокруг кажется ржавым и разрушенным, а в животе нарастает тёмное предчувствие, пока вы выбираетесь из капсулы."
 
 /obj/structure/showcase/machinery/oldpod
 	name = "damaged cryogenic pod"
-	desc = "A damaged cryogenic pod long since lost to time, including its former occupant..."
+	desc = "Повреждённая криогенная капсула, давно забытая временем, как и её бывший пассажир..."
+	ru_names = list(
+		NOMINATIVE = "повреждённая криогенная капсула",
+		GENITIVE = "повреждённой криогенной капсулы",
+		DATIVE = "повреждённой криогенной капсуле",
+		ACCUSATIVE = "повреждённую криогенную капсулу",
+		INSTRUMENTAL = "повреждённой криогенной капсулой",
+		PREPOSITIONAL = "повреждённой криогенной капсуле"
+	)
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper-open"
 
 /obj/structure/showcase/machinery/oldpod/used
-	name = "opened cryogenic pod"
-	desc = "A cryogenic pod that has recently discharged its occupant. The pod appears non-functional."
+	name = "Открытая криогенная капсула"
+	desc = "Криогенная капсула, которая недавно выпустила своего пассажира. Капсула кажется неработоспособной."
+	ru_names = list(
+		NOMINATIVE = "открытая криогенная капсула",
+		GENITIVE = "открытой криогенной капсулы",
+		DATIVE = "открытой криогенной капсуле",
+		ACCUSATIVE = "открытую криогенную капсулу",
+		INSTRUMENTAL = "открытой криогенной капсулой",
+		PREPOSITIONAL = "открытой криогенной капсуле"
+	)
 
 /datum/outfit/oldstation/post_equip(mob/living/carbon/human/H)
 	. = ..()

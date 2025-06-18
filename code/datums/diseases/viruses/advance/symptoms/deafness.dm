@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/deafness
 
-	name = "Deafness"
+	name = "Глухота"
 	id = "deafness"
 	stealth = -1
 	resistance = -2
@@ -32,7 +32,7 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(3, 4)
-				to_chat(M, span_warning(pick("You hear a ringing in your ear.", "Your ears pop.")))
+				to_chat(M, span_warning(pick("Вы слышите звон в ушах.", "У вас заложило уши.")))
 			if(5)
-				to_chat(M, span_userdanger("Your ears pop and begin ringing loudly!"))
+				to_chat(M, span_userdanger("Ваши уши заложило, и в них появился громкий звон!"))
 				M.Deaf(40 SECONDS)

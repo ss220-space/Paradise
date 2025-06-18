@@ -355,7 +355,7 @@ REAGENT SCANNER
 	P.header += "Тип повреждений: <font color='#0080ff'>Удушье</font>/<font color='green'>Отравление</font>/<font color='#FF8000'>Терм.</font>/<font color='red'>Мех.</font><br>"
 	P.header += "Уровень повреждений: <font color='#0080ff'>[scan_data["damageLevels"]["oxy"]]</font> - <font color='green'>[scan_data["damageLevels"]["tox"]]</font> - <font color='#FF8000'>[scan_data["damageLevels"]["burn"]]</font> - <font color='red'>[scan_data["damageLevels"]["brute"]]</font><br>"
 	P.header += "Температура тела: [scan_data["bodyTemperatureC"]] &deg;C ([scan_data["bodyTemperatureF"]] &deg;F)<br>"
-	P.header += "Пульс: <font color='[scan_data["pulse"] == PULSE_NORM ? "#0080ff" : "red"]'>[scan_data["pulse"]] уд/мин.</font><br>"
+	P.header += "Пульс: <font color='[scan_data["pulse_status"] == PULSE_NORM ? "#0080ff" : "red"]'>[scan_data["pulse"]] уд/мин.</font><br>"
 
 	if(scan_data["genes"])
 		if(scan_data["genes"] < 40)
@@ -847,7 +847,7 @@ REAGENT SCANNER
 			if(H.reagents.addiction_list.len)
 				scan_data += span_danger("Обнаружены зависимости от реагентов:")
 				for(var/datum/reagent/R in H.reagents.addiction_list)
-					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5<")
+					scan_data += span_danger("&emsp;[R.name] Стадия: [R.addiction_stage]/5")
 			else
 				scan_data += "Зависимости от реагентов не обнаружены."
 	for(var/thing in H.diseases)

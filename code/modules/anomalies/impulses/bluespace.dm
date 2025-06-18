@@ -24,7 +24,7 @@
 	period_low = 3 SECONDS
 	period_high = 5 SECONDS
 	tp_range_low = 1
-	tp_range_high = 2
+	tp_range_high = 3
 
 /datum/anomaly_impulse/move/bs_selftp/tier2
 	period_low = 5 SECONDS

@@ -8,15 +8,15 @@
 	var/can_melt = TRUE
 
 /atom/movable/screen/alert/status_effect/freon
-	name = "Frozen Solid"
-	desc = "You're frozen inside an ice cube, and cannot move! You can still do stuff, like shooting. Resist out of the cube!"
+	name = "Заморожен намертво"
+	desc = "Вы заморожены внутри ледяного куба и не можете двигаться! Вы всё ещё можете делать что-то, например, стрелять. Сопротивляйтесь, чтобы выбраться из куба!"
 	icon_state = "frozen"
 
 /datum/status_effect/freon/on_apply()
 	RegisterSignal(owner, COMSIG_LIVING_RESIST, PROC_REF(owner_resist))
 	RegisterSignal(owner, COMSIG_CARBON_APPLY_OVERLAY, PROC_REF(update_overlay))
 	if(!owner.stat)
-		to_chat(owner, "<span class='userdanger'>You become frozen in a cube!</span>")
+		to_chat(owner, span_danger("Вы замерзаете в ледяном кубе!"))
 	cube = icon('icons/effects/freeze.dmi', ice_state)
 	update_overlay()
 	owner.add_traits(list(TRAIT_IMMOBILIZED, TRAIT_HANDS_BLOCKED), TRAIT_STATUS_EFFECT(id))
@@ -33,15 +33,15 @@
 	owner.add_overlay(cube)
 
 /datum/status_effect/freon/proc/owner_resist()
-	to_chat(owner, "You start breaking out of the ice cube!")
+	to_chat(owner, "Вы начинаете вырываться из ледяного куба!")
 	if(do_after(owner, 4 SECONDS, owner, NONE))
 		if(!QDELETED(src))
-			to_chat(owner, "You break out of the ice cube!")
+			to_chat(owner, "Вы вырываетесь из ледяного куба!")
 			qdel(src)
 
 /datum/status_effect/freon/on_remove()
 	if(!owner.stat)
-		to_chat(owner, "The cube melts!")
+		to_chat(owner, "Ледяной куб тает!")
 	owner.cut_overlay(cube)
 	owner.adjust_bodytemperature(100)
 	UnregisterSignal(owner, list(COMSIG_CARBON_APPLY_OVERLAY, COMSIG_LIVING_RESIST))

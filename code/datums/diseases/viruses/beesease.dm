@@ -1,8 +1,8 @@
 /datum/disease/virus/beesease
-	name = "Beesease"
-	form = "Infection"
-	agent = "Apidae Infection"
-	desc = "If left untreated subject will turn into a beehive."
+	name = "Пчелораза"
+	form = "Инфекция"
+	agent = "Пчелиный вирус"
+	desc = "Если не лечить, заражённый превратится в улей."
 	max_stages = 4
 	stage_prob = 2
 	can_progress_in_dead = TRUE
@@ -20,21 +20,20 @@
 		switch(stage)
 			if(2)
 				if(prob(10))
-					to_chat(affected_mob, span_notice("You taste honey in your mouth."))
+					to_chat(affected_mob, span_notice("Вы чувствуете вкус мёда во рту."))
 				if(prob(1))
 					bee_stinging()
 			if(3)
 				if(prob(10))
-					to_chat(affected_mob, span_danger("Your stomach rumbles."))
+					to_chat(affected_mob, span_danger("Ваш желудок урчит."))
 					affected_mob.adjustBruteLoss(2)
 				if(prob(7))
 					bee_stinging()
 			if(4)
 				if(prob(10))
-					affected_mob.visible_message(span_danger("[affected_mob] buzzes."), \
-													span_userdanger("Your stomach buzzes violently!"))
+					affected_mob.visible_message(span_danger("[affected_mob] жужж[pluralize_ru(affected_mob.gender,"ит","ат")]."), span_userdanger("Ваш желудок яростно жужжит!"))
 				if(prob(5))
-					to_chat(affected_mob, span_danger("You feel something moving in your throat."))
+					to_chat(affected_mob, span_danger("Вы чувствуете, как что-то движется у вас в горле."))
 				if(prob(12))
 					bee_stinging()
 
@@ -42,8 +41,7 @@
 		playsound(get_turf(affected_mob.loc), pick('sound/creatures/bee3.ogg', 'sound/creatures/bee4.ogg'), (stage*stage)*6.25, 1)
 
 	if(stage == max_stages && prob(3) && bees_spawned < 10)
-		affected_mob.visible_message(span_danger("Swarm of bees flies out of a [affected_mob]'s mouth!"),
-											span_userdanger("Swarm of bees flies out of your mouth!"))
+		affected_mob.visible_message(span_danger("Рой пчёл вылетает изо рта [affected_mob]!"), span_userdanger("Рой пчёл вылетает из вашего рта!"))
 		affected_mob.adjustBruteLoss(3)
 		for(var/i = 0, i < 3, i++)
 			var/mob/living/simple_animal/hostile/poison/bees/new_bee = new(affected_mob.loc)
@@ -52,7 +50,7 @@
 		bees_spawned++
 
 /datum/disease/virus/beesease/proc/bee_stinging()
-	to_chat(affected_mob, span_danger("Your stomach stings painfully."))
+	to_chat(affected_mob, span_danger("Ваш желудок болезненно жжёт."))
 	affected_mob.Slowed(3 SECONDS, 10)
 	var/datum/reagent/bee_venom_beesease/R = new
 	R.volume = 5

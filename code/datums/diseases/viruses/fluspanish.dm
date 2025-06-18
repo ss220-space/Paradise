@@ -1,10 +1,10 @@
 /datum/disease/virus/fluspanish
-	name = "Spanish Inquisition Flu"
-	agent = "1nqu1s1t10n flu virion"
-	desc = "If left untreated the subject will burn to death for being a heretic."
+	name = "Грипп испанской инквизиции"
+	agent = "Вирион гриппа uHKBu3uLIu9I"
+	desc = "Если не лечить, заражённый сгорит заживо за ересь."
 	max_stages = 3
 	spread_flags = AIRBORNE
-	cure_text = "Spaceacillin & Anti-bodies to the common flu"
+	cure_text = "Спейсацилин и антитела к обычному гриппу"
 	cures = list("spaceacillin")
 	cure_prob = 10
 	permeability_mod = 0.75
@@ -22,7 +22,7 @@
 			if(prob(5))
 				affected_mob.emote("cough")
 			if(prob(1))
-				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
+				to_chat(affected_mob, span_danger("Вы чувствуете, как ваша кожа пылает праведным огнём!"))
 				affected_mob.take_organ_damage(0,5)
 
 		if(3)
@@ -32,7 +32,7 @@
 			if(prob(5))
 				affected_mob.emote("cough")
 			if(prob(5))
-				to_chat(affected_mob, span_danger("You're burning in your own skin!"))
+				to_chat(affected_mob, span_danger("Вы чувствуете, как ваша кожа пылает праведным огнём!"))
 				affected_mob.take_organ_damage(0,5)
 	return
 
