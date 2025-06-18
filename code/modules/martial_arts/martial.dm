@@ -49,7 +49,7 @@
 	/// Set to TRUE to prevent users of this style from using stun batons (and stunprods)
 	var/no_baton = FALSE
 	/// Message displayed when someone uses a baton when its forbidden by a martial art
-	var/no_baton_reason = "Ваша подготовка в области боевых искусств не позволяет вам пользоваться дубинкой."
+	var/no_baton_reason = "Из-за тренировок в области боевых искусств вы не можете крепко схватиться за станбатон!"
 	/// Whether or not you can grab someone while horizontal with this Martial Art
 	var/can_horizontally_grab = TRUE
 

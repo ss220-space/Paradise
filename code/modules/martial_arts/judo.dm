@@ -26,7 +26,9 @@
 		INSTRUMENTAL = "Поясом Корпоративного Дзюдо",
 		PREPOSITIONAL = "Поясе Корпоративного Дзюдо",
 	)
-	desc = "Позволяет вам использовать Корпоративное Дзюдо."
+	desc = "Позволяет вам использовать Корпоративное Дзюдо. \
+			По статистике собранной независимым исследователем, \
+			владеющие этим поясом на 40% чаще покупают продукцию Мистера Чанга."
 	icon = 'icons/obj/clothing/belts.dmi'
 	lefthand_file = 'icons/mob/inhands/equipment/belt_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/equipment/belt_righthand.dmi'
@@ -78,7 +80,7 @@
 //Increased harm damage
 /datum/martial_art/judo/harm_act(mob/living/carbon/human/attacker, mob/living/carbon/human/defender)
 	MARTIAL_ARTS_ACT_CHECK
-	var/picked_hit_type = pick("ловко бьет", "резко ударяет", "атакует")
+	var/picked_hit_type = pick("ловко бьёт", "встаёт в стойку и резко бьёт", "проводит неожиданную атаку против")
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
 	defender.apply_damage(7, BRUTE)
 	playsound(get_turf(defender), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
