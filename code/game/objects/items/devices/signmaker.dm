@@ -168,7 +168,15 @@
 
 /obj/structure/holosoap
 	name = "holographic soap"
-	desc = "looks like a real soap, but it's not."
+	desc = "Настоящее мыло, только не настоящее."
+	ru_names = list(
+		NOMINATIVE = "голографическое мыло",
+		GENITIVE = "голографического мыла",
+		DATIVE = "голографическому мылу",
+		ACCUSATIVE = "голографическое мыло",
+		INSTRUMENTAL = "голографическим мылом",
+		PREPOSITIONAL = "голографическом мыле"
+	)
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "holo_soap"
 	density = FALSE
@@ -222,7 +230,7 @@
 
 /obj/structure/holosoap/holosoap_emagged
 	name = "solid holographic soap"
-	desc = "looks like a real soap, but it's blocking your path now."
+	desc = "Настоящее мыло, только теперь оно преграждает вам путь."
 	density = TRUE
 
 #undef CARBON
