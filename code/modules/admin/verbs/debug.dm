@@ -864,8 +864,8 @@ GLOBAL_PROTECT(AdminProcCallSpamPrevention)
 		admin_forcemove(usr, get_turf(landmark))
 
 		var/list/messages = list(
-			span_notice("Jumped to <b>[landmark.ruin_template.name]</b>:"),
-			span_notice("[landmark.ruin_template.description]")
+			span_notice("Jumped to <b>[template.name]</b>:"),
+			span_notice("[template.description]")
 		)
 		to_chat(usr, chat_box_examine(messages.Join("\n")))
 
