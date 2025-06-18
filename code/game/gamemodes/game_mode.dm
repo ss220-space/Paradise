@@ -723,6 +723,29 @@
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
 
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_nuclear()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	. += auto_declare_completion_morph
+	. += auto_declare_completion_revenant
+	. += auto_declare_completion_honksquad
+	. += auto_declare_completion_deathsquad
+	. += auto_declare_completion_sst
+	. += auto_declare_completion_sit
+	. += auto_declare_completion_blob
+	. += auto_declare_completion_heist
+	. += auto_declare_completion_ninja
+	. += auto_declare_completion_thief
+	listclearnulls(.)
+
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
 	if(istype(god, /obj/singularity/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema

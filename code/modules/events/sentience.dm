@@ -65,3 +65,4 @@
 	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
 	 						human level intelligence and the ability to speak and understand \
 							human language!</span>"))
+	log_game("[M] was made into a sentient animal")

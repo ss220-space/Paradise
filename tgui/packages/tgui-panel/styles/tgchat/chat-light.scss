@@ -1060,40 +1060,30 @@ span.body .coderesponses {
   font-weight: bold;
 }
 
+// Boxed messages
 .boxed_message {
-  background: #f7fcff;
-  border: 1px solid #111a26;
-  margin: 0.5em;
-  padding: 0.5em 0.75em;
-  text-align: center;
-}
-
-.boxed_message.left_align_text {
-  text-align: left;
+  background: #f2f7ff;
+  border-color: #10307080;
 }
 
 .boxed_message.red_border {
-  background: #fff7f7;
-  border-color: #aa0000;
+  background: #fff2f2;
+  border-color: #ff000080;
 }
 
 .boxed_message.green_border {
-  background: #f7fff7;
-  border-color: #00ff00;
+  background: #f2fff7;
+  border-color: #00a80080;
 }
 
 .boxed_message.purple_border {
-  background: #fdf7ff;
-  border-color: #aa00ff;
+  background: #f7f2ff;
+  border-color: #5500ff80;
 }
 
 .boxed_message.notice_border {
-  background: #f7fdff;
-  border-color: #0000bf;
-}
-
-.boxed_message.thick_border {
-  border-width: thick;
+  background: #f2f7ff;
+  border-color: #0040ff80;
 }
 
 /* GASES */

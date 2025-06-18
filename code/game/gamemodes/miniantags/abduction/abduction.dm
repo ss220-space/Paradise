@@ -210,8 +210,8 @@
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_abduction()
-	var/text = ""
-	if(!length(abductors))
+	var/list/text = list()
+	if(length(abductors))
 		return
 
 	text += span_big("<br><b>The abductors were:</b><br>")
@@ -221,7 +221,7 @@
 		text += printobjectives(abductor_mind)
 		text += "<br>"
 
-	if(abductees.len)
+		if(length(abductees))
 		text += span_big("<br><b>The abductees were:</b><br>")
 		for(var/datum/mind/abductee_mind in abductees)
 			text += printplayer(abductee_mind)
@@ -229,7 +229,7 @@
 			text += printobjectives(abductee_mind)
 			text += "<br>"
 
-	to_chat(world, text)
+		return text.Join("")
 
 //Landmarks
 // TODO: Split into seperate landmarks for prettier ships

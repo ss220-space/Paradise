@@ -1178,38 +1178,39 @@ REAGENT SCANNER
 	slime_scan(target, user)
 
 /proc/slime_scan(mob/living/simple_animal/slime/T, mob/living/user)
-	to_chat(user, "========================")
-	to_chat(user, "<b>Slime scan results:</b>")
-	to_chat(user, "<span class='notice'>[T.colour] [T.age_state.age] slime</span>")
-	to_chat(user, "Nutrition: [T.nutrition]/[T.get_max_nutrition()]")
+	var/list/msgs = list()
+	msgs += "========================"
+	msgs += "<b>Slime scan results:</b>"
+	msgs += "<span class='notice'>[T.colour] [T.age_state.age] slime</span>"
+	msgs += "Nutrition: [T.nutrition]/[T.get_max_nutrition()]"
 	if(T.nutrition < T.get_starve_nutrition())
-		to_chat(user, "<span class='warning'>Warning: slime is starving!</span>")
+		msgs += "<span class='warning'>Warning: slime is starving!</span>"
 	else if(T.nutrition < T.get_hunger_nutrition())
-		to_chat(user, "<span class='warning'>Warning: slime is hungry</span>")
-	to_chat(user, "Electric change strength: [T.powerlevel]")
-	to_chat(user, "Health: [round(T.health/T.maxHealth,0.01)*100]%")
+		msgs += "<span class='warning'>Warning: slime is hungry</span>"
+	msgs += "Electric change strength: [T.powerlevel]"
+	msgs += "Health: [round(T.health/T.maxHealth,0.01)*100]%"
 	if(T.slime_mutation[4] == T.colour)
-		to_chat(user, "This slime does not evolve any further.")
+		msgs += "This slime does not evolve any further."
 	else
 		if(T.slime_mutation[3] == T.slime_mutation[4])
 			if(T.slime_mutation[2] == T.slime_mutation[1])
-				to_chat(user, "Possible mutation: [T.slime_mutation[3]]")
-				to_chat(user, "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting")
+				msgs += "Possible mutation: [T.slime_mutation[3]]"
+				msgs += "Genetic destability: [T.mutation_chance/2] % chance of mutation on splitting"
 			else
-				to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)")
-				to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
+				msgs += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]] (x2)"
+				msgs += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting"
 		else
-			to_chat(user, "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]")
-			to_chat(user, "Genetic destability: [T.mutation_chance] % chance of mutation on splitting")
+			msgs += "Possible mutations: [T.slime_mutation[1]], [T.slime_mutation[2]], [T.slime_mutation[3]], [T.slime_mutation[4]]"
+			msgs += "Genetic destability: [T.mutation_chance] % chance of mutation on splitting"
 	if(T.cores > 1)
-		to_chat(user, "Multiple cores detected")
-	to_chat(user, "Growth progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown)]/[T.age_state.amount_grown]")
-	to_chat(user, "Split progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown_for_split)]/[T.age_state.amount_grown_for_split]")
-	to_chat(user, "Evolve: preparing for [(T.amount_grown < T.age_state.amount_grown_for_split) ? (T.age_state.stat_text) : (T.age_state.age != SLIME_ELDER ? T.age_state.stat_text_evolve : T.age_state.stat_text)]")
+		msgs += "Multiple cores detected"
+	msgs += "Growth progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown)]/[T.age_state.amount_grown]"
+	msgs += "Split progress: [clamp(T.amount_grown, 0, T.age_state.amount_grown_for_split)]/[T.age_state.amount_grown_for_split]"
+	msgs += "Evolve: preparing for [(T.amount_grown < T.age_state.amount_grown_for_split) ? (T.age_state.stat_text) : (T.age_state.age != SLIME_ELDER ? T.age_state.stat_text_evolve : T.age_state.stat_text)]"
 	if(T.effectmod)
-		to_chat(user, "<span class='notice'>Core mutation in progress: [T.effectmod]</span>")
-		to_chat(user, "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>")
-	to_chat(user, "========================")
+		msgs += "<span class='notice'>Core mutation in progress: [T.effectmod]</span>"
+		msgs += "<span class='notice'>Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]</span>"
+	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
 /obj/item/bodyanalyzer
 	name = "handheld body analyzer"

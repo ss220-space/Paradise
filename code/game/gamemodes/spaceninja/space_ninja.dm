@@ -80,7 +80,7 @@
 	if(!length(space_ninjas))
 		return FALSE
 
-	var/text = "<br><font size=3><b>Космическим[(length(space_ninjas) > 1)?"и":""] Ниндзя был[(length(space_ninjas) > 1)?"и":""]:</b></font>"
+	var/list/text = list("<br><font size=3><b>Космическим[(length(space_ninjas) > 1)?"и":""] Ниндзя был[(length(space_ninjas) > 1)?"и":""]:</b></font>")
 
 	for(var/datum/mind/ninja in space_ninjas)
 
@@ -122,6 +122,5 @@
 			SSblackbox.record_feedback("tally", "ninja_success", 1, "FAIL")
 		text += "<br>"
 
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 

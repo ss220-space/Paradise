@@ -1047,12 +1047,15 @@ span.body .coderesponses {
   font-weight: bold;
 }
 
+// Boxed messages
 .boxed_message {
-  background: #1b1c1e;
-  border: 1px solid #a3b9d9;
-  margin: 0.5em;
-  padding: 0.5em 0.75em;
-  text-align: center;
+	text-align: center;
+	border-style: solid;
+	border-width: medium;
+	border-color: #a6b7d940;
+	border-radius: 5px;
+	margin: 25px;
+	padding: 15px;
 }
 
 .boxed_message.left_align_text {
@@ -1060,23 +1063,23 @@ span.body .coderesponses {
 }
 
 .boxed_message.red_border {
-  background: #1e1b1b;
-  border-color: #aa0000;
+  background: #1f1414;
+  border-color: #ff000080;
 }
 
 .boxed_message.green_border {
-  background: #1b1e1c;
-  border-color: #00ff00;
+  background: #141f18;
+  border-color: #00ff0080;
 }
 
 .boxed_message.purple_border {
-  background: #1d1c1f;
-  border-color: #8000ff;
+  background: #1d1828;
+  border-color: #aa80ff80;
 }
 
 .boxed_message.notice_border {
-  background: #1b1c1e;
-  border-color: #6685f5;
+  background: #14181f;
+  border-color: #557ef680;
 }
 
 .boxed_message.thick_border {

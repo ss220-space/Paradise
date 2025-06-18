@@ -256,7 +256,7 @@
 			message += span_notice("Volume: [volume] L") // don't want to change the order volume appears in, suck it
 
 	// we let the join apply newlines so we do need handholding
-	to_chat(user, ("<div class='examine_block'>" + (jointext(message, "\n")) + "</div>"))
+	to_chat(user, chat_box_examine(message.Join("\n")))
 	return TRUE
 
 #undef ANALYZER_MODE_SURROUNDINGS

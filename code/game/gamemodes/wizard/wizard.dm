@@ -304,7 +304,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)
-		var/text = "<br><font size=3><b>the wizards/witches were:</b></font>"
+		var/list/text = list("<br><font size=3><b>the wizards/witches were:</b></font>")
 
 		for(var/datum/mind/wizard in wizards)
 
@@ -383,8 +383,7 @@
 					SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 				text += "<br>"
 
-		to_chat(world, text)
-	return 1
+		return text.Join("")
 
 //OTHER PROCS
 

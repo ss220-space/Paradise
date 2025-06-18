@@ -304,7 +304,7 @@ Made by Xhuis
 
 
 /datum/game_mode/proc/auto_declare_completion_shadowling()
-	var/text = ""
+	var/list/text = list("")
 	if(shadows.len)
 		text += "<br><span class='big'><b>Тенелингами были:</b></span>"
 		for(var/datum/mind/shadow in shadows)
@@ -335,7 +335,7 @@ Made by Xhuis
 					text += "тело уничтожено"
 				text += ")"
 	text += "<br>"
-	to_chat(world, text)
+	return text.Join("")
 
 
 /*

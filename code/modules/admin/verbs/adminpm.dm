@@ -161,19 +161,27 @@
 	var/emoji_msg = span_emojienabled("[msg]")
 	recieve_message = chat_box_red("<span class='[recieve_span]'>[type] from-<b>[recieve_pm_type] [C.holder ? key_name(src, TRUE, type) : key_name_hidden(src, TRUE, type)]</b>:<br><br>[emoji_msg]")
 	to_chat(C, recieve_message, confidential=TRUE)
-	var/ping_link = check_rights(R_MOD, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
-	var/window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	var/alert_link = "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)"
 	var/observe_link = "([ADMIN_OBS(C.mob, "OBS")])"
-	to_chat(src, "<span class='pmsend'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type) : key_name_hidden(C, TRUE, type)]</b>: [emoji_msg]</span> [ping_link] [window_link] [alert_link] [observe_link]", confidential=TRUE)
-	/*if(holder && !C.holder)
-		C.last_pm_recieved = world.time
-		C.ckey_last_pm = ckey*/
+	var/send_message = "<span class='[send_span]'>[send_pm_type][type] to-<b>[holder ? key_name(C, TRUE, type, ticket_id = ticket_id) : key_name_hidden(C, TRUE, type, ticket_id = ticket_id)]</b>:<br><br>[emoji_msg]</span><br>[ping_link] [window_link] [alert_link]"
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		send_message = chat_box_mhelp(send_message)
+	else
+		send_message = chat_box_ahelp(send_message)
+	to_chat(src, send_message)
+	
+	var/third_party_message
+	if(message_type == MESSAGE_TYPE_MENTORPM)
+		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
+	else
+		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [ticket_link] [alert_link] [observe_link]</span>")
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
 	if((!C.holder) || (C.prefs.sound & SOUND_ADMINHELP))
-		C << 'sound/effects/adminhelp.ogg'
+		if(message_type == MESSAGE_TYPE_MENTORPM)
+			SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
+		else
+			SEND_SOUND(C, sound('sound/effects/adminhelp.ogg'))
 
 	log_admin("PM: [key_name(src)]->[key_name(C)]: [msg]")
 	//we don't use message_admins here because the sender/receiver might get it too
@@ -182,16 +190,12 @@
 		if(X == C || X == src)
 			continue
 		if(X.key != key && X.key != C.key)
-			switch(type)
-				if(MENTORHELP)
-					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
-						to_chat(X, span_mentorhelp("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
-				if(ADMINHELP)
-					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, span_adminhelp("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
-				else
-					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
-						to_chat(X, span_boldnotice("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
+			if(message_type == MESSAGE_TYPE_MENTORPM)
+				if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
+					to_chat(X, third_party_message, MESSAGE_TYPE_MENTORPM)
+			else
+				if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
+					to_chat(X, third_party_message, MESSAGE_TYPE_ADMINPM)
 
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
