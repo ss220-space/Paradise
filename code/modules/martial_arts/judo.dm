@@ -11,7 +11,7 @@
 		/datum/martial_combo/judo/goldenblast
 	)
 	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
-	no_baton_reason = span_warning("Из-за тренировок по дзюдо вы не можете крепко схватиться за станбатон!")
+	no_baton_reason = span_warning("Из-за занятий дзюдо у вас не получается крепко держать дубинку!")
 	can_horizontally_grab = FALSE
 
 //Corporate Judo Belt
