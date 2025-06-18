@@ -67,11 +67,11 @@
 		user.balloon_alert(user, "включено")
 	else if(HAS_TRAIT(user, TRAIT_BADASS))
 		user.balloon_alert(user, "включено")
-		to_chat(user, span_notice("Как только вы зажгли [src.declent_ru(ACCUSATIVE)], [genderize_ru(user.gender, "его", "её", "его", "их")] пламя окутывает вашу руку, но вы даже не дёрнулись."))
+		to_chat(user, span_notice("Как только вы зажгли [declent_ru(ACCUSATIVE)], [genderize_ru(user.gender, "его", "её", "его", "их")] пламя окутывает вашу руку, но вы даже не дёрнулись."))
 	else
 		user.balloon_alert(user, "включено")
 		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
-		to_chat(user, span_notice("Вы зажгли [src.declent_ru(ACCUSATIVE)], но в процессе обожгли себе руку."))
+		to_chat(user, span_notice("Вы зажгли [declent_ru(ACCUSATIVE)], но в процессе обожгли себе руку."))
 	if(world.time > next_on_message)
 		user.balloon_alert(user, "включено")
 		playsound(src, 'sound/items/lighter/plastic_strike.ogg', 25, TRUE)
@@ -127,7 +127,7 @@
 	. = return_flags
 
 	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] доста[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(src.gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_rose("[user] доста[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
 	else
 		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
@@ -496,19 +496,19 @@
 	name = lit ? "lit [init_name]" : burnt ? "burnt [init_name]" : initial(name)
 	if(ru_names)
 		if(lit)
-			ru_names[1] = "горящая спичка"
-			ru_names[2] = "горящей спички"
-			ru_names[3] = "горящей спичке"
-			ru_names[4] = "горящую спичку"
-			ru_names[5] = "горящей спичкой"
-			ru_names[6] = "горящей спичке"
+			ru_names[NOMINATIVE] = "горящая спичка"
+			ru_names[GENITIVE] = "горящей спички"
+			ru_names[DATIVE] = "горящей спичке"
+			ru_names[ACCUSATIVE] = "горящую спичку"
+			ru_names[INSTRUMENTAL] = "горящей спичкой"
+			ru_names[PREPOSITIONAL] = "горящей спичке"
 		if(burnt)
-			ru_names[1] = "сгоревшая спичка"
-			ru_names[2] = "сгоревшей спички"
-			ru_names[3] = "сгоревшей спичке"
-			ru_names[4] = "сгоревшую спичку"
-			ru_names[5] = "сгоревшей спичкой"
-			ru_names[6] = "сгоревшей спичке"
+			ru_names[NOMINATIVE] = "сгоревшая спичка"
+			ru_names[GENITIVE] = "сгоревшей спички"
+			ru_names[DATIVE] = "сгоревшей спичке"
+			ru_names[ACCUSATIVE] = "сгоревшую спичку"
+			ru_names[INSTRUMENTAL] = "сгоревшей спичкой"
+			ru_names[PREPOSITIONAL] = "сгоревшей спичке"
 		if(!lit && !burnt)
 			ru_names = initial(ru_names)
 
@@ -583,7 +583,7 @@
 			target.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
 			playsound(src, 'sound/effects/unathiignite.ogg', 40, FALSE)
 	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
+		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
 		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 
 

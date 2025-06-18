@@ -234,12 +234,12 @@ LIGHTERS ARE IN LIGHTERS.DM
 	. = ..()
 	name = lit ? "lit [initial(name)]" : initial(name)
 	if(ru_names && lit)
-		ru_names[1] = "прикуренная " + ru_names[1]
-		ru_names[2] = "прикуренной " + ru_names[2]
-		ru_names[3] = "прикуренной " + ru_names[3]
-		ru_names[4] = "прикуренную " + ru_names[4]
-		ru_names[5] = "прикуренной " + ru_names[5]
-		ru_names[6] = "прикуренной " + ru_names[6]
+		ru_names[NOMINATIVE] = "прикуренная " + ru_names[NOMINATIVE]
+		ru_names[GENITIVE] = "прикуренной " + ru_names[GENITIVE]
+		ru_names[DATIVE] = "прикуренной " + ru_names[DATIVE]
+		ru_names[ACCUSATIVE] = "прикуренную " + ru_names[ACCUSATIVE]
+		ru_names[INSTRUMENTAL] = "прикуренной " + ru_names[INSTRUMENTAL]
+		ru_names[PREPOSITIONAL] = "прикуренной " + ru_names[PREPOSITIONAL]
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
@@ -305,7 +305,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attack_self(mob/user)
 	if(lit)
-		user.visible_message(span_notice("[user] спокойно зажима[pluralize_ru(user.gender, "ет", "ют")] прикуренный конец [src.declent_ru(GENITIVE)], мгновенно погасив [genderize_ru(src.gender, "его", "её", "его", "их")]."))
+		user.visible_message(span_notice("[user] спокойно зажима[pluralize_ru(user.gender, "ет", "ют")] прикуренный конец [declent_ru(GENITIVE)], мгновенно погасив [genderize_ru(gender, "его", "её", "его", "их")]."))
 		die()
 	return ..()
 
@@ -739,7 +739,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(enabled && slot == ITEM_SLOT_MASK)
 		if(!HAS_TRAIT_FROM(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT))
 			ADD_TRAIT(user, TRAIT_BADASS, HOLO_CIGAR_TRAIT)
-			to_chat(user, span_notice("Вы чувствуете себя круче, пока курите [src.declent_ru(ACCUSATIVE)]."))
+			to_chat(user, span_notice("Вы чувствуете себя круче, пока курите [declent_ru(ACCUSATIVE)]."))
 
 /obj/item/clothing/mask/holo_cigar/dropped(mob/user, slot, silent)
 	. = ..()
