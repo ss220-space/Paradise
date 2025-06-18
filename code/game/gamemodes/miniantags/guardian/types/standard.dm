@@ -16,7 +16,7 @@
 	set name = "Боевой клич"
 	set category = STATPANEL_GUARDIAN
 	set desc = "Выбери крик при ударе"
-	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Change Battlecry", battlecry, 8)
+	var/input = tgui_input_text(src, "Какой боевой клич вы бы хотели? Максимальная длина 8 символов.", "Изменить Боевой клич", battlecry, 8)
 	if(input)
 		battlecry = input
 
@@ -24,7 +24,7 @@
 	. = ..()
 	if(iscarbon(target) && target != summoner)
 		if(length_char(battlecry) > 8)//no more then 8 letters in a battle cry.
-			visible_message(span_danger("[src] punches [target]!"))
+			visible_message(span_danger("[src] бьёт [target.declent_ru(ACCUSATIVE )]!"))
 		else
 			say("[battlecry]", TRUE)
 		playsound(loc, attack_sound, 50, 1, 1)

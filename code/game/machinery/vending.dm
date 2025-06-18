@@ -1603,6 +1603,7 @@
 		/obj/item/poster/cheng = 5,
 		/obj/item/storage/box/mr_cheng = 3,
 		/obj/item/clothing/head/rice_hat = 3,
+		/obj/item/clothing/under/martialsuit/random = 1,
 	)
 
 	prices = list(
@@ -1614,6 +1615,7 @@
 		/obj/item/reagent_containers/food/snacks/fortunecookie = 50,
 		/obj/item/storage/box/crayfish_bucket = 250,
 		/obj/item/storage/box/mr_cheng = 200,
+		/obj/item/clothing/under/martialsuit/random = 250,
 	)
 
 	refill_canister = /obj/item/vending_refill/chinese
