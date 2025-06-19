@@ -1,7 +1,7 @@
 // Crew transfer vote
 /datum/vote/crew_transfer
-	question = "End the shift"
-	choices = list("Initiate Crew Transfer", "Continue The Round")
+	question = "Завершение смены"
+	choices = list("Инициировать трансфер экипажа", "Продолжить смену")
 	vote_type_text = "crew transfer"
 
 /datum/vote/crew_transfer/New()
@@ -10,7 +10,7 @@
 	..()
 
 /datum/vote/crew_transfer/handle_result(result)
-	if(result == "Initiate Crew Transfer")
+	if(result == "Инициировать трансфер экипажа")
 		SSvote.clear_transfer_votes()
 		init_shift_change(null, TRUE)
 
