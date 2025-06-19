@@ -22,9 +22,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 
 /obj/item/pda
 	name = "PDA"
-<<<<<<< Updated upstream
-	desc = "A portable microcomputer by Thinktronic Systems, LTD. Functionality determined by a preprogrammed ROM cartridge."
-=======
 	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Функциональность определяется запрограммированным картриджем."
 	ru_names = list(
 		NOMINATIVE = "КПК",
@@ -34,7 +31,6 @@ GLOBAL_LIST_EMPTY(name_to_PDAs)
 		INSTRUMENTAL = "КПК",
 		PREPOSITIONAL = "КПК"
 	)
->>>>>>> Stashed changes
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "pda"
 	lefthand_file = 'icons/mob/inhands/pda_lefthand.dmi'
