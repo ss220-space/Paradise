@@ -85,7 +85,7 @@ export const TextInputModal = (props) => {
                 onEscape={() => act('cancel')}
                 onInput={onType}
                 onEnter={() => act('submit', { entry: input })}
-                placeholder="Type something..."
+                placeholder="Введите что-нибудь..."
                 value={input}
               />
             </Stack.Item>

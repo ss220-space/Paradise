@@ -2,15 +2,15 @@
 	name = "Дисплей статуса"
 	icon = "list-alt"
 	template = "pda_status_display"
-	category = "Utilities"
+	category = "Утилиты"
 
 	var/message1	// used for status_displays
 	var/message2
 
 /datum/data/pda/app/status_display/update_ui(mob/user as mob, list/data)
 	data["records"] = list(
-		"message1" = message1 ? message1 : "(none)",
-		"message2" = message2 ? message2 : "(none)")
+		"message1" = message1 ? message1 : "(нет)",
+		"message2" = message2 ? message2 : "(нет)")
 
 /datum/data/pda/app/status_display/ui_act(action, list/params)
 	if(..())
@@ -25,11 +25,11 @@
 				if("alert")
 					post_status(STATUS_DISPLAY_ALERT, params["alert"])
 				if("setmsg1")
-					message1 = tgui_input_text(usr, "Строка 1", "Введите текст", message1, encode = FALSE)
+					message1 = tgui_input_text(usr, "Строка 1:", "Введите текст", message1, encode = FALSE)
 					if(isnull(message1))
 						return
 				if("setmsg2")
-					message2 = tgui_input_text(usr, "Строка 2", "Введите текст", message2, encode = FALSE)
+					message2 = tgui_input_text(usr, "Строка 2:", "Введите текст", message2, encode = FALSE)
 					if(isnull(message2))
 						return
 				else
@@ -40,7 +40,7 @@
 	name = "Система сигналов"
 	icon = "rss"
 	template = "pda_signaler"
-	category = "Utilities"
+	category = "Утилиты"
 
 /datum/data/pda/app/signaller/update_ui(mob/user as mob, list/data)
 	if(pda.cartridge && istype(pda.cartridge.radio, /obj/item/integrated_radio/signal))
@@ -75,7 +75,7 @@
 	name = "Просмотр электропитания"
 	icon = "bolt"
 	template = "pda_power"
-	category = "Engineering"
+	category = "Инженерные"
 	update = PDA_APP_UPDATE_SLOW
 
 	var/datum/ui_module/power_monitor/digital/pm = new
@@ -136,7 +136,7 @@
 	name = "Медицинские записи"
 	icon = "heartbeat"
 	template = "pda_medical"
-	category = "Medical"
+	category = "Медицинские"
 
 	var/datum/data/record/medical_records = null
 
@@ -162,7 +162,7 @@
 	name = "Записи службы безопасности"
 	icon = "id-badge"
 	template = "pda_security"
-	category = "Security"
+	category = "Безопасность"
 
 	var/datum/data/record/security_records = null
 
@@ -188,7 +188,7 @@
 	name = "Управление ботами службы безопасности"
 	icon = "rss"
 	template = "pda_secbot"
-	category = "Security"
+	category = "Безопасность"
 
 /datum/data/pda/app/secbot_control/update_ui(mob/user as mob, list/data)
 	var/list/botsData = list()
@@ -267,7 +267,7 @@
 	name = "Управление МУЛ-ботами"
 	icon = "truck"
 	template = "pda_mule"
-	category = "Quartermaster"
+	category = "Квартирмейстер"
 
 /datum/data/pda/app/mule_control/update_ui(mob/user as mob, list/data)
 	var/list/muleData = list()
@@ -352,7 +352,7 @@
 	name = "Записи снабжения"
 	icon = "archive"
 	template = "pda_supplyrecords"
-	category = "Quartermaster"
+	category = "Квартирмейстер"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/supply/update_ui(mob/user as mob, list/data)
@@ -400,7 +400,7 @@
 	name = "Поиск имущества для уборки"
 	icon = "trash"
 	template = "pda_janitor"
-	category = "Utilities"
+	category = "Утилиты"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/janitor/update_ui(mob/user as mob, list/data)

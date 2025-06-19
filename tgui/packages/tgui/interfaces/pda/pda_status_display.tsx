@@ -24,21 +24,21 @@ export const pda_status_display = (props: unknown) => {
             icon="trash"
             onClick={() => act('Status', { statdisp: 'blank' })}
           >
-            Clear
+            Очистить
           </Button>
           <Button
             color="transparent"
             icon="clock"
             onClick={() => act('Status', { statdisp: 'shuttle' })}
           >
-            Evac ETA
+            Время прибытия эвак. шаттла
           </Button>
           <Button
             color="transparent"
             icon="edit"
             onClick={() => act('Status', { statdisp: 'message' })}
           >
-            Message
+            Сообщение
           </Button>
           <Button
             color="transparent"
@@ -50,7 +50,7 @@ export const pda_status_display = (props: unknown) => {
               })
             }
           >
-            Red Alert
+            Тревога
           </Button>
           <Button
             color="transparent"
@@ -62,7 +62,7 @@ export const pda_status_display = (props: unknown) => {
               })
             }
           >
-            NT Logo
+            Логотип НТ
           </Button>
           <Button
             color="transparent"
@@ -74,7 +74,7 @@ export const pda_status_display = (props: unknown) => {
               })
             }
           >
-            Lockdown
+            Локдаун
           </Button>
           <Button
             color="transparent"
@@ -86,23 +86,23 @@ export const pda_status_display = (props: unknown) => {
               })
             }
           >
-            Biohazard
+            Биоугроза
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Message line 1">
+        <LabeledList.Item label="Первая строка сообщения:">
           <Button
             icon="pen"
             onClick={() => act('Status', { statdisp: 'setmsg1' })}
           >
-            {records.message1 + ' (set)'}
+            {records.message1 + ' (изменить)'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Message line 2">
+        <LabeledList.Item label="Вторая строка сообщения:">
           <Button
             icon="pen"
             onClick={() => act('Status', { statdisp: 'setmsg2' })}
           >
-            {records.message2 + ' (set)'}
+            {records.message2 + ' (изменить)'}
           </Button>
         </LabeledList.Item>
       </LabeledList>

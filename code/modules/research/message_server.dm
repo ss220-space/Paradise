@@ -62,7 +62,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 /obj/machinery/message_server/New()
 	GLOB.message_servers += src
 	decryptkey = GenerateKey()
-	send_pda_message("System Administrator", "system", "This is an automated message. The messaging system is functioning correctly.")
+	send_pda_message("Системный администратор", "система", "Это автоматическое сообщение. Система функционирует корректно.")
 	..()
 	return
 
@@ -95,7 +95,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 		var/obj/machinery/requests_console/RC = C
 		if(ckey(RC.department) == ckey(recipient))
 			if(RC.inoperable())
-				RC.message_log += "Message lost due to console failure. Please contact [station_name()]'s system administrator or AI for technical assistance."
+				RC.message_log += "Сообщение потеряно из-за сбоя. Свяжитесь с вашим системным администратором или станционным ИИ для технической помощи."
 				continue
 			if(RC.newmessagepriority < priority)
 				RC.newmessagepriority = priority
@@ -105,13 +105,13 @@ GLOBAL_LIST_EMPTY(message_servers)
 				if(2)
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						RC.atom_say("PRIORITY Alert in [sender]")
-					rendered_message = "High Priority message from [sender]: [authmsg]"
+						RC.atom_say("ПРИОРИТЕТНОЕ оповещение в [sender]")
+					rendered_message = "Приоритетное сообщение от [sender]: [authmsg]"
 				else
 					if(!RC.silent)
 						playsound(RC.loc, 'sound/machines/twobeep.ogg', 50, 1)
-						RC.atom_say("Message from [sender]")
-					rendered_message = "Message [sender]: [authmsg]"
+						RC.atom_say("Сообщение от [sender]")
+					rendered_message = "Сообщение [sender]: [authmsg]"
 			if(!isnull(rendered_message))
 				RC.write_to_message_log(rendered_message)
 
@@ -120,7 +120,7 @@ GLOBAL_LIST_EMPTY(message_servers)
 	if(..())
 		return TRUE
 	add_fingerprint(user)
-	to_chat(user, "You toggle PDA message passing from [active ? "On" : "Off"] to [active ? "Off" : "On"]")
+	to_chat(user, "Вы переключаете передачу сообщений по КПК с [active ? "Вкл" : "Выкл"] на [active ? "Выкл" : "Вкл"]")
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 

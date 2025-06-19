@@ -87,7 +87,7 @@
 	name = "Сканирование атмосферы"
 	icon = "fire"
 	template = "pda_atmos_scan"
-	category = "Utilities"
+	category = "Утилиты"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/atmos_scanner/update_ui(mob/user as mob, list/data)
