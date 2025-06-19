@@ -1,8 +1,4 @@
-
-// Нагло скопировано мною с ТГ, то чего у нас в билде нету - закоменчено
-// Старые капсом написанные span_warning() и т.д. удалены и заменены в файлах где применялись, на аналоги ниже. без КАПСА!
-
-// Sorted alphabetically
+/* Not sorted alphabetically */
 #define span_abductor(str) ("<span class='abductor'>" + str + "</span>")
 #define span_admin(str) ("<span class='admin'>" + str + "</span>")
 #define span_adminhelp(str) ("<span class='adminhelp'>" + str + "</span>")

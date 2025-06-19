@@ -1060,32 +1060,6 @@ span.body .coderesponses {
   font-weight: bold;
 }
 
-// Boxed messages
-.boxed_message {
-  background: #f2f7ff;
-  border-color: #10307080;
-}
-
-.boxed_message.red_border {
-  background: #fff2f2;
-  border-color: #ff000080;
-}
-
-.boxed_message.green_border {
-  background: #f2fff7;
-  border-color: #00a80080;
-}
-
-.boxed_message.purple_border {
-  background: #f7f2ff;
-  border-color: #5500ff80;
-}
-
-.boxed_message.notice_border {
-  background: #f2f7ff;
-  border-color: #0040ff80;
-}
-
 /* GASES */
 
 .oxygen {
@@ -1209,6 +1183,8 @@ span.body .coderesponses {
   color: #3b2769;
 }
 
+//MARK: Clock
+
 .clock {
   color: #bd8700;
   font-weight: bold;
@@ -1237,14 +1213,69 @@ span.body .coderesponses {
   font-size: 300%;
 }
 
-/* Examine styles */
-.examine {
-  border: 1px solid #000000;
-  padding: 5px;
-  margin: 2px 10px;
-  background: #d3d3d3;
-}
-
 .dantalion {
   color: #1a7d5b;
+}
+
+
+
+//MARK: Syndicate codewords
+span.body .codephrases {
+  color: #0000ff;
+}
+
+span.body .coderesponses {
+  color: #ff0000;
+}
+
+// MARK: GASES
+.oxygen {
+  color: #006adb;
+}
+
+.nitrogen {
+  color: #d00a06;
+}
+
+.carbon_dioxide {
+  color: #1f1f1f;
+}
+
+.plasma {
+  color: #853c00;
+}
+
+.sleeping_agent {
+  color: #e82f2c;
+}
+
+.agent_b {
+  color: #004d4d;
+}
+
+// MARK: Boxed messages
+
+.boxed_message {
+  background: #f2f7ff;
+  border-color: #10307080;
+}
+
+.boxed_message.red_border {
+  background: #fff2f2;
+  border-color: #ff000080;
+}
+
+.boxed_message.green_border {
+  background: #f2fff7;
+  border-color: #00a80080;
+}
+
+.boxed_message.purple_border {
+  background: #f7f2ff;
+  border-color: #5500ff80;
+}
+
+.boxed_message.notice_border {
+  background: #f2f7ff;
+  border-color: #0040ff80;
 }

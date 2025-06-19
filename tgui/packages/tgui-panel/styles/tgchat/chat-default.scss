@@ -1047,71 +1047,6 @@ span.body .coderesponses {
   font-weight: bold;
 }
 
-// Boxed messages
-.boxed_message {
-	text-align: center;
-	border-style: solid;
-	border-width: medium;
-	border-color: #a6b7d940;
-	border-radius: 5px;
-	margin: 25px;
-	padding: 15px;
-}
-
-.boxed_message.left_align_text {
-  text-align: left;
-}
-
-.boxed_message.red_border {
-  background: #1f1414;
-  border-color: #ff000080;
-}
-
-.boxed_message.green_border {
-  background: #141f18;
-  border-color: #00ff0080;
-}
-
-.boxed_message.purple_border {
-  background: #1d1828;
-  border-color: #aa80ff80;
-}
-
-.boxed_message.notice_border {
-  background: #14181f;
-  border-color: #557ef680;
-}
-
-.boxed_message.thick_border {
-  border-width: thick;
-}
-
-/* GASES */
-
-.oxygen {
-  color: #449dff;
-}
-
-.nitrogen {
-  color: #f94541;
-}
-
-.carbon_dioxide {
-  color: #cccccc;
-}
-
-.plasma {
-  color: #eb6b00;
-}
-
-.sleeping_agent {
-  color: #f28b89;
-}
-
-.agent_b {
-  color: teal;
-}
-
 /* SS1984 UNIC */
 
 .spyradio {
@@ -1299,6 +1234,17 @@ span.body .coderesponses {
   color: #e3027a;
 }
 
+// MARK: Syndicate codewords
+span.body .codephrases {
+  color: #5555ff;
+}
+
+span.body .coderesponses {
+  color: #ff3333;
+}
+
+// MARK: Anomaly
+
 .bluespace_anomaly {
   color: #2cb5ff;
   font-weight: bold;
@@ -1327,4 +1273,70 @@ span.body .coderesponses {
   color: #486374;
   font-weight: bold;
   font-size: 120%;
+}
+
+// MARK: Gases
+
+.oxygen {
+  color: #449dff;
+}
+
+.nitrogen {
+  color: #f94541;
+}
+
+.carbon_dioxide {
+  color: #cccccc;
+}
+
+.plasma {
+  color: #eb6b00;
+}
+
+.sleeping_agent {
+  color: #f28b89;
+}
+
+.agent_b {
+  color: teal;
+}
+
+// MARK: Boxed messages
+
+.boxed_message {
+  background: #17191c;
+  border: 1px solid #a6b7d940;
+  border-width: 1em * calc(1px / 12px) 1em * calc(5px / 12px);
+  margin: 0.5em 0.25em;
+  padding: 0.5em 0.75em;
+  border-radius: 0.5em;
+  text-align: center;
+}
+
+.boxed_message.left_align_text {
+  text-align: left;
+}
+
+.boxed_message.red_border {
+  background: #1f1414;
+  border-color: #ff000080;
+}
+
+.boxed_message.green_border {
+  background: #141f18;
+  border-color: #00ff0080;
+}
+
+.boxed_message.purple_border {
+  background: #1d1828;
+  border-color: #aa80ff80;
+}
+
+.boxed_message.notice_border {
+  background: #14181f;
+  border-color: #557ef680;
+}
+
+.boxed_message.thick_border {
+  border-width: 0.5em;
 }
