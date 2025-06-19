@@ -149,7 +149,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/e_colour = "#000000"			//Eye color
 	var/alt_head = "None"				//Alt head style.
 	var/species = SPECIES_HUMAN
-	var/language = "Нет"		//Secondary language for choise.
+	var/language = LANGUAGE_NONE		//Secondary language for choise.
 	var/autohiss_mode = AUTOHISS_FULL	//Species autohiss level. OFF, BASIC, FULL.
 
 	var/tts_seed = null
@@ -186,7 +186,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/job_karma_low = 0
 
 	//Special role pref
-	var/uplink_pref = "КПК"
+	var/uplink_pref = PREF_UPLINK_PDA
 
 	//Keeps track of preferrence for not getting any wanted jobs
 	var/alternate_option = 2
@@ -208,9 +208,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/exploit_record = ""
 	var/disabilities = 0
 
-	var/nanotrasen_relation = "Нейтральность"
+	var/nanotrasen_relation = PREF_NTRELATION_NEUTRAL
 
-	// 0 = Персонаж, 1 = Игровые настройки
+	// 0 = character settings, 1 = game preferences
 	var/current_tab = TAB_CHAR
 
 	// OOC Metadata:
@@ -244,7 +244,6 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/list/loadout_gear = list()
 	var/list/tgui_loadout_gear = list()
 	var/list/choosen_gears = list()
-	var/gear_tab = "Основное"
 	// Parallax
 	var/parallax = PARALLAX_HIGH
 	var/multiz_detail = MULTIZ_DETAIL_DEFAULT
@@ -322,7 +321,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<hr>"
 
 	switch(current_tab)
-		if(TAB_CHAR) // Персонаж
+		if(TAB_CHAR) // Character Settings
 			var/datum/species/S = GLOB.all_species[species]
 			if(!istype(S)) //The species was invalid. Set the species to the default, fetch the datum for that species and generate a random character.
 				species = initial(species)
@@ -354,7 +353,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				Вы можете продолжить настройку персонажа, но он будет сгенерирован случайно после присоединения к раунду.\
 				</b><br>"
 			dat += "<b>Раса:</b> <a href='byond://?_src_=prefs;preference=species;task=input'>[species]</a><br>"
-			dat += "<b>Пол:</b> <a href='byond://?_src_=prefs;preference=gender'>[gender == MALE ? "Мужской" : (gender == FEMALE ? "Женский" : "Бесполый")]</a>"
+			dat += "<b>Пол:</b> <a href='byond://?_src_=prefs;preference=gender'>[gender == MALE ? PREF_GENDER_MALE : (gender == FEMALE ? PREF_GENDER_FEMALE : PREF_GENDER_PLURAL)]</a>"
 			dat += "<br>"
 			dat += "<b>Возраст:</b> <a href='byond://?_src_=prefs;preference=age;task=input'>[age]</a><br>"
 			switch(species)
@@ -370,7 +369,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			if(species != SPECIES_GREY)
 				dat += "<b>Дополнительный язык:</b> <a href='byond://?_src_=prefs;preference=language;task=input'>[language]</a><br>"
 			if(S.autohiss_basic_map)
-				dat += "<b>Авто-акцент:</b> <a href='byond://?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? "Полный" : (autohiss_mode == AUTOHISS_BASIC ? "Базовый" : "Нет")]</a><br>"
+				dat += "<b>Авто-акцент:</b> <a href='byond://?_src_=prefs;preference=autohiss_mode;task=input'>[autohiss_mode == AUTOHISS_FULL ? PREF_AUTOHISS_FULL : (autohiss_mode == AUTOHISS_BASIC ? PREF_AUTOHISS_BASIC : PREF_AUTOHISS_OFF)]</a><br>"
 			dat += "<b>Группа крови:</b> <a href='byond://?_src_=prefs;preference=b_type;task=input'>[b_type]</a><br>"
 			if(S.bodyflags & (HAS_SKIN_TONE|HAS_ICON_SKIN_TONE))
 				dat += "<b>Тон кожи:</b> <a href='byond://?_src_=prefs;preference=s_tone;task=input'>[S.bodyflags & HAS_ICON_SKIN_TONE ? "[s_tone]" : "[-s_tone + 35]/220"]</a><br>"
@@ -469,55 +468,55 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				var/organ_name = null
 				switch(name)
 					if(BODY_ZONE_CHEST)
-						organ_name = "грудь"
+						organ_name = PREF_ORGANNAME_CHEST
 					if(BODY_ZONE_PRECISE_GROIN)
-						organ_name = "живот"
+						organ_name = PREF_ORGANNAME_GROIN
 					if(BODY_ZONE_HEAD)
-						organ_name = "голова"
+						organ_name = PREF_ORGANNAME_HEAD
 					if(BODY_ZONE_L_ARM)
-						organ_name = "левая рука"
+						organ_name = PREF_ORGANNAME_L_ARM
 					if(BODY_ZONE_R_ARM)
-						organ_name = "правая рука"
+						organ_name = PREF_ORGANNAME_R_ARM
 					if(BODY_ZONE_L_LEG)
-						organ_name = "левая нога"
+						organ_name = PREF_ORGANNAME_L_LEG
 					if(BODY_ZONE_R_LEG)
-						organ_name = "правая нога"
+						organ_name = PREF_ORGANNAME_R_LEG
 					if(BODY_ZONE_PRECISE_L_FOOT)
-						organ_name = "левая ступня"
+						organ_name = PREF_ORGANNAME_L_FOOT
 					if(BODY_ZONE_PRECISE_R_FOOT)
-						organ_name = "правая ступня"
+						organ_name = PREF_ORGANNAME_R_FOOT
 					if(BODY_ZONE_PRECISE_L_HAND)
-						organ_name = "левая ладонь"
+						organ_name = PREF_ORGANNAME_L_HAND
 					if(BODY_ZONE_PRECISE_R_HAND)
-						organ_name = "правая ладонь"
+						organ_name = PREF_ORGANNAME_R_HAND
 					if(INTERNAL_ORGAN_EYES)
-						organ_name = "глаза"
+						organ_name = PREF_ORGANNAME_EYES
 					if(INTERNAL_ORGAN_EARS)
-						organ_name = "уши"
+						organ_name = PREF_ORGANNAME_EARS
 					if(INTERNAL_ORGAN_HEART)
-						organ_name = "сердце"
+						organ_name = PREF_ORGANNAME_HEART
 					if(INTERNAL_ORGAN_LUNGS)
-						organ_name = "лёгкие"
+						organ_name = PREF_ORGANNAME_LUNGS
 					if(INTERNAL_ORGAN_LIVER)
-						organ_name = "печень"
+						organ_name = PREF_ORGANNAME_LIVER
 					if(INTERNAL_ORGAN_KIDNEYS)
-						organ_name = "почки"
+						organ_name = PREF_ORGANNAME_KIDNEYS
 
-				if(status in list("cyborg", "amputated", "cybernetic"))
+				if(status in list(PREF_ORGANSTATUS_CYBORG_ENG, PREF_ORGANSTATUS_AMPUTATED_ENG, PREF_ORGANSTATUS_CYBERNETIC_ENG))
 					++ind
 					if(ind > 1) dat += ", "
 
 				switch(status)
-					if("cyborg")
+					if(PREF_ORGANSTATUS_CYBORG_ENG)
 						var/datum/robolimb/R
 						if(rlimb_data[name] && GLOB.all_robolimbs[rlimb_data[name]])
 							R = GLOB.all_robolimbs[rlimb_data[name]]
 						else
 							R = GLOB.basic_robolimb
 						dat += "\t[capitalize(organ_name)] – роботизированное ([R.company])"
-					if("amputated")
+					if(PREF_ORGANSTATUS_AMPUTATED_ENG)
 						dat += "\t[capitalize(organ_name)] – ампутировано"
-					if("cybernetic")
+					if(PREF_ORGANSTATUS_CYBERNETIC_ENG)
 						dat += "\t[capitalize(organ_name)] – кибернетика"
 			if(!ind)
 				dat += "\[...\]<br>"
@@ -1593,7 +1592,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							real_name = new_name
 							user.client << output(real_name, "title_browser:update_current_character")
 						else
-							to_chat(user, "<font color='red'>Недопустимое имя. Имя персонажа должно длиной от 2 до [MAX_NAME_LEN] символ[declension_ru(MAX_NAME_LEN, "а", "ов", "ов")]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и .</font>")
+							to_chat(user, "<font color='red'>Недопустимое имя. Имя персонажа должно быть длиной от 2 до [MAX_NAME_LEN] символ[declension_ru(MAX_NAME_LEN, "а", "ов", "ов")]. Допустимые символы: A-Z, a-z, А-Я, а-я, -, ' и .</font>")
 
 				if("age")
 					var/list/age_list = get_age_limits(S, list(SPECIES_AGE_MIN, SPECIES_AGE_MAX))
@@ -1695,7 +1694,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						disabilities ^= text2num(DISABILITY_FLAG_WINGDINGS)
 				if("language")
 //						var/languages_available
-					var/list/new_languages = list("Нет")
+					var/list/new_languages = list(LANGUAGE_NONE)
 /*
 					if(CONFIG_GET(flag/usealienwhitelist))
 						for(var/L in GLOB.all_languages)
@@ -1723,7 +1722,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("autohiss_mode")
 					if(S.autohiss_basic_map)
-						var/list/autohiss_choice = list("Нет" = AUTOHISS_OFF, "Базовый" = AUTOHISS_BASIC, "Полный" = AUTOHISS_FULL)
+						var/list/autohiss_choice = list(PREF_AUTOHISS_OFF = AUTOHISS_OFF, PREF_AUTOHISS_BASIC = AUTOHISS_BASIC, PREF_AUTOHISS_FULL = AUTOHISS_FULL)
 						var/new_autohiss_pref = tgui_input_list(user, "Выберите уровень авто-акцента", "Уровень авто-акцента", autohiss_choice)
 						if(!new_autohiss_pref)
 							return
@@ -1736,7 +1735,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					metadata = new_metadata
 
 				if("b_type")
-					var/new_b_type = tgui_input_list(user, "Выберите группу крови", "Группа крови", list( "A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-" ))
+					var/new_b_type = tgui_input_list(user, "Выберите группу крови", "Группа крови", list("A+", "A-", "B+", "B-", "AB+", "AB-", "O+", "O-"))
 					if(new_b_type)
 						b_type = new_b_type
 
@@ -1831,7 +1830,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							ha_style = new_head_accessory_style
 
 				if("alt_head")
-					if(organ_data["head"] == "cyborg")
+					if(organ_data["head"] == PREF_ORGANSTATUS_CYBORG_ENG)
 						return
 					if(S.bodyflags & HAS_ALT_HEADS) //Species with alt heads.
 						var/list/valid_alt_heads = list()
@@ -2118,7 +2117,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return FALSE
 
 				if("nt_relation")
-					var/new_relation = tgui_input_list(user, "Выберите отношение к НаноТрейзен. Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к НаноТрейзен", list("Преданность", "Поддержка", "Нейтральность", "Скептичное", "Враждебность"))
+					var/new_relation = tgui_input_list(user, "Выберите отношение к НаноТрейзен. Имейте ввиду, что это та информация, которую кто-то может узнать при изучении биографии персонажа, а не его актуальное мнение.", "Отношение к НаноТрейзен", list(PREF_NTRELATION_LOYAL, PREF_NTRELATION_SUPPORTIVE, PREF_NTRELATION_NEUTRAL, PREF_NTRELATION_SCEPTICAL, PREF_NTRELATION_OPPOSED))
 					if(new_relation)
 						nanotrasen_relation = new_relation
 
@@ -2160,10 +2159,10 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							f_style = GLOB.facial_hair_styles_list["Shaved"]
 							m_styles["head"] = "None"
 						rlimb_data[limb] = choice
-						organ_data[limb] = "cyborg"
+						organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG
 
 				if("uplink_pref")
-					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list("КПК", "Гарнитура"))
+					var/new_uplink_pref = tgui_input_list(user, "Выберите желаемое местонахождение аплинка", "Местонахождение аплинка", list(PREF_UPLINK_PDA, PREF_UPLINK_HEADSET))
 					if(new_uplink_pref)
 						uplink_pref = new_uplink_pref
 
@@ -2177,9 +2176,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					return
 
 				if("limbs")
-					var/valid_limbs = list("Левая нога", "Правая нога", "Левая рука", "Правая рука", "Левая ступня", "Правая ступня", "Левая ладонь", "Правая ладонь")
+					var/valid_limbs = list(PREF_ORGANNAME_L_LEG, PREF_ORGANNAME_R_LEG, PREF_ORGANNAME_L_ARM, PREF_ORGANNAME_R_ARM, PREF_ORGANNAME_L_FOOT, PREF_ORGANNAME_R_FOOT, PREF_ORGANNAME_L_HAND, PREF_ORGANNAME_R_HAND)
 					if(S.bodyflags & ALL_RPARTS)
-						valid_limbs = list("Грудь", "Живот", "Голова", "Левая нога", "Правая нога", "Левая рука", "Правая рука", "Левая ступня", "Правая ступня", "Левая ладонь", "Правая ладонь")
+						valid_limbs = list(PREF_ORGANNAME_CHEST, PREF_ORGANNAME_GROIN, PREF_ORGANNAME_HEAD, PREF_ORGANNAME_L_LEG, PREF_ORGANNAME_R_LEG, PREF_ORGANNAME_L_ARM, PREF_ORGANNAME_R_ARM, PREF_ORGANNAME_L_FOOT, PREF_ORGANNAME_R_FOOT, PREF_ORGANNAME_L_HAND, PREF_ORGANNAME_R_HAND)
 					var/limb_name = tgui_input_list(user, "Выберите часть тела для изменения", "Изменение части тела", valid_limbs)
 					if(!limb_name)
 						return
@@ -2187,59 +2186,59 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					var/limb = null
 					var/second_limb = null // if you try to change the arm, the hand should also change
 					var/third_limb = null  // if you try to unchange the hand, the arm should also change
-					var/valid_limb_states = list("Органика", "Кибернетика")
+					var/valid_limb_states = list(PREF_ORGANSTATUS_ORGANIC_RUS, PREF_ORGANSTATUS_CYBERNETIC_RUS)
 					var/no_amputate = FALSE
 
 					switch(limb_name)
-						if("Грудь")
+						if(PREF_ORGANNAME_CHEST)
 							limb = BODY_ZONE_CHEST
 							second_limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
-						if("Живот")
+						if(PREF_ORGANNAME_GROIN)
 							limb = BODY_ZONE_PRECISE_GROIN
 							no_amputate = 1
-						if("Голова")
+						if(PREF_ORGANNAME_HEAD)
 							limb = BODY_ZONE_HEAD
 							no_amputate = 1
-						if("Левая нога")
+						if(PREF_ORGANNAME_L_LEG)
 							limb = BODY_ZONE_L_LEG
 							second_limb = BODY_ZONE_PRECISE_L_FOOT
-						if("Правая нога")
+						if(PREF_ORGANNAME_R_LEG)
 							limb = BODY_ZONE_R_LEG
 							second_limb = BODY_ZONE_PRECISE_R_FOOT
-						if("Левая рука")
+						if(PREF_ORGANNAME_L_ARM)
 							limb = BODY_ZONE_L_ARM
 							second_limb = BODY_ZONE_PRECISE_L_HAND
-						if("Правая рука")
+						if(PREF_ORGANNAME_R_ARM)
 							limb = BODY_ZONE_R_ARM
 							second_limb = BODY_ZONE_PRECISE_R_HAND
-						if("Левая ступня")
+						if(PREF_ORGANNAME_L_FOOT)
 							limb = BODY_ZONE_PRECISE_L_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_L_LEG
-						if("Правая ступня")
+						if(PREF_ORGANNAME_R_FOOT)
 							limb = BODY_ZONE_PRECISE_R_FOOT
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_LEG
-						if("Левая ладонь")
+						if(PREF_ORGANNAME_L_HAND)
 							limb = BODY_ZONE_PRECISE_L_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_L_ARM
-						if("Правая ладонь")
+						if(PREF_ORGANNAME_R_HAND)
 							limb = BODY_ZONE_PRECISE_R_HAND
 							if(!(S.bodyflags & ALL_RPARTS))
 								third_limb = BODY_ZONE_R_ARM
 
 					if(!no_amputate)	// I don't want this in my menu if it's not an option, heck.
-						valid_limb_states += "Ампутировано"
+						valid_limb_states += PREF_ORGANSTATUS_AMPUTATED_RUS
 					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
-						valid_limb_states -= "Кибернетика"
+						valid_limb_states -= PREF_ORGANSTATUS_CYBERNETIC_RUS
 
 					var/new_state = tgui_input_list(user, "Выберите желаемое состояния части тела", "[limb_name] – изменение состояния", valid_limb_states)
 					if(!new_state) return
 
 					switch(new_state)
-						if("Органика")
+						if(PREF_ORGANSTATUS_ORGANIC_RUS)
 							if(limb == BODY_ZONE_HEAD)
 								m_styles["head"] = "None"
 								h_style = GLOB.hair_styles_public_list["Bald"]
@@ -2249,13 +2248,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 							if(third_limb)
 								organ_data[third_limb] = null
 								rlimb_data[third_limb] = null
-						if("Ампутировано")
-							organ_data[limb] = "amputated"
+						if(PREF_ORGANSTATUS_AMPUTATED_RUS)
+							organ_data[limb] = PREF_ORGANSTATUS_AMPUTATED_ENG
 							rlimb_data[limb] = null
 							if(second_limb)
-								organ_data[second_limb] = "amputated"
+								organ_data[second_limb] = PREF_ORGANSTATUS_AMPUTATED_ENG
 								rlimb_data[second_limb] = null
-						if("Кибернетика")
+						if(PREF_ORGANSTATUS_CYBERNETIC_RUS)
 							var/choice
 							var/subchoice
 							var/datum/robolimb/R = new()
@@ -2297,46 +2296,46 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									f_style = GLOB.facial_hair_styles_list["Shaved"]
 									m_styles["head"] = "None"
 							rlimb_data[limb] = choice
-							organ_data[limb] = "cyborg"
+							organ_data[limb] = PREF_ORGANSTATUS_CYBORG_ENG
 							if(second_limb)
 								if(subchoice)
 									if(in_model)
 										rlimb_data[second_limb] = choice
-										organ_data[second_limb] = "cyborg"
+										organ_data[second_limb] = PREF_ORGANSTATUS_CYBORG_ENG
 								else
 									rlimb_data[second_limb] = choice
-									organ_data[second_limb] = "cyborg"
+									organ_data[second_limb] = PREF_ORGANSTATUS_CYBORG_ENG
 				if("organs")
-					var/organ_name = tgui_input_list(user, "Выберите внутренний орган для изменения", "Изменение внутреннего органа", list("Глаза", "Уши", "Сердце", "Лёгкие", "Печень", "Почки"))
+					var/organ_name = tgui_input_list(user, "Выберите внутренний орган для изменения", "Изменение внутреннего органа", list(PREF_ORGANNAME_EYES, PREF_ORGANNAME_EARS, PREF_ORGANNAME_HEART, PREF_ORGANNAME_LUNGS, PREF_ORGANNAME_LIVER, PREF_ORGANNAME_KIDNEYS))
 					if(!organ_name)
 						return
 
 					var/organ = null
 					switch(organ_name)
-						if("Глаза")
+						if(PREF_ORGANNAME_EYES)
 							organ = INTERNAL_ORGAN_EYES
-						if("Уши")
+						if(PREF_ORGANNAME_EARS)
 							organ = INTERNAL_ORGAN_EARS
-						if("Сердце")
+						if(PREF_ORGANNAME_HEART)
 							organ = INTERNAL_ORGAN_HEART
-						if("Лёгкие")
+						if(PREF_ORGANNAME_LUNGS)
 							organ = INTERNAL_ORGAN_LUNGS
-						if("Печень")
+						if(PREF_ORGANNAME_LIVER)
 							organ = INTERNAL_ORGAN_LIVER
-						if("Почки")
+						if(PREF_ORGANNAME_KIDNEYS)
 							organ = INTERNAL_ORGAN_KIDNEYS
 
-					var/list/allowed_organs_type = list("Органика", "Кибернетика")
+					var/list/allowed_organs_type = list(PREF_ORGANSTATUS_ORGANIC_RUS, PREF_ORGANSTATUS_CYBERNETIC_RUS)
 					if(TRAIT_NO_ROBOPARTS in S.inherent_traits)
-						allowed_organs_type -= "Кибернетика"
+						allowed_organs_type -= PREF_ORGANSTATUS_CYBERNETIC_RUS
 					var/new_state = tgui_input_list(user, "Выберите желаемое состояние органа", "[organ_name]", allowed_organs_type)
 					if(!new_state) return
 
 					switch(new_state)
-						if("Органика")
+						if(PREF_ORGANSTATUS_ORGANIC_RUS)
 							organ_data[organ] = null
-						if("Кибернетика")
-							organ_data[organ] = "cybernetic"
+						if(PREF_ORGANSTATUS_CYBERNETIC_RUS)
+							organ_data[organ] = PREF_ORGANSTATUS_CYBERNETIC_ENG
 
 				if("clientfps")
 					var/desiredfps = tgui_input_number(user, "Выберите желаемое значение FPS.\n  0 = значение по умолчанию ([CONFIG_GET(number/clientfps)]) < РЕКОМЕНДОВАНО\n -1 = синхронизировано с сервером ([world.fps])\n20/40/50 = Может помочь при проблемах с плавностью.", "Выбор желаемого значения FPS", clientfps, 120, -1)
@@ -2358,13 +2357,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 				if("gender")
 					if(!S.has_gender)
-						var/newgender = tgui_input_list(user, "Выберите пол", "Пол", list("Мужской", "Женский", "Бесполый"))
+						var/newgender = tgui_input_list(user, "Выберите пол", "Пол", list(PREF_GENDER_MALE, PREF_GENDER_FEMALE, PREF_GENDER_PLURAL))
 						switch(newgender)
-							if("Мужской")
+							if(PREF_GENDER_MALE)
 								gender = MALE
-							if("Женский")
+							if(PREF_GENDER_FEMALE)
 								gender = FEMALE
-							if("Бесполый")
+							if(PREF_GENDER_PLURAL)
 								gender = PLURAL
 					else
 						if(gender == MALE)
@@ -2386,22 +2385,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list("Полночь", "Плазма", "Ретро", "Желе", "Оперативник", "Белизна"))
-					if(!new_UI_style)
+					UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT, UI_THEME_PLASMAFIRE, UI_THEME_RETRO, UI_THEME_SLIMECORE, UI_THEME_OPERATIVE, UI_THEME_WHITE))
+					if(!UI_style)
 						return
-					switch(new_UI_style)
-						if("Полночь")
-							UI_style = UI_THEME_MIDNIGHT
-						if("Плазма")
-							UI_style = UI_THEME_PLASMAFIRE
-						if("Ретро")
-							UI_style = UI_THEME_RETRO
-						if("Желе")
-							UI_style = UI_THEME_SLIMECORE
-						if("Оперативник")
-							UI_style = UI_THEME_OPERATIVE
-						if("Белизна")
-							UI_style = UI_THEME_WHITE
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -2835,17 +2821,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		var/status = organ_data[name]
 		var/obj/item/organ/external/O = character.bodyparts_by_name[name]
 		if(O)
-			if(status == "amputated")
+			if(status == PREF_ORGANSTATUS_AMPUTATED_ENG)
 				qdel(O.remove(character))
 
-			else if(status == "cyborg")
+			else if(status == PREF_ORGANSTATUS_CYBORG_ENG)
 				if(rlimb_data[name])
 					O.robotize(company = rlimb_data[name], convert_all = FALSE)
 				else
 					O.robotize()
 		else
 			var/obj/item/organ/internal/I = character.internal_organs_slot[name]
-			if(I && status == "cybernetic")
+			if(I && status == PREF_ORGANSTATUS_CYBERNETIC_ENG)
 				I.robotize()
 
 	character.dna.blood_type = b_type

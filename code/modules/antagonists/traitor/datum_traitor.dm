@@ -256,11 +256,11 @@
 	var/mob/living/carbon/human/traitor_mob = owner.current
 	var/uplink_pref = traitor_mob.client?.prefs?.uplink_pref
 	if(!uplink_pref)
-		uplink_pref = "КПК"
+		uplink_pref = PREF_UPLINK_PDA
 
 	var/obj/item/uplink_holder = null
 	// find a radio! toolbox(es), backpack, belt, headset
-	if(uplink_pref == "КПК")
+	if(uplink_pref == PREF_UPLINK_PDA)
 		uplink_holder = locate(/obj/item/pda) in traitor_mob.contents //Hide the uplink in a PDA if available, otherwise radio
 		if(!uplink_holder)
 			uplink_holder = locate(/obj/item/radio) in traitor_mob.contents
