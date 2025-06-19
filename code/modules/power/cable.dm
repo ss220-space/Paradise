@@ -213,7 +213,7 @@ By design, d1 is the smallest direction and d2 is the highest
 
 /obj/structure/cable/proc/generate_power_message()
 	if(powernet && (powernet.avail > 0))
-		return chat_box_examine(span_notice("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)])]"))
+		return chat_box_examine(span_notice("Total power: [DisplayPower(powernet.avail)]\nLoad: [DisplayPower(powernet.load)]\nSurplus: [DisplayPower(surplus())]"))
 	else
 		return span_warning("The cable is not powered.")
 
