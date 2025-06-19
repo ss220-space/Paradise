@@ -289,7 +289,7 @@
 							var/datum/disease/virus/advance/A = D
 							D = GLOB.archive_diseases[A.GetDiseaseID()]
 							if(D)
-								if(D.name == "Unknown")
+								if(D.name == "Неизвестно")
 									dat += "<b><a href='byond://?src=[UID()];name_disease=[i]'>Назвать вирус</a></b><br>"
 								else
 									dat += "[D.name] <b><a href='byond://?src=[UID()];print_form=[i]'>Напечатать форму выпуска</a></b><br>"

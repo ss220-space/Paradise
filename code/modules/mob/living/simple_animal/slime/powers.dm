@@ -46,7 +46,7 @@
 		return 1
 
 /datum/action/innate/slime/feed
-	name = "Feed"
+	name = "Поглощать"
 	button_icon_state = "slimeeat"
 
 
@@ -172,7 +172,7 @@
 			to_chat(src, "<i>I am not ready to evolve yet...</i>")
 
 /datum/action/innate/slime/evolve
-	name = "Evolve"
+	name = "Эволюция"
 	button_icon_state = "slimegrow"
 	needs_growth = GROWTH_NEEDED
 
@@ -282,7 +282,7 @@
 	SSblackbox.record_feedback("tally", "slime_babies_born", 1, M.colour)
 
 /datum/action/innate/slime/reproduce
-	name = "Reproduce"
+	name = "Размножиться"
 	button_icon_state = "slimesplit"
 	needs_growth = GROWTH_NEEDED
 	needs_split = SPLIT_NEEDED

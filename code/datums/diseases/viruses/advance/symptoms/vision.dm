@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/visionloss
 
-	name = "Hyphema"
+	name = "Гифема"
 	id = "visionloss"
 	stealth = -1
 	resistance = -4
@@ -35,13 +35,13 @@ Bonus
 			return
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, span_warning("Your eyes itch."))
+				to_chat(M, span_warning("Ваши глаза чешутся."))
 			if(3, 4)
-				to_chat(M, span_warning("<b>Your eyes burn!</b>"))
+				to_chat(M, span_warning("<b>Ваши глаза горят!</b>"))
 				M.EyeBlurry(40 SECONDS)
 				eyes.internal_receive_damage(1)
 			else
-				to_chat(M, span_userdanger("Your eyes burn horrificly!"))
+				to_chat(M, span_userdanger("Ваши глаза ужасно горят!"))
 				M.EyeBlurry(60 SECONDS)
 				eyes.internal_receive_damage(5)
 				if(eyes.damage >= 10)
@@ -53,5 +53,5 @@ Bonus
 						ADD_TRAIT(M, TRAIT_BLIND, name)
 						if(!HAS_TRAIT_NOT_FROM(M, TRAIT_BLIND, name))
 							M.update_blind_effects()
-							to_chat(M, span_userdanger("You go blind!"))
+							to_chat(M, span_userdanger("Вы слепнете!"))
 
