@@ -455,7 +455,7 @@
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
 		owner.visible_message(
-			span_danger("Реактивная телепортная система отражает [attack_text.declent_ru(GENITIVE)] [H.declent_ru(GENITIVE)]!"),
+			span_danger("Реактивная телепортная система отражает [attack_text] [H.declent_ru(GENITIVE)]!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		var/list/turfs = new/list()
@@ -486,7 +486,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[capitalize(src.declent_ru(NOMINATIVE))] блокирует [attack_text.declent_ru(GENITIVE)], выпуская струи пламени!"),
+			span_danger("[capitalize(src.declent_ru(NOMINATIVE))] блокирует [attack_text], выпуская струи пламени!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		for(var/mob/living/carbon/C in range(6, owner))
@@ -510,7 +510,7 @@
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
 		owner.visible_message(
-			span_danger("[owner] получает [attack_text.declent_ru(ACCUSATIVE)] в грудь!"),
+			span_danger("[owner] получает [attack_text] в грудь!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		) //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
@@ -525,7 +525,7 @@
 		return 0
 	if(prob(hit_reaction_chance))
 		owner.visible_message(
-			span_danger("[capitalize(src.declent_ru(NOMINATIVE))] блокирует [attack_text.declent_ru(ACCUSATIVE)], испуская разряды молний!"),
+			span_danger("[capitalize(src.declent_ru(NOMINATIVE))] блокирует [attack_text], испуская разряды молний!"),
 			projectile_message = (attack_type == PROJECTILE_ATTACK)
 		)
 		for(var/mob/living/M in view(6, owner))
