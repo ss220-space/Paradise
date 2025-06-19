@@ -206,8 +206,8 @@
 					break
 			var/obj/item/paper/P = new /obj/item/paper(src)
 			P.info = "<center><b>Медицинские Записи</b></center><br>"
-			P.info += "<br>\n<center><b>Медицинская Информация</b></center><br>\nГруппа крови: [M.fields["b_type"]]<br>\nДНК: [M.fields["b_dna"]]<br>\n<br>\nНезначительные отклонения: [M.fields["mi_dis"]]<br>\nДетали: [M.fields["mi_dis_d"]]<br>\n<br>\nИнвалидности: [M.fields["ma_dis"]]<br>\nДетали: [M.fields["ma_dis_d"]]<br>\n<br>\nАллергии: [M.fields["alg"]]<br>\nДетали: [M.fields["alg_d"]]<br>\n<br>\nТекущие заболевания: [M.fields["cdi"]] (информация о заболевании, размещенная в разделе комментария)<br>\nДетали: [M.fields["cdi_d"]]<br>\n<br>\nВажные примечания:<br>\n\t[M.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Записи</b></center><br>"
 			P.info += "Имя: [G.fields["name"]] ID: [G.fields["id"]]<br>\nПол: [G.fields["sex"]]<br>\nВозраст: [G.fields["age"]]<br>\nХэш отпечатков пальцев: [G.fields["fingerprint"]]<br>\nФизическое состояние: [G.fields["p_stat"]]<br>\nПсихологическое состояние: [G.fields["m_stat"]]<br>"
+			P.info += "<br>\n<center><b>Медицинская Информация</b></center><br>\nГруппа крови: [M.fields["b_type"]]<br>\nДНК: [M.fields["b_dna"]]<br>\n<br>\nНезначительные отклонения: [M.fields["mi_dis"]]<br>\nДетали: [M.fields["mi_dis_d"]]<br>\n<br>\nИнвалидности: [M.fields["ma_dis"]]<br>\nДетали: [M.fields["ma_dis_d"]]<br>\n<br>\nАллергии: [M.fields["alg"]]<br>\nДетали: [M.fields["alg_d"]]<br>\n<br>\nТекущие заболевания: [M.fields["cdi"]] (информация о заболевании, размещенная в разделе комментария)<br>\nДетали: [M.fields["cdi_d"]]<br>\n<br>\nВажные примечания:<br>\n\t[M.fields["notes"]]<br>\n<br>\n<center><b>Комментарии/Записи</b></center><br>"
 			for(var/c in M.fields["comments"])
 				P.info += "[c]<br>"
 			P.name = "paper - '[G.fields["name"]]'"
