@@ -628,7 +628,7 @@ SUBSYSTEM_DEF(ticker)
 	// Declare the completion of the station goals
 	mode.declare_station_goal_completion()
 
-	//SSpersistent_data.save()
+	SSpersistent_data.save()
 	to_chat(world, end_of_round_info.Join("<br>"))
 
 	if(toggle_pacifism)

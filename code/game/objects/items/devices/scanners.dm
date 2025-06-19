@@ -247,7 +247,7 @@ REAGENT SCANNER
 			if(H.reagents.reagent_list.len)
 				to_chat(user, span_notice("Subject contains the following reagents:"))
 				for(var/datum/reagent/R in H.reagents.reagent_list)
-					to_chat(user, "[span_notice("[R.volume]u of [R.name][R.overdosed ? "")] – [span_boldannounceic("OVERDOSING")]" : "."]")
+					to_chat(user, "<span class='notice'>[R.volume]u of [R.name][R.overdosed ? "</span> – [span_boldannounceic("OVERDOSING")]" : ".</span>"]")
 			else
 				to_chat(user, span_notice("Subject contains no reagents."))
 			if(H.reagents.addiction_list.len)

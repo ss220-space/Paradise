@@ -99,7 +99,7 @@
 	for(var/i = start to end)
 		var/dat = "<a href='byond://?src=[UID()];page=[i]'>[i]</a>"
 		if(i == page_num)
-			dat = (span_bold(span_fontsize3"[dat]"))
+			dat = (span_bold(span_fontsize3("[dat]")))
 		if(i != end)
 			dat += " "
 		pagelist += dat
