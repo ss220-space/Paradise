@@ -5,6 +5,14 @@
 
 /obj/item/paper
 	name = "paper"
+	ru_names = list(
+		NOMINATIVE = "лист бумаги",
+		GENITIVE = "листа бумаги",
+		DATIVE = "листу бумаги",
+		ACCUSATIVE = "лист бумаги",
+		INSTRUMENTAL = "листом бумаги",
+		PREPOSITIONAL = "листе бумаги"
+	)
 	gender = PLURAL
 	icon = 'icons/obj/bureaucracy.dmi'
 	icon_state = "paper"

@@ -1,6 +1,14 @@
 /obj/machinery/keycard_auth
 	name = "Keycard Authentication Device"
-	desc = "This device is used to trigger station functions, which require more than one ID card to authenticate."
+	desc = "Устройство, используемое для запуска протоколов станции, для аутентификации которых требуется более одной ID-карты."
+	ru_names = list(
+		NOMINATIVE = "устройство аутентификации",
+		GENITIVE = "устройства аутентификации",
+		DATIVE = "устройству аутентификации",
+		ACCUSATIVE = "устройство аутентификации",
+		INSTRUMENTAL = "устройством аутентификации",
+		PREPOSITIONAL = "устройстве аутентификации"
+	)
 	icon = 'icons/obj/machines/monitors.dmi'
 	icon_state = "auth_off"
 
@@ -25,7 +33,7 @@
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
 
 /obj/machinery/keycard_auth/attack_ai(mob/user as mob)
-	to_chat(user, "<span class='warning'>The station AI is not to interact with these devices.</span>")
+	to_chat(user, span_warning("Станционный ИИ не может взаимодействовать с этим устройством."))
 	return
 
 
@@ -36,7 +44,7 @@
 	if(I.GetID())
 		add_fingerprint(user)
 		if(stat & (NOPOWER|BROKEN))
-			to_chat(user, span_warning("The [name] is not powered or broken."))
+			to_chat(user, span_warning("[I.declent_ru(ACCUSATIVE)] сломан или не получает питание."))
 			return ATTACK_CHAIN_PROCEED
 		if(!check_access(I))
 			to_chat(user, span_warning("Access denied."))
@@ -50,7 +58,7 @@
 				SStgui.update_uis(src)
 		else if(swiping)
 			if(event == "Emergency Response Team" && !ert_reason)
-				to_chat(user, span_warning("Supply a reason for calling the ERT first."))
+				to_chat(user, span_warning("Сначала укажите причину вызова отряда быстрого реагирования."))
 				return ATTACK_CHAIN_PROCEED
 			event_triggered_by = user
 			SStgui.update_uis(src)
@@ -111,22 +119,22 @@
 	if(..())
 		return
 	if(busy)
-		to_chat(usr, "<span class='warning'>This device is busy.</span>")
+		to_chat(usr, span_warning("Устройство занято."))
 		return
 	if(!allowed(usr))
-		to_chat(usr, "<span class='warning'>Access denied.</span>")
+		to_chat(usr, span_warning("Access denied."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE
 	switch(action)
 		if("ert")
-			ert_reason = tgui_input_text(usr, "Reason for ERT Call:", "Call ERT", encode = FALSE) // we strip this later in ERT_Announce
+			ert_reason = tgui_input_text(usr, "Причина вызова ОБР:", "Вызвать ОБР", encode = FALSE) // we strip this later in ERT_Announce
 		if("reset")
 			reset()
 		if("triggerevent")
 			event = params["triggerevent"]
 			if(GLOB.security_level > SEC_LEVEL_RED && event == "Red Alert") //if gamma, epsilon or delta
-				to_chat(usr, "<span class='warning'>CentCom security measures prevent you from changing the alert level.</span>")
+				to_chat(usr, span_warning("Система защиты не позволяет вам изменять уровень угрозы."))
 				return
 			swiping = TRUE
 
@@ -192,8 +200,8 @@
 				atom_say("Все Отряды Быстрого Реагирования распределены и не могут быть вызваны в данный момент.")
 				return
 			atom_say("Запрос ОБР отправлен!")
-			GLOB.command_announcer.autosay("ERT request transmitted. Reason: [ert_reason]", name)
-			print_centcom_report(ert_reason, station_time_timestamp() + " ERT Request")
+			GLOB.command_announcer.autosay("Запрос ОБР направлен. Причина запроса: [ert_reason]", name)
+			print_centcom_report(ert_reason, station_time_timestamp() + " Запрос ОБР")
 
 			var/fullmin_count = 0
 			for(var/client/C in GLOB.admins)
@@ -253,7 +261,7 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 1
 			D.update_icon()
-	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, пока командование не заявит об обратном.")
 	GLOB.station_all_access = 1
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
@@ -262,6 +270,6 @@ GLOBAL_VAR_INIT(station_all_access, 0)
 		if(is_station_level(D.z))
 			D.emergency = 0
 			D.update_icon()
-	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции или коллегам.")
 	GLOB.station_all_access = 0
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))

@@ -67,7 +67,7 @@
 /datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
 	if(!A.blood_DNA)
 		to_chat(user, span_notice("На [A.declent_ru(PREPOSITIONAL)] не найдено следов крови."))
-			qdel(A.blood_DNA)
+		qdel(A.blood_DNA)
 	else
 		to_chat(user, span_notice("На [A.declent_ru(PREPOSITIONAL)] найдена кровь. Анализ..."))
 		spawn(15)

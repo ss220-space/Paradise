@@ -15,10 +15,11 @@ type KeycardAuthData = {
 export const KeycardAuth = (props: unknown) => {
   const { act, data } = useBackend<KeycardAuthData>();
   let infoBox = (
-    <Section title="Keycard Authentication Device">
+    <Section title="Устройство аутентификации">
       <Box>
-        This device is used to trigger certain high security events. It requires
-        the simultaneous swipe of two high-level ID cards.
+        Используется для запуска определенных протоколов повышенного уровня
+        безопасности. Оно требует одновременного считывания двух ID-карт
+        повышенного уровня допуска.
       </Box>
     </Section>
   );
@@ -27,9 +28,9 @@ export const KeycardAuth = (props: unknown) => {
       <Window width={540} height={280}>
         <Window.Content>
           {infoBox}
-          <Section title="Choose Action">
+          <Section title="Выберите действие">
             <LabeledList>
-              <LabeledList.Item label="Red Alert">
+              <LabeledList.Item label="Красный код">
                 <Button
                   icon="exclamation-triangle"
                   disabled={!data.redAvailable}
@@ -37,10 +38,10 @@ export const KeycardAuth = (props: unknown) => {
                     act('triggerevent', { 'triggerevent': 'Red Alert' })
                   }
                 >
-                  Red Alert
+                  Красный код
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="ERT">
+              <LabeledList.Item label="ОБР">
                 <Button
                   icon="broadcast-tower"
                   onClick={() =>
@@ -49,10 +50,10 @@ export const KeycardAuth = (props: unknown) => {
                     })
                   }
                 >
-                  Call ERT
+                  Запросить ОБР
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="Emergency Maint Access">
+              <LabeledList.Item label="Экстренный доступ в технические тоннели">
                 <Button
                   icon="door-open"
                   onClick={() =>
@@ -61,7 +62,7 @@ export const KeycardAuth = (props: unknown) => {
                     })
                   }
                 >
-                  Grant
+                  Разрешить
                 </Button>
                 <Button
                   icon="door-closed"
@@ -71,10 +72,10 @@ export const KeycardAuth = (props: unknown) => {
                     })
                   }
                 >
-                  Revoke
+                  Отозвать
                 </Button>
               </LabeledList.Item>
-              <LabeledList.Item label="Emergency Station-Wide Access">
+              <LabeledList.Item label="Экстренный доступ во все отсеки станции">
                 <Button
                   icon="door-open"
                   onClick={() =>
@@ -83,7 +84,7 @@ export const KeycardAuth = (props: unknown) => {
                     })
                   }
                 >
-                  Grant
+                  Разрешить
                 </Button>
                 <Button
                   icon="door-closed"
@@ -94,7 +95,7 @@ export const KeycardAuth = (props: unknown) => {
                     })
                   }
                 >
-                  Revoke
+                  Отозвать
                 </Button>
               </LabeledList.Item>
             </LabeledList>
@@ -103,24 +104,28 @@ export const KeycardAuth = (props: unknown) => {
       </Window>
     );
   } else {
-    let swipeInfo = <Box color="red">Waiting for YOU to swipe your ID...</Box>;
+    let swipeInfo = <Box color="red">Проведите вашей ID-картой...</Box>;
     if (
       !data.hasSwiped &&
       !data.ertreason &&
       data.event === 'Emergency Response Team'
     ) {
       swipeInfo = (
-        <Box color="red">Fill out the reason for your ERT request.</Box>
+        <Box color="red">
+          Укажите причину запроса отряда быстрого реагирования.
+        </Box>
       );
     } else if (data.hasConfirm) {
-      swipeInfo = <Box color="green">Request Confirmed!</Box>;
+      swipeInfo = <Box color="green">Запрос подтвержден!</Box>;
     } else if (data.isRemote) {
       swipeInfo = (
-        <Box color="orange">Swipe your card to CONFIRM the remote request.</Box>
+        <Box color="orange">Проведите картой, чтобы ПОДТВЕРДИТЬ запрос.</Box>
       );
     } else if (data.hasSwiped) {
       swipeInfo = (
-        <Box color="orange">Waiting for second person to confirm...</Box>
+        <Box color="orange">
+          Ожидаю подтверждения от другого пользователя...
+        </Box>
       );
     }
     return (
@@ -128,7 +133,7 @@ export const KeycardAuth = (props: unknown) => {
         <Window.Content>
           {infoBox}
           {data.event === 'Emergency Response Team' && (
-            <Section title="Reason for ERT Call">
+            <Section title="Причина вызова ОБР">
               <Box>
                 <Button
                   color={data.ertreason ? '' : 'red'}
@@ -149,7 +154,7 @@ export const KeycardAuth = (props: unknown) => {
                 disabled={data.busy || data.hasConfirm}
                 onClick={() => act('reset')}
               >
-                Back
+                Назад
               </Button>
             }
           >

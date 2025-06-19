@@ -175,22 +175,22 @@
 			if(notekeeper)
 				info = notekeeper.note
 
-		to_chat(user, "Вы держите [itemname.declent_ru(ACCUSATIVE)] перед камерой...")
+		to_chat(user, "Вы держите [I.declent_ru(ACCUSATIVE)] перед камерой...")
 
 		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
 			if(user.name == "Unknown")
-				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
+				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[I.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
 			else
-				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
+				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[I.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
 			AI.last_paper_seen = "<tt>[info]</tt>"
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
 			for(var/uid_watcher as anything in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
-				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ут")] [itemname.declent_ru(ACCUSATIVE)] у одной из ваших камер...")
+				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ут")] [I.declent_ru(ACCUSATIVE)] у одной из ваших камер...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
 				popup.include_default_stylesheet = FALSE
 				popup.set_content("<tt>[info]</tt>")
