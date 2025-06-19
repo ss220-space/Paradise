@@ -617,10 +617,10 @@
 		return
 
 	if(seclevel2num(get_security_level()) >= SEC_LEVEL_RED) // There is a serious threat we gotta move no time to give them five minutes.
-		SSshuttle.emergency.request(null, 0.5, null, " Автоматический Трансфер Экипажа", 1)
+		SSshuttle.emergency.request(null, 0.5, null, " Автоматический трансфер экипажа", 1)
 		SSshuttle.emergency.canRecall = FALSE
 	else
-		SSshuttle.emergency.request(null, 1, null, " Автоматический Трансфер Экипажа", 0)
+		SSshuttle.emergency.request(null, 1, null, " Автоматический трансфер экипажа", 0)
 		SSshuttle.emergency.canRecall = FALSE
 	if(user)
 		add_game_logs("has called the shuttle.", user)
