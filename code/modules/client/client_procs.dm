@@ -397,6 +397,10 @@
 	Master.UpdateTickRate()
 	INVOKE_ASYNC(src, TYPE_PROC_REF(/client, nag_516))
 
+	// Tell clients about active testmerges
+	if(world.TgsAvailable() && length(GLOB.revision_info.testmerges))
+		to_chat(src, GLOB.revision_info.get_testmerge_chatmessage(TRUE))
+
 	// Check total playercount
 	var/playercount = 0
 	for(var/mob/M in GLOB.player_list)
