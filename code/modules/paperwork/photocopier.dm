@@ -4,7 +4,7 @@
 
 /obj/machinery/photocopier
 	name = "photocopier"
-	desc = "Устройство для сканирования и печати важных документов, или, что более вероятно, вашей сраки."
+	desc = "Устройство для сканирования и печати важных документов. На корпусе имеется надпись: \"НЕ САДИТЬСЯ\"."
 	ru_names = list(
 		NOMINATIVE = "ксерокс",
 		GENITIVE = "ксерокса",
@@ -13,6 +13,7 @@
 		INSTRUMENTAL = "ксероксом",
 		PREPOSITIONAL = "ксероксе"
 	)
+	gender = MALE
 	icon = 'icons/obj/library.dmi'
 	icon_state = "bigscanner"
 	anchored = TRUE
