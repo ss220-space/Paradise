@@ -39,14 +39,14 @@
 			if(!location)	continue
 
 			if(location.loc.type == SSshuttle.emergency.areaInstance.type) //didn't work in the switch for some reason
-				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
+				text += (span_bold(span_fontsize2("<br>[player.real_name] escaped on the emergency shuttle")))
 
 			else
 				switch(location.loc.type)
 					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
-						text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
+						text += span_fontsize2("<br>[player.real_name] escaped in a life pod.")
 					else
-						text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
+						text += span_fontsize1("<br>[player.real_name] survived but is stranded without any hope of rescue.")
 			survivors++
 
 	if(survivors)

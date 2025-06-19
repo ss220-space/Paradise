@@ -212,14 +212,14 @@
 /datum/game_mode/proc/auto_declare_completion_abduction()
 	var/list/text = list()
 	if(length(abductors))
-		text += "<br><span class='big'><b>The abductors were:</b></span><br>"
+		text += span_bigbold("<br>The abductors were:<br>")
 		for(var/datum/mind/abductor_mind in abductors)
 			text += printplayer(abductor_mind)
 			text += "<br>"
 			text += printobjectives(abductor_mind)
 			text += "<br>"
 		if(length(abductees))
-			text += "<br><span class='big'><b>The abductees were:</b></span><br>"
+			text += span_bigbold("<br>The abductees were:<br>")
 			for(var/datum/mind/abductee_mind in abductees)
 				text += printplayer(abductee_mind)
 				text += "<br>"

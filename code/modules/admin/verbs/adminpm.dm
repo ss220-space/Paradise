@@ -167,9 +167,9 @@
 				return
 
 
-	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
-	var/window_link = "(<a href='?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
-	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
+	var/ping_link = check_rights(R_ADMIN, 0, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];ping=[C.key]'>PING</a>)" : ""
+	var/window_link = "(<a href='byond://?src=[pm_tracker.UID()];newtitle=[C.key]'>WINDOW</a>)"
+	var/alert_link = check_rights(R_ADMIN, FALSE, mob) ? "(<a href='byond://?src=[pm_tracker.UID()];adminalert=[C.mob.UID()]'>ALERT</a>)" : ""
 	if(ticket_id != -1)
 		if(message_type == MESSAGE_TYPE_MENTORPM)
 			window_link = "(<a href='?_src_=holder;openticket=[ticket_id];is_mhelp=1'>TICKET</a>)"
@@ -192,9 +192,9 @@
 
 	var/third_party_message
 	if(message_type == MESSAGE_TYPE_MENTORPM)
-		third_party_message = chat_box_mhelp("<span class='mentorhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
+		third_party_message = chat_box_mhelp(span_mentorhelp("[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]"))
 	else
-		third_party_message = chat_box_ahelp("<span class='adminhelp'>[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]</span>")
+		third_party_message = chat_box_ahelp(span_adminhelp("[type]: [key_name(src, TRUE, type, ticket_id = ticket_id)]-&gt;[key_name(C, TRUE, type, ticket_id = ticket_id)]:<br><br>[emoji_msg]<br>[ping_link] [window_link] [alert_link]"))
 
 	//play the recieving admin the adminhelp sound (if they have them enabled)
 	//non-admins always hear the sound, as they cannot toggle it
@@ -263,14 +263,14 @@
 
 	SSdiscord.send2discord_simple(DISCORD_WEBHOOK_ADMIN, "PM from [key_name(src)]: [html_decode(msg)]")
 
-	to_chat(src, "<span class='discordpm'>PM to-<b>Discord Admins</b>: [msg]</span>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+	to_chat(src, span_discordpm("PM to-<b>Discord Admins</b>: [msg]"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 
 	log_admin("PM: [key_name(src)]->Discord: [msg]")
 	for(var/client/X in GLOB.admins)
 		if(X == src)
 			continue
 		if(check_rights(R_ADMIN, 0, X.mob))
-			to_chat(X, "<span class='discordpm'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> [span_notice(msg)]</span>", confidential=TRUE)
+			to_chat(X, span_discordpm("[span_bold("PM: [key_name_admin(src)]-&gt;Discord Admins:")] [span_notice(msg)]"), confidential=TRUE)
 
 /client/verb/open_pms_ui()
 	set name = "ЛС"

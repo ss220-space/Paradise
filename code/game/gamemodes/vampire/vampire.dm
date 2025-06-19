@@ -59,7 +59,7 @@
 	if(!length(vampires))
 		return
 
-	var/list/text = list("<span style='font-size: 2;'><b>The vampires were:</b></span>")
+	var/list/text = list(span_bold(span_fontsize2("The vampires were:")))
 	for(var/datum/mind/vampire in vampires)
 		var/traitorwin = TRUE
 		var/datum/antagonist/vampire/vamp = vampire.has_antag_datum(/datum/antagonist/vampire)

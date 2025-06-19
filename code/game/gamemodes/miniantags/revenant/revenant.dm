@@ -198,7 +198,7 @@
 			mind.wipe_memory()
 			SEND_SOUND(src, 'sound/effects/ghost.ogg')
 			var/list/messages = list()
-			messages.Add(span_deadsay("<font size=3><b>Вы — ревенант.</b></font>"))
+			messages.Add(span_deadsay(span_fontsize3(span_bold("Вы — ревенант."))))
 			messages.Add("<b>Ваш некогда обычный дух был наполнен чужеродной энергией и превращён в ревенанта.</b>")
 			messages.Add("<b>Вы не мёртвы, не живы, а где-то посередине. Вы способны на ограниченное взаимодействие с обоими мирами.</b>")
 			messages.Add("<b>Вы неуязвимы и невидимы для всех, кроме других призраков. Большинство способностей раскроют вас, сделав уязвимым.</b>")

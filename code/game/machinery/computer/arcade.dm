@@ -391,18 +391,18 @@
 				dat += "<br>У вас закончилась еда, и вы умерли с голоду."
 				if(emagged)
 					user.set_nutrition(0) //yeah you pretty hongry
-					to_chat(user, span_userdanger("<font size=3>Ваше тело мгновенно сжимается, как у человека, который не ел месяцами. Когда вы падаете на пол, вас охватывают мучительные судороги."))
+					to_chat(user, span_userdanger(span_fontsize3("Ваше тело мгновенно сжимается, как у человека, который не ел месяцами. Когда вы падаете на пол, вас охватывают мучительные судороги.")))
 			if(fuel <= 0)
 				dat += "<br>У вас закончилось Топливо, и вы медленно приближаетесь к звезде."
 				if(emagged)
 					var/mob/living/M = user
 					M.adjust_fire_stacks(5)
 					M.IgniteMob() //flew into a star, so you're on fire
-					to_chat(user, span_userdanger("<font size=3>Вы чувствуете, как от игрового автомата исходит огромная волна жара. Ваша кожа загорается."))
+					to_chat(user, span_userdanger(span_fontsize3("Вы чувствуете, как от игрового автомата исходит огромная волна жара. Ваша кожа загорается.")))
 		dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>OK...</a></P>"
 
 		if(emagged)
-			to_chat(user, span_userdanger("<font size=3>Ты никогда не доберешься до Ориона...</font>"))
+			to_chat(user, span_userdanger(span_fontsize3("Ты никогда не доберешься до Ориона...")))
 			user.death()
 			emagged = 0 //removes the emagged status after you lose
 			playing = 0 //also a new game
