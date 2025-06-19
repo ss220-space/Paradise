@@ -36,7 +36,7 @@
 #define span_bold(str) ("<span class='bold'>" + str + "</span>")
 #define span_bolditalics(str) ("<span class='bolditalics'>" + str + "</span>")
 #define span_big(str) ("<span class='big'>" + str + "</span>")
-#define span_bigbold(str) ("<span class='bigbold'>" + str + "</span>")
+#define span_bigbold(str) ("<span class='big bold'>" + str + "</span>")
 #define span_reallybig(str) ("<span class='reallybig'>" + str + "</span>")
 #define span_sans(str) ("<span class='sans'>" + str + "</span>")
 #define span_wingdings(str) ("<span class='wingdings'>" + str + "</span>")
