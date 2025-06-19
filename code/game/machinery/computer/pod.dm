@@ -23,7 +23,6 @@
 
 /obj/machinery/computer/pod/proc/driver_sync()
 	initial_set = TRUE
-	id_tags = list()
 	door_only_tags = list()
 	synced = list()
 	timings = list()
