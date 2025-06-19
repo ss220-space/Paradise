@@ -41,9 +41,9 @@
 			cat |= list(list(name = P.name, icon = P.icon, notify_icon = P.notify_icon, uid = "[P.UID()]"))
 
 		// force the order of a few core categories
-		shortcut_cat_order = list("General") \
-			+ sortList(shortcut_cat_order - list("General", "Scanners", "Utilities")) \
-			+ list("Scanners", "Utilities")
+		shortcut_cat_order = list("Общее") \
+			+ sortList(shortcut_cat_order - list("Общее", "Сканеры", "Утилиты")) \
+			+ list("Сканеры", "Утилиты")
 
 	data["idInserted"] = (id ? TRUE : FALSE)
 	data["idLink"] = (id ? "[id.registered_name], [id.assignment]" : "--------")

@@ -939,7 +939,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 
 			mode = BOT_SUMMON
 			calc_summon_path()
-			speak("Запрос получен.", radio_channel)
+			speak("Вызов принят.", radio_channel)
 
 		else
 			. = FALSE
@@ -1015,7 +1015,7 @@ Pass the desired type path itself, declaring a temporary var beforehand is not r
 /mob/living/simple_animal/bot/proc/on_summon_path_finish(list/path)
 	set_path(path)
 	if(!length(path)) //Cannot reach target. Give up and announce the issue.
-		speak("Команда вызова не выполнена, пункт назначения недоступен.", radio_channel)
+		speak("Команда не выполнена, пункт назначения недоступен.", radio_channel)
 		bot_reset()
 
 

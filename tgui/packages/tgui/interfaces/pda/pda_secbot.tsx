@@ -33,7 +33,7 @@ const BotList = (props: unknown) => {
       ))}
       <Box mt={2}>
         <Button fluid icon="rss" onClick={() => act('Rescan')}>
-          Re-scan for bots
+          Поиск ботов
         </Button>
       </Box>
     </Box>
@@ -51,23 +51,23 @@ const BotStatus = (props: unknown) => {
   let statusText: string;
   switch (mode) {
     case 0:
-      statusText = 'Ready';
+      statusText = 'Готов';
       break;
     case 1:
-      statusText = 'Apprehending target';
+      statusText = 'Задержание цели';
       break;
     case 2:
     case 3:
-      statusText = 'Arresting target';
+      statusText = 'Арест цели';
       break;
     case 4:
-      statusText = 'Starting patrol';
+      statusText = 'Начало патруля';
       break;
     case 5:
-      statusText = 'On patrol';
+      statusText = 'Патрулирует';
       break;
     case 6:
-      statusText = 'Responding to summons';
+      statusText = 'Отвечает на вызов';
       break;
   }
 
@@ -75,7 +75,7 @@ const BotStatus = (props: unknown) => {
     <Section title={active}>
       {mode === -1 && (
         <Box color="red" bold>
-          Waiting for response...
+          Ожидание ответа...
         </Box>
       )}
       <LabeledList>
@@ -83,13 +83,13 @@ const BotStatus = (props: unknown) => {
         <LabeledList.Item label="Status">{statusText}</LabeledList.Item>
         <LabeledList.Item label="Controls">
           <Button icon="play" onClick={() => act('Go')}>
-            Go
+            Продолжить
           </Button>
           <Button icon="stop" onClick={() => act('Stop')}>
-            Stop
+            Остановить
           </Button>
           <Button icon="arrow-down" onClick={() => act('Summon')}>
-            Summon
+            Вызвать
           </Button>
         </LabeledList.Item>
       </LabeledList>

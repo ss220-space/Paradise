@@ -26,10 +26,10 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, span_warning("Cannot use messenger!"))
+		to_chat(usr, span_warning("Невозможно использовать мессенджер!"))
 	var/list/plist = M.available_pdas()
 	if(plist)
-		var/c = tgui_input_list(usr, "Please select a PDA", "Send message", sortList(plist))
+		var/c = tgui_input_list(usr, "Выберите КПК", "Отправить сообщение", sortList(plist))
 		if(!c) // if the user hasn't selected a PDA file we can't send a message
 			return
 		var/selected = plist[c]
@@ -44,12 +44,12 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	if(!M)
-		to_chat(usr, span_warning("Cannot use messenger!"))
+		to_chat(usr, span_warning("Невозможно использовать мессенджер!"))
 	var/HTML = ""
 	for(var/index in M.tnote)
 		var/obj/item/pda/target_pda = locateUID(index["target"])
-		HTML += "<i><b>[index["sent"] ? "&rarr; To" : "&larr; From"] <a href='byond://?src=[M.UID()];choice=Message;target=[index["target"]]'>[QDELETED(target_pda) ? "Error#1133: Unable to find UserName." : "[target_pda.owner] ([target_pda.ownjob])"]</a>:</b></i><br>[index["message"]]<br>"
-	var/datum/browser/popup = new(usr, "log", "AI PDA Message Log", 400, 444)
+		HTML += "<i><b>[index["sent"] ? "&rarr; To" : "&larr; From"] <a href='byond://?src=[M.UID()];choice=Message;target=[index["target"]]'>[QDELETED(target_pda) ? "Ошибка №1133: Невозможно найти имя пользователя." : "[target_pda.owner] ([target_pda.ownjob])"]</a>:</b></i><br>[index["message"]]<br>"
+	var/datum/browser/popup = new(usr, "log", "История сообщений КПК ИИ", 400, 444)
 	popup.set_window_options("border=1;can_resize=1;can_close=1;can_minimize=0")
 	popup.set_content(HTML)
 	popup.open(FALSE)
@@ -63,7 +63,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.toff = !M.toff
-	to_chat(usr, span_notice("PDA sender/receiver toggled [(M.toff ? "Off" : "On")]!"))
+	to_chat(usr, span_notice("Отправитель/получатель КПК переключен в состояние: [(M.toff ? "Выкл" : "Вкл")]!"))
 
 
 /obj/item/pda/silicon/verb/cmd_toggle_pda_silent()
@@ -75,7 +75,7 @@
 		return
 	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
 	M.notify_silent = !M.notify_silent
-	to_chat(usr, span_notice("PDA ringer toggled [(M.notify_silent ? "Off" : "On")]!"))
+	to_chat(usr, span_notice("Звук КПК переключен в состояние: [(M.notify_silent ? "Выкл" : "Вкл")]!"))
 
 /obj/item/pda/silicon/attack_self(mob/user as mob)
 	if((honkamt > 0) && (prob(60)))//For clown virus.
@@ -103,6 +103,6 @@
 	if(!istype(pAI))
 		return FALSE
 	if(!pAI.installed_software["messenger"])
-		to_chat(usr, span_warning("You have not purchased the digital messenger!"))
+		to_chat(usr, span_warning("У вас отсутствует мессенджер!"))
 		return FALSE
 	return ..() && !pAI.silence_time

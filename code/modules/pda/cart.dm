@@ -1,6 +1,14 @@
 /obj/item/cartridge
 	name = "generic cartridge"
-	desc = "A data cartridge for portable microcomputers."
+	desc = "Картридж данных для КПК."
+	ru_names = list(
+		NOMINATIVE = "картридж",
+		GENITIVE = "картриджа",
+		DATIVE = "картриджу",
+		ACCUSATIVE = "картридж",
+		INSTRUMENTAL = "картриджем",
+		PREPOSITIONAL = "картридже"
+	)
 	icon = 'icons/obj/pda.dmi'
 	icon_state = "cart"
 	item_state = "electronic"
@@ -93,7 +101,7 @@
 
 /obj/item/cartridge/janitor
 	name = "CustodiPRO Cartridge"
-	desc = "The ultimate in clean-room design."
+	desc = "Лучший дизайн для чистки помещений."
 	icon_state = "cart-j"
 	programs = list(new/datum/data/pda/app/janitor)
 
@@ -124,7 +132,7 @@
 
 /obj/item/cartridge/signal
 	name = "generic signaler cartridge"
-	desc = "A data cartridge with an integrated radio signaler module."
+	desc = "Картридж данных со встроенным модулем сигнализатора."
 	programs = list(new/datum/data/pda/app/signaller)
 
 /obj/item/cartridge/signal/Initialize(mapload)
@@ -133,7 +141,7 @@
 
 /obj/item/cartridge/signal/toxins
 	name = "Signal Ace 2"
-	desc = "Complete with integrated radio signaler!"
+	desc = "В комплекте со встроенным радиосигнализатором!"
 	icon_state = "cart-tox"
 	programs = list(
 		new/datum/data/pda/utility/scanmode/gas,
@@ -144,7 +152,7 @@
 
 /obj/item/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
-	desc = "Perfect for the Quartermaster on the go!"
+	desc = "Идеально подходит для Квартирмейстера!"
 	icon_state = "cart-q"
 	programs = list(
 		new/datum/data/pda/app/supply,
@@ -229,7 +237,7 @@
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"
-	desc = "Now with 200% more value!"
+	desc = "Теперь на 200% выгоднее!"
 	icon_state = "cart-c"
 	programs = list(
 		new/datum/data/pda/app/power,
@@ -265,7 +273,7 @@
 
 /obj/item/cartridge/centcom
 	name = "Value-PAK Cartridge"
-	desc = "Now with 200% more value!"
+	desc = "Теперь на 200% выгоднее!"
 	icon_state = "cart-c"
 	programs = list(
 		new/datum/data/pda/app/power,

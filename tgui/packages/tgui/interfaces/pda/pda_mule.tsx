@@ -40,7 +40,7 @@ const BotList = (props: unknown) => {
       ))}
       <Box mt={2}>
         <Button fluid icon="rss" onClick={() => act('Rescan')}>
-          Re-scan for bots
+          Поиск ботов
         </Button>
       </Box>
     </Box>
@@ -58,27 +58,27 @@ const BotStatus = (props: unknown) => {
   let statusText: string;
   switch (mode) {
     case 0:
-      statusText = 'Ready';
+      statusText = 'Готов';
       break;
     case 1:
-      statusText = 'Loading/Unloading';
+      statusText = 'Погрузка/выгрузка';
       break;
     case 2:
     case 12:
-      statusText = 'Navigating to delivery location';
+      statusText = 'Перемещение к месту доставки';
       break;
     case 3:
-      statusText = 'Navigating to Home';
+      statusText = 'Перемещение домой';
       break;
     case 4:
-      statusText = 'Waiting for clear path';
+      statusText = 'Ожидание освобождения пути';
       break;
     case 5:
     case 6:
-      statusText = 'Calculating navigation path';
+      statusText = 'Производится расчёт пути';
       break;
     case 7:
-      statusText = 'Unable to locate destination';
+      statusText = 'Невозможно найти пункт назначения';
       break;
     default:
       statusText = mode.toString();
@@ -89,25 +89,25 @@ const BotStatus = (props: unknown) => {
     <Section title={active}>
       {mode === -1 && (
         <Box color="red" bold>
-          Waiting for response...
+          Ожидание ответа...
         </Box>
       )}
       <LabeledList>
-        <LabeledList.Item label="Location">{loca}</LabeledList.Item>
-        <LabeledList.Item label="Status">{statusText}</LabeledList.Item>
-        <LabeledList.Item label="Power">{powr}%</LabeledList.Item>
-        <LabeledList.Item label="Home">{home}</LabeledList.Item>
-        <LabeledList.Item label="Destination">
+        <LabeledList.Item label="Местоположение">{loca}</LabeledList.Item>
+        <LabeledList.Item label="Статус">{statusText}</LabeledList.Item>
+        <LabeledList.Item label="Заряд">{powr}%</LabeledList.Item>
+        <LabeledList.Item label="Домой">{home}</LabeledList.Item>
+        <LabeledList.Item label="Пункт назначения">
           <Button onClick={() => act('SetDest')}>
-            {dest ? dest + ' (Set)' : 'None (Set)'}
+            {dest ? dest + ' (Указать)' : 'Нет (Указать)'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Current Load">
+        <LabeledList.Item label="Загружено сейчас">
           <Button disabled={!load} onClick={() => act('Unload')}>
-            {load ? load + ' (Unload)' : 'None'}
+            {load ? load + ' (Разгрузить)' : 'Ничего'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Auto Pickup">
+        <LabeledList.Item label="Автоподбор">
           <Button
             selected={pick}
             onClick={() =>
@@ -116,10 +116,10 @@ const BotStatus = (props: unknown) => {
               })
             }
           >
-            {pick ? 'Yes' : 'No'}
+            {pick ? 'Да' : 'Нет'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Auto Return">
+        <LabeledList.Item label="Автоматический возврат домой">
           <Button
             selected={retn}
             onClick={() =>
@@ -128,18 +128,18 @@ const BotStatus = (props: unknown) => {
               })
             }
           >
-            {retn ? 'Yes' : 'No'}
+            {retn ? 'Да' : 'Нет'}
           </Button>
         </LabeledList.Item>
         <LabeledList.Item label="Controls">
           <Button icon="stop" onClick={() => act('Stop')}>
-            Stop
+            Остановить
           </Button>
           <Button icon="play" onClick={() => act('Start')}>
-            Proceed
+            Продолжить
           </Button>
           <Button icon="home" onClick={() => act('ReturnHome')}>
-            Return Home
+            Вернуться домой
           </Button>
         </LabeledList.Item>
       </LabeledList>

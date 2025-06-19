@@ -72,7 +72,7 @@ const SelectionView = (_props: unknown) => {
   const { powermonitors } = data;
 
   return (
-    <Section title="Select Power Monitor">
+    <Section title="Выбор монитора">
       {Object.keys(powermonitors)
         .sort((a, b) => (powermonitors[a] < powermonitors[b] ? -1 : 1))
         .map((uid) => (
@@ -85,7 +85,7 @@ const SelectionView = (_props: unknown) => {
                   selectmonitor: uid,
                 })
               }
-            >{`${powermonitors[uid]} Power Monitoring Console`}</Button>
+            >{`${powermonitors[uid]} консоль мониторинга электропитания`}</Button>
           </Box>
         ))}
     </Section>
@@ -108,7 +108,7 @@ const DataView = (_props: unknown) => {
       <Box color="bad" textAlign="center">
         <Icon name="exclamation-triangle" size={2} my="0.5rem" />
         <br />
-        Warning: The monitor is not connected to power grid via cable!
+        Внимание: монитор не подключен к электросети!
       </Box>
     );
   } else {
@@ -215,12 +215,12 @@ const DataView = (_props: unknown) => {
           }}
         >
           <Table.Row header>
-            <Table.Cell>Area</Table.Cell>
-            <Table.Cell collapsing>Charge</Table.Cell>
-            <Table.Cell textAlign="right">Draw</Table.Cell>
-            <Table.Cell collapsing>Equipment</Table.Cell>
-            <Table.Cell collapsing>Lighting</Table.Cell>
-            <Table.Cell collapsing>Environment</Table.Cell>
+            <Table.Cell>Зона</Table.Cell>
+            <Table.Cell collapsing>Заряд</Table.Cell>
+            <Table.Cell textAlign="right">Энергопотребление</Table.Cell>
+            <Table.Cell collapsing>Оборудование</Table.Cell>
+            <Table.Cell collapsing>Свет</Table.Cell>
+            <Table.Cell collapsing>Окружающая среда</Table.Cell>
           </Table.Row>
           {parsedApcs.map((area, i) => (
             <Table.Row key={area.id} className="Table__row candystripe">
@@ -254,7 +254,7 @@ const DataView = (_props: unknown) => {
         <Box m={0}>
           {can_select_monitor && (
             <Button icon="arrow-up" onClick={() => act('return')}>
-              Back
+              Назад
             </Button>
           )}
         </Box>

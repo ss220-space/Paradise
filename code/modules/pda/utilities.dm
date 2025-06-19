@@ -97,7 +97,7 @@
 	if(!isnull(A.reagents))
 		if(A.reagents.reagent_list.len > 0)
 			var/reagents_length = A.reagents.reagent_list.len
-			to_chat(user, span_notice("Обнаружен[reagents_length > 1 ? "о" : ""] [reagents_length] химическ[reagents_length > 1 ? "их" : "ий"] агент[reagents_length > 1 ? "ов" : ""]."))
+			to_chat(user, span_notice("Обнаружен[reagents_length > 1 ? "о" : ""] [reagents_length] химическ[reagents_length > 1 ? "их" : "ий"] реагент[reagents_length > 1 ? "ов" : ""]:"))
 			for(var/datum/reagent/R in A.reagents.reagent_list)
 				if(R.id != "blood")
 					to_chat(user, span_notice("\t [R]"))
@@ -106,9 +106,9 @@
 					var/blood_species = R.data["blood_species"]
 					to_chat(user, span_notice("\t [R] [blood_type] [blood_species]"))
 		else
-			to_chat(user, span_notice("Содержание активных химических веществ в [A.declent_ru(PREPOSITIONAL)] не обнаружено."))
+			to_chat(user, span_notice("Содержание химических реагентов в [A.declent_ru(PREPOSITIONAL)] не обнаружено."))
 	else
-		to_chat(user, span_notice("Содержание химических веществ в [A.declent_ru(PREPOSITIONAL)] не обнаружено."))
+		to_chat(user, span_notice("Следов реагентов не обнаружено."))
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Газовый сканер"

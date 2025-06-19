@@ -101,7 +101,7 @@ SUBSYSTEM_DEF(capitalism)
 	for(var/datum/money_account/account in GLOB.all_money_accounts)
 		if(account.salary_payment_active && account.linked_job.salary && !account.suspended)
 			if(payment_account.charge(account.linked_job.salary, account, "Выплата зарплаты персоналу.", "Nanotrasen personal departament" , "Поступление зарплаты.", "Поступление зарплаты" ,"Biesel TCD Terminal #[rand(111,333)]"))
-				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно Ответить)", FALSE)
+				account.notify_pda_owner("<b>Поступление зарплаты </b>\"На ваш привязанный аккаунт поступило [account.linked_job.salary] кредитов\" (Невозможно ответить)", FALSE)
 				total_salary_payment += account.linked_job.salary
 			else
 				return FALSE
@@ -122,7 +122,7 @@ SUBSYSTEM_DEF(capitalism)
 	for(var/datum/money_account/account in list_payment_account)
 		//It may be worth doing a type from the customer's company... But I'm too lazy
 		if(account.credit(bounty, "Начисление награды за выполнение заказа.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
-			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно Ответить)", FALSE)
+			account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [bounty] кредитов за помощь в выполнении заказа.\" (Невозможно ответить)", FALSE)
 	return
 
 /datum/controller/subsystem/capitalism/proc/smart_job_payment(var/list/jobs_payment)
@@ -131,7 +131,7 @@ SUBSYSTEM_DEF(capitalism)
 		if(jobs_payment?[account.linked_job.title] && account.salary_payment_active && !account.suspended)
 			if(account.credit(jobs_payment[account.linked_job.title], "Начисление награды за выполнение цели.", "Biesel TCD Terminal #[rand(111,333)]", account.owner_name))
 				total_personal_bounty += jobs_payment[account.linked_job.title]
-				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно Ответить)", FALSE)
+				account.notify_pda_owner("<b>Поступление награды </b>\"На ваш привязанный аккаунт поступило [jobs_payment[account.linked_job.title]] кредитов за помощь в выполнении цель станции.\" (Невозможно ответить)", FALSE)
 				. = TRUE
 	return
 

@@ -397,7 +397,7 @@
 	data["supply"] = supplyData
 
 /datum/data/pda/app/janitor
-	name = "Поиск имущества уборщика"
+	name = "Поиск имущества для уборки"
 	icon = "trash"
 	template = "pda_janitor"
 	category = "Utilities"

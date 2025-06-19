@@ -205,7 +205,7 @@
 /obj/item/pda/clear
 	icon_state = "pda-transp"
 	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Эта модель — специальный выпуск с прозрачным корпусом."
-	model_name = "КПК PRO MAX DELUXE SPECIAL TURBO LIMITED EDITION"
+	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 
 /obj/item/pda/chef
 	default_request_console_cartridge = /obj/item/cartridge/request_console/chef
