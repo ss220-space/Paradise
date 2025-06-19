@@ -17,7 +17,7 @@ Bonus
 
 /datum/symptom/hallucigen
 
-	name = "Hallucigen"
+	name = "Галлюцинации"
 	id = "hallucigen"
 	stealth = -2
 	resistance = -3
@@ -32,11 +32,11 @@ Bonus
 		var/mob/living/carbon/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2)
-				to_chat(M, span_warning(pick("Something appears in your peripheral vision, then winks out.", "You hear a faint whispher with no source.", "Your head aches.")))
+				to_chat(M, span_warning(pick("Краем глаза вы замечаете что-то, что тут же исчезает.", "Вы слышите едва уловимый шёпот, но его источник неясен.", "Голова раскалывается.")))
 			if(3, 4)
-				to_chat(M, span_warning("<b>[pick("Something is following you.", "You are being watched.", "You hear a whisper in your ear.", "Thumping footsteps slam toward you from nowhere.")]</b>"))
+				to_chat(M, span_warning("<b>[pick("За вами кто-то следит.", "Вы чувствуете, что за вами наблюдают.", "Вы слышите шёпот у себя за спиной.", "Где-то рядом раздаются гулкие шаги.")]</b>"))
 			else
-				to_chat(M, span_userdanger(pick("Oh, your head...", "Your head pounds.", "They're everywhere! Run!", "Something in the shadows...")))
+				to_chat(M, span_userdanger(pick("Ох, голова...", "Голова пульсирует от боли.", "Они повсюду! Беги!", "Что-то скрывается в тенях...")))
 				M.AdjustHallucinate(5 SECONDS)
 				M.last_hallucinator_log = name
 

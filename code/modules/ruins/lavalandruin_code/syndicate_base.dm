@@ -28,10 +28,10 @@
 	death = FALSE
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper_s"
-	important_info = "Do not work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. Do not leave your base without admin permission."
-	description = "Experiment with deadly chems and viruses in peace or help any visiting Syndicate Agent."
-	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Continue your research as best you can, and try to keep a low profile. The base is rigged with explosives, do not abandon it or let it fall into enemy hands!\
-	 It's been made clear to you that the Syndicate will make you regret it if you disappoint them."
+	important_info = "Не мешайте другим оперативникам Синдиката (таким, как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с Синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и сохранность является для вас высшим приоритетом!"
+	description = "Экспериментируйте с опасными химикатами и вирусами в спокойной обстановке или помогайте любым посещающим агентам Синдиката."
+	flavour_text = "Вы - агент Синдиката, работающий в сверхсекретном исследовательском центре, разрабатывающем биологическое оружие. К сожалению, ваш заклятый враг, НаноТрейзен, начал добычу полезных ископаемых в этом секторе. Продолжайте свои исследования, как можете, и старайтесь не привлекать к себе внимания. База заминирована, не покидайте её и не позволяйте ей попасть в руки врага! \
+	Вам ясно дали понять, что Синдикат заставит вас пожалеть, если вы их разочаруете."
 	outfit = /datum/outfit/lavaland_syndicate
 	assignedrole = "Lavaland Syndicate"
 	del_types = list() // Necessary to prevent del_types from removing radio!
@@ -61,9 +61,9 @@
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms
 	name = "Syndicate Comms Agent sleeper"
 	mob_name = "Syndicate Comms Agent"
-	important_info = "Do not work against Syndicate personnel (such as traitors or nuclear operatives). You may work with or against non-Syndicate antagonists on a case-by-case basis. Do not leave your base without admin permission. Do not reveal the existence of yourself to NT."
-	description = "Monitor comms and cameras and try to assist any agents on station while keeping your existence a secret."
-	flavour_text = "You are a syndicate agent, employed in a top secret research facility developing biological weapons. Unfortunately, your hated enemy, Nanotrasen, has begun mining in this sector. Monitor enemy activity as best you can, and try to keep a low profile."
+	important_info = "Не мешайте другим оперативникам Синдиката (таким, как предатели или ядерные оперативники). Вы можете работать вместе или против не связанных с Синдикатом антагонистов в индивидуальном порядке. Не покидайте свою базу без разрешения администрации! Ваша база, её секретность и сохранность является для вас высшим приоритетом!"
+	description = "Следите за переговорами и камерами, старайтесь помогать агентам на станции, сохраняя своё существование в тайне."
+	flavour_text = "Вы - агент Синдиката, работающий в сверхсекретном исследовательском центре, разрабатывающем биологическое оружие. К сожалению, ваш заклятый враг, НаноТрейзен, начал добычу полезных ископаемых в этом секторе. Следите за активностью врага, как можете, и старайтесь не привлекать к себе внимания."
 	outfit = /datum/outfit/lavaland_syndicate/comms
 
 /obj/effect/mob_spawn/human/lavaland_syndicate/comms/space

@@ -53,7 +53,7 @@
 	return ..()
 
 /datum/action/innate/mecha/mech_eject
-	name = "Eject From Mech"
+	name = "Выйти из меха"
 	button_icon_state = "mech_eject"
 
 /datum/action/innate/mecha/mech_eject/Activate()
@@ -64,7 +64,8 @@
 	chassis.go_out()
 
 /datum/action/innate/mecha/mech_toggle_internals
-	name = "Toggle Internal Airtank Usage"
+	name = "Переключить баллон"
+	desc = "Переключает подачу воздуха из внутреннего баллона, защищая от вакуума и разреженной атмосферы."
 	button_icon_state = "mech_internals_off"
 
 /datum/action/innate/mecha/mech_toggle_internals/Activate()
@@ -72,12 +73,13 @@
 		return
 	chassis.use_internal_tank = !chassis.use_internal_tank
 	button_icon_state = "mech_internals_[chassis.use_internal_tank ? "on" : "off"]"
-	chassis.occupant_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
-	chassis.log_message("Now taking air from [chassis.use_internal_tank ? "internal airtank" : "environment"].")
+	chassis.occupant_message("Теперь воздух поступает [chassis.use_internal_tank ? "из внутреннего баллона" : "из окружающей среды"].")
+	chassis.log_message("Источник воздуха изменён на [chassis.use_internal_tank ? "внутренний баллон" : "внешнюю среду"].")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_lights
-	name = "Toggle Lights"
+	name = "Переключить прожектор"
+	desc = "Переключает мощный осветительный модуль."
 	button_icon_state = "mech_lights_off"
 
 /datum/action/innate/mecha/mech_toggle_lights/Activate()
@@ -90,12 +92,12 @@
 	else
 		chassis.set_light(-chassis.lights_power, l_on = TRUE)
 		button_icon_state = "mech_lights_off"
-	chassis.occupant_message("Toggled lights [chassis.lights ? "on" : "off"].")
-	chassis.log_message("Toggled lights [chassis.lights ? "on" : "off"].")
+	chassis.occupant_message("Прожектор [chassis.lights ? "включен" : "выключен"].")
+	chassis.log_message("Прожектор [chassis.lights ? "включен" : "выключен"].")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_view_stats
-	name = "View Stats"
+	name = "Панель управления"
 	button_icon_state = "mech_view_stats"
 
 /datum/action/innate/mecha/mech_view_stats/Activate()
@@ -110,7 +112,8 @@
 	popup.open(FALSE)
 
 /datum/action/innate/mecha/mech_defence_mode
-	name = "Toggle Defence Mode"
+	name = "Режим защиты"
+	desc = "Активирует усиленное бронирование, снижая урон, но ограничивая подвижность."
 	button_icon_state = "mech_defense_mode_off"
 
 /datum/action/innate/mecha/mech_defence_mode/Activate(forced_state = null)
@@ -123,49 +126,50 @@
 	button_icon_state = "mech_defense_mode_[chassis.defence_mode ? "on" : "off"]"
 	if(chassis.defence_mode)
 		chassis.deflect_chance = chassis.defence_mode_deflect_chance
-		chassis.occupant_message(span_notice("[chassis] defence mode enabled."))
+		chassis.occupant_message(span_notice("[chassis.declent_ru(NOMINATIVE)]: Режим защиты активирован."))
 		chassis.set_anchored(TRUE)
 		RegisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED, PROC_REF(Activate))
 	else
 		UnregisterSignal(chassis, COMSIG_MOVABLE_SET_ANCHORED)
 		chassis.deflect_chance = initial(chassis.deflect_chance)
-		chassis.occupant_message(span_danger("[chassis] defence mode disabled."))
+		chassis.occupant_message(span_danger("[chassis.declent_ru(NOMINATIVE)]: Режим защиты деактивирован."))
 		chassis.set_anchored(FALSE)
-	chassis.log_message("Toggled defence mode.")
+	chassis.log_message("Переключение режима защиты.")
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_overload_mode
-	name = "Toggle leg actuators overload"
+	name = "Режим перегрузки"
+	desc = "Запуск форсаж приводов. Скорость увеличивается, но шасси быстро изнашивается."
 	button_icon_state = "mech_overload_off"
 
 /datum/action/innate/mecha/mech_overload_mode/Activate(forced_state = null)
 	if(!owner || !chassis || chassis.occupant != owner)
 		return
 	if(chassis.obj_integrity < chassis.max_integrity - chassis.max_integrity / 3)
-		chassis.occupant_message(span_danger("The leg actuators are too damaged to overload!"))
+		chassis.occupant_message(span_danger("Шасси слишком повреждено для разгона!"))
 		return // Can't activate them if the mech is too damaged
 	if(!isnull(forced_state))
 		chassis.leg_overload_mode = forced_state
 	else
 		chassis.leg_overload_mode = !chassis.leg_overload_mode
 	button_icon_state = "mech_overload_[chassis.leg_overload_mode ? "on" : "off"]"
-	chassis.log_message("Toggled leg actuators overload.")
+	chassis.log_message("Активирована перегрузка приводов шасси.")
 	if(chassis.leg_overload_mode)
 		chassis.leg_overload_mode = 1
 		// chassis.bumpsmash = 1
 		chassis.step_in = min(1, round(chassis.step_in / 2))
 		chassis.step_energy_drain = max(chassis.overload_step_energy_drain_min, chassis.step_energy_drain * chassis.leg_overload_coeff)
-		chassis.occupant_message(span_danger("You enable leg actuators overload."))
+		chassis.occupant_message(span_danger("[chassis.declent_ru(NOMINATIVE)]: Режим перегрузки включен."))
 	else
 		chassis.leg_overload_mode = 0
 		// chassis.bumpsmash = 0
 		chassis.step_in = initial(chassis.step_in)
 		chassis.step_energy_drain = chassis.normal_step_energy_drain
-		chassis.occupant_message(span_notice("You disable leg actuators overload."))
+		chassis.occupant_message(span_notice("[chassis.declent_ru(NOMINATIVE)]: Режим перегрузки выключен."))
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_thrusters
-	name = "Toggle Thrusters"
+	name = "Маневровые двигатели"
 	button_icon_state = "mech_thrusters_off"
 
 /datum/action/innate/mecha/mech_toggle_thrusters/Activate()
@@ -174,15 +178,15 @@
 	if(chassis.get_charge() > 0)
 		chassis.thrusters_active = !chassis.thrusters_active
 		button_icon_state = "mech_thrusters_[chassis.thrusters_active ? "on" : "off"]"
-		chassis.log_message("Toggled thrusters.")
-		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Thrusters [chassis.thrusters_active ? "en" : "dis"]abled.")
+		chassis.log_message("Переключение маневровых двигателей.")
+		chassis.occupant_message("<font color='[chassis.thrusters_active ? "blue" : "red"]'>Двигатели [chassis.thrusters_active ? "активны" : "отключены"].</font>")
 	if(chassis.thrusters_active)
 		chassis.icon_state = "[chassis.icon_state]-thruster"
 	else
 		chassis.icon_state = splittext(chassis.icon_state, "-")[1]
 
 /datum/action/innate/mecha/mech_smoke
-	name = "Smoke"
+	name = "Дым"
 	button_icon_state = "mech_smoke"
 
 /datum/action/innate/mecha/mech_smoke/Activate()
@@ -194,10 +198,10 @@
 		chassis.smoke_ready = FALSE
 		addtimer(CALLBACK(chassis, TYPE_PROC_REF(/obj/mecha, set_smoke_ready)), chassis.smoke_cooldown)
 	else
-		chassis.occupant_message(span_warning("You are either out of smoke, or the smoke isn't ready yet."))
+		chassis.occupant_message(span_warning("У вас либо закончился дым, либо он еще не готов."))
 
 /datum/action/innate/mecha/mech_zoom
-	name = "Zoom"
+	name = "Приближение"
 	button_icon_state = "mech_zoom_off"
 
 /datum/action/innate/mecha/mech_zoom/Activate()
@@ -206,8 +210,8 @@
 	if(owner.client)
 		chassis.zoom_mode = !chassis.zoom_mode
 		button_icon_state = "mech_zoom_[chassis.zoom_mode ? "on" : "off"]"
-		chassis.log_message("Toggled zoom mode.")
-		chassis.occupant_message("<font color='[chassis.zoom_mode ? "blue" : "red"]'>Zoom mode [chassis.zoom_mode ? "en" : "dis"]abled.</font>")
+		chassis.log_message("Режим приближения переключён.")
+		chassis.occupant_message("<font color='[chassis.zoom_mode ? "blue" : "red"]'>Приближение [chassis.zoom_mode ? "вкл" : "выкл"].</font>")
 		if(chassis.zoom_mode)
 			owner.client.AddViewMod("mecha", 12)
 			SEND_SOUND(owner, sound(chassis.zoomsound, volume = 50))
@@ -216,7 +220,8 @@
 		UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_toggle_phasing
-	name = "Toggle Phasing"
+	name = "Фазовый переход"
+	desc = "Позволяет проходить сквозь стены и объекты."
 	button_icon_state = "mech_phasing_off"
 
 /datum/action/innate/mecha/mech_toggle_phasing/Activate()
@@ -224,12 +229,12 @@
 		return
 	chassis.phasing = !chassis.phasing
 	button_icon_state = "mech_phasing_[chassis.phasing ? "on" : "off"]"
-	chassis.occupant_message("<font color=\"[chassis.phasing?"#00f\">En":"#f00\">Dis"]abled phasing.</font>")
+	chassis.occupant_message("<font color=\"[chassis.phasing ? "#00f\">Фазовый переход вкл" : "#f00\">Фазовый переход выкл"]</font>")
 	UpdateButtonIcon()
 
 
 /datum/action/innate/mecha/mech_switch_damtype
-	name = "Reconfigure arm microtool arrays"
+	name = "Смена инструментов"
 	button_icon_state = "mech_damtype_brute"
 
 /datum/action/innate/mecha/mech_switch_damtype/Activate()
@@ -239,20 +244,20 @@
 	switch(chassis.damtype)
 		if("tox")
 			new_damtype = "brute"
-			chassis.occupant_message("Your exosuit's hands form into fists.")
+			chassis.occupant_message("Руки экзокостюма сжимаются в кулаки.")
 		if("brute")
 			new_damtype = "fire"
-			chassis.occupant_message("A torch tip extends from your exosuit's hand, glowing red.")
+			chassis.occupant_message("Из руки выдвигается раскалённый резак.")
 		if("fire")
 			new_damtype = "tox"
-			chassis.occupant_message("A bone-chillingly thick plasteel needle protracts from the exosuit's palm.")
+			chassis.occupant_message("Из ладони выдвигается леденящая кровь пласталевая игла.")
 	chassis.damtype = new_damtype
 	button_icon_state = "mech_damtype_[new_damtype]"
 	playsound(src, 'sound/mecha/mechmove01.ogg', 50, 1)
 	UpdateButtonIcon()
 
 /datum/action/innate/mecha/mech_energywall
-	name = "Energy Wall"
+	name = "Энергостена"
 	button_icon_state = "energywall"
 
 /datum/action/innate/mecha/mech_energywall/Activate()
@@ -270,11 +275,12 @@
 		chassis.wall_ready = FALSE
 		addtimer(CALLBACK(chassis, TYPE_PROC_REF(/obj/mecha, set_wall_ready)), chassis.wall_cooldown)
 	else
-		chassis.occupant_message(span_warning("Energy wall is not ready yet!"))
+		chassis.occupant_message(span_warning("Энергостена ещё не готова!"))
 
 /////////////////////////////////// STRAFE PROCS ////////////////////////////////////////////////
 /datum/action/innate/mecha/mech_strafe
-	name = "Toggle Strafing. Disabled when Alt is held."
+	name = "Боковое движение"
+	desc = "Переключает режим бокового движения. Отключается при зажатом Alt."
 	button_icon_state = "strafe"
 
 /datum/action/innate/mecha/mech_strafe/Activate()
@@ -296,7 +302,7 @@
  */
 /obj/mecha/proc/toggle_strafe(silent = FALSE)
 	if(!strafe_allowed)
-		occupant_message("This mecha doesn't support strafing!")
+		occupant_message("Этот мех не поддерживает боковое движение!")
 		return
 	var/datum/action/innate/mecha/mech_strafe/mech_strafe = locate(/datum/action/innate/mecha/mech_strafe) in occupant.actions
 	if(!mech_strafe)
@@ -305,8 +311,8 @@
 	mech_strafe.button_icon_state = "strafe[strafe ? "_on" : ""]"
 	mech_strafe.UpdateButtonIcon()
 	if(!silent)
-		occupant_message("<font color='[strafe ? "green" : "red"]'>Strafing mode [strafe ? "en" : "dis"]abled.")
-		log_message("Toggled strafing mode [strafe ? "on" : "off"].")
+		occupant_message("<font color='[strafe ? "green" : "red"]'>Боковое движение [strafe ? "вкл" : "выкл"].")
+		log_message("Боковое движение [strafe ? "вкл" : "выкл"].")
 
 /datum/action/innate/mecha/select_module
 	name = "Hey, you shouldn't see it"
@@ -316,7 +322,7 @@
 	if(!_equipment)
 		return FALSE
 	equipment = _equipment
-	name = "Switched module to [equipment.name]"
+	name = "Переключить модуль на [equipment.declent_ru(ACCUSATIVE)]"
 	icon_icon = equipment.icon
 	button_icon_state = equipment.icon_state
 	. = ..()
@@ -332,7 +338,7 @@
 	if(!_equipment)
 		return FALSE
 	equipment = _equipment
-	name = "Toggles [equipment.name] module"
+	name = "Переключить модуль [equipment.declent_ru(ACCUSATIVE)]"
 	icon_icon = equipment.icon
 	button_icon_state = equipment.icon_state
 	. = ..()

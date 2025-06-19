@@ -279,8 +279,8 @@
 	blackbox_message = "Toggle Ghost PDA"
 
 /client/verb/silence_current_midi()
-	set name = "Silence Current Midi"
-	set category = "Special Verbs"
+	set name = "Заглушить MIDI"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Заглушает текущие MIDI-файлы, проигрываемые администрацией."
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "Текущие проигрываемые админ-MIDI были заглушены.")

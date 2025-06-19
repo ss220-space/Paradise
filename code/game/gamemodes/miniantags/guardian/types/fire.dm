@@ -106,7 +106,7 @@
 				M.hallucinate_living(random_hallucination)
 			else if(issilicon(target))
 				var/mob/living/silicon/silicon = target
-				to_chat(silicon, "<span class='warning'><b>ERROR $!(@ ERROR )#^! SENSORY OVERLOAD \[$(!@#</b></span>")
+				to_chat(silicon, span_warning("<b>ОШИБКА #!^: ПЕРЕГРУЗКА СЕНСОРОВ\[$(!@#</b>"))
 				silicon << 'sound/misc/interference.ogg'
 				playsound(silicon, 'sound/machines/warning-buzzer.ogg', 50, 1)
 				do_sparks(5, 1, silicon)

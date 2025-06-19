@@ -69,15 +69,15 @@
 		WRENCH_UNANCHOR_MESSAGE
 
 /obj/machinery/papershredder/verb/empty_contents()
-	set name = "Empty bin"
-	set category = "Object"
+	set name = "Опустошить корзину"
+	set category = STATPANEL_OBJECT
 	set src in range(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
 
 	if(!paperamount)
-		to_chat(usr, "<span class='notice'>\The [src] is empty.</span>")
+		to_chat(usr, span_notice("\The [src] is empty."))
 		return
 
 	empty_bin(usr)
@@ -89,7 +89,7 @@
 		empty_into = null
 
 	if(empty_into && empty_into.contents.len >= empty_into.storage_slots)
-		to_chat(user, "<span class='notice'>\The [empty_into] is full.</span>")
+		to_chat(user, span_notice("\The [empty_into] is full."))
 		return
 
 	var/atom/drop_loc = drop_location()
@@ -103,12 +103,12 @@
 				break
 	if(empty_into)
 		if(paperamount)
-			to_chat(user, "<span class='notice'>You fill \the [empty_into] with as much shredded paper as it will carry.</span>")
+			to_chat(user, span_notice("You fill \the [empty_into] with as much shredded paper as it will carry."))
 		else
-			to_chat(user, "<span class='notice'>You empty \the [src] into \the [empty_into].</span>")
+			to_chat(user, span_notice("You empty \the [src] into \the [empty_into]."))
 
 	else
-		to_chat(user, "<span class='notice'>You empty \the [src].</span>")
+		to_chat(user, span_notice("You empty \the [src]."))
 	update_icon(UPDATE_ICON_STATE)
 
 

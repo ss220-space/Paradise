@@ -209,9 +209,9 @@
 
 
 /obj/item/pet_carrier/verb/open_close()
-	set name = "Открыть/закрыть переноску"
+	set name = "Откр/закр переноску"
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -222,7 +222,7 @@
 /obj/item/pet_carrier/verb/unload_content()
 	set name = "Опустошить переноску"
 	set desc = "Вытаскивает животное из переноски."
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

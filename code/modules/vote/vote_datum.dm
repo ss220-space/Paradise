@@ -8,7 +8,7 @@
 	/// The question being asked
 	var/question
 	/// Vote type text, for showing in UIs and stuff
-	var/vote_type_text = "безымянное"
+	var/vote_type_text = "админское"
 	/// Do we want to show the vote counts as it goes
 	var/show_counts = FALSE
 	/// Vote result type. This determines how a winner is picked
@@ -43,7 +43,7 @@
 		generate_choices()
 
 /datum/vote/proc/start()
-	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]."
+	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]"
 	if(is_custom)
 		vote_type_text = "custom"
 		text += "\n\"[question]\""
@@ -97,10 +97,10 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, span_info("За \"[sanitize(res)]\" отдали – [results[res]] [declension_ru(results[res],"голос","голоса","голосов")]"))
+					to_chat(world, span_info("\"[sanitize(capitalize(res))]\" – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
 				else
 					// Make it normal
-					to_chat(world, span_interface("За \"[sanitize(res)]\" отдали – [results[res]] [declension_ru(results[res],"голос","голоса","голосов")]"))
+					to_chat(world, span_interface("\"[sanitize(capitalize(res))]\" – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
@@ -111,18 +111,19 @@
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, span_interface("<b>Победитель голосования – \"[sanitize(res)]\"</b>"))
+				to_chat(world, span_interface("<b>Победитель голосования – \"[sanitize(capitalize(res))]\"</b>"))
 				return res
 
-			to_chat(world, span_interface("Победитель голосования – \"[sanitize(res)]\" не может считаться действительным выбором? Что за бред?!"))
-			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(res)], choices were [json_encode(choices)]")
+			to_chat(world, span_interface("Победитель голосования – \"[sanitize(capitalize(res))]\" не может считаться действительным выбором? Что за бред?!"))
+			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
 			return null
 
 
 
 /datum/vote/proc/announce(start_text)
-	to_chat(world, chat_box_vote(span_fontcolor_purple("<b>[start_text]</b> <a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь, чтобы отдать свой голос.</a>\
-					У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")))
+	to_chat(world, chat_box_vote(span_fontcolor_purple("<b>[start_text]</b>\n\
+	<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
+	У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")))
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 

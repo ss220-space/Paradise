@@ -78,16 +78,16 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 // Returns TRUE if mob can give karma at all; if not, tells them why
 /mob/proc/can_give_karma()
 	if(!client)
-		to_chat(src, "<span class='warning'>You can't award karma without being connected.</span>")
+		to_chat(src, span_warning("You can't award karma without being connected."))
 		return FALSE
 	if(CONFIG_GET(flag/disable_karma))
-		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
+		to_chat(src, span_warning("Karma is disabled."))
 		return FALSE
 	if(!SSticker || !GLOB.player_list.len || (SSticker.current_state == GAME_STATE_PREGAME))
-		to_chat(src, "<span class='warning'>You can't award karma until the game has started.</span>")
+		to_chat(src, span_warning("You can't award karma until the game has started."))
 		return FALSE
 	if(client.karma_spent || (ckey in GLOB.karma_spenders))
-		to_chat(src, "<span class='warning'>You've already spent your karma for the round.</span>")
+		to_chat(src, span_warning("You've already spent your karma for the round."))
 		return FALSE
 	return TRUE
 
@@ -96,21 +96,21 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 	if(!can_give_karma())
 		return FALSE
 	if(!istype(M))
-		to_chat(src, "<span class='warning'>That's not a mob.</span>")
+		to_chat(src, span_warning("That's not a mob."))
 		return FALSE
 	if(!M.client)
-		to_chat(src, "<span class='warning'>That mob has no client connected at the moment.</span>")
+		to_chat(src, span_warning("That mob has no client connected at the moment."))
 		return FALSE
 	if(M.ckey == ckey)
-		to_chat(src, "<span class='warning'>You can't spend karma on yourself!</span>")
+		to_chat(src, span_warning("You can't spend karma on yourself!"))
 		return FALSE
 	if(client.address == M.client.address)
-		message_admins("<span class='warning'>Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!</span>")
+		message_admins(span_warning("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!"))
 		add_game_logs("Illegal karma spending attempt detected from [key] to [M.key]. Using the same IP!")
-		to_chat(src, "<span class='warning'>You can't spend karma on someone connected from the same IP.</span>")
+		to_chat(src, span_warning("You can't spend karma on someone connected from the same IP."))
 		return FALSE
 	if(M.get_preference(PREFTOGGLE_DISABLE_KARMA))
-		to_chat(src, "<span class='warning'>That player has turned off incoming karma.")
+		to_chat(src, span_warning("That player has turned off incoming karma."))
 		return FALSE
 	return TRUE
 
@@ -119,7 +119,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /mob/verb/spend_karma_list()
 	set name = "Award Karma"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	if(!can_give_karma())
 		return
@@ -135,7 +135,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 		karma_list += M
 
 	if(!karma_list.len)
-		to_chat(usr, "<span class='warning'>There's no-one to spend your karma on.</span>")
+		to_chat(usr, span_warning("There's no-one to spend your karma on."))
 		return
 
 	var/pickedmob = input("Who would you like to award Karma to?", "Award Karma", "Cancel") as null|mob in karma_list
@@ -148,13 +148,13 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /mob/verb/spend_karma(var/mob/M)
 	set name = "Award Karma to Player"
 	set desc = "Let the gods know whether someone's been nice. Can only be used once per round."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	if(!M)
 		to_chat(usr, "Please right click a mob to award karma directly, or use the 'Award Karma' verb to select a player from the player listing.")
 		return
 	if(CONFIG_GET(flag/disable_karma)) // this is here because someone thought it was a good idea to add an alert box before checking if they can even give a mob karma
-		to_chat(usr, "<span class='warning'>Karma is disabled.</span>")
+		to_chat(usr, span_warning("Karma is disabled."))
 		return
 	if(alert("Give [M.name] good karma?", "Karma", "Yes", "No") != "Yes")
 		return
@@ -181,10 +181,10 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /client/verb/check_karma()
 	set name = "Check Karma"
 	set desc = "Reports how much karma you have accrued."
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 
 	if(CONFIG_GET(flag/disable_karma))
-		to_chat(src, "<span class='warning'>Karma is disabled.</span>")
+		to_chat(src, span_warning("Karma is disabled."))
 		return
 
 	var/currentkarma = verify_karma()
@@ -194,7 +194,7 @@ GLOBAL_LIST_EMPTY(karma_spenders)
 /client/proc/verify_karma()
 	var/currentkarma = 0
 	if(!SSdbcore.IsConnected())
-		to_chat(usr, "<span class='warning'>Unable to connect to karma database. Please try again later.<br></span>")
+		to_chat(usr, span_warning("Unable to connect to karma database. Please try again later.<br>"))
 		return
 
 	var/datum/db_query/query = SSdbcore.NewQuery("SELECT karma, karmaspent FROM [format_table_name("karmatotals")] WHERE byondkey=:ckey", list(

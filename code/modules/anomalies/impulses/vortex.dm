@@ -17,7 +17,7 @@
 	period_low = 10 SECONDS
 	period_high = 20 SECONDS
 	light_range_low = 0
-	light_range_high = 2
+	light_range_high = 3
 	heavy_range_low = 0
 	heavy_range_high = 0
 
@@ -27,15 +27,15 @@
 	light_range_low = 2
 	light_range_high = 4
 	heavy_range_low = 0
-	heavy_range_high = 1
+	heavy_range_high = 2
 
 /datum/anomaly_impulse/emp/tier3
 	period_low = 5 SECONDS
 	period_high = 10 SECONDS
 	light_range_low = 3
-	light_range_high = 5
+	light_range_high = 7
 	heavy_range_low = 1
-	heavy_range_high = 3
+	heavy_range_high = 5
 
 /datum/anomaly_impulse/emp/tier4
 	period_low = 3 SECONDS
