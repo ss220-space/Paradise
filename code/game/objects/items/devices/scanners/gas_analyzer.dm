@@ -7,7 +7,7 @@
 /obj/item/analyzer
 	name = "analyzer"
 	desc = "Ручной сканер окружающей среды, который сообщает текущий уровень содержания газов."
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "анализатор",
 		GENITIVE = "анализатора",
 		DATIVE = "анализатору",
