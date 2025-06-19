@@ -232,8 +232,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		else
 			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
-			user.visible_message(span_warning("[user] сильно бьётся о [src.declent_ru(ACCUSATIVE)]!"),
-								span_warning("Вы бьётесь о [src.declent_ru(ACCUSATIVE)]!"),
+			user.visible_message(span_warning("[user] сильно стучит по [src.declent_ru(DATIVE)]!"),
+								span_warning("Вы сильно стучите по [src.declent_ru(DATIVE)]!"),
 								"Слышен громкий стук.")
 		add_fingerprint(user)
 	else

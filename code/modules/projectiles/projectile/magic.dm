@@ -398,7 +398,7 @@
 				statue.icon = target.icon
 				if(prisoner.mind)
 					prisoner.mind.transfer_to(statue)
-					to_chat(statue, span_warning("Вы ю ожившая статуя. Вы не можете двигаться, когда на вас смотрят, но почти неуязвимы и смертоносны, когда вас не видят!"))
+					to_chat(statue, span_warning("Вы ожившая статуя. Вы не можете двигаться, когда на вас смотрят, но почти неуязвимы и смертоносны, когда вас не видят!"))
 					to_chat(statue, span_userdanger("Не причиняйте вреда [firer.real_name] – вашему создателю."))
 				prisoner.forceMove(statue)
 				qdel(target)
