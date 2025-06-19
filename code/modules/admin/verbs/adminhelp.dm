@@ -7,7 +7,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 
 	//handle muting and automuting
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, span_fontcolor_red("Error: Admin-PM: You cannot send adminhelps (Muted)."), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+		to_chat(src, span_red("Error: Admin-PM: You cannot send adminhelps (Muted)."), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 		return
 
 	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.

@@ -743,10 +743,10 @@
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
-		to_chat(src, span_notify("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
+		to_chat(src, span_notice("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
-			to_chat(src, span_notify("Вы не хотите есть вредную пищу прямо сейчас."))
+			to_chat(src, span_notice("Вы не хотите есть вредную пищу прямо сейчас."))
 			return FALSE
 		if(fullness <= 50)
 			to_chat(src, span_warning("Вы жадко откусываете кусок от [toEat.declent_ru(GENITIVE)] и проглатываете, не жуя!"))

@@ -747,7 +747,7 @@
 		borer.transfer_personality(usr.client)
 		return
 
-	to_chat(usr, span_notify(message))
+	to_chat(usr, span_notice(message))
 	GLOB.respawnable_list -= usr
 	picked_mob.key = key
 

@@ -204,7 +204,7 @@
 
 /obj/item/soulscythe/examine(mob/user)
 	. = ..()
-	. += soul.ckey ? span_nicegreen("В нем заточена душа.") : span_danger("В нем нет души.")
+	. += soul.ckey ? span_green("В нем заточена душа.") : span_danger("В нем нет души.")
 
 /obj/item/soulscythe/attack(mob/living/attacked, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
