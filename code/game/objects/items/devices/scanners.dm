@@ -1,11 +1,16 @@
 /*
 CONTAINS:
 T-RAY
-DETECTIVE SCANNER
 HEALTH ANALYZER
-PLANT ANALYZER
+GAS ANALYZER
 REAGENT SCANNER
+SLIME SCANNER
+BODY SCANNERS
 */
+
+////////////////////////////////////////
+// MARK:	T-ray scanners
+////////////////////////////////////////
 /obj/item/t_scanner
 	name = "T-ray scanner"
 	desc = "A terahertz-ray emitter and scanner used to detect underfloor objects such as cables and pipes."
@@ -257,6 +262,9 @@ REAGENT SCANNER
 			else
 				to_chat(user, span_notice("Subject is not addicted to any reagents."))
 
+////////////////////////////////////////
+// MARK:	Health analyser
+////////////////////////////////////////
 /obj/item/healthanalyzer
 	name = "health analyzer"
 	desc = "Ручной сканер тела, способный определить жизненные показатели субъекта."
@@ -798,7 +806,7 @@ REAGENT SCANNER
 		scan_data += "Уровень крови: --- %, --- u, тип: ---</span>"
 		scan_data += "Пульс: <font color='#0080ff'>--- bpm.</font></span>"
 		scan_data += "Гены не обнаружены."
-		to_chat(user, "[jointext(scan_data, "<br>")]")
+		to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
 		return
 
 	var/mob/living/carbon/human/H = M
@@ -969,7 +977,7 @@ REAGENT SCANNER
 	scan_data += "Требуемое количество очков страховки: [get_req_insurance(H)]."
 	if(acc)
 		scan_data += "Текущее количество очков страховки: [acc.insurance]."
-	to_chat(user, "[jointext(scan_data, "<br>")]")
+	to_chat(user, chat_box_healthscan("[jointext(scan_data, "<br>")]"))
 
 /obj/item/healthanalyzer/verb/toggle_mode()
 	set name = "Вкл/Выкл локализацию"
@@ -1070,6 +1078,9 @@ REAGENT SCANNER
 /obj/item/healthanalyzer/gem_analyzer/attackby(obj/item/I, mob/user, params)
 	return ATTACK_CHAIN_BLOCKED_ALL
 
+////////////////////////////////////////
+// MARK:	Gas analyzer
+////////////////////////////////////////
 /obj/item/analyzer
 	desc = "A hand-held environmental scanner which reports current gas levels."
 	name = "analyzer"
@@ -1324,6 +1335,9 @@ REAGENT SCANNER
 	// we let the join apply newlines so we do need handholding
 	to_chat(user, chat_box_examine((jointext(message, "\n"))))
 
+////////////////////////////////////////
+// MARK:	Reagent scanners
+////////////////////////////////////////
 /obj/item/reagent_scanner
 	name = "reagent scanner"
 	desc = "A hand-held reagent scanner which identifies chemical agents and blood types."
@@ -1407,6 +1421,9 @@ REAGENT SCANNER
 /obj/item/reagent_scanner/ui_action_click(mob/user, datum/action/action, leftclick)
 	print_report()
 
+////////////////////////////////////////
+// MARK:	Slime scanner
+////////////////////////////////////////
 /obj/item/slime_scanner
 	name = "slime scanner"
 	icon = 'icons/obj/device.dmi'
@@ -1464,6 +1481,9 @@ REAGENT SCANNER
 		msgs += span_notice("Progress in core mutation: [T.applied] / [SLIME_EXTRACT_CROSSING_REQUIRED]")
 	to_chat(user, chat_box_healthscan(msgs.Join("<br>")))
 
+////////////////////////////////////////
+// MARK:	Body analyzers
+////////////////////////////////////////
 /obj/item/bodyanalyzer
 	name = "handheld body analyzer"
 	icon = 'icons/obj/device.dmi'
