@@ -42,9 +42,8 @@
 	icon = "heart-o"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
-	var/ending = pluralize_ru(user.gender, "ет", "ют")
 	user.visible_message(
-		span_notice("[user] анализиру[ending] состояние здоровья [M]"),
+		span_notice("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] состояние здоровья [M]"),
 		span_notice("Вы анализируете состояние здоровья [M]")
 	)
 
@@ -58,21 +57,19 @@
 	if(ishuman(C))
 		var/mob/living/carbon/human/H = C
 		if(!istype(H.dna, /datum/dna))
-			to_chat(user, span_notice("На [H] не найдено отпечатков пальцев."))
-		else
+			to_chat(user, span_notice("На [H.declent_ru(PREPOSITIONAL)] не найдено отпечатков пальцев."))
 			to_chat(user, span_notice("Отпечатки пальцев [H]: [md5(H.dna.uni_identity)]"))
-	scan_blood(C, user)
+			to_chat(user, span_notice("Отпечатки пальцев [H.declent_ru(PREPOSITIONAL)]: [md5(H.dna.uni_identity)]"))
 
 /datum/data/pda/utility/scanmode/dna/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
 	scan_blood(A, user)
 
 /datum/data/pda/utility/scanmode/dna/proc/scan_blood(atom/A, mob/user)
 	if(!A.blood_DNA)
-		to_chat(user, span_notice("На [A] не найдено следов крови."))
-		if(A.blood_DNA)
+		to_chat(user, span_notice("На [A.declent_ru(PREPOSITIONAL)] не найдено следов крови."))
 			qdel(A.blood_DNA)
 	else
-		to_chat(user, span_notice("На [A] найдена кровь. Анализ..."))
+		to_chat(user, span_notice("На [A.declent_ru(PREPOSITIONAL)] найдена кровь. Анализ..."))
 		spawn(15)
 			for(var/blood in A.blood_DNA)
 				to_chat(user, span_notice("Группа крови: [A.blood_DNA[blood]]"))
@@ -100,7 +97,7 @@
 	if(!isnull(A.reagents))
 		if(A.reagents.reagent_list.len > 0)
 			var/reagents_length = A.reagents.reagent_list.len
-			to_chat(user, span_notice("[reagents_length] chemical agent[reagents_length > 1 ? "s" : ""] обнаружено."))
+			to_chat(user, span_notice("Обнаружен[reagents_length > 1 ? "о" : ""] [reagents_length] химическ[reagents_length > 1 ? "их" : "ий"] агент[reagents_length > 1 ? "ов" : ""]."))
 			for(var/datum/reagent/R in A.reagents.reagent_list)
 				if(R.id != "blood")
 					to_chat(user, span_notice("\t [R]"))
@@ -109,9 +106,9 @@
 					var/blood_species = R.data["blood_species"]
 					to_chat(user, span_notice("\t [R] [blood_type] [blood_species]"))
 		else
-			to_chat(user, span_notice("Содержание активных химических веществ в [A] не обнаружено."))
+			to_chat(user, span_notice("Содержание активных химических веществ в [A.declent_ru(PREPOSITIONAL)] не обнаружено."))
 	else
-		to_chat(user, span_notice("Содержание химических веществ в [A] не обнаружено."))
+		to_chat(user, span_notice("Содержание химических веществ в [A.declent_ru(PREPOSITIONAL)] не обнаружено."))
 
 /datum/data/pda/utility/scanmode/gas
 	base_name = "Газовый сканер"

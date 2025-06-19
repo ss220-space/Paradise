@@ -103,11 +103,11 @@
 	dat += "<center><h4><span style='color: blue;'> [message]</span></h4></center>"
 
 	if(auth)
-		dat += "<h4><a href='byond://?src=[UID()];auth=1'><span style='color: green;'>\[Аутентифицированный\]</span></a>/"
-		dat += " Состояние сервера: <a href='byond://?src=[UID()];active=1'>[src.linkedServer && src.linkedServer.active ? "<span style='color: green;'>\[Включен\]</span>":"<span style='color: red;'>\[Выключен\]</span>"]</a></h4>"
+		dat += "<h4><a href='byond://?src=[UID()];auth=1'>[span_green("\[Аутентифицированный\]")]</a>/"
+		dat += " Состояние сервера: <a href='byond://?src=[UID()];active=1'>[src.linkedServer && src.linkedServer.active ? span_green("\[Включен\]") : span_red("\[Выключен\]")]</a></h4>"
 	else
-		dat += "<h4><a href='byond://?src=[UID()];auth=1'><span style='color: red;'>\[Неаутентифицированный\]</span></a>/"
-		dat += " Состояние сервера: <u>[src.linkedServer && src.linkedServer.active ? "<span style='color: green;'>\[Включен\]</span>":"<span style='color: green;'>\[Выключен\]</span>"]</u></h4>"
+		dat += "<h4><a href='byond://?src=[UID()];auth=1'>[span_red("\[Неаутентифицированный\]")]</a>/"
+		dat += " Состояние сервера: <u>[src.linkedServer && src.linkedServer.active ? span_green("\[Включен\]") : span_red("\[Выключен\]")]</u></h4>"
 
 	if(hacking || emag)
 		screen = 2
@@ -136,7 +136,7 @@
 					dat += "<dd><span style='color: blue;'>[n]. ---------------</span><br></dd>"
 			if((isAI(user) || isrobot(user)) && (user.mind.special_role && user.mind.is_original_mob(user)))
 				//Malf/Traitor AIs can bruteforce into the system to gain the Key.
-				dat += "<dd><a href='byond://?src=[UID()];hack=1'><i><span style='color: red;'>*&@#. Подбор пароля</span></i></a><br></dd>"
+				dat += "<dd><a href='byond://?src=[UID()];hack=1'><i>[span_red("*&@#. Подбор пароля")]</i></a><br></dd>"
 			else
 				dat += "<br>"
 
@@ -471,7 +471,7 @@
 
 							recipient_messenger.notify("<b>Сообщение от [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Ответить</a>)")
 							log_pda("(КПК: [PDARec.owner]) отправил сообщние \"[custommessage]\" [customrecepient.owner]", usr)
-						var/log_message = "отправлено сообщение \"[custommessage]\" используя [src]. Должность: [customsender] ([customjob])"
+						var/log_message = "отправлено сообщение \"[custommessage]\" используя [src.declent_ru(ACCUSATIVE)]. Должность: [customsender] ([customjob])"
 						var/receiver
 						if(ishuman(customrecepient.loc))
 							receiver = customrecepient.loc

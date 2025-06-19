@@ -141,16 +141,16 @@
 			return ATTACK_CHAIN_PROCEED
 		if(isstack(I))
 			if(!I.use(1))
-				to_chat(user, span_warning("Вам нужно больше [I]."))
+				to_chat(user, span_warning("Вам нужно больше [I.declent_ru(GENITIVE)]."))
 				return ATTACK_CHAIN_PROCEED
 			var/obj/item/stack/new_stack = new(src, 1)
 			assembly.upgrades += new_stack
 			new_stack.camera_upgrade(src)
-			to_chat(user, span_notice("Вы прикрепляете [new_stack] во внутренний контур сборки."))
+			to_chat(user, span_notice("Вы прикрепляете [new_stack.declent_ru(ACCUSATIVE)] к внутреннему контуру сборки."))
 			return ATTACK_CHAIN_PROCEED_SUCCESS
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("Вы прикрепляете [I] во внутренний контур сборки."))
+		to_chat(user, span_notice("Вы прикрепляете [I.declent_ru(ACCUSATIVE)] к внутреннему контуру сборки."))
 		assembly.upgrades += I
 		I.camera_upgrade(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
@@ -175,22 +175,22 @@
 			if(notekeeper)
 				info = notekeeper.note
 
-		to_chat(user, "Вы держите [itemname] перед камерой...")
+		to_chat(user, "Вы держите [itemname.declent_ru(ACCUSATIVE)] перед камерой...")
 
 		for(var/mob/living/silicon/ai/AI as anything in GLOB.ai_list)
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
 			if(user.name == "Unknown")
-				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname]</a> у одной из ваших камер...")
+				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
 			else
-				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname]</a> у одной из ваших камер...")
+				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[itemname.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
 			AI.last_paper_seen = "<tt>[info]</tt>"
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
 			for(var/uid_watcher as anything in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
-				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ут")] [itemname] у одной из ваших камер...")
+				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ут")] [itemname.declent_ru(ACCUSATIVE)] у одной из ваших камер...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
 				popup.include_default_stylesheet = FALSE
 				popup.set_content("<tt>[info]</tt>")
@@ -211,7 +211,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, span_notice("Вы [panel_open ? "откручиваете" : "прикручиваете"] панель [src]."))
+	to_chat(user, span_notice("Вы [panel_open ? "откручиваете" : "прикручиваете"] панель [src.declent_ru(GENITIVE)]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -235,8 +235,8 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] отвариварива[pluralize_ru(user.gender, "ет", "ют")] [src], оставив лишь раму, прикрученную к стене болтами.."),
-						span_warning("Вы отварили [src], оставив лишь раму, прикрученную к стене болтами."))
+		visible_message(span_warning("[user] отвариварива[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], оставив лишь раму, прикрученную к стене болтами.."),
+						span_warning("Вы отварили [src.declent_ru(ACCUSATIVE)], оставив лишь раму, прикрученную к стене болтами."))
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)
