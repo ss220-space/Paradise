@@ -8239,7 +8239,9 @@
 /turf/simulated/floor/engine,
 /area/engineering/supermatter)
 "biU" = (
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 8
+	},
 /obj/structure/table/wood,
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
@@ -92123,7 +92125,9 @@
 /obj/structure/window/reinforced{
 	dir = 4
 	},
-/obj/machinery/computer/library/checkout,
+/obj/machinery/computer/library/checkout{
+	dir = 8
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},
@@ -119758,7 +119762,9 @@
 /area/security/brigstaff)
 "wEr" = (
 /obj/structure/table/wood,
-/obj/machinery/computer/library/public,
+/obj/machinery/computer/library/public{
+	dir = 4
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "grimy"
 	},

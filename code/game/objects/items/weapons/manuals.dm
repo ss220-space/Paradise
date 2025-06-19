@@ -77,8 +77,8 @@
 /obj/item/book/manual/hydroponics_pod_people
 	name = "The Human Harvest - From seed to market"
 	icon_state ="bookHydroponicsPodPeople"
-	author = "Farmer John"
-	title = "The Human Harvest - From seed to market"
+	author = "Джон Фермер"
+	title = "От семян до урожая: полное руководство по выращиванию людей на грядках."
 	dat = {"<html>
 				<meta charset="UTF-8">
 				<head>
