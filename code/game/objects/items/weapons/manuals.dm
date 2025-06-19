@@ -80,35 +80,92 @@
 	author = "Джон Фермер"
 	title = "От семян до урожая: полное руководство по выращиванию людей на грядках."
 	dat = {"<html>
-				<meta charset="UTF-8">
 				<head>
-				<style>
-				h1 {font-size: 18px; margin: 15px 0px 5px;}
-				h2 {font-size: 15px; margin: 15px 0px 5px;}
-				li {margin: 2px 0px 2px 15px;}
-				ul {list-style: none; margin: 5px; padding: 0px;}
-				ol {margin: 5px; padding: 0px 15px;}
+					<meta charset="UTF-8">
+					<style>
+						body {
+					background-color: rgb(225, 255, 226);
+					font-family:Verdana, Geneva, Tahoma, sans-serif;
+					padding-right: 25pt;
+					padding-left: 25pt;
+				}
+
+				header {
+					display: inline-block;
+					/* margin: 5pt; */
+					min-width: 100%;
+					position: relative;
+					height: 100pt;
+					background-color: rgb(39, 102, 39);
+				}
+
+				header h1 {
+					margin: 0;
+					margin-top: 15px;
+					vertical-align: middle;
+					text-align: center;
+					color: rgb(234, 255, 229);
+				}
+
+				div.first {
+					padding-top: 25pt;
+				}
+
+				img {
+					position: relative;
+				}
+
+				img.first {
+					width: 20%;
+					padding: 25pt;
+					float: left;
+					margin-right: 20px;
+				}
+
+				img.second {
+					width: 20%;
+					/* padding: 25pt; */
+					padding-right: 25pt;
+					float: right;
+					margin-right: 20px;
+
+				}
 				</style>
 				</head>
 				<body>
-				<h3>Growing Humans</h3>
 
-				Why would you want to grow humans? Well I'm expecting most readers to be in the slave trade, but a few might actually
-				want to revive fallen comrades. Growing pod people is easy, but prone to disaster.
-				<p>
-				<ol>
-				<li>Find a dead person who is in need of cloning. </li>
-				<li>Take a blood sample with a syringe. </li>
-				<li>Inject a seed pack with the blood sample. </li>
-				<li>Plant the seeds. </li>
-				<li>Tend to the plants water and nutrition levels until it is time to harvest the cloned human.</li>
-				</ol>
-				<p>
-				It really is that easy! Good luck!
+					<img class="first" src = \"https://media.discordapp.net/attachments/1289594776710021311/1385293006126452796/john_farmer.png?ex=68558a26&is=685438a6&hm=afce806c957f31ae896309ea92c915198ad7c3cc3f997ed14ed43932438234da&=&format=webp&quality=lossless&width=546&height=495\">
+					<div class="first">Доброго времени суток, мой начинающий фермер! Раз ты открыл эту книгу, ты заинтересован в технологии выращивания
+					людей путями ботаники. Мне не интересно, зачем ты открыл эту книгу: для выращивания рабов для продажи, возврождение
+					товарищей в полевых условиях, или просто для общего развития. Я здесь для того, чтобы познакомить тебя с этим
+					ремеслом.</div>
 
+					<h3>Краткая история.</h3>
+
+					<div>Для начала краткий экскурс в историю этой чудной технологии: </div>
+					<br><br>
+					<div>Ещё в 2243 году, ботаники научились вызывать крупные мутации у растений в малые сроки. В ходе хаотичных экспериментов,
+					в результате мутации капусты был выведен Под-Репликант, герой нашего руководства. В течении длительного времени люди
+					пытались понять принцип работы нового вида. В результате Под-Репликант стал первой технологией клонирования людей,
+					что, к несчастью, ныне забыта.</div>
+
+					<h3>Собственно сам процесс.</h3>
+
+					<img class="second" src=\"https://media.discordapp.net/attachments/1289594776710021311/1385293006344818819/pod_grown.png?ex=68558a26&is=685438a6&hm=8d08ff297e016153267565365241ea65b7ac22ed125f0ed3db8bcafadc8021fe&=&format=webp&quality=lossless&width=179&height=158\">
+
+					<div>И так, как же нам вырастить свой первый разумный овощ?
+					<p>
+					<ol>
+					<li>Найдите человека, которого вы хотите оживить. </li>
+					<li>С помощью шприца возьмите образец крови бедолаги. </li>
+					<li>Введите полученную кровь в упаковку с семенами. </li>
+					<li>Посадите эти семена в грядку. </li>
+					<li>Ухаживайте за посаженными семенами до созревания вашего разумного овоща.</li>
+					</ol>
+					<p>
+					В общем это всё, желаю удачи в ваших начинаниях!</div>
 				</body>
-				</html>
-				"}
+				</html>"}
 
 /obj/item/book/manual/medical_cloning
 	name = "Cloning techniques of the 26th century"
