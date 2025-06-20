@@ -171,6 +171,15 @@
  */
 /obj/item/book
 	name = "book"
+	desc = "Напечатанная книга в твёрдом переплёте."
+	ru_names = list(
+		NOMINATIVE = "книга",
+		GENITIVE = "книги",
+		DATIVE = "книге",
+		ACCUSATIVE = "книгу",
+		INSTRUMENTAL = "книгой",
+		PREPOSITIONAL = "книге"
+	)
 	icon = 'icons/obj/library.dmi'
 	icon_state ="book"
 	throw_speed = 1

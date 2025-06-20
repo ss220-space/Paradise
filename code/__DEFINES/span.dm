@@ -188,3 +188,4 @@
 // Font color spans
 #define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")
 #define span_fontcolor_purple(str) ("<span style='color: purple;'>" + str + "</span>")
+#define span_fontcolor_darkgreen(str) ("<span style='color: #005500;'>" + str + "</span>")
