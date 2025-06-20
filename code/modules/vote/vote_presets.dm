@@ -1,7 +1,13 @@
+#define CREW_TRANSFER_CHOICE 	"Инициировать трансфер экипажа"
+#define CONTINUE_SHIFT_CHOICE 	"Продолжить смену"
+
 // Crew transfer vote
 /datum/vote/crew_transfer
-	question = "End the shift"
-	choices = list("Initiate Crew Transfer", "Continue The Round")
+	question = "Завершение смены"
+	choices = list(
+		CREW_TRANSFER_CHOICE, 
+		CONTINUE_SHIFT_CHOICE
+	)
 	vote_type_text = "crew transfer"
 
 /datum/vote/crew_transfer/New()
@@ -10,7 +16,7 @@
 	..()
 
 /datum/vote/crew_transfer/handle_result(result)
-	if(result == "Initiate Crew Transfer")
+	if(result == CREW_TRANSFER_CHOICE)
 		SSvote.clear_transfer_votes()
 		init_shift_change(null, TRUE)
 
@@ -87,3 +93,6 @@
 	if(!SSticker.ticker_going)
 		SSticker.ticker_going = TRUE
 		to_chat(world, "<font color='red'><b>The round will start soon.</b></font>")
+
+#undef CREW_TRANSFER_CHOICE
+#undef CONTINUE_SHIFT_CHOICE
