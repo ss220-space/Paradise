@@ -41,6 +41,24 @@
 	COOLDOWN_DECLARE(stun_cooldown)
 
 
+/obj/item/melee/baton/New()
+	. = ..()
+	RegisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND, PROC_REF(try_take_baton))
+
+
+/obj/item/melee/baton/Destroy()
+	UnregisterSignal(src, COMSIG_ITEM_TRY_PUT_IN_HAND)
+	. = ..()
+
+
+/obj/item/melee/baton/proc/try_take_baton(baton, mob/living/carbon/user)
+	SIGNAL_HANDLER
+	if(!user.mind?.martial_art?.no_baton || !user.mind?.martial_art?.can_use(user))
+		return
+
+	to_chat(user, user.mind.martial_art.no_baton_reason)
+	return COMPONENT_ITEM_CANT_PUT_IN_HAND
+
 /**
  * Ok, think of baton attacks like a melee attack chain:
  *
@@ -84,10 +102,6 @@
 
 	if(!allows_stun_in_harm && user.a_intent == INTENT_HARM)
 		return BATON_DO_NORMAL_ATTACK
-
-	if(user.mind?.martial_art?.no_baton && user.mind?.martial_art?.can_use(user))
-		to_chat(user, user.mind.martial_art.no_baton_reason)
-		return BATON_ATTACK_DONE
 
 	if(!COOLDOWN_FINISHED(src, stun_cooldown))
 		if(user.a_intent == INTENT_HARM)

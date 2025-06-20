@@ -204,17 +204,20 @@
 /**
  * All the necessary checks for carbon to put an item in hand
  */
-/mob/living/carbon/put_in_hand_check(obj/item/I, hand_id)
-	if(!istype(I))
+/mob/living/carbon/put_in_hand_check(obj/item/item, hand_id)
+	if(!istype(item))
 		return FALSE
 
-	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, I, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
+	if(SEND_SIGNAL(src, COMSIG_CARBON_TRY_PUT_IN_HAND, item, hand_id) & COMPONENT_CARBON_CANT_PUT_IN_HAND)
 		return FALSE
 
-	if(I.item_flags & NOPICKUP)
+	if(SEND_SIGNAL(item, COMSIG_ITEM_TRY_PUT_IN_HAND, src, hand_id) & COMPONENT_ITEM_CANT_PUT_IN_HAND)
 		return FALSE
 
-	if(!(mobility_flags & MOBILITY_PICKUP) && !(I.item_flags & ABSTRACT))
+	if(item.item_flags & NOPICKUP)
+		return FALSE
+
+	if(!(mobility_flags & MOBILITY_PICKUP) && !(item.item_flags & ABSTRACT))
 		return FALSE
 
 	if(hand_id == ITEM_SLOT_HAND_LEFT && !has_left_hand())
