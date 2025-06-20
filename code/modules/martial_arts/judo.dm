@@ -82,7 +82,7 @@
 	MARTIAL_ARTS_ACT_CHECK
 	var/picked_hit_type = pick("ловко бьёт", "встаёт в стойку и резко бьёт", "проводит неожиданную атаку против")
 	attacker.do_attack_animation(defender, ATTACK_EFFECT_PUNCH)
-	defender.apply_damage(7, BRUTE)
+	defender.apply_damage(10, BRUTE)
 	playsound(get_turf(defender), 'sound/effects/hit_punch.ogg', 50, TRUE, -1)
 	defender.visible_message(span_danger("[attacker] [picked_hit_type] [defender]!"), \
 					span_userdanger("[attacker] [picked_hit_type] вас!"))

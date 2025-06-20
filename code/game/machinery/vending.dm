@@ -2157,7 +2157,7 @@
 		/obj/item/clothing/mask/gas/sechailer/tactical = 5,
 		/obj/item/flashlight/sectaclight = 2,
 		/obj/item/grenade/smokebomb = 8,
-		/obj/item/storage/belt/security/judobelt = 1,
+		/obj/item/storage/belt/security/judobelt = 3,
 	)
 	contraband = list(
 		/obj/item/clothing/glasses/sunglasses = 2,
@@ -2165,7 +2165,7 @@
 		/obj/item/hailer = 5,
 	)
 	prices = list(
-		/obj/item/storage/belt/security/judobelt = 999,
+		/obj/item/storage/belt/security/judobelt = 499,
 		/obj/item/storage/belt/security/webbing = 999,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
 		/obj/item/flashlight/sectaclight = 299,
