@@ -96,6 +96,7 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define CONTRACT_YOUTH "Вечная молодость"
 #define CONTRACT_ETALENT "Инженерный талант"
 #define CONTRACT_RETURNDEAD "Воскрешение мертвых"
+#define CONTRACT_GUN "Оружия"
 
 // FIXME: Implement these
 #define CONTRACT_CTALENT "Chemistry Talent"

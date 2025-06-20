@@ -1,5 +1,6 @@
 #define MAGIC_SPELLS_COUNT 3
 #define HULK_COOLDOWN 10 MINUTES
+
 /datum/devil_contract
 	var/name = "Ошибка"
 	var/contract_type = 0
@@ -235,5 +236,23 @@
 	var/obj/effect/proc_holder/spell/lichdom/spell = new(null)
 	spell.create_lich(user)
 	qdel(spell)
+
+
+/datum/devil_contract/gun
+	name = "контракт оружия"
+	contract_type = CONTRACT_GUN
+	contract_subject = "оружия"
+	contract_subject_text = ", в обмен на оружие, которое меня никогда не покинет"
+
+/datum/devil_contract/gun/check_contract(mob/living/carbon/human/user)
+	if(!istype(user) || !user.mind)
+		return FALSE
+	return TRUE
+
+/datum/devil_contract/gun/fulfill_contract(mob/living/carbon/human/user)
+	var/gun_type = safepick(GLOB.devil_guns)
+	var/spell = new /obj/effect/proc_holder/spell/conjure_item/contract_gun(null, gun_type)
+	user.mind.AddSpell(spell)
+
 
 #undef MAGIC_SPELLS_COUNT

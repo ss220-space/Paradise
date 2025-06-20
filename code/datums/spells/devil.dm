@@ -440,7 +440,7 @@
 	return devil
 
 /obj/effect/proc_holder/spell/dark_conversion/valid_target(mob/living/carbon/human/target, mob/user)
-	return target.mind && !isshadowperson(target)
+	return target.mind && !isshadowperson(target) && (target.mind != user?.mind)
 
 /obj/effect/proc_holder/spell/dark_conversion/cast(list/targets, mob/user = usr)
 	var/mob/living/carbon/human/human = targets[1]
@@ -450,7 +450,7 @@
 	carbon.say("INF' [devil.info.truename] NO")
 	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
 
-	human.Knockdown(0.1 SECONDS)
+	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
 		revert_cast(user)

@@ -3,6 +3,10 @@
 /obj/effect/proc_holder/spell/summon_wealth
 	name = "Призвать богатство"
 	desc = "Ваша награда за продажу души."
+
+	invocation_type = "whisper"
+	invocation = "Divitiae, da mihi divitias"
+
 	school = "conjuration"
 	clothes_req = FALSE
 	base_cooldown = 10 SECONDS
@@ -33,6 +37,10 @@
 /obj/effect/proc_holder/spell/view_range
 	name = "Distant vision"
 	desc = "Ваша награда за продажу души."
+
+	invocation_type = "whisper"
+	invocation = "Da mihi divinum aspectum"
+
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
 	cooldown_min = 1 SECONDS
@@ -87,6 +95,10 @@
 /obj/effect/proc_holder/spell/summon_friend
 	name = "Призвать друга"
 	desc = "Ваша награда за продажу души."
+
+	invocation_type = "whisper"
+	invocation = "Amicus meus fidelis infernalis, suus ' vicis"
+
 	action_icon_state = "sacredflame"
 	clothes_req = FALSE
 	base_cooldown = 5 SECONDS
@@ -169,3 +181,26 @@
 		organ.necrotize(TRUE)
 
 #undef REVIVE_SPELL_TIME
+
+
+/obj/effect/proc_holder/spell/conjure_item/contract_gun
+	name = "Призвать верное оружие"
+	desc = "Призвать оружие, полученное в обмен на душу."
+
+	invocation_type = "whisper"
+	invocation = "Amicus meus, suus ' vicis"
+
+
+	action_icon_state = "bolt_action_old"
+	action_background_icon_state = "bg_demon"
+
+
+/obj/effect/proc_holder/spell/conjure_item/contract_gun/Initialize(mapload, weapon_type)
+	. = ..()
+	item_type = weapon_type
+
+/obj/effect/proc_holder/spell/conjure_item/contract_gun/update_item(obj/item/item)
+	item.origin_tech = list()
+	item.materials = list()
+	ADD_TRAIT(item, TRAIT_NODROP, INNATE_TRAIT)
+	ADD_TRAIT(item, TRAIT_NOT_TURRET_GUN, INNATE_TRAIT)

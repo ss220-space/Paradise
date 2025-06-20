@@ -332,3 +332,5 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_DECOY_BRAIN "decoy_brain"
 
 #define TRAIT_BAD_SOUL "bad_soul"
+
+#define TRAIT_NOT_TURRET_GUN "not_turret_gun"

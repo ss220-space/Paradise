@@ -15,6 +15,7 @@
 	RegisterSignal(human, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
 	RegisterSignal(human, COMSIG_LIVING_EARLY_DEATH, PROC_REF(pre_death))
 
+	ADD_TRAIT(human, TRAIT_NO_BREATH, DEVIL_TRAIT)
 	ADD_TRAIT(human, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
 
 /datum/element/devil_regeneration/Detach(datum/target)
@@ -27,6 +28,7 @@
 		return
 
 	var/mob/living/carbon/carbon = target
+	REMOVE_TRAIT(carbon, TRAIT_NO_BREATH, DEVIL_TRAIT)
 	REMOVE_TRAIT(carbon, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
 
 /datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ/organ)
@@ -81,6 +83,11 @@
 	linked_timer = null
 
 /datum/element/devil_regeneration/proc/apply_regeneration(mob/living/carbon/human, datum/antagonist/devil/devil)
+
+	if(QDELETED(human))
+		on_revive()
+		return
+
 	if(human.health >= human.maxHealth)
 		on_revive()
 
@@ -109,6 +116,11 @@
 	for(var/obj/item/organ/internal/organ as anything in human.internal_organs)
 		organ.unnecrotize()
 		organ.heal_internal_damage(devil.rank.regen_amount, robo_repair = organ.is_robotic())
+
+	for(var/datum/reagent/reagent as anything in human.reagents.reagent_list)
+		if(reagent.devil_regen_ignored)
+			continue
+		human.reagents.remove_reagent(reagent, min(reagent.volume, devil.rank.regen_amount))
 
 	if(ishuman(human))
 		var/mob/living/carbon/human/mob = human
