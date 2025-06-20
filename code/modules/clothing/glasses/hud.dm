@@ -659,6 +659,8 @@ SKILLS
 		else
 			HUDType = DATA_HUD_SECURITY_ADVANCED
 			examine_extensions = EXAMINE_HUD_SECURITY_READ | EXAMINE_HUD_SECURITY_WRITE
+	var/datum/atom_hud/newH = GLOB.huds[HUDType]
+	newH.add_hud_to(user)
 	balloon_alert(user, "режим переключён")
 	return
 
