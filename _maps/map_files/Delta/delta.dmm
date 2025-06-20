@@ -4703,6 +4703,9 @@
 /area/engineering/mechanic_workshop/hangar)
 "aLh" = (
 /obj/effect/decal/cleanable/dirt,
+/obj/machinery/light/small{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	dir = 5;
 	icon_state = "darkred"
@@ -36219,6 +36222,9 @@
 /obj/effect/decal/cleanable/cobweb2,
 /obj/effect/decal/cleanable/dirt,
 /obj/structure/dresser,
+/obj/structure/mirror{
+	pixel_y = 32
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "freezerfloor"
 	},
@@ -49616,8 +49622,8 @@
 /obj/structure/sign/poster/official/random{
 	pixel_x = 32
 	},
-/obj/item/dice/d20,
 /obj/item/instrument/piano_synth,
+/obj/item/reagent_containers/food/snacks/grown/lily,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -72335,9 +72341,6 @@
 /area/storage/secure)
 "lPJ" = (
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/light/small{
-	dir = 1
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -80784,7 +80787,7 @@
 	name = "Brig Lockdown"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "Interrogation"
+	id = "vipbar"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -83396,7 +83399,7 @@
 	},
 /obj/structure/disposalpipe/segment,
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "Interrogation"
+	id = "vipbar"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -86492,7 +86495,7 @@
 	name = "Brig Lockdown"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "Interrogation"
+	id = "vipbar"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -93915,7 +93918,7 @@
 	icon_state = "1-4"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "Interrogation"
+	id = "vipbar"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
@@ -94816,6 +94819,7 @@
 /area/assembly/robotics)
 "qOi" = (
 /obj/structure/table/wood,
+/obj/item/dice/d20,
 /obj/item/storage/fancy/crayons,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -105397,8 +105401,9 @@
 "tmw" = (
 /obj/effect/decal/cleanable/dirt,
 /obj/machinery/button/windowtint{
-	id = "visiting room";
-	pixel_x = 24
+	id = "vipbar";
+	pixel_x = 22;
+	pixel_y = 5
 	},
 /turf/simulated/floor/plasteel{
 	dir = 4;
@@ -114847,7 +114852,7 @@
 	icon_state = "0-8"
 	},
 /obj/effect/spawner/window/reinforced/polarized{
-	id = "Interrogation"
+	id = "vipbar"
 	},
 /turf/simulated/floor/plating,
 /area/security/interrogation)
