@@ -14,8 +14,8 @@
 
 	RegisterSignal(human, COMSIG_CARBON_LOSE_ORGAN, PROC_REF(start_regen_bodypart))
 	RegisterSignal(human, COMSIG_LIVING_EARLY_DEATH, PROC_REF(pre_death))
+	RegisterSignal(human, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(on_sleep))
 
-	ADD_TRAIT(human, TRAIT_NO_BREATH, DEVIL_TRAIT)
 	ADD_TRAIT(human, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
 
 /datum/element/devil_regeneration/Detach(datum/target)
@@ -23,13 +23,16 @@
 
 	UnregisterSignal(target, COMSIG_CARBON_LOSE_ORGAN)
 	UnregisterSignal(target, COMSIG_LIVING_EARLY_DEATH)
+	UnregisterSignal(target, COMSIG_LIVING_STATUS_SLEEP)
 
 	if(!iscarbon(target))
 		return
 
 	var/mob/living/carbon/carbon = target
-	REMOVE_TRAIT(carbon, TRAIT_NO_BREATH, DEVIL_TRAIT)
 	REMOVE_TRAIT(carbon, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
+
+/datum/element/devil_regeneration/proc/on_sleep(datum/source, amount)
+	return COMPONENT_NO_EFFECT
 
 /datum/element/devil_regeneration/proc/start_regen_bodypart(datum/source, obj/item/organ/organ)
 	SIGNAL_HANDLER
