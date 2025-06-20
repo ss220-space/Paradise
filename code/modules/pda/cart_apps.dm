@@ -208,17 +208,17 @@
 			for(var/mob/living/simple_animal/bot/B in SC.botlist)
 				botsCount++
 				if(B.loc)
-					botsData[++botsData.len] = list("Имя" = sanitize(B.name), "Местоположение" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
+					botsData[++botsData.len] = list("Name" = sanitize(B.name), "Местоположение" = sanitize(B.loc.loc.name), "uid" = "[B.UID()]")
 
 		if(!botsData.len)
-			botsData[++botsData.len] = list("Имя" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
+			botsData[++botsData.len] = list("Name" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
 
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = botsCount
 
 	else
 		beepskyData["active"] = 0
-		botsData[++botsData.len] = list("Имя" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
+		botsData[++botsData.len] = list("Name" = "Ботов не обнаружено", "Местоположение" = "Неизвестно", "uid"= null)
 		beepskyData["botstatus"] = list("loca" = null, "mode" = null)
 		beepskyData["bots"] = botsData
 		beepskyData["count"] = 0
