@@ -415,10 +415,10 @@
 
 
 	if(get_gravity(src) < -NO_GRAVITY && !buckled)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] наход[pluralize_ru(gender, "и", "я")]тся на потолке."
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] наход[pluralize_ru(gender, "и", "я")]тся на потолке.\n"
 
 	if(user.no_gravity() && !buckled)
-		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] не подвержен[genderize_ru(gender, "", "а", "о", "ы")] действию гравитации."
+		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] не подвержен[genderize_ru(gender, "", "а", "о", "ы")] действию гравитации.\n"
 
 	if(decaylevel == 1)
 		msg += "[genderize_ru(gender, "Он", "Она", "Оно", "Они")] начал[genderize_ru(gender, "", "а", "о", "и")] разлагаться и неприятно пахнуть.\n"
