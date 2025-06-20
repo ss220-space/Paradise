@@ -326,6 +326,18 @@
 	return bruteloss
 
 
+/mob/living/proc/can_adjust_brute_loss(amount, forced, def_zone)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BRUTE_DAMAGE, BRUTE, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+
+	if(forced)
+		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	return TRUE
+
 /**
  * Applies brute damage to this mob.
  *
@@ -353,12 +365,9 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		var/old_bruteloss = getBruteLoss()
-		bruteloss = 0
-		if(old_bruteloss != 0)
-			updatehealth("adjustBruteLoss")
+	if(!can_adjust_brute_loss(amount, forced, def_zone))
 		return STATUS_UPDATE_NONE
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, BRUTE, def_zone, sharp, used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, BRUTE, def_zone, sharp, used_weapon)
@@ -379,6 +388,18 @@
 /mob/living/proc/getFireLoss()
 	return fireloss
 
+
+/mob/living/proc/can_adjust_fire_loss(amount, forced, def_zone)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_BURN_DAMAGE, BURN, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+
+	if(forced)
+		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	return TRUE
 
 /**
  * Applies burn damage to this mob.
@@ -407,17 +428,15 @@
 	silent = FALSE,
 	affect_robotic = TRUE,
 )
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		var/old_fireloss = getFireLoss()
-		fireloss = 0
-		if(old_fireloss != 0)
-			updatehealth("adjustFireLoss")
+	if(!can_adjust_fire_loss(amount, forced, def_zone))
 		return STATUS_UPDATE_NONE
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, BURN, def_zone, sharp, used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, BURN, def_zone, sharp, used_weapon)
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
+
 	var/old_fireloss = getFireLoss()
 	fireloss = max(round(fireloss + amount, DAMAGE_PRECISION), 0)
 	if(old_fireloss == getFireLoss())
@@ -425,6 +444,7 @@
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_HEALTH
+
 	if(updating_health)
 		updatehealth("adjustFireLoss")
 
@@ -432,6 +452,22 @@
 /// Oxyloss var getter
 /mob/living/proc/getOxyLoss()
 	return oxyloss
+
+
+/mob/living/proc/can_adjust_oxy_loss(amount, forced)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_OXY_DAMAGE, OXY, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+
+	if(forced)
+		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	if(HAS_TRAIT(src, TRAIT_NO_BREATH))
+		return FALSE
+
+	return TRUE
 
 
 /**
@@ -453,17 +489,15 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_BREATH))
-		var/old_oxyloss = getOxyLoss()
-		oxyloss = 0
-		if(old_oxyloss != 0)
-			updatehealth("adjustOxyLoss")
+	if(!can_adjust_oxy_loss(amount, forced))
 		return STATUS_UPDATE_NONE
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, OXY, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, OXY, used_weapon = used_weapon)
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
+
 	var/old_oxyloss = getOxyLoss()
 	oxyloss = max(round(oxyloss + amount, DAMAGE_PRECISION), 0)
 	if(old_oxyloss == getOxyLoss())
@@ -471,6 +505,7 @@
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_HEALTH
+
 	if(updating_health)
 		updatehealth("adjustOxyLoss")
 
@@ -507,6 +542,18 @@
 	return toxloss
 
 
+/mob/living/proc/can_adjust_tox_loss(amount, forced)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_TOX_DAMAGE, TOX, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+
+	if(!forced)
+		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	return TRUE
+
 /**
  * Applies toxic damage to this mob.
  *
@@ -526,17 +573,15 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		var/old_toxloss = getToxLoss()
-		toxloss = 0
-		if(old_toxloss != 0)
-			updatehealth("adjustToxLoss")
+	if(!can_adjust_tox_loss(amount, forced))
 		return STATUS_UPDATE_NONE
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, TOX, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, TOX, used_weapon = used_weapon)
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
+
 	var/old_toxloss = getToxLoss()
 	toxloss = max(round(toxloss + amount, DAMAGE_PRECISION), 0)
 	if(old_toxloss == getToxLoss())
@@ -544,6 +589,7 @@
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_HEALTH
+
 	if(updating_health)
 		updatehealth("adjustToxLoss")
 
@@ -790,6 +836,19 @@
 	return staminaloss
 
 
+
+/mob/living/proc/can_adjust_stamina_loss(amount, forced)
+	if(SEND_SIGNAL(src, COMSIG_LIVING_ADJUST_STAMINA_DAMAGE, STAMINA, amount, forced) & COMPONENT_IGNORE_CHANGE)
+		return FALSE
+
+	if(forced)
+		return TRUE
+
+	if(HAS_TRAIT(src, TRAIT_GODMODE))
+		return FALSE
+
+	return TRUE
+
 /**
  * Applies stamina damage to this mob.
  *
@@ -809,17 +868,15 @@
 	forced = FALSE,
 	used_weapon = null,
 )
-	if(HAS_TRAIT(src, TRAIT_GODMODE))
-		var/old_stamloss = getStaminaLoss()
-		staminaloss = 0
-		if(old_stamloss != 0)
-			updatehealth("adjustStaminaLoss")
+	if(!can_adjust_stamina_loss(amount, forced))
 		return STATUS_UPDATE_NONE
+
 	if(!forced && amount > 0)
 		amount *= ((100 - clamp(blocked + get_blocking_resistance(amount, STAMINA, used_weapon = used_weapon), 0, 100)) / 100)
 		amount *= get_incoming_damage_modifier(amount, STAMINA, used_weapon = used_weapon)
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
+
 	var/old_stamloss = getStaminaLoss()
 	staminaloss = clamp(round(staminaloss + amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
 	if(old_stamloss == getStaminaLoss())
@@ -827,8 +884,10 @@
 		. = STATUS_UPDATE_NONE
 	else
 		. = STATUS_UPDATE_STAMINA
+
 	if(amount > 0)
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
+
 	if(updating_health)
 		updatehealth("adjustStaminaLoss")
 

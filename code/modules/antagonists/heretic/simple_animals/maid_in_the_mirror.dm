@@ -9,7 +9,7 @@
 	speak_emote = list("whispers")
 	movement_type = FLOATING
 	status_flags = CANSTUN | CANPUSH
-	attack_sound = SFX_SHATTER
+	//attack_sound = SFX_SHATTER
 	maxHealth = 80
 	health = 80
 	melee_damage_lower = 12
@@ -29,16 +29,17 @@
 	var/static/list/loot = list(
 		/obj/effect/decal/cleanable/ash,
 		/obj/item/clothing/suit/armor/vest,
-		/obj/item/organ/lungs,
+		/obj/item/organ/internal/lungs,
 		/obj/item/shard,
 	)
 	AddElement(/datum/element/death_drops, loot)
-	GRANT_ACTION(/obj/effect/proc_holder/spell/jaunt/mirror_walk)
+	mind.AddSpell(new /obj/effect/proc_holder/spell/jaunt/mirror_walk)
 
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/death(gibbed)
-	var/turf/death_turf = get_turf(src)
-	death_turf.TakeTemperature(-40) // Spooky
+	var/turf/simulated/death_turf = get_turf(src)
+	death_turf.air.temperature = (death_turf.air.temperature - 40)
+	death_turf.air_update_turf()
 	return ..()
 
 
@@ -84,8 +85,8 @@
 
 /mob/living/simple_animal/hostile/heretic_summon/maid_in_the_mirror/AttackingTarget()
 	attack_sound = pick(
-		'sound/effects/glass/glassbr1.ogg',
-		'sound/effects/glass/glassbr2.ogg',
-		'sound/effects/glass/glassbr3.ogg',
+		'sound/effects/glassbr1.ogg',
+		'sound/effects/glassbr2.ogg',
+		'sound/effects/glassbr3.ogg',
 	)
 	. = ..()

@@ -41,23 +41,27 @@
 		surgery_verb = "tears",\
 		minimum_stat = CONSCIOUS,\
 		snip_chance = 10,\
-		target_zones = GLOB.arm_zones,\
+		target_zones = list(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM),\
 	)
 	AddComponent(\
 		/datum/component/blood_walk, \
-		blood_type = /obj/effect/decal/cleanable/blood/tracks, \
 		target_dir_change = TRUE,\
 	)
 
-	if(spawn_bodyparts)
-		build_tail(worm_length)
+	if(!spawn_bodyparts)
+		return
+
+	build_tail(worm_length)
+
 
 // We are a vessel of otherworldly destruction, we bring our gravity with us
-/mob/living/simple_animal/hostile/heretic_summon/armsy/has_gravity(turf/gravity_turf)
+/mob/living/simple_animal/hostile/heretic_summon/armsy/mob_negates_gravity()
 	return TRUE
+
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/can_be_pulled(user, force)
 	return FALSE // The component does this but not on the head. We don't want the head to be pulled either.
+
 
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/build_tail(worm_length)
 	worm_length = max(worm_length, MINIMUM_ARMSY_LENGTH)

@@ -1452,3 +1452,35 @@
 #define COMSIG_MINDSHIELD_IMPLANTED "mindshield_implanted"
 	/// Are we the reason for deconversion?
 	#define COMPONENT_MINDSHIELD_DECONVERTED (1<<0)
+/// Sent on a mob from /datum/component/mob_chain when component is attached with it as the "front" : (mob/living/basic/tail)
+#define COMSIG_MOB_GAINED_CHAIN_TAIL "living_gained_chain_tail"
+/// Sent on a mob from /datum/component/mob_chain when component is detached from it as the "front" : (mob/living/basic/tail)
+#define COMSIG_MOB_LOST_CHAIN_TAIL "living_detached_chain_tail"
+/// Sent from a 'contract chain' button on a mob chain
+#define COMSIG_MOB_CHAIN_CONTRACT "living_chain_contracted"
+/// Called when a /datum/component/leash must forcibly teleport the parent to the owner.
+/// Fired on the object with the leash component.
+#define COMSIG_LEASH_FORCE_TELEPORT "leash_force_teleport"
+/// Called when a /datum/component/leash plans on pathfinding to the target, if out of range.
+/// Fired on the object with the leash component.
+#define COMSIG_LEASH_PATH_STARTED "leash_path_started"
+/// Called when a /datum/component/leash finishes its pathfinding to the target.
+/// Fired on the object with the leash component.
+#define COMSIG_LEASH_PATH_COMPLETE "leash_path_complete"
+// adjust_x_loss messages sent from /mob/living/proc/adjust[x]Loss
+/// Returned from all the following messages if you actually aren't going to apply any change
+#define COMPONENT_IGNORE_CHANGE (1 << 0)
+// Each of these messages sends the damagetype even though it is inferred by the signal so you can pass all of them to the same proc if required
+/// Send when bruteloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_BRUTE_DAMAGE "living_adjust_brute_damage"
+/// Send when fireloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_BURN_DAMAGE "living_adjust_burn_damage"
+/// Send when oxyloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_OXY_DAMAGE "living_adjust_oxy_damage"
+/// Send when toxloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_TOX_DAMAGE "living_adjust_tox_damage"
+/// Send when staminaloss is modified (type, amount, forced)
+#define COMSIG_LIVING_ADJUST_STAMINA_DAMAGE "living_adjust_stamina_damage"
+///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
+#define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
+	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
