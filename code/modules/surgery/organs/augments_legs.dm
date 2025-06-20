@@ -27,22 +27,22 @@
 
 	if(prob(50))	//you're forced to use two of these for them to work so let's give em a chance to not get completely fucked
 		if(COOLDOWN_FINISHED(src, emp_notice))
-			to_chat(owner, span_warning("The EMP causes [src] in [E] to twitch randomly!"))
+			to_chat(owner, span_warning("ЭМИ вызывает вызывает сбои в работе [src.declent_ru(GENITIVE)] в [GLOB.body_zone[parent_organ_zone][PREPOSITIONAL]]!"))
 			COOLDOWN_START(src, emp_notice, 30 SECONDS)
 		return
 
 	if(severity & EMP_HEAVY && prob(25) )	//put probabilities into a calculator before you try fucking with this
-		to_chat(owner, span_warning("The EMP causes your [src] to thrash [E] around wildly, breaking it!"))
+		to_chat(owner, span_warning("ЭМИ заставляет ваш [src.declent_ru(ACCUSATIVE)] дико дёргать [GLOB.body_zone[parent_organ_zone][ACCUSATIVE]], ломая его!"))
 		owner.apply_damage(40, def_zone = E)
 	else if(COOLDOWN_FINISHED(src, emp_notice))
-		to_chat(owner, span_warning("The EMP causes your [src] to seize up, preventing [E] from moving!"))
+		to_chat(owner, span_warning("ЭМИ вызывает заклинивание [src.declent_ru(ACCUSATIVE)], блокируя движение [GLOB.body_zone[parent_organ_zone][GENITIVE]]!"))
 		COOLDOWN_START(src, emp_notice, 30 SECONDS)
 
 
 /obj/item/organ/internal/cyberimp/leg/examine(mob/user)
 	. = ..()
-	. += span_notice("[src] is assembled in the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg configuration. You can use a screwdriver to reassemble it.")
-	. += span_info("You will need two of the same type of implant for them to properly function.")
+	. += span_notice("[capitalize(src.declent_ru(NOMINATIVE))] собран для [parent_organ_zone == BODY_ZONE_R_LEG ? "правой" : "левой"] ноги. Можно пересобрать с помощью отвёртки.")
+	. += span_info("Для правильной работы потребуется два импланта одного типа.")
 
 
 /obj/item/organ/internal/cyberimp/leg/screwdriver_act(mob/living/user, obj/item/I)
@@ -56,7 +56,7 @@
 		parent_organ_zone = BODY_ZONE_R_LEG
 		transform = null
 	SetSlot()
-	to_chat(user, span_notice("You modify [src] to be installed on the [parent_organ_zone == BODY_ZONE_R_LEG ? "right" : "left"] leg."))
+	to_chat(user, span_notice("Вы модифицировали [src.declent_ru(ACCUSATIVE)] для установки на [parent_organ_zone == BODY_ZONE_R_LEG ? "правую" : "левую"] ногу."))
 
 
 /obj/item/organ/internal/cyberimp/leg/insert(mob/living/carbon/M, special = ORGAN_MANIPULATION_DEFAULT)
@@ -133,15 +133,15 @@
 		return
 
 	if(recharging_time > world.time)
-		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
+		to_chat(owner, span_warning("Встроенный двигатель ботинка ещё не перезарядился!"))
 		return
 
 	if(owner.no_gravity())
-		to_chat(owner, span_warning("You can't jump without gravity!"))
+		to_chat(owner, span_warning("Нельзя прыгать без гравитации!"))
 		return
 
 	if(owner.throwing)
-		to_chat(owner, span_warning("You can't jump in the middle of another jump!"))
+		to_chat(owner, span_warning("Нельзя прыгать во время другого прыжка!"))
 		return
 
 	var/atom/target = get_edge_target_turf(owner, owner.dir) //gets the user's direction
@@ -153,10 +153,10 @@
 	if(owner.throw_at(target, jumpdistance, jumpspeed, spin = FALSE, diagonals_first = TRUE, callback = after_jump_callback))
 		last_jump = after_jump_callback
 		playsound(owner.loc, 'sound/effects/stealthoff.ogg', 50, TRUE, 1)
-		owner.visible_message(span_warning("[owner] dashes forward into the air!"))
+		owner.visible_message(span_warning("[owner] стремительно взмывает в воздух!"))
 		recharging_time = world.time + recharging_rate
 	else
-		to_chat(owner, span_warning("Something prevents you from dashing forward!"))
+		to_chat(owner, span_warning("Что-то мешает вам сделать рывок вперёд!"))
 		after_jump(owner)
 
 
