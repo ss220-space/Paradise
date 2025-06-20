@@ -83,6 +83,10 @@
 	///Targets that are currently processed by turret. Used by process()
 	var/list/processing_targets = list()
 
+	/// List of some inserted gun data. Used to setup new gun.
+	var/list/old_gun_data = list()
+
+
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 
@@ -93,6 +97,7 @@
 
 	AddComponent(/datum/component/proximity_monitor, scan_range, TRUE)
 	setup()
+
 
 /obj/machinery/porta_turret/HasProximity(atom/movable/AM)
 	handleInterloper(AM)
@@ -116,7 +121,7 @@
 /obj/machinery/porta_turret/proc/setup()
 	var/obj/item/gun/energy/egun = new installation	//All energy-based weapons are applicable
 	var/obj/item/ammo_casing/shottype = egun.ammo_type[1]
-	egun.setup_gun_for_turret(old_gun_data)
+	egun.setup_gun_for_turret(old_gun_data, src)
 
 	projectile = shottype.projectile_type
 	eprojectile = projectile
@@ -338,8 +343,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(user, span_notice("You remove the turret and salvage some components."))
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
-			Gun.cell.charge = gun_charge
 			Gun.turret_deconstruct(old_gun_data)
+			Gun.cell.charge = gun_charge
 			Gun.update_icon()
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -819,11 +824,6 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/list/old_gun_data = list()
 
 
-/obj/machinery/porta_turret_construct/Destroy()
-	QDEL_LAZYLIST(old_gun_data)
-	. = ..()
-
-
 /obj/machinery/porta_turret_construct/update_icon_state()
 	icon_state = "turret_frame[build_step >= TURRET_BUILD_ARMORED ? "2" : ""]"
 
@@ -986,6 +986,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			var/obj/machinery/porta_turret/turret = new target_type(loc)
 			turret.name = finish_name
 			turret.installation = installation
+			turret.old_gun_data = old_gun_data
 			turret.gun_charge = gun_charge
 			turret.enabled = FALSE
 			turret.add_fingerprint(user)
@@ -998,11 +999,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(TURRET_BUILD_GUN)
 			if(!installation)
 				return ..()
+
 			add_fingerprint(user)
 			build_step = TURRET_BUILD_ARMOR_SECURED
 			var/obj/item/gun/energy/removed_gun = new installation(loc)
-			removed_gun.cell.charge = gun_charge
 			removed_gun.turret_deconstruct(old_gun_data)
+			removed_gun.cell.charge = gun_charge
 			removed_gun.update_icon()
 			to_chat(user, span_notice("You remove [removed_gun] from the turret frame."))
 			installation = null

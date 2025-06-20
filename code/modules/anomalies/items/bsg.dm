@@ -154,9 +154,10 @@
 	core.forceMove(src)
 
 
-/obj/item/gun/energy/bsg/setup_gun_for_turret(list/data)
+/obj/item/gun/energy/bsg/setup_gun_for_turret(list/data, turret)
 	core = data["core"]
 	has_bluespace_crystal = TRUE
+	core.forceMove(turret)
 
 
 /obj/item/gun/energy/bsg/prebuilt
