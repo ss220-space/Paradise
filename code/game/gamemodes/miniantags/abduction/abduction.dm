@@ -269,7 +269,7 @@
 		var/datum/species/abductor/abductor = human_owner.dna.species
 		ab_team = abductor.team
 
-	for(var/obj/machinery/abductor/experiment/experiment in SSmachines.get_by_type(/obj/machinery/abductor/console))
+	for(var/obj/machinery/abductor/experiment/experiment in SSmachines.get_by_type(/obj/machinery/abductor/experiment))
 		if(experiment.team == ab_team)
 			if(experiment.points >= target_amount)
 				return TRUE

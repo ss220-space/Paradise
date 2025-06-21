@@ -57,7 +57,7 @@ GLOBAL_DATUM_INIT(the_gateway, /obj/machinery/gateway/centerstation, null)
 
 
 /obj/machinery/gateway/centerstation/LateInitialize()
-	awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/syndicatebomb)
+	awaygate = locate(/obj/machinery/gateway/centeraway) in SSmachines.get_by_type(/obj/machinery/gateway)
 
 
 /obj/machinery/gateway/centerstation/update_density_from_dir()

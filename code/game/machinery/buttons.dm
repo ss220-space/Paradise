@@ -190,7 +190,7 @@
 			spawn( 0 )
 				M.spark()
 
-	for(var/obj/machinery/igniter/M in SSmachines.get_by_type(/obj/machinery/sparker))
+	for(var/obj/machinery/igniter/M in SSmachines.get_by_type(/obj/machinery/igniter))
 		if(M.id == id)
 			use_power(50)
 			M.on = !( M.on )
