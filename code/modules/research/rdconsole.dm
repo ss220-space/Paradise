@@ -140,7 +140,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 //Have it automatically push research to the centcom server so wild griffins can't fuck up R&D's work --NEO
 /obj/machinery/computer/rdconsole/proc/griefProtection()
-	for(var/obj/machinery/r_n_d/server/centcom/C in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/centcom/C in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
 		files.push_data(C.files)
 
 /obj/machinery/computer/rdconsole/proc/Maximize()
@@ -165,7 +165,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 		id = 0027
 		update_icon()
 	if(!id)
-		for(var/obj/machinery/r_n_d/server/centcom/S in GLOB.machines)
+		for(var/obj/machinery/r_n_d/server/centcom/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server/centcom))
 			S.initialize_serv()
 			break
 
@@ -280,7 +280,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 	if(!sync)
 		return
 	clear_wait_message()
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		var/server_processed = FALSE
 		if(S.disabled)
 			continue
@@ -472,7 +472,7 @@ won't update every console in existence) but it's more of a hassle to do. Also, 
 
 	addtimer(CALLBACK(src, PROC_REF(finish_machine), usr, amount, enough_materials, machine, being_built, coeff), time_to_construct)
 
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		if(S.disabled)
 			continue
 		if(syndicate != S.syndicate)

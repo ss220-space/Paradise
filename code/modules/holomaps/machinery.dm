@@ -338,7 +338,7 @@
 
 	/*
 	var/list/air_alarms = list()
-	for(var/obj/machinery/airalarm/air_alarm in GLOB.machines)
+	for(var/obj/machinery/airalarm/air_alarm in SSmachines.get_by_type(/obj/machinery/airalarm))
 		var/area/alarms = get_area(air_alarm)
 		if(air_alarm?.z == current_z_level && alarms?.atmosalm) //Altered it to fire_alam since we don't have an area variable on air_alarms
 			var/image/alarm_icon = image('icons/misc/8x8.dmi', "atmos_marker")

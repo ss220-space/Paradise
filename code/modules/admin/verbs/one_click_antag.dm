@@ -328,7 +328,7 @@
 							var/I = image('icons/mob/mob.dmi', loc = synd_mind_1.current, icon_state = "synd")
 							synd_mind.current.client.images += I
 
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			bomb.r_code = nuke_code						// All the nukes are set to this code.
 	return 1
 
