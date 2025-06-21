@@ -969,7 +969,7 @@ BLIND     // can't see anything
 	gas_transfer_coefficient = 0.01
 	permeability_coefficient = 0.02
 	clothing_flags = STOPSPRESSUREDMAGE|THICKMATERIAL
-	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL|WING
+	body_parts_covered = UPPER_TORSO|LOWER_TORSO|LEGS|FEET|ARMS|HANDS|TAIL
 	allowed = list(/obj/item/flashlight, /obj/item/tank/internals)
 	slowdown = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 100, "rad" = 50, "fire" = 80, "acid" = 70)
