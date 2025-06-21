@@ -131,12 +131,12 @@
 	var/tturf = get_turf(target)
 	if(!isturf(tturf))
 		return
-	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] зарывает свои щупальца под [target]!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] зарывает свои щупальца под [target]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/broodmother/patch(tturf, src)
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/spawn_children(target)
 	ranged_cooldown = world.time + 3 SECONDS * revive_multiplier()
-	visible_message(span_danger("За [src.declent_ru(INSTRUMENTAL)] вздымается земля!!"))
+	visible_message(span_danger("За [declent_ru(INSTRUMENTAL)] вздымается земля!!"))
 	for(var/i in 1 to 2)
 		if(length(children_list) >= 8)
 			return
@@ -147,13 +147,13 @@
 		newchild.health *= dif_mult
 		newchild.melee_damage_lower = newchild.melee_damage_lower * dif_mult_dmg
 		newchild.melee_damage_upper = newchild.melee_damage_upper * dif_mult_dmg
-		visible_message(span_danger("Под [src.declent_ru(INSTRUMENTAL)] появляется [newchild.declent_ru(NOMINATIVE)]!"))
+		visible_message(span_danger("Под [declent_ru(INSTRUMENTAL)] появляется [newchild.declent_ru(NOMINATIVE)]!"))
 		newchild.mother = src
 		children_list += newchild
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/rage()
 	ranged_cooldown = world.time + 10 SECONDS * revive_multiplier()
-	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] начинает набирать скорость!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает набирать скорость!"))
 	color = "#FF0000"
 	set_varspeed(0)
 	move_to_delay = 3
@@ -166,7 +166,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/elite/broodmother/proc/call_children()
 	ranged_cooldown = world.time + 4 SECONDS * revive_multiplier()
-	visible_message(span_warning("Земля дрожит рядом с [src.declent_ru(INSTRUMENTAL)]!"))
+	visible_message(span_warning("Земля дрожит рядом с [declent_ru(INSTRUMENTAL)]!"))
 	var/list/directions = GLOB.cardinal.Copy() + GLOB.diagonals.Copy()
 	for(var/mob/living/child in children_list)
 		var/spawndir = pick_n_take(directions)
@@ -247,7 +247,7 @@
 	. = ..()
 	if(!QDELETED(mother))
 		mother.children_list -= src
-	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] взрывается!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 	explosion(src, flame_range = 3, adminlog = FALSE)
 	new /obj/item/stack/sheet/animalhide/goliath_hide(loc)
 	new /obj/effect/gibspawner/human(get_turf(src))
@@ -270,7 +270,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] опутывает щупальцами [L.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [L.declent_ru(ACCUSATIVE)]!"))
 		L.Stun(stun_duration)
 		L.adjustBruteLoss(damage)
 		latched = TRUE
@@ -335,7 +335,7 @@
 
 	ADD_TRAIT(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT)
 	addtimer(TRAIT_CALLBACK_REMOVE(living_user, TRAIT_LAVA_IMMUNE, BROODMOTHER_TONGUE_TRAIT), 20 SECONDS)
-	to_chat(user, span_notice("Вы сжимаете <b>[src.declent_ru(NOMINATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
+	to_chat(user, span_notice("Вы сжимаете <b>[declent_ru(ACCUSATIVE)]</b> в руке, разбрызгивая на себя полупрозрачную жидкость."))
 	use_time = world.time + 60 SECONDS
 
 

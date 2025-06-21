@@ -362,7 +362,7 @@ Difficulty: Hard
 	SLEEP_CHECK_DEATH(src, 4)
 	for(var/mob/living/L in T)
 		if(!faction_check_mob(L))
-			to_chat(L, span_userdanger("[src.declent_ru(NOMINATIVE)] разрывает вас!"))
+			to_chat(L, span_userdanger("[declent_ru(NOMINATIVE)] разрывает вас!"))
 			playsound(T, attack_sound, 100, TRUE, -1)
 			var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
 			L.apply_damage(second_life ? 20 : 10, BRUTE, limb_to_hit, L.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
@@ -379,7 +379,7 @@ Difficulty: Hard
 	for(var/mob/living/L in T)
 		if(!faction_check_mob(L))
 			if(L.stat != CONSCIOUS)
-				to_chat(L, span_userdanger("[src.declent_ru(NOMINATIVE)] тащит вас через кровь!"))
+				to_chat(L, span_userdanger("[declent_ru(NOMINATIVE)] тащит вас через кровь!"))
 				playsound(T, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 				var/turf/targetturf = get_step(src, dir)
 				L.forceMove(targetturf)
@@ -390,7 +390,7 @@ Difficulty: Hard
 /mob/living/simple_animal/hostile/megafauna/bubblegum/proc/hit_up_narsi()
 	SetRecoveryTime(20)
 	visible_message(
-	span_colossus("<b>[pick("[SSticker.cultdat.entity_name], я взываю к ТЕБЕ за одну из моих услуг, которую ты мне должен!","[SSticker.cultdat.entity_title1], я взываю к тебе за поддержкой...","Давай посмотрим, как тебе понравятся приспешники [SSticker.cultdat.entity_title2]!","О, [SSticker.cultdat.entity_title3] присоединись ко мне, чтобы РАЗОРВАТЬ ЭТОГО ЩЕНКА НА ЧАСТИ!")]</b>"))
+	span_colossus("<b>[pick("[SSticker.cultdat.entity_name], я взываю к ТЕБЕ для одной услуги, которую ты мне должен!","[SSticker.cultdat.entity_title1], я взываю к тебе за поддержкой...","Давай посмотрим, как тебе понравятся приспешники [SSticker.cultdat.entity_title2]!","О, [SSticker.cultdat.entity_title3] присоединись ко мне, чтобы РАЗОРВАТЬ ЭТОГО ЩЕНКА НА ЧАСТИ!")]</b>"))
 	var/list/turfs = list()
 	var/constructs = 0
 	for(var/turf/T in view(6, target))
@@ -437,7 +437,7 @@ Difficulty: Hard
 		shuffle_inplace(pools)
 		found_bloodpool = pick(pools)
 	if(found_bloodpool)
-		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] погружается в кровь..."))
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] погружается в кровь..."))
 		playsound(get_turf(src), 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 		forceMove(get_turf(found_bloodpool))
 		playsound(get_turf(src), 'sound/misc/exit_blood.ogg', 100, TRUE, -1)
@@ -577,7 +577,7 @@ Difficulty: Hard
 
 /mob/living/simple_animal/hostile/megafauna/bubblegum/bullet_act(obj/projectile/P)
 	if(BUBBLEGUM_IS_ENRAGED)
-		visible_message(span_danger("[src.declent_ru(NOMINATIVE)] отражает снаряд; его нельзя поразить дальнобойным оружием, когда он в ярости!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
+		visible_message(span_danger("[declent_ru(NOMINATIVE)] отражает снаряд; его нельзя поразить дальнобойным оружием, когда он в ярости!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
 		playsound(src, pick('sound/weapons/bulletflyby.ogg', 'sound/weapons/bulletflyby2.ogg', 'sound/weapons/bulletflyby3.ogg'), 300, TRUE)
 		return
 	..()
@@ -624,7 +624,7 @@ Difficulty: Hard
 		return .
 	var/mob/living/bumped_living = bumped_atom
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] втаптывает вас в землю!"))
+	bumped_living.visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] втаптывает вас в землю!"))
 	forceMove(living_turf)
 	bumped_living.apply_damage(istype(src, /mob/living/simple_animal/hostile/megafauna/bubblegum/hallucination) ? 15 : 30, BRUTE)
 	playsound(living_turf, 'sound/effects/meteorimpact.ogg', 100, TRUE)

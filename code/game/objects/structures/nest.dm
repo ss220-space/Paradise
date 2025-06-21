@@ -9,7 +9,7 @@
 
 /obj/structure/nest
 	name = "tunnel"
-	desc = "Тёмный и извилистый туннель, ведущий в недра.."
+	desc = "Тёмный и извилистый туннель, ведущий в недра."
 	ru_names = list(
 		NOMINATIVE = "туннель",
 		GENITIVE = "туннеля",
@@ -69,7 +69,7 @@
 /obj/structure/nest/proc/try_spawn(mob/living/L)
 	var/chosen_mob = pick(spawn_mob_options)
 
-	to_chat(L, span_danger("Спотыкаясь о [src.declent_ru(ACCUSATIVE)], вы слышите зловещий гул под ногами!"))
+	to_chat(L, span_danger("Спотыкаясь о [declent_ru(ACCUSATIVE)], вы слышите зловещий гул под ногами!"))
 	playsound(src, 'sound/effects/break_stone.ogg', 50, 1)
 	for(var/obj/structure/nest/N in range(spawn_trigger_distance, src))
 		N.spawn_is_triggered = TRUE
@@ -81,7 +81,7 @@
 
 	for(var/i in 1 to spawn_max)
 		var/mob/spawned_mob = new M(get_turf(src))
-		visible_message(span_danger("[spawned_mob.declent_ru(NOMINATIVE)] выползает из [src.declent_ru(GENITIVE)]!"))
+		visible_message(span_danger("[spawned_mob.declent_ru(NOMINATIVE)] выползает из [declent_ru(GENITIVE)]!"))
 
 /obj/structure/nest/lavaland
 	spawn_mob_options = list(/mob/living/simple_animal/hostile/asteroid/goliath/beast, /mob/living/simple_animal/hostile/asteroid/goldgrub)

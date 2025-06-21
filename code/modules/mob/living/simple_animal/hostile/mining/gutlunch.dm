@@ -15,8 +15,8 @@
 	icon_living = "gutlunch"
 	icon_dead = "gutlunch"
 	speak_emote = list("воркует", "трепещет")
-	emote_hear = list("издает трель.")
-	emote_see = list("принюхивается.", "рыгает.")
+	emote_hear = list("издает трель")
+	emote_see = list("принюхивается", "рыгает")
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	faction = list("mining", "ashwalker")
 	density = FALSE
@@ -75,7 +75,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] выглядит нездоровым."))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит нездоровым."))
 			return ATTACK_CHAIN_PROCEED
 		if(udder.milkAnimal(I, user))
 			regenerate_icons()
@@ -117,7 +117,7 @@
 	if(is_type_in_typecache(target,wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
-		visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
 		qdel(target)
 		return
 	return ..()
@@ -218,5 +218,5 @@
 	mind?.transfer_to(L)
 	L.faction = faction.Copy()
 	L.setDir(dir)
-	visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] вырастает в [L.declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] вырастает в [L.declent_ru(ACCUSATIVE)]."))
 	qdel(src)

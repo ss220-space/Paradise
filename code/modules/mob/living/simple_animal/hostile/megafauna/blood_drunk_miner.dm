@@ -80,7 +80,7 @@ Difficulty: Medium
 
 /obj/item/clothing/suit/hooded/explorer/blood
 	name = "empowered explorer suit"
-	desc = "Бронированный костюм для исследования суровых сред. Сладкая кровь, ох-х, как она поёт для тебя."
+	desc = "Бронированный костюм, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
 	ru_names = list(
 		NOMINATIVE = "усиленный костюм исследователя",
 		GENITIVE = "усиленного костюма исследователя",
@@ -95,7 +95,7 @@ Difficulty: Medium
 
 /obj/item/clothing/head/hooded/explorer/blood
 	name = "empowered explorer hood"
-	desc = "Бронированный капюшон для исследования суровых сред. Сладкая кровь, ох-х, как она поёт для тебя."
+	desc = "Бронированный капюшон, созданный для исследования и работы в суровых условиях. Сладкая кровь, ох-х, как она поёт для тебя."
 	ru_names = list(
 		NOMINATIVE = "усиленный капюшон исследователя",
 		GENITIVE = "усиленного капюшона исследователя",
@@ -283,7 +283,7 @@ Difficulty: Medium
 		var/mob/living/L = target
 		if(L.stat == DEAD)
 			visible_message(
-				span_danger("[capitalize(src.declent_ru(NOMINATIVE))] разрубает [L.declent_ru(ACCUSATIVE)]!"),
+				span_danger("[capitalize(declent_ru(NOMINATIVE))] разрубает [L.declent_ru(ACCUSATIVE)]!"),
 				span_userdanger("Вы разрубаете [L.declent_ru(ACCUSATIVE)], восстанавливая своё здоровье!")
 			)
 			if(!is_station_level(z) || client) //NPC monsters won't heal while on station

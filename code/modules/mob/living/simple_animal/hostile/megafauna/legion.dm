@@ -121,7 +121,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
 	if(world.time >= ranged_cooldown && !charging)
 		if(prob(30))
-			visible_message(span_warning("<b>[src.declent_ru(NOMINATIVE)] заряжается!</b>"))
+			visible_message(span_warning("<b>[declent_ru(NOMINATIVE)] заряжается!</b>"))
 			SpinAnimation(speed = 20, loops = 5)
 			ranged = 0
 			retreat_distance = 0
@@ -148,7 +148,7 @@ Difficulty: Medium
 			A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
-			visible_message(span_danger("Чудовище появляется из [src.declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы призываете огромного [A.declent_ru(GENITIVE)]!"))
+			visible_message(span_danger("Чудовище появляется из [declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы призываете огромного [A.declent_ru(GENITIVE)]!"))
 			ranged_cooldown = world.time + 5 SECONDS
 		else
 			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
@@ -164,7 +164,7 @@ Difficulty: Medium
 						A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
-			visible_message(span_danger("[A.declent_ru(ACCUSATIVE)] появляется из [src.declent_ru(GENITIVE)]!"), span_userdanger("Вы призываете [A.declent_ru(ACCUSATIVE)]!"))
+			visible_message(span_danger("[A.declent_ru(ACCUSATIVE)] появляется из [declent_ru(GENITIVE)]!"), span_userdanger("Вы призываете [A.declent_ru(ACCUSATIVE)]!"))
 			ranged_cooldown = world.time + 2 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/legion/MoveToTarget()

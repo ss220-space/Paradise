@@ -264,7 +264,7 @@ Difficulty: Very Hard
 		return
 	if(mode == BLUESPACE || (enraged && prob(13)))
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
-		src.visible_message(span_danger("[src.declent_ru(NOMINATIVE)] телепортируется неподалёку!"))
+		src.visible_message(span_danger("[declent_ru(NOMINATIVE)] телепортируется неподалёку!"))
 		do_teleport(src, target, 7, asoundin = 'sound/effects/phasein.ogg') //Teleport within 7 tiles of the target
 		new /obj/effect/temp_visual/bsg_kaboom(get_turf(src))
 
@@ -305,7 +305,7 @@ Difficulty: Very Hard
 	if(!charging || istype(bumped_living, /mob/living/simple_animal/hostile/ancient_robot_leg) || !isliving(bumped_living))
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
-	bumped_living.visible_message(span_danger("[src.declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[src.declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
+	bumped_living.visible_message(span_danger("[declent_ru(NOMINATIVE)] врезается в [bumped_living.declent_ru(ACCUSATIVE)]!"), span_userdanger("[declent_ru(NOMINATIVE)] втаптывает вас в землю!"))
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 	bumped_living.apply_damage(25, BRUTE, limb_to_hit, bumped_living.run_armor_check(limb_to_hit, "melee", null, null, armour_penetration))
@@ -319,11 +319,11 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/body_shield()
 	body_shield_enabled = TRUE
-	visible_message(span_danger("[src.declent_ru(NOMINATIVE)] создаёт энергетический щит!"))
+	visible_message(span_danger("[declent_ru(NOMINATIVE)] создаёт энергетический щит!"))
 	add_overlay("shield")
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/disable_shield()
-	visible_message(span_danger("Щит [src.declent_ru(ACCUSATIVE)] разрушается!"))
+	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] разрушается!"))
 	cut_overlay("shield")
 	body_shield_enabled = FALSE
 	addtimer(CALLBACK(src, PROC_REF(body_shield)), BODY_SHIELD_COOLDOWN_TIME)
@@ -333,7 +333,7 @@ Difficulty: Very Hard
 	if(!body_shield_enabled)
 		return ..()
 	do_sparks(2, 1, src)
-	visible_message(span_danger("Щит [src.declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
+	visible_message(span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [P.declent_ru(ACCUSATIVE)] с искрами!"), span_userdanger("Вы отражаете снаряд!"), projectile_message = TRUE)
 	if(P.damage)
 		disable_shield()
 
@@ -345,11 +345,11 @@ Difficulty: Very Hard
 	. = ATTACK_CHAIN_BLOCKED
 	do_sparks(2, 1, src)
 	visible_message(
-		span_danger("Щит [src.declent_ru(ACCUSATIVE)] отражает [I.declent_ru(ACCUSATIVE)] с искрами!"),
+		span_danger("Щит [declent_ru(ACCUSATIVE)] отражает [I.declent_ru(ACCUSATIVE)] с искрами!"),
 		span_warning("Ваш щит отражает атаку!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("Щит [src.declent_ru(ACCUSATIVE)] отражает вашу атаку!"))
+	to_chat(user, span_danger("Щит [declent_ru(ACCUSATIVE)] отражает вашу атаку!"))
 	if(I.force)
 		disable_shield()
 
@@ -357,7 +357,7 @@ Difficulty: Very Hard
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/devour(mob/living/L)
 	say(pick("JKYZXAIZOBK GTGREYKX GIZOBK", "OTZKMXGZOTM YAHPKIZ YZXKTMZNY", "JKIUSVOROTM GTJ RKGXTOTM", "LOTJOTM IXOZOIGR CKGQTKYYKY")) //what can I say, I like the trope of something talking in cypher
 	visible_message(
-		span_userdanger("[src.declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"),
+		span_userdanger("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"),
 		span_userdanger("Вы анализируете [L.declent_ru(ACCUSATIVE)], восстанавливая здоровье!")
 	)
 	if(client || !is_station_level(z))
@@ -370,7 +370,7 @@ Difficulty: Very Hard
 		if(BLUESPACE)
 			if(ishuman(target))
 				var/mob/living/carbon/human/H = target
-				to_chat(H, span_danger("[src.declent_ru(NOMINATIVE)] начинает замедлять время вокруг вас!"))
+				to_chat(H, span_danger("[declent_ru(NOMINATIVE)] начинает замедлять время вокруг вас!"))
 				H.apply_status_effect(STATUS_EFFECT_BLUESPACESLOWDOWN)
 		if(GRAV)
 			visible_message(span_danger("Обломки на поле боя начинают спрессовываться в камни!"))
@@ -421,7 +421,7 @@ Difficulty: Very Hard
 				O.xo = T.x - S.x
 				O.fire()
 		if(VORTEX)
-			visible_message(span_danger("[src.declent_ru(NOMINATIVE)] начинает быстро вибрировать, вызывая землетрясение!"))
+			visible_message(span_danger("[declent_ru(NOMINATIVE)] начинает быстро вибрировать, вызывая землетрясение!"))
 			for(var/turf/turf in range(9,get_turf(target)))
 				if(prob(enraged ? 40 : 15))
 					new /obj/effect/temp_visual/target/ancient(turf)
@@ -485,7 +485,7 @@ Difficulty: Very Hard
 
 /mob/living/simple_animal/hostile/megafauna/ancient_robot/proc/self_destruct()
 	say(pick("OTZKMXOZE LGORAXK, YKRL JKYZXAIZ GIZOBK", "RUYY IKXZGOT, KTMGMKOTM XKIUBKXE JKTOGR", "VUCKX IUXKY 8-12 HXKGINKJ, UBKXRUGJOTM XKSGOTOTM IUXKY", "KXXUX KXXUX KXXUX KXXUX KXX-", "-ROQK ZKGXY OT XGOT- - -ZOSK ZU JOK"))
-	visible_message(span_dangerbigger("[src.declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
+	visible_message(span_dangerbigger("[declent_ru(NOMINATIVE)] начинает перегружать своё ядро. Оно вот-вот взорвётся!"))
 	SSmove_manager.stop_looping(src)
 	playsound(src,'sound/machines/alarm.ogg',100,0,5)
 	addtimer(CALLBACK(src, PROC_REF(kaboom)), 10 SECONDS)
@@ -718,9 +718,9 @@ Difficulty: Very Hard
 	fake_hp = clamp(fake_hp - amount, 0, fake_max_hp)
 	if(amount && ranged && fake_hp <= 200)
 		ranged = FALSE
-		visible_message(span_danger("Турель ломается и втягивается обратно в [src.declent_ru(ACCUSATIVE)]!"))
+		visible_message(span_danger("Турель ломается и втягивается обратно в [declent_ru(ACCUSATIVE)]!"))
 	if(amount && transfer_rate <= 0.25) //warn that you are not doing much damage
-		visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] выглядит слишком повреждённой, чтобы нанести ей ещё больше вреда!"))
 	health_and_snap_check(FALSE)
 
 
@@ -730,7 +730,7 @@ Difficulty: Very Hard
 	transfer_rate = 0.75 * (fake_hp/fake_max_hp)
 	if(fake_hp >= 250 && !ranged)
 		ranged = TRUE
-		visible_message(span_danger("Турель выезжает из [src.declent_ru(GENITIVE)]!"))
+		visible_message(span_danger("Турель выезжает из [declent_ru(GENITIVE)]!"))
 	if(get_dist(get_turf(core),get_turf(src)) <= range)
 		return
 	else
@@ -747,8 +747,8 @@ Difficulty: Very Hard
 		return .
 	var/turf/living_turf = get_turf(bumped_living)
 	bumped_living.visible_message(
-		span_danger("[capitalize(src.declent_ru(NOMINATIVE))] врезается в [bumped_living]!"),
-		span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] втаптывает вас в землю!")
+		span_danger("[capitalize(declent_ru(NOMINATIVE))] врезается в [bumped_living]!"),
+		span_userdanger("[capitalize(declent_ru(NOMINATIVE))] втаптывает вас в землю!")
 	)
 	forceMove(living_turf)
 	var/limb_to_hit = bumped_living.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))

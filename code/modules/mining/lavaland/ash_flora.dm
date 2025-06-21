@@ -76,7 +76,7 @@
 	if(is_sharp(I) && !harvested && needs_sharp_harvest)
 		add_fingerprint(user)
 		user.visible_message(
-			span_notice("[user] начинает собирать [src.declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
+			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] собирать [declent_ru(ACCUSATIVE)] при помощи [I.declent_ru(GENITIVE)]."),
 			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
 		)
 		if(!do_after(user, harvest_time * I.toolspeed, src, category = DA_CAT_TOOL) || harvested)
@@ -90,7 +90,7 @@
 /obj/structure/flora/ash/attack_hand(mob/user)
 	if(!harvested && !needs_sharp_harvest)
 		user.visible_message(
-			span_notice("[user] начинает собирать [src.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] собирать [declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы начинаете собирать [src.declent_ru(ACCUSATIVE)]."),
 		)
 		if(do_after(user, harvest_time, src))
@@ -141,7 +141,7 @@
 	icon_state = "r_mushroom1"
 	base_icon_state = "r_mushroom"
 	harvested_name = "малые грибы"
-	harvested_desc = "Несколько небольших грибов рядом с остатками более крупных грибов, которые, вероятно, были когда-то здесь.."
+	harvested_desc = "Несколько небольших грибов рядом с остатками более крупных грибов, которые, вероятно, были когда-то здесь."
 	harvest = /obj/item/reagent_containers/food/snacks/grown/ash_flora/mushroom_cap
 	harvest_amount_high = 4
 	harvest_time = 50

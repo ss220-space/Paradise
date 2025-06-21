@@ -143,7 +143,7 @@
 		new /obj/effect/temp_visual/dragon_swoop/legionnaire(T)
 		T = get_step(T, dir_to_target)
 	playsound(src, 'sound/misc/demon_attack1.ogg', 200, 1)
-	visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] готовится к рывку!"))
+	visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] готовится к рывку!"))
 	addtimer(CALLBACK(src, PROC_REF(legionnaire_charge_to), dir_to_target, 0), 2)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/legionnaire_charge_to(move_dir, times_ran, list/hit_targets = list())
@@ -176,8 +176,8 @@
 	for(var/mob/living/L in T.contents - src)
 		if(faction_check_mob(L))
 			return
-		visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] топчет и пинает [L.declent_ru(ACCUSATIVE)]!"))
-		to_chat(L, span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] топчет вас и отбрасывает пинком!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] топчет и пинает [L.declent_ru(ACCUSATIVE)]!"))
+		to_chat(L, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] топчет вас и отбрасывает пинком!"))
 		if(L in hit_targets)
 			L.adjustBruteLoss(charge_damage)
 		else
@@ -199,7 +199,7 @@
 		icon_state = "legionnaire_headless"
 		icon_living = "legionnaire_headless"
 		icon_aggro = "legionnaire_headless"
-		visible_message(span_warning("Голова [src.declent_ru(GENITIVE)] отлетает!"))
+		visible_message(span_warning("Голова [declent_ru(GENITIVE)] отлетает!"))
 		var/mob/living/simple_animal/hostile/asteroid/elite/legionnairehead/newhead = new(loc)
 		newhead.GiveTarget(target)
 		newhead.faction = faction.Copy()
@@ -223,7 +223,7 @@
 	icon_state = "legionnaire"
 	icon_living = "legionnaire"
 	icon_aggro = "legionnaire"
-	visible_message(span_danger("Из верхней части позвоночника [src.declent_ru(GENITIVE)] сочится чёрная жидкость, формируясь в череп!"))
+	visible_message(span_danger("Из верхней части позвоночника [declent_ru(GENITIVE)] сочится чёрная жидкость, формируясь в череп!"))
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/bonfire_teleport()
 	ranged_cooldown = world.time + 2 SECONDS * revive_multiplier()
@@ -232,7 +232,7 @@
 		mypile = newpile
 		mypile.myowner = src
 		playsound(get_turf(src),'sound/items/fultext_deploy.ogg', 200, 1)
-		visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] призывает костёр на [get_turf(src)]!"))
+		visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] призывает костёр на [get_turf(src)]!"))
 		return
 	else
 		var/turf/legionturf = get_turf(src)
@@ -242,9 +242,9 @@
 			return
 		playsound(pileturf,'sound/items/fultext_deploy.ogg', 200, 1)
 		playsound(legionturf,'sound/items/fultext_deploy.ogg', 200, 1)
-		visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] распадается на горящую груду костей!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] распадается на горящую груду костей!"))
 		forceMove(pileturf)
-		visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] формируется из костра!"))
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] формируется из костра!"))
 		mypile.forceMove(legionturf)
 
 /mob/living/simple_animal/hostile/asteroid/elite/legionnaire/proc/throw_bone()
@@ -255,7 +255,7 @@
 //The legionnaire's head.  Basically the same as any legion head, but we have to tell our creator when we die so they can generate another head.
 /mob/living/simple_animal/hostile/asteroid/elite/legionnairehead
 	name = "legionnaire head"
-	desc = "Отделившаяся голова Легионера. Не стоит подходить слишком близко, хотя если она вас увидела - выбора у вас уже нет."
+	desc = "Отделившаяся голова Легионера. Не стоит подходить слишком близко, хотя если она вас увидела – выбора у вас уже нет."
 	ru_names = list(
 		NOMINATIVE = "голова легионера",
 		GENITIVE = "головы легионера",
@@ -415,10 +415,10 @@
 		return
 	var/mob/living/LivingUser = user
 	if(next_use_time > world.time)
-		LivingUser.visible_message(span_warning("[LivingUser] трясет <b>[src.declent_ru(NOMINATIVE)]</b>. Ничего не произошло..."))
+		LivingUser.visible_message(span_warning("[LivingUser] тряс[pluralize_ru(LivingUser.gender,"ёт","ут")] <b>[declent_ru(ACCUSATIVE)]</b>. Ничего не произошло..."))
 		balloon_alert(LivingUser, "перезарядка")
 		return
-	LivingUser.visible_message(span_warning("[LivingUser] трясет <b>[src.declent_ru(NOMINATIVE)]</b> и призывает череп легиона!"))
+	LivingUser.visible_message(span_warning("[LivingUser] тряс[pluralize_ru(LivingUser.gender,"ёт","ут")] <b>[declent_ru(ACCUSATIVE)]</b> и призывает череп легиона!"))
 	var/mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/legionnaire/LegionSkull = new(LivingUser.loc)
 	LegionSkull.friends += LivingUser
 	LegionSkull.faction = LivingUser.faction.Copy()

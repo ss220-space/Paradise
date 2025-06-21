@@ -19,7 +19,7 @@
 		INSTRUMENTAL = "элитой",
 		PREPOSITIONAL = "элите"
 	)
-	desc = "Элитный монстр, найденный в одном из странных опухолей на Лаваленде."
+	desc = "Элитный монстр, найденный в одном из странных опухолей на Лазисе."
 	icon = 'icons/mob/lavaland/lavaland_elites.dmi'
 	faction = list("boss")
 	robust_searching = TRUE
@@ -163,7 +163,7 @@
 While using this makes the system rely on OnFire, it still gives options for timers not tied to OnFire, and it makes using attacks consistent accross the board for player-controlled elites.*/
 
 /datum/action/innate/elite_attack
-	name = "Атака элиты"
+	name = "Элитная атака"
 	icon_icon = 'icons/mob/actions/actions_elites.dmi'
 	button_icon_state = ""
 	background_icon_state = "bg_default"
@@ -255,10 +255,10 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		if(TUMOR_PASSIVE)
 			// Prevents the user from being forcemoved back and forth between two elite arenas.
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
-				user.visible_message(span_warning("[user] протягивает руку к [src.declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [src.declent_ru(DATIVE)]... но ничего не происходит."))
+				user.visible_message(span_warning("[user] протягива[pluralize_ru(user.gender,"ет","ют")] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
 				return
 			activity = TUMOR_ACTIVE
-			user.visible_message(span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
+			user.visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда рука [user] входит в её радиус! О-ох..."), span_userdanger("[capitalize(declent_ru(NOMINATIVE))] пульсирует, когда ваша рука входит в её радиус! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				make_activator(fighter)
@@ -269,24 +269,24 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			INVOKE_ASYNC(src, PROC_REF(arena_checks))
 		if(TUMOR_INACTIVE)
 			if(HAS_TRAIT(src, TRAIT_ELITE_CHALLENGER))
-				user.visible_message(span_warning("[user] протягивает руку к [src.declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [src.declent_ru(DATIVE)]... но ничего не происходит."))
+				user.visible_message(span_warning("[user] протягива[pluralize_ru(user.gender,"ет","ют")] руку к [declent_ru(DATIVE)], но ничего не происходит."), span_warning("Вы протягиваете руку к [declent_ru(DATIVE)]... но ничего не происходит."))
 				return
 			activity = TUMOR_ACTIVE
 			var/mob/dead/observer/elitemind = null
-			visible_message(span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
+			visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] начинает пульсировать! Ваши инстинкты говорят вам отступить!"))
 			activators = list()
 			for(var/mob/living/carbon/human/fighter in range(12, src.loc))
 				make_activator(fighter)
 			if(!boosted)
 				addtimer(CALLBACK(src, PROC_REF(spawn_elite)), 3 SECONDS)
 				return
-			visible_message(span_danger("Что-то шевелится внутри [src.declent_ru(GENITIVE)]..."))
-			var/list/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за элиту Лаваленда?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
+			visible_message(span_danger("Что-то шевелится внутри [declent_ru(GENITIVE)]..."))
+			var/list/candidates = SSghost_spawns.poll_candidates("Хотите сыграть за элиту Лазиса?", ROLE_ELITE, TRUE, 10 SECONDS, source = src)
 			if(length(candidates))
 				audible_message(span_userdanger("Глухие удары под ногами становятся отчётливее!"))
 				elitemind = pick(candidates)
 				SEND_SOUND(elitemind, 'sound/magic/cult_spell.ogg')
-				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лаваленда.\nЧерез несколько секунд вы появитесь в виде сильного монстра, с целью убить призвавшего вас.\n\
+				to_chat(elitemind, "<b>Вы были избраны на роль Элиты Лазиса.\nЧерез несколько секунд вы появитесь в виде сильного монстра, с целью убить призвавшего вас.\n\
 					Вы можете выбирать разные атаки, нажимая на кнопки в верхнем левом углу экрана, а так же использовать их с помощью нажатия на тайл или моба.\n\
 					Хоть и оппонент снаряжен шахтёрской экипировкой и различными артефактами, у вас есть мощные способности, которые обычно были ограничены ИИ.\n\
 					Если вы захотите победить, вам придется использовать свои способности с умом. Вам лучше ознакомиться с ними всеми так быстро, насколько возможно.\n\
@@ -303,7 +303,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 	var/selectedspawn = pick(potentialspawns)
 	mychild = new selectedspawn(loc)
 	mychild.scale_stats(activators)
-	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [src.declent_ru(GENITIVE)]!"))
+	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	if(boosted)
 		mychild.key = elitemind.key
@@ -315,7 +315,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/return_elite()
 	mychild.forceMove(loc)
-	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [src.declent_ru(GENITIVE)]!"))
+	visible_message(span_userdanger("[capitalize(mychild.declent_ru(NOMINATIVE))] появляется из [declent_ru(GENITIVE)]!"))
 	playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	mychild.revive()
 	if(boosted)
@@ -376,7 +376,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		visible_message(span_warning("Когда [user] помещает ядро в [src.declent_ru(ACCUSATIVE)], оно начинает пульсировать."))
+		visible_message(span_warning("Когда [user] помеща[pluralize_ru(user.gender,"ет","ют")] ядро в [declent_ru(ACCUSATIVE)], оно начинает пульсировать."))
 		update_icon(UPDATE_ICON_STATE)
 		set_light(6, l_on = TRUE)
 		qdel(I)
@@ -433,11 +433,11 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		for(var/mob/living/carbon/human/activator in activators)
 			if(get_dist(src, activator) >= ARENA_RADIUS)
 				activator.forceMove(loc)
-				visible_message(span_warning("[capitalize(activator)] внезапно материализуется над [src.declent_ru(INSTRUMENTAL)]!"))
+				visible_message(span_warning("[capitalize(activator)] внезапно материализуется над [declent_ru(INSTRUMENTAL)]!"))
 				playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	if(mychild != null && get_dist(src, mychild) >= ARENA_RADIUS)
 		mychild.forceMove(loc)
-		visible_message(span_warning("[capitalize(mychild)] внезапно возникает над [src.declent_ru(INSTRUMENTAL)]!"))
+		visible_message(span_warning("[capitalize(mychild)] внезапно возникает над [declent_ru(INSTRUMENTAL)]!"))
 		playsound(loc,'sound/effects/phasein.ogg', 200, 0, 50, TRUE, TRUE)
 	for(var/mob/living/carbon/human/invader in range(ARENA_RADIUS, src.loc))
 		if(invader in activators)
@@ -455,8 +455,8 @@ While using this makes the system rely on OnFire, it still gives options for tim
 
 /obj/structure/elite_tumor/proc/onEliteLoss()
 	playsound(loc,'sound/effects/tendril_destroyed.ogg', 200, 0, 50, TRUE, TRUE)
-	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] начинает яростно биться в конвульсиях, затем начинает растворяться."))
-	visible_message(span_warning("Что-то выталкивается, когда [src.declent_ru(NOMINATIVE)] закрывается."))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает яростно биться в конвульсиях, затем начинает растворяться."))
+	visible_message(span_warning("Что-то выталкивается, когда [declent_ru(NOMINATIVE)] закрывается."))
 	var/lootloc = loc
 	if(boosted)
 		lootloc = new /obj/structure/closet/crate/necropolis/tendril(loc)
@@ -500,7 +500,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		INSTRUMENTAL = "осколком опухоли",
 		PREPOSITIONAL = "осколке опухоли"
 	)
-	desc = "Странный острый кристаллический осколок из необычной опухоли Лаваленда. Если пронзить им труп элиты Лаваленда, это воскресит существо - при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
+	desc = "Странный острый кристаллический осколок из необычной опухоли Лазиса. Если пронзить им труп элиты Лазиса, это воскресит существо - при условии, что его душа ещё не ушла. Воскрешённые элиты имеют только половину здоровья, и абсолютно лояльны к своему воскресителю."
 	icon = 'icons/obj/lavaland/artefacts.dmi'
 	icon_state = "crevice_shard"
 	throwforce = 5
@@ -519,7 +519,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.friends += user
 		E.reviver = user
 		E.revive()
-		user.visible_message(span_notice("[user] пронзает [E.declent_ru(ACCUSATIVE)] [src.declent_ru(INSTRUMENTAL)], воскрешая его."))
+		user.visible_message(span_notice("[user] пронза[pluralize_ru(user.gender,"ет","ют")] [E.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], воскрешая его."))
 		SEND_SOUND(E, 'sound/magic/cult_spell.ogg')
 		to_chat(user, "<span class='notice'>Вы воспользовались осколком опухоли и подчинили себе её бывшего защитника.\nОн не может причинить вам вреда и во всем будет повиноваться вам.</span>")
 		to_chat(E, "<span class='userdanger'>Вы были возрождены [user], и вы обязаны [user].  Помогай [user.p_them()] в достижении [user.p_their()] целей, несмотря на риск.</span>")
@@ -536,7 +536,7 @@ While using this makes the system rely on OnFire, it still gives options for tim
 		E.sentience_type = SENTIENCE_ORGANIC
 		qdel(src)
 	else
-		to_chat(user, span_notice("[capitalize(src.declent_ru(NOMINATIVE))] работает только с трупами разумных элит Лаваленда."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] работает только с трупами разумных элит Лазиса."))
 
 /obj/effect/temp_visual/elite_tumor_wall
 	name = "magic wall"

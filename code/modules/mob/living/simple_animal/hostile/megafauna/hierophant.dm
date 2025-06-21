@@ -384,7 +384,7 @@ Difficulty: Hard
 		B.damage = 30
 	animate(src, alpha = 0, time = 2, easing = EASE_OUT) //fade out
 	SLEEP_CHECK_DEATH(src, 1)
-	visible_message(span_hierophant_warning("[capitalize(src.declent_ru(NOMINATIVE))] растворяется в воздухе!"))
+	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] растворяется в воздухе!"))
 	ADD_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
 	SLEEP_CHECK_DEATH(src, 2)
 	forceMove(T)
@@ -392,7 +392,7 @@ Difficulty: Hard
 	animate(src, alpha = 255, time = 2, easing = EASE_IN) //fade IN
 	SLEEP_CHECK_DEATH(src, 1)
 	REMOVE_TRAIT(src, TRAIT_UNDENSE, UNIQUE_TRAIT_SOURCE(src))
-	visible_message(span_hierophant_warning("[capitalize(src.declent_ru(NOMINATIVE))] материализуется!"))
+	visible_message(span_hierophant_warning("[capitalize(declent_ru(NOMINATIVE))] материализуется!"))
 	SLEEP_CHECK_DEATH(src, 1) //at this point the blasts we made detonate
 	blinking = FALSE
 
@@ -464,7 +464,7 @@ Difficulty: Hard
 		stat = DEAD
 		blinking = TRUE //we do a fancy animation, release a huge burst(), and leave our staff.
 		visible_message(span_hierophant("\"Mrmxmexmrk wipj-hiwxvygx wiuyirgi...\""))
-		visible_message(span_hierophant_warning("[src.declent_ru(NOMINATIVE)] сжимается, высвобождая мощный энергетический взрыв!"))
+		visible_message(span_hierophant_warning("[declent_ru(NOMINATIVE)] сжимается, высвобождая мощный энергетический взрыв!"))
 		for(var/mob/living/L in view(7, src))
 			stored_nearby += L // store the people to grant the achievements to once we die
 		hierophant_burst(null, get_turf(src), 10)
@@ -480,7 +480,7 @@ Difficulty: Hard
 		if(!L.drop_item_ground(W))
 			qdel(W)
 	visible_message(span_hierophant_warning("\"[pick(kill_phrases)]\""))
-	visible_message(span_hierophant_warning("[src.declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы дезинтегрируете [L.declent_ru(ACCUSATIVE)], восстанавливая здоровье!"))
+	visible_message(span_hierophant_warning("[declent_ru(NOMINATIVE)] дезинтегрирует [L.declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы дезинтегрируете [L.declent_ru(ACCUSATIVE)], восстанавливая здоровье!"))
 	adjustHealth(-L.maxHealth*0.5)
 	L.dust()
 
@@ -787,9 +787,9 @@ Difficulty: Hard
 		if(L.client)
 			flash_color(L.client, "#660099", 1)
 		playsound(L,'sound/weapons/sear.ogg', 50, TRUE, -4)
-		to_chat(L, span_userdanger("Вас поражает [src.declent_ru(ACCUSATIVE)]!"))
+		to_chat(L, span_userdanger("Вас поражает [declent_ru(ACCUSATIVE)]!"))
 		var/limb_to_hit = L.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG, BODY_ZONE_TAIL, BODY_ZONE_WING))
-		var/armor = L.run_armor_check(limb_to_hit, "melee", "Ваша броня поглощает [src.declent_ru(ACCUSATIVE)]!", "Ваша броня частично блокирует [src.declent_ru(ACCUSATIVE)]!", 50, "Ваша броня была пробита [src.declent_ru(INSTRUMENTAL)]!")
+		var/armor = L.run_armor_check(limb_to_hit, "melee", "Ваша броня поглощает [declent_ru(ACCUSATIVE)]!", "Ваша броня частично блокирует [declent_ru(ACCUSATIVE)]!", 50, "Ваша броня была пробита [declent_ru(INSTRUMENTAL)]!")
 		L.apply_damage(damage, BURN, limb_to_hit, armor)
 		if(ishostile(L))
 			var/mob/living/simple_animal/hostile/H = L //mobs find and damage you...
@@ -808,7 +808,7 @@ Difficulty: Hard
 		if(M.occupant)
 			if(friendly_fire_check && caster && caster.faction_check_mob(M.occupant))
 				continue
-			to_chat(M.occupant, span_userdanger("Ваш  [M.declent_ru(NOMINATIVE)] поражён [src.declent_ru(ACCUSATIVE)]!"))
+			to_chat(M.occupant, span_userdanger("Ваш  [M.declent_ru(NOMINATIVE)] поражён [declent_ru(ACCUSATIVE)]!"))
 		playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
 		M.take_damage(damage, BURN, 0, 0)
 
@@ -862,7 +862,7 @@ Difficulty: Hard
 			return ATTACK_CHAIN_PROCEED
 		playsound(loc, 'sound/magic/blind.ogg', 200, TRUE, -4)
 		new /obj/effect/temp_visual/hierophant/telegraph/teleport(loc, user)
-		to_chat(user, span_hierophant_warning("Вы собираете [src.declent_ru(ACCUSATIVE)], возвращая его к клубу!"))
+		to_chat(user, span_hierophant_warning("Вы собираете [declent_ru(ACCUSATIVE)], возвращая его к клубу!"))
 		club.beacon = null
 		user.update_action_buttons_icon()
 		qdel(src)

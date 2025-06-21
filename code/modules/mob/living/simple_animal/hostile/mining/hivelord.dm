@@ -159,8 +159,8 @@
 		return ..()
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/blood/proc/reabsorb_host(mob/living/carbon/C)
-	C.visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] поглощается телом [C.declent_ru(GENITIVE)]."), \
-                 span_notice("[capitalize(src.declent_ru(NOMINATIVE))] поглощается вашим телом."))
+	C.visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается телом [C.declent_ru(GENITIVE)]."), \
+                 span_notice("[capitalize(declent_ru(NOMINATIVE))] поглощается вашим телом."))
 	transfer_reagents(C)
 	death()
 
@@ -247,7 +247,7 @@
 	fromtendril = TRUE
 
 /mob/living/simple_animal/hostile/asteroid/hivelord/legion/death(gibbed)
-	visible_message(span_warning("Черепа на [src.declent_ru(PREPOSITIONAL)] вопят в ярости, спасаясь от умирающего носителя!"))
+	visible_message(span_warning("Черепа на [declent_ru(PREPOSITIONAL)] вопят в ярости, спасаясь от умирающего носителя!"))
 	var/turf/T = get_turf(src)
 	if (!T) // When legion dusts T = null. Maybe not onli this way.
 		return
@@ -315,7 +315,7 @@
 		var/mob/living/carbon/human/victim = target
 		if(victim.can_inject(null, FALSE, BODY_ZONE_CHEST, FALSE, TRUE) && !victim.get_int_organ(/obj/item/organ/internal/legion_tumour) && prob(1))
 			new /obj/item/organ/internal/legion_tumour(victim)
-			visible_message(span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] вгрызается в шею [target], впрыскивая странную черную жидкость!")) //made it on russian to attract more attention from attacklogs
+			visible_message(span_userdanger("[capitalize(declent_ru(NOMINATIVE))] вгрызается в шею [target], впрыскивая странную черную жидкость!")) //made it on russian to attract more attention from attacklogs
 
 /mob/living/simple_animal/hostile/asteroid/hivelordbrood/legion/proc/infest(mob/living/carbon/human/H)
 	visible_message(span_warning("[declent_ru(NOMINATIVE)] зарывается в плоть [H]!"))

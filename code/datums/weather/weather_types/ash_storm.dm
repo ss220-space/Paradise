@@ -1,7 +1,7 @@
 //Ash storms happen frequently on lavaland. They heavily obscure vision, and cause high fire damage to anyone caught outside.
 /datum/weather/ash_storm
 	name = "ash storm"
-	desc = "Мощная атмосферная буря поднимает пепел с поверхности планеты, обрушивая его на местность и нанося сильные ожоги незащищённым существам."
+	desc = "Мощная атмосферная буря поднимает пепел с поверхности планеты, обрушивая его на землю и нанося сильные ожоги незащищённым существам."
 
 	telegraph_message = span_boldwarning("Глухой рокот нарастает вдали, превращаясь в оглушительный рёв. Горизонт застилают мрачные волны пепла. Ищите убежище!")
 	telegraph_duration = 30 SECONDS
@@ -133,12 +133,12 @@
 //Emberfalls are the result of an ash storm passing by close to the playable area of lavaland. They have a 10% chance to trigger in place of an ash storm.
 /datum/weather/ash_storm/emberfall
 	name = "emberfall"
-	desc = "Проходящая пепельная буря покрывает местность безвредными угольками."
+	desc = "Проходящая пепельная буря покрывает землю безвредными угольками."
 
 	weather_message = span_notice("Мягкие угольки опадают вокруг, словно уродливый снег. Кажется, буря обошла вас стороной...")
 	weather_overlay = "light_ash"
 
-	end_message = span_notice("Пепелопад ослабевает и прекращается. Ещё один слой закалённой сажи ложится на базальник под ногами.")
+	end_message = span_notice("Пеплопад ослабевает и прекращается. Ещё один слой затвердевшей сажи ложится на базальт под ногами.")
 	end_sound = null
 
 	aesthetic = TRUE
