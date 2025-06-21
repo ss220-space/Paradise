@@ -190,7 +190,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
 	if(I.cigarette_lighter_act(user, user, src))
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ATTACK_CHAIN_BLOCKED
 
 	// Catch any item that has no cigarette_lighter_act but logically should be able to work as a lighter due to being hot.
 	if(I.get_heat())
@@ -200,7 +200,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 			"<span class='notice'>Вы зажигаете [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)].</span>"
 		)
 		light(user)
-		return ATTACK_CHAIN_BLOCKED_ALL
+		return ..()
 
 /obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
 	if(lit)
@@ -264,101 +264,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 	START_PROCESSING(SSobj, src)
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
 	return TRUE
-
-
-/*
-/obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
-	if(istype(item, /obj/item/weldingtool/sword))
-		if(item.tool_enabled)
-			light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]!"))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/lighter/zippo))
-		add_fingerprint(user)
-		var/obj/item/lighter/zippo/zippo = item
-		if(!zippo.lit)
-			return ..()
-		light(span_rose("Лёгким движением руки, [user] прикурива[pluralize_ru(user, "ет", "ют")] свою [declent_ru(ACCUSATIVE)] [zippo.declent_ru(INSTRUMENTAL)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/lighter))
-		add_fingerprint(user)
-		var/obj/item/lighter/lighter = item
-		if(!lighter.lit)
-			return ..()
-		light(span_notice("Немного повозившись, [user.declent_ru(DATIVE)] удаётся зажечь свою [declent_ru(ACCUSATIVE)] [lighter.declent_ru(INSTRUMENTAL)]."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/match/unathi))
-		add_fingerprint(user)
-		var/obj/item/match/unathi/match = item
-		if(!match.lit)
-			return ..()
-		playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
-		light(span_rose("[user] плю[pluralize_ru(user.gender, "ёт", "ют")] огнём на свою [declent_ru(ACCUSATIVE)], зажигая её."))
-		match.matchburnout()
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	if(istype(item, /obj/item/match))
-		add_fingerprint(user)
-		var/obj/item/match/match = item
-		if(!match.lit)
-			return ..()
-		light(span_notice("[user] зажига[pluralize_ru(user.gender, "ет", "ют")] свою [declent_ru(ACCUSATIVE)] [match.declent_ru(INSTRUMENTAL)]."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/melee/energy/sword/saber))
-		add_fingerprint(user)
-		var/obj/item/melee/energy/sword/saber/saber = item
-		if(!saber.active)
-			return ..()
-		light(span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [saber.declent_ru(INSTRUMENTAL)], проводя [genderize_ru(saber.gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед своим лицом и поджигая [declent_ru(ACCUSATIVE)] в процессе."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(isigniter(item))
-		add_fingerprint(user)
-		light(span_notice("[user] воз[pluralize_ru(user.gender, "ит", "ят")]ся с [item.declent_ru(INSTRUMENTAL)], но в конце концов прикурива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)]."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/gun/magic/wand/fireball))
-		add_fingerprint(user)
-		var/obj/item/gun/magic/wand/fireball/wand = item
-		if(!wand.charges)
-			return ..()
-		if(prob(50) || user.mind.assigned_role == "Wizard")
-			light(span_notice("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь свою [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"))
-		else
-			visible_message(user, span_warning("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [declent_ru(ACCUSATIVE)] [wand.declent_ru(INSTRUMENTAL)]."))
-			explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
-		wand.charges--
-		wand.update_icon(UPDATE_ICON_STATE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/flashlight/flare))
-		add_fingerprint(user)
-		var/obj/item/flashlight/flare/flare = item
-		if(!flare.on || !flare.can_fire_cigs)
-			return ..()
-		light(span_notice("[user] не наход[pluralize_ru(user.gender, "ит", "ят")] ничего лучше [flare.declent_ru(GENITIVE)], чтобы прикурить [declent_ru(ACCUSATIVE)]. Бедолага..."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/candle))
-		add_fingerprint(user)
-		var/obj/item/candle/candle = item
-		if(!candle.lit)
-			return ..()
-		light(span_notice("[user] прикурива[pluralize_ru(user.gender, "ет", "ют")] свою [declent_ru(ACCUSATIVE)] [candle.declent_ru(INSTRUMENTAL)]."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(item, /obj/item/clothing/mask/cigarette))
-		add_fingerprint(user)
-		var/obj/item/clothing/mask/cigarette/cigarette = item
-		if(!cigarette.lit)
-			return ..()
-		light(span_notice("[user] прикурива[pluralize_ru(user.gender, "ет", "ют")] свою [declent_ru(ACCUSATIVE)] другой [cigarette.declent_ru(INSTRUMENTAL)]. Бедолага..."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	return ..() */
 
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	icon_state = lit ? icon_on : icon_off
