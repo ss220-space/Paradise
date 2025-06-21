@@ -77222,9 +77222,8 @@
 	},
 /area/hallway/secondary/exit)
 "mUY" = (
-/obj/effect/decal/cleanable/dirt,
-/turf/simulated/wall,
-/area/chapel/main)
+/turf/simulated/wall/r_wall,
+/area/chapel/office)
 "mVd" = (
 /obj/structure/chair,
 /obj/effect/decal/warning_stripes/red/hollow,
@@ -158481,7 +158480,7 @@ dIx
 dNB
 bIK
 mkS
-mUY
+dJx
 iyh
 dSc
 waL
@@ -158734,13 +158733,13 @@ lHd
 mmQ
 cmA
 riE
-dIx
-dIx
-dIx
-dIx
-dIx
-dIx
-dIx
+mUY
+mUY
+mUY
+mUY
+mUY
+mUY
+mUY
 hYL
 dIx
 dIx
