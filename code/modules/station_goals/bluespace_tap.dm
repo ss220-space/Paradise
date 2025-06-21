@@ -207,6 +207,14 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
   */
 /obj/machinery/power/bluespace_tap
 	name = "Bluespace harvester"
+	ru_names = list(
+		NOMINATIVE = "блюспейс сборщик",
+		GENITIVE = "блюспейс сборщика",
+		DATIVE = "блюспейс сборщику",
+		ACCUSATIVE = "блюспейс сборщик",
+		INSTRUMENTAL = "блюспейс сборщиком",
+		PREPOSITIONAL = "блюспейс сборщике"
+	)
 	icon = 'icons/obj/machines/bluespace_tap.dmi'
 	icon_state = "bluespace_tap"	//sprites by Ionward
 	max_integrity = 300
@@ -450,7 +458,7 @@ GLOBAL_LIST_EMPTY(bluespace_taps)
 	emagged = TRUE
 	do_sparks(5, FALSE, src)
 	if(user)
-		user.visible_message("<span class='warning'>[user] overrides the safety protocols of [src].</span>", "<span class='warning'>You override the safety protocols.</span>")
+		user.visible_message(span_warning("[user] переписыва[pluralize_ru(user.gender,"ет","ют")] протоколы безопасности [src.declent_ru(GENITIVE)]."), span_warning("Вы переписываете протоколы безопасности."))
 
 /obj/structure/spawner/nether/bluespace_tap
 	spawn_time = 30 SECONDS

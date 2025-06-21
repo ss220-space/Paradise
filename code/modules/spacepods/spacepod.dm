@@ -609,7 +609,6 @@
 		return
 
 	if(user.get_active_hand() && user.get_inactive_hand())
-		to_chat(user, span_warning("You need an open hand to do that."))
 		balloon_alert(user, "нужна свободная рука!")
 		return
 
