@@ -224,9 +224,10 @@
 /obj/item/twohanded/dualsaber
 	var/hacked = FALSE
 	var/blade_color
-	icon_state = "dualsaber0"
+	icon_state = "dualsaber"
 	name = "double-bladed energy sword"
 	desc = "Handle with care."
+	gender = MALE
 	force = 3
 	throwforce = 5
 	throw_speed = 1
@@ -295,6 +296,9 @@
 
 /obj/item/twohanded/dualsaber/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
+	if(cigarette_lighter_act(user, target))
+		return
+
 	if(!ATTACK_CHAIN_SUCCESS_CHECK(.) || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return .
 
@@ -306,6 +310,32 @@
 	if(prob(50))
 		INVOKE_ASYNC(src, GLOBAL_PROC_REF(jedi_spin), user)
 
+/obj/item/dualsaber/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!HAS_TRAIT(src, TRAIT_WIELDED))
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_danger("[user] крут[pluralize_ru(user.gender, "ит", "ят")]ся в воздухе и бешено верт[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(INSTRUMENTAL)]! В полёте [genderize_ru(user.gender, "он", "она", "оно", "они")] задева[pluralize_ru(user.gender, "ет", "ют")]  свою [cig.declent_ru(ACCUSATIVE)] и поджигает её!"),
+			span_notice("Вы подскакиваете в воздух и делаете резкое движение [declent_ru(INSTRUMENTAL)], задевая свою [cig.declent_ru(ACCUSATIVE)] лезвием меча."),
+			span_danger("Вы слышите, как энергетический клинок что-то рассекает!")
+		)
+	else
+		user.visible_message(
+			span_danger("[user] крут[pluralize_ru(user.gender, "ит", "ят")]ся в воздухе и бешено верт[pluralize_ru(user.gender, "ит", "ят")] [declent_ru(INSTRUMENTAL)]! В полёте [genderize_ru(user.gender, "он", "она", "оно", "они")] задева[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)] [target] и поджигает её!"),
+			span_notice("Вы подскакиваете в воздух и делаете резкое движение [declent_ru(INSTRUMENTAL)], задевая [cig.declent_ru(ACCUSATIVE)] [target] лезвием меча."),
+			span_danger("Вы слышите, как энергетический клинок что-то рассекает!")
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 50, TRUE)
+	cig.light(user, target)
+	INVOKE_ASYNC(src, PROC_REF(jedi_spin), user)
+	return TRUE
 
 /proc/jedi_spin(mob/living/user)
 	for(var/i in list(NORTH, SOUTH, EAST, WEST, EAST, SOUTH, NORTH, SOUTH, EAST, WEST, EAST, SOUTH))

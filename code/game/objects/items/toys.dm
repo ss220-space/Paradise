@@ -234,6 +234,57 @@
 	return ..()
 
 
+/obj/item/toy/sword/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/toy/sword/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!active)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	user.do_attack_animation(target)
+
+	// 1% chance to light the cig. Somehow...
+	if(prob(1))
+		if(target == user)
+			user.visible_message(
+				span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед своим лицом и, каким-то образом, поджигая [cig.declent_ru(ACCUSATIVE)] в процессе."),
+				span_notice("Вы непринуждённо ударяете [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(GENITIVE)], каким-то образом зажигая её в процессе."),
+				span_warning("Вы слышите, как кто-то нанёс удар энергетическим мечом!")
+			)
+		else
+			user.visible_message(
+				span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя \
+				[genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед лицом [target] и, каким-то образом, поджигая [cig.declent_ru(ACCUSATIVE)] в процессе."),
+				span_notice("Вы непринуждённо ударяете [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(GENITIVE)] во рту [target], каким-то образом зажигая её в процессе."),
+				span_warning("Вы слышите, как кто-то нанёс удар энергетическим мечом!")
+			)
+		playsound(user.loc, 'sound/weapons/blade1.ogg', 50, TRUE)
+		cig.light(user, target)
+		return TRUE
+
+	// Else, bat it out of the target's mouth.
+	if(target == user)
+		user.visible_message(
+			span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед лицом [target], сбивая [cig.declent_ru(ACCUSATIVE)] из своего рта в процессе!"),
+			span_warning("Вы непринуждённо ударяете [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(GENITIVE)], сбивая её из своего рта!"),
+			span_notice("Вы слышите как что-то упало на пол.")
+		)
+	else
+		user.visible_message(
+			span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед лицом [target], сбивая [cig.declent_ru(ACCUSATIVE)] из рта [target] в процессе! Грубо!"),
+			span_warning("Вы непринуждённо ударяете [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(GENITIVE)], сбивая её из рта [target]! Грубо!"),
+			span_notice("Вы слышите как что-то упало на пол.")
+		)
+	playsound(loc, 'sound/weapons/tap.ogg', vary = TRUE)
+	user.drop_item_ground(cig)
+	return TRUE
+
 /*
  * Subtype of Double-Bladed Energy Swords
  */
@@ -275,7 +326,10 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/katana/suicide_act(mob/user)
-	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
+	var/dmsg = pick(
+			"[user] tries to stab [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.",
+			"[user] tries to stab [src] into [user.p_their()] abdomen, but [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.",
+			"[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
 	user.visible_message(span_suicide("[dmsg] It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS
 

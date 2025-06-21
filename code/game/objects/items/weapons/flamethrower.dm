@@ -75,6 +75,54 @@
 	else
 		return TRUE
 
+/obj/item/flamethrower/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/flamethrower/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	// Pulling this off 'safely' requires years of experience, a true badass, or blind luck!
+	if(HAS_TRAIT(user, TRAIT_BADASS) || (user.mind.assigned_role in list("Station Engineer", "Chief Engineer", "Life Support Specialist")) || prob(50))
+		if(user == target)
+			user.visible_message(
+				span_warning("[user] уверенно поднимает [declent_ru(ACCUSATIVE)] и выпускает большой клуб пламени на свою [cig.declent_ru(ACCUSATIVE)] чтобы её зажечь, как полнейший псих!"),
+				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] и слегка нажимаете на курок, прикуривая [cig.declent_ru(ACCUSATIVE)]."),
+				span_warning("Вы слышите рёв огня!")
+			)
+		else
+			user.visible_message(
+
+				span_warning("[user] уверенно поднимает [declent_ru(ACCUSATIVE)] и выпускает большой клуб пламени в сторону [target], зажигая [genderize_ru(target.gender, "его", "её", "его", "их")] [cig.declent_ru(ACCUSATIVE)], как полнейший псих!"),
+				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] и целитесь в строну [target], слегка нажимаете на курок, прикуривая [genderize_ru(target.gender, "его", "её", "его", "их")] [cig.declent_ru(ACCUSATIVE)]."),
+				span_warning("Вы слышите рёв огня!")
+		)
+	else
+		// You set them on fire, but at least the cigarette got lit...
+		if(target == user)
+			user.visible_message(
+				span_warning("[user] небрежно поднимает [declent_ru(ACCUSATIVE)] и выпускает большой клуб пламени на свою [cig.declent_ru(ACCUSATIVE)] чтобы её зажечь, но случайно поджигает себя в процессе!"),
+				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] и нажимаете на курок, чтобы прикурть [cig.declent_ru(ACCUSATIVE)]. К несчастью, вы нажали на курок слишком сильно, в результате поджигая себя!"),
+				span_warning("Вы слышите рёв огня!")
+			)
+		else
+			user.visible_message(
+				span_warning("[user] небрежно поднимает [declent_ru(ACCUSATIVE)] и выпускает большой клуб пламени в сторону [target], но случайно поджигает [genderize_ru(target.gender, "его", "её", "его", "их")] в процессе!"),
+				span_notice("Вы поднимаете [declent_ru(ACCUSATIVE)] и целитесь в строну [target], нажимаете на курок, чтобы прикурить [genderize_ru(target.gender, "его", "её", "его", "их")] [cig.declent_ru(ACCUSATIVE)]. \
+				К несчастью, вы нажали на курок слишком сильно, в результате поджигая [target]! "),
+				span_warning("Вы слышите рёв огня!")
+			)
+		target.adjust_fire_stacks(2)
+		target.IgniteMob()
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/flamethrower/afterattack(atom/target, mob/user, flag, params)
 	. = ..()
 	if(flag)

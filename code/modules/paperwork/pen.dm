@@ -212,8 +212,12 @@
 
 
 /obj/item/pen/edagger/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(cigarette_lighter_act(user, target))
+		return
+
 	var/extra_force_applied = FALSE
 	var/cached_sound = hitsound
+
 	if(on && user != target && user.dir == target.dir && COOLDOWN_FINISHED(src, backstab_cooldown) && !target.incapacitated(INC_IGNORE_RESTRAINED))
 		hitsound = null
 		force += backstab_damage
@@ -235,6 +239,31 @@
 		span_userdanger("[user] stabs you in the back! The energy blade makes you collapse in pain!"),
 	)
 
+/obj/item/pen/edagger/cigarette_lighter_act(mob/living/user, mob/living/carbon/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!on)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед своим лицом, поджигая [cig.declent_ru(ACCUSATIVE)] в процессе."),
+			span_notice("Вы беспечно делаете резкое движение [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(DATIVE)], зажигая её в процессе."),
+			span_danger("Вы слышите удар энергетического меча по чему-то!")
+		)
+	else
+		user.visible_message(
+			span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед лицом [target], поджигая [cig.declent_ru(ACCUSATIVE)] в процессе."),
+			span_notice("Вы беспечно делаете резкое движение [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(DATIVE)] во рту [target], поджигая её в процессе."),
+			span_danger("Вы слышите удар энергетического меча по чему-то!")
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 5, TRUE, ignore_walls = FALSE, falloff_distance = 0)
+	cig.light(user, target)
+	return TRUE
 
 /obj/item/pen/edagger/get_clamped_volume() //So the parent proc of attack isn't the loudest sound known to man
 	if(!force)

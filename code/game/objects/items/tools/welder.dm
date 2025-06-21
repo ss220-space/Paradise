@@ -2,7 +2,16 @@
 
 /obj/item/weldingtool
 	name = "welding tool"
-	desc = "A standard edition welder provided by Nanotrasen."
+	desc = "Стандартная сварка производства НаноТрейзен."
+	ru_names = list(
+		NOMINATIVE = "сварка",
+		GENITIVE = "сварки",
+		DATIVE = "сварке",
+		ACCUSATIVE = "сварку",
+		INSTRUMENTAL = "сваркой",
+		PREPOSITIONAL = "сварке"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/tools.dmi'
 	icon_state = "welder"
 	righthand_file = 'icons/mob/inhands/tools_righthand.dmi'
@@ -155,6 +164,32 @@
 	remove_fuel(amount)
 	return TRUE
 
+/obj/item/weldingtool/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/weldingtool/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!tool_enabled)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_notice("[user] непринуждённо зажига[pluralize_ru(user, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]!"),
+			span_notice("Вы зажигаете [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]")
+		)
+	else
+		user.visible_message(
+			span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)] с помощью [declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]!"),
+			span_notice("Вы прикуриваете [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]")
+		)
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/weldingtool/use_tool(target, user, delay, amount, volume, datum/callback/extra_checks)
 	var/did_thing = ..()
 	if(did_thing)
@@ -217,7 +252,15 @@
 
 /obj/item/weldingtool/largetank
 	name = "industrial welding tool"
-	desc = "A slightly larger welder with a larger tank."
+	desc = "Крупная сварка с большим хранилищем топлива."
+	ru_names = list(
+		NOMINATIVE = "промышленная сварка",
+		GENITIVE = "промышленной сварки",
+		DATIVE = "промышленной сварке",
+		ACCUSATIVE = "промышленную сварку",
+		INSTRUMENTAL = "промышленной сваркой",
+		PREPOSITIONAL = "промышленной сварке"
+	)
 	icon_state = "indwelder"
 	belt_icon = "industrial_welding_tool"
 	maximum_fuel = 40
@@ -226,12 +269,20 @@
 
 /obj/item/weldingtool/largetank/cyborg
 	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems."
+	desc = "Сварочный аппарат для работы в роботизированных системах."
 	toolspeed = 0.5
 
 /obj/item/weldingtool/mini
 	name = "emergency welding tool"
-	desc = "A miniature welder used during emergencies."
+	desc = "Миниатюрная сварка для аварийных ситуаций."
+	ru_names = list(
+		NOMINATIVE = "аварийная сварка",
+		GENITIVE = "аварийной сварки",
+		DATIVE = "аварийной сварке",
+		ACCUSATIVE = "аварийную сварку",
+		INSTRUMENTAL = "аварийной сваркой",
+		PREPOSITIONAL = "аварийной сварке"
+	)
 	icon_state = "miniwelder"
 	maximum_fuel = 10
 	w_class = WEIGHT_CLASS_TINY
@@ -240,7 +291,15 @@
 
 /obj/item/weldingtool/abductor
 	name = "alien welding tool"
-	desc = "An alien welding tool. Whatever fuel it uses, it never runs out."
+	desc = "Сварка инопланетного происхождения. Какое бы топливо в ней не было, оно никогда не закончится."
+	ru_names = list(
+		NOMINATIVE = "инопланетная сварка",
+		GENITIVE = "инопланетной сварки",
+		DATIVE = "инопланетной сварке",
+		ACCUSATIVE = "инопланетную сварку",
+		INSTRUMENTAL = "инопланетной сваркой",
+		PREPOSITIONAL = "инопланетной сварке"
+	)
 	icon = 'icons/obj/abductor.dmi'
 	icon_state = "welder"
 	item_state = "alienwelder"
@@ -254,7 +313,15 @@
 
 /obj/item/weldingtool/hugetank
 	name = "upgraded welding tool"
-	desc = "An upgraded welder based off the industrial welder."
+	desc = "Улучшенная версия стандартной сварки."
+	ru_names = list(
+		NOMINATIVE = "улучшенная сварка",
+		GENITIVE = "улучшенной сварки",
+		DATIVE = "улучшенной сварке",
+		ACCUSATIVE = "улучшенную сварку",
+		INSTRUMENTAL = "улучшенной сваркой",
+		PREPOSITIONAL = "улучшенной сварке"
+	)
 	icon_state = "upindwelder"
 	item_state = "upindwelder"
 	belt_icon = "upgraded_welding_tool"
@@ -264,7 +331,15 @@
 
 /obj/item/weldingtool/experimental
 	name = "experimental welding tool"
-	desc = "An experimental welder capable of self-fuel generation and less harmful to the eyes."
+	desc = "Сварочный аппарат экспериментального производства, пассивно генерирует топливо и выпускат меньше искр при сварке."
+	ru_names = list(
+		NOMINATIVE = "экспериментальная сварка",
+		GENITIVE = "экспериментальной сварки",
+		DATIVE = "экспериментальной сварке",
+		ACCUSATIVE = "экспериментальную сварку",
+		INSTRUMENTAL = "экспериментальной сваркой",
+		PREPOSITIONAL = "экспериментальной сварке"
+	)
 	icon_state = "exwelder"
 	item_state = "exwelder"
 	belt_icon = "experimental_welding_tool"
@@ -278,13 +353,21 @@
 
 /obj/item/weldingtool/experimental/mecha
 	name = "integrated welding tool"
-	desc = "An advanced welder designed to be used in robotic systems."
+	desc = "Улучшенный сварочный аппарат для работы в роботизированных системах."
 	requires_fuel = FALSE
 	light_intensity = 0
 
 /obj/item/weldingtool/experimental/brass
 	name = "brass welding tool"
-	desc = "A brass welder that seems to constantly refuel itself. It is faintly warm to the touch."
+	desc = "Латунный сварочный аппарат, что, похоже, генерирует топливо. Он слегка теплый на ощупь."
+	ru_names = list(
+		NOMINATIVE = "латунная сварка",
+		GENITIVE = "латунной сварки",
+		DATIVE = "латунной сварке",
+		ACCUSATIVE = "латунную сварку",
+		INSTRUMENTAL = "латунной сваркой",
+		PREPOSITIONAL = "латунной сварке"
+	)
 	icon_state = "brasswelder"
 	item_state = "brasswelder"
 	resistance_flags = FIRE_PROOF | ACID_PROOF

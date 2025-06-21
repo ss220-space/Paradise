@@ -1,5 +1,5 @@
 /obj/item/melee/energy
-	var/active = 0
+	var/active = FALSE
 	var/force_on = 30 //force when active
 	var/throwforce_on = 20
 	var/faction_bonus_force = 0 //Bonus force dealt against certain factions
@@ -21,9 +21,13 @@
 	light_system = MOVABLE_LIGHT
 	light_on = FALSE
 	var/colormap = list(red=LIGHT_COLOR_RED, blue=LIGHT_COLOR_LIGHTBLUE, green=LIGHT_COLOR_GREEN, purple=LIGHT_COLOR_PURPLE, yellow=LIGHT_COLOR_RED, pink =LIGHT_COLOR_PURPLE, orange =LIGHT_COLOR_RED, darkblue=LIGHT_COLOR_LIGHTBLUE, rainbow=LIGHT_COLOR_WHITE)
+	/// Used to mark the item as a cleaving saw so that cigarette_lighter_act() will perform an early return.
+	var/is_a_cleaving_saw = FALSE
 
 
 /obj/item/melee/energy/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(cigarette_lighter_act(user, target))
+		return
 	var/nemesis_faction = FALSE
 	if(LAZYLEN(nemesis_factions))
 		for(var/faction in target.faction)
@@ -36,6 +40,34 @@
 	if(nemesis_faction)
 		force -= faction_bonus_force
 
+/obj/item/melee/energy/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	if(is_a_cleaving_saw)
+		return FALSE
+
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!active)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед своим лицом, поджигая [cig.declent_ru(ACCUSATIVE)] в процессе."),
+			span_notice("Вы беспечно делаете резкое движение [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(DATIVE)], зажигая её в процессе."),
+			span_danger("Вы слышите удар энергетического меча по чему-то!")
+		)
+	else
+		user.visible_message(
+			span_warning("[user] дела[pluralize_ru(user.gender, "ет", "ют")] резкое движение [declent_ru(INSTRUMENTAL)], проводя [genderize_ru(gender, "им", "ею", "им", "ими")] в считанных сантиметрах перед лицом [target], поджигая [cig.declent_ru(ACCUSATIVE)] в процессе."),
+			span_notice("Вы беспечно делаете резкое движение [declent_ru(INSTRUMENTAL)] по [cig.declent_ru(DATIVE)] во рту [target], поджигая её в процессе."),
+			span_danger("Вы слышите удар энергетического меча по чему-то!")
+		)
+	user.do_attack_animation(target)
+	playsound(user.loc, hitsound, 50, TRUE)
+	cig.light(user, target)
+	return TRUE
 
 /obj/item/melee/energy/suicide_act(mob/user)
 	user.visible_message(pick("<span class='suicide'>[user] is slitting [user.p_their()] stomach open with the [name]! It looks like [user.p_theyre()] trying to commit seppuku.</span>", \

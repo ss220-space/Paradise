@@ -1,3 +1,16 @@
+/*
+CONTENTS:
+1. Wand of Nothing
+2. Wand of Death
+3. Wand of Healing
+4. Wand of Polymorph
+5. Wand of Teleportation
+6. Wand of Door Creation
+7. Wand of Fireball
+8. Wand of Slipping
+9. Wand of Chaos
+*/
+
 /obj/item/gun/magic/wand
 	name = "wand of nothing"
 	belt_icon = "wand of nothing"
@@ -177,6 +190,59 @@
 	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2, cause = src)
 	charges--
 	..()
+
+/obj/item/gun/magic/wand/fireball/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!iscarbon(target))
+		return ..()
+
+	var/mob/living/M = target
+	if(cigarette_lighter_act(user, M))
+		return
+
+	if(M != user)	// Do not blow yourself up!
+		return ..()	// Blow everyone else up!
+
+/obj/item/gun/magic/wand/fireball/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!charges)
+		user.balloon_alert(user, "кончились заряды!")
+		return TRUE
+
+	if(prob(50) || user.mind.assigned_role == "Wizard")
+		if(target == user)
+			user.visible_message(
+				span_warning("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь свою [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"),
+				span_notice("Вы взмахиваете [declent_ru(INSTRUMENTAL)], зажигая [cig.declent_ru(ACCUSATIVE)] огненным шлейфом, лишь слегка приподняв бровь."),
+				span_warning("Вы слышите короткую вспышку пламени!")
+			)
+		else
+			user.visible_message(
+				span_warning("Египетская сила! Неужели [user.declent_ru(DATIVE)] только что удалось зажечь [cig.declent_ru(ACCUSATIVE)] [target] [declent_ru(INSTRUMENTAL)], лишь слегка приподняв бровь?"),
+				span_notice("Вы взмахиваете [declent_ru(INSTRUMENTAL)], зажигая [cig.declent_ru(ACCUSATIVE)] [target] огненным шлейфом, лишь слегка приподняв бровь."),
+				span_warning("Вы слышите короткую вспышку пламени!")
+			)
+		cig.light(user, target)
+		return TRUE
+
+	// Oops...
+	user.visible_message(
+		span_userdanger("Не разобравшись, где правильная сторона посоха, [user.declent_ru(DATIVE)] не смог[genderize_ru(user.gender, "", "ла", "ло", "ли")] зажечь [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+		span_userdanger("Не разобравшись, где правильная сторона посоха, вы не смоглт зажечь [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+		span_userdanger("Вы слышите, как что-то взорвалось!")
+	)
+	explosion(user.loc, -1, 0, 2, 3, 0, flame_range = 2)
+	charges--
+	return TRUE
+
+// This is needed to you don't try to perform an execution/suicide when lighting a cigarette.
+/obj/item/gun/magic/wand/fireball/handle_suicide(mob/user, mob/living/carbon/human/target, params)
+	var/mask_item = target.get_item_by_slot(ITEM_SLOT_MASK)
+	if(istype(mask_item, /obj/item/clothing/mask/cigarette) && user.zone_selected == "mouth" && user.a_intent == INTENT_HELP)
+		return
+	. = ..()
 
 /////////////////////////////////////
 //WAND OF SLIPPING

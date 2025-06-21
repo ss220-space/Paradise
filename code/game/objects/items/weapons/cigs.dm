@@ -1,9 +1,10 @@
 /*
-CONTAINS:
-CIGARETTES
-CIGARS
-SMOKING PIPES
-HOLO-CIGAR
+CONTENTS:
+1. CIGARETTES
+2. CIGARS
+3. HOLO-CIGAR
+4. PIPES
+5. ROLLING
 
 CIGARETTE PACKETS ARE IN FANCY.DM
 LIGHTERS ARE IN LIGHTERS.DM
@@ -34,15 +35,23 @@ LIGHTERS ARE IN LIGHTERS.DM
 	attack_verb = null
 	container_type = INJECTABLE
 	undyeable = TRUE
+	/// Is the cigarette lit?
 	var/lit = FALSE
+	/// Lit cigarette sprite.
 	var/icon_on = "cigon"  //Note - these are in masks.dmi not in cigarette.dmi
+	/// Unlit cigarette sprite.
 	var/icon_off = "cigoff"
+	/// Are we an extra-classy smokable?
+	var/fancy = FALSE
+	/// What trash item the cigarette makes when it burns out.
 	var/type_butt = /obj/item/cigbutt
-	var/lastHolder = null
-	var/smoketime = 150
+	/// How long does the cigarette last before going out? Decrements by 1 every cycle.
+	var/smoketime = 150 // 300 seconds.
+	/// The cigarette's total reagent capacity.
 	var/chem_volume = 60
 	var/list/list_reagents = list("nicotine" = 40)
-	var/first_puff = TRUE // the first puff is a bit more reagents ingested
+	/// Has anyone taken any reagents from the cigarette? The first tick gives a bigger dose.
+	var/first_puff = TRUE
 
 	pickup_sound = 'sound/items/handling/generic_small_pickup.ogg'
 	drop_sound = 'sound/items/handling/generic_small_drop.ogg'
@@ -76,23 +85,72 @@ LIGHTERS ARE IN LIGHTERS.DM
 	STOP_PROCESSING(SSobj, src)
 	return ..()
 
-/obj/item/clothing/mask/cigarette/pre_attackby(atom/target, mob/living/user, params)
-	. = ..()
-	var/obj/item/lighting_item = target
-	if(ATTACK_CHAIN_CANCEL_CHECK(.) || !istype(lighting_item))
-		return .
+/obj/item/clothing/mask/cigarette/decompile_act(obj/item/matter_decompiler/C, mob/user)
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
 
-	if(lighting_item.get_heat())
-		light()
-		return .|ATTACK_CHAIN_BLOCKED
+/obj/item/clothing/mask/cigarette/attack(mob/living/M, mob/living/user, def_zone)
+	if(istype(M) && M.on_fire)
+		user.changeNext_move(CLICK_CD_MELEE)
+		user.do_attack_animation(M)
+		if(M != user)
+			user.visible_message(
+				span_notice("[user] хладнокровно прикурива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] от горящего тела [M.declent_ru(GENITIVE)]. Очевидно, [genderize_ru(user.gender, "он", "она", "оно", "они")] жела[pluralize_ru(user.gender, "ет", "ют")] [M.declent_ru(DATIVE)] всего хорошего."),
+				span_notice("Вы хладнокровно прикуриваете [declent_ru(ACCUSATIVE)] о горящее тело [M.declent_ru(GENITIVE)]")
+			)
+		else
+			// The fire will light it in your hands by itself, but if you whip out the cig and click yourself fast enough, this will happen. TRULY you have your priorities stright.
+			user.visible_message(
+				span_notice("[user] быстро доста[pluralize_ru(user.gender, "ёт", "ют")] [src] и беспечно поджигает её своим горящим телом. [capitalize(genderize_ru(user.gender, "он", "она", "оно", "они"))] определённо уме[pluralize_ru(user.gender, "ет", "ют")] раставлять приоритеты."),
+				span_notice("Вы быстро достаёте [src] и беспечно поджигаете её своим горящим телом. Вы определённо умеете выставлять приоритеты.")
+			)
+		light(user, user)
+		return TRUE
 
-/obj/item/clothing/mask/cigarette/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(target.on_fire)
-		user.do_attack_animation(target)
-		light(span_notice("[user] хладнокровно прикурива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] от горящего тела [target.declent_ru(GENITIVE)]. Очевидно, [genderize_ru(user.gender, "он", "она", "оно", "они")] жела[pluralize_ru(user.gender, "ет", "ют")] [target.declent_ru(DATIVE)] всего хорошего."))
-		return ATTACK_CHAIN_PROCEED_SUCCESS
+/obj/item/clothing/mask/cigarette/afterattack(atom/target, mob/living/user, proximity)
+	if(!proximity)
+		return
+
+	if(ismob(target))
+		// If the target has no cig, try to give them the cig.
+		var/mob/living/carbon/M = target
+		if(istype(M) && user.zone_selected == "mouth" && !M.wear_mask && user.a_intent == INTENT_HELP)
+			user.drop_item_ground(src)
+			M.equip_to_slot_if_possible(src, ITEM_SLOT_MASK)
+			if(target != user)
+				user.visible_message(
+					span_notice("[user] просовывает [declent_ru(ACCUSATIVE)] в рот [M]."),
+					span_notice("Вы просовываете [declent_ru(ACCUSATIVE)] в рот [M]")
+				)
+			else
+				to_chat(user, span_notice("Вы кладёте [declent_ru(ACCUSATIVE)] себе в рот."))
+			return TRUE
+
+	// You can dip cigarettes into beakers.
+	if(istype(target, /obj/item/reagent_containers/glass))
+		var/obj/item/reagent_containers/glass/glass = target
+		var/transfered = glass.reagents.trans_to(src, chem_volume)
+		if(transfered)
+			to_chat(user, span_notice("Вы окунаете [declent_ru(ACCUSATIVE)] в [glass.declent_ru(ACCUSATIVE)]."))
+			return
+
+		// Either the beaker was empty, or the cigarette was full
+		if(!glass.reagents.total_volume)
+			user.balloon_alert(usr, "пусто!")
+		else
+			user.balloon_alert(usr, "уже заполнено!")
+
 	return ..()
 
+/obj/item/clothing/mask/cigarette/attack_self(mob/user)
+	if(lit)
+		user.visible_message(
+			span_notice("[user] спокойно зажима[pluralize_ru(user.gender, "ет", "ют")] прикуренный конец [declent_ru(GENITIVE)], мгновенно погасив [genderize_ru(gender, "его", "её", "его", "их")]."),
+			span_notice("Вы спокойно зажимаете прикуренный конец [declent_ru(GENITIVE)], мгновенно погасив [genderize_ru(gender, "его", "её", "его", "их")]."),
+			span_notice("Вы слышите, как кто-то наступает на что-то ногой, затем тихое шипение тлеющего уголька.")
+		)
+		die()
+	return ..()
 
 /obj/item/clothing/mask/cigarette/can_enter_storage(obj/item/storage/target, mob/user)
 	if(lit && !istype(target, /obj/item/storage/ashtray))
@@ -109,12 +167,106 @@ LIGHTERS ARE IN LIGHTERS.DM
 	if(!lit)
 		light(span_warning("[capitalize(declent_ru(NOMINATIVE))] зажигается от огня!"))
 
-/obj/item/clothing/mask/cigarette/welder_act(mob/user, obj/item/item)
-	. = TRUE
-	if(item.tool_use_check(user, 0)) //Don't need to flash eyes because you are a badass
-		light(span_notice("[user] непринуждённо прикурива[pluralize_ru(user, "ет", "ют")] [declent_ru(ACCUSATIVE)] с помощью [item.declent_ru(GENITIVE)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]!"))
+/obj/item/clothing/mask/cigarette/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		user.balloon_alert(user, "сначала прикурите свою сигарету!")
+		return TRUE
+	if(target == user)
+		user.visible_message(
+			span_notice("[user] прижимает [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], пока та не загорится."),
+			span_notice("Вы прижимаете [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], пока та не загорится.")
+		)
+	else
+		user.visible_message(
+			span_notice("[user] прижимает [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], пока та не загорится."),
+			span_notice("Вы прижимаете [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], пока та не загорится. В тесноте, да не в обиде!")
+		)
+	cig.light(user, target)
+	return TRUE
+
+/obj/item/clothing/mask/cigarette/attackby(obj/item/I, mob/living/user, params)
+	if(I.cigarette_lighter_act(user, user, src))
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+	// Catch any item that has no cigarette_lighter_act but logically should be able to work as a lighter due to being hot.
+	if(I.get_heat())
+		//Give a generic light message.
+		user.visible_message(
+			"<span class='notice'>[user] зажигает [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)]</span>",
+			"<span class='notice'>Вы зажигаете [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)].</span>"
+		)
+		light(user)
+		return ATTACK_CHAIN_BLOCKED_ALL
+
+/obj/item/clothing/mask/cigarette/proc/light(mob/living/user, mob/living/target)
+	if(lit)
+		return
+
+	lit = TRUE
+	name = "lit [name]"
+	ru_names = list(
+		NOMINATIVE = "прикуренная сигарета",
+		GENITIVE = "прикуренной сигареты",
+		DATIVE = "прикуренной сигарете",
+		ACCUSATIVE = "прикуренную сигарету",
+		INSTRUMENTAL = "прикуренной сигаретой",
+		PREPOSITIONAL = "прикуренной сигарете"
+	)
+	attack_verb = list("подпалил", "опалил")
+	hitsound = 'sound/items/welder.ogg'
+	damtype = BURN
+	force = 4
+	var/mob/M = loc
+
+	// Plasma explodes when exposed to fire.
+	if(reagents.get_reagent_amount("plasma"))
+		var/datum/effect_system/reagents_explosion/e = new()
+		e.set_up(round(reagents.get_reagent_amount("plasma") / 2.5, 1), get_turf(src), 0, 0)
+		e.start()
+		if(ismob(M))
+			M.drop_item_ground(src)
+		qdel(src)
+		return
+
+	// Fuel explodes, too, but much less violently.
+	if(reagents.get_reagent_amount("fuel"))
+		var/datum/effect_system/reagents_explosion/e = new()
+		e.set_up(round(reagents.get_reagent_amount("fuel") / 5, 1), get_turf(src), 0, 0)
+		e.start()
+		if(ismob(M))
+			M.drop_item_ground(src)
+		qdel(src)
+		return
+
+	// If there is no target, the user is probably lighting their own cig.
+	if(isnull(target))
+		target = user
+
+	// If there is also no user, the cig is being lit by atmos or something.
+	if(target)
+		target.update_inv_wear_mask()
+		target.update_inv_l_hand()
+		target.update_inv_r_hand()
+
+	reagents.set_reacting(TRUE)
+	reagents.handle_reactions()
+	icon_state = icon_on
+	item_state = icon_on
+	if(iscarbon(loc))
+		var/mob/living/carbon/C = loc
+		if(C.wear_mask == src) // Don't update if it's just in their hand
+			C.wear_mask_update(src)
+	set_light(2, 0.25, "#E38F46")
+	START_PROCESSING(SSobj, src)
+	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
+	return TRUE
 
 
+/*
 /obj/item/clothing/mask/cigarette/attackby(obj/item/item, mob/user, params)
 	if(istype(item, /obj/item/weldingtool/sword))
 		if(item.tool_enabled)
@@ -206,23 +358,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 		light(span_notice("[user] прикурива[pluralize_ru(user.gender, "ет", "ют")] свою [declent_ru(ACCUSATIVE)] другой [cigarette.declent_ru(INSTRUMENTAL)]. Бедолага..."))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
-	return ..()
-
-
-/obj/item/clothing/mask/cigarette/afterattack(obj/item/reagent_containers/glass/glass, mob/user, proximity, params)
-	..()
-	if(!proximity)
-		return
-	if(istype(glass))	//you can dip cigarettes into beakers
-		var/transfered = glass.reagents.trans_to(src, chem_volume)
-		if(transfered)	//if reagents were transfered, show the message
-			to_chat(user, span_notice("Вы окунаете [declent_ru(ACCUSATIVE)] в [glass.declent_ru(ACCUSATIVE)]."))
-		else			//if not, either the beaker was empty, or the cigarette was full
-			if(!glass.reagents.total_volume)
-				user.balloon_alert(usr, "пусто!")
-			else
-				user.balloon_alert(usr, "уже заполнено!")
-
+	return ..() */
 
 /obj/item/clothing/mask/cigarette/update_icon_state()
 	icon_state = lit ? icon_on : icon_off
@@ -230,43 +366,8 @@ LIGHTERS ARE IN LIGHTERS.DM
 	update_equipped_item(update_speedmods = FALSE)
 
 
-/obj/item/clothing/mask/cigarette/update_name(updates = ALL)
-	. = ..()
-	name = lit ? "lit [initial(name)]" : initial(name)
-	if(ru_names && lit)
-		ru_names[NOMINATIVE] = "прикуренная " + ru_names[NOMINATIVE]
-		ru_names[GENITIVE] = "прикуренной " + ru_names[GENITIVE]
-		ru_names[DATIVE] = "прикуренной " + ru_names[DATIVE]
-		ru_names[ACCUSATIVE] = "прикуренную " + ru_names[ACCUSATIVE]
-		ru_names[INSTRUMENTAL] = "прикуренной " + ru_names[INSTRUMENTAL]
-		ru_names[PREPOSITIONAL] = "прикуренной " + ru_names[PREPOSITIONAL]
-
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
-
-
-/obj/item/clothing/mask/cigarette/proc/light(flavor_text = null)
-	if(lit)
-		return
-
-	lit = TRUE
-	attack_verb = list("подпалил", "опалил")
-	hitsound = 'sound/items/welder.ogg'
-	damtype = FIRE
-	force = 4
-
-	if(check_reagents_explosion())
-		return
-
-	reagents.set_reacting(TRUE)
-	reagents.handle_reactions()
-	update_appearance(UPDATE_ICON_STATE|UPDATE_NAME)
-	if(flavor_text)
-		var/turf/T = get_turf(src)
-		T.visible_message(flavor_text)
-	START_PROCESSING(SSobj, src)
-	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-
 
 /obj/item/clothing/mask/cigarette/proc/check_reagents_explosion()
 	var/reagent = ""
@@ -303,12 +404,6 @@ LIGHTERS ARE IN LIGHTERS.DM
 		return
 	die()
 
-/obj/item/clothing/mask/cigarette/attack_self(mob/user)
-	if(lit)
-		user.visible_message(span_notice("[user] спокойно зажима[pluralize_ru(user.gender, "ет", "ют")] прикуренный конец [declent_ru(GENITIVE)], мгновенно погасив [genderize_ru(gender, "его", "её", "его", "их")]."))
-		die()
-	return ..()
-
 /obj/item/clothing/mask/cigarette/proc/smoke()
 	var/turf/location = get_turf(src)
 	var/is_being_smoked = FALSE
@@ -344,6 +439,10 @@ LIGHTERS ARE IN LIGHTERS.DM
 
 /obj/item/clothing/mask/cigarette/get_heat()
 	return lit * 1000
+
+//////////////////////////////
+// MARK: CIGARETTES
+//////////////////////////////
 
 /obj/item/clothing/mask/cigarette/menthol
 	list_reagents = list("nicotine" = 40, "menthol" = 20)
@@ -404,9 +503,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	pixel_x = rand(-5, 5)
 	pixel_y = rand(-5, 5)
 
-////////////
-// CIGARS //
-////////////
+//////////////////////////////
+// MARK: CIGARS
+//////////////////////////////
 
 /obj/item/clothing/mask/cigarette/cigar
 	name = "Premium Cigar"
@@ -422,6 +521,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_state = "cigaroff"
 	icon_on = "cigaron"
 	icon_off = "cigaroff"
+	fancy = TRUE
 	type_butt = /obj/item/cigbutt/cigarbutt
 	throw_speed = 0.5
 	item_state = "cigaroff"
@@ -488,9 +588,11 @@ LIGHTERS ARE IN LIGHTERS.DM
 	transform = turn(transform,rand(0,360))
 
 /obj/item/cigbutt/decompile_act(obj/item/matter_decompiler/C, mob/user)
-	C.stored_comms["wood"] += 1
-	qdel(src)
-	return TRUE
+	if(isdrone(user))
+		C.stored_comms["wood"] += 1
+		qdel(src)
+		return TRUE
+	return ..()
 
 /obj/item/cigbutt/cigarbutt
 	name = "cigar butt"
@@ -523,9 +625,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	return ..()
 
 
-/////////////////
-//SMOKING PIPES//
-/////////////////
+//////////////////////////////
+// MARK: PIPES
+//////////////////////////////
 
 /obj/item/clothing/mask/cigarette/pipe
 	name = "smoking pipe"
@@ -542,6 +644,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	item_state = "pipeoff"
 	icon_on = "pipeon"  //Note - these are in masks.dmi
 	icon_off = "pipeoff"
+	fancy = TRUE
 	smoketime = 500
 	chem_volume = 200
 	list_reagents = list("nicotine" = 200)
@@ -642,9 +745,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	icon_on = "oldpipeon"
 	icon_off = "oldpipeoff"
 
-///////////
-//ROLLING//
-///////////
+/////////////////////////////
+// MARK: ROLLING
+//////////////////////////////
 
 /obj/item/rollingpaper
 	name = "rolling paper"
@@ -684,9 +787,9 @@ LIGHTERS ARE IN LIGHTERS.DM
 	else
 		..()
 
-//////////////
-//HOLO CIGAR//
-//////////////
+//////////////////////////////
+// MARK: HOLO-CIGAR
+//////////////////////////////
 
 /obj/item/clothing/mask/holo_cigar
 	name = "Holo-Cigar"
@@ -702,6 +805,7 @@ LIGHTERS ARE IN LIGHTERS.DM
 	gender = FEMALE
 	icon_state = "holocigaroff"
 	item_state = "holocigaroff"
+	/// Is the holo-cigar lit?
 	var/enabled = FALSE
 	/// Tracks if this is the first cycle smoking the cigar.
 	var/has_smoked = FALSE

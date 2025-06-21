@@ -1,7 +1,7 @@
-// Basic lighters
+// MARK: LIGHTERS
 /obj/item/lighter
 	name = "cheap lighter"
-	desc = "Дешёвая пластиковая зажигалка."
+	desc = "Дешёвая пластиковая зажигалка. Хоть и со скрипом, но всё-таки работает."
 	ru_names = list(
 		NOMINATIVE = "дешёвая зажигалка",
 		GENITIVE = "дешёвой зажигалки",
@@ -27,6 +27,7 @@
 	var/lit = FALSE
 	var/icon_on = "lighter-g-on"
 	var/icon_off = "lighter-g"
+	var/is_a_zippo = FALSE
 	/// Cooldown until the next turned on message/sound can be activated
 	var/next_on_message
 	/// Cooldown until the next turned off message/sound can be activated
@@ -67,7 +68,7 @@
 		user.balloon_alert(user, "включено")
 	else if(HAS_TRAIT(user, TRAIT_BADASS))
 		user.balloon_alert(user, "включено")
-		to_chat(user, span_notice("Как только вы зажгли [declent_ru(ACCUSATIVE)], [genderize_ru(user.gender, "его", "её", "его", "их")] пламя окутывает вашу руку, но вы даже не дёрнулись."))
+		to_chat(user, span_notice("Как только вы зажгли [declent_ru(ACCUSATIVE)], её пламя окутывает вашу руку, но вы даже не дёрнулись."))
 	else
 		user.balloon_alert(user, "включено")
 		user.apply_damage(5, BURN, def_zone = user.hand ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)	//INFERNO
@@ -101,8 +102,42 @@
 		playsound(src, 'sound/items/lighter/plastic_close.ogg', 25, TRUE)
 		next_off_message = world.time + 5 SECONDS
 
-
 /obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(cigarette_lighter_act(user, target))
+		return
+	if(lit && target.IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
+		log_game("[key_name(user)] set [key_name(target)] on fire")
+
+	return ..()
+
+/obj/item/lighter/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	// Otherwise the later parts of this proc can be passed to the zippo and cause a runtime.
+	if(is_a_zippo)
+		return cig
+
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_notice("Немного повозившись, [user.declent_ru(DATIVE)] удаётся зажечь свою [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]."),
+			span_notice("Немного повозившись, вам удаётся зажечь [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)].")
+		)
+	else
+		user.visible_message(
+			span_notice("Немного повозившись, [user] удаётся зажечь [cig.declent_ru(ACCUSATIVE)] [target] [declent_ru(INSTRUMENTAL)]."),
+			span_notice("Немного повозившись, вам удаётся зажечь [cig.declent_ru(ACCUSATIVE)] [target] [declent_ru(INSTRUMENTAL)].")
+		)
+	cig.light(user, target)
+	return TRUE
+
+/* /obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	if(!lit)
 		return ..()
 
@@ -132,7 +167,7 @@
 		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
 
 	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-	target.update_inv_wear_mask()
+	target.update_inv_wear_mask() */
 
 
 /obj/item/lighter/process()
@@ -141,10 +176,11 @@
 		location.hotspot_expose(700, 5)
 	return
 
-// Zippo lighters
+// ZIPPO LIGHTERS
+
 /obj/item/lighter/zippo
 	name = "Зажигалка Зиппо"
-	desc = "Металлическая бензиновая зажигалка Зиппо."
+	desc = "Металлическая бензиновая зажигалка Зиппо, для самых важных персон."
 	ru_names = list(
 		NOMINATIVE = "зажигалка Зиппо",
 		GENITIVE = "зажигалки Зиппо",
@@ -172,7 +208,11 @@
 	. = ..()
 	user.balloon_alert(user, "включено")
 	if(world.time > next_on_message)
-		user.visible_message(span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[pluralize_ru(user.gender, "ет", "ют")] и зажига[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)]."))
+		user.visible_message(
+				span_rose("Не отвлекаясь от дела, [user] одним плавным движением открыва[pluralize_ru(user.gender, "ет", "ют")] и зажига[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)]."),
+				span_rose("Не отвлекаясь от дела, вы одним плавным движением открываете и зажигаете [src.declent_ru(ACCUSATIVE)]."),
+				span_rose("Вы слышите щелчок открытия Зиппо.")
+			)
 		playsound(src.loc, 'sound/items/zippolight.ogg', 25, 1)
 		next_on_message = world.time + 5 SECONDS
 
@@ -182,9 +222,35 @@
 		return
 	user.balloon_alert(user, "выключено")
 	if(world.time > next_off_message)
-		user.visible_message(span_rose("Вы слышите тихий щелчок, когда [user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"))
+		user.visible_message(
+				span_rose("Вы слышите тихий щелчок, когда [user] закрыва[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], даже не смотря в её сторону. Во даёт!"),
+				span_rose("Вы закрываете [declent_ru(ACCUSATIVE)], даже не смотря в её сторону."),
+				span_rose("Вы слышите тихий щелчок закрытия Зиппо.")
+				)
 		playsound(src.loc, 'sound/items/zippoclose.ogg', 25, 1)
 		next_off_message = world.time + 5 SECONDS
+
+/obj/item/lighter/zippo/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		user.balloon_alert(user, "сначала включите!")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_rose("Лёгким движением руки, [user] прикурива[pluralize_ru(user, "ет", "ют")] свою [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."),
+			span_rose("Лёгким движением руки, вы прикуриваете свою [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)].")
+		)
+	else
+		user.visible_message(
+			span_rose("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."),
+			span_rose("Вы достаёте [declent_ru(ACCUSATIVE)] и держите [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Ваша рука тверда, как немигающее пламя, которым вы прикуриваете [cig.declent_ru(ACCUSATIVE)].")
+		)
+	cig.light(user, target)
+	return TRUE
 
 /obj/item/lighter/zippo/show_off_message(mob/living/user)
 	return
@@ -437,9 +503,8 @@
 	icon_on = "zippo_ninja_on"
 	icon_off = "zippo_ninja"
 
-///////////
-//MATCHES//
-///////////
+// MARK: MATCHES
+
 /obj/item/match
 	name = "match"
 	desc = "Обычная спичка, предназначенная для поджигания курительных смесей."
@@ -458,6 +523,7 @@
 	var/lit = FALSE
 	var/burnt = FALSE
 	var/smoketime = 5
+	var/is_unathi_fire = FALSE
 	w_class = WEIGHT_CLASS_TINY
 	origin_tech = "materials=1"
 	attack_verb = null
@@ -519,7 +585,12 @@
 	desc = lit ? "[capitalize(declent_ru(NOMINATIVE))], охваченная пламенем." : burnt ? "[capitalize(declent_ru(NOMINATIVE))]. Повидала всякое." : initial(desc)
 
 /obj/item/match/get_heat()
+	origin_tech = null
+	lit = TRUE
+	w_class = WEIGHT_CLASS_BULKY //to prevent it going to pockets
+	is_unathi_fire = TRUE
 	return lit * 1000
+
 
 /obj/item/match/proc/matchignite()
 	if(!lit && !burnt)
@@ -549,43 +620,43 @@
 	matchburnout()
 	. = ..()
 
-
 /obj/item/match/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(cigarette_lighter_act(user, target))
+		return
+
+	if(lit && target.IgniteMob())
+		message_admins("[key_name_admin(user)] set [key_name_admin(target)] on fire")
+		log_game("[key_name(user)] set [key_name(target)] on fire")
+
+	return ..()
+
+/obj/item/match/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+
+	// Otherwise the later parts of this proc can be passed to the unathi's blaze and cause a runtime.
+	if(is_unathi_fire)
+		return cig
+
+	if(!cig)
+		return !isnull(cig)
+
 	if(!lit)
-		return ..()
-
-	var/return_flags = ATTACK_CHAIN_PROCEED
-
-	if(target.IgniteMob())
-		return_flags |= ATTACK_CHAIN_SUCCESS
-		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
-
-	var/obj/item/clothing/mask/cigarette/cig = help_light_cig(target)
-	if(!cig || user.zone_selected != BODY_ZONE_PRECISE_MOUTH)
-		return ..() | return_flags
-
-	if(cig.lit)
-		user.balloon_alert(user, "сигарета уже горит!")
-		return return_flags
+		user.balloon_alert(user, "зажгите спичку!")
+		return TRUE
 
 	if(target == user)
-		return cig.attackby(src, user, params) | return_flags
-
-	return_flags |= ATTACK_CHAIN_SUCCESS
-	. = return_flags
-
-	if(istype(src, /obj/item/match/unathi))
-		if(prob(50))
-			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [genderize_ru(target.gender, "его", "её", "его", "их")] лицо!"))
-			matchburnout()
-		else
-			cig.light(span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] , опаливая [genderize_ru(target.gender, "его", "её", "его", "их")] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."))
-			target.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
-			playsound(src, 'sound/effects/unathiignite.ogg', 40, FALSE)
+		user.visible_message(
+			span_notice("[capitalize(user)] прикурива[pluralize_ru(user, "ет", "ют")] свою [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)]. Чёрт, как же он[genderize_ru(user.gender, "", "а", "о", "и")] крут[genderize_ru(user.gender, "", "а", "о", "ы")]."),
+			span_notice("Лёгким движением руки, вы прикуриваете свою [cig.declent_ru(ACCUSATIVE)] [declent_ru(INSTRUMENTAL)].")
+		)
 	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
-		playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-
+		user.visible_message(
+			span_notice("[capitalize(user)] держит [declent_ru(ACCUSATIVE)] у [cig.declent_ru(GENITIVE)] [target], зажигая её."),
+			span_notice("Вы держите [declent_ru(ACCUSATIVE)] у [cig.declent_ru(GENITIVE)] [target], прикуривая её.")
+		)
+	cig.light(user, target)
+	matchburnout()
+	return TRUE
 
 /obj/item/match/decompile_act(obj/item/matter_decompiler/C, mob/user)
 	if(burnt)
@@ -644,6 +715,40 @@
 	. = ..()
 	START_PROCESSING(SSobj, src)
 
+/obj/item/match/unathi/cigarette_lighter_act(mob/living/target, mob/living/user, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(!lit)
+		to_chat(user, "<span class='userdanger'>If you can see this message, please make an issue report to GitHub, something bad has happened.</span>")
+		return TRUE
+
+	if(target == user)
+		user.visible_message(
+			span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [cig.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] её."),
+			span_rose("Вы извергаете пламя на [cig.declent_ru(ACCUSATIVE)] и зажигаете её."),
+			span_warning("Вы слышите короткую вспышку пламени!")
+		)
+	else
+		if(prob(50))
+			user.visible_message(
+				span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)] и зажига[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)], чуть не опалив [genderize_ru(target.gender, "его", "её", "его", "их")] лицо!"),
+				span_rose("Вы извергаете пламя на [target.declent_ru(ACCUSATIVE)] и зажигаете [cig.declent_ru(ACCUSATIVE)], чуть не опалив [genderize_ru(target.gender, "его", "её", "его", "их")] лицо!"),
+				span_warning("Вы слышите короткую вспышку пламени!")
+				)
+		else
+			user.visible_message(
+				span_rose("[user] изверга[pluralize_ru(user.gender, "ет", "ют")] пламя на [target.declent_ru(ACCUSATIVE)], опаливая [genderize_ru(target.gender, "его", "её", "его", "их")] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."),
+				span_rose("Вы извергаете пламя на [target.declent_ru(ACCUSATIVE)], опаливая [genderize_ru(target.gender, "его", "её", "его", "их")] лицо и зажигая [cig.declent_ru(ACCUSATIVE)]."),
+				span_warning("Вы слышите короткую вспышку пламени!")
+			)
+			target.apply_damage(5, BURN, def_zone = BODY_ZONE_HEAD)
+			target.UpdateDamageIcon()
+	cig.light(user, target)
+	playsound(user.loc, 'sound/effects/unathiignite.ogg', 40, FALSE)
+	matchburnout()
+	return TRUE
 
 /obj/item/match/unathi/fire_act(datum/gas_mixture/air, exposed_temperature, exposed_volume, global_overlay = TRUE)
 	return	// we are already burning

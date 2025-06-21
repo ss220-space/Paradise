@@ -352,7 +352,7 @@
 			if(force_left > force_right)
 				if(!owner.hand)
 					owner.swap_hand()
-				left_hand.attack(target, owner, def_zone = BODY_ZONE_HEAD)	// yes! right in the neck
+				left_hand.attack(target, owner, def_zone = BODY_ZONE_HEAD)// yes! right in the neck
 			else if(force_right)
 				if(owner.hand)
 					owner.swap_hand()

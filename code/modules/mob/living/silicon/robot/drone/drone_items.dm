@@ -111,7 +111,10 @@
 					/obj/item/toy/plushie,
 					/obj/item/reagent_containers/food,
 					/obj/item/seeds,
-					/obj/item/disk/plantgene)
+					/obj/item/disk/plantgene,
+					/obj/item/toy/plushie,
+					/obj/item/clothing/mask/cigarette
+					)
 
 /obj/item/gripper/service/melee_attack_chain(mob/living/user, atom/target, params)
 	try_shake_up(user, target)

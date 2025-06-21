@@ -152,6 +152,28 @@
 	attack_verb = list("подпалил")
 	tool_behaviour = TOOL_CAUTERY
 
+/obj/item/cautery/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/cautery/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(target == user)
+		user.visible_message(
+			span_notice("[user] прижимает [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], пока она не загорится."),
+			span_notice("Вы прижимаете [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], пока она не загорится.")
+		)
+	else
+		user.visible_message(
+			span_notice("[user] прижимает [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)] [target], пока она не загорится."),
+			span_notice("Вы прижимаете [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)] [target], пока она не загорится.")
+		)
+	cig.light(user, target)
+	return TRUE
+
 /obj/item/cautery/Initialize(mapload)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_SURGICAL, ROUNDSTART_TRAIT)
@@ -332,6 +354,29 @@
 	icon_state = "scalpel_laser1_on"
 	damtype = "fire"
 	hitsound = 'sound/weapons/sear.ogg'
+
+
+/obj/item/scalpel/laser/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
+	if(!cigarette_lighter_act(user, target))
+		return ..()
+
+/obj/item/scalpel/laser/cigarette_lighter_act(mob/living/user, mob/living/target, obj/item/direct_attackby_item)
+	var/obj/item/clothing/mask/cigarette/cig = ..()
+	if(!cig)
+		return !isnull(cig)
+
+	if(target == user)
+		user.visible_message(
+			span_notice("[user] прижимает [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], нагревая её до тех пор, пока она не загорится."),
+			span_notice("Вы прижимаете [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)], нагревая её до тех пор, пока она не загорится.")
+		)
+	else
+		user.visible_message(
+			span_notice("[user] прижимает [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)] [target], нагревая её до тех пор, пока она не загорится."),
+			span_notice("Вы прижимаете [declent_ru(ACCUSATIVE)] к [cig.declent_ru(DATIVE)] [target], нагревая её до тех пор, пока она не загорится.")
+		)
+	cig.light(user, target)
+	return TRUE
 
 /obj/item/scalpel/laser/laser1 //lasers also count as catuarys
 	name = "Basic Laser Scalpel"
