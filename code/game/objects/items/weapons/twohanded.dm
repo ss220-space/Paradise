@@ -906,9 +906,12 @@
 	throwforce = 24
 	force_unwielded = 19
 	force_wielded = 25
+	block_chance = 50
+	block_type = MELEE_ATTACKS
 	light_system = MOVABLE_LIGHT
 	light_range = 3
 	light_power = 6
+	siemens_coefficient = 0
 	light_color = COLOR_SOFT_RED
 
 /obj/item/twohanded/pitchfork/demonic/greater
@@ -932,17 +935,20 @@
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()
-	if(isliving(user))
-		var/mob/living/U = user
-		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message(span_warning("Когда [U.declent_ru(NOMINATIVE)] поднимает [declent_ru(ACCUSATIVE)], [genderize_ru(U.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
-							span_warning("\"Когда ты поднимаешь [declent_ru(ACCUSATIVE)], твои руки воспламеняются, напоминая тебе обо всех твоих прошлых грехах.\""))
-			if(ishuman(U))
-				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-			else
-				U.adjustFireLoss(rand(force / 2, force))
+	if(!isliving(user))
+		return
+	var/mob/living/living_user = user
 
+	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || !(living_user.mind.soulOwner == living_user.mind)) //Burn hands unless they are a devil or have sold their soul
+		return
+
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднимает [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+					span_warning("\"Когда ты поднимаешь [declent_ru(ACCUSATIVE)], твои руки воспламеняются, напоминая тебе обо всех твоих прошлых грехах.\""))
+	if(!ishuman(living_user))
+		living_user.adjustFireLoss(rand(force / 2, force))
+		return
+	var/mob/living/carbon/human/human = living_user
+	human.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 /obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()

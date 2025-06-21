@@ -32,8 +32,8 @@
 /datum/antagonist/devil/Destroy(force)
 	QDEL_NULL(rank)
 	LAZYNULL(soulsOwned)
-
-	return ..()
+	. = ..()
+	QDEL_NULL(info)
 
 /datum/antagonist/devil/proc/add_soul(datum/mind/soul)
 	if((!istype(soul)) || (LAZYIN(soulsOwned, soul)))
@@ -173,20 +173,20 @@
 	return
 
 /datum/antagonist/devil/proc/init_bane()
-	info.bane.link_bane(owner.current)
+	info?.bane.link_bane(owner.current)
 	info.bane.init_bane()
 
 	return
 
 /datum/antagonist/devil/proc/init_obligation()
-	info.obligation.link_obligation(owner.current)
+	info?.obligation.link_obligation(owner.current)
 	info.obligation.apply_obligation_effect()
 	info.obligation.give_spells()
 
 	return
 
 /datum/antagonist/devil/proc/init_ban()
-	info.ban.link_ban(owner.current)
+	info?.ban.link_ban(owner.current)
 	info.ban.apply_ban_effect()
 
 	return
@@ -248,7 +248,6 @@
 
 	info.obligation?.remove_obligation()
 	info.ban?.remove_ban()
-	QDEL_NULL(info)
 
 	LAZYREMOVE(owner.current.faction, "hell")
 	REMOVE_TRAIT(owner.current, TRAIT_NO_DEATH, UNIQUE_TRAIT_SOURCE(src))

@@ -167,7 +167,7 @@
 
 	rank_spells = list(
 		/obj/effect/proc_holder/spell/conjure_item/pitchfork/ascended,
-		/obj/effect/proc_holder/spell/fireball/hellish,
+		/obj/effect/proc_holder/spell/fireball/hellish/acsend,
 		/obj/effect/proc_holder/spell/aoe/devil_fire,
 		/obj/effect/proc_holder/spell/infernal_jaunt,
 		/obj/effect/proc_holder/spell/devil_broadcast
@@ -189,7 +189,8 @@
 		old_devil.oldform?.forceMove(true_devil)
 		true_devil.oldform = old_devil.oldform
 		old_devil.oldform = null
-		qdel(old_devil)
+		old_devil.forceMove(true_devil)
+		QDEL_IN(old_devil, 1 SECONDS)
 	else
 		ADD_TRAIT(devil_mob, TRAIT_NO_BREATH, DEVIL_TRAIT)
 		devil_mob.forceMove(true_devil)

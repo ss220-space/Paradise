@@ -166,7 +166,7 @@
 	desc = "Это заклинание запускает сгусток адского пламени в цель."
 
 	school = "evocation"
-	base_cooldown = 8 SECONDS
+	base_cooldown = 15 SECONDS
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -177,6 +177,8 @@
 	fireball_type = /obj/projectile/magic/fireball/infernal
 	action_background_icon_state = "bg_demon"
 
+/obj/effect/proc_holder/spell/fireball/hellish/acsend
+	fireball_type = /obj/projectile/magic/fireball/infernal/acsend
 
 /obj/effect/proc_holder/spell/infernal_jaunt
 	name = "Адский Скачок"
@@ -218,7 +220,7 @@
 					break
 		if(continuing)
 			to_chat(user, span_warning("Вы возвращаетесь в материальный мир."))
-			if(do_after(user, 15 SECONDS, user, NONE))
+			if(do_after(user, 10 SECONDS, user, NONE))
 				user.infernalphasein(src)
 		else
 			to_chat(user, span_warning("Вы можете материализоваться только на шаттле или рядом с тем, кто сможет подписать контракт."))
@@ -228,12 +230,13 @@
 	else
 		user.fakefire()
 		to_chat(user, span_warning("Адское пламя выплёскивает вас обратно в реальность."))
-		if(do_after(user, 15 SECONDS, user, NONE))
+		if(do_after(user, 10 SECONDS, user, NONE))
 			ADD_TRAIT(user, TRAIT_NO_TRANSFORM, UNIQUE_TRAIT_SOURCE(src))
 			user.infernalphaseout(src)
 		else
 			to_chat(user, span_warning("Вы должны оставаться неподвижным во время возвращения."))
 			user.ExtinguishMob()
+			user.fakefireextinguish()
 
 	cooldown_handler.start_recharge()
 	return
@@ -378,7 +381,7 @@
 	desc = "Призывает огненные волны в радиусе заклинания."
 	action_icon_state = "explosion_old"
 
-	base_cooldown = 60 SECONDS
+	base_cooldown = 20 SECONDS
 	aoe_range = 10
 	invocation = "Che? non ' stimiti te faccende del inferno!"
 	invocation_type = "shout"

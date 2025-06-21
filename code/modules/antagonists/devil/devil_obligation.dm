@@ -26,13 +26,13 @@
 
 /datum/devil_obligation/proc/give_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in obligation_spells)
-		if(is_type_in_list(spell, obligation_spells))
+		if(owner.mind && (locate(spell) in owner.mind.spell_list))
 			continue
 		owner.mind?.AddSpell(new spell)
 
 /datum/devil_obligation/proc/remove_spells()
 	for(var/obj/effect/proc_holder/spell/spell as anything in owner.mind?.spell_list)
-		if(!is_type_in_list(spell, obligation_spells))
+		if(!(owner.mind && (locate(spell) in owner.mind.spell_list)))
 			continue
 
 		owner.mind?.RemoveSpell(spell)

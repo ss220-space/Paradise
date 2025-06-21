@@ -17,6 +17,7 @@
 	RegisterSignal(human, COMSIG_LIVING_STATUS_SLEEP, PROC_REF(on_sleep))
 
 	ADD_TRAIT(human, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
+	human.grant_actions_by_list(list(/datum/action/innate/remove_hand))
 
 /datum/element/devil_regeneration/Detach(datum/target)
 	. = ..()
@@ -30,6 +31,10 @@
 
 	var/mob/living/carbon/carbon = target
 	REMOVE_TRAIT(carbon, TRAIT_DECOY_BRAIN, DEVIL_TRAIT)
+	var/datum/action/action = locate(/datum/action/innate/remove_hand) in carbon.actions
+	if(!action)
+		return
+	action.Remove(carbon)
 
 /datum/element/devil_regeneration/proc/on_sleep(datum/source, amount)
 	return COMPONENT_NO_EFFECT
@@ -47,14 +52,14 @@
 	if(!devil)
 		return
 
-	addtimer(CALLBACK(src, PROC_REF(regen_bodypart), human, external, devil), devil.rank.regen_threshold)
+	addtimer(CALLBACK(src, PROC_REF(regen_bodypart), human, external.type, devil), devil.rank.regen_threshold)
 
 /datum/element/devil_regeneration/proc/regen_bodypart(
 	mob/living/carbon/human,
 	obj/item/organ/external/external,
 	datum/antagonist/devil/devil
 	)
-	external = new external(human)
+	external = new external(human, ORGAN_MANIPULATION_DEFAULT)
 	human.heal_overall_damage(devil.rank.regen_amount, devil.rank.regen_amount)
 	human.CureBlind()
 	human.AdjustEyeBlind(-devil.rank.regen_amount)
@@ -190,3 +195,37 @@
 		var/mob/living/carbon/human/mob = human
 		mob.update_eyes()
 		mob.update_dna()
+
+
+/datum/action/innate/remove_hand
+	name = "Оторвать себе руку"
+	check_flags = AB_CHECK_CONSCIOUS
+	icon_icon = 'icons/mob/human_races/r_human.dmi'
+	button_icon_state = "l_arm"
+
+
+/datum/action/innate/remove_hand/Grant(mob/user)
+	if(!ishuman(user))
+		return
+	. = ..()
+
+/datum/action/innate/remove_hand/Remove(mob/user)
+	if(!ishuman(user))
+		return
+	. = ..()
+
+
+/datum/action/innate/remove_hand/IsAvailable()
+	. = ..()
+	if(!ishuman(owner))
+		return FALSE
+
+/datum/action/innate/remove_hand/Activate()
+	var/mob/living/carbon/human/human = owner
+	var/obj/item/organ/external/hand = locate(/obj/item/organ/external/hand) in human.bodyparts
+	if(!hand)
+		return
+	hand.droplimb()
+	human.balloon_alert(human, "рука оторвана")
+	human.emote_scream()
+
