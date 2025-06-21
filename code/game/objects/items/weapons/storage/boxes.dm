@@ -692,7 +692,16 @@
 
 /obj/item/storage/box/matches
 	name = "matchbox"
-	desc = "A small box of Almost But Not Quite Plasma Premium Matches."
+	desc = "Маленький коробок плазменных спичек почти премиум-класса."
+	ru_names = list(
+		NOMINATIVE = "коробок спичек",
+		GENITIVE = "коробка спичек",
+		DATIVE = "коробку спичек",
+		ACCUSATIVE = "коробок спичек",
+		INSTRUMENTAL = "коробком спичек",
+		PREPOSITIONAL = "коробке спичек"
+	)
+	gender = MALE
 	icon = 'icons/obj/cigarettes.dmi'
 	icon_state = "matchbox"
 	item_state = "matchbox"

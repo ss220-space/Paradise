@@ -14,7 +14,7 @@
 	var/collapse_tp_radius = 0
 
 /obj/effect/anomaly/bluespace/proc/teleport(atom/movable/target, radius)
-	if(target.anchored && target != src || isobserver(target) || iseffect(target))
+	if(target.anchored && target != src || isobserver(target) || iseffect(target) && target != src)
 		return
 
 	var/turf/start = get_turf(src)

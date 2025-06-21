@@ -1,3 +1,7 @@
+#define ANOMALY_DOUBLE_MOVE_CHANCE 5
+#define ANOMALY_ITEM_TO_RELIC_CHANCE 1
+#define ANOMALY_STRENGHT_MOVE_MULTIPLIER 2
+
 /obj/effect/anomaly
 	name = "аномалия"
 	desc = "Загадочная аномалия. Обычно такую можно наблюдать только в станционном секторе."
@@ -247,7 +251,7 @@
 	if(!item.origin_tech)
 		return
 
-	if(prob(2))
+	if(prob(ANOMALY_ITEM_TO_RELIC_CHANCE))
 		do_sparks(5, TRUE, src)
 		new /obj/item/relic(get_turf(item))
 		qdel(item)
@@ -313,10 +317,13 @@
 		stabilyse()
 		return
 
-	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(get_strenght()))
+	if(stability > ANOMALY_MOVE_MAX_STABILITY || !prob(get_strenght() * ANOMALY_STRENGHT_MOVE_MULTIPLIER))
 		return
 
 	if(normal_move())
+		after_move()
+
+	if(ANOMALY_DOUBLE_MOVE_CHANCE && normal_move())
 		after_move()
 
 	if(has_warp)
@@ -368,3 +375,7 @@
 
 /obj/effect/anomaly/ex_act(severity)
 	return
+
+#undef ANOMALY_DOUBLE_MOVE_CHANCE
+#undef ANOMALY_ITEM_TO_RELIC_CHANCE
+#undef ANOMALY_STRENGHT_MOVE_MULTIPLIER

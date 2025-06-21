@@ -3,8 +3,16 @@
 /obj/effect/decal/cleanable/blood
 	name = "blood"
 	var/dryname = "dried blood"
-	desc = "It's thick and gooey. Perhaps it's the chef's cooking?"
-	var/drydesc = "It's dry and crusty. Someone is not doing their job."
+	desc = "Оно густое и липкое. Возможно, это шедевр местного повара?"
+	var/drydesc = "Оно сухое и засохшее. Кто-то явно халтурит."
+	ru_names = list(
+		NOMINATIVE = "кровь",
+		GENITIVE = "крови",
+		DATIVE = "крови",
+		ACCUSATIVE = "кровь",
+		INSTRUMENTAL = "кровью",
+		PREPOSITIONAL = "крови"
+	)
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE
@@ -64,6 +72,14 @@
 /obj/effect/decal/cleanable/blood/proc/dry()
 	name = dryname
 	desc = drydesc
+	ru_names = list(
+		NOMINATIVE = "засохшая кровь",
+		GENITIVE = "засохшей крови",
+		DATIVE = "засохшей крови",
+		ACCUSATIVE = "засохшую кровь",
+		INSTRUMENTAL = "засохшей кровью",
+		PREPOSITIONAL = "засохшей крови"
+	)
 	color = adjust_brightness(color, -50)
 	amount = 0
 
@@ -75,7 +91,7 @@
 			return
 		var/taken = rand(1,amount)
 		amount -= taken
-		to_chat(user, "<span class='notice'>You get some of \the [src] on your hands.</span>")
+		to_chat(user, span_notice("Вы взяли немного [src.declent_ru(GENITIVE)] в руки."))
 		if(!user.blood_DNA)
 			user.blood_DNA = list()
 		user.blood_DNA |= blood_DNA.Copy()
@@ -152,7 +168,15 @@
 
 /obj/effect/decal/cleanable/blood/drip
 	name = "drips of blood"
-	desc = "It's red."
+	desc = "Оно красное."
+	ru_names = list(
+		NOMINATIVE = "капли крови",
+		GENITIVE = "капель крови",
+		DATIVE = "каплям крови",
+		ACCUSATIVE = "капли крови",
+		INSTRUMENTAL = "каплями крови",
+		PREPOSITIONAL = "каплях крови"
+	)
 	gender = PLURAL
 	icon = 'icons/effects/drip.dmi'
 	icon_state = "1"
@@ -168,7 +192,15 @@
 	name = "blood"
 	icon = 'icons/effects/effects.dmi'
 	icon_state = "nothing"
-	desc = "Your instincts say you shouldn't be following these."
+	desc = "Ваши инстинкты подсказывают, что не стоит идти этим путём."
+	ru_names = list(
+		NOMINATIVE = "кровь",
+		GENITIVE = "крови",
+		DATIVE = "крови",
+		ACCUSATIVE = "кровь",
+		INSTRUMENTAL = "кровью",
+		PREPOSITIONAL = "крови"
+	)
 	gender = PLURAL
 	density = FALSE
 	layer = TURF_LAYER
@@ -181,7 +213,7 @@
 
 /obj/effect/decal/cleanable/blood/writing
 	icon_state = "tracks"
-	desc = "It looks like a writing in blood."
+	desc = "Это похоже на надпись кровью."
 	gender = NEUTER
 	random_icon_states = list("writing1", "writing2", "writing3", "writing4", "writing5")
 	amount = 0
@@ -198,11 +230,19 @@
 
 /obj/effect/decal/cleanable/blood/writing/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>It reads: <font color='[basecolor]'>\"[message]\"<font></span>"
+	. += span_notice("Надпись гласит: <font color='[basecolor]'>\"[message]\"<font>")
 
 /obj/effect/decal/cleanable/blood/gibs
 	name = "gibs"
-	desc = "They look bloody and gruesome."
+	desc = "Кто-то или что-то явно было разорвано на части."
+	ru_names = list(
+		NOMINATIVE = "кровавое месиво",
+		GENITIVE = "кровавого месива",
+		DATIVE = "кровавому месиву",
+		ACCUSATIVE = "кровавое месиво",
+		INSTRUMENTAL = "кровавым месивом",
+		PREPOSITIONAL = "кровавом месиве"
+	)
 	gender = PLURAL
 	density = FALSE
 	anchored = TRUE

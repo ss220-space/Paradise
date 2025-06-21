@@ -346,9 +346,9 @@
 
 	if(hud_used && client)
 		hud_used.show_hud() //Shows the next hud preset
-		to_chat(usr, "<span class ='info'>Switched HUD mode. Press F12 to toggle.</span>")
+		to_chat(usr, span_info("Изменён режим HUD. Переключение – клавиша F12."))
 	else
-		to_chat(usr, "<span class ='warning'>This mob type does not use a HUD.</span>")
+		to_chat(usr, span_warning("У этого типа существ нет HUD."))
 
 
 /datum/hud/proc/update_locked_slots()
