@@ -83,6 +83,10 @@
 	///Targets that are currently processed by turret. Used by process()
 	var/list/processing_targets = list()
 
+	/// List of some inserted gun data. Used to setup new gun.
+	var/list/old_gun_data = list()
+
+
 /obj/machinery/porta_turret/Initialize(mapload)
 	. = ..()
 
@@ -93,6 +97,7 @@
 
 	AddComponent(/datum/component/proximity_monitor, scan_range, TRUE)
 	setup()
+
 
 /obj/machinery/porta_turret/HasProximity(atom/movable/AM)
 	handleInterloper(AM)
@@ -114,8 +119,9 @@
 	return ..()
 
 /obj/machinery/porta_turret/proc/setup()
-	var/obj/item/gun/energy/E = new installation	//All energy-based weapons are applicable
-	var/obj/item/ammo_casing/shottype = E.ammo_type[1]
+	var/obj/item/gun/energy/egun = new installation	//All energy-based weapons are applicable
+	var/obj/item/ammo_casing/shottype = egun.ammo_type[1]
+	egun.setup_gun_for_turret(old_gun_data, src)
 
 	projectile = shottype.projectile_type
 	eprojectile = projectile
@@ -337,8 +343,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		to_chat(user, span_notice("You remove the turret and salvage some components."))
 		if(installation)
 			var/obj/item/gun/energy/Gun = new installation(loc)
+			Gun.turret_deconstruct(old_gun_data)
 			Gun.cell.charge = gun_charge
-			Gun.turret_deconstruct()
 			Gun.update_icon()
 		if(prob(50))
 			new /obj/item/stack/sheet/metal(loc, rand(1,4))
@@ -814,6 +820,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 	var/finish_name="turret"	//the name applied to the product turret
 	var/installation = null		//the gun type installed
 	var/gun_charge = 0			//the gun charge of the gun type installed
+	/// List of some inserted gun data. Used to setup new gun.
+	var/list/old_gun_data = list()
 
 
 /obj/machinery/porta_turret_construct/update_icon_state()
@@ -910,6 +918,8 @@ GLOBAL_LIST_EMPTY(turret_icons)
 				add_fingerprint(user)
 				if(!user.drop_transfer_item_to_loc(I, src))
 					return ..()
+
+				new_gun.prepare_gun_data(old_gun_data)
 				installation = new_gun.type	//installation becomes new_gun.type
 				gun_charge = new_gun.cell.charge	//the gun's charge is stored in gun_charge
 				to_chat(user, span_notice("You add [I] to the turret."))
@@ -976,6 +986,7 @@ GLOBAL_LIST_EMPTY(turret_icons)
 			var/obj/machinery/porta_turret/turret = new target_type(loc)
 			turret.name = finish_name
 			turret.installation = installation
+			turret.old_gun_data = old_gun_data
 			turret.gun_charge = gun_charge
 			turret.enabled = FALSE
 			turret.add_fingerprint(user)
@@ -988,11 +999,12 @@ GLOBAL_LIST_EMPTY(turret_icons)
 		if(TURRET_BUILD_GUN)
 			if(!installation)
 				return ..()
+
 			add_fingerprint(user)
 			build_step = TURRET_BUILD_ARMOR_SECURED
 			var/obj/item/gun/energy/removed_gun = new installation(loc)
+			removed_gun.turret_deconstruct(old_gun_data)
 			removed_gun.cell.charge = gun_charge
-			removed_gun.turret_deconstruct()
 			removed_gun.update_icon()
 			to_chat(user, span_notice("You remove [removed_gun] from the turret frame."))
 			installation = null

@@ -1,6 +1,14 @@
 /obj/item/storage/box/swabs
 	name = "box of swab kits"
-	desc = "Sterilized equipment within. Do not contaminate."
+	desc = "Коробка, содержащая наборы стерильных ватных палочек для проведения криминалистических исследований."
+	ru_names = list(
+		NOMINATIVE = "коробка ватных палочек",
+		GENITIVE = "коробки ватных палочек",
+		DATIVE = "коробке ватных палочек",
+		ACCUSATIVE = "коробку ватных палочек",
+		INSTRUMENTAL = "коробкой ватных палочек",
+		PREPOSITIONAL = "коробке ватных палочек"
+	)
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnakit"
 
@@ -15,7 +23,15 @@
 
 /obj/item/storage/box/fingerprints
 	name = "box of fingerprint cards"
-	desc = "Sterilized equipment within. Do not contaminate."
+	desc = "Коробка, содержащая дактилоскопические карты для снятия отпечатков пальцев."
+	ru_names = list(
+		NOMINATIVE = "коробка карт отпечатков пальцев",
+		GENITIVE = "коробки карт отпечатков пальцев",
+		DATIVE = "коробке карт отпечатков пальцев",
+		ACCUSATIVE = "коробку карт отпечатков пальцев",
+		INSTRUMENTAL = "коробкой карт отпечатков пальцев",
+		PREPOSITIONAL = "коробке карт отпечатков пальцев"
+	)
 	icon = 'icons/obj/forensics.dmi'
 	icon_state = "dnakit"
 
