@@ -37,7 +37,7 @@
 	. = ..()
 	if(.)
 		return
-	to_chat(user, "<span class='notice'>Picking up the swarmer may cause it to activate. You should be careful about this.</span>")
+	to_chat(user, span_notice("Picking up the swarmer may cause it to activate. You should be careful about this."))
 
 /obj/effect/mob_spawn/swarmer/screwdriver_act(mob/user, obj/item/I)
 	if(user.a_intent == INTENT_HARM)
@@ -45,9 +45,9 @@
 	. = TRUE
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
-	user.visible_message("<span class='warning'>[usr.name] deactivates [src].</span>",
-		"<span class='notice'>After some fiddling, you find a way to disable [src]'s power source.</span>",
-		"<span class='italics'>You hear clicking.</span>")
+	user.visible_message(span_warning("[usr.name] deactivates [src]."),
+		span_notice("After some fiddling, you find a way to disable [src]'s power source."),
+		span_italics("You hear clicking."))
 	new /obj/item/deactivated_swarmer(get_turf(src))
 	qdel(src)
 
@@ -215,11 +215,11 @@
 
 /obj/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(resistance_flags & INDESTRUCTIBLE)
-		to_chat(S, "<span class='warning'>High value materials detected, consuming [src] would waste them. Aborting.</span>")
+		to_chat(S, span_warning("High value materials detected, consuming [src] would waste them. Aborting."))
 		return FALSE
 	for(var/mob/living/L in contents)
 		if(!issilicon(L) && !isbrain(L))
-			to_chat(S, "<span class='warning'>An organism has been detected inside this object. Aborting.</span>")
+			to_chat(S, span_warning("An organism has been detected inside this object. Aborting."))
 			return FALSE
 	return ..()
 
@@ -243,7 +243,7 @@
 	return FALSE
 
 /obj/structure/lattice/catwalk/swarmer_catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>We have created these for our own benefit. Aborting.</span>")
+	to_chat(S, span_warning("We have created these for our own benefit. Aborting."))
 	return FALSE
 
 /obj/structure/swarmer/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -287,11 +287,11 @@
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return FALSE
 		else if(istype(A, /area/engineering/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return FALSE
 	S.DisIntegrate(src)
@@ -303,18 +303,18 @@
 	return TRUE
 
 /obj/structure/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, span_warning("Disrupting the power grid would bring no benefit to us. Aborting."))
 	return FALSE
 
 /obj/machinery/particle_accelerator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S) // Since the console is still parented to this
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, span_warning("Disrupting the power grid would bring no benefit to us. Aborting."))
 	return FALSE
 
 /obj/machinery/field/generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(!active)
 		S.DisIntegrate(src)
 		return TRUE
-	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	to_chat(S, span_warning("An inhospitable area may be created as a result of destroying this object. Aborting."))
 	return FALSE
 
 /obj/machinery/gravity_generator/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -330,71 +330,71 @@
 	return TRUE
 
 /obj/machinery/chem_dispenser/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>The volatile chemicals in this machine would destroy us. Aborting.</span>")
+	to_chat(S, span_warning("The volatile chemicals in this machine would destroy us. Aborting."))
 	return FALSE
 
 /obj/machinery/nuclearbomb/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This device's destruction would result in the extermination of everything in the area. Aborting.</span>")
+	to_chat(S, span_warning("This device's destruction would result in the extermination of everything in the area. Aborting."))
 	return FALSE
 
 /obj/machinery/r_n_d/server/core/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This machine should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	to_chat(S, span_warning("This machine should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
 
 /obj/machinery/r_n_d/server/robotics/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This machine should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	to_chat(S, span_warning("This machine should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
 
 /obj/effect/rune/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Searching... sensor malfunction! Target lost. Aborting.</span>")
+	to_chat(S, span_warning("Searching... sensor malfunction! Target lost. Aborting."))
 	return FALSE
 
 /obj/structure/reagent_dispensers/fueltank/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Destroying this object would cause a chain reaction. Aborting.</span>")
+	to_chat(S, span_warning("Destroying this object would cause a chain reaction. Aborting."))
 	return FALSE
 
 /obj/structure/cable/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, span_warning("Disrupting the power grid would bring no benefit to us. Aborting."))
 	return FALSE
 
 /obj/machinery/portable_atmospherics/canister/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>An inhospitable area may be created as a result of destroying this object. Aborting.</span>")
+	to_chat(S, span_warning("An inhospitable area may be created as a result of destroying this object. Aborting."))
 	return FALSE
 
 /obj/machinery/tcomms/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	to_chat(S, span_warning("This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
 
 /obj/machinery/message_server/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	to_chat(S, span_warning("This communications relay should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
 
 /obj/machinery/blackbox_recorder/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This machine has recorded large amounts of data on this structure and its inhabitants, it will be a useful resource to our masters in the future. Aborting. </span>")
+	to_chat(S, span_warning("This machine has recorded large amounts of data on this structure and its inhabitants, it will be a useful resource to our masters in the future. Aborting. "))
 	return FALSE
 
 /obj/machinery/power/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+	to_chat(S, span_warning("Disrupting the power grid would bring no benefit to us. Aborting."))
 	return FALSE
 
 /obj/machinery/gateway/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This bluespace source will be important to us later. Aborting.</span>")
+	to_chat(S, span_warning("This bluespace source will be important to us later. Aborting."))
 	return FALSE
 
 /obj/machinery/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This cryogenic sleeper should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	to_chat(S, span_warning("This cryogenic sleeper should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
 
 /obj/structure/cryofeed/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This cryogenic feed should be preserved, it will be a useful resource to our masters in the future. Aborting.</span>")
+	to_chat(S, span_warning("This cryogenic feed should be preserved, it will be a useful resource to our masters in the future. Aborting."))
 	return FALSE
 
 /obj/machinery/computer/cryopod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting.</span>")
+	to_chat(S, span_warning("This cryopod control computer should be preserved, it contains useful items and information about the inhabitants. Aborting."))
 	return FALSE
 
 /obj/structure/spacepoddoor/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Disrupting this energy field would overload us. Aborting.</span>")
+	to_chat(S, span_warning("Disrupting this energy field would overload us. Aborting."))
 	return FALSE
 
 /turf/simulated/wall/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -402,11 +402,11 @@
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 		else if(istype(A, /area/engineering/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 	return ..()
@@ -416,7 +416,7 @@
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 	return ..()
@@ -427,11 +427,11 @@
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 		else if(istype(A, /area/engineering/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 	return ..()
@@ -441,30 +441,30 @@
 	for(var/turf/T in range(1, src))
 		var/area/A = get_area(T)
 		if(isspaceturf(T) || (!isonshuttle && (istype(A, /area/shuttle) || istype(A, /area/space))) || (isonshuttle && !istype(A, /area/shuttle)))
-			to_chat(S, "<span class='warning'>Destroying this object has the potential to cause a hull breach. Aborting.</span>")
+			to_chat(S, span_warning("Destroying this object has the potential to cause a hull breach. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 		else if(istype(A, /area/engineering/supermatter))
-			to_chat(S, "<span class='warning'>Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting.</span>")
+			to_chat(S, span_warning("Disrupting the containment of a supermatter crystal would not be to our benefit. Aborting."))
 			S.GiveTarget(null)
 			return TRUE
 	return ..()
 
 /obj/item/stack/cable_coil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)//Wiring would be too effective as a resource
-	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
+	to_chat(S, span_warning("This object does not contain enough materials to work with."))
 	return FALSE
 
 /obj/machinery/porta_turret/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Attempting to dismantle this machine would result in an immediate counterattack. Aborting.</span>")
+	to_chat(S, span_warning("Attempting to dismantle this machine would result in an immediate counterattack. Aborting."))
 	return FALSE
 
 /obj/spacepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>Destroying this vehicle would destroy us. Aborting.</span>")
+	to_chat(S, span_warning("Destroying this vehicle would destroy us. Aborting."))
 	return FALSE
 
 /obj/machinery/clonepod/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
 	if(occupant)
-		to_chat(S, "<span class='warning'>Destroying this machine while it is occupied would result in biological and sentient resources to be harmed. Aborting.</span>")
+		to_chat(S, span_warning("Destroying this machine while it is occupied would result in biological and sentient resources to be harmed. Aborting."))
 		return FALSE
 	return ..()
 
@@ -473,11 +473,11 @@
 	return TRUE
 
 /mob/living/simple_animal/slime/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This biological resource is somehow resisting our bluespace transceiver. Aborting.</span>")
+	to_chat(S, span_warning("This biological resource is somehow resisting our bluespace transceiver. Aborting."))
 	return FALSE
 
 /obj/structure/shuttle/engine/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This shuttle may be important to us later. Aborting.</span>")
+	to_chat(S, span_warning("This shuttle may be important to us later. Aborting."))
 	return FALSE
 
 /obj/structure/lattice/catwalk/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
@@ -485,7 +485,7 @@
 	for(var/A in here.contents)
 		var/obj/structure/cable/C = A
 		if(istype(C))
-			to_chat(S, "<span class='warning'>Disrupting the power grid would bring no benefit to us. Aborting.</span>")
+			to_chat(S, span_warning("Disrupting the power grid would bring no benefit to us. Aborting."))
 			return FALSE
 	return ..()
 
@@ -493,29 +493,29 @@
 	return 100
 
 /obj/machinery/hydroponics/soil/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This object does not contain enough materials to work with.</span>")
+	to_chat(S, span_warning("This object does not contain enough materials to work with."))
 	return FALSE
 
 /obj/machinery/field/containment/swarmer_act(mob/living/simple_animal/hostile/swarmer/S)
-	to_chat(S, "<span class='warning'>This object does not contain solid matter. Aborting.</span>")
+	to_chat(S, span_warning("This object does not contain solid matter. Aborting."))
 	return FALSE
 
 ////END CTRL CLICK FOR SWARMERS////
 
 /mob/living/simple_animal/hostile/swarmer/proc/Fabricate(atom/fabrication_object, fabrication_cost = 0)
 	if(!isturf(loc))
-		to_chat(src, "<span class='warning'>This is not a suitable location for fabrication. We need more space.</span>")
+		to_chat(src, span_warning("This is not a suitable location for fabrication. We need more space."))
 	if(resources >= fabrication_cost)
 		resources -= fabrication_cost
 	else
-		to_chat(src, "<span class='warning'>You do not have the necessary resources to fabricate this object.</span>")
+		to_chat(src, span_warning("You do not have the necessary resources to fabricate this object."))
 		return 0
 	return new fabrication_object(loc)
 
 /mob/living/simple_animal/hostile/swarmer/proc/Integrate(atom/movable/target)
 	var/resource_gain = target.IntegrateAmount()
 	if(resources + resource_gain > max_resources)
-		to_chat(src, "<span class='warning'>We cannot hold more materials!</span>")
+		to_chat(src, span_warning("We cannot hold more materials!"))
 		return TRUE
 	if(resource_gain)
 		resources += resource_gain
@@ -533,7 +533,7 @@
 		qdel(target)
 		return TRUE
 	else
-		to_chat(src, "<span class='warning'>[target] is incompatible with our internal matter recycler.</span>")
+		to_chat(src, span_warning("[target] is incompatible with our internal matter recycler."))
 	return FALSE
 
 /mob/living/simple_animal/hostile/swarmer/proc/DisIntegrate(atom/movable/target)
@@ -547,10 +547,10 @@
 		return
 
 	if(!is_station_level(z) && !is_mining_level(z))
-		to_chat(src, "<span class='warning'>Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area.</span>")
+		to_chat(src, span_warning("Our bluespace transceiver cannot locate a viable bluespace link, our teleportation abilities are useless in this area."))
 		return
 
-	to_chat(src, "<span class='info'>Attempting to remove this being from our presence.</span>")
+	to_chat(src, span_info("Attempting to remove this being from our presence."))
 
 	if(!do_after(src, 3 SECONDS, target, NONE))
 		return
@@ -579,13 +579,13 @@
 
 /mob/living/simple_animal/hostile/swarmer/proc/DismantleMachine(obj/machinery/target)
 	do_attack_animation(target)
-	to_chat(src, "<span class='info'>We begin to dismantle this machine. We will need to be uninterrupted.</span>")
+	to_chat(src, span_info("We begin to dismantle this machine. We will need to be uninterrupted."))
 	var/obj/effect/temp_visual/swarmer/dismantle/D = new /obj/effect/temp_visual/swarmer/dismantle(get_turf(target))
 	D.pixel_x = target.pixel_x
 	D.pixel_y = target.pixel_y
 	D.pixel_z = target.pixel_z
 	if(do_after(src, 10 SECONDS, target, NONE))
-		to_chat(src, "<span class='info'>Dismantling complete.</span>")
+		to_chat(src, span_info("Dismantling complete."))
 		var/atom/Tsec = target.drop_location()
 		new /obj/item/stack/sheet/metal(Tsec, 5)
 		for(var/obj/item/I in target.component_parts)
@@ -682,24 +682,24 @@
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateTrap()
-	set name = "Create trap"
-	set category = "Swarmer"
+	set name = "Создать ловушку"
+	set category = STATPANEL_SWARMER
 	set desc = "Creates a simple trap that will non-lethally electrocute anything that steps on it. Costs 5 resources."
 	if(locate(/obj/structure/swarmer/trap) in loc)
-		to_chat(src, "<span class='warning'>There is already a trap here. Aborting.</span>")
+		to_chat(src, span_warning("There is already a trap here. Aborting."))
 		return
 	Fabricate(/obj/structure/swarmer/trap, 5)
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateBarricade()
-	set name = "Create barricade"
-	set category = "Swarmer"
+	set name = "Создать баррикаду"
+	set category = STATPANEL_SWARMER
 	set desc = "Creates a barricade that will stop anything but swarmers and disabler beams from passing through."
 	if(locate(/obj/structure/swarmer/blockade) in loc)
-		to_chat(src, "<span class='warning'>There is already a blockade here. Aborting.</span>")
+		to_chat(src, span_warning("There is already a blockade here. Aborting."))
 		return
 	if(resources < 5)
-		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
+		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(do_after(src, 1 SECONDS, src, NONE))
 		Fabricate(/obj/structure/swarmer/blockade, 5)
@@ -720,15 +720,15 @@
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/CreateSwarmer()
-	set name = "Replicate"
-	set category = "Swarmer"
+	set name = "Репликация"
+	set category = STATPANEL_SWARMER
 	set desc = "Creates a shell for a new swarmer. Swarmers will self activate."
-	to_chat(src, "<span class='info'>We are attempting to replicate ourselves. We will need to stand still until the process is complete.</span>")
+	to_chat(src, span_info("We are attempting to replicate ourselves. We will need to stand still until the process is complete."))
 	if(resources < 100)
-		to_chat(src, "<span class='warning'>We do not have the resources for this!</span>")
+		to_chat(src, span_warning("We do not have the resources for this!"))
 		return
 	if(!isturf(loc))
-		to_chat(src, "<span class='warning'>This is not a suitable location for replicating ourselves. We need more room.</span>")
+		to_chat(src, span_warning("This is not a suitable location for replicating ourselves. We need more room."))
 		return
 	if(do_after(src, 10 SECONDS, src, NONE))
 		var/createtype = SwarmerTypeToCreate()
@@ -741,15 +741,15 @@
 
 
 /mob/living/simple_animal/hostile/swarmer/proc/RepairSelf()
-	set name = "Self Repair"
-	set category = "Swarmer"
+	set name = "Саморемонт"
+	set category = STATPANEL_SWARMER
 	set desc = "Attempts to repair damage to our body. You will have to remain motionless until repairs are complete."
 	if(!isturf(loc))
 		return
-	to_chat(src, "<span class='info'>Attempting to repair damage to our body, stand by...</span>")
+	to_chat(src, span_info("Attempting to repair damage to our body, stand by..."))
 	if(do_after(src, 10 SECONDS, src, NONE))
 		adjustHealth(-100)
-		to_chat(src, "<span class='info'>We successfully repaired ourselves.</span>")
+		to_chat(src, span_info("We successfully repaired ourselves."))
 
 /mob/living/simple_animal/hostile/swarmer/proc/ToggleLight()
 	if(!light_on && is_ventcrawling(src))

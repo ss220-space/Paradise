@@ -141,8 +141,8 @@
 
 //For the holster hotkey
 /obj/item/clothing/accessory/holster/verb/holster_verb()
-	set name = "Holster"
-	set category = "Object"
+	set name = "Кобура"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

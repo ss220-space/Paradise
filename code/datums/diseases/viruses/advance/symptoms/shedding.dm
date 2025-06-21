@@ -16,7 +16,7 @@ BONUS
 
 /datum/symptom/shedding
 
-	name = "Alopecia"
+	name = "Облысение"
 	id = "shedding"
 	stealth = -1
 	resistance = -1
@@ -29,20 +29,20 @@ BONUS
 	..()
 	if(prob(SYMPTOM_ACTIVATION_PROB))
 		var/mob/living/M = A.affected_mob
-		to_chat(M, span_warning(pick("Your scalp itches.", "Your skin feels flakey.")))
+		to_chat(M, span_warning(pick("Вы ощущаете неприятный зуд в волосах.", "Ваша кожа шелушится.")))
 		if(ishuman(M))
 			var/mob/living/carbon/human/H = M
 			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
 			switch(A.stage)
 				if(3, 4)
 					if(!(head_organ.h_style == "Bald") && !(head_organ.h_style == "Balding Hair"))
-						to_chat(H, span_warning("Your hair starts to fall out in clumps..."))
+						to_chat(H, span_warning("Ваши волосы начинают выпадать клочьями..."))
 						spawn(50)
 							head_organ.h_style = "Balding Hair"
 							H.update_hair()
 				if(5)
 					if(!(head_organ.f_style == "Shaved") || !(head_organ.h_style == "Bald"))
-						to_chat(H, span_warning("Your hair starts to fall out in clumps..."))
+						to_chat(H, span_warning("Ваши волосы начинают выпадать клочьями..."))
 						spawn(50)
 							head_organ.f_style = "Shaved"
 							head_organ.h_style = "Bald"

@@ -1,7 +1,7 @@
 /datum/disease/virus/pierrot_throat
-	name = "Pierrot's Throat"
+	name = "Горло Пьеро"
 	agent = "H0NI<42 Virus"
-	desc = "If left untreated the subject will probably drive others to insanity."
+	desc = "Заболевание мозга, которое было завезено первыми исследователями планеты Клоунов, которое повреждает базальные ганглии, жертвы будут иметь неконтролируемое желание делать ХОНК."
 	max_stages = 4
 	spread_flags = AIRBORNE
 	cures = list("banana")
@@ -17,22 +17,22 @@
 	switch(stage)
 		if(1)
 			if(prob(10))
-				to_chat(affected_mob, span_danger("You feel a little silly."))
+				to_chat(affected_mob, span_danger("Вы чувствуете себя немного глупо."))
 		if(2)
 			if(prob(10))
-				to_chat(affected_mob, span_danger("You start seeing rainbows."))
+				to_chat(affected_mob, span_danger("Вы начинаете видеть радуги."))
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, span_danger("Your thoughts are interrupted by a loud <b>HONK!</b>"))
+				to_chat(affected_mob, span_danger("Ваши мысли прерывает громкий <b>ХОНК!</b>"))
 		if(4)
 			if(prob(5))
 				affected_mob.say(pick(list("ХОНК!", "Хонк!", "Хонк.", "Хонк?", "Хонк!!", "Хонк?!", "Хонк...")))
 
 
 /datum/disease/virus/pierrot_throat/advanced
-	name = "Advanced Pierrot's Throat"
+	name = "Улучшенный \"Горло Пьеро\""
 	agent = "H0NI<42.B4n4 Virus"
-	desc = "If left untreated the subject will probably drive others to insanity and go insane themselves."
+	desc = "Мутировавший вирус, происходящий от \"Горло Пьеро\". Помимо неконтролируемого желания делать хонк, субъект также отращивает неснимаемую маску клоуна. Хонко-мать одобряет."
 	severity = DANGEROUS
 	possible_mutations = null
 
@@ -43,13 +43,13 @@
 	switch(stage)
 		if(1)
 			if(prob(5))
-				to_chat(affected_mob, span_danger("You feel like making a joke."))
+				to_chat(affected_mob, span_danger("Вам хочется пошутить."))
 		if(2)
 			if(prob(10))
-				to_chat(affected_mob, span_danger("You don't just start seeing rainbows... YOU ARE RAINBOWS!"))
+				to_chat(affected_mob, span_danger("Вы не просто начинаете видеть радуги... ВЫ САМИ СТАНОВИТЕСЬ РАДУГОЙ!"))
 		if(3)
 			if(prob(10))
-				to_chat(affected_mob, span_danger("Your thoughts are interrupted by a loud <b>HONK!</b>"))
+				to_chat(affected_mob, span_danger("Ваши мысли прерывает громкий <b>ХОНК!</b>"))
 				affected_mob << 'sound/items/airhorn.ogg'
 		if(4)
 			if(prob(5))

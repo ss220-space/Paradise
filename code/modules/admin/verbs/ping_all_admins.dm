@@ -1,6 +1,6 @@
 /client/proc/ping_all_admins()
 	set name = "Ping all admins"
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 
 	if(!check_rights(R_ADMIN, FALSE))
 		return

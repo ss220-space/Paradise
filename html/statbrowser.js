@@ -22,9 +22,9 @@ function log_debug(data) {
 }
 
 // Status panel implementation ------------------------------------------------
-var status_tab_parts = [['Loading...', '']];
+var status_tab_parts = [['Загрузка...', '']];
 var current_tab = null;
-var mc_tab_parts = [['Loading...', '']];
+var mc_tab_parts = [['Загрузка...', '']];
 var href_token = null;
 var verb_tabs = [];
 var verbs = [['', '']]; // list with a list inside
@@ -55,7 +55,7 @@ function run_after_focus(callback) {
 function createStatusTab(name) {
 	if (name.indexOf('.') != -1) {
 		var splitName = name.split('.');
-		if (split_admin_tabs && splitName[0] === 'Admin') name = splitName[1];
+		if (split_admin_tabs && splitName[0] === 'Админ') name = splitName[1];
 		else name = splitName[0];
 	}
 	if (document.getElementById(name) || name.trim() == '') {
@@ -77,8 +77,8 @@ function createStatusTab(name) {
 	button_text.className = 'button-text';
 	//ORDERING ALPHABETICALLY
 	button.style.order = name.charCodeAt(0);
-	if (name == 'Status' || name == 'MC') {
-		button.style.order = name == 'Status' ? 1 : 2;
+	if (name == 'Статус' || name == 'MC') {
+		button.style.order = name == 'Статус' ? 1 : 2;
 	}
 	//END ORDERING
 	button.appendChild(button_text);
@@ -158,7 +158,7 @@ function verbs_cat_check(cat) {
 	var tabCat = cat;
 	if (cat.indexOf('.') != -1) {
 		var splitName = cat.split('.');
-		if (split_admin_tabs && splitName[0] === 'Admin') tabCat = splitName[1];
+		if (split_admin_tabs && splitName[0] === 'Админ') tabCat = splitName[1];
 		else tabCat = splitName[0];
 	}
 	var verbs_in_cat = 0;
@@ -172,7 +172,7 @@ function verbs_cat_check(cat) {
 		verbcat = part[0];
 		if (verbcat.indexOf('.') != -1) {
 			var splitName = verbcat.split('.');
-			if (split_admin_tabs && splitName[0] === 'Admin') verbcat = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Админ') verbcat = splitName[1];
 			else verbcat = splitName[0];
 		}
 		if (verbcat != tabCat || verbcat.trim() == '') {
@@ -184,7 +184,7 @@ function verbs_cat_check(cat) {
 	}
 	if (verbs_in_cat != 1) {
 		removeStatusTab(tabCat);
-		if (current_tab == tabCat) tab_change('Status');
+		if (current_tab == tabCat) tab_change('Статус');
 	}
 }
 
@@ -231,7 +231,7 @@ function tab_change(tab) {
 	if (document.getElementById(tab))
 		document.getElementById(tab).className = 'button active'; // make current button active
 	var verb_tabs_thingy = verb_tabs.includes(tab);
-	if (tab == 'Status') {
+	if (tab == 'Статус') {
 		draw_status();
 	} else if (tab == 'MC') {
 		draw_mc();
@@ -244,7 +244,7 @@ function tab_change(tab) {
 	} else if (tab == turfname) {
 		draw_listedturf();
 	} else {
-		statcontentdiv.textContext = 'Loading...';
+		statcontentdiv.textContext = 'Загрузка...';
 	}
 	Byond.winset(Byond.windowId, {
 		'is-visible': true,
@@ -282,7 +282,7 @@ function draw_debug() {
 		// Hide subgroups except admin subgroups if they are split
 		if (verb_tabs[i].lastIndexOf('.') != -1) {
 			var splitName = verb_tabs[i].split('.');
-			if (split_admin_tabs && splitName[0] === 'Admin') part = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Админ') part = splitName[1];
 			else continue;
 		}
 		var tr = document.createElement('tr');
@@ -331,9 +331,9 @@ function draw_debug() {
 	document.getElementById('statcontent').appendChild(table3);
 }
 function draw_status() {
-	if (!document.getElementById('Status')) {
-		createStatusTab('Status');
-		current_tab = 'Status';
+	if (!document.getElementById('Статус')) {
+		createStatusTab('Статус');
+		current_tab = 'Статус';
 	}
 
 	statcontentdiv.textContent = '';
@@ -643,7 +643,7 @@ function remove_listedturf() {
 	removePermanentTab(turfname);
 	checkStatusTab();
 	if (current_tab == turfname) {
-		tab_change('Status');
+		tab_change('Статус');
 	}
 	if (document.getElementById('listedturf_div')) {
 		document.getElementById('listedturf_div').remove();
@@ -658,7 +658,7 @@ function remove_listedturf() {
 function remove_mc() {
 	removePermanentTab('MC');
 	if (current_tab == 'MC') {
-		tab_change('Status');
+		tab_change('Статус');
 	}
 }
 
@@ -666,7 +666,7 @@ function remove_sdql2() {
 	if (sdql2) {
 		sdql2 = [];
 		removePermanentTab('SDQL2');
-		if (current_tab == 'SDQL2') tab_change('Status');
+		if (current_tab == 'SDQL2') tab_change('Статус');
 	}
 	checkStatusTab();
 }
@@ -693,7 +693,7 @@ function draw_verbs(cat) {
 	sortVerbs();
 	if (split_admin_tabs && cat.lastIndexOf('.') != -1) {
 		var splitName = cat.split('.');
-		if (splitName[0] === 'Admin') cat = splitName[1];
+		if (splitName[0] === 'Админ') cat = splitName[1];
 	}
 	verbs.reverse(); // sort verbs backwards before we draw
 	for (var i = 0; i < verbs.length; ++i) {
@@ -701,7 +701,7 @@ function draw_verbs(cat) {
 		var name = part[0];
 		if (split_admin_tabs && name.lastIndexOf('.') != -1) {
 			var splitName = name.split('.');
-			if (splitName[0] === 'Admin') name = splitName[1];
+			if (splitName[0] === 'Админ') name = splitName[1];
 		}
 		var command = part[1];
 
@@ -840,7 +840,7 @@ function add_verb_list(payload) {
 		var category = part[0];
 		if (category.indexOf('.') != -1) {
 			var splitName = category.split('.');
-			if (split_admin_tabs && splitName[0] === 'Admin') category = splitName[1];
+			if (split_admin_tabs && splitName[0] === 'Админ') category = splitName[1];
 			else category = splitName[0];
 		}
 		if (findVerbindex(part[1], verbs)) continue;
@@ -861,8 +861,8 @@ document.addEventListener('mouseup', restoreFocus);
 document.addEventListener('keyup', restoreFocus);
 
 if (!current_tab) {
-	addPermanentTab('Status');
-	tab_change('Status');
+	addPermanentTab('Статус');
+	tab_change('Статус');
 }
 
 window.onload = function () {
@@ -931,7 +931,7 @@ Byond.subscribeTo('update_stat', function (payload) {
 		}
 	}
 
-	if (current_tab == 'Status') {
+	if (current_tab == 'Статус') {
 		draw_status();
 	} else if (current_tab == 'Debug Stat Panel') {
 		draw_debug();
@@ -997,7 +997,7 @@ Byond.subscribeTo('update_listedturf', function (TC) {
 
 Byond.subscribeTo('update_interviews', function (I) {
 	interviewManager = I;
-	if (current_tab == 'Tickets') {
+	if (current_tab == 'Админ') {
 		//draw_interviews(); //not exist
 	}
 });
@@ -1007,9 +1007,9 @@ Byond.subscribeTo('update_split_admin_tabs', function (status) {
 
 	if (split_admin_tabs !== status) {
 		if (split_admin_tabs === true) {
-			removeStatusTab('Events');
-			removeStatusTab('Fun');
-			removeStatusTab('Game');
+			removeStatusTab('Ивент');
+			removeStatusTab('Веселье');
+			removeStatusTab('Админская и менторская помощь');
 		}
 		update_verbs();
 	}

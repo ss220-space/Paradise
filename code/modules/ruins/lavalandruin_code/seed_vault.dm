@@ -9,8 +9,16 @@
 				)
 
 /obj/effect/mob_spawn/human/seed_vault
-	name = "preserved terrarium"
-	desc = "An ancient machine that seems to be used for storing plant matter. The glass is obstructed by a mat of vines."
+	name = "Сохранившийся террариум"
+	desc = "Древняя машина, которая, кажется, использовалась для хранения растительных материалов. Стекла закрыты ковром из лозы."
+	ru_names = list(
+		NOMINATIVE = "сохранившийся террариум",
+		GENITIVE = "сохранившегося террариума",
+		DATIVE = "сохранившемуся террариуму",
+		ACCUSATIVE = "сохранившийся террариум",
+		INSTRUMENTAL = "сохранившимся террариумом",
+		PREPOSITIONAL = "сохранившемся террариуме"
+	)
 	mob_name = "a lifebringer"
 	icon = 'icons/obj/lavaland/spawners.dmi'
 	icon_state = "terrarium"
