@@ -459,6 +459,7 @@
 "adR" = (
 /obj/structure/table/wood,
 /obj/item/stack/tape_roll,
+/obj/item/stack/wrapping_paper,
 /obj/item/stack/packageWrap,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -7824,8 +7825,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/unary/vent_scrubber/on{
-	dir = 8
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 9
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 9
 	},
 /turf/simulated/floor/plasteel{
 	icon_state = "darkred"
@@ -10262,14 +10266,15 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/atmospherics/unary/vent_pump/on{
-	dir = 8
-	},
 /obj/structure/disposalpipe/segment{
 	dir = 9
 	},
-/obj/structure/table/reinforced,
 /obj/item/taperecorder,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 10
+	},
+/obj/machinery/atmospherics/unary/vent_scrubber/on,
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -34723,14 +34728,10 @@
 /turf/simulated/floor/plating,
 /area/maintenance/auxsolarstarboard)
 "dDE" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/structure/cable{
 	icon_state = "2-4"
 	},
 /obj/effect/decal/cleanable/dirt,
-/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
-	dir = 6
-	},
 /obj/structure/cable{
 	icon_state = "0-2"
 	},
@@ -34739,6 +34740,12 @@
 	pixel_x = -26
 	},
 /obj/structure/disposalpipe/segment,
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 6
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 6
+	},
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "darkred"
@@ -37566,10 +37573,11 @@
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
-/obj/machinery/hologram/holopad,
 /obj/structure/chair{
 	dir = 1
 	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply,
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -46931,9 +46939,6 @@
 /obj/item/seeds/chili,
 /obj/item/seeds/chili,
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/light{
-	dir = 4
-	},
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
@@ -51455,10 +51460,8 @@
 	},
 /area/atmos)
 "gJJ" = (
-/obj/structure/chair{
-	dir = 1
-	},
 /obj/effect/decal/cleanable/dirt,
+/obj/structure/chair/stool/wooden,
 /turf/simulated/floor/plasteel{
 	icon_state = "bar"
 	},
@@ -62262,9 +62265,9 @@
 	},
 /area/chapel/main)
 "jnU" = (
-/obj/structure/closet/secure_closet/brig,
-/obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/light,
+/obj/machinery/light{
+	dir = 1
+	},
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -70055,6 +70058,14 @@
 /obj/effect/decal/warning_stripes/west,
 /turf/simulated/floor/plating/airless,
 /area/space)
+"lnr" = (
+/obj/machinery/light{
+	dir = 1
+	},
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "lnt" = (
 /obj/item/twohanded/required/kirbyplants,
 /obj/structure/cable{
@@ -71205,9 +71216,6 @@
 	},
 /area/toxins/test_chamber)
 "lBw" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply{
-	dir = 6
-	},
 /obj/machinery/door_control{
 	id = "temporary holding cell";
 	name = "Temporary Holding Cell Privacy Shutters Control";
@@ -71217,12 +71225,15 @@
 /obj/structure/disposalpipe/segment{
 	dir = 6
 	},
-/obj/structure/table/reinforced,
 /obj/item/radio/intercom/department/security,
 /obj/item/flashlight/lamp{
 	pixel_x = -3;
 	pixel_y = 11
 	},
+/obj/machinery/atmospherics/unary/vent_pump/on{
+	dir = 4
+	},
+/obj/structure/table/reinforced,
 /turf/simulated/floor/plasteel{
 	dir = 8;
 	icon_state = "darkred"
@@ -83081,6 +83092,12 @@
 	icon_state = "dark"
 	},
 /area/security/permabrig)
+"oln" = (
+/obj/structure/chair/office/dark,
+/turf/simulated/floor/plasteel{
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "olA" = (
 /obj/structure/girder,
 /turf/simulated/floor/plating,
@@ -83175,7 +83192,6 @@
 /area/medical/virology/lab)
 "omz" = (
 /obj/machinery/computer/area_atmos/area,
-/obj/machinery/light,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -97464,7 +97480,6 @@
 	},
 /area/security/prison/cell_block/A)
 "rtu" = (
-/obj/machinery/atmospherics/pipe/simple/hidden/supply,
 /obj/machinery/light{
 	dir = 8
 	},
@@ -113478,6 +113493,22 @@
 	icon_state = "whitebluefull"
 	},
 /area/medical/paramedic)
+"vei" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/scrubbers{
+	dir = 4
+	},
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/structure/cable{
+	icon_state = "4-8"
+	},
+/obj/machinery/light,
+/turf/simulated/floor/plasteel{
+	dir = 1;
+	icon_state = "darkred"
+	},
+/area/security/permabrig)
 "veO" = (
 /obj/machinery/door/poddoor/preopen{
 	id_tag = "RnDChem";
@@ -116957,9 +116988,6 @@
 /turf/simulated/floor/plating,
 /area/security/reception)
 "vTG" = (
-/obj/machinery/light{
-	dir = 1
-	},
 /obj/effect/decal/warning_stripes/red/hollow,
 /obj/structure/table/reinforced,
 /obj/structure/sign/poster/official/random{
@@ -117685,9 +117713,6 @@
 	dir = 2;
 	name = "Riot Control";
 	req_access = list(2)
-	},
-/obj/machinery/light{
-	dir = 1
 	},
 /obj/item/wrench,
 /obj/structure/sign/poster/official/random{
@@ -119740,9 +119765,6 @@
 /obj/item/plant_analyzer,
 /obj/item/cultivator,
 /obj/item/reagent_containers/spray/plantbgone,
-/obj/machinery/light{
-	dir = 8
-	},
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
 /obj/item/reagent_containers/glass/bottle/nutrient/ez,
@@ -181032,7 +181054,7 @@ dWW
 vhp
 wMw
 oIn
-mqz
+qug
 mml
 lhS
 uou
@@ -182568,10 +182590,10 @@ fda
 riX
 wSO
 fxR
-kaJ
-xan
-xan
+vei
+tLD
 jnU
+ojL
 wyT
 pee
 gBH
@@ -182828,7 +182850,7 @@ vTG
 kaJ
 nHp
 qDW
-jnU
+ojL
 ugN
 pfE
 pLF
@@ -184110,9 +184132,9 @@ qEP
 xvh
 ult
 wNO
-kaJ
-xan
-wxD
+vei
+tLD
+lnr
 omz
 wyT
 pee
@@ -184369,7 +184391,7 @@ lgH
 chy
 xgm
 xan
-wxD
+oln
 pPW
 ugN
 oIn
