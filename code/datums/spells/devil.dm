@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/conjure_item/pitchfork
 	name = "Призвать вилы"
-	desc = "Призыв дьявольского инструмента. Этот призывает/отзывает ваши вилы."
+	desc = "Призывает/отзывает дьявольские вилы."
 
 	item_type = /obj/item/twohanded/pitchfork/demonic
 
