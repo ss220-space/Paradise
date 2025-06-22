@@ -116,7 +116,7 @@
 	)
 
 /datum/surgery_step/proxy/robo_limb_attach
-	name = "установка робо-конечности - прокси"
+	name = "установка робо-конечности – прокси"
 	branches = list(
 		/datum/surgery/robo_attach,
 		/datum/surgery/reattach_synth
@@ -124,7 +124,7 @@
 	insert_self_after = FALSE
 
 /datum/surgery/attach_robotic_limb
-	name = "Установка роботизированной или синтетической конечности"
+	name = "Установка кибернетической конечности"
 	requires_bodypart = FALSE
 	steps = list(
 		/datum/surgery_step/proxy/robo_limb_attach

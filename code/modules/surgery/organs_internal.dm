@@ -232,7 +232,7 @@
 
 
 /datum/surgery_step/proxy/manipulate_translator
-	name = "манипуляция с имплантом-переводчиком - прокси"
+	name = "манипуляция с имплантом-переводчиком – прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate_translator/install,
 		/datum/surgery/intermediate/manipulate_translator/uninstall,
@@ -400,7 +400,7 @@
 
 /// The surgery step to trigger this whole situation
 /datum/surgery_step/proxy/manipulate_organs
-	name = "манипуляция с внутренними органами - прокси"
+	name = "манипуляция с внутренними органами – прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate/extract,
 		/datum/surgery/intermediate/manipulate/implant,
@@ -410,7 +410,7 @@
 	)
 
 /datum/surgery_step/proxy/manipulate_organs/soft
-	name = "манипуляция с внутренними органами (Мягкая) - прокси"
+	name = "манипуляция с внутренними органами (Мягкая) – прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate/extract,
 		/datum/surgery/intermediate/manipulate/implant,
@@ -433,7 +433,7 @@
 	requires_bodypart = FALSE
 
 /datum/surgery_step/proxy/manipulate_organs/alien
-	name = "манипуляция с внутренними органами (Ксеноморф) - прокси"
+	name = "манипуляция с внутренними органами (Ксеноморф) – прокси"
 	branches = list(
 		/datum/surgery/intermediate/manipulate/extract/xeno,
 		/datum/surgery/intermediate/manipulate/implant/xeno,

@@ -127,7 +127,7 @@
 		close(user)
 		user.face_atom(over_object)
 		user.visible_message(
-			span_notice("[usr] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] опустоша[pluralize_ru(user.gender, "ет", "ют")] содерижмое [declent_ru(GENITIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 			span_notice("Вы опустошаете содержимое [declent_ru(ACCUSATIVE)] на [over_object.declent_ru(ACCUSATIVE)]."),
 		)
 		var/turf/object_turf = get_turf(over_object)
@@ -655,7 +655,7 @@
 			found = TRUE
 	if(!found)	// User is too far away
 		return
-	user.balloon_alert(user, "контейнер свёрнут")
+	user.balloon_alert(user, "сложено")
 	var/obj/item/stack/I = new foldable(get_turf(src), foldable_amt)
 	user.put_in_hands(I)
 	qdel(src)

@@ -127,7 +127,7 @@
 				procedure = S
 				break
 	else
-		procedure = tgui_input_list(user, "Выберите операцию для начала", "Начало операции", available_surgeries)
+		procedure = tgui_input_list(user, "Выберите операцию", "Начало операции", available_surgeries)
 
 	if(!procedure)
 		return

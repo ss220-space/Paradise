@@ -32,8 +32,8 @@
 		dental_implants++
 	if(dental_implants >= 4)
 		user.visible_message(
-			span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] обратно [tool.declent_ru(ACCUSATIVE)] из ротовой полости [target]."),
-			span_notice("Вы достаёте обратно [tool.declent_ru(ACCUSATIVE)] из ротовой полости [target] - некуда вставлять.")
+			span_notice("[user] доста[pluralize_ru(user.gender, "ёт", "ют")] [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target]."),
+			span_notice("Вы достаёте [tool.declent_ru(ACCUSATIVE)] обратно из ротовой полости [target] – некуда вставлять.")
 		)
 		return SURGERY_STEP_INCOMPLETE
 

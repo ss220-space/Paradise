@@ -131,7 +131,7 @@
 	requires_organic_bodypart = FALSE
 
 /datum/surgery_step/proxy/cavity_manipulation
-	name = "Полостная манипуляция - прокси"
+	name = "Полостная манипуляция – прокси"
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant,
 		/datum/surgery/intermediate/open_cavity/extract,
@@ -141,7 +141,7 @@
 	insert_self_after = TRUE
 
 /datum/surgery_step/proxy/cavity_manipulation/robotic
-	name = "Полостная манипуляция (Синтетик) - прокси"
+	name = "Полостная манипуляция (Синтетик) – прокси"
 	branches = list(
 		/datum/surgery/intermediate/open_cavity/implant/robotic,
 		/datum/surgery/intermediate/open_cavity/extract/robotic
