@@ -93,6 +93,8 @@
 
 #define isgun(A) (istype(A, /obj/item/gun))
 
+#define isbaton(A) (istype(A, /obj/item/melee/baton))
+
 #define is_pen(W) (istype(W, /obj/item/pen))
 
 #define is_pda(W) (istype(W, /obj/item/pda))
