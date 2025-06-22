@@ -1,7 +1,7 @@
 GLOBAL_DATUM_INIT(minor_announcement, /datum/announcement/minor, new())
 GLOBAL_DATUM_INIT(priority_announcement, /datum/announcement/priority, new(do_log = FALSE))
-GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = FALSE, do_newscast = TRUE))
-GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = FALSE, do_newscast = FALSE))
+GLOBAL_DATUM_INIT(command_announcement, /datum/announcement/priority/command, new(do_log = FALSE))
+GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event, new(do_log = FALSE))
 
 /datum/announcement
 	var/title = "Внимание"
@@ -15,37 +15,36 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/language = LANGUAGE_GALACTIC_COMMON
 	var/beannounced = TRUE
 
-/datum/announcement/New(var/do_log = FALSE, var/new_sound = null, var/do_newscast = FALSE)
+/datum/announcement/New(do_log = FALSE, new_sound = null)
 	sound = new_sound
 	log = do_log
-	newscast = do_newscast
 
-/datum/announcement/minor/New(var/do_log = FALSE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
+/datum/announcement/minor/New(do_log = FALSE, new_sound = sound('sound/misc/announce_dig.ogg'))
 	..(do_log, new_sound, do_newscast)
 	title = "Внимание"
 	announcement_type = "Незначительное оповещение"
 
-/datum/announcement/priority/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
+/datum/announcement/priority/New(do_log = TRUE, new_sound = sound('sound/misc/announce_dig.ogg'))
 	..(do_log, new_sound, do_newscast)
 	title = "Приоритетное оповещение"
 	announcement_type = "Приоритетное оповещение"
 
-/datum/announcement/priority/command/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
+/datum/announcement/priority/command/New(do_log = TRUE, new_sound = sound('sound/misc/announce_dig.ogg'))
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 1
 	title = "[command_name()] обновление"
 	announcement_type = "[command_name()] обновление"
 
-/datum/announcement/priority/command/event/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
+/datum/announcement/priority/command/event/New(do_log = TRUE, new_sound = sound('sound/misc/announce_dig.ogg'))
 	..(do_log, new_sound, do_newscast)
 	admin_announcement = 0
 
-/datum/announcement/priority/security/New(var/do_log = TRUE, var/new_sound = sound('sound/misc/announce_dig.ogg'), var/do_newscast = FALSE)
+/datum/announcement/priority/security/New(do_log = TRUE, new_sound = sound('sound/misc/announce_dig.ogg'))
 	..(do_log, new_sound, do_newscast)
 	title = "Оповещение о безопасности"
 	announcement_type = "Оповещение о безопасности"
 
-/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, do_newscast = newscast, msg_sanitized = 0, from, msg_language)
+/datum/announcement/proc/Announce(message as text, new_title = "", new_sound = null, msg_sanitized = FALSE, from, msg_language)
 	if(!message)
 		return
 	if(!beannounced)
@@ -55,7 +54,7 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/message_sound = new_sound ? sound(new_sound) : sound
 
 	if(!msg_sanitized)
-		message = trim_strip_html_properly(message, allow_lines = 1)
+		message = trim_strip_html_properly(message, allow_lines = TRUE)
 	message_title = html_encode(message_title)
 
 	var/message_announcer = null
@@ -72,9 +71,6 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	var/garbled_formatted_message = Format_Message(message_language.scramble(message), message_language.scramble(message_title), message_language.scramble(message_announcer), message_language.scramble(from))
 
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
-
-	if(do_newscast)
-		NewsCast(message, message_title)
 
 	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	Log(message, message_title)
@@ -162,18 +158,6 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 	formatted_message += "<br><font color='red'>[message]</font>"
 
 	return formatted_message
-
-/datum/announcement/proc/NewsCast(message as text, message_title as text)
-	if(!newscast)
-		return
-
-	var/datum/news_announcement/news = new
-	news.channel_name = channel_name
-	news.author = announcer
-	news.message = replace_characters(message, list("+"))
-	news.message_type = announcement_type
-	news.can_be_redacted = 0
-	announce_newscaster_news(news)
 
 /datum/announcement/proc/Sound(var/message_sound, var/receivers)
 	if(!message_sound)

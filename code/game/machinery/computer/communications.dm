@@ -57,7 +57,6 @@
 /obj/machinery/computer/communications/New()
 	GLOB.shuttle_caller_list += src
 	..()
-	crew_announcement.newscast = FALSE
 
 /obj/machinery/computer/communications/proc/is_authenticated(mob/user, message = TRUE)
 	if(user.can_admin_interact())
