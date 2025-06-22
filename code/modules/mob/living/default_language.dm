@@ -3,7 +3,7 @@
 
 /mob/living/verb/set_default_language(language as null|anything in languages)
 	set name = "Выбрать язык по умолчанию"
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	if(language)
 		to_chat(src, span_notice("Теперь вы будете использовать [language], если не укажете язык при разговоре."))
@@ -17,7 +17,7 @@
 
 /mob/living/verb/check_default_language()
 	set name = "Узнать язык по умолчанию"
-	set category = "IC"
+	set category = STATPANEL_IC
 
 	if(default_language)
 		to_chat(src, span_notice("В данный момент вы используете [default_language] по умолчанию."))

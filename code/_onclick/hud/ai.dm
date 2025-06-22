@@ -2,7 +2,7 @@
 	icon = 'icons/mob/screen_ai.dmi'
 
 /atom/movable/screen/ai/aicore
-	name = "AI core"
+	name = "Ядро ИИ"
 	icon_state = "ai_core"
 
 /atom/movable/screen/ai/aicore/Click()
@@ -11,28 +11,28 @@
 		AI.view_core()
 
 /atom/movable/screen/ai/camera_list
-	name = "Show Camera List"
+	name = "Показать список камер"
 	icon_state = "camera"
 
 /atom/movable/screen/ai/camera_list/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/camera = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.get_camera_list())
+		var/camera = tgui_input_list(AI, "Выберите камеру для просмотра", "Камеры", AI.get_camera_list())
 		AI.ai_camera_list(camera)
 
 /atom/movable/screen/ai/camera_track
-	name = "Track With Camera"
+	name = "Отслеживать камерой"
 	icon_state = "track"
 
 /atom/movable/screen/ai/camera_track/Click()
 	if(isAI(usr))
 		var/mob/living/silicon/ai/AI = usr
-		var/target_name = tgui_input_list(AI, "Choose which camera you want to view", "Cameras", AI.trackable_mobs())
+		var/target_name = tgui_input_list(AI, "Выберите цель для отслеживания", "Объекты слежения", AI.trackable_mobs())
 		if(target_name)
 			AI.ai_camera_track(target_name)
 
 /atom/movable/screen/ai/camera_light
-	name = "Toggle Camera Light"
+	name = "Переключить освещение камеры"
 	icon_state = "camera_light"
 
 /atom/movable/screen/ai/camera_light/Click()
@@ -41,7 +41,7 @@
 		AI.toggle_camera_light()
 
 /atom/movable/screen/ai/crew_monitor
-	name = "Crew Monitoring Console"
+	name = "Мониторинг экипажа"
 	icon_state = "crew_monitor"
 
 /atom/movable/screen/ai/crew_monitor/Click()
@@ -50,7 +50,7 @@
 		AI.subsystem_crew_monitor()
 
 /atom/movable/screen/ai/crew_manifest
-	name = "Crew Manifest"
+	name = "Манифест экипажа"
 	icon_state = "manifest"
 
 /atom/movable/screen/ai/crew_manifest/Click()
@@ -59,7 +59,7 @@
 		AI.ai_roster()
 
 /atom/movable/screen/ai/alerts
-	name = "Show Alerts"
+	name = "Показать тревоги"
 	icon_state = "alerts"
 
 /atom/movable/screen/ai/alerts/Click()
@@ -68,7 +68,7 @@
 		AI.ai_alerts()
 
 /atom/movable/screen/ai/announcement
-	name = "Make Announcement"
+	name = "Сделать объявление"
 	icon_state = "announcement"
 
 /atom/movable/screen/ai/announcement/Click()
@@ -77,7 +77,7 @@
 		AI.announcement()
 
 /atom/movable/screen/ai/call_shuttle
-	name = "Call Emergency Shuttle"
+	name = "Вызвать эвакуационный шаттл"
 	icon_state = "call_shuttle"
 
 /atom/movable/screen/ai/call_shuttle/Click()
@@ -86,7 +86,7 @@
 		AI.ai_call_shuttle()
 
 /atom/movable/screen/ai/state_laws
-	name = "Law Manager"
+	name = "Менеджер законов"
 	icon_state = "state_laws"
 
 /atom/movable/screen/ai/state_laws/Click()
@@ -95,7 +95,7 @@
 		AI.subsystem_law_manager()
 
 /atom/movable/screen/ai/pda_msg_send
-	name = "PDA - Send Message"
+	name = "КПК - Отправить сообщение"
 	icon_state = "pda_send"
 
 /atom/movable/screen/ai/pda_msg_send/Click()
@@ -104,7 +104,7 @@
 		AI.aiPDA.cmd_send_pdamesg()
 
 /atom/movable/screen/ai/pda_msg_show
-	name = "PDA - Show Message Log"
+	name = "КПК - Показать историю"
 	icon_state = "pda_receive"
 
 /atom/movable/screen/ai/pda_msg_show/Click()
@@ -113,7 +113,7 @@
 		AI.aiPDA.cmd_show_message_log()
 
 /atom/movable/screen/ai/image_take
-	name = "Take Image"
+	name = "Сделать снимок"
 	icon_state = "take_picture"
 
 /atom/movable/screen/ai/image_take/Click()
@@ -122,7 +122,7 @@
 		AI.aiCamera.toggle_camera_mode()
 
 /atom/movable/screen/ai/image_view
-	name = "View Images"
+	name = "Просмотр снимков"
 	icon_state = "view_images"
 
 /atom/movable/screen/ai/image_view/Click()
@@ -131,7 +131,7 @@
 		AI.aiCamera.viewpictures()
 
 /atom/movable/screen/ai/sensors
-	name = "Toggle Sensor Augmentation"
+	name = "Переключить сенсоры"
 	icon_state = "ai_sensor"
 
 /atom/movable/screen/ai/sensors/Click()
@@ -143,7 +143,7 @@
 		borg.sensor_mode()
 
 /atom/movable/screen/ai/move_up
-	name = "Move up a floor"
+	name = "На этаж выше"
 	icon_state = "move_up"
 
 /atom/movable/screen/ai/move_up/Click()
@@ -152,7 +152,7 @@
 		AI.move_up()
 
 /atom/movable/screen/ai/move_down
-	name = "Move down a floor"
+	name = "На этаж ниже"
 	icon_state = "move_down"
 
 /atom/movable/screen/ai/move_down/Click()

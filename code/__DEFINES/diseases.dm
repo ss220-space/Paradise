@@ -5,12 +5,12 @@
 #define HIDDEN_PANDEMIC	4	//hidden from pandemic
 
 //Severity Defines
-#define NONTHREAT	"No threat"
-#define MINOR		"Minor"
-#define MEDIUM		"Medium"
-#define HARMFUL		"Harmful"
-#define DANGEROUS 	"Dangerous!"
-#define BIOHAZARD	"BIOHAZARD THREAT!"
+#define NONTHREAT	"Угрозы нет"
+#define MINOR		"Незначительная"
+#define MEDIUM		"Средняя"
+#define HARMFUL		"Опасная"
+#define DANGEROUS 	"Очень опасная!"
+#define BIOHAZARD	"БИОЛОГИЧЕСКАЯ УГРОЗА!"
 
 //Spread Flags
 #define NON_CONTAGIOUS	(1<<0)	//virus can't spread

@@ -15,7 +15,7 @@ Bonus
 
 /datum/symptom/blood
 
-	name = "Viral Hematopoiesis"
+	name = "Вирусное кроветворение"
 	id = "blood"
 	stealth = -2
 	resistance = -2
@@ -30,10 +30,10 @@ Bonus
 	var/mob/living/affected = virus.affected_mob
 	switch(virus.stage)
 		if(3, 4)
-			to_chat(affected, span_notice("You feel hungry"))
+			to_chat(affected, span_notice("Вы чувствуете голод."))
 		if(5)
 			if(prob(10))
-				to_chat(affected, span_notice("You can hear own heartbeat"))
+				to_chat(affected, span_notice("Вы слышите собственное сердцебиение."))
 			if(!HAS_TRAIT(affected, TRAIT_NO_BLOOD) && !HAS_TRAIT(affected, TRAIT_NO_BLOOD_RESTORE) && affected.blood_volume < BLOOD_VOLUME_NORMAL)
 				affected.AdjustBlood(0.4)
 				affected.adjust_nutrition(-2)

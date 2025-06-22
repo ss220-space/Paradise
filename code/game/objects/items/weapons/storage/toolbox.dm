@@ -309,3 +309,20 @@
 
 /obj/item/storage/toolbox/surgery/ashwalker/empty/populate_contents()
 	return
+
+/obj/item/storage/toolbox/green
+	name = "artistic toolbox"
+	desc = "Металлический контейнер, созданный для хранения различных инструментов, в том числе художественных принадлежностей."
+	ru_names = list(
+		NOMINATIVE = "артистический ящик для инструментов",
+		GENITIVE = "артистического ящика для инструментов",
+		DATIVE = "артистическому ящику для инструментов",
+		ACCUSATIVE = "артистический ящик для инструментов",
+		INSTRUMENTAL = "артистическим ящиком для инструментов",
+		PREPOSITIONAL = "артистическом ящике для инструментов"
+	)
+	icon_state = "green"
+	item_state = "toolbox_green"
+	icon = 'icons/goonstation/objects/objects.dmi'
+	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
+	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'

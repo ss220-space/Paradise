@@ -14,7 +14,6 @@
 				new/obj/item/organ/internal/body_egg/spider_eggs(M) //Yes, even Xenos can fall victim to the plague that is spider infestation.
 	return ..()
 
-
 /datum/reagent/nanomachines
 	name = "Наномашины"
 	id = "nanomachines"
@@ -42,6 +41,37 @@
 	if(volume > 1.5)
 		var/datum/disease/virus/transformation/xeno/D = new
 		D.Contract(M)
+	return ..()
+
+//I was told that someone will soon change the logic of their work, so I keep the old behavior.
+/datum/reagent/xenomicrobes/phantom
+	name = "Ксеномикробы"
+	id = "xenomicrobes_phantom"
+	description = "Микробы с совершенно чужеродной клеточной структурой. Кажутся более активными чем обычно."
+	color = "#535E66" // rgb: 83, 94, 102
+	can_synth = FALSE
+	taste_mult = 0
+	metabolization_rate = 1
+
+/datum/reagent/xenomicrobes/phantom/on_mob_life(mob/living/carbon/M)
+	. = ..()
+	if(volume < REAGENT_UNITS_1)
+		return
+	var/datum/disease/virus/transformation/xeno/phantom/D = new
+	D.Contract(M)
+
+/datum/reagent/terror_eggs
+	name = "Яйца ужаса"
+	id = "terror_eggs"
+	description = "Да поможет вам Бог."
+	color = "#6b336b"
+	can_synth = FALSE
+	taste_mult = 0
+	metabolization_rate = 1
+
+/datum/reagent/terror_eggs/on_mob_life(mob/living/carbon/M)
+	if(volume >= REAGENT_UNITS_5 && !M.get_int_organ(/obj/item/organ/internal/body_egg/terror_eggs/phantom))
+		new /obj/item/organ/internal/body_egg/terror_eggs/phantom(M)
 	return ..()
 
 /datum/reagent/fungalspores

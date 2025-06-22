@@ -53,6 +53,8 @@
 #define COMSIG_QDELETING "parent_qdeleting"
 /// generic topic handler (usr, href_list)
 #define COMSIG_TOPIC "handle_topic"
+/// Forces you to equip a hood
+#define COMSIG_EQUIP_HOOD "force_hood_equip"
 
 /// fires on the target datum when an element is attached to it (/datum/element)
 #define COMSIG_ELEMENT_ATTACH "element_attach"
@@ -168,6 +170,9 @@
 ///from obj/machinery/bsa/full/proc/fire(): ()
 #define COMSIG_ATOM_BSA_BEAM "atom_bsa_beam_pass"
 	#define COMSIG_ATOM_BLOCKS_BSA_BEAM (1<<0)
+
+/// Called on [/atom/SpinAnimation()] : (speed, loops, segments, angle)
+#define COMSIG_ATOM_SPIN_ANIMATION "atom_spin_animation"
 
 /// From base of atom/setDir(): (old_dir, new_dir). Called before the direction changes
 #define COMSIG_ATOM_PRE_DIR_CHANGE "atom_pre_dir_change"
@@ -482,6 +487,8 @@
 #define COMSIG_MOB_VERB_EXAMINATE "mob_examinate"
 /// from base of /mob/proc/run_examinate(): (atom/target, list/result)
 #define COMSIG_MOB_RUN_EXAMINATE "mob_run_examinate"
+/// from /datum/element/halo_attach
+#define COMSIG_MOB_HALO_GAINED "mob_halo_gained"
 ///from base of /mob/update_sight(): ()
 #define COMSIG_MOB_UPDATE_SIGHT "mob_update_sight"
 ////from /mob/living/say(): ()
@@ -760,6 +767,9 @@
 #define COMSIG_CARBON_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
 	/// Can't pick up
 	#define COMPONENT_CARBON_CANT_PUT_IN_HAND (1<<0)
+#define COMSIG_ITEM_TRY_PUT_IN_HAND "carbon_try_put_in_hand"
+	/// Can't pick up
+	#define COMPONENT_ITEM_CANT_PUT_IN_HAND (1<<0)
 /// from /mob/living/carbon/enter_stamcrit()
 #define COMSIG_CARBON_ENTER_STAMCRIT "carbon_enter_stamcrit"
 ///Called from apply_overlay(cache_index, overlay)
@@ -1346,7 +1356,8 @@
 
 /// Source: /datum/component/object_possession/proc/on_move (mob/mob, new_loc, direct)
 #define COMSIG_POSSESSED_MOVEMENT "possessed_movement"
-
+/// from base of atom/obj/item/death_book
+#define COMSIG_PHANTOM_DELETE "phantom_delete"
 /// from base of atom/on_teleported(): ()
 #define COMSIG_ATOM_TELEPORT_ACT "atom_teleport_act"
 
@@ -1370,3 +1381,5 @@
 
 /// Window is fully visible and we can make fragile calls
 #define COMSIG_TGUI_WINDOW_VISIBLE "tgui_window_visible"
+/// /obj/item/card/id/proc/freeze_linked_account(datum/source)
+#define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"

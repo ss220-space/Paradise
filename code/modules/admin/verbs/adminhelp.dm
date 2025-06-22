@@ -2,19 +2,19 @@
 GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of", "monkey", "alien", "as"))
 
 /client/verb/adminhelp()
-	set category = "Admin.Admin Tickets"
-	set name = "Adminhelp"
+	set category = STATPANEL_ADMIN_TICKETS
+	set name = "Запрос помощи"
 
 	//handle muting and automuting
 	if(check_mute(ckey, MUTE_ADMINHELP))
-		to_chat(src, "<font color='red'>Error: Admin-PM: You cannot send adminhelps (Muted).</font>", MESSAGE_TYPE_ADMINPM, confidential = TRUE)
+		to_chat(src, span_fontcolor_red("Error: Admin-PM: You cannot send adminhelps (Muted)."), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
 		return
 
 	adminhelped = TRUE //Determines if they get the message to reply by clicking the name.
 
 	var/msg
-	var/list/type = list("Mentorhelp", "Adminhelp")
-	var/selected_type = tgui_input_list(src, "Pick a category.", "Admin Help", type)
+	var/list/type = list(MENTORHELP, ADMINHELP)
+	var/selected_type = tgui_input_list(src, "Выберите, чья помощь вам необходима", "Запрос помощи", type)
 	if(selected_type)
 		msg = tgui_input_text(src, "Please enter your message.", selected_type, multiline = TRUE, encode = FALSE)
 
@@ -29,17 +29,17 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 	if(!msg) // No message after sanitisation
 		return
 
-	if(selected_type == "Mentorhelp")
+	if(selected_type == MENTORHELP)
 		SSmentor_tickets.newHelpRequest(src, msg) // Mhelp
 	else
 		SStickets.newHelpRequest(src, msg) // Ahelp
 
 	//show it to the person adminhelping too
 	to_chat(src, span_boldnotice("[selected_type]</b>: [msg]"), MESSAGE_TYPE_ADMINPM, confidential = TRUE)
-	SSblackbox.record_feedback("tally", "admin_verb", 1, "Adminhelp") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
+	SSblackbox.record_feedback("tally", "admin_verb", 1, ADMINHELP) //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 	switch(selected_type)
-		if("Adminhelp")
+		if(ADMINHELP)
 			//See how many staff are on
 			var/list/admincount = staff_countup(R_BAN)
 			var/active_admins = admincount[1]
@@ -47,7 +47,7 @@ GLOBAL_LIST_INIT(adminhelp_ignored_words, list("unknown", "the", "a", "an", "of"
 			log_admin("[selected_type]: [key_name(src)]: [msg] - heard by [active_admins] non-AFK admins.")
 			SSdiscord.send2discord_simple_noadmins("**\[Adminhelp]** [key_name(src)]: [msg]", check_send_always = TRUE)
 
-		if("Mentorhelp")
+		if(MENTORHELP)
 			var/alerttext
 			var/list/mentorcount = staff_countup(R_MENTOR)
 			var/active_mentors = mentorcount[1]

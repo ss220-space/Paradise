@@ -387,11 +387,8 @@
 	eyes = new /obj/item/organ/internal/cyberimp/eyes/thermals/ling(null) // thermal without item
 	eyes.insert(user)
 
-	var/thralls = 0
+	var/thralls = get_thralls()
 	var/victory_threshold = SSticker.mode.required_thralls
-	for(var/mob/living/target in GLOB.alive_mob_list)
-		if(is_thrall(target))
-			thralls++
 
 	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, span_warning("Ваша концентрация нарушена."))
@@ -450,6 +447,16 @@
 		return FALSE
 	. = ..()
 
+/proc/get_thralls()
+	var/thralls = 0
+	for(var/mob/living/target in GLOB.alive_mob_list)
+		if(!is_thrall(target) || target.mind.madeby_sentience_potion)
+			continue
+
+		thralls++
+		to_chat(target, span_shadowling("You feel hooks sink into your mind and pull."))
+
+	return thralls
 
 /obj/effect/proc_holder/spell/shadowling_collective_mind/cast(list/targets, mob/user = usr)
 	if(!shadowling_check(user))
@@ -458,12 +465,8 @@
 
 	to_chat(user, span_shadowling("<b>You focus your telepathic energies abound, harnessing and drawing together the strength of your thralls.</b>"))
 
-	var/thralls = 0
+	var/thralls = get_thralls()
 	var/victory_threshold = SSticker.mode.required_thralls
-	for(var/mob/living/target in GLOB.alive_mob_list)
-		if(is_thrall(target))
-			thralls++
-			to_chat(target, span_shadowling("You feel hooks sink into your mind and pull."))
 
 	if(!do_after(user, 3 SECONDS, user))
 		to_chat(user, span_warning("Your concentration has been broken. The mental hooks you have sent out now retract into your mind."))

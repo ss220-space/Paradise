@@ -3331,7 +3331,6 @@
 	name = "Secure Armory";
 	req_access = list(1)
 	},
-/obj/item/clothing/suit/armor/laserproof,
 /obj/item/gun/energy/ionrifle,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
@@ -8408,7 +8407,22 @@
 	dir = 8
 	},
 /obj/effect/decal/warning_stripes/red/hollow,
-/obj/machinery/flasher/portable,
+/obj/structure/window/reinforced{
+	dir = 4
+	},
+/obj/structure/rack{
+	dir = 8;
+	layer = 2.9
+	},
+/obj/machinery/door/window{
+	dir = 2;
+	name = "Secure Armory";
+	req_access = list(1)
+	},
+/obj/item/clothing/shoes/reflector,
+/obj/item/clothing/gloves/reflector,
+/obj/item/clothing/suit/armor/reflector,
+/obj/item/clothing/head/helmet/reflector,
 /turf/simulated/floor/plasteel{
 	icon_state = "dark"
 	},
@@ -9385,6 +9399,7 @@
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/wood,
 /area/coldcolony/malta/maintenance/kitchen)
 "dqR" = (
@@ -22404,6 +22419,7 @@
 	dir = 1
 	},
 /obj/effect/landmark/tiles/damageturf,
+/obj/machinery/flasher/portable,
 /turf/simulated/floor/plating,
 /area/coldcolony/malta/security/securearmory)
 "ioc" = (
@@ -37362,6 +37378,7 @@
 	dir = 4
 	},
 /obj/effect/decal/cleanable/dirt,
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/plating,
 /area/coldcolony/ruin/sm_lab)
 "nOk" = (
@@ -42702,6 +42719,7 @@
 /obj/machinery/atmospherics/unary/vent_scrubber/on{
 	dir = 8
 	},
+/obj/effect/landmark/event/xeno_spawn,
 /turf/simulated/floor/carpet,
 /area/coldcolony/malta/maintenance/casino)
 "pHU" = (
@@ -50281,10 +50299,6 @@
 /obj/item/clothing/glasses/hud/health,
 /turf/simulated/floor/plasteel/white,
 /area/coldcolony/malta/medical/paramedic)
-"sul" = (
-/obj/effect/landmark/event/xeno_spawn,
-/turf/simulated/floor/plating,
-/area/coldcolony/malta/maintenance/kitchen)
 "sva" = (
 /obj/structure/chair/wood{
 	dir = 1
@@ -52282,10 +52296,6 @@
 	},
 /turf/simulated/floor/plating/asteroid/snow/planet,
 /area/ruin/unpowered/coldcolony_outside)
-"thc" = (
-/obj/effect/landmark/event/xeno_spawn,
-/turf/simulated/floor/carpet,
-/area/coldcolony/malta/maintenance/casino)
 "thh" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -91265,7 +91275,7 @@ gAD
 eLn
 oOU
 xFx
-sul
+tfZ
 dqo
 sGB
 xgb
@@ -94921,7 +94931,7 @@ cSK
 ves
 cSK
 gWv
-thc
+ktw
 rCn
 msd
 uMp

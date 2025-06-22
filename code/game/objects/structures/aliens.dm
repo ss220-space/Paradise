@@ -136,10 +136,16 @@
 	desc = "Thick resin solidified into a weird looking door."
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin_door_closed"
+	var/icon_closed = "resin_door_closed"
+	var/icon_opened = "resin_door_opened"
+	var/icon_closing = "resin_door_closing"
+	var/icon_opening = "resin_door_opening"
 	max_integrity = 160
 	canSmoothWith = null
 	smooth = NONE
 	pass_flags_self = PASSDOOR
+	var/open_sound = 'sound/creatures/alien/xeno_door_open.ogg'
+	var/close_sound = 'sound/creatures/alien/xeno_door_close.ogg'
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
 	var/autoclose = TRUE
@@ -160,9 +166,9 @@
 /obj/structure/alien/resin/door/update_icon_state()
 	switch(state)
 		if(RESIN_DOOR_CLOSED)
-			icon_state = "resin_door_closed"
+			icon_state = icon_closed
 		if(RESIN_DOOR_OPENED)
-			icon_state = "resin_door_opened"
+			icon_state = icon_opened
 
 
 /obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
@@ -179,12 +185,14 @@
 
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
+	..()
+	attack_check(user)
+
+/obj/structure/alien/resin/door/proc/attack_check(mob/living/user)
 	if(!isalien(user))
 		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
 		return FALSE
-
-	return ..()
-
+	return TRUE
 
 /obj/structure/alien/resin/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -245,8 +253,8 @@
 	if(autoclose)
 		autoclose_in(autoclose_delay)
 
-	flick("resin_door_opening", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
+	flick(icon_opening, src)
+	playsound(loc, open_sound, 100, TRUE)
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
@@ -275,8 +283,8 @@
 				autoclose_in(autoclose_delay * 0.5)
 			return
 
-	flick("resin_door_closing", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
+	flick(icon_closing, src)
+	playsound(loc, close_sound, 100, TRUE)
 	operating = TRUE
 
 	sleep(0.1 SECONDS)

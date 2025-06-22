@@ -37,6 +37,7 @@
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/mantisblade = 1,
 		/obj/item/CQC_manual = 1,
+		/obj/item/storage/belt/security/judobelt = 1,
 		/obj/item/sleeping_carp_scroll = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
 		/obj/item/storage/box/thunderdome/spears = 1,
@@ -63,6 +64,7 @@
 		/obj/item/melee/claymore/bone = 1,
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
+		/obj/item/his_grace/no_sound = 1,
 		)
 
 
@@ -182,6 +184,7 @@
 		/obj/item/storage/toolbox/syndicate = 1,
 		/obj/item/storage/box/syndie_kit/mantisblade = 1,
 		/obj/item/CQC_manual = 1,
+		/obj/item/storage/belt/security/judobelt = 1,
 		/obj/item/sleeping_carp_scroll = 1,
 		/obj/item/clothing/gloves/fingerless/rapid = 1,
 		/obj/item/storage/box/thunderdome/spears = 1,
@@ -231,4 +234,5 @@
 		/obj/item/gun/magic/staff/spellblade = 1,
 		/obj/item/spellbook/oneuse/goliath_dash = 1,
 		/obj/item/spellbook/oneuse/forcewall = 1,
+		/obj/item/his_grace/no_sound = 1,
 		)

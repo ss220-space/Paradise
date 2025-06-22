@@ -47,10 +47,10 @@
 
 /obj/item/gun/energy/shuriken_emitter/Destroy()
 	. = ..()
-	my_suit.shuriken_emitter = null
+	my_suit?.shuriken_emitter = null
 	my_suit = null
-	my_action.action_ready = FALSE
-	my_action.use_action()
+	my_action?.action_ready = FALSE
+	my_action?.use_action()
 	my_action = null
 
 

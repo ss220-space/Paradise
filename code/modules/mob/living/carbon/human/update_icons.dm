@@ -516,7 +516,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	UpdateDamageIcon()
 	if(blocks_emissive)
 		add_overlay(get_emissive_block())
-	update_halo_layer()
+	SEND_SIGNAL(src, COMSIG_MOB_HALO_GAINED)
 	update_fire()
 	update_ssd_overlay()
 	update_unconscious_overlay()
@@ -1238,22 +1238,6 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 		overlays_standing[MISC_LAYER] = get_eye_shine() //Image layer is specified in get_eye_shine() proc as LIGHTING_LAYER + 1.
 
 	apply_overlay(MISC_LAYER)
-
-/mob/living/carbon/human/proc/update_halo_layer()
-	remove_overlay(HALO_LAYER)
-
-	if(iscultist(src) && SSticker.mode.cult_ascendant)
-		var/istate = pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6")
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', istate, -HALO_LAYER)
-		new_halo_overlay.appearance_flags |= RESET_TRANSFORM
-		overlays_standing[HALO_LAYER] = new_halo_overlay
-	else if(isclocker(src) && SSticker.mode.crew_reveal)
-		var/mutable_appearance/new_halo_overlay = mutable_appearance('icons/effects/32x64.dmi', "haloclock", -HALO_LAYER)
-		new_halo_overlay.appearance_flags |= RESET_TRANSFORM
-		overlays_standing[HALO_LAYER] = new_halo_overlay
-
-	apply_overlay(HALO_LAYER)
-
 
 /mob/living/carbon/human/admin_Freeze(client/admin, skip_overlays = TRUE, mech = null)
 	if(..())

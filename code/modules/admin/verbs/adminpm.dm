@@ -11,7 +11,7 @@
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_panel()
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Admin PM Name"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -35,7 +35,7 @@
 
 //shows a list of clients we could send PMs to, then forwards our choice to cmd_admin_pm
 /client/proc/cmd_admin_pm_by_key_panel()
-	set category = "Admin.Admin"
+	set category = STATPANEL_ADMIN_ADMIN
 	set name = "Admin PM Key"
 	if(!check_rights(R_ADMIN|R_MENTOR))
 		return
@@ -183,10 +183,10 @@
 			continue
 		if(X.key != key && X.key != C.key)
 			switch(type)
-				if("Mentorhelp")
+				if(MENTORHELP)
 					if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, X.mob))
 						to_chat(X, span_mentorhelp("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
-				if("Adminhelp")
+				if(ADMINHELP)
 					if(check_rights(R_ADMIN|R_MOD, 0, X.mob))
 						to_chat(X, span_adminhelp("[type]: [key_name(src, TRUE, type)]-&gt;[key_name(C, TRUE, type)]: [emoji_msg]"), confidential=TRUE)
 				else
@@ -195,7 +195,7 @@
 
 	//Check if the mob being PM'd has any open admin tickets.
 	var/tickets = list()
-	if(type == "Mentorhelp")
+	if(type == MENTORHELP)
 		tickets = SSmentor_tickets.checkForTicket(C)
 	else
 		tickets = SStickets.checkForTicket(C)
@@ -203,7 +203,7 @@
 		for(var/datum/ticket/i in tickets)
 			i.addResponse(src, msg) // Add this response to their open tickets.
 		return
-	if(type == "Mentorhelp")
+	if(type == MENTORHELP)
 		if(check_rights(R_ADMIN|R_MOD|R_MENTOR, 0, C.mob)) //Is the person being pm'd an admin? If so we check if the pm'er has open tickets
 			tickets = SSmentor_tickets.checkForTicket(src)
 	else // Ahelp
@@ -251,8 +251,8 @@
 			to_chat(X, "<span class='pmsend'><b>PM: [key_name_admin(src)]-&gt;Discord Admins:</b> [span_notice(msg)]</span>", confidential=TRUE)
 
 /client/verb/open_pms_ui()
-	set name = "My PMs"
-	set category = "Admin.Admin Tickets"
+	set name = "ЛС"
+	set category = STATPANEL_ADMIN_TICKETS
 	pm_tracker.show_ui(usr)
 
 /client/proc/set_typing(client/target, value)

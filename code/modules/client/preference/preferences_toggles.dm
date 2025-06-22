@@ -1,6 +1,6 @@
 /client/verb/setup_character()
-	set name = "Game Preferences"
-	set category = "Special Verbs"
+	set name = "Игровые настройки"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
@@ -34,19 +34,19 @@
 
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 		if(PREFTOGGLE_TOGGLE3)
 			our_prefs.toggles3 ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
@@ -280,8 +280,8 @@
 	blackbox_message = "Toggle Ghost PDA"
 
 /client/verb/silence_current_midi()
-	set name = "Silence Current Midi"
-	set category = "Special Verbs"
+	set name = "Заглушить MIDI"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "The current admin midi has been silenced")

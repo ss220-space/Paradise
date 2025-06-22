@@ -38,7 +38,7 @@
 		return .
 	status_tab_data[++status_tab_data.len] = list("Список игроков:", "")
 	for(var/mob/new_player/player in GLOB.player_list)
-		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Ready)" : "(Not ready)")
+		status_tab_data[++status_tab_data.len] = list("[player.key]", player.ready ? "(Готов)" : "(Не готов)")
 
 
 /mob/new_player/Topic(href, href_list[])
@@ -57,7 +57,7 @@
 
 	if(href_list["consent_rejected"])
 		client.tos_consent = FALSE
-		to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+		to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
 		var/datum/db_query/query = SSdbcore.NewQuery("REPLACE INTO [format_table_name("privacy")] (ckey, datetime, consent) VALUES (:ckey, Now(), 0)", list(
 			"ckey" = ckey
 		))
@@ -72,7 +72,7 @@
 
 	if(href_list["ready"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>Вы долнжны согласится с политикой конфидициальноти перед игрой!</span>")
+			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -80,20 +80,20 @@
 		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
 			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
 				client.prefs.load_preferences(client)
-				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
-				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				to_chat(usr, span_danger("Вам необходимо привязать ваш профиль в Discord к аккаунту!"))
+				to_chat(usr, span_warning("Нажмите на кнопку \"Привязка Discord\" во вкладке \"Special Verbs\", чтобы получить необходимые инструкции."))
 				return FALSE
 		if(!is_used_species_available(client.prefs.species))
-			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			to_chat(usr, span_warning("Вы не можете играть за выбранную расу персонажа, так как она в данный момент недоступна для вас! Пожалуйста, выберите другую расу."))
 			return FALSE
 		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
-				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				to_chat(usr, span_danger("Пожалуйста, настройте голос вашего персонажа! Не забудьте сохранить изменения."))
 				client.prefs.ShowChoices(src)
 				return FALSE
 			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
 			if(client.donator_level < seed.donator_level)
-				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
 		ready = !ready
@@ -116,7 +116,7 @@
 		client << link(CONFIG_GET(string/wikiurl))
 
 	if(href_list["discord"])
-		if(tgui_alert(usr, "Перейти на дискорд сервер?", "Дискорд", list("Да", "Нет")) != "Да")
+		if(tgui_alert(usr, "Перейти на Discord сервер?", "Discord", list("Да", "Нет")) != "Да")
 			return
 		client << link(CONFIG_GET(string/discordurl))
 
@@ -142,7 +142,7 @@
 
 	if(href_list["observe"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -150,14 +150,14 @@
 		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
 			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
 				client.prefs.load_preferences(client)
-				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
-				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' в меню или во вкладке 'Special Verbs' для получения инструкций.</span>")
+				to_chat(usr, span_danger("Вам необходимо привязать ваш профиль в Discord к аккаунту!"))
+				to_chat(usr, span_warning("Нажмите на кнопку \"Привязка Discord\" во вкладке \"Special Verbs\", чтобы получить необходимые инструкции."))
 				return FALSE
 		if(!SSticker || SSticker.current_state == GAME_STATE_STARTUP)
-			to_chat(usr, "<span class='warning'>You must wait for the server to finish starting before you can join!</span>")
+			to_chat(usr, span_warning("Пожалуйста, подождите, пока сервер полностью запустится, прежде чем присоединяться!"))
 			return FALSE
 
-		if(tgui_alert(src,"Вы уверены что хотите стать наблюдателем?[(CONFIG_GET(flag/respawn_observer) ? "" : " Вы не сможете зайти в раунд за члена экипажа после этого!")]","Наблюдать", list("Да","Нет")) == "Да")
+		if(tgui_alert(src,"Вы уверены что хотите стать наблюдателем?[(CONFIG_GET(flag/respawn_observer) ? "" : " Вы не сможете принять участие в этом раунде в качестве члена экипажа после этого!")]","Наблюдать", list("Да","Нет")) == "Да")
 			if(!client)
 				return 1
 			var/mob/dead/observer/observer = new()
@@ -170,7 +170,7 @@
 			observer.started_as_observer = 1
 			close_spawn_windows()
 			var/obj/O = locate("landmark*Observer-Start")
-			to_chat(src, "<span class='notice'>Now teleporting.</span>")
+			to_chat(src, span_notice("Телепортация."))
 			observer.abstract_move(get_turf(O))
 			observer.timeofdeath = world.time // Set the time of death so that the respawn timer works correctly.
 			client.prefs.update_preview_icon(1)
@@ -193,7 +193,7 @@
 
 	if(href_list["late_join"])
 		if(!client.tos_consent)
-			to_chat(usr, "<span class='warning'>You must consent to the terms of service before you can join!</span>")
+			to_chat(usr, span_warning("Прежде чем присоединиться, вы должны согласиться с политикой конфиденциальности!"))
 			return FALSE
 		if(client.version_blocked)
 			client.show_update_notice()
@@ -201,23 +201,23 @@
 		if(CONFIG_GET(number/minimum_byondacc_age) && client.byondacc_age <= CONFIG_GET(number/minimum_byondacc_age))
 			if(!client.prefs.discord_id || (client.prefs.discord_id && length(client.prefs.discord_id) == 32))
 				client.prefs.load_preferences(client)
-				to_chat(usr, "<span class='danger'>Вам необходимо привязать дискорд-профиль к аккаунту!</span>")
-				to_chat(usr, "<span class='warning'>Нажмите 'Привязка Discord' во вкладке 'Special Verbs' для получения инструкций.</span>")
+				to_chat(usr, span_danger("Вам необходимо привязать ваш профиль в Discord к аккаунту!"))
+				to_chat(usr, span_warning("Нажмите на кнопку \"Привязка Discord\" во вкладке \"Special Verbs\", чтобы получить необходимые инструкции."))
 				return FALSE
 		if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-			to_chat(usr, "<span class='warning'>The round is either not ready, or has already finished...</span>")
+			to_chat(usr, span_warning("Раунд либо ещё не готов, либо в данный момент уже завершён..."))
 			return
 		if(!is_used_species_available(client.prefs.species))
-			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			to_chat(usr, span_warning("Вы не можете играть за выбранную расу персонажа, так как она в данный момент недоступна для вас! Пожалуйста, выберите другую расу."))
 			return
 		if(CONFIG_GET(flag/tts_enabled))
 			if(!client.prefs.tts_seed)
-				to_chat(usr, "<span class='danger'>Вам необходимо настроить голос персонажа! Не забудьте сохранить настройки.</span>")
+				to_chat(usr, span_danger("Пожалуйста, настройте голос вашего персонажа! Не забудьте сохранить изменения."))
 				client.prefs.ShowChoices(src)
 				return FALSE
 			var/datum/tts_seed/seed = SStts.tts_seeds[client.prefs.tts_seed]
 			if(client.donator_level < seed.donator_level)
-				to_chat(usr, "<span class='danger'>Выбранный голос персонажа более недоступен на текущем уровне подписки!</span>")
+				to_chat(usr, span_danger("К сожалению, выбранный вами голос персонажа больше не доступен на вашем текущем уровне подписки."))
 				client.prefs.ShowChoices(src)
 				return FALSE
 
@@ -232,14 +232,14 @@
 	if(href_list["SelectedJob"])
 
 		if(!GLOB.enter_allowed)
-			to_chat(usr, "<span class='notice'>There is an administrative lock on entering the game!</span>")
+			to_chat(usr, span_notice("Вход в игру невозможен из-за блокировки администрацией!"))
 			return
 
 		if(client.prefs.toggles2 & PREFTOGGLE_2_RANDOMSLOT)
 			client.prefs.load_random_character_slot(client)
 
 		if(!is_used_species_available(client.prefs.species))
-			to_chat(usr, "<span class='warning'>Выбранная раса персонажа недоступна для игры в данный момент! Выберите другого персонажа.</span>")
+			to_chat(usr, span_warning("Вы не можете играть за выбранную расу персонажа, так как она в данный момент недоступна для вас! Пожалуйста, выберите другую расу."))
 			return
 
 		//Prevents people rejoining as same character.
@@ -247,7 +247,7 @@
 			for(var/C in GLOB.human_names_list)
 				var/char_name = client.prefs.real_name
 				if(char_name == C)
-					to_chat (usr, "<span class='danger'>There is a character that already exists with the same name: <b>[C]</b>, please join with a different one.</span>")
+					to_chat (usr, span_danger("Уже существует персонаж с таким именем: <b>[C]</b>, пожалуйста, выберите другое имя."))
 					return
 
 		AttemptLateSpawn(href_list["SelectedJob"],client.prefs.spawnpoint)
@@ -338,10 +338,10 @@
 	if(src != usr)
 		return FALSE
 	if(!SSticker || SSticker.current_state != GAME_STATE_PLAYING)
-		to_chat(usr, "<span class='warning'>Раунд либо ещё не готов, либо уже завершился...</span>")
+		to_chat(usr, span_warning("Раунд либо ещё не готов, либо уже завершился..."))
 		return FALSE
 	if(!GLOB.enter_allowed)
-		to_chat(usr, "<span class='notice'>Администратор заблокировал вход в игру!</span>")
+		to_chat(usr, span_notice("Администратор заблокировал вход в игру!"))
 		return FALSE
 	if(rank == "RandomJob")
 		rank = random_job()
@@ -363,13 +363,13 @@
 		return FALSE
 	if(!thisjob.character_old_enough(client))
 		var/datum/species/species = GLOB.all_species[client?.prefs.species]
-		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст - [get_age_limits(species, thisjob.min_age_type)]"
+		var/msg = "Должность [rank] недоступна в связи с недостаточным возрастом персонажа ([client?.prefs.age]). Минимальный возраст – [get_age_limits(species, thisjob.min_age_type)]"
 		to_chat(src, msg)
 		alert(msg)
 		return FALSE
 
 	if(thisjob.species_in_blacklist(client))
-		var/msg = "Должность [rank] недоступна для данной расы. Выберите другую."
+		var/msg = "Должность [rank] недоступна для данной расы. Пожалуйста, попробуйте другую."
 		to_chat(src, msg)
 		alert(msg)
 		return FALSE
@@ -412,7 +412,7 @@
 				character.forceMove(pick(S.turfs))
 				join_message = S.msg
 			else
-				to_chat(character, "Your chosen spawnpoint ([S.display_name]) is unavailable for your chosen job. Spawning you at the Arrivals shuttle instead.")
+				to_chat(character, "Выбранная вами зона появления ([S.display_name]) недоступна для выбранной вами профессии. Вместо этого мы отправляем вас на шаттл Прибытия.")
 				character.forceMove(pick(GLOB.latejoin))
 				join_message = "прибыл на станцию"
 		else
@@ -660,7 +660,7 @@
 /mob/new_player/proc/close_spawn_windows()
 	close_window(src, "latechoices") //closes late choices window
 	close_window(src, "playersetup") //closes the player setup window
-	close_window(src, "preferences")	
+	close_window(src, "preferences") //closes preferences
 	close_window(src, "mob_occupation") //closes job selection
 
 

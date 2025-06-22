@@ -328,10 +328,6 @@
 
 	add_fingerprint(user)
 	var/obj/item/stack/tile/plasteel/plasteel = I
-	if(istype(I, /obj/item/storage/toolbox/green/memetic))
-		to_chat(user, span_notice("Хорошая попытка..."))
-		balloon_alert(user, "невозможно")
-		return .
 
 	if(length(contents))
 		to_chat(user, span_notice("Вы не можете начать сборку, пока в ящике для инструментов что-то лежит."))

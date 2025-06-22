@@ -173,11 +173,8 @@ Made by Xhuis
 		if(jobban_isbanned(new_thrall_mind.current, ROLE_SHADOWLING) || jobban_isbanned(new_thrall_mind.current, ROLE_SYNDICATE))
 			replace_jobbanned_player(new_thrall_mind.current, ROLE_SHADOWLING)
 
-		var/thralls = 0
+		var/thralls = get_thralls()
 		var/victory_threshold = SSticker.mode.required_thralls
-		for(var/mob/living/target in GLOB.alive_mob_list)
-			if(is_thrall(target))
-				thralls++
 
 		if(thralls < victory_threshold)
 			for(var/mob/shadowling in GLOB.alive_mob_list)

@@ -86,6 +86,8 @@
 
 	var/list/curses
 
+	var/madeby_sentience_potion = FALSE
+
 
 /datum/mind/New(new_key)
 	key = new_key

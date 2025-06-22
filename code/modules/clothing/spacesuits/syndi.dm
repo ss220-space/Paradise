@@ -34,7 +34,6 @@
 		SPECIES_VULPKANIN = 'icons/mob/clothing/species/vulpkanin/suit.dmi',
 		SPECIES_VOX = 'icons/mob/clothing/species/vox/suit.dmi')
 
-
 //Green syndicate space suit
 /obj/item/clothing/head/helmet/space/syndicate/green
 	name = "Green Space Helmet"

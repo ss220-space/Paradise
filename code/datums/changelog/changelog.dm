@@ -10,7 +10,7 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 /datum/changelog/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if (!ui)
-		ui = new(user, src, "Changelog")
+		ui = new(user, src, "Changelog", "Журнал обновлений")
 		ui.open()
 
 /datum/changelog/ui_act(action, list/params, datum/tgui/ui, datum/ui_state/state)
@@ -36,8 +36,8 @@ GLOBAL_VAR_INIT(changelog_hash, "")
 
 
 /client/verb/changelog()
-	set name = "Changelog"
-	set category = "OOC"
+	set name = "Журнал обновлений"
+	set category = STATPANEL_OOC
 	if(!GLOB.changelog_tgui)
 		GLOB.changelog_tgui = new /datum/changelog()
 

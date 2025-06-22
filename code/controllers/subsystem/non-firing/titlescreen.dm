@@ -373,15 +373,21 @@ SUBSYSTEM_DEF(title)
 			const readyPlayers = document.getElementById('ready-players');
 
 			function update_newplayer_info(){
-				var args = Array.prototype.slice.call(arguments);
-				var time = args\[0\];
-				var players = args\[1\];
-				var ready = args\[2\];
-				var mode = args\[3\];
+				const args = Object.fromEntries(
+										Array.from(arguments).map(item => item.split('='))
+									);
+				console.log(arguments);
+				console.log(args);
+				const time = args.time_remaining;
+				const players = args.players;
+				const ready = args.total_players_ready;
+				const mode = args.game_mode;
 				gameMode.textContent = mode;
 				countdown.textContent = time;
 				playersCount.textContent = players;
-				readyPlayers.textContent = (ready === undefined || ready === null || ready <= 0)? 'НЕТУ' : ready + '/' + players;;
+				const readyExist = (ready !== undefined && ready !== null);
+				readyPlayers.parentElement.style.display = readyExist? 'block' : 'none';
+				readyPlayers.textContent = (!readyExist || ready <= 0)? 'НЕТ' : ready + '/' + players;
 			}
 
 			const character_name_slot = document.getElementById("character_slot");

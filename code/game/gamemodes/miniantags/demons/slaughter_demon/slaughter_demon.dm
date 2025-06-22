@@ -1,12 +1,20 @@
 /mob/living/simple_animal/demon/slaughter
 	name = "slaughter demon"
+	ru_names = list(
+		NOMINATIVE = "демон резни",
+		GENITIVE = "демона резни",
+		DATIVE = "демону резни",
+		ACCUSATIVE = "демона резни",
+		INSTRUMENTAL = "демоном резни",
+		PREPOSITIONAL = "демоне резни"
+	)
 	real_name = "slaughter demon"
-	desc = "A large, menacing creature covered in armored black scales. You should run."
+	desc = "Огромное угрожающее существо, покрытое бронированной чёрной чешуёй. Вам стоит бежать!"
 	speak = list("ire", "ego", "nahlizet", "certum", "veri", "jatkaa", "balaq", "mgar", "karazet", "geeri", "orkan", "allaq")
 	icon = 'icons/mob/mob.dmi'
 	icon_state = "daemon"
 	icon_living = "daemon"
-	deathmessage = "screams in anger as it collapses into a puddle of viscera!"
+	deathmessage = "издаёт последний рёв ярости, превращаясь в месиво из плоти!"
 	loot = list(/obj/effect/decal/cleanable/blood/innards, /obj/effect/decal/cleanable/blood, /obj/effect/gibspawner/generic, /obj/effect/gibspawner/generic, /obj/item/organ/internal/heart/demon/slaughter)
 	var/feast_sound = 'sound/misc/demon_consume.ogg'
 	var/devoured = 0
@@ -17,10 +25,11 @@
 	var/cooldown = 0
 	var/gorecooldown = 0
 
-	playstyle_string = "<b>You are the Slaughter Demon, a terrible creature from another existence. You have a single desire: to kill.  \
-						You may use the blood crawl icon when on blood pools to travel through them, appearing and dissapearing from the station at will. \
-						Pulling a dead or critical mob while you enter a pool will pull them in with you, allowing you to feast. \
-						You move quickly upon leaving a pool of blood, but the material world will soon sap your strength and leave you sluggish. </b>"
+	playstyle_string = "<b><span class='userdanger'>Вы – Демон Резни!</span></b><br> \
+						<b>Вы - ужасное существо из иного измерения. У вас одна цель: убивать.</b><br> \
+						<b>Вы можете использовать способность \"Кровавый путь\" на лужах крови, чтобы перемещаться через них, появляясь и исчезая на станции по своему желанию.</b><br> \
+						<b>Если вы тащите мёртвое или находящееся в критическом состоянии существо, когда входите в лужу крови, он последует за вами, что позволит вам поглотить его.</b><br> \
+						<b>Вы двигаетесь быстро, покидая лужу крови, но материальный мир скоро лишит вас сил и сделает медлительным.</b>"
 
 
 /mob/living/simple_animal/demon/slaughter/Initialize(mapload)
@@ -46,7 +55,7 @@
 
 	var/list/messages = list()
 	messages.Add(playstyle_string)
-	messages.Add(span_notice("<b>You are not currently in the same plane of existence as the station. Use the blood crawl action at a blood pool to manifest.</b>"))
+	messages.Add(span_notice("<b>Сейчас вы находитесь в ином измерении, отличном от станции. Используйте способность \"Кровавый путь\" на луже крови, чтобы проявиться.</b>"))
 	src << 'sound/misc/demon_dies.ogg'
 	if(vialspawned)
 		return
@@ -68,7 +77,15 @@
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "innards"
 	name = "pile of viscera"
-	desc = "A repulsive pile of guts and gore."
+	desc = "Омерзительная масса из разорванной плоти и органов."
+	ru_names = list(
+		NOMINATIVE = "кровавое месиво",
+		GENITIVE = "кровавого месива",
+		DATIVE = "кровавому месиву",
+		ACCUSATIVE = "кровавое месиво",
+		INSTRUMENTAL = "кровавым месивом",
+		PREPOSITIONAL = "кровавом месиве"
+	)
 
 
 /mob/living/simple_animal/demon/slaughter/proc/release_consumed(mob/living/M)
@@ -79,26 +96,34 @@
 /mob/living/simple_animal/demon/slaughter/cult //Summoned as part of the cult objective "Bring the Slaughter"
 	name = "harbinger of the slaughter"
 	real_name = "harbinger of the Slaughter"
-	desc = "An awful creature from beyond the realms of madness."
+	desc = "Ужасное существо, обитающее за гранью здравого смысла."
+	ru_names = list(
+		NOMINATIVE = "вестник резни",
+		GENITIVE = "вестника резни",
+		DATIVE = "вестнику резни",
+		ACCUSATIVE = "вестника резни",
+		INSTRUMENTAL = "вестником резни",
+		PREPOSITIONAL = "вестнике резни"
+	)
 	maxHealth = 500
 	health = 500
 	melee_damage_upper = 60
 	melee_damage_lower = 60
 	environment_smash = ENVIRONMENT_SMASH_RWALLS //Smashes through EVERYTHING - r-walls included
 	faction = list("cult")
-	playstyle_string = "<b><span class='cult'><span class='userdanger'>You are a Harbinger of the Slaughter.</span> Brought forth by the servants of Nar'Sie, you have a single purpose: slaughter the heretics \
-	who do not worship your master. You may use the ability \"Blood Crawl\" near a pool of blood to enter it and become incorporeal. Using the ability again near a blood pool will allow you \
-	to emerge from it. You are fast, powerful, and almost invincible. By dragging a dead or unconscious body into a blood pool with you, you will consume it after a time and fully regain \
-	your health. You may use the ability \"Sense Victims\" in your Cultist tab to locate a random, living heretic.</span></b>"
-
+	playstyle_string = "<b><span class='userdanger'>Вы — Вестник Резни. Призванный слугами Нар'Си, у вас одна цель: уничтожить еретиков, которые не поклоняются вашему господину!</span></b><br> \
+							<b>Вы можете использовать способность \"Кровавый путь\" рядом с лужей крови, чтобы войти в неё и стать неосязаемым. \
+							Использование способности снова рядом с лужей крови позволит вам выйти из неё. Вы быстры, сильны и почти неуязвимы. Если вы тащите мёртвое или без сознания тело \
+							в лужу крови, вы поглотите его через некоторое время и полностью восстановите здоровье. Вы можете использовать способность \"Чувствовать Жертв\" на вкладке Культиста, \
+							чтобы найти случайного живого еретика.</b>"
 
 /mob/living/simple_animal/demon/slaughter/cult/attempt_objectives()
 	return
 
 
 /obj/effect/proc_holder/spell/sense_victims
-	name = "Sense Victims"
-	desc = "Sense the location of heretics"
+	name = "Охота за душами"
+	desc = "Определите местоположение еретиков."
 	base_cooldown = 0
 	clothes_req = FALSE
 	human_req = FALSE
@@ -118,29 +143,29 @@
 
 /obj/effect/proc_holder/spell/sense_victims/cast(list/targets, mob/user)
 	var/mob/living/victim = targets[1]
-	to_chat(victim, span_userdanger("You feel an awful sense of being watched..."))
+	to_chat(victim, span_userdanger("Вы чувствуете ужасное ощущение, что за вами наблюдают..."))
 	victim.Stun(6 SECONDS) //HUE
 	var/area/A = get_area(victim)
 	if(!A)
-		to_chat(user, span_warning("You could not locate any sapient heretics for the Slaughter."))
+		to_chat(user, span_warning("Вы не смогли найти разумных еретиков для Резни."))
 		return
-	to_chat(user, span_danger("You sense a terrified soul at [A]. <b>Show [A.p_them()] the error of [A.p_their()] ways.</b>"))
+	to_chat(user, span_danger("Вы чувствуете испуганную душу в [A.declent_ru(PREPOSITIONAL)]. <b>Покажите [genderize_ru(victim.gender,"ему","ей","ему","им")] ошибку [genderize_ru(victim.gender,"его","её","его","их")] пути.</b>"))
 
 
 /mob/living/simple_animal/demon/slaughter/cult/Initialize(mapload)
 	. = ..()
 	spawn(0.5 SECONDS)
-		var/list/demon_candidates = SSghost_spawns.poll_candidates("Do you want to play as a slaughter demon?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
+		var/list/demon_candidates = SSghost_spawns.poll_candidates("Хотите сыграть за демона резни?", ROLE_DEMON, TRUE, 10 SECONDS, source = /mob/living/simple_animal/demon/slaughter/cult)
 		if(!demon_candidates.len)
 			log_game("[src] has failed to spawn, because no one enrolled.")
-			visible_message(span_warning("[src] disappears in a flash of red light!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает во вспышке красного света!"))
 			qdel(src)
 			return
 		var/mob/M = pick(demon_candidates)
 		var/mob/living/simple_animal/demon/slaughter/cult/S = src
 		if(!M || !M.client)
 			log_game("[src] has failed to spawn, because enrolled player is missing.")
-			visible_message(span_warning("[src] disappears in a flash of red light!"))
+			visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] исчезает во вспышке красного света!"))
 			qdel(src)
 			return
 		var/client/C = M.client
@@ -154,7 +179,7 @@
 		AddSpell(SV)
 		var/datum/objective/new_objective = new /datum/objective
 		new_objective.owner = S.mind
-		new_objective.explanation_text = "Bring forth the Slaughter to the nonbelievers."
+		new_objective.explanation_text = "Устройте Резню неверующим!"
 		S.mind.objectives += new_objective
 		var/list/messages = list(S.mind.prepare_announce_objectives(FALSE))
 		to_chat(S, chat_box_red(messages.Join("<br>")))
@@ -169,8 +194,7 @@
 
 	// Eating the heart for the first time. Gives basic bloodcrawling. This is the only time we need to insert the heart.
 	if(!HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		user.visible_message(span_warning("[user]'s eyes flare a deep crimson!"), \
-						 span_userdanger("You feel a strange power seep into your body... you have absorbed the demon's blood-travelling powers!"))
+		user.visible_message(span_warning("Глаза [user] вспыхивают багровым светом!"), span_userdanger("Вы чувствуете, как странная сила проникает в ваше тело... Вы преобрели способность демона перемещаться через кровь!"))
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL, "bloodcrawl")
 		user.drop_from_active_hand()
 		insert(user) //Consuming the heart literally replaces your heart with a demon heart. H A R D C O R E.
@@ -178,13 +202,13 @@
 
 	// Eating a 2nd heart. Gives the ability to drag people into blood and eat them.
 	if(HAS_TRAIT(user, TRAIT_BLOODCRAWL))
-		to_chat(user, "You feel differ-[span_warning(" CONSUME THEM!")]")
+		to_chat(user, "Вы чувствуете себя иначе... [span_warning("ПОГЛОТИ ИХ!")]")
 		ADD_TRAIT(user, TRAIT_BLOODCRAWL_EAT, TRAIT_BLOODCRAWL_EAT)
 		qdel(src) // Replacing their demon heart with another demon heart is pointless, just delete this one and return.
 		return TRUE
 
 	// Eating any more than 2 demon hearts does nothing.
-	to_chat(user, span_warning("...and you don't feel any different."))
+	to_chat(user, span_warning("...и вы не чувствуете никаких изменений."))
 	qdel(src)
 
 
@@ -208,11 +232,19 @@
 	// The laughter demon! It's everyone's best friend! It just wants to hug
 	// them so much, it wants to hug everyone at once!
 	name = "laughter demon"
+	ru_names = list(
+		NOMINATIVE = "демон смеха",
+		GENITIVE = "демона смеха",
+		DATIVE = "демону смеха",
+		ACCUSATIVE = "демона смеха",
+		INSTRUMENTAL = "демоном смеха",
+		PREPOSITIONAL = "демоне смеха"
+	)
 	real_name = "laughter demon"
-	desc = "A large, adorable creature covered in armor with pink bows."
-	speak_emote = list("giggles", "titters", "chuckles")
-	emote_hear = list("gaffaws", "laughs")
-	response_help  = "hugs"
+	desc = "Огромное милое существо, покрытое броней с розовыми бантиками."
+	speak_emote = list("хихикает", "смеётся", "посмеивается")
+	emote_hear = list("громко хохочет", "смеётся")
+	response_help  = "обнимает"
 	attacktext = "неистово щекочет"
 	maxHealth = 175
 	health = 175
@@ -225,15 +257,20 @@
 
 	icon_state = "bowmon"
 	icon_living = "bowmon"
-	deathmessage = "fades out, as all of its friends are released from its prison of hugs."
+	deathmessage = "исчезает, выпуская всех своих друзей из тюрьмы объятий."
 	loot = list(/mob/living/simple_animal/pet/cat/kitten{name = "Laughter"})
 
+	playstyle_string = "<font color='#FF69B4'><b><span class='userdanger'>Вы — Демон Смеха!</span></b></font><br> \
+						<font color='#FF69B4'><b>Вы — очаровательное, и слегка пугающее, существо, которое обожает объятия и смех. Ваша цель — распространять радость, веселье и... немного хаоса!</b></font><br> \
+						<font color='#FF69B4'><b>Вы можете использовать способность \"Кровавый путь\", чтобы перемещаться через милые лужи крови, появляясь и исчезая по своему желанию.</b></font><br> \
+						<font color='#FF69B4'><b>Если вы тащите кого-то в лужу крови – они получат порцию вашего веселья и обнимашек. Вы быстро двигаетесь и восстанавливаетесь в лужах крови, но будьте осторожны: слишком много серьёзности может ослабить вас!</b></font><br> \
+						<font color='#FF69B4'><b>Помните: смех — это ваше оружие, а объятия — ваш стиль. ДЕЛАЙТЕ МИР ЯРЧЕ И СМЕШНЕЕ!</b></font>"
 
 /mob/living/simple_animal/demon/slaughter/laughter/release_consumed(mob/living/M)
 	if(M.revive())
 		M.grab_ghost(force = TRUE)
 		playsound(get_turf(src), feast_sound, 50, 1, -1)
-		to_chat(M, span_clown("You leave [src]'s warm embrace, and feel ready to take on the world."))
+		to_chat(M, span_clown("Вы покидаете тёплые объятия [declent_ru(GENITIVE)] и чувствуете себя готовым покорить мир."))
 	..(M)
 
 
