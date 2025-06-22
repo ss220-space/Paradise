@@ -100,7 +100,7 @@
 		/obj/effect/proc_holder/spell/aoe/conjure/carp,
 		/obj/effect/proc_holder/spell/projectile/magic_missile,
 		/obj/effect/proc_holder/spell/projectile/honk_missile,
-		/obj/effect/proc_holder/spell/aoe/conjure/construct,
+		/obj/effect/proc_holder/spell/charge,
 		/obj/effect/proc_holder/spell/aoe/conjure/creature,
 		/obj/effect/proc_holder/spell/trigger/blind,
 		/obj/effect/proc_holder/spell/aoe/repulse,

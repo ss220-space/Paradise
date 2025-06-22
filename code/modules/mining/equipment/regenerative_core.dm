@@ -152,7 +152,7 @@
 	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
 		if(!user)
 			return
-		user.balloon_alert(user, "ядро еще не восстановилось")
+		user.balloon_alert(user, "ядро не восстановилось")
 		return
 	. = ..()
 
@@ -160,7 +160,7 @@
 	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
 		if(!user)
 			return
-		user.balloon_alert(user, "ядро еще не восстановилось")
+		user.balloon_alert(user, "ядро не восстановилось")
 		return
 	. = ..()
 

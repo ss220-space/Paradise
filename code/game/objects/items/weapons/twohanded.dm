@@ -913,6 +913,7 @@
 	light_power = 6
 	siemens_coefficient = 0
 	light_color = COLOR_SOFT_RED
+	gender = PLURAL
 
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24
@@ -942,11 +943,13 @@
 	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || !(living_user.mind.soulOwner == living_user.mind)) //Burn hands unless they are a devil or have sold their soul
 		return
 
-	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднимает [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
-					span_warning("\"Когда ты поднимаешь [declent_ru(ACCUSATIVE)], твои руки воспламеняются, напоминая тебе обо всех твоих прошлых грехах.\""))
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[pluralize_ru(living_user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+					span_warning("Когда вы поднимаете [declent_ru(ACCUSATIVE)], ваши руки воспламеняются, напоминая вам обо всех ваших прошлых грехах."))
+
 	if(!ishuman(living_user))
 		living_user.adjustFireLoss(rand(force / 2, force))
 		return
+
 	var/mob/living/carbon/human/human = living_user
 	human.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
@@ -958,7 +961,7 @@
 	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
-	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сгорает в твоих руках!"))
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в твоих руках!"))
 	user.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 

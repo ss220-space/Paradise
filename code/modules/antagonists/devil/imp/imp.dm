@@ -83,7 +83,7 @@
 
 /datum/antagonist/imp/greet()
 	var/list/messages = list()
-	messages += span_big("<b>Вы Бес</b>")
+	messages += span_big("<b>Вы – Бес!</b>")
 	messages += "<b>Вы низший ранг в иерархии ада.</b>"
 	messages += "<b>Хотя вы не обязаны помогать, возможно, помогая высокопоставленному дьяволу, вы сможете получить повышение.</b>"
 	messages += "<b>Вы не способны преднамеренно причинить вред дьяволу или любой другой адской сущности</b>"
@@ -91,7 +91,7 @@
 
 /datum/antagonist/imp/from_soul/greet()
 	var/list/messages = ..()
-	messages += span_warning("<b>Вы не помните ничего о своей человечкской жизни.</b>")
+	messages += span_warning("<b>Вы не помните ничего о своей человеческой жизни.</b>")
 	return messages
 
 /datum/antagonist/imp/demon
@@ -101,7 +101,7 @@
 
 /datum/antagonist/imp/demon/greet()
 	var/list/messages = list()
-	messages += span_big("<b>Вы Демон</b>")
+	messages += span_big("<b>Вы – Демон!</b>")
 	messages += "<b>Вы выше по рангу, чем бесы, но вы все еще можете получить повышение.</b>"
 	messages += "<b>Хотя вы не обязаны помогать, возможно, помогая высокопоставленному дьяволу, вы сможете получить повышение.</b>"
 	messages += "<b>Вы не способны преднамеренно причинить вред дьяволу или любой другой адской сущности</b>"

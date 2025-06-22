@@ -196,7 +196,7 @@
 /datum/reagent/napalm/hellfire
 	name = "Жидкое адское пламя"
 	id = "hellfire"
-	description = "Адское пламя, превращенное в вещество неизвестными силами"
+	description = "Адское пламя, превращённое в вещество неизвестными силами."
 	burncolor = "#EE6515"
 	intensityfire = BURN_LEVEL_TIER_2
 	durationfire = BURN_TIME_TIER_1

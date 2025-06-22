@@ -35,7 +35,7 @@
 
 
 /obj/effect/proc_holder/spell/view_range
-	name = "Distant vision"
+	name = "Дальний взор"
 	desc = "Ваша награда за продажу души."
 
 	invocation_type = "whisper"
@@ -139,14 +139,14 @@
 
 
 /obj/item/melee/touch_attack/revive_touch
-	name = "воскрешающее косание"
+	name = "воскрешающее касание"
 	ru_names = list(
-        NOMINATIVE = "воскрешающее касание",
-        GENITIVE = "воскрешающего касания",
-        DATIVE = "воскрешающему касанию",
-        ACCUSATIVE = "воскрешающее касание",
-        INSTRUMENTAL = "воскрешающим касанием",
-        PREPOSITIONAL = "воскрешающем касании"
+		NOMINATIVE = "воскрешающее касание",
+		GENITIVE = "воскрешающего касания",
+		DATIVE = "воскрешающему касанию",
+		ACCUSATIVE = "воскрешающее касание",
+		INSTRUMENTAL = "воскрешающим касанием",
+		PREPOSITIONAL = "воскрешающем касании"
 	)
 	desc = "Воскрешает тело умершего на определенное время."
 	catchphrase = "Surge e lecto"

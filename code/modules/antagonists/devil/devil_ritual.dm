@@ -98,7 +98,7 @@
 
 /datum/ritual/devil/ascendetion
 	name = "Ритуал возвышения"
-	description = "Представляет собой улучшенный ритуал жертвоприношения, необходимый дьяволу, чтобы возвыситься до архидьявола."
+	description = "Представляет собой улучшенный ритуал жертвоприношения, необходимый дьяволу, чтобы возвыситься до Архидьявола."
 	ritual_should_del_things = FALSE
 	required_things = list(
 		/mob/living/carbon/human = 2
@@ -137,11 +137,11 @@
 	var/datum/objective/devil/sintouch/sintouch_objective = locate() in devil.objectives
 
 	if(!sintouch_objective || !(sintouch_objective.check_completion()))
-		ritual_object.balloon_alert(invoker, "на станции недостаточно грешников!")
+		ritual_object.balloon_alert(invoker, "мало грешников!")
 		return FALSE
 
 	if(devil.soulsOwned.len < ASCEND_THRESHOLD)
-		ritual_object.balloon_alert(invoker, "у вас недостаточно душ!")
+		ritual_object.balloon_alert(invoker, "недостаточно душ!")
 		return FALSE
 
 	if(devil.rank.type != TRUE_DEVIL_RANK)
@@ -160,7 +160,7 @@
 			return FALSE
 
 		if(!(SEND_SIGNAL(human.mind, COMSIG_DEVIL_SACRIFICE_CHECK) & COMPONENT_SACRIFICE_VALID))
-			ritual_object.balloon_alert(invoker, "одна из жертв не имеет ценности!")
+			ritual_object.balloon_alert(invoker, "одна из жертв бесполезна!")
 			return FALSE
 
 		count += 1
@@ -198,23 +198,23 @@
 	switch(stage)
 		if(DEVIL_ASCEND_START_STAGE)
 			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
-			to_chat(invoker, span_warning("Ты чувствуешь, будто вот-вот возвысишься."))
+			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
 			GLOB.command_announcement.Announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
 		if(FIRST_DEVIL_ASCEND_STAGE)
 			invoker.visible_message(span_warning("Кожа [invoker.declent_ru(GENITIVE)] начинает покрываться шипами."),
-							span_warning("Твоя плоть начинает образовывать вокруг тебя щит."))
+							span_warning("Ваша плоть начинает образовывать вокруг вас щит."))
 			stage = SECOND_DEVIL_ASCEND_STAGE
 
 		if(SECOND_DEVIL_ASCEND_STAGE)
 			invoker.visible_message(span_warning("Рога на голове [invoker.declent_ru(GENITIVE)] медленно растут и удлиняются."),
-							span_warning("Твоё тело продолжает изменяться. Твои телепатические способности усиливаются."))
+							span_warning("Ваше тело продолжает изменяться. Ваши телепатические способности усиливаются."))
 			stage = THIRD_DEVIL_ASCEND_STAGE
 
 		if(THIRD_DEVIL_ASCEND_STAGE)
 			invoker.visible_message(span_warning("Тело [invoker.declent_ru(GENITIVE)] начинает яростно растягиваться и искажаться."),
-							span_warning("Ты начинаешь разрывать последние преграды на пути к абсолютной силе."))
+							span_warning("Вы начинаете разрывать последние преграды на пути к абсолютной силе."))
 			stage = FOURTH_DEVIL_ASCEND_STAGE
 
 		if(FOURTH_DEVIL_ASCEND_STAGE)
@@ -239,7 +239,7 @@
 
 		if(SEVENTH_DEVIL_ASCEND_STAGE)
 			devil.try_update_rank(TRUE)
-			GLOB.command_announcement.Announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение темных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
+			GLOB.command_announcement.Announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/spanomalies.ogg')
 			var/area/area = get_area(invoker)
 			if(area)
 				notify_ghosts("Архидьявол вознёсся в [area.name].", source = invoker)
@@ -331,7 +331,7 @@
 		target_list[objective.target.name] = objective
 
 	if(!LAZYLEN(target_list))
-		ritual_object.balloon_alert(invoker, "у вас нет подходящих целей для замены!")
+		ritual_object.balloon_alert(invoker, "нет целей для замены!")
 		return RITUAL_FAILED_ON_PROCEED
 
 	var/target = tgui_input_list(invoker, "Какую цель вы хотите заменить?", "Заменить цель", target_list)

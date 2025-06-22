@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/conjure_item/pitchfork
 	name = "Призвать вилы"
-	desc = "Дьявольский призыв инструмента. Этот призывает/отзывает ваши вилы."
+	desc = "Призыв дьявольского инструмента. Этот призывает/отзывает ваши вилы."
 
 	item_type = /obj/item/twohanded/pitchfork/demonic
 
@@ -186,7 +186,7 @@
 
 /obj/effect/proc_holder/spell/infernal_jaunt
 	name = "Адский Скачок"
-	desc = "Используй адское пламя, чтобы выйти за границу материального мира."
+	desc = "Используйте адское пламя, чтобы выйти за границу материального мира."
 
 	base_cooldown = 20 SECONDS
 	cooldown_min = 0
@@ -332,7 +332,7 @@
 
 /obj/effect/proc_holder/spell/summon_dancefloor
 	name = "Призвать танцпол"
-	desc = "Когда Дьяволу действительно нужен фанк."
+	desc = "Когда Дьяволу действительно нужено зажечь."
 	clothes_req = FALSE
 	human_req = FALSE
 	school = "conjuration"
@@ -470,7 +470,7 @@
 
 /obj/effect/proc_holder/spell/dark_conversion/proc/make_shadow(mob/living/carbon/human/human, datum/antagonist/devil/devil)
 	human.set_species(/datum/species/shadow)
-	var/text = "Вы - создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
+	var/text = "Вы – создание тьмы. Старайтесь сохранить свою истинную форму и выполнить свои цели."
 	human.store_memory(text, TRUE)
 	to_chat(human, chat_box_red(text))
 

@@ -5,6 +5,14 @@
 /mob/living/carbon/true_devil
 	name = "True Devil"
 	desc = "Сгусток адской энергии, смутно напоминающий гуманоида."
+	ru_names = list(
+		NOMINATIVE = "истинный Дьявол",
+		GENITIVE = "истинного Дьявола",
+		DATIVE = "истинному Дьяволу",
+		ACCUSATIVE = "истинного Дьявола",
+		INSTRUMENTAL = "истинным Дьяволом",
+		PREPOSITIONAL = "истинном Дьяволе"
+	)
 	icon = 'icons/mob/32x64.dmi'
 	icon_state = "true_devil"
 	gender = NEUTER
@@ -48,7 +56,7 @@
 
 /mob/living/carbon/true_devil/ascended/handle_flamer_fire_crossed(obj/flamer_fire/fire)
 	return FALSE
-	
+
 
 /mob/living/carbon/true_devil/Initialize(mapload, mob/living/carbon/dna_source)
 	if(dna_source)

@@ -30,7 +30,7 @@
 /datum/devil_bane/toolbox
 	name = BANE_TOOLBOX
 
-	law = "По какой-то причине тулбоксы крайне опасны для вас."
+	law = "По какой-то причине ящики с инструментами крайне опасны для вас."
 	desc = "То, что хранит средства творения, служит также и средством уничтожения дьявола."
 
 	bonus_damage = BANE_TOOLBOX_DAMAGE_MODIFIER
@@ -79,14 +79,14 @@
 		return
 
 	owner.apply_damage(bonus_damage * (item.force * (GLOB.whiteness[uniform.type] + 1)))
-	attacker.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))] кажется получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
+	attacker.visible_message(span_warning("[capitalize(owner.declent_ru(NOMINATIVE))], кажется, получает вред от одежды [attacker.declent_ru(GENITIVE)]."),
 	span_notice("Незапятнанная белая одежда вредит [owner.declent_ru(GENITIVE)]."))
 
 /datum/devil_bane/harvest
 	name = BANE_HARVEST
 
 	law = "Плоды урожая станут вашим падением."
-	desc = "Представление трудов урожая нарушит планы дьявола."
+	desc = "Вид трудов урожая нарушит планы дьявола."
 
 	bonus_damage = BANE_HARVEST_DAMAGE_MULTIPLIER
 

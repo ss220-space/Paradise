@@ -45,8 +45,8 @@
 	var/datum/mind/owner
 	icon_state = "evil_contract"
 	joinable = FALSE
-	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора. <br>\
-	Данный контракт гарантирует, что обещанное в нем благо будет получено подписавшим существом."
+	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора.<br>\
+	Данный контракт гарантирует, что обещанное в нём благо будет получено подписавшим его существом."
 
 /obj/item/paper/contract/infernal/Initialize(atom/mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
 	. = ..()
@@ -90,7 +90,7 @@
 		<span id='devil-name'>[devilinfo.info.truename]</span>[contract.contract_subject_text]. \
 		Я осознаю, что после моей смерти моя душа попадёт в адские глубины, а моё тело не может быть воскрешено, клонировано \
 		или иным образом возвращено к жизни. \
-		Я также понимаю, что это предотвратит использование моего мозга в MMI.\
+		Я также понимаю, что это предотвратит использование моего мозга в НКИ.\
 	</div>\
 	<br><br>Подписано, "
 	if(signed)
@@ -104,7 +104,7 @@
 /obj/item/paper/contract/infernal/show_content(mob/user, forceshow, forcestars, infolinks, view)
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
 	contracts_asset.send(user)
-	. = ..(user, forceshow, forcestars, ((user.mind.hasSoul)? infolinks : soulless_text), view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;")
+	. = ..(user, forceshow, forcestars, infolinks, view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;", ((user.mind.hasSoul)? null : soulless_text))
 	if(!signed)
 		balloon_alert(owner.current, "контракт не подписан!")
 
@@ -117,8 +117,8 @@
 		if(do_after(usr, 1 SECONDS, src, DA_IGNORE_LYING) && usr.mind == target \
 		&& usr.mind.hasSoul && usr.mind.soulOwner != owner && attempt_signature(usr, TRUE))
 			usr.visible_message(
-				span_danger("[usr.declent_ru(NOMINATIVE)] [genderize_ru(usr.gender, "разрезает", "разрезает", "разрезает", "разрезают")] своё запястье [declent_ru(INSTRUMENTAL)] и [genderize_ru(usr.gender, "выводит", "выводит", "выводит", "выводят")] своё имя кровью."),
-				span_danger("Ты [genderize_ru(usr.gender, "разрезаешь", "разрезаешь", "разрезаешь", "разрезаете")] своё запястье и [genderize_ru(usr.gender, "выводишь", "выводишь", "выводишь", "выводите")] своё имя кровью."),
+				span_danger("[usr.declent_ru(NOMINATIVE)] разреза[pluralize_ru(usr.gender, "ет", "ют")] запястье [declent_ru(INSTRUMENTAL)] и выводит[pluralize_ru(usr.gender, "ит", "ят")] своё имя кровью."),
+				span_danger("Вы разрезаете запястье и выводите своё имя кровью."),
 			)
 			balloon_alert(owner.current, "контракт подписан!")
 			if(ishuman(usr))
@@ -137,12 +137,12 @@
 /obj/item/paper/contract/infernal/attackby(obj/item/I, mob/user, params)
 
 	if(istype(I, /obj/item/stamp))
-		balloon_alert(user, "печать сразу же исчезает")
+		balloon_alert(user, "печать сразу исчезает")
 		return ATTACK_CHAIN_PROCEED
 
 	if(I.get_heat())
 		user.visible_message(
-			("[user.declent_ru(NOMINATIVE)] подносит [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
+			("[user.declent_ru(NOMINATIVE)] поднос[pluralize_ru(user.gender, "ит", "ят")] [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
 			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),
 		)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
@@ -194,7 +194,7 @@
 	to_chat(user, span_notice("Ты небрежно пишешь своё имя в контракте."))
 
 	if(check_contract(target.current) <= 0)
-		to_chat(user, span_notice("Никакого эффекта. Возможно ли, что даже Ад не может даровать тебе это?"))
+		to_chat(user, span_notice("Никакого результата. Возможно ли, что даже сам ад не способен даровать вам желаемое?"))
 		return FALSE
 
 	fulfill_contract(target.current)

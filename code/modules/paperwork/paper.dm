@@ -86,7 +86,7 @@
 		. += "<span class='notice'>You don't know how to read.</span>"
 
 
-/obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options)
+/obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
@@ -105,7 +105,7 @@
 			paper_height = paper_height_big
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.include_default_stylesheet = FALSE
-		popup.set_content(data)
+		popup.set_content(special_text || data)
 		if(window_options)
 			popup.set_window_options(window_options)
 		if(!stars)
