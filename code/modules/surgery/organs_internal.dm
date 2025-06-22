@@ -603,7 +603,7 @@
 			continue
 		organ.on_find(user)
 		organs -= organ
-		organs[organ.name] = organ
+		organs[capitalize(organ.declent_ru(NOMINATIVE))] = organ
 
 	var/obj/item/organ/internal/I = tgui_input_list(user, "Выберите орган для извлечения", "Извлечение органа", organs)
 	if(I && user && target && user.Adjacent(target) && user.get_active_hand() == tool)
@@ -611,8 +611,8 @@
 		if(!extracting)
 			return SURGERY_BEGINSTEP_SKIP
 		user.visible_message(
-			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] извлекать [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-			span_notice("Вы начинаете извлекать [I.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] извлекать [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы начинаете извлекать [extracting.declent_ru(ACCUSATIVE)] из [affected.declent_ru(GENITIVE)] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		)
 		var/mob/living/carbon/human/H = target
 		if(H && affected)
@@ -816,7 +816,7 @@
 		if(istype(container, /obj/item/reagent_containers/syringe))
 			msg = "[user] начина[pluralize_ru(user.gender, "ет", "ют")] вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
 			self_msg = "Вы начинаете вкалывать содержимое [tool.declent_ru(GENITIVE)] на [organ.declent_ru(ACCUSATIVE)] [target]."
-		user.visible_message(msg, self_msg)
+		user.visible_message(span_notice(msg), span_notice(self_msg))
 		target.custom_pain("Вы чувствуете жгучую боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)]!")
 
 	return ..()
