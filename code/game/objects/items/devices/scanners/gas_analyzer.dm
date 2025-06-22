@@ -42,10 +42,10 @@
 /obj/item/analyzer/examine(mob/user)
 	. = ..()
 	. += span_notice("Чтобы просканировать среду, активируйте или используйте на вашем местоположении.")
-	. += span_notice("Alt-клик по [src] чтобы активировать функцию барометра.")
+	. += span_notice("Alt-ЛКМ по [declent_ru(DATIVE)] чтобы активировать функцию барометра.")
 
 /obj/item/analyzer/suicide_act(mob/living/carbon/user)
-	user.visible_message(span_suicide("[user] начина[pluralize_ru(user.gender, "ет", "ют")] анализировать себя, используя [src]! Дисплей показывает, что [user] умер[genderize_ru(user.gender, "", "ла", "ло", "ли")]!"))
+	user.visible_message(span_suicide("[user] начина[pluralize_ru(user.gender, "ет", "ют")] анализировать себя, используя [declent_ru(NOMINATIVE)]! Дисплей показывает, что [user] умер[genderize_ru(user.gender, "", "ла", "ло", "ли")]!"))
 	return BRUTELOSS
 
 /obj/item/analyzer/click_alt(mob/living/user) //Barometer output for measuring when the next storm happens
@@ -68,7 +68,7 @@
 			break
 	if(ongoing_weather)
 		if((ongoing_weather.stage == MAIN_STAGE) || (ongoing_weather.stage == WIND_DOWN_STAGE))
-			to_chat(user, span_warning("Барометр не может ничего отследить, пока идет шторм."))
+			to_chat(user, span_warning("Барометр даёт сбой – [ongoing_weather.stage == MAIN_STAGE ? "шторм в самом разгаре!" : "штормовые помехи сохраняются."]"))
 			return CLICK_ACTION_BLOCKING
 		to_chat(user, span_warning("Следующая [ongoing_weather] наступит в [butchertime(ongoing_weather.next_hit_time - world.time)]."))
 		if(ongoing_weather.aesthetic)
@@ -217,8 +217,8 @@
 	var/icon = target
 	var/message = list()
 	if(!silent && isliving(user))
-		user.visible_message(span_notice("[user] использу[pluralize_ru(user.gender, "ет", "ют")] анализатор на [bicon(icon)] [target]."), span_notice("Вы используете анализатор на [bicon(icon)] [target]"))
-	message += span_boldnotice("Результаты анализа [bicon(icon)] [target]:")
+		user.visible_message(span_notice("[user] использу[pluralize_ru(user.gender, "ет", "ют")] анализатор на [bicon(icon)] [target]."), span_notice("Вы используете анализатор на [bicon(icon)] [target.declent_ru(PREPOSITIONAL)]"))
+	message += span_boldnotice("Результаты анализа [bicon(icon)] [target.declent_ru(GENITIVE)]:")
 
 	if(!print)
 		return TRUE
@@ -240,28 +240,28 @@
 
 		//TODO: Port gas mixtures from TG
 		if(total_moles > 0)
-			message += span_notice("Моли: [round(total_moles, 0.01)] mol")
+			message += span_notice("Количество веществ: [round(total_moles, 0.01)] моль")
 			if(air.oxygen)
-				message += span_notice("Кислород: [round(air.oxygen, 0.01)] mol ([round(air.oxygen / total_moles*100, 0.01)] %)")
+				message += span_notice("Кислород: [round(air.oxygen, 0.01)] моль ([round(air.oxygen / total_moles*100, 0.01)] %)")
 			if(air.carbon_dioxide)
-				message += span_notice("Углекислый газ: [round(air.carbon_dioxide, 0.01)] mol ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)")
+				message += span_notice("Углекислый газ: [round(air.carbon_dioxide, 0.01)] моль ([round(air.carbon_dioxide / total_moles*100, 0.01)] %)")
 			if(air.nitrogen)
-				message += span_notice("Азот: [round(air.nitrogen, 0.01)] mol ([round(air.nitrogen / total_moles*100, 0.01)] %)")
+				message += span_notice("Азот: [round(air.nitrogen, 0.01)] моль ([round(air.nitrogen / total_moles*100, 0.01)] %)")
 			if(air.toxins)
-				message += span_notice("Плазма: [round(air.toxins, 0.01)] mol ([round(air.toxins / total_moles*100, 0.01)] %)")
+				message += span_notice("Плазма: [round(air.toxins, 0.01)] моль ([round(air.toxins / total_moles*100, 0.01)] %)")
 			if(air.sleeping_agent)
-				message += span_notice("Закись азота: [round(air.sleeping_agent, 0.01)] mol ([round(air.sleeping_agent / total_moles*100, 0.01)] %)")
+				message += span_notice("Закись азота: [round(air.sleeping_agent, 0.01)] моль ([round(air.sleeping_agent / total_moles*100, 0.01)] %)")
 			if(air.agent_b)
-				message += span_notice("Агент Б: [round(air.agent_b, 0.01)] mol ([round(air.agent_b / total_moles*100, 0.01)] %)")
+				message += span_notice("Агент Б: [round(air.agent_b, 0.01)] моль ([round(air.agent_b / total_moles*100, 0.01)] %)")
 
 			message += span_notice("Температура: [round(temperature - T0C,0.01)] &deg;C ([round(temperature, 0.01)] K)")
-			message += span_notice("Объём: [volume] L")
-			message += span_notice("Давление: [round(pressure, 0.01)] kPa")
+			message += span_notice("Объём: [volume] Л")
+			message += span_notice("Давление: [round(pressure, 0.01)] кПа")
 			message += span_notice("Теплоемкость: [display_joules(heat_capacity)] / K")
 			message += span_notice("Тепловая энергия: [display_joules(thermal_energy)]")
 		else
 			message += airs.len > 1 ? span_notice("Тут пусто!") : span_notice("[target] пуст!")
-			message += span_notice("Объём: [volume] L") // don't want to change the order volume appears in, suck it
+			message += span_notice("Объём: [volume] Л") // don't want to change the order volume appears in, suck it
 
 	// we let the join apply newlines so we do need handholding
 	to_chat(user, ("<div class='examine_block'>" + (jointext(message, "\n")) + "</div>"))

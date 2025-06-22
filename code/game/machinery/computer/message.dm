@@ -471,7 +471,7 @@
 
 							recipient_messenger.notify("<b>Сообщение от [PDARec.owner] ([customjob]), </b>\"[custommessage]\" (<a href='byond://?src=[recipient_messenger.UID()];choice=Message;target=\ref[PDARec]'>Ответить</a>)")
 							log_pda("(КПК: [PDARec.owner]) отправил сообщние \"[custommessage]\" [customrecepient.owner]", usr)
-						var/log_message = "отправлено сообщение \"[custommessage]\" используя [src.declent_ru(ACCUSATIVE)]. Должность: [customsender] ([customjob])"
+						var/log_message = "отправлено сообщение \"[custommessage]\" используя [declent_ru(ACCUSATIVE)]. Должность: [customsender] ([customjob])"
 						var/receiver
 						if(ishuman(customrecepient.loc))
 							receiver = customrecepient.loc

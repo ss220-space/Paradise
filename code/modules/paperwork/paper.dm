@@ -5,6 +5,7 @@
 
 /obj/item/paper
 	name = "paper"
+	desc = "Возжожно он пережил многое, но не смотря на это, так и остался белым."
 	ru_names = list(
 		NOMINATIVE = "лист бумаги",
 		GENITIVE = "листа бумаги",

@@ -96,7 +96,7 @@ const BotStatus = (props: unknown) => {
         <LabeledList.Item label="Местоположение">{loca}</LabeledList.Item>
         <LabeledList.Item label="Статус">{statusText}</LabeledList.Item>
         <LabeledList.Item label="Заряд">{powr}%</LabeledList.Item>
-        <LabeledList.Item label="Домой">{home}</LabeledList.Item>
+        <LabeledList.Item label="Домашняя точка">{home}</LabeledList.Item>
         <LabeledList.Item label="Пункт назначения">
           <Button onClick={() => act('SetDest')}>
             {dest ? dest + ' (Указать)' : 'Нет (Указать)'}

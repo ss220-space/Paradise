@@ -43,7 +43,7 @@
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
 	user.visible_message(
-		span_notice("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] состояние здоровья [M]"),
+		span_notice("[user] анализиру[pluralize_ru(user.gender, "ет", "ют")] состояние здоровья [M.declent_ru(ACCUSATIVE)]"),
 		span_notice("Вы анализируете состояние здоровья [M]")
 	)
 

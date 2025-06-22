@@ -44,10 +44,10 @@
 	if(I.GetID())
 		add_fingerprint(user)
 		if(stat & (NOPOWER|BROKEN))
-			to_chat(user, span_warning("[I.declent_ru(ACCUSATIVE)] сломан или не получает питание."))
+			to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] сломан или не получает питание."))
 			return ATTACK_CHAIN_PROCEED
 		if(!check_access(I))
-			to_chat(user, span_warning("Access denied."))
+			to_chat(user, span_warning("Доступ запрещён."))
 			playsound(loc, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 			return ATTACK_CHAIN_PROCEED
 		if(active)
@@ -122,7 +122,7 @@
 		to_chat(usr, span_warning("Устройство занято."))
 		return
 	if(!allowed(usr))
-		to_chat(usr, span_warning("Access denied."))
+		to_chat(usr, span_warning("Доступ запрещён."))
 		playsound(src, pick('sound/machines/button.ogg', 'sound/machines/button_alternate.ogg', 'sound/machines/button_meloboom.ogg'), 20)
 		return
 	. = TRUE

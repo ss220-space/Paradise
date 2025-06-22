@@ -44,7 +44,7 @@
 /obj/item/pda/clown
 	default_cartridge = /obj/item/cartridge/clown
 	icon_state = "pda-clown"
-	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Поверхность покрыта парафином и каплями банановой субстанции."
+	desc = "Портативный микрокомпьютер от ООО "Электронные Решения". Поверхность покрыта парафином и каплями банановой субстанции."
 	ru_names = list(
 		NOMINATIVE = "КПК клоуна",
 		GENITIVE = "КПК клоуна",
@@ -193,7 +193,7 @@
 
 /obj/item/pda/librarian
 	icon_state = "pda-library"
-	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Данная модель представляет из себя электронную книгу серии WGW-11."
+	desc = "Портативный микрокомпьютер от ООО "Электронные Решения". Данная модель представляет из себя электронную книгу серии WGW-11."
 	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
 
 /obj/item/pda/librarian/New()
@@ -204,7 +204,7 @@
 
 /obj/item/pda/clear
 	icon_state = "pda-transp"
-	desc = "Портативный микрокомпьютер от Thinktronic Systems, LTD. Эта модель — специальный выпуск с прозрачным корпусом."
+	desc = "Портативный микрокомпьютер от ООО "Электронные Решения". Эта модель — специальный выпуск с прозрачным корпусом."
 	model_name = "Thinktronic 5230 Personal Data Assistant Deluxe Special Max Turbo Limited Edition"
 
 /obj/item/pda/chef

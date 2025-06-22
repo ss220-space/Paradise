@@ -181,16 +181,16 @@
 			if(AI.control_disabled || (AI.stat == DEAD))
 				continue
 			if(user.name == "Unknown")
-				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[I.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
+				to_chat(AI, "<b>[user]</b> держ[pluralize_ru(user.gender, "ит", "ат")] <a href='byond://?_src_=usr;show_paper=1;'>[I.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
 			else
-				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ут")] <a href='byond://?_src_=usr;show_paper=1;'>[I.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
+				to_chat(AI, "<b><a href='byond://?src=[AI.UID()];track=[html_encode(user.name)]'>[user]</a></b> держ[pluralize_ru(user.gender, "ит", "ат")] <a href='byond://?_src_=usr;show_paper=1;'>[I.declent_ru(ACCUSATIVE)]</a> у одной из ваших камер...")
 			AI.last_paper_seen = "<tt>[info]</tt>"
 			AI.last_paper_seen_title = itemname
 
 		for(var/obj/machinery/computer/security/console as anything in computers_watched_by)
 			for(var/uid_watcher as anything in console.concurrent_users)
 				var/watcher = locateUID(uid_watcher)
-				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ут")] [I.declent_ru(ACCUSATIVE)] у одной из ваших камер...")
+				to_chat(watcher, "[user] держ[pluralize_ru(user.gender, "ит", "ат")] [I.declent_ru(ACCUSATIVE)] у одной из ваших камер...")
 				var/datum/browser/popup = new(watcher, itemname, itemname)
 				popup.include_default_stylesheet = FALSE
 				popup.set_content("<tt>[info]</tt>")
@@ -211,7 +211,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	panel_open = !panel_open
-	to_chat(user, span_notice("Вы [panel_open ? "откручиваете" : "прикручиваете"] панель [src.declent_ru(GENITIVE)]."))
+	to_chat(user, span_notice("Вы [panel_open ? "откручиваете" : "прикручиваете"] панель [declent_ru(GENITIVE)]."))
 
 /obj/machinery/camera/wirecutter_act(mob/user, obj/item/I)
 	. = TRUE
@@ -235,8 +235,8 @@
 		return
 	WELDER_ATTEMPT_WELD_MESSAGE
 	if(I.use_tool(src, user, 100, volume = I.tool_volume))
-		visible_message(span_warning("[user] отвариварива[pluralize_ru(user.gender, "ет", "ют")] [src.declent_ru(ACCUSATIVE)], оставив лишь раму, прикрученную к стене болтами.."),
-						span_warning("Вы отварили [src.declent_ru(ACCUSATIVE)], оставив лишь раму, прикрученную к стене болтами."))
+		visible_message(span_warning("[user] отвариварива[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], оставив лишь раму, прикрученную к стене болтами.."),
+						span_warning("Вы отварили [declent_ru(ACCUSATIVE)], оставив лишь раму, прикрученную к стене болтами."))
 		deconstruct(TRUE)
 
 /obj/machinery/camera/run_obj_armor(damage_amount, damage_type, damage_flag = 0, attack_dir)

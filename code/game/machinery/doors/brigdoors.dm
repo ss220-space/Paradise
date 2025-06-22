@@ -379,7 +379,7 @@
 	if(..())
 		return
 	if(!allowed(usr))
-		to_chat(usr, span_warning("Access denied."))
+		to_chat(usr, span_warning("Доступ запрещён."))
 		return
 	. = TRUE
 	switch(action)
