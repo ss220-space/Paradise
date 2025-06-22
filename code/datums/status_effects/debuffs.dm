@@ -284,7 +284,7 @@
 		return FALSE
 
 	owner.Slowed(duration)
-	to_chat(owner, span_danger("You feel the unbearable heaviness of being..."))
+	to_chat(owner, span_danger("Вы чувствуете невыносимую тяжесть бытия..."))
 	new /obj/effect/temp_visual/cult/sparks(get_turf(owner))
 
 	marked_overlay = mutable_appearance('icons/effects/effects.dmi', "cult_halo1")
@@ -878,11 +878,11 @@
 /datum/status_effect/transient/jittery/get_examine_text()
 	switch(strength)
 		if(600 SECONDS to INFINITY)
-			return span_warning("<b>[owner.p_they(TRUE)] [owner.p_are()] convulsing violently!</b>")
+			return span_warning("<b>[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] бь[pluralize_ru(owner.gender,"ётся","ются")] в судорогах!</b>")
 		if(400 SECONDS to 600 SECONDS)
-			return span_warning("[owner.p_they(TRUE)] [owner.p_are()] extremely jittery.")
+			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] крайне нервнича[pluralize_ru(owner.gender,"ет","ют")].")
 		if(200 SECONDS to 400 SECONDS)
-			return span_warning("[owner.p_they(TRUE)] [owner.p_are()] twitching ever so slightly.")
+			return span_warning("[genderize_ru(owner.gender,"Он", "Она", "Оно", "Они")] слегка дёрга[pluralize_ru(owner.gender,"ется","ются")].")
 
 
 /datum/status_effect/transient/stammering
@@ -1078,7 +1078,7 @@
 			carbon.AdjustStuttering(4 SECONDS)
 			carbon.AdjustConfused(6 SECONDS)
 		if(prob(10) && !carbon.stat)
-			to_chat(carbon, "<span class='warning'>[pick("You feel nauseous.", "You feel like you're going to throw up!")]</span>")
+			to_chat(carbon, span_warning("[pick("Вас тошнит.", "Вам кажется, что вас сейчас вырвет!")]"))
 		carbon.Jitter(9 SECONDS)
 	if(strength >= DISGUST_LEVEL_VERYGROSS)
 		var/pukeprob = 5 + 0.005 * strength
@@ -1160,7 +1160,7 @@
 		M.loot = null
 		M.add_atom_colour("#11c42f", FIXED_COLOUR_PRIORITY)
 		M.faction = tamer.faction
-		to_chat(tamer, span_notice("[M] is now friendly after exposure to the flowers!"))
+		to_chat(tamer, span_notice("[M] теперь дружелюбен после контакта с цветами!"))
 		. = ..()
 
 /datum/status_effect/bubblegum_curse
@@ -1200,7 +1200,7 @@
 		var/mob/living/carbon/human/H = owner
 		H.bleed(0.33)
 	if(prob(5))
-		to_chat(owner, "<span class='userdanger'>[pick("You feel your sins crawling on your back.", "You felt your sins weighing on your neck.", "You feel your blood pulsing inside you.", "<b>YOU'LL NEVER ESCAPE ME</b>", "<b>YOU'LL DIE FOR INSULTING ME LIKE THIS</b>")]</span>")
+		to_chat(owner, span_danger("[pick("Вы чувствуете, как ваши грехи ползут по вашей спине.", "Вы почувствовали, как ваши грехи давят на вашу шею.", "Вы чувствуете, как ваша кровь пульсирует внутри вас.", "<b>ТЫ НИКОГДА НЕ СБЕЖИШЬ ОТ МЕНЯ</b>", "<b>ТЫ УМРЁШЬ ЗА ТО, ЧТО ОСКОРБИЛ МЕНЯ</b>")]"))
 
 /datum/status_effect/bubblegum_curse/on_remove()
 	owner.clear_fullscreen("Bubblegum")
@@ -1209,34 +1209,34 @@
 	coward_checking = FALSE
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(owner.z != attacker.z)
-		to_chat(owner, "<span class='colossus'><b>YOU CHALLENGE ME LIKE THIS... AND YOU RUN WITH YOUR FALSE MAGICS?</b></span>")
+		to_chat(owner, span_colossus("<b>ТЫ БРОСАЕШЬ МНЕ ВЫЗОВ... И УБЕГАЕШЬ СО СВОИМИ ЖАЛКИМИ ЧАРАМИ?</b>"))
 	else
 		return
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>REALLY?</b></span>")
+	to_chat(owner, span_colossus("<b>СЕРЬЁЗНО?</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>SUCH INSOLENCE!</b></span>")
+	to_chat(owner, span_colossus("<b>КАКАЯ НАГЛОСТЬ!</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>SO PATHETIC...</b></span>")
+	to_chat(owner, span_colossus("<b>ТАК ЖАЛКО...</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>...SO FOOLISH!</b></span>")
+	to_chat(owner, span_colossus("<b>...ТАК ГЛУПО!</b>"))
 	get_over_here()
 
 /datum/status_effect/bubblegum_curse/proc/runaway_coward_callback()
 	coward_checking = FALSE
 	var/mob/living/simple_animal/hostile/megafauna/bubblegum/attacker = locateUID(source_UID)
 	if(get_dist(attacker, owner) >= 25)
-		to_chat(owner, "<span class='colossus'><b>My my, you can run FAST.</b></span>")
+		to_chat(owner, span_colossus("<b>Ну и ну, ты бегаешь БЫСТРО.</b>"))
 	else
 		return
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>I thought you wanted a true fight?</b></span>")
+	to_chat(owner, span_colossus("<b>Я думал, ты хотел настоящего боя?</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>Perhaps I was mistaken.</b></span>")
+	to_chat(owner, span_colossus("<b>Возможно, я ошибался.</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>You are a coward who does not want a fight...</b></span>")
+	to_chat(owner, span_colossus("<b>Ты трус, который не хочет сражаться...</b>"))
 	SLEEP_CHECK_QDEL(2 SECONDS)
-	to_chat(owner, "<span class='colossus'><b>...BUT I WANT YOU DEAD!</b></span>")
+	to_chat(owner, span_colossus("<b>...НО Я ХОЧУ, ЧТОБЫ ТЫ СДОХ!</b>"))
 	get_over_here()
 
 /datum/status_effect/bubblegum_curse/proc/get_over_here()
@@ -1251,27 +1251,27 @@
 	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TA)
 	sleep(6)
 	var/turf/TB = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	to_chat(owner, span_danger("[capitalize(attacker.declent_ru(NOMINATIVE))] разрывает вас!"))
 	playsound(TB, attacker.attack_sound, 100, TRUE, -1)
 	owner.adjustBruteLoss(10)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TB)
 	new /obj/effect/temp_visual/bubblegum_hands/leftsmack(TB)
 	sleep(6)
 	var/turf/TC = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	to_chat(owner, span_danger("[capitalize(attacker.declent_ru(NOMINATIVE))] разрывает вас!"))
 	playsound(TC, attacker.attack_sound, 100, TRUE, -1)
 	owner.adjustBruteLoss(10)
 	new /obj/effect/decal/cleanable/blood/bubblegum(TC)
 	new /obj/effect/temp_visual/bubblegum_hands/rightsmack(TC)
 	sleep(6)
 	var/turf/TD = get_turf(owner)
-	to_chat(owner, "<span class='userdanger'>[attacker] rends you!</span>")
+	to_chat(owner, span_danger("[capitalize(attacker.declent_ru(NOMINATIVE))] разрывает вас!"))
 	playsound(TD, attacker.attack_sound, 100, TRUE, -1)
 	owner.adjustBruteLoss(10)
 	new /obj/effect/temp_visual/bubblegum_hands/leftpaw(TD)
 	new /obj/effect/temp_visual/bubblegum_hands/leftthumb(TD)
 	sleep(8)
-	to_chat(owner, "<span class='userdanger'>[attacker] drags you through the blood!</span>")
+	to_chat(owner, span_danger("[capitalize(attacker.declent_ru(NOMINATIVE))] тащит вас по крови!"))
 	playsound(TD, 'sound/misc/enter_blood.ogg', 100, TRUE, -1)
 	var/turf/targetturf = get_step(attacker, attacker.dir)
 	owner.forceMove(targetturf)
@@ -1279,8 +1279,8 @@
 	addtimer(CALLBACK(attacker, TYPE_PROC_REF(/mob/living/simple_animal/hostile/megafauna/bubblegum, FindTarget), list(owner), 1), 2)
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse
-	name = "I SEE YOU"
-	desc = "YOUR SOUL WILL BE MINE FOR YOUR INSOLENCE"
+	name = "Я ВИЖУ ТЕБЯ"
+	desc = "ТВОЯ ДУША БУДЕТ МОЕЙ ЗА ТВОЮ НАГЛОСТЬ"
 	icon_state = "bubblegumjumpscare"
 
 /atom/movable/screen/alert/status_effect/bubblegum_curse/Initialize(mapload, datum/hud/hud_owner)

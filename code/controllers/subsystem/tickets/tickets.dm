@@ -22,18 +22,18 @@ SUBSYSTEM_DEF(tickets)
 	flags = SS_BACKGROUND
 	ss_id = "admin_tickets"
 	var/span_class = "adminticket"
-	var/ticket_system_name = "Admin Tickets"
-	var/ticket_name = "Admin Ticket"
+	var/ticket_system_name = "Запросы администрации"
+	var/ticket_name = "Запрос администрации"
 	var/close_rights = R_ADMIN
 	var/rights_needed = R_ADMIN|R_MOD
 
 	/// Text that will be added to the anchor link
 	var/anchor_link_extra = ""
 
-	var/ticket_help_type = "Adminhelp"
+	var/ticket_help_type = ADMINHELP
 	var/ticket_help_span = "adminhelp"
 	/// The name of the other ticket type to convert to
-	var/other_ticket_name = "Mentor"
+	var/other_ticket_name = "Ментор"
 	/// Which permission to look for when seeing if there is staff available for the other ticket type
 	var/other_ticket_permission = R_MENTOR
 	var/list/close_messages
@@ -143,7 +143,7 @@ SUBSYSTEM_DEF(tickets)
 	T.mobControlled = C.mob
 
 	//Inform the user that they have opened a ticket
-	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят.</span>", confidential=TRUE)
+	to_chat(C, "<span class='[span_class]'>Вы открыли [ticket_name] номер #[(getTicketCounter() - 1)]! Пожалуйста, ожидайте. Вам скоро ответят!</span>", confidential=TRUE)
 	var/ticket_open_sound = sound('sound/effects/adminticketopen.ogg')
 	SEND_SOUND(C, ticket_open_sound)
 
@@ -245,7 +245,7 @@ SUBSYSTEM_DEF(tickets)
 			resolveTicket(N)
 			message_staff("[C] отправил автоматический ответ на тикет [ticket_owner] сообщением:<span class='adminticketalt'> [message_key]</span>")
 			add_game_logs("[C] has auto responded to [ticket_owner]\'s adminhelp with: [response_phrases[message_key]]")
-		if("Mentorhelp")
+		if(MENTORHELP)
 			convert_ticket(T)
 		else
 			var/msg_sound = sound('sound/effects/adminhelp.ogg')
@@ -387,7 +387,7 @@ UI STUFF
 
 /datum/controller/subsystem/tickets/proc/returnUI(tab = TICKET_OPEN)
 	set name = "Open Ticket Interface"
-	set category = "Admin.Admin Tickets"
+	set category = STATPANEL_ADMIN_TICKETS
 
 //dat
 	var/trStyle = "border-top:2px solid; border-bottom:2px solid; padding-top: 5px; padding-bottom: 5px;"
@@ -429,7 +429,7 @@ UI STUFF
 
 	dat += "</table>"
 	dat += "<h1>Resolve All</h1>"
-	if(ticket_system_name == "Mentor Tickets")
+	if(ticket_system_name == "Запросы менторов")
 		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Mentor Tickets</a></body>"
 	else
 		dat += "<a href='byond://?src=[UID()];resolveall=1'>Resolve All Open Admin Tickets</a></body>"
@@ -597,7 +597,7 @@ UI STUFF
 		convert_to_other_ticket(indexNum)
 
 	if(href_list["resolveall"])
-		if(ticket_system_name == "Mentor Tickets")
+		if(ticket_system_name == "Запросы менторов")
 			usr.client.resolveAllMentorTickets()
 		else
 			usr.client.resolveAllAdminTickets()

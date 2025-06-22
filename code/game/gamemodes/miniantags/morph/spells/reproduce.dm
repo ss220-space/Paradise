@@ -1,6 +1,6 @@
 /obj/effect/proc_holder/spell/morph_spell/reproduce
-	name = "Reproduce"
-	desc = "Split yourself in half making a new morph. Can only be used while on a floor. Makes you temporarily unable to vent crawl."
+	name = "Размножение"
+	desc = "Разделитесь на две части, создав нового морфа. Можно использовать только на полу. Временно лишает вас возможности ползать по вентиляции."
 	hunger_cost = 150 // 5 humans
 	base_cooldown = 30 SECONDS
 	action_icon_state = "morph_reproduce"
@@ -29,20 +29,20 @@
 		return
 	if(!user.can_reproduce)
 		if(show_message)
-			to_chat(user, "<span class='warning'>You dont know how to do reproduce!</span>")
+			user.balloon_alert(user, "невозможно размножаться")
 		return FALSE
 	if(!isturf(user.loc))
 		if(show_message)
-			to_chat(user, "<span class='warning'>You can only split while on flooring!</span>")
+			to_chat(user, span_warning("нужна поверхность!"))
 		return FALSE
 
 
 /obj/effect/proc_holder/spell/morph_spell/reproduce/cast(list/targets, mob/living/simple_animal/hostile/morph/user)
-	to_chat(user, "<span class='sinister'>You prepare to split in two, making you unable to vent crawl!</span>")
+	to_chat(user, span_sinister("Вы готовитесь разделиться на две части, что временно лишит вас возможности ползать по вентиляции!"))
 	REMOVE_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// Temporarily disable it
-	var/list/candidates = SSghost_spawns.poll_candidates("Do you want to play as a morph?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
+	var/list/candidates = SSghost_spawns.poll_candidates("Вы хотите занять роль Морфа?", ROLE_MORPH, TRUE, poll_time = 10 SECONDS, source = /mob/living/simple_animal/hostile/morph)
 	if(!length(candidates))
-		to_chat(user, "<span class='warning'>Your body refuses to split at the moment. Try again later.</span>")
+		to_chat(user, span_warning("Ваше тело отказывается разделяться сейчас. Попробуйте позже."))
 		revert_cast(user)
 		ADD_TRAIT(user, TRAIT_VENTCRAWLER_ALWAYS, INNATE_TRAIT)	// re enable the crawling
 		return

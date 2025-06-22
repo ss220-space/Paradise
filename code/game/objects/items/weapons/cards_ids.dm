@@ -158,7 +158,7 @@
 /obj/item/card/id/Destroy()
 	UnregisterSignal(src, COMSIG_FREEZE_LINKED_ACCOUNT)
 	. = ..()
-	
+
 /obj/item/card/id/proc/freeze_linked_account(datum/source)
 	SIGNAL_HANDLER
 	var/datum/money_account/acc = get_money_account(associated_account_number)
@@ -321,8 +321,8 @@
 
 
 /obj/item/card/id/verb/remove_guest_pass()
-	set name = "Remove Guest Pass"
-	set category = "Object"
+	set name = "Убрать гостевой пропуск"
+	set category = STATPANEL_OBJECT
 	set src in range(0)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

@@ -41,9 +41,9 @@ GLOBAL_PROTECT(revision_info) // Dont mess with this
 	log_runtime_summary(logmsg)
 
 /client/verb/get_revision_info()
-	set name = "Get Revision Info"
-	set category = "OOC"
+	set name = "Информация о сборке"
 	set desc = "Retrieve technical information about the server"
+	set category = STATPANEL_OOC
 
 	var/list/msg = list()
 	msg += "<span class='notice'><b>Server Revision Info</b></span>"

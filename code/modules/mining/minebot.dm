@@ -243,17 +243,17 @@
 	background_icon_state = "bg_default"
 
 /datum/action/innate/minedrone/toggle_light
-	name = "Toggle Light"
+	name = "Переключить фонарик"
 	button_icon_state = "mech_lights_off"
 
 
 /datum/action/innate/minedrone/toggle_light/Activate()
 	owner.set_light_on(!owner.light_on)
-	to_chat(owner, span_notice("You toggle your light [owner.light_on ? "on" : "off"]."))
+	to_chat(owner, span_notice("Вы [owner.light_on ? "включили" : "выключили"] фонарик."))
 
 
 /datum/action/innate/minedrone/toggle_meson_vision
-	name = "Toggle Meson Vision"
+	name = "Переключить мезонное зрение"
 	button_icon_state = "meson"
 	var/sight_flags = SEE_TURFS
 	var/lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE
@@ -269,7 +269,7 @@
 		RegisterSignal(user, COMSIG_MOB_UPDATE_SIGHT, PROC_REF(update_user_sight))
 		user.update_sight()
 
-	to_chat(user, "<span class='notice'>You toggle your meson vision [!is_active ? "on" : "off"].</span>")
+	to_chat(user, span_notice("Вы [!is_active ? "включили" : "выключили"] мезонное зрение.</span>"))
 
 /datum/action/innate/minedrone/toggle_meson_vision/proc/update_user_sight(mob/living/user)
 	user.add_sight(sight_flags)
@@ -277,7 +277,7 @@
 		user.lighting_alpha = min(user.lighting_alpha, lighting_alpha)
 
 /datum/action/innate/minedrone/toggle_mode
-	name = "Toggle Mode"
+	name = "Переключить режим"
 	button_icon_state = "mech_cycle_equip_off"
 
 /datum/action/innate/minedrone/toggle_mode/Activate()
@@ -285,7 +285,7 @@
 	user.toggle_mode()
 
 /datum/action/innate/minedrone/dump_ore
-	name = "Dump Ore"
+	name = "Сбросить руду"
 	button_icon_state = "mech_eject"
 
 /datum/action/innate/minedrone/dump_ore/Activate()

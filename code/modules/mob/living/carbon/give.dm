@@ -1,6 +1,6 @@
 /mob/living/carbon/verb/give(mob/living/carbon/target in oview(1))
-	set category = "IC"
-	set name = "Give"
+	set category = STATPANEL_IC
+	set name = "Передать"
 
 	if(!iscarbon(target)) //something is bypassing the give arguments, no clue what, adding a sanity check JIC
 		to_chat(usr, "<span class='danger'>Wait a second... \the [target] HAS NO HANDS! AHH!</span>")//cheesy messages ftw
@@ -55,8 +55,8 @@
  * Toggles the [/datum/click_intercept/give] on or off for the src mob.
  */
 /mob/living/carbon/verb/toggle_give()
-	set name = "Give Item (Toggle)"
-	set category = "IC"
+	set name = "Передать предмет"
+	set category = STATPANEL_IC
 
 	if(incapacitated() || HAS_TRAIT(src, TRAIT_HANDS_BLOCKED))
 		return

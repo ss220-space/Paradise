@@ -1,6 +1,6 @@
 /mob/living/silicon/robot/verb/cmd_show_laws()
-	set category = "Robot Commands"
-	set name = "Show Laws"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Список законов"
 	show_laws()
 
 /mob/living/silicon/robot/show_laws(var/everyone = 0)
@@ -49,6 +49,6 @@
 	return
 
 /mob/living/silicon/robot/proc/robot_checklaws()
-	set category = "Robot Commands"
-	set name = "State Laws"
+	set category = STATPANEL_ROBOTCOMMANDS
+	set name = "Объявить законы"
 	subsystem_law_manager()

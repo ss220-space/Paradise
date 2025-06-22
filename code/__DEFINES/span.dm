@@ -112,7 +112,7 @@
 //#define span_singing(str) ("<span class='singing'>" + str + "</span>")
 #define span_sinister(str) ("<span class='sinister'>" + str + "</span>")
 #define span_slime(str) ("<span class='slime'>" + str + "</span>")
-//#define span_small(str) ("<span class='small'>" + str + "</span>")
+#define span_small(str) ("<span class='small'>" + str + "</span>")
 //#define span_smallnotice(str) ("<span class='smallnotice'>" + str + "</span>")
 //#define span_smallnoticeital(str) ("<span class='smallnoticeital'>" + str + "</span>")
 //#define span_spider(str) ("<span class='spider'>" + str + "</span>")
@@ -169,6 +169,7 @@
 #define span_energeticanomaly(str) ("<span class='energetic_anomaly'>" + str + "</span>")
 #define span_gravitationalanomaly(str) ("<span class='gravitational_anomaly'>" + str + "</span>")
 #define span_vortexanomaly(str) ("<span class='vortex_anomaly'>" + str + "</span>")
+#define span_unconscious(str) ("<span class='unconscious'>" + str + "</span>")
 
 // Spans that use embedded tgui components:
 // Sorted alphabetically

@@ -1,7 +1,7 @@
 
 /client/verb/who()
-	set name = "Who"
-	set category = "OOC"
+	set name = "Список игроков"
+	set category = STATPANEL_OOC
 
 	var/msg = "<b>Онлайн Игроков:</b><br>"
 
@@ -67,8 +67,8 @@
 	to_chat(src, msg)
 
 /client/verb/adminwho()
-	set category = "Admin.Admin Tickets"
-	set name = "Adminwho"
+	set category = STATPANEL_ADMIN_TICKETS
+	set name = "В сети"
 
 	var/msg = ""
 	var/modmsg = ""
@@ -90,14 +90,14 @@
 					msg += " <i>(как [C.holder.fakekey])</i>"
 
 				if(isobserver(C.mob))
-					msg += " - Наблюдает"
+					msg += " – Наблюдает"
 				else if(isnewplayer(C.mob))
-					msg += " - В Лобби"
+					msg += " – В Лобби"
 				else
-					msg += " - Играет"
+					msg += " – Играет"
 
 				if(C.is_afk())
-					msg += " (АФК)"
+					msg += " (Отошёл)"
 				msg += "<br>"
 
 				num_admins_online++
@@ -106,14 +106,14 @@
 				modmsg += "\[[C.holder.rank]\]  [C]"
 
 				if(isobserver(C.mob))
-					modmsg += " - Наблюдает"
+					modmsg += " – Наблюдает"
 				else if(isnewplayer(C.mob))
-					modmsg += " - В Лобби"
+					modmsg += " – В Лобби"
 				else
-					modmsg += " - Играет"
+					modmsg += " – Играет"
 
 				if(C.is_afk())
-					modmsg += " (АФК)"
+					modmsg += " (Отошёл)"
 				modmsg += "<br>"
 				num_mods_online++
 	else
@@ -127,7 +127,7 @@
 				modmsg += "\[[C.holder.rank]\]  [C]<br>"
 				num_mods_online++
 
-	var/noadmins_info = "<br><span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"
+	var/noadmins_info = span_notice(span_small("<br>Даже если никого из менторов и администраторов нет в сети, вы всё равно можете оставить запрос на помощь. Все обращения к менторам и администраторам будут перенаправлены в наш Discord-сервер!"))
 	msg = "<b>Онлайн Админов ([num_admins_online]):</b><br>" + msg + "<br><b>Онлайн Менторов/Модераторов ([num_mods_online]):</b><br>" + modmsg + noadmins_info
 	msg = replacetext(msg, "\[Хост\]",	"\[<font color='#1ABC9C'>Хост</font>\]")
 	msg = replacetext(msg, "\[Старший Админ\]",	"\[<font color='#f02f2f'>Старший Админ</font>\]")
