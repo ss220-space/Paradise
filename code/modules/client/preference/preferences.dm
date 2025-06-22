@@ -2385,21 +2385,21 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list("Полночь", "Плазма", "Ретро", "Желе", "Оперативник", "Белизна"))
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT_RUS, UI_THEME_PLASMAFIRE_RUS, UI_THEME_RETRO_RUS, UI_THEME_SLIMECORE_RUS, UI_THEME_OPERATIVE_RUS, UI_THEME_WHITE_RUS))
 					if(!new_UI_style)
 						return
 					switch(new_UI_style)
-						if("Полночь")
+						if(UI_THEME_MIDNIGHT_RUS)
 							UI_style = UI_THEME_MIDNIGHT
-						if("Плазма")
+						if(UI_THEME_PLASMAFIRE_RUS)
 							UI_style = UI_THEME_PLASMAFIRE
-						if("Ретро")
+						if(UI_THEME_RETRO_RUS)
 							UI_style = UI_THEME_RETRO
-						if("Желе")
+						if(UI_THEME_SLIMECORE_RUS)
 							UI_style = UI_THEME_SLIMECORE
-						if("Оперативник")
+						if(UI_THEME_OPERATIVE_RUS)
 							UI_style = UI_THEME_OPERATIVE
-						if("Белизна")
+						if(UI_THEME_WHITE_RUS)
 							UI_style = UI_THEME_WHITE
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
@@ -2997,14 +2997,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/ui_theme_to_russian(ui_theme)
 	switch(ui_theme)
 		if(UI_THEME_MIDNIGHT)
-			return "Полночь"
+			return UI_THEME_MIDNIGHT_RUS
 		if(UI_THEME_PLASMAFIRE)
-			return "Плазма"
+			return UI_THEME_PLASMAFIRE_RUS
 		if(UI_THEME_RETRO)
-			return "Ретро"
+			return UI_THEME_RETRO_RUS
 		if(UI_THEME_SLIMECORE)
-			return "желе"
+			return UI_THEME_SLIMECORE_RUS
 		if(UI_THEME_OPERATIVE)
-			return "Оперативник"
+			return UI_THEME_OPERATIVE_RUS
 		if(UI_THEME_WHITE)
-			return "Белизна"
+			return UI_THEME_WHITE_RUS
