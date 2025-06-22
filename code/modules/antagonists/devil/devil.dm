@@ -221,6 +221,7 @@
 	owner.current.AddElement(/datum/element/devil_banishment) // handles devil banishes
 	ADD_TRAIT(owner.current, TRAIT_ABSOLUTE_VIRUSIMMUNE, DEVIL_TRAIT)
 	ADD_TRAIT(owner.current, TRAIT_HEALS_FROM_HELL_RIFTS, DEVIL_TRAIT)
+	ADD_TRAIT(owner.current, TRAIT_RESIST_HEAT, DEVIL_TRAIT)
 
 	init_new_rank()
 	init_bane()
@@ -239,6 +240,7 @@
 	owner.current.RemoveElement(/datum/element/devil_banishment)
 	REMOVE_TRAIT(owner.current, TRAIT_ABSOLUTE_VIRUSIMMUNE, DEVIL_TRAIT)
 	REMOVE_TRAIT(owner.current, TRAIT_HEALS_FROM_HELL_RIFTS, DEVIL_TRAIT)
+	REMOVE_TRAIT(owner.current, TRAIT_RESIST_HEAT, DEVIL_TRAIT)
 
 	remove_spells()
 	remove_hud()

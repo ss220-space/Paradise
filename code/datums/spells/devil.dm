@@ -6,6 +6,7 @@
 
 	action_icon_state = "pitchfork"
 	action_background_icon_state = "bg_demon"
+	base_cooldown = 5 SECONDS
 
 	human_req = FALSE
 
@@ -106,6 +107,8 @@
 
 	school = "conjuration"
 
+	base_cooldown = 5 SECONDS
+
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
 	need_active_overlay = TRUE
@@ -138,6 +141,7 @@
 	human_req = FALSE
 
 	school = "conjuration"
+	base_cooldown = 5 SECONDS
 
 	action_icon_state = "spell_default"
 	action_background_icon_state = "bg_demon"
@@ -381,7 +385,7 @@
 	desc = "Призывает огненные волны в радиусе заклинания."
 	action_icon_state = "explosion_old"
 
-	base_cooldown = 20 SECONDS
+	base_cooldown = 10 SECONDS
 	aoe_range = 10
 	invocation = "Che? non ' stimiti te faccende del inferno!"
 	invocation_type = "shout"
