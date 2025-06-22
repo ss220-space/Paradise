@@ -150,7 +150,7 @@
 /obj/item/cartridge/janitor
 	name = "CustodiPRO Cartridge"
 	desc = "Лучший дизайн для чистки помещений."
-		ru_names = list(
+	ru_names = list(
 		NOMINATIVE = "картридж \"КастодиПРО\"",
 		GENITIVE = "картриджа \"КастодиПРО\"",
 		DATIVE = "картриджу \"КастодиПРО\"",
