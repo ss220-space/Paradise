@@ -605,7 +605,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			dat += "<b>Настройки пользовательского интерфейса:</b><br>"
 			dat += " – <b>Прозрачность:</b> <a href='byond://?_src_=prefs;preference=UIalpha'><b>[UI_style_alpha]</b></a><br>"
 			dat += " – <b>Цвет:</b> <a href='byond://?_src_=prefs;preference=UIcolor'><b>[UI_style_color]</b></a> <span style='border: 1px solid #161616; background-color: [UI_style_color];'>&nbsp;&nbsp;&nbsp;</span><br>"
-			dat += " – <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[UI_style]</b></a><br>"
+			dat += " – <b>Стиль интерфейса:</b> <a href='byond://?_src_=prefs;preference=ui'><b>[ui_theme_to_russian(UI_style)]</b></a><br>"
 			dat += "<b>Красивый TGUI:</b> <a href='byond://?_src_=prefs;preference=tgui'>[(toggles2 & PREFTOGGLE_2_FANCYUI) ? "Да" : "Нет"]</a><br>"
 			dat += "<b> – Размер TGUI strip menu:</b> <a href='byond://?_src_=prefs;preference=tgui_strip_menu'>[toggles2 & PREFTOGGLE_2_BIG_STRIP_MENU ? "Полноразмерный" : "Миниатюрный"]</a><br>"
 			dat += "<b> – Тема TGUI say:</b> <a href='byond://?_src_=prefs;preference=tgui_say_light_mode'>[(toggles2 & PREFTOGGLE_2_ENABLE_TGUI_SAY_LIGHT_MODE) ? "Светлая" : "Тёмная"]</a><br>"
@@ -1729,7 +1729,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						autohiss_mode = autohiss_choice[new_autohiss_pref]
 
 				if("metadata")
-					var/new_metadata = tgui_input_text(user, "Укажите OOC-информацию, которую вы юы хотели показывать другим игрокам", "OOC-информация", metadata, multiline = TRUE, encode = FALSE)
+					var/new_metadata = tgui_input_text(user, "Укажите OOC-информацию, которую вы бы хотели показывать другим игрокам", "OOC-информация", metadata, multiline = TRUE, encode = FALSE)
 					if(isnull(new_metadata))
 						return
 					metadata = new_metadata
@@ -2385,9 +2385,22 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 				if("hear_adminhelps")
 					sound ^= SOUND_ADMINHELP
 				if("ui")
-					UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list(UI_THEME_MIDNIGHT, UI_THEME_PLASMAFIRE, UI_THEME_RETRO, UI_THEME_SLIMECORE, UI_THEME_OPERATIVE, UI_THEME_WHITE))
-					if(!UI_style)
+					var/new_UI_style = tgui_input_list(user, "Выберите стиль интерфейса", "Стиль интерфейса", list("Полночь", "Плазма", "Ретро", "Желе", "Оперативник", "Белизна"))
+					if(!new_UI_style)
 						return
+					switch(new_UI_style)
+						if("Полночь")
+							UI_style = UI_THEME_MIDNIGHT
+						if("Плазма")
+							UI_style = UI_THEME_PLASMAFIRE
+						if("Ретро")
+							UI_style = UI_THEME_RETRO
+						if("Желе")
+							UI_style = UI_THEME_SLIMECORE
+						if("Оперативник")
+							UI_style = UI_THEME_OPERATIVE
+						if("Белизна")
+							UI_style = UI_THEME_WHITE
 
 					if(ishuman(usr)) //mid-round preference changes, for aesthetics
 						var/mob/living/carbon/human/H = usr
@@ -2979,3 +2992,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 //Check if the user has ANY job selected.
 /datum/preferences/proc/check_any_job()
 	return(job_support_high || job_support_med || job_support_low || job_medsci_high || job_medsci_med || job_medsci_low || job_engsec_high || job_engsec_med || job_engsec_low || job_karma_high || job_karma_med || job_karma_low)
+
+// Used to display UI_theme in Russian
+/datum/preferences/proc/ui_theme_to_russian(ui_theme)
+	switch(ui_theme)
+		if(UI_THEME_MIDNIGHT)
+			return "Полночь"
+		if(UI_THEME_PLASMAFIRE)
+			return "Плазма"
+		if(UI_THEME_RETRO)
+			return "Ретро"
+		if(UI_THEME_SLIMECORE)
+			return "желе"
+		if(UI_THEME_OPERATIVE)
+			return "Оперативник"
+		if(UI_THEME_WHITE)
+			return "Белизна"

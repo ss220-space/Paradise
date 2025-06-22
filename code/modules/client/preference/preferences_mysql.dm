@@ -339,7 +339,7 @@
 	metadata		= sanitize_text(metadata, initial(metadata))
 	real_name		= reject_bad_name(real_name, 1)
 	if(isnull(species)) species = SPECIES_HUMAN
-	if(isnull(language)) language = "Нет"
+	if(isnull(language)) language = LANGUAGE_NONE
 	if(isnull(nanotrasen_relation)) nanotrasen_relation = initial(nanotrasen_relation)
 	if(isnull(speciesprefs)) speciesprefs = initial(speciesprefs)
 	if(!real_name) real_name = random_name(gender,species)
@@ -392,7 +392,7 @@
 
 	socks			= sanitize_text(socks, initial(socks))
 	body_accessory	= sanitize_text(body_accessory, initial(body_accessory))
-	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "Нет")
+	h_grad_style = sanitize_text(length(h_grad_style) ? h_grad_style : null, "None")
 	var/list/expl = splittext(h_grad_offset_x, ",")
 	if(length(expl) == 2)
 		h_grad_offset_x = text2num(expl[1]) || 0

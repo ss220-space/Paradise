@@ -1,6 +1,6 @@
 /client/verb/setup_character()
 	set name = "Игровые настройки"
-	set category = "Special Verbs"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Открывает меню \"Настройка персонажа\". Изменения персонажа вступят в силу с началом следующего раунда, остальные изменения – незамедлительно."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
