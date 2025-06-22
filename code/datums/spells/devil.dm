@@ -22,7 +22,7 @@
 
 /obj/effect/proc_holder/spell/conjure_item/violin
 	name = "Призвать золотую скрипку"
-	desc = "Дьявольский призыв инструмента. Этот призывает/отзывает вашу золотую скрипку."
+	desc = "Призывает/отзывает дьявольскую золотую скрипку."
 
 	item_type = /obj/item/instrument/violin/golden
 
