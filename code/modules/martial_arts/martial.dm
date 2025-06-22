@@ -46,6 +46,12 @@
 	/// If provided, this list will override victim's default resist chances for any grab state.
 	/// Examples: list(MARTIAL_GRAB_AGGRESSIVE = 60, MARTIAL_GRAB_NECK = 40, MARTIAL_GRAB_KILL = 5) or list(MARTIAL_GRAB_NECK = 5)
 	var/list/grab_resist_chances
+	/// Set to TRUE to prevent users of this style from using stun batons (and stunprods)
+	var/no_baton = FALSE
+	/// Message displayed when someone uses a baton when its forbidden by a martial art
+	var/no_baton_reason = span_warning("Из-за занятий по боевым искусствам вы не можете крепко схватиться за станбатон!")
+	/// Whether or not you can grab someone while horizontal with this Martial Art
+	var/can_horizontally_grab = TRUE
 
 
 /datum/martial_art/New()
@@ -184,21 +190,34 @@
 			if(target.mind == objective.target)
 				objective.take_damage(damage, damage_type)
 
-/datum/martial_art/proc/teach(mob/living/carbon/human/H, make_temporary = FALSE)
-	if(!H.mind)
+/datum/martial_art/proc/teach(mob/living/carbon/human/human, make_temporary = FALSE)
+	if(!human.mind)
 		return FALSE
-	for(var/datum/martial_art/MA in H.mind.known_martial_arts)
-		if(istype(MA, src))
-			return FALSE
+
+	for(var/datum/martial_art/art in human.mind.known_martial_arts)
+		if(!istype(art, src))
+			continue
+
+		return FALSE
+
+	if(no_baton)
+		if(isbaton(human.get_item_by_slot(ITEM_SLOT_HAND_LEFT)))
+			human.drop_l_hand()
+
+		if(isbaton(human.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)))
+			human.drop_r_hand()
+
 	if(has_explaination_verb)
-		add_verb(H, /mob/living/carbon/human/proc/martial_arts_help)
+		add_verb(human, /mob/living/carbon/human/proc/martial_arts_help)
+
 	if(has_dirslash)
-		add_verb(H, /mob/living/carbon/human/proc/dirslash_enabling)
-		H.dirslash_enabled = TRUE
+		add_verb(human, /mob/living/carbon/human/proc/dirslash_enabling)
+		human.dirslash_enabled = TRUE
+
 	temporary = make_temporary
-	H.mind.known_martial_arts.Add(src)
-	H.mind.martial_art = get_highest_weight(H)
-	owner_UID = H.UID()
+	human.mind.known_martial_arts.Add(src)
+	human.mind.martial_art = get_highest_weight(human)
+	owner_UID = human.UID()
 	return TRUE
 
 /datum/martial_art/proc/remove(mob/living/carbon/human/H)
