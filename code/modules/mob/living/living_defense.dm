@@ -334,6 +334,11 @@
 	if(grabber == src || anchored || !isturf(grabber.loc) || !(grabber.mobility_flags & MOBILITY_PULL))
 		return FALSE
 
+	// This if-statement checks if the user is horizontal, and if the user either has no martial art, or has judo, drunk fighting or krav, in which case it should also fail
+	if(IS_HORIZONTAL(grabber) && (!grabber.mind.martial_art || !grabber.mind.martial_art.can_horizontally_grab))
+		to_chat(grabber, span_warning("Вам не удаётся взять [declent_ru(ACCUSATIVE)] в захват!"))
+		return FALSE
+
 	if(!grabber.pulling || grabber.pulling != src)
 		return grabber.start_pulling(src, supress_message = supress_message)
 

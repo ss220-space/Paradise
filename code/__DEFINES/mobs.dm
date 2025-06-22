@@ -399,6 +399,8 @@
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
 
+#define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
+
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
 ///How much a mob's sprite should be moved when they're lying up (on the ceiling)
