@@ -49,7 +49,7 @@
 	var/display_type = "blank"
 	var/display_icon
 
-	var/datum/announcement/priority/crew_announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/comms_console)
 
 	light_color = LIGHT_COLOR_LIGHTBLUE
 
@@ -104,7 +104,7 @@
 		// Logout function.
 		if(authenticated != COMM_AUTHENTICATION_NONE)
 			authenticated = COMM_AUTHENTICATION_NONE
-			crew_announcement.announcer = null
+			announcer.author = null
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 			return
 		// Login function.
@@ -116,7 +116,7 @@
 			var/mob/living/carbon/human/H = ui.user
 			var/obj/item/card/id = H.get_id_card()
 			if(istype(id))
-				crew_announcement.announcer = GetNameAndAssignmentFromId(id)
+				announcer.author = GetNameAndAssignmentFromId(id)
 
 		if(ACCESS_CENT_COMMANDER in access)
 			if(!check_rights(R_ADMIN, FALSE, ui.user))
@@ -181,7 +181,7 @@
 				if(length(input) < COMM_MSGLEN_MINIMUM)
 					to_chat(ui.user, span_warning("Сообщение '[input]' слишком короткое. Минимальное число символов - [COMM_MSGLEN_MINIMUM]."))
 					return
-				crew_announcement.Announce(input)
+				announcer.Announce(input)
 				message_cooldown = world.time + 600 //One minute
 
 		if("callshuttle")
@@ -268,7 +268,7 @@
 				Nuke_request(input, ui.user)
 				to_chat(ui.user, span_notice("Запрос отправлен."))
 				add_game_logs("has requested the nuclear codes from Centcomm: [input]", usr)
-				GLOB.priority_announcement.Announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.", "Запрошены коды активации ядерной боеголовки.",'sound/AI/commandreport.ogg')
+				GLOB.major_announcement.Announce("Коды активации ядерной боеголовки на станции были запрошены [usr]. Решение о подтверждении или отклонении данного запроса будет отправлено в ближайшее время.", "Запрошены коды активации ядерной боеголовки.", 'sound/AI/commandreport.ogg')
 				centcomm_message_cooldown = world.time + 6000 // 10 minutes
 			setMenuState(ui.user, COMM_SCREEN_MAIN)
 
@@ -377,15 +377,15 @@
 				to_chat(ui.user, span_warning("Вашего уровня доступа не хватает для отправки данного типа оповещений."))
 				return
 			if(!params["classified"])
-				GLOB.command_announcement.Announce(
+				GLOB.major_announcement.Announce(
 					params["text"],\
-					from = "Сообщение Центрального Командования",\
-					new_title = params["subtitle"],\
+					new_title = "Сообщение Центрального Командования",\
+					new_subtitle = params["subtitle"],\
 					new_sound = 'sound/AI/commandreport.ogg'
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+				GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_title = "[command_name()] обновление")
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
@@ -434,7 +434,7 @@
 			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_title = "[command_name()] обновление")
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)

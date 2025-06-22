@@ -68,7 +68,7 @@
 						to_chat(aiPlayer, span_warning("Законы обновлены"))
 
 	special_directive(intercepttext, interceptname)
-	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
+	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_subtitle = "[command_name()] обновление")
 
 /datum/station_state
 	var/floor = 0

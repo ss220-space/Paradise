@@ -36,6 +36,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 				subject.attack_ai(M)
 	return is_in_use
 
+#define TEXT_ANNOUNCEMENT_COOLDOWN 1 MINUTES
+
 /mob/living/silicon/ai
 	name = "AI"
 	icon = 'icons/mob/ai.dmi'//
@@ -89,7 +91,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/last_paper_seen_title = null
 	var/can_shunt = TRUE
 	var/last_announcement = ""
-	var/datum/announcement/priority/announcement
+	var/datum/announcer/announcer
 	var/mob/living/simple_animal/bot/Bot
 	var/turf/waypoint //Holds the turf of the currently selected waypoint.
 	var/waypoint_mode = 0 //Waypoint mode is for selecting a turf via clicking.
@@ -112,6 +114,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	var/announce_arrivals = TRUE
 	var/arrivalmsg = "$name, $rank, прибыл на станцию."
 
+	var/next_text_announcement
+
 	var/list/all_eyes = list()
 
 /mob/living/silicon/ai/proc/add_ai_verbs()
@@ -126,10 +130,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	remove_verb(src, silicon_subsystems)
 
 /mob/living/silicon/ai/New(loc, var/datum/ai_laws/L, var/obj/item/mmi/B, var/safety = 0)
-	announcement = new()
-	announcement.title = "Оповещение ИИ"
-	announcement.announcement_type = "Оповещение ИИ"
-	announcement.announcer = name
+	announcer = new(config_type = /datum/announcement_configuration/ai)
+	announcer.author = name
 
 	var/list/possibleNames = GLOB.ai_names
 
@@ -314,7 +316,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		return FALSE
 
 	if(oldname != real_name)
-		announcement.announcer = name
+		announcer.author = name
 
 		if(eyeobj)
 			eyeobj.name = "[newname] (AI Eye)"
@@ -589,10 +591,8 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 	if(check_unable(AI_CHECK_WIRELESS | AI_CHECK_RADIO))
 		return
 
-	announcement.Announce(input)
-	message_cooldown = 1
-	spawn(600)//One minute cooldown
-		message_cooldown = 0
+	announcer.Announce(input)
+	next_text_announcement = world.time + TEXT_ANNOUNCEMENT_COOLDOWN
 
 /mob/living/silicon/ai/proc/ai_call_shuttle()
 	set name = "Вызвать эвакуационный шаттл"

@@ -36,7 +36,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	var/message = ""
 	var/recipient = ""; //the department which will be receiving the message
 	var/priority = -1 ; //Priority of the message being sent
-	var/datum/announcement/announcement = new
+	var/datum/announcer/announcer = new(config_type = /datum/announcement_configuration/requests_console)
 	var/list/shipping_log = list()
 	var/ship_tag_name = ""
 	var/ship_tag_index = 0
@@ -53,8 +53,8 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	Radio.follow_target = src
 	. = ..()
 
-	announcement.title = "[department] announcement"
-	announcement.log = TRUE
+	announcer.config.default_title = "[department] announcement"
+	announcer.config.add_log = TRUE
 
 	name = "[department] Requests Console"
 	GLOB.allRequestConsoles += src
@@ -184,7 +184,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if("sendAnnouncement")
 			if(!announcementConsole)
 				return
-			announcement.Announce(message, msg_sanitized = TRUE)
+			announcer.Announce(message)
 			reset_message(TRUE)
 
 		if("department")
@@ -294,7 +294,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 		if(RCS_ANNOUNCE)
 			if(ACCESS_RC_ANNOUNCE in id.GetAccess())
 				announceAuth = TRUE
-				announcement.announcer = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
+				announcer.author = id.assignment ? "[id.assignment] [id.registered_name]" : id.registered_name
 				SStgui.update_uis(ui_object)
 				return ATTACK_CHAIN_PROCEED_SUCCESS
 			reset_message()
@@ -314,7 +314,7 @@ GLOBAL_LIST_EMPTY(allRequestConsoles)
 	msgVerified = ""
 	msgStamped = ""
 	announceAuth = FALSE
-	announcement.announcer = ""
+	announcer.author = ""
 	ship_tag_name = ""
 	ship_tag_index = FALSE
 	if(mainmenu)

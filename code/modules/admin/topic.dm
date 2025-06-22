@@ -4149,7 +4149,7 @@
 	if (playlightning)
 		sound_to_playing_players('sound/magic/lightning_chargeup.ogg')
 		sleep(80)
-	GLOB.priority_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
+	GLOB.major_announcement.Announce(replacetext(announcement, "%STATION%", station_name()))
 	if (playlightning)
 		sleep(20)
 		sound_to_playing_players('sound/magic/lightningbolt.ogg')

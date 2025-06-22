@@ -642,27 +642,32 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(type == "Свой тип")
 		type = tgui_input_text(usr, "Введите тип сообщения.", "Тип сообщения", "Зашифрованная передача", encode = FALSE)
 
-	var/customname = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
-	if(!customname)
+	var/subtitle = tgui_input_text(usr, "Введите заголовок сообщения.", "Заголовок", MsgType[type], encode = FALSE)
+	if(!subtitle)
 		return
-	var/input = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
-	if(!input)
+	var/message = tgui_input_text(usr, "Введите всё, что хотите. Что угодно. Серьёзно.", "Какое сообщение?", multiline = TRUE, encode = FALSE)
+	if(!message)
 		return
 
-	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?",, list("Да","Нет", "Отмена")))
+	switch(tgui_alert(usr, "Должно ли это быть объявлено всем?", null, list("Да","Нет", "Отмена")))
 		if("Да")
 			var/beepsound = tgui_input_list(usr, "Какой звук должен издавать анонс?", "Звук анонса", MsgSound)
 
-			GLOB.command_announcement.Announce(input, customname, MsgSound[beepsound], , , type)
-			print_command_report(input, customname)
+			GLOB.major_announcement.Announce(
+				message,
+				new_title = type,
+				new_subtitle = subtitle,
+				new_sound = MsgSound[beepsound]
+			)
+			print_command_report(message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', from = "[command_name()] обновление")
-			print_command_report(input, "Секретно: [customname]")
+			GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_title = "[command_name()] обновление")
+			print_command_report(message, "Секретно: [subtitle]")
 		else
 			return
 
-	log_admin("[key_name(src)] has created a communications report: [input]")
+	log_admin("[key_name(src)] has created a communications report: [message]")
 	message_admins("[key_name_admin(src)] has created a communications report")
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Create Comms Report") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 

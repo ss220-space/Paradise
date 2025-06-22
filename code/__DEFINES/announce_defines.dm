@@ -7,3 +7,7 @@
 #define ANNOUNCE_KIND_EVENT		"NAS Trurl Update"  // Intentionally the same as above
 #define ANNOUNCE_KIND_AI		"A.I. Announcement"
 #define ANNOUNCE_KIND_PTL		"Power Transmission Laser report"
+
+/// Russian names of the announcements
+#define ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT	"Приоритетное оповещение"
+

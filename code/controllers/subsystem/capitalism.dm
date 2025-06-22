@@ -33,7 +33,7 @@ SUBSYSTEM_DEF(capitalism)
 /datum/controller/subsystem/capitalism/fire()
 
 	//if(default_counter > 300)
-	//	GLOB.priority_announcement.Announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
+	//	GLOB.major_announcement.Announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
 	//	set_security_level(SEC_LEVEL_EPSILON)
 
 	//If there is enough money to pay salaries at least twice before the default is lifted
@@ -67,9 +67,9 @@ SUBSYSTEM_DEF(capitalism)
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
 	if(default_status)
-		GLOB.priority_announcement.Announce("Внимание на счёте станции зафиксировано отсутствие финансов. Выплаты заработных плат заморожены. Командному составу необходимо немедленно решить возникший кризис", "Дефолт станции", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Внимание на счёте станции зафиксировано отсутствие финансов. Выплаты заработных плат заморожены. Командному составу необходимо немедленно решить возникший кризис", "Дефолт станции", 'sound/AI/commandreport.ogg')
 	else
-		GLOB.priority_announcement.Announce("Внимание на счёте станции достаточно средств для выплат. Выплаты заработных плат возобновлены.", "Возобновление выплат", 'sound/AI/commandreport.ogg')
+		GLOB.major_announcement.Announce("Внимание на счёте станции достаточно средств для выплат. Выплаты заработных плат возобновлены.", "Возобновление выплат", 'sound/AI/commandreport.ogg')
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0
