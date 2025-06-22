@@ -349,7 +349,7 @@
 
 /datum/ritual/devil/slave
 	name = "Ритуал порабощения"
-	description = "Воскрешает труп и подчиняет его вашей воле."
+	description = "Воскрешает труп и подчиняет его вашей воле. Уничтожает имплант защиты разума."
 	required_things = list(
 		/mob/living/carbon/human = 1,
 		/obj/item/organ/internal/heart = 1,
@@ -409,6 +409,12 @@
 	human.mind.soulOwner = src
 	human.mind.damnation_type = 666
 	human.revive()
+
+	for(var/obj/item/implant/mindshield/implant in human.contents)
+		if(!implant.implanted)
+			continue
+		qdel(implant)
+
 	var/datum/antagonist/mindslave/devil_pawn/pawn = new(invoker.mind)
 	human.mind.add_antag_datum(pawn)
 

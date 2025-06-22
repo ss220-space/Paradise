@@ -45,6 +45,8 @@
 	var/datum/mind/owner
 	icon_state = "evil_contract"
 	joinable = FALSE
+	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора. <br>\
+	Данный контракт гарантирует, что обещанное в нем благо будет получено подписавшим существом."
 
 /obj/item/paper/contract/infernal/Initialize(atom/mapload, mob/living/nTarget, datum/mind/nOwner, datum/devil_contract/contract)
 	. = ..()
@@ -65,11 +67,11 @@
 
 /obj/item/paper/contract/infernal/suicide_act(mob/user)
 	if(signed && (user == target.current) && istype(user,/mob/living/carbon/human))
-		var/mob/living/carbon/human/H = user
-		H.forcesay("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
-		H.visible_message(span_suicide("[H.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [genderize_ru(H.gender, "Он")] пытается покончить с собой!"))
-		H.adjust_fire_stacks(20)
-		H.IgniteMob()
+		var/mob/living/carbon/human/human = user
+		human.forcesay("О, ВЕЛИКИЙ АД! Я ТРЕБУЮ, ЧТОБЫ ТЫ НЕМЕДЛЕННО ЗАБРАЛ СВОЮ НАГРАДУ!")
+		human.visible_message(span_suicide("[human.declent_ru(NOMINATIVE)] поднимает контракт, заявляющий права на его душу, а затем сразу же загорается. Похоже, [genderize_ru(human.gender, "Он")] пытается покончить с собой!"))
+		human.adjust_fire_stacks(20)
+		human.IgniteMob()
 		return FIRELOSS
 	else
 		..()
@@ -102,7 +104,7 @@
 /obj/item/paper/contract/infernal/show_content(mob/user, forceshow, forcestars, infolinks, view)
 	var/datum/asset/simple/namespaced/contracts/contracts_asset = get_asset_datum(/datum/asset/simple/namespaced/contracts)
 	contracts_asset.send(user)
-	. = ..(user, forceshow, forcestars, infolinks, view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;")
+	. = ..(user, forceshow, forcestars, ((user.mind.hasSoul)? infolinks : soulless_text), view, "can_minimize=0;auto_format=0;titlebar=0;can_resize=0;")
 	if(!signed)
 		balloon_alert(owner.current, "контракт не подписан!")
 
@@ -140,8 +142,8 @@
 
 	if(I.get_heat())
 		user.visible_message(
-			span_danger("[user] brings [I] next to [src], but it does not catch a fire!"),
-			span_danger("The [name] refuses to ignite!"),
+			("[user.declent_ru(NOMINATIVE)] подносит [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)], но [I.declent_ru(NOMINATIVE)] не загорается!"),
+			span_danger("[declent_ru(NOMINATIVE)] не загорается!"),
 		)
 		return ATTACK_CHAIN_PROCEED|ATTACK_CHAIN_NO_AFTERATTACK
 
@@ -162,11 +164,11 @@
 /obj/item/paper/contract/infernal/proc/attempt_signature(mob/living/carbon/human/user, blood = 0)
 	add_fingerprint(user)
 	if(!(user.IsAdvancedToolUser() && user.is_literate()))
-		to_chat(user, "<span class='notice'>You don't know how to read or write.</span>")
+		to_chat(user, span_notice("Вы не умеете читать и писать."))
 		return FALSE
 
 	if(user.mind != target)
-		to_chat(user,"<span class='notice'>Your signature simply slides off the sheet, it seems this contract is not meant for you to sign.</span>")
+		to_chat(user, span_notice("Ваша подпись просто соскальзывает с листа, похоже, этот контракт предназначен не для вас."))
 		return FALSE
 
 	if(!user.mind.hasSoul)
@@ -178,21 +180,22 @@
 		return FALSE
 
 	if(user.mind.soulOwner == owner)
-		to_chat(user, "<span class='notice'>This devil already owns your soul, you may not sell it to them again.</span>")
+		to_chat(user, span_notice("Этот дьявол уже владеет вашей душой. Вы не можете продать ему ее снова."))
 		return FALSE
 
 	if(contract.contract_type == CONTRACT_REVIVE) // :eyes:
-		to_chat(user,"<span class='notice'>You are already alive, this contract would do nothing.</span>")
+		to_chat(user, span_notice("Вы живы, этот контракт ничего не сделает."))
 		return FALSE
 
 	if(signed)
-		to_chat(user,"<span class='notice'>This contract has already been signed. It may not be signed again.</span>")
+		to_chat(user, span_notice("Этот контракт уже подписан!"))
 		return FALSE
 
-	to_chat(user,"<span class='notice'>You quickly scrawl your name on the contract</span>")
+	to_chat(user, span_notice("Ты небрежно пишешь своё имя в контракте."))
 
 	if(check_contract(target.current) <= 0)
-		to_chat(user,"<span class='notice'>But it seemed to have no effect, perhaps even Hell itself cannot grant this boon?</span>")
+		to_chat(user, span_notice("Никакого эффекта. Возможно ли, что даже Ад не может даровать тебе это?"))
+		return FALSE
 
 	fulfill_contract(target.current)
 
@@ -213,7 +216,7 @@
 
 
 	update_text(user.real_name)
-	to_chat(user, span_notice("A profound emptiness washes over you as you lose ownership of your soul."))
-	to_chat(user, span_boldnotice("This does NOT make you an antagonist if you were not already."))
+	to_chat(user, span_notice("Глубокая пустота охватывает вас, когда вы теряете контроль над своей душой. Вы забываете настоящее имя того, кому продали свою душу."))
+	to_chat(user, span_boldnotice("Это НЕ делает вас антагонистом, если вы уже им не являетесь."))
 
 	contract.fulfill_contract(user)
