@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/action/innate/emp/eldritch
+/obj/effect/proc_holder/spell/emplosion/eldritch
 	name = "Energetic Pulse"
 	desc = "A spell that causes a large EMP around you, disabling electronics."
 	background_icon_state = "bg_heretic"

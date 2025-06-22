@@ -21,8 +21,8 @@
 	demolition_mod = 0.8
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	armour_penetration = 35
-	attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
-	attack_verb_simple = list("attack", "slash", "slice", "tear", "lacerate", "rip", "dice", "rend")
+	//attack_verb_continuous = list("attacks", "slashes", "slices", "tears", "lacerates", "rips", "dices", "rends")
+	attacktext = list("attack", "slash", "slice", "tear", "lacerate", "rip", "dice", "rend")
 	var/after_use_message = ""
 	/// Tracks how many times attack_self() is called so that breaking a blade while in an arena has to be intentional
 	var/escape_attempts = 0

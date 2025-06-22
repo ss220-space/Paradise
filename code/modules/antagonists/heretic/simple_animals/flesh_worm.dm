@@ -74,12 +74,12 @@
 	var/mob/living/simple_animal/hostile/heretic_summon/armsy/prev = src
 	for(var/i in 1 to worm_length)
 		prev = new_segment(behind = prev)
+
 	update_appearance(UPDATE_ICON_STATE)
 
 /// Grows a new segment behind the passed mob
-/mob/living/simple_animal/hostile/heretic_summon/armsy/proc/new_segment(mob/living/basic/heretic_summon/armsy/behind)
+/mob/living/simple_animal/hostile/heretic_summon/armsy/proc/new_segment(mob/living/simple_animal/hostile/heretic_summon/armsy/behind)
 	var/mob/living/segment = new type(drop_location(), FALSE)
-	ADD_TRAIT(segment, TRAIT_PERMANENTLY_MORTAL, INNATE_TRAIT)
 	segment.AddComponent(/datum/component/mob_chain, front = behind, vary_icon_state = TRUE)
 	behind.register_behind(segment)
 	return segment
@@ -88,6 +88,7 @@
 /mob/living/simple_animal/hostile/heretic_summon/armsy/proc/register_behind(mob/living/tail)
 	if(!isnull(back_tg)) // Shouldn't happen but just in case
 		UnregisterSignal(back_tg, COMSIG_QDELETING)
+
 	back_tg = tail
 	update_appearance(UPDATE_ICON_STATE)
 	if(!isnull(back_tg))
@@ -98,9 +99,10 @@
 	SIGNAL_HANDLER
 	register_behind(null)
 
-/mob/living/simple_animal/hostile/heretic_summon/armsy/melee_attack(atom/target, list/modifiers, ignore_cooldown)
+/mob/living/simple_animal/hostile/heretic_summon/armsy/AttackingTarget()
 	if(!istype(target, /obj/item/organ/external/arm))
 		return ..()
+
 	visible_message(span_warning("[src] devours [target]!"))
 	playsound(src, 'sound/effects/magic/demon_consume.ogg', 50, TRUE)
 	qdel(target)
@@ -136,6 +138,7 @@
 	. = 1
 	if(isnull(back_tg))
 		return
+
 	. += back_tg.get_length()
 
 #undef MINIMUM_ARMSY_LENGTH

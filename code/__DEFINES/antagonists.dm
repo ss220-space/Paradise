@@ -30,6 +30,7 @@
 #define MAX_KNOWLEDGE_PRIORITY 100
 
 #define FACTION_HERETIC "heretic"
+#define FACTION_HOSTILE "hostile"
 
 /// Checks if the passed mob can become a heretic ghoul.
 /// - Must be a human (type, not species)

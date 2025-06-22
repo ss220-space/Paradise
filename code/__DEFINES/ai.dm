@@ -31,9 +31,6 @@
 ///Does this behavior NOT block planning?
 #define AI_BEHAVIOR_CAN_PLAN_DURING_EXECUTION (1<<4)
 
-///AI flags
-#define STOP_MOVING_WHEN_PULLED (1<<0)
-
 ///Subtree defines
 
 ///This subtree should cancel any further planning, (Including from other subtrees)
@@ -113,6 +110,8 @@
 /// Robot customer has said their can't find seat line at least once. Used to rate limit how often they'll complain after the first time.
 #define BB_CUSTOMER_SAID_CANT_FIND_SEAT_LINE "BB_customer_said_cant_find_seat_line"
 
+/// Blackboard key storing how long your targeting strategy has held a particular target
+#define BB_BASIC_MOB_HAS_TARGET_TIME "BB_basic_mob_has_target_time"
 
 ///Hostile AI controller blackboard keys
 #define BB_HOSTILE_ORDER_MODE "BB_HOSTILE_ORDER_MODE"
@@ -134,6 +133,17 @@
 #define HOSTILE_COMMAND_ATTACK 1
 /// Will follow a target.
 #define HOSTILE_COMMAND_FOLLOW 2
+
+///AI flags
+/// Don't move if being pulled
+#define STOP_MOVING_WHEN_PULLED (1<<0)
+/// Continue processing even if dead
+#define CAN_ACT_WHILE_DEAD (1<<1)
+/// Stop processing while in a progress bar
+#define PAUSE_DURING_DO_AFTER (1<<2)
+/// Continue processing while in stasis
+#define CAN_ACT_IN_STASIS (1<<3)
+
 
 ///Dog AI controller blackboard keys
 

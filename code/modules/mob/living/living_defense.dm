@@ -484,24 +484,30 @@
 			span_userdanger("[M.declent_ru(NOMINATIVE)] поглоща[pluralize_ru(M.gender,"ет","ют")] [pluralize_ru(src.gender,"тебя","вас")]!"))
 		return TRUE
 
-/mob/living/attack_animal(mob/living/simple_animal/M)
-	M.face_atom(src)
-	if((M.a_intent == INTENT_HELP && M.ckey) || M.melee_damage_upper == 0)
-		if(!M.friendly)
+/mob/living/attack_animal(mob/living/simple_animal/mob)
+	mob.face_atom(src)
+	if((mob.a_intent == INTENT_HELP && mob.ckey) || mob.melee_damage_upper == 0)
+		if(!mob.friendly)
 			return FALSE
-		M.custom_emote(EMOTE_VISIBLE, "[M.friendly] [src.declent_ru(ACCUSATIVE)].")
+		mob.custom_emote(EMOTE_VISIBLE, "[mob.friendly] [src.declent_ru(ACCUSATIVE)].")
 		return FALSE
-	if(HAS_TRAIT(M, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(M, span_warning("[pluralize_ru(M.gender,"Ты не хочешь","Вы не хотите")] никому навредить!"))
+	if(HAS_TRAIT(mob, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
+		to_chat(mob, span_warning("[pluralize_ru(mob.gender,"Ты не хочешь","Вы не хотите")] никому навредить!"))
 		return FALSE
 
-	if(M.attack_sound)
-		playsound(loc, M.attack_sound, 50, 1, 1)
-	M.do_attack_animation(src)
-	visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!"), \
-					span_userdanger("[capitalize(M.declent_ru(NOMINATIVE))] [M.attacktext] [src.declent_ru(ACCUSATIVE)]!"))
-	add_attack_logs(M, src, "Animal attacked")
-	SEND_SIGNAL(src, COMSIG_SIMPLE_ANIMAL_ATTACKEDBY, M)
+	if(mob.attack_sound)
+		playsound(loc, mob.attack_sound, 50, 1, 1)
+	mob.do_attack_animation(src)
+	var/attacktext
+	if(islist(mob.attacktext))
+		attacktext = pick(mob.attacktext)
+	else
+		attacktext = mob.attacktext
+
+	visible_message(span_danger("[capitalize(mob.declent_ru(NOMINATIVE))] [attacktext] [src.declent_ru(ACCUSATIVE)]!"), \
+					span_userdanger("[capitalize(mob.declent_ru(NOMINATIVE))] [attacktext] [src.declent_ru(ACCUSATIVE)]!"))
+	add_attack_logs(mob, src, "Animal attacked")
+	SEND_SIGNAL(src, COMSIG_SIMPLE_ANIMAL_ATTACKEDBY, mob)
 	return TRUE
 
 /mob/living/attack_larva(mob/living/carbon/alien/larva/L)

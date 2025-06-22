@@ -55,7 +55,7 @@
 	return target_turfs
 
 /// To set the star gazer
-/datum/action/innate/touch/star_touch/proc/set_star_gazer(mob/living/basic/heretic_summon/star_gazer/star_gazer_mob)
+/datum/action/innate/touch/star_touch/proc/set_star_gazer(mob/living/simple_animal/hostile/heretic_summon/star_gazer/star_gazer_mob)
 	star_gazer = WEAKREF(star_gazer_mob)
 
 /// To obtain the star gazer if there is one

@@ -93,6 +93,7 @@
 #define COLOR_APC_GREEN        "#72f83c"
 #define COLOR_APC_BLUE         "#7080f8"
 #define COLOR_ALARM_BLUE       "#2255ff"
+#define COLOR_DARK_RED 		   "#A50824"
 
 //Color defines used by the assembly detailer.
 #define COLOR_ASSEMBLY_BLACK   "#545454"

@@ -17,7 +17,7 @@
 	sight = SEE_MOBS|SEE_OBJS|SEE_TURFS
 	/// List of innate abilities we have to add.
 	var/static/list/innate_abilities = list(
-		/datum/action/innate/ethereal_jaunt/ash/long = null,
+		/obj/effect/proc_holder/spell/ethereal_jaunt/ash/long = null,
 		/obj/effect/proc_holder/spell/remotetalk/eldritch = null,
 		/datum/action/innate/expand_sight = null,
 	)

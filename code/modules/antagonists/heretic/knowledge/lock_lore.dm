@@ -137,7 +137,7 @@
 	)
 	result_atoms = list(/obj/item/heretic_labyrinth_handbook)
 	cost = 1
-	research_tree_icon_path = 'icons/obj/service/library.dmi'
+	research_tree_icon_path = 'icons/obj/library.dmi'
 	research_tree_icon_state = "heretichandbook"
 
 /datum/heretic_knowledge/spell/burglar_finesse
@@ -211,7 +211,7 @@
 /datum/heretic_knowledge/ultimate/lock_final/on_finished_recipe(mob/living/user, list/selected_atoms, turf/loc)
 	. = ..()
 	// buffs
-	var/datum/action/innate/shapeshift/eldritch/ascension/transform_spell = new(user.mind)
+	var/obj/effect/proc_holder/spell/shapeshift/eldritch/ascension/transform_spell = new(user.mind)
 	transform_spell.Grant(user)
 
 	var/datum/antagonist/heretic/heretic_datum = user.mind.has_antag_datum(/datum/antagonist/heretic)

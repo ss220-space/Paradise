@@ -349,3 +349,9 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RELAYING_ATTACKER "relaying_attacker"
 
 #define TRAIT_SPACEWALK "spacewalk"
+
+/// Trait applied to a mob when it gets a required "operational datum" (components/elements). Sends out the source as the type of the element.
+#define TRAIT_SUBTREE_REQUIRED_OPERATIONAL_DATUM "element-required"
+
+/// Required by the on_hit_effect element, which is in turn added by other elements.
+#define TRAIT_ON_HIT_EFFECT "trait_on_hit_effect"

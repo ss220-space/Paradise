@@ -1484,3 +1484,5 @@
 ///from /obj/item/bodypart/proc/receive_damage, sent from the limb owner (limb, brute, burn)
 #define COMSIG_CARBON_LIMB_DAMAGED "carbon_limb_damaged"
 	#define COMPONENT_PREVENT_LIMB_DAMAGE (1 << 0)
+///from /datum/component/on_hit_effect/send_signal(): (user, target, hit_zone)
+#define COMSIG_ON_HIT_EFFECT "comsig_on_hit_effect"

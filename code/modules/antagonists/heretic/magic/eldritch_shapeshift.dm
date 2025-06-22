@@ -1,5 +1,5 @@
 // Given to heretic monsters.
-/datum/action/innate/shapeshift/eldritch
+/obj/effect/proc_holder/spell/shapeshift/eldritch
 	name = "Shapechange"
 	desc = "A spell that allows you to take on the form of another creature, gaining their abilities. \
 		After making your choice, you will be unable to change to another."
