@@ -1,6 +1,6 @@
 /obj/item/cartridge
 	name = "generic cartridge"
-	desc = "Картридж данных для КПК."
+	desc = "Картридж для КПК."
 	ru_names = list(
 		NOMINATIVE = "картридж",
 		GENITIVE = "картриджа",
@@ -56,6 +56,7 @@
 
 /obj/item/cartridge/engineering
 	name = "Power-ON Cartridge"
+	desc = "Картридж для КПК, позволяющий просматривать состояние энергоснабжения и использовать сканер галогена."
 	ru_names = list(
 		NOMINATIVE = "картридж управления питанием",
 		GENITIVE = "картриджа управления питанием",
@@ -71,6 +72,7 @@
 
 /obj/item/cartridge/atmos
 	name = "BreatheDeep Cartridge"
+	desc = "Картридж для КПК, позволяющий использовать сканер газов."
 	ru_names = list(
 		NOMINATIVE = "картридж \"ДышиГлубже\"",
 		GENITIVE = "картриджа \"ДышиГлубже\"",
@@ -84,6 +86,7 @@
 
 /obj/item/cartridge/medical
 	name = "Med-U Cartridge"
+	desc = "Картридж для КПК, позволяющий использовать медицинский сканер."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Мед-U\"",
 		GENITIVE = "картриджа \"Мед-U\"",
@@ -99,6 +102,7 @@
 
 /obj/item/cartridge/chemistry
 	name = "ChemWhiz Cartridge"
+	desc = "Картридж для КПК, позволяющий использовать сканер реагентов."
 	ru_names = list(
 		NOMINATIVE = "картридж \"ХимВиз\"",
 		GENITIVE = "картриджа \"ХимВиз\"",
@@ -112,6 +116,7 @@
 
 /obj/item/cartridge/security
 	name = "R.O.B.U.S.T. Cartridge"
+	desc = "Картридж для КПК, позволяющий просматривать записи службы безопасности и управлять ботами."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Р.О.Б.А.С.Т.\"",
 		GENITIVE = "картриджа \"Р.О.Б.А.С.Т.\"",
@@ -131,6 +136,7 @@
 
 /obj/item/cartridge/detective
 	name = "D.E.T.E.C.T. Cartridge"
+	desc = "Картридж для КПК, позволяющий использовать медицинский сканер, просматривать медицинкие записи и записи службы безопасности."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Д.Е.Т.Е.К.Т.\"",
 		GENITIVE = "картриджа \"Д.Е.Т.Е.К.Т.\"",
@@ -149,7 +155,7 @@
 
 /obj/item/cartridge/janitor
 	name = "CustodiPRO Cartridge"
-	desc = "Лучший дизайн для чистки помещений."
+	desc = "Картридж для КПК, позволяющий использовать приложение для поиска уборочного инвентаря."
 	ru_names = list(
 		NOMINATIVE = "картридж \"КастодиПРО\"",
 		GENITIVE = "картриджа \"КастодиПРО\"",
@@ -163,6 +169,7 @@
 
 /obj/item/cartridge/lawyer
 	name = "P.R.O.V.E. Cartridge"
+	desc = "Картридж для КПК, позволяющий просматривать записи службы безопасности."
 	ru_names = list(
 		NOMINATIVE = "картридж \"П.Р.У.В.\"",
 		GENITIVE = "картриджа \"П.Р.У.В.\"",
@@ -176,6 +183,7 @@
 
 /obj/item/cartridge/clown
 	name = "Honkworks 5.0"
+	desc = "Картридж для КПК, позволяющий использовать синтезатор смешных звуков."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Хонкворкс 5.0\"",
 		GENITIVE = "картриджа \"Хонкворкс 5.0\"",
@@ -191,6 +199,7 @@
 
 /obj/item/cartridge/mime
 	name = "Gestur-O 1000"
+	desc = "..."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Жест-O 1000\"",
 		GENITIVE = "картриджа \"Жест-O 1000\"",
@@ -212,7 +221,7 @@
 
 /obj/item/cartridge/signal
 	name = "generic signaler cartridge"
-	desc = "Картридж данных со встроенным модулем сигнализатора."
+	desc = "Картридж для КПК, позволяющий использовать сигнализатор."
 	ru_names = list(
 		NOMINATIVE = "картридж универсального сигнализатора",
 		GENITIVE = "картриджа универсального сигнализатора",
@@ -229,7 +238,7 @@
 
 /obj/item/cartridge/signal/toxins
 	name = "Signal Ace 2"
-	desc = "В комплекте со встроенным радиосигнализатором!"
+	desc = "Картридж для КПК, позволяющий использовать сигнализатор, сканер реагентов и газов."
 	ru_names = list(
 		NOMINATIVE = "картридж \"сигнализатор-ас 2\"",
 		GENITIVE = "картриджа \"сигнализатор-ас 2\"",
@@ -248,7 +257,7 @@
 
 /obj/item/cartridge/quartermaster
 	name = "Space Parts & Space Vendors Cartridge"
-	desc = "Идеально подходит для Квартирмейстера!"
+	desc = "Картридж для КПК, позволяющий использовать приложения для управления системой поставки."
 	ru_names = list(
 		NOMINATIVE = "картридж деталей и поставщиков космических товаров",
 		GENITIVE = "картриджа деталей и поставщиков космических товаров",
@@ -268,6 +277,7 @@
 
 /obj/item/cartridge/head
 	name = "Easy-Record DELUXE"
+	desc = "Картридж для КПК, позволяющий редактировать информацию на дисплеях станции."
 	ru_names = list(
 		NOMINATIVE = "картридж редактирования",
 		GENITIVE = "картриджа редактирования",
@@ -281,6 +291,7 @@
 
 /obj/item/cartridge/hop
 	name = "HumanResources9001"
+	desc = "Картридж для КПК, предоставляющий функционал, упрощающий управление персоналом."
 	ru_names = list(
 		NOMINATIVE = "картридж \"ЭйчАр-9001\"",
 		GENITIVE = "картриджа \"ЭйчАр-9001\"",
@@ -306,6 +317,7 @@
 
 /obj/item/cartridge/hos
 	name = "R.O.B.U.S.T. DELUXE"
+	desc = "Картридж для КПК, предоставляющий функционал, упрощающий обеспечение безопасности."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Р.О.Б.А.С.Т.\" делюкс",
 		GENITIVE = "картриджа \"Р.О.Б.А.С.Т.\" делюкс",
@@ -327,6 +339,7 @@
 
 /obj/item/cartridge/ce
 	name = "Power-On DELUXE"
+	desc = "Картридж для КПК, позволяющий использовать сканер газов, галогена и редактировать информацию на дисплеях станции."
 	ru_names = list(
 		NOMINATIVE = "картридж управления питанием делюкс",
 		GENITIVE = "картриджа управления питанием делюкс",
@@ -346,6 +359,7 @@
 
 /obj/item/cartridge/cmo
 	name = "Med-U DELUXE"
+	desc = "Картридж для КПК, позволяющий использовать медицинский сканер, сканер реагентов, просматривать медицинские записи и редактировать информацию на дисплеях станции."
 	ru_names = list(
 		NOMINATIVE = "картридж \"Мед-U\" делюкс",
 		GENITIVE = "картриджа \"Мед-U\" делюкс",
@@ -365,6 +379,7 @@
 
 /obj/item/cartridge/rd
 	name = "Signal Ace DELUXE"
+	desc = "Картридж для КПК, позволяющий использвовать сканер газов и реагентов, сигнализатор и редактировать информацию на дисплеях станции."
 	ru_names = list(
 		NOMINATIVE = "картридж \"сигнализатор-ас\" делюкс",
 		GENITIVE = "картриджа \"сигнализатор-ас\" делюкс",
@@ -389,7 +404,7 @@
 
 /obj/item/cartridge/captain
 	name = "Value-PAK Cartridge"
-	desc = "На 200% функциональнее!"
+	desc = "Картридж для КПК, открывающий полный функционал."
 	ru_names = list(
 		NOMINATIVE = "картридж \"всё в одном\"",
 		GENITIVE = "картриджа \"всё в одном\"",
@@ -425,6 +440,7 @@
 
 /obj/item/cartridge/supervisor
 	name = "Easy-Record DELUXE"
+	desc = "Картридж для КПК, позволяющий просматривать записи службы безопасности и редактировать информацию на дисплеях станции."
 	ru_names = list(
 		NOMINATIVE = "картридж редактирования делюкс",
 		GENITIVE = "картриджа редактирования делюкс",
@@ -441,7 +457,7 @@
 
 /obj/item/cartridge/centcom
 	name = "Value-PAK Cartridge"
-	desc = "На 200% функциональнее!"
+	desc = "Картридж для КПК, открывающий полный функционал."
 	ru_names = list(
 		NOMINATIVE = "картридж \"всё в одном\"",
 		GENITIVE = "картриджа \"всё в одном\"",
@@ -477,6 +493,7 @@
 
 /obj/item/cartridge/syndicate
 	name = "Detomatix Cartridge"
+	desc = "Странно выглядящий картридж для КПК."
 	ru_names = list(
 		NOMINATIVE = "картридж детонатикс",
 		GENITIVE = "картриджа детонатикс",
@@ -499,6 +516,7 @@
 
 /obj/item/cartridge/frame
 	name = "F.R.A.M.E. cartridge"
+	desc = "Странно выглядящий картридж для КПК."
 	ru_names = list(
 		NOMINATIVE = "картридж П.О.Д.С.Т.А.В.А.",
 		GENITIVE = "картриджа П.О.Д.С.Т.А.В.А.",

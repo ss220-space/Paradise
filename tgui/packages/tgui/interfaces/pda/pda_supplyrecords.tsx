@@ -39,7 +39,7 @@ export const pda_supplyrecords = (props: unknown) => {
   return (
     <Box>
       <LabeledList>
-        <LabeledList.Item label="Shuttle Status">
+        <LabeledList.Item label="Местоположение шаттла">
           {shuttle_moving ? (
             <Box>In transit {shuttle_time}</Box>
           ) : (
@@ -47,7 +47,7 @@ export const pda_supplyrecords = (props: unknown) => {
           )}
         </LabeledList.Item>
       </LabeledList>
-      <Section mt={1} title="Requested Orders">
+      <Section mt={1} title="Созданные заказы">
         {requests_count > 0 &&
           requests.map((o) => (
             <Box key={o}>
@@ -55,7 +55,7 @@ export const pda_supplyrecords = (props: unknown) => {
             </Box>
           ))}
       </Section>
-      <Section title="Approved Orders">
+      <Section title="Одобренные заказы">
         {approved_count > 0 &&
           // By the way, ApprovedBy is actually the
           // person who ordered it

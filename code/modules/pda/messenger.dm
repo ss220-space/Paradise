@@ -41,9 +41,9 @@
 			if(!P.owner || PM.toff || P == pda || PM.m_hidden)
 				continue
 			if(conversations.Find("[P.UID()]"))
-				convopdas.Add(list(list("Имя" = "[P]", "uid" = "[P.UID()]", "Взорвать" = "[P.detonate]", "inconvo" = "1")))
+				convopdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "1")))
 			else
-				pdas.Add(list(list("Имя" = "[P]", "uid" = "[P.UID()]", "Взорвать" = "[P.detonate]", "inconvo" = "0")))
+				pdas.Add(list(list("Name" = "[P]", "uid" = "[P.UID()]", "Detonate" = "[P.detonate]", "inconvo" = "0")))
 
 		data["convopdas"] = convopdas
 		data["pdas"] = pdas

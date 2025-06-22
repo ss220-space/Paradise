@@ -267,7 +267,7 @@
 	name = "Управление МУЛ-ботами"
 	icon = "truck"
 	template = "pda_mule"
-	category = "Квартирмейстер"
+	category = "Снабжение"
 
 /datum/data/pda/app/mule_control/update_ui(mob/user as mob, list/data)
 	var/list/muleData = list()
@@ -352,7 +352,7 @@
 	name = "Записи снабжения"
 	icon = "archive"
 	template = "pda_supplyrecords"
-	category = "Квартирмейстер"
+	category = "Снабжение"
 	update = PDA_APP_UPDATE_SLOW
 
 /datum/data/pda/app/supply/update_ui(mob/user as mob, list/data)
@@ -397,7 +397,7 @@
 	data["supply"] = supplyData
 
 /datum/data/pda/app/janitor
-	name = "Поиск имущества для уборки"
+	name = "Поиск уборочного инвентаря"
 	icon = "trash"
 	template = "pda_janitor"
 	category = "Утилиты"

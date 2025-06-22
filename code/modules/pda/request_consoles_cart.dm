@@ -1,5 +1,14 @@
 /obj/item/cartridge/request_console
 	name = "Request Console"
+	desc = "Картридж запросов для КПК, предоставляющий доступ к соответсвующей консоли запросов."
+	ru_names = list(
+		NOMINATIVE = "картридж запросов для КПК",
+		GENITIVE = "картриджа запросов для КПК",
+		DATIVE = "картриджу запросов для КПК",
+		ACCUSATIVE = "картридж запросов для КПК",
+		INSTRUMENTAL = "картриджем запросов для КПК",
+		PREPOSITIONAL = "картридже запросов для КПК"
+	)
 	icon_state = "cart-req"
 	programs = list(new /datum/data/pda/app/request_console)
 

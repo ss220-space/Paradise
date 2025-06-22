@@ -89,7 +89,7 @@ export const pda_status_display = (props: unknown) => {
             Биоугроза
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Первая строка сообщения:">
+        <LabeledList.Item label="Первая строка сообщения">
           <Button
             icon="pen"
             onClick={() => act('Status', { statdisp: 'setmsg1' })}
@@ -97,7 +97,7 @@ export const pda_status_display = (props: unknown) => {
             {records.message1 + ' (изменить)'}
           </Button>
         </LabeledList.Item>
-        <LabeledList.Item label="Вторая строка сообщения:">
+        <LabeledList.Item label="Вторая строка сообщения">
           <Button
             icon="pen"
             onClick={() => act('Status', { statdisp: 'setmsg2' })}

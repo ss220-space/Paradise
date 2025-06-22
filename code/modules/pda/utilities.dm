@@ -38,7 +38,7 @@
 				M.close()
 
 /datum/data/pda/utility/scanmode/medical
-	base_name = "Медицинский сканер"
+	base_name = "медицинский сканер"
 	icon = "heart-o"
 
 /datum/data/pda/utility/scanmode/medical/scan_mob(mob/living/M, mob/living/user)
@@ -50,7 +50,7 @@
 	healthscan(user, M, 1)
 
 /datum/data/pda/utility/scanmode/dna
-	base_name = "Сканер ДНК"
+	base_name = "сканер ДНК"
 	icon = "link"
 
 /datum/data/pda/utility/scanmode/dna/scan_mob(mob/living/C as mob, mob/living/user as mob)
@@ -76,7 +76,7 @@
 				to_chat(user, span_notice("Хэш ДНК: [blood]"))
 
 /datum/data/pda/utility/scanmode/halogen
-	base_name = "Счётчик галогенов"
+	base_name = "счётчик галогенов"
 	icon = "exclamation-circle"
 
 /datum/data/pda/utility/scanmode/halogen/scan_mob(mob/living/C as mob, mob/living/user as mob)
@@ -90,7 +90,7 @@
 		user.show_message(span_notice("Следов радиации не обнаружено."))
 
 /datum/data/pda/utility/scanmode/reagent
-	base_name = "Сканер реагентов"
+	base_name = "сканер реагентов"
 	icon = "flask"
 
 /datum/data/pda/utility/scanmode/reagent/scan_atom(atom/A as mob|obj|turf|area, mob/user as mob)
@@ -111,7 +111,7 @@
 		to_chat(user, span_notice("Следов реагентов не обнаружено."))
 
 /datum/data/pda/utility/scanmode/gas
-	base_name = "Газовый сканер"
+	base_name = "газовый сканер"
 	icon = "tachometer-alt"
 
 /datum/data/pda/utility/scanmode/gas/scan_atom(atom/A, mob/user)

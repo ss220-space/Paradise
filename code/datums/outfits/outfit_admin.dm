@@ -609,7 +609,7 @@
 	if(istype(PDA))
 		PDA.update_owner_name(H.real_name)
 		PDA.ownjob = JOB_TITLE_MIME
-		PDA.name = "PDA-[H.real_name] ([PDA.ownjob])"
+		PDA.name = "КПК - [H.real_name] ([PDA.ownjob])"
 
 	var/obj/item/card/id/I = H.wear_id
 	if(istype(I))

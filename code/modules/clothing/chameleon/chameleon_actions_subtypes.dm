@@ -30,7 +30,7 @@
 	var/obj/item/pda/agent_pda = target
 	var/obj/item/card/id/id_card = owner.get_id_card()
 	if(id_card)
-		agent_pda.custom_name = "PDA-[id_card.registered_name]"
+		agent_pda.custom_name = "КПК - [id_card.registered_name]"
 		if(!agent_pda.fakejob)
 			agent_pda.fakejob = id_card.assignment
 	else

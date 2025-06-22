@@ -60,7 +60,7 @@ export const PDA = (_props: unknown) => {
   const App = GetApp(app.template);
 
   return (
-    <Window width={600} height={650}>
+    <Window width={820} height={620}>
       <Window.Content scrollable>
         <Stack fill vertical>
           <Stack.Item>
@@ -127,7 +127,7 @@ const PDAHeader = (_props: unknown) => {
         >
           {request_cartridge_name
             ? ['Вытащить ' + request_cartridge_name]
-            : 'Нет установленного картриджа запроса'}
+            : 'Нет установленного картриджа запросов'}
         </Button>
       </Stack.Item>
       <Stack.Item grow textAlign="right" bold mr={1} mt={0.5}>

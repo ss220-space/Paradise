@@ -575,7 +575,7 @@ GLOBAL_LIST_INIT(intents, list(INTENT_HELP,INTENT_DISARM,INTENT_GRAB,INTENT_HARM
 				var/obj/item/pda/PDA = A
 				if(PDA.owner == oldname)
 					PDA.update_owner_name(newname)
-					PDA.name = "PDA-[newname] ([PDA.ownjob])"
+					PDA.name = "КПК - [newname] ([PDA.ownjob])"
 					if(!search_id)	break
 					search_pda = 0
 

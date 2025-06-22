@@ -35,7 +35,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="exclamation-triangle"
                   disabled={!data.redAvailable}
                   onClick={() =>
-                    act('triggerevent', { 'triggerevent': 'Red Alert' })
+                    act('triggerevent', { 'triggerevent': 'Красный код' })
                   }
                 >
                   Красный код
@@ -46,7 +46,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="broadcast-tower"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Emergency Response Team',
+                      'triggerevent': 'Отряд быстрого реагирования',
                     })
                   }
                 >
@@ -58,7 +58,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-open"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Grant Emergency Maintenance Access',
+                      'triggerevent': 'Разрешить доступ в технические тоннели',
                     })
                   }
                 >
@@ -68,7 +68,7 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-closed"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Revoke Emergency Maintenance Access',
+                      'triggerevent': 'Отозвать доступ в технические тоннели',
                     })
                   }
                 >
@@ -80,7 +80,8 @@ export const KeycardAuth = (props: unknown) => {
                   icon="door-open"
                   onClick={() =>
                     act('triggerevent', {
-                      'triggerevent': 'Activate Station-Wide Emergency Access',
+                      'triggerevent':
+                        'Разрешить экстренный доступ во все отсеки станции',
                     })
                   }
                 >
@@ -91,7 +92,7 @@ export const KeycardAuth = (props: unknown) => {
                   onClick={() =>
                     act('triggerevent', {
                       'triggerevent':
-                        'Deactivate Station-Wide Emergency Access',
+                        'Отозвать экстренный доступ во все отсеки станции',
                     })
                   }
                 >
@@ -108,7 +109,7 @@ export const KeycardAuth = (props: unknown) => {
     if (
       !data.hasSwiped &&
       !data.ertreason &&
-      data.event === 'Emergency Response Team'
+      data.event === 'Отряд быстрого реагирования'
     ) {
       swipeInfo = (
         <Box color="red">
@@ -132,7 +133,7 @@ export const KeycardAuth = (props: unknown) => {
       <Window width={540} height={265}>
         <Window.Content>
           {infoBox}
-          {data.event === 'Emergency Response Team' && (
+          {data.event === 'Отряд быстрого реагирования' && (
             <Section title="Причина вызова ОБР">
               <Box>
                 <Button
