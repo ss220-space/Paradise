@@ -9,7 +9,7 @@ SUBSYSTEM_DEF(ticker)
 	cpu_display = SS_CPUDISPLAY_LOW
 	ss_id = "ticker"
 
-	/// Time the world started, relative to world.time
+	/// Time the game should start, relative to world.time
 	var/round_start_time = 0
 	/// Time that the round started
 	var/time_game_started = 0

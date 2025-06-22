@@ -430,10 +430,10 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	if(!isobserver(usr))
 		to_chat(usr, "Не сейчас, вы же не мертвы!")
 		return
-	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", GLOB.ghostteleportlocs)
+	var/target = tgui_input_list(usr, "Зона для телепортации", "Телепортироваться в локацию", SSmapping.ghostteleportlocs)
 	if(!target)
 		return
-	var/area/A = GLOB.ghostteleportlocs[target]
+	var/area/A = SSmapping.ghostteleportlocs[target]
 	teleport(A)
 
 /mob/dead/observer/proc/teleport(area/A)

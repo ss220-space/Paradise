@@ -378,7 +378,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 
 	var/list/options = gps_locators
 	if(area_aim)
-		options += target_all_areas ? GLOB.ghostteleportlocs : GLOB.teleportlocs
+		options += target_all_areas ? SSmapping.ghostteleportlocs : SSmapping.teleportlocs
 	var/choose = tgui_input_list(user, "Select target", "Target",  options)
 	if(!choose)
 		return

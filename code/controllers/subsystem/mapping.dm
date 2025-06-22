@@ -9,6 +9,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/map/next_map
 	/// Waht map to fallback
 	var/datum/map/fallback_map = new /datum/map/delta
+	/// List of all areas that can be accessed via IC means
+	var/list/teleportlocs
+	/// List of all areas that can be accessed via IC and OOC means
+	var/list/ghostteleportlocs
 	///What do we have as the lavaland theme today?
 	var/datum/lavaland_theme/lavaland_theme
 	///List of areas that exist on the station this shift
@@ -183,25 +187,25 @@ SUBSYSTEM_DEF(mapping)
 	generate_z_level_linkages(GLOB.space_manager.z_list)
 
 	// Now we make a list of areas for teleport locs
-	// TOOD: Make these locs into lists on the SS itself, not globs
+	teleportlocs = list()
 	for(var/area/AR as anything in get_sorted_areas())
 		if(AR.no_teleportlocs)
 			continue
-		if(GLOB.teleportlocs[AR.name])
+		if(teleportlocs[AR.name])
 			continue
 		if(!AR.has_contained_turfs())
 			continue
 		if(is_station_level(AR.z))
-			GLOB.teleportlocs[AR.name] = AR
+			teleportlocs[AR.name] = AR
 
-	GLOB.teleportlocs = sortAssoc(GLOB.teleportlocs)
+	teleportlocs = sortAssoc(teleportlocs)
 
 	for(var/area/AR as anything in get_sorted_areas())
-		if(GLOB.ghostteleportlocs[AR.name])
+		if(ghostteleportlocs[AR.name])
 			continue
-		GLOB.ghostteleportlocs[AR.name] = AR
+		ghostteleportlocs[AR.name] = AR
 
-	GLOB.ghostteleportlocs = sortAssoc(GLOB.ghostteleportlocs)
+	ghostteleportlocs = sortAssoc(ghostteleportlocs)
 
 	// Now we make a list of areas that exist on the station. Good for if you don't want to select areas that exist for one station but not others. Directly references
 	existing_station_areas = list()
