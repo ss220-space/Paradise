@@ -282,7 +282,7 @@
 
 /client/proc/empty_ai_core_toggle_latejoin()
 	set name = "Toggle AI Core Latejoin"
-	set category = "Admin.Toggles"
+	set category = STATPANEL_ADMIN_TOGGLES
 
 	var/list/cores = list()
 	for(var/obj/structure/AIcore/deactivated/D in world)

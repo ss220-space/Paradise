@@ -18,7 +18,7 @@ Bonus
 
 /datum/symptom/weight_loss
 
-	name = "Weight Loss"
+	name = "Потеря веса"
 	id = "weight_loss"
 	stealth = -3
 	resistance = -2
@@ -33,8 +33,8 @@ Bonus
 		var/mob/living/M = A.affected_mob
 		switch(A.stage)
 			if(1, 2, 3, 4)
-				to_chat(M, span_warning(pick("You feel hungry.", "You crave for food.")))
+				to_chat(M, span_warning(pick("Вы голодны.", "Вам хочется еды.")))
 			else
-				to_chat(M, span_warning("<i>[pick("So hungry...", "You'd kill someone for a bite of food...", "Hunger cramps seize you...")]</i>"))
+				to_chat(M, span_warning("<i>[pick("Так голодно...", "Вы бы убили за кусочек еды...", "Судороги голода сводят вас...")]</i>"))
 				M.overeatduration = max(M.overeatduration - 100, 0)
 				M.adjust_nutrition(-100)

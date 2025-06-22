@@ -258,45 +258,45 @@
 
 
 /datum/action/item_action/toggle_light
-	name = "Toggle Light"
+	name = "Переключить свет"
 
 /datum/action/item_action/toggle_hood
-	name = "Toggle Hood"
+	name = "Поднять/опустить капюшон"
 
 /datum/action/item_action/toggle_firemode
-	name = "Toggle Firemode"
+	name = "Сменить режим огня"
 
 /datum/action/item_action/startchainsaw
-	name = "Pull The Starting Cord"
+	name = "Дёрнуть стартовый шнур"
 
 /datum/action/item_action/print_report
-	name = "Print Report"
+	name = "Печать отчёта"
 
 /datum/action/item_action/print_forensic_report
-	name = "Print Report"
+	name = "Печать отчёта"
 	button_icon_state = "scanner_print"
 	use_itemicon = FALSE
 
 /datum/action/item_action/clear_records
-	name = "Clear Scanner Records"
+	name = "Очистить записи сканера"
 
 /datum/action/item_action/toggle_gunlight
-	name = "Toggle Gunlight"
+	name = "Переключить тактический фонарь"
 
 /datum/action/item_action/toggle_mode
-	name = "Toggle Mode"
+	name = "Сменить режим"
 
 /datum/action/item_action/toggle_barrier_spread
-	name = "Toggle Barrier Spread"
+	name = "Переключить барье"
 
 /datum/action/item_action/equip_unequip_TED_Gun
-	name = "Equip/Unequip TED Gun"
+	name = "Экипировать/снять TED-пушку"
 
 /datum/action/item_action/toggle_paddles
-	name = "Toggle Paddles"
+	name = "Взять электроды"
 
 /datum/action/item_action/set_internals
-	name = "Set Internals"
+	name = "Переключить баллон"
 
 /datum/action/item_action/set_internals/UpdateButtonIcon()
 	if(..()) //button available
@@ -307,7 +307,7 @@
 				button.icon_state = "bg_default_on"
 
 /datum/action/item_action/set_internals_ninja
-	name = "Set Internals"
+	name = "Переключить баллон"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
@@ -318,28 +318,29 @@
 			if(target == C.internal)
 				button.icon_state = "[background_icon_state]_active"
 
+
 /datum/action/item_action/toggle_mister
-	name = "Toggle Mister"
+	name = "Переключить распылитель"
 
 /datum/action/item_action/toggle_helmet_light
-	name = "Toggle Helmet Light"
+	name = "Переключить фонарь шлема"
 
 /datum/action/item_action/toggle_welding_screen/plasmaman
-	name = "Toggle Welding Screen"
+	name = "Поднять/опустить сварочный щиток"
 
 /datum/action/item_action/toggle_helmet_mode
-	name = "Toggle Helmet Mode"
+	name = "Переключить режим костюма"
 
 /datum/action/item_action/toggle_hardsuit_mode
-	name = "Toggle Hardsuit Mode"
+	name = "Надеть/Снять шлем"
 
 /datum/action/item_action/toggle_unfriendly_fire
-	name = "Toggle Friendly Fire \[ON\]"
-	desc = "Toggles if the club's blasts cause friendly fire."
+	name = "Переключить дружественный огонь \[ВКЛ\]"
+	desc = "Определяет, будут ли атаки посоха наносить урон союзникам."
 	button_icon_state = "vortex_ff_on"
 
 /datum/action/item_action/toggle_backpack_light
-	name = "Toggle Backpack Light"
+	name = "Переключить мигалку на рюкзаке"
 
 /datum/action/item_action/toggle_unfriendly_fire/Trigger(left_click = TRUE)
 	if(..())
@@ -350,17 +351,17 @@
 		var/obj/item/hierophant_club/H = target
 		if(H.friendly_fire_check)
 			button_icon_state = "vortex_ff_off"
-			name = "Toggle Friendly Fire \[OFF\]"
+			name = "Переключить дружественный огонь \[ВЫКЛ\]"
 			button.name = name
 		else
 			button_icon_state = "vortex_ff_on"
-			name = "Toggle Friendly Fire \[ON\]"
+			name = "Переключить дружественный огонь \[ВКЛ\]"
 			button.name = name
 	..()
 
 /datum/action/item_action/vortex_recall
-	name = "Vortex Recall"
-	desc = "Recall yourself, and anyone nearby, to an attuned hierophant beacon at any time.<br>If the beacon is still attached, will detach it."
+	name = "Вихревой возврат"
+	desc = "Телепортирует вас и ближайших существ к настроенному маяку иерофанта в любой момент.<br>Если маяк всё ещё прикреплён, он отсоединится."
 	button_icon_state = "vortex_recall"
 
 /datum/action/item_action/vortex_recall/IsAvailable()
@@ -371,41 +372,41 @@
 	return ..()
 
 /datum/action/item_action/change_headphones_song
-	name = "Change Headphones Song"
+	name = "Сменить трек в наушниках"
 
 /datum/action/item_action/toggle
 
 /datum/action/item_action/toggle/New(Target)
 	..()
-	name = "Toggle [target.name]"
+	name = "Переключить [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/openclose
 
 /datum/action/item_action/openclose/New(Target)
 	..()
-	name = "Open/Close [target.name]"
+	name = "Открыть/Закрыть [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/button
 
 /datum/action/item_action/button/New(Target)
 	..()
-	name = "Button/Unbutton [target.name]"
+	name = "Застегнуть/Расстегнуть [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/zipper
 
 /datum/action/item_action/zipper/New(Target)
 	..()
-	name = "Zip/Unzip [target.name]"
+	name = "Застегнуть/Расстегнуть [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/activate
 
 /datum/action/item_action/activate/New(Target)
 	..()
-	name = "Activate [target.name]"
+	name = "Активировать [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/activate/enchant
@@ -414,59 +415,59 @@
 	..()
 	UpdateButtonIcon()
 /datum/action/item_action/halt
-	name = "HALT!"
+	name = "СТОЯТЬ!"
 
 /datum/action/item_action/selectphrase
-	name = "Change Phrase"
+	name = "Сменить фразу"
 
 /datum/action/item_action/hoot
-	name = "Hoot"
+	name = "Ухнуть"
 
 /datum/action/item_action/caw
-	name = "Caw"
+	name = "Каркнуть"
 
 /datum/action/item_action/toggle_voice_box
-	name = "Toggle Voice Box"
+	name = "Переключить голосовой модуль"
 
 /datum/action/item_action/change
-	name = "Change"
+	name = "Изменить"
 
 /datum/action/item_action/noir
-	name = "Noir"
+	name = "Нуар"
 
 /datum/action/item_action/YEEEAAAAAHHHHHHHHHHHHH
-	name = "YEAH!"
+	name = "ОУ ДАА!"
 
 /datum/action/item_action/laugh_track
-	name = "Laugh Track"
+	name = "Проиграть смех"
 
 /datum/action/item_action/adjust
 
 /datum/action/item_action/adjust/New(Target)
 	..()
-	name = "Adjust [target.name]"
+	name = "Поднять/Опустить [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/pontificate
-	name = "Pontificate Evilly"
+	name = "Крутить усы"
 
 /datum/action/item_action/tip_fedora
-	name = "Tip Fedora"
+	name = "Поправить федору"
 
 /datum/action/item_action/flip_cap
-	name = "Flip Cap"
+	name = "Развернуть кепку"
 
 /datum/action/item_action/switch_hud
-	name = "Switch HUD"
+	name = "Переключить ИЛС"
 
 /datum/action/item_action/toggle_wings
-	name = "Toggle Wings"
+	name = "Скрыть/показать крылья"
 
 /datum/action/item_action/toggle_helmet
-	name = "Toggle Helmet"
+	name = "Надеть/снять шлем"
 
 /datum/action/item_action/remove_tape
-	name = "Remove Duct Tape"
+	name = "Снять скотч"
 	attack_self = FALSE
 
 /datum/action/item_action/remove_tape/Trigger(left_click = TRUE)
@@ -474,14 +475,14 @@
 		var/component = target.GetComponent(/datum/component/ducttape)
 		if(component)
 			usr.transfer_fingerprints_to(target)
-			to_chat(usr, span_notice("You tear the tape off [target]!"))
+			to_chat(usr, span_notice("Вы отрываете скотч от [target.declent_ru(GENITIVE)]!"))
 			qdel(component)
 
 /datum/action/item_action/toggle_jetpack
-	name = "Toggle Jetpack"
+	name = "Переключить джетпак"
 
 /datum/action/item_action/jetpack_stabilization
-	name = "Toggle Jetpack Stabilization"
+	name = "Переключить стабилизацию джетпака"
 
 /datum/action/item_action/jetpack_stabilization/IsAvailable()
 	var/obj/item/tank/jetpack/J = target
@@ -490,7 +491,7 @@
 	return ..()
 
 /datum/action/item_action/toggle_jetpack/ninja
-	name = "Toggle Jetpack"
+	name = "Переключить джетпак"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
@@ -506,7 +507,7 @@
 		button.icon_state = "[background_icon_state]_active"
 
 /datum/action/item_action/jetpack_stabilization/ninja
-	name = "Toggle Jetpack Stabilization"
+	name = "Переключить стабилизацию джетпака"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'
 	background_icon_state = "background_green"
 
@@ -524,7 +525,7 @@
 	var/recharge_text_color = "#FFFFFF"
 
 /datum/action/item_action/hands_free/activate
-	name = "Activate"
+	name = "Активировать"
 
 /datum/action/item_action/hands_free/apply_unavailable_effect()
 	var/obj/item/implant/implant = target
@@ -540,7 +541,7 @@
 	check_flags = NONE
 
 /datum/action/item_action/toggle_research_scanner
-	name = "Toggle Research Scanner"
+	name = "Переключить исследовательский анализатор"
 
 
 /datum/action/item_action/toggle_research_scanner/Trigger(left_click = TRUE)
@@ -567,7 +568,7 @@
 
 
 /datum/action/innate/overdrive
-	name = "Overdrive"
+	name = "Овердрайв"
 	check_flags = AB_CHECK_CONSCIOUS
 	var/used = FALSE
 
@@ -594,8 +595,8 @@
 	button.add_overlay(new_icon)
 
 /datum/action/item_action/instrument
-	name = "Use Instrument"
-	desc = "Use the instrument specified."
+	name = "Использовать инструмент"
+	desc = "Использовать указанный инструмент."
 
 /datum/action/item_action/instrument/Trigger(left_click = TRUE)
 	if(istype(target, /obj/item/instrument))
@@ -606,18 +607,18 @@
 
 
 /datum/action/item_action/remove_badge
-	name = "Remove Holobadge"
+	name = "Снять голобейдж"
 
 // Jump boots
 /datum/action/item_action/bhop
-	name = "Activate Jump Boots"
-	desc = "Activates the jump boot's internal propulsion system, allowing the user to dash over 4-wide gaps."
+	name = "Активировать прыжковые ботинки"
+	desc = "Активирует систему прыжков, позволяя преодолевать препятствия шириной до 4 тайлов."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "jetboot"
 
 /datum/action/item_action/bhop/clown
-	name = "Activate Honk Boots"
-	desc = "Activates the jump boot's internal honk system, allowing the user to flip over 6-wide gaps."
+	name = "Активировать хонк-ботинки"
+	desc = "Активирует хонк-систему, позволяя перепрыгивать препятствия шириной до 6 тайлов."
 	icon_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "clown"
 
@@ -635,8 +636,8 @@
 	G.dash(usr)
 
 /datum/action/item_action/toggle_rapier_nodrop
-	name = "Toggle Anti-Drop"
-	desc = "Activates/deactivates CentComm rapier Anti-Drop."
+	name = "Переключить Антидроп"
+	desc = "Активирует/деактивирует систему предотвращения выпадения рапиры."
 
 ///prset for organ actions
 /datum/action/item_action/organ_action
@@ -652,19 +653,19 @@
 
 /datum/action/item_action/organ_action/toggle/New(Target)
 	..()
-	name = "Toggle [target.name]"
+	name = "Переключить [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/organ_action/use/New(Target)
 	..()
-	name = "Use [target.name]"
+	name = "Использовать [target.declent_ru(ACCUSATIVE)]"
 	button.name = name
 
 /datum/action/item_action/voice_changer/toggle
-	name = "Toggle Voice Changer"
+	name = "Переключить исказитель голоса"
 
 /datum/action/item_action/voice_changer/voice
-	name = "Set Voice"
+	name = "Установить голос"
 
 /datum/action/item_action/voice_changer/voice/Trigger(left_click = TRUE)
 	if(!IsAvailable())
@@ -688,20 +689,20 @@
 	return FALSE
 
 /datum/action/item_action/accessory/holster
-	name = "Holster"
+	name = "Кобура"
 
 /datum/action/item_action/accessory/holobadge
-	name = "Holobadge"
+	name = "Голобейдж"
 
 /datum/action/item_action/accessory/storage
-	name = "View Storage"
+	name = "Просмотр хранилища"
 
 /datum/action/item_action/accessory/petcollar
-	name = "Remove ID"
+	name = "Извлечь ID"
 
 /datum/action/item_action/accessory/herald
-	name = "Mirror Walk"
-	desc = "Use near a mirror to enter it."
+	name = "Зеркальный переход"
+	desc = "Используйте рядом с зеркалом, чтобы войти в него."
 
 /datum/action/item_action/accessory/mining_camera
 	name = "Переключить камеру"
@@ -808,7 +809,7 @@
 	return
 
 /datum/action/innate/research_scanner
-	name = "Toggle Research Scanner"
+	name = "Переключить исследовательский анализатор"
 
 /datum/action/innate/research_scanner/Activate()
 	owner.research_scanner = !owner.research_scanner
@@ -843,8 +844,8 @@
 	return TRUE
 
 /datum/action/generic/configure_mmi_radio
-	name = "Configure MMI Radio"
-	desc = "Configure the radio installed in your MMI."
+	name = "Настроить радио MMI"
+	desc = "Настроить радио, установленное в вашем MMI."
 	check_flags = AB_CHECK_CONSCIOUS
 	procname = "ui_interact"
 	var/obj/item/mmi = null
@@ -876,7 +877,7 @@
 	var/charge_max = 100 //recharge time in deciseconds if charge_type = "recharge" or "toggle_recharge", alternatively counts as starting charges if charge_type = "charges"
 	var/charge_counter = 0 //can only use if it equals "recharge" or "toggle_recharge", ++ each decisecond if charge_type = "recharge" or -- each cast if charge_type = "charges"
 	var/starts_charged = TRUE //Does this action start ready to go?
-	var/still_recharging_msg = "<span class='notice'> action is still recharging.</span>"
+	var/still_recharging_msg = span_notice(" действие всё ещё перезаряжается.")
 	//toggle and toggle_recharge stuff
 	var/action_ready = TRUE //Only for toggle and toggle_recharge charge_type. Toggle it via code yourself. Haha 'toggle', get it?
 	var/icon_state_active = "bg_default_on"	//What icon_state we switch to when we toggle action active in "toggle" actions
@@ -890,7 +891,7 @@
 
 /datum/action/item_action/advanced/New()
 	. = ..()
-	still_recharging_msg = "<span class='notice'>[name] is still recharging.</span>"
+	still_recharging_msg = span_notice("[name] всё ещё перезаряжается.")
 	icon_state_disabled = background_icon_state
 	last_use_time = world.time
 	if(charge_type == ADV_ACTION_TYPE_CHARGES)
@@ -970,11 +971,11 @@
 		if(ADV_ACTION_TYPE_CHARGES)
 			if(world.time < last_use_time + wait_time)
 				if(show_message)
-					to_chat(owner, "<span class='warning'>[name] is already being used.</span>")
+					to_chat(owner, span_warning("[name] уже используется."))
 				return FALSE
 			if(!charge_counter)
 				if(show_message)
-					to_chat(owner, "<span class='notice'>[name] has no charges left.</span>")
+					to_chat(owner, span_notice("[name] разряжен."))
 				return FALSE
 	return TRUE
 

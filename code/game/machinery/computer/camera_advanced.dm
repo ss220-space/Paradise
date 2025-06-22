@@ -197,7 +197,7 @@
 	return TRUE
 
 /datum/action/innate/camera_off
-	name = "End Camera View"
+	name = "Закрыть обзор камеры"
 	button_icon_state = "camera_off"
 
 /datum/action/innate/camera_off/Activate()
@@ -209,7 +209,7 @@
 	console.remove_eye_control(target)
 
 /datum/action/innate/camera_jump
-	name = "Jump To Camera"
+	name = "Переключиться на камеру"
 	button_icon_state = "camera_jump"
 
 /datum/action/innate/camera_jump/Activate()
@@ -247,7 +247,7 @@
 		playsound(origin, 'sound/machines/terminal_prompt_deny.ogg', 25, 0)
 
 /datum/action/innate/camera_multiz_up
-	name = "Move up a floor"
+	name = "На этаж выше"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "move_up"
 
@@ -256,12 +256,12 @@
 		return
 	var/mob/camera/aiEye/remote/remote_eye = owner.remote_control
 	if(remote_eye.zMove(UP))
-		to_chat(owner, span_notice("You move upwards."))
+		to_chat(owner, span_notice("Вы поднимаетесь выше."))
 	else
-		to_chat(owner, span_notice("You couldn't move upwards!"))
+		to_chat(owner, span_notice("Не удалось подняться!"))
 
 /datum/action/innate/camera_multiz_down
-	name = "Move down a floor"
+	name = "На этаж ниже"
 	button_icon = 'icons/mob/actions/actions.dmi'
 	button_icon_state = "move_down"
 
@@ -270,6 +270,6 @@
 		return
 	var/mob/camera/aiEye/remote/remote_eye = owner.remote_control
 	if(remote_eye.zMove(DOWN))
-		to_chat(owner, span_notice("You move downwards."))
+		to_chat(owner, span_notice("Вы опускаетесь ниже."))
 	else
-		to_chat(owner, span_notice("You couldn't move downwards!"))
+		to_chat(owner, span_notice("Не удалось опуститься!"))

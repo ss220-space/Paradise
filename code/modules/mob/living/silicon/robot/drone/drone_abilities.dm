@@ -1,10 +1,10 @@
 // DRONE ABILITIES
 /mob/living/silicon/robot/drone/verb/set_mail_tag()
-	set name = "Set Mail Tag"
+	set name = "Почтовый адрес"
 	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Drone"
+	set category = STATPANEL_DRONE
 
-	var/tag = input("Выберите желаемое место назначения.", "Установка почтового тега", null) as null|anything in GLOB.TAGGERLOCATIONS
+	var/tag = input("Выберите желаемое место назначения.", "Установка почтового адреса", null) as null|anything in GLOB.TAGGERLOCATIONS
 
 	if(!tag || GLOB.TAGGERLOCATIONS[tag])
 		mail_destination = 0
@@ -16,14 +16,14 @@
 	//Auto flush if we use this verb inside a disposal chute.
 	var/obj/machinery/disposal/D = src.loc
 	if(istype(D))
-		to_chat(src, "<span class='notice'>\The [D] acknowledges your signal.</span>")
+		to_chat(src, span_notice("\The [D] acknowledges your signal."))
 		D.flush_count = D.flush_every_ticks
 
 
 /mob/living/silicon/robot/drone/verb/hide()
-	set name = "Hide"
+	set name = "Спрятаться"
 	set desc = "Allows you to hide beneath tables or certain items. Toggled on or off."
-	set category = "Drone"
+	set category = STATPANEL_DRONE
 
 	var/datum/action/innate/hide/drone/hide = locate() in actions
 	if(!hide)
@@ -33,9 +33,9 @@
 
 
 /mob/living/silicon/robot/drone/verb/light()
-	set name = "Light On/Off"
+	set name = "Освещение"
 	set desc = "Activate a low power omnidirectional LED. Toggled on or off."
-	set category = "Drone"
+	set category = STATPANEL_DRONE
 
 	if(lamp_intensity)
 		lamp_intensity = lamp_max // setting this to lamp_max will make control_headlamp shutoff the lamp
@@ -49,11 +49,11 @@
 		..()
 
 /mob/living/silicon/robot/drone/verb/customize()
-	set name = "Customize Chassis"
+	set name = "Настройка шасси"
 	set desc = "Reconfigure your chassis into a customized version."
-	set category = "Drone"
+	set category = STATPANEL_DRONE
 
-	to_chat(src, span_warning("Ошибка 404: Кастомное шасси не найдено. Отмена опции настройки."))
+	to_chat(src, span_warning("Ошибка 404: Настраиваемое шасси не найдено. Отмена опции настройки."))
 	remove_verb(src, /mob/living/silicon/robot/drone/verb/customize)
 
 /mob/living/silicon/robot/drone/get_scooped(mob/living/carbon/grabber)

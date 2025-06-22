@@ -1,7 +1,7 @@
 /datum/disease/virus/wizarditis
-	name = "Wizarditis"
-	agent = "Rincewindus Vulgaris"
-	desc = "Some speculate, that this virus is the cause of Wizard Federation existance. Subjects affected show the signs of dementia, yelling obscure sentences or total gibberish. On late stages subjects sometime express the feelings of inner power, and, cite, 'the ability to control the forces of cosmos themselves!' A gulp of strong, manly spirits usually reverts them to normal, humanlike, condition."
+	name = "Визардис"
+	agent = "Ринсвиндий обыкновенный"
+	desc = "Некоторые предполагают, что этот вирус является причиной существования Федерации Волшебников. Заражённые демонстрируют признаки слабоумия, выкрикивая странные фразы или полную бессмыслицу. На поздних стадиях заражённые иногда выражают чувство внутренней силы и, цитирую, 'способность управлять силами космоса!' Глоток крепкого, мужественного напитка обычно возвращает их в нормальное, человеческое состояние."
 	max_stages = 4
 	visibility_flags = HIDDEN_HUD
 	spread_flags = AIRBORNE
@@ -28,22 +28,22 @@ STI KALY - blind
 	switch(stage)
 		if(2)
 			if(prob(5))
-				affected_mob.say(pick("You shall not pass!", "Expeliarmus!", "By Merlins beard!", "Feel the power of the Dark Side!"))
+				affected_mob.say(pick("Ты не пройдёшь!", "Экспеллиармус!", "Клянусь бородой Мерлина!", "Чёртовы маглы!"))
 			if(prob(3))
-				to_chat(affected_mob, span_danger("You feel [pick("that you don't have enough mana", "that the winds of magic are gone", "an urge to summon familiar")]."))
+				to_chat(affected_mob, span_danger("Вы чувствуете, что [pick("вам не хватает маны", "ваши пальцы искрятся магией", "вам доступен 9-й уровень заклинаний")]."))
 
 
 		if(3)
 			if(prob(2))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!", "STI KALY!", "TARCOL MINTI ZHERI!"))
+				affected_mob.say(pick("NEC CANTIO!", "CLANG!", "STI KALY!", "TARCOL MINTI ZHERI!"))
 			if(prob(6))
-				to_chat(affected_mob, span_danger("You feel [pick("the magic bubbling in your veins","that this location gives you a +1 to INT","an urge to summon familiar")]."))
+				to_chat(affected_mob, span_danger("Вы чувствуете, как [pick("магия бурлит в ваших жилах", "это место даёт вам +1 к интеллекту", "вам нужно срочно выучить новое заклинание")]."))
 
 		if(4)
 			if(prob(3))
-				affected_mob.say(pick("NEC CANTIO!","AULIE OXIN FIERA!","STI KALY!","EI NATH!"))
+				affected_mob.say(pick("NEC CANTIO!", "AULIE OXIN FIERA!", "DIRI CEL!", "EI NATH!"))
 			if(prob(1))
-				to_chat(affected_mob, span_danger("You feel [pick("the tidal wave of raw power building inside","that this location gives you a +2 to INT and +1 to WIS","an urge to teleport")]."))
+				to_chat(affected_mob, span_danger("Вы чувствуете, как [pick("прилив чистой силы нарастает внутри вас", "это место даёт вам +2 к интеллекту и +1 к мудрости", "вам хочется телепортироваться")]."))
 				spawn_wizard_clothes()
 			if(prob(1))
 				teleport()

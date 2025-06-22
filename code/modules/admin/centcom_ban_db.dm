@@ -108,7 +108,7 @@
 // Just a simple verb so admins can do manual lookups
 /client/proc/ccbdb_lookup_ckey()
 	set name = "Global Ban DB Lookup"
-	set category = "Admin.Ban"
+	set category = STATPANEL_ADMIN_BAN
 
 	if(!check_rights(R_ADMIN))
 		return

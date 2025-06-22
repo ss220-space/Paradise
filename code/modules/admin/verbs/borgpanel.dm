@@ -1,5 +1,5 @@
 /client/proc/open_borgopanel(borgo in GLOB.silicon_mob_list)
-	set category = "Admin.Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Show Borg Panel"
 	set desc = "Show borg panel"
 
@@ -215,9 +215,9 @@
 			if(!borg?.mmi)
 				return
 
-			var/permissions = borg?.mmi?.skin_permissions.len? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
+			var/permissions = borg?.mmi?.skin_permissions?.len? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
 
-			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions)
+			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions) || list()
 
 			borg?.mmi?.skin_permissions = new_permissions
 			log_and_message_admins("set skin permissions to [key_name(borg)].")

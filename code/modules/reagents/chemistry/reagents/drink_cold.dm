@@ -277,6 +277,7 @@
 
 
 /datum/reagent/consumable/drink/cold/zaza/fizzy
+	name = "Шипучая Заза"
 	description = "От пузырящегося напитка исходит стойкий запах вишни. Изумительно."
 	color = "#f30028" // rgb:243, 0, 40
 	id = "zazafizzy"

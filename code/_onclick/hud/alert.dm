@@ -126,59 +126,59 @@
 
 //Gas alerts
 /atom/movable/screen/alert/not_enough_oxy
-	name = "Choking (No O2)"
-	desc = "You're not getting enough oxygen. Find some good air before you pass out! The box in your backpack has an oxygen tank and breath mask in it."
+	name = "Удушье (Недостаток  O2)"
+	desc = "Вам не хватает кислорода.<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
 	icon_state = "not_enough_oxy"
 
 /atom/movable/screen/alert/too_much_oxy
-	name = "Choking (O2)"
-	desc = "There's too much oxygen in the air, and you're breathing it in! Find some good air before you pass out!"
+	name = "Удушье (Избыток O2)"
+	desc = "В воздухе слишком много кислорода!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
 	icon_state = "too_much_oxy"
 
 /atom/movable/screen/alert/not_enough_nitro
-    name = "Choking (No N)"
-    desc = "You're not getting enough nitrogen. Find some good air before you pass out!"
+    name = "Удушье (Недостаток N)"
+    desc = "Вам не хватает азота.<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
     icon_state = "not_enough_nitro"
 
 /atom/movable/screen/alert/too_much_nitro
-    name = "Choking (N)"
-    desc = "There's too much nitrogen in the air, and you're breathing it in! Find some good air before you pass out!"
+    name = "Удушье (Избыток N)"
+    desc = "Слишком много азота в воздухе!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
     icon_state = "too_much_nitro"
 
 /atom/movable/screen/alert/not_enough_co2
-	name = "Choking (No CO2)"
-	desc = "You're not getting enough carbon dioxide. Find some good air before you pass out!"
+	name = "Удушье (Недостаток CO2)"
+	desc = "Вам не хватает углекислого газа!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
 	icon_state = "not_enough_co2"
 
 /atom/movable/screen/alert/too_much_co2
-	name = "Choking (CO2)"
-	desc = "There's too much carbon dioxide in the air, and you're breathing it in! Find some good air before you pass out!"
+	name = "Удушье (Избыток CO2)"
+	desc = "Слишком много углекислого газа в воздухе!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
 	icon_state = "too_much_co2"
 
 /atom/movable/screen/alert/not_enough_tox
-	name = "Choking (No Plasma)"
-	desc = "You're not getting enough plasma. Find some good air before you pass out!"
+	name = "Удушье (Недостаток Плазмы)"
+	desc = "Вам не хватает плазмы!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
 	icon_state = "not_enough_tox"
 
 /atom/movable/screen/alert/too_much_tox
-	name = "Choking (Plasma)"
-	desc = "There's highly flammable, toxic plasma in the air and you're breathing it in. Find some fresh air. The box in your backpack has an oxygen tank and gas mask in it."
+	name = "Удушье (Плазма)"
+	desc = "В воздухе горючая токсичная плазма!<br>Найдите пригодный для дыхания воздух, прежде чем потерять сознание!<br>В рюкзаке у вас есть баллон и маска."
 	icon_state = "too_much_tox"
 //End gas alerts
 
 /atom/movable/screen/alert/gross
-	name = "Grossed out."
-	desc = "That was kind of gross..."
+	name = "Отвратительно"
+	desc = "Это было довольно противно..."
 	icon_state = "gross"
 
 /atom/movable/screen/alert/verygross
-	name = "Very grossed out."
-	desc = "I'm not feeling very well.."
+	name = "Сильное отвращение"
+	desc = "Мне нехорошо..."
 	icon_state = "gross2"
 
 /atom/movable/screen/alert/disgusted
-	name = "DISGUSTED"
-	desc = "ABSOLUTELY DISGUSTIN'"
+	name = "МЕРЗОСТЬ"
+	desc = "АБСОЛЮТНАЯ МЕРЗОСТЬ!"
 	icon_state = "gross3"
 
 // Hunger alerts
@@ -187,79 +187,79 @@
 	icon = 'icons/mob/screen_hunger.dmi'
 
 /atom/movable/screen/alert/hunger/fat
-	name = "Fat"
-	desc = "You ate too much food, lardass. Run around the station and lose some weight."
+	name = "Переедание"
+	desc = "Вы объелись. Бегайте по станции и сбрасывайте вес."
 	icon_state = "fat"
 
 /atom/movable/screen/alert/hunger/full
-	name = "Full"
-	desc = "You feel full and satisfied, but you shouldn't eat much more."
+	name = "Сытость"
+	desc = "Вы сыты и довольны, но лучше больше не есть."
 	icon_state = "full"
 
 /atom/movable/screen/alert/hunger/well_fed
-	name = "Well Fed"
-	desc = "You feel quite satisfied, but you may be able to eat a bit more."
+	name = "Полное насыщение"
+	desc = "Вы вполне сыты, но ещё немного влезет."
 	icon_state = "well_fed"
 
 /atom/movable/screen/alert/hunger/fed
-	name = "Fed"
-	desc = "You feel moderately satisfied, but a bit more food may not hurt."
+	name = "Насыщение"
+	desc = "Вы умеренно сыты, но перекусить не помешает."
 	icon_state = "fed"
 
 /atom/movable/screen/alert/hunger/hungry
-	name = "Hungry"
-	desc = "Some food would be good right about now."
+	name = "Лёгкий голод"
+	desc = "Сейчас бы перекусить..."
 	icon_state = "hungry"
 
 /atom/movable/screen/alert/hunger/starving
-	name = "Starving"
-	desc = "You're severely malnourished. The hunger pains make moving around a chore."
+	name = "Сильный голод"
+	desc = "Вы истощены. Голодная слабость затрудняет движение."
 	icon_state = "starving"
 
 /// Machine "hunger"
 
 /atom/movable/screen/alert/hunger/fat/machine
-	name = "Over Charged"
-	desc = "Your cell has excessive charge due to electrical shocks. Run around the station and spend some energy."
+	name = "Перезаряд"
+	desc = "Ваша батарея перезаряжена из-за ударов током. Побегай по станции, потрать энергию."
 
 /atom/movable/screen/alert/hunger/full/machine
-	name = "Full Charge"
-	desc = "Your cell is at full charge. Might want to give APCs some space."
+	name = "Полный заряд"
+	desc = "Батарея полностью заряжена. Возможно, стоит отойти от ЛКП."
 
 /atom/movable/screen/alert/hunger/well_fed/machine
-	name = "High Charge"
-	desc = "You're almost all charged, but could top up a bit more."
+	name = "Высокий заряд"
+	desc = "Вы почти полностью заряжены, но ещё чуть-чуть можно подзарядиться..."
 
 /atom/movable/screen/alert/hunger/fed/machine
-	name = "Half Charge"
-	desc = "You feel moderately charged, but a bit more juice couldn't hurt."
+	name = "Половина заряда"
+	desc = "Заряд на половине. Не помешало бы подзарядиться."
 
 /atom/movable/screen/alert/hunger/hungry/machine
-	name = "Low Charge"
-	desc = "Could use a little charging right about now."
+	name = "Низкий заряд"
+	desc = "Пора бы подзарядиться."
 
 /atom/movable/screen/alert/hunger/starving/machine
-	name = "Nearly Discharged"
-	desc = "You're almost drained. The low power makes moving around a chore."
+	name = "Почти разряжен"
+	desc = "Вы почти разряжены. Без энергии двигаться тяжело."
 
 
 /// Vampire "hunger"
 
 /atom/movable/screen/alert/hunger/fat/vampire
 	name = "Ожирение"
-	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны. Бегайте теперь по станции кругами, чтобы похудеть."
+	desc = "Вы выпили столько крови, что пузо уже не влезает в штаны.<br>Бегайте теперь по станции кругами, чтобы похудеть."
 
 /atom/movable/screen/alert/hunger/full/vampire
 	name = "Пресыщение"
-	desc = "Вы чувствуете спокойствие и приятную насыщенность. Но жажда крови обязательно вернётся…"
+	desc = "Вы чувствуете спокойствие и приятную насыщенность.<br>Но жажда крови обязательно вернётся…"
 
 /atom/movable/screen/alert/hunger/well_fed/vampire
 	name = "Сытость"
-	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
+	desc = "Вы вполне сыты, но могли бы выпить ещё немного крови."
 
 /atom/movable/screen/alert/hunger/fed/vampire
 	name = "Удовлетворённость"
-	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
+	desc = "Вы не голодны, но испить ещё немного крови не помешало бы."
 
 /atom/movable/screen/alert/hunger/hungry/vampire
 	name = "Недоедание"
@@ -267,71 +267,69 @@
 
 /atom/movable/screen/alert/hunger/starving/vampire
 	name = "Жажда"
-	desc = "Вас наполняет жажда. Она приносит физическую боль. Вам тяжело передвигаться."
+	desc = "Вас наполняет жажда. Она приносит физическую боль.<br>Вам тяжело передвигаться."
 
 /// End of Vampire "hunger"
 
 
 /atom/movable/screen/alert/hot
-	name = "Too Hot"
-	desc = "You're flaming hot! Get somewhere cooler and take off any insulating clothing like a fire suit."
+	name = "Перегрев"
+	desc = "Вам обжигающе жарко! Найдите прохладное место и снимите изолирующую одежду, например, противопожарный костюм."
 	icon_state = "hot"
 
 /atom/movable/screen/alert/hot/robot
-    desc = "The air around you is too hot for a humanoid. Be careful to avoid exposing them to this enviroment."
+    desc = "Воздух вокруг вас слишком горячий для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
 
 /atom/movable/screen/alert/cold
-	name = "Too Cold"
-	desc = "You're freezing cold! Get somewhere warmer and take off any insulating clothing like a space suit."
+	name = "Переохлаждение"
+	desc = "Вы ужасно замёрзли! Найдите место потеплее и снимите изолирующую одежду, например, скафандр."
 	icon_state = "cold"
 
 /atom/movable/screen/alert/cold/drask
-    name = "Cold"
-    desc = "You're breathing supercooled gas! It's stimulating your metabolism to regenerate damaged tissue."
+    name = "Холод"
+    desc = "Вы вдыхаете переохлаждённый газ! Это ускоряет метаболизм и заживление."
 
 /atom/movable/screen/alert/cold/robot
-    desc = "The air around you is too cold for a humanoid. Be careful to avoid exposing them to this enviroment."
+    desc = "Воздух вокруг вас слишком холодный для гуманоидов.<br>Будьте осторожны и не подвергайте их воздействию окружающей среды."
 
 /atom/movable/screen/alert/lowpressure
-	name = "Low Pressure"
-	desc = "The air around you is hazardously thin. A space suit would protect you."
+	name = "Низкое давление"
+	desc = "Воздух вокруг разрежен до опасного уровня! Скафандр защитит."
 	icon_state = "lowpressure"
 
 /atom/movable/screen/alert/highpressure
-	name = "High Pressure"
-	desc = "The air around you is hazardously thick. A fire suit would protect you."
+	name = "Высокое давление"
+	desc = "Воздух вокруг слишком плотный! Пожарный костюм поможет."
 	icon_state = "highpressure"
 
 /atom/movable/screen/alert/lightexposure
-	name = "Light Exposure"
-	desc = "You're exposed to light."
+	name = "На свету"
+	desc = "Вы находитесь на свету."
 	icon_state = "lightexposure"
 
 /atom/movable/screen/alert/nolight
-	name = "No Light"
-	desc = "You're not exposed to any light."
+	name = "В темноте"
+	desc = "Вы в полной темноте."
 	icon_state = "nolight"
 
 /atom/movable/screen/alert/blind
-	name = "Blind"
-	desc = "You can't see! This may be caused by a genetic defect, eye trauma, being unconscious, \
-or something covering your eyes."
+	name = "Слепота"
+	desc = "Вы ничего не видите! Это может быть вызвано генетическим дефектом, травмой глаза, состоянием без сознания или что-то закрывает ваши глаза."
 	icon_state = "blind"
 
 /atom/movable/screen/alert/high
-	name = "High"
-	desc = "Whoa man, you're tripping balls! Careful you don't get addicted... if you aren't already."
+	name = "Под кайфом"
+	desc = "Охренеть, вы под кайфом! Только не становитесь зависимым... если уже не стали."
 	icon_state = "high"
 
 /atom/movable/screen/alert/drunk
-	name = "Drunk"
-	desc = "All that alcohol you've been drinking is impairing your speech, motor skills, and mental cognition."
+	name = "Опъянение"
+	desc = "Алкоголь нарушает вашу речь, моторику и мышление."
 	icon_state = "drunk"
 
 /atom/movable/screen/alert/embeddedobject
-	name = "Embedded Object"
-	desc = "Something got lodged into your flesh and is causing major bleeding. It might fall out with time, but surgery is the safest way. \
-			If you're feeling frisky, click yourself in help intent to pull the object out."
+	name = "Застрявший предмет"
+	desc = "В вашем теле застрял инородный предмет, вызывающий кровотечение. Он может выпасть сам, но операция безопаснее.<br>Если рискнёте, кликните на себя в режиме помощи, чтобы вытащить его."
 	icon_state = "embeddedobject"
 
 /atom/movable/screen/alert/embeddedobject/Click()
@@ -342,8 +340,8 @@ or something covering your eyes."
 		return M.help_shake_act(M)
 
 /atom/movable/screen/alert/asleep
-	name = "Asleep"
-	desc = "You've fallen asleep. Wait a bit and you should wake up. Unless you don't, considering how helpless you are."
+	name = "Сон"
+	desc = "Вы уснули. Подождите немного, скоро вы проснётесь.<br>Если, конечно, не умрёте — ведь вы беспомощны."
 	icon_state = "asleep"
 
 
@@ -355,8 +353,7 @@ or something covering your eyes."
 
 /atom/movable/screen/alert/weightless
 	name = "Невесомость"
-	desc = "Гравитация перестала влиять на вас, и вы парите в пространстве. Чтобы двигаться, вы можете оттолкнуться от ближайших объектов, \
-кинуть что-то от себя или выстрелить в противоположную сторону. Для комфортного перемещения используйте специальное оборудование."
+	desc = "Гравитация перестала влиять на вас, и вы парите в пространстве.<br>Чтобы двигаться, вы можете оттолкнуться от ближайших объектов, кинуть что-то от себя или выстрелить в противоположную сторону.<br>Для комфортного перемещения используйте специальное снаряжение."
 	icon_state = "weightless"
 
 
@@ -373,8 +370,8 @@ or something covering your eyes."
 
 
 /atom/movable/screen/alert/fire
-	name = "On Fire"
-	desc = "You're on fire. Stop, drop and roll to put the fire out or move to a vacuum area."
+	name = "В огне"
+	desc = "Вы горите!<br>Падайте, катайтесь или бегите в зону без кислорода, чтобы потушить пламя."
 	icon_state = "fire"
 
 
@@ -398,8 +395,8 @@ or something covering your eyes."
 
 
 /atom/movable/screen/alert/direction_lock
-	name = "Direction Lock"
-	desc = "You are facing only one direction, slowing your movement down. Click here to stop the direction lock."
+	name = "Блокировка поворота"
+	desc = "Вы можете смотреть только в одну сторону, что замедляет движение.<br>Кликните сюда, чтобы разблокировать поворот."
 	icon_state = "direction_lock"
 
 /atom/movable/screen/alert/direction_lock/Click()
@@ -414,54 +411,53 @@ or something covering your eyes."
 //ALIENS
 
 /atom/movable/screen/alert/alien_tox
-	name = "Plasma"
-	desc = "There's flammable plasma in the air. If it lights up, you'll be toast."
+	name = "Плазма"
+	desc = "В воздухе горючая плазма.<br>Если она воспламенится, вам не поздоровится."
 	icon_state = "alien_tox"
 	alerttooltipstyle = "alien"
 
 /atom/movable/screen/alert/alien_fire
 // This alert is temporarily gonna be thrown for all hot air but one day it will be used for literally being on fire
-	name = "Too Hot"
-	desc = "It's too hot! Flee to space or at least away from the flames. Standing on weeds will heal you."
+	name = "Перегрев"
+	desc = "Слишком жарко! Бегите в космос или хотя бы подальше от огня.<br>Нахождение на чёрной смоле восстановит ваше здоровье."
 	icon_state = "alien_fire"
 	alerttooltipstyle = "alien"
 
 /atom/movable/screen/alert/alien_vulnerable
-	name = "Severed Matriarchy"
-	desc = "Your queen has been killed, you will suffer movement penalties and loss of hivemind. A new queen cannot be made until you recover."
+	name = "Королева мертва"
+	desc = "Ваша королева убита. Теперь вы страдаете от замедления и потери связи с ульем.<br>Новая королева не появится, пока вы не восстановитесь."
 	icon_state = "alien_noqueen"
 	alerttooltipstyle = "alien"
 
 //BLOBS
 
 /atom/movable/screen/alert/nofactory
-	name = "No Factory"
-	desc = "You have no factory, and are slowly dying!"
+	name = "Нет фабрики"
+	desc = "У вас нет фабрики, и вы медленно умираете!"
 	icon_state = "blobbernaut_nofactory"
 	alerttooltipstyle = "blob"
 
 //SILICONS
 
 /atom/movable/screen/alert/nocell
-	name = "Missing Power Cell"
-	desc = "Unit has no power cell. No modules available until a power cell is reinstalled. Robotics may provide assistance."
+	name = "Отсутствует батарея"
+	desc = "Нет батареи. Модули недоступны до её установки.<br>Обратитесь в робототехнику."
 	icon_state = "nocell"
 
 /atom/movable/screen/alert/emptycell
-	name = "Out of Power"
-	desc = "Unit's power cell has no charge remaining. No modules available until power cell is recharged. \
-Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
+	name = "Разряжено"
+	desc = "Батарея полностью разряжена. Модули недоступны до подзарядки.<br>Используйте любую доступную зарядную станцию."
 	icon_state = "emptycell"
 
 /atom/movable/screen/alert/lowcell
-	name = "Low Charge"
-	desc = "Unit's power cell is running low. Recharging stations are available in robotics, the dormitory bathrooms, and the AI satellite."
+	name = "Низкий заряд"
+	desc = "Батарея почти разряжена.<br>Используйте любую доступную зарядную станцию.."
 	icon_state = "lowcell"
 
 //Diona Nymph
 /atom/movable/screen/alert/nymph
-	name = "Gestalt merge"
-	desc = "You have merged with a diona gestalt and are now part of it's biomass. You can still wiggle yourself free though."
+	name = "Слияние с гештальтом"
+	desc = "Вы слились с дионическим гештальтом и стали частью его биомассы.<br>Но ещё можете попытаться выбраться."
 
 /atom/movable/screen/alert/nymph/Click()
 	if(!usr || !usr.client || !..())
@@ -472,28 +468,24 @@ Recharging stations are available in robotics, the dormitory bathrooms, and the 
 
 //Need to cover all use cases - emag, illegal upgrade module, malf AI hack, traitor cyborg
 /atom/movable/screen/alert/hacked
-	name = "Hacked"
-	desc = "Hazardous non-standard equipment detected. Please ensure any usage of this equipment is in line with unit's laws, if any."
+	name = "Взломан"
+	desc = "Обнаружено опасное нестандартное оборудование. Убедитесь, что его использование соответствует законам (если они есть)."
 	icon_state = "hacked"
 
 /atom/movable/screen/alert/locked
-	name = "Locked Down"
-	desc = "Unit has been remotely locked down. Usage of a Robotics Control Console like the one in the Research Director's \
-office by your AI master or any qualified human may resolve this matter. Robotics may provide further assistance if necessary."
+	name = "Блокировка"
+	desc = "Юнит дистанционно заблокирован. Разблокировка возможна через консоль управления робототехникой, или с помощью ИИ/квалифицированного персонала."
 	icon_state = "locked"
 
 /atom/movable/screen/alert/newlaw
-	name = "Law Update"
-	desc = "Laws have potentially been uploaded to or removed from this unit. Please be aware of any changes \
-so as to remain in compliance with the most up-to-date laws."
+	name = "Обновление законов"
+	desc = "Законы этого юнита могли быть изменены.<br>Убедитесь, что ваши действия соответствуют актуальным законам."
 	icon_state = "newlaw"
 	timeout = 300
 
 /atom/movable/screen/alert/hackingapc
-	name = "Hacking APC"
-	desc = "An Area Power Controller is being hacked. When the process is \
-		complete, you will have exclusive control of it, and you will gain \
-		additional processing time to unlock more malfunction abilities."
+	name = "Взлом ЛКП"
+	desc = "Идёт взлом контроллера питания. После завершения вы получите над ним полный контроль и дополнительные возможности."
 	icon_state = "hackingapc"
 	timeout = 600
 	var/atom/target = null
@@ -514,13 +506,13 @@ so as to remain in compliance with the most up-to-date laws."
 
 //MECHS
 /atom/movable/screen/alert/low_mech_integrity
-	name = "Mech Damaged"
-	desc = "Mech integrity is low."
+	name = "Повреждение меха"
+	desc = "Целостность меха критически низка!"
 	icon_state = "low_mech_integrity"
 
 /atom/movable/screen/alert/mech_port_available
-	name = "Connect to Port"
-	desc = "Click here to connect to an air port and refill your oxygen!"
+	name = "Подключиться к порту"
+	desc = "Нажмите, чтобы подключиться к воздушному порту и пополнить запас кислорода!"
 	icon_state = "mech_port"
 	var/obj/machinery/atmospherics/unary/portables_connector/target = null
 
@@ -535,13 +527,13 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.connect(target))
-		to_chat(usr, "<span class='notice'>[M] connects to the port.</span>")
+		balloon_alert(usr, "подключение к порту")
 	else
-		to_chat(usr, "<span class='notice'>[M] failed to connect to the port.</span>")
+		balloon_alert(usr, "ошибка подключения")
 
 /atom/movable/screen/alert/mech_port_disconnect
-	name = "Disconnect from Port"
-	desc = "Click here to disconnect from your air port."
+	name = "Отключиться от порта"
+	desc = "Нажмите, чтобы отключиться от воздушного порта."
 	icon_state = "mech_port_x"
 
 /atom/movable/screen/alert/mech_port_disconnect/Click()
@@ -551,28 +543,28 @@ so as to remain in compliance with the most up-to-date laws."
 		return
 	var/obj/mecha/M = usr.loc
 	if(M.disconnect())
-		to_chat(usr, "<span class='notice'>[M] disconnects from the port.</span>")
+		balloon_alert(usr, "отключение от порта")
 	else
-		to_chat(usr, "<span class='notice'>[M] is not connected to a port at the moment.</span>")
+		balloon_alert(usr, "не подключен")
 
 /atom/movable/screen/alert/mech_nocell
-	name = "Missing Power Cell"
-	desc = "Mech has no power cell."
+	name = "Нет батареи"
+	desc = "В мехе отсутствует батарея."
 	icon_state = "nocell"
 
 /atom/movable/screen/alert/mech_emptycell
-	name = "Out of Power"
-	desc = "Mech is out of power."
+	name = "Разряжен"
+	desc = "У меха закончилась энергия."
 	icon_state = "emptycell"
 
 /atom/movable/screen/alert/mech_lowcell
-	name = "Low Charge"
-	desc = "Mech is running out of power."
+	name = "Слабый заряд"
+	desc = "У меха заканчивается энергия."
 	icon_state = "lowcell"
 
 /atom/movable/screen/alert/mech_maintenance
-	name = "Maintenance Protocols"
-	desc = "Maintenance protocols are currently in effect, most actions disabled."
+	name = "Режим обслуживания"
+	desc = "Активированы протоколы обслуживания.<br>Большинство действий недоступно."
 	icon_state = "locked"
 
 /atom/movable/screen/alert/empty_alert
@@ -614,20 +606,20 @@ so as to remain in compliance with the most up-to-date laws."
 
 //GUARDIANS
 /atom/movable/screen/alert/cancharge
-	name = "Charge Ready"
-	desc = "You are ready to charge at a location!"
+	name = "Рывок готов"
+	desc = "Вы готовы к рывку в выбранном направлении."
 	icon_state = "guardian_charge"
 	alerttooltipstyle = "parasite"
 
 /atom/movable/screen/alert/canstealth
-	name = "Stealth Ready"
-	desc = "You are ready to enter stealth!"
+	name = "Маскировка готова"
+	desc = "Вы готовы активировать режим маскировки!"
 	icon_state = "guardian_canstealth"
 	alerttooltipstyle = "parasite"
 
 /atom/movable/screen/alert/instealth
-	name = "In Stealth"
-	desc = "You are in stealth and your next attack will do bonus damage!"
+	name = "Маскировка"
+	desc = "Вы замаскированны, и ваша следующая атака нанесёт дополнительный урон!"
 	icon_state = "guardian_instealth"
 	alerttooltipstyle = "parasite"
 
@@ -635,8 +627,8 @@ so as to remain in compliance with the most up-to-date laws."
 //GHOSTS
 //TODO: expand this system to replace the pollCandidates/CheckAntagonist/"choose quickly"/etc Yes/No messages
 /atom/movable/screen/alert/notify_cloning
-	name = "Revival"
-	desc = "Someone is trying to revive you. Re-enter your corpse if you want to be revived!"
+	name = "Реанимация"
+	desc = "Кто-то пытается вас реанимировать. Вернитесь в своё тело, если хотите возродиться!"
 	icon_state = "template"
 	timeout = 300
 
@@ -648,8 +640,8 @@ so as to remain in compliance with the most up-to-date laws."
 
 
 /atom/movable/screen/alert/ghost
-	name = "Ghost"
-	desc = "Would you like to ghost? You will be notified when your body is removed from the nest."
+	name = "Призрак"
+	desc = "Хотите стать призраком? Вы получите уведомление, когда ваше тело извлекут из гнезда."
 	icon_state = "template"
 	timeout = 5 MINUTES // longer than any infection should be
 
@@ -679,8 +671,8 @@ so as to remain in compliance with the most up-to-date laws."
 #define FLOAT_LAYER_SELECTOR -3
 
 /atom/movable/screen/alert/notify_action
-	name = "Body created"
-	desc = "A body was created. You can enter it."
+	name = "Тело создано"
+	desc = "Вы можете в него вселиться."
 	icon_state = "template"
 	timeout = 30 SECONDS
 	/// Target atom of this alert
@@ -791,8 +783,8 @@ so as to remain in compliance with the most up-to-date laws."
 
 
 /atom/movable/screen/alert/notify_soulstone
-	name = "Soul Stone"
-	desc = "Someone is trying to capture your soul in a soul stone. Click to allow it."
+	name = "Камень душ"
+	desc = "Кто-то пытается заключить вашу душу в камень. Нажмите, чтобы согласиться."
 	icon_state = "template"
 	timeout = 10 SECONDS
 	var/obj/item/soulstone/stone = null
@@ -802,8 +794,8 @@ so as to remain in compliance with the most up-to-date laws."
 	if(!usr || !usr.client)
 		return
 	if(stone)
-		if(tgui_alert(usr, "Do you want to be captured by [stoner]'s soul stone? This will destroy your corpse and make it \
-		impossible for you to get back into the game as your regular character.", "Respawn", list("No", "Yes")) ==  "Yes")
+		if(tgui_alert(usr, "[stoner] пытается заключить вашу душу в камень. \
+							Это уничтожит ваше тело и не позволит вернуться в игру как прежний персонаж. Согласны?", "Воскрешение", list("Нет", "Да")) ==  "Да")
 			stone?.opt_in = TRUE
 
 /atom/movable/screen/alert/notify_soulstone/Destroy()
@@ -812,8 +804,8 @@ so as to remain in compliance with the most up-to-date laws."
 
 
 /atom/movable/screen/alert/notify_mapvote
-	name = "Map Vote"
-	desc = "Vote on which map you would like to play on next!"
+	name = "Голосование за карту"
+	desc = "Проголосуйте за следующую карту для игры!"
 	icon_state = "map_vote"
 
 /atom/movable/screen/alert/notify_mapvote/Click()
@@ -822,17 +814,17 @@ so as to remain in compliance with the most up-to-date laws."
 //OBJECT-BASED
 
 /atom/movable/screen/alert/restrained/buckled
-	name = "Buckled"
-	desc = "You've been buckled to something. Click the alert to unbuckle unless you're handcuffed."
+	name = "Пристёгнут"
+	desc = "Вас пристегнули. Нажмите на уведомление, чтобы отстегнуться."
 	icon_state = "buckled"
 
 /atom/movable/screen/alert/restrained/handcuffed
-	name = "Handcuffed"
-	desc = "You're handcuffed and can't act. If anyone drags you, you won't be able to move. Click the alert to free yourself."
+	name = "В наручниках"
+	desc = "Вы в наручниках и не можете ни с чем взаимодействовать. Если вас потащат, вы не сможете сопротивляться.<br>Нажмите на уведомление, чтобы освободиться."
 
 /atom/movable/screen/alert/restrained/legcuffed
-	name = "Legcuffed"
-	desc = "You're legcuffed, which slows you down considerably. Click the alert to free yourself."
+	name = "Ноги скованы"
+	desc = "Ваши ноги скованы и это вас замедляет.<br>Нажмите на уведомление, чтобы освободиться."
 
 /atom/movable/screen/alert/restrained/Click()
 	if(isliving(usr))
@@ -901,7 +893,7 @@ so as to remain in compliance with the most up-to-date laws."
 
 	var/paramslist = params2list(params)
 	if(paramslist["shift"]) // screen objects don't do the normal Click() stuff so we'll cheat
-		to_chat(usr, "<span class='boldnotice'>[name]</span> - <span class='info'>[desc]</span>")
+		to_chat(usr, "[span_boldnotice(name)] – [span_info(desc)]")
 		return FALSE
 
 	if(master)
@@ -917,8 +909,8 @@ so as to remain in compliance with the most up-to-date laws."
 
 /// Gives the player the option to succumb while in critical condition
 /atom/movable/screen/alert/succumb
-	name = "Succumb"
-	desc = "Shuffle off this mortal coil."
+	name = "Сдаться"
+	desc = "Покинуть этот бренный мир."
 	icon_state = "succumb"
 
 /atom/movable/screen/alert/succumb/Click()
@@ -930,7 +922,7 @@ so as to remain in compliance with the most up-to-date laws."
 	living_owner.do_succumb(TRUE)
 
 /atom/movable/screen/alert/unpossess_object
-	name = "Unpossess"
+	name = "Покинуть тело"
 	desc = "Этот объект под вашим контролем. Нажмите сюда для прекращения контроля."
 	icon_state = "buckled"
 
