@@ -137,39 +137,6 @@
 	cig.light(user, target)
 	return TRUE
 
-/* /obj/item/lighter/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
-	if(!lit)
-		return ..()
-
-	var/return_flags = ATTACK_CHAIN_PROCEED
-
-	if(target.IgniteMob())
-		return_flags |= ATTACK_CHAIN_SUCCESS
-		add_attack_logs(user, target, "set on fire", ATKLOG_FEW)
-
-	if(user.zone_selected != BODY_ZONE_PRECISE_MOUTH || !istype(target.wear_mask, /obj/item/clothing/mask/cigarette))
-		return ..() | return_flags
-
-	var/obj/item/clothing/mask/cigarette/cig = target.wear_mask
-	if(cig.lit)
-		user.balloon_alert(user, "сигарета уже горит!")
-		return return_flags
-
-	if(target == user)
-		return cig.attackby(src, user, params) | return_flags
-
-	return_flags |= ATTACK_CHAIN_SUCCESS
-	. = return_flags
-
-	if(istype(src, /obj/item/lighter/zippo))
-		cig.light(span_rose("[user] доста[pluralize_ru(user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)] и держ[pluralize_ru(user.gender, "ит", "ат")] [src.declent_ru(gender, "его", "её", "его", "их")] у [target.declent_ru(GENITIVE)]. Рука [user] тверда, как немигающее пламя, которым [genderize_ru(user.gender, "он", "она", "оно", "они")] прикурива[pluralize_ru(user.gender, "ет", "ют")] [cig.declent_ru(ACCUSATIVE)]."))
-	else
-		cig.light(span_notice("[user] держ[pluralize_ru(user.gender, "ит", "ат")] [declent_ru(ACCUSATIVE)] у [target.declent_ru(GENITIVE)], зажигая [cig.declent_ru(GENITIVE)]."))
-
-	playsound(src, 'sound/items/lighter/light.ogg', 25, TRUE)
-	target.update_inv_wear_mask() */
-
-
 /obj/item/lighter/process()
 	var/turf/location = get_turf(src)
 	if(location)
