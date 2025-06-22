@@ -126,13 +126,18 @@
 		SSshuttle.emergencyLastCallLoc = null
 	if(canRecall)
 		GLOB.major_announcement.Announce(
-			"Был вызван аварийный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
-			new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT
+			"Был вызван аварийный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]\
+			Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. \
+			Результаты можно посмотреть на любой консоли связи." : "" ]",
+			new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
+			new_sound = sound('sound/AI/eshuttle_dock.ogg')
 		)
 	else
 		GLOB.major_announcement.Announce(
-			"Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
-			new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT
+			"Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]\
+			Он прибудет в течение [timeLeft(600)] минут.[reason]",
+			new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
+			new_sound = sound('sound/AI/cshuttle_dock.ogg')
 		)
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -151,7 +156,8 @@
 		SSshuttle.emergencyLastCallLoc = null
 	GLOB.major_announcement.Announce(
 		"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
-		new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT
+		new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
+		new_sound = sound('sound/AI/eshuttle_recall.ogg')
 	)
 
 /obj/docking_port/mobile/emergency/proc/is_hijacked()
@@ -223,21 +229,15 @@
 				if(canRecall)
 					GLOB.major_announcement.Announce(
 						"The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.",
-						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT
+						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
+						new_sound = sound('sound/AI/eshuttle_dock.ogg')
 					)
 				else
 					GLOB.major_announcement.Announce(
 						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
-						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT
+						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
+						new_sound = sound('sound/AI/cshuttle_dock.ogg')
 					)
-/*
-				//Gangs only have one attempt left if the shuttle has docked with the station to prevent suffering from dominator delays
-				for(var/datum/gang/G in ticker.mode.gangs)
-					if(isnum(G.dom_timer))
-						G.dom_attempts = 0
-					else
-						G.dom_attempts = min(1,G.dom_attempts)
-*/
 		if(SHUTTLE_DOCKED)
 
 			if(time_left <= 0 && SSshuttle.hostile_environment.len)
@@ -263,8 +263,9 @@
 
 			if(time_left <= 50 && !sound_played) //4 seconds left - should sync up with the launch
 				sound_played = 1
+				var/hyperspace_sound = sound('sound/effects/hyperspace_begin_new.ogg')
 				for(var/area/shuttle/escape/E in GLOB.areas)
-					E << 'sound/effects/hyperspace_begin_new.ogg'
+					SEND_SOUND(E, hyperspace_sound)
 
 			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || SSshuttle.hostile_environment.len))
 				//move each escape pod to its corresponding transit dock
@@ -289,15 +290,15 @@
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					M.dock(SSshuttle.getDock("[M.id]_away"))
 
+				var/hyperspace_end_sound = sound('sound/effects/hyperspace_end_new.ogg')
 				for(var/area/shuttle/escape/E in GLOB.areas)
-					E << 'sound/effects/hyperspace_end_new.ogg'
+					SEND_SOUND(E, hyperspace_end_sound)
 
 				// now move the actual emergency shuttle to centcomm
 				// unless the shuttle is "hijacked"
 				var/destination_dock = "emergency_away"
 				if(is_hijacked() || forceHijacked)
 					destination_dock = "emergency_syndicate"
-					//GLOB.major_announcement.Announce("Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.")
 					GLOB.major_announcement.Announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
 						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT

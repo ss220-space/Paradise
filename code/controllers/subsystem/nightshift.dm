@@ -30,7 +30,7 @@ SUBSYSTEM_DEF(nightshift)
 
 
 /datum/controller/subsystem/nightshift/proc/announce(message)
-	GLOB.major_announcement.Announce(message, new_sound = 'sound/misc/announce_dig.ogg', new_title = "Автоматическое оповещение: Освещение.")
+	GLOB.major_announcement.Announce(message, new_sound = 'sound/misc/notice2.ogg', new_title = "Автоматическое оповещение: Освещение.")
 
 
 /datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
@@ -45,7 +45,7 @@ SUBSYSTEM_DEF(nightshift)
 		if(night_time)
 			announcing = FALSE
 			if(!emergency)
-				announce("Система ночного освещения снова работает в штатном режиме.")
+				announce("Система ночного освещения снова работает в штатном режиме.")
 			else
 				announce("Система ночного освещения отключена в связи с наличием существенной угрозы для станции. Пожалуйста, сохраняйте спокойствие.")
 	if(emergency)
