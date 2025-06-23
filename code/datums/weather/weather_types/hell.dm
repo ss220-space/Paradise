@@ -33,8 +33,7 @@
 
 	var/list/affected_turfs_list = list()
 	var/static/list/possible_modes = list(LAVA_MODE = 10, PORTAL_MODE = 5, METEOR_MODE = 10, EMPTY_MODE = 50)
-	var/static/sound/music = sound('sound/music/knight_dance.ogg', channel = CHANNEL_BOSS_MUSIC)
-	var/static/music_time = 5.6 MINUTES
+	var/static/sound/music = sound('sound/music/knight_dance.ogg', channel = CHANNEL_BOSS_MUSIC, volume = 50, repeat = TRUE)
 
 /datum/weather/hell/telegraph()
 	. = ..()
@@ -122,7 +121,12 @@
 
 /datum/weather/hell/start()
 	. = ..()
-	play_music()
+	for(var/mob/player in (GLOB.player_list))
+		var/turf/player_loc = get_turf(player)
+		var/z = player_loc.z
+		if(!is_station_level(z) && !is_admin_level(z) && !is_reserved_level(z))
+			continue
+		SEND_SOUND(player, music)
 
 /datum/weather/hell/fire()
 	switch(pickweight(possible_modes))
@@ -160,18 +164,14 @@
 	explosion(affected_turf, 0, 0, 3, 5, FALSE, FALSE)
 	flame_radius(3, affected_turf, 5 SECONDS, BURN_LEVEL_TIER_6, FLAMESHAPE_STAR)
 
-/datum/weather/hell/proc/play_music()
-	if(QDELETED(src) || stage >= END_STAGE)
+/datum/weather/hell/proc/end()
+	. = ..()
+
+	if(QDELETED(src))
 		return
 
 	for(var/mob/player in (GLOB.player_list))
-		var/turf/player_loc = get_turf(player)
-		var/z = player_loc.z
-		if(!is_station_level(z) && !is_admin_level(z) && !is_reserved_level(z))
-			continue
-		SEND_SOUND(player, music)
-
-	addtimer(CALLBACK(src, PROC_REF(play_music)), music_time)
+		SEND_SOUND(player, sound(null, channel = CHANNEL_BOSS_MUSIC))
 
 
 /obj/structure/hell_rift
