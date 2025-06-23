@@ -182,10 +182,10 @@
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
 	if(isnull(organ_data))
-		user.balloon_alert(user, "несовместимо с анатомией цели!")
+		user.balloon_alert(user, "несовместимо с организмом!")
 		return SURGERY_BEGINSTEP_ABORT
 	if(!istype(E, organ_data["path"]) && HAS_TRAIT(target, TRAIT_SPECIES_LIMBS))
-		user.balloon_alert(user, "цель неподходящей расы!")
+		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_ABORT
 	user.visible_message(
 		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] присоединять [E.declent_ru(ACCUSATIVE)] к [E.amputation_point] [target]."),

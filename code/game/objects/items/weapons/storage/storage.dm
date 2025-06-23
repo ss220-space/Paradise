@@ -394,7 +394,7 @@
 			return FALSE //To prevent the stacking of same sized storage items.
 
 	if(HAS_TRAIT(W, TRAIT_NODROP)) //SHOULD be handled in unEquip, but better safe than sorry.
-		usr.balloon_alert(usr, "не удаётся выпустить из руки!")
+		usr.balloon_alert(usr, "не получается выпустить!")
 		return FALSE
 
 	// item unequip delay

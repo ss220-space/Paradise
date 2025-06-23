@@ -372,7 +372,7 @@
 /datum/surgery_step/cavity/place_item/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/chest/affected = target.get_organ(target_zone)
 	if(get_item_inside(affected))
-		user.balloon_alert(user, "внутри полости уже что-то есть!")
+		user.balloon_alert(user, "в полости что-то есть!")
 		return SURGERY_STEP_CONTINUE
 
 	user.visible_message(

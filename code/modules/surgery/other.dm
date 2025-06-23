@@ -177,7 +177,7 @@
 /datum/surgery_step/fix_vein/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!affected.has_internal_bleeding())
-		user.balloon_alert(user, "кровеносные сосуды в отличном состоянии!")
+		user.balloon_alert(user, "сосуды в норме!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
@@ -297,7 +297,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!(affected.is_dead()))
-		user.balloon_alert("ткани не нуждаются в обработке!")
+		user.balloon_alert("обработка не требуется!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(

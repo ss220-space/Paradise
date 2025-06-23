@@ -39,7 +39,7 @@
 	var/obj/item/robot_parts/p = tool
 	if(p.part)
 		if(!(target_zone in p.part))
-			user.balloon_alert(user, "несовместимо с этой частью тела!")
+			user.balloon_alert(user, "несовместимая часть тела!")
 			return SURGERY_BEGINSTEP_ABORT
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)

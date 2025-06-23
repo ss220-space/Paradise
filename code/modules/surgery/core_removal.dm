@@ -91,7 +91,7 @@
 		else
 			return SURGERY_STEP_INCOMPLETE
 	else
-		user.balloon_alert(user, "у слайма нет ядер!")
+		user.balloon_alert(user, "ядра отсутствуют!")
 		return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/slime/extract_core/fail_step(mob/living/user, mob/living/simple_animal/slime/target, target_zone, obj/item/tool)

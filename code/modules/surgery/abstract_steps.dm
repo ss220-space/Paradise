@@ -280,7 +280,7 @@
 		return TRUE
 	// Normally, adding to_chat to can_start is poor practice since this gets called when listing surgery steps.
 	// It's alright for intermediate surgeries, though, since they never get called like that.
-	user.balloon_alert(user, "кровеносные сосуды в отличном состоянии!")
+	user.balloon_alert(user, "сосуды в норме!")
 	return FALSE
 
 /datum/surgery/intermediate/mendbone
@@ -321,7 +321,7 @@
 	if(affected.has_fracture())
 		return TRUE
 	else
-		user.balloon_alert(user, "кости в отличном состоянии!")
+		user.balloon_alert(user, "кости в норме!")
 	return FALSE
 
 /// Proxy surgery step to allow healing bleeding and mending bones.

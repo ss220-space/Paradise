@@ -353,7 +353,7 @@
 /datum/surgery_step/robotics/external/repair/brute/begin_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 	if(!(affected.brute_dam > 0 || affected.is_disfigured()))
-		user.balloon_alert(user, "мех. повреждения отсутствуют!")
+		user.balloon_alert(user, "повреждения отсутствуют!")
 		return SURGERY_BEGINSTEP_SKIP
 	if(tool.tool_behaviour == TOOL_WELDER)
 		if(!tool.use(1))
@@ -432,7 +432,7 @@
 			found_damaged_organ = TRUE
 
 	if(!found_damaged_organ)
-		user.balloon_alert(user, "нет органов для восстановления!")
+		user.balloon_alert(user, "органы в норме!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	target.custom_pain("Боль в ваш[genderize_ru(affected.gender, "ем", "ей", "ем", "их")] [affected.declent_ru(PREPOSITIONAL)] просто невыносима!")
@@ -481,7 +481,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!organ.is_robotic())
-		user.balloon_alert(user, "орган не является кибернетическим!")
+		user.balloon_alert(user, "орган не кибернетический!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target_zone != organ.parent_organ_zone || target.get_organ_slot(organ.slot))
@@ -493,7 +493,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(target.get_int_organ(organ) && !affected)
-		user.balloon_alert(user, "цель уже имеет этот орган!")
+		user.balloon_alert(user, "этот орган уже имеется!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	user.visible_message(
@@ -510,7 +510,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!user.can_unEquip(I))
-		user.balloon_alert(user, "не получается выпустить из руки!")
+		user.balloon_alert(user, "не получается выпустить!")
 		return SURGERY_STEP_INCOMPLETE
 
 	user.drop_from_active_hand()
@@ -631,7 +631,7 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(!affected.is_robotic())
-		user.balloon_alert(user, "органическая часть тела несовместима!")
+		user.balloon_alert(user, "часть тела не кибернетическая!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(!target.dna.species)

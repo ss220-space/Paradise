@@ -281,7 +281,7 @@
 			return SURGERY_STEP_INCOMPLETE
 
 		if(chip.stored_language_rus in translator.given_languages_rus)
-			user.balloon_alert(user, "данный чип уже установлен!")
+			user.balloon_alert(user, "чип уже установлен!")
 			return SURGERY_STEP_INCOMPLETE
 
 		translator.install_chip(user, chip)
@@ -491,7 +491,7 @@
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
 
 	if(!hasorgans(target))
-		user.balloon_alert(user, "нет органов для заживления!")
+		user.balloon_alert(user, "органы отсутствуют!")
 		// note that we want to return skip here so we can go "back" to the proxy step
 		return SURGERY_BEGINSTEP_SKIP
 
@@ -505,7 +505,7 @@
 		var/can_treat_organic = !organ.is_robotic() && !istype(tool, /obj/item/stack/nanopaste)
 		if(can_treat_robotic || can_treat_organic)
 			if(organ.is_dead())
-				user.balloon_alert(user, "нельзя заживить мёртвый орган!")
+				to_chat(user, span_warning("[capitalize(organ.declent_ru(NOMINATIVE))] [genderize_ru(organ.gender, "мёртв", "мертва", "мертво", "мертвы")]! Использование [tool.declent_ru(GENITIVE)] бессмысленно!"))
 				continue
 			user.visible_message(
 				span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] восстаналивать [organ.declent_ru(ACCUSATIVE)] [target], используя [tool_name]."),
@@ -514,10 +514,10 @@
 			if(can_treat_organic && !organ.sterile)
 				spread_germs_to_organ(organ, user, tool)
 		else
-			user.balloon_alert(user, "не подходит для этого органа!")
+			to_chat(user, span_warning("Использование [tool.declent_ru(GENITIVE)] на [organ.declent_ru(PREPOSITIONAL)] бессмысленно!"))
 
 	if(!any_organs_damaged)
-		user.balloon_alert(user, "повреждённые органы отсутствуют!")
+		user.balloon_alert(user, "органы в норме!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
@@ -695,7 +695,7 @@
 
 /datum/surgery_step/internal/manipulate_organs/implant/begin_step(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 	if(istype(tool, /obj/item/reagent_containers/food/snacks/organ))
-		user.balloon_alert(user, "укушенный орган не подойдёт!")
+		user.balloon_alert(user, "орган укушен!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	var/obj/item/organ/external/affected = target.get_organ(target_zone)
@@ -725,11 +725,11 @@
 		return SURGERY_BEGINSTEP_SKIP
 
 	if((istype(organ, /obj/item/organ/internal/cyberimp)) && HAS_TRAIT(target, TRAIT_NO_CYBERIMPLANTS))
-		user.balloon_alert(user, "несовместимо с организмом цели!")
+		user.balloon_alert(user, "несовместимо с организмом!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if((organ.status == ORGAN_ROBOT) && HAS_TRAIT(target, TRAIT_NO_ROBOPARTS))
-		user.balloon_alert(user, "несовместимо с организмом цели!")
+		user.balloon_alert(user, "несовместимо с организмом!")
 		return SURGERY_BEGINSTEP_SKIP
 
 	if(affected)
@@ -752,7 +752,7 @@
 	if(!istype(tool))
 		return SURGERY_STEP_INCOMPLETE
 	if(!user.drop_item_ground(I))
-		user.balloon_alert(user, "не получается выпустить из руки!")
+		user.balloon_alert(user, "не получается выпустить!")
 		return SURGERY_STEP_INCOMPLETE
 	I.insert(target)
 	if(istype(I, /obj/item/organ/internal/cyberimp))
@@ -848,10 +848,10 @@
 
 	for(var/obj/item/organ/internal/organ as anything in get_organ_list(target_zone, target, affected))
 		if(organ.germ_level < INFECTION_LEVEL_ONE / 2 && !(organ.is_dead()))  // not dead, don't need to inject mito either
-			user.balloon_alert(user, "обработка химикатами не требуется!")
+			user.balloon_alert(user, "обработка не требуется!")
 			continue
 		if(!spaceacillin && !ethanol && !mito_tot)
-			user.balloon_alert(user, "дезинфицирующие средства отсутствуют!")
+			user.balloon_alert(user, "нечем обрабатывать!")
 			break
 		var/success = FALSE
 		if(organ.germ_level >= INFECTION_LEVEL_ONE / 2)
@@ -864,7 +864,7 @@
 				success = TRUE // we actually injected some chemicals
 
 			else if(!(organ.is_dead())) // Not dead and got nothing to disinfect the organ with. Don't waste the other chems
-				user.balloon_alert(user, "дезинфицирующие средства отсутствуют!")
+				user.balloon_alert(user, "нечем обрабатывать!")
 				continue
 
 		var/mito_trans
@@ -872,7 +872,7 @@
 			mito_trans = min(mito_tot, C.amount_per_transfer_from_this / length(R.reagent_list)) // How much mito is actually transfered
 			success = TRUE
 		if(!success)
-			user.balloon_alert(user, "дезинфицирующие средства отсутствуют!")
+			user.balloon_alert(user, "нечем обрабатывать!")
 			continue
 
 		// now try actually injecting.

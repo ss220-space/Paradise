@@ -79,7 +79,7 @@
 				return
 
 	if(L.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
-		user.balloon_alert(user, "неподходящая для операции цель!")
+		user.balloon_alert(user, "неподходящая цель!")
 		return //no cult ghost surgery please
 	INVOKE_ASYNC(src, PROC_REF(do_initiate_surgery_moment), target, user)
 	// This signal is actually part of the attack chain, so it needs to return COMPONENT_CANCEL_ATTACK_CHAIN to stop it
@@ -114,9 +114,9 @@
 
 	if(!length(available_surgeries))
 		if(target.body_position == LYING_DOWN)
-			user.balloon_alert(user, "доступные операции отсутствуют!")
+			user.balloon_alert(user, "нет доступных операций!")
 		else
-			user.balloon_alert(user, "нельзя оперировать стоящих!")
+			user.balloon_alert(user, "цель не лежит!")
 		return
 
 	// if we have a surgery that should be performed regardless with this item,
@@ -217,7 +217,8 @@
 		else
 			close_tool = locate(/obj/item/crowbar) in user.get_all_slots()
 			if(!close_tool)
-				user.balloon_alert(user, "для окончания операции нужен поддевающий инструмент!")
+				user.balloon_alert(user, "операция не завершена!")
+				to_chat(user, span_warning("Для завершения операции нужно держать поддевающий инструмент в неактивной руке!"))
 				return TRUE
 
 	else if(other_hand)
@@ -227,7 +228,8 @@
 				break
 
 	if(!close_tool)
-		user.balloon_alert(user, "для окончания операции нужен [is_robotic ? "поддевающий": "прижигающий"] инструмент!")
+		user.balloon_alert(user, "операция не завершена!")
+		to_chat(user, span_warning("Для завершения операции нужно держать [is_robotic ? "поддевающий": "прижигающий"] инструмент в неактивной руке!"))
 		return TRUE
 
 	if(skip_surgery || chosen_close_step.try_op(user, patient, selected_zone, close_tool, the_surgery) == SURGERY_INITIATE_SUCCESS)
@@ -271,9 +273,9 @@
 
 	if(surgery.requires_bodypart == isnull(affecting_limb))
 		if(surgery.requires_bodypart)
-			user.balloon_alert(user, "данная часть тела отсутствует!")
+			user.balloon_alert(user, "часть тела отсутствует!")
 		else
-			user.balloon_alert(user, "данная часть тела присутствует!")
+			user.balloon_alert(user, "часть тела присутствует!")
 
 		return
 
@@ -286,7 +288,7 @@
 		return
 
 	if(target == user && !surgery.self_operable)
-		user.balloon_alert(user, "операция на себе невозможна!")
+		user.balloon_alert(user, "самооперация невозможна!")
 		return
 
 	if(!surgery.can_start(user, target))
