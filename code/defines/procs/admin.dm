@@ -42,11 +42,11 @@
 	if(key)
 		if(C && C.holder && C.holder.fakekey && !include_name)
 			if(include_link)
-				. += "<a href='?priv_msg=[C.getStealthKey()];type=[type];ticket_id=[ticket_id]'>"
+				. += "<a href='byond://?priv_msg=[C.getStealthKey()];type=[type];ticket_id=[ticket_id]'>"
 			. += "Administrator"
 		else
 			if(include_link && C)
-				. += "<a href='?priv_msg=[C.ckey];type=[type];ticket_id=[ticket_id]'>"
+				. += "<a href='byond://?priv_msg=[C.ckey];type=[type];ticket_id=[ticket_id]'>"
 			. += key
 
 		if(include_link)
