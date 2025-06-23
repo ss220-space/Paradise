@@ -849,7 +849,7 @@
 	var/tired = 0
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/plushie/rdplushie/proc/interaction()
+/obj/item/toy/plushie/rdplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
 
@@ -869,13 +869,13 @@
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
-	src.visible_message("[bicon(src)] [span_notice(message)]")
+	user.visible_message("[bicon(src)] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/rdplushie/attack_self(mob/user)
 	. = ..()
 
-	interaction()
+	interaction(user)
 
 /obj/item/toy/plushie/rdplushie/afterattack(atom/target, mob/user, proximity, flag, params)
 	. = ..()
@@ -914,7 +914,7 @@
 	item_state = "GSBussy_doll"
 	COOLDOWN_DECLARE(cooldown)
 
-/obj/item/toy/plushie/gsbplushie/proc/interaction()
+/obj/item/toy/plushie/gsbplushie/proc/interaction(mob/user)
 	if(!COOLDOWN_FINISHED(src, cooldown))
 		return FALSE
 
@@ -924,7 +924,7 @@
 	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
 
 	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	src.visible_message("[bicon(src)] [span_notice(message)]")
+	user.visible_message("[bicon(src)] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
@@ -1412,7 +1412,7 @@
 		add_fingerprint(user)
 		if(message_spam_flag == 0)
 			message_spam_flag = 1
-			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("Вы [msg] [declent_ru(ACCUSATIVE)]!"))
+			user.visible_message(span_notice("[user] [msg] [declent_ru(ACCUSATIVE)]!"), span_notice("[pluralize_ru(user.gender,"Ты","Вы")] [msg] [declent_ru(ACCUSATIVE)]!"))
 			spawn(30)
 				message_spam_flag = 0
 		spawn(3)
