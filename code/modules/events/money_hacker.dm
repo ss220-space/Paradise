@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 Уведомления будут отправляться по мере появления обновлений."
 	var/my_department = "[station_name()] firewall subroutines"
 
-	for(var/obj/machinery/message_server/MS in GLOB.machines)
+	for(var/obj/machinery/message_server/MS in SSmachines.get_by_type(/obj/machinery/message_server))
 		if(!MS.active) continue
 		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
 
@@ -64,7 +64,7 @@ GLOBAL_VAR_INIT(account_hack_attempted, 0)
 
 	var/my_department = "[station_name()] firewall subroutines"
 
-	for(var/obj/machinery/message_server/MS in GLOB.machines)
+	for(var/obj/machinery/message_server/MS in SSmachines.get_by_type(/obj/machinery/message_server))
 		if(!MS.active) continue
 		MS.send_rc_message("Head of Personnel's Desk", my_department, message, "", "", 2)
 
