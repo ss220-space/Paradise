@@ -332,7 +332,7 @@
 
 /obj/effect/proc_holder/spell/summon_dancefloor
 	name = "Призвать танцпол"
-	desc = "Когда Дьяволу действительно нужено зажечь."
+	desc = "Когда Дьяволу действительно нужно зажечь."
 	clothes_req = FALSE
 	human_req = FALSE
 	school = "conjuration"

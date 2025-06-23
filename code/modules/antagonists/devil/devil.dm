@@ -142,7 +142,7 @@
 
 /datum/antagonist/devil/greet()
 	var/list/messages = list()
-	LAZYADD(messages, span_warning("<b>Вы - [info.truename], агент ада, дьявол.\n\
+	LAZYADD(messages, span_warning("<b>Вы – [info.truename], агент ада, дьявол.\n\
 	Вы прибыли сюда, преследуя важную цель.\n\
 	Склоните экипаж к грехопадению и укрепите влияние ада.</b>"))
 	LAZYADD(messages, "Вы никак не можете навредить другим дьяволам.")

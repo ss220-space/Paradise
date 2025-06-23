@@ -961,7 +961,7 @@
 	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
-	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в твоих руках!"))
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
 	user.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 
