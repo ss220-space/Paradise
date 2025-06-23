@@ -2,27 +2,50 @@
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
-	desc = "It's an immobile card-locked storage unit."
+	desc = "Защищённый шкаф, предназначенный для хранения различных предметов. \
+			Оснащён электронным замком, который активируется с помощью ID-карты. \
+			Изготовлен из прочного металла, устойчивого к различным повреждениям. \
+			Достаточно вместительный."
+	ru_names = list(
+		NOMINATIVE = "защищённый шкаф",
+		GENITIVE = "защищённого шкафа",
+		DATIVE = "защищённому шкафу",
+		ACCUSATIVE = "защищённый шкаф",
+		INSTRUMENTAL = "защищённым шкафом",
+		PREPOSITIONAL = "защищённом шкафе"
+	)
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
 	density = TRUE
 	opened = FALSE
 	locked = TRUE
-	broken = FALSE
 	can_be_emaged = TRUE
 	max_integrity = 250
 	armor = list("melee" = 30, "bullet" = 50, "laser" = 50, "energy" = 100, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	damage_deflection = 20
 	wall_mounted = FALSE //never solid (You can always pass over it)
 
+
+/obj/structure/closet/secure_closet/examine(mob/user)
+	. = ..()
+	switch(lock_broken)
+		if(3)
+			. += span_boldnotice("Панель управления замком снята.")
+		if(2)
+			. += span_boldnotice("Из замка торчат провода.")
+		if(1)
+			. += span_boldnotice("Замок взломан.")
+
+
 /obj/structure/closet/secure_closet/can_open()
 	if(locked)
 		return FALSE
 	return ..()
 
+
 /obj/structure/closet/secure_closet/close()
 	. = ..()
-	if(. && broken)
+	if(. && lock_broken)
 		update_icon()
 
 
@@ -30,7 +53,7 @@
 	for(var/obj/object in src)
 		object.emp_act(severity)
 
-	if(broken || opened)
+	if(lock_broken || opened)
 		return
 
 	if(prob(50 / severity))
@@ -48,39 +71,39 @@
 
 
 /obj/structure/closet/secure_closet/emag_act(mob/user)
-	if(!broken)
+	if(!lock_broken)
 		add_attack_logs(user, src, "emagged")
-		broken = TRUE
+		lock_broken = TRUE
 		locked = FALSE
 		playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 		flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
 		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
 		if(user)
-			to_chat(user, span_notice("You break the lock on [src]."))
+			user.balloon_alert(user, "замок взломан")
 
 
 /obj/structure/closet/secure_closet/proc/togglelock(mob/living/user)
 	if(!istype(user))
 		return
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
+		user.balloon_alert(user, "ваши руки заблокированы!")
 		return
 	if(opened)
-		to_chat(user, span_notice("Close the locker first."))
+		user.balloon_alert(user, "шкаф не закрыт!")
 		return
-	if(broken)
-		to_chat(user, span_warning("The locker appears to be broken."))
+	if(lock_broken)
+		user.balloon_alert(user, "замок сломан!")
 		return
 	if(user.loc == src)
-		to_chat(user, span_notice("You can't reach the lock from inside."))
+		user.balloon_alert(user, "изнутри не достать!")
 		return
 	if(allowed(user))
 		locked = !locked
 		playsound(loc, pick(togglelock_sound), 15, TRUE, -3)
-		visible_message(span_notice("The locker has been [locked ? null : "un"]locked by [user]."))
+		user.balloon_alert(user, "замок [locked ? "за" : "раз"]блокирован")
 		update_icon()
 	else
-		to_chat(user, span_notice("Access Denied"))
+		user.balloon_alert(user, "отказано в доступе!")
 	add_fingerprint(user)
 
 
@@ -100,6 +123,7 @@
 		add_fingerprint(user)
 		toggle(user)
 
+
 /obj/structure/closet/secure_closet/update_overlays()
 	. = ..()
 
@@ -109,21 +133,13 @@
 	if(overlay_locker)
 		. += mutable_appearance(icon, overlay_locker, CLOSET_OLAY_LAYER_LOCK_FRAME)
 
-	if(broken)
+	if(lock_broken)
 		return .
 
 	if(locked)
 		. += mutable_appearance(icon, overlay_locked, CLOSET_OLAY_LAYER_LOCK_INDICATOR)
 	else
 		. += mutable_appearance(icon, overlay_unlocked, CLOSET_OLAY_LAYER_LOCK_INDICATOR)
-
-
-/obj/structure/closet/secure_closet/update_desc(updates = ALL)
-	. = ..()
-	if(broken)
-		desc = "It appears to be broken."
-	else
-		desc = initial(desc)
 
 
 /obj/structure/closet/secure_closet/container_resist(mob/living/user)
@@ -140,8 +156,8 @@
 
 	//okay, so the closet is either welded or locked... resist!!!
 	visible_message(
-		span_danger("[src] begins to shake violently!"),
-		span_warning("You lean on the back of [src] and start pushing the door open. (this will take about [CLOSET_BREAKOUT_TIME / 10] minutes.)")
+		span_danger("[capitalize(declent_ru(NOMINATIVE))] начинает качаться из стороны в сторону с громким стуком!"),
+		span_warning("Вы опираетесь спиной на заднюю стенку [declent_ru(GENITIVE)] и начинаете изо всех сил давить ногами на дверь.")
 	)
 	INVOKE_ASYNC(src, PROC_REF(resist_async), user)
 
@@ -161,13 +177,13 @@
 	//Well then break it!
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
 	flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
-	broken = TRUE
+	lock_broken = TRUE
 	locked = FALSE
 	welded = FALSE
 	update_appearance(UPDATE_ICON|UPDATE_DESC)
 	visible_message(
-		span_danger("[user] successfully broke out of [src]!"),
-		span_warning("You successfully break out!"),
+		span_danger("[user] выламыва[pluralize_ru(user.gender, "ет", "ют")] дверь [declent_ru(GENITIVE)] и выбира[pluralize_ru(user.gender, "ет", "ют")]ся наружу!"),
+		span_warning("Вы выламываете дверь [declent_ru(GENITIVE)] и выбираетесь наружу!"),
 	)
 
 	if(istype(loc, /obj/structure/bigDelivery)) //Do this to prevent contents from being opened into nullspace (read: bluespace)
@@ -183,48 +199,53 @@
 
 /obj/structure/closet/secure_closet/screwdriver_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(locked && broken == 0 && user.a_intent != INTENT_HARM) // Stage one
-		to_chat(user, span_notice("Вы начинаете откручивать панель замка [src]..."))
+	if(locked && lock_broken == 0 && user.a_intent != INTENT_HARM) // Stage one
+		user.balloon_alert(user, "снятие панели замка...")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(95)) // EZ
-				to_chat(user, span_notice("Вы успешно открутили и сняли панель с замка [src]!"))
-				desc += " Панель управления снята."
-				broken = 3
+			if(prob(95))
+				user.balloon_alert(user, "панель замка снята")
+				lock_broken = 3
 				update_icon()
-			else // Bad day)
+			else
 				var/mob/living/carbon/human/H = user
 				var/obj/item/organ/external/affecting = H.get_organ(user.r_hand == I ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 				user.apply_damage(5, BRUTE , affecting)
 				user.emote("scream")
-				to_chat(user, span_warning("Проклятье! [I] сорвалась и повредила [affecting.name]!"))
+				user.balloon_alert(user, "неудача!")
+				to_chat(user, span_warning("[capitalize(I.declent_ru(NOMINATIVE))] срыва[pluralize_ru(I.gender, "ет", "ют")]ся, ударяя вас по [affecting.declent_ru(DATIVE)]!"))
 		return TRUE
 
 /obj/structure/closet/secure_closet/wirecutter_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(locked && broken == 3 && user.a_intent != INTENT_HARM) // Stage two
-		to_chat(user, span_notice("Вы начинаете подготавливать провода панели [src]..."))
+	if(locked && lock_broken == 3 && user.a_intent != INTENT_HARM) // Stage two
+		user.balloon_alert(user, "подготовка проводов...")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(80)) // Good hacker!
-				to_chat(user, span_notice("Вы успешно подготовили провода панели замка [src]!"))
-				desc += " Провода отключены и торчат наружу."
-				broken = 2
-			else // woopsy
-				to_chat(user, span_warning("Черт! Не тот провод!"))
+			if(prob(80))
+				user.balloon_alert(user, "провода подготовлены")
+				lock_broken = 2
+			else
+				user.balloon_alert(user, "неудача!")
+				to_chat(user, span_warning("Вы неправильно подготавливаете провода и вас ударяет током!"))
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE
 
 /obj/structure/closet/secure_closet/multitool_act(mob/living/user, obj/item/I)
 	. = ..()
-	if(locked && broken == 2 && user.a_intent != INTENT_HARM) // Stage three
-		to_chat(user, span_notice("Вы начинаете подключать провода панели замка [src] к [I]..."))
+	if(locked && lock_broken == 2 && user.a_intent != INTENT_HARM) // Stage three
+		user.balloon_alert(user, "закорачивание провода...")
 		if(I.use_tool(src, user, 160, volume = I.tool_volume))
-			if(prob(80)) // Good hacker!
-				desc += " Замок отключен."
-				broken = 0 // Can be emagged
-				emag_act(user)
-			else // woopsy
-				to_chat(user, span_warning("Черт! Не тот провод!"))
+			if(prob(80))
+				add_attack_logs(user, src, "hacked")
+				lock_broken = TRUE
+				locked = FALSE
+				playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
+				flick_overlay_view(mutable_appearance(icon, overlay_sparking), sparking_duration)
+				addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_appearance), UPDATE_ICON|UPDATE_DESC), sparking_duration)
+				user.balloon_alert(user, "замок взломан")
+			else
+				user.balloon_alert(user, "неудача!")
+				to_chat(user, span_warning("Вы закорачиваете неверный провод и вас ударяет током!"))
 				do_sparks(5, TRUE, src)
 				electrocute_mob(user, get_area(src), src, 0.5, TRUE)
 		return TRUE

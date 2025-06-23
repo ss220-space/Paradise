@@ -2,7 +2,9 @@ GLOBAL_LIST_EMPTY(closets)
 
 /obj/structure/closet
 	name = "closet"
-	desc = "It's a basic storage unit."
+	desc = "Стандартный шкаф, предназначенный для хранения различных предметов. \
+			Изготовлен из прочного металла, устойчивого к различным повреждениям. \
+			Достаточно вместительный."
 	gender = MALE
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "closed"
@@ -32,6 +34,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/opened = FALSE
 	var/welded = FALSE
 	var/locked = FALSE
+	var/lock_broken = FALSE
 	var/large = TRUE
 	var/can_be_emaged = FALSE
 	var/can_weld_shut = TRUE
@@ -228,7 +231,7 @@ GLOBAL_LIST_EMPTY(closets)
 /obj/structure/closet/proc/bust_open()
 	welded = FALSE //applies to all lockers
 	locked = FALSE //applies to critter crates and secure lockers only
-	broken = TRUE //applies to secure lockers only
+	lock_broken = TRUE //applies to secure lockers only
 	open()
 
 /obj/structure/closet/deconstruct(disassembled = TRUE)
@@ -237,7 +240,7 @@ GLOBAL_LIST_EMPTY(closets)
 	qdel(src)
 
 /obj/structure/closet/obj_break(damage_flag)
-	if(!broken && !(obj_flags & NODECONSTRUCT))
+	if(!lock_broken && !(obj_flags & NODECONSTRUCT))
 		bust_open()
 
 
@@ -264,7 +267,7 @@ GLOBAL_LIST_EMPTY(closets)
 	var/is_emag = istype(I, /obj/item/card/emag)
 	if(is_emag || istype(I, /obj/item/melee/energy/blade))
 		add_fingerprint(user)
-		if(!can_be_emaged || broken)
+		if(!can_be_emaged || lock_broken)
 			var/add_flags = NONE
 			if(is_emag)
 				add_flags |= ATTACK_CHAIN_NO_AFTERATTACK
