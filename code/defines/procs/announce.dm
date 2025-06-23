@@ -2,7 +2,7 @@ GLOBAL_DATUM_INIT(minor_announcement, /datum/announcer, new(config_type = /datum
 GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum/announcement_configuration/major))
 
 /datum/announcement_configuration
-	var/default_title = "Внимание"
+	var/default_title = "Внимание!"
 	/// The name used when describing the announcement type in logs.
 	var/log_name = ANNOUNCE_KIND_DEFAULT
 	/// Whether or not to log the announcement when made.
@@ -66,6 +66,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	Message(formatted_message, garbled_formatted_message, receivers, garbled_receivers, message_sound)
 
+	Sound(message_sound, combined_receivers[1] + combined_receivers[2])
 	if(message_sound2)
 		Sound(message_sound2, combined_receivers[1] + combined_receivers[2])
 
@@ -77,9 +78,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/list/garbled_receivers = list()
 
 	if(config.global_announcement)
-		for(var/mob/M as anything in GLOB.player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
-				receivers[M] = TRUE
+				receivers |= M
+			if(!M.say_understands(null, message_language))
+				receivers -= M
+				garbled_receivers |= M
 	else
 		for(var/obj/item/radio/R as anything in GLOB.global_radios)
 			for(var/mob/M as anything in R.send_announcement())
@@ -171,6 +175,8 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcement_configuration/requests_console
 	style = "minor"
+	add_log = TRUE
+	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/comms_console
 	default_title = "Priority Announcement"
