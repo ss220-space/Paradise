@@ -164,7 +164,7 @@
 	explosion(affected_turf, 0, 0, 3, 5, FALSE, FALSE)
 	flame_radius(3, affected_turf, 5 SECONDS, BURN_LEVEL_TIER_6, FLAMESHAPE_STAR)
 
-/datum/weather/hell/proc/end()
+/datum/weather/hell/end()
 	. = ..()
 
 	if(QDELETED(src))
