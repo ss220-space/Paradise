@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
-			to_chat(user, span_notice("Вы [state == WINDOW_IN_FRAME ? "открутили окно от рамы" : "закрутили окно в раме.]."))
+			to_chat(user, span_notice("Вы [state == WINDOW_IN_FRAME ? "открутили окно от рамы" : "закрутили окно в раме"]."))
 
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)

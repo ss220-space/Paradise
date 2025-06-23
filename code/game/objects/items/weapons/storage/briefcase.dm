@@ -16,7 +16,7 @@
 	max_integrity = 150
 
 /obj/item/storage/briefcase/sniperbundle
-	desc = ""На его этикетке написано \"настоящая закаленная кожа капитана\", но подозрительно отсутствуют другие метки или бренды. Пахнет как L'Air du Temps."
+	desc = "На его этикетке написано \"настоящая закаленная кожа капитана\", но подозрительно отсутствуют другие метки или бренды. Пахнет как L'Air du Temps."
 	force = 10
 
 /obj/item/storage/briefcase/sniperbundle/populate_contents()

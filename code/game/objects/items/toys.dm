@@ -831,7 +831,7 @@
 	if(. || !COOLDOWN_FINISHED(src, cooldown))
 		return .
 	var/ricetext = pick("Добро пожаловать на рисовые поля!", "Где мой рис?!", "Мяу!", "Мурр!")
-	user.visible_message("[[bicon(src)]] [span_notice(ricetext)]")
+	user.visible_message("[bicon(src)] [span_notice(ricetext)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/voxplushie
@@ -869,7 +869,7 @@
 		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
-	user.visible_message("[bicon(src)] [span_notice(message)]")
+	src.visible_message("[bicon(src)] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/rdplushie/attack_self(mob/user)
@@ -924,7 +924,7 @@
 	"Подмогу в туалет брига!", "Почему над унитазом установлены 3 камеры?")
 
 	playsound(loc, 'sound/items/GSBussy.ogg', 30, TRUE)
-	user.visible_message("[bicon(src)] [span_notice(message)]")
+	src.visible_message("[bicon(src)] [span_notice(message)]")
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
 /obj/item/toy/plushie/gsbplushie/attack_self(mob/user)
@@ -956,7 +956,7 @@
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
 	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
-	user.visible_message("[bicon(src)] [span_danger("AAAAAAХ!")]")
+	src.visible_message("[bicon(src)] [span_danger("AAAAAAХ!")]")
 	if(singed)
 		return
 	singed = TRUE
