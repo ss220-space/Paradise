@@ -158,17 +158,17 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 					return
 
 				if(H.stat != CONSCIOUS)
-				to_chat(usr, span_warning("The person you are trying to contact is not conscious. ERT denied but no message has been sent."))
-				return
-			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
-				return
-			to_chat(usr, span_notice("You sent [reason] to [H] via a secure channel."))
-			to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
-		else
-			usr.client.response_team()
+					to_chat(usr, span_warning("The person you are trying to contact is not conscious. ERT denied but no message has been sent."))
+					return
+				if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+					to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
+					return
+				to_chat(usr, span_notice("You sent [reason] to [H] via a secure channel."))
+				to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
+			else
+				usr.client.response_team()
 
-		if ("getcode")
+		if("getcode")
 			if(request.req_type != REQUEST_NUKE)
 				to_chat(usr, "<span class='warning'>Warning! That this is a non-nuke-code-request request!</span>")
 			to_chat(usr, "<b>The nuke code is: [get_nuke_code()]!</b>")
