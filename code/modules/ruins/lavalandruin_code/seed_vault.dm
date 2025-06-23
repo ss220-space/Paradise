@@ -27,10 +27,10 @@
 	death = FALSE
 	mob_species = /datum/species/diona/pod
 	important_info = "Распространение Лозы \"Кудзу\" на территории Лазиса запрещено правилами."
-	description = "You are a diona on Lavaland with access to a full botany setup. Perfect to mess around with plants in peace."
-	flavour_text = "You are a sentient ecosystem, an example of the mastery over life that your creators possessed. Your masters, benevolent as they were, created uncounted \
-	seed vaults and spread them across the universe to every planet they could chart. You are in one such seed vault. Your goal is to cultivate and spread life wherever it will go while waiting \
-	for contact from your creators. Estimated time of last contact: Deployment, 5x10^3 millennia ago."
+	description = "Вы - диона на Лаваленде с доступом к полному набору для ботаники. Идеально, чтобы спокойно экспериментировать с растениями."
+	flavour_text = "Вы - разумная экосистема, пример мастерства над жизнью, которым обладали ваши создатели. Ваши мастера, столь же доброжелательные, сколь и могущественные, создали бесчисленные \
+	хранилища семян и распространили их по всей вселенной на каждую планету, которую смогли нанести на карту. Вы находитесь в одном из таких хранилищ. Ваша цель — культивировать и распространять жизнь везде, где это возможно, \
+	ожидая контакта от ваших создателей. Предполагаемое время последнего контакта: 5x10^3 тысячелетий назад."
 	assignedrole = "Lifebringer"
 
 /obj/effect/mob_spawn/human/seed_vault/special(mob/living/new_spawn)
