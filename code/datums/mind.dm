@@ -505,16 +505,16 @@
 
 /datum/mind/proc/memory_edit_devil(mob/living/H)
 	. = _memory_edit_header("devil", list("devilagents"))
-	if(src in SSticker.mode.devils)
-		var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
-		if(!devilinfo)
-			. += "<b>No devilinfo found! Yell at a coder!</b>"
-		else
-			. += "<a href='byond://?src=[UID()];devil=devil'>DEVIL</a>|sintouched|<a href='byond://?src=[UID()];devil=clear'>no</a>"
-	else if(src in SSticker.mode.sintouched)
-		. += "devil|<b>SINTOUCHED</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+	var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
+	if(devilinfo)
+		. += "<b>[span_fontcolor_red("DEVIL")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "<br><a href='byond://?src=[UID()];devil=panel'>Devil panel</a>"
+		. += "<br><a href='byond://?src=[UID()];devil=rank'>Increase rank</a>"
+
+	else if(has_antag_datum(/datum/antagonist/sintouched))
+		. += "<b>[span_fontcolor_red("SINTOUCHED")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else
-		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>|<b>NO</b>"
+		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>"
 
 	. += _memory_edit_role_enabled(ROLE_DEVIL)
 
@@ -1935,6 +1935,7 @@
 					log_admin("[key_name(usr)] has de-sintouch'ed [current].")
 
 				remove_devil_role()
+
 			if("devil")
 				if(has_antag_datum(/datum/antagonist/devil))
 					return
@@ -1942,6 +1943,19 @@
 				add_antag_datum(/datum/antagonist/devil)
 				message_admins("[key_name_admin(usr)] has devil'ed [current].")
 				log_admin("[key_name(usr)] has devil'ed [current].")
+
+			if("rank")
+				var/datum/antagonist/devil/devil = has_antag_datum(/datum/antagonist/devil)
+
+				if(!devil)
+					return
+
+				if(!devil.rank.next_rank_type)
+					return
+
+				devil.init_new_rank(devil.rank.next_rank_type, TRUE)
+				log_and_message_admins("increased the rank of the devil to [current]")
+
 			if("sintouched")
 				if(has_antag_datum(/datum/antagonist/sintouched))
 					return
@@ -1949,6 +1963,14 @@
 				add_antag_datum(/datum/antagonist/sintouched)
 				message_admins("[key_name_admin(usr)] has sintouch'ed [current].")
 				log_admin("[key_name(usr)] has sintouch'ed [current].")
+
+			if("panel")
+				var/datum/antagonist/devil/devil = has_antag_datum(/datum/antagonist/devil)
+
+				if(!devil)
+					return
+
+				devil.ui_interact(usr)
 
 	else if(href_list["traitor"])
 		switch(href_list["traitor"])
@@ -2606,10 +2628,11 @@
 	antag.owner = src
 	LAZYADD(antag_datums, antag)
 
-	antag.create_team(team)
-	var/datum/team/antag_team = antag.get_team()
-	if(antag_team)
-		antag_team.add_member(src)
+	if(team)
+		antag.create_team(team)
+		var/datum/team/antag_team = antag.get_team()
+		if(antag_team)
+			antag_team.add_member(src)
 
 	ASSERT(antag.owner && antag.owner.current)
 	antag.on_gain()
@@ -3116,6 +3139,10 @@
 
 /datum/mind/proc/is_revivable() //Note, this ONLY checks the mind.
 	if(damnation_type)
+		return FALSE
+	if(!hasSoul)
+		return FALSE
+	if(soulOwner != src)
 		return FALSE
 	return TRUE
 

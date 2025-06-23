@@ -235,6 +235,8 @@
 		appears_dead = TRUE
 		if(suiciding)
 			msg += span_warning("Выгляд[pluralize_ru(gender, "ит", "ят")] так, будто [genderize_ru(gender, "он", "она", "оно", "они")] покончил[genderize_ru(gender, "", "а", "о", "и")] с собой... надежды на восстановление нет.\n")
+		if(mind && !mind.hasSoul)
+			msg += span_boldwarning("<span style='font-size: large;'>[capitalize(genderize_ru(gender, "его", "её", "его", "их"))] душа – моя. Не тратьте свое время.</span>\n")
 		msg += span_deadsay("[genderize_ru(gender, "Он", "Она", "Оно", "Они")] безжизнен[genderize_ru(gender, "", "на", "но", "ны")] и не реагиру[pluralize_ru(gender,"ет","ют")]. Нет никаких признаков жизни.")
 		if(get_int_organ(/obj/item/organ/internal/brain))
 			if(!key)
