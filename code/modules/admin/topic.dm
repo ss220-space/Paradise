@@ -3410,14 +3410,14 @@
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Black Out")
 				log_and_message_admins("broke all lights")
-				for(var/obj/machinery/light/L in GLOB.machines)
+				for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 					L.break_light_tube()
 			if("whiteout")
 				if(!you_realy_want_do_this())
 					return
 				SSblackbox.record_feedback("tally", "admin_secrets_fun_used", 1, "Fix All Lights")
 				log_and_message_admins("fixed all lights")
-				for(var/obj/machinery/light/L in GLOB.machines)
+				for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 					L.fix()
 					L.switchcount = 0
 			if("floorlava")

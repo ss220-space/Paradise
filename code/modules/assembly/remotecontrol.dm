@@ -94,7 +94,7 @@
 /obj/item/assembly/control/ticket_machine/activate()
 	if(!..())
 		return
-	for(var/obj/machinery/ticket_machine/M in GLOB.machines)
+	for(var/obj/machinery/ticket_machine/M in SSmachines.get_by_type(/obj/machinery/ticket_machine))
 		if(!(M.id in ids))
 			continue
 		M.increment()

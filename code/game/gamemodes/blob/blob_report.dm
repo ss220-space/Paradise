@@ -19,7 +19,7 @@
 			intercepttext += "Конец сообщения."
 		if(BLOB_SECOND_REPORT)
 			var/nukecode = rand(10000, 99999)
-			for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+			for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 				if(bomb && bomb.r_code)
 					if(is_station_level(bomb.z))
 						bomb.r_code = nukecode

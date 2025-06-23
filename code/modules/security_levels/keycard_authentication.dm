@@ -145,7 +145,7 @@
 
 /obj/machinery/keycard_auth/proc/broadcast_request()
 	update_icon()
-	for(var/obj/machinery/keycard_auth/KA in GLOB.machines)
+	for(var/obj/machinery/keycard_auth/KA in SSmachines.get_by_type(/obj/machinery/keycard_auth))
 		if(KA == src)
 			continue
 		KA.receive_request(src)

@@ -78,7 +78,7 @@
 		GLOB.event_announcement.Announce("Все СКА+Ны на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.", "ВНИМАНИЕ: СИСТЕМА ПИТАНИЯ ВОССТАНОВЛЕНА.", new_sound = 'sound/AI/poweron.ogg')
 
 	// fix all of the SMESs
-	for(var/obj/machinery/power/smes/S in GLOB.machines)
+	for(var/obj/machinery/power/smes/S in SSmachines.get_by_type(/obj/machinery/power/smes))
 		if(!is_station_level(S.z))
 			continue
 		S.charge = S.capacity
