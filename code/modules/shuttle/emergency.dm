@@ -132,9 +132,9 @@
 		)
 	else
 		GLOB.major_announcement.Announce(
-			"Был вызван шаттл для транспортировки экипажа. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
+			"Был вызван транспортный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
 			new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
-			new_sound = sound('sound/AI/cshuttle_dock.ogg')
+			new_sound = sound('sound/AI/cshuttle.ogg')
 		)
 
 /obj/docking_port/mobile/emergency/cancel(area/signalOrigin)
@@ -225,13 +225,13 @@
 				setTimer(SSshuttle.emergencyDockTime)
 				if(canRecall)
 					GLOB.major_announcement.Announce(
-						"The emergency shuttle has docked with the station. You have [timeLeft(600)] minutes to board the emergency shuttle.",
+						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
 						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
 						new_sound = sound('sound/AI/eshuttle_dock.ogg')
 					)
 				else
 					GLOB.major_announcement.Announce(
-						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
+						"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
 						new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
 						new_sound = sound('sound/AI/cshuttle_dock.ogg')
 					)

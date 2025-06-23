@@ -105,7 +105,8 @@
 /datum/team/xenomorph/proc/announce()
 	GLOB.major_announcement.Announce("Вспышка биологической угрозы 4-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать её распространение любой ценой! Особая директива распечатана на всех консолях связи.",
 									"Биологическая угроза",
-									'sound/effects/siren-spooky.ogg'
+									'sound/effects/siren-spooky.ogg',
+									new_sound2 = 'sound/AI/outbreak_xeno.ogg'
 	)
 	SSticker?.mode?.special_directive()
 	SSshuttle?.emergency.cancel()
