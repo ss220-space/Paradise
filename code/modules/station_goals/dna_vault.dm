@@ -57,8 +57,8 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/dna_vault/V in GLOB.dna_vaults)
-		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && is_station_contact(V.z))
+	for(var/obj/machinery/dna_vault/V in SSmachines.get_by_type(/obj/machinery/dna_vault))
+		if(length(V.animals) >= animal_count && length(V.plants) >= plant_count && length(V.dna) >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
 
@@ -175,7 +175,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault/New()
 	//TODO: Replace this,bsa and gravgen with some big machinery datum
-	GLOB.dna_vaults += src
 	var/list/occupied = list()
 	for(var/direct in list(EAST,WEST,SOUTHEAST,SOUTHWEST))
 		occupied += get_step(src,direct)
@@ -203,7 +202,6 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 	icon_state = "vault"
 
 /obj/machinery/dna_vault/power_change(forced = FALSE)
-	GLOB.dna_vaults -= src
 	if(!..())
 		return
 	update_icon(UPDATE_ICON_STATE)
