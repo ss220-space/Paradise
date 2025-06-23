@@ -247,7 +247,7 @@
 
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
 				GLOB.major_announcement.Announce(
-					"Шаттл заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.",
+					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
 					new_title = ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT
 				)
 				sound_played = 0

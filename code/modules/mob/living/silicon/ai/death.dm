@@ -19,7 +19,7 @@
 		GLOB.disable_robotics_consoles = FALSE
 
 	if(nuking)
-		set_security_level("red")
+		SSsecurity_level.set_level(SEC_LEVEL_RED)
 		nuking = 0
 		for(var/obj/item/pinpointer/point in GLOB.pinpointer_list)
 			point.the_disk = null //Point back to the disk.

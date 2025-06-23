@@ -3647,37 +3647,11 @@
 				else
 					log_and_message_admins(span_adminnotice("tried starting a Thunderdome match, but no ghosts signed up."))
 
-			if("securitylevel0")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_GREEN)
-				log_and_message_admins(span_notice("change security level to Green."))
-
-			if("securitylevel1")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_BLUE)
-				log_and_message_admins(span_notice("change security level to Blue."))
-			if("securitylevel2")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_RED)
-				log_and_message_admins(span_notice("change security level to Red."))
-			if("securitylevel3")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_GAMMA)
-				log_and_message_admins(span_notice("change security level to Gamma."))
-			if("securitylevel4")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_EPSILON)
-				log_and_message_admins(span_notice("change security level to Epsilon."))
-			if("securitylevel5")
-				if(!you_realy_want_do_this())
-					return
-				set_security_level(SEC_LEVEL_DELTA)
-				log_and_message_admins(span_notice("change security level to Delta."))
+			if("securitylevel")
+				var/level_number = text2num(href_list["number"])
+				SSsecurity_level.set_level(level_number)
+				message_admins(span_notice("[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)]."))
+				
 			if("moveminingshuttle")
 				if(!you_realy_want_do_this())
 					return

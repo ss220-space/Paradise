@@ -36,7 +36,7 @@ SUBSYSTEM_DEF(nightshift)
 /datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)
 	if(check_canfire && !can_fire)
 		return
-	var/emergency = GLOB.security_level >= SEC_LEVEL_RED
+	var/emergency = SSsecurity_level.get_current_level_as_number() >= SEC_LEVEL_RED
 	var/announcing = TRUE
 	var/time = station_time()
 	var/night_time = (time < nightshift_end_time) || (time > nightshift_start_time)
@@ -63,6 +63,6 @@ SUBSYSTEM_DEF(nightshift)
 			announce("Доброе утро, экипаж. В связи с наступлением дневного времени освещ+ение на борту станции переведено в дневной режим.")
 	for(var/A in GLOB.apcs)
 		var/obj/machinery/power/apc/APC = A
-		if(is_station_level(APC.z) || is_taipan(APC.z) && GLOB.security_level == SEC_LEVEL_GREEN)
+		if(is_station_level(APC.z) || is_taipan(APC.z) && SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_GREEN)
 			APC.set_nightshift(active)
 			CHECK_TICK

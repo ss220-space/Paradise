@@ -45,7 +45,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	sync_limit()
 	W.update_icon()
 	if(user)
-		to_chat(user, span_notice("Вы установили [src] в [W]. Установка доступных режимов в соответствии с уровнем опасности ([get_security_level_ru()])."))
+		to_chat(user, span_notice("Вы установили [src] в [W]. Установка доступных режимов в соответствии с уровнем опасности ([capitalize(SSsecurity_level.get_current_level_as_text())])."))
 		if(!auth_id)
 			to_chat(user, span_notice("Требуется авторизация! Приложите ID-карту."))
 
@@ -172,7 +172,7 @@ GLOBAL_VAR_INIT(sibsys_automode, TRUE)
 	return TRUE
 
 /obj/item/sibyl_system_mod/proc/sync_limit()
-	switch(GLOB.security_level)
+	switch(SSsecurity_level.get_current_level_as_number())
 		if(SEC_LEVEL_GREEN)
 			set_limit(SIBYL_NONLETHAL)
 		if(SEC_LEVEL_BLUE)

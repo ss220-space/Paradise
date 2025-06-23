@@ -1796,7 +1796,7 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 
 /datum/objective/blob_critical_mass/check_completion()
 	if(!completed)
-		completed = needed_critical_mass <= critical_mass && GLOB.security_level < SEC_LEVEL_DELTA
+		completed = needed_critical_mass <= critical_mass && SSsecurity_level.get_current_level_as_number() < SEC_LEVEL_DELTA
 	return ..()
 
 

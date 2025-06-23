@@ -234,7 +234,7 @@ GLOBAL_LIST_EMPTY(world_topic_handlers)
 		s += "<br>[CONFIG_GET(string/server_tag_line)]"
 
 	if(SSticker && ROUND_TIME > 0)
-		s += "<br>[ROUND_TIME_TEXT()], " + capitalize(get_security_level())
+		s += "<br>[ROUND_TIME_TEXT()], " + capitalize(SSsecurity_level.get_current_level_as_text())
 	else
 		s += "<br><b>STARTING</b>"
 

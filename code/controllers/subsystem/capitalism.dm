@@ -34,7 +34,7 @@ SUBSYSTEM_DEF(capitalism)
 
 	//if(default_counter > 300)
 	//	GLOB.major_announcement.Announce("Станция признана убыточным объектом. Хорошего дня.", "Расторжение контрактов.", 'sound/AI/commandreport.ogg')
-	//	set_security_level(SEC_LEVEL_EPSILON)
+	//	SSsecurity_level.set_level(SEC_LEVEL_EPSILON)
 
 	//If there is enough money to pay salaries at least twice before the default is lifted
 	if(default_status && (payment_account.money > (potential_salary_payments() + EXTRA_MONEY)))

@@ -17,6 +17,10 @@ SUBSYSTEM_DEF(mapping)
 	var/datum/lavaland_theme/lavaland_theme
 	///List of areas that exist on the station this shift
 	var/list/existing_station_areas
+	// Tells if all maintenance airlocks have emergency access enabled
+	var/maint_all_access = FALSE
+	// Tells if all station airlocks have emergency access enabled
+	var/station_all_access = FALSE
 	///list of lists, inner lists are of the form: list("up or down link direction" = TRUE)
 	var/list/multiz_levels = list()
 
@@ -489,6 +493,42 @@ SUBSYSTEM_DEF(mapping)
 			log_world("Failed to place [current_pick.name] ruin.")
 
 	log_world("Ruin loader finished with [budget] left to spend.")
+
+/datum/controller/subsystem/mapping/proc/make_maint_all_access()
+	for(var/area/maintenance/A in existing_station_areas)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = TRUE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
+	maint_all_access = TRUE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
+
+/datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
+	for(var/area/maintenance/A in existing_station_areas)
+		for(var/obj/machinery/door/airlock/D in A)
+			D.emergency = FALSE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
+	maint_all_access = FALSE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
+
+/datum/controller/subsystem/mapping/proc/make_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = TRUE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
+	station_all_access = TRUE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
+
+/datum/controller/subsystem/mapping/proc/revoke_station_all_access()
+	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
+		if(is_station_level(D.z))
+			D.emergency = FALSE
+			D.update_icon()
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
+	station_all_access = FALSE
+	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))
 
 /// Adds a new reservation z level. A bit of space that can be handed out on request
 /// Of note, reservations default to transit turfs, to make their most common use, shuttles, faster

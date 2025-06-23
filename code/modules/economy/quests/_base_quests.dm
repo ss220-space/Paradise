@@ -50,7 +50,7 @@
 		if(cargo_quest)
 			current_quests += cargo_quest
 
-	if(GLOB.security_level > SEC_LEVEL_RED)
+	if(SSsecurity_level.get_current_level_as_number() > SEC_LEVEL_RED)
 		reward *= 2
 	customer.change_reward(src)
 	customer.special(src)
@@ -152,8 +152,8 @@
 	var/list/req_items = list()
 	///possible difficultly
 	var/difficultly_flags
-	
-	
+
+
 	var/cargo_quest_reward = 0 			//The reward for the quest, consider the debut of the roflcat
 	var/list/bounty_jobs = list() 		//Positions that will be paid. (Noooo I won't do part of this in new)
 	var/linked_departament = "Cargo" 	//The department key is specified to take it from the global list, no, I will not upload to new, I'm afraid to break even
