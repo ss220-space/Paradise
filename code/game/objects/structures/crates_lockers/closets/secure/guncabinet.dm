@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/guncabinet
 	name = "gun cabinet"
+	ru_names = list(
+		NOMINATIVE = "оружейный шкафчик",
+		GENITIVE = "оружейного шкафчика",
+		DATIVE = "оружейному шкафчику",
+		ACCUSATIVE = "оружейный шкафчик",
+		INSTRUMENTAL = "оружейным шкафчиком",
+		PREPOSITIONAL = "оружейном шкафчике"
+	)
 	req_access = list(ACCESS_ARMORY)
 	icon = 'icons/obj/guncabinet.dmi'
 	icon_state = "guncabinet"

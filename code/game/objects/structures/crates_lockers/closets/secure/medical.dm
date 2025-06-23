@@ -1,6 +1,13 @@
 /obj/structure/closet/secure_closet/medical1
 	name = "medicine closet"
-	desc = "Filled with medical junk."
+	ru_names = list(
+		NOMINATIVE = "медицинский шкафчик",
+		GENITIVE = "медицинского шкафчика",
+		DATIVE = "медицинскому шкафчику",
+		ACCUSATIVE = "медицинский шкафчик",
+		INSTRUMENTAL = "медицинским шкафчиком",
+		PREPOSITIONAL = "медицинском шкафчике"
+	)
 	icon_state = "medical"
 	req_access = list(ACCESS_MEDICAL)
 
@@ -22,7 +29,14 @@
 
 /obj/structure/closet/secure_closet/medical2
 	name = "anesthetic locker"
-	desc = "Used to knock people out."
+	ru_names = list(
+		NOMINATIVE = "анестезиологический шкафчик",
+		GENITIVE = "анестезиологического шкафчика",
+		DATIVE = "анестезиологическому шкафчику",
+		ACCUSATIVE = "анестезиологический шкафчик",
+		INSTRUMENTAL = "анестезиологическим шкафчиком",
+		PREPOSITIONAL = "анестезиологическом шкафчике"
+	)
 	icon_state = "medical"
 	req_access = list(ACCESS_SURGERY)
 
@@ -37,6 +51,14 @@
 
 /obj/structure/closet/secure_closet/medical3
 	name = "medical doctor's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Врача",
+		GENITIVE = "шкафчика Врача",
+		DATIVE = "шкафчику Врача",
+		ACCUSATIVE = "шкафчик Врача",
+		INSTRUMENTAL = "шкафчиком Врача",
+		PREPOSITIONAL = "шкафчике Врача"
+	)
 	req_access = list(ACCESS_SURGERY)
 	icon_state = "med"
 
@@ -57,6 +79,14 @@
 
 /obj/structure/closet/secure_closet/medical4
 	name = "surgeon locker"
+	ru_names = list(
+		NOMINATIVE = "хирургический шкафчик",
+		GENITIVE = "хирургического шкафчика",
+		DATIVE = "хирургическому шкафчику",
+		ACCUSATIVE = "хирургический шкафчик",
+		INSTRUMENTAL = "хирургическим шкафчиком",
+		PREPOSITIONAL = "хирургическом шкафчике"
+	)
 	req_access = list(ACCESS_SURGERY)
 	icon_state = "med"
 
@@ -70,47 +100,18 @@
 	new /obj/item/handheld_defibrillator(src)
 	new /obj/item/handheld_defibrillator(src)
 
-//Exam Room
-/obj/structure/closet/secure_closet/exam
-	name = "exam room closet"
-	desc = "Filled with exam room materials."
-	icon_state = "medical"
-	req_access = list(ACCESS_MEDICAL)
 
-/obj/structure/closet/secure_closet/exam/populate_contents()
-	new /obj/item/storage/box/syringes(src)
-	new /obj/item/reagent_containers/dropper(src)
-	new /obj/item/storage/belt/medical(src)
-	new /obj/item/clothing/mask/surgical(src)
-	new /obj/item/clothing/glasses/hud/health(src)
-	new /obj/item/clothing/gloves/color/latex/nitrile(src)
-	new /obj/item/clothing/accessory/stethoscope(src)
-	new /obj/item/flashlight/pen(src)
-	new /obj/item/storage/firstaid/regular(src)
-	new /obj/item/storage/firstaid/adv(src)
-	new /obj/item/storage/firstaid/brute(src)
-	new /obj/item/storage/firstaid/fire(src)
-	new /obj/item/storage/firstaid/o2(src)
-	new /obj/item/storage/firstaid/toxin(src)
-
-
-// Psychiatrist's pill bottle
-/obj/item/storage/pill_bottle/psychiatrist
-	name = "psychiatrist's pill bottle"
-	desc = "Contains various pills to calm or sedate patients."
-	wrapper_color = COLOR_PALE_BTL_GREEN
-
-// Why the hell is this in the closets folder?
-/obj/item/storage/pill_bottle/psychiatrist/populate_contents()
-	for(var/I in 1 to 3)
-		new /obj/item/reagent_containers/food/pill/haloperidol(src)
-		new /obj/item/reagent_containers/food/pill/methamphetamine(src)
-		new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
-	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
-	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 
 /obj/structure/closet/secure_closet/psychiatrist
 	name = "psychiatrist's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Психиатра",
+		GENITIVE = "шкафчика Психиатра",
+		DATIVE = "шкафчику Психиатра",
+		ACCUSATIVE = "шкафчик Психиатра",
+		INSTRUMENTAL = "шкафчиком Психиатра",
+		PREPOSITIONAL = "шкафчике Психиатра"
+	)
 	req_access = list(ACCESS_PSYCHIATRIST)
 	icon_state = "med"
 
@@ -129,6 +130,14 @@
 
 /obj/structure/closet/secure_closet/CMO
 	name = "chief medical officer's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Главного врача",
+		GENITIVE = "шкафчика Главного врача",
+		DATIVE = "шкафчику Главного врача",
+		ACCUSATIVE = "шкафчик Главного врача",
+		INSTRUMENTAL = "шкафчиком Главного врача",
+		PREPOSITIONAL = "шкафчике Главного врача"
+	)
 	req_access = list(ACCESS_CMO)
 	icon_state = "cmo"
 
@@ -161,20 +170,16 @@
 	new /obj/item/megaphone(src)	//added here deleted on maps
 	new /obj/item/storage/garmentbag/CMO(src)
 
-/obj/structure/closet/secure_closet/animal
-	name = "animal control locker"
-	req_access = list(ACCESS_SURGERY)
-
-/obj/structure/closet/secure_closet/animal/populate_contents()
-	new /obj/item/assembly/signaler(src)
-	new /obj/item/radio/electropack(src)
-	new /obj/item/radio/electropack(src)
-	new /obj/item/radio/electropack(src)
-
-
 /obj/structure/closet/secure_closet/chemical
 	name = "chemical closet"
-	desc = "Store dangerous chemicals in here."
+	ru_names = list(
+		NOMINATIVE = "шкафчик для химикатов",
+		GENITIVE = "шкафчика для химикатов",
+		DATIVE = "шкафчику для химикатов",
+		ACCUSATIVE = "шкафчик для химикатов",
+		INSTRUMENTAL = "шкафчиком для химикатов",
+		PREPOSITIONAL = "шкафчике для химикатов"
+	)
 	icon_state = "medical"
 	custom_door_overlay = "chemical"
 	req_access = list(ACCESS_CHEMISTRY)
@@ -188,7 +193,17 @@
 
 /obj/structure/closet/secure_closet/medical_wall
 	name = "first aid closet"
-	desc = "It's a secure wall-mounted storage unit for first aid supplies."
+	desc = "Настенный металлический шкафчик, предназначенный для хранения медикаментов \
+			и оказания первой помощи. Оборудован электронным замком."
+	ru_names = list(
+        NOMINATIVE = "настенная аптечка",
+        GENITIVE = "настенной аптечки",
+        DATIVE = "настенной аптечке",
+        ACCUSATIVE = "настенную аптечку",
+        INSTRUMENTAL = "настенной аптечкой",
+        PREPOSITIONAL = "настенной аптечке"
+	)
+	gender = FEMALE
 	icon_state = "medical_wall"
 	overlay_sparking = "m_sparking"
 	overlay_locked = "m_locked"
@@ -202,7 +217,14 @@
 
 /obj/structure/closet/secure_closet/paramedic
 	name = "paramedic EVA gear"
-	desc = "A locker with a Paramedic EVA suit."
+	ru_names = list(
+		NOMINATIVE = "шкафчик (ВКД Парамедика)",
+		GENITIVE = "шкафчика (ВКД Парамедика)",
+		DATIVE = "шкафчику (ВКД Парамедика)",
+		ACCUSATIVE = "шкафчик (ВКД Парамедика)",
+		INSTRUMENTAL = "шкафчиком (ВКД Парамедика)",
+		PREPOSITIONAL = "шкафчике (ВКД Парамедика)"
+	)
 	icon_state = "paramedEVA"
 	req_access = list(ACCESS_PARAMEDIC)
 
@@ -217,7 +239,14 @@
 
 /obj/structure/closet/secure_closet/reagents
 	name = "chemical storage closet"
-	desc = "Store dangerous chemicals in here."
+	ru_names = list(
+		NOMINATIVE = "шкафчик для химикатов",
+		GENITIVE = "шкафчика для химикатов",
+		DATIVE = "шкафчику для химикатов",
+		ACCUSATIVE = "шкафчик для химикатов",
+		INSTRUMENTAL = "шкафчиком для химикатов",
+		PREPOSITIONAL = "шкафчике для химикатов"
+	)
 	icon_state = "medical"
 	custom_door_overlay = "chemical"
 	req_access = list(ACCESS_CHEMISTRY)

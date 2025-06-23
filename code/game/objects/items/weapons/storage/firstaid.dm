@@ -570,6 +570,28 @@
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 	return ..()
 
+// Psychiatrist's pill bottle
+/obj/item/storage/pill_bottle/psychiatrist
+	name = "psychiatrist's pill bottle"
+	desc = "Герметичный стеклянный флакон, хранящий седативные, наркотические и психотропные вещества. \
+			Предназначены для использования Психиатром исключительно в лечебных целях."
+	ru_names = list(
+        NOMINATIVE = "пузырёк для таблеток (Психиатр)",
+        GENITIVE = "пузырька для таблеток (Психиатр)",
+        DATIVE = "пузырьку для таблеток (Психиатр)",
+        ACCUSATIVE = "пузырёк для таблеток (Психиатр)",
+        INSTRUMENTAL = "пузырьком для таблеток (Психиатр)",
+        PREPOSITIONAL = "пузырьке для таблеток (Психиатр)"
+	)
+	wrapper_color = COLOR_PALE_BTL_GREEN
+
+/obj/item/storage/pill_bottle/psychiatrist/populate_contents()
+	for(var/I in 1 to 3)
+		new /obj/item/reagent_containers/food/pill/haloperidol(src)
+		new /obj/item/reagent_containers/food/pill/methamphetamine(src)
+		new /obj/item/reagent_containers/food/pill/patch/nicotine(src)
+	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
+	new /obj/item/reagent_containers/food/pill/hydrocodone(src)
 
 /obj/item/storage/pill_bottle/patch_pack
 	name = "patch pack"

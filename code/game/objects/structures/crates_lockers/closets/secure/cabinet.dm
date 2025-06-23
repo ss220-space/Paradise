@@ -1,6 +1,7 @@
 /obj/structure/closet/secure_closet/cabinet //Tribute to all those poor mappers who gave their life copypasting these sacred strings // :(
 	name = "secure cabinet"
-	desc = "Old will forever be in fashion."
+	desc = "Деревянный шкаф, оборудованный электронным замком. Предназначен для хранения различных предметов. \
+			Такие всегда будут в моде."
 	ru_names = list(
 		NOMINATIVE = "защищённый шкаф",
 		GENITIVE = "защищённого шкафа",

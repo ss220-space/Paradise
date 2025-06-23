@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/clown
 	name = "clown's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Клоуна",
+		GENITIVE = "шкафчика Клоуна",
+		DATIVE = "шкафчику Клоуна",
+		ACCUSATIVE = "шкафчик Клоуна",
+		INSTRUMENTAL = "шкафчиком Клоуна",
+		PREPOSITIONAL = "шкафчике Клоуна"
+	)
 	req_access = list(ACCESS_CLOWN)
 	icon_state = "clown"
 
@@ -26,6 +34,14 @@
 
 /obj/structure/closet/secure_closet/mime
 	name = "mime's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Мима",
+		GENITIVE = "шкафчика Мима",
+		DATIVE = "шкафчику Мима",
+		ACCUSATIVE = "шкафчик Мима",
+		INSTRUMENTAL = "шкафчиком Мима",
+		PREPOSITIONAL = "шкафчике Мима"
+	)
 	req_access = list(ACCESS_MIME)
 	icon_state = "mime"
 
@@ -50,6 +66,14 @@
 
 /obj/structure/closet/secure_closet/syndicate_officer
 	name = "officer's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Офицера Синдиката",
+		GENITIVE = "шкафчика Офицера Синдиката",
+		DATIVE = "шкафчику Офицера Синдиката",
+		ACCUSATIVE = "шкафчик Офицера Синдиката",
+		INSTRUMENTAL = "шкафчиком Офицера Синдиката",
+		PREPOSITIONAL = "шкафчике Офицера Синдиката"
+	)
 	req_access = list(ACCESS_SYNDICATE_COMMAND)
 
 /obj/structure/closet/secure_closet/syndicate_officer/populate_contents()

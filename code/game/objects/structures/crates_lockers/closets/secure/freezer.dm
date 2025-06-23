@@ -1,5 +1,6 @@
 /obj/structure/closet/secure_closet/freezer
-	desc = "It's a card-locked refrigerative storage unit. This one is lead-lined."
+	desc = "Освинцованный защищённый холодильник, предназначенный для хранения скоропортящихся продуктов. \
+			Оснащён электронным замком, который активируется с помощью ID-карты. Достаточно вместительный."
 
 /obj/structure/closet/secure_closet/freezer/ex_act(var/severity)
 	// IF INDIANA JONES CAN DO IT SO CAN YOU
@@ -12,6 +13,14 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen
 	name = "kitchen cabinet"
+	ru_names = list(
+		NOMINATIVE = "шкаф для продуктов",
+		GENITIVE = "шкафа для продуктов",
+		DATIVE = "шкафу для продуктов",
+		ACCUSATIVE = "шкаф для продуктов",
+		INSTRUMENTAL = "шкафом для продуктов",
+		PREPOSITIONAL = "шкафе для продуктов"
+	)
 	req_access = list(ACCESS_KITCHEN)
 	icon_state = "kitchen"
 
@@ -27,7 +36,17 @@
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance
 	name = "maintenance refrigerator"
-	desc = "This refrigerator looks quite dusty, is there anything edible still inside?"
+	desc = "Старый защищённый холодильник, предназначенный для хранения скоропортящихся продуктов. \
+			Оснащён электронным замком, который активируется с помощью ID-карты. \
+			Покрыт толстым слоем пыли."
+	ru_names = list(
+		NOMINATIVE = "старый холодильник",
+		GENITIVE = "старого холодильника",
+		DATIVE = "старому холодильнику",
+		ACCUSATIVE = "старый холодильник",
+		INSTRUMENTAL = "старым холодильником",
+		PREPOSITIONAL = "старом холодильнике"
+	)
 	req_access = list()
 
 /obj/structure/closet/secure_closet/freezer/kitchen/maintenance/populate_contents()
@@ -40,6 +59,14 @@
 
 /obj/structure/closet/secure_closet/freezer/meat
 	name = "meat fridge"
+	ru_names = list(
+		NOMINATIVE = "холодильник для мяса",
+		GENITIVE = "холодильника для мяса",
+		DATIVE = "холодильнику для мяса",
+		ACCUSATIVE = "холодильник для мяса",
+		INSTRUMENTAL = "холодильником для мяса",
+		PREPOSITIONAL = "холодильнике для мяса"
+	)
 	icon_state = "fridge"
 	overlay_unlocked = "f_unlocked"
 	overlay_locked = "f_locked"
@@ -57,6 +84,14 @@
 
 /obj/structure/closet/secure_closet/freezer/fridge
 	name = "refrigerator"
+	ru_names = list(
+		NOMINATIVE = "холодильник",
+		GENITIVE = "холодильника",
+		DATIVE = "холодильнику",
+		ACCUSATIVE = "холодильник",
+		INSTRUMENTAL = "холодильником",
+		PREPOSITIONAL = "холодильнике"
+	)
 	icon_state = "fridge"
 
 	overlay_unlocked = "f_unlocked"
@@ -78,8 +113,17 @@
 
 /obj/structure/closet/secure_closet/freezer/vault
 	name = "vault locker"
+	desc = "Освинцованный защищённый шкафчик, предназначенный для хранения ценных предметов. \
+			Оснащён электронным замком, который активируется с помощью ID-карты."
+	ru_names = list(
+		NOMINATIVE = "защищённый шкафчик (Хранилище)",
+		GENITIVE = "защищённого шкафчика (Хранилище)",
+		DATIVE = "защищённому шкафчику (Хранилище)",
+		ACCUSATIVE = "защищённый шкафчик (Хранилище)",
+		INSTRUMENTAL = "защищённым шкафчиком (Хранилище)",
+		PREPOSITIONAL = "защищённом шкафчике (Хранилище)"
+	)
 	icon_state = "vault"
-	desc = "It's a card-locked storage unit. This one is lead-lined."
 	req_access = list(ACCESS_HEADS_VAULT)
 
 

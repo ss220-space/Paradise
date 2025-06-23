@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/scientist
 	name = "scientist's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Учёного",
+		GENITIVE = "шкафчика Учёного",
+		DATIVE = "шкафчику Учёного",
+		ACCUSATIVE = "шкафчик Учёного",
+		INSTRUMENTAL = "шкафчиком Учёного",
+		PREPOSITIONAL = "шкафчике Учёного"
+	)
 	req_access = list(ACCESS_TOX_STORAGE)
 	icon_state = "res"
 
@@ -27,6 +35,14 @@
 
 /obj/structure/closet/secure_closet/roboticist
 	name = "roboticist's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Робототехника",
+		GENITIVE = "шкафчика Робототехника",
+		DATIVE = "шкафчику Робототехника",
+		ACCUSATIVE = "шкафчик Робототехника",
+		INSTRUMENTAL = "шкафчиком Робототехника",
+		PREPOSITIONAL = "шкафчике Робототехника"
+	)
 	req_access = list(ACCESS_ROBOTICS)
 	icon_state = "res"
 
@@ -44,6 +60,14 @@
 
 /obj/structure/closet/secure_closet/RD
 	name = "research director's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Научного руководителя",
+		GENITIVE = "шкафчика Научного руководителя",
+		DATIVE = "шкафчику Научного руководителя",
+		ACCUSATIVE = "шкафчик Научного руководителя",
+		INSTRUMENTAL = "шкафчиком Научного руководителя",
+		PREPOSITIONAL = "шкафчике Научного руководителя"
+	)
 	req_access = list(ACCESS_RD)
 	icon_state = "rd"
 
@@ -69,7 +93,14 @@
 
 /obj/structure/closet/secure_closet/research_reagents
 	name = "research chemical storage closet"
-	desc = "Store dangerous chemicals in here."
+	ru_names = list(
+		NOMINATIVE = "шкафчик для химикатов",
+		GENITIVE = "шкафчика для химикатов",
+		DATIVE = "шкафчику для химикатов",
+		ACCUSATIVE = "шкафчик для химикатов",
+		INSTRUMENTAL = "шкафчиком для химикатов",
+		PREPOSITIONAL = "шкафчике для химикатов"
+	)
 	icon_state = "res"
 	custom_door_overlay = "rchemical"
 	req_access = list(ACCESS_TOX_STORAGE)

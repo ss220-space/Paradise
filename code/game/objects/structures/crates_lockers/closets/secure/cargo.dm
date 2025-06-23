@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/cargotech
 	name = "cargo technician's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Грузчика",
+		GENITIVE = "шкафчика Грузчика",
+		DATIVE = "шкафчику Грузчика",
+		ACCUSATIVE = "шкафчик Грузчика",
+		INSTRUMENTAL = "шкафчиком Грузчика",
+		PREPOSITIONAL = "шкафчике Грузчика"
+	)
 	req_access = list(ACCESS_CARGO)
 	icon_state = "cargo"
 
@@ -17,6 +25,14 @@
 
 /obj/structure/closet/secure_closet/quartermaster
 	name = "quartermaster's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Завхоза",
+		GENITIVE = "шкафчика Завхоза",
+		DATIVE = "шкафчику Завхоза",
+		ACCUSATIVE = "шкафчик Завхоза",
+		INSTRUMENTAL = "шкафчиком Завхоза",
+		PREPOSITIONAL = "шкафчике Завхоза"
+	)
 	req_access = list(ACCESS_QM)
 	icon_state = "qm"
 

@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/captains
 	name = "captain's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Капитана",
+		GENITIVE = "шкафчика Капитана",
+		DATIVE = "шкафчику Капитана",
+		ACCUSATIVE = "шкафчик Капитана",
+		INSTRUMENTAL = "шкафчиком Капитана",
+		PREPOSITIONAL = "шкафчике Капитана"
+	)
 	req_access = list(ACCESS_CAPTAIN)
 	icon_state = "capsecure"
 
@@ -21,6 +29,14 @@
 	new /obj/item/storage/garmentbag/captains(src)
 /obj/structure/closet/secure_closet/hop
 	name = "head of personnel's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Главы персонала",
+		GENITIVE = "шкафчика Главы персонала",
+		DATIVE = "шкафчику Главы персонала",
+		ACCUSATIVE = "шкафчик Главы персонала",
+		INSTRUMENTAL = "шкафчиком Главы персонала",
+		PREPOSITIONAL = "шкафчике Главы персонала"
+	)
 	req_access = list(ACCESS_HOP)
 	icon_state = "hop"
 
@@ -40,6 +56,14 @@
 
 /obj/structure/closet/secure_closet/hos
 	name = "head of security's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Главы службы безопасности",
+		GENITIVE = "шкафчика Главы службы безопасности",
+		DATIVE = "шкафчику Главы службы безопасности",
+		ACCUSATIVE = "шкафчик Главы службы безопасности",
+		INSTRUMENTAL = "шкафчиком Главы службы безопасности",
+		PREPOSITIONAL = "шкафчике Главы службы безопасности"
+	)
 	req_access = list(ACCESS_HOS)
 	icon_state = "hos"
 
@@ -73,6 +97,14 @@
 
 /obj/structure/closet/secure_closet/warden
 	name = "warden's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Смотрителя",
+		GENITIVE = "шкафчика Смотрителя",
+		DATIVE = "шкафчику Смотрителя",
+		ACCUSATIVE = "шкафчик Смотрителя",
+		INSTRUMENTAL = "шкафчиком Смотрителя",
+		PREPOSITIONAL = "шкафчике Смотрителя"
+	)
 	req_access = list(ACCESS_ARMORY)
 	icon_state = "warden"
 
@@ -105,6 +137,14 @@
 
 /obj/structure/closet/secure_closet/pilot_sniper
 	name = "sniper gun cabinet"
+	ru_names = list(
+		NOMINATIVE = "шкафчик для снайперской винтовки",
+		GENITIVE = "шкафчика для снайперской винтовки",
+		DATIVE = "шкафчику для снайперской винтовки",
+		ACCUSATIVE = "шкафчик для снайперской винтовки",
+		INSTRUMENTAL = "шкафчиком для снайперской винтовки",
+		PREPOSITIONAL = "шкафчике для снайперской винтовки"
+	)
 	req_access = list(ACCESS_PILOT)
 	icon_state = "sniper"
 
@@ -113,6 +153,14 @@
 
 /obj/structure/closet/secure_closet/security
 	name = "security officer's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Офицера службы безопасности",
+		GENITIVE = "шкафчика Офицера службы безопасности",
+		DATIVE = "шкафчику Офицера службы безопасности",
+		ACCUSATIVE = "шкафчик Офицера службы безопасности",
+		INSTRUMENTAL = "шкафчиком Офицера службы безопасности",
+		PREPOSITIONAL = "шкафчике Офицера службы безопасности"
+	)
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "sec"
 
@@ -134,6 +182,14 @@
 
 /obj/structure/closet/secure_closet/brigdoc
 	name = "brig physician's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Бригмедика",
+		GENITIVE = "шкафчика Бригмедика",
+		DATIVE = "шкафчику Бригмедика",
+		ACCUSATIVE = "шкафчик Бригмедика",
+		INSTRUMENTAL = "шкафчиком Бригмедика",
+		PREPOSITIONAL = "шкафчике Бригмедика"
+	)
 	req_access = list(ACCESS_BRIG)
 	icon_state = "brigmed"
 
@@ -158,6 +214,14 @@
 
 /obj/structure/closet/secure_closet/blueshield
 	name = "blueshield's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Офицера \"Синий щит\"",
+		GENITIVE = "шкафчика Офицера \"Синий щит\"",
+		DATIVE = "шкафчику Офицера \"Синий щит\"",
+		ACCUSATIVE = "шкафчик Офицера \"Синий щит\"",
+		INSTRUMENTAL = "шкафчиком Офицера \"Синий щит\"",
+		PREPOSITIONAL = "шкафчике Офицера \"Синий щит\""
+	)
 	req_access = list(ACCESS_BLUESHIELD)
 	icon_state = "bssecure"
 
@@ -178,6 +242,14 @@
 
 /obj/structure/closet/secure_closet/ntrep
 	name = "\improper Nanotrasen Representative's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Представителя НаноТрейзен",
+		GENITIVE = "шкафчика Представителя НаноТрейзен",
+		DATIVE = "шкафчику Представителя НаноТрейзен",
+		ACCUSATIVE = "шкафчик Представителя НаноТрейзен",
+		INSTRUMENTAL = "шкафчиком Представителя НаноТрейзен",
+		PREPOSITIONAL = "шкафчике Представителя НаноТрейзен"
+	)
 	req_access = list(ACCESS_NTREP)
 	icon_state = "nt"
 
@@ -222,6 +294,14 @@
 
 /obj/structure/closet/secure_closet/cabinet/detective
 	name = "detective's cabinet"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Детектива",
+		GENITIVE = "шкафчика Детектива",
+		DATIVE = "шкафчику Детектива",
+		ACCUSATIVE = "шкафчик Детектива",
+		INSTRUMENTAL = "шкафчиком Детектива",
+		PREPOSITIONAL = "шкафчике Детектива"
+	)
 	icon_state = "cabinetdetective"
 	overlay_locker = "cd_locker"
 	req_access = list(ACCESS_FORENSICS_LOCKERS)
@@ -242,6 +322,14 @@
 
 /obj/structure/closet/secure_closet/injection
 	name = "lethal injections locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик для летальных инъекций",
+		GENITIVE = "шкафчика для летальных инъекций",
+		DATIVE = "шкафчику для летальных инъекций",
+		ACCUSATIVE = "шкафчик для летальных инъекций",
+		INSTRUMENTAL = "шкафчиком для летальных инъекций",
+		PREPOSITIONAL = "шкафчике для летальных инъекций"
+	)
 	req_access = list(ACCESS_SECURITY)
 
 /obj/structure/closet/secure_closet/injection/populate_contents()
@@ -251,6 +339,14 @@
 
 /obj/structure/closet/secure_closet/brig
 	name = "brig locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик для заключённых",
+		GENITIVE = "шкафчика для заключённых",
+		DATIVE = "шкафчику для заключённых",
+		ACCUSATIVE = "шкафчик для заключённых",
+		INSTRUMENTAL = "шкафчиком для заключённых",
+		PREPOSITIONAL = "шкафчике для заключённых"
+	)
 	req_access = list(ACCESS_BRIG)
 	anchored = TRUE
 	var/id = null
@@ -264,28 +360,30 @@
 
 /obj/structure/closet/secure_closet/brig/evidence
 	name = "evidence locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик для улик",
+		GENITIVE = "шкафчика для улик",
+		DATIVE = "шкафчику для улик",
+		ACCUSATIVE = "шкафчик для улик",
+		INSTRUMENTAL = "шкафчиком для улик",
+		PREPOSITIONAL = "шкафчике для улик"
+	)
 	req_access = list(ACCESS_SECURITY)
 
 /obj/structure/closet/secure_closet/brig/evidence/populate_contents()
 	new /obj/item/stack/sheet/cardboard(src)
 
-/obj/structure/closet/secure_closet/courtroom
-	name = "courtroom locker"
-	req_access = list(ACCESS_COURT)
-
-/obj/structure/closet/secure_closet/courtroom/populate_contents()
-	new /obj/item/clothing/shoes/brown(src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/paper/Court (src)
-	new /obj/item/pen (src)
-	new /obj/item/clothing/suit/judgerobe (src)
-	new /obj/item/clothing/head/powdered_wig (src)
-	new /obj/item/storage/briefcase(src)
-
 
 /obj/structure/closet/secure_closet/wall //TODO: Add here sprites. (They do not exist)
 	name = "wall locker"
+	ru_names = list(
+		NOMINATIVE = "настенный шкафчик",
+		GENITIVE = "настенного шкафчика",
+		DATIVE = "настенному шкафчику",
+		ACCUSATIVE = "настенный шкафчик",
+		INSTRUMENTAL = "настенным шкафчиком",
+		PREPOSITIONAL = "настенном шкафчике"
+	)
 	req_access = list(ACCESS_SECURITY)
 	icon_state = "wall-locker"
 	density = TRUE
@@ -295,6 +393,14 @@
 
 /obj/structure/closet/secure_closet/magistrate
 	name = "\improper Magistrate's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Магистрата",
+		GENITIVE = "шкафчика Магистрата",
+		DATIVE = "шкафчику Магистрата",
+		ACCUSATIVE = "шкафчик Магистрата",
+		INSTRUMENTAL = "шкафчиком Магистрата",
+		PREPOSITIONAL = "шкафчике Магистрата"
+	)
 	req_access = list(ACCESS_MAGISTRATE)
 	icon_state = "magistrate"
 

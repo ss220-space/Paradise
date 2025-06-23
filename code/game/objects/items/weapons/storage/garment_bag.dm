@@ -15,6 +15,7 @@
 		INSTRUMENTAL = "сумкой для одежды",
 		PREPOSITIONAL = "сумке для одежды"
 	)
+	gender = FEMALE
 	icon_state = "garment_bag"
 	lefthand_file = 'icons/mob/inhands/clothing_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/clothing_righthand.dmi'

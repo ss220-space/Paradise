@@ -2,17 +2,15 @@
 
 /obj/structure/closet/secure_closet
 	name = "secure locker"
-	desc = "Защищённый шкаф, предназначенный для хранения различных предметов. \
-			Оснащён электронным замком, который активируется с помощью ID-карты. \
-			Изготовлен из прочного металла, устойчивого к различным повреждениям. \
-			Достаточно вместительный."
+	desc = "Защищённый металлический шкафчик, предназначенный для хранения различных предметов. \
+			Оснащён электронным замком, который активируется с помощью ID-карты. Достаточно вместительный."
 	ru_names = list(
-		NOMINATIVE = "защищённый шкаф",
-		GENITIVE = "защищённого шкафа",
-		DATIVE = "защищённому шкафу",
-		ACCUSATIVE = "защищённый шкаф",
-		INSTRUMENTAL = "защищённым шкафом",
-		PREPOSITIONAL = "защищённом шкафе"
+		NOMINATIVE = "защищённый шкафчик",
+		GENITIVE = "защищённого шкафчика",
+		DATIVE = "защищённому шкафчику",
+		ACCUSATIVE = "защищённый шкафчик",
+		INSTRUMENTAL = "защищённым шкафчиком",
+		PREPOSITIONAL = "защищённом шкафчике"
 	)
 	icon = 'icons/obj/closet.dmi'
 	icon_state = "secure"
@@ -34,7 +32,7 @@
 		if(2)
 			. += span_boldnotice("Из замка торчат провода.")
 		if(1)
-			. += span_boldnotice("Замок взломан.")
+			. += span_boldwarning("Замок взломан.")
 
 
 /obj/structure/closet/secure_closet/can_open()
@@ -89,7 +87,7 @@
 		user.balloon_alert(user, "ваши руки заблокированы!")
 		return
 	if(opened)
-		user.balloon_alert(user, "шкаф не закрыт!")
+		user.balloon_alert(user, "не закрыто!")
 		return
 	if(lock_broken)
 		user.balloon_alert(user, "замок сломан!")

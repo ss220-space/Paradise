@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/hydroponics
 	name = "botanist's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Ботаника",
+		GENITIVE = "шкафчика Ботаника",
+		DATIVE = "шкафчику Ботаника",
+		ACCUSATIVE = "шкафчик Ботаника",
+		INSTRUMENTAL = "шкафчиком Ботаника",
+		PREPOSITIONAL = "шкафчике Ботаника"
+	)
 	req_access = list(ACCESS_HYDROPONICS)
 	icon_state = "hydro"
 

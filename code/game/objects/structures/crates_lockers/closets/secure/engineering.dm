@@ -1,5 +1,13 @@
 /obj/structure/closet/secure_closet/engineering_chief
 	name = "chief engineer's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Главного инженера",
+		GENITIVE = "шкафчика Главного инженера",
+		DATIVE = "шкафчику Главного инженера",
+		ACCUSATIVE = "шкафчик Главного инженера",
+		INSTRUMENTAL = "шкафчиком Главного инженера",
+		PREPOSITIONAL = "шкафчике Главного инженера"
+	)
 	req_access = list(ACCESS_CE)
 	icon_state = "ce"
 
@@ -34,6 +42,14 @@
 
 /obj/structure/closet/secure_closet/engineering_electrical
 	name = "electrical supplies locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик электрика",
+		GENITIVE = "шкафчика электрика",
+		DATIVE = "шкафчику электрика",
+		ACCUSATIVE = "шкафчик электрика",
+		INSTRUMENTAL = "шкафчиком электрика",
+		PREPOSITIONAL = "шкафчике электрика"
+	)
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "toolcloset"
 	custom_door_overlay = "engelec"
@@ -54,6 +70,14 @@
 
 /obj/structure/closet/secure_closet/engineering_welding
 	name = "welding supplies locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик сварщика",
+		GENITIVE = "шкафчика сварщика",
+		DATIVE = "шкафчику сварщика",
+		ACCUSATIVE = "шкафчик сварщика",
+		INSTRUMENTAL = "шкафчиком сварщика",
+		PREPOSITIONAL = "шкафчике сварщика"
+	)
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "toolcloset"
 	custom_door_overlay = "engweld"
@@ -69,6 +93,14 @@
 
 /obj/structure/closet/secure_closet/engineering_personal
 	name = "engineer's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Инженера",
+		GENITIVE = "шкафчика Инженера",
+		DATIVE = "шкафчику Инженера",
+		ACCUSATIVE = "шкафчик Инженера",
+		INSTRUMENTAL = "шкафчиком Инженера",
+		PREPOSITIONAL = "шкафчике Инженера"
+	)
 	req_access = list(ACCESS_ENGINE_EQUIP)
 	icon_state = "toolcloset"
 
@@ -94,6 +126,14 @@
 
 /obj/structure/closet/secure_closet/atmos_personal
 	name = "technician's locker"
+	ru_names = list(
+		NOMINATIVE = "шкафчик Атмосферного техника",
+		GENITIVE = "шкафчика Атмосферного техника",
+		DATIVE = "шкафчику Атмосферного техника",
+		ACCUSATIVE = "шкафчик Атмосферного техника",
+		INSTRUMENTAL = "шкафчиком Атмосферного техника",
+		PREPOSITIONAL = "шкафчике Атмосферного техника"
+	)
 	req_access = list(ACCESS_ATMOSPHERICS)
 	icon_state = "atm"
 

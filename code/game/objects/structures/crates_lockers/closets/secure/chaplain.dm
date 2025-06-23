@@ -1,6 +1,13 @@
 /obj/structure/closet/secure_closet/chaplain
 	name = "chapel wardrobe"
-	desc = "A lockable storage unit for Nanotrasen-approved religious attire."
+	ru_names = list(
+		NOMINATIVE = "шкафчик Священника",
+		GENITIVE = "шкафчика Священника",
+		DATIVE = "шкафчику Священника",
+		ACCUSATIVE = "шкафчик Священника",
+		INSTRUMENTAL = "шкафчиком Священника",
+		PREPOSITIONAL = "шкафчике Священника"
+	)
 	req_access = list(ACCESS_CHAPEL_OFFICE)
 	icon_state = "chaplain"
 

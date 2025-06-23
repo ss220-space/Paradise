@@ -1,7 +1,14 @@
 
 /obj/structure/closet/secure_closet/syndicate/depot
 	name = "depot supply closet"
-	desc = ""
+	ru_names = list(
+		NOMINATIVE = "защищённый шкафчик",
+		GENITIVE = "защищённого шкафчика",
+		DATIVE = "защищённому шкафчику",
+		ACCUSATIVE = "защищённый шкафчик",
+		INSTRUMENTAL = "защищённым шкафчиком",
+		PREPOSITIONAL = "защищённом шкафчике"
+	)
 	locked = 0
 	anchored = TRUE
 	req_access = list()
@@ -31,9 +38,10 @@
 			if(is_armory)
 				depotarea.armory_locker_looted()
 
-/obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/M)
-	if(isanimal(M) && ("syndicate" in M.faction))
-		to_chat(M, "<span class='warning'>The [src] resists your attack!</span>")
+/obj/structure/closet/secure_closet/syndicate/depot/attack_animal(mob/user)
+	if(isanimal(user) && ("syndicate" in user.faction))
+		user.balloon_alert(user, "неподходящая цель!")
+		to_chat(user, span_warning("Вы не должны наносить ущерб [declent_ru(ACCUSATIVE)]!"))
 		return
 	return ..()
 
@@ -44,7 +52,8 @@
 
 	if(istype(I, /obj/item/rcs))
 		add_fingerprint(user)
-		to_chat(user, span_warning("Bluespace interference prevents [I] from locking onto [src]!"))
+		user.balloon_alert(user, "невозможно!")
+		to_chat(user, span_warning("Помехи в блюспейс-пространстве не дают зафиксировать [I.declent_ru(ACCUSATIVE)] на [declent_ru(PREPOSITIONAL)]!"))
 		return ATTACK_CHAIN_PROCEED
 
 	return ..()
