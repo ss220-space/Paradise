@@ -535,7 +535,15 @@
 
 /obj/item/storage/belt/lazarus
 	name = "trainer's belt"
-	desc = "For the mining master, holds your lazarus capsules."
+	desc = "Для шахтёров-мастеров – хранит капсулы Лазаря."
+	ru_names = list(
+		NOMINATIVE = "пояс тренера",
+		GENITIVE = "пояса тренера",
+		DATIVE = "поясу тренера",
+		ACCUSATIVE = "пояс тренера",
+		INSTRUMENTAL = "поясом тренера",
+		PREPOSITIONAL = "поясе тренера"
+	)
 	icon_state = "lazarusbelt_0"
 	item_state = "lazbelt"
 	w_class = WEIGHT_CLASS_BULKY
@@ -912,7 +920,15 @@
 
 /obj/item/storage/belt/mining
 	name = "explorer's webbing"
-	desc = "A versatile chest rig, cherished by miners and hunters alike."
+	desc = "Универсальная нагрудная система, высоко ценимая шахтёрами и охотниками."
+	ru_names = list(
+		NOMINATIVE = "разгрузка исследователя",
+		GENITIVE = "разгрузки исследователя",
+		DATIVE = "разгрузке исследователя",
+		ACCUSATIVE = "разгрузку исследователя",
+		INSTRUMENTAL = "разгрузкой исследователя",
+		PREPOSITIONAL = "разгрузке исследователя"
+	)
 	icon_state = "explorer1"
 	item_state = "explorer1"
 	storage_slots = 6
@@ -972,7 +988,15 @@
 
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
-	desc = "A versatile belt, woven from sinew."
+	desc = "Универсальный пояс, сплетённый из сухожилий."
+	ru_names = list(
+		NOMINATIVE = "охотничий пояс",
+		GENITIVE = "охотничьего пояса",
+		DATIVE = "охотничьему поясу",
+		ACCUSATIVE = "охотничий пояс",
+		INSTRUMENTAL = "охотничьим поясом",
+		PREPOSITIONAL = "охотничьем поясе"
+	)
 	icon_state = "hunter_belt"
 	item_state = "ebelt"
 	use_item_overlays = TRUE
