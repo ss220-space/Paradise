@@ -516,7 +516,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/rnd_logs_key/LateInitialize()
-	var/obj/machinery/r_n_d/server/located_server = locate() in GLOB.machines
+	var/obj/machinery/r_n_d/server/located_server = locate() in SSmachines.get_by_type(/obj/machinery/r_n_d/server)
 	if(!located_server)
 		return
 	var/decryption_key = located_server.logs_decryption_key

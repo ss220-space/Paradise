@@ -363,7 +363,7 @@
 		I.forceMove(src)
 		handle_contents(I)
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
+	for(var/obj/machinery/computer/cloning/cloner in SSmachines.get_by_type(/obj/machinery/computer/cloning))
 		for(var/datum/dna2/record/R in cloner.records)
 			if(occupant.mind == locate(R.mind))
 				cloner.records.Remove(R)
@@ -754,7 +754,7 @@
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	var/list/free_syndie_cryopods = list()
-	for(var/obj/machinery/cryopod/P in GLOB.machines)
+	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(!P.occupant && istype(get_area(P), /area/syndicate/unpowered/syndicate_space_base) && istype(P, /obj/machinery/cryopod/syndie))
 			free_syndie_cryopods += P
 		else if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))

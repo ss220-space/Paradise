@@ -231,7 +231,7 @@
 /obj/machinery/magnetic_controller/LateInitialize()
 	..()
 	if(autolink)
-		// GLOB.machines is populated in /machinery/Initialize
+		// SSmachines  is populated in /machinery/Initialize
 		// so linkage gets delayed until that one finished.
 		link_magnets()
 
@@ -245,7 +245,7 @@
 
 /obj/machinery/magnetic_controller/proc/link_magnets()
 	magnets = list()
-	for(var/obj/machinery/magnetic_module/module in GLOB.machines)
+	for(var/obj/machinery/magnetic_module/module in SSmachines.get_by_type(/obj/machinery/magnetic_module))
 		if(module.freq == frequency && module.code == code)
 			magnets += module
 			RegisterSignal(module, COMSIG_QDELETING, PROC_REF(on_magnet_del), TRUE)
@@ -258,7 +258,7 @@
 
 /obj/machinery/magnetic_controller/process()
 	if(!length(magnets) && autolink)
-		for(var/obj/machinery/magnetic_module/module in GLOB.machines)
+		for(var/obj/machinery/magnetic_module/module in SSmachines.get_by_type(/obj/machinery/magnetic_module))
 			if(module.freq == frequency && module.code == code)
 				magnets += module
 
