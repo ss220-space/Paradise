@@ -78,12 +78,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/list/garbled_receivers = list()
 
 	if(config.global_announcement)
-		for(var/mob/M in GLOB.player_list)
+		for(var/mob/M as anything in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
 			if(!M.say_understands(null, message_language))
 				receivers -= M
-				garbled_receivers |= M
+				garbled_receivers[M] = TRUE
 	else
 		for(var/obj/item/radio/R as anything in GLOB.global_radios)
 			for(var/mob/M as anything in R.send_announcement())

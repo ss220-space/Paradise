@@ -204,6 +204,7 @@ SUBSYSTEM_DEF(mapping)
 
 	teleportlocs = sortAssoc(teleportlocs)
 
+	ghostteleportlocs = list()
 	for(var/area/AR as anything in get_sorted_areas())
 		if(ghostteleportlocs[AR.name])
 			continue
