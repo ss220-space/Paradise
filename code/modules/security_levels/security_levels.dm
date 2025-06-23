@@ -21,8 +21,9 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 		switch(level)
 			if(SEC_LEVEL_GREEN)
-				GLOB.security_announcement.Announce("Все угрозы для станции устранены. Все оружие должно быть в кобуре, \
-							и законы о конфиденциальности вновь полностью соблюдаются.", "Внимание! Уровень угрозы понижен до Зелёного.", 'sound/AI/green.ogg')
+				GLOB.security_announcement.Announce("Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются.",
+													"Внимание! Уровень угрозы понижен до Зелёного.",
+													new_sound2 = 'sound/AI/green.ogg')
 				GLOB.security_level = SEC_LEVEL_GREEN
 				unset_stationwide_emergency_lighting()
 				if(SSshuttle.emergency.timer)
@@ -33,12 +34,14 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 			if(SEC_LEVEL_BLUE)
 				if(GLOB.security_level < SEC_LEVEL_BLUE)
-					GLOB.security_announcement.Announce("На станции обнаружено присутствие враждебных элементов, \
-								представляющих незначительную угрозу экипажу и активам корпорации. Служба Безопасности может держать оружие на виду \
-								и использовать летальную силу в соответствии с рабочими процедурами отдела защиты активов.","Внимание! Уровень угрозы повышен до Синего.", 'sound/AI/blue.ogg')
+					GLOB.security_announcement.Announce("На станции обнаружено присутствие враждебных элементов, представляющих незначительную угрозу экипажу и активам корпорации. Служба Безопасности может держать оружие на виду и использовать летальную силу в соответствии с рабочими процедурами отдела защиты активов.",
+														"Внимание! Уровень угрозы повышен до Синего.",
+														new_sound = 'sound/misc/notice1.ogg',
+														new_sound2 = 'sound/AI/blue.ogg')
 				else
-					GLOB.security_announcement.Announce("Непосредственная угроза миновала. Служба безопасности может больше не держать оружие в полной боевой готовности, \
-								но может по-прежнему держать его на виду. Выборочные обыски запрещены.","Внимание! Уровень угрозы понижен до Синего.", 'sound/AI/blue.ogg')
+					GLOB.security_announcement.Announce("Непосредственная угроза миновала. Служба безопасности может больше не держать оружие в полной боевой готовности, но может по-прежнему держать его на виду. Выборочные обыски запрещены.",
+														"Внимание! Уровень угрозы понижен до Синего.",
+														new_sound2 = 'sound/AI/blue.ogg')
 				GLOB.security_level = SEC_LEVEL_BLUE
 
 				post_status(STATUS_DISPLAY_ALERT, "default")
@@ -47,11 +50,14 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 			if(SEC_LEVEL_RED)
 				if(GLOB.security_level < SEC_LEVEL_RED)
-					GLOB.security_announcement.Announce("На борту станции подтверждена серьезная угроза для экипажа и активов корпорации. \
-								Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены и рекомендуются.","Внимание! Код Красный!", 'sound/AI/red.ogg')
+					GLOB.security_announcement.Announce("На борту станции подтверждена серьезная угроза для экипажа и активов корпорации. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены и рекомендуются.",
+														"Внимание! Код Красный!",
+														new_sound = 'sound/misc/notice1.ogg',
+														new_sound2 = 'sound/AI/red.ogg')
 				else
-					GLOB.security_announcement.Announce("Угроза уничтожения станции миновала, но враждебная активность остается на высоком уровне. \
-								Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены.","Внимание! Код Красный!", 'sound/AI/red.ogg')
+					GLOB.security_announcement.Announce("Угроза уничтожения станции миновала, но враждебная активность остается на высоком уровне. Службе Безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены.",
+														"Внимание! Код Красный!",
+														new_sound2 = 'sound/AI/red.ogg')
 					unset_stationwide_emergency_lighting()
 				GLOB.security_level = SEC_LEVEL_RED
 				var/obj/machinery/door/airlock/highsecurity/red/R = locate(/obj/machinery/door/airlock/highsecurity/red) in GLOB.airlocks
@@ -63,9 +69,9 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				update_station_firealarms()
 
 			if(SEC_LEVEL_GAMMA)
-				GLOB.security_announcement.Announce("Центральным Командованием был установлен Код Гамма. Станция находится под угрозой полного уничтожения. \
-							Службе безопасности следует получить полное вооружение и приготовиться к ведению боевых действий с враждебными элементами на борту станции. \
-							Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний.", "Внимание! Активирован код Гамма!", new_sound2 = 'sound/AI/gamma.ogg')
+				GLOB.security_announcement.Announce("Центральным Командованием был установлен Код Гамма. Станция находится под угрозой полного уничтожения. Службе безопасности следует получить полное вооружение и приготовиться к ведению боевых действий с враждебными элементами на борту станции. Гражданский персонал обязан немедленно обратиться к Главам отделов для получения дальнейших указаний.",
+													"Внимание! Активирован код Гамма!",
+													new_sound2 = 'sound/AI/gamma.ogg')
 				GLOB.security_level = SEC_LEVEL_GAMMA
 
 				if(GLOB.security_level < SEC_LEVEL_RED)
@@ -89,8 +95,9 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 				return
 
 			if(SEC_LEVEL_DELTA)
-				GLOB.security_announcement.Announce("Механизм самоуничтожения станции задействован. Все члены экипажа обязаны подчиняться всем указаниям, данными Главами отделов. \
-							Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога.", "Внимание! Активирован код Дельта!", new_sound2 = 'sound/AI/delta.ogg')
+				GLOB.security_announcement.Announce("Механизм самоуничтожения станции задействован. Все члены экипажа обязаны подчиняться всем указаниям, данными Главами отделов. Любые нарушения этих приказов наказуемы уничтожением на месте. Это не учебная тревога.",
+													"Внимание! Активирован код Дельта!",
+													new_sound2 = 'sound/AI/delta.ogg')
 				GLOB.security_level = SEC_LEVEL_DELTA
 
 				post_status(STATUS_DISPLAY_ALERT, "deltaalert")
@@ -273,8 +280,9 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 
 
 /proc/epsilon_process()
-	GLOB.security_announcement.Announce("Центральным командованием был установлен код Эпсилон. Все контракты расторгнуты.", \
-				"Внимание! Активирован код Эпсилон!", new_sound = sound('sound/effects/epsilon.ogg'))
+	GLOB.security_announcement.Announce("Центральным командованием был установлен код Эпсилон. Все контракты расторгнуты.",
+										"Внимание! Активирован код Эпсилон!",
+										new_sound = sound('sound/effects/epsilon.ogg'))
 	GLOB.security_level = SEC_LEVEL_EPSILON
 	post_status(STATUS_DISPLAY_ALERT, "epsilonalert")
 	for(var/area/A as anything in GLOB.areas)
@@ -286,15 +294,15 @@ GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /da
 			light.fire_mode = TRUE
 			light.update()
 	update_station_firealarms()
-	GLOB.PDA_Manifest = list(\
-					"heads" = list(),\
-					"pro" = list(),\
-					"sec" = list(),\
-					"eng" = list(),\
-					"med" = list(),\
-					"sci" = list(),\
-					"ser" = list(),\
-					"sup" = list(),\
-					"bot" = list(),\
-					"misc" = list()\
-					)
+	GLOB.PDA_Manifest = list(
+						"heads" = list(),
+						"pro" = list(),
+						"sec" = list(),
+						"eng" = list(),
+						"med" = list(),
+						"sci" = list(),
+						"ser" = list(),
+						"sup" = list(),
+						"bot" = list(),
+						"misc" = list()
+						)

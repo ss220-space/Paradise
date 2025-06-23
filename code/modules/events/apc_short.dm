@@ -20,8 +20,11 @@
 			continue
 		SEND_SOUND(M, S)
 
-/datum/event/apc_short/announce() // закороченные - выведенные из строя
-	GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "Сбой системы питания", new_sound = 'sound/AI/power_short.ogg')
+/datum/event/apc_short/announce()
+	GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
+									"Сбой системы питания",
+									'sound/AI/power_short.ogg'
+	)
 
 /datum/event/apc_short/end()
 	return TRUE
@@ -33,7 +36,10 @@
 		/area/turret_protected/ai,
 	))
 	if(announce)
-		GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.", "Сбой системы питания", new_sound = 'sound/AI/power_short.ogg')
+		GLOB.minor_announcement.Announce("Зафиксирована перегрузка энергосети станции [station_name()]. Инженерному отделу надлежит проверить все замкнувшие ЛКП.",
+										"Сбой системы питания",
+										'sound/AI/attention.ogg'
+		)
 	// break APC_BREAK_PROBABILITY% of all of the APCs on the station
 	var/affected_apc_count = 0
 	for(var/thing in GLOB.apcs)
@@ -60,7 +66,10 @@
 
 /proc/power_restore(announce=TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("Питание на станции [station_name()] было восстановлено. Приносим извинения за неудобства.", "Система питания посстановлена", new_sound = 'sound/AI/power_restore.ogg')
+		GLOB.minor_announcement.Announce("Питание на станции [station_name()] было восстановлено. Приносим извинения за неудобства.",
+										"Система питания посстановлена",
+										'sound/AI/power_restore.ogg'
+		)
 	// recharge the APCs
 	for(var/thing in GLOB.apcs)
 		var/obj/machinery/power/apc/A = thing
@@ -72,7 +81,10 @@
 
 /proc/power_restore_quick(announce=TRUE)
 	if(announce)
-		GLOB.event_announcement.Announce("Все СКАНы на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.", "Система питания посстановлена", new_sound = 'sound/AI/power_restore.ogg')
+		GLOB.minor_announcement.Announce("Все СКАНы на станции [station_name()] были перезаряжены. Приносим извинения за неудобства.",
+										"Система питания посстановлена",
+										'sound/AI/power_restore.ogg'
+		)
 	// fix all of the SMESs
 	for(var/obj/machinery/power/smes/S in GLOB.machines)
 		if(!is_station_level(S.z))

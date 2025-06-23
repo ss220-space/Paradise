@@ -626,7 +626,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 		return
 
 //the stuff on the list is |"report type" = "report title"|, if that makes any sense
-	var/list/MsgType = list("Сообщение Центрального Командования" = "Обновление НаноТрейзен",
+	var/list/MsgType = list("Сообщение Центрального командования" = "Обновление НаноТрейзен",
 		"Официальное сообщение Синдиката" = "Сообщение Синдиката",
 		"Сообщение Федерации Космических Волшебников" = "Заколдованное сообщение",
 		"Официальное сообщение Клана Паука" = "Сообщение Клана Паука",
@@ -662,7 +662,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 			print_command_report(message, subtitle)
 		if("Нет")
 			//same thing as the blob stuff - it's not public, so it's classified, dammit
-			GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_title = "[command_name()] обновление")
+			GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.")
 			print_command_report(message, "Секретно: [subtitle]")
 		else
 			return
@@ -1264,7 +1264,7 @@ Traitors and the like can also be revived with the previous role mostly intact.
 	if(!check_rights(R_ADMIN | R_EVENT))
 		return
 
-	var/input = tgui_input_text(usr, "Введите имя для Центрального Командования.", "Что?", "", encode = FALSE)
+	var/input = tgui_input_text(usr, "Введите имя для Центрального командования.", "Что?", "", encode = FALSE)
 	if(!input)
 		return
 	change_command_name(input)

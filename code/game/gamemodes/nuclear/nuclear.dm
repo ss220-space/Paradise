@@ -215,7 +215,7 @@
 
 
 /datum/game_mode/proc/greet_syndicate(var/datum/mind/syndicate, var/you_are=1)
-	SEND_SOUND(syndicate.current, 'sound/ambience/antag/ops.ogg')
+	SEND_SOUND(syndicate.current, sound('sound/ambience/antag/ops.ogg'))
 	var/list/messages = list()
 	if(you_are)
 		messages.Add(span_notice("You are a [syndicate_name()] agent!"))

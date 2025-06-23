@@ -120,7 +120,7 @@
 
 		if(ACCESS_CENT_COMMANDER in access)
 			if(!check_rights(R_ADMIN, FALSE, ui.user))
-				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, разрешение Центрального Командования не действительно."))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] гудит, разрешение Центрального командования не действительно."))
 				return
 			authenticated = COMM_AUTHENTICATION_CENTCOM
 
@@ -160,7 +160,7 @@
 			var/obj/item/card/id/I = H.get_id_card()
 			if(istype(I))
 				if((GLOB.security_level > SEC_LEVEL_RED) && !(ACCESS_CENT_GENERAL in I.access)) //if gamma, epsilon or delta and no centcom access. Decline it
-					to_chat(ui.user, span_warning("Протоколы безопасности Центрального Командования не позволяют вам изменить уровень угрозы."))
+					to_chat(ui.user, span_warning("Протоколы безопасности Центрального командования не позволяют вам изменить уровень угрозы."))
 					return
 				if(ACCESS_HEADS in I.access)
 					change_security_level(text2num(params["level"]))
@@ -379,13 +379,17 @@
 			if(!params["classified"])
 				GLOB.major_announcement.Announce(
 					params["text"],\
-					new_title = "Сообщение Центрального Командования",\
+					new_title = "Сообщение Центрального командования",\
 					new_subtitle = params["subtitle"],\
 					new_sound = 'sound/AI/commandreport.ogg'
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_title = "[command_name()] обновление")
+				GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
+												"Входящее засекреченное сообщение",
+												'sound/AI/commandreport.ogg',
+												new_title = "[command_name()] обновление"
+				)
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
@@ -405,7 +409,7 @@
 		if(NUKE_CORE_MISSING)
 			P.info += "Сканеры дальнего действия не обнаруживают радиоактивных сигнатур внутри устройства."
 
-	P.info += "<br><hr><font size=\"1\">Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального Командования.</font>"
+	P.info += "<br><hr><font size=\"1\">Несоблюдение нормативных требований компании по конфиденциальности может привести к немедленному увольнению по приказу сотрудников Центрального командования.</font>"
 
 /proc/directive_7_12()
 	var/nukecode = rand(10000, 99999)
@@ -416,7 +420,7 @@
 	var/intercepttext
 	var/interceptname
 	interceptname = "Секретное постановление [command_name()]"
-	intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Предупреждение о биологической угрозе.<hr>")
+	intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Биологическая угроза.<hr>")
 	intercepttext += "Для [station_name()] была издана директива 7-12.<br>"
 	intercepttext += "Биологическая угроза вышла из-под контроля.<br>"
 	intercepttext += "Вам приказано следующее:<br>"
@@ -434,7 +438,11 @@
 			SSticker?.score?.save_silicon_laws(aiPlayer, additional_info = "вспышка биоугрозы, добавлен новый нулевой закон'[law]'")
 			to_chat(aiPlayer, span_warning("Законы обновлены: [law]"))
 	print_command_report(intercepttext, interceptname, FALSE)
-	GLOB.event_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.", "Входящее засекреченное сообщение.", 'sound/AI/commandreport.ogg', new_title = "[command_name()] обновление")
+	GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
+									"Входящее засекреченное сообщение",
+									'sound/AI/commandreport.ogg',
+									new_title = "[command_name()] обновление"
+	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)
 	if(!emagged)
@@ -600,7 +608,7 @@
 		return FALSE
 
 	if(EMERGENCY_ESCAPED_OR_ENDGAMED)
-		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального Командования."))
+		to_chat(user, span_warning("Эвакуационный шаттл не может быть вызван при возвращении на станцию Центрального командования."))
 		return FALSE
 
 	if(world.time < 30 MINUTES) // 30 minute grace period to let the game get going
@@ -635,7 +643,7 @@
 		add_game_logs("has recalled the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has recalled the shuttle .")
 	else
-		to_chat(user, span_warning("Центральное Командование отклонило запрос об отзыве эвакуационного шаттла!"))
+		to_chat(user, span_warning("Центральное командование отклонило запрос об отзыве эвакуационного шаттла!"))
 		add_game_logs("has tried and failed to recall the shuttle.", user)
 		message_admins("[ADMIN_LOOKUPFLW(user)] has tried and failed to recall the shuttle.")
 
@@ -672,7 +680,7 @@
 	SSshuttle.autoEvac()
 	return ..()
 
-/proc/print_command_report(text = "", title = "Уведомление Центрального Командования", add_to_records = TRUE, var/datum/station_goal/goal = null)
+/proc/print_command_report(text = "", title = "Уведомление Центрального командования", add_to_records = TRUE, var/datum/station_goal/goal = null)
 	for(var/obj/machinery/computer/communications/C in GLOB.shuttle_caller_list)
 		if(!(C.stat & (BROKEN|NOPOWER)) && is_station_contact(C.z))
 			var/obj/item/paper/P = new (C.loc)

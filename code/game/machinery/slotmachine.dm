@@ -58,35 +58,33 @@
 		addtimer(CALLBACK(src, PROC_REF(spin_slots), usr.name), 25)
 
 /obj/machinery/slot_machine/proc/spin_slots(userName)
-	switch(rand(1,5000))
+	switch(rand(1, 5000))
 		if(1)
 			atom_say("ДЖЕКПОТ! Игрок [userName] выиграл 10000 кредитов!")
-			GLOB.event_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!", "Обладатель джекпота!")
-			result = "JACKPOT! You win ten thousand credits!"
+			GLOB.minor_announcement.Announce("Поздравляем [userName] с выигрышем джекпота в 10000 кредитов!", "Обладатель джекпота!")
+			result = "ДЖЕКПОТ! Вы выиграли 10000 кредитов!"
 			resultlvl = "teal"
 			win_money(10000, 'sound/goonstation/misc/airraid_loop.ogg')
 		if(2 to 20)
 			atom_say("Большой победитель! Игрок [userName] выиграл 1000 кредитов!")
-			result = "You win a thousand credits!"
+			result = "Вы выиграли 1000 кредитов!"
 			resultlvl = "green"
 			win_money(1000, 'sound/goonstation/misc/klaxon.ogg')
 		if(21 to 100)
 			atom_say("Победитель! Игрок [userName] выиграл 500 кредитов!")
-			result = "You win five hundred credits!"
+			result = "Вы выиграли 500 кредитов!"
 			resultlvl = "green"
 			win_money(500, 'sound/goonstation/misc/bell.ogg')
 		if(101 to 500)
-			atom_say("Победитель! Игрок [userName] выиграл 200 кредитов!")
-			result = "You win two hundred credits!"
+			result = "Вы выиграли 200 кредитов!"
 			resultlvl = "green"
 			win_money(200)
 		if(501 to 1000)
-			atom_say("Победитель! Игрок [userName] выиграл 50 кредитов!")
-			result = "You win fifty credits!"
+			result = "Вы выиграли 50 кредитов!"
 			resultlvl = "green"
 			win_money(50)
 		else
-			result = "No luck!"
+			result = "Не повезло!"
 			resultlvl = "orange"
 	working = FALSE
 	update_icon(UPDATE_ICON_STATE)

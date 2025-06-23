@@ -584,7 +584,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		to_chat(src, span_warning("Please allow one minute to pass between announcements."))
 		return
 
-	var/input = tgui_input_text(usr, "Please write a message to announce to the station crew.", "A.I. Announcement", multiline = TRUE, encode = FALSE)
+	var/input = tgui_input_text(usr, "Пожалуйста, напишите сообщение, которое вы хотите объявить экипажу станции.", "Объявление ИИ", multiline = TRUE, encode = FALSE)
 	if(!input)
 		return
 

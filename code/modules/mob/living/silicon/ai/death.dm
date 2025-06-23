@@ -26,7 +26,7 @@
 
 	if(doomsday_device)
 		doomsday_device.timing = 0
-		SSshuttle.remove_hostile_environment(doomsday_device, 'sound/AI/shuttledock.ogg')
+		SSshuttle.remove_hostile_environment(doomsday_device, 'sound/AI/eshuttle_dock.ogg')
 		qdel(doomsday_device)
 
 	if(explosive)

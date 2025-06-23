@@ -70,7 +70,7 @@
 			cyborg_slots = text2num(params["set_cyb"])
 		if("dispatch_ert")
 			if(GLOB.send_emergency_team)
-				to_chat(usr, span_warning("Центральное Командование уже направило Отряд Быстрого Реагирования!"))
+				to_chat(usr, span_warning("Центральное командование уже направило Отряд Быстрого Реагирования!"))
 				return
 			var/datum/response_team/D
 			switch(ert_type)
@@ -107,7 +107,9 @@
 			var/slot_text = english_list(slots_list)
 			log_and_message_admins("dispatched a [params["silent"] ? "silent " : ""][ert_type] ERT. Slots: [slot_text]")
 			if(!params["silent"])
-				GLOB.event_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.", "ВНИМАНИЕ: Активирован протокол ОБР.")
+				GLOB.major_announcement.Announce("Внимание, [station_name()]. Мы предпринимаем шаги для отправки отряда быстрого реагирования. Ожидайте.",
+												"Активирован протокол ОБР"
+				)
 			trigger_armed_response_team(D, commander_slots, security_slots, medical_slots, engineering_slots, janitor_slots, paranormal_slots, cyborg_slots)
 
 		if("view_player_panel")
@@ -118,7 +120,8 @@
 			var/message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования."
 			if(params["reason"])
 				message += " Ваш запрос ОБР был отклонен по следующим причинам:\n[params["reason"]]"
-			GLOB.event_announcement.Announce(message, "Оповещение: ОБР недоступен.")
+			GLOB.major_announcement.Announce(message, "ОБР недоступен"
+			)
 		else
 			return FALSE
 

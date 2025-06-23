@@ -30,7 +30,10 @@
 
 
 /datum/event/wormholes/announce()
-	GLOB.event_announcement.Announce("Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/spanomalies.ogg')
+	GLOB.minor_announcement.Announce("Зафиксированы пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
+									"Аномалия",
+									'sound/AI/spanomalies.ogg'
+	)
 
 
 /datum/event/wormholes/tick()
@@ -101,4 +104,7 @@
 	return TRUE
 
 /datum/event/wormholes/anomaly/announce()
-	GLOB.event_announcement.Announce("Дистабилизация крупной блюспейс аномалии вызвала пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", new_sound = 'sound/AI/spanomalies.ogg')
+	GLOB.minor_announcement.Announce("Дистабилизация крупной блюспейс аномалии вызвала пространственно-временные аномалии на борту станции. Дополнительная информация отсутствует.",
+									"Аномалия",
+									'sound/AI/spanomalies.ogg'
+	)

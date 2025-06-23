@@ -196,7 +196,7 @@
 
 /mob/living/simple_animal/revenant/proc/giveObjectivesandGoals()
 			mind.wipe_memory()
-			SEND_SOUND(src, 'sound/effects/ghost.ogg')
+			SEND_SOUND(src, sound('sound/effects/ghost.ogg'))
 			var/list/messages = list()
 			messages.Add(span_deadsay("<font size=3><b>Вы — ревенант.</b></font>"))
 			messages.Add("<b>Ваш некогда обычный дух был наполнен чужеродной энергией и превращён в ревенанта.</b>")
