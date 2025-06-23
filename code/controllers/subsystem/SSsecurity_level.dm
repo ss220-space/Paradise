@@ -19,6 +19,7 @@ SUBSYSTEM_DEF(security_level)
 			var/datum/security_level/new_security_level = new security_level_type
 			available_levels[new_security_level.name] = new_security_level
 
+	if(!current_security_level)
 		current_security_level = available_levels[number_level_to_text(DEFAULT_SECURITY_LEVEL_NUMBER)]
 
 /datum/controller/subsystem/security_level/Recover()
