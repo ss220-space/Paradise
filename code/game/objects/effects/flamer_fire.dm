@@ -1,17 +1,23 @@
-/proc/flame_radius(radius = 1, turf/epicenter, flame_level = 20, burn_level = 30, flameshape = FLAMESHAPE_DEFAULT, target, fire_type = FIRE_VARIANT_DEFAULT)
+/proc/flame_radius(radius = 1, turf/epicenter, flame_level = 20, burn_level = 30, flameshape = FLAMESHAPE_DEFAULT, target, fire_type = FIRE_VARIANT_DEFAULT, reagent_type = null)
 	//This proc is used to generate automatically-colored fires from manually adjusted item variables.
 	//It parses them as parameters and sets color automatically based on Intensity, then sends an edited reagent to the standard flame code.
 	//By default, this generates a napalm fire with a radius of 1, flame_level of 20 per UT (prev 14 as greenfire), burn_level of 30 per UT (prev 15 as greenfire), in a diamond shape.
 	if(!istype(epicenter))
 		return
 
-	var/datum/reagent/reagent = new /datum/reagent/napalm/ut()
+	var/datum/reagent/reagent
 
-	if(burn_level >= BURN_LEVEL_TIER_7)
+	if(reagent_type)
+		reagent = new reagent_type()
+
+	else if(burn_level >= BURN_LEVEL_TIER_7)
 		reagent = new /datum/reagent/napalm/blue()
 
 	else if(burn_level <= BURN_LEVEL_TIER_2)
 		reagent  = new /datum/reagent/napalm/green()
+
+	else
+		reagent = new /datum/reagent/napalm/ut()
 
 	reagent.durationfire = flame_level
 	reagent.intensityfire = burn_level
@@ -211,7 +217,7 @@
 	if(!istype(process_turf)) //Is it a valid turf? Has to be on a floor
 		qdel(src)
 		return PROCESS_KILL
-	var/damage = burnlevel*delta_time
+	var/damage = burnlevel * delta_time
 	process_turf.flamer_fire_act(damage)
 
 	if(!firelevel)
@@ -280,7 +286,7 @@
 		if(!has_pass)
 			return
 
-		spawn(0)
+		ASYNC
 			fire_spread_recur(picked_turf, spread_power, spread_direction, fire_lvl, burn_lvl, f_color, burn_sprite)
 
 /proc/fire_spread(turf/target, range, fire_lvl, burn_lvl, f_color, burn_sprite = "dynamic")

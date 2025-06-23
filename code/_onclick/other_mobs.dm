@@ -140,8 +140,16 @@
 /mob/living/carbon/alien/OnUnarmedAttack(atom/atom, proximity_flag)
 	return atom.attack_alien(src)
 
+
 /atom/proc/attack_alien(mob/living/carbon/alien/user)
 	attack_hand(user)
+
+/*
+	True Devil
+*/
+
+/mob/living/carbon/true_devil/UnarmedAttack(atom/A, proximity)
+	A.attack_hand(src)
 
 /mob/living/carbon/alien/RestrainedClickOn(atom/A)
 	return

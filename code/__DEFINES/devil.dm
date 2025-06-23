@@ -23,24 +23,33 @@ GLOBAL_LIST_INIT(whiteness, list(
 	/obj/item/clothing/under/burial = 1
 ))
 
-#define ENRAGED_THRESHOLD	4
-#define BLOOD_THRESHOLD 	7
-#define TRUE_THRESHOLD 		10
+#define ENRAGED_THRESHOLD	3
+#define BLOOD_THRESHOLD 	6
+#define TRUE_THRESHOLD 		9
+#define ASCEND_THRESHOLD 	13
+
+#define BLOOD_SACRIFICE 	1
+#define TRUE_SACRIFICE 		2
+
+#define ASCEND_SACRIFICE 	2
 
 #define BASIC_DEVIL_REGEN_THRESHOLD 	10 SECONDS
 #define ENRAGED_DEVIL_REGEN_THRESHOLD 	10 SECONDS
 #define BLOOD_LIZARD_REGEN_THRESHOLD 	5 SECONDS
 #define TRUE_DEVIL_REGEN_THRESHOLD 		3 SECONDS
+#define ASCEND_DEVIL_REGEN_THRESHOLD 	1 SECONDS
 
 #define BASIC_DEVIL_REGEN_AMOUNT 		20
 #define ENRAGED_DEVIL_REGEN_AMOUNT		40
 #define BLOOD_LIZARD_REGEN_AMOUNT 		60
 #define TRUE_DEVIL_REGEN_AMOUNT 		80
+#define	ASCEND_DEVIL_REGEN_AMOUNT 		100
 
 #define BASIC_DEVIL_RANK	/datum/devil_rank/basic_devil
 #define ENRAGED_DEVIL_RANK	/datum/devil_rank/enraged_devil
 #define BLOOD_LIZARD_RANK	/datum/devil_rank/blood_lizard
 #define TRUE_DEVIL_RANK		/datum/devil_rank/true_devil
+#define ASCEND_DEVIL_RANK	/datum/devil_rank/ascend
 
 #define BANE_SALT "salt"
 #define BANE_LIGHT "light"
@@ -76,8 +85,46 @@ GLOBAL_LIST_INIT(whiteness, list(
 #define BANISH_DESTRUCTION "destruction"
 #define BANISH_FUNERAL_GARB "funeral"
 
+#define CONTRACT_POWER "Сила"
+#define CONTRACT_WEALTH "Богатство"
+#define CONTRACT_PRESTIGE "Престиж"
+#define CONTRACT_MAGIC "Магия"
+#define CONTRACT_REVIVE "Воскрешение"
+#define CONTRACT_KNOWLEDGE "Знание"
+#define CONTRACT_UNWILLING "Безвозмездный контракт"
+#define CONTRACT_FRIENDSHIP "Дружба"
+#define CONTRACT_YOUTH "Вечная молодость"
+#define CONTRACT_ETALENT "Инженерный талант"
+#define CONTRACT_RETURNDEAD "Воскрешение мертвых"
+#define CONTRACT_GUN "Оружия"
+
+// FIXME: Implement these
+#define CONTRACT_CTALENT "Chemistry Talent"
+#define CONTRACT_AUGMENT "Cybernetic Augmentations"
+#define CONTRACT_CANDY "Endless Candy"
+#define CONTRACT_ECHANCE "An Extra Chance"
+#define CONTRACT_ATECH "Advanced Technology"
+#define CONTRACT_DEVILSMACHINE "Devil's Machinery"
+#define CONTRACT_FOOD "Food"
+#define CONTRACT_SPACE "Space Gear"
+#define CONTRACT_CALAMITY "Calamity"
+
+
 #define BANE_TOOLBOX_DAMAGE_MODIFIER 	2.5
 #define BANE_HARVEST_DAMAGE_MULTIPLIER 	2
+#define BANE_IRON_DAMAGE_MODIFIER 	2
+#define BANE_SILVER_DAMAGE_MULTIPLIER 	3
+
+
+#define DEVIL_ASCEND_START_STAGE 0
+#define FIRST_DEVIL_ASCEND_STAGE 1
+#define SECOND_DEVIL_ASCEND_STAGE 2
+#define THIRD_DEVIL_ASCEND_STAGE 3
+#define FOURTH_DEVIL_ASCEND_STAGE 4
+#define FIFTH_DEVIL_ASCEND_STAGE 5
+#define SIXTH_DEVIL_ASCEND_STAGE 6
+#define SEVENTH_DEVIL_ASCEND_STAGE 7
+#define EIGHTH_DEVIL_ASCEND_STAGE 8
 
 GLOBAL_LIST_EMPTY(allDevils)
 //These are also used in the codex gigas, so let's declare them globally.

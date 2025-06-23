@@ -59,9 +59,10 @@
 	. = ..()
 	var/turf/T = get_turf(target)
 	explosion(T, exp_devastate, exp_heavy, exp_light, exp_flash, 0, flame_range = exp_fire, cause = src)
-	if(ismob(target)) //multiple flavors of pain
-		var/mob/living/M = target
-		M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
+	if(!ismob(target)) //multiple flavors of pain
+		return
+	var/mob/living/M = target
+	M.take_overall_damage(0,10) //between this 10 burn, the 10 brute, the explosion brute, and the onfire burn, your at about 65 damage if you stop drop and roll immediately
 
 
 /obj/projectile/magic/fireball/infernal
@@ -69,7 +70,19 @@
 	exp_heavy = -1
 	exp_light = -1
 	exp_flash = 4
-	exp_fire= 5
+	exp_fire= -1
+	var/hellfire_power = BURN_LEVEL_TIER_1
+	var/hellfire_type = /datum/reagent/napalm/hellfire
+
+/obj/projectile/magic/fireball/infernal/acsend
+	name = "acsend fireball"
+	hellfire_power = BURN_LEVEL_TIER_9
+	hellfire_type = null
+
+/obj/projectile/magic/fireball/infernal/on_hit(atom/target, blocked = 0, hit_zone)
+	. = ..()
+	var/turf/fire_turf = get_turf(target)
+	flame_radius(3, fire_turf, BURN_TIME_DEVIL, hellfire_power, FLAMESHAPE_IRREGULAR, target, FIRE_VARIANT_DEFAULT, hellfire_type)
 
 /obj/projectile/magic/resurrection
 	name = "bolt of resurrection"
@@ -78,6 +91,8 @@
 /obj/projectile/magic/resurrection/on_hit(var/mob/living/carbon/target)
 	. = ..()
 	if(ismob(target))
+		if(target.mind && !target.mind.hasSoul)
+			return .
 		var/old_stat = target.stat
 		target.suiciding = 0
 		target.revive()
