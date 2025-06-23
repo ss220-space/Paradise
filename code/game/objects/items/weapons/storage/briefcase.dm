@@ -1,6 +1,6 @@
 /obj/item/storage/briefcase
 	name = "briefcase"
-	desc = "It's made of AUTHENTIC faux-leather and has a price-tag still attached. Its owner must be a real professional."
+	desc = "Он сделан из НАСТОЯЩЕЙ искусственной кожи и всё ещё с ценником. Его владелец, должно быть, настоящий профессионал."
 	icon_state = "briefcase"
 	item_state = "briefcase"
 	flags = CONDUCT
@@ -16,7 +16,7 @@
 	max_integrity = 150
 
 /obj/item/storage/briefcase/sniperbundle
-	desc = "Its label reads \"genuine hardened Captain leather\", but suspiciously has no other tags or branding. Smells like L'Air du Temps."
+	desc = ""На его этикетке написано \"настоящая закаленная кожа капитана\", но подозрительно отсутствуют другие метки или бренды. Пахнет как L'Air du Temps."
 	force = 10
 
 /obj/item/storage/briefcase/sniperbundle/populate_contents()
@@ -73,7 +73,7 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(!bottom_open)
-		to_chat(user, "Вы начинаете ощупывать край [src.declent_ru(GENITIVE)]...")
+		to_chat(user, "Вы начинаете ощупывать край [declent_ru(GENITIVE)]...")
 		busy_hunting = TRUE
 		if(do_after(user, 2 SECONDS, src))
 			if(user)
@@ -87,7 +87,7 @@
 /obj/item/storage/briefcase/false_bottomed/attack_hand(mob/user)
 	if(bottom_open && stored_item)
 		user.put_in_hands(stored_item)
-		to_chat(user, "Вы достаёте [stored_item.declent_ru(NOMINATIVE)] из потайного отделения [src.declent_ru(GENITIVE)].")
+		to_chat(user, "Вы достаёте [stored_item.declent_ru(NOMINATIVE)] из потайного отделения [declent_ru(GENITIVE)].")
 		stored_item = null
 		max_w_class = initial(max_w_class)
 	else
@@ -96,6 +96,14 @@
 /obj/item/case_with_bipki
 	name = "bipki case"
 	desc = "Легендарный чемодан с бипками! Стоп, а что такое бипки?"
+	ru_names = list(
+		NOMINATIVE = "чемодан с бипками",
+		GENITIVE = "чемодана с бипками",
+		DATIVE = "чемодану с бипками",
+		ACCUSATIVE = "чемодан с бипками",
+		INSTRUMENTAL = "чемоданом с бипками",
+		PREPOSITIONAL = "чемодане с бипками"
+	)
 	icon = 'icons/obj/beebki.dmi'
 	icon_state = "briefcase_bipki"
 	item_state = "briefcase"

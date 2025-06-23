@@ -108,14 +108,14 @@
 		return FALSE
 	var/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, span_warning("Вы не можете забраться на [src.declent_ru(ACCUSATIVE)] - путь блокирует [blocking_object.declent_ru(NOMINATIVE)]!"))
+		to_chat(user, span_warning("Вы не можете забраться на [declent_ru(ACCUSATIVE)] - путь блокирует [blocking_object]!"))
 		return FALSE
 
 	var/turf/T = src.loc
 	if(!T || !istype(T))
 		return FALSE
 
-	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начинает забираться на [src.declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] начина[pluralize_ru(user.gender,"ет","ют")] забираться на [declent_ru(ACCUSATIVE)]!"))
 	climber = user
 	if(!do_after(user, 5 SECONDS, src))
 		climber = null
@@ -127,7 +127,7 @@
 
 	user.forceMove(get_turf(src))
 	if(get_turf(user) == get_turf(src))
-		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забирается на [src.declent_ru(ACCUSATIVE)]!"))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на [declent_ru(ACCUSATIVE)]!"))
 
 	clumse_stuff(climber)
 
@@ -184,7 +184,7 @@
 			return //No spamming this on people.
 
 		M.Weaken(10 SECONDS)
-		to_chat(M, span_warning("Вы теряете равновесие, когда [src] двигается под вами!"))
+		to_chat(M, span_warning("Вы теряете равновесие, когда [declent_ru(NOMINATIVE)] двигается под вами!"))
 
 		if(prob(25))
 
@@ -199,18 +199,18 @@
 
 			switch(pick(list("ankle","wrist","head","knee","elbow")))
 				if("ankle")
-					affecting = [GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)][ACCUSATIVE]]
+					affecting = GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)][ACCUSATIVE]
 				if("knee")
-					affecting = [GLOB.body_zone[pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)][ACCUSATIVE]]
+					affecting = GLOB.body_zone[pick(BODY_ZONE_L_LEG, BODY_ZONE_R_LEG)][ACCUSATIVE]
 				if("wrist")
-					affecting = [GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)][ACCUSATIVE]]
+					affecting = GLOB.body_zone[pick(BODY_ZONE_PRECISE_L_HAND, BODY_ZONE_PRECISE_R_HAND)][ACCUSATIVE]
 				if("elbow")
-					affecting = [GLOB.body_zone[pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)][ACCUSATIVE]]
+					affecting = GLOB.body_zone[pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM)][ACCUSATIVE]
 				if("head")
-					affecting = [GLOB.body_zone[BODY_ZONE_HEAD][ACCUSATIVE]]
+					affecting = GLOB.body_zone[BODY_ZONE_HEAD][ACCUSATIVE]
 
 			if(affecting)
-				to_chat(M, span_warning("Вы тяжело приземляетесь на [affecting.name]!"))
+				to_chat(M, span_warning("Вы тяжело приземляетесь на [affecting]!"))
 				H.apply_damage(damage, def_zone = affecting)
 				if(affecting?.parent)
 					affecting.parent.add_autopsy_data("Misadventure", damage)
@@ -247,7 +247,7 @@
 		if(examine_status)
 			. += examine_status
 	if(climbable)
-		. += span_info("Можно <b>перетащить</b> кого-то на [src.declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
+		. += span_info("Можно <b>перетащить</b> кого-то на [declent_ru(GENITIVE)], чтобы через короткое время поместить на стол.")
 
 /obj/structure/proc/examine_status(mob/user) //An overridable proc, mostly for falsewalls.
 	var/healthpercent = (obj_integrity/max_integrity) * 100

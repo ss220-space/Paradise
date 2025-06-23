@@ -17,7 +17,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/banhammer/suicide_act(mob/user)
-	to_chat(viewers(user), span_suicide("[user] бь[pluralize_ru(user.gender,"ёт","ют")] себя [src.declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] хоч[pluralize_ru(user.gender,"ет","ют")] заблокировать себя!"))
+	to_chat(viewers(user), span_suicide("[user] бь[pluralize_ru(user.gender,"ёт","ют")] себя [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] хоч[pluralize_ru(user.gender,"ет","ют")] заблокировать себя!"))
 	return BRUTELOSS|FIRELOSS|TOXLOSS|OXYLOSS
 
 
@@ -41,7 +41,7 @@
 	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 
 /obj/item/sord/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся насадить себя на [src.declent_ru(ACCUSATIVE)]! Выглядит как попытка суицида, если бы не было так жалко."), span_suicide("Вы пытаетесь насадить себя на [src.declent_ru(ACCUSATIVE)], но это БЕСПОЛЕЗНО..."))
+	user.visible_message(span_suicide("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся насадить себя на [declent_ru(ACCUSATIVE)]! Выглядит как попытка суицида, если бы не было так жалко."), span_suicide("Вы пытаетесь насадить себя на [declent_ru(ACCUSATIVE)], но это БЕСПОЛЕЗНО..."))
 	return SHAME
 
 /obj/item/melee/claymore
@@ -67,7 +67,7 @@
 	resistance_flags = FIRE_PROOF
 
 /obj/item/melee/claymore/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] падает на [src.declent_ru(ACCUSATIVE)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
+	user.visible_message(span_suicide("[user] падает на [declent_ru(ACCUSATIVE)]! Похоже, [genderize_ru(user.gender,"он","она","оно","они")] пыта[pluralize_ru(user.gender,"ет","ют")]ся покончить с собой."))
 	return BRUTELOSS
 
 /obj/item/melee/claymore/ceremonial
@@ -99,7 +99,7 @@
 
 
 /obj/item/melee/katana/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] вспарывает себе живот [src.declent_ru(INSTRUMENTAL)]! Похоже на попытку совершить сэппуку."))
+	user.visible_message(span_suicide("[user] вспарывает себе живот [declent_ru(INSTRUMENTAL)]! Похоже на попытку совершить сэппуку."))
 	return BRUTELOSS
 
 /obj/item/melee/katana/basalt

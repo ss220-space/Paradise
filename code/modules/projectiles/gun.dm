@@ -188,14 +188,14 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [src.declent_ru(GENITIVE)] в упор в [target]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [src.declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите \a [fire_sound_text]!"), projectile_message = TRUE)
+				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [declent_ru(GENITIVE)] в упор в [target]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [declent_ru(GENITIVE)] в упор в [target]!"), span_italics("Вы слышите \a [fire_sound_text]!"), projectile_message = TRUE)
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [src.declent_ru(GENITIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [src.declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
+				user.visible_message(span_danger("[user] стреля[pluralize_ru(user.gender,"ет","ют")] из [declent_ru(GENITIVE)]!"), span_danger("[pluralize_ru(user.gender,"Ты стреляешь","Вы стреляете")] из [declent_ru(GENITIVE)]!"), "Вы слышите [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -226,21 +226,21 @@
 	if(flag)
 		if(user.zone_selected == "mouth")
 			if(target == user && HAS_TRAIT(user, TRAIT_BADASS))
-				user.visible_message(span_danger("[user] сдул[genderize_ru(user.gender,"","а","о","и")] дым с дула [src.declent_ru(GENITIVE )]. Как же [genderize_ru(user.gender,"он хорош","она хороша","оно хорошо","они хороши")]!"))
+				user.visible_message(span_danger("[user] сдул[genderize_ru(user.gender,"","а","о","и")] дым с дула [declent_ru(GENITIVE )]. Как же [genderize_ru(user.gender,"он хорош","она хороша","оно хорошо","они хороши")]!"))
 			else
 				handle_suicide(user, target, params)
 			return
 
 	//Exclude lasertag guns from the CLUMSY check.
 	if(clumsy_check && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(40))
-		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [src.declent_ru(GENITIVE )]!"))
+		to_chat(user, span_userdanger("Вы случайно прострелили себе ногу из [declent_ru(GENITIVE )]!"))
 		var/shot_leg = pick(BODY_ZONE_PRECISE_L_FOOT, BODY_ZONE_PRECISE_R_FOOT)
 		process_fire(user, user, 0, params, zone_override = shot_leg)
 		user.drop_from_active_hand()
 		return
 
 	if(weapon_weight == WEAPON_HEAVY && (user.get_inactive_hand() || !user.has_inactive_hand() || (user.pulling && user.pull_hand != PULL_WITHOUT_HANDS)))
-		to_chat(user, span_userdanger("Для стрельбы из [src.declent_ru(GENITIVE )] нужны две свободные руки!"))
+		to_chat(user, span_userdanger("Для стрельбы из [declent_ru(GENITIVE )] нужны две свободные руки!"))
 		return
 
 	//DUAL WIELDING
@@ -266,7 +266,7 @@
 			return FALSE
 
 		if(restricted_species && restricted_species.len && !is_type_in_list(user.dna.species, restricted_species))
-			to_chat(user, span_danger("[capitalize(src.declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
+			to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] несовместим с вашей биологией!"))
 			return FALSE
 
 	if(!can_shoot(user)) //Just because you can pull the trigger doesn't mean it can't shoot.
@@ -302,7 +302,7 @@
 	if(burst_size > 1)
 		if(chambered && chambered.harmful)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
-				to_chat(user, span_warning("В [src.declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
+				to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 				return
 		firing_burst = 1
 		for(var/i = 1 to burst_size)
@@ -335,7 +335,7 @@
 		if(chambered)
 			if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt) // If the user has the pacifist trait, then they won't be able to fire [src] if the round chambered inside of [src] is lethal.
 				if(chambered.harmful) // Is the bullet chambered harmful?
-					to_chat(user, span_warning("В [src.declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
+					to_chat(user, span_warning("В [declent_ru(ACCUSATIVE)] заряжены смертельные патроны! Лучше не рисковать..."))
 					return
 			sprd = round((pick(1,-1)) * (randomized_gun_spread + randomized_bonus_spread))
 			if(!chambered.fire(target = target, user = user, params = params, distro = null, quiet = suppressed, zone_override = zone_override, spread = sprd, firer_source_atom = src))
@@ -369,7 +369,7 @@
 			if (malf_counter <= 0 && prob(50))
 				user.drop_item_ground(user.tkgrabbed_objects[src])
 				new /obj/effect/decal/cleanable/ash(loc)
-				to_chat(user, span_userdanger("БА-БАХ! [capitalize(src.declent_ru(NOMINATIVE))] взрывается!"))
+				to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается!"))
 				playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 				qdel(src)
 				return FALSE
@@ -378,13 +378,13 @@
 			new /obj/effect/decal/cleanable/ash(user.loc)
 			user.take_organ_damage(0, 30)
 			user.flash_eyes()
-			to_chat(user, span_userdanger("БА-БАХ! [capitalize(src.declent_ru(NOMINATIVE))] взрывается у [pluralize_ru(user.gender,"тебя","вас")] в руках!"))
+			to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается у [pluralize_ru(user.gender,"тебя","вас")] в руках!"))
 			playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 			qdel(src)
 			return FALSE
 		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
 			playsound(user, fire_sound, 30, TRUE)
-			to_chat(user, span_userdanger("[capitalize(src.declent_ru(NOMINATIVE))] взрывается прямо у [pluralize_ru(user.gender,"тебя","вас")] перед лицом!"))
+			to_chat(user, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается прямо у [pluralize_ru(user.gender,"тебя","вас")] перед лицом!"))
 			user.take_organ_damage(0, 10)
 			return FALSE
 
@@ -409,7 +409,7 @@
 	if(is_pen(I))
 		if(!unique_rename)
 			add_fingerprint(user)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] переименовать [src.declent_ru(ACCUSATIVE)]!"))
+			to_chat(user, span_warning("Вы не можете переименовать [declent_ru(ACCUSATIVE)]!"))
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
@@ -419,14 +419,14 @@
 	if(istype(I, /obj/item/flashlight/seclite))
 		add_fingerprint(user)
 		if(!can_flashlight)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] прикрепить [I.declent_ru(ACCUSATIVE)] к [src.declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] прикрепить [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(gun_light)
-			to_chat(user, span_warning("На [src.declent_ru(PREPOSITIONAL )] уже установлен [gun_light.declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже установлен [gun_light.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты закрепляешь","Вы закрепляете")] [I.declent_ru(ACCUSATIVE)] на [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты закрепляешь","Вы закрепляете")] [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
 		set_gun_light(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -435,14 +435,14 @@
 		var/obj/item/kitchen/knife/knife = I
 		//ensure the gun has an attachment point available and that the knife is compatible with it.
 		if(!can_bayonet || !knife.bayonet_suitable)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] прикрепить [knife.declent_ru(ACCUSATIVE)] к [src.declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
-			to_chat(user, span_warning("На [src.declent_ru(PREPOSITIONAL )] уже есть [knife.declent_ru(NOMINATIVE)]!"))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже есть [knife.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
 			return ..()
-		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты устанавливаешь","Вы устанавливаете")] [knife.declent_ru(ACCUSATIVE)] на штыковой упор [src.declent_ru(GENITIVE )]."))
+		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты устанавливаешь","Вы устанавливаете")] [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE )]."))
 		set_bayonet(knife)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -532,7 +532,7 @@
 /obj/item/gun/extinguish_light(force = FALSE)
 	if(gun_light?.on)
 		toggle_gunlight(silent = TRUE)
-		visible_message(span_danger("Фонарь [src.declent_ru(GENITIVE)] гаснет."))
+		visible_message(span_danger("Фонарь [declent_ru(GENITIVE)] гаснет."))
 
 
 /// Sets gun's bayonet and do all the necessary updates
@@ -614,11 +614,11 @@
 		return
 
 	if(user == target)
-		target.visible_message(span_warning("[user] вставляет ствол [src.declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
-							span_userdanger("[pluralize_ru(user.gender,"Ты вставляешь","Вы вставляеете")] ствол [src.declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
+		target.visible_message(span_warning("[user] вставляет ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."), \
+							span_userdanger("[pluralize_ru(user.gender,"Ты вставляешь","Вы вставляеете")] ствол [declent_ru(GENITIVE)] себе в рот, готовясь нажать на спуск..."))
 	else
-		target.visible_message(span_warning("[user] направляет [src.declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
-							span_userdanger("[user] направляет [src.declent_ru(ACCUSATIVE)] [pluralize_ru(target.gender,"тебе","вам")] в голову, готовясь выстрелить!"))
+		target.visible_message(span_warning("[user] направляет [declent_ru(ACCUSATIVE)] в голову [target], готовясь выстрелить..."), \
+							span_userdanger("[user] направляет [declent_ru(ACCUSATIVE)] [pluralize_ru(target.gender,"тебе","вам")] в голову, готовясь выстрелить!"))
 
 	semicd = 1
 

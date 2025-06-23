@@ -104,7 +104,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger(pick(list("[capitalize(src.declent_ru(NOMINATIVE))] поражён[genderize_ru(src.gender,"","а","о","ы")] [P.declent_ru(INSTRUMENTAL)]!", "[P.declent_ru(NOMINATIVE)] попадает в [src.declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
+	visible_message(span_danger(pick(list("[capitalize(.declent_ru(NOMINATIVE))] поражён[genderize_ru(gender,"","а","о","ы")] [P.declent_ru(INSTRUMENTAL)]!", "[P.declent_ru(NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -134,7 +134,7 @@
 		return FALSE
 
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 
 	else
@@ -151,7 +151,7 @@
 		return FALSE
 
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 
 	var/play_soundeffect = !M.environment_smash

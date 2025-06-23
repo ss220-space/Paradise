@@ -304,12 +304,12 @@
 
 	if(target != user) // Cheks if user interacts with himself
 		target.visible_message(
-			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся пристегнуть [target] к [src.declent_ru(DATIVE)]!"),
-			span_userdanger("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся пристегнуть вас к [src.declent_ru(DATIVE)]!"),
+			span_warning("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся пристегнуть [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
+			span_userdanger("[user] пыта[pluralize_ru(user.gender,"ет","ют")]ся пристегнуть вас к [declent_ru(DATIVE)]!"),
 			span_italics("Слышен лязг металла."),
 		)
 		if(!do_after(user, 0.7 SECONDS, target, NONE))
-			to_chat(user, span_warning("Вам не удалось пристегнуть [target]."))
+			to_chat(user, span_warning("Вам не удалось пристегнуть [target.declent_ru(ACCUSATIVE)]."))
 			return FALSE
 
 		// Sanity check before we attempt to buckle. Is everything still in a kosher state for buckling after the delay?
@@ -321,14 +321,14 @@
 	if(.)
 		if(target == user)
 			target.visible_message(
-				span_notice("[target] пристегива[pluralize_ru(target.gender,"ет","ют")] себя к [src.declent_ru(DATIVE)]."),
-				span_notice("Вы пристегиваете себя к [src.declent_ru(DATIVE)]."),
+				span_notice("[target] пристегива[pluralize_ru(target.gender,"ет","ют")] себя к [declent_ru(DATIVE)]."),
+				span_notice("Вы пристегиваете себя к [declent_ru(DATIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		else
 			target.visible_message(
-				span_warning("[user] пристегива[pluralize_ru(target.gender,"ет","ют")] [target] к [src.declent_ru(DATIVE)]!"),
-				span_warning("[user] пристегива[pluralize_ru(target.gender,"ет","ют")] вас к [src.declent_ru(DATIVE)]!"),
+				span_warning("[user] пристегива[pluralize_ru(target.gender,"ет","ют")] [target.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"),
+				span_warning("[user] пристегива[pluralize_ru(target.gender,"ет","ют")] вас к [declent_ru(DATIVE)]!"),
 				span_italics("Слышен лязг металла."),
 			)
 
@@ -349,14 +349,14 @@
 	if(buckled_mob)
 		if(buckled_mob != user)
 			buckled_mob.visible_message(
-				span_notice("[user] отстегива[pluralize_ru(target.gender,"ет","ют")] [buckled_mob] от [src.declent_ru(GENITIVE)]."),
-				span_notice("[user] отстегива[pluralize_ru(target.gender,"ет","ют")] вас от [src.declent_ru(GENITIVE)]."),
+				span_notice("[user] отстегива[pluralize_ru(target.gender,"ет","ют")] [buckled_mob] от [declent_ru(GENITIVE)]."),
+				span_notice("[user] отстегива[pluralize_ru(target.gender,"ет","ют")] вас от [declent_ru(GENITIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		else
 			buckled_mob.visible_message(
-				span_notice("[buckled_mob] отстегива[pluralize_ru(target.gender,"ет","ют")] себя от [src.declent_ru(GENITIVE)]."),
-				span_notice("Вы отстегиваете себя от [src.declent_ru(GENITIVE)]."),
+				span_notice("[buckled_mob] отстегива[pluralize_ru(target.gender,"ет","ют")] себя от [declent_ru(GENITIVE)]."),
+				span_notice("Вы отстегиваете себя от [declent_ru(GENITIVE)]."),
 				span_italics("Слышен лязг металла."),
 			)
 		add_fingerprint(user)

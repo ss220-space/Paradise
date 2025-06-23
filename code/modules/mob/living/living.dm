@@ -124,7 +124,7 @@
 		var/obj/item/organ/external/wing/bodypart_wing = get_organ(BODY_ZONE_WING)
 		if(bodypart_wing && !bodypart_wing.has_fracture()) // wings can soften
 			visible_message(
-				span_notice("[capitalize(src.declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(src.gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], но оста[pluralize_ru(src.gender,"ётся","ются")] невредим[genderize_ru(src.gender,"","а","о","ы")] после падения."),
 				span_notice("Вы жёство приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], но остаётесь невредимы."),
 			)
 			AdjustWeakened((levels * 4 SECONDS))
@@ -144,13 +144,13 @@
 		skip_weaken = TRUE
 		if(cat || HAS_TRAIT(src, TRAIT_DWARF)) // lil' bounce kittens
 			visible_message(
-				span_notice("[capitalize(src.declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(src.gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[pluralize_ru(src.gender,"ет","ют")] на ноги!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакива[pluralize_ru(src.gender,"ет","ют")] на ноги!"),
 				span_notice("Вы жёстко приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)], и вскакиваете на ноги!"),
 			)
 			return .
 		incoming_damage *= 1.2 // at least no stuns
 		visible_message(
-			span_danger("[capitalize(src.declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(src.gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[pluralize_ru(src.gender,"ёт","ют")] на ноги!"),
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] жёстко приземля[pluralize_ru(gender,"ется","ются")] на [impacted_turf.declent_ru(ACCUSATIVE)] и болезненно вста[pluralize_ru(src.gender,"ёт","ют")] на ноги!"),
 			span_userdanger("Вы грубо приземляетесь на [impacted_turf.declent_ru(ACCUSATIVE)]] и рефлекторно встаёте на ноги — это больно!"),
 		)
 
@@ -1469,7 +1469,7 @@
 	if(user.a_intent != INTENT_HARM || stat != DEAD || !is_sharp(I) || (!butcher_results && !is_monkeybasic(src))) //can we butcher it?
 		return FALSE
 	. = TRUE
-	to_chat(user, span_notice("Вы начинаете разделывать [src.declent_ru(ACCUSATIVE)]..."))
+	to_chat(user, span_notice("Вы начинаете разделывать [declent_ru(ACCUSATIVE)]..."))
 	playsound(loc, 'sound/weapons/slice.ogg', 50, TRUE, -1)
 	if(!do_after(user, I.has_speed_harvest ? 1 SECONDS : (4 SECONDS * mob_size), src, NONE, max_interact_count = 1, cancel_on_max = TRUE) || !Adjacent(user))
 		return .
@@ -1483,7 +1483,7 @@
 		for(var/i in 1 to butcher_results[path])
 			new path(loc)
 		butcher_results.Remove(path) //In case you want to have things like simple_animals drop their butcher results on gib, so it won't double up below.
-	visible_message(span_notice("[user.declent_ru(NOMINATIVE)] разделывает [src.declent_ru(ACCUSATIVE)]."))
+	visible_message(span_notice("[capitalize(user.declent_ru(NOMINATIVE))] разделывает [declent_ru(ACCUSATIVE)]."))
 	gib()
 
 

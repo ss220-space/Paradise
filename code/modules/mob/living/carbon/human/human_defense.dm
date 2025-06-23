@@ -455,8 +455,8 @@ emp_act
 		if(get_dist(user, source_turf) <= 1) //people with TK won't get smeared with blood
 			user.add_mob_blood(src)
 		user.visible_message(
-			span_danger("[user] отрубил[genderize_ru(user.gender, "", "а", "о", "и")] кусок мяса от [src.declent_ru(GENITIVE)]!"),
-			span_warning("Вы отрубили кусок мяса от [src.declent_ru(GENITIVE)]!"),
+			span_danger("[user] отрубил[genderize_ru(user.gender, "", "а", "о", "и")] кусок мяса от [declent_ru(GENITIVE)]!"),
+			span_warning("Вы отрубили кусок мяса от [declent_ru(GENITIVE)]!"),
 		)
 		meatleft--
 		if(meatleft <= 0)
@@ -583,11 +583,11 @@ emp_act
 
 	if(!I.force)
 		visible_message(
-			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [src.declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
+			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
 			span_warning("[user] аккуратно тыкнул[genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_warning("Вы аккуратно тыкнули [src] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."))
+		to_chat(user, span_warning("Вы аккуратно тыкнули [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]."))
 		return
 
 	var/message_verb = "атаковал"
@@ -595,11 +595,11 @@ emp_act
 		message_verb = "[pick(I.attack_verb)]"
 
 	visible_message(
-		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [src.declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
+		span_danger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
 		span_userdanger("[user] [message_verb][genderize_ru(user.gender, "", "а", "о", "и")] вас [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"),
 		ignored_mobs = user,
 	)
-	to_chat(user, span_danger("Вы [message_verb]и [src.declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"))
+	to_chat(user, span_danger("Вы [message_verb]и [declent_ru(ACCUSATIVE)] [I.declent_ru(INSTRUMENTAL)] [message_hit_area]!"))
 
 
 /**
@@ -824,8 +824,8 @@ emp_act
 				else
 					return
 
-		M.occupant_message(span_danger("Вы ударили [src.declent_ru(ACCUSATIVE)]."))
-		visible_message(span_danger("[M.name] ударил [src.declent_ru(ACCUSATIVE)]!"), span_userdanger("[M.name] ударил вас!"))
+		M.occupant_message(span_danger("Вы ударили [declent_ru(ACCUSATIVE)]."))
+		visible_message(span_danger("[M.name] ударил [declent_ru(ACCUSATIVE)]!"), span_userdanger("[M.name] ударил вас!"))
 
 		add_attack_logs(M.occupant, src, "Mecha-meleed with [M]")
 	else

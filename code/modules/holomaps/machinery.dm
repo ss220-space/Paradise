@@ -103,7 +103,7 @@
 		if(!holomap_datum)
 			// Something is very wrong if we have to un-fuck ourselves here.
 			stack_trace("Holomap at [COORD(src)] couldn't setup holomap_datum.")
-			to_chat(user, span_warning("[capitalize(src.declent_ru(NOMINATIVE))] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] сбоит и выдает сообщение: \"ОШИБКА: NTOS не отвечает.\""))
 			return
 
 	holomap_datum.update_map(handle_overlays())
@@ -229,10 +229,10 @@
 
 /obj/machinery/station_map/multitool_act(mob/living/user, obj/item/tool)
 	if(!panel_open)
-		to_chat(user, span_warning("Для изменения настроек [src.declent_ru(GENITIVE)] необходимо открыть панель!"))
+		to_chat(user, span_warning("Для изменения настроек [declent_ru(GENITIVE)] необходимо открыть панель!"))
 		return FALSE
 	if(!SSholomaps.valid_map_indexes.len > 1)
-		to_chat(user, span_warning("Нет других доступных карт для [src.declent_ru(GENITIVE)]!"))
+		to_chat(user, span_warning("Нет других доступных карт для [declent_ru(GENITIVE)]!"))
 		return FALSE
 
 	tool.play_tool_sound(user, 50)
@@ -242,7 +242,7 @@
 	else
 		current_z_level = SSholomaps.valid_map_indexes[current_index + 1]
 
-	to_chat(user, span_info("Вы устанавливаете индекс базы данных [src.declent_ru(GENITIVE)] на [current_z_level]."))
+	to_chat(user, span_info("Вы устанавливаете индекс базы данных [declent_ru(GENITIVE)] на [current_z_level]."))
 	return TRUE
 
 /obj/machinery/station_map/crowbar_act(mob/living/user, obj/item/tool)

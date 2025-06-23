@@ -133,7 +133,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 		else if(anchored && state == WINDOW_IN_FRAME)
 			. += span_notice("Окно <i>откручено</i>, но <b>вставлено</b> в раму.")
 		else if(anchored && state == WINDOW_OUT_OF_FRAME)
-			. += span_notice("Окно извлечено из рамы, но можно <i>вставить</i> обратно. Оно <b>прикручено</b> к полу.")
+			. += span_notice("Окно извлечено из рамы, его можно <i>вставить</i> обратно. Оно <b>прикручено</b> к полу.")
 		else if(!anchored)
 			. += span_notice("Окно <i>откручено</i> от пола и может быть разобрано <b>гаечным ключом</b>.")
 	else
@@ -219,7 +219,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/attack_tk(mob/user)
 	user.changeNext_move(CLICK_CD_MELEE)
-	user.visible_message(span_notice("Кто-то постучал по [src.declent_ru(DATIVE)]."))
+	user.visible_message(span_notice("Кто-то постучал по [declent_ru(DATIVE)]."))
 	add_fingerprint(user)
 	playsound(src, 'sound/effects/glassknock.ogg', 50, 1)
 
@@ -232,15 +232,15 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			attack_generic(user, user.dna.species.obj_damage + user.physiology.punch_obj_damage)
 		else
 			playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
-			user.visible_message(span_warning("[user] сильно стучит по [src.declent_ru(DATIVE)]!"),
-								span_warning("Вы сильно стучите по [src.declent_ru(DATIVE)]!"),
+			user.visible_message(span_warning("[user] сильно стучит по [declent_ru(DATIVE)]!"),
+								span_warning("Вы сильно стучите по [declent_ru(DATIVE)]!"),
 								"Слышен громкий стук.")
 		add_fingerprint(user)
 	else
 		user.changeNext_move(CLICK_CD_MELEE)
 		playsound(src, 'sound/effects/glassknock.ogg', 80, 1)
-		user.visible_message("[user] стучит по [src.declent_ru(DATIVE)].",
-							"Вы стучите по [src.declent_ru(DATIVE)].",
+		user.visible_message("[user] стучит по [declent_ru(DATIVE)].",
+							"Вы стучите по [declent_ru(DATIVE)].",
 							"Слышен стук.")
 		add_fingerprint(user)
 
@@ -260,8 +260,8 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	switch(grabber.grab_state)
 		if(GRAB_AGGRESSIVE)
 			victim.visible_message(
-				span_warning("[grabber] швыряет [victim] в [src.declent_ru(ACCUSATIVE)]!"),
-				span_warning("[grabber] швыряет вас в [src.declent_ru(ACCUSATIVE)]!")
+				span_warning("[grabber] швыряет [victim] в [declent_ru(ACCUSATIVE)]!"),
+				span_warning("[grabber] швыряет вас в [declent_ru(ACCUSATIVE)]!")
 			)
 			if(prob(25))
 				victim.Knockdown(2 SECONDS)
@@ -269,16 +269,16 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			take_damage(10)
 		if(GRAB_NECK)
 			victim.visible_message(
-				span_warning("[grabber] бьёт [victim] о [src.declent_ru(ACCUSATIVE)]!"),
-				span_warning("[grabber] бьёт вас о [src.declent_ru(ACCUSATIVE)]!")
+				span_warning("[grabber] бьёт [victim] о [declent_ru(ACCUSATIVE)]!"),
+				span_warning("[grabber] бьёт вас о [declent_ru(ACCUSATIVE)]!")
 			)
 			victim.Knockdown(4 SECONDS)
 			victim.apply_damage(10)
 			take_damage(25)
 		if(GRAB_KILL)
 			victim.visible_message(
-				span_warning("[grabber] прижимает [victim] к [src.declent_ru(DATIVE)]!"),
-				span_warning("[grabber] прижимает вас к [src.declent_ru(DATIVE)]!")
+				span_warning("[grabber] прижимает [victim] к [declent_ru(DATIVE)]!"),
+				span_warning("[grabber] прижимает вас к [declent_ru(DATIVE)]!")
 			)
 			victim.Knockdown(6 SECONDS)
 			victim.apply_damage(20)
@@ -321,7 +321,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 			if(!I.use_tool(src, user, decon_speed, volume = I.tool_volume, extra_checks = CALLBACK(src, PROC_REF(check_state_and_anchored), state, anchored)))
 				return
 			state = (state == WINDOW_IN_FRAME ? WINDOW_SCREWED_TO_FRAME : WINDOW_IN_FRAME)
-			to_chat(user, span_notice("Вы [state == WINDOW_IN_FRAME ? "открепляете окно от рамы" : "закрепляете окно в раме."]."))
+			to_chat(user, span_notice("Вы [state == WINDOW_IN_FRAME ? "открутили окно от рамы" : "закрутили окно в раме.]."))
 
 		else if(state == WINDOW_OUT_OF_FRAME)
 			if(decon_speed)
@@ -358,7 +358,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	var/obj/item/stack/sheet/G = new glass_type(user.loc, glass_amount)
 	G.add_fingerprint(user)
 	playsound(src, 'sound/items/deconstruct.ogg', 50, 1)
-	to_chat(user, span_notice("Вы успешно разбираете [src.declent_ru(ACCUSATIVE)]."))
+	to_chat(user, span_notice("Вы успешно разбираете [declent_ru(ACCUSATIVE)]."))
 	qdel(src)
 
 /obj/structure/window/welder_act(mob/user, obj/item/I)
@@ -368,7 +368,7 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 	if(!can_be_reached(user))
 		return
 	if(obj_integrity >= max_integrity)
-		to_chat(user, span_warning("[src.declent_ru(NOMINATIVE)] уже в хорошем состоянии!"))
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] уже в хорошем состоянии!"))
 		return
 	if(!I.tool_use_check(user, 0))
 		return
@@ -445,13 +445,13 @@ GLOBAL_LIST_INIT(wcCommon, pick(list("#379963", "#0d8395", "#58b5c3", "#49e46e",
 
 /obj/structure/window/click_alt(mob/user)
 	if(anchored)
-		to_chat(user, span_warning("[src.declent_ru(NOMINATIVE)] нельзя повернуть, пока он закреплён!"))
+		to_chat(user, span_warning("[declent_ru(NOMINATIVE)] нельзя повернуть, пока он закреплён!"))
 		return CLICK_ACTION_BLOCKING
 
 	var/target_dir = turn(dir, 90)
 
 	if(!valid_build_direction(loc, target_dir, fulltile))
-		to_chat(user, span_warning("Нет места, чтобы повернуть [src.declent_ru(ACCUSATIVE)]!"))
+		to_chat(user, span_warning("Нет места, чтобы повернуть [declent_ru(ACCUSATIVE)]!"))
 		return CLICK_ACTION_BLOCKING
 
 	setDir(target_dir)

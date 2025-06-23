@@ -92,7 +92,7 @@
 			. += span_danger("Выглядит сильно повреждённой.")
 
 	if(rotting)
-		. += span_warning("На [src.declent_ru(PREPOSITIONAL)] растет грибок.")
+		. += span_warning("На [declent_ru(PREPOSITIONAL)] растет грибок.")
 
 
 /turf/simulated/wall/update_overlays()
@@ -193,8 +193,8 @@
 	if(our_rpd.mode == RPD_ATMOS_MODE)
 		if(!our_rpd.ranged)
 			playsound(src, "sound/weapons/circsawhit.ogg", 50, 1)
-			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] сверлить отверстие в [src.declent_ru(PREPOSITIONAL)]..."),
-				span_notice("Вы начинаете сверлить отверстие в [src.declent_ru(PREPOSITIONAL)]..."),
+			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
+				span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]..."),
 				span_italics("Вы слышите звук сверления."))
 			if(!do_after(user, our_rpd.walldelay, src)) //Drilling into walls takes time
 				return
@@ -227,7 +227,7 @@
 	switch(M.damtype)
 		if(BRUTE)
 			playsound(src, 'sound/weapons/punch4.ogg', 50, TRUE)
-			M.visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] бьет [src.declent_ru(ACCUSATIVE)]!"), span_danger("Вы бьете [src.declent_ru(ACCUSATIVE)]!"))
+			M.visible_message(span_danger("[capitalize(M.declent_ru(NOMINATIVE))] бьет [declent_ru(ACCUSATIVE)]!"), span_danger("Вы бьете [declent_ru(ACCUSATIVE)]!"))
 			if(prob(hardness + M.force) && M.force > 20)
 				dismantle_wall(1)
 				playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
@@ -282,7 +282,7 @@
 	visuals.layer = FLY_LAYER
 
 	if(user)
-		to_chat(user, span_warning("Термит начинает прожигать [src.declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_warning("Термит начинает прожигать [declent_ru(ACCUSATIVE)]."))
 
 	if(time)
 		melting = TRUE
@@ -458,7 +458,7 @@
 
 /turf/simulated/wall/proc/try_rot(obj/item/I, mob/user, params)
 	if((!is_sharp(I) && I.force >= 10) || I.force >= 20)
-		to_chat(user, span_notice("[capitalize(src.declent_ru(NOMINATIVE))] рассыпается под воздействием вашего [I.declent_ru(GENITIVE)]."))
+		to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] рассыпается под воздействием вашего [I.declent_ru(GENITIVE)]."))
 		dismantle_wall(1)
 		return TRUE
 	return FALSE
@@ -472,7 +472,7 @@
 		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL))
 			to_chat(user, span_notice("Вы удаляете внешнюю обшивку."))
 			dismantle_wall()
-			visible_message(span_warning("[user] разреза[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!"), span_warning("Слышен звук разрезаемого металла."))
+			visible_message(span_warning("[user] разреза[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен звук разрезаемого металла."))
 			return TRUE
 
 	return FALSE
@@ -487,7 +487,7 @@
 		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL)) // Diamond pickaxe has 0.25 toolspeed, so 12s./6s.
 			to_chat(user, span_notice("Ваш [I.declent_ru(NOMINATIVE)] пробива[pluralize_ru(user.gender,"ет","ют")] последний слой укреплённой обшивки."))
 			dismantle_wall()
-			visible_message(span_warning("[user] просверлива[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!"), span_italics("Слышен скрежет металла."))
+			visible_message(span_warning("[user] просверлива[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_italics("Слышен скрежет металла."))
 			return TRUE
 
 	else if(istype(I, /obj/item/pickaxe/drill/jackhammer))
@@ -497,7 +497,7 @@
 		if(do_after(user, delay * jh.wall_toolspeed, src, category = DA_CAT_TOOL)) // Jackhammer has 0.1 toolspeed, so 6s./3s.
 			to_chat(user, span_notice("Ваш [I.declent_ru(NOMINATIVE)] дезинтегрирует укреплённую обшивку."))
 			dismantle_wall()
-			visible_message(span_warning("[user] дезинтегриру[pluralize_ru(user.gender,"ет","ют")] [src.declent_ru(ACCUSATIVE)]!"), span_warning("Слышен скрежет металла."))
+			visible_message(span_warning("[user] дезинтегриру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"), span_warning("Слышен скрежет металла."))
 			return TRUE
 
 	else if(istype(I, /obj/item/twohanded/required/pyro_claws))
@@ -506,7 +506,7 @@
 		if(do_after(user, delay * I.toolspeed, src, category = DA_CAT_TOOL)) // claws has 0.5 toolspeed, so 3/1.5 seconds
 			to_chat(user, span_notice("Ваш [I.declent_ru(NOMINATIVE)] плавит укреплённую обшивку."))
 			dismantle_wall()
-			visible_message(span_warning("[user] плавит [src.declent_ru(ACCUSATIVE)]!"), span_italics("Слышно шипение пара."))
+			visible_message(span_warning("[user] плавит [declent_ru(ACCUSATIVE)]!"), span_italics("Слышно шипение пара."))
 			return TRUE
 
 	return FALSE
@@ -524,10 +524,10 @@
 		var/obj/item/pipe/P = I
 		if(P.pipe_type != -1) // ANY PIPE
 			playsound(get_turf(src), 'sound/weapons/circsawhit.ogg', 50, 1)
-			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] сверлить отверстие в [src.declent_ru(PREPOSITIONAL)]."), span_notice("Вы начинаете сверлить отверстие в [src.declent_ru(PREPOSITIONAL)]."), span_italics("Слышен звук дрели."))
+			user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_notice("Вы начинаете сверлить отверстие в [declent_ru(PREPOSITIONAL)]."), span_italics("Слышен звук дрели."))
 
 			if(do_after(user, 8 SECONDS * P.toolspeed, src, category = DA_CAT_TOOL))
-				user.visible_message(span_notice("[user] просверлива[pluralize_ru(user.gender,"ет","ют")] отверстие в [src.declent_ru(PREPOSITIONAL)] и проталкива[pluralize_ru(user.gender,"ет","ют")] [P.declent_ru(ACCUSATIVE)] в пустоту."), span_notice("Вы заканчиваете сверление [src.declent_ru(PREPOSITIONAL)] и проталкиваете [P.declent_ru(ACCUSATIVE)] в пустоту."), span_italics("Слышен звук трещотки."))
+				user.visible_message(span_notice("[user] просверлива[pluralize_ru(user.gender,"ет","ют")] отверстие в [declent_ru(PREPOSITIONAL)] и проталкива[pluralize_ru(user.gender,"ет","ют")] [P.declent_ru(ACCUSATIVE)] в пустоту."), span_notice("Вы заканчиваете сверление [declent_ru(PREPOSITIONAL)] и проталкиваете [P.declent_ru(ACCUSATIVE)] в пустоту."), span_italics("Слышен звук трещотки."))
 
 				user.drop_from_active_hand()
 				if(P.is_bent_pipe())  // bent pipe rotation fix see construction.dm

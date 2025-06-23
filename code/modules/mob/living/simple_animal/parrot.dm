@@ -389,7 +389,7 @@
 				if(!parrot_perch || parrot_interest.loc != parrot_perch.loc)
 					try_grab_item(parrot_interest)
 					visible_message(
-						span_notice("[src.declent_ru(NOMINATIVE)] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
+						span_notice("[capitalize(declent_ru(NOMINATIVE))] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
 						span_notice("Вы хватаете [held_item.declent_ru(ACCUSATIVE)]!"),
 						span_italics("Слышно яростное хлопанье крыльев.")
 					)
@@ -557,7 +557,7 @@
 
 			try_grab_item(I)
 			visible_message(
-				span_notice("[src.declent_ru(NOMINATIVE)] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] хватает [held_item.declent_ru(ACCUSATIVE)]!"),
 				span_notice("Вы хватаете [held_item.declent_ru(ACCUSATIVE)]!"),
 				span_italics("Слышно яростное хлопанье крыльев.")
 			)
@@ -591,7 +591,7 @@
 		if(stolen_item && C.drop_item_ground(stolen_item))
 			try_grab_item(stolen_item)
 			visible_message(
-				span_notice("[src.declent_ru(NOMINATIVE)] выхватывает [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
+				span_notice("[capitalize(declent_ru(NOMINATIVE))] выхватывает [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
 				span_notice("Вы вырываете [held_item.declent_ru(ACCUSATIVE)] из рук [C.declent_ru(GENITIVE)]!"),
 				span_italics("Слышно яростное хлопанье крыльев.")
 			)
