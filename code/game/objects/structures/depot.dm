@@ -14,7 +14,7 @@
 	depotarea = get_area(src)
 	if(istype(depotarea))
 		depotarea.reactor = src
-		for(var/obj/machinery/porta_turret/syndicate/T in GLOB.machines)
+		for(var/obj/machinery/porta_turret/syndicate/T in SSmachines.get_by_type(/obj/machinery/porta_turret/syndicate))
 			if(z == T.z && get_dist(T, loc) <= 50)
 				if(!istype(T.depotarea))
 					T.depotarea = depotarea
