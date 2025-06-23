@@ -31,9 +31,16 @@
 
 /datum/martial_combo/proc/give_explaination(user)
 	var/final_combo_text = combo_text_override
-	if(!final_combo_text)
-		final_combo_text = english_list(steps, and_text = " ", comma_text = " ")
-	to_chat(user, "<span class='notice'>[name]</span>: [final_combo_text]. [explaination_text]")
+	if(final_combo_text)
+		to_chat(user, "[span_notice(name)]: [final_combo_text]. [explaination_text]")
+		return
+
+	final_combo_text = ""
+	for(var/step as anything in steps)
+		final_combo_text += final_combo_text ? ", " : ""
+		final_combo_text += GLOB.martial_combo_step_message[step]
+
+	to_chat(user, "[span_notice(name)]: [final_combo_text]. [explaination_text]")
 
 /datum/martial_combo/proc/objective_damage(var/mob/living/user, var/mob/living/target, var/damage, var/damage_type)
 	var/all_objectives = user?.mind?.get_all_objectives()

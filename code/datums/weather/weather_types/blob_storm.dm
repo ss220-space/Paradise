@@ -92,7 +92,7 @@
 		return
 	stage = MAIN_STAGE
 	if(SSsecurity_level.get_current_level_as_number() == SEC_LEVEL_DELTA)
-		for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+		for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 			if(bomb && bomb.timing && is_station_level(bomb.z))
 				INVOKE_ASYNC(bomb, TYPE_PROC_REF(/obj/machinery/nuclearbomb/,explode))
 	update_areas()

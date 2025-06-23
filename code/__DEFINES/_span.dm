@@ -22,7 +22,8 @@
 #define span_blob(str) ("<span class='blob'>" + str + "</span>")
 //#define span_bigicon(str) ("<span class='bigicon'>" + str + "</span>")
 //#define span_binarysay(str) ("<span class='binarysay'>" + str + "</span>")
-//#define span_blue(str) ("<span class='blue'>" + str + "</span>")
+#define span_blue(str) ("<span class='blue'>" + str + "</span>")
+#define span_yellow(str) ("<span class='yellow'>" + str + "</span>")
 //#define span_blueteamradio(str) ("<span class='blueteamradio'>" + str + "</span>")
 //#define span_bold(str) ("<span class='bold'>" + str + "</span>")
 #define span_boldannounceic(str) ("<span class='boldannounceic'>" + str + "</span>")
@@ -187,4 +188,5 @@
 
 // Font color spans
 #define span_fontcolor_red(str) ("<span style='color: red;'>" + str + "</span>")
+#define span_fontcolor_green(str) ("<span style='color: green;'>" + str + "</span>")
 #define span_fontcolor_purple(str) ("<span style='color: purple;'>" + str + "</span>")

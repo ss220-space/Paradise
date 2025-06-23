@@ -15,7 +15,13 @@
 	src.laws_sanity_check()
 	src.laws.show_laws(who)
 
-/mob/living/silicon/ai/add_ion_law(var/law)
+/mob/living/silicon/ai/add_ion_law(law)
+	..()
+	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
+		if(R.lawupdate && (R.connected_ai == src))
+			R.show_laws()
+
+/mob/living/silicon/ai/add_devil_law(law)
 	..()
 	for(var/mob/living/silicon/robot/R in GLOB.mob_list)
 		if(R.lawupdate && (R.connected_ai == src))

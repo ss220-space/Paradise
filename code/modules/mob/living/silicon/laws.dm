@@ -21,12 +21,19 @@
 	if(tracking_entities)
 		to_chat(src, span_warning("Internal camera is currently being accessed."))
 
-/mob/living/silicon/proc/add_ion_law(var/law)
+/mob/living/silicon/proc/add_ion_law(law)
 	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
 	laws_sanity_check()
 	laws.add_ion_law(law)
 	if(!isnull(usr) && law)
 		log_and_message_admins("has given [src] the ion law: [law]")
+
+/mob/living/silicon/proc/add_devil_law(law)
+	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)
+	laws_sanity_check()
+	laws.set_sixsixsix_law(law)
+	if(!isnull(usr) && law)
+		log_and_message_admins("has given [src] the devil law: [law]")
 
 /mob/living/silicon/proc/add_inherent_law(var/law)
 	throw_alert("newlaw", /atom/movable/screen/alert/newlaw)

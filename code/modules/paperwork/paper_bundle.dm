@@ -76,11 +76,16 @@
 
 	if(istype(I, /obj/item/paper))
 		add_fingerprint(user)
+		var/obj/item/paper/paper = I
 		if(istype(I, /obj/item/paper/carbon))
 			var/obj/item/paper/carbon/carbon_paper = I
 			if(!carbon_paper.iscopy && !carbon_paper.copied)
 				to_chat(user, span_notice("Take off the carbon copy first."))
 				return .
+
+		if(!paper.joinable)
+			return ..()
+
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		amount++

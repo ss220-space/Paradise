@@ -721,6 +721,7 @@
 	color = "#B44B00"
 	penetrates_skin = TRUE
 	taste_description = "горечи"
+	devil_regen_ignored = TRUE
 
 /datum/reagent/formaldehyde/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
