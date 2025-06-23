@@ -1,0 +1,70 @@
+@use 'sass:color';
+@use 'sass:meta';
+
+@use '../colors.scss' with (
+  $primary: #8b0000,
+  $fg-map-keys: (),
+  $bg-map-keys: ()
+);
+@use '../base.scss' with (
+  $color-bg: #2b1b0f,
+  $color-bg-grad-spread: 6%
+);
+
+.theme-infernal {
+  // Atomic classes
+  @include meta.load-css('../atomic/color.scss');
+
+  // Components
+  @include meta.load-css(
+    '../components/Button.scss',
+    $with: (
+      'color-default': colors.$primary,
+      'color-disabled': #5c4033,
+      'color-selected': #b22222,
+      'color-caution': #cd853f,
+      'color-danger': #8b0000
+    )
+  );
+  @include meta.load-css(
+    '../components/ImageButton.scss',
+    $with: (
+      'color-default': color.adjust(colors.$primary, $lightness: -20%),
+      'color-disabled': #5c4033,
+      'color-selected': #b22222
+    )
+  );
+  @include meta.load-css(
+    '../components/Input.scss',
+    $with: ('border-color': #a52a2a)
+  );
+  @include meta.load-css(
+    '../components/NoticeBox.scss',
+    $with: ('background-color': #4b1f1f)
+  );
+  @include meta.load-css(
+    '../components/NumberInput.scss',
+    $with: ('border-color': #a52a2a)
+  );
+  @include meta.load-css(
+    '../components/ProgressBar.scss',
+    $with: ('background-color': rgba(0, 0, 0, 0.5))
+  );
+  @include meta.load-css('../components/Section.scss');
+  @include meta.load-css(
+    '../components/Tooltip.scss',
+    $with: ('background-color': #3f0d0d)
+  );
+
+  // Layouts
+  @include meta.load-css('../layouts/Layout.scss');
+  @include meta.load-css('../layouts/Window.scss');
+  @include meta.load-css(
+    '../layouts/TitleBar.scss',
+    $with: ('background-color': #4b1f1f)
+  );
+
+  .Layout__content {
+    background-image: url('../../assets/bg-codex_gygax.svg');
+  }
+}

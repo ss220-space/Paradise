@@ -76,6 +76,10 @@
 			log_runtime(EXCEPTION("[user] tried to stick a [brain.name] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
 			return ATTACK_CHAIN_PROCEED
 
+		if(brain.brainmob.mind && !brain.brainmob.mind.hasSoul)
+			to_chat(user, span_warning("Нельзя поместить в НКИ мозг существа, потерявшего душу."))
+			return ATTACK_CHAIN_PROCEED
+
 		if(!user.drop_transfer_item_to_loc(brain, src))
 			return ATTACK_CHAIN_PROCEED
 

@@ -27,6 +27,7 @@
 	. = ..()
 	remove_from_all_data_huds()
 	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
 	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/crawl = new
 	AddSpell(crawl)
 	whisper_action.button_icon_state = "shadow_whisper"

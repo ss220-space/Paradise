@@ -788,6 +788,12 @@
 ///Called when someone attempts to cuff a carbon
 #define COMSIG_CARBON_CUFF_ATTEMPTED "carbon_attempt_cuff"
 
+///Called when checking the rituals of the devil's sacrifice
+#define COMSIG_DEVIL_SACRIFICE_CHECK "devil_sacrifice_check"
+	#define COMPONENT_SACRIFICE_VALID (1<<0)
+///Called after successfully performing the Devil Sacrifice Ritual
+#define COMSIG_DEVIL_SACRIFICE "devil_sacrifice"
+
 // /mob/living/simple_animal/hostile signals
 #define COMSIG_HOSTILE_ATTACKINGTARGET "hostile_attackingtarget"
 	#define COMPONENT_HOSTILE_NO_ATTACK (1<<0)

@@ -112,7 +112,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/list/text = list("<span style='font-size: 2;'><b>The traitors were:</b></span><br>")
+		var/list/text = list(span_fontsize2(span_bold("The traitors were:<br>")))
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor) + "<br>"

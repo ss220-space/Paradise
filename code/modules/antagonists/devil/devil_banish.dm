@@ -1,69 +1,69 @@
 /datum/devil_banish
-    var/name
+	var/name
 
-    var/desc
-    var/law
+	var/desc
+	var/law
 
-    var/mob/living/carbon/owner
-    var/datum/antagonist/devil/devil
+	var/mob/living/carbon/owner
+	var/datum/antagonist/devil/devil
 
 /datum/devil_banish/proc/link_banish(mob/living/carbon/carbon)
-    owner = carbon
-    devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
+	owner = carbon
+	devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
 /datum/devil_banish/proc/remove_banish()
-    owner = null
-    devil = null
+	owner = null
+	devil = null
 
 /datum/devil_banish/Destroy(force)
-    remove_banish()
+	remove_banish()
 
-    return ..()
+	return ..()
 
 /datum/devil_banish/proc/check_banishment()
-    return
+	return
 
 /datum/devil_banish/water
-    name = BANISH_WATER
+	name = BANISH_WATER
 
-    desc = "Чтобы изгнать дьявола, вы должны наполнить его тело святой водой."
-    law = "Если ваше тело наполнено святой водой, вы не сможете воскреснуть."
+	desc = "Чтобы изгнать дьявола, вы должны наполнить его тело святой водой."
+	law = "Если ваше тело наполнено святой водой, вы не сможете воскреснуть."
 
 /datum/devil_banish/water/check_banishment()
-    return owner.reagents?.has_reagent("holy water")
+	return owner.reagents?.has_reagent("holywater")
 
 /datum/devil_banish/coffin
-    name = BANISH_COFFIN
+	name = BANISH_COFFIN
 
-    desc = "Этот дьявол вернётся к жизни, если его останки не будут помещены в гроб."
-    law = "Если ваше тело находится в гробу, вы не сможете воскреснуть."
+	desc = "Этот дьявол вернётся к жизни, если его останки не будут помещены в гроб."
+	law = "Если ваше тело находится в гробу, вы не сможете воскреснуть."
 
 /datum/devil_banish/coffin/check_banishment()
-    return owner.loc && istype(owner.loc, /obj/structure/closet/coffin)
+	return owner.loc && istype(owner.loc, /obj/structure/closet/coffin)
 
 /datum/devil_banish/formaldehyde
-    name = BANISH_FORMALDYHIDE
+	name = BANISH_FORMALDYHIDE
 
-    desc = "Чтобы изгнать дьявола, вы должны ввести в его безжизненное тело бальзамирующую жидкость."
-    law = "Если ваше тело забальзамировано, вы не сможете воскреснуть."
+	desc = "Чтобы изгнать дьявола, вы должны ввести в его безжизненное тело бальзамирующую жидкость."
+	law = "Если ваше тело забальзамировано, вы не сможете воскреснуть."
 
 /datum/devil_banish/formaldehyde/check_banishment()
-    return owner.reagents?.has_reagent("formaldehyde")
+	return owner.reagents?.has_reagent("formaldehyde")
 
 /datum/devil_banish/rune
-    name = BANISH_RUNES
+	name = BANISH_RUNES
 
-    desc = "Этот дьявол воскреснет после смерти, если его рядом не будет руны."
-    law = "Если ваше тело находится возле руны, вы не сможете воскреснуть."
+	desc = "Этот дьявол воскреснет после смерти, если его рядом не будет руны."
+	law = "Если ваше тело находится возле руны, вы не сможете воскреснуть."
 
 /datum/devil_banish/rune/check_banishment()
 	return locate(/obj/effect/decal/cleanable/crayon) in range(1, owner)
 
 /datum/devil_banish/candle
-    name = BANISH_CANDLES
+	name = BANISH_CANDLES
 
-    desc = "Большое количество зажжённых поблизости свечей помешает дьяволу воскреснуть."
-    law = "Если ваше тело находится рядом с зажжёнными свечами, вы не сможете воскреснуть."
+	desc = "Большое количество зажжённых поблизости свечей помешает дьяволу воскреснуть."
+	law = "Если ваше тело находится рядом с зажжёнными свечами, вы не сможете воскреснуть."
 
 /datum/devil_banish/candle/check_banishment()
 	var/count = 0
@@ -74,10 +74,10 @@
 	return count >= 4
 
 /datum/devil_banish/funeral
-    name = BANISH_FUNERAL_GARB
+	name = BANISH_FUNERAL_GARB
 
-    desc = "Если этот дьявол одет в траурные одежды, либо она лежит рядом с ним, то он не сможет воскреснуть."
-    law = "Если ваше тело облачено в траурные одежды, вы не сможете воскреснуть."
+	desc = "Если этот дьявол одет в траурные одежды, либо она лежит рядом с ним, то он не сможет воскреснуть."
+	law = "Если ваше тело облачено в траурные одежды, вы не сможете воскреснуть."
 
 /datum/devil_banish/funeral/check_banishment()
 	if(!ishuman(owner)) // can be true devil

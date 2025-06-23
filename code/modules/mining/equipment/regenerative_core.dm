@@ -65,6 +65,9 @@
 	if(!preserved)
 		go_inert()
 
+/obj/item/organ/internal/regenerative_core/proc/after_use()
+	qdel(src)
+
 /obj/item/organ/internal/regenerative_core/proc/preserved(implanted = 0)
 	preserved = TRUE
 	update_icon()
@@ -86,7 +89,7 @@
 		to_chat(owner, "<span class='notice'>[src] breaks down as it tries to activate.</span>")
 	else
 		owner.revive()
-	qdel(src)
+	after_use()
 
 /obj/item/organ/internal/regenerative_core/on_life()
 	..()
@@ -112,7 +115,7 @@
 				SSblackbox.record_feedback("nested tally", "hivelord_core", 1, list("[type]", "used", "self"))
 			H.apply_status_effect(STATUS_EFFECT_REGENERATIVE_CORE)
 			user.temporarily_remove_item_from_inventory(src)
-			qdel(src)
+			after_use()
 
 /obj/item/organ/internal/regenerative_core/afterattack(atom/target, mob/user, proximity_flag, params)
 	. = ..()
@@ -136,6 +139,33 @@
 
 /obj/item/organ/internal/regenerative_core/prepare_eat()
 	return null
+
+#define INFINITY_CORE_COOLDOWN 15 MINUTES
+
+/obj/item/organ/internal/regenerative_core/cooldown
+	COOLDOWN_DECLARE(core_use_cooldown)
+
+/obj/item/organ/internal/regenerative_core/cooldown/after_use()
+	COOLDOWN_START(src, core_use_cooldown, INFINITY_CORE_COOLDOWN)
+
+/obj/item/organ/internal/regenerative_core/cooldown/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
+		if(!user)
+			return
+		user.balloon_alert(user, "ядро не восстановилось")
+		return
+	. = ..()
+
+/obj/item/organ/internal/regenerative_core/cooldown/applyto(atom/target, mob/user)
+	if(!COOLDOWN_FINISHED(src, core_use_cooldown))
+		if(!user)
+			return
+		user.balloon_alert(user, "ядро не восстановилось")
+		return
+	. = ..()
+
+
+#undef INFINITY_CORE_COOLDOWN
 
 /*************************Legion core********************/
 /obj/item/organ/internal/regenerative_core/legion

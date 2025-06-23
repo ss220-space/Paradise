@@ -147,7 +147,7 @@
 	default_deconstruction_screwdriver(user, "pad-o", initial(icon_state), I)
 
 /obj/machinery/syndiepad/proc/pad_sync()
-	for(var/obj/machinery/syndiepad/S in GLOB.machines)
+	for(var/obj/machinery/syndiepad/S in SSmachines.get_by_type(/obj/machinery/syndiepad))
 		if(S.console_link && src.console_link) //Мы не хотим привязываться к другим привязанным к консоли телепадам если мы привязаны к консоли
 			continue
 		if(!S.id)
