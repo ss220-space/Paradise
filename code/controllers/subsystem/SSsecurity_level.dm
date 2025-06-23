@@ -51,11 +51,12 @@ SUBSYSTEM_DEF(security_level)
 
 	pre_set_level(selected_level)
 
-	if(selected_level.set_delay > 0)
-		SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, current_security_level.number_level, selected_level.number_level)
-		security_level_set_timer_id = addtimer(CALLBACK(src, PROC_REF(do_set_level), selected_level), selected_level.set_delay, TIMER_UNIQUE | TIMER_STOPPABLE)
-	else
-		do_set_level(selected_level)
+	if(selected_level.set_delay <= 0)
+    do_set_level(selected_level)
+    return
+
+	SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, current_security_level.number_level, selected_level.number_level)
+	security_level_set_timer_id = addtimer(CALLBACK(src, PROC_REF(do_set_level), selected_level), selected_level.set_delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 /**
  * Do things before the actual security level set, like executing security level specific pre change behavior
@@ -107,13 +108,14 @@ SUBSYSTEM_DEF(security_level)
 			new_sound = selected_level.elevating_to_sound,
 			new_sound2 = selected_level.ai_announcement_sound
 		)
-	else
-		GLOB.security_announcement.Announce(
-			selected_level.lowering_to_announcement_text,
-			selected_level.lowering_to_announcement_title,
-			new_sound = selected_level.lowering_to_sound,
-			new_sound2 = selected_level.ai_announcement_sound
-		)
+		return
+
+	GLOB.security_announcement.Announce(
+		selected_level.lowering_to_announcement_text,
+		selected_level.lowering_to_announcement_title,
+		new_sound = selected_level.lowering_to_sound,
+		new_sound2 = selected_level.ai_announcement_sound
+	)
 
 /**
  * Returns the current security level as a number
@@ -154,7 +156,7 @@ SUBSYSTEM_DEF(security_level)
  * Returns security level name formatted with it's color
  */
 /datum/controller/subsystem/security_level/proc/get_colored_current_security_level_name()
-	return "<font color='[current_security_level.color]'>[current_security_level.name]</font>"
+	return "<span class='[current_security_level.color]'>[current_security_level.name]</span>"
 
 #undef DEFAULT_SECURITY_LEVEL_NUMBER
 #undef DEFAULT_SECURITY_LEVEL_NAME

@@ -38,9 +38,9 @@
 			var/area/destination = locate(area_type)
 			if(!destination)
 				continue
-			for(var/turf/simulated/floor/F in destination.contents)
-				if(!F.is_blocked_turf())
-					turfs += F
+			for(var/turf/simulated/floor/floor in destination.contents)
+				if(!floor.is_blocked_turf())
+					turfs += floor
 			if(length(turfs))
 				spawn_area_type = area_type
 				spawn_on_turfs(turfs)

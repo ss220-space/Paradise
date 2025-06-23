@@ -48,7 +48,7 @@
 	name = "зелёный"
 	number_level = SEC_LEVEL_GREEN
 	ai_announcement_sound = 'sound/AI/green.ogg'
-	color = "limegreen"
+	color = "limegreen" 
 	lowering_to_announcement_title = "Внимание! Уровень угрозы понижен до Зелёного."
 	lowering_to_announcement_text = "Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются."
 

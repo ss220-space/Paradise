@@ -496,38 +496,38 @@ SUBSYSTEM_DEF(mapping)
 	log_world("Ruin loader finished with [budget] left to spend.")
 
 /datum/controller/subsystem/mapping/proc/make_maint_all_access()
-	for(var/area/maintenance/A in existing_station_areas)
-		for(var/obj/machinery/door/airlock/D in A)
-			D.emergency = TRUE
-			D.update_icon()
+	for(var/area/maintenance/area in existing_station_areas)
+		for(var/obj/machinery/door/airlock/door in area)
+			door.emergency = TRUE
+			door.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были сняты.")
 	maint_all_access = TRUE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "enabled"))
 
 /datum/controller/subsystem/mapping/proc/revoke_maint_all_access()
-	for(var/area/maintenance/A in existing_station_areas)
-		for(var/obj/machinery/door/airlock/D in A)
-			D.emergency = FALSE
-			D.update_icon()
+	for(var/area/maintenance/area in existing_station_areas)
+		for(var/obj/machinery/door/airlock/door in area)
+			door.emergency = FALSE
+			door.update_icon()
 	GLOB.minor_announcement.Announce("Ограничения на доступ к техническим и внешним шл+юзам были возобновлены.")
 	maint_all_access = FALSE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency maintenance access", "disabled"))
 
 /datum/controller/subsystem/mapping/proc/make_station_all_access()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-		if(is_station_level(D.z))
-			D.emergency = TRUE
-			D.update_icon()
-	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
+	for(var/obj/machinery/door/airlock/door in GLOB.airlocks)
+		if(is_station_level(door.z))
+			door.emergency = TRUE
+			door.update_icon()
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шлюзам станции были сняты в связи с происходящим кризисом. Статьи о незаконном проникновении по-прежнему действуют, если командование не заявит об обратном.")
 	station_all_access = TRUE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "enabled"))
 
 /datum/controller/subsystem/mapping/proc/revoke_station_all_access()
-	for(var/obj/machinery/door/airlock/D in GLOB.airlocks)
-		if(is_station_level(D.z))
-			D.emergency = FALSE
-			D.update_icon()
-	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шл+юзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
+	for(var/obj/machinery/door/airlock/door in GLOB.airlocks)
+		if(is_station_level(door.z))
+			door.emergency = FALSE
+			door.update_icon()
+	GLOB.minor_announcement.Announce("Ограничения на доступ ко всем шлюзам станции были вновь возобновлены. Если вы застряли, обратитесь за помощью к ИИ станции, или к коллегам.")
 	station_all_access = FALSE
 	SSblackbox.record_feedback("nested tally", "keycard_auths", 1, list("emergency station access", "disabled"))
 

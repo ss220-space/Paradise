@@ -719,9 +719,10 @@ SUBSYSTEM_DEF(ticker)
 	var/sound_length = GLOB.round_end_sounds[round_end_sound]
 
 	for(var/mob/M in GLOB.player_list)
-		if(!(M.client.prefs.sound & SOUND_MUTE_END_OF_ROUND))
-			SEND_SOUND(M, round_end_sound)
-			
+		if(M.client.prefs.sound & SOUND_MUTE_END_OF_ROUND)
+			continue
+		SEND_SOUND(M, round_end_sound)
+
 	sleep(sound_length)
 
 	world.Reboot()

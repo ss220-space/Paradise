@@ -53,7 +53,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
 
-	var/list/combined_receivers = Get_Receivers(message_language)
+	var/list/combined_receivers = get_receivers(message_language)
 	var/list/receivers = combined_receivers[1]
 	var/list/garbled_receivers = combined_receivers[2]
 
@@ -73,7 +73,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	if(config.add_log)
 		Log(message, title)
 
-/datum/announcer/proc/Get_Receivers(datum/language/message_language)
+/datum/announcer/proc/get_receivers(datum/language/message_language)
 	var/list/receivers = list()
 	var/list/garbled_receivers = list()
 
@@ -83,21 +83,20 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 				receivers |= M
 			if(!M.say_understands(null, message_language))
 				receivers -= M
-				garbled_receivers[M] = TRUE
+				garbled_receivers |= M
 	else
 		for(var/obj/item/radio/R as anything in GLOB.global_radios)
-			for(var/mob/M as anything in R.send_announcement())
-				receivers[M] = TRUE
-		for(var/mob/M in receivers)
+			receivers |= R.send_announcement()
+		for(var/mob/M as anything in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))
 				receivers -= M
-				garbled_receivers[M] = TRUE
+				garbled_receivers |= M
 		for(var/mob/M as anything in GLOB.dead_mob_list)
 			if(M.client && M.stat == DEAD && !isnewplayer(M))
-				receivers[M] = TRUE
+				receivers |= M
 
 	return list(receivers, garbled_receivers)
 

@@ -2602,16 +2602,16 @@
 		if(!check_rights(R_ADMIN))
 			return
 
-		if(alert(owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+		if(tgui_alert(owner, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
 			var/mob/living/carbon/human/H = locateUID(href_list["ErtReply"])
 			if(!istype(H))
-				to_chat(owner, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
+				to_chat(owner, span_warning("This can only be used on instances of type /mob/living/carbon/human"))
 				return
 
-			var/reason = input(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm") as null|message
+			var/reason = tgui_input_text(owner, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm")
 			if(!reason)
 				return
-			var/announce_to_crew = alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
+			var/announce_to_crew = tgui_alert(owner, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 			GLOB.ert_request_answered = TRUE
 			log_admin("[owner] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
@@ -2622,13 +2622,13 @@
 				return
 
 			if(H.stat != CONSCIOUS)
-				to_chat(owner, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
+				to_chat(owner, span_warning("The person you are trying to contact is not conscious. ERT denied but no message has been sent."))
 				return
 			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-				to_chat(owner, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
+				to_chat(owner, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
 				return
-			to_chat(owner, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
-			to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Ваш запрос на ОБР был отклонен по следующим причинам: [reason].</span>")
+			to_chat(owner, span_notice("You sent [reason] to [H] via a secure channel."))
+			to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 		else
 			owner.response_team()
 
@@ -3651,7 +3651,7 @@
 				var/level_number = text2num(href_list["number"])
 				SSsecurity_level.set_level(level_number)
 				message_admins(span_notice("[key_name_admin(usr)] change security level to [SSsecurity_level.number_level_to_text(level_number)]."))
-				
+
 			if("moveminingshuttle")
 				if(!you_realy_want_do_this())
 					return

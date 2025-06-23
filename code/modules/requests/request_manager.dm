@@ -138,16 +138,16 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				to_chat(usr, "You cannot respond with ert for a non-ert-request request!")
 				return TRUE
 
-			if(alert(usr, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+			if(tgui_alert(usr, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
 				var/mob/living/carbon/human/H = request.owner?.mob
 				if(!istype(H))
 					to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 					return
 
-				var/reason = input(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm") as null|message
+				var/reason = tgui_input_text(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm")
 				if(!reason)
 					return
-				var/announce_to_crew = alert(usr, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
+				var/announce_to_crew = tgui_alert(usr, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"
 				GLOB.ert_request_answered = TRUE
 				log_admin("[usr] denied [key_name(H)]'s ERT request with the message [reason]. Announced to [announce_to_crew ? "the entire crew." : "only the sender"].")
 
@@ -158,15 +158,15 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 					return
 
 				if(H.stat != CONSCIOUS)
-					to_chat(usr, "<span class='warning'>The person you are trying to contact is not conscious. ERT denied but no message has been sent.</span>")
-					return
-				if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
-					to_chat(usr, "<span class='warning'>The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent.</span>")
-					return
-				to_chat(usr, "<span class='notice'>You sent [reason] to [H] via a secure channel.</span>")
-				to_chat(H, "<span class='specialnotice bold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [reason].</span>")
-			else
-				usr.client.response_team()
+				to_chat(usr, span_warning("The person you are trying to contact is not conscious. ERT denied but no message has been sent."))
+				return
+			if(!istype(H.l_ear, /obj/item/radio/headset) && !istype(H.r_ear, /obj/item/radio/headset))
+				to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
+				return
+			to_chat(usr, span_notice("You sent [reason] to [H] via a secure channel."))
+			to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
+		else
+			usr.client.response_team()
 
 		if ("getcode")
 			if(request.req_type != REQUEST_NUKE)
