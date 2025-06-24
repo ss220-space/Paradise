@@ -71,7 +71,7 @@
 		if(!(C.powernet in powernets))
 			powernets.Add(C.powernet)
 
-	var/cur_voltage = voltage * strenght / 100
+	var/cur_voltage = voltage * strength / 100
 	for(var/datum/powernet/powernet in powernets)
 		powernet.newavail += cur_voltage / powernets.len
 

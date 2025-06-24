@@ -89,6 +89,10 @@
 		JOB_MIN_AGE_COMMAND = 50,
 	)
 
+	max_strength = STRENGTH_LEVEL_SUPERHUMAN
+	default_strength = STRENGTH_LEVEL_STRONG
+
+
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
 	return E.eye_colour

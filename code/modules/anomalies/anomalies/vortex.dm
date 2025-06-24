@@ -6,7 +6,7 @@
 	/// Maximum radius at which surrounding objects are attracted.
 	var/grav_pull_range_high = 0
 	/// The level of singularity that corresponds to the force of attraction.
-	var/grav_pull_strenght = 0
+	var/grav_pull_strength = 0
 	/// The radius at which collapse effects are applied.
 	var/collapse_range = 0
 
@@ -30,7 +30,7 @@
 			if(!prob(mult * 10))
 				continue
 
-			turf.singularity_act(grav_pull_strenght)
+			turf.singularity_act(grav_pull_strength)
 
 		sleep(2)
 
@@ -53,18 +53,18 @@
 	var/bx = -a1y
 	var/by = a1x
 
-	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
+	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strength() / 100)
 
 	// c - vector of moving. Always move 1
 	var/cx = ax * radius + bx * (a_len - 1)
 	var/cy = ay * radius + by * (a_len - 1)
 
 	var/turf/target = get_turf(locate(atom.x + cx, atom.y + cy, z))
-	atom.singularity_pull(target, grav_pull_strenght)
+	atom.singularity_pull(target, grav_pull_strength)
 	atom.update_icon()
 
 /obj/effect/anomaly/vortex/proc/do_pulls()
-	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strenght() / 100)
+	var/radius = round(grav_pull_range_low + (grav_pull_range_high - grav_pull_range_low) * get_strength() / 100)
 	for(var/atom/movable/atom in view(radius, src))
 		if(!can_move_sth(atom))
 			continue
@@ -129,7 +129,7 @@
 
 	grav_pull_range_low = 1
 	grav_pull_range_high = 2
-	grav_pull_strenght = STAGE_THREE
+	grav_pull_strength = STAGE_THREE
 	collapse_range = 0
 
 /obj/effect/anomaly/vortex/tier2
@@ -153,7 +153,7 @@
 
 	grav_pull_range_low = 2
 	grav_pull_range_high = 3
-	grav_pull_strenght = STAGE_FOUR
+	grav_pull_strength = STAGE_FOUR
 	collapse_range = 1
 
 /obj/effect/anomaly/vortex/tier3
@@ -176,7 +176,7 @@
 
 	grav_pull_range_low = 2
 	grav_pull_range_high = 4
-	grav_pull_strenght = STAGE_FIVE
+	grav_pull_strength = STAGE_FIVE
 	collapse_range = 3
 	has_warp = TRUE
 
@@ -215,7 +215,7 @@
 
 	grav_pull_range_low = 8
 	grav_pull_range_high = 16
-	grav_pull_strenght = STAGE_SIX
+	grav_pull_strength = STAGE_SIX
 	collapse_range = 15
 	has_warp = TRUE
 

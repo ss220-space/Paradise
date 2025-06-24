@@ -191,7 +191,7 @@ Ranges with core charge 50-100:
 		return
 
 	var/old_max_tp_range = max_tp_range
-	max_tp_range = max(1, round((core.get_strenght() + 10) / 30))
+	max_tp_range = max(1, round((core.get_strength() + 10) / 30))
 	if(tp_range != old_max_tp_range) // If was max, set max, else leave old.
 		tp_range = max_tp_range
 

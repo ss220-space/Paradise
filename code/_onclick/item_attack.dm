@@ -262,17 +262,18 @@
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 
-/mob/living/proceed_attack_results(obj/item/I, mob/living/user, params, def_zone)
+/mob/living/proceed_attack_results(obj/item/item, mob/living/user, params, def_zone)
 	. = ATTACK_CHAIN_PROCEED_SUCCESS
 
-	send_item_attack_message(I, user, def_zone)
-	if(!I.force)
+	send_item_attack_message(item, user, def_zone)
+	if(!item.force)
 		return .
 
-	var/apply_damage_result = apply_damage(I.force, I.damtype, def_zone, sharp = is_sharp(I), used_weapon = I)
+	var/final_force = item.force + ((item.damtype & BRUTELOSS) ? get_strength_melee_damage_delta() : 0)
+	var/apply_damage_result = apply_damage(final_force, item.damtype, def_zone, sharp = is_sharp(item), used_weapon = item)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
-	if(apply_damage_result && I.damtype == BRUTE && prob(33))
-		I.add_mob_blood(src)
+	if(apply_damage_result && item.damtype == BRUTE && prob(33))
+		item.add_mob_blood(src)
 		add_splatter_floor()
 		if(get_dist(user, src) <= 1)	//people with TK won't get smeared with blood
 			user.add_mob_blood(src)

@@ -99,6 +99,8 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
+	strength_female_delta = 1 // More anthro traps lizards.
+
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -361,7 +363,7 @@ They're basically just lizards with all-around marginally better stats and fire 
 		var/selected_poi = tgui_input_list(owner, "Выберите точку интереса", "Точки интереса", list_of_points)
 		addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, owner, \
 							span_warning("Я чувствую, что [selected_poi] [get_direction(selected_poi)]")), 2 SECONDS)
-              
+
 	if(!LAZYLEN(GLOB.lavaland_points_of_interest))
 		to_chat(owner, "Все церемониальные тотемы уничтожены.")
 		return
@@ -379,10 +381,10 @@ They're basically just lizards with all-around marginally better stats and fire 
 		return "уничтожен."
 
 	var/turf/turf = get_turf(selected_poi)
-	
+
 	if(owner.z != turf.z)
 		return "находится где-то далеко отсюда."
-	
+
 	. = "находится где-то на "
 	. += dir2rustext(get_dir(owner.loc, selected_poi.loc))
 	. += "e."

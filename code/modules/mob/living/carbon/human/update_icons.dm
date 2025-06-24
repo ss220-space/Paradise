@@ -357,6 +357,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	if(!head_organ || !head_organ.dna || !head_organ.h_style)
 		return
 
+	if(HAS_TRAIT(src, TRAIT_BALD))
+		head_organ.f_style = "Shaved"
+		head_organ.h_style = "Bald"
+
 	//masks and helmets can obscure our hair, unless we're a synthetic
 	if((head && (head.flags_inv & (HIDEHAIR|HIDEHEADHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEHEADHAIR))))
 		return
@@ -412,6 +416,10 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 	var/obj/item/organ/external/head/head_organ = get_organ(BODY_ZONE_HEAD)
 	if(!head_organ || !head_organ.dna || !head_organ.f_style)
 		return
+
+	if(HAS_TRAIT(src, TRAIT_BALD))
+		head_organ.f_style = "Shaved"
+		head_organ.h_style = "Bald"
 
 	//masks and helmets can obscure our facial hair, unless we're a synthetic
 	if((head && (head.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))) || (wear_mask && (wear_mask.flags_inv & (HIDEHAIR|HIDEFACIALHAIR))))
@@ -1303,7 +1311,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(part.s_tone)
 				. += "[part.s_tone]"
 
-	. = "[.][!!husk][!!hulk][!!skeleton]"
+	. = "[.][min(get_strength(), 4)][!!husk][!!hulk][!!skeleton]"
 
 
 /mob/living/carbon/human/update_ssd_overlay()

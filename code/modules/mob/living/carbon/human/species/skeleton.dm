@@ -55,6 +55,8 @@
 	disliked_food = NONE
 	liked_food = DAIRY
 
+	can_become_stronger = FALSE
+
 
 /datum/species/skeleton/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

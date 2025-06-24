@@ -110,6 +110,9 @@
 		JOB_MIN_AGE_COMMAND = 10,
 	)
 
+	max_strength = STRENGTH_LEVEL_STRONG
+
+
 /datum/species/vox/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
 

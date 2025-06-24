@@ -68,7 +68,61 @@
 	/// Internal armor datum
 	var/datum/armor/armor
 
+	/// Strength level. Changes some parameters, such as melee damage. 2 - the same as old.
+	var/strength = -1 // Changes in on_species_gain()
+	/// Points of strength that this body already has. They are used to change the strength level.
+	var/strength_points = 0
+
 
 /datum/physiology/New()
 	armor = new
 
+
+#define REQ_STAMINA_FOR_STRENGTH_POINT		25
+#define REQ_NUTRITION_FOR_STRENGTH_POINT 	25
+#define MIN_NUTRITION_FOR_STRENGTH_CHANGE	NUTRITION_LEVEL_STARVING
+
+/datum/physiology/proc/try_add_strength_points(mob/living/carbon/human/user, delta)
+	if(user.nutrition < MIN_NUTRITION_FOR_STRENGTH_CHANGE)
+		to_chat(user, span_warning("Вы слишком голодны!"))
+		return FALSE
+
+	if(user.getStaminaLoss() + delta * REQ_STAMINA_FOR_STRENGTH_POINT > MAX_STAMINA_LOSS)
+		to_chat(user, span_warning("Вы слишком устали!"))
+		return FALSE
+
+	if(!user.dna.species.can_become_stronger)
+		return TRUE
+
+	user.adjustStaminaLoss(delta * REQ_STAMINA_FOR_STRENGTH_POINT)
+	user.adjust_nutrition(-delta * REQ_NUTRITION_FOR_STRENGTH_POINT)
+
+	var/has_steroids = user.reagents.has_reagent(/datum/reagent/steroids::id)
+	var/has_protein = user.reagents.has_reagent(/datum/reagent/consumable/nutriment/protein::id)
+	if(has_steroids)
+		delta *= 2
+	else if(has_protein)
+		delta *= 1.3
+
+	strength_points += delta
+	try_upgrade_strength(user)
+	if(strength >= user.get_max_strength_level())
+		strength_points = 0
+
+	return TRUE
+
+
+/datum/physiology/proc/try_upgrade_strength(mob/living/carbon/human/user)
+	if(strength >= user.get_max_strength_level())
+		return
+
+	if(strength_points < GLOB.strength_req_to_upgrade[strength])
+		return
+
+	strength_points -= GLOB.strength_req_to_upgrade[strength]
+	strength++
+	user.update_body(TRUE)
+
+#undef REQ_STAMINA_FOR_STRENGTH_POINT
+#undef REQ_NUTRITION_FOR_STRENGTH_POINT
+#undef MIN_NUTRITION_FOR_STRENGTH_CHANGE

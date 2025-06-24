@@ -25,7 +25,7 @@
 
 /obj/effect/anomaly/proc/get_data()
 	var/list/scan_data = list()
-	var/stre = strenght
+	var/stre = strength
 	var/stab = stability
 	scan_data += "Сила аномалии: [stre > 70 ? span_warning("[stre]") : stre]"
 	scan_data += "Стабильность аномалии: [stab < 30 ? span_warning("[stab]") : stab]"
@@ -46,7 +46,7 @@
 		var/blocked = world.time < move_impulse_moment && istype(impulse, /datum/anomaly_impulse/move) || stability > impulse.stability_high
 		scan_data += "  [impulse.name]" + (blocked ? " ([span_green("заблокирован")]" : "")
 		scan_data += "  &emsp;Описание: [impulse.desc]"
-		scan_data += "  &emsp;Время между импульсами: [impulse.scale_by_strenght(impulse.period_low, impulse.period_high) / 10]"
+		scan_data += "  &emsp;Время между импульсами: [impulse.scale_by_strength(impulse.period_low, impulse.period_high) / 10]"
 		scan_data += "  &emsp;Блокирующая стабильность: [impulse.stability_high]"
 
 	return scan_data

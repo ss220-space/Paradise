@@ -453,11 +453,14 @@
 /mob/living/proc/get_grab_upgrade_time(mob/living/grabber)
 	if(!grabber.mind)
 		return GRAB_UPGRADE_TIME
+
 	var/datum/antagonist/vampire/vampire = grabber.mind.has_antag_datum(/datum/antagonist/vampire)
 	var/datum/vampire_passive/upgraded_grab/vampire_grab = vampire?.get_ability(/datum/vampire_passive/upgraded_grab)
 	if(vampire_grab)
 		return vampire_grab.grab_speed
-	return isnull(grabber.mind?.martial_art?.grab_speed) ? GRAB_UPGRADE_TIME : grabber.mind.martial_art.grab_speed
+
+	var/normal_grab_update_time = GRAB_UPGRADE_TIME * get_strength_grab_speed_modifier()
+	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time : grabber.mind.martial_art.grab_speed
 
 
 /mob/living/attack_slime(mob/living/simple_animal/slime/M)

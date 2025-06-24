@@ -24,3 +24,5 @@
 
 	reagent_tag = PROCESS_ORG
 	//Has standard darksight of 2.
+
+	strength_female_delta = -1

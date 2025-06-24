@@ -61,6 +61,8 @@
 		JOB_MIN_AGE_COMMAND = 13,
 	)
 
+	default_strength = STRENGTH_LEVEL_WEAK
+
 
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()

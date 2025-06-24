@@ -84,6 +84,9 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
+	default_strength = STRENGTH_LEVEL_WEAK
+
+
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	var/datum/action/innate/wryn/wryn_sting/wryn_sting = locate() in H.actions

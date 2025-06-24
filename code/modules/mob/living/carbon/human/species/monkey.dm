@@ -60,6 +60,9 @@
 		BODY_ZONE_TAIL = list("path" = /obj/item/organ/external/tail/monkey),
 	)
 
+	default_strength = STRENGTH_LEVEL_WEAK
+
+
 /datum/species/monkey/get_random_name()
 	return "[lowertext(name)] ([rand(100,999)])"
 

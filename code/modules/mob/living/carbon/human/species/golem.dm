@@ -75,6 +75,8 @@
 		"рассыпается в прах!",
 		"разбивает своё тело на части!")
 
+	can_become_stronger = FALSE
+
 	var/golem_colour = rgb(170, 170, 170)
 	var/info_text = "Будучи <span class='danger'>железным големом</span>, вы не обладаете отличительными особенностями."
 	var/random_eligible = TRUE
