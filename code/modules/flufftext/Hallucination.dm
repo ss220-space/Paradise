@@ -905,7 +905,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				if(13)
 					to_chat(src, "<span class='warning'>Вы ощущаете лёгкое покалывание!</span>")
 				if(14)
-					to_chat(src, "<h1 class='alert'>Приоритетное оповещение</h1>")
+					to_chat(src, "<h1 class='alert'>Приоритетное объявление</h1>")
 					to_chat(src, "<br><br><span class='alert'>Эвакуационный шаттл совершил стыковку со станцией. У вас есть 3 минуты, чтобы взобраться на борт эвакуационного шаттла.</span><br><br>")
 					playsound_local(null, 'sound/AI/eshuttle_dock.ogg', 100)
 				if(15)

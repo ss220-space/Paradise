@@ -67,9 +67,16 @@ SUBSYSTEM_DEF(capitalism)
 //status - TRUE/FALSE
 /datum/controller/subsystem/capitalism/proc/default_annonce()
 	if(default_status)
-		GLOB.major_announcement.Announce("Внимание на счёте станции зафиксировано отсутствие финансов. Выплаты заработных плат заморожены. Командному составу необходимо немедленно решить возникший кризис", "Дефолт станции", 'sound/AI/commandreport.ogg')
+		/* Both announcements are Minor because it happens all the time, because the system of capitalism is shit. */
+		GLOB.minor_announcement.Announce("На счёте станции зафиксировано отсутствие финансовых средств. В связи с этим выплаты заработной платы были приостановлены. Руководству станции необходимо незамедлительно принять меры для разрешения сложившейся ситуации.",
+										"Дефолт станции",
+										'sound/AI/commandreport.ogg'
+		)
 	else
-		GLOB.major_announcement.Announce("Внимание на счёте станции достаточно средств для выплат. Выплаты заработных плат возобновлены.", "Возобновление выплат", 'sound/AI/commandreport.ogg')
+		GLOB.minor_announcement.Announce("На счёте станции имеется достаточное количество средств для осуществления выплат. Заработная плата сотрудникам выплачивается в полном объёме.",
+										"Возобновление выплат",
+										'sound/AI/commandreport.ogg'
+		)
 
 /datum/controller/subsystem/capitalism/proc/potential_salary_payments()
 	var/total_salary = 0

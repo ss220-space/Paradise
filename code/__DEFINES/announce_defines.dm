@@ -1,13 +1,12 @@
 /// These values are used when logging user-initiated announcements.
-#define ANNOUNCE_KIND_DEFAULT	"Announcement"
-#define ANNOUNCE_KIND_MINOR		"Minor Announcement"
-#define ANNOUNCE_KIND_PRIORITY	"Priority Announcement"
-#define ANNOUNCE_KIND_SECURITY	"Security Announcement"
-#define ANNOUNCE_KIND_MAJOR		"NAS Trurl Update"
-#define ANNOUNCE_KIND_EVENT		"NAS Trurl Update"  // Intentionally the same as above
-#define ANNOUNCE_KIND_AI		"A.I. Announcement"
-#define ANNOUNCE_KIND_PTL		"Power Transmission Laser report"
+#define ANNOUNCE_KIND_DEFAULT	"Объявление"
+#define ANNOUNCE_KIND_MINOR		"Небольшое объявление"
+#define ANNOUNCE_KIND_PRIORITY	"Приоритетное оповещение"
+#define ANNOUNCE_KIND_SECURITY	"Объявление о безопасности"
+#define ANNOUNCE_KIND_MAJOR		"АКН Трурль обновление"
+#define ANNOUNCE_KIND_EVENT		"АКН Трурль обновление"  // Intentionally the same as above
+#define ANNOUNCE_KIND_AI		"Объявление ИИ"
 
 /// Russian names of the announcements
-#define ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT	"Приоритетное оповещение"
+#define ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT	"Приоритетное объявление"
 
