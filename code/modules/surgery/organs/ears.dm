@@ -14,6 +14,10 @@
 	parent_organ_zone = BODY_ZONE_HEAD
 	slot = INTERNAL_ORGAN_EARS
 
+/obj/item/organ/internal/ears/invincible/internal_receive_damage(amount, silent)
+	return FALSE
+
+
 /obj/item/organ/internal/ears/on_life()
 	if(!iscarbon(owner))
 		return

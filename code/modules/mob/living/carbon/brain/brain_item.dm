@@ -86,7 +86,7 @@
 		if(borer)
 			borer.leave_host() //Should remove borer if the brain is removed - RR
 
-		if(owner.mind && !decoy_brain)	//don't transfer if the owner does not have a mind.
+		if(owner.mind && !decoy_brain && !HAS_TRAIT(owner, TRAIT_DECOY_BRAIN))	//don't transfer if the owner does not have a mind.
 			our_brain.transfer_identity(user)
 
 	if(ishuman(owner))
