@@ -1,5 +1,5 @@
 #define DEFAULT_SECURITY_LEVEL_NUMBER SEC_LEVEL_GREEN
-#define DEFAULT_SECURITY_LEVEL_NAME "green"
+#define DEFAULT_SECURITY_LEVEL_NAME "зелёный"
 
 GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /datum/announcement_configuration/security))
 
