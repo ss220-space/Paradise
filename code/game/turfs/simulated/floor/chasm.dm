@@ -124,7 +124,7 @@
 		var/mob/fish = pick(fishing_contents)
 		var/obj/effect/abstract/chasm_storage/pool = fish.loc
 		pool.get_fish(fish, user.loc)
-		to_chat(user, span_boldnotice("Попался [fish.name]!"))
+		to_chat(user, span_boldnotice("Попался [fish.declent_ru(NOMINATIVE)]!"))
 		playsound(rod, 'sound/effects/fishing_rod_catch.ogg', 30)
 		return .|ATTACK_CHAIN_SUCCESS
 
