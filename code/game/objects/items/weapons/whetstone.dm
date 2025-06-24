@@ -86,7 +86,7 @@
 		return .
 	var/datum/unarmed_attack/claws/claws = user.dna.species.unarmed
 	if(claws.damage > initial(claws.damage))
-		to_chat(user, span_warning("Ds больше не можеnt точить свои когти!"))
+		to_chat(user, span_warning("Вы больше не можете точить свои когти!"))
 		return .
 
 	claws.damage = clamp(claws.damage + claws_increment, 0, max)
