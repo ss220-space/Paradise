@@ -35,7 +35,7 @@
 /datum/event/disease_outbreak/announce()
 	GLOB.major_announcement.Announce("Вспышка вирусной угрозы 7-го уровня зафиксирована на борту станции [station_name()]. Всему персоналу надлежит сдержать ее распространение.",
 									"Биологическая угроза",
-									new_sound = 'sound/AI/outbreak7.ogg'
+									new_sound2 = 'sound/AI/outbreak7.ogg'
 	)
 
 /datum/event/disease_outbreak/start()

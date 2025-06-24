@@ -74,11 +74,10 @@
 		return COMM_AUTHENTICATION_NONE
 
 /obj/machinery/computer/communications/proc/change_security_level(new_level, force)
-	tmp_alertlevel = new_level
 	var/old_level = SSsecurity_level.get_current_level_as_number()
 	if(!force)
 		new_level = clamp(new_level, SEC_LEVEL_GREEN, SEC_LEVEL_BLUE)
-	SSsecurity_level.set_level(tmp_alertlevel)
+	SSsecurity_level.set_level(new_level)
 	if(SSsecurity_level.get_current_level_as_number() != old_level)
 		//Only notify the admins if an actual change happened
 		add_game_logs("has changed the security level to [SSsecurity_level.get_current_level_as_text()].", usr)
@@ -439,8 +438,7 @@
 	print_command_report(intercepttext, interceptname, FALSE)
 	GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
 									"Входящее засекреченное сообщение",
-									'sound/AI/commandreport.ogg',
-									new_title = "[command_name()] обновление"
+									'sound/AI/commandreport.ogg'
 	)
 
 /obj/machinery/computer/communications/emag_act(user as mob)

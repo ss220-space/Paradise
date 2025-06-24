@@ -61,7 +61,8 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 /datum/team/terror_spiders/proc/spider_win_announce()
 	GLOB.major_announcement.Announce("Подтверждено наличие Императрицы Ужаса на борту [station_name()]. Станция переклассифицированна в гнездо биоугрозы 3-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным. Активация протоколов изоляции.",
-									"Отчет об объекте [station_name()]"
+									"Отчет об объекте [station_name()]",
+									'sound/AI/commandreport.ogg'
 	)
 
 /datum/team/terror_spiders/proc/get_main_spiders()

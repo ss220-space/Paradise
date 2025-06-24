@@ -138,13 +138,13 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				to_chat(usr, "You cannot respond with ert for a non-ert-request request!")
 				return TRUE
 
-			if(tgui_alert(usr, "Accept or Deny ERT request?", "CentComm Response", "Accept", "Deny") == "Deny")
+			if(tgui_alert(usr, "Accept or Deny ERT request?", "CentComm Response", list("Accept", "Deny")) == "No")
 				var/mob/living/carbon/human/H = request.owner?.mob
 				if(!istype(H))
 					to_chat(usr, "<span class='warning'>This can only be used on instances of type /mob/living/carbon/human</span>")
 					return
 
-				var/reason = tgui_input_text(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm")
+				var/reason = tgui_input_text(usr, "Please enter a reason for denying [key_name(H)]'s ERT request.", "Outgoing message from CentComm", multiline = TRUE, encode = FALSE)
 				if(!reason)
 					return
 				var/announce_to_crew = tgui_alert(usr, "Announce ERT request denial to crew or only to the sender [key_name(H)]?", "Send reason to who", "Crew", "Sender") == "Crew"

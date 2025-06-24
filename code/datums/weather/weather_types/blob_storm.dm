@@ -44,7 +44,7 @@
 	status_alarm(TRUE)
 	GLOB.major_announcement.Announce("Биологической угроза 5-го уровня достигла критической массы на борту [station_name()]. Выброс спор и массовое заражение неизбежно.",
 									"Биологическая угроза",
-									'sound/AI/outbreak5.ogg'
+									'sound/AI/commandreport.ogg'
 	)
 
 

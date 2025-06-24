@@ -155,8 +155,10 @@
 	var/datum/objective/summon_carp/main_objective = locate() in objectives
 	if(main_objective)
 		main_objective.completed = TRUE
-	GLOB.major_announcement.Announce("Огромное число форм жизни направляется к [station_name()] с высокой скоростью. \
-	Оставшемуся экипажу рекомендуется эвакуироваться как можно скорее...", "Отдел Изучения Дикой Природы")
+	GLOB.major_announcement.Announce("Огромное число неопознанных форм жизни направляется к [station_name()] с высокой скоростью. Оставшемуся экипажу рекомендуется эвакуироваться как можно скорее...",
+									"Отдел Изучения Дикой Природы",
+									'sound/AI/commandreport.ogg'
+	)
 	sound_to_playing_players('sound/creatures/space_dragon_roar.ogg')
 	for(var/obj/structure/carp_rift/rift as anything in rift_list)
 		rift.carp_stored = 999999

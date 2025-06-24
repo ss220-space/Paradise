@@ -30,7 +30,10 @@ SUBSYSTEM_DEF(nightshift)
 
 
 /datum/controller/subsystem/nightshift/proc/announce(message)
-	GLOB.minor_announcement.Announce(message, new_sound = 'sound/misc/notice2.ogg', new_title = "Объявление автоматизированной системы освещения")
+	GLOB.minor_announcement.Announce(message,
+									new_title = "Объявление автоматизированной системы освещения",
+									new_sound = 'sound/misc/notice2.ogg'
+	)
 
 
 /datum/controller/subsystem/nightshift/proc/check_nightshift(check_canfire=FALSE)

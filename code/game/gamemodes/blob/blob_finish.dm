@@ -8,7 +8,8 @@
 		return
 	update_blob_objective()
 	GLOB.major_announcement.Announce("Объект потерян. Причина: распространение биологической угрозы 5-го уровня. Взведение устройства самоуничтожения персоналом или внешними силами в данный момент не представляется возможным из-за высокого уровня заражения. Активация протоколов изоляции.",
-									"Отчёт об объекте [station_name()]"
+									"Отчёт об объекте [station_name()]",
+									'sound/AI/commandreport.ogg'
 	)
 	blob_stage = (delay_blob_end)? BLOB_STAGE_POST_END : BLOB_STAGE_END
 	if(blob_stage == BLOB_STAGE_END)

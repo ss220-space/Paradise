@@ -13,7 +13,10 @@
 			log_debug("Tried to announce a tear without a valid area!")
 			kill()
 			return
-	GLOB.minor_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].", "Аномалия")
+	GLOB.minor_announcement.Announce("На борту станции зафиксирован пространственно-временной разрыв. Предполагаемая локация: [target_area.name].",
+									"Аномалия",
+									'sound/AI/anomaly.ogg'
+	)
 
 /datum/event/tear/start()
 	var/turf/T = pick(get_area_turfs(impact_area))

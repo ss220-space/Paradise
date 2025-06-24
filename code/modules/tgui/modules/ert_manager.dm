@@ -112,7 +112,8 @@
 			var/message = "[station_name()], к сожалению, в настоящее время мы не можем направить к вам отряд быстрого реагирования."
 			if(params["reason"])
 				message += " Ваш запрос ОБР был отклонен по следующим причинам:\n[params["reason"]]"
-			GLOB.major_announcement.Announce(message, "ОБР недоступен"
+			GLOB.major_announcement.Announce(message,
+											"ОБР недоступен"
 			)
 		else
 			return FALSE

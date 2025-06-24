@@ -43,6 +43,8 @@
 /datum/weather/solar_flare/end()
 	if(..())
 		return
-	GLOB.minor_announcement.Announce("Солнечная вспышка прошла.", "Солнечная вспышка")
+	GLOB.minor_announcement.Announce("Солнечная вспышка прошла.",
+									"Солнечная вспышка"
+	)
 	// Ends the temporary 40x increase that happened during the weather event
 	SSsun.solar_gen_rate = initial(SSsun.solar_gen_rate)

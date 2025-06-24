@@ -48,7 +48,11 @@
 	if(!check_allowed(user) || !war_declaration)
 		return
 
-	GLOB.major_announcement.Announce(war_declaration, "Объявление войны", 'sound/effects/siren.ogg', msg_sanitized = TRUE)
+	GLOB.major_announcement.Announce(war_declaration,
+									"Объявление войны",
+									'sound/effects/siren.ogg', 
+									msg_sanitized = TRUE
+	)
 	addtimer(CALLBACK(SSsecurity_level, TYPE_PROC_REF(/datum/controller/subsystem/security_level, set_level), SEC_LEVEL_GAMMA), 30 SECONDS)
 
 	to_chat(user, "You've attracted the attention of powerful forces within the syndicate. A bonus bundle of telecrystals has been granted to your team. Great things await you if you complete the mission.")

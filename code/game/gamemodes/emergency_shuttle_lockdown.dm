@@ -22,8 +22,8 @@
 
 		emergency.mode = SHUTTLE_DOCKED
 		emergency.timer = world.time + 3 MINUTES
-		GLOB.major_announcement.Announce("[from_hostile? "Угроза устранена" : "Блокировка снята"]. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.",
-										ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT,
+		GLOB.minor_announcement.Announce("[from_hostile? "Угроза устранена" : "Блокировка снята"]. У вас есть 3 минуты, чтобы подняться на борт эвакуационного шаттла.",
+										ANNOUNCE_KIND_PRIORITY,
 										spec_sound
 		)
 		return TRUE

@@ -193,7 +193,7 @@ Made by Xhuis
 			victory_warning_announced = TRUE	//then let's give the station a warning
 			GLOB.major_announcement.Announce("Сканерами дальнего действия обнаружена большая концентрация психической блюспейс-энергии. Вероятность вознесения тенеморфов высока, всему экипажу следует предотвратить вознесение любой ценой!",
 											"Отдел Центрального командования по делам высших измерений",
-											'sound/AI/spanomalies.ogg'
+											'sound/AI/commandreport.ogg'
 			)
 			log_game("Shadowling reveal. Powergame and validhunt allowed.")
 		return 1

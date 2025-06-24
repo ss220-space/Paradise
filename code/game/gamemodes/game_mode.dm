@@ -748,7 +748,7 @@
 	var/obj/singularity/god/god = locate(/obj/singularity/god) in GLOB.poi_list
 
 	if(!god)
-		GLOB.major_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
+		GLOB.minor_announcement.Announce("Угроза пропала с наших сенсоров. Санкционирована экстренная эвакуация.",
 										"Отдел Центрального командования по делам высших измерений",
 										'sound/AI/commandreport.ogg'
 		)

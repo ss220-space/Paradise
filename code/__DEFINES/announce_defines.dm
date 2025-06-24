@@ -6,7 +6,3 @@
 #define ANNOUNCE_KIND_MAJOR		"АКН Трурль обновление"
 #define ANNOUNCE_KIND_EVENT		"АКН Трурль обновление"  // Intentionally the same as above
 #define ANNOUNCE_KIND_AI		"Объявление ИИ"
-
-/// Russian names of the announcements
-#define ANNOUNCE_RU_PRIORITY_ANNOUNCEMENT	"Приоритетное объявление"
-

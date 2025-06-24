@@ -200,8 +200,8 @@
 			invoker.RemoveSpell(/obj/effect/proc_holder/spell/infernal_jaunt)
 			to_chat(invoker, span_warning("Вы чувствуете, будто вот-вот возвыситесь."))
 			GLOB.major_announcement.Announce("Тёмная сушность, известная как [devil.info.truename], из изменерния, известного как Ад, накапливает силу в [ritual_object.loc]. Сорвите ритуал любой ценой. Действие космического закона и стандартных рабочих процедур приостановлено. Весь экипаж должен уничтожать любые проявления ада на месте.",
-												"Отдел Центрального командования по делам высших измерений",
-												'sound/AI/spanomalies.ogg'
+											"Отдел Центрального командования по делам высших измерений",
+											'sound/AI/commandreport.ogg'
 			)
 			stage = FIRST_DEVIL_ASCEND_STAGE
 
@@ -244,7 +244,7 @@
 			devil.try_update_rank(TRUE)
 			GLOB.major_announcement.Announce("Зафиксировано критическое истончение завесы между мирами, указывающее на возвышение тёмной сущности, известной как [devil.info.truename]. Проникновение тёмных сущностей различного ранга обнаружено на борту станции [station_name()]. Всему оставшемуся экипажу надлежит немедленно эвакуироваться.",
 											"Отдел Центрального командования по делам высших измерений",
-											'sound/AI/spanomalies.ogg'
+											'sound/AI/commandreport.ogg'
 			)
 			var/area/area = get_area(invoker)
 			if(area)

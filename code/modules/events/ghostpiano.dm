@@ -28,7 +28,7 @@
 
 
 /datum/event/ghostpiano/announce()
-	GLOB.minor_announcement.Announce("Обнаружена незначительная безвредная паранормальная активность в [get_area(spawn_turf)]. Рекомендация: пресечь.",
+	GLOB.minor_announcement.Announce("Обнаружена незначительная безвредная паранормальная активность в [get_area(spawn_turf)]. Рекомендуется принять меры.",
 									"Паранормальная активность"
 	)
 
