@@ -1,6 +1,14 @@
 /turf/simulated/floor/chasm
 	name = "chasm"
-	desc = "Watch your step."
+	desc = "Смотри куда идёшь."
+	ru_names = list(
+		NOMINATIVE = "пропасть",
+		GENITIVE = "пропасти",
+		DATIVE = "пропасти",
+		ACCUSATIVE = "пропасть",
+		INSTRUMENTAL = "пропастью",
+		PREPOSITIONAL = "пропасти"
+	)
 	baseturf = /turf/simulated/floor/chasm
 	smooth = SMOOTH_BITMASK
 	icon = 'icons/turf/floors/Chasms.dmi'
