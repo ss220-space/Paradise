@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(meteor_shields, list())
+GLOBAL_LIST_EMPTY(meteor_shields)
 GLOBAL_LIST_EMPTY_TYPED(meteor_shielded_turfs, /turf)
 
 // Щиты станции
@@ -75,7 +75,7 @@ GLOBAL_LIST_EMPTY_TYPED(meteor_shielded_turfs, /turf)
 	var/list/data = list()
 
 	data["satellites"] = list()
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		data["satellites"] += list(list(
 			"id" = S.id,
 			"active" = S.active,
@@ -101,7 +101,7 @@ GLOBAL_LIST_EMPTY_TYPED(meteor_shielded_turfs, /turf)
 			. = TRUE
 
 /obj/machinery/computer/sat_control/proc/toggle(id)
-	for(var/obj/machinery/satellite/S in GLOB.machines)
+	for(var/obj/machinery/satellite/S in SSmachines.get_by_type(/obj/machinery/satellite))
 		if(S.id == id && are_zs_connected(src, S))
 			if(!S.toggle())
 				notice = "Вы можете активировать только находящиеся в космосе спутники"

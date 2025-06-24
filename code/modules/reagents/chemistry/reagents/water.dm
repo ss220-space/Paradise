@@ -278,6 +278,7 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	drink_name = "Стакан воды"
 	drink_desc = "Обычный стакан обычной воды."
 	taste_description = "воды"
+	devil_regen_ignored = TRUE
 
 /datum/reagent/holywater/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE

@@ -30,6 +30,10 @@
 		to_chat(user, span_warning("We are unable to swap forms with another changeling!"))
 		return FALSE
 
+	if(isdevilantag(target))
+		to_chat(user, span_warning("Что бы это ни было, вы не хотите прикасаться к этому!"))
+		return FALSE
+
 	if(target.has_brain_worms() || user.has_brain_worms())
 		to_chat(user, span_warning("A foreign presence repels us from this body!"))
 		return FALSE

@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(preferences_info, list())
+GLOBAL_LIST_EMPTY(preferences_info)
 
 /datum/preference_info
     var/name
