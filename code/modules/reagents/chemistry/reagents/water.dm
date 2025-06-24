@@ -512,17 +512,6 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	if(!ishuman(target))
 		return
 
-	if(prob(1) && prob(1))
-		var/path = pick(
-			/datum/disease/food_poisoning,
-			/datum/disease/virus/advance/preset/sneezing,
-			/datum/disease/virus/advance/preset/cough,
-			/datum/disease/virus/advance/preset/voice_change,
-			/datum/disease/virus/advance/preset/hullucigen,
-		)
-		var/datum/disease/virus/virus = new path()
-		virus.Contract(target)
-
 	if(!prob(1))
 		return
 
