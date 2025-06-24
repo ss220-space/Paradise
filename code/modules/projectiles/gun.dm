@@ -140,7 +140,7 @@
 		if(can_bayonet) //if it has a bayonet and this is false, the bayonet is permanent.
 			. += "<span class='info'>[bayonet] looks like it can be <b>unscrewed</b> from [src].</span>"
 	else if(can_bayonet)
-		. += "<span class='notice'>It has a <b>bayonet</b> lug on it.</span>"
+		. += span_info("[capitalize(bayonet.declent_ru(NOMINATIVE))] можно <b>открутить</b> от [declent_ru(GENITIVE)].")
 
 
 /obj/item/gun/proc/update_gun_skins()
@@ -378,13 +378,13 @@
 			new /obj/effect/decal/cleanable/ash(user.loc)
 			user.take_organ_damage(0, 30)
 			user.flash_eyes()
-			to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается у [pluralize_ru(user.gender,"тебя","вас")] в руках!"))
+			to_chat(user, span_userdanger("БА-БАХ! [capitalize(declent_ru(NOMINATIVE))] взрывается у вас в руках!"))
 			playsound(user, 'sound/effects/explosion1.ogg', 30, TRUE)
 			qdel(src)
 			return FALSE
 		if(prob(40 - (malf_counter > 0 ? round(malf_counter / self_shot_divisor) : 0)))
 			playsound(user, fire_sound, 30, TRUE)
-			to_chat(user, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается прямо у [pluralize_ru(user.gender,"тебя","вас")] перед лицом!"))
+			to_chat(user, span_userdanger("[capitalize(declent_ru(NOMINATIVE))] взрывается прямо у вас перед лицом!"))
 			user.take_organ_damage(0, 10)
 			return FALSE
 
@@ -413,20 +413,20 @@
 			return ATTACK_CHAIN_BLOCKED_ALL
 		var/new_name = rename_interactive(user, I, use_prefix = FALSE)
 		if(!isnull(new_name))
-			to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты даёшь","Вы даёте")] оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
+			to_chat(user, span_notice("Вы оружию имя \"[name]\". Познакомьтесь со своим новым другом."))
 		return ATTACK_CHAIN_BLOCKED
 
 	if(istype(I, /obj/item/flashlight/seclite))
 		add_fingerprint(user)
 		if(!can_flashlight)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] прикрепить [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("Вы не можете прикрепить [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(gun_light)
 			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже установлен [gun_light.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты закрепляешь","Вы закрепляете")] [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
+		to_chat(user, span_notice("Вы закрепляете [I.declent_ru(ACCUSATIVE)] на [declent_ru(ACCUSATIVE)]."))
 		set_gun_light(I)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -435,14 +435,14 @@
 		var/obj/item/kitchen/knife/knife = I
 		//ensure the gun has an attachment point available and that the knife is compatible with it.
 		if(!can_bayonet || !knife.bayonet_suitable)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
+			to_chat(user, span_warning("Вы не можете прикрепить [knife.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(bayonet)
 			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL )] уже есть [knife.declent_ru(NOMINATIVE)]!"))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(knife, src))
 			return ..()
-		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты устанавливаешь","Вы устанавливаете")] [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE )]."))
+		to_chat(user, span_notice("Вы устанавливаете [knife.declent_ru(ACCUSATIVE)] на штыковой упор [declent_ru(GENITIVE )]."))
 		set_bayonet(knife)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -454,10 +454,10 @@
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
 	if(gun_light && can_flashlight)
-		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты откручиваешь","Вы откручиваете")] [gun_light] от [src]."))
+		to_chat(user, span_notice("Вы откручиваете [gun_light] от [declent_ru(ACCUSATIVE)]."))
 		set_gun_light(null)
 	else if(bayonet && can_bayonet) //if it has a bayonet, and the bayonet can be removed
-		to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты снимаешь","Вы снимаете")] [bayonet] с [src]."))
+		to_chat(user, span_notice("Вы снимаете [bayonet] с [declent_ru(ACCUSATIVE)]."))
 		set_bayonet(null)
 
 
@@ -475,14 +475,14 @@
 
 	if(user && !isturf(user.loc))
 		if(!silent)
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не можешь","Вы не можете")] переключить фонарь, находясь в [user.loc]!"))
+			to_chat(user, span_warning("Вы не можете переключить фонарь, находясь в [user.loc]!"))
 		return
 
 	gun_light.on = !gun_light.on
 	if(!silent)
 		playsound(loc, 'sound/weapons/empty.ogg', 100, TRUE)
 		if(user)
-			to_chat(user, span_notice("[pluralize_ru(user.gender,"Ты переключаешь","Вы переключаете")] фонарь: [gun_light.on ? "вкл": "выкл"]."))
+			to_chat(user, span_notice("Вы переключаете фонарь: [gun_light.on ? "вкл": "выкл"]."))
 	gun_light.set_light_on(gun_light.on)
 	update_icon(UPDATE_OVERLAYS)
 	update_equipped_item(update_speedmods = FALSE)
