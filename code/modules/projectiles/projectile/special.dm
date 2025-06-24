@@ -566,8 +566,8 @@
 	)
 	icon_state = "snowball"
 	hitsound = 'sound/items/dodgeball.ogg'
-	damage = 12
-	damage_type = STAMINA
+	damage = 4
+	damage_type = BURN
 
 /obj/projectile/snowball/on_hit(atom/target)	//chilling
 	. = ..()
