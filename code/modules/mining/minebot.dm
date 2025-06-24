@@ -326,7 +326,7 @@
 		return
 	M.melee_damage_lower += 7
 	M.melee_damage_upper += 7
-	to_chat(user, "Вы улучшаете боевой модуль [declent_ru(ACCUSATIVE)].")
+	to_chat(user, "Вы вставляете [declent_ru(ACCUSATIVE)].")
 	qdel(src)
 
 //Health

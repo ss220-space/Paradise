@@ -187,7 +187,7 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 
 /obj/structure/extraction_point
 	name = "fulton recovery beacon"
-	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон. Активируйте в руке, чтобы создать маяк."
+	desc = "Излучает сигнал, на который могут ориентироваться устройства фултон."
 	ru_names = list(
 		NOMINATIVE = "маяк фултона",
 		GENITIVE = "маяка фултона",
