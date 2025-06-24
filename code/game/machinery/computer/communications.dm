@@ -388,11 +388,7 @@
 				)
 				print_command_report(params["text"], params["subtitle"])
 			else
-				GLOB.minor_announcement.Announce("Отчёт был загружен и распечатан на всех консолях связи.",
-												"Входящее засекреченное сообщение",
-												'sound/AI/commandreport.ogg',
-												new_title = "[command_name()] обновление"
-				)
+				GLOB.command_announcer.autosay("Отчёт был загружен и распечатан на всех консолях связи.")
 				print_command_report(params["text"], "Секретно: [params["subtitle"]]")
 
 			log_and_message_admins("has created a communications report: [params["text"]]")
