@@ -1,7 +1,7 @@
 GLOBAL_LIST_EMPTY(allfaxes)
-GLOBAL_LIST_INIT(admin_departments, list("Central Command"))
-GLOBAL_LIST_INIT(hidden_admin_departments, list("Syndicate"))
-GLOBAL_LIST_INIT(hidden_ussp, list("USSP Central Committee"))
+GLOBAL_LIST_INIT(admin_departments, list("Центральное Командование"))
+GLOBAL_LIST_INIT(hidden_admin_departments, list("Синдикат"))
+GLOBAL_LIST_INIT(hidden_ussp, list("Центральный Комитет СССП"))
 GLOBAL_LIST_EMPTY(alldepartments)
 GLOBAL_LIST_EMPTY(hidden_departments)
 GLOBAL_LIST_EMPTY(fax_blacklist)
@@ -269,7 +269,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 				destination = tgui_input_list(usr, "В какой отдел отправить?", "Выберите отдел:", combineddepartments)
 				if(!destination)
 					destination = lastdestination
-		if("отправить") // actually send the fax
+		if("send") // actually send the fax
 			if(!copyitem || !is_authenticated || !destination)
 				return
 			if(stat & (BROKEN|NOPOWER))
