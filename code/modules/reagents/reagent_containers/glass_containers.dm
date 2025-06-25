@@ -147,7 +147,6 @@
 		INSTRUMENTAL = "мерным стаканом",
 		PREPOSITIONAL = "мерном стакане"
  	)
-	icon = 'icons/obj/chemical.dmi'
 	icon_state = "beaker"
 	item_state = "beaker"
 	belt_icon = "beaker"
@@ -652,3 +651,25 @@
 	else
 		reagents.remove_any(1)
 		playsound(pet.loc, 'sound/items/drink.ogg', rand(10, 30), TRUE)
+
+//Coffeepot: for reference, a standard cup is 30u, to allow 20u for sugar/sweetener/milk/creamer
+/obj/item/reagent_containers/glass/coffeepot
+	name = "coffeepot"
+	desc = "Термостойкий контейнер, предназначенный для приготовления и разлива кофе. \
+			Такие поставляются в комплекте с кофемашинами. Достаточно хрупкий."
+	ru_names = list(
+		NOMINATIVE = "кофейник",
+		GENITIVE = "кофейника",
+		DATIVE = "кофейнику",
+		ACCUSATIVE = "кофейник",
+		INSTRUMENTAL = "кофейником",
+		PREPOSITIONAL = "кофейнике"
+ 	)
+	gender = MALE
+	amount_per_transfer_from_this = 15
+	possible_transfer_amounts = list(10,15,30,50,100)
+	volume = 150
+	has_lid = FALSE
+	icon = 'icons/obj/drinks.dmi'
+	icon_state = "coffeepot"
+	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)

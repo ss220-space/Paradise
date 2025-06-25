@@ -574,6 +574,17 @@ to destroy them and players will be able to make replacements.
 							/obj/item/stock_parts/micro_laser = 2,
 							/obj/item/stack/cable_coil = 5)
 
+/obj/item/circuitboard/coffeemaker
+	board_name = "Кофемашина"
+	build_path = /obj/machinery/kitchen_machine/coffeemaker
+	board_type = "machine"
+	origin_tech = "programming=2;magnets=2"
+	req_components = list(
+							/obj/item/stack/sheet/glass = 1,
+							/obj/item/stock_parts/matter_bin = 1,
+							/obj/item/stock_parts/capacitor = 1,
+							/obj/item/stock_parts/micro_laser = 1)
+
 /obj/item/circuitboard/gibber
 	board_name = "Gibber"
 	build_path = /obj/machinery/gibber
