@@ -1389,3 +1389,11 @@
 #define COMSIG_TGUI_WINDOW_VISIBLE "tgui_window_visible"
 /// /obj/item/card/id/proc/freeze_linked_account(datum/source)
 #define COMSIG_FREEZE_LINKED_ACCOUNT "nigga_freeze"
+
+#define COMSIG_GET_PULL_SLOWDOWN_MODIFIERS "get_pull_slowdown_modifiers"
+#define COMSIG_GET_GRAB_SPEED_MODIFIERS "get_grab_speed_modifiers"
+#define COMSIG_GET_MELEE_DAMAGE_DELTAS "get_melee_damage_deltas"
+#define COMSIG_GET_ICON_RENDER_KEY_INFO "get_icon_render_key_info"
+#define COMSIG_MOB_EXERCISED "mob_exercised"
+#define COMSIG_GET_ORGAN_ICON_STATE "get_organ_icon_state"
+#define COMSIG_STRENGTH_BORDER_UPDATE "strength_border_update"

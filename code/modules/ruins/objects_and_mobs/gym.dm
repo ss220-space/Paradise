@@ -33,7 +33,7 @@
 		return
 
 	var/mob/living/carbon/human/attacker = user
-	if(!attacker.physiology.try_add_strength_points(user, 1.0 / PUNCHINGBAG_HITS_PER_TRY))
+	if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / PUNCHINGBAG_HITS_PER_TRY))
 		return
 
 	attacker.apply_status_effect(STATUS_EFFECT_EXERCISED)
@@ -70,6 +70,10 @@
 
 	if(in_use)
 		balloon_alert(user, "уже занято!")
+		return
+
+	if(IS_HORIZONTAL(user))
+		balloon_alert(user, "сначала встаньте")
 		return
 
 	if(get_dist(user, src) > 1 || user.z != src.z)
@@ -124,7 +128,7 @@
 		sleep(3)
 		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
 
-		if(!user.physiology.try_add_strength_points(user, 1.0 / EXERCISES_PER_TRY))
+		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			return
 
 
@@ -149,7 +153,7 @@
 			animate(user, pixel_y = (user.pixel_y == 3) ? 5 : 3, time = 3)
 
 		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
-		if(!user.physiology.try_add_strength_points(user, 1.0 / EXERCISES_PER_TRY))
+		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			break
 
 	user.Stun(6)
@@ -193,7 +197,7 @@
 		sleep(2)
 
 		playsound(user, 'sound/goonstation/effects/spring.ogg', 60, 1)
-		if(!user.physiology.try_add_strength_points(user, 1.0 / EXERCISES_PER_TRY))
+		if(!SEND_SIGNAL(user, COMSIG_MOB_EXERCISED, 1.0 / EXERCISES_PER_TRY))
 			break
 
 	user.Stun(6)
@@ -201,6 +205,7 @@
 	animate(user, pixel_y = 2, time = 3)
 	sleep(3)
 	cut_overlay(swole_overlay)
+	user.apply_status_effect(STATUS_EFFECT_EXERCISED)
 
 
 /obj/structure/weightmachine/horizontalbar/high

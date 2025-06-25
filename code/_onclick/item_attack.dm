@@ -269,7 +269,13 @@
 	if(!item.force)
 		return .
 
-	var/final_force = item.force + ((item.damtype & BRUTELOSS) ? user.GetComponent(/datum/component/musculs)?.get_strength_melee_damage_delta() : 0)
+	var/delta = 0
+	var/list/deltas = list()
+	SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas)
+	for(var/addition in deltas)
+		delta += addition
+
+	var/final_force = item.force + ((item.damtype & BRUTELOSS) ? delta : 0)
 	var/apply_damage_result = apply_damage(final_force, item.damtype, def_zone, sharp = is_sharp(item), used_weapon = item)
 	// if we are hitting source with real weapon and any brute damage was done, we apply victim's blood everywhere
 	if(apply_damage_result && item.damtype == BRUTE && prob(33))

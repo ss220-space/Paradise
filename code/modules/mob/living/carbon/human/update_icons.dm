@@ -1311,7 +1311,12 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 			if(part.s_tone)
 				. += "[part.s_tone]"
 
-	. = "[.][min(user.GetComponent(/datum/component/musculs)?.get_strength(), 4)][!!husk][!!hulk][!!skeleton]"
+	var/list/bonus_info = list()
+	SEND_SIGNAL(src, COMSIG_GET_ICON_RENDER_KEY_INFO, bonus_info)
+	for(var/info in bonus_info)
+		. += "[info]"
+
+	. = "[.][!!husk][!!hulk][!!skeleton]"
 
 
 /mob/living/carbon/human/update_ssd_overlay()

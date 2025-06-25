@@ -418,14 +418,15 @@
 	target.update_body(TRUE)
 
 
-/datum/species/proc/gain_musculs(mob/living/target, default, max_level, can_become_stronger = TRUE)
+/datum/species/proc/gain_musculs(mob/living/carbon/human/target, default, max_level, can_become_stronger = TRUE)
 	var/datum/component/musculs/musculs = target.GetComponent(/datum/component/musculs)
 	if(!musculs)
-		musculs = new(max_level, default, 0, can_become_stronger)
-	else
-		musculs.max_species_strength = max_level
-		musculs.can_become_stronger = can_become_stronger
-		musculs.strength = min(musculs.strength, musculs.get_max_strength_level())
+		target.physiology.AddComponent(/datum/component/musculs, max_level, default, can_become_stronger)
+		return
+
+	musculs.max_species_strength = max_level
+	musculs.can_become_stronger = can_become_stronger
+	musculs.strength = min(musculs.strength, musculs.get_max_strength_level())
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
@@ -575,8 +576,13 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) \
-			+ user.GetComponent(/datum/component/musculs)?.get_strength_melee_damage_delta()
+		var/delta = 0
+		var/list/deltas = list()
+		SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas)
+		for(var/addition in deltas)
+			delta += addition
+
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + delta
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)

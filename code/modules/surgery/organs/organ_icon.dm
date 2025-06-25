@@ -152,9 +152,12 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 
 /obj/item/organ/external/proc/get_normal_icon_state()
 	var/new_icon_state = "[icon_name][(!dna || !gendered_icon) ? "" : (dna.GetUITriState(DNA_UI_GENDER) == DNA_GENDER_MALE ? "_m" : "_f")]"
-	// A little bit cursed
-	if(istype(dna.species, /datum/species/human) && (ischest(src) || isgroin(src)))
-		new_icon_state += "_[min(4, owner ? owner.get_strength() : 2)]"
+	var/list/icon_state_additions = list()
+	if(owner)
+		SEND_SIGNAL(owner, COMSIG_GET_ORGAN_ICON_STATE, src, icon_state_additions)
+
+	for(var/addition in icon_state_additions)
+		new_icon_state += addition
 
 	return list(icobase, new_icon_state)
 

@@ -623,6 +623,5 @@
 
 /datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	var/datum/component/musculs/musculs = mutant.GetComponent(/datum/component/musculs)
-	musculs.strength = min(musculs.strength, musculs.get_max_strength_level())
+	SEND_SIGNAL(mutant, COMSIG_STRENGTH_BORDER_UPDATE)
 	mutant.update_body(TRUE)

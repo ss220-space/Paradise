@@ -56,9 +56,10 @@
 
 /mob/living/proc/get_strength_pull_slowdown_modifier()
 	var/mod = 1
-	var/datum/component/musculs/musculs = user.GetComponent(/datum/component/musculs)
-	if(musculs)
-		mod = musculs.get_strength_pull_slowdown_modifier()
+	var/list/mods = list()
+	SEND_SIGNAL(src, COMSIG_GET_PULL_SLOWDOWN_MODIFIERS, mods)
+	for(var/modifier in mods)
+		mod *= modifier
 
 	return mod
 
