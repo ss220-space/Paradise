@@ -48,17 +48,11 @@
 			msg = span_userdanger("<b>Вы чувствуете боль в [partname].</b>")
 
 		if(11 to 90)
-<<<<<<< spam
-			msg = span_userdanger("<b><font size=2>Вы чувствуете сильную боль в [partname]!</font></b>")
-
-		if(91 to INFINITY)
-			msg = span_userdanger("<b><font size=3>Ох чёрт! Вы чувствуете невыносимую боль в [partname]!</font></b>")
-
-=======
 			msg = span_userdanger(span_bold(span_fontsize2("<b>Вы чувствуете сильную боль в [partname]!")))
+
 		if(91 to INFINITY)
 			msg = span_userdanger(span_bold(span_fontsize3("Ох чёрт! Вы чувствуете невыносимую боль в [partname]!")))
->>>>>>> master220
+
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		if(get_preference(PREFTOGGLE_3_PAIN_BLURB))
