@@ -18,12 +18,12 @@
 /datum/antagonist/mindslave/devil_pawn/greet()
 	var/datum/antagonist/devil/devil = master.has_antag_datum(/datum/antagonist/devil)
 
-	var/greet_text = "<b>Вы подверглись дьявольскому воздействию [master.current.real_name], известному в аду как [devil.info.truename]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"
-	return span_dangerbigger(greet_text)
+	var/greet_text = span_bold("Вы подверглись дьявольскому воздействию [master.current.real_name], известному в аду как [devil.info.truename]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.")
+	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/devil_pawn/farewell()
 	if(issilicon(owner.current))
-		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы больше не подвержены дьявольскому воздействию."))
+		to_chat(owner.current, span_userdanger("Вы превратились в робота! Вы больше не подвержены дьявольскому воздействию."))
 	else
 		to_chat(owner.current, span_userdanger("Ваш разум очищен! Вы больше не подвержены дьявольскому воздействию."))
 

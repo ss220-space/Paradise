@@ -112,7 +112,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_traitor()
 	if(length(traitors))
-		var/text = span_fontsize2("<b>The traitors were:</b><br>")
+		var/list/text = list(span_fontsize2(span_bold("The traitors were:<br>")))
 		for(var/datum/mind/traitor in traitors)
 			var/traitorwin = TRUE
 			text += printplayer(traitor) + "<br>"
@@ -120,6 +120,7 @@
 			var/TC_uses = 0
 			var/used_uplink = FALSE
 			var/purchases = ""
+
 			for(var/obj/item/uplink/uplink in GLOB.world_uplinks)
 				if(uplink?.uplink_owner && uplink.uplink_owner == traitor.key)
 					TC_uses += uplink.used_TC
@@ -202,5 +203,4 @@
 		text += "<br><br><b>The code phrases were:</b> [span_danger(phrases)]<br>\
 					<b>The code responses were:</b> [span_danger(responses)]<br><br>"
 
-		to_chat(world, text)
-	return TRUE
+		return text.Join("")

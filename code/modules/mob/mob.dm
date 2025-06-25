@@ -369,7 +369,7 @@
 	var/list/result = target.examine(src)
 	SEND_SIGNAL(src, COMSIG_MOB_RUN_EXAMINATE, target, result)
 
-	to_chat(src, chat_box_examine(result.Join("<br>")), MESSAGE_TYPE_INFO, confidential = TRUE)
+	to_chat(src, chat_box_examine(result.Join("\n")), MESSAGE_TYPE_INFO, confidential = TRUE)
 
 
 /mob/verb/mode()
@@ -747,7 +747,7 @@
 		borer.transfer_personality(usr.client)
 		return
 
-	to_chat(usr, span_notify(message))
+	to_chat(usr, span_notice(message))
 	GLOB.respawnable_list -= usr
 	picked_mob.key = key
 

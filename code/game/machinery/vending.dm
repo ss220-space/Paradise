@@ -2156,6 +2156,7 @@
 		/obj/item/storage/box/fingerprints = 6,
 		/obj/item/eftpos/sec = 4,
 		/obj/item/storage/belt/security/webbing = 2,
+		/obj/item/storage/pouch/fast = 2,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 5,
 		/obj/item/flashlight/sectaclight = 2,
 		/obj/item/grenade/smokebomb = 8,
@@ -2169,6 +2170,7 @@
 	prices = list(
 		/obj/item/storage/belt/security/judobelt = 499,
 		/obj/item/storage/belt/security/webbing = 999,
+		/obj/item/storage/pouch/fast = 999,
 		/obj/item/clothing/mask/gas/sechailer/tactical = 299,
 		/obj/item/flashlight/sectaclight = 299,
 		/obj/item/grenade/smokebomb = 249

@@ -10,7 +10,7 @@
 		/datum/martial_combo/judo/wheelthrow,
 		/datum/martial_combo/judo/goldenblast
 	)
-	weight = 5 //takes priority over boxing and drunkneness, less priority than krav or CQC/carp
+	weight = 8
 	no_baton_reason = span_warning("Из-за занятий дзюдо у вас не получается крепко держать дубинку!")
 	can_horizontally_grab = FALSE
 

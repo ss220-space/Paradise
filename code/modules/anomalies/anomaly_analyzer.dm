@@ -57,7 +57,7 @@
 
 /obj/item/anomaly_analyzer/proc/show(mob/user)
 	var/datum/browser/popup = new(user, "anomalyscanner", scan_title, 500, 600)
-	popup.set_content(span_highlight("[jointext(scan_data, "<br>")]"))
+	popup.set_content(chat_box_yellow("[jointext(scan_data, "<br>")]"))
 	popup.open(no_focus = 1)
 
 /obj/item/anomaly_analyzer/attack_self(mob/user)

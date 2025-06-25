@@ -165,7 +165,7 @@ SUBSYSTEM_DEF(tts)
 		"syndicate officer" = "Офицер синдиката",
 		"visitor" = "посетитель",
 		"mining medic" = "Шахтёрский врач",
-		"lavaland health officer" = "Медицинский работник Лаваленда",
+		"lavaland health officer" = "Медицинский работник Лазиса",
 	)
 
 
