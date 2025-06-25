@@ -36,9 +36,10 @@
 // #define PREFTOGGLE_TYPING_ONCE 				(1<<20) // Not used since tgui say
 #define PREFTOGGLE_AMBIENT_OCCLUSION 		(1<<21)
 #define PREFTOGGLE_CHAT_GHOSTPDA 			(1<<22)
+#define PREFTOGGLE_PAIN_BLURB	 			(1<<23)
 // #define PREFTOGGLE_NUMPAD_TARGET 			8388608 // Made obsolete with key bindings
 
-#define TOGGLES_TOTAL 						16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_TOTAL 						15597503 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_DEFAULT (PREFTOGGLE_CHAT_OOC|PREFTOGGLE_CHAT_DEAD|PREFTOGGLE_CHAT_GHOSTEARS|PREFTOGGLE_CHAT_GHOSTSIGHT|PREFTOGGLE_CHAT_PRAYER|PREFTOGGLE_CHAT_RADIO|PREFTOGGLE_CHAT_LOOC|PREFTOGGLE_MEMBER_PUBLIC|PREFTOGGLE_DONATOR_PUBLIC|PREFTOGGLE_AMBIENT_OCCLUSION|PREFTOGGLE_CHAT_GHOSTPDA)
 
