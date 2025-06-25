@@ -173,6 +173,7 @@
 
 	if(martial_art)
 		for(var/datum/martial_art/MA in known_martial_arts)
+			MA.reset_combos(old_current)
 			MA.remove(current)
 			if(old_current)
 				MA.remove_martial_art_verbs(old_current)
