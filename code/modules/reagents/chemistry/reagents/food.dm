@@ -148,6 +148,22 @@
 		affected.physiology.hunger_mod *= 0.5
 	..()
 
+/datum/reagent/consumable/aspartame
+	name = "Аспартам"
+	id = "aspartame"
+	description = "Искусственный подсластитель. В отличие от сахара, обладает нулевой калорийностью, благодаря чему его часто используют в продуктах \"для похудения\"."
+	reagent_state = SOLID
+	color = "#FFFFFF" // rgb: 255, 255, 255
+	nutriment_factor = 0
+	metabolization_rate = 2 * REAGENTS_METABOLISM
+	overdose_threshold = 17
+	taste_mult = 8
+	taste_description = "сладости"
+
+/datum/reagent/consumable/astrotame/overdose_process(mob/living/affected_mob, seconds_per_tick, times_fired)
+	. = ..()
+	if(affected_mob.AmountDisgust() < 80)
+		affected_mob.AdjustDisgust(10 * REM * seconds_per_tick)
 
 /datum/reagent/consumable/soysauce
 	name = "Соевый соус"
