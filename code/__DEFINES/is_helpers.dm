@@ -33,6 +33,8 @@
 
 #define isdevil(A) (istype(A, /mob/living/carbon/true_devil))
 
+#define isascendeddevil(A) (istype(A, /mob/living/carbon/true_devil/ascended))
+
 #define islarva(A) (istype(A, /mob/living/carbon/alien/larva))
 
 #define isalienadult(A) (istype(A, /mob/living/carbon/alien/humanoid))
@@ -92,6 +94,8 @@
 #define isprojectile(A) (istype(A, /obj/projectile))
 
 #define isgun(A) (istype(A, /obj/item/gun))
+
+#define isbaton(A) (istype(A, /obj/item/melee/baton))
 
 #define is_pen(W) (istype(W, /obj/item/pen))
 

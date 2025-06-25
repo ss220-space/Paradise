@@ -239,8 +239,8 @@
 	else
 		ExtinguishMob()
 		return FALSE
-	var/datum/gas_mixture/G = loc.return_air() // Check if we're standing in an oxygenless environment
-	if(G.oxygen < 1)
+	var/datum/gas_mixture/G = loc?.return_air() // Check if we're standing in an oxygenless environment
+	if(!G || G.oxygen < 1)
 		ExtinguishMob() //If there's no oxygen in the tile we're on, put out the fire
 		return FALSE
 	var/turf/location = get_turf(src)
@@ -332,6 +332,11 @@
  */
 /mob/living/proc/grabbedby(mob/living/grabber, supress_message = FALSE)
 	if(grabber == src || anchored || !isturf(grabber.loc) || !(grabber.mobility_flags & MOBILITY_PULL))
+		return FALSE
+
+	// This if-statement checks if the user is horizontal, and if the user either has no martial art, or has judo, drunk fighting or krav, in which case it should also fail
+	if(IS_HORIZONTAL(grabber) && (!grabber.mind.martial_art || !grabber.mind.martial_art.can_horizontally_grab))
+		to_chat(grabber, span_warning("Вам не удаётся взять [declent_ru(ACCUSATIVE)] в захват!"))
 		return FALSE
 
 	if(!grabber.pulling || grabber.pulling != src)

@@ -395,7 +395,7 @@
 
 
 /obj/item/gun/energy/proc/turret_check()
-	return TRUE
+	return !HAS_TRAIT(src, TRAIT_NOT_TURRET_GUN)
 
 
 /obj/item/gun/energy/proc/turret_deconstruct(list/data)

@@ -60,7 +60,7 @@
 	max_mobs = 7
 	spawn_time = 150
 
-GLOBAL_LIST_INIT(tendrils, list())
+GLOBAL_LIST_EMPTY(tendrils)
 
 /obj/structure/spawner/lavaland/Initialize(mapload)
 	. = ..()

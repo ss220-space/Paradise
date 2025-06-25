@@ -181,7 +181,7 @@
 	log_game("[abductor] has become an abductor scientist.")
 
 /datum/game_mode/abduction/proc/get_team_console(team_number)
-	for(var/obj/machinery/abductor/console/C in GLOB.machines)
+	for(var/obj/machinery/abductor/console/C in SSmachines.get_by_type(/obj/machinery/abductor/console))
 		if(C.team == team_number)
 			return C
 
@@ -269,7 +269,7 @@
 		var/datum/species/abductor/abductor = human_owner.dna.species
 		ab_team = abductor.team
 
-	for(var/obj/machinery/abductor/experiment/experiment in GLOB.machines)
+	for(var/obj/machinery/abductor/experiment/experiment in SSmachines.get_by_type(/obj/machinery/abductor/experiment))
 		if(experiment.team == ab_team)
 			if(experiment.points >= target_amount)
 				return TRUE

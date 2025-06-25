@@ -98,7 +98,7 @@
 
 
 /obj/machinery/transformer/proc/transformer_bumped(mob/living/carbon/human/victim)
-	if(!ishuman(victim) || (!transform_standing && victim.body_position == STANDING_UP))
+	if(!ishuman(victim) || (!transform_standing && victim.body_position == STANDING_UP) || isdevilantag(victim))
 		return
 	victim.forceMove(loc)
 	do_transform(victim)

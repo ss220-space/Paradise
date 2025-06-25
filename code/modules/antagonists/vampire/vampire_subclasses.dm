@@ -59,7 +59,7 @@
 
 /datum/vampire_subclass/umbrae/on_blood_sucking(mob/living/carbon/human/H)
 	var/list/lights = list()
-	for(var/obj/machinery/light/L in GLOB.machines)
+	for(var/obj/machinery/light/L in SSmachines.get_by_type(/obj/machinery/light))
 		if(L.status && L.z == H.z)
 			lights += L
 
