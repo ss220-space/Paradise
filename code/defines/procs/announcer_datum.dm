@@ -154,17 +154,17 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	return I.assignment ? "[I.registered_name] ([I.assignment])" : I.registered_name
 
 /datum/announcement_configuration/event
-	default_title = ANNOUNCE_KIND_EVENT
+	default_title = ANNOUNCE_EVENT_RU
 	sound = sound('sound/misc/notice2.ogg')
 	style = "minor"
 
 /datum/announcement_configuration/major
-	default_title = ANNOUNCE_KIND_MAJOR
+	default_title = ANNOUNCE_MAJOR_RU
 	global_announcement = TRUE
 	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/security
-	default_title = ANNOUNCE_KIND_SECURITY
+	default_title = ANNOUNCE_SECURITY_RU
 	sound = sound('sound/misc/notice2.ogg')
 	style = "sec"
 
@@ -178,14 +178,14 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/comms_console
-	default_title = ANNOUNCE_KIND_PRIORITY
+	default_title = ANNOUNCE_PRIORITY_RU
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_PRIORITY
 	sound = sound('sound/misc/announce.ogg')
 	style = "major"
 
 /datum/announcement_configuration/ai
-	default_title = ANNOUNCE_KIND_AI
+	default_title = ANNOUNCE_AI_RU
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_AI
 	sound = sound('sound/misc/notice2.ogg')

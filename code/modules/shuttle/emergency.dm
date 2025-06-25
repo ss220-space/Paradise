@@ -130,13 +130,13 @@
 	if(canRecall)
 		GLOB.major_announcement.Announce(
 			"Был вызван эвакуационный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason][SSshuttle.emergencyLastCallLoc ? "\n\nВызов шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
-			new_title = ANNOUNCE_KIND_PRIORITY,
+			new_title = ANNOUNCE_PRIORITY_RU,
 			new_sound = sound('sound/AI/eshuttle_dock.ogg')
 		)
 	else
 		GLOB.major_announcement.Announce(
 			"Был вызван транспортный шаттл. [redAlert ? "Красный уровень угрозы подтверждён: отправлен приоритетный шаттл. " : "" ]Он прибудет в течение [timeLeft(600)] минут.[reason]",
-			new_title = ANNOUNCE_KIND_PRIORITY,
+			new_title = ANNOUNCE_PRIORITY_RU,
 			new_sound = sound('sound/AI/cshuttle.ogg')
 		)
 
@@ -156,7 +156,7 @@
 		SSshuttle.emergencyLastCallLoc = null
 	GLOB.major_announcement.Announce(
 		"Эвакуационный шаттл был отозван.[SSshuttle.emergencyLastCallLoc ? " Отзыв шаттла отслежен. Результаты можно посмотреть на любой консоли связи." : "" ]",
-		new_title = ANNOUNCE_KIND_PRIORITY,
+		new_title = ANNOUNCE_PRIORITY_RU,
 		new_sound = sound('sound/AI/eshuttle_recall.ogg')
 	)
 
@@ -232,13 +232,13 @@
 				if(canRecall)
 					GLOB.major_announcement.Announce(
 						"Эвакуационный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт эвакуационного шаттла.",
-						new_title = ANNOUNCE_KIND_PRIORITY,
+						new_title = ANNOUNCE_PRIORITY_RU,
 						new_sound = sound('sound/AI/eshuttle_dock.ogg')
 					)
 				else
 					GLOB.major_announcement.Announce(
 						"Транспортный шаттл совершил стыковку со станцией. У вас есть [timeLeft(600)] минуты, чтобы взобраться на борт транспортного шаттла.",
-						new_title = ANNOUNCE_KIND_PRIORITY,
+						new_title = ANNOUNCE_PRIORITY_RU,
 						new_sound = sound('sound/AI/cshuttle_dock.ogg')
 					)
 		if(SHUTTLE_DOCKED)
@@ -246,7 +246,7 @@
 			if(time_left <= 0 && SSshuttle.hostile_environment.len)
 				GLOB.major_announcement.Announce(
 					"Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.",
-					new_title = ANNOUNCE_KIND_PRIORITY
+					new_title = ANNOUNCE_PRIORITY_RU
 				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
@@ -254,7 +254,7 @@
 			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
 				GLOB.major_announcement.Announce(
 					"Шаттл заблокирован. Свяжитесь с Центральным командованием для уточнения причин и снятия блокировки.",
-					new_title = ANNOUNCE_KIND_PRIORITY
+					new_title = ANNOUNCE_PRIORITY_RU
 				)
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
@@ -284,7 +284,7 @@
 				setTimer(SSshuttle.emergencyEscapeTime)
 				GLOB.major_announcement.Announce(
 					"Эвакуационный шаттл покинул станцию. До прибытия в доки ЦК осталось [timeLeft(600)] минуты.",
-					new_title = ANNOUNCE_KIND_PRIORITY
+					new_title = ANNOUNCE_PRIORITY_RU
 				)
 				for(var/mob/M in GLOB.player_list)
 					if(!isnewplayer(M) && !M.client.karma_spent && !(M.client.ckey in GLOB.karma_spenders) && !M.get_preference(PREFTOGGLE_DISABLE_KARMA_REMINDER))
@@ -307,12 +307,12 @@
 					destination_dock = "emergency_syndicate"
 					GLOB.major_announcement.Announce(
 						"Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.",
-						new_title = ANNOUNCE_KIND_PRIORITY
+						new_title = ANNOUNCE_PRIORITY_RU
 					)
 
 				if(devil_on_shuttle)
 					GLOB.major_announcement.Announce("Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.",
-													new_title = ANNOUNCE_KIND_PRIORITY
+													new_title = ANNOUNCE_PRIORITY_RU
 					)
 				else
 					dock_id(destination_dock)

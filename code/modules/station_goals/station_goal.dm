@@ -27,7 +27,7 @@
 	on_report()
 	var/directive = "Nanotrasen Directive [pick(GLOB.phonetic_alphabet)] \Roman[rand(1,50)]"
 	GLOB.minor_announcement.Announce("Поступила приоритетная директива НаноТрейзен. Отправлены подробности проекта \"[html_decode(name)]\".",
-									ANNOUNCE_KIND_PRIORITY,
+									ANNOUNCE_PRIORITY_RU,
 									'sound/AI/commandreport.ogg'
 	)
 	print_command_report("<div style='text-align:center;'><img src = ntlogo.png>" + "<h3>[directive]</h3></div><hr>" + get_report(), "[directive]", FALSE, src)

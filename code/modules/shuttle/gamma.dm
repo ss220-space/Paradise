@@ -13,11 +13,11 @@
 	. = ..()
 
 	if(!.)
-		if(S.id == "gamma_home")
-			GLOB.major_announcement.Announce("Центральное командование отправило оружейный шаттл уровня Гамма.",
-											new_sound = 'sound/AI/gamma_deploy.ogg'
-			)
-		else
+		if(!(S.id == "gamma_home"))
 			GLOB.major_announcement.Announce("Центральное командование отозвало оружейный шаттл уровня Гамма.",
 											new_sound = 'sound/AI/gamma_recall.ogg'
 			)
+			return
+		GLOB.major_announcement.Announce("Центральное командование отправило оружейный шаттл уровня Гамма.",
+										new_sound = 'sound/AI/gamma_deploy.ogg'
+		)
