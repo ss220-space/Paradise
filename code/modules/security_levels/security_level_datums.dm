@@ -45,10 +45,10 @@
  * No threats
  */
 /datum/security_level/green
-	name = "зелёный"
+	name = SECURITY_CODE_GREEN
 	number_level = SEC_LEVEL_GREEN
 	ai_announcement_sound = 'sound/AI/green.ogg'
-	color = "limegreen" 
+	color = "limegreen"
 	lowering_to_announcement_title = "Внимание! Уровень угрозы понижен до Зелёного."
 	lowering_to_announcement_text = "Все угрозы для станции устранены. Все оружие должно быть в кобуре, и законы о конфиденциальности вновь полностью соблюдаются."
 
@@ -58,7 +58,7 @@
  * Caution advised
  */
 /datum/security_level/blue
-	name = "синий"
+	name = SECURITY_CODE_BLUE
 	number_level = SEC_LEVEL_BLUE
 	elevating_to_sound = 'sound/misc/notice1.ogg'
 	ai_announcement_sound = 'sound/AI/blue.ogg'
@@ -74,7 +74,7 @@
  * Hostile threats
  */
 /datum/security_level/red
-	name = "красный"
+	name = SECURITY_CODE_RED
 	number_level = SEC_LEVEL_RED
 	elevating_to_sound = 'sound/misc/notice1.ogg'
 	ai_announcement_sound = 'sound/AI/red.ogg'
@@ -87,12 +87,12 @@
 	elevating_to_announcement_text = "На борту станции подтверждена серьезная угроза для экипажа и активов корпорации. Службе безопасности рекомендуется иметь оружие в полной боевой готовности. Выборочные обыски разрешены и рекомендуются."
 
 /**
- * MARK: Gamma
+ * MARK: GAMMA
  *
  * Station major hostile threats
  */
 /datum/security_level/gamma
-	name = "гамма"
+	name = SECURITY_CODE_GAMMA
 	number_level = SEC_LEVEL_GAMMA
 	lowering_to_sound = 'sound/effects/new_siren.ogg'
 	elevating_to_sound = 'sound/effects/new_siren.ogg'
@@ -106,12 +106,12 @@
 	elevating_to_announcement_title = "Внимание! Активирован код Гамма!"
 
 /**
- * MARK: Epsilon
+ * MARK: EPSILON
  *
  * Station is not longer under the Central Command and to be destroyed by Death Squad (Or maybe not)
  */
 /datum/security_level/epsilon
-	name = "эпсилон"
+	name = SECURITY_CODE_EPSILON
 	number_level = SEC_LEVEL_EPSILON
 	set_delay = 15 SECONDS
 	lowering_to_sound = 'sound/effects/purge_siren.ogg'
@@ -134,7 +134,7 @@
  * Station self-destruiction mechanism has been engaged
  */
 /datum/security_level/delta
-	name = "дельта"
+	name = SECURITY_CODE_DELTA
 	number_level = SEC_LEVEL_DELTA
 	elevating_to_sound = 'sound/effects/delta_klaxon.ogg'
 	ai_announcement_sound = 'sound/AI/delta.ogg'

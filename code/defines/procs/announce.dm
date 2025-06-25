@@ -118,7 +118,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 
 /datum/announcer/proc/Format(message, title, subtitle = null)
 	var/formatted_message
-	var/style = config.style ? "announcement [config.style]" : "announcement"
+	var/style = config.style ? "объявление [config.style]" : "объявление"
 
 	formatted_message += "<div class='[style]'>"
 	formatted_message += "<h1>[title]</h1>"

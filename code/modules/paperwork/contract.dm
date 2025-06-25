@@ -13,7 +13,6 @@
 /obj/item/paper/contract/update_icon_state()
 	return
 
-
 /obj/item/paper/contract/employment
 	icon_state = "good_contract"
 	signed = TRUE

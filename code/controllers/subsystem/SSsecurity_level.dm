@@ -1,5 +1,5 @@
 #define DEFAULT_SECURITY_LEVEL_NUMBER SEC_LEVEL_GREEN
-#define DEFAULT_SECURITY_LEVEL_NAME "зелёный"
+#define DEFAULT_SECURITY_LEVEL_NAME SECURITY_CODE_GREEN
 
 GLOBAL_DATUM_INIT(security_announcement, /datum/announcer, new(config_type = /datum/announcement_configuration/security))
 
@@ -51,12 +51,11 @@ SUBSYSTEM_DEF(security_level)
 
 	pre_set_level(selected_level)
 
-	if(selected_level.set_delay <= 0)
+	if(selected_level.set_delay > 0)
+		SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, current_security_level.number_level, selected_level.number_level)
+		security_level_set_timer_id = addtimer(CALLBACK(src, PROC_REF(do_set_level), selected_level), selected_level.set_delay, TIMER_UNIQUE | TIMER_STOPPABLE)
+	else
 		do_set_level(selected_level)
-		return
-
-	SEND_SIGNAL(src, COMSIG_SECURITY_LEVEL_CHANGE_PLANNED, current_security_level.number_level, selected_level.number_level)
-	security_level_set_timer_id = addtimer(CALLBACK(src, PROC_REF(do_set_level), selected_level), selected_level.set_delay, TIMER_UNIQUE | TIMER_STOPPABLE)
 
 /**
  * Do things before the actual security level set, like executing security level specific pre change behavior
@@ -109,14 +108,13 @@ SUBSYSTEM_DEF(security_level)
 			new_sound2 = selected_level.ai_announcement_sound
 		)
 		return
-
+		
 	GLOB.security_announcement.Announce(
 		selected_level.lowering_to_announcement_text,
 		selected_level.lowering_to_announcement_title,
 		new_sound = selected_level.lowering_to_sound,
 		new_sound2 = selected_level.ai_announcement_sound
 	)
-
 /**
  * Returns the current security level as a number
  * In case the subsystem hasn't finished initializing yet, returns default security level
@@ -156,7 +154,7 @@ SUBSYSTEM_DEF(security_level)
  * Returns security level name formatted with it's color
  */
 /datum/controller/subsystem/security_level/proc/get_colored_current_security_level_name()
-	return "<span class='[current_security_level.color]'>[current_security_level.name]</span>"
+	return "<font color='[current_security_level.color]'>[current_security_level.name]</font>"
 
 #undef DEFAULT_SECURITY_LEVEL_NUMBER
 #undef DEFAULT_SECURITY_LEVEL_NAME

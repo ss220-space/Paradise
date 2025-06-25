@@ -6,3 +6,11 @@
 #define ANNOUNCE_KIND_MAJOR		"АКН Трурль обновление"
 #define ANNOUNCE_KIND_EVENT		"АКН Трурль обновление"  // Intentionally the same as above
 #define ANNOUNCE_KIND_AI		"Объявление ИИ"
+
+/// Security code
+#define SECURITY_CODE_GREEN		"зелёный"
+#define SECURITY_CODE_BLUE		"синий"
+#define SECURITY_CODE_RED		"красный"
+#define SECURITY_CODE_GAMMA		"гамма"
+#define SECURITY_CODE_EPSILON	"эпсилон"
+#define SECURITY_CODE_DELTA		"дельта"
