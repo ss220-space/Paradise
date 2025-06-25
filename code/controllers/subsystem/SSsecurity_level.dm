@@ -22,6 +22,7 @@ SUBSYSTEM_DEF(security_level)
 
 	if(!current_security_level)
 		current_security_level = available_levels[number_level_to_text(DEFAULT_SECURITY_LEVEL_NUMBER)]
+	return SS_INIT_SUCCESS
 
 /datum/controller/subsystem/security_level/Recover()
 	security_level_set_timer_id = SSsecurity_level.security_level_set_timer_id
@@ -155,7 +156,7 @@ SUBSYSTEM_DEF(security_level)
  * Returns security level name formatted with it's color
  */
 /datum/controller/subsystem/security_level/proc/get_colored_current_security_level_name()
-	return "<font color='[current_security_level.color]'>[current_security_level.name]</font>"
+	return "<span style='color: [current_security_level.color]'>[current_security_level.name]</span>"
 
 #undef DEFAULT_SECURITY_LEVEL_NUMBER
 #undef DEFAULT_SECURITY_LEVEL_NAME

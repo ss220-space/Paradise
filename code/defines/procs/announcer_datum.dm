@@ -78,25 +78,25 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/list/garbled_receivers = list()
 
 	if(config.global_announcement)
-		for(var/mob/M in GLOB.player_list)
-			if(!isnewplayer(M) && M.client)
-				receivers |= M
-			if(!M.say_understands(null, message_language))
-				receivers -= M
-				garbled_receivers |= M
+		for(var/mob/mob as anything in GLOB.player_list)
+			if(!isnewplayer(mob) && mob.client)
+				receivers |= mob
+			if(!mob.say_understands(null, message_language))
+				receivers -= mob
+				garbled_receivers |= mob
 	else
-		for(var/obj/item/radio/R in GLOB.global_radios)
-			receivers |= R.send_announcement()
-		for(var/mob/M in receivers)
-			if(!istype(M) || !M.client || M.stat || !M.can_hear())
-				receivers -= M
+		for(var/obj/item/radio/radio as anything in GLOB.global_radios)
+			receivers |= radio.send_announcement()
+		for(var/mob/mob in receivers)
+			if(!istype(mob) || !mob.client || mob.stat || !mob.can_hear())
+				receivers -= mob
 				continue
-			if(!M.say_understands(null, message_language))
-				receivers -= M
-				garbled_receivers |= M
-		for(var/mob/M in GLOB.dead_mob_list)
-			if(M.client && M.stat == DEAD && !isnewplayer(M))
-				receivers |= M
+			if(!mob.say_understands(null, message_language))
+				receivers -= mob
+				garbled_receivers |= mob
+		for(var/mob/mob as anything in GLOB.dead_mob_list)
+			if(mob.client && mob.stat == DEAD && !isnewplayer(mob))
+				receivers |= mob
 
 	return list(receivers, garbled_receivers)
 
@@ -109,16 +109,16 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/garbled_message_tts = garbled_message
 	message = replace_characters(message, list("+"))
 	garbled_message = replace_characters(garbled_message, list("+"))
-	for(var/mob/M in receivers)
-		to_chat(M, message, MESSAGE_TYPE_WARNING)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
-	for(var/mob/M in garbled_receivers)
-		to_chat(M, garbled_message, MESSAGE_TYPE_WARNING)
-		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, M, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+	for(var/mob/mob in receivers)
+		to_chat(mob, message, MESSAGE_TYPE_WARNING)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, mob, message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
+	for(var/mob/mob in garbled_receivers)
+		to_chat(mob, garbled_message, MESSAGE_TYPE_WARNING)
+		INVOKE_ASYNC(GLOBAL_PROC, /proc/tts_cast, null, mob, garbled_message_tts, tts_seed, FALSE, SOUND_EFFECT_NONE, TTS_TRAIT_RATE_MEDIUM, message_sound)
 
 /datum/announcer/proc/Format(message, title, subtitle = null)
 	var/formatted_message
-	var/style = config.style ? "объявление [config.style]" : "объявление"
+	var/style = config.style ? "announcement [config.style]" : "announcement"
 
 	formatted_message += "<div class='[style]'>"
 	formatted_message += "<h1>[title]</h1>"
@@ -138,12 +138,12 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 /datum/announcer/proc/Sound(message_sound, receivers)
 	if(!message_sound)
 		return
-	for(var/mob/M in receivers)
+	for(var/mob/mob in receivers)
 		if(CONFIG_GET(flag/tts_enabled))
-			var/volume = M.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
+			var/volume = mob.client.prefs.get_channel_volume(CHANNEL_TTS_RADIO)
 			if(volume > 0)
 				continue
-		SEND_SOUND(M, message_sound)
+		SEND_SOUND(mob, message_sound)
 
 /datum/announcer/proc/Log(message, message_title)
 	add_game_logs("has made \a [config.log_name]: [message_title] – [message] – [author]", usr)

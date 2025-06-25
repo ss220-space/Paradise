@@ -838,7 +838,7 @@
 #include "code\datums\wires\wires.dm"
 #include "code\defines\vox_sounds.dm"
 #include "code\defines\procs\admin.dm"
-#include "code\defines\procs\announce.dm"
+#include "code\defines\procs\announcer_datum.dm"
 #include "code\defines\procs\radio.dm"
 #include "code\defines\procs\records.dm"
 #include "code\game\alternate_appearance.dm"
