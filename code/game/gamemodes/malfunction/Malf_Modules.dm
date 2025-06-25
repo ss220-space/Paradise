@@ -424,7 +424,7 @@
 	uses = 1
 
 /datum/action/innate/ai/break_fire_alarms/Activate()
-	for(var/obj/machinery/firealarm/alarm as anything in GLOB.firealarms)
+	for(var/obj/machinery/firealarm/alarm in SSmachines.get_by_type(/obj/machinery/firealarm))
 		if(!is_station_level(alarm.z))
 			continue
 		alarm.emagged = TRUE

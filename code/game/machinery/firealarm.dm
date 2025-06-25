@@ -37,8 +37,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 /obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
 
-	GLOB.firealarms += src
-
 	if(building)
 		buildstage = FIRE_ALARM_FRAME
 		wiresexposed = TRUE
@@ -58,7 +56,6 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 
 /obj/machinery/firealarm/Destroy()
-	GLOB.firealarms -= src
 	LAZYREMOVE(GLOB.station_fire_alarms["[z]"], src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()

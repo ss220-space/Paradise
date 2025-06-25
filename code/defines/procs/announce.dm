@@ -49,7 +49,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/message_sound2 = new_sound2 ? sound(new_sound2) : null
 
 	if(!msg_sanitized)
-		message = trim_strip_html_properly(message, allow_lines = TRUE)
+		message = html_encode(message)
 
 	var/datum/language/message_language = GLOB.all_languages[msg_language ? msg_language : language]
 
@@ -78,23 +78,23 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	var/list/garbled_receivers = list()
 
 	if(config.global_announcement)
-		for(var/mob/M as anything in GLOB.player_list)
+		for(var/mob/M in GLOB.player_list)
 			if(!isnewplayer(M) && M.client)
 				receivers |= M
 			if(!M.say_understands(null, message_language))
 				receivers -= M
 				garbled_receivers |= M
 	else
-		for(var/obj/item/radio/R as anything in GLOB.global_radios)
+		for(var/obj/item/radio/R in GLOB.global_radios)
 			receivers |= R.send_announcement()
-		for(var/mob/M as anything in receivers)
+		for(var/mob/M in receivers)
 			if(!istype(M) || !M.client || M.stat || !M.can_hear())
 				receivers -= M
 				continue
 			if(!M.say_understands(null, message_language))
 				receivers -= M
 				garbled_receivers |= M
-		for(var/mob/M as anything in GLOB.dead_mob_list)
+		for(var/mob/M in GLOB.dead_mob_list)
 			if(M.client && M.stat == DEAD && !isnewplayer(M))
 				receivers |= M
 
@@ -178,7 +178,7 @@ GLOBAL_DATUM_INIT(major_announcement, /datum/announcer, new(config_type = /datum
 	sound = sound('sound/misc/notice2.ogg')
 
 /datum/announcement_configuration/comms_console
-	default_title = "Priority Announcement"
+	default_title = ANNOUNCE_KIND_PRIORITY
 	add_log = TRUE
 	log_name = ANNOUNCE_KIND_PRIORITY
 	sound = sound('sound/misc/announce.ogg')
