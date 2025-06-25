@@ -99,8 +99,6 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
-	strength_female_delta = 1 // More anthro traps lizards.
-
 
 /datum/species/unathi/handle_death(gibbed, mob/living/carbon/human/H)
 	H.stop_tail_wagging()
@@ -120,6 +118,10 @@
 	if(!lash)
 		lash = new
 		lash.Grant(H)
+
+
+/datum/species/unathi/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default + (target.gender == FEMALE), max_level, can_become_stronger)
 
 
 /datum/species/unathi/on_species_loss(mob/living/carbon/human/H)

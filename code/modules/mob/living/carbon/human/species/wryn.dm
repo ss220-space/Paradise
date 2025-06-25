@@ -84,8 +84,6 @@
 		JOB_MIN_AGE_COMMAND = 22,
 	)
 
-	default_strength = STRENGTH_LEVEL_WEAK
-
 
 /datum/species/wryn/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
@@ -93,6 +91,11 @@
 	if(!wryn_sting)
 		wryn_sting = new
 		wryn_sting.Grant(H)
+
+
+/datum/species/wryn/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
+
 
 /datum/species/wryn/on_species_loss(mob/living/carbon/human/H)
 	. = ..()

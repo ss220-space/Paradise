@@ -264,15 +264,6 @@
 	/// Contains info for all age related preferences.
 	var/list/age_sheet
 
-	/// Max level of strength for this race.
-	var/max_strength = STRENGTH_LEVEL_IDEAL
-	/// Default level of strength for this race.
-	var/default_strength = STRENGTH_LEVEL_NORMAL
-	/// How stronger or weaker females are for this race.
-	var/strength_female_delta = 0
-	/// If FALSE, strength of body can't be changed.
-	var/can_become_stronger = TRUE
-
 
 /datum/species/New()
 	unarmed = new unarmed_type()
@@ -423,13 +414,18 @@
 		target.drop_item_ground(target.s_store, force = TRUE)
 
 	target.hud_used?.update_locked_slots()
-
-	if(target.physiology.strength == -1)
-		target.physiology.strength = default_strength
-	else
-		target.physiology.strength = min(target.physiology.strength, target.get_max_strength_level())
-
+	gain_musculs(target, STRENGTH_LEVEL_DEFAULT, STRENGTH_LEVEL_MAXDEFAULT, TRUE)
 	target.update_body(TRUE)
+
+
+/datum/species/proc/gain_musculs(mob/living/target, default, max_level, can_become_stronger = TRUE)
+	var/datum/component/musculs/musculs = target.GetComponent(/datum/component/musculs)
+	if(!musculs)
+		musculs = new(max_level, default, 0, can_become_stronger)
+	else
+		musculs.max_species_strength = max_level
+		musculs.can_become_stronger = can_become_stronger
+		musculs.strength = min(musculs.strength, musculs.get_max_strength_level())
 
 
 /datum/species/proc/on_species_loss(mob/living/carbon/human/H)
@@ -579,7 +575,8 @@
 		target.lastattackerckey = user.ckey
 
 		var/damage_type = BRUTE
-		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) + user.get_strength_melee_damage_delta()
+		var/damage = rand(user.dna.species.punchdamagelow + user.physiology.punch_damage_low, user.dna.species.punchdamagehigh + user.physiology.punch_damage_high) \
+			+ user.GetComponent(/datum/component/musculs)?.get_strength_melee_damage_delta()
 		damage += attack.damage
 		if(!damage)
 			playsound(target.loc, attack.miss_sound, 25, 1, -1)

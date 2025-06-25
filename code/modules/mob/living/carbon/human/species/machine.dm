@@ -102,8 +102,6 @@
 		JOB_MIN_AGE_COMMAND = 15,
 	)
 
-	can_become_stronger = FALSE
-
 
 /datum/species/machine/on_species_gain(mob/living/carbon/human/human)
 	. = ..()
@@ -123,6 +121,11 @@
 		/mob/living/carbon/human/proc/emote_buzz2,
 		/mob/living/carbon/human/proc/emote_yes,
 		/mob/living/carbon/human/proc/emote_no))
+
+
+/datum/species/machine/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, max_level, FALSE)
+
 
 /datum/species/machine/on_species_loss(mob/living/carbon/human/human)
 	. = ..()

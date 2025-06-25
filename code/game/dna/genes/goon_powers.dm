@@ -616,9 +616,13 @@
 	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_WEAK))
 		return FALSE
 
+	if(!mutant.GetComponent(/datum/component/musculs))
+		return FALSE
+
 	return ..()
 
 /datum/dna/gene/basic/strong/deactivate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	mutant.physiology.strength = min(mutant.physiology.strength, mutant.get_max_strength_level())
+	var/datum/component/musculs/musculs = mutant.GetComponent(/datum/component/musculs)
+	musculs.strength = min(musculs.strength, musculs.get_max_strength_level())
 	mutant.update_body(TRUE)

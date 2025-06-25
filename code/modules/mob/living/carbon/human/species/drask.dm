@@ -89,9 +89,6 @@
 		JOB_MIN_AGE_COMMAND = 50,
 	)
 
-	max_strength = STRENGTH_LEVEL_SUPERHUMAN
-	default_strength = STRENGTH_LEVEL_STRONG
-
 
 /datum/species/drask/get_species_runechat_color(mob/living/carbon/human/H)
 	var/obj/item/organ/internal/eyes/E = H.get_int_organ(/obj/item/organ/internal/eyes)
@@ -107,6 +104,11 @@
 		coma.Grant(human)
 
 	add_verb(human, /mob/living/carbon/human/proc/emote_hum)
+
+
+/datum/species/drask/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_IDEAL, STRENGTH_LEVEL_SUPERHUMAN)
+
 
 /datum/species/drask/on_species_loss(mob/living/carbon/human/human)
 	. = ..()

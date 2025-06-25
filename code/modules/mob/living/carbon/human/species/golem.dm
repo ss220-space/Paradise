@@ -75,8 +75,6 @@
 		"рассыпается в прах!",
 		"разбивает своё тело на части!")
 
-	can_become_stronger = FALSE
-
 	var/golem_colour = rgb(170, 170, 170)
 	var/info_text = "Будучи <span class='danger'>железным големом</span>, вы не обладаете отличительными особенностями."
 	var/random_eligible = TRUE
@@ -171,6 +169,10 @@
 	H.real_name = get_random_name()
 	H.name = H.real_name
 	to_chat(H, info_text)
+
+
+/datum/species/golem/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+	..(target, default, max_level, FALSE)
 
 
 /datum/species/golem/get_vision_organ(mob/living/carbon/human/user)

@@ -459,7 +459,12 @@
 	if(vampire_grab)
 		return vampire_grab.grab_speed
 
-	var/normal_grab_update_time = GRAB_UPGRADE_TIME * get_strength_grab_speed_modifier()
+	var/mod = 1
+	var/datum/component/musculs/musculs = user.GetComponent(/datum/component/musculs)
+	if(musculs)
+		mod = musculs.get_strength_grab_speed_modifier()
+
+	var/normal_grab_update_time = GRAB_UPGRADE_TIME * mod
 	return isnull(grabber.mind?.martial_art?.grab_speed) ? normal_grab_update_time : grabber.mind.martial_art.grab_speed
 
 

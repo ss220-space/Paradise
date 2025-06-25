@@ -61,13 +61,15 @@
 		JOB_MIN_AGE_COMMAND = 13,
 	)
 
-	default_strength = STRENGTH_LEVEL_WEAK
-
 
 /datum/species/grey/on_species_gain(mob/living/carbon/human/H)
 	. = ..()
 	H.gene_stability += GREYS_ADDITIONAL_GENE_STABILITY
 	RegisterSignal(H, COMSIG_SINK_ACT, PROC_REF(sink_act))
+
+
+/datum/species/grey/gain_musculs(mob/living/target, default, max_level, can_become_stronger)
+	..(target, STRENGTH_LEVEL_WEAK, max_level, can_become_stronger)
 
 
 /datum/species/grey/on_species_loss(mob/living/carbon/human/H)

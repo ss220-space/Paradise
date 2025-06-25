@@ -315,7 +315,10 @@
 
 
 /datum/dna/gene/disability/weak/can_activate(mob/living/mutant, flags)
-	if(!ishuman(mutant) || HAS_TRAIT(mutant, TRAIT_GENE_STRONG))
+	if(!HAS_TRAIT(mutant, TRAIT_GENE_STRONG))
+		return FALSE
+
+	if(!mutant.GetComponent(/datum/component/musculs))
 		return FALSE
 
 	return ..()
@@ -323,7 +326,6 @@
 
 /datum/dna/gene/disability/weak/activate(mob/living/carbon/human/mutant, flags)
 	. = ..()
-	mutant.physiology.strength = STRENGTH_LEVEL_WEAK
 	mutant.update_body(TRUE)
 
 
