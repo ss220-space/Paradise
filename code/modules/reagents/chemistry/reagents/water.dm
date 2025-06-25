@@ -508,12 +508,13 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 	color = "#c2ff34"
 	taste_description = "силы"
 
+
 /datum/reagent/steroids/on_mob_life(mob/living/target)
 	..()
 	if(!ishuman(target))
 		return
 
-	if(!prob(1))
+	if(!prob(3))
 		return
 
 	var/mob/living/carbon/human/human = target
