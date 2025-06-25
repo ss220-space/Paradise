@@ -4,6 +4,7 @@
 /obj/item/reagent_containers/food/drinks
 	name = "drink"
 	desc = "Вкусняшка."
+	gender = MALE
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
@@ -226,11 +227,33 @@
 
 
 /obj/item/reagent_containers/food/drinks/coffee
-	name = "Robust Coffee"
-	desc = "Careful, the beverage you're about to enjoy is extremely hot."
-	icon_state = "coffee"
+	name = "coffee cup"
+	desc = "Удобный бумажный стакан со снимаемой крышкой. Обычно в таких подают кофе."
+	ru_names = list(
+        NOMINATIVE = "стакан кофе",
+        GENITIVE = "стакана кофе",
+        DATIVE = "стакану кофе",
+        ACCUSATIVE = "стакан кофе",
+        INSTRUMENTAL = "стаканом кофе",
+        PREPOSITIONAL = "стаканекофеа"
+	)
+	icon_state = "coffee_lid"
 	list_reagents = list("coffee" = 30)
 	resistance_flags = FREEZE_PROOF
+	has_lid = TRUE
+
+/obj/item/reagent_containers/food/drinks/coffee_cup
+	name = "coffee cup"
+	desc = "Дешёвый бумажный стакан со снимаемой крышкой. Обычно в таких подают кофе. Далеко не самый удобный."
+	icon_state = "coffee_cup_e"
+	base_icon_state = "coffee_cup"
+	possible_transfer_amounts = list(10)
+	volume = 30
+	has_lid = TRUE
+
+/obj/item/reagent_containers/food/drinks/coffee_cup/update_icon_state()
+	icon_state = reagents.total_volume ? base_icon_state : "[base_icon_state]_e"
+	return ..()
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"

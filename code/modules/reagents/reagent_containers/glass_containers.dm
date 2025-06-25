@@ -332,7 +332,7 @@
 	can_assembly = 0
 
 /obj/item/reagent_containers/glass/beaker/thermite
-	name = "Thermite load"
+	name = "thermite load"
 	desc = "Пластиковый пакетик, надпись на этикетке - \"Термит\"."
 	ru_names = list(
 		NOMINATIVE = "пластиковый пакетик (Термит)",
