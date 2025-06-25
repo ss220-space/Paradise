@@ -21,12 +21,12 @@
 	var/list/messages = list()
 	var/greet_text = "Контрактники отдают [CONTRACTOR_COST] телекристалл[declension_ru(CONTRACTOR_COST, "", "а", "ов")] за возможность выполнять контракты на похищение, получая за это выплаты в виде ТК и кредитов. Это позволяет заработать гораздо больше, чем они имели раньше.<br>" \
 					+ "Если вы заинтересованы, просто зайдите в аплинк и выберите вкладку \"Заключение контракта\" для получения дополнительной информации.<br>"
-	messages.Add(span_fontsize3(span_fontcolor_red("<b>Вам предложили стать Контрактником.</b><br>")))
-	messages.Add(span_fontcolor_red("[greet_text]"))
+	messages.Add(span_fontsize3(span_red("<b>Вам предложили стать Контрактником.</b><br>")))
+	messages.Add(span_red("[greet_text]"))
 	if(!is_admin_forced)
-		messages.Add(span_fontcolor_red("<b><i>Не упустите возможность! Вы не единственный, кто получил это предложение. \
+		messages.Add(span_red("<b><i>Не упустите возможность! Вы не единственный, кто получил это предложение. \
 					Количество доступных предложений ограничено, и если другие агенты примут их раньше вас, то у вас не останется возможности принять участие.</i></b>"))
-	messages.Add(span_fontcolor_red("<b><i>Срок действия этого предложения истекает через 10 минут, начиная с этого момента (время истечения: <u>[station_time_timestamp(time = offer_deadline)]</u>).</i></b>"))
+	messages.Add(span_red("<b><i>Срок действия этого предложения истекает через 10 минут, начиная с этого момента (время истечения: <u>[station_time_timestamp(time = offer_deadline)]</u>).</i></b>"))
 	return messages
 
 /**

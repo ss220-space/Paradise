@@ -81,13 +81,14 @@
 				var/datum/data/pda/app/A = locateUID(params["program"])
 				if(A)
 					start_program(A)
-		if("Eject")//Ejects the cart, only done from hub.
+		if("Eject") //Ejects the cart, only done from hub.
 			if(!isnull(cartridge))
-				var/turf/T = loc
-				if(ismob(T))
-					T = T.loc
 				var/obj/item/cartridge/C = cartridge
-				C.forceMove(T)
+				if(ismob(loc))
+					var/mob/T = loc
+					T.put_in_hands(C)
+				else
+					C.forceMove(get_turf(src))
 				if(scanmode in C.programs)
 					scanmode = null
 				if(current_app in C.programs)
@@ -99,13 +100,15 @@
 						P.unnotify()
 				cartridge = null
 				update_shortcuts()
-		if("Eject_Request")//Ejects the cart, only done from hub.
+				playsound(src, 'sound/machines/terminal_eject.ogg', 50, TRUE)
+		if("Eject_Request") //Ejects the cart, only done from hub.
 			if(!isnull(request_cartridge))
-				var/turf/T = loc
-				if(ismob(T))
-					T = T.loc
-				var/obj/item/cartridge/C = request_cartridge
-				C.forceMove(T)
+				var/obj/item/cartridge/C = cartridge
+				if(ismob(loc))
+					var/mob/T = loc
+					T.put_in_hands(C)
+				else
+					C.forceMove(get_turf(src))
 				if(scanmode in C.programs)
 					scanmode = null
 				if(current_app in C.programs)
@@ -118,14 +121,16 @@
 				request_cartridge.update_programs(null)
 				request_cartridge = null
 				update_shortcuts()
-		if("Authenticate")//Checks for ID
+		if("Authenticate") //Checks for ID
 			id_check(usr, in_pda_usage = TRUE)
 		if("Ringtone")
+			if(!silent)
+				playsound(src, 'sound/machines/terminal_select.ogg', 15, TRUE)
 			return set_ringtone(ui.user)
 		else
 			if(current_app)
 				. = current_app.ui_act(action, params, ui, state) // It needs proxying through down here so apps actually have their interacts called
 
-	if((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
-		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
+		playsound(src, 'sound/items/bikehorn.ogg', 30, 1)

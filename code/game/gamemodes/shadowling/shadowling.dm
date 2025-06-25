@@ -112,7 +112,7 @@ Made by Xhuis
 		var/list/messages = list()
 		spawn(rand(10,100))
 			messages.Add("<br>")
-			messages.Add("<span class='deadsay'><b><font size=3>You are a shadowling!</font></b></span>")
+			messages.Add(span_deadsay(span_fontsize3(span_bold("You are a shadowling!"))))
 			messages.Add(greet_shadow(shadow))
 			messages.Add(process_shadow_objectives(shadow))
 			finalize_shadowling(shadow)
@@ -270,8 +270,8 @@ Made by Xhuis
 		spawn(30)
 			if(!M || QDELETED(M))
 				return
-			M.visible_message("<span class='warning'>[M] внезапно раздувается и взрывается!</span>", \
-							  "<span class='warning'><b>AAAAAAAAA<font size=3>AAAAAAAAAAAAA</font><font size=4>AAAAAAAAAAAA----</font></span>")
+			M.visible_message(span_warning("[M] внезапно раздувается и взрывается!"), \
+							  span_warning(span_bold("AAAAAAAAA[span_fontsize3("AAAAAAAAAAAAA")][span_fontsize4("AAAAAAAAAAAA.....")]")))
 			playsound(M, 'sound/magic/disintegrate.ogg', 100, 1)
 			M.gib()
 
@@ -304,7 +304,7 @@ Made by Xhuis
 
 
 /datum/game_mode/proc/auto_declare_completion_shadowling()
-	var/text = ""
+	var/list/text = list("")
 	if(shadows.len)
 		text += "<br><span class='big'><b>Тенелингами были:</b></span>"
 		for(var/datum/mind/shadow in shadows)
@@ -335,7 +335,7 @@ Made by Xhuis
 					text += "тело уничтожено"
 				text += ")"
 	text += "<br>"
-	to_chat(world, text)
+	return text.Join("")
 
 
 /*

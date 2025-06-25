@@ -318,7 +318,7 @@
 			to_chat(new_mob, span_danger("Вы потеряли свою личность и память! Отыгрывайте новое существо!"))
 		to_chat(new_mob, span_danger("ТЕПЕРЬ ВЫ [uppertext(randomize)]"))
 		if(briefing_msg)
-			to_chat(new_mob, span_notice("[briefing_msg]"))
+			to_chat(new_mob, chat_box_red(span_userdanger("[briefing_msg]")))
 
 		qdel(M)
 		return new_mob
@@ -341,8 +341,11 @@
 				statue.icon = target.icon
 				if(prisoner.mind)
 					prisoner.mind.transfer_to(statue)
-					to_chat(statue, span_warning("You are an animated statue. You cannot move when monitored, but are nearly invincible and deadly when unobserved!"))
-					to_chat(statue, span_userdanger("Do not harm [firer.real_name], your creator."))
+					var/list/messages = list()
+					messages.Add("<span class='userdanger'>You have been transformed into an animated statue.</span>")
+					messages.Add("You cannot move when monitored, but are nearly invincible and deadly when unobserved! Hunt down those who shackle you.")
+					messages.Add("Do not harm [firer.real_name], your creator.")
+					to_chat(statue, chat_box_red(messages.Join("<br>")))
 				prisoner.forceMove(statue)
 				qdel(target)
 		else
