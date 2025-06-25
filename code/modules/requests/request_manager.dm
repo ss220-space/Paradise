@@ -164,7 +164,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 					to_chat(usr, span_warning("The person you are trying to contact is not wearing a headset. ERT denied but no message has been sent."))
 					return
 				to_chat(usr, span_notice("You sent [reason] to [H] via a secure channel."))
-				to_chat(H, "[span_specialnoticebold("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
+				to_chat(H, "[span_specialnotice("Incoming priority transmission from Central Command. Message as follows,")][span_specialnotice(" Ваш запрос на ОБР был отклонен по следующим причинам: [reason].")]")
 			else
 				usr.client.response_team()
 

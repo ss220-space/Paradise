@@ -390,7 +390,7 @@
 										"Отдел Центрального командования по делам высших измерений",
 										'sound/AI/cult_summon.ogg'
 		)
-		visible_message(span_dangerbigger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
+		visible_message(span_biggerdanger("[user] ominously presses [I] into [src] as the mechanism inside starts to shine!"))
 		qdel(I)
 		begin_the_ritual()
 		return ATTACK_CHAIN_BLOCKED_ALL
