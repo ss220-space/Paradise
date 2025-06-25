@@ -358,18 +358,72 @@
 	update_appearance(UPDATE_DESC|UPDATE_ICON_STATE)
 
 
-//Ketchup
 /obj/item/reagent_containers/food/condiment/pack/ketchup
 	name = "ketchup pack"
+	ru_names = list(
+		NOMINATIVE = "пакетик кетчупа",
+		GENITIVE = "пакетика кетчупа",
+		DATIVE = "пакетику кетчупа",
+		ACCUSATIVE = "пакетик кетчупа",
+		INSTRUMENTAL = "пакетиком кетчупа",
+		PREPOSITIONAL = "пакетике кетчупа"
+	)
 	originalname = "ketchup"
 	list_reagents = list("ketchup" = 10)
 
-//Hot sauce
 /obj/item/reagent_containers/food/condiment/pack/hotsauce
 	name = "hotsauce pack"
+	ru_names = list(
+		NOMINATIVE = "пакетик острого соуса",
+		GENITIVE = "пакетика острого соуса",
+		DATIVE = "пакетику острого соуса",
+		ACCUSATIVE = "пакетик острого соуса",
+		INSTRUMENTAL = "пакетиком острого соуса",
+		PREPOSITIONAL = "пакетике острого соуса"
+	)
 	originalname = "hotsauce"
 	list_reagents = list("capsaicin" = 10)
 
+/obj/item/reagent_containers/food/condiment/pack/creamer
+	name = "creamer pack"
+	ru_names = list(
+		NOMINATIVE = "пакетик сливок",
+		GENITIVE = "пакетика сливок",
+		DATIVE = "пакетику сливок",
+		ACCUSATIVE = "пакетик сливок",
+		INSTRUMENTAL = "пакетиком сливок",
+		PREPOSITIONAL = "пакетике сливок"
+	)
+	originalname = "creamer"
+	list_reagents = list("cream" = 10)
+
+/obj/item/reagent_containers/food/condiment/pack/sugar
+	name = "sugar pack"
+	ru_names = list(
+		NOMINATIVE = "пакетик сахара",
+		GENITIVE = "пакетика сахара",
+		DATIVE = "пакетику сахара",
+		ACCUSATIVE = "пакетик сахара",
+		INSTRUMENTAL = "пакетиком сахара",
+		PREPOSITIONAL = "пакетике сахара"
+	)
+	originalname = "sugar"
+	list_reagents = list("sugar" = 10)
+
+/obj/item/reagent_containers/food/condiment/pack/aspartame
+	name = "aspartame pack"
+	ru_names = list(
+		NOMINATIVE = "пакетик аспартама",
+		GENITIVE = "пакетика аспартама",
+		DATIVE = "пакетику аспартама",
+		ACCUSATIVE = "пакетик аспартама",
+		INSTRUMENTAL = "пакетиком аспартама",
+		PREPOSITIONAL = "пакетике аспартама"
+	)
+	originalname = "aspartame"
+	list_reagents = list("aspartame" = 10)
+
+// Animal feed
 /obj/item/reagent_containers/food/condiment/animalfeed
 	name = "pet food package"
 	desc = "Корм для домашних животных. Вы же точно не хотите это пробовать?.."
