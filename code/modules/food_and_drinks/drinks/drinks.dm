@@ -242,6 +242,21 @@
 	resistance_flags = FREEZE_PROOF
 	has_lid = TRUE
 
+/obj/item/reagent_containers/food/drinks/coffee/Initialize(mapload)
+	. = ..()
+	add_lid()
+
+/obj/item/reagent_containers/food/drinks/coffee/update_icon_state()
+	if(is_open_container)
+		icon_state = reagents.total_volume ? "[base_icon_state]_full" : "[base_icon_state]_empty"
+	else
+		icon_state = base_icon_state
+	return ..()
+
+/obj/item/reagent_containers/food/drinks/coffee/no_lid
+	icon_state = "coffee_empty"
+	list_reagents = null
+
 /obj/item/reagent_containers/food/drinks/coffee_cup
 	name = "coffee cup"
 	desc = "Дешёвый бумажный стакан со снимаемой крышкой. Обычно в таких подают кофе. Далеко не самый удобный."
@@ -249,7 +264,6 @@
 	base_icon_state = "coffee_cup"
 	possible_transfer_amounts = list(10)
 	volume = 30
-	has_lid = TRUE
 
 /obj/item/reagent_containers/food/drinks/coffee_cup/update_icon_state()
 	icon_state = reagents.total_volume ? base_icon_state : "[base_icon_state]_e"
