@@ -154,7 +154,7 @@ GLOBAL_LIST_EMPTY(limb_icon_cache)
 	var/new_icon_state = "[icon_name][(!dna || !gendered_icon) ? "" : (dna.GetUITriState(DNA_UI_GENDER) == DNA_GENDER_MALE ? "_m" : "_f")]"
 	// A little bit cursed
 	if(istype(dna.species, /datum/species/human) && (ischest(src) || isgroin(src)))
-		new_icon_state += "_[min(4, owner.get_strength())]"
+		new_icon_state += "_[min(4, owner ? owner.get_strength() : 2)]"
 
 	return list(icobase, new_icon_state)
 
