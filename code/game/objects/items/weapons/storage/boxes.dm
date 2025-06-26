@@ -426,6 +426,44 @@
 	for(var/I in 1 to 6)
 		new /obj/item/reagent_containers/food/snacks/syndidonkpocket(src)
 
+/obj/item/storage/box/coffeepack
+	name = "arabica beans"
+	desc = "Пакет, содержащий свежие, высушенные зёрна кофе арабика. Произведено Waffle Corp."
+	ru_names = list(
+		NOMINATIVE = "зёрна кофе арабика",
+		GENITIVE = "зёрен кофе арабика",
+		DATIVE = "зёрнам кофе арабика",
+		ACCUSATIVE = "зёрна кофе арабика",
+		INSTRUMENTAL = "зёрнами кофе арабика",
+		PREPOSITIONAL = "зёрнах кофе арабика"
+	)
+	gender = PLURAL
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "arabica_beans"
+	storage_slots = 5
+	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
+	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
+
+/obj/item/storage/box/coffeepack/PopulateContents()
+	for(var/i in 1 to storage_slots)
+		var/obj/item/reagent_containers/food/snacks/grown/coffee/bean = new beantype(src)
+		bean.dry = TRUE
+		bean.add_atom_colour(COLOR_DRIED_TAN, FIXED_COLOUR_PRIORITY)
+		
+/obj/item/storage/box/coffeepack/robusta
+	name = "robusta beans"
+	desc = "Пакет, содержащий свежие, высушенные зёрна кофе робуста. Произведено Waffle Corp."
+	ru_names = list(
+		NOMINATIVE = "зёрна кофе робуста",
+		GENITIVE = "зёрен кофе робуста",
+		DATIVE = "зёрнам кофе робуста",
+		ACCUSATIVE = "зёрна кофе робуста",
+		INSTRUMENTAL = "зёрнами кофе робуста",
+		PREPOSITIONAL = "зёрнах кофе робуста"
+	)
+	icon_state = "robusta_beans"
+	beantype = /obj/item/reagent_containers/food/snacks/grown/coffee/robusta
+
 /obj/item/storage/box/monkeycubes
 	name = "monkey cube box"
 	desc = "Drymate brand monkey cubes. Just add water!"

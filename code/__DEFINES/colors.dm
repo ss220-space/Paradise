@@ -40,6 +40,7 @@
 #define COLOR_WARM_YELLOW      "#b3863c"
 #define COLOR_RED_GRAY         "#aa5f61"
 #define COLOR_BROWN            "#b19664"
+#define COLOR_DRIED_TAN		   "#ad7257"
 #define COLOR_GREEN_GRAY       "#8daf6a"
 #define COLOR_DARK_GREEN_GRAY  "#54654c"
 #define COLOR_BLUE_GRAY        "#6a97b0"
