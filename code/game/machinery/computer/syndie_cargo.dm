@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(data_storages, list()) //list of all cargo console data storage datums
+GLOBAL_LIST_EMPTY(data_storages) //list of all cargo console data storage datums
 
 /********************
     SUPPLY ORDER //доработать

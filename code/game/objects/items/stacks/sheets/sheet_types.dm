@@ -491,16 +491,16 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(isclocker(user))
-		user.visible_message("<span class='warning'>[user] drops [src] with burning wounds appearing!</span>", \
-		"<span class='cultlarge'>\"Go ahead. Try again.\"</span>")
+		user.visible_message(span_warning("[user] drops [src] with burning wounds appearing!"), \
+		span_cultlarge("\"Go ahead. Try again.\""))
 		user.drop_from_active_hand()
 		user.adjustFireLoss(20)
 		return
 	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()
@@ -593,16 +593,16 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
 	if(iscultist(user))
-		user.visible_message("<span class='warning'>[user] drops [src] with burning wounds appearing!</span>", \
-		"<span class='clocklarge'>\"How dare you even to hold this piece of my art?\"</span>")
+		user.visible_message(span_warning("[user] drops [src] with burning wounds appearing!"), \
+						span_clocklarge("\"How dare you even to hold this piece of my art?\""))
 		user.drop_from_active_hand()
 		user.adjustFireLoss(20)
 		return
 	if(!isclocker(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()
@@ -644,11 +644,11 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass_fake/attack_self(mob/living/user)
 	if(iscultist(user))
-		user.visible_message("<span class='clocklarge'>\"I can't resist you.. bloody fool..\"</span>")
+		user.visible_message(span_clocklarge("\"I can't resist you.. bloody fool..\""))
 	if(!isclocker(user))
-		to_chat(user, "<span class='warning'>Only my followers have to work with it...but I can't prevent it.</span>")
+		to_chat(user, span_warning("Only my followers have to work with it...but I can't prevent it."))
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()

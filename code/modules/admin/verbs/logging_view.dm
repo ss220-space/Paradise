@@ -1,4 +1,4 @@
-GLOBAL_LIST_INIT(open_logging_views, list())
+GLOBAL_LIST_EMPTY(open_logging_views)
 
 /client/proc/cmd_admin_open_logging_view()
 	set category = STATPANEL_ADMIN_TICKETS

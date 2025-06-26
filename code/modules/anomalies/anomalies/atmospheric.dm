@@ -154,7 +154,7 @@
 			return
 
 		mob.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
-		to_chat(mob, span_atmospfericanomaly("Вас накрывает волна жара! Воздух вокруг дрожит."))
+		to_chat(mob, span_atmospferic_anomaly("Вас накрывает волна жара! Воздух вокруг дрожит."))
 
 /obj/effect/anomaly/atmospheric/tier3/collapse()
 	for(var/obj/item/paper in range(30)) // Just for fan.
@@ -208,4 +208,4 @@
 			continue
 
 		mob.playsound_local(null, 'sound/effects/comfyfire.ogg', 15, TRUE)
-		to_chat(mob, span_atmospfericanomaly("Вас накрывает волна жара! Воздух вокруг сильно дрожит."))
+		to_chat(mob, span_atmospferic_anomaly("Вас накрывает волна жара! Воздух вокруг сильно дрожит."))

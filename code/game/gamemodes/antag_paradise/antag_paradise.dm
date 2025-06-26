@@ -26,6 +26,7 @@
 		ROLE_CHANGELING = 15,
 		ROLE_HIJACKER = 40,
 		ROLE_MALF_AI = 40,
+		ROLE_DEVIL = 40,
 		ROLE_NINJA = 40,
 	)
 	/// Antag weights for main antags
@@ -55,6 +56,7 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_alive_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_alive_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_alive_AIs_for_role(ROLE_MALF_AI)
+	antag_possibilities[ROLE_DEVIL] = get_alive_players_for_role(ROLE_DEVIL)
 	roll_antagonists(antag_possibilities)
 	initiate_antags()
 
@@ -110,6 +112,15 @@
 					special_antag.special_role = SPECIAL_ROLE_MALFAI
 					SSjobs.new_malf = special_antag.current
 					pre_antags[special_antag] = ROLE_MALF_AI
+					antags_amount--
+
+		if(ROLE_DEVIL)
+			if(special_antag_amount)
+				var/datum/mind/special_antag = safepick(get_players_for_role(ROLE_DEVIL))
+				if(special_antag)
+					special_antag.restricted_roles = restricted_jobs
+					special_antag.special_role = SPECIAL_ROLE_DEVIL
+					pre_antags[special_antag] = ROLE_DEVIL
 					antags_amount--
 
 		if(ROLE_NINJA)
@@ -216,6 +227,7 @@
 	antag_possibilities[ROLE_TRAITOR] =	get_players_for_role(ROLE_TRAITOR)
 	antag_possibilities[ROLE_THIEF] = get_players_for_role(ROLE_THIEF, list(SPECIES_VOX = 4))
 	antag_possibilities[ROLE_MALF_AI] = get_players_for_role(ROLE_MALF_AI)
+	antag_possibilities[ROLE_DEVIL] =	get_players_for_role(ROLE_DEVIL)
 
 	calculate_antags()
 
@@ -311,6 +323,10 @@
 				hijacker_datum.contractor_pending = roundstart? new(antag) : null
 				antag.add_antag_datum(hijacker_datum)
 
+			if(ROLE_DEVIL)
+				var/datum/antagonist/devil/divil_datum = new
+				antag.add_antag_datum(divil_datum)
+
 			if(ROLE_MALF_AI)
 				if(isAI(antag.current))
 					antag.add_antag_datum(/datum/antagonist/malf_ai)
@@ -356,6 +372,9 @@
 			if("nothing")
 				new_list += ROLE_NONE
 				new_list[ROLE_NONE] = check_list[index]
+			if("devil")
+				new_list += ROLE_DEVIL
+				new_list[ROLE_DEVIL] = check_list[index]
 			else
 				new_list += index
 				new_list[index] = check_list[index]

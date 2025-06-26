@@ -14,13 +14,17 @@
 
 
 /obj/effect/proc_holder/spell/conjure_item/cast(list/targets, mob/user = usr)
-	if(item)
-		QDEL_NULL(item)
-	else
-		for(var/mob/living/carbon/C in targets)
-			if(C.drop_from_active_hand())
-				item = new item_type
-				C.put_in_active_hand(item)
+	var/mob/living/carbon/target = targets[1]
+	if(!item)
+		item = new item_type
+		update_item(item)
+	if(target.get_active_hand() != item)
+		target.put_in_active_hand(item, TRUE)
+		return
+	QDEL_NULL(item)
+
+/obj/effect/proc_holder/spell/conjure_item/proc/update_item(obj/item/item)
+	return
 
 
 /obj/effect/proc_holder/spell/conjure_item/Destroy()

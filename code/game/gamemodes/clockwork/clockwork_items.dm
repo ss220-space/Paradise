@@ -1119,7 +1119,7 @@
 				C.vomit(20)
 				C.Knockdown(10 SECONDS)
 		else
-			to_chat(user, span_heavybrass("\"Do you have a hole in your head? You're about to.\""))
+			to_chat(user, span_clocklarge("\"Do you have a hole in your head? You're about to.\""))
 			to_chat(user, span_userdanger("The helmet tries to drive a spike through your head as you scramble to remove it!"))
 			user.emote("scream")
 			user.apply_damage(30, BRUTE, BODY_ZONE_HEAD)

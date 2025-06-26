@@ -31,7 +31,7 @@
 	if(!candidates.len || !potential.len) //if there are no players or simple animals to choose from, then end
 		return FALSE
 
-	var/sentience_report = "<font size=3><b>[command_name()] Medium-Priority Update</b></font>"
+	var/sentience_report = span_bold(span_fontsize3("[command_name()] Medium-Priority Update"))
 
 	var/data = pick("scans from our long-range sensors", "our sophisticated probabilistic models", "our omnipotence", "the communications traffic on your station", "energy emissions we detected", "\[REDACTED\]", "Steve")
 	var/pets = pick("animals", "pets", "simple animals", "lesser lifeforms", "\[REDACTED\]")
@@ -65,3 +65,4 @@
 	to_chat(M, chat_box_green("<span class='userdanger'>Hello world!</span><br><span class='warning'>Due to freak radiation, you have gained \
 	 						human level intelligence and the ability to speak and understand \
 							human language!</span>"))
+	log_game("[M] was made into a sentient animal")

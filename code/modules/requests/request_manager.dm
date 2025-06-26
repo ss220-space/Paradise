@@ -154,7 +154,7 @@ GLOBAL_DATUM_INIT(requests, /datum/request_manager, new)
 				GLOB.ert_request_answered = TRUE
 				to_chat(usr, "You sent [input] to [H] via a secure channel.")
 				log_admin("[usr] denied [key_name(H)]'s ERT request with the message [input].")
-				to_chat(H, "<span class='specialnoticebold'>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
+				to_chat(H, "<span class=specialnotice>Incoming priority transmission from Central Command. Message as follows,</span><span class='specialnotice'> Your ERT request has been denied for the following reasons: [input].</span>")
 			else
 				usr.client.response_team()
 		if ("getcode")
