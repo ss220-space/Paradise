@@ -247,7 +247,7 @@
 	add_lid()
 
 /obj/item/reagent_containers/food/drinks/coffee/update_icon_state()
-	if(is_open_container)
+	if(is_open_container())
 		icon_state = reagents.total_volume ? "[base_icon_state]_full" : "[base_icon_state]_empty"
 	else
 		icon_state = base_icon_state
