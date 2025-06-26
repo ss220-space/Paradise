@@ -354,14 +354,14 @@
 
 
 /obj/item/reagent_containers/syringe/steroids
-	name = "Syringe (Стеориды)"
+	name = "Syringe (Стероиды)"
 	desc = "Шприц с опасным для здоровья средством для ускорения увеличения мышечной массы."
 	ru_names = list(
-        NOMINATIVE = "шприц (Стеориды)",
-        GENITIVE = "шприца (Стеориды)",
-        DATIVE = "шприцу (Стеориды)",
-        ACCUSATIVE = "шприц (Стеориды)",
-        INSTRUMENTAL = "шприцем (Стеориды)",
-        PREPOSITIONAL = "шприце (Стеориды)"
+        NOMINATIVE = "шприц (Стероиды)",
+        GENITIVE = "шприца (Стероиды)",
+        DATIVE = "шприцу (Стероиды)",
+        ACCUSATIVE = "шприц (Стероиды)",
+        INSTRUMENTAL = "шприцем (Стероиды)",
+        PREPOSITIONAL = "шприце (Стероиды)"
 	)
 	list_reagents = list("steroids" = 15)
