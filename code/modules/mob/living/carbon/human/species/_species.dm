@@ -721,7 +721,7 @@
 		if(M.hand)
 			temp = M.bodyparts_by_name[BODY_ZONE_PRECISE_L_HAND]
 		if(!temp || !temp.is_usable())
-			to_chat(M, span_warning("[pluralize_ru(M.gender,"Ты не можешь","Вы не можете")] пользоваться своей рукой."))
+			to_chat(M, span_warning("Вы не можете пользоваться своей рукой."))
 			return
 
 	if(M.mind)
@@ -807,7 +807,7 @@
 
 	if(!bypass_obscured && (slot & user.check_obscured_slots()))
 		if(!disable_warning)
-			to_chat(user, span_warning("Вы не можете надеть [I.name], слот закрыт другой одеждой."))
+			to_chat(user, span_warning("Вы не можете надеть [I.declent_ru(ACCUSATIVE)], слот закрыт другой одеждой."))
 		return FALSE
 
 	// this check prevents us from equipping something to a slot it doesn't support,
@@ -835,7 +835,7 @@
 
 			if(!wearable)
 				if(!disable_warning)
-					to_chat(user, span_warning("Вы [name] и не можете использовать [I.name]."))
+					to_chat(user, span_warning("Вы [name], и не можете использовать [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 	switch(slot)
@@ -898,7 +898,7 @@
 			var/obj/item/organ/external/chest = user.get_organ(BODY_ZONE_CHEST)
 			if(!user.w_uniform && !nojumpsuit && (!chest || !chest.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 			return bypass_equip_delay_self || I.equip_delay_self <= 0 || equip_delay_self_check(I, slot, user)
@@ -944,7 +944,7 @@
 			var/obj/item/organ/external/chest = user.get_organ(BODY_ZONE_CHEST)
 			if(!user.w_uniform && !nojumpsuit && (!chest || !chest.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 			return bypass_equip_delay_self || I.equip_delay_self <= 0 || equip_delay_self_check(I, slot, user)
@@ -957,7 +957,7 @@
 			var/obj/item/organ/external/chest = user.get_organ(BODY_ZONE_CHEST)
 			if(!user.w_uniform && !nojumpsuit && (!chest || !chest.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 			return bypass_equip_delay_self || I.equip_delay_self <= 0 || equip_delay_self_check(I, slot, user)
@@ -970,7 +970,7 @@
 			var/obj/item/organ/external/limb = user.get_organ(BODY_ZONE_L_LEG)
 			if(!user.w_uniform && !nojumpsuit && (!limb || !limb.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 			return TRUE
@@ -982,7 +982,7 @@
 			var/obj/item/organ/external/limb = user.get_organ(BODY_ZONE_R_LEG)
 			if(!user.w_uniform && !nojumpsuit && (!limb || !limb.is_robotic()))
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 			return TRUE
@@ -993,11 +993,11 @@
 				return FALSE
 			if(!user.wear_suit)
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен костюм перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен костюм перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 			if(!user.wear_suit.can_store_weighted(I))
 				if(!disable_warning)
-					to_chat(user, span_warning("Размер [I] слишком большой, чтобы прикрепить."))
+					to_chat(user, span_warning("Размер [I.declent_ru(GENITIVE)] слишком большой."))
 				return FALSE
 
 			if(is_pda(I) || is_pen(I) || is_type_in_list(I, user.wear_suit.allowed))
@@ -1031,13 +1031,13 @@
 		if(ITEM_SLOT_ACCESSORY)
 			if(!user.w_uniform)
 				if(!disable_warning)
-					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.name]."))
+					to_chat(user, span_warning("Вам нужен комбинезон перед тем как вы сможете прикрепить [I.declent_ru(ACCUSATIVE)]."))
 				return FALSE
 
 			var/obj/item/clothing/under/uniform = user.w_uniform
 			if(!uniform.can_attach_accessory(I))
 				if(!disable_warning)
-					to_chat(user, span_warning("У вас уже есть аксессуар этого типа на [uniform.name]."))
+					to_chat(user, span_warning("У вас уже есть аксессуар этого типа на [uniform.declent_ru(PREPOSITIONAL)]."))
 				return FALSE
 
 			return TRUE
@@ -1049,7 +1049,7 @@
  * Proc that provide delayed item equip. Returns `TRUE` on success.
  */
 /datum/species/proc/equip_delay_self_check(obj/item/I, slot, mob/living/carbon/human/user)
-	user.visible_message(span_notice("[user] начинает надевать [I.name]..."), span_notice("Вы начинаете надевать [I.name]..."))
+	user.visible_message(span_notice("[user] начина[pluralize_ru(user.gender,"ет","ют")] надевать [I.declent_ru(ACCUSATIVE)]..."), span_notice("Вы начинаете надевать [I.declent_ru(ACCUSATIVE)]..."))
 	return do_after(user, I.equip_delay_self, user)
 
 
