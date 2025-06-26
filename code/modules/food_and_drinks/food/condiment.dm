@@ -423,6 +423,19 @@
 	originalname = "aspartame"
 	list_reagents = list("aspartame" = 10)
 
+/obj/item/reagent_containers/food/condiment/pack/chocolate
+	name = "chocolate pack"
+	ru_names = list(
+		NOMINATIVE = "пакетик шоколадной посыпки",
+		GENITIVE = "пакетика шоколадной посыпки",
+		DATIVE = "пакетику шоколадной посыпки",
+		ACCUSATIVE = "пакетик шоколадной посыпки",
+		INSTRUMENTAL = "пакетиком шоколадной посыпки",
+		PREPOSITIONAL = "пакетике шоколадной посыпки"
+	)
+	originalname = "chocolate"
+	list_reagents = list("chocolate" = 10)
+
 // Animal feed
 /obj/item/reagent_containers/food/condiment/animalfeed
 	name = "pet food package"
