@@ -147,7 +147,7 @@
 		if(client.prefs.toggles & PREFTOGGLE_CHAT_GHOSTEARS && (speaker in view(src)))
 			message = "<b>[message]</b>"
 
-	//speaker_name = colorize_name(speaker, speaker_name)
+	speaker_name = colorize_name(speaker, speaker_name)
 
 	// Ensure only the speaker is forced to emote, and that the spoken language is inname
 	for(var/datum/multilingual_say_piece/SP in message_pieces)
@@ -182,8 +182,6 @@
 			var/turf/source = speaker? get_turf(speaker) : get_turf(src)
 			playsound_local(source, speech_sound, sound_vol, 1, sound_frequency)
 
-// I commented it out for the test. Uncomment in case of shaking.
-/*
 /mob/proc/colorize_name(atom/movable/speaker = null, speaker_name)
 	var/mob/speaker_mob = speaker
 	if(!speaker_mob.real_name)
@@ -209,7 +207,6 @@
 		return "<span style='color:[rgb(rgb[1],rgb[2],rgb[3])];'>[speaker_name]</span>"
 	else
 		return "<span style='color:[speaker_mob.chat_color];'>[speaker_name]</span>"
-*/
 
 /mob/proc/hear_radio(list/message_pieces, verb = "говор%(ит,ят)%", part_a, part_b, atom/movable/speaker = null, hard_to_hear = 0, vname = "", atom/follow_target, check_name_against)
 	if(!client)
@@ -233,7 +230,7 @@
 		follow_target = speaker
 
 	var/speaker_name = handle_speaker_name(speaker, vname, hard_to_hear, check_name_against)
-	//speaker_name = colorize_name(speaker, speaker_name)
+	speaker_name = colorize_name(speaker, speaker_name)
 	track = handle_track(message, genderize_decode(speaker, verb), speaker, speaker_name, follow_target, hard_to_hear)
 
 	if(!can_hear())

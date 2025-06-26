@@ -307,8 +307,8 @@ GLOBAL_LIST_INIT(default_medbay_channels, list(
 	tcm.radio = src
 	tcm.sender_name = from
 	tcm.message_pieces = message_pieces
-	tcm.sender_job = "Автоматическое Оповещение"
-	tcm.sender_rank = "Автоматическое Оповещение"
+	tcm.sender_job = "Автоматическое оповещение"
+	tcm.sender_rank = "Автоматическое оповещение"
 	tcm.vname = "синтезированный голос"
 	tcm.data = SIGNALTYPE_AINOTRACK
 	// Datum radios dont have a location (obviously)
