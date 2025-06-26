@@ -361,29 +361,30 @@
 	taste_description = "кучи волос"
 
 /datum/reagent/super_hairgrownium/reaction_mob(mob/living/M, method=REAGENT_TOUCH, volume)
-	if(volume >= 5)
-		if(ishuman(M))
-			var/mob/living/carbon/human/H = M
-			var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
-			var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
-			var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
+	if(volume < 5)
+		return ..()
+	if(ishuman(M))
+		var/mob/living/carbon/human/H = M
+		var/obj/item/organ/external/head/head_organ = H.get_organ(BODY_ZONE_HEAD)
+		var/datum/sprite_accessory/tmp_hair_style = GLOB.hair_styles_full_list["Very Long Hair"]
+		var/datum/sprite_accessory/tmp_facial_hair_style = GLOB.facial_hair_styles_list["Very Long Beard"]
 
-			if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
-				head_organ.h_style = "Very Long Hair"
-			else //Otherwise, give them a random hair style.
-				head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species, human = H)
-			if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
-				head_organ.f_style = "Very Long Beard"
-			else //Otherwise, give them a random facial hair style.
-				head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
-			H.update_hair()
-			H.update_fhair()
-			if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache) && !(H.wear_mask.resistance_flags & NO_MOUSTACHING))
-				if(H.wear_mask)
-					H.drop_item_ground(H.wear_mask, force = TRUE)
-				var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
-				H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
-				to_chat(H, span_notice("Ваши волосы начинают стремительно расти!"))
+		if(head_organ.dna.species.name in tmp_hair_style.species_allowed) //If 'Very Long Hair' is a style the person's species can have, give it to them.
+			head_organ.h_style = "Very Long Hair"
+		else //Otherwise, give them a random hair style.
+			head_organ.h_style = random_hair_style(H.gender, head_organ.dna.species, human = H)
+		if(head_organ.dna.species.name in tmp_facial_hair_style.species_allowed) //If 'Very Long Beard' is a style the person's species can have, give it to them.
+			head_organ.f_style = "Very Long Beard"
+		else //Otherwise, give them a random facial hair style.
+			head_organ.f_style = random_facial_hair_style(H.gender, head_organ.dna.species.name)
+		H.update_hair()
+		H.update_fhair()
+		if(!H.wear_mask || H.wear_mask && !istype(H.wear_mask, /obj/item/clothing/mask/fakemoustache) && !(H.wear_mask.resistance_flags & NO_MOUSTACHING))
+			if(H.wear_mask)
+				H.drop_item_ground(H.wear_mask, force = TRUE)
+			var/obj/item/clothing/mask/fakemoustache = new /obj/item/clothing/mask/fakemoustache
+			H.equip_to_slot(fakemoustache, ITEM_SLOT_MASK)
+			to_chat(H, span_notice("Ваши волосы начинают стремительно расти!"))
 	..()
 
 /datum/reagent/hugs
