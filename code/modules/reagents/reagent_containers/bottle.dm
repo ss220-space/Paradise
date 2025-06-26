@@ -1117,13 +1117,17 @@
 	possible_transfer_amounts = list(5, 10)
 	volume = 50
 	amount_per_transfer_from_this = 5
-	has_lid = TRUE
+	container_type = NONE
+	var/cap_on = TRUE
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/update_overlays()
 	. = ..()
 	underlays.Cut()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]10")
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]20")
 
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
@@ -1141,14 +1145,24 @@
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
 		underlays += filling
 
-	if(is_open_container())
-		. += "[icon_state]_open"
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/examine(mob/user)
 	. = ..()
-	. += span_boldnotice("Крышка-дозатор [is_open_container() ? "снята" : "надета"].")
+	. += span_boldnotice("Крышка-дозатор [cap_on ? "надета" : "снята"].")
 	. += span_info("Используйте контейнер на [declent_ru(PREPOSITIONAL)], чтобы переместить в него содержимое бутылки.")
 	return
+
+/obj/item/reagent_containers/glass/bottle/syrup_bottle/attack_self(mob/user)
+	cap_on = !cap_on
+	if(cap_on)
+		icon_state = "syrup"
+		container_type &= ~OPENCONTAINER
+		user.balloon_alert(user, "крышка-дозатор надета")
+	else
+		icon_state = "syrup_open"
+		container_type |= OPENCONTAINER
+		user.balloon_alert(user, "крышка-дозатор снята")
+	update_appearance()
 
 //when you attack the syrup bottle with a container it refills it
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/attackby(obj/item/attacking_item, mob/user, params)
@@ -1157,16 +1171,16 @@
 		return ..()
 
 	if(!check_allowed_items(attacking_item,target_self = TRUE))
-		return
+		return ATTACK_CHAIN_PROCEED
 
 	if(attacking_item.is_refillable())
 		if(!reagents.total_volume)
 			user.balloon_alert(user, "пусто!")
-			return TRUE
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 
 		if(attacking_item.reagents.holder_full())
 			user.balloon_alert(user, "контейнер полон!")
-			return TRUE
+			return ATTACK_CHAIN_PROCEED_SUCCESS
 		var/transfer_amount = reagents.trans_to(attacking_item, amount_per_transfer_from_this)
 		balloon_alert(user, "перемещено [transfer_amount] единиц[declension_ru(transfer_amount, "а", "ы", "")] вещества")
 		flick("syrup_anim",src)
@@ -1174,7 +1188,7 @@
 	attacking_item.update_appearance()
 	update_appearance()
 
-	return TRUE
+	return ATTACK_CHAIN_PROCEED_SUCCESS
 
 //types of syrups
 
