@@ -18,18 +18,18 @@
 	volume = 50
 	//Possible_states has the reagent id as key and a list of, in order, the icon_state, the name and the desc as values. Used in the on_reagent_change() to change names, descs and sprites.
 	var/list/possible_states = list(
-	 "ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
-	 "capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
-	 "enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
-	 "soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
-	 "frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
-	 "oliveoil" = list("oliveoil", "olive oil bottle", "A delicious oil used in cooking. Made from olives"),
-	 "sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
-	var/originalname = "condiment" //Can't use initial(name) for this. This stores the name set by condimasters.
-
+		"ketchup" = list("ketchup", "ketchup bottle", "You feel more American already."),
+		"capsaicin" = list("hotsauce", "hotsauce bottle", "You can almost TASTE the stomach ulcers now!"),
+		"enzyme" = list("enzyme", "universal enzyme bottle", "Used in cooking various dishes"),
+		"soysauce" = list("soysauce", "soy sauce bottle", "A salty soy-based flavoring"),
+		"frostoil" = list("coldsauce", "coldsauce bottle", "Leaves the tongue numb in it's passage"),
+		"sodiumchloride" = list("saltshakersmall", "salt shaker", "Salt. From space oceans, presumably"),
+		"blackpepper" = list("peppermillsmall", "pepper mill", "Often used to flavor food or make people sneeze"),
+		"cornoil" = list("oliveoil", "corn oil bottle", "A delicious oil used in cooking. Made from corn"),
+		"oliveoil" = list("oliveoil", "olive oil bottle", "A delicious oil used in cooking. Made from olives"),
+		"sugar" = list("emptycondiment", "sugar bottle", "Tasty spacey sugar!"))
+	//Can't use initial(name) for this. This stores the name set by condimasters.
+	var/originalname = "condiment"
 /obj/item/reagent_containers/food/condiment/attack_self(mob/user)
 	return
 
@@ -292,15 +292,18 @@
 	amount_per_transfer_from_this = 10
 	possible_transfer_amounts = null
 	possible_states = list(
-	 "ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
-	 "capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
-	 "soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
-	 "frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
-	 "sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
-	 "blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
-	 "cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
-	 "oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
-	 "sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!")
+		"ketchup" = list("condi_ketchup", "Ketchup", "You feel more American already."),
+		"capsaicin" = list("condi_hotsauce", "Hotsauce", "You can almost TASTE the stomach ulcers now!"),
+		"soysauce" = list("condi_soysauce", "Soy Sauce", "A salty soy-based flavoring"),
+		"frostoil" = list("condi_frostoil", "Coldsauce", "Leaves the tongue numb in it's passage"),
+		"sodiumchloride" = list("condi_salt", "Salt Shaker", "Salt. From space oceans, presumably"),
+		"blackpepper" = list("condi_pepper", "Pepper Mill", "Often used to flavor food or make people sneeze"),
+		"cornoil" = list("condi_cornoil", "Corn Oil", "A delicious oil used in cooking. Made from corn"),
+		"oliveoil" = list("condi_oliveoil", "Olive Oil", "A delicious oil used in cooking. Made from olives"),
+		"sugar" = list("condi_sugar", "Sugar", "Tasty spacey sugar!"),
+		"aspartame" = list("condi_aspartame", "Aspartame", "The sweetness of a thousand sugars but none of the calories."),
+		"cream" = list("condi_creamer", "Creamer", "Better not think about what they're making this from."),
+		"chocolate_sprinkle" = list("condi_chocolate", "Chocolate sprinkle", "The amount of sugar that's already there wasn't enough for you?"),
 	)
 
 
@@ -424,7 +427,7 @@
 	list_reagents = list("aspartame" = 10)
 
 /obj/item/reagent_containers/food/condiment/pack/chocolate
-	name = "chocolate pack"
+	name = "chocolate sprinkle pack"
 	ru_names = list(
 		NOMINATIVE = "пакетик шоколадной посыпки",
 		GENITIVE = "пакетика шоколадной посыпки",
@@ -433,8 +436,8 @@
 		INSTRUMENTAL = "пакетиком шоколадной посыпки",
 		PREPOSITIONAL = "пакетике шоколадной посыпки"
 	)
-	originalname = "chocolate"
-	list_reagents = list("chocolate" = 10)
+	originalname = "chocolate sprikle"
+	list_reagents = list("chocolate_sprinkle" = 10)
 
 // Animal feed
 /obj/item/reagent_containers/food/condiment/animalfeed
