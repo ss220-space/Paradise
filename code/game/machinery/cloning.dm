@@ -754,7 +754,7 @@ GLOBAL_LIST_INIT(cloner_biomass_items, list(\
 	A load/save dialog will become available in each profile if a disk is inserted.</p><br>
 	<i>A good diskette is a great way to counter aforementioned genetic drift!</i><br>
 	<br>
-	<font size=1>This technology produced under license from Thinktronic Systems, LTD.</font>"}
+	<span style='font-size: 10px;'>This technology produced under license from Thinktronic Systems, LTD.</font>"}
 
 //SOME SCRAPS I GUESS
 /* EMP grenade/spell effect

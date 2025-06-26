@@ -508,12 +508,12 @@
 	. = _memory_edit_header("devil", list("devilagents"))
 	var/datum/antagonist/devil/devilinfo = has_antag_datum(/datum/antagonist/devil)
 	if(devilinfo)
-		. += "<b>[span_fontcolor_red("DEVIL")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "<b>[span_red("DEVIL")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 		. += "<br><a href='byond://?src=[UID()];devil=panel'>Devil panel</a>"
 		. += "<br><a href='byond://?src=[UID()];devil=rank'>Increase rank</a>"
 
 	else if(has_antag_datum(/datum/antagonist/sintouched))
-		. += "<b>[span_fontcolor_red("SINTOUCHED")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
+		. += "<b>[span_red("SINTOUCHED")]</b>|<a href='byond://?src=[UID()];devil=clear'>no</a>"
 	else
 		. += "<a href='byond://?src=[UID()];devil=devil'>devil</a>|<a href='byond://?src=[UID()];devil=sintouched'>sintouched</a>"
 
@@ -1599,7 +1599,7 @@
 					cling.give_objectives = FALSE
 					add_antag_datum(cling)
 					to_chat(usr, span_notice("Changeling [key] has no objectives. You can add custom ones or generate random set by using <b>Randomize!</b> button."))
-					to_chat(current, span_dangerbigger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
+					to_chat(current, span_biggerdanger("Your powers have awoken. A flash of memory returns to us... we are a changeling!"))
 					log_admin("[key_name(usr)] has changelinged [key_name(current)]")
 					message_admins("[key_name_admin(usr)] has changelinged [key_name_admin(current)]")
 

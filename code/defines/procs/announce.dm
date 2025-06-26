@@ -131,8 +131,8 @@ GLOBAL_DATUM_INIT(event_announcement, /datum/announcement/priority/command/event
 
 /datum/announcement/minor/Format_Message(message, message_title, message_announcer, from)
 	var/formatted_message
-	formatted_message += "<b><font size=3><font color=red>[message_title].</font color></font></b>"
-	formatted_message += "<br><b><font size=3>[message]</font size></font></b>"
+	formatted_message += span_bold(span_red(span_fontsize3("[message_title].")))
+	formatted_message += span_fontsize3(span_bold("<br>[message]"))
 
 	return formatted_message
 

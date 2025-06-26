@@ -91,7 +91,7 @@
 /obj/structure/spawner/nether/examine(mob/user)
 	. = ..()
 	if(isskeleton(user))
-		. += "<span class='notice'>A direct link to another dimension full of creatures very happy to see you.</span> <span class='nicegreen'>You can see your house from here!</span>"
+		. += "<span class='notice'>A direct link to another dimension full of creatures very happy to see you.</span> <span class='green'>You can see your house from here!</span>"
 	else
 		. += "<span class='notice'>A direct link to another dimension full of creatures not very happy to see you.</span> <span class='warning'>Entering the link would be a very bad idea.</span>"
 

@@ -23,7 +23,7 @@
 	if(!chosen_ghost)
 		searching = TRUE
 		update_icon(UPDATE_ICON_STATE)
-		to_chat(user, "<span class='clocklarge'><b>Capture failed!</b></span> The soul has already fled its mortal frame. You attempt to bring it back...")
+		to_chat(user, "[span_clocklarge("Capture failed!")] The soul has already fled its mortal frame. You attempt to bring it back...")
 		var/list/candidates = SSghost_spawns.poll_candidates("Would you like to play as a Servant of Ratvar?", ROLE_CLOCKER, FALSE, poll_time = 10 SECONDS, source = /obj/item/mmi/robotic_brain/clockwork)
 		if(length(candidates))
 			chosen_ghost = pick(candidates)
@@ -50,7 +50,7 @@
 	else
 		target.dust()
 		transfer_personality(target)
-		to_chat(target, "<span class='clocklarge'><b>\"You belong to me now.\"</b></span>")
+		to_chat(target, span_clocklarge("\"You belong to me now.\""))
 	if(victim_brain)
 		QDEL_NULL(victim_brain)
 
@@ -72,7 +72,7 @@
 		attacker.Weaken(10 SECONDS)
 		attacker.emote("scream")
 		to_chat(attacker, "<span class='userdanger'>Your body is wracked with debilitating pain!</span>")
-		to_chat(attacker, "<span class='clocklarge'>\"Don't even try.\"</span>")
+		to_chat(attacker, span_clocklarge("\"Don't even try.\""))
 		return
 	if(isdrone(attacker))
 		to_chat(attacker, "<span class='warning'>You are not dexterous enough to do this!</span>")
@@ -146,7 +146,7 @@
 		if(target_body && living.has_brain_worms())
 			to_chat(attacker, "<span class='warning'>[living] is corrupted by an alien intelligence and cannot claim [living.p_their()] mind!</span>")
 			return
-		to_chat(attacker, "<span class='clocklarge'>\"Keep doing it!\"</span>")
+		to_chat(attacker, span_clocklarge("\"Keep doing it!\""))
 		try_to_transfer(living, attacker, victim_brain)
 		return TRUE
 	return FALSE
