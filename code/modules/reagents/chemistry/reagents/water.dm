@@ -519,6 +519,9 @@ GLOBAL_LIST_INIT(diseases_carrier_reagents, list(
 
 	var/mob/living/carbon/human/human = target
 	var/obj/item/organ/external/head/head_organ = human.get_organ(BODY_ZONE_HEAD)
+	if(!head_organ)
+		return
+
 	if(head_organ.f_style != "Shaved" || head_organ.h_style != "Bald")
 		target.visible_message(span_warning("Волосы [target] внезапно осыпаются!"), \
 								span_userdanger("Ваши волосы внезапно осыпаются!"))
