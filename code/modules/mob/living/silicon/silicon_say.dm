@@ -59,10 +59,10 @@
 
 /mob/living/silicon/say_understands(mob/other, datum/language/speaking = null)
 	//These only pertain to common. Languages are handled by mob/say_understands()
-	if(..())
-		return TRUE
-	else
-		return iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other)
+	if(!speaking && ismob(other))
+		if(iscarbon(other) || issilicon(other) || isbot(other) || isbrain(other))
+			return TRUE
+	return ..()
 
 
 //For holopads only. Usable by AI.

@@ -37,6 +37,7 @@
 		JOB_TITLE_ENGINEER = "engradio",
 		JOB_TITLE_ENGINEER_TRAINEE = "engradio",
 		// Central Command
+		"Custodian" = "dsquadradio",
 		"Emergency Response Team Engineer" = "dsquadradio", // I know this says deathsquad but the class for responseteam is neon green. No.
 		"Emergency Response Team Leader" = "dsquadradio",
 		"Emergency Response Team Medic" = "dsquadradio",
@@ -93,7 +94,7 @@
 	/// List of CentComm jobs
 	var/list/cc_jobs = list(JOB_TITLE_CCOFFICER, JOB_TITLE_CCFIELD, JOB_TITLE_CCSPECOPS, JOB_TITLE_SYNDICATE, "Nanotrasen Navy Captain", JOB_TITLE_CCSOLGOV, "Soviet Officer", "Soviet Marine Captain", "Soviet Admiral", JOB_TITLE_CCSUPREME)
 	/// List of SolGov Marine jobs
-	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Marine")
+	var/list/tsf_jobs = list("Solar Federation Specops Lieutenant", "Solar Federation Specops Marine", "Solar Federation Lieutenant", "Solar Federation Marine", "Solar Federation Representative", "Solar Federation General", "VIP Guest")
 	//  List of USSP jobs
 	var/list/soviet_jobs = list("Soviet Tourist", "Soviet Conscript", "Soviet Soldier", "Soviet Officer", "Soviet Marine", "Soviet Marine Captain", "Soviet General", "Soviet Engineer", "Soviet Scientist", "Soviet Medic")
 	// Defined so code compiles and incase someone has a non-standard job
@@ -209,9 +210,15 @@
 		tcm.pass = FALSE
 	// All job and coloring shit
 	if(toggle_job_color || toggle_name_color)
+		var/job = tcm.sender_job
 		var/rank = tcm.sender_rank
-		job_class = all_jobs[rank]
+		//if the job title is not custom, just use that to decide the rules of formatting
+		if(job in all_jobs)
+			job_class = all_jobs[job]
+		else
+			job_class = all_jobs[rank]
 
+	tcm.pre_modify_name = tcm.sender_name
 	if(toggle_name_color)
 		var/new_name = "<span class=\"[job_class]\">" + tcm.sender_name + "</span>"
 		tcm.sender_name = new_name
@@ -253,8 +260,13 @@
 
 	// Makes heads of staff bold
 	if(toggle_command_bold)
+		var/job = tcm.sender_job
 		var/rank = tcm.sender_rank
-		if((rank in ert_jobs) || (rank in heads) || (rank in cc_jobs))
+		var/realjob = job
+		if(!(job in all_jobs))
+			realjob = rank
+
+		if((realjob in ert_jobs) || (realjob in heads) || (realjob in cc_jobs) || (realjob in tsf_jobs))
 			for(var/I in 1 to length(message_pieces))
 				var/datum/multilingual_say_piece/S = message_pieces[I]
 				if(!S.message)
