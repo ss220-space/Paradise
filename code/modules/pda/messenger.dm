@@ -203,7 +203,7 @@
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_success.ogg', 15, TRUE)
 	else
-		to_chat(U, pan_notice("ОШИБКА: Сервер сообщений не отвечает."))
+		to_chat(U, span_notice("ОШИБКА: Сервер сообщений не отвечает."))
 		if(!pda.silent)
 			playsound(pda, 'sound/machines/terminal_error.ogg', 15, TRUE)
 
