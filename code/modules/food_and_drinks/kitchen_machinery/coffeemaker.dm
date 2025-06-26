@@ -1,17 +1,17 @@
 #define BEAN_CAPACITY 10 //amount of coffee beans that can fit inside the impressa coffeemaker
 
 /obj/machinery/kitchen_machine/coffeemaker
-	name = "coffeemaker \"Пиччонайя Моделло 3\""
-	desc = "Кофемашина модели \"Пиччонайя Моделло 3\" — устройство для приготовления кофе при температуре в 80°C. \
+	name = "coffeemaker \"Modello 3\""
+	desc = "Кофемашина модели \"Моделло 3\" — устройство для приготовления кофе при температуре в 80°C. \
 			Кофейные зёрна загружаются в виде специальных картриджей. Машина оборудована слотами для сахара, подсластителей и сливок, \
 			а также стойкой для бумажных стаканов. Произведено компанией \"Бытовая Техника Пиччонайя\"."
 	ru_names = list(
-		NOMINATIVE = "кофемашина \"Пиччонайя Моделло 3\"",
-		GENITIVE = "кофемашины \"Пиччонайя Моделло 3\"",
-		DATIVE = "кофемашине \"Пиччонайя Моделло 3\"",
-		ACCUSATIVE = "кофемашину \"Пиччонайя Моделло 3\"",
-		INSTRUMENTAL = "кофемашиной \"Пиччонайя Моделло 3\"",
-		PREPOSITIONAL = "кофемашине \"Пиччонайя Моделло 3\""
+		NOMINATIVE = "кофемашина \"Моделло 3\"",
+		GENITIVE = "кофемашины \"Моделло 3\"",
+		DATIVE = "кофемашине \"Моделло 3\"",
+		ACCUSATIVE = "кофемашину \"Моделло 3\"",
+		INSTRUMENTAL = "кофемашиной \"Моделло 3\"",
+		PREPOSITIONAL = "кофемашине \"Моделло 3\""
 	)
 	gender = FEMALE
 	icon = 'icons/obj/machines/coffee_maker.dmi'
@@ -423,9 +423,9 @@
 
 //Coffee Cartridges: like toner, but for your coffee!
 /obj/item/coffee_cartridge
-	name = "coffeemaker cartridge – Каффе Дженерико"
+	name = "coffeemaker cartridge – Caffè Generico"
 	desc = "Картридж, содержащий перемолотые кофейные зёрна. \
-			Совместим с кофемашиной \"Пиччонайя Моделло 3\". \
+			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
 	ru_names = list(
 		NOMINATIVE = "кофейный картридж \"Каффе Дженерико\"",
@@ -449,9 +449,9 @@
 		. += span_notice("<b>Пусто</b>.")
 
 /obj/item/coffee_cartridge/fancy
-	name = "coffeemaker cartridge – Каффе Фантазиосо"
+	name = "coffeemaker cartridge – Caffè Fantasioso"
 	desc = "Преимального качества картридж, содержащий перемолотые кофейные зёрна. \
-			Совместим с кофемашиной \"Пиччонайя Моделло 3\". \
+			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
 	ru_names = list(
 		NOMINATIVE = "премиальный кофе-картридж \"Каффе Фантазиосо\"",
@@ -469,7 +469,7 @@
 	var/coffee_type = pick("blend", "blue_mountain", "kilimanjaro", "mocha")
 	switch(coffee_type)
 		if("blend")
-			name = "coffeemaker cartridge – Миццела Де Пиччионе"
+			name = "coffeemaker cartridge – Miscela di Piccione"
 			ru_names = list(
 				NOMINATIVE = "премиальный кофе-картридж \"Миццела Де Пиччионе\"",
 				GENITIVE = "премиального кофе-картриджа \"Миццела Де Пиччионе\"",
@@ -480,7 +480,7 @@
 			)
 			icon_state = "cartridge_blend"
 		if("blue_mountain")
-			name = "coffeemaker cartridge – Монтанна Блю"
+			name = "coffeemaker cartridge – Montagna Blu"
 			ru_names = list(
 				NOMINATIVE = "премиальный кофе-картридж \"Монтанна Блю\"",
 				GENITIVE = "премиального кофе-картриджа \"Монтанна Блю\"",
@@ -491,7 +491,7 @@
 			)
 			icon_state = "cartridge_blue_mtn"
 		if("kilimanjaro")
-			name = "coffeemaker cartridge – Килиманджаро"
+			name = "coffeemaker cartridge – Kilimangiaro"
 			ru_names = list(
 				NOMINATIVE = "премиальный кофе-картридж \"Килиманджаро\"",
 				GENITIVE = "премиального кофе-картриджа \"Килиманджаро\"",
@@ -502,7 +502,7 @@
 			)
 			icon_state = "cartridge_kilimanjaro"
 		if("mocha")
-			name = "coffeemaker cartridge – Моккачино Арабика"
+			name = "coffeemaker cartridge – Moka Arabica"
 			ru_names = list(
 				NOMINATIVE = "премиальный кофе-картридж \"Моккачино Арабика\"",
 				GENITIVE = "премиального кофе-картриджа \"Моккачино Арабика\"",
@@ -514,10 +514,10 @@
 			icon_state = "cartridge_mocha"
 
 /obj/item/coffee_cartridge/decaf
-	name = "coffeemaker cartridge – Каффе Декаффинато"
+	name = "coffeemaker cartridge – Caffè Decaffeinato"
 	desc = "Картридж, содержащий перемолотые кофейные зёрна, \
 			из которых был искусственно удалён кофеин. \
-			Совместим с кофемашиной \"Пиччонайя Моделло 3\". \
+			Совместим с кофемашиной \"Моделло 3\". \
 			Произведён компанией \"Бытовая Техника Пиччонайя\"."
 	ru_names = list(
 		NOMINATIVE = "кофе-картридж \"Каффе Декаффинато\"",
@@ -533,7 +533,7 @@
 /obj/item/coffee_cartridge/bootleg
 	name = "coffeemaker cartridge – Botany Blend"
 	desc = "Самодельный картридж, содержащий перемолотые кофейные зёрна. \
-			Теоретически совместим с кофемашиной \"Пиччонайя Моделло 3\", \
+			Теоретически совместим с кофемашиной \"Моделло 3\", \
 			но никто этого не гарантирует."
 	ru_names = list(
 		NOMINATIVE = "кофе-картридж \"Ботанический специальный\"",
@@ -549,7 +549,7 @@
 /obj/item/blank_coffee_cartridge
 	name = "blank coffee cartridge"
 	desc = "Пустой картридж для перемолотых кофейных зёрен. \
-			Совместим с кофемашиной \"Пиччонайя Моделло 3\"."
+			Совместим с кофемашиной \"Моделло 3\"."
 	ru_names = list(
 		NOMINATIVE = "пустой кофе-картридж",
 		GENITIVE = "пустого кофе-картриджа",
@@ -565,7 +565,7 @@
 /obj/item/storage/fancy/coffee_cart_rack
 	name = "coffeemaker cartridge rack"
 	desc = "Небольшая стойка для хранения кофе-картриджей, \
-			совместимых с кофемашиной \"Пиччонайя Моделло 3\"."
+			совместимых с кофемашиной \"Моделло 3\"."
 	ru_names = list(
 		NOMINATIVE = "стойка для кофе-картриджей",
 		GENITIVE = "стойки для кофе-картриджей",
@@ -592,7 +592,7 @@
  */
 
 /obj/machinery/kitchen_machine/coffeemaker/impressa
-	name = "coffeemaker \"Импресса Моделло 5\""
+	name = "coffeemaker \"Impressa Modello 5\""
 	desc = "Кофемашина промышленного класса модели \"Импресса Моделло 5\" — устройство для приготовления кофе при температуре в 80°C. \
 			В отличие от стандартных моделей, не использует предварительно упакованные картриджи, а работает непосредственно с цельными зёрнами кофе. \
 			Такие пользуются спросом в кофейнях по всей Галактике. Произведено компанией \"Бытовая Техника Пиччонайя\"."
