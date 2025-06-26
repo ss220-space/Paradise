@@ -78,4 +78,4 @@
 
 /datum/physiology/Destroy(force)
 	owner = null
-	. = ..()
+	return ..()
