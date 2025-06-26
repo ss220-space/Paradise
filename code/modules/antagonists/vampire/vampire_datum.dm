@@ -711,7 +711,7 @@
 
 /datum/antagonist/mindslave/thrall/greet()
 	var/greet_text = "<b>Вы были очарованы [master.current.real_name]. Следуйте каждому [genderize_ru(master.current.gender, "его", "её", "его", "их")] приказу.</b>"
-	return span_dangerbigger(greet_text)
+	return span_biggerdanger(greet_text)
 
 /datum/antagonist/mindslave/thrall/farewell()
 	if(issilicon(owner.current))

@@ -98,9 +98,11 @@
 	//If the computer is being hacked or is emagged, display the reboot message.
 	if(hacking || emag)
 		message = rebootmsg
-	var/dat = ""
+	var/dat = "<title>Консоль монитора сообщений</title>"
+	dat += "<meta http-equiv=\"Content-Type\" content=\"text/html; charset=UTF-8\" />"
+	dat += "<body>"
 	dat += "<center><h2>Консоль монитора сообщений</h2></center><hr>"
-	dat += "<center><h4><span style='color: blue;'> [message]</span></h4></center>"
+	dat += "<center><h4><span style='color: blue;'>[message]</span></h4></center>"
 
 	if(auth)
 		dat += "<h4><a href='byond://?src=[UID()];auth=1'>[span_green("\[Аутентифицированный\]")]</a>/"
@@ -524,7 +526,7 @@
 	return INITIALIZE_HINT_LATELOAD
 
 /obj/item/paper/rnd_logs_key/LateInitialize()
-	var/obj/machinery/r_n_d/server/located_server = locate() in GLOB.machines
+	var/obj/machinery/r_n_d/server/located_server = locate() in SSmachines.get_by_type(/obj/machinery/r_n_d/server)
 	if(!located_server)
 		return
 	var/decryption_key = located_server.logs_decryption_key

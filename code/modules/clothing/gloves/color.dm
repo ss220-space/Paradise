@@ -42,7 +42,7 @@
 	if(!unlimited_power)
 		to_chat(user, span_notice("You feel electricity begin to build up in [src]."))
 	else
-		to_chat(user, span_dangerbigger("You feel like you have UNLIMITED POWER!!!"))
+		to_chat(user, span_biggerdanger("You feel like you have UNLIMITED POWER!!!"))
 
 
 /obj/item/clothing/gloves/color/yellow/power/dropped(mob/living/carbon/human/user, slot, silent = FALSE)

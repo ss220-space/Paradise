@@ -73,12 +73,12 @@
 
 	if(!can_use(usr))
 		return
-	var/datum/data/pda/app/messenger/M = find_program(/datum/data/pda/app/messenger)
-	M.notify_silent = !M.notify_silent
-	to_chat(usr, span_notice("Звук КПК переключен в состояние: [(M.notify_silent ? "Выкл" : "Вкл")]!"))
+
+	silent = !silent
+	to_chat(usr, span_notice("Звук КПК переключен в состояние [(silent ? "Выкл" : "Вкл")]!"))
 
 /obj/item/pda/silicon/attack_self(mob/user as mob)
-	if((honkamt > 0) && (prob(60)))//For clown virus.
+	if((honkamt > 0) && (prob(60))) //For clown virus.
 		honkamt--
 		playsound(loc, 'sound/items/bikehorn.ogg', 30, 1)
 	return

@@ -1029,7 +1029,7 @@ GLOBAL_LIST_INIT(ai_verbs_default, list(
 		display.emotion = emote
 		display.update_icon(UPDATE_OVERLAYS)
 
-	for(var/obj/machinery/machine in GLOB.machines) //change status
+	for(var/obj/machinery/machine in SSmachines.get_by_type(/obj/machinery)) //change status
 		if(istype(machine, /obj/machinery/ai_status_display))
 			var/obj/machinery/ai_status_display/display = machine
 			display.emotion = emote

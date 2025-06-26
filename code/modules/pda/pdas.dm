@@ -63,12 +63,7 @@
 	icon_state = "pda-mime"
 	desc = "..."
 	ttone = "silence"
-
-/obj/item/pda/mime/New()
-	..()
-	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
-	if(M)
-		M.notify_silent = 1
+	silent = TRUE
 
 /obj/item/pda/heads
 	default_cartridge = /obj/item/cartridge/head
@@ -195,12 +190,7 @@
 	icon_state = "pda-library"
 	desc = "Портативный микрокомпьютер от ООО \"Электронные Решения\". Данная модель представляет из себя электронную книгу серии WGW-11."
 	model_name = "Thinktronic 5290 WGW-11 Series E-reader and Personal Data Assistant"
-
-/obj/item/pda/librarian/New()
-	..()
-	var/datum/data/pda/app/M = find_program(/datum/data/pda/app/messenger)
-	if(M)
-		M.notify_silent = 1 //Quiet in the library!
+	silent = TRUE
 
 /obj/item/pda/clear
 	icon_state = "pda-transp"

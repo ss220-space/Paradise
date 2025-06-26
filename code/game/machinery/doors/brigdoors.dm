@@ -67,7 +67,7 @@
 			targets += brigdoor
 			INVOKE_ASYNC(brigdoor, TYPE_PROC_REF(/obj/machinery/door, open))
 
-	for(var/obj/machinery/machine in GLOB.machines)
+	for(var/obj/machinery/machine in SSmachines.get_by_type(/obj/machinery))
 		if(istype(machine, /obj/machinery/flasher))
 			var/obj/machinery/flasher/flasher = machine
 			if(flasher.id == id)

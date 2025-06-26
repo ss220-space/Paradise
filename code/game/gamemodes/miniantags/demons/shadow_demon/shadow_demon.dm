@@ -27,6 +27,7 @@
 	. = ..()
 	remove_from_all_data_huds()
 	AddSpell(new /obj/effect/proc_holder/spell/fireball/shadow_grapple)
+	ADD_TRAIT(src, TRAIT_HEALS_FROM_HELL_RIFTS, INNATE_TRAIT)
 	var/obj/effect/proc_holder/spell/bloodcrawl/shadow_crawl/crawl = new
 	AddSpell(crawl)
 	whisper_action.button_icon_state = "shadow_whisper"
@@ -45,7 +46,7 @@
 	if(lum_count > 0.2)
 		adjustBruteLoss(30 * damage_mod) // 20 seconds in light and you are done
 		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
-		to_chat(src, span_dangerbigger("Свет обжигает вас!"))
+		to_chat(src, span_biggerdanger("Свет обжигает вас!"))
 	else
 		adjustBruteLoss(-30)
 
