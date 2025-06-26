@@ -75,3 +75,7 @@
 /datum/physiology/New(owner)
 	armor = new
 	src.owner = owner
+
+/datum/physiology/Destroy(force)
+	owner = null
+	. = ..()

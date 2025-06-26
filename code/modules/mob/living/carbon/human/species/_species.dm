@@ -578,7 +578,7 @@
 		var/damage_type = BRUTE
 		var/delta = 0
 		var/list/deltas = list()
-		SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas)
+		SEND_SIGNAL(user, COMSIG_GET_MELEE_DAMAGE_DELTAS, deltas, null)
 		for(var/addition in deltas)
 			delta += addition
 

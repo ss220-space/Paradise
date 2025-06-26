@@ -11,6 +11,10 @@
 
 /datum/component/musculs/Initialize(max_species_strength = STRENGTH_LEVEL_MAXDEFAULT, default_strength = STRENGTH_LEVEL_DEFAULT, can_become_stronger = TRUE)
 	..()
+	var/datum/physiology/physiology = parent
+	if(!ishuman(physiology.owner))
+		return COMPONENT_INCOMPATIBLE
+
 	src.max_species_strength = max_species_strength
 	strength = default_strength
 	src.can_become_stronger = can_become_stronger
@@ -160,8 +164,12 @@
 		(GLOB.strength_pull_slowdown_modifiers[level + 1] - GLOB.strength_pull_slowdown_modifiers[level]) * strength_level_part)
 
 
-/datum/component/musculs/proc/get_strength_melee_damage_delta(mob/living/user, list/deltas)
+/datum/component/musculs/proc/get_strength_melee_damage_delta(mob/living/user, list/deltas, obj/item/weapon)
 	SIGNAL_HANDLER
+
+	if(weapon && weapon.damtype != BRUTE)
+		return
+
 	var/strength_level_part = get_strength_level_part(user)
 	var/level = get_strength(user)
 	if(strength_level_part == 0)
