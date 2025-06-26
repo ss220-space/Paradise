@@ -1475,9 +1475,9 @@
 	return ..() | update_flags
 
 /datum/reagent/medicine/lavaland_extract
-	name = "Экстракт Лаваленда"
+	name = "Экстракт Лазиса"
 	id = "lavaland_extract"
-	description = "Экстракт атмосферы Лаваленда и минеральные элементы в придачу. В небольших дозах исцеляет пользователя, но в остальных случаях крайне токсичен."
+	description = "Экстракт атмосферы Лазиса и минеральные элементы в придачу. В небольших дозах исцеляет пользователя, но в остальных случаях крайне токсичен."
 	color = "#C8A5DC" // rgb: 200, 165, 220
 	overdose_threshold = 3 //To prevent people stacking massive amounts of a very strong healing reagent
 	harmless = FALSE
@@ -1607,7 +1607,7 @@
 	return list(0, update_flags)
 
 /datum/reagent/medicine/adv_lava_extract
-	name = "Модифицированный Экстракт Лаваленда"
+	name = "Модифицированный Экстракт Лазиса"
 	id = "adv_lava_extract"
 	description = "Очень дорогое лекарство, которое помогает перекачивать кровь по телу и предотвращает замедление работы сердца, исцеляя пациента в процессе. Передозировка приводит к сердечным приступам."
 	reagent_state = LIQUID
@@ -1664,7 +1664,7 @@
 	user.clear_alert("penthrite")
 
 /datum/reagent/medicine/ashiezine
-	name = "Сироп Лаваленда"
+	name = "Сироп Лазиса"
 	id = "ashiezine"
 	description = "Странный реагент, найденный на Лазис Ардаксе. Судя по всему, он работает только на пеплоходцев."
 	reagent_state = LIQUID

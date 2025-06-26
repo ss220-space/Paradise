@@ -607,7 +607,7 @@
 	else
 		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
-		to_chat(player, span_dangerbigger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
+		to_chat(player, span_biggerdanger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
 
 /proc/printplayer(datum/mind/player, flee_check)
 	var/jobtext = ""
@@ -722,6 +722,33 @@
 	var/datum/atom_hud/antag/antaghud = GLOB.huds[ANTAG_HUD_EVENTMISC]
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
+
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_nuclear()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	. += auto_declare_completion_morph()
+	. += auto_declare_completion_revenant()
+	. += auto_declare_completion_honksquad()
+	. += auto_declare_completion_deathsquad()
+	. += auto_declare_completion_sst()
+	. += auto_declare_completion_sit()
+	. += auto_declare_completion_blob()
+	. += auto_declare_completion_heist()
+	. += auto_declare_completion_ninja()
+	. += auto_declare_completion_thief()
+	. += auto_declare_completion_goon_vampire()
+	. += auto_declare_completion_goon_enthralled()
+	. += auto_declare_completion_devil()
+	. += auto_declare_completion_sintouched()
+	listclearnulls(.)
 
 /datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
 	if(istype(god, /obj/singularity/god/narsie))

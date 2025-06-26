@@ -404,10 +404,7 @@
 		return RITUAL_FAILED_ON_PROCEED
 
 	var/mob/living/carbon/human/human = locate(/mob/living/carbon/human) in used_things
-
-	human.mind.hasSoul = FALSE
-	human.mind.soulOwner = src
-	human.mind.damnation_type = 666
+	ADD_TRAIT(human.mind, TRAIT_BAD_SOUL, DEVIL_RITUAL_TRAIT)
 	human.revive()
 
 	for(var/obj/item/implant/mindshield/implant in human.contents)

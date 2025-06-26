@@ -103,7 +103,7 @@
 	if(href_list["priv_msg"])
 		var/ckey_txt = href_list["priv_msg"]
 
-		cmd_admin_pm(ckey_txt, null, href_list["type"])
+		cmd_admin_pm(ckey_txt, null, href_list["type"], ticket_id = text2num(href_list["ticket_id"]))
 		return
 
 	if(href_list["discord_msg"])
@@ -219,7 +219,7 @@
 //This stops files larger than UPLOAD_LIMIT being sent from client to server via input(), client.Import() etc.
 /client/AllowUpload(filename, filelength)
 	if(filelength > UPLOAD_LIMIT)
-		to_chat(src, span_fontcolor_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential=TRUE)
+		to_chat(src, span_red("Ошибка: AllowUpload(): Загрузка слишком большого файла. Ограничение на загрузку: [UPLOAD_LIMIT/1024]КБ."), confidential=TRUE)
 		return 0
 /*	//Don't need this at the moment. But it's here if it's needed later.
 	//Helps prevent multiple files being uploaded at once. Or right after eachother.
@@ -590,7 +590,7 @@
 
 	var/watchreason = check_watchlist(ckey)
 	if(watchreason)
-		message_admins(span_fontcolor_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
+		message_admins(span_red("<b>Notice: </b></font><font color='#EB4E00'>[key_name_admin(src)] is on the watchlist and has just connected - Reason: [watchreason]"))
 		SSdiscord.send2discord_simple_noadmins("**\[Watchlist]** [key_name(src)] is on the watchlist and has just connected - Reason: [watchreason]")
 
 

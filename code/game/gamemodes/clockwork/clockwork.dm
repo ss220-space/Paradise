@@ -344,7 +344,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 	else
 		SSticker.mode_result = "clockwork cult loss - staff stopped the cult"
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The clockers' objectives were:</b>"
 	endtext += "<br>[clocker_objs.obj_demand.explanation_text] - "
 	if(!clocker_objs.obj_demand.check_completion())
@@ -359,7 +359,7 @@ GLOBAL_LIST_EMPTY(all_clockers)
 		else
 			endtext += "<font color='green'><b>Success!</b></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	. = ..()
 
 /proc/isclocker(mob/living/user)

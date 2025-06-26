@@ -370,7 +370,7 @@ GLOBAL_REAL(Master, /datum/controller/master) = new
 			chat_warning = TRUE
 
 	var/message = "[message_prefix] [seconds] second[seconds == 1 ? "" : "s"]!"
-	var/chat_message = chat_warning ? span_dangerbigger(message) : message
+	var/chat_message = chat_warning ? span_biggerdanger(message) : message
 
 	last_init_info = "([subsystem.name]): [message]"
 

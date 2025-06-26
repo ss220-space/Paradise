@@ -46,7 +46,7 @@
 	if(lum_count > 0.2)
 		adjustBruteLoss(30 * damage_mod) // 20 seconds in light and you are done
 		SEND_SOUND(src, sound('sound/weapons/sear.ogg'))
-		to_chat(src, span_dangerbigger("Свет обжигает вас!"))
+		to_chat(src, span_biggerdanger("Свет обжигает вас!"))
 	else
 		adjustBruteLoss(-30)
 

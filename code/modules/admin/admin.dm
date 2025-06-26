@@ -44,10 +44,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_ADMIN | R_MENTOR | R_MOD, 0, C.mob))
 			if(important || (C.prefs && !(C.prefs.toggles & PREFTOGGLE_CHAT_NO_TICKETLOGS)))
-				to_chat(C, msg, MESSAGE_TYPE_MENTORCHAT, confidential = TRUE)
+				to_chat(C, msg, MESSAGE_TYPE_MENTORPM, confidential = TRUE)
 			if(important)
 				if(C.prefs?.sound & SOUND_MENTORHELP)
-					SEND_SOUND(C, 'sound/effects/adminhelp.ogg')
+					SEND_SOUND(C, sound('sound/machines/notif1.ogg'))
 				window_flash(C)
 
 /proc/admin_ban_mobsearch(var/mob/M, var/ckey_to_find, var/mob/admin_to_notify)
@@ -484,6 +484,10 @@ GLOBAL_VAR_INIT(nologevent, 0)
 		message = replacetext(message, "\n", "<br>") // required since we're putting it in a <p> tag
 		to_chat(world, chat_box_notice("<span class='notice'><b>[usr.client.holder.fakekey ? "Administrator" : usr.key] Announces:</b><br><br><p>[message]</p></span>"))
 		log_admin("Announce: [key_name(usr)] : [message]")
+		for(var/client/clients_to_alert in GLOB.clients)
+			window_flash(clients_to_alert)
+			if(clients_to_alert.prefs?.sound & SOUND_ADMINHELP)
+				SEND_SOUND(clients_to_alert, sound('sound/effects/adminhelp.ogg'))
 	SSblackbox.record_feedback("tally", "admin_verb", 1, "Announce") //If you are copy-pasting this, ensure the 4th parameter is unique to the new proc!
 
 /datum/admins/proc/toggleooc()
@@ -893,30 +897,32 @@ GLOBAL_VAR_INIT(nologevent, 0)
 
 /datum/admins/proc/output_ai_laws()
 	var/ai_number = 0
+	var/list/messages = list()
 	for(var/mob/living/silicon/S in GLOB.mob_list)
 		ai_number++
 		if(isAI(S))
-			to_chat(usr, "<b>AI [key_name(S, TRUE)]'s laws:</b>", confidential=TRUE)
+			messages += "<b>AI [key_name(S, TRUE)]'s laws:</b>"
 		else if(isrobot(S))
 			var/mob/living/silicon/robot/R = S
-			to_chat(usr, "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>", confidential=TRUE)
+			messages += "<b>CYBORG [key_name(S, TRUE)]'s [R.connected_ai?"(Slaved to: [R.connected_ai])":"(Independent)"] laws:</b>"
 		else if(ispAI(S))
 			var/mob/living/silicon/pai/P = S
-			to_chat(usr, "<b>pAI [key_name(S, TRUE)]'s laws:</b>", confidential=TRUE)
-			to_chat(usr, "[P.pai_law0]", confidential=TRUE)
+			messages += "<b>pAI [key_name(S, TRUE)]'s laws:</b>"
+			messages += "[P.pai_law0]"
 			if(P.pai_laws)
-				to_chat(usr, "[P.pai_laws]")
+				messages += "[P.pai_laws]"
 			continue // Skip showing normal silicon laws for pAIs - they don't have any
 		else
-			to_chat(usr, "<b>SILICON [key_name(S, TRUE)]'s laws:</b>", confidential=TRUE)
+			messages += "<b>SILICON [key_name(S, TRUE)]'s laws:</b>"
 
 		if(S.laws == null)
-			to_chat(usr, "[key_name(S, TRUE)]'s laws are null. Contact a coder.", confidential=TRUE)
+			messages += "[key_name(S, TRUE)]'s laws are null. Contact a coder."
 		else
-			S.laws.show_laws(usr)
+			messages += S.laws.show_laws()
 	if(!ai_number)
-		to_chat(usr, "<b>No AI's located.</b>", confidential=TRUE)//Just so you know the thing is actually working and not just ignoring you.
+		messages += "<b>No AI's located.</b>" //Just so you know the thing is actually working and not just ignoring you.
 
+	to_chat(usr, chat_box_examine(messages.Join("\n")), confidential=TRUE)
 
 	log_and_message_admins("checked the AI laws")
 

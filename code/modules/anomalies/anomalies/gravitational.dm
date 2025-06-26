@@ -135,7 +135,7 @@
 			return
 
 		mob.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(mob, span_gravitationalanomaly("Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает."))
+		to_chat(mob, span_gravitational_anomaly("Ваше тело становится необычайно лёгким... Или тяжёлым... Всё вокруг неестественно подрагивает."))
 
 /obj/effect/anomaly/gravitational/tier3/collapse()
 	for(var/i = 1 to rand(30, 60))
@@ -179,7 +179,7 @@
 			continue
 
 		mob.playsound_local(null, 'sound/effects/empulse.ogg', 15, TRUE)
-		to_chat(mob, span_gravitationalanomaly("Вы чувствуете, что кто-то решил поиграть в Бога..."))
+		to_chat(mob, span_gravitational_anomaly("Вы чувствуете, что кто-то решил поиграть в Бога..."))
 
 /obj/effect/anomaly/gravitational/tier4/collapse()
 	for(var/i = 1 to rand(100, 200))

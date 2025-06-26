@@ -136,7 +136,11 @@
 	for(var/mob/living/M in targets_to_fuck_up)
 		var/turf/T = get_turf(M)
 		M.Immobilize(1 SECONDS)
+<<<<<<< local-lavaminers
 		to_chat(M, span_colossus("<b>НЕТ! Я НЕ ПОЗВОЛЮ ТЕБЕ ДУМАТЬ, ЧТО ТЫ ПОБЕДИЛ. Я ПОЛОЖУ КОНЕЦ ТВОЕЙ ЖАЛКОЙ ЖИЗНИ!</b>"))
+=======
+		to_chat(M, span_colossus("<b>НЕТ! Я НЕ ПОЗВОЛЮ ТЕБЕ ДУМАТЬ, ЧТО ТЫ ПОБЕДИЛ! Я ПОЛОЖУ КОНЕЦ ТВОЕЙ ЖАЛКОЙ ЖИЗНИ!</b>"))
+>>>>>>> master220
 		new /obj/effect/temp_visual/bubblegum_hands/leftpaw(T)
 		new /obj/effect/temp_visual/bubblegum_hands/leftthumb(T)
 		sleep(8)
@@ -236,7 +240,7 @@
 
 /obj/item/soulscythe/examine(mob/user)
 	. = ..()
-	. += soul.ckey ? span_nicegreen("В нем заточена душа.") : span_danger("В нем нет души.")
+	. += soul.ckey ? span_green("В нем заточена душа.") : span_danger("В нем нет души.")
 
 /obj/item/soulscythe/attack(mob/living/attacked, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
