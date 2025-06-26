@@ -615,3 +615,69 @@
 	new /obj/item/tank_brush(src)
 	new /obj/item/fishfood(src)
 	new /obj/item/storage/bag/fish(src)
+
+
+
+/*
+ * Coffee condiments display
+ */
+
+/obj/item/storage/fancy/coffee_condi_display
+	name = "coffee condiments display"
+	desc = "Небольшая деревянная коробка, предназначенная для хранения \
+			и демонстрации добавок к кофе."
+	ru_names = list(
+		NOMINATIVE = "шоу-бокс для добавок к кофе",
+		GENITIVE = "шоу-бокса для добавок к кофе",
+		DATIVE = "шоу-боксу для добавок к кофе",
+		ACCUSATIVE = "шоу-бокс для добавок к кофе",
+		INSTRUMENTAL = "шоу-боксом для добавок к кофе",
+		PREPOSITIONAL = "шоу-боксе для добавок к кофе"
+	)
+	gender = MALE
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "coffee_condi_display"
+	base_icon_state = "coffee_condi_display"
+	storage_slots = 14
+	can_hold = list(/obj/item/reagent_containers/food/condiment/pack/sugar,
+					/obj/item/reagent_containers/food/condiment/pack/creamer,
+					/obj/item/reagent_containers/food/condiment/pack/aspartame,
+					/obj/item/reagent_containers/food/condiment/pack/chocolate)
+
+
+/obj/item/storage/fancy/coffee_condi_display/update_overlays()
+	. = ..()
+	var/has_sugar = FALSE
+	var/has_sweetener = FALSE
+	var/has_creamer = FALSE
+	var/has_chocolate = FALSE
+
+	for(var/thing in contents)
+		if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/sugar))
+			has_sugar = TRUE
+		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/aspartame))
+			has_sweetener = TRUE
+		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/creamer))
+			has_creamer = TRUE
+		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/chocolate))
+			has_chocolate = TRUE
+
+	if (has_sugar)
+		. += "condi_display_sugar"
+	if (has_sweetener)
+		. += "condi_display_sweetener"
+	if (has_creamer)
+		. += "condi_display_creamer"
+	if (has_chocolate)
+		. += "condi_display_chocolate"
+
+/obj/item/storage/fancy/coffee_condi_display/PopulateContents()
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/food/condiment/pack/sugar(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/condiment/pack/aspartame(src)
+	for(var/i in 1 to 4)
+		new /obj/item/reagent_containers/food/condiment/pack/creamer(src)
+	for(var/i in 1 to 3)
+		new /obj/item/reagent_containers/food/condiment/pack/chocolate(src)
+	update_appearance()
