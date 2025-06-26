@@ -1175,3 +1175,12 @@
 		if(prob(2))
 			to_chat(M, span_warning("Ух! Какой ужасный вкус!"))
 	return ..() | update_flags
+
+/datum/reagent/consumable/caramel
+	name = "Карамель"
+	id = "caramel"
+	description = "Липкая масса, получаемая путём нагревания сахара. Сладко и вкусно."
+	nutriment_factor = 10
+	color = "#D98736"
+	taste_mult = 2
+	taste_description = "сладкой карамели"
