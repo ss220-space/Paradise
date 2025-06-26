@@ -4,13 +4,6 @@
  *
  * WARNING: var/icon_type is used for both examine text and sprite name. Please look at the procs below and adjust your sprite names accordingly
  *		TODO: Cigarette boxes should be ported to this standard
- *
- * Contains:
- *		Donut Box
- *		Egg Box
- *		Candle Box
- *		Crayon Box
- *		Cigarette Box
  */
 
 /obj/item/storage/fancy
@@ -637,13 +630,14 @@
 	gender = MALE
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "coffee_condi_display"
-	base_icon_state = "coffee_condi_display"
 	storage_slots = 14
 	can_hold = list(/obj/item/reagent_containers/food/condiment/pack/sugar,
 					/obj/item/reagent_containers/food/condiment/pack/creamer,
 					/obj/item/reagent_containers/food/condiment/pack/aspartame,
 					/obj/item/reagent_containers/food/condiment/pack/chocolate)
 
+/obj/item/storage/fancy/coffee_condi_display/update_icon_state()
+	return
 
 /obj/item/storage/fancy/coffee_condi_display/update_overlays()
 	. = ..()
@@ -662,16 +656,16 @@
 		else if(istype(thing, /obj/item/reagent_containers/food/condiment/pack/chocolate))
 			has_chocolate = TRUE
 
-	if (has_sugar)
-		. += "condi_display_sugar"
-	if (has_sweetener)
-		. += "condi_display_sweetener"
-	if (has_creamer)
-		. += "condi_display_creamer"
-	if (has_chocolate)
-		. += "condi_display_chocolate"
+	if(has_sugar)
+		. += mutable_appearance(icon, "condi_display_sugar")
+	if(has_sweetener)
+		. += mutable_appearance(icon, "condi_display_sweetener")
+	if(has_creamer)
+		. += mutable_appearance(icon, "condi_display_creamer")
+	if(has_chocolate)
+		. += mutable_appearance(icon, "condi_display_chocolate")
 
-/obj/item/storage/fancy/coffee_condi_display/PopulateContents()
+/obj/item/storage/fancy/coffee_condi_display/populate_contents()
 	for(var/i in 1 to 4)
 		new /obj/item/reagent_containers/food/condiment/pack/sugar(src)
 	for(var/i in 1 to 3)
@@ -681,3 +675,34 @@
 	for(var/i in 1 to 3)
 		new /obj/item/reagent_containers/food/condiment/pack/chocolate(src)
 	update_appearance()
+
+/*
+ * Coffee cartridge rack
+ */
+
+/obj/item/storage/fancy/coffee_cart_rack
+	name = "coffeemaker cartridge rack"
+	desc = "Небольшая стойка для хранения кофе-картриджей, \
+			совместимых с кофемашиной \"Моделло 3\"."
+	ru_names = list(
+		NOMINATIVE = "стойка для кофе-картриджей",
+		GENITIVE = "стойки для кофе-картриджей",
+		DATIVE = "стойке для кофе-картриджей",
+		ACCUSATIVE = "стойку для кофе-картриджей",
+		INSTRUMENTAL = "стойкой для кофе-картриджей",
+		PREPOSITIONAL = "стойке для кофе-картриджей"
+	)
+	gender = FEMALE
+	icon = 'icons/obj/food/containers.dmi'
+	icon_state = "coffee_cartrack0"
+	storage_slots = 4
+	can_hold = list(/obj/item/coffee_cartridge,
+					/obj/item/blank_coffee_cartridge)
+
+/obj/item/storage/fancy/coffee_cart_rack/populate_contents()
+	var/cartridges = rand(1, storage_slots)
+	for(var/I in 1 to cartridges)
+		new /obj/item/coffee_cartridge(src)
+
+/obj/item/storage/fancy/update_icon_state()
+	icon_state = "coffee_cartrack[length(contents)]"

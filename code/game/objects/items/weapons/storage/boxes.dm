@@ -444,12 +444,12 @@
 	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
 	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
 
-/obj/item/storage/box/coffeepack/PopulateContents()
+/obj/item/storage/box/coffeepack/populate_contents()
 	for(var/i in 1 to storage_slots)
 		var/obj/item/reagent_containers/food/snacks/grown/coffee/bean = new beantype(src)
 		bean.dry = TRUE
 		bean.add_atom_colour(COLOR_DRIED_TAN, FIXED_COLOUR_PRIORITY)
-		
+
 /obj/item/storage/box/coffeepack/robusta
 	name = "robusta beans"
 	desc = "Пакет, содержащий свежие, высушенные зёрна кофе робуста. Произведено Waffle Corp."
