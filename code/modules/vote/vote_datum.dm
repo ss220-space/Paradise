@@ -26,6 +26,8 @@
 
 
 /datum/vote/New(_initiator, _question, list/_choices, _is_custom = FALSE)
+	if(SSvote.active_vote)
+		CRASH("Attempted to start another vote with one already in progress!")
 
 	if(_initiator)
 		initiator = _initiator
@@ -46,7 +48,7 @@
 	var/text = "[capitalize(vote_type_text)] голосование начато [initiator]"
 	if(is_custom)
 		vote_type_text = "custom"
-		text += "\n\"[question]\""
+		text += "\n[question]"
 		if(usr)
 			log_admin("[capitalize(vote_type_text)] ([question]) vote started by [key_name(usr)].")
 
@@ -97,33 +99,33 @@
 			for(var/res in results)
 				if(res in winning_options)
 					// Make it stand out
-					to_chat(world, span_info("\"[sanitize(capitalize(res))]\" – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
 				else
 					// Make it normal
-					to_chat(world, span_interface("\"[sanitize(capitalize(res))]\" – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
+					to_chat(world, span_interface("[sanitize(capitalize(res))] – [results[res]] голос[declension_ru(results[res],"","а","ов")]"))
 
 			if(length(winning_options) > 1)
 				var/random_dictator = pick(winning_options)
-				to_chat(world, span_interface("<b>Ничья между [russian_list(sanitize(winning_options))]. Выбираем \"[sanitize(random_dictator)]\" наугад.</b>")) // shame them
+				to_chat(world, span_interface("<b>Ничья между [russian_list(sanitize(winning_options))]. Выбираем [sanitize(capitalize(random_dictator))] наугад!</b>")) // shame them
 				return random_dictator
 
 			// If we got here there must only be one thing in the list
 			var/res = winning_options[1]
 
 			if(res in choices)
-				to_chat(world, span_interface("<b>Победитель голосования – \"[sanitize(capitalize(res))]\"</b>"))
+				to_chat(world, span_interface("<b>Победитель голосования – [sanitize(capitalize(res))]</b>"))
 				return res
 
-			to_chat(world, span_interface("Победитель голосования – \"[sanitize(capitalize(res))]\" не может считаться действительным выбором? Что за бред?!"))
+			to_chat(world, span_interface("Победитель голосования – [sanitize(capitalize(res))] не может считаться действительным выбором? Что за бред?!"))
 			stack_trace("Vote of type [type] concluded with an invalid answer. Answer was [sanitize(capitalize(res))], choices were [json_encode(choices)]")
 			return null
 
 
 
 /datum/vote/proc/announce(start_text)
-	to_chat(world, chat_box_vote(span_fontcolor_purple("<b>[start_text]</b>\n\
-	<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
-	У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")))
+	to_chat(world, chat_box_purple(span_purple("<b>[start_text]</b>\n\
+		<a href='byond://?src=[SSvote.UID()];vote=open'>Нажмите здесь</a>, чтобы отдать свой голос.\n\
+		У вас есть [CONFIG_GET(number/vote_period) / 10] секунд[declension_ru(CONFIG_GET(number/vote_period) / 10, "у", "ы", "")], чтобы проголосовать!")), MESSAGE_TYPE_OOC)
 	SEND_SOUND(world, sound('sound/ambience/alarm4.ogg'))
 
 

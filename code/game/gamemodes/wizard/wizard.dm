@@ -298,24 +298,24 @@
 /datum/game_mode/wizard/declare_completion(var/ragin = 0)
 	if(finished && !ragin)
 		SSticker.mode_result = "wizard loss - wizard killed"
-		to_chat(world, span_warning(span_fontsize3("<b> The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!</b>")))
+		to_chat(world, span_warning(span_bold(span_fontsize3(" The wizard[(wizards.len>1)?"s":""] [(apprentices.len>1)?"and apprentices":""] has been killed by the crew! The Space Wizards Federation has been taught a lesson they will not soon forget!"))))
 	..()
 	return 1
 
 /datum/game_mode/proc/auto_declare_completion_wizard()
 	if(wizards.len)
-		var/text = "<br><font size=3><b>the wizards/witches were:</b></font>"
+		var/list/text = list(span_bold(span_fontsize3("<br>the wizards/witches were:")))
 
 		for(var/datum/mind/wizard in wizards)
 
-			text += "<br><b>[wizard.get_display_key()]</b> was <b>[wizard.name]</b> ("
+			text += "<br>[span_bold(wizard.get_display_key())] was [span_bold(wizard.name)] ("
 			if(wizard.current)
 				if(wizard.current.stat == DEAD)
 					text += "died"
 				else
 					text += "survived"
 				if(wizard.current.real_name != wizard.name)
-					text += " as <b>[wizard.current.real_name]</b>"
+					text += " as [span_bold(wizard.current.real_name)]"
 			else
 				text += "body destroyed"
 			text += ")"
@@ -349,7 +349,7 @@
 			text += "<br>"
 
 		if(apprentices.len)
-			text += "<br><font size=3><b>the wizards/witches apprentices were:</b></font>"
+			text += span_bold(span_fontsize3("<br>the wizards/witches apprentices were:"))
 			for(var/datum/mind/apprentice in apprentices)
 				text += "<br><b>[apprentice.get_display_key()]</b> was <b>[apprentice.name]</b> ("
 				if(apprentice.current)
@@ -383,8 +383,7 @@
 					SSblackbox.record_feedback("tally", "wizard_success", 1, "FAIL")
 				text += "<br>"
 
-		to_chat(world, text)
-	return 1
+		return text.Join("")
 
 //OTHER PROCS
 

@@ -281,9 +281,10 @@
 
 /mob/living/carbon/proc/check_self_for_injuries()
 	var/mob/living/carbon/human/H = src
-	visible_message( \
-		span_notice("[name] осматрива[pluralize_ru(gender, "ет", "ют")] себя."), \
-		span_notice("Вы осматриваете себя на наличие травм."))
+	visible_message(span_notice("[name] осматрива[pluralize_ru(gender, "ет", "ют")] себя."),
+					span_notice("Вы осматриваете себя на наличие травм."))
+
+	var/list/status_list = list()
 
 	var/list/missing = list(
 		BODY_ZONE_CHEST,
@@ -297,46 +298,55 @@
 		BODY_ZONE_PRECISE_L_FOOT,
 		BODY_ZONE_PRECISE_R_FOOT,
 	)
+
 	for(var/obj/item/organ/external/bodypart as anything in H.bodyparts)
 		missing -= bodypart.limb_zone
-		var/status = ""
+		var/status
 		var/brutedamage = bodypart.brute_dam
 		var/burndamage = bodypart.burn_dam
 
-		if(brutedamage > 0)
-			status = "ушиблен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
-		if(brutedamage > 20)
-			status = "побит[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
-		if(brutedamage > 40)
-			status = "искалечен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+		switch(brutedamage)
+			if(0.1 to 20)
+				status = "ушиблен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+			if(20 to 40)
+				status = "побит[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+			if(40 to INFINITY)
+				status = "искалечен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
 		if(brutedamage > 0 && burndamage > 0)
 			status += " и "
-		if(burndamage > 40)
-			status += "сло[pluralize_ru(bodypart.gender, "ит", "ят")]ся кусками обожённой плоти"
 
-		else if(burndamage > 20)
-			status += "покрыт[genderize_ru(bodypart.gender, "", "а", "о", "ы")] волдырями"
-		else if(burndamage > 0)
-			status += "обожен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
-		if(bodypart.is_mutated())
+		switch(burndamage)
+			if(0.1 to 10)
+				status += "покрыт[genderize_ru(bodypart.gender, "", "а", "о", "ы")] волдырями"
+			if(10 to 40)
+				status += "обожен[genderize_ru(bodypart.gender, "", "а", "о", "ы")]"
+			if(40 to INFINITY)
+				status += "сло[pluralize_ru(bodypart.gender, "ит", "ят")]ся кусками обожённой плоти"
+
+		if(bodypart.status & ORGAN_MUTATED)
 			status = "выгляд[pluralize_ru(bodypart.gender, "ит", "ят")] неестественно"
-		if(status == "")
-			status = "в порядке"
-		to_chat(src, "\t <span class='[status == "в порядке" ? "notice" : "warning"]'>Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] [status].")
+
+		var/msg = span_notice("Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] в порядке.")
+		if(!isnull(status))
+			msg = span_warning("Ваш[genderize_ru(bodypart.gender, "", "а", "е", "и")] [bodypart.declent_ru(NOMINATIVE)] [status].")
+		status_list += msg
 
 		for(var/obj/item/embedded as anything in bodypart.embedded_objects)
-			to_chat(src, "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(NOMINATIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [embedded.declent_ru(NOMINATIVE)]!</a>")
+			status_list += "\t <a href='byond://?src=[UID()];embedded_object=[embedded.UID()];embedded_limb=[bodypart.UID()]' class='warning'>В ваш[genderize_ru(bodypart.gender, "ем", "ей", "ем", "их")] [bodypart.declent_ru(NOMINATIVE)] застрял[genderize_ru(embedded.gender, "", "а", "о", "и")] [embedded.declent_ru(NOMINATIVE)]!</a>"
 
 	for(var/t in missing)
-		to_chat(src, span_boldannounceic("У вас отсутствует [parse_zone(t)]!"))
+		status_list += span_boldannounceic("У вас отсутствует [parse_zone(t)]!")
 
 	if(H.bleed_rate)
-		to_chat(src, span_danger("У вас кровотечение!"))
+		status_list += span_danger("У вас кровотечение!")
 	if(staminaloss)
 		if(staminaloss > 30)
-			to_chat(src, span_danger("Вы истощены!"))
+			status_list += span_danger("Вы истощены!")
 		else
-			to_chat(src, span_info("Вы чувствуете усталость."))
+			status_list += span_info("Вы чувствуете усталость.")
+
+	to_chat(src, chat_box_examine(status_list.Join("\n")))
+
 	if((isskeleton(H) || HAS_TRAIT(H, TRAIT_SKELETON)) && (!H.w_uniform) && (!H.wear_suit))
 		H.play_xylophone()
 
@@ -733,10 +743,10 @@
 
 /mob/living/carbon/proc/selfFeed(obj/item/reagent_containers/food/toEat, fullness)
 	if(ispill(toEat))
-		to_chat(src, span_notify("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
+		to_chat(src, span_notice("Вы [toEat.apply_method]ли [toEat.declent_ru(ACCUSATIVE)]."))
 	else
 		if(toEat.junkiness && satiety < -150 && nutrition > NUTRITION_LEVEL_STARVING + 50 )
-			to_chat(src, span_notify("Вы не хотите есть вредную пищу прямо сейчас."))
+			to_chat(src, span_notice("Вы не хотите есть вредную пищу прямо сейчас."))
 			return FALSE
 		if(fullness <= 50)
 			to_chat(src, span_warning("Вы жадко откусываете кусок от [toEat.declent_ru(GENITIVE)] и проглатываете, не жуя!"))

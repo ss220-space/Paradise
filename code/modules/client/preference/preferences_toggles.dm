@@ -118,7 +118,7 @@
 	preftoggle_bitflag = SOUND_MENTORHELP
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR | R_ADMIN
 	enable_message = "Теперь вы будете слышать звуковое оповещение при получении личного сообщения от менторов."
 	disable_message = "Теперь вы не будете слышать звуковое оповещение при получении личного сообщения от менторов."
 	blackbox_message = "Toggle Mentor Bwoinks"
