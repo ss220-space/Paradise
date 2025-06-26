@@ -233,7 +233,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 	if(terror_queens.len || terror_princes.len || terror_princesses.len || terror_defilers.len)
 		declare_results()
-		var/text = "<br/><span style='font-size: 2;'><b>Основа гнезда:</b></span>"
+		var/list/text = list("<br/><span style='font-size: 2;'><b>Основа гнезда:</b></span>")
 		if(terror_queens.len)
 			text += "<br/><span style='font-size: 1;'><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b></span>"
 			for(var/datum/mind/spider in terror_queens)
@@ -254,8 +254,7 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 			text += "<br/><span style='font-size: 2;'><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b></span>"
 			for(var/datum/mind/spider in members)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
-		to_chat(world, text)
-	return TRUE
+		return text.Join("")
 
 /datum/team/terror_spiders/get_admin_texts()
 	. = ..()

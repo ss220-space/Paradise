@@ -52,8 +52,8 @@
 	// Greet them with the unique message
 	var/list/messages = list()
 	var/greet_text = "Вы приняли предложение. Выполняйте контракты, получайте теллекристаллы и докажите, что ваши наниматели в вас не ошиблись."
-	messages.Add(span_fontsize4(span_fontcolor_red("<b>Вы Контрактник.</b><br>")))
-	messages.Add(span_fontcolor_red("[greet_text]"))
+	messages.Add(span_fontsize4(span_red("<b>Вы Контрактник.</b><br>")))
+	messages.Add(span_red("[greet_text]"))
 	return messages
 
 /datum/antagonist/contractor/on_gain()

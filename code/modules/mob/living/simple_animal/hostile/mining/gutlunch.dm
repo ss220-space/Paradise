@@ -1,14 +1,22 @@
 //Gutlunches, passive mods that devour blood and gibs
 /mob/living/simple_animal/hostile/asteroid/gutlunch
 	name = "gutlunch"
-	desc = "A scavenger that eats raw meat, often found alongside ash walkers. Produces a thick, nutritious milk."
+	desc = "Падальщик, питающийся сырым мясом. Часто встречается рядом с пеплоходцами. Производит густое питательное молоко."
+	ru_names = list(
+		NOMINATIVE = "кишкожор",
+		GENITIVE = "кишкожора",
+		DATIVE = "кишкожору",
+		ACCUSATIVE = "кишкожора",
+		INSTRUMENTAL = "кишкожором",
+		PREPOSITIONAL = "кишкожоре"
+	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "gutlunch"
 	icon_living = "gutlunch"
 	icon_dead = "gutlunch"
-	speak_emote = list("warbles", "quavers")
-	emote_hear = list("trills.")
-	emote_see = list("sniffs.", "burps.")
+	speak_emote = list("воркует", "трепещет")
+	emote_hear = list("издает трель")
+	emote_see = list("принюхивается", "рыгает")
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	faction = list("mining", "ashwalker")
 	density = FALSE
@@ -17,10 +25,10 @@
 	obj_damage = 0
 	environment_smash = ENVIRONMENT_SMASH_NONE
 	move_to_delay = 15
-	response_help  = "pets"
-	response_disarm = "gently pushes aside"
-	response_harm   = "squishes"
-	friendly = "pinches"
+	response_help  = "гладит"
+	response_disarm = "аккуратно отодвигает"
+	response_harm   = "шлёпает"
+	friendly = "щиплет"
 	a_intent = INTENT_HELP
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	gold_core_spawnable = FRIENDLY_SPAWN
@@ -33,7 +41,7 @@
 	search_objects = 3 //Ancient simplemob AI shitcode. This makes them ignore all other mobs.
 	del_on_death = TRUE
 	loot = list(/obj/effect/decal/cleanable/blood/gibs)
-	deathmessage = "is pulped into bugmash."
+	deathmessage = "превращается в месиво."
 
 	animal_species = /mob/living/simple_animal/hostile/asteroid/gutlunch
 	childtype = list(/mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch = 100)
@@ -48,7 +56,7 @@
 /mob/living/simple_animal/hostile/asteroid/gutlunch/examine(mob/user)
 	. = ..()
 	if(udder)
-		. += span_notice("В его [udder.declent_ru(ACCUSATIVE)] содержится [udder.reagents.total_volume] единиц[declension_ru(udder.reagents.total_volume, "а", "ы", "")] молока.")
+		. += span_notice("В его [udder.declent_ru(PREPOSITIONAL)] содержится [udder.reagents.total_volume] единиц[declension_ru(udder.reagents.total_volume, "а", "ы", "")] молока.")
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/Destroy()
 	QDEL_NULL(udder)
@@ -67,7 +75,7 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(stat != CONSCIOUS)
-			to_chat(user, span_warning("[src] has problems with health."))
+			to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] выглядит нездоровым."))
 			return ATTACK_CHAIN_PROCEED
 		if(udder.milkAnimal(I, user))
 			regenerate_icons()
@@ -109,13 +117,21 @@
 	if(is_type_in_typecache(target,wanted_objects)) //we eats
 		udder.generateMilk()
 		regenerate_icons()
-		visible_message("<span class='notice'>[src] slurps up [target].</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] с хлюпаньем поглощает [target.declent_ru(ACCUSATIVE)]."))
 		qdel(target)
 		return
 	return ..()
 
 /obj/item/udder/gutlunch
 	name = "nutrient sac"
+	ru_names = list(
+		NOMINATIVE = "питательный мешок",
+		GENITIVE = "питательного мешка",
+		DATIVE = "питательному мешку",
+		ACCUSATIVE = "питательный мешок",
+		INSTRUMENTAL = "питательным мешком",
+		PREPOSITIONAL = "питательном мешке"
+	)
 
 /obj/item/udder/gutlunch/Initialize(mapload)
 	. = ..()
@@ -128,6 +144,14 @@
 //Male gutlunch. They're smaller and more colorful!
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck
 	name = "gubbuck"
+	ru_names = list(
+		NOMINATIVE = "жирохрюн",
+		GENITIVE = "жирохрюна",
+		DATIVE = "жирохрюну",
+		ACCUSATIVE = "жирохрюна",
+		INSTRUMENTAL = "жирохрюном",
+		PREPOSITIONAL = "жирохрюне"
+	)
 	gender = MALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck/Initialize(mapload)
@@ -138,6 +162,14 @@
 //Lady gutlunch. They make the babby.
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen
 	name = "guthen"
+	ru_names = list(
+		NOMINATIVE = "квохтун",
+		GENITIVE = "квохтуна",
+		DATIVE = "квохтуну",
+		ACCUSATIVE = "квохтуна",
+		INSTRUMENTAL = "квохтуном",
+		PREPOSITIONAL = "квохтуне"
+	)
 	gender = FEMALE
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/guthen/Life()
@@ -153,6 +185,14 @@
 
 /mob/living/simple_animal/hostile/asteroid/gutlunch/grublunch
 	name = "grublunch"
+	ru_names = list(
+		NOMINATIVE = "червожор",
+		GENITIVE = "червожора",
+		DATIVE = "червожору",
+		ACCUSATIVE = "червожора",
+		INSTRUMENTAL = "червожором",
+		PREPOSITIONAL = "червожоре"
+	)
 	wanted_objects = list() //They don't eat.
 	gold_core_spawnable = NO_SPAWN
 	var/growth = 0
@@ -178,5 +218,5 @@
 	mind?.transfer_to(L)
 	L.faction = faction.Copy()
 	L.setDir(dir)
-	visible_message("<span class='notice'>[src] grows up into [L].</span>")
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] вырастает в [L.declent_ru(ACCUSATIVE)]."))
 	qdel(src)

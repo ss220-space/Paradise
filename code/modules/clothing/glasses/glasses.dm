@@ -499,7 +499,7 @@
 		return
 
 	playsound(loc, 'sound/misc/yeah.ogg', 100, FALSE)
-	user.visible_message(span_dangerbigger("YEEEAAAAAHHHHHHHHHHHHH!!"))
+	user.visible_message(span_biggerdanger("YEEEAAAAAHHHHHHHHHHHHH!!"))
 
 	COOLDOWN_START(src, use_cooldown, 5 MINUTES)
 

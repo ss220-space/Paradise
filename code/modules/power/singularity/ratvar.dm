@@ -47,7 +47,7 @@
 		gamemode.clocker_objs.ratvar_death()
 		for(var/datum/mind/clock_mind in SSticker.mode.clockwork_cult)
 			if(clock_mind && clock_mind.current)
-				to_chat(clock_mind.current, "<span class='clocklarge'>RETRIBUTION!</span>")
+				to_chat(clock_mind.current, span_clocklarge("RETRIBUTION!"))
 				to_chat(clock_mind.current, "<span class='clock'>Current goal: Slaughter the heretics!</span>")
 	return ..()
 

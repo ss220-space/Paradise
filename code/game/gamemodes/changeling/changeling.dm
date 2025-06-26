@@ -61,7 +61,7 @@
 
 /datum/game_mode/proc/auto_declare_completion_changeling()
 	if(length(changelings))
-		var/text = span_fontsize3("<b>The changelings were:</b>")
+		var/list/text = list(span_fontsize3("<b>The changelings were:</b>"))
 		for(var/datum/mind/changeling in changelings)
 			var/changelingwin = TRUE
 
@@ -112,7 +112,5 @@
 				text += "<br><font color='red'><b>The changeling has failed.</b></font>"
 				SSblackbox.record_feedback("tally", "changeling_success", 1, "FAIL")
 
-		to_chat(world, text)
-
-	return TRUE
+		return text.Join("")
 

@@ -411,7 +411,7 @@ effective or pretty fucking useless.
 	for(var/obj/item/thing as anything in user.get_equipped_items(TRUE, TRUE))
 		if(!user.drop_item_ground(thing))
 			qdel(thing)
-	to_chat(user, span_dangerbigger("You teleport into the wall, the teleporter tries to save you, but--"))
+	to_chat(user, span_biggerdanger("You teleport into the wall, the teleporter tries to save you, but--"))
 	user.gib()
 
 
