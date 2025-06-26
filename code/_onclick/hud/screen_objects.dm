@@ -99,7 +99,7 @@
 	screen_loc = ui_acti
 
 /atom/movable/screen/act_intent/Click(location, control, params)
-	if(ishuman(usr))
+	if(ishuman(usr) || isdevil(usr))
 		var/_x = text2num(params2list(params)["icon-x"])
 		var/_y = text2num(params2list(params)["icon-y"])
 		if(_x<=16 && _y<=16)

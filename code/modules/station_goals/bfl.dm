@@ -186,7 +186,7 @@
 		receiver = null
 
 	if(!receiver)
-		for(var/obj/machinery/bfl_receiver/bfl_receiver in GLOB.machines)
+		for(var/obj/machinery/bfl_receiver/bfl_receiver in SSmachines.get_by_type(/obj/machinery/bfl_receiver))
 			var/turf/receiver_turf = get_turf(bfl_receiver)
 			if(receiver_turf.z == lavaland_z_lvl)
 				receiver = bfl_receiver

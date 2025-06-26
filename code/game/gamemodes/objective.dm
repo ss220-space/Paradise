@@ -89,8 +89,8 @@ GLOBAL_LIST_EMPTY(admin_objective_list)
 	if(possible_target.current.stat == DEAD)
 		return TARGET_INVALID_DEAD
 
-	if(!possible_target.key || !possible_target.current?.ckey)
-		return TARGET_INVALID_NOCKEY
+	//if(!possible_target.key || !possible_target.current?.ckey)
+		//return TARGET_INVALID_NOCKEY
 
 	if(possible_target.current)
 		var/turf/current_location = get_turf(possible_target.current)

@@ -45,6 +45,7 @@
 	var/paper_width_big = 600
 	var/paper_height = 400 //Height of the window that opens
 	var/paper_height_big = 700
+	var/joinable = TRUE
 
 	var/const/deffont = "Verdana"
 	var/const/signfont = "Times New Roman"
@@ -85,7 +86,7 @@
 		. += "<span class='notice'>You don't know how to read.</span>"
 
 
-/obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE)
+/obj/item/paper/proc/show_content(mob/user, forceshow = FALSE, forcestars = FALSE, infolinks, view = TRUE, window_options, special_text = null)
 	var/datum/asset/assets = get_asset_datum(/datum/asset/simple/paper)
 	assets.send(user)
 
@@ -104,7 +105,9 @@
 			paper_height = paper_height_big
 		var/datum/browser/popup = new(user, "Paper[UID()]", , paper_width, paper_height)
 		popup.include_default_stylesheet = FALSE
-		popup.set_content(data)
+		popup.set_content(special_text || data)
+		if(window_options)
+			popup.set_window_options(window_options)
 		if(!stars)
 			popup.add_script("marked.js", 'html/browser/marked.js')
 			popup.add_script("marked-paradise.js", 'html/browser/marked-paradise.js')
@@ -508,6 +511,9 @@
 		if(!carbon_paper.iscopy && !carbon_paper.copied)
 			to_chat(user, span_notice("Take off the carbon copy first."))
 			return .
+
+	if(!joinable)
+		return ATTACK_CHAIN_PROCEED
 
 	if(loc == user && !user.can_unEquip(src))
 		return ATTACK_CHAIN_PROCEED

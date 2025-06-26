@@ -1,7 +1,15 @@
 //A slow but strong beast that tries to stun using its tentacles
 /mob/living/simple_animal/hostile/asteroid/goliath
 	name = "goliath"
-	desc = "A massive beast that uses long tentacles to ensare its prey, threatening them is not advised under any conditions."
+	desc = "Массивный зверь, использующий длинные щупальца для поимки добычи. Угрожать ему – плохая идея при любых обстоятельствах."
+	ru_names = list(
+		NOMINATIVE = "голиаф",
+		GENITIVE = "голиафа",
+		DATIVE = "голиафу",
+		ACCUSATIVE = "голиафа",
+		INSTRUMENTAL = "голиафом",
+		PREPOSITIONAL = "голиафе"
+	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath"
 	icon_living = "Goliath"
@@ -12,8 +20,8 @@
 	move_to_delay = 40
 	ranged = TRUE
 	ranged_cooldown_time = 120
-	friendly = "wails at"
-	speak_emote = list("bellows")
+	friendly = "воет на"
+	speak_emote = list("ревёт")
 	tts_seed = "Bloodseeker"
 	vision_range = 4
 	speed = 3
@@ -25,7 +33,7 @@
 	melee_damage_upper = 25
 	attacktext = "сокрушает"
 	attack_sound = 'sound/weapons/punch1.ogg'
-	throw_message = "does nothing to the rocky hide of the"
+	throw_message = "не наносит вреда его прочной шкуре"
 	vision_range = 5
 	aggro_vision_range = 9
 	move_force = MOVE_FORCE_VERY_STRONG
@@ -35,7 +43,7 @@
 	var/pre_attack_icon = "Goliath_preattack"
 	loot = list(/obj/item/stack/sheet/animalhide/goliath_hide)
 	footstep_type = FOOTSTEP_MOB_HEAVY
-	emote_taunt = list("growls ominously")
+	emote_taunt = list("грозно рычит")
 	taunt_chance = 30
 	var/turf/charge_turf
 	var/reflect_chance = 30
@@ -47,9 +55,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/bullet_act(var/obj/projectile/P)
 	if(prob(reflect_chance) && !istype(P, /obj/projectile/destabilizer))
-		visible_message(span_danger("The [P.name] gets reflected by [src]'s rocky hide!"), \
-							span_userdanger("The [P.name] gets reflected by [src]'s rocky hide!"), \
-							projectile_message = TRUE)
+		visible_message(span_danger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепкой шкуры [declent_ru(GENITIVE)]!"), span_userdanger("[capitalize(P.declent_ru(NOMINATIVE))] отскакивает от крепой шкуры [declent_ru(GENITIVE)]!"), projectile_message = TRUE)
 		P.reflect_back(src, list(0, 0, -1, 1, -2, 2, -2, 2, -2, 2, -3, 3, -3, 3))
 
 		return -1 // complete projectile permutation
@@ -121,7 +127,7 @@
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/melee_attack(list/dirs)
 	if(!islist(dirs))
 		dirs = GLOB.alldirs.Copy()
-	visible_message(span_warning("[src] unleashes tentacles from the ground around it!"))
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] выпускает щупальца из-под земли вокруг себя!"))
 	for(var/d in dirs)
 		var/turf/E = get_step(src, d)
 		new /obj/effect/temp_visual/goliath_tentacle(E, src)
@@ -130,7 +136,7 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/proc/ranged_attack()
 	var/tturf = get_turf(target)
-	visible_message("<span class='warning'>[src] digs its tentacles under [target]!</span>")
+	visible_message(span_warning("[capitalize(declent_ru(NOMINATIVE))] опутывает щупальцами [target.declent_ru(ACCUSATIVE)]!"))
 	new /obj/effect/temp_visual/goliath_tentacle/original(tturf, src)
 	ranged_cooldown = world.time + ranged_cooldown_time
 	if((stat == DEAD))
@@ -205,7 +211,7 @@
 	vision_range = aggro_vision_range
 	handle_preattack()
 	if(target && prob(taunt_chance))
-		emote("me", 1, "[pick(emote_taunt)] at [target].")
+		emote("me", 1, "[pick(emote_taunt)] на [target].")
 		taunt_chance = max(taunt_chance-7,2)
 	if(icon_state != icon_aggro && stat != DEAD)
 		icon_state = icon_aggro
@@ -213,13 +219,21 @@
 //Lavaland Goliath
 /mob/living/simple_animal/hostile/asteroid/goliath/beast
 	name = "goliath"
-	desc = "A hulking, armor-plated beast with long tendrils arching from its back."
+	ru_names = list(
+		NOMINATIVE = "голиаф",
+		GENITIVE = "голиафа",
+		DATIVE = "голиафу",
+		ACCUSATIVE = "голиафа",
+		INSTRUMENTAL = "голиафом",
+		PREPOSITIONAL = "голиафе"
+	)
+	desc = "Громадный зверь в бронированном панцире, со щупальцами, изгибающимися у него за спиной."
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "goliath"
 	icon_living = "goliath"
 	icon_aggro = "goliath"
 	icon_dead = "goliath_dead"
-	throw_message = "does nothing to the tough hide of the"
+	throw_message = "не наносит вреда его прочной шкуре"
 	pre_attack_icon = "goliath2"
 	crusher_loot = /obj/item/crusher_trophy/goliath_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath= 2, /obj/item/stack/sheet/animalhide/goliath_hide = 1, /obj/item/stack/sheet/bone = 2)
@@ -235,7 +249,15 @@
 
 /mob/living/simple_animal/hostile/asteroid/goliath/beast/ancient
 	name = "ancient goliath"
-	desc = "Goliaths are biologically immortal, and rare specimens have survived for centuries. This one is clearly ancient, and its tentacles constantly churn the earth around it."
+	ru_names = list(
+		NOMINATIVE = "древний голиаф",
+		GENITIVE = "древнего голиафа",
+		DATIVE = "древнему голиафу",
+		ACCUSATIVE = "древнего голиафа",
+		INSTRUMENTAL = "древним голиафом",
+		PREPOSITIONAL = "древнем голиафе"
+	)
+	desc = "Голиафы биологически бессмертны, и редкие особи живут веками. Этот явно древний, и его щупальца постоянно взрыхляют землю вокруг."
 	icon_state = "Goliath"
 	icon_living = "Goliath"
 	icon_aggro = "Goliath_alert"
@@ -244,7 +266,7 @@
 	health = 400
 	speed = 4
 	pre_attack_icon = "Goliath_preattack"
-	throw_message = "does nothing to the rocky hide of the"
+	throw_message = "не наносит вреда его прочной шкуре"
 	crusher_loot = /obj/item/crusher_trophy/eyed_tentacle
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goliath = 2, /obj/item/stack/sheet/animalhide/goliath_hide = 2, /obj/item/stack/sheet/bone = 2)
 	crusher_drop_mod = 30
@@ -279,6 +301,14 @@
 //Tentacles
 /obj/effect/temp_visual/goliath_tentacle
 	name = "goliath tentacle"
+	ru_names = list(
+		NOMINATIVE = "щупальце голиафа",
+		GENITIVE = "щупальца голиафа",
+		DATIVE = "щупальцу голиафа",
+		ACCUSATIVE = "щупальце голиафа",
+		INSTRUMENTAL = "щупальцем голиафа",
+		PREPOSITIONAL = "щупальце голиафа"
+	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goliath_tentacle_spawn"
 	layer = BELOW_MOB_LAYER
@@ -321,7 +351,7 @@
 	for(var/mob/living/L in loc)
 		if((!QDELETED(spawner) && spawner.faction_check_mob(L)) || L.stat == DEAD)
 			continue
-		visible_message("<span class='danger'>[src] grabs hold of [L]!</span>")
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] захватывает [L]!"))
 		if(!L.IsStunned())
 			L.Stun(10 SECONDS)
 			L.adjustBruteLoss(rand(10, 15))

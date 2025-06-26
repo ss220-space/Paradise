@@ -1323,8 +1323,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 	if(!check_rights(R_ADMIN))
 		return
 
-	to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
-	T << 'sound/voice/manup1.ogg'
+	to_chat(T, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
+	SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 	log_and_message_admins("told [key_name_log(T)] to man up and deal with it.")
 
@@ -1340,8 +1340,8 @@ GLOBAL_LIST_INIT(view_runtimes_verbs, list(
 
 	if(confirm == "Yes")
 		for(var/mob/T as mob in GLOB.mob_list)
-			to_chat(T, chat_box_notice_thick(span_notice("<b><font size=4>Man up.<br> Deal with it.</font></b><br>Move on.")))
-			T << 'sound/voice/manup1.ogg'
+			to_chat(T, chat_box_notice_thick(span_notice("[span_fontsize4("<b>Man up.<br> Deal with it.</b>")]<br>Move on.")))
+			SEND_SOUND(T, sound('sound/voice/manup1.ogg'))
 
 		log_admin("[key_name(usr)] told everyone to man up and deal with it.")
 		message_admins("[key_name_admin(usr)] told everyone to man up and deal with it.")

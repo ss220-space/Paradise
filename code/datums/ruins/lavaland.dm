@@ -322,7 +322,7 @@
 /datum/map_template/ruin/lavaland/lavalake
 	name = "Lavaland Lava Lake"
 	id = "lavalake"
-	description = "Огромное лавовое озеро, которое не подвержено стандартным изменениям лаваленда."
+	description = "Огромное лавовое озеро, которое не подвержено стандартным изменениям Лазиса."
 	suffix = "lavaland_surface_lavalake.dmm"
 	allow_duplicates = FALSE
 

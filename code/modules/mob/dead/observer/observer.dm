@@ -742,23 +742,23 @@ This is the proc mobs get to turn into a ghost. Forked from ghostize due to comp
 	update_sight()
 
 /mob/dead/observer/verb/toggle_ghostsee()
-	set name = "Призрачное зрение"
+	set name = "Видимость призраков"
 	set desc = "Toggles your ability to see things only ghosts can see, like other ghosts"
 	set category = STATPANEL_GHOST
 
 	ghostvision = !(ghostvision)
 	update_sight()
-	to_chat(usr, "Призрачное зрение [(ghostvision?"включено":"выключен")]")
+	to_chat(usr, span_notice("Видимость призраков [(ghostvision?"включена":"отключена")]."))
 
 /mob/dead/observer/verb/pick_darkness()
 	set name = "Освещённость"
 	set desc = "Choose how much darkness you want to see."
 	set category = STATPANEL_GHOST
-	var/list/ghost_darkness_levels = list("Strong Darkness" = LIGHTING_PLANE_ALPHA_VISIBLE,
-											"Darkness" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
-											"Light Darkness" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
-											"No Darkness" = LIGHTING_PLANE_ALPHA_INVISIBLE)
-	var/desired_dark = tgui_input_list(usr, "Choose how much darkness you want to see", "Pick darkness", ghost_darkness_levels)
+	var/list/ghost_darkness_levels = list("Стандартное освещение" = LIGHTING_PLANE_ALPHA_VISIBLE,
+											"Темнее" = LIGHTING_PLANE_ALPHA_MOSTLY_VISIBLE,
+											"Ярче" = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE,
+											"Полное освещение" = LIGHTING_PLANE_ALPHA_INVISIBLE)
+	var/desired_dark = tgui_input_list(usr, "Выберите, на сколько хорошо вы хотите видеть", "Выбор освещения", ghost_darkness_levels)
 	if(isnull(desired_dark))
 		return
 	if(!client)

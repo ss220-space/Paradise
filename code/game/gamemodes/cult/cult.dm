@@ -340,7 +340,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		SSticker.mode_result = "cult loss - staff stopped the cult"
 		to_chat(world, span_warning(span_fontsize3("The staff managed to stop the cult!")))
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The cultists' objectives were:</b>"
 	for(var/datum/objective/obj in cult_objs.presummon_objs)
 		endtext += "<br>[obj.explanation_text] - "
@@ -355,7 +355,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		else
 			endtext += "<font color='green'><b>Success!</b></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	..()
 
 

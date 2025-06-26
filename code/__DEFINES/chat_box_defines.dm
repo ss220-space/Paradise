@@ -7,4 +7,5 @@
 #define chat_box_notice(str) ("<div class='boxed_message notice_border'>" + str + "</div>")
 #define chat_box_healthscan(str) ("<div class='boxed_message notice_border left_align_text'>" + str + "</div>")
 #define chat_box_notice_thick(str) ("<div class='boxed_message notice_border thick_border'>" + str + "</div>")
-#define chat_box_vote(str) ("<div class='boxed_message purple_border thick_border left_align_text '>" + str + "</div>") // Experiment. I'll redo it normally later and add it wherever it's good if it goes in.
+#define chat_box_ahelp(str) ("<div class='boxed_message red_border'>" + str + "</div>")
+#define chat_box_mhelp(str) ("<div class='boxed_message notice_border'>" + str + "</div>")

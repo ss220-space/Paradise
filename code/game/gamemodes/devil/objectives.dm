@@ -1,76 +1,85 @@
 /datum/objective/devil
 
 /datum/objective/devil/sacrifice
-	var/list/target_minds = list()
-	needs_target = FALSE
-	antag_menu_name = "Завладеть душами"
-	check_cryo = FALSE
-	target_amount = 12
-	explanation_text = ""
+	needs_target = TRUE
+	antag_menu_name = "Завладеть душой"
+	check_cryo = TRUE
+	explanation_text = "Ошибка. Цель не сгенерирована"
 
 /datum/objective/devil/sacrifice/proc/forge()
-	if(!get_targets())
+	if(!target)
 		return FALSE
 
-	for(var/datum/mind/mind in target_minds)
-		explanation_text += "Принесите в жертву [mind.name], [mind.assigned_role].\n<br>"
+	explanation_text = "Принесите в жертву [target.name], [target.assigned_role].\n<br>"
 
 	return TRUE
 
-/datum/objective/devil/sacrifice/proc/get_targets()
-	var/list/command_minds = list()
-	var/list/security_minds = list()
-	var/list/other_minds = list()
+/datum/objective/devil/sacrifice/is_invalid_target(datum/mind/possible_target)
+	. = ..()
+	if(.)
+		return .
+	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
+	if(LAZYIN(devil.devil_targets, possible_target))
+		return TRUE
 
-	for(var/datum/mind/mind in SSticker.minds)
-		if(mind == owner)
+/datum/objective/devil/sacrifice/proc/is_valid_prof(datum/mind/possible_target)
+	return TRUE
+
+/datum/objective/devil/sacrifice/find_target(list/target_blacklist)
+	if(!needs_target)
+		return
+
+	var/list/prof_targets
+	var/list/other_targets
+	for(var/datum/mind/possible_target in SSticker.minds)
+		if(is_invalid_target(possible_target) || (possible_target in target_blacklist))
 			continue
 
-		if(!ishuman(mind.current) \
-		|| mind.current.stat == DEAD \
-		|| mind.offstation_role)
-			continue
-
-		if(LAZYIN(GLOB.command_positions, mind.assigned_role))
-			LAZYADD(command_minds, mind)
-
-		else if(LAZYIN(GLOB.security_positions, mind.assigned_role))
-			LAZYADD(security_minds, mind)
-
+		if(is_valid_prof(possible_target))
+			LAZYADD(prof_targets, possible_target)
 		else
-			LAZYADD(other_minds, mind)
-	var/command_target_count = ceil(target_amount / 12)
-	var/security_target_count = floor(target_amount / 4)
-	var/other_target_count = target_amount - command_target_count - security_target_count
+			LAZYADD(other_targets, possible_target)
 
-	if(LAZYLEN(command_minds) < command_target_count || LAZYLEN(security_minds) < security_target_count || LAZYLEN(other_minds) < other_target_count)
-		return FALSE
+	if(!LAZYLEN(prof_targets) && !LAZYLEN(prof_targets))
+		return
 
-	for(var/i in 1 to command_target_count)
-		LAZYADD(target_minds, pick_n_take(command_minds))
+	target = LAZYLEN(prof_targets)? pick_n_take(prof_targets) : pick_n_take(other_targets)
+	RegisterSignal(target, COMSIG_DEVIL_SACRIFICE_CHECK, PROC_REF(on_devil_sacrifice_check))
+	RegisterSignal(target, COMSIG_DEVIL_SACRIFICE, PROC_REF(on_devil_sacrifice))
+	var/datum/antagonist/devil/devil = owner.has_antag_datum(/datum/antagonist/devil)
 
-	for(var/i in 1 to security_target_count)
-		LAZYADD(target_minds, pick_n_take(security_minds))
+	LAZYOR(devil.devil_targets, target)
 
-	for(var/i in 1 to other_target_count)
-		LAZYADD(target_minds, pick_n_take(other_minds))
+	forge()
 
-	return TRUE
+	SEND_SIGNAL(src, COMSIG_OBJECTIVE_TARGET_FOUND, target)
 
-/datum/objective/devil/sacrifice/check_completion()
-	var/list/collected_minds = list()
+/datum/objective/devil/sacrifice/Destroy(force)
+	if(target)
+		UnregisterSignal(target, list(COMSIG_DEVIL_SACRIFICE_CHECK, COMSIG_DEVIL_SACRIFICE))
+	. = ..()
 
-	for(var/datum/mind/mind as anything in target_minds)
-		if(mind.hasSoul)
-			continue
+/datum/objective/devil/sacrifice/proc/on_devil_sacrifice_check()
+	SIGNAL_HANDLER
+	return COMPONENT_SACRIFICE_VALID
 
-		LAZYADD(collected_minds, mind)
 
-	return LAZYLEN(collected_minds) > target_amount
+/datum/objective/devil/sacrifice/proc/on_devil_sacrifice()
+	SIGNAL_HANDLER
+	completed = TRUE
+	return
+
+/datum/objective/devil/sacrifice/other
+
+/datum/objective/devil/sacrifice/command/is_valid_prof(datum/mind/possible_target)
+	return LAZYIN(GLOB.command_positions, possible_target.assigned_role)
+
+/datum/objective/devil/sacrifice/security/is_valid_prof(datum/mind/possible_target)
+	return LAZYIN(GLOB.security_positions, possible_target.assigned_role)
 
 /datum/objective/devil/sintouch
 	needs_target = FALSE
-	explanation_text = "You shouldn't see this text.  Error:DEVIL3"
+	explanation_text = "Вы не должны видеть этот текст. Error: DEVIL3"
 	antag_menu_name = "Осквернить души"
 
 /datum/objective/devil/sintouch/New()
@@ -81,9 +90,14 @@
 	return target_amount <= SSticker.mode.sintouched.len
 
 /datum/objective/devil/ascend
-	explanation_text = "Ascend to your true form."
+	explanation_text = "Возвыситься до Архидьявола. Для ритуала возвышения вам понадобится 2 жертвы из списка."
 	needs_target = FALSE
 	antag_menu_name = "Возвыситься"
 
 /datum/objective/devil/ascend/check_completion()
-	return isdevil(owner)
+	return  isascendeddevil(owner)
+
+/datum/objective/imp
+	explanation_text = "Постарайтесь получить повышение до следующего адского ранга."
+	needs_target = FALSE
+	antag_menu_name = "Получить повышение"

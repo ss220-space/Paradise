@@ -18,15 +18,23 @@ Difficulty: Medium
 
 /mob/living/simple_animal/hostile/megafauna/legion
 	name = "Legion"
+	ru_names = list(
+		NOMINATIVE = "Легион",
+		GENITIVE = "Легиона",
+		DATIVE = "Легиону",
+		ACCUSATIVE = "Легион",
+		INSTRUMENTAL = "Легионом",
+		PREPOSITIONAL = "Легионе"
+	)
 	health = 2500
 	maxHealth = 2500
 	icon_state = "mega_legion"
 	icon_living = "mega_legion"
-	desc = "One of many."
+	desc = "Один из многих."
 	icon = 'icons/mob/lavaland/96x96megafauna.dmi'
 	attacktext = "грызёт"
 	attack_sound = 'sound/misc/demon_attack1.ogg'
-	speak_emote = list("echoes")
+	speak_emote = list("отдаётся эхом")
 	armour_penetration = 50
 	melee_damage_lower = 40
 	melee_damage_upper = 40
@@ -113,7 +121,7 @@ Difficulty: Medium
 /mob/living/simple_animal/hostile/megafauna/legion/OpenFire(the_target)
 	if(world.time >= ranged_cooldown && !charging)
 		if(prob(30))
-			visible_message("<span class='warning'><b>[src] charges!</b></span>")
+			visible_message(span_warning("<b>[declent_ru(NOMINATIVE)] заряжается!</b>"))
 			SpinAnimation(speed = 20, loops = 5)
 			ranged = 0
 			retreat_distance = 0
@@ -140,8 +148,7 @@ Difficulty: Medium
 			A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
-			visible_message("<span class='danger'>A monstrosity emerges from [src]</span>",
-			"<span class='userdanger'>You summon a big [A]!</span>")
+			visible_message(span_danger("Чудовище появляется из [declent_ru(ACCUSATIVE)]!"), span_userdanger("Вы призываете огромного [A.declent_ru(GENITIVE)]!"))
 			ranged_cooldown = world.time + 5 SECONDS
 		else
 			var/mob/living/simple_animal/hostile/asteroid/hivelord/legion/A
@@ -157,8 +164,7 @@ Difficulty: Medium
 						A.GiveTarget(target)
 			A.friends = friends
 			A.faction = faction
-			visible_message("<span class='danger'>A [A] emerges from [src]!</span>",
-			"<span class='userdanger'>You summon a [A]!</span>")
+			visible_message(span_danger("[A.declent_ru(ACCUSATIVE)] появляется из [declent_ru(GENITIVE)]!"), span_userdanger("Вы призываете [A.declent_ru(ACCUSATIVE)]!"))
 			ranged_cooldown = world.time + 2 SECONDS
 
 /mob/living/simple_animal/hostile/megafauna/legion/MoveToTarget()
@@ -197,11 +203,12 @@ Difficulty: Medium
 			if(faction_check(M.faction, faction, FALSE))
 				continue
 			if(M.stat == DEAD)
-				visible_message("<span class='danger'>[M] is disintegrated by the beam!</span>")
+				visible_message(span_danger("[M.declent_ru(ACCUSATIVE)] дезинтегрируется лучом!"))
+				to_chat(M, span_userdanger("Вас поражает луч дезинтеграции!"))
 				M.dust()
 			else if(M != src)
 				playsound(M,'sound/weapons/sear.ogg', 50, TRUE, -4)
-				to_chat(M, "<span class='userdanger'>You're struck by a disintegration laser!</span>")
+				to_chat(M, span_userdanger("You're struck by a disintegration laser!"))
 				var/limb_to_hit = M.get_organ(pick(BODY_ZONE_HEAD, BODY_ZONE_CHEST, BODY_ZONE_R_ARM, BODY_ZONE_L_ARM, BODY_ZONE_R_LEG, BODY_ZONE_L_LEG))
 				var/armor = M.run_armor_check(limb_to_hit, LASER)
 				M.apply_damage(70 - ((health / maxHealth) * 20), BURN, limb_to_hit, armor)
