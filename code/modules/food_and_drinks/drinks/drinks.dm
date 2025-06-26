@@ -237,7 +237,8 @@
         INSTRUMENTAL = "стаканом кофе",
         PREPOSITIONAL = "стаканекофеа"
 	)
-	icon_state = "coffee_lid"
+	icon_state = "coffee_empty"
+	base_icon_state = "coffee"
 	list_reagents = list("coffee" = 30)
 	resistance_flags = FREEZE_PROOF
 	has_lid = TRUE
@@ -250,7 +251,7 @@
 	if(is_open_container())
 		icon_state = reagents.total_volume ? "[base_icon_state]_full" : "[base_icon_state]_empty"
 	else
-		icon_state = base_icon_state
+		icon_state = "[base_icon_state]_lid"
 	return ..()
 
 /obj/item/reagent_containers/food/drinks/coffee/no_lid
@@ -259,7 +260,7 @@
 
 /obj/item/reagent_containers/food/drinks/coffee_cup
 	name = "coffee cup"
-	desc = "Дешёвый бумажный стакан со снимаемой крышкой. Обычно в таких подают кофе. Далеко не самый удобный."
+	desc = "Дешёвый бумажный стакан. Обычно в таких подают кофе. Далеко не самый удобный."
 	icon_state = "coffee_cup_e"
 	base_icon_state = "coffee_cup"
 	possible_transfer_amounts = list(10)
