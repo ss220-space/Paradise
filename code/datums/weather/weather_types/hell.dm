@@ -33,7 +33,7 @@
 
 	var/list/affected_turfs_list = list()
 	var/static/list/possible_modes = list(LAVA_MODE = 10, PORTAL_MODE = 5, METEOR_MODE = 10, EMPTY_MODE = 50)
-	var/static/sound/music = sound('sound/music/knight_dance.ogg', channel = CHANNEL_BOSS_MUSIC, volume = 50, repeat = TRUE)
+	var/static/sound/music = sound('sound/music/dies_irae.ogg', channel = CHANNEL_BOSS_MUSIC, volume = 50, repeat = TRUE)
 
 /datum/weather/hell/telegraph()
 	. = ..()
