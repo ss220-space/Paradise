@@ -243,7 +243,7 @@
 		return FALSE
 
 	var/obj/item/item_parent = parent
-	var/hurt_verb = LAZYLEN(attack_verb_on) ? pick(attack_verb_on) : "hit"
+	var/hurt_verb = LAZYLEN(attack_verb_on) ? pick(attack_verb_on) : "ударил"
 	user.visible_message(
 		span_warning("[user] triggers [item_parent] while holding it backwards and [hurt_verb] themself, like a doofus!"),
 		span_warning("You trigger [item_parent] while holding it backwards and accidentally [hurt_verb] yourself!"),

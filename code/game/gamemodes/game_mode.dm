@@ -1,7 +1,3 @@
-#define NUKE_INTACT 0
-#define NUKE_CORE_MISSING 1
-#define NUKE_MISSING 2
-
 /*
  * GAMEMODES (by Rastaf0)
  *
@@ -47,15 +43,24 @@
 	/// Upper bound on time before intercept arrives.
 	var/const/waittime_h = 180 SECONDS
 	var/list/player_draft_log = list()
-	var/list/datum/mind/xenos = list()
 	var/list/datum/mind/eventmiscs = list()
+	var/list/datum/mind/traders = list()
+	var/list/datum/mind/morphs = list()
+	var/list/datum/mind/swarmers = list()
+	var/list/datum/mind/guardians = list()
+	var/list/datum/mind/revenants = list()
+	var/list/datum/mind/headslugs = list()
+	var/list/datum/mind/deathsquad = list()
+	var/list/datum/mind/honksquad = list()
+	var/list/datum/mind/sst = list()
+	var/list/datum/mind/sit = list()
 	var/list/datum/mind/victims = list()	//Свободные жертвы PREVENT/ASSASINATE целей для PROTECT (или не повтора целей)
 	/// A list of all station goals for this game mode
 	var/list/datum/station_goal/station_goals = list()
 
 
 /datum/game_mode/proc/announce() //to be calles when round starts
-	to_chat(world, "<B>Notice</B>: [src] did not define announce()")
+	to_chat(world, "<b>Notice</b>: [src] did not define announce()")
 
 
 /datum/game_mode/proc/generate_report() //Generates a small text blurb for the gamemode in centcom report
@@ -567,13 +572,13 @@
 	var/obj_count = 1
 	to_chat(player.current, span_notice("Your current objectives:"))
 	for(var/datum/objective/objective in player.get_all_objectives())
-		to_chat(player.current, "<B>Objective #[obj_count]</B>: [objective.explanation_text]")
+		to_chat(player.current, "<b>Objective #[obj_count]</b>: [objective.explanation_text]")
 		obj_count++
 
 
 /proc/get_nuke_code()
 	var/nukecode = "ERROR"
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		if(bomb?.r_code && is_station_level(bomb.z))
 			nukecode = bomb.r_code
 	return nukecode
@@ -581,11 +586,11 @@
 
 /proc/get_nuke_status()
 	var/nuke_status = NUKE_MISSING
-	for(var/obj/machinery/nuclearbomb/bomb in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/bomb in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		if(is_station_level(bomb.z))
 			nuke_status = NUKE_CORE_MISSING
 			if(bomb.core)
-				nuke_status = NUKE_INTACT
+				nuke_status = NUKE_STATUS_INTACT
 	return nuke_status
 
 
@@ -602,7 +607,7 @@
 	else
 		log_game("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take player's place.")
 		message_admins("[player] ([player.key] has been converted into [role_type] with an active antagonist jobban for said role since no ghost has volunteered to take [player.p_their()] place.")
-		to_chat(player, span_dangerbigger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
+		to_chat(player, span_biggerdanger("You have been converted into [role_type] with an active jobban. Any further violations of the rules on your part are likely to result in a permanent ban."))
 
 /proc/printplayer(datum/mind/player, flee_check)
 	var/jobtext = ""
@@ -718,10 +723,34 @@
 	antaghud.leave_hud(mob_mind.current)
 	set_antag_hud(mob_mind.current, null)
 
-/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
-	if(god.soul_devoured <= 17 && !inevitable)
-		return FALSE
+/// Gets the value of all end of round stats through auto_declare and returns them
+/datum/game_mode/proc/get_end_of_round_antagonist_statistics()
+	. = list()
+	. += auto_declare_completion_traitor()
+	. += auto_declare_completion_vampire()
+	. += auto_declare_completion_enthralled()
+	. += auto_declare_completion_changeling()
+	. += auto_declare_completion_nuclear()
+	. += auto_declare_completion_wizard()
+	. += auto_declare_completion_revolution()
+	. += auto_declare_completion_abduction()
+	. += auto_declare_completion_morph()
+	. += auto_declare_completion_revenant()
+	. += auto_declare_completion_honksquad()
+	. += auto_declare_completion_deathsquad()
+	. += auto_declare_completion_sst()
+	. += auto_declare_completion_sit()
+	. += auto_declare_completion_blob()
+	. += auto_declare_completion_heist()
+	. += auto_declare_completion_ninja()
+	. += auto_declare_completion_thief()
+	. += auto_declare_completion_goon_vampire()
+	. += auto_declare_completion_goon_enthralled()
+	. += auto_declare_completion_devil()
+	. += auto_declare_completion_sintouched()
+	listclearnulls(.)
 
+/datum/game_mode/proc/apocalypse_cinema(obj/singularity/god/god, inevitable = FALSE)
 	if(istype(god, /obj/singularity/god/narsie))
 		return SSticker.cultdat.apocalypse_cinema
 
@@ -767,6 +796,19 @@
 	SSticker.force_ending = TRUE
 	return
 
-#undef NUKE_INTACT
-#undef NUKE_CORE_MISSING
-#undef NUKE_MISSING
+/datum/game_mode/proc/special_directive(custom_text = null, custom_name = null)
+	var/intercepttext = custom_text ? custom_text : ""
+	var/interceptname = custom_name ? custom_name : ""
+	if(!custom_name)
+		interceptname = "Директива 7-10"
+	if(!custom_text)
+		intercepttext += span_fontsize3("<b>Постановление Nanotrasen</b>: Особая директива.<hr>")
+		intercepttext += "Nanotrasen выпустила директиву 7-10 для [station_name()]. Станцию следует считать закрытой на карантин.<br>"
+		intercepttext += "Приказы для всего персонала [station_name()] следующие:<br>"
+		intercepttext += " 1. Не покидать карантинную зону.<br>"
+		intercepttext += " 2. Обнаружить все очаги угрозы на станции.<br>"
+		intercepttext += " 3. При обнаружении использовать любые необходимые средства для сдерживания организмов.<br>"
+		intercepttext += " 4. Предотвратить повреждения критической инфраструктуры станции.<br>"
+		intercepttext += "<br>Примечание. в случае нарушения карантина или неконтролируемого распространения биологической угрозы директива 7-10 может быть дополнена директивой 7-12.<br>"
+		intercepttext += "Конец сообщения."
+	print_command_report(intercepttext, interceptname, FALSE)

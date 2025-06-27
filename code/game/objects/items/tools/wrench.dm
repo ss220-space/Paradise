@@ -17,7 +17,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=150)
 	origin_tech = "materials=1;engineering=1"
-	attack_verb = list("bashed", "battered", "bludgeoned", "whacked")
+	attack_verb = list("ударил", "огрел")
 	toolspeed = 1
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 30)
 	tool_behaviour = TOOL_WRENCH
@@ -65,7 +65,7 @@
 	origin_tech = "materials=2;engineering=2" //done for balance reasons, making them high value for research, but harder to get
 	force = 8 //might or might not be too high, subject to change
 	throwforce = 8
-	attack_verb = list("drilled", "screwed", "jabbed")
+	attack_verb = list("продырявил", "уколол")
 	toolspeed = 0.25
 
 /obj/item/wrench/power/attack_self(mob/user)
@@ -86,7 +86,6 @@
 	force = 2 //MEDICAL
 	throwforce = 4
 	origin_tech = "materials=1;engineering=1;biotech=3"
-	attack_verb = list("wrenched", "medicaled", "tapped", "jabbed", "whacked")
 
 /obj/item/wrench/medical/suicide_act(mob/living/user)
 	user.visible_message("<span class='suicide'>[user] is praying to the medical wrench to take [user.p_their()] soul. It looks like [user.p_theyre()] trying to commit suicide!</span>")

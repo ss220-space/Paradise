@@ -41,7 +41,7 @@
 	embed_chance = 25
 	embedded_ignore_throwspeed_threshold = TRUE
 	hitsound = 'sound/effects/ghost2.ogg'
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "rended")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил")
 	var/summon_cooldown = 0
 	var/list/mob/dead/observer/spirits
 
@@ -112,7 +112,7 @@
 /obj/item/melee/ghost_sword/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	var/ghost_counter = ghost_check()
 	final_block_chance += clamp((ghost_counter * 5), 0, 75)
-	owner.visible_message("<span class='danger'>[owner] is protected by a ring of [ghost_counter] ghosts!</span>")
+	owner.visible_message(span_danger("[owner] is protected by a ring of [ghost_counter] ghosts!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
 	return ..()
 
 // Blood
@@ -164,19 +164,19 @@
 	qdel(src)
 
 /datum/disease/virus/transformation/dragon
-	name = "dragon transformation"
-	cure_text = "Nothing"
+	name = "Драконья трансформация"
+	cure_text = "Неизлечимо"
 	cures = list("adminordrazine")
-	agent = "dragon's blood"
-	desc = "What do dragons have to do with Space Station 13?"
+	agent = "Кровь дракона"
+	desc = "Какое отношение драконы имеют к Космической Станции 13?"
 	stage_prob = 20
 	severity = BIOHAZARD
 	visibility_flags = VISIBLE
-	stage1	= list("Your bones ache.")
-	stage2	= list("Your skin feels scaley.")
-	stage3	= list("<span class='danger'>You have an overwhelming urge to terrorize some peasants.</span>", "<span class='danger'>Your teeth feel sharper.</span>")
-	stage4	= list("<span class='danger'>Your blood burns.</span>")
-	stage5	= list("<span class='danger'>You're a fucking dragon. However, any previous allegiances you held still apply. It'd be incredibly rude to eat your still human friends for no reason.</span>")
+	stage1	= list("Ваши кости ноют.")
+	stage2	= list("Ваша кожа кажется чешуйчатой.")
+	stage3	= list(span_danger("Вы чувствуете непреодолимое желание напугать пару крестьян."), span_danger("Ваши зубы кажутся острее."))
+	stage4	= list(span_danger("Ваша кровь кипит!"))
+	stage5	= list(span_danger("Вы, блять, дракон! Однако любые прежние обязательства всё ещё действуют. Было бы крайне невежливо съесть своих всё ещё человеческих друзей без причины."))
 	new_form = /mob/living/simple_animal/hostile/megafauna/dragon/lesser
 
 //Lava Staff
@@ -220,7 +220,7 @@
 
 	if(!is_mining_level(user.z)) //Will only spawn a few sparks if not on mining z level
 		timer = world.time + create_delay + 1
-		user.visible_message("<span class='danger'>[user]'s [src] malfunctions!</span>")
+		user.visible_message(span_danger("[user]'s [src] malfunctions!"))
 		do_sparks(5, FALSE, user)
 		return
 
@@ -233,10 +233,10 @@
 			var/obj/effect/temp_visual/lavastaff/L = new /obj/effect/temp_visual/lavastaff(T)
 			L.alpha = 0
 			animate(L, alpha = 255, time = create_delay)
-			user.visible_message("<span class='danger'>[user] points [src] at [T]!</span>")
+			user.visible_message(span_danger("[user] points [src] at [T]!"))
 			timer = world.time + create_delay + 1
 			if(do_after(user, create_delay, T))
-				user.visible_message("<span class='danger'>[user] turns \the [T] into [transform_string]!</span>")
+				user.visible_message(span_danger("[user] turns \the [T] into [transform_string]!"))
 				message_admins("[key_name_admin(user)] fired the lava staff at [ADMIN_COORDJMP(T)]")
 				add_attack_logs(user, target, "fired lava staff", ATKLOG_MOST)
 				T.ChangeTurf(turf_type, keep_icon = FALSE)
@@ -247,7 +247,7 @@
 				qdel(L)
 				return
 		else
-			user.visible_message("<span class='danger'>[user] turns \the [T] into [reset_string]!</span>")
+			user.visible_message(span_danger("[user] turns \the [T] into [reset_string]!"))
 			T.ChangeTurf(reset_turf_type, keep_icon = FALSE)
 			timer = world.time + reset_cooldown
 		playsound(T,'sound/magic/fireball.ogg', 200, 1)

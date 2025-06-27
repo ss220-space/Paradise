@@ -4,8 +4,8 @@
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/melee/proc/check_martial_counter(mob/living/carbon/human/target, mob/living/carbon/human/user)
-	var/message = "<span class='danger'>[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!</span>"
-	var/self_message = "<span class='userdanger'>You block the attack!</span>"
+	var/message = span_danger("[target.name] blocks [src] and twists [user]'s arm behind [user.p_their()] back!")
+	var/self_message = span_userdanger("You block the attack!")
 	if(target.check_martial_art_defense(target, user, src, message, self_message))
 		user.Stun(4 SECONDS)
 		return TRUE
@@ -21,12 +21,12 @@
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
 	origin_tech = "combat=5"
-	attack_verb = list("flogged", "whipped", "lashed", "disciplined")
+	attack_verb = list("выпорол", "хлестнул", "стегнул", "проучил")
 	hitsound = 'sound/weapons/slash.ogg' //pls replace
 
 
 /obj/item/melee/chainofcommand/suicide_act(mob/user)
-	to_chat(viewers(user), "<span class='suicide'>[user] is strangling [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	to_chat(viewers(user), span_suicide("[user] is strangling [user.p_them()]self with the [src.name]! It looks like [user.p_theyre()] trying to commit suicide."))
 	return OXYLOSS
 
 /obj/item/melee/rapier
@@ -42,7 +42,7 @@
 	armour_penetration = 75
 	sharp = TRUE
 	origin_tech = "combat=5"
-	attack_verb = list("lunged at", "stabbed")
+	attack_verb = list("полоснул", "уколол")
 	pickup_sound = 'sound/items/handling/knife_pickup.ogg'
 	drop_sound = 'sound/items/handling/knife_drop.ogg'
 	hitsound = 'sound/weapons/rapierhit.ogg'
@@ -55,6 +55,11 @@
 	icon_state = "rapier"
 	item_state = "rapier"
 	block_type = MELEE_ATTACKS
+
+/obj/item/melee/rapier/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 
 /obj/item/melee/rapier/syndie
 	name = "plastitanium rapier"
@@ -114,7 +119,7 @@
 	sharp = TRUE
 	item_flags = NOSHARPENING
 	origin_tech = "combat=5"
-	attack_verb = list("slashed", "stabbed", "sliced", "caned")
+	attack_verb = list("полоснул", "уколол", "рубанул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	materials = list(MAT_METAL = 1000)
 	/// Whether we are currently performing double attack
@@ -161,15 +166,23 @@
             return
 
         if(A.locked)
-            to_chat(user, "<span class='notice'>The airlock's bolts prevent it from being forced.</span>")
+            to_chat(user, span_notice("The airlock's bolts prevent it from being forced."))
             return
 
         if(A.arePowerSystemsOn())
-            user.visible_message(span_warning("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"), span_warning("You start forcing the airlock open."), span_warning("You hear a metal screeching sound."))
+            user.visible_message(
+				span_warning("[user] jams [user.p_their()] [name] into the airlock and starts prying it open!"),
+				span_warning("You start forcing the airlock open."),
+				span_warning("You hear a metal screeching sound.")
+			)
             playsound(A, 'sound/machines/airlock_alien_prying.ogg', 150, 1)
             if(!do_after(user, 2.5 SECONDS, A))
                 return
-        user.visible_message("<span class='warning'>[user] forces the airlock open with [user.p_their()] [name]!</span>", "<span class='warning'>You force open the airlock.</span>", "<span class='warning'>You hear a metal screeching sound.</span>")
+        user.visible_message(
+			span_warning("[user] forces the airlock open with [user.p_their()] [name]!"),
+			span_warning("You force open the airlock."),
+			span_warning("You hear a metal screeching sound.")
+		)
         A.open(TRUE)
 
 /obj/item/melee/mantisblade/shellguard
@@ -189,7 +202,7 @@
 	force = 15
 	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("stabbed", "jabbed", "iced,")
+	attack_verb = list("порезал", "уколол", "обледенил")
 
 /obj/item/melee/candy_sword
 	name = "candy cane sword"
@@ -199,7 +212,7 @@
 	force = 10
 	throwforce = 7
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("slashed", "stabbed", "sliced", "caned")
+	attack_verb = list("полоснул", "уколол", "ударил")
 
 /obj/item/melee/flyswatter
 	name = "flyswatter"
@@ -208,7 +221,7 @@
 	item_state = "flyswatter"
 	force = 1
 	throwforce = 1
-	attack_verb = list("swatted", "smacked")
+	attack_verb = list("прихлопнул", "шлёпнул")
 	hitsound = 'sound/effects/snap.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	//Things in this list will be instantly splatted.  Flyman weakness is handled in the flyman species weakness proc.
@@ -219,7 +232,7 @@
 	strong_against = typecacheof(list(
 					/mob/living/simple_animal/hostile/poison/bees/,
 					/mob/living/simple_animal/butterfly,
-					/mob/living/simple_animal/cockroach,
+					/mob/living/basic/cockroach,
 					/obj/item/queen_bee
 	))
 
@@ -228,7 +241,7 @@
 	if(proximity_flag)
 		if(is_type_in_typecache(target, strong_against))
 			new /obj/effect/decal/cleanable/insectguts(target.drop_location())
-			to_chat(user, "<span class='warning'>You easily splat the [target].</span>")
+			to_chat(user, span_warning("You easily splat the [target]."))
 			if(istype(target, /mob/living/))
 				var/mob/living/bug = target
 				bug.death(1)
@@ -244,7 +257,7 @@
 	var/bonus_damage = 10
 	icon_state = "big_iron"
 	item_state = "big_iron"
-	attack_verb = list("burned", "dominated", "robusted")
+	attack_verb = list("опалил", "задоминировал", "заробастил")
 
 /obj/item/melee/bigiron/afterattack(atom/target, mob/user, proximity, params)
 	. = ..()

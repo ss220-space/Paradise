@@ -72,6 +72,8 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	/// Range to a steal target if its not an item.
 	var/range_distance = 2
 
+/datum/theft_objective/proc/get_antag_menu_name()
+	return name
 
 /datum/theft_objective/proc/check_completion(list/owners)
 	for(var/datum/mind/player in owners)
@@ -241,10 +243,10 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	typepath = /obj/item/reagent_containers/hypospray/CMO
 	protected_jobs = list(JOB_TITLE_CMO)
 
-/datum/theft_objective/highrisk/ablative
-	id = "ablative_armor"
-	name = "an ablative armor vest"
-	typepath = /obj/item/clothing/suit/armor/laserproof
+/datum/theft_objective/highrisk/reflector
+	id = "reflector_armor"
+	name = "a reflector coat"
+	typepath = /obj/item/clothing/suit/armor/reflector
 	protected_jobs = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN)
 
 /datum/theft_objective/highrisk/krav
@@ -570,9 +572,9 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 	protected_jobs = list(JOB_TITLE_CHIEF)
 
 /datum/theft_objective/animal/representative
-	id = "animal_hamster_alex"
-	typepath = /mob/living/simple_animal/mouse/hamster/Representative
-	name = "хомяка по кличке Представитель Алексей"
+	id = "animal_mouse_rep"
+	typepath = /mob/living/simple_animal/mouse/wooly/rep
+	name = "лохматую мышь по кличке Господин Мышкин."
 
 /datum/theft_objective/animal/brain
 	id = "animal_brain"
@@ -619,14 +621,10 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 
 	make_collection()
 
+/datum/theft_objective/collect/get_antag_menu_name()
+	return get_collection(need_br = TRUE)
 
-/datum/theft_objective/collect/proc/make_collection()
-	if(subtype)
-		type_list = subtypesof(subtype)
-
-	if(!length(type_list))
-		return
-
+/datum/theft_objective/collect/proc/get_collection(need_br = TRUE)
 	var/list/possible_type_list = type_list.Copy()
 	var/temp_name = "Собрать: "
 	for(var/i in 1 to required_amount)
@@ -637,10 +635,18 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		var/atom/item_typepath = pick_n_take(possible_type_list)
 		wanted_items |= item_typepath
 
-		if(i % 2 == 0)	//notes split
+		if(need_br && (i % 2 == 0))	//notes split
 			temp_name += "<br>"
 		temp_name += "[initial(item_typepath.name)][i < required_amount ? ", " : "."]"
-	name = temp_name
+
+/datum/theft_objective/collect/proc/make_collection()
+	if(subtype)
+		type_list = subtypesof(subtype)
+
+	if(!length(type_list))
+		return
+
+	name = get_collection(need_br = TRUE)
 
 
 /datum/theft_objective/collect/generate_explanation_text(datum/objective/steal/steal_objective)
@@ -791,6 +797,7 @@ GLOBAL_LIST_INIT(ungibbable_items_types, get_ungibbable_items_types())
 		/obj/item/encryptionkey/heads/blueshield,
 		/obj/item/encryptionkey/headset_cargo,
 		/obj/item/encryptionkey/headset_service,
+		/obj/item/encryptionkey/headset_mining_medic
 		)
 
 

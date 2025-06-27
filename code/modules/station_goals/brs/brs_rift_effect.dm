@@ -101,10 +101,10 @@
 	Use this before doing anything destructive.
 */
 /obj/effect/abstract/bluespace_rift/proc/is_close_to_singularity(radius = 15)
-	for(var/singularity in GLOB.singularities)
-		if(!atoms_share_level(src, singularity))
+	for(var/obj/singularity/singulo in GLOB.singularities)
+		if(src.z != singulo.z)
 			continue
-		if(get_dist(src, singularity) <= radius)
+		if(get_dist(src, singulo) <= radius)
 			return TRUE
 	return FALSE
 

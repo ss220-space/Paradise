@@ -23,6 +23,9 @@
 #define BLOOD_RECHARGE_COST 75
 #define BLOOD_BEAM_COST 500
 #define METAL_TO_CONSTRUCT_SHELL_CONVERSION 50
+#define GHOST_SUMMONS_PER_READY 10
+#define GHOST_SUMMONS_CONVERT 1
+#define GHOST_SUMMONS_OBJECTIVE 3
 
 // Cult Status
 /// At what population does it switch to highpop values
@@ -66,3 +69,5 @@
 #define NARSIE_NEEDS_SUMMONING 2
 #define NARSIE_HAS_RISEN 3
 #define NARSIE_HAS_FALLEN -1
+
+#define CULT_PLAYER_PER_CULTIST 20

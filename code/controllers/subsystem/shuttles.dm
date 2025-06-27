@@ -28,6 +28,7 @@ SUBSYSTEM_DEF(shuttle)
 	var/emergency_sec_level_time = 0 // time sec level was last raised to red or higher
 	var/area/emergencyLastCallLoc
 	var/emergencyNoEscape
+	var/list/hostile_environment = list()
 
 		//supply shuttle stuff
 	var/obj/docking_port/mobile/supply/supply

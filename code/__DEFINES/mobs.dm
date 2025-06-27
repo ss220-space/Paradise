@@ -127,6 +127,12 @@
 #define SLIME_FRIENDSHIP_STAY				3 //Min friendship to order it to stay
 #define SLIME_FRIENDSHIP_ATTACK				8 //Min friendship to order it to attack
 
+//Spiders ai states
+#define SPINNING_WEB 1
+#define LAYING_EGGS 2
+#define MOVING_TO_TARGET 3
+#define SPINNING_COCOON 4
+
 //Hostile simple animals
 //If you add a new status, be sure to add a list for it to the simple_animals global in _globalvars/lists/mobs.dm
 #define AI_ON 1
@@ -211,6 +217,7 @@
 #define isunathi(A) (is_species(A, /datum/species/unathi))
 #define isashwalker(A) (is_species(A, /datum/species/unathi/ashwalker))
 #define isashwalkershaman(A) (is_species(A, /datum/species/unathi/ashwalker/shaman))
+#define isdraconid(A) (is_species(A, /datum/species/unathi/draconid))
 #define istajaran(A) (is_species(A, /datum/species/tajaran))
 #define isvulpkanin(A) (is_species(A, /datum/species/vulpkanin))
 #define isskrell(A) (is_species(A, /datum/species/skrell))
@@ -237,8 +244,8 @@
 #define SPECIES_GOLEM_PLASMA "Плазменный Голем"
 #define SPECIES_GOLEM_DIAMOND "Алмазный Голем"
 #define SPECIES_GOLEM_GOLD "Золотой Голем"
-#define SPECIES_GOLEM_SILVER "Серебрянный Голем"
-#define SPECIES_GOLEM_PLASTEEL "Пласталиевый Голем"
+#define SPECIES_GOLEM_SILVER "Серебряный Голем"
+#define SPECIES_GOLEM_PLASTEEL "Пласталевый Голем"
 #define SPECIES_GOLEM_TITANIUM "Титановый Голем"
 #define SPECIES_GOLEM_PLASTITANIUM "Пластитановый Голем"
 #define SPECIES_GOLEM_ALLOY "Голем из инопланетных сплавов"
@@ -284,7 +291,7 @@
 #define SPECIES_VULPKANIN "Vulpkanin"
 #define SPECIES_WRYN "Wryn"
 
-#define isanimal(A)		(istype((A), /mob/living/simple_animal))
+#define isanimal(A)		(istype((A), /mob/living/simple_animal) || istype(A, /mob/living/basic))
 #define iscat(A)		(istype((A), /mob/living/simple_animal/pet/cat))
 #define isdog(A)		(istype((A), /mob/living/simple_animal/pet/dog))
 #define iscorgi(A)		(istype((A), /mob/living/simple_animal/pet/dog/corgi))
@@ -299,6 +306,11 @@
 #define isdemon(A) 			(istype((A), /mob/living/simple_animal/demon))
 #define ismorph(A)		(istype((A), /mob/living/simple_animal/hostile/morph))
 #define isborer(A)		(istype((A), /mob/living/simple_animal/borer))
+#define isairmob(A)		(istype(A, /mob/living/simple_animal/hostile/airmob))
+#define isancientrobot(A) (istype(A, /mob/living/simple_animal/hostile/megafauna/ancient_robot))
+#define isancientrobotleg(A) (istype(A, /mob/living/simple_animal/hostile/ancient_robot_leg))
+#define ismarauder(A) 	(istype(A, /mob/living/simple_animal/hostile/clockwork/marauder))
+
 
 #define issilicon(A)	(istype((A), /mob/living/silicon))
 #define isAI(A)			(istype((A), /mob/living/silicon/ai))
@@ -335,6 +347,8 @@
 #define hasorgans(A)	(iscarbon(A))
 
 #define is_admin(user)	(check_rights(R_ADMIN, 0, (user)) != 0)
+
+#define is_developer(user) (check_rights(R_VIEWRUNTIMES, FALSE, user)
 
 #define SLEEP_CHECK_DEATH(A, X) \
 	sleep(X); \
@@ -385,8 +399,12 @@
 /// Mob is lying down, usually associated with lying_angle values of 90 or 270.
 #define LYING_DOWN 1
 
+#define IS_HORIZONTAL(x) (x.body_position == LYING_DOWN)
+
 ///How much a mob's sprite should be moved when they're lying down
 #define PIXEL_Y_OFFSET_LYING -6
+///How much a mob's sprite should be moved when they're lying up (on the ceiling)
+#define PIXEL_Y_OFFSET_LYING_REVERSED 6
 
 // Slip flags, also known as lube flags
 /// The mob will not slip if they're walking intent
@@ -464,3 +482,44 @@
 
 /// Eyes examine time mod
 #define EXAMINE_INSTANT	0 // 0 seconds
+
+//Incapacitated ignore flags for [/proc/incapacitated()].
+// They also used at interaction_flags_c var.
+/// If the incapacitated will ignore a mob in restraints
+#define INC_IGNORE_RESTRAINED (1<<0)
+/// If the incapacitated will ignore a mob being agressively grabbed
+#define INC_IGNORE_GRABBED (1<<1)
+
+/// If reading is required to perform action (can't read a book if you are illiterate)
+#define NEED_LITERACY (1<<0)
+/// If incapacitated doesn't needed to be checked.
+#define BYPASS_INCAPACITATED (1<<1)
+/// If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+#define NEED_DEXTERITY (1<<2)
+/// If hands are required to perform action (can't use objects that require hands if you are a cyborg)
+#define NEED_HANDS (1<<3)
+/// If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+#define FORBID_TELEKINESIS_REACH (1<<4)
+/// If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+#define ALLOW_SILICON_REACH (1<<5)
+/// If resting on the floor is allowed to perform action (pAIs can play music while resting)
+#define ALLOW_RESTING (1<<6)
+/// If this is accessible to creatures with ventcrawl capabilities
+#define NEED_VENTCRAWL (1<<7)
+/// Skips adjacency checks
+#define BYPASS_ADJACENCY (1<<8)
+/// Skips recursive loc checks
+#define NOT_INSIDE_TARGET (1<<9)
+/// Checks for base adjacency, but silences the error
+#define SILENT_ADJACENCY (1<<10)
+/// Allows pAIs to perform an action
+#define ALLOW_PAI (1<<11)
+
+///Squash flags. For squashable element
+
+///Whether or not the squashing requires the squashed mob to be lying down
+#define SQUASHED_SHOULD_BE_DOWN (1<<0)
+///Whether or not to gib when the squashed mob is moved over
+#define SQUASHED_SHOULD_BE_GIBBED (1<<0)
+
+#define MINING_FACTIONS list("mining", "boss")

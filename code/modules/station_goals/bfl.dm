@@ -186,7 +186,7 @@
 		receiver = null
 
 	if(!receiver)
-		for(var/obj/machinery/bfl_receiver/bfl_receiver in GLOB.machines)
+		for(var/obj/machinery/bfl_receiver/bfl_receiver in SSmachines.get_by_type(/obj/machinery/bfl_receiver))
 			var/turf/receiver_turf = get_turf(bfl_receiver)
 			if(receiver_turf.z == lavaland_z_lvl)
 				receiver = bfl_receiver
@@ -607,6 +607,7 @@
 	burn_stuff(arrived)
 
 /obj/effect/bfl_laser/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum)
+	SEND_SIGNAL(src, COMSIG_ATOM_HITBY, AM, skipcatch, hitpush, blocked, throwingdatum)
 	burn_stuff(AM)
 
 /obj/effect/bfl_laser/process()

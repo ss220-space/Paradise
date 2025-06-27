@@ -32,7 +32,7 @@
 /datum/reagent/blob/reactive_spines
 	name = "Реактивные шипы"
 	id = "blob_reactive_spines"
-	taste_description = "камень"
+	taste_description = "камней"
 	color = "#9ACD32"
 
 /datum/reagent/blob/reactive_spines/return_mob_expose_reac_volume(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

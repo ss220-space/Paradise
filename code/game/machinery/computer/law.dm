@@ -114,7 +114,7 @@
 		return
 
 	var/mob/living/silicon/ai/ai = current
-	if(!atoms_share_level(get_turf(ai), src))
+	if(!are_zs_connected(ai, src))
 		to_chat(user, span_notice("Unable to establish a connection: You're too far away from the target silicon!"))
 		return
 	if(ai.on_the_card)
@@ -244,7 +244,7 @@
 		return
 
 	var/mob/living/silicon/robot/robot = current
-	if(!atoms_share_level(get_turf(current), src))
+	if(!are_zs_connected(current, src))
 		to_chat(user, span_notice("Unable to establish a connection: You're too far away from the target silicon!"))
 		return
 	if(robot.stat == DEAD || robot.emagged)

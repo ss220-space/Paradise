@@ -177,7 +177,7 @@ SUBSYSTEM_DEF(cargo_quests)
 	//Honestly, I don't want to do another procedure for this
 	if(target_storage.quest_difficulty.bounty_for_difficulty)
 		SScapitalism.total_station_bounty += target_storage.quest_difficulty.bounty_for_difficulty
-		SScapitalism.base_account.credit(target_storage.quest_difficulty.bounty_for_difficulty, "Награда за выполнение корпоративного задания.", "Biesel TCD Terminal #[rand(111,333)]", "Отдел развития Нанотрейзен")
+		SScapitalism.base_account.credit(target_storage.quest_difficulty.bounty_for_difficulty, "Награда за выполнение корпоративного задания.", "Biesel TCD Terminal #[rand(111,333)]", "Отдел развития НаноТрейзен")
 
 	return max_reward
 

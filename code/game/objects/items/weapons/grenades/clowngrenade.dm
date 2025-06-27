@@ -1,6 +1,14 @@
 /obj/item/grenade/clown_grenade
 	name = "Banana Grenade"
-	desc = "HONK! brand Bananas. In a special applicator for rapid slipping of wide areas."
+	desc = "Банановые кожурки торговой марки \"ХОНК!\" в специальном аппликаторе, который позволяет быстро наносить их на большие поверхности."
+	ru_names = list(
+		NOMINATIVE = "банановая граната",
+		GENITIVE = "банановой гранаты",
+		DATIVE = "банановой гранате",
+		ACCUSATIVE = "банановую гранату",
+		INSTRUMENTAL = "банановой гранатой",
+		PREPOSITIONAL = "банановой гранате"
+	)
 	icon_state = "banana"
 	item_state = "flashbang"
 	w_class = WEIGHT_CLASS_SMALL
@@ -36,7 +44,7 @@
 	AddComponent(/datum/component/slippery, 4 SECONDS, lube_flags = (SLIDE|SLIP_WHEN_LYING), on_slip_callback = CALLBACK(src, PROC_REF(on_slip)))
 
 /obj/item/grown/bananapeel/traitorpeel/proc/on_slip(mob/living/carbon/target)
-	to_chat(target, span_warning("Your feet feel like they're on fire!"))
+	to_chat(target, span_warning("Ваши ноги словно охвачены пламенем!"))
 	target.take_overall_damage(0, rand(2,8))
 	target.take_organ_damage(2)
 

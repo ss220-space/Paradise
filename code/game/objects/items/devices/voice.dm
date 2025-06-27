@@ -53,7 +53,7 @@
 			var/mob/living/carbon/human/human = input(user, "Select a voice to copy from.", "Set Voice Changer") in GLOB.human_list
 			if(!human)
 				return
-				
+
 			mimic_voice = human.real_name
 			mimic_voice_tts = human.dna.tts_seed_dna
 		if("Custom Voice")
@@ -96,3 +96,12 @@
 	desc = "A voice scrambling module."
 	voice = "Unknown"
 	actions_types = list(/datum/action/item_action/voice_changer/toggle)
+
+/obj/item/voice_changer/ghostface
+	name = "Ghostface emmission"
+	desc = "Вы не должны были этого видеть. Пожалуйста, сообщите о нахождении этого предмета в #баг-репорты-v2"
+	voice = "Ghostface"
+	tts_voice = "Bloodseeker"
+	active = TRUE
+	actions_types = null
+	inform_about_toggle = FALSE

@@ -91,8 +91,8 @@
 		new /obj/structure/lattice/catwalk/fireproof(src)
 		return .|ATTACK_CHAIN_SUCCESS
 
-	if(istype(I, /obj/item/twohanded/fishingrod))
-		var/obj/item/twohanded/fishingrod/rod = I
+	if(istype(I, /obj/item/twohanded/fishing_rod))
+		var/obj/item/twohanded/fishing_rod/rod = I
 		if(!HAS_TRAIT(rod, TRAIT_WIELDED))
 			to_chat(user, span_warning("Для того чтобы начать ловлю следует взять удочку в обе руки!"))
 			return .
@@ -121,7 +121,7 @@
 		return .|ATTACK_CHAIN_SUCCESS
 
 
-/turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishingrod/rod)
+/turf/simulated/floor/chasm/proc/rod_checks(obj/item/twohanded/fishing_rod/rod)
 	return HAS_TRAIT(rod, TRAIT_WIELDED)
 
 

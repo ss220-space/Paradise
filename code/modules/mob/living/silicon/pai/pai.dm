@@ -154,7 +154,7 @@
 	/// PDA
 	pda = new(src)
 	pda.ownjob = "Personal Assistant"
-	pda.owner = "[src]"
+	pda.update_owner_name("[src]")
 	pda.name = "[pda.owner] ([pda.ownjob])"
 
 	var/datum/data/pda/app/messenger/M = pda.find_program(/datum/data/pda/app/messenger)
@@ -284,6 +284,11 @@
 		if(EXPLODE_LIGHT)
 			apply_damage(30)
 
+// See software.dm for Topic()
+/mob/living/silicon/pai/can_perform_action(atom/target, action_bitflags)
+	action_bitflags |= ALLOW_RESTING // Resting is just an aesthetic feature for them
+	action_bitflags &= ~ALLOW_SILICON_REACH // They don't get long reach like the rest of silicons
+	return ..(target, action_bitflags)
 
 // See software.dm for ui_act()
 
@@ -299,8 +304,8 @@
 // to it. Really this deserves its own file, but for the moment it can sit here. ~ Z
 
 /mob/living/silicon/pai/verb/fold_out()
-	set category = "pAI Commands"
-	set name = "Unfold Chassis"
+	set category = STATPANEL_PAICOMMANDS
+	set name = "В мобильную форму"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -335,8 +340,8 @@
 	card.screen_loc = null
 
 /mob/living/silicon/pai/verb/fold_up()
-	set category = "pAI Commands"
-	set name = "Collapse Chassis"
+	set category = STATPANEL_PAICOMMANDS
+	set name = "Из мобильной формы"
 
 	if(stat || HAS_TRAIT(src, TRAIT_INCAPACITATED))
 		return
@@ -352,8 +357,8 @@
 	close_up()
 
 /mob/living/silicon/pai/proc/choose_chassis()
-	set category = "pAI Commands"
-	set name = "Choose Chassis"
+	set category = STATPANEL_PAICOMMANDS
+	set name = "Мобильные формы"
 
 	var/list/my_choices = list()
 
@@ -400,8 +405,8 @@
 
 
 /mob/living/silicon/pai/proc/choose_verbs()
-	set category = "pAI Commands"
-	set name = "Choose Speech Verbs"
+	set category = STATPANEL_PAICOMMANDS
+	set name = "Модуляция речи"
 
 	var/choice = tgui_input_list(usr, "Какой тип модуляции речи вы бы хотели использовать? Этот выбор можно сделать лишь единожды.", "Модуляция речи", possible_say_verbs)
 	if(!choice) return
@@ -415,9 +420,9 @@
 
 
 /mob/living/silicon/pai/proc/pai_change_voice()
-	set name = "Change Voice"
+	set name = "Сменить голос"
 	set desc = "Express yourself!"
-	set category = "pAI Commands"
+	set category = STATPANEL_PAICOMMANDS
 	change_voice()
 
 
@@ -435,8 +440,8 @@
 
 
 /mob/living/silicon/pai/verb/pAI_suicide()
-	set category = "pAI Commands"
-	set name = "pAI Suicide"
+	set category = STATPANEL_PAICOMMANDS
+	set name = "Выгрузить личность"
 	set desc = "Kill yourself and become a ghost (You will recieve a confirmation prompt.)"
 
 	if(tgui_alert(src, "ДЕЙСТВИТЕЛЬНО хотите убить себя? Это действие нельзя отменить.", "Выгрузка личности", list("Выгрузиться", "Нет")) == "Выгрузиться")
@@ -613,7 +618,7 @@
 
 	. += msg
 
-/mob/living/silicon/pai/bullet_act(var/obj/item/projectile/Proj)
+/mob/living/silicon/pai/bullet_act(var/obj/projectile/Proj)
 	..(Proj)
 	if(stat != 2)
 		spawn(1)
@@ -682,7 +687,7 @@
 	card.set_light_on(FALSE)
 
 /datum/action/innate/pai_soft
-	name = "PAI Software"
+	name = "Программное обеспечение"
 	desc = "Активация вашего внутреннего интерфейса для выбора программ."
 	icon_icon = 'icons/obj/aicards.dmi'
 	button_icon_state = "pai-action"
@@ -693,7 +698,7 @@
 	P.ui_interact(P)
 
 /datum/action/innate/pai_soft/pai_choose_chassis
-	name = "Choose Chassis"
+	name = "Изменить шасси"
 	desc = "Выбор внешности голографического каркаса"
 	button_icon_state = "pai-action3"
 
@@ -702,7 +707,7 @@
 	pai.choose_chassis()
 
 /datum/action/innate/pai_soft/pai_fold_out
-	name = "Unfold Chassis"
+	name = "Развернуть шасси"
 	desc = "Смена мобильной формы на форму голографического каркаса"
 	button_icon_state = "pai-action2"
 
@@ -711,7 +716,7 @@
 	pai.fold_out()
 
 /datum/action/innate/pai_soft/pai_fold_up
-	name = "Collapse Chassis"
+	name = "Собрать шасси"
 	desc = "Возврат в мобильную форму с каркаса"
 	button_icon_state = "pai-action5"
 
@@ -720,7 +725,7 @@
 	pai.fold_up()
 
 /datum/action/innate/pai_soft/pai_change_voice
-	name = "Change Voice"
+	name = "Изменить голос"
 	desc = "Изменение звука голосового модуля"
 	button_icon_state = "pai-action4"
 
@@ -729,7 +734,7 @@
 	pai.pai_change_voice()
 
 /datum/action/innate/pai_soft/pai_suicide
-	name = "PAI Suicide"
+	name = "Самоуничтожение"
 	desc = "Активация протокола самоуничтожения"
 	button_icon_state = "pai-action6"
 

@@ -23,6 +23,7 @@
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_SECURITY
 	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/hos
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -78,6 +79,8 @@
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 2100
 	exp_type = EXP_TYPE_SECURITY
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/warden
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -123,13 +126,15 @@
 	supervisors = "the head of security"
 	department_head = list(JOB_TITLE_HOS)
 	selection_color = "#edcdcd"
-	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
-	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS)
+	access = list(ACCESS_SECURITY, ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
+	minimal_access = list(ACCESS_SEC_DOORS, ACCESS_FORENSICS_LOCKERS, ACCESS_MORGUE, ACCESS_MAINT_TUNNELS, ACCESS_COURT, ACCESS_WEAPONS, ACCESS_BRIG)
 	alt_titles = list("Forensic Technician")
 	minimal_player_age = 14
 	exp_requirements = 1200
 	blocked_race_for_job = list(SPECIES_VOX)
 	exp_type = EXP_TYPE_SECURITY
+	disabilities_allowed = 0 // also sec dept
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/detective
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -195,6 +200,8 @@
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 600
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/officer
 	insurance_type = INSURANCE_TYPE_DELUXE
 
@@ -231,7 +238,6 @@
 	head = /obj/item/clothing/head/soft/sec
 	id = /obj/item/card/id/security/cadet
 	l_pocket = /obj/item/reagent_containers/spray/pepper
-	r_pocket = /obj/item/paper/deltainfo
 	suit_store = /obj/item/gun/energy/gun/advtaser
 	box = /obj/item/storage/box/survival_security/cadet
 
@@ -306,6 +312,8 @@
 	blocked_race_for_job = list(SPECIES_VOX, SPECIES_NUCLEATION)
 	exp_requirements = 1200
 	exp_type = EXP_TYPE_SECURITY
+	disabilities_allowed = 0
+	disabilities_allowed_slightly = 0
 	outfit = /datum/outfit/job/pilot
 	insurance_type = INSURANCE_TYPE_DELUXE
 

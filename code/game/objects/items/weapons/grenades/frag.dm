@@ -36,18 +36,3 @@
 			S.sharp = FALSE
 		else
 			to_chat(H, "<span class='warning'>Shrapnel bounces off your armor!</span>")
-
-/obj/item/embedded/shrapnel
-	name = "shrapnel"
-	icon = 'icons/obj/shards.dmi'
-	throwforce = 10
-	throw_speed =  EMBED_THROWSPEED_THRESHOLD
-	embed_chance = 100
-	embedded_fall_chance = 0
-	w_class = WEIGHT_CLASS_SMALL
-	sharp = TRUE
-	hitsound = 'sound/weapons/pierce.ogg'
-
-/obj/item/embedded/shrapnel/New()
-	..()
-	icon_state = pick("shrapnel1", "shrapnel2", "shrapnel3")

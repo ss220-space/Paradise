@@ -151,9 +151,9 @@
 	else
 		return ..()
 
-/obj/item/pipe/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/pipe/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/pipe/proc/update(var/obj/machinery/atmospherics/make_from)
 	name = "[get_pipe_name(pipe_type, PIPETYPE_ATMOS)] fitting"
@@ -179,8 +179,8 @@
 // rotate the pipe item clockwise
 
 /obj/item/pipe/verb/rotate()
-	set category = "Object"
-	set name = "Rotate Pipe"
+	set category = STATPANEL_OBJECT
+	set name = "Повернуть трубу"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -196,8 +196,8 @@
 
 
 /obj/item/pipe/verb/flip()
-	set category = "Object"
-	set name = "Flip Pipe"
+	set category = STATPANEL_OBJECT
+	set name = "Перевернуть трубу"
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

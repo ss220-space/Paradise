@@ -1,11 +1,11 @@
 /datum/disease/virus/babylonian_fever
-	name = "Babylonian Fever"
-	agent = "Babylon fever agent"
-	desc = "If left untreated, the subject will be in a state of disorientation and will forget all the languages he knew."
+	name = "Вавилонская лихорадка"
+	agent = "Возбудитель вавилонской лихорадки"
+	desc = "Если не лечить, заражённый окажется в состоянии дезориентации и забудет все известные ему языки."
 	max_stages = 3
 	spread_flags = AIRBORNE
 	visibility_flags = HIDDEN_HUD
-	cure_text = "Mannitol & Mitocholide"
+	cure_text = "Маннитол и Митоколид"
 	cures = list("mannitol", "mitocholide")
 	cure_prob = 30
 	permeability_mod = 0.75
@@ -87,6 +87,8 @@
 		stored_languages ^= translator.given_languages // you can't forget it, because it's on the chip in translator
 
 	for(var/datum/language/lan as anything in stored_languages)
+		if(lan.flags & NOBABEL)
+			continue
 		affected_mob.remove_language(lan.name)
 
 

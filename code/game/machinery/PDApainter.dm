@@ -38,8 +38,7 @@
 		// Get Base64 version of an icon for our TGUI needs.
 		// Always try to get first frame as it can be animation resulting in all frames in single image.
 		// pda-library as an example has 4 frames
-		var/base64icon = "[icon2base64(icon(initial(pda.icon), initial(pda.icon_state), frame = 1))]"
-		new_color_list[initial(pda.icon_state)] = list(base64icon, initial(pda.desc))
+		new_color_list[initial(pda.icon_state)] = list(initial(pda.icon), initial(pda.desc))
 
 	new_color_list = sortAssoc(new_color_list)
 	colorlist = new_color_list
@@ -152,12 +151,13 @@
 
 	if(storedpda)
 		data["hasPDA"] = TRUE
-		data["pdaIcon"] = storedpda.base64icon
+		data["pdaIconState"] = storedpda.icon_state
 		data["pdaOwnerName"] = storedpda.owner
 		data["pdaJobName"] = storedpda.ownjob
 	else
 		data["hasPDA"] = FALSE
 		data["pdaIcon"] = null
+		data["pdaIconState"] = null
 		data["pdaOwnerName"]  = null
 		data["pdaJobName"] = null
 
@@ -171,6 +171,7 @@
 /obj/machinery/pdapainter/ui_static_data(mob/user)
 	var/data = list()
 	data["pdaTypes"] = colorlist
+	data["pdaIcon"] = icon
 	data["allowErasePda"] = allowErasePda
 	return data
 
@@ -189,7 +190,7 @@
 			if(storedpda)
 				storedpda.remove_pda_case()
 				var/new_icon = params["selectedPda"]
-				storedpda.current_painting = list("icon" = new_icon, "base64" = colorlist[new_icon][1], "desc" = colorlist[new_icon][2])
+				storedpda.current_painting = list("icon" = new_icon, "desc" = colorlist[new_icon][2])
 				storedpda.update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 				playsound(loc, 'sound/goonstation/machines/printer_thermal.ogg', 15, TRUE)
 				statusLabel = "Покраска завершена"

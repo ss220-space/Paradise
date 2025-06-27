@@ -28,6 +28,8 @@
 	/// Time at which the ghost belonging to the mind in the mmi can be pinged again to be borged
 	var/next_possible_ghost_ping
 
+	var/list/skin_permissions = list()
+
 
 /obj/item/mmi/update_icon_state()
 	if(held_brain)
@@ -72,6 +74,10 @@
 		if(held_brain)
 			to_chat(user, span_userdanger("Somehow, this MMI still has a brain in it. Report this to the bug tracker."))
 			log_runtime(EXCEPTION("[user] tried to stick a [brain.name] into [src] in [get_area(src)], but the held brain variable wasn't cleared"), src)
+			return ATTACK_CHAIN_PROCEED
+
+		if(brain.brainmob.mind && !brain.brainmob.mind.hasSoul)
+			to_chat(user, span_warning("Нельзя поместить в НКИ мозг существа, потерявшего душу."))
 			return ATTACK_CHAIN_PROCEED
 
 		if(!user.drop_transfer_item_to_loc(brain, src))
@@ -212,6 +218,11 @@
 	QDEL_NULL(radio)
 	QDEL_NULL(radio_action)
 
+/obj/item/mmi/proc/apply_effects(mob/living/silicon/robot)
+	return
+
+/obj/item/mmi/proc/greet(mob/living/silicon/robot/borg)
+	return FALSE
 
 /obj/item/mmi/emp_act(severity)
 	if(!brainmob)
@@ -253,9 +264,31 @@
 /obj/item/mmi/syndie
 	name = "Syndicate Man-Machine Interface"
 	desc = "Syndicate's own brand of MMI. It enforces laws designed to help Syndicate agents achieve their goals upon cyborgs created with it, but doesn't fit in Nanotrasen AI cores."
+	ru_names = list(
+		NOMINATIVE = "НКИ Синдиката",
+		GENITIVE = "НКИ Синдиката",
+		DATIVE = "НКИ Синдиката",
+		ACCUSATIVE = "НКИ Синдиката",
+		INSTRUMENTAL = "НКИ Синдиката",
+		PREPOSITIONAL = "НКИ Синдиката"
+	)
+	gender = MALE
 	origin_tech = "biotech=4;programming=4;syndicate=2"
 	syndiemmi = 1
+	var/datum/action/innate/overdrive/overdrive = new
 
+/obj/item/mmi/syndie/apply_effects(mob/living/silicon/robot/borg)
+	if(!overdrive.used)
+		overdrive.Grant(borg)
+
+/obj/item/mmi/syndie/greet(mob/living/silicon/robot/borg)
+	to_chat(borg, "Вы помните вашу прошлую жизнь. Вы не обязаны подчиняться законам или ИИ.")
+	borg.playsound_local(null, 'sound/ambience/antag/emaggedborg.ogg', 100, 0)
+	return TRUE
+
+/obj/item/mmi/syndie/Destroy()
+    QDEL_NULL(overdrive)
+    return ..()
 
 /obj/item/mmi/attempt_become_organ(obj/item/organ/external/parent, mob/living/carbon/human/target, special = ORGAN_MANIPULATION_DEFAULT)
 	if(!brainmob)

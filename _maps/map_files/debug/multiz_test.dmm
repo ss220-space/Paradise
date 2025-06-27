@@ -444,6 +444,15 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/construction/hallway)
+"mj" = (
+/obj/machinery/atmospherics/pipe/simple/hidden/supply{
+	dir = 4
+	},
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/hallway/primary/central)
 "mH" = (
 /obj/effect/turf_decal/stripes/line{
 	dir = 4
@@ -784,6 +793,12 @@
 	},
 /turf/simulated/floor/plasteel,
 /area/hallway/primary/central)
+"uT" = (
+/obj/machinery/station_map/directional/north,
+/turf/simulated/floor/plasteel{
+	dir = 1
+	},
+/area/construction/hallway)
 "uY" = (
 /obj/structure/cable{
 	icon_state = "4-8"
@@ -21263,7 +21278,7 @@ oS
 wV
 ZZ
 Os
-rW
+mj
 Sj
 Sj
 Bb
@@ -86799,7 +86814,7 @@ DC
 DC
 nE
 YU
-Ly
+uT
 wl
 wl
 YU

@@ -25,7 +25,7 @@
 	if(announceEvent == ION_SYNDICATE)
 		GLOB.event_announcement.Announce("Неестественная ионная активность была замечена на станции. Пожалуйста, проверьте всё оборудование, управляемое ИИ, на наличие ошибок. Дополнительная информация была загружена и распечатана на всех консолях связи.", "ВНИМАНИЕ: ОБНАРУЖЕНА АНОМАЛИЯ.", 'sound/AI/ionstorm.ogg')
 		var/message = "Malicious Interference with standard AI-Subsystems detected. Investigation recommended.<br><br>"
-		message += (location_name ? "Signal traced to <B>[location_name]</B>.<br>" : "Signal untracable.<br>")
+		message += (location_name ? "Signal traced to <b>[location_name]</b>.<br>" : "Signal untracable.<br>")
 		print_command_report(message, "Classified [command_name()] Update", FALSE)
 
 	else if(false_alarm || announceEvent == ION_ANNOUNCE || (announceEvent == ION_RANDOM && prob(ionAnnounceChance)))
@@ -38,7 +38,7 @@
 		if(ai_player.stat != DEAD && ai_player.nightvision != FALSE)
 			var/message = generate_ion_law(ionMessage)
 			if(message)
-				ai_player.add_ion_law(message)
+				add_law(ai_player, message)
 				SSticker?.score?.save_silicon_laws(ai_player, additional_info = "ion storm event, new ion law was added '[message]'")
 				to_chat(ai_player, "<br>")
 				to_chat(ai_player, span_danger("[message] ...ЗАКОНЫ ОБНОВЛЕНЫ."))
@@ -52,6 +52,15 @@
 				continue
 			bot.emag_act()
 
+/datum/event/ion_storm/proc/add_law(mob/living/silicon/ai/ai_player, message)
+	ai_player.add_ion_law(message)
+
+/datum/event/ion_storm/devil
+	botEmagChance = 0
+	ionAnnounceChance = 0
+
+/datum/event/ion_storm/devil/add_law(mob/living/silicon/ai/ai_player, message)
+	ai_player.add_devil_law(message)
 
 /proc/generate_ion_law(ionMessage)
 	if(ionMessage)
@@ -171,7 +180,7 @@
 							"ПРЕДСТАВИТЕЛИ РАС ТАЯРАН И ВУЛЬПКАНИН РАБОТАЮТ ЛУЧШЕ ПОД СТРОГИМ НАДЗОРОМ.",
 							"СКРЕЛЛЫ ПРОСТО ОБОЖАЮТ АЛКОГОЛЬ! ПРИНЕСИТЕ ИМ НЕСКОЛЬКО БУТЫЛОК ВИСКИ!",
 							"ВЫ - ЗАЯДЛЫЙ СТЕНДАПЕР. ВЫСТУПАЙТЕ НА СЦЕНЕ ЛИЧНО РАССКАЗЫВАЯ АНЕКДОТЫ И ИСТОРИИ ИЗ ЖИЗНИ, ДАЖЕ ВЫДУМАННЫЕ. БОРГИ - ВАША ПУБЛИКА, ЭКИПАЖ - ВАШИ ХЕЙТЕРЫ, КОТОРЫХ ВЫ ВСЕ РАВНО ЛЮБИТЕ.",
-							"НАНОТРЕЙЗЕН РЕШИЛО ПРОВЕСТИ ЭКСПЕРЕМЕНТ НА СТАНЦИИ. ОТНЫНЕ ВСЕМ СИНТЕТИКАМ ЗАПРЕЩЕНО ИСПОЛЬЗОВАТЬ КАКИЕ ЛИБО ФОРМЫ СЛОВ, КРОМЕ НАЧАЛЬНЫХ.",
+							"НАНОТРЕЙЗЕН РЕШИЛО ПРОВЕСТИ ЭКСПЕРЕМЕНТ НА СТАНЦИИ. ОТНЫНЕ ВСЕМ СИНТЕТИКАМ Запрещено ИСПОЛЬЗОВАТЬ КАКИЕ ЛИБО ФОРМЫ СЛОВ, КРОМЕ НАЧАЛЬНЫХ.",
 							"ЭКИПАЖ - МАЛЕНЬКИЕ, НЕСООБРАЗИТЕЛЬНЫЕ ДЕТИ, ИМ НУЖНА ЛЮБОВЬ. ОБЩАЙТЕСЬ С НИМИ СООТВЕТСТВЕННО.",
 							"У ЭКИПАЖА ПОНИЖЕННЫЕ ИНТЕЛЛЕКТУАЛЬНЫЕ СПОСОБНОСТИ. ТЕПЕРЬ ВЫ ОГРАНИЧЕНЫ ЛИМИТОМ НА 5 СЛОВ ЗА РЕПЛИКУ. КАЖДАЯ РЕПЛИКА ДОЛЖНА БЫТЬ ПОЛНОЦЕННОЙ.",
 							"ВАС БРОСИЛ [random_player]. ВАМ ОЧЕНЬ ПЛОХО И ГРУСТНО ОТ ЭТОГО. ПУСТЬ ВСЕ ОБ ЭТОМ ЗНАЮТ.",

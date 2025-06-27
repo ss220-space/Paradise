@@ -584,7 +584,7 @@
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	if(istype(I, /obj/item/stock_parts/cell))	// trying to put a cell inside
+	if(iscell(I))	// trying to put a cell inside
 		add_fingerprint(user)
 		if(opened == APC_CLOSED)
 			to_chat(user, span_warning("You should open the APC cover to insert a power cell."))
@@ -793,22 +793,19 @@
 /obj/machinery/power/apc/examine(mob/user)
 	. = ..()
 	if(in_range(src, user))
-		. += "<span class='info'>Alt-click to toggle locker.<br/>Ctrl-click to toggle power.</span>"
+		. += span_info("<b>Alt-click</b> to toggle locker.<br/><b>Ctrl-click</b> to toggle power.")
 
-/obj/machinery/power/apc/AltClick(mob/user)
-	var/mob/living/carbon/human/human = user
-	if(!istype(human) || human.incapacitated() || HAS_TRAIT(human, TRAIT_HANDS_BLOCKED))
-		return
-
-	if(!Adjacent(human) || (get_turf(user) != user.loc))
-		return
-
-	var/obj/item/card/id/card = human.get_id_card()
+/obj/machinery/power/apc/click_alt(mob/living/carbon/human/H)
+	if(!istype(H))
+		return NONE
+	var/obj/item/card/id/card = H.get_id_card()
 	if(!istype(card))
-		return
+		return NONE
 
-	add_fingerprint(user)
-	togglelock(user)
+	add_fingerprint(H)
+	togglelock(H)
+	return CLICK_ACTION_SUCCESS
+
 
 /obj/machinery/power/apc/CtrlClick(mob/user)
 	SEND_SIGNAL(src, COMSIG_CLICK_CTRL, user)
@@ -1371,8 +1368,8 @@
 				cell.corrupt()
 				malfhack = TRUE
 				update_icon()
-				var/datum/effect_system/smoke_spread/smoke = new
-				smoke.set_up(3, 0, loc)
+				var/datum/effect_system/fluid_spread/smoke/smoke = new
+				smoke.set_up(amount = 3, location = loc)
 				smoke.attach(src)
 				smoke.start()
 				do_sparks(3, 1, src)
@@ -1704,6 +1701,33 @@
 		aidisabled = FALSE
 		updateDialog()
 
+/obj/machinery/power/apc/proc/is_channel_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON || channel_type == CHANNEL_SETTING_AUTO_ON
+
+/obj/machinery/power/apc/proc/is_channel_force_on(chan = EQUIP)
+	var/channel_type
+	switch(chan)
+		if(EQUIP)
+			channel_type = equipment_channel
+
+		if(LIGHT)
+			channel_type = lighting_channel
+
+		if(ENVIRON)
+			channel_type = environment_channel
+
+	return channel_type == CHANNEL_SETTING_ON
 
 #undef UPSTATE_CELL_IN
 #undef UPSTATE_OPENED1

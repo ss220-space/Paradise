@@ -203,7 +203,7 @@
 		/obj/item/clothing/shoes/centcom,
 		/obj/item/clothing/under/suit_jacket/charcoal,
 		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 	)
@@ -235,7 +235,7 @@
 		/obj/item/gun/energy/dominator/sibyl,
 		/obj/item/clothing/accessory/head_strip/lawyers_badge,
 		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 	)
@@ -257,7 +257,7 @@
 		/obj/item/clothing/glasses/eyepatch,
 		/obj/item/melee/energy/sword/pirate,
 		/obj/effect/decal/cleanable/blood/gibs,
-		/obj/effect/particle_effect/smoke/vomiting,
+		/obj/effect/particle_effect/fluid/smoke/vomiting,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping,
 		/obj/item/reagent_containers/food/snacks/monstermeat/rotten/jumping
 	)

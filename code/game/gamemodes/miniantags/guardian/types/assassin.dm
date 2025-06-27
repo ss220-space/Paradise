@@ -70,9 +70,9 @@
 		alpha = initial(alpha)
 		damage_transfer = 1
 		if(!forced)
-			to_chat(src, "<span class='danger'>Вы вышли из невидимости.</span>")
+			to_chat(src, span_danger("Вы вышли из невидимости."))
 		else
-			visible_message("<span class='danger'>[src] suddenly appears!</span>")
+			visible_message(span_danger("[src] suddenly appears!"))
 			stealthcooldown = world.time + default_stealth_cooldown //we were forced out of stealth and go on cooldown
 			cooldown = world.time + 40 //can't recall for 4 seconds
 		updatestealthalert()
@@ -87,11 +87,11 @@
 		alpha = 15
 		damage_transfer = 1.1
 		if(!forced)
-			to_chat(src, "<span class='danger'>Вы вошли в невидимость, усилив свою следующую атаку.</span>")
+			to_chat(src, span_danger("Вы вошли в невидимость, усилив свою следующую атаку."))
 		updatestealthalert()
 		toggle = TRUE
 	else if(!forced)
-		to_chat(src, "<span class='danger'>Вы не можете скрыться, подождите ещё [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд!</span>")
+		to_chat(src, span_danger("Вы не можете скрыться, подождите ещё [max(round((stealthcooldown - world.time)*0.1, 0.1), 0)] секунд!"))
 
 /mob/living/simple_animal/hostile/guardian/assassin/proc/updatestealthalert()
 	if(stealthcooldown <= world.time)

@@ -10,10 +10,10 @@
 		PREPOSITIONAL = "сварочном мече"
 	)
 	icon = 'icons/obj/items.dmi'
-	icon_state = "fuelsword"
-	item_state = "fuelsword"
 	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
+	icon_state = "fuelsword"
+	item_state = "fuelsword"
 	needs_permit = 1
 	belt_icon = null
 	force_enabled = 30
@@ -98,7 +98,7 @@
 	force = 5
 	block_chance = 75
 	maximum_fuel = 70
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+	attack_verb = list("атаковал", "полоснул", "уколол", "поранил", "порезал")
 	origin_tech = "combat=5;magnets=5;plasmatech=6;"
 	combinable = FALSE
 

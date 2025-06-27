@@ -7,7 +7,7 @@
 
 	if(!check_rights(R_DEBUG))	return
 
-	var/newtick = input("Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9","Lag of Tick", world.tick_lag) as num|null
+	var/newtick = input(usr, "Sets a new tick lag. Please don't mess with this too much! The stable, time-tested ticklag value is 0.9","Lag of Tick", world.tick_lag) as num|null
 	//I've used ticks of 2 before to help with serious singulo lags
 	if(newtick && newtick <= 2 && newtick > 0)
 		log_and_message_admins("has modified world.tick_lag to [newtick]")

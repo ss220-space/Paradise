@@ -1,10 +1,4 @@
 /**
- * @file
- * @copyright 2020 Aleksej Komarov
- * @license MIT
- */
-
-/**
  * Returns a function, that, as long as it continues to be invoked, will
  * not be triggered. The function will be called after it stops being
  * called for N milliseconds. If `immediate` is passed, trigger the
@@ -33,14 +27,6 @@ export const debounce = <F extends (...args: any[]) => any>(
 };
 
 /**
- * Suspends an asynchronous function for N milliseconds.
- *
- * @param {number} time
- */
-export const sleep = (time: number): Promise<void> =>
-  new Promise((resolve) => setTimeout(resolve, time));
-
-/**
  * Returns a function, that, when invoked, will only be triggered at most once
  * during a given window of time.
  */
@@ -48,15 +34,15 @@ export const throttle = <F extends (...args: any[]) => any>(
   fn: F,
   time: number
 ): ((...args: Parameters<F>) => void) => {
-  let previouslyRun: number | null,
-    queuedToRun: ReturnType<typeof setTimeout> | null;
+  let previouslyRun: number | null;
+  let queuedToRun: ReturnType<typeof setTimeout> | null;
   return function invokeFn(...args: Parameters<F>) {
     const now = Date.now();
     if (queuedToRun) {
       clearTimeout(queuedToRun);
     }
     if (!previouslyRun || now - previouslyRun >= time) {
-      fn.apply(null, args);
+      fn(...args);
       previouslyRun = now;
     } else {
       queuedToRun = setTimeout(
@@ -65,4 +51,13 @@ export const throttle = <F extends (...args: any[]) => any>(
       );
     }
   };
+};
+
+/**
+ * Suspends an asynchronous function for N milliseconds.
+ *
+ * @param {number} time
+ */
+export const sleep = (time: number): Promise<void> => {
+  return new Promise((resolve) => setTimeout(resolve, time));
 };

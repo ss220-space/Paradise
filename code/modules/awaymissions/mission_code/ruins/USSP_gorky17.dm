@@ -316,8 +316,8 @@
 		D.UpdateName()
 
 /obj/machinery/computer/id_upgrader/ussp/verb/set_name()
-	set name = "Enter name"
-	set category = "Object"
+	set name = "Ввести название"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 	if(!ishuman(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -393,7 +393,7 @@
 	Не прошло и пары дней с вылазки как начался шторм, я уверен это дело рук тех сектантов, они решили отомстить за прерывание своих ритуалов. <br> \
 	Командир, гнида подзаборная, как только почуял неладное и увидел, что лезет из врат сразу свалил, активировав протокол изоляции. Этот мудак небось докладывает уже \
 	какой он герой, мечтает об орденах... Гнида... Мы все тут помрем из-за него, турели долго не сдержут эту нечисть, а нам даже не эвакуироваться. \
-	Этот урод еще и не взвел боезаряд, а все кичился нам о том, что чуть что мы все на подах улетим, а тут будет лишь пепел... Ага, улетели...</p>"
+	Этот урод ещё и не взвел боезаряд, а все кичился нам о том, что чуть что мы все на подах улетим, а тут будет лишь пепел... Ага, улетели...</p>"
 
 /obj/item/paper/gorky17/orders
 	name = "Деректива опер штаба СО"
@@ -411,7 +411,7 @@
 /obj/item/paper/gorky17/report
 	name = "Доклад Центральному Комитету СССП"
 	header = "<font face=\"Verdana\" color=black><center>&ZeroWidthSpace;<img src = ussplogo.png></center>"
-	info = "<font face=\"Verdana\" color=black><BR><center><B>Доклад Центральному Комитету СССП</B></center><BR>Я <B><span class=\"paper_field\"></span></B>, в звании <B><span class=\"paper_field\"></span></B> и должности <B><span class=\"paper_field\"></span></B>, докладываю: <span class=\"paper_field\"></span> <BR><BR><BR><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><BR><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><BR><HR><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<BR>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
+	info = "<font face=\"Verdana\" color=black><br><center><b>Доклад Центральному Комитету СССП</b></center><br>Я <b><span class=\"paper_field\"></span></b>, в звании <b><span class=\"paper_field\"></span></b> и должности <b><span class=\"paper_field\"></span></b>, докладываю: <span class=\"paper_field\"></span> <br><br><br><font size = \"1\"> Подпись: <span class=\"paper_field\"></span></font><br><font size = \"1\"> Дата: <span class=\"paper_field\"></span></font><br><hr><font size = \"1\">*Данный факс, обязательно должен подтверждаться печатью ответственного лица. В случае наличия опечаток и отсутствия подписей или печатей, факс считается скомпрометированным.<br>*Нарушение субординации и уставных отношений повлечет наказание.</font></font>"
 
 /obj/item/paper/gorky17/report/Initialize(mapload)
 	. = ..()
@@ -422,7 +422,7 @@
 	info = "<font face=\"Verdana\" color=black>\
 			<table cellspacing=0 cellpadding=3  align=\"right\">\
 			<tr><td><img src= talisman.png></td></tr>\
-			<br><HR></font>"
+			<br><hr></font>"
 	desc = "Strange and stinky paper with blood rune."
 	icon_state = "paper_talisman"
 	var/poison_type = "amanitin"
@@ -537,7 +537,7 @@
 	. = ..(gibbed)
 	if(!.)
 		return FALSE
-	LoseTarget()
+	lose_target()
 	qdel(src)
 
 /mob/living/simple_animal/hostile/carp/lostsoul/add_carp_overlay()
@@ -593,7 +593,7 @@
 /obj/item/bombcore/sdg17/defuse()
 	var/obj/item/bombcore/sdg17/C = loc
 	new /obj/effect/decal/cleanable/ash(get_turf(loc))
-	new /obj/effect/particle_effect/smoke(get_turf(loc))
+	new /obj/effect/particle_effect/fluid/smoke(get_turf(loc))
 	playsound(src, 'sound/effects/empulse.ogg', 80)
 	qdel(C)
 

@@ -98,7 +98,7 @@
 	return ..()
 
 
-/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/item/projectile/P)
+/obj/structure/reagent_dispensers/fueltank/bullet_act(obj/projectile/P)
 	var/will_explode = !QDELETED(src) && !P.nodamage && (P.damage_type == BURN || P.damage_type == BRUTE)
 
 	if(will_explode) // Log here while you have the information needed

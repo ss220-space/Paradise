@@ -9,12 +9,13 @@
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
 	force = 6
+	throwforce = 5
 	throw_speed = 3
 	throw_range = 7
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=80)
 	origin_tech = "materials=1;engineering=1"
-	attack_verb = list("pinched", "nipped")
+	attack_verb = list("ущипнул", "тяпнул")
 	hitsound = 'sound/items/wirecutter.ogg'
 	usesound = 'sound/items/wirecutter.ogg'
 	drop_sound = 'sound/items/handling/wirecutter_drop.ogg'

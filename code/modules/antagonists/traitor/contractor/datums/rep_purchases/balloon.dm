@@ -2,8 +2,9 @@
   * # Rep Purchase - Contractor Balloon
   */
 /datum/rep_purchase/item/balloon
-	name = "Contractor Balloon"
-	description = "An unique black and gold balloon with no purpose other than showing off. All contracts must be completed in the hardest location to unlock this."
+	name = "Воздушный шарик Контрактника"
+	description = "Изящный воздушный шар, выполненный в чёрно-золотых тонах и украшенный символикой Контрактника. \
+			Чтобы приобрести этот предмет, необходимо успешно завершить все предоставленные контракты в самых сложной локации."
 	cost = 12
 	stock = 1
 	item_type = /obj/item/toy/syndicateballoon/contractor
@@ -16,12 +17,21 @@
 			eligible = FALSE
 			break
 	if(!eligible)
-		to_chat(user, "<span class='warning'>All of your contracts must be completed in the hardest location to be eligible for this item.</span>")
+		to_chat(user, span_warning("Чтобы получить право на эту вещь, все ваши контракты должны быть выполнены в самых сложных локациях."))
 		return FALSE
 	return ..()
 
 /obj/item/toy/syndicateballoon/contractor
 	name = "contractor balloon"
-	desc = "A black and gold balloon carried only by legendary Syndicate agents."
+	desc = "Черно-золотой шар, который носят только легендарные агенты Синдиката."
+	ru_names = list(
+		NOMINATIVE = "воздушный шарик контрактника",
+		GENITIVE = "воздушного шарика контрактника",
+		DATIVE = "воздушному шарику контрактника",
+		ACCUSATIVE = "воздушный шарик контрактника",
+		INSTRUMENTAL = "воздушным шариком контрактника",
+		PREPOSITIONAL = "воздушном шарике контрактника"
+	)
+	gender = MALE
 	icon_state = "contractorballoon"
 	item_state = "contractorballoon"

@@ -79,7 +79,7 @@
 				msgs += "<span class='warning'>It is currently licking its wounds, regenerating the damage to its body!</span>"
 			else
 				msgs += "<span class='notice'>It is currently resting.</span>"
-		. += msgs.Join("<BR>")
+		. += msgs.Join("<br>")
 
 /mob/living/simple_animal/hostile/hellhound/Life(seconds, times_fired)
 	. = ..()
@@ -160,6 +160,6 @@
 	if(world.time < (smoke_lastuse + smoke_freq))
 		return
 	smoke_lastuse = world.time
-	var/datum/effect_system/smoke_spread/sleeping/smoke = new
-	smoke.set_up(10, 0, loc)
+	var/datum/effect_system/fluid_spread/smoke/sleeping/smoke = new
+	smoke.set_up(amount = 10, location = loc)
 	smoke.start()

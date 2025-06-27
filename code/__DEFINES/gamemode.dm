@@ -24,6 +24,7 @@
 #define GAMEMODE_IS_REVOLUTION	(SSticker && istype(SSticker.mode, /datum/game_mode/revolution))
 #define GAMEMODE_IS_WIZARD		(SSticker && istype(SSticker.mode, /datum/game_mode/wizard))
 #define GAMEMODE_IS_RAGIN_MAGES (SSticker && istype(SSticker.mode, /datum/game_mode/wizard/raginmages))
+#define GAMEMODE_IS_METEOR      (SSticker && istype(SSticker.mode, /datum/game_mode/meteor))
 
 // special roles
 // Distinct from the ROLE_X defines because some antags have multiple special roles but only one ban type
@@ -67,6 +68,14 @@
 #define SPECIAL_ROLE_XENOMORPH_DRONE        "Xenomorph Drone"
 #define SPECIAL_ROLE_XENOMORPH_SENTINEL     "Xenomorph Sentinel"
 #define SPECIAL_ROLE_XENOMORPH_LARVA        "Xenomorph Larva"
+#define SPECIAL_ROLE_FACEHUGGER				"Facehugger"
+#define SPECIAL_ROLE_TERROR_SPIDER 			"Terror Spider"
+#define SPECIAL_ROLE_TERROR_QUEEN 			"Terror Queen"
+#define SPECIAL_ROLE_TERROR_PRINCE 			"Terror Prince"
+#define SPECIAL_ROLE_TERROR_PRINCESS 		"Terror Princess"
+#define SPECIAL_ROLE_TERROR_DEFILER 		"Terror Defiler"
+#define SPECIAL_ROLE_TERROR_EMPRESS 		"Terror Empress"
+#define SPECIAL_ROLE_TERROR_DESTROYER 		"Terror Destroyer"
 #define SPECIAL_ROLE_SPACE_NINJA            "Space Ninja"
 #define SPECIAL_ROLE_THIEF                  "Thief"
 #define SPECIAL_ROLE_SPACE_DRAGON           "Space Dragon"
@@ -74,3 +83,5 @@
 #define SPECIAL_ROLE_MALFAI                 "Malfunctioning AI"
 #define SPECIAL_ROLE_SINTOUCHED             "Sintouched"
 #define SPECIAL_ROLE_DEVIL_PAWN             "Devil's pawn"
+#define SPECIAL_ROLE_DEVIL            "Devil"
+#define SPECIAL_ROLE_IMP             		"Imp"

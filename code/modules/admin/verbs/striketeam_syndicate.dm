@@ -3,14 +3,14 @@
 #define SYNDICATE_COMMANDOS_POSSIBLE 6 //if more Commandos are needed in the future
 GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 /client/proc/syndicate_strike_team()
-	set category = "Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Заспавнить Ударный Отряд Синдиката"
 	set desc = "Спавнит Ударный Отряд Синдиката в месте их дислокации на СЦК."
 	if(!src.holder)
 		to_chat(src, "Только администраторы могут использовать эту команду.")
 		return
 	if(!SSticker)
-		tgui_alert(src, "Игра еще не началась!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 	if(GLOB.sent_syndicate_strike_team == 1)
 		tgui_alert(src, "Синдикат уже отправил отряд, Мистер Тупой.")
@@ -23,7 +23,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд синдиката.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять ударный отряд синдиката.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return
@@ -38,7 +38,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
@@ -80,10 +80,10 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 
 			//So they don't forget their code or mission.
 			if(nuke_code)
-				new_syndicate_commando.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code]</span>.")
-			new_syndicate_commando.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input]</span>.")
+				new_syndicate_commando.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code]</span>.")
+			new_syndicate_commando.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input]</span>.")
 
-			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<B>Лидер</B>" : "боец"] Элитного Отряда в подчинении Синдиката. \nВаша миссия: <span class='userdanger'>[input]</span>"))
+			to_chat(new_syndicate_commando, span_notice("Вы [is_leader ? "<b>Лидер</b>" : "боец"] Элитного Отряда в подчинении Синдиката. \nВаша миссия: <span class='userdanger'>[input]</span>"))
 			new_syndicate_commando.faction += "syndicate"
 			var/datum/atom_hud/antag/opshud = GLOB.huds[ANTAG_HUD_OPS]
 			opshud.join_hud(new_syndicate_commando.mind.current)
@@ -118,7 +118,7 @@ GLOBAL_VAR_INIT(sent_syndicate_strike_team, 0)
 	new_syndicate_commando.mind.special_role = SPECIAL_ROLE_SYNDICATE_DEATHSQUAD
 	new_syndicate_commando.mind.offstation_role = TRUE
 	new_syndicate_commando.change_voice()
-	SSticker.mode.traitors |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
+	SSticker.mode.sst |= new_syndicate_commando.mind	//Adds them to current traitor list. Which is really the extra antagonist list.
 	if(is_leader)
 		new_syndicate_commando.equipOutfit(/datum/outfit/admin/syndicate_strike_team/officer)
 	else

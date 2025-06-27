@@ -29,7 +29,7 @@
 	can_buckle_to = FALSE
 	mob_size = MOB_SIZE_LARGE
 	buckle_prevents_pull = TRUE // No pulling loaded shit
-	radio_channel = "Supply"
+	radio_channel = SUP_FREQ_NAME
 
 	bot_type = MULE_BOT
 	bot_filter = RADIO_MULEBOT
@@ -261,7 +261,7 @@
 			wires.cut_random()
 
 
-/mob/living/simple_animal/bot/mulebot/bullet_act(obj/item/projectile/Proj)
+/mob/living/simple_animal/bot/mulebot/bullet_act(obj/projectile/Proj)
 	if(..())
 		if(prob(50) && !isnull(load))
 			unload(0)
@@ -363,8 +363,8 @@
 	dat += hack(user)
 	dat += showpai(user)
 	dat += "<h3>Многофункциональный Узкоспециализированный Легкомоторный робот v5.0</h3>"
-	dat += "<b>ID:</b> [suffix]<BR>"
-	dat += "<b>Питание:</b> [on ? "Включён" : "Выключен"]<BR>"
+	dat += "<b>ID:</b> [suffix]<br>"
+	dat += "<b>Питание:</b> [on ? "Включён" : "Выключен"]<br>"
 
 	if(!open)
 		dat += "<h3>Состояние</h3>"
@@ -384,40 +384,40 @@
 				dat += "<span class='bad'>[mode_name[BOT_NO_ROUTE]]</span>"
 		dat += "</div>"
 
-		dat += "<b>Груз</b> [load ? load.name : "<i>отсутствует</i>"]<BR>"
-		dat += "<b>Пункт назначения:</b> [!destination ? "<i>отсутствует</i>" : destination]<BR>"
+		dat += "<b>Груз</b> [load ? load.name : "<i>отсутствует</i>"]<br>"
+		dat += "<b>Пункт назначения:</b> [!destination ? "<i>отсутствует</i>" : destination]<br>"
 		dat += "<b>Заряд:</b> [cell ? cell.percent() : 0]%"
 
 		if(locked && !ai && !user.can_admin_interact())
-			dat += "&nbsp;<br /><div class='notice'>Управление поведением заблокировано</div><a href='byond://?src=[UID()];op=unlock'>Разблокировать</A>"
+			dat += "&nbsp;<br /><div class='notice'>Управление поведением заблокировано</div><a href='byond://?src=[UID()];op=unlock'>Разблокировать</a>"
 		else
-			dat += "&nbsp;<br /><div class='notice'>Управление поведением разблокировано</div><a href='byond://?src=[UID()];op=lock'>Заблокировать</A><BR><BR>"
+			dat += "&nbsp;<br /><div class='notice'>Управление поведением разблокировано</div><a href='byond://?src=[UID()];op=lock'>Заблокировать</a><br><br>"
 
-			dat += "<a href='byond://?src=[UID()];op=power'>Включить/Выключить</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=stop'>Остановиться</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=go'>Продолжить движение</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=home'>Возврат домой</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=destination'>Задать точку назначения</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=setid'>Задать ID роботу</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=sethome'>Задать домашнюю точку</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=autoret'>[auto_return ? "Включить":"Выключить"] автоматическое возвращение домой</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=autopick'>[auto_return ? "Включить":"Выключить"] автоматический подбор ящиков</A><BR>"
-			dat += "<a href='byond://?src=[UID()];op=report'>[auto_return ? "Включить":"Выключить"] автоматический отчёт о доставке</A><BR>"
+			dat += "<a href='byond://?src=[UID()];op=power'>Включить/Выключить</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=stop'>Остановиться</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=go'>Продолжить движение</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=home'>Возврат домой</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=destination'>Задать точку назначения</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=setid'>Задать ID роботу</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=sethome'>Задать домашнюю точку</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=autoret'>[auto_return ? "Включить":"Выключить"] автоматическое возвращение домой</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=autopick'>[auto_return ? "Включить":"Выключить"] автоматический подбор ящиков</a><br>"
+			dat += "<a href='byond://?src=[UID()];op=report'>[auto_return ? "Включить":"Выключить"] автоматический отчёт о доставке</a><br>"
 			if(load)
-				dat += "<a href='byond://?src=[UID()];op=unload'>Разгрузиться</A><BR>"
+				dat += "<a href='byond://?src=[UID()];op=unload'>Разгрузиться</a><br>"
 			dat += "<div class='notice'>Панель технического обслуживания закрыта</div>"
 	else
 		if(!ai)
-			dat += "<div class='notice'>Панель технического обслуживания открыта</div><BR>"
+			dat += "<div class='notice'>Панель технического обслуживания открыта</div><br>"
 			dat += "<b>Батарея:</b> "
 			if(cell)
-				dat += "<a href='byond://?src=[UID()];op=cellremove'>Установлена</A><BR>"
+				dat += "<a href='byond://?src=[UID()];op=cellremove'>Установлена</a><br>"
 			else
-				dat += "<a href='byond://?src=[UID()];op=cellinsert'>Отсутствует</A><BR>"
+				dat += "<a href='byond://?src=[UID()];op=cellinsert'>Отсутствует</a><br>"
 
 			wires.Interact(user)
 		else
-			dat += "<div class='notice'>Робот в режиме технического обслуживания - управление поведением заблокировано</div><BR>"
+			dat += "<div class='notice'>Робот в режиме технического обслуживания - управление поведением заблокировано</div><br>"
 
 	return dat
 
@@ -707,7 +707,7 @@
  */
 /mob/living/simple_animal/bot/mulebot/proc/at_target()
 	if(!reached_target)
-		radio_channel = "Supply" //Supply channel
+		radio_channel = SUP_FREQ_NAME //Supply channel
 		audible_message("[capitalize(declent_ru(NOMINATIVE))] громко звенит!")
 		playsound(loc, 'sound/machines/chime.ogg', 50, 0)
 		reached_target = 1
@@ -718,7 +718,7 @@
 				to_chat(calling_ai, "<span class='notice'>[bicon(src)] [capitalize(declent_ru(NOMINATIVE))] удалённо проигрывает звук звонка!</span>")
 				playsound(calling_ai, 'sound/machines/chime.ogg',40, 0)
 				calling_ai = null
-				radio_channel = "AI Private" //Report on AI Private instead if the AI is controlling us.
+				radio_channel = AI_FREQ_NAME //Report on AI Private instead if the AI is controlling us.
 
 		if(load)		// if loaded, unload at target
 			if(report_delivery)

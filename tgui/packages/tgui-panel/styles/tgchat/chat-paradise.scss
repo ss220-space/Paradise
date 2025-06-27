@@ -6,38 +6,29 @@
   color: #8f39e6;
 }
 
-.boxed_message {
-  background: rgba(0, 0, 0, 0.25);
-  border: 1px solid #a3b9d9;
-  margin: 0.5em;
-  padding: 0.5em 0.75em;
-  text-align: center;
-}
+// MARK: Boxed messages
 
-.boxed_message.left_align_text {
-  text-align: left;
+.boxed_message {
+  background: #00000040;
+  border-color: #dfb59f40;
 }
 
 .boxed_message.red_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #aa0000;
+  background: #16030340;
+  border-color: #ff000080;
 }
 
 .boxed_message.green_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #00ff00;
+  background: #03160a40;
+  border-color: #00ff0080;
 }
 
 .boxed_message.purple_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #8000ff;
+  background: #0a031640;
+  border-color: #884dff80;
 }
 
 .boxed_message.notice_border {
-  background: rgba(0, 0, 0, 0.25);
-  border-color: #6685f5;
-}
-
-.boxed_message.thick_border {
-  border-width: thick;
+  background: #030a1640;
+  border-color: #557ef680;
 }

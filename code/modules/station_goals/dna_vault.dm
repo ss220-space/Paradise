@@ -3,13 +3,15 @@
 // DNA vault requires x animals ,y plants, z human dna
 // DNA vaults require high tier stock parts and cold
 // After completion each crewmember can receive single upgrade chosen out of 2 for the mob.
-#define VAULT_TOXIN "Toxin Adaptation"
-#define VAULT_NOBREATH "Lung Enhancement"
-#define VAULT_FIREPROOF "Thermal Regulation"
-#define VAULT_STUNTIME "Neural Repathing"
-#define VAULT_ARMOUR "Hardened Skin"
-#define VAULT_SPEED "Leg Muscle Stimulus"
-#define VAULT_QUICK "Arm Muscle Stimulus"
+#define VAULT_TOXIN "Устойчивость к токсинам"
+#define VAULT_NOBREATH "Улучшение лёгких"
+#define VAULT_FIREPROOF "Терморегуляция"
+#define VAULT_STUNTIME "Нейронное восстановление"
+#define VAULT_ARMOUR "Каменная кожа"
+#define VAULT_SPEED "Стимулятор мышц ног"
+#define VAULT_QUICK "Стимуляция мышц рук"
+
+GLOBAL_LIST_EMPTY(dna_vaults)
 
 /datum/station_goal/dna_vault
 	name = "DNA Vault"
@@ -55,8 +57,8 @@
 /datum/station_goal/dna_vault/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/dna_vault/V in GLOB.machines)
-		if(V.animals.len >= animal_count && V.plants.len >= plant_count && V.dna.len >= human_count && is_station_contact(V.z))
+	for(var/obj/machinery/dna_vault/V in SSmachines.get_by_type(/obj/machinery/dna_vault))
+		if(length(V.animals) >= animal_count && length(V.plants) >= plant_count && length(V.dna) >= human_count && is_station_contact(V.z))
 			return TRUE
 	return FALSE
 
@@ -313,31 +315,31 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		return
 
 	if(HAS_TRAIT(H, TRAIT_NO_DNA))
-		to_chat(H, "<span class='warning'>Error, no DNA detected.</span>")
+		balloon_alert(H, "ДНК не обнаружена")
 		return
 
 	switch(upgrade_type)
 		if(VAULT_TOXIN)
-			to_chat(H, "<span class='notice'>You feel resistant to airborne toxins.</span>")
+			to_chat(H, span_notice("Вы ощущаете устойчивость к инфекциям, передающимся воздушно-капельным путём."))
 			var/obj/item/organ/internal/lungs/L = H.get_int_organ(/obj/item/organ/internal/lungs)
 			if(L)
 				L.tox_breath_dam_min = 0
 				L.tox_breath_dam_max = 0
 			ADD_TRAIT(H, TRAIT_VIRUSIMMUNE, name)
 		if(VAULT_NOBREATH)
-			to_chat(H, "<span class='notice'>Your lungs feel great.</span>")
+			to_chat(H, span_notice("Вы чувствуете, что ваши лёгкие работают лучше."))
 			ADD_TRAIT(H, TRAIT_NO_BREATH, name)
 		if(VAULT_FIREPROOF)
-			to_chat(H, "<span class='notice'>You feel fireproof.</span>")
+			to_chat(H, span_notice("Вы ощущаете себя невосприимчивым к огню."))
 			H.physiology.burn_mod *= 0.5
 			ADD_TRAIT(H, TRAIT_RESIST_HEAT, name)
 		if(VAULT_STUNTIME)
-			to_chat(H, "<span class='notice'>Nothing can keep you down for long.</span>")
+			to_chat(H, span_notice("Вы ощущаете, что ничто не способно надолго вас сломить."))
 			H.physiology.stun_mod *= 0.5
 			H.physiology.stamina_mod *= 0.5
 			H.stam_regen_start_modifier *= 0.5
 		if(VAULT_ARMOUR)
-			to_chat(H, "<span class='notice'>You feel tough.</span>")
+			to_chat(H, span_notice("Вы чувствуете себя уверенно."))
 			H.physiology.brute_mod *= 0.7
 			H.physiology.burn_mod *= 0.7
 			H.physiology.tox_mod *= 0.7
@@ -347,10 +349,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 			H.physiology.stamina_mod *= 0.7
 			ADD_TRAIT(H, TRAIT_PIERCEIMMUNE, name)
 		if(VAULT_SPEED)
-			to_chat(H, "<span class='notice'>You feel very fast and agile.</span>")
+			to_chat(H, span_notice("Вы ощущаете невероятную скорость и лёгкость."))
 			H.add_movespeed_modifier(/datum/movespeed_modifier/dna_vault_speedup)
 		if(VAULT_QUICK)
-			to_chat(H, "<span class='notice'>Your arms move as fast as lightning.</span>")
+			to_chat(H, span_notice("Ваши руки двигаются с молниеносной скоростью."))
 			H.next_move_modifier *= 0.5
 	power_lottery[H] = list()
 

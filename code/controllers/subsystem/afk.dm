@@ -45,14 +45,14 @@ SUBSYSTEM_DEF(afk)
 
 		if(!afk_players[H.ckey])
 			afk_players[H.ckey] = AFK_WARNED
-			warn(H, "<span class='danger'>You are AFK for [mins_afk] minutes. You will be cryod after [CONFIG_GET(number/auto_cryo_afk)] total minutes and fully despawned after [CONFIG_GET(number/auto_despawn_afk)] total minutes. Please move or click in game if you want to avoid being despawned.</span>")
+			warn(H, span_danger("You are AFK for [mins_afk] minutes. You will be cryod after [CONFIG_GET(number/auto_cryo_afk)] total minutes and fully despawned after [CONFIG_GET(number/auto_despawn_afk)] total minutes. Please move or click in game if you want to avoid being despawned."))
 		else
 			var/area/A = T.loc // Turfs loc is the area
 			if(afk_players[H.ckey] == AFK_WARNED)
 				if(mins_afk >= CONFIG_GET(number/auto_cryo_afk) && A.can_get_auto_cryod)
 					if(A.fast_despawn)
 						toRemove += H.ckey
-						warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area.</span>")
+						warn(H, span_danger("You have been despawned after being AFK for [mins_afk] minutes. You have been despawned instantly due to you being in a secure area."))
 						log_afk_action(H, mins_afk, T, "despawned", "AFK in a fast despawn area")
 						force_cryo_human(H)
 					else
@@ -60,16 +60,16 @@ SUBSYSTEM_DEF(afk)
 							if(cryo_ssd(H))
 								afk_players[H.ckey] = AFK_CRYOD
 								log_afk_action(H, mins_afk, T, "put into cryostorage")
-								warn(H, "<span class='danger'>You are AFK for [mins_afk] minutes and have been moved to cryostorage. \
+								warn(H, span_danger("You are AFK for [mins_afk] minutes and have been moved to cryostorage. \
 									After being AFK for another [CONFIG_GET(number/auto_despawn_afk)] minutes you will be fully despawned. \
-									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned.</span>")
+									Please eject yourself (right click, eject) out of the cryostorage if you want to avoid being despawned."))
 						else
 							message_admins("[key_name_admin(H)] at [ADMIN_VERBOSEJMP(T)] is AFK for [mins_afk] and can't be automatically cryod due to it's antag status: ([H.mind.special_role]).")
 							afk_players[H.ckey] = AFK_ADMINS_WARNED
 
 			else if(afk_players[H.ckey] != AFK_ADMINS_WARNED && mins_afk >= CONFIG_GET(number/auto_despawn_afk))
 				log_afk_action(H, mins_afk, T, "despawned")
-				warn(H, "<span class='danger'>You have been despawned after being AFK for [mins_afk] minutes.</span>")
+				warn(H, span_danger("You have been despawned after being AFK for [mins_afk] minutes."))
 				toRemove += H.ckey
 				force_cryo_human(H)
 

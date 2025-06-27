@@ -30,7 +30,7 @@
 
 /obj/item/grown/nettle //abstract type
 	name = "nettle"
-	desc = "It's probably <B>not</B> wise to touch it with bare hands..."
+	desc = "It's probably <b>not</b> wise to touch it with bare hands..."
 	icon = 'icons/obj/items.dmi'
 	icon_state = "nettle"
 	damtype = "fire"
@@ -41,7 +41,7 @@
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "combat=3"
-	attack_verb = list("stung")
+	attack_verb = list("ужалил")
 
 /obj/item/grown/nettle/suicide_act(mob/user)
 	user.visible_message("<span class='suicide'>[user] is eating some of the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")

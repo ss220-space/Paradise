@@ -84,7 +84,7 @@
 		if(BURN)
 			playsound(src, 'sound/effects/hit_on_shattered_glass.ogg', 70, TRUE)
 
-/obj/structure/mirror/handle_ricochet(obj/item/projectile/P)
+/obj/structure/mirror/handle_ricochet(obj/projectile/P)
 	if(!anchored)
 		return FALSE
 
@@ -93,7 +93,7 @@
 			return FALSE
 	else if(prob(70))
 		return FALSE
-	
+
 	return ..()
 
 

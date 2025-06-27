@@ -4,6 +4,7 @@
 	special_role = SPECIAL_ROLE_SPACE_NINJA
 	antag_hud_name = "hudninja"
 	antag_hud_type = ANTAG_HUD_NINJA
+	antag_menu_name = "Космический ниндзя"
 	/// Abilities bicons used for the end game info.
 	var/purchased_abilities
 	/// If `FALSE` ninja will not get default items.
@@ -99,7 +100,7 @@
 
 /datum/antagonist/ninja/greet()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ninja_greeting.ogg')
-	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><B>Космический Ниндзя!</B></font>")
+	to_chat(owner.current, "Я элитный наёмник в составе могущественного Клана Паука! <font color='red'><b>Космический Ниндзя!</b></font>")
 	to_chat(owner.current, "Моё оружие внезапность. Моя броня Тень. Без них, я ничто.")
 
 
@@ -114,17 +115,17 @@
 	var/mob/living/user = ..()
 	user.faction = list(ROLE_NINJA)
 
-	user.AddComponent( \
-		/datum/component/pref_viewer, \
+	user.AddElement( \
+		/datum/element/pref_viewer, \
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/ninja/handle_last_instance_removal()
-	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/ninja/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/ninja/proc/change_species(mob/living/mob_to_change = null) // This should be used to fully to remove robo-limbs & change species for lack of sprites
 	human_ninja = ishuman(mob_to_change) ? mob_to_change : null
@@ -370,7 +371,7 @@
 	for(var/datum/mind/traitor in pre_antags)
 		var/datum/antagonist/traitor/traitor_datum = new
 		traitor_datum.give_objectives = FALSE
-		traitor_datum.is_contractor = TRUE
+		traitor_datum.contractor_pending = new(traitor)
 		traitor.add_antag_datum(traitor_datum)
 
 		var/objective_amount = protect_objective ? CONFIG_GET(number/traitor_objectives_amount) - 1 : CONFIG_GET(number/traitor_objectives_amount)

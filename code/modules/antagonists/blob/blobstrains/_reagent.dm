@@ -33,10 +33,10 @@
 
 // These can only be applied by blobs. They are what (reagent) blobs are made out of.
 /datum/reagent/blob
-	name = "Unknown"
-	description = "не должно существовать, и вам следует немедленно обратиться за помощью в adminhelp и  напишите баг-репорт."
+	name = "Неизвестно"
+	description = "Это не должно существовать, вам следует немедленно обратиться за помощью в adminhelp и написать баг-репорт в Discord'е."
 	color = COLOR_WHITE
-	taste_description = "Это баг"
+	taste_description = "ошибок в коде"
 	penetrates_skin = TRUE
 	clothing_penetration = 1
 	metabolization_rate = BLOB_REAGENTS_METABOLISM

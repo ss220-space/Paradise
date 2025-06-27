@@ -136,10 +136,16 @@
 	desc = "Thick resin solidified into a weird looking door."
 	icon = 'icons/obj/smooth_structures/alien/resin_door.dmi'
 	icon_state = "resin_door_closed"
+	var/icon_closed = "resin_door_closed"
+	var/icon_opened = "resin_door_opened"
+	var/icon_closing = "resin_door_closing"
+	var/icon_opening = "resin_door_opening"
 	max_integrity = 160
 	canSmoothWith = null
 	smooth = NONE
 	pass_flags_self = PASSDOOR
+	var/open_sound = 'sound/creatures/alien/xeno_door_open.ogg'
+	var/close_sound = 'sound/creatures/alien/xeno_door_close.ogg'
 	var/state = RESIN_DOOR_CLOSED
 	var/operating = FALSE
 	var/autoclose = TRUE
@@ -160,25 +166,33 @@
 /obj/structure/alien/resin/door/update_icon_state()
 	switch(state)
 		if(RESIN_DOOR_CLOSED)
-			icon_state = "resin_door_closed"
+			icon_state = icon_closed
 		if(RESIN_DOOR_OPENED)
-			icon_state = "resin_door_opened"
+			icon_state = icon_opened
 
 
 /obj/structure/alien/resin/door/attack_alien(mob/living/carbon/alien/humanoid/user)
 	if(user.a_intent == INTENT_HARM)
 		return ..()
 
-	try_switch_state(user)
+	return try_switch_state(user)
+
+/obj/structure/alien/resin/door/attack_animal(mob/living/simple_animal/M)
+	if(M.a_intent == INTENT_HARM)
+		return ..()
+
+	return try_switch_state(M)
 
 
 /obj/structure/alien/resin/door/attack_hand(mob/living/user)
+	..()
+	attack_check(user)
+
+/obj/structure/alien/resin/door/proc/attack_check(mob/living/user)
 	if(!isalien(user))
 		to_chat(user, span_notice("You can't find a way to manipulate with this door."))
 		return FALSE
-
-	return ..()
-
+	return TRUE
 
 /obj/structure/alien/resin/door/attack_ghost(mob/user)
 	if(user.can_advanced_admin_interact())
@@ -206,18 +220,21 @@
 
 /obj/structure/alien/resin/door/proc/try_switch_state(atom/movable/user)
 	if(operating)
-		return
+		return FALSE
 
 	add_fingerprint(user)
-
-	if(!isalien(user))
-		return
+	if(!isliving(user))
+		return FALSE
+	var/mob/living/mob = user
+	if(!isalien(user) && !("alien" in mob.faction))
+		return FALSE
 
 	var/mob/living/carbon/alien/alien = user
 	if(alien.incapacitated())
-		return
+		return FALSE
 
 	switch_state()
+	return TRUE
 
 
 /obj/structure/alien/resin/door/proc/switch_state()
@@ -236,8 +253,8 @@
 	if(autoclose)
 		autoclose_in(autoclose_delay)
 
-	flick("resin_door_opening", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_open.ogg', 100, TRUE)
+	flick(icon_opening, src)
+	playsound(loc, open_sound, 100, TRUE)
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
@@ -266,8 +283,8 @@
 				autoclose_in(autoclose_delay * 0.5)
 			return
 
-	flick("resin_door_closing", src)
-	playsound(loc, 'sound/creatures/alien/xeno_door_close.ogg', 100, TRUE)
+	flick(icon_closing, src)
+	playsound(loc, close_sound, 100, TRUE)
 	operating = TRUE
 
 	sleep(0.1 SECONDS)
@@ -442,6 +459,7 @@
 #define GROWN 3
 #define MIN_GROWTH_TIME 1200	//time it takes to grow a hugger
 #define MAX_GROWTH_TIME 1800
+#define PROXIMITY_RADIUS 5
 
 /obj/structure/alien/egg
 	name = "egg"
@@ -468,11 +486,13 @@
 	update_icon(UPDATE_ICON_STATE)
 	switch(status)
 		if(GROWING)
-			new /obj/item/clothing/mask/facehugger(src)
+			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
+			hugger.lose_target()
 			addtimer(CALLBACK(src, PROC_REF(Grow)), rand(MIN_GROWTH_TIME, MAX_GROWTH_TIME))
 		if(GROWN)
-			new /obj/item/clothing/mask/facehugger(src)
-			AddComponent(/datum/component/proximity_monitor)
+			var/mob/living/simple_animal/hostile/facehugger/hugger = new(src)
+			hugger.lose_target()
+			AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 		if(BURST)
 			obj_integrity = integrity_failure
 
@@ -512,40 +532,54 @@
 
 
 /obj/structure/alien/egg/proc/GetFacehugger()
-	return locate(/obj/item/clothing/mask/facehugger) in contents
+	return locate(/mob/living/simple_animal/hostile/facehugger) in contents
 
 
 /obj/structure/alien/egg/proc/Grow()
 	status = GROWN
 	update_icon(UPDATE_ICON_STATE)
-	AddComponent(/datum/component/proximity_monitor)
-
+	AddComponent(/datum/component/proximity_monitor, PROXIMITY_RADIUS)
 
 ///Need to carry the kill from Burst() to Hatch(), this section handles the alien opening the egg
-/obj/structure/alien/egg/proc/Burst(kill = TRUE)	//drops and kills the hugger if any is remaining
+/obj/structure/alien/egg/proc/Burst(kill = TRUE, atom/movable/trigger)	//drops and kills the hugger if any is remaining
 	if(status == GROWN || status == GROWING)
 		playsound(get_turf(src), 'sound/creatures/alien/xeno_egg_crack.ogg', 50)
 		flick("egg_opening", src)
 		status = BURSTING
 		qdel(GetComponent(/datum/component/proximity_monitor))
-		addtimer(CALLBACK(src, PROC_REF(Hatch), kill), 1.5 SECONDS)
+		addtimer(CALLBACK(src, PROC_REF(Hatch), kill, trigger), 1.5 SECONDS)
 
 
 ///We now check HOW the hugger is hatching, kill carried from Burst() and obj_break()
-/obj/structure/alien/egg/proc/Hatch(kill)
+/obj/structure/alien/egg/proc/Hatch(kill, atom/movable/trigger)
 	status = BURST
 	update_icon(UPDATE_ICON_STATE)
-	var/obj/item/clothing/mask/facehugger/child = GetFacehugger()
+	var/mob/living/simple_animal/hostile/facehugger/child = GetFacehugger()
+
 	if(!child)
 		return
+
 	child.forceMove(get_turf(src))
+	child.AddComponent(\
+		/datum/component/ghost_direct_control,\
+		ban_type = ROLE_ALIEN,\
+		poll_candidates = FALSE,\
+		after_assumed_control = CALLBACK(child, TYPE_PROC_REF(/mob/living/simple_animal/hostile/facehugger, add_datum_if_not_exist)),\
+	)
 	if(kill)
-		child.Die()
+		child.death()
 		return
+
 	for(var/mob/living/victim in range(1, src))
 		if(CanHug(victim))
-			child.Attach(victim)
+			child.try_hug(victim)
 			break
+
+	if(!CanHug(trigger))
+		return
+
+	child.GiveTarget(trigger)
+	child.MoveToTarget(list(trigger))
 
 
 /obj/structure/alien/egg/obj_break(damage_flag)
@@ -567,8 +601,10 @@
 		var/mob/living/carbon/target = AM
 		if(iscarbon(target) && target.stat == CONSCIOUS && target.get_int_organ(/obj/item/organ/internal/body_egg/alien_embryo))
 			return
+		if(isalien(target))
+			return
 
-		Burst(kill = FALSE)
+		Burst(kill = FALSE, trigger = AM)
 
 
 #undef BURST
@@ -577,6 +613,7 @@
 #undef GROWN
 #undef MIN_GROWTH_TIME
 #undef MAX_GROWTH_TIME
+#undef PROXIMITY_RADIUS
 
 #undef ALIEN_RESIN_BURN_MOD
 #undef ALIEN_RESIN_BRUTE_MOD

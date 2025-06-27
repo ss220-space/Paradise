@@ -1,7 +1,17 @@
 /**********************Mining Scanner**********************/
 /obj/item/mining_scanner
-	desc = "A scanner that checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear material scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "manual mining scanner"
+	desc = "Устройство, которое сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
+			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
+			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+Click</b>\""
+	ru_names = list(
+		NOMINATIVE = "ручной шахтёрский сканер",
+		GENITIVE = "ручного шахтёрского сканера",
+		DATIVE = "ручному шахтёрскому сканеру",
+		ACCUSATIVE = "ручной шахтёрский сканер",
+		INSTRUMENTAL = "ручным шахтёрским сканером",
+		PREPOSITIONAL = "ручном шахтёрском сканере"
+	)
 	icon = 'icons/obj/device.dmi'
 	icon_state = "miningmanual"
 	item_state = "analyzer"
@@ -16,11 +26,9 @@
 
 	origin_tech = "engineering=1;magnets=1"
 
-/obj/item/mining_scanner/AltClick(mob/user)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/item/mining_scanner/click_alt(mob/user)
 	speaker = !speaker
-	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
+	balloon_alert(user, "динамик [speaker ? "<b>включён</b>" : "<b>выключен</b>"]")
 
 /obj/item/mining_scanner/attack_self(mob/user)
 	if(!user.client)
@@ -42,8 +50,18 @@
 	qdel(src)
 
 /obj/item/t_scanner/adv_mining_scanner
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. This one has an extended range. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	name = "advanced automatic mining scanner"
+	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
+			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
+			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+Click</b>\""
+	ru_names = list(
+		NOMINATIVE = "продвинутый автоматический шахтёрский сканер",
+		GENITIVE = "продвинутого автоматического шахтёрского сканера",
+		DATIVE = "продвинутому автоматическому шахтёрскому сканеру",
+		ACCUSATIVE = "продвинутый автоматический шахтёрский сканер",
+		INSTRUMENTAL = "продвинутым автоматическим шахтёрским сканером",
+		PREPOSITIONAL = "продвинутом автоматическом шахтёрском сканере"
+	)
 	icon_state = "adv_mining0"
 	base_icon_state = "adv_mining"
 	item_state = "analyzer"
@@ -59,11 +77,9 @@
 
 	origin_tech = "engineering=3;magnets=3"
 
-/obj/item/t_scanner/adv_mining_scanner/AltClick(mob/user)
-	if(!Adjacent(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		return
+/obj/item/t_scanner/adv_mining_scanner/click_alt(mob/user)
 	speaker = !speaker
-	to_chat(user, "<span class='notice'>You toggle [src]'s speaker to [speaker ? "<b>ON</b>" : "<b>OFF</b>"].</span>")
+	to_chat(user, span_notice("Вы переключаете режим работы динамика [declent_ru(GENITIVE)] на [speaker ? "<b>ВКЛ</b>" : "<b>ВЫКЛ</b>"]."))
 
 /obj/item/t_scanner/adv_mining_scanner/cyborg
 	flags = CONDUCT
@@ -77,9 +93,19 @@
 
 /obj/item/t_scanner/adv_mining_scanner/lesser
 	name = "automatic mining scanner"
+	desc = "Устройство, которое автоматически сканирует окружающие породы на наличие полезных минералов, также может быть использовано для предотвращения взрыва залежей гибтонита. \
+			Для достижения наилучших результатов рекомендуется применять мезонные очки. \
+			Этот сканер оснащён динамиком, который можно переключать, используя сочетание клавиш \"<b>Alt+Click</b>\""
+	ru_names = list(
+		NOMINATIVE = "автоматический шахтёрский сканер",
+		GENITIVE = "автоматического шахтёрского сканера",
+		DATIVE = "автоматическому шахтёрскому сканеру",
+		ACCUSATIVE = "автоматический шахтёрский сканер",
+		INSTRUMENTAL = "автоматическим шахтёрским сканером",
+		PREPOSITIONAL = "автоматическом шахтёрском сканере"
+	)
 	icon_state = "mining0"
 	base_icon_state = "mining"
-	desc = "A scanner that automatically checks surrounding rock for useful minerals; it can also be used to stop gibtonite detonations. Wear meson scanners for optimal results. \nIt has a speaker that can be toggled with <b>alt+click</b>"
 	range = 4
 	cooldown = 50
 
@@ -127,3 +153,39 @@
 /obj/effect/temp_visual/mining_overlay/Initialize(mapload)
 	. = ..()
 	animate(src, alpha = 0, time = duration, easing = EASE_IN)
+
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye
+	name = "bleary eye"
+	desc = "Глаз, вырванный из тела массивного сернистого странника. Даже спустя долгое время, он всё ещё движется и внимательно осматривает местность в поисках руды."
+	ru_names = list(
+		NOMINATIVE = "затуманенный глаз",
+		GENITIVE = "затуманенного глаза",
+		DATIVE = "затуманенному глазу",
+		ACCUSATIVE = "затуманенный глаз",
+		INSTRUMENTAL = "затуманенным глазом",
+		PREPOSITIONAL = "затуманенном глазе"
+	)
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "bleary_eye"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "bleary_eye"
+	flags = NONE
+	materials = null
+	origin_tech = "magnets=6;biotech=6"
+	speaker = FALSE
+	range = 4
+	cooldown = 3 SECONDS
+
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye/Initialize(mapload)
+	. = ..()
+	toggle_mode()
+
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye/update_icon_state()
+	return
+
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye/attack_self(mob/user)
+	return
+
+/obj/item/t_scanner/adv_mining_scanner/bleary_eye/click_alt(mob/user)
+	return NONE

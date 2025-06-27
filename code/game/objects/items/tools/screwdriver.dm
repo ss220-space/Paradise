@@ -17,7 +17,7 @@
 	drop_sound = 'sound/items/handling/screwdriver_drop.ogg'
 	pickup_sound =  'sound/items/handling/screwdriver_pickup.ogg'
 	materials = list(MAT_METAL=75)
-	attack_verb = list("stabbed")
+	attack_verb = list("уколол", "тыкнул")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	usesound = 'sound/items/screwdriver.ogg'
 	toolspeed = 1
@@ -93,7 +93,7 @@
 	throwforce = 8
 	throw_speed = 2
 	throw_range = 3//it's heavier than a screw driver/wrench, so it does more damage, but can't be thrown as far
-	attack_verb = list("drilled", "screwed", "jabbed","whacked")
+	attack_verb = list("продырявил", "уколол", "огрел")
 	hitsound = 'sound/items/drill_hit.ogg'
 	usesound = 'sound/items/drill_use.ogg'
 	toolspeed = 0.25

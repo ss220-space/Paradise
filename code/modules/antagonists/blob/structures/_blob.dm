@@ -45,7 +45,7 @@
 /obj/structure/blob/Initialize(mapload, owner_overmind)
 	. = ..()
 	ADD_TRAIT(src, TRAIT_CHASM_DESTROYED, INNATE_TRAIT)
-	GLOB.blobs += src
+	GLOB.blobs |= src
 	if(owner_overmind && isovermind(owner_overmind))
 		link_to_overmind(owner_overmind)
 	setDir(pick(GLOB.cardinal))
@@ -57,7 +57,8 @@
 
 /obj/structure/blob/proc/link_to_overmind(mob/camera/blob/owner_overmind)
 	overmind = owner_overmind
-	overmind.all_blobs += src
+	overmind.all_blobs |= src
+	overmind.blobs_legit |= src
 
 
 /obj/structure/blob/Destroy()
@@ -211,7 +212,8 @@
 			var/offstation = FALSE
 			var/area/Ablob = get_area(B)
 			if(Ablob.area_flags & BLOBS_ALLOWED) //Is this area allowed for winning as blob?
-				overmind.blobs_legit |= B
+				if(overmind)
+					overmind.blobs_legit |= B
 				SSticker?.mode?.legit_blobs |= B
 			else if(controller)
 				B.balloon_alert(overmind, "вне станции, не считается!")

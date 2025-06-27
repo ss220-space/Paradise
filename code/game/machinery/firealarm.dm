@@ -34,8 +34,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 	/// Used to prevent pulling spam by same persons
 	var/last_time_pulled
 
-
-/obj/machinery/firealarm/New(location, direction, building)
+/obj/machinery/firealarm/Initialize(mapload, direction, building)
 	. = ..()
 
 	GLOB.firealarms += src
@@ -46,6 +45,9 @@ GLOBAL_LIST_EMPTY(firealarms)
 		setDir(direction)
 		set_pixel_offsets_from_dir(26, -26, 26, -26)
 
+	if(istype(get_area(src), /area))
+		LAZYADD(GLOB.station_fire_alarms["[z]"], src)
+
 	myArea = get_area(src)
 	LAZYADD(myArea.firealarms, src)
 	update_fire_light()
@@ -54,6 +56,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 
 /obj/machinery/firealarm/Destroy()
 	GLOB.firealarms -= src
+	LAZYREMOVE(GLOB.station_fire_alarms["[z]"], src)
 	LAZYREMOVE(myArea.firealarms, src)
 	return ..()
 
@@ -82,7 +85,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 		return
 
 	var/area/area = get_area(src)
-	if(area.fire)
+	if(area?.fire)
 		icon_state = "firealarm_alarming"
 		return
 	if(!detecting)
@@ -324,7 +327,7 @@ GLOBAL_LIST_EMPTY(firealarms)
 				. += "<span class='notice'>The fire alarm's <b>wires</b> are exposed by the <i>unscrewed</i> panel.</span>"
 				. += "<span class='notice'>The detection circuitry can be turned <b>[detecting ? "off" : "on"]</b> by <i>pulsing</i> the board.</span>"
 
-	. += "It shows the alert level as: <B><U>[capitalize(get_security_level())]</U></B>."
+	. += "It shows the alert level as: <b><u>[capitalize(get_security_level())]</u></b>."
 
 
 /obj/machinery/firealarm/proc/reset()

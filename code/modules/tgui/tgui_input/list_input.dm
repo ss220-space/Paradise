@@ -74,7 +74,7 @@
 	/// Whether the tgui list input is invalid or not (i.e. due to all list entries being null)
 	var/invalid = FALSE
 	/// The TGUI modal to use for this popup
-	var/modal_type = "ListInputModal"
+	var/modal_type = "ListInputWindow"
 
 /datum/tgui_list_input/New(mob/user, message, title, list/_items, default, timeout, ui_state)
 	src.title = title
@@ -92,7 +92,7 @@
 	if(timeout)
 		src.timeout = timeout
 		start_time = world.time
-		deletion_timer = QDEL_IN(src, timeout)
+		deletion_timer = QDEL_IN_STOPPABLE(src, timeout)
 
 /datum/tgui_list_input/Destroy(force)
 	SStgui.close_uis(src)

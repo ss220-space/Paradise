@@ -77,7 +77,7 @@ log transactions
 				authenticated_account.charge(-cash_amount, null, "Credit deposit", machine_id, "Terminal")
 
 /obj/machinery/atm/proc/reconnect_database()
-	for(var/obj/machinery/computer/account_database/DB in GLOB.machines)
+	for(var/obj/machinery/computer/account_database/DB in SSmachines.get_by_type(/obj/machinery/computer/account_database))
 		if(DB.stat & NOPOWER || !DB.activated)
 			continue
 		if(is_station_level(z) && is_station_level(DB.z))
@@ -241,10 +241,10 @@ log transactions
 						req_money = INSURANCE_DELUXE_COST
 
 				if(authenticated_account.charge(req_money))
-					usr.balloon_alert("Тип страховки изменен")
+					usr.balloon_alert(usr, "тип страховки изменен")
 					authenticated_account.insurance_type = new_insurance_type
 				else
-					usr.balloon_alert("Недостаточно средств")
+					usr.balloon_alert(usr, "недостаточно средств")
 
 		if("attempt_auth")
 			if(linked_db)

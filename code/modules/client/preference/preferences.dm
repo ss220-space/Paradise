@@ -99,6 +99,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/UI_style = "Midnight"
 	var/toggles = TOGGLES_DEFAULT
 	var/toggles2 = TOGGLES_2_DEFAULT // Created because 1 column has a bitflag limit of 24 (BYOND limitation not MySQL)
+	var/toggles3 = TOGGLES_3_DEFAULT
 	var/sound = SOUND_DEFAULT
 	var/UI_style_color = "#ffffff"
 	var/UI_style_alpha = 255
@@ -266,6 +267,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	///TRUE when a player declines to be included for the selection process of game mode antagonists.
 	var/skip_antag = FALSE
 
+	var/datum/ui_module/loadout/loadout
+
 
 /datum/preferences/New(client/C)
 	parent = C
@@ -316,7 +319,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_KEYS]' [current_tab == TAB_KEYS ? "class='linkOn'" : ""]>Key Bindings</a>"
 	dat += "<a href='byond://?_src_=prefs;preference=tab;tab=[TAB_TOGGLES]' [current_tab == TAB_TOGGLES ? "class='linkOn'" : ""]>General Preferences</a>"
 	dat += "</center>"
-	dat += "<HR>"
+	dat += "<hr>"
 
 	switch(current_tab)
 		if(TAB_CHAR) // Character Settings
@@ -521,17 +524,17 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 			dat += "<h2>Clothing</h2>"
 			if(S.clothing_flags & HAS_UNDERWEAR)
-				dat += "<b>Underwear:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[underwear]</a><BR>"
+				dat += "<b>Underwear:</b> <a href='byond://?_src_=prefs;preference=underwear;task=input'>[underwear]</a><br>"
 				var/datum/sprite_accessory/underwear/uwear = GLOB.underwear_list[underwear]
 				if(uwear?.allow_change_color)
-					dat += "<b>Underwear Color:</b> <a href='byond://?_src_=prefs;preference=underwear_color;task=input'>Color</a> [color_square(underwear_color)]<BR>"
+					dat += "<b>Underwear Color:</b> <a href='byond://?_src_=prefs;preference=underwear_color;task=input'>Color</a> [color_square(underwear_color)]<br>"
 			if(S.clothing_flags & HAS_UNDERSHIRT)
-				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><BR>"
+				dat += "<b>Undershirt:</b> <a href='byond://?_src_=prefs;preference=undershirt;task=input'>[undershirt]</a><br>"
 				var/datum/sprite_accessory/undershirt/ushirt = GLOB.undershirt_list[undershirt]
 				if(ushirt?.allow_change_color)
-					dat += "<b>Undershirt Color:</b> <a href='byond://?_src_=prefs;preference=undershirt_color;task=input'>Color</a> [color_square(undershirt_color)]<BR>"
+					dat += "<b>Undershirt Color:</b> <a href='byond://?_src_=prefs;preference=undershirt_color;task=input'>Color</a> [color_square(undershirt_color)]<br>"
 			if(S.clothing_flags & HAS_SOCKS)
-				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a><BR>"
+				dat += "<b>Socks:</b> <a href='byond://?_src_=prefs;preference=socks;task=input'>[socks]</a><br>"
 			dat += "<b>Backpack Type:</b> <a href='byond://?_src_=prefs;preference=bag;task=input'>[backbag]</a><br><br>"
 			dat += "<a style='font-size: 1.5em;' href='byond://?_src_=prefs;preference=loadout;task=input'>Open Loadout</a><br>"
 
@@ -713,7 +716,9 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			var/static/list/pref_toggles_by_category
 			if(!pref_toggles_by_category)
 				pref_toggles_by_category = list()
-				for(var/datum/preference_toggle/toggle as anything in GLOB.preference_toggles)
+
+				for(var/path in GLOB.preference_toggles)
+					var/datum/preference_toggle/toggle = GLOB.preference_toggles[path]
 					pref_toggles_by_category["[toggle.preftoggle_category]"] += list(toggle)
 
 			for(var/category in GLOB.preference_toggle_groups)
@@ -731,12 +736,19 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 					switch(toggle.preftoggle_toggle)
 						if(PREFTOGGLE_SPECIAL)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>Adjust</a></td>"
+
 						if(PREFTOGGLE_TOGGLE1)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+
 						if(PREFTOGGLE_TOGGLE2)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles2 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+
+						if(PREFTOGGLE_TOGGLE3)
+							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(toggles3 & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+
 						if(PREFTOGGLE_SOUND)
 							dat += "<td style='width: 20%'><a href='byond://?_src_=prefs;preference=preference_toggles;toggle=[toggle.UID()];'>[(sound & toggle.preftoggle_bitflag) ? "<span class='good'>Enabled</span>" : "<span class='bad'>Disabled</span>"]</a></td>"
+
 					dat += "</tr>"
 				dat += "<tr><td colspan=4><br></td></tr>"
 
@@ -833,7 +845,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			html += "<tr bgcolor='[job.selection_color]'><td width='60%' align='right'>"
 			var/rank
 			if(job.alt_titles)
-				rank = "<a href=\"?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
+				rank = "<a href=\"byond://?_src_=prefs;preference=job;task=alt_title;job=\ref[job]\">[GetPlayerAltTitle(job)]</a>"
 			else
 				rank = job.title
 			if((job_support_low & JOB_FLAG_CIVILIAN) && (job.title != "Civilian"))
@@ -935,8 +947,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		html += "<center><br><a href='byond://?_src_=prefs;preference=job;task=learnaboutselection'>Узнать о \"Выборе должности\"</a></center>"
 		html += "</tt>"
 
-	user << browse(null, "window=preferences")
-//		user << browse(HTML, "window=mob_occupation;size=[width]x[height]")
+	close_window(user, "preferences")
 	var/datum/browser/popup = new(user, "mob_occupation", "<div align='center'>Предпочитаемые должности</div>", width, height)
 	popup.set_window_options("can_close=0")
 	var/html_string = html.Join()
@@ -1075,7 +1086,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	var/datum/job/job = SSjobs.GetJob(role)
 
 	if(!job)
-		user << browse(null, "window=mob_occupation")
+		close_window(user, "mob_occupation")
 		ShowChoices(user)
 		return
 
@@ -1098,7 +1109,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	return 1
 
 /datum/preferences/proc/ShowDisabilityState(mob/user, flag, label)
-	return "<li><b>[label]:</b> <a href=\"?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
+	return "<li><b>[label]:</b> <a href=\"byond://?_src_=prefs;task=input;preference=disabilities;disability=[flag]\">[disabilities & flag ? "Yes" : "No"]</a></li>"
 
 /datum/preferences/proc/SetDisabilities(mob/user)
 	var/datum/species/S = GLOB.all_species[species]
@@ -1143,8 +1154,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 		HTML += ShowDisabilityState(user, DISABILITY_FLAG_APHASIA, "Aphasia")
 
 	HTML += {"</ul>
-		<a href=\"?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
-		<a href=\"?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
+		<a href=\"byond://?_src_=prefs;task=close;preference=disabilities\">\[Done\]</a>
+		<a href=\"byond://?_src_=prefs;task=reset;preference=disabilities\">\[Reset\]</a>
 		</center></tt>"}
 
 	var/datum/browser/popup = new(user, "disabil", "<div align='center'>Choose Disabilities</div>", 350, 380)
@@ -1206,7 +1217,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 /datum/preferences/proc/SetJob(mob/user, role)
 	var/datum/job/job = SSjobs.GetJob(role)
 	if(!job)
-		user << browse(null, "window=mob_occupation")
+		close_window(user, "mob_occupation")
 		ShowChoices(user)
 		return
 
@@ -1408,7 +1419,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	if(href_list["preference"] == "job")
 		switch(href_list["task"])
 			if("close")
-				user << browse(null, "window=mob_occupation")
+				close_window(user, "mob_occupation")
 				ShowChoices(user)
 			if("reset")
 				ResetJobs()
@@ -1446,7 +1457,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 		switch(href_list["task"])
 			if("close")
-				user << browse(null, "window=disabil")
+				close_window(user, "disabil")
 				ShowChoices(user)
 			if("reset")
 				disabilities=0
@@ -1465,7 +1476,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 			SetRecords(user)
 			return
 		else
-			user << browse(null, "window=records")
+			close_window(user, "records")
 		if(href_list["task"] == "med_record")
 			var/medmsg = tgui_input_text(usr, "Set your medical notes here.", "Medical Records", med_record, max_length = MAX_PAPER_MESSAGE_LEN, multiline = TRUE)
 			if(isnull(medmsg))
@@ -1728,14 +1739,14 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						b_type = new_b_type
 
 				if("hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX, SPECIES_WRYN)) //Species that have hair. (No HAS_HAIR flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have hair. (No HAS_HAIR flag)
 						var/input = "Choose your character's hair colour:"
 						var/new_hair = tgui_input_color(user, input, "Character Preference", h_colour)
 						if(!isnull(new_hair))
 							h_colour = new_hair
 
 				if("secondary_hair")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/hair_style = GLOB.hair_styles_public_list[h_style]
 						if(hair_style.secondary_theme && !hair_style.no_sec_colour)
 							var/new_hair = tgui_input_color(user, "Choose your character's secondary hair colour:", "Character Preference", h_sec_colour)
@@ -1896,7 +1907,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 								continue
 							if(M.marking_location != "body")
 								continue
-
+							if(!M.pickable)
+								continue
 							valid_markings += markingstyle
 						sortTim(valid_markings, cmp = /proc/cmp_text_asc)
 						var/new_marking_style = tgui_input_list(user, "Choose the style of your character's body markings:", "Character Preference", valid_markings)
@@ -1961,13 +1973,13 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 
 				if("facial")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX)) //Species that have facial hair. (No HAS_HAIR_FACIAL flag)
 						var/new_facial = tgui_input_color(user, "Choose your character's facial-hair colour:", "Character Preference", f_colour)
 						if(!isnull(new_facial))
 							f_colour = new_facial
 
 				if("secondary_facial")
-					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_VULPKANIN, SPECIES_VOX))
+					if(species in list(SPECIES_HUMAN, SPECIES_UNATHI, SPECIES_TAJARAN, SPECIES_SKRELL, SPECIES_MACNINEPERSON, SPECIES_WRYN, SPECIES_VULPKANIN, SPECIES_VOX))
 						var/datum/sprite_accessory/facial_hair_style = GLOB.facial_hair_styles_list[f_style]
 						if(facial_hair_style.secondary_theme && !facial_hair_style.no_sec_colour)
 							var/new_facial = tgui_input_color(user, "Choose your character's secondary facial-hair colour:", "Character Preference", f_sec_colour)
@@ -2103,7 +2115,8 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 						backbag = new_backbag
 
 				if("loadout")
-					var/datum/ui_module/loadout/loadout = new()
+					if(!loadout)
+						loadout = new()
 					loadout.ui_interact(user)
 					return FALSE
 
@@ -2578,7 +2591,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 
 					parallax = parallax_styles[new_parallax]
 					if(parent && parent.mob && parent.mob.hud_used)
-						parent.mob.hud_used.update_parallax_pref()
+						parent.mob.hud_used.update_parallax_pref(parent.mob)
 
 				if("multiz_detail")
 					var/multiz_det_styles = list(
@@ -2653,7 +2666,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									"DEL" = "Delete",
 									"END" = "Southwest",
 									"PAGEDOWN" = "Southeast",
-									"SPACEBAR" = "Space",
+									" " = "Space",
 									"ALT" = "Alt",
 									"SHIFT" = "Shift",
 									"CONTROL" = "Ctrl",
@@ -2705,7 +2718,7 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 									else
 										keybindings_overrides[KB.name] = key_overrides
 
-								user << browse(null, "window=capturekeypress")
+								close_window(user, "capturekeypress")
 							else
 								capture_keybinding(user, KB, href_list["old"])
 								return
@@ -2975,13 +2988,12 @@ GLOBAL_LIST_INIT(special_role_times, list( //minimum age (in days) for accounts 
 	dat += "<hr>"
 	dat += "<a href='byond://?_src_=prefs;preference=close_load_dialog'>Close</a><br>"
 	dat += "</center></tt>"
-//		user << browse(dat, "window=saves;size=300x390")
 	var/datum/browser/popup = new(user, "saves", "<div align='center'>Character Saves</div>", 300, 390)
 	popup.set_content(dat)
 	popup.open(0)
 
 /datum/preferences/proc/close_load_dialog(mob/user)
-	user << browse(null, "window=saves")
+	close_window(user, "saves")
 
 //Check if the user has ANY job selected.
 /datum/preferences/proc/check_any_job()

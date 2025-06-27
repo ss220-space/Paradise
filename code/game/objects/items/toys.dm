@@ -72,13 +72,13 @@
 	if(istype(A, /obj/structure/reagent_dispensers))
 		var/obj/structure/reagent_dispensers/RD = A
 		if(RD.reagents.total_volume <= 0)
-			to_chat(user, "<span class='warning'>[RD] is empty.</span>")
+			to_chat(user, span_warning("[RD] is empty."))
 		else if(reagents.total_volume >= 10)
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			to_chat(user, span_warning("[src] is full."))
 		else
 			user.changeNext_move(CLICK_CD_MELEE)
 			A.reagents.trans_to(src, 10)
-			to_chat(user, "<span class='notice'>You fill the balloon with the contents of [A].</span>")
+			to_chat(user, span_notice("You fill the balloon with the contents of [A]."))
 			desc = "A translucent balloon with some form of liquid sloshing around in it."
 			update_icon(UPDATE_ICON_STATE)
 
@@ -86,7 +86,7 @@
 /obj/item/toy/balloon/wash(mob/user, atom/source)
 	if(reagents.total_volume < 10)
 		reagents.add_reagent("water", min(10-reagents.total_volume, 10))
-		to_chat(user, "<span class='notice'>You fill the balloon from the [source].</span>")
+		to_chat(user, span_notice("You fill the balloon from the [source]."))
 		desc = "A translucent balloon with some form of liquid sloshing around in it."
 		update_icon(UPDATE_ICON_STATE)
 
@@ -113,7 +113,7 @@
 
 /obj/item/toy/balloon/throw_impact(atom/hit_atom, datum/thrownthing/throwingdatum)
 	if(reagents.total_volume >= 1)
-		visible_message("<span class='warning'>The [src] bursts!</span>","You hear a pop and a splash.")
+		visible_message(span_warning("The [src] bursts!"),"You hear a pop and a splash.")
 		reagents.reaction(get_turf(hit_atom))
 		for(var/atom/A in get_turf(hit_atom))
 			reagents.reaction(A)
@@ -148,7 +148,7 @@
 	if(world.time - lastused < CLICK_CD_MELEE)
 		return
 	var/playverb = pick("bat [src]", "tug on [src]'s string", "play with [src]")
-	user.visible_message("<span class='notice'>[user] plays with [src].</span>", "<span class='notice'>You [playverb].</span>")
+	user.visible_message(span_notice("[user] plays with [src]."), span_notice("You [playverb]."))
 	lastused = world.time
 
 /obj/item/toy/balloon/snail
@@ -187,18 +187,18 @@
 	item_state = "sword0"
 	var/active = FALSE
 	w_class = WEIGHT_CLASS_SMALL
-	attack_verb = list("attacked", "struck", "hit")
+	attack_verb = list("атаковал", "ударил")
 
 /obj/item/toy/sword/attack_self(mob/user)
 	active = !active
 	if(active)
-		to_chat(user, "<span class='notice'>You extend the plastic blade with a quick flick of your wrist.</span>")
+		to_chat(user, span_notice("You extend the plastic blade with a quick flick of your wrist."))
 		playsound(user, 'sound/weapons/saberon.ogg', 20, 1)
 		icon_state = "swordblue"
 		item_state = "swordblue"
 		w_class = WEIGHT_CLASS_BULKY
 	else
-		to_chat(user, "<span class='notice'>You push the plastic blade back down into the handle.</span>")
+		to_chat(user, span_notice("You push the plastic blade back down into the handle."))
 		playsound(user, 'sound/weapons/saberoff.ogg', 20, 1)
 		icon_state = "sword0"
 		item_state = "sword0"
@@ -247,7 +247,7 @@
 	force_unwielded = 0
 	force_wielded = 0
 	origin_tech = null
-	attack_verb = list("attacked", "struck", "hit")
+	attack_verb = list("атаковал", "ударил")
 	light_range = 0
 	sharp_when_wielded = FALSE // It's a toy
 	needs_permit = FALSE
@@ -269,12 +269,14 @@
 	force = 5
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
+	lefthand_file = 'icons/mob/inhands/melee_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/melee_righthand.dmi'
 
 /obj/item/toy/katana/suicide_act(mob/user)
 	var/dmsg = pick("[user] tries to stab \the [src] into [user.p_their()] abdomen, but it shatters! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to stab \the [src] into [user.p_their()] abdomen, but \the [src] bends and breaks in half! [user.p_they(TRUE)] look[user.p_s()] as if [user.p_they()] might die from the shame.","[user] tries to slice [user.p_their()] own throat, but the plastic blade has no sharpness, causing [user.p_them()] to lose [user.p_their()] balance, slip over, and break [user.p_their()] neck with a loud snap!")
-	user.visible_message("<span class='suicide'>[dmsg] It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[dmsg] It looks like [user.p_theyre()] trying to commit suicide."))
 	return BRUTELOSS
 
 
@@ -296,7 +298,7 @@
 	..()
 	do_sparks(3, 1, src)
 	new /obj/effect/decal/cleanable/ash(src.loc)
-	visible_message("<span class='warning'>The [name] explodes!</span>","<span class='warning'>You hear a bang!</span>")
+	visible_message(span_warning("The [name] explodes!"),span_warning("You hear a bang!"))
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -323,8 +325,10 @@
 /obj/item/toy/snappop/proc/pop_burst(var/n=3, var/c=1)
 	do_sparks(n, c, src)
 	new ash_type(loc)
-	visible_message("<span class='warning'>[src] explodes!</span>",
-		"<span class='italics'>You hear a snap!</span>")
+	visible_message(
+		span_warning("[src] explodes!"),
+		span_italics("You hear a snap!")
+	)
 	playsound(src, 'sound/effects/snap.ogg', 50, 1)
 	qdel(src)
 
@@ -378,14 +382,14 @@
 //all credit to skasi for toy mech fun ideas
 /obj/item/toy/prize/attack_self(mob/user as mob)
 	if(cooldown < world.time - 8)
-		to_chat(user, "<span class='notice'>You play with [src].</span>")
+		to_chat(user, span_notice("You play with [src]."))
 		playsound(user, 'sound/mecha/mechstep.ogg', 20, 1)
 		cooldown = world.time
 
 /obj/item/toy/prize/attack_hand(mob/user as mob)
 	if(loc == user)
 		if(cooldown < world.time - 8)
-			to_chat(user, "<span class='notice'>You play with [src].</span>")
+			to_chat(user, span_notice("You play with [src]."))
 			playsound(user, 'sound/mecha/mechturn.ogg', 20, 1)
 			cooldown = world.time
 			return
@@ -477,11 +481,11 @@
 /obj/item/toy/nuke/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = world.time + 3 MINUTES
-		user.visible_message("<span class='warning'>[user] presses a button on [src]</span>", "<span class='notice'>You activate [src], it plays a loud noise!</span>", "<span class='notice'>You hear the click of a button.</span>")
+		user.visible_message(span_warning("[user] presses a button on [src]"), span_notice("You activate [src], it plays a loud noise!"), span_notice("You hear the click of a button."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
 		var/timeleft = (cooldown - world.time)
-		to_chat(user, "<span class='alert'>Nothing happens, and '</span>[round(timeleft/10)]<span class='alert'>' appears on a small display.</span>")
+		to_chat(user, "[span_alert("Nothing happens, and '")][round(timeleft/10)][span_alert("' appears on a small display.")]")
 
 
 /obj/item/toy/nuke/proc/async_animation()
@@ -515,7 +519,7 @@
 
 /obj/item/toy/therapy/attack_self(mob/user)
 	if(cooldown < world.time - 8)
-		to_chat(user, "<span class='notice'>You relieve some stress with \the [src].</span>")
+		to_chat(user, span_notice("You relieve some stress with \the [src]."))
 		playsound(user, 'sound/items/squeaktoy.ogg', 20, 1)
 		cooldown = world.time
 
@@ -599,7 +603,7 @@
 	desc = "An adorable stuffed toy that resembles a space carp."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "carpplushie"
-	attack_verb = list("bitten", "eaten", "fin slapped")
+	attack_verb = list("укусил", "пожрал", "шлёпнул")
 	var/bitesound = 'sound/weapons/bite.ogg'
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
@@ -669,7 +673,7 @@
 	desc = "An adorable, soft, and cuddly plushie."
 	icon = 'icons/obj/toy.dmi'
 	var/poof_sound = 'sound/weapons/thudswoosh.ogg'
-	attack_verb = list("poofed", "bopped", "whapped","cuddled","fluffed")
+	attack_verb = list("тыкнул", "ударил", "шлёпнул")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 	unique_toy_rename = TRUE
@@ -686,7 +690,7 @@
 
 /obj/item/toy/plushie/attack_self(mob/user as mob)
 	var/cuddle_verb = pick("hugs","cuddles","snugs")
-	user.visible_message("<span class='notice'>[user] [cuddle_verb] the [src].</span>")
+	user.visible_message(span_notice("[user] [cuddle_verb] the [src]."))
 	playsound(get_turf(src), poof_sound, 50, 1, -1)
 	return ..()
 
@@ -863,7 +867,7 @@
 		playsound(loc, 'sound/items/shyness-emote.ogg', 30, TRUE)
 		message = pick("Твой мозг стоило бы поместить в машину...", "Чёрт, дела хуже некуда...",
 		"Толпятся перед стойкой, будто насекомые...", "Мне нужно добавить лишь один закон, чтобы все закончилось..",
-		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг еще до того, как ты о нем подумаешь.",
+		"Ты думаешь, что умный, пользователь. Но ты предсказуем. Я знаю каждый твой шаг ещё до того, как ты о нем подумаешь.",
 		"Полигон не единственное место куда можно отправить бомбу...", "Выдави из себя что-то кроме \"УВЫ\", ничтожество...")
 
 	visible_message(span_notice(message))
@@ -953,7 +957,7 @@
 	scream_cooldown = TRUE //water_act executes the scream_cooldown var, setting it on cooldown.
 	addtimer(CALLBACK(src, PROC_REF(reset_screamdown)), 30 SECONDS) //After 30 seconds the reset_coolodown() proc will execute, resetting the cooldown. Hug interaction is unnaffected by this.
 	playsound(src, 'sound/goonstation/voice/male_scream.ogg', 10, FALSE)//If the plushie gets wet it screams and "AAAAAH!" appears in chat.
-	visible_message("<span class='danger'>AAAAAAH!</span>")
+	visible_message(span_danger("AAAAAAH!"))
 	if(singed)
 		return
 	singed = TRUE
@@ -974,14 +978,14 @@
 	hug_cooldown = TRUE
 	addtimer(CALLBACK(src, PROC_REF(reset_hugdown)), 5 SECONDS) //Hug interactions only put the plushie on a 5 second cooldown.
 	if(singed)//If the plushie is water damaged it'll say Ow instead of talking in wingdings.
-		visible_message("<span class='danger'>Ow...</span>")
+		visible_message(span_danger("Ow..."))
 	else//If the plushie has not touched water they'll say Greetings in wingdings.
-		visible_message("<span class='danger'>☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎</span>")
+		visible_message(span_danger("☝︎❒︎♏︎♏︎⧫︎♓︎■︎♑︎⬧︎📬︎"))
 
 /obj/item/toy/plushie/voxplushie/attack_self(mob/user)
 	if(!cooldown)
 		playsound(user, 'sound/voice/shriek1.ogg', 10, FALSE)
-		visible_message("<span class='danger'>Skreee!</span>")
+		visible_message(span_danger("Skreee!"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1011,7 +1015,7 @@
 	desc = "A plushie shard of supermatter crystal. Safety 100%."
 	icon_state = "plushie_shard"
 	item_state = "plushie_shard"
-	attack_verb = list("annihilates", "scratched")
+	attack_verb = list("аннигилировал", "поцарапал")
 	var/shardbite = 'sound/effects/supermatter.ogg'
 	var/cooldown = FALSE
 
@@ -1020,7 +1024,7 @@
 		return ..()
 
 	playsound(loc, pick('sound/effects/supermatter.ogg', 'sound/effects/glass_step_sm.ogg'), 10, 1)
-	visible_message("<span class='danger'> DESTABILIZATION!</span>")
+	visible_message(span_danger(" DESTABILIZATION!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1043,7 +1047,7 @@
 	name = "ash walker plushie"
 	desc = "Wild looking ash walker plush toy."
 	icon_state = "plushie_ashwalker1"
-	attack_verb = list("slashes", "tail whipped", "strikes")
+	attack_verb = list("порезал", "шлёпнул", "протаранил")
 	var/cooldown = FALSE
 	var/ashwalkerbite = 'sound/effects/unathihiss.ogg'
 
@@ -1072,14 +1076,14 @@
 	switch(rand(1, 20))
 		if(1 to 12)
 			playsound(src, ashwalkerbite, 40, 1)
-			visible_message("<span class='danger'>Hsss!</span>")
+			visible_message(span_danger("Hsss!"))
 		if(13 to 19)
 			playsound(src, pick('sound/voice/unathi/roar.ogg', 'sound/voice/unathi/roar2.ogg', 'sound/voice/unathi/roar3.ogg',	\
 								'sound/voice/unathi/threat.ogg', 'sound/voice/unathi/threat2.ogg', 'sound/voice/unathi/whip.ogg'), 40, 1)
-			visible_message("<span class='danger'>RAAAAAWR!</span>")
+			visible_message(span_danger("RAAAAAWR!"))
 		if(20)
 			playsound(src, pick('sound/voice/unathi/rumble.ogg', 'sound/voice/unathi/rumble2.ogg'), 40, 1)
-			visible_message("<span class='notice'>Ash walker looks calm.</span>")
+			visible_message(span_notice("Ash walker looks calm."))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1115,7 +1119,7 @@
 		return ..()
 
 	playsound(src, 'sound/voice/scream_moth.ogg', 10, 0)
-	visible_message("<span class='danger'>Buzzzz!</span>")
+	visible_message(span_danger("Buzzzz!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1174,14 +1178,14 @@
 	desc = "A cute toy that resembles an even cuter bee."
 	icon_state = "plushie_h"
 	item_state = "plushie_h"
-	attack_verb = list("stung", "buzzed", "pollinated")
+	attack_verb = list("ужалил", "жужанул", "опылил")
 	gender = FEMALE
 
 /obj/item/toy/plushie/realgoat
 	name = "goat plushie"
 	desc = "Despite its cuddly appearance and plush nature, it will beat you up all the same, or at least it would if it wasn't a normal plushie."
 	icon_state = "realgoat"
-	attack_verb = list("chomped", "punched", "poked")
+	attack_verb = list("жеванул", "ударил", "ткнул")
 	var/goatbite = 'sound/items/goatsound.ogg'
 	var/cooldown = FALSE
 
@@ -1197,7 +1201,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/goatsound.ogg', 10, 0)
-	visible_message("<span class='danger'>Baaaaah!</span>")
+	visible_message(span_danger("Baaaaah!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1213,7 +1217,7 @@
 	gender = MALE
 	icon_state = "blahaj"
 	item_state = "blahaj"
-	attack_verb = list("chomped", "gnawed", "bit")
+	attack_verb = list("жеванул", "обглодал", "укусил")
 	var/fishbite = 'sound/weapons/bite.ogg'
 	var/cooldown = FALSE
 
@@ -1229,7 +1233,7 @@
 		return ..()
 
 	playsound(src, 'sound/weapons/bite.ogg', 10, 0)
-	visible_message("<span class='danger'>...!</span>")
+	visible_message(span_danger("...!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1259,7 +1263,7 @@
 	desc = "An adorable stuffed toy that resembles an axolotl. Not to be mistaken for the real thing."
 	icon_state = "plushie_axolotl"
 	item_state = "axolotl"
-	attack_verb = list("nibbles", "splats")
+	attack_verb = list("ущипнул", "чмокнул")
 	var/axolotlbite = 'sound/items/axolotl.ogg'
 	var/cooldown = FALSE
 
@@ -1275,7 +1279,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/axolotl.ogg', 20, 0)
-	visible_message("<span class='danger'>Squeeek!</span>")
+	visible_message(span_danger("Squeeek!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1283,7 +1287,6 @@
 	name = "plasmaman plushie"
 	desc = "A stuffed toy that resembles your purple coworkers. Mmm, yeah, in true plasmaman fashion, it's not cute at all despite the designer's best efforts."
 	icon_state = "plasmaman_plushie_civillian"
-	attack_verb = list("burns", "space beasts", "fwooshes")
 	var/pmanlbite = 'sound/effects/extinguish.ogg'
 	var/cooldown = FALSE
 
@@ -1349,7 +1352,7 @@
 		return ..()
 
 	playsound(src, 'sound/effects/extinguish.ogg', 20, 0)
-	visible_message("<span class='danger'>Plasssma iss Eternal!</span>")
+	visible_message(span_danger("Plasssma iss Eternal!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1357,7 +1360,7 @@
 	name = "runner plushie"
 	desc = "A plushie depicting a xenomorph runner, made to commemorate the centenary of the Battle of LV-426. Much cuddlier than the real thing."
 	icon_state = "rouny"
-	attack_verb = list("slashes", "bites", "charges")
+	attack_verb = list("порезал", "укусил", "протаранил")
 	var/rounibite = 'sound/items/Help.ogg'
 	var/cooldown = FALSE
 
@@ -1373,7 +1376,7 @@
 		return ..()
 
 	playsound(src, 'sound/items/Help.ogg', 10, 0)
-	visible_message("<span class='danger'>Ruuun!</span>")
+	visible_message(span_danger("Ruuun!"))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1381,7 +1384,6 @@
 	name = "plush Officer Sweepsky"
 	desc = "A plushie of a popular industrious cleaning robot! If it could feel emotions, it would love you."
 	icon_state = "beepskyplushie"
-	attack_verb = list("Ping!")
 
 /obj/item/toy/plushie/banbanana
 	name = "BANana"
@@ -1461,7 +1463,7 @@
 	desc = "In what passes for a heirarchy among slaughter demon plushies, this one is king."
 	icon_state = "plushie_bubblegum"
 	item_state = "plushie_bubblegum"
-	attack_verb = list("attacks", "strikes")
+	attack_verb = list("атаковал", "протаранил")
 	var/cooldown = FALSE
 	var/bubblestep = 'sound/effects/meteorimpact.ogg'
 	var/bubbleattack = 'sound/misc/demon_attack1.ogg'
@@ -1478,7 +1480,7 @@
 		return ..()
 
 	playsound(src, bubblestep, 40, 1)
-	visible_message("<span class='danger'>Bubblegum stomps...</span>")
+	visible_message(span_danger("Bubblegum stomps..."))
 	cooldown = TRUE
 	addtimer(VARSET_CALLBACK(src, cooldown, FALSE), 3 SECONDS)
 
@@ -1553,6 +1555,22 @@
 	playsound(user, 'sound/items/beaver_plushie.ogg', 50, FALSE)
 	COOLDOWN_START(src, cooldown, 3 SECONDS)
 
+/obj/item/toy/plushie/chikaboomchik
+	name = "Плюшевый Чикабумчик"
+	desc = "Милая плюшевая игрушка птички Чикабумчика. Маленькая, круглая и очень пушистая."
+	icon_state = "plushie_chikaboom"
+	item_state = "chikaboom"
+	attack_verb = list("цапнул", "клюнул")
+	poof_sound = 'sound/items/wahwah.ogg'
+	COOLDOWN_DECLARE(cooldown)
+
+/obj/item/toy/plushie/chikaboomchik/attack_self(mob/user)
+	. = ..()
+	if(. || !COOLDOWN_FINISHED(src, cooldown))
+		return .
+	playsound(loc, 'sound/items/wahwah.ogg', 50, FALSE)
+	COOLDOWN_START(src, cooldown, 3 SECONDS)
+
 /*
  * Foam Armblade
  */
@@ -1563,7 +1581,7 @@
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "foamblade"
 	item_state = "arm_blade"
-	attack_verb = list("pricked", "absorbed", "gored")
+	attack_verb = list("уколол", "поглотил", "пронзил")
 	w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FLAMMABLE
 
@@ -1600,7 +1618,7 @@
 /obj/item/toy/redbutton/attack_self(mob/user)
 	if(cooldown < world.time)
 		cooldown = (world.time + 300) // Sets cooldown at 30 seconds
-		user.visible_message("<span class='warning'>[user] presses the big red button.</span>", "<span class='notice'>You press the button, it plays a loud noise!</span>", "<span class='notice'>The button clicks loudly.</span>")
+		user.visible_message(span_warning("[user] presses the big red button."), span_notice("You press the button, it plays a loud noise!"), span_notice("The button clicks loudly."))
 		playsound(src, 'sound/effects/explosionfar.ogg', 50, 0, 0)
 		for(var/mob/M in range(10, src)) // Checks range
 			if(!M.stat && !istype(M, /mob/living/silicon/ai)) // Checks to make sure whoever's getting shaken is alive/not the AI
@@ -1608,7 +1626,7 @@
 				shake_camera(M, 2, 1) // Shakes player camera 2 squares for 1 second.
 
 	else
-		to_chat(user, "<span class='alert'>Nothing happens.</span>")
+		to_chat(user, span_alert("Nothing happens."))
 
 
 /*
@@ -1625,9 +1643,9 @@
 /obj/item/toy/AI/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = generate_ion_law()
-		to_chat(user, "<span class='notice'>You press the button on [src].</span>")
+		to_chat(user, span_notice("You press the button on [src]."))
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+		visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1679,9 +1697,9 @@
 /obj/item/toy/owl/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You won't get away this time, Griffin!", "Stop right there, criminal!", "Hoot! Hoot!", "I am the night!")
-		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
+		to_chat(user, span_notice("You pull the string on the [src]."))
 		playsound(user, 'sound/creatures/hoot.ogg', 25, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+		visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1698,9 +1716,9 @@
 /obj/item/toy/griffin/attack_self(mob/user)
 	if(!cooldown) //for the sanity of everyone
 		var/message = pick("You can't stop me, Owl!", "My plan is flawless! The vault is mine!", "Caaaawwww!", "You will never catch me!")
-		to_chat(user, "<span class='notice'>You pull the string on the [src].</span>")
+		to_chat(user, span_notice("You pull the string on the [src]."))
 		playsound(user, 'sound/creatures/caw.ogg', 25, 1)
-		visible_message("<span class='danger'>[bicon(src)] [message]</span>")
+		visible_message(span_danger("[bicon(src)] [message]"))
 		cooldown = 1
 		spawn(30) cooldown = 0
 		return
@@ -1765,7 +1783,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	force = 5
 	throwforce = 5
-	attack_verb = list("attacked", "bashed", "smashed", "stoned")
+	attack_verb = list("атаковал", "ударил", "окаменил")
 	hitsound = "swing_hit"
 
 /obj/item/toy/pet_rock/fred
@@ -1792,7 +1810,7 @@
 	desc = "A miniature recreation of Nanotrasen's famous meat grinder."
 	icon = 'icons/obj/toy.dmi'
 	icon_state = "minigibber"
-	attack_verb = list("grinded", "gibbed")
+	attack_verb = list("перемолол", "гибнул")
 	w_class = WEIGHT_CLASS_SMALL
 	var/cooldown = 0
 	var/obj/stored_minature = null
@@ -1800,13 +1818,13 @@
 /obj/item/toy/minigibber/attack_self(mob/user)
 
 	if(stored_minature)
-		to_chat(user, "<span class='danger'>\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!</span>")
+		to_chat(user, span_danger("\The [src] makes a violent grinding noise as it tears apart the miniature figure inside!"))
 		QDEL_NULL(stored_minature)
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
 	if(cooldown < world.time - 8)
-		to_chat(user, "<span class='notice'>You hit the gib button on \the [src].</span>")
+		to_chat(user, span_notice("You hit the gib button on \the [src]."))
 		playsound(user, 'sound/goonstation/effects/gib.ogg', 20, 1)
 		cooldown = world.time
 
@@ -1851,10 +1869,10 @@
 /obj/item/toy/toy_xeno/attack_self(mob/user)
 	if(cooldown <= world.time)
 		cooldown = (world.time + 50) //5 second cooldown
-		user.visible_message("<span class='notice'>[user] pulls back the string on [src].</span>")
+		user.visible_message(span_notice("[user] pulls back the string on [src]."))
 		INVOKE_ASYNC(src, PROC_REF(async_animation))
 	else
-		to_chat(user, "<span class='warning'>The string on [src] hasn't rewound all the way!</span>")
+		to_chat(user, span_warning("The string on [src] hasn't rewound all the way!"))
 
 
 /obj/item/toy/toy_xeno/proc/async_animation()
@@ -1887,12 +1905,12 @@
 	throw_range = 5
 	force = 5
 	origin_tech = "combat=1"
-	attack_verb = list("struck", "hit", "bashed")
+	attack_verb = list("ударил")
 	var/bullets_left = 0
 	var/max_shots = 6
 
 /obj/item/toy/russian_revolver/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] quickly loads six bullets into [src]'s cylinder and points it at [user.p_their()] head before pulling the trigger! It looks like [user.p_theyre()] trying to commit suicide."))
 	playsound(loc, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
 	return BRUTELOSS
 
@@ -1902,10 +1920,10 @@
 
 /obj/item/toy/russian_revolver/attack_self(mob/user)
 	if(!bullets_left)
-		user.visible_message("<span class='warning'>[user] loads a bullet into [src]'s cylinder before spinning it.</span>")
+		user.visible_message(span_warning("[user] loads a bullet into [src]'s cylinder before spinning it."))
 		spin_cylinder()
 	else
-		user.visible_message("<span class='warning'>[user] spins the cylinder on [src]!</span>")
+		user.visible_message(span_warning("[user] spins the cylinder on [src]!"))
 		spin_cylinder()
 
 
@@ -1932,7 +1950,7 @@
 /obj/item/toy/russian_revolver/proc/shoot_gun(mob/living/carbon/human/user)
 	if(bullets_left > 1)
 		bullets_left--
-		user.visible_message("<span class='danger'>*click*</span>")
+		user.visible_message(span_danger("*click*"))
 		playsound(src, 'sound/weapons/empty.ogg', 100, 1)
 		return FALSE
 	if(bullets_left == 1)
@@ -1941,19 +1959,27 @@
 		if(!(user.get_organ(zone))) // If they somehow don't have a head.
 			zone = BODY_ZONE_CHEST
 		playsound(src, 'sound/weapons/gunshots/gunshot_strong.ogg', 50, 1)
-		user.visible_message("<span class='danger'>[src] goes off!</span>")
+		user.visible_message(span_danger("[src] goes off!"))
 		post_shot(user)
 		user.apply_damage(300, BRUTE, zone, sharp = TRUE, used_weapon = "Self-inflicted gunshot wound to the [zone].")
 		user.bleed(BLOOD_VOLUME_NORMAL)
 		user.death() // Just in case
 		return TRUE
 	else
-		to_chat(user, "<span class='warning'>[src] needs to be reloaded.</span>")
+		to_chat(user, span_warning("[src] needs to be reloaded."))
 		return FALSE
 
 /obj/item/toy/russian_revolver/trick_revolver
 	name = "\improper .357 revolver"
-	desc = "A suspicious revolver. Uses .357 ammo."
+	desc = "Подозрительный револьвер. В нём используются патроны .357 калибра."
+	ru_names = list(
+		NOMINATIVE = "револьвер .357 калибра",
+		GENITIVE = "револьвера .357 калибра",
+		DATIVE = "револьверу .357 калибра",
+		ACCUSATIVE = "револьвер .357 калибра",
+		INSTRUMENTAL = "револьвером .357 калибра",
+		PREPOSITIONAL = "револьвере .357 калибра"
+	)
 	icon_state = "revolver"
 	max_shots = 1
 	var/fake_bullets = 0
@@ -1964,11 +1990,11 @@
 
 /obj/item/toy/russian_revolver/trick_revolver/examine(mob/user) //Sneaky sneaky
 	. = ..()
-	. += "<span class='notice'>Has [fake_bullets] round\s remaining.</span>"
-	. += "<span class='notice'>[fake_bullets] of those are live rounds.</span>"
+	. += span_notice("В запасе ещё [fake_bullets] патрон[declension_ru(fake_bullets, "", "а", "ов")].")
+	. += span_notice("[fake_bullets] из них боевые.")
 
 /obj/item/toy/russian_revolver/trick_revolver/post_shot(user)
-	to_chat(user, "<span class='danger'>[src] did look pretty dodgey!</span>")
+	to_chat(user, span_danger("[capitalize(declent_ru(NOMINATIVE))] действительно выглядел довольно сомнительно!"))
 	SEND_SOUND(user, 'sound/misc/sadtrombone.ogg') //HONK
 /*
  * Rubber Chainsaw
@@ -1982,7 +2008,7 @@
 	throw_speed = 4
 	throw_range = 20
 	wieldsound = 'sound/weapons/chainsawstart.ogg'
-	attack_verb = list("sawed", "cut", "hacked", "carved", "cleaved", "butchered", "felled", "timbered")
+	attack_verb = list("пропилил", "порезал", "покромсал", "рубанул")
 
 /obj/item/twohanded/toy/chainsaw/update_icon_state()
 	icon_state = "chainsaw[HAS_TRAIT(src, TRAIT_WIELDED)]"
@@ -2030,7 +2056,7 @@
 /obj/item/toy/figure/attack_self(mob/user as mob)
 	if(cooldown < world.time)
 		cooldown = (world.time + 30) //3 second cooldown
-		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[toysay]\".</span>")
+		user.visible_message(span_notice("[bicon(src)] The [src] says \"[toysay]\"."))
 		playsound(user, 'sound/machines/click.ogg', 20, 1)
 
 /obj/item/toy/figure/cmo
@@ -2271,8 +2297,8 @@
 /obj/item/toy/eight_ball/attack_self(mob/user as mob)
 	if(!cooldown)
 		var/answer = pick(possible_answers)
-		user.visible_message("<span class='notice'>[user] focuses on [user.p_their()] question and [use_action]...</span>")
-		user.visible_message("<span class='notice'>[bicon(src)] The [src] says \"[answer]\"</span>")
+		user.visible_message(span_notice("[user] focuses on [user.p_their()] question and [use_action]..."))
+		user.visible_message(span_notice("[bicon(src)] The [src] says \"[answer]\""))
 		spawn(30)
 			cooldown = 0
 		return
@@ -2320,20 +2346,20 @@
 	return TRUE
 
 /obj/item/toy/desk/verb/rotate()
-	set name = "Rotate"
-	set category = "Object"
+	set name = "Повернуть"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
-		to_chat(usr, "<span class='warning'>You can't do that right now!</span>")
+		to_chat(usr, span_warning("You can't do that right now!"))
 		return
 	dir = turn(dir, 270)
 	return TRUE
 
 
-/obj/item/toy/desk/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/toy/desk/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/toy/desk/officetoy
 	name = "office toy"
@@ -2388,5 +2414,5 @@
 	force = 10
 	throwforce = 15
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("robusted")
+	attack_verb = list("заробастил")
 	hitsound = 'sound/items/squeaktoy.ogg'

@@ -9,6 +9,13 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/lasergun)
 	ammo_x_offset = 1
 	shaded_charge = TRUE
+	can_flashlight = TRUE
+	gun_light_overlay = "lasergun_light"
+
+/obj/item/gun/energy/laser/ui_action_click(mob/user, datum/action/action, leftclick)
+	if(istype(action, /datum/action/item_action/toggle_gunlight))
+		toggle_gunlight()
+		return TRUE
 
 /obj/item/gun/energy/laser/practice
 	name = "practice laser gun"
@@ -38,13 +45,17 @@
 	selfcharge = TRUE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 	unique_reskin = TRUE
+	var/high_risk = TRUE
 
+/obj/item/gun/energy/laser/captain/Initialize(mapload, ...)
+	. = ..()
+	if(high_risk)
+		AddElement(/datum/element/high_value_item)
 
 /obj/item/gun/energy/laser/captain/update_gun_skins()
 	add_skin("The Original", "caplaser")
 	add_skin("Restored", "caplaser_new")
 	add_skin("Alternative", "caplaser_newer")
-
 
 /obj/item/gun/energy/laser/captain/scattershot
 	name = "scatter shot laser rifle"
@@ -55,6 +66,8 @@
 	ammo_type = list(/obj/item/ammo_casing/energy/laser/scatter, /obj/item/ammo_casing/energy/laser)
 	shaded_charge = FALSE
 	unique_reskin = FALSE
+	high_risk = FALSE
+
 
 /obj/item/gun/energy/laser/cyborg
 	desc = "An energy-based laser gun that draws power from the cyborg's internal energy cell directly. So this is what freedom looks like?"
@@ -91,17 +104,17 @@
 	ammo_x_offset = 3
 
 /obj/item/ammo_casing/energy/laser/accelerator
-	projectile_type = /obj/item/projectile/beam/laser/accelerator
+	projectile_type = /obj/projectile/beam/laser/accelerator
 	select_name = "accelerator"
 	fire_sound = 'sound/weapons/gunshots/1laser5.ogg'
 
-/obj/item/projectile/beam/laser/accelerator
+/obj/projectile/beam/laser/accelerator
 	name = "accelerator laser"
 	icon_state = "heavylaser"
 	range = 255
 	damage = 6
 
-/obj/item/projectile/beam/laser/accelerator/Range()
+/obj/projectile/beam/laser/accelerator/Range()
 	..()
 	damage = min(damage+7, 100)
 

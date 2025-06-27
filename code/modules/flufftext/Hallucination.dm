@@ -764,7 +764,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 /obj/effect/hallucination/whispers/New(loc,var/mob/living/carbon/T)
 	. = ..()
 	target = T
-	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","O bidai nabora se'sma!","EI NATH!!","Kchck-Chkck? Kchchck!")
+	var/speak_messages = list("Я слежу за тобой…","[target.name]!","Уйди!","Ты слышал это?","Что ты натворил?","Почему?","Отдай!","Хонк!","ПОМОГИТЕ!!","БЕГИТЕ!!","УБЕЙТЕ МЕНЯ!","О бидай набора се'сма!","EI NATH!!","Kchck-Chkck? Kchchck!")
 	var/radio_messages = list("Ксеноморфы!","Синга вышла!","Телекомы упали!","Они взвели нюку!","Они убили Иана!","П-помогите!","[pick("Культисты", "Маг", "Генка", "Нюкеры", "Ревенант", "Труп", "Драка", "Я слышал флешку", "Нужна помощь")] в [pick(GLOB.teleportlocs)][prob(50)?"!":"!!"]","Где [target.name]?","[target.name] мёртв!","Вызывайте шаттл!","ИИ взломан!")
 
 	var/list/mob/living/carbon/people = list()
@@ -808,7 +808,7 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 		"<span class='notice'>You hear a distant scream.</span>",
 		"<span class='notice'>You feel invincible, nothing can hurt you!</span>",
 		"<span class='warning'>You feel a tiny prick!</span>",
-		"<B>[target]</B> sneezes.",
+		"<b>[target]</b> sneezes.",
 		"<span class='warning'>You feel faint.</span>",
 		"<span class='noticealien'>You hear a strange, alien voice in your head...</span> [pick("Hiss","Ssss")]",
 		"<span class='notice'>You can see...everything!</span>")
@@ -1075,8 +1075,8 @@ GLOBAL_LIST_INIT(non_fakeattack_weapons, list(/obj/item/gun/projectile, /obj/ite
 				var/mob/dead/observer/fakemob = pick(dead_people)
 				if(fakemob)
 					sleep(rand(30, 60))
-					to_chat(src, "<span class='deadsay'><span class='name'>[fakemob.name]</span>(FOLLOW) [pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[pick("мёртв","привет [name]","ты тоже?","ИИ взломан?",\
-					 "я[prob(50)?", блять,":""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"</span></span>")
+					to_chat(src, span_deadsay("[span_name(fakemob.name)](FOLLOW) [pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \
+					[span_message("\"[pick("мёртв", "привет [name]", "ты тоже?", "ИИ взломан?", "я[prob(50)?", блять,": ""] ненавижу [pick("культистов", "реву", "абдукторов", "предателей", "свармеров", "вирусы", "тебя")]")]\"")]"))
 			sleep(rand(50,70))
 			hal_screwyhud = SCREWYHUD_NONE
 			SetSleeping(0)

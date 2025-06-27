@@ -2,6 +2,7 @@
 	name = "Necropolis"
 	icon_state = "cave"
 	tele_proof = TRUE
+	holomap_should_draw = FALSE
 
 /obj/effect/landmark/map_loader/lavaland_room
 	icon = 'icons/misc/Testing/turf_analysis.dmi'

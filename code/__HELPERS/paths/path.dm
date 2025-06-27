@@ -322,8 +322,8 @@
 	/// If our mob is buckled to something, what's it like
 	var/datum/can_pass_info/buckled_info = null
 
-	/// Do we have gravity
-	var/has_gravity = TRUE
+	/// Gravity that we have.
+	var/gravity = TRUE
 	/// Pass information for the object we are pulling, if any
 	var/datum/can_pass_info/pulling_info = null
 
@@ -349,7 +349,7 @@
 	src.movement_type = construct_from.movement_type
 	src.thrown = !!construct_from.throwing
 	src.anchored = construct_from.anchored
-	src.has_gravity = construct_from.has_gravity()
+	src.gravity = construct_from.get_gravity()
 
 	if(ismob(construct_from))
 		var/mob/mob_construct = construct_from
@@ -437,4 +437,3 @@ GLOBAL_LIST_INIT(can_pass_info_vars, GLOBAL_PROC_REF(can_pass_check_vars))
 		dummy.loc = turf
 	qdel(dummy)
 	return TRUE
-

@@ -187,7 +187,7 @@
 	toolspeed = 1
 	container_type = OPENCONTAINER
 	flags = CONDUCT
-	attack_verb = list("attacked", "slashed", "cut", "sliced")
+	attack_verb = list("атаковал", "полоснул", "порезал")
 	force = 12
 	sharp = 1
 	can_charge = FALSE
@@ -198,6 +198,8 @@
 	if(cell)
 		. += "<span class='notice'>[src] is [round(cell.percent())]% charged.</span>"
 
+/obj/item/gun/energy/plasmacutter/get_heat()
+	return 3800
 
 /obj/item/gun/energy/plasmacutter/attackby(obj/item/I, mob/user, params)
 	if(istype(I, /obj/item/stack/sheet/mineral/plasma))
@@ -301,7 +303,7 @@
 		orange?.target = null
 
 
-/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/item/projectile/beam/wormhole/projectile)
+/obj/item/gun/energy/wormhole_projector/proc/create_portal(obj/projectile/beam/wormhole/projectile)
 
 	var/obj/effect/portal/wormhole_projector/portal = new(get_turf(projectile), null, src)
 
@@ -417,114 +419,6 @@
 	shaded_charge = TRUE
 	modifystate = TRUE
 
-/obj/item/gun/energy/bsg
-	name = "\improper Б.С.П"
-	desc = "Большая С*** Пушка. Использует ядро аномалии потока и кристалл блюспейса для производства разрушительных взрывов энергии, вдохновленный дивизионом БСА Нанотрейзен."
-	icon_state = "bsg"
-	item_state = "bsg"
-	origin_tech = "combat=6;materials=6;powerstorage=6;bluespace=6;magnets=6" //cutting edge technology, be my guest if you want to deconstruct one instead of use it.
-	ammo_type = list(/obj/item/ammo_casing/energy/bsg)
-	weapon_weight = WEAPON_HEAVY
-	w_class = WEIGHT_CLASS_BULKY
-	can_holster = FALSE
-	slot_flags = ITEM_SLOT_BACK
-	cell_type = /obj/item/stock_parts/cell/bsg
-	shaded_charge = TRUE
-	var/has_core = FALSE
-	var/has_bluespace_crystal = FALSE
-	var/admin_model = FALSE //For the admin gun, prevents crystal shattering, so anyone can use it, and you dont need to carry backup crystals.
-
-/obj/item/gun/energy/bsg/examine(mob/user)
-	. = ..()
-	if(has_core && has_bluespace_crystal)
-		. += "<span class='notice'>[src] полностью рабочая!</span>"
-	else if(has_core)
-		. += "<span class='warning'>Аномалия потока вставлена, но не хватает БС кристалла.</span>"
-	else if(has_bluespace_crystal)
-		. += "<span class='warning'>Имеет инкрустированный БС кристалл, но нет установленного ядра аномалии потока.</span>"
-	else
-		. += "<span class='warning'>Не хватает ядра аномалии потока и БС кристалла для работы.</span>"
-
-
-/obj/item/gun/energy/bsg/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stack/ore/bluespace_crystal))
-		add_fingerprint(user)
-		var/obj/item/stack/ore/bluespace_crystal/crystal = I
-		if(has_bluespace_crystal)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!crystal.use(1))
-			balloon_alert(user, "недостаточно кристаллов!")
-			return ATTACK_CHAIN_PROCEED
-		balloon_alert(user, "установлено")
-		has_bluespace_crystal = TRUE
-		update_icon(UPDATE_ICON_STATE)
-		return ATTACK_CHAIN_PROCEED_SUCCESS
-
-	if(istype(I, /obj/item/assembly/signaler/anomaly/flux))
-		add_fingerprint(user)
-		if(has_core)
-			balloon_alert(user, "уже установлено!")
-			return ATTACK_CHAIN_PROCEED
-		if(!user.drop_transfer_item_to_loc(I, src))
-			return ..()
-		balloon_alert(user, "установлено")
-		has_core = TRUE
-		qdel(I)
-		update_icon(UPDATE_ICON_STATE)
-		return ATTACK_CHAIN_BLOCKED_ALL
-
-	return ..()
-
-
-/obj/item/gun/energy/bsg/process_fire(atom/target, mob/living/user, message = TRUE, params, zone_override, bonus_spread = 0)
-	if(!has_bluespace_crystal)
-		balloon_alert(user, "отсутствует блюспейс кристалл!")
-		return
-	if(!has_core)
-		balloon_alert(user, "отсутствует ядро аномалии!")
-		return
-	return ..()
-
-
-/obj/item/gun/energy/bsg/update_icon_state()
-	if(has_core)
-		if(has_bluespace_crystal)
-			icon_state = "bsg_finished"
-		else
-			icon_state = "bsg_core"
-	else if(has_bluespace_crystal)
-		icon_state = "bsg_crystal"
-	else
-		icon_state = "bsg"
-
-
-/obj/item/gun/energy/bsg/emp_act(severity)
-	..()
-	if(prob(75 / severity))
-		if(has_bluespace_crystal)
-			shatter()
-
-/obj/item/gun/energy/bsg/proc/shatter()
-	if(admin_model)
-		return
-	visible_message("<span class='warning'>БС кристалл [src] треснул!</span>")
-	playsound(src, 'sound/effects/pylon_shatter.ogg', 50, TRUE)
-	has_bluespace_crystal = FALSE
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/gun/energy/bsg/prebuilt
-	icon_state = "bsg_finished"
-	has_bluespace_crystal = TRUE
-
-/obj/item/gun/energy/bsg/prebuilt/Initialize(mapload)
-	. = ..()
-	has_core = TRUE
-	update_icon(UPDATE_ICON_STATE)
-
-/obj/item/gun/energy/bsg/prebuilt/admin
-	desc = "Большая С*** Пушка. Лучшим людям - лучшее творение. У этой версии БС кристалл никогда не треснет, и уже загружено ядро аномалии потока."
-	admin_model = TRUE
 
 // Temperature Gun //
 /obj/item/gun/energy/temperature
@@ -564,7 +458,9 @@
 /obj/item/gun/energy/temperature/attack_self(mob/living/user)
 	user.set_machine(src)
 	update_dat()
-	user << browse({"<meta charset="UTF-8"><TITLE>Temperature Gun Configuration</TITLE><HR>[dat]"}, "window=tempgun;size=510x120")
+	var/datum/browser/popup = new(user, "tempgun", "Temperature Gun Configuration", 510, 120)
+	popup.set_content("<hr>[dat]")
+	popup.open(TRUE)
 	onclose(user, "tempgun")
 
 /obj/item/gun/energy/temperature/emag_act(mob/user)
@@ -586,7 +482,7 @@
 		if(amount > 0)
 			target_temperature = min((500 + 500*emagged), target_temperature+amount)
 		else
-			target_temperature = max(0, target_temperature+amount)
+			target_temperature = max(TCMB, target_temperature+amount)
 	if(ismob(loc))
 		attack_self(loc)
 	add_fingerprint(usr)
@@ -634,33 +530,35 @@
 			var/mob/living/carbon/M = loc
 			if(src == M.machine)
 				update_dat()
-				M << browse("<TITLE>Temperature Gun Configuration</TITLE><HR>[dat]", "window=tempgun;size=510x102")
+				var/datum/browser/popup = new(M, "tempgun", "Temperature Gun Configuration", 510, 120)
+				popup.set_content("<hr>[dat]")
+				popup.open(FALSE)
 	return
 
 /obj/item/gun/energy/temperature/proc/update_dat()
 	dat = ""
 	dat += "Current output temperature: "
 	if(temperature > 500)
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-		dat += "<FONT color=red><B> SEARING!</B></FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+		dat += "<span style='color: red;'><b> SEARING!</b></span>"
 	else if(temperature > (T0C + 50))
-		dat += "<FONT color=red><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: red;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else if(temperature > (T0C - 50))
-		dat += "<FONT color=black><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
+		dat += "<span style='color: black;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
 	else
-		dat += "<FONT color=blue><B>[temperature]</B> ([round(temperature-T0C)]&deg;C)</FONT>"
-	dat += "<BR>"
+		dat += "<span style='color: blue;'><b>[temperature]</b> ([round(temperature-T0C)]&deg;C)</span>"
+	dat += "<br>"
 	dat += "Target output temperature: "	//might be string idiocy, but at least it's easy to read
-	dat += "<a href='byond://?src=[UID()];temp=-100'>-</A> "
-	dat += "<a href='byond://?src=[UID()];temp=-10'>-</A> "
-	dat += "<a href='byond://?src=[UID()];temp=-1'>-</A> "
+	dat += "<a href='byond://?src=[UID()];temp=-100'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-10'>-</a> "
+	dat += "<a href='byond://?src=[UID()];temp=-1'>-</a> "
 	dat += "[target_temperature] "
-	dat += "<a href='byond://?src=[UID()];temp=1'>+</A> "
-	dat += "<a href='byond://?src=[UID()];temp=10'>+</A> "
-	dat += "<a href='byond://?src=[UID()];temp=100'>+</A>"
-	dat += "<BR>"
+	dat += "<a href='byond://?src=[UID()];temp=1'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=10'>+</a> "
+	dat += "<a href='byond://?src=[UID()];temp=100'>+</a>"
+	dat += "<br>"
 	dat += "Power cost: "
-	dat += "<FONT color=[powercostcolor]><B>[powercost]</B></FONT>"
+	dat += "<span style='color: [powercostcolor];'><b>[powercost]</b></span>"
 
 
 /obj/item/gun/energy/temperature/update_icon_state()
@@ -968,7 +866,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/energy/charged_plasma/O = new /obj/item/projectile/energy/charged_plasma(T)
+	var/obj/projectile/energy/charged_plasma/O = new /obj/projectile/energy/charged_plasma(T)
 	playsound(get_turf(src), 'sound/weapons/marauder.ogg', 75, 1)
 	O.current = T
 	O.yo = U.y - T.y

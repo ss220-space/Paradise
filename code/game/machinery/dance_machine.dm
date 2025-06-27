@@ -102,21 +102,21 @@
 	user.set_machine(src)
 	var/list/dat = list()
 	dat +="<div class='statusDisplay' style='text-align:center'>"
-	dat += "<b><a href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></A><br>"
+	dat += "<b><a href='byond://?src=[UID()];action=toggle'>[!active ? "BREAK IT DOWN" : "SHUT IT DOWN"]<b></a><br>"
 	dat += "</div><br>"
-	dat += "<a href='byond://?src=[UID()];action=select'> Select Track</A><br>"
+	dat += "<a href='byond://?src=[UID()];action=select'> Select Track</a><br>"
 	dat += "Track Selected: [selection.song_name]<br>"
 	dat += "Track Length: [DisplayTimeText(selection.song_length)]<br><br>"
 	dat += "<br>DJ's Soundboard:<b><br>"
 	dat +="<div class='statusDisplay'><div style='text-align:center'>"
-	dat += "<a href='byond://?src=[UID()];action=horn'>Air Horn</A>  "
-	dat += "<a href='byond://?src=[UID()];action=alert'>Station Alert</A>  "
-	dat += "<a href='byond://?src=[UID()];action=siren'>Warning Siren</A>  "
-	dat += "<a href='byond://?src=[UID()];action=honk'>Honk</A><br>"
-	dat += "<a href='byond://?src=[UID()];action=pump'>Shotgun Pump</A>"
-	dat += "<a href='byond://?src=[UID()];action=pop'>Gunshot</A>"
-	dat += "<a href='byond://?src=[UID()];action=saber'>Esword</A>"
-	dat += "<a href='byond://?src=[UID()];action=harm'>Harm Alarm</A>"
+	dat += "<a href='byond://?src=[UID()];action=horn'>Air Horn</a>  "
+	dat += "<a href='byond://?src=[UID()];action=alert'>Station Alert</a>  "
+	dat += "<a href='byond://?src=[UID()];action=siren'>Warning Siren</a>  "
+	dat += "<a href='byond://?src=[UID()];action=honk'>Honk</a><br>"
+	dat += "<a href='byond://?src=[UID()];action=pump'>Shotgun Pump</a>"
+	dat += "<a href='byond://?src=[UID()];action=pop'>Gunshot</a>"
+	dat += "<a href='byond://?src=[UID()];action=saber'>Esword</a>"
+	dat += "<a href='byond://?src=[UID()];action=harm'>Harm Alarm</a>"
 	var/datum/browser/popup = new(user, "vending", "Radiance Dance Machine - Mark IV", 400, 350)
 	popup.set_content(dat.Join())
 	popup.open()
@@ -467,14 +467,17 @@
 /obj/machinery/disco/process()
 	if(charge < 35)
 		charge += 1
+
 	if(world.time < stop && active)
 		var/sound/song_played = sound(selection.song_path)
 
-		for(var/mob/M in range(10,src))
-			if(!M.client || M.client.prefs.sound & SOUND_DISCO)
-				if(!(M in rangers))
-					rangers[M] = TRUE
-					M.playsound_local(get_turf(M), null, 100, channel = CHANNEL_JUKEBOX, S = song_played, use_reverb = FALSE)
+		for(var/mob/mob in range(10, src))
+			if(LAZYIN(rangers, mob) || !HASBIT(mob.client?.prefs.sound, SOUND_DISCO))
+				continue
+
+			rangers[mob] = TRUE
+			mob.playsound_local(get_turf(mob), null, 100, channel = CHANNEL_JUKEBOX, sound = song_played, use_reverb = FALSE)
+
 		for(var/mob/mob as anything in rangers)
 			var/mob/living/l_mob = mob
 			if(get_dist(src, mob) > 10)

@@ -102,37 +102,45 @@
 /obj/item/grenade/plastic/afterattack(atom/movable/AM, mob/user, flag, params)
 	if(!flag)
 		return
+
 	if(iscarbon(AM))
-		to_chat(user, "<span class='warning'>You can't get the [src] to stick to [AM]!</span>")
+		to_chat(user, span_warning("You can't get the [src] to stick to [AM]!"))
 		return
+
 	if(isobserver(AM))
-		to_chat(user, "<span class='warning'>Your hand just phases through [AM]!</span>")
+		to_chat(user, span_warning("Your hand just phases through [AM]!"))
 		return
-	to_chat(user, "<span class='notice'>You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time/10]..." : ""]</span>")
+
+	to_chat(user, span_notice("You start planting [src].[isnull(nadeassembly) ? " The timer is set to [det_time / 10]..." : ""]"))
 
 	if(!do_after(user, 5 SECONDS * toolspeed, AM, category = DA_CAT_TOOL))
 		return
-
 	if(!user.drop_item_ground(src))
 		return
+	attach(AM, user)
 
+
+/obj/item/grenade/plastic/proc/attach(atom/movable/AM, mob/user, silent)
 	target = AM
 	do_pickup_animation(AM)
 	loc = null
+
 	if(notify_admins)
 		message_admins("[ADMIN_LOOKUPFLW(user)] planted [src.name] on [target.name] at [ADMIN_COORDJMP(target)] with [det_time/10] second fuse")
 		add_game_logs("planted [name] on [target.name] at [COORD(target)] with [det_time/10] second fuse", user)
 
 	target.add_persistent_overlay(image_overlay, BOMB_OVERLAY_ID)
-	if(!nadeassembly)
-		to_chat(user, "<span class='notice'>You plant the bomb. Timer counting down from [det_time/10].</span>")
-		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
+	if(!nadeassembly)
+		if(!silent)
+			to_chat(user, span_notice("You plant the bomb. Timer counting down from [det_time / 10]."))
+
+		addtimer(CALLBACK(src, PROC_REF(prime)), det_time)
 
 /obj/item/grenade/plastic/suicide_act(mob/user)
 	message_admins("[ADMIN_LOOKUPFLW(user)] suicided with [src.name] at [ADMIN_COORDJMP(user)]")
 	add_game_logs("suicided with [name] at [COORD(user)]", user)
-	user.visible_message("<span class='suicide'>[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!</span>")
+	user.visible_message(span_suicide("[user] activates the [name] and holds it above [user.p_their()] head! It looks like [user.p_theyre()] going out with a bang!"))
 	var/message_say = "FOR NO RAISIN!"
 	if(user.mind)
 		if(user.mind.special_role)
@@ -302,18 +310,18 @@
 	else
 		location = get_turf(src)
 	if(location)
-		var/datum/effect_system/smoke_spread/smoke = new
-		smoke.set_up(8,0, location, aim_dir)
+		var/datum/effect_system/fluid_spread/smoke/smoke = new
+		smoke.set_up(amount = 8, location = location)
 		if(target && target.density)
 			var/turf/T = get_step(location, aim_dir)
 			for(var/turf/simulated/wall/W in range(1, location))
 				W.thermitemelt(time = 3 SECONDS)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/fluid_spread/smoke, start)), 3)
 		else
 			var/turf/T = get_step(location, aim_dir)
 			addtimer(CALLBACK(GLOBAL_PROC, /proc/explosion, T, 0, 0, 2), 3)
-			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/smoke_spread, start)), 3)
+			addtimer(CALLBACK(smoke, TYPE_PROC_REF(/datum/effect_system/fluid_spread/smoke, start)), 3)
 
 	if(isliving(target))
 		var/mob/living/M = target

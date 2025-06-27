@@ -148,13 +148,13 @@
 	reward_tc_available += tc
 	rep += rep_per_completion
 	owner?.initial_account?.credit(creds, pick(list(
-		"CONGRATULATIONS. You are the 10,000th visitor of SquishySlimes.squish. Please find attached your [creds] credits.",
-		"Congratulations on winning your bet in the latest Clown vs. Mime match! Your account was credited with [creds] credits.",
-		"Deer fund beneficiary, We have please to imform you that overdue fund payments has finally is approved and yuor account credited with [creds] creadits.",
-		"Hey bro. How's it going? You bought me a beer a long time ago and I want to pay you back with [creds] creds. Enjoy!",
-		"Thank you for your initial investment of 500 credits! We have credited your account with [creds] as a token of appreciation.",
-		"Your refund request for 100 Dr. Maxman pills with the reason \"I need way more than 100 pills!\" has been received. We have credited your account with [creds] credits.",
-		"Your refund request for your WetSkrell.nt subscription has been received. We have credited your account with [creds] credits.",
+		"ПОЗДРАВЛЯЕМ. Вы стали 10 000-м посетителем сайта SquishySlimes.squish! Прилагаем ваши [creds] кредит[declension_ru(creds, "", "а", "ов")].",
+		"Поздравляем вас с выигрышем ставки в последнем матче \"Клоун против Мима\"! На ваш счёт было начислено [creds] кредит[declension_ru(creds, "", "а", "ов")].",
+		"Дорогой бенефициар фонда, сообщаем вам, что оплата по просроченному платежу наконец-то завершена, и на ваш счёт зачислено [creds] кредит[declension_ru(creds, "", "а", "ов")].",
+		"Привет, брат. Как дела? Ты давно угостил меня пивом, и я хочу отплатить тебе! [creds] кредит[declension_ru(creds, "", "а", "ов")] твои, наслаждайся!",
+		"Благодарим вас за инвестицию в размере 500 кредитов! В знак признательности мы зачислили на ваш счёт [creds] кредит[declension_ru(creds, "", "а", "ов")].",
+		"Ваш запрос на возврат 100 таблеток \"Доктор Зюзя\" с причиной \"Мне нужно гораздо больше, чем 100 таблеток!\" был принят. Мы зачислили на ваш счёт [creds] кредит[declension_ru(creds, "", "а", "ов")].",
+		"Ваш запрос на возврат средств за подписку на WetSkrell.nt был получен. Мы зачислили на ваш счёт [creds] кредит[declension_ru(creds, "", "а", "ов")].",
 	)))
 	// Clean up
 	current_contract = null
@@ -174,9 +174,9 @@
 	if(ishuman(M))
 		var/mob/living/carbon/human/H = M
 		if(H.put_in_hands(TC))
-			to_chat(H, "<span class='notice'>Your payment materializes into your hands!</span>")
+			to_chat(H, span_notice("Ваш платеж материализуется в ваших руках!"))
 		else
-			to_chat(M, "<span class='notice'>Your payment materializes on the floor.</span>")
+			to_chat(M, span_notice("Ваш платеж материализуется на полу."))
 	// Update info
 	reward_tc_paid_out += reward_tc_available
 	reward_tc_available = 0

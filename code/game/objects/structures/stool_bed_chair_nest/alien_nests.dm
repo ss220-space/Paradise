@@ -93,7 +93,7 @@
 
 
 /obj/structure/bed/nest/post_buckle_mob(mob/living/target)
-	ADD_TRAIT(target, TRAIT_HANDS_BLOCKED, type)
+	ADD_TRAIT(target, TRAIT_RESTRAINED, type)
 	target.pixel_y = target.base_pixel_y
 	target.pixel_x = target.base_pixel_x + 2
 	target.layer = BELOW_MOB_LAYER
@@ -101,7 +101,7 @@
 
 
 /obj/structure/bed/nest/post_unbuckle_mob(mob/living/target)
-	REMOVE_TRAIT(target, TRAIT_HANDS_BLOCKED, type)
+	REMOVE_TRAIT(target, TRAIT_RESTRAINED, type)
 	target.pixel_x = target.base_pixel_x + target.body_position_pixel_x_offset
 	target.pixel_y = target.base_pixel_y + target.body_position_pixel_y_offset
 	target.layer = initial(target.layer)

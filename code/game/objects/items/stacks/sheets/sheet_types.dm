@@ -21,7 +21,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Barstool", /obj/structure/chair/stool/bar, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Chair", /obj/structure/chair, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Barber chair", /obj/structure/chair/barber, one_per_turf = TRUE, on_floor = TRUE),
-	new /datum/stack_recipe("Wheelchair", /obj/structure/chair/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wheelchair", /obj/vehicle/ridden/wheelchair, 15, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Bed", /obj/structure/bed, 2, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Psychiatrist bed", /obj/structure/bed/psych, 5, one_per_turf = TRUE, on_floor = TRUE),
 	null,
@@ -107,6 +107,7 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 	new /datum/stack_recipe("Intercom frame", /obj/item/mounted/frame/intercom, 2),
 	new /datum/stack_recipe("Shower", /obj/item/mounted/shower, 5, time = 7, on_floor = TRUE),
 	new /datum/stack_recipe("Stairs frame", /obj/structure/stairs_frame, 15, time = 5 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Torch holder", /obj/item/mounted/frame/torch_holder, 2, time = 3 SECONDS),
 ))
 
 /obj/item/stack/sheet/metal
@@ -124,8 +125,9 @@ GLOBAL_LIST_INIT(metal_recipes, list(
 
 /obj/item/stack/sheet/metal/cyborg
 	materials = list()
-	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/metal
+	cost = 4
+	energy_type = /datum/robot_energy_storage/metal
 
 /obj/item/stack/sheet/metal/fifty
 	amount = 50
@@ -173,6 +175,9 @@ GLOBAL_LIST_INIT(plasteel_recipes, list(
 	origin_tech = "materials=2"
 	merge_type = /obj/item/stack/sheet/plasteel
 	point_value = 23
+
+/obj/item/stack/sheet/plasteel/fifty
+	amount = 50
 
 /obj/item/stack/sheet/plasteel/lowplasma
 	desc = "This sheet is an alloy of iron and plasma. There are an special barcode 'Low Plasma Level'"
@@ -233,8 +238,13 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	new /datum/stack_recipe("Wood table frame", /obj/structure/table_frame/wood, 2, time = 10),
 	new /datum/stack_recipe("Wooden barricade", /obj/structure/barricade/wooden, 5, time = 50, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden chair", /obj/structure/chair/wood, 3, time = 10, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wooden stool", /obj/structure/chair/stool/wooden, 2, time = 5, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Wooden door", /obj/structure/mineral_door/wood, 10, time = 20, one_per_turf = TRUE, on_floor = TRUE),
 	new /datum/stack_recipe("Notice Board", /obj/item/noticeboard, 5, time = 10),
+	new /datum/stack_recipe("Torch", /obj/item/flashlight/flare/torch, 5, time = 2 SECONDS),
+	new /datum/stack_recipe("Wooden crate", /obj/structure/closet/crate/wooden, 20, time = 10 SECONDS),
+	new /datum/stack_recipe("Wooden bed", /obj/structure/bed/wooden, 10, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
+	new /datum/stack_recipe("Wooden rack", /obj/structure/rack/wooden, 5, time = 4 SECONDS, one_per_turf = TRUE, on_floor = TRUE),
 ))
 
 /obj/item/stack/sheet/wood
@@ -251,8 +261,10 @@ GLOBAL_LIST_INIT(wood_recipes, list(
 	merge_type = /obj/item/stack/sheet/wood
 
 /obj/item/stack/sheet/wood/cyborg
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/sheet/wood
+	energy_type = /datum/robot_energy_storage/wood
+	cost = 4
 
 /obj/item/stack/sheet/wood/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -292,6 +304,7 @@ GLOBAL_LIST_INIT(cloth_recipes, list(
 	new /datum/stack_recipe("Empty sandbag", /obj/item/emptysandbag, 4),
 	new /datum/stack_recipe("Improvised gauze", /obj/item/stack/medical/bruise_pack/improvised, res_amount = 2, max_res_amount = 6),
 	new /datum/stack_recipe("Rag", /obj/item/reagent_containers/glass/rag),
+	new /datum/stack_recipe("Wicker Bed", /obj/structure/bed/wicker, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
 	new /datum/stack_recipe_list("Towels", list(
 		new /datum/stack_recipe("Short towel", /obj/item/clothing/suit/towel/short, 2),
 		new /datum/stack_recipe("Short towel alt", /obj/item/clothing/suit/towel/short/alt, 2),
@@ -458,7 +471,6 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 	item_state = "sheet-runed"
 	sheettype = "runed"
 	merge_type = /obj/item/stack/sheet/runed_metal
-	recipe_width = 700
 
 /obj/item/stack/sheet/runed_metal_fake
 	name = "runed metal"
@@ -479,16 +491,16 @@ GLOBAL_LIST_INIT(cult_fake_recipes, list(
 
 /obj/item/stack/sheet/runed_metal/attack_self(mob/living/user)
 	if(isclocker(user))
-		user.visible_message("<span class='warning'>[user] drops [src] with burning wounds appearing!</span>", \
-		"<span class='cultlarge'>\"Go ahead. Try again.\"</span>")
+		user.visible_message(span_warning("[user] drops [src] with burning wounds appearing!"), \
+		span_cultlarge("\"Go ahead. Try again.\""))
 		user.drop_from_active_hand()
 		user.adjustFireLoss(20)
 		return
 	if(!iscultist(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()
@@ -581,16 +593,16 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass/attack_self(mob/living/user)
 	if(iscultist(user))
-		user.visible_message("<span class='warning'>[user] drops [src] with burning wounds appearing!</span>", \
-		"<span class='clocklarge'>\"How dare you even to hold this piece of my art?\"</span>")
+		user.visible_message(span_warning("[user] drops [src] with burning wounds appearing!"), \
+						span_clocklarge("\"How dare you even to hold this piece of my art?\""))
 		user.drop_from_active_hand()
 		user.adjustFireLoss(20)
 		return
 	if(!isclocker(user))
-		to_chat(user, "<span class='warning'>Only one with forbidden knowledge could hope to work this metal...</span>")
+		to_chat(user, span_warning("Only one with forbidden knowledge could hope to work this metal..."))
 		return
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()
@@ -609,6 +621,8 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	materials = list()
 	is_cyborg = 1
 	cyborg_construction_stack = /obj/item/stack/sheet/brass
+	cost = 1
+	energy_type = /datum/robot_energy_storage/brass
 
 
 /obj/item/stack/sheet/brass_fake
@@ -630,11 +644,11 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 
 /obj/item/stack/sheet/brass_fake/attack_self(mob/living/user)
 	if(iscultist(user))
-		user.visible_message("<span class='clocklarge'>\"I can't resist you.. bloody fool..\"</span>")
+		user.visible_message(span_clocklarge("\"I can't resist you.. bloody fool..\""))
 	if(!isclocker(user))
-		to_chat(user, "<span class='warning'>Only my followers have to work with it...but I can't prevent it.</span>")
+		to_chat(user, span_warning("Only my followers have to work with it...but I can't prevent it."))
 	if(!is_level_reachable(user.z))
-		to_chat(user, "<span class='warning'>The energies of this place interfere with the metal shaping!</span>")
+		to_chat(user, span_warning("The energies of this place interfere with the metal shaping!"))
 		return
 
 	return ..()
@@ -662,6 +676,30 @@ GLOBAL_LIST_INIT(fake_brass_recipes, list(
 	throw_speed = 1
 	throw_range = 3
 	origin_tech = "materials=2;biotech=2"
+
+/obj/item/stack/sheet/razor_sharp_teeth
+	name = "razor sharp teeth"
+	desc = "Бритвенно-острые зубы, добытые из пасти лавового хищника. Прекрасно подходят для стрел."
+	ru_names = list(
+		NOMINATIVE = "бритвенно-острые зубы",
+		GENITIVE = "бритвенно-острых зубов",
+		DATIVE = "бритвенно-острым зубам",
+		ACCUSATIVE = "бритвенно-острые зубы",
+		INSTRUMENTAL = "бритвенно-острыми зубами",
+		PREPOSITIONAL = "бритвенно-острых зубах"
+	)
+	gender = PLURAL
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "razor_sharp_teeth"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "razor_sharp_teeth"
+	singular_name = "razor sharp tooth"
+	w_class = WEIGHT_CLASS_NORMAL
+	throw_speed = 1
+	throw_range = 7
+	throwforce = 15
+	origin_tech = "materials=4;biotech=5"
 
 /*
  * Plastic

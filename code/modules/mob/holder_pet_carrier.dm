@@ -64,9 +64,10 @@
 		M.ex_act(intensity)
 
 
-/obj/item/pet_carrier/AltClick(mob/user)
-	if(ishuman(user) && Adjacent(user) && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		try_free_content(null, user)
+/obj/item/pet_carrier/click_alt(mob/user)
+	if(try_free_content(null, user))
+		return CLICK_ACTION_SUCCESS
+	return CLICK_ACTION_BLOCKING
 
 
 /obj/item/pet_carrier/proc/put_in_carrier(mob/living/target, mob/living/user)
@@ -98,6 +99,7 @@
 			to_chat(user, span_warning("Ваша переноска закрыта! Содержимое невозможно выгрузить!"))
 		return FALSE
 	free_content(new_location)
+	return TRUE
 
 
 /obj/item/pet_carrier/proc/free_content(atom/new_location)
@@ -207,9 +209,9 @@
 
 
 /obj/item/pet_carrier/verb/open_close()
-	set name = "Открыть/закрыть переноску"
+	set name = "Откр/закр переноску"
 	set desc = "Меняет состояние дверцы переноски, блокируя или разблокируя возможность достать содержимое."
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -220,7 +222,7 @@
 /obj/item/pet_carrier/verb/unload_content()
 	set name = "Опустошить переноску"
 	set desc = "Вытаскивает животное из переноски."
-	set category = "Object"
+	set category = STATPANEL_OBJECT
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return

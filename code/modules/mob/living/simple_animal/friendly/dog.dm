@@ -43,11 +43,12 @@
 	footstep_type = FOOTSTEP_MOB_CLAW
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/meat/dog = 4)
 	collar_type = "dog"
+	ai_controller = /datum/ai_controller/dog
 
 /mob/living/simple_animal/pet/dog/verb/chasetail()
-	set name = "Chase your tail"
+	set name = "Гоняться за хвостом"
 	set desc = "d'awwww."
-	set category = "Dog"
+	set category = STATPANEL_DOG
 
 	visible_message("[src] [pick("dances around", "chases [p_their()] tail")].", "[pick("You dance around", "You chase your tail")].")
 	spin(20, 1)
@@ -59,6 +60,9 @@
 		return
 	playsound(src, yelp_sound, 75, TRUE)
 
+/mob/living/simple_animal/pet/dog/click_alt(mob/user)
+	. = ..()
+	return CLICK_ACTION_SUCCESS
 
 /mob/living/simple_animal/pet/dog/attack_hand(mob/living/carbon/human/M)
 	. = ..()
@@ -299,6 +303,48 @@
 		else
 			back_icon = DF.get_overlay()
 		add_overlay(back_icon)
+
+/mob/living/simple_animal/pet/dog/corgi/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(
+		"speak" = CALLBACK(src, PROC_REF(handle_automated_speech), TRUE),
+		"wear_hat" = CALLBACK(src, PROC_REF(find_new_hat)),
+		"drop_hat" = CALLBACK(src, PROC_REF(drop_hat)),
+		"spin" = CALLBACK(src, TYPE_PROC_REF(/mob, emote), "spin")), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	stop_automated_movement = TRUE
+
+///Deadchat plays command that picks a new hat for Ian.
+/mob/living/simple_animal/pet/dog/corgi/proc/find_new_hat()
+	if(!isturf(loc))
+		return
+	var/list/possible_headwear = list()
+	for(var/obj/item/item in loc)
+		if(ispath(item.dog_fashion, /datum/dog_fashion/head))
+			possible_headwear += item
+	if(!length(possible_headwear))
+		for(var/obj/item/item in orange(1))
+			if(ispath(item.dog_fashion, /datum/dog_fashion/head) && Adjacent(item))
+				possible_headwear += item
+	if(!length(possible_headwear))
+		return
+	if(inventory_head)
+		inventory_head.forceMove(drop_location())
+		inventory_head = null
+	place_on_head(pick(possible_headwear))
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] надева[pluralize_ru(gender, "ет", "ют")] [inventory_head.declent_ru(ACCUSATIVE)] на голову каким-то образом."))
+
+///Deadchat plays command that drops the current hat off Ian.
+/mob/living/simple_animal/pet/dog/corgi/proc/drop_hat()
+	if(!inventory_head)
+		return
+	visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] энергично тряс[pluralize_ru(gender, "ёт", "ут")] головой, бросая [inventory_head.declent_ru(ACCUSATIVE)] на землю."))
+	inventory_head.forceMove(drop_location())
+	inventory_head = null
+	update_dog_fluff()
+	regenerate_icons()
 
 //IAN! SQUEEEEEEEEE~
 /mob/living/simple_animal/pet/dog/corgi/Ian
@@ -561,6 +607,10 @@
 	maxHealth = 60
 	health = 60
 
+/mob/living/simple_animal/pet/dog/corgi/puppy/void/Initialize()
+	. = ..()
+	ADD_TRAIT(src, TRAIT_AI_BAGATTACK, INNATE_TRAIT)
+
 /mob/living/simple_animal/pet/dog/corgi/puppy/void/ComponentInitialize()
 	AddComponent( \
 		/datum/component/animal_temperature, \
@@ -673,7 +723,7 @@
 	var/turf/U = get_turf(target)
 	if(!T || !U)
 		return
-	var/obj/item/projectile/beam/A = new /obj/item/projectile/beam(loc)
+	var/obj/projectile/beam/A = new /obj/projectile/beam(loc)
 	A.icon = 'icons/effects/genetics.dmi'
 	A.icon_state = "eyelasers"
 	playsound(src.loc, 'sound/weapons/taser2.ogg', 75, 1)

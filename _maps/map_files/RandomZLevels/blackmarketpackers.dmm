@@ -3639,7 +3639,7 @@
 /obj/item/stack/spacecash/c500{
 	layer = 2.9
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "showroomfloor"
 	},
@@ -3677,7 +3677,7 @@
 /area/awaymission/BMPship/Fore)
 "mv" = (
 /obj/structure/chair/stool,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},
@@ -4068,7 +4068,7 @@
 /area/awaymission/BMPship/CommonArea)
 "pt" = (
 /obj/machinery/light_construct/small,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "pC" = (
@@ -4620,7 +4620,7 @@
 	},
 /area/awaymission/BMPship/Armory)
 "ua" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/grass,
 /area/awaymission/BMPship/Kitchen)
 "uj" = (
@@ -4666,7 +4666,7 @@
 /turf/simulated/floor/plating,
 /area/awaymission/BMPship/Buffer)
 "ux" = (
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/carpet,
 /area/awaymission/BMPship/Dormitories)
 "uB" = (
@@ -5410,7 +5410,7 @@
 /obj/structure/sign/poster/contraband/have_a_puff{
 	pixel_x = -32
 	},
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/item/reagent_containers/food/pill/charcoal{
 	layer = 2.9
 	},
@@ -5801,7 +5801,7 @@
 "Eq" = (
 /obj/effect/decal/cleanable/flour,
 /obj/item/trash/fried_vox,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /obj/structure/cable{
 	icon_state = "4-8";
 	tag = ""
@@ -6108,7 +6108,7 @@
 /obj/item/kitchen/utensil/fork,
 /obj/item/trash/candy,
 /obj/item/trash/raisins,
-/mob/living/simple_animal/cockroach,
+/mob/living/basic/cockroach,
 /turf/simulated/floor/plasteel{
 	icon_state = "cafeteria"
 	},

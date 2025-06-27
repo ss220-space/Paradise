@@ -195,12 +195,11 @@
 
 
 /obj/machinery/door/airlock/plasma/attackby(obj/item/I, mob/user, params)
-	var/heat_temp = is_hot(I)
-	if(heat_temp > 300)
+	if(I.get_heat() > 300)
 		add_fingerprint(user)
 		add_attack_logs(user, src, "ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <font color='red'><b>ignited</b></font> by [key_name_log(user)]", INVESTIGATE_ATMOS)
-		ignite(heat_temp)
+		ignite(I.get_heat())
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

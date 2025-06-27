@@ -367,4 +367,4 @@
 	if(. && target && isliving(target))
 		var/mob/living/L = target
 		if(L.stat)
-			LoseTarget()
+			lose_target()

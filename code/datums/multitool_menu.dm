@@ -48,7 +48,7 @@
 
 /datum/multitool_menu_host/proc/notify_if_no_access(mob/user)
 	if(!multitool.allowed(user))
-		user.balloon_alert(user, "доступ запрещен")
+		user.balloon_alert(user, "доступ запрещён")
 		return TRUE
 	return FALSE
 

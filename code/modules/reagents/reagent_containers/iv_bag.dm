@@ -3,7 +3,16 @@
 
 /obj/item/reagent_containers/iv_bag
 	name = "\improper IV Bag"
-	desc = "A bag with a fine needle attached at the end for injecting patients with fluids over a period of time."
+	desc = "Пакет с тонкой иглой на конце. Предназначен для введения пациентам веществ прямо в кровоток в течение определённого времени."
+	ru_names = list(
+        NOMINATIVE = "капельница",
+        GENITIVE = "капельницы",
+        DATIVE = "капельнице",
+        ACCUSATIVE = "капельницу",
+        INSTRUMENTAL = "капельницей",
+        PREPOSITIONAL = "капельнице"
+	)
+	gender = FEMALE
 	icon = 'icons/goonstation/objects/iv.dmi'
 	lefthand_file = 'icons/goonstation/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/goonstation/mob/inhands/items_righthand.dmi'
@@ -62,13 +71,13 @@
 		return
 
 	if(amount_per_transfer_from_this > 10) // Prevents people from switching to illegal transfer values while the IV is already in someone, i.e. anything over 10
-		visible_message("<span class='danger'>The IV bag's needle pops out of [injection_target]'s arm. The transfer amount is too high!</span>")
+		visible_message(span_danger("Игла [declent_ru(GENITIVE)] вылетает из руки [injection_target]. Объём переливания слишком большой!"))
 		end_processing()
 		return
 
 	if(get_dist(get_turf(src), get_turf(injection_target)) > 1)
-		to_chat(injection_target, "<span class='userdanger'>The [src]'s' needle is ripped out of you!</span>")
-		injection_target.apply_damage(3, def_zone = injection_limb)
+		to_chat(injection_target, span_userdanger("Игла [declent_ru(GENITIVE)] вылетает из вашей руки, раня вас!"))
+		injection_target.apply_damage(5, def_zone = injection_limb)
 		end_processing()
 		return
 
@@ -100,28 +109,26 @@
 	// Removing the needle
 	if(injection_target)
 		if(target != injection_target)
-			to_chat(user, span_warning("[src] is already inserted into [injection_target]'s arm!"))
+			balloon_alert(user, "игла уже вставлена!")
 			return .
 		if(target != user)
 			target.visible_message(
-				span_danger("[user] is trying to remove [src]'s needle from [target]'s arm!"),
-				span_userdanger("[user] is trying to remove [src]'s needle from [target]'s arm!"),
+				span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся убрать иглу [declent_ru(GENITIVE)] из руки [target]!"),
+				span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся убрать иглу [declent_ru(GENITIVE)] из вашей руки!"),
 				ignored_mobs = user,
 			)
-			to_chat(user, span_notice("You are removing [src]'s needle from [target]'s arm..."))
+			to_chat(user, span_notice("Вы пытаетесь убрать иглу [declent_ru(GENITIVE)] из руки [target]."))
 			if(!do_after(user, 3 SECONDS, target, NONE) || !injection_target)
 				return .
 			target.visible_message(
-				span_danger("[user] has removed [src]'s needle from [target]'s arm!"),
-				span_userdanger("[user] has removed [src]'s needle from your arm!"),
+				span_danger("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из руки [target]!"),
+				span_userdanger("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из вашей руки!"),
 				ignored_mobs = user,
 			)
-			to_chat(user, span_notice("You have removed [src]'s needle from [target]'s arm."))
+			to_chat(user, span_notice("Вы убираете иглу [declent_ru(GENITIVE)] из руки [target]."))
 		else
-			user.visible_message(
-				span_warning("[user] has removed [src]'s needle from [p_their()] arm!"),
-				span_notice("You have removed [src]'s needle from your arm."),
-			)
+			user.visible_message(span_warning("[user] убира[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] из своей руки!"))
+			balloon_alert(user, "игла убрана")
 		end_processing()
 		return .|ATTACK_CHAIN_SUCCESS
 
@@ -130,29 +137,27 @@
 		return .
 
 	if(amount_per_transfer_from_this > 10) // We only want to be able to transfer 1, 5, or 10 units to people. Higher numbers are for transfering to other containers
-		to_chat(user, span_warning("The IV bag can only be used on someone with a transfer amount of 1, 5 or 10."))
+		balloon_alert(user, "объём перемещения слишком большой!")
 		return .
 
 	if(target != user)
 		target.visible_message(
-			span_danger("[user] is trying to insert [src]'s needle into [target]'s arm!"),
-			span_userdanger("[user] is trying to insert [src]'s needle into [target]'s arm!"),
+			span_danger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся вставить иглу [declent_ru(GENITIVE)] в руку [target]!"),
+			span_userdanger("[user] пыта[pluralize_ru(user.gender, "ет", "ют")]ся вставить иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_notice("You are inserting [src]'s needle into [target]'s arm..."))
+		to_chat(user, span_notice("Вы пытаетесь вставить иглу [declent_ru(GENITIVE)] в руку [target]."))
 		if(!do_after(user, 3 SECONDS, target, NONE) || injection_target)
 			return .
 		target.visible_message(
-			span_danger("[user] has inserted [src]'s needle into [target]'s arm!"),
-			span_userdanger("[user] has inserted [src]'s needle into your arm!"),
+				span_danger("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в руку [target]!"),
+				span_userdanger("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в вашу руку!"),
 			ignored_mobs = user,
 		)
-		to_chat(user, span_notice("You have inserted [src]'s needle into [target]'s arm."))
+		balloon_alert(user, "игла вставлена")
 	else
-		user.visible_message(
-			span_warning("[user] has inserted [src]'s needle into [p_their()] arm!"),
-			span_notice("You have inserted [src]'s needle into your arm."),
-		)
+		user.visible_message(span_warning("[user] вставля[pluralize_ru(user.gender, "ет", "ют")] иглу [declent_ru(GENITIVE)] в свою руку!"))
+		balloon_alert(user, "игла вставлена")
 	add_attack_logs(user, target, "Inserted [name](mode: [mode == IV_INJECT ? "Injecting" : "Drawing"]) containing ([reagents.log_list()]), transfering [amount_per_transfer_from_this] units", reagents.harmless_helper() ? ATKLOG_ALMOSTALL : null)
 	begin_processing(target, def_zone)
 	return .|ATTACK_CHAIN_SUCCESS
@@ -163,18 +168,18 @@
 		return
 	if(target.is_refillable() && is_drainable()) // Transferring from IV bag to other containers
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'>[src] is empty.</span>")
+			balloon_alert(user, "пусто!")
 			return
 
 		if(target.reagents.total_volume >= target.reagents.maximum_volume)
-			to_chat(user, "<span class='warning'>[target] is full.</span>")
+			balloon_alert(user, "нет места!")
 			return
 
 		var/trans = reagents.trans_to(target, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, span_notice("Вы перемещаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(istype(target, /obj/item/reagent_containers/glass) && !target.is_open_container())
-		to_chat(user, "<span class='warning'>You cannot fill [target] while it is sealed.</span>")
+		balloon_alert(user, "закрыто!")
 		return
 
 
@@ -218,6 +223,14 @@
 /obj/item/reagent_containers/iv_bag/blood/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - [blood_species] ([blood_type])"
+		ru_names = list(
+			NOMINATIVE = "капельница - [blood_species] ([blood_type])" ,
+			GENITIVE = "капельницы - [blood_species] ([blood_type])",
+			DATIVE = "капельнице - [blood_species] ([blood_type])",
+			ACCUSATIVE = "капельницу - [blood_species] ([blood_type])",
+			INSTRUMENTAL = "капельницей - [blood_species] ([blood_type])",
+			PREPOSITIONAL = "капельнице - [blood_species] ([blood_type])"
+		)
 		reagents.add_reagent("blood", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 	. = ..()
@@ -291,6 +304,14 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/oxygenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - Oxygenis"
+		ru_names = list(
+			NOMINATIVE = "капельница - Синтетическая кровь (Кислород)" ,
+			GENITIVE = "капельницы - Синтетическая кровь (Кислород)",
+			DATIVE = "капельнице - Синтетическая кровь (Кислород)",
+			ACCUSATIVE = "капельницу - Синтетическая кровь (Кислород)",
+			INSTRUMENTAL = "капельницей - Синтетическая кровь (Кислород)",
+			PREPOSITIONAL = "капельнице - Синтетическая кровь (Кислород)"
+		)
 		reagents.add_reagent("sbloodoxy", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 
@@ -301,6 +322,14 @@
 /obj/item/reagent_containers/iv_bag/bloodsynthetic/nitrogenis/Initialize(mapload)
 	if(blood_type != null && blood_species != null)
 		name = "[initial(name)] - Nitrogenis"
+		ru_names = list(
+			NOMINATIVE = "капельница - Синтетическая кровь (Азот)" ,
+			GENITIVE = "капельницы - Синтетическая кровь (Азот)",
+			DATIVE = "капельнице - Синтетическая кровь (Азот)",
+			ACCUSATIVE = "капельницу - Синтетическая кровь (Азот)",
+			INSTRUMENTAL = "капельницей - Синтетическая кровь (Азот)",
+			PREPOSITIONAL = "капельнице - Синтетическая кровь (Азот)"
+		)
 		reagents.add_reagent("sbloodvox", 200, list("donor"=null,"diseases"=null,"blood_DNA"=null,"blood_type"=blood_type,"blood_species"=blood_species,"resistances"=null,"trace_chem"=null))
 		update_icon(UPDATE_OVERLAYS)
 	. = ..()
@@ -310,4 +339,12 @@
 
 /obj/item/reagent_containers/iv_bag/slime/Initialize(mapload)
 	name = "[initial(name)] - Slime Jelly"
+	ru_names = list(
+		NOMINATIVE = "капельница - Слаймовое желе" ,
+		GENITIVE = "капельницы - Слаймовое желе",
+		DATIVE = "капельнице - Слаймовое желе",
+		ACCUSATIVE = "капельницу - Слаймовое желе",
+		INSTRUMENTAL = "капельницей - Слаймовое желе",
+		PREPOSITIONAL = "капельнице - Слаймовое желе"
+	)
 	. = ..()

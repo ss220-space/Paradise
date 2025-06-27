@@ -3,7 +3,7 @@
 ////////////////////////////////////////////////////////////////////////////////
 /obj/item/reagent_containers/food/drinks
 	name = "drink"
-	desc = "yummy"
+	desc = "Вкусняшка."
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = null
 	container_type = OPENCONTAINER
@@ -35,18 +35,18 @@
 	. = ATTACK_CHAIN_PROCEED
 
 	if(!reagents || !reagents.total_volume)
-		to_chat(user, span_warning("None of [src] left, oh no!"))
+		balloon_alert(user, "пусто!")
 		return .
 
 	if(!is_drainable())
-		to_chat(user, span_warning("You need to open [src] first!"))
+		balloon_alert(user, "сначала откройте!")
 		return .
 
 	if(!get_location_accessible(target, BODY_ZONE_PRECISE_MOUTH))
 		if(target == user)
-			to_chat(user, span_warning("Your face is obscured."))
+			balloon_alert(user, "ваш рот закрыт!")
 		else
-			to_chat(user, span_warning("[target]'s face is obscured."))
+			balloon_alert(user, "рот цели закрыт!")
 		return .
 
 	if(!target.eat(src, user))
@@ -77,9 +77,9 @@
 			var/mob/living/silicon/robot/bro = user
 			var/chargeAmount = max(30,4*trans)
 			bro.cell.use(chargeAmount)
-			to_chat(user, "<span class='notice'>Now synthesizing [trans] units of cocktail...</span>")
+			to_chat(user, span_notice("Синтез <b>[trans]</b> единиц[pluralize_ru(trans, "ы", "", "")] вещества..."))
 			addtimer(CALLBACK(reagents, TYPE_PROC_REF(/datum/reagents, add_reagent_list), ids_data), 30 SECONDS)
-			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, "<span class='notice'>Cyborg [src] refilled.</span>"), 30 SECONDS)
+			addtimer(CALLBACK(GLOBAL_PROC, /proc/to_chat, user, span_notice("Ваш[genderize_ru(gender, "", "а", "е", "и")] [declent_ru(NOMINATIVE)] снова пол[genderize_ru(gender, "он", "на", "но", "ны")].")), 30 SECONDS)
 		else
 			reagents.add_reagent_list(ids_data)
 	else
@@ -90,23 +90,23 @@
 		return ..()
 	var/mob/living/carbon/chugger = over_object
 	if(!(container_type & DRAINABLE))
-		to_chat(chugger, "<span class='notice'>You need to open [src] first!</span>")
+		balloon_alert(chugger, "сначала откройте!")
 		return
 	if(!get_location_accessible(chugger, BODY_ZONE_PRECISE_MOUTH))
-		to_chat(chugger, "<span class='notice'>Your face is obscured, so you cant [pick("chugging","gulping")].</span>")
+		balloon_alert(chugger, "ваш рот чем-то закрыт!")
 		return
 	if(reagents.total_volume && loc == chugger && src == chugger.get_active_hand())
-		chugger.visible_message("<span class='notice'>[chugger] raises [src] to [chugger.p_their()] mouth and starts [pick("chugging","gulping")] it down like [pick("a savage","a mad beast","it's going out of style","there's no tomorrow")]!</span>",
-			"<span class='notice'>You start chugging [src].</span>",
-			"<span class='notice'>You hear what sounds like gulping.</span>")
+		chugger.visible_message(span_notice("[chugger] поднос[pluralize_ru(chugger.gender, "ит", "ят")] [declent_ru(ACCUSATIVE)] к своему рту и начина[pluralize_ru(chugger.gender, "ет", "ют")] [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+			span_notice("Вы подносите [declent_ru(ACCUSATIVE)] к своему рту и начинаете [pick("цедить", "прихлёбывать", "медленно пить", "пить", "попивать", "хлебать", "потягивать")] содержимое."),
+			span_notice("Вы слышите звуки, походящие на питьё чего-то."))
 		chugging = TRUE
 		while(do_after(chugger, 4 SECONDS, chugger, progress = FALSE, max_interact_count = 1, cancel_on_max = TRUE, cancel_message = span_warning("You stop chugging [src].")))
 			chugger.eat(src, chugger, 25) //Half of a glass, quarter of a bottle.
 			if(!reagents.total_volume) //Finish in style.
 				chugger.emote("gasp")
-				chugger.visible_message("<span class='notice'>[chugger] [pick("finishes","downs","polishes off","slams")] the entire [src], what a [pick("savage","monster","champ","beast")]!</span>",
-					"<span class='notice'>You finish off [src]![prob(50) ? " Maybe that wasn't such a good idea..." : ""]</span>",
-					"<span class='notice'>You hear a gasp and a clink.</span>")
+				chugger.visible_message(span_notice("[chugger] [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпива[pluralize_ru(chugger.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)]."),
+					span_notice("Вы [pick("залпом", "за раз", "в один присест", "не отрываясь от горла", "полностью", "досуха")] выпиваете содержимое [declent_ru(GENITIVE)]."),
+					span_notice("Вы слышите громкие глотки и последующий громкий выдох."))
 				break
 		chugging = FALSE
 
@@ -119,11 +119,11 @@
 
 	if(target.is_refillable() && is_drainable()) //Something like a glass. Player probably wants to transfer TO it.
 		if(!reagents.total_volume)
-			to_chat(user, "<span class='warning'> [src] is empty.</span>")
+			balloon_alert(user, "пусто!")
 			return FALSE
 
 		if(target.reagents.holder_full())
-			to_chat(user, "<span class='warning'> [target] is full.</span>")
+			balloon_alert(user, "нет места!")
 			return FALSE
 
 		var/list/transfer_data = reagents.get_transferred_reagents(target, amount_per_transfer_from_this)
@@ -132,22 +132,22 @@
 		if(isrobot(user))
 			SynthesizeDrinkFromTransfer(user, transfer_data)
 
-		to_chat(user, "<span class='notice'> You transfer [trans] units of the solution to [target].</span>")
+		to_chat(user, span_notice("Вы переливаете <b>[trans]</b> единиц[declension_ru(trans, "у", "ы", "")] вещества в [target.declent_ru(ACCUSATIVE)]."))
 
 	else if(target.is_drainable()) //A dispenser. Transfer FROM it TO us.
 		if(!is_refillable())
-			to_chat(user, "<span class='warning'>[src]'s tab isn't open!</span>")
+			balloon_alert(user, "закрыто!")
 			return FALSE
 		if(!target.reagents.total_volume)
-			to_chat(user, "<span class='warning'>[target] is empty.</span>")
+			balloon_alert(user, "пусто!")
 			return FALSE
 
 		if(reagents.holder_full())
-			to_chat(user, "<span class='warning'>[src] is full.</span>")
+			balloon_alert(user, "нет места!")
 			return FALSE
 
 		var/trans = target.reagents.trans_to(src, amount_per_transfer_from_this)
-		to_chat(user, "<span class='notice'>You fill [src] with [trans] units of the contents of [target].</span>")
+		to_chat(user, span_notice("Вы наполняете [declent_ru(ACCUSATIVE)] <b>[trans]</b> единиц[declension_ru(trans, "ей", "ами", "ами")] вещества из содержимого [target.declent_ru(ACCUSATIVE)]."))
 
 	return FALSE
 
@@ -155,16 +155,16 @@
 	. = ..()
 	if(in_range(user, src))
 		if(!reagents || reagents.total_volume == 0)
-			. += "<span class='notice'> \The [src] is empty!</span>"
+			. += span_notice("Пусто.")
 		else if(reagents.total_volume <= volume/4)
-			. += "<span class='notice'> \The [src] is almost empty!</span>"
+			. += span_notice("Почти пусто.")
 		else if(reagents.total_volume <= volume*0.66)
-			. += "<span class='notice'> \The [src] is half full!</span>"// We're all optimistic, right?!
+			. += span_notice("Наполовину заполнено.")// We're all optimistic, right?!
 
 		else if(reagents.total_volume <= volume*0.90)
-			. += "<span class='notice'> \The [src] is almost full!</span>"
+			. += span_notice("Почти заполнено.")
 		else
-			. += "<span class='notice'> \The [src] is full!</span>"
+			. += span_notice("Заполнено.")
 
 ////////////////////////////////////////////////////////////////////////////////
 /// Drinks. END
@@ -234,7 +234,15 @@
 
 /obj/item/reagent_containers/food/drinks/ice
 	name = "ice cup"
-	desc = "Careful, cold ice, do not chew."
+	desc = "Стаканчик льда. Не жуйте, а то горло болеть будет."
+	ru_names = list(
+        NOMINATIVE = "стаканчик льда",
+        GENITIVE = "стаканчика льда",
+        DATIVE = "стаканчику льда",
+        ACCUSATIVE = "стаканчик льда",
+        INSTRUMENTAL = "стаканчиком льда",
+        PREPOSITIONAL = "стаканчике льда"
+	)
 	icon_state = "icecup"
 	list_reagents = list("ice" = 30)
 

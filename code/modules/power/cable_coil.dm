@@ -14,7 +14,6 @@
 	merge_type = /obj/item/stack/cable_coil // This is here to let its children merge between themselves
 	color = WIRE_COLOR_RED
 	desc = "A coil of power cable."
-	throwforce = 10
 	w_class = WEIGHT_CLASS_SMALL
 	full_w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 2
@@ -22,7 +21,7 @@
 	materials = list(MAT_METAL=10, MAT_GLASS=5)
 	flags = CONDUCT
 	slot_flags = ITEM_SLOT_BELT
-	attack_verb = list("whipped", "lashed", "disciplined", "flogged")
+	attack_verb = list("хлестнул", "стегнул", "проучил", "выпорол")
 	usesound = 'sound/items/deconstruct.ogg'
 	toolspeed = 1
 
@@ -48,7 +47,7 @@
 	update_weight()
 
 
-/obj/item/stack/cable_coil/split_stack()
+/obj/item/stack/cable_coil/split()
 	var/obj/item/stack/cable_coil/C = ..()
 	C.color = color
 	return C
@@ -465,7 +464,9 @@
 
 /obj/item/stack/cable_coil/cyborg
 	name = "cyborg cable coil"
-	is_cyborg = 1
+	is_cyborg = TRUE
+	energy_type = /datum/robot_energy_storage/wire
+	cost = 1
 
 /obj/item/stack/cable_coil/cyborg/attack_self(mob/user)
 	var/cablecolor = input(user,"Pick a cable color.","Cable Color") in list("red","yellow","green","blue","pink","orange","cyan","white")

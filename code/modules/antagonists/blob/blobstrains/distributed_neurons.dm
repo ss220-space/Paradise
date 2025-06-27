@@ -8,7 +8,7 @@
 	analyzerdesceffect = "При разрушении производит хрупкие споры. Споры, производимые фабриками, разумны."
 	color = "#E88D5D"
 	complementary_color = "#823ABB"
-	message_living = "и ты чувствуешь усталость"
+	message_living = "и вы чувствуешь усталость"
 	reagent = /datum/reagent/blob/distributed_neurons
 
 /datum/blobstrain/reagent/distributed_neurons/damage_reaction(obj/structure/blob/blob_tile, damage, damage_type, damage_flag)
@@ -21,7 +21,7 @@
 	name = "Распределенные нейроны"
 	id = "blob_distributed_neurons"
 	color = "#E88D5D"
-	taste_description = "шипящий"
+	taste_description = "шипучей жидкости"
 
 /datum/reagent/blob/distributed_neurons/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)
 	. = ..()

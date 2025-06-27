@@ -1,6 +1,6 @@
 /client/verb/setup_character()
-	set name = "Game Preferences"
-	set category = "Special Verbs"
+	set name = "Игровые настройки"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Allows you to access the Setup Character screen. Changes to your character won't take effect until next round, but other changes will."
 	prefs.current_tab = 1
 	prefs.ShowChoices(usr)
@@ -31,15 +31,22 @@
 	switch(preftoggle_toggle)
 		if(PREFTOGGLE_SPECIAL)
 			CRASH("[src] did not have it's set_toggles overriden even though it was a special toggle, please use the special_toggle path!")
+
 		if(PREFTOGGLE_TOGGLE1)
 			our_prefs.toggles ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.toggles & preftoggle_bitflag) ? enable_message : disable_message]"))
+
 		if(PREFTOGGLE_TOGGLE2)
 			our_prefs.toggles2 ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.toggles2 & preftoggle_bitflag) ? enable_message : disable_message]"))
+
+		if(PREFTOGGLE_TOGGLE3)
+			our_prefs.toggles3 ^= preftoggle_bitflag
+			to_chat(user, span_notice("[(our_prefs.toggles3 & preftoggle_bitflag) ? enable_message : disable_message]"))
+
 		if(PREFTOGGLE_SOUND)
 			our_prefs.sound ^= preftoggle_bitflag
-			to_chat(user, "<span class='notice'>[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]</span>")
+			to_chat(user, span_notice("[(our_prefs.sound & preftoggle_bitflag) ? enable_message : disable_message]"))
 
 	SSblackbox.record_feedback("tally", "toggle_verbs", 1, blackbox_message)
 	our_prefs.save_preferences(user)
@@ -112,7 +119,7 @@
 	preftoggle_bitflag = SOUND_MENTORHELP
 	preftoggle_toggle = PREFTOGGLE_SOUND
 	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
-	rights_required = R_MENTOR
+	rights_required = R_MENTOR | R_ADMIN
 	enable_message = "You will now hear a sound when mentorhelp is sent."
 	disable_message = "You will no longer hear a sound when mentorhelp is sent."
 	blackbox_message = "Toggle Mentor Bwoinks"
@@ -273,8 +280,8 @@
 	blackbox_message = "Toggle Ghost PDA"
 
 /client/verb/silence_current_midi()
-	set name = "Silence Current Midi"
-	set category = "Special Verbs"
+	set name = "Заглушить MIDI"
+	set category = STATPANEL_SPECIALVERBS
 	set desc = "Silence the current admin midi playing"
 	usr.stop_sound_channel(CHANNEL_ADMIN)
 	to_chat(src, "The current admin midi has been silenced")
@@ -399,6 +406,17 @@
 	enable_message = "You'll now see subsystem information in the verb panel."
 	disable_message = "You'll no longer see subsystem information in the verb panel."
 	blackbox_message = "MC tabs toggled"
+
+/datum/preference_toggle/toggle_split_admins_tabs
+	name = "Toggle Split Admins Tabs"
+	description = "Toggles Admins Tabs spliting"
+	preftoggle_bitflag = PREFTOGGLE_2_SPLIT_ADMIN_TABS
+	preftoggle_toggle = PREFTOGGLE_TOGGLE2
+	preftoggle_category = PREFTOGGLE_CATEGORY_ADMIN
+	rights_required = R_ADMIN
+	enable_message = "Теперь ваши вербы разделены по подкатегориям."
+	disable_message = "Теперь ваши вербы не разделены по подкатегориям."
+	blackbox_message = "Split Admins Tabs toggled"
 
 /datum/preference_toggle/special_toggle
 	preftoggle_toggle = PREFTOGGLE_SPECIAL
@@ -581,7 +599,7 @@
     disable_message = "You will see minuature TGUI strip menu."
     blackbox_message = "Toggle TGUI strip menu size"
 
-/datum/preference_toggle/toggle_item_descritpion_tips
+/datum/preference_toggle/toggle_item_description_tips
     name = "Toggle item description tips"
     description = "Toggles item description tips on hover."
     preftoggle_bitflag = PREFTOGGLE_2_DESC_TIPS
@@ -590,6 +608,16 @@
     enable_message = "You will see item description tips now."
     disable_message = "You will not see item description tips now."
     blackbox_message = "Toggle item description tips on hover"
+
+/datum/preference_toggle/toggle_facing_to_mouse
+    name = "Следовать за курсором мыши"
+    description = "Когда включено - при выбранном HARM интенте ваш персонаж поворачивается в сторону курсора."
+    preftoggle_bitflag = PREFTOGGLE_3_FACING_TO_MOUSE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_LIVING
+    enable_message = "Теперь вы поворачиваетесь в сторону курсора мыши."
+    disable_message = "Вы больше не поворачиваетесь в сторону курсора мыши."
+    blackbox_message = "Переключение следования за курсором мыши."
 
 /datum/preference_toggle/toggle_take_out_of_the_round_without_obj
     name = "Вывод из игры без цели"
@@ -601,3 +629,42 @@
     disable_message = "Другие игроки больше не имеют права выводить вас из раунда без цели."
     blackbox_message = "Переключение разрешения выводить игрока из раунда"
 
+/datum/preference_toggle/toggle_off_projectile_messages
+    name = "Выключить комбат логи выстрелов"
+    description = "Выключает большую часть сообщений, появляющихся при стрельбе."
+    preftoggle_bitflag = PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES
+    preftoggle_toggle = PREFTOGGLE_TOGGLE2
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь вы не будете видить сообщения, появляющиеся при стрельбе."
+    disable_message = "Теперь вы будете видить сообщения, появляющиеся при стрельбе."
+    blackbox_message = "Переключение комбат логов от выстрелов"
+
+/datum/preference_toggle/toggle_auto_dnr
+    name = "DNR при смерти"
+    description = "При смерти автоматически включается статус DNR."
+    preftoggle_bitflag = PREFTOGGLE_3_DNR_AFTER_DEATH
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Смерть вашего персонажа теперь перманентная."
+    disable_message = "Смерть персонажа более не перманентная."
+    blackbox_message = "Переключение установки статуса DNR после смерти"
+
+/datum/preference_toggle/ui_scale
+    name = "Маштабирование UI"
+    description = "Включает маштабирование содержимого UI окон."
+    preftoggle_bitflag = PREFTOGGLE_3_UI_SCALE
+    preftoggle_toggle = PREFTOGGLE_TOGGLE3
+    preftoggle_category = PREFTOGGLE_CATEGORY_GENERAL
+    enable_message = "Теперь содержимое UI маштабируется."
+    disable_message = "Теперь содержимое UI не маштабируется."
+    blackbox_message = "Переключение маштабирования UI"
+
+
+/datum/preference_toggle/ui_scale/set_toggles(client/user)
+	. = ..()
+	if(!istype(user))
+		return
+	ASYNC
+		user.acquire_dpi()
+	INVOKE_ASYNC(user, TYPE_VERB_REF(/client, refresh_tgui))
+	user.tgui_say?.load()

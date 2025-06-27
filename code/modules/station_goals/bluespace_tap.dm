@@ -25,7 +25,7 @@
 /datum/station_goal/bluespace_tap/proc/get_highscore()
 	. = 0
 
-	for(var/obj/machinery/power/bluespace_tap/harvester in GLOB.machines)
+	for(var/obj/machinery/power/bluespace_tap/harvester in SSmachines.get_by_type(/obj/machinery/power/bluespace_tap))
 		. = max(., harvester.total_points)
 
 

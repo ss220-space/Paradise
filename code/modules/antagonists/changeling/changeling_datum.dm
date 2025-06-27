@@ -25,6 +25,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	russian_wiki_name = "Генокрад"
 	clown_gain_text = "You have evolved beyond your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "As your changeling nature fades, you return to your own clumsy, clownish self."
+	antag_menu_name = "Генокрад"
 	/// List of [/datum/dna] which have been absorbed through the DNA sting or absorb power.
 	var/list/absorbed_dna
 	/// DNA that is not lost when capacity is otherwise full.
@@ -128,7 +129,7 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 		to_chat(owner.current, span_userdanger("You have been robotized!"))
 		to_chat(owner.current, span_danger("You must obey your silicon laws and master AI above all else. Your objectives will consider you to be dead."))
 	else
-		to_chat(owner.current, "<FONT color='red' size = 3><B>You lose your powers! You are no longer a changeling and are stuck in your current form!</B></FONT>")
+		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>You lose your powers! You are no longer a changeling and are stuck in your current form!</b></span>"))
 
 
 /datum/antagonist/changeling/apply_innate_effects(mob/living/mob_override)
@@ -151,6 +152,8 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 			give_power(new power_type, user)
 
 	RegisterSignal(user, COMSIG_MOB_DEATH, PROC_REF(on_death))
+	RegisterSignal(user, COMSIG_MOB_ALTCLICKON, PROC_REF(on_click_sting))
+	//COMSIG_MOB_MIDDLECLICKON not yet implemented, please remove all MiddleClick fuckery after adding here.
 
 	var/mob/living/carbon/carbon_user = user
 	if(!istype(carbon_user))
@@ -160,17 +163,17 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	var/obj/item/organ/internal/brain/ling_brain = carbon_user.get_organ_slot(INTERNAL_ORGAN_BRAIN)
 	ling_brain?.decoy_brain = TRUE
 
-	user.AddComponent( \
-		/datum/component/pref_viewer, \
+	user.AddElement( \
+		/datum/element/pref_viewer, \
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/changeling/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/changeling/handle_last_instance_removal()
-	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/changeling/remove_innate_effects(mob/living/mob_override)
 	var/mob/living/user = ..()
@@ -260,6 +263,27 @@ GLOBAL_LIST_INIT(possible_changeling_IDs, list("Alpha","Beta","Gamma","Delta","E
 	else // Not dead? no chem/genetic_damage caps.
 		chem_charges = clamp(0, chem_charges + chem_recharge_rate - chem_recharge_slowdown, chem_storage)
 		genetic_damage = max(0, genetic_damage - 1)
+
+/**
+ * Signal proc for [COMSIG_MOB_MIDDLECLICKON](not yet) and [COMSIG_MOB_ALTCLICKON].
+ * Allows the changeling to sting people with a click.
+ */
+/datum/antagonist/changeling/proc/on_click_sting(mob/living/ling, atom/clicked)
+	SIGNAL_HANDLER
+
+	// nothing to handle
+	if(!chosen_sting)
+		return
+	if(!isliving(ling) || clicked == ling || ling.stat != CONSCIOUS)
+		return
+	// actual ling stings do pathfinding to determine whether the target's "in range".
+	// however, this is "close enough" preliminary checks to not block click
+	if(!isliving(clicked) || !in_range(ling, clicked))
+		return
+
+	INVOKE_ASYNC(chosen_sting, TYPE_PROC_REF(/datum/action/changeling, try_to_sting), ling, clicked)
+
+	return COMSIG_MOB_CANCEL_CLICKON
 
 
 /**

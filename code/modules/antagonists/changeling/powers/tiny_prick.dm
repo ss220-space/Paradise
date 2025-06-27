@@ -35,7 +35,7 @@
 
 /datum/action/changeling/sting/proc/set_sting()
 	var/mob/living/user = owner
-	to_chat(user, span_notice("We prepare our sting, use <B>Alt+Click</B> or middle mouse button on a target to sting them."))
+	to_chat(user, span_notice("We prepare our sting, use <b>Alt+Click</b> or middle mouse button on a target to sting them."))
 	user.middleClickOverride = click_override
 	cling.chosen_sting = src
 	user.hud_used.lingstingdisplay.icon_state = sting_icon

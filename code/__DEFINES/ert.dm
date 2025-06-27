@@ -1,0 +1,7 @@
+#define ERT_ROLE_COMMANDER "Командир"
+#define ERT_ROLE_SECURITY "Боец"
+#define ERT_ROLE_MEDIC "Медик"
+#define ERT_ROLE_ENGINEER "Инженер"
+#define ERT_ROLE_JANITOR "Уборщик"
+#define ERT_ROLE_PARANORMAL "Паранормал"
+#define ERT_ROLE_CYBORG "Борг"

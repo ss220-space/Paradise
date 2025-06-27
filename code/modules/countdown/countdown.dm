@@ -95,7 +95,7 @@
 	name = "anomaly countdown"
 
 /obj/effect/countdown/anomaly/get_value()
-	var/obj/effect/anomaly/A = attached_to
+	var/obj/effect/old_anomaly/A = attached_to
 	if(!istype(A))
 		return
 	var/time_left = max(0, (A.death_time - world.time) / 10)

@@ -1,5 +1,5 @@
 /client/proc/open_borgopanel(borgo in GLOB.silicon_mob_list)
-	set category = "Admin"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Show Borg Panel"
 	set desc = "Show borg panel"
 
@@ -7,7 +7,7 @@
 		return
 
 	if(!isrobot(borgo))
-		borgo = input("Select a borg", "Select a borg", null, null) as null|anything in GLOB.silicon_mob_list
+		borgo = tgui_input_list(usr, "Select a borg", "Select a borg", GLOB.silicon_mob_list, null)
 	if(!isrobot(borgo))
 		to_chat(usr, "<span class='warning'>Borg is required for borgpanel</span>")
 		return
@@ -84,7 +84,7 @@
 		return
 	switch (action)
 		if("set_charge")
-			var/newcharge = input(usr, "Set new charge", borg.name, borg.cell.charge) as num|null
+			var/newcharge = tgui_input_number(usr, "Set new charge", borg.name, borg.cell.charge, max_value = INFINITY)
 			newcharge = between(0,newcharge, borg.cell.maxcharge)
 			if(isnull(newcharge))
 				return
@@ -148,7 +148,7 @@
 			else
 				log_and_message_admins("disabled scrambled codes on [key_name(borg)].")
 		if("rename")
-			var/new_name = sanitize(input(user, "What would you like to name this cyborg?", "Cyborg Reclassification", borg.real_name))
+			var/new_name = sanitize(tgui_input_text(user, "What would you like to name this cyborg?", "Cyborg Reclassification", borg.real_name, encode = FALSE))
 			if(!new_name)
 				return
 			log_and_message_admins("renamed [key_name(borg)] to [new_name].")
@@ -171,14 +171,14 @@
 					borg.radio.channels -= channel
 				else
 					borg.radio.keyslot.channels -= channel
-					if(channel == "Syndicate")
+					if(channel == SYND_FREQ_NAME)
 						borg.radio.keyslot.syndie = FALSE
 				log_and_message_admins("removed the [channel] radio channel from [key_name(borg)].")
 			else // We're adding a channel
 				if(!borg.radio.keyslot) // Assert that an encryption key exists
 					borg.radio.keyslot = new()
 				borg.radio.keyslot.channels[channel] = 1
-				if(channel == "Syndicate")
+				if(channel == SYND_FREQ_NAME)
 					borg.radio.keyslot.syndie = TRUE
 				log_and_message_admins("added the [channel] radio channel to [key_name(borg)].")
 			borg.radio.recalculateChannels()
@@ -211,5 +211,19 @@
 				borg.lawsync()
 				if(borg.connected_ai?.laws)
 					SSticker?.score?.save_silicon_laws(borg, usr, "laws sync with AI", log_all_laws = TRUE)
+		if("set_skin_permission")
+			if(!borg?.mmi)
+				return
+
+			var/permissions = borg?.mmi?.skin_permissions?.len? borg?.mmi?.skin_permissions : GLOB.all_skin_permissions
+
+			var/new_permissions = tgui_input_checkbox_list(usr, "Выберите разрешенные скины", "Разрешенные скины", permissions) || list()
+
+			borg?.mmi?.skin_permissions = new_permissions
+			log_and_message_admins("set skin permissions to [key_name(borg)].")
+
+		if("allow_set_skin")
+			borg?.choose_icon()
+			log_and_message_admins("allowed skin selection to [key_name(borg)].")
 
 	. = TRUE

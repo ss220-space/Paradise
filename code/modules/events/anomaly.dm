@@ -2,7 +2,7 @@
 
 /datum/event/anomaly
 	name = "Anomaly: Energetic Flux"
-	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/flux
+	var/obj/effect/anomaly/anomaly_path = /obj/effect/anomaly/energetic/tier2
 	var/turf/target_turf
 	announceWhen = 1
 	/// The prefix message for the anomaly annoucement.

@@ -6,16 +6,16 @@
 	return
 
 /mob/verb/whisper(message as text)
-	set name = "Whisper"
-	set category = "IC"
+	set name = "Шептать"
+	set category = STATPANEL_IC
 	return
 
 /mob/proc/whisper_say(list/message_pieces, verb = "whispers")
 	return
 
 /mob/verb/say_verb(message as text)
-	set name = "Say"
-	set category = "IC"
+	set name = "Сказать"
+	set category = STATPANEL_IC
 
 	//Let's try to make users fix their errors - we try to detect single, out-of-place letters and 'unintended' words
 	/*
@@ -39,8 +39,8 @@
 
 
 /mob/verb/me_verb(message as text)
-	set name = "Me"
-	set category = "IC"
+	set name = "Эмоция"
+	set category = STATPANEL_IC
 
 	message = strip_html_properly(message)
 
@@ -82,7 +82,7 @@
 		create_log(DEADCHAT_LOG, message)
 		return
 
-	say_dead_direct("[pick("complains", "moans", "whines", "laments", "blubbers", "salts")], <span class='message'>\"[message]\"</span>", src)
+	say_dead_direct("[pick("жалуется", "стонет", "хнычет", "причитает", "рыдает", "ноет")], \"[span_message(message)]\"", src)
 	add_deadchat_logs(src, message)
 
 
@@ -174,7 +174,7 @@
 //parses the message mode code (e.g. :h, :w) from text, such as that supplied to say.
 //returns the message mode string or null for no message mode.
 //standard mode is the mode returned for the special ';' radio code.
-/mob/proc/parse_message_mode(var/message, var/standard_mode = "headset")
+/mob/proc/parse_message_mode(var/message, var/standard_mode = HEADSET_MODE)
 	if(length(message) >= 1 && copytext(message, 1, 2) == ";")
 		return standard_mode
 

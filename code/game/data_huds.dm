@@ -213,7 +213,7 @@
 		if(revivable)
 			holder.icon_state = "hudflatline"
 		else
-			holder.icon_state = "huddead"
+			holder.icon_state = ghost_can_reenter() ? "huddead" : "huddeaddnr"
 	else if(HAS_TRAIT(src, TRAIT_XENO_HOST))
 		holder.icon_state = "hudxeno"
 	else if(HAS_TRAIT(src, TRAIT_LEGION_TUMOUR))
@@ -548,7 +548,7 @@
 		commenter_display = "[U.get_authentification_name()] ([U.get_assignment()])"
 	else if(isrobot(commenter))
 		var/mob/living/silicon/robot/U = commenter
-		commenter_display = "[U.name] ([U.modtype] [U.braintype])"
+		commenter_display = "[U.name] ([U.modtype?.name] [U.braintype])"
 	else if(isAI(commenter))
 		var/mob/living/silicon/ai/U = commenter
 		commenter_display = "[U.name] (artificial intelligence)"

@@ -100,8 +100,8 @@
 
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
-	set name = "Rotate Frame"
-	set category = "Object"
+	set name = "Повернуть каркас"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -115,9 +115,9 @@
 	return TRUE
 
 
-/obj/item/pod_parts/pod_frame/AltClick(mob/user)
-	if(Adjacent(user))
-		rotate()
+/obj/item/pod_parts/pod_frame/click_alt(mob/user)
+	rotate()
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/pod_parts/pod_frame/attack_hand()

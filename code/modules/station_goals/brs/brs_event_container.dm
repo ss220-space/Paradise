@@ -299,7 +299,9 @@
 	for(var/i in 1 to num_explosions)
 		var/epicenter = pick_n_take(turfs_in_range)
 		playsound(epicenter, 'sound/effects/smoke.ogg', 50, TRUE)
-		new /obj/effect/particle_effect/smoke/bad(epicenter)
+		var/datum/effect_system/fluid_spread/smoke/bad/smoke = new
+		smoke.set_up(amount = 5, location = epicenter)
+		smoke.start()
 
 /**
 *	Random number of sparks around the rift.

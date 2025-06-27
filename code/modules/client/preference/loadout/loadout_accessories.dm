@@ -1,11 +1,11 @@
 /datum/gear/accessory
 	subtype_path = /datum/gear/accessory
 	slot = ITEM_SLOT_ACCESSORY
-	sort_category = "Accessories"
+	sort_category = "Аксессуары"
 
 /datum/gear/accessory/scarf
 	index_name = "scarf, select"
-	display_name = "scarf"
+	display_name = "Шарф"
 	path = /obj/item/clothing/accessory/scarf/red
 
 /datum/gear/accessory/scarf/New()
@@ -25,7 +25,7 @@
 
 /datum/gear/accessory/scarfstriped
 	index_name = "striped scarf, select"
-	display_name = "striped scarf"
+	display_name = "Шарф в полоску"
 	path = /obj/item/clothing/accessory/stripedredscarf
 
 /datum/gear/accessory/scarfstriped/New()
@@ -52,7 +52,7 @@
 
 /datum/gear/accessory/tie
 	index_name = "tie, select"
-	display_name = "tie"
+	display_name = "Галстук"
 	path = /obj/item/clothing/accessory/blue
 
 /datum/gear/accessory/tie/New()
@@ -66,7 +66,7 @@
 /datum/gear/accessory/stethoscope
 	index_name = "stethoscope"
 	path = /obj/item/clothing/accessory/stethoscope
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/ntrjacket
 	index_name = "jacket, nt rep"
@@ -79,6 +79,7 @@
 
 /datum/gear/accessory/cowboyshirt
 	index_name = "cowboy shirt, select"
+	display_name = "Ковбойская рубаха"
 	path = /obj/item/clothing/accessory/cowboyshirt
 
 /datum/gear/accessory/cowboyshirt/New()
@@ -105,7 +106,7 @@
 
 /datum/gear/accessory/corset
 	index_name = "corset, select"
-	display_name = "corset"
+	display_name = "Корсет"
 	path = /obj/item/clothing/accessory/corset
 
 /datum/gear/accessory/corset/New()
@@ -136,12 +137,12 @@
 /datum/gear/accessory/armband_job/cargo
 	index_name = "cargo armband"
 	path = /obj/item/clothing/accessory/armband/cargo
-	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER)
+	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CARGOTECH, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/accessory/armband_job/medical
 	index_name = "armband, medical"
 	path = /obj/item/clothing/accessory/armband/med
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_MINING_MEDIC, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_CORONER, JOB_TITLE_PARAMEDIC, JOB_TITLE_BRIGDOC)
 
 /datum/gear/accessory/armband_job/emt
 	index_name = "armband, EMT"
@@ -165,7 +166,7 @@
 
 /datum/gear/accessory/holsters
 	index_name = "holster, select"
-	display_name = "holster"
+	display_name = "Кобура"
 	path = /obj/item/clothing/accessory/holster/
 	allowed_roles = list(JOB_TITLE_HOS, JOB_TITLE_WARDEN, JOB_TITLE_DETECTIVE, JOB_TITLE_OFFICER, JOB_TITLE_BRIGDOC, JOB_TITLE_PILOT)
 

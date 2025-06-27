@@ -35,7 +35,7 @@
  */
 /datum/component/surgery_initiator/Initialize(datum/surgery/forced_surgery)
 	. = ..()
-	if(!isitem(parent))
+	if(!isitem(parent) && !isprojectile(parent))
 		return COMPONENT_INCOMPATIBLE
 
 	src.forced_surgery = forced_surgery

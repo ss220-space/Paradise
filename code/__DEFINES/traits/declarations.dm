@@ -44,6 +44,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_CHASM_STOPPED "chasm_stopped"
 ///Lava will be safe to cross while it has this trait.
 #define TRAIT_LAVA_STOPPED "lava_stopped"
+/// If a trait is considered as having "coverage" by a meteor shield.
+#define TRAIT_COVERED_BY_METEOR_SHIELD "covered_by_meteor_shield"
 
 //mob traits
 #define TRAIT_GODMODE "godmode"
@@ -105,6 +107,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_HEALS_FROM_ASH_TENDRIL "heals_from_ash_tendril"
 /// This mob heals from carp rifts.
 #define TRAIT_HEALS_FROM_CARP_RIFTS "heals_from_carp_rifts"
+/// This mob heals from hell rifts.
+#define TRAIT_HEALS_FROM_HELL_RIFTS "heals_from_hell_rifts"
 /// This mob heals from cult pylons.
 #define TRAIT_HEALS_FROM_CULT_PYLONS "heals_from_cult_pylons"
 /// This mob heals from holy pylons.
@@ -258,6 +262,8 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_RADIMMUNE "rad_immunity"
 /// This mob is completely immune to viruses and diseases, unless they ignore us
 #define TRAIT_VIRUSIMMUNE "virus_immunity"
+/// This mob is completely immune to viruses and diseases
+#define TRAIT_ABSOLUTE_VIRUSIMMUNE "absolute_virus_immunity"
 /// This human mob will not show its species on examine
 #define TRAIT_NO_SPECIES_EXAMINE "no_examine"
 /// This human mob will never become fat, does not affect genetic obesity
@@ -295,3 +301,36 @@ Remember to update _globalvars/traits.dm if you're adding/removing/renaming trai
 #define TRAIT_NO_VOCAL_CORDS "no_vocal_cords"
 
 #define TRAIT_BLOB_ZOMBIFIED "blob_zombified"
+
+#define TRAIT_BEING_OFFERED "offered"
+
+
+/// Ignore Crew monitor Z levels
+#define TRAIT_MULTIZ_SUIT_SENSORS "multiz_suit_sensors"
+/// This atom can ignore the "is on a turf" check for simple AI datum attacks, allowing them to attack from bags or lockers as long as any other conditions are met
+#define TRAIT_AI_BAGATTACK "bagattack"
+
+#define TRAIT_SPACEWALK "spacewalk"
+
+/// A trait gained by leaning against a wall
+#define TRAIT_LEANING "leaning"
+
+/// used for dead mobs that are observing, but should not be afforded all the same platitudes as full ghosts.
+/// This is a mind trait because ghosts can be frequently deleted and we want to be sure this sticks.
+#define TRAIT_OBSERVING_INVENTORY "observe_inventory"
+
+/// When it's cold you go faster, when it's hotter - slower
+#define TRAIT_TEMPERATURE_MOVEMENT "temperature_movement"
+/// when pulling you keep your speed same
+#define TRAIT_STRONG_PULLING "strong_pulling"
+
+
+#define TRAIT_FAKE_FIRE "fake_fire"
+
+#define TRAIT_CAN_SEE_WIRES "can_see_wires"
+
+#define TRAIT_DECOY_BRAIN "decoy_brain"
+
+#define TRAIT_BAD_SOUL "bad_soul"
+
+#define TRAIT_NOT_TURRET_GUN "not_turret_gun"

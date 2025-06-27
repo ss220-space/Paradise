@@ -97,6 +97,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/self/rejuvenate/cast(list/targets, mob/living/user = usr)
+	// mech supress escape
+	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	user.SetWeakened(0)
 	user.SetStunned(0)
 	user.SetKnockdown(0)
@@ -161,11 +164,11 @@
 
 /obj/effect/proc_holder/spell/vampire/self/specialize/ui_static_data(mob/user)
 	var/list/data = list()
-	data["hemomancer"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "hemomancer"))
-	data["umbrae"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "umbrae"))
-	data["gargantua"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "gargantua"))
-	data["dantalion"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "dantalion"))
-	data["bestia"] = icon2base64(icon('icons/misc/vampire_tgui.dmi', "bestia"))
+	data["hemomancer"] = list(icon='icons/misc/vampire_tgui.dmi', icon_state="hemomancer")
+	data["umbrae"] = list(icon='icons/misc/vampire_tgui.dmi',  icon_state="umbrae")
+	data["gargantua"] = list(icon='icons/misc/vampire_tgui.dmi', icon_state="gargantua")
+	data["dantalion"] = list(icon='icons/misc/vampire_tgui.dmi', icon_state="dantalion")
+	data["bestia"] = list(icon='icons/misc/vampire_tgui.dmi', icon_state="bestia")
 
 	return data
 

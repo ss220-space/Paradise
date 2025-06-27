@@ -10,12 +10,15 @@
 	return INITIALIZE_HINT_LATELOAD
 
 
+
 /obj/effect/particle_effect/expl_particles/LateInitialize()
 	var/step_amt = pick(25;1,50;2,100;3,200;4)
 
 	var/datum/move_loop/loop = SSmove_manager.move(src, pick(GLOB.alldirs), 1, timeout = step_amt, priority = MOVEMENT_ABOVE_SPACE_PRIORITY)
 	RegisterSignal(loop, COMSIG_QDELETING, PROC_REF(end_particle))
 
+/obj/effect/particle_effect/ex_act(severity)
+	return
 
 /obj/effect/particle_effect/expl_particles/proc/end_particle(datum/source)
 	SIGNAL_HANDLER
@@ -44,6 +47,9 @@
 	pixel_x = -32
 	pixel_y = -32
 
+/obj/effect/explosion/ex_act(severity)
+	return
+
 
 /obj/effect/explosion/Initialize(mapload)
 	. = ..()
@@ -63,9 +69,9 @@
 /datum/effect_system/explosion/smoke
 
 /datum/effect_system/explosion/smoke/proc/create_smoke()
-	var/datum/effect_system/smoke_spread/S = new
-	S.set_up(5,0,location,null)
-	S.start()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = location)
+	smoke.start()
 
 /datum/effect_system/explosion/smoke/start()
 	..()

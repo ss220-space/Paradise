@@ -1,3 +1,4 @@
+#define SPACEVINE_SPAWN_THRESHOLD 5
 //Types of usual mutations
 #define	POSITIVE 			1
 #define	NEGATIVE			2
@@ -11,7 +12,20 @@
 	SC = null
 	return ..()
 
+
 /datum/event/spacevine/start()
+	var/player_count = num_station_players()
+	if(player_count >= SPACEVINE_SPAWN_THRESHOLD)
+		// It is necessary to wrap this to avoid the event triggering repeatedly.
+		INVOKE_ASYNC(src, PROC_REF(wrapped_start))
+		return
+
+	log_and_message_admins("Random event attempted to spawn a spacevine, but there were only [player_count]/[SPACEVINE_SPAWN_THRESHOLD] players.")
+	var/datum/event_container/event_container = SSevents.event_containers[EVENT_LEVEL_MODERATE]
+	event_container.next_event_time = world.time + (60 * 10)
+
+
+/datum/event/spacevine/proc/wrapped_start()
 	var/list/turfs = list() //list of all the empty floor turfs in the hallway areas
 
 	var/obj/structure/spacevine/SV = new()
@@ -25,7 +39,7 @@
 
 	if(turfs.len) //Pick a turf to spawn at if we can
 		var/turf/T = pick(turfs)
-		SC = new /obj/structure/spacevine_controller(T, null, rand(30, 70), rand(5, 2)) // spawn a controller at turf
+		SC = new /obj/structure/spacevine_controller/event(T, null, rand(30, 70), rand(5, 2)) // spawn a controller at turf
 
 		// Make the event start fun - give the vine a random hostile mutation
 		if(SC.vines.len)
@@ -178,7 +192,7 @@
 	process_mutation(holder)
 
 /datum/spacevine_mutation/space_covering/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(isspaceturf(target) && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
+	if(isspaceturf(target) && !(locate(/obj/structure/spacevine) in target) && is_location_within_transition_boundaries(target))
 		holder.master.spawn_spacevine_piece(target, holder)
 		. = TRUE
 
@@ -200,7 +214,7 @@
 	quality = MINOR_NEGATIVE
 
 /datum/spacevine_mutation/bluespace/on_spread(obj/structure/spacevine/holder, turf/target)
-	if(holder.energy > 1 && !(locate(/obj/structure/spacevine) in target) && !is_location_within_transition_boundaries(target))
+	if(holder.energy > 1 && !(locate(/obj/structure/spacevine) in target) && is_location_within_transition_boundaries(target))
 		// Lose bluespace upon piercing a single tile, and drop it from our own mutations too
 		// Representing a loss in "high potential"
 		// also conveniently prevents this from spreading too crazily
@@ -229,7 +243,7 @@
 	if(issilicon(crosser))
 		return
 	if(prob(severity) && istype(crosser) && !isvineimmune(crosser))
-		to_chat(crosser, "<span class='alert'>You accidently touch the vine and feel a strange sensation.</span>")
+		to_chat(crosser, span_alert("Вы чувствуете лёгкое онемение, когда случайно касаетесь лозы."))
 		crosser.apply_damage(5, TOX)
 
 /datum/spacevine_mutation/toxicity/on_eat(obj/structure/spacevine/holder, mob/living/eater)
@@ -589,6 +603,14 @@
 	var/spread_cap = 30
 	var/list/mutations_list = list()
 	var/mutativeness = 0
+	var/mutmod = 1
+	var/spreads_per_process = 1
+	var/vines_per_spread = 1
+
+/obj/structure/spacevine_controller/event
+	mutmod = 1.2
+	spreads_per_process = 3
+	vines_per_spread = 3
 
 /obj/structure/spacevine_controller/New(loc, list/muts, potency, production)
 	color = "#ffffff"
@@ -609,7 +631,7 @@
 		// 6 vines/spread at 6 production
 		// ~2.5 vines/spread at 1 production
 		spread_multiplier /= spread_value / 5
-		
+
 	..()
 
 
@@ -641,7 +663,7 @@
 	if(parent)
 		SV.mutations |= parent.mutations
 		SV.color = parent.color
-		if(prob(mutativeness))
+		if(prob(mutativeness * mutmod))
 			var/list/random_mutations_picked = mutations_list - SV.mutations
 			if(random_mutations_picked.len)
 				var/datum/spacevine_mutation/randmut = pick(random_mutations_picked)
@@ -679,7 +701,11 @@
 			SV.entangle_mob()
 
 		//if(prob(25))
-		SV.spread()
+		var/spreads = spreads_per_process
+		while(spreads > 0)
+			SV.spread()
+			spreads--
+
 		if(i >= length)
 			break
 
@@ -719,6 +745,8 @@
 	var/spread_search = FALSE // Whether to exhaustive search all 4 cardinal dirs for an open direction
 	for(var/datum/spacevine_mutation/SM in mutations)
 		spread_search |= SM.on_search(src)
+
+	var/remaining_spreads = master.vines_per_spread
 	while(dir_list.len)
 		var/direction = pick_n_take(dir_list)
 		var/turf/stepturf = get_step(src, direction)
@@ -732,7 +760,9 @@
 			if(!isspaceturf(stepturf) && stepturf.Enter(src) && is_location_within_transition_boundaries(stepturf))
 				master?.spawn_spacevine_piece(stepturf, src)
 				spread_success = TRUE
-		if(spread_success || !spread_search)
+
+		remaining_spreads -= spread_success
+		if(remaining_spreads == 0 || !spread_search)
 			break
 
 /obj/structure/spacevine/ex_act(severity)
@@ -763,3 +793,5 @@
 		var/mob/living/M = A
 		if(("vines" in M.faction) || ("plants" in M.faction))
 			. = TRUE
+
+#undef SPACEVINE_SPAWN_THRESHOLD

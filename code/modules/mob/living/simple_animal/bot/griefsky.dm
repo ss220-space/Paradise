@@ -42,7 +42,7 @@
 	spin_icon = "griefskyj-c"
 	health = 50
 	maxHealth = 50
-	radio_channel = "Service" //we dont report sec anymore!
+	radio_channel = SRV_FREQ_NAME //we dont report sec anymore!
 	dmg = 0
 	block_chance_melee = 1
 	block_chance_ranged = 1
@@ -71,7 +71,7 @@
 	icon_state = "general_syndie0"
 	base_icon = "general_syndie"
 	spin_icon = "general_syndie-c"
-	radio_channel = "SyndTaipan"
+	radio_channel = SYND_TAIPAN_FREQ_NAME
 	faction = list("syndicate")
 	allow_pai = TRUE
 	auto_patrol = TRUE
@@ -126,10 +126,10 @@
 	sword_attack(carbon)
 
 
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!", projectile_message = TRUE)
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
 		..()
@@ -293,10 +293,10 @@
 /**
  * This section is blocking attack.
  */
-/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/item/projectile/P) //so uncivilized
+/mob/living/simple_animal/bot/secbot/griefsky/bullet_act(obj/projectile/P) //so uncivilized
 	retaliate(P.firer)
 	if((icon_state == spin_icon) && (prob(block_chance_ranged))) //only when the eswords are on
-		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!")
+		visible_message("[capitalize(declent_ru(NOMINATIVE))] отражает [P] своим мечом!", projectile_message = TRUE)
 		playsound(loc, 'sound/weapons/blade1.ogg', 50, 1, 0)
 	else
 		..()

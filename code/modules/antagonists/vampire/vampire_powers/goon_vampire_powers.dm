@@ -58,6 +58,9 @@
 
 
 /obj/effect/proc_holder/spell/vampire/goon/self/rejuvenate/cast(list/targets, mob/living/carbon/human/user = usr)
+	// mech supress escape
+	if(HAS_TRAIT_FROM(user, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+		user.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 	user.SetWeakened(0)
 	user.SetStunned(0)
 	user.SetKnockdown(0)
@@ -432,7 +435,7 @@
 		user.ExtinguishMob()
 		flick("liquify", animation)
 		user.forceMove(holder)
-		user.client.eye = holder
+		user.client.set_eye(holder)
 		var/datum/effect_system/steam_spread/steam = new /datum/effect_system/steam_spread()
 		steam.set_up(10, 0, originalloc)
 		steam.start()
@@ -465,7 +468,7 @@
 				if(check && user.Move(check))
 					break
 
-		user.client.eye = user
+		user.client.set_eye(user)
 		qdel(animation)
 		qdel(holder)
 

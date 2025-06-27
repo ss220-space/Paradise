@@ -135,7 +135,7 @@ if(!result || result.ckey != __ckey){\
 	dat += "<div style='min-height:100px'>"
 	dat += "<span>Time Search Range:</span> <a href='byond://?src=[UID()];start_time=1'>[gameTimestamp(wtime = time_from)]</a>"
 	dat += " To: <a href='byond://?src=[UID()];end_time=1'>[gameTimestamp(wtime = time_to)]</a>"
-	dat += "<BR>"
+	dat += "<br>"
 
 	dat += "<span>Mobs being used:</span>"
 	for(var/i in selected_mobs)
@@ -146,14 +146,14 @@ if(!result || result.ckey != __ckey){\
 		dat += "<a href='byond://?src=[UID()];remove_mob=\ref[M]'>[get_display_name(M)]</a>"
 	dat += "<a href='byond://?src=[UID()];add_mob=1'>Add Mob</a>"
 	dat += "<a href='byond://?src=[UID()];clear_mobs=1'>Clear All Mobs</a>"
-	dat += "<BR>"
+	dat += "<br>"
 
 	dat += "<span>Ckeys being used:</span>"
 	for(var/ckey in selected_ckeys)
 		dat += "<a href='byond://?src=[UID()];remove_ckey=[ckey]'>[get_ckey_name(ckey)]</a>"
 	dat += "<a href='byond://?src=[UID()];add_ckey=1'>Add ckey</a>"
 	dat += "<a href='byond://?src=[UID()];clear_ckeys=1'>Clear All ckeys</a>"
-	dat += "<BR>"
+	dat += "<br>"
 
 	dat += "<span>Log Types:</span>"
 	for(var/log_type in all_log_types)
@@ -168,7 +168,7 @@ if(!result || result.ckey != __ckey){\
 
 		dat += "<a href='byond://?src=[UID()];toggle_log_type=[log_type]' style='[style]'>[text]</a>"
 
-	dat += "<BR>"
+	dat += "<br>"
 	dat += "<a href='byond://?src=[UID()];clear_all=1'>Clear All Settings</a>"
 	dat += "<a href='byond://?src=[UID()];search=1'>Search</a>"
 	dat += "</div>"

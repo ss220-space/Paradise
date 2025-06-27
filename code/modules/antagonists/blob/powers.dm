@@ -10,7 +10,7 @@
 		return TRUE
 	if(blob_points < cost)
 		to_chat(src, span_warning("Вам не хватает рескрсов, вам нужно как минимум [cost]!"))
-		balloon_alert(src, "нужно еще [cost-blob_points]!")
+		balloon_alert(src, "нужно ещё [cost-blob_points]!")
 		return FALSE
 	add_points(-cost)
 	return TRUE
@@ -58,7 +58,7 @@
 
 	var/area/area = get_area(src)
 	if(!(area.area_flags & BLOBS_ALLOWED)) //factory and resource blobs must be legit
-		to_chat(src, span_warning("Эта плитка должна быть размещена на станции!"))
+		to_chat(src, span_warning("Эта плитка должна быть размещёна на станции!"))
 		balloon_alert(src, "нельзя поставить вне станции!")
 		return FALSE
 
@@ -331,7 +331,7 @@
 	for(var/mob/living/simple_animal/hostile/blob_mob as anything in blob_mobs)
 		if(!isturf(blob_mob.loc) || get_dist(blob_mob, tile) > 35 || blob_mob.key)
 			continue
-		blob_mob.LoseTarget()
+		blob_mob.lose_target()
 		blob_mob.Goto(pick(surrounding_turfs), blob_mob.move_to_delay)
 
 

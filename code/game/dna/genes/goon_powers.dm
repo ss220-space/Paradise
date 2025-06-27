@@ -81,7 +81,7 @@
 	else
 		mutant.alpha_set(0.80, ALPHA_SOURCE_CHAMELEON)
 
-/datum/dna/gene/basic/darkcloak/deactivate(mob/living/mutant, flags)
+/datum/dna/gene/basic/chameleon/deactivate(mob/living/mutant, flags)
 	. = ..()
 	mutant.alpha_set(1, ALPHA_SOURCE_CHAMELEON)
 

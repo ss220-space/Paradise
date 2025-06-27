@@ -15,6 +15,9 @@
 	to_chat(imp_in, "You feel a faint click.")
 	if(iscarbon(imp_in))
 		var/mob/living/carbon/C_imp_in = imp_in
+		// mech supress escape
+		if(HAS_TRAIT_FROM(C_imp_in, TRAIT_IMMOBILIZED, MECH_SUPRESSED_TRAIT))
+			C_imp_in.remove_traits(list(TRAIT_IMMOBILIZED, TRAIT_FLOORED), MECH_SUPRESSED_TRAIT)
 		C_imp_in.uncuff()
 		if(C_imp_in.pulledby)
 			var/mob/living/grabber = C_imp_in.pulledby
@@ -24,6 +27,12 @@
 			playsound(C_imp_in.loc, 'sound/weapons/egloves.ogg', 75, TRUE)
 			grabber.stop_pulling()
 			C_imp_in.client?.move_delay = world.time	// to skip move delay we probably got from resisting the grab
+			// mech cage container escape
+			if(istype(C_imp_in.loc, /obj/item/mecha_parts/mecha_equipment/cage))
+				var/obj/item/mecha_parts/mecha_equipment/cage/container = C_imp_in.loc
+				C_imp_in.forceMove(get_turf(container))
+				container.prisoner = null
+				container.update_equip_info()
 
 	if(!uses)
 		qdel(src)

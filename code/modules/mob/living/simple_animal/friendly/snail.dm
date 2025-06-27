@@ -1,19 +1,28 @@
 /mob/living/simple_animal/snail
 	name = "space snail"
 	desc = "Маленькая космо-улиточка со своим космо-домиком. Прочная, тихая и медленная."
+	ru_names = list(
+		NOMINATIVE = "космо-улитка",
+		GENITIVE = "космо-улитки",
+		DATIVE = "космо-улитке",
+		ACCUSATIVE = "космо-улитку",
+		INSTRUMENTAL = "космо-улиткой",
+		PREPOSITIONAL = "космо-улитке"
+	)
+	gender = FEMALE
 	icon_state = "snail"
 	icon_living = "snail"
 	icon_dead = "snail_dead"
-	speak = list("Uhh.", "Hurrr.")
+	speak = list("Бхх.", "Бхухх.", "Бхххх.", "Бххуухх.")
 	tts_seed = "Ladyvashj"
 	health = 100
 	maxHealth = 100
 	speed = 10
 	attacktext = "толкает"
 	death_sound = 'sound/creatures/crack_death1.ogg'
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps on"
+	response_help  = "гладит"
+	response_disarm = "толкает"
+	response_harm   = "топчет"
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -52,7 +61,6 @@
 		reagents.remove_any(10)
 
 /mob/living/simple_animal/snail/lube
-	name = "space snail"
 	desc = "Маленькая космо-улиточка со своим космо-домиком. Прочная, тихая и медленная. И очень склизкая."
 	gold_core_spawnable = HOSTILE_SPAWN
 	faction = list("slime", "hostile")
@@ -64,23 +72,32 @@
 		reagents.remove_any(10)
 
 /mob/living/simple_animal/turtle
-	name = "черепаха"
+	name = "turtle"
 	desc = "Большая космочерепаха. Прочная, тихая и медленная."
+	ru_names = list(
+		NOMINATIVE = "черепаха",
+		GENITIVE = "черепахи",
+		DATIVE = "черепахе",
+		ACCUSATIVE = "черепаху",
+		INSTRUMENTAL = "черепахой",
+		PREPOSITIONAL = "черепахе"
+	)
+	gender = FEMALE
 	icon = 'icons/mob/animal.dmi'
 	icon_state = "yeeslow"
 	icon_living = "yeeslow"
 	icon_dead = "yeeslow_dead"
 	icon_resting = "yeeslow_scared"
-	speak = list("Uhh.", "Hurrr.")
+	speak = list("Бухх.", "Хухх.")
 	tts_seed = "Ladyvashj"
 	health = 500
 	maxHealth = 500
 	speed = 20
 	attacktext = "толкает"
 	death_sound = 'sound/creatures/crack_death1.ogg'
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps on"
+	response_help  = "гладит"
+	response_disarm = "толкает"
+	response_harm   = "топчет"
 	density = TRUE
 	mobility_flags = MOBILITY_FLAGS_REST_CAPABLE_DEFAULT
 	pass_flags = PASSTABLE | PASSGRILLE

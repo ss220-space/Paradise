@@ -17,11 +17,11 @@
 	RegisterSignal(src, COMSIG_MOVABLE_DISPOSING, PROC_REF(disposal_handling))
 
 
-/obj/structure/bigDelivery/Destroy()
+/obj/structure/bigDelivery/Destroy(force)
 	var/turf/our_turf = get_turf(src)
 	for(var/atom/movable/thing as anything in contents)
 		thing.forceMove(our_turf)
-		qdel(thing)
+		qdel(thing, force)
 
 	wrapped = null
 	return ..()

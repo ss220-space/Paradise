@@ -1,0 +1,38 @@
+input, textarea, select {
+	background-color: #333;
+	color: #fff;
+	border: 1px solid #555;
+}
+
+input:focus, textarea:focus, select:focus {
+	outline: none;
+	border-color: #888;
+	box-shadow: 0 0 5px rgba(255, 255, 255, 0.5);
+}
+
+button, input[type="submit"] {
+	background-color: #444;
+	color: #fff;
+	border: none;
+	padding: 5px;
+	cursor: pointer;
+	border-radius: 4px;
+	transition: background-color 0.3s ease;
+  }
+
+
+  button:hover, input[type="submit"]:hover {
+	background-color: #555;
+  }
+
+
+  button:active, input[type="submit"]:active {
+	background-color: #666;
+  }
+
+
+  button:disabled, input[type="submit"]:disabled {
+	background-color: #333;
+	color: #777;
+	cursor: not-allowed;
+  }

@@ -10,4 +10,4 @@
 	..()
 
 /mob/living/silicon/ai/has_vision(information_only = FALSE)
-	return ..() && !lacks_power()
+	return ..() && (!lacks_power() || on_the_card)

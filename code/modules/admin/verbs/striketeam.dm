@@ -5,11 +5,11 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 /client/proc/strike_team()
 	if(!SSticker)
-		to_chat(src, span_userdanger("Игра еще не началась!"))
+		to_chat(src, span_userdanger("Игра ещё не началась!"))
 		return
 	if(GLOB.sent_strike_team)
 		to_chat(src, span_userdanger("Центральное Командование уже отправило один отряд."))
-		if(tgui_alert(src, "Вы хотите послать еще один?","Подтверждение", list("Да","Нет")) != "Да")
+		if(tgui_alert(src, "Вы хотите послать ещё один?","Подтверждение", list("Да","Нет")) != "Да")
 			return
 	else if(tgui_alert(src, "Вы хотите отправить отряд смерти Центрального Коммандования? После согласия это необратимо.", "Подтверждение", list("Да","Нет")) != "Да")
 		return
@@ -19,7 +19,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 
 	var/input = null
 	while(!input)
-		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Отряд Смерти.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		input = tgui_input_text(src, "Пожалуйста, уточните, какую миссию будет выполнять Отряд Смерти.", "Укажите миссию", "", encode = FALSE)
 		if(!input)
 			if(tgui_alert(src, "Ошибка, миссия не задана. Вы хотите приостановить процесс? ", "Подтверждение", list("Да","Нет")) == "Да")
 				return
@@ -27,7 +27,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 	// Find the nuclear auth code
 	var/nuke_code
 	var/temp_code
-	for(var/obj/machinery/nuclearbomb/N in GLOB.machines)
+	for(var/obj/machinery/nuclearbomb/N in SSmachines.get_by_type(/obj/machinery/nuclearbomb))
 		temp_code = text2num(N.r_code)
 		if(temp_code)//if it's actually a number. It won't convert any non-numericals.
 			nuke_code = N.r_code
@@ -85,11 +85,11 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				R.mind.offstation_role = TRUE
 				if(!(R.mind in SSticker.minds))
 					SSticker.minds += R.mind
-				SSticker.mode.traitors += R.mind
+				SSticker.mode.deathsquad |= R.mind
 				R.key = ghost_mob.key
 				if(nuke_code)
-					R.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")
-				R.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
+					R.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
+				R.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
 				to_chat(R, span_userdanger("Вы борг отдела Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
 			else
 				var/mob/living/carbon/human/new_commando = create_death_commando(L, is_leader)
@@ -99,9 +99,9 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 				new_commando.update_action_buttons_icon()
 				new_commando.change_voice()
 				if(nuke_code)
-					new_commando.mind.store_memory("<B>Коды от боеголовки:</B> <span class='warning'>[nuke_code].</span>")
-				new_commando.mind.store_memory("<B>Миссия:</B> <span class='warning'>[input].</span>")
-				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<B>КОМАНДИР</B>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
+					new_commando.mind.store_memory("<b>Коды от боеголовки:</b> <span class='warning'>[nuke_code].</span>")
+				new_commando.mind.store_memory("<b>Миссия:</b> <span class='warning'>[input].</span>")
+				to_chat(new_commando, span_userdanger("Вы [is_leader ? "<b>КОМАНДИР</b>" : "боец"] отряда Специальных Операций, подчиняющийся Центральному Командованию. \nВаша миссия: <span class='danger'>[input]</span>"))
 
 			is_leader = FALSE
 			commando_number--
@@ -143,7 +143,7 @@ GLOBAL_VAR_INIT(sent_strike_team, FALSE)
 			Чтобы деактивировать кнопки в любое время, например, когда ты уже подготовил бомбу к детонации, удали диск аутентификации ИЛИ нажми R на клавиатуре. \
 			Теперь бомба МОЖЕТ БЫТЬ взорвана только с помощью таймера. Ручная детонация невозможна.<br>Примечание: Отключи <b>ПРЕДОХРАНИТЕЛЬ</b>.<br>\
 			Используй - - и + + для установки времени детонации от 5 секунд до 10 минут. Затем нажми кнопку таймера для запуска обратного отсчета. \
-			Теперь удали диск аутентификации, чтобы кнопки деактивировались.<br>Примечание: <b>БОМБА ВСЕ ЕЩЕ УСТАНОВЛЕНА И ВЗОРВЕТСЯ</b><br>\
+			Теперь удали диск аутентификации, чтобы кнопки деактивировались.<br>Примечание: <b>БОМБА ВСЕ ЕЩЁ УСТАНОВЛЕНА И ВЗОРВЕТСЯ</b><br>\
 			Теперь, прежде чем удалить диск, если нужно переместить бомбу, можешь: открепить её, переместить и снова закрепить.</p><p>\
 			Код ядерной аутентификации: <b>[nuke_code ? nuke_code : "Не предоставлен"]</b></p>\
 			<p><b>Удачи, солдат!</b></p>"

@@ -1,11 +1,19 @@
 /mob/living/simple_animal/lizard
-	name = "Lizard"
-	desc = "A cute tiny lizard."
-	icon = 'icons/mob/critter.dmi'
+	name = "lizard"
+	desc = "Милая маленькая ящерица."
+	ru_names = list(
+		NOMINATIVE = "ящерица",
+		GENITIVE = "ящерицы",
+		DATIVE = "ящерице",
+		ACCUSATIVE = "ящерицу",
+		INSTRUMENTAL = "ящерицей",
+		PREPOSITIONAL = "ящерице"
+	)
 	icon_state = "lizard"
 	icon_living = "lizard"
 	icon_dead = "lizard_dead"
-	speak_emote = list("hisses")
+	icon_gib = "lizard_gib"
+	speak_emote = list("шипит")
 	tts_seed = "Ladyvashj"
 	death_sound = 'sound/creatures/lizard_death.ogg'
 	health = 5
@@ -14,9 +22,9 @@
 	obj_damage = 0
 	melee_damage_lower = 1
 	melee_damage_upper = 2
-	response_help  = "pets"
-	response_disarm = "shoos"
-	response_harm   = "stomps on"
+	response_help  = "гладит"
+	response_disarm = "пинает"
+	response_harm   = "топчет"
 	ventcrawler_trait = TRAIT_VENTCRAWLER_ALWAYS
 	density = FALSE
 	pass_flags = PASSTABLE | PASSMOB
@@ -40,9 +48,16 @@
 	return ..()
 
 /mob/living/simple_animal/lizard/axolotl
-	name = "Аксолотль"
+	name = "axolotl"
 	desc = "Маленький милый аксолотль."
-	icon = 'icons/mob/animal.dmi'
+	ru_names = list(
+		NOMINATIVE = "аксолотль",
+		GENITIVE = "аксолотля",
+		DATIVE = "аксолотлю",
+		ACCUSATIVE = "аксолотля",
+		INSTRUMENTAL = "аксолотлем",
+		PREPOSITIONAL = "аксолотле"
+	)
 	icon_state = "axolotl"
 	icon_living = "axolotl"
 	icon_dead = "axolotl_dead"

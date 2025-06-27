@@ -21,6 +21,5 @@
 
 
 /datum/movespeed_modifier/reagent/nuka_cola
-	conflicts_with = MOVE_CONFLICT_GOTTAGONOTSOFAST
 	multiplicative_slowdown = -0.5
 

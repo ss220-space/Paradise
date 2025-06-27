@@ -25,7 +25,7 @@
 	var/hotspot = (locate(/obj/effect/hotspot) in src)
 	if(hotspot)
 		var/datum/gas_mixture/lowertemp = remove_air(air.total_moles())
-		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), 0)
+		lowertemp.temperature = max(min(lowertemp.temperature-2000,lowertemp.temperature / 2), TCMB)
 		lowertemp.react()
 		assume_air(lowertemp)
 		qdel(hotspot)
@@ -144,7 +144,7 @@
 /turf/simulated/handle_slip(mob/living/carbon/slipper, weaken_amount, obj/slippable, lube_flags, tilesSlipped)
 	if(slipper.movement_type & MOVETYPES_NOT_TOUCHING_GROUND)
 		return FALSE
-	if(!slipper.has_gravity(src))
+	if(slipper.no_gravity(src))
 		return FALSE
 
 	var/slide_distance = isnull(tilesSlipped) ? 4 : tilesSlipped
@@ -183,7 +183,7 @@
 		slipper.Immobilize(1 SECONDS)
 	else
 		slipper.stop_pulling()
-		slipper.Weaken(weaken_amount)
+		slipper.Knockdown(weaken_amount)
 
 	if(buckled_obj)
 		buckled_obj.unbuckle_mob(slipper)

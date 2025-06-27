@@ -178,7 +178,7 @@ Holotool. All instruments in one object
 	..()
 	H.sharp = TRUE
 	H.force = 17
-	H.attack_verb = list("sliced", "torn", "cut")
+	H.attack_verb = list("поранил", "порезал")
 	H.armour_penetration = 45
 	H.embed_chance = 40
 	H.embedded_fall_chance = 0

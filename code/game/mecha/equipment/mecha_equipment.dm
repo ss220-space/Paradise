@@ -23,6 +23,7 @@
 	var/selectable = MODULE_SELECTABLE_FULL
 	var/harmful = FALSE //Controls if equipment can be used to attack by a pacifist.
 	var/integrated = FALSE // Preventing modules from getting detached.
+	var/alert_category = "mecha_module" //change if you want custom alerts
 
 
 /obj/item/mecha_parts/mecha_equipment/proc/update_chassis_page()
@@ -181,6 +182,9 @@
 		return
 	if(chassis.occupant)
 		remove_targeted_action()
+		if(chassis.selected == src)
+			if(selectable == MODULE_SELECTABLE_FULL)
+				chassis.occupant.clear_alert(alert_category)
 	detach_act()
 	moveto = moveto || get_turf(chassis)
 	if(Move(moveto))
@@ -228,10 +232,27 @@
 	return
 
 /obj/item/mecha_parts/mecha_equipment/proc/select_module()
+	select_set_alert()
 	chassis.selected = src
 	chassis.occupant_message(span_notice("You switch to [src]."))
 	chassis.visible_message("[chassis] raises [src]")
 	send_byjax(chassis.occupant, "exosuit.browser", "eq_list", chassis.get_equipment_list())
+
+/obj/item/mecha_parts/mecha_equipment/proc/select_set_alert()
+	if(selectable == MODULE_SELECTABLE_FULL)
+		var/mob/living/carbon/occupant = chassis.occupant
+		if(chassis.selected)
+			occupant.clear_alert(chassis.selected.alert_category)
+		return throw_default_alert(occupant)
+	return FALSE
+
+/obj/item/mecha_parts/mecha_equipment/proc/throw_default_alert(var/mob/living/carbon/occupant)
+	if(alert_category == "mecha_module")
+		var/atom/movable/screen/alert/empty_alert/default_alert = occupant.throw_alert(alert_category, /atom/movable/screen/alert/empty_alert, new_master = src)
+		default_alert.name = name
+		default_alert.desc = "Выбран модуль [src.name]"
+		return TRUE
+	return FALSE
 
 /obj/item/mecha_parts/mecha_equipment/proc/toggle_module()
 	return

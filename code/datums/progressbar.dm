@@ -56,6 +56,15 @@
 	if(user.client)
 		user_client = user.client
 		add_prog_bar_image_to_client()
+		// Ghosts wants to see a do_afters too!
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
+				continue
+			user_client = observe.client
+			add_prog_bar_image_to_client()
+		// We dont need to set user_client back on every `for` iteration
+		user_client = user.client
 
 	RegisterSignal(user, COMSIG_QDELETING, PROC_REF(on_user_delete))
 	RegisterSignal(user, COMSIG_MOB_LOGOUT, PROC_REF(clean_user_client))

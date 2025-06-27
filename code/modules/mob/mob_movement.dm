@@ -43,7 +43,7 @@
 	next_move_dir_add = NONE
 	next_move_dir_sub = NONE
 	var/old_move_delay = move_delay
-	move_delay = world.time + world.tick_lag //this is here because Move() can now be called multiple times per tick
+	move_delay = world.time + world.tick_lag // this is here because Move() can now be called multiple times per tick
 
 	if(!direct || !new_loc)
 		return FALSE
@@ -52,12 +52,12 @@
 		return FALSE
 
 	if(HAS_TRAIT(mob, TRAIT_NO_TRANSFORM))
-		return FALSE //This is sota the goto stop mobs from moving var
-
-	if(mob.control_object)
-		return mob.control_object.possessed_relay_move(mob, direct)
+		return FALSE // This is sota the goto stop mobs from moving var
 
 	if(!isliving(mob))
+		if(SEND_SIGNAL(mob, COMSIG_MOB_CLIENT_PRE_NON_LIVING_MOVE, new_loc, direct) & COMSIG_MOB_CLIENT_BLOCK_PRE_NON_LIVING_MOVE)
+			return FALSE
+
 		return mob.Move(new_loc, direct)
 
 	if(mob.stat == DEAD)
@@ -255,6 +255,9 @@
 	if(.)
 		return .
 
+	if(HAS_TRAIT(src, TRAIT_SPACEWALK))
+		return TRUE
+
 	if(buckled)
 		return TRUE
 
@@ -320,7 +323,7 @@
 		return rebound
 
 
-/mob/has_gravity(turf/gravity_turf)
+/mob/get_gravity(turf/gravity_turf)
 	if(!isnull(GLOB.gravity_is_on))	// global admin override.
 		return GLOB.gravity_is_on
 	return mob_negates_gravity() || ..()
@@ -475,8 +478,8 @@
 	return
 
 /mob/verb/move_up()
-	set name = "Move Upwards"
-	set category = "IC"
+	set name = "Подняться"
+	set category = STATPANEL_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, UP)
@@ -503,8 +506,8 @@
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/verb/move_down()
-	set name = "Move Down"
-	set category = "IC"
+	set name = "Опуститься"
+	set category = STATPANEL_IC
 
 	if(remote_control)
 		return remote_control.relaymove(src, DOWN)

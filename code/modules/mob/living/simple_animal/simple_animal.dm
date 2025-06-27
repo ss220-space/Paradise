@@ -3,7 +3,7 @@
 	icon = 'icons/mob/animal.dmi'
 	health = 20
 	maxHealth = 20
-	gender = PLURAL //placeholder
+	gender = MALE //placeholder
 
 	universal_understand = 1
 	universal_speak = 0
@@ -40,8 +40,6 @@
 	var/harm_intent_damage = 3
 	var/force_threshold = 0 //Minimum force required to deal any damage
 
-	/// Was this mob spawned by xenobiology magic? Used for mobcapping.
-	var/xenobiology_spawned = FALSE
 
 	/// If the mob can catch fire
 	var/can_be_on_fire = FALSE
@@ -69,6 +67,8 @@
 
 	var/speed = 1 //LETS SEE IF I CAN SET SPEEDS FOR SIMPLE MOBS WITHOUT DESTROYING EVERYTHING. Higher speed is slower, negative speed is faster
 	var/can_hide = FALSE
+	var/hidden = FALSE
+
 	/// Allows a mob to pass unbolted doors while hidden
 	var/pass_door_while_hidden = FALSE
 
@@ -179,6 +179,7 @@
 /mob/living/simple_animal/ComponentInitialize()
 	AddComponent(/datum/component/animal_temperature)
 
+
 ///Extra effects to add when the mob is tamed, such as adding a riding or whatever.
 /mob/living/simple_animal/proc/tamed(whomst)
 	return
@@ -243,6 +244,11 @@
 			set_stat(CONSCIOUS)
 	return ..()
 
+/mob/living/simple_animal/update_layer()
+	if(pulledby && loc == pulledby.loc)
+		layer = (pulledby.dir & NORTH) ? pulledby.layer - 0.001 : pulledby.layer + 0.001
+		return
+	layer = hidden? (/datum/action/innate/hide::layer_to_change_to) : (body_position == LYING_DOWN) ? LYING_MOB_LAYER : initial(layer)
 
 /mob/living/simple_animal/proc/handle_automated_action()
 	set waitfor = FALSE
@@ -412,11 +418,9 @@
 		if(death_sound)
 			playsound(get_turf(src),death_sound, 200, 1)
 		if(deathmessage)
-			visible_message(span_danger("\The [src] [genderize_decode(src, deathmessage)]"))
+			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] [genderize_decode(src, deathmessage)]"))
 		else if(!del_on_death)
-			visible_message(span_danger("\The [src] stops moving..."))
-	if(xenobiology_spawned)
-		SSmobs.xenobiology_mobs--
+			visible_message(span_danger("[capitalize(src.declent_ru(NOMINATIVE))] перестаёт двигаться..."))
 	if(del_on_death)
 		//Prevent infinite loops if the mob Destroy() is overridden in such
 		//a manner as to cause a call to death() again
@@ -639,6 +643,8 @@
 	AIStatus = togglestatus
 	AI_delay_current = world.time
 
+/mob/living/simple_animal/proc/lose_target()
+	return
 
 /mob/living/simple_animal/proc/consider_wakeup()
 	if(pulledby || shouldwakeup)
@@ -807,3 +813,14 @@
 /mob/living/simple_animal/proc/set_leash(atom/A, radius)
 	leash = A
 	leash_radius = radius
+
+/mob/living/simple_animal/deadchat_plays(mode = DEADCHAT_ANARCHY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, PROC_REF(end_dchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	stop_automated_movement = TRUE
+
+/mob/living/simple_animal/proc/end_dchat_plays()
+	stop_automated_movement = FALSE

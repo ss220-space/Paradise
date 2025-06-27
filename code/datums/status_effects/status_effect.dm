@@ -74,6 +74,7 @@
 		owner.clear_alert(id)
 		LAZYREMOVE(owner.status_effects, src)
 		on_remove()
+		SEND_SIGNAL(owner, COMSIG_MOB_STATUS_EFFECT_ENDED, type)
 		owner = null
 	if(linked_alert)
 		linked_alert.attached_effect = null
@@ -193,8 +194,8 @@
 ////////////////
 
 /atom/movable/screen/alert/status_effect
-	name = "Curse of Mundanity"
-	desc = "You don't feel any different..."
+	name = "Проклятие Обыденности"
+	desc = "Вы не чувствуете никаких изменений..."
 	var/datum/status_effect/attached_effect
 
 /atom/movable/screen/alert/status_effect/Destroy()

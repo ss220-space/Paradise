@@ -39,7 +39,7 @@
 /datum/reagent/blob/pressurized_slime
 	name = "Сжатая слизь"
 	id = "blob_pressurized_slime"
-	taste_description = "губка"
+	taste_description = "грязной губки для посуды"
 	color = "#AAAABB"
 
 /datum/reagent/blob/pressurized_slime/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

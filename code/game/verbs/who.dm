@@ -1,9 +1,9 @@
 
 /client/verb/who()
-	set name = "Who"
-	set category = "OOC"
+	set name = "Список игроков"
+	set category = STATPANEL_OOC
 
-	var/msg = "<b>Онлайн Игроков:</b>\n"
+	var/msg = "<b>Онлайн Игроков:</b><br>"
 
 
 	var/list/Lines = list()
@@ -61,14 +61,14 @@
 				Lines += "[C.key] ([round(C.avgping, 1)]ms)"
 
 	for(var/line in sortList(Lines))
-		msg += "[line]\n"
+		msg += "[line]<br>"
 
 	msg += "<b>Всего Игроков: [length(Lines)]</b>"
 	to_chat(src, msg)
 
 /client/verb/adminwho()
-	set category = "Admin"
-	set name = "Adminwho"
+	set category = STATPANEL_ADMIN_TICKETS
+	set name = "В сети"
 
 	var/msg = ""
 	var/modmsg = ""
@@ -90,15 +90,15 @@
 					msg += " <i>(как [C.holder.fakekey])</i>"
 
 				if(isobserver(C.mob))
-					msg += " - Наблюдает"
+					msg += " – Наблюдает"
 				else if(isnewplayer(C.mob))
-					msg += " - В Лобби"
+					msg += " – В Лобби"
 				else
-					msg += " - Играет"
+					msg += " – Играет"
 
 				if(C.is_afk())
-					msg += " (АФК)"
-				msg += "\n"
+					msg += " (Отошёл)"
+				msg += "<br>"
 
 				num_admins_online++
 
@@ -106,29 +106,29 @@
 				modmsg += "\[[C.holder.rank]\]  [C]"
 
 				if(isobserver(C.mob))
-					modmsg += " - Наблюдает"
+					modmsg += " – Наблюдает"
 				else if(isnewplayer(C.mob))
-					modmsg += " - В Лобби"
+					modmsg += " – В Лобби"
 				else
-					modmsg += " - Играет"
+					modmsg += " – Играет"
 
 				if(C.is_afk())
-					modmsg += " (АФК)"
-				modmsg += "\n"
+					modmsg += " (Отошёл)"
+				modmsg += "<br>"
 				num_mods_online++
 	else
 		for(var/client/C in GLOB.admins)
 
 			if(check_rights(R_ADMIN, 0, C.mob))
 				if(!C.holder.fakekey)
-					msg += "\[[C.holder.rank]\]  [C]\n"
+					msg += "\[[C.holder.rank]\]  [C]<br>"
 					num_admins_online++
 			else if(check_rights(R_MOD|R_MENTOR, 0, C.mob) && !check_rights(R_ADMIN, 0, C.mob))
-				modmsg += "\[[C.holder.rank]\]  [C]\n"
+				modmsg += "\[[C.holder.rank]\]  [C]<br>"
 				num_mods_online++
 
-	var/noadmins_info = "\n<span class='notice'><small>Если никого из админсостава нет онлайн, все равно создавайте тикеты. Админхэлпы и менторхэлпы будут перенаправлены в дискорд!<small></span>"
-	msg = "<b>Онлайн Админов ([num_admins_online]):</b>\n" + msg + "\n<b>Онлайн Менторов/Модераторов ([num_mods_online]):</b>\n" + modmsg + noadmins_info
+	var/noadmins_info = span_notice(span_small("<br>Даже если никого из менторов и администраторов нет в сети, вы всё равно можете оставить запрос на помощь. Все обращения к менторам и администраторам будут перенаправлены в наш Discord-сервер!"))
+	msg = "<b>Онлайн Админов ([num_admins_online]):</b><br>" + msg + "<br><b>Онлайн Менторов/Модераторов ([num_mods_online]):</b><br>" + modmsg + noadmins_info
 	msg = replacetext(msg, "\[Хост\]",	"\[<font color='#1ABC9C'>Хост</font>\]")
 	msg = replacetext(msg, "\[Старший Админ\]",	"\[<font color='#f02f2f'>Старший Админ</font>\]")
 	msg = replacetext(msg, "\[Главный Администратор Проекта\]",	"\[<font color='#f02f2f'>Главный Администратор Проекта</font>\]")

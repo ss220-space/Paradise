@@ -164,12 +164,10 @@ GLOBAL_LIST_EMPTY(holopads)
 	user.set_machine(src)
 	interact(user)
 
-/obj/machinery/hologram/holopad/AltClick(mob/living/carbon/human/user)
-	if(..())
-		return
+/obj/machinery/hologram/holopad/click_alt(mob/living/carbon/human/user)
 	if(isAI(user))
 		hangup_all_calls()
-		return
+		return CLICK_ACTION_SUCCESS
 
 //Stop ringing the AI!!
 /obj/machinery/hologram/holopad/proc/hangup_all_calls()

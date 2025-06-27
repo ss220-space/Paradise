@@ -5641,7 +5641,7 @@
 /turf/simulated/floor/plating/asteroid,
 /area/vision_change_area/awaymission/evil_santa/mine)
 "VA" = (
-/obj/item/twohanded/fishingrod,
+/obj/item/twohanded/fishing_rod,
 /obj/item/stack/sheet/wood{
 	amount = 20
 	},

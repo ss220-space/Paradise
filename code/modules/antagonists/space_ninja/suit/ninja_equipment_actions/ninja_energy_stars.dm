@@ -47,10 +47,10 @@
 
 /obj/item/gun/energy/shuriken_emitter/Destroy()
 	. = ..()
-	my_suit.shuriken_emitter = null
+	my_suit?.shuriken_emitter = null
 	my_suit = null
-	my_action.action_ready = FALSE
-	my_action.use_action()
+	my_action?.action_ready = FALSE
+	my_action?.use_action()
 	my_action = null
 
 
@@ -66,7 +66,7 @@
 	return !my_suit.ninjacost(cost*burst_size)
 
 /obj/item/ammo_casing/energy/shuriken
-	projectile_type = /obj/item/projectile/beam/shuriken
+	projectile_type = /obj/projectile/beam/shuriken
 	muzzle_flash_color = LIGHT_COLOR_GREEN
 	select_name  = "shuriken"
 	e_cost = 0
@@ -75,7 +75,7 @@
 	harmful = FALSE
 	delay = 3
 
-/obj/item/projectile/beam/shuriken
+/obj/projectile/beam/shuriken
 	name = "energy shuriken"
 	icon = 'icons/obj/ninjaobjects.dmi'
 	icon_state = "shuriken_projectile"

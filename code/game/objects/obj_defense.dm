@@ -33,7 +33,7 @@
 		armor_protection = armor.getRating(damage_flag)
 	if(armor_protection)		//Only apply weak-against-armor/hollowpoint effects if there actually IS armor.
 		armor_protection = clamp(armor_protection - armour_penetration, min(armor_protection, 0), 100)
-	return round(damage_amount * (100 - armor_protection)*0.01, DAMAGE_PRECISION)
+	return round(damage_amount * (100 - armor_protection) * 0.01, DAMAGE_PRECISION)
 
 
 /// Proc for recovering atom_integrity. Returns the amount repaired by
@@ -101,10 +101,10 @@
 		if(3)
 			take_damage(rand(10, 90), BRUTE, "bomb", 0)
 
-/obj/bullet_act(obj/item/projectile/P)
+/obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message("<span class='danger'>[src] is hit by \a [P]!</span>")
+	visible_message(span_danger("[src] is hit by \a [P]!"), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -128,6 +128,22 @@
 	if(attack_generic(user, user.obj_damage, BRUTE, "melee", 0, user.armour_penetration))
 		playsound(loc, 'sound/weapons/slash.ogg', 100, TRUE)
 
+/obj/attack_basic_mob(mob/living/basic/user)
+	if(!user.melee_damage && !user.obj_damage) //No damage
+		user.emote("custom", message = "[user.friendly_verb_continuous] [src].")
+		return FALSE
+
+	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
+		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [src]."))
+		return FALSE
+
+	else
+		if(user.obj_damage)
+			. = attack_generic(user, user.obj_damage, user.melee_damage_type, MELEE, TRUE, user.armour_penetration)
+		else
+			. = attack_generic(user, user.melee_damage, user.melee_damage_type, MELEE, TRUE, user.armour_penetration)
+		if(.)
+			playsound(src, 'sound/effects/meteorimpact.ogg', 100, TRUE)
 
 /obj/attack_animal(mob/living/simple_animal/M)
 	if((M.a_intent == INTENT_HELP && M.ckey) || (!M.melee_damage_upper && !M.obj_damage))
@@ -182,7 +198,7 @@
 				return 0
 			else
 				return 0
-	M.visible_message("<span class='danger'>[M.name] hits [src]!</span>", "<span class='danger'>You hit [src]!</span>")
+	M.visible_message(span_danger("[M.name] hits [src]!"), span_danger("You hit [src]!"))
 	return take_damage(M.force*3, mech_damtype, "melee", play_soundeffect, get_dir(src, M)) // multiplied by 3 so we can hit objs hard but not be overpowered against mobs.
 
 /obj/singularity_act()
@@ -310,6 +326,12 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 			var/mob/living/buckled_mob = m
 			buckled_mob.electrocute_act((clamp(round(strength * 1.25e-3), 10, 90) + rand(-5, 5)), src, flags = SHOCK_TESLA)
 
-///returns how much the object blocks an explosion. Used by subtypes.
-/obj/proc/GetExplosionBlock()
-	CRASH("Unimplemented GetExplosionBlock()")
+/obj/handle_flamer_fire(src, damage, delta_time)
+	flamer_fire_act(damage)
+
+/obj/flamer_fire_act(damage)
+	if(resistance_flags & FIRE_PROOF)
+		resistance_flags &= ~FIRE_PROOF
+	if(armor.getRating(FIRE) > 50) 
+		armor = armor.setRating(fire_value = 50)
+	return ..()

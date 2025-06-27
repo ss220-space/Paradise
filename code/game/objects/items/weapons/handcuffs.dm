@@ -41,6 +41,8 @@
 		to_chat(user, span_warning("How do you suggest handcuffing someone with no hands?"))
 		return .
 
+	SEND_SIGNAL(target, COMSIG_CARBON_CUFF_ATTEMPTED, user)
+
 	if(!ignoresClumsy && HAS_TRAIT(user, TRAIT_CLUMSY) && prob(50))
 		playsound(loc, cuffsound, 30, TRUE, -2)
 		to_chat(user, span_warning("Uh... how do those things work?!"))

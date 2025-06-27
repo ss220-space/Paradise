@@ -212,7 +212,8 @@
 /obj/machinery/computer/teleporter/proc/targets_teleport()
 	var/list/L = list()
 	var/list/areaindex = list()
-
+	var/turf/teleporter_turf = get_turf(src)
+	var/is_station_teleport = is_station_level(teleporter_turf.z)
 	for(var/obj/item/radio/beacon/R in GLOB.beacons)
 		var/turf/T = get_turf(R)
 		if(!T)
@@ -220,6 +221,8 @@
 		if(!is_teleport_allowed(T.z) && !R.cc_beacon)
 			continue
 		if(R.syndicate && !emagged)
+			continue
+		if(GLOB.full_lockdown && is_station_teleport && !is_station_level(T.z))
 			continue
 		var/tmpname = T.loc.name
 		if(areaindex[tmpname])
@@ -243,6 +246,8 @@
 			var/turf/T = get_turf(M)
 			if(!T)	continue
 			if(!is_teleport_allowed(T.z))	continue
+			if(GLOB.full_lockdown && is_station_teleport && !is_station_level(T.z))
+				continue
 			var/tmpname = M.real_name
 			if(areaindex[tmpname])
 				tmpname = "[tmpname] ([++areaindex[tmpname]])"

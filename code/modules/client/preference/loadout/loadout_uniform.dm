@@ -2,7 +2,7 @@
 /datum/gear/uniform
 	subtype_path = /datum/gear/uniform
 	slot = ITEM_SLOT_CLOTH_INNER
-	sort_category = "Uniforms and Casual Dress"
+	sort_category = "Униформа"
 
 /datum/gear/uniform/suit
 	subtype_path = /datum/gear/uniform/suit
@@ -11,6 +11,7 @@
 
 /datum/gear/uniform/suit/jumpsuit
 	index_name = "jumpsuit, select"
+	display_name = "Комбинезон"
 	path = /obj/item/clothing/under/color/grey
 
 /datum/gear/uniform/suit/jumpsuit/New()
@@ -60,6 +61,7 @@
 
 /datum/gear/uniform/chaps
 	index_name = "chaps, select"
+	display_name = "Чапсы"
 	path = /obj/item/clothing/under/red_chaps
 
 /datum/gear/uniform/chaps/New()
@@ -89,6 +91,7 @@
 
 /datum/gear/uniform/skirt/plaid
 	index_name = "plaid skirt, select"
+	display_name = "Юбка в клетку"
 	path = /obj/item/clothing/under/dress/plaid_blue
 
 /datum/gear/uniform/skirt/plaid/New()
@@ -153,7 +156,7 @@
 /datum/gear/uniform/skirt/job/med
 	index_name = "skirt, medical"
 	path = /obj/item/clothing/under/rank/medical/skirt
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN, JOB_TITLE_PSYCHIATRIST, JOB_TITLE_PARAMEDIC, JOB_TITLE_CORONER)
 
 /datum/gear/uniform/skirt/job/phys
 	index_name = "skirt, physician"
@@ -245,9 +248,9 @@
 
 /datum/gear/uniform/medical/scrubs
 	index_name = "medical scrubs, select"
-	display_name = "medical scrubs"
+	display_name = "Медицинская одежда"
 	path = /obj/item/clothing/under/rank/medical/purple
-	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_INTERN)
+	allowed_roles = list(JOB_TITLE_CMO, JOB_TITLE_DOCTOR, JOB_TITLE_MINING_MEDIC, JOB_TITLE_INTERN)
 
 /datum/gear/uniform/medical/scrubs/New()
 	..()
@@ -295,11 +298,11 @@
 /datum/gear/uniform/cargo/miner
 	index_name = "shaft miner sweater"
 	path = /obj/item/clothing/under/rank/miner/alt
-	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER)
+	allowed_roles = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_MINER, JOB_TITLE_MINING_MEDIC)
 
 /datum/gear/uniform/shorts
 	index_name = "shorts, select"
-	display_name = "shorts"
+	display_name = "Шорты"
 	path = /obj/item/clothing/under/shorts/red
 
 /datum/gear/uniform/shorts/New()
@@ -316,7 +319,7 @@
 
 /datum/gear/uniform/pants/jeans
 	index_name = "jeans, select"
-	display_name = "jeans"
+	display_name = "Джинсы"
 	path = /obj/item/clothing/under/pants/classicjeans
 
 /datum/gear/uniform/pants/jeans/New()
@@ -330,7 +333,7 @@
 
 /datum/gear/uniform/pants/pants
 	index_name = "pants, select"
-	display_name = "pants"
+	display_name = "Штаны"
 	path = /obj/item/clothing/under/pants/white
 
 /datum/gear/uniform/pants/pants/New()
@@ -348,37 +351,30 @@
 
 /datum/gear/uniform/suit/tacticool
 	index_name = "tacticool turtleneck"
-	description = "A sleek black turtleneck paired with some khakis (WARNING DOES NOT HAVE SUIT SENSORS)"
 	path = /obj/item/clothing/under/syndicate/tacticool
 
 /datum/gear/uniform/hawaii
 	index_name = "hawaiian shirt (red)"
-	description = "Sometimes you just want to shoot the guy who brought the chainsaw to the drug deal"
 	path = /obj/item/clothing/under/redhawaiianshirt
 
 /datum/gear/uniform/hawaii/pink
 	index_name = "hawaiian shirt (pink)"
-	description = "Sometimes you just want some pink in your life. For what? Who knows"
 	path = /obj/item/clothing/under/pinkhawaiianshirt
 
 /datum/gear/uniform/hawaii/blue
 	index_name = "hawaiian shirt (blue)"
-	description = "Be careful around water! Some guys in blue shirt like you can't swim"
 	path = /obj/item/clothing/under/bluehawaiianshirt
 
 /datum/gear/uniform/hawaii/orange
 	index_name = "hawaiian shirt (orange)"
-	description = "Come one step closer and I will knock his teeth out!"
 	path = /obj/item/clothing/under/orangehawaiianshirt
 
 /datum/gear/uniform/ussptracksuit_red
 	index_name = "track suit (red)"
-	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_red
 
 /datum/gear/uniform/ussptracksuit_blue
 	index_name = "track suit (blue)"
-	description = "A classic track suit. There is a small tag on the clothes that says \"Made in the USSP\"."
 	path = /obj/item/clothing/under/ussptracksuit_blue
 
 /datum/gear/uniform/dress50s

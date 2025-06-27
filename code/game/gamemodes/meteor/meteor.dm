@@ -7,8 +7,8 @@
 
 
 /datum/game_mode/meteor/announce()
-	to_chat(world, "<B>The current game mode is - Meteor!</B>")
-	to_chat(world, "<B>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</B>")
+	to_chat(world, "<b>The current game mode is - Meteor!</b>")
+	to_chat(world, "<b>The space station has been stuck in a major meteor shower. You must escape from the station or at least live.</b>")
 
 
 /datum/game_mode/meteor/post_setup()
@@ -39,14 +39,14 @@
 			if(!location)	continue
 
 			if(location.loc.type == SSshuttle.emergency.areaInstance.type) //didn't work in the switch for some reason
-				text += "<br><b><font size=2>[player.real_name] escaped on the emergency shuttle</font></b>"
+				text += (span_bold(span_fontsize2("<br>[player.real_name] escaped on the emergency shuttle")))
 
 			else
 				switch(location.loc.type)
 					if( /area/shuttle/escape_pod1/centcom, /area/shuttle/escape_pod2/centcom, /area/shuttle/escape_pod3/centcom, /area/shuttle/escape_pod5/centcom )
-						text += "<br><font size=2>[player.real_name] escaped in a life pod.</font>"
+						text += span_fontsize2("<br>[player.real_name] escaped in a life pod.")
 					else
-						text += "<br><font size=1>[player.real_name] survived but is stranded without any hope of rescue.</font>"
+						text += span_fontsize1("<br>[player.real_name] survived but is stranded without any hope of rescue.")
 			survivors++
 
 	if(survivors)

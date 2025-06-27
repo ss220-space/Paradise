@@ -144,7 +144,7 @@
 
 /client/proc/debugNatureMapGenerator()
 	set name = "Test Nature Map Generator"
-	set category = "Debug"
+	set category = "Debug.Mapping"
 
 	var/datum/mapGenerator/nature/N = new()
 	var/startInput = clean_input("Start turf of Map, (X;Y;Z)", "Map Gen Settings", "1;1;1")

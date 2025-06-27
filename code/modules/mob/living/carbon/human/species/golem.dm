@@ -240,11 +240,11 @@
 /datum/species/golem/plasma/handle_life(mob/living/carbon/human/H)
 	if(H.bodytemperature > 750)
 		if(!boom_warning && H.on_fire)
-			to_chat(H, "<span class='userdanger'>Вы чувствуете, что можете взорваться в любой момент!</span>")
+			to_chat(H, span_userdanger("Вы чувствуете, что можете взорваться в любой момент!"))
 			boom_warning = TRUE
 	else
 		if(boom_warning)
-			to_chat(H, "<span class='notice'>Вы чувствуете себя стабильней.</span>")
+			to_chat(H, span_notice("Вы чувствуете себя стабильней."))
 			boom_warning = FALSE
 
 	if(H.bodytemperature > 850 && H.on_fire && prob(25))
@@ -272,7 +272,7 @@
 
 
 /datum/action/innate/ignite
-	name = "Ignite"
+	name = "Поджог"
 	desc = "Подожгите себя и достигните взрыва!"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "sacredflame"
@@ -281,9 +281,9 @@
 	if(ishuman(owner))
 		var/mob/living/carbon/human/H = owner
 		if(H.fire_stacks)
-			to_chat(owner, "<span class='notice'>Вы подожгли себя!</span>")
+			to_chat(owner, span_notice("Вы подожгли себя!"))
 		else
-			to_chat(owner, "<span class='warning'>Вы попытались поджечь себя, но неудачно!</span>")
+			to_chat(owner, span_warning("Вы попытались поджечь себя, но неудачно!"))
 		H.IgniteMob() //firestacks are already there passively
 
 //Harder to hurt
@@ -370,7 +370,7 @@
 	unarmed_type = /datum/unarmed_attack/golem/plasteel
 
 /datum/unarmed_attack/golem/plasteel
-	attack_verb = list("smash")
+	attack_verb = list("ударил")
 	attack_sound = 'sound/effects/meteorimpact.ogg'
 
 //More resistant to burn damage and immune to ashstorm
@@ -445,14 +445,14 @@
 
 
 //Regenerates because self-repairing super-advanced alien tech
-/datum/species/golem/alloy/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
+/datum/species/golem/alloy/handle_life(mob/living/carbon/human/human)
 	var/update = NONE
-	update |= H.heal_overall_damage(2, 2, updating_health = FALSE)
-	update |= H.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+
+	update |= human.heal_overall_damage(2, 2, updating_health = FALSE)
+	update |= human.heal_damages(tox = 2, oxy = 2, updating_health = FALSE)
+
 	if(update)
-		H.updatehealth()
+		human.updatehealth()
 
 
 /datum/species/golem/alloy/can_understand(mob/other) //Can understand everyone, but they can only speak over their mindlink
@@ -505,8 +505,6 @@
 	special_name_chance = 100
 
 /datum/species/golem/wood/handle_life(mob/living/carbon/human/H)
-	if(H.stat == DEAD)
-		return
 	var/light_amount = 0 //how much light there is in the place, affects receiving nutrition and healing
 	var/is_vamp = isvampire(H)
 	if(isturf(H.loc)) //else, there's considered to be no light
@@ -608,19 +606,20 @@
 	special_name_chance = 30
 
 /datum/species/golem/sand/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message("<span class='danger'>[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!</span>")
+	H.visible_message(span_danger("[H] рассыпал[genderize_ru(H.gender,"ся","ась","ось","ись")] в кучу песка!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/stack/ore/glass(get_turf(H))
 	qdel(H)
 
-/datum/species/golem/sand/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+/datum/species/golem/sand/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H))
 		if(P.flag == "bullet" || P.flag == "bomb")
 			playsound(H, 'sound/effects/shovel_dig.ogg', 70, 1)
-			H.visible_message("<span class='danger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>", \
-			"<span class='userdanger'>[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!</span>")
+			H.visible_message(span_danger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
+			span_userdanger("[P.name] тонет в песчаном теле [H] без видимого вреда здоровью!"), \
+			projectile_message = TRUE)
 			return FALSE
 	return TRUE
 
@@ -653,18 +652,19 @@
 
 /datum/species/golem/glass/handle_death(gibbed, mob/living/carbon/human/H)
 	playsound(H, "shatter", 70, 1)
-	H.visible_message("<span class='danger'>[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!</span>")
+	H.visible_message(span_danger("[H] разбил[genderize_ru(H.gender,"ся","ась","ось","ись")] в дребезги!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	for(var/i=1, i <= rand(3, 5), i++)
 		new /obj/item/shard(get_turf(H))
 	qdel(H)
 
-/datum/species/golem/glass/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+/datum/species/golem/glass/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(!(P.original == H && P.firer == H)) //self-shots don't reflect
 		if(P.is_reflectable(REFLECTABILITY_ENERGY))
-			H.visible_message("<span class='danger'>[P.name] отражается от стеклянной кожи [H]!</span>", \
-			"<span class='userdanger'>[P.name] отражается от стеклянной кожи [H]!</span>")
+			H.visible_message(span_danger("[P.name] отражается от стеклянной кожи [H]!"), \
+			span_userdanger("[P.name] отражается от стеклянной кожи [H]!"), \
+			projectile_message = TRUE)
 
 			P.reflect_back(H)
 
@@ -696,7 +696,7 @@
 	var/tele_range = 6
 
 /datum/species/golem/bluespace/proc/reactive_teleport(mob/living/carbon/human/H)
-	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы дестабилизируетесь и телепортируетесь!</span>")
+	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы дестабилизируетесь и телепортируетесь!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(T.density)
@@ -738,7 +738,7 @@
 		. |= ATTACK_CHAIN_NO_AFTERATTACK
 
 
-/datum/species/golem/bluespace/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+/datum/species/golem/bluespace/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_teleport + teleport_cooldown)
 		reactive_teleport(H)
 	return TRUE
@@ -760,7 +760,7 @@
 
 
 /datum/action/innate/unstable_teleport
-	name = "Unstable Teleport"
+	name = "Нестабильный телепорт"
 	check_flags = AB_CHECK_CONSCIOUS|AB_CHECK_INCAPACITATED
 	button_icon_state = "blink"
 	icon_icon = 'icons/mob/actions/actions.dmi'
@@ -778,13 +778,13 @@
 /datum/action/innate/unstable_teleport/Activate()
 	activated = TRUE
 	var/mob/living/carbon/human/H = owner
-	H.visible_message("<span class='warning'>[H] начинает вибрировать!</span>", "<span class='danger'>Вы начали заряжать своё блюспейс-ядро…</span>")
+	H.visible_message(span_warning("[H] начинает вибрировать!"), span_danger("Вы начали заряжать своё блюспейс-ядро…"))
 	playsound(get_turf(H), 'sound/weapons/flash.ogg', 25, 1)
 	addtimer(CALLBACK(src, PROC_REF(teleport), H), 15)
 
 /datum/action/innate/unstable_teleport/proc/teleport(mob/living/carbon/human/H)
 	activated = FALSE
-	H.visible_message("<span class='warning'>[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!</span>", "<span class='danger'>Вы телепортировались!</span>")
+	H.visible_message(span_warning("[H] телепортировал[genderize_ru(H.gender,"ся","ась","ось","ись")]!"), span_danger("Вы телепортировались!"))
 	var/list/turfs = new/list()
 	for(var/turf/T in orange(tele_range, H))
 		if(isspaceturf(T))
@@ -810,7 +810,7 @@
 	UpdateButtonIcon() //action icon looks available again
 
 /datum/unarmed_attack/golem/bluespace
-	attack_verb = "bluespace punch"
+	attack_verb = list("блюспейс ударил")
 	attack_sound = 'sound/effects/phasein.ogg'
 
 //honk
@@ -875,7 +875,7 @@
 		last_banana = world.time
 
 
-/datum/species/golem/bananium/bullet_act(obj/item/projectile/P, mob/living/carbon/human/H)
+/datum/species/golem/bananium/bullet_act(obj/projectile/P, mob/living/carbon/human/H)
 	if(world.time > last_banana + banana_cooldown)
 		new/obj/item/grown/bananapeel/specialpeel(get_turf(H))
 		last_banana = world.time
@@ -906,7 +906,7 @@
 	playsound(get_turf(H), 'sound/misc/sadtrombone.ogg', 70, 0)
 
 /datum/unarmed_attack/golem/bananium
-	attack_verb = list("HONK")
+	attack_verb = list("хонкнул")
 	attack_sound = 'sound/items/airhorn2.ogg'
 	animation_type = ATTACK_EFFECT_DISARM
 	harmless = TRUE
@@ -957,6 +957,7 @@
         FEMALE = list("Дева"),
         NEUTER = null
         )
+	speed_mod = 0
 	chance_name_male = 70
 	chance_name_female = 60
 	chance_name_neuter = 10
@@ -968,7 +969,7 @@
 		SSticker.mode.add_clocker(H.mind)
 
 /datum/species/golem/clockwork/handle_death(gibbed, mob/living/carbon/human/H)
-	H.visible_message("<span class='danger'>[H] crumbles into cogs and gears! Then leftovers suddenly dusts!</span>")
+	H.visible_message(span_danger("[H] crumbles into cogs and gears! Then leftovers suddenly dusts!"))
 	for(var/obj/item/W in H)
 		H.drop_item_ground(W)
 	new /obj/item/clockwork/clockgolem_remains(get_turf(H))

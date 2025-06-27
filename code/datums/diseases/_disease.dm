@@ -4,9 +4,9 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 /datum/disease
 	//Fluff
 	var/form = "Болезнь"
-	var/name = "Unknown"
+	var/name = "Неизвестно"
 	var/desc = ""
-	var/agent = "some microbes"
+	var/agent = "какие-то микробы"
 	var/cure_text = null
 	var/additional_info = "Болезнь"
 
@@ -46,7 +46,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 	/// Immunity to Anti-Bodies Metabolism symptom
 	var/virus_heal_resistant = FALSE
 	/// Message when cured
-	var/cured_message = "You feel better."
+	var/cured_message = "Вы чувствуете себя лучше."
 
 	//Mutations
 
@@ -84,7 +84,7 @@ GLOBAL_LIST_INIT(diseases, subtypesof(/datum/disease))
 			var/datum/reagent/R = GLOB.chemical_reagents_list[id]
 			if(istype(R))
 				reagents += R.name
-		cure_text = english_list(reagents, "Неизлечимо", needs_all_cures ? " & " : " or ")
+		cure_text = russian_list(reagents, "Неизлечимо", needs_all_cures ? " и " : " или ")
 
 /datum/disease/Destroy()
 	affected_mob = null

@@ -243,17 +243,6 @@
 	},
 /turf/simulated/floor/lava,
 /area/ruin/unpowered/ash_walkers)
-"aK" = (
-/obj/structure/stone_tile/block/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,
-/turf/simulated/floor/indestructible/boss/indoors,
-/area/ruin/unpowered/ash_walkers)
 "aM" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
@@ -273,10 +262,6 @@
 /obj/structure/stone_tile/surrounding/cracked{
 	dir = 1
 	},
-/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"aP" = (
-/obj/structure/stone_tile,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
 "aQ" = (
@@ -371,19 +356,6 @@
 /obj/item/seeds/reishi,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/ruin/unpowered/ash_walkers)
-"bc" = (
-/obj/structure/stone_tile/block{
-	dir = 4
-	},
-/obj/structure/stone_tile{
-	dir = 8
-	},
-/obj/structure/stone_tile{
-	dir = 4
-	},
-/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
-/turf/simulated/floor/indestructible/boss/indoors,
-/area/ruin/unpowered/ash_walkers)
 "bd" = (
 /obj/structure/stone_tile/surrounding_tile/cracked{
 	dir = 4
@@ -473,20 +445,6 @@
 	dir = 1
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
-/area/ruin/unpowered/ash_walkers)
-"bm" = (
-/obj/structure/stone_tile{
-	dir = 1
-	},
-/obj/structure/stone_tile,
-/obj/structure/stone_tile/cracked{
-	dir = 8
-	},
-/obj/structure/stone_tile/cracked{
-	dir = 4
-	},
-/obj/item/rcd/preloaded,
-/turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "bn" = (
 /obj/structure/closet/crate/radiation,
@@ -1099,6 +1057,7 @@
 	},
 /obj/structure/table/wood,
 /obj/item/twohanded/spear,
+/obj/item/clothing/head/shamanash,
 /turf/simulated/floor/indestructible/boss,
 /area/ruin/unpowered/ash_walkers)
 "cN" = (
@@ -1402,12 +1361,49 @@
 	},
 /turf/simulated/mineral/volcanic/lava_land_surface,
 /area/lavaland/surface/outdoors)
-"qj" = (
+"eK" = (
 /obj/structure/stone_tile/cracked{
 	dir = 4
 	},
 /obj/effect/mapping_helpers/no_lava,
 /obj/effect/decal/cleanable/ashrune,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/lavaland/surface/outdoors)
+"ic" = (
+/obj/structure/stone_tile,
+/obj/item/healthanalyzer/gem_analyzer,
+/turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
+/area/ruin/unpowered/ash_walkers)
+"lA" = (
+/mob/living/simple_animal/hostile/asteroid/gutlunch/guthen,
+/obj/structure/stone_tile/block{
+	dir = 4
+	},
+/obj/structure/stone_tile{
+	dir = 8
+	},
+/obj/structure/stone_tile{
+	dir = 4
+	},
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"rV" = (
+/mob/living/simple_animal/hostile/asteroid/gutlunch/gubbuck,
+/obj/structure/stone_tile/block/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/turf/simulated/floor/indestructible/boss/indoors,
+/area/ruin/unpowered/ash_walkers)
+"zn" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/effect/mapping_helpers/no_lava,
+/obj/machinery/smartfridge/drying_rack/ash,
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
 "zz" = (
@@ -1424,6 +1420,20 @@
 	},
 /turf/simulated/floor/plating/asteroid/basalt/lava_land_surface,
 /area/lavaland/surface/outdoors)
+"KC" = (
+/obj/structure/stone_tile{
+	dir = 1
+	},
+/obj/structure/stone_tile,
+/obj/structure/stone_tile/cracked{
+	dir = 8
+	},
+/obj/structure/stone_tile/cracked{
+	dir = 4
+	},
+/obj/item/stack/fireproof_rods/twentyfive,
+/turf/simulated/floor/indestructible/boss,
+/area/ruin/unpowered/ash_walkers)
 
 (1,1,1) = {"
 aa
@@ -1563,9 +1573,9 @@ aa
 ae
 as
 cW
-aP
+ic
 aZ
-bm
+KC
 by
 ak
 bV
@@ -1590,7 +1600,7 @@ ba
 bn
 bz
 ak
-cb
+zn
 df
 bX
 co
@@ -1614,7 +1624,7 @@ ak
 ak
 cg
 cb
-qj
+eK
 cn
 bL
 dr
@@ -1696,7 +1706,7 @@ ak
 au
 aG
 aS
-bc
+lA
 bp
 ak
 ak
@@ -1782,7 +1792,7 @@ af
 ak
 ak
 ay
-aK
+rV
 aW
 bg
 bt

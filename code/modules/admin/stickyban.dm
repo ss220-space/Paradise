@@ -16,17 +16,18 @@
 			if(data["ckey"])
 				ckey = ckey(data["ckey"])
 			else
-				ckey = clean_input("Ckey","Ckey","")
+				ckey = tgui_input_text(usr, "Ckey", "Ckey", "")
 				if(!ckey)
 					return
 				ckey = ckey(ckey)
+
 			if(get_stickyban_from_ckey(ckey))
 				to_chat(usr, "<span class='adminnotice'>Error: Can not add a stickyban: User already has a current sticky ban</span>")
 
 			if(data["reason"])
 				ban["message"] = data["reason"]
 			else
-				var/reason = clean_input("Reason","Reason","Ban Evasion")
+				var/reason = tgui_input_text(usr, "Reason", "Reason", "Ban Evasion")
 				if(!reason)
 					return
 				ban["message"] = "[reason]"
@@ -45,7 +46,7 @@
 			if(!ban)
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!</span>")
 				return
-			if(alert("Are you sure you want to remove the sticky ban on [ckey]?","Are you sure","Yes","No") == "No")
+			if(tgui_alert(usr, "Are you sure you want to remove the sticky ban on [ckey]?", "Are you sure", list("Yes", "No")) == "No")
 				return
 			if(!get_stickyban_from_ckey(ckey))
 				to_chat(usr, "<span class='adminnotice'>Error: The ban disappeared.</span>")
@@ -78,7 +79,7 @@
 				to_chat(usr, "<span class='adminnotice'>Error: [alt] is not linked to [ckey]'s sticky ban!</span>")
 				return
 
-			if(alert("Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them","Are you sure","Yes","No") == "No")
+			if(tgui_alert(usr, "Are you sure you want to disassociate [alt] from [ckey]'s sticky ban? \nNote: Nothing stops byond from re-linking them", "Are you sure", list("Yes", "No")) == "No")
 				return
 
 			//we have to do this again incase something changes
@@ -112,7 +113,7 @@
 				to_chat(usr, "<span class='adminnotice'>Error: No sticky ban for [ckey] found!")
 				return
 			var/oldreason = ban["message"]
-			var/reason = clean_input("Reason","Reason","[ban["message"]]")
+			var/reason = tgui_input_text(usr, "Reason", "Reason", "[ban["message"]]")
 			if(!reason || reason == oldreason)
 				return
 			//we have to do this again incase something changed while we waited for input
@@ -156,16 +157,13 @@
 		banhtml += "<br /><hr />\n"
 		banhtml += stickyban_gethtml(ckey,ban)
 
-	var/html = {"<meta charset="UTF-8">
-	<head>
-		<title>Sticky Bans</title>
-	</head>
-	<body>
+	var/html = {"
 		<h2>All Sticky Bans:</h2> <a href='byond://?_src_=holder;stickyban=add'>\[+\]</a><br>
 		[banhtml]
-	</body>
 	"}
-	usr << browse(html,"window=stickybans;size=700x400")
+	var/datum/browser/popup = new(usr, "stickybans", "Sticky Bans", 700, 400)
+	popup.set_content(html)
+	popup.open(FALSE)
 
 /proc/get_stickyban_from_ckey(var/ckey)
 	if(!ckey)
@@ -202,7 +200,7 @@
 
 /client/proc/stickybanpanel()
 	set name = "Sticky Ban Panel"
-	set category = "Admin"
+	set category = STATPANEL_ADMIN_BAN
 
 	if(!check_rights(R_BAN))
 		return

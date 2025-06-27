@@ -164,6 +164,8 @@ SUBSYSTEM_DEF(tts)
 		"chaplain" = "Священник",
 		"syndicate officer" = "Офицер синдиката",
 		"visitor" = "посетитель",
+		"mining medic" = "Шахтёрский врач",
+		"lavaland health officer" = "Медицинский работник Лазиса",
 	)
 
 
@@ -437,7 +439,7 @@ SUBSYSTEM_DEF(tts)
 	if(preSFX)
 		play_sfx(listener, preSFX, output.channel, output.volume, output.environment)
 
-	output = listener.playsound_local(turf_source, output, volume, S = output, wait = TRUE, channel = channel)
+	output = listener.playsound_local(turf_source, output, volume, sound = output, wait = TRUE, channel = channel)
 
 	if(!output || output.volume <= 0)
 		return

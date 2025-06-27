@@ -85,10 +85,9 @@
 //		VERBS & PROCS		//
 //////////////////////////////
 
-/obj/machinery/fishtank/AltClick(mob/user)
-	if(!Adjacent(user))
-		return ..()
+/obj/machinery/fishtank/click_alt(mob/user)
 	toggle_lid(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/machinery/fishtank/AltShiftClick(mob/user)
@@ -98,15 +97,15 @@
 
 
 /obj/machinery/fishtank/verb/toggle_lid_verb()
-	set name = "Toggle Tank Lid"
-	set category = "Object"
+	set name = "Крышка аквариума"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_lid(usr)
 
 
 /obj/machinery/fishtank/verb/toggle_light_verb()
-	set name = "Toggle Tank Light"
-	set category = "Object"
+	set name = "Освещение аквариума"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 	toggle_light(usr)
 

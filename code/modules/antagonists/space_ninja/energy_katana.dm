@@ -24,7 +24,7 @@
 	armour_penetration = 50
 	w_class = WEIGHT_CLASS_NORMAL
 	hitsound = 'sound/weapons/bladeslice.ogg'
-	attack_verb = list("attacks", "slashes", "stabs", "slices", "tears", "lacerates", "rips", "dices", "cuts")
+	attack_verb = list("атаковал", "порезал", "уколол", "полоснул", "рубанул", "пронзил")
 	slot_flags = ITEM_SLOT_BELT|ITEM_SLOT_BACK
 	sharp = TRUE
 	max_integrity = 200
@@ -157,8 +157,8 @@
 	return BRUTELOSS
 
 /datum/action/innate/dash/ninja
-	name = "Energy Dash"
-	desc = "Teleport to the targeted location. Just use your katana in a disarming manner"
+	name = "Энергорывок"
+	desc = "Мгновенно переместиться в выбранную точку. Просто используйте катану в обезоруживающем намерении."
 	icon_icon = 'icons/mob/actions/actions_ninja.dmi'
 	button_icon_state = "arrows_3"
 	button_icon = 'icons/mob/actions/actions_ninja.dmi'

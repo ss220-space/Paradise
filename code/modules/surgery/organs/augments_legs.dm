@@ -136,7 +136,7 @@
 		to_chat(owner, span_warning("The boot's internal propulsion needs to recharge still!"))
 		return
 
-	if(!owner.has_gravity())
+	if(owner.no_gravity())
 		to_chat(owner, span_warning("You can't jump without gravity!"))
 		return
 

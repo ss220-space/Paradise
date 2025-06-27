@@ -67,20 +67,25 @@
 // Subsystems shutdown in the reverse of the order they initialize in
 // The numbers just define the ordering, they are meaningless otherwise.
 #define INIT_ORDER_TITLE 100 // This **MUST** load first or people will se blank lobby screens
-#define INIT_ORDER_SPEECH_CONTROLLER 19
-#define INIT_ORDER_GARBAGE 18
-#define INIT_ORDER_DBCORE 17
-#define INIT_ORDER_BLACKBOX 16
-#define INIT_ORDER_CLEANUP 15
-#define INIT_ORDER_INPUT 14
-#define INIT_ORDER_SOUNDS 13
-#define INIT_ORDER_INSTRUMENTS 12
-#define INIT_ORDER_EVENTS 11
-#define INIT_ORDER_HOLIDAY 10
-#define INIT_ORDER_JOBS 9
-#define INIT_ORDER_TICKER 8
-#define INIT_ORDER_MAPPING 7
-#define INIT_ORDER_EARLY_ASSETS 6
+#define INIT_ORDER_SPEECH_CONTROLLER 95
+#define INIT_ORDER_GARBAGE 92
+#define INIT_ORDER_DBCORE 91
+#define INIT_ORDER_BLACKBOX 56
+#define INIT_ORDER_CLEANUP 55
+#define INIT_ORDER_INPUT 50
+#define INIT_ORDER_SOUNDS 44
+#define INIT_ORDER_INSTRUMENTS 43
+#define INIT_ORDER_EVENTS 42
+#define INIT_ORDER_HOLIDAY 41
+#define INIT_ORDER_JOBS 40
+#define INIT_ORDER_AI_MOVEMENT 		36 //We need the movement setup
+#define INIT_ORDER_AI_CONTROLLERS 	35 //So the controller can get the ref
+#define INIT_ORDER_TICKER 30
+#define INIT_ORDER_NEW_PLAYERS_INFO 31
+#define INIT_ORDER_MAPPING 20
+#define INIT_ORDER_HOLOMAP 8 // after map loads, but before atoms init
+#define INIT_ORDER_EARLY_ASSETS 7
+#define INIT_ORDER_FLUIDS 6 // Needs to be above atoms, as some atoms may want to start fluids/gases on init
 #define INIT_ORDER_ATOMS 5
 #define INIT_ORDER_MACHINES 4
 #define INIT_ORDER_IDLENPCS 3
@@ -89,7 +94,6 @@
 #define INIT_ORDER_DEFAULT 0
 #define INIT_ORDER_AIR -1
 #define INIT_ORDER_SUN -2
-#define INIT_ORDER_MINIMAP -3
 #define INIT_ORDER_ASSETS -4
 #define INIT_ORDER_ICON_SMOOTHING -5
 #define INIT_ORDER_OVERLAY -6
@@ -102,6 +106,7 @@
 #define INIT_ORDER_NIGHTSHIFT -24
 #define INIT_ORDER_GAME_EVENTS -26
 #define INIT_ORDER_PATH -50
+#define INIT_ORDER_EXPLOSIONS -69
 #define INIT_ORDER_PERSISTENCE -95
 #define INIT_ORDER_STATPANELS -98
 #define INIT_ORDER_DEMO	-99 // To avoid a bunch of changes related to initialization being written, do this last
@@ -120,6 +125,8 @@
 #define FIRE_PRIORITY_WET_FLOORS	20
 #define FIRE_PRIORITY_AIR			20
 #define FIRE_PRIORITY_NPC			20
+#define FIRE_PRIORITY_NPC_MOVEMENT  21
+#define FIRE_PRIORITY_NPC_ACTIONS	22
 #define FIRE_PRIORITY_PATHFINDING	23
 #define FIRE_PRIORITY_PROCESS		25
 #define FIRE_PRIORITY_THROWING		25
@@ -134,15 +141,18 @@
 #define FIRE_PRIORITY_MOBS			100
 #define FIRE_PRIORITY_ASSETS 		105
 #define FIRE_PRIORITY_TGUI			110
+#define FIRE_PRIORITY_NEW_PLAYERS_INFO 	199
 #define FIRE_PRIORITY_TICKER		200
 #define FIRE_PRIORITY_STATPANEL		390
 #define FIRE_PRIORITY_CHAT 			400
 #define FIRE_PRIORITY_RUNECHAT		410 // I hate how high the fire priority on this is -aa
+#define FIRE_PRIORITY_MOUSE_ENTERED 450
 #define FIRE_PRIORITY_OVERLAYS		500
+#define FIRE_PRIORITY_EXPLOSIONS	666
 #define FIRE_PRIORITY_TIMER			700
 #define FIRE_PRIORITY_SPEECH_CONTROLLER 900
-#define FIRE_PRIORITY_DELAYED_VERBS 950
-#define FIRE_PRIORITY_INPUT			1000 // This must always always be the max highest priority. Player input must never be lost.
+#define FIRE_PRIORITY_DELAYED_VERBS 	950
+#define FIRE_PRIORITY_INPUT				1000 // This must always always be the max highest priority. Player input must never be lost.
 
 
 // SS runlevels

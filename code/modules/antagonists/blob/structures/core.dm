@@ -30,6 +30,8 @@
 
 /obj/structure/blob/special/core/Initialize(mapload, client/new_overmind = null, offspring)
 	GLOB.blob_cores += src
+	if(SSticker?.mode?.blob_stage >= BLOB_STAGE_FIRST)
+		SSshuttle?.add_hostile_environment(src)
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	update_blob() //so it atleast appears
@@ -41,12 +43,16 @@
 		update_blob()
 	return ..()
 
+/obj/structure/blob/special/core/link_to_overmind(mob/camera/blob/owner_overmind)
+	. = ..()
+	owner_overmind.blob_core = src
 
 /obj/structure/blob/special/core/Destroy()
 	GLOB.blob_cores -= src
+	SSshuttle?.remove_hostile_environment(src)
 	if(overmind)
 		overmind.blob_core = null
-		overmind = null
+		QDEL_NULL(overmind)
 	SSticker?.mode?.blob_died()
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
@@ -107,7 +113,7 @@
 
 	overmind_get_delay = world.time + 5 MINUTES
 
-	if(overmind)
+	if(overmind && new_overmind)
 		qdel(overmind)
 	if(new_overmind)
 		get_new_overmind(new_overmind)
@@ -132,10 +138,9 @@
 
 	if(C && !QDELETED(src))
 		var/mob/camera/blob/B = new(loc, src)
-		B.blob_core = src
 		B.mind_initialize()
 		B.key = C.key
-		overmind = B
+		link_to_overmind(B)
 		B.is_offspring = is_offspring
 		addtimer(CALLBACK(src, PROC_REF(add_datum_if_not_exist)), TIME_TO_ADD_OM_DATUM)
 		log_game("[B.key] has become Blob [is_offspring ? "offspring" : ""]")

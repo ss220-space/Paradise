@@ -147,7 +147,7 @@
 		if(!user.drop_from_active_hand())
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("Вы помещаете [I.declent_ru(ACCUSATIVE)] в [declent_ru(ACCUSATIVE)]."))
-		balloon_alert(usr, "мешок помещен")
+		balloon_alert(usr, "мешок помещён")
 		I.forceMove(src)
 		money_bag = I
 		SStgui.update_uis(src)

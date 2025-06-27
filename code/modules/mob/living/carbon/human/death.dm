@@ -187,3 +187,10 @@
 	for(var/trait_source in GET_TRAIT_SOURCES(src, TRAIT_NO_CLONE))
 		REMOVE_TRAIT(src, TRAIT_NO_CLONE, trait_source)
 
+/mob/living/carbon/human/proc/make_nugget(mob/living)
+	for(var/obj/item/organ/external/limb as anything in bodyparts)
+		if(limb.limb_body_flag == LEG_RIGHT || limb.limb_body_flag == LEG_LEFT || limb.limb_body_flag == ARM_RIGHT || limb.limb_body_flag == ARM_LEFT)
+			limb.droplimb()
+	emote("scream")
+	playsound(src, 'sound/misc/desceration-03.ogg', 70)
+

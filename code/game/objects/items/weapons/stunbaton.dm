@@ -10,7 +10,7 @@
 	force = 10
 	throwforce = 7
 	origin_tech = "combat=2"
-	attack_verb = list("beaten")
+	attack_verb = list("огрел", "ударил")
 	armor = list("melee" = 0, "bullet" = 0, "laser" = 0, "energy" = 0, "bomb" = 50, "bio" = 0, "rad" = 0, "fire" = 80, "acid" = 80)
 	active = FALSE
 	allows_stun_in_harm = TRUE
@@ -121,7 +121,7 @@
 
 
 /obj/item/melee/baton/security/attackby(obj/item/I, mob/user, params)
-	if(istype(I, /obj/item/stock_parts/cell))
+	if(iscell(I))
 		var/obj/item/stock_parts/cell/new_cell = I
 		if(cell)
 			balloon_alert(user, "уже установлено!")

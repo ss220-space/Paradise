@@ -88,12 +88,13 @@
 	roundstart_move = "emergency_away"
 	var/sound_played = 0 //If the launch sound has been sent to all players on the shuttle itself
 
-	var/datum/announcement/priority/emergency_shuttle_docked = new(0, new_sound = sound('sound/AI/shuttledock.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_called = new(0, new_sound = sound('sound/AI/shuttlecalled.ogg'))
-	var/datum/announcement/priority/emergency_shuttle_recalled = new(0, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_docked = new(do_log = FALSE, new_sound = sound('sound/AI/shuttledock.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_called = new(do_log = FALSE, new_sound = sound('sound/AI/shuttlecalled.ogg'))
+	var/datum/announcement/priority/emergency_shuttle_recalled = new(do_log = FALSE, new_sound = sound('sound/AI/shuttlerecalled.ogg'))
 
 	var/canRecall = TRUE //no bad condom, do not recall the crew transfer shuttle!
 	var/forceHijacked = FALSE // forced change of arrival at the syndicate base
+	var/devil_on_shuttle = FALSE
 
 
 /obj/docking_port/mobile/emergency/register()
@@ -157,6 +158,11 @@
 		if(issilicon(player)) //Borgs are technically dead anyways
 			continue
 		if(isanimal(player)) //Poly does not own the shuttle
+			continue
+		if(isascendeddevil(player))
+			devil_on_shuttle = TRUE
+			continue
+		if(isbrain(player))
 			continue
 		if(ishuman(player)) //hostages allowed on the shuttle, check for restraints
 			var/mob/living/carbon/human/H = player
@@ -224,8 +230,13 @@
 */
 		if(SHUTTLE_DOCKED)
 
-			if(time_left <= 0 && SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && SSshuttle.hostile_environment.len)
 				GLOB.priority_announcement.Announce("Обнаружена угроза. Отлёт отложен на неопределённый срок до разрешения конфликта.")
+				sound_played = 0
+				mode = SHUTTLE_STRANDED
+
+			if(time_left <= 0 && SSshuttle.emergencyNoEscape && mode != SHUTTLE_STRANDED)
+				GLOB.priority_announcement.Announce("Шаттл заблокирован. Свяжитесь с Центральным Командованием для уточнения причин и снятия блокировки.")
 				sound_played = 0
 				mode = SHUTTLE_STRANDED
 
@@ -239,7 +250,7 @@
 				for(var/area/shuttle/escape/E in GLOB.areas)
 					E << 'sound/effects/hyperspace_begin_new.ogg'
 
-			if(time_left <= 0 && !SSshuttle.emergencyNoEscape)
+			if(time_left <= 0 && !(SSshuttle.emergencyNoEscape || SSshuttle.hostile_environment.len))
 				//move each escape pod to its corresponding transit dock
 				for(var/obj/docking_port/mobile/pod/M in SSshuttle.mobile)
 					if(is_station_level(M.z)) //Will not launch from the mine/planet
@@ -269,7 +280,10 @@
 					destination_dock = "emergency_syndicate"
 					GLOB.priority_announcement.Announce("Обнаружен взлом навигационных протоколов. Пожалуйста, свяжитесь в руководством.")
 
-				dock_id(destination_dock)
+				if(devil_on_shuttle)
+					GLOB.priority_announcement.Announce("Обнаружен сбой навигационных протоколов. Эвакуационный шаттл сошёл с установленного маршрута и движется в неизвестном направлении.")
+				else
+					dock_id(destination_dock)
 
 				mode = SHUTTLE_ENDGAME
 				timer = 0

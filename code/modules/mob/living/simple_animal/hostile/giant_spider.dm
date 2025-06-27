@@ -1,9 +1,3 @@
-
-#define SPINNING_WEB 1
-#define LAYING_EGGS 2
-#define MOVING_TO_TARGET 3
-#define SPINNING_COCOON 4
-
 //basic spider mob, these generally guard nests
 /mob/living/simple_animal/hostile/poison/giant_spider
 	name = "giant spider"
@@ -189,7 +183,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/verb/Web()
 	set name = "Lay Web"
-	set category = "Spider"
+	set category = STATPANEL_SPIDER
 	set desc = "Spread a sticky web to slow down prey."
 
 	var/T = src.loc
@@ -207,7 +201,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/Wrap()
 	set name = "Wrap"
-	set category = "Spider"
+	set category = STATPANEL_SPIDER
 	set desc = "Wrap up prey to feast upon and objects for safe keeping."
 
 	if(!cocoon_target)
@@ -277,7 +271,7 @@
 
 /mob/living/simple_animal/hostile/poison/giant_spider/nurse/verb/LayEggs()
 	set name = "Lay Eggs"
-	set category = "Spider"
+	set category = STATPANEL_SPIDER
 	set desc = "Lay a clutch of eggs, but you must wrap a creature for feeding first."
 
 	var/obj/structure/spider/eggcluster/E = locate() in get_turf(src)
@@ -301,8 +295,3 @@
 					fed--
 			busy = 0
 			stop_automated_movement = 0
-
-#undef SPINNING_WEB
-#undef LAYING_EGGS
-#undef MOVING_TO_TARGET
-#undef SPINNING_COCOON

@@ -150,7 +150,9 @@ GLOBAL_LIST_INIT(leather_recipes, list (
 	new/datum/stack_recipe("leather overcoat", /obj/item/clothing/suit/jacket/leather/overcoat, 10),
 	new/datum/stack_recipe("FireSuit", /obj/item/clothing/suit/fire/firefighter, 15),
 	new/datum/stack_recipe("hide mantle", /obj/item/clothing/neck/mantle/unathi, 4),
-	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1)))
+	new/datum/stack_recipe("leather bed", /obj/structure/bed/leather, 10, one_per_turf = TRUE, on_floor = TRUE, time = 5 SECONDS),
+	new/datum/stack_recipe("gem satchel", /obj/item/storage/bag/gem, 1),
+	))
 
 /obj/item/stack/sheet/leather/Initialize(mapload, new_amount, merge = TRUE)
 	. = ..()
@@ -172,6 +174,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	. = ..()
 	recipes = GLOB.sinew_recipes
 
+/obj/item/stack/sheet/sinew/five
+	amount = 5
+
 /obj/item/stack/sheet/animalhide/goliath_hide
 	name = "goliath hide plates"
 	desc = "Pieces of a goliath's rocky hide, these might be able to make your suit a bit more durable to attack from the local fauna."
@@ -181,6 +186,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 	item_flags = NOBLUDGEON
 	w_class = WEIGHT_CLASS_NORMAL
 	layer = MOB_LAYER
+	var/static/list/override_unplatable_armor_typecache = typecacheof(list(
+			/obj/item/clothing/suit/hooded/explorer/mining,
+			/obj/item/clothing/head/hooded/explorer/mining,
+	))
 	var/static/list/goliath_platable_armor_typecache = typecacheof(list(
 			/obj/item/clothing/suit/hooded/pathfinder,
 			/obj/item/clothing/head/hooded/pathfinder,
@@ -195,6 +204,10 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 
 /obj/item/stack/sheet/animalhide/goliath_hide/afterattack(atom/target, mob/user, proximity_flag, params)
 	if(!proximity_flag)
+		return
+	var/uplatable_armor = is_type_in_typecache(target, override_unplatable_armor_typecache)
+	if(uplatable_armor)
+		balloon_alert(user, "нельзя улучшить!")
 		return
 	var/platable_armor_with_icon = is_type_in_typecache(target, goliath_platable_armor_with_icon_typecache)
 	if(is_type_in_typecache(target, goliath_platable_armor_typecache) || platable_armor_with_icon)
@@ -234,6 +247,9 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		else
 			to_chat(user, "<span class='warning'>You can't improve [D] any further!</span>")
 
+/obj/item/stack/sheet/animalhide/goliath_hide/five
+	amount = 5
+
 /obj/item/stack/sheet/armour_plate
 	name = "укрепленная броневая плита" // тут по причине того же механа что и шкура голиафа
 	desc = "Сделанный на коленке из плит брони для мехов, этот кусок металла можно налепить на сам мех, усиливая его защитные характеристики. К сожалению, выемки под такую броню есть только у мехов рабочего класса."
@@ -260,6 +276,28 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		else
 			to_chat(user, "<span class='warning'>Вы больше не можете найти куда [name] пристраивается!</span>")
 
+/obj/item/stack/sheet/cartilage_plate
+	name = "thick cartilage plate"
+	desc = "Хрящевая пластина, снятая с тела лавового панцирника. Судя по всему, пластина начала терять свой характерный кроваво-красный цвет, однако она остаётся такой же крепкой, как и до этого."
+
+	ru_names = list(
+		NOMINATIVE = "толстая хрящевая пластина",
+		GENITIVE = "толстой хрящевой пластины",
+		DATIVE = "толстой хрящевой пластине",
+		ACCUSATIVE = "толстую хрящевую пластину",
+		INSTRUMENTAL = "толстой хрящевой пластиной",
+		PREPOSITIONAL = "толстой хрящевой пластине"
+	)
+	gender = FEMALE
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "thick_cartilage_plate"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "thick_cartilage_plate"
+	singular_name = "cartilage plate"
+	item_flags = NOBLUDGEON
+	w_class = WEIGHT_CLASS_NORMAL
+	layer = MOB_LAYER
 
 /obj/item/stack/sheet/animalhide/ashdrake
 	name = "ash drake hide"
@@ -286,7 +324,7 @@ GLOBAL_LIST_INIT(sinew_recipes, list ( \
 		if(!do_after(user, 5 SECONDS * I.toolspeed, src, category = DA_CAT_TOOL))
 			return ATTACK_CHAIN_PROCEED
 		to_chat(user, span_notice("You cut the hair from [src]."))
-		var/obj/item/stack/sheet/hairlesshide/hide = new(drop_location(), amount)
+		var/obj/item/stack/sheet/hairlesshide/hide = new(drop_location(), 3 * amount)
 		hide.add_fingerprint(user)
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL

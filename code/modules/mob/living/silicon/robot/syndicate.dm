@@ -9,7 +9,7 @@
 	faction = list("syndicate")
 	bubble_icon = "syndibot"
 	designation = "Syndicate Assault"
-	modtype = "Syndicate"
+	modtype = /obj/item/robot_module/syndicate
 	req_access = list(ACCESS_SYNDICATE)
 	ionpulse = 1
 	damage_protection = 5
@@ -50,6 +50,11 @@
 
 	playsound(loc, 'sound/mecha/nominalsyndi.ogg', 75, 0)
 
+/mob/living/silicon/robot/syndicate/Login()
+	. = ..()
+	if(length(module?.borg_skins) > 1 && !selected_skin)
+		addtimer(CALLBACK(src, PROC_REF(choose_icon), 0.5 SECONDS))
+
 /mob/living/silicon/robot/syndicate/reset_module()
 	..()
 	mmi = new /obj/item/mmi/robotic_brain/syndicate(src)
@@ -58,7 +63,7 @@
 	base_icon = "syndi-medi"
 	icon_state = "syndi-medi"
 	has_transform_animation = TRUE
-	modtype = "Syndicate Medical"
+	modtype = /obj/item/robot_module/syndicate_medical
 	designation = "Syndicate Medical"
 	brute_mod = 0.8 //20% less damage
 	burn_mod = 0.8
@@ -80,7 +85,7 @@
 	base_icon = "syndi-engi"
 	icon_state = "syndi-engi"
 	has_transform_animation = TRUE
-	modtype = "Syndicate Saboteur"
+	modtype = /obj/item/robot_module/syndicate_saboteur
 	designation = "Syndicate Saboteur"
 	brute_mod = 0.8
 	burn_mod = 0.8
@@ -102,6 +107,7 @@
 	QDEL_NULL(module)
 	module = new /obj/item/robot_module/syndicate_saboteur(src)
 
+
 	var/obj/item/borg/upgrade/selfrepair/SR = new /obj/item/borg/upgrade/selfrepair(src)
 	SR.action(src)
 
@@ -119,15 +125,15 @@
 
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/modify_name()
-	set name = "Modify Name"
+	set name = "Изменить имя"
 	set desc = "Change your systems' registered name to fool Nanotrasen systems. No cost."
-	set category = "Saboteur"
+	set category = STATPANEL_SABOTEUR
 	rename_self(braintype, TRUE, TRUE)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/toggle_chameleon()
-	set name = "Toggle Chameleon Projector"
+	set name = "Маскировка"
 	set desc = "Change your appearance to a Nanotrasen cyborg. Costs power to use and maintain."
-	set category = "Saboteur"
+	set category = STATPANEL_SABOTEUR
 
 	if(!cham_proj)
 		for(var/obj/item/borg_chameleon/C in contents)
@@ -137,15 +143,15 @@
 			cham_proj = C
 
 		if(!cham_proj)
-			to_chat(src, "<span class='warning'>Error : No chameleon projector system found.</span>")
+			to_chat(src, span_warning("Error : No chameleon projector system found."))
 			return
 
 	cham_proj.attack_self(src)
 
 /mob/living/silicon/robot/syndicate/saboteur/verb/set_mail_tag()
-	set name = "Set Mail Tag"
+	set name = "Почтовый адрес"
 	set desc = "Tag yourself for delivery through the disposals system."
-	set category = "Saboteur"
+	set category = STATPANEL_SABOTEUR
 
 	var/tag = input("Select the desired destination.", "Set Mail Tag", null) as null|anything in GLOB.TAGGERLOCATIONS
 
@@ -179,7 +185,7 @@
 /mob/living/silicon/robot/syndicate/saboteur/ex_act()
 	if(cham_proj)
 		cham_proj.disrupt(src)
-		
+
 	..()
 
 /mob/living/silicon/robot/syndicate/saboteur/emp_act()

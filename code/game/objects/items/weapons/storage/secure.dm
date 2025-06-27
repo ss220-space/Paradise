@@ -60,6 +60,8 @@
 	if(!open)
 		to_chat(user, span_warning("Open the service panel first."))
 		return .
+	if(l_hacking)
+		return .
 	to_chat(user, span_notice("Now attempting to reset internal memory, please hold..."))
 	l_hacking = TRUE
 	if(!I.use_tool(src, user, 10 SECONDS, volume = I.tool_volume) || !open)
@@ -104,7 +106,7 @@
 	emagged = TRUE
 	locked = FALSE
 	playsound(loc, "sparks", 50, TRUE, SHORT_RANGE_SOUND_EXTRARANGE)
-	flick_overlay_view(image(icon, src, icon_sparking), 1 SECONDS)
+	flick_overlay_view(mutable_appearance(icon, icon_sparking), 1 SECONDS)
 	addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, update_icon)), 1 SECONDS)
 
 	if(istype(weapon, /obj/item/melee/energy/blade))
@@ -117,9 +119,9 @@
 		to_chat(user, "You short out the lock on [src].")
 
 
-/obj/item/storage/secure/AltClick(mob/living/user)
+/obj/item/storage/secure/click_alt(mob/living/user)
 	if(!try_to_open(user))
-		return FALSE
+		return CLICK_ACTION_BLOCKING
 	return ..()
 
 /obj/item/storage/secure/MouseDrop(atom/over_object, src_location, over_location, src_control, over_control, params)
@@ -132,7 +134,7 @@
 		return TRUE
 	if(locked)
 		add_fingerprint(usr)
-		to_chat(usr, "<span class='warning'>It's locked!</span>")
+		to_chat(usr, span_warning("It's locked!"))
 		return FALSE
 	return TRUE
 
@@ -225,7 +227,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_NORMAL
 	max_combined_w_class = 21
-	attack_verb = list("bashed", "battered", "bludgeoned", "thrashed", "whacked")
+	attack_verb = list("ударил", "огрел")
 
 /obj/item/storage/secure/briefcase/attack_hand(mob/user)
 	if((loc == user) && locked)
@@ -242,6 +244,12 @@
 		orient2hud(user)
 	add_fingerprint(user)
 	return
+
+/obj/item/storage/secure/briefcase/captian
+
+/obj/item/storage/secure/briefcase/captian/populate_contents()
+	new /obj/item/card/id/captains_spare(src)
+
 
 //Syndie variant of Secure Briefcase. Contains space cash, slightly more robust.
 /obj/item/storage/secure/briefcase/syndie

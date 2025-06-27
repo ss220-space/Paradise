@@ -36,7 +36,7 @@
 
 		return QDEL_HINT_LETMELIVE
 
-/obj/docking_port/has_gravity(turf/T)
+/obj/docking_port/get_gravity(turf/T)
 	return FALSE
 
 /obj/docking_port/take_damage()
@@ -529,6 +529,9 @@
 		/* TAKEOFF */
 		var/should_transit = !is_turf_blacklisted_for_transit(oldT)
 		if(should_transit) // Only move over stuff if the transfer actually happened
+			for(var/mob/living/mob in oldT) //check for people leaned on anything
+				if(mob.leaned_object)
+					mob.stop_leaning()
 			oldT.copyTurf(newT)
 
 			//copy over air
@@ -779,6 +782,7 @@
 	var/shuttleId
 	var/possible_destinations = ""
 	var/admin_controlled
+	var/lockdown_affected = FALSE
 	var/max_connect_range = 7
 	var/moved = FALSE	//workaround for nukie shuttle, hope I find a better way to do this...
 
@@ -837,6 +841,7 @@
 /obj/machinery/computer/shuttle/ui_data(mob/user)
 	var/list/data = list()
 	var/obj/docking_port/mobile/mobile_docking_port = SSshuttle.getShuttle(shuttleId)
+	var/lockdown_check = lockdown_affected && GLOB.full_lockdown
 	data["docked_location"] = mobile_docking_port ? mobile_docking_port.getStatusText() : "Unknown"
 	data["timer_str"] = mobile_docking_port ? mobile_docking_port.getTimerStr() : "00:00"
 	if(!mobile_docking_port)
@@ -844,6 +849,8 @@
 		return data
 	if(admin_controlled)
 		data["status"] = "Unauthorized Access"
+	else if(lockdown_check)
+		data["status"] = "Lockdown"
 	else
 		switch(mobile_docking_port.mode)
 			if(SHUTTLE_IGNITING)
@@ -875,7 +882,7 @@
 			data["locked"] = TRUE
 			data["status"] = "Locked"
 		data["docking_ports_len"] = docking_ports.len
-		data["admin_controlled"] = admin_controlled
+		data["admin_controlled"] = admin_controlled || lockdown_check
 	return data
 
 /obj/machinery/computer/shuttle/ui_act(action, params)

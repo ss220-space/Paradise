@@ -21,14 +21,23 @@
 		/datum/event/spider_infestation,
 		/datum/event/tear,
 		/datum/event/traders,
+		/datum/event/spider_terror,
 		/datum/event/vent_clog
 	) + subtypesof(/datum/event/anomaly) + subtypesof(/datum/event/carp_migration)
 
 	var/datum/event/working_event
+	var/forced_type //Admin abuse
+
+
+/datum/event/falsealarm/admin_setup()
+	if(!check_rights(R_EVENT))
+		return
+
+	forced_type = tgui_input_list(usr, "Выберите пугалку", "Ложный ивент", possible_event_types)
 
 /datum/event/falsealarm/start()
 	. = ..()
-	var/datum/event/working_event_type = pick(possible_event_types)
+	var/datum/event/working_event_type = forced_type? forced_type : pick(possible_event_types)
 	working_event = new working_event_type(skeleton = TRUE)
 	log_debug("False alarm selecting [working_event] to imitate")
 

@@ -90,8 +90,9 @@
 	if(!anchored)
 		. += span_info("You can <b>Alt-Click</b> [src] to rotate it.")
 
-/obj/structure/musician/drumkit/AltClick(mob/living/user)
+/obj/structure/musician/drumkit/click_alt(mob/living/user)
 	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/structure/musician/drumkit/proc/rotate(mob/living/user)

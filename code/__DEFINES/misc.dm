@@ -98,8 +98,6 @@
 #define STAGE_FIVE 9
 #define STAGE_SIX 11 //From supermatter shard
 
-#define in_range(source, user)		(get_dist(source, user) <= 1)
-
 #define FOR_DVIEW(type, range, center, invis_flags) \
 	GLOB.dview_mob.loc = center; \
 	GLOB.dview_mob.set_invis_see(invis_flags); \
@@ -363,7 +361,7 @@
 #define EXPLOSION_BLOCK_PROC -1
 
 // The SQL version required by this version of the code
-#define SQL_VERSION 33
+#define SQL_VERSION 35
 
 // Vending machine stuff
 #define CAT_NORMAL 1
@@ -505,3 +503,24 @@
 #define MECH_TYPE_SIDEWINTER	(1<<11)
 #define MECH_TYPE_OLD_DURAND	(1<<12)
 #define MECH_TYPE_DARK_GYGAX	(1<<13)
+
+/// Lavaland types
+#define LAVALAND_TYPE_LAVA	(1<<0)
+#define	LAVALAND_TYPE_PLASMA	(1<<1)
+#define	LAVALAND_TYPE_CHASM	(1<<2)
+
+// Deadchat control defines
+
+/// Will execute a single command after the cooldown based on player votes.
+#define DEADCHAT_DEMOCRACY_MODE (1<<0)
+/// Allows each player to do a single command every cooldown.
+#define DEADCHAT_ANARCHY_MODE (1<<1)
+/// Mutes the democracy mode messages send to orbiters at the end of each cycle. Useful for when the cooldown is so low it'd get spammy.
+#define MUTE_DEADCHAT_DEMOCRACY_MESSAGES (1<<2)
+
+// GAS ANALYZER
+#define ANALYZER_MODE_SURROUNDINGS 0
+#define ANALYZER_MODE_TARGET 1
+#define ANALYZER_HISTORY_SIZE 30
+#define ANALYZER_HISTORY_MODE_KPA "kpa"
+#define ANALYZER_HISTORY_MODE_MOL "mol"

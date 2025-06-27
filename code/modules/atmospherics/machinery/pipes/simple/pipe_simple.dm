@@ -91,8 +91,8 @@
 /obj/machinery/atmospherics/pipe/simple/proc/burst()
 	src.visible_message(span_danger("\The [src] bursts!"))
 	playsound(src.loc, 'sound/effects/bang.ogg', 25, 1)
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(1,0, src.loc, 0)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 1, location = src.loc)
 	smoke.start()
 	qdel(src)
 

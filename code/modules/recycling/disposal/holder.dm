@@ -224,7 +224,7 @@
 		return
 	user.last_special = world.time + 10 SECONDS
 	for(var/mob/hearer in range(5, get_turf(src)))
-		hearer.show_message("<FONT size=[max(0, 5 - get_dist(src, hearer))]>CLONG, clong!</FONT>", EMOTE_AUDIBLE)
+		hearer.show_message("<span size=[max(0, 5 - get_dist(src, hearer))]>CLONG, clong!</span>", EMOTE_AUDIBLE)
 	playsound(loc, 'sound/effects/clang.ogg', 50, FALSE)
 
 

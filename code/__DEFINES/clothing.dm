@@ -110,6 +110,10 @@
 #define TAIL			(1<<12)
 #define WING			(1<<13)
 
+//defines for the index of hands
+#define LEFT_HANDS 1
+#define RIGHT_HANDS 2
+
 // bitflags for the percentual amount of protection a piece of clothing which covers the body part offers.
 // Used with human/proc/get_heat_protection() and human/proc/get_cold_protection()
 // The values here should add up to 1.

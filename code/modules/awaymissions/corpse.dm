@@ -657,8 +657,8 @@
 	name = "bartender sleeper"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	description = "Stuck on Lavaland, you could try getting back to civilisation...or serve drinks to those that wander by."
-	flavour_text = "You are a space bartender! Time to mix drinks and change lives. Wait, where did your bar just get transported to?"
+	description = "Застряв на Лаваленде, вы можете попытаться вернуться к цивилизации... или подавать напитки тем, кто забредёт к вам."
+	flavour_text = "Вы космический бармен! Время смешивать напитки и менять жизни. Погодите, куда это ваш бар только что переместился?"
 	assignedrole = "Space Bartender"
 
 /obj/effect/mob_spawn/human/bartender/special(mob/living/carbon/human/H)
@@ -666,9 +666,8 @@
 	return ..()
 
 /obj/effect/mob_spawn/human/beach/alive/lifeguard
-	flavour_text = "You're a spunky lifeguard! It's up to you to make sure nobody drowns or gets eaten by sharks and stuff. Then suddenly your entire beach was transported to this strange hell.\
-					You aren't trained for this, but you'll still keep your guests alive!"
-	description = "Try to survive on lavaland with the pitiful equipment of a lifeguard. Or hide in your biodome."
+	flavour_text = "Вы бодрый спасатель! Ваша задача — следить, чтобы никто не утонул и не стал обедом для акул. Но внезапно весь ваш пляж перенёсся в этот странный ад. Вы не готовы к такому, но всё равно будете защищать своих гостей!"
+	description = "Попытайтесь выжить на Лаваленде с жалким снаряжением спасателя. Или спрячьтесь в своём биодоме."
 	mob_gender = FEMALE
 	name = "lifeguard sleeper"
 	id_job = "Lifeguard"
@@ -699,8 +698,8 @@
 	name = "beach bum sleeper"
 	icon = 'icons/obj/machines/cryogenic2.dmi'
 	icon_state = "sleeper"
-	flavour_text = "You are a beach bum! You think something just happened to the beach but you don't really pay too much attention."
-	description = "Try to survive on lavaland or just enjoy the beach, waiting for visitors."
+	flavour_text = "Вы просто обожаете пляж! Случилось что-то странное, но вы слишком расслаблены, чтобы беспокоиться."
+	description = "Попытайтесь выжить на Лаваленде или просто наслаждайтесь пляжем, ожидая посетителей."
 	assignedrole = "Beach Bum"
 
 /obj/effect/mob_spawn/human/beach/alive/special(mob/living/carbon/human/H)
@@ -794,10 +793,10 @@
 	assignedrole = "Space Bar Patron"
 
 /obj/effect/mob_spawn/human/alive/space_bar_patron/attack_hand(mob/user)
-	var/despawn = alert("Return to cryosleep? (Warning, Your mob will be deleted!)",,"Yes","No")
-	if(despawn == "No" || !loc || !Adjacent(user))
+	var/despawn = alert("Вернуться в криосон? (Внимание, ваш персонаж будет удалён!)",, "Да", "Нет")
+	if(despawn == "Нет" || !loc || !Adjacent(user))
 		return
-	user.visible_message("<span class='notice'>[user.name] climbs back into cryosleep...</span>")
+	user.visible_message(span_notice("[user.name] возвращается в криокамеру..."))
 	qdel(user)
 
 /datum/outfit/cryobartender

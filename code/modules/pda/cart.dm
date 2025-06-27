@@ -307,6 +307,14 @@
 
 /obj/item/cartridge/frame
 	name = "F.R.A.M.E. cartridge"
+	ru_names = list(
+		NOMINATIVE = "картридж П.О.Д.С.Т.А.В.А.",
+		GENITIVE = "картриджа П.О.Д.С.Т.А.В.А.",
+		DATIVE = "картриджу П.О.Д.С.Т.А.В.А.",
+		ACCUSATIVE = "картридж П.О.Д.С.Т.А.В.А.",
+		INSTRUMENTAL = "картриджем П.О.Д.С.Т.А.В.А.",
+		PREPOSITIONAL = "картридже П.О.Д.С.Т.А.В.А."
+	)
 	icon_state = "cart"
 	charges = 5
 	var/telecrystals = 0

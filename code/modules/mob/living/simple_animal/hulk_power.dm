@@ -34,8 +34,8 @@
 	else
 		Monster = new /mob/living/simple_animal/hulk/human(get_turf(user))
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(10, 0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 10, location = user.loc)
 	smoke.start()
 	playsound(user, 'sound/effects/bamf.ogg', CHANNEL_BUZZ)
 	Monster.original_body = user
@@ -394,8 +394,8 @@
 	clown_hulk.AdjustWeakened(-2 SECONDS)
 	clown_hulk.AdjustStunned(-2 SECONDS)
 
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(10,0, user.loc)
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 10, location = user.loc)
 	smoke.start()
 	playsound(user,pick('sound/spookoween/scary_clown_appear.ogg','sound/spookoween/scary_horn.ogg','sound/spookoween/scary_horn2.ogg','sound/spookoween/scary_horn3.ogg'),CHANNEL_BUZZ, 100)
 
@@ -446,14 +446,14 @@
 
 
 //Harchok
-/obj/item/projectile/energy/hulkspit
+/obj/projectile/energy/hulkspit
 	name = "spit"
 	icon = 'icons/obj/weapons/projectiles.dmi'
 	icon_state = "neurotoxin"
 	damage = 15
 	damage_type = TOX
 
-/obj/item/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
+/obj/projectile/energy/hulkspit/on_hit(atom/target, def_zone = BODY_ZONE_CHEST, blocked = 0)
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.Weaken(4 SECONDS)
@@ -467,9 +467,9 @@
 	invocation_type = "none"
 	action_icon_state = "harchok_hulk"
 	action_background_icon_state = "bg_hulk"
-	selection_activated_message	= "<span class='notice'>Your prepare to spit fire! <B>Left-click to spit at a target!</B></span>"
+	selection_activated_message	= "<span class='notice'>Your prepare to spit fire! <b>Left-click to spit at a target!</b></span>"
 	selection_deactivated_message = "<span class='notice'>You swallow your spit...for now.</span>"
-	fireball_type = /obj/item/projectile/energy/hulkspit
+	fireball_type = /obj/projectile/energy/hulkspit
 	base_cooldown = 25 SECONDS
 	human_req = FALSE
 	need_active_overlay = TRUE
@@ -491,9 +491,9 @@
 	name = "LazorZ"
 	desc = "Вы стреляете из глаз слабеньким лазером. Может помочь, если хитрые СБшники прячутся за стеклами."
 	action_icon_state = "lazer_hulk"
-	selection_activated_message	= "<span class='notice'>You strained your eyes preparing the LAZOR! <B>Left-click to fire at a target!</B></span>"
+	selection_activated_message	= "<span class='notice'>You strained your eyes preparing the LAZOR! <b>Left-click to fire at a target!</b></span>"
 	selection_deactivated_message = "<span class='notice'>You relax your eyes...for now.</span>"
-	fireball_type = /obj/item/projectile/beam
+	fireball_type = /obj/projectile/beam
 	base_cooldown = 7 SECONDS
 	sound = 'sound/weapons/laser.ogg'
 

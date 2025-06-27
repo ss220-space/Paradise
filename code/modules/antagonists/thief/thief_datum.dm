@@ -8,6 +8,7 @@
 	russian_wiki_name = "Вор"
 	clown_gain_text = "Вы превзошли свою клоунскую натуру, ваши ловкие пальцы нивелировали былую неуклюжесть!"
 	clown_removal_text = "Ваша клоунская натура возвращается..."
+	antag_menu_name = "Вор"
 	/// Whether our thief should get a special equipment box
 	var/give_kit = TRUE
 
@@ -60,7 +61,7 @@
 		to_chat(owner.current, span_userdanger("Вы киборгизированы!"))
 		to_chat(owner.current, span_danger("Вы должны подчиняться своим законам и подчиняться мастеру ИИ. Ваши цели более недействительны."))
 	else
-		to_chat(owner.current, "<FONT color='red' size = 3><B>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</B></FONT>")
+		to_chat(owner.current, span_fontsize3("<span style='color: red;'><b>Вы встали на праведный путь и Гильдия Воров изгнала вас! Вы больше не вор!</b></span>"))
 
 
 /datum/antagonist/thief/finalize_antag()

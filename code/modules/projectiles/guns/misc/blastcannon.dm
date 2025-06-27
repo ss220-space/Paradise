@@ -100,13 +100,13 @@
 	user.visible_message("<span class='danger'>[user] opens [bomb] on [user.p_their()] [name] and fires a blast wave at [target]!</span>","<span class='danger'>You open [bomb] on your [name] and fire a blast wave at [target]!</span>")
 	playsound(user, "explosion", 100, 1)
 	add_attack_logs(user, target, "Blast waved with power [heavy]/[medium]/[light].", ATKLOG_MOST)
-	var/obj/item/projectile/blastwave/BW = new(loc, heavy, medium, light)
+	var/obj/projectile/blastwave/BW = new(loc, heavy, medium, light)
 	BW.preparePixelProjectile(target, get_turf(target), user, params, 0)
 	BW.firer = user
 	BW.firer_source_atom = src
 	BW.fire()
 
-/obj/item/projectile/blastwave
+/obj/projectile/blastwave
 	name = "blast wave"
 	icon_state = "blastwave"
 	damage = 0
@@ -117,13 +117,13 @@
 	var/mediumr = 0
 	var/lightr = 0
 
-/obj/item/projectile/blastwave/New(loc, _h, _m, _l)
+/obj/projectile/blastwave/New(loc, _h, _m, _l)
 	..()
 	heavyr = _h
 	mediumr = _m
 	lightr = _l
 
-/obj/item/projectile/blastwave/Range()
+/obj/projectile/blastwave/Range()
 	..()
 	var/amount_destruction = 0
 	if(heavyr)
@@ -146,5 +146,5 @@
 	mediumr = max(mediumr - 1, 0)
 	lightr = max(lightr - 1, 0)
 
-/obj/item/projectile/blastwave/ex_act()
+/obj/projectile/blastwave/ex_act()
 	return

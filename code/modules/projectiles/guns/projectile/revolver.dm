@@ -73,8 +73,8 @@
 /obj/item/gun/projectile/revolver/proc/unload(user)
 
 /obj/item/gun/projectile/revolver/verb/spin()
-	set name = "Spin Chamber"
-	set category = "Object"
+	set name = "Вращать барабан"
+	set category = STATPANEL_OBJECT
 	set desc = "Click to spin your revolver's chamber."
 	set src in usr
 
@@ -334,7 +334,7 @@
 
 /obj/item/gun/projectile/revolver/russian/proc/shoot_self(mob/living/carbon/human/user, affecting = BODY_ZONE_HEAD)
 	user.apply_damage(300, BRUTE, affecting)
-	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"))
+	user.visible_message(span_danger("[user.name] fires [src] at [user.p_their()] head!"), span_userdanger("You fire [src] at your head!"), span_italics("You hear a gunshot!"), projectile_message = TRUE)
 
 /obj/item/gun/projectile/revolver/russian/soul
 	name = "cursed Russian revolver"
@@ -389,7 +389,7 @@
 	if(istype(barrel, /obj/item/weaponcrafting/revolverbarrel/steel) || prob(80))
 		return ..()
 	chamber_round(TRUE)
-	user.visible_message(span_dangerbigger("*CRACK*"))
+	user.visible_message(span_biggerdanger("*CRACK*"))
 	playsound(user, 'sound/weapons/jammed.ogg', 140, TRUE)
 
 /obj/item/gun/projectile/revolver/improvised/proc/radial_menu(mob/user)
@@ -608,7 +608,16 @@
 
 /obj/item/gun/projectile/revolver/doublebarrel/improvised/cane
 	name = "cane"
-	desc = "A cane used by a true gentleman. Or a clown."
+	desc = "Трость — верный спутник настоящего джентльмена. Или клоуна."
+	ru_names = list(
+		NOMINATIVE = "трость",
+		GENITIVE = "трости",
+		DATIVE = "трости",
+		ACCUSATIVE = "трость",
+		INSTRUMENTAL = "тростью",
+		PREPOSITIONAL = "трости"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/items.dmi'
 	lefthand_file = 'icons/mob/inhands/items_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/items_righthand.dmi'
@@ -621,8 +630,8 @@
 	slot_flags = null
 	origin_tech = "" // NO GIVAWAYS
 	mag_type = /obj/item/ammo_box/magazine/internal/shot/improvised/cane
-	sawn_desc = "I'm sorry, but why did you saw your cane in the first place?"
-	attack_verb = list("bludgeoned", "whacked", "disciplined", "thrashed")
+	sawn_desc = "Прошу прощения, но зачем вы распилили свою трость?"
+	attack_verb = list("огрел", "проучил")
 	fire_sound = 'sound/weapons/gunshots/1suppres.ogg'
 	suppressed = TRUE
 	needs_permit = FALSE //its just a cane beepsky.....

@@ -204,6 +204,9 @@
 	/// List of all completed blocking send jobs awaiting acknowledgement by send_asset
 	var/list/completed_asset_jobs = list()
 
+	/// If this client has any windows scaling applied
+	var/window_scaling
+
 	/*
 	ASSET SENDING
 	*/
@@ -212,8 +215,10 @@
 	/// The ID of the last asset job that was properly finished
 	var/last_completed_asset_job = 0
 
-	/// Our object window datum. It stores info about and handles behavior for the object tab
-	var/datum/object_window_info/obj_window
+	/// Loot panel for the client
+	var/datum/lootpanel/loot_panel
+
+	var/tgui_panel_theme = "dark"
 
 /client/vv_edit_var(var_name, var_value)
 	if(var_name == NAMEOF(src, tos_consent))

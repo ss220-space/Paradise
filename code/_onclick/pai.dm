@@ -74,7 +74,7 @@
 	if(!ai_capability)
 		return ..()
 	if(!capa_is_cooldown)
-		if(A.PAIAltClick(src))
+		if(A.pai_click_alt(src))
 			capa_is_cooldown = TRUE
 			addtimer(CALLBACK(src, PROC_REF(reset_cooldown)), ai_capability_cooldown)
 		return
@@ -110,8 +110,8 @@
 	CtrlClick(user)
 	return FALSE
 
-/atom/proc/PAIAltClick(mob/living/silicon/robot/user)
-	AltClick(user)
+/atom/proc/pai_click_alt(mob/living/silicon/robot/user)
+	user.base_click_alt(src)
 	return FALSE
 
 /atom/proc/PAICtrlShiftClick(mob/user) // Examines
@@ -132,12 +132,12 @@
 	AICtrlClick(user)
 	return TRUE
 
-/obj/machinery/door/airlock/PAIAltClick(mob/living/silicon/pai/user) // Eletrifies doors. Forwards to AI code.
+/obj/machinery/door/airlock/pai_click_alt(mob/living/silicon/pai/user) // Eletrifies doors. Forwards to AI code.
 	var/turf/door_turf = get_turf(src)
 	var/turf/pai_turf = get_turf(user)
 	if(!istype(door_turf) || !istype(pai_turf) || door_turf.z != pai_turf.z)
 		return FALSE
-	AIAltClick(user)
+	ai_click_alt(user)
 	return TRUE
 
 /obj/machinery/door/airlock/PAIAltShiftClick(mob/living/silicon/pai/user)  // Enables emergency override on doors! Forwards to AI code.
@@ -157,7 +157,7 @@
 	ToggleOn()
 	return TRUE
 
-/obj/machinery/ai_slipper/PAIAltClick(mob/living/silicon/pai/user) //Dispenses liquid if on
+/obj/machinery/ai_slipper/pai_click_alt(mob/living/silicon/pai/user) //Dispenses liquid if on
 	Activate()
 	return TRUE
 
@@ -167,8 +167,8 @@
 	AICtrlClick(user)
 	return TRUE
 
-/obj/machinery/turretid/PAIAltClick(mob/living/silicon/pai/user) //turret lethal on/off. Forwards to AI code.
-	AIAltClick(user)
+/obj/machinery/turretid/pai_click_alt(mob/living/silicon/pai/user) //turret lethal on/off. Forwards to AI code.
+	ai_click_alt(user)
 	return TRUE
 
 /mob/living/silicon/pai/proc/reset_cooldown()

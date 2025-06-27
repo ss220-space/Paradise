@@ -1,6 +1,6 @@
 /obj/item/grenade/spawnergrenade
-	desc = "It is set to detonate in 5 seconds. It will unleash unleash an unspecified anomaly into the vicinity."
 	name = "delivery grenade"
+	desc = "Она взорвётся через 5 секунд, что вызовет выброс всех содержащихся в ней существ."
 	icon = 'icons/obj/weapons/grenade.dmi'
 	icon_state = "delivery"
 	item_state = "flashbang"
@@ -46,7 +46,15 @@
 
 /obj/item/grenade/spawnergrenade/feral_cats
 	name = "feral cat delivery grenade"
-	desc = "This grenade contains 5 dehydrated feral cats in a similar manner to dehydrated monkeys, which, upon detonation, will be rehydrated by a small reservoir of water contained within the grenade. These cats will then attack anything in sight."
+	desc = "Граната, содержащая 5 дегидратированных кошек!"
+	ru_names = list(
+		NOMINATIVE = "граната с дикими кошками",
+		GENITIVE = "гранаты с дикими кошками",
+		DATIVE = "гранате с дикими кошками",
+		ACCUSATIVE = "гранату с дикими кошками",
+		INSTRUMENTAL = "гранатой с дикими кошками",
+		PREPOSITIONAL = "гранате с дикими кошками"
+	)
 	spawner_type = /mob/living/simple_animal/hostile/feral_cat
 	deliveryamt = 5
 	origin_tech = "materials=3;magnets=4;syndicate=3"

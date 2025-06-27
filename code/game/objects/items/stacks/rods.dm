@@ -28,7 +28,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throw_range = 7
 	materials = list(MAT_METAL=1000)
 	max_amount = 50
-	attack_verb = list("hit", "bludgeoned", "whacked")
+	attack_verb = list("ударил", "огрел")
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
@@ -75,8 +75,11 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 
 /obj/item/stack/rods/cyborg
 	materials = list()
-	is_cyborg = 1
+	is_cyborg = TRUE
 	cyborg_construction_stack = /obj/item/stack/rods
+	energy_type = /datum/robot_energy_storage/metal
+	merge_type = /obj/item/stack/rods
+	cost = 2
 
 /obj/item/stack/rods/cyborg/update_icon_state()
 	return // icon_state should always be a full stack of rods.
@@ -102,7 +105,7 @@ GLOBAL_LIST_INIT(rod_recipes, list ( \
 	throw_speed = 3
 	throw_range = 7
 	max_amount = 50
-	attack_verb = list("hit", "bludgeoned", "whacked")
+	attack_verb = list("ударил", "огрел")
 	materials = list(MAT_METAL=800, MAT_PLASMA=200, MAT_TITANIUM=400)
 	hitsound = 'sound/weapons/grenadelaunch.ogg'
 	toolspeed = 1

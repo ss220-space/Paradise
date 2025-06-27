@@ -1,0 +1,63 @@
+body {
+	margin-top:5px;
+	font-family:Verdana;
+	color:white;
+	font-size:13px;
+	background-image:url('uiBackground.png');
+	background-repeat:repeat-x;
+	background-color:#272727;
+	background-position:center top;
+}
+
+table {
+	border-collapse:collapse;
+	font-size:13px;
+}
+
+th, td {
+	border: 1px solid #333333;
+}
+
+p.top {
+	background-color: none;
+	color: white;
+}
+
+tr.d0 td {
+	background-color: #c0c0c0;
+	color: black;
+	border:0px;
+	border: 1px solid #333333;
+}
+
+tr.d0 th {
+	background-color: none;
+	color: #4477E0;
+	text-align:right;
+	vertical-align:top;
+	width:120px;
+	border:0px;
+}
+
+tr.d1 td {
+	background-color: #555555;
+	color: white;
+}
+
+td.button {
+	border: 1px solid #161616;
+	background-color: #40628a;
+}
+
+td.desc {
+	font-weight:bold;
+}
+
+a {
+	color:#4477E0;
+}
+
+a.button {
+	color:white;
+	text-decoration: none;
+}

@@ -6,7 +6,8 @@ GLOBAL_LIST_EMPTY(all_superheroes)
 
 GLOBAL_LIST_EMPTY(clients)							//list of all clients
 GLOBAL_LIST_EMPTY(admins)							//list of all clients whom are admins
-GLOBAL_LIST_EMPTY(deadmins)							//list of all clients who have used the de-admin verb.
+GLOBAL_LIST_EMPTY(de_admins)							//list of all admins who have used the de-admin verb.
+GLOBAL_LIST_EMPTY(de_mentors)							//list of all mentors who have used the de-admin verb.
 GLOBAL_LIST_EMPTY(directory)							//list of all ckeys with associated client
 GLOBAL_LIST_EMPTY(stealthminID)						//reference list with IDs that store ckeys, for stealthmins
 
@@ -20,6 +21,7 @@ GLOBAL_LIST_EMPTY(mob_list)					//List of all mobs, including clientless
 GLOBAL_LIST_EMPTY(silicon_mob_list)			//List of all silicon mobs, including clientless
 GLOBAL_LIST_EMPTY(mob_living_list)			//all instances of /mob/living and subtypes
 GLOBAL_LIST_EMPTY(carbon_list)				//all instances of /mob/living/carbon and subtypes, notably does not contain simple animals
+GLOBAL_LIST_EMPTY(aliens_list)				//all instances of xenomorph mobs
 GLOBAL_LIST_EMPTY(human_list)				//all instances of /mob/living/carbon/human and subtypes
 GLOBAL_LIST_EMPTY(spirits)					//List of all the spirits, including Masks
 GLOBAL_LIST_EMPTY(alive_mob_list)			//List of all alive mobs, including clientless. Excludes /mob/new_player
@@ -57,3 +59,27 @@ GLOBAL_LIST_EMPTY(mining_vendor_items)
 
 GLOBAL_LIST_EMPTY(mob_config_movespeed_type_lookup)
 
+GLOBAL_LIST_INIT(dangerous_turfs, typecacheof(list(
+	/turf/simulated/floor/lava,
+	/turf/simulated/floor/chasm,
+	/turf/space,
+	/turf/space/openspace)))
+
+GLOBAL_LIST_EMPTY(left_player_list)
+
+/// Halo overlays for datum/element/halo_attach
+GLOBAL_LIST_INIT(halo_overlays, list(
+	"cult" = mutable_appearance('icons/effects/32x64.dmi', pick("halo1", "halo2", "halo3", "halo4", "halo5", "halo6"), -HALO_LAYER, appearance_flags = RESET_TRANSFORM),
+	"clockwork" = mutable_appearance('icons/effects/32x64.dmi', "haloclock", -HALO_LAYER, appearance_flags = RESET_TRANSFORM),
+	"his_grace" = mutable_appearance('icons/effects/32x64.dmi', "toolbox_halo", -HALO_LAYER, appearance_flags = RESET_TRANSFORM),
+))
+
+/// Callback checks for datum/element/halo_attach
+GLOBAL_LIST_INIT(halo_callbacks, list(
+	"cult" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(iscultist_ascended)),
+	"clockwork" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(isclocker_ascended)),
+	"his_grace" = CALLBACK(GLOBAL_PROC, GLOBAL_PROC_REF(is_grace_ascended)),
+))
+GLOBAL_LIST_EMPTY(wryn_structures)
+
+GLOBAL_LIST_EMPTY(robot_skins)

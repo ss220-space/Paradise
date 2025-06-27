@@ -1,0 +1,8 @@
+h3 {
+	margin-bottom:2px;
+	font-size:14px;
+}
+
+#lossinfo, #reagents, #injectwith {
+	padding-left:15px;
+}

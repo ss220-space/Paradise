@@ -49,7 +49,7 @@
 	w_class = WEIGHT_CLASS_SMALL
 	throw_speed = 3
 	throw_range = 7
-	attack_verb = list("scrubbed", "brushed", "scraped")
+	attack_verb = list("отдраил", "шлифанул", "поцарапал")
 
 /obj/item/tank_brush/suicide_act(mob/user)
 	to_chat(viewers(user), "<span class='warning'>[user] is vigorously scrubbing [user.p_them()]self raw with the [name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
@@ -108,7 +108,7 @@
 	throw_speed = 3
 	throw_range = 7
 	force = 1
-	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
+	attack_verb = list("шлёпнул", "унизил", "ударил")
 	hitsound = 'sound/effects/snap.ogg'
 
 /obj/item/fish/glofish
@@ -232,4 +232,4 @@
 	icon_state = "clownfish"
 	throwforce = 1
 	force = 1
-	attack_verb = list("slapped", "humiliated", "hit", "rubbed")
+	attack_verb = list("шлёпнул", "унизил", "ударил", "хонкнул")

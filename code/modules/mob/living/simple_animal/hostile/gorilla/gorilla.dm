@@ -120,10 +120,11 @@
 	gorilla.update_icon(UPDATE_ICON_STATE)
 
 
-/mob/living/simple_animal/hostile/gorilla/AltClick(mob/living/simple_animal/hostile/gorilla/user)
+/mob/living/simple_animal/hostile/gorilla/click_alt(mob/living/simple_animal/hostile/gorilla/user)
 	if(!istype(user) || src != user || !gorilla_toggle)
-		return ..()
+		return NONE
 	gorilla_toggle.Activate()
+	return CLICK_ACTION_SUCCESS
 
 
 /**

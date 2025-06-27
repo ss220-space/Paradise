@@ -14,9 +14,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/ascend_number
 	/// Used for the CentComm announcement at ascension
 	var/ascend_percent
-
-/proc/iscultist(mob/living/M)
-	return istype(M) && M.mind && SSticker && SSticker.mode && (M.mind in SSticker.mode.cult)
+	/// The number of ghost summons available to the cult.
+	var/ghost_summons = null
 
 /proc/is_convertable_to_cult(datum/mind/mind)
 	if(!mind)
@@ -39,6 +38,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		return FALSE
 	if(issilicon(mind.current))
 		return FALSE //can't convert machines, that's ratvar's thing
+	if(isalien(mind.current))
+		return FALSE
 	if(isguardian(mind.current))
 		var/mob/living/simple_animal/hostile/guardian/G = mind.current
 		if(!iscultist(G.summoner))
@@ -56,16 +57,17 @@ GLOBAL_LIST_EMPTY(all_cults)
 	required_enemies = 3
 	recommended_enemies = 4
 
-	var/const/max_cultist_to_start = 4
+	var/static/max_cultist_to_start = 4
 
 /datum/game_mode/cult/announce()
-	to_chat(world, "<B>The current game mode is - Cult!</B>")
-	to_chat(world, "<B>Some crewmembers are attempting to start a cult!<BR>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<BR>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</B>")
+	to_chat(world, "<b>The current game mode is - Cult!</b>")
+	to_chat(world, "<b>Some crewmembers are attempting to start a cult!<br>\nCultists - complete your objectives. Convert crewmembers to your cause by using the offer rune. Remember - there is no you, there is only the cult.<br>\nPersonnel - Do not let the cult succeed in its mission. Brainwashing them with holy water reverts them to whatever CentComm-allowed faith they had.</b>")
 
 /datum/game_mode/cult/pre_setup()
 	if(CONFIG_GET(flag/protect_roles_from_antagonist))
 		restricted_jobs += protected_jobs
 
+	max_cultist_to_start += floor((num_players() - required_players) / CULT_PLAYER_PER_CULTIST)
 	var/list/cultists_possible = get_players_for_role(ROLE_CULTIST)
 	for(var/cultists_number = 1 to max_cultist_to_start)
 		if(!length(cultists_possible))
@@ -75,6 +77,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult += cultist
 		cultist.restricted_roles = restricted_jobs
 		cultist.special_role = SPECIAL_ROLE_CULTIST
+
+		ghost_summons = floor(num_players() / GHOST_SUMMONS_PER_READY)
 	return (length(cult) > 0)
 
 /datum/game_mode/cult/post_setup()
@@ -92,12 +96,14 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_mind.objectives += obj
 
 		if(cult_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
+			to_chat(cult_mind.current, span_cultitalic("A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."))
 			cult_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
 			// Don't give them another action if they already have one.
 			if(!(locate(/datum/action/innate/toggle_clumsy) in cult_mind.current.actions))
 				var/datum/action/innate/toggle_clumsy/toggle_clumsy = new
 				toggle_clumsy.Grant(cult_mind.current)
+
+		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		add_cult_actions(cult_mind)
 		update_cult_icons_added(cult_mind)
@@ -142,7 +148,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/constructs = 0
 	for(var/I in cult)
 		var/datum/mind/M = I
-		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST))
+		if(ishuman(M.current) && !M.current.has_status_effect(STATUS_EFFECT_SUMMONEDGHOST) && !M.madeby_sentience_potion)
 			cultists++
 		else if(isconstruct(M.current))
 			constructs++
@@ -157,7 +163,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	. += cult_give_item(/obj/item/melee/cultblade/dagger, H)
 	if(metal)
 		. += cult_give_item(/obj/item/stack/sheet/runed_metal/ten, H)
-	to_chat(H, "<span class='cult'>These will help you start the cult on this station. Use them well, and remember - you are not the only one.</span>")
+	to_chat(H, span_cult("These will help you start the cult on this station. Use them well, and remember - you are not the only one."))
 
 /datum/game_mode/proc/cult_give_item(obj/item/item_path, mob/living/carbon/human/H)
 	var/list/slots = list(
@@ -168,10 +174,10 @@ GLOBAL_LIST_EMPTY(all_cults)
 	var/item_name = initial(item_path.name)
 	var/where = H.equip_in_one_of_slots(T, slots, qdel_on_fail = TRUE)
 	if(!where)
-		to_chat(H, "<span class='userdanger'>Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1).</span>")
+		to_chat(H, span_userdanger("Unfortunately, you weren't able to get a [item_name]. This is very bad and you should adminhelp immediately (press F1)."))
 		return FALSE
 	else
-		to_chat(H, "<span class='danger'>You have a [item_name] in your [where].</span>")
+		to_chat(H, span_danger("You have a [item_name] in your [where]."))
 		return TRUE
 
 
@@ -183,6 +189,9 @@ GLOBAL_LIST_EMPTY(all_cults)
 		cult_objs.setup()
 		cult_threshold_check()
 
+	if(isnull(ghost_summons))
+		ghost_summons = floor(num_station_players() / GHOST_SUMMONS_PER_READY)
+
 	if(!(cult_mind in cult))
 		cult += cult_mind
 		cult_mind.current.faction |= "cult"
@@ -190,7 +199,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 		ADD_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
 
 		if(cult_mind.assigned_role == JOB_TITLE_CLOWN)
-			to_chat(cult_mind.current, "<span class='cultitalic'>A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself.</span>")
+			to_chat(cult_mind.current, span_cultitalic("A dark power has allowed you to overcome your clownish nature, letting you wield weapons without harming yourself."))
 			cult_mind.current.force_gene_block(GLOB.clumsyblock, FALSE)
 			// Don't give them another action if they already have one.
 			if(!(locate(/datum/action/innate/toggle_clumsy) in cult_mind.current.actions))
@@ -209,6 +218,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		var/datum/objective/servecult/obj = new
 		obj.owner = cult_mind
 		cult_mind.objectives += obj
+
+		cult_mind.current.AddElement(/datum/element/halo_attach, GLOB.halo_overlays["cult"], GLOB.halo_callbacks["cult"])
 
 		if(cult_risen)
 			rise(cult_mind.current)
@@ -230,7 +241,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(!M.current || !ishuman(M.current))
 				continue
 			SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_eyes.ogg')
-			to_chat(M.current, "<span class='cultlarge'>The veil weakens as your cult grows, your eyes begin to glow...</span>")
+			to_chat(M.current, span_cultlarge("The veil weakens as your cult grows, your eyes begin to glow..."))
 			log_admin("The Blood Cult has risen. The eyes started to glow.")
 			addtimer(CALLBACK(src, PROC_REF(rise), M.current), 20 SECONDS)
 
@@ -240,7 +251,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			if(!M.current || !ishuman(M.current))
 				continue
 			SEND_SOUND(M.current, 'sound/ambience/antag/bloodcult_halos.ogg')
-			to_chat(M.current, "<span class='cultlarge'>Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!")
+			to_chat(M.current, span_cultlarge("Your cult is ascendant and the red harvest approaches - you cannot hide your true nature for much longer!"))
 			log_admin("The Blood Cult has Ascended. The blood halo started to appear.")
 			addtimer(CALLBACK(src, PROC_REF(ascend), M.current), 20 SECONDS)
 		GLOB.command_announcement.Announce("На вашей станции обнаружена внепространственная активность, связанная с культом [SSticker.cultdat ? SSticker.cultdat.entity_name : "Нар’Си"]. Данные свидетельствуют о том, что в ряды культа обращено около [ascend_percent * 100]% экипажа станции. Служба безопасности получает право свободно применять летальную силу против культистов. Прочий персонал должен быть готов защищать себя и свои рабочие места от нападений культистов (в том числе используя летальную силу в качестве крайней меры самообороны). Погибшие члены экипажа должны быть оживлены и деконвертированы, как только ситуация будет взята под контроль.", "Отдел Центрального Командования по делам высших измерений.", 'sound/AI/commandreport.ogg')
@@ -261,7 +272,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 	if(ishuman(cultist) && iscultist(cultist))
 		var/mob/living/carbon/human/H = cultist
 		new /obj/effect/temp_visual/cult/sparks(get_turf(H), H.dir)
-		H.update_halo_layer()
+		SEND_SIGNAL(H, COMSIG_MOB_HALO_GAINED)
 
 
 /datum/game_mode/proc/remove_cultist(datum/mind/cult_mind, show_message = TRUE)
@@ -274,6 +285,7 @@ GLOBAL_LIST_EMPTY(all_cults)
 			cult_mind.objectives -= O
 			qdel(O)
 		REMOVE_TRAIT(cult_mind.current, TRAIT_HEALS_FROM_CULT_PYLONS, CULT_TRAIT)
+		cult_mind.current.RemoveElement(/datum/element/halo_attach)
 		for(var/datum/action/innate/cult/C in cultist.actions)
 			qdel(C)
 		update_cult_icons_removed(cult_mind)
@@ -288,8 +300,8 @@ GLOBAL_LIST_EMPTY(all_cults)
 		check_cult_size()
 		add_conversion_logs(cultist, "deconverted from the blood cult.")
 		if(show_message)
-			cultist.visible_message("<span class='cult'>[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!</span>",
-			"<span class='userdanger'>An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it.</span>")
+			cultist.visible_message(span_cult("[cultist] looks like [cultist.p_they()] just reverted to [cultist.p_their()] old faith!"),
+			span_userdanger("An unfamiliar white light flashes through your mind, cleansing the taint of [SSticker.cultdat ? SSticker.cultdat.entity_title1 : "Nar'Sie"] and the memories of your time as their servant with it."))
 
 /datum/game_mode/proc/update_cult_icons_added(datum/mind/cult_mind)
 	var/datum/atom_hud/antag/culthud = GLOB.huds[ANTAG_HUD_CULT]
@@ -320,33 +332,35 @@ GLOBAL_LIST_EMPTY(all_cults)
 /datum/game_mode/cult/declare_completion()
 	if(cult_objs.cult_status == NARSIE_HAS_RISEN)
 		SSticker.mode_result = "cult win - cult win"
-		to_chat(world, "<span class='danger'> <FONT size = 3>The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!</FONT></span>")
+		to_chat(world, span_danger(span_fontsize3("The cult wins! It has succeeded in summoning [SSticker.cultdat.entity_name]!")))
 	else if(cult_objs.cult_status == NARSIE_HAS_FALLEN)
 		SSticker.mode_result = "cult draw - narsie died, nobody wins"
-		to_chat(world, "<span class='danger'> <FONT size = 3>Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!</FONT></span>")
+		to_chat(world, span_danger(span_fontsize3("Nobody wins! [SSticker.cultdat.entity_name] was summoned, but banished!")))
 	else
 		SSticker.mode_result = "cult loss - staff stopped the cult"
-		to_chat(world, "<span class='warning'> <FONT size = 3>The staff managed to stop the cult!</FONT></span>")
+		to_chat(world, span_warning(span_fontsize3("The staff managed to stop the cult!")))
 
-	var/endtext
+	var/list/endtext = list()
 	endtext += "<br><b>The cultists' objectives were:</b>"
 	for(var/datum/objective/obj in cult_objs.presummon_objs)
 		endtext += "<br>[obj.explanation_text] - "
 		if(!obj.check_completion())
 			endtext += "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 	if(cult_objs.cult_status >= NARSIE_NEEDS_SUMMONING)
 		endtext += "<br>[cult_objs.obj_summon.explanation_text] - "
 		if(!cult_objs.obj_summon.check_completion())
 			endtext+= "<font color='red'>Fail.</font>"
 		else
-			endtext += "<font color='green'><B>Success!</B></font>"
+			endtext += "<font color='green'><b>Success!</b></font>"
 
-	to_chat(world, endtext)
+	to_chat(world, endtext.Join(""))
 	..()
 
 
-/proc/is_cultist(mob/living/user)
+/proc/iscultist(mob/living/user)
 	return istype(user) && user.mind && SSticker && SSticker.mode && (user.mind in SSticker.mode.cult)
 
+/proc/iscultist_ascended(mob/living/user)
+	return iscultist(user) && SSticker.mode.cult_ascendant

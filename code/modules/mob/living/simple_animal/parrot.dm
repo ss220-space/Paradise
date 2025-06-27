@@ -193,7 +193,7 @@
 
 
 //Bullets
-/mob/living/simple_animal/parrot/bullet_act(obj/item/projectile/P)
+/mob/living/simple_animal/parrot/bullet_act(obj/projectile/P)
 	..()
 	if(!stat && !client)
 		if(parrot_state == PARROT_PERCH)
@@ -255,20 +255,18 @@
 
 	for(var/ch in ears.channels)
 		switch(ch)
-			if("Engineering")
+			if(ENG_FREQ_NAME)
 				available_channels.Add(":e")
-			if("Command")
+			if(COMM_FREQ_NAME)
 				available_channels.Add(":c")
-			if("Security")
+			if(SEC_FREQ_NAME)
 				available_channels.Add(":s")
-			if("Science")
+			if(SCI_FREQ_NAME)
 				available_channels.Add(":n")
-			if("Medical")
+			if(MED_FREQ_NAME)
 				available_channels.Add(":m")
-			if("Mining")
-				available_channels.Add(":d")
-			if("Cargo")
-				available_channels.Add(":q")
+			if(SUP_FREQ_NAME)
+				available_channels.Add(":u")
 
 	if(ears.translate_binary)
 		available_channels.Add(":b")
@@ -527,8 +525,8 @@
  * Verbs - These are actually procs, but can be used as verbs by player-controlled parrots.
  */
 /mob/living/simple_animal/parrot/proc/steal_from_ground()
-	set name = "Steal from ground"
-	set category = "Parrot"
+	set name = "Схватить предмет"
+	set category = STATPANEL_PARROT
 	set desc = "Grabs a nearby item."
 
 	if(stat)
@@ -558,8 +556,8 @@
 
 
 /mob/living/simple_animal/parrot/proc/steal_from_mob()
-	set name = "Steal from mob"
-	set category = "Parrot"
+	set name = "Украсть из рук"
+	set category = STATPANEL_PARROT
 	set desc = "Steals an item right out of a person's hand!"
 
 	if(stat)
@@ -590,8 +588,8 @@
 
 
 /mob/living/simple_animal/parrot/verb/drop_held_item_player()
-	set name = "Drop held item"
-	set category = "Parrot"
+	set name = "Выбросить предмет"
+	set category = STATPANEL_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -601,8 +599,8 @@
 
 
 /mob/living/simple_animal/parrot/proc/drop_held_item(drop_gently = TRUE)
-	set name = "Drop held item"
-	set category = "Parrot"
+	set name = "Выбросить предмет"
+	set category = STATPANEL_PARROT
 	set desc = "Drop the item you're holding."
 
 	if(stat)
@@ -633,8 +631,8 @@
 
 
 /mob/living/simple_animal/parrot/proc/perch_player()
-	set name = "Sit"
-	set category = "Parrot"
+	set name = "Присесть"
+	set category = STATPANEL_PARROT
 	set desc = "Sit on a nice comfy perch."
 
 	if(stat || !client)

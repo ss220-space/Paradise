@@ -14,6 +14,7 @@
 	min_age_type = JOB_MIN_AGE_COMMAND
 	exp_requirements = 3000
 	exp_type = EXP_TYPE_CREW
+	disabilities_allowed = 0
 	alt_titles = list("Chief Supply Manager")
 	outfit = /datum/outfit/job/qm
 	insurance_type = INSURANCE_TYPE_DELUXE // Always has been.
@@ -140,6 +141,50 @@
 	name = "Shaft Miner (Equipment + Hardsuit)"
 	suit = /obj/item/clothing/suit/space/hardsuit/mining
 	mask = /obj/item/clothing/mask/breath
+
+/// Mining medic job and outfit
+
+/datum/job/mining_medic
+	title = JOB_TITLE_MINING_MEDIC
+	flag = JOB_FLAG_MINING_MEDIC
+	department_flag = JOBCAT_SUPPORT
+	is_supply = 1
+	total_positions = 1
+	spawn_positions = 1
+	supervisors = "the chief medical officer and the quartermaster"
+	department_head = list(JOB_TITLE_QUARTERMASTER, JOB_TITLE_CMO)
+	selection_color = "#cee6ef"
+	access = list(ACCESS_MAILSORTING, ACCESS_CARGO, ACCESS_CARGO_BOT, ACCESS_MINT, ACCESS_MINING, ACCESS_MINING_STATION, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY, ACCESS_CHEMISTRY, ACCESS_GENETICS)
+	minimal_access = list(ACCESS_MINING, ACCESS_MINT, ACCESS_MINING_STATION, ACCESS_MAILSORTING, ACCESS_MAINT_TUNNELS, ACCESS_MINERAL_STOREROOM, ACCESS_MEDICAL, ACCESS_MORGUE, ACCESS_SURGERY)
+	alt_titles = list("Lavaland Health Officer")
+	outfit = /datum/outfit/job/mining_medic
+	insurance_type = INSURANCE_TYPE_EXTENDED
+	exp_requirements = 600 //10 hours
+	exp_type = EXP_TYPE_MEDICAL
+
+	salary = 150
+	min_start_money = 250
+	max_start_money = 500
+
+/datum/outfit/job/mining_medic
+	name = "Mining Medic"
+	jobtype = /datum/job/mining_medic
+	glasses = /obj/item/clothing/glasses/hud/health/meson
+	l_ear = /obj/item/radio/headset/headset_mining_medic
+	shoes = /obj/item/clothing/shoes/workboots/mining
+	uniform = /obj/item/clothing/under/rank/medical/mining_medic
+	suit = /obj/item/clothing/suit/storage/labcoat/mining_medic
+	l_pocket = /obj/item/roller/holo
+	r_pocket = /obj/item/flash
+	l_hand = /obj/item/storage/firstaid/doctor/mining_medic
+	id = /obj/item/card/id/mining_medic
+	pda = /obj/item/pda/cargo
+
+	backpack_contents = list(
+		/obj/item/flashlight/lantern = 1,
+		/obj/item/radio/weather_monitor = 1,
+		/obj/item/wormhole_jaunter = 1,
+	)
 
 //Food
 /datum/job/bartender
@@ -456,8 +501,8 @@
 	return list("name" = name, "voice" = voice, "selected" = selected, "id" = UID())
 
 /mob/living/carbon/human/proc/mimicking(var/mob/living/carbon/human/H)
-	set name = "Mimic voice"
-	set category = "IC"
+	set name = "Имитировать голос"
+	set category = STATPANEL_IC
 	if(!H)
 		to_chat(usr, span_notice("Use right click to choose target correctly."))
 	var/datum/action/innate/mimicking/mimic = locate(/datum/action/innate/mimicking) in usr.actions

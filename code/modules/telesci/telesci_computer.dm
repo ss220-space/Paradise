@@ -7,7 +7,7 @@
 	req_access = list(ACCESS_RESEARCH)
 	var/sending = 1
 	var/obj/machinery/telepad/telepad = null
-	var/temp_msg = "Telescience control console initialized.<BR>Welcome."
+	var/temp_msg = "Telescience control console initialized.<br>Welcome."
 
 	// VARIABLES //
 	var/teles_left	// How many teleports left until it becomes uncalibrated
@@ -126,18 +126,18 @@
 	var/t
 	if(!telepad)
 		in_use = 0     //Yeah so if you deconstruct teleporter while its in the process of shooting it wont disable the console
-		t += "<div class='statusDisplay'>No telepad located. <BR>Please add telepad data.</div><BR>"
+		t += "<div class='statusDisplay'>No telepad located. <br>Please add telepad data.</div><br>"
 	else
 		if(inserted_gps)
-			t += "<a href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</A>"
-			t += "<a href='byond://?src=[UID()];setMemory=1'>Set GPS memory</A>"
+			t += "<a href='byond://?src=[UID()];ejectGPS=1'>Eject GPS</a>"
+			t += "<a href='byond://?src=[UID()];setMemory=1'>Set GPS memory</a>"
 		else
 			t += "<span class='linkOff'>Eject GPS</span>"
 			t += "<span class='linkOff'>Set GPS memory</span>"
-		t += "<div class='statusDisplay'>[temp_msg]</div><BR>"
-		t += "<a href='byond://?src=[UID()];setrotation=1'>Set Bearing</A>"
+		t += "<div class='statusDisplay'>[temp_msg]</div><br>"
+		t += "<a href='byond://?src=[UID()];setrotation=1'>Set Bearing</a>"
 		t += "<div class='statusDisplay'>[rotation] degrees</div>"
-		t += "<a href='byond://?src=[UID()];setangle=1'>Set Elevation</A>"
+		t += "<a href='byond://?src=[UID()];setangle=1'>Set Elevation</a>"
 		t += "<div class='statusDisplay'>[angle] degrees</div>"
 		t += "<span class='linkOn'>Set Power</span>"
 		t += "<div class='statusDisplay'>"
@@ -149,24 +149,24 @@
 			if(power == power_options[i])
 				t += "<span class='linkOn'>[power_options[i]]</span>"
 				continue
-			t += "<a href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</A>"
+			t += "<a href='byond://?src=[UID()];setpower=[i]'>[power_options[i]]</a>"
 		t += "</div>"
 
-		t += "<a href='byond://?src=[UID()];setz=1'>Set Sector</A>"
+		t += "<a href='byond://?src=[UID()];setz=1'>Set Sector</a>"
 		t += "<div class='statusDisplay'>[z_co ? z_co : "NULL"]</div>"
 
-		t += "<BR><a href='byond://?src=[UID()];send=1'>Send</A>"
-		t += " <a href='byond://?src=[UID()];receive=1'>Receive</A>"
-		t += "<BR><a href='byond://?src=[UID()];recal=1'>Recalibrate Crystals</A> <a href='byond://?src=[UID()];eject=1'>Eject Crystals</A>"
+		t += "<br><a href='byond://?src=[UID()];send=1'>Send</a>"
+		t += " <a href='byond://?src=[UID()];receive=1'>Receive</a>"
+		t += "<br><a href='byond://?src=[UID()];recal=1'>Recalibrate Crystals</a> <a href='byond://?src=[UID()];eject=1'>Eject Crystals</a>"
 
 		// Information about the last teleport
-		t += "<BR><div class='statusDisplay'>"
+		t += "<br><div class='statusDisplay'>"
 		if(!last_tele_data)
 			t += "No teleport data found."
 		else
-			t += "Source Location: ([last_tele_data.src_x], [last_tele_data.src_y])<BR>"
-			//t += "Distance: [round(last_tele_data.distance, 0.1)]m<BR>"
-			t += "Time: [round(last_tele_data.time, 0.1)] secs<BR>"
+			t += "Source Location: ([last_tele_data.src_x], [last_tele_data.src_y])<br>"
+			//t += "Distance: [round(last_tele_data.distance, 0.1)]m<br>"
+			t += "Time: [round(last_tele_data.time, 0.1)] secs<br>"
 		t += "</div>"
 
 	var/datum/browser/popup = new(user, "telesci", name, 300, 500)
@@ -188,11 +188,11 @@
 /obj/machinery/computer/telescience/proc/doteleport(mob/user)
 
 	if(teleport_cooldown > world.time)
-		temp_msg = "Telepad is recharging power.<BR>Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
+		temp_msg = "Telepad is recharging power.<br>Please wait [round((teleport_cooldown - world.time) / 10)] seconds."
 		return
 
 	if(teleporting)
-		temp_msg = "Telepad is in use.<BR>Please wait."
+		temp_msg = "Telepad is in use.<br>Please wait."
 		return
 
 	if(telepad)
@@ -217,7 +217,7 @@
 			playsound(telepad.loc, 'sound/weapons/flash.ogg', 25, 1)
 			// Wait depending on the time the projectile took to get there
 			teleporting = 1
-			temp_msg = "Powering up bluespace crystals.<BR>Please wait."
+			temp_msg = "Powering up bluespace crystals.<br>Please wait."
 
 
 		spawn(round(proj_data.time) * 10) // in seconds
@@ -234,9 +234,9 @@
 
 			do_sparks(5, 1, get_turf(telepad))
 
-			temp_msg = "Teleport successful.<BR>"
+			temp_msg = "Teleport successful.<br>"
 			if(teles_left < 10)
-				temp_msg += "<BR>Calibration required soon."
+				temp_msg += "<br>Calibration required soon."
 			else
 				temp_msg += "Data printed below."
 
@@ -299,22 +299,22 @@
 
 /obj/machinery/computer/telescience/proc/teleport(mob/user)
 	if(rotation == null || angle == null || z_co == null)
-		temp_msg = "ERROR!<BR>Set a angle, rotation and sector."
+		temp_msg = "ERROR!<br>Set a angle, rotation and sector."
 		return
 	if(power <= 0)
 		telefail()
-		temp_msg = "ERROR!<BR>No power selected!"
+		temp_msg = "ERROR!<br>No power selected!"
 		return
 	if(angle < 1 || angle > 90)
 		telefail()
-		temp_msg = "ERROR!<BR>Elevation is less than 1 or greater than 90."
+		temp_msg = "ERROR!<br>Elevation is less than 1 or greater than 90."
 		return
 	if(z_co == 2 || z_co < 1 || z_co > 6)
 		if(z_co == 7 & emagged == 1)
 		// This should be empty, allows for it to continue if the z-level is 7 and the machine is emagged.
 		else
 			telefail()
-			temp_msg = "ERROR! Sector is less than 1, <BR>greater than [src.emagged ? "7" : "6"], or equal to 2."
+			temp_msg = "ERROR! Sector is less than 1, <br>greater than [src.emagged ? "7" : "6"], or equal to 2."
 			return
 
 
@@ -338,7 +338,7 @@
 			return
 	else
 		telefail()
-		temp_msg = "ERROR!<BR>Calibration required."
+		temp_msg = "ERROR!<br>Calibration required."
 		return
 	return
 
@@ -396,7 +396,7 @@
 			inserted_gps.locked_location = last_target
 			temp_msg = "Location saved."
 		else
-			temp_msg = "ERROR!<BR>No data was stored."
+			temp_msg = "ERROR!<br>No data was stored."
 
 	if(href_list["send"])
 		sending = 1
@@ -409,11 +409,11 @@
 	if(href_list["recal"])
 		recalibrate()
 		sparks()
-		temp_msg = "NOTICE:<BR>Calibration successful."
+		temp_msg = "NOTICE:<br>Calibration successful."
 
 	if(href_list["eject"])
 		eject()
-		temp_msg = "NOTICE:<BR>Bluespace crystals ejected."
+		temp_msg = "NOTICE:<br>Bluespace crystals ejected."
 
 	updateUsrDialog()
 

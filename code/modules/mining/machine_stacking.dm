@@ -25,18 +25,20 @@
 	add_fingerprint(user)
 
 	var/obj/item/stack/sheet/s
-	var/dat = {"<!DOCTYPE html><meta charset="UTF-8">"}
+	var/dat = ""
 
 	dat += text("<b>Stacking unit console</b><br><br>")
 
 	for(var/O in machine.stack_list)
 		s = machine.stack_list[O]
 		if(s.amount > 0)
-			dat += text("[capitalize(s.name)]: [s.amount] <a href='byond://?src=[UID()];release=[s.type]'>Release</A><br>")
+			dat += "[capitalize(s.name)]: [s.amount] <a href='byond://?src=[UID()];release=[s.type]'>Release</a><br>"
 
-	dat += text("<br>Stacking: [machine.stack_amt]<br><br>")
+	dat += "<br>Stacking: [machine.stack_amt]<br><br>"
 
-	user << browse("[dat]", "window=console_stacking_machine")
+	var/datum/browser/popup = new(user, "console_stacking_machine", "Stacking machine")
+	popup.set_content(dat)
+	popup.open(FALSE)
 
 /obj/machinery/mineral/stacking_unit_console/Topic(href, href_list)
 	if(..())

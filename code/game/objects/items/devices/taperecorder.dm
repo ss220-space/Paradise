@@ -122,23 +122,25 @@
 		record()
 
 
-/obj/item/taperecorder/AltClick(mob/living/user)
-	if(istype(user) && mytape && !user.incapacitated() && !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED) && Adjacent(user))
-		var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
-						"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
-						"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
-						)
-		var/choice = show_radial_menu(user, src, options, require_near = TRUE)
-		if(!choice || user.incapacitated())
-			return
-		switch(choice)
-			if("Playback Tape")
-				play(user)
-			if("Print Transcript")
-				print_transcript(user)
-			if("Eject Tape")
-				eject(user)
+/obj/item/taperecorder/click_alt(mob/living/user)
+	if(!mytape)
+		return NONE
 
+	var/list/options = list( "Playback Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "taperecorder_playing"),
+					"Print Transcript" = image(icon = 'icons/obj/bureaucracy.dmi', icon_state = "paper_words"),
+					"Eject Tape" = image(icon = 'icons/obj/device.dmi', icon_state = "[mytape.icon_state]")
+					)
+	var/choice = show_radial_menu(user, src, options, require_near = TRUE)
+	if(!choice || user.incapacitated())
+		return CLICK_ACTION_BLOCKING
+	switch(choice)
+		if("Playback Tape")
+			play(user)
+		if("Print Transcript")
+			print_transcript(user)
+		if("Eject Tape")
+			eject(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/taperecorder/proc/recorder_say(message, datum/tape_piece/record_datum)
 	if(record_datum)
@@ -326,16 +328,16 @@
 
 	var/obj/item/paper/transcript = new /obj/item/paper(drop_location())
 
-	var/list/paper_info = list("<B>Transcript:</B><BR><BR>")
+	var/list/paper_info = list("<b>Transcript:</b><br><br>")
 	for(var/i = 1, length(mytape.storedinfo) >= i, i++)
 		var/datum/tape_piece/piece = mytape.storedinfo[i]
 		paper_info += "\[[time2text(piece.time * 10,"mm:ss")]\] "
 		if(piece.speaker_name)
 			paper_info += "[piece.speaker_name] "
 		if(piece.message_verb)
-			paper_info += "[piece.message_verb], \"[replace_characters(piece.message, list("+"))]\"<BR>"
+			paper_info += "[piece.message_verb], \"[replace_characters(piece.message, list("+"))]\"<br>"
 		else
-			paper_info += "[replace_characters(piece.message, list("+"))]<BR>"
+			paper_info += "[replace_characters(piece.message, list("+"))]<br>"
 
 	transcript.info = paper_info.Join("")
 	transcript.name = "paper- 'Transcript'"
@@ -439,8 +441,8 @@
 
 
 /obj/item/tape/verb/wipe()
-	set name = "Wipe Tape"
-	set category = "Object"
+	set name = "Стереть плёнку"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 
 	var/mob/living/carbon/user = usr

@@ -54,7 +54,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	ADD_TRAIT(src, TRAIT_BLOB_ALLY, INNATE_TRAIT)
 	blob_points = starting_points
 	blob_core = core
-	GLOB.overminds += src
+	GLOB.overminds |= src
 	var/new_name = "[initial(name)] ([rand(1, 999)])"
 	name = new_name
 	real_name = new_name
@@ -91,11 +91,8 @@ GLOBAL_LIST_EMPTY(overminds)
 
 
 /mob/camera/blob/process()
-	if(!blob_core)
-		qdel(src)
-		return
 	if(!free_strain_rerolls && (last_reroll_time + BLOB_POWER_REROLL_FREE_TIME < world.time))
-		to_chat(src, span_boldnotice("Вы получили еще одну бесплатную смену штамма."))
+		to_chat(src, span_boldnotice("Вы получили ещё одну бесплатную смену штамма."))
 		free_strain_rerolls = TRUE
 	track_z()
 
@@ -140,7 +137,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	var/turf/target_turf = .
 	if(!is_valid_turf(target_turf)) // Allows unplaced blobs to travel through station z-levels
 		if(z_move_flags & ZMOVE_FEEDBACK)
-			to_chat(src, span_warning("Ваш пункт назначения недействителен. Перейдите в другое место и попробуйте еще раз."))
+			to_chat(src, span_warning("Ваш пункт назначения недействителен. Перейдите в другое место и попробуйте ещё раз."))
 		return null
 
 /mob/camera/blob/proc/is_valid_turf(turf/tile)
@@ -201,7 +198,7 @@ GLOBAL_LIST_EMPTY(overminds)
 	add_say_logs(src, message, language = "BLOB")
 
 	var/message_a = say_quote(message)
-	var/rendered = span_big(span_blob("<b>\[Blob Telepathy\] <span class='name'>[name]</span>(<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a], [message]"))
+	var/rendered = span_big(span_blob("<b>\[Blob Telepathy\] [span_name(name)](<font color=\"[blobstrain.color]\">[blobstrain.name]</font>)</b> [message_a], [message]"))
 	relay_to_list_and_observers(rendered, GLOB.blob_telepathy_mobs, src)
 
 /mob/camera/blob/proc/add_points(points)

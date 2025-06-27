@@ -1,7 +1,7 @@
 /datum/martial_art/krav_maga
 	name = "Krav Maga"
 	has_dirslash = FALSE
-	weight = 8 //Higher weight, since you can choose to put on or take off the gloves
+	weight = 9 //Higher weight, since you can choose to put on or take off the gloves
 	var/datum/action/neck_chop/neckchop = new/datum/action/neck_chop()
 	var/datum/action/leg_sweep/legsweep = new/datum/action/leg_sweep()
 	var/datum/action/lung_punch/lungpunch = new/datum/action/lung_punch()
@@ -168,3 +168,7 @@
 	desc = "These gloves can teach you to perform Krav Maga using nanochips."
 	icon_state = "fightgloves"
 	item_state = "fightgloves"
+
+/obj/item/clothing/gloves/color/black/krav_maga/sec/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)

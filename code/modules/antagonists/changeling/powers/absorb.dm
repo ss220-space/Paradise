@@ -73,12 +73,12 @@
 			recent_speech = target.say_log.Copy()
 
 		if(recent_speech)
-			user.mind.store_memory("<B>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</B>")
+			user.mind.store_memory("<b>Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!</b>")
 			to_chat(user, span_boldnotice("Some of [target]'s speech patterns. We should study these to better impersonate [target.p_them()]!"))
 			for(var/spoken_memory in recent_speech)
 				user.mind.store_memory("\"[spoken_memory]\"")
 				to_chat(user, span_notice("\"[spoken_memory]\""))
-			user.mind.store_memory("<B>We have no more knowledge of [target]'s speech patterns.</B>")
+			user.mind.store_memory("<b>We have no more knowledge of [target]'s speech patterns.</b>")
 			to_chat(user, span_boldnotice("We have no more knowledge of [target]'s speech patterns."))
 
 		var/datum/antagonist/changeling/target_cling = target?.mind?.has_antag_datum(/datum/antagonist/changeling)

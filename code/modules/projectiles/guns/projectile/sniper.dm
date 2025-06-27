@@ -72,12 +72,12 @@
 /obj/item/ammo_casing/point50
 	desc = "A .50 bullet casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper
+	projectile_type = /obj/projectile/bullet/sniper
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper
+/obj/projectile/bullet/sniper
 	//speed = 0.75
 	//range = 100
 	damage = 70
@@ -87,7 +87,7 @@
 	forced_accuracy = TRUE
 	var/breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target) && breakthings))
 		target.ex_act(rand(1,2))
 
@@ -106,21 +106,22 @@
 /obj/item/ammo_casing/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	projectile_type = /obj/projectile/bullet/sniper/soporific
 	icon_state = ".50sop"
 	harmful = FALSE
 
-/obj/item/projectile/bullet/sniper/soporific
+/obj/projectile/bullet/sniper/soporific
 	armour_penetration = 0
 	nodamage = TRUE
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	var/sleep_time = 40 SECONDS
 
-/obj/item/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/soporific/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && isliving(target))
 		var/mob/living/L = target
-		L.SetSleeping(40 SECONDS)
+		L.SetSleeping(sleep_time)
 
 	return ..()
 
@@ -135,10 +136,10 @@
 /obj/item/ammo_casing/explosive
 	desc = "A .50 bullet casing, specialised in destruction"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/explosive
+	projectile_type = /obj/projectile/bullet/sniper/explosive
 	icon_state = ".50exp"
 
-/obj/item/projectile/bullet/sniper/explosive
+/obj/projectile/bullet/sniper/explosive
 	armour_penetration = 50
 	damage = 85
 	stun = 6 SECONDS
@@ -146,7 +147,7 @@
 	weaken = 6 SECONDS
 	breakthings = TRUE
 
-/obj/item/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/explosive/on_hit(var/atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && (!ismob(target, /mob/living) && breakthings))
 		explosion(target, -1, 1, 3, 5, cause = "[type] fired by [key_name(firer)]")
 
@@ -163,20 +164,21 @@
 /obj/item/ammo_casing/haemorrhage
 	desc = "A .50 bullet casing, specialised in causing massive bloodloss"
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/haemorrhage
+	projectile_type = /obj/projectile/bullet/sniper/haemorrhage
 	icon_state = ".50exp"
 
-/obj/item/projectile/bullet/sniper/haemorrhage
+/obj/projectile/bullet/sniper/haemorrhage
 	armour_penetration = 15
 	damage = 15
 	dismemberment = 0
 	weaken = 0
 	breakthings = FALSE
+	var/bleeding = 100
 
-/obj/item/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
+/obj/projectile/bullet/sniper/haemorrhage/on_hit(atom/target, blocked = 0, hit_zone)
 	if((blocked != 100) && iscarbon(target))
 		var/mob/living/carbon/C = target
-		C.bleed(100)
+		C.bleed(bleeding)
 
 	return ..()
 
@@ -192,10 +194,10 @@
 /obj/item/ammo_casing/penetrator
 	desc = "A .50 caliber penetrator round casing."
 	caliber = ".50"
-	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
 
-/obj/item/projectile/bullet/sniper/penetrator
+/obj/projectile/bullet/sniper/penetrator
 	icon_state = "gauss"
 	name = "penetrator round"
 	damage = 60
@@ -215,12 +217,12 @@
 /obj/item/ammo_casing/compact
 	desc = "A .50 caliber compact round casing."
 	caliber = ".50L"
-	projectile_type = /obj/item/projectile/bullet/sniper/compact
+	projectile_type = /obj/projectile/bullet/sniper/compact
 	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_NORMAL
 	muzzle_flash_range = MUZZLE_FLASH_RANGE_NORMAL
 	icon_state = ".50"
 
-/obj/item/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
+/obj/projectile/bullet/sniper/compact //Can't dismember, and can't break things; just deals massive damage.
 	damage = 70
 	stun = 4 SECONDS
 	weaken = 4 SECONDS
@@ -238,7 +240,7 @@
 
 /obj/item/ammo_casing/compact/penetrator
 	desc = "A .50 caliber penetrator round casing."
-	projectile_type = /obj/item/projectile/bullet/sniper/penetrator
+	projectile_type = /obj/projectile/bullet/sniper/penetrator
 	icon_state = ".50pen"
 
 /obj/item/ammo_box/magazine/sniper_rounds/compact/soporific
@@ -251,7 +253,7 @@
 
 /obj/item/ammo_casing/compact/soporific
 	desc = "A .50 bullet casing, specialised in sending the target to sleep, instead of hell."
-	projectile_type = /obj/item/projectile/bullet/sniper/soporific
+	projectile_type = /obj/projectile/bullet/sniper/soporific
 	icon_state = ".50sop"
 	harmful = FALSE
 
@@ -276,3 +278,148 @@
 	else if(ammo)
 		. += ".50mag-f"
 
+
+/obj/item/gun/projectile/automatic/sniper_rifle/axmc
+	name = "axmc sniper rifle"
+	desc = "Новейшая модель снайперской винтовки калибра .338, разработанная и изготовленная одной из дочерних компаний Нанотрейзен. Обладает схожими со снайперской винтовкой Синдиката характеристиками."
+	ru_names = list(
+		NOMINATIVE = "снайперская винтовка axmc",
+		GENITIVE = "снайперской винтовки axmc",
+		DATIVE = "снайперской винтовке axmc",
+		ACCUSATIVE = "снайперскую винтовку axmc",
+		INSTRUMENTAL = "снайперской винтовкой axmc",
+		PREPOSITIONAL = "снайперской винтовке axmc",
+	)
+	icon_state = "AXMC"
+	item_state = "AXMC"
+	mag_type = /obj/item/ammo_box/magazine/a338
+	fire_delay = 5.5 SECONDS
+
+/obj/item/ammo_box/magazine/a338
+	name = "sniper rounds (.338)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338",
+		GENITIVE = "снайперских патронов .338",
+		DATIVE = "снайперским патронам .338",
+		ACCUSATIVE = "снайперские патроны .338",
+		INSTRUMENTAL = "снайперскими патронами .338",
+		PREPOSITIONAL = "снайперских патронах .338",
+	)
+	icon_state = ".338mag"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/a338
+	max_ammo = 10
+	caliber = ".338"
+
+/obj/item/ammo_box/magazine/a338/update_icon_state()
+	if(ammo_count())
+		icon_state = "[initial(icon_state)]-ammo"
+	else
+		icon_state = "[initial(icon_state)]"
+
+/obj/item/ammo_casing/a338
+	desc = "Гильзя калибра .338."
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/a338
+	muzzle_flash_strength = MUZZLE_FLASH_STRENGTH_STRONG
+	muzzle_flash_range = MUZZLE_FLASH_RANGE_STRONG
+	icon_state = ".50"
+
+/obj/projectile/bullet/sniper/a338
+	damage = 80
+	dismemberment = 0
+
+//Sleepy ammo
+/obj/item/ammo_box/magazine/a338/soporific
+	name = "sniper rounds .338 (Zzzzz)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (усыпляющие)",
+		GENITIVE = "снайперских патронов .338 (усыпляющих)",
+		DATIVE = "снайперским патронам .338 (усыпляющим)",
+		ACCUSATIVE = "снайперские патроны .338 (усыпляющие)",
+		INSTRUMENTAL = "снайперскими патронами .338 (усыпляющими)",
+		PREPOSITIONAL = "снайперских патронах .338 (усыпляющих)",
+	)
+	desc = "Усыпляющие снайперские патроны калибра .338, созданные для счастливых дней и тихих ночей..."
+	icon_state = ".338soporific"
+	origin_tech = "combat=6"
+	ammo_type = /obj/item/ammo_casing/a338_soporific
+	max_ammo = 6
+
+/obj/item/ammo_casing/a338_soporific
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/soporific/a338
+	icon_state = ".50sop"
+	harmful = FALSE
+
+/obj/projectile/bullet/sniper/soporific/a338
+
+//hemorrhage ammo
+/obj/item/ammo_box/magazine/a338/explosive
+	name = "sniper rounds .338 (boom)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (разрывные)",
+		GENITIVE = "снайперских патронов .338 (разрывных)",
+		DATIVE = "снайперским патронам .338 (разрывным)",
+		ACCUSATIVE = "снайперские патроны .338 (разрывные)",
+		INSTRUMENTAL = "снайперскими патронами .338 (разрывными)",
+		PREPOSITIONAL = "снайперских патронах .338 (разрывных)",
+	)
+	desc = "Что вы имели в виду, говоря о военных преступлениях? Не было никаких военных."
+	icon_state = ".338explosive"
+	ammo_type = /obj/item/ammo_casing/a338_explosive
+	max_ammo = 10
+
+/obj/item/ammo_casing/a338_explosive
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/explosive/a338
+	icon_state = ".50exp"
+
+/obj/projectile/bullet/sniper/explosive/a338
+
+//hemorrhage ammo
+/obj/item/ammo_box/magazine/a338/haemorrhage
+	name = "sniper rounds 338 (Bleed)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (кровопускающие)",
+		GENITIVE = "снайперских патронов .338 (кровопускающих)",
+		DATIVE = "снайперским патронам .338 (кровопускающим)",
+		ACCUSATIVE = "снайперские патроны .338 (кровопускающие)",
+		INSTRUMENTAL = "снайперскими патронами .338 (кровопускающими)",
+		PREPOSITIONAL = "снайперских патронах .338 (кровопускающих)",
+	)
+	desc = "Кровопускающие снайперские выстрелы, оставляют вашу цель в луже кровавой боли"
+	icon_state = ".338haemorrhage"
+	ammo_type = /obj/item/ammo_casing/a338_haemorrhage
+	max_ammo = 10
+
+/obj/item/ammo_casing/a338_haemorrhage
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/haemorrhage/a338
+	icon_state = ".50exp"
+
+/obj/projectile/bullet/sniper/haemorrhage/a338
+
+//penetrator ammo
+/obj/item/ammo_box/magazine/a338/penetrator
+	name = "sniper rounds 338 (penetrator)"
+	ru_names = list(
+		NOMINATIVE = "снайперские патроны .338 (проникающие)",
+		GENITIVE = "снайперских патронов .338 (проникающих)",
+		DATIVE = "снайперским патронам .338 (проникающим)",
+		ACCUSATIVE = "снайперские патроны .338 (проникающие)",
+		INSTRUMENTAL = "снайперскими патронами .338 (проникающими)",
+		PREPOSITIONAL = "снайперских патронах .338 (проникающих)",
+	)
+	desc = "Чрезвычайно мощный патрон, способный пронзить укрытие и любого, кому не повезло оказаться за ним."
+	icon_state = ".338penetrator"
+	ammo_type = /obj/item/ammo_casing/a338_penetrator
+	origin_tech = "combat=6"
+	max_ammo = 10
+
+/obj/item/ammo_casing/a338_penetrator
+	caliber = ".338"
+	projectile_type = /obj/projectile/bullet/sniper/penetrator/a338
+	icon_state = ".50pen"
+
+/obj/projectile/bullet/sniper/penetrator/a338

@@ -14,6 +14,7 @@
 	anchored = TRUE
 	density = FALSE
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF
+	interaction_flags_click = ALLOW_SILICON_REACH
 	var/enabled = FALSE
 	var/lethal = FALSE
 	var/lethal_is_configurable = TRUE

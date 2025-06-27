@@ -3,10 +3,10 @@
 	set hidden = TRUE
 
 	if(!SSmapping.map_datum.webmap_url)
-		to_chat(usr, "<span class='warning'>The current map has no defined webmap. Please file an issue report.</span>")
+		to_chat(usr, span_warning("У текущей карты нет веб-версии. Пожалуйста, сообщите об этом разработчикам в Discord."))
 		return
 
-	if(tgui_alert(usr, "Do you want to open this map's Webmap in your browser?", "Webmap", list("Yes", "No")) != "Yes")
+	if(tgui_alert(usr, "Вы хотите открыть веб-версию этой карты в своём веб-браузере?", "Веб-карта", list("Да", "Нет")) != "Да")
 		return
 
 	usr << link(SSmapping.map_datum.webmap_url)

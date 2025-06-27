@@ -27,6 +27,7 @@
 	var/consumedSupermatter = FALSE //If the singularity has eaten a supermatter shard and can go to stage six
 	var/warps_projectiles = TRUE
 	allow_spin = 0
+	var/obj/effect/warp_effect/supermatter/warp
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | UNACIDABLE | ACID_PROOF | FREEZE_PROOF
 
 /obj/singularity/Initialize(mapload, starting_energy = 50)
@@ -41,7 +42,7 @@
 	START_PROCESSING(SSobj, src)
 	GLOB.poi_list |= src
 	GLOB.singularities += src
-	for(var/obj/machinery/power/singularity_beacon/singubeacon in GLOB.machines)
+	for(var/obj/machinery/power/singularity_beacon/singubeacon in SSmachines.get_by_type(/obj/machinery/power/singularity_beacon))
 		if(singubeacon.active)
 			target = singubeacon
 			break
@@ -50,6 +51,8 @@
 	STOP_PROCESSING(SSobj, src)
 	GLOB.poi_list.Remove(src)
 	GLOB.singularities -= src
+	vis_contents -= warp
+	QDEL_NULL(warp)  // don't want to leave it hanging
 	target = null
 	return ..()
 
@@ -100,7 +103,7 @@
 	return
 
 
-/obj/singularity/bullet_act(obj/item/projectile/P)
+/obj/singularity/bullet_act(obj/projectile/P)
 	qdel(P)
 	return 0 //Will there be an impact? Who knows.  Will we see it? No.
 
@@ -131,6 +134,7 @@
 	eat()
 	dissipate()
 	check_energy()
+	update_warp()
 
 	return
 
@@ -194,6 +198,9 @@
 			dissipate_delay = 10
 			dissipate_track = 0
 			dissipate_strength = 1
+			if(warp)
+				vis_contents -= warp
+				qdel(warp)
 		if(STAGE_TWO)
 			if((check_turfs_in(1,1))&&(check_turfs_in(2,1))&&(check_turfs_in(4,1))&&(check_turfs_in(8,1)))
 				current_size = STAGE_TWO
@@ -204,6 +211,10 @@
 				dissipate_delay = 5
 				dissipate_track = 0
 				dissipate_strength = 5
+				if(!warp)
+					warp = new(src)
+					vis_contents += warp
+					apply_wibbly_filters(warp)
 		if(STAGE_THREE)
 			if((check_turfs_in(1,2))&&(check_turfs_in(2,2))&&(check_turfs_in(4,2))&&(check_turfs_in(8,2)))
 				current_size = STAGE_THREE
@@ -214,6 +225,10 @@
 				dissipate_delay = 4
 				dissipate_track = 0
 				dissipate_strength = 20
+				if(!warp) //In the event the singularity eats a clown and skips stage 2.
+					warp = new(src)
+					vis_contents += warp
+					apply_wibbly_filters(warp)
 		if(STAGE_FOUR)
 			if((check_turfs_in(1,3))&&(check_turfs_in(2,3))&&(check_turfs_in(4,3))&&(check_turfs_in(8,3)))
 				current_size = STAGE_FOUR
@@ -469,6 +484,15 @@
 		if(R.z == z && get_dist(R, src) <= 15) // Better than using orange() every process
 			R.receive_pulse(energy)
 
+/obj/singularity/proc/update_warp()
+	if(!warp)
+		return
+	warp.pixel_x = initial(warp.pixel_x) - pixel_x
+	warp.pixel_y = initial(warp.pixel_x) - pixel_y
+	var/scaling = allowed_size / 2
+	animate(warp, time = 6, transform = matrix().Scale(0.5 * scaling, 0.5 * scaling))
+	animate(time = 14, transform = matrix().Scale(scaling, scaling))
+
 /obj/singularity/singularity_act()
 	var/gain = (energy/2)
 	var/dist = max((current_size - 2),1)
@@ -498,7 +522,7 @@
 	distance_to_singulo = get_dist(monitor.hasprox_receiver, src)
 
 
-/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/item/projectile/projectile)
+/obj/effect/abstract/proximity_checker/singulo/proximity_check(obj/projectile/projectile)
 	. = ..()
 	if(!isprojectile(projectile))
 		return .
@@ -521,3 +545,20 @@
 	projectile.damage += 10 / distance
 	projectile.set_angle(projectile_angle)
 
+
+/obj/singularity/proc/end_deadchat_plays()
+	move_self = TRUE
+
+
+/obj/singularity/deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE, cooldown = 12 SECONDS)
+	. = AddComponent(/datum/component/deadchat_control/cardinal_movement, mode, list(), cooldown, CALLBACK(src, TYPE_PROC_REF(/atom/movable, stop_deadchat_plays)))
+
+	if(. == COMPONENT_INCOMPATIBLE)
+		return
+
+	move_self = FALSE
+
+
+/obj/singularity/deadchat_controlled/Initialize(mapload, starting_energy)
+	. = ..()
+	deadchat_plays(mode = DEADCHAT_DEMOCRACY_MODE)

@@ -153,6 +153,9 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	/// Our sweet wires
 	var/datum/wires/washing_machine/wires
 
+/obj/machinery/washing_machine/examine(mob/user)
+	. = ..()
+	. += span_info("<b>Alt-click</b> to start washing.")
 
 /obj/machinery/washing_machine/Initialize(mapload)
 	. = ..()
@@ -485,19 +488,11 @@ GLOBAL_LIST_INIT(dye_registry, list(
 	turn_on(user)
 
 
-/obj/machinery/washing_machine/AltClick(mob/user)
-	if(Adjacent(user) && generic_check(user))
-		turn_on(user)
-
-
-/obj/machinery/washing_machine/verb/start()
-	set name = "Start Washing"
-	set category = "Object"
-	set src in oview(1)
-
-	if(generic_check(usr))
-		turn_on(usr)
-
+/obj/machinery/washing_machine/click_alt(mob/user)
+	if(!generic_check(user))
+		return CLICK_ACTION_BLOCKING
+	turn_on(user)
+	return CLICK_ACTION_SUCCESS
 
 /// Engages washing cycle
 /obj/machinery/washing_machine/proc/turn_on(mob/user)

@@ -21,12 +21,12 @@
 		if(getBruteLoss() < maxHealth*0.5)
 			msg += "It looks slightly dented.\n"
 		else
-			msg += "<B>It looks severely dented!</B>\n"
+			msg += "<b>It looks severely dented!</b>\n"
 	if(getFireLoss())
 		if(getFireLoss() < maxHealth*0.5)
 			msg += "It looks slightly charred.\n"
 		else
-			msg += "<B>It looks severely burnt and heat-warped!</B>\n"
+			msg += "<b>It looks severely burnt and heat-warped!</b>\n"
 	if(health < -maxHealth*0.5)
 		msg += "It looks barely operational.\n"
 	if(fire_stacks < 0)

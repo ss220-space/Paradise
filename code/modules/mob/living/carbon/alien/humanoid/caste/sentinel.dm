@@ -6,6 +6,7 @@
 	attack_damage = 25
 	time_to_open_doors = 0.2 SECONDS
 	icon_state = "aliens_s"
+	role_text = "Вы - Часовой. Ваша основная задача - защита гнезда от непрошенных гостей."
 	can_evolve = TRUE
 
 
@@ -30,7 +31,8 @@
 /mob/living/carbon/alien/humanoid/praetorian
 	name = "alien praetorian"
 	icon = 'icons/mob/alienlarge.dmi'
-	icon_state = "prat_s"
+	icon_state = "aliens_s"
+	caste = "s"
 	pixel_x = -16
 	maxHealth = 420
 	health = 420
@@ -45,6 +47,7 @@
 	obj_damage = 80
 	time_to_open_doors = 0.2 SECONDS
 	environment_smash = ENVIRONMENT_SMASH_WALLS
+	role_text = "Вы - Преторианец. Вы являетесь более сильной и неповоротливой версией Часового. Ваша основная задача - защита гнезда от непрошенных гостей."
 	var/datum/action/innate/small_sprite_alien/praetorian/action_sprite
 
 
@@ -87,11 +90,11 @@
 	cut_overlays()
 
 	if(stat == DEAD)
-		icon_state = "prat_dead"
+		icon_state = "alien[caste]_dead"
 	else if(stat == UNCONSCIOUS || body_position == LYING_DOWN)
-		icon_state = "prat_sleep"
+		icon_state = "alien[caste]_sleep"
 	else
-		icon_state = "prat_s"
+		icon_state = "alien[caste]_s"
 
 	update_inv_r_hand()
 	update_inv_l_hand()

@@ -62,8 +62,7 @@
 	var/obj/structure/closet/supplypod/centcompod/temp_pod //The temporary pod that is modified by this datum, then cloned. The buildObject() clone of this pod is what is launched
 	// Stuff needed to render the map
 	var/map_name
-	var/atom/movable/screen/map_view/cam_screen
-	var/atom/movable/screen/background/cam_background
+	var/atom/movable/screen/map_view/camera/cam_screen
 	var/tabIndex = 1
 	var/renderLighting = FALSE
 	var/static/list/pod_style_info
@@ -103,22 +102,19 @@
 	if(map_name)
 		holder.clear_map(map_name)
 
-	map_name = "admin_supplypod_bay_[REF(src)]_map"
+	map_name = "admin_supplypod_bay_[UID()]_map"
 	// Initialize map objects
 	cam_screen = new
 	cam_screen.generate_view(map_name)
 
-	var/datum/plane_master_group/planes = cam_screen.display_to(holder.mob)
+	// display_to doesn't send the planes to the client, so we have to do it via display_to_client
+	var/datum/plane_master_group/planes = cam_screen.display_to_client(holder)
 
 	if(!renderLighting)
 		for(var/atom/movable/screen/plane_master/instance as anything in holder.mob.hud_used.get_true_plane_masters(LIGHTING_PLANE, planes.key))
 			instance.set_alpha(100)
 
-	cam_background = new
-	cam_background.assigned_map = map_name
-	cam_background.del_on_map_removal = TRUE
 	refreshView()
-	holder.register_map_obj(cam_background)
 
 /datum/centcom_podlauncher/ui_state(mob/user)
 	if (SSticker.current_state >= GAME_STATE_FINISHED)
@@ -359,7 +355,7 @@
 			if (temp_pod.effectShrapnel == TRUE) //If already doing custom damage, set back to default (no shrapnel)
 				temp_pod.effectShrapnel = FALSE
 				return
-			var/shrapnelInput = tgui_input_list(usr, "Пожалуйста, введите тип облака снарядов, которое вы хотите создать при приземлении (может быть любой снаряд!)", "Тип снаряда", sort_list(subtypesof(/obj/item/projectile), GLOBAL_PROC_REF(cmp_typepaths_asc)), null)
+			var/shrapnelInput = tgui_input_list(usr, "Пожалуйста, введите тип облака снарядов, которое вы хотите создать при приземлении (может быть любой снаряд!)", "Тип снаряда", sort_list(subtypesof(/obj/projectile), GLOBAL_PROC_REF(cmp_typepaths_asc)), null)
 			if (isnull(shrapnelInput))
 				return
 			var/shrapnelMagnitude = tgui_input_number(usr, "Введите размер облака снарядов. Обычно это значение от 1 до 5. Обратите внимание: Если вы выберите слишком большой размер, вы можете вызвать сбой сервера.", "Размер облака", 0)
@@ -514,7 +510,7 @@
 			refreshView()
 			. = TRUE
 		if("refreshView")
-			refreshView()
+			initMap()
 			. = TRUE
 		if("renderLighting")
 			renderLighting = !renderLighting
@@ -542,7 +538,6 @@
 /datum/centcom_podlauncher/ui_close(mob/user) //Uses the destroy() proc. When the user closes the UI, we clean up the temp_pod and supplypod_selector variables.
 	QDEL_NULL(temp_pod)
 	QDEL_NULL(cam_screen)
-	QDEL_NULL(cam_background)
 	qdel(src)
 
 /datum/centcom_podlauncher/proc/setupViewPod()
@@ -564,9 +559,7 @@
 	var/size_x = bbox[3] - bbox[1] + 1
 	var/size_y = bbox[4] - bbox[2] + 1
 
-	cam_screen.vis_contents = visible_turfs
-	cam_background.icon_state = "clear"
-	cam_background.fill_rect(1, 1, size_x, size_y)
+	cam_screen.show_camera(visible_turfs, size_x, size_y)
 
 /datum/centcom_podlauncher/proc/updateCursor(forceClear = FALSE) //Update the mouse of the user
 	if (!holder) //Can't update the mouse icon if the client doesnt exist!
@@ -802,11 +795,9 @@
 	launchRandomItem = dataToLoad["launchRandomItem"] //Do we launch a single random item instead of everything on the turf?
 	launchChoice = dataToLoad["launchChoice"] //Launch turfs all at once (0), ordered (1), or randomly(1)
 	explosionChoice = dataToLoad["explosionChoice"] //An explosion that occurs when landing. Can be no explosion (0), custom explosion (1), or maxcap (2)
-	if(explosionChoice)
-		temp_pod.explosionSize = dataToLoad["explosionSize"]
+	temp_pod.explosionSize = (explosionChoice)? dataToLoad["explosionSize"] : list(0,0,0,0)
 	damageChoice = dataToLoad["damageChoice"] //Damage that occurs to any mob under the pod when it lands. Can be no damage (0), custom damage (1), or gib+5000dmg (2)
-	if(damageChoice)
-		temp_pod.damage = dataToLoad["damage"]
+	temp_pod.damage = (damageChoice)? dataToLoad["damage"] : 0
 	temp_pod.delays = dataToLoad["delays"]
 	temp_pod.reverse_delays = dataToLoad["rev_delays"]
 	temp_pod.custom_rev_delay = dataToLoad["custom_rev_delay"]

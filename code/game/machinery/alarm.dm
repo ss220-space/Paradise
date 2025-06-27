@@ -1154,3 +1154,12 @@ Just an object used in constructing air alarms
 #undef AIR_ALARM_FRAME
 #undef AIR_ALARM_BUILDING
 #undef AIR_ALARM_READY
+
+//for oldstation
+
+/obj/machinery/alarm/old
+    name = "old air alarm"
+    desc = "This atmos control unit is too old, that it no longer requires access."
+    report_danger_level = FALSE
+    remote_control = FALSE
+    req_access = null

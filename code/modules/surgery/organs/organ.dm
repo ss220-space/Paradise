@@ -1,5 +1,6 @@
 /obj/item/organ
 	name = "organ"
+	gender = MALE
 	icon = 'icons/obj/surgery.dmi'
 	pickup_sound = 'sound/items/handling/flesh_pickup.ogg'
 	drop_sound = 'sound/items/handling/flesh_drop.ogg'
@@ -166,14 +167,14 @@
 		var/obj/item/stack/nanopaste/nanopaste = I
 
 		if(!is_robotic())
-			to_chat(user, span_warning("The [nanopaste.name] can only be used on robotic bodyparts."))
+			balloon_alert(user, "не подходит для нанопасты!")
 			return ATTACK_CHAIN_PROCEED
 
 		if(!nanopaste.use(1))
-			to_chat(user, span_warning("You need at least one unit of [nanopaste] to proceed."))
+			balloon_alert(user, "недостаточно нанопасты!")
 			return ATTACK_CHAIN_PROCEED
 
-		to_chat(user, span_notice("You have repaired the damage on [src]."))
+		to_chat(user, span_notice("Вы устраняете повреждения на [declent_ru(PREPOSITIONAL)] с помощью [nanopaste.declent_ru(GENITIVE)]."))
 		rejuvenate()
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
@@ -258,9 +259,9 @@
 	. = ..()
 	if(is_dead())
 		if(!is_robotic())
-			. += span_notice("The decay has set in.")
+			. += span_notice("В процессе разложения.")
 		else
-			. += span_notice("It looks in need of repairs.")
+			. += span_notice("Серьёзно повреждено.")
 
 
 /obj/item/organ/proc/handle_germs()
@@ -313,7 +314,7 @@
 
 
 //Adds autopsy data for used_weapon.
-/obj/item/organ/proc/add_autopsy_data(used_weapon = "Unknown", damage)
+/obj/item/organ/proc/add_autopsy_data(used_weapon = "Неизвестно", damage)
 	LAZYINITLIST(autopsy_data)
 
 	var/datum/autopsy_data/weapon_data = autopsy_data[used_weapon]
@@ -352,7 +353,7 @@
 	if(owner && parent_organ_zone && amount > 0)
 		var/obj/item/organ/external/parent = owner.get_organ(parent_organ_zone)
 		if(parent && !silent)
-			owner.custom_pain("Something inside your [parent.name] hurts a lot.")
+			owner.custom_pain("Что-то внутри ваш[genderize_ru(parent.gender, "его", "ей", "его", "их")] [parent.declent_ru(GENITIVE)] отдаётся резкой болью.")
 
 	//check if we've hit max_damage
 	if(damage >= max_damage)

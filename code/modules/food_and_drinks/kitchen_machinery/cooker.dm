@@ -68,9 +68,10 @@
 	setRegents(props, burnt)
 	if(user && (user in viewers(5, src)))
 		to_chat(user, span_warning("You smell burning coming from the [src]!"))
-	var/datum/effect_system/smoke_spread/bad/smoke = new    // burning things makes smoke!
-	smoke.set_up(5, 0, src)
+	var/datum/effect_system/fluid_spread/smoke/bad/smoke = new // burning things makes smoke!
+	smoke.set_up(amount = 5, location = src)
 	smoke.start()
+
 	if(prob(firechance))
 		var/obj/effect/decal/cleanable/liquid_fuel/oil = new(drop_turf)
 		oil.name = "fat"

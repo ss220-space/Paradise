@@ -21,7 +21,7 @@
 /datum/reagent/blob/b_sorium
 	name = "Сорий"
 	id = "blob_sorium"
-	taste_description = "толчок"
+	taste_description = "толчков"
 	color = "#B68D00"
 
 /datum/reagent/blob/b_sorium/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

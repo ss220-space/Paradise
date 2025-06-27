@@ -16,9 +16,17 @@
 // *************************************
 
 /obj/item/reagent_containers/spray/weedspray // -- Skie
-	desc = "It's a toxic mixture, in spray form, to kill small weeds."
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	name = "weed spray"
+	desc = "Распылитель средства от сорняков - атразина."
+	ru_names = list(
+		NOMINATIVE = "распылитель средства от сорняков",
+		GENITIVE = "распылителя средства от сорняков",
+		DATIVE = "распылителю средства от сорняков",
+		ACCUSATIVE = "распылитель средства от сорняков",
+		INSTRUMENTAL = "распылителем средства от сорняков",
+		PREPOSITIONAL = "распылителе средства от сорняков"
+	)
+	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "weedspray"
 	item_state = "plantbgone"
 	volume = 100
@@ -31,13 +39,21 @@
 	list_reagents = list("atrazine" = 100)
 
 /obj/item/reagent_containers/spray/weedspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] жадно вдыха[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
 	return TOXLOSS
 
 /obj/item/reagent_containers/spray/pestspray // -- Skie
-	desc = "It's some pest eliminator spray! <I>Do not inhale!</I>"
-	icon = 'icons/obj/hydroponics/equipment.dmi'
 	name = "pest spray"
+	desc = "Распылитель пестицидов для уничтожения вредителей."
+	ru_names = list(
+		NOMINATIVE = "распылитель пестицидов",
+		GENITIVE = "распылителя пестицидов",
+		DATIVE = "распылителю пестицидов",
+		ACCUSATIVE = "распылитель пестицидов",
+		INSTRUMENTAL = "распылителем пестицидов",
+		PREPOSITIONAL = "распылителе пестицидов"
+	)
+	icon = 'icons/obj/hydroponics/equipment.dmi'
 	icon_state = "pestspray"
 	item_state = "plantbgone"
 	volume = 100
@@ -50,7 +66,7 @@
 	list_reagents = list("pestkiller" = 100)
 
 /obj/item/reagent_containers/spray/pestspray/suicide_act(mob/user)
-	user.visible_message("<span class='suicide'>[user] is huffing the [src.name]! It looks like [user.p_theyre()] trying to commit suicide.</span>")
+	user.visible_message(span_suicide("[user] жадно вдыха[pluralize_ru(user.gender, "ет", "ют")] содержимое [declent_ru(GENITIVE)]! Кажется, что это попытка самоубийства!"))
 	return TOXLOSS
 
 /obj/item/cultivator
@@ -66,7 +82,7 @@
 	toolspeed = 0.5
 	w_class = WEIGHT_CLASS_SMALL
 	materials = list(MAT_METAL=50)
-	attack_verb = list("slashed", "sliced", "cut", "clawed")
+	attack_verb = list("полоснул", "порезал", "поцарапал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/cultivator/rake
@@ -75,11 +91,21 @@
 	toolspeed = 1
 	belt_icon = null
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("slashed", "sliced", "bashed", "clawed")
+	attack_verb = list("полоснул", "ударил", "поцарапал")
 	hitsound = null
 	materials = null
 	flags = NONE
 	resistance_flags = FLAMMABLE
+
+/obj/item/cultivator/wooden
+	icon_state = "cultivator_wooden"
+	hitsound = null
+	materials = null
+	flags = NONE
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "cultivator"
+
 
 /obj/item/hatchet
 	name = "hatchet"
@@ -95,7 +121,7 @@
 	throw_range = 4
 	materials = list(MAT_METAL = 15000)
 	origin_tech = "materials=2;combat=2"
-	attack_verb = list("chopped", "torn", "cut")
+	attack_verb = list("рубанул", "поранил", "порезал")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	embed_chance = 70
@@ -112,7 +138,7 @@
 	icon_state = "unathiknife"
 	item_state = "unathiknife"
 	belt_icon = null
-	attack_verb = list("ripped", "torn", "cut")
+	attack_verb = list("поранил", "порезал")
 
 /obj/item/hatchet/wooden
 	name = "wooden hatchet"
@@ -121,6 +147,9 @@
 	belt_icon = "wooden_hatchet"
 	materials = null
 	flags = NONE
+	lefthand_file = 'icons/mob/inhands/lavaland/misc_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/misc_righthand.dmi'
+	item_state = "small_shovel"
 
 /obj/item/scythe
 	icon_state = "scythe0"
@@ -135,7 +164,7 @@
 	armour_penetration = 20
 	slot_flags = ITEM_SLOT_BACK
 	origin_tech = "materials=3;combat=2"
-	attack_verb = list("chopped", "sliced", "cut", "reaped")
+	attack_verb = list("рубанул", "порезал", "скосил")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 	sharp = 1
 	embed_chance = 15
@@ -187,7 +216,7 @@
 	extend = 0
 	slot_flags = ITEM_SLOT_BELT
 	origin_tech = "materials=3;combat=3"
-	attack_verb = list("hit", "poked")
+	attack_verb = list("ударил", "ткнул")
 	hitsound = "swing_hit"
 
 /obj/item/scythe/tele/attack_self(mob/user)
@@ -197,7 +226,7 @@
 		slot_flags = ITEM_SLOT_BACK	//won't fit on belt, but can be worn on belt when extended
 		w_class = WEIGHT_CLASS_BULKY		//won't fit in backpacks while extended
 		force = 15		//slightly better than normal scythe damage
-		attack_verb = list("chopped", "sliced", "cut", "reaped")
+		attack_verb = list("рубанул", "порезал", "скосил")
 		hitsound = 'sound/weapons/bladeslice.ogg'
 		//Extend sound (blade unsheath)
 		playsound(src.loc, 'sound/weapons/blade_unsheath.ogg', 50, 1)	//Sound credit to Qat of Freesound.org
@@ -206,7 +235,7 @@
 		slot_flags = ITEM_SLOT_BELT	//can be worn on belt again, but no longer makes sense to wear on the back
 		w_class = WEIGHT_CLASS_SMALL
 		force = 3
-		attack_verb = list("hit", "poked")
+		attack_verb = list("ударил", "ткнул")
 		hitsound = "swing_hit"
 		//Collapse sound (blade sheath)
 		playsound(src.loc, 'sound/weapons/blade_sheath.ogg', 50, 1)		//Sound credit to Q.K. of Freesound.org
@@ -232,7 +261,15 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient
 	name = "jug of nutrient"
-	desc = "A decent sized plastic jug."
+	desc = "Пластиковая канистра для различных жидкостей."
+	ru_names = list(
+        NOMINATIVE = "канистра",
+        GENITIVE = "канистри",
+        DATIVE = "канистре",
+        ACCUSATIVE = "канистру",
+        INSTRUMENTAL = "канистрой",
+        PREPOSITIONAL = "канистре"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug"
 	item_state = "plastic_jug"
@@ -294,21 +331,45 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/ez
 	name = "jug of E-Z-Nutrient"
-	desc = "Contains a fertilizer that causes mild mutations with each harvest."
+	desc = "Пластиковая канистра для различных жидкостей. В ней содержится И-ЗИ-Нутриент."
+	ru_names = list(
+        NOMINATIVE = "канистра (И-ЗИ-Нутриент)",
+        GENITIVE = "канистри (И-ЗИ-Нутриент)",
+        DATIVE = "канистре (И-ЗИ-Нутриент)",
+        ACCUSATIVE = "канистру (И-ЗИ-Нутриент)",
+        INSTRUMENTAL = "канистрой (И-ЗИ-Нутриент)",
+        PREPOSITIONAL = "канистре (И-ЗИ-Нутриент)"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_ez"
 	list_reagents = list("eznutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/l4z
 	name = "jug of Left 4 Zed"
-	desc = "Contains a fertilizer that limits plant yields to no more than one and causes significant mutations in plants."
+	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Лефт-Фо-Зед."
+	ru_names = list(
+        NOMINATIVE = "канистра (Лефт-Фо-Зед)",
+        GENITIVE = "канистри (Лефт-Фо-Зед)",
+        DATIVE = "канистре (Лефт-Фо-Зед)",
+        ACCUSATIVE = "канистру (Лефт-Фо-Зед)",
+        INSTRUMENTAL = "канистрой (Лефт-Фо-Зед)",
+        PREPOSITIONAL = "канистре (Лефт-Фо-Зед)"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_l4z"
 	list_reagents = list("left4zednutriment" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/rh
 	name = "jug of Robust Harvest"
-	desc = "Contains a fertilizer that increases the yield of a plant by 30% while causing no mutations."
+	desc = "Пластиковая канистра для различных жидкостей. В ней содержится Робаст-Харвест."
+	ru_names = list(
+        NOMINATIVE = "канистра (Робаст-Харвест)",
+        GENITIVE = "канистри (Робаст-Харвест)",
+        DATIVE = "канистре (Робаст-Харвест)",
+        ACCUSATIVE = "канистру (Робаст-Харвест)",
+        INSTRUMENTAL = "канистрой (Робаст-Харвест)",
+        PREPOSITIONAL = "канистре (Робаст-Харвест)"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_rh"
 	list_reagents = list("robustharvestnutriment" = 80)
@@ -329,14 +390,50 @@
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/weedkiller
 	name = "jug of weed killer"
-	desc = "Contains a herbicide."
+	desc = "Пластиковая канистра для различных жидкостей. В ней содержится атразин."
+	ru_names = list(
+        NOMINATIVE = "канистра (Атразин)",
+        GENITIVE = "канистри (Атразин)",
+        DATIVE = "канистре (Атразин)",
+        ACCUSATIVE = "канистру (Атразин)",
+        INSTRUMENTAL = "канистрой (Атразин)",
+        PREPOSITIONAL = "канистре (Атразин)"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_wk"
 	list_reagents = list("atrazine" = 80)
 
 /obj/item/reagent_containers/glass/bottle/nutrient/killer/pestkiller
 	name = "jug of pest spray"
-	desc = "Contains a pesticide."
+	desc = "Пластиковая канистра для различных жидкостей. В ней содержатся пестициды."
+	ru_names = list(
+        NOMINATIVE = "канистра (Пестициды)",
+        GENITIVE = "канистри (Пестициды)",
+        DATIVE = "канистре (Пестициды)",
+        ACCUSATIVE = "канистру (Пестициды)",
+        INSTRUMENTAL = "канистрой (Пестициды)",
+        PREPOSITIONAL = "канистре (Пестициды)"
+	)
 	icon = 'icons/obj/chemical.dmi'
 	icon_state = "plastic_jug_pk"
 	list_reagents = list("pestkiller" = 80)
+
+/obj/item/conductive_organ
+	name = "conductive organ"
+	desc = "небольшой желтоватый мешочек, добываемый из лавового панцирника. Является мощным удобрением, значительно повышающим урожай и уровень нутриментов растения."
+	ru_names = list(
+		NOMINATIVE = "проводящий орган",
+		GENITIVE = "проводящего органа",
+		DATIVE = "проводящему органу",
+		ACCUSATIVE = "проводящий орган",
+		INSTRUMENTAL = "проводящим органом",
+		PREPOSITIONAL = "проводящем органе",
+	)
+	gender = MALE
+	icon = 'icons/obj/lavaland/lava_fishing.dmi'
+	icon_state = "conductive_organ"
+	lefthand_file = 'icons/mob/inhands/lavaland/fish_items_lefthand.dmi'
+	righthand_file = 'icons/mob/inhands/lavaland/fish_items_righthand.dmi'
+	item_state = "acid_bladder" //yeah
+	w_class = WEIGHT_CLASS_TINY
+	origin_tech = "biotech=6"

@@ -128,8 +128,8 @@ GLOBAL_LIST_EMPTY(plant_seeds)
 
 
 
-/obj/item/seeds/bullet_act(obj/item/projectile/Proj) //Works with the Somatoray to modify plant variables.
-	if(istype(Proj, /obj/item/projectile/energy/florabeta))
+/obj/item/seeds/bullet_act(obj/projectile/Proj) //Works with the Somatoray to modify plant variables.
+	if(istype(Proj, /obj/projectile/energy/florabeta))
 		on_floragun_beta_act()
 	else
 		return ..()

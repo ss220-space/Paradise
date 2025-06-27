@@ -57,11 +57,11 @@
 
 /datum/action/item_action/agent_box/proc/spawn_box()
 	// Do the box's fade in spawn animation with an image so it follows the owner.
-	var/image/fake_box = image('icons/obj/cardboard_boxes.dmi', owner, "agentbox", ABOVE_MOB_LAYER)
-	owner.flick_overlay_view(fake_box, 0.4 SECONDS)
+	var/mutable_appearance/fake_box = mutable_appearance('icons/obj/cardboard_boxes.dmi', "agentbox")
 	fake_box.alpha = 200
 	fake_box.pixel_z = 30
-	animate(fake_box, pixel_z = 0, time = 0.3 SECONDS)
+	var/atom/movable/flick_visual/fake_box_visual = owner.flick_overlay_view(fake_box, 0.4 SECONDS)
+	animate(fake_box_visual, pixel_z = 0, time = 0.3 SECONDS)
 	sleep(0.3 SECONDS)
 	if(!isturf(owner.loc))
 		to_chat(owner, span_warning("You need more space to activate this implant!"))
@@ -89,9 +89,9 @@
 
 
 /datum/action/item_action/agent_box/proc/recall_box_animation()
-	var/image/fake_box = image('icons/obj/cardboard_boxes.dmi', owner, "agentbox", ABOVE_MOB_LAYER)
-	owner.flick_overlay_view(fake_box, 0.4 SECONDS)
-	animate(fake_box, pixel_z = fake_box.pixel_z + 30, alpha = fake_box.alpha - 255, time = 3, loop = 1)
+	var/mutable_appearance/fake_box = mutable_appearance('icons/obj/cardboard_boxes.dmi', "agentbox")
+	var/atom/movable/flick_visual/fake_box_visual = owner.flick_overlay_view(fake_box, 0.4 SECONDS)
+	animate(fake_box_visual, pixel_z = fake_box.pixel_z + 30, alpha = fake_box.alpha - 255, time = 3, loop = 1)
 
 
 /datum/action/item_action/agent_box/IsAvailable()

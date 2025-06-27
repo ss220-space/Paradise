@@ -87,6 +87,15 @@
 	icon_state = "rapidsyringegun"
 	max_syringes = 6
 
+/obj/item/gun/syringe/rapidsyringe/syndicate
+	var/syringes_load = 6
+
+/obj/item/gun/syringe/rapidsyringe/syndicate/Initialize()
+	. = ..()
+	for(var/i = 0, i < syringes_load, i++)
+		syringes += new /obj/item/reagent_containers/syringe/traitor_random(src)
+	process_chamber()
+
 /obj/item/gun/syringe/syndicate
 	name = "dart pistol"
 	desc = "A small spring-loaded sidearm that functions identically to a syringe gun."

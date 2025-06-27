@@ -10,13 +10,17 @@
 	name = "saw bone"
 	begin_sound = list(
 		TOOL_SAW = 'sound/surgery/saw1.ogg',
+		/obj/item/primitive_saw = 'sound/surgery/scalpel1.ogg',
+		/obj/item/circular_saw_blade = 'sound/surgery/scalpel1.ogg',
 		TOOL_WIRECUTTER = 'sound/surgery/scalpel1.ogg',
 		/obj/item/hatchet = 'sound/surgery/scalpel1.ogg',
 	)
 	end_sound = 'sound/surgery/amputation.ogg'
 	allowed_tools = list(
 		TOOL_SAW = 100,
+		/obj/item/primitive_saw = 100,
 		/obj/item/hatchet = 90,
+		/obj/item/circular_saw_blade = 80,
 		TOOL_WIRECUTTER = 70
 	)
 

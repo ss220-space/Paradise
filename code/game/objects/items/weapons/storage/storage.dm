@@ -10,6 +10,7 @@
 	icon = 'icons/obj/storage.dmi'
 	w_class = WEIGHT_CLASS_NORMAL
 	flags = BLOCKS_LIGHT
+	interaction_flags_click = ALLOW_RESTING | FORBID_TELEKINESIS_REACH
 	///No message on putting items in
 	var/silent = FALSE
 	///List of objects which this item can store (if set, it can't store anything else)
@@ -139,14 +140,12 @@
 	return ..()
 
 
-/obj/item/storage/AltClick(mob/user)
-	if((ishuman(user) || issilicon(user)) \
-	&& Adjacent(user) && !user.incapacitated() \
-	&& !HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		open(user)
-
-	else if(isobserver(user))
+/obj/item/storage/click_alt(mob/user)
+	if(isobserver(user))
 		show_to(user)
+		return CLICK_ACTION_SUCCESS
+	open(user)
+	return CLICK_ACTION_SUCCESS
 
 /obj/item/storage/proc/return_inv()
 	var/list/L = list()
@@ -184,6 +183,12 @@
 	user.s_active = src
 	LAZYOR(mobs_viewing, user)
 
+	for(var/mob/dead/observer/observe in user.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(user.inventory_observers, observe)
+			continue
+		show_to(observe)
+
 /obj/item/storage/proc/hide_from(mob/user)
 	LAZYREMOVE(mobs_viewing, user) // Remove clientless mobs too
 	if(!user.client)
@@ -194,6 +199,11 @@
 	if(user.s_active == src)
 		user.s_active = null
 
+	for(var/mob/dead/observer/observe in user.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(user.inventory_observers, observe)
+			continue
+		hide_from(observe)
 
 /obj/item/storage/proc/hide_from_all_viewers()
 	if(!LAZYLEN(mobs_viewing))
@@ -203,8 +213,7 @@
 
 
 /obj/item/storage/proc/update_viewers()
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
+	for(var/mob/M as anything in mobs_viewing)
 		if(!QDELETED(M) && M.s_active == src && (M in range(1, loc)))
 			continue
 		hide_from(M)
@@ -217,8 +226,8 @@
 	if(user.s_active)
 		user.s_active.close(user)
 
-	if(user.hud_used.is_shown_robot_modules())
-		user.hud_used.toggle_show_robot_modules()
+	if(user?.hud_used?.is_shown_robot_modules())
+		user?.hud_used?.toggle_show_robot_modules()
 
 	show_to(user)
 
@@ -433,6 +442,13 @@
 	if(usr)
 		if(usr.client && usr.s_active != src)
 			usr.client.screen -= W
+
+		for(var/mob/dead/observer/observe in usr.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(usr.inventory_observers, observe)
+				continue
+			observe.client.screen -= W
+
 		add_fingerprint(usr)
 
 		if(!prevent_warning && !istype(W, /obj/item/gun/energy/kinetic_accelerator/crossbow))
@@ -459,8 +475,7 @@
 	if(!istype(W))
 		return FALSE
 
-	for(var/_M in mobs_viewing)
-		var/mob/M = _M
+	for(var/mob/M as anything in mobs_viewing)
 		if((M.s_active == src) && M.client)
 			M.client.screen -= W
 
@@ -561,8 +576,8 @@
 	return ..()
 
 /obj/item/storage/verb/toggle_gathering_mode()
-	set name = "Switch Gathering Method"
-	set category = "Object"
+	set name = "Режим сбора"
+	set category = STATPANEL_OBJECT
 
 	pickup_all_on_tile = !pickup_all_on_tile
 	switch(pickup_all_on_tile)
@@ -572,8 +587,8 @@
 			to_chat(usr, "[src] now picks up one item at a time.")
 
 /obj/item/storage/verb/quick_empty()
-	set name = "Empty Contents"
-	set category = "Object"
+	set name = "Выбросить содержимое"
+	set category = STATPANEL_OBJECT
 
 	if((!ishuman(usr) && (loc != usr)) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -586,6 +601,11 @@
 	for(var/obj/item/I in contents)
 		remove_from_storage(I, T)
 		CHECK_TICK
+
+/obj/item/storage/proc/force_drop_inventory()
+	var/turf/T = get_turf(src)
+	for(var/obj/item/I in contents)
+		remove_from_storage(I, T)
 
 /**
   * Populates the container with items

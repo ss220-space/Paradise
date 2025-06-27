@@ -446,3 +446,17 @@
 	pixel_x = rand(-10,10)
 	pixel_y = rand(-10,10)
 	animate(src, pixel_y = pixel_y + 32, alpha = 0, time = duration)
+
+/obj/effect/warp_effect
+	plane = GRAVITY_PULSE_PLANE
+	appearance_flags = PIXEL_SCALE|LONG_GLIDE
+	icon = 'icons/effects/seismic_stomp_effect.dmi'
+	icon_state = "stomp_effect"
+	pixel_y = -16
+	pixel_x = -16
+
+/obj/effect/warp_effect/ex_act(severity)
+	return
+
+/obj/effect/warp_effect/singularity_act()
+	return FALSE

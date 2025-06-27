@@ -410,7 +410,7 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 	return round((sendcooldown - world.time) / 10)
 
 /obj/machinery/photocopier/faxmachine/proc/message_admins(var/mob/sender, var/faxname, var/faxtype, var/obj/item/sent, font_colour="#9A04D1")
-	var/msg = "<span class='boldnotice'><font color='[font_colour]'>[faxname]: </font> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</A>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</A>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</A>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
+	var/msg = "<span class='boldnotice'><span style='color: [font_colour];>[faxname]: </span> [key_name_admin(sender)] | REPLY: (<a href='byond://?_src_=holder;[faxname == "SYNDICATE FAX" ? "SyndicateReply" : ""]=[sender.UID()][faxname == "USSP FAX" ? "USSPReply" : ""]=[sender.UID()][faxname == "CENTCOM FAX" ? "CentcommReply" : ""]=[sender.UID()]'>RADIO</a>) (<a href='byond://?_src_=holder;AdminFaxCreate=\ref[sender];originfax=\ref[src];faxtype=[faxtype];replyto=\ref[sent]'>FAX</a>) ([ADMIN_SM(sender,"SM")]) | REJECT: (<a href='byond://?_src_=holder;FaxReplyTemplate=[sender.UID()];originfax=\ref[src]'>TEMPLATE</a>) ([ADMIN_BSA(sender,"BSA")]) (<a href='byond://?_src_=holder;EvilFax=[sender.UID()];originfax=\ref[src]'>EVILFAX</a>) </span>: Receiving '[sent.name]' via secure connection... <a href='byond://?_src_=holder;AdminFaxView=\ref[sent]'>view message</a>"
 	for(var/client/C in GLOB.admins)
 		if(check_rights(R_EVENT, 0, C.mob))
 			to_chat(C, msg)
@@ -456,22 +456,22 @@ GLOBAL_LIST_EMPTY(fax_blacklist)
 
 /obj/machinery/photocopier/faxmachine/proc/sanitize_paper(obj/item/paper/paper) // html to discord markdown-101
 	var/text = "[paper.header][paper.info][paper.footer]"
-	text = replacetext(text, "<BR>", "\n")
-	text = replacetext(text, "</U>", "__")
-	text = replacetext(text, "<B>", "**")
-	text = replacetext(text, "</B>", "**")
-	text = replacetext(text, "<I>", "*")
-	text = replacetext(text, "</I>", "*")
-	text = replacetext(text, "<U>", "__")
-	text = replacetext(text, "</U>", "__")
+	text = replacetext(text, "<br>", "\n")
+	text = replacetext(text, "</u>", "__")
+	text = replacetext(text, "<b>", "**")
+	text = replacetext(text, "</b>", "**")
+	text = replacetext(text, "<i>", "*")
+	text = replacetext(text, "</i>", "*")
+	text = replacetext(text, "<u>", "__")
+	text = replacetext(text, "</u>", "__")
 	text = replacetext(text, "<span class=\"paper_field\"></span>", "`_FIELD_`")
 
-	text = replacetext(text, "<H1>", "# ")
+	text = replacetext(text, "<h1>", "# ")
 	text = replacetext(text, "<H2>", "## ")
 	text = replacetext(text, "<H3>", "### ")
 
 	text = replacetext(text, "<li>", "- ")
-	text = replacetext(text, "<HR>", "\n`----- Horizontal Rule -----`\n")
+	text = replacetext(text, "<hr>", "\n`----- Horizontal Rule -----`\n")
 	text = replacetext(text, "<table border=1 cellspacing=0 cellpadding=3 style='border: 1px solid black;'>", "`_TABLE START_`\n")
 	text = replacetext(text, "<table>", "`_GRID START_`\n")
 	text = replacetext(text, "<tr>", "\n") // starts table, \ns it when splits every cell with |

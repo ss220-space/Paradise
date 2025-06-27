@@ -209,6 +209,7 @@ MINPLAYERS DEVILAGENTS 25
 #ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS MALFAI 10
 #ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NINJA 10
 #ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS NOTHING 30
+#ANTAG_PARADISE_SPECIAL_ANTAGS_WEIGHTS DEVIL 0
 
 ## Chance for traitors to roll additional antag role in ANTAG-PARADISE gamemode. Leave it commented for default 10% chance.
 #ANTAG_PARADISE_DOUBLE_ANTAG_CHANCE 10
@@ -741,5 +742,9 @@ EXTRA_SPACE_RUIN_LEVELS_MIN 4
 
 ## Maximum number of space ruins levels to generate
 EXTRA_SPACE_RUIN_LEVELS_MAX 8
+
+## Tgui payloads larger than the 2kb limit for BYOND topic requests are split into roughly 1kb chunks and sent in sequence.
+## This config option limits the maximum chunk count for which the server will accept a payload, default is 32
+TGUI_MAX_CHUNK_COUNT 128
 
 ### INITIALIZATION SETTINGS END ###

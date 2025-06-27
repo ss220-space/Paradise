@@ -401,7 +401,7 @@
 
 /obj/item/mecha_parts/chassis/phazon/attackby(obj/item/I, mob/user, params)
 	. = ..()
-	if(istype(I, /obj/item/assembly/signaler/anomaly) && !istype(I, /obj/item/assembly/signaler/anomaly/bluespace))
+	if(iscore(I) && !iscorebluespace(I))
 		to_chat(user, span_warning("The anomaly core socket only accepts bluespace anomaly cores!"))
 
 

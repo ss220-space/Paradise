@@ -9,8 +9,8 @@
  * tgui panel / chat troubleshooting verb
  */
 /client/verb/fix_tgui_panel()
-	set name = "Fix chat"
-	set category = "Special Verbs"
+	set name = "Починить чат"
+	set category = STATPANEL_SPECIALVERBS
 	var/action
 	log_tgui(src, "Started fixing.")
 
@@ -19,22 +19,23 @@
 	// Failed to fix
 	action = alert(src, "Did that work?", "", "Yes", "No, switch to old ui")
 	if(action == "No, switch to old ui")
-		winset(src, "legacy_output_selector", "left=output_legacy")
+		winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 		log_tgui(src, "Failed to fix.")
 
 /client/proc/nuke_chat()
 	// Catch all solution (kick the whole thing in the pants)
-	winset(src, "legacy_output_selector", "left=output_legacy")
+	winset(src, "output_selector.legacy_output_selector", "left=output_legacy")
 	if(!tgui_panel || !istype(tgui_panel))
 		log_tgui(src, "tgui_panel datum is missing")
 		tgui_panel = new(src, "chat_panel")
 	tgui_panel.initialize(force = TRUE)
+	sleep(3 SECONDS)
 	// Force show the panel to see if there are any errors
-	winset(src, "legacy_output_selector", "left=output_legacy")
+	winset(src, "output_selector.legacy_output_selector", "left=output_browser")
 
 /client/verb/refresh_tgui()
-	set name = "Refresh TGUI"
-	set category = "Special Verbs"
+	set name = "Обновить TGUI"
+	set category = STATPANEL_SPECIALVERBS
 
 	var/choice = alert(usr,
 		"Use it ONLY if you have trouble with TGUI window.\

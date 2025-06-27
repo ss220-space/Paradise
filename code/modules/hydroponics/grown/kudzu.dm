@@ -103,7 +103,7 @@
 /obj/item/reagent_containers/food/snacks/grown/kudzupod
 	seed = /obj/item/seeds/kudzu
 	name = "kudzu pod"
-	desc = "<I>Pueraria Virallis</I>: An invasive species with vines that rapidly creep and wrap around whatever they contact."
+	desc = "<i>Pueraria Virallis</i>: An invasive species with vines that rapidly creep and wrap around whatever they contact."
 	icon_state = "kudzupod"
 	filling_color = "#6B8E23"
 	bitesize_mod = 2

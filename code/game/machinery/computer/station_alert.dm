@@ -51,7 +51,7 @@
 		for(var/area in SSalarm.alarms[class])
 			for(var/thing in SSalarm.alarms[class][area][3])
 				var/atom/A = locateUID(thing)
-				if(atoms_share_level(A, src))
+				if(are_zs_connected(A, src))
 					data["alarms"][class] += area
 
 	return data

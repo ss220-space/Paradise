@@ -3,6 +3,11 @@
 	remove_from_alive_mob_list()
 	remove_from_dead_mob_list()
 	focus = null
+	for(var/mob/dead/observer/observe in orbiters)
+		if(!istype(observe))
+			continue
+		observe.stop_orbit()
+		observe.reset_perspective(null)
 	QDEL_NULL(hud_used)
 	if(mind && mind.current == src)
 		spellremove(src)
@@ -21,7 +26,10 @@
 		for(var/datum/alternate_appearance/AA in viewing_alternate_appearances)
 			AA.viewers -= src
 		viewing_alternate_appearances = null
+
 	LAssailant = null
+	GLOB.left_player_list -= src
+
 	return ..()
 
 /mob/Initialize(mapload)
@@ -38,6 +46,8 @@
 	initialize_actionspeed()
 	if(can_strip())
 		ADD_TRAIT(src, TRAIT_CAN_STRIP, GENERIC_TRAIT)
+
+	AddComponent(/datum/component/pref_holder)
 
 /mob/vv_edit_var(var_name, var_value)
 	switch(var_name)
@@ -89,7 +99,7 @@
 	return ""
 
 /mob/proc/Cell()
-	set category = "Admin"
+	set category = STATPANEL_ADMIN_DEBUG
 	set hidden = 1
 
 	if(!loc) return 0
@@ -130,7 +140,7 @@
 
 	// Added voice muffling for Issue 41.
 	if(stat == UNCONSCIOUS)
-		to_chat(src, "<I>…Вам почти удаётся расслышать чьи-то слова…</I>", MESSAGE_TYPE_LOCALCHAT)
+		to_chat(src, "<i>…Вам почти удаётся расслышать чьи-то слова…</i>", MESSAGE_TYPE_LOCALCHAT)
 	else
 		to_chat(src, msg, chat_message_type)
 
@@ -140,11 +150,13 @@
 // message is the message output to anyone who can see e.g. "[src] does something!"
 // self_message (optional) is what the src mob sees  e.g. "You do something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type)
+/mob/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	if(!isturf(loc)) // mobs inside objects (such as lockers) shouldn't have their actions visible to those outside the object
 		for(var/mob/mob as anything in viewers(3, src) - ignored_mobs)
 			if(mob.see_invisible < invisibility)
 				continue //can't view the invisible
+			if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+				continue
 			var/msg = message
 			if(self_message && mob == src)
 				msg = self_message
@@ -158,6 +170,10 @@
 	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
 		if(mob.see_invisible < invisibility)
 			continue //can't view the invisible
+
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
+
 		var/msg = message
 		if(self_message && mob == src)
 			msg = self_message
@@ -168,8 +184,10 @@
 // Use for objects performing visible actions
 // message is output to anyone who can see, e.g. "The [src] does something!"
 // blind_message (optional) is what blind people will hear e.g. "You hear something!"
-/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs)
+/atom/proc/visible_message(message, self_message, blind_message, list/ignored_mobs, chat_message_type, projectile_message = FALSE)
 	for(var/mob/mob as anything in viewers(7, src) - ignored_mobs)
+		if(projectile_message && (mob?.client?.prefs.toggles2 & PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES))
+			continue
 		mob.show_message(message, EMOTE_VISIBLE, blind_message, EMOTE_AUDIBLE)
 
 
@@ -188,7 +206,7 @@
 		M.show_message(msg, EMOTE_AUDIBLE, deaf_message, EMOTE_VISIBLE)
 
 	// based on say code
-	var/omsg = replacetext(message, "<B>[src]</B> ", "")
+	var/omsg = replacetext(message, "<b>[src]</b> ", "")
 	var/list/listening_obj = new
 	for(var/atom/movable/A in view(range, src))
 		if(ismob(A))
@@ -329,18 +347,21 @@
 		clear_fullscreen("remote_view", 0)
 
 
-/mob/dead/reset_perspective(atom/A)
+/mob/dead/reset_perspective(atom/new_eye)
 	. = ..()
 	if(.)
 		// Allows sharing HUDs with ghosts
 		if(hud_used)
-			client.screen = list()
+			client.clear_screen()
 			hud_used.show_hud(hud_used.hud_version)
+		if(!new_eye)
+			client.set_eye(src)
+			client.perspective = MOB_PERSPECTIVE
 
 //mob verbs are faster than object verbs. See http://www.byond.com/forum/?post=1326139&page=2#comment8198716 for why this isn't atom/verb/examine()
 /mob/verb/examinate(atom/A as mob|obj|turf in view())
-	set name = "Examine"
-	set category = "IC"
+	set name = "Осмотреть"
+	set category = STATPANEL_IC
 
 	DEFAULT_QUEUE_OR_CALL_VERB(VERB_CALLBACK(src, PROC_REF(run_examinate), A))
 
@@ -352,7 +373,7 @@
 
 
 /mob/verb/mode()
-	set name = "Activate Held Object"
+	set name = "Использовать объект"
 	set src = usr
 
 	if(ismecha(loc))
@@ -388,21 +409,22 @@
 		canon_client.movingmob = null
 
 	canon_client = null
+	GLOB.left_player_list |= src
 
 /mob/verb/memory()
-	set name = "Notes"
-	set category = "IC"
+	set name = "Заметки"
+	set category = STATPANEL_IC
 	if(mind)
 		mind.show_memory(src)
 	else
 		to_chat(src, "The game appears to have misplaced your mind datum, so we can't show you your notes.")
 
 /mob/verb/add_memory(msg as message)
-	set name = "Add Note"
-	set category = "IC"
+	set name = "Добавить заметку"
+	set category = STATPANEL_IC
 
 	msg = copytext(msg, 1, MAX_MESSAGE_LEN)
-	msg = sanitize_simple(html_encode(msg), list("\n" = "<BR>"))
+	msg = sanitize_simple(html_encode(msg), list("\n" = "<br>"))
 	msg = sanitize_censored_patterns(msg)
 
 	var/combined = length(memory + msg)
@@ -423,7 +445,7 @@
 	if(length(memory) == 0)
 		memory += msg
 	else
-		memory += "<BR>[msg]"
+		memory += "<br>[msg]"
 
 	if(popup)
 		memory()
@@ -453,8 +475,8 @@
 	var/newPlayerType = /mob/new_player
 
 /mob/verb/abandon_mob()
-	set name = "Respawn"
-	set category = "OOC"
+	set name = "Возродиться"
+	set category = STATPANEL_OOC
 
 	if(!GLOB.abandon_allowed)
 		to_chat(usr, "<span class='warning'>Respawning is disabled.</span>")
@@ -522,8 +544,8 @@
 	return stat == DEAD
 
 /mob/verb/cancel_camera()
-	set name = "Cancel Camera View"
-	set category = "OOC"
+	set name = "Сбросить позицию камеры"
+	set category = STATPANEL_OOC
 	reset_perspective(null)
 	unset_machine()
 	if(isliving(src))
@@ -533,25 +555,28 @@
 /mob/Topic(href, href_list)
 	. = ..()
 	if(href_list["mach_close"])
-		var/t1 = text("window=[href_list["mach_close"]]")
 		unset_machine()
-		src << browse(null, t1)
+		close_window(src, href_list["mach_close"])
 
 	if(href_list["flavor_more"])
-		usr << browse(text({"<HTML><meta charset="UTF-8"><HEAD><TITLE>[]</TITLE></HEAD><BODY><TT>[]</TT></BODY></HTML>"}, name, replacetext(flavor_text, "\n", "<BR>")), text("window=[];size=500x200", name))
-		onclose(usr, "[name]")
+		var/datum/browser/popup = new(usr, name, name, 500, 200)
+		popup.set_content("<tt>[replacetext(flavor_text, "\n", "<br>")]</tt>")
+		popup.open(TRUE)
+		onclose(usr, name)
 	if(href_list["flavor_change"])
 		update_flavor_text()
 
 	if(href_list["scoreboard"])
-		usr << browse(GLOB.scoreboard, "window=roundstats;size=700x900")
+		var/datum/browser/popup = new(usr, "roundstats", "Round Stats", 700, 900)
+		popup.set_content(GLOB.scoreboard)
+		popup.open(FALSE)
 
 
 /mob/MouseDrop(mob/living/user, src_location, over_location, src_control, over_control, params)
 	. = ..()
 	if(!. || usr != user || usr == src || !HAS_TRAIT(user, TRAIT_CAN_STRIP))
 		return FALSE
-	if(isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
+	if(!user.can_strip || isliving(user) && user.mob_size <= MOB_SIZE_SMALL)
 		return FALSE // Stops pAI drones and small mobs (borers, parrots, crabs) from stripping people. --DZD
 	if(IsFrozen(src) && !is_admin(user))
 		to_chat(usr, span_boldnotice("Interacting with admin-frozen players is not permitted."))
@@ -559,6 +584,35 @@
 	if(isLivingSSD(src) && user.client?.send_ssd_warning(src))
 		return FALSE
 	SEND_SIGNAL(src, COMSIG_DO_MOB_STRIP, user, usr)
+
+/**
+ * Checks whether a mob can perform an action to interact with an object
+ *
+ * The default behavior checks if the mob is:
+ * * Directly adjacent (1-tile radius)
+ * * Standing up (not resting)
+ * * Allows telekinesis to be used to skip adjacent checks (if they have DNA mutation)
+ * *
+ * action_bitflags: (see code/__DEFINES/mobs.dm)
+ * * NEED_GRAVITY - If gravity must be present to perform action (can't use pens without gravity)
+ * * NEED_LITERACY - If reading is required to perform action (can't read a book if you are illiterate)
+ * * NEED_LIGHT - If lighting must be present to perform action (can't heal someone in the dark)
+ * * NEED_DEXTERITY - If other mobs (monkeys, aliens, etc) can perform action (can't use computers if you are a monkey)
+ * * NEED_HANDS - If hands are required to perform action (can't pickup items if you are a cyborg)
+ * * FORBID_TELEKINESIS_REACH - If telekinesis is forbidden to perform action from a distance (ex. canisters are blacklisted from telekinesis manipulation)
+ * * ALLOW_SILICON_REACH - If silicons are allowed to perform action from a distance (silicons can operate airlocks from far away)
+ * * ALLOW_RESTING - If resting on the floor is allowed to perform action ()
+ * * ALLOW_VENTCRAWL - Mobs with ventcrawl traits can alt-click this to vent
+ * * BYPASS_ADJACENCY - The target does not have to be adjacent
+ * * SILENT_ADJACENCY - Adjacency is required but errors are not printed
+ * * NOT_INSIDE_TARGET - The target maybe adjacent but the mob should not be inside the target
+ * * ALLOW_PAI - Allows pAIs to perform an action
+ *
+ * silence_adjacency: Sometimes we want to use this proc to check interaction without allowing it to throw errors for base case adjacency
+ * Alt click uses this, as otherwise you can detect what is interactable from a distance via the error message
+**/
+/mob/proc/can_perform_action(atom/target, action_bitflags)
+	return
 
 /mob/proc/is_mechanical()
 	return mind && (mind.assigned_role == JOB_TITLE_CYBORG || mind.assigned_role == JOB_TITLE_AI)
@@ -650,19 +704,19 @@
 	return
 
 /mob/dead/observer/verb/respawn()
-	set name = "Respawn as NPC"
-	set category = "Ghost"
+	set name = "Играть за НИП"
+	set category = STATPANEL_GHOST
 
 	if(jobban_isbanned(usr, ROLE_SENTIENT))
-		to_chat(usr, span_warning("You are banned from playing as sentient animals."))
+		to_chat(usr, span_warning("Вам запрещено играть за разумных животных."))
 		return
 
 	if(!SSticker || SSticker.current_state < GAME_STATE_PLAYING)
-		to_chat(src, span_warning("You can't respawn as an NPC before the game starts!"))
+		to_chat(src, span_warning("Вы не можете возродиться как НИП до начала игры!"))
 		return
 
 	if(stat != DEAD && !isobserver(usr))
-		to_chat(usr, span_warning("You are not dead or you have given up your right to be respawned!"))
+		to_chat(usr, span_warning("Вы не мертвы или отказались от права на возрождение!"))
 		return
 
 	var/list/allowed_creatures = list()
@@ -673,7 +727,7 @@
 
 	allowed_creatures.Insert(1, "Mouse")
 
-	var/mob/living/picked = tgui_input_list(usr, "Please select an NPC to respawn as", "Respawn as NPC", allowed_creatures)
+	var/mob/living/picked = tgui_input_list(usr, "Пожалуйста, выберите НИП для возрождения", "Возродиться как НИП", allowed_creatures)
 	if(!picked)
 		return
 
@@ -685,7 +739,7 @@
 	var/message = picked_mob.get_npc_respawn_message()
 
 	if(QDELETED(picked_mob) || picked_mob.key || picked_mob.stat == DEAD)
-		to_chat(usr, span_warning("[capitalize(picked_mob)] is no longer available to respawn!"))
+		to_chat(usr, span_warning("[capitalize(picked_mob)] больше недоступен для возрождения!"))
 		return
 
 	if(istype(picked_mob, /mob/living/simple_animal/borer))
@@ -693,7 +747,7 @@
 		borer.transfer_personality(usr.client)
 		return
 
-	to_chat(usr, span_notify(message))
+	to_chat(usr, span_notice(message))
 	GLOB.respawnable_list -= usr
 	picked_mob.key = key
 
@@ -916,33 +970,33 @@
 
 /mob/vv_get_dropdown()
 	. = ..()
-	.["Show player panel"] = "?_src_=vars;mob_player_panel=[UID()]"
+	.["Show player panel"] = "byond://?_src_=vars;mob_player_panel=[UID()]"
 
-	.["Give Spell"] = "?_src_=vars;give_spell=[UID()]"
-	.["Give Martial Art"] = "?_src_=vars;givemartialart=[UID()]"
-	.["Give Disease"] = "?_src_=vars;give_disease=[UID()]"
-	.["Give Taipan Hud"] = "?_src_=vars;give_taipan_hud=[UID()]"
-	.["Toggle Godmode"] = "?_src_=vars;godmode=[UID()]"
-	.["Toggle Build Mode"] = "?_src_=vars;build_mode=[UID()]"
+	.["Give Spell"] = "byond://?_src_=vars;give_spell=[UID()]"
+	.["Give Martial Art"] = "byond://?_src_=vars;givemartialart=[UID()]"
+	.["Give Disease"] = "byond://?_src_=vars;give_disease=[UID()]"
+	.["Give Taipan Hud"] = "byond://?_src_=vars;give_taipan_hud=[UID()]"
+	.["Toggle Godmode"] = "byond://?_src_=vars;godmode=[UID()]"
+	.["Toggle Build Mode"] = "byond://?_src_=vars;build_mode=[UID()]"
 
-	.["Make 2spooky"] = "?_src_=vars;make_skeleton=[UID()]"
+	.["Make 2spooky"] = "byond://?_src_=vars;make_skeleton=[UID()]"
 
-	.["Assume Direct Control"] = "?_src_=vars;direct_control=[UID()]"
-	.["Offer Control to Ghosts"] = "?_src_=vars;offer_control=[UID()]"
-	.["Drop Everything"] = "?_src_=vars;drop_everything=[UID()]"
+	.["Assume Direct Control"] = "byond://?_src_=vars;direct_control=[UID()]"
+	.["Offer Control to Ghosts"] = "byond://?_src_=vars;offer_control=[UID()]"
+	.["Drop Everything"] = "byond://?_src_=vars;drop_everything=[UID()]"
 
-	.["Regenerate Icons"] = "?_src_=vars;regenerateicons=[UID()]"
-	.["Add Language"] = "?_src_=vars;addlanguage=[UID()]"
-	.["Remove Language"] = "?_src_=vars;remlanguage=[UID()]"
-	.["Grant All Language"] = "?_src_=vars;grantalllanguage=[UID()]"
-	.["Change Voice"] = "?_src_=vars;changevoice=[UID()]"
-	.["Add Organ"] = "?_src_=vars;addorgan=[UID()]"
-	.["Remove Organ"] = "?_src_=vars;remorgan=[UID()]"
+	.["Regenerate Icons"] = "byond://?_src_=vars;regenerateicons=[UID()]"
+	.["Add Language"] = "byond://?_src_=vars;addlanguage=[UID()]"
+	.["Remove Language"] = "byond://?_src_=vars;remlanguage=[UID()]"
+	.["Grant All Language"] = "byond://?_src_=vars;grantalllanguage=[UID()]"
+	.["Change Voice"] = "byond://?_src_=vars;changevoice=[UID()]"
+	.["Add Organ"] = "byond://?_src_=vars;addorgan=[UID()]"
+	.["Remove Organ"] = "byond://?_src_=vars;remorgan=[UID()]"
 
-	.["Add Verb"] = "?_src_=vars;addverb=[UID()]"
-	.["Remove Verb"] = "?_src_=vars;remverb=[UID()]"
+	.["Add Verb"] = "byond://?_src_=vars;addverb=[UID()]"
+	.["Remove Verb"] = "byond://?_src_=vars;remverb=[UID()]"
 
-	.["Gib"] = "?_src_=vars;gib=[UID()]"
+	.["Gib"] = "byond://?_src_=vars;gib=[UID()]"
 
 ///Can this mob resist (default FALSE)
 /mob/proc/can_resist()
@@ -1018,6 +1072,11 @@
 	QDEL_NULL(vision_type)
 	if(O) //in case of null
 		vision_type = new O
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
+				continue
+			observe.vision_type = vision_type
 	update_sight()
 
 /mob/proc/sync_lighting_plane_alpha()
@@ -1217,4 +1276,17 @@ GLOBAL_LIST_INIT(holy_areas, typecacheof(list(
 			add_misc_logs(src, "Z-TRACKING: [src] of type [src.type] has a Z-registration despite not having a client.")
 			update_z(null)
 
+/mob/proc/set_key(key)
+	src.key = key
+
+/// Assigns a (c)key to this mob.
+/mob/proc/possess_by_player(ckey)
+	SHOULD_NOT_OVERRIDE(TRUE)
+	if(isnull(ckey))
+		return
+
+	if(!istext(ckey))
+		CRASH("Tried to assign a mob a non-text ckey, wtf?!")
+
+	src.ckey = ckey(ckey)
 

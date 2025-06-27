@@ -2,14 +2,14 @@
 // Spawns a group of player-controlled mobs with an outfit specified by the admin, at their location.
 
 /client/proc/gimmick_team()
-	set category = "Event"
+	set category = STATPANEL_ADMIN_EVENT
 	set name = "Отправить Гиммик тим"
 	set desc = "Спавнит команду игроков в выбранной экипировке."
 	if(!check_rights(R_EVENT))
 		return
 
 	if(!SSticker)
-		tgui_alert(src, "Игра еще не началась!")
+		tgui_alert(src, "Игра ещё не началась!")
 		return
 
 	if(tgui_alert(src, "Вы хотите заспавнить Гиммик тим в ВАШЕЙ ТЕКУЩЕЙ ЛОКАЦИИ?", "Подтверждение", list("Да","Нет")) != "Да")
@@ -34,13 +34,13 @@
 
 	var/team_name = null
 	while(!team_name)
-		team_name = tgui_input_text(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", "", max_length=MAX_MESSAGE_LEN)
+		team_name = tgui_input_text(src, "Укажите название команды. По умолчанию \"Гиммик тим\".", "Укажите название", "",encode = FALSE)
 		if(!team_name)
 			team_name = "Гиммик тим"
 
 	var/themission = null
 	while(!themission)
-		themission = tgui_input_text(src, "Укажите миссию отряда.", "Укажите миссию", "", max_length=MAX_MESSAGE_LEN)
+		themission = tgui_input_text(src, "Укажите миссию отряда.", "Укажите миссию", "", encode = FALSE)
 		if(!themission)
 			tgui_alert(src, "Миссия не указана. Отмена.")
 			return
@@ -85,8 +85,8 @@
 		if(dresscode != "Naked")
 			H.equipOutfit(dresscode, FALSE)
 
-		to_chat(H, "<BR><span class='danger'><B>[themission]</B></span>")
-		H.mind.store_memory("<B>[themission]</B><BR><BR>")
+		to_chat(H, "<br><span class='danger'><b>[themission]</b></span>")
+		H.mind.store_memory("<b>[themission]</b><br><br>")
 
 		if(is_syndicate)
 			SSticker.mode.traitors |= H.mind //Adds them to extra antag list

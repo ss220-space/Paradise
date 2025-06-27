@@ -19,8 +19,23 @@
 	var/location = get_turf(holder.my_atom)
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, 0)
+	var/datum/effect_system/fluid_spread/foam/s = new()
+	s.set_up(amount = created_volume, location = location, carry = holder)
+	s.start()
+	holder.clear_reagents()
+
+/datum/chemical_reaction/firefighting_foam_liguid
+	name = "Firefighting foam liquid"
+	id = "firefighting_foam_liquid"
+	required_reagents = list("firefighting_foam" = 1, "water" = 1)
+	result_amount = 2
+
+/datum/chemical_reaction/firefighting_foam_liguid/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+	holder.my_atom.visible_message(span_warning("The solution spews out foam!"))
+
+	var/datum/effect_system/fluid_spread/foam/firefighting/s = new()
+	s.set_up(amount = created_volume, location = location)
 	s.start()
 	holder.clear_reagents()
 
@@ -37,8 +52,8 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_ALUMINUM)
+	var/datum/effect_system/fluid_spread/foam/metal/s = new()
+	s.set_up(amount = created_volume, location = location)
 	s.start()
 
 
@@ -54,10 +69,25 @@
 
 	holder.my_atom.visible_message("<span class='warning'>The solution spews out a metalic foam!</span>")
 
-	var/datum/effect_system/foam_spread/s = new()
-	s.set_up(created_volume, location, holder, MFOAM_IRON)
+	var/datum/effect_system/fluid_spread/foam/metal/iron/s = new()
+	s.set_up(amount = created_volume, location = location)
 	s.start()
 
+/datum/chemical_reaction/resinfoam
+	name = "Resin foam"
+	id = "resinfoam"
+	result = null
+	required_reagents = list("oil" = 3, "fluorosurfactant" = 1, "sacid" = 1)
+	result_amount = 5
+
+/datum/chemical_reaction/resinfoam/on_reaction(datum/reagents/holder, created_volume)
+	var/location = get_turf(holder.my_atom)
+
+	holder.my_atom.visible_message(span_warning("The solution spews out a resin foam!"))
+
+	var/datum/effect_system/fluid_spread/foam/metal/resin/s = new()
+	s.set_up(amount = created_volume, location = location)
+	s.start()
 
 	// Synthesizing these three chemicals is pretty complex in real life, but fuck it, it's just a game!
 /datum/chemical_reaction/ammonia

@@ -1,8 +1,8 @@
 GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 
 /mob/living/silicon/ai/verb/wipe_core()
-	set name = "Wipe Core"
-	set category = "OOC"
+	set name = "Выгрузить ядро ИИ"
+	set category = STATPANEL_OOC
 	set desc = "Wipe your core. This is functionally equivalent to cryo or robotic storage, freeing up your job slot."
 
 	// Guard against misclicks, this isn't the sort of thing we want happening accidentally
@@ -25,6 +25,8 @@ GLOBAL_LIST_EMPTY(empty_playable_ai_cores)
 	if(mind.objectives.len)
 		mind.objectives.Cut()
 		mind.special_role = null
+
+	view_core()
 
 	// Ghost the current player and allow or disallow them to respawn, depends on time
 	if(TOO_EARLY_TO_GHOST)

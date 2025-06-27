@@ -8,12 +8,12 @@
 	default_language = LANGUAGE_HIVE_ABDUCTOR
 	eyes = "blank_eyes"
 	has_organ = list(
-		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart,
-		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver,
-		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys,
+		INTERNAL_ORGAN_HEART = /obj/item/organ/internal/heart/grey/abductor,
+		INTERNAL_ORGAN_LIVER = /obj/item/organ/internal/liver/grey/abductor,
+		INTERNAL_ORGAN_KIDNEYS = /obj/item/organ/internal/kidneys/grey/abductor,
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/abductor,
-		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/abductor, //3 darksight.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/grey/abductor,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/grey/abductor,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/grey

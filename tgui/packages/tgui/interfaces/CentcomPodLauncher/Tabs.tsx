@@ -1,9 +1,10 @@
-import { useBackend, useLocalState } from '../../backend';
+import { useBackend } from '../../backend';
+import { useState } from 'react';
 import { Box, Button } from '../../components';
 import { PodLauncherData } from './types';
 
-export const TabPod = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
+export const TabPod = (props: unknown) => {
+  const { act, data } = useBackend<PodLauncherData>();
   const { oldArea } = data;
 
   return (
@@ -18,13 +19,9 @@ export const TabPod = (props, context) => {
   );
 };
 
-export const TabBay = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
-  const [teleported, setTeleported] = useLocalState(
-    context,
-    'teleported',
-    false
-  );
+export const TabBay = (props: unknown) => {
+  const { act, data } = useBackend<PodLauncherData>();
+  const [teleported, setTeleported] = useState(false);
   const { oldArea } = data;
 
   return (
@@ -32,7 +29,7 @@ export const TabBay = (props, context) => {
       <Button
         icon="street-view"
         onClick={() => {
-          act('teleportDropoff');
+          act('teleportCentcom');
           setTeleported(true);
         }}
       >
@@ -52,13 +49,9 @@ export const TabBay = (props, context) => {
   );
 };
 
-export const TabDrop = (props, context) => {
-  const { act, data } = useBackend<PodLauncherData>(context);
-  const [teleported, setTeleported] = useLocalState(
-    context,
-    'teleported',
-    false
-  );
+export const TabDrop = (props: unknown) => {
+  const { act, data } = useBackend<PodLauncherData>();
+  const [teleported, setTeleported] = useState(false);
   const { oldArea } = data;
 
   return (

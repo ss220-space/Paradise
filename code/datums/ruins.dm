@@ -22,9 +22,13 @@
 /datum/map_template/ruin/New()
 	if(!name && id)
 		name = id
-
+	check_specials()
 	mappath = prefix + suffix
 	..(path = mappath)
+
+
+/datum/map_template/ruin/proc/check_specials()
+	return
 
 /datum/map_template/ruin/proc/try_to_place(z, allowed_areas)
 	var/sanity = PLACEMENT_TRIES

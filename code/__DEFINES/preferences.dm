@@ -66,8 +66,10 @@
 #define PREFTOGGLE_2_PIXELATED_MENU 				(1<<19) // 524288
 #define PREFTOGGLE_2_DESC_TIPS						(1<<20) // 1048576
 #define PREFTOGGLE_2_GIB_WITHOUT_OBJECTIVE			(1<<21) // 2097152
+#define PREFTOGGLE_2_SPLIT_ADMIN_TABS 				(1<<22) // 4194304
+#define PREFTOGGLE_2_OFF_PROJECTILE_MESSAGES		(1<<23) // 8388608
 
-#define TOGGLES_2_TOTAL								4194303 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+#define TOGGLES_2_TOTAL								16777215 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
 
 #define TOGGLES_2_DEFAULT (PREFTOGGLE_2_FANCYUI|PREFTOGGLE_2_ITEMATTACK|PREFTOGGLE_2_WINDOWFLASHING|PREFTOGGLE_2_RUNECHAT|PREFTOGGLE_2_DEATHMESSAGE|PREFTOGGLE_2_SEE_ITEM_OUTLINES|PREFTOGGLE_2_PARALLAX_MULTIZ|PREFTOGGLE_2_SWAP_INPUT_BUTTONS|PREFTOGGLE_2_LARGE_INPUT_BUTTONS|PREFTOGGLE_2_DESC_TIPS)
 
@@ -78,6 +80,18 @@
 
 #if TOGGLES_2_TOTAL > 16777215
 #error toggles_2 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
+#endif
+
+#define PREFTOGGLE_3_DNR_AFTER_DEATH         	(1<<0) // 1
+#define PREFTOGGLE_3_UI_SCALE         			(1<<1) // 2
+#define PREFTOGGLE_3_FACING_TO_MOUSE			(1<<2) // 4
+
+#define TOGGLES_3_TOTAL                       	7 // If you add or remove a preference toggle above, make sure you update this define with the total value of the toggles combined.
+
+#define TOGGLES_3_DEFAULT (PREFTOGGLE_3_FACING_TO_MOUSE)
+
+#if TOGGLES_3_TOTAL > 16777215
+#error toggles_3 bitflag over 16777215. Please make an issue report and postpone the feature you are working on.
 #endif
 
 // This is a list index. Required to start at 1 instead of 0 so it's properly placed in the list
@@ -97,6 +111,8 @@
 #define PREFTOGGLE_TOGGLE1		3
 /// Interacts with the toggles2 bitflag
 #define PREFTOGGLE_TOGGLE2		4
+/// Interacts with the toggles3 bitflag
+#define PREFTOGGLE_TOGGLE3		5
 
 
 // Admin attack logs filter system, see /proc/add_attack_logs

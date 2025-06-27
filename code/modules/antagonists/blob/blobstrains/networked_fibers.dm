@@ -35,7 +35,7 @@
 /datum/reagent/blob/networked_fibers
 	name = "Сетевые волокна"
 	id = "blob_networked_fibers"
-	taste_description = "эффективность"
+	taste_description = "эффективности"
 	color = "#4F4441"
 
 /datum/reagent/blob/networked_fibers/reaction_mob(mob/living/exposed_mob, methods=REAGENT_TOUCH, reac_volume, show_message, touch_protection, mob/camera/blob/overmind)

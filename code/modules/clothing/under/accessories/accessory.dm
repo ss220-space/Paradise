@@ -292,6 +292,10 @@
 	desc = "A golden medal awarded exclusively to those promoted to the rank of captain. It signifies the codified responsibilities of a captain to Nanotrasen, and their undisputable authority over their crew."
 	resistance_flags = INDESTRUCTIBLE | LAVA_PROOF | FIRE_PROOF | ACID_PROOF
 
+/obj/item/clothing/accessory/medal/gold/captain/Initialize(mapload)
+	. = ..()
+	AddElement(/datum/element/high_value_item)
+
 /obj/item/clothing/accessory/medal/gold/heroism
 	name = "medal of exceptional heroism"
 	desc = "An extremely rare golden medal awarded only by CentComm. To recieve such a medal is the highest honor and as such, very few exist."
@@ -520,8 +524,8 @@
 
 //For the holobadge hotkey
 /obj/item/clothing/accessory/holobadge/verb/holobadge_verb()
-	set name = "Holobadge"
-	set category = "Object"
+	set name = "Показать значок"
+	set category = STATPANEL_OBJECT
 	set src in usr
 	if(!isliving(usr) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 		return
@@ -979,19 +983,19 @@
 	// if it wasn't intentionally unequipped but isn't being worn, possibly gibbed
 	if(istype(M) && src == M.pcollar && M.stat != DEAD)
 		return
-	var/announce_channel = "Common"			// Channel toggler for mobs, who dies in specific locations.
+	var/announce_channel = PUB_FREQ			// Channel toggler for mobs, who dies in specific locations.
 	var/area/t = get_area(M)
 	var/obj/item/radio/headset/all_channels/a = new /obj/item/radio/headset/all_channels(src)
 	if(M.z == level_name_to_num(RAMSS_TAIPAN))
-		announce_channel = "SyndTaipan"		// Taipan channel for Руж.
+		announce_channel = SYND_TAIPAN_FREQ		// Taipan channel for Руж.
 	else if(istype(t, /area/centcom))
-		announce_channel = "Response Team"	// For animals who dare to infiltrate CC.
+		announce_channel = ERT_FREQ	// For animals who dare to infiltrate CC.
 	else if(istype(t, /area/syndicate_mothership) || istype(t, /area/shuttle/syndicate_elite) || istype(t, /area/shuttle/syndicate_sit))
-		announce_channel = "SyndTeam"		// Just to be sure ...
+		announce_channel = SYNDTEAM_FREQ		// Just to be sure ...
 	else if(istype(t, /area/ninja))
-		announce_channel = "Spider Clan"	// Even ninja may have a little pet.
+		announce_channel = NINJA_FREQ	// Even ninja may have a little pet.
 	else if(istype(t, /area/ussp_centcom))
-		announce_channel = "Soviet"			// MISHA, FU!
+		announce_channel = SOV_FREQ			// MISHA, FU!
 	else if((M.z == level_name_to_num(CENTCOMM) || z == level_name_to_num(ADMIN_ZONE)) && SSticker.current_state != GAME_STATE_FINISHED)
 		a.autosay("[M] has been vandalized in Space!", "[M]'s Death Alarm")	// For the rest of CC map locations like Abductors UFO, Vox home or TSF home.
 		qdel(a)
@@ -1002,24 +1006,24 @@
 	STOP_PROCESSING(SSobj, src)
 
 
-/proc/english_accessory_list(obj/item/clothing/under/uniform)
+/proc/accessory_list(obj/item/clothing/under/uniform)
 	if(!istype(uniform) || !LAZYLEN(uniform.accessories))
 		return
 	var/list/A = uniform.accessories
 	var/total = A.len
 	if(total == 1)
-		return "\a [A[1]]"
+		return "[A[1]]"
 	else if(total == 2)
-		return "\a [A[1]] and \a [A[2]]"
+		return "[A[1]] и [A[2]]"
 	else
 		var/output = ""
 		var/index = 1
 		var/comma_text = ", "
 		while(index < total)
-			output += "\a [A[index]][comma_text]"
+			output += "[A[index]][comma_text]"
 			index++
 
-		return "[output]and \a [A[index]]"
+		return "[output]и [A[index]]"
 
 /obj/item/clothing/accessory/head_strip
 	name = "captain's strip"
@@ -1151,6 +1155,21 @@
 	icon_state = "stripe_federal"
 	item_state = "stripe_federal"
 	strip_bubble_icon = "federal"
+
+/obj/item/clothing/accessory/head_strip/greytide
+	name = "GreyTide strip"
+	desc = "Плотно сшитая круглая нашивка серого цвета с расположенным в центре противогазом."
+	ru_names = list(
+		NOMINATIVE = "нашивка \"GreyTide\"",
+		GENITIVE = "нашивки \"GreyTide\"",
+		DATIVE = "нашивке \"GreyTide\"",
+		ACCUSATIVE = "нашивку \"GreyTide\"",
+		INSTRUMENTAL = "нашивкой \"GreyTide\"",
+		PREPOSITIONAL = "нашивке \"GreyTide\""
+	)
+	icon_state = "greytstrip"
+	item_state = "greytstrip"
+	strip_bubble_icon = "greyt"
 
 /obj/item/clothing/accessory/head_strip/lawyers_badge
 	name = "attorney's badge"

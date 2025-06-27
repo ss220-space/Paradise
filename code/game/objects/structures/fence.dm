@@ -18,6 +18,8 @@
 	anchored = TRUE
 	pass_flags_self = PASSFENCE|LETPASSTHROW
 
+	can_astar_pass = CANASTARPASS_ALWAYS_PROC
+
 	icon = 'icons/obj/fence.dmi'
 	icon_state = "straight"
 

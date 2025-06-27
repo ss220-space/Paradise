@@ -231,7 +231,7 @@
 /obj/machinery/magnetic_controller/LateInitialize()
 	..()
 	if(autolink)
-		// GLOB.machines is populated in /machinery/Initialize
+		// SSmachines  is populated in /machinery/Initialize
 		// so linkage gets delayed until that one finished.
 		link_magnets()
 
@@ -245,7 +245,7 @@
 
 /obj/machinery/magnetic_controller/proc/link_magnets()
 	magnets = list()
-	for(var/obj/machinery/magnetic_module/module in GLOB.machines)
+	for(var/obj/machinery/magnetic_module/module in SSmachines.get_by_type(/obj/machinery/magnetic_module))
 		if(module.freq == frequency && module.code == code)
 			magnets += module
 			RegisterSignal(module, COMSIG_QDELETING, PROC_REF(on_magnet_del), TRUE)
@@ -258,7 +258,7 @@
 
 /obj/machinery/magnetic_controller/process()
 	if(!length(magnets) && autolink)
-		for(var/obj/machinery/magnetic_module/module in GLOB.machines)
+		for(var/obj/machinery/magnetic_module/module in SSmachines.get_by_type(/obj/machinery/magnetic_module))
 			if(module.freq == frequency && module.code == code)
 				magnets += module
 
@@ -271,7 +271,7 @@
 	if(stat & (BROKEN|NOPOWER))
 		return
 	user.set_machine(src)
-	var/dat = {"<meta charset="UTF-8"><B>Magnetic Control Console</B><BR><BR>"}
+	var/dat = {"<b>Magnetic Control Console</b><br><br>"}
 	if(!autolink)
 		dat += {"
 		Frequency: <a href='byond://?src=[UID()];operation=setfreq'>[frequency]</a><br>
@@ -293,7 +293,9 @@
 	dat += "Moving: <a href='byond://?src=[UID()];operation=togglemoving'>[moving ? "Enabled":"Disabled"]</a>"
 
 
-	user << browse(dat, "window=magnet;size=400x500")
+	var/datum/browser/popup = new(user, "magnet", "Magnetic Control Console", 400, 500)
+	popup.set_content(dat)
+	popup.open(TRUE)
 	onclose(user, "magnet")
 
 

@@ -5,36 +5,36 @@
 	var/quantity = 10
 
 /datum/reagent/capulettium_plus
-	chemdesc = "Silences and masks pulse."
-	
+	chemdesc = "Заставляет гуманоида замолчать и маскирует его пульс."
+
 /datum/reagent/medicine/charcoal
-	chemdesc = "Slowly heals toxin damage, also slowly removes other chemicals."
-	
+	chemdesc = "Медленно лечит от отравления, а также медленно выводит другие химические вещества."
+
 /datum/reagent/medicine/epinephrine
-	chemdesc = "Stabilizes critical condition and slowly heals suffocation damage."
-	
+	chemdesc = "Стабилизирует критическое состояние и медленно исцеляет повреждения от удушья."
+
 /datum/reagent/fliptonium
-	chemdesc = "Causes uncontrollable flipping."
+	chemdesc = "Вызывает неконтролируемое вращение."
 	chemuse = 50
-	
+
 /datum/reagent/medicine/hydrocodone
-	chemdesc = "An extremely strong painkiller."
-	
+	chemdesc = "Очень сильное болеутоляющее средство."
+
 /datum/reagent/medicine/mannitol
-	chemdesc = "Heals brain damage."
-	
+	chemdesc = "Исцеляет повреждения мозга."
+
 /datum/reagent/methamphetamine
-	chemdesc = "Reduces stun times and increases stamina. Deals small amounts of brain damage."
+	chemdesc = "Ускоряет передвижение, бодрит и помогает легче справляться с оглушениями разного рода. НПовреждает мозг."
 	chemuse = 50
-	
+
 /datum/reagent/medicine/mitocholide
-	chemdesc = "Heals internal organ damage."
-	
+	chemdesc = "Исцеляет повреждения внутренних органов."
+
 /datum/reagent/medicine/salbutamol
-	chemdesc = "Heals suffocation damage."
-	
+	chemdesc = "Лечит повреждения от удушья."
+
 /datum/reagent/medicine/salglu_solution
-	chemdesc = "Slowly heals brute and burn damage, also slowly restores blood."
+	chemdesc = "Медленно исцеляет физичекие и термические повреждения, а также медленно восстанавливает кровь."
 
 /datum/reagent/medicine/spaceacillin
-	chemdesc = "Slows progression of diseases and fights infections."
+	chemdesc = "Замедляет развитие заболеваний и помогает бороться с инфекциями."

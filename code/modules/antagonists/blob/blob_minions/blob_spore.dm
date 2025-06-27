@@ -70,8 +70,11 @@
 /mob/living/simple_animal/hostile/blob_minion/spore/AttackingTarget()
 	. = ..()
 	var/mob/living/carbon/human/human_target = target
-	if(!istype(human_target) || human_target.stat != DEAD)
-		return
+	if(!target || !istype(human_target) || human_target.stat != DEAD)
+		return .
+
+	if(HAS_TRAIT(human_target, TRAIT_BLOB_ZOMBIFIED))
+		return .
 	zombify(human_target)
 
 /// Become a zombie
@@ -103,7 +106,7 @@
 	SIGNAL_HANDLER
 	if(isnull(z_turf))
 		return
-	if(!is_valid_z_level(get_turf(src), z_turf))
+	if(!are_zs_connected(src, z_turf))
 		death()
 
 /// Mark the turf we need to track from our factory

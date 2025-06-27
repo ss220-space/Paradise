@@ -162,5 +162,7 @@ SUBSYSTEM_DEF(atoms)
 
 	html_data += "</table>"
 
-	usr << browse(html_data.Join(), "window=initdebug")
+	var/datum/browser/popup = new(usr, "initdebug", "Init Debug")
+	popup.set_content(html_data.Join())
+	popup.open(FALSE)
 

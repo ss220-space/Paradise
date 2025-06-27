@@ -129,6 +129,13 @@
 	storage_type = /obj/item/gps/mining
 	req_access = list(ACCESS_MINING_STATION)
 
+/obj/machinery/suit_storage_unit/mining_medic
+	name = "mining medical suit storage unit"
+	suit_type = /obj/item/clothing/suit/hooded/explorer/mining
+	mask_type = /obj/item/clothing/mask/gas/mining_medic
+	storage_type = /obj/item/gps/mining
+	req_access = list(ACCESS_MEDICAL)
+
 /obj/machinery/suit_storage_unit/cmo
 	suit_type    = /obj/item/clothing/suit/space/hardsuit/medical
 	storage_type = /obj/item/tank/internals/oxygen
@@ -691,8 +698,8 @@
 	eject_occupant()
 
 /obj/machinery/suit_storage_unit/verb/get_out()
-	set name = "Eject Suit Storage Unit"
-	set category = "Object"
+	set name = "Извлечь находящегося внутри"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.stat)
@@ -704,8 +711,8 @@
 	return
 
 /obj/machinery/suit_storage_unit/verb/move_inside()
-	set name = "Hide in Suit Storage Unit"
-	set category = "Object"
+	set name = "Спрятаться внутри"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || usr.buckled) //are you cuffed, dying, lying, stunned or other

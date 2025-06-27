@@ -37,7 +37,7 @@
 	number = 1
 	var/area/A = get_area(src)
 	if(A)
-		for(var/obj/machinery/camera/autoname/C in GLOB.machines)
+		for(var/obj/machinery/camera/autoname/C in SSmachines.get_by_type(/obj/machinery/camera/autoname))
 			if(C == src)
 				continue
 			var/area/CA = get_area(C)

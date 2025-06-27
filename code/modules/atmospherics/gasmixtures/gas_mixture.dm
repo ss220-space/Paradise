@@ -123,8 +123,8 @@ What are the archived variables for?
 			else
 				plasma_burn_rate = (temperature_scale * (oxygen / PLASMA_OXYGEN_FULLBURN)) / PLASMA_BURN_RATE_DELTA
 			if(plasma_burn_rate > MINIMUM_HEAT_CAPACITY)
-				toxins -= plasma_burn_rate
-				oxygen -= plasma_burn_rate*oxygen_burn_rate
+				toxins = max(toxins - plasma_burn_rate, 0)
+				oxygen = max(oxygen - plasma_burn_rate*oxygen_burn_rate, 0)
 				carbon_dioxide += plasma_burn_rate
 
 				energy_released += FIRE_PLASMA_ENERGY_RELEASED * (plasma_burn_rate)

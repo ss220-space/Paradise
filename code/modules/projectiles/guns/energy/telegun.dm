@@ -3,6 +3,15 @@
 /obj/item/gun/energy/telegun
 	name = "Teleporter Gun"
 	desc = "An extremely high-tech bluespace energy gun capable of teleporting targets to far off locations."
+	ru_names = list(
+		NOMINATIVE = "телепушка",
+		GENITIVE = "телепушки",
+		DATIVE = "телепушке",
+		ACCUSATIVE = "телепушку",
+		INSTRUMENTAL = "телепушкой",
+		PREPOSITIONAL = "телепушке"
+	)
+	gender = FEMALE
 	icon_state = "telegun"
 	item_state = "telegun"
 	origin_tech = "combat=6;materials=7;powerstorage=5;bluespace=5;syndicate=4"

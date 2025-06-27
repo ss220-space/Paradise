@@ -27,7 +27,7 @@
 
 /obj/structure/blob/special/factory/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()
-	owner_overmind.factory_blobs += src
+	owner_overmind.factory_blobs |= src
 	if(!owner_overmind.blobstrain)
 		return .
 	for(var/mob in spores_and_zombies)

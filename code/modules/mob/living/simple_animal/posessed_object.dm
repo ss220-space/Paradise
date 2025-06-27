@@ -1,5 +1,13 @@
 /mob/living/simple_animal/possessed_object
 	name = "possessed doodad"
+	ru_names = list(
+		NOMINATIVE = "одержимая штука",
+		GENITIVE = "одержимой штуки",
+		DATIVE = "одержимой штуке",
+		ACCUSATIVE = "одержимую штуку",
+		INSTRUMENTAL = "одержимой штукой",
+		PREPOSITIONAL = "одержимой штуке"
+	)
 	var/spirit_name = "mysterious force" // What we call ourselves in attack messages.
 	health = 50
 	maxHealth = 50
@@ -11,7 +19,7 @@
 	wander = 0				// These things probably ought to never be AI controlled, but in the event they are probably shouldn't wander.
 
 	universal_speak = 1		// Tell the humans spooky things about the afterlife
-	speak_emote = list("mumbles", "moans", "whispers", "laments", "screeches")
+	speak_emote = list("бормочет", "стонет", "шепчет", "визжит")
 	tts_seed = "Sylvanas"
 
 	allow_spin = 0			// No spinning. Spinning breaks our floating animation.
@@ -26,9 +34,9 @@
 /mob/living/simple_animal/possessed_object/examine(mob/user)
 	. = possessed_item.examine(user)
 	if(health > (maxHealth / 30))
-		. += "<span class='notice'>[src] appears to be floating without any support!</span>"
+		. += span_notice("Похоже оно одержимо, и парит в воздухе!")
 	else
-		. += "<span class='warning'>[src] appears to be having trouble staying afloat!</span>"
+		. += span_warning("Похоже оно одержимо, но ему трудно удержаться на плаву!")
 
 
 /mob/living/simple_animal/possessed_object/do_attack_animation(atom/A, visual_effect_icon, used_item, no_effect)
@@ -38,13 +46,13 @@
 
 /mob/living/simple_animal/possessed_object/start_pulling(atom/movable/pulled_atom, state, force = pull_force, supress_message = FALSE) // Silly motherfuckers think they can pull things.
 	if(!supress_message)
-		to_chat(src, span_warning("You are unable to pull [pulled_atom]!"))
+		to_chat(src, span_warning("Вы не можете потянуть [pulled_atom.declent_ru(ACCUSATIVE)]!"))
 	return FALSE
 
 
 /mob/living/simple_animal/possessed_object/ghost() // Ghosting will return the object to normal, and will not disqualify the ghoster from various mid-round antag positions.
-	var/response = tgui_alert(src, "End your possession of this object? (It will not stop you from respawning later)", "Are you sure you want to ghost?", list("Ghost", "Stay in body"))
-	if(response != "Ghost")
+	var/response = tgui_alert(src, "Прекратить контроль над этим объектом? (Вы сможете возродиться позже)", "Подтверждение выхода", list("Выйти", "Остаться в теле"))
+	if(response != "Выйти")
 		return
 	set_resting(TRUE, instant = TRUE)
 	var/mob/dead/observer/ghost = ghostize(1)
@@ -84,7 +92,7 @@
 		drop_r_hand()
 
 	if(!isturf(loc) && prob(escape_chance)) //someone has stuffed us in their bag, or picked us up? Time to escape
-		visible_message("<span class='notice'>[src] refuses to be contained!</span>")
+		visible_message(span_notice("[capitalize(src.declent_ru(NOMINATIVE))] разрывает оковы!"))
 		var/turf/source_turf = get_turf(src)
 		if(source_turf)
 			forceMove(source_turf)
@@ -96,7 +104,7 @@
 
 /mob/living/simple_animal/possessed_object/Login()
 	..()
-	to_chat(src, "<span class='shadowling'><b>Your spirit has entered [src] and possessed it.</b><br>You are able to do most things a humanoid would be able to do with a [src] in their hands.<br>If you want to end your ghostly possession, use the '<b>ghost</b>' verb, it won't penalize your ability to respawn.</span>")
+	to_chat(src, span_shadowling("<b>Ваш дух вселился в [src.declent_ru(ACCUSATIVE)] и овладел им.</b><br>Теперь вы чувствуете его как продолжение себя – почти как живое тело!<br>Если вы хотите положить конец своей одержимости, используйте \"Призрак\", это не повлияет на вашу способность возрождаться."))
 
 
 /mob/living/simple_animal/possessed_object/New(var/atom/loc as obj)
@@ -119,7 +127,7 @@
 
 	update_icon(1)
 
-	visible_message("<span class='shadowling'>[src] rises into the air and begins to float!</span>") // Inform those around us that shit's gettin' spooky.
+	visible_message(span_shadowling("[capitalize(src.declent_ru(NOMINATIVE))] поднимается в воздух и начинает парить!")) // Inform those around us that shit's gettin' spooky.
 	animate_ghostly_presence(src, -1, 20, 1)
 
 

@@ -132,7 +132,6 @@
 	user_turf.ChangeTurf(/turf/simulated/floor/chasm)
 	var/turf/simulated/floor/chasm/new_chasm = user_turf
 	new_chasm.set_target(dest)
-	new_chasm.drop(user)
 
 
 // Envy

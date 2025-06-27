@@ -62,7 +62,7 @@
 		show_contents(user)
 
 /obj/structure/ore_box/proc/show_contents(mob/user)
-	var/dat = text({"<meta charset="UTF-8"><b>The contents of the ore box reveal...</b><br>"})
+	var/dat = "<b>The contents of the ore box reveal...</b><br>"
 	var/list/assembled = list()
 	for(var/obj/item/stack/ore/O in src)
 		assembled[O.type] += O.amount
@@ -70,10 +70,10 @@
 		var/obj/item/stack/ore/O = type
 		dat += "[initial(O.name)] - [assembled[type]]<br>"
 
-	dat += text("<br><br><a href='byond://?src=[UID()];removeall=1'>Empty box</A>")
+	dat += "<br><br><a href='byond://?src=[UID()];removeall=1'>Empty box</a>"
 	var/datum/browser/popup = new(user, "orebox", name, 400, 400)
 	popup.set_content(dat)
-	popup.open(0)
+	popup.open(FALSE)
 
 /obj/structure/ore_box/Topic(href, href_list)
 	if(..())
@@ -101,12 +101,9 @@
 		O.forceMove(loc)
 		CHECK_TICK
 
-/obj/structure/ore_box/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents = FALSE)
-	return ..()
-
 /obj/structure/ore_box/verb/empty_box()
-	set name = "Empty Ore Box"
-	set category = "Object"
+	set name = "Опустошить"
+	set category = STATPANEL_OBJECT
 	set src in view(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))

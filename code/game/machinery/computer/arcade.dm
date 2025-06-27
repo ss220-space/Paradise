@@ -15,6 +15,7 @@
 	icon_screen = "invaders"
 	light_color = "#00FF00"
 	var/prize = /obj/item/stack/tickets
+	var/list/prize_storage
 
 /obj/machinery/computer/arcade/proc/Reset()
 	return
@@ -28,17 +29,18 @@
 
 	Reset()
 
-/obj/machinery/computer/arcade/proc/prizevend(var/score)
-	if(!contents.len)
-		var/prize_amount
-		if(score)
-			prize_amount = score
-		else
-			prize_amount = rand(1, 10)
-		new prize(get_turf(src), prize_amount)
-	else
-		var/atom/movable/prize = pick(contents)
-		prize.forceMove(get_turf(src))
+/obj/machinery/computer/arcade/Destroy(force)
+	QDEL_LAZYLIST(prize_storage)
+	return ..()
+
+/obj/machinery/computer/arcade/proc/prizevend(score)
+	var/atom/movable/picked_prize = pick_n_take(prize_storage)
+
+	if(picked_prize)
+		picked_prize.forceMove(get_turf(src))
+		return
+
+	new prize(get_turf(src), score || rand(1, 10))
 
 /obj/machinery/computer/arcade/emp_act(severity)
 	..(severity)
@@ -111,7 +113,6 @@
 
 	dat += "</b></center>"
 
-	//user << browse(dat, "window=arcade")
 	//onclose(user, "arcade")
 	var/datum/browser/popup = new(user, "arcade", "Space Villian 2000", 420, 280, src)
 	popup.set_content(dat)
@@ -167,7 +168,7 @@
 
 	if(href_list["close"])
 		usr.unset_machine()
-		usr << browse(null, "window=arcade")
+		close_window(usr, "arcade")
 
 	else if(href_list["newgame"]) //Reset everything
 		temp = "New Round"
@@ -390,18 +391,18 @@
 				dat += "<br>У вас закончилась еда, и вы умерли с голоду."
 				if(emagged)
 					user.set_nutrition(0) //yeah you pretty hongry
-					to_chat(user, span_userdanger("<font size=3>Ваше тело мгновенно сжимается, как у человека, который не ел месяцами. Когда вы падаете на пол, вас охватывают мучительные судороги."))
+					to_chat(user, span_userdanger(span_fontsize3("Ваше тело мгновенно сжимается, как у человека, который не ел месяцами. Когда вы падаете на пол, вас охватывают мучительные судороги.")))
 			if(fuel <= 0)
 				dat += "<br>У вас закончилось Топливо, и вы медленно приближаетесь к звезде."
 				if(emagged)
 					var/mob/living/M = user
 					M.adjust_fire_stacks(5)
 					M.IgniteMob() //flew into a star, so you're on fire
-					to_chat(user, span_userdanger("<font size=3>Вы чувствуете, как от игрового автомата исходит огромная волна жара. Ваша кожа загорается."))
+					to_chat(user, span_userdanger(span_fontsize3("Вы чувствуете, как от игрового автомата исходит огромная волна жара. Ваша кожа загорается.")))
 		dat += "<br><P ALIGN=Right><a href='byond://?src=[UID()];menu=1'>OK...</a></P>"
 
 		if(emagged)
-			to_chat(user, span_userdanger("<font size=3>Ты никогда не доберешься до Ориона...</font>"))
+			to_chat(user, span_userdanger(span_fontsize3("Ты никогда не доберешься до Ориона...")))
 			user.death()
 			emagged = 0 //removes the emagged status after you lose
 			playing = 0 //also a new game
@@ -449,7 +450,7 @@
 		return
 	if(href_list["close"])
 		usr.unset_machine()
-		usr << browse(null, "window=arcade")
+		close_window(usr, "arcade")
 	if(busy)
 		return
 	busy = 1

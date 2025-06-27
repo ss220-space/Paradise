@@ -109,6 +109,10 @@ GLOBAL_PROTECT(log_end)
 	if(CONFIG_GET(flag/log_adminchat))
 		WRITE_LOG(GLOB.world_game_log, "ADMINPRIVATE: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
+/proc/log_ping_all_admins(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "ALL ADMIN PING: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
 /proc/log_qdel(text)
 	WRITE_LOG(GLOB.world_qdel_log, "QDEL: [text][GLOB.log_end]")
 
@@ -119,6 +123,10 @@ GLOBAL_PROTECT(log_end)
 /proc/log_ghostsay(text, mob/speaker)
 	if(CONFIG_GET(flag/log_say))
 		WRITE_LOG(GLOB.world_game_log, "DEADCHAT: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
+
+/proc/log_devsay(text, mob/speaker)
+	if(CONFIG_GET(flag/log_adminchat))
+		WRITE_LOG(GLOB.world_game_log, "DEVSAY: [speaker.simple_info_line()]: [html_decode(text)][GLOB.log_end]")
 
 /proc/log_ghostemote(text, mob/speaker)
 	if(CONFIG_GET(flag/log_emote))
@@ -202,14 +210,14 @@ GLOBAL_PROTECT(log_end)
  * Standardized method for tracking startup times.
  */
 /proc/log_startup_progress_global(prefix, message)
-	to_chat(world, "<span class='danger'><small>\[[prefix]]</small> [message]</span>")
+	to_chat(world, span_danger("<small>\[[prefix]]</small> [message]"))
 	log_world("\[[prefix]] [message]")
 
 // A logging proc that only outputs after setup is done, to
 // help devs test initialization stuff that happens a lot
 /proc/log_after_setup(var/message)
 	if(SSticker && SSticker.current_state > GAME_STATE_SETTING_UP)
-		to_chat(world, "<span class='danger'>[message]</span>")
+		to_chat(world, span_danger("[message]"))
 		log_world(message)
 
 /* For logging round startup. */

@@ -130,7 +130,7 @@
 	desc = "Выстрелите сгустком демонической энергии, захватывая или отбрасывая цель в зависимости от вашего намерения: «ОБЕЗОРУЖИТЬ» — оттолкнуть, «СХВАТИТЬ» — притянуть."
 	gain_desc = "Вы получили способность притягивать и отталкивать людей с помощью демонических отростков."
 	base_cooldown = 15 SECONDS
-	fireball_type = /obj/item/projectile/magic/demonic_grasp
+	fireball_type = /obj/projectile/magic/demonic_grasp
 
 	selection_activated_message		= span_notice("Вы поднимаете руку, полную демонической энергии!")
 	selection_deactivated_message	= span_notice("Вы возвращаете себе энергию... пока что.")
@@ -159,7 +159,7 @@
 	return V
 
 
-/obj/item/projectile/magic/demonic_grasp
+/obj/projectile/magic/demonic_grasp
 	name = "demonic grasp"
 	ru_names = list(
             NOMINATIVE = "демоническая хватка",
@@ -174,12 +174,12 @@
 	icon_state = null
 
 
-/obj/item/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
+/obj/projectile/magic/demonic_grasp/pixel_move(trajectory_multiplier)
 	. = ..()
 	new /obj/effect/temp_visual/demonic_grasp(loc)
 
 
-/obj/item/projectile/magic/demonic_grasp/on_hit(mob/living/target, blocked, hit_zone)
+/obj/projectile/magic/demonic_grasp/on_hit(mob/living/target, blocked, hit_zone)
 	. = ..()
 	if(!istype(target) || !firer || !target.affects_vampire(firer))
 		return
@@ -201,7 +201,7 @@
 			create_snare(target)
 
 
-/obj/item/projectile/magic/demonic_grasp/proc/create_snare(mob/living/target)
+/obj/projectile/magic/demonic_grasp/proc/create_snare(mob/living/target)
 	new /obj/effect/temp_visual/demonic_snare(get_turf(target))
 
 

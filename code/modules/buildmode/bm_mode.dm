@@ -60,7 +60,7 @@
 	BM.holder.images += preview
 
 /datum/buildmode_mode/proc/deselect_region()
-	BM.holder.images -= preview
+	BM?.holder?.images -= preview
 	QDEL_LIST(preview)
 	cornerA = null
 	cornerB = null

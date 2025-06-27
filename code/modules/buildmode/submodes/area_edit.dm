@@ -27,10 +27,10 @@
 	to_chat(user, "<span class='notice'>***********************************************************</span>")
 
 /datum/buildmode_mode/area_edit/change_settings(mob/user)
-	var/target_path = input(user,"Enter typepath:", "Typepath", "/area")
+	var/target_path = tgui_input_text(user, "Enter typepath:", "Typepath", "/area", encode = FALSE)
 	var/areatype = text2path(target_path)
 	if(ispath(areatype,/area))
-		var/areaname = input(user,"Enter area name:", "Area name", "Area")
+		var/areaname = tgui_input_text(user,"Enter area name:", "Area name", "Area", encode = FALSE)
 		if(!areaname || !length(areaname))
 			return
 		storedarea = new areatype

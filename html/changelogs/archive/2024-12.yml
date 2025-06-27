@@ -1,0 +1,154 @@
+'2024-12-02':
+  PlayerUnknown14:
+  - qol: robots translation (#6130)
+'2024-12-05':
+  anon1mka:
+  - unknown: vending.dm (#6174)
+'2024-12-06':
+  Daeberdir:
+  - add: New() -> Initialize() organs migration. (#6137)
+  PiroMage:
+  - bugfix: Nova disposal  (#6230)
+  PlayerUnknown14:
+  - tweak: thunderdome cooldown (#6227)
+  Vladisvell:
+  - bugfix: removes solar control duping (#6231)
+  - bugfix: Camera console broken screen textures fix (#6233)
+  - bugfix: Resolves test errors for idlenpcpool (#6234)
+  pilygun:
+  - tweak: Decrease access tuner price to 15 tc (#6225)
+'2024-12-09':
+  Vladisvell:
+  - add: Z level checking optimization (#6240)
+'2024-12-10':
+  Etrnlmelancholy:
+  - imageadd: NVG resprites (#6219)
+'2024-12-11':
+  Vladisvell:
+  - del: Camera console broken screen textures fix" (#6246)
+  - bugfix: Removes experimentor tech exploit (#6247)
+'2024-12-13':
+  Explosi00N:
+  - qol: tendril loot translation (#6236)
+  dageavtobusnick:
+  - add: request console cart in pda (#5990)
+'2024-12-15':
+  Antoonij:
+  - tweak: ritual cast time & unhardcode update_rank() (#6201)
+  FlitchTime:
+  - qol: kitchen and grinder machinery hotkeys (#6245)
+'2024-12-16':
+  PlayerUnknown14:
+  - tweak: tribal armor buff (#6218)
+  Valtor:
+  - bugfix: photocopier fix (#6207)
+  Vladisvell:
+  - bugfix: fixes cargo exploit (#6257)
+  - add: Allows developers to force away mission via configuration (#6258)
+  WolfLox:
+  - bugfix: wildwest black wall and double-double doors (#6251)
+'2024-12-18':
+  FlitchTime:
+  - add: extended burn & brute healing kits (#6253)
+  Vladisvell:
+  - bugfix: dna injector can no longer be refreshed
+  dageavtobusnick:
+  - bugfix: request conole in pda spam (#6259)
+'2024-12-19':
+  pilygun:
+  - imageadd: Updated security autolathe sprite (#6226)
+'2024-12-21':
+  NightDawnFox:
+  - imageadd: 5 new plasma envirosuits (#6220)
+  - imageadd: new beans sprite & new plasmaman plushies (#6223)
+  Valtor:
+  - bugfix: Syndie supply pad console withdraw (#6232)
+'2024-12-22':
+  BeebBeebBoob:
+  - refactor: Transit Shuttles (#5247)
+  LiquidPotroh:
+  - tweak: aiming lying targets by changing intent (#6222)
+  NightDawnFox:
+  - add: you can now SPEAK with 10+ Oxyloss (#6036)
+  Vitalya:
+  - imageadd: Nucleations Resprite (#6235)
+  - imageadd: Nucleation hair fix (#6263)
+  Vladisvell:
+  - add: Experimental lighting perfomance fix (#6238)
+  - server: Experimental perfomance fix for messages (#6239)
+'2024-12-23':
+  Rafnik02:
+  - tweak: Rework suicide drill (#6189)
+'2024-12-24':
+  Antoonij:
+  - add: caller to requester  (#6265)
+  NightDawnFox:
+  - bugfix: brigmed envirohelm sprite now named correctly (#6266)
+  PlayerUnknown14:
+  - add: security tactical mask (#6264)
+'2024-12-25':
+  anon1mka:
+  - unknown: arcade.dm (#6184)
+  pilygun:
+  - add: Thunderdome Christmas Update  (#6255)
+'2024-12-26':
+  Explosi00N:
+  - qol: mining hardsuit translation (#6270)
+  Vladisvell:
+  - bugfix: Fixes camera consoles, real this time (#6272)
+'2024-12-27':
+  Antoonij:
+  - bugfix: Runtime bugfixes bundle №2 (#6118)
+  BeebBeebBoob:
+  - add: Vending machine falling hazard (#6256)
+  FlitchTime:
+  - bugfix: cargo console and qm quest tablet (#6277)
+  - tweak: added descriptions for machinery hotkeys (#6260)
+  - qol: add check security verb for admins (#6261)
+  - tweak: change armor gloves, price webbing (#6276)
+  Mahimka42:
+  - tweak: Adds a refill canister for custom vendor (#6202)
+  Sheya:
+  - tweak: cyborg inventory (#5785)
+'2024-12-28':
+  Antoonij:
+  - bugfix: correct gender suffix (#6281)
+'2024-12-30':
+  Anorak2020:
+  - balance: borers punish host action buff(#6228)
+  BeebBeebBoob:
+  - add: Minor z-level debug log (#6287)
+  - add: AI & Borg Upload Panel TGUI (#6273)
+  Etrnlmelancholy:
+  - del: barber deletion (#6262)
+  FlitchTime:
+  - tweak: miner voucher moved from bridge to qm office (#6274)
+  - add: Detective zippo (#6284)
+  PiroMage:
+  - bugfix: Nova Disposal (#6286)
+  TimChi:
+  - bugfix: TTS whisper does not work correctly (#6267)
+  Vitalya:
+  - add: 'Cosmetic Wryn Update: Resprite and Character Setup Update (#6168)'
+  dageavtobusnick:
+  - bugfix: vampires and changelings now can't learn cqc by upgrade implant + translation
+      (#6268)
+  - bugfix: shuttle now wait 3 minutes after deny lockdown (#6288)
+'2024-12-31':
+  Anorak2020:
+  - add: Fire heating/ash storm damage protection due to "fire" armor (#6064)
+  Antoonij:
+  - bugfix: correct borg damage procs (#6290)
+  - qol: Unified Blood Adjust (#6180)
+  Baldek0:
+  - del: fart emote deletion (#6060)
+  BeebBeebBoob:
+  - add: 516 TGUI chat fix (#6285)
+  - bugfix: 'fixed tgui chat: Cannot access rules (#6291)'
+  - bugfix: warning at sass/scss section for testmerge action (#6292)
+  Etrnlmelancholy:
+  - tweak: ma boy clown got some bipki (#6242)
+  Koko4yXa:
+  - bugfix: Cyborg can't look in bags (#6289)
+  Mahimka42:
+  - add: Advanced Bluespace Drugs Storage (#6166)

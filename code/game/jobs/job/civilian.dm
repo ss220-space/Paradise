@@ -25,7 +25,6 @@
 	jobtype = /datum/job/civilian
 
 	uniform = /obj/item/clothing/under/color/random
-	l_pocket = /obj/item/paper/deltainfo
 	shoes = /obj/item/clothing/shoes/black
 
 #undef SALARY_FOR_NISHEBROD

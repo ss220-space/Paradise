@@ -117,8 +117,8 @@
 
 
 /mob/living/simple_animal/pet/cat/verb/sit()
-	set name = "Sit Down"
-	set category = "IC"
+	set name = "Сесть"
+	set category = STATPANEL_IC
 
 	if(resting)
 		set_resting(FALSE)

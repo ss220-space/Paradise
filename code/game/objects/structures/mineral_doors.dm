@@ -209,7 +209,7 @@
 
 
 /obj/structure/mineral_door/transparent/plasma/attackby(obj/item/I, mob/user, params)
-	var/hot_temp = is_hot(I)
+	var/hot_temp = I.get_heat()
 	if(hot_temp)
 		add_attack_logs(user, src, "Ignited using [I]", ATKLOG_FEW)
 		investigate_log("was <span class='warning'>ignited</span> by [key_name_log(user)]",INVESTIGATE_ATMOS)

@@ -49,7 +49,7 @@
 	var/mob/living/living_parent = parent
 	living_parent.pass_flags |= PASSBLOB
 	living_parent.faction |= ROLE_BLOB
-	ADD_TRAIT(parent, TRAIT_BLOB_ALLY, REF(src))
+	ADD_TRAIT(parent, TRAIT_BLOB_ALLY, UID())
 	living_parent.stop_pulling()
 	RegisterSignal(parent, COMSIG_MOB_MIND_INITIALIZED, PROC_REF(on_mind_init))
 	RegisterSignal(parent, COMSIG_ATOM_UPDATE_ICON, PROC_REF(on_update_appearance))
@@ -60,7 +60,7 @@
 	RegisterSignal(parent, COMSIG_MOVABLE_SPACEMOVE, PROC_REF(on_space_move))
 	RegisterSignal(parent, COMSIG_MOB_TRY_SPEECH, PROC_REF(on_try_speech))
 	RegisterSignal(parent, COMSIG_MOB_CHANGED_TYPE, PROC_REF(on_transformed))
-	living_parent.update_appearance(UPDATE_ICON)
+	living_parent.update_appearance(UPDATE_ICON | UPDATE_OVERLAYS)
 	GLOB.blob_telepathy_mobs |= parent
 
 /datum/component/blob_minion/UnregisterFromParent()
@@ -69,7 +69,7 @@
 	var/mob/living/living_parent = parent
 	living_parent.pass_flags &= ~PASSBLOB
 	living_parent.faction -= ROLE_BLOB
-	REMOVE_TRAIT(parent, TRAIT_BLOB_ALLY, REF(src))
+	REMOVE_TRAIT(parent, TRAIT_BLOB_ALLY, UID())
 	UnregisterSignal(parent, list(
 		COMSIG_ATOM_BLOB_ACT,
 		COMSIG_ATOM_FIRE_ACT,

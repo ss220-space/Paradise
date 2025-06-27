@@ -1,7 +1,17 @@
 /obj/item/organ/internal/liver/kidan
 	species_type = /datum/species/kidan
 	name = "kidan liver"
+	desc = "Орган, выполняющий множество функций, таких как фильтрация кровотока от вредных веществ, синтез необходимых белков и ферментов и удаление токсинов из организма. Эта принадлежала кидану."
+	ru_names = list(
+		NOMINATIVE = "печень кидана",
+		GENITIVE = "печени кидана",
+		DATIVE = "печени кидана",
+		ACCUSATIVE = "печень кидана",
+		INSTRUMENTAL = "печенью кидана",
+		PREPOSITIONAL = "печени кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
+	item_state = "kidan_liver"
 	alcohol_intensity = 0.5
 
 
@@ -12,9 +22,19 @@
 /obj/item/organ/internal/lantern
 	species_type = /datum/species/kidan
 	name = "Bioluminescent Lantern"
-	desc = "A specialized tissue that reacts with oxygen, nutriment and blood to produce light in Kidan."
+	desc = "Специальная железа, состоящая из ткани, которая излучает свет за счёт химической реакции кислорода, белков и крови. Эта принадлежала кидану."
+	ru_names = list(
+		NOMINATIVE = "биолюминесцентная железа",
+		GENITIVE = "биолюминесцентной железы",
+		DATIVE = "биолюминесцентной железе",
+		ACCUSATIVE = "биолюминесцентную железу",
+		INSTRUMENTAL = "биолюминесцентной железй",
+		PREPOSITIONAL = "биолюминесцентной железе"
+	)
+	gender = FEMALE
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "kid_lantern"
+	item_state = "kidan_lantern"
 	origin_tech = "biotech=2"
 	w_class = WEIGHT_CLASS_TINY
 	parent_organ_zone = BODY_ZONE_PRECISE_GROIN
@@ -26,21 +46,23 @@
 /obj/item/organ/internal/lantern/ui_action_click(mob/user, datum/action/action, leftclick)
 	if(toggle_biolum())
 		if(glowing)
-			owner.visible_message(span_notice("[owner] starts to glow!"), span_notice("You enable your bioluminescence."))
+			owner.visible_message(span_notice("[owner] начина[pluralize_ru(owner.gender, "ет", "ют")] светиться."))
+			balloon_alert(owner, "световая железа активирована")
 		else
-			owner.visible_message(span_notice("[owner] fades to dark."), span_notice("You disable your bioluminescence."))
+			owner.visible_message(span_notice("[owner] переста[pluralize_ru(owner.gender, "ёт", "ют")] светиться."))
+			balloon_alert(owner, "световая железа деактивирована")
 
 /obj/item/organ/internal/lantern/on_life()
 	..()
 	if(glowing)//i hate this but i couldnt figure out a better way
 		if(owner.nutrition < KIDAN_LANTERN_MINHUNGER)
 			toggle_biolum(1)
-			owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
+			balloon_alert(owner, "организм слишком истощён!")
 			return
 
 		if(owner.stat)
 			toggle_biolum(1)
-			owner.visible_message(span_notice("[owner] fades to dark."))
+			owner.visible_message(span_notice("[owner] переста[pluralize_ru(owner.gender, "ёт", "ют")] светиться."))
 			return
 
 		owner.set_nutrition(max(owner.nutrition - KIDAN_LANTERN_HUNGERCOST, KIDAN_LANTERN_HUNGERCOST))
@@ -63,11 +85,11 @@
 
 /obj/item/organ/internal/lantern/proc/toggle_biolum(statoverride)
 	if(!statoverride && owner.incapacitated())
-		owner.balloon_alert(owner, "не в текущем состоянии!")
+		balloon_alert(owner, "невозможно сейч!ас")
 		return 0
 
 	if(!statoverride && owner.nutrition < KIDAN_LANTERN_MINHUNGER)
-		owner.balloon_alert(owner, "слишком голодный, чтобы светиться!")
+		balloon_alert(owner, "организм слишком истощён!")
 		return 0
 
 	if(!colour)
@@ -117,17 +139,61 @@
 /obj/item/organ/internal/eyes/kidan
 	species_type = /datum/species/kidan
 	name = "kidan eyeballs"
+	desc = "Парный орган, отвечающий за зрение - восприятие света и его трансформацию в видимое изображение. Эти принадлежали кидану."
+	ru_names = list(
+		NOMINATIVE = "глаза кидана",
+		GENITIVE = "глаз кидана",
+		DATIVE = "глазам кидана",
+		ACCUSATIVE = "глаза кидана",
+		INSTRUMENTAL = "глазами кидана",
+		PREPOSITIONAL = "глазах кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
+	item_state = "kidan_eyes"
+
+/obj/item/organ/internal/ears/kidan
+	species_type = /datum/species/kidan
+	name = "kidan ears"
+	desc = "Парный орган, отвечающий за аудиальное восприятие окружающей среды и получение информации о положении гуманоида в пространстве. Эти принадлежали кидану."
+	ru_names = list(
+		NOMINATIVE = "уши кидана",
+		GENITIVE = "ушей кидана",
+		DATIVE = "ушам кидана",
+		ACCUSATIVE = "уши кидана",
+		INSTRUMENTAL = "ушами кидана",
+		PREPOSITIONAL = "ушах кидана"
+	)
 
 /obj/item/organ/internal/heart/kidan
 	species_type = /datum/species/kidan
 	name = "kidan heart"
+	desc = "Орган, качающий кровь или её заменяющую субстанцию по организму гуманоида. Это принадлежало кидану."
+	ru_names = list(
+		NOMINATIVE = "сердце кидана",
+		GENITIVE = "сердца кидана",
+		DATIVE = "сердцу кидана",
+		ACCUSATIVE = "сердце кидана",
+		INSTRUMENTAL = "сердцем кидана",
+		PREPOSITIONAL = "сердце кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
+	item_state = "kidan_heart-on"
+	item_base = "kidan_heart"
 
 /obj/item/organ/internal/brain/kidan
 	species_type = /datum/species/kidan
+	desc = "Основной орган центральной нервной системы гуманоида. Фактически, именно здесь и находится разум. Этот принадлежал кидану."
+	ru_names = list(
+		NOMINATIVE = "мозг кидана",
+		GENITIVE = "мозга кидана",
+		DATIVE = "мозгу кидана",
+		ACCUSATIVE = "мозг кидана",
+		INSTRUMENTAL = "мозгом кидана",
+		PREPOSITIONAL = "мозге кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
 	icon_state = "brain2"
+	item_state = "kidan_brain"
 	mmi_icon = 'icons/obj/species_organs/kidan.dmi'
 	mmi_icon_state = "mmi_full"
 	parent_organ_zone = BODY_ZONE_CHEST
@@ -146,16 +212,36 @@
 /obj/item/organ/internal/lungs/kidan
 	species_type = /datum/species/kidan
 	name = "kidan lungs"
+	desc = "Парный орган, отвечающий за газообмен между внешней средой и кровотоком организма гуманоида. Эти принадлежали кидану."
+	ru_names = list(
+		NOMINATIVE = "лёгкие кидана",
+		GENITIVE = "лёгких кидана",
+		DATIVE = "лёгким кидана",
+		ACCUSATIVE = "лёгкие кидана",
+		INSTRUMENTAL = "лёгкими кидана",
+		PREPOSITIONAL = "лёгких кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
+	item_state = "kidan_lungs"
 
 /obj/item/organ/internal/kidneys/kidan
 	species_type = /datum/species/kidan
 	name = "kidan kidneys"
+	desc = "Парный орган, отвечающий за фильтрацию кровотока и выведение токсинов и отходов из организма. Эти принадлежали кидану."
+	ru_names = list(
+		NOMINATIVE = "почки кидана",
+		GENITIVE = "почек кидана",
+		DATIVE = "почкам кидана",
+		ACCUSATIVE = "почки кидана",
+		INSTRUMENTAL = "почками кидана",
+		PREPOSITIONAL = "почках кидана"
+	)
 	icon = 'icons/obj/species_organs/kidan.dmi'
+	item_state = "kidan_kidneys"
 
 /obj/item/organ/external/head/kidan
 	species_type = /datum/species/kidan
-	encased = "head chitin"
+	encased = "хитиновую оболочку на голове"
 
 /obj/item/organ/external/head/kidan/remove(mob/living/user, special = ORGAN_MANIPULATION_DEFAULT, ignore_children = FALSE)
 	if(iskidan(owner))
@@ -169,11 +255,11 @@
 		target.adjustBrainLoss(30)
 
 /obj/item/organ/external/chest/kidan
-	encased = "chitin armour"
+	encased = "хитиновую оболочку на груди"
 	convertable_children = list(/obj/item/organ/external/groin/kidan)
 
 /obj/item/organ/external/groin/kidan
-	encased = "groin chitin"
+	encased = "хитиновую оболочку на животе"
 
 #undef KIDAN_LANTERN_HUNGERCOST
 #undef KIDAN_LANTERN_MINHUNGER

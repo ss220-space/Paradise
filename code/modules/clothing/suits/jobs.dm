@@ -157,6 +157,10 @@
 		SPECIES_STOK = 'icons/mob/clothing/species/monkey/suit.dmi'
 		)
 
+/obj/item/clothing/suit/hooded/chaplain_hoodie/armoured
+		armor = list("melee" = 15, "bullet" = 60, "laser" = 10, "energy" = 20, "bomb" = 40, "bio" = 0, "rad" = 0, "fire" = 50, "acid" = 50)
+		hoodtype = /obj/item/clothing/head/hooded/chaplain_hood/armoured
+
 /obj/item/clothing/suit/hooded/chaplain_hoodie/no_name
 	name = "dark hoodie"
 	desc = "A dark robe made of thick fabric that looks intimidating"
@@ -487,7 +491,7 @@
 	name = "first responder jacket"
 	desc = "A high-visibility jacket worn by medical first responders."
 	icon_state = "fr_jacket_open"
-	item_state = "fr_jacket_open"
+	item_state = "fr_jacket"
 	blood_overlay_type = "armor"
 	allowed = list(/obj/item/stack/medical, /obj/item/reagent_containers/dropper, /obj/item/reagent_containers/hypospray, /obj/item/reagent_containers/applicator, /obj/item/reagent_containers/syringe,
 	/obj/item/healthanalyzer, /obj/item/flashlight, /obj/item/radio, /obj/item/tank/internals/emergency_oxygen,/obj/item/rad_laser)

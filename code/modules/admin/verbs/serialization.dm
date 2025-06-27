@@ -1,7 +1,7 @@
 /client/proc/admin_serialize()
 	set name = "Serialize Marked Datum"
 	set desc = "Turns your marked object into a JSON string you can later use to re-create the object"
-	set category = "Debug"
+	set category = STATPANEL_ADMIN_DEBUG
 
 	if(!check_rights(R_ADMIN|R_DEBUG))
 		return
@@ -11,16 +11,18 @@
 		return
 
 	var/atom/movable/AM = holder.marked_datum
-	to_chat(src, json_encode(AM.serialize()))
+
+	var/json_data = json_encode(AM.serialize())
+
+	to_chat(src, chat_box_examine(json_data))
 
 /client/proc/admin_deserialize()
 	set name = "Deserialize JSON datum"
 	set desc = "Creates an object from a JSON string"
-	set category = "Debug"
-
+	set category = STATPANEL_ADMIN_DEBUG
 	if(!check_rights(R_SPAWN)) // this involves spawning things
 		return
 
-	var/json_text = input("Enter the JSON code:","Text") as message|null
+	var/json_text = tgui_input_text(usr, "Enter the JSON code:", "Text", multiline = TRUE, encode = FALSE)
 	if(json_text)
 		json_to_object(json_text, get_turf(usr))

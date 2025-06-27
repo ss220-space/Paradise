@@ -29,7 +29,15 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/machinery/tcomms
 	name = "Telecommunications Device"
-	desc = "Someone forgot to say what this thingy does. Please yell at a coder"
+	desc = "Если вы это видите, составьте баг-репорт в Discord."
+	ru_names = list(
+		NOMINATIVE = "устройство телекоммуникаций",
+		GENITIVE = "устройства телекоммуникаций",
+		DATIVE = "устройству телекоммуникаций",
+		ACCUSATIVE = "устройство телекоммуникаций",
+		INSTRUMENTAL = "устройством телекоммуникаций",
+		PREPOSITIONAL = "устройстве телекоммуникаций"
+	)
 	icon = 'icons/obj/machines/tcomms.dmi'
 	icon_state = "error"
 	density = TRUE
@@ -37,7 +45,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	use_power = IDLE_POWER_USE
 	idle_power_usage = 500
 	/// Network ID used for names + auto linkage
-	var/network_id = "None"
+	var/network_id = "Нет"
 	/// Is the machine active
 	var/active = TRUE
 	/// Has the machine been hit by an ionospheric anomaly
@@ -136,7 +144,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	if(active)
 		active = FALSE
 		// This needs a timer because otherwise its on the shuttle Z and the message is missed
-		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Radio equipment on [src] has been overloaded by heavy bluespace interference. Please restart the machine.")), 5)
+		addtimer(CALLBACK(src, TYPE_PROC_REF(/atom, visible_message), span_warning("Оборудование радиосвязи на [declent_ru(NOMINATIVE)] было перегружено мощным блюспейс-воздействием. Пожалуйста, перезагрузите устройство.")), 5)
 	update_icon(UPDATE_ICON_STATE)
 
 
@@ -175,11 +183,11 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /datum/tcomms_message
 	/// Who sent the message
-	var/sender_name = "Error"
+	var/sender_name = "Ошибка"
 	/// What job are they
-	var/sender_job = "Error"
+	var/sender_job = "Ошибка"
 	/// What rank are they
-	var/sender_rank = "Error"
+	var/sender_rank = "Ошибка"
 	/// Pieces of the message
 	var/list/message_pieces = list()
 	/// Source Z-level
@@ -199,7 +207,7 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
 	/// The signal data (See defines/radio.dm)
 	var/data
 	/// Verbage used
-	var/verbage = "says"
+	var/verbage = "говор%(ит,ят)%"
 	/// Follow target for AI use
 	var/atom/follow_target = null
 	/// Is this signal meant to be rejected
@@ -430,6 +438,15 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/item/paper/tcommskey
 	name = "Telecommunications linkage password"
+	desc = "Памятка, содержащая коды для изменения конфигурации телекоммуникационных систем."
+	ru_names = list(
+		NOMINATIVE = "\"Пароль привязки телекоммуникаций\"",
+		GENITIVE = "\"Пароль привязки телекоммуникаций\"",
+		DATIVE = "\"Пароль привязки телекоммуникаций\"",
+		ACCUSATIVE = "\"Пароль привязки телекоммуникаций\"",
+		INSTRUMENTAL = "\"Пароль привязки телекоммуникаций\"",
+		PREPOSITIONAL = "\"Пароль привязки телекоммуникаций\""
+	)
 
 /**
   * Password Paper Initializer
@@ -448,11 +465,13 @@ GLOBAL_LIST_EMPTY(tcomms_machines)
   */
 /obj/item/paper/tcommskey/LateInitialize(mapload)
 	for(var/obj/machinery/tcomms/core/C in GLOB.tcomms_machines)
-		if(C.network_id == "STATION-CORE")
-			info = "<center><h2>Telecommunications Key</h2></center>\n\t<br>The station core linkage password is '[C.link_password]'.<br>Should this paper be misplaced or destroyed, fear not, as the password is visible under the core linkage section. Should you wish to modify this password, it can be modified from the core."
+		if(C.network_id == "СТАНЦИЯ-ЯДРО")
+			info = "<center><h2>Пароль привязки телекоммуникаций</h2></center>\n\t<br>Пароль для привязки к станционному ядру: \"[C.link_password]\".<br> \
+			Если эта записка будет утеряна или уничтожена, вы всегда можете найти пароль во вкладке \"Привязка к ядру\".<br> \
+			Если вы захотите сменить пароль, это можно сделать с помощью конфигурации ядра телекоммуникаций."
 			info_links = info
 			update_icon(UPDATE_ICON_STATE)
-			// Save time, even though there should only be one STATION-CORE in the world
+			// Save time, even though there should only be one СТАНЦИЯ-ЯДРО in the world
 			break
 	return ..()
 

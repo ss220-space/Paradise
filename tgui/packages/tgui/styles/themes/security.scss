@@ -25,7 +25,7 @@
   );
   @include meta.load-css(
     '../components/ImageButton.scss',
-    $with: ('color-default': darken(colors.$primary, 23%))
+    $with: ('color-default': color.adjust(colors.$primary, $lightness: -23%))
   );
   @include meta.load-css(
     '../components/Input.scss',

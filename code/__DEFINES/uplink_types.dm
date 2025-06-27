@@ -3,4 +3,3 @@
 #define UPLINK_TYPE_SST 2
 #define UPLINK_TYPE_ADMIN 3
 #define UPLINK_TYPE_SIT 4
-

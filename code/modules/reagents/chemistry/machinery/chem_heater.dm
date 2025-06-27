@@ -1,5 +1,14 @@
 /obj/machinery/chem_heater
 	name = "chemical heater"
+	desc = "Простая машина, представляющая собой камеру для нагрева помещённых ёмкостей. Не смотря на своё название, также может охлаждать."
+	ru_names = list(
+		NOMINATIVE = "химический нагреватель",
+		GENITIVE = "химического нагревателя",
+		DATIVE = "химическому нагревателю",
+		ACCUSATIVE = "химический нагреватель",
+		INSTRUMENTAL = "химическим нагревателем",
+		PREPOSITIONAL = "химическом нагревателе"
+	)
 	density = TRUE
 	anchored = TRUE
 	icon = 'icons/obj/chemical.dmi'
@@ -28,6 +37,11 @@
 	for(var/obj/item/stock_parts/micro_laser/M in component_parts)
 		speed_increase += 5 * (M.rating - 1)
 
+/obj/machinery/chem_heater/examine(mob/user)
+	. = ..()
+	if(panel_open)
+		. += span_notice("Панель техобслуживания открыта.")
+
 /obj/machinery/chem_heater/process()
 	..()
 	if(stat & (NOPOWER|BROKEN))
@@ -55,6 +69,7 @@
 		beaker.forceMove(get_turf(src))
 		if(user && Adjacent(user) && !issilicon(user))
 			user.put_in_hands(beaker, ignore_anim = FALSE)
+			balloon_alert(user, "ёмкость извлечена")
 		beaker = null
 		on = FALSE
 		update_icon(UPDATE_ICON_STATE)
@@ -72,17 +87,18 @@
 	if(istype(I, /obj/item/reagent_containers/glass))
 		add_fingerprint(user)
 		if(beaker)
-			to_chat(user, span_warning("The [name] already has [beaker] loaded."))
+			balloon_alert(user, "слот для ёмкости занят!")
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
 		beaker = I
-		to_chat(user, span_notice("You have inserted [I] into [src]."))
+		balloon_alert(user, "ёмкость установлена")
 		SStgui.update_uis(src)
 		update_icon(UPDATE_ICON_STATE)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
 	return ..()
+
 
 
 /obj/machinery/chem_heater/wrench_act(mob/user, obj/item/I)
@@ -95,6 +111,7 @@
 
 /obj/machinery/chem_heater/crowbar_act(mob/user, obj/item/I)
 	if(!panel_open)
+		balloon_alert(user, "техпанель закрыта!")
 		return
 	. = TRUE
 	eject_beaker()
@@ -139,7 +156,7 @@
 
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "ChemHeater", "Chemical Heater")
+		ui = new(user, src, "ChemHeater", "Химический нагреватель")
 		ui.open()
 
 /obj/machinery/chem_heater/ui_data(mob/user)

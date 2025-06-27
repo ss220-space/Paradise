@@ -97,6 +97,11 @@
 
 	var/area_flags = BLOBS_ALLOWED
 
+	/// Color of this area on holomaps.
+	var/holomap_color = null
+	/// Whether the turfs in the area should be drawn onto the "base" holomap.
+	var/holomap_should_draw = TRUE
+
 /area/New(loc, ...)
 	// This interacts with the map loader, so it needs to be set immediately
 	// rather than waiting for atoms to initialize.

@@ -40,16 +40,17 @@
 	inserted_key = I
 	return ATTACK_CHAIN_PROCEED
 
-/obj/vehicle/ridden/AltClick(mob/user)
+/obj/vehicle/ridden/click_alt(mob/user)
 	if(!inserted_key)
-		return
+		return NONE
 	if(!is_occupant(user))
 		to_chat(user, span_warning("You must be riding the [src] to remove [src]'s key!"))
-		return
+		return CLICK_ACTION_BLOCKING
 	to_chat(user, span_notice("You remove \the [inserted_key] from \the [src]."))
 	inserted_key.forceMove_turf()
 	user.put_in_hands(inserted_key)
 	inserted_key = null
+	return CLICK_ACTION_SUCCESS
 
 /obj/vehicle/ridden/user_buckle_mob(mob/living/M, mob/user, check_loc = TRUE)
 	if(!in_range(user, src) || !in_range(M, src))

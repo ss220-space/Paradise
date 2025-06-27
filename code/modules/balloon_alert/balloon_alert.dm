@@ -69,6 +69,12 @@
 
 	viewer_client?.images += balloon_alert
 
+	for(var/mob/dead/observer/observe in viewer.inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(viewer, observe)
+			continue
+		observe.client.images += balloon_alert
+
 	var/length_mult = 1 + max(0, length(strip_html_properly(text)) - BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MIN) * BALLOON_TEXT_CHAR_LIFETIME_INCREASE_MULT
 
 	animate(

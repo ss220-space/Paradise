@@ -97,12 +97,14 @@ Class Procs:
 
 /obj/machinery
 	name = "machinery"
+	gender = MALE
 	icon = 'icons/obj/stationobjs.dmi'
 	pressure_resistance = 15
 	max_integrity = 200
 	layer = BELOW_OBJ_LAYER
 	pass_flags_self = PASSMACHINE|LETPASSCLICKS
 	pull_push_slowdown = 1.3
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/stat = 0
 	var/emagged = 0
 	var/use_power = IDLE_POWER_USE
@@ -139,7 +141,7 @@ Class Procs:
 	if(!armor)
 		armor = list(melee = 25, bullet = 10, laser = 10, energy = 0, bomb = 0, bio = 0, rad = 0, fire = 50, acid = 70)
 	. = ..()
-	GLOB.machines += src
+	SSmachines.register_machine(src)
 
 	myArea = get_area(src)
 	if(myArea)
@@ -157,7 +159,7 @@ Class Procs:
 		LAZYREMOVE(myArea.machinery_cache, src)
 		myArea = null
 		UnregisterSignal(src, COMSIG_ATOM_EXITED_AREA)
-	GLOB.machines.Remove(src)
+	SSmachines.unregister_machine(src)
 	end_processing()
 	return ..()
 

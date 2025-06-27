@@ -72,7 +72,7 @@ GLOBAL_LIST_INIT(bluespace_crystal_recipes, list(new/datum/stack_recipe("Breakdo
 	origin_tech = "bluespace=6;materials=3"
 	merge_type = /obj/item/stack/sheet/bluespace_crystal
 	materials = list(MAT_BLUESPACE = MINERAL_MATERIAL_AMOUNT)
-	attack_verb = list("bluespace polybashed", "bluespace polybattered", "bluespace polybludgeoned", "bluespace polythrashed", "bluespace polysmashed")
+	attack_verb = list("блюспейс полиударил", "блюспейс полиогрел", "блюспейс полистукнул", "блюспейс полисокрушил")
 	toolspeed = 1
 	usesound = 'sound/items/deconstruct.ogg'
 	point_value = 30

@@ -16,6 +16,11 @@
 	if(client && screen.should_show_to(src))
 		screen.update_for_view(client.view)
 		client.screen += screen
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
+				continue
+			observe.client.screen += screen
 
 	if(screen.needs_offsetting)
 		SET_PLANE_EXPLICIT(screen, PLANE_TO_TRUE(screen.plane), src)
@@ -29,6 +34,11 @@
 		return
 
 	screens -= category
+	for(var/mob/dead/observer/observe as anything in inventory_observers)
+		if(!observe.client)
+			LAZYREMOVE(inventory_observers, observe)
+			continue
+		observe.screens -= category
 
 	if(animated)
 		animate(screen, alpha = 0, time = animated)
@@ -36,12 +46,23 @@
 	else
 		if(client)
 			client.screen -= screen
+
+			for(var/mob/dead/observer/observe as anything in inventory_observers)
+				if(!observe.client)
+					LAZYREMOVE(inventory_observers, observe)
+					continue
+				observe.client.screen -= screen
 		qdel(screen)
 
 
 /mob/proc/clear_fullscreen_after_animate(atom/movable/screen/fullscreen/screen)
 	if(client)
 		client.screen -= screen
+		for(var/mob/dead/observer/observe as anything in inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(inventory_observers, observe)
+				continue
+			observe.client.screen -= screen
 	qdel(screen)
 
 
@@ -59,8 +80,20 @@
 			if(screen.should_show_to(mymob))
 				screen.update_for_view(mymob.client.view)
 				mymob.client.screen |= screen
+
+				for(var/mob/dead/observer/observe in mymob.inventory_observers)
+					if(!observe.client)
+						LAZYREMOVE(mymob.inventory_observers, observe)
+						continue
+					observe.client.screen |= screen
 			else
 				mymob.client.screen -= screen
+
+				for(var/mob/dead/observer/observe in mymob.inventory_observers)
+					if(!observe.client)
+						LAZYREMOVE(mymob.inventory_observers, observe)
+						continue
+					observe.client.screen -= screen
 
 /mob/on_changed_z_level(turf/old_turf, turf/new_turf, same_z_layer, notify_contents)
 	. = ..()

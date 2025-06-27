@@ -42,12 +42,14 @@
 /mob/living/proc/can_die()
 	return !(stat == DEAD || HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_DEATH))
 
+/mob/living/proc/can_be_cremated()
+	return !(HAS_TRAIT(src, TRAIT_GODMODE) || HAS_TRAIT(src, TRAIT_NO_DEATH))
 // Returns true if mob transitioned from live to dead
 // Do a check with `can_die` beforehand if you need to do any
 // handling before `stat` is set
 /mob/living/death(gibbed)
 	SEND_SIGNAL(src, COMSIG_LIVING_EARLY_DEATH, gibbed)
-	
+
 	if(stat == DEAD || !can_die())
 		// Whew! Good thing I'm indestructible! (or already dead)
 		return FALSE
@@ -99,10 +101,13 @@
 			for(var/P in GLOB.dead_mob_list)
 				var/mob/M = P
 				if((M.client?.prefs.toggles2 & PREFTOGGLE_2_DEATHMESSAGE) && (isobserver(M) || M.stat == DEAD))
-					to_chat(M, "<span class='deadsay'><b>[mind.name]</b> has died at <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)</span>")
+					to_chat(M, span_deadsay("<b>[mind.name]</b> умер в <b>[area_name]</b>. (<a href='byond://?src=[M.UID()];jump=[gibbed ? "\ref[T]" : "\ref[src]"]'>JMP</a>)"))
 
 	if(SSticker && SSticker.mode)
 		SSticker.mode.check_win()
+
+	if(xenobiology_spawned)
+		SSmobs.xenobiology_mobs--
 
 	clear_alert("succumb")
 	SEND_SIGNAL(src, COMSIG_LIVING_DEATH, gibbed)
@@ -110,7 +115,7 @@
 	return TRUE
 
 /mob/living/proc/delayed_gib()
-	visible_message("<span class='danger'><b>[src]</b> starts convulsing violently!</span>", "You feel as if your body is tearing itself apart!")
+	visible_message(span_danger("<b>[src]</b> starts convulsing violently!"), "You feel as if your body is tearing itself apart!")
 	Weaken(30 SECONDS)
 	do_jitter_animation(1000, -1) // jitter until they are gibbed
 	addtimer(CALLBACK(src, PROC_REF(gib)), rand(2 SECONDS, 10 SECONDS))

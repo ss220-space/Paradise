@@ -5,7 +5,7 @@
 	desc = "It's blank"
 	force = 5
 	w_class = WEIGHT_CLASS_BULKY
-	attack_verb = list("bashed","smacked")
+	attack_verb = list("ударил", "стукнул")
 	resistance_flags = FLAMMABLE
 
 	var/delayed = 0 //used to do delays

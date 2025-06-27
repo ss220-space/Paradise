@@ -151,6 +151,8 @@
 #define MEGAFAUNA_SPAWN_ALLOWED (1<<4)
 /// If blobs can spawn there and if it counts towards their score.
 #define BLOBS_ALLOWED (1<<5)
+/// If blobs can spawn there and if it counts towards their score.
+#define MORTAR_ALLOWED (1<<6)
 
 //ORGAN TYPE FLAGS
 #define AFFECT_ROBOTIC_ORGAN	1
@@ -237,9 +239,4 @@ GLOBAL_LIST_INIT(bitflags, list(1, 2, 4, 8, 16, 32, 64, 128, 256, 512, 1024, 204
 #define DEFAULT_DOAFTER_IGNORE (DA_IGNORE_LYING|DA_IGNORE_RESTRAINED)
 
 
-//Incapacitated ignore flags for [/proc/incapacitated()]
-/// If the incapacitated will ignore a mob in restraints
-#define INC_IGNORE_RESTRAINED (1<<0)
-/// If the incapacitated will ignore a mob being agressively grabbed
-#define INC_IGNORE_GRABBED (1<<1)
 

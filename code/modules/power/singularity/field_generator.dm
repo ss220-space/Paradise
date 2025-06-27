@@ -150,7 +150,7 @@ field_generator power level display
 	else
 		..()
 
-/obj/machinery/field/generator/bullet_act(obj/item/projectile/Proj)
+/obj/machinery/field/generator/bullet_act(obj/projectile/Proj)
 	if(Proj.flag != "bullet" && !Proj.nodamage)
 		power = min(power + Proj.damage, field_generator_max_power)
 		check_power_level()
@@ -323,7 +323,7 @@ field_generator power level display
 	var/temp = TRUE //stops spam
 	for(var/thing in GLOB.singularities)
 		var/obj/singularity/O = thing
-		if(O.last_warning && temp && atoms_share_level(O, src))
+		if(O.last_warning && temp && are_zs_connected(O, src))
 			if((world.time - O.last_warning) > 50) //to stop message-spam
 				temp = FALSE
 				// Здесь был коммент от affected в 7 строк про то что get_area_name тупой и юзал for(x in world) и типа дорого и глупо.

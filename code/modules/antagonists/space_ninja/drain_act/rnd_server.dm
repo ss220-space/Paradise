@@ -37,7 +37,7 @@
 		var/datum/tech/current_tech
 		var/datum/design/current_design
 		//Удаление данных у серверов
-		for(var/obj/machinery/r_n_d/server/rnd_server in GLOB.machines)
+		for(var/obj/machinery/r_n_d/server/rnd_server in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 			if(!is_station_level(rnd_server.z))
 				continue
 			if(rnd_server.disabled)
@@ -53,7 +53,7 @@
 			investigate_log("[key_name_log(ninja)] deleted all technology on this server.", INVESTIGATE_RESEARCH)
 
 		//Удаление данных у консолей
-		for(var/obj/machinery/computer/rdconsole/rnd_console in GLOB.machines)
+		for(var/obj/machinery/computer/rdconsole/rnd_console in SSmachines.get_by_type(/obj/machinery/computer/rdconsole))
 			if(!is_station_level(rnd_console.z))
 				continue
 			for(var/i in rnd_console.files.known_tech)
@@ -64,7 +64,7 @@
 				rnd_console.files.known_designs -= current_design.id
 			investigate_log("[key_name_log(ninja)] deleted all technology on this console.", INVESTIGATE_RESEARCH)
 		//Фабрикаторы
-		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in GLOB.machines)
+		for(var/obj/machinery/mecha_part_fabricator/rnd_mechfab in SSmachines.get_by_type(/obj/machinery/mecha_part_fabricator))
 			if(!is_station_level(rnd_mechfab.z))
 				continue
 			for(var/i in rnd_mechfab.local_designs.known_tech)

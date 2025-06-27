@@ -41,6 +41,7 @@
 	if(!force_update && (destination == get_turf(src)))
 		return //we are already here!
 	abstract_move(destination)
+	SEND_SIGNAL(src, COMSIG_AI_EYE_MOVED, destination)
 	if(use_static)
 		ai.camera_visibility(src)
 	if(ai.client)
@@ -124,8 +125,8 @@
 
 // Return to the Core.
 /mob/living/silicon/ai/proc/core()
-	set category = "AI Commands"
-	set name = "AI Core"
+	set category = STATPANEL_AICOMMANDS
+	set name = "К ядру ИИ"
 
 	view_core()
 
@@ -153,8 +154,8 @@
 	eyeobj.name = "[name] (AI Eye)"
 
 /mob/living/silicon/ai/proc/toggle_acceleration()
-	set category = "AI Commands"
-	set name = "Toggle Camera Acceleration"
+	set category = STATPANEL_AICOMMANDS
+	set name = "Ускорение камеры"
 
 	if(usr.stat == 2)
 		return //won't work if dead
@@ -162,15 +163,15 @@
 	to_chat(usr, "Camera acceleration has been toggled [acceleration ? "on" : "off"].")
 
 /mob/living/silicon/ai/move_up()
-	set name = "Move Upwards"
-	set category = "IC"
+	set name = "Подняться"
+	set category = STATPANEL_IC
 
 	if(eyeobj.zMove(UP, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move upwards."))
 
 /mob/living/silicon/ai/move_down()
-	set name = "Move Down"
-	set category = "IC"
+	set name = "Опуститься"
+	set category = STATPANEL_IC
 
 	if(eyeobj.zMove(DOWN, z_move_flags = ZMOVE_FEEDBACK))
 		to_chat(src, span_notice("You move down."))

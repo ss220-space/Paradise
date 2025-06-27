@@ -11,10 +11,11 @@
 		return
 
 	if(mute_category && check_mute(C.ckey, mute_category))
-		to_chat(C, "<span class='danger'>You cannot use [name] (muted).</span>", MESSAGE_TYPE_WARNING)
+		to_chat(C, span_danger("You cannot use [name] (muted)."), MESSAGE_TYPE_WARNING)
 		return
 
-	winset(C, null, "command=[C.tgui_say_create_open_command(name)]")
+	winset(C, null, "command=[C.tgui_say_create_open_command(name)];")
+	winset(C, "tgui_say.browser", "focus=true")
 
 /datum/keybinding/client/communication/ooc
 	name = OOC_CHANNEL
@@ -25,11 +26,11 @@
 		return ..()
 
 	if(!CONFIG_GET(flag/ooc_allowed))
-		to_chat(C, "<span class='danger'>OOC is globally muted.</span>", MESSAGE_TYPE_WARNING)
+		to_chat(C, span_danger("OOC is globally muted."), MESSAGE_TYPE_WARNING)
 		return
 
 	if(!CONFIG_GET(flag/dooc_allowed))
-		to_chat(C, "<span class='danger'>OOC for dead mobs has been turned off.</span>", MESSAGE_TYPE_WARNING)
+		to_chat(C, span_danger("OOC for dead mobs has been turned off."), MESSAGE_TYPE_WARNING)
 		return
 
 	return ..()
@@ -50,7 +51,7 @@
 
 /datum/keybinding/client/communication/whisper
 	name = WHISPER_CHANNEL
-	keys = list("U")
+	keys = list("ShiftT")
 	mute_category = MUTE_IC
 
 /datum/keybinding/client/communication/radio
@@ -72,3 +73,8 @@
 	name = DSAY_CHANNEL
 	keys = list("F10")
 	required_rights = R_ADMIN | R_MOD
+
+/datum/keybinding/client/communication/devsay
+	name = DEV_CHANNEL
+	keys = list("F2")
+	required_rights = R_VIEWRUNTIMES | R_ADMIN

@@ -1,6 +1,7 @@
 /datum/ui_module/law_manager
 	name = "Law manager"
 	var/ion_law	= "IonLaw"
+	var/devil_law = "DevilLaw"
 	var/zeroth_law = "ZerothLaw"
 	var/inherent_law = "InherentLaw"
 	var/supplied_law = "SuppliedLaw"
@@ -57,6 +58,11 @@
 				owner.set_zeroth_law(zeroth_law)
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin used law manager, new zero law was added '[zeroth_law]'")
 
+		if("add_devil_law")
+			if(devil_law && is_malf(usr))
+				owner.add_devil_law(devil_law)
+				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new devil law was added '[devil_law]'")
+
 		if("add_ion_law")
 			if(ion_law && is_malf(usr))
 				owner.add_ion_law(ion_law)
@@ -73,22 +79,27 @@
 				SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, new supplied law was added '[supplied_law]'")
 
 		if("change_zeroth_law")
-			var/new_law = tgui_input_text(usr, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law)
+			var/new_law = tgui_input_text(usr, "Enter new law Zero. Leaving the field blank will cancel the edit.", "Edit Law", zeroth_law, encode = FALSE)
 			if(new_law && new_law != zeroth_law && (!..()))
 				zeroth_law = new_law
 
 		if("change_ion_law")
-			var/new_law = tgui_input_text(usr, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law)
+			var/new_law = tgui_input_text(usr, "Enter new ion law. Leaving the field blank will cancel the edit.", "Edit Law", ion_law, encode = FALSE)
 			if(new_law && new_law != ion_law && (!..()))
 				ion_law = new_law
 
+		if("change_devil_law")
+			var/new_law = tgui_input_text(usr, "Enter new devil law. Leaving the field blank will cancel the edit.", "Edit Law", devil_law, encode = FALSE)
+			if(new_law && new_law != devil_law && (!..()))
+				devil_law = new_law
+
 		if("change_inherent_law")
-			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law)
+			var/new_law = tgui_input_text(usr, "Enter new inherent law. Leaving the field blank will cancel the edit.", "Edit Law", inherent_law, encode = FALSE)
 			if(new_law && new_law != inherent_law && (!..()))
 				inherent_law = new_law
 
 		if("change_supplied_law")
-			var/new_law = tgui_input_text(usr, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law)
+			var/new_law = tgui_input_text(usr, "Enter new supplied law. Leaving the field blank will cancel the edit.", "Edit Law", supplied_law, encode = FALSE)
 			if(new_law && new_law != supplied_law && (!..()))
 				supplied_law = new_law
 
@@ -105,7 +116,7 @@
 					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
 					return
 				if(AL)
-					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law)
+					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law, encode = FALSE)
 					if(new_law && new_law != AL.law && is_malf(usr) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law
@@ -171,12 +182,14 @@
 
 	data["ion_law_nr"] = ionnum()
 	data["ion_law"] = ion_law
+	data["devil_law"] = devil_law
 	data["zeroth_law"] = zeroth_law
 	data["inherent_law"] = inherent_law
 	data["supplied_law"] = supplied_law
 	data["supplied_law_position"] = supplied_law_position
 
 	package_laws(data, "zeroth_laws", list(owner.laws.zeroth_law))
+	package_laws(data, "devil_laws", owner.laws.devil_laws)
 	package_laws(data, "ion_laws", owner.laws.ion_laws)
 	package_laws(data, "inherent_laws", owner.laws.inherent_laws)
 	package_laws(data, "supplied_laws", owner.laws.supplied_laws)
@@ -208,6 +221,7 @@
 	for(var/datum/ai_laws/ALs in laws)
 		var/list/packaged_laws = list()
 		package_laws(packaged_laws, "zeroth_laws", list(ALs.zeroth_law, ALs.zeroth_law_borg))
+		package_laws(packaged_laws, "devil_laws", ALs.devil_laws)
 		package_laws(packaged_laws, "ion_laws", ALs.ion_laws)
 		package_laws(packaged_laws, "inherent_laws", ALs.inherent_laws)
 		package_laws(packaged_laws, "supplied_laws", ALs.supplied_laws)

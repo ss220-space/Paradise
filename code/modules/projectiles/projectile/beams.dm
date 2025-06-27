@@ -1,4 +1,4 @@
-/obj/item/projectile/beam
+/obj/projectile/beam
 	name = "laser"
 	icon_state = "laser"
 	pass_flags = PASSTABLE | PASSGLASS | PASSGRILLE
@@ -17,40 +17,40 @@
 	ricochets_max = 50	//Honk!
 	ricochet_chance = 80
 
-/obj/item/projectile/beam/laser
+/obj/projectile/beam/laser
 
-/obj/item/projectile/beam/laser/light
+/obj/projectile/beam/laser/light
 	damage = 15
 
-/obj/item/projectile/beam/laser/heavylaser
+/obj/projectile/beam/laser/heavylaser
 	name = "heavy laser"
 	icon_state = "heavylaser"
 	damage = 50
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 
-/obj/item/projectile/beam/laser/slug
+/obj/projectile/beam/laser/slug
 	name = "laser slug beam"
 	damage = 50
 	stamina = 33
 
-/obj/item/projectile/beam/laser/shot
+/obj/projectile/beam/laser/shot
 	name = "laser shot beam"
 	icon_state = "lasershot"
 	damage = 15
 
-/obj/item/projectile/beam/practice
+/obj/projectile/beam/practice
 	name = "practice laser"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
 	nodamage = TRUE
 	log_override = TRUE
 
-/obj/item/projectile/beam/scatter
+/obj/projectile/beam/scatter
 	name = "laser pellet"
 	icon_state = "scatterlaser"
 	damage = 5
 
-/obj/item/projectile/beam/xray
+/obj/projectile/beam/xray
 	name = "x-ray beam"
 	icon_state = "xray"
 	damage = 10
@@ -62,7 +62,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 
-/obj/item/projectile/beam/disabler
+/obj/projectile/beam/disabler
 	name = "disabler beam"
 	icon_state = "omnilaser"
 	damage = 25
@@ -74,7 +74,28 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/item/projectile/beam/pulse
+/obj/projectile/beam/specter/laser
+	name = "specter laser beam"
+	icon_state = "laser"
+	damage = 25
+	damage_type = BURN
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_DARKRED
+
+/obj/projectile/beam/specter/disabler
+	name = "specter paralyzer beam"
+	icon_state = "omnilaser"
+	damage = 30
+	shockbull = TRUE
+	damage_type = STAMINA
+	flag = "energy"
+	hitsound = 'sound/weapons/plasma_cutter.ogg'
+	hitsound_wall = 'sound/weapons/sear.ogg'
+	eyeblur = 0
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_LIGHT_CYAN
+
+/obj/projectile/beam/pulse
 	name = "pulse"
 	icon_state = "u_laser"
 	damage = 50
@@ -84,12 +105,12 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/item/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/beam/pulse/on_hit(var/atom/target, var/blocked = 0)
 	if(istype(target, /turf) || isstructure(target) || ismachinery(target))
 		target.ex_act(2)
 	..()
 
-/obj/item/projectile/beam/pulse/on_hit(atom/target)
+/obj/projectile/beam/pulse/on_hit(atom/target)
 	. = ..()
 	if(gib_allowed && isliving(target))
 		var/mob/living/L = target
@@ -97,11 +118,11 @@
 			L.visible_message(span_danger("[L] has been terminated!"))
 			L.dust()
 
-/obj/item/projectile/beam/pulse/shot
+/obj/projectile/beam/pulse/shot
 	gib_allowed = FALSE
 	damage = 40
 
-/obj/item/projectile/beam/emitter
+/obj/projectile/beam/emitter
 	name = "emitter beam"
 	icon_state = "emitter"
 	damage = 30
@@ -109,10 +130,10 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
 	light_color = LIGHT_COLOR_GREEN
 
-/obj/item/projectile/beam/emitter/singularity_pull()
+/obj/projectile/beam/emitter/singularity_pull()
 	return //don't want the emitters to miss
 
-/obj/item/projectile/beam/lasertag
+/obj/projectile/beam/lasertag
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 	hitsound = 'sound/weapons/tap.ogg'
@@ -125,7 +146,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/item/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
+/obj/projectile/beam/lasertag/on_hit(atom/target, blocked = 0)
 	. = ..()
 	if(ishuman(target))
 		var/mob/living/carbon/human/M = target
@@ -134,22 +155,22 @@
 				M.apply_damage(34, STAMINA)
 	return 1
 
-/obj/item/projectile/beam/lasertag/omni
+/obj/projectile/beam/lasertag/omni
 	name = "laser tag beam"
 	icon_state = "omnilaser"
 
-/obj/item/projectile/beam/lasertag/redtag
+/obj/projectile/beam/lasertag/redtag
 	icon_state = "laser"
 	suit_types = list(/obj/item/clothing/suit/bluetag)
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/item/projectile/beam/lasertag/bluetag
+/obj/projectile/beam/lasertag/bluetag
 	icon_state = "bluelaser"
 	suit_types = list(/obj/item/clothing/suit/redtag)
 	light_color = LIGHT_COLOR_BLUE
 
-/obj/item/projectile/beam/sniper
+/obj/projectile/beam/sniper
 	name = "sniper beam"
 	icon_state = "sniperlaser"
 	//speed = 0.75
@@ -163,7 +184,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PINK
 
-/obj/item/projectile/beam/podsniper/disabler
+/obj/projectile/beam/podsniper/disabler
 	name = "sniper disabler beam"
 	icon_state = "LSR_disabler"
 	damage = 40
@@ -174,7 +195,7 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_CYAN
 
-/obj/item/projectile/beam/podsniper/laser
+/obj/projectile/beam/podsniper/laser
 	name = "sniper laser beam"
 	icon_state = "LSR_kill"
 	damage = 45
@@ -185,32 +206,32 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/item/projectile/beam/immolator
+/obj/projectile/beam/immolator
 	name = "immolation beam"
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
 
-/obj/item/projectile/beam/immolator/strong
+/obj/projectile/beam/immolator/strong
 	name = "heavy immolation beam"
 	damage = 45
 	icon_state = "heavylaser"
 
-/obj/item/projectile/beam/immolator/weak
+/obj/projectile/beam/immolator/weak
 	name = "light immolation beam"
 	damage = 8
 	icon_state = "scatterlaser"
 
-/obj/item/projectile/beam/immolator/mech
+/obj/projectile/beam/immolator/mech
 	name = "mecha immolation beam"
 	damage = 15
 
-/obj/item/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
+/obj/projectile/beam/immolator/on_hit(var/atom/target, var/blocked = 0)
 	. = ..()
 	if(iscarbon(target))
 		var/mob/living/carbon/M = target
 		M.adjust_fire_stacks(1)
 		M.IgniteMob()
 
-/obj/item/projectile/beam/instakill
+/obj/projectile/beam/instakill
 	name = "instagib laser"
 	icon_state = "purple_laser"
 	damage = 200
@@ -219,29 +240,29 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 	light_color = LIGHT_COLOR_PURPLE
 
-/obj/item/projectile/beam/instakill/blue
+/obj/projectile/beam/instakill/blue
 	icon_state = "blue_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_DARKBLUE
 
-/obj/item/projectile/beam/instakill/red
+/obj/projectile/beam/instakill/red
 	icon_state = "red_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
 	light_color = LIGHT_COLOR_DARKRED
 
-/obj/item/projectile/beam/instakill/on_hit(atom/target)
+/obj/projectile/beam/instakill/on_hit(atom/target)
 	. = ..()
 	if(isliving(target))
 		var/mob/living/L = target
 		L.visible_message("<span class='danger'>[L] explodes!</span>")
 		L.gib()
 
-/obj/item/projectile/beam/dominator/eliminator
+/obj/projectile/beam/dominator/eliminator
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	icon_state = "blue_laser"
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
-/obj/item/projectile/beam/dominator/slaughter
+/obj/projectile/beam/dominator/slaughter
 	name = "execution slaughter beam"
 	icon_state = "blue_laser"
 	damage = 50
@@ -252,7 +273,7 @@
 	hitsound = 'sound/weapons/resonator_blast.ogg'
 	hitsound_wall = 'sound/weapons/sear.ogg'
 
-/obj/item/projectile/beam/dominator/paralyzer
+/obj/projectile/beam/dominator/paralyzer
 	name = "paralyzer beam"
 	icon_state = "omnilaser"
 	damage = 25
@@ -265,3 +286,77 @@
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
 	light_color = LIGHT_COLOR_LIGHT_CYAN
 
+
+/obj/projectile/beam/anomaly
+	name = "луч стабилизатора аномалий"
+	ru_names = list(
+		NOMINATIVE = "луч стабилизатора аномалий", \
+		GENITIVE = "луча стабилизатора аномалий", \
+		DATIVE = "лучу стабилизатора аномалий", \
+		ACCUSATIVE = "луч стабилизатора аномалий", \
+		INSTRUMENTAL = "лучом стабилизатора аномалий", \
+		PREPOSITIONAL = "луче стабилизатора аномалий"
+	)
+	icon_state = "xray" // Looks mostly like "blue/red_laser" in green colour.
+	damage = 0
+	hitsound = 'sound/weapons/resonator_blast.ogg'
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/green_laser
+	light_color = LIGHT_COLOR_GREEN
+	/// The amount by which the stability of the anomaly changes upon impact.
+	var/stability_delta = 0
+	/// The distance the anomaly is pulled towards the shooter upon impact.
+	var/pull_strenght = 0
+	/// The amount of time that beam increase the blocking of the anomaly's normal movement.
+	var/move_block = 0
+	/// The amount of time that beam increase the blocking of the anomaly's impulsive movement.
+	var/move_impulces_block = 0
+	/// The amount by which the strength of the anomaly's effects is temporarily reduced.
+	var/anom_weaken = 0
+	/// The moment at which the reduction in the effects of the anomaly will be reset.
+	var/weaken_time = 0
+
+/obj/projectile/beam/anomaly/on_hit(atom/target, blocked, hit_zone)
+	if(!isanomaly(target))
+		return ..()
+
+	do_sparks(clamp(abs(stability_delta) * 2, 3, 10))
+	var/obj/effect/anomaly/anomaly = target
+	if(anomaly.tier != 4 || prob(50))
+		anomaly.stability = clamp(anomaly.stability + stability_delta, 0, 100)
+
+	anomaly.move_moment = max(world.time + move_block, anomaly.move_moment)
+	anomaly.move_impulse_moment = max(world.time + move_impulces_block, anomaly.move_impulse_moment)
+	if(anom_weaken)
+		anomaly.weaken = anom_weaken
+		anomaly.weaken_moment = world.time + weaken_time
+
+	INVOKE_ASYNC(anomaly, TYPE_PROC_REF(/obj/effect/anomaly, go_to), get_turf(firer_source_atom), pull_strenght)
+	return TRUE
+
+/obj/projectile/beam/anomaly/stabilizer
+	name = "стабилизирующий луч"
+	ru_names = list(
+		NOMINATIVE = "стабилизирующий луч", \
+		GENITIVE = "стабилизирующего луча", \
+		DATIVE = "стабилизирующему лучу", \
+		ACCUSATIVE = "стабилизирующий луч", \
+		INSTRUMENTAL = "стабилизирующим лучом", \
+		PREPOSITIONAL = "стабилизирующем луче"
+	)
+	icon_state = "bluelaser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/blue_laser
+	light_color = LIGHT_COLOR_BLUE
+
+/obj/projectile/beam/anomaly/destabilizer
+	name = "дестабилизирующий луч"
+	ru_names = list(
+		NOMINATIVE = "дестабилизирующий луч", \
+		GENITIVE = "дестабилизирующего луча", \
+		DATIVE = "дестабилизирующему лучу", \
+		ACCUSATIVE = "дестабилизирующий луч", \
+		INSTRUMENTAL = "дестабилизирующим лучом", \
+		PREPOSITIONAL = "дестабилизирующем луче"
+	)
+	icon_state = "laser"
+	impact_effect_type = /obj/effect/temp_visual/impact_effect/red_laser
+	light_color = LIGHT_COLOR_RED

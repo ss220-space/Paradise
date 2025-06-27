@@ -12,14 +12,14 @@
 	russian_wiki_name = "Предатель"
 	clown_gain_text = "Your training has allowed you to overcome your clownish nature, allowing you to wield weapons without harming yourself."
 	clown_removal_text = "You lose your syndicate training and return to your own clumsy, clownish self."
+	antag_menu_name = "Предатель"
 	/// Should the traitor get codewords?
 	var/give_codewords = TRUE
 	/// Whether the traitor should get his uplink.
 	var/give_uplink = TRUE
-	/// Whether the traitor can specialize into a contractor.
-	var/is_contractor = FALSE
 	/// Whether the traitor will receive only hijack objective.
 	var/is_hijacker = FALSE
+	var/datum/contractor_pending/contractor_pending
 	/// The associated traitor's uplink. Only present if `give_uplink` is set to `TRUE`.
 	var/obj/item/uplink/hidden/hidden_uplink = null
 
@@ -38,17 +38,17 @@
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_phrase_regex, "codephrases", src)
 	datum_owner.AddComponent(/datum/component/codeword_hearing, GLOB.syndicate_code_response_regex, "coderesponses", src)
 
-	datum_owner.AddComponent( \
-		/datum/component/pref_viewer, \
+	datum_owner.AddElement( \
+		/datum/element/pref_viewer, \
 		list(/datum/preference_info/take_out_of_the_round_without_obj), \
 	)
 
 /datum/antagonist/traitor/on_body_transfer(mob/living/old_body, mob/living/new_body)
 	. = ..()
-	qdel(old_body.GetComponent(/datum/component/pref_viewer))
+	old_body.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/traitor/handle_last_instance_removal()
-	qdel(owner.current.GetComponent(/datum/component/pref_viewer))
+	owner.current.RemoveElement(/datum/element/pref_viewer)
 
 /datum/antagonist/traitor/remove_innate_effects(mob/living/mob_override)
 	. = ..()
@@ -57,6 +57,7 @@
 		component.delete_if_from_source(src)
 
 /datum/antagonist/traitor/Destroy(force)
+	QDEL_NULL(contractor_pending)
 	// Remove contractor if present
 	var/datum/antagonist/contractor/contractor_datum = owner?.has_antag_datum(/datum/antagonist/contractor)
 	if(contractor_datum)
@@ -192,7 +193,7 @@
 	var/equipped_slot = mob.equip_in_one_of_slots(folder, slots, qdel_on_fail = TRUE)
 	if(equipped_slot)
 		where = "In your [equipped_slot]"
-	to_chat(mob, "<BR><BR><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><BR>")
+	to_chat(mob, "<br><br><span class='info'>[where] is a folder containing <b>secret documents</b> that another Syndicate group wants. We have set up a meeting with one of their agents on station to make an exchange. Exercise extreme caution as they cannot be trusted and may be hostile.</span><br>")
 	mob.update_icons()
 
 
@@ -211,9 +212,6 @@
 
 	owner.current.playsound_local(get_turf(owner.current), 'sound/ambience/antag/tatoralert.ogg', 100, FALSE, pressure_affected = FALSE, use_reverb = FALSE)
 
-	if(is_contractor)
-		addtimer(CALLBACK(owner, TYPE_PROC_REF(/datum/mind, add_antag_datum), /datum/antagonist/contractor), 1)
-
 	return messages
 
 /**
@@ -230,12 +228,21 @@
 	antag_memory += "<b>Code Response</b>: <span class='red'>[responses]</span><br>"
 
 	var/list/messages = list()
-	if(!silent)
-		messages.Add("<U><B>The Syndicate have provided you with the following codewords to identify fellow agents:</B></U>")
-		messages.Add("<span class='bold body'>Code Phrase: <span class='codephrases'>[phrases]</span></span>")
-		messages.Add("<span class='bold body'>Code Response: <span class='coderesponses'>[responses]</span></span>")
-		messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
-		messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+	if(silent)
+		return messages
+
+	messages.Add("<u><b>The Syndicate have provided you with the following codewords to identify fellow agents:</b></u>")
+	messages.Add("<b>Code Phrase:</b> <span class='codephrases'>[phrases]</span>")
+	messages.Add("<b>Code Response:</b> <span class='coderesponses'>[responses]</span>")
+	messages.Add("Use the codewords during regular conversation to identify other agents. Proceed with caution, however, as everyone is a potential foe.")
+	messages.Add("<b><font color=red>You memorize the codewords, allowing you to recognize them when heard.</font></b>")
+
+	if(!contractor_pending)
+		return messages
+
+	messages.Add("<br><hr color ='red'>")
+	var/list/contractor_messages = contractor_pending.greet()
+	messages.Add(contractor_messages)
 
 	return messages
 
@@ -280,10 +287,11 @@
 
 		var/obj/item/uplink/hidden/new_uplink = new(target_radio)
 		hidden_uplink = new_uplink
+		hidden_uplink.traitor = src
 		target_radio.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 		target_radio.traitor_frequency = freq
-		antag_memory += ("<B>Radio Freq:</B> [format_frequency(freq)] ([target_radio.name]).")
+		antag_memory += ("<b>Radio Freq:</b> [format_frequency(freq)] ([target_radio.name]).")
 		return TRUE
 
 	if(is_pda(uplink_holder))
@@ -291,12 +299,13 @@
 		var/obj/item/pda/target_pda = uplink_holder
 		var/obj/item/uplink/hidden/new_uplink = new(target_pda)
 		hidden_uplink = new_uplink
+		hidden_uplink.traitor = src
 		target_pda.hidden_uplink = new_uplink
 		new_uplink.uplink_owner = "[traitor_mob.key]"
 
 		target_pda.lock_code = "[rand(100,999)] [pick("Alpha","Bravo","Delta","Omega")]"
 
-		antag_memory += ("<B>Uplink Passcode:</B> [target_pda.lock_code] ([uplink_holder.name].")
+		antag_memory += ("<b>Uplink Passcode:</b> [target_pda.lock_code] ([uplink_holder.name].")
 		return TRUE
 
 	return FALSE

@@ -69,7 +69,7 @@
 		INTERNAL_ORGAN_BRAIN = /obj/item/organ/internal/brain/vox,
 		INTERNAL_ORGAN_APPENDIX = /obj/item/organ/internal/appendix,
 		INTERNAL_ORGAN_EYES = /obj/item/organ/internal/eyes/vox,	// Default darksight of 2.
-		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears,
+		INTERNAL_ORGAN_EARS = /obj/item/organ/internal/ears/vox,
 	)
 
 	meat_type = /obj/item/reagent_containers/food/snacks/meat/humanoid/vox

@@ -1,7 +1,16 @@
 /obj/item/stack/telecrystal
 	name = "telecrystal"
-	desc = "It seems to be pulsing with suspiciously enticing energies."
-	description_antag = "Telecrystals can be activated by utilizing them on devices with an actively running uplink. They will not activate on unactivated uplinks."
+	desc = "Кажется, что он переполнен загадочной и притягательной энергией."
+	ru_names = list(
+		NOMINATIVE = "телекристалл",
+		GENITIVE = "телекристалла",
+		DATIVE = "телекристаллу",
+		ACCUSATIVE = "телекристалл",
+		INSTRUMENTAL = "телекристаллом",
+		PREPOSITIONAL = "телекристалле"
+	)
+	gender = MALE
+	description_antag = "Телекристалл можно активировать, используя на устройствах с активным аплинком."
 	singular_name = "telecrystal"
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "telecrystal"
@@ -19,7 +28,7 @@
 		if(uplink_imp.imp_in != user)
 			continue
 		uplink_imp.hidden_uplink.uses += amount
-		to_chat(user, span_notice("You press [src] onto yourself and charge your hidden uplink."))
+		balloon_alert(user, "ТК активирован!")
 		qdel(src)
 		return ATTACK_CHAIN_BLOCKED_ALL
 
@@ -30,15 +39,15 @@
 	if(istype(I) && I.hidden_uplink && I.hidden_uplink.active) //No metagaming by using this on every PDA around just to see if it gets used up.
 		I.hidden_uplink.uses += amount
 		use(amount)
-		to_chat(user, "<span class='notice'>You slot [src] into [I] and charge its internal uplink.</span>")
+		balloon_alert(user, "ТК активирован!")
 	else if(istype(I, /obj/item/cartridge/frame))
 		var/obj/item/cartridge/frame/cart = I
 		if(!cart.charges)
-			to_chat(user, "<span class='notice'>[cart] is out of charges, it's refusing to accept [src]</span>")
+			balloon_alert(user, "заряды кончился!")
 			return
 		cart.telecrystals += amount
 		use(amount)
-		to_chat(user, "<span class='notice'>You slot [src] into [cart].  The next time it's used, it will also give telecrystals</span>")
+		balloon_alert(user, "ТК активирован!")
 
 /obj/item/stack/telecrystal/five
 	amount = 5

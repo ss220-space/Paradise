@@ -31,7 +31,7 @@
 	if(!ninjacost(cost))
 		playsound(src.loc, 'sound/effects/smoke.ogg', 50, TRUE, -3)
 		var/smoke_amount = lowcost ? 5 : 20
-		smoke_system.set_up(smoke_amount, 0, src)
+		smoke_system.set_up(amount = smoke_amount, location = src)
 		smoke_system.start()
 		ninja_action.use_action()
 

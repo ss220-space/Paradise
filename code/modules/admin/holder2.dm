@@ -140,3 +140,27 @@ you will have to do something like if(client.holder.rights & R_ADMIN) yourself.
 
 /datum/admins/can_vv_delete()
 	return FALSE // don't break shit either
+
+
+/**
+ * Requires the holder to have all the rights specified
+ *
+ * rights_required = R_ADMIN|R_EVENT means they must have both flags, or it will return false
+ */
+/proc/check_rights_all(rights_required, show_msg = TRUE, mob/user = usr)
+	if(!user?.client)
+		return FALSE
+	if(!rights_required)
+		if(user.client.holder)
+			return TRUE
+		if(show_msg)
+			to_chat(user, "<font color='red'>Ошибка: Вы не админ.</font>")
+		return FALSE
+
+	if(!user.client.holder)
+		return FALSE
+	if((user.client.holder.rights & rights_required) == rights_required)
+		return TRUE
+	if(show_msg)
+		to_chat(user, "<font color='red'>Ошибка: У вас недостаточно прав для этого. Вам необходимы следующие флаги:[rights2text(rights_required, " ")].</font>")
+	return FALSE

@@ -8,7 +8,7 @@ Uncontrollable Aggression
 
 /datum/symptom/aggression
 
-	name = "Uncontrollable Aggression"
+	name = "Неконтролируемая агрессия"
 	id = "aggression"
 	stealth = -4
 	resistance = 2
@@ -27,35 +27,21 @@ Uncontrollable Aggression
 		var/mob/living/possible_victim = GetLivingTarget(7, aggressor)
 		switch(A.stage)
 			if(2, 3)
-				to_chat(aggressor, span_alert(pick(\
-					"You can't control yourself",\
-					"It's been a while since you last time punched someone",\
-					"You feel anger and anxiety",\
-					"You admit that [possible_victim ? possible_victim : "that bastard"] have a punchable face"\
-				)))
+				to_chat(aggressor, span_alert(pick("Вы не можете себя контролировать.", "Прошло много времени с тех пор, как вы в последний раз кого-то ударили.", "Вы чувствуете злость и тревогу.", "Вы признаёте, что у [possible_victim ? possible_victim : "этого ублюдка"] лицо, которое хочется ударить.")))
 			if(4)
-				to_chat(aggressor, span_alert(pick(\
-					"You think about choking [possible_victim ? possible_victim : "someone"] and you [span_danger("LIKE IT!")]",\
-					"I fucking hate these people!",\
-					"You never heard the crack of someone\'s skull, let\'s fix that"\
-				)))
+				to_chat(aggressor, span_alert(pick("Вы думаете о том, чтобы задушить [possible_victim ? possible_victim : "кого-то"], и вам [span_danger("ЭТО НРАВИТСЯ!")].", "Я, бля, ненавижу этих людей!", "Вы никогда не слышали треск черепа... Давайте это исправим!")))
 			if(5)
 				switch(rand(1, 2))
 					if(1)
-						to_chat(aggressor, span_danger(pick(\
-							"HAHAHAHA I LOVE THEIR SQUEEK WHEN THEY GET HURT!!",\
-							"NNGHHH FUCK!!",\
-							"VIOLENCE VIOLENCE VIOLENCE VIOLENCE VIOLENCE!!",\
-							"FUCKING FUCK SHIT AND FUCKHEADS BULLSHIT WHORES 'N BITCHES!!"\
-						)))
+						to_chat(aggressor, span_danger(pick("ХАХАХАХА, Я ОБОЖАЮ ИХ ВИЗГ, КОГДА ИМ БОЛЬНО!!", "ННГХХХ, БЛЯТЬ!!", "НАСИЛИЕ НАСИЛИЕ НАСИЛИЕ НАСИЛИЕ НАСИЛИЕ!!", "ЁБАНЫЙ БЛЯТЬ, ТВОЮ МАТЬ, ДЕРЬМО И УЁБКИ, ШЛЮХИ И СУКИ!!")))
 					if(2)
 						aggressor.say(pick("ААААААААААА!!!!", "ГРРР!!!", "СУКА!! БЛЯТЬ!!!", "ЁБАНЫЕ ГОВНЮКИ!!", "ВАААААААГХХ!!"))
 
 	if(A.stage >= 5 && prob(50))
 		if(aggressor.incapacitated() || HAS_TRAIT(aggressor, TRAIT_HANDS_BLOCKED))
-			aggressor.visible_message(span_danger("[aggressor] spasms and twitches!"))
+			aggressor.visible_message(span_danger("[aggressor] дёрга[pluralize_ru(aggressor.gender,"ется","ются")] и корчится!"))
 			return
-		aggressor.visible_message(span_danger("[aggressor] thrashes around violently!"))
+		aggressor.visible_message(span_danger("[aggressor] яростно бь[pluralize_ru(aggressor.gender,"ётся","ются")] вокруг!"))
 
 		var/obj/item/attacking_item = aggressor.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)
 		if(!attacking_item)
@@ -107,7 +93,7 @@ Uncontrollable Actions
 
 /datum/symptom/obsession
 
-	name = "Uncontrollable Actions"
+	name = "Неконтролируемые действия"
 	id = "obsession"
 	stealth = -4
 	resistance = 1
@@ -125,22 +111,14 @@ Uncontrollable Actions
 	if(prob(SYMPTOM_ACTIVATION_PROB * 5))
 		switch(A.stage)
 			if(2, 3)
-				to_chat(possesed, span_alert(pick("You can't control yourself",\
-					"You notice your actions differ from your thoughts",\
-					"Why did I do that?",\
-					"What just happened?"\
-				)))
+				to_chat(possesed, span_alert(pick("Вы не можете себя контролировать.", "Вы замечаете, что ваши действия не совпадают с мыслями.", "Зачем я это сделал?", "Что только что произошло?")))
 			if(4, 5)
-				possesed.emote(pick("twitch_s", "twitch", "drool","blink_r"))
-				to_chat(possesed, span_alert(pick("Everything falls out of hand",\
-					"It's almost like something is controlling your body",\
-					"You feel an urge to do something",\
-					"You can't control yourself!"\
-				)))
+				possesed.emote(pick("twitch_s", "twitch", "drool", "blink_r"))
+				to_chat(possesed, span_alert(pick("Всё выходит из-под контроля.", "Как будто что-то управляет вашим телом.", "Вы чувствуете непреодолимое желание что-то сделать.", "Вы не можете себя контролировать!")))
 
 	if(A.stage >= 5 && prob(30))
 		if(possesed.incapacitated())
-			possesed.visible_message(span_danger("[possesed] twitches!"))
+			possesed.visible_message(span_danger("[possesed] дёргается!"))
 			return
 
 		var/obj/item/item = possesed.get_item_by_slot(ITEM_SLOT_HAND_RIGHT)

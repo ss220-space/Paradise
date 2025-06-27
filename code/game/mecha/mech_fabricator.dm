@@ -155,7 +155,7 @@
   * Attempts to build the first item in the queue.
   */
 /obj/machinery/mecha_part_fabricator/proc/process_queue()
-	if(!processing_queue || being_built || !length(build_queue))
+	if(!processing_queue || being_built || !length(build_queue) || !is_operational())
 		return
 	var/datum/design/D = build_queue[1]
 	if(build_design(D))
@@ -196,7 +196,7 @@
 	return TRUE
 
 /obj/machinery/mecha_part_fabricator/proc/log_printing_design(datum/design/D)
-	for(var/obj/machinery/r_n_d/server/S in GLOB.machines)
+	for(var/obj/machinery/r_n_d/server/S in SSmachines.get_by_type(/obj/machinery/r_n_d/server))
 		if(S.disabled)
 			continue
 		if(S.syndicate)

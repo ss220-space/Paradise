@@ -11,16 +11,16 @@
  * For the last chance to survive.
  */
 /datum/reagent/medicine/chiyurizine
-	name = "Chiyurizine"
+	name = "Чиюризин"
 	id = "chiyurizine"
-	description = "A powerfull yet experimental compound that recovers any damage by revinding it's tissues in time. But it can cause rapid aging... if it's used too much."
+	description = "Мощный экспериментальный состав, способный стремительно восстановить ткани после широкого спектра повреждений. Частое использование приводит к быстрому старению. Очень быстрому."
 	reagent_state = LIQUID
 	color = "#55ff63"
 	can_synth = FALSE
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
 	harmless = FALSE
 	overdose_threshold = 30
-	taste_description = "time"
+	taste_description = "неумолимого течения времени"
 	var/turf/last_random_turf //For overdose teleports
 	var/can_work = FALSE //Can metabolise only if it was added in a dose equal to overdose_threshold-5 or more
 	var/obj/effect/temp_visual/ninja_rend/rend = null//Unharmfull trap for playing with time
@@ -44,7 +44,7 @@
 	switch(current_cycle)
 		if(1 to 20)
 			if(prob(10))
-				to_chat(our_mob, span_notice("You feel like what's been lost in time comes back to you!"))
+				to_chat(our_mob, span_notice("Вы чувствуете, будто бы время оборачивается вспять!"))
 				our_mob.emote("giggle")
 			// Anti-Drunk
 			our_mob.SetSlur(0)
@@ -70,11 +70,11 @@
 			if(ishuman(our_mob))
 				var/mob/living/carbon/human/mob_human = our_mob
 				if(prob(10))
-					to_chat(mob_human, span_notice("You feel a powerfull gush inside self, when your body slowly heals..."))
+					to_chat(mob_human, span_notice("Вы чувствуете мощный прилив сил, а ваше тело начинает стремительно исцеляться."))
 					mob_human.Jitter(40 SECONDS)
 				// Regrow limbs
 				if(current_cycle == 30)
-					to_chat(mob_human, span_notice("Your body refreshes..."))
+					to_chat(mob_human, span_notice("Ваше тело восстанавливается..."))
 					mob_human.check_and_regenerate_organs()
 				// Embedded objects
 				mob_human.remove_all_embedded_objects()
@@ -111,11 +111,11 @@
 				var/mob/living/carbon/human/mob_human = our_mob
 				if(mob_human.age > 20 && prob(50))
 					if(!overdosed)
-						to_chat(mob_human, span_notice("You feel yourself becoming younger!"))
+						to_chat(mob_human, span_notice("Вы чувствуете себя моложе чем были!"))
 						mob_human.age--
 					if(prob(1))	// A very little chance to start the healing process again.
 						current_cycle = 1
-						to_chat(mob_human, span_notice("You get the feeling that the reagent inside you rewinds... itself?"))
+						to_chat(mob_human, span_notice("У вас возникает ощущение, что вещество внутри вас обновляет... себя?"))
 	return ..() | update_flags
 
 /datum/reagent/medicine/chiyurizine/overdose_process(mob/living/our_mob, severity)
@@ -125,31 +125,31 @@
 		if(mob_human.age >= 100)//Critical age. You either die, or get a last chance to live.
 			mob_human.adjustOxyLoss(10, FALSE)
 			var/fate = roll("1d6")
-			to_chat(mob_human, span_boldwarning("You feel like you are throwing six sided dice with death itself!"))
+			to_chat(mob_human, span_boldwarning("Вам кажется, что вы играете в кости с самой смертью!"))
 			switch(fate)
 				if(1)
 					mob_human.age = 99
 					mob_human.adjustOxyLoss(500, FALSE)
 					volume = 0.2
-					to_chat(mob_human, span_boldwarning("Natural one! You are suffocating..."))
+					to_chat(mob_human, span_boldwarning("Две единицы! Вам становится трудно дышать..."))
 				if(2 to 4)
-					to_chat(mob_human, span_boldwarning("Uncertain fate... Reroll..."))
+					to_chat(mob_human, span_boldwarning("Ваша судьба не определена... Ещё бросок..."))
 				if(6)
 					mob_human.age = 90
 					current_cycle = 1
 					volume = 5
-					to_chat(mob_human, span_boldwarning("Natural six! You got a chance to live..."))
+					to_chat(mob_human, span_boldwarning("Две шестёрки! Похоже, в этот раз смерть обошла вас стороной."))
 		if(mob_human.age >= 50)
 			mob_human.change_hair_color(colour = "#ffffff")
 			mob_human.change_hair_gradient(color = "#808080")
 		if(prob(clamp(100-mob_human.age, 10, 100)))
-			to_chat(our_mob, span_warning("You age rapidly!"))
+			to_chat(our_mob, span_warning("Вы стремительно стареете!"))
 			mob_human.age = mob_human.age + pick(1,2,3)
 		if(prob(50))
 			if(prob(25))
-				var/phrase = pick("Your back pain is killing you!",	"You feel sooo tired...",
-					"Existence is pain!",	"You are slowly dying...",
-					"Fuck...",	"Your fingers are so thin...")
+				var/phrase = pick("Боль в спине убивает вас!", "Вы так устали...",
+					"Существование - это боль!", "Вы медленно умираешь...",
+					"Чёрт...", "У вас такие тонкие пальцы...")
 				to_chat(our_mob, span_warning(phrase))
 			mob_human.emote("moan")
 			mob_human.adjustBruteLoss(0.5, FALSE)
@@ -158,7 +158,7 @@
 			mob_human.Confused(20 SECONDS)
 			mob_human.EyeBlurry(4 SECONDS)
 		if(prob(10) && last_random_turf && istype(mob_human.loc, /turf) && !rend)
-			mob_human.visible_message(span_info("[mob_human] vanished!"), span_warning("You phased somewhere familiar..."))
+			mob_human.visible_message(span_info("[mob_human] vanished!"), span_warning("Вы переместились в знакомое место..."))
 			new /obj/effect/temp_visual/gravpush(get_turf(mob_human))
 			playsound(get_turf(mob_human), 'sound/magic/timeparadox2.ogg', 100, 1, -1)
 			mob_human.forceMove(last_random_turf)

@@ -199,16 +199,24 @@
 /obj/item/slimepotion/sentience/afterattack(mob/living/M, mob/user, proximity_flag, params)
 	if(!proximity_flag || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return
+
 	if(being_used || !ismob(M))
 		return
+
 	if(!isanimal(M) && !is_monkeybasic(M))
-		to_chat(user, "<span class='warning'>[M] is not animal nor lesser life form!</span>")
+		to_chat(user, span_warning("[M] is not animal nor lesser life form!"))
 		return ..()
+
 	if(istype(M, /mob/living/simple_animal/hostile/poison/giant_spider/nurse))
-		to_chat(user, "<span class='warning'>unknown power prevents you from using sentience potion on [M]</span>")
+		to_chat(user, span_warning("unknown power prevents you from using sentience potion on [M])"))
 		return ..()
+
+	if(istype(M, /mob/living/simple_animal/hostile/airmob))
+		to_chat(user, span_warning("[M.declent_ru(NOMINATIVE)] не является формой жизни и не может обрести разум."))
+		return ..()
+
 	if(M.stat)
-		to_chat(user, "<span class='warning'>[M] is dead!</span>")
+		to_chat(user, span_warning("[M] is dead!"))
 		return ..()
 
 	if(M.ckey && isanimal(M)) //giving sentience to simple mobs under player control
@@ -232,6 +240,7 @@
 			if(!src)
 				return
 
+			SM.mind.madeby_sentience_potion = TRUE
 			SM.universal_speak = TRUE
 			SM.faction = user.faction
 			SM.master_commander = user
@@ -254,7 +263,7 @@
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name_log(user)]", SM)
 			return
 
@@ -304,7 +313,7 @@
 					var/mob/living/simple_animal/slime/SM_slime = SM
 					SM_slime.is_renamed = TRUE
 
-			SM.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+			SM.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", SM)
 		else
 			to_chat(user, "<span class='notice'>[M] looks interested for a moment, but then looks back down. Maybe you should try again later.</span>")
@@ -350,7 +359,7 @@
 				LF.real_name = new_name
 				LF.name = new_name
 
-			LF.mind.store_memory("<B>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</B>")
+			LF.mind.store_memory("<b>Мой хозяин [user.name], выполню [genderize_ru(user.gender, "его", "её", "этого", "их")] цели любой ценой!</b>")
 			add_game_logs("стал питомцем игрока [key_name(user)]", LF)
 		else
 			to_chat(user, "<span class='notice'>[M] выглядел заинтересованым и даже потянулся к зелью, но его резко что-то отвлекло. Стоит попробовать снова попозже.</span>")
@@ -526,7 +535,7 @@
 		return
 	if(isitem(O))
 		var/obj/item/I = O
-		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN))
+		if(I.slowdown <= 0 || (I.item_flags & IGNORE_SLOWDOWN) || (I.item_flags & SPEEDPOTION_APPLIED))
 			to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 			return ..()
 		if(isclothing(O))
@@ -534,7 +543,8 @@
 			if(cloth.clothing_flags & FIXED_SLOWDOWN)
 				to_chat(user, "<span class='warning'>[I] can't be made any faster!</span>")
 				return
-		I.item_flags |= IGNORE_SLOWDOWN
+		I.slowdown /= 2
+		I.item_flags |= SPEEDPOTION_APPLIED
 		I.update_equipped_item()
 
 	if(isvehicle(O)) //simple solution
@@ -657,7 +667,7 @@
 /obj/item/slimepotion/clothing/fireproof/cancel_effect(obj/item/clothing/C)
 	C.max_heat_protection_temperature = initial(C.max_heat_protection_temperature)
 	C.heat_protection = initial(C.heat_protection)
-	C.resistance_flags = initial(C.resistance_flags)
+	C.resistance_flags &= ~FIRE_PROOF
 
 /obj/item/slimepotion/clothing/acidproof
 	name = "slime acidproof potion"
@@ -675,6 +685,14 @@
 
 /obj/item/slimepotion/clothing/acidproof/can_apply(obj/item/clothing/C)
 	return C.armor.acid < 100
+
+/obj/item/slimepotion/clothing/acidproof/apply_effect(obj/item/clothing/C)
+	. = ..()
+	C.resistance_flags |= ACID_PROOF
+
+/obj/item/slimepotion/clothing/acidproof/cancel_effect(obj/item/clothing/C)
+	. = ..()
+	C.resistance_flags &= ~ACID_PROOF
 
 /obj/item/slimepotion/clothing/laserresistance
 	name = "laser resistance slime potion"
@@ -767,23 +785,6 @@
 /obj/item/slimepotion/clothing/teleportation/cancel_effect(obj/item/clothing/C)
 	C.teleportation = initial(C.teleportation)
 
-/obj/item/slimepotion/clothing/damage
-	name = "Physical damage resistance slime potion"
-	id = "Damage Resistance"
-	armor = list("melee" = 5, "bullet" = 5, "laser" = 0,"energy" = 0, "bomb" = 0, "bio" = 0, "rad" = 0, "fire" = 0, "acid" = 0)
-	desc = "A potent chemical mix that will increase impact and gunshot resistance of any article of clothing."
-	icon = 'icons/obj/chemical.dmi'
-	icon_state = "bottle10"
-	origin_tech = "biotech=5"
-
-	inapplicable_caption = "damage proof"
-	applied_caption = "damageproof"
-	applied_color = "#00d9ffff"
-	color_name = "blue"
-
-/obj/item/slimepotion/clothing/damage/can_apply(obj/item/clothing/C)
-	return C.armor.melee < 100 || C.armor.bullet < 100
-
 /obj/effect/timestop
 	anchored = TRUE
 	name = "chronofield"
@@ -823,10 +824,10 @@
 				if(istype(M, /mob/living/simple_animal/hostile))
 					var/mob/living/simple_animal/hostile/H = M
 					H.AIStatus = AI_OFF
-					H.LoseTarget()
+					H.lose_target()
 				stopped_atoms |= M
 			else if(isprojectile(A))
-				var/obj/item/projectile/P = A
+				var/obj/projectile/P = A
 				P.paused = TRUE
 				stopped_atoms |= P
 
@@ -840,7 +841,7 @@
 	for(var/mob/living/M in stopped_atoms)
 		unfreeze_mob(M)
 
-	for(var/obj/item/projectile/P in stopped_atoms)
+	for(var/obj/projectile/P in stopped_atoms)
 		P.paused = FALSE
 	qdel(src)
 	return

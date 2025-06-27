@@ -14,6 +14,7 @@
 	var/list/datum/reagent/addiction_list = new/list()
 	var/list/addiction_threshold_accumulated = new/list()
 	var/flags
+	var/locked = FALSE
 
 /datum/reagents/New(maximum = 100, temperature_minimum, temperature_maximum)
 	maximum_volume = maximum
@@ -317,7 +318,7 @@
 					if(5)
 						update_flags |= R.addiction_act_stage5(M)
 			if(prob(20) && (world.timeofday > (R.last_addiction_dose + addiction_time))) //Each addiction lasts 8 minutes before it can end
-				to_chat(M, "<span class='notice'>You no longer feel reliant on [R.name]!</span>")
+				to_chat(M, span_notice("You no longer feel reliant on [R.name]!"))
 				addiction_list.Remove(R)
 				qdel(R)
 
@@ -461,14 +462,14 @@
 					var/list/seen = viewers(4, get_turf(my_atom))
 					for(var/mob/living/M in seen)
 						if(C.mix_message)
-							to_chat(M, "<span class='notice'>[bicon(my_atom)] [C.mix_message]</span>")
+							to_chat(M, span_notice("[bicon(my_atom)] [C.mix_message]"))
 
 					if(istype(my_atom, /obj/item/slime_extract))
 						var/obj/item/slime_extract/ME2 = my_atom
 						ME2.Uses--
 						if(ME2.Uses <= 0) // give the notification that the slime core is dead
 							for(var/mob/living/M in seen)
-								to_chat(M, "<span class='notice'>[bicon(my_atom)] The [my_atom]'s power is consumed in the reaction.</span>")
+								to_chat(M, span_notice("[bicon(my_atom)] The [my_atom]'s power is consumed in the reaction."))
 								ME2.name = "used slime extract"
 								ME2.desc = "This extract has been used up."
 
@@ -570,7 +571,7 @@
 					var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 					if(H.reagent_safety_check())
 						if(mult > 0)
-							to_chat(H, "<span class='danger'>You are scalded by the hot chemicals!</span>")
+							to_chat(H, span_danger("You are scalded by the hot chemicals!"))
 							H.apply_damage(round(log(chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 500))
@@ -578,7 +579,7 @@
 					var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 					if(H.reagent_safety_check(FALSE))
 						if(mult > 0)
-							to_chat(H, "<span class='danger'>You are frostbitten by the freezing cold chemicals!</span>")
+							to_chat(H, span_danger("You are frostbitten by the freezing cold chemicals!"))
 							H.apply_damage(round(log(T0C - chem_temp / 50) * 10), BURN, def_zone = affecting)
 							INVOKE_ASYNC(H, TYPE_PROC_REF(/mob, emote), "scream")
 						H.adjust_bodytemperature(- min(max(T0C - chem_temp - 20, 5), 500))
@@ -587,13 +588,13 @@
 			if(chem_temp > H.dna.species.heat_level_1)
 				var/mult = H.dna.species.heatmod * H.physiology.heat_mod
 				if(mult > 0)
-					to_chat(H, "<span class='danger'>You scald yourself trying to consume the boiling hot substance!</span>")
+					to_chat(H, span_danger("You scald yourself trying to consume the boiling hot substance!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(min(max((chem_temp - T0C) - 20, 5), 700))
 			else if(chem_temp < H.dna.species.cold_level_1)
 				var/mult = H.dna.species.coldmod * H.physiology.cold_mod
 				if(mult > 0)
-					to_chat(H, "<span class='danger'>You frostburn yourself trying to consume the freezing cold substance!</span>")
+					to_chat(H, span_danger("You frostburn yourself trying to consume the freezing cold substance!"))
 					H.adjustFireLoss(7)
 				H.adjust_bodytemperature(- min(max((T0C - chem_temp) - 20, 5), 700))
 
@@ -866,7 +867,7 @@
 	var/list/out = list()
 	var/list/reagent_tastes = list() //in the form reagent_tastes["descriptor"] = strength
 	//mobs should get this message when either they cannot taste, the tastes are all too weak for them to detect, or the tastes somehow don't have any strength
-	var/no_taste_text = "something indescribable"
+	var/no_taste_text = "вкус чего-то неописуемого"
 	if(minimum_percent > 100)
 		return no_taste_text
 	for(var/datum/reagent/R in reagent_list)
@@ -884,18 +885,18 @@
 		var/percent = (reagent_tastes[taste_desc] / total_taste) * 100
 		if(percent < minimum_percent) //the lower the minimum percent, the more sensitive the message is
 			continue
-		var/intensity_desc = "a hint of"
+		var/intensity_desc = "едва заметный привкус"
 		if(percent > minimum_percent * 3 && percent != 100)
-			intensity_desc = "a strong flavor of"
+			intensity_desc = "привкус"
 		else if(percent > minimum_percent * 2 || percent == 100)
 			intensity_desc = ""
 
 		if(intensity_desc != "")
 			out += "[intensity_desc] [taste_desc]"
 		else
-			out += "[taste_desc]"
+			out += "вкус [taste_desc]"
 
-	return english_list(out, no_taste_text)
+	return russian_list(out, no_taste_text)
 
 ///////////////////////////////////////////////////////////////////////////////////
 

@@ -58,15 +58,6 @@
 			index = findtext(t, char)
 	return t
 
-/proc/readd_quotes(var/t)
-	var/list/repl_chars = list("&#34;" = "\"")
-	for(var/char in repl_chars)
-		var/index = findtext(t, char)
-		while(index)
-			t = copytext(t, 1, index) + repl_chars[char] + copytext(t, index+5)
-			index = findtext(t, char)
-	return t
-
 //Runs byond's sanitization proc along-side sanitize_simple
 /proc/sanitize(var/t,var/list/repl_chars = null)
 	return sanitize_censored_patterns(html_encode(sanitize_simple(t,repl_chars)))
@@ -311,8 +302,8 @@
 /proc/trim(text, max_length)
 	if(max_length)
 		text = copytext_char(text, 1, max_length)
-		
-	return trimtext(text) || "" 
+
+	return trimtext(text) || ""
 
 /// Returns a string that does not exceed max_length characters in size
 /proc/trim_length(text, max_length)
@@ -492,27 +483,30 @@
 
 // Pencode
 /proc/pencode_to_html(text, mob/user, obj/item/pen/P = null, format = 1, sign = 1, fields = 1, deffont = PEN_FONT, signfont = SIGNFONT, crayonfont = CRAYON_FONT, no_font = FALSE)
-	text = replacetext(text, "\[b\]",		"<B>")
-	text = replacetext(text, "\[/b\]",		"</B>")
-	text = replacetext(text, "\[i\]",		"<I>")
-	text = replacetext(text, "\[/i\]",		"</I>")
-	text = replacetext(text, "\[u\]",		"<U>")
-	text = replacetext(text, "\[/u\]",		"</U>")
+	text = replacetext(text, "\[b\]",		"<b>")
+	text = replacetext(text, "\[/b\]",		"</b>")
+	text = replacetext(text, "\[i\]",		"<i>")
+	text = replacetext(text, "\[/i\]",		"</i>")
+	text = replacetext(text, "\[u\]",		"<u>")
+	text = replacetext(text, "\[/u\]",		"</u>")
+	if(check_rights(R_EVENT))
+		text = replacetext(text, "\[signfont\]",		"<font face=\"[signfont]\"><i>")
+		text = replacetext(text, "\[/signfont\]",		"</i></font>")
 	if(sign)
 		text = replacetext(text, "\[sign\]",	"<font face=\"[signfont]\"><i>[user ? user.real_name : "Anonymous"]</i></font>")
 	if(fields)
 		text = replacetext(text, "\[field\]",	"<span class=\"paper_field\"></span>")
 	if(format)
-		text = replacetext(text, "\[h1\]",	"<H1>")
-		text = replacetext(text, "\[/h1\]",	"</H1>")
-		text = replacetext(text, "\[h2\]",	"<H2>")
-		text = replacetext(text, "\[/h2\]",	"</H2>")
-		text = replacetext(text, "\[h3\]",	"<H3>")
-		text = replacetext(text, "\[/h3\]",	"</H3>")
-		text = replacetext(text, "\n",			"<BR>")
+		text = replacetext(text, "\[h1\]",	"<h1>")
+		text = replacetext(text, "\[/h1\]",	"</h1>")
+		text = replacetext(text, "\[h2\]",	"<h2>")
+		text = replacetext(text, "\[/h2\]",	"</h2>")
+		text = replacetext(text, "\[h3\]",	"<h3>")
+		text = replacetext(text, "\[/h3\]",	"</h3>")
+		text = replacetext(text, "\n",			"<br>")
 		text = replacetext(text, "\[center\]",	"<center>")
 		text = replacetext(text, "\[/center\]",	"</center>")
-		text = replacetext(text, "\[br\]",		"<BR>")
+		text = replacetext(text, "\[br\]",		"<br>")
 		text = replacetext(text, "\[large\]",	"<font size=\"4\">")
 		text = replacetext(text, "\[/large\]",	"</font>")
 
@@ -536,7 +530,7 @@
 		text = "<font face=\"[crayonfont]\" color=[P ? P.colour : "black"]><b>[text]</b></font>"
 	else 	// They are using "not a crayon" - formatting is OK and such
 		text = replacetext(text, "\[*\]",		"<li>")
-		text = replacetext(text, "\[hr\]",		"<HR>")
+		text = replacetext(text, "\[hr\]",		"<hr>")
 		text = replacetext(text, "\[small\]",	"<font size = \"1\">")
 		text = replacetext(text, "\[/small\]",	"</font>")
 		text = replacetext(text, "\[list\]",	"<ul>")
@@ -560,7 +554,7 @@
 			if(P)
 				text = "<font face=\"[P.fake_signing ? signfont : deffont]\" color=[P ? P.colour : "black"]>[text]</font>"
 				if(P.fake_signing) //or this, or one string in Kmetres
-					text = "<I>[text]</I>"
+					text = "<i>[text]</i>"
 			else
 				text = "<font face=\"[deffont]\">[text]</font>"
 
@@ -606,28 +600,28 @@
 	return text
 
 /proc/html_to_pencode(text)
-	text = replacetext(text, "<BR>",								"\n")
+	text = replacetext(text, "<br>",								"\n")
 	text = replacetext(text, "<center>",							"\[center\]")
 	text = replacetext(text, "</center>",							"\[/center\]")
-	text = replacetext(text, "<BR>",								"\[br\]")
-	text = replacetext(text, "<B>",									"\[b\]")
-	text = replacetext(text, "</B>",								"\[/b\]")
-	text = replacetext(text, "<I>",									"\[i\]")
-	text = replacetext(text, "</I>",								"\[/i\]")
-	text = replacetext(text, "<U>",									"\[u\]")
-	text = replacetext(text, "</U>",								"\[/u\]")
+	text = replacetext(text, "<br>",								"\[br\]")
+	text = replacetext(text, "<b>",									"\[b\]")
+	text = replacetext(text, "</b>",								"\[/b\]")
+	text = replacetext(text, "<i>",									"\[i\]")
+	text = replacetext(text, "</i>",								"\[/i\]")
+	text = replacetext(text, "<u>",									"\[u\]")
+	text = replacetext(text, "</u>",								"\[/u\]")
 	text = replacetext(text, "<font size=\"4\">",					"\[large\]")
 	text = replacetext(text, "<span class=\"paper_field\"></span>",	"\[field\]")
 
-	text = replacetext(text, "<H1>",	"\[h1\]")
-	text = replacetext(text, "</H1>",	"\[/h1\]")
-	text = replacetext(text, "<H2>",	"\[h2\]")
-	text = replacetext(text, "</H2>",	"\[/h2\]")
-	text = replacetext(text, "<H3>",	"\[h3\]")
-	text = replacetext(text, "</H3>",	"\[/h3\]")
+	text = replacetext(text, "<h1>",	"\[h1\]")
+	text = replacetext(text, "</h1>",	"\[/h1\]")
+	text = replacetext(text, "<h2>",	"\[h2\]")
+	text = replacetext(text, "</h2>",	"\[/h2\]")
+	text = replacetext(text, "<h3>",	"\[h3\]")
+	text = replacetext(text, "</h3>",	"\[/h3\]")
 
 	text = replacetext(text, "<li>",					"\[*\]")
-	text = replacetext(text, "<HR>",					"\[hr\]")
+	text = replacetext(text, "<hr>",					"\[hr\]")
 	text = replacetext(text, "<font size = \"1\">",		"\[small\]")
 	text = replacetext(text, "<ul>",					"\[list\]")
 	text = replacetext(text, "</ul>",					"\[/list\]")

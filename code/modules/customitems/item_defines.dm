@@ -111,7 +111,7 @@
 
 /obj/item/fluff/tattoo_gun/elliot_cybernetic_tat/attack_self(mob/user as mob)
 	if(!used)
-		var/ink_color = tgui_input_color("Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
+		var/ink_color = tgui_input_color(usr, "Please select an ink color.", "Tattoo Ink Color", rgb(tattoo_r, tattoo_g, tattoo_b))
 		if(!isnull(ink_color) && !(user.incapacitated() || used) )
 			tattoo_r = color2R(ink_color)
 			tattoo_g = color2G(ink_color)
@@ -161,7 +161,7 @@
 	slot_flags = ITEM_SLOT_BELT
 	throwforce = 5
 	w_class = WEIGHT_CLASS_NORMAL
-	attack_verb = list("attacked", "slashed", "stabbed", "sliced")
+	attack_verb = list("атаковал", "полоснул", "уколол")
 	hitsound = 'sound/weapons/bladeslice.ogg'
 
 /obj/item/fluff/rsik_katana/suicide_act(mob/user)
@@ -197,14 +197,22 @@
 
 /obj/item/fluff/rapid_wheelchair_kit //Rapidvalj: Hakikarahiti
 	name = "wheelchair conversion kit"
-	desc = "An assorted set of exchangable parts for a wheelchair."
+	desc = "Набор деталей для инвалидной коляски."
+	ru_names = list(
+		NOMINATIVE = "комплект модификаций для инвалидной коляски",
+		GENITIVE = "комплекта модификаций для инвалидной коляски",
+		DATIVE = "комплекту модификаций для инвалидной коляски",
+		ACCUSATIVE = "комплект модификаций для инвалидной коляски",
+		INSTRUMENTAL = "комплектом модификаций для инвалидной коляски",
+		PREPOSITIONAL = "комплекте модификаций для инвалидной коляски"
+	)
 	icon_state = "modkit"
 	var/new_icon_state = "vox_wheelchair"
 	var/new_overlay = "vox_wheelchair_overlay"
 	var/new_name = "vox wheelchair"
-	var/new_desc = "A luxurious Vox Wheelchair, weathered from use."
+	var/new_desc = "Роскошная инвалидная коляска, когда-то принадлежавшая воксу."
 
-/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/structure/chair/wheelchair/target, mob/user, proximity, params)
+/obj/item/fluff/rapid_wheelchair_kit/afterattack(obj/vehicle/ridden/wheelchair/target, mob/user, proximity, params)
 	if(!proximity || !ishuman(user) || user.incapacitated())
 		return
 
@@ -212,7 +220,7 @@
 		target.on_skin_apply(src, user)
 		return
 
-	to_chat(user, span_warning("You cannot modify [target]!"))
+	to_chat(user, span_warning("Вы не можете модифицировать [target.declent_ru(ACCUSATIVE)]!"))
 
 
 /obj/item/lighter/zippo/fluff/purple // GodOfOreos: Jason Conrad
@@ -288,7 +296,7 @@
 	desc = "A blue comb, it looks like it was made to groom a Tajaran's fur."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "wingler_comb"
-	attack_verb = list("combed")
+	attack_verb = list("причесал")
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
@@ -864,8 +872,8 @@
 	body_parts_covered = UPPER_TORSO|ARMS
 
 /obj/item/clothing/suit/fluff/kluys/verb/toggle()
-	set name = "Toggle Nanofibre Mode"
-	set category = "Object"
+	set name = "Режим наноткани"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1026,7 +1034,7 @@
 	desc = "A bottle containing extra..material..for custom 'hair' styling."
 	icon = 'icons/obj/custom_items.dmi'
 	icon_state = "ps_hairgel"
-	attack_verb = list("smacked")
+	attack_verb = list("шлёпнул")
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0
@@ -1159,8 +1167,8 @@
 
 
 /obj/item/clothing/under/fluff/jane_sidsuit/verb/toggle_zipper()
-	set name = "Toggle Jumpsuit Zipper"
-	set category = "Object"
+	set name = "Молния костюма"
+	set category = STATPANEL_OBJECT
 	set src in usr
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -1260,7 +1268,7 @@
 	name = "orange fox plushie"
 	desc = "A cute, soft, fuzzy, fluffy, and cuddly plushie. This has a small tag on it that is signed 'Fox McCloud'."
 	icon_state = "orangefox"
-	attack_verb = list("poofed", "cuddled","fluffed")
+	attack_verb = list("тыкнул")
 	actions_types = list(/datum/action/item_action/adjust)
 	var/prompting_change = FALSE
 	var/list/plush_colors = list("red fox plushie" = "redfox", "black fox plushie" = "blackfox", "marble fox plushie" = "marblefox", "blue fox plushie" = "bluefox", "orange fox plushie" = "orangefox",
@@ -1467,7 +1475,7 @@
 	lefthand_file = 'icons/mob/inhands/fluff_lefthand.dmi'
 	righthand_file = 'icons/mob/inhands/fluff_righthand.dmi'
 	icon_state = "hand_mirror"
-	attack_verb = list("smacked")
+	attack_verb = list("стукнул")
 	hitsound = 'sound/weapons/tap.ogg'
 	force = 0
 	throwforce = 0

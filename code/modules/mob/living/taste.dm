@@ -19,11 +19,12 @@
 		// We dont want to spam the same message over and over again at the
 		// person. Give it a bit of a buffer.
 		if(AmountHallucinate() > 50 SECONDS && prob(25))
-			text_output = pick("spiders","dreams","nightmares","the future","the past","victory",\
-			"defeat","pain","bliss","revenge","poison","time","space","death","life","truth","lies","justice","memory",\
-			"regrets","your soul","suffering","music","noise","blood","hunger","the american way")
+			text_output = "вкус "
+			text_output += pick("пауков","мечты","кошмаров","будущего","прошлого","победы",\
+			"поражения","боли","блаженства","мести","яда","времени","космоса","смерти","жизни","правды","лжи","справедливости","воспоминаний",\
+			"сожалений","души","страданий","музыки","шума","крови","голода")
 		if(text_output != last_taste_text || last_taste_time + 100 < world.time)
-			to_chat(src, "<span class='notice'>You can taste [text_output].</span>")
+			to_chat(src, span_notice("Вы чувствуете [text_output]."))
 			// "something indescribable" -> too many tastes, not enough flavor.
 
 			last_taste_time = world.time

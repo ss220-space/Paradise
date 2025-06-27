@@ -207,7 +207,7 @@
 	obj_flags = NODECONSTRUCT
 	base_icon_state = "bodyscanner-open"
 	var/occupied_icon_state = "bodyscanner"
-	var/on_store_message = "помещен в криохранилище."
+	var/on_store_message = "помещён в криохранилище."
 	var/on_store_name = "Cryogenic Oversight"
 	var/on_enter_occupant_message = "You feel cool air surround you. You go numb as your senses turn inward."
 	var/allow_occupant_types = list(/mob/living/carbon/human)
@@ -340,6 +340,8 @@
 	for(var/T in preserve_items)
 		if(istype(I, T) && !(I.type in do_not_preserve_items))
 			return CRYO_PRESERVE
+	if(is_id_card(I))
+		SEND_SIGNAL(I, COMSIG_FREEZE_LINKED_ACCOUNT)
 	return CRYO_DESTROY
 
 /obj/machinery/cryopod/proc/handle_contents(obj/item/I)
@@ -361,7 +363,7 @@
 		I.forceMove(src)
 		handle_contents(I)
 
-	for(var/obj/machinery/computer/cloning/cloner in GLOB.machines)
+	for(var/obj/machinery/computer/cloning/cloner in SSmachines.get_by_type(/obj/machinery/computer/cloning))
 		for(var/datum/dna2/record/R in cloner.records)
 			if(occupant.mind == locate(R.mind))
 				cloner.records.Remove(R)
@@ -619,8 +621,8 @@
 
 
 /obj/machinery/cryopod/verb/eject()
-	set name = "Eject Pod"
-	set category = "Object"
+	set name = "Вылезти"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
@@ -644,8 +646,8 @@
 	add_fingerprint(usr)
 
 /obj/machinery/cryopod/verb/move_inside()
-	set name = "Enter Pod"
-	set category = "Object"
+	set name = "Залезть внутрь"
+	set category = STATPANEL_OBJECT
 	set src in oview(1)
 
 	if(usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED) || !check_occupant_allowed(usr))
@@ -719,7 +721,7 @@
 	icon_state = "pod_0"
 	base_icon_state = "pod_0"
 	occupied_icon_state = "pod_1"
-	on_store_message = "помещен в робохранилище."
+	on_store_message = "помещён в робохранилище."
 	on_store_name = "Robotic Storage Oversight"
 	on_enter_occupant_message = "The storage unit broadcasts a sleep signal to you. Your systems start to shut down, and you enter low-power mode."
 	allow_occupant_types = list(/mob/living/silicon/robot)
@@ -752,7 +754,7 @@
 		O.force_eject_occupant(person_to_cryo)
 	var/list/free_cryopods = list()
 	var/list/free_syndie_cryopods = list()
-	for(var/obj/machinery/cryopod/P in GLOB.machines)
+	for(var/obj/machinery/cryopod/P in SSmachines.get_by_type(/obj/machinery/cryopod))
 		if(!P.occupant && istype(get_area(P), /area/syndicate/unpowered/syndicate_space_base) && istype(P, /obj/machinery/cryopod/syndie))
 			free_syndie_cryopods += P
 		else if(!P.occupant && istype(get_area(P), /area/crew_quarters/sleep))

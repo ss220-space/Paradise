@@ -2,8 +2,9 @@
   * # Rep Purchase - Contractor Zippo Lighter
   */
 /datum/rep_purchase/item/zippo
-	name = "Contractor Zippo Lighter"
-	description = "An unique black and gold zippo lighter with no purpose other than showing off. You must complete all your contracts in order to buy this."
+	name = "Зажигалка Контрактника"
+	description = "Изящная зажигалка, оформленная в чёрно-золотых тонах и украшенная символикой Контрактников. \
+			Чтобы приобрести этот предмет, необходимо сначала выполнить все свои контракты."
 	cost = 0
 	stock = 1
 	item_type = /obj/item/lighter/zippo/contractor
@@ -16,6 +17,6 @@
 			eligible = FALSE
 			break
 	if(!eligible)
-		to_chat(user, "<span class='warning'>All of your contracts must be completed to be eligible for this item.</span>")
+		to_chat(user, span_warning("Чтобы получить право на эту вещь, все ваши контракты должны быть выполнены."))
 		return FALSE
 	return ..()

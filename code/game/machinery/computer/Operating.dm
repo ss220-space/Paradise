@@ -2,6 +2,15 @@
 
 /obj/machinery/computer/operating
 	name = "operating computer"
+	desc = "Высокотехнологичный медицинский компьютер, используемый для контролирования процесса хиругических операций."
+	ru_names = list(
+		NOMINATIVE = "операционный компьютер",
+		GENITIVE = "операционного компьютера",
+		DATIVE = "операционному компьютеру",
+		ACCUSATIVE = "операционный компьютер",
+		INSTRUMENTAL = "операционным компьютером",
+		PREPOSITIONAL = "операционном компьютере"
+	)
 	density = TRUE
 	anchored = TRUE
 	icon_keyboard = "med_key"
@@ -201,20 +210,20 @@
 	var/isNewPatient = (table.patient != currentPatient) //Is this a new Patient?
 
 	if(table.patient.stat == DEAD || HAS_TRAIT(table.patient, TRAIT_FAKEDEATH))
-		patientStatus = "умер"
+		patientStatus = "зафиксирована смерть"
 	else if(table.patient.stat == CONSCIOUS)
 		patientStatus = "в сознании"
 	else if(table.patient.stat == UNCONSCIOUS)
-		patientStatus = "спит"
+		patientStatus = "без сознания"
 
 	if(isNewPatient)
-		atom_say("Обнаружен новый пациент, загрузка показаний")
+		atom_say("Обнаружен новый пациент, загрузка показаний.")
 		var/blood_type_msg
 		if(ishuman(table.patient))
 			blood_type_msg = table.patient.dna.blood_type
 		else
 			blood_type_msg = "\[ОШИБКА: НЕИЗВЕСТНО\]"
-		atom_say("[table.patient], группа крови [blood_type_msg], [patientStatus]")
+		atom_say("[table.patient], группа крови [blood_type_msg], [patientStatus].")
 		SStgui.update_uis(src)
 		patientStatusHolder = table.patient.stat
 		currentPatient = table.patient
@@ -226,9 +235,9 @@
 		if(oxy && table.patient.getOxyLoss()>oxyAlarm)
 			playsound(src.loc, 'sound/machines/defib_saftyoff.ogg', 50, 0)
 		if(healthAnnounce && table.patient.health <= healthAlarm)
-			atom_say("[round(table.patient.health)]")
+			atom_say("Оценка здоровья пациента: [round(table.patient.health)] %.")
 		if(table.patient.stat != patientStatusHolder)
-			atom_say("Пациент [patientStatus]")
+			atom_say("Состояние пациента: [patientStatus].")
 			patientStatusHolder = table.patient.stat
 
 /obj/machinery/computer/operating/old_frame

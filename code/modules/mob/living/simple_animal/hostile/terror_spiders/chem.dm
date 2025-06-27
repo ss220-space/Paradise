@@ -2,9 +2,9 @@
 // Terror Spider, Black, Deadly Venom
 
 /datum/reagent/terror_black_toxin
-	name = "Black Terror venom"
+	name = "Яд Вдовы Ужаса"
 	id = "terror_black_toxin"
-	description = "An incredibly toxic venom injected by the Black Widow spider."
+	description = "Невероятно токсичный яд, который впрыскивает Вдова Ужаса."
 	can_synth = FALSE
 	color = "#cc00ff"
 	metabolization_rate = 0.25 * REAGENTS_METABOLISM
@@ -38,9 +38,9 @@
 //egg toxin for defiler
 
 /datum/reagent/terror_eggs
-	name = "terror spider eggs"
+	name = "Яйца Паука Ужаса"
 	id = "terror_eggs"
-	description = "An incredibly toxic venom that spreads infestation."
+	description = "Стремительно растущие паучьи яйца."
 	can_synth = FALSE
 	color = "#ffffff"
 	metabolization_rate = 1 * REAGENTS_METABOLISM

@@ -81,7 +81,7 @@
 
 /obj/item/clothing/suit/space/hostile_environment
 	name = "H.E.C.K. suit"
-	desc = "Экспериментальный Кинетический Защитный Обшитый Костюм: костюм, специально созданный для защиты от широкого спектра опасностей Лаваленда. Прошлому его владельцу этого, видимо, не хватило."
+	desc = "Экспериментальный Кинетический Защитный Обшитый Костюм: костюм, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
 	ru_names = list(
 		NOMINATIVE = "Э.К.З.О. костюм",
 		GENITIVE = "Э.К.З.О. костюма ",
@@ -133,7 +133,7 @@
 
 /obj/item/clothing/head/helmet/space/hostile_environment
 	name = "H.E.C.K. helmet"
-	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лаваленда. Прошлому его владельцу этого, видимо, не хватило."
+	desc = "Экспериментальный Кинетический Защитный Обшитый Шлем: шлем, специально созданный для защиты от широкого спектра опасностей Лазиса. Прошлому его владельцу этого, видимо, не хватило."
 	ru_names = list(
 		NOMINATIVE = "Э.К.З.О. шлем",
 		GENITIVE = "Э.К.З.О. шлема ",
@@ -380,3 +380,33 @@
 		SPECIES_ASHWALKER_SHAMAN = 'icons/mob/clothing/species/unathi/helmet.dmi',
 		SPECIES_DRACONOID = 'icons/mob/clothing/species/unathi/helmet.dmi',
 	)
+
+/obj/item/clothing/suit/hooded/explorer/mining
+	name = "white explorer suit"
+	desc = "Ярко-белый бронированный костюм, созданный для экстренного спасения людей в суровых условиях. У вас не получится сохранять его чистым долгое время."
+	ru_names = list(
+		NOMINATIVE = "белый костюм исследователя",
+		GENITIVE = "белого костюма исследователя",
+		DATIVE = "белому костюму исследователя",
+		ACCUSATIVE = "белый костюм исследователя",
+		INSTRUMENTAL = "белым костюмом исследователя",
+		PREPOSITIONAL = "белом костюме исследователя"
+	)
+	icon_state = "mining_explorer"
+	item_state = "mining_explorer"
+	item_color = "mining_explorer"
+	hoodtype = /obj/item/clothing/head/hooded/explorer/mining
+
+/obj/item/clothing/head/hooded/explorer/mining
+	name = "white explorer hood"
+	desc = "Ярко-белый бронированный капюшон, созданный для экстренного спасения людей в суровых условиях. У вас не получится сохранять его чистым долгое время."
+	ru_names = list(
+		NOMINATIVE = "белый капюшон исследователя",
+		GENITIVE = "белого капюшона исследователя",
+		DATIVE = "белому капюшону исследователя",
+		ACCUSATIVE = "белый капюшон исследователя",
+		INSTRUMENTAL = "белым капюшоном исследователя",
+		PREPOSITIONAL = "белом капюшоне исследователя"
+	)
+	icon_state = "mining_explorer"
+	item_state = "mining_explorer"

@@ -15,7 +15,7 @@
 
 /obj/structure/blob/special/resource/link_to_overmind(mob/camera/blob/owner_overmind)
 	. = ..()
-	overmind.resource_blobs += src
+	overmind.resource_blobs |= src
 
 /obj/structure/blob/special/resource/Destroy()
 	if(overmind)

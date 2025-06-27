@@ -248,7 +248,7 @@
 		force = 18
 		attack_speed *= 1.3
 		w_class = WEIGHT_CLASS_NORMAL
-		attack_verb = list("slashed", "stabbed", "sliced", "torn", "ripped", "diced", "cut")
+		attack_verb = list("полоснул", "уколол", "поранил", "порезал")
 		hitsound = 'sound/weapons/blade1.ogg'
 		embed_chance = 100 //rule of cool
 		throwforce = 35

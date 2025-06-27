@@ -15,7 +15,7 @@
 	force = 5
 	origin_tech = "combat=1"
 	needs_permit = TRUE
-	attack_verb = list("struck", "hit", "bashed")
+	attack_verb = list("ударил")
 	pickup_sound = 'sound/items/handling/gun_pickup.ogg'
 	drop_sound = 'sound/items/handling/gun_drop.ogg'
 
@@ -188,14 +188,14 @@
 		playsound(user, fire_sound, 50, TRUE)
 		if(message)
 			if(pointblank)
-				user.visible_message("<span class='danger'>[user] fires [src] point blank at [target]!</span>", "<span class='danger'>You fire [src] point blank at [target]!</span>", "<span class='italics'>You hear \a [fire_sound_text]!</span>")
+				user.visible_message(span_danger("[user] fires [src] point blank at [target]!"), span_danger("You fire [src] point blank at [target]!"), span_italics("You hear \a [fire_sound_text]!"), projectile_message = TRUE)
 				if(pb_knockback > 0 && isliving(target))
 					var/mob/living/living_target = target
 					if(!(living_target.move_resist > MOVE_FORCE_NORMAL)) //no knockbacking prince of terror or somethin
 						var/atom/throw_target = get_edge_target_turf(living_target, user.dir)
 						living_target.throw_at(throw_target, pb_knockback, 2)
 			else
-				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!")
+				user.visible_message("<span class='danger'>[user] fires [src]!</span>", "<span class='danger'>You fire [src]!</span>", "You hear \a [fire_sound_text]!", projectile_message = TRUE)
 	if(chambered.muzzle_flash_effect)
 		var/obj/effect/temp_visual/target_angled/muzzle_flash/effect = new chambered.muzzle_flash_effect(get_turf(src), target, muzzle_flash_time)
 		effect.alpha = min(255, muzzle_strength * 255)
@@ -462,8 +462,8 @@
 
 
 /obj/item/gun/proc/toggle_gunlight_verb()
-	set name = "Toggle Gun Light"
-	set category = "Object"
+	set name = "Оружейный фонарик"
+	set category = STATPANEL_OBJECT
 	set desc = "Click to toggle your weapon's attached flashlight."
 
 	toggle_gunlight(usr)
@@ -574,13 +574,14 @@
 		azoom.Remove(user)
 
 
-/obj/item/gun/AltClick(mob/user)
+/obj/item/gun/click_alt(mob/user)
 	if(!unique_reskin || current_skin || loc != user)
-		return ..()
+		return NONE
 	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		to_chat(user, span_warning("You can't do that right now!"))
-		return ..()
+		return CLICK_ACTION_BLOCKING
 	reskin_gun(user)
+	return CLICK_ACTION_SUCCESS
 
 
 /obj/item/gun/proc/reskin_gun(mob/user)
@@ -688,9 +689,23 @@
 
 		user.client.pixel_x = world.icon_size*_x
 		user.client.pixel_y = world.icon_size*_y
+
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
+				continue
+			observe.client.pixel_x = world.icon_size*_x
+			observe.client.pixel_y = world.icon_size*_y
 	else
 		user.client.pixel_x = 0
 		user.client.pixel_y = 0
+
+		for(var/mob/dead/observer/observe in user.inventory_observers)
+			if(!observe.client)
+				LAZYREMOVE(user.inventory_observers, observe)
+				continue
+			observe.client.pixel_x = 0
+			observe.client.pixel_y = 0
 
 
 //Proc, so that gun accessories/scopes/etc. can easily add zooming.

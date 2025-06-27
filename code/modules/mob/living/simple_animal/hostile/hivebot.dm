@@ -1,4 +1,4 @@
-/obj/item/projectile/hivebotbullet
+/obj/projectile/hivebotbullet
 	damage = 10
 	damage_type = BRUTE
 
@@ -16,7 +16,7 @@
 	attacktext = "рвёт"
 	attack_sound = 'sound/weapons/bladeslice.ogg'
 	projectilesound = 'sound/weapons/gunshots/gunshot.ogg'
-	projectiletype = /obj/item/projectile/hivebotbullet
+	projectiletype = /obj/projectile/hivebotbullet
 	faction = list("hivebot")
 	check_friendly_fire = 1
 	atmos_requirements = list("min_oxy" = 0, "max_oxy" = 0, "min_tox" = 0, "max_tox" = 0, "min_co2" = 0, "max_co2" = 0, "min_n2" = 0, "max_n2" = 0)
@@ -79,10 +79,10 @@
 	var/turn_on = 0
 	var/auto_spawn = 1
 
-/mob/living/simple_animal/hostile/hivebot/tele/New()
-	..()
-	var/datum/effect_system/smoke_spread/smoke = new
-	smoke.set_up(5, 0, src.loc)
+/mob/living/simple_animal/hostile/hivebot/tele/Initialize(mapload)
+	. = ..()
+	var/datum/effect_system/fluid_spread/smoke/smoke = new
+	smoke.set_up(amount = 5, location = src.loc)
 	smoke.start()
 	visible_message("<span class='danger'>The [src] warps in!</span>")
 	playsound(src.loc, 'sound/effects/empulse.ogg', 25, 1)

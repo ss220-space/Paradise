@@ -10,7 +10,15 @@
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother
 	name = "Mother of Terror"
-	desc = "An enormous spider. Tiny spiderlings are crawling all over it. Their beady little eyes all stare at you. The horror!"
+	desc = "Огромный паук. По нему ползают крошечные паучки. Их маленькие глазки-бусинки смотрят на вас. Ужас!"
+	ru_names = list(
+		NOMINATIVE = "Мать Ужаса",
+		GENITIVE = "Матери Ужаса",
+		DATIVE = "Матери Ужаса",
+		ACCUSATIVE = "Мать Ужаса",
+		INSTRUMENTAL = "Матерью Ужаса",
+		PREPOSITIONAL = "Матери Ужаса",
+	)
 	ai_target_method = TS_DAMAGE_SIMPLE
 	icon_state = "terror_mother"
 	icon_living = "terror_mother"
@@ -59,5 +67,5 @@
 
 
 /mob/living/simple_animal/hostile/poison/terror_spider/mother/consume_jelly(obj/structure/spider/royaljelly/J)
-	to_chat(src, "<span class='warning'>Mothers cannot consume royal jelly.</span>")
+	to_chat(src, span_warning("Матери Ужаса не могут употреблять королевское желе."))
 	return

@@ -24,7 +24,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	/// Allows or blocks ordering of certain items. Specified on initialization by different uplink types.
 	var/uplink_type = UPLINK_TYPE_TRAITOR
 	/// If set, the uplink will show the option to become a contractor through this variable.
-	var/datum/antagonist/contractor/contractor
+	var/datum/antagonist/traitor/traitor
 	/// Whether the uplink is jammed and cannot be used to order items.
 	var/is_jammed = FALSE
 
@@ -39,6 +39,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 /obj/item/uplink/Destroy()
 	GLOB.world_uplinks -= src
+	traitor = null
 	return ..()
 
 
@@ -73,7 +74,15 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 				continue
 			if(length(uplink_item.race) && !uplink_item.race.Find(race) && uplink_type != UPLINK_TYPE_ADMIN)
 				continue
-			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name), "desc" = sanitize(uplink_item.description()), "cost" = uplink_item.cost, "hijack_only" = uplink_item.hijack_only, "obj_path" = ref(uplink_item), "refundable" = uplink_item.refundable))
+			cats[cats.len]["items"] += list(list("name" = sanitize(uplink_item.name),
+												"desc" = sanitize(uplink_item.description()),
+												"cost" = uplink_item.cost,
+												"hijack_only" = uplink_item.hijack_only,
+												"obj_path" = ref(uplink_item),
+												"refundable" = uplink_item.refundable,
+												"uid" = uplink_item.UID()
+												)
+											)
 
 	uplink_cats = cats
 
@@ -102,12 +111,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/proc/buy(datum/uplink_item/uplink_item, mob/buyer)
 	if(is_jammed)
-		to_chat(buyer, span_warning("[src] seems to be jammed - it cannot be used here!"))
+		to_chat(buyer, span_warning("[declent_ru(NOMINATIVE)], похоже, заблокирован - нельзя использовать!"))
 		return FALSE
 	if(!uplink_item)
 		return FALSE
 	if(uplink_item.limited_stock == 0)
-		to_chat(buyer, span_warning("You have redeemed this offer already."))
+		to_chat(buyer, span_warning("Вы уже использовали это предложение."))
 		return FALSE
 	uplink_item.buy(src, buyer)
 	SStgui.update_uis(src)
@@ -155,12 +164,12 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 
 		uses += cost
 		used_TC -= cost
-		to_chat(user, span_notice("[hold_item] refunded."))
+		to_chat(user, span_notice("[hold_item] возвращён."))
 		qdel(hold_item)
 		return
 
 	// If we are here, we didnt refund
-	to_chat(user, span_warning("[hold_item] is not refundable."))
+	to_chat(user, span_warning("[hold_item] не подлежит возврату."))
 
 
 // HIDDEN UPLINK - Can be stored in anything but the host item has to have a trigger for it.
@@ -224,7 +233,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
  */
 /obj/item/uplink/hidden/proc/check_trigger(mob/user, value, target)
 	if(is_jammed)
-		to_chat(user, span_warning("[src] seems to be jammed - it cannot be used here!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
 		return FALSE
 	if(value == target)
 		trigger(user)
@@ -237,7 +246,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 /obj/item/uplink/hidden/ui_interact(mob/user, datum/tgui/ui = null)
 	ui = SStgui.try_update_ui(user, src, ui)
 	if(!ui)
-		ui = new(user, src, "Uplink", name)
+		ui = new(user, src, "Uplink", "Аплинк")
 		ui.open()
 
 
@@ -250,17 +259,20 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 	data["cart_price"] = calculate_cart_tc()
 	data["lucky_numbers"] = lucky_numbers
 
-	if(contractor)
-		var/list/contractor_data = list(
-			available = uses >= contractor.tc_cost && world.time < contractor.offer_deadline && \
-			(SSticker?.mode?.contractor_accepted< CONTRACTOR_MAX_ACCEPTED || contractor.is_admin_forced),
-			affordable = uses >= contractor.tc_cost,
-			accepted = !isnull(contractor.contractor_uplink),
-			time_left = contractor.offer_deadline - world.time,
+	if(!traitor?.contractor_pending)
+		return data
+
+	var/datum/contractor_pending/pending = traitor.contractor_pending
+	var/list/contractor_data = list(
+		available = uses >= CONTRACTOR_COST && world.time < pending.offer_deadline && \
+		(SSticker?.mode?.contractor_accepted< CONTRACTOR_MAX_ACCEPTED || pending.is_admin_forced),
+		affordable = uses >= CONTRACTOR_COST,
+		accepted = traitor.owner.has_antag_datum(/datum/antagonist/contractor),
+		time_left = pending.offer_deadline - world.time,
 			available_offers = CONTRACTOR_MAX_ACCEPTED - SSticker?.mode?.contractor_accepted,
-			is_admin_forced = contractor.is_admin_forced,
-		)
-		data["contractor"] = contractor_data
+		is_admin_forced = pending.is_admin_forced,
+	)
+	data["contractor"] = contractor_data
 
 	return data
 
@@ -357,7 +369,7 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if("add_to_cart")
 			var/datum/uplink_item/uplink_item = locate(params["item"]) in uplink_items
 			if(LAZYIN(shopping_cart, params["item"]))
-				to_chat(ui.user, span_warning("[uplink_item.name] is already in your cart!"))
+				to_chat(ui.user, span_warning("[uplink_item.name] уже в корзине!"))
 				return
 			var/startamount = 1
 			if(uplink_item.limited_stock == 0)
@@ -377,10 +389,10 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 			if(!LAZYLEN(shopping_cart)) // sanity check
 				return
 			if(calculate_cart_tc() > uses)
-				to_chat(ui.user, span_warning("[src] buzzes, it doesn't contain enough telecrystals!</span>"))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))] вибрирует, в нём недостаточно телекристаллов!"))
 				return
 			if(is_jammed)
-				to_chat(ui.user, span_warning("[src] seems to be jammed - it cannot be used here!</span>"))
+				to_chat(ui.user, span_warning("[capitalize(declent_ru(NOMINATIVE))], похоже, заблокирован - нельзя использовать!"))
 				return
 
 			// Buying of the uplink stuff
@@ -454,8 +466,8 @@ GLOBAL_LIST_EMPTY(world_uplinks)
 		if(UI_MODAL_ANSWER)
 			if(id == "become_contractor")
 				if(text2num(params["answer"]))
-					var/datum/antagonist/contractor/C = usr?.mind?.has_antag_datum(/datum/antagonist/contractor)
-					C?.become_contractor(usr, src)
+					var/datum/antagonist/traitor/traitor = usr?.mind?.has_antag_datum(/datum/antagonist/traitor)
+					traitor?.contractor_pending?.become_contractor(usr, src)
 				return
 	return FALSE
 

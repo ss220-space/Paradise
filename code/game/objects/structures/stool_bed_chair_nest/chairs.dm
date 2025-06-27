@@ -10,6 +10,7 @@
 	max_integrity = 250
 	integrity_failure = 25
 	pull_push_slowdown = 0.5
+	interaction_flags_click = NEED_HANDS | ALLOW_RESTING
 	var/buildstacktype = /obj/item/stack/sheet/metal
 	var/buildstackamount = 1
 	var/item_chair = /obj/item/chair // if null it can't be picked up
@@ -152,8 +153,9 @@
 	return TRUE
 
 
-/obj/structure/chair/AltClick(mob/living/user)
+/obj/structure/chair/click_alt(mob/living/user)
 	rotate(user)
+	return CLICK_ACTION_SUCCESS
 
 
 // CHAIR TYPES
@@ -534,12 +536,7 @@
 /obj/structure/chair/brass/ratvar_act()
 	return
 
-/obj/structure/chair/brass/AltClick(mob/living/user)
-	if(!istype(user) || !Adjacent(user))
-		return
-	if(user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
-		to_chat(user, span_warning("You can't do that right now!"))
-		return
+/obj/structure/chair/brass/click_alt(mob/living/user)
 	add_fingerprint(user)
 	turns = 0
 	if(!isprocessing)
@@ -550,6 +547,7 @@
 		user.visible_message(span_notice("[user] stops [src]'s uncontrollable spinning."), \
 		span_notice("You grab [src] and stop its wild spinning."))
 		STOP_PROCESSING(SSfastprocess, src)
+	return CLICK_ACTION_SUCCESS
 
 /obj/structure/chair/brass/fake
 	name = "brass chair"
@@ -566,3 +564,36 @@
 
 /obj/structure/chair/comfy/abductor/GetArmrest()
 	return mutable_appearance('icons/obj/chairs.dmi', "alien_chair_armrest")
+
+/obj/structure/chair/comfy/mouse
+	name = "Кресло Господина Мышкина"
+	desc = "Очень дорогое красное кресло из натуральной кожи. Сделано специально по заказу Господина Мышкина."
+	ru_names = list(
+		NOMINATIVE = "кресло господина Мышкина",
+		GENITIVE = "кресла господина Мышкина",
+		DATIVE = "креслу господина Мышкина",
+		ACCUSATIVE = "кресло господина Мышкина",
+		INSTRUMENTAL = "креслом господина Мышкина",
+		PREPOSITIONAL = "кресле господина Мышкина"
+	)
+	icon_state = "mouse_chair"
+	anchored = TRUE
+	max_integrity = 375
+	buildstacktype = null
+
+/obj/structure/chair/comfy/mouse/GetArmrest()
+	return mutable_appearance('icons/obj/chairs.dmi', "mouse_chair_armrest")
+
+/obj/structure/chair/comfy/mouse/is_buckle_possible(mob/living/target, mob/living/user, force, check_loc)
+	. = ..()
+	if(!istype(target, /mob/living/simple_animal/mouse/wooly/rep))
+		target.visible_message(
+			span_warning("[target.declent_ru(NOMINATIVE)] слишком велик для [declent_ru(GENITIVE)]!"),
+			span_userdanger("[src] слишком мало для вас!"),
+		)
+		return FALSE
+
+/obj/structure/chair/comfy/mouse/wrench_act(mob/user, obj/item/I)
+	. = TRUE
+	to_chat(user, span_warning("Вы не можете осмелиться разобрать это дорогущее кресло!"))
+	return
