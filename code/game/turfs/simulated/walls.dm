@@ -434,7 +434,7 @@
 		intention = "Починить"
 		if(can_dismantle_with_welder)
 			var/moved_away = user.loc
-			intention = alert(user, "Вы хотите починить или разобрать [src]?", "[src]", "Починить", "Разобрать")
+			intention = tgui_alert(user, "Вы хотите починить или разобрать [declent_ru(ACCUSATIVE)]?", "[declent_ru(ACCUSATIVE)]", list("Починить", "Разобрать"))
 			if(user.loc != moved_away)
 				to_chat(user, span_notice("Не двигайтесь во время этого действия!"))
 				return

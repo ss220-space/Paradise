@@ -18,11 +18,11 @@
 		to_chat(usr, span_warning("Это нельзя просто так взять и передать это."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		var/ans = alert(target,"[usr] хоч[pluralize_ru(usr.gender,"ет","ят")] передать вам [I]?",, "Взять","Не брать")
+		var/ans = tgui_alert(target,"[usr] хоч[pluralize_ru(usr.gender,"ет","ят")] передать вам [I.declent_ru(ACCUSATIVE)]?", "Передача предмета", list("Взять","Не брать"))
 		if(!I || !target)
 			return
 		switch(ans)
-			if("взять")
+			if("Взять")
 				if(target.incapacitated() || HAS_TRAIT(target, TRAIT_HANDS_BLOCKED) || usr.incapacitated() || HAS_TRAIT(usr, TRAIT_HANDS_BLOCKED))
 					return
 				if(!Adjacent(target))

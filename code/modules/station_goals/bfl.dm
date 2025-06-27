@@ -101,19 +101,19 @@
 	var/response
 	src.add_fingerprint(user)
 	if(state)
-		response = alert(user, "Вы пытаетесь деактивировать излучатель BFL. Уверены?", "Излучатель BFL", "Деактивировать", "Отмена")
+		response = tgui_alert(user, "Вы пытаетесь деактивировать излучатель BFL. Уверены?", "Излучатель BFL", list("Деактивировать", "Отмена"))
 	else
-		response = alert(user, "Вы пытаетесь активировать излучатель BFL. Уверены?", "Излучатель BFL", "Активировать", "Отмена")
+		response = tgui_alert(user, "Вы пытаетесь активировать излучатель BFL. Уверены?", "Излучатель BFL", list("Активировать", "Отмена"))
 
 	switch(response)
-		if("deactivate")
+		if("Деактивировать")
 			if(emag)
 				visible_message(span_notice("Обновление ПО BFL, пожалуйста подождите.<br>Завершено на 99%"))
 				playsound(src, 'sound/BFL/prank.ogg', 100, TRUE)
 			else
 				emitter_deactivate()
 				deactivate_time = world.time
-		if("activate")
+		if("Активировать")
 			if(!powernet)
 				connect_to_network()
 			if(!powernet)
@@ -335,16 +335,16 @@
 	var/response
 	src.add_fingerprint(user)
 	if(state)
-		response = alert(user, "Вы пытаетесь деактивировать приёмник BFL. Уверены?", "Приёмник BFL", "Деактивировать", "Очистить хранилище руды", "Отмена")
+		response = tgui_alert(user, "Вы пытаетесь деактивировать приёмник BFL. Уверены?", "Приёмник BFL", list("Деактивировать", "Очистить хранилище руды", "Отмена"))
 	else
-		response = alert(user, "Вы пытаетесь активировать приёмник BFL. Уверены?", "Приёмник BFL", "Активировать", "Очистить хранилище руды", "Отмена")
+		response = tgui_alert(user, "Вы пытаетесь активировать приёмник BFL. Уверены?", "Приёмник BFL", list("Активировать", "Очистить хранилище руды", "Отмена"))
 
 	switch(response)
-		if("deactivate")
+		if("Деактивировать")
 			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
-		if("activate")
+		if("Активировать")
 			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
-		if("empty ore storage")
+		if("Очистить хранилище руды")
 			if(lens)
 				to_chat(user, span_warning("Линза создаёт помехи - невозможно получить руду из хранилища."))
 				return
