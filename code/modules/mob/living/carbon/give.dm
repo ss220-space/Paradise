@@ -18,7 +18,7 @@
 		to_chat(usr, span_warning("Это нельзя просто так взять и передать это."))
 		return
 	if(target.r_hand == null || target.l_hand == null)
-		var/ans = alert(target,"[usr] хоч[pluralize_ru(usr.gender,"ет","ят")] передать вам [I]?", "Взять","Не брать")
+		var/ans = alert(target,"[usr] хоч[pluralize_ru(usr.gender,"ет","ят")] передать вам [I]?",, "Взять","Не брать")
 		if(!I || !target)
 			return
 		switch(ans)
