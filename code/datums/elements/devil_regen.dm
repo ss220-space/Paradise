@@ -61,14 +61,26 @@
 
 	addtimer(CALLBACK(src, PROC_REF(regen_bodypart), human, external.type, devil), devil.rank.regen_threshold)
 
+/datum/element/devil_regeneration/proc/check_bodybpart(mob/living/carbon/human/human, obj/item/organ/external/organ, organ_type)
+	if(organ.type == organ_type)
+		return FALSE
+
+	if(organ.limb_zone == BODY_ZONE_TAIL && !human.dna.species.tail)
+		return FALSE
+
+	if(organ.limb_zone == BODY_ZONE_WING && !human.dna.species.wing)
+		return FALSE
+
+	return TRUE
+
 /datum/element/devil_regeneration/proc/regen_bodypart(
 	mob/living/carbon/human/human,
 	obj/item/organ/external/external,
 	datum/antagonist/devil/devil
 	)
 
-	for(var/atom/organ as anything in human.bodyparts)
-		if(organ.type == external)
+	for(var/obj/item/organ/external/organ as anything in human.bodyparts)
+		if(check_bodybpart(human, organ, external))
 			return
 
 	external = new external(human, ORGAN_MANIPULATION_DEFAULT)
