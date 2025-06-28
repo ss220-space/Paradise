@@ -510,7 +510,7 @@
 
 /datum/species/proc/harm(mob/living/carbon/human/user, mob/living/carbon/human/target, datum/martial_art/attacker_style)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_warning("[pluralize_ru(user.gender,"Ты не хочешь","Вы не хотите")] навредить [target.declent_ru(DATIVE)]!"))
+		to_chat(user, span_warning("Вы не хотите навредить [target.declent_ru(DATIVE)]!"))
 		return FALSE
 
 	//Vampire code
@@ -520,7 +520,7 @@
 			to_chat(user, span_warning("Отсутствует кровь!"))
 			return
 		if(target.mind && (target.mind.has_antag_datum(/datum/antagonist/vampire) || target.mind.has_antag_datum(/datum/antagonist/mindslave/thrall)))
-			to_chat(user, span_warning("[pluralize_ru(user.gender,"Твои","Ваши")] клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)]."))
+			to_chat(user, span_warning("Ваши клыки не могут пронзить холодную плоть [target.declent_ru(GENITIVE)]."))
 			return
 		if(HAS_TRAIT(target, TRAIT_SKELETON))
 			to_chat(user, span_warning("В скелете нет ни капли крови!"))
@@ -693,9 +693,9 @@
 	SEND_SIGNAL(target, COMSIG_HUMAN_DISARM_HIT, user, target)
 	if(!moved) //they got pushed into a dense object
 		add_attack_logs(user, target, "Disarmed into a dense object", ATKLOG_ALL)
-		target.visible_message(span_warning("[user] slams [target]"), \
-								span_userdanger("You get slammed into the obstacle by [user]!"), \
-								"You hear a loud thud.")
+		target.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] толкает [target.declent_ru(ACCUSATIVE)]"), \
+								span_userdanger("Вы врезаетесь в препятствие из-за [user.declent_ru(NOMINATIVE)]!"), \
+								"Раздаётся глухой удар.")
 		if(!HAS_TRAIT(target, TRAIT_FLOORED))
 			target.Knockdown(3 SECONDS)
 			addtimer(CALLBACK(target, TYPE_PROC_REF(/mob/living/carbon, SetKnockdown), 0), 3 SECONDS) // so you cannot chain stun someone
@@ -708,7 +708,7 @@
 			add_attack_logs(user, target, "Disarmed object out of hand", ATKLOG_ALL)
 		else
 			if(I)
-				to_chat(target, span_warning("Your grip on [I] loosens!"))
+				to_chat(target, span_warning("Ваша хватка дна [I.declent_ru(NOMINATIVE)] ослабевает!"))
 			add_attack_logs(user, target, "Disarmed, shoved back", ATKLOG_ALL)
 	target.stop_pulling()
 
