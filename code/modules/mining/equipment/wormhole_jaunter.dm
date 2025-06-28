@@ -23,7 +23,7 @@
 
 
 /obj/item/wormhole_jaunter/attack_self(mob/user)
-	user.visible_message(span_notice("[user.name] активирует [declent_ru(ACCUSATIVE)]!"))
+	user.visible_message(span_notice("[user.name] активиру[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]!"))
 	SSblackbox.record_feedback("tally", "jaunter", 1, "User") // user activated
 	activate(user, TRUE)
 
@@ -54,7 +54,7 @@
 		if(user)
 			balloon_alert(user, "нет доступных маяков!")
 		else
-			visible_message(span_notice("[capitalize(NOMINATIVE)] не нашёл маяков для создания якоря!"))
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] не нашёл маяков для создания якоря!"))
 		return TRUE // used for chasm code
 
 	var/chosen_beacon = pick(destinations)
