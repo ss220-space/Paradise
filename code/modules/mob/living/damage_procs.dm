@@ -755,7 +755,7 @@
 		if(amount <= 0)
 			return STATUS_UPDATE_NONE
 	var/old_stamloss = getStaminaLoss()
-	staminaloss = clamp(round(staminaloss + amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
+	staminaloss = clamp(round(staminaloss + amount, DAMAGE_PRECISION), 0, (max_stamina_loss || MAX_STAMINA_LOSS))
 	if(old_stamloss == getStaminaLoss())
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -784,7 +784,7 @@
 			updatehealth("setStaminaLoss")
 		return STATUS_UPDATE_NONE
 	var/old_stamloss = getStaminaLoss()
-	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, MAX_STAMINA_LOSS)
+	staminaloss = clamp(round(amount, DAMAGE_PRECISION), 0, (max_stamina_loss || MAX_STAMINA_LOSS))
 	if(old_stamloss == getStaminaLoss())
 		updating_health = FALSE
 		. = STATUS_UPDATE_NONE
@@ -794,6 +794,14 @@
 		stam_regen_start_time = world.time + (STAMINA_REGEN_BLOCK_TIME * stam_regen_start_modifier)
 	if(updating_health)
 		updatehealth("setStaminaLoss")
+
+/mob/living/proc/setStaminaMax(amount)
+	max_stamina_loss = max(0, min(amount, MAX_STAMINA_LOSS))
+	if(staminaloss > (max_stamina_loss || MAX_STAMINA_LOSS))
+		setStaminaLoss(max_stamina_loss)
+
+/mob/living/proc/defaultStaminaMax()
+	max_stamina_loss = MAX_STAMINA_LOSS
 
 
 /// Maxhealth var getter
