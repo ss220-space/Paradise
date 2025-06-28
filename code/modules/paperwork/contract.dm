@@ -45,7 +45,7 @@
 	var/datum/mind/owner
 	icon_state = "evil_contract"
 	joinable = FALSE
-	var/static/close_button = "<a href='byond://?src=[UID()];close_contract=1' class='close-button'>✖</a>"
+	var/close_button
 	var/static/soulless_text = "Бездушные существа не могут видеть условия данного договора.<br>\
 	Данный контракт гарантирует, что обещанное в нём благо будет получено подписавшим его существом."
 
@@ -56,6 +56,7 @@
 	target = nTarget
 	src.contract = contract
 	name = "адский контракт [contract.contract_subject]"
+	close_button = "<a href='byond://?src=[UID()];close_contract=1' class='close-button'>✖</a>"
 	ru_names = list(
 		NOMINATIVE = "адский контракт [contract.contract_subject]",
 		GENITIVE = "адского контракта [contract.contract_subject]",
