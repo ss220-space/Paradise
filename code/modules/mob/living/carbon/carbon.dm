@@ -237,8 +237,8 @@
 				playsound(loc, 'sound/weapons/thudswoosh.ogg', 50, 1, -1)
 				if(!player_logged)
 					M.visible_message( \
-						span_notice("[M] тряс[pluralize_ru(M.gender, "ёт", "ут")] [name], пытаясь разбудить [genderize_ru(gender, "его", "её", "его", "их")]."),\
-						span_notice("Вы трясёте [name], пытаясь разбудить [genderize_ru(gender, "его", "её", "его", "их")]."),\
+						span_notice("[M] тряс[pluralize_ru(M.gender, "ёт", "ут")] [name], пытаясь поднять [genderize_ru(gender, "его", "её", "его", "их")]."),\
+						span_notice("Вы трясёте [name], пытаясь поднять [genderize_ru(gender, "его", "её", "его", "их")]."),\
 						)
 
 			else if(on_fire)

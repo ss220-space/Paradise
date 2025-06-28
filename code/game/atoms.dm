@@ -416,7 +416,7 @@
 	var/f_name = "."
 	if(src.blood_DNA && !istype(src, /obj/effect/decal))
 		if(blood_color != "#030303")
-			f_name = span_danger(", в кровавых следах.")
+			f_name = ", [span_danger("в кровавых следах.")]"
 		else
 			f_name = ", в масляных следах."
 	. = list("[bicon(src)] Это [declent_ru(NOMINATIVE)][f_name] [suffix]")
