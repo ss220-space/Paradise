@@ -1695,7 +1695,6 @@
 	var/do_emp = FALSE
 	var/do_stun = FALSE
 
-
 /obj/effect/temp_visual/ratvar/reconstruct/Initialize(mapload)
 	. = ..()
 	transform = matrix() * 0.1

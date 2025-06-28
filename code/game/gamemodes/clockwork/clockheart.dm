@@ -274,7 +274,6 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
 			new /obj/effect/decal/cleanable/ash(loc)
-
 	return
 
 /obj/item/part3
