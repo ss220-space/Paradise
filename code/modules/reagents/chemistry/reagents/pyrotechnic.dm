@@ -103,9 +103,12 @@
 	var/combustion_temp = T0C + 200
 
 /datum/reagent/fuel/on_mob_life(mob/living/M)
+	var/update_flags = STATUS_UPDATE_NONE
+	if(!isvox(M))
+		update_flags |= M.adjustToxLoss(1, FALSE)
 	if(M.on_fire)
 		M.adjust_fire_stacks(0.4)
-	return ..()
+	return ..() | update_flags
 
 /datum/reagent/fuel/reaction_temperature(exposed_temperature, exposed_volume)
 	if(exposed_temperature > combustion_temp)
