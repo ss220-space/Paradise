@@ -102,9 +102,18 @@
 	var/volume_explosion_radius_modifier = 0
 	var/combustion_temp = T0C + 200
 
+/datum/reagent/proc/toxic_fuel_proof_species(mob/living/carbon/human/H)
+	if(!istype(H))
+		return FALSE // skip check
+
+	if(HAS_TRAIT(H, TRAIT_TOXIC_FUEL_PROTECTED))
+		return TRUE
+
+	return FALSE
+
 /datum/reagent/fuel/on_mob_life(mob/living/M)
 	var/update_flags = STATUS_UPDATE_NONE
-	if(!isvox(M))
+	if(!toxic_fuel_proof_species(M))
 		update_flags |= M.adjustToxLoss(1, FALSE)
 	if(M.on_fire)
 		M.adjust_fire_stacks(0.4)
