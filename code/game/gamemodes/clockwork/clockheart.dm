@@ -259,7 +259,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались потянуть циферблат, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			spawn_dust()
+			new /obj/effect/decal/cleanable/ash(loc)
 		else
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить циферблат, но он слишком тяжелый!"))
 	return
@@ -293,7 +293,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			spawn_dust()
+			new /obj/effect/decal/cleanable/ash(loc)
 		else
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
 	return
@@ -307,7 +307,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			spawn_dust()
+			new /obj/effect/decal/cleanable/ash(loc)
 	return
 
 /obj/item/part3
@@ -339,7 +339,7 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались потянуть деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			spawn_dust()
+			new /obj/effect/decal/cleanable/ash(loc)
 		else
 			to_chat(user, span_clockitalic("Вы пытаетесь схватить деталь, но она слишком тяжелая!"))
 	return
@@ -353,5 +353,5 @@ var/global/obj/structure/clockwork/functional/heart/Heart = null
 			to_chat(user, span_userdanger("Вы попытались поднять деталь, но ваша рука обратилась в пепел!"))
 			var/obj/item/organ/external/limb_to_burn = user.get_organ((user.hand == ACTIVE_HAND_LEFT) ? BODY_ZONE_PRECISE_L_HAND : BODY_ZONE_PRECISE_R_HAND)
 			limb_to_burn.droplimb(TRUE, DROPLIMB_BURN)
-			spawn_dust()
+			new /obj/effect/decal/cleanable/ash(loc)
 	return

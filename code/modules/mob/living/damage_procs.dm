@@ -206,7 +206,7 @@
 
 
 /// Heal multiple damages at once via [heal_damage_type][/mob/living/proc/heal_damage_type]
-/mob/living/proc/heal_damages(
+/mob/living/proc/heal_damagess(
 	brute = 0,
 	burn = 0,
 	tox = 0,
