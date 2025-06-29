@@ -130,8 +130,10 @@
 	var/syndies_didnt_escape = SSticker.mode.syndies_didnt_escape
 	var/nuke_off_station = SSticker.mode.nuke_off_station
 	var/list/text = list()
+
 	if(!LAZYLEN(members))
 		return text
+
 	if(!disk_rescued && station_was_nuked && !syndies_didnt_escape)
 		SSticker.mode_result = "nuclear win - syndicate nuke"
 		text += span_fontsize3("<br><br><b>Полная победа Синдиката!</b>")
