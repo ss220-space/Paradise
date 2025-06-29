@@ -64,7 +64,15 @@ GLOBAL_LIST_EMPTY(dna_vaults)
 
 /obj/item/dna_probe
 	name = "DNA Sampler"
-	desc = "Can be used to take chemical and genetic samples of pretty much anything."
+	desc = "Может использоваться для взятия химических и генетических образцов практически любого объекта."
+	ru_names = list(
+		NOMINATIVE = "ДНК-семплер",
+		GENITIVE = "ДНК-семплера",
+		DATIVE = "ДНК-семплеру",
+		ACCUSATIVE = "ДНК-семплер",
+		INSTRUMENTAL = "ДНК-семплером",
+		PREPOSITIONAL = "ДНК-семплере"
+	)
 	icon = 'icons/obj/hypo.dmi'
 	item_state = "sampler_hypo"
 	icon_state = "sampler_hypo"
@@ -90,38 +98,38 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 		if(!H.myseed)
 			return
 		if(!H.harvest)// So it's bit harder.
-			to_chat(user, "<span clas='warning'>Plants needs to be ready to harvest to perform full data scan.</span>") //Because space dna is actually magic
+			to_chat(user, span_warning("Для полного сканирования растение должно быть готово к сбору.")) //Because space dna is actually magic
 			return
 		if(plants[H.myseed.type])
-			to_chat(user, "<span class='notice'>Plant data already present in local storage.</span>")
+			to_chat(user, span_notice("Данные растения уже присутствуют в локальном хранилище."))
 			return
 		plants[H.myseed.type] = 1
-		to_chat(user, "<span class='notice'>Plant data added to local storage.</span>")
+		to_chat(user, span_notice("Данные растения добавлены в локальное хранилище."))
 
 	//animals
 	if(isanimal(target) || is_type_in_typecache(target, GLOB.non_simple_animals))
 		if(isanimal(target))
 			var/mob/living/simple_animal/A = target
 			if(!A.healable)//simple approximation of being animal not a robot or similar
-				to_chat(user, "<span class='warning'>No compatible DNA detected</span>")
+				to_chat(user, span_warning("Совместимая ДНК не обнаружена"))
 				return
 		if(animals[target.type])
-			to_chat(user, "<span class='notice'>Animal data already present in local storage.</span>")
+			to_chat(user, span_notice("Данные животного уже присутствуют в локальном хранилище."))
 			return
 		animals[target.type] = 1
-		to_chat(user, "<span class='notice'>Animal data added to local storage.</span>")
+		to_chat(user, span_notice("Данные животного добавлены в локальное хранилище."))
 
 	//humans
 	if(ishuman(target))
 		var/mob/living/carbon/human/H = target
 		if(HAS_TRAIT(H, TRAIT_NO_DNA))
-			to_chat(user, "<span class='notice'>This humanoid doesn't have DNA.</span>")
+			to_chat(user, span_notice("У данного гуманоида нет ДНК."))
 			return
 		if(dna[H.dna.uni_identity])
-			to_chat(user, "<span class='notice'>Humanoid data already present in local storage.</span>")
+			to_chat(user, span_notice("Данные гуманоида уже присутствуют в локальном хранилище."))
 			return
 		dna[H.dna.uni_identity] = 1
-		to_chat(user, "<span class='notice'>Humanoid data added to local storage.</span>")
+		to_chat(user, span_notice("Данные гуманоида добавлены в локальное хранилище."))
 
 
 /obj/item/circuitboard/machine/dna_vault
@@ -150,7 +158,15 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 
 /obj/machinery/dna_vault
 	name = "DNA Vault"
-	desc = "Break glass in case of apocalypse."
+	desc = "Разбейте стекло в случае апокалипсиса."
+	ru_names = list(
+		NOMINATIVE = "ДНК хранилище",
+		GENITIVE = "ДНК хранилища",
+		DATIVE = "ДНК хранилищу",
+		ACCUSATIVE = "ДНК хранилище",
+		INSTRUMENTAL = "ДНК хранилищем",
+		PREPOSITIONAL = "ДНК хранилище"
+	)
 	icon = 'icons/obj/machines/dna_vault.dmi'
 	icon_state = "vault"
 	density = TRUE
@@ -295,10 +311,10 @@ GLOBAL_LIST_INIT(non_simple_animals, typecacheof(list(/mob/living/carbon/human/l
 				uploaded++
 				dna[ui] = 1
 		if(!uploaded)
-			to_chat(user, span_warning("The [probe.name] has no relevant datapoints."))
+			to_chat(user, span_warning("[capitalize(probe.declent_ru(NOMINATIVE))] не содержит релевантных данных."))
 			return ATTACK_CHAIN_PROCEED
 		check_goal()
-		to_chat(user, span_notice("You have uploaded <b>[uploaded]</b> new datapoints."))
+		to_chat(user, span_notice("Получены новые данные: <b>[uploaded]</b> [declension_ru(uploaded,"запись","записи","записей")]!"))
 		return ATTACK_CHAIN_PROCEED_SUCCESS
 
 	return ..()

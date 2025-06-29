@@ -101,31 +101,31 @@
 	var/response
 	src.add_fingerprint(user)
 	if(state)
-		response = alert(user, "You trying to deactivate BFL emitter machine, are you sure?", "BFL Emitter", "deactivate", "nothing")
+		response = tgui_alert(user, "Вы пытаетесь деактивировать излучатель BFL. Уверены?", "Излучатель BFL", list("Деактивировать", "Отмена"))
 	else
-		response = alert(user, "You trying to activate BFL emitter machine, are you sure?", "BFL Emitter", "activate", "nothing")
+		response = tgui_alert(user, "Вы пытаетесь активировать излучатель BFL. Уверены?", "Излучатель BFL", list("Активировать", "Отмена"))
 
 	switch(response)
-		if("deactivate")
+		if("Деактивировать")
 			if(emag)
-				visible_message("BFL software update, please wait.<br> 99% complete")
+				visible_message(span_notice("Обновление ПО BFL, пожалуйста подождите.<br>Завершено на 99%"))
 				playsound(src, 'sound/BFL/prank.ogg', 100, TRUE)
 			else
 				emitter_deactivate()
 				deactivate_time = world.time
-		if("activate")
+		if("Активировать")
 			if(!powernet)
 				connect_to_network()
 			if(!powernet)
-				to_chat(user, "Powernet not found.")
+				to_chat(user, span_warning("Энергосеть не обнаружена."))
 				return
 			if(surplus() < active_power_usage)
-				to_chat(user, "The connected wire doesn't have enough current.")
+				to_chat(user, span_warning("Недостаточно напряжения в подключенном проводе."))
 				return
 			if(world.time - deactivate_time > 30 SECONDS)
 				emitter_activate()
 			else
-				visible_message("Error, emitter is still cooling down")
+				visible_message(span_warning("Ошибка: излучатель всё ещё охлаждается"))
 
 
 
@@ -135,7 +135,7 @@
 		add_attack_logs(user, src, "emagged")
 		emag = TRUE
 		if(user)
-			to_chat(user, "Emitter successfully sabotaged")
+			to_chat(user, span_notice("Излучатель успешно саботирован"))
 
 /obj/machinery/power/bfl_emitter/process()
 	if(!state)
@@ -154,7 +154,7 @@
 		for(var/M in GLOB.player_list)
 			var/turf/mob_turf = get_turf(M)
 			if(mob_turf?.z == lavaland_z_lvl)
-				to_chat(M, span_boldwarning("You see bright red flash in the sky. Then clouds of smoke rises, uncovering giant red ray striking from the sky."))
+				to_chat(M, span_boldwarning("Вы видите яркую красную вспышку в небе. Затем клубы дыма рассеиваются, открывая гигантский красный луч, бьющий с небес."))
 		laser.move = rand_location.x
 		if(receiver)
 			receiver.mining = FALSE
@@ -268,7 +268,15 @@
 
 /obj/machinery/bfl_receiver
 	name = "BFL Receiver"
-	desc = "Activate button doesn't look right. Probably should open the pit manually, try using a crowbar."
+	desc = "Кнопка активации выглядит подозрительно. Возможно, следует открыть шахту вручную с помощью лома."
+	ru_names = list(
+		NOMINATIVE = "приёмник BFL",
+		GENITIVE = "приёмника BFL",
+		DATIVE = "приёмнику BFL",
+		ACCUSATIVE = "приёмник BFL",
+		INSTRUMENTAL = "приёмником BFL",
+		PREPOSITIONAL = "приёмнике BFL"
+	)
 	icon = 'icons/obj/machines/BFL_mission/Hole.dmi'
 	icon_state = "Receiver_Off"
 	anchored = TRUE
@@ -327,21 +335,21 @@
 	var/response
 	src.add_fingerprint(user)
 	if(state)
-		response = alert(user, "You trying to deactivate BFL receiver machine, are you sure?", "BFL Receiver", "deactivate", "empty ore storage", "nothing")
+		response = tgui_alert(user, "Вы пытаетесь деактивировать приёмник BFL. Уверены?", "Приёмник BFL", list("Деактивировать", "Очистить хранилище руды", "Отмена"))
 	else
-		response = alert(user, "You trying to activate BFL receiver machine, are you sure?", "BFL Receiver", "activate", "empty ore storage", "nothing")
+		response = tgui_alert(user, "Вы пытаетесь активировать приёмник BFL. Уверены?", "Приёмник BFL", list("Активировать", "Очистить хранилище руды", "Отмена"))
 
 	switch(response)
-		if("deactivate")
-			to_chat(user, "No power. <br> You should open the pit manually, try using a crowbar")
-		if("activate")
-			to_chat(user, "No power. <br> You should open the pit manually, try using a crowbar")
-		if("empty ore storage")
+		if("Деактивировать")
+			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
+		if("Активировать")
+			to_chat(user, span_warning("Нет питания.<br>Попробуйте открыть шахту вручную с помощью лома."))
+		if("Очистить хранилище руды")
 			if(lens)
-				to_chat(user, "The Lens interferes, you can't get any ore from storage.")
+				to_chat(user, span_warning("Линза создаёт помехи - невозможно получить руду из хранилища."))
 				return
 			if(state && (user.ckey != last_user_ckey))
-				to_chat(user, "Your inner voice telling you should close the pit first.")
+				to_chat(user, span_warning("Внутренний голос подсказывает, что сначала нужно закрыть шахту."))
 				last_user_ckey = user.ckey
 				return
 			var/turf/location = get_turf(src)
@@ -440,7 +448,15 @@
 ////////
 /obj/machinery/bfl_lens
 	name = "High-precision lens"
-	desc = "Extremely fragile, handle with care."
+	desc = "Чрезвычайно хрупкая, обращайтесь осторожно."
+	ru_names = list(
+		NOMINATIVE = "высокоточная линза",
+		GENITIVE = "высокоточной линзы",
+		DATIVE = "высокоточной линзе",
+		ACCUSATIVE = "высокоточную линзу",
+		INSTRUMENTAL = "высокоточной линзой",
+		PREPOSITIONAL = "высокоточной линзе"
+	)
 	icon = 'icons/obj/machines/BFL_Mission/Hole.dmi'
 	icon_state = "Lens_Pull"
 	max_integrity = 40
@@ -511,7 +527,7 @@
 
 
 /obj/machinery/bfl_lens/Destroy()
-	visible_message("Lens shatters in a million pieces")
+	visible_message(span_danger("Линза разлетается на миллионы осколков!"))
 	playsound(src, "shatter", 70, 1)
 	return ..()
 
@@ -552,7 +568,7 @@
 
 /obj/singularity/bfl_red
 	name = "BFL"
-	desc = "Giant laser, which is supposed for mining"
+	desc = "Гигантский лазер, предназначенный для добычи руды."
 	icon = 'icons/obj/machines/BFL_Mission/Laser.dmi'
 	icon_state = "Laser_Red"
 	speed_process = TRUE
@@ -590,7 +606,15 @@
 
 /obj/effect/bfl_laser
 	name = "big laser beam"
-	desc = "A huge shining laser beam, goes through above hitting down. You wouldn't like to touch it."
+	desc = "Огромный сияющий луч, бьющий сверху вниз. Лучше не касаться."
+	ru_names = list(
+		NOMINATIVE = "луч мегалазера",
+		GENITIVE = "луча мегалазера",
+		DATIVE = "лучу мегалазера",
+		ACCUSATIVE = "луч мегалазера",
+		INSTRUMENTAL = "лучом мегалазера",
+		PREPOSITIONAL = "луче мегалазера"
+	)
 	icon = 'icons/obj/machines/BFL_Mission/laser_tile.dmi'
 	icon_state = "laser"
 

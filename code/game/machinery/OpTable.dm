@@ -1,6 +1,6 @@
 /obj/machinery/optable
 	name = "operating table"
-	desc = "Used for advanced medical procedures."
+	desc = "Используется для проведения сложных медицинских процедур."
 	icon = 'icons/obj/surgery.dmi'
 	icon_state = "table2-idle"
 	density = TRUE
@@ -75,9 +75,9 @@
 		return FALSE
 
 	if(new_patient == user)
-		user.visible_message("[user] climbs on the operating table.","You climb on the operating table.")
+		user.visible_message("[capitalize(user.declent_ru(NOMINATIVE))] забира[pluralize_ru(user.gender,"ет","ют")]ся на операционный стол.", "Вы забираетесь на операционный стол.")
 	else
-		visible_message(span_alert("[new_patient] has been laid on the operating table by [user]."))
+		visible_message(span_alert("[capitalize(user.declent_ru(NOMINATIVE))] укладывает [new_patient.declent_ru(ACCUSATIVE)] на операционный стол."))
 	if(user.pulling == new_patient)
 		user.stop_pulling()
 	new_patient.forceMove(loc)

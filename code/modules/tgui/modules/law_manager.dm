@@ -113,10 +113,10 @@
 				var/datum/ai_law/AL = locate(params["edit_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to edit their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant edit that law.</span>")
+					to_chat(usr, span_warning("Вы не можете изменить этот закон."))
 					return
 				if(AL)
-					var/new_law = tgui_input_text(usr, "Enter new law. Leaving the field blank will cancel the edit.", "Edit Law", AL.law, encode = FALSE)
+					var/new_law = tgui_input_text(usr, "Введите новый закон. Оставьте поле пустым для отмены.", "Редактирование закона", AL.law, encode = FALSE)
 					if(new_law && new_law != AL.law && is_malf(usr) && (!..()))
 						log_and_message_admins("has changed a law of [owner] from '[AL.law]' to '[new_law]'")
 						var/old_law = AL.law
@@ -128,7 +128,7 @@
 				var/datum/ai_law/AL = locate(params["delete_law"]) in owner.laws.all_laws()
 				// Dont allow non-admins to delete their own malf laws
 				if(istype(AL, /datum/ai_law/zero) && (!check_rights(R_ADMIN)))
-					to_chat(usr, "<span class='warning'>You cant delete that law.</span>")
+					to_chat(usr, span_warning("Вы не можете удалить этот закон."))
 					return
 				if(AL && is_malf(usr))
 					var/old_law = AL.law
@@ -153,15 +153,15 @@
 					SSticker?.score?.save_silicon_laws(owner, usr, "admin/malf used law manager, '[ALs.name]' laws set was loaded", log_all_laws = TRUE)
 
 		if("notify_laws")
-			to_chat(owner, "<span class='danger'>Law Notice</span>")
+			to_chat(owner, span_danger("УВЕДОМЛЕНИЕ О ЗАКОНЕ"))
 			owner.laws.show_laws(owner)
 			if(isAI(owner))
 				var/mob/living/silicon/ai/AI = owner
 				for(var/mob/living/silicon/robot/R in AI.connected_robots)
-					to_chat(R, "<span class='danger'>Law Notice</span>")
+					to_chat(R, span_danger("УВЕДОМЛЕНИЕ О ЗАКОНЕ"))
 					R.laws.show_laws(R)
 			if(usr != owner)
-				to_chat(usr, "<span class='notice'>Laws displayed.</span>")
+				to_chat(usr, span_notice("Законы отображены."))
 
 /datum/ui_module/law_manager/ui_state(mob/user)
 	if(check_rights(R_ADMIN, FALSE))
