@@ -164,6 +164,7 @@
 #include "code\__DEFINES\tools.dm"
 #include "code\__DEFINES\turfs.dm"
 #include "code\__DEFINES\typeids.dm"
+#include "code\__DEFINES\ui_themes.dm"
 #include "code\__DEFINES\uplink_types.dm"
 #include "code\__DEFINES\vampire_defines.dm"
 #include "code\__DEFINES\vehicles.dm"
