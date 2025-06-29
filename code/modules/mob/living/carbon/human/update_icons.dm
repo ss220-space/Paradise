@@ -478,7 +478,7 @@ GLOBAL_LIST_EMPTY(damage_icon_parts)
 
 /mob/living/carbon/human/update_fire()
 	remove_overlay(FIRE_LAYER)
-	if(on_fire)
+	if(on_fire || HAS_TRAIT(src, TRAIT_FAKE_FIRE))
 		if(!overlays_standing[FIRE_LAYER])
 			overlays_standing[FIRE_LAYER] = mutable_appearance(FIRE_DMI(src), icon_state = "Standing", layer = -FIRE_LAYER)
 	apply_overlay(FIRE_LAYER)

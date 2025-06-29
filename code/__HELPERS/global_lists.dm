@@ -47,6 +47,8 @@
 	init_datum_subtypes(/datum/superheroes, GLOB.all_superheroes, null, "name")
 	init_datum_subtypes(/datum/language, GLOB.all_languages, null, "name")
 
+	init_datum_subtypes(/datum/devil_contract, GLOB.devil_contracts, list(/datum/devil_contract), "contract_type")
+
 	// Setup languages
 	for(var/language_name in GLOB.all_languages)
 		var/datum/language/language = GLOB.all_languages[language_name]

@@ -141,7 +141,7 @@
 			return
 
 		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(mob, span_bluespaceanomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
+		to_chat(mob, span_bluespace_anomaly("Вы слышите страшный треск! Это что... трещит пространство?"))
 
 /obj/effect/anomaly/bluespace/tier3/collapse()
 	new /datum/event/wormholes/anomaly()
@@ -185,7 +185,7 @@
 			continue
 
 		mob.playsound_local(null,'sound/effects/explosionfar.ogg', 15, TRUE)
-		to_chat(mob, span_bluespaceanomaly("Пространство пало..."))
+		to_chat(mob, span_bluespace_anomaly("Пространство пало..."))
 
 /obj/effect/anomaly/bluespace/tier4/collapse()
 	new /datum/event/wormholes/anomaly()

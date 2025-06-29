@@ -3,8 +3,6 @@
 // Requires high amount of power
 // Requires high level stock parts
 
-GLOBAL_LIST_EMPTY(bluespace_cannons)
-
 /datum/station_goal/bluespace_cannon
 	name = "Bluespace Artillery"
 
@@ -25,7 +23,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 /datum/station_goal/bluespace_cannon/check_completion()
 	if(..())
 		return TRUE
-	for(var/obj/machinery/bsa/full/B in GLOB.bluespace_cannons)
+	for(var/obj/machinery/bsa/full/B in SSmachines.get_by_type(/obj/machinery/bsa/full))
 		if(B && !B.stat && is_station_contact(B.z))
 			return TRUE
 	return FALSE
@@ -162,12 +160,7 @@ GLOBAL_LIST_EMPTY(bluespace_cannons)
 	bound_width = 352
 	bound_x = -192
 
-/obj/machinery/bsa/full/New()
-	. = ..()
-	GLOB.bluespace_cannons += src
-
 /obj/machinery/bsa/full/Destroy()
-	GLOB.bluespace_cannons -= src
 	if(controller && controller.cannon == src)
 		controller.cannon = null
 		controller = null

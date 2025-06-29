@@ -703,7 +703,7 @@
 
 /obj/item/syndicatedetonator/attack_self(mob/user)
 	if(timer < world.time)
-		for(var/obj/machinery/syndicatebomb/B in GLOB.machines)
+		for(var/obj/machinery/syndicatebomb/B in SSmachines.get_by_type(/obj/machinery/syndicatebomb))
 			if(B.active)
 				B.detonation_timer = world.time + BUTTON_DELAY
 				detonated++

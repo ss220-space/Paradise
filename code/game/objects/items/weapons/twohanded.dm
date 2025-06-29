@@ -893,11 +893,27 @@
 
 /obj/item/twohanded/pitchfork/demonic
 	name = "demonic pitchfork"
-	desc = "A red pitchfork, it looks like the work of the devil."
+	desc = "Красные вилы. Похоже, это инструмент дьявола."
+	ru_names = list(
+		NOMINATIVE = "демонические вилы",
+		GENITIVE = "демонических вил",
+		DATIVE = "демоническим вилам",
+		ACCUSATIVE = "демонические вилы",
+		INSTRUMENTAL = "демоническими вилами",
+		PREPOSITIONAL = "демонических вилах"
+	)
 	force = 19
 	throwforce = 24
 	force_unwielded = 19
 	force_wielded = 25
+	block_chance = 50
+	block_type = MELEE_ATTACKS
+	light_system = MOVABLE_LIGHT
+	light_range = 3
+	light_power = 6
+	siemens_coefficient = 0
+	light_color = COLOR_SOFT_RED
+	gender = PLURAL
 
 /obj/item/twohanded/pitchfork/demonic/greater
 	force = 24
@@ -915,22 +931,27 @@
 	icon_state = "pitchfork[HAS_TRAIT(src, TRAIT_WIELDED)]"
 
 /obj/item/twohanded/pitchfork/suicide_act(mob/user)
-	user.visible_message(span_suicide("[user] impales \himself in \his abdomen with [src]! It looks like \he's trying to commit suicide..."))
+	user.visible_message(span_suicide("[capitalize(user.declent_ru(NOMINATIVE))] пронза[pluralize_ru(user.gender, "ет", "ют")] свой живот [declent_ru(INSTRUMENTAL)]! Похоже, [genderize_ru(user.gender, "он", "она", "оно", "они")] пытается покончить с собой..."))
 	return BRUTELOSS
 
 /obj/item/twohanded/pitchfork/demonic/pickup(mob/user)
 	. = ..()
-	if(isliving(user))
-		var/mob/living/U = user
-		if(!U.mind?.has_antag_datum(/datum/antagonist/devil) && (U.mind.soulOwner == U.mind)) //Burn hands unless they are a devil or have sold their soul
-			U.visible_message(span_warning("As [U] picks [src] up, [U]'s arms briefly catch fire."), \
-				span_warning("\"As you pick up the [src] your arms ignite, reminding you of all your past sins.\""))
-			if(ishuman(U))
-				var/mob/living/carbon/human/H = U
-				H.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
-			else
-				U.adjustFireLoss(rand(force/2,force))
+	if(!isliving(user))
+		return
+	var/mob/living/living_user = user
 
+	if(living_user.mind?.has_antag_datum(/datum/antagonist/devil) || !(living_user.mind.soulOwner == living_user.mind)) //Burn hands unless they are a devil or have sold their soul
+		return
+
+	living_user.visible_message(span_warning("Когда [living_user.declent_ru(NOMINATIVE)] поднима[pluralize_ru(living_user.gender, "ет", "ют")] [declent_ru(ACCUSATIVE)], [genderize_ru(living_user.gender, "его", "её", "его", "их")] руки на мгновение загораются."), \
+					span_warning("Когда вы поднимаете [declent_ru(ACCUSATIVE)], ваши руки воспламеняются, напоминая вам обо всех ваших прошлых грехах."))
+
+	if(!ishuman(living_user))
+		living_user.adjustFireLoss(rand(force / 2, force))
+		return
+
+	var/mob/living/carbon/human/human = living_user
+	human.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 /obj/item/twohanded/pitchfork/demonic/attack(mob/living/target, mob/living/user, params, def_zone, skip_attack_anim = FALSE)
 	. = ..()
@@ -940,8 +961,8 @@
 	if(user.mind?.has_antag_datum(/datum/antagonist/devil) || (user.mind.soulOwner == user.mind))
 		return .
 
-	to_chat(user, span_warning("The [name] burns in your hands!"))
-	user.apply_damage(rand(force/2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
+	to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] пылают в ваших руках!"))
+	user.apply_damage(rand(force / 2, force), BURN, pick(BODY_ZONE_L_ARM, BODY_ZONE_R_ARM))
 
 
 
@@ -949,12 +970,21 @@
 /obj/item/twohanded/pitchfork/demonic/ascended/afterattack(atom/target, mob/user, proximity, params)
 	if(!proximity || !HAS_TRAIT(src, TRAIT_WIELDED))
 		return
+
 	if(iswallturf(target))
-		var/turf/simulated/wall/W = target
-		user.visible_message(span_danger("[user] blasts \the [target] with \the [src]!"))
+		var/turf/simulated/wall/wall = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
 		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
-		W.devastate_wall(TRUE)
+		wall.dismantle_wall(TRUE)
 		return TRUE
+
+	if(ismineralturf(target))
+		var/turf/simulated/mineral/mineral = target
+		user.visible_message(span_danger("[capitalize(user.declent_ru(NOMINATIVE))] разрушает [target.declent_ru(ACCUSATIVE)] с помощью [declent_ru(INSTRUMENTAL)]"))
+		playsound(target, 'sound/magic/Disintegrate.ogg', 100, 1)
+		mineral.gets_drilled(user)
+		return TRUE
+
 	..()
 
 /obj/item/twohanded/bamboospear

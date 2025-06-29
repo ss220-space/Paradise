@@ -6,15 +6,15 @@
 	weather_immunities = list(TRAIT_LAVA_IMMUNE, TRAIT_ASHSTORM_IMMUNE)
 	obj_damage = 30
 	environment_smash = ENVIRONMENT_SMASH_WALLS
-	response_help = "pokes"
-	response_disarm = "shoves"
-	response_harm = "strikes"
+	response_help = "гладит"
+	response_disarm = "толкает"
+	response_harm = "бьёт"
 	status_flags = 0
 	a_intent = INTENT_HARM
 	AI_delay_max = 0.5 SECONDS
 	var/jewelry_loot
 	var/crusher_loot
-	var/throw_message = "bounces off of"
+	var/throw_message = "отскакивает от"
 	var/fromtendril = FALSE
 	nightvision = 8
 	lighting_alpha = LIGHTING_PLANE_ALPHA_MOSTLY_INVISIBLE
@@ -47,7 +47,7 @@
 		Aggro()
 	if(P.damage < 30 && P.damage_type != BRUTE && has_laser_resist)
 		P.damage = (P.damage / 3)
-		visible_message(span_danger("[P] has a reduced effect on [src]!"), projectile_message = TRUE)
+		visible_message(span_danger("[P] не оказывается влияние на [declent_ru(ACCUSATIVE)]!"), projectile_message = TRUE)
 	..()
 
 /mob/living/simple_animal/hostile/asteroid/hitby(atom/movable/AM, skipcatch, hitpush, blocked, datum/thrownthing/throwingdatum) //No floor tiling them to death, wiseguy
@@ -56,7 +56,7 @@
 		if(!stat)
 			Aggro()
 		if(T.throwforce <= 20)
-			visible_message("<span class='notice'>The [T.name] [throw_message] [src.name]!</span>")
+			visible_message(span_notice("[T.name] [throw_message] [declent_ru(GENITIVE)]!"))
 			return
 	..()
 
@@ -68,7 +68,7 @@
 		if(prob(melee_damage_lower | melee_damage_upper ? 30 : 40)) // Poaching logic - a better reward gained from hunting harmless animals.
 			var/obj/gem = new jewelry_loot(loc)
 			if(!deathmessage)
-				deathmessage = "spits out a [gem.name] as it dies!"
+				deathmessage = "умирая, выплевывает [gem.declent_ru(ACCUSATIVE)]!"
 		jewelry_loot = null
 		. = ..(gibbed)
 		deathmessage = initial(deathmessage)
