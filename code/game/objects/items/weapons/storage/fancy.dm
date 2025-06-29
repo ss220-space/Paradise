@@ -703,6 +703,7 @@
 	var/cartridges = rand(1, storage_slots)
 	for(var/I in 1 to cartridges)
 		new /obj/item/coffee_cartridge(src)
+	update_appearance()
 
 /obj/item/storage/fancy/update_icon_state()
 	icon_state = "coffee_cartrack[length(contents)]"

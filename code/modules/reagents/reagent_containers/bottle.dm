@@ -1114,43 +1114,41 @@
 	)
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "syrup"
+	base_icon_state = "syrup"
 	possible_transfer_amounts = list(5, 10)
 	volume = 50
 	amount_per_transfer_from_this = 5
 	container_type = NONE
 	var/cap_on = TRUE
 
-/obj/item/reagent_containers/glass/bottle/syrup_bottle/on_reagent_change()
-	update_icon(UPDATE_OVERLAYS)
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/update_overlays()
 	. = ..()
 	underlays.Cut()
 	if(reagents.total_volume)
-		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[icon_state]20")
-
+		var/image/filling = image('icons/obj/reagentfillings.dmi', src, "[base_icon_state]20")
 		var/percent = round((reagents.total_volume / volume) * 100)
 		switch(percent)
 			if(0 to 20)
-				filling.icon_state = "[icon_state]20"
+				filling.icon_state = "[base_icon_state]20"
 			if(20 to 40)
-				filling.icon_state = "[icon_state]40"
+				filling.icon_state = "[base_icon_state]40"
 			if(40 to 60)
-				filling.icon_state = "[icon_state]60"
+				filling.icon_state = "[base_icon_state]60"
 			if(60 to 80)
-				filling.icon_state = "[icon_state]80"
+				filling.icon_state = "[base_icon_state]80"
 			if(80 to INFINITY)
-				filling.icon_state = "[icon_state]100"
+				filling.icon_state = "[base_icon_state]100"
 
 		filling.icon += mix_color_from_reagents(reagents.reagent_list)
-		underlays += filling
+		. += filling
 
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/examine(mob/user)
 	. = ..()
-	. += span_boldnotice("Крышка-дозатор [cap_on ? "надета" : "снята"].")
 	. += span_info("Используйте контейнер на [declent_ru(PREPOSITIONAL)], чтобы переместить в него содержимое бутылки.")
 	return
+
 
 /obj/item/reagent_containers/glass/bottle/syrup_bottle/attack_self(mob/user)
 	cap_on = !cap_on
@@ -1187,8 +1185,8 @@
 
 	attacking_item.update_appearance()
 	update_appearance()
-
 	return ATTACK_CHAIN_PROCEED_SUCCESS
+
 
 //types of syrups
 

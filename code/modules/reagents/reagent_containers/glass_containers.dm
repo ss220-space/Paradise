@@ -24,7 +24,7 @@
 /obj/item/reagent_containers/glass/examine(mob/user)
 	. = ..()
 	if(get_dist(user, src) <= 2 && !is_open_container())
-		. += span_notice("Закрыто герметичной крышкой.")
+		. += span_boldnotice("Крышка надета.")
 
 	. += span_notice("Вмещает до <b>[reagents.maximum_volume]</b> единиц[declension_ru(reagents.maximum_volume, "ы", "", "")] вещества.")
 
@@ -43,7 +43,7 @@
 	for(var/datum/reagent/reagent as anything in reagents.reagent_list)
 		transferred += reagent.name
 
-	var/contained = english_list(transferred)
+	var/contained = russian_list(transferred)
 
 	if(user.a_intent == INTENT_HARM)
 		target.visible_message(
@@ -666,6 +666,7 @@
 		PREPOSITIONAL = "кофейнике"
  	)
 	gender = MALE
+	w_class = WEIGHT_CLASS_NORMAL
 	amount_per_transfer_from_this = 15
 	possible_transfer_amounts = list(10,15,30,50,100)
 	volume = 150
@@ -673,3 +674,23 @@
 	icon = 'icons/obj/drinks.dmi'
 	icon_state = "coffeepot"
 	materials = list(MAT_METAL = 1000, MAT_GLASS = 3500)
+
+/obj/item/reagent_containers/glass/coffeepot/on_reagent_change()
+	update_icon(UPDATE_OVERLAYS)
+
+/obj/item/reagent_containers/glass/coffeepot/update_overlays()
+	. = ..()
+	if(reagents.total_volume)
+		var/image/filling = image('icons/obj/reagentfillings.dmi', "[icon_state]30")
+
+		var/percent = round((reagents.total_volume / volume) * 100)
+		switch(percent)
+			if(1 to 30)
+				filling.icon_state = "[icon_state]30"
+			if(30 to 60)
+				filling.icon_state = "[icon_state]60"
+			if(60 to INFINITY)
+				filling.icon_state = "[icon_state]100"
+
+		filling.icon += mix_color_from_reagents(reagents.reagent_list)
+		. += filling

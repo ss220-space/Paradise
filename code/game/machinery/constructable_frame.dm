@@ -576,7 +576,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/coffeemaker
 	board_name = "Кофемашина \"Piccionaia Modello 3\""
-	build_path = /obj/machinery/kitchen_machine/coffeemaker
+	build_path = /obj/machinery/coffeemaker
 	board_type = "machine"
 	origin_tech = "programming=2;magnets=2"
 	req_components = list(
@@ -587,7 +587,7 @@ to destroy them and players will be able to make replacements.
 
 /obj/item/circuitboard/coffeemaker/impressa
 	board_name = "Кофемашина \"Impressa Modello 5\""
-	build_path = /obj/machinery/kitchen_machine/coffeemaker/impressa
+	build_path = /obj/machinery/coffeemaker/impressa
 	board_type = "machine"
 	origin_tech = "programming=3;magnets=3"
 	req_components = list(
