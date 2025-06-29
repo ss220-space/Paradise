@@ -1150,7 +1150,7 @@
 	msg += "- Toxicity level: <span class='notice'>[toxic] / 100</span>"
 	msg += "- Water level: <span class='notice'>[waterlevel] / [maxwater]</span>"
 	msg += "- Nutrition level: <span class='notice'>[nutrilevel] / [maxnutri]</span>"
-	to_chat(user, msg.Join("\n"))
+	to_chat(user, chat_box_examine(msg.Join("\n")))
 
 /obj/machinery/hydroponics/attack_ghost(mob/dead/observer/user)
 	if(!istype(user)) // Make sure user is actually an observer. Revenents also use attack_ghost, but do not have the toggle plant analyzer var.

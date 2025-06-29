@@ -111,7 +111,7 @@
 		if(!check.has_status_effect(type))
 			continue
 		if(is_wiz && iswizard(check))
-			user.visible_message(span_dangerbigger("<b>[user.name]</b> и <b>[check.name]</b> [critical_success]"))
+			user.visible_message(span_biggerdanger("<b>[user.name]</b> и <b>[check.name]</b> [critical_success]"))
 			ADD_TRAIT(user, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			ADD_TRAIT(check, TRAIT_GODMODE, UNIQUE_TRAIT_SOURCE(src))
 			explosion(get_turf(user), 5, 2, 1, 3, cause = id)

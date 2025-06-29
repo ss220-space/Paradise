@@ -40,9 +40,9 @@
 		if(1 to 10)
 			msg = span_userdanger("<b>Вы чувствуете боль в [partname].</b>")
 		if(11 to 90)
-			msg = span_userdanger("<b><font size=2>Вы чувствуете сильную боль в [partname]!</font></b>")
+			msg = span_userdanger(span_bold(span_fontsize2("<b>Вы чувствуете сильную боль в [partname]!")))
 		if(91 to INFINITY)
-			msg = span_userdanger("<b><font size=3>Ох чёрт! Вы чувствуете невыносимую боль в [partname]!</font></b>")
+			msg = span_userdanger(span_bold(span_fontsize3("Ох чёрт! Вы чувствуете невыносимую боль в [partname]!")))
 	if(msg && (msg != last_pain_message || prob(10)))
 		last_pain_message = msg
 		to_chat(src, msg)

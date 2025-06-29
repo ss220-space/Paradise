@@ -68,19 +68,19 @@
 		var/count = 1
 		for(var/datum/objective/objective in all_objectives)
 			if(objective.check_completion())
-				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <b>[span_fontcolor_green("Успех!")]</b>"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] <b>[span_green("Успех!")]</b>"
 				SSblackbox.record_feedback("nested tally", "sintouched_objective", 1, list("[objective.type]", "SUCCESS"))
 			else
-				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_fontcolor_red("Провал!")]"
+				text += "<br><b>Цель #[count]</b>: [objective.explanation_text] [span_red("Провал!")]"
 				SSblackbox.record_feedback("nested tally", "sintouched_objective", 1, list("[objective.type]", "FAIL"))
 				traitorwin = FALSE
 			count++
 
 	if(traitorwin)
-		text += span_fontcolor_green("<br><b>Грешник был успешен!</b>")
+		text += span_green("<br><b>Грешник был успешен!</b>")
 		SSblackbox.record_feedback("tally", "sintouched_success", 1, "SUCCESS")
 	else
-		text += span_fontcolor_red("<br><b>Грешник провалился!</b>")
+		text += span_red("<br><b>Грешник провалился!</b>")
 		SSblackbox.record_feedback("tally", "sintouched_success", 1, "FAIL")
 
 	return text
