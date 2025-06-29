@@ -132,7 +132,15 @@
 ////////////////////////////////////////
 /obj/item/storage/bag/ore
 	name = "mining satchel"
-	desc = "This little bugger can be used to store and transport ores."
+	desc = "Эта малютка может хранить и переносить руду."
+	ru_names = list(
+		NOMINATIVE = "шахтёрская сумка",
+		GENITIVE = "шахтёрской сумки",
+		DATIVE = "шахтёрской сумке",
+		ACCUSATIVE = "шахтёрскую сумку",
+		INSTRUMENTAL = "шахтёрской сумкой",
+		PREPOSITIONAL = "шахтёрской сумке"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "satchel"
 	origin_tech = "engineering=2"
@@ -146,7 +154,15 @@
 
 /obj/item/storage/bag/ore/bigger
 	name = "industrial mining satchel"
-	desc = "This bugger can be used to store and transport ores. This one has additional utility pockets for ore."
+	desc = "Усовершенствованная версия с дополнительными карманами для руды."
+	ru_names = list(
+		NOMINATIVE = "промышленная шахтёрская сумка",
+		GENITIVE = "промышленной шахтёрской сумки",
+		DATIVE = "промышленной шахтёрской сумке",
+		ACCUSATIVE = "промышленную шахтёрскую сумку",
+		INSTRUMENTAL = "промышленной шахтёрской сумкой",
+		PREPOSITIONAL = "промышленной шахтёрской сумке"
+	)
 	icon_state = "satchel_better"
 	storage_slots = 16 //little better
 
@@ -161,7 +177,15 @@
 
 /obj/item/storage/bag/ore/holding //miners, your messiah has arrived
 	name = "mining satchel of holding"
-	desc = "A revolution in convenience, this satchel allows for infinite ore storage. It's been outfitted with anti-malfunction safety measures."
+	desc = "Революционное решение – бесконечное хранилище для руды с защитой от сбоев."
+	ru_names = list(
+		NOMINATIVE = "шахтёрская сумка хранения",
+		GENITIVE = "шахтёрской сумки хранения",
+		DATIVE = "шахтёрской сумке хранения",
+		ACCUSATIVE = "шахтёрскую сумку хранения",
+		INSTRUMENTAL = "шахтёрской сумкой хранения",
+		PREPOSITIONAL = "шахтёрской сумке хранения"
+	)
 	storage_slots = INFINITY
 	max_combined_w_class = INFINITY
 	origin_tech = "bluespace=4;materials=3;engineering=3"
@@ -178,7 +202,15 @@
 
 /obj/item/storage/bag/gem
 	name = "gem satchel"
-	desc = "You thought it would be more like what those cartoon robbers wear."
+	desc = "Вы ожидали чего-то более стильного, как в мультфильмах про грабителей."
+	ru_names = list(
+		NOMINATIVE = "сумка для самоцветов",
+		GENITIVE = "сумки для самоцветов",
+		DATIVE = "сумке для самоцветов",
+		ACCUSATIVE = "сумку для самоцветов",
+		INSTRUMENTAL = "сумкой для самоцветов",
+		PREPOSITIONAL = "сумке для самоцветов"
+	)
 	icon = 'icons/obj/mining.dmi'
 	icon_state = "gem_satchel"
 	slot_flags = ITEM_SLOT_BELT
