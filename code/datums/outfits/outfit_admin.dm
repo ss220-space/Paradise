@@ -232,7 +232,6 @@
 	)
 	implants = list(/obj/item/implant/dust)
 	can_be_admin_equipped = FALSE
-	uplink_uses = null
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
