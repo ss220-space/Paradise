@@ -136,6 +136,9 @@
 /datum/antagonist/nuclear_operative/loneop/store_nuke_code()
 	antag_memory = "<b>Код от боеголовки станции [station_name()]</b>: [GLOB.nuke_codes[/obj/machinery/nuclearbomb]]"
 
+/datum/antagonist/nuclear_operative/loneop/give_objectives()
+	add_objective(/datum/objective/nuclear)
+
 /datum/antagonist/nuclear_operative/loneop/greet()
 	var/list/messages = list()
 	SEND_SOUND(owner.current, 'sound/ambience/antag/ops.ogg')
