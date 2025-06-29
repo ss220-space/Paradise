@@ -20,26 +20,28 @@
 
 /obj/item/storage/belt/proc/check_menu(mob/living/user)
 	if(!istype(user))
-		return
-	if(user.incapacitated())
-		return
-	if(loc != user)
-		return
+		return FALSE
+	if(user.incapacitated() || !user.Adjacent(src))
+		return FALSE
 	return TRUE
 
 /obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/I)
-	if (usr.put_in_any_hand_if_possible(selected, ignore_anim=FALSE))
-		to_chat(user, "<span class='notice'>Вы достаете [I.name] с пояса.</span>")
-		remove_from_storage(I, usr)
+	if (usr.put_in_active_hand(I))
+		to_chat(usr, "<span class='notice'>Вы достаете [I.name] с пояса.</span>")
 
 /obj/item/storage/belt/proc/radial_menu(mob/user)
 	if(!check_menu(user))
-		to_chat(user, "<span class='notice'>Вы не можете это сделать сейчас!</span>")
 		return
 	var/list/choices = list()
 	for(var/obj/I in contents)
 		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
-
+	if (length(choices) == 0)
+		to_chat(user, "<span class='notice'>Ваш пояс пуст.</span>")
+		return
+	if (length(choices) == 1) // Auto extract for single item without radial menu
+		var/obj/item/selected = contents[1]
+		try_fast_equip_item_from_belt(selected)
+		return
 	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
 	if(!check_menu(user))
 		return
@@ -53,13 +55,7 @@
 	try_fast_equip_item_from_belt(selected)
 
 /obj/item/storage/belt/ui_action_click(mob/living/user, datum/action/action, leftclick)
-	if(length(contents) > 1)
-		radial_menu(user)
-	else if (length(contents) == 1)
-		var/obj/item/selected = contents[1]
-		try_fast_equip_item_from_belt(selected)
-	else
-		to_chat(user, "<span class='notice'>Ваш пояс пуст.</span>")
+	radial_menu(user)
 
 /obj/item/storage/belt/item_action_slot_check(slot, mob/user, datum/action/action)
 	if(slot & ITEM_SLOT_BELT)
