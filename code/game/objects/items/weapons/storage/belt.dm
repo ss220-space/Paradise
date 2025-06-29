@@ -27,7 +27,7 @@
 		return
 	return TRUE
 
-/obj/item/storage/belt/try_fast_equip_item_from_belt(obj/item/I)
+/obj/item/storage/belt/proc/try_fast_equip_item_from_belt(obj/item/I)
 	if (usr.put_in_any_hand_if_possible(selected, ignore_anim=FALSE))
 		to_chat(user, "<span class='notice'>Вы достаете [I.name] с пояса.</span>")
 		remove_from_storage(I, usr)
