@@ -57,13 +57,13 @@
 	. = ..()
 
 	if(flip_check())
-		. += span_info("You can <b>Disarm-Click</b> to [flipped ? "right [src] again" : "flip over [src]"].")
+		. += span_info("Можно <b>кликнуть в намерении \"Обезоружить\"</b> чтобы [flipped ? "вернуть [src.declent_ru(ACCUSATIVE)] в исходное положение" : "перевернуть [src.declent_ru(ACCUSATIVE)]"].")
 
 	. += deconstruction_hints(user)
 
 
 /obj/structure/table/proc/deconstruction_hints(mob/user)
-	return span_notice("The top is <b>screwed</b> on, but the main <b>bolts</b> are also visible.")
+	return span_notice("Верхняя часть крепится <b>винтами</b>, но основные <b>болты</b> тоже видны.")
 
 
 /obj/structure/table/update_icon(updates = ALL)
@@ -110,14 +110,18 @@
 	..()
 	if(climber)
 		climber.Weaken(4 SECONDS)
-		climber.visible_message(span_warning("[climber.name] has been knocked off the table!"), \
-			span_warning("You've been knocked off the table!"), \
-			span_warning("You hear [climber.name] get knocked off the table!"))
+		climber.visible_message(
+			span_warning("[climber.name] сброшен со стола!"),
+			span_warning("Вас сбросили со стола!"),
+			span_warning("Слышно, как кто-то упал со стола!")
+		)
 	else if(user.pulling && user.pulling.pass_flags & PASSTABLE)
 		user.Move_Pulled(src)
 		if(user.pulling.loc == loc)
-			user.visible_message(span_notice("[user] places [user.pulling] onto [src]."),
-				span_warning("You place [user.pulling] onto [src]."))
+			user.visible_message(
+				span_notice("[capitalize(user.declent_ru(NOMINATIVE))] кладёт [user.pulling.declent_ru(ACCUSATIVE)] на [src.declent_ru(ACCUSATIVE)]."),
+				span_warning("Вы кладёте [user.pulling.declent_ru(ACCUSATIVE)] на [src.declent_ru(ACCUSATIVE)].")
+			)
 			user.stop_pulling()
 	else if(user.a_intent == INTENT_DISARM)
 		actual_flip(user)
@@ -217,7 +221,7 @@
 /obj/structure/table/can_touch(mob/living/user, flip = FALSE)
 	. = ..()
 	if(. && !flip && flipped)
-		to_chat(user, span_notice("You cannot climb on the flipped table."))
+		to_chat(user, span_notice("Вы не можете забраться на перевернутый стол."))
 		return FALSE
 
 
@@ -238,21 +242,21 @@
 
 /obj/structure/table/proc/tablepush(mob/living/victim, mob/user)
 	if(HAS_TRAIT(user, TRAIT_PACIFISM) || GLOB.pacifism_after_gt)
-		to_chat(user, span_danger("Throwing [victim] onto the table might hurt them!"))
+		to_chat(user, span_danger("Бросок [victim.declent_ru(ACCUSATIVE)] на стол может причинить вред!"))
 		return FALSE
 	if(victim.buckled)
-		to_chat(user, span_warning("[victim] is buckled to [victim.buckled]!"))
+		to_chat(user, span_warning("[capitalize(victim.declent_ru(NOMINATIVE))] уже пристегнут к [victim.buckled.declent_ru(DATIVE)]!"))
 		return FALSE
 	var/obj/blocking_object = density_check(user)
 	if(blocking_object)
-		to_chat(user, span_warning("You cannot do this there is [blocking_object.name] in the way!"))
+		to_chat(user, span_warning("Не получается - мешает [blocking_object.declent_ru(NOMINATIVE)]!"))
 		return FALSE
 	victim.forceMove(get_turf(src))
 	victim.Weaken(4 SECONDS)
 	item_placed(victim)
 	victim.visible_message(
-		span_danger("[user] pushes [victim] onto [src]."),
-		span_userdanger("[user] pushes you onto [src]."),
+		span_danger("[capitalize(user.declent_ru(NOMINATIVE))] толка[pluralize_ru(user.gender,"ет","ют")] [victim.declent_ru(GENITIVE)] на [src.declent_ru(ACCUSATIVE)]."),
+		span_userdanger("[user] толка[pluralize_ru(user.gender,"ет","ют")] вас на [src.declent_ru(ACCUSATIVE)]."),
 	)
 	add_attack_logs(user, victim, "Pushed onto a table")
 	return TRUE
@@ -374,16 +378,16 @@
 
 	if(!flipped)
 		if(!flip(get_cardinal_dir(user, src)))
-			to_chat(user, span_notice("It won't budge."))
+			to_chat(user, span_notice("Никак не поддаётся."))
 			return
 
-		user.visible_message(span_warning("[user] flips \the [src]!"))
+		user.visible_message(span_warning("[capitalize(user.declent_ru(NOMINATIVE))] переворачивает [src.declent_ru(ACCUSATIVE)]!"))
 
 		if(climbable)
 			structure_shaken()
 	else
 		if(!unflip())
-			to_chat(user, span_notice("It won't budge."))
+			to_chat(user, span_notice("Никак не поддаётся."))
 
 
 
@@ -532,8 +536,7 @@
 
 
 /obj/structure/table/glass/proc/table_shatter(mob/living/L)
-	visible_message(span_warning("[src] breaks!"),
-		span_danger("You hear breaking glass."))
+	visible_message(span_warning("[capitalize(src.declent_ru(NOMINATIVE))] разбивается!"), span_danger("Вы слышите, как бьется стекло"))
 	var/turf/T = get_turf(src)
 	playsound(T, "shatter", 50, TRUE)
 	for(var/I in debris)
@@ -720,9 +723,9 @@
 	. = TRUE
 	if(!I.tool_use_check(user, 0))
 		return
-	to_chat(user, span_notice("You start [deconstruction_ready ? "strengthening" : "weakening"] the reinforced table..."))
+	to_chat(user, span_notice("Вы начинаете [deconstruction_ready ? "усиливать" : "ослаблять"] укреплённый стол..."))
 	if(I.use_tool(src, user, 50, volume = I.tool_volume))
-		to_chat(user, span_notice("You [deconstruction_ready ? "strengthen" : "weaken"] the table."))
+		to_chat(user, span_notice("Вы [deconstruction_ready ? "усилили" : "ослабили"] стол."))
 		deconstruction_ready = !deconstruction_ready
 
 
@@ -834,7 +837,7 @@
 	qdel(src)
 
 /obj/structure/table/tray/deconstruction_hints(mob/user)
-	return span_notice("It is held together by some <b>screws</b> and <b>bolts</b>.")
+	return span_notice("Конструкция скреплена <b>винтами</b> и <b>болтами</b>.")
 
 /obj/structure/table/tray/narsie_act()
 	return
@@ -860,7 +863,7 @@
 /obj/structure/rack/examine(mob/user)
 	. = ..()
 	if(!wooden_version)
-		. += span_notice("It's held together by a couple of <b>bolts</b>.")
+		. += span_notice("Держится на паре <b>болтов</b>.")
 
 
 /obj/structure/rack/CanAllowThrough(atom/movable/mover, border_dir)
@@ -900,7 +903,7 @@
 /obj/structure/rack/wrench_act(mob/user, obj/item/I)
 	. = TRUE
 	if(obj_flags & NODECONSTRUCT)
-		to_chat(user, span_warning("Try as you might, you can't figure out how to deconstruct this."))
+		to_chat(user, span_warning("Как ни старайтесь, у вас не получается разобрать это."))
 		return
 	if(!I.use_tool(src, user, 0, volume = I.tool_volume))
 		return
@@ -915,8 +918,8 @@
 	user.changeNext_move(CLICK_CD_MELEE)
 	user.do_attack_animation(src, ATTACK_EFFECT_KICK)
 	user.visible_message(
-		span_warning("[user] kicks [src]."),
-		span_danger("You kick [src].")
+		span_warning("[capitalize(user.declent_ru(NOMINATIVE))] пинает [src.declent_ru(ACCUSATIVE)]."),
+		span_danger("Вы пинаете [src.declent_ru(ACCUSATIVE)].")
 	)
 	take_damage(rand(4,8), BRUTE, "melee", 1)
 
@@ -953,7 +956,7 @@
 	if(!ishuman(user) || user.incapacitated() || HAS_TRAIT(user, TRAIT_HANDS_BLOCKED))
 		return .
 	if(!(istype(our_gun)))
-		to_chat(user, span_warning("This item doesn't fit!"))
+		to_chat(user, span_warning("Этот предмет не подходит!"))
 		return .
 	if(our_gun.item_flags & ABSTRACT)
 		return .
@@ -1034,14 +1037,14 @@
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, span_notice("You start constructing a gun rack..."))
+	to_chat(user, span_notice("Вы начинаете собирать оружейную стойку..."))
 	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/gunrack/GR = new (user.loc)
 		user.visible_message(
-			span_notice("[user] assembles \a [GR]."),
-			span_notice("You assemble \a [GR].")
+			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] собирает [GR.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы собираете [GR.declent_ru(ACCUSATIVE)].")
 		)
 		GR.add_fingerprint(user)
 		qdel(src)
@@ -1082,13 +1085,15 @@
 	if(building)
 		return
 	building = TRUE
-	to_chat(user, span_notice("You start constructing a rack..."))
+	to_chat(user, span_notice("Вы начинаете собирать стойку..."))
 	if(do_after(user, 5 SECONDS, user))
 		if(!user.drop_from_active_hand())
 			return
 		var/obj/structure/rack/R = new /obj/structure/rack(user.loc)
-		user.visible_message(span_notice("[user] assembles \a [R].\
-			"), span_notice("You assemble \a [R]."))
+		user.visible_message(
+			span_notice("[capitalize(user.declent_ru(NOMINATIVE))] собирает [R.declent_ru(ACCUSATIVE)]."),
+			span_notice("Вы собираете [R.declent_ru(ACCUSATIVE)].")
+		)
 		R.add_fingerprint(user)
 		qdel(src)
 	building = FALSE
