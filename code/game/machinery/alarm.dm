@@ -1123,22 +1123,20 @@
 	add_fingerprint(user)
 	if(stat & (NOPOWER|BROKEN))
 		to_chat(user, span_warning("It does nothing!"))
-		return
-	if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+	else if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 		locked = !locked
 		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
-		return
-	to_chat(user, span_warning("Access denied."))
+	else
+		to_chat(user, span_warning("Access denied."))
 
-/obj/machinery/alarm/click_alt(mob/living/carbon/human/H)
-	if(!istype(H))
+/obj/machinery/alarm/click_alt(mob/living/carbon/human/user)
+	if(!istype(user))
 		return NONE
-	var/obj/item/card/id/card = H.get_id_card()
+	var/obj/item/card/id/card = user.get_id_card()
 	if(!istype(card))
 		return NONE
-
-	add_fingerprint(H)
-	togglelock(H)
+	add_fingerprint(user)
+	togglelock(user)
 	return CLICK_ACTION_SUCCESS
 
 
