@@ -611,7 +611,7 @@ SUBSYSTEM_DEF(ticker)
 
 	for(var/team_type in GLOB.antagonist_teams)
 		var/datum/team/team = GLOB.antagonist_teams[team_type]
-		team.declare_completion()
+		end_of_round_info += team.declare_completion()
 
 	mode.declare_completion()//To declare normal completion.
 

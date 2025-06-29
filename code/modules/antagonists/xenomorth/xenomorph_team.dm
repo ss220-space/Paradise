@@ -159,23 +159,23 @@
 /datum/team/xenomorph/proc/declare_results()
 	var/list/text = list()
 	if(SSticker?.mode?.station_was_nuked && !stage == XENO_STAGE_POST_END)
-		text += span_fontsize3("<br><b>Частичная победа Ксеноморфов!</b>")
-		text += "<b>Станция была уничтожена!</b>"
-		text += "<b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>"
+		text += span_fontsize3("<br><br><b>Частичная победа Ксеноморфов!</b>")
+		text += "<br><b>Станция была уничтожена!</b>"
+		text += "<br><b>Устройство самоуничтожения сработало, предотвратив распространение Ксеноморфов.</b>"
 	else if(protect_cocon?.check_completion(src))
-		text += span_fontsize3("<br><b>Полная победа Ксеноморфов!</b>")
-		text += "<b>Ксеноморфы захватили станцию!</b>"
-		text += "<b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>"
+		text += span_fontsize3("<br><br><b>Полная победа Ксеноморфов!</b>")
+		text += "<br><b>Ксеноморфы захватили станцию!</b>"
+		text += "<br><b>Императрица Ксеноморфов появилась на свет, превратив всю станцию в гнездо.</b>"
 	else if(!current_queen?.current || current_queen.current.stat == DEAD)
-		text += span_fontsize3("<br><b>Полная победа персонала станции!</b>")
-		text += "<b>Экипаж защитил станцию от Ксеноморфов!</b>"
-		text += "<b>Ксеноморфы были истреблены.</b>"
+		text += span_fontsize3("<br><br><b>Полная победа персонала станции!</b>")
+		text += "<br><b>Экипаж защитил станцию от Ксеноморфов!</b>"
+		text += "<br><b>Ксеноморфы были истреблены.</b>"
 	else
-		text += span_fontsize3("<br><b>Ничья!</b>")
-		text += "<b>Экипаж эвакуирован!</b>"
-		text += "<b>Ксеноморфы не были истреблены.</b>"
+		text += span_fontsize3("<br><br><b>Ничья!</b>")
+		text += "<br><b>Экипаж эвакуирован!</b>"
+		text += "<br><b>Ксеноморфы не были истреблены.</b>"
 
-	text += "<b>Целями Ксеноморфов было:</b>"
+	text += "<br><b>Целями Ксеноморфов было:</b>"
 
 	if(xeno_power_objective)
 		text += "<br/>Цель Королевы: [xeno_power_objective.explanation_text] [xeno_power_objective.check_completion()? span_green("<b>Успех!</b>") : span_red("Провал.")]"
@@ -189,7 +189,7 @@
 	if(protect_cocon)
 		text += "<br/>Защита кокона: [protect_cocon.explanation_text] [protect_cocon.check_completion()? span_green("<b>Успех!</b>") : span_red("Провал.")]"
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[protect_cocon.type]", protect_cocon.check_completion()? "SUCCESS" : "FAIL"))
-	return text
+	return text.Join("")
 
 
 /datum/team/xenomorph/declare_completion()

@@ -191,22 +191,22 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 /datum/team/terror_spiders/proc/declare_results()
 	var/list/text = list()
 	if(SSticker?.mode?.station_was_nuked && !terror_stage == TERROR_STAGE_POST_END)
-		text += span_fontsize3("<br><b>Частичная победа Пауков Ужаса!</b>")
-		text += "<b>Станция была уничтожена!</b>"
-		text += "<b>Устройство самоуничтожения сработало, предотвратив распространение Пауков Ужаса.</b>"
+		text += span_fontsize3("<br><br><b>Частичная победа Пауков Ужаса!</b>")
+		text += "<br><b>Станция была уничтожена!</b>"
+		text += "<br><b>Устройство самоуничтожения сработало, предотвратив распространение Пауков Ужаса.</b>"
 	else if(protect_egg?.check_completion(src))
-		text += span_fontsize3("<br><b>Полная победа Пауков Ужаса!</b>")
-		text += "<b>Пауки захватили станцию!</b>"
-		text += "<b>Императрица Ужаса появилась на свет, превратив всю станцию в гнездо.</b>"
+		text += span_fontsize3("<br><br><b>Полная победа Пауков Ужаса!</b>")
+		text += "<br><b>Пауки захватили станцию!</b>"
+		text += "<br><b>Императрица Ужаса появилась на свет, превратив всю станцию в гнездо.</b>"
 	else if(!check_main_spiders())
-		text += span_fontsize3("<br><b>Полная победа персонала станции!</b>")
-		text += "<b>Экипаж защитил станцию от Пауков Ужаса!</b>"
-		text += "<b>Пауки Ужаса были истреблены.</b>"
+		text += span_fontsize3("<br><br><b>Полная победа персонала станции!</b>")
+		text += "<br><b>Экипаж защитил станцию от Пауков Ужаса!</b>"
+		text += "<br><b>Пауки Ужаса были истреблены.</b>"
 	else
-		text += span_fontsize3("<br><b>Ничья!</b>")
-		text += "<b>Экипаж эвакуирован!</b>"
-		text += "<b>Пауки Ужаса не были истреблены.</b>"
-	text += "<b>Целями Пауков Ужаса было:</b>"
+		text += span_fontsize3("<br><br><b>Ничья!</b>")
+		text += "<br><b>Экипаж эвакуирован!</b>"
+		text += "<br><b>Пауки Ужаса не были истреблены.</b>"
+	text += "<br/><b>Целями Пауков Ужаса было:</b>"
 	if(prince_target)
 		text += "<br/>Цель Принца: [prince_target.explanation_text] [prince_target.completed? span_green("<b>Успех!</b>") : span_red("Провал.") ]"
 		SSblackbox.record_feedback("nested tally", "traitor_objective", 1, list("[prince_target.type]", prince_target.completed? "SUCCESS" : "FAIL"))
