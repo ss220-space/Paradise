@@ -267,7 +267,7 @@
 	desc = "A weapon which disintegrates all organic life in a large area."
 	anchored = TRUE
 	density = TRUE
-	atom_say_verb = "blares"
+	atom_say_verb = "гудит"
 	speed_process = TRUE // Disgusting fix. Please remove once #12952 is merged
 	var/timing = 0
 	var/default_timer = 4500

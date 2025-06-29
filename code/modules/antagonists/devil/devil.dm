@@ -217,7 +217,7 @@
 
 /datum/antagonist/devil/apply_innate_effects(mob/living/mob_override)
 	. = ..()
-	owner.current.AddElement(/datum/element/devil_regeneration)
+	owner.current.AddElement(/datum/element/devil_regeneration, src)
 	owner.current.AddElement(/datum/element/devil_banishment) // handles devil banishes
 	ADD_TRAIT(owner.current, TRAIT_ABSOLUTE_VIRUSIMMUNE, DEVIL_TRAIT)
 	ADD_TRAIT(owner.current, TRAIT_HEALS_FROM_HELL_RIFTS, DEVIL_TRAIT)

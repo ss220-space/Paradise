@@ -1,5 +1,13 @@
 /obj/projectile/energy
 	name = "energy"
+	ru_names = list(
+		NOMINATIVE = "энергия",
+		GENITIVE = "энергии",
+		DATIVE = "энергии",
+		ACCUSATIVE = "энергию",
+		INSTRUMENTAL = "энергией",
+		PREPOSITIONAL = "энергии"
+	)
 	icon_state = "spark"
 	damage = 0
 	hitsound = 'sound/weapons/tap.ogg'
@@ -9,6 +17,14 @@
 
 /obj/projectile/energy/electrode
 	name = "electrode"
+	ru_names = list(
+		NOMINATIVE = "электрод",
+		GENITIVE = "электрода",
+		DATIVE = "электроду",
+		ACCUSATIVE = "электрод",
+		INSTRUMENTAL = "электродом",
+		PREPOSITIONAL = "электроде"
+	)
 	icon_state = "spark"
 	color = "#FFFF00"
 	shockbull = TRUE
@@ -46,6 +62,14 @@
 
 /obj/projectile/energy/declone
 	name = "declone"
+	ru_names = list(
+		NOMINATIVE = "деклонер",
+		GENITIVE = "деклонера",
+		DATIVE = "деклонеру",
+		ACCUSATIVE = "деклонер",
+		INSTRUMENTAL = "деклонером",
+		PREPOSITIONAL = "деклонере"
+	)
 	icon_state = "declone"
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
@@ -55,6 +79,14 @@
 
 /obj/projectile/energy/dart
 	name = "dart"
+	ru_names = list(
+		NOMINATIVE = "дротик",
+		GENITIVE = "дротика",
+		DATIVE = "дротику",
+		ACCUSATIVE = "дротик",
+		INSTRUMENTAL = "дротиком",
+		PREPOSITIONAL = "дротике"
+	)
 	icon_state = "toxin"
 	damage = 1
 	damage_type = TOX
@@ -65,6 +97,14 @@
 
 /obj/projectile/energy/bolt
 	name = "bolt"
+	ru_names = list(
+		NOMINATIVE = "болт",
+		GENITIVE = "болта",
+		DATIVE = "болту",
+		ACCUSATIVE = "болт",
+		INSTRUMENTAL = "болтом",
+		PREPOSITIONAL = "болте"
+	)
 	icon_state = "cbbolt"
 	damage = 15
 	hitsound = 'sound/weapons/pierce.ogg'
@@ -88,6 +128,14 @@
 
 /obj/projectile/energy/bolttoy
 	name = "bolttoy"
+	ru_names = list(
+		NOMINATIVE = "игрушечный болт",
+		GENITIVE = "игрушечного болта",
+		DATIVE = "игрушечному болту",
+		ACCUSATIVE = "игрушечный болт",
+		INSTRUMENTAL = "игрушечным болтом",
+		PREPOSITIONAL = "игрушечном болте"
+	)
 	icon_state = "cbbolttoy"
 	hitsound = 'sound/weapons/pierce.ogg'
 	damage_type = STAMINA
@@ -98,6 +146,14 @@
 
 /obj/projectile/energy/shock_revolver
 	name = "shock bolt"
+	ru_names = list(
+		NOMINATIVE = "шоковый заряд",
+		GENITIVE = "шокового заряда",
+		DATIVE = "шоковому заряду",
+		ACCUSATIVE = "шоковый заряд",
+		INSTRUMENTAL = "шоковым зарядом",
+		PREPOSITIONAL = "шоковом заряде"
+	)
 	icon_state = "purple_laser"
 	impact_effect_type = /obj/effect/temp_visual/impact_effect/purple_laser
 
@@ -115,6 +171,14 @@
 
 /obj/projectile/energy/toxplasma
 	name = "toxin bolt"
+	ru_names = list(
+		NOMINATIVE = "токсичный заряд",
+		GENITIVE = "токсичного заряда",
+		DATIVE = "токсичному заряду",
+		ACCUSATIVE = "токсичный заряд",
+		INSTRUMENTAL = "токсичным зарядом",
+		PREPOSITIONAL = "токсичном заряде"
+	)
 	icon_state = "energy"
 	damage = 20
 	hitsound = 'sound/weapons/plasma_cutter.ogg'
@@ -123,12 +187,28 @@
 
 /obj/projectile/energy/weak_plasma
 	name = "plasma bolt"
+	ru_names = list(
+		NOMINATIVE = "плазменный импульс",
+		GENITIVE = "плазменного импульса",
+		DATIVE = "плазменному импульсу",
+		ACCUSATIVE = "плазменный импульс",
+		INSTRUMENTAL = "плазменным импульсом",
+		PREPOSITIONAL = "плазменном импульсе"
+	)
 	icon_state = "plasma_light"
 	damage = 20
 	damage_type = BURN
 
 /obj/projectile/energy/charged_plasma
 	name = "charged plasma bolt"
+	ru_names = list(
+		NOMINATIVE = "заряженный плазменный импульс",
+		GENITIVE = "заряженного плазменного импульса",
+		DATIVE = "заряженному плазменному импульсу",
+		ACCUSATIVE = "заряженный плазменный импульс",
+		INSTRUMENTAL = "заряженным плазменным импульсом",
+		PREPOSITIONAL = "заряженном плазменном импульсе"
+	)
 	icon_state = "plasma_heavy"
 	damage = 50
 	damage_type = BURN

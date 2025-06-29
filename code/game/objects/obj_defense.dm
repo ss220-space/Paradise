@@ -104,7 +104,7 @@
 /obj/bullet_act(obj/projectile/P)
 	. = ..()
 	playsound(src, P.hitsound, 50, TRUE)
-	visible_message(span_danger("[src] is hit by \a [P]!"), projectile_message = TRUE)
+	visible_message(span_danger(pick(list("[capitalize(declent_ru(NOMINATIVE))] пораж[genderize_ru(gender,"ён","ена","ено","ены")] [P.declent_ru(INSTRUMENTAL)]!", "[P.declent_ru(NOMINATIVE)] попадает в [declent_ru(ACCUSATIVE)]!"))), projectile_message = TRUE)
 	if(!QDELETED(src)) //Bullet on_hit effect might have already destroyed this object
 		take_damage(P.damage, P.damage_type, P.flag, 0, turn(P.dir, 180), P.armour_penetration)
 
@@ -134,7 +134,7 @@
 		return FALSE
 
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(user, TRAIT_PACIFISM))
-		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [src]."))
+		to_chat(user, span_notice("Немного подумав, Вы решаете не трогать [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 
 	else
@@ -151,7 +151,7 @@
 		return FALSE
 
 	if(GLOB.pacifism_after_gt || HAS_TRAIT(M, TRAIT_PACIFISM))
-		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [src]."))
+		to_chat(M, span_notice("Немного подумав, Вы решаете не трогать [declent_ru(ACCUSATIVE)]."))
 		return FALSE
 
 	var/play_soundeffect = !M.environment_smash
@@ -332,6 +332,6 @@ GLOBAL_DATUM_INIT(acid_overlay, /mutable_appearance, mutable_appearance('icons/e
 /obj/flamer_fire_act(damage)
 	if(resistance_flags & FIRE_PROOF)
 		resistance_flags &= ~FIRE_PROOF
-	if(armor.getRating(FIRE) > 50) 
+	if(armor.getRating(FIRE) > 50)
 		armor = armor.setRating(fire_value = 50)
 	return ..()

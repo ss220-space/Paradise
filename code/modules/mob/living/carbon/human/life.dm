@@ -168,16 +168,16 @@
 		var/instability = DEFAULT_GENE_STABILITY - gene_stability
 		if(prob(instability * 0.1))
 			adjustFireLoss(min(5, instability * 0.67))
-			to_chat(src, span_danger("You feel like your skin is burning and bubbling off!"))
+			to_chat(src, span_danger("Вы ощущаете, как ваша кожа горит и покрывается волдырями!"))
 		if(gene_stability < GENETIC_DAMAGE_STAGE_2)
 			if(prob(instability * 0.83))
 				adjustCloneLoss(min(4, instability * 0.05))
-				to_chat(src, span_danger("You feel as if your body is warping."))
+				to_chat(src, span_danger("Вам кажется, что ваше тело теряет свою форму."))
 			if(prob(instability * 0.1))
 				adjustToxLoss(min(5, instability * 0.67))
-				to_chat(src, span_danger("You feel weak and nauseous."))
+				to_chat(src, span_danger("Вы чувствуете слабость и тошноту."))
 			if(gene_stability < GENETIC_DAMAGE_STAGE_3 && prob(1))
-				to_chat(src, span_biggerdanger("You feel incredibly sick... Something isn't right!"))
+				to_chat(src, span_biggerdanger("Вам невероятно плохо... Что-то не так!"))
 				spawn(300)
 					if(gene_stability < GENETIC_DAMAGE_STAGE_3)
 						gib()
@@ -213,7 +213,7 @@
 					if(prob(5))
 						radiation = max(radiation-5, 0)
 						Weaken(6 SECONDS)
-						to_chat(src, span_danger("You feel weak."))
+						to_chat(src, span_danger("Вы чувствуете слабость."))
 						emote("collapse")
 
 				if(75 to 100)
@@ -221,7 +221,7 @@
 					apply_damages(burn = 2, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 4
 					if(prob(2))
-						to_chat(src, span_danger("You mutate!"))
+						to_chat(src, span_danger("Вы мутируете!"))
 						randmutb(src)
 						check_genes()
 
@@ -230,7 +230,7 @@
 					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 5
 					if(prob(4))
-						to_chat(src, span_danger("You mutate!"))
+						to_chat(src, span_danger("Вы мутируете!"))
 						randmutb(src)
 						check_genes()
 
@@ -239,7 +239,7 @@
 					apply_damages(burn = 3, tox = 2, spread_damage = TRUE)
 					autopsy_damage = 5
 					if(prob(6))
-						to_chat(src, span_danger("You mutate!"))
+						to_chat(src, span_danger("Вы мутируете!"))
 						randmutb(src)
 						check_genes()
 
@@ -688,15 +688,15 @@
 			metabolism_efficiency = 1
 		else if(nutrition > NUTRITION_LEVEL_FED && satiety > 80)
 			if(metabolism_efficiency != 1.25)
-				to_chat(src, span_notice("You feel vigorous."))
+				to_chat(src, span_notice("Вы чувствуете прилив сил."))
 				metabolism_efficiency = 1.25
 		else if(nutrition < NUTRITION_LEVEL_STARVING + 50)
 			if(metabolism_efficiency != 0.8)
-				to_chat(src, span_notice("You feel sluggish."))
+				to_chat(src, span_notice("Вы чувствуете вялость."))
 			metabolism_efficiency = 0.8
 		else
 			if(metabolism_efficiency == 1.25)
-				to_chat(src, span_notice("You no longer feel vigorous."))
+				to_chat(src, span_notice("Прилив сил проходит."))
 			metabolism_efficiency = 1
 
 	if(HAS_TRAIT(src, TRAIT_NO_INTORGANS))
@@ -755,7 +755,7 @@
 				if(-99 to -80)
 					adjustOxyLoss(1)
 					if(prob(4))
-						to_chat(src, span_userdanger("Your chest hurts..."))
+						to_chat(src, span_userdanger("Грудь пронзает боль..."))
 						Paralyse(4 SECONDS)
 						var/datum/disease/critical/heart_failure/D = new
 						D.Contract(src)
@@ -768,7 +768,7 @@
 						var/datum/disease/critical/heart_failure/D = new
 						D.Contract(src)
 					if(prob(6))
-						to_chat(src, span_userdanger("You feel [pick("horrible pain", "awful", "like shit", "absolutely awful", "like death", "like you are dying", "nothing", "warm", "sweaty", "tingly", "really, really bad", "horrible")]!"))
+						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "себя очень плохо", "тепло", "покалывание", "себя очень, очень плохо", "себя кошмарно")]!"))
 						Weaken(6 SECONDS)
 					if(prob(3))
 						Paralyse(4 SECONDS)
@@ -778,7 +778,7 @@
 						var/datum/disease/critical/shock/D = new
 						D.Contract(src)
 					if(prob(5))
-						to_chat(src, span_userdanger("You feel [pick("terrible", "awful", "like shit", "sick", "numb", "cold", "sweaty", "tingly", "horrible")]!"))
+						to_chat(src, span_userdanger("Вы чувствуете [pick("себя ужасно", "себя отвратительно", "себя, как дерьмо", "боль", "онемение", "холод", "покалывание", "себя кошмарно")]!"))
 						Weaken(6 SECONDS)
 
 
@@ -886,14 +886,16 @@
 		for(var/obj/item/thing in bodypart.embedded_objects)
 			if(prob(thing.embedded_pain_chance))
 				apply_damage(thing.w_class * thing.embedded_pain_multiplier, def_zone = bodypart)
-				to_chat(src, span_userdanger("[thing] embedded in your [bodypart.name] hurts!"))
+				var/get_bodypart = (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("хвосте", "животе", "рте")) ? "вашем" : (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("крыльях" , "глазах")) ? "ваших" : "вашей"
+				to_chat(src, span_userdanger("[capitalize(thing.declent_ru(NOMINATIVE))] в [get_bodypart] [GLOB.body_zone[bodypart][PREPOSITIONAL]] причиняет боль!"))
 
 			if(prob(thing.embedded_fall_chance))
 				bodypart.remove_embedded_object(thing)
 				apply_damage(thing.w_class * thing.embedded_fall_pain_multiplier, def_zone = bodypart)
+				var/get_bodypart = (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("хвоста", "живота", "рта")) ? "вашего" : (GLOB.body_zone[bodypart][PREPOSITIONAL] in list("крыльев", "глаз")) ? "ваших" : "вашей"
 				visible_message(
-					span_danger("[thing] falls out of [name]'s [bodypart.name]!"),
-					span_userdanger("[thing] falls out of your [bodypart.name]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [get_bodypart] [GLOB.body_zone[bodypart][GENITIVE]] [name]!"),
+					span_danger("[capitalize(thing.declent_ru(NOMINATIVE))] выпадает из [get_bodypart] [GLOB.body_zone[bodypart][GENITIVE]]!"),
 				)
 
 
@@ -980,7 +982,7 @@
 			// Humans can lack a mind datum, y'know
 			if(H.mind && (H.mind.assigned_role == JOB_TITLE_DETECTIVE || H.mind.assigned_role == JOB_TITLE_CORONER))
 				continue //too cool for puke
-			to_chat(H, span_warning("You smell something foul..."))
+			to_chat(H, span_warning("Вы чувствуете тошнотворный запах..."))
 			H.fakevomit()
 
 /mob/living/carbon/human/proc/handle_heartbeat()

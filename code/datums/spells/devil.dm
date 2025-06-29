@@ -430,6 +430,8 @@
 
 	base_cooldown = 300 SECONDS
 	var/cast_time = 5 SECONDS
+	var/fail_cooldown = 2 SECONDS
+	var/say_name_prob = 40
 
 	clothes_req = FALSE
 	human_req = FALSE
@@ -454,13 +456,14 @@
 	var/mob/living/carbon/carbon = user
 	var/datum/antagonist/devil/devil = carbon.mind?.has_antag_datum(/datum/antagonist/devil)
 
-	carbon.say("INF' [devil.info.truename] NO")
+	if(prob(say_name_prob))
+		carbon.say("INF' [devil.info.truename] NO")
 	playsound(get_turf(carbon), 'sound/magic/narsie_attack.ogg', 100, TRUE)
 
 	human.Knockdown(1 SECONDS)
 
 	if(!do_after(user, cast_time, user, NONE))
-		revert_cast(user)
+		cooldown_handler.recharge_time = world.time + fail_cooldown
 		return
 
 	make_shadow(human, devil)

@@ -7,7 +7,15 @@
   */
 /obj/item/rcs
 	name = "rapid-crate-sender (RCS)"
-	desc = "A device used to teleport crates and closets to cargo telepads."
+	desc = "Устройство для телепортации ящиков и шкафов на телепады карго."
+	ru_names = list(
+		NOMINATIVE = "система быстрой доставки (RCS)",
+		GENITIVE = "системы быстрой доставки (RCS)",
+		DATIVE = "системе быстрой доставки (RCS)",
+		ACCUSATIVE = "систему быстрой доставки (RCS)",
+		INSTRUMENTAL = "системой быстрой доставки (RCS)",
+		PREPOSITIONAL = "системе быстрой доставки (RCS)"
+	)
 	icon = 'icons/obj/telescience.dmi'
 	icon_state = "rcs"
 	item_state = "rcd"
@@ -39,7 +47,7 @@
 
 /obj/item/rcs/examine(mob/user)
 	. = ..()
-	. += "<span class='notice'>There are [round(rcell.charge/chargecost)] charge\s left.</span>"
+	. += to_chat(user, span_notice("Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
 
 /obj/item/rcs/Destroy()
 	QDEL_NULL(rcell)
@@ -50,7 +58,7 @@
   */
 /obj/item/rcs/attack_self(mob/user)
 	if(teleporting)
-		to_chat(user, "<span class='warning'>Error: Unable to change destination while in use.</span>")
+		to_chat(user, span_warning("ОШИБКА: Невозможно изменить цель во время использования."))
 		return
 
 	var/list/L = list() // List of avaliable telepads
@@ -70,7 +78,7 @@
 	if(emagged) // Add an 'Unknown' entry at the end if it's emagged
 		L += "**Unknown**"
 
-	var/select = tgui_input_list(user, "Please select a telepad.", "RCS", L)
+	var/select = tgui_input_list(user, "Выберите телепад для управления.", "RCS", L)
 	if(!select)
 		return
 	if(select == "**Unknown**") // Randomise the teleport location
@@ -137,7 +145,7 @@
 
 
 /obj/item/rcs/proc/teleport(mob/user, obj/structure/closet/C, target)
-	to_chat(user, "<span class='notice'>Teleporting [C]...</span>")
+	to_chat(user, span_notice("Телепортация [C.declent_ru(ACCUSATIVE)]..."))
 	playsound(src, usesound, 50, TRUE)
 	teleporting = TRUE
 	if(!do_after(user, 5 SECONDS * toolspeed, C, category = DA_CAT_TOOL))
@@ -148,4 +156,4 @@
 	rcell.use(chargecost)
 	do_sparks(5, TRUE, C)
 	do_teleport(C, target)
-	to_chat(user, "<span class='notice'>Teleport successful. [round(rcell.charge/chargecost)] charge\s left.</span>")
+	to_chat(user, span_notice("Телепортация успешна. Осталось [round(rcell.charge/chargecost)] заряд[declension_ru(round(rcell.charge/chargecost),"","а","ов")]."))
