@@ -62,12 +62,12 @@
 	name = "blood drunk HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о рывке и сопротивлении Кровожадного Шахтёра."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Кровожадный Шахтёр\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Кровожадный Шахтёр\"",
-		DATIVE = "диску проекта HRD-MDE: \"Кровожадный Шахтёр\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Кровожадный Шахтёр\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Кровожадный Шахтёр\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Кровожадный Шахтёр\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		GENITIVE = "диска проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		DATIVE = "диску проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Кровожадный Шахтёр\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Кровожадный Шахтёр\""
 	)
 	output = /obj/item/clothing/accessory/medal/blood_drunk
 
@@ -75,12 +75,12 @@
 	name = "\improper Hierophant HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о манипуляции энергией и материальном составе Иерофанта."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Иерофант\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Иерофант\"",
-		DATIVE = "диску проекта HRD-MDE: \"Иерофант\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Иерофант\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Иерофант\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Иерофант\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Иерофант\"",
+		GENITIVE = "диска проекта HRD-MDE \"Иерофант\"",
+		DATIVE = "диску проекта HRD-MDE \"Иерофант\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Иерофант\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Иерофант\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Иерофант\""
 	)
 	output = /obj/item/clothing/accessory/medal/plasma/hierophant
 
@@ -88,12 +88,12 @@
 	name = "ash drake HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о методах создания огня и быстрой регенерации Пепельных Дрейков."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Пепельный Дрейк\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Пепельный Дрейк\"",
-		DATIVE = "диску проекта HRD-MDE: \"Пепельный Дрейк\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Пепельный Дрейк\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Пепельный Дрейк\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Пепельный Дрейк\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Пепельный Дрейк\"",
+		GENITIVE = "диска проекта HRD-MDE \"Пепельный Дрейк\"",
+		DATIVE = "диску проекта HRD-MDE \"Пепельный Дрейк\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Пепельный Дрейк\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Пепельный Дрейк\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Пепельный Дрейк\""
 	)
 	output = /obj/item/clothing/accessory/medal/plasma/ash_drake
 
@@ -101,12 +101,12 @@
 	name = "\improper Vetus Speculator HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о манипуляции аномалиями и вычислительных процессах Ветус Спекулятора."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Ветус Спекулятор\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Ветус Спекулятор\"",
-		DATIVE = "диску проекта HRD-MDE: \"Ветус Спекулятор\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Ветус Спекулятор\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Ветус Спекулятор\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Ветус Спекулятор\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
+		GENITIVE = "диска проекта HRD-MDE \"Ветус Спекулятор\"",
+		DATIVE = "диску проекта HRD-MDE \"Ветус Спекулятор\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Ветус Спекулятор\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Ветус Спекулятор\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Ветус Спекулятор\""
 	)
 	output = /obj/item/clothing/accessory/medal/alloy/vetus
 
@@ -114,12 +114,12 @@
 	name = "colossus HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о мощном голосе и А-поле Колоссов."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Колосс\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Колосс\"",
-		DATIVE = "диску проекта HRD-MDE: \"Колосс\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Колосс\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Колосс\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Колосс\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Колосс\"",
+		GENITIVE = "диска проекта HRD-MDE \"Колосс\"",
+		DATIVE = "диску проекта HRD-MDE \"Колосс\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Колосс\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Колосс\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Колосс\""
 	)
 	output = /obj/item/clothing/accessory/medal/silver/colossus
 
@@ -127,12 +127,12 @@
 	name = "\improper Legion HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о бесконечной регенерации и дезинтегрирующем лазере Легиона."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Легион\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Легион\"",
-		DATIVE = "диску проекта HRD-MDE: \"Легион\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Легион\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Легион\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Легион\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Легион\"",
+		GENITIVE = "диска проекта HRD-MDE \"Легион\"",
+		DATIVE = "диску проекта HRD-MDE \"Легион\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Легион\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Легион\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Легион\""
 	)
 	output = /obj/item/clothing/accessory/medal/silver/legion
 
@@ -140,11 +140,11 @@
 	name = "\improper Bubblegum HRD-MDE project disk"
 	desc = "Диск, используемый проектом HRD-MDE. Содержит данные о ████████████ и \[ЗАСЕКРЕЧЕНО\] Бубльгума."
 	ru_names = list(
-		NOMINATIVE = "диск проекта HRD-MDE: \"Бубльгум\"",
-		GENITIVE = "диска проекта HRD-MDE: \"Бубльгум\"",
-		DATIVE = "диску проекта HRD-MDE: \"Бубльгум\"",
-		ACCUSATIVE = "диск проекта HRD-MDE: \"Бубльгум\"",
-		INSTRUMENTAL = "диском проекта HRD-MDE: \"Бубльгум\"",
-		PREPOSITIONAL = "диске проекта HRD-MDE: \"Бубльгум\""
+		NOMINATIVE = "диск проекта HRD-MDE \"Бубльгум\"",
+		GENITIVE = "диска проекта HRD-MDE \"Бубльгум\"",
+		DATIVE = "диску проекта HRD-MDE \"Бубльгум\"",
+		ACCUSATIVE = "диск проекта HRD-MDE \"Бубльгум\"",
+		INSTRUMENTAL = "диском проекта HRD-MDE \"Бубльгум\"",
+		PREPOSITIONAL = "диске проекта HRD-MDE \"Бубльгум\""
 	) //I hate this so much
 	output = /obj/item/clothing/accessory/medal/gold/bubblegum

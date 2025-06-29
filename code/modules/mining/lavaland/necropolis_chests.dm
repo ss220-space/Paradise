@@ -607,7 +607,7 @@
 		dash_target = current_dash_target
 		for(var/mob/living/additional_target in dash_target) //Slash through every mob you cut through
 			additional_target.apply_damage(15, BRUTE, BODY_ZONE_CHEST, TRUE)
-			to_chat(target, span_userdanger("[user] порезал[pluralize_ru(user.gender,"","и")] вас!"))
+			to_chat(additional_target, span_userdanger("[user] порезал[pluralize_ru(user.gender,"","и")] вас!"))
 	user_turf.Beam(dash_target, icon_state = "warp_beam", time = 0.3 SECONDS, maxdistance = INFINITY)
 	user.forceMove(dash_target)
 

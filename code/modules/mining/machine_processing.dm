@@ -150,7 +150,7 @@
 	var/datum/component/material_container/materials = GetComponent(/datum/component/material_container)
 	for(var/mat_id in materials.materials)
 		var/datum/material/M = materials.materials[mat_id]
-		dat += "<span class=\"res_name\">[M]: </span>[M.amount] см&sup3;"
+		dat += "<span class=\"res_name\">[M.name]: </span>[M.amount] см&sup3;"
 		if(selected_material == mat_id)
 			dat += " <i>Плавка</i>"
 		else

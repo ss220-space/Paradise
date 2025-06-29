@@ -166,7 +166,7 @@ GLOBAL_DATUM_INIT(multispin_words, /regex, regex("like a record baby|как пл
 	if(!owner)
 		return FALSE
 	if(!owner.can_speak())
-		to_chat(owner, span_warning("Вы не можете изречь говорить!"))
+		to_chat(owner, span_warning("Вы не можете изречь Обращение!"))
 		return FALSE
 	if(owner.stat)
 		return FALSE

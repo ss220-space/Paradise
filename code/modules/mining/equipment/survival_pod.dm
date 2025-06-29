@@ -301,7 +301,7 @@
 /obj/item/gps/computer/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбирает [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)
@@ -405,7 +405,7 @@
 /obj/structure/fans/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбирает [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)
@@ -439,12 +439,12 @@
 	name = "nanotrasen mining corps sign"
 	desc = "Знак облегчения для уставших шахтеров и предупреждение для потенциальных конкурентов НаноТрейзен."
 	ru_names = list(
-		NOMINATIVE = "знак шахтёрского корпуса НаноТрейзен",
-		GENITIVE = "знака шахтёрского корпуса НаноТрейзен",
-		DATIVE = "знаку шахтёрского корпуса НаноТрейзен",
-		ACCUSATIVE = "знак шахтёрского корпуса НаноТрейзен",
-		INSTRUMENTAL = "знаком шахтёрского корпуса НаноТрейзен",
-		PREPOSITIONAL = "знаке шахтёрского корпуса НаноТрейзен"
+		NOMINATIVE = "знак шахтёрского корпуса НТ",
+		GENITIVE = "знака шахтёрского корпуса НТ",
+		DATIVE = "знаку шахтёрского корпуса НТ",
+		ACCUSATIVE = "знак шахтёрского корпуса НТ",
+		INSTRUMENTAL = "знаком шахтёрского корпуса НТ",
+		PREPOSITIONAL = "знаке шахтёрского корпуса НТ"
 	)
 	icon = 'icons/turf/walls/survival_pod_walls.dmi'
 	icon_state = "ntpod"
@@ -476,7 +476,7 @@
 /obj/structure/tubes/wrench_act(mob/living/user, obj/item/I)
 	. = TRUE
 	user.visible_message(
-		span_warning("[user] разбирает [declent_ru(ACCUSATIVE)]."),
+		span_warning("[user] разбира[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)]."),
 		span_notice("Вы начинаете разбирать [declent_ru(ACCUSATIVE)]..."),
 		span_italics("Слышны стук и лязг."),
 	)

@@ -125,7 +125,7 @@
 
 /obj/item/flashlight/seclite
 	name = "seclite"
-	desc = "Надежный фонарик, используемый службой безопасности"
+	desc = "Надежный фонарик, используемый службой безопасности."
 	ru_names = list(
 		NOMINATIVE = "фонарик",
 		GENITIVE = "фонарика",

@@ -262,7 +262,7 @@
 		return
 	input_dir = turn(input_dir, -90)
 	output_dir = turn(output_dir, -90)
-	to_chat(user, span_notice("Вы изменяете настройки ввода/вывода [src]: вход [dir2text(input_dir)], выход [dir2text(output_dir)]."))
+	to_chat(user, span_notice("Вы изменяете настройки ввода/вывода [declent_ru(GENITIVE)]: вход [dir2text(input_dir)], выход [dir2text(output_dir)]."))
 
 /obj/machinery/mineral/ore_redemption/screwdriver_act(mob/user, obj/item/I)
 	if(default_deconstruction_screwdriver(user, "ore_redemption-open", "ore_redemption", I))
@@ -340,7 +340,7 @@
 			if(anyone_claim || (req_access_claim in inserted_id.access))
 				inserted_id.mining_points += points
 				inserted_id.total_mining_points += points
-				to_chat(usr, span_notice("<b>[points] ОДР</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] баллов</b>!"))
+				to_chat(usr, span_notice("<b>[points] [declension_ru(points, "очко", "очка","очков")] добычи</b> получено. Всего за смену: <b>[inserted_id.total_mining_points] [declension_ru(inserted_id.total_mining_points, "очко", "очка","очков")]</b>!"))
 				points = 0
 			else
 				to_chat(usr, span_warning("Доступ запрещён."))

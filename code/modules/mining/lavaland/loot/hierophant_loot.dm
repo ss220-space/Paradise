@@ -37,7 +37,7 @@
 
 /obj/item/hierophant_club/examine(mob/user)
 	. = ..()
-	. += span_hierophant_warning("The[beacon ? " beacon is not currently":"re is a beacon"] attached.")
+	. += span_hierophant_warning("[beacon ? "К маяку ничего не прикреплено" : "Здесь уже прикреплён маяк"].")
 
 /obj/item/hierophant_club/suicide_act(mob/living/user)
 	atom_say("Xverwpsgexmrk...")
@@ -523,7 +523,7 @@
 	if(!(msg))
 		return
 	add_say_logs(usr, msg, choice, "SLAUGHTER")
-	to_chat(usr, span_hierophant("Вы передаёте говорите в разум [choice]:</b> [msg]"))
+	to_chat(usr, span_hierophant("Вы говорите в разум [choice]:</b> [msg]"))
 	to_chat(choice, "[span_deadsay(span_hierophant("Странные, магические и одновременно чуждые мысли обращаются к вам..."))] [span_hierophant("[msg]")]")
 	for(var/mob/dead/observer/G in GLOB.player_list)
 		G.show_message(span_hierophant("Послание Иерофанта от <b>[usr]</b> ([ghost_follow_link(usr, ghost=G)]) к <b>[choice]</b> ([ghost_follow_link(choice, ghost=G)]): [msg]</i>")) //what the fuck...

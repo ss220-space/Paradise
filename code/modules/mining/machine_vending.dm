@@ -1,3 +1,12 @@
+#define VENDOR_EXPLORER_WEBBING "Разгрузка исследователя"
+#define VENDOR_RESONATOR_KIT "Комплект резонатора"
+#define VENDOR_MINEBOT_KIT "Комплект майнбота"
+#define VENDOR_EXTRACTION_KIT "Аварийно-спасательный набор"
+#define VENDOR_PLASMA_CUTTER_KIT "Комплект плазменного резака"
+#define VENDOR_EXPLOSIVES_KIT "Комплект шахтёрских взрывчаток"
+#define VENDOR_CRUSHER_KIT "Комплект крушителя"
+#define VENDOR_CONSCRIPTION_KIT "Стандартный набор шахтёра"
+
 /**********************Mining Equipment Vendor**************************/
 
 /obj/machinery/mineral/equipment_vendor
@@ -198,7 +207,7 @@
   * * redeemer - The person holding it
   */
 /obj/machinery/mineral/equipment_vendor/proc/redeem_voucher(obj/item/mining_voucher/voucher, mob/redeemer)
-	var/items = list("Разгрузка исследователя", "Комплект резонатора", "Комплект майнбота", "Аварийно-спасательный набор", "Комплект плазменного резака", "Комплект шахтёрских взрывчаток", "Комплект крушителя", "Стандартный набор шахтёра")
+	var/items = list(VENDOR_EXPLORER_WEBBING, VENDOR_RESONATOR_KIT, VENDOR_MINEBOT_KIT, VENDOR_EXTRACTION_KIT, VENDOR_PLASMA_CUTTER_KIT, VENDOR_EXPLOSIVES_KIT, VENDOR_CRUSHER_KIT, VENDOR_CONSCRIPTION_KIT)
 
 	var/selection = tgui_input_list(redeemer, "Выберите снаряжение", "Шахтёрский ваучер", items)
 	if(!selection || !Adjacent(redeemer) || QDELETED(voucher) || voucher.loc != redeemer)
@@ -211,27 +220,27 @@
 
 	var/drop_location = drop_location()
 	switch(selection)
-		if("Разгрузка исследователя")
+		if(VENDOR_EXPLORER_WEBBING)
 			new /obj/item/storage/belt/mining/vendor(drop_location)
-		if("Комплект резонатора")
+		if(VENDOR_RESONATOR_KIT)
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/resonator(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
-		if("Комплект майнбота")
+		if(VENDOR_MINEBOT_KIT)
 			new /obj/item/storage/backpack/duffel/minebot_kit(drop_location)
-		if("Аварийно-спасательный набор")
+		if(VENDOR_EXTRACTION_KIT)
 			new /obj/item/storage/backpack/duffel/vendor_ext(drop_location)
-		if("Комплект плазменного резака")
+		if(VENDOR_PLASMA_CUTTER_KIT)
 			new /obj/item/gun/energy/plasmacutter(drop_location)
 			new /obj/item/t_scanner/adv_mining_scanner/lesser(drop_location)
 			new /obj/item/storage/bag/ore/bigger(drop_location)
-		if("Комплект шахтёрских взрывчаток")
+		if(VENDOR_EXPLOSIVES_KIT)
 			new /obj/item/storage/backpack/duffel/miningcharges(drop_location)
-		if("Комплект крушителя")
+		if(VENDOR_CRUSHER_KIT)
 			new /obj/item/extinguisher/mini(drop_location)
 			new /obj/item/storage/box/hardmode_box(drop_location)
 			new /obj/item/twohanded/kinetic_crusher(drop_location)
-		if("Стандартный набор шахтёра")
+		if(VENDOR_CONSCRIPTION_KIT)
 			new /obj/item/storage/backpack/duffel/mining_conscript(drop_location)
 
 	qdel(voucher)
@@ -424,3 +433,11 @@
 	to_chat(user, "Вы улучшили [I.declent_ru(ACCUSATIVE)], добавив доступ к шахте.")
 	qdel(src)
 
+#undef VENDOR_EXPLORER_WEBBING
+#undef VENDOR_RESONATOR_KIT
+#undef VENDOR_MINEBOT_KIT
+#undef VENDOR_EXTRACTION_KIT
+#undef VENDOR_PLASMA_CUTTER_KIT
+#undef VENDOR_EXPLOSIVES_KIT
+#undef VENDOR_CRUSHER_KIT
+#undef VENDOR_CONSCRIPTION_KIT

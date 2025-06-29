@@ -89,7 +89,7 @@
 		return
 	to_chat(user, "Вы взываете о помощи, пытаясь призвать духов на свою сторону.")
 
-	notify_ghosts("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)], взывая о вашей помощи!", enter_link="<a href=?src=[UID()];follow=1>(Нажмите, чтобы помочь)</a>", source = user, action = NOTIFY_FOLLOW)
+	notify_ghosts("[user] поднима[pluralize_ru(user.gender,"ет","ют")] [declent_ru(ACCUSATIVE)], взывая о вашей помощи!", enter_link="<a href='byond://?src=[UID()];follow=1'>(Нажмите, чтобы помочь)</a>", source = user, action = NOTIFY_FOLLOW)
 
 	summon_cooldown = world.time + 600
 

@@ -111,7 +111,7 @@
 			var/obj/item/organ/internal/ears/ears = C.get_int_organ(/obj/item/organ/internal/ears)
 			if(istype(ears))
 				ears.internal_receive_damage((boom_sizes[3] - distance) * 2) //something like that i guess. Mega charge makes 12 damage to ears if nearby
-			to_chat(C, span_warning("<font size='2'><b>Вас сбивает с ног мощь горнодобывающего заряда!</font></b>"))
+			to_chat(C, span_userdanger("Вас сбивает с ног мощь горнодобывающего заряда!"))
 	qdel(src)
 
 /obj/item/grenade/plastic/miningcharge/proc/explode() //c4 code

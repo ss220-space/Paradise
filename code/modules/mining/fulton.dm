@@ -205,6 +205,14 @@ GLOBAL_LIST_EMPTY(total_extraction_beacons)
 /obj/structure/extraction_point/Initialize(mapload)
 	. = ..()
 	name += " ([rand(100,999)]) ([get_location_name(src)])"
+	ru_names = list(
+		NOMINATIVE = "маяк фултона ([rand(100,999)]) ([get_location_name(src)])",
+		GENITIVE = "маяка фултона",
+		DATIVE = "маяку фултона",
+		ACCUSATIVE = "маяк фултона",
+		INSTRUMENTAL = "маяком фултона",
+		PREPOSITIONAL = "маяке фултона"
+	)
 	GLOB.total_extraction_beacons += src
 
 /obj/structure/extraction_point/Destroy()
