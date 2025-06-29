@@ -53,12 +53,13 @@
 /datum/game_mode/nuclear/post_setup()
 	var/spawnpos = 1
 
+	var/datum/team/nuclear_team/team = new /datum/team/nuclear_team
+
 	for(var/datum/mind/synd_mind in syndicates)
 		if(spawnpos > GLOB.nukespawn.len)
 			spawnpos = 2
 		synd_mind.current.loc = GLOB.nukespawn[spawnpos]
 		create_syndicate(synd_mind)
-		var/datum/team/nuclear_team/team = new /datum/team/nuclear_team
 		team.add_member(synd_mind)
 		var/datum/antagonist/nuclear_operative/datum = synd_mind.has_antag_datum(/datum/antagonist/nuclear_operative)
 		datum.equip()
