@@ -730,51 +730,61 @@
 	name = "black fannypack"
 	icon_state = "fannypack_black"
 	item_state = "fannypack_black"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_black")
 
 /obj/item/storage/belt/fannypack/red
 	name = "red fannypack"
 	icon_state = "fannypack_red"
 	item_state = "fannypack_red"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_red")
 
 /obj/item/storage/belt/fannypack/purple
 	name = "purple fannypack"
 	icon_state = "fannypack_purple"
 	item_state = "fannypack_purple"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_purple")
 
 /obj/item/storage/belt/fannypack/blue
 	name = "blue fannypack"
 	icon_state = "fannypack_blue"
 	item_state = "fannypack_blue"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_blue")
 
 /obj/item/storage/belt/fannypack/orange
 	name = "orange fannypack"
 	icon_state = "fannypack_orange"
 	item_state = "fannypack_orange"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_orange")
 
 /obj/item/storage/belt/fannypack/white
 	name = "white fannypack"
 	icon_state = "fannypack_white"
 	item_state = "fannypack_white"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_white")
 
 /obj/item/storage/belt/fannypack/green
 	name = "green fannypack"
 	icon_state = "fannypack_green"
 	item_state = "fannypack_green"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_green")
 
 /obj/item/storage/belt/fannypack/pink
 	name = "pink fannypack"
 	icon_state = "fannypack_pink"
 	item_state = "fannypack_pink"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_pink")
 
 /obj/item/storage/belt/fannypack/cyan
 	name = "cyan fannypack"
 	icon_state = "fannypack_cyan"
 	item_state = "fannypack_cyan"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_cyan")
 
 /obj/item/storage/belt/fannypack/yellow
 	name = "yellow fannypack"
 	icon_state = "fannypack_yellow"
 	item_state = "fannypack_yellow"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_yellow")
 
 /obj/item/storage/belt/rapier
 	name = "rapier sheath"
