@@ -1534,7 +1534,7 @@
 	},
 /area/awaymission/wwmines)
 "eF" = (
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)
 "eG" = (
@@ -1850,7 +1850,7 @@
 /turf/simulated/floor/wood,
 /area/awaymission/wwmines)
 "fw" = (
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/food/snacks/donut/jelly/slimejelly,
 /turf/simulated/floor/carpet,
 /area/awaymission/wwmines)

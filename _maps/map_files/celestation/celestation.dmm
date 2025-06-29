@@ -34597,7 +34597,7 @@
 /area/hallway/spacebridge/sersec)
 "foy" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/machinery/firealarm{
 	dir = 1;
 	pixel_y = -26
@@ -54051,7 +54051,7 @@
 /area/hallway/secondary/entry/south)
 "iVH" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/glass,
 /area/security/brig)
 "iVI" = (
@@ -55418,11 +55418,11 @@
 /turf/simulated/openspace,
 /area/security/main)
 "jiJ" = (
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = 7;
 	pixel_y = 6
 	},
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -7;
 	pixel_y = 6
 	},
@@ -69780,7 +69780,7 @@
 /area/medical/morgue)
 "mbh" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/glass,
 /area/hallway/secondary/garden)
 "mbn" = (
@@ -94742,7 +94742,7 @@
 /area/hallway/primary/fore)
 "qRZ" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/machinery/atmospherics/unary/vent_pump/on{
 	dir = 4
 	},
@@ -96509,7 +96509,7 @@
 /area/teleporter/quantum/science)
 "rjL" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitebluefull"
 	},

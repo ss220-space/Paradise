@@ -12371,7 +12371,7 @@
 /area/engineering/break_room)
 "hVs" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
@@ -16962,7 +16962,7 @@
 /area/toxins/lab)
 "kXe" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
@@ -20812,7 +20812,7 @@
 /area/toxins/lab)
 "nsF" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	desc = "This coffee cup has an image depicting a cute moth person on it!";
 	name = "\improper Dragon Coffee";
 	pixel_x = -6;
@@ -31542,7 +31542,7 @@
 /area/ntrep)
 "upJ" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
@@ -33273,7 +33273,7 @@
 /area/bridge)
 "vua" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{
@@ -35917,7 +35917,7 @@
 /area/engineering/break_room)
 "wUG" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee{
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee{
 	pixel_x = -4
 	},
 /obj/item/reagent_containers/food/drinks/bottle/orangejuice{

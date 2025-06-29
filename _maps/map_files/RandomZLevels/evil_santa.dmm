@@ -519,7 +519,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "eI" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/storage/box/matches,
 /turf/simulated/floor/carpet,
 /area/vision_change_area/awaymission/evil_santa/hut_n)
@@ -4605,7 +4605,7 @@
 /area/vision_change_area/awaymission/evil_santa/hut_e)
 "Nh" = (
 /obj/structure/table/wood,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/storage/box/matches,
 /turf/simulated/floor/wood{
 	icon_state = "wood-broken3"

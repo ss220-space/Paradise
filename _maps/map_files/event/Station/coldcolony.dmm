@@ -3992,7 +3992,7 @@
 	},
 /area/coldcolony/malta/hallway/bridge)
 "bwC" = (
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/structure/table,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
@@ -14021,7 +14021,7 @@
 /obj/machinery/light{
 	dir = 8
 	},
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	icon_state = "neutralfull"
 	},
@@ -36085,7 +36085,7 @@
 /area/coldcolony/malta/maintenance/servicegen)
 "nlX" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 10;
 	icon_state = "whiteblue"

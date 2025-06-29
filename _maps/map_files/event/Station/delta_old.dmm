@@ -72039,7 +72039,7 @@
 /area/maintenance/bar)
 "mBm" = (
 /obj/structure/table,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /turf/simulated/floor/plasteel{
 	dir = 4;
 	icon_state = "whiteblue"

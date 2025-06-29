@@ -1435,7 +1435,7 @@
 
 	item_slot = TRUE
 	vend_delay = 34
-	products = list(/obj/item/reagent_containers/food/drinks/coffee = 25,
+	products = list(/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/food/drinks/chocolate = 10,
@@ -1444,7 +1444,7 @@
 		/obj/item/reagent_containers/food/drinks/mug = 15,
 		/obj/item/reagent_containers/food/drinks/mug/novelty = 5)
 	contraband = list(/obj/item/reagent_containers/food/drinks/ice = 10)
-	prices = list(/obj/item/reagent_containers/food/drinks/coffee = 25,
+	prices = list(/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 25,
 		/obj/item/reagent_containers/food/drinks/tea = 25,
 		/obj/item/reagent_containers/food/drinks/h_chocolate = 25,
 		/obj/item/reagent_containers/food/drinks/chocolate = 25,
@@ -3045,7 +3045,7 @@
 					/obj/item/reagent_containers/food/drinks/ice = 12,
 					/obj/item/reagent_containers/food/snacks/candy/candy_corn = 6)
 	contraband = list(/obj/item/kitchen/knife = 6,
-					  /obj/item/reagent_containers/food/drinks/coffee = 12,
+					  /obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee = 12,
 					  /obj/item/tank/internals/emergency_oxygen = 6,
 					  /obj/item/clothing/mask/breath = 6)
 	refill_canister = /obj/item/vending_refill/sustenance

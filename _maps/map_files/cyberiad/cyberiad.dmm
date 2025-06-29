@@ -68761,7 +68761,7 @@
 /area/maintenance/apmaint)
 "mkw" = (
 /obj/structure/table/glass,
-/obj/item/reagent_containers/food/drinks/coffee,
+/obj/item/reagent_containers/food/drinks/cups/coffee_cup/small/coffee,
 /obj/item/reagent_containers/glass/bottle/morphine{
 	pixel_y = 5
 	},
