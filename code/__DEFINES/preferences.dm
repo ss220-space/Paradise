@@ -166,3 +166,63 @@
 #define MULTIZ_DETAIL_HIGH 2
 #define MULTIZ_DETAIL_MEDIUM 1
 #define MULTIZ_DETAIL_LOW 0
+
+
+// Categories
+#define PREF_CATEGORY_GENERAL 		"Основные настройки"
+#define PREF_CATEGORY_LIVING 		"Настройки в раунде"
+#define PREF_CATEGORY_GHOST 		"Основные настройки"
+#define PREF_CATEGORY_ADMIN 		"Настройки в раунде"
+
+// Uplink location
+#define PREF_UPLINK_PDA 			"КПК"
+#define PREF_UPLINK_HEADSET 		"Гарнитура"
+
+// NanoTrasen relationship
+#define PREF_NTRELATION_LOYAL 		"Преданное"
+#define PREF_NTRELATION_SUPPORTIVE 	"Поддерживающее"
+#define PREF_NTRELATION_NEUTRAL 	"Нейтральное"
+#define PREF_NTRELATION_SCEPTICAL 	"Скептичное"
+#define PREF_NTRELATION_OPPOSED 	"Враждебное"
+
+// Bodyparts names
+#define PREF_ORGANNAME_CHEST 		"Грудь"
+#define PREF_ORGANNAME_GROIN 		"Живот"
+#define PREF_ORGANNAME_HEAD 		"Голова"
+#define PREF_ORGANNAME_L_ARM 		"Левая рука"
+#define PREF_ORGANNAME_R_ARM 		"Правая рука"
+#define PREF_ORGANNAME_L_HAND 		"Левая ладонь"
+#define PREF_ORGANNAME_R_HAND 		"Правая ладонь"
+#define PREF_ORGANNAME_L_LEG 		"Левая нога"
+#define PREF_ORGANNAME_R_LEG 		"Правая нога"
+#define PREF_ORGANNAME_L_FOOT 		"Левая ступня"
+#define PREF_ORGANNAME_R_FOOT 		"Правая ступня"
+
+// Organ names
+#define PREF_ORGANNAME_EYES 		"Глаза"
+#define PREF_ORGANNAME_EARS 		"Уши"
+#define PREF_ORGANNAME_HEART 		"Сердце"
+#define PREF_ORGANNAME_LUNGS 		"Лёгкие"
+#define PREF_ORGANNAME_LIVER 		"Печень"
+#define PREF_ORGANNAME_KIDNEYS 		"Почки"
+
+// Organ statuses (English)
+#define PREF_ORGANSTATUS_CYBORG_ENG 	"cyborg"
+#define PREF_ORGANSTATUS_AMPUTATED_ENG 	"amputated"
+#define PREF_ORGANSTATUS_CYBERNETIC_ENG "cybernetic"
+
+// Organ statuses (Russian)
+#define PREF_ORGANSTATUS_ORGANIC_RUS 	"Органика"
+#define PREF_ORGANSTATUS_AMPUTATED_RUS 	"Ампутировано"
+#define PREF_ORGANSTATUS_CYBERNETIC_RUS "Кибернетика"
+
+// Auto-hiss choices
+#define PREF_AUTOHISS_OFF 		"Нет"
+#define PREF_AUTOHISS_BASIC 	"Базовый"
+#define PREF_AUTOHISS_FULL 		"Полный"
+
+// Genders
+#define PREF_GENDER_MALE 		"Мужской"
+#define PREF_GENDER_FEMALE 		"Женский"
+#define PREF_GENDER_PLURAL 		"Бесполый"
+

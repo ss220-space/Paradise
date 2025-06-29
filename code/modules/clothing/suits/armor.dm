@@ -78,11 +78,11 @@
 	if(istype(I, /obj/item/clothing/accessory/holobadge))
 		add_fingerprint(user)
 		if(attached_badge)
-			to_chat(user, span_warning("The [name] already has [attached_badge]."))
+			to_chat(user, span_warning("На [declent_ru(PREPOSITIONAL)] уже есть [attached_badge.declent_ru(NOMINATIVE)]."))
 			return ATTACK_CHAIN_PROCEED
 		if(!user.drop_transfer_item_to_loc(I, src))
 			return ..()
-		to_chat(user, span_notice("You attach [I] to [src]."))
+		to_chat(user, span_notice("Вы прицепили [I.declent_ru(ACCUSATIVE)] к [declent_ru(DATIVE)]."))
 		attached_badge = I
 		var/datum/action/item_action/remove_badge/holoaction = new(src)
 		holoaction.Grant(user)
@@ -102,7 +102,7 @@
 		attached_badge = null
 		update_appearance(UPDATE_ICON_STATE|UPDATE_DESC)
 		update_equipped_item()
-		to_chat(user, span_notice("You remove [attached_badge] from [src]."))
+		to_chat(user, span_notice("Вы снимаете [attached_badge.declent_ru(ACCUSATIVE)] с [declent_ru(GENITIVE)]."))
 		return
 	..()
 
@@ -410,15 +410,12 @@
 
 /obj/item/clothing/suit/armor/reactive/attack_self(mob/user)
 	if(emp_d)
-		to_chat(user, span_warning("[src] is disabled from an electromagnetic pulse!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] отключён из-за электромагнитного импульса!"))
 		return
 	active = !active
 	update_icon(UPDATE_ICON_STATE)
 	add_fingerprint(user)
-	if(active)
-		to_chat(user, span_notice("[src] is now active."))
-	else
-		to_chat(user, span_notice("[src] is now inactive."))
+	to_chat(user, span_notice("[capitalize(declent_ru(NOMINATIVE))] теперь [active ? "активен" : "неактивен"]."))
 	update_equipped_item()
 
 
@@ -429,7 +426,7 @@
 	addtimer(CALLBACK(src, PROC_REF(reboot)), 100 / severity)
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
-		to_chat(user, span_warning("[src] starts malfunctioning!"))
+		to_chat(user, span_warning("[capitalize(declent_ru(NOMINATIVE))] начинает глючить!"))
 		update_equipped_item()
 	..()
 
@@ -439,7 +436,7 @@
 	if(ishuman(loc))
 		var/mob/living/carbon/human/user = loc
 		update_equipped_item()
-		to_chat(user, span_notice("Looks like [src] returns its functionality."))
+		to_chat(user, span_notice("Похоже, [declent_ru(NOMINATIVE)] снова функционирует нормально."))
 
 
 //When the wearer gets hit, this armor will teleport the user a short distance away (to safety or to more danger, no one knows. That's the fun of it!)
@@ -452,12 +449,15 @@
 	. = ..()
 	AddElement(/datum/element/high_value_item)
 
-/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/teleport/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
 		var/mob/living/carbon/human/H = owner
-		owner.visible_message(span_danger("The reactive teleport system flings [H] clear of [attack_text]!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(
+			span_danger("Реактивная телепортная система отражает [attack_text] [H.declent_ru(GENITIVE)]!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		)
 		var/list/turfs = new/list()
 		for(var/turf/T in orange(tele_range, H))
 			if(isspaceturf(T))
@@ -481,11 +481,14 @@
 /obj/item/clothing/suit/armor/reactive/fire
 	name = "reactive incendiary armor"
 
-/obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/fire/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
-		owner.visible_message(span_danger("The [src] blocks the [attack_text], sending out jets of flame!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] блокирует [attack_text], выпуская струи пламени!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		)
 		for(var/mob/living/carbon/C in range(6, owner))
 			if(C != owner)
 				C.fire_stacks += 8
@@ -497,7 +500,7 @@
 /obj/item/clothing/suit/armor/reactive/stealth
 	name = "reactive stealth armor"
 
-/obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/stealth/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "удар", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
@@ -506,7 +509,10 @@
 		E.GiveTarget(owner) //so it starts running right away
 		E.Goto(owner, E.move_to_delay, E.minimum_distance)
 		owner.alpha = 0
-		owner.visible_message(span_danger("[owner] is hit by [attack_text] in the chest!"), projectile_message = (attack_type == PROJECTILE_ATTACK)) //We pretend to be hit, since blocking it would stop the message otherwise
+		owner.visible_message(
+			span_danger("[owner] получает [attack_text] в грудь!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		) //We pretend to be hit, since blocking it would stop the message otherwise
 		spawn(40)
 			owner.alpha = initial(owner.alpha)
 		return 1
@@ -514,11 +520,14 @@
 /obj/item/clothing/suit/armor/reactive/tesla
 	name = "reactive tesla armor"
 
-/obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "the attack", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
+/obj/item/clothing/suit/armor/reactive/tesla/hit_reaction(mob/living/carbon/human/owner, atom/movable/hitby, attack_text = "атаку", final_block_chance = 0, damage = 0, attack_type = ITEM_ATTACK)
 	if(!active)
 		return 0
 	if(prob(hit_reaction_chance))
-		owner.visible_message(span_danger("The [src] blocks the [attack_text], sending out arcs of lightning!"), projectile_message = (attack_type == PROJECTILE_ATTACK))
+		owner.visible_message(
+			span_danger("[capitalize(declent_ru(NOMINATIVE))] блокирует [attack_text], испуская разряды молний!"),
+			projectile_message = (attack_type == PROJECTILE_ATTACK)
+		)
 		for(var/mob/living/M in view(6, owner))
 			if(M == owner)
 				continue
