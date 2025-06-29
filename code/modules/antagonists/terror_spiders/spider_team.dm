@@ -233,25 +233,25 @@ GLOBAL_VAR_INIT(global_degenerate, FALSE)
 
 	if(terror_queens.len || terror_princes.len || terror_princesses.len || terror_defilers.len)
 		declare_results()
-		var/list/text = list("<br/><span style='font-size: 2;'><b>Основа гнезда:</b></span>")
+		var/list/text = list(span_fontsize2("<br/><b>Основа гнезда:</b>"))
 		if(terror_queens.len)
-			text += "<br/><span style='font-size: 1;'><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b></span>"
+			text += span_fontsize1("<br/><b>Королев[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_queens)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(terror_princes.len)
-			text += "<br/><span style='font-size: 1;'><b>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</b></span>"
+			text += span_fontsize1("<br/><b>Принц[(terror_queens?.len > 1 ? "ами были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_princes)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(terror_princesses.len)
-			text += "<br/><span style='font-size: 1;'><b>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b></span>"
+			text += span_fontsize1("<br/><b>Принцесс[(terror_queens?.len > 1 ? "ами были" : "ой был")]:</b>")
 			for(var/datum/mind/spider in terror_princesses)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(terror_defilers.len)
-			text += "<br/><span style='font-size: 1;'><b>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</b></span>"
+			text += span_fontsize1("<br/><b>Осквернител[(terror_queens?.len > 1 ? "ями были" : "ем был")]:</b>")
 			for(var/datum/mind/spider in terror_defilers)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		if(members.len)
-			text += "<br/><span style='font-size: 2;'><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b></span>"
+			text += span_fontsize2("<br/><b>Паук[(members?.len > 1 ? "ами Ужаса были" : "ом Ужаса был")]:</b>")
 			for(var/datum/mind/spider in members)
 				text += "<br/><b>[spider.key]</b> был <b>[spider.name]</b>"
 		return text.Join("")
