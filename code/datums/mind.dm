@@ -1842,7 +1842,7 @@
 				message_admins("[key_name_admin(usr)] has nuke op'd [key_name_admin(current)]")
 
 			if("lair")
-				current.forceMove(get_turf(locate("landmark*Syndicate-Spawn")))
+				current.forceMove(get_turf(safepick(GLOB.nukespawn)))
 				log_admin("[key_name(usr)] has moved [key_name(current)] to the nuclear operative spawn")
 				message_admins("[key_name_admin(usr)] has moved [key_name_admin(current)] to the nuclear operative spawn")
 
