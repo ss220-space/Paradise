@@ -14,7 +14,56 @@
 	equip_sound = 'sound/items/handling/backpack_equip.ogg'
 	drop_sound = 'sound/items/handling/backpack_drop.ogg'
 	var/use_item_overlays = FALSE // Do we have overlays for items held inside the belt?
+	actions_types = list(/datum/action/item_action/accessory/storage/belt)
+	action_icon = list(/datum/action/item_action/accessory/storage/belt = 'icons/obj/clothing/belts.dmi')
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "utilitybelt")
 
+/obj/item/storage/belt/proc/check_menu(mob/living/user)
+	if(!istype(user))
+		return
+	if(user.incapacitated())
+		return
+	if(loc != user)
+		return
+	return TRUE
+
+/obj/item/storage/belt/try_fast_equip_item_from_belt(obj/item/I)
+	if (usr.put_in_any_hand_if_possible(selected, ignore_anim=FALSE))
+		to_chat(user, "<span class='notice'>Вы достаете [I.name] с пояса.</span>")
+		remove_from_storage(I, usr)
+
+/obj/item/storage/belt/proc/radial_menu(mob/user)
+	if(!check_menu(user))
+		to_chat(user, "<span class='notice'>Вы не можете это сделать сейчас!</span>")
+		return
+	var/list/choices = list()
+	for(var/obj/I in contents)
+		choices["[I.name]"] = image(icon = I.icon, icon_state = I.icon_state)
+
+	var/choice = show_radial_menu(user, src, choices, custom_check = CALLBACK(src, PROC_REF(check_menu), user))
+	if(!check_menu(user))
+		return
+	var/obj/item/selected
+	for(var/obj/item in contents)
+		if(item.name == choice)
+			selected = item
+			break
+	if (selected == null)
+		return
+	try_fast_equip_item_from_belt(selected)
+
+/obj/item/storage/belt/ui_action_click(mob/living/user, datum/action/action, leftclick)
+	if(length(contents) > 1)
+		radial_menu(user)
+	else if (length(contents) == 1)
+		var/obj/item/selected = contents[1]
+		try_fast_equip_item_from_belt(selected)
+	else
+		to_chat(user, "<span class='notice'>Ваш пояс пуст.</span>")
+
+/obj/item/storage/belt/item_action_slot_check(slot, mob/user, datum/action/action)
+	if(slot & ITEM_SLOT_BELT)
+		return TRUE
 
 /obj/item/storage/belt/update_overlays()
 	. = ..()
@@ -94,6 +143,7 @@
 	item_state = "utility_ce"
 	storage_slots = 8
 	max_combined_w_class = 17	// 7 `WEIGHT_CLASS_SMALL` items + RCD.
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "utilitybelt_ce")
 
 /obj/item/storage/belt/utility/chief/full/populate_contents()
 	new /obj/item/screwdriver/power(src)
@@ -138,6 +188,7 @@
 		/obj/item/handheld_defibrillator,
 		/obj/item/reagent_containers/applicator,
 		/obj/item/radio)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "medicalbelt")
 
 /obj/item/storage/belt/medical/surgery
 	max_w_class = WEIGHT_CLASS_NORMAL
@@ -162,6 +213,7 @@
 		/obj/item/radio,
 		/obj/item/clothing/gloves/color/latex,
 		/obj/item/reagent_containers/spray/cleaner)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "surgicalbelt")
 
 /obj/item/storage/belt/medical/surgery/loaded/populate_contents()
 	new /obj/item/scalpel(src)
@@ -207,6 +259,7 @@
 		/obj/item/reagent_containers/spray/weedspray,
 		/obj/item/reagent_containers/spray/pestspray,
 		/obj/item/radio)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "botanybelt")
 
 /obj/item/storage/belt/security
 	name = "security belt"
@@ -238,6 +291,7 @@
 		/obj/item/forensics/sample_kit,
 		/obj/item/eftpos/sec,
 		/obj/item/radio)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "securitybelt")
 
 /obj/item/storage/belt/security/sec/populate_contents()
 	new /obj/item/reagent_containers/spray/pepper(src)
@@ -252,6 +306,7 @@
 	desc = "An old fashion security belt. Made of leather"
 	icon_state = "detective_belt"
 	item_state = "detective_belt"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "detective_belt")
 
 /obj/item/storage/belt/security/detective/populate_contents()
 	new /obj/item/flash(src)
@@ -283,6 +338,7 @@
 	item_state = "securitywebbing"
 	storage_slots = 6
 	use_item_overlays = FALSE
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "securitywebbing")
 
 /obj/item/storage/belt/security/webbing/srt
 	name = "SRT webbing"
@@ -307,6 +363,7 @@
 	can_hold = list(
 		"/obj/item/soulstone"
 		)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "soulstonebelt")
 
 /obj/item/storage/belt/soulstone/full/populate_contents()
 	for(var/I in 1 to 7)
@@ -321,6 +378,7 @@
 	materials = list(MAT_GOLD=400)
 	storage_slots = 1
 	can_hold = list("/obj/item/clothing/mask")
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "championbelt")
 
 /obj/item/storage/belt/military
 	name = "military belt"
@@ -329,10 +387,12 @@
 	item_state = "military"
 	max_w_class = WEIGHT_CLASS_SMALL
 	resistance_flags = FIRE_PROOF
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "militarybelt")
 
 /obj/item/storage/belt/military/sst
 	icon_state = "assaultbelt"
 	item_state = "assault"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "assaultbelt")
 
 /obj/item/storage/belt/military/traitor
 	name = "tool-belt"
@@ -340,6 +400,7 @@
 	icon_state = "utilitybelt"
 	item_state = "utility"
 	use_item_overlays = TRUE // So it will still show tools in it in case sec get lazy and just glance at it.
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "utilitybelt")
 
 /obj/item/storage/belt/military/traitor/hacker/populate_contents()
 	new /obj/item/screwdriver(src, "red")
@@ -356,6 +417,7 @@
 	desc = "Can hold security gear like handcuffs and flashes."
 	icon_state = "securitybelt"
 	item_state = "security"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "securitybelt")
 
 /obj/item/storage/belt/grenade
 	name = "grenadier belt"
@@ -370,6 +432,7 @@
 		/obj/item/lighter,
 		/obj/item/reagent_containers/food/drinks/bottle/molotov
 		)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "assaultbelt")
 
 /obj/item/storage/belt/grenade/full/populate_contents()
 	for(var/I in 1 to 4)// Four of each
@@ -427,6 +490,7 @@
 	max_combined_w_class = 30 //just to be sure..
 	max_w_class = WEIGHT_CLASS_NORMAL //Rockets are normal
 	can_hold = /obj/item/ammo_casing/caseless/rocket
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "assaultbelt")
 
 /obj/item/storage/belt/rocketman/populate_contents()
 	for(var/I in 1 to 3)
@@ -456,6 +520,7 @@
 	icon_state = "assaultbelt"
 	item_state = "assault"
 	storage_slots = 6
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "assaultbelt")
 
 /obj/item/storage/belt/military/assault/marines/full/populate_contents()
 	new /obj/item/ammo_box/magazine/m12g(src)
@@ -514,6 +579,7 @@
 		/obj/item/holosign_creator/janitor,
 		/obj/item/melee/flyswatter,
 		/obj/item/radio)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "janibelt")
 
 /obj/item/storage/belt/janitor/full/populate_contents()
 	new /obj/item/lightreplacer(src)
@@ -545,6 +611,7 @@
 	can_hold = list(
 		/obj/item/mobcapsule,
 		/obj/item/radio)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "lazarusbelt")
 
 /obj/item/storage/belt/lazarus/Initialize(mapload)
 	. = ..()
@@ -579,6 +646,7 @@
 	max_combined_w_class = 16
 	display_contents_with_number = TRUE
 	can_hold = list(/obj/item/ammo_casing/shotgun)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "bandolier_16")
 
 /obj/item/storage/belt/bandolier/Initialize(mapload)
 	. = ..()
@@ -622,6 +690,7 @@
 		/obj/item/gun/projectile/revolver/detective,
 		/obj/item/gun/projectile/automatic/toy/pistol
 		)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "holster")
 
 /obj/item/storage/belt/wands
 	name = "wand belt"
@@ -633,6 +702,7 @@
 	can_hold = list(
 		/obj/item/gun/magic/wand
 		)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "soulstonebelt")
 
 /obj/item/storage/belt/wands/full/populate_contents()
 	new /obj/item/gun/magic/wand/death(src)
@@ -654,6 +724,7 @@
 	item_state = "fannypack_leather"
 	storage_slots = 3
 	max_w_class = WEIGHT_CLASS_SMALL
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "fannypack_leather")
 
 /obj/item/storage/belt/fannypack/black
 	name = "black fannypack"
@@ -714,6 +785,7 @@
 	w_class = WEIGHT_CLASS_BULKY
 	max_w_class = WEIGHT_CLASS_BULKY
 	can_hold = list(/obj/item/melee/rapier/captain)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "sheath-rapier")
 
 /obj/item/storage/belt/rapier/populate_contents()
 	new /obj/item/melee/rapier/captain(src)
@@ -792,6 +864,7 @@
 	max_combined_w_class = 21 // = 14 * 1.5, not 14 * 2.  This is deliberate
 	origin_tech = "bluespace=5;materials=4;engineering=4;plasmatech=5"
 	can_hold = list()
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "holdingbelt")
 
 /obj/item/storage/belt/bluespace/owlman
 	name = "Owlman's utility belt"
@@ -811,6 +884,7 @@
 	var/smokecount = 0
 	var/bolacount = 0
 	var/cooldown = 0
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "securitybelt")
 
 /obj/item/storage/belt/bluespace/owlman/Initialize(mapload)
 	. = ..()
@@ -869,6 +943,7 @@
 	max_w_class = 10
 	max_combined_w_class = 280
 	can_hold = list()
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "soulstonebelt")
 
 /obj/item/storage/belt/bluespace/admin/populate_contents()
 	new /obj/item/crowbar(src)
@@ -958,6 +1033,7 @@
 		/obj/item/storage/bag/plants,
 		/obj/item/stack/marker_beacon,
 		/obj/item/gem)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "explorer1")
 
 /obj/item/storage/belt/mining/vendor/Initialize(mapload)
 	. = ..()
@@ -969,6 +1045,7 @@
 /obj/item/storage/belt/mining/alt
 	icon_state = "explorer2"
 	item_state = "explorer2"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "explorer2")
 
 /obj/item/storage/belt/mining/primitive
 	name = "hunter's belt"
@@ -1006,6 +1083,7 @@
 		/obj/item/hatchet/wooden,
 		/obj/item/cultivator/wooden,
 		)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "hunter_belt")
 
 /obj/item/storage/belt/chef
 	name = "culinary tool apron"
@@ -1033,18 +1111,21 @@
 		/obj/item/reagent_containers/food/condiment,
 		/obj/item/reagent_containers/glass/beaker,
 		/obj/item/radio)
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "chefbelt")
 
 /obj/item/storage/belt/chef/artist
 	name = "delicate apron"
 	desc = "Apron with pockets. Ideal for the best butchers!"
 	icon_state = "cabelt"
 	item_state = "cabelt"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "cabelt")
 
 /obj/item/storage/belt/chef/artistred
 	name = "red delicate apron"
 	desc = "Red apron with pockets. Ideal for the best butchers!"
 	icon_state = "cabeltred"
 	item_state = "cabeltred"
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "cabeltred")
 
 /obj/item/storage/belt/claymore
 	name = "holy claymore sheath"
@@ -1058,6 +1139,7 @@
 	var/claymore_path = /obj/item/nullrod/claymore
 	var/sheath_sound = 'sound/weapons/blade_holy_sheath.ogg'
 	var/unsheath_sound = 'sound/weapons/blade_holy_unsheath.ogg'
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "sheath_holy_blade")
 
 /obj/item/storage/belt/claymore/dark
 	name = "dark claymore sheath"
@@ -1066,6 +1148,7 @@
 	claymore_path = /obj/item/nullrod/claymore/darkblade
 	sheath_sound = 'sound/weapons/blade_dark_sheath.ogg'
 	unsheath_sound = 'sound/weapons/blade_dark_unsheath.ogg'
+	action_icon_state = list(/datum/action/item_action/accessory/storage/belt = "sheath_dark_blade")
 
 /obj/item/storage/belt/claymore/update_icon_state()
 	if(length(contents))
