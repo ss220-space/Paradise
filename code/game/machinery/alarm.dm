@@ -1119,6 +1119,28 @@
 			if(wiresexposed)
 				. += span_notice("The wiring could be <i>cut and removed</i> or panel could <b>screwed</b> closed.")
 
+/obj/machinery/alarm/proc/togglelock(mob/living/user)
+	add_fingerprint(user)
+	if(stat & (NOPOWER|BROKEN))
+		to_chat(user, span_warning("It does nothing!"))
+		return
+	if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
+		locked = !locked
+		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
+		return
+	to_chat(user, span_warning("Access denied."))
+
+/obj/machinery/alarm/click_alt(mob/living/carbon/human/H)
+	if(!istype(H))
+		return NONE
+	var/obj/item/card/id/card = H.get_id_card()
+	if(!istype(card))
+		return NONE
+
+	add_fingerprint(H)
+	togglelock(H)
+	return CLICK_ACTION_SUCCESS
+
 
 /obj/machinery/alarm/proc/unshort_callback()
 	if(shorted)
