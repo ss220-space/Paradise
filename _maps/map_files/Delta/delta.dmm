@@ -51986,12 +51986,6 @@
 	},
 /turf/simulated/floor/plating,
 /area/security/hos)
-"gOg" = (
-/obj/item/twohanded/required/kirbyplants,
-/turf/simulated/floor/plasteel{
-	icon_state = "whitepurple"
-	},
-/area/toxins/explab)
 "gOi" = (
 /obj/machinery/atmospherics/pipe/manifold/hidden/scrubbers{
 	dir = 1
@@ -57943,6 +57937,7 @@
 "ilJ" = (
 /obj/item/stack/cable_coil,
 /obj/structure/table,
+/obj/item/stack/sheet/mineral/plasma,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -114129,8 +114124,7 @@
 	},
 /area/medical/research/restroom)
 "vkV" = (
-/obj/item/stack/sheet/mineral/plasma,
-/obj/structure/table,
+/obj/machinery/suit_storage_unit/anom,
 /turf/simulated/floor/plasteel{
 	icon_state = "whitepurple"
 	},
@@ -157280,7 +157274,7 @@ cUW
 cTr
 ajy
 nTV
-gOg
+vkV
 ddi
 pgp
 sPF

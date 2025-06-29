@@ -798,6 +798,119 @@
 	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/singuloth
 	sprite_sheets = null
 
+//Anomalist hardsuit
+/obj/item/clothing/head/helmet/space/hardsuit/anom
+	name = "Anomalist Hardsuit Helmet"
+	desc = "A prototype helmet designed for research in a hazardous, low pressure environment. Scientific data flashes across the visor."
+	icon_state = "hardsuit0-engineering" //"hardsuit0-anom"
+	item_state = "hardsuit" //"anom"
+	armor = list("melee" = 40, "bullet" = 0, "laser" = 0, "energy" = 50, "bomb" = 50, "bio" = 30, "rad" = 50, "fire" = 100, "acid" = 40)
+	item_color = "engineering" //"anom"
+	examine_extensions = EXAMINE_HUD_SCIENCE
+	var/explosion_detection_dist = 30
+	var/obj/item/anomaly_analyzer/integrated_scanner
+	var/scanner_active = FALSE
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/anom/Initialize()
+	. = ..()
+	integrated_scanner = new(src)
+
+/obj/item/clothing/head/helmet/space/hardsuit/anom/Destroy()
+	QDEL_NULL(integrated_scanner)
+	return ..()
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/anom/equipped(mob/living/carbon/human/user, slot, initial = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		GLOB.doppler_arrays += src
+		scanner_active = TRUE
+
+
+/obj/item/clothing/head/helmet/space/hardsuit/anom/dropped(mob/living/carbon/human/user, slot, silent = FALSE)
+	. = ..()
+	if(slot == ITEM_SLOT_HEAD)
+		GLOB.doppler_arrays -= src
+		scanner_active = FALSE
+
+
+/obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
+		var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
+		if(istype(helmet) && istype(suit) && helmet.scanner_active)
+			if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+				return TRUE
+			if(H.l_hand || H.r_hand)
+				return TRUE
+			helmet.integrated_scanner.scan(src)
+			helmet.integrated_scanner.show(H)
+			return TRUE
+	return ..()
+
+/obj/effect/anomaly/attack_hand(mob/user, list/modifiers)
+	if(ishuman(user))
+		var/mob/living/carbon/human/H = user
+		var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
+		var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
+		if(istype(helmet) && istype(suit) && helmet.scanner_active)
+			if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+				return TRUE
+			if(H.l_hand || H.r_hand)
+				return TRUE
+			helmet.integrated_scanner.scan(src)
+			helmet.integrated_scanner.show(H)
+			return TRUE
+	return ..()
+
+/mob/living/carbon/ClickOn(atom/A, params)
+	if(!istype(A, /obj/effect/anomaly))
+		return ..()
+	var/list/modifiers = params2list(params)
+	if(modifiers["left"] && !modifiers["shift"] && !modifiers["alt"] && !modifiers["ctrl"])
+		if(ishuman(src))
+			var/mob/living/carbon/human/H = src
+			var/obj/item/clothing/head/helmet/space/hardsuit/anom/helmet = H.head
+			var/obj/item/clothing/suit/space/hardsuit/anom/suit = H.wear_suit
+			if(istype(helmet) && istype(suit) && helmet.scanner_active)
+				if(H.incapacitated() || HAS_TRAIT(H, TRAIT_HANDS_BLOCKED))
+					return
+				if(H.l_hand || H.r_hand)
+					return
+				if(!Adjacent(A))
+					helmet.integrated_scanner.scan(A)
+					helmet.integrated_scanner.show(H)
+					return
+	return ..()
+
+/obj/item/clothing/head/helmet/space/hardsuit/anom/proc/sense_explosion(x0, y0, z0, devastation_range, heavy_impact_range,
+		light_impact_range, took, orig_dev_range, orig_heavy_range, orig_light_range)
+	var/turf/T = get_turf(src)
+	var/dx = abs(x0 - T.x)
+	var/dy = abs(y0 - T.y)
+	var/distance = 30
+	if(T.z != z0)
+		return
+	if(dx > dy)
+		distance = dx
+	else
+		distance = dy
+	if(distance > explosion_detection_dist)
+		return
+	display_visor_message("Explosion detected! Epicenter radius: [devastation_range], Outer radius: [heavy_impact_range], Shockwave radius: [light_impact_range]")
+
+/obj/item/clothing/suit/space/hardsuit/anom
+	name = "Anomalist Hardsuit"
+	desc = "A prototype suit that protects against hazardous, low pressure environments. Fitted with extensive plating for working with anomalies and hazardous research."
+	icon_state = "hardsuit-engineering" // "hardsuit-anom"
+	item_state = "eng_hardsuit" // "hardsuit-anom"
+	armor = list("melee" = 40, "bullet" = 0, "laser" = 0, "energy" = 50, "bomb" = 50, "bio" = 30, "rad" = 50, "fire" = 100, "acid" = 40)
+	allowed = list(/obj/item/flashlight, /obj/item/tank/internals, /obj/item/gun/energy/wormhole_projector,
+	/obj/item/gun/energy/anomaly_stabilizer)
+	helmettype = /obj/item/clothing/head/helmet/space/hardsuit/anom
+
 //Battlemage Hardsuit — code\modules\clothing\suits\wiz_robe.dm
 //Deathsquad Hardsuit — code\modules\clothing\spacesuits\ert.dm
 //Prototype RIG Hardsuit — code\modules\awaymissions\mission_code\ruins\oldstation.dm

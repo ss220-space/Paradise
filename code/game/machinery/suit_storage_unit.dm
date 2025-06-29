@@ -169,6 +169,13 @@
 	magboots_type = /obj/item/clothing/shoes/magboots
 	req_access = list(ACCESS_RD)
 
+/obj/machinery/suit_storage_unit/anom
+	name = "anomalist's suit storage unit"
+	suit_type = /obj/item/clothing/suit/space/hardsuit/anom
+	storage_type = /obj/item/tank/internals/oxygen
+	mask_type = /obj/item/clothing/mask/gas
+	req_access = list(ACCESS_RESEARCH)
+
 /obj/machinery/suit_storage_unit/mime
 	name = "mime suit storage unit"
 	suit_type = /obj/item/clothing/suit/space/eva/mime
