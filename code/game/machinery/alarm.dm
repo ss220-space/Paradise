@@ -983,17 +983,7 @@
 	switch(buildstage)
 		if(AIR_ALARM_READY)
 			if(I.GetID() || is_pda(I)) // trying to unlock the interface
-				add_fingerprint(user)
-				if(stat & (NOPOWER|BROKEN))
-					to_chat(user, span_warning("It does nothing!"))
-					return ATTACK_CHAIN_PROCEED
-
-				if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
-					locked = !locked
-					to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
-					SStgui.update_uis(src)
-					return ATTACK_CHAIN_PROCEED
-				to_chat(user, span_warning("Access denied."))
+				togglelock(user)
 				return ATTACK_CHAIN_PROCEED
 
 		if(AIR_ALARM_BUILDING)
@@ -1127,6 +1117,7 @@
 	if(allowed(user) && !wires.is_cut(WIRE_IDSCAN))
 		locked = !locked
 		to_chat(user, span_notice("You [ locked ? "lock" : "unlock"] the Air Alarm interface."))
+		SStgui.update_uis(src)
 		return
 	to_chat(user, span_warning("Access denied."))
 
