@@ -1,0 +1,177 @@
+'2025-05-11':
+  dageavtobusnick:
+  - server: Фикс неработающего скачивания и распаковки byond в CI (#6831)
+'2025-05-13':
+  FlitchTime:
+  - balance: Наниты синдиборга теперь имеют передоз (#6720)
+  - balance: Лампочки легче сломать (#6732)
+  - balance: Поднятие урона лому (#6735)
+  - balance: Бафф спела "Священное пламя" (#6796)
+  Mahimka42:
+  - add: Лимиты на заклинание кровавый обряд. (#6811)
+  NuSanya:
+  - tweak: бса делает взрыв под лимит (#6803)
+  - add: добавление реагента на полу некоторым реагентам (#6804)
+  - balance: нёрф дизарма ниндзи (#6805)
+  - balance: набор опер медика стоит меньше тк (#6807)
+  - bugfix: невидимые спрайты гостфаке + маски, блейдраннер пальто (#6819)
+  - bugfix: undense mobs becoming dense after leaning on walls (#6821)
+  - bugfix: ут/ют и т.д. в хайвмайнде и шёпоте (#6824)
+  - bugfix: наклонение на стены шаттла при отлёте выкидывало в гиперкосмос (#6825)
+  - bugfix: double megafauna loot (#6826)
+  - bugfix: невозможные заказы мехов (#6830)
+  Ravgolin:
+  - bugfix: lavaland ashstorm ares fix (#6798)
+  - server: FIXING CONVEYOR DELTA (#6695)
+  TimChi:
+  - tweak: Pointers now facing to target (#6813)
+  Vesterlim13:
+  - admin: Malta fix (#6785)
+  Vitalya:
+  - add: замена хомяков и Представителя Алексея на Лохматых мышей и Господина Мышкина  (#6784)
+  chomasuke:
+  - bugfix: DNA-Injector radiation fix (#6823)
+  dageavtobusnick:
+  - add: Коса душ (#6733)
+  - add: Снайперская винтовка AXMC (#6773)
+  - bugfix: Исправления внезапного рантайма в CI (#6836)
+  - qol: тгуи меню для хамелеон предметов (#6834)
+  - bugfix: Стандартизация иконстейтов крупноспрайтовых ксеноморфов (#6832)
+  - qol: Перенос некоторых параметров из стат панели(из mob/new_player) в меню лобби
+      (#6783)
+  pilygun:
+  - imageadd: Спрайты бургеров в руках (#6822)
+  spaghetti:
+  - refactor: adrenal rework (#6797)
+'2025-05-14':
+  NuSanya:
+  - bugfix: голые плазмамены шахтомедики (#6837)
+  - bugfix: у гладиатор шлема не было спрайта при тоггле (#6828)
+  dageavtobusnick:
+  - bugfix: Фикс инхендов одноручного сварочного меча (#6838)
+  - bugfix: Исправление ошибки визуала магазинов .338 (#6839)
+'2025-05-15':
+  Pelmenik123:
+  - server: tweak/bugfix еще немного оптимизации capitalism (#6840)
+  PiroMage:
+  - map: Nova armory, cargo, permabrig fix (#6559)
+  dageavtobusnick:
+  - bugfix: Исправление рантайма с иишными монке (#6842)
+  littleboobs:
+  - refactor: span в define [part 1] (#6640)
+  pilygun:
+  - imageadd: Респрайт доминатора (#6841)
+'2025-05-16':
+  dageavtobusnick:
+  - tweak: Оптимизация параллакса (#6835)
+  littleboobs:
+  - spellcheck: вернул шутки (#6843)
+  - spellcheck: изменение названий алкоголя (#6844)
+'2025-05-17':
+  Antoonij:
+  - code_imp: Sound min. threshold & Sound dist calculation (#6450)
+'2025-05-18':
+  Anorak2020:
+  - add: Контент аномалиям (#6833)
+  TimChi:
+  - refactor: AutoObserve (#6787)
+  dageavtobusnick:
+  - bugfix: Фикс перекидывания на туториал, даже если в конфигах нет адреса (#6847)
+'2025-05-19':
+  Anorak2020:
+  - bugfix: Доставание ядер аномалий из предметов + прыжок гравбутсов (#6848)
+  - bugfix: Бесплатные аномалии (#6849)
+  Mahimka42:
+  - spellcheck: Перевод сейфа (#6845)
+'2025-05-20':
+  Sheya:
+  - add: methamphetamine knockdown (#6738)
+  dageavtobusnick:
+  - server: Тег ченджлога для локализации + описания имеющихся (#6853)
+  pilygun:
+  - imageadd: Спрайты супов в руках + респрайт фантика на сырую еду (#6854)
+'2025-05-21':
+  Anorak2020:
+  - bugfix: Веселый ваншот магбутсами (#6856)
+  - unknown: Разное в аномалиях (#6859)
+  TimChi:
+  - bugfix: autoobserve 6 (#6858)
+  dageavtobusnick:
+  - bugfix: Фикс перевода <font> в span (#6855)
+  - bugfix: Фикс панели взаимодействий (#6857)
+  pilygun:
+  - imageadd: Спрайты тортов в руках + баг фикс багетов (#6860)
+'2025-05-22':
+  kukur:
+  - bugfix: Fixing Space in keybinding (#6864)
+  - qol: sound and audio playback when fax arrives (#6861)
+'2025-05-23':
+  Anorak2020:
+  - unknown: Фиксы аномалиям (#6866)
+  L343-CJ:
+  - tweak: Agreedable glasses многоразовые (#6817)
+  TimChi:
+  - add: Facing to mouse port (#6802)
+'2025-05-24':
+  NuSanya:
+  - bugfix: restrained alerts not working correctly (#6868)
+  dageavtobusnick:
+  - refactor: TGUI5 (#6829)
+  - add: Порт Stack Craft 3  + микрорефактор (#6869)
+  - bugfix: Правка ошибок в сб и мед записях (#6870)
+  - add: Мортира с СМ-ов и снаряды к ней(щитспавн) (#6871)
+'2025-05-25':
+  FlitchTime:
+  - tweak: Стоимость дрона в алмазах уменьшена (#6874)
+  Vitalya:
+  - image: перевод синих табличек (#6867)
+  dageavtobusnick:
+  - bugfix: Правка аплинка и анализатора тела (#6873)
+  - add: Новые снаряды для мортиры + правка кода (#6875)
+'2025-05-26':
+  PlayerUnknown14:
+  - local: локализация меню лодаута (#6877)
+  dageavtobusnick:
+  - tweak: Правки снарядов мортиры + логирование (#6879)
+  - bugfix: Исправление пропажи чата у новых пользователей 516 + фикс визуала днк
+      хранилища (#6878)
+  - qol: TGUI ускоритель частиц (#6881)
+  - server: changelog_fix (#6883)
+  littleboobs:
+  - bugfix: названия в пандемике (#6882)
+  pilygun:
+  - add: Рефлекторное пальто часть 2 (#6865)
+'2025-05-27':
+  Anorak2020:
+  - bugfix: Несколько фиксов аномалий (#6908)
+  - balance: Баф кудзы (#6892)
+  dageavtobusnick:
+  - bugfix: Исправление проблем с чатом при первом заходе (#6885)
+  - server: tgui rebuilder (#6886)
+  - server: Remove tgui rebuilder (#6911)
+  spaghetti:
+  - bugfix: adrenal for ling (#6880)
+'2025-05-28':
+  dageavtobusnick:
+  - bugfix: Фикс невидимой квины (#6914)
+  - bugfix: Исправление кросс секторной наводки мортир (#6913)
+'2025-05-29':
+  NuSanya:
+  - refactor: wheelchair (#6818)
+  dageavtobusnick:
+  - bugfix: Фикс проблем наводки мортиры (#6915)
+'2025-05-30':
+  PlayerUnknown14:
+  - local: локализация радиосвязи и телекоммуникаций (#6632)
+  dageavtobusnick:
+  - bugfix: Теперь датум контрактора выдается после принятия предложения (#6918)
+  - bugfix: Рефактор робостаков + исправление ошибок (#6919)
+  - bugfix: Фикс тгуи числового инпута (#6920)
+  - bugfix: Исправление мелких ошибок тгуи (#6921)
+  pilygun:
+  - imageadd: Новый вендомат с колой (#6917)
+'2025-05-31':
+  dageavtobusnick:
+  - bugfix: Исправление ошибки при открытии аплинка (#6925)
+  littleboobs:
+  - local: Лобби, техническая информация и голосования (#6926)
