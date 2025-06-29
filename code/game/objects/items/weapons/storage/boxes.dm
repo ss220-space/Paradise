@@ -441,7 +441,7 @@
 	icon = 'icons/obj/food/containers.dmi'
 	icon_state = "arabica_beans"
 	storage_slots = 5
-	can_hold = list(/obj/item/reagent_containers/food/snacks/monkeycube)
+	can_hold = list(/obj/item/reagent_containers/food/snacks/grown/coffee)
 	var/beantype = /obj/item/reagent_containers/food/snacks/grown/coffee
 
 /obj/item/storage/box/coffeepack/populate_contents()
@@ -449,6 +449,13 @@
 		var/obj/item/reagent_containers/food/snacks/grown/coffee/bean = new beantype(src)
 		bean.dry = TRUE
 		bean.add_atom_colour(COLOR_DRIED_TAN, FIXED_COLOUR_PRIORITY)
+
+/obj/item/storage/box/coffeepack/examine(mob/user)
+	. = ..()
+	if(in_range(user, src))
+		var/len = LAZYLEN(contents)
+		if(len <= 0)
+			. += span_notice("Пусто.")
 
 /obj/item/storage/box/coffeepack/robusta
 	name = "robusta beans"
