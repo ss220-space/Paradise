@@ -62,17 +62,17 @@
 		var/obj/item/stack/rods/rods = I
 		var/list/linkedparts = find_square()
 		if(!linkedparts)
-			to_chat(user, span_warning("You cannot assemble a pod frame because you do not have the necessary assembly."))
+			to_chat(user, span_warning("Вы не можете собрать каркас шаттла - отсутствуют необходимые компоненты."))
 			return ATTACK_CHAIN_PROCEED
 		var/cached_sound = rods.usesound
 		if(!rods.use(10))
-			to_chat(user, span_warning("You need at least ten rods to strut the frame."))
+			to_chat(user, span_warning("Требуется как минимум 10 стержней для укрепления каркаса."))
 			return ATTACK_CHAIN_PROCEED
 		var/obj/structure/spacepod_frame/new_pod = new(loc)
 		new_pod.setDir(dir)
 		transfer_fingerprints_to(new_pod)
 		new_pod.add_fingerprint(user)
-		to_chat(user, span_notice("You have strutted the pod frame together."))
+		to_chat(user, span_notice("Вы укрепили каркас шаттла."))
 		for(var/obj/item/pod_parts/pod_frame/frame in linkedparts)
 			//if the part links north during construction, as the bottom left part always does
 			if(turn(frame.dir, -frame.link_angle) == NORTH)
@@ -91,12 +91,12 @@
 		return .
 	set_anchored(!anchored)
 	set_density(anchored)
-	to_chat(user, span_notice("You have [anchored ? "secured [src] in place" : "removed the securing bolts"]."))
+	to_chat(user, span_notice("Вы [anchored ? "закрепили [src.declent_ru(ACCUSATIVE)] на месте" : "ослабили крепёжные болты"]."))
 
 
 /obj/item/pod_parts/pod_frame/examine(mob/user)
 	. = ..()
-	. += span_info("<b>Alt-Click</b> to rotate it.")
+	. += span_info("<b>Alt+ЛКМ</b> для поворота.")
 
 
 /obj/item/pod_parts/pod_frame/verb/rotate()
@@ -108,7 +108,7 @@
 		return FALSE
 
 	if(anchored)
-		to_chat(usr, "\The [src] is securely bolted!")
+		to_chat(usr, "[capitalize(src.declent_ru(NOMINATIVE))] надёжно закреплён болтами!")
 		return FALSE
 
 	dir = turn(dir, -90)

@@ -45,5 +45,5 @@
 
 // Admin and Mentor PM's
 
-#define MENTORHELP "Ментор помощь"
-#define ADMINHELP "Админ помощь"
+#define MENTORHELP "Помощь Ментора"
+#define ADMINHELP "Помощь Админа"

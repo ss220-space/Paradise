@@ -71,7 +71,7 @@
 /datum/game_mode/space_ninja/declare_completion(ragin = FALSE)
 	if(finished && !ragin)
 		SSticker.mode_result = "ninja loss - ninja killed"
-		to_chat(world, span_warning(span_fontsize3("<b> Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!</b>")))
+		to_chat(world, span_warning(span_bold(span_fontsize3(" Ниндзя был[(space_ninjas.len>1)?"и":""] убит[(space_ninjas.len>1)?"ы":""] экипажем! Клан Паука ещё не скоро отмоется от этого позора!"))))
 	..()
 	return TRUE
 
@@ -80,7 +80,7 @@
 	if(!length(space_ninjas))
 		return FALSE
 
-	var/text = "<br><font size=3><b>Космическим[(length(space_ninjas) > 1)?"и":""] Ниндзя был[(length(space_ninjas) > 1)?"и":""]:</b></font>"
+	var/list/text = list(span_bold(span_fontsize3("<br>Космическим[(length(space_ninjas) > 1)?"и":""] Ниндзя был[(length(space_ninjas) > 1)?"и":""]:")))
 
 	for(var/datum/mind/ninja in space_ninjas)
 
@@ -122,6 +122,5 @@
 			SSblackbox.record_feedback("tally", "ninja_success", 1, "FAIL")
 		text += "<br>"
 
-	to_chat(world, text)
-	return TRUE
+	return text.Join("")
 

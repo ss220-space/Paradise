@@ -33,7 +33,7 @@
 
 	var/list/affected_turfs_list = list()
 	var/static/list/possible_modes = list(LAVA_MODE = 10, PORTAL_MODE = 5, METEOR_MODE = 10, EMPTY_MODE = 50)
-	var/static/sound/music = sound('sound/music/knight_dance.ogg', channel = CHANNEL_BOSS_MUSIC, volume = 50, repeat = TRUE)
+	var/static/music = 'sound/music/dies_irae.ogg'
 
 /datum/weather/hell/telegraph()
 	. = ..()
@@ -126,7 +126,12 @@
 		var/z = player_loc.z
 		if(!is_station_level(z) && !is_admin_level(z) && !is_reserved_level(z))
 			continue
-		SEND_SOUND(player, music)
+		SEND_SOUND(player, sound(
+				music,
+				channel = CHANNEL_BOSS_MUSIC,
+				volume = player?.client?.prefs?.get_channel_volume(CHANNEL_BOSS_MUSIC) || 50,
+				repeat = TRUE
+			))
 
 /datum/weather/hell/fire()
 	switch(pickweight(possible_modes))

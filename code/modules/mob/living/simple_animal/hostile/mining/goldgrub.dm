@@ -1,7 +1,15 @@
 //An ore-devouring but easily scared creature
 /mob/living/simple_animal/hostile/asteroid/goldgrub
 	name = "goldgrub"
-	desc = "A worm that grows fat from eating everything in its sight. Seems to enjoy precious metals and other shiny things, hence the name."
+	desc = "Червеобразный обжора, толстеющий от всего съеденного. Особенно любит драгоценные металлы и блестяшки — отсюда и имя."
+	ru_names = list(
+		NOMINATIVE = "златожор",
+		GENITIVE = "златожора",
+		DATIVE = "златожору",
+		ACCUSATIVE = "златожора",
+		INSTRUMENTAL = "златожором",
+		PREPOSITIONAL = "златожоре"
+	)
 	icon = 'icons/mob/lavaland/lavaland_monsters.dmi'
 	icon_state = "Goldgrub"
 	icon_living = "Goldgrub"
@@ -11,7 +19,7 @@
 	vision_range = 2
 	aggro_vision_range = 9
 	move_to_delay = 5
-	friendly = "harmlessly rolls into"
+	friendly = "безвредно перекатывается в"
 	maxHealth = 45
 	health = 45
 	harm_intent_damage = 5
@@ -20,9 +28,9 @@
 	attacktext = "давит"
 	attack_sound = 'sound/weapons/punch1.ogg'
 	a_intent = INTENT_HELP
-	speak_emote = list("screeches")
-	throw_message = "sinks in slowly, before being pushed out of "
-	deathmessage = "spits up the contents of its stomach before dying!"
+	speak_emote = list("визжит")
+	throw_message = "медленно погружается, после чего отскакивает из"
+	deathmessage = "выплёвывает содержимое желудка перед смертью!"
 	butcher_results = list(/obj/item/reagent_containers/food/snacks/monstermeat/goldgrub = 1)
 	status_flags = CANPUSH
 	search_objects = 1
@@ -44,10 +52,10 @@
 	add_target(new_target)
 	if(!QDELETED(target))
 		if(wanted_objects[target.type] && loot.len < max_loot)
-			visible_message("<span class='notice'>\The [name] looks at [target.name] with hungry eyes.</span>")
+			visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] смотрит на [target.declent_ru(ACCUSATIVE)] голодными глазами."))
 		else if(iscarbon(target) || issilicon(target))
 			Aggro()
-			visible_message("<span class='danger'>\The [name] tries to flee from \the [target.name]!</span>")
+			visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] пытается сбежать от [target.declent_ru(ACCUSATIVE)]!"))
 			retreat_distance = 10
 			minimum_distance = 10
 			if(will_burrow)
@@ -66,18 +74,18 @@
 		for(var/i in 1 to using)
 			loot += O.type
 		O.use(using)
-		visible_message("<span class='notice'>\The ore was swallowed whole by \the [name]!</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] целиком проглотил руду!"))
 	else // We are now full! We will consume no more ore ever again.
 		search_objects = 0
-		visible_message("<span class='notice'>\The [name] nibbles some of the ore and then stops. \She seems to be full!</span>")
+		visible_message(span_notice("[capitalize(declent_ru(NOMINATIVE))] поклёвывает немного руды и останавливается. Похоже, он наелся."))
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/proc/Burrow()//You failed the chase to kill the goldgrub in time!
 	if(stat == CONSCIOUS)
-		visible_message("<span class='danger'>\The [name] buries into the ground, vanishing from sight!</span>")
+		visible_message(span_danger("[capitalize(declent_ru(NOMINATIVE))] зарывается в землю и исчезает из виду!"))
 		qdel(src)
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/bullet_act(obj/projectile/P)
-	visible_message(span_danger("[P.name] was repelled by \the [name]'s blubberous girth!"), projectile_message = TRUE)
+	visible_message(span_danger("[P.name] отскакивает от тучного брюха [declent_ru(GENITIVE)]"), projectile_message = TRUE)
 
 
 /mob/living/simple_animal/hostile/asteroid/goldgrub/adjustHealth(

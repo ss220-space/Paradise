@@ -190,7 +190,7 @@
 		if(get_dist(src, mob) > 20 || z != mob.z)
 			return
 
-		to_chat(mob, span_vortexanomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
+		to_chat(mob, span_vortex_anomaly("Сильный ветер дует вам прямо в лицо. Стоп, откуда на космической станции ветер?")) // It used in one place.
 
 //			 TIER 4 ADMIN SPAWN ONLY
 
@@ -226,7 +226,7 @@
 		if(mob.stat)
 			continue
 
-		to_chat(mob, span_vortexanomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
+		to_chat(mob, span_vortex_anomaly("Ураганный поток ветра почти сбивает вас с ног. Это не предвещает ничего хорошего."))
 
 /obj/effect/anomaly/vortex/tier4/item_touch_effect(obj/item/item)
 	. = ..()
