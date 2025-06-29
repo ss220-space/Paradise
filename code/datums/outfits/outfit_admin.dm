@@ -84,7 +84,8 @@
 	var/obj/item/radio/uplink/U = H.r_store
 	if(istype(U))
 		U.hidden_uplink.uplink_owner = "[H.key]"
-		U.hidden_uplink.uses = uplink_uses
+		if(!isnull(uplink_uses))
+			U.hidden_uplink.uses = uplink_uses
 
 	var/obj/item/radio/R = H.l_ear
 	if(istype(R))
@@ -134,6 +135,7 @@
 /datum/outfit/admin/syndicate/operative/loneop
 	name = "Syndicate Nuclear Operative (Loneop)"
 	r_pocket = /obj/item/radio/uplink/nuclear/loneop
+	uplink_uses = null
 
 /datum/outfit/admin/syndicate/operative/nuclear
 	name = "Syndicate Nuclear Operative"
@@ -230,6 +232,7 @@
 	)
 	implants = list(/obj/item/implant/dust)
 	can_be_admin_equipped = FALSE
+	uplink_uses = null
 
 /datum/outfit/admin/syndicate_strike_team/equip(mob/living/carbon/human/H, visualsOnly = FALSE)
 	..()
