@@ -164,69 +164,69 @@
 	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/attach/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = tool
-	if(target.get_organ(E.limb_zone))
+	var/obj/item/organ/external/bodypart = tool
+	if(target.get_organ(bodypart.limb_zone))
 		// This catches attaching an arm to a missing hand while the arm is still there
 		user.balloon_alert(user, "конечность уже установлена!")
 		return SURGERY_BEGINSTEP_ABORT
-	if(E.limb_zone != target_zone)
+	if(bodypart.limb_zone != target_zone)
 		// This ensures you must be aiming at the appropriate location to attach
 		// this limb. (Can't aim at a missing foot to re-attach a missing arm)
 		user.balloon_alert(user, "несовместимо!")
 		return SURGERY_BEGINSTEP_ABORT
-	if(!target.get_organ(E.parent_organ_zone))
+	if(!target.get_organ(bodypart.parent_organ_zone))
 		user.balloon_alert(user, "некуда присоединять!")
 		return SURGERY_BEGINSTEP_ABORT
-	if(!is_correct_limb(E, target))
+	if(!is_correct_limb(bodypart, target))
 		user.balloon_alert(user, "несовместимо!")
 		return SURGERY_BEGINSTEP_ABORT
 	var/list/organ_data = target.dna.species.has_limbs["[user.zone_selected]"]
 	if(isnull(organ_data))
 		user.balloon_alert(user, "несовместимо с организмом!")
 		return SURGERY_BEGINSTEP_ABORT
-	if(!istype(E, organ_data["path"]) && HAS_TRAIT(target, TRAIT_SPECIES_LIMBS))
+	if(!istype(bodypart, organ_data["path"]) && HAS_TRAIT(target, TRAIT_SPECIES_LIMBS))
 		user.balloon_alert(user, "неподходящая раса!")
 		return SURGERY_BEGINSTEP_ABORT
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] присоединять [E.declent_ru(ACCUSATIVE)] к [E.amputation_point] [target]."),
-		span_notice("Вы начинаете присоединять [E.declent_ru(ACCUSATIVE)] к [E.amputation_point] [target]."),
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
+		span_notice("Вы начинаете присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
 /datum/surgery_step/limb/attach/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = tool
+	var/obj/item/organ/external/bodypart = tool
 	user.visible_message(
-		span_notice("[user] присоединя[pluralize_ru(user.gender, "ет", "ют")] присоединять [E.declent_ru(ACCUSATIVE)] к [E.amputation_point] [target]."),
-		span_notice("Вы присоединяете [E.declent_ru(ACCUSATIVE)] к [E.amputation_point] [target]."),
+		span_notice("[user] присоединя[pluralize_ru(user.gender, "ет", "ют")] присоединять [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
+		span_notice("Вы присоединяете [bodypart.declent_ru(ACCUSATIVE)] к [bodypart.amputation_point] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	attach_limb(user, target, E)
+	attach_limb(user, target, bodypart)
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/limb/attach/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = tool
+	var/obj/item/organ/external/bodypart = tool
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [E.amputation_point] [target]!"),
-		span_warning("Вы дёргаете рукой, повреждая [E.amputation_point] [target]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [bodypart.amputation_point] [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [bodypart.amputation_point] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
 	return SURGERY_STEP_RETRY
 
 
-/datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/E, mob/living/carbon/human/target)
-	if(E.is_robotic())
+/datum/surgery_step/limb/attach/proc/is_correct_limb(obj/item/organ/external/bodypart, mob/living/carbon/human/target)
+	if(bodypart.is_robotic())
 		return FALSE
-	if(target.dna.species.type == /datum/species/kidan && istype(E, /obj/item/organ/external/head) && !istype(E, /obj/item/organ/external/head/kidan))
+	if(target.dna.species.type == /datum/species/kidan && istype(bodypart, /obj/item/organ/external/head) && !istype(bodypart, /obj/item/organ/external/head/kidan))
 		return FALSE
 	return TRUE
 
-/datum/surgery_step/limb/attach/proc/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
-	user.drop_item_ground(E)
-	E.replaced(target)
-	if(!E.is_robotic())
-		E.properly_attached = FALSE
+/datum/surgery_step/limb/attach/proc/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/bodypart)
+	user.drop_item_ground(bodypart)
+	bodypart.replaced(target)
+	if(!bodypart.is_robotic())
+		bodypart.properly_attached = FALSE
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
@@ -237,14 +237,14 @@
 /datum/surgery_step/limb/attach/robo
 	name = "присоединить робо-конечность"
 
-/datum/surgery_step/limb/attach/robo/is_correct_limb(obj/item/organ/external/E)
-	if(!E.is_robotic())
+/datum/surgery_step/limb/attach/robo/is_correct_limb(obj/item/organ/external/bodypart)
+	if(!bodypart.is_robotic())
 		return 0
 	return 1
 
-/datum/surgery_step/limb/attach/robo/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/E)
+/datum/surgery_step/limb/attach/robo/attach_limb(mob/living/user, mob/living/carbon/human/target, obj/item/organ/external/bodypart)
 	..()
-	if(E.limb_zone == BODY_ZONE_HEAD)
+	if(bodypart.limb_zone == BODY_ZONE_HEAD)
 		var/obj/item/organ/external/head/H = target.get_organ(BODY_ZONE_HEAD)
 		var/datum/robolimb/robohead = GLOB.all_robolimbs[H.model]
 		if(robohead.is_monitor) //Ensures that if an IPC gets a head that's got a human hair wig attached to their body, the hair won't wipe.
@@ -269,32 +269,32 @@
 	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/connect/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = target.get_organ(target_zone)
+	var/obj/item/organ/external/bodypart = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] соединять связки и мышцы в [E.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы начинаете соединять связки и мышцы в [E.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] соединять связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы начинаете соединять связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
 /datum/surgery_step/limb/connect/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = target.get_organ(target_zone)
+	var/obj/item/organ/external/bodypart = target.get_organ(target_zone)
 	user.visible_message(
-		span_notice("[user] соединя[pluralize_ru(user.gender, "ет", "ют")] связки и мышцы в [E.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
-		span_notice("Вы соединяете связки и мышцы в [E.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("[user] соединя[pluralize_ru(user.gender, "ет", "ют")] связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
+		span_notice("Вы соединяете связки и мышцы в [bodypart.amputation_point] [target], используя [tool.declent_ru(ACCUSATIVE)]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
-	E.properly_attached = TRUE
+	bodypart.properly_attached = TRUE
 	target.update_body()
 	target.updatehealth()
 	target.UpdateDamageIcon()
 	return SURGERY_STEP_CONTINUE
 
 /datum/surgery_step/limb/connect/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = target.get_organ(target_zone)
+	var/obj/item/organ/external/bodypart = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [E.amputation_point] [target]!"),
-		span_warning("Вы дёргаете рукой, повреждая [E.amputation_point] [target]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [bodypart.amputation_point] [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [bodypart.amputation_point] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
@@ -307,32 +307,30 @@
 	time = 3.2 SECONDS
 
 /datum/surgery_step/limb/mechanize/begin_step(mob/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	var/obj/item/robot_parts/P = tool
-	if(P.part)
-		if(!(target_zone in P.part))
+	var/obj/item/robot_parts/robopart = tool
+	if(robopart.part)
+		if(!(target_zone in robopart.part))
 			user.balloon_alert(user, "несовместимо!")
 			return SURGERY_BEGINSTEP_ABORT
 
 	user.visible_message(
-		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] присоединять [tool.declent_ru(ACCUSATIVE)] к [E.declent_ru(GENITIVE)] [target]."),
-		span_notice("Вы начинаете присоединять [tool.declent_ru(ACCUSATIVE)] к [E.declent_ru(GENITIVE)] [target]."),
+		span_notice("[user] начина[pluralize_ru(user.gender, "ет", "ют")] присоединять [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
+		span_notice("Вы начинаете присоединять [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	return ..()
 
 
 /datum/surgery_step/limb/mechanize/end_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = target.get_organ(target_zone)
-	var/obj/item/robot_parts/L = tool
+	var/obj/item/robot_parts/limb = tool
 	user.visible_message(
-		span_notice("[user] присоединя[pluralize_ru(user.gender, "ет", "ют")] [tool.declent_ru(ACCUSATIVE)] к [E.declent_ru(GENITIVE)] [target]."),
-		span_notice("Вы присоединяете [tool.declent_ru(ACCUSATIVE)] к [E.declent_ru(GENITIVE)] [target]."),
+		span_notice("[user] присоединя[pluralize_ru(user.gender, "ет", "ют")] [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
+		span_notice("Вы присоединяете [tool.declent_ru(ACCUSATIVE)] к [GLOB.body_zone[target_zone][DATIVE]] [target]."),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 
-	if(L.part)
-		for(var/part_name in L.part)
+	if(limb.part)
+		for(var/part_name in limb.part)
 			if(!isnull(target.get_organ(part_name)))
 				continue
 
@@ -342,9 +340,9 @@
 
 			var/new_limb_type = organ_data["path"]
 			var/obj/item/organ/external/new_limb = new new_limb_type(target, ORGAN_MANIPULATION_DEFAULT)
-			new_limb.robotize(company = L.model_info)
+			new_limb.robotize(company = limb.model_info)
 
-			if(L.sabotaged)
+			if(limb.sabotaged)
 				new_limb.sabotaged = TRUE
 
 	target.update_body()
@@ -357,10 +355,9 @@
 
 
 /datum/surgery_step/limb/mechanize/fail_step(mob/living/user, mob/living/carbon/human/target, target_zone, obj/item/tool)
-	var/obj/item/organ/external/E = target.get_organ(target_zone)
 	user.visible_message(
-		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [E.amputation_point] [target]!"),
-		span_warning("Вы дёргаете рукой, повреждая [E.amputation_point] [target]!"),
+		span_warning("[user] дёрга[pluralize_ru(user.gender, "ет", "ют")] рукой, повреждая [GLOB.body_zone[target_zone][ACCUSATIVE]] [target]!"),
+		span_warning("Вы дёргаете рукой, повреждая [GLOB.body_zone[target_zone][ACCUSATIVE]] [target]!"),
 		chat_message_type = MESSAGE_TYPE_COMBAT
 	)
 	target.apply_damage(10, BRUTE, null, sharp = TRUE)
