@@ -73,7 +73,7 @@
 		step_names += surg.get_surgery_step()
 	step_names += cur  // put this one on the end
 
-	return russian_list(step_names, "Ничего...? Если вы это видите, сообщите в #баг-репорты-v2.", ", или ")
+	return russian_list(step_names, "Ничего...? Если вы это видите, сообщите в #баг-репорты-v2.")
 
 /datum/surgery_step/proxy/try_op(mob/living/user, mob/living/carbon/target, target_zone, obj/item/tool, datum/surgery/surgery)
 
