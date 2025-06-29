@@ -40263,9 +40263,7 @@
 /turf/simulated/floor/plasteel,
 /area/engineering/controlroom)
 "cAm" = (
-/obj/machinery/nuclearbomb{
-	r_code = "LOLNO"
-	},
+/obj/machinery/nuclearbomb,
 /obj/structure/cable{
 	icon_state = "1-2"
 	},
