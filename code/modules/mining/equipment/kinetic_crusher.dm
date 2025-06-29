@@ -449,7 +449,7 @@
 /// Poison fang
 /obj/item/crusher_trophy/fang
 	name = "Poison fang"
-	desc = "Уродливый и ядовитый клык. Может быть установлен на крушитель в качестве трофея." 
+	desc = "Уродливый и ядовитый клык. Может быть установлен на крушитель в качестве трофея."
 	ru_names = list(
             NOMINATIVE = "ядовитый клык",
             GENITIVE = "ядовитого клыка",
@@ -748,6 +748,14 @@
 		if(isancientturf(target_turf))
 			visible_message(span_notice("Похоже, что эту породу возьмёт только кирка!"))
 			forcedodge = 0
+		else if(istype(target_turf, /turf/simulated/mineral/gibtonite))
+			var/turf/simulated/mineral/gibtonite/gib = target
+			if(gib.stage == 0)
+				gib.defuse()
+			var/obj/item/twohanded/required/gibtonite/gibtonite_item = new(gib)
+			gibtonite_item.quality = gib.det_time
+			gibtonite_item.update_icon(UPDATE_ICON_STATE)
+			gib.ChangeTurf(gib.turf_type)
 		else
 			var/turf/simulated/mineral/M = target_turf
 			new /obj/effect/temp_visual/kinetic_blast(M)
